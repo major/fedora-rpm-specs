@@ -1,24 +1,26 @@
 Summary: Enclosure LED Utilities
 Name: ledmon
 Version: 0.96
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 URL: https://github.com/intel/ledmon
 Source0: https://github.com/intel/ledmon/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+# remove -Werror=format-truncation=1 in order to build package
 Patch0: ledmon_format-truncation-flag.patch
 
 BuildRequires: sg3_utils-devel
 BuildRequires: pciutils-devel
 BuildRequires: autoconf automake
 BuildRequires: gcc make
+# Needed for pkgconfig usage.
+BuildRequires: pkgconfig(systemd)
 # Needed for the udev dependency.
 BuildRequires: systemd-devel
 BuildRequires: systemd-rpm-macros
 
 Obsoletes: ledctl = 0.1-1
 Provides: ledctl = %{version}-%{release}
-Requires: sg3_utils-libs
 
 %description
 The ledmon and ledctl are user space applications design to control LED
@@ -28,18 +30,15 @@ types of system: 2-LED system (Activity LED, Status LED) and 3-LED system
 use this application.
 
 %prep
-%setup -q
-# remove -Werror=format-truncation=1 in order to build package 
-%patch0 -p1
+%autosetup -p1
 autoreconf -fiv
 
 %build
-sh autogen.sh
 %configure --enable-systemd=yes
-make
+%make_build
 
 %install
-%make_install SBIN_DIR=$RPM_BUILD_ROOT/%{_sbindir} MANDIR=$RPM_BUILD_ROOT%{_mandir}
+%make_install
 
 %post
 %systemd_post ledmon.service
@@ -58,6 +57,11 @@ make
 %{_unitdir}/ledmon.service
 
 %changelog
+* Tue Jan 10 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.96-5
+- Fix build on Rawhide
+- Remove explicit library runtime dependency as suggested by rpmlint
+- Modernise used macros
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -67,7 +71,7 @@ make
 * Mon Jun 27 2022 Jan Macku <jamacku@redhat.com> - 0.96-2
 - Use systemd-rpm-macros to handle ledmon.service (#2101300)
 
-* Wed Jul 01 2022 Jan Macku <jamacku@redhat.com> - 0.96-1
+* Wed Jun 01 2022 Jan Macku <jamacku@redhat.com> - 0.96-1
 - update to 0.96 (#2092134)
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.95-6

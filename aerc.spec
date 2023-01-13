@@ -3,7 +3,7 @@
 
 # https://git.sr.ht/~rjarry/aerc
 %global goipath         git.sr.ht/~rjarry/aerc
-Version:                0.13.0
+Version:                0.14.0
 %global topdir          %{name}-%{version}
 
 %gometa
@@ -40,7 +40,7 @@ Requires:       notmuch
 
 # Disable building of aerc that we handle manually in the SPEC and
 # preserve mtimes
-sed -e 's|install: $(DOCS) aerc|install: $(DOCS)|' \
+sed -e 's|install: $(DOCS) aerc wrap|install: $(DOCS)|' \
     -e 's|install -m|install -pm|' \
     -i Makefile
 
@@ -61,6 +61,7 @@ export LDFLAGS="-X main.Prefix=%{_prefix} \
                 -X git.sr.ht/~rjarry/aerc/config.shareDir=%{_datadir}
                 -X main.Version=%{version} "
 %gobuild -o aerc %{goipath}
+%gobuild -o wrap filters/wrap.go
 
 %install
 export PREFIX=%{_prefix}

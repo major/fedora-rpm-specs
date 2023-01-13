@@ -1,5 +1,11 @@
 #global pre beta.4
 
+%if 0%{?rhel}
+%bcond_with mingw
+%else
+%bcond_without mingw
+%endif
+
 Name:          tesseract
 Version:       5.3.0
 Release:       3%{?dist}
@@ -29,6 +35,7 @@ BuildRequires: pango-devel
 BuildRequires: /usr/bin/asciidoc
 BuildRequires: /usr/bin/xsltproc
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-giflib
@@ -52,6 +59,7 @@ BuildRequires: mingw64-libjpeg-turbo
 BuildRequires: mingw64-libtiff
 BuildRequires: mingw64-libwebp
 BuildRequires: mingw64-pango
+%endif
 
 Requires:      tesseract-langpack-eng
 
@@ -131,11 +139,13 @@ for file in doc/*.asc; do
     asciidoc -b docbook -d manpage -o - $file | XML_CATALOG_FILES=%{_sysconfdir}/xml/catalog xsltproc --nonet -o ${file/.asc/} $man_xslt -
 done
 
+%if %{with mingw}
 # MinGW build
 MINGW32_CMAKE_ARGS=-DTESSDATA_PREFIX=%{mingw32_datadir}/%{name} \
 MINGW64_CMAKE_ARGS=-DTESSDATA_PREFIX=%{mingw64_datadir}/%{name}
 %mingw_cmake -DSW_BUILD=OFF
 %mingw_make_build
+%endif
 
 
 %install
@@ -144,10 +154,10 @@ mkdir -p %{buildroot}%{_mandir}/{man1,man5}/
 cp -a doc/*.1 %{buildroot}%{_mandir}/man1/
 cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
+%if %{with mingw}
 %mingw_make_install
-
-
 %mingw_debug_install_post
+%endif
 
 
 %files
@@ -200,6 +210,7 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 %{_mandir}/man5/unicharambigs.5.gz*
 %{_mandir}/man5/unicharset.5.gz*
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license LICENSE
 %{mingw32_bindir}/libtesseract-53.dll
@@ -227,6 +238,7 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 %files -n mingw64-%{name}-tools
 %{mingw64_bindir}/*.exe
+%endif
 
 
 %changelog

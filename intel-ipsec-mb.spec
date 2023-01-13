@@ -39,12 +39,13 @@
 
 Summary:            IPsec cryptography library optimized for Intel Architecture
 Name:               %{githubname}
-Release:            1%{?dist}
+Release:            2%{?dist}
 Version:            %{fullversion}
 License:            BSD
 Group:              Development/Tools
 ExclusiveArch:      x86_64
 Source0:            https://github.com/intel/%{githubname}/archive/v%{githubver}.tar.gz#/%{githubfull}.tar.gz
+Patch0:             Fix-for-perf-scaling-on-release-1.3.patch
 URL:                https://github.com/intel/%{githubname}
 BuildRequires:      make
 BuildRequires:      gcc >= 4.8.3
@@ -67,7 +68,7 @@ For additional information please refer to:
 https://github.com/intel/%{githubname}
 
 %prep
-%autosetup -n %{githubfull}
+%autosetup -n %{githubfull} -p2
 
 %if 0%{?rhel} && 0%{?rhel} < 8
 %ldconfig_post
@@ -109,6 +110,9 @@ ln -s libIPSec_MB.so.%{fullversion} libIPSec_MB.so
 %{_libdir}/libIPSec_MB.so
 
 %changelog
+* Wed Jan 11 2023 Marcel Cornu <marcel.d.cornu@intel.com> 1.3.0-2
+- Add patch to fix multi-threaded performance scaling issue
+
 * Wed Sep 28 2022 Marcel Cornu <marcel.d.cornu@intel.com> 1.3.0-1
 - Update for release package v1.3
 

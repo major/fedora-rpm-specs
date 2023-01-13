@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of cache libraries with a common API
 
 License:        BSD
@@ -50,7 +50,8 @@ BuildRequires:  python3dist(setuptools)
 
 
 %check
-# uWSGI is not packaged for Fedora so skip tests for that backend.
+# uWSGI is not packaged for Fedora and there is no straightforward way to test
+# Amazon DynamoDB so skip tests for these backends.
 %pytest -v -r s -k 'not Uwsgi and not DynamoDb'
 
 
@@ -60,6 +61,9 @@ BuildRequires:  python3dist(setuptools)
 
 
 %changelog
+* Wed Jan 11 2023 Matěj Grabovský <mgrabovs@redhat.com> - 0.10.0-2
+- Fix tests runner
+
 * Tue Jan 10 2023 Matěj Grabovský <mgrabovs@redhat.com> - 0.10.0-1
 - New upstream release
 

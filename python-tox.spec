@@ -1,15 +1,17 @@
-# Tests are disbaled by default, they require:
-#  a) tested tox to be installed
+# Many tests are enabled by default
+%bcond_without tests
+# However, some tests are disabled by default, becasue they require:
+#  a) tested tox to be installed and/or
 #  b) internet connection
-# To test, do the following:
-#  1) Build --without tests (the default)
-#     (e.g. fedpkg mockbuild)
+# To run them, do the following:
+#  1) Build --without ci_tests (the default) and optionally --without tests
+#     (e.g. fedpkg mockbuild --without tests)
 #  2) Install the built package
 #     (e.g. mock install ./results_python-tox/.../tox-...rpm)
-#  3) Build again --with tests (and internet connection)
-#     (e.g. fedpkg mockbuild --enable-network --no-clean-all --with tests)
+#  3) Build again --with ci_tests (and internet connection)
+#     (e.g. fedpkg mockbuild --no-clean-all --enable-network --with ci_tests)
 # The Fedora CI tests do this.
-%bcond_with tests
+%bcond_with ci_tests
 
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
@@ -17,13 +19,18 @@
 %global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
 
 Name:           python-tox
-Version:        3.28.0
+Version:        4.2.6
 Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
 License:        MIT
 URL:            https://tox.readthedocs.io/
 Source0:        %{pypi_source tox}
+
+# Remove dependency on devpi-process and 1 test that cannot work without it.
+# Remove coverage-related dependencies.
+# Adjust virtualenv environment variables to make it work with our patched virtualenv.
+Patch:          fix-tests.patch
 
 BuildArch:      noarch
 
@@ -39,8 +46,13 @@ BuildRequires:  /usr/bin/python
 BuildRequires:  libffi-devel
 # xdist is not used upstream, but we use it to speed up the %%check
 BuildRequires:  python3-pytest-xdist
-# The tests only work if the tested tox is installed :(
+# wheel should be included upstream
+# https://github.com/tox-dev/tox/pull/2843
+BuildRequires:  python3-wheel
+%if %{with ci_tests}
+# The CI tests only work if the tested tox is installed :(
 BuildRequires:  tox = %{version}-%{release}
+%endif
 %endif
 
 %global _description %{expand:
@@ -91,17 +103,17 @@ Obsoletes:      python3-tox < 3.24.4-2
 %prep
 %autosetup -p1 -n tox-%{version}
 
-# In https://github.com/tox-dev/tox/pull/2463 upstream insisted on pinning tomli to >=2.0.1.
-# However, it works fine with 1.2.3 we have in Fedora 35+36, so we relax the dependency.
-# We rely on the Fedora CI to catch problems.
-sed -i 's/tomli>=2.0.1/tomli>=1.2.3/' setup.cfg
-
+# Upstream updates dependencies too aggressively
+# see https://github.com/tox-dev/tox/pull/2843#discussion_r1065028356
+sed -ri 's/"(packaging|filelock|platformdirs|psutil|diff-cover)>=.*/"\1",/g' pyproject.toml
 
 %generate_buildrequires
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_buildrequires -r %{?with_tests:-x testing}
 
 
 %build
+export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %pyproject_wheel
 
 
@@ -112,16 +124,45 @@ sed -i 's/tomli>=2.0.1/tomli>=1.2.3/' setup.cfg
 
 %if %{with tests}
 %check
-%pytest -n auto
+# test_verbosity_guess_miss_match and some others need
+#   existing tox.ini config, reported https://github.com/tox-dev/tox/issues/2839
+touch tox.ini
+
+# Skipped tests use internal virtualenv functionality to
+# download wheels which does not work with "bundled" version of wheel in
+# the Fedora's virtualenv patch.
+k="${k-}${k+ and }not test_virtualenv_flipped_settings"
+k="${k-}${k+ and }not test_virtualenv_env_ignored_if_set"
+k="${k-}${k+ and }not test_virtualenv_env_used_if_not_set"
+
+# The following tests either need internet connection or installed tox
+# so we only run them on the CI.
+%if %{without ci_tests}
+k="${k-}${k+ and }not test_virtualenv_flipped_settings"
+k="${k-}${k+ and }not test_virtualenv_env_ignored_if_set"
+k="${k-}${k+ and }not test_virtualenv_env_used_if_not_set"
+k="${k-}${k+ and }not test_build_wheel_external"
+k="${k-}${k+ and }not keyboard_interrupt"
+k="${k-}${k+ and }not test_call_as_module"
+k="${k-}${k+ and }not test_call_as_exe"
+# test_local_execute_* have "\r\n" in outputs for some
+# unknown reason, reported: https://github.com/tox-dev/tox/issues/2841
+k="${k-}${k+ and }not test_local_execute_basic_pass_show_on_standard_newline_flush"
+k="${k-}${k+ and }not test_local_execute_write_a_lot"
+%endif
+
+%pytest -v -n auto -k "${k-}" --run-integration
 %endif
 
 
 %files -n tox -f %{pyproject_files}
 %{_bindir}/tox
-%{_bindir}/tox-quickstart
 
 
 %changelog
+* Tue Jan 3 2023 Lumír Balhar <lbalhar@redhat.com> - 4.2.6-1
+- Update to 4.2.6 (rhbz#1914413)
+
 * Sun Dec 18 2022 Miro Hrončok <mhroncok@redhat.com> - 3.28.0-1
 - Update to 3.28.0
 

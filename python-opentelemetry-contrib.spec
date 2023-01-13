@@ -281,7 +281,7 @@ License:        Apache-2.0
 # Ensure we have fully-versioned dependencies (to release) across subpackages
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_requiring_base_package
 Requires:       python3-opentelemetry-instrumentation = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-Requires:       python3-opentelemetry-dbapi = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
+Requires:       python3-opentelemetry-instrumentation-dbapi = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 
 %description -n python3-opentelemetry-instrumentation-aiopg
 OpenTelemetry aiopg instrumentation.

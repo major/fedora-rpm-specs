@@ -1,6 +1,6 @@
 # https://github.com/cri-o/cri-o
 %global goipath         github.com/cri-o/cri-o
-Version:                1.24.1
+Version:                1.26.1
 
 %if 0%{?rhel} && 0%{?rhel} <= 8
 %define gobuild(o:) %{expand:
@@ -33,11 +33,11 @@ Version:                1.24.1
 %global service_name crio
 
 # Commit for the builds
-%global commit0 a3bbde8a77c323aa6a485da9a9046299155c6016
+%global commit0 69945ab622a70ab01f4b0df10b107bc48e38dc9e
 
 Name:           cri-o
 Epoch:          0
-Release:        4%{?dist}
+Release:        0%{?dist}
 Summary:        Open Container Initiative-based implementation of Kubernetes Container Runtime Interface
 
 
@@ -47,7 +47,7 @@ URL:            https://github.com/cri-o/cri-o
 Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
 
 %if 0%{?rhel}
-BuildRequires:  golang >= 1.18
+BuildRequires:  golang >= 1.19
 %endif
 %if 0%{?rhel} && 0%{?rhel} <= 8
 # e.g. el6 has ppc64 arch without gcc-go, so EA tag is required
@@ -153,8 +153,8 @@ install -p -m 755 bin/%{service_name} %{buildroot}%{_bindir}
 
 # install conf files
 install -dp %{buildroot}%{_sysconfdir}/cni/net.d
-install -p -m 644 contrib/cni/10-crio-bridge.conf %{buildroot}%{_sysconfdir}/cni/net.d/100-crio-bridge.conf
-install -p -m 644 contrib/cni/99-loopback.conf %{buildroot}%{_sysconfdir}/cni/net.d/200-loopback.conf
+install -p -m 644 contrib/cni/10-crio-bridge.conflist %{buildroot}%{_sysconfdir}/cni/net.d/100-crio-bridge.conflist
+install -p -m 644 contrib/cni/99-loopback.conflist %{buildroot}%{_sysconfdir}/cni/net.d/200-loopback.conflist
 
 install -dp %{buildroot}%{_sysconfdir}/%{service_name}
 install -dp %{buildroot}%{_datadir}/containers/oci/hooks.d
@@ -205,8 +205,8 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %{_mandir}/man8/%{service_name}*.8*
 %dir %{_sysconfdir}/%{service_name}
 %config(noreplace) %{_sysconfdir}/%{service_name}/%{service_name}.conf
-%config(noreplace) %{_sysconfdir}/cni/net.d/100-%{service_name}-bridge.conf
-%config(noreplace) %{_sysconfdir}/cni/net.d/200-loopback.conf
+%config(noreplace) %{_sysconfdir}/cni/net.d/100-%{service_name}-bridge.conflist
+%config(noreplace) %{_sysconfdir}/cni/net.d/200-loopback.conflist
 %config(noreplace) %{_sysconfdir}/crictl.yaml
 %dir %{_libexecdir}/%{service_name}
 %{_unitdir}/%{service_name}.service
@@ -226,16 +226,23 @@ sed -i -e 's/,metacopy=on//g' /etc/containers/storage.conf
 %endif
 
 %changelog
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.24.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Tue Jan 10 2023 Peter Hunt~ <pehunt@redhat.com> - 0:1.26.1-1
+- bump to v1.26.1
 
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0:1.24.1-3
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
+* Fri Dec 23 2022 Peter Hunt~ <pehunt@redhat.com> - 0:1.26.0-1
+- bump to v1.26.0
 
-* Fri Jun 17 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0:1.24.1-2
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
+* Fri Oct 07 2022 Peter Hunt~ <pehunt@redhat.com> - 0:1.25.1-1
+- bump to v1.25.1
+
+* Mon Aug 29 2022 Peter Hunt~ <pehunt@redhat.com> - 0:1.25.0-1
+- bump to v1.25.0
+
+* Mon Aug 29 2022 Peter Hunt~ <pehunt@redhat.com> - 0:1.25.0-1
+- bump to v1.25.0
+
+* Tue Aug 09 2022 Peter Hunt~ <pehunt@redhat.com> - 0:1.24.2-1
+- bump to v1.24.2
 
 * Mon Jun 06 2022 Peter Hunt <pehunt@redhat.com> - 0:1.24.1-1
 - bump to v1.24.1

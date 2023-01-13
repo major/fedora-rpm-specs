@@ -2,16 +2,13 @@
 %global sum Memcached client for Python
 
 Name:           python-%{srcname}
-Version:        1.6.1
-Release:        5%{?dist}
+Version:        1.6.3
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD
 URL:            http://sendapatch.se/projects/pylibmc/
 Source0:        https://pypi.python.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
-
-# Python 3.11 fix: https://github.com/lericson/pylibmc/commit/22854a4ba8f7e926099219c107104723089bcad8
-Patch01:         https://github.com/lericson/pylibmc/commit/22854a4ba8f7e926099219c107104723089bcad8.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -39,7 +36,6 @@ so that applications can drop-in replace it.
 
 %prep
 %setup -q -n %{srcname}-%{version}
-%patch01 -p1
 
 %build
 %py3_build
@@ -59,6 +55,9 @@ chmod 755 $RPM_BUILD_ROOT%{python3_sitearch}/_pylibmc.cpython-%{python3_version_
 
 
 %changelog
+* Wed Jan 11 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.6.3-1
+- Update to 1.6.3
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

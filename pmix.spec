@@ -15,7 +15,6 @@ BuildRequires:  libevent-devel
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  munge-devel
-BuildRequires:  pandoc
 BuildRequires:  perl-interpreter
 BuildRequires:  zlib-devel
 

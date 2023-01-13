@@ -9,7 +9,7 @@
 
 Name:       llvm-libunwind
 Version:    %{libunwind_version}%{?rc_ver:~rc%{rc_ver}}
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    LLVM libunwind
 
 License:    ASL 2.0 or NCSA or MIT
@@ -50,7 +50,13 @@ Provides:   libunwind(major) = %{maj_ver}
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
-Static and unversioned shared libraries for LLVM libunwind
+Unversioned shared library for LLVM libunwind
+
+%package static
+Summary: Static library for LLVM libunwind
+
+%description static
+%{summary}.
 
 %package doc
 Summary:    libunwind documentation
@@ -73,7 +79,6 @@ export ASMFLAGS=$CFLAGS
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
     -DLLVM_BUILD_DOCS=ON \
     -DLLVM_ENABLE_SPHINX=ON \
-    -DLIBUNWIND_ENABLE_STATIC=OFF \
     -DLIBUNWIND_INCLUDE_DOCS=ON \
 %if 0%{?__isa_bits} == 64
     -DLIBUNWIND_LIBDIR_SUFFIX=64 \
@@ -124,11 +129,17 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %dir %{_libdir}/llvm-unwind
 %{_libdir}/llvm-unwind/libunwind.so
 
+%files static
+%{_libdir}/libunwind.a
+
 %files doc
 %license LICENSE.TXT
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Mon Jan 02 2023 Nikita Popov <npopov@redhat.com> - 15.0.6-2
+- Provide libunwind.a
+
 * Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
 - Update to LLVM 15.0.6
 

@@ -1,5 +1,5 @@
 Name:    haruna
-Version: 0.10.0
+Version: 0.10.2
 Release: %autorelease
 Summary: Open source video player built with Qt/QML and libmpv
 
@@ -10,9 +10,6 @@ Source1: https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz.sig
 Source2: gpgkey-4E421C6554B89766DF9B7A37E12AB207C8755905.gpg
 
 ## upstream patches
-# MpvVideo: fix not playing next file when current one ends
-# https://bugs.kde.org/show_bug.cgi?id=463868
-Patch0:  MpvVideo-fix-not-playing-next-file-when-current-one-ends.patch
 
 BuildRequires: cmake
 BuildRequires: gnupg2

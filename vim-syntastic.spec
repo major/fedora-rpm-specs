@@ -6,7 +6,7 @@
 
 Name:           vim-%{upstream_name}
 Version:        3.10.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A vim plugins to check syntax for programming languages
 Summary(fr):    Une extension de vim vérifiant la syntaxe pour les langages de programmation
 
@@ -34,6 +34,7 @@ Obsoletes:      %name-d < %version-%release
 Obsoletes:      %name-lisp < %version-%release
 Obsoletes:      %name-rnc < %version-%release
 Obsoletes:      %name-go < %version-%release
+Obsoletes:      %name-perl6 < %version-%release
 
 
 %description
@@ -118,7 +119,8 @@ Permet de vérifier les fichiers sources écrit en %{-n*}.                      
 %add_subpackage -n objcpp gcc-objc++
 %add_subpackage -n ocaml ocaml
 %add_subpackage -n perl perl-interpreter %name-pod
-%add_subpackage -n perl6 rakudo
+#rakudo and friends retired for f38
+#%%add_subpackage -n perl6 rakudo
 %add_subpackage -n php php
 %add_subpackage -n po gettext
 %add_subpackage -n pod perl-interpreter
@@ -203,6 +205,8 @@ rm -r syntax_checkers/markdown
 rm -r syntax_checkers/mercury
 rm -r syntax_checkers/nix
 rm -r syntax_checkers/nroff
+# rakudo has been removed from f38
+rm -r syntax_checkers/perl6
 # mock -r fedora-rawhide-x86_64 --install '/*/pug*lint'
 rm -r syntax_checkers/pug
 rm -r syntax_checkers/r
@@ -284,6 +288,9 @@ appstream-util validate-relax --nonet %{buildroot}%{appdata_dir}/vim-syntastic.m
 
 
 %changelog
+* Wed Jan 11 2023 Martin Jackson <mhjacks@swbell.net> - 3.10.0-17
+- Remove perl6 dependencies for BZ#2159997. Rakudo etc have been retired for f38
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

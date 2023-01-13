@@ -1,6 +1,6 @@
 Name:           tkgate
 Version:        2.0
-Release:        37.beta10%{?dist}
+Release:        38.beta10%{?dist}
 Summary:        An event driven digital circuit simulator
 
 License:        GPLv2+
@@ -163,7 +163,7 @@ EOF
 
 
 %build
-CFLAGS="%{optflags} -DUSE_INTERP_RESULT"
+CFLAGS="%{optflags} -DUSE_INTERP_RESULT -std=gnu89"
 %configure
 %{__make} %{?_smp_mflags} 
 
@@ -233,6 +233,9 @@ cp -p site-preferences %{buildroot}%{_datadir}/%{name}/site-preferences
 %exclude %{_datadir}/%{name}/locale/ja
 
 %changelog
+* Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 2.0-38.beta10
+- Build in C89 mode (#2160043)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-37.beta10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,6 +7,8 @@ License:    GPLv3+
 URL:        http://%{name}.com/
 Source0:    http://www.%{name}.com/releases/%{name}-%{version}.tar.gz
 Source1:    README.Fedora
+# Fix for CVE reported in https://github.com/phoronix-test-suite/phoronix-test-suite/issues/650
+Patch0:     https://github.com/phoronix-test-suite/phoronix-test-suite/commit/d3880d9d3ba795138444da83f1153c3c3ac27640.diff#/CVE-2022-40704.diff
 BuildArch:  noarch
 
 BuildRequires: desktop-file-utils

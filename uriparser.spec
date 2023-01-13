@@ -1,3 +1,9 @@
+%if 0%{?fedora} || 0%{?epel} >= 9
+%bcond_without mingw
+%else
+%bcond_with mingw
+%endif
+
 Name:           uriparser
 Version:        0.9.7
 Release:        1%{?dist}
@@ -14,11 +20,13 @@ BuildRequires:  graphviz
 BuildRequires:  gtest-devel
 BuildRequires:  make
 
+%if %{with mingw}
 BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw32-gcc-c++
 
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw64-gcc-c++
+%endif
 
 
 %description
@@ -44,6 +52,7 @@ BuildArch:      noarch
 The %{name}-doc package contains HTML documentation files for %{name}.
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
@@ -61,7 +70,7 @@ MinGW Windows %{name} library.
 
 
 %{?mingw_debug_package}
-
+%endif
 
 
 %prep
@@ -76,17 +85,19 @@ sed -i 's/GENERATE_QHP\ =\ yes/GENERATE_QHP\ =\ no/g' doc/Doxyfile.in
 %cmake
 %cmake_build
 
+%if %{with mingw}
 # MinGW build
 %mingw_cmake -DURIPARSER_BUILD_TESTS=OFF -DURIPARSER_BUILD_DOCS=OFF
 %mingw_make_build
+%endif
 
 
 %install
 %cmake_install
+%if %{with mingw}
 %mingw_make_install
-
-
 %mingw_debug_install_post
+%endif
 
 
 %check
@@ -109,6 +120,7 @@ sed -i 's/GENERATE_QHP\ =\ yes/GENERATE_QHP\ =\ no/g' doc/Doxyfile.in
 %license COPYING
 %doc %{_docdir}/%{name}/html
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
 %{mingw32_bindir}/uriparse.exe
@@ -126,6 +138,7 @@ sed -i 's/GENERATE_QHP\ =\ yes/GENERATE_QHP\ =\ no/g' doc/Doxyfile.in
 %{mingw64_libdir}/lib%{name}.dll.a
 %{mingw64_libdir}/pkgconfig/lib%{name}.pc
 %{mingw64_libdir}/cmake/%{name}-%{version}/
+%endif
 
 
 %changelog

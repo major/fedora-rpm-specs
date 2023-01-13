@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        280
+Version:        281
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPLv2+ and MIT
@@ -84,6 +84,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jan 11 2023 Packit <hello@packit.dev> - 281-1
+- Summarize system and user session differences
+- Virtual watchdog device support
+
 * Tue Jan 03 2023 Packit <hello@packit.dev> - 280-1
 - Start using tabular fonts
 - Other UI fixes and improvements

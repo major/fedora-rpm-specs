@@ -26,7 +26,7 @@
 
 Name:             radicale
 Version:          %{radicale_version}
-Release:          32%{?dist}
+Release:          37%{?dist}
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPLv3+
 URL:              https://radicale.org
@@ -49,6 +49,8 @@ Source50:	  %{name}-test-example.ics
 Source51:	  %{name}-test-example.vcf
 
 Patch0:           %{name}-config-storage-hooks-SELinux-note.patch
+Patch1:           %{name}-fix-move-behind-proxy-PR-1271.patch
+Patch2:           %{name}-disable-timestamp-if-started-by-systemd-PR-1276.patch
 
 BuildArch:        noarch
 
@@ -207,7 +209,7 @@ Note: storage hooks configuration is currently not supported by packaged
 
 
 %prep
-%autosetup -n Radicale-%{version}
+%autosetup -n Radicale-%{version} -p 1
 mkdir SELinux
 cp -p %{SOURCE4} %{SOURCE5} %{SOURCE6} SELinux
 
@@ -457,6 +459,11 @@ fi
 
 
 %changelog
+* Wed Jan 11 2023 Peter Bieringer <pb@bieringer.de> - 3.1.7-37
+- Add radicale-disable-timestamp-if-started-by-systemd-PR-1276.patch
+- Fix still unsolved SELinux issues (#2156633)
+- Add radicale-fix-move-behind-proxy-PR-1271.patch
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

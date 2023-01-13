@@ -25,13 +25,13 @@ JSON query language CLI tool.}
 
 %package     -n %{crate}
 Summary:        %{summary}
-# ASL 2.0 or Boost
-# ASL 2.0 or MIT
+# Apache-2.0 OR BSL-1.0
+# Apache-2.0 OR MIT
 # EPL-2.0
 # MIT
-# MIT or ASL 2.0
-# Unlicense or MIT
-License:        MIT and EPL-2.0 and (ASL 2.0 or Boost)
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        MIT AND EPL-2.0 AND (Apache-2.0 OR BSL-1.0)
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -123,9 +123,11 @@ cp %{SOURCE1} .
 
 %if %{with check}
 %check
-%ifarch %{arm}
+%ifarch %{arm} ppc64le
 # * doctests fail to compile on armv7hl with LLVM 14:
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2086106
+# * doctests fail to compile on ppc64le with LLVM 15:
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2142648
 %cargo_test -- --lib
 %else
 %cargo_test

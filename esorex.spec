@@ -1,6 +1,6 @@
 Name: esorex
 Version: 3.13.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Recipe Execution Tool of the European Southern Observatory 
 
 License: GPLv2+
@@ -11,6 +11,8 @@ BuildRequires: make
 BuildRequires: gcc gcc-c++
 BuildRequires: cpl-devel
 BuildRequires: cfitsio-devel
+BuildRequires: autoconf >= 2.71
+BuildRequires: automake
 
 %description
 EsoRex is the ESO Recipe Execution Tool. It can list, configure and 
@@ -24,6 +26,7 @@ CPL data-reduction development environment.
 %setup -q
 
 %build
+autoreconf
 %configure  --with-cpl-libs=%{_libdir}
 make %{?_smp_mflags}
 
@@ -38,6 +41,10 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/bash-completion/completions/esorex
 
 %changelog
+* Wed Jan 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.13.6-4
+- Regenerate with autoreconf so that runstatedir is recognized
+- Add autoconf >= 2.71 and automake to deps
+
 * Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 3.13.6-3
 - Rebuild for cfitsio 4.2
 

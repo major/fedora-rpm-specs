@@ -1,7 +1,7 @@
 Name:           perl-IO-Zlib
 # To compete with perl.spec
 Epoch:          1
-Version:        1.13
+Version:        1.14
 Release:        1%{?dist}
 Summary:        Perl IO:: style interface to Compress::Zlib
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 11 2023 Paul Howarth <paul@city-fan.org> - 1:1.14-1
+- 1.14 bump (rhbz#2159835)
+
 * Sat Jan  7 2023 Paul Howarth <paul@city-fan.org> - 1:1.13-1
 - 1.13 bump (rhbz#2158940)
 

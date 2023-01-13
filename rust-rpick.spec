@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.8.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Helps you pick items from a list by various algorithms
 
 # Upstream license specification: GPL-3.0-only
@@ -85,9 +85,11 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%ifarch %{arm}
-# * skip doctests on armv7hl due to rustc / LLVM 14 crashes:
+%ifarch %{arm} ppc64le
+# * doctests fail to compile on armv7hl with LLVM 14:
 #   https://bugzilla.redhat.com/show_bug.cgi?id=2086106
+# * doctests fail to compile on ppc64le with LLVM 15:
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2142648
 %cargo_test -- --lib
 %else
 %cargo_test
@@ -95,6 +97,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Wed Jan 11 2023 Fabio Valentini <decathorpe@gmail.com> - 0.8.11-2
+- Disable doctests on ppc64le to work around a compiler crash on LLVM 15.
+
 * Sun Sep 11 2022 Randy Barlow <bowlofeggs@fedoraproject.org> - 0.8.11-1
 - Update to 0.8.11 (#2060236).
 

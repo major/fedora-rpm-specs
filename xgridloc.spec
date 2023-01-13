@@ -1,6 +1,6 @@
 Name:		xgridloc
 Version:	1.8.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A GTK+ application for the calculation of Maidenhead QRA Locators
 
 License:	GPLv3
@@ -10,6 +10,7 @@ Source0:        https://www.qsl.net/5b4az/pkg/locator/%{name}/%{name}-%{version}
 
 # desktop file
 Source1:	%{name}.desktop
+Patch0: xgridloc-configure-c99.patch
 
 
 BuildRequires:	make
@@ -58,6 +59,9 @@ desktop-file-install  \
 
 
 %changelog
+* Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 1.8.4-5
+- Port configure script to C99 (#2160018)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

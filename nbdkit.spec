@@ -52,8 +52,8 @@ ExclusiveArch:  x86_64
 %global source_directory 1.33-development
 
 Name:           nbdkit
-Version:        1.33.5
-Release:        2%{?dist}
+Version:        1.33.6
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD
@@ -102,6 +102,7 @@ BuildRequires:  e2fsprogs, e2fsprogs-devel
 %if !0%{?rhel}
 BuildRequires:  xorriso
 BuildRequires:  rb_libtorrent-devel
+BuildRequires:  libblkio-devel
 %endif
 BuildRequires:  bash-completion
 BuildRequires:  perl-devel
@@ -259,6 +260,18 @@ This package contains example plugins for %{name}.
 
 # The plugins below have non-trivial dependencies are so are
 # packaged separately.
+
+%if !0%{?rhel}
+%package blkio-plugin
+Summary:        libblkio NVMe, vhost-user, vDPA, VFIO plugin for %{name}
+License:        BSD
+Requires:       %{name}-server%{?_isa} = %{version}-%{release}
+
+%description blkio-plugin
+This package contains libblkio (NVMe, vhost-user, vDPA, VFIO) support
+for %{name}.
+%endif
+
 
 %if !0%{?rhel}
 %package cc-plugin
@@ -708,6 +721,7 @@ export PYTHON=%{__python3}
     --enable-ruby \
     --enable-tcl \
     --enable-torrent \
+    --with-libblkio \
     --with-ext2 \
     --with-iso \
     --with-libvirt \
@@ -717,6 +731,7 @@ export PYTHON=%{__python3}
     --disable-ruby \
     --disable-tcl \
     --disable-torrent \
+    --without-libblkio \
     --without-ext2 \
     --without-iso \
     --without-libvirt \
@@ -892,6 +907,15 @@ export LIBGUESTFS_TRACE=1
 %{_libdir}/%{name}/plugins/nbdkit-example4-plugin
 %endif
 %{_mandir}/man1/nbdkit-example*-plugin.1*
+
+
+%if !0%{?rhel}
+%files blkio-plugin
+%doc README.md
+%license LICENSE
+%{_libdir}/%{name}/plugins/nbdkit-blkio-plugin.so
+%{_mandir}/man1/nbdkit-blkio-plugin.1*
+%endif
 
 
 %if !0%{?rhel}
@@ -1219,6 +1243,10 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Wed Jan 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.33.6-1
+- New upstream development version 1.33.6
+- New plugin: nbdkit-blkio-plugin
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.33.5-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

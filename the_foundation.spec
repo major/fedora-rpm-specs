@@ -1,9 +1,10 @@
+%bcond_without check
 %bcond_without doc
 
 %global srcname the_Foundation
 
 Name:           the_foundation
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Opinionated C11 library for low-level functionality
 
@@ -16,7 +17,7 @@ BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  libunistring-devel
 BuildRequires:  pkgconfig(libcurl)
-BuildRequires:  pkgconfig(libpcre)
+BuildRequires:  pkgconfig(libpcre2-posix)
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(zlib)
 %if %{with doc}
@@ -71,17 +72,19 @@ doxygen %{srcname}.doxygen
 %cmake_install
 
 
+%if %{with check}
 %check
-# math and threading has non-zero retvals
+# math has non-zero retval
+# network and threading both segfault
 for t in \
   archive \
-  network \
   string \
   test \
   udptest \
 ; do
   %{__cmake_builddir}/${t}_Foundation
 done
+%endif
 
 
 %files

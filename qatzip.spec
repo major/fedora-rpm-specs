@@ -4,7 +4,7 @@
 %global libqatzip_soversion 3
 
 Name:           qatzip
-Version:        1.1.0
+Version:        1.1.1
 Release:        1%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) QATzip Library
 License:        BSD
@@ -83,8 +83,13 @@ rm -vf %{buildroot}%{_mandir}/*.pdf
 %doc docs/QATzip-man.pdf
 %{_includedir}/qatzip.h
 %{_libdir}/libqatzip.so
+%{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jan 11 2023 Vladis Dronov <vdronov@redhat.com> - 1.1.1-1
+- Update to qatzip v1.1.1
+- Add support for pkgconfig
+
 * Thu Nov 24 2022 Vladis Dronov <vdronov@redhat.com> - 1.1.0-1
 - Rebuild for qatzip v1.1.0
 

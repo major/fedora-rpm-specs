@@ -26,7 +26,7 @@
 Summary: GNOME base library
 Name: libgnome
 Version: 2.32.1
-Release: 25%{?dist}
+Release: 26%{?dist}
 URL: http://www.gnome.org
 Source0: http://download.gnome.org/sources/libgnome/2.32/%{name}-%{version}.tar.bz2
 Source1: desktop_gnome_peripherals_monitor.schemas
@@ -52,6 +52,7 @@ BuildRequires:  intltool
 BuildRequires:  gnome-common autoconf automake libtool
 BuildRequires:  gettext
 BuildRequires:  popt-devel
+BuildRequires:  gtk-doc
 BuildRequires: make
 
 # make sure to update gnome-desktop requires when changing below patch
@@ -108,7 +109,7 @@ if you just want to use the GNOME desktop environment.
 autoreconf -vfi
 %configure --disable-gtk-doc --disable-static --disable-esd
 
-make %{?_smp_mflags} 
+make %{?_smp_mflags}
 
 # strip unneeded translations from .mo files
 # ideally intltool (ha!) would do that for us
@@ -171,6 +172,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/pixmaps
 %{_datadir}/gtk-doc
 
 %changelog
+* Wed Jan 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.32.1-26
+- Add missing BR for gtk-doc
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

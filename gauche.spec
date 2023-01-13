@@ -10,30 +10,29 @@
 
 %define abi_version 0.98
 
-Name:           gauche
-Version:        0.9.11
-Release:        3%{?dist}
-Summary:        Scheme script interpreter with multibyte character handling
+Name:			gauche
+Version:		0.9.12
+Release:		1%{?dist}
+Summary:		Scheme script interpreter with multibyte character handling
 
-License:        BSD
-URL:            http://practical-scheme.net/gauche
-Source0:        https://github.com/shirok/Gauche/releases/download/release0_9_11/Gauche-%{version}.tgz
-Patch0:		%{name}-0.9.10-no_ssltest.patch
-Patch1:		%{name}-ext-ldflags.patch
-Patch2:		%{name}-xz-info.patch
+License:		BSD-3-Clause AND MIT
+URL:			http://practical-scheme.net/gauche
+Source0:		https://github.com/shirok/Gauche/releases/download/release0_9_12/Gauche-%{version}.tgz
 
-Requires:	lib%{name}%{?_isa} = %{version}-%{release}
-Requires:	slib
-
-BuildRequires:  make
-BuildRequires:  gcc
-BuildRequires:  gdbm-devel
-BuildRequires:  mbedtls-devel
-BuildRequires:  openssl
-BuildRequires:  texinfo
-BuildRequires:  zlib-devel
+Patch0:			%{name}-ext-ldflags.patch
+Patch1:			%{name}-xz-info.patch
 
 ExcludeArch:	armv7hl
+
+BuildRequires:	gcc
+BuildRequires:	gdbm-devel
+BuildRequires:	make
+BuildRequires:	mbedtls-devel
+BuildRequires:	openssl
+BuildRequires:	texinfo
+BuildRequires:	zlib-devel
+Requires:		lib%{name}%{?_isa} = %{version}-%{release}
+Recommends:		slib
 
 
 %description
@@ -44,14 +43,14 @@ multibyte character strings natively.
 
 
 %package -n lib%{name}
-Summary:	Gauche runtime shared library
+Summary: Gauche runtime shared library
 
 %description -n lib%{name}
 This package contains Gauche runtime shared library
 
 
 %package -n lib%{name}-static
-Summary:	Statically linked library for Gauce
+Summary: Statically linked library for Gauce
 Requires:	lib%{name}%{?_isa} = %{version}-%{release}
 
 %description -n lib%{name}-static
@@ -60,7 +59,7 @@ Most users should *not* install this.
 
 
 %package devel
-Summary:        Development files for Gauche
+Summary: Development files for Gauche
 Requires:	lib%{name}%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -68,7 +67,7 @@ This package contains development files for Gauche.
 
 
 %package doc
-Summary:	Documentation files for Gauche
+Summary: Documentation files for Gauche
 
 %description doc
 This package contains info documents of the reference manual of Gauche
@@ -89,7 +88,6 @@ LD_LIBRARY_PATH=`pwd`/src %make_install
 
 # correct permissions
 chmod -R u+w %{buildroot}
-
 # make .c files readable for debuginfo
 find -name '*.c' | xargs chmod 0644
 
@@ -152,7 +150,7 @@ LD_LIBRARY_PATH=`pwd`/src make check
 
 
 %files -n lib%{name}
-%{_libdir}/gauche-%{abi_version}/%{version}/*/libgauche-%{abi_version}.so*
+%{_libdir}/gauche-%{abi_version}/%{version}/*/libgauche-%{abi_version}.so.*
 %{_libdir}/libgauche-%{abi_version}.so.*
 
 
@@ -165,6 +163,9 @@ LD_LIBRARY_PATH=`pwd`/src make check
 
 
 %changelog
+* Wed Jan 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.9.12-1
+- Update to 0.9.12
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

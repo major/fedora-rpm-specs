@@ -1,5 +1,5 @@
 Name:           python-jupyterlab-server
-Version:        2.17.0
+Version:        2.18.0
 Release:        1%{?dist}
 Summary:        A set of server components for JupyterLab and JupyterLab like applications
 License:        BSD-3-Clause
@@ -66,6 +66,9 @@ sed -i '/"codecov/d' pyproject.toml
 
 
 %changelog
+* Tue Jan 10 2023 Lumír Balhar <lbalhar@redhat.com> - 2.18.0-1
+- Update to 2.18.0 (rhbz#2157908)
+
 * Mon Jan 02 2023 Lumír Balhar <lbalhar@redhat.com> - 2.17.0-1
 - Update to 2.17.0 (rhbz#2156011)
 

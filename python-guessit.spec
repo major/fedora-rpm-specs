@@ -1,16 +1,16 @@
-# tests are disabled for now:
-# https://github.com/guessit-io/guessit/issues/724
-%bcond_with tests
+%bcond_without tests
 
 %global srcname guessit
 
 Name: python-%{srcname}
-Version: 3.4.3
-Release: 4%{?dist}
+Version: 3.5.0
+Release: 1%{?dist}
 Summary: Library to extract as much information as possible from a video filename
 License: LGPLv3
 URL: https://guessit.readthedocs.org/
 Source: https://github.com/guessit-io/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# Disable some tests: https://github.com/guessit-io/guessit/issues/724
+Patch0: %{name}-3.5.0-skip_failing_tests.patch
 BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -49,7 +49,7 @@ Summary: Documentation for %{srcname} python library
 %description doc %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 %build
 %py3_build
@@ -79,6 +79,9 @@ done
 %license LICENSE
 
 %changelog
+* Wed Jan 11 2023 Juan Orti Alcaine <jortialc@redhat.com> - 3.5.0-1
+- Version 3.5.0 (RHBZ#2139558)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

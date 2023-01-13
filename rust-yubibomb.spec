@@ -85,7 +85,13 @@ use the "default" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+%ifarch ppc64le
+# * doctests fail to compile on ppc64le with LLVM 15:
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2142648
+%cargo_test -- --lib
+%else
 %cargo_test
+%endif
 %endif
 
 %changelog

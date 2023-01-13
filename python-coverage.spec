@@ -4,15 +4,11 @@
 
 Name:           python-coverage
 Summary:        Code coverage testing module for Python
-Version:        7.0.1
+Version:        7.0.5
 Release:        1%{?dist}
-# jquery(MIT):
-#  coverage/htmlfiles/jquery.min.js
-# MIT or GPL:
-#  coverage/htmlfiles/jquery.debounce.min.js
-#  coverage/htmlfiles/jquery.hotkeys.js
-#  coverage/htmlfiles/jquery.isonscreen.js
-License:        ASL 2.0 and MIT and (MIT or GPL)
+# There is a jquery file in tests/ that is MIT OR GPL-2.0-only
+# but it does not end up in the binary package
+License:        Apache-2.0
 URL:            http://nedbatchelder.com/code/modules/coverage.html
 Source0:        https://pypi.python.org/packages/source/c/coverage/coverage-%{version}%{?prever}.tar.gz
 BuildRequires:  gcc
@@ -120,6 +116,10 @@ popd
 %{python3_sitearch}/coverage*.egg-info/
 
 %changelog
+* Wed Jan 11 2023 Tom Callaway <spot@fedoraproject.org> - 7.0.5-1
+- update to 7.0.5
+- correct License tag
+
 * Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 7.0.1-1
 - update to 7.0.1
 

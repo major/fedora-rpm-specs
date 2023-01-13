@@ -4,7 +4,7 @@
 %global srcname     astroid
 
 %global forgeurl https://github.com/PyCQA/astroid
-Version:        2.12.14
+Version:        2.13.2
 %forgemeta
 
 Name:           python-astroid
@@ -20,6 +20,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
+BuildRequires:  python3-wheel
+BuildRequires:  python3-pip
 BuildRequires:  python3-lazy-object-proxy
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-runner
@@ -52,15 +54,13 @@ Requires:  python3-six
 
 %prep
 %autosetup -n %{srcname}-%{version} -p0
-#sed -i /six/d tox.ini
 sed -i /six/d astroid/__pkginfo__.py
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 rm -rf %{buildroot}%{python3_sitelib}/tests
 
 
@@ -71,7 +71,7 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %files -n python3-%{srcname}
 %license LICENSE
 %{python3_sitelib}/astroid
-%{python3_sitelib}/astroid*.egg-info
+%{python3_sitelib}/astroid*.dist-info/
 
 %changelog
 %autochangelog

@@ -1,21 +1,15 @@
-# EPEL9 does not have python-aiohttp packaged yet.
-%if 0%{?fedora}
-%bcond_without  tests
-%else
+# NOTE(mhayden): Upstream removed VCR cassettes required for tests 😢
 %bcond_with     tests
-%endif
 
 %global         srcname     azure-batch
 
 Name:           python-%{srcname}
-Version:        12.0.0
+Version:        13.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Batch Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-# This source comes from making a git archive of the main azure-sdk-for-python
-# repository. To reproduce the source code, run the generate-source.sh script.
-Source0:        %{srcname}-%{version}.tgz
+Source0:        %{pypi_source %{srcname} %{version} zip}
 
 BuildArch:      noarch
 
@@ -65,9 +59,7 @@ Summary:        %{summary}
 %pyproject_check_import
 
 %if %{with tests}
-%pytest \
-    -k "not test_batch_applications \
-        and not test_batch_files"
+%pytest
 %endif
 
 

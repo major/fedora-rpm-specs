@@ -8,10 +8,10 @@
 
 %global dotnetver 7.0
 
-%global host_version 7.0.0
-%global runtime_version 7.0.0
+%global host_version 7.0.1
+%global runtime_version 7.0.1
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 7.0.100
+%global sdk_version 7.0.101
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -80,19 +80,8 @@ Source11:       dotnet.sh.in
 
 # https://github.com/dotnet/installer/pull/14792
 Patch1:         installer-14792-mono.patch
-# https://github.com/dotnet/aspnetcore/pull/44583
-Patch2:         aspnetcore-44583-ppc64le-crossgen.patch
-# https://github.com/dotnet/runtime/pull/77269
-Patch3:         runtime-77269-mono-ppc64le-opcheckthis.patch
-# https://github.com/dotnet/runtime/pull/77270
-Patch4:         runtime-77270-ppc64le-fsharp-crash.patch
-# https://github.com/dotnet/runtime/pull/77308
-Patch5:         runtime-77308-ppc64le-delegate.patch
 # Disable apphost; there's no net6.0 apphost for ppc64le
-Patch6:        roslyn-analyzers-ppc64le-apphost.patch
-# Fix ppc64le build with clang 15
-# TODO upstream this
-Patch7:        runtime-mono-ppc64le-clang15.patch
+Patch2:        roslyn-analyzers-ppc64le-apphost.patch
 
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -629,7 +618,6 @@ export COMPlus_LTTng=0
 %{_libdir}/dotnet/sdk/%{sdk_version}
 %dir %{_libdir}/dotnet/sdk-manifests
 %{_libdir}/dotnet/sdk-manifests/%{sdk_feature_band_version}
-%{_libdir}/dotnet/sdk-manifests/%{sdk_feature_band_version}-rc.1
 %{_libdir}/dotnet/metadata
 %dir %{_libdir}/dotnet/packs
 
@@ -639,7 +627,10 @@ export COMPlus_LTTng=0
 
 
 %changelog
-* Tue Jan 10 2022 Omair Majid <omajid@redhat.com> - 7.0.100-1
+* Wed Jan 11 2023 Omair Majid <omajid@redhat.com> - 7.0.101-1
+- Update to .NET SDK 7.0.101 and Runtime 7.0.1
+
+* Tue Jan 10 2023 Omair Majid <omajid@redhat.com> - 7.0.100-1
 - Update to .NET SDK 7.0.100 and Runtime 7.0.0
 
 * Thu Nov 10 2022 Omair Majid <omajid@redhat.com> - 7.0.100-0.1

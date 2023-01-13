@@ -6,7 +6,7 @@
 
 Name:		linuxptp
 Version:	3.1.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	PTP implementation for Linux
 
 License:	GPLv2+
@@ -163,6 +163,9 @@ fi
 %{_mandir}/man8/*.8*
 
 %changelog
+* Wed Jan 11 2023 Miroslav Lichvar <mlichvar@redhat.com> 3.1.1-6
+- update selinux policy (#2159919)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

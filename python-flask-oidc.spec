@@ -3,13 +3,13 @@
 %global sum An openID Connect support for Flask
 
 Name:           python-%{tar_name}
-Version:        1.4.0
-Release:        15%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD
-URL:            https://github.com/puiterwijk/flask-oidc
-Source0:        https://pypi.io/packages/source/f/flask-oidc/%{tar_name}-%{version}.tar.gz
+URL:            https://github.com/fedora-infra/flask-oidc
+Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 
 BuildArch:      noarch
 
@@ -27,6 +27,9 @@ Requires:           python3-flask
 Requires:           python3-itsdangerous
 Requires:           python3-oauth2client
 Requires:           python3-six
+BuildRequires:      python3-pip
+BuildRequires:      python3-jwt
+BuildRequires:      python3-wheel
 BuildRequires:      python3-flask
 BuildRequires:      python3-itsdangerous
 BuildRequires:      python3-oauth2client
@@ -64,6 +67,9 @@ identity providers, for example, Microsoft’s Azure Active Directory
 %{_bindir}/oidc-register
 
 %changelog
+* Wed Jan 11 2023 David Kirwan <dkirwan@redhat.com> - 1.5.0-1
+- Switch rpm to point at Fork, release 1.5.0 with PyJWT fix PR: puiterwijk/flask-oidc/pull/144
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -144,4 +150,4 @@ identity providers, for example, Microsoft’s Azure Active Directory
 - Updating email address of author
 
 * Wed Jul 13 2016 Simon M <skrzepto@gmail.com> - 1.0.3
-- Updating package version 
+- Updating package version

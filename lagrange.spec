@@ -2,7 +2,7 @@
 %global appid fi.skyjake.Lagrange
 
 Name:           lagrange
-Version:        1.13.7
+Version:        1.14.2
 Release:        %autorelease
 Summary:        A Beautiful Gemini Client
 
@@ -45,7 +45,9 @@ sed -i -e '/<url type="contact">/d' res/fi.skyjake.Lagrange.appdata.xml
 
 
 %build
-%cmake
+%cmake \
+  -DENABLE_POPUP_MENUS:BOOL=NO \
+
 %cmake_build
 
 

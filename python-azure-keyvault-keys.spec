@@ -1,19 +1,16 @@
-# Enable tests everywhere except EPEL 9, where more backports are needed.
-%if 0%{?el9} || 0%{?centos} >= 9
+# Upstream's tests require docker now. 😢
 %bcond_with    tests
-%else
-%bcond_without tests
-%endif
 
 %global         srcname     azure-keyvault-keys
 
 Name:           python-%{srcname}
-Version:        4.5.1
+Version:        4.8.0~b2
+%global         pypi_version 4.8.0b2
 Release:        %autorelease
 Summary:        Microsoft Azure Key Vault Keys Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
 
 BuildArch:      noarch
 
@@ -46,7 +43,7 @@ Obsoletes:      python3-azure-sdk < 5.0.1
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{pypi_version}
 
 
 %generate_buildrequires
@@ -62,20 +59,11 @@ Obsoletes:      python3-azure-sdk < 5.0.1
 %pyproject_save_files azure
 
 
-%if %{with tests}
 %check
 %pyproject_check_import
 
-# NOTE(mhayden): Skip some tests that require network connectivity to Azure's
-# APIs. The challenge_auth/parse_id tests require parameterized, which depends on the
-# orhpaned nose2.
-%pytest --disable-warnings \
-    --ignore-glob=tests/test_*crypto*.py \
-    --ignore-glob=tests/test_key*.py \
-    --ignore-glob=tests/test_samples_keys*.py \
-    --ignore-glob=tests/test_challenge_auth*.py \
-    --ignore-glob=tests/test_parse_id.py \
-    -k "not test_parse_key_id_with_version"
+%if %{with tests}
+%pytest
 %endif
 
 

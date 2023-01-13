@@ -1,10 +1,11 @@
 Name:           ski
 Version:        1.3.2
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        IA-64 user and system mode simulator
 
 License:        GPLv2+
 URL:            http://ski.sourceforge.net
+# Newer fork is at: <https://github.com/trofi/ski>
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch1:         ski-1.3.2-asm-page.patch
 Patch2:         ski-1.3.2-header.patch
@@ -13,6 +14,9 @@ Patch4:         ski-1.3.2-uselib.patch
 Patch5:         ski-1.3.2-ustat.patch
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/app-emulation/ski/files/ski-1.3.2-gcc-10.patch
 Patch6:         ski-1.3.2-gcc-10.patch
+Patch7: ski-c99-1.patch
+Patch8: ski-c99-2.patch
+Patch9: ski-makefile-dependency.patch
 
 ExcludeArch:    aarch64
 
@@ -93,6 +97,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 1.3.2-37
+- Apply patches from github.com/trofi/ski to fix C99 compatibility issues
+- Fix sporadic build failure due to missing makefile dependency
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

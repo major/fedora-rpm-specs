@@ -3,8 +3,8 @@
 %global with_qt 1
 
 Name:           gpsd
-Version:        3.24
-Release:        3%{?dist}
+Version:        3.25
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
@@ -15,8 +15,6 @@ Source11:       gpsd.sysconfig
 
 # Add old status names to gps.h for compatibility
 Patch1:         gpsd-apistatus.patch
-# Change soname to mark ABI break
-Patch2:         gpsd-soname.patch
 
 BuildRequires:  dbus-devel            
 BuildRequires:  dbus-glib-devel            
@@ -110,7 +108,6 @@ This package contains various clients using gpsd.
 %prep
 %setup -q
 %patch1 -p1 -b .apistatus
-%patch2 -p1 -b .soname
 
 # don't try reloading systemd when installing in the build root
 sed -i 's|systemctl daemon-reload|true|' SConscript
@@ -137,6 +134,7 @@ scons \
 	libdir=%{_libdir} \
 	sbindir=%{_sbindir} \
 	mandir=%{_mandir} \
+	mibdir=%{_docdir}/gpsd \
 	docdir=%{_docdir}/gpsd \
 	pkgconfigdir=%{_libdir}/pkgconfig \
 	icondir=%{_datadir}/gpsd \
@@ -222,7 +220,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_mandir}/man1/ntpshmmon.1*
 
 %files libs
-%{_libdir}/libgps.so.291*
+%{_libdir}/libgps.so.30*
 
 %files -n python3-%{name}
 %{_libdir}/libgpsdpacket.so*
@@ -240,7 +238,7 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 
 %if %{with_qt}
 %files qt
-%{_libdir}/libQgpsmm.so.29*
+%{_libdir}/libQgpsmm.so.30*
 
 %files qt-devel
 %{_libdir}/libQgpsmm.so
@@ -296,6 +294,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_datadir}/gpsd/gpsd-logo.png
 
 %changelog
+* Wed Jan 11 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1:3.25-1
+- update to 3.25
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

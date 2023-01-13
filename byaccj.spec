@@ -1,11 +1,12 @@
 Summary:	Parser Generator with Java Extension
 Name:		byaccj
 Version:	1.15
-Release:	28%{?dist}
+Release:	29%{?dist}
 License:	Public Domain
 URL:		http://byaccj.sourceforge.net/
 
 Source0:	http://sourceforge.net/projects/byaccj/files/byaccj/1.15/byaccj1.15_src.tar.gz
+Patch0: byaccj-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -23,7 +24,7 @@ generate Java source code, instead. So there finally is a YACC for
 Java now! 
 
 %prep
-%setup -q -n %{name}%{version}
+%autosetup -p1 -n %{name}%{version}
 chmod -c -x src/* docs/*
 sed -i -e 's|-arch i386 -isysroot /Developer/SDKs/MacOSX10.4u.sdk -mmacosx-version-min=10.4|$(LDFLAGS)|g' src/Makefile
 
@@ -41,6 +42,9 @@ install -p -m 755 src/yacc %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 1.15-29
+- C99 compatibility fix
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

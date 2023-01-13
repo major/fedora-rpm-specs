@@ -14,7 +14,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.43.0
+Version:        2.44.1
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -25,11 +25,6 @@ Summary:        Microsoft Azure Command-Line Tools
 License:        MIT
 URL:            %forgeurl
 Source0:        %forgesource
-
-# Patch the error from issue 23015.
-# Thanks to mdboom for the patch!
-# https://github.com/Azure/azure-cli/issues/23015#issuecomment-1268587028
-Patch0:         subparser-command-verb.patch
 
 # Offer azure-cli updates via dnf/rpm only.
 # Avoid importing files from the local directory when running az.
@@ -117,36 +112,8 @@ sed -i '/nspkg/d' src/azure-cli/requirements.py3.Linux.txt
 # but we can't install those until we actually build this package.
 sed -i '/azure-cli.*/d' src/azure-cli/requirements.py3.Linux.txt
 
-# Allow an older psutil. See BZ 2036137.
-sed -i 's/psutil>=5.9/psutil>=5.8/' \
-    src/azure-cli/requirements.py3.Linux.txt \
-    src/azure-cli-core/setup.py
-
-# Allow an older PyNaCl. See BZ 2038614.
-sed -i 's/PyNaCl>=1.5/PyNaCl>=1.4/' \
-    src/azure-cli/requirements.py3.Linux.txt \
-    src/azure-cli/setup.py
-
-# Allow an older websocket-client. See BZ 2100908.
-sed -i 's/websocket-client>=1.3.1/websocket-client>=1.2.3/' \
-    src/azure-cli/requirements.py3.Linux.txt \
-    src/azure-cli/setup.py \
-    src/azure-cli-core/setup.py
-
-# Allow an older markupsafe. See BZ 2105301.
-sed -i 's/MarkupSafe.=.*$/MarkupSafe>=1.1.1/' \
-    src/azure-cli/requirements.py3.Linux.txt
-
 # certifi's version is irrelevant since the package is empty in Fedora.
 sed -i 's/certifi.=.*$/certifi/' \
-    src/azure-cli/requirements.py3.Linux.txt
-
-# Fedora 35 and epel9 have older versions of Jinja2, but they work fine.
-sed -i 's/Jinja2.=.*$/Jinja2/' \
-    src/azure-cli/requirements.py3.Linux.txt
-
-# Fedora 35 has an older version of pkginfo that works fine.
-sed -i 's/pkginfo.=.*$/pkginfo/' \
     src/azure-cli/requirements.py3.Linux.txt
 
 # Remove the unnecessary secure extra from urllib3.

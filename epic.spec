@@ -1,7 +1,7 @@
 Summary: An ircII chat client
 Name: epic
 Version: 2.10.10
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 4
 # The entire source code is Freely redistributable without restriction except some
 # files (notably, glob.c, and compat.c) may contain some source covered by BSD
@@ -18,11 +18,12 @@ Source8: http://splitfire.sourceforge.net/schemes/sf-perry-scheme.irc.gz
 Patch0: epic-default.patch
 #Patch1: patch by Michael Jennings, accepted by upstream
 Patch1: epic4-2.10.1-sighandling.patch
+Patch2: epic4-2.10.10-c99.patch
 URL: http://www.epicsol.org/
 BuildRequires: gcc
 BuildRequires: openssl-devel
 BuildRequires: ncurses-devel
-BuildRequires: make
+BuildRequires: make automake autoconf
 
 %description
 EPIC (Enhanced Programmable ircII Client) is an advanced ircII chat
@@ -35,8 +36,10 @@ rm -rf $RPM_BUILD_DIR/ircii-EPIC%{prog_version}
 %setup -q -n epic4-%{version} -a 1
 %patch0 -p0 -b .default
 %patch1 -p1 -b .sighandling
+%patch2 -p1 -b .c99
 
 %build
+autoreconf -vi
 %configure
 
 rm -rf help/Makefile help/README_FIRST
@@ -84,6 +87,9 @@ rm -f $RPM_BUILD_ROOT/%{_libexecdir}/wserv
 %{_datadir}/epic/help/*
 
 %changelog
+* Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 4:2.10.10-6
+- Port configure.in to C99, add autoreconf step to build and add a few missing includes.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4:2.10.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

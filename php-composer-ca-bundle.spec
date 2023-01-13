@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-composer-ca-bundle
 #
-# Copyright (c) 2016-2022 Remi Collet
+# Copyright (c) 2016-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -9,14 +9,14 @@
 
 %bcond_without       tests
 
-%global gh_commit    69098eca243998b53eed7a48d82dedd28b447cd5
+%global gh_commit    74780ccf8c19d6acb8d65c5f39cd72110e132bbd
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     composer
 %global gh_project   ca-bundle
 %global php_home     %{_datadir}/php
 
 Name:           php-composer-ca-bundle
-Version:        1.3.4
+Version:        1.3.5
 Release:        1%{?dist}
 Summary:        Lets you find a path to the system CA
 
@@ -147,6 +147,9 @@ exit $ret
 
 
 %changelog
+* Wed Jan 11 2023 Remi Collet <remi@remirepo.net> - 1.3.5-1
+- update to 1.3.5 (no change)
+
 * Wed Oct 12 2022 Remi Collet <remi@remirepo.net> - 1.3.4-1
 - update to 1.3.4 (no change)
 

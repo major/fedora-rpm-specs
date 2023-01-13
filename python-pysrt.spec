@@ -2,11 +2,13 @@
 
 Name: python-%{srcname}
 Version: 1.1.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Library used to edit or create SubRip files
 License: GPLv3
 URL: https://github.com/byroot/pysrt
 Source: https://github.com/byroot/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# https://github.com/byroot/pysrt/issues/92
+Patch0: %{name}-1.1.2-use_assertEqual.patch
 BuildArch: noarch
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -25,7 +27,7 @@ Summary: %summary
 %description -n python3-%{srcname} %_description
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -p1 -n %{srcname}-%{version}
 
 %build
 %py3_build
@@ -50,6 +52,9 @@ done
 %{python3_sitelib}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Wed Jan 11 2023 Juan Orti Alcaine <jortialc@redhat.com> - 1.1.2-12
+- Add patch to fix unittests
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

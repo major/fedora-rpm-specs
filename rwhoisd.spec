@@ -3,7 +3,7 @@
 
 Name:       rwhoisd 
 Version:    1.5.9.6
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    ARIN's Referral WHOIS server
 # tools/tcpd_wrapper/DISCLAIMER:    BSD (tcp_wrappers variant)
 # tools/tcpd_wrapper/strcasecmp.c:  BSD
@@ -33,6 +33,7 @@ Patch5:     %{name}-1.5.9.5-Select-which-way-to-call-sort.patch
 Patch6:     %{name}-1.5.9.5-Adjust-sample-configuration.patch
 # Disable TCP wrappers, bug #1518781
 Patch7:     %{name}-1.5.9.6-Allow-disabling-TCP-wrappers.patch
+Patch8: rwhoisd-c99.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -77,6 +78,7 @@ Recommended how-to is <http://www.unixadmin.cc/rwhois/>.
 %patch5 -p1 -b .sort
 %patch6 -p1 -b .config
 %patch7 -p1 -b .tcpwrappers
+%patch8 -p1
 # Remove bundled tcp_wrappers for sure
 find tools/tcpd_wrapper -depth -mindepth 1 \! -name Makefile.in -exec rm {} +
 # Keep System V8 regexp library
@@ -155,6 +157,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 1.5.9.6-25
+- C99 compatibility fixes
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.9.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

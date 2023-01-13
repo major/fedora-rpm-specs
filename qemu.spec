@@ -310,7 +310,7 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 3
+%global baserelease 4
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -2746,6 +2746,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Wed Jan 11 2023 Richard W.M. Jones <rjones@redhat.com> - 2:7.2.0-4
+- Rebuild for xen-4.17.0, second attempt
+
 * Tue Jan 10 2023 Daniel P. Berrangé <berrange@redhat.com> - 7.2.0-3
 - Fix compat with linux > 6.1 headers
 - Re-enable iotests

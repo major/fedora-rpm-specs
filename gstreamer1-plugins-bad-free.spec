@@ -13,8 +13,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.20.4
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.20.5
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -65,8 +65,6 @@ BuildRequires:  orc-devel
 BuildRequires:  soundtouch-devel
 BuildRequires:  wavpack-devel
 BuildRequires:  opus-devel
-BuildRequires:  nettle-devel
-BuildRequires:  libgcrypt-devel
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:  wayland-devel
 BuildRequires:  wayland-protocols-devel
@@ -640,6 +638,10 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 
 
 %changelog
+* Wed Jan 11 2023 Wim Taymans <wtaymans@redhat.com> - 1.20.5-1
+- Update to 1.20.5
+- Remove unwanted crypto dependencies.
+
 * Mon Nov 14 2022 Stephen Gallagher <sgallagh@redhat.com> - 1.20.4-2
 - Drop vdpau configure option
 - The libgstva plugin is now excluded from file listings when disabled

@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 7.87.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -15,6 +15,9 @@ Patch101: 0101-curl-7.32.0-multilib.patch
 
 # test3026: disable valgrind
 Patch102: 0102-curl-7.84.0-test3026.patch
+
+# test3012: temporarily disable valgrind (#2143040)
+Patch103: 0103-curl-7.87.0-test3012.patch
 
 Provides: curl-full = %{version}-%{release}
 Provides: webclient
@@ -198,6 +201,7 @@ be installed.
 # Fedora patches
 %patch101 -p1
 %patch102 -p1
+%patch103 -p1
 
 # disable test 1112 (#565305), test 1455 (occasionally fails with 'bind failed
 # with errno 98: Address already in use' in Koji environment), and test 1801
@@ -427,6 +431,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Wed Jan 11 2023 Kamil Dudka <kdudka@redhat.com> - 7.87.0-2
+- test3012: temporarily disable valgrind (#2143040)
+
 * Wed Dec 21 2022 Kamil Dudka <kdudka@redhat.com> - 7.87.0-1
 - new upstream release, which fixes the following vulnerabilities
     CVE-2022-43552 - HTTP Proxy deny use-after-free

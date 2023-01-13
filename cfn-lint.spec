@@ -1,6 +1,6 @@
 Name:           cfn-lint
 Summary:        CloudFormation Linter
-Version:        0.72.7
+Version:        0.72.8
 Release:        %autorelease
 
 # SPDX
@@ -31,7 +31,7 @@ BuildRequires:  python3dist(pytest)
 # trying to operate on a git checkout of cfn-lint, which won’t be available. It
 # doesn’t work for that reason when tested in
 # TestUpdateDocumentation.test_update_docs, which is why there is no
-# corresponding BuildRequires,
+# corresponding BuildRequires.
 Recommends:     git-core
 
 %py_provides python3-cfn-lint

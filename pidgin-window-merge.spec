@@ -14,7 +14,6 @@ BuildRequires:	libappstream-glib
 Requires:	pidgin
 
 %global	pname	window_merge
-%global plugindir %(pkg-config --variable=plugindir pidgin)
 
 %description
 Enabling this plugin will allow conversations to be attached to the Buddy List
@@ -28,8 +27,8 @@ window.  Preferences are available to customize the plugin's panel layout.
 make %{?_smp_mflags}
 
 %install
-make install DESTDIR=%{buildroot} plugindir=%{plugindir}
-rm -f %{buildroot}%{plugindir}/%{pname}.la
+make install DESTDIR=%{buildroot} plugindir=%{_libdir}/pidgin
+rm -f %{buildroot}%{_libdir}/pidgin/%{pname}.la
 
 mkdir -p %{buildroot}%{_datadir}/appdata
 cat > %{buildroot}%{_datadir}/appdata/%{name}.metainfo.xml <<EOF
@@ -43,7 +42,7 @@ EOF
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/pidgin-window-merge.metainfo.xml
 
 %files
-%{plugindir}/%{pname}.so
+%{_libdir}/pidgin/%{pname}.so
 %doc AUTHORS BUGS ChangeLog NEWS README TODO
 %license COPYING
 

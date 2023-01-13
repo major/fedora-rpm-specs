@@ -3,7 +3,7 @@
 
 # https://github.com/alecthomas/chroma
 %global goipath         github.com/alecthomas/chroma/v2
-Version:                2.3.0
+Version:                2.4.0
 
 %gometa -f
 
@@ -43,11 +43,12 @@ install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 install -m 0755 -vd                     %{buildroot}%{_datarootdir}/gocode/src/github.com/alecthomas/chroma/v2/lexers/embedded
 install -m 0644 -vp %{gobuilddir}/src/github.com/alecthomas/chroma/v2/lexers/embedded/* %{buildroot}%{_datarootdir}/gocode/src/github.com/alecthomas/chroma/v2/lexers/embedded
+install -m 0755 -vd                     %{buildroot}%{_datarootdir}/gocode/src/github.com/alecthomas/chroma/v2/styles
+install -m 0644 -vp %{gobuilddir}/src/github.com/alecthomas/chroma/v2/styles/* %{buildroot}%{_datarootdir}/gocode/src/github.com/alecthomas/chroma/v2/styles
 
 %if %{with check}
 %check
-# lexers: check requires github.com/alecthomas/repr, which is not in Fedora yet
-%gocheck -d lexers
+%gocheck
 %endif
 
 %files
@@ -57,6 +58,7 @@ install -m 0644 -vp %{gobuilddir}/src/github.com/alecthomas/chroma/v2/lexers/emb
 
 %gopkgfiles
 %{_datarootdir}/gocode/src/github.com/alecthomas/chroma/v2/lexers/embedded/
+%{_datarootdir}/gocode/src/github.com/alecthomas/chroma/v2/styles/
 
 %changelog
 %autochangelog

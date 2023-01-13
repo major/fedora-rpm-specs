@@ -1,11 +1,11 @@
 Summary: X.Org X11 libXpm runtime library
 Name: libXpm
-Version: 3.5.13
-Release: 8%{?dist}
+Version: 3.5.14
+Release: 1%{?dist}
 License: MIT
 URL: http://www.x.org
 
-Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.bz2
+Source0: https://www.x.org/pub/individual/lib/%{name}-%{version}.tar.xz
 
 BuildRequires: xorg-x11-util-macros
 BuildRequires: autoconf automake libtool make
@@ -52,11 +52,13 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/X11/xpm.h
 %{_libdir}/libXpm.so
 %{_libdir}/pkgconfig/xpm.pc
-#%dir %{_mandir}/man1x
 %{_mandir}/man1/*.1*
-#%{_mandir}/man1/*.1x*
+%{_mandir}/man3/*.3*
 
 %changelog
+* Wed Jan 11 2023 Peter Hutterer <peter.hutterer@redhat.com> - 3.5.14-1
+- libXpm 3.5.14
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.13-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

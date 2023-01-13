@@ -1,14 +1,10 @@
-# Enable tests everywhere except EPEL 9, where python-pytest-aiohttp is not backported.
-%if 0%{?el9} || 0%{?centos} >= 9
+# Upstream tests now require Docker + network access. 😢
 %bcond_with    tests
-%else
-%bcond_without tests
-%endif
 
 %global         srcname         azure-mgmt-redis
 
 Name:           python-%{srcname}
-Version:        13.1.0
+Version:        14.1.0
 Release:        %autorelease
 Summary:        Microsoft Azure Redis Cache Management Client Library for Python
 License:        MIT

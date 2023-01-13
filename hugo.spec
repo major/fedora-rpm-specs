@@ -2,6 +2,21 @@
 # Some tests use a package that uses this.
 %bcond_with bootstrap
 
+# The output from a standard Hugo package build can be overwhelming when
+# trying to diagnose package build errors. A less verbose follow up
+# is:
+#
+# 1. Run "rpmbuild -ba hugo.spec >/tmp/LOG 2>&1" to capture all of
+# the output.
+#
+# 2. Look for the command "go build ..." in that output.
+#
+# 3. Enter the BUILD/hugo-VERSION directory.
+#
+# 4. Export the two variables set before "go build ...".
+#
+# 5. Run the "go build ..." command, but without the "-v" and "-x".
+
 # https://github.com/gohugoio/hugo
 %global goipath github.com/gohugoio/hugo
 Version:        0.101.0

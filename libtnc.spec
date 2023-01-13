@@ -2,12 +2,13 @@
 
 Name:		libtnc
 Version:	1.25
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Library implementation of the Trusted Network Connect (TNC) specification
 License:	GPLv2
 Source0:	http://dl.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
 Patch0:		libtnc-1.25-bootstrap.patch
 Patch1:		libtnc-1.25-syserror.patch
+Patch2:		libtnc-1.25-symbolfix.patch
 URL:		http://libtnc.sourceforge.net/
 BuildRequires:  gcc
 BuildRequires:	perl-devel
@@ -45,6 +46,7 @@ popd
 
 %patch0 -p1 -b .bootstrap
 %patch1 -p1 -b .syserror
+%patch2 -p1 -b .symbolfix
 
 %build
 %set_build_flags
@@ -102,6 +104,9 @@ popd
 %{_mandir}/man3/Interface::TNC*
 
 %changelog
+* Wed Jan 11 2023 Tom Callaway <spot@fedoraproject.org> - 1.25-36
+- fix missing symbols that the perl module was looking for in this crufty old dinosaur
+
 * Sun Dec 18 2022 Florian Weimer <fweimer@redhat.com> - 1.25-35
 - Build in C89 due to C99 compatibility issues (#2154692)
 

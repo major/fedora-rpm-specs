@@ -6,7 +6,7 @@
 
 Name:		mozc
 Version:	2.28.4950.102
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A Japanese Input Method Editor (IME) designed for multi-platform
 
 License:	BSD and ASL 2.0 and UCD and Public Domain and mecab-ipadic
@@ -54,6 +54,7 @@ Patch2:		mozc-build-verbosely.patch
 Patch3:		mozc-build-id.patch
 Patch4:		mozc-build-gcc-common.patch
 Patch5:		mozc-use-system-abseil-cpp.patch
+Patch6:     mozc-fix-el-warnings.patch
 
 BuildRequires:	python gettext
 BuildRequires:	libstdc++-devel zlib-devel libxcb-devel protobuf-devel protobuf-c glib2-devel gtk2-devel
@@ -249,6 +250,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed Jan 11 2023 Akira TAGOH <tagoh@redhat.com> - 2.28.4950.102-2
+- Fix another compiler warnings in mozc.el
+  Resolves: rhbz#2158787
+
 * Thu Jan  5 2023 Akira TAGOH <tagoh@redhat.com> - 2.28.4950.102-1
 - Update to 2.28.4950.102.
 - Update dictionaries.

@@ -7,8 +7,8 @@ polling resources for externally generated content.
 %global srcname backoff
 
 Name:      python-%{srcname}
-Version:   1.10.0
-Release:   8%{?dist}
+Version:   2.2.1
+Release:   1%{?dist}
 BuildArch: noarch
 
 License: MIT
@@ -47,6 +47,9 @@ Summary: %{summary}
 %{python3_sitelib}/%{srcname}-*.dist-info/
 
 %changelog
+* Wed Jan 11 2023 Jiri Kyjovsky <jkyjovsk@redhat.com> - 2.2.1-1
+- Update to 2.2.1
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

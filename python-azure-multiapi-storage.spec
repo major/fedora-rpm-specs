@@ -4,7 +4,7 @@
 %global         srcname     azure-multiapi-storage
 
 Name:           python-%{srcname}
-Version:        0.10.0
+Version:        1.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Storage Client Library for Python with multi API version support
 License:        MIT
@@ -23,6 +23,8 @@ BuildRequires:  python3dist(azure-devtools)
 BuildRequires:  python3dist(azure-mgmt-keyvault)
 BuildRequires:  python3dist(azure-mgmt-resource)
 BuildRequires:  python3dist(azure-sdk-tools)
+BuildRequires:  python3dist(azure-storage-blob)
+BuildRequires:  python3dist(azure-storage-common)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-aiohttp)
 BuildRequires:  python3dist(python-dotenv)
@@ -58,7 +60,7 @@ Summary:        %{summary}
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e azure.multiapi.storagev2.filedatalake* -e azure.multiapi.storagev2.queue*
 
 %if %{with tests}
 %pytest

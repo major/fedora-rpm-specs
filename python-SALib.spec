@@ -22,7 +22,7 @@ Methods included:
 - Fractional Factorial Sensitivity Analysis (Saltelli et al. 2008)}
 
 Name:           python-SALib
-Version:        1.4.5
+Version:        1.4.7
 Release:        %autorelease
 Summary:        Sensitivity Analysis Library
 
@@ -39,7 +39,6 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-cov}
 %endif
 
 # Not mentioned in setup.py, so won't be picked up by the generator
@@ -57,26 +56,19 @@ Requires:  %{py3_dist matplotlib} >= 1.4.3
 sed -i 's/python {cli}/python3 {cli}/' tests/test_cli_sample.py
 sed -i 's/python {cli}/python3 {cli}/' tests/test_cli_analyze.py
 
-# https://github.com/SALib/SALib/commit/2eb776b6c7ff0737e4d9855709e6e24c19e36971.patch
-sed -i 's/rU/r/' src/SALib/util/__init__.py
-
 # Correct permission
-chmod -x LICENSE.txt
+chmod -x LICENSE.md src/SALib/analyze/__init__.py src/SALib/sample/__init__.py
 
 # Remove /usr/bin/env python shebang
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
 # Correct end of line encoding
-sed -i 's/\r$//' LICENSE.txt
+sed -i 's/\r$//' LICENSE.md
 sed -i 's/\r$//' src/SALib/analyze/rbd_fast.py
 
 %generate_buildrequires
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
-%if %{with tests}
-%pyproject_buildrequires -r
-%else
 %pyproject_buildrequires
-%endif
 
 %build
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -87,9 +79,6 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %pyproject_install
 %pyproject_save_files SALib
 
-# Add a shebang to missing script
-sed -i "1 i \#\!%{python3}" $RPM_BUILD_ROOT/%{_bindir}/salib.py
-
 %check
 %if %{with tests}
 export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
@@ -99,7 +88,6 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitelib} %{pytest}
 %files -n python3-SALib -f %{pyproject_files}
 %doc README.rst README-advanced.md CHANGELOG.md CITATIONS.rst AUTHORS.rst FAQ.MD
 %{_bindir}/salib
-%{_bindir}/salib.py
 
 %changelog
 %autochangelog

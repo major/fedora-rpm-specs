@@ -4,12 +4,13 @@
 %global         srcname     azure-mgmt-servicelinker
 
 Name:           python-%{srcname}
-Version:        1.0.0
+Version:        1.2.0~b1
+%global         pypi_version 1.2.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure Servicelinker Management Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
 
 # NOTE(mhayden): Set an epoch number because I used 1.0.0b1 as a version as a mistake
 # and 1.0.0~b2 sorts poorly with it. 🤦🏻‍♂️
@@ -41,7 +42,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{pypi_version}
 
 
 %generate_buildrequires

@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.27
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -21,7 +21,7 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.bouncycastle:bcmail-jdk15on)
 BuildRequires:  mvn(org.bouncycastle:bcprov-jdk15on)
 BuildRequires:  mvn(javax.xml.bind:jaxb-api)
-BuildRequires:  mvn(javax.activation:activation)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.2.2)
 BuildRequires:  mvn(org.mockito:mockito-core)
 
 BuildRequires: dejavu-sans-mono-fonts
@@ -207,6 +207,8 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %pom_xpath_set 'pom:source' 8 parent
 %pom_xpath_set 'pom:target' 8 parent
 
+%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api:1.2.2 preflight
+
 %build
 # Integration tests all require internet access to download test resources, so skip
 # Use compat version of lucene
@@ -252,6 +254,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Mon Jan 09 2023 Marian Koncek <mkoncek@redhat.com> - 2.0.27-4
+- Depend on compat jakarta.activation
+
 * Wed Dec 21 2022 Marian Koncek <mkoncek@redhat.com> - 2.0.27-3
 - Use correct BuildRequires on javax.activation
 

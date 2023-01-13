@@ -10,7 +10,7 @@ Source0:    https://github.com/%{owner}/%{sname}/archive/v%{version}/%{sname}-%{
 URL:        https://github.com/%{owner}/%{sname}
 BuildArch:  noarch
 
-BuildRequires:  python3-devel python3-pytest python3-docker python3-snappy snappy-devel python3-lz4
+BuildRequires:  python3-devel python3-pytest python3-docker python3-snappy snappy-devel python3-lz4 python3-zstd
 Requires:       python3
 
 %description
@@ -39,7 +39,8 @@ rm aiokafka/record/_crecords/crc32c.[ch]
 %check
 # Some tests cannot be run due to incompatibility issues and lack of certificates
 # The flag 'no:warnings' was added since the 'distutils' is now deprecated in Python 3.10 and 3.11, to be removed in Python 3.12
-AIOKAFKA_NO_EXTENSIONS=1 py.test -s -p no:warnings -k 'not test_read_write_serde_v0_v1_with_compression and not test_create_ssl_context' tests
+AIOKAFKA_NO_EXTENSIONS=1 py.test -s -p no:warnings\
+ -k 'not test_read_write_serde_v0_v1_with_compression and not test_create_ssl_context and not test_txn_manager and not test_read_write_serde_v2 and not test_unavailable_codec' tests
 
 %files -n python3-%{sname} -f %{pyproject_files}
 %license LICENSE

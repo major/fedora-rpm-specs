@@ -3,7 +3,7 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:		gst-editing-services
-Version:        1.20.4
+Version:        1.20.5
 Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:	Gstreamer editing services
 
@@ -87,6 +87,9 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/gir-1.0/GES-1.0.gir
 
 %changelog
+* Wed Jan 11 2023 Wim Taymans <wtaymans@redhat.com> - 1.20.5-1
+- Update to 1.20.5
+
 * Thu Oct 13 2022 Wim Taymans <wtaymans@redhat.com> - 1.20.4-1
 - Update to 1.20.4
 

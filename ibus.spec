@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -554,6 +554,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Jan 12 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-11
+- Refactor surrounding text warning
+
 * Fri Jan 06 2023 Tomas Popela <tpopela@redhat.com> - 1.5.27-10
 - Don't build GTK 2 content for RHEL 10 as GTK 2 won't be there
 

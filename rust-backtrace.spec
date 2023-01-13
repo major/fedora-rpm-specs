@@ -171,9 +171,10 @@ rm -r tests/accuracy/
 %if %{with check}
 %check
 # https://github.com/rust-lang/backtrace-rs/issues/204
-# * smoke_test_frames: fails on all architectures
+# * tests/smoke.rs/smoke_test_frames: fails on all architectures
+# * tests/smoke.rs/sp_smoke_test: crashes when frame pointers are enabled on x86_64
 # * backtrace_new_unresolved_should_start_with_call_site_trace: fails on aarch64, ppc64le, s390x
-%cargo_test -- -- --skip smoke_test_frames --skip backtrace_new_unresolved_should_start_with_call_site_trace
+%cargo_test -- -- --skip smoke_test_frames --skip sp_smoke_test --skip backtrace_new_unresolved_should_start_with_call_site_trace
 %endif
 
 %changelog

@@ -4,7 +4,7 @@
 Summary: The InterNetNews system, an Usenet news server
 Name: inn
 Version: 2.7.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 #see LICENSE file for details
 License: GPLv2+ and BSD and MIT and Public Domain
 URL: https://www.eyrie.org/~eagle/software/inn/
@@ -42,6 +42,7 @@ BuildRequires: perl-interpreter
 BuildRequires: perl(ExtUtils::Embed)
 BuildRequires: perl(GD)
 BuildRequires: perl(MIME::Parser)
+BuildRequires: perl(subs)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(Test::Pod)
 BuildRequires: python3-devel
@@ -53,6 +54,7 @@ BuildRequires: %{_bindir}/gpgv2
 BuildRequires: make
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Recommends: perl(GD)
+Recommends: perl(subs)
 Recommends: uucp
 %endif
 Requires(pre): shadow-utils
@@ -562,6 +564,10 @@ fi
 %{_mandir}/man1/inews*
 
 %changelog
+* Wed Jan 11 2023 Dominik Mierzejewski <dominik@greysector.net> - 2.7.0-3
+- add missing dependency on perl-subs (for innupgrade and its tests)
+  fixes rhbz#2155167
+
 * Thu Nov 17 2022 Dominik Mierzejewski <dominik@greysector.net> - 2.7.0-2
 - drop duplicate inn-secrets.conf from inews package
 

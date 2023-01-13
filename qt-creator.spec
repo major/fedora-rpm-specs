@@ -8,7 +8,7 @@
 
 Name:           qt-creator
 Version:        9.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -29,6 +29,9 @@ Patch2:         qt-creator_qmake-names.patch
 # https://code.qt.io/cgit/clang/llvm-project.git/commit/?h=release_130-based&id=42879d1f355fde391ef46b96a659afeb4ad7814a
 Patch3:         qt-creator-clangformat.patch
 Patch4:         clangFormat.patch
+# Backport patch for QTCREATORBUG-28505
+# https://bugreports.qt.io/browse/QTCREATORBUG-28505
+Patch5:         qt-creator-28505.patch
 
 BuildRequires:  chrpath
 BuildRequires:  clang-devel
@@ -212,6 +215,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Wed Jan 11 2023 Sandro Mani <manisandro@gmail.com> - 9.0.1-2
+- Backport patch for QTCREATORBUG-28505
+
 * Thu Dec 15 2022 Sandro Mani <manisandro@gmail.com> - 9.0.1-1
 - Update to 9.0.1
 

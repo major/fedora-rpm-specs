@@ -12,13 +12,18 @@
 
 Name:           yarnpkg
 Version:        1.22.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 URL:            https://github.com/yarnpkg/yarn
 # we need tarball with node_modules
 Source0:        %{name}-v%{version}-bundled.tar.gz
 Source1:        yarnpkg-tarball.sh
 License:        BSD
+
+# These are applied by yarnpkg-tarball.sh
+# async-CVE-2021-43138.prebundle.patch
+# minimatch-CVE-2022-3517.prebundle.patch
+# thenify-CVE-2020-7677.prebundle.patch
 
 # Backport fix for CVE-2021-35065 for bundled glob-parent
 Patch1:         glob-parent-CVE-2021-35065.patch
@@ -91,6 +96,9 @@ if [[ $(%{buildroot}%{_bindir}/%{old_name} --version) == %{version} ]] ; then ec
 %{nodejs_sitelib}/%{npm_name}/
 
 %changelog
+* Wed Jan 11 2023 Sandro Mani <manisandro@gmail.com> - 1.22.19-3
+- Add patches for CVE-2021-43138, CVE-2022-3517, CVE-2020-7677
+
 * Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 1.22.19-2
 - Backport fix for CVE-2021-35065 for bundled glob-parent
 

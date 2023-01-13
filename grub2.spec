@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	73%{?dist}
+Release:	75%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,12 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Wed Jan 11 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-75
+- Pull allocator improvements from upstream
+
+* Wed Jan 11 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-74
+- Apply more hardening to host binaries
+
 * Tue Jan 10 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-73
 - Allow internal grub allocations over 4GB
 

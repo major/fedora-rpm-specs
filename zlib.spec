@@ -2,7 +2,7 @@
 
 Name:    zlib
 Version: 1.2.13
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Compression and decompression library
 # /contrib/dotzlib/ have Boost license
 License: zlib and Boost
@@ -13,6 +13,9 @@ Source: https://www.zlib.net/zlib-%{version}.tar.xz
 Patch0: zlib-1.2.5-minizip-fixuncrypt.patch
 # resolves: #805113
 Patch1: zlib-1.2.13-optimized-s390.patch
+# Upstream commit: https://github.com/madler/zlib/commit/e554695638228b846d49657f31eeff0ca4680e8a
+# This patch is needed for a clean apply of the Patch19
+Patch2: zlib-1.2.13-Fix-bug-in-deflateBound.patch
 # IBM optimized crc32 for Power 8+ processors
 # ref: https://github.com/madler/zlib/pull/750
 Patch18: zlib-1.2.13-power-optimizations.patch
@@ -82,6 +85,7 @@ developing applications which use minizip.
 %prep
 %setup -q
 %patch0 -p1 -b .fixuncrypt
+%patch2 -p1
 %patch18 -p1
 %patch19 -p1
 %patch20 -p1
@@ -169,6 +173,10 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Tue Jan 10 2023 Lukas Javorsky <ljavorsk@redhat.com> - 1.2.13-2
+- Fix for the libxml2 and lxml on s390x
+- Resolves #2155328
+
 * Mon Oct 17 2022 Lukas Javorsky <ljavorsk@redhat.com> - 1.2.13-1
 - Rebase to version 1.2.13
 - Patches 21,24,25 has been upstreamed

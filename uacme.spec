@@ -1,6 +1,6 @@
 Name:           uacme
 Version:        1.7.3 
-Release:        1
+Release:        1%{?dist}
 Summary:        Lightweight SSL certificate verification and issue client
 
 License:        GPLv3

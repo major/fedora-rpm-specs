@@ -2,12 +2,15 @@
 
 Name:           libv3270
 Version:        5.4
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        3270 Virtual Terminal for GTK+3
 
 License:        LGPLv3
 URL:            https://github.com/PerryWerneck/libv3270
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Fixing configure.ac
+# Backport of https://github.com/PerryWerneck/libv3270/commit/1ffec2d7c84b92a175d5d193d57654a14b96fa79
+Patch0:         libv3270-fix-autotools.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -47,10 +50,11 @@ The %{name}-doc package contains documentation for %{name}.
 %endif
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 NOCONFIGURE=1 ./autogen.sh
+autopoint
 %configure
 # override SHELL to make the build more verbose
 %make_build all SHELL='sh -x'
@@ -85,34 +89,4 @@ doxygen doxygen
 %endif
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 5.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Mar 23 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.4-1
-- New upstream release
-
-* Wed Mar 17 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.3-5
-- Update requires for devel sub-package
-
-* Wed Mar 17 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.3-4
-- Update build requires
-- Stricter globbing for library soname
-
-* Sat Mar 13 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.3-3
-- Add license to doc sub-package and make it noarch
-- Update URL
-
-* Sat Mar 13 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.3-2
-- Do not remove buildroot on install
-- Make build output more verbose
-- Ensure build flags are applied
-- Build docs
-
-* Wed Mar  3 2021 Davide Cavalca <dcavalca@fedoraproject.org> - 5.3-1
-- Initial package
+%autochangelog

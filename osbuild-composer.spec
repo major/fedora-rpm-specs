@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        71
+Version:        72
 
 %gometa
 
@@ -29,7 +29,7 @@ Summary:        An image building service based on osbuild
 ExcludeArch:    i686 armv7hl
 
 # Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -168,7 +168,7 @@ Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
 Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20201008174630_78d3cae3a980
 Provides: bundled(golang(github.com/stretchr/testify)) = v1.8.0
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
-Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.3.1
+Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.3.2
 Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
 Provides: bundled(golang(github.com/ubccr/kerby)) = v0.0.0_20170626144437_201a958fc453
 Provides: bundled(golang(github.com/ulikunitz/xz)) = v0.5.10
@@ -209,17 +209,6 @@ Requires: %{name}-worker = %{version}-%{release}
 Requires: systemd
 
 Provides: weldr
-
-%if 0%{?rhel}
-Obsoletes: lorax-composer <= 29
-Conflicts: lorax-composer
-%endif
-
-# Remove when we stop releasing into Fedora 35
-%if 0%{?fedora} >= 34
-# lorax 34.3 is the first one without the composer subpackage
-Obsoletes: lorax-composer < 34.3
-%endif
 
 %description
 %{common_description}
@@ -496,7 +485,7 @@ fi
 Summary: The dnf-json binary used by osbuild-composer and the workers
 
 # Conflicts with older versions of composer that provide the same files
-# this can be removed when RHEL 8 and Fedora 35 reach EOL
+# this can be removed when RHEL 8 reaches EOL
 Conflicts: osbuild-composer <= 35
 
 %description dnf-json
@@ -582,6 +571,25 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jan 11 2023 Packit <hello@packit.dev> - 72-1
+Changes with 72
+----------------
+  * Dashboard metrics update (#3191)
+  * Enable 8.8 and 9.2 test runnners (#3134)
+  * Migrate to SPDX license (#3198)
+  * Schutzfile: update osbuild version to current main (v75) (#3201)
+  * Update to Go 1.18 and introduce a generic ToPtr method (#3204)
+  * build(deps): bump github.com/theupdateframework/go-tuf from 0.3.1 to 0.3.2 (#3205)
+  * osbuild-worker: add dnf-json error reason to depsolve job error (#3174)
+  * remove Fedora 35 support (#3179)
+  * terraform: update to the latest definitions (#3208)
+  * worker/server: log unresponsive job removal (#3206)
+
+Contributions from: Achilleas Koutsou, Alexander Todorov, Gianluca Zuccarelli, Jakub Rusz, Miroslav Suchý, Ondřej Budai, Sanne Raymaekers, dependabot[bot]
+
+— Somewhere on the Internet, 2023-01-11
+
+
 * Wed Dec 28 2022 Packit <hello@packit.dev> - 71-1
 Changes with 71
 ----------------

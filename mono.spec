@@ -24,7 +24,7 @@
 %global xamarinrelease 182
 Name:           mono
 Version:        6.12.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Cross-platform, Open Source, .NET development framework
 
 License:        MIT
@@ -182,7 +182,7 @@ assemblies: Microsoft.Vsa,
 System.Configuration.Install, System.Management, System.Messaging.
 
 %package reactive
-License:        MIT and ASL 2.0
+License:        MIT AND Apache-2.0
 Summary:        Reactive Extensions for Mono core libraries
 Requires:       mono-core = %{version}-%{release}
 
@@ -191,7 +191,7 @@ Reactive Extensions for Mono, this packages don't depend on
 desktop-specific features.
 
 %package reactive-winforms
-License:        MIT and ASL 2.0
+License:        MIT AND Apache-2.0
 Summary:        Reactive Extensions for Mono desktop-specific libraries
 Requires:       mono-core = %{version}-%{release}
 Requires:       mono-reactive = %{version}-%{release}
@@ -941,6 +941,9 @@ cert-sync --quiet /etc/pki/tls/certs/ca-bundle.crt
 %files complete
 
 %changelog
+* Tue Dec 27 2022 msuchy <msuchy@redhat.com> - 6.12.0-10
+- Migrate to SPDX license
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.12.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

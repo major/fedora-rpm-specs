@@ -1,6 +1,6 @@
 Name:           zeitgeist
 Version:        1.0.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Framework providing Desktop activity awareness
 # most of the source code is LGPLv2+, except:
 # datahub/ is LGPLv3+
@@ -90,6 +90,14 @@ sed -i.disable test/direct/Makefile.in \
 sed -i.disable test/c/Makefile.in \
 	-e 's|test-log\$(EXEEXT) \\|\\|'
 
+# python 3.11 removes inspect.getargspec (bug 2159916)
+# https://gitlab.freedesktop.org/zeitgeist/zeitgeist/-/issues/26
+# https://docs.python.org/3.11/whatsnew/3.11.html#removed
+%if 0%{?fedora} >= 37
+sed -i.py311 python/client.py \
+	-e 's|inspect.getargspec|inspect.getfullargspec|'
+%endif
+
 %build
 %configure --enable-fts --enable-datahub --disable-silent-rules
 %make_build
@@ -158,6 +166,9 @@ make check
 %{_datadir}/vala/vapi/zeitgeist-datamodel-2.0.vapi
 
 %changelog
+* Wed Jan 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-7
+- F-37+: Replace inspect.getargspec removed on python3.11 (bug 2159916)
+
 * Sat Sep 10 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-6
 - Upstream patch: datahub: Fix wrong parameter for Event.full() ctor
   (Upstream bug 19, RH bug 1779103)

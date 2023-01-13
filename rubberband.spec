@@ -3,7 +3,7 @@
 %global so_version 2
 
 Name:           rubberband
-Version:        3.1.0
+Version:        3.1.2
 Release:        %autorelease
 Summary:        Audio time-stretching and pitch-shifting library
 
@@ -48,7 +48,10 @@ developing applications that use %{name}.
 
 
 %build
-%meson -Dfft=fftw -Dresampler=libsamplerate
+%meson \
+  -Dfft=fftw \
+  -Djni=disabled \
+  -Dresampler=libsamplerate
 %meson_build
 
 
