@@ -1,8 +1,8 @@
 %global py_setup_args --with-system-hidapi
 
 Name:     python-hidapi
-Version:  0.12.0.post2
-Release:  4%{?dist}
+Version:  0.13.1
+Release:  1%{?dist}
 Summary:  Interface to the hidapi library
 
 License:  GPLv3+ or BSD or Public Domain
@@ -57,6 +57,9 @@ rm -rf hidapi hidapi.egg-info hid.c
 %{python3_sitearch}/hidapi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jan 12 2023 Jonny Heggheim <hegjon@gmail.com> - 0.13.1-1
+- Updated to version 0.13.1
+
 * Mon Nov 14 2022 Jonny Heggheim <hegjon@gmail.com> - 0.12.0.post2-4
 - Added missing BuildRequires for python3-setuptools
   Fixes rhbz#2142038

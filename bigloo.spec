@@ -65,6 +65,9 @@ Patch9:         %{name}-java-signum.patch
 # Migrate K&R C in the config scripts to ANSI C
 Patch10:        %{name}-configure-c99.patch
 
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2160579
+ExcludeArch:    ppc64le
+
 BuildRequires:  emacs
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -186,6 +189,10 @@ sed -i 's/LDOPTS=\"/&-Wl,--as-needed -lgc /' Makefile.misc
 sed -i 's/fcfa-arithmetic/& -rm/' configure
 sed -i 's/no-hello/& -rm/' bdb/bdb/Makefile
 sed -i 's/-O2/& -rm/' cigloo/Makefile
+
+# Remove warning flags not recognized by gcc
+sed -i 's/ -Wno-parentheses-equality//;s/ -Wno-invalid-source-encoding//' \
+    autoconf/ccwarning
 
 %build
 %define inplace $PWD/inplace
@@ -347,6 +354,7 @@ make test
 * Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 4.5a-1.1
 - Version 4.5a-1
 - Drop upstreamed patches: emacs28, bde-bmem-c99
+- Do not build on ppc64le until we can diagnose a segfault
 - Minor spec file cleanups
 
 * Fri Dec  9 2022 Florian Weimer <fweimer@redhat.com> - 4.4c-9.4

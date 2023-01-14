@@ -10,9 +10,9 @@
 Name: iptables
 Summary: Tools for managing Linux kernel packet filtering capabilities
 URL: https://www.netfilter.org/projects/iptables
-Version: 1.8.8
-Release: 3%{?dist}
-Source: %{url}/files/%{name}-%{version}.tar.bz2
+Version: 1.8.9
+Release: 1%{?dist}
+Source: %{url}/files/%{name}-%{version}.tar.xz
 Source1: iptables.init
 Source2: iptables-config
 Source3: iptables.service
@@ -20,7 +20,7 @@ Source4: sysconfig_iptables
 Source5: sysconfig_ip6tables
 Source6: arptables-nft-helper
 
-Patch01: 0001-xshared-Fix-build-for-Werror-format-security.patch
+Patch01: 0001-extensions-NAT-Fix-for-Werror-format-security.patch
 
 # pf.os: ISC license
 # iptables-apply: Artistic Licence 2.0
@@ -236,6 +236,13 @@ touch %{buildroot}%{_mandir}/man8/arptables-save.8
 touch %{buildroot}%{_mandir}/man8/arptables-restore.8
 touch %{buildroot}%{_mandir}/man8/ebtables.8
 
+# Drop xtables.conf, it's not used
+rm -f %{buildroot}%{_sysconfdir}/xtables.conf
+
+# fix absolute symlink
+rm -f %{buildroot}%{_bindir}/iptables-xml
+ln -s ../sbin/xtables-legacy-multi %{buildroot}%{_bindir}/iptables-xml
+
 %ldconfig_scriptlets
 
 %post legacy
@@ -349,12 +356,12 @@ fi
 %files compat
 
 %files legacy
-%doc INCOMPATIBILITIES
 %{_sbindir}/ip{,6}tables-legacy*
 %{_sbindir}/xtables-legacy-multi
 %{_bindir}/iptables-xml
 %{_mandir}/man1/iptables-xml*
 %{_mandir}/man8/xtables-legacy*
+%{_datadir}/xtables/iptables.xslt
 %ghost %{_sbindir}/ip{,6}tables{,-save,-restore}
 
 %files libs
@@ -405,6 +412,7 @@ fi
 %{_sbindir}/{eb,arp}tables-nft*
 %{_sbindir}/xtables-nft-multi
 %{_sbindir}/xtables-monitor
+%{_sbindir}/ebtables-translate
 %dir %{_libdir}/xtables
 %{_libdir}/xtables/lib{arp,eb}t*
 %{_libexecdir}/arptables-nft-helper
@@ -412,6 +420,7 @@ fi
 %{_mandir}/man8/xtables-translate*
 %{_mandir}/man8/*-nft*
 %{_mandir}/man8/ip{,6}tables{,-restore}-translate*
+%{_mandir}/man8/ebtables-translate*
 %ghost %{_sbindir}/ip{,6}tables{,-save,-restore}
 %ghost %{_sbindir}/{eb,arp}tables{,-save,-restore}
 %ghost %{_libexecdir}/arptables-helper
@@ -420,6 +429,13 @@ fi
 
 
 %changelog
+* Thu Jan 12 2023 Phil Sutter <psutter@redhat.com> - 1.8.9-1
+- Make iptables-xml a relative symlink
+- Drop not needed xtables.conf
+- Ship iptables.xslt with iptables-legacy package
+- Ship ebtables-translate tool with iptables-nft package
+- Update to 1.8.9.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

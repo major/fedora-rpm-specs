@@ -1,12 +1,14 @@
 Name:           httptunnel
 Version:        3.3
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Tunnels a data stream in HTTP requests
 
 License:        GPLv2
 URL:            http://www.nocrew.org/software/httptunnel.html
 #use debian repackage tarball, it doesn't include non-free documentation files
 Source0:        http://ftp.de.debian.org/debian/pool/main/h/httptunnel/httptunnel_%{version}+dfsg.orig.tar.gz
+Patch0:         httptunnel-configure-c99.patch
+Patch1:         httptunnel-headers-c99.patch
 BuildRequires:  gcc
 BuildRequires: make
 
@@ -16,7 +18,7 @@ HTTP requests. The requests can be sent via a HTTP proxy if so desired.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 recode()
 {
@@ -45,6 +47,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 12 2023 Peter Fordham <peter.fordham@gmail.com> - 3.3-31
+- Port configure script to C99.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

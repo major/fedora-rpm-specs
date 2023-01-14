@@ -1,7 +1,7 @@
 %global pkgname  profiling
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        Line by line profiling and code coverage for GAP
 
@@ -34,6 +34,9 @@ Requires:       gap-pkg-io%{?_isa}
 Requires:       which
 Requires:       xdg-utils
 
+# See https://fedoraproject.org/wiki/Bundled_Libraries_Virtual_Provides
+Provides:       bundled(md5-plumb)
+
 %description
 This package provides line-by-line profiling of GAP, allowing both
 discovering which lines of code take the most time, and which lines of
@@ -50,10 +53,10 @@ showing which functions took the most time during execution.
 %package doc
 # The content is MIT.  The remaining licenses cover the various fonts embedded
 # in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        MIT AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        MIT AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Profiling documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -84,33 +87,37 @@ fixtimestamp gap/profiling.gi
 export LC_ALL=C.UTF-8
 
 # This is not an autoconf-generated configure script; do not use %%configure
-./configure %{gap_dir}
+./configure %{gap_archdir}
 %make_build V=1
 
 # Build the documentation
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g bin data gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
+cp -a *.g bin data gap tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
 export BROWSER=elinks
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 
 %files
 %doc AUTHORS HISTORY.md README.md
 %license COPYRIGHT
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.5.2-1
+- Version 2.5.2
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.5.1-1
 - Clarify license of the doc subpackage
 

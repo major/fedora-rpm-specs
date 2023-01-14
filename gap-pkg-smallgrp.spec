@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Small groups library
 
 License:        Artistic-2.0
@@ -26,10 +26,10 @@ irredundant list of isomorphism type representatives of groups is given.
 %package doc
 # The content is Artistic-2.0.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        Artistic-2.0 AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        Artistic-2.0 AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Small groups library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -51,25 +51,28 @@ gap --bare makedoc.g
 parallel %{?_smp_mflags} --no-notice gzip --best -f ::: id*/* small*/*
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g gap id* small* tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g gap id* small* tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" --bare tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" --bare tst/testall.g
 
 %files
 %doc CHANGES.md README README.md
 %license COPYRIGHT.md LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.5.1-2
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.5.1-1
 - Version 1.5.1
 - Use upstream's method of bootstrapping

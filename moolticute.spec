@@ -1,8 +1,10 @@
 %bcond_without  tests
 
+%global udev_commit a0776914c1cd3922530d322f36244b0d413b29b8
+
 Name:           moolticute
 Version:        1.00.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Companion GUI application for Mooltipass password manager devices
 
 # The entire source code is GPL-3.0-or-later except:
@@ -20,7 +22,7 @@ Summary:        Companion GUI application for Mooltipass password manager device
 License:        GPL-3.0-or-later AND (GPL-3.0-only WITH Qt-GPL-exception-1.0) AND BSD-2-Clause AND BSD-3-Clause AND MIT AND OFL-1.1 AND CC-BY-3.0
 URL:            https://github.com/mooltipass/moolticute
 Source0:        https://github.com/mooltipass/%{name}/archive/refs/tags/v%{version}.tar.gz
-Source1:        https://raw.githubusercontent.com/mooltipass/mooltipass-udev/master/udev/69-mooltipass.rules
+Source1:        https://raw.githubusercontent.com/mooltipass/mooltipass-udev/%{udev_commit}/udev/69-mooltipass.rules
 # Add missing license: https://github.com/mooltipass/moolticute/pull/1098
 Source2:        LICENSE.CyoEncode
 Source3:        LICENSE.SimpleCrypt
@@ -131,6 +133,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_unitdir}/moolticuted.service
 
 %changelog
+* Thu Jan 12 2023 Arthur Bols <arthur@bols.dev> - 1.00.1-3
+- Specify udev rules source by commit hash
+
 * Sun Jan 01 2023 Arthur Bols <arthur@bols.dev> - 1.00.1-2
 - Add missing license files
 

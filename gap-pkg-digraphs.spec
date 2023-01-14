@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP package for digraphs and multidigraphs
 
 # The project as a whole is GPL-3.0-or-later.
@@ -64,7 +64,7 @@ rm -fr extern/edge-addition-planarity-suite-Version_3.0.1.0
 
 %build
 export LC_ALL=C.UTF-8
-%configure --with-gaproot=%{gap_dir} --disable-silent-rules \
+%configure --with-gaproot=%{gap_archdir} --disable-silent-rules \
   --with-external-planarity
 %make_build
 
@@ -79,9 +79,9 @@ rmdir bin/lib
 
 %install
 # make install doesn't put ANYTHING where it is supposed to go, so...
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
 cp -a bin data gap notebooks tst VERSION* *.g \
-   %{buildroot}%{gap_dir}/pkg/%{pkgname}
+   %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
@@ -95,14 +95,17 @@ rm -fr ../pkg
 %files
 %doc CHANGELOG.md README.md
 %license GPL LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.1-2
+- Update for split GAP directories
+
 * Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 1.6.1-1
 - Version 1.6.1
 

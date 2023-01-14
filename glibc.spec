@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-415-g5f55b22f4b
+%global glibcsrcdir glibc-2.36.9000-430-g2d2d7e1a8f
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 20
+%global baserelease 21
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,25 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Jan 11 2023 Patsy Griffin <patsy@redhat.com> - 2.36.9000-21
+- Auto-sync with upstream branch master,
+  commit 2d2d7e1a8f2e62b442ae8978f0a6c17f385575c4.
+- configure: Allow user override LD, AR, OBJCOPY, and GPROF
+- math: Suppress -O0 warnings for soft-fp fsqrt [BZ #19444]
+- sunrpc: Suppress GCC -O1 warning on user2netname [BZ #19444]
+- locale: Use correct buffer size for utf8_sequence_error [BZ #19444]
+- Add HWCAP2_SVE_EBF16 from Linux 6.1 to AArch64 bits/hwcap.h
+- Add _FORTIFY_SOURCE implementation documentation [BZ #28998]
+- Update copyright dates not handled by scripts/update-copyrights
+- Update copyright dates with scripts/update-copyrights
+- Remove trailing whitespace in gmp.h
+- Remove trailing whitespace
+- C2x semantics for <tgmath.h>
+- time: Set daylight to 1 for matching DST/offset change (bug 29951)
+- Fix ldbl-128 built-in function use
+- x86: Check minimum/maximum of non_temporal_threshold [BZ #29953]
+- i686: Regenerate ulps
+
 * Mon Jan 02 2023 Arjun Shankar <arjun@redhat.com> - 2.36.9000-20
 - Drop glibc-rh2155825.patch; fix applied upstream, and
 - Auto-sync with upstream branch master,

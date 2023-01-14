@@ -7,7 +7,7 @@
 %endif
 
 %global numjobs 10
-%ifarch aarch64 i686
+%ifarch aarch64
 %global numjobs 8
 %endif
 
@@ -111,14 +111,9 @@
 # enable system brotli
 %global bundlebrotli 0
 
-%if 0
 # Chromium's fork of ICU is now something we can't unbundle.
 # This is left here to ease the change if that ever switches.
-BuildRequires: libicu-devel >= 5.4
-%global bundleicu 0
-%else
 %global bundleicu 1
-%endif
 
 %global bundlere2 1
 
@@ -215,8 +210,8 @@ BuildRequires: libicu-devel >= 5.4
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 108.0.5359.124
-Release: 5%{?dist}
+Version: 109.0.5414.74
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -256,38 +251,32 @@ Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
 Patch12: chromium-101.0.4951.41-fedora-user-agent.patch
 
 # Needs to be submitted..
-Patch51:	chromium-96.0.4664.45-gcc-remoting-constexpr.patch
+Patch51: chromium-96.0.4664.45-gcc-remoting-constexpr.patch
 
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/www-client/chromium/files/chromium-unbundle-zlib.patch
-Patch52:	chromium-81.0.4044.92-unbundle-zlib.patch
+Patch52: chromium-81.0.4044.92-unbundle-zlib.patch
 
 # ../../third_party/perfetto/include/perfetto/base/task_runner.h:48:55: error: 'uint32_t' has not been declared
-Patch56:	chromium-96.0.4664.45-missing-cstdint-header.patch
+Patch56: chromium-96.0.4664.45-missing-cstdint-header.patch
 
 # Missing <cstring> (thanks c++17)
-Patch57:	chromium-96.0.4664.45-missing-cstring.patch
+Patch57: chromium-96.0.4664.45-missing-cstring.patch
 
 # https://github.com/stha09/chromium-patches/blob/master/chromium-103-VirtualCursor-std-layout.patch
-Patch59:	chromium-103-VirtualCursor-std-layout.patch
+Patch59: chromium-103-VirtualCursor-std-layout.patch
 
 # Fix headers to look for system paths when we are using system minizip
-Patch61:	chromium-107.0.5304.101-system-minizip-header-fix.patch
+Patch61: chromium-109-system-minizip-header-fix.patch
 
 # Update bundled copy of wayland-client-core.h
-Patch62:	chromium-105.0.5195.52-update-wayland-client-core.patch
+Patch62: chromium-105.0.5195.52-update-wayland-client-core.patch
 
 # Fix issue where closure_compiler thinks java is only allowed in android builds
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1192875
-Patch65:	chromium-91.0.4472.77-java-only-allowed-in-android-builds.patch
-
-# Fix missing cstring in remoting code
-Patch67:	chromium-98.0.4758.80-remoting-cstring.patch
-
-# Apply fix_textrels hack for i686 (even without lld)
-Patch68:	chromium-84.0.4147.125-i686-fix_textrels.patch
+Patch65: chromium-91.0.4472.77-java-only-allowed-in-android-builds.patch
 
 # Update rjsmin to 1.2.0
-Patch69:	chromium-103.0.5060.53-update-rjsmin-to-1.2.0.patch
+Patch69: chromium-103.0.5060.53-update-rjsmin-to-1.2.0.patch
 
 # Update six to 1.16.0
 Patch70:	chromium-105.0.5195.52-python-six-1.16.0.patch
@@ -318,7 +307,7 @@ Patch89: chromium-108-system-brotli.patch
 
 # disable GlobalMediaControlsCastStartStop to avoid crash
 # when using the address bar media player button
-Patch90: chromium-108-disable-GlobalMediaControlsCastStartStop.patch
+Patch90: chromium-109-disable-GlobalMediaControlsCastStartStop.patch
 
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
@@ -361,9 +350,6 @@ Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
 # AARCH64 neon symbols need to be prefixed too to prevent multiple definition issue at linktime
 Patch110: chromium-90.0.4430.93-epel8-aarch64-libpng16-symbol-prefixes.patch
 
-# memset was not declared in this scope
-Patch113: chromium-107.0.5304.110-cstring-memset.patch
-
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
@@ -374,7 +360,7 @@ Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 
 # clang =< 14 and C++20, linker errors std::u16string
 # build failure on rhel and fedora 36
-Patch120: chromium-108-clang14-c++20-link-error.patch
+Patch120: chromium-109-clang14-c++20-link-error.patch
 
 # enable Qt
 Patch121: chromium-108-enable-allowqt.patch
@@ -383,8 +369,7 @@ Patch121: chromium-108-enable-allowqt.patch
 # Upstream turned VAAPI on in Linux in 86
 Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
 Patch205: chromium-86.0.4240.75-fix-vaapi-on-intel.patch
-Patch206: chromium-108-ozone-wayland-vaapi-support.patch
-Patch207: chromium-108-vaapi-guard-vaapivideodecoder.patch
+Patch206: chromium-109-ozone-wayland-vaapi-support.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
@@ -396,6 +381,7 @@ Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
 # https://commondatastorage.googleapis.com/chromium-browser-official/chromium-%%{version}.tar.xz
 Source0: chromium-%{version}-clean.tar.xz
 Source1: README.fedora
+Source2: chromium.conf
 Source3: chromium-browser.sh
 Source4: %{chromium_browser_channel}.desktop
 # Also, only used if you want to reproduce the clean tarball.
@@ -624,6 +610,10 @@ BuildRequires:	python3-devel
 BuildRequires: python3-zipp
 BuildRequires: python3-simplejson
 
+%if 0%{?rhel} == 7 || 0%{?rhel} == 8  
+BuildRequires: python3-dataclasses
+%endif
+
 %if ! 0%{?bundlepylibs}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: python3-beautifulsoup4
@@ -645,10 +635,6 @@ BuildRequires:	re2-devel >= 20160401
 
 %if ! 0%{?bundlebrotli}
 BuildRequires: brotli-devel
-%endif
-
-%if ! %{bundleopus}
-BuildRequires: opus-devel
 %endif
 
 BuildRequires:	speech-dispatcher-devel
@@ -975,8 +961,6 @@ udev.
 %endif
 
 %patch65 -p1 -b .java-only-allowed
-%patch67 -p1 -b .remoting-cstring
-%patch68 -p1 -b .i686-textrels
 %patch69 -p1 -b .update-rjsmin-to-1.2.0
 %patch70 -p1 -b .update-six-to-1.16.0
 %patch80 -p1 -b .EnumTable-crash
@@ -1008,8 +992,6 @@ udev.
 %if 0%{?fedora}
 %patch12 -p1 -b .fedora-user-agent
 %endif
-
-%patch113 -p1 -b .memset
 
 %if ! 0%{?bundleffmpegfree}
 %patch114 -p1 -b .system-ffmppeg
@@ -1044,7 +1026,6 @@ udev.
 %patch202 -p1 -b .accel-mjpeg
 %patch205 -p1 -b .vaapi-intel-fix
 %patch206 -p1 -b .wayland-vaapi
-%patch207 -p1 -b .guard-vaapiVideoDecoder
 %endif
 
 %if 0%{?use_qt}
@@ -1272,7 +1253,6 @@ CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_kerberos=true'
 CHROMIUM_CORE_GN_DEFINES+=' target_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' current_os="linux"'
-CHROMIUM_CORE_GN_DEFINES+=' use_allocator="none"'
 CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
@@ -1589,6 +1569,9 @@ cp -a chrome/app/theme/chromium/product_logo_24.png %{buildroot}%{_datadir}/icon
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 install -m 0644 %{SOURCE13} %{buildroot}%{_sysconfdir}/%{name}/
 
+# Install system wide chromium config
+install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}/
+
 mkdir -p %{buildroot}%{_datadir}/applications/
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
 
@@ -1639,7 +1622,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %doc AUTHORS README.fedora
 %doc chrome_policy_list.html *.json
 %license LICENSE
-%config %{_sysconfdir}/%{name}/
+%config(noreplace) %{_sysconfdir}/%{name}/chromium.conf
+%config %{_sysconfdir}/%{name}/master_preferences
+%config %{_sysconfdir}/%{name}/policies/
 %if %{build_remoting}
 %exclude %{_sysconfdir}/%{name}/native-messaging-hosts/*
 %endif
@@ -1776,6 +1761,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Jan 11 2023 Than Ngo <than@redhat.com> - 109.0.5414.74-1
+- update to 109.0.5414.74
+
 * Tue Jan 10 2023 Than Ngo <than@redhat.com> - 108.0.5359.124-5
 - enable qt backend for el >= 9 and fedora >= 35
 - drop i686

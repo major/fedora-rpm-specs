@@ -50,7 +50,7 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.19.0
-Release: 1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Release: 2%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPLv2+
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -115,6 +115,9 @@ Recommends: subscription-manager
 Requires: python3-syspurpose
 %endif
 %endif
+# https://bugzilla.redhat.com/show_bug.cgi?id=2154801
+# https://github.com/redhat-performance/tuned/pull/490
+Patch0: tuned-2.19.0-python312-fix.patch
 
 %description
 The tuned package contains a daemon that tunes system settings dynamically.
@@ -561,6 +564,10 @@ fi
 %{_mandir}/man7/tuned-profiles-openshift.7*
 
 %changelog
+* Thu Jan 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.19.0-2
+- added fix for python-3.12
+  resolves: rhbz#2154801
+
 * Fri Aug 19 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 2.19.0-1
 - new release
   - rebased tuned to latest upstream

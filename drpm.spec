@@ -7,7 +7,7 @@
 
 Name:           drpm
 Version:        0.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library for making, reading and applying deltarpm packages
 # the entire source code is LGPLv2+, except src/drpm_diff.c and src/drpm_search.c which are BSD
 License:        LGPLv2+ and BSD
@@ -18,6 +18,7 @@ Source:         %{url}/releases/download/%{version}/%{name}-%{version}.tar.bz2
 # add workaround for gcc7 on ppc64le temporary before it's fixed in gcc
 # https://bugzilla.redhat.com/show_bug.cgi?id=1420350
 Patch1:         drpm-0.3.0-workaround-ppc64le-gcc.patch
+Patch2:         drpm-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 2.8.5
@@ -85,6 +86,9 @@ The drpm-devel package provides a C interface (drpm.h) for the drpm library.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 0.5.1-3
+- C99 compatibility fix
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

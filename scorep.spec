@@ -21,14 +21,14 @@
 %{?el7:%global dts devtoolset-9}
 
 Name:           scorep
-Version:        7.1
-Release:        6%{?dist}
+Version:        8.0
+Release:        1%{?dist}
 Summary:        Scalable Performance Measurement Infrastructure for Parallel Codes
 License:        BSD-3-Clause
 URL:            http://www.vi-hps.org/projects/score-p/
 Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/scorep/tags/scorep-%{version}/scorep-%{version}.tar.gz
-# Recommended by developers
-Source1:        https://github.com/score-p/libunwind/archive/%{libuwcommit}/libunwind-%{libuwshort}.tar.gz
+# No longer recommended?
+%{?unwind:Source1:        https://github.com/score-p/libunwind/archive/%{libuwcommit}/libunwind-%{libuwshort}.tar.gz}
 Patch1:         scorep-rpath.patch
 BuildRequires: make
 BuildRequires:  gcc-gfortran
@@ -36,10 +36,10 @@ BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  binutils-devel
 BuildRequires:  chrpath
-BuildRequires:  cube-libs-devel >= 4.5
+BuildRequires:  cube-libs-devel >= 4.8
 BuildRequires:  ocl-icd-devel
 BuildRequires:  opari2 >= 2.0
-BuildRequires:  otf2-devel >= 2.3
+BuildRequires:  otf2-devel >= 3.0
 BuildRequires:  papi-devel
 BuildRequires:  gcc-plugin-devel
 # Required for cubelib to build scorep-score against cubew 4.5
@@ -52,15 +52,15 @@ BuildRequires:  clang-devel
 BuildRequires:  automake libtool
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       binutils-devel%{?_isa}
-Requires:       cube-libs-devel%{?_isa} >= 4.5
-Requires:       otf2-devel%{?_isa} >= 2.3
+Requires:       cube-libs-devel%{?_isa} >= 4.8
+Requires:       otf2-devel%{?_isa} >= 3.0
 Requires:       papi-devel%{?_isa}
 Requires:       ocl-icd-devel%{?_isa}
 Requires:       opari2%{?_isa} >= 2.0
 # s390 is missing papi and libunwind; 32-bit fails with configure
 # "cannot determine instruction set" in v7.0.
 ExcludeArch: s390 s390x armv7hl i686
-Provides:       bundled(libunwind) = 1.3
+%{?unwind:Provides:       bundled(libunwind) = 1.3}
 
 %global with_mpich 1
 %global with_openmpi 1
@@ -91,12 +91,14 @@ Provides:       bundled(libunwind) = 1.3
 %global __requires_exclude_from ^%{_libdir}(/(openmpi|mpich)/lib)?/libscorep_.*|^%{_docdir}/.*$
 
 
-%description
-The Score-P (Scalable Performance Measurement Infrastructure for
-Parallel Codes) measurement infrastructure is a highly scalable and
-easy-to-use tool suite for profiling, event trace recording, and
-online analysis of HPC applications.
+%global desc \
+The Score-P (Scalable Performance Measurement Infrastructure for\
+Parallel Codes) measurement infrastructure is a highly scalable and\
+easy-to-use tool suite for profiling and event trace recording of\
+HPC applications.
 
+%description
+%desc
 
 %package        doc
 Summary:        Documentation for %{name}
@@ -131,10 +133,7 @@ Requires:       otf2-devel%{?_isa} >= 2.3
 Requires:       papi-devel%{?_isa}
 
 %description mpich
-The Score-P (Scalable Performance Measurement Infrastructure for
-Parallel Codes) measurement infrastructure is a highly scalable and
-easy-to-use tool suite for profiling, event trace recording, and
-online analysis of HPC applications.
+%desc
 
 This package was compiled with mpich.
 
@@ -142,7 +141,7 @@ This package was compiled with mpich.
 %package mpich-libs
 Summary:        Score-P mpich runtime libraries
 Requires:       %{name}-mpich-config%{?_isa} = %{version}-%{release}
-#Provides:       bundled(libunwind) = 1.3
+%{?unwind:Provides:       bundled(libunwind) = 1.3}
 
 %description mpich-libs
 Score-P mpich runtime libraries.
@@ -163,20 +162,17 @@ Requires:       %{name}-openmpi-libs%{?_isa} = %{version}-%{release}
 Requires:       cube-devel%{?_isa} >= 4.5
 Requires:       otf2-devel%{?_isa} >= 2.3
 Requires:       papi-devel%{?_isa}
-#Provides:       bundled(libunwind) = 1.3
+%{?unwind:Provides:       bundled(libunwind) = 1.3}
 
 %description openmpi
-The Score-P (Scalable Performance Measurement Infrastructure for
-Parallel Codes) measurement infrastructure is a highly scalable and
-easy-to-use tool suite for profiling, event trace recording, and
-online analysis of HPC applications.
+%desc
 
 This package was compiled with openmpi.
 
 %package openmpi-libs
 Summary:        Score-P openmpi runtime libraries
 Requires:       %{name}-openmpi-config%{?_isa} = %{version}-%{release}
-#Provides:       bundled(libunwind) = 1.3
+%{?unwind:Provides:       bundled(libunwind) = 1.3}
 
 %description openmpi-libs
 Score-P openmpi runtime libraries.
@@ -198,16 +194,13 @@ Requires:       otf2-devel%{?_isa} >= 2.3
 Requires:       papi-devel%{?_isa}
 
 %description openmpi3
-The Score-P (Scalable Performance Measurement Infrastructure for
-Parallel Codes) measurement infrastructure is a highly scalable and
-easy-to-use tool suite for profiling, event trace recording, and
-online analysis of HPC applications.
+%desc
 
 This package was compiled with openmpi3.
 
 %package openmpi3-libs
 Summary:        Score-P openmpi3 runtime libraries
-#Provides:       bundled(libunwind) = 1.3
+%{?unwind:Provides:       bundled(libunwind) = 1.3}
 
 %description openmpi3-libs
 Score-P openmpi3 runtime libraries.
@@ -229,7 +222,7 @@ mkdir bin
 # configure expects llvm-config
 ln -s %_bindir/llvm-config-%__isa_bits bin/llvm-config
 %patch1 -p1 -b .rpath
-tar fx %SOURCE1
+%{?unwind:tar fx %SOURCE1}
 
 
 %build
@@ -241,6 +234,7 @@ tar fx %SOURCE1
 %{?dts:. /opt/rh/%dts/enable}
 %global _configure ../configure
 # It doesn't build on aarch64 due to missing ELF definitions
+%if 0%{?unwind}
 %ifarch x86_64
 pushd libunwind*
 # Per Fedora packaging
@@ -254,8 +248,9 @@ popd
 # See above
 PATH=$(pwd)/bin:$PATH
 %endif
+%endif
 # Fixme: --disable-silent-rules or V=1 doesn't work in all parts of the build
-%global configure_opts --enable-shared --disable-static --disable-silent-rules --with-unwind=$(pwd)/unwind
+%global configure_opts --enable-shared --disable-static --disable-silent-rules %{?unwind:--with-unwind=$(pwd)/unwind}
 
 cp /usr/lib/rpm/redhat/config.{sub,guess} build-config/
 
@@ -338,7 +333,7 @@ make -C serial check V=1
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog README THANKS OPEN_ISSUES
+%doc AUTHORS ChangeLog README.md THANKS OPEN_ISSUES
 %{_bindir}/scorep
 %{_bindir}/scorep-backend-info
 %{_bindir}/scorep-g++
@@ -347,7 +342,6 @@ make -C serial check V=1
 %{_bindir}/scorep-info
 %{_bindir}/scorep-score
 %{_bindir}/scorep-wrapper
-%{_bindir}/scorep-online-access-registry
 %{_bindir}/scorep-preload-init
 %if %{dowrap}
 %{_bindir}/scorep-libwrap-init
@@ -372,7 +366,7 @@ make -C serial check V=1
 %if %{with_mpich}
 %files mpich
 %license COPYING
-%doc AUTHORS ChangeLog README THANKS OPEN_ISSUES
+%doc AUTHORS ChangeLog README.md THANKS OPEN_ISSUES
 %{_libdir}/mpich/bin/scorep
 %{_libdir}/mpich/bin/scorep-backend-info
 %{_libdir}/mpich/bin/scorep-g++
@@ -385,7 +379,6 @@ make -C serial check V=1
 %{_libdir}/mpich/bin/scorep-mpif90
 %{_libdir}/mpich/bin/scorep-score
 %{_libdir}/mpich/bin/scorep-wrapper
-%{_libdir}/mpich/bin/scorep-online-access-registry
 %{_libdir}/mpich/bin/scorep-preload-init
 %if %{dowrap}
 %{_libdir}/mpich/bin/scorep-libwrap-init
@@ -406,7 +399,7 @@ make -C serial check V=1
 %if %{with_openmpi}
 %files openmpi
 %license COPYING
-%doc AUTHORS ChangeLog README THANKS OPEN_ISSUES
+%doc AUTHORS ChangeLog README.md THANKS OPEN_ISSUES
 %{_libdir}/openmpi/bin/scorep
 %{_libdir}/openmpi/bin/scorep-backend-info
 %{_libdir}/openmpi/bin/scorep-g++
@@ -424,7 +417,6 @@ make -C serial check V=1
 %endif
 %{_libdir}/openmpi/bin/scorep-score
 %{_libdir}/openmpi/bin/scorep-wrapper
-%{_libdir}/openmpi/bin/scorep-online-access-registry
 %{_libdir}/openmpi/bin/scorep-preload-init
 %if %{dowrap}
 %{_libdir}/openmpi/bin/scorep-libwrap-init
@@ -445,7 +437,7 @@ make -C serial check V=1
 %if %{with_openmpi3}
 %files openmpi3
 %license COPYING
-%doc AUTHORS ChangeLog README THANKS OPEN_ISSUES
+%doc AUTHORS ChangeLog README.md THANKS OPEN_ISSUES
 %{_libdir}/openmpi3/bin/scorep
 %{_libdir}/openmpi3/bin/scorep-backend-info
 %{_libdir}/openmpi3/bin/scorep-g++
@@ -463,7 +455,6 @@ make -C serial check V=1
 %endif
 %{_libdir}/openmpi3/bin/scorep-score
 %{_libdir}/openmpi3/bin/scorep-wrapper
-%{_libdir}/openmpi3/bin/scorep-online-access-registry
 %{_libdir}/openmpi3/bin/scorep-preload-init
 %{_libdir}/openmpi3/lib/scorep/
 %{_includedir}/openmpi3-%{_arch}/scorep/
@@ -479,6 +470,9 @@ make -C serial check V=1
 
 
 %changelog
+* Sat Dec 17 2022 Dave Love <loveshack@fedoraproject.org> - 8.0-1
+- New version, which has removed online component (#2154187)
+
 * Wed Sep 21 2022 Dave Love <loveshack@fedoraproject.org> - 7.1-6
 - Use SPDX licence tag
 

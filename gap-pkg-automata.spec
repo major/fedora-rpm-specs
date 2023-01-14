@@ -2,14 +2,14 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Finite automata algorithms
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
-URL:            https://gap-packages.github.io/%{pkgname}/
-Source0:        https://github.com/gap-packages/%{pkgname}/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
+URL:            https://gap-packages.github.io/automata/
+Source0:        https://github.com/gap-packages/automata/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -31,6 +31,13 @@ GAP.  It can do the following:
 - visualize automata.
 
 %package doc
+# The content is GPL-2.0-or-later.  The remaining licenses cover the various
+# fonts embedded in PDFs.
+# CM: Knuth-CTAN
+# CM-Super: GPL-1.0-or-later
+# Nimbus: AGPL-3.0-only
+# StandardSymL: GPL-1.0-or-later
+License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Finite automata documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -46,25 +53,31 @@ export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g gap tst version %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g gap tst version %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc CHANGES EXAMPLES README.md
 %license GPL LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.15-4
+- Update for split GAP directories
+
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.15-4
+- Clarify license of the doc subpackage
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.15-3
 - Update for gap 4.12.0
 

@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GAP access to mpfr, mpfi, mpc, fplll and cxsc
 
 License:        GPL-2.0-or-later
@@ -37,11 +37,11 @@ and CXSC.
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        FLOAT documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -59,7 +59,7 @@ sed -i 's/-O3 -fomit-frame-pointer//;s/-O3/-O2/' configure
 %build
 export LC_ALL=C.UTF-8
 export CPPFLAGS="-I %{_includedir}/cxsc"
-%configure --with-gaproot=%{gap_dir} --without-gcc-arch
+%configure --with-gaproot=%{gap_archdir}
 %make_build
 
 # Build the documentation
@@ -73,28 +73,31 @@ rm -fr ../pkg
 
 # Install the GAP files; we install test files for use by GAP's internal test
 # suite runner.
-cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
-rm -f %{buildroot}%{gap_dir}/pkg/%{pkgname}/{lib,tst}/Makefile*
+cp -a *.g lib tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
+rm -f %{buildroot}%{gap_archdir}/pkg/%{pkgname}/{lib,tst}/Makefile*
 
 # Install the documentation
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 
 %files
 %doc README.md THANKS
 %license COPYING
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.0.3-5
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-4
 - Clarify license of the doc subpackage
 

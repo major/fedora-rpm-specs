@@ -10,7 +10,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.2.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Algebraic number theory for GAP
 
 License:        GPL-2.0-or-later
@@ -41,9 +41,9 @@ Most computations with Alnuth rely on this interface.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only
 Summary:        Alnuth documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -58,39 +58,42 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/etc ../../etc
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/etc ../../etc
+ln -s %{gap_libdir}/doc ../../doc
 pushd doc
 ./make_doc
 popd
 rm -f ../../{doc,etc}
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g exam gap gp htm tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g exam gap gp htm tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %if %{without bootstrap}
 %check
 # Tests that depend on RadiRoot will fail during a bootstrap build.
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %endif
 
 %files
 %doc CHANGES.md README.md
 %license GPL
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 3.2.1-4
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.2.1-3
 - Clarify license of the doc subpackage
 

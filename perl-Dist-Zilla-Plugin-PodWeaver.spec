@@ -1,10 +1,12 @@
 Name:           perl-Dist-Zilla-Plugin-PodWeaver
-Version:        4.009
-Release:        5%{?dist}
+Version:        4.010
+Release:        1%{?dist}
 Summary:        Weave your POD together from configuration and Dist::Zilla
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-PodWeaver
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Dist-Zilla-Plugin-PodWeaver-%{version}.tar.gz
+# Make the packaged tests useful, not suitable for upstream.
+Patch0:         Dist-Zilla-Plugin-PodWeaver-4.010-List-tested-files-explicitely.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -16,7 +18,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 # A Dist::Zilla plug-in, version from META
-BuildRequires:  perl(Dist::Zilla) >= 5
+BuildRequires:  perl(Dist::Zilla) >= 6
 BuildRequires:  perl(Dist::Zilla::Role::FileFinderUser)
 BuildRequires:  perl(Dist::Zilla::Role::FileMunger)
 BuildRequires:  perl(experimental)
@@ -29,12 +31,11 @@ BuildRequires:  perl(Pod::Weaver::Config::Assembler)
 BuildRequires:  perl(PPI)
 BuildRequires:  perl(utf8)
 # Tests:
-BuildRequires:  perl(File::Find::Rule)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
 Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # A Dist::Zilla plug-in, version from META
-Requires:       perl(Dist::Zilla) >= 5
+Requires:       perl(Dist::Zilla) >= 6
 Requires:       perl(Dist::Zilla::Role::FileFinderUser)
 Requires:       perl(Dist::Zilla::Role::FileMunger)
 Requires:       perl(Pod::Elemental::PerlMunger) >= 0.1
@@ -61,7 +62,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Dist-Zilla-Plugin-PodWeaver-%{version}
+%autosetup -p1 -n Dist-Zilla-Plugin-PodWeaver-%{version}
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -78,9 +79,6 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
-install -d %{buildroot}%{_libexecdir}/%{name}/lib/Dist/Zilla/Plugin
-ln -s %{perl_vendorlib}/Dist/Zilla/Plugin/PodWeaver.pm \
-    %{buildroot}%{_libexecdir}/%{name}/lib/Dist/Zilla/Plugin
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
 unset AUTHOR_TESTING
@@ -103,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 12 2023 Petr Pisar <ppisar@redhat.com> - 4.010-1
+- 4.010 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.009-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

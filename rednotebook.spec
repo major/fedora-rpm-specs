@@ -1,5 +1,5 @@
 Name:           rednotebook
-Version:        2.29
+Version:        2.29.1
 Release:        1%{?dist}
 Summary:        Daily journal with calendar, templates and keyword searching
 
@@ -8,6 +8,7 @@ URL:            http://rednotebook.sourceforge.net
 Source0:        https://github.com/jendrikseipp/rednotebook/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
+BuildRequires:  gettext
 BuildRequires:  python3-devel
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  python-setuptools
@@ -65,6 +66,9 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Thu Jan 12 2023 Phil Wyett <philip.wyett@kathenas.org> - 2.29.1-1
+- New upstream version 2.29.1
+
 * Sat Dec 31 2022 Phil Wyett <philip.wyett@kathenas.org> - 2.29-1
 - New upstream version 2.29
 

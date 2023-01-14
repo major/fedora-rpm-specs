@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 63
+%global microversion 64
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -359,7 +359,7 @@ cp %{SOURCE1} subprojects/packagefiles/
     -D docs=enabled -D man=enabled -D gstreamer=enabled -D systemd=enabled	\
     -D gstreamer-device-provider=disabled -D sdl2=disabled 			\
     -D audiotestsrc=disabled -D videotestsrc=disabled				\
-    -D volume=disabled -D bluez5-codec-aptx=disabled 				\
+    -D volume=disabled -D bluez5-codec-aptx=disabled -D roc=disabled  		\
     -D bluez5-codec-lc3plus=disabled						\
 %ifarch s390x
     -D bluez5-codec-ldac=disabled						\
@@ -520,8 +520,8 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-pulse-tunnel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-raop-discover.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-raop-sink.so
-%{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-sink.so
-%{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-source.so
+#{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-sink.so
+#{_libdir}/pipewire-%{apiversion}/libpipewire-module-roc-source.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtkit.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-sink.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-rtp-source.so
@@ -659,6 +659,10 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu Jan 12 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.64-1
+- Update version to 0.3.64
+- Disable ROC again until 0.2 support is merged in fedora.
+
 * Sun Jan 01 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.63-2
 - Rebuild for new libcamera again
 

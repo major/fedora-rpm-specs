@@ -16,10 +16,10 @@
 # Unset -s on python shebang - ensure that extensions installed with pip
 # to user locations are seen and properly loaded
 # Fixes https://bugzilla.redhat.com/2057015
-%global py3_shebang_flags %(echo %py3_shebang_flags | sed s/s//)
+%undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.2.6
+Version:        4.2.8
 Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
@@ -46,9 +46,6 @@ BuildRequires:  /usr/bin/python
 BuildRequires:  libffi-devel
 # xdist is not used upstream, but we use it to speed up the %%check
 BuildRequires:  python3-pytest-xdist
-# wheel should be included upstream
-# https://github.com/tox-dev/tox/pull/2843
-BuildRequires:  python3-wheel
 %if %{with ci_tests}
 # The CI tests only work if the tested tox is installed :(
 BuildRequires:  tox = %{version}-%{release}
@@ -160,6 +157,12 @@ k="${k-}${k+ and }not test_local_execute_write_a_lot"
 
 
 %changelog
+* Thu Jan 12 2023 Miro Hrončok <mhroncok@redhat.com> - 4.2.8-1
+- Update to 4.2.8 (rhbz#2160315)
+
+* Wed Jan 11 2023 Miro Hrončok <mhroncok@redhat.com> - 4.2.7-1
+- Update to 4.2.7 (rhbz#2160186)
+
 * Tue Jan 3 2023 Lumír Balhar <lbalhar@redhat.com> - 4.2.6-1
 - Update to 4.2.6 (rhbz#1914413)
 

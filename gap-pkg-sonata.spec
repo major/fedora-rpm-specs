@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP package for systems of nearrings
 
 License:        GPL-2.0-or-later
@@ -74,11 +74,11 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 # Use the main gap package's macro file
 rm -f doc/gapmacro.tex
-ln -s %{gap_dir}/doc/gapmacro.tex doc/gapmacro.tex
+ln -s %{gap_libdir}/doc/gapmacro.tex doc/gapmacro.tex
 
 # Fix the documentation build script
-sed -e 's,\.\./\.\./\.\./\.\./etc/convert\.pl,%{gap_dir}/etc/convert.pl,' \
-    -e 's,\.\./\.\./\.\./\.\./doc/manualindex,%{gap_dir}/doc/manualindex,' \
+sed -e 's,\.\./\.\./\.\./\.\./etc/convert\.pl,%{gap_libdir}/etc/convert.pl,' \
+    -e 's,\.\./\.\./\.\./\.\./doc/manualindex,%{gap_libdir}/doc/manualindex,' \
     -i doc/make_doc
 
 %build
@@ -92,27 +92,30 @@ popd
 parallel %{?_smp_mflags} --no-notice gzip --best ::: nr/*.nr nri/*.nr
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc/{ref,tut}
-cp -a *.g grp lib nr nri tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc/{ref,tut}
+cp -a *.g grp lib nr nri tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs -d doc/ref
 %gap_copy_docs -d doc/tut
-cp -a doc/htm %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -a doc/htm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc README
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.9.6-2
+- Update for split GAP directories
+
 * Tue Dec  6 2022 Jerry James <loganjerry@gmail.com> - 2.9.6-1
 - Version 2.9.6
 

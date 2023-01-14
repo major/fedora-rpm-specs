@@ -1,11 +1,10 @@
-%global srcname tasklib
 %global sum Python Task Warrior library
 
 %global forgeurl https://github.com/GothenburgBitFactory/tasklib
 
 
 Name:           python-tasklib
-Version:        2.4.3
+Version:        2.5.1
 Release:        %autorelease
 Summary:        %{sum}
 
@@ -19,6 +18,7 @@ Source0:        %forgesource
 BuildArch:      noarch
 BuildRequires:  python3-devel
 # Tests
+BuildRequires:  python3-pytest
 BuildRequires:  task >= 2.4
 
 
@@ -55,7 +55,7 @@ Older versions of taskwarrior are untested and may not work.
 %pyproject_save_files tasklib
 
 %check
-%{python3} setup.py test
+%pytest tasklib/tests.py
 %pyproject_check_import
 
 %files -n python3-tasklib -f %{pyproject_files}

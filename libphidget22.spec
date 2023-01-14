@@ -1,5 +1,5 @@
 Name:           libphidget22
-Version:        1.12.20220912
+Version:        1.13.20230109
 Release:        1%{?dist}
 Summary:        Drivers and API for Phidget devices
 
@@ -78,6 +78,9 @@ install -p -m 0644 plat/linux/udev/99-libphidget22.rules %{buildroot}%{_udevrule
 
 
 %changelog
+* Thu Jan 12 2023 Richard Shaw <hobbes1069@gmail.com> - 1.13.20230109-1
+- Update to 1.13.20230109.
+
 * Tue Sep 20 2022 Richard Shaw <hobbes1069@gmail.com> - 1.12.20220912-1
 - Update to 1.12.20220912.
 

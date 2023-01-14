@@ -1,5 +1,5 @@
 Name:           mock-centos-sig-configs
-Version:        0.5
+Version:        0.5.1
 Release:        1%{?dist}
 Summary:        Mock configs for CentOS SIGs
 
@@ -38,6 +38,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/mock/templates
 %config(noreplace) %{_sysconfdir}/mock/templates/*.tpl
 
 %changelog
+* Thu Jan 12 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.5.1-1
+- Update to 0.5.1
+
 * Thu Sep 08 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 0.5-1
 - Update to 0.5
 

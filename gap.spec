@@ -1,7 +1,8 @@
 # The module loader does not work with PIE
 %undefine _hardened_build
 
-%global gapdir %{_prefix}/lib/gap
+%global gaparchdir %{_libdir}/gap
+%global gaplibdir %{_datadir}/gap
 %global icondir %{_datadir}/icons/hicolor
 %global gapbits default%{__isa_bits}
 
@@ -20,18 +21,18 @@
 # refuses to run unless all four are present.  Therefore, build as follows:
 # 1. Build this package in bootstrap mode.
 # 2. Build GAPDoc in bootstrap mode.
-# 3. Build gap-pkg-primgrp and gap-pkg-transgrp.
+# 3. Build gap-pkg-transgrp.
 # 4. Build gap-pkg-autodoc in bootstrap mode.
 # 5. Build gap-pkg-io
 # 6. Build GAPDoc in non-bootstrap mode.
 # 7. Build gap-pkg-autodoc in non-bootstrap mode.
-# 8. Build gap-pkg-smallgrp.
+# 8. Build gap-pkg-primgrp and gap-pkg-smallgrp.
 # 9. Build this package in non-bootstrap mode.
 %bcond_with bootstrap
 
 Name:           gap
 Version:        4.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Computational discrete algebra
 
 %global majver %(cut -d. -f1-2 <<< %{version})
@@ -88,8 +89,6 @@ BuildRequires:  tex-times
 
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 Requires:       %{name}-online-help = %{version}-%{release}
-# The gap binary executes gunzip
-Requires:       gzip
 Requires:       hicolor-icon-theme
 
 %description
@@ -180,20 +179,21 @@ Summary:        Library containing core GAP logic
 Requires:       %{name}-core%{?_isa} = %{version}-%{release}
 # The code executes gunzip
 Requires:       gzip
+
 # The packages that GAP itself considers default
-Requires:       gap-pkg-autpgrp
-Requires:       gap-pkg-alnuth
-Requires:       gap-pkg-crisp
-Requires:       gap-pkg-ctbllib
-Requires:       gap-pkg-factint
-Requires:       gap-pkg-fga
-Requires:       gap-pkg-irredsol
-Requires:       gap-pkg-laguna
-Requires:       gap-pkg-polenta
-Requires:       gap-pkg-polycyclic
-Requires:       gap-pkg-resclasses
-Requires:       gap-pkg-sophus
-Requires:       gap-pkg-tomlib
+Recommends:     gap-pkg-autpgrp
+Recommends:     gap-pkg-alnuth
+Recommends:     gap-pkg-crisp
+Recommends:     gap-pkg-ctbllib
+Recommends:     gap-pkg-factint
+Recommends:     gap-pkg-fga
+Recommends:     gap-pkg-irredsol
+Recommends:     gap-pkg-laguna
+Recommends:     gap-pkg-polenta
+Recommends:     gap-pkg-polycyclic
+Recommends:     gap-pkg-resclasses
+Recommends:     gap-pkg-sophus
+Recommends:     gap-pkg-tomlib
 
 %description -n libgap
 Library containing core GAP logic
@@ -205,7 +205,7 @@ Library containing core GAP logic
 cp -p %{SOURCE1} README.fedora
 
 # Compile default package path into the executable
-sed 's,^GAP_CPPFLAGS =,& -DSYS_DEFAULT_PATHS="\\"%{gapdir}\\"",' \
+sed 's,^GAP_CPPFLAGS =,& -DSYS_DEFAULT_PATHS="\\"%{gaplibdir}:%{gaparchdir}\\"",' \
     -i Makefile.rules
 
 %build
@@ -235,7 +235,7 @@ pdftex -interaction=batchmode gapmacrodoc.tex
 cd -
 
 # Remove build paths
-sed -i "s|$PWD|%{gapdir}|g" sysinfo.gap bin/gap.sh gac doc/make_doc
+#sed -i "s|$PWD|%%{gapdir}|g" sysinfo.gap bin/gap.sh gac doc/make_doc
 
 # Don't link every package shared object with libpthread
 sed -i "s/[[:blank:]]*-lpthread[[:blank:]]*//" sysinfo.gap
@@ -246,9 +246,9 @@ sed -i "s|^\(GAP_EXE=\).*|\1%{_bindir}|;/  GAP_EXE=/d" bin/gap.sh
 # Create an RPM macro file for GAP packages
 cat > macros.%{name} << EOF
 %%gap_version %{version}
-%%gap_dir %{gapdir}
+%%gap_archdir %{gaparchdir}
+%%gap_libdir %{gaplibdir}
 %%gap_arch %{gaparch}
-%%gap_arches aarch64 ppc64le s390x x86_64
 
 # Files installed by GAPDoc
 %%gapdoc_files %{GAPDoc_files}
@@ -261,113 +261,63 @@ cat > macros.%{name} << EOF
 # -n NAME: name of the package, defaults to %%%%{pkgname}
 %%gap_copy_docs(d:n:) \\
   subdir=%%{-d:%%{-d*}}%%{!-d:doc} \\
-  path=%%{buildroot}%%{gap_dir}/pkg/%%{-n:%%{-n*}}%%{!-n:%%{pkgname}}/\$subdir \\
+  if [ "%%_target_cpu" = "noarch" ]; then \\
+    path=%%{buildroot}%%{gap_libdir}/pkg/%%{-n:%%{-n*}}%%{!-n:%%{pkgname}}/\$subdir \\
+  else \\
+    path=%%{buildroot}%%{gap_archdir}/pkg/%%{-n:%%{-n*}}%%{!-n:%%{pkgname}}/\$subdir \\
+  fi \\
   for ext in bib css gif html jpeg jpg js lab pdf png six txt; do \\
     cp -p \$subdir/*.\$ext \$path 2>/dev/null || : \\
   done \\
   for fil in %%{gapdoc_files}; do \\
     if [ -e "\$path/\$fil" ]; then \\
       rm \$path/\$fil \\
-      ln -s ../..\$(sed 's|/|/..|' <<< "\${subdir//[^\\\\/]}")/GAPDoc/styles/\$fil \$path/\$fil \\
+      if [ "%%_target_cpu" = "noarch" ]; then \\
+        ln -s ../..\$(sed 's|/|/..|' <<< "\${subdir//[^\\\\/]}")/GAPDoc/styles/\$fil \$path/\$fil \\
+      else \\
+        ln -s %%{gap_libdir}/pkg/GAPDoc/styles/\$fil \$path/\$fil \\
+      fi \\
     fi \\
   done
 EOF
 
 %install
-## "make install" wants to install into a double-rooted tree (noarch files in
-## %%{_datadir}, archful files in %%{_libdir}).  We need to do some work to
-## prepare for that.  For now, install manually into a single-rooted tree.
+%make_install
 
-## See make install-bin
-# Install the binaries
-mkdir -p %{buildroot}%{_bindir}
-install -p -m755 gap %{buildroot}%{_bindir}
-install -p -m755 gac %{buildroot}%{_bindir}
+# Link, rather than copy, identical binaries
+rm %{buildroot}%{gaparchdir}/gap
+ln %{buildroot}%{_bindir}/gap %{buildroot}%{gaparchdir}/gap
+
+# Remove files we do not want or install elsewhere
+rm %{buildroot}%{_libdir}/*.la
+rm %{buildroot}%{gaplibdir}/{*.md,COPYRIGHT,LICENSE}
+rm -fr %{buildroot}%{gaplibdir}/etc/vim
+
+# Install the workspace helper
 install -p -m755 %{SOURCE2} %{buildroot}%{_bindir}
 
-mkdir -p %{buildroot}%{gapdir}
-cp -a bin %{buildroot}%{gapdir}
-
-# Fix symlinks to the binary and source directory
-pushd %{buildroot}%{gapdir}/bin/%{gaparch}
-rm -f gap gac src config.h
-ln -s %{_bindir}/gap gap
-ln -s %{_bindir}/gac gac
-ln -s %{_includedir}/gap src
-cd ../..
-ln -s %{_bindir}/gap gap
-ln -s %{_bindir}/gac gac
-popd
-
-## See make install-doc
-# Install the documentation
-mkdir -p %{buildroot}%{gapdir}/doc
+# Install documentation builders
 cp -p doc/{gapmacro.tex,manualindex,versiondata,*.{bib,lab,pdf,six,xml}} \
-      %{buildroot}%{gapdir}/doc
+      %{buildroot}%{gaplibdir}/doc
+
+# Make an empty directory for archful packages
+mkdir -p %{buildroot}%{gaparchdir}/pkg
+
+# Unbundle GAPDoc files from the manuals
 for book in hpc ref tut; do
-    mkdir -p %{buildroot}%{gapdir}/doc/$book
-    cp -p doc/$book/*.{html,lab,pdf,six,txt} \
-          %{buildroot}%{gapdir}/doc/$book
-    rm %{buildroot}%{gapdir}/doc/$book/chooser.html
+    rm %{buildroot}%{gaplibdir}/doc/$book/{*.css,*.js,chooser.html}
     for fil in %{GAPDoc_files}; do
-        ln -s ../../pkg/GAPDoc/styles/$fil %{buildroot}%{gapdir}/doc/$book
+        ln -s ../../pkg/GAPDoc/styles/$fil %{buildroot}%{gaplibdir}/doc/$book
     done
 done
 
-## See make install-gaproot
-# Make an empty directory to hold the GAP packages
-mkdir -p %{buildroot}%{gapdir}/pkg
-
-# Install the library files
-mkdir -p %{buildroot}%{gapdir}/hpcgap
-cp -a hpcgap/lib %{buildroot}%{gapdir}/hpcgap
-cp -a grp lib %{buildroot}%{gapdir}
-
-# Install the CITATION file, since the docs say it is here
-cp -p CITATION %{buildroot}%{gapdir}
-
-# Install helpers for developers
-mkdir -p %{buildroot}%{gapdir}/etc
-cp -p etc/{convert.pl,Makefile.gappkg} %{buildroot}%{gapdir}/etc
-
-# Install the VIM support
+# Install VIM support where the rest of the system expects to find it
 mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/indent
 cp -p etc/vim/gap_indent.vim %{buildroot}%{_datadir}/vim/vimfiles/indent
 mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/syntax
 cp -p etc/vim/gap.vim %{buildroot}%{_datadir}/vim/vimfiles/syntax
 mkdir -p %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
 cp -p %{SOURCE9} %{buildroot}%{_datadir}/vim/vimfiles/ftdetect
-
-## See make install-sysinfo
-# Install the arch-specific files
-cp -a sysinfo.gap* %{buildroot}%{gapdir}
-
-## See make install-headers
-# Install the headers
-mkdir -p %{buildroot}%{_includedir}/gap/hpc
-cp -p src/*.h build/*.h %{buildroot}%{_includedir}/gap
-cp -p src/hpc/*.h %{buildroot}%{_includedir}/gap/hpc
-
-# Munge the header files
-for fil in %{buildroot}%{_includedir}/gap/{*.h,hpc/*.h}; do
-  sed -i.orig 's,^\(#[[:blank:]]*include[[:blank:]]*\)"\(.*\)",\1<gap/\2>,' $fil
-  touch -r $fil.orig $fil
-  rm -f $fil.orig
-done
-
-# Make a link to the headers so the GAP compiler can find them
-ln -s %{_includedir}/gap %{buildroot}%{gapdir}/src
-
-## See make install-libgap
-# Install libgap
-mkdir -p %{buildroot}%{_libdir}
-./libtool --mode=install %{_bindir}/install libgap.la %{buildroot}%{_libdir}
-rm -f %{buildroot}%{_libdir}/*.la
-
-## Nothing below here is installed by make install
-# Install the tests
-cp -a tst %{buildroot}%{gapdir}
-find %{buildroot}%{gapdir}/tst -name .gitignore -delete
 
 # Create the system workspace, initially empty
 mkdir -p %{buildroot}%{_localstatedir}/lib/%{name}
@@ -411,10 +361,10 @@ if [ $1 -eq 0 ]; then
   %{_bindir}/update-gap-workspace delete &> /dev/null || :
 fi
 
-%transfiletriggerin -- %{gapdir}/pkg
+%transfiletriggerin -- %{gaplibdir}/pkg %{gaparchdir}/pkg
 %{_bindir}/update-gap-workspace > /dev/null || :
 
-%transfiletriggerpostun -- %{gapdir}/pkg
+%transfiletriggerpostun -- %{gaplibdir}/pkg %{gaparchdir}/pkg
 %{_bindir}/update-gap-workspace > /dev/null || :
 
 %if %{without bootstrap}
@@ -434,11 +384,7 @@ make check
 %files
 %doc README.md README.fedora
 %{_bindir}/gap
-%dir %{gapdir}/bin/
-%{gapdir}/bin/gap.sh
-%dir %{gapdir}/bin/%{gaparch}/
-%{gapdir}/bin/%{gaparch}/gap
-%{gapdir}/gap
+%{gaparchdir}/gap
 %{_mandir}/man1/gap.1*
 %{_metainfodir}/org.gap-system.gap.metainfo.xml
 %{_datadir}/applications/org.gap-system.gap.desktop
@@ -459,37 +405,31 @@ make check
 
 %files libs
 %license COPYRIGHT LICENSE
-%dir %{gapdir}
-%{gapdir}/CITATION
-%{gapdir}/grp/
-%{gapdir}/hpcgap/
-%{gapdir}/lib/
-%{gapdir}/pkg/
+%dir %{gaplibdir}
+%{gaplibdir}/CITATION
+%{gaplibdir}/grp/
+%{gaplibdir}/hpcgap/
+%{gaplibdir}/lib/
 
 %files core
 %{_bindir}/update-gap-workspace
-%{gapdir}/pkg/
-%{gapdir}/sysinfo.gap
-%{gapdir}/sysinfo.gap-%{gapbits}
+%dir %{gaparchdir}
+%{gaparchdir}/sysinfo.gap
+%{gaparchdir}/pkg/
+%{gaplibdir}/pkg/
 %{_mandir}/man1/update-gap-workspace.1*
 %dir %{_localstatedir}/lib/%{name}/
 %verify(user group mode) %{_localstatedir}/lib/%{name}/workspace.gz
 
 %files online-help
-%{gapdir}/doc/
+%{gaplibdir}/doc/
 
 %files rpm-macros
 %{_rpmconfigdir}/macros.d/macros.%{name}
 
 %files devel
 %{_bindir}/gac
-%{gapdir}/bin/BuildPackages.sh
-%{gapdir}/bin/%{gaparch}/gac
-%{gapdir}/bin/%{gaparch}/src
-%{gapdir}/etc/
-%{gapdir}/gac
-%{gapdir}/src
-%{gapdir}/tst/
+%{gaplibdir}/etc/
 %{_includedir}/gap/
 %{_mandir}/man1/gac.1*
 
@@ -505,6 +445,10 @@ make check
 %{_libdir}/libgap.so
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-2
+- Conform more closely to upstream's preferred file layout
+- Remove %%gap_arches from the RPM macro file
+
 * Sun Dec 18 2022 Jerry James <loganjerry@gmail.com> - 4.12.2-1
 - Version 4.12.2
 - Drop upstreamed unused patch

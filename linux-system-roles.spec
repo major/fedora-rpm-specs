@@ -359,7 +359,7 @@ cd ..
 #   - library:
 #     - Module selinux and seboolean for the selinux role
 #     - Module mount for the storage role
-declare -A module_map=( ["selinux.py"]="selinux" ["seboolean.py"]="selinux"  ["mount.py"]="storage" )
+declare -A module_map=( ["selinux.py"]="selinux" ["seboolean.py"]="selinux" ["mount.py"]="storage" )
 for module in "${!module_map[@]}"; do
   role="${module_map[${module}]}"
   if [ ! -d $role/library ]; then
@@ -385,7 +385,7 @@ done
 #   - library:
 #     - Module seport, sefcontext and selogin for the selinux role rolename2
 #     - Module ini_file for role tlog
-module_map=( ["seport.py"]="selinux" ["sefcontext.py"]="selinux"  ["selogin.py"]="selinux" ["ini_file.py"]="tlog" )
+module_map=( ["seport.py"]="selinux" ["sefcontext.py"]="selinux" ["selogin.py"]="selinux" ["ini_file.py"]="tlog" )
 for module in "${!module_map[@]}"; do
   role="${module_map[${module}]}"
   if [ ! -d $role/library ]; then

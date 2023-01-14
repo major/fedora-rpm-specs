@@ -1,7 +1,7 @@
 %global forgeurl https://github.com/sonic-visualiser/sonic-visualiser
 
 Name:           sonic-visualiser
-Version:        4.5
+Version:        4.5.1
 Release:        %autorelease
 Summary:        A program for viewing and exploring audio data
 
@@ -28,7 +28,7 @@ BuildRequires:  pkgconfig(mad)
 BuildRequires:  pkgconfig(oggz)
 BuildRequires:  pkgconfig(opusfile)
 BuildRequires:  pkgconfig(portaudio-2.0)
-BuildRequires:  pkgconfig(rubberband)
+BuildRequires:  pkgconfig(rubberband) >= 3.0.0
 BuildRequires:  pkgconfig(samplerate)
 BuildRequires:  pkgconfig(serd-0)
 BuildRequires:  pkgconfig(sndfile)

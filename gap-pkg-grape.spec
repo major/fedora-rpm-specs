@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        4.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GRaph Algorithms using PErmutation groups
 
 License:        GPL-2.0-or-later
@@ -53,36 +53,39 @@ rm -fr nauty2_8_6
 export LC_ALL=C.UTF-8
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/etc ../../etc
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/etc ../../etc
+ln -s %{gap_libdir}/doc ../../doc
 pushd doc
 ./make_doc
 popd
 rm -f ../../{doc,etc}
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g grh htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g grh htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license gpl.txt
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 4.9.0-2
+- Update for split GAP directories
+
 * Sat Dec 10 2022 Jerry James <loganjerry@gmail.com> - 4.9.0-1
 - Version 4.9.0
 - Drop obsolete -citation patch

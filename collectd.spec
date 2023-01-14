@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: GPLv2
 URL: https://collectd.org/
 
@@ -1225,6 +1225,9 @@ make check
 
 
 %changelog
+* Thu Jan 12 2023 Kevin Fenzi <kevin@scrye.com> - 5.12.0-24
+- Rebuild for new xen-libs. Fixes rhbz#2160499
+
 * Sat Jul 30 2022 Kevin Fenzi <kevin@scrye.com> - 5.12.0-23
 - Exclude java plugin on i686 as java doesn't ship there anymore. Fixes FTBFS. rhbz#2104029
 

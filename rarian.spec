@@ -12,6 +12,7 @@ Source1: scrollkeeper-omf.dtd
 
 # RH bug #453342
 Patch1: rarian-0.8.1-categories.patch
+Patch2: rarian-c99.patch
 
 ### Dependencies ###
 
@@ -60,6 +61,7 @@ Rarian library ("librarian").
 %prep
 %setup -q
 %patch1 -p1 -b .categories
+%patch2 -p1
 
 %build
 %configure --disable-skdb-update

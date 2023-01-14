@@ -15,7 +15,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2
-Release:        26.%{gitdate}git%{shorttag}%{?dist}
+Release:        27.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
 License:        GPL-2.0-or-later
@@ -67,37 +67,40 @@ autoreconf -fi
 
 %build
 export LC_ALL=C.UTF-8
-%configure --with-gaproot=%{gap_dir} --with-nauty=%{_includedir}/nauty \
+%configure --with-gaproot=%{gap_archdir} --with-nauty=%{_includedir}/nauty \
   --disable-silent-rules
 %make_build
 %make_build doc
 
 %install
 # make install doesn't put ANYTHING where it is supposed to go, so...
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a bin examples gap tst *.g %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
+cp -a bin examples gap tst *.g %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %if %{without bootstrap}
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %endif
 
 %files
 %doc README.md
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/examples/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_archdir}/pkg/%{pkgname}/examples/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/examples/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/examples/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/examples/
+%{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.2-27.20221102git
+- Update for split GAP directories
+
 * Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 0.2-26.20221102git
 - Rebuild for nauty 2.8.6
 

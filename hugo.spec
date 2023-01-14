@@ -19,9 +19,9 @@
 
 # https://github.com/gohugoio/hugo
 %global goipath github.com/gohugoio/hugo
-Version:        0.101.0
+Version:        0.109.0
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 Hugo is a static HTML and CSS website generator written in Go. It is optimized
@@ -118,14 +118,10 @@ install -Dp man/* -t %{buildroot}%{_mandir}/man1
 # common/text: Terminal colors seem to affect this test.
 # deploy: We do not want to test deployment process.
 # hugolib: We should run this one, but it presently fails.
-# markup/goldmark/codeblocks: We should run this one, but it presently fails.
-# markup/goldmark: We should run this one, but it presently fails.
 # langs/i18n: Patched gohugoio/go-i18n/ back to nicksnyder/go-i18n.
-# metrics: produces wrong quote.
-# minifiers: produces wrong quote.
-# resources/page: fails on ppc64le
+# markup/goldmark/codeblocks: We should run this one, but it presently fails.
 # resources/resource_transformers/js: error message formats have changed.
-%gocheck -d releaser -d tpl/time -d common/herrors -d common/text -d deploy -d hugolib -d markup/goldmark/codeblocks -d markup/goldmark -d langs/i18n -d metrics -d minifiers -d resources/page -d resources/resource_transformers/js
+%gocheck -d releaser -d tpl/time -d common/herrors -d common/text -d deploy -d hugolib -d langs/i18n -d markup/goldmark/codeblocks -d resources/resource_transformers/js
 %endif
 
 %files

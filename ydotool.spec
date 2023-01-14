@@ -2,39 +2,19 @@
 
 %undefine __cmake_in_source_build
 
-%global github_url https://github.com
-%global iodash_name IODash
-%global iodash_version 0.1.0
-%global libevdevplus_name libevdevPlus
-%global libevdevplus_version 0.2.1
-%global libuinputplus_name libuInputPlus
-%global libuinputplus_version 0.2.1
-%global cxxopts_name cxxopts
-%global cxxopts_version 3.0.0
-%global cxxopts_commit 2d8e17c4f88efce80e274cb03eeb902e055a91d3
-%global cpm_cmake_name cpm.cmake
-%global cpm_cmake_version 0.27.5
 %global debug_package %{nil}
 
 Name:     ydotool
-Version:  1.0.1
-Release:  3%{?dist}
+Version:  1.0.3
+Release:  1%{?dist}
 Summary:  Generic command-line automation tool (no X!)
-License:  AGPLv3, Public Domain
-URL:      %github_url/ReimuNotMoe/%{name}
+License:  AGPLv3
+URL:      https://github.com/ReimuNotMoe/%{name}
 
 Source0:  %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-Source1:  %{github_url}/YukiWorkshop/%{iodash_name}/archive/v%{iodash_version}/%(c=%{iodash_name}; echo ${c,,})-%{iodash_version}.tar.gz
-Source2:  %{github_url}/YukiWorkshop/%{libevdevplus_name}/archive/v%{libevdevplus_version}/%{libevdevplus_name}-%{libevdevplus_version}.tar.gz
-Source3:  %{github_url}/YukiWorkshop/%{libuinputplus_name}/archive/v%{libuinputplus_version}/%{libuinputplus_name}-%{libuinputplus_version}.tar.gz
-Source4:  %{github_url}/jarro2783/%{cxxopts_name}/archive/%{cxxopts_commit}/%{cxxopts_name}-%{cxxopts_commit}.tar.gz
-Source5:  %{github_url}/TheLartians/%{cpm_cmake_name}/archive/v%{cpm_cmake_version}/%{cpm_cmake_name}-%{cpm_cmake_version}.tar.gz
-Source6:  https://gist.githubusercontent.com/panzi/6856583/raw/1eca2ab34f2301b9641aa73d1016b951fff3fc39/portable_endian.h
-
-Patch1:   ydotool-man-page.patch
 
 BuildRequires: cmake
-BuildRequires: gcc-c++
+BuildRequires: gcc
 BuildRequires: make
 BuildRequires: scdoc
 BuildRequires: systemd-rpm-macros
@@ -44,24 +24,6 @@ BuildRequires: systemd-rpm-macros
 Performs some of the functions of xdotool(1) without requiring X11 -
 however, it generally requires root permission (to open /dev/uinput)
 
-NOTE: changes in this release:
-NOTE: --delay option is now --next-delay
-NOTE: mousemove is now relative unless --absolute is given
-NOTE: mouseup, mousedown, mousemove_relative is removed
-NOTE: click accepts left, right, middle instead of 1, 2, 3
-NOTE: sleep is a new command
-
-SEE: ydotool <cmd> --help for latest info
-
-Currently implemented command(s):
-
-- type - Type a string
-- key - Press keys
-- mousemove - Move mouse pointer to absolute position
-- click - Click on mouse buttons
-- recorder - Record/replay input events
-- sleep - sleep ms
-
 N.B. it is strongly recommended to start the ydotoold daemon with:
 
 - systemctl enable ydotool
@@ -69,25 +31,9 @@ N.B. it is strongly recommended to start the ydotoold daemon with:
 
 %prep
 %setup -q
-gzip -dc %{S:1} | tar xf -
-gzip -dc %{S:2} | tar xf -
-gzip -dc %{S:3} | tar xf -
-gzip -dc %{S:4} | tar xf -
-gzip -dc %{S:5} | tar xf -
-
-%patch1 -p1
-
-# this is missing from IODash - I have logged a bug report upstream
-# https://github.com/YukiWorkshop/IODash/issues/1
-# it is licenced 'public domain':
-cp %{S:6} %{iodash_name}-%{iodash_version}/portable-endian.h
 
 %build
-%cmake -DBUILD_SHARED_LIBS:BOOL=OFF \
--DCPM_%{iodash_name}_SOURCE=$PWD/%{iodash_name}-%{iodash_version} \
--DCPM_%{libevdevplus_name}_SOURCE=$PWD/%{libevdevplus_name}-%{libevdevplus_version} \
--DCPM_%{libuinputplus_name}_SOURCE=$PWD/%{libuinputplus_name}-%{libuinputplus_version} \
--DCPM_%{cxxopts_name}_SOURCE=$PWD/%{cxxopts_name}-%{cxxopts_commit}
+%cmake -DBUILD_SHARED_LIBS:BOOL=OFF
 
 make -C %{_vpath_builddir} -j `nproc`
 
@@ -122,6 +68,9 @@ scdoc < manpage/%{name}d.8.scd > %{buildroot}/%{_mandir}/man8/%{name}d.8
 %{_mandir}/man8/%{name}d.8.*
 
 %changelog
+* Thu Jan 12 2023 Bob Hepple <bob.hepple@gmail.com> - 1.0.3-1
+- new version
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

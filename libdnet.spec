@@ -1,13 +1,14 @@
 Summary:       Simple portable interface to lowlevel networking routines
 Name:          libdnet
-Version:       1.16.2
-Release:       1%{?dist}
 License:       BSD
-URL:           https://github.com/ofalk/%{name}
-# For 1.16.2 I constructed the archive myself using:
-# git archive --format=tar --prefix=libdnet-1.16.2/ HEAD | gzip > libdnet-1.16.2.tar.gz
-Source:        libdnet-1.16.2.tar.gz
-#Source:       https://github.com/ofalk/%%{master}/archive/%%{name}-%%{version}.tar.gz
+
+%global forgeurl https://github.com/ofalk/%{name}
+Version:       1.16.3
+%forgemeta
+
+Release:       1%{?dist}
+URL:           %{forgeurl}
+Source:        %{forgesource}
 
 BuildRequires: gcc-c++
 BuildRequires: make
@@ -54,7 +55,7 @@ BuildRequires: python%{python3_pkgversion}-devel
 %{summary}.
 
 %prep
-%setup -q -n %{name}-%{version}
+%forgeautosetup
 
 %build
 autoreconf -i
@@ -92,6 +93,10 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jan 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.3-1
+- Rebase to 1.16.3
+- Use Fedora forge hosting macros.
+
 * Tue Jan 03 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.2-1
 - Rebase to 1.16.2
 - Use setuptools instead of distutils (RHBZ#2154944)

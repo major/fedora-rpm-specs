@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Irreducible soluble linear groups over finite fields
 
 License:        BSD-2-Clause
@@ -31,11 +31,11 @@ of all primitive soluble groups of degree at most 2000000.
 # The content is BSD-2-Clause.  The remaining licenses cover the various fonts
 # embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
 # RSFS: LicenseRef-Rsfs
 # StandardSymL: GPL-1.0-or-later
-License:        BSD-2-Clause AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
+License:        BSD-2-Clause AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
 Summary:        IRREDSOL documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-crisp-doc
@@ -49,43 +49,46 @@ This package contains documentation for gap-pkg-%{pkgname}.
 
 %build
 # Link to main GAP documentation and CRISP documentation
-ln -s %{gap_dir}/etc ../../etc
-ln -s %{gap_dir}/doc ../../doc
-ln -s %{gap_dir}/pkg ../../pkg
-ln -s %{gap_dir}/pkg/crisp ..
-ln -s %{gap_dir}/pkg/primgrp ..
+ln -s %{gap_libdir}/etc ../../etc
+ln -s %{gap_libdir}/doc ../../doc
+ln -s %{gap_libdir}/pkg ../../pkg
+ln -s %{gap_libdir}/pkg/crisp ..
+ln -s %{gap_libdir}/pkg/primgrp ..
 pushd doc
 pdftex -interaction=batchmode manual
 makeindex manual
 pdftex -interaction=batchmode manual
 pdftex -interaction=batchmode manual
 rm -f ../htm/*
-perl %{gap_dir}/etc/convert.pl -t -c -n IRREDSOL . ../htm
+perl %{gap_libdir}/etc/convert.pl -t -c -n IRREDSOL . ../htm
 popd
 rm -f ../../{doc,etc,pkg} ../crisp
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g data fp htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g data fp htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc README.txt
 %license LICENSE.txt
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.4-2
+- Update for split GAP directories
+
 * Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.4-1
 - Version 1.4.4
 - Drop upstreamed -ref patch

@@ -1,5 +1,5 @@
 Name:           libsemigroups
-Version:        2.4.1
+Version:        2.5.1
 Release:        1%{?dist}
 Summary:        C++ library for semigroups and monoids
 
@@ -188,6 +188,9 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.5.1-1
+- Version 2.5.1
+
 * Wed Dec  7 2022 Jerry James <loganjerry@gmail.com> - 2.4.1-1
 - Version 2.4.1
 

@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.2.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Congruence subgroups of SL(2,Integers)
 
 License:        GPL-2.0-or-later
@@ -28,11 +28,11 @@ subgroups.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Congruence documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -47,32 +47,35 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/doc ../../doc
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
 gap -l "$PWD/..;" makedoc.g
 rm -fr ../../doc ../pkg
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc README.md
 %license COPYING
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.2.4-4
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.2.4-3
 - Clarify license of the doc subpackage
 

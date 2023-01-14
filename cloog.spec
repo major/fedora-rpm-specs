@@ -1,7 +1,11 @@
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 10
+%undefine _debugsource_packages
+%endif
+
 Name:           cloog
 %global         tarball_name %{name}
 Version:        0.18.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Epoch:		1
 Summary:        The Chunky Loop Generator
 
@@ -11,18 +15,19 @@ URL:            http://www.cloog.org
 # This tarball was retrieved directly from the Git source code
 # repository of the Cloog project by doing:
 #
-#    git clone git://repo.or.cz/cloog.git -b cloog-0.18.4 cloog-0.18.4
-#    tar -cvf cloog-0.18.4.tar.gz cloog-0.18.4
+#    git clone git://repo.or.cz/cloog.git -b cloog-%{version} cloog-%{version}
+#    tar -cvf cloog-%{version}.tar.gz cloog-%{version}
 
-Source0:        cloog-0.18.4.tar.gz
+Source0:        cloog-%{version}.tar.gz
 
 BuildRequires:  isl-devel >= 0.15
 BuildRequires:  gmp-devel >= 6.0.0
 BuildRequires:  texinfo >= 4.12
 BuildRequires:  texinfo-tex >= 4.12
 BuildRequires:  libtool
-BuildRequires: make
-Obsoletes:	cloog-ppl cloog-ppl-devel
+BuildRequires:  make
+Obsoletes: cloog-ppl < 0.18.3
+Obsoletes: cloog-ppl-devel < 0.18.3
 
 %description
 CLooG is a software which generates loops for scanning Z-polyhedra. That is,
@@ -51,10 +56,14 @@ The header files and dynamic shared libraries of the Chunky Loop Generator.
 # to force the re-generation of a new one
 test -f doc/cloog.info && rm doc/cloog.info
 
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 10
+CLOOG_CFLAGS="-fPIE"
+%endif
+
 # Remove the -fomit-frame-pointer compile flag
 # Use system libtool to disable standard rpath
-make %{?_smp_mflags} AM_CFLAGS= LIBTOOL=%{_bindir}/libtool
-make %{?_smp_mflags} AM_CFLAGS= LIBTOOL=%{_bindir}/libtool -C doc cloog.pdf
+make %{?_smp_mflags} AM_CFLAGS=${CLOOG_CFLAGS} LIBTOOL=%{_bindir}/libtool
+make %{?_smp_mflags} AM_CFLAGS=${CLOOG_CFLAGS} LIBTOOL=%{_bindir}/libtool -C doc cloog.pdf
 
 %install
 %make_install INSTALL="%{__install} -p"
@@ -76,10 +85,16 @@ mkdir -p %{buildroot}%{_docdir}/cloog-%{version}
 %{_libdir}/libcloog-isl.so
 %{_libdir}/pkgconfig/cloog-isl.pc
 %exclude %{_libdir}/libcloog-isl.a
+%if 0%{?fedora} < 36 && 0%{?rhel} < 10
 %exclude %{_libdir}/libcloog-isl.la
+%endif
 %{_docdir}/cloog-%{version}/cloog.pdf
 
 %changelog
+* Thu Jan 12 2023 Pablo Greco <pgreco@centosproject.org> - 1:0.18.4-14
+- Fix FTBFS in Fedora >= 36
+- Fix warn about unversioned obsoletes
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.18.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 240
+%global baserelease 241
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -221,6 +221,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Thu Jan 12 2023 Stephen Gallagher <sgallagh@redhat.com> - 241-1
+- Do not include frame pointers on RHEL
+
 * Tue Jan 10 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 240-1
 - Do not include frame pointers on i686 and s390x for now
 

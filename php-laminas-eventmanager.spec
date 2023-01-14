@@ -1,6 +1,6 @@
 # remirepo/Fedora spec file for php-laminas-eventmanager
 #
-# Copyright (c) 2015-2022 Remi Collet
+# Copyright (c) 2015-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -13,7 +13,7 @@
 %bcond_without       tests
 %endif
 
-%global gh_commit    55f7c337f4e49baf6dca87220619d40d9518e6b6
+%global gh_commit    5a5114ab2d3fa4424faa46a2fb0a4e49a61f6eba
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-eventmanager
@@ -23,7 +23,7 @@
 %global library      EventManager
 
 Name:           php-%{gh_project}
-Version:        3.9.2
+Version:        3.10.0
 Release:        1%{?dist}
 Summary:        Trigger and listen to events within a PHP application
 
@@ -40,7 +40,7 @@ BuildRequires: (php-composer(%{gh_owner}/laminas-zendframework-bridge) >= 1.0 wi
 BuildRequires:  php-reflection
 BuildRequires:  php-spl
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "laminas/laminas-coding-standard": "~2.5.0",
 #        "laminas/laminas-stdlib": "^3.15",
 #        "phpbench/phpbench": "^1.2.7",
 #        "phpunit/phpunit": "^9.5.26",
@@ -171,6 +171,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 12 2023 Remi Collet <remi@remirepo.net> - 3.10.0-1
+- update to 3.10.0
+
 * Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 3.9.2-1
 - update to 3.9.2 (no change)
 

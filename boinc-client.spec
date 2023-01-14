@@ -18,7 +18,7 @@
 Summary:       The BOINC client
 Name:          boinc-client
 Version:       7.20.2
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPLv2+
 URL:           http://boinc.berkeley.edu/
 
@@ -72,6 +72,7 @@ Patch6:        prevent_manager_from_starting_client.patch
 # Fedora / EPEL, the folder /etc/boinc-client does not exist, so it should be removed
 #Patch7:        remove_etc_boinc-client_from_systemd_unit_file.patch
 
+Patch8:	       boinc-client-c99.patch
 
 Requires:         logrotate
 Requires(post):   systemd
@@ -352,6 +353,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 7.20.2-3
+- Suppress spurious diagnostics related to C99 porting
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 7.20.2-2
 - Rebuild with wxWidgets 3.2
 

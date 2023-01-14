@@ -1,7 +1,7 @@
 Summary: Tools for using the foomatic database of printers and printer drivers
 Name:       foomatic
 Version:    4.0.13
-Release:    25%{?dist}
+Release:    26%{?dist}
 License:    GPLv2+
 
 # The database engine.
@@ -14,7 +14,7 @@ Patch102:  0001-Recognize-fractional-numbers-in-PageSize.patch
 
 ## PATCHES FOR FOOMATIC-DB-HPIJS (PATCHES 201 TO 300)
 
-Url:            http://www.linuxfoundation.org/collaborate/workgroups/openprinting/database/foomatic
+Url:          https://github.com/OpenPrinting/foomatic-db-engine  
 
 # gcc is no longer in buildroot by default
 BuildRequires:  gcc
@@ -143,6 +143,9 @@ exit 0
 %{_var}/cache/foomatic
 
 %changelog
+* Thu Jan 12 2023 Zdenek Dohnal <zdohnal@redhat.com> - 4.0.13-26
+- URL changed to github 
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.13-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

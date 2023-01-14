@@ -1,6 +1,6 @@
 Name:           libfplll
-Version:        5.4.2
-%global so_version 7
+Version:        5.4.4
+%global so_version 8
 Release:        %autorelease
 Summary:        Lattice algorithms using floating-point arithmetic
 
@@ -8,7 +8,9 @@ Summary:        Lattice algorithms using floating-point arithmetic
 #
 #   - The contents of fplll/enum-parallel/ are MIT
 #   - fplll/io/thread_pool.hpp is MIT
-#   - fplll/io/json.hpp is MIT, but is unbundled
+#   - fplll/io/json.hpp is MIT AND CC0-1.0 (the latter because it includes
+#     Hedley); while it is unbundled, it is a header-only library, and so it
+#     still contributes to the license of the binary RPMs
 #
 # Additionally, a number of autoconf build system sources, which do not
 # contribute to the binary RPM license because they are neither installed nor
@@ -17,9 +19,13 @@ Summary:        Lattice algorithms using floating-point arithmetic
 #   - INSTALL, {,fplll/,tests/}Makefile.in, aclocal.m4, compile, config.guess,
 #     config.sub, configure, depcomp, install-sh, ltmain.sh, missing,
 #     test-driver, */Makefile.in, m4/*.m4
-License:        LGPL-2.1-or-later AND MIT
+License:        LGPL-2.1-or-later AND MIT AND CC0-1.0
 URL:            https://fplll.github.io/fplll/
 Source0:        https://github.com/fplll/fplll/releases/download/%{version}/fplll-%{version}.tar.gz
+# Man pages hand-written for Fedora in groff_man(7) format based on --help
+# output and README.md:
+Source1:        fplll.1
+Source2:        latticegen.1
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -33,8 +39,6 @@ BuildRequires:  pkgconfig(qd)
 # BR on *-static required for tracking header-only libraries
 BuildRequires:  pkgconfig(nlohmann_json)
 BuildRequires:  json-static
-
-BuildRequires:  help2man
 
 # The contents of fplll/enum-parallel/ are based on, but heavily modified from,
 # https://github.com/cr-marcstevens/fplll-extenum. We do not treat this as a
@@ -113,7 +117,7 @@ the functionality of libfplll.
 
 
 %prep
-%autosetup -p1 -n fplll-%{version}
+%autosetup -n fplll-%{version}
 # Unbundle “JSON for Modern C++”:
 echo '#include <nlohmann/json.hpp>' > fplll/io/json.hpp
 
@@ -137,20 +141,13 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 
 %make_build
 
-# Build man pages with help2man. The result is not as good as hand-written, but
-# quite adequate.
-for cmd in fplll latticegen
-do
-  LD_LIBRARY_PATH="${PWD}/fplll/.libs" \
-      help2man --no-info --output="${cmd}.1" "./fplll/${cmd}"
-done
-
 
 %install
 %make_install
 find '%{buildroot}' -type f -name '*.la' -print -delete
 
-install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p *.1
+install -t '%{buildroot}%{_mandir}/man1' -D -m 0644 -p \
+    '%{SOURCE1}' '%{SOURCE2}'
 
 
 %check

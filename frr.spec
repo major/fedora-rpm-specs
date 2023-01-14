@@ -6,7 +6,7 @@
 %bcond_without selinux
 
 Name:           frr
-Version:        8.4.1
+Version:        8.4.2
 Release:        1%{?dist}
 Summary:        Routing daemon
 License:        GPLv2+
@@ -267,6 +267,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Thu Jan 12 2023 Michal Ruprich <mruprich@redhat.com> - 8.4.2-1
+- New version 8.4.2
+
 * Fri Nov 25 2022 Michal Ruprich <mruprich@redhat.com> - 8.4.1-1
 - New version 8.4.1
 - Fix for rhbz #2140705

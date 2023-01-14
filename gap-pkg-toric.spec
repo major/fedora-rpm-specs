@@ -3,7 +3,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.9.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Computations with toric varieties in GAP
 
 License:        MIT
@@ -28,11 +28,11 @@ and related information about them can be calculated.
 %package doc
 # The content is MIT.  The remaining licenses cover the various fonts embedded
 # in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        MIT AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        MIT AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Toric documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -51,25 +51,28 @@ export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
-cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{upname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{upname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_libdir}/pkg/%{upname}
 %gap_copy_docs -n %{upname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{gap_dir}/pkg/%{upname}/
-%exclude %{gap_dir}/pkg/%{upname}/doc
+%{gap_libdir}/pkg/%{upname}/
+%exclude %{gap_libdir}/pkg/%{upname}/doc
 
 %files doc
-%docdir %{gap_dir}/pkg/%{upname}/doc/
-%{gap_dir}/pkg/%{upname}/doc/
+%docdir %{gap_libdir}/pkg/%{upname}/doc/
+%{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.9.5-9
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.9.5-8
 - Clarify license of the doc subpackage
 

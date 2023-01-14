@@ -3,7 +3,7 @@
 
 Summary: Terminal emulator for the X Window System
 Name: xterm
-Version: 377
+Version: 378
 Release: 1%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT
@@ -99,6 +99,10 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Thu Jan 12 2023 Tomas Korbar <tkorbar@redhat.com> - 378-1
+- Rebase to version 378
+- Resolves: rhbz#2159449
+
 * Thu Dec 08 2022 Tomas Korbar <tkorbar@redhat.com> - 377-1
 - Rebase to version 377
 - Remove unnecessary dependency on xterm-resize

@@ -14,7 +14,15 @@ URL:            https://github.com/biojppm/c4core
 #
 # Boost:
 #   - src/c4/ext/sg14/inplace_function.h
-License:        MIT AND BSL-1.0
+#
+# Additionally, the following dependencies contribute to the License of the
+# binary RPMs because they are header-only and are therefore treated as static
+# libraries:
+#   - debugbreak is BSD-2-Clause
+#   - fast-float is Apache-2.0 OR MIT
+# The doctest-static BR is used only for tests and does not contribute to the
+# binary RPMs.
+License:        MIT AND BSL-1.0 AND BSD-2-Clause AND (Apache-2.0 OR MIT)
 
 %{?!commit:%global tag v%{version}}
 %{?!commit:%global extractdir c4core-%{version}}

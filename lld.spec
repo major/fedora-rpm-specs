@@ -1,4 +1,9 @@
 %global toolchain clang
+
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+# https://bugzilla.redhat.com/show_bug.cgi?id=2158587
+%undefine _include_frame_pointers
+
 %bcond_without check
 %bcond_with compat_build
 
@@ -22,7 +27,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The LLVM Linker
 
 License:	NCSA
@@ -177,6 +182,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Mon Jan 09 2023 Tom Stellard <tstellar@redhat.com> - 15.0.6-2
+- Omit frame pointers when building
+
 * Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
 - Update to LLVM 15.0.6
 

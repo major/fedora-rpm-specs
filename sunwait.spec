@@ -3,7 +3,7 @@
 Name:           sunwait
 Summary:        Calculate sunrise, sunset, twilight
 Version:        0.1
-Release:        0.18.%{pkgdate}%{?dist}
+Release:        0.19.%{pkgdate}%{?dist}
 License:        GPLv2+
 URL:            http://www.risacher.org/sunwait/
 Source0:        http://www.risacher.org/sunwait/sunwait-%{pkgdate}.tar.gz
@@ -11,6 +11,7 @@ Source1:        http://www.risacher.org/sunwait/index.html
 
 # patch to include string.h header to avoid warning
 Patch0:         sunwait-string.patch
+Patch1:         sunwait-c99.patch
 
 # As of 20-DEC-2014, the source code for the new fork sunwait4windows
 # is not being provided in any archive format conducive for packaging,
@@ -31,6 +32,7 @@ that make it useful for home automation tasks.
 %prep
 %setup -q -n %{name}-%{pkgdate}
 %patch0 -p1 -b .string
+%patch1 -p1
 cp -p %{SOURCE1} sunwait.html
 
 %build
@@ -46,6 +48,9 @@ install -m 755 sunwait ${RPM_BUILD_ROOT}/%{_bindir}
 %{_bindir}/sunwait
 
 %changelog
+* Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 0.1-0.19.20041208
+- C99 compatibility fixes
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.18.20041208
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

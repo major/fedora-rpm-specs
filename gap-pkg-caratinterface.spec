@@ -3,7 +3,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.3.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GAP interface to CARAT
 
 License:        GPL-2.0-or-later
@@ -40,9 +40,9 @@ functionality of the package Cryst considerably.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only
 Summary:        CARAT documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -67,36 +67,39 @@ for f in read.g PackageInfo.g; do
 done
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/etc ../../etc
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/etc ../../etc
+ln -s %{gap_libdir}/doc ../../doc
 cd doc
 ./make_doc
 cd -
 rm -f ../../{doc,etc}
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
-cp -a *.g gap htm tst %{buildroot}%{gap_dir}/pkg/%{upname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{upname}/doc
+cp -a *.g gap htm tst %{buildroot}%{gap_libdir}/pkg/%{upname}
 %gap_copy_docs -n %{upname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc Changelog README
 %license GPL
-%{gap_dir}/pkg/%{upname}/
-%exclude %{gap_dir}/pkg/%{upname}/doc/
-%exclude %{gap_dir}/pkg/%{upname}/htm/
+%{gap_libdir}/pkg/%{upname}/
+%exclude %{gap_libdir}/pkg/%{upname}/doc/
+%exclude %{gap_libdir}/pkg/%{upname}/htm/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{upname}/doc/
-%docdir %{gap_dir}/pkg/%{upname}/htm/
-%{gap_dir}/pkg/%{upname}/doc/
-%{gap_dir}/pkg/%{upname}/htm/
+%docdir %{gap_libdir}/pkg/%{upname}/doc/
+%docdir %{gap_libdir}/pkg/%{upname}/htm/
+%{gap_libdir}/pkg/%{upname}/doc/
+%{gap_libdir}/pkg/%{upname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.3.4-3
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.3.4-2
 - Clarify license of the doc subpackage
 

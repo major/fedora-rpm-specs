@@ -1,7 +1,7 @@
 %global srcname robotframework
 
 Name:           python-%{srcname}
-Version:        6.0.1
+Version:        6.0.2
 Release:        1%{?dist}
 Summary:        Generic automation framework for acceptance testing and RPA
 # Robot Framework is licensed as Apache-2.0
@@ -72,6 +72,9 @@ Provides:      bundled(jsxcompressor)
 
 
 %changelog
+* Thu Jan 12 2023 Federico Pellegrin <fede@evolware.org> - 6.0.2-1
+- Upgrade to 6.0.2
+
 * Sun Nov 06 2022 Federico Pellegrin <fede@evolware.org> - 6.0.1-1
 - Upgrade to 6.0.1
 

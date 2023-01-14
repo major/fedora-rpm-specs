@@ -1,6 +1,6 @@
 Name:           perl-Feature-Compat-Class
-Version:        0.04
-Release:        2%{?dist}
+Version:        0.05
+Release:        1%{?dist}
 Summary:        Make class syntax available
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -57,6 +57,9 @@ perl Build.PL installdirs=vendor
 
 
 %changelog
+* Thu Jan 12 2023 Sandro Mani <manisandro@gmail.com> - 0.05-1
+- Update to 0.05
+
 * Fri Jan 06 2023 Sandro Mani <manisandro@gmail.com> - 0.04-2
 - Fix license
 - Fix source URL

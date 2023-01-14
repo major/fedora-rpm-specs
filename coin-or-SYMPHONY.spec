@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Solver for mixed-integer linear programs
 Version:	5.6.17
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}/wiki
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -24,6 +24,8 @@ Patch0:		%{name}-docdir.patch
 
 # Fix GCC warnings about aliased arguments to restrict-qualified parameters
 Patch1:		%{name}-restrict.patch
+
+Patch2:		coin-or-SYMPHONY-configure-c99.patch
 
 %description
 SYMPHONY is an open-source solver for mixed-integer linear programs (MILPs)
@@ -114,6 +116,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_libdir}/pkgconfig/symphony.pc
 
 %changelog
+* Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 5.6.17-9
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.17-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

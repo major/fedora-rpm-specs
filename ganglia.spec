@@ -11,7 +11,7 @@
 Summary:            Distributed Monitoring System
 Name:               ganglia
 Version:            %{gangver}
-Release:            39%{?dist}
+Release:            40%{?dist}
 License:            BSD
 URL:                http://ganglia.sourceforge.net/
 Source0:            http://downloads.sourceforge.net/sourceforge/ganglia/ganglia-%{version}.tar.gz
@@ -29,7 +29,7 @@ Patch4:             ganglia-web-5ee6b7.patch
 %if 0%{?systemd}
 BuildRequires:      systemd
 %endif
-%if 0%{?fedora} > 27 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:      rpcgen
 BuildRequires:      libtirpc-devel
 BuildRequires:      autoconf
@@ -46,7 +46,9 @@ BuildRequires:      libconfuse-devel
 BuildRequires:      libmemcached-devel
 BuildRequires:      libpng-devel
 BuildRequires:      make
+%if 0%{?fedora} < 38 || 0%{?rhel}
 BuildRequires:      pcre-devel
+%endif
 %{?py2:BuildRequires:      python2-devel}
 BuildRequires:      rrdtool-devel
 BuildRequires:      rsync
@@ -64,6 +66,9 @@ Requires:           rrdtool
 Requires:           php
 Requires:           php-gd
 Requires:           %{name}-gmetad = %{gangver}-%{release}
+%if 0%{?fedora} || 0%{?rhel} > 7
+Requires:           php-xml
+%endif
 %description        web
 This package provides a web frontend to display the XML tree published
 by ganglia, and to provide historical graphs of collected
@@ -142,7 +147,7 @@ install -m 0644 %{SOURCE2} gmond/gmond.service.in
 install -m 0644 %{SOURCE3} gmetad/gmetad.service.in
 %patch1 -p0
 %patch2 -p0
-%if 0%{?fedora} > 27 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 7
 %patch3 -p1
 %endif
 # web part
@@ -155,7 +160,7 @@ popd
 
 %build
 touch Makefile.am
-%if 0%{?fedora} > 27 || 0%{?rhel} > 7
+%if 0%{?fedora} || 0%{?rhel} > 7
 aclocal -I m4
 autoheader
 automake --add-missing --copy --foreign 2>/dev/null
@@ -163,6 +168,18 @@ libtoolize --automake --copy
 automake --add-missing --copy --foreign
 autoconf -f || exit 1
 %endif
+
+%if 0%{?fedora} > 36
+pushd libmetrics
+aclocal -I m4
+autoheader
+automake --add-missing --copy --foreign 2>/dev/null
+libtoolize --automake --copy
+automake --add-missing --copy --foreign
+autoconf -f || exit 1
+popd
+%endif
+
 export CFLAGS="%{optflags} -fcommon"
 %configure \
     --enable-setuid=ganglia \
@@ -171,6 +188,9 @@ export CFLAGS="%{optflags} -fcommon"
     --with-memcached \
     --disable-static \
     --enable-shared \
+%if 0%{?fedora} > 37
+    --with-libpcre=no \
+%endif
 %if 0%{?py2}
     --with-python=%{__python2} \
 %else
@@ -231,7 +251,7 @@ ln -s ../../..%{_sysconfdir}/%{name}/conf.php \
 popd
 
 ## httpd config
-%if 0%{?fedora} >= 18
+%if 0%{?fedora} || 0%{?rhel} > 6
 install -Dp -m 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
 %else
 install -Dp -m 0644 %{SOURCE5} %{buildroot}%{_sysconfdir}/httpd/conf.d/%{name}.conf
@@ -388,6 +408,13 @@ end
 %dir %attr(0755,apache,apache) %{_localstatedir}/lib/%{name}-web/dwoo/compiled
 
 %changelog
+* Thu Jan 12 2023 Terje Rosten <terje.rosten@ntnu.no> - 3.7.2-40
+- Fix implicit dep on php-xml (rhbz#2016302)
+- Remove dep on pcre in Fedora 38+ (rhbz#2128294)
+- RHEL7+ have httpd 2.4 too
+- Simplify fedora conditionals
+- Fix autoconf problem in libmetrics
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

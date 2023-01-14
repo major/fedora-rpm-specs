@@ -42,13 +42,13 @@
 
 Name:              netatalk
 Epoch:             5
-Version:           3.1.13
-Release:           5%{?dist}
+Version:           3.1.14
+Release:           1%{?dist}
 Summary:           Open Source Apple Filing Protocol(AFP) File Server
 License:           GPL+ and GPLv2 and GPLv2+ and LGPLv2+ and BSD and FSFUL and MIT
 # Project is also mirrored at https://github.com/Netatalk/Netatalk
 URL:               http://netatalk.sourceforge.net
-Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.bz2
+Source0:           https://download.sourceforge.net/netatalk/netatalk-%{version}.tar.gz
 Source1:           netatalk.pam-system-auth
 Source2:           netatalk.conf
 
@@ -60,16 +60,7 @@ ExcludeArch:       aarch64 s390x
 # From http://www003.upp.so-net.ne.jp/hat/files/netatalk-3.1.7-0.1.fc22.src.rpm
 Patch0:            netatalk-3.0.1-basedir.patch
 Patch1:            netatalk-systemd-execstartpre.patch
-# https://github.com/Netatalk/Netatalk/pull/110
-Patch2:            netatalk-fix-incorrect-fsf-address.patch
-# https://github.com/Netatalk/Netatalk/pull/113
-Patch3:            netatalk-afpstats-python3-compat.patch
-# https://sourceforge.net/p/netatalk/patches/147/
-Patch4:            netatalk-Spotlight-Allow-building-with-Tracker-3.x.patch
-# IO::Socket::INET6 is obsolete, rewrite to IO::Socket::IP
-Patch5:            netatalk-3.1.12-rewrite_deprecated_perl_dependency.patch
-# https://github.com/Netatalk/Netatalk/pull/174
-Patch6:            netatalk_add_entry.patch
+Patch2:            netatalk-Spotlight-Allow-building-with-Tracker-3.x.patch
 
 BuildRequires:     make
 BuildRequires:     automake
@@ -242,6 +233,9 @@ sh test/afpd/test.sh
 %{_mandir}/man*/netatalk-config.1*
 
 %changelog
+* Thu Jan 12 2023 Andrew Bauer <zonexpertconsulting@outlook.com> - 5:3.1.14-1
+- 3.1.14 release
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5:3.1.13-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

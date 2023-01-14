@@ -2,77 +2,52 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_libdir}/tcl%{tcl_version}}
 
 Name:		tkimg
-Version:	1.4
-Release:	38%{?dist}
+Version:	1.4.14
+Release:	1%{?dist}
 Summary:	Image support library for Tk
-License:	BSD
+# This has some bundled "fun" in it.
+# The fork of libjpeg is licensed IJG
+# The fork of zlib and libpng are licensed zlib
+# The fork of libtiff is licensed libtiff
+License:	BSD AND IJG AND zlib AND libtiff
 URL:		http://sourceforge.net/projects/tkimg
-Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/1.4/%{name}%{version}.tar.bz2
-Patch0:		tkimg-zlib.patch
-Patch1:		tkimg-jpg.patch
-Patch2:		tkimg-libpng.patch
-Patch3:		tkimg-libtiff.patch
-Patch4:		tkimg-libpng15.patch
-Patch5:		tkimg-libtiff4.patch
-# gzgetc is now defined as a macro in zlib, which causes tkimg to ftbfs
-# because it wants to define all of its functions internally to map to the 
-# tcl/tk bits. The simple fix is to use the abstraction function "gzgetc_"
-# which avoids the problem. See: https://bugzilla.redhat.com/show_bug.cgi?id=844462
-Patch6:		tkimg-zlib127-gzgetc_fix.patch
-# changes in libpng16
-Patch7:		tkimg-libpng16.patch
-Patch8:		tkimg-libpng-deprecated.patch
-# gcc10 has -fno-common by default
-Patch9:		tkimg-gcc10.patch
-Patch10: tkimg-implicit-int.patch
-
-# A request to allow building with system libraries has been submitted
-# https://sourceforge.net/tracker/index.php?func=detail&aid=2292032&group_id=52039&atid=465495
-BuildRequires: make
-BuildRequires:  gcc
+Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/1.4/Img-%{version}-Source.tar.gz
+BuildRequires:	make
+BuildRequires:	gcc
 BuildRequires:	tcl-devel tk-devel tcllib
-BuildRequires:	zlib-devel >= 1.2.7
-BuildRequires:	libjpeg-devel
-BuildRequires:	libpng-devel >= 1.6
-BuildRequires:	libtiff-devel >= 4.0
 
+# tkimg builds its own bundled copies of the zlib, libjpeg, libpng,
+# and libtiff libraries. From the README:
+#  Note that you have to build these libraries to
+#  support the named formats, even if your system already has shared
+#  libraries for these formats. This is because the libraries here are
+#  built such that they can be loaded as packages by the Tcl/Tk core,
+#  making the handling of the various dependencies much easier. An
+#  earlier version, 1.2.4, used a modified copy of Tcl's functions for
+#  loading of shared libraries to load the support libraries at runtime.
+#  These have been abandoned in favor of the new approach.
+
+Provides: bundled(zlib) = 1.2.13
+Provides: bundled(libjpeg) = 9e
+Provides: bundled(libpng) = 1.6.38
+Provides: bundled(libtiff) = 4.4.0
 Requires: tcl(abi) = 8.6
 Requires: tk >= 8.6
 
 %description
 This package contains a collection of image format handlers for the Tk
 photo image type, and a new image type, pixmaps.
-The provided format handlers include bmp, gif, ico, jpeg, pcx, png,
-ppm, ps, sgi, sun, tga, tiff, xbm, and xpm.
 
 %package devel
 Summary:	Libraries, includes, etc. used to develop an application with %{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	tcl-devel tk-devel
-Requires:	libjpeg-devel zlib-devel
-Requires:	libtiff-devel
-Requires:	libpng-devel
 
 %description devel
 These are the header files needed to develop a %{name} application
 
 %prep
-%setup -q -n %{name}%{version}
-%patch0 -p1 -b .zlib
-rm -rf compat/zlib
-%patch1 -p1 -b .jpeg
-rm -rf compat/libjpeg
-%patch2 -p1 -b .libpng
-rm -rf compat/libpng
-%patch3 -p1 -b .libtiff
-rm -rf compat/libtiff
-%patch4 -p1 -b .png15
-%patch5 -p1 -b .tiff4
-%patch6 -p1 -b .gzgetc_fix
-%patch7 -p1 -b .png16
-%patch8 -p1 -b .deprecated
-%patch9 -p1 -b .gcc10
-%patch10 -p1
+%setup -q -n Img-%{version}-Source
 
 %build
 %configure --with-tcl=%{tcl_sitearch} --with-tk=%{_libdir} --libdir=%{tcl_sitearch} --disable-threads --enable-64bit
@@ -82,35 +57,23 @@ make %{?_smp_mflags}
 %install
 make %{?_smp_mflags} INSTALL_ROOT=%{buildroot} install
 
-# Fixing some permissions
-find %{buildroot}/%{tcl_sitearch} -name "*.sh" |xargs chmod 644
-find %{buildroot}/%{tcl_sitearch} -name "*.tcl" |xargs chmod 644
-find %{buildroot}/%{tcl_sitearch} -name "*.a" |xargs chmod 644
-find %{buildroot}/%{tcl_sitearch} -name "*.so" |xargs chmod 755
-
-# Make library links
-mv %{buildroot}/%{tcl_sitearch}/*.sh %{buildroot}/%{_libdir}
-for tcllibs in %{buildroot}/%{tcl_sitearch}/Img1.4/*tcl*.so; do
-btcllibs=`basename $tcllibs`
-ln -s tcl%{tcl_version}/Img1.4/$btcllibs %{buildroot}/%{_libdir}/$btcllibs
-done
-
-%ldconfig_scriptlets
-
 %files
 %doc README
-%{_libdir}/*.so
-%{tcl_sitearch}/Img1.4
+%{tcl_sitearch}/Img%{version}
 %{_mandir}/mann/img*
-%exclude %{tcl_sitearch}/Img1.4/*.a
+%exclude %{tcl_sitearch}/Img%{version}/*.a
 
 %files devel
 %doc README
 %{_includedir}/*
-%{_libdir}/*.sh
-%{tcl_sitearch}/Img1.4/*.a
+%{tcl_sitearch}/*.sh
+%{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Thu Jan 12 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.14-1
+- update to 1.4.14
+- use bundled zlib, libpng, libjpeg, libtiff
+
 * Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 1.4-38
 - Eliminate implicit int declarations
 

@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Adjoint groups of finite rings
 
 License:        GPL-2.0-or-later
@@ -47,10 +47,10 @@ and finite associative rings without one.
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Circle documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -69,29 +69,32 @@ gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 # Fix paths in the extracted example files
-sed -i "s,$PWD/\.\.,%{gap_dir},g" tst/circle*.tst
+sed -i "s,$PWD/\.\.,%{gap_libdir},g" tst/circle*.tst
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
-rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/README.md
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
+rm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst/README.md
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc README.md
 %license COPYING
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.5-5
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.5-4
 - Clarify license of the doc subpackage
 

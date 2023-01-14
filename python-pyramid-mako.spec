@@ -1,25 +1,24 @@
 %global modname pyramid_mako
 %global srcname pyramid-mako
+%global commit 50a2322554a8c058789556e3ebe3af91d0f857a6
+%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
+%global date 20230112
 
 Name:               python-%{srcname}
-Version:            1.0.2
-Release:            22%{?dist}
+Version:            1.1.0^%{date}%{shortcommit}
+Release:            1%{?dist}
 Summary:            Mako template bindings for the Pyramid web framework
 
-License:            BSD
-URL:                http://pypi.python.org/pypi/%{modname}
-Source0:            https://files.pythonhosted.org/packages/source/p/%{modname}/%{modname}-%{version}.tar.gz
+License:            BSD-4-Clause
+URL:                http://pypi.python.org/pypi/%{srcname}
+#Source0:            %%pypi_source %%{modname}
+Source0:            https://github.com/Pylons/%{modname}/archive/%{commit}/%{modname}-%{commit}.tar.gz
 
 BuildArch:          noarch
 
 BuildRequires:      python3-devel
 BuildRequires:      python3-setuptools
-BuildRequires:      python3-pyramid
 
-# For the test suite
-BuildRequires:      python3-webtest
-BuildRequires:      python3-nose
-BuildRequires:      python3-mako
 
 %description
 These are bindings for the Mako templating system for the Pyramid web
@@ -28,9 +27,6 @@ framework.
 
 %package -n python3-%{srcname}
 Summary:    %{summary}
-Requires:   python3-mako
-Requires:   python3-pyramid
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 These are bindings for the Mako templating system for the Pyramid web
@@ -38,38 +34,47 @@ framework.
 
 
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -n %{modname}-%{commit}
 
 # Remove bundled egg-info in case it exists
 rm -rf %{modname}.egg-info
-awk 'NR==3{print "import __main__; __main__.__requires__ = __requires__ = [\"WebTest>=1.3.1\", \"WebOb>=1.3.1\", \"zope.interface>=3.8.0\", \"Mako>=0.3.6\"]; import pkg_resources"}3' setup.py > tempfile
-mv tempfile setup.py
 
 # Remove lingering .gitignore file and hidden static folder
 rm docs/.gitignore
 rm -rf docs/.static
 
+# Fix BuildRequire on pytest-cover
+sed -i 's|pytest-cover|pytest-cov|g' setup.cfg
+
+%generate_buildrequires
+%pyproject_buildrequires -x testing
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 
 %check
-%{__python3} setup.py test
+%pyproject_check_import
+%pytest tests
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst COPYRIGHT.txt CONTRIBUTORS.txt CHANGES.txt docs/
 %license LICENSE.txt
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}*
 
 
 %changelog
+* Thu Jan 12 2023 Mattia Verga <mattia.verga@proton.me> - 1.1.0^2023011250a2322-1
+- Update to latest git svn for Pyramid 2.0 compatibility
+- Use SPDX identifier in license tag
+- Use modern python macros for packaging
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:		vkd3d
-Version:	1.5
+Version:	1.6
 Release:	1%{?dist}
 Summary:	D3D12 to Vulkan translation library
 
@@ -241,6 +241,9 @@ find %{buildroot} -regextype egrep -regex '.*\.a$|.*\.la$' ! -iname '*.dll.a' -d
 
 
 %changelog
+* Thu Jan 12 2023 - Michael Cronenworth <mike@cchtml.com> - 1.6-1
+- version update
+
 * Mon Oct 24 2022 - Michael Cronenworth <mike@cchtml.com> - 1.5-1
 - version update
 

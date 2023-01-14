@@ -1,11 +1,15 @@
 %global toolchain clang
 
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+# https://bugzilla.redhat.com/show_bug.cgi?id=2158587
+%undefine _include_frame_pointers
+
 %bcond_with compat_build
 %bcond_without check
 
 %global maj_ver 15
 %global min_ver 0
-%global patch_ver 6
+%global patch_ver 7
 #global rc_ver 3
 %global clang_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -37,7 +41,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	1%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	NCSA
@@ -501,11 +505,11 @@ false
 
 %files libs
 %if %{without compat_build}
-%{_libdir}/clang/
+%{_libdir}/clang/%{version}/include/*
 %{_libdir}/*.so.*
 %else
 %{pkg_libdir}/*.so.*
-%{pkg_libdir}/clang/%{version}
+%{pkg_libdir}/clang/%{version}/include/*
 %endif
 
 %files devel
@@ -525,6 +529,7 @@ false
 %endif
 
 %files resource-filesystem
+%dir %{pkg_libdir}/clang/
 %dir %{pkg_libdir}/clang/%{version}/
 %dir %{pkg_libdir}/clang/%{version}/include/
 %dir %{pkg_libdir}/clang/%{version}/lib/
@@ -607,6 +612,15 @@ false
 
 %endif
 %changelog
+* Thu Jan 12 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-1
+- Update to LLVM 15.0.7
+
+* Thu Jan 12 2023 Nikita Popov <npopov@redhat.com> - 15.0.6-5
+- Fix resource-filesystem ownership conflict
+
+* Mon Jan 09 2023 Tom Stellard <tstellar@redhat.com> - 15.0.6-4
+- Omit frame pointers when building
+
 * Wed Dec 21 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-3
 - Add clang-devel dep to python3-clang
 

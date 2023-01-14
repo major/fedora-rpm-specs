@@ -27,7 +27,7 @@ This package is developed and maintained by the Neurosim lab
 (www.neurosimlab.org) }
 
 Name:           python-netpyne
-Version:        1.0.2.1
+Version:        1.0.3.1
 Release:        %autorelease
 Summary:        Develop, simulate and analyse biological neuronal networks in NEURON
 
@@ -51,6 +51,8 @@ BuildRequires:  neuron-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-neuron
+# skipped in setup.py
+BuildRequires:  python3-dill
 
 %if %{with pyneuroml}
 BuildRequires:  %{py3_dist pyneuroml}
@@ -67,6 +69,8 @@ Requires:  %{py3_dist neuron}
 %prep
 %autosetup -n netpyne-%{version}
 
+sed -i 's/matplotlib<=3.5.1/matplotlib/' setup.py
+
 # None executable script
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
@@ -82,7 +86,8 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 
 %check
 # Do not test optional modules that have requirements not yet packaged in Fedora
-%pyproject_check_import -e *optuna*
+# sbi: requires pytorch
+%pyproject_check_import -e *optuna* -e *sbi*
 
 export PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}
 pushd doc/source/code

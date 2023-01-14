@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Formations of finite solvable groups
 
 License:        GPL-2.0-or-later
@@ -28,11 +28,11 @@ solvable groups and with various formation-theoretic subgroups.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
 # RSFS: LicenseRef-Rsfs
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND LicenseRef-Rsfs AND GPL-1.0-or-later
 Summary:        Format documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -50,36 +50,39 @@ sed -i '/UseReferences.*ext/d' doc/manual.tex
 export LC_ALL=C.UTF-8
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/etc ../../etc
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/etc ../../etc
+ln -s %{gap_libdir}/doc ../../doc
 cd doc
 ./make_doc
 cd -
 rm -f ../../{doc,etc}
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g grp htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g grp htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.3-8
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.3-7
 - Clarify license of the doc subpackage
 

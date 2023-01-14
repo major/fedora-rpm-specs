@@ -56,7 +56,7 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Taquin.d
 %{_datadir}/gnome-taquin
 %{_datadir}/icons/*/*/apps/org.gnome.Taquin*
 %{_datadir}/metainfo/org.gnome.Taquin.appdata.xml
-%{_mandir}/man6/gnome-taquin.6.*
+%{_mandir}/man6/gnome-taquin.6*
 
 
 %changelog

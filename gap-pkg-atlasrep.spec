@@ -7,11 +7,11 @@
 # 2. Build gap-pkg-tomlib
 # 3. Build gap-pkg-ctbllib
 # 4. Build this package in non-bootstrap mode.
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP interface to the Atlas of Group Representations
 
 License:        GPL-3.0-or-later
@@ -56,11 +56,11 @@ the data in GAP format.
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        AtlasRep documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
@@ -85,7 +85,7 @@ chmod a-x doc/*.xml
 
 %build
 # Link to main GAP documentation
-cp -a %{gap_dir}/doc ../../doc
+cp -a %{gap_libdir}/doc ../../doc
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
 %if %{with bootstrap}
@@ -94,7 +94,7 @@ touch ../ctbllib/doc/manualbib.xml
 mkdir -p ../pkg/ctbllib/doc
 touch ../pkg/ctbllib/doc/manualbib.xml
 %else
-cp -a %{gap_dir}/pkg/ctbllib ..
+cp -a %{gap_libdir}/pkg/ctbllib ..
 %endif
 gap -l "$PWD/..;" makedocrel.g
 rm -fr ../../doc ../{ctbllib,pkg}
@@ -104,9 +104,9 @@ sed -i "s,$PWD/doc/\.\./\.\./pkg,../..,g" doc/*.html
 
 %install
 rm tst/*~
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
 cp -a *.g *.json bibl dataext datagens datapkg dataword gap tst \
-   %{buildroot}%{gap_dir}/pkg/%{pkgname}
+   %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %if %{without bootstrap}
@@ -131,14 +131,17 @@ rm -fr ../pkg
 
 %files
 %doc README.md
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.1.6-2
+- Update for split GAP directories
+
 * Fri Nov  4 2022 Jerry James <loganjerry@gmail.com> - 2.1.6-1
 - Version 2.1.6
 - Add dependency on gap-pkg-utils

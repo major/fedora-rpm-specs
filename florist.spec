@@ -7,13 +7,20 @@
 Name:           florist
 Epoch:          2
 Version:        %{upstream_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Open Source implementation of the POSIX Ada Bindings
 
 License:        GPLv2+ with exceptions
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
 Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz
+
+# C 99 compatibility in the configure script, submitted upstream:
+# https://github.com/AdaCore/florist/pull/10
+Patch0:         florist-configure-c99.patch
+# C 99 compatibility in c-posix.c, backported:
+# https://github.com/AdaCore/florist/commit/e6c2f95ff8ae426c3d832f23aa80bcda82dcfa5c
+Patch1:         florist-c99.patch
 
 # The following patches have been downloaded from a fork of Florist that
 # continued public maintenance of the library while it was not available through
@@ -128,6 +135,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 2:22.0.0-2
+- C99 compatibility fixes
+
 * Fri Sep 23 2022 Dennis van Raaij <dvraaij@fedoraproject.org> - 2:22.0.0-1
 - Updated to v22.0.0, using the archive available on GitHub.
 - Changed the epoch to mark the new upstream version scheme.

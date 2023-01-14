@@ -5,8 +5,8 @@
 # writing of non-sionlib traces.
 
 Name:           otf2
-Version:        2.3
-Release:        7%{?dist}
+Version:        3.0.2
+Release:        1%{?dist}
 Summary:        Open Trace Format 2 library
 
 License:        BSD-3-Clause
@@ -15,13 +15,13 @@ Source0:        http://perftools.pages.jsc.fz-juelich.de/cicd/otf2/tags/%{name}-
 # fedpkg new-sources apparently can't cope with both otf2-1.5.1 and
 # otf2-2.2 tarballs.
 %{?el7:Source1:        https://www.vi-hps.org/cms/upload/packages/otf2/otf2-1.5.1.tar.gz}
-# Avoid -rpath in otf2-config output
-Patch1:         otf2-rpath.patch
 # Fix AC_CONFIG_MACRO_DIR and remove $(srcdir) from TESTS (1.5.1 source)
 %{?el7:Patch3:         otf2-autoconf.patch}
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  chrpath dos2unix
+# "cannot determine instruction set" with these
+ExcludeArch: i686 s390x
 
 
 %description
@@ -69,9 +69,6 @@ Compatibility library for %name version 1.
 
 %prep
 %setup -q
-%patch1 -p1 -b .rpath
-# Remove ldflags
-sed -i -s '/deps.GetLDFlags/d' src/tools/otf2_config/otf2_config.cpp
 dos2unix doc/examples/otf2_high_level_writer_example.py
 %if 0%{?el7}
 tar fx %SOURCE1
@@ -87,12 +84,17 @@ done
 
 %build
 export PYTHON_FOR_GENERATOR=:
+# CFLAGS etc. don't get passed to sub-configure unless given as args,
+# and then configure fails for want of -fPIC.
 %configure --disable-static --enable-shared --disable-silent-rules \
- --docdir=%{_pkgdocdir} --enable-backend-test-runs --with-platform=linux
+ --docdir=%{_pkgdocdir} --enable-backend-test-runs --with-platform=linux \
+  CFLAGS="$CFLAGS" CXXFLAGS="$CXXFLAGS" LDFLAGS="$LDFLAGS"
 # With the binary extension, we should be installing into sitearch,
 # not sitelib which otherwise gets used.  This is the easiest
 # solution.  Fixme: patch to do the right thing.
 sed -i -e '/"pythondir".*=/s;=.*$;="%{python3_sitearch}";' build-backend/config.status
+# Avoid rpath in otf2-config
+sed -i -e '/HARDCODE_INTO_LIBS/s/1/0/' build-backend/config.status
 ./config.status
 %make_build
 %if 0%{?el7}
@@ -130,7 +132,7 @@ make check
 %{_bindir}/%{name}-marker
 %{_bindir}/%{name}-print
 %{_bindir}/%{name}-snapshots
-%{_libdir}/lib%{name}.so.7*
+%{_libdir}/lib%{name}.so.10*
 %dir %{_datadir}/%{name}/
 %{_datadir}/%{name}/%{name}.summary
 %{_pkgdocdir}/AUTHORS
@@ -145,6 +147,7 @@ make check
 %{_bindir}/%{name}-config
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
+%{_libdir}/pkgconfig/otf2*.pc
 
 %files doc
 %license COPYING
@@ -166,6 +169,9 @@ make check
 %endif
 
 %changelog
+* Mon Dec  5 2022 Dave Love <loveshack@fedoraproject.org> - 3.0.2-1
+- New version
+
 * Thu Sep  8 2022 Dave Love <loveshack@fedoraproject.org> - 2.3-7
 - Use SPDX licence TAG
 

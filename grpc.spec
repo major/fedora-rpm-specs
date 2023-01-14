@@ -139,6 +139,13 @@ Summary:        RPC library and framework
 
 # The entire source is Apache-2.0 except the following:
 #
+# BSD-2-Clause:
+#   - third_party/xxhash is BSD-2-Clause, at least the relevant parts (not the
+#     command-line tool); it is unbundled, but then it is used as a header-only
+#     library due to XXH_INCLUDE_ALL, so we must treat it as a static library
+#     and include its license in that of the binary RPMs
+#     * Potentially linked into any compiled subpackage (but not pure-Python
+#       subpackages, etc.)
 # BSD-3-Clause:
 #   - third_party/upb/, except third_party/upb/third_party/lunit/ and
 #     third_party/upb/third_party/utf8_range/
@@ -176,7 +183,7 @@ Summary:        RPC library and framework
 # MIT:
 #   - third_party/upb/third_party/lunit/
 #     * Removed in prep, since there is no obvious way to run the upb tests
-License:        Apache-2.0 AND BSD-3-Clause AND MIT
+License:        Apache-2.0 AND BSD-2-Clause AND BSD-3-Clause AND MIT
 URL:            https://www.grpc.io
 %global forgeurl https://github.com/grpc/grpc/
 Source0:        %{forgeurl}/archive/v%{srcversion}/grpc-%{srcversion}.tar.gz

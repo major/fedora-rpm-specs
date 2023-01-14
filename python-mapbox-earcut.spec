@@ -3,8 +3,11 @@ Version:        1.0.1
 Release:        %autorelease
 Summary:        Python bindings to the mapbox earcut C++ library
 
-# SPDX
-License:        ISC
+# The entire source is (SPDX) ISC; the License also includes the licenses of
+# two header-only libraries that are compiled into the extension:
+#   - earcut-hpp-static is also ISC
+#   - pybind11-static is BSD-3-Clause
+License:        ISC AND BSD-3-Clause
 URL:            https://github.com/skogler/mapbox_earcut_python
 # The GitHub archive contains tests; the PyPI archive does not
 Source0:        %{url}/archive/v%{version}/mapbox_earcut_python-%{version}.tar.gz

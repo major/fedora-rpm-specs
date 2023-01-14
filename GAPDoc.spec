@@ -15,7 +15,7 @@
 
 Name:           GAPDoc
 Version:        1.6.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GAP documentation tool
 
 License:        GPL-2.0-or-later
@@ -33,6 +33,7 @@ BuildRequires:  tex(english.ldf)
 BuildRequires:  tex(enumitem.sty)
 BuildRequires:  tex(fancyvrb.sty)
 BuildRequires:  tex(geometry.sty)
+BuildRequires:  tex(grfext.sty)
 BuildRequires:  tex(pslatex.sty)
 BuildRequires:  tex(psnfss.map)
 BuildRequires:  tex(tex)
@@ -105,6 +106,7 @@ Requires:       tex(english.ldf)
 Requires:       tex(enumitem.sty)
 Requires:       tex(fancyvrb.sty)
 Requires:       tex(geometry.sty)
+Requires:       tex(grfext.sty)
 Requires:       tex(pslatex.sty)
 Requires:       tex(psnfss.map)
 Requires:       tex(tex)
@@ -131,10 +133,10 @@ building GAP package documentation.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only AND GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only AND GPL-1.0-or-later
 Summary:        GAPDoc documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -153,7 +155,7 @@ This package contains documentation for GAPDoc.
 export LC_ALL=C.UTF-8
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/doc ../../doc
 mkdir ../pkg
 ln -s ../GAPDoc-%{version} ../pkg
 %if %{with bootstrap}
@@ -164,18 +166,18 @@ gap -l "$PWD/..;" --bare -c 'LoadPackage("GAPDoc");' makedocrel.g
 rm -fr ../../doc ../pkg
 
 # Remove build paths
-sed -i "s|$PWD/..|%{gap_dir}|g" doc/*.html example/*.html
+sed -i "s|$PWD/..|%{gap_libdir}|g" doc/*.html example/*.html
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/GAPDoc/{3k+1,doc,example}
-cp -a *.{dtd,g} lib styles tst version %{buildroot}%{gap_dir}/pkg/GAPDoc
+mkdir -p %{buildroot}%{gap_libdir}/pkg/GAPDoc/{3k+1,doc,example}
+cp -a *.{dtd,g} lib styles tst version %{buildroot}%{gap_libdir}/pkg/GAPDoc
 %gap_copy_docs -n GAPDoc
 %gap_copy_docs -n GAPDoc -d 3k+1
 %gap_copy_docs -n GAPDoc -d example
 # Link, rather than copy, the style files
 for fil in %{gapdoc_files}; do
   for dir in 3k+1 doc example; do
-    path=%{buildroot}%{gap_dir}/pkg/GAPDoc/$dir/$fil
+    path=%{buildroot}%{gap_libdir}/pkg/GAPDoc/$dir/$fil
     rm -f $path
     ln -s ../styles/$fil $path
   done
@@ -196,23 +198,27 @@ rm -fr ../pkg
 %files
 %doc CHANGES README.md
 %license GPL
-%{gap_dir}/pkg/%{name}/
-%exclude %{gap_dir}/pkg/%{name}/3k+1/
-%exclude %{gap_dir}/pkg/%{name}/doc/
-%exclude %{gap_dir}/pkg/%{name}/example/
+%{gap_libdir}/pkg/%{name}/
+%exclude %{gap_libdir}/pkg/%{name}/3k+1/
+%exclude %{gap_libdir}/pkg/%{name}/doc/
+%exclude %{gap_libdir}/pkg/%{name}/example/
 
 %files latex
 # This is a metapackage to pull in dependencies only
 
 %files doc
-%docdir %{gap_dir}/pkg/%{name}/3k+1/
-%docdir %{gap_dir}/pkg/%{name}/doc/
-%docdir %{gap_dir}/pkg/%{name}/example/
-%{gap_dir}/pkg/%{name}/3k+1/
-%{gap_dir}/pkg/%{name}/doc/
-%{gap_dir}/pkg/%{name}/example/
+%docdir %{gap_libdir}/pkg/%{name}/3k+1/
+%docdir %{gap_libdir}/pkg/%{name}/doc/
+%docdir %{gap_libdir}/pkg/%{name}/example/
+%{gap_libdir}/pkg/%{name}/3k+1/
+%{gap_libdir}/pkg/%{name}/doc/
+%{gap_libdir}/pkg/%{name}/example/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.6-4
+- Update for split GAP directories
+- Add dependency on grfext.sty for TeXLive 2022 compatibility
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6.6-3
 - Use upstream's method of bootstrapping
 - Clarify license of the doc subpackage

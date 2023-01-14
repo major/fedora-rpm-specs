@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Computing Gröbner bases of noncommutative polynomials
 
 License:        LGPL-2.1-or-later
@@ -32,12 +32,12 @@ word problem for finitely presented (semi)groups.
 # The content is LGPL-2.1-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # LaTeX: LPPL-1.0
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        LGPL-2.1-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND LPPL-1.0 AND AGPL-3.0-only
+License:        LGPL-2.1-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.0 AND AGPL-3.0-only
 Summary:        GBNP documentation and examples
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -49,8 +49,8 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -p0 -n %{pkgname}-%{version}
 
 # Help GAP find its files
-sed -i 's,\\\\\\\(.*\) ,"%{gap_dir}\1",;s/eval //' etc/workspace
-sed -i 's,\\\\;,%{gap_dir};,' etc/makedepend etc/workspace
+sed -i 's,\\\\\\\(.*\) ,"%{gap_libdir}\1",;s/eval //' etc/workspace
+sed -i 's,\\\\;,%{gap_libdir};,' etc/makedepend etc/workspace
 sed -i "s,-r,-l '%{_builddir}/%{pkgname}-%{version}/build;' &,;s/eval //" \
     etc/gapscript
 
@@ -60,28 +60,31 @@ export LC_ALL=C.UTF-8
 
 %install
 # We install test files for use by GAP's internal test suite runner.
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
-cp -a doc/{articles,examples,nmo} %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/lib/{gbnp-uses.sed,OPTIONS,STRUCTURE,TODO}
-rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/{.depend,GNUmakefile,txt2xml.sed}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
+cp -a doc/{articles,examples,nmo} %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+rm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/lib/{gbnp-uses.sed,OPTIONS,STRUCTURE,TODO}
+rm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst/{.depend,GNUmakefile,txt2xml.sed}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc Changelog README.md
 %license COPYRIGHT doc/LGPL
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.0.5-4
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.0.5-3
 - Clarify license of the doc subpackage
 

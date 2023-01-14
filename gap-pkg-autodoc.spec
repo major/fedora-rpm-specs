@@ -10,7 +10,7 @@
 
 Name:           gap-pkg-autodoc
 Version:        2022.10.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generate documentation from GAP source code
 
 License:        GPL-2.0-or-later
@@ -38,11 +38,11 @@ documentation from GAP source code.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        AutoDoc documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       GAPDoc-doc
@@ -61,29 +61,32 @@ gap -l "$PWD/..;" --bare -c 'LoadPackage("GAPDoc");' makedoc.g
 rm -fr ../pkg
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g gap makefile tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g gap makefile tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
-cp -p doc/*.xml %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+cp -p doc/*.xml %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
 
 %if %{without bootstrap}
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
 %endif
 
 %files
 %doc CHANGES README.md
 %license COPYRIGHT LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
-* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2022.10.20-2
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2022.10.20-2
+- Update for split GAP directories
+
+* Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2022.10.20-1
 - Use upstream's method of bootstrapping
 - Clarify license of the doc subpackage
 

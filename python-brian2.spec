@@ -21,12 +21,12 @@ list (http://groups.google.com/group/briansupport/)
 Documentation for Brian2 can be found at http://brian2.readthedocs.org}
 
 Name:           python-brian2
-Version:        2.5.0.3
+Version:        2.5.1
 Release:        %autorelease
 Summary:        A clock-driven simulator for spiking neural networks
 
 
-License:        CeCILL
+License:        CECILL-2.0
 URL:            https://briansimulator.org
 Source0:        %pypi_source Brian2
 Patch0:         0001-Brian2-2.2-remove-crosscompiling.patch

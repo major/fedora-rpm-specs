@@ -1,9 +1,10 @@
 Name:           perl-Digest-Nilsimsa
 Version:        0.06
-Release:        52%{?dist}
+Release:        53%{?dist}
 Summary:        Perl interface to the Nilsima Algorithm
 License:        GPLv2+
 Source0:        https://cpan.metacpan.org/authors/id/V/VI/VIPUL/Digest-Nilsimsa-%{version}.tar.gz
+Patch0: perl-Digest-Nilsimsa-c99.patch
 URL:            https://metacpan.org/release/Digest-Nilsimsa
 # Build
 BuildRequires:  findutils
@@ -25,7 +26,7 @@ text. It is a 256 bit value usually represented in hex. This module is a
 wrapper around nilsimsa implementation in C by cmeclax.
 
 %prep
-%setup -q -n Digest-Nilsimsa-%{version}
+%autosetup -p1 -n Digest-Nilsimsa-%{version}
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1
@@ -46,6 +47,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 0.06-53
+- C99 compatibility fix
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

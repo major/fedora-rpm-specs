@@ -7,7 +7,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Jupyter kernel written in GAP
 
 License:        BSD-3-Clause
@@ -39,10 +39,10 @@ This package implements the Jupyter protocol in GAP.
 %package doc
 # The content is BSD-3-Clause.  The remaining licenses cover the various fonts
 # embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        BSD-3-Clause AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        BSD-3-Clause AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Jupyter kernel for GAP documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -61,8 +61,8 @@ gap makedoc.g
 mkdir -p %{buildroot}%{_bindir}
 cp -p bin/jupyter-kernel-gap %{buildroot}%{_bindir}
 
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
-cp -a *.g demos gap tst %{buildroot}%{gap_dir}/pkg/%{upname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{upname}/doc
+cp -a *.g demos gap tst %{buildroot}%{gap_libdir}/pkg/%{upname}
 %gap_copy_docs -n %{upname}
 
 mkdir -p %{buildroot}%{_datadir}/jupyter/kernels
@@ -76,7 +76,7 @@ cp -p etc/gap-mode.json %{buildroot}%{_sysconfdir}/jupyter/nbconfig/notebook.d
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc README.md
@@ -85,17 +85,20 @@ gap -l "%{buildroot}%{gap_dir};" tst/testall.g
 %{_datadir}/jupyter/nbextensions/gap-mode/
 %{_datadir}/jupyter/kernels/gap-4/
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/gap-mode.json
-%{gap_dir}/pkg/%{upname}/
-%exclude %{gap_dir}/pkg/%{upname}/demos/
-%exclude %{gap_dir}/pkg/%{upname}/doc/
+%{gap_libdir}/pkg/%{upname}/
+%exclude %{gap_libdir}/pkg/%{upname}/demos/
+%exclude %{gap_libdir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{upname}/demos/
-%docdir %{gap_dir}/pkg/%{upname}/doc/
-%{gap_dir}/pkg/%{upname}/demos/
-%{gap_dir}/pkg/%{upname}/doc/
+%docdir %{gap_libdir}/pkg/%{upname}/demos/
+%docdir %{gap_libdir}/pkg/%{upname}/doc/
+%{gap_libdir}/pkg/%{upname}/demos/
+%{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.1-6
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.1-5
 - Clarify license of the doc subpackage
 

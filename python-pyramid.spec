@@ -3,39 +3,22 @@
 %global desc Pyramid is a small, fast, down-to-earth, open source Python web development\
 framework. It makes real-world web application development and deployment more\
 fun, more predictable, and more productive.
-%{?python_enable_dependency_generator}
-
 
 Name:           python-%{modname}
-Version:        1.10.5
-Release:        7%{?dist}
+Version:        2.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
-License:        BSD
+License:        BSD-4-Clause
 URL:            https://trypyramid.com/
 Source0:        %pypi_source %{modname}
-# Two tests are failing due to incompatibility with Python 3.11,
-# this patch temporarily disables them for the purpose of 3.11 mass rebuild
-# Downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=2078518
-Patch1:         0001-Python-3.11-disable-failing-test.patch
+# Backport upstream patch to fix tests with Python 3.11
+# https://github.com/Pylons/pyramid/pull/3717
+Patch:          python311-upstream-tests-fix.patch
 BuildArch:      noarch
 
-
-
 BuildRequires:  python3-devel
-BuildRequires:  python3-docutils
-BuildRequires:  python3-hupper
-BuildRequires:  python3-mako
-BuildRequires:  python3-plaster
-BuildRequires:  python3-plaster-pastedeploy
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-translationstring
-BuildRequires:  python3-venusian >= 1.0
-BuildRequires:  python3-webtest
-BuildRequires:  python3-zope-component >= 3.6.0
-BuildRequires:  python3-zope-deprecation >= 3.5.0
-BuildRequires:  python3-zope-interface
-BuildRequires:  python3-webob >= 1.8.3
+BuildRequires:  python3dist(setuptools)
 
 %description
 %{desc}
@@ -43,10 +26,6 @@ BuildRequires:  python3-webob >= 1.8.3
 
 %package -n python3-pyramid
 Summary:        %{sum}
-
-%{?python_provide:%python_provide python3-pyramid}
-
-Conflicts:      python2-pyramid < 1.10.4-4
 
 %description -n python3-pyramid
 %{desc}
@@ -58,16 +37,20 @@ Conflicts:      python2-pyramid < 1.10.4-4
 # Remove bundled egg info
 rm -rf %{modname}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires -x testing
+
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 # Create the Python 3 executables.
-for e in pcreate pserve prequest proutes pshell ptweens pviews pdistreport; do
+for e in pserve prequest proutes pshell ptweens pviews pdistreport; do
     mv %{buildroot}/%{_bindir}/$e %{buildroot}/%{_bindir}/$e-%{python3_version};
     ln -s %{_bindir}/$e-%{python3_version} %{buildroot}/%{_bindir}/$e-3;
     ln -s %{_bindir}/$e-%{python3_version} %{buildroot}/%{_bindir}/$e
@@ -75,17 +58,13 @@ done;
 
 
 %check
-%{__python3} setup.py test
+%pyproject_check_import
+%pytest tests
 
 
-%files -n python3-pyramid
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.rst
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}*.egg-info
-%{_bindir}/pcreate-%{python3_version}
-%{_bindir}/pcreate-3
-%{_bindir}/pcreate
 %{_bindir}/pdistreport-%{python3_version}
 %{_bindir}/pdistreport-3
 %{_bindir}/pdistreport
@@ -109,6 +88,11 @@ done;
 %{_bindir}/pviews
 
 %changelog
+* Thu Jan 12 2023 Mattia Verga <mattia.verga@proton.me> - 2.0-1
+- Update to 2.0
+- Use SPDX identifier in license tag
+- Use modern python macros for packaging
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

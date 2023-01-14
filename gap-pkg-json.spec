@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JSON reading and writing for GAP
 
 License:        BSD-2-Clause
@@ -44,10 +44,10 @@ gap-pkg-io package.
 %package doc
 # The content is BSD-2-Clause.  The remaining licenses cover the various fonts
 # embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        BSD-2-CLause AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        BSD-2-CLause AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        JSON documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -63,32 +63,35 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
-./configure %{gap_dir}
+./configure %{gap_archdir}
 %make_build
 
 # Build the documentation
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g bin gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
+cp -a *.g bin gap tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 
 %files
 %doc HISTORY README
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.1.1-2
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2.1.1-1
 - Clarify license of the doc subpackage
 

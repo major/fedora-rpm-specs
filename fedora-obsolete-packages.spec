@@ -453,6 +453,10 @@ Source0:    README
 # python26-2.6.9-22.fc32 blocks upgrades: python26-2.6.9-21.fc31.x86_64 requires libnsl.so.2()(64bit)
 %obsolete python26 2.6.9-23
 
+# Remove in F40
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2160274
+%obsolete ocaml-stdint 0.7.2-2
+
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()
 

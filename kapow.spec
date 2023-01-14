@@ -1,7 +1,7 @@
 
 Name:           kapow
-Version:        1.6.0
-Release:        2%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        A punch clock program
 
 License:        GPL-3.0-or-later
@@ -53,6 +53,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Thu Jan 12 2023 Vasiiy Glazov <vascom2@gmail.com> - 1.6.1-1
+- Update to 1.6.1
+
 * Fri Dec 02 2022 Vasiiy Glazov <vascom2@gmail.com> - 1.6.0-2
 - Fixed source path and directory owning
 

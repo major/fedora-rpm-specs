@@ -3,12 +3,15 @@
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Bodhi server
 
 License:        GPLv2+
 URL:            https://github.com/fedora-infra/bodhi
 Source0:        %{pypi_source}
+
+Patch:          bodhi-relax-deps.patch
+
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -79,7 +82,7 @@ repositories.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{pypi_version}
+%autosetup -p1 -n %{pypi_name}-%{pypi_version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -160,6 +163,10 @@ install -p -D -m 0644 %{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.sysus
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Thu Jan 12 2023 Mattia Verga <mattia.verga@proton.me> - 6.0.1-5
+- Rebuilt for Pyramid 2.0
+- Relax some dependencies
+
 * Mon Aug 22 2022 Debarshi Ray <rishi@fedoraproject.org> - 6.0.1-4
 - Use %%sysusers_requires_compat to match %%sysusers_create_compat
 

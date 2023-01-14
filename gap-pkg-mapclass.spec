@@ -3,7 +3,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Calculate mapping class group orbits for a finite group
 
 License:        GPL-2.0-or-later
@@ -25,12 +25,12 @@ given finite group.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # RSFS: LicenseRef-Rsfs
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        MapClass documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -51,25 +51,28 @@ gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
-cp -a *.g lib tst %{buildroot}%{gap_dir}/pkg/%{upname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{upname}/doc
+cp -a *.g lib tst %{buildroot}%{gap_libdir}/pkg/%{upname}
 %gap_copy_docs -n %{upname}
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{gap_dir}/pkg/%{upname}/
-%exclude %{gap_dir}/pkg/%{upname}/doc/
+%{gap_libdir}/pkg/%{upname}/
+%exclude %{gap_libdir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{upname}/doc/
-%{gap_dir}/pkg/%{upname}/doc/
+%docdir %{gap_libdir}/pkg/%{upname}/doc/
+%{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.6-2
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.4.6-1
 - Clarify license of the doc subpackage
 

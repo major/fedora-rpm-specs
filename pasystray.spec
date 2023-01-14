@@ -6,6 +6,7 @@ License:        LGPL-2.1-or-later
 URL:            https://github.com/christophgysin/pasystray
 
 Source0:        https://github.com/christophgysin/pasystray/archive/%{version}/%{name}-%{version}.tar.gz
+Source1:        %{name}.metainfo.xml
 # https://bugzilla.redhat.com/show_bug.cgi?id=1471192
 # https://bugzilla.redhat.com/show_bug.cgi?id=2035305
 Patch1:         pasystray-0.8.0-wayland.patch
@@ -21,6 +22,7 @@ BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(appindicator3-0.1)
 BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
 
 %if 0%{?fedora}
 Suggests:       paman
@@ -48,12 +50,16 @@ autoreconf -i
 
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
+install -D %{SOURCE1} %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml
+
 %files
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_datadir}/pixmaps/%{name}.png
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
+%{_metainfodir}/%{name}.metainfo.xml
 %config(noreplace) %{_sysconfdir}/xdg/autostart/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 %license LICENSE

@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-filter
 #
-# Copyright (c) 2015-2022 Remi Collet
+# Copyright (c) 2015-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    97e3ce0fa868567aa433ed34d6f57ee703d70d3e
+%global gh_commit    548a6597d357b0b0b139cc7bffea4dfbc50eb5a8
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-filter
@@ -18,7 +18,7 @@
 %global with_tests   0%{!?_without_tests:1}
 
 Name:           php-%{gh_project}
-Version:        2.30.0
+Version:        2.31.0
 Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
@@ -42,7 +42,7 @@ BuildRequires: (php-autoloader(%{gh_owner}/laminas-servicemanager)       >= 3.14
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-stdlib)               >= 3.13  with php-autoloader(%{gh_owner}/laminas-stdlib)               < 4)
 BuildRequires: (php-autoloader(%{gh_owner}/laminas-zendframework-bridge) >= 1.0   with php-autoloader(%{gh_owner}/laminas-zendframework-bridge) < 2)
 # From composer, "require-dev": {
-#        "laminas/laminas-coding-standard": "~2.4.0",
+#        "laminas/laminas-coding-standard": "~2.5.0",
 #        "laminas/laminas-crypt": "^3.9",
 #        "laminas/laminas-uri": "^2.10",
 #        "pear/archive_tar": "^1.4.14",
@@ -198,6 +198,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 12 2023 Remi Collet <remi@remirepo.net> - 2.31.0-1
+- update to 2.31.0
+
 * Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 2.30.0-1
 - update to 2.30.0
 

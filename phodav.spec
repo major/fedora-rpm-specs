@@ -67,7 +67,7 @@ the Spice virtio channel.
 
 
 %build
-%meson %{?flatpak:-Dsystemd=disabled -Dudev=disabled} || cat %_vpath_builddir/meson-logs/meson-log.txt
+%meson -Dsystemdsystemunitdir=%{_unitdir} -Dudevrulesdir=%{_udevrulesdir} || cat %_vpath_builddir/meson-logs/meson-log.txt
 
 %meson_build
 
@@ -105,10 +105,8 @@ the Spice virtio channel.
 %files -n spice-webdavd
 %license COPYING
 %{_sbindir}/spice-webdavd
-%if ! 0%{?flatpak}
-/usr/lib/udev/rules.d/70-spice-webdavd.rules
+%{_udevrulesdir}/70-spice-webdavd.rules
 %{_unitdir}/spice-webdavd.service
-%endif
 
 %changelog
 %autochangelog

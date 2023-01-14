@@ -18,11 +18,11 @@ clean Py3-style codebase, module by module.
 
 Name: future
 Summary: Easy, clean, reliable Python 2/3 compatibility
-Version: 0.18.2
-Release: 16%{?dist}
+Version: 0.18.3
+Release: 1%{?dist}
 License: MIT
 URL: http://python-future.org/
-Source0: https://files.pythonhosted.org/packages/source/f/%{name}/%{name}-%{version}.tar.gz
+Source0: https://github.com/PythonCharmers/python-future/archive/refs/tags/v%{version}/python-%{name}-%{version}.tar.gz
 BuildArch: noarch
 
 # https://github.com/PythonCharmers/python-future/issues/165
@@ -34,10 +34,6 @@ Patch1: %{name}-python39.patch
 
 # https://docs.python.org/3.11/whatsnew/3.11.html
 Patch2: %{name}-python311.patch
-
-%if 0%{?with_python3_other}
-BuildRequires:  python%{python3_other_pkgversion}-devel
-%endif
 
 %description
 %{_description}
@@ -51,37 +47,19 @@ BuildRequires: python%{python3_pkgversion}-numpy
 BuildRequires: python%{python3_pkgversion}-requests
 BuildRequires: python%{python3_pkgversion}-pytest
 Provides:      future-python3 = 0:%{version}-%{release}
-%if 0%{?fedora} && 0%{?fedora} > 30
+
 Obsoletes: python2-%{name} < 0:%{version}-%{release}
 Obsoletes: %{name}-python2 < 0:%{version}-%{release}
 Provides:  future = 0:%{version}-%{release}
-%endif
-%if 0%{?rhel} && 0%{?rhel} < 8
 Obsoletes: python34-%{name} < 0:%{version}-%{release}
-%endif
 
 %description -n python%{python3_pkgversion}-%{name}
 %{_description}
 
-%if 0%{?with_python3_other}
-%package -n python%{python3_other_pkgversion}-%{name}
-Summary:        Easy, clean, reliable Python 2/3 compatibility
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-%{name}}
-BuildRequires: python%{python3_other_pkgversion}-devel
-BuildRequires: python%{python3_other_pkgversion}-setuptools
-BuildRequires: python%{python3_other_pkgversion}-numpy
-BuildRequires: python%{python3_other_pkgversion}-requests
-BuildRequires: python%{python3_other_pkgversion}-pytest
-Provides:      future-python%{python3_other_pkgversion} = 0:%{version}-%{release}
-
-%description -n python%{python3_other_pkgversion}-%{name}
-%{_description}
-%endif
-
 %prep
-%setup -qc -n future-%{version}
+%setup -qc -n python-future-%{version}
 
-pushd future-%{version}
+pushd python-future-%{version}
 %patch0 -p0 -b .backup
 %if 0%{?python3_version_nodots} >= 39
 %patch1 -p1 -b .backup
@@ -91,12 +69,10 @@ pushd future-%{version}
 %endif
 popd
 
-cp -a future-%{version} python3
-find python3 -name '*.py' | xargs %{_pathfix} -pn -i "%{__python3}"
+cp -a python-future-%{version} python3
 
-%if 0%{?with_python3_other}
-cp -a future-%{version} python%{python3_other_pkgversion}
-find python%{python3_other_pkgversion} -name '*.py' | xargs %{_pathfix} -pn -i "%{__python3}"
+%if 0%{?fedora}
+find python3 -name '*.py' | xargs %{_pathfix} -pn -i "%{__python3}"
 %endif
 
 %build
@@ -104,12 +80,6 @@ find python%{python3_other_pkgversion} -name '*.py' | xargs %{_pathfix} -pn -i "
 pushd python3
 %py3_build
 popd
-
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}
-%py3_other_build
-popd
-%endif
 
 %install
 
@@ -119,25 +89,12 @@ mv $RPM_BUILD_ROOT%{_bindir}/futurize $RPM_BUILD_ROOT%{_bindir}/futurize-%{pytho
 mv $RPM_BUILD_ROOT%{_bindir}/pasteurize $RPM_BUILD_ROOT%{_bindir}/pasteurize-%{python3_version}
 ln -sf ./futurize-%{python3_version} $RPM_BUILD_ROOT%{_bindir}/futurize-3
 ln -sf ./pasteurize-%{python3_version} $RPM_BUILD_ROOT%{_bindir}/pasteurize-3
-%if 0%{?fedora} && 0%{?fedora} > 30
 ln -sf ./futurize-%{python3_version} $RPM_BUILD_ROOT%{_bindir}/futurize
 ln -sf ./pasteurize-%{python3_version} $RPM_BUILD_ROOT%{_bindir}/pasteurize
-%endif
 sed -i -e '/^#!\//, 1d' $RPM_BUILD_ROOT%{python3_sitelib}/future/backports/test/pystone.py
 popd
 
 chmod a+x $RPM_BUILD_ROOT%{python3_sitelib}/future/backports/test/pystone.py
-
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}
-%py3_other_install
-mv $RPM_BUILD_ROOT%{_bindir}/futurize $RPM_BUILD_ROOT%{_bindir}/futurize-%{python3_other_version}
-mv $RPM_BUILD_ROOT%{_bindir}/pasteurize $RPM_BUILD_ROOT%{_bindir}/pasteurize-%{python3_other_version}
-sed -i -e '/^#!\//, 1d' $RPM_BUILD_ROOT%{python3_other_sitelib}/future/backports/test/pystone.py
-popd
-
-chmod a+x $RPM_BUILD_ROOT%{python3_other_sitelib}/future/backports/test/pystone.py
-%endif
 
 ## This packages ships PEM certificates in future/backports/test directory.
 ## It's for testing purpose, i guess. Ignore them.
@@ -148,28 +105,20 @@ chmod a+x $RPM_BUILD_ROOT%{python3_other_sitelib}/future/backports/test/pystone.
 # https://github.com/PythonCharmers/python-future/issues/508
 pushd python3
 %if 0%{?python3_version_nodots} > 37
-PYTHONPATH=$PWD/build/lib py.test-%{python3_version} -k "not test_pow and not test_urllib2 and not test_single_exception_stacktrace" -q
+PYTHONPATH=$PWD/build/lib py.test-%{python3_version} -k "not test_urllib2 and not test_urllibnet and not test_single_exception_stacktrace and not test_pow" -q
 %endif
 %if 0%{?python3_version_nodots} <= 37
-PYTHONPATH=$PWD/build/lib py.test-%{python3_version} -q
+PYTHONPATH=$PWD/build/lib py.test-%{python3_version}
 %endif
 popd
-
-%if 0%{?with_python3_other}
-pushd python%{python3_other_pkgversion}
-PYTHONPATH=$PWD/build/lib py.test-%{python3_other_version} -q
-popd
-%endif
 
 %files -n python%{python3_pkgversion}-%{name}
 %license python3/LICENSE.txt
 %doc python3/README.rst
 %{_bindir}/futurize-3
 %{_bindir}/pasteurize-3
-%if 0%{?fedora} && 0%{?fedora} > 30
 %{_bindir}/futurize
 %{_bindir}/pasteurize
-%endif
 %{_bindir}/futurize-%{python3_version}
 %{_bindir}/pasteurize-%{python3_version}
 %{python3_sitelib}/future/
@@ -178,20 +127,10 @@ popd
 %{python3_sitelib}/libpasteurize/
 %{python3_sitelib}/*.egg-info
 
-%if 0%{?with_python3_other}
-%files -n python%{python3_other_pkgversion}-%{name}
-%license python3/LICENSE.txt
-%doc python3/README.rst
-%{_bindir}/futurize-%{python3_other_version}
-%{_bindir}/pasteurize-%{python3_other_version}
-%{python3_other_sitelib}/future/
-%{python3_other_sitelib}/past/
-%{python3_other_sitelib}/libfuturize/
-%{python3_other_sitelib}/libpasteurize/
-%{python3_other_sitelib}/*.egg-info
-%endif
-
 %changelog
+* Thu Jan 12 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.18.3-1
+- Release 0.18.3
+
 * Tue Aug 09 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.18.2-16
 - Skip test_single_exception_stacktrace (upstream bug#608) (rhbz#2113233)
 

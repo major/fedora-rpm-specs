@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.6.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Transitive groups library
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -55,9 +55,9 @@ to John Cannon and Derek Holt.
 # The content is GPL-2.0-only OR GPL-3.0-only.  The remaining licenses cover
 # the various fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # Nimbus: AGPL-3.0-only
-License:        (GPL-2.0-only OR GPL-3.0-only) AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND AGPL-3.0-only
+License:        (GPL-2.0-only OR GPL-3.0-only) AND OFL-1.1-RFN AND Knuth-CTAN AND AGPL-3.0-only
 Summary:        Transitive groups library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -79,46 +79,49 @@ parallel %{?_smp_mflags} --no-notice gzip --best ::: dat32/*.grp data/*.grp
 
 # Build the documentation
 mkdir ../../doc
-ln -s %{gap_dir}/doc/ref ../../doc
+ln -s %{gap_libdir}/doc/ref ../../doc
 cd doc
-ln -s %{gap_dir}/etc/convert.pl .
-ln -s %{gap_dir}/doc/gapmacro.tex .
-ln -s %{gap_dir}/doc/manualindex .
+ln -s %{gap_libdir}/etc/convert.pl .
+ln -s %{gap_libdir}/doc/gapmacro.tex .
+ln -s %{gap_libdir}/doc/manualindex .
 ./make_doc
 cd -
 rm -fr ../../doc doc/{convert.pl,gapmacro.tex,manualindex}
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g data dat32 htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g data dat32 htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");' tst/testall.g
 
 %files
 %doc README.md
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/data/
-%exclude %{gap_dir}/pkg/%{pkgname}/dat32/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/data/
+%exclude %{gap_libdir}/pkg/%{pkgname}/dat32/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %files data
-%{gap_dir}/pkg/%{pkgname}/data/
+%{gap_libdir}/pkg/%{pkgname}/data/
 
 %files data32
-%{gap_dir}/pkg/%{pkgname}/dat32/
+%{gap_libdir}/pkg/%{pkgname}/dat32/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 3.6.3-4
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.6.3-3
 - Use upstream's method of bootstrapping
 - Clarify license of the doc subpackage

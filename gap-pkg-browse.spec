@@ -3,7 +3,7 @@
 # test for this package, so the maintainer should always run this before
 # pushing a new version:
 #
-# gap -l "%%{gap_dir};" <<< 'Test("tst/test.tst");'
+# gap -l "%%{gap_archdir};" <<< 'Test("tst/test.tst");'
 #
 # That test is more useful if the altasrep package is also installed.
 
@@ -21,11 +21,11 @@
 # 5. Build gap-pkg-atlasrep in non-bootstrap mode.
 # 6. Build this package in non-bootstrap mode.
 # 7. Build gap-pkg-ctbllib in non-bootstrap mode.
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.8.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP browser for 2-dimensional arrays of data
 
 License:        GPL-3.0-or-later
@@ -116,7 +116,7 @@ sed -i '1i#!/bin/sh' bibl/getnewestbibfile
 %build
 export LC_ALL=C.UTF-8
 # This is NOT an autoconf-generated configure script
-./configure %{gap_dir}
+./configure %{gap_archdir}
 %make_build
 
 # Link to main GAP documentation
@@ -130,21 +130,24 @@ sed -i "s,$PWD/\.\./pkg,..,g" doc/*.html
 
 %install
 rm tst/*~
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
-cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_dir}/pkg/%{upname}
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{upname}/doc
+cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_archdir}/pkg/%{upname}
 %gap_copy_docs -n %{upname}
 
 %files
 %doc CHANGES README
 %license doc/GPL
-%{gap_dir}/pkg/%{upname}/
-%exclude %{gap_dir}/pkg/%{upname}/doc/
+%{gap_archdir}/pkg/%{upname}/
+%exclude %{gap_archdir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{upname}/doc/
-%{gap_dir}/pkg/%{upname}/doc/
+%docdir %{gap_archdir}/pkg/%{upname}/doc/
+%{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.8.19-2
+- Update for split GAP directories
+
 * Fri Dec  9 2022 Jerry James <loganjerry@gmail.com> - 1.8.19-1
 - Version 1.8.19
 

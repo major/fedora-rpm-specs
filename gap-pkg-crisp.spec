@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Computing subgroups of finite soluble groups
 
 License:        BSD-2-Clause
@@ -55,7 +55,7 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/doc ../../doc
 
 pushd doc
 pdftex -interaction=batchmode manual
@@ -66,33 +66,36 @@ popd
 
 rm -fr htm
 mkdir htm
-perl %{gap_dir}/etc/convert.pl -n CRISP -c -i -t doc htm
+perl %{gap_libdir}/etc/convert.pl -n CRISP -c -i -t doc htm
 
 rm ../../doc
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g htm lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g htm lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc README.txt
 %license LICENSE.txt
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.6-2
+- Update for split GAP directories
+
 * Fri Dec 16 2022 Jerry James <loganjerry@gmail.com> - 1.4.6-1
 - Version 1.4.6
 

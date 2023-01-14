@@ -14,10 +14,10 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a3
+%global prerel a4
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 # Getting this build in Koji on 32bit ARM is frustrating due to technical problems
@@ -1579,6 +1579,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Jan 11 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a4-1
+- Update to 3.12.0a4
+
 * Mon Dec 19 2022 Miro Hrončok <mhroncok@redhat.com> - 3.12.0~a3-2
 - No longer patch the default bytecode cache invalidation policy
 

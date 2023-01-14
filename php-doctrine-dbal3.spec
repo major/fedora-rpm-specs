@@ -1,6 +1,6 @@
 # remirepo/Fedora spec file for php-doctrine-dbal3
 #
-# Copyright (c) 2013-2022 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2013-2023 Shawn Iwinski <shawn.iwinski@gmail.com>
 #                         Adam Williamson <awilliam@redhat.com>
 #                         Remi Collet <remi@remirepo.net>
 #
@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      dbal
-%global github_version   3.5.2
-%global github_commit    63e513cebbbaf96a6795e5c5ee34d205831bfc85
+%global github_version   3.5.3
+%global github_commit    88fa7e5189fd5ec6682477044264dc0ed4e3aa1e
 %global major            3
 
 %global composer_vendor  doctrine
@@ -251,6 +251,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Thu Jan 12 2023 Remi Collet <remi@remirepo.net> - 3.5.3-1
+- update to 3.5.3
+
 * Wed Dec 21 2022 Remi Collet <remi@remirepo.net> - 3.5.2-1
 - update to 3.5.2
 

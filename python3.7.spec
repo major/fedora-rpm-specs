@@ -159,6 +159,11 @@ License: Python
 # on files that test invalid syntax.
 %undefine py_auto_byte_compile
 
+# Opt-out from https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+# Python is slower with frame pointers, but we expect to remove this in Python 3.12+
+# See https://lists.fedoraproject.org/archives/list/python-devel@lists.fedoraproject.org/thread/6TQYCHMX4FZLF27U5BCEC7IFV6XNBKJP/
+# Tracking bugzilla: https://bugzilla.redhat.com/2158729
+%undefine _include_frame_pointers
 
 # =======================
 # Build-time requirements

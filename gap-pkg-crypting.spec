@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.10.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hashes and Crypto in GAP
 
 License:        BSD-3-Clause
@@ -29,10 +29,10 @@ pull-requests (after discussion) are appreciated.
 %package doc
 # The content is BSD-3-Clause.  The remaining licenses cover the various fonts
 # embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        BSD-3-Clause AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        BSD-3-Clause AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 BuildArch:      noarch
 Summary:        Crypting documentation
 Requires:       %{name} = %{version}-%{release}
@@ -48,32 +48,35 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 
 # This is NOT an autoconf-generated configure script.  Do NOT use %%configure.
-./configure %{gap_dir}
+./configure %{gap_archdir}
 %make_build
 
 # Build the documentation
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g bin gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
+cp -a *.g bin gap tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 
 %files
 %doc README.md
 %license COPYRIGHT.md LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.10.4-2
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.10.4-1
 - Version 0.10.4
 - Drop obsolete -endian patch

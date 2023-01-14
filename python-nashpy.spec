@@ -1,5 +1,5 @@
 %bcond_with docs
-%bcond_with tests
+%bcond_without tests
 
 %global pypi_name nashpy
 %global pretty_name Nashpy
@@ -10,8 +10,8 @@ on 2 player games: Support enumeration, Best response polytope vertex
 enumeration, Lemke Howson algorithm.}
 
 Name:           python-%{pypi_name}
-Version:        0.0.35
-Release:        3%{?dist}
+Version:        0.0.36
+Release:        2%{?dist}
 Summary:        A library to compute equilibria of 2 player normal form games
 
 License:        MIT
@@ -77,7 +77,7 @@ rm -rf html/.{doctrees,buildinfo}
 
 %check	
 %if %{with tests}
-pytest src/nashpy --cov=nashpy --cov-fail-under=5 --flake8
+%pytest
 %endif
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
@@ -91,6 +91,12 @@ pytest src/nashpy --cov=nashpy --cov-fail-under=5 --flake8
 %endif
 
 %changelog
+* Thu Jan 12 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.0.36-2
+- Enable tests
+
+* Thu Jan 12 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.0.36-1
+- Update to 0.0.36
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

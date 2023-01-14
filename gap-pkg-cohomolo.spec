@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cohomology groups of finite groups on finite modules
 
 License:        GPL-2.0-or-later
@@ -55,48 +55,52 @@ This package contains documentation for gap-pkg-%{pkgname}.
 %autosetup -p1 -n %{pkgname}-%{version}
 
 # Fix paths
-sed -i 's,\.\./\.\./\.\./,%{gap_dir}/,' doc/make_doc
+sed -i 's,\.\./\.\./\.\./,%{gap_libdir}/,' doc/make_doc
 
 %build
 export LC_ALL=C.UTF-8
 
 # This is NOT an autoconf-generated script.  Do NOT use %%configure.
-./configure %{gap_dir}
+./configure %{gap_archdir}
 
 # Build the binaries
 %make_build
 
 # Build the documentation
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/doc ../../doc
 cd doc
 ./make_doc
 cd -
 rm ../../doc
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/{doc,standalone}
-cp -a bin gap htm testdata tst *.g %{buildroot}%{gap_dir}/pkg/%{pkgname}
-cp -a standalone/{data.d,info.d} %{buildroot}%{gap_dir}/pkg/%{pkgname}/standalone
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/{doc,standalone}
+cp -a bin gap htm testdata tst *.g %{buildroot}%{gap_archdir}/pkg/%{pkgname}
+cp -a standalone/{data.d,info.d} \
+   %{buildroot}%{gap_archdir}/pkg/%{pkgname}/standalone
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 
 %files
 %doc CHANGES README.md
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_archdir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/htm/
+%{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.11-2
+- Update for split GAP directories
+
 * Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 1.6.11-1
 - Version 1.6.11
 

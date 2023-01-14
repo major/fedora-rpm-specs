@@ -87,8 +87,8 @@
 
 Name:			graphviz
 Summary:		Graph Visualization Tools
-Version:		7.0.5
-Release:		3%{?dist}
+Version:		7.0.6
+Release:		1%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -189,7 +189,7 @@ Requires(postun):	/sbin/ldconfig
 # rhbz#1838679
 Patch0:			graphviz-4.0.0-gvpack-neato-static.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2155048
-Patch1:			graphviz-7.0.5-fix-python-3.12.patch
+Patch1:			graphviz-7.0.6-fix-python-3.12.patch
 
 %if ! %{JAVA}
 Obsoletes:              graphviz-java < %{version}-%{release}
@@ -744,6 +744,10 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Jan 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.6-1
+- New version
+  Resovles: rhbz#2158703
+
 * Fri Jan 06 2023 Tomas Popela <tpopela@redhat.com> - 7.0.5-3
 - Don't build GTK 2 bits on ELN/RHEL 10 as GTK 2 won't be available there
 

@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2022.09.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP interface to Singular
 
 License:        GPL-2.0-or-later
@@ -29,10 +29,10 @@ Singular.
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Singular documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-guava-doc
@@ -48,29 +48,32 @@ export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g contrib gap lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
-rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/gap/todo
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g contrib gap lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
+rm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/gap/todo
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/lib/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/lib/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/lib/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/lib/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/lib/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/lib/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2022.09.23-2
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 2022.09.23-1
 - Clarify license of the doc subpackage
 

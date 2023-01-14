@@ -8,17 +8,22 @@
 %endif
 %{!?bash_completion_dir:%global bash_completion_dir /usr/share/bash-completion/comlpetions}
 # Interface version (used by fake cubelib-config in build)
-%global intver 11:0:1
+%global intver 12:0:2
 
 Name:           cube
-Version:        4.7
-Release:        4%{?dist}
+Version:        4.8
+Release:        1%{?dist}
 Summary:        CUBE Uniform Behavioral Encoding generic presentation component
 License:        BSD-3-Clause
 URL:            http://www.scalasca.org/software/cube-4.x/download.html
 Source0:        http://apps.fz-juelich.de/scalasca/releases/cube/%version/dist/cubegui-%{version}.tar.gz
 Source1:        http://apps.fz-juelich.de/scalasca/releases/cube/%cubew_vers/dist/cubew-%{cubew_vers}.tar.gz
 Source2:        http://apps.fz-juelich.de/scalasca/releases/cube/%version/dist/cubelib-%{version}.tar.gz
+%if 0
+Source0:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubegui/tags/cubegui-4.8-rc1/cubegui-4.8-rc1.tar.gz
+Source1:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubew/tags/cubew-4.8-rc1/cubew-4.8-rc1.tar.gz
+Source2:        https://perftools.pages.jsc.fz-juelich.de/cicd/cubelib/tags/cubelib-4.8-rc1/cubelib-4.8-rc1.tar.gz
+%endif
 # disable check for new versions
 Patch0:         cube-nocheck.patch
 BuildRequires:  dbus-devel
@@ -33,6 +38,8 @@ BuildRequires:  %{?dts:%dts-}gcc-c++
 BuildRequires:  qt5-qtwebengine-devel
 %endif
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+
+%global ver 4.8
 
 %description
 CUBE (CUBE Uniform Behavioral Encoding) is a generic presentation component
@@ -99,20 +106,20 @@ tar fx %SOURCE2
 cat <<+ >cubelib-config
 #!/bin/sh
 case \$1 in
---cppflags|--cflags) printf '%s\n' -I$(pwd)/cubelib-%version/inst%_includedir/cubelib ;;
---ldflags)  printf '%s\n' -L$(pwd)/cubelib-%version/inst%_libdir ;;
+--cppflags|--cflags) printf '%s\n' -I$(pwd)/cubelib-%ver/inst%_includedir/cubelib ;;
+--ldflags)  printf '%s\n' -L$(pwd)/cubelib-%ver/inst%_libdir ;;
 --libs) printf '%s\n' '-lcube4 -lz' ;;
 --interface-version) printf '%s\n' %intver ;;
 esac
 +
 chmod +x cubelib-config
-cd cubegui-%version
-%patch0 -p1
+cd cubegui-%ver
+#%patch0 -p1
 cd ..
 # In v4.7 these files define compiler flags overriding the supplied
 # ones in configure, which actually breaks the test for working CC due
 # to -fPIE inconsistency.
-for d in cubew-* cubelib-%version cubegui-*; do
+for d in cubew-* cubelib-%ver cubegui-*; do
   printf 'CC=gcc\nCXX=g++\n' >$d/build-config/common/platforms/platform-backend-linux
 done
 
@@ -126,18 +133,23 @@ done
   sed -i -e 's/HARDCODE_INTO_LIBS"]="1"/HARDCODE_INTO_LIBS"]="0"/' \\\
          -e "s/hardcode_into_libs='yes'/hardcode_into_libs='no'/"
 cd cubew-%cubew_vers
-%configure --enable-shared --disable-static --disable-silent-rules
+# The configure configuration now ignores $CFLAGS etc. in the
+# environment and actually fails for want of -fPIC, sigh, but not if
+# they're given as args.
+%configure --enable-shared --disable-static --disable-silent-rules \
+   CXXFLAGS="$CXXFLAGS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"
 %unhardcode build-backend/config.status
 %make_build
-cd ../cubelib-%version
-%configure --enable-shared --disable-static --disable-silent-rules
+cd ../cubelib-%ver
+%configure --enable-shared --disable-static --disable-silent-rules \
+   CXXFLAGS="$CXXFLAGS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"
 %unhardcode build-frontend/config.status
 %make_build
 # Collect it for use by cubegui
 make install DESTDIR=$(pwd)/inst
 # Wrong paths in .la cause trouble
 rm inst%_libdir/*.la
-cd ../cubegui-%version
+cd ../cubegui-%ver
 # Kludge: For some reason the Qt dependencies are found as .so paths
 # in Fedora (only), and libtool re-orders them with libcube4gui after what it
 # should link against, and linking fails.
@@ -145,15 +157,16 @@ cd ../cubegui-%version
 %configure --disable-static \
   --disable-silent-rules \
   --with-platform=linux \
-  --with-cubelib=$(pwd)/..
+  --with-cubelib=$(pwd)/.. \
+   CXXFLAGS="$CXXFLAGS" CFLAGS="$CFLAGS" LDFLAGS="$LDFLAGS"
 %unhardcode build-frontend/config.status
 %make_build
 
 
 %install
 %make_install -C cubew-%cubew_vers
-%make_install -C cubelib-%version
-%make_install -C cubegui-%version
+%make_install -C cubelib-%ver
+%make_install -C cubegui-%ver
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 # Don't duplicate large files
@@ -248,7 +261,7 @@ rm %{buildroot}%{_bindir}/maccubegui.sh
 
 %check
 %{?dts:. /opt/rh/%dts/enable}
-make -C cubelib-%version check || { cat test/test*/*log && false; }
+make -C cubelib-%ver check || { cat test/test*/*log && false; }
 make -C cubew-%cubew_vers check || { cat test/test*/*log && false; }
 
 
@@ -273,11 +286,11 @@ fi
 
 
 %files
-%license cubegui-%version/COPYING
-%doc cubegui-%version/AUTHORS
-%doc cubegui-%version/ChangeLog
-%doc cubegui-%version/OPEN_ISSUES
-%doc cubegui-%version/README
+%license cubegui-%ver/COPYING
+%doc cubegui-%ver/AUTHORS
+%doc cubegui-%ver/ChangeLog
+%doc cubegui-%ver/OPEN_ISSUES
+%doc cubegui-%ver/README
 %{_bindir}/cube
 %{_bindir}/cube3to4
 %{_bindir}/cube4to3
@@ -317,11 +330,10 @@ fi
 %files devel
 
 %files libs
-%license cubegui-%version/COPYING
+%license cubegui-%ver/COPYING
 %{_bindir}/cube_server
 %exclude %{_libdir}/lib%{name}4gui*.so*
-%{_libdir}/lib%{name}*.so.10*
-%{_libdir}/lib%{name}4w.so.7*
+%{_libdir}/lib%{name}*.so.12*
 %{_datadir}/cubelib/
 %{_datadir}/cubew/
 
@@ -331,12 +343,12 @@ fi
 %{_includedir}/cubew
 %{_includedir}/cubelib
 %{_libdir}/lib%{name}*.so
-%{_libdir}/libgraphwidgetcommon-plugin.so
-%doc cubegui-%version/examples
+%doc cubegui-%ver/examples
 
 %files guilib
-%license cubegui-%version/COPYING
+%license cubegui-%ver/COPYING
 %{_libdir}/lib%{name}4gui.so.10*
+%{_libdir}/libgraphwidgetcommon-plugin.so
 
 %files guilib-devel
 %{_bindir}/cubegui-config
@@ -344,13 +356,16 @@ fi
 %{_libdir}/lib%{name}4gui.so
 
 %files doc
-%license cubegui-%version/COPYING
+%license cubegui-%ver/COPYING
 %doc %_docdir/cubew
 %doc %_docdir/cubelib
 %doc %_docdir/cubegui
 
 
 %changelog
+* Wed Dec 14 2022 Dave Love <loveshack@fedoraproject.org> - 4.8-1
+- New version (#2074718)
+
 * Thu Sep  8 2022 Dave Love <loveshack@fedoraproject.org> - 4.7-4
 - Use SPDX licence TAG
 

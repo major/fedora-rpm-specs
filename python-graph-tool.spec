@@ -22,6 +22,11 @@ Summary:        Efficient network analysis tool written in Python
 #   - BSL-1.0: src/boost-workaround/
 #              src/graph/graphml.cpp
 #              src/graph/read_graphviz_new.cpp
+# Additionally, the following libraries are header-only and are therefore
+# treated as static libraries; their licenses to contribute to that of the
+# binary RPMs:
+#   - CGAL is: LGPL-3.0-or-later AND GPL-3.0-or-later AND BSL-1.0 AND MIT
+#   - pcg-cpp is: MIT OR Apache-2.0
 # Additionally, the following are under other licenses but do not contribute to
 # the licenses of the binary RPMs:
 #   - FSFULLR: aclocal.m4
@@ -48,7 +53,7 @@ Summary:        Efficient network analysis tool written in Python
 #            m4/ax_cxx_compile_stdcxx_17.m4
 #            m4/ax_lib_cgal_core.m4
 #            m4/ax_python_module.m4
-License:        LGPL-3.0-or-later AND BSL-1.0
+License:        LGPL-3.0-or-later AND BSL-1.0 AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0)
 URL:            https://graph-tool.skewed.de/
 Source0:        https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar.bz2
 # Remove upstream compiler flags

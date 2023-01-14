@@ -333,8 +333,8 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_bindir}/remmina-gnome
 %{_datadir}/gnome-session/sessions/remmina-gnome.session
 %{_datadir}/xsessions/remmina-gnome.desktop
-%{_mandir}/man1/gnome-session-remmina.1.*
-%{_mandir}/man1/remmina-gnome.1.*
+%{_mandir}/man1/gnome-session-remmina.1*
+%{_mandir}/man1/remmina-gnome.1*
 
 %changelog
 * Sat Jan 07 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.29-2

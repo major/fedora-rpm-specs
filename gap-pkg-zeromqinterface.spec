@@ -3,7 +3,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        ZeroMQ bindings for GAP
 
 License:        GPL-2.0-or-later
@@ -29,10 +29,10 @@ HPC-GAP, enabling lightweight distributed computation.
 %package doc
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Documentation for ZeroMQ bindings for GAP
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -51,36 +51,39 @@ rm zgap.orig
 
 %build
 export LC_ALL=C.UTF-8
-%configure --with-gaproot=%{gap_dir}
+%configure --with-gaproot=%{gap_archdir}
 %make_build
 
 # Build the documentation
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{upname}/doc
-cp -a bin gap tst *.g %{buildroot}%{gap_dir}/pkg/%{upname}
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{upname}/doc
+cp -a bin gap tst *.g %{buildroot}%{gap_archdir}/pkg/%{upname}
 %gap_copy_docs -n %{upname}
 
-mkdir -p %{buildroot}%{gap_dir}/bin
-cp -p zgap %{buildroot}%{gap_dir}/bin
+mkdir -p %{buildroot}%{gap_archdir}/bin
+cp -p zgap %{buildroot}%{gap_archdir}/bin
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license COPYRIGHT.md LICENSE
-%{gap_dir}/bin/zgap
-%{gap_dir}/pkg/%{upname}/
-%exclude %{gap_dir}/pkg/%{upname}/doc/
+%{gap_archdir}/bin/zgap
+%{gap_archdir}/pkg/%{upname}/
+%exclude %{gap_archdir}/pkg/%{upname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{upname}/doc/
-%{gap_dir}/pkg/%{upname}/doc/
+%docdir %{gap_archdir}/pkg/%{upname}/doc/
+%{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.14-3
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.14-2
 - Clarify license of the doc subpackage
 

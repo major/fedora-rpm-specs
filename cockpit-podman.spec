@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        59
+Version:        60
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPLv2+
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jan 12 2023 Packit <hello@packit.dev> - 60-1
+- Patternfly update and other maintenance
+
 * Thu Dec 22 2022 Packit <hello@packit.dev> - 59-1
 - Start using tabular fonts
 - Other UI fixes and improvements

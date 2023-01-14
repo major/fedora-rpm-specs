@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 7.4.3
+%global libo_version 7.4.4
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -55,7 +55,7 @@ Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
 Version:        %{libo_version}.2
-Release:        4%{?libo_prerelease}%{?dist}
+Release:        1%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -80,7 +80,7 @@ Source7:        http://dev-www.libreoffice.org/extern/185d60944ea767075d27247c31
 Source8:        libreoffice-multiliblauncher.sh
 
 Source9:        %{external_url}/dtoa-20180411.tgz
-Source10:       %{external_url}/dragonbox-1.1.0.tar.gz
+Source10:       %{external_url}/dragonbox-1.1.3.tar.gz
 Source11:       %{external_url}/a7983f859eafb2677d7ff386a023bc40-xsltml_2.1.2.zip
 #Unfortunately later versions of hsqldb changed the file format, so if we use a later version we loose
 #backwards compatability.
@@ -263,6 +263,7 @@ Patch1: 0001-disble-tip-of-the-day-dialog-by-default.patch
 Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 # backported
 Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
+Patch4: 0001-Related-tdf-151898-fix-gtk4-build-in-7-4.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -2266,6 +2267,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Thu Jan 12 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.4.4.2-1
+- 7.4.4 release
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1:7.4.3.2-4
 - Rebuild for ICU 72
 

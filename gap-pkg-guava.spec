@@ -1,7 +1,7 @@
 %global pkgname guava
 
 Name:           gap-pkg-%{pkgname}
-Version:        3.17
+Version:        3.18
 Release:        1%{?dist}
 Summary:        Computing with error-correcting codes
 
@@ -59,11 +59,11 @@ The functions within GUAVA can be divided into four categories:
 # The content is GFDL-1.2-no-invariants-or-later.  The remaining licenses cover
 # the various fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
 # StandardSymL: GPL-1.0-or-later
-License:        GFDL-1.2-no-invariants-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GFDL-1.2-no-invariants-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        GUAVA documentation
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
@@ -82,7 +82,7 @@ cp -p src/ctjhai/README README.ctjhai
 export LC_ALL=C.UTF-8
 
 # This is NOT an autoconf-generated script.  Do not use %%configure.
-./configure %{gap_dir}
+./configure %{gap_archdir}
 
 # Building with %%{?_smp_mflags} fails
 make CFLAGS="%{build_cflags} -DLONG_EXTERNAL_NAMES"
@@ -91,7 +91,7 @@ make CFLAGS="%{build_cflags} -DLONG_EXTERNAL_NAMES"
 parallel %{?_smp_mflags} --no-notice gzip --best ::: tbl/*.g
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/doc ../../doc
 mkdir ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg/%{pkgname}
 gap -l "$PWD/..;" makedoc.g
@@ -101,8 +101,8 @@ pdftex -interaction=batchmode manual.tex
 popd
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g bin lib tbl tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
+cp -a *.g bin lib tbl tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
@@ -110,7 +110,7 @@ cp -a *.g bin lib tbl tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
 # infinite loops.  See comments about a user interrupt.
 export LC_ALL=C.UTF-8
 cd tst
-gap -l "%{buildroot}%{gap_dir};" << EOF
+gap -l "%{buildroot}%{gap_archdir};" << EOF
 LoadPackage("guava");
 if Test("guava.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
 if Test("decoding.tst", rec( compareFunction := "uptowhitespace" ) ) = false then GAP_EXIT_CODE(1); fi;
@@ -121,15 +121,19 @@ EOF
 %files
 %doc CHANGES HISTORY README.md README.ctjhai
 %license COPYING
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %files doc
 %doc src/leon/doc/manual.pdf
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 3.18-1
+- Version 3.18
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 3.17-1
 - Clarify license of the doc subpackage
 

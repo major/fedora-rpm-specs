@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        5.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Advanced Coset Enumerator
 
 License:        MIT
@@ -50,12 +50,12 @@ This package contains documentation for gap-pkg-%{pkgname}.
 export LC_ALL=C.UTF-8
 
 # This is NOT an autoconf-generated script.  Do not use %%configure.
-./configure %{gap_dir}
+./configure %{gap_archdir}
 %make_build
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/doc ../../doc
-ln -s %{gap_dir}/etc ../../etc
+ln -s %{gap_libdir}/doc ../../doc
+ln -s %{gap_libdir}/etc ../../etc
 make doc
 rm -f ../../{doc,etc}
 
@@ -65,37 +65,40 @@ ps2pdf ace3001.ps ace3001.pdf
 popd
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
 cp -a *.g bin examples gap htm res-examples tst VERSION \
-   %{buildroot}%{gap_dir}/pkg/%{pkgname}
-rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/gap/CHANGES
+   %{buildroot}%{gap_archdir}/pkg/%{pkgname}
+rm %{buildroot}%{gap_archdir}/pkg/%{pkgname}/gap/CHANGES
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 
 %files
 %doc CHANGES.md README.md
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/examples/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
-%exclude %{gap_dir}/pkg/%{pkgname}/res-examples/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_archdir}/pkg/%{pkgname}/examples/
+%exclude %{gap_archdir}/pkg/%{pkgname}/htm/
+%exclude %{gap_archdir}/pkg/%{pkgname}/res-examples/
 
 %files doc
 %doc standalone-doc/ace3001.pdf
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/examples/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%docdir %{gap_dir}/pkg/%{pkgname}/res-examples/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/examples/
-%{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/res-examples/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/examples/
+%docdir %{gap_archdir}/pkg/%{pkgname}/htm/
+%docdir %{gap_archdir}/pkg/%{pkgname}/res-examples/
+%{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/examples/
+%{gap_archdir}/pkg/%{pkgname}/htm/
+%{gap_archdir}/pkg/%{pkgname}/res-examples/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 5.6.2-2
+- Update for split GAP directories
+
 * Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 5.6.2-1
 - Version 5.6.2
 

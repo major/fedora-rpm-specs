@@ -4,7 +4,7 @@
 
 Name:		vips
 Version:	%{vips_version}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	C/C++ library for processing large images
 
 License:	LGPLv2+
@@ -211,6 +211,9 @@ make check
 
 
 %changelog
+* Thu Jan 12 2023 Maxwell G <gotmax@e.email> - 8.13.3-5
+- Rebuild for cfitsio 4.2
+
 * Tue Jan 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.13.3-4
 - Backport upstream fix for emitting finish signal for target_end
   (needed for ruby-vips)

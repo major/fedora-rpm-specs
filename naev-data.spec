@@ -1,5 +1,5 @@
 Name:           naev-data
-Version:        0.10.1
+Version:        0.10.2
 Release:        1%{?dist}
 Summary:        Data files for NAEV
 License:        GPLv3 or GPLv3+ or GPLv2+ or Public Domain or CC-BY or CC-BY-SA
@@ -29,6 +29,9 @@ cp -a artwork %{buildroot}%{_datadir}/naev/dat
 %{_datadir}/naev
 
 %changelog
+* Thu Jan 12 2023 Jonathan Dieter <jdieter@gmail.com> - 0.10.2-1
+- Update to 0.10.2
+
 * Thu Dec 29 2022 Jonathan Dieter <jdieter@gmail.com> - 0.10.1-1
 - Update to 0.10.1
 

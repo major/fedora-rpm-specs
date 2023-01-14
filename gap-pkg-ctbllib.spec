@@ -6,11 +6,11 @@
 # 1. Build this package in bootstrap mode.
 # 2. Build gap-pkg-spinsym
 # 4. Build this package in non-bootstrap mode.
-%bcond_with bootstrap
+%bcond_without bootstrap
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GAP Character Table Library
 
 License:        GPL-3.0-or-later
@@ -52,13 +52,13 @@ This package provides the Character Table Library by Thomas Breuer.
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # LaTeX: LPPL-1.0
 # Nimbus: AGPL-3.0-only
 # RSFS: LicenseRef-Rsfs
 # StandardSymL: GPL-1.0-or-later
-License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND LPPL-1.0 AND AGPL-3.0-only AND LicenseRef-Rsfs
+License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.0 AND AGPL-3.0-only AND LicenseRef-Rsfs
 Summary:        Character Table Library documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-pkg-atlasrep-doc
@@ -79,8 +79,8 @@ chmod a-x doc/utils.xml
 export LC_ALL=C.UTF-8
 
 # Link to main GAP documentation
-cp -a %{gap_dir}/doc ../../doc
-ln -s %{gap_dir}/pkg/smallgrp ..
+cp -a %{gap_libdir}/doc ../../doc
+ln -s %{gap_libdir}/pkg/smallgrp ..
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
 gap -l "$PWD/..;" < makedocrel.g
@@ -107,8 +107,8 @@ sed -i "s,$PWD/doc2/\.\./\.\./pkg,../..,g" doc2/*.html
 parallel %{?_smp_mflags} --no-notice gzip --best ::: data/*.tbl
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc{,2}
-cp -a *.g data dlnames gap4 htm tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc{,2}
+cp -a *.g data dlnames gap4 htm tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 %gap_copy_docs -d doc2
 
@@ -122,7 +122,7 @@ SetUserPreference( "AtlasRep", "AtlasRepDataDirectory", "%{_builddir}/atlasrep/"
 EOF
 
 # Basic installation test
-gap -l "%{buildroot}%{gap_dir};" << EOF
+gap -l "%{buildroot}%{gap_libdir};" << EOF
 ReadPackage( "ctbllib", "tst/testinst.g" );
 EOF
 
@@ -137,24 +137,27 @@ rm -fr ../pkg
 %endif
 
 # Cleanup
-rm %{buildroot}%{gap_dir}/pkg/%{pkgname}/tst/*~
+rm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst/*~
 
 %files
 %doc README.md
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc2/
-%exclude %{gap_dir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc2/
+%exclude %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/doc2/
-%docdir %{gap_dir}/pkg/%{pkgname}/htm/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc2/
-%{gap_dir}/pkg/%{pkgname}/htm/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc2/
+%docdir %{gap_libdir}/pkg/%{pkgname}/htm/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc2/
+%{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.3.4-4
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.3.4-3
 - Clarify license of the doc subpackage
 

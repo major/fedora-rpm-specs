@@ -1,10 +1,10 @@
 %global package_name pyfakefs
 
 Name:           python-%{package_name}
-Version:        5.0.0
+Version:        5.1.0
 Release:        1%{?dist}
 Summary:        pyfakefs implements a fake file system that mocks the Python file system modules.
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://pyfakefs.org
 Source0:        https://pypi.io/packages/source/p/%{package_name}/%{package_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -53,6 +53,10 @@ rm -f {,test-}requirements.txt
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Thu Jan 12 2023 Jonathan Wright <jonathan@almalinux.org> - 5.1.0-1
+- Update to 5.1.0 rhbz#2127704
+- Update license to SPDX
+
 * Sun Aug 14 2022 Orion Poplawski <orion@nwra.com> - 5.0.0-1
 - Update to 5.0.0 rhbz#2127704
 

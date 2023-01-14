@@ -1,6 +1,6 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.56.0
+Version:        1.57.0
 Release:        %autorelease
 
 License:        Apache-2.0

@@ -4,7 +4,7 @@
 Summary: A GNU implementation of Scheme for application extensibility
 Name: compat-guile18
 Version: %{mver}.8
-Release: 37%{?dist}
+Release: 38%{?dist}
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.gz
 URL: http://www.gnu.org/software/guile/
 Patch1: guile-1.8.7-multilib.patch
@@ -12,6 +12,7 @@ Patch2: guile-1.8.7-testsuite.patch
 Patch3: guile-1.8.8-deplibs.patch
 Patch4: guile-1.8.8-cve-2016-8605.patch
 Patch5: guile-1.8.8-configure.patch
+Patch6: guile-configure-tz-c99.patch
 License: LGPLv2+
 BuildRequires: gcc libtool libtool-ltdl-devel gmp-devel readline-devel
 BuildRequires: gettext-devel
@@ -56,6 +57,7 @@ compat-guile18 package.
 %patch3 -p1 -b .deplibs
 %patch4 -p1 -b .cve-2016-8605
 %patch5 -p1 -b .configure
+%patch6 -p1
 
 %build
 
@@ -184,6 +186,9 @@ fi
 %{_includedir}/libguile.h
 
 %changelog
+* Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 1.8.8-38
+- C99 compatibility fix for the configure script
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

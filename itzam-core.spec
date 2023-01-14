@@ -1,6 +1,6 @@
 Name:		itzam-core
 Version:	2.1.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Library for creating and manipulating keyed-access database files
 
 License:	GPLv3+
@@ -8,6 +8,7 @@ URL:		http://www.coyotegulch.com/products/itzam/index.html
 Source0:	http://www.coyotegulch.com/distfiles/%{name}-%{version}.tar.gz
 
 Patch0:		itzam-core-2.1.1-itzam32.patch
+Patch1:		itzam-core-2.1.1-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -30,6 +31,7 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch0 -p1 -b .itzam32
+%patch1 -p1 -b .configure-c99
 
 
 %build
@@ -66,6 +68,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/itzam_dump_records
 
 
 %changelog
+* Thu Jan 12 2023 Peter Fordham <peter.fordham@gmail.com> - 2.1.1-26
+- Port configure script to C99.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

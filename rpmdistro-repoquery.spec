@@ -1,5 +1,5 @@
-%global commit 2aff449418e04b16c456aa67fbf60799f85ed189
-%global date 20220419
+%global commit 6b89e56e24d76f96a89cfd147768e2a3e24eb48a
+%global date 20230112
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           rpmdistro-repoquery
@@ -27,7 +27,7 @@ Currently, the tool supports the following distributions:
 * openSUSE Leap
 * openSUSE Tumbleweed
 * CentOS (with EPEL)
-* CentOS Stream (with EPEL)
+* CentOS Stream (with EPEL and Hyperscale)
 * Red Hat Enterprise Linux Universal Base Image (RHEL UBI)
 * SUSE Linux Enterprise Base Container Image (SLE BCI)
 

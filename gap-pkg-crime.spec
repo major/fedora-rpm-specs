@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Group cohomology and Massey products
 
 License:        GPL-2.0-or-later
@@ -27,10 +27,10 @@ Massey products in the cohomology ring.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        Group cohomology documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -46,8 +46,8 @@ export LC_ALL=C.UTF-8
 gap makedoc.g
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g gap tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
@@ -55,7 +55,7 @@ export LC_ALL=C.UTF-8
 
 # Do not run the batch.g test.  It never terminates.  The instructions indicate
 # it has to be interrupted manually.
-gap -l "%{buildroot}%{gap_dir};" << EOF
+gap -l "%{buildroot}%{gap_libdir};" << EOF
 LoadPackage("crime");
 GAP_EXIT_CODE(Test("tst/test.tst", rec(compareFunction := "uptowhitespace")));
 EOF
@@ -63,14 +63,17 @@ EOF
 %files
 %doc CHANGES.md README.md
 %license COPYING
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6-4
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 1.6-3
 - Clarify license of the doc subpackage
 

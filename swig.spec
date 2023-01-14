@@ -51,7 +51,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     http://swig.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -62,6 +62,7 @@ Source2: description-ccache.h2m
 Source3: ccache-swig.sh
 Source4: ccache-swig.csh
 %endif
+Patch0: swig-configure-c99.patch
 
 BuildRequires: coreutils
 BuildRequires: findutils
@@ -340,6 +341,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 4.1.1-2
+- Port configure script to C99
+
 * Thu Dec 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-1
 - Update to 4.1.1
 

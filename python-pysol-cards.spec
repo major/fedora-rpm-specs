@@ -2,8 +2,8 @@
 %global pypi_name pysol-cards
 
 Name:           python-%{pypi_name}
-Version:        0.14.2
-Release:        4%{?dist}
+Version:        0.14.3
+Release:        1%{?dist}
 Summary:        Deal PySol FC Cards
 License:        MIT
 URL:            https://fc-solve.shlomifish.org/
@@ -41,6 +41,7 @@ sed -i '/^#! \/usr\/bin\/env python$/d' pysol_cards/*.py
 # Must do the default python version install last because
 # the scripts in /usr/bin are overwritten with every setup.py install.
 %py3_install
+rm -rf %{buildroot}/%{_bindir}
 
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %license LICENSE
@@ -49,6 +50,9 @@ sed -i '/^#! \/usr\/bin\/env python$/d' pysol_cards/*.py
 %{python3_sitelib}/pysol_cards-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jan 12 2023 Shlomi Fish <shlomif@shlomifish.org> 0.14.3-1
+- Update to the new upstream version.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,19 @@
 Name:           waybar
-Version:        0.9.16
+Version:        0.9.17
 Release:        1%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
-# MIT for main package, Boost for bundled clara.hpp
-License:        MIT and Boost
+# Source files/overall project licensed as MIT, but
+# - BSL-1.0
+#   * include/util/clara.hpp
+# - HPND-sell-variant
+#   * protocol/ext-workspace-unstable-v1.xml
+#   * protocol/wlr-foreign-toplevel-management-unstable-v1.xml
+#   * protocol/wlr-layer-shell-unstable-v1.xml
+# - ISC
+#   * protocol/river-control-unstable-v1.xml
+#   * protocol/river-status-unstable-v1.xml
+#   * src/util/rfkill.cpp
+License:        MIT AND BSL-1.0 AND ISC
 URL:            https://github.com/Alexays/Waybar
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -32,6 +42,7 @@ BuildRequires:  pkgconfig(libnl-3.0)
 BuildRequires:  pkgconfig(libnl-genl-3.0)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libudev)
+BuildRequires:  pkgconfig(playerctl)
 BuildRequires:  pkgconfig(sigc++-2.0)
 BuildRequires:  pkgconfig(spdlog) >= 1.10.0
 BuildRequires:  pkgconfig(upower-glib)
@@ -80,6 +91,10 @@ Suggests:       font(fontawesome5free)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Wed Jan 11 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.17-1
+- Update to 0.9.17
+- Convert License tag to SPDX
+
 * Thu Nov 24 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.16-1
 - Update to 0.9.16 (#2139998)
 

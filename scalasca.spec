@@ -19,16 +19,16 @@
 %global shortver %(echo %version|awk -F. '{print $1 "." $2}')
 
 Name:		scalasca
-Version:	2.6
-Release:	4%{?dist}
+Version:	2.6.1
+Release:	1%{?dist}
 Summary:	Toolset for performance analysis of large-scale parallel applications
 
-# ScoutPatternParser and SilasConfigParser are GPL
-License:	BSD and GPLv3+
+# ScoutPatternParser and SilasConfigParser are Bison-generated
+License:	BSD-3-Clause AND GPL-3.0-or-later WITH Bison-exception-2.0
 URL:		http://www.scalasca.org/
 Source0:	http://apps.fz-juelich.de/scalasca/releases/scalasca/%shortver/dist/%name-%version.tar.gz
 BuildRequires: make
-BuildRequires:	otf2-devel >= 2.1, cube-devel >= 4.4
+BuildRequires:	otf2-devel >= 3.0, cube-devel >= 4,8
 BuildRequires:	zlib-devel openmpi-devel chrpath gcc-c++
 %if %{with mpich}
 BuildRequires:	mpich-devel
@@ -202,6 +202,12 @@ make check VERBOSE=1
 
 
 %changelog
+* Mon Dec 19 2022 Dave Love <loveshack@fedoraproject.org> - 2.6.1-1
+- New version (#2153767)
+
+* Thu Sep  8 2022 Dave Love <loveshack@fedoraproject.org> - 2.6-5
+- Use SPDX licence TAG
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

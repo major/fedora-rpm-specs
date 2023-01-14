@@ -16,12 +16,9 @@
 # Use of LTO leads to strange segfaults, reason as yet unknown.
 %global _lto_cflags %{nil}
 
-# Upstream prerelease number
-%global prerel 129
-
 Name:           gcl
 Version:        2.6.13
-Release:        0.%{prerel}%{?dist}
+Release:        1%{?dist}
 Summary:        GNU Common Lisp
 
 # LGPL-2.0-or-later:
@@ -48,203 +45,61 @@ Summary:        GNU Common Lisp
 # - lsp/gcl_loop.lsp
 License:        LGPL-2.0-or-later AND GPL-1.0-or-later AND MIT-Modern-Variant AND LOOP
 URL:            https://www.gnu.org/software/gcl/
-Source0:        ftp://ftp.gnu.org/pub/gnu/%{name}/%{name}-2.6.12.tar.gz
-Source1:        gcl.el
+Source0:        https://www.gnu.org/software/gcl/%{name}-%{version}.tar.gz
+#Source1:        https://www.gnu.org/software/gcl/%%{name}-%%{version}.tar.gz.sig
+#Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
+Source3:        gcl.el
 
 # Upstream builds point releases for Debian, and uploads the patches directly
 # to the Debian Patch Tracker, but does not spin new tarballs.  These are the
 # upstream patches from https://sources.debian.org/patches/gcl/.
-Patch0:         Version_2_6_13pre1.patch
-Patch1:         Version_2_6_13pre1a.patch
-Patch2:         Version_2_6_13pre1b.patch
-Patch3:         Version_2_6_13pre2.patch
-Patch4:         Version_2_6_13pre3.patch
-Patch5:         Version_2_6_13pre3a.patch
-Patch6:         Version_2_6_13pre4.patch
-Patch7:         Version_2_6_13pre5.patch
-Patch8:         Version_2_6_13pre6.patch
-Patch9:         Version_2_6_13pre7.patch
-Patch10:        Version_2_6_13pre8a.patch
-Patch11:        Version_2_6_13pre8b.patch
-Patch12:        Version_2_6_13pre12.patch
-Patch13:        Version_2_6_13pre13.patch
-Patch14:        Version_2_6_13pre16.patch
-Patch15:        Version_2_6_13pre17.patch
-Patch16:        Version_2_6_13pre18.patch
-Patch17:        Version_2_6_13pre19.patch
-Patch18:        Version_2_6_13pre20.patch
-Patch19:        Version_2_6_13pre22.patch
-Patch20:        Version_2_6_13pre25.patch
-Patch21:        Version_2_6_13pre26.patch
-Patch22:        Version_2_6_13pre27.patch
-Patch23:        Version_2_6_13pre28.patch
-Patch24:        Version_2_6_13pre29.patch
-Patch25:        Version_2_6_13pre30.patch
-Patch26:        Version_2_6_13pre31.patch
-Patch27:        Version_2_6_13pre32.patch
-Patch28:        Version_2_6_13pre33.patch
-Patch29:        Version_2_6_13pre34.patch
-Patch30:        Version_2_6_13pre35.patch
-Patch31:        Version_2_6_13pre36.patch
-Patch32:        Version_2_6_13pre38.patch
-Patch33:        Version_2_6_13pre39.patch
-Patch34:        data_bss_offset-in-unexec-sparc64-fix.patch
-Patch35:        Version_2_6_13pre41.patch
-Patch36:        Version_2_6_13pre45.patch
-Patch37:        Version_2_6_13pre46.patch
-Patch38:        Version_2_6_13pre47.patch
-Patch39:        Version_2_6_13pre48.patch
-Patch40:        Version_2_6_13pre49.patch
-Patch41:        Version_2_6_13pre50.patch
-Patch42:        pathnames1.1.patch
-Patch43:        ansi-test-clean-target.patch
-Patch44:        pathnames1.2.patch
-Patch45:        pathnames1.3.patch
-Patch46:        pathnames1.4.patch
-Patch47:        pathnames1.5.patch
-Patch48:        pathnames1.6.patch
-Patch49:        pathnames1.7.patch
-Patch50:        pathnames1.9.patch
-Patch51:        pathnames1.11.patch
-Patch52:        pathnames1.12.patch
-Patch53:        pathnames1.13.patch
-Patch54:        list_order.1.patch
-Patch55:        list_order.5.patch
-Patch56:        list_order.6.patch
-Patch57:        defined_real_maxpage.patch
-Patch58:        list_order.7.patch
-Patch59:        list_order.8.patch
-Patch60:        list_order.9.patch
-Patch61:        list_order.11.patch
-Patch62:        disable_gprof_aarch64.patch
-Patch63:        list_order.12.patch
-Patch64:        real_list_order.12.patch
-Patch65:        list_order.13.patch
-Patch66:        list_order.4.patch
-Patch67:        list_order.16.patch
-Patch68:        list_order.17.patch
-Patch69:        list_order.18.patch
-Patch70:        list_order.19.patch
-Patch71:        list_order.20.patch
-Patch72:        list_order.21.patch
-Patch73:        list_order.22.patch
-Patch74:        list_order.23.patch
-Patch75:        list_order.24.patch
-Patch76:        list_order.25.patch
-Patch77:        Version_2_6_13pre52.patch
-Patch78:        Version_2_6_13pre54.patch
-Patch79:        Version_2_6_13pre55.patch
-Patch80:        Version_2_6_13pre56.patch
-Patch81:        Version_2_6_13pre57.patch
-Patch82:        Version_2_6_13pre58.patch
-Patch83:        Version_2_6_13pre59.patch
-Patch84:        Version_2_6_13pre60.patch
-Patch85:        Version_2_6_13pre61.patch
-Patch86:        Version_2_6_13pre62.patch
-Patch87:        Version_2_6_13pre63.patch
-Patch88:        Version_2_6_13pre64.patch
-Patch89:        Version_2_6_13pre65.patch
-Patch90:        Version_2_6_13pre66.patch
-Patch91:        Version_2_6_13pre67.patch
-Patch92:        Version_2_6_13pre68.patch
-Patch93:        Version_2_6_13pre69.patch
-Patch94:        Version_2_6_13pre70.patch
-Patch95:        Version_2_6_13pre71.patch
-Patch96:        Version_2_6_13pre72.patch
-Patch97:        Version_2_6_13pre73.patch
-Patch98:        Version_2_6_13pre74.patch
-Patch99:        Version_2_6_13pre76.patch
-Patch100:       Version_2_6_13pre77.patch
-Patch101:       Version_2_6_13pre78.patch
-Patch102:       Version_2_6_13pre79.patch
-Patch103:       Version_2_6_13pre80.patch
-Patch104:       Version_2_6_13pre81.patch
-Patch105:       Version_2_6_13pre82.patch
-Patch106:       Version_2_6_13pre83.patch
-Patch107:       Version_2_6_13pre84.patch
-Patch108:       Version_2_6_13pre85.patch
-Patch109:       Version_2_6_13pre86.patch
-Patch110:       Version_2_6_13pre87.patch
-Patch111:       Version_2_6_13pre88.patch
-Patch112:       Version_2_6_13pre89.patch
-Patch113:       Version_2_6_13pre90.patch
-Patch114:       Version_2_6_13pre92.patch
-Patch115:       Version_2_6_13pre94.patch
-Patch116:       Version_2_6_13pre95.patch
-Patch117:       Version_2.6.13pre96.patch
-Patch118:       Version_2_6_13pre98.patch
-Patch119:       Version_2_6_13pre99.patch
-Patch120:       Version_2_6_13pre100.patch
-Patch121:       Version_2_6_13pre101.patch
-Patch122:       Version_2_6_13pre102.patch
-Patch123:       Version_2_6_13pre103.patch
-Patch124:       Version_2.6.13pre105.patch
-Patch125:       Version_2.6.13pre106.patch
-Patch126:       Version_2.6.13pre107.patch
-Patch127:       Version_2.6.13pre108.patch
-Patch128:       Version_2.6.13pre109.patch
-Patch129:       Version_2.6.13pre110.patch
-Patch130:       Version_2.6.13pre111.patch
-Patch131:       Version_2.6.13pre112.patch
-Patch132:       Version_2.6.13pre113.patch
-Patch133:       Version_2.6.13pre114.patch
-Patch134:       Version_2_6_13pre119.patch
-Patch135:       Version_2_6_13pre120.patch
-Patch136:       Version_2.6.13pre121.patch
-Patch137:       Version_2_6_13pre124.patch
-Patch138:       Version_2_6_13pre125.patch
-Patch139:       Version_2_6_13pre126.patch
-Patch140:       Version_2_6_13pre128.patch
-Patch141:       Version_2_6_13pre129.patch
+
+# Currently no upstream patches
 
 ### Fedora patches
 
-# This patch was last sent upstream on 29 Dec 2008.  It fixes a file descriptor
-# leak, as well as combining 4 system calls into only 2 on an exec().
-Patch500:       %{name}-2.6.12-fd-leak.patch
 # This patch was last sent upstream on 29 Dec 2008.  It updates one source file
 # from LaTeX 2.09 to LaTeX 2e, thereby eliminating LaTeX warnings about running
 # in compatibility mode.
-Patch501:       %{name}-2.6.11-latex.patch
+Patch500:       %{name}-2.6.11-latex.patch
 # This patch was last sent upstream on 29 Dec 2008.  It adapts to texinfo 5.0.
-Patch502:       %{name}-2.6.11-texinfo.patch
+Patch501:       %{name}-2.6.11-texinfo.patch
 # This patch was last sent upstream on 29 Dec 2008.  It fixes a large number of
 # compile- and run-time problems with the Emacs interface code.
-Patch503:       %{name}-2.6.11-elisp.patch
+Patch502:       %{name}-2.6.11-elisp.patch
 # This is a Fedora-specific patch.  Do not delete C files produced from D files
 # so they can be pulled into the debuginfo package.
-Patch504:       %{name}-2.6.11-debuginfo.patch
+Patch503:       %{name}-2.6.11-debuginfo.patch
 # This patch was last sent upstream on 13 Oct 2009.  It fixes two bugs in the
 # reading of PLT information.
-Patch505:       %{name}-2.6.11-plt.patch
+Patch504:       %{name}-2.6.11-plt.patch
 # This patch was last sent upstream on 13 Oct 2009.  It fixes several malformed
 # function prototypes involving an ellipsis.
-Patch506:       %{name}-2.6.11-ellipsis.patch
-# Fix a linker problem on ARM platforms.
-Patch507:       %{name}-2.6.11-arm.patch
+Patch505:       %{name}-2.6.11-ellipsis.patch
 # Turn address randomization off early.  GCL is linked with libtirpc, which is
 # linked with libselinux, which has a static initializer that calls malloc()
 # and free() on systems that do not have /sys/fs/selinux or /selinux mounted,
 # or have them mounted read-only.
-Patch508:       %{name}-2.6.12-libselinux.patch
+Patch506:       %{name}-2.6.12-libselinux.patch
 # This patch was last sent upstream on 29 Dec 2008.  It updates the autoconf
 # and libtool files to newer versions.  By itself, this patch accomplishes
 # little of interest.  However, some of the later patches change configure.in.
 # Without this patch, autoconf appears to run successfully, but generates a
 # configure script that contains invalid shell script syntax.
-Patch509:       %{name}-2.6.12-infrastructure.patch
+Patch507:       %{name}-2.6.12-infrastructure.patch
 # This patch was last sent upstream on 29 Dec 2008.  It rationalizes the
 # handling of system extensions.  For example, on glibc-based systems, some
 # functionality is available only when _GNU_SOURCE is defined.
-Patch510:       %{name}-2.6.12-extension.patch
+Patch508:       %{name}-2.6.12-extension.patch
 # Changes needed for the Modern C initiative.  See
 # https://fedoraproject.org/wiki/Changes/PortingToModernC
-Patch511:       %{name}-2.6.12-modern-c.patch
+Patch509:       %{name}-2.6.12-modern-c.patch
 
 BuildRequires:  binutils-devel
 BuildRequires:  bzip2
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
+#BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(readline)
@@ -283,7 +138,12 @@ Emacs mode for interacting with GCL
 
 
 %prep
-%autosetup -n %{name} -p1
+# Upstream is currently having trouble signing with the GNU key, and has
+# instead signed with a key that I cannot find on any public key server.
+# Disable this until upstream fixes the issue.
+#%%{gpgverify} --data=%%{SOURCE0} --signature=%%{SOURCE1} --keyring=%%{SOURCE2}
+
+%autosetup -p1
 
 # The binary MUST be run with address randomization off.  The main() function
 # has code to accomplish that, but it does not run early enough.  Ensure that
@@ -312,8 +172,7 @@ chmod a+x bin/info bin/info1 gcl-tk/gcltksrv.in gcl-tk/ngcltksrv mp/gcclab
 chmod a+x o/egrep-def utils/replace xbin/*
 
 %build
-# SGC requires the frame pointer
-export CFLAGS="%{build_cflags} -fno-omit-frame-pointer -fwrapv"
+export CFLAGS="%{build_cflags} -fwrapv"
 %configure --enable-readline --enable-ansi --enable-dynsysgmp --enable-xgcl \
   --enable-tclconfig=%{_libdir} --enable-tkconfig=%{_libdir}
 # FIXME: %%{?_smp_mflags} breaks the build
@@ -353,7 +212,7 @@ cp -pfr elisp/* $RPM_BUILD_ROOT%{_emacs_sitelispdir}/gcl
 rm -f $RPM_BUILD_ROOT%{_emacs_sitelispdir}/gcl/makefile
 rm -f $RPM_BUILD_ROOT%{_emacs_sitelispdir}/gcl/readme
 mkdir -p $RPM_BUILD_ROOT%{_emacs_sitestartdir}
-sed -e "s|%LISP_DIR%|%{_emacs_sitelispdir}|" %{SOURCE1} > $RPM_BUILD_ROOT%{_emacs_sitestartdir}/gcl.el
+sed -e "s|%LISP_DIR%|%{_emacs_sitelispdir}|" %{SOURCE3} > $RPM_BUILD_ROOT%{_emacs_sitestartdir}/gcl.el
 pushd $RPM_BUILD_ROOT%{_emacs_sitelispdir}/gcl
 %{_emacs_bytecompile} *.el
 popd
@@ -391,6 +250,11 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 2.6.13-1
+- Update to 2.6.13 final
+- Drop upstreamed -fd-leak patch
+- Drop obsolete -arm patch
+
 * Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 2.6.13-0.129
 - Update to 2.6.13pre129
 - Add patch for https://fedoraproject.org/wiki/Changes/PortingToModernC

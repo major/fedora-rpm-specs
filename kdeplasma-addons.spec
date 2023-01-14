@@ -43,6 +43,7 @@ BuildRequires:  kf5-kservice-devel
 BuildRequires:  kf5-kunitconversion-devel
 BuildRequires:  kf5-plasma-devel
 BuildRequires:  kf5-rpm-macros >= 5.25.0-2
+BuildRequires:  libicu-devel
 BuildRequires:  libxcb-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
