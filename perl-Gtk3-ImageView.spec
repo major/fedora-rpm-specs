@@ -40,7 +40,6 @@ BuildRequires:  xorg-x11-server-Xvfb
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(if)
 Requires:       perl(Glib) >= 1.2100
 

@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(version)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This package provides some functions to control UPnP devices.

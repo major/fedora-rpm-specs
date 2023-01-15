@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Perl::Critic::TestUtils)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 An additional Perl::Critic policy for using the Storable module.

@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Tester)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This simple module provides some handy functions to convert all those path

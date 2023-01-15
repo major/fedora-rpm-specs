@@ -45,7 +45,6 @@ BuildRequires:  perl(Test::More)
 # Devel::FindRef not needed
 # Devel::StackTrace not needed
 BuildRequires:  perl(Perl::MinimumVersion)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::String) >= 1.02
 Requires:       perl(List::MoreUtils) >= 0.24
 Requires:       perl(Perl::Critic) >= 1.084

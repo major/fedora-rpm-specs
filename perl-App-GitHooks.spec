@@ -53,7 +53,6 @@ BuildRequires:  perl(Test::Compile) >= 1.001
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::Type) >= 1.0.2
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       git-core >= 1.7.4.1
 
 %description

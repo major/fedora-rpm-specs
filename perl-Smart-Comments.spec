@@ -6,7 +6,6 @@ Release:        21%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Smart-Comments-%{version}.tar.gz
 URL:            https://metacpan.org/release/Smart-Comments
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils

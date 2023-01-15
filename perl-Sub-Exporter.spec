@@ -44,7 +44,6 @@ BuildRequires:	perl(Encode)
 BuildRequires:	perl(Test::Pod) >= 1.41
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Package::Generator)
 
 # Don't want doc-file provides or dependencies

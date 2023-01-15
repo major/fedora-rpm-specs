@@ -29,7 +29,6 @@ BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 LWP::Authen::Wsse allows LWP to authenticate against servers that are 

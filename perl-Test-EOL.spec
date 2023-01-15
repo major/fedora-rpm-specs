@@ -27,7 +27,6 @@ BuildRequires:	perl(Test::More) >= 0.88
 # Optional Tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module scans your project/distribution for any perl files (scripts,

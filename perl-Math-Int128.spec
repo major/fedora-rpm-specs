@@ -45,7 +45,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This software needs a compiler with a 128-bit integer type. GCC for 32-bit
 # targets does not support it. Bugs #1871733, #1871735.
 ExcludeArch:    %{arm32} %{ix86}

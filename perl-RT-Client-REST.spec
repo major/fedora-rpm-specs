@@ -47,7 +47,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(HTTP::Server::Simple\\)$

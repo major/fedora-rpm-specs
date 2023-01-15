@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(utf8)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Log::Dispatch) >= 2.60
 Requires:       perl(version)
 

@@ -77,7 +77,6 @@ BuildRequires:  perl(POE::Test::Loops) >= 1.360
 %endif
 BuildRequires:  perl(YAML)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(bytes)
 Recommends:     perl(Compress::Zlib) >= 1.33
 Requires:       perl(Curses) >= 1.08

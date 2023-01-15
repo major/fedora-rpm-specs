@@ -30,7 +30,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Test::Assert)
 BuildRequires:  perl(Test::Unit::Lite) >= 0.11
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 
 Obsoletes:      perl-MooseX-GlobRef-Object <= 0.0701-2.fc15

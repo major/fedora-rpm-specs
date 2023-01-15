@@ -23,7 +23,6 @@ BuildRequires:  perl(utf8)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
 BuildRequires:  perl(Test::Warn)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(Carp)
 
 %description

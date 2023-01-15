@@ -84,7 +84,7 @@
 Name:		sagemath
 Summary:	A free open-source mathematics software system
 Version:	9.6
-Release:	7%{?dist}
+Release:	8%{?dist}
 # The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file.
 # Note that many of the components listed in that file are not built in, but
 # are used as external libraries, and therefore do not affect the License tag.
@@ -182,6 +182,13 @@ Patch22:	%{name}-use-after-free.patch
 
 # Adapt to changes in python 3.11
 Patch23:	%{name}-python3.11.patch
+
+# Adapt to changes in sphinx
+Patch24:	%{name}-sphinx.patch
+
+# Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2160197
+# Remove this when that bug is fixed
+Patch25:	%{name}-giac.patch
 
 BuildRequires:	4ti2
 BuildRequires:	4ti2-devel
@@ -326,6 +333,7 @@ BuildRequires:	pkgconfig(isl)
 BuildRequires:	pkgconfig(libavdevice)
 BuildRequires:	pkgconfig(libcurl)
 BuildRequires:	pkgconfig(libgvc)
+BuildRequires:	pkgconfig(libpcre)
 BuildRequires:	pkgconfig(libpng)
 BuildRequires:	pkgconfig(libsemigroups)
 BuildRequires:	pkgconfig(libzmq)
@@ -459,6 +467,7 @@ BuildRequires:	tex(anyfontsize.sty)
 BuildRequires:	tex(fncychap.sty)
 BuildRequires:	tex(makecmds.sty)
 BuildRequires:	tex(subfigure.sty)
+BuildRequires:	tex(tgtermes.sty)
 BuildRequires:	tex(tikz-qtree.sty)
 BuildRequires:	tex(tkz-berge.sty)
 BuildRequires:	tex(xy.sty)
@@ -1025,6 +1034,9 @@ chmod a-x src/sage/modules/fp_graded/{,steenrod/}*.py
 # GAP does not have enough memory to load the entire workspace
 sed -i 's/64m/256m/' src/sage/interfaces/gap.py
 
+# Update the GAP root
+sed -i '/GAP_ROOT_DIR/s,SAGE_SHARE,"%{_libdir}",' src/sage/env.py
+
 # Fix detection of Fedora
 sed -i 's/yum/rpm/' build/bin/sage-guess-package-system
 
@@ -1034,8 +1046,8 @@ sed -i 's/3\.11\.0/3.12.0/g' configure
 # Allow use of libfplll 5.4.2
 sed -i 's/5\.4\.1/5.4.2/g' configure
 
-# Allow use of eclib 20220621
-sed -i 's/20210625/20220621/g' configure
+# Allow use of eclib 20221012
+sed -i 's/20210625/20221012/g' configure
 
 # Do not build with -march=native
 sed -i 's/CFLAGS_MARCH="-march=native"/CFLAGS_MARCH=""/' configure
@@ -2043,6 +2055,14 @@ end
 
 ########################################################################
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 9.6-8
+- Update for split GAP tree
+- Add patch for FTBFS with latest giac (see bz 2160197)
+- Fix eclib detection
+- Add BR on pcre-devel
+- Add BR on texlive-tex-gyre
+- Rebuild for libfplll 5.4.4
+
 * Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 9.6-7
 - Fix failure to install (bz 2154932)
 - Fix failure to find nauty binaries (bz 2125737)

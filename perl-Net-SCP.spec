@@ -24,7 +24,6 @@ BuildRequires:  perl(String::ShellQuote)
 BuildRequires:  perl(vars)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       openssh-clients
 
 %description

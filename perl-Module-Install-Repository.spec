@@ -25,7 +25,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Path::Class)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Module::Install::Repository is a Module::Install plugin to automatically

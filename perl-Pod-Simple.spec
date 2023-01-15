@@ -49,7 +49,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Test::Deep)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Text::Wrap\\)$

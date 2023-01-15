@@ -24,7 +24,6 @@ BuildRequires:  perl(overload)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(overload)
 
 %description

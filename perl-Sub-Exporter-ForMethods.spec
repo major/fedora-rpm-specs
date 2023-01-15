@@ -28,7 +28,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(namespace::autoclean)
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This package provides helper routines for using Sub::Exporter to build methods

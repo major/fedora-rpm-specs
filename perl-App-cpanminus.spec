@@ -73,7 +73,6 @@ Requires:       perl-core
 %else
 Requires:       perl
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Current dependency generator cannot parse compressed code. Use PPI to find
 # them, and list them manually:
 # Archive::Tar is optional

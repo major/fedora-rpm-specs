@@ -61,7 +61,6 @@ accessing the Zypper log file.
 Summary:        apt/aptitude CLI compatibility interface for Zypper
 Provides:       %{name}-apt = %{version}-%{release}
 Requires:       %{name} = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Enhances:       zypper
 BuildArch:      noarch
 

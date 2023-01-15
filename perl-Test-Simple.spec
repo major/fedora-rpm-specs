@@ -78,7 +78,6 @@ BuildRequires:  perl(Test::Script)
 %endif
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(JSON::PP)
 %if %{with perl_Test_Simple_enables_Module_Pluggable} && !%{defined perl_bootstrap}

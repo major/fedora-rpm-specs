@@ -18,7 +18,6 @@ BuildRequires:  perl(VM::EC2::Instance::Metadata)
 # Tests:
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl package provides a cache for an EC2's IAM credentials. Rather than

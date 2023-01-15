@@ -12,7 +12,6 @@ BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module contains functions for synchronized process spawning with full

@@ -23,7 +23,6 @@ BuildRequires:  perl(Sub::Install) >= 0.03
 # Tests only
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module handles the simple but common problem of long strings and

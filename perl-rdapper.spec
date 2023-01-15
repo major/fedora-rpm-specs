@@ -30,7 +30,6 @@ BuildRequires:  perl(strict)
 # Pod::Usage not used at tests
 # POSIX not used at tests
 # URI not used at tests
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # To support HTTPS
 Requires:       perl(LWP::Protocol::https)
 

@@ -33,7 +33,6 @@ BuildRequires:  perl(Devel::Cycle)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Test::Pod) >= 1.22
 # Test::Pod::Coverage 1.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(Devel::Cycle)
 Requires:       perl(LWP)

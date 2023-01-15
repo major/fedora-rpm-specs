@@ -15,7 +15,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Tie::Array)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(InfiniteList\\)
 

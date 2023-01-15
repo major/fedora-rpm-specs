@@ -54,7 +54,6 @@ BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(Tie::StdArray)
 BuildRequires:  perl(Tie::StdHash)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Apache::Util pulls in mod_perl and httpd, for cmd-line tools using Template-Toolkit this is a lot of unnecessary and often unwanted packages
 # The code checks for the existence of either Apache::Util or HTML::Entities, and the latter is much lighter weight from a dependency footprint.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1802358

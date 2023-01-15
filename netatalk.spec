@@ -107,7 +107,6 @@ BuildRequires:     libtdb-devel
 
 %{?with_python2:Requires:     dbus-python}
 %{!?with_python2:Requires:     python3-dbus}
-Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %{?with_tracker:Requires:          dconf}
 %{?ldconfig:Requires(post): %{ldconfig}}
 %{?ldconfig:Requires(postun): %{ldconfig}}

@@ -24,7 +24,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Time::HiRes)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This class implements a regex-based RFC 2822 parser that locates email

@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Most)
 # Optional tests:
 BuildRequires:  perl(Module::Pluggable) >= 4.9
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(Data::Tumbler) >= 0.002
 # File::Find::Rule bahaves as a hard dependency, CPAN RT#122100

@@ -24,7 +24,6 @@ BuildRequires:  perl(Storable) >= 2.16
 BuildRequires:  perl(CGI)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Perl::Critic::Policy)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Devel::Symdump) >= 2.07
 Requires:       perl(Perl::Critic::Policy) >= 1.108
 Requires:       perl(Perl::Critic::Utils) >= 1.108

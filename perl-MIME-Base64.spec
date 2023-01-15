@@ -27,7 +27,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 # Perl::API not yet packaged and does not work since perl 5.8.8
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl < 4:5.22.0-347
 
 %description

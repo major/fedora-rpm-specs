@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::Roo) >= 1.002
 Requires:       perl(DBI::Const::GetInfoType) >= 1.628
 Provides:       perl(DBIx::Introspector::Driver) = %{version}
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

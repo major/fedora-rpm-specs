@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.14
 # Test::Pod::Coverage 1.04 disabled, CPAN RT#97511
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # LWP::Protocol::https for HTTPS, not Crypt::SSLeay or Net::SSLeay,
 # CPAN RT#105378
 Requires:       perl(LWP::Protocol::https)

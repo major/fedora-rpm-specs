@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:  perl(Test::CPAN::Meta)
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 RFCs 2822 and 822 specify date formats to be used by email. This module parses

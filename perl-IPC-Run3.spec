@@ -24,7 +24,6 @@ BuildRequires:  perl(strict)
 # For improved tests
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::Pod)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # RHBZ #1062267 / https://rt.cpan.org/Public/Bug/Display.html?id=52317
 # Patch from

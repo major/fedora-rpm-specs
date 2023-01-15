@@ -17,7 +17,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Math::BigInt)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module takes Library of Congress (LC) call numbers and normalizes them so

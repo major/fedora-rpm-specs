@@ -48,7 +48,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(utf8)
 
 Requires:       perl(Mojo::EventEmitter)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

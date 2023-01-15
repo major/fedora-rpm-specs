@@ -23,7 +23,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Test::More) >= 0.17
 BuildRequires:  perl(Test::Pod)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Attribute::Handlers) >= 0.77
 Requires:       perl(Carp)
 Requires:       perl(Class::ISA)

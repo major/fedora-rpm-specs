@@ -16,7 +16,6 @@ Requires:       perl(QWizard)
 Requires:       perl(Gtk2)
 
 # neither are picked up automagically.
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is a wrapper around Getopt::Long that extends the value of

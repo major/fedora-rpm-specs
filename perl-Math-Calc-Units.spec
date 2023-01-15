@@ -30,7 +30,6 @@ BuildRequires:	perl(Test::More)
 # Optional Tests
 BuildRequires:	perl(Test::Pod) >= 1.00
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove unwanted provide if we have rpm 4.9 or later
 %global __provides_exclude ^perl\\(Parse::Yapp::Driver\\)

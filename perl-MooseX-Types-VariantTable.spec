@@ -17,7 +17,6 @@ BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::use::ok)
 Requires:       perl(MooseX::Clone) >= 0.03
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

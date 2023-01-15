@@ -50,7 +50,6 @@ BuildRequires:  perl(Test::Warn) >= 0.23
 # Optional tests
 BuildRequires:  perl(diagnostics)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Digest::MD5)
 Requires:       perl(DynaLoader)
 Requires:       perl(File::Spec) >= 0.80

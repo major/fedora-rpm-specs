@@ -37,7 +37,6 @@ BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(Readonly)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid provides for private objects
 %{?perl_default_filter}

@@ -57,7 +57,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most) >= 0.21
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::ShareDir) >= 1.0
 
 %define _use_internal_dependency_generator 0
@@ -73,7 +72,6 @@ the spirit of both the SDL and Perl.
 %package -n perl-Module-Build-SDL
 Summary:        Module::Build subclass for building SDL applications
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(ExtUtils::CBuilder::Base)
 
 %description -n perl-Module-Build-SDL

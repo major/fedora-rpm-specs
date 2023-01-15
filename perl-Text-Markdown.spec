@@ -42,7 +42,6 @@ BuildRequires:  perl(Text::Balanced)
 # Text::Diff not helpful
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Markdown is a text-to-HTML filter; it translates an easy-to-read /

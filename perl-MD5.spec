@@ -10,7 +10,6 @@ BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Digest::MD5) >= 2.00
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module (MD5.pm) is just a thin wrapper around the Digest::MD5

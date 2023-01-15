@@ -29,7 +29,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The https://yaml.org/ YAML Specification can be used to generate a YAML

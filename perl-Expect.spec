@@ -32,7 +32,6 @@ BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::Builder)
 BuildRequires:	perl(Test::More) >= 0.98
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides Expect-like functionality to Perl. Expect is

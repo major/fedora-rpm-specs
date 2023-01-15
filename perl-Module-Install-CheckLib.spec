@@ -42,7 +42,6 @@ BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Devel::CheckLib) >= 0.7
 Requires:       perl(Module::Install::Base) >= 0.99
 

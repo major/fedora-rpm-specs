@@ -41,7 +41,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       gd >= 2.0.28
 
 %global __provides_exclude %{?__provides_exclude:__provides_exclude|}^perl\\(GD::Polygon\\)$

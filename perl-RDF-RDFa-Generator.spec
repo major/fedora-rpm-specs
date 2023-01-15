@@ -35,7 +35,6 @@ BuildRequires:  perl(RDF::Prefixes)
 BuildRequires:  perl(Test::Modern)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Output)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XML::LibXML) >= 1.60
 
 # Remove under-specified dependencies

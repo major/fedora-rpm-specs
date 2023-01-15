@@ -896,7 +896,6 @@ Summary: Perl IDL compiler
 Requires: perl-interpreter
 Requires: perl(FindBin)
 Requires: perl(Parse::Yapp)
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch: noarch
 
 Provides: samba4-pidl = %{samba_depver}

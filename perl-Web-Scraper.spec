@@ -41,7 +41,6 @@ BuildRequires:  perl(strict)
 # Required by the testsuite
 BuildRequires:  %{_bindir}/ps
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # rpm's deptracker misses these:
 Requires:  perl(LWP::UserAgent)

@@ -29,7 +29,6 @@ BuildRequires:	perl(Test::More) >= 0.47
 # Optional tests
 BuildRequires:  perl(XML::SAX::Writer)
 Requires:       perl(XML::SAX) >= 0.12
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module allows you to validate XML documents against a W3C XML Schema.

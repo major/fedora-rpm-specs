@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XML::SAX::Base) >= 1.02
 # Tests
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XML::SAX::Base) >= 1.02
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(XML::SAX::Base\\)\s*$

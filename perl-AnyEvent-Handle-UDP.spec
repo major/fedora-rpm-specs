@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.89
 BuildRequires:  perl(warnings)
 Requires:       perl(Sub::Name)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is an abstraction around UDP sockets for use with AnyEvent.

@@ -27,7 +27,6 @@ BuildRequires:  perl(Benchmark)
 # Optional tests:
 BuildRequires:  perl(Crypt::CBC) >= 1.22
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Crypt::Blowfish is an XS-based implementation of the Blowfish

@@ -28,7 +28,6 @@ BuildRequires:  perl(latest)
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides tracking of objects, for the purpose of detecting

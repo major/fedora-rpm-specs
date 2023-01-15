@@ -13,7 +13,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  cfitsio-devel
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Perl interface to William Pence's cfitsio subroutine library. For more

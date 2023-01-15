@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(File::Temp)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove under-specified dependenices
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
@@ -50,7 +49,6 @@ with "%{_libexecdir}/%{name}/test".
 %package tools
 Summary:        Generate inlined Object::HashBase Perl module
 Requires:       %{name} = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::More) >= 0.98
 
 %description tools

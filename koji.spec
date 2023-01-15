@@ -8,7 +8,7 @@
 %{?!python3_pkgversion:%global python3_pkgversion 3}
 
 Name: koji
-Version: 1.31.0
+Version: 1.31.1
 Release: 1%{?dist}
 # the included arch lib from yum's rpmUtils is GPLv2+
 License: LGPLv2 and GPLv2+
@@ -206,7 +206,7 @@ sed -e '/util\/koji/g' -e '/koji_cli_plugins/g' -i setup.py
 %py3_install_wheel %{name}-%{version}-py3-none-any.whl
 mkdir -p %{buildroot}/etc/koji.conf.d
 cp cli/koji.conf %{buildroot}/etc/koji.conf
-for D in hub builder plugins util www vm ; do
+for D in kojihub builder plugins util www vm ; do
     pushd $D
     make DESTDIR=$RPM_BUILD_ROOT PYTHON=%{__python3} %{?install_opt} install
     popd
@@ -260,6 +260,7 @@ done
 %files -n python%{python3_pkgversion}-%{name}-hub
 %{_datadir}/koji-hub/*.py
 %{_datadir}/koji-hub/__pycache__
+%{python3_sitelib}/kojihub
 
 %files hub-plugins
 %dir /etc/koji-hub/plugins
@@ -347,6 +348,9 @@ done
 %systemd_postun kojira.service
 
 %changelog
+* Thu Jan 12 2023 Kevin Fenzi <kevin@scrye.com> - 1.31.1-1
+- Update to 1.31.1. Fixes rhbz#2160428
+
 * Mon Nov 21 2022 Kevin Fenzi <kevin@scrye.com> - 1.31.0-1
 - Update to 1.31.0. Fixes rhbz#2144498
 

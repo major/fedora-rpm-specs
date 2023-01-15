@@ -22,7 +22,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(POSIX)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides an easy means of formatting numbers in a manner

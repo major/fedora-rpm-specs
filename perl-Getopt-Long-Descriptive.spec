@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::Warnings) >= 0.005
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(Moose::Conflicts)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Convenient wrapper for Getopt::Long and program usage output.

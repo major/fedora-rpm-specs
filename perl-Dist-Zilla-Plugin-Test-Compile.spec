@@ -47,7 +47,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings) >= 0.009
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Dist::Zilla::File::InMemory)
 Requires:       perl(Dist::Zilla::Role::FileFinderUser)
 Requires:       perl(Dist::Zilla::Role::FileGatherer)

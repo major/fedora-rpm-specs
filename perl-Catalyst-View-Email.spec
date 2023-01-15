@@ -42,7 +42,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # not automatically detected
 Requires:       perl(Catalyst) >= 5.7
 Requires:       perl(Email::MIME) >= 1.859

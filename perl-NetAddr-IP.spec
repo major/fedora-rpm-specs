@@ -38,7 +38,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Math::BigInt)
 Requires:       perl(Socket6)
 

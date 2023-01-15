@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/App-Cmd-%{version}.tar.gz 
 URL:            https://metacpan.org/release/App-Cmd
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  make

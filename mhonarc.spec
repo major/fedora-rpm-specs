@@ -21,7 +21,6 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(Time::Local)
 Provides:       MHonArc = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # RPM 4.9 style
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(.*\.pl\\)

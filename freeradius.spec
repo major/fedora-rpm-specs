@@ -126,7 +126,6 @@ This plugin provides the Kerberos 5 support for the FreeRADIUS server project.
 %package perl
 Summary: Perl support for freeradius
 Requires: %{name} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %{?fedora:BuildRequires: perl-devel}
 BuildRequires: perl-devel
 BuildRequires: perl-generators

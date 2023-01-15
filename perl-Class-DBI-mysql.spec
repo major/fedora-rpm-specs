@@ -20,7 +20,6 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Time::Piece::MySQL)
 Requires:  perl(Class::DBI), perl(DBD::mysql), perl(Time::Piece::MySQL)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 %{summary}.

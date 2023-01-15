@@ -21,7 +21,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(Test::More) >= 0.47
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Test::Requires checks to see if the module can be loaded.

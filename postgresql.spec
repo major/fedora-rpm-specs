@@ -351,7 +351,6 @@ process.
 %package plperl
 Summary: The Perl procedural language for PostgreSQL
 Requires: %{name}-server%{?_isa} = %precise_version
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %if %runselftest
 BuildRequires: perl(Opcode)
 BuildRequires: perl(Data::Dumper)

@@ -32,7 +32,6 @@ BuildRequires:  perl(Exporter) >= 5
 # Tests:
 BuildRequires:  perl(Test::More) >= 1.3
 BuildRequires:  perl(Test::Warn) >= 0.30
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.35
 Requires:       perl(Exporter) >= 5
 %if %{with perl_Graphics_Toolkit_Color_enables_color_names}

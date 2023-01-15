@@ -27,7 +27,6 @@ BuildRequires:	perl(Cwd)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides various portable helper functions for module building

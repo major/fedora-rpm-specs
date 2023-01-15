@@ -34,7 +34,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 # CPAN::Meta not useful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Test::Reporter reports the test results of any given distribution to the

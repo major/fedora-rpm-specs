@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 
 Requires:       perl(Readonly) >= 1.03
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Filter under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Readonly\\)$

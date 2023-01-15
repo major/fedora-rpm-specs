@@ -13,7 +13,6 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Module::Build) >= 0.27
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 Pretty nifty if you want to output dynamic text to your console or other

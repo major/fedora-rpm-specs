@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(utf8::all)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is intended for use in operations that can be done in parallel

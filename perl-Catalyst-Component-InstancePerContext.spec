@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  sed
 Requires:       perl(Catalyst)
 Requires:       perl(Moose)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Return a new instance a component on each request.

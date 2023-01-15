@@ -19,7 +19,6 @@ BuildRequires:  perl(Importer)
 # Tests:
 # Test2::V0 version from Test2::Suite in META
 BuildRequires:  perl(Test2::V0) >= 0.000126
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module essentially provides a multi-level return. You can mark

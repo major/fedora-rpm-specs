@@ -26,7 +26,6 @@ BuildRequires:  perl(warnings)
 # test requirements
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

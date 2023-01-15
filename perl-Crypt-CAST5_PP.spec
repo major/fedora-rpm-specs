@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More) >= 0.47
 # Optional tests only
 BuildRequires:  perl(Crypt::CBC) >= 1.22
 BuildRequires:  perl(Test::Taint)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides a pure Perl implementation of the CAST5 block cipher.

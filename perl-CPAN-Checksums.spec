@@ -42,7 +42,6 @@ BuildRequires:  perl(Module::Signature) >= 0.79
 # Time::HiRes not useful
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 0.18
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::File) >= 1.14
 Requires:       perl(Safe)
 

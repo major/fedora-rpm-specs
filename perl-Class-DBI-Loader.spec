@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::More) >= 0.32
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(DBI) >= 1.3
 
 # Filter under-specified dependencies

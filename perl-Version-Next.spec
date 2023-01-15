@@ -21,7 +21,6 @@ BuildRequires:  perl(version) >= 0.81
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::Exception) >= 0.29
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides a simple, correct way to increment a Perl module

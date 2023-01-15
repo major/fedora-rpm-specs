@@ -42,7 +42,6 @@ BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Synopsis)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid provides from private shared objects
 %{?perl_default_filter}

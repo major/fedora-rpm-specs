@@ -15,7 +15,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.18
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is designed to format byte counts to usual readable

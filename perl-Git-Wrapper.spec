@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Path::Class) >= 0.26
 %endif
 Requires:       git-core
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IPC::Cmd)
 
 %description

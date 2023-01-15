@@ -26,7 +26,6 @@ BuildRequires:	perl(XSLoader)
 BuildRequires:	perl(Test2::Bundle::Extended)
 BuildRequires:	perl(Test2::Tools::Spec)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid provides for private shared objects
 %{?perl_default_filter}

@@ -13,7 +13,6 @@ BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::Pod)
 Requires:       perl(IO::Socket::SSL)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 WWW::GoodData is the client for GoodData JSON-based API built atop

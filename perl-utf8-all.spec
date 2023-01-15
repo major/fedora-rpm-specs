@@ -43,7 +43,6 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(version) >= 0.77
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Pragma utf8 allows you to write your Perl encoded in UTF-8. That means UTF-8

@@ -36,7 +36,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Math::BigInt::FastCalc)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Math::BigFloat)
 Requires:       perl(Math::BigInt)
 Requires:       perl(Math::BigRat)

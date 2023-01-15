@@ -10,7 +10,6 @@ License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/%{pkgname}
 Source:		https://cpan.metacpan.org/authors/id/A/AB/ABURS/%{pkgname}-%{version}.tar.gz
 Patch0:		perl-DateTime-Format-Excel-0.31-versioning.patch
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildRequires:	coreutils
 BuildRequires:	make
 BuildRequires:	perl-interpreter

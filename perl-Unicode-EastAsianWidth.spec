@@ -16,7 +16,6 @@ BuildRequires:	perl(Test)
 BuildRequires:	perl(Module::Package)
 BuildRequires:	perl(Pod::Markdown)
 BuildRequires:	perl(Module::Package::Au)
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

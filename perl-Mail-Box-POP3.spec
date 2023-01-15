@@ -35,7 +35,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Mail::Box::Test) >= 3
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Socket::IP)
 Requires:       perl(IO::Socket::SSL)
 Requires:       perl(Mail::Box::FastScalar) >= 3

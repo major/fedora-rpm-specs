@@ -51,7 +51,6 @@ BuildRequires:  perl(Text::Balanced)
 # not automatically detected
 Requires:       perl(Moose::Meta::Method)
 Requires:       perl(MooseX::Types) >= 0.35
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -31,7 +31,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Parallel::ForkManager) >= 1.03
 Requires:       perl(YAML) >= 0.6
 

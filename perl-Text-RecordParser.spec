@@ -47,7 +47,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests only
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 
 %description
 This module is for reading record-oriented data in a delimited text file.

@@ -73,7 +73,6 @@ BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::Output)
 Requires:       httpd-filesystem
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # Stick to Apache2, ignore Apache 1 modules
 Requires:       perl(Apache2::Directive)
 Requires:       perl(Apache2::Log)

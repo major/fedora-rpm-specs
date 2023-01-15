@@ -244,7 +244,6 @@ Requires:  /usr/share/fonts/google-droid-sans-fonts/DroidSans.ttf
 BuildRequires:  /usr/share/fonts/google-droid-sans-fonts/DroidSansFallbackFull.ttf
 BuildRequires:  /usr/share/fonts/google-droid-sans-fonts/DroidSans.ttf
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	%{_sysconfdir}/httpd/conf.d
 
 Requires(postun): %{__rm}
@@ -359,7 +358,6 @@ fi
 %package -n perl-RT-Test
 Summary: rt's test utility module
 Requires:	rt = %{version}-%{release}
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # rpm doesn't catch these:
 Requires:	perl(Test::WWW::Mechanize::PSGI)

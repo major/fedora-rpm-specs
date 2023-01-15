@@ -13,7 +13,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(IO::AIO) >= 3
 BuildRequires:  perl(AnyEvent)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Truly asynchronous file and directrory I/O.

@@ -29,7 +29,6 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
 # CPAN::Meta not needed
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Path)
 
 %description

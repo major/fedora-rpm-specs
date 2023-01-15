@@ -28,7 +28,6 @@ BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # Really optional
 Suggests:       perl(MIME::Base64)
 

@@ -25,7 +25,6 @@ BuildRequires:  perl(File::Which)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Test::TCP)
 BuildRequires:  perl(Test::SharedFork)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter) >= 5.63
 
 # Filter under-specified dependencies

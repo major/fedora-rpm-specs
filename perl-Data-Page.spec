@@ -21,7 +21,6 @@ BuildRequires:  perl(integer)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 %{summary}.

@@ -15,7 +15,6 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(warnings)
 BuildRequires:  perl(Exporter)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid doc-file dependency on perl(base)
 %{?perl_default_filter}

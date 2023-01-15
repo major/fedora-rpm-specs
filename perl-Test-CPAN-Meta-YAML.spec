@@ -30,7 +30,6 @@ BuildRequires:	perl(Test::CPAN::Meta::JSON)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 0.08
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Explicitly requests the YAML::Syck backend for Test::YAML::Valid
 Requires:	perl(YAML::Syck)
 

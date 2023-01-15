@@ -48,7 +48,6 @@ BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Temp)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Spec::Functions) >= 3.00
 Requires:       perl(deprecate)
 # Recommended run-time:

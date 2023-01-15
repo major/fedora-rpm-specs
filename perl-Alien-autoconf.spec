@@ -42,7 +42,6 @@ BuildRequires:  perl(Test2::V0) >= 0.000121
 BuildRequires:  perl(Test::Alien) >= 2.52
 # alien.json bakes in autoconf version at build-time
 Requires:       autoconf %(perl -e 'print qq{ = $1} if qx{autoconf --version} =~ m{([\d+\.]+)}' 2>/dev/null)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base) >= 0.038
 
 # Remove underspecified dependencies

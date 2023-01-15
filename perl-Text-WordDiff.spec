@@ -25,7 +25,6 @@ BuildRequires:  perl(Encode) >= 1.20
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildRequires:  perl(Test::Pod)
 Requires:       perl(Algorithm::Diff) >= 1.19
 

@@ -23,7 +23,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(warnings)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Encode) >= 2.12
 
 # Drop under-specified dependencies

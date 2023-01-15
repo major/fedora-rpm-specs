@@ -46,7 +46,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Capture::Tiny)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::All)
 Requires:       perl(Pegex) >= 0.30
 Requires:       perl(Template::Toolkit::Simple)

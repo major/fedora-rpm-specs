@@ -30,7 +30,6 @@ BuildRequires:  perl(Pod::Perldoc)
 BuildRequires:  qt4-devel
 BuildRequires:  cmake
 BuildRequires: make
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Krazy2 uses desktop-file-validate, so this is an actual Requires
 Requires:       desktop-file-utils
 

@@ -52,7 +52,6 @@ BuildRequires:  sane-backends
 # sane-backends-drivers-scanners for "test" Sane driver
 BuildRequires:  sane-backends-drivers-scanners
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 These Perl bindings for the SANE (Scanner Access Now Easy) Project allow

@@ -11,7 +11,7 @@
 %global lld_srcdir lld-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:rc%{rc_ver}}.src
 %global maj_ver 15
 %global min_ver 0
-%global patch_ver 6
+%global patch_ver 7
 
 %if %{with compat_build}
 %global pkg_name lld%{maj_ver}
@@ -27,7 +27,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	The LLVM Linker
 
 License:	NCSA
@@ -182,6 +182,9 @@ fi
 %{install_libdir}/liblld*.so.*
 
 %changelog
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-1
+- Update to LLVM 15.0.7
+
 * Mon Jan 09 2023 Tom Stellard <tstellar@redhat.com> - 15.0.6-2
 - Omit frame pointers when building
 

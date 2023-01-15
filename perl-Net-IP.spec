@@ -34,7 +34,6 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(lib)
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Not yet packaged: IP::Authority
 
 %description

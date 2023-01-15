@@ -7,7 +7,6 @@ URL:            http://www.mojotoad.com/sisk/projects/HTML-TableExtract/
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSISK/HTML-TableExtract-%{version}.tar.gz
 Patch0:         HTML-TableExtract-2.15-fix-testsuite.patch
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # build requirements
 BuildRequires:  make
 BuildRequires:  perl-interpreter

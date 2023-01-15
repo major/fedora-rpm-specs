@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.22
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(DBI::db\\)$

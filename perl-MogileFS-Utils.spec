@@ -17,7 +17,6 @@ BuildRequires:  perl(strict)
 # perl(MogileFS::Client) >= 1.16
 # perl(Compress::Zlib)
 # perl(LWP::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(MogileFS::Client) >= 1.16
 
 # Remove under-specified dependencies

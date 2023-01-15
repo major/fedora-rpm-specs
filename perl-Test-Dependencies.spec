@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::Builder::Module)
 BuildRequires:  perl(Test::Builder::Tester) >= 0.64
 BuildRequires:  perl(Test::More) >= 1.30
 BuildRequires:  perl(Test::Needs)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Makes sure that all of the modules that are 'use'd are listed in the

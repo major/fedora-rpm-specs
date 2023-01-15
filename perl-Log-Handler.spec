@@ -36,7 +36,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:      noarch
 
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_docdir}/

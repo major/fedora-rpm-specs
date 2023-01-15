@@ -7,7 +7,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/URI-Fetch
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/URI-Fetch-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 # core
 BuildRequires: make

@@ -20,7 +20,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Env)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::More) >= 0.80
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Spec) >= 0.60
 
 # Remove under-specified dependencies

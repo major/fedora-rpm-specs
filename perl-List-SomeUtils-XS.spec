@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::LeakTrace)
 BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings) >= 0.006
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(List::SomeUtils::PP)
 Requires:       perl(XSLoader)
 

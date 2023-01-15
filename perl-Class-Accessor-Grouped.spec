@@ -55,7 +55,6 @@ BuildRequires:  perl(Test::More)
 # MRO::Compat not used on Perl >= 5.9.5
 BuildRequires:  perl(Package::Stash)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 %if %{with perl_Class_Accessor_Grouped_enables_Class_XSAccessor}
 Recommends:     perl(Class::XSAccessor) >= 1.19
 %endif

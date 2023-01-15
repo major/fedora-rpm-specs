@@ -23,7 +23,6 @@ BuildRequires:  perl(Sub::Quote)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(strictures) >= 1
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moo) >= 0.009006
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Moo\\)$

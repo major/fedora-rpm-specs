@@ -26,7 +26,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Kwiki) >= 0.37
 Recommends:     perl(Imager)
 Suggests:       perl(Image::Magick)

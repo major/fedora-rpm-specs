@@ -31,7 +31,6 @@ BuildRequires:	perl(Symbol)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(threads)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Tie::RefHash module can be used to access hashes by reference. This is

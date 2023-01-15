@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 # Testing
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Lingua::Translit can be used to convert text from one writing system to

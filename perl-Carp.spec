@@ -25,7 +25,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Do not export private DB module stub
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(DB\\)

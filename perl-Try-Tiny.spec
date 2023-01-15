@@ -37,7 +37,6 @@ BuildRequires:	perl(CPAN::Meta::Check) >= 0.011
 BuildRequires:	perl(CPAN::Meta::Requirements)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Sub::Util)
 
 # Do not provide private modules from tests packaged as a documentation

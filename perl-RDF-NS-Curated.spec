@@ -18,7 +18,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This contains a list of prefix and URI pairs that are commonly used in RDF.

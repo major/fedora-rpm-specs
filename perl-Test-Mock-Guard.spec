@@ -15,7 +15,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl-generators
 Requires:       perl(Class::Load) >= 0.06
 Requires:       perl(Exporter) >= 5.63
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test::Mock::Guard is mock test library using RAII. This module is able to

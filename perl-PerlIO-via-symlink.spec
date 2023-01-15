@@ -20,7 +20,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The PerlIO layer symlink allows you to create a symbolic link by writing to

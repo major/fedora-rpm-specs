@@ -33,7 +33,6 @@ BuildRequires:	perl(Test::More) >= 0.96
 # Optional Test Requirements
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(MooseX::Getopt)
 Requires:	perl(namespace::autoclean)
 

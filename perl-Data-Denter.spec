@@ -20,7 +20,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(diagnostics)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 The main problem with Data::Dumper (one of my all-time favorite modules)

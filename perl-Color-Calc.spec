@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Graphics::ColorNames::WWW)
 
 %{?perl_default_filter}

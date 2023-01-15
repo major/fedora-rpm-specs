@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 5
 Version: 5.26.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -16,9 +16,11 @@ URL:     https://invent.kde.org/plasma/%{name}
 %endif
 Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
 
-%ifnarch %{qt5_qtwebengine_arches}
+# This patch will be applied unconditionally by %%autosetup
+# It will be reverted in the arches which don't need it. See %%prep
 Patch0:  kdeplasma-addons-no-dict-applet-on-secondary-arches.patch
-%else
+
+%ifarch %{qt5_qtwebengine_arches}
 BuildRequires:  qt5-qtwebengine-devel
 %endif
 
@@ -81,6 +83,11 @@ developing applications that use %{name}.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# We need to revert the unconditionally applied patch on certain arches
+%ifarch %{qt5_qtwebengine_arches}
+%patch0 -p1 -R
+%endif
+
 
 %build
 %cmake_kf5
@@ -131,6 +138,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Jan 13 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.5-2
+- Rebuild with libicu-devel
+- Fix %%Patch0 management
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

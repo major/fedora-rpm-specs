@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Synopsis)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Feed::Find implements feed auto-discovery for finding syndication feeds, 

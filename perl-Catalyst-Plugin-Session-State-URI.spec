@@ -45,7 +45,6 @@ BuildRequires:  perl(URI::Find)
 BuildRequires:  perl(URI::QueryParam)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Catalyst::Plugin::Session::State)
 Requires:       perl(MooseX::Emulate::Class::Accessor::Fast)
 

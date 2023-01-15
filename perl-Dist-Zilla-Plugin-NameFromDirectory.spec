@@ -22,7 +22,6 @@ BuildRequires:  perl(Path::Tiny) >= 0.053
 BuildRequires:  perl(Test::DZil)
 BuildRequires:  perl(Test::More) >= 0.88
 # Test::Pod 1.41 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This is a Dist::Zilla plugin
 Requires:       perl(Dist::Zilla) >= 4.300030
 Requires:       perl(Dist::Zilla::Role::NameProvider)

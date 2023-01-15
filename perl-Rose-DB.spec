@@ -40,7 +40,6 @@ BuildRequires:	perl(Test::Pod) >= 1.0
 BuildRequires:	perl(warnings)
 BuildRequires:	perl(YAML)
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Rose::DB is a wrapper and abstraction layer for DBI-related functionality.

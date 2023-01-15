@@ -29,7 +29,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(Devel::Symdump) >= 2.01
 Requires:       perl(Pod::Find) >= 0.21
 Requires:       perl(Pod::Parser) >= 1.13
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Devel::Symdump\\)$

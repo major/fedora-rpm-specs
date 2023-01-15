@@ -56,7 +56,6 @@ BuildRequires:	perl(Test::Spelling) >= 0.23, hunspell-en
 BuildRequires:	perl(Test::Version)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Test::Builder::Module)
 
 %description

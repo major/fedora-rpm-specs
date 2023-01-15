@@ -28,7 +28,6 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 PerlIO::via::dynamic is used for creating dynamic PerlIO layers. It is

@@ -33,7 +33,6 @@ BuildRequires:  perl(lib)
 # Module::Signature not used
 # Socket not used
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.22
 Requires:       perl(Math::Complex) >= 1.39
 %if !%{defined perl_bootstrap}

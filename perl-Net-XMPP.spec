@@ -30,7 +30,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(LWP::Online)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(YAML::Tiny)
-Requires:  perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Authen::SASL) >= 2.12
 REquires:       perl(XML::Stream) >= 1.24
 

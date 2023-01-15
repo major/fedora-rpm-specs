@@ -25,7 +25,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Algorithm::Diff) >= 1.19
 
 # Remove under-specified dependencies

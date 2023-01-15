@@ -29,7 +29,6 @@ BuildRequires:	perl(lib)
 BuildRequires:	perl(Path::Tiny)
 BuildRequires:	perl(Test::More) >= 0.44
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This library is intended as a not-quite-drop-in replacement for certain

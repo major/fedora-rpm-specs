@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 # Test::EOL not used
 # Test::Pod 1.41 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(deprecate)
 
 %description

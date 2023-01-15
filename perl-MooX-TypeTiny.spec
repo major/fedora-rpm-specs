@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::Fatal) >= 0.003
 BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(Type::Tiny) >= 1.008
 BuildRequires:  perl(Types::Standard)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Moo) >= 2.004
 Requires:       perl(Type::Tiny) >= 1.008
 

@@ -16,7 +16,6 @@ BuildRequires:  perl(Language::Prolog::Types)
 BuildRequires:  perl(Test::More)
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Language::Prolog::Sugar is able to export to the calling package a set of

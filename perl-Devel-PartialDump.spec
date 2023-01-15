@@ -32,7 +32,6 @@ BuildRequires:  perl(ok)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings) >= 0.009
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(overload)
 
 # Filter bogus provide of perl(DB)

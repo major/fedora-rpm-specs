@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.41
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This package checks whether the Manifest file matches the distro or not. To

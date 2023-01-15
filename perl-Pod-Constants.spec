@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Pod::Constants allows you to extract data from your POD at run-time, meaning

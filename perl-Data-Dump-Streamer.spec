@@ -1,13 +1,14 @@
 Name:           perl-Data-Dump-Streamer
 Version:        2.40
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Accurately serialize a data structure as Perl code
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dump-Streamer
 Source0:        https://cpan.metacpan.org/modules/by-module/Data/Data-Dump-Streamer-%{version}.tar.gz
 # Build
 BuildRequires:  coreutils
 BuildRequires:  findutils
+BuildRequires:  gcc
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -47,7 +48,6 @@ BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(JSON::XS)
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(bytes)
 Requires:       perl(Compress::Zlib)
 Requires:       perl(Hash::Util)
@@ -89,6 +89,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/DDS.3*
 
 %changelog
+* Sat Dec  3 2022 Paul Howarth <paul@city-fan.org> - 2.40-23
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

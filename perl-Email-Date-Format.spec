@@ -14,7 +14,6 @@ BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:  perl(Time::Local)
 BuildArch:      noarch
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module can be used to emit RFC 2822 style date strings.

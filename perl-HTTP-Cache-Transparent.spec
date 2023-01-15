@@ -17,7 +17,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::RequiresInternet)
 BuildRequires:  perl(LWP::UserAgent)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

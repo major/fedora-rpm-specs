@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module can determine the configuration and @INC of a perl interpreter

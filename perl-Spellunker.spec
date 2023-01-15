@@ -36,7 +36,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More) >= 0.96
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Win32::Console::ANSI\\)$
 

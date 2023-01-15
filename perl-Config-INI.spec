@@ -15,7 +15,6 @@ BuildRequires:  perl(IO::String)
 BuildRequires:  perl(Mixin::Linewise::Readers) >= 0.110
 BuildRequires:  perl(Mixin::Linewise::Writers)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

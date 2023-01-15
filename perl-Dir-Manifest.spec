@@ -11,7 +11,6 @@ License:    MIT
 Url:        http://metacpan.org/release/%{upstream_name}
 Source0:    https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/%{upstream_name}-%{version}.tar.gz
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildRequires: perl(:VERSION) >= 5.14.0
 BuildRequires: perl(Exporter)
 BuildRequires: perl(File::Spec)

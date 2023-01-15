@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More) >= 0.47
 # Test::Pod not used
 # Test::Pod::Coverage not used
 BuildRequires:  perl(Text::ParseWords)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(POE) >= 1.280
 %if %{with perl_Test_POE_Client_TCP_enables_tls}
 Recommends:     perl(POE::Component::SSLify)

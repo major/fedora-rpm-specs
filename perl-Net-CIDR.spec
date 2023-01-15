@@ -19,7 +19,6 @@ BuildRequires:  perl(Exporter)
 # Test Suite
 # (no additional dependencies)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Net::CIDR package contains functions that manipulate lists of IP netblocks

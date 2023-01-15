@@ -25,7 +25,6 @@ BuildRequires:  perl(DateTime::TimeZone)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module understands the W3CDTF date/time format, an ISO 8601 profile,

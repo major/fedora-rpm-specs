@@ -22,7 +22,6 @@ BuildRequires: perl(XML::TreePP)
 BuildRequires: perl(Data::Dumper)
 BuildRequires: perl(Encode)
 BuildRequires: perl(Test::More)
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Parse/write/merge/edit RSS/RDF/Atom syndication feeds

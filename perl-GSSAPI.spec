@@ -38,7 +38,6 @@ BuildRequires:  which
 %{?_with_testsuite:BuildRequires: perl(Test::More)}
 # Optional tests
 %{?_with_testsuite:BuildRequires: perl(Test::Pod) >= 1.00}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module gives access to the routines of the GSSAPI library, as

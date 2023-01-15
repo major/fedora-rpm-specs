@@ -18,7 +18,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Lingua::EN::Numbers turns numbers into English text. It exports (upon

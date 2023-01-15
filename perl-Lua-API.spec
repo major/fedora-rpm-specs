@@ -28,7 +28,6 @@ BuildRequires:  pkgconfig(lua-5.1)
 %endif
 
 Requires:       perl(XSLoader) >= 0.1
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Lua is a simple, expressive, extension programming language that is easily

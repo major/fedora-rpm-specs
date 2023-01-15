@@ -23,7 +23,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(PadWalker) >= 0.08
 
 %global __provides_exclude %{?__provides_exclude:__provides_exclude|}^perl\\(DB\\)

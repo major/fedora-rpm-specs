@@ -215,7 +215,6 @@ BuildRequires: perl-interpreter
 BuildRequires: perl-devel
 BuildRequires: perl-generators
 BuildRequires: perl(ExtUtils::MakeMaker)
-Requires:      perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %description -n perl-%{octpkg}
 This package provides the libraries to 
 develop applications with COPASI Perl bindings.

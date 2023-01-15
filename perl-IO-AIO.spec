@@ -44,7 +44,6 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(Test)
 BuildRequires:	perl(vars)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(XSLoader)
 
 # Avoid provides for private shared objects

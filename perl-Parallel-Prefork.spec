@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::ReadmeFromPod)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Parallel::Prefork is much like Parallel::ForkManager, but supports graceful

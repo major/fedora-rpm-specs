@@ -40,7 +40,6 @@ BuildRequires:  perl(Test::Output)
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
 BuildRequires:  perl(Time::HiRes)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(IO::Select)
 

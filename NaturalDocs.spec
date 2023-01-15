@@ -11,7 +11,6 @@ BuildArch:      noarch
 
 BuildRequires:  dos2unix
 BuildRequires:  perl-generators
-Requires:       perl(:MODULE_COMPAT_%(eval $(%{__perl} -V:version); echo $version))
 
 %description
 Natural Docs is an open-source documentation generator for multiple

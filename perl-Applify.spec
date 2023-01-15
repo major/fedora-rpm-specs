@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(lib)
 BuildRequires:  perl(overload)
 Requires:       perl(Getopt::Long)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 This module should keep all the noise away and let you write scripts very

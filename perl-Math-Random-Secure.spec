@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::SharedFork)
 BuildRequires:  perl(Test::Warn)
 # Optional tests
 BuildRequires:  perl(Test::LeakTrace)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

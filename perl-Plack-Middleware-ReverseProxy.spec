@@ -26,7 +26,6 @@ BuildRequires:  perl(Plack::Builder)
 BuildRequires:  perl(Plack::Request)
 BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 #Requires:       perl(Plack::Middleware)
 # Plack::Middleware is not version, depend on Plack
 Requires:       perl(Plack) >= 0.9988

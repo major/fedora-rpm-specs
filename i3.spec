@@ -82,7 +82,6 @@ BuildRequires:  xorg-x11-drv-dummy
 # gpg verification
 BuildRequires:  gnupg2
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       xorg-x11-fonts-misc
 # packages autostarted by the config
 Recommends:     dex-autostart

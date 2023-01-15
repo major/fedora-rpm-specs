@@ -25,7 +25,6 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 String::Format lets you define arbitrary printf-like format sequences

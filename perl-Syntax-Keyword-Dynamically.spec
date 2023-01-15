@@ -46,7 +46,6 @@ BuildRequires:  perl(Object::Pad) >= 0.15
 BuildRequires:  perl(Sentinel)
 BuildRequires:  perl(Test::Pod) >= 1
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # From boot_future_asyncawait() argument in lib/Syntax/Keyword/Dynamically.xs
 Requires:       perl(Future::AsyncAwait) >= %{Future_AsyncAwait_minver}
 %if %{defined perl_Future_AsyncAwait_ABI}

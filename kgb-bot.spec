@@ -111,7 +111,6 @@ BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:  %{_sbindir}/useradd
 BuildRequires:  %{_sbindir}/groupadd
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	%{name}-client = %{version}-%{release}
 Requires:	perl(Proc::PID::File)
 Requires:	perl(Time::Piece)
@@ -151,7 +150,6 @@ fully configurable.
 %package client
 Summary:	The kgb-bot's client
 AutoReq:	0
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	perl(Class::Accessor)
 Requires:	perl(SOAP::Lite)
 Requires:	subversion-perl
@@ -168,7 +166,6 @@ systems are: Subversion, Git (via kgb-client-git package), CVS.
 %package client-git
 Summary:	The kgb-bot's client
 AutoReq:	0
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	git-core
 Requires:	%{name}-client = %{version}-%{release}
 Requires:	perl(IPC::Run)

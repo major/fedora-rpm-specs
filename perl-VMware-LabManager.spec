@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 # In evals, not autodetected
 Requires:       perl(SOAP::Lite)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module does not provide a one-to-one mapping of the Lab Manager SOAP

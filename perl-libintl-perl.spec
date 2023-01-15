@@ -54,7 +54,6 @@ BuildRequires:  glibc-langpack-en
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::Harness)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Encode::Alias)
 Requires:       perl(POSIX)

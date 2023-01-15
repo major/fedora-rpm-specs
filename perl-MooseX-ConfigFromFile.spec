@@ -36,7 +36,6 @@ BuildRequires:  perl(CPAN::Meta)
 BuildRequires:  perl(CPAN::Meta::Prereqs) >= 2.120900
 BuildRequires:  perl(MooseX::Getopt)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid doc-file dependencies from tests
 %{?perl_default_filter}

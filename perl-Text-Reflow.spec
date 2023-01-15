@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 These routines will reflow the paragraphs in the given file, filehandle,

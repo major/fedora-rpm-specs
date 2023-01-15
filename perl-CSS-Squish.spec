@@ -24,7 +24,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::Pod)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module takes a list of CSS files and concatenates them, making sure to

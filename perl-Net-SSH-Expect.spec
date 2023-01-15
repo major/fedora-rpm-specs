@@ -27,7 +27,6 @@ BuildRequires:  perl(Expect)
 BuildRequires:  perl(fields)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version)), perl-Expect
 
 %description
 This module is a wrapper to the *ssh* executable that is available in

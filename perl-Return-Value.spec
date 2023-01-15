@@ -10,7 +10,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker), perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::Perl::Critic), perl(Test::More)
 BuildArch:      noarch
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides polymorphic return values with a simple API that should 

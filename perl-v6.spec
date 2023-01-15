@@ -24,7 +24,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(utf8)
 # YAML::Syck not used at tests
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(YAML::Syck)
 Provides:       perl(Perlito6::AST) = %{version}
 Provides:       perl(Perlito6::Emitter::Token) = %{version}

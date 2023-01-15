@@ -39,7 +39,6 @@ BuildRequires:  perl(namespace::autoclean)
 BuildRequires:  perl(TAP::SimpleOutput) >= 0.009
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::CheckDeps) >= 0.010
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::More) >= 0.94
 
 # Removed under-specified dependencies

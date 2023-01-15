@@ -49,7 +49,6 @@ BuildRequires:  perl(Module::Runtime::Conflicts)
 BuildRequires:  perl(Moose::Conflicts)
 # Test::RequiresInternet - Optional for tests
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(MyApp::Client\\)
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(MyApp::Client\\)

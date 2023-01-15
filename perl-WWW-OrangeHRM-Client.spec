@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(WWW::Mechanize)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(LWP::Authen::Negotiate)
 Requires:       perl(LWP::Protocol::https)
 

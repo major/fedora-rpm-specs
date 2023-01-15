@@ -36,7 +36,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  sed
 Requires:       perl(Module::Install) >= 0.85
 Requires:       perl(Software::License) >= 0.01
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Module::Install::AutoLicense is a Module::Install extension that generates

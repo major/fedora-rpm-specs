@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter) >= 5.57
 Requires:       perl(FFI::Platypus) >= 1.00
 

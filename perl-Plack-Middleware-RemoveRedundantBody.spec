@@ -21,7 +21,6 @@ BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(Plack::Builder)
 BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module removes body in HTTP response, if it's not required.

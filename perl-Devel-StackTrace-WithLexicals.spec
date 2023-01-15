@@ -26,7 +26,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Devel::StackTrace) >= 2.00
 Requires:       perl(PadWalker) >= 1.98
 

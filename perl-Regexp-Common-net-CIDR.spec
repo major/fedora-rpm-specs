@@ -15,7 +15,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Regexp::Common)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Patterns for CIDR blocks.

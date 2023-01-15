@@ -26,7 +26,6 @@ BuildRequires:	perl(Test::Requires)
 BuildRequires:	perl(Test::Taint)
 BuildRequires:	perl(warnings)
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 
 %description

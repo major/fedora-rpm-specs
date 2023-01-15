@@ -22,7 +22,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(if)
 # Text::Unidecode not needed for tests
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(deprecate)
 Requires:       perl(Text::Unidecode)

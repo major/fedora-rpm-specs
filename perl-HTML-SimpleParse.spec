@@ -17,7 +17,6 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is a simple HTML parser. It is similar in concept to

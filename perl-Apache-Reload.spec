@@ -41,7 +41,6 @@ BuildRequires:  perl(Apache2::RequestIO)
 BuildRequires:  perl(Apache2::RequestRec)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # The mod_perl2 1.99022 is not used, pick for example ModPerl::Util to
 # constrain the version.
 Requires:       perl(ModPerl::Util) >= 1.99022

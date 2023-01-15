@@ -43,11 +43,12 @@ Mailing list: https://groups.google.com/forum/?fromgroups#!forum/neuralensemble
 This package supports the NEURON, NEST, and Brian simulators.}
 
 Name:           python-pynn
-Version:        0.10.0
+Version:        0.10.1
 Release:        %autorelease
 Summary:        A package for simulator-independent specification of neuronal network models
 
-License:        CeCILL
+# SPDX
+License:        CECILL-2.0
 URL:            http://neuralensemble.org/PyNN/
 Source0:        %pypi_source PyNN
 
@@ -66,10 +67,6 @@ ExcludeArch:    mips64r2 mips32r2 s390x %{ix86}
 # Disable pynn's way of building extensions
 # We do it ourselves
 Patch0:         0001-Disable-nest-extension-build-by-setup.patch
-# Merged upstream: https://github.com/NeuralEnsemble/PyNN/pull/744
-Patch1:         0002-fix-correct-sized-import.patch
-
-Patch2:         0003-Fix-errors-of-type-error-implicit-declaration-of-fun.patch
 
 # For extensions
 BuildRequires:  boost-devel
@@ -145,7 +142,7 @@ BuildArch:      noarch
 Documentation for %{name}.
 
 %prep
-%autosetup -n PyNN-%{version} -S git
+%autosetup -n PyNN-%{version}
 rm -rfv PyNN-%{version}/pyNN.egg-info
 
 %build
@@ -205,9 +202,9 @@ export PYTHONPATH=$PYTHONPATH:$RPM_BUILD_ROOT/%{python3_sitearch}:$RPM_BUILD_ROO
 pushd test
 nosetests-%{python3_version} -e backends --verbosity=3 --tests=unittests
 popd
-%{_mpich_unload}
 %endif
 unset PYTHONPATH
+%{_mpich_unload}
 %endif
 
 %if %{with openmpi}
@@ -219,9 +216,9 @@ export PYTHONPATH=$PYTHONPATH:$RPM_BUILD_ROOT/%{python3_sitearch}:$RPM_BUILD_ROO
 pushd test
 nosetests-%{python3_version} -e backends --verbosity=3 --tests=unittests
 popd
-%{_openmpi_unload}
 %endif
 unset PYTHONPATH
+%{_openmpi_unload}
 %endif
 
 # These files are NEURON files that are required by PyNN to run bits using the NEURON backend

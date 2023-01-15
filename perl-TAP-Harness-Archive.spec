@@ -15,7 +15,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Pod::Coverage)
 Requires:       perl(TAP::Harness) >= 3.05
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

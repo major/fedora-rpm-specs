@@ -22,7 +22,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Lexical::Persistence does a few things, all related. Note that all the

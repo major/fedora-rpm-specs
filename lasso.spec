@@ -118,7 +118,6 @@ BuildRequires: perl(strict)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(warnings)
 BuildRequires: perl(XSLoader)
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description -n perl-%{name}

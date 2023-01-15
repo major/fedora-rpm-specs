@@ -12,7 +12,6 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(AutoLoader)
 BuildRequires:  netcdf-devel
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:  perl-NetCDF = %{version}-%{release}
 
 

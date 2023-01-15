@@ -28,7 +28,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(HTML::TokeParser)
 Requires:       perl(HTTP::Request) >= 6
 Requires:       perl(HTTP::Request::Common) >= 6.03
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::Kwalitee)
 #This tries to get a public key - not sure how to handle this
 BuildRequires:  perl(Test::Distribution)
 BuildRequires:  perl(YAML)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Use this module when you want use "Yet Another" very simple, light weight

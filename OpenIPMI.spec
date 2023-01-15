@@ -45,7 +45,6 @@ and applications.
 
 %package perl
 Summary:  IPMI Perl language bindings
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description perl

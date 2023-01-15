@@ -27,7 +27,6 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  procps-ng
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       procps-ng
 
 %{?perl_default_filter}

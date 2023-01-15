@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Socket6)
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %{?perl_default_filter}
 

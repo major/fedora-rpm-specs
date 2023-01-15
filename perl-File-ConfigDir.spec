@@ -32,7 +32,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(local::lib) >= 1.008008
 BuildRequires:  perl(Test::More) >= 0.9
 BuildRequires:  perl(Test::Without::Module)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::HomeDir) >= 0.50
 # Recommended:
 Requires:       perl(List::MoreUtils) >= 0.419

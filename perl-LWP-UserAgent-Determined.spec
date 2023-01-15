@@ -23,7 +23,6 @@ BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(LWP)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

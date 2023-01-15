@@ -20,7 +20,6 @@ BuildRequires:  perl(Exporter)
 # Tests:
 BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 Requires:       perl(strict)
 Requires:       perl(warnings)

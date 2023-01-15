@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Deep) >= 0.11
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test::Pod) >= 1.48
 BuildRequires:  perl(Test::Pod::Content) >= 0.0.6
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.2
 Requires:       perl(Hash::AutoHash) >= 1.17
 Requires:       perl(Tie::Hash) >= 1.04

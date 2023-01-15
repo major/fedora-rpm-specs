@@ -15,7 +15,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) perl(File::Basename) perl(File::Spec)
 BuildRequires:  perl(MIME::Base64) perl(strict) perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings) perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is able to encode and decode IMAP mailbox names using the UTF-7

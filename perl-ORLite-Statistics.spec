@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This is an enhancement module for ORLite table classes, designed to provide

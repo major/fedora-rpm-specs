@@ -29,7 +29,6 @@ BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Test::MockObject)
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(JSON) >= 2.00
 # Default URL has https schema
 Requires:       perl(LWP::Protocol::https)

@@ -32,7 +32,6 @@ BuildRequires:  perl(SelectSaver)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTML::Tagset) >= 3
 Requires:       perl(HTTP::Headers)
 Requires:       perl(IO::File)

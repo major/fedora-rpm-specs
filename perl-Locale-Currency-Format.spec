@@ -13,7 +13,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Locale::Currency::Format is a light-weight Perl module that enables Perl

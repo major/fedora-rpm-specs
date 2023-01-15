@@ -40,7 +40,6 @@ BuildRequires:	perl(Test::Fatal)
 BuildRequires:	perl(Test::Warnings)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 Recommends:	perl(Lexical::Var)
 

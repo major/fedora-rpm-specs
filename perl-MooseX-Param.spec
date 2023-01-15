@@ -16,7 +16,6 @@ BuildRequires:  perl(Test::More) >= 0.62
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 Requires:       perl(Moose) >= 0.32
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This is a very simple Moose role which provides a CGI like param method.

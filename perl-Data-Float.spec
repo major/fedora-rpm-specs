@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(constant)
 Requires:       perl(integer)
 

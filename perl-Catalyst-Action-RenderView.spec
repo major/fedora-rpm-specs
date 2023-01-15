@@ -5,7 +5,6 @@ Release:        33%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Action-RenderView-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Catalyst-Action-RenderView
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  coreutils

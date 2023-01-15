@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # MIME::Charset::USE_ENCODE is "Encode" on recent Perl
 Requires:       perl(Encode) >= 1.98
 Requires:       perl(MIME::Base64) >= 2.13

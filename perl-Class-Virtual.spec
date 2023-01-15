@@ -25,7 +25,6 @@ BuildRequires:  perl(Class::ISA)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 

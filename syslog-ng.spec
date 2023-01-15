@@ -1,7 +1,7 @@
 %global ivykis_ver 0.42.3
 
-%global syslog_ng_major_ver 3
-%global syslog_ng_minor_ver 37
+%global syslog_ng_major_ver 4
+%global syslog_ng_minor_ver 0
 %global syslog_ng_patch_ver 1
 %global syslog_ng_major_minor_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}
 %global syslog_ng_ver %{syslog_ng_major_ver}.%{syslog_ng_minor_ver}.%{syslog_ng_patch_ver}
@@ -50,6 +50,25 @@ BuildRequires: systemd-units
 BuildRequires: librdkafka-devel
 BuildRequires: zlib-devel
 BuildRequires: paho-c-devel
+
+BuildRequires: python3-pip
+BuildRequires:  python3-cachetools
+BuildRequires:  python3-certifi
+BuildRequires:  python3-charset-normalizer
+BuildRequires:  python3-google-auth
+BuildRequires:  python3-idna
+BuildRequires:  python3-kubernetes
+BuildRequires:  python3-oauthlib
+BuildRequires:  python3-pyasn1
+BuildRequires:  python3-pyasn1-modules
+BuildRequires:  python3-dateutil
+BuildRequires:  python3-PyYAML
+BuildRequires:  python3-requests
+BuildRequires:  python3-requests-oauthlib
+BuildRequires:  python3-rsa
+BuildRequires:  python3-six
+BuildRequires:  python3-urllib3
+BuildRequires:  python3-websocket-client
 
 Requires: logrotate
 Requires: ivykis >= %{ivykis_ver}
@@ -184,6 +203,23 @@ This module supports sending logs to MQTT through paho-c.
 Summary: Python support for %{name}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Obsoletes: python3-syslog-ng < 3.22
+Requires:  python3-cachetools
+Requires:  python3-certifi
+Requires:  python3-charset-normalizer
+Requires:  python3-google-auth
+Requires:  python3-idna
+Requires:  python3-kubernetes
+Requires:  python3-oauthlib
+Requires:  python3-pyasn1
+Requires:  python3-pyasn1-modules
+Requires:  python3-dateutil
+Requires:  python3-PyYAML
+Requires:  python3-requests
+Requires:  python3-requests-oauthlib
+Requires:  python3-rsa
+Requires:  python3-six
+Requires:  python3-urllib3
+Requires:  python3-websocket-client
 
 %description python
 This module supports the Python destination.
@@ -250,6 +286,7 @@ touch -r lib/cfg-grammar.y lib/merge-grammar.py
     --enable-amqp \
     --enable-python \
     --with-python=3 \
+    --with-python-packages=system \
     --disable-java \
     --disable-java-modules \
     --enable-afsnmp \
@@ -361,6 +398,7 @@ fi
 %{_bindir}/pdbtool
 %{_bindir}/persist-tool
 %{_bindir}/update-patterndb
+%{_bindir}/syslog-ng-update-virtualenv
 
 %{_libdir}/libevtlog-%{syslog_ng_major_minor_ver}.so.0
 %{_libdir}/libevtlog-%{syslog_ng_major_minor_ver}.so.0.0.0
@@ -462,8 +500,12 @@ fi
 
 
 %files python
-%{_libdir}/syslog-ng/libmod-python.so
-%{_libdir}/syslog-ng/python/
+%{_libdir}/%{name}/libmod-python.so
+%dir %{_sysconfdir}/%{name}/python
+%{_sysconfdir}/%{name}/python/README.md
+%{_libdir}/%{name}/python/syslogng-1.0-py%{python3_version}.egg-info
+%{_libdir}/%{name}/python/syslogng/*
+%{_libdir}/%{name}/python/requirements.txt
 
 
 %files devel
@@ -480,6 +522,10 @@ fi
 
 
 %changelog
+* Thu Jan 12 2023 Peter Czanik <peter@czanik.hu> - 4.0.1-1
+- update to 4.0.1
+- add Python dependencies
+
 * Mon Aug 15 2022 Peter Czanik <peter@czanik.hu> - 3.37.1-1
 - update to 3.37.1
 

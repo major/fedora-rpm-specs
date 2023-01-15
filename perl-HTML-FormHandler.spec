@@ -56,7 +56,6 @@ Requires:       perl(MooseX::Types) >= 0.20
 Requires:       perl(MooseX::Types::Common)
 Requires:       perl(MooseX::Types::LoadableClass) >= 0.006
 Requires:       perl(namespace::autoclean) >= 0.09
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # hidden from Pause
 Provides:       perl(HTML::FormHandler::Meta::Role) = %{version}

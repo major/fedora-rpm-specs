@@ -22,7 +22,6 @@ BuildRequires:  perl(ok)
 BuildRequires:  perl(Test2::IPC) >= 1.302095
 BuildRequires:  perl(Test2::Require::RealFork)
 BuildRequires:  perl(Test2::V0) >= 0.000074
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 It is rare, but there are times where you want to swap out the currently

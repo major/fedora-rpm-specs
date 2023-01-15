@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # Mojolicious is the only versioned module
 Requires:       perl(Mojolicious) >= 7.13
 

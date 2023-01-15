@@ -53,7 +53,6 @@ BuildRequires:  perl(Path::Class)
 BuildRequires:  perl(Path::Tiny)
 # Test::NoWarnings used only if List::MoreUtils exists
 BuildRequires:  perl(Test::NoWarnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B)
 Requires:       perl(Exporter::Tiny) >= 0.026
 Requires:       perl(lexical::underscore)

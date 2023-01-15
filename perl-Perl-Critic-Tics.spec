@@ -26,7 +26,6 @@ BuildRequires:  perl(Perl::Critic::TestUtils)
 BuildRequires:  perl(Test::More) >= 0.96
 # Optional tests
 # CPAN::Meta not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Perl::Critic::Violation)
 
 # Filter underspecified dependencies

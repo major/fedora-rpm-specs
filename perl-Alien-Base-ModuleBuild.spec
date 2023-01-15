@@ -81,7 +81,6 @@ BuildRequires:  perl(URI::file)
 BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(LWP::UserAgent)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base::PkgConfig) >= 1.20
 Recommends:     perl(Digest::SHA)
 Requires:       perl(File::chdir) >= 0.1005

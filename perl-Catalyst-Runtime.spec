@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/Catalyst-Runtime-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  groff

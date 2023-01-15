@@ -53,7 +53,6 @@ BuildRequires:  perl(Test::Trap)
 BuildRequires:  perl(MooX::Cmd) >= 0.007
 BuildRequires:  perl(MooX::Locale::TextDomain::OO)
 BuildRequires:  perl(Locale::TextDomain::OO::Lexicon::Hash)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Record)
 Requires:       perl(JSON::MaybeXS)
 Requires:       perl(Moo) >= 1.003

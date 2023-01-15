@@ -1,6 +1,6 @@
 Name: mtxclient
-Version: 0.8.2
-Release: 3%{?dist}
+Version: 0.9.1
+Release: 1%{?dist}
 
 License: MIT
 Summary: Client API library for Matrix, built on top of Boost.Asio
@@ -12,10 +12,11 @@ BuildRequires: cmake(nlohmann_json) >= 3.2.0
 BuildRequires: cmake(Olm) >= 3.2.12
 BuildRequires: cmake(spdlog) >= 1.0.0
 
-BuildRequires: pkgconfig(coeurl) >= 0.2.1
+BuildRequires: pkgconfig(coeurl) >= 0.3.0
 BuildRequires: pkgconfig(libcrypto)
 BuildRequires: pkgconfig(libevent)
 BuildRequires: pkgconfig(openssl)
+BuildRequires: pkgconfig(re2)
 BuildRequires: pkgconfig(zlib)
 
 BuildRequires: cmake
@@ -72,6 +73,9 @@ ln -s libmatrix_client.so.%{version} %{buildroot}%{_libdir}/libmatrix_client.so.
 %{_libdir}/*.so
 
 %changelog
+* Fri Jan 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.1-1
+- Updated to version 0.9.1.
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.8.2-3
 - Rebuilt due to spdlog update.
 

@@ -30,7 +30,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Text::Tabs)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 If you add "use Module::Versions::Report;" to a program (especially

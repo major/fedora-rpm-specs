@@ -38,7 +38,6 @@ BuildRequires:       perl(Text::CSV_XS)
 # next two are needed to run build README, see https://bugzilla.redhat.com/show_bug.cgi?id=1163149
 BuildRequires: groff-base
 BuildRequires: perl-podlators
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # next two are needed to run test suites and are not autodetected
 Requires:       perl(HTML::Parser)
 Requires:       perl(Text::CSV_XS)

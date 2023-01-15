@@ -24,7 +24,6 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(POSIX)
 Requires:       perl(Time::HiRes)
 

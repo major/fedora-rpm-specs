@@ -47,7 +47,6 @@ BuildRequires:  perl(PPI) >= 1.206
 BuildRequires:  perl(PPI::Document)
 BuildRequires:  perl(Task::Weaken)
 # perl(Test::Weaken) >= 3.004000 not packaged yet
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # AFAIK the PPI is used at test-time only. Do not require it?
 Requires:       perl(PPI) >= 1.206
 Provides:       perl(Marpa::XS::Version) = %{version}

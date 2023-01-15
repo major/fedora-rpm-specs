@@ -61,7 +61,6 @@ need to install pilot-link-devel.
 %package perl
 Summary: PalmPilot utilies written in perl
 Requires: %{name} = %{epoch}:%{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%{perl_version})
 
 %description perl
 This package contains utilities that depend on perl

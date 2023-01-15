@@ -24,7 +24,6 @@ BuildRequires:	perl(IO::Handle)
 BuildRequires:	perl(IPC::Open3)
 BuildRequires:	perl(Test::More) >= 0.88
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Recursively create a directory tree.

@@ -9,7 +9,7 @@ Version:    0.1.45
 Release:    6%{?dist}
 Summary:    Utilities for working with composes
 
-License:    GPLv2
+License:    GPL-2.0-only
 URL:        https://pagure.io/compose-utils
 Source0:    https://pagure.io/releases/compose-utils/%{name}-%{version}.tar.bz2
 

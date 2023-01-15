@@ -89,7 +89,6 @@ BuildRequires:	perl(Test::Portability::Files)
 BuildRequires:	perl(Test::Spelling), hunspell-en
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows you to execute code when Perl has finished compiling the

@@ -35,7 +35,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter under-specified symbols
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(MIME::Charset\\)$

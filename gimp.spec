@@ -191,6 +191,8 @@ Patch3:         gimp-2.10.18-no-phone-home-default.patch
 # use external help browser directly if help browser plug-in is not built
 Patch100:       gimp-2.10.24-external-help-browser.patch
 
+Patch101:       gimp-configure-c99.patch
+
 %description
 GIMP (GNU Image Manipulation Program) is a powerful image composition and
 editing program, which can be extremely useful for creating logos and other
@@ -276,6 +278,11 @@ EOF
 %if ! %{with helpbrowser}
 %patch100 -p1 -b .external-help-browser
 %endif
+
+%patch101 -p1
+
+# Avoid re-running autotools.
+touch -r aclocal.m4 configure*
 
 %build
 # allow python2 package for RHEL-8

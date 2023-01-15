@@ -20,7 +20,6 @@ BuildRequires:  perl(POE) >= 0.11
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
-Requires:  perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 POE::Component::Logger provides a simple logging component that uses

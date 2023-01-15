@@ -29,7 +29,6 @@ BuildRequires:  perl(Storable) >= 1.01
 BuildRequires:  perl(Test::More)
 # Test::Pod 1.00 not used
 # Test::Pod::Coverage 1.00 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(lib)
 
 %description

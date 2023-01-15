@@ -63,7 +63,6 @@ BuildRequires:  perl(vars)
 # Socket6 not used at all
 # Optional tests:
 BuildRequires:  perl(Scalar::Util)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(POE::Component::Client::TCP)
 Requires:       perl(POE::Component::Server::TCP)

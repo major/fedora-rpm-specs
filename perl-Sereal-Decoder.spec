@@ -70,7 +70,6 @@ BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(Tie::Scalar)
 %endif
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This library implements a deserializer for an efficient, compact-output,

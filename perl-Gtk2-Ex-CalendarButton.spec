@@ -24,7 +24,6 @@ BuildRequires:  font(:lang=en)
 BuildRequires:  perl(Gtk2::TestHelper)
 BuildRequires:  perl(Test::More)
 BuildRequires:  xorg-x11-server-Xvfb
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 I realized that I was constantly re-creating a simple widget that will pop-up

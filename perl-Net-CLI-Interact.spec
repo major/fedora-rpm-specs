@@ -34,7 +34,6 @@ BuildRequires:  perl(Sub::Quote)
 BuildRequires:  perl(Time::HiRes)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Automating command line interface (CLI) interactions is not a new idea, but

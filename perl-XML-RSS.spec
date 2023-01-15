@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::TrailingSpace)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(XML::Parser) >= 2.23
 
 # Filter under-specified dependencies

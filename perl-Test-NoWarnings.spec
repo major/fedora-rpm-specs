@@ -33,7 +33,6 @@ BuildRequires:  perl(Devel::StackTrace)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Test::Tester) >= 0.107
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_Test_NoWarnings_enables_stack_trace}
 Suggests:       perl(Devel::StackTrace)
 %endif

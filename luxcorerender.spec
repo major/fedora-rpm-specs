@@ -72,8 +72,8 @@ BuildRequires:  cmake(Imath)
 %else
 BuildRequires:  pkgconfig(OpenEXR)
 %endif
-BuildRequires:  pkgconfig(OpenColorIO)
-BuildRequires:  pkgconfig(OpenImageIO)
+BuildRequires:  cmake(OpenColorIO)
+BuildRequires:  cmake(OpenImageIO)
 BuildRequires:  pkgconfig(pyside2)
 BuildRequires:  pkgconfig(python3)
 BuildRequires:  pkgconfig(spdlog)

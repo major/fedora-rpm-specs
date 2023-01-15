@@ -19,7 +19,6 @@ BuildRequires:	perl(Test::More)
 
 BuildRequires:  perl(inc::Module::Install)
 
-Requires:  	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch: 	noarch
 
 %description

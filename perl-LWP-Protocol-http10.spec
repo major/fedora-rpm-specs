@@ -21,7 +21,6 @@ Requires:       perl(HTTP::Status) >= 6
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(HTTP::Status\\)
 Requires:       perl(LWP::Protocol) >= 6
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(LWP::Protocol\\)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Make optional dependency mandatory
 Requires:       perl(URI::Escape)
 

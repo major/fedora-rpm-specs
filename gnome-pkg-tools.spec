@@ -10,7 +10,6 @@ Source0:        http://ftp.de.debian.org/debian/pool/main/g/%{name}/%{name}_%{ve
 
 BuildRequires:  perl-generators
 Requires:       debhelper
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This package contains some tools useful for the Debian GNOME Packaging Team

@@ -32,7 +32,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(Tie::RefHash)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Exporter::Tiny) >= 0.026
 %if 0%{?fedora} || 0%{?rhel} >= 8

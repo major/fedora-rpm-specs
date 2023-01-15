@@ -77,7 +77,6 @@ Requires:       perl(Params::Validate) >= 0.76
 Requires:       perl(PHP::Serialization)
 Requires:       perl(XML::Simple)
 Requires:       perl(YAML::Syck)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

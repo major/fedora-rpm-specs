@@ -13,7 +13,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XML::Writer)
 
 %description

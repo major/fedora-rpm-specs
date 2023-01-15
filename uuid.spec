@@ -83,7 +83,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::Scalar)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       %{name} = %{version}-%{release}
 Requires:       perl(Data::UUID)
 

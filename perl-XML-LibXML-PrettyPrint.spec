@@ -30,7 +30,6 @@ BuildRequires:  perl(XML::LibXML) >= 1.62
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 XML::LibXML::PrettyPrint is a Perl module that can be applied to an

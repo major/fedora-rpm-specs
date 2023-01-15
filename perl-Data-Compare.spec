@@ -33,7 +33,6 @@ BuildRequires:  perl(JSON)
 BuildRequires:  perl(Scalar::Properties)
 BuildRequires:  perl(Test::Pod) >= 1.00
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module compares arbitrary data structures to see if they are copies

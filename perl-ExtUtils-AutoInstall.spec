@@ -7,7 +7,6 @@ URL: 		https://metacpan.org/release/ExtUtils-AutoInstall
 Source:		https://cpan.metacpan.org/authors/id/I/IN/INGY/ExtUtils-AutoInstall-%{version}.tar.gz
 Patch0:		eai.patch
 
-Requires:  	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch: 	noarch
 
 BuildRequires:  %{__make}

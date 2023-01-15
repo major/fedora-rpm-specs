@@ -7,7 +7,6 @@ Source0:        https://cpan.metacpan.org/authors/id/J/JJ/JJORE/UNIVERSAL-ref-%{
 # Restore compatibility with Perl 5.26.0, CPAN RT#118008
 Patch0:         UNIVERSAL-ref-0.14-Fix-building-with-Perl-5.25.1.patch
 URL:            https://metacpan.org/release/UNIVERSAL-ref
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires: make
 BuildRequires:  gcc

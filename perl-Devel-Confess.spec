@@ -40,7 +40,6 @@ BuildRequires:  perl(threads)
 # Optional tests
 BuildRequires:  perl(UNIVERSAL::can)
 BuildRequires:  perl(UNIVERSAL::isa)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 
 %description

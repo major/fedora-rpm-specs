@@ -34,7 +34,6 @@ BuildRequires:	perl(Moo)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(version) >= 0.99.06
 
 %description

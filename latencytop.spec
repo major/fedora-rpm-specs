@@ -1,6 +1,6 @@
 Name:           latencytop
 Version:        0.5
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        System latency monitor (with GUI)
 
 License:        GPLv2
@@ -10,6 +10,7 @@ Patch0:         latencytop-Makefile-fixes.patch
 Patch1:         latencytop-Makefile-default-to-no-gtk.patch
 Patch2:         latencytop-remove-the-fsync-view.patch
 Patch3:         latencytop-better-error-message.patch
+Patch4:         latencytop-add-return-type-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel glib2-devel gtk2-devel pkgconfig
@@ -52,6 +53,7 @@ This package contains files needed by both the GUI and TUI builds of LatencyTOP.
 %patch1 -p1
 %patch2 -p2
 %patch3 -p2
+%patch4 -p1
 
 %build
 export CFLAGS="${CFLAGS:-%{optflags}}"
@@ -78,6 +80,9 @@ ln -s latencytop.8 %{buildroot}%{_mandir}/man8/latencytop-tui.8
 %{_mandir}/man8/*
 
 %changelog
+* Thu Jan 12 2023 Peter Fordham <peter.fordham@gmail.com> - 0.5-31
+- Add a missing return type for C99 compliance.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

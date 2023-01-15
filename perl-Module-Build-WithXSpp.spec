@@ -20,7 +20,6 @@ Requires:       perl(ExtUtils::XSpp) >= 0.11
 Requires:       perl(File::Basename)
 Requires:       perl(File::Spec)
 Requires:       perl(Module::Build) >= 0.26
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filtering unversioned requires
 %global __requires_exclude ^perl\\((Module::Build|ExtUtils::CppGuess)\\)$

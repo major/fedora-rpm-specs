@@ -26,7 +26,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(File::Spec)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       ca-certificates
 
 %description

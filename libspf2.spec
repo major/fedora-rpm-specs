@@ -79,7 +79,6 @@ applications that use the libspf2 (Sender Policy Framework) library.
 %package -n perl-Mail-SPF_XS
 Summary:	An XS implementation of Mail::SPF
 License:	GPL+ or Artistic
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n perl-Mail-SPF_XS

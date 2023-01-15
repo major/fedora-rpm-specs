@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 # Run-time:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DynaLoader)
 
 %description

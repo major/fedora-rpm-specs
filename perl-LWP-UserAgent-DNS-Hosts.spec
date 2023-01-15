@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Fake::HTTPD) >= 0.08
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(File::Temp)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

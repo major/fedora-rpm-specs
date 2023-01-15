@@ -23,7 +23,6 @@ BuildRequires:  perl(Try::Tiny) >= 0.1
 BuildRequires:  perl(Test::DZil)
 BuildRequires:  perl(Test::More) >= 0.88
 # Test::Pod 1.41 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Dist::Zilla::Role::MetaProvider)
 Requires:       perl(Dist::Zilla::Role::PrereqSource)
 Requires:       perl(Dist::Zilla) >= 4.300017

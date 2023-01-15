@@ -18,7 +18,6 @@ Requires:       perl(accessors) >= 0.02
 Requires:       perl(TAP::Parser) >= 3.10
 Requires:       perl(Template) >= 2.14
 Requires:       perl(URI) >= 1.35
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides HTML output formatting for TAP::Harness (a replacement

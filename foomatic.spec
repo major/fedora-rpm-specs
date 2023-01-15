@@ -37,7 +37,6 @@ BuildRequires:  foomatic, foomatic-db
 Requires:       dbus
 Requires:       cups-filters >= 1.0.42
 Requires:       perl-interpreter >= 3:5.8.1
-Requires:       %(eval `perl -V:version`; echo "perl(:MODULE_COMPAT_$version)")
 Requires(post): coreutils
 Requires:       foomatic-db
 Requires:       cups

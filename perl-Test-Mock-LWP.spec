@@ -25,7 +25,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::MockObject) >= 1.08
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.42
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Test::MockObject) >= 1.08
 
 # Hide private redefinitions

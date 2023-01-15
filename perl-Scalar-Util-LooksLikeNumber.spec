@@ -24,7 +24,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Scalar::Util::LooksLikeNumber contains looks_like_number() like

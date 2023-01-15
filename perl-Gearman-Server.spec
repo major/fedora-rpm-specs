@@ -38,7 +38,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Script) >= 1.12
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Danga::Socket\\)$
 

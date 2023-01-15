@@ -37,7 +37,6 @@ BuildRequires:  perl(Glib::Object::Introspection) >= 0.009
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # gstreamer1 for Gst-1.0.typelib, GstBase-1.0.typelib and GstController-1.0.typelib
 Requires:       gstreamer1
 # gstreamer1-plugins-base for GstApp-1.0.typelib

@@ -52,7 +52,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(AnyEvent) >= 7.04
 Requires:       perl(AnyEvent::HTTP) >= 2.15
 Requires:       perl(Digest::SHA) >= 5.47

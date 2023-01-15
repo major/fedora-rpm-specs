@@ -41,7 +41,6 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Thread::Semaphore)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DynaLoader)
 Requires:       perl(DynaLoader::Functions) >= 0.001
 

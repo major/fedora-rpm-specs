@@ -31,7 +31,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test::Exception) >= 0.31
 BuildRequires:  perl(Test::More) >= 0.80
 BuildRequires:  perl(Test::Warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Term::ReadKey) >= 2.14
 
 %{?perl_default_filter}

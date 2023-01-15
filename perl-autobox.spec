@@ -38,7 +38,6 @@ BuildRequires:  perl(vars)
 # Optional Tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Scope::Guard) >= 0.21
 
 %{?perl_default_filter}

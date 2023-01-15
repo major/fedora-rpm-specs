@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(warnings::register)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Number::Range will take a description of a range, and then allow you to test on

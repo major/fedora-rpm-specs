@@ -19,7 +19,6 @@ BuildRequires: perl(strict)
 BuildRequires: perl(vars)
 # Tests
 BuildRequires: perl(Test::More)
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Perl extension for simple IMAP account handling, mostly compatible

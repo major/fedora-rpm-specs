@@ -1,13 +1,17 @@
 %global maj_ver 15
 %global min_ver 0
 #global rc_ver 3
-%global patch_ver 6
+%global patch_ver 7
 %global mlir_version %{maj_ver}.%{min_ver}.%{patch_ver}
 %global mlir_srcdir llvm-project-%{mlir_version}%{?rc_ver:rc%{rc_ver}}.src
 
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+# https://bugzilla.redhat.com/show_bug.cgi?id=2158587
+%undefine _include_frame_pointers
+
 Name: mlir
 Version: %{mlir_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: Multi-Level Intermediate Representation Overview
 
 License: Apache-2.0 WITH LLVM-exception
@@ -134,6 +138,12 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %{_libdir}/cmake/mlir
 
 %changelog
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-1
+- Update to LLVM 15.0.7
+
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.6-3
+- Omit frame pointers when building
+
 * Thu Dec 22 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-2
 - rhbz#2127916: Add mlir tools to mlir-devel
 

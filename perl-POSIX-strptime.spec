@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

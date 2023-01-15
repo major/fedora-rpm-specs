@@ -69,7 +69,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(PerlIO)
 BuildRequires:  perl(Test2::EventFacet::Assert)
 BuildRequires:  perl(Test2::Formatter::TAP)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(Importer) >= 0.024
 Requires:       perl(Module::Pluggable) >= 2.7

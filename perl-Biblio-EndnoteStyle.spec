@@ -17,7 +17,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This small module provides a way of formatting bibliographic references

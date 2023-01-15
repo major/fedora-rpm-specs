@@ -18,7 +18,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 # although the resulting rpm appears to be noarch, the build is arch-dependent
 # and produces different code for ppc and x86

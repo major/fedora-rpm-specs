@@ -26,7 +26,6 @@ BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
 BuildRequires:	perl(XML::Catalog) >= 1.02
 BuildRequires:	perl(XML::Parser)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 perl-XML-TreeBuilder is a Perl module that implements a parser

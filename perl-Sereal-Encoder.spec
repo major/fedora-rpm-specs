@@ -78,7 +78,6 @@ BuildRequires:  perl(version)
 BuildRequires:  perl(Test::Deep) >= 0.110
 BuildRequires:  perl(Test::Deep::NoTest)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This library implements an efficient, compact-output, and feature-rich

@@ -52,7 +52,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(File::Find::Rule)
 BuildRequires:  perl(Test::Pod) >= 0.95
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Package just skips (or, optionally, fails) testing if Module::Signature not installed
 Requires:       perl(Module::Signature)
 # Likewise, needs Socket to connect to keyserver

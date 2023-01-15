@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Metrics::Any)
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(Test::Metrics::Any::_predicate\\)$

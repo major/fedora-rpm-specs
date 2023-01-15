@@ -17,7 +17,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Number::Misc provides some miscellaneous handy utilities for handling

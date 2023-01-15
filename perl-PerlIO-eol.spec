@@ -24,7 +24,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This layer normalizes any of CR, LF, CRLF and Native into the designated

@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::More)
 %if %{with perl_Term_ANSIColor_enables_optional_test} && !%{defined perl_bootstrap}
 BuildRequires:  perl(IPC::System::Simple)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module has two interfaces, one through color() and colored() and the

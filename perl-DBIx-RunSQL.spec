@@ -26,7 +26,6 @@ BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Text::Table)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Getopt::Long) >= 2.36
 Requires:       perl(Pod::Usage)
 

@@ -26,7 +26,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More) >= 0.94
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Pod::Weaver::Role::Section)
 
 %description

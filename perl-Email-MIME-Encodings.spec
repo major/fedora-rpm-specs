@@ -24,7 +24,6 @@ BuildRequires:  perl(blib)
 BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

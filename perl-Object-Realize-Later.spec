@@ -22,7 +22,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test)
 BuildArch:      noarch
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module helps you implementing delay loading of object-data.  While

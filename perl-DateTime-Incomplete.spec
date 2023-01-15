@@ -27,7 +27,6 @@ BuildRequires:  perl(DateTime::Locale)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DateTime::Set) >= 0.1401
 
 # Remove under-specified dependencies

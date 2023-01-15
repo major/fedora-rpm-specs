@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Array::IntSpan brings the speed advantages of Set::IntSpan to arrays. Uses

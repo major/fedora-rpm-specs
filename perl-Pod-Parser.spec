@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::More) >= 0.6
 BuildRequires:  perl(IO::String)
 BuildRequires:  perl(Pod::Checker) >= 1.40
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config)
 # Circular dependency Pod::Usage <-> Pod::Select
 

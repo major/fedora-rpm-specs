@@ -30,7 +30,6 @@ BuildRequires:  perl(Params::Validate)
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 
 %description

@@ -51,7 +51,6 @@ BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
-Requires:  perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(threads)
 # All five are optional but preferred
 Requires:       perl(Heap::Elem)

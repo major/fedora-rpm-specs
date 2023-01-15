@@ -30,7 +30,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(vars)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:       perl-GD-Graph3d = %{version}-%{release}
 
 

@@ -8,7 +8,6 @@ URL:            https://metacpan.org/release/DBIx-DBSchema
 Source0:	https://cpan.metacpan.org/authors/id/I/IV/IVAN/DBIx-DBSchema-%{version}.tar.gz
 
 BuildArch:      noarch
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:	%{__make}
 BuildRequires:	perl-generators

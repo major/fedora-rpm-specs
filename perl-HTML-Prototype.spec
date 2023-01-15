@@ -14,7 +14,6 @@ BuildRequires:  perl(HTML::Tree)
 BuildRequires:  perl(Class::Accessor::Fast)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This perl module contains some code generators for Prototype, the famous

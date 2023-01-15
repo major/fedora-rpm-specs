@@ -36,7 +36,6 @@ BuildRequires: perl(warnings)
 Requires:  perl(Moose) >= 0.84
 Requires:  perl(namespace::clean)
 
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

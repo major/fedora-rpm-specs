@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Class::DBI) >= 0.96
 BuildRequires:  perl(Test::More) >= 0.32
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Class::DBI) >= 0.96
 Requires:       perl(Class::DBI::Plugin) >= 0.02
 Requires:       perl(SQL::Abstract) >= 1.18

@@ -26,7 +26,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 Requires:       perl(XSLoader)
 

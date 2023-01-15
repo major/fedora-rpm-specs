@@ -26,7 +26,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(File::ShareDir) >= 1.03
 Requires:       perl(warnings)
 

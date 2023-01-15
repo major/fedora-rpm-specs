@@ -25,7 +25,6 @@ BuildRequires:	libtool
 BuildRequires:	utf8proc-devel
 BuildRequires:	libotr-devel
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	perl(lib)
 Requires:	perl(Symbol)
 # https://github.com/irssi/irssi/issues/1374

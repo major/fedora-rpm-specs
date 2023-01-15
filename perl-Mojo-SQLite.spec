@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(URI) >= 1.69
 BuildRequires:  perl(URI::db) >= 0.15
 BuildRequires:  perl(URI::file) >= 4.21
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

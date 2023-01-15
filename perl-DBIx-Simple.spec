@@ -31,7 +31,6 @@ BuildRequires:  perl(strict)
 # Tests
 BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DBI) >= 1.21
 Requires:       perl(DBIx::XHTML_Table)
 Requires:       perl(SQL::Abstract)

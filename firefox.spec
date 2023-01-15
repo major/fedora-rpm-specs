@@ -125,7 +125,7 @@ ExcludeArch: i686
 %if %{?system_nss}
 %global nspr_version 4.32
 %global nspr_build_version %{nspr_version}
-%global nss_version 3.85
+%global nss_version 3.86
 %global nss_build_version %{nss_version}
 %endif
 
@@ -172,13 +172,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        108.0.1
-Release:        4%{?pre_tag}%{?dist}
+Version:        109.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20221218.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230111.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -225,7 +225,6 @@ Patch55:        firefox-testing.patch
 Patch61:        firefox-glibc-dynstack.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
-Patch79:        D163310.diff
 
 # Test patches
 # Generate without context by
@@ -250,10 +249,6 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        mozilla-1663844.patch
 Patch415:        mozilla-1670333.patch
-Patch416:        D163696.diff
-Patch417:        D163697.diff
-Patch418:        D163698.diff
-Patch419:        D164896.diff
 
 # PGO/LTO patches
 Patch600:        pgo.patch
@@ -506,7 +501,6 @@ This package contains results of tests executed during build.
 %patch54 -p1 -b .1669639
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch78 -p1 -b .firefox-i686
-%patch79 -p1 -b .D163310
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -529,10 +523,6 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .1663844
 %patch415 -p1 -b .1670333
-%patch416 -p1 -b .D163696
-%patch417 -p1 -b .D163697
-%patch418 -p1 -b .D163698
-%patch419 -p1 -b .D164896
 
 # PGO patches
 %if %{build_with_pgo}
@@ -544,7 +534,7 @@ This package contains results of tests executed during build.
 
 %patch990 -p1 -b .work-around-GCC-ICE-on-arm
 
-%ifnarch ppc64le %{arm}
+%ifnarch ppc64le %{arm} aarch64
 %patch1000 -p1 -b .libwebrtc-screen-cast-sync
 %endif
 
@@ -1086,6 +1076,12 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Wed Jan 11 2023 Martin Stransky <stransky@redhat.com>- 109.0-1
+- Update to 109.0
+
+* Thu Jan 12 2023 Jan Horak <jhorak@redhat.com> - 108.0.2-1
+- Update to 108.0.2
+
 * Mon Jan 09 2023 Kalev Lember <klember@redhat.com> - 108.0.1-4
 - Drop conditionals for F35
 

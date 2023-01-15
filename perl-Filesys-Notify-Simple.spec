@@ -25,7 +25,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::SharedFork)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(File::Find)
 Requires:       perl(Linux::Inotify2)
 

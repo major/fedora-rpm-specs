@@ -27,7 +27,6 @@ BuildRequires:  perl(Email::Simple)
 BuildRequires:  perl(Email::Simple::Creator)
 BuildRequires:  perl(Test::More) >= 0.88
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This package provides a simple way to reply to email messages.

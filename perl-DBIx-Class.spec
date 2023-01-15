@@ -137,7 +137,6 @@ BuildRequires:  perl(Time::Piece)
 BuildRequires:  perl(Time::Piece::MySQL)
 BuildRequires:  perl(version)
 BuildRequires:  perl(YAML)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(B::Deparse)
 Requires:       perl(Config::Any)
 Requires:       perl(DateTime::Format::Strptime) >= 1.2

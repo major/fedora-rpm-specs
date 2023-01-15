@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module implements the Levenshtein edit distance in a XS way.

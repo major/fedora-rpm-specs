@@ -5,7 +5,7 @@ Name:           epson-inkjet-printer-escpr
 Summary:        Drivers for Epson inkjet printers
 Epoch:          1
 Version:        1.7.21
-Release:        1.%{lsb}%{?dist}
+Release:        2.%{lsb}%{?dist}
 License:        GPLv2+
 # Search for something like XP-7100
 URL:            http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX
@@ -14,6 +14,7 @@ Source0:        https://download3.ebz.epson.net/dsc/f/03/00/13/77/93/e85dc2dc266
 # Patch from Arch Linux
 # https://aur.archlinux.org/packages/epson-inkjet-printer-escpr/
 Patch1:         epson-inkjet-printer-escpr-filter.patch
+Patch2:         implicit-function-declaration.patch
 
 BuildRequires:  gcc
 BuildRequires:  automake
@@ -45,6 +46,7 @@ http://avasys.jp/english/linux_e/
 %prep
 %setup -q 
 %patch1 -p1 -b .filter
+%patch2 -p1 -b .implicit-function-declaration
 # Fix permissions
 find . -name \*.h -exec chmod 644 {} \;
 find . -name \*.c -exec chmod 644 {} \;
@@ -84,6 +86,10 @@ rm %{buildroot}%{_libdir}/libescpr.so
 %{_libdir}/libescpr.so.*
 
 %changelog
+* Fri Jan 13 2023 Timm Bäder <tbaeder@redhat.com> - 1:1.7.21-2.1lsb3.2
+- Fix an implicit function declaration
+- https://fedoraproject.org/wiki/Toolchain/PortingToModernC
+
 * Wed Sep 28 2022 Orion Poplawski <orion@nwra.com>  - 1:1.7.21-1.1lsb3.2
 - Update to 1.7.21
 - Update conditionals

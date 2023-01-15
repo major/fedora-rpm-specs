@@ -110,7 +110,6 @@ BuildRequires:  perl(Types::Standard)
 %endif
 BuildRequires:  perl(URI)
 # versioned and optional dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Load) >= 0.09
 Requires:       perl(Class::Load::XS) >= 0.01
 Requires:       perl(Data::Dumper)

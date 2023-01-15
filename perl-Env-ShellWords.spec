@@ -22,7 +22,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Test2::V0) >= 0.000060
 # Optional tests:
 # Test::More not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

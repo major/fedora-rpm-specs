@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Thread::SigMask)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Signal::Mask is an abstraction around your process or thread signal mask.

@@ -29,7 +29,6 @@ Requires:	globus-gram-job-manager >= 13
 Requires:	globus-gram-job-manager-scripts >= 4
 Requires:	globus-gass-cache-program >= 5
 Requires:	globus-gatekeeper >= 9
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	%{name}-setup = %{version}-%{release}
 
 %package setup-poll

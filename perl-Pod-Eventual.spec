@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 # Optional Tests:
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 # Explicit dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 POD is a pretty simple format to write, but it can be a big pain to deal with

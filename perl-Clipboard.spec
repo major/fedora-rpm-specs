@@ -18,7 +18,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  xclip
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CGI)
 Requires:       perl(IPC::Open2)
 Requires:       perl(URI::Escape)

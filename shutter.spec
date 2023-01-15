@@ -51,7 +51,6 @@ Requires:       hicolor-icon-theme
 Requires:       libwnck3
 Requires:       perl(Image::ExifTool)
 Requires:       perl(Goo::Canvas)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter all provides  
 %global __provides_exclude_from %{_datadir}/%{name}/resources/system/upload_plugins

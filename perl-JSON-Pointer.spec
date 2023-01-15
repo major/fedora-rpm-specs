@@ -30,7 +30,6 @@ BuildRequires:  perl(URI::Escape) >= 3.31
 # Tests:
 BuildRequires:  perl(Test::Exception) >= 0.31
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.20
 Requires:       perl(Class::Accessor::Lite) >= 0.05
 Requires:       perl(Clone) >= 0.36

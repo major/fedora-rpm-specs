@@ -23,7 +23,6 @@ BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Harness)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Devel::Refactor module is for code refactoring.

@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More) >= 0.08
 # Test::Perl::Critic not used
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp::Assert) >= 0.11
 Requires:       perl(File::Spec) >= 0.82
 Requires:       perl(File::Temp) >= 0.12

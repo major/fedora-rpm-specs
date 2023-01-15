@@ -119,7 +119,6 @@ BuildRequires:  perl(vars)
 # Optional tests:
 BuildRequires:  perl(Test::Memory::Cycle) >= 1.04
 BuildRequires:  perl(Test::MockTime)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter) >= 5.57
 Requires:       perl(Exporter::Tiny)
 Requires:       perl(File::Copy)

@@ -25,7 +25,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 slurp takes:

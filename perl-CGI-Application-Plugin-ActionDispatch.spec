@@ -19,7 +19,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(CGI)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(CGI::Application) >= 4.0
 
 %{?perl_default_filter}

@@ -22,7 +22,6 @@ BuildRequires:  perl(lib)
 # Tests
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter modules bundled for tests
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}

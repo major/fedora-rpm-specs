@@ -222,7 +222,6 @@ Summary:        Perl X2Go::Server package
 Requires:       x2goserver-common = %{version}-%{release}
 Requires:       perl-X2Go-Log = %{version}-%{release}
 Requires:       perl-X2Go-Server-DB = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 %description -n perl-X2Go-Server
@@ -245,7 +244,6 @@ Requires:       perl-X2Go-Log = %{version}-%{release}
 # We need a database
 Requires(post): perl(DBD::SQLite)
 Requires:       perl(DBD::SQLite)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description -n perl-X2Go-Server-DB
 X2Go is a server based computing environment with
@@ -263,7 +261,6 @@ This package contains the X2Go::Server::DB Perl package.
 %package -n perl-X2Go-Log
 Summary:        Perl X2Go::Log package
 Requires:       x2goserver-common = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 %description -n perl-X2Go-Log

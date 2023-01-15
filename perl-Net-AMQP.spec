@@ -33,7 +33,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Parse::RecDescent)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

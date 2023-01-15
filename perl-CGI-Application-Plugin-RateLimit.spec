@@ -21,7 +21,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
 Requires:       perl(CGI::Application)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

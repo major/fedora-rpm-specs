@@ -55,7 +55,6 @@ BuildRequires:  perl(Capture::Tiny)
 # Data::Dumper not used at tests
 # Tests only:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(ExtUtils::CBuilder)
 Requires:       perl(File::ShareDir) >= 1.00

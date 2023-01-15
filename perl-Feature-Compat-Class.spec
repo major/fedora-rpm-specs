@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Object::Pad)
 
 %description

@@ -34,7 +34,6 @@ BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::DZil)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Dist::Zilla::Plugin::GithubMeta is a Dist::Zilla plugin to include

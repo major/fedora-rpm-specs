@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 POSIX::strftime::Compiler provides GNU C library compatible strftime(3).

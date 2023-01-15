@@ -42,7 +42,6 @@ BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 # Test
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 OpenGL::GLUT is the alpha release of a stand-alone module for GLUT/FreeGLUT

@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::More) >= 0.95
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_Business_ISBN_enables_PNG}
 Recommends:     perl(GD::Barcode::EAN13)
 %endif

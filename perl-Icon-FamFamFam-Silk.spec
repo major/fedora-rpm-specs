@@ -26,7 +26,6 @@ BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(URI)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a collection of Silk icons from <http://famfamfam.com/lab/icons/silk/>

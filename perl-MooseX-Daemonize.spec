@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::Moose)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

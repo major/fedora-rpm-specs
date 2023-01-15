@@ -25,7 +25,6 @@ BuildRequires:  perl(LWP::Simple)
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Pod) >= 1.14
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Convenience to users looking for weblint
 Provides:       weblint = %{version}-%{release}

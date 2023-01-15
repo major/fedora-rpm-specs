@@ -19,7 +19,6 @@ BuildRequires:  perl(Module::Install::Base)
 # Tests:
 # inc::Module::Install not used, the t/sample1 is used by xt tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Module::Manifest::Skip) >= 0.18
 Requires:       perl(warnings)
 

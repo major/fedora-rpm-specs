@@ -10,7 +10,6 @@ BuildArch:      noarch
 BuildRequires:	perl-generators
 BuildRequires:	perl(Apache2::Cookie), perl(Apache::Session), perl(Class::Container), perl(Exception::Class)
 BuildRequires:	perl(Params::Validate), perl(Module::Build), perl(Test::Pod)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	perl(Class::Container)
 
 %description

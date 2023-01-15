@@ -6,7 +6,6 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Template-Provider-Encoding
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Template-Provider-Encoding-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  make
 BuildRequires:  perl-generators

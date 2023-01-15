@@ -72,7 +72,6 @@ Requires:       make
 Requires:       perl-interpreter
 # It requires Perl header files in the generated and compiled XS code
 Requires:       perl-devel
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Fcntl)
 Requires:       perl(FindBin)
 Requires:       perl(File::Spec) >= 0.8

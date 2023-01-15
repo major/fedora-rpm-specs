@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More)
 %if %{with perl_Business_Stripe_enables_optional_test}
 BuildRequires:  perl(Test::Pod) >= 1.22
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This package provides Perl bindings for Stripe payment system. Any API calls

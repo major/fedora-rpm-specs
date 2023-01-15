@@ -23,7 +23,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is a 'Bare' XML parser. It is implemented in C. The parser

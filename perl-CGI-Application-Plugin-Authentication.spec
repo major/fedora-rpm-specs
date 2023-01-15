@@ -50,7 +50,6 @@ BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(Test::Without::Module)
 BuildRequires:  perl(UNIVERSAL::require)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(overload)
 
 %{?perl_default_filter}

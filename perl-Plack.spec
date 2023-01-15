@@ -181,7 +181,6 @@ BuildRequires:  /usr/sbin/httpd
 # lighttpd-fastcgi
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Apache::LogFormat::Compiler) >= 0.33
 Requires:       perl(CGI::Compile) >= 0.03
 Requires:       perl(CGI::Emulate::PSGI) >= 0.10
@@ -227,7 +226,6 @@ frameworks. Plack is like Ruby's Rack or Python's Paste for WSGI.
 %package Handler-Apache1
 Summary:    Plack handler for mod_perl in Apache HTTP server version 1
 Requires:   perl-Plack = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description Handler-Apache1
 %{summary}.
@@ -237,7 +235,6 @@ Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %package Handler-Apache2
 Summary:    Plack handler for mod_perl in Apache HTTP server version 2
 Requires:   perl-Plack = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:   perl(URI) >= 1.59
 
 %description Handler-Apache2
@@ -248,7 +245,6 @@ Requires:   perl(URI) >= 1.59
 %package Handler-FCGI
 Summary:    Plack handler for FastCGI
 Requires:   perl-Plack = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # FCGI handler needs FCGI::ProcManager by default
 Requires:   perl(FCGI::ProcManager)
 # Server::Starter is used only of Plack is executed from Server::Starter. No
@@ -263,7 +259,6 @@ Requires:   perl(URI) >= 1.59
 %package Middleware-Log4perl
 Summary:    Plack middleware for logging through Log::Log4perl
 Requires:   perl-Plack = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:   perl(Log::Log4perl)
 
 %description Middleware-Log4perl
@@ -273,7 +268,6 @@ Requires:   perl(Log::Log4perl)
 %package Test
 Summary:    Test-modules for perl-Plack
 Requires:   perl-Plack = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:   perl(File::ShareDir) >= 1.00
 Requires:   perl(Test::More) >= 0.88
 Requires:   perl(Test::TCP) >= 2.15

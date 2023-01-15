@@ -16,7 +16,6 @@ BuildRequires:  perl(Geo::Inverse) => 0.02
 BuildRequires:  perl(GPS::OID)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Net::GPSD provides an object client interface to the gpsd server daemon.

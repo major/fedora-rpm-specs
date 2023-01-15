@@ -7,7 +7,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Plugin-Static-Simple
 Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILMARI/Catalyst-Plugin-Static-Simple-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 BuildRequires:  coreutils
 BuildRequires:  make

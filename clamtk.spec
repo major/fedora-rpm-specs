@@ -10,7 +10,6 @@ BuildArch: noarch
 
 BuildRequires: desktop-file-utils
 BuildRequires: perl-generators
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: perl(LWP::UserAgent), perl(LWP::Protocol::https)
 Requires: perl(Text::CSV), perl(Time::Piece), perl(Locale::gettext), perl(JSON)
 Requires: clamav >= 0.95, clamav-update, data(clamav)

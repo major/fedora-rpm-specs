@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 ExtUtils::CppGuess attempts to guess the system's C++ compiler that is

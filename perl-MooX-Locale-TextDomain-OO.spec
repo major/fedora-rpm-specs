@@ -23,7 +23,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Locale::TextDomain::OO::Lexicon::Hash)
 BuildRequires:  perl(Moo) >= 1.003
 BuildRequires:  perl(Test::More) >= 0.90
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moo::Role) >= 1.003
 Requires:       perl(MooX::Locale::Passthrough)
 

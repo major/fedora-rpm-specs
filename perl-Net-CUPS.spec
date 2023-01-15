@@ -5,7 +5,6 @@ Summary:        Perl bindings to the CUPS C API Interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CUPS
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NINE/Net-CUPS-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildRequires: make
 BuildRequires:  coreutils
 BuildRequires:  cups-devel

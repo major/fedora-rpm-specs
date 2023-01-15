@@ -62,7 +62,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Compare)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(IPNGLT\\)

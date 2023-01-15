@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(DateTime) >= 0.17
 Requires:       perl(DateTime::Event::ICal) >= 0.03
 Requires:       perl(DateTime::Set) >= 0.1

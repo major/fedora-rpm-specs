@@ -8,7 +8,6 @@ License:    GPL+ or Artistic
 Summary:    Create PDF files from Catalyst using Template Toolkit templates 
 Source:     https://cpan.metacpan.org/authors/id/J/JO/JONALLEN/Catalyst-View-PDF-Reuse-%{version}.tar.gz 
 Url:        https://metacpan.org/release/Catalyst-View-PDF-Reuse
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

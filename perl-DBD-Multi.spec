@@ -38,7 +38,6 @@ BuildRequires:  perl(Test::TCP) >= 2.19
 BuildRequires:  perl(DBD::Pg)
 BuildRequires:  perl(Test::Pod) >= 1.14
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # not picked up automatically
 Requires:       perl(Class::Accessor::Fast)
 

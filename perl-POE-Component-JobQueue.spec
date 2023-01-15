@@ -12,7 +12,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(POE) >= 1.007
 BuildRequires:  perl(POE::Session)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(POE) >= 1.007
 
 %description

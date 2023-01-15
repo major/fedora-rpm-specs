@@ -58,7 +58,6 @@ BuildRequires:  redis
 # Release Tests
 BuildRequires:  perl(Test::CPAN::Meta)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Socket::SSL)
 Requires:       perl(IO::Socket::Timeout) >= 0.29
 Requires:       perl(Time::HiRes)

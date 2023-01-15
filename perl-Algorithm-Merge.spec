@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Algorithm::Diff) >= 1
 Requires:       perl(Exporter)
 

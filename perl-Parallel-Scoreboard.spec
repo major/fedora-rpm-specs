@@ -31,7 +31,6 @@ BuildRequires: perl(warnings)
 BuildRequires: perl(inc::Module::Install)
 BuildRequires: perl(Module::Install::ReadmeFromPod)
 
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Parallel::Scoreboard is a pure-perl implementation of a process scoreboard.

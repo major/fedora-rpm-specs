@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{defined perl_bootstrap}
 # Break build cycle: perl-Fedora-VSP → perl-generators → perl-Fedora-VSP
 Requires:       perl(strict)

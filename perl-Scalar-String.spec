@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(XSLoader)
 

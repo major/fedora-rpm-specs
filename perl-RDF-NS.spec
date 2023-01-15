@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(version)
 # Optional tests:
 BuildRequires:  perl(RDF::Trine)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::ShareDir) >= 1.00
 
 # Remove under-specified dependencies

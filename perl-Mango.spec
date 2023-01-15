@@ -57,7 +57,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 # Test::Pod 1.14 not used
 # Test::Pod::Coverage 1.04 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Authen::SCRAM::Client)
 Requires:       perl(Mojo::EventEmitter)
 # Mojolicious version from META because this is the only versioned module in

@@ -393,7 +393,6 @@ This plugin collects statictics of OVS connected bridges and interfaces.
 %package -n perl-Collectd
 Summary:       Perl bindings for collectd
 Requires:      %{name}%{?_isa} = %{version}-%{release}
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %description -n perl-Collectd
 This package contains the Perl bindings and plugin for collectd.
 

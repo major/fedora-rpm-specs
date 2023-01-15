@@ -18,7 +18,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Expect::Simple is a wrapper around the Expect module which should

@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::More)
 # Optional tsts only
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Algorithm::Diff) >= 1.18
 Requires:       perl(Kwiki) >= 0.34
 Enhances:       perl(Kwiki::Revisions)

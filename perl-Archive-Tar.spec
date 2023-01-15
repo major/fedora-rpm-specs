@@ -69,7 +69,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(Test::Pod) >= 0.95
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Zlib) >= 1.01
 # Optional run-time:
 Requires:       perl(IO::Compress::Bzip2) >= 2.015

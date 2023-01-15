@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(vars)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 File::Find::Rule::PPI allows you to integrate PPI content queries into

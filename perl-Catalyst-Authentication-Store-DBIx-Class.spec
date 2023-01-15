@@ -41,7 +41,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::WWW::Mechanize::Catalyst)
 BuildRequires:  perl(Try::Tiny)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Catalyst::Authentication::Store::DBIx::Class class provides access

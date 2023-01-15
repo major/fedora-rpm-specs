@@ -54,7 +54,6 @@ Requires:       perl(Catalyst) >= 5.80014
 Requires:       perl(Catalyst::Runtime) >= 5.80014
 Requires:       perl(Catalyst::View::TT)
 Requires:       perl(MooseX::Types)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -29,7 +29,6 @@ Requires:       vtable-dumper >= 1.1
 Requires:       abi-compliance-checker >= 1.99.21
 Requires:       pkgdiff >= 1.6.4
 Requires:       rfcdiff >= 1.41
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       elfutils
 
 

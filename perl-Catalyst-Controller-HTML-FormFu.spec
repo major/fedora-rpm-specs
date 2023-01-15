@@ -57,7 +57,6 @@ BuildRequires:  perl(Test::More) >= 0.92
 BuildRequires:  perl(Test::WWW::Mechanize::Catalyst)
 # Test::WWW::Mechanize 1.16 for post_ok()
 BuildRequires:  perl(Test::WWW::Mechanize) >= 1.16
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Catalyst::Component::InstancePerContext)
 Requires:       perl(Catalyst::Controller)
 Requires:       perl(Catalyst::Runtime) >= 5.71001

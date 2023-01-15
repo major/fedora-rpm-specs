@@ -39,7 +39,6 @@ BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(warnings::register)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module iterates over files and directories to identify ones matching a

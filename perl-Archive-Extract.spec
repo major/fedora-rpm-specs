@@ -42,7 +42,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Spec::Unix)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(deprecate)
 # Prefer Archive::Tar to suppress warnings, bug #1217352, CPAN RT#104121
 Requires:       perl(Archive::Tar)

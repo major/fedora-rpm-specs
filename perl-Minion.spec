@@ -40,7 +40,6 @@ BuildRequires:  perl(Mojolicious::Lite)
 BuildRequires:  perl(Test::Mojo)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Time::HiRes)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

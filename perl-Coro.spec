@@ -54,7 +54,6 @@ BuildRequires:  perl(Socket)
 BuildRequires:  perl(Storable) >= 2.15
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Export correct required versions
 Requires:       perl(AnyEvent) >= 7
 Requires:       perl(AnyEvent::AIO) >= 1

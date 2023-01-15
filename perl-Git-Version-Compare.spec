@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Git::Version::Compare contains a selection of subroutines that make dealing

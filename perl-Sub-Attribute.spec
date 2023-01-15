@@ -33,7 +33,6 @@ BuildRequires:  perl(warnings)
 # Test::Pod 1.14
 # Test::Pod::Coverage 1.04
 # Test::Synopsis
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(parent) >= 0.221
 
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(parent\\)$

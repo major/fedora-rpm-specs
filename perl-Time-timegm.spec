@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 Requires:       perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The POSIX standard provides three functions for converting between integer

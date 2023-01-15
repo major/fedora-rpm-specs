@@ -26,7 +26,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(threads) >= 1.07
 BuildRequires:  perl(threads::shared)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This gives access to ${^GLOBAL_PHASE} in versions of perl that don't

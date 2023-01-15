@@ -21,7 +21,6 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(vars)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Generates inherits from IO::Handle and IO::Seekable. It provides an

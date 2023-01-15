@@ -28,7 +28,6 @@ BuildRequires:  perl(Module::Install::Base)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a plugin for Module::Install. It adds an x_contributors section to

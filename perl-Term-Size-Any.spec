@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.18
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Term::Size::Perl)
 
 %{?perl_default_filter}

@@ -22,7 +22,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Loading Import::Into creates a global method import::into which you can call on

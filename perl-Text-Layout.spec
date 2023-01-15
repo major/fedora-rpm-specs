@@ -20,7 +20,6 @@ BuildArch: noarch
 %global __provides_exclude_from /(Testing|Cairo|Pango|PDFAPI2)\\.pm$
 
 Requires: perl(:VERSION) >= 5.10.1
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 Recommends: perl(PDF::API2) >= 2.036
 Recommends: perl(HarfBuzz::Shaper) >= 0.026

@@ -52,7 +52,6 @@ BuildRequires:	perl(version)
 # ===================================================================
 # Runtime requirements
 # ===================================================================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Also requires core module perl(Exporter) via a "use base" construct
 
 %description

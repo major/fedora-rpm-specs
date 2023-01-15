@@ -23,7 +23,6 @@ BuildRequires:	perl(FileHandle)
 BuildRequires:	perl(Data::Compare)
 BuildRequires:	perl(Test)
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module parses a DTD file and creates a data structure containing info

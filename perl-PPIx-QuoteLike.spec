@@ -43,7 +43,6 @@ BuildRequires:  perl(PPIx::Regexp)
 BuildRequires:  perl(charnames)
 BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(PPI::Document) >= 1.238
 Requires:       perl(PPI::Dumper) >= 1.238
 %if %{with perl_PPIx_QuoteLike_enables_PPIx_Regexp}

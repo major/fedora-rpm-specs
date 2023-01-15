@@ -29,7 +29,6 @@ Requires:       perl(CLASS) >= 1.00
 Requires:       perl(DBD::SQLite) >= 1.25
 Requires:       perl(DBIx::Class) >= 0.08109
 Requires:       perl(Path::Class) >= 0.17
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Parse::BACKPAN::Packages is deprecated in favor of BackPAN::Index
 Obsoletes:      perl-Parse-BACKPAN-Packages <= 0.35

@@ -1,6 +1,6 @@
 Name:           os-prober
 Version:        1.81
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Probes disks on the system for installed operating systems
 
 # For more information about licensing, see copyright file.
@@ -46,7 +46,7 @@ sed -i -e 's|grub-mount|grub2-mount|g' os-probes/common/50mounted-tests \
 
 %build
 %set_build_flags
-%make_build LDFLAGS="$LDFLAGS -fPIC"
+%make_build LDFLAGS="$LDFLAGS -fPIC" CFLAGS="$CFLAGS" CPPFLAGS="$CPPFLAGS"
 
 %install
 install -m 0755 -d %{buildroot}%{_bindir}
@@ -91,6 +91,9 @@ fi
 %{_var}/lib/%{name}
 
 %changelog
+* Tue Jan 10 2023 Robbie Harwood <rharwood@redhat.com> - 1.81-2
+- Fix inheritance of environment build flags
+
 * Sat Aug 06 2022 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 1.81-1
 - Update to latest upstream version with better support for latest OSes,
   closes rhbz#2090942

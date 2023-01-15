@@ -31,7 +31,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warnings) >= 0.005
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

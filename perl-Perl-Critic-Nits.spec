@@ -27,7 +27,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Perl::Critic::TestUtils)
 BuildRequires:  perl(Test::More)
 # Test::Perl::Critic not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Perl::Critic::Policy) >= 1.07
 
 # Filter under-specified dependencies

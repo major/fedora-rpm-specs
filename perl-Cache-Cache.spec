@@ -28,7 +28,6 @@ BuildRequires:  perl(vars)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 The Cache modules are designed to assist a developer in persisting data for a

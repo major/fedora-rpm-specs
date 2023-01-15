@@ -48,7 +48,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl-Gearman-Server
 %endif
 # Devel::Gladiator not yet packaged
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(version) >= 0.77
 
 # Remove under-specifed dependencies

@@ -3,7 +3,7 @@
 
 Name:           glm
 Version:        0.9.9.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C++ mathematics library for graphics programming
 
 License:        MIT
@@ -93,17 +93,14 @@ export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 
 %check
 export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
-cd %{_vpath_builddir}
 
 # Some tests are disabled due to failing tests (to be reported)
 # - test-core_func_common fails on aarch64
 # - test-gtc_packing      fails on s390x
-ctest --output-on-failure -E '(test-core_func_common|test-gtc_packing)'
+%ctest -- --output-on-failure -E '(test-core_func_common|test-gtc_packing)'
 
 %install
-cd %{_vpath_builddir}
-
-make install DESTDIR=$RPM_BUILD_ROOT
+%cmake_install
 find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 find $RPM_BUILD_ROOT -name CMakeLists.txt -exec rm -f {} ';'
 
@@ -113,6 +110,9 @@ find $RPM_BUILD_ROOT -name CMakeLists.txt -exec rm -f {} ';'
 mkdir -pv $RPM_BUILD_ROOT%{_datadir}
 mv $RPM_BUILD_ROOT%{_libdir}/cmake $RPM_BUILD_ROOT%{_datadir}/cmake
 rmdir $RPM_BUILD_ROOT%{_libdir}
+
+# The library can get installed into the include directory - seen on EPEL8
+rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}/{CMakeFiles,libglm_shared.so}
 
 # Here it seems to be acceptable to own the cmake and pkgconfig directories
 # as an alternative to having glm-devel depending on cmake and pkg-config
@@ -127,6 +127,10 @@ rmdir $RPM_BUILD_ROOT%{_libdir}
 %doc doc/api/
 
 %changelog
+* Fri Sep 30 2022 Orion Poplawski <orion@nwra.com> - 0.9.9.8-5
+- Use cmake_install/ctest macros
+- Cleanup library artifacts if they get installed (seen on EPEL8)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

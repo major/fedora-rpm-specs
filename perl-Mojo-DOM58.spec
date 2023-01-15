@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(utf8)
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter) >= 5.57
 %if %{with perl_Mojo_DOM58_enables_role}
 Suggests:       perl(Role::Tiny) >= 2.000001

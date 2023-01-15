@@ -10,7 +10,6 @@ Release:        5%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAM/%{pkgname}-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  coreutils
 BuildRequires:  findutils
 %if 0%{?fedora} || 0%{?rhel} > 7

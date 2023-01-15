@@ -32,7 +32,6 @@ BuildRequires:	perl(Test::EOL)
 BuildRequires:	perl(Test::NoTabs)
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Pod) >= 1.41
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid private object provides
 %{?perl_default_filter}

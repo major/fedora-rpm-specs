@@ -69,7 +69,6 @@ This package provides an easy-to-use standalone server setup for monotone.
 %package -n perl-Monotone
 Summary: Perl Module for monotone
 Requires: monotone = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description -n perl-Monotone

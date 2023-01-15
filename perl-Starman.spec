@@ -25,7 +25,6 @@ BuildRequires:  perl(Server::Starter)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::TCP)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

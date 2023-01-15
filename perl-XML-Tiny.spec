@@ -14,7 +14,6 @@ BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 It is a simple lightweight parser for a subset of XML.

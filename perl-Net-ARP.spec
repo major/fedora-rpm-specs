@@ -7,7 +7,6 @@ Summary:    Create and Send ARP Packets
 License:    GPLv2
 URL:        https://metacpan.org/release/%{real_name}
 Source0:    https://cpan.metacpan.org/authors/id/C/CR/CRAZYDJ/%{real_name}-%{version}.tar.gz
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: perl-devel

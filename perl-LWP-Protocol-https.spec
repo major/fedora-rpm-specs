@@ -45,7 +45,6 @@ BuildRequires:  perl(Test::RequiresInternet)
 # Optional tests:
 BuildRequires:  perl(IO::Socket::SSL) >= 1.953
 BuildRequires:  perl(IO::Socket::SSL::Utils)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Socket::SSL) >= 1.54
 Requires:       perl(Mozilla::CA) >= 20180117
 Requires:       perl(Net::HTTPS) >= 6

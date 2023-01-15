@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Scope::Upper)
 Suggests:       perl(Scope::Upper)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Return::Type allows you to specify a return type for your subs. Type

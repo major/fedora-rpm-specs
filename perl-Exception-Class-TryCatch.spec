@@ -11,7 +11,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Exception::Class) >= 1.2
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

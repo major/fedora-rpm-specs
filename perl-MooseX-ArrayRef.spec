@@ -22,7 +22,6 @@ BuildRequires:  perl(Moose::Util::MetaRole)
 BuildRequires:  perl(Scalar::Util)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moose) >= 2.00
 Requires:       perl(strict)
 

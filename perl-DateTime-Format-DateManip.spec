@@ -23,7 +23,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 DateTime::Format::DateManip is a class that knows how to convert between

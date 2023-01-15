@@ -13,7 +13,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 Requires:       perl(Catalyst::Plugin::Session) >= 0.06
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This plugin will store your session data in whatever cache module you have

@@ -15,7 +15,6 @@ Summary:        HTML formatter modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{tarname}
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NIGELM/%{tarname}-%{version}.tar.gz
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildArch:      noarch
 
@@ -65,7 +64,6 @@ A collection of modules that formats HTML as plaintext, PostScript or RTF.
 %if "%{version}" > "2.12"
 %package -n perl-%{tarname}
 Summary:        %{summary}
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # These must match
 # FontFamilies in lib/HTML/FormatPS.pm
 Requires:       perl(Font::Metrics::Courier)

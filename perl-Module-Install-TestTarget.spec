@@ -38,7 +38,6 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(warnings)
 # Optional tests:
 BuildRequires:  perl(Module::Install::ExtraTests)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Module::Install) >= 1.00
 Requires:       perl(B::Deparse)
 

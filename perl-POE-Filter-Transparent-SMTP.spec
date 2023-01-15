@@ -15,7 +15,6 @@ BuildRequires:  perl(POE)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::Pod), perl(Test::Pod::Coverage)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 POE data filter which aims to make SMTP data transparent 

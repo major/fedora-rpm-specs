@@ -17,7 +17,6 @@ Patch1:         dxcc-20071205-gui.patch
 
 BuildArch:      noarch
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 dxcc is a small utility which determines the ARRL DXCC entity of a ham radio

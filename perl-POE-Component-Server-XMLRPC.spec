@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XMLRPC::Lite) >= 0.28
 # Tests only
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(POE) >= 0.22
 Requires:       perl(POE::Component::Server::HTTP) >= 0.02
 Requires:       perl(XMLRPC::Lite) >= 0.28

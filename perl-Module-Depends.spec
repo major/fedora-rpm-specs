@@ -25,7 +25,6 @@ BuildRequires:  perl(inc::Module::Install) >= 0.67
 # Inline::MakeMaker not used
 # Module::Build not used
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(warnings)
 
 %description

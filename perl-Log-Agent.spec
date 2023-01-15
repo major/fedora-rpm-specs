@@ -38,7 +38,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Callback)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(warnings)
 
 # Remove private modules
@@ -54,7 +53,6 @@ and delegates processing to a logging driver.
 %package Carp-Datum
 Summary:        Carp::Datum driver for Log::Agent Perl logging framework
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Carp::Datum)
 
@@ -66,7 +64,6 @@ traces to the debug channel via Carp::Datum's traces facilities.
 %package mail
 Summary:        E-mail driver for Log::Agent Perl logging framework
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description mail
 This logging driver maps the log calls to email messages.  Each call generates
@@ -75,7 +72,6 @@ a separate email message.
 %package syslog
 Summary:        Syslog driver for Log::Agent Perl logging framework
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description syslog

@@ -16,7 +16,6 @@ BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(List::Util)
 BuildRequires:	perl(Moose)
 BuildRequires:	perl(Moose::Util::TypeConstraints)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

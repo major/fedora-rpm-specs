@@ -27,7 +27,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 IO::Prompter exports a single subroutine, prompt, that prints a prompt

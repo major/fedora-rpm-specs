@@ -27,7 +27,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 A unified interface to various URL shortening services on the web, such as

@@ -49,7 +49,6 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(utf8)
 
 Requires:       lmdb-libs
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(AutoLoader)
 Requires:       perl(Carp)
 Requires:       perl(Exporter)

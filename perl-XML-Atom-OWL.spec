@@ -35,7 +35,6 @@ BuildRequires:  perl(XML::LibXML) >= 1.70
 # RDF::Trine::Node::Literal::XML not used at tests
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_XML_Atom_OWL_enables_literal}
 Recommends:     perl(RDF::Trine::Node::Literal::XML)
 %endif

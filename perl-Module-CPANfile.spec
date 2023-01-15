@@ -33,7 +33,6 @@ Requires:       perl(CPAN::Meta::Prereqs) >= 2.12091
 Requires:       perl(CPAN::Meta::Feature) >= 2.12091
 Requires:       perl(Data::Dumper)
 Requires:       perl(Pod::Usage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %?perl_default_filter
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(CPAN::Meta\\)$

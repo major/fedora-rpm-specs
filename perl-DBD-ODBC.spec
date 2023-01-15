@@ -41,7 +41,6 @@ BuildRequires:  perl(utf8)
 # Test::Pod 1.00 not used
 BuildRequires:  perl(Test::NoWarnings)
 # Test::Pod::Coverage 1.04 not useful
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(DBI) >= 1.609
 Requires:       unixODBC
 Patch0:         Changes.patch

@@ -22,7 +22,6 @@ BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This simple module provides string equivalents to the -T / -B operators. Since

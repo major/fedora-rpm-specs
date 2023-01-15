@@ -34,7 +34,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::IxHash)
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module opens a config file and parses its contents for you. After parsing

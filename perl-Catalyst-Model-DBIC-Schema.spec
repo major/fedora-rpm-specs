@@ -5,7 +5,6 @@ Release:        24%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/G/GB/GBJK/Catalyst-Model-DBIC-Schema-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Model-DBIC-Schema
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 Provides:       perl(Catalyst::Model::DBIC::Schema::Types) = %{version}

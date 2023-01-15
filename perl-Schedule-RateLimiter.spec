@@ -14,7 +14,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides a way to voluntarily restrict how many times a given

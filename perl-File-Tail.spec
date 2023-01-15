@@ -22,7 +22,6 @@ BuildRequires:  perl(Time::HiRes) >= 1.12
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(File::Copy)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Time::HiRes) >= 1.12
 
 # Remove under-specified dependencies

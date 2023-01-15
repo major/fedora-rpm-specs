@@ -50,7 +50,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 # Optional tests:
 BuildRequires:  perl(YAML)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 # Filter under-specified dependencies

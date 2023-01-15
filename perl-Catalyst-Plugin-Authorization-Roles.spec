@@ -32,7 +32,6 @@ Requires:       perl(Catalyst::Plugin::Authentication) >= 0.10003
 Requires:       perl(Catalyst::Runtime) >= 5.7
 Requires:       perl(Set::Object) >= 1.14
 Requires:       perl(UNIVERSAL::isa) >= 0.05
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Role based access control is very simple: every user has a list of roles,

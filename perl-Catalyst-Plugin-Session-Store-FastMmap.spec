@@ -25,7 +25,6 @@ Requires:       perl(Cache::FastMmap) >= 1.29
 Requires:       perl(Catalyst::Plugin::Session) >= 0.27
 Requires:       perl(MooseX::Emulate::Class::Accessor::Fast)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Catalyst::Plugin::Session::Store::FastMmap is a fast session storage plugin

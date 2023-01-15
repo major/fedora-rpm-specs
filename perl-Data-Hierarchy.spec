@@ -19,7 +19,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Carp)
 
 %description

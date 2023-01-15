@@ -19,7 +19,6 @@ BuildRequires:  perl(Term::ReadLine)
 BuildRequires:  perl(vars)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module lets you ask the user for a password in the traditional way,

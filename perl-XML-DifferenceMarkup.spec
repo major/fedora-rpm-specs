@@ -27,7 +27,6 @@ BuildRequires:  perl(XSLoader)
 # Tests only:
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XML::LibXML) >= 1.70
 
 %{?perl_default_filter}

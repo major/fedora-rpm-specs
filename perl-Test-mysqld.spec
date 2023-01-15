@@ -34,7 +34,6 @@ BuildRequires:  perl(DBD::mysql)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::SharedFork) >= 0.06
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(DBD::mysql)
 Requires:       perl(File::Basename)
 Requires:       perl(File::Spec)

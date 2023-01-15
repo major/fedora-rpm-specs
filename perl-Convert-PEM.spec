@@ -34,7 +34,6 @@ BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Convert::ASN1) >= 0.10
 Requires:       perl(Crypt::DES_EDE3)
 

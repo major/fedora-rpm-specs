@@ -123,7 +123,6 @@ Requires:       libgcc%{?_isa}
 Requires:       libnormaliz-devel%{?_isa}
 Requires:       make
 Requires:       mpfr-devel%{?_isa}
-Requires:       perl(:MODULE_COMPAT_%{perl_version})
 Requires:       perl-interpreter = 4:%{?perl_version}%{!?perl_version:0}
 Requires:       perl(Term::ReadKey)
 Requires:       perl(Term::ReadLine::Gnu)

@@ -20,7 +20,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::Most)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Getopt::Usaginator is a tool for creating a handy usage subroutine for

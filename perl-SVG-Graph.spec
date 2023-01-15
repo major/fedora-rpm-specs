@@ -26,7 +26,6 @@ BuildRequires:  perl(Tree::DAG_Node) >= 1.04
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Statistics::Descriptive) >= 2.6
 Requires:       perl(SVG) >= 2.27
 Requires:       perl(Tree::DAG_Node) >= 1.04

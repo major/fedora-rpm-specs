@@ -68,7 +68,6 @@ BuildRequires: perl(Test::Builder)
 BuildRequires: perl(Test::More)
 # Optional tests:
 BuildRequires: perl(Test::Pod) >= 1.45
-Requires:      perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Suggests:      perl(Config)
 Requires:      perl(Data::Dumper)
 # Digest::GOST not available
@@ -116,7 +115,6 @@ its various sections. See RFC 1035 or DNS and BIND (Albitz & Liu) for details.
 %package Nameserver
 Summary:        DNS server for Perl
 License:        MIT
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Recommends:     perl(IO::Socket::IP) >= 0.32
 
 %description Nameserver

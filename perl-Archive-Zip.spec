@@ -48,7 +48,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 BuildRequires:  unzip
 BuildRequires:  zip
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 Requires:       perl(File::Spec) >= 0.80
 

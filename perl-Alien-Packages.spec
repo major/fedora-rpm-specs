@@ -20,7 +20,6 @@ BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(Module::Pluggable) >= 4.5
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Find information of packages installed in the OS, e.g. Debian dpkg, AIX lslpp,

@@ -28,7 +28,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This is a module that parses .holiday-style files. These are files that

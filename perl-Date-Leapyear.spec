@@ -10,7 +10,6 @@ BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Date::Leapyear exports one function - isleap - which returns 1 or 0 if a

@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Most)
 # Optional tests:
 BuildRequires:  perl(Test::CPAN::Changes)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(PPI) >= 1.215
 Requires:       perl(PPI::Find)
 

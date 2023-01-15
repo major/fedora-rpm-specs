@@ -24,7 +24,6 @@ BuildRequires:  perl(Socket)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Socket::MsgHdr provides advanced socket messaging operations via sendmsg

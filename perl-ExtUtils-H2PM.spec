@@ -14,7 +14,6 @@ BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(ExtUtils::CBuilder)
 
 %{?perl_default_filter}

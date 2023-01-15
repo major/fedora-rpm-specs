@@ -44,7 +44,6 @@ BuildRequires:  perl(MooseX::GlobRef)
 BuildRequires:  perl(MooseX::InsideOut) >= 0.100
 %endif
 Requires:       perl(Moose) >= 1.15
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

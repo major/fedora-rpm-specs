@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 Provides:       perl-p5-Palm = %{version}-%{release}
 Obsoletes:      perl-p5-Palm =< 1.013-4

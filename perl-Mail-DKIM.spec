@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::RequiresInternet)
 BuildRequires:  perl(Test::Simple)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(YAML::XS)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 This module implements the various components of the DKIM and DomainKeys

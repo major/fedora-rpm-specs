@@ -52,7 +52,6 @@ BuildRequires:  readline-devel
 # ExtUtils::Manifest
 # perl(Test)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Verilog::Language) >= 2.1
 
 # Remove under-specified dependencies

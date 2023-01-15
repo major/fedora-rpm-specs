@@ -60,7 +60,6 @@ Patch9: exim-localscan-c99.patch
 
 Requires: /etc/pki/tls/certs /etc/pki/tls/private
 Requires: /etc/aliases
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Recommends: publicsuffix-list
 BuildRequires: gcc
 BuildRequires: libdb-devel

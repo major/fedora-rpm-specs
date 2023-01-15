@@ -26,7 +26,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Class::Method::Modifiers) >= 1.05
 Requires:       perl(mro)

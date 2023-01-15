@@ -41,7 +41,6 @@ BuildRequires:  perl(utf8)
 # CPAN::Meta::Prereqs not helpful
 BuildRequires:  perl(Test::Memory::Cycle)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Plack::Test::Agent is an object-oriented interface to test PSGI applications.

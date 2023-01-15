@@ -6,7 +6,6 @@ License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Improved replacement for Data::Dumper
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Data-TreeDumper-%{version}.tar.gz 
 Url:        https://metacpan.org/release/Data-TreeDumper
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: coreutils

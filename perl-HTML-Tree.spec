@@ -43,7 +43,6 @@ BuildRequires:  perl(HTML::FormatText)
 BuildRequires:  perl(Test::LeakTrace)
 %endif
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTML::Parser) >= 3.46
 Requires:       perl(HTML::Tagset) >= 3.02
 

@@ -56,7 +56,6 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Time::HiRes)
 BuildRequires:	perl(XSLoader)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 Requires:	perl(Config)
 Requires:	perl(Digest::MD5)

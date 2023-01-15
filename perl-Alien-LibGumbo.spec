@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 
 BuildRequires:  gumbo-parser-devel
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Pull in %%{_libdir}/libgumbo.so.?
 Requires:       gumbo-parser%{?_isa}

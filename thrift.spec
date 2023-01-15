@@ -180,7 +180,6 @@ BuildRequires: perl(Bit::Vector)
 BuildRequires: perl(Class::Accessor)
 BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: perl-generators
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: perl(Bit::Vector)
 Requires: perl(Encode)
 Requires: perl(HTTP::Request)

@@ -119,7 +119,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  ImageMagick
 Requires:       perl(Growl::GNTP) >= 0.15
 Requires:       perl(XML::SAX)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Optional dependency. Not packaged in Fedora yet, hence we cannot list it.
 # It's only used for magically finding octoprint servers.

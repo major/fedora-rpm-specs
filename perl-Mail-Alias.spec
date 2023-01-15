@@ -11,7 +11,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows direct manipulation of various types of E-Mail

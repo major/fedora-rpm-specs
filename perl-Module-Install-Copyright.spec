@@ -36,7 +36,6 @@ BuildRequires:  perl(Software::LicenseUtils)
 BuildRequires:  perl(strict)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Module::Install plug-in extracts copyright and licensing information from

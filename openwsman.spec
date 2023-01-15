@@ -155,7 +155,6 @@ Documentation for rubygem-%{gem_name}
 %if %{with_perl}
 %package perl
 License:	BSD
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Summary:	Perl bindings for openwsman client API
 Requires:	libwsman1 = %{version}-%{release}
 

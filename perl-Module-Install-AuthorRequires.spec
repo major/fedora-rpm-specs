@@ -15,7 +15,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Module::Install::Base)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Modules often have optional requirements, for example dependencies that

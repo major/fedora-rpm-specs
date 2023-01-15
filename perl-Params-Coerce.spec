@@ -24,7 +24,6 @@ BuildRequires:	perl(Test::More) >= 0.47
 BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 A big part of good API design is that we should be able to be flexible in

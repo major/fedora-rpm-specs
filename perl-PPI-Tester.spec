@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Test::Script) >= 1.02
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Wx::Frame)
 
 %description

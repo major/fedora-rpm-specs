@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(parent)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Text::Balanced) >= 1.97
 Requires:       perl(warnings)
 

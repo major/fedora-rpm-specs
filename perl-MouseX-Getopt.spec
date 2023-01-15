@@ -35,7 +35,6 @@ BuildRequires:	perl(MouseX::ConfigFromFile)
 BuildRequires:	perl(MouseX::SimpleConfig) >= 0.07
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Mouse) >= 0.64
 Requires:	perl(Mouse::Meta::Attribute)
 

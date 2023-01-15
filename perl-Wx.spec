@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::More), perl(Test::Harness)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(YAML) >= 0.35
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Manual provides from XS
 Provides: perl(Wx::AboutDialogInfo)

@@ -33,7 +33,6 @@ BuildRequires:  xorg-x11-xinit
 BuildRequires:  font(:lang=en)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 X11::Protocol is a client-side interface to the X11 Protocol (see X(1) for

@@ -75,7 +75,6 @@ BuildRequires: perl(YAML)
 # Optional tests
 #BuildRequires: perl(JavaScript::V8x::TestMoreish)
 
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl(File::Find::Rule) >= 0.33
 
 %description

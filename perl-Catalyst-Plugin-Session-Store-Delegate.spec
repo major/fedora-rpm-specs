@@ -34,7 +34,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  sed
 Requires:       perl(Catalyst::Plugin::Session) >= 0.27
 Requires:       perl(MooseX::Emulate::Class::Accessor::Fast)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

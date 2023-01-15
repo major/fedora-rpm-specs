@@ -84,7 +84,6 @@ BuildRequires:  perl(Data::Compare)
 BuildRequires:  perl(HTTP::Tiny)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       createrepo_c
 Requires:       fedpkg
 Requires:       git-core

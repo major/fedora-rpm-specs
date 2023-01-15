@@ -43,7 +43,6 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(HTTP::Headers)
 Requires:       perl(LWP) >= 5.48
 

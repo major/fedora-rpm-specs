@@ -6,7 +6,6 @@ License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Want
 Source0:	https://cpan.metacpan.org/authors/id/R/RO/ROBIN/Want-%{version}.tar.gz
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:	gcc
 BuildRequires:	%{__make}
 

@@ -16,7 +16,6 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Socket::Netlink) >= 0.04
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Socket::Netlink) >= 0.03
 
 ## Filter unneeded Provides with RPM 4.8

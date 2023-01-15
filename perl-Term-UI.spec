@@ -27,7 +27,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.31
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(deprecate)
 Requires:       perl(Exporter)
 Requires:       perl(Log::Message::Simple)

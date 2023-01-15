@@ -32,7 +32,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Types::Standard version from Type::Tiny in META.yml
 Requires:       perl(Types::Standard) >= 0.008
 

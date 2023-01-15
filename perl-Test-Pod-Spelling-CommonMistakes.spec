@@ -24,7 +24,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module checks your POD for common spelling errors. This differs from

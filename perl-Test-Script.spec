@@ -29,7 +29,6 @@ BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The intent of this module is to provide a series of basic tests for scripts

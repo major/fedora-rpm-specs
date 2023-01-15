@@ -32,7 +32,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(YAML::PP::Common)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(YAML::PP) >= 0.025
 Requires:       perl(YAML::LibYAML::API::XS) >= 0.011
 

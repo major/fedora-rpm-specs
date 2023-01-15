@@ -28,7 +28,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Date::Handler is a container for dates that holds all the methods to
@@ -39,7 +38,6 @@ Summary:        Test module for Date::Handler
 Requires:       %{name} = %{version}-%{release}
 Requires:       glibc-langpack-es
 Requires:       glibc-langpack-fr
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl-Date-Handler < 1.2-18
 
 %description Test

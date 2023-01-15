@@ -77,7 +77,6 @@ BuildRequires:  perl(WWW::Mechanize)
 BuildRequires:  perl(Mojo::Base)
 BuildRequires:  perl(Mojolicious) >= 7.13
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Printer) >= 0.36
 Recommends:     perl(HTML::FormatText::Lynx) >= 23
 Requires:       perl(JSON::MaybeXS) >= 1.003005

@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
 Requires:       perl(Exporter::Declare) >= 0.111
 Requires:       perl(Moo) >= 1.003000
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter under-specified depenedencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Exporter::Declare\\)\\s*$

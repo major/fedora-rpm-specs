@@ -36,7 +36,6 @@ BuildRequires:  perl(lib)
 Requires:       perl(Lingua::EN::Inflect)
 Requires:       perl(experimental)
 Requires:       perl(feature)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

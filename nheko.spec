@@ -1,6 +1,6 @@
 Name: nheko
-Version: 0.10.2
-Release: 2%{?dist}
+Version: 0.11.0
+Release: 1%{?dist}
 
 # Main source - GPL-3.0-or-later.
 # cpp-httplib - bundled - MIT.
@@ -11,7 +11,7 @@ Summary: Desktop client for the Matrix protocol
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: cmake(MatrixClient) >= 0.8.2
+BuildRequires: cmake(MatrixClient) >= 0.9.1
 BuildRequires: cmake(Olm) >= 3.2.12
 BuildRequires: cmake(Qt5Concurrent)
 BuildRequires: cmake(Qt5Core)
@@ -30,7 +30,7 @@ BuildRequires: cmake(mpark_variant)
 BuildRequires: cmake(nlohmann_json) >= 3.2.0
 BuildRequires: cmake(spdlog) >= 1.0.0
 
-BuildRequires: pkgconfig(coeurl) >= 0.2.1
+BuildRequires: pkgconfig(coeurl) >= 0.3.0
 BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-app-1.0)
 BuildRequires: pkgconfig(gstreamer-audio-1.0)
@@ -43,6 +43,7 @@ BuildRequires: pkgconfig(libcrypto)
 BuildRequires: pkgconfig(libevent)
 BuildRequires: pkgconfig(lmdb)
 BuildRequires: pkgconfig(openssl)
+BuildRequires: pkgconfig(re2)
 BuildRequires: pkgconfig(xcb)
 BuildRequires: pkgconfig(xcb-ewmh)
 BuildRequires: pkgconfig(zlib)
@@ -120,6 +121,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.0-1
+- Updated to version 0.11.0.
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.10.2-2
 - Rebuilt due to spdlog update.
 

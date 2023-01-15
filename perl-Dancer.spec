@@ -88,7 +88,6 @@ BuildRequires:  perl(HTTP::Parser::XS)
 %if 0%{!?perl_bootstrap:1}
 BuildRequires:  perl(Dancer::Session::Cookie) >= 0.14
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Body) >= 1.07
 Requires:       perl(HTTP::Server::Simple::PSGI) >= 0.11
 Requires:       perl(HTTP::Tiny) >= 0.014

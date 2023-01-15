@@ -6,7 +6,6 @@ License:        Artistic 2.0
 Source0:        https://github.com/default-to-open/%{name}/archive/%{version}.tar.gz
 URL:            https://github.com/default-to-open/rpmgrill
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Module::Pluggable)
 
 # For the antivirus plugin

@@ -50,7 +50,6 @@ BuildRequires:  perl(Test::More)
 %if !%{defined perl_bootstrap} && %{with perl_Compress_Bzip2_enables_optional_test}
 BuildRequires:  perl(Test::LeakTrace)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(constant) >= 1.04
 
 %{?perl_default_filter}

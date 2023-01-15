@@ -33,7 +33,6 @@ BuildRequires:  perl(utf8)
 # Optional test:
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Perl::Critic) >= 1.098
 Requires:       perl(Perl::MinimumVersion) >= 0.14
 Requires:       perl(Readonly) >= 1.03

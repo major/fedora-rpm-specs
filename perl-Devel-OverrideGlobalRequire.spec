@@ -19,7 +19,6 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module overrides CORE::GLOBAL::require with a code reference in a way

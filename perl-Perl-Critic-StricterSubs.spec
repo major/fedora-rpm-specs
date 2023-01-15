@@ -27,7 +27,6 @@ BuildRequires:  perl(PPI::Document)
 # Tests:
 BuildRequires:  perl(Perl::Critic::TestUtils) >= 1.082
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Perl::Critic::Policy) >= 1.082
 Requires:       perl(Perl::Critic::Utils) >= 1.082
 

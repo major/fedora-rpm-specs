@@ -26,7 +26,6 @@ BuildRequires: perl(Test::More)
 BuildRequires: perl(warnings)
 
 Requires:      perl(CGI) >= 4.44
-Requires:      perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:     perl-Template-Toolkit < 3.010-5
 
 %{?perl_default_filter}

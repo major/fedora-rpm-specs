@@ -54,7 +54,6 @@ BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(utf8)
 # =============== Module Runtime ====================
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with XSAccessor}
 BuildRequires:  perl(Class::XSAccessor)
 %endif

@@ -17,7 +17,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Scalar::Util)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This modules creates automatic curried method call closures for any class

@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Time::HiRes)
 Requires:  perl(Net::SNMP)
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 POE::Component::SNMP is a POE-ized wrapper around the the Net::SNMP module.

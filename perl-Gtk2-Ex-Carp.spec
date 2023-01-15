@@ -29,7 +29,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  font(:lang=en)
 BuildRequires:  perl(Test)
 BuildRequires:  xorg-x11-server-Xvfb
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(warnings)
 
 %description

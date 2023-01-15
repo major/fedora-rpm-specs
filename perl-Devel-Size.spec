@@ -40,7 +40,6 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 # Required by t/warnings.t, but not on CPAN
 #BuildRequires:  perl(Test::PerlRun)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %?perl_default_filter
 

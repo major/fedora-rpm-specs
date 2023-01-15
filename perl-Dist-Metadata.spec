@@ -44,7 +44,6 @@ Requires:       perl(File::Basename)
 Requires:       perl(File::Spec::Native) >= 1.002
 Requires:       perl(File::Temp) >= 0.19
 Requires:       perl(Module::Metadata)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides an easy interface for getting various metadata about a

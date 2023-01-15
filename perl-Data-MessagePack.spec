@@ -44,7 +44,6 @@ BuildRequires:  perl(Tie::Hash)
 # Optional tests
 BuildRequires:  perl(threads)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 # Filter modules bundled for tests

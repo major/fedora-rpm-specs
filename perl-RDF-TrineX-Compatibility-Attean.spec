@@ -24,7 +24,6 @@ BuildRequires:  perl(RDF::Trine::Node::Blank)
 BuildRequires:  perl(RDF::Trine::Node::Literal)
 BuildRequires:  perl(RDF::Trine::Node::Resource)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Do not provide private redefinitions
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(RDF::Trine::(Model|Node|Node::Literal|Node::Resource)\\)

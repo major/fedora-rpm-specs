@@ -22,7 +22,6 @@ BuildRequires:  perl(Params::Check)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if 0%(perl -e 'print $] > 5.017')
 Requires:       perl(deprecate)
 %endif

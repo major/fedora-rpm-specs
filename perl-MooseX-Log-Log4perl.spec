@@ -6,7 +6,6 @@ License:    GPL+ or Artistic
 Summary:    A Logging Role for Moose based on Log::Log4perl
 Source:     https://cpan.metacpan.org/authors/id/L/LA/LAMMEL/MooseX-Log-Log4perl-%{version}.tar.gz
 Url:        https://metacpan.org/release/MooseX-Log-Log4perl
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 Patch0:     MooseX-Log-Log4perl-0.47-Fix-building-on-Perl-without-dot-in-INC.patch
 

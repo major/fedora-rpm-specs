@@ -19,7 +19,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Builder::Module)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test::Command intends to bridge the gap between the well tested functions

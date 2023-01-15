@@ -56,7 +56,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(version)
 BuildRequires: make
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Log::Any::Adapter::Screen)
 
 # The licensecheck script used to be provided by devscripts-minimal up to version 2.16.6

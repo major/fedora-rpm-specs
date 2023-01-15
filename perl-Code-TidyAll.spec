@@ -84,7 +84,6 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       aspell
 Requires:       git
 Requires:       nodejs

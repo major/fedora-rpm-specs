@@ -26,7 +26,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 1.001002
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This package provides MD5-based crypt() functions.

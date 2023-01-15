@@ -34,7 +34,6 @@ BuildRequires:  perl(Syntax::Keyword::Defer)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(threads)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XS::Parse::Keyword) >= 0.06
 
 %description

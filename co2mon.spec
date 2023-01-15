@@ -1,13 +1,13 @@
-%global gitcommit_full fcb12779106354a4cb33f71749db8537804194f0
+%global gitcommit_full f47ec3d7e72ad4b8bc163a515b6e66bd94a6b02e
 %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
-%global date 20201127
+%global date 20221013
 
 Name:           co2mon
 Version:        2.1.1
-Release:        10.%{date}git%{gitcommit}%{?dist}
+Release:        11.%{date}git%{gitcommit}%{?dist}
 Summary:        CO2 monitor software
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/dmage/co2mon
 Source0:        %{url}/tarball/%{gitcommit_full}
 
@@ -60,6 +60,9 @@ cp -r graph %{buildroot}%{_datadir}/%{name}/
 %{_includedir}/%{name}.h
 
 %changelog
+* Fri Jan 13 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 2.1.1-9.20221013gitf47ec3d
+- Update to latest git
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-10.20201127gitfcb1277
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

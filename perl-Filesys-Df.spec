@@ -23,7 +23,6 @@ BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides a way to obtain filesystem disk space information.

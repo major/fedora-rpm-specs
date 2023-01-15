@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Refcount)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.25
 
 %{?perl_default_filter}

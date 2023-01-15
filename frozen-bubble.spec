@@ -34,7 +34,6 @@ BuildRequires: SDL_mixer-devel
 BuildRequires: SDL_Pango-devel
 Requires:      perl(SDL) >= 2.511
 Requires:      perl(Alien::SDL) >= 1.413
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:      hicolor-icon-theme
 
 %{?perl_default_filter}

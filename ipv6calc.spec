@@ -35,7 +35,6 @@ BuildRequires:	perl-generators
 BuildRequires:	perl(Digest::MD5), perl(Digest::SHA1), perl(URI::Escape)
 BuildRequires:	perl(strict), perl(warnings)
 BuildRequires:	procps-ng
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	unzip
 %if %{enable_shared}
 Provides:	ipv6calc-libs = %{version}-%{release}

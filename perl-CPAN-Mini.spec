@@ -31,7 +31,6 @@ BuildRequires:  perl(Pod::Usage) >= 1.00
 BuildRequires:  perl(URI) >= 1
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 Provides: minicpan = %{version}-%{release}
 

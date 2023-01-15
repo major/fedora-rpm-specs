@@ -64,7 +64,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(Test::Deep)
 # Test::Pod 1.41 not used
 # Test::Spelling 0.11 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moose::Meta::Method)
 # LWP::Protocol::https to support HTTPS protocol
 Requires:       perl(LWP::Protocol::https)

@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Config-IniHash
 Source0:        https://cpan.metacpan.org/authors/id/J/JE/JENDA/Config-IniHash-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # core
 BuildRequires: make

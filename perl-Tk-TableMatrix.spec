@@ -18,7 +18,6 @@ BuildRequires:  libX11-devel
 BuildRequires:  perl(Tk)
 BuildRequires:  perl(Tk::MMutil)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

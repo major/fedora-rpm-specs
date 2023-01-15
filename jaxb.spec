@@ -1,6 +1,8 @@
+%bcond_without bootstrap
+
 Name:           jaxb
-Version:        2.3.5
-Release:        7%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        JAXB Reference Implementation
 # EDL-1.0 license is BSD-3-clause
 License:        BSD
@@ -10,8 +12,14 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}-RI/%{name}-%{version}.tar.gz
 
-BuildRequires:  git
 BuildRequires:  maven-local
+BuildRequires:  mvn(org.apache.ant:ant)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
+BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
+BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
+%if %{without bootstrap}
 BuildRequires:  mvn(com.sun.activation:jakarta.activation)
 BuildRequires:  mvn(com.sun.istack:istack-commons-runtime)
 BuildRequires:  mvn(com.sun.istack:istack-commons-tools)
@@ -19,112 +27,120 @@ BuildRequires:  mvn(com.sun.xml.dtd-parser:dtd-parser)
 BuildRequires:  mvn(com.sun.xml.fastinfoset:FastInfoset)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
-BuildRequires:  mvn(junit:junit)
-BuildRequires:  mvn(org.apache.ant:ant)
-BuildRequires:  mvn(org.apache.ant:ant-junit)
-BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:buildnumber-maven-plugin)
 BuildRequires:  mvn(org.jvnet.staxex:stax-ex)
 BuildRequires:  mvn(xml-resolver:xml-resolver)
-BuildRequires:  mvn(xmlunit:xmlunit)
+%endif
 
 %description
 GlassFish JAXB Reference Implementation.
 
-%package runtime
-Summary:        JAXB Runtime
-%description runtime
-JAXB (JSR 222) Reference Implementation
-
-%package txw2
-Summary:        TXW2 Runtime
-%description txw2
-TXW is a library that allows you to write XML documents.
-
 %package codemodel
 Summary:        Codemodel Core
+
 %description codemodel
 The core functionality of the CodeModel java source code generation
 library.
 
 %package codemodel-annotation-compiler
 Summary:        Codemodel Annotation Compiler
+
 %description codemodel-annotation-compiler
 The annotation compiler ant task for the CodeModel java source code
 generation library.
 
-%package xjc
-Summary:        JAXB XJC
-%description xjc
-JAXB Binding Compiler. Contains source code needed for binding
-customization files into java sources. In other words: the tool to
-generate java classes for the given xml representation.
+%package relaxng-datatype
+Summary:        RelaxNG Datatype
 
-%package rngom
-Summary:        RELAX NG Object Model/Parser
-%description rngom
-This package contains RELAX NG Object Model/Parser.
-
-%package txwc2
-Summary:        TXW2 Compiler
-%description txwc2
-JAXB schema generator. The tool to generate XML schema based on java
-classes.
+%description relaxng-datatype
+RelaxNG Datatype library.
 
 %package xsom
 Summary:        XML Schema Object Model
+
 %description xsom
 XML Schema Object Model (XSOM) is a Java library that allows applications to
 easily parse XML Schema documents and inspect information in them. It is
 expected to be useful for applications that need to take XML Schema as an
 input.
 
-%package relaxng-datatype
-Summary:        RelaxNG Datatype
-%description relaxng-datatype
-RelaxNG Datatype library.
+%if %{without bootstrap}
+%package rngom
+Summary:        RELAX NG Object Model/Parser
+
+%description rngom
+This package contains RELAX NG Object Model/Parser.
+
+%package runtime
+Summary:        JAXB Runtime
+
+%description runtime
+JAXB (JSR 222) Reference Implementation
+
+%package txw2
+Summary:        TXW2 Runtime
+
+%description txw2
+TXW is a library that allows you to write XML documents.
+
+%package xjc
+Summary:        JAXB XJC
+
+%description xjc
+JAXB Binding Compiler. Contains source code needed for binding
+customization files into java sources. In other words: the tool to
+generate java classes for the given xml representation.
+
+%package txwc2
+Summary:        TXW2 Compiler
+
+%description txwc2
+JAXB schema generator. The tool to generate XML schema based on java
+classes.
+%endif
 
 %prep
-%autosetup -p1 -n jaxb-ri-%{version}-RI -S git
-# Delete precompiled jar and class files
-find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
+%setup -q -n jaxb-ri-%{version}-RI
 
-cd jaxb-ri
-# Remove unnecessary dep on ee4j parent pom (it adds nothing to our downstream builds)
-%pom_remove_parent boms/bom external xsom codemodel
-# SCM from parent: org.eclipse.ee4j:project:1.0.7
-%pom_xpath_inject 'pom:project' \
-    '<scm>
-      <connection>scm:git:git@github.com:eclipse-ee4j/ee4j.git</connection>
-      <developerConnection>scm:git:git@github.com:eclipse-ee4j/ee4j.git</developerConnection>
-      <url>https://github.com/eclipse-ee4j/ee4j</url>
-    </scm>' external
-# Fix dep on xml resolver
-%pom_change_dep com.sun.org.apache.xml.internal:resolver xml-resolver:xml-resolver:1.2 xjc jxc
-sed -i -e 's/com\.sun\.org\.apache\.xml\.internal\.resolver/org.apache.xml.resolver/' xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java
-# Missing dep in Fedora: org.checkerframework:compiler
-%pom_disable_module jxc
+pushd jaxb-ri
+
+# Remove ee4j parent
+%pom_remove_parent boms/bom codemodel external xsom
+
+%pom_remove_plugin -r :buildnumber-maven-plugin
+%pom_remove_plugin -r :maven-enforcer-plugin
+
+# Skip docs generation because of missing dependencies
+%pom_xpath_remove "pom:profiles/pom:profile[pom:id='default-profile']/pom:modules"
+
+%if %{with bootstrap}
+%pom_xpath_set 'pom:modules' '
+  <module>codemodel</module>
+  <module>external</module>
+  <module>xsom</module>
+'
+%pom_xpath_set 'pom:modules' '
+  <module>relaxng-datatype</module>
+' external
+%else
 # Disable unneeded extra OSGi bundles
-%pom_disable_module jxc bundles
-%pom_disable_module osgi bundles
-%pom_disable_module ri bundles
-%pom_disable_module runtime bundles
-%pom_disable_module xjc bundles
-# Ignore osgi tests
-%pom_disable_module tools/osgi_tests
-# lack of dependency when building documentation
-%pom_disable_module release-documentation docs
+%pom_disable_module bundles
+
+# Missing dependency on org.checkerframework:compiler
+%pom_disable_module jxc
+
+# Fix dep on xml resolver
+%pom_change_dep com.sun.org.apache.xml.internal:resolver xml-resolver:xml-resolver:1.2 xjc
+sed -i -e 's/com\.sun\.org\.apache\.xml\.internal\.resolver/org.apache.xml.resolver/' xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java
+
+%pom_remove_dep -r com.sun.org.apache.xml.internal:resolver
+%endif
+
 # Compatibility
 %mvn_alias com.sun.xml.bind.external:relaxng-datatype com.github.relaxng:relaxngDatatype relaxngDatatype:relaxngDatatype
 %mvn_alias org.glassfish.jaxb:jaxb-runtime org.glassfish.jaxb:jaxb-core
 %mvn_alias org.glassfish.jaxb:jaxb-xjc com.sun.xml.bind:jaxb-xjc
 %mvn_alias org.glassfish.jaxb:xsom com.sun.xsom:xsom
+
 # Don't install aggregator and parent poms
 %mvn_package :jaxb-bom __noinstall
 %mvn_package :jaxb-bom-ext __noinstall
@@ -137,17 +153,17 @@ sed -i -e 's/com\.sun\.org\.apache\.xml\.internal\.resolver/org.apache.xml.resol
 %mvn_package :jaxb-samples __noinstall
 %mvn_package :jaxb-txw-parent __noinstall
 %mvn_package :jaxb-www __noinstall
-cd -
+popd
 
 %build
-cd jaxb-ri
-%mvn_build -s -f -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
-cd -
+pushd jaxb-ri
+%mvn_build -s -f -j
+popd
 
 %install
-cd jaxb-ri
+pushd jaxb-ri
 %mvn_install
-cd -
+popd
 
 %files codemodel -f jaxb-ri/.mfiles-codemodel
 %license LICENSE.md NOTICE.md
@@ -155,6 +171,9 @@ cd -
 %license LICENSE.md NOTICE.md
 %files relaxng-datatype -f jaxb-ri/.mfiles-relaxng-datatype
 %license LICENSE.md NOTICE.md
+%files xsom -f jaxb-ri/.mfiles-xsom
+%license LICENSE.md NOTICE.md
+%if %{without bootstrap}
 %files rngom -f jaxb-ri/.mfiles-rngom
 %license LICENSE.md NOTICE.md
 %files runtime -f jaxb-ri/.mfiles-jaxb-runtime
@@ -165,10 +184,15 @@ cd -
 %license LICENSE.md NOTICE.md
 %files xjc -f jaxb-ri/.mfiles-jaxb-xjc
 %license LICENSE.md NOTICE.md
-%files xsom -f jaxb-ri/.mfiles-xsom
-%license LICENSE.md NOTICE.md
+%endif
 
 %changelog
+* Mon Nov 21 2022 Marian Koncek <mkoncek@redhat.com> - 4.0.1-1
+- Update to pstream version 4.0.1
+
+* Thu Oct 27 2022 Marian Koncek <mkoncek@redhat.com> - 2.3.5-8
+- Add bootstrap option
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -218,4 +242,3 @@ cd -
 - Upstream moved to eclipse-ee4j and implementation license changed to BSD (EDL)
 - Enable tests, don't unnecessarily ship parent poms
 - Rename package from glassfish-jaxb
-

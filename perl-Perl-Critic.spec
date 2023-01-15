@@ -90,7 +90,6 @@ BuildRequires:	perl(Test::Without::Module)
 %endif
 
 # Optional/not automatically detected runtime dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	hunspell >= 1.2.12
 Requires:	perl(B::Keywords) >= 1.23
 Requires:	perl(File::Which)

@@ -8,7 +8,6 @@ URL:            https://metacpan.org/release/Test-WWW-Mechanize
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PETDANCE/Test-WWW-Mechanize-%{version}.tar.gz
 
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}

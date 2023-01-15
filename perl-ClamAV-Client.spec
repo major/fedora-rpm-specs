@@ -11,7 +11,6 @@ BuildArch:      noarch
 BuildRequires:  perl-generators
 BuildRequires:  perl(Module::Build)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # These are not found by rpmbuild
 Requires:       perl(IO::Socket::INET)

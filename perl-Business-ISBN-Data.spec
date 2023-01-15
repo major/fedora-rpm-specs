@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More) >= 0.95
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a data pack for Business::ISBN.  You can update

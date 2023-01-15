@@ -46,7 +46,6 @@ BuildRequires:	perl(Package::Anon)
 BuildRequires:	perl(Variable::Magic)
 %endif
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

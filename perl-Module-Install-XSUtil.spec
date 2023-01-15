@@ -35,7 +35,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Module::Install::AuthorTests)
 BuildRequires:  perl(Test::Spellunker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Devel::CheckLib) >= 0.4
 Requires:       perl(ExtUtils::ParseXS) >= 3.18
 Requires:       perl(File::Basename)

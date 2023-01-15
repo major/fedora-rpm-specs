@@ -54,7 +54,6 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Time::Piece)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DBI) >= 1.614
 
 %{?perl_default_filter}

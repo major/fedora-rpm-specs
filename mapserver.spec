@@ -104,7 +104,6 @@ the PHP scripting language.
 %package perl
 Summary:        Perl/Mapscript map making extensions to Perl
 Requires:       %{name} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description perl
 The Perl/Mapscript extension provides full map customization capabilities

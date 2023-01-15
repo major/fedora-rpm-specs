@@ -26,7 +26,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Test::LoadAllModules Perl module calls Test::More::use_ok() for the modules in

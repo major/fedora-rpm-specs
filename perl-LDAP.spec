@@ -76,7 +76,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  openldap-servers
 BuildRequires:  perl(LWP::UserAgent)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Authen::SASL) >= 2.00
 Requires:       perl(Convert::ASN1) >= 0.2
 Requires:       perl(IO::Socket::SSL) >= 1.26
@@ -102,7 +101,6 @@ maintenance functions such as adding, deleting or modifying entries.
 %package -n perl-Net-LDAP-DSML
 Summary:        DSML Writer for Net::LDAP
 Requires:       perl-LDAP = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(MIME::Base64)
 Requires:       perl(Net::LDAP::Schema)
 Requires:       perl(XML::SAX::Writer)

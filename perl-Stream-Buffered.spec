@@ -16,7 +16,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(IO::File) >= 1.14
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Stream::Buffered is a buffer class to store arbitrary length of byte

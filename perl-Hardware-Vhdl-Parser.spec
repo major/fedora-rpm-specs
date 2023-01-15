@@ -20,7 +20,6 @@ BuildRequires:  perl(Parse::RecDescent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests only
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module defines the complete grammar needed to parse any VHDL code. By

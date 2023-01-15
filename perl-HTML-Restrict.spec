@@ -10,7 +10,6 @@ Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{pkgname}
 Source:         https://cpan.metacpan.org/authors/id/O/OA/OALDERS/%{pkgname}-v%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators

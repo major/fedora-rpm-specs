@@ -128,7 +128,6 @@ Documentation for GraphicsMagick.
 %package perl
 Summary: GraphicsMagick perl bindings
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description perl
 Perl bindings to GraphicsMagick.

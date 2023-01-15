@@ -29,7 +29,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Tester) >= 0.107
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::Builder)
 
 %description

@@ -6,7 +6,6 @@ License:        MIT
 URL:            http://www.palfrader.org/code/%{name}
 Source0:        http://www.palfrader.org/code2html/all/latest.tar.gz
 BuildRequires:        perl-generators
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 %description

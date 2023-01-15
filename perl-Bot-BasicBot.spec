@@ -32,7 +32,6 @@ BuildRequires:  perl(Text::Wrap)
 # IO::Socket not used
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # POE::Component::IRC::State version from POE::Component::IRC in META.json
 Requires:       perl(POE::Component::IRC::State) >= 6.90
 

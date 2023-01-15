@@ -25,7 +25,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Exception) >= 0.31
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::C3) >= 0.20
 Requires:       perl(Class::Inspector) >= 1.32
 

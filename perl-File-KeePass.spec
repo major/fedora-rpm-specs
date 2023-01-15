@@ -19,7 +19,6 @@ Requires:       perl(Digest::SHA)
 Requires:       perl(XML::Parser)
 Requires:       perl(Compress::Raw::Zlib)
 Requires:       perl(MIME::Base64)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 File::KeePass gives access to KeePass version 1 (kdb) and 

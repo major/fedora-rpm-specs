@@ -45,7 +45,6 @@ BuildRequires:  perl(Data::Float)
 # Devel::FindRef not yet packaged
 BuildRequires:  perl(Devel::StackTrace)
 # Math::BigInt::Lite not yet packaged
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(constant::defer) >= 5
 Requires:       perl(File::Spec)
 Requires:       perl(Math::BigFloat)

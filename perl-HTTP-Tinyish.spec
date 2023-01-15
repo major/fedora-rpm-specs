@@ -26,7 +26,6 @@ BuildRequires:  perl(File::Temp)
 # Tests only
 BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 Requires:       perl(:HTTP-Tinyish:backend) = %{version}
 Recommends:     perl(HTTP::Tinyish::LWP)
 
@@ -38,7 +37,6 @@ and HTTP client software curl and wget.
 
 %package        Curl
 Summary:        HTTP::Tinyish curl backend
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       curl
 Provides:       perl(:HTTP-Tinyish:backend) = %{version}
 
@@ -47,7 +45,6 @@ Provides:       perl(:HTTP-Tinyish:backend) = %{version}
 
 %package        HTTPTiny
 Summary:        HTTP::Tinyish HTTP::Tiny backend
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(HTTP::Tiny) >= 0.054
 Provides:       perl(:HTTP-Tinyish:backend) = %{version}
 
@@ -56,7 +53,6 @@ Provides:       perl(:HTTP-Tinyish:backend) = %{version}
 
 %package        LWP
 Summary:        HTTP::Tinyish LWP backend
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Provides:       perl(:HTTP-Tinyish:backend) = %{version}
 Recommends:     perl(LWP::Protocol::https)
 
@@ -65,7 +61,6 @@ Recommends:     perl(LWP::Protocol::https)
 
 %package        Wget
 Summary:        HTTP::Tinyish wget backend
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       wget
 Provides:       perl(:HTTP-Tinyish:backend) = %{version}
 

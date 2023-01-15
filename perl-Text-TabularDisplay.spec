@@ -15,7 +15,6 @@ BuildRequires:  perl(integer)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Text::TabularDisplay simplifies displaying textual data in a table. The

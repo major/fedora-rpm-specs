@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Pod) >= 1.14
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 File::Next is an iterator-based module for finding files.  It's

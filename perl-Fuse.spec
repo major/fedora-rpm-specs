@@ -53,7 +53,6 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Unix::Mknod)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(threads)
 Recommends:     perl(threads::shared)
 

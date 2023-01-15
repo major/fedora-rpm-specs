@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 Requires:       perl(Carp)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The "Log::Dispatch::Perl" module offers a logging alternative using

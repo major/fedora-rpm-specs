@@ -25,7 +25,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Net::SFTP is a pure-Perl implementation of the Secure File Transfer

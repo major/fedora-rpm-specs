@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 # CPAN::Meta not useful
 # CPAN::Meta::Prereqs not useful
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 # Remove under-specified dependencies

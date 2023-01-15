@@ -71,7 +71,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::Scalar)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(parent) >= 0.221
 
 %{?perl_default_filter}
@@ -90,7 +89,6 @@ Version:        3.00
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # Keeping this sub-package arch-specific because it installs files into
 # arch-specific directories.
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 # Config not needed on perl ≥ 5.008
 # Consider Filter::Util::Call as mandatory, bug #1165183, CPAN RT#100427
@@ -118,7 +116,6 @@ Summary:        Perl Encode Module Generator
 Version:        %{cpan_version}
 License:        (GPL+ or Artistic) and UCD
 Requires:       %{name}%{?_isa} = %{epoch}:%{cpan_version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl-devel%{?_isa}
 Requires:       perl(Encode)
 

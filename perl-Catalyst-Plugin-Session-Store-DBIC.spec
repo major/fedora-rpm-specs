@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::Warn) >= 0.20
 BuildRequires:  perl(Test::WWW::Mechanize::Catalyst)
 Requires:       perl(Catalyst) >= 5.65000
 Requires:       perl(DBIx::Class) >= 0.07000
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -45,7 +45,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Locale::Maketext)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # DBIx::Class is used nowhere by the installed code, but let's assume this
 # package is not compatible with former DBIx::Class versions
 Requires:       perl(DBIx::Class) >= 0.08108

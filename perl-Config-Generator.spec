@@ -23,7 +23,6 @@ BuildRequires:  perl(Params::Validate)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(XML::Parser)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The goal of this collection of modules is to ease the generation of low-level

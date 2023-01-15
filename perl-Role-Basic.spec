@@ -16,7 +16,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Simplified Moose-like roles.

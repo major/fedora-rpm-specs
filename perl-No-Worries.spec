@@ -32,7 +32,6 @@ BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(Pod::Coverage)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module and its sub-modules ease coding by providing consistent convenient

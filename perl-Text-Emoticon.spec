@@ -16,7 +16,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(UNIVERSAL::require)
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.32
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Text::Emoticon is a factory class to dispatch MSN/YIM emoticon set.

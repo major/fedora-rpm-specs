@@ -29,7 +29,6 @@ BuildRequires:  perl(PIR)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Filename) >= 0.03
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is a very thin wrapper around Path::Iterator::Rule that

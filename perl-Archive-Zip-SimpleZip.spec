@@ -67,7 +67,6 @@ Requires:       perl(IO::Uncompress::RawInflate) >= %{io_compress_version}
 Requires:       perl(IO::Uncompress::UnLzma) >= %{io_compress_version}
 Requires:       perl(IO::Uncompress::UnXz) >= %{io_compress_version}
 Requires:       perl(IO::Uncompress::UnZstd) >= %{io_compress_version}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Archive::Zip::SimpleZip is a module that allows the creation of Zip

@@ -12,7 +12,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(HTTP::Server::Simple) >= 0.42
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 HTTP::Server::Simple::PSGI is a HTTP::Server::Simple based HTTP server that

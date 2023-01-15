@@ -32,7 +32,6 @@ BuildRequires:  perl(inc::Module::Install)
 
 # rpm doesn't catch this
 Requires:       perl(Class::Accessor)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A Data::ICal object represents a VCALENDAR object as defined in the

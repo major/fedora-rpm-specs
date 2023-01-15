@@ -28,7 +28,6 @@ BuildRequires:  perl(LWP::ConnCache), perl(LWP::UserAgent), perl(POSIX)
 BuildRequires:  perl(Socket), perl(Sys::Hostname), perl(Test::More), perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage), perl(URI), perl(base), perl(constant), perl(strict)
 BuildRequires:  perl(vars), perl(version), perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Its main use should be to record and/or modify web sessions, so as to

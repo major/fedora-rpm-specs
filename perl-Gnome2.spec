@@ -83,7 +83,6 @@ BuildRequires:  perl(constant)
 # Data::Dumper not used
 BuildRequires:  perl(Glib) >= 1.04
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Gnome2::Canvas) >= 1.00
 Requires:       perl(Gnome2::VFS) >= 1.00
 Requires:       perl(Gtk2) >= 1.00

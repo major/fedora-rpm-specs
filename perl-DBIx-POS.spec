@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(YAML)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 DBIx-POS subclasses Pod::Parser to define a POD dialect for writing a SQL

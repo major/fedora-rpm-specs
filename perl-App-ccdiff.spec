@@ -24,7 +24,6 @@ BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Capture::Tiny)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # For pod2man / nroff
 Requires:       perl-podlators

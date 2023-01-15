@@ -44,7 +44,6 @@ BuildRequires:  perl(Test2::V0) >= 0.000094
 BuildRequires:  perl(Geo::Point) >= 0.95
 BuildRequires:  perl(Test2::Require::Module)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Const::Fast) >= 0.014
 %if %{with perl_GIS_Distance_enables_xs}
 Recommends:     perl(GIS::Distance::Fast) >= 0.13

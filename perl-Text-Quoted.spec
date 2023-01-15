@@ -8,7 +8,6 @@ Source0:        https://cpan.metacpan.org/authors/id/B/BP/BPS/Text-Quoted-%{vers
 
 BuildArch: 	noarch
 
-Requires:  	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires: %{__perl}
 BuildRequires: %{__make}

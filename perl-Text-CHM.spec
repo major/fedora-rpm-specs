@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Tests
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Text::CHM is a module that implements a (partial) support for handling MS 

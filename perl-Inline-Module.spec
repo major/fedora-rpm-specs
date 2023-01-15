@@ -29,7 +29,6 @@ BuildRequires:  perl(Inline::C::Parser::RegExp)
 BuildRequires:  perl(XXX)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(File::Share)
 Requires:       perl(Inline)

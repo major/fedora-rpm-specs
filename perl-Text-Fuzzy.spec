@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Text::Levenshtein::Damerau::XS)
 BuildRequires:  perl(utf8)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module calculates edit distances between words, and searches arrays

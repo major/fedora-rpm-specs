@@ -33,7 +33,6 @@ BuildRequires:  perl(warnings)
 #BuildRequires:  perl(Test::MinimumVersion)
 #BuildRequires:  perl(Test::Pod)
 #BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # renamed from perl-MooseX-ChainedAccessors in January 2012
 # no explicit provides necessary as this package still contains the old classes

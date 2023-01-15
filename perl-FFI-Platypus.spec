@@ -89,7 +89,6 @@ Recommends:     gcc-c++
 # gcc-gfortran used by FFI::Build::Platform
 Recommends:     gcc-gfortran
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(bytes)
 Requires:       perl(FFI::CheckLib) >= 0.05
 Requires:       perl(IPC::Cmd)

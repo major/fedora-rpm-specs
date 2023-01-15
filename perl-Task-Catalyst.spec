@@ -7,7 +7,6 @@ License:    GPL+ or Artistic
 Summary:    All you need to start with Catalyst 
 Source0:    https://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Task-Catalyst-%{version}.tar.gz
 URL:        https://metacpan.org/release/Task-Catalyst
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

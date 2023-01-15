@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # test requirements
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 This module implements a simple bloom filter in C/XS.

@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests
 # Test::Pod not used
 # Test::Pod::Coverage not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(if)
 

@@ -13,7 +13,6 @@ BuildRequires:  perl(Date::Format)
 BuildRequires:  perl(Date::Manip)
 BuildRequires:  perl(File::Tail)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Patch0:         swatch-3.2.3-manpage-fix.patch
 Patch1:		swatch-3.2.3-no-more-zombies.patch
 Patch2:		swatch-3.2.3-more-cleanups.patch

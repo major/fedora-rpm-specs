@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More) >= 1.00
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module can be used to go through a list over and over again.

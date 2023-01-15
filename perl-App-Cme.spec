@@ -51,7 +51,6 @@ BuildRequires:  perl(Term::ANSIColor) >= 2.01
 BuildRequires:  perl(Test::File::Contents)
 BuildRequires:  perl(Test::More)
 # Test::Perl::Critic - optional test
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config::Model::CursesUI)
 Requires:       perl(Config::Model::FuseUI)
 Requires:       perl(Config::Model::SimpleUI)

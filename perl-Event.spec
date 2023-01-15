@@ -29,7 +29,6 @@ BuildRequires:	perl(Symbol)
 BuildRequires:	perl(Test) >= 1
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Time::HiRes)
 
 %{?perl_default_filter}

@@ -28,7 +28,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module implements a FIFO queueing infrastructure, using a directory as

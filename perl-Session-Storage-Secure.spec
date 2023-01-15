@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Tolerant)
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Sereal::Decoder) >= 4.005
 Requires:       perl(Sereal::Encoder) >= 4.005
 

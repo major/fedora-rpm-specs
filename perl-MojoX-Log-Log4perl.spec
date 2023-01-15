@@ -26,7 +26,6 @@ BuildRequires:  perl(Mojolicious::Lite)
 BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(Test::Mojo)
 Requires:       perl(Log::Log4perl::Level)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 MojoX::Log::Log4perl provides a Mojo::Log implementation that uses

@@ -38,7 +38,6 @@ BuildRequires:  perl(utf8)
 # Optional tests
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(gio-2.0)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Glib) >= 1.320
 
 %{?perl_default_filter}

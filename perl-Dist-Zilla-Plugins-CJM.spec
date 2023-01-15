@@ -53,7 +53,6 @@ BuildRequires:  perl(Try::Tiny)
 # Optional tests:
 BuildRequires:  perl(Test::Fatal)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CPAN::Meta::Converter) >= 2.101550
 Requires:       perl(CPAN::Meta::Requirements) >= 2.121
 Requires:       perl(Data::Dumper)

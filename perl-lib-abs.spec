@@ -40,7 +40,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(Test::Pod) >= 1.22
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

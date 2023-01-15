@@ -24,7 +24,6 @@ BuildRequires:  perl(utf8)
 # Tests:
 # Release tests are deleted
 BuildRequires:  perl(Test::Inter) >= 1.09
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(deprecate)
 
 # Filter dependencies on private modules, they are not provided. Generator:

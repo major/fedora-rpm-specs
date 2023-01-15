@@ -73,7 +73,6 @@ Requires:       perl(Plack) >= 0.99
 # optional runtime requires
 Requires:       perl(AnyEvent::AIO)
 Requires:       perl(IO::AIO)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Twiggy is a lightweight and fast HTTP server based on AnyEvent and can run any

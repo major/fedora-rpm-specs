@@ -80,7 +80,6 @@ BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # hidden from PAUSE
 Provides:       perl(DBIx::Class::Schema::Loader::Utils)
 Requires:       perl(Hash::Merge)

@@ -19,7 +19,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(XML::NamespaceFactory)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This provides definitions of some XML name spaces as strings and

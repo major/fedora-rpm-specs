@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.86
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(String::Print) >= 0.91
 # This package is a sprout of perl-Log-Report. It replaces part of
 # perl-Log-Report-0.998 and it's required by perl-Log-Report >= 1.01.

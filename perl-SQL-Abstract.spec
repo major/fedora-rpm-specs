@@ -45,7 +45,6 @@ BuildRequires:  perl(Test::Warn)
 # Optional tests:
 BuildRequires:  perl(DBIx::Class) >= 0.08124
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(Exporter) >= 5.57
 Requires:       perl(Hash::Merge) >= 0.12

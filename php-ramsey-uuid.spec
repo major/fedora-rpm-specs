@@ -1,6 +1,6 @@
 # remirepo/fedora spec file for php-ramsey-uuid
 #
-# Copyright (c) 2020-2022 Remi Collet
+# Copyright (c) 2020-2023 Remi Collet
 # License: CC-BY-SA
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
@@ -10,7 +10,7 @@
 %bcond_without tests
 
 # Github
-%global gh_commit    a1acf96007170234a8399586a6e2ab8feba109d1
+%global gh_commit    433b2014e3979047db08a17a205f410ba3869cf2
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     ramsey
 %global gh_project   uuid
@@ -22,7 +22,7 @@
 %global ns_project   Uuid
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        4.7.1
+Version:        4.7.3
 Release:        1%{?dist}
 Summary:        Library for generating and working with UUIDs
 
@@ -170,6 +170,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 13 2023 Remi Collet <remi@remirepo.net> - 4.7.3-1
+- update to 4.7.3
+
 * Mon Jan  2 2023 Remi Collet <remi@remirepo.net> - 4.7.1-1
 - update to 4.7.1
 - allow ramsey/collection 2

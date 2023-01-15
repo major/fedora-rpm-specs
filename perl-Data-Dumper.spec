@@ -41,7 +41,6 @@ BuildRequires:  perl(vars)
 # Optional tests:
 BuildRequires:  perl(Encode)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B::Deparse)
 Requires:       perl(bytes)
 Requires:       perl(Scalar::Util)

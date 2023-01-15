@@ -29,7 +29,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(sigtrap)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 POSIX::2008 Perl module contains many of the interfaces specified by

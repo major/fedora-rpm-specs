@@ -28,7 +28,6 @@ BuildRequires:	perl(XSLoader)
 # Test suite
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 Requires:	perl(Readonly) >= 1.02
 

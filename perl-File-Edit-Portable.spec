@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Perl::Critic)
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The default behavior of perl is to read and write files using the

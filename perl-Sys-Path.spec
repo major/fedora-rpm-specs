@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Text::Diff)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The goal is that Sys::Path provides autoconf style system paths.

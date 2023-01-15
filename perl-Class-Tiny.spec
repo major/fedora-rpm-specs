@@ -38,7 +38,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 # Optional test
 BuildRequires:  perl(Test::FailWarnings)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Devel::GlobalDestruction not needed on Perl >= 5.14
 # mro on Perl >= 5.10
 Requires:       perl(mro)

@@ -32,7 +32,6 @@ BuildRequires: perl(vars)
 BuildRequires: perl(File::Compare)
 BuildRequires: perl(Test::More)
 BuildRequires: perl(Test::Simple)
-Requires: perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Perl module for TrueType font hacking. Supports reading, processing and writing
@@ -46,7 +45,6 @@ module.
 
 %package XMLparse
 Summary:       XML Font parser
-Requires:      perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Conflicts:     perl-Font-TTF < 1.06-6
 
 %description XMLparse

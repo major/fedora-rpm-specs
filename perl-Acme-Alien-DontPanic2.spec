@@ -35,7 +35,6 @@ BuildRequires:  perl(Inline::CPP)
 BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Test2::V0) >= 0.000121
 BuildRequires:  perl(Test::Alien) >= 0.05
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base) >= 2.72
 Requires:       pkgconfig(dontpanic)
 

@@ -25,7 +25,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Needs)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Test::Abortable provides a simple system for catching some exceptions and

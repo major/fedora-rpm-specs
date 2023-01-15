@@ -29,7 +29,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl-interpreter
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides a class named ModelSim::List with which the EDA tester

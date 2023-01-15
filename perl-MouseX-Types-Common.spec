@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A set of commonly-used type constraints that do not ship with Mouse

@@ -34,7 +34,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
 BuildRequires:  procps-ng
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Temp)
 Requires:       perl(Storable)
 

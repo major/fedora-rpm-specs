@@ -19,7 +19,6 @@ BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::More) >= 0.42
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Most perl dumping modules are focused on serializing data structures into

@@ -22,7 +22,6 @@ BuildRequires:  perl(Path::Class)
 BuildRequires:  perl(Sub::Install)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Config::JFDI is an implementation of Catalyst::Plugin::ConfigLoader that

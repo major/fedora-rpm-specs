@@ -17,7 +17,6 @@ BuildRequires:	perl(ExtUtils::MakeMaker) >= 6.30
 BuildRequires:	coreutils
 BuildRequires:	make
 BuildRequires:	findutils
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module calculates the Modulus 10 Double Add Double checksum, also

@@ -16,7 +16,6 @@ BuildRequires: texinfo
 BuildRequires: tcl-devel
 BuildRequires: make
 Requires: emacs(bin) >= %{_emacs_version}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: tclx
 Patch5: emacspeak-38.0-update-FSF-address.patch
 

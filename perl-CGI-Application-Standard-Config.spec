@@ -12,7 +12,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

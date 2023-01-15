@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(URI) >= 1.40
 BuildRequires:  perl(URI::QueryParam)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 # Optional tests:
 # Test::Script 1.05 not helpful because no scripts exist to test
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module can be used to extract embedded configurations for other

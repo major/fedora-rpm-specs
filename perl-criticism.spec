@@ -24,7 +24,6 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::String)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Perl::Critic) >= 1.089
 Requires:       perl(Perl::Critic::Violation)
 

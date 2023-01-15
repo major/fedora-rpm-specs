@@ -19,7 +19,6 @@ BuildRequires:  perl(Module::Build) >= 0.28
 BuildRequires:  perl(attributes)
 BuildRequires:  perl(version)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Class::Accessor::Classy Perl module provides an extremely small

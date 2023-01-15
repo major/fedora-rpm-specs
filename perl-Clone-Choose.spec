@@ -28,7 +28,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More) >= 0.90
 BuildRequires:  perl(Test::Without::Module)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(Module::Runtime)
 Requires:       perl(Storable)
 

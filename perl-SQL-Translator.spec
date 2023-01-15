@@ -85,7 +85,6 @@ BuildRequires:  perl(XML::Parser)
 #BuildRequires:  perl(Test::EOL) >= 1.1
 #BuildRequires:  perl(Test::NoTabs) >= 1.1
 #BuildRequires:  perl(Test::Pod) >= 1.14
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CGI)
 Requires:       perl(CGI::Pretty)
 Requires:       perl(DBI) >= 1.54

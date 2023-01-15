@@ -50,7 +50,6 @@ BuildRequires:  perl(Test::Routine::Util)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

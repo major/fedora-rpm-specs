@@ -6,7 +6,6 @@ License:    GPL+ or Artistic
 Summary:    Remove unnecessary whitespace from CSS files 
 Source:     https://cpan.metacpan.org/authors/id/P/PM/PMICHAUX/CSS-Minifier-%{version}.tar.gz 
 Url:        https://metacpan.org/release/CSS-Minifier
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

@@ -34,7 +34,6 @@ BuildRequires:  systemd
 
 Requires:       logrotate
 Requires:       mailx
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(DBI)
 Requires:       perl(XML::Parser)
 Requires:       perl(Data::Report) >= 0.05 

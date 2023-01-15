@@ -115,7 +115,6 @@ BuildRequires:  perl(Test::Simple) >= 0.90
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_DBI_enables_Clone}
 Suggests:       perl(Clone) >= 0.34
 %endif
@@ -144,7 +143,6 @@ database interface independent of the actual database being used.
 %if %{with perl_DBI_enables_coro}
 %package Coro
 Summary:        Asynchronous DBD::Gofer stream transport using Coro
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description Coro
 This is an experimental asynchronous DBD::Gofer stream transport for DBI

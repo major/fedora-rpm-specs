@@ -32,7 +32,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(if)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Tester)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(overload)
 
 # Remove under-specified dependencies
@@ -46,7 +45,6 @@ comparison operations to reflect this.
 
 %package -n perl-Test-Tolerant
 Summary:        Test routines for testing numbers against tolerances
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Sub::Exporter) >= 0.950
 
 %description -n perl-Test-Tolerant

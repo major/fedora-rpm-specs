@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Time::HiRes)
 # YAML not used
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(Encode)
 Requires:       perl(PPI::Document) >= 1.238
 Requires:       perl(PPI::Dumper) >= 1.238

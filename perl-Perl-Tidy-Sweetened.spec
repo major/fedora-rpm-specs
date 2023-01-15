@@ -21,7 +21,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 There are a number of modules on CPAN that allow users to write their

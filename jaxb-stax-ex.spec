@@ -1,6 +1,6 @@
 Name:           jaxb-stax-ex
-Version:        1.8.3
-Release:        10%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Extended StAX API
 License:        BSD
 
@@ -31,31 +31,28 @@ the following areas:
 %{?javadoc_package}
 
 %prep
-%autosetup
+%setup -q
 
-# remove unnecessary dependency on parent POM
 %pom_remove_parent
 
-# remove unnecessary maven plugins
 %pom_remove_plugin :buildnumber-maven-plugin
 %pom_remove_plugin :glassfish-copyright-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
 
-
 %build
-%mvn_build -- -Dmaven.compiler.source=1.8  -Dmaven.compiler.target=1.8
-
+%mvn_build
 
 %install
 %mvn_install
-
 
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
 
-
 %changelog
+* Mon Nov 21 2022 Marian Koncek <mkoncek@redhat.com> - 2.1.0-1
+- Update to upstream version 2.1.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -86,4 +83,3 @@ the following areas:
 
 * Tue Aug 11 2020 Fabio Valentini <decathorpe@gmail.com> - 1.8.3-1
 - Initial package renamed from stax-ex.
-

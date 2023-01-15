@@ -7,7 +7,6 @@ URL: 		https://metacpan.org/release/File-Copy-Recursive
 Source0: 	https://cpan.metacpan.org/modules/by-module/File/File-Copy-Recursive-%{version}.tar.gz
 BuildArch: noarch
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # rpm's perl dep generators fails to catch this
 Requires:  perl(File::Glob)
 

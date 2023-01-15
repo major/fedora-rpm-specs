@@ -46,7 +46,6 @@ BuildRequires:  perl(XML::SAX::Base)
 # Optional tests only
 BuildRequires:  perl(Tie::IxHash)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(File::Basename)
 Requires:       perl(File::Spec)
 Requires:       perl(IO::Handle)

@@ -39,7 +39,6 @@ Requires:       perl(SOAP::Transport::HTTP::Daemon)
 Requires:       perl(SOAP::Transport::POP3::Server)
 Requires:       perl(SOAP::Transport::TCP) >= 0.715
 Requires:       perl(SOAP::Transport::TCP::Server)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}perl\\(My::.*\\)
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(SOAP::Lite\\)

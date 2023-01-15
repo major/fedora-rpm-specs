@@ -42,7 +42,6 @@ BuildRequires:  perl(Test::Alien) >= 0.05
 BuildRequires:  perl(Test::Alien::Diag)
 # Optional tests:
 # Test::More not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base) >= 2.59
 # The maning of the package is have dontpanic library installed and
 # application being able to build against it. Because we use system dontpanic

@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module lets you validate WebAuthn registration and authentication

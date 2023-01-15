@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 # Tests:
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Test::More) >= 0.18
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(Carp)
 Requires:  perl(Class::Data::Inheritable) >= 0.02
 Requires:  perl(DBI) >= 1.2

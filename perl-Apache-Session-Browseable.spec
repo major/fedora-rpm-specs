@@ -50,7 +50,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(DBD::mysql)
 BuildRequires:	perl(DBD::SQLite) > 1.19
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(MIME::Base64)
 Requires:	perl(Redis)
 Requires:	perl(Storable)

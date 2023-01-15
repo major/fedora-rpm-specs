@@ -1,16 +1,17 @@
+%global major 7
+%global minor 6
+%global patch 3
+%global ver_under %{major}_%{minor}_%{patch}
+
 Name:           opencascade
-Version:        7.5.0
-Release:        7%{?dist}
+Version:        %{major}.%{minor}.%{patch}
+Release:        1%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 License:        LGPLv2+ with exception
 URL:            https://www.opencascade.com/content/overview
 
-# Upstream requires a login to download sources. 
-# https://www.opencascade.com/content/latest-release
-# The following URL (after expansion) will work using links from the command line.
-# https://www.opencascade.com/sites/default/files/private/occt/OCC_%%{version}_release/%%{name}-%%{version}.tgz
-Source0:        %{name}-%{version}.tgz
+Source0:        https://git.dev.opencascade.org/gitweb/?p=occt.git;a=snapshot;h=refs/tags/V%{ver_under};sf=tgz#/%{name}-%{version}.tgz
 Source1:        DRAWEXE.1
 Source2:        opencascade-draw.desktop
 Source3:        occ-256.png
@@ -18,7 +19,7 @@ Source4:        occ-128.png
 Source5:        occ-64.png
 Source6:        occ-48.png
 
-Patch0:         opencascade-cmake.patch
+Patch0:         occt-config.patch
 
 
 # Utilities
@@ -153,7 +154,7 @@ OpenCASCADE CAE platform library development files
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n occt-V%{ver_under}
 
 # Sources are marked executable for no good reason...
 find ./src -type f -exec chmod -x {} \;
@@ -257,6 +258,7 @@ chmod 0755 %{buildroot}%{_bindir}/*.sh
 %{_libdir}/libTKV3d.so.*
 # Visualization
 %{_libdir}/libTKOpenGl.so.*
+%{_libdir}/libTKOpenGlTest.so.*
 %{_libdir}/libTKMeshVS.so.*
 %{_libdir}/libTKIVtk.so.*
 
@@ -301,6 +303,9 @@ chmod 0755 %{buildroot}%{_bindir}/*.sh
 
 
 %changelog
+* Wed Oct 26 2022 Richard Shaw <hobbes1069@gmail.com> - 7.6.3-1
+- Update to 7.6.3.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

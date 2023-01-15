@@ -15,7 +15,6 @@ BuildRequires:  perl(MooseX::Role::Parameterized) >= 0.04
 BuildRequires:  perl(Test::More)
 Requires:       perl(Class::MOP) >= 0.80
 Requires:       perl(Moose) >= 0.73
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

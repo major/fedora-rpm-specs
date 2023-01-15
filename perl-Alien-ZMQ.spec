@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More)
 # Test::Perl::Critic not used
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       zeromq-devel
 
 %description

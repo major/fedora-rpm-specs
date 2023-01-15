@@ -6,7 +6,6 @@ License:    CC-BY-SA
 Summary:    Perl Web Server Gateway Interface Specification 
 Source0:    https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/PSGI-%{version}.tar.gz 
 URL:        https://metacpan.org/release/PSGI
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: coreutils

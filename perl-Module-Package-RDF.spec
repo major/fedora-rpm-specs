@@ -47,7 +47,6 @@ BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # 1.04 version from Module::Install in META.yml
 Requires:       perl(Module::Install::Base) >= 1.04
 Requires:       perl(Module::Package::Plugin)

@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(Time::HiRes)
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Do not require private module
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}perl\\(Class::XSAccessor::Heavy\\)

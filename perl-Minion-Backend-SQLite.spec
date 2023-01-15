@@ -31,7 +31,6 @@ BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Mojo::IOLoop)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(constant)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

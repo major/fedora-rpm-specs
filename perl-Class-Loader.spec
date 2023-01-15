@@ -21,7 +21,6 @@ BuildRequires:	perl(vars)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Certain applications like to defer the decision to use a particular module till

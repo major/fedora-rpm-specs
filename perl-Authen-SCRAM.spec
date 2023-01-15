@@ -37,7 +37,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Authen-SCRAM-0.010 disabled String::Compare::ConstantTime temporarily.
 #Recommends:   perl(String::Compare::ConstantTime) >= 0.310
 

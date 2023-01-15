@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(version)
 
 %description

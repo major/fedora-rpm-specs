@@ -18,7 +18,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 
 # rpm doesn't catch this
 Requires:       perl(Class::Accessor::Chained::Fast)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Text::vFile::asData reads vFile format files, such as vCard (RFC 2426) and

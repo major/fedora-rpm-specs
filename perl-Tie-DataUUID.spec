@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 # Test::Pod 1.14 not used
 # Test::Pod::Coverage 1.04 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a simple tie interface to the Data::UUID Perl module.

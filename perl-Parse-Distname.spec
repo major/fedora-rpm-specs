@@ -24,7 +24,6 @@ BuildRequires:	perl(Test::Differences)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::UseAllModules) >= 0.17
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Parse::Distname is yet another distribution name parser. It works almost the

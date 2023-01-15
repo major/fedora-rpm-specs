@@ -53,7 +53,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(I18N::Langinfo)
 BuildRequires:  perl(Test::ConsistentVersion)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Config)
 Requires:       perl(overload)
 

@@ -57,7 +57,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 Web::Machine provides a RESTful web framework modeled as a state machine.

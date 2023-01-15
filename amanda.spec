@@ -65,7 +65,6 @@ BuildRequires: libcurl-devel procps-ng systemd
 BuildRequires: make
 BuildRequires: rpcgen
 Requires:      grep tar /usr/bin/mail
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:      amanda-libs%{?_isa} = %{version}-%{release}
 Requires(post): /sbin/ldconfig
 Requires(postun): /sbin/ldconfig

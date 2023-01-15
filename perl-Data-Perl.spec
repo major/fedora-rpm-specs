@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::Output)
 # rpm's automatic deptracking misses to add this:
 Requires:       perl(Exporter)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Data::Perl is a collection of classes that wrap fundamental data types

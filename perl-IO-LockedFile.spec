@@ -21,7 +21,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(diagnostics)
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 IO::LockedFile is something

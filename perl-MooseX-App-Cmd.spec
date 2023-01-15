@@ -54,7 +54,6 @@ BuildRequires: perl(YAML)
 BuildRequires: perl(Scalar::Util)
 BuildRequires: perl(Test::Output)
 
-Requires:   perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # we don't pick up Moose keywords automagically yet
 Requires:   perl(App::Cmd) >= 0.321
 Requires:   perl(App::Cmd::Command)

@@ -30,7 +30,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Perl::Critic::TestUtils) >= 1.094
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Perl::Critic::Policy) >= 1.094
 Requires:       perl(Perl::Critic::Utils) >= 1.094
 # Perl::Critic::Policy::Miscellanea::RequireRcsKeywords moved from

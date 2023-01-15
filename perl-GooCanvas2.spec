@@ -19,7 +19,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # goocanvas2 typelib loaded by Glib::Object::Introspection
 Requires:       goocanvas2 >= 2.0
 # Provide some class identifiers that are required by other RPM packages. We

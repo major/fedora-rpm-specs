@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::Exception) >= 0.20
 BuildRequires:  perl(Test::More) >= 0.10
 BuildRequires:  perl(Test::Simple)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Encode) >= 1.99
 Requires:       perl(Readonly) >= 0.06
 

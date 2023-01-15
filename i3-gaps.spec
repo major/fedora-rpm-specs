@@ -75,7 +75,6 @@ BuildRequires:  perl(Pod::Simple)
 BuildRequires:  xorg-x11-drv-dummy
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       xorg-x11-fonts-misc
 # packages autostarted by the config
 Recommends:     dex-autostart

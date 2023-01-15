@@ -28,7 +28,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is used to check the portability across operating systems of

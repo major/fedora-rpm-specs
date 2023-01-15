@@ -589,7 +589,6 @@ required to use the OCaml bindings for %{name}.
 %package -n perl-Sys-Guestfs
 Summary:       Perl bindings for %{name} (Sys::Guestfs)
 Requires:      %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description -n perl-Sys-Guestfs

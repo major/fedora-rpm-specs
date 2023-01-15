@@ -118,7 +118,6 @@ BuildRequires:  perl(Mojo::JSON)
 BuildRequires:  perl(Test::Harness) >= 3.31
 BuildRequires:  perl(Time::Moment) >= 0.22
 BuildRequires:  perl(Types::Serialiser)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Suggests:       perl(Authen::SASL)
 Requires:       perl(Authen::SASL::SASLprep)
 Requires:       perl(Authen::SCRAM::Client) >= 0.011

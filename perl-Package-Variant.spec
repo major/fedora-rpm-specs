@@ -26,7 +26,6 @@ BuildRequires:  perl(Moo)
 BuildRequires:  perl(Moo::Role)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Recommends:     perl(Sub::Name)
 
 %description

@@ -46,7 +46,6 @@ BuildRequires:	perl(Test::Valgrind)
 %endif
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't provide private perl libs
 %{?perl_default_filter}

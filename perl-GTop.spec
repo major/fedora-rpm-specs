@@ -5,7 +5,6 @@ Summary:        Perl interface to libgtop
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GTop
 Source0:        https://cpan.metacpan.org/authors/id/M/MJ/MJH/GTop-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # core
 BuildRequires:  perl-devel

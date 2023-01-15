@@ -39,7 +39,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(ExtUtils::testlib)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::Log::Log4perl)
 
 %description

@@ -14,7 +14,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Provides a simple, quick means of serializing perl memory structures

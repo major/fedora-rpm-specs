@@ -25,7 +25,6 @@ BuildRequires:	perl(DateTime::Duration)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(warnings)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 An implementation of the Mayan Long Count, Haab, and Tzolkin calendars

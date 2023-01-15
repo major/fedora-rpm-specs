@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::Moose)
 BuildRequires:  perl(Test::NoWarnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 Provides:       perl(MooseX::Declare::Context::WithOptions) = %{version}
 Provides:       perl(MooseX::Declare::StackItem) = %{version}

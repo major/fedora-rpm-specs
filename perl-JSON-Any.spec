@@ -11,7 +11,6 @@ Patch0:         JSON-Any-1.39-Support-JSON-XS-4.patch
 Patch1:         JSON-Any-1.39-Disable-allow_nonref-in-JSON-XS-4-and-JSON-PP-3.patch
 
 URL:            https://metacpan.org/release/JSON-Any
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires: make

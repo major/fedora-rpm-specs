@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(URI) >= 1.35
 BuildRequires:  perl(URI::file)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

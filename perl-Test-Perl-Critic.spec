@@ -25,7 +25,6 @@ BuildRequires:	perl(MCE::Grep) >= 1.827
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(MCE::Grep) >= 1.827
 Requires:	perl(Perl::Critic) >= 1.105
 Requires:	perl(Perl::Critic::Utils) >= 1.105

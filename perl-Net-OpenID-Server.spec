@@ -26,7 +26,6 @@ BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(URI)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Net::OpenID::Common) >= 1.11
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Net::OpenID::Common\\)$

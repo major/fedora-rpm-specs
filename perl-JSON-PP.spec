@@ -51,7 +51,6 @@ BuildRequires:	perl(Tie::IxHash)
 %endif
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Data::Dumper)
 Requires:	perl(Encode)
 Requires:	perl(Math::BigFloat)

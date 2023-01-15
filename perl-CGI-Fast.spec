@@ -26,7 +26,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(deprecate)
 Requires:       perl(CGI) >= 4.00
 Requires:       perl(FCGI) >= 0.67

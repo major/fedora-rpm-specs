@@ -43,7 +43,6 @@ BuildRequires:  perl(Test2::V0) >= 0.000121
 # FFI::Platypus not used
 BuildRequires:  perl(Test2::Tools::Process)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DynaLoader)
 Requires:       perl(File::Basename)
 

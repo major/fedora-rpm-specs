@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(warnings)
 
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is an alternative to String::Trim. Instead of a single trim function, this

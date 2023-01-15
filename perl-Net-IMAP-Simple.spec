@@ -46,7 +46,6 @@ BuildRequires: perl(Time::HiRes)
 # Test::Perl::Critic not used
 # Test::Pod 1.00 not used
 # Test::Pod::Coverage 1.00 not used
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:      perl(IO::Socket::SSL)
 Requires:      perl(Net::SSLeay)
 

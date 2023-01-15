@@ -46,7 +46,6 @@ BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(Test::Alien)
 BuildRequires:  perl(Test::Alien::Diag)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Alien modules' purpose is to ensure one can compile against a library.
 # We need to match an architecture,
 Requires:       pcre2-devel%{?_isa}

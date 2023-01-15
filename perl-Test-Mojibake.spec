@@ -75,7 +75,6 @@ BuildRequires:	perl(Test::Pod::LinkCheck)
 # ===================================================================
 # Runtime requirements
 # ===================================================================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Unicode::CheckUTF8 is an optional requirement that significantly speeds up
 # this module
 Requires:	perl(Unicode::CheckUTF8)

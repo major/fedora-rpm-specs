@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module understands the formats used by MySQL for its DATE, DATETIME,

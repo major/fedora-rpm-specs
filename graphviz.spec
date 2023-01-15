@@ -308,7 +308,6 @@ Ocaml extension for graphviz.
 %package perl
 Summary:		Perl extension for graphviz
 Requires:		%{name} = %{version}-%{release}
-Requires:		perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description perl
 Perl extension for graphviz.

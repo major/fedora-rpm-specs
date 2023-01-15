@@ -34,7 +34,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XML::Parser::Expat)
 BuildRequires:  perl(XML::Twig)
 BuildRequires:  perl(XML::Writer)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Add Net::SSLeay to prevent issues like RT#80148
 Requires:       perl(Net::SSLeay) >= 1.33
 

@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module returns you a printable string which is more readable by humans than 

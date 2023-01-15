@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module subclasses Pod::Parser and converts POD to Markdown.

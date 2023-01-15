@@ -27,7 +27,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Math::BigInt) >= 1.999824
 Requires:       perl(Math::Complex) >= 1.36
 Conflicts:      perl < 4:5.22.0-348

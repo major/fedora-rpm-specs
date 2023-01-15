@@ -27,7 +27,6 @@ BuildRequires:  perl(Glib) >= 1.240
 BuildRequires:	perl(Pango) >= 1.220
 BuildRequires:  perl(Glib::MakeHelper)
 BuildRequires:  perl(Cairo) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Glib) >= 1.240
 Requires:       perl(Cairo) >= 1.00
 Requires:       perl(Pango) >= 1.220

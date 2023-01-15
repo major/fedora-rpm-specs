@@ -15,7 +15,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 A simple implementation of the RC4 algorithm, developed by RSA Security,

@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::Base)
 BuildRequires:  perl(Test::Base::Filter)
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IPC::Open2)
 Requires:       perl(ExtUtils::ParseXS) >= 3.07
 

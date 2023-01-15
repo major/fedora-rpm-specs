@@ -19,7 +19,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 LWP::Protocol::PSGI is a module to hijack any code that uses LWP::UserAgent

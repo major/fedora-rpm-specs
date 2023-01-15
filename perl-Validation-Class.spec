@@ -37,7 +37,6 @@ BuildRequires:  perl(lib)
 # Optional testsuite requirement
 BuildRequires:  perl(Class::Method::Modifiers)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Validation::Class is a scalable data validation library with interfaces for

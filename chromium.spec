@@ -997,7 +997,7 @@ udev.
 %patch114 -p1 -b .system-ffmppeg
 %patch115 -p1 -b .prop-codecs
 %patch116 -p1 -b .first_dts
-%if 0%{fedora} == 36
+%if 0%{?fedora} == 36
 %patch117 -p1 -b .revert-new-channel-layout-api
 %endif
 %endif
@@ -1404,8 +1404,9 @@ mkdir -p %{buildroot}%{chromium_path}/locales
 
 %if 0%{?use_vaapi}
 cp -a %{SOURCE3} %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
-%%else
-grep -v features /usr/bin/chromium-browser > %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
+%else
+grep -v features %{SOURCE3} > %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
+chmod 755 %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
 %endif
 
 export BUILD_TARGET=`cat /etc/redhat-release`

@@ -33,7 +33,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(DBD::CSV)
 BuildRequires:  perl(HTML::TableExtract)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 DBIx::XHTML_Table is a DBI extension that creates an XHTML table from a

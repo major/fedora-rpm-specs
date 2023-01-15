@@ -24,7 +24,6 @@ BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Span)
 BuildRequires:  perl(FreezeThaw) >= 0.43
 BuildRequires:  perl(Test::More) >= 0.54
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DateTime::Format::ICal) >= 0.08
 Requires:       perl(Text::vFile::asData) >= 0.02
 

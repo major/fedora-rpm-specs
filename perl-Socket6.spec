@@ -27,7 +27,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test)
 # Run-time:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter the Perl extension module
 %{?perl_default_filter}

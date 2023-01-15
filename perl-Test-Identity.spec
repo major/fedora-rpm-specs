@@ -16,7 +16,6 @@ BuildRequires:  perl(Test::Builder::Module)
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides a single testing function, identical. It asserts that

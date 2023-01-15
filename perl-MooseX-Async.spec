@@ -14,7 +14,6 @@ BuildRequires:  perl(MooseX::AttributeHelpers) >= 0.13
 BuildRequires:  perl(Test::More) >= 0.42
 Requires:       perl(Moose) >= 0.56
 Requires:       perl(MooseX::AttributeHelpers) >= 0.13
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

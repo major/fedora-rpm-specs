@@ -46,7 +46,6 @@ BuildRequires:  perl(Test::Requires)
 # Test::TCP does not make sense without Furl
 #BuildRequires:  perl(Test::TCP)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Plack::Middleware::Deflater is a middleware to encode your response body in

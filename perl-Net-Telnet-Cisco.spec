@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides additional functionality to Net::Telnet for dealing with

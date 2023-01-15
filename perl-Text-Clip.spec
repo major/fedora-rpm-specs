@@ -12,7 +12,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Any::Moose)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::Most)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Text::Clip allows you to mark/slice up a piece of text. String matching (by

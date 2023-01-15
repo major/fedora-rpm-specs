@@ -25,7 +25,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Math::BigInt) >= 1.999813
 
 # Remove under-specified dependencies

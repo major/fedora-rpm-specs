@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More) >= 0.82
 BuildRequires:  perl(UNIVERSAL)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows you to call isa, can, does and DOES safely on things that

@@ -21,7 +21,6 @@ BuildRequires:  perl(feature)
 BuildRequires:  perl(version)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.89
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # feature is highly recommended on perl >= 5.10
 Requires:       perl(feature)
 

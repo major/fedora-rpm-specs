@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::DistManifest) >= 1.012
 BuildRequires:  perl(Test::Version) >= 1.003001
 BuildRequires:  perl(Test::Pod) >= 1.48
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.10
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 "Test::Strict" lets you check the syntax, presence of "use strict;" and

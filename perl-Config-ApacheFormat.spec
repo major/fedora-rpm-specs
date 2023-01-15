@@ -24,7 +24,6 @@ BuildRequires:  perl(Text::Balanced) >= 1.89
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # (Data::Dumper is used only in runtime, not in tests)
 Requires:   perl(Class::MethodMaker) >= 1.08
 Requires:   perl(Data::Dumper)

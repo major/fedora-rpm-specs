@@ -24,7 +24,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::More) >= 0.98
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Devel::CheckBin is a perl module that checks whether a particular command is

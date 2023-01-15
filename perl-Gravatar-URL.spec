@@ -24,7 +24,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::MockRandom)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warn)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Net::DNS) >= 1.01
 
 %description

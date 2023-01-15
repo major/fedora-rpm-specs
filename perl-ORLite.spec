@@ -38,7 +38,6 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Test::Script) >= 1.06
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Remove) >= 1.40
 Requires:       perl(File::Temp) >= 0.20
 

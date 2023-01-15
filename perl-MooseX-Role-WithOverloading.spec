@@ -37,7 +37,6 @@ BuildRequires:  perl(CPAN::Meta::Prereqs)
 # note: Test::Warnings only used if $ENV{AUTHOR_TESTING}
 BuildRequires:  perl(Test::Warnings)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 %{?perl_default_filter}

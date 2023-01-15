@@ -19,7 +19,6 @@ BuildRequires:  perl(Attean) >= 0.019
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Attean) >= 0.019
 
 # Filter under-specified dependencies

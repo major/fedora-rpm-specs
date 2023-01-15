@@ -70,7 +70,6 @@ BuildRequires:  perl(Test::More) >= 0.94
 # Optional tests:
 BuildRequires:  perl(Benchmark)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(File::Temp)
 Requires:       perl(IO::Select)
 Requires:       perl(LWP::UserAgent)

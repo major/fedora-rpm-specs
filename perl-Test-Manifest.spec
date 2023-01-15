@@ -32,7 +32,6 @@ BuildRequires:  perl(Test::More) >= 1
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Spec)
 Requires:       perl(Test::Harness)
 

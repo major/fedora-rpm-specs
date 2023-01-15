@@ -12,7 +12,6 @@ URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/A/AG/AGUL/%{pkgname}-%{version}.tar.gz
 Patch0:         perl-Crypt-GPG-1.64-gpg.patch
 Patch1:         perl-Crypt-GPG-1.64-md5.patch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       gnupg1
 BuildRequires:  coreutils
 BuildRequires:  findutils

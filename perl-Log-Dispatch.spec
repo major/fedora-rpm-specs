@@ -107,7 +107,6 @@ BuildRequires:  perl(LWP::Protocol::https)
 # Ouch - Introduced by upstream in 2.40
 Conflicts:      perl(Log::Dispatch::File::Stamped) >= 0.10
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Log::Dispatch is a suite of OO modules for logging messages to
@@ -120,7 +119,6 @@ An Apache output is available in perl-Log-Dispatch-ApacheLog package.
 %package ApacheLog
 Summary:        Log::Dispatch output for logging to Apache::Log objects
 Requires:       %{name} = %{?epoch:%{epocho}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Apache2::Log)
 Conflicts:      perl-Log-Dispatch < 2.70-2
 

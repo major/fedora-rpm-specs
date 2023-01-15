@@ -23,7 +23,6 @@ BuildRequires:  perl(Net::DNS::ZoneFile)
 # Tests
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Exception)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 A subclass of Net::DNS::Resolver which parses a zonefile for it's data

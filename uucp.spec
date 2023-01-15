@@ -20,7 +20,7 @@
 Summary: A set of utilities for operations between systems
 Name: uucp
 Version: 1.07
-Release: 66%{?dist}
+Release: 67%{?dist}
 License: GPLv2+
 Url: http://www.airs.com/ian/uucp.html
 Source0: ftp://ftp.gnu.org/pub/gnu/uucp/uucp-%{version}.tar.gz
@@ -43,6 +43,7 @@ Patch10: uucp-1.07-sigfpe2.patch
 # Fix FTBFS for -Werror=format-security enablement
 # ~> downstream, #1037372
 Patch11: uucp-1.07-format.patch
+Patch12: uucp-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -89,6 +90,7 @@ because it can be useful even if you do not do uucp.
 %patch9 -p1 -b .lfs
 %patch10 -p1 -b .sigfpe2
 %patch11 -p1 -b .format
+%patch12 -p1
 
 %build
 # enable hardening because uucp contains setuid binaries
@@ -297,6 +299,9 @@ fi
 %{_mandir}/man1/cu.1*
 
 %changelog
+* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.07-67
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

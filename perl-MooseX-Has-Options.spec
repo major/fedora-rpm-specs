@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::Most)
 BuildRequires:  perl(Test::Script)
 BuildRequires:  perl(warnings)
 Requires:       perl(Package::Stash) >= 0.18
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

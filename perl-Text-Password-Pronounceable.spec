@@ -6,7 +6,6 @@ License:    GPL+ or Artistic
 Summary:    Generate pronounceable passwords 
 Source0:    https://cpan.metacpan.org/authors/id/T/TS/TSIBLEY/Text-Password-Pronounceable-%{version}.tar.gz
 Url:        https://metacpan.org/release/Text-Password-Pronounceable
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 BuildRequires: coreutils
 BuildRequires: make

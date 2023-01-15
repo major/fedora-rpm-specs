@@ -47,7 +47,6 @@ BuildRequires:  perl(File::Path)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(mro)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # MooseX::Getopt::Basic version from unused MooseX::Getopt in META
 Requires:       perl(MooseX::Getopt::Basic) >= 0.26
 Requires:       perl(Test::Run::Obj) >= 0.0126

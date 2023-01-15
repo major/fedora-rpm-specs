@@ -25,7 +25,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Crypt::OpenSSL::DSA - Digital Signature Algorithm using OpenSSL

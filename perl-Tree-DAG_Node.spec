@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::More) >= 1.001002
 BuildRequires:  perl(Test::Pod) >= 1.48
 BuildRequires:  perl(utf8)
 # Runtime --------------------------------------------------------------------
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This class encapsulates/makes/manipulates objects that represent nodes in a

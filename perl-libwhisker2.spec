@@ -34,7 +34,6 @@ BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(Net::SSLeay)
 BuildRequires:  perl(Test::Simple)
 # All SSL and network related packages are optional at run time.
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(MIME::Base64)
 Obsoletes:      perl-libwhisker <= 1.8
 Provides:       perl-libwhisker = %{version}-%{release}

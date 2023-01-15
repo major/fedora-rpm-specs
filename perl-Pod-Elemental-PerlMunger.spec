@@ -28,7 +28,6 @@ BuildRequires:  perl(Pod::Elemental) >= 0.103000
 BuildRequires:  perl(Test::More) >= 0.96
 # Optional tests:
 # Test::Differences not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Pod::Elemental|Test::More)\\)$

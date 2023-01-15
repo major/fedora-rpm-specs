@@ -25,7 +25,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Tk)
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module acts as a little wrapper around Tk::Entry and adds an easy to

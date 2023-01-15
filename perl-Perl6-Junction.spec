@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 # Test Suite
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Perl6 style Junction operators in Perl5.

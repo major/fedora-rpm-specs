@@ -39,7 +39,6 @@ BuildRequires:  sed
 # Pod::Coverage::TrustPod not used
 BuildRequires:  perl(Test::More)
 # Test::Pod::Coverage 1.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(AutoLoader)
 # https URLs are passed to the LWP
 Requires:       perl(LWP::Protocol::https)

@@ -24,7 +24,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Storable) >= 2.21
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Carp::Clan) >= 5.3
 Requires:       perl(Storable) >= 2.21
 

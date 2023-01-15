@@ -20,7 +20,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 BuildRequires:  perl(Sub::Prototype)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __provides_exclude %{?__provides_exclude}|perl\\(lib\\)

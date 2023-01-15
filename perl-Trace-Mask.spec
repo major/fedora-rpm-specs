@@ -37,7 +37,6 @@ BuildRequires:  perl(Test2::Require::Module)
 BuildRequires:  perl(Test2::Tools::Spec)
 # Test2::Workflow is the only versioned module in the perl-Test2-Workflow
 BuildRequires:  perl(Test2::Workflow) >= 0.000009
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Scalar::Util) >= 1.10
 
 %{?perl_default_filter}
@@ -53,7 +52,6 @@ package also provides some implementations (e.g. a Carp stack tracer).
 %package Test
 Summary:        Tools for testing Trace::Mask compliance
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.03
 Requires:       perl(List::Util) >= 1.10
 Requires:       perl(Scalar::Util) >= 1.10

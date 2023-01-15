@@ -25,7 +25,6 @@ BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Pod) >= 1.41
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Data::Section::Simple is a simple module to extract data from the __DATA__

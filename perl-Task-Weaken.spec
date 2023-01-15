@@ -23,7 +23,6 @@ BuildRequires:  perl(Scalar::Util) >= 1.14
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::More) >= 0.42
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Scalar::Util) >= 1.14
 
 %description

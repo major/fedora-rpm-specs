@@ -22,7 +22,6 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CPAN::Meta::Converter) >= 2.141170
 Requires:       perl(ExtUtils::MakeMaker) >= 6.17
 Requires:       perl(version) >= 0.76

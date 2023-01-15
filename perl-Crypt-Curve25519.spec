@@ -24,7 +24,6 @@ BuildRequires:	perl(XSLoader)
 # Test Suite
 BuildRequires:	perl(Test::More) >= 0.88
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Curve25519 is a Diffie-Hellman function suitable for a wide variety of

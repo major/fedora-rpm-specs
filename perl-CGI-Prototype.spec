@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Prototype
 Source0:        https://cpan.metacpan.org/authors/id/M/ME/MERLYN/CGI-Prototype-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # core
 BuildRequires:  coreutils

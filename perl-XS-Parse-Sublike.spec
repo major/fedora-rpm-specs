@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This module maintains multiple ABIs whose compatibility is checked at
 # run-time by S_boot_xs_parse_sublike() compiled into the users of this module.
 # This ABI range is defined with XS::Parse::Sublike/ABIVERSION_MIN and
@@ -58,7 +57,6 @@ PL_keyword_plugin hook mechanism.
 Summary:        Build-time support for XS::Parse::Sublike
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-interpreter
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Subpackaged in 0.13
 Conflicts:      %{name}%{?_isa} < 0.13
 

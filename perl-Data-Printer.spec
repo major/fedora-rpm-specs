@@ -51,7 +51,6 @@ BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Tiny)
 BuildRequires:  perl(DateTime::TimeZone)
 BuildRequires:  perl(DateTime::Incomplete)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(B)
 Requires:       perl(B::Deparse)
 Requires:       perl(File::HomeDir) >= 0.91

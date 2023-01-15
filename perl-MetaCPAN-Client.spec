@@ -48,7 +48,6 @@ BuildRequires:	perl(Test::Needs) >= 0.002005
 # Optional tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(HTTP::Tiny) >= 0.056
 Requires:	perl(IO::Socket::SSL) >= 1.42
 Requires:	perl(Net::SSLeay) >= 1.49

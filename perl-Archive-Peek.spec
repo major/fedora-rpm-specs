@@ -27,7 +27,6 @@ BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(Test::Pod) >= 1.14
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(IO::Uncompress::Bunzip2)
 
 %description

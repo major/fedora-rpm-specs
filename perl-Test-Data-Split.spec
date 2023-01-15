@@ -9,7 +9,6 @@ License:    MIT
 Url:        http://metacpan.org/release/%{upstream_name}
 Source0:    http://www.cpan.org/modules/by-module/Test/%{upstream_name}-%{version}.tar.gz
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  perl(List::MoreUtils)
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter

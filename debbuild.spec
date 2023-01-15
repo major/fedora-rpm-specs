@@ -17,7 +17,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Pod::Man)
 BuildRequires: make
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %if 0%{?rhel} && 0%{?rhel} < 7
 Requires:       /usr/bin/lsb_release

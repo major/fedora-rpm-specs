@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests only
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Suppose you have a large piece of text - typically, say, a web page or a

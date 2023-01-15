@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  sed
 
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 File::DirList can be used to get sorted directory content list.

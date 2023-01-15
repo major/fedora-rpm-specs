@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::Refcount)
 BuildRequires:  perl(Test::Tester) >= 0.107
 # Optional tests
 BuildRequires:  perl(IO::Scalar)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Test::More)
 
 %description

@@ -35,7 +35,6 @@ BuildRequires:  perl(AutoLoader) >= 5.66
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Archive::Zip) >= 1
 Requires:       perl(Digest::SHA) >= 5.45
 Requires:       perl(File::Glob)

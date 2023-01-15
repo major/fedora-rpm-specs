@@ -20,7 +20,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

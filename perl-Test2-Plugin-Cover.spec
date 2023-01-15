@@ -32,7 +32,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(IPC::Cmd)
 BuildRequires:  perl(Test2::V0) >= 0.000130
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Path::Tiny) >= 0.048
 Requires:       perl(Test2::API) >= 1.302166
 Requires:       perl(Test2::EventFacet) >= 1.302166

@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More) >= 0.10
 # Optional tests:
 BuildRequires:  glibc-langpack-en
 BuildRequires:  perl(POSIX)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides bindings for GNU Libidn2, a C library for handling

@@ -23,7 +23,6 @@ BuildRequires:  perl(Sub::Exporter::Util)
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(JSON::MaybeXS)
 
 %{?perl_default_filter}

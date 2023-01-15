@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 Requires:       perl(Test::Exception)
 Requires:       perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides functions to convert string from / to Base32 encoding,

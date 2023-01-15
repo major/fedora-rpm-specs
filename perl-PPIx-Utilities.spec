@@ -52,7 +52,6 @@ BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
 %endif
 # Run-time:
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a collection of functions for dealing with PPI objects, many of

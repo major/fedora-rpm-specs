@@ -43,7 +43,6 @@ BuildRequires:  perl(Test)
 # Optional tests:
 BuildRequires:  perl(CGI::Session) >= 3.95
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CGI::FastTemplate) >= 1.09
 # Requires:       perl(CGI::SSI) >= 0.92 not yet packaged
 Requires:       perl(Data::Dumper)

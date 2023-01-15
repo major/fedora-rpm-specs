@@ -7,7 +7,7 @@
 # 3. Build gap-pkg-radiroot
 # 4. Build gap-pkg-alnuth in non-bootstrap mode.
 # 5. Build this package in non-bootstrap mode.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.16

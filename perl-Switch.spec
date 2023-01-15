@@ -19,7 +19,6 @@ BuildRequires:	perl(overload)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Text::Balanced)
 BuildRequires:	perl(vars)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	perl(deprecate)
 BuildArch:	noarch
 

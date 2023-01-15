@@ -22,7 +22,6 @@ BuildRequires:  perl(Pod::Select)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(deprecate)
 Requires:       perl(Pod::ParseUtils) >= 0.3
 

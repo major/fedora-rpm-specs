@@ -1,16 +1,20 @@
+%global commit 75fa38b2f20a3ec9ff6c5458a7754bcef693a584
+%global date 20220919
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name:           subtitleeditor
 Version:        0.54.0
-Release:        16%{?dist}
+Release:        17.%{date}git%{shortcommit}%{?dist}
 Summary:        GTK+3 tool to edit subtitles for GNU/Linux/*BSD
 
 License:        GPLv3+
 URL:            https://kitone.github.io/subtitleeditor/
-Source0:        https://github.com/kitone/subtitleeditor/releases/download/%{version}/subtitleeditor-%{version}.tar.gz
+Source0:        https://github.com/kitone/subtitleeditor/archive/%{commit}/%{name}-%{commit}.tar.gz
 
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
-BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  gstreamer1-devel
 BuildRequires:  gstreamer1-plugins-good
 BuildRequires:  gstreamer1-plugins-base-devel
@@ -18,14 +22,17 @@ BuildRequires:  gtkmm30-devel
 BuildRequires:  glibmm24-devel >= 2.16.3
 BuildRequires:  libappstream-glib
 BuildRequires:  libxml++-devel >= 2.20
+BuildRequires:  libtool
 BuildRequires:  intltool
 BuildRequires:  ccache
 BuildRequires:  gstreamermm-devel
 
 # For spell checking (Optional)
-BuildRequires:  enchant-devel >= 1.4.0
+BuildRequires:  enchant2-devel >= 2.2.0
 # ISO-CODES 639 + 3166 (Optional)
 BuildRequires:  iso-codes-devel
+
+%global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*/lib.*\\.so$
 
 %description
 Subtitle Editor is a GTK+3 tool to edit subtitles for GNU/Linux/*BSD. It can be
@@ -34,9 +41,10 @@ existing subtitle. This program also shows sound waves, which makes it easier
 to synchronize subtitles to voices.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{commit}
 
 %build
+autoreconf -fiv
 %configure \
        --disable-debug \
        --disable-static \
@@ -59,9 +67,9 @@ find %{buildroot} -name "*.la" -exec %{__rm} -f '{}' \;
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications             \
   --mode 0644                                            \
-  %{buildroot}%{_datadir}/applications/%{name}.desktop
+  %{buildroot}%{_datadir}/applications/org.kitone.%{name}.desktop
 
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kitone.%{name}.appdata.xml
 
 %ldconfig_scriptlets
 
@@ -72,13 +80,18 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 %{_datadir}/pixmaps/%{name}.svg
 %{_datadir}/%{name}/
-%{_datadir}/appdata/%{name}.appdata.xml
-%{_datadir}/applications/%{name}.desktop
+%{_datadir}/metainfo/org.kitone.%{name}.appdata.xml
+%{_datadir}/applications/org.kitone.%{name}.desktop
 %{_mandir}/man1/%{name}.1.*
 %{_libdir}/lib%{name}.so.*
 %{_libdir}/%{name}/
 
 %changelog
+* Fri Jan 13 2023 Dominik 'Rathann' Mierzejewski <dominik@greysector.net> - 0.54.0-17.20220919git75fa38b
+- update to current git HEAD
+- switch to enchant2 (enchant is EOL, last release in 2010)
+- filter auto-generated Provides: for plugins
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.54.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -17,7 +17,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(Test) >= 1.15
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Pod::Parser) >= 1.13
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Pod::Parser\\)\s*$

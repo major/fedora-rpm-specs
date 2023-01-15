@@ -36,7 +36,6 @@ BuildRequires:  perl(XML::LibXML)
 BuildRequires:  perl(XML::LibXSLT)
 BuildRequires:  perl(XML::Parser::PerlSAX)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is for manipulating data as hierarchical tag/value pairs

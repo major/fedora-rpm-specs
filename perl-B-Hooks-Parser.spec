@@ -27,7 +27,6 @@ BuildRequires:	gcc
 BuildRequires:	coreutils
 BuildRequires:	make
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides an API for parts of the perl parser. It can be used to

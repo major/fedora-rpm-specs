@@ -29,7 +29,6 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 
 %description

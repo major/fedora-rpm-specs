@@ -41,7 +41,6 @@ BuildRequires:	perl(Time::HiRes)
 BuildRequires:	perl(warnings)
 BuildRequires:	perl(warnings::register)
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 #Requires:	perl(bytes) # Needed only in Perl <= 5.8.x
 Requires:	perl(Encode)
 Requires:	perl(IO::Dir)

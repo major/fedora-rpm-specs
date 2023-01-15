@@ -18,7 +18,6 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod)
 Requires:	perl(Sub::Exporter)
 Requires:	perl(Pod::Usage)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Determine if words are reserved by ANSI/ISO SQL standard.  There are also

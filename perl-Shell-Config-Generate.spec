@@ -30,7 +30,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test2::API) >= 1.302015
 BuildRequires:  perl(Test2::Mock) >= 0.000060
 BuildRequires:  perl(Test2::V0) >= 0.000060
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Shell::Guess) >= 0.02
 
 # Remove under-specified dependencies

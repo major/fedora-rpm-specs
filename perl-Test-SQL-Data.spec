@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(version)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(YAML)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(DBIx::Connector) >= 0.4.5
 Requires:       perl(DBD::SQLite) >= 1.20
 

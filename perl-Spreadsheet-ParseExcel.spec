@@ -47,7 +47,6 @@ BuildRequires:  perl(Pod::Simple) >= 3.07
 BuildRequires:  perl(Test::CPAN::Meta) >= 0.12
 BuildRequires:  perl(Test::MinimumVersion) >= 0.008
 BuildRequires:  perl(Test::Pod) >= 1.26
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Text::CSV_XS)
 
 %description

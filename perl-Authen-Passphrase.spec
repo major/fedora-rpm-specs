@@ -32,7 +32,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 These Perl modules provide a passphrase recognizer. Its job is

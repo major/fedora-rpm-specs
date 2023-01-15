@@ -45,7 +45,6 @@ BuildRequires:  perl(vars)
 # Socket not used
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter private modules
 %global __provides_exclude %{?__provides_exclude:%{__provides_exclude}|}^perl\\(T_L10N

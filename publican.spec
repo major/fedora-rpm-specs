@@ -107,7 +107,6 @@ BuildRequires:  perl(Lingua::EN::Fathom)
 BuildRequires:  rpm-build libicu-devel
 
 # Most of these are handled automatically
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Locale::Maketext::Gettext)  >= 1.27
 Requires:       rpm-build
 Requires:       docbook-style-xsl >= 1.77.1

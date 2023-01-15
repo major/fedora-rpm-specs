@@ -27,7 +27,6 @@ BuildRequires:  perl(Test2::V0) >= 0.000124
 # Optional tests:
 BuildRequires:  perl(Capture::Tiny)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test2::API) >= 1.302165
 
 # Remove under-specified dependencies

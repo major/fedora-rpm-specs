@@ -46,7 +46,6 @@ BuildRequires:  perl(Types::URI)
 BuildRequires:  perl(Type::Utils)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::Escape)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 WebID is a simple authentication protocol based on TLS (Transaction Layer

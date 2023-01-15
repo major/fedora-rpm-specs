@@ -30,7 +30,6 @@ BuildRequires:	perl(vars)
 BuildRequires:	perl(Test::TrailingSpace)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 XML::SemanticDiff provides a way to compare the contents and structure of two

@@ -17,7 +17,6 @@ BuildRequires:  perl(Test::More)
 # Text::Levenshtein::Damerau::XS - optional
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(Text::Levenshtein::Damerau::XS)
 
 %description

@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 
 Requires:       perl(Moose::Meta::Method)
 Requires:       perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

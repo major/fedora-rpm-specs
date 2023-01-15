@@ -20,7 +20,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # test deps
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This converts words denoting a plural in the English language into words

@@ -37,7 +37,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Time::Progress) >= 1.1
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(AI::DecisionTree) >= 0.06
 Requires:       perl(Algorithm::NaiveBayes)
 Requires:       perl(Algorithm::SVM) >= 0.06

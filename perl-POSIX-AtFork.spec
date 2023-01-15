@@ -28,7 +28,6 @@ BuildRequires:  perl(XSLoader) >= 0.1
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::SharedFork)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader) >= 0.1
 
 %{?perl_default_filter}

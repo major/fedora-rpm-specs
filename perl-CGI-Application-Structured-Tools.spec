@@ -23,7 +23,6 @@ BuildRequires:  perl(Probe::Perl)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::WWW::Mechanize::CGIApp)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # RPM 4.8 style:
 %filter_from_requires /main_module>)/d; /perl(<tmpl_var)/d; /perl(<tmpl_var/d

@@ -58,7 +58,6 @@ BuildRequires:  perl(Scalar::Util)
 %endif
 BuildRequires:  perl(vars)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 # Don't "provide" private Perl libs

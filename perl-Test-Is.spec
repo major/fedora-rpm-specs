@@ -25,7 +25,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 # Optional tests:
 BuildRequires:  perl(TAP::Harness)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This can check only for Perl 5 versions
 Requires:       perl(:VERSION) >= 5
 Requires:       perl(:VERSION) < 6

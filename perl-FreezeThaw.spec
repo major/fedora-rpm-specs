@@ -23,7 +23,6 @@ BuildRequires:  perl(dumpvar.pl)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(overload)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Converts data to/from stringified form, appropriate for

@@ -16,7 +16,6 @@ BuildRequires:  perl(Algorithm::Diff) >= 1.15
 BuildRequires:  perl(strict)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Algorithm::Annotate generates a list that is useful for generating output

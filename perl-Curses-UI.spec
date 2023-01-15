@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Simple)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Curses::UI is an object-oriented user interface framework for Perl.

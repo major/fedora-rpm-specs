@@ -17,7 +17,6 @@ BuildRequires:  perl(Readonly)
 BuildRequires:  perl(SQL::Translator)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

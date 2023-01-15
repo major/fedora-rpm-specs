@@ -35,7 +35,6 @@ BuildRequires:  perl(File::Which) >= 1.09
 BuildRequires:  perl(Test::More) >= 1.001002
 # "dot" command is executed from GraphViz module
 Requires:       graphviz
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.01
 Requires:       perl(IPC::Run) >= 0.6
 Requires:       perl(Parse::RecDescent) >= 1.965001
@@ -55,7 +54,6 @@ the GraphViz project (<http://www.graphviz.org/>).
 %package XML
 Summary:        Visualize XML as a tree
 Requires:       %{name} = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.01
 Requires:       perl(XML::Twig) >= 3.52
 

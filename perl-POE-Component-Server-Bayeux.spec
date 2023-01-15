@@ -27,7 +27,6 @@ Requires:       perl(JSON::XS)
 Requires:       perl(POE::Component::Client::HTTP)
 Requires:       perl(LWP)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module implements the Bayeux Protocol (1.0draft1) from the Dojo

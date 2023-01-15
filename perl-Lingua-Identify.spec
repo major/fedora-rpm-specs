@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Factory::Util) >= 1.6
 Requires:       perl(Text::Affixes) >= 0.07
 Requires:       perl(Text::Ngram) >= 0.13

@@ -6,7 +6,6 @@ License:    GPL+ or Artistic
 Summary:    XS based CSS minifier
 Source:     https://cpan.metacpan.org/authors/id/G/GT/GTERMARS/CSS-Minifier-XS-%{version}.tar.gz
 Url:        https://metacpan.org/release/CSS-Minifier-XS
-Requires:   perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 BuildRequires: findutils
 BuildRequires: make

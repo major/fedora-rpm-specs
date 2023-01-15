@@ -41,7 +41,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test::SharedFork) >= 0.29
 BuildRequires:  perl(Test::UseAllModules)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(HTTP::Daemon::SSL)
 
 %description

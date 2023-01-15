@@ -8,7 +8,6 @@ URL:		http://kpcli.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.pl
 Source1:	http://downloads.sourceforge.net/project/%{name}/README.txt
 BuildRequires:	perl-generators
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Term::ReadLine)
 Requires:	perl(Term::ReadLine::Gnu)
 Requires:	perl(Capture::Tiny)

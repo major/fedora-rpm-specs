@@ -24,7 +24,6 @@ BuildRequires:  sysstat
 Requires:       %{name}-common = %{version}-%{release}
 Requires:       %{name}-rsysusage = %{version}-%{release}
 Requires:       crontabs
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # For ping plugin (plugin-sample2.pl)
 Requires:       perl(Time::HiRes)
 Requires:       rrdtool

@@ -33,7 +33,6 @@ BuildRequires:  perl(Capture::Tiny) >= 0.25
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description

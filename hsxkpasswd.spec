@@ -58,7 +58,6 @@ BuildRequires:  perl(URI)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(version)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A secure memorable password generator inspired by the wonderful XKCD

@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 
 BuildRequires:  gumbo-parser-devel
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Gumbo is an implementation of the HTML5 parsing algorithm implemented as a

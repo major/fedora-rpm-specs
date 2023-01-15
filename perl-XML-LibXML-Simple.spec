@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More) >= 0.54
 BuildRequires:  perl(XML::LibXML) >= 1.64
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XML::LibXML) >= 1.64
 
 # drop unversioned Requires on XML::LibXML

@@ -18,7 +18,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Symbol)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 IO::Tee objects can be used to multiplex input and output in two different

@@ -16,7 +16,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::Pod)
 Requires:       perl(CGI::Application)
 Requires:       perl(DBIx::Class)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

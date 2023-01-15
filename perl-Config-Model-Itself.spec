@@ -49,7 +49,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(YAML::XS)
 BuildRequires:  sed
 Requires:       bash-completion
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(App::Cme) >= 1.002
 Requires:       perl(Config::Model::TkUI) >= 1.370
 

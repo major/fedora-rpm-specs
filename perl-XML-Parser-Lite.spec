@@ -24,7 +24,6 @@ BuildRequires:  perl(diagnostics)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This Perl module implements an XML parser with an interface similar to

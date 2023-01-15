@@ -15,7 +15,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(UNIVERSAL::require) >= 0.10
 BuildRequires:  perl(URI::Escape) >= 3.28
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Class::Accessor) >= 0.31
 Requires:       perl(Class::Data::Inheritable) >= 0.06
 

@@ -74,7 +74,6 @@ BuildRequires:  perl(PerlIO::encoding)
 # Test::Spelling not used
 # Test::Strict not used
 # Test::Synopsis not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Basename)
 # File::Spec version declared in lib/Pod/Man.pm comment
 Requires:       perl(File::Spec) >= 0.8

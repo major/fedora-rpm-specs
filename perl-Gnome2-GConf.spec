@@ -34,7 +34,6 @@ BuildRequires:  font(:lang=en)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Test::More)
 BuildRequires:  xorg-x11-server-Xvfb
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Glib) >= 1.120
 
 # Filter under-specified dependencies

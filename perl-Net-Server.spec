@@ -58,7 +58,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(Test::More)
  
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # IO::Multiplex support is optional, but not including it causes build problems in some packages...
 Requires:       perl(IO::Multiplex) >= 1.05
 #  RHBZ#1395714: Optional dependency, including it so that the build matches runtime

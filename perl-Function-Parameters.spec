@@ -50,7 +50,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moose::Util::TypeConstraints)
 
 %description

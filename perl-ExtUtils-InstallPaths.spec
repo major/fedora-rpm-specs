@@ -25,7 +25,6 @@ BuildRequires:	perl(File::Spec::Functions) >= 0.83
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module tries to make install path resolution as easy as possible.

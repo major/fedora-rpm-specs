@@ -8,7 +8,6 @@ License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MILA/MooseX-Types-JSON-%{version}.tar.gz 
 URL:            https://metacpan.org/release/MooseX-Types-JSON
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  make

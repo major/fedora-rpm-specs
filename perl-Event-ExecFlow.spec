@@ -24,7 +24,6 @@ BuildRequires:  perl(Locale::TextDomain)
 BuildRequires:  perl(Scalar::Util)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Event::ExecFlow offers a high level API to declare jobs, which mainly execute

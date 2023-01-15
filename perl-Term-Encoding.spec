@@ -26,7 +26,6 @@ BuildRequires:  perl(I18N::Langinfo)
 # Tests:
 BuildRequires:  perl(Test::More)
 # Test::Pod not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(warnings)
 %if %{with perl_Term_Encoding_enables_locale}
 Recommends:     perl(I18N::Langinfo)

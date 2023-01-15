@@ -34,7 +34,6 @@ BuildRequires:  perl(YAML::Tiny) >= 1.00
 # Tests
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(PPI::Document::File)
 
 

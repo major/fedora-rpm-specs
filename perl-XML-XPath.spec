@@ -50,7 +50,6 @@ BuildRequires:  perl(Test::CPAN::Meta::JSON)
 BuildRequires:  perl(Test::LeakTrace)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(POSIX)
 Requires:       perl(XML::Parser) >= 2.23
 

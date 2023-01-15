@@ -15,7 +15,6 @@ BuildRequires:  perl(MooseX::Types::Moose)
 BuildRequires:  perl(Params::Util)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(version) >= 0.82
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -40,7 +40,6 @@ BuildRequires:  perl(Data::Perl::Role::String)
 
 Requires:       perl(Data::Perl) >= 0.002006
 Requires:       perl(Moo) >= 1.003000
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 MooX::HandlesVia is an extension of Moo's 'handles' attribute

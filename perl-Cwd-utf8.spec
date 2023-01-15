@@ -27,7 +27,6 @@ BuildRequires:  perl(open)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Warn)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 
 %description

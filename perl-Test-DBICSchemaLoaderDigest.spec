@@ -17,7 +17,6 @@ BuildRequires:  perl(Test::More)
 # Tests:
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 DBIC::Schema::Loader dumps follow code:

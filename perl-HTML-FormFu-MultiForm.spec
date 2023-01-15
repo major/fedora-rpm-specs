@@ -39,7 +39,6 @@ BuildRequires:  perl(Fatal)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.92
 BuildRequires:  perl(YAML::XS)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Crypt::Cipher::AES is a default cipher used by the Crypt::CBC, bug #1939432
 Requires:       perl(Crypt::Cipher::AES)
 Requires:       perl(HTML::FormFu::Role::FormAndElementMethods)

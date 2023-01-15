@@ -41,7 +41,6 @@ BuildRequires:  perl(Gtk2::TestHelper)
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  font(:lang=en)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows a perl developer to access the widgets of the sexy widget

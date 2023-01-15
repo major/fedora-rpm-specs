@@ -28,7 +28,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a faster implementation of PerlX::Maybe Perl module.

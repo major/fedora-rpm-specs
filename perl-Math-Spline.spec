@@ -19,7 +19,6 @@ BuildRequires:  perl(Math::Derivative)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This package provides cubic spline interpolation of numeric data. The data

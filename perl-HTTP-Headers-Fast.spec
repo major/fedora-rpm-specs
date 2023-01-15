@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(URI)
 # Optional tests:
 BuildRequires:  perl(HTTP::Headers) >= 5.822
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Date)
 Requires:       perl(MIME::Base64)
 Requires:       perl(Storable)

@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 URI::Find is all very well, but sometimes you just want a list of the links

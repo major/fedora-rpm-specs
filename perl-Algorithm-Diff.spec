@@ -29,7 +29,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 # Explicit requirements:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

@@ -74,7 +74,6 @@ BuildRequires:  perl(Data::UUID)
 #Requires:       perl(Test::Exception)
 #Requires:       perl(XML::Simple) >= 2
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude}|perl\\(DBI\\)

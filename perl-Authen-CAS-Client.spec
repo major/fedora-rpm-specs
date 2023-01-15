@@ -29,7 +29,6 @@ BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::MockObject) >= 0.00
 BuildRequires:  perl(Test::More) >= 0.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Authen::CAS::Client module provides a simple interface for

@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(warnings)
 BuildArch:      noarch
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Given a Email::MIME object, detach all attachments from the message.

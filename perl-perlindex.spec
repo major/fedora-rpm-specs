@@ -30,7 +30,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Find)
 
 %description

@@ -33,7 +33,6 @@ BuildRequires:  perl(utf8)
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # A Dist::Zilla plug-in, version from META
 Requires:       perl(Dist::Zilla) >= 6
 Requires:       perl(Dist::Zilla::Role::FileFinderUser)

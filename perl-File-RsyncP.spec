@@ -32,7 +32,6 @@ BuildRequires: perl(strict)
 BuildRequires: perl(vars)
 # Tests only
 # nothing
-Requires: perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 File::RsyncP is a perl implementation of an Rsync client. It is compatible with

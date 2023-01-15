@@ -33,7 +33,6 @@ BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module adds a test that assures all dependencies have been installed

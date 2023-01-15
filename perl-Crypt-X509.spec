@@ -23,7 +23,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
 Requires:       perl(Convert::ASN1) >= 0.19
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Filter out unversioned R: perl(Convert::ASN1)
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Convert::ASN1\\)

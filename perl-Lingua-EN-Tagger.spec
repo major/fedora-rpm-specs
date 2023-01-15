@@ -24,7 +24,6 @@ BuildRequires:  perl(Memoize) >= 1.01
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(File::Spec) >= 0.84
 Requires:       perl(Memoize) >= 1.01
 Requires:       perl(Storable) >= 2.10

@@ -45,7 +45,6 @@ Requires:       perl(Getopt::Long)
 Requires:       perl(IO::File)
 Requires:       perl(STD) >= 32116
 Requires:       perl(Term::ANSIColor)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(STD\\)\s*$
 

@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
 Requires:       perl(MooX::Types::MooseLike) >= 0.23
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Filter under-specified requires
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(MooX::Types::MooseLike\\)$

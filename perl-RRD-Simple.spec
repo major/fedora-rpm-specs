@@ -37,7 +37,6 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Data::Dumper)
 Requires:	perl(File::Copy)
 Requires:	perl(File::Temp)

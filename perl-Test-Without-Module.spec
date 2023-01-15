@@ -23,7 +23,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Module::Load::Conditional)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -12,7 +12,6 @@ BuildRequires:  perl(DateTime::Format::ISO8601)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More)
 Requires:       perl(DateTime::Format::ISO8601)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 #Not autodetermined.
 Provides:       perl(DateTime::Format::XSD) = %{version}

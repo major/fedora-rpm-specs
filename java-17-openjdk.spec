@@ -361,7 +361,7 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver 72d08e3226f
+%global fipsver 257d544b594
 
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
@@ -369,7 +369,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        9
-%global rpmrelease      1
+%global rpmrelease      2
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1407,6 +1407,7 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 # Add nss.fips.cfg support to OpenJDK tree
 # RH2117972: Extend the support for NSS DBs (PKCS11) in FIPS mode
 # Remove forgotten dead code from RH2020290 and RH2104724
+# OJ1357: Fix issue on FIPS with a SecurityManager in place
 Patch1001: fips-17u-%{fipsver}.patch
 
 #############################################
@@ -2672,6 +2673,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Fri Jan 13 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.6.0.9-0.2.ea
+- Update FIPS support to bring in latest changes
+- * OJ1357: Fix issue on FIPS with a SecurityManager in place
+
 * Wed Jan 04 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.6.0.9-0.1.ea
 - Update to jdk-17.0.6+9
 - Update release notes to 17.0.6+9

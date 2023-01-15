@@ -38,7 +38,6 @@ BuildRequires:  perl(File::Find::Rule)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::Pod)
 # Unused if Encode is available BuildRequires:  perl(XML::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Data::Structure::Util is a toolbox to manipulate the data inside a data

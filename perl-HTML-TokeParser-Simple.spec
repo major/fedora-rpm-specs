@@ -22,7 +22,6 @@ BuildRequires:  perl(HTML::TokeParser) >= 2.24
 # Tests:
 BuildRequires:  perl(Sub::Override)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(HTML::Parser) >= 3.25
 Requires:       perl(HTML::TokeParser) >= 2.24
 

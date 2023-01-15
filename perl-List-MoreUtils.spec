@@ -48,7 +48,6 @@ BuildRequires:	perl(Tie::Array)
 BuildRequires:	perl(Test::LeakTrace)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 Requires:	perl(List::MoreUtils::XS) >= 0.430
 

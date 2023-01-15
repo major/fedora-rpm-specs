@@ -26,7 +26,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Test::Identity)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

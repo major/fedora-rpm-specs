@@ -24,7 +24,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::Pod) >= 1.00
 
 Requires:       perl(Time::Piece) >= 1.08
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module was created to enable test suites to test code at specific

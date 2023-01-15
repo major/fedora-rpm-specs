@@ -24,7 +24,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Capture::Tiny) >= 0.31
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Exporter) >= 5.57
 Requires:       perl(POSIX)
 

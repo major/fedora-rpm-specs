@@ -18,7 +18,6 @@ BuildRequires:  perl(Mouse) >= 0.62
 BuildRequires:  perl(Mouse::Exporter)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Mouse)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Mouse) >= 0.62
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Mouse\\)

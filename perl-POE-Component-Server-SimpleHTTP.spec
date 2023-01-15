@@ -57,7 +57,6 @@ BuildRequires:  perl(Test::POE::Client::TCP) >= 1.24
 # Optional tests only
 BuildRequires:  perl(POE::Component::Client::HTTP) >= 0.82
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(HTTP::Request)
 Requires:       perl(Moose) >= 0.9
 Requires:       perl(Moose::Object)

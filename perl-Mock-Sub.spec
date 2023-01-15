@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:  perl(lib)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Easy to use and very lightweight module for mocking out sub calls. Very

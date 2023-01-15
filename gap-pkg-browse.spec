@@ -21,7 +21,7 @@
 # 5. Build gap-pkg-atlasrep in non-bootstrap mode.
 # 6. Build this package in non-bootstrap mode.
 # 7. Build gap-pkg-ctbllib in non-bootstrap mode.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.8.19

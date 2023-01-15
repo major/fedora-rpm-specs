@@ -23,7 +23,6 @@ BuildRequires:	perl(vars)
 # Test Suite
 BuildRequires:	perl(Test)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Digest::MD4)
 Requires:	perl(Encode)
 

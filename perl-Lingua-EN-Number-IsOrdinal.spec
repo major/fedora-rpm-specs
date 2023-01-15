@@ -25,7 +25,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Try::Tiny)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module will tell you if a number, either in words or as digits, is a

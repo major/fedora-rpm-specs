@@ -62,7 +62,6 @@ Requires:       perl(MooseX::MethodAttributes) >= 0.18
 Requires:       perl(MooseX::RelatedClassRoles) >= 0.004
 Requires:       perl(MooseX::Types)
 Requires:       perl(MooseX::Types::Common)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

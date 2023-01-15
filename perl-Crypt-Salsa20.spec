@@ -27,7 +27,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More) >= 0.88
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Crypt::Salsa20 implements D. J. Bernstein's Salsa20 stream cipher (a.k.a.

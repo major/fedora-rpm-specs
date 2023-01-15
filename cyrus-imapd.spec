@@ -147,7 +147,6 @@ Requires(pre): shadow-utils
 
 Requires: %name-utils = %version-%release
 Requires: file sscg
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

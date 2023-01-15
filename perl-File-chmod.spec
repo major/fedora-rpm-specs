@@ -31,7 +31,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 %{summary}

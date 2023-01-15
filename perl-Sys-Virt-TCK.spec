@@ -9,7 +9,6 @@ Release: 13%{dist}
 License: GPLv2
 Source: http://libvirt.org/sources/tck/%{appname}-v%{version}.tar.gz
 Url: http://libvirt.org/
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: libvirt >= 4.4.0
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: perl-interpreter

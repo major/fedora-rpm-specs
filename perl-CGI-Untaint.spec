@@ -22,7 +22,6 @@ BuildRequires:  perl(UNIVERSAL::require) >= 0.01
 BuildRequires:  perl(CGI)
 BuildRequires:  perl(Math::BigInt)
 BuildRequires:  perl(Test::More) >= 0.11
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(UNIVERSAL::require) >= 0.01
 
 # Filter under-specified dependencies

@@ -133,7 +133,6 @@ Python3 extensions for ldns
 %package -n perl-ldns
 Summary: Perl extensions for ldns
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description -n perl-ldns
 Perl extensions for ldns

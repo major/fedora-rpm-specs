@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test::Deep::Fuzzy provides fuzzy number comparison with Test::Deep.

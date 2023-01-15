@@ -63,7 +63,6 @@ BuildRequires:	perl(Test::Signature)
 BuildRequires:	perl(Test::Spelling), hunspell-en
 %endif
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This class provides a set of assertion methods useful for writing tests.

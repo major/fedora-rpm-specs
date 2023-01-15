@@ -32,7 +32,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 When running testcases, you probably want to see some of your logging

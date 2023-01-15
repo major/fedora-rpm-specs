@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::Deep)
 # Do not BR GTop to disable test t/6.t because it fails randomly against
 # Perl 5.24 on x86_64 arch (CPAN RT#39342)
 # BuildRequires:  perl(GTop)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

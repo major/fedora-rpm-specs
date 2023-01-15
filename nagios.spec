@@ -75,7 +75,6 @@ BuildRequires: checkpolicy, selinux-policy-devel
 
 Requires:       httpd
 Requires:       php
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       %{_bindir}/mail
 Requires:       nagios-common
 Requires:       user(nagios)

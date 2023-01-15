@@ -13,7 +13,6 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More)
 
 Requires:       perl(ExtUtils::Typemaps) >= 3.18-292
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filtering unversioned requires
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(ExtUtils::Typemaps\\)$

@@ -37,7 +37,6 @@ BuildRequires:  perl(Plack::Response)
 BuildRequires:  perl(Text::Template)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moo) >= 1.000000
 
 # Filter under-specified dependencies

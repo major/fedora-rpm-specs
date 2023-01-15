@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 Requires:       perl(Catalyst) >= 5.50
 Requires:       perl(Catalyst::View)
 Requires:       perl(parent)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Want to use a Mason component in your Catalyst views? No problem!

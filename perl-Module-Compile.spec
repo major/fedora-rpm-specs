@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::Base)
 BuildRequires:  perl(Test::Base::Filter)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(YAML)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Digest::SHA1) >= 2.13
 Requires:       perl(Filter::Util::Call)
 

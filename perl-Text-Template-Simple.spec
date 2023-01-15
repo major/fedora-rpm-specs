@@ -46,7 +46,6 @@ BuildRequires:  perl(vars)
 # Optional tests only
 BuildRequires:  perl(Pod::Simple) >= 3.05
 BuildRequires:  perl(Test::Pod) >= 1.26
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Data::Dumper) >= 2.101
 Requires:       perl(Devel::Size) >= 0.77
 Requires:       perl(Digest::MD5)

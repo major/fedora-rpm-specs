@@ -45,7 +45,6 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More) >= 0.47
 # Optional tests
 BuildRequires:  perl(CPAN::Meta)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Inspector) >= 1.12
 %if %{with perl_File_ShareDir_enables_optional_deps}
 Recommends:     perl(List::MoreUtils) >= 0.428

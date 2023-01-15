@@ -31,7 +31,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(utf8)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(Encode)
 Recommends:     perl(HTTP::Lite)
 Recommends:     perl(Jcode)

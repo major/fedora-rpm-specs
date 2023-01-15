@@ -123,7 +123,6 @@ API documentation for the XMMS2 modular audio framework architecture.
 Summary:	Perl support for XMMS2
 License:	GPL+ or Artistic
 Requires:	%{name} = %{version}-%{release}
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description perl
 Perl bindings for XMMS2.

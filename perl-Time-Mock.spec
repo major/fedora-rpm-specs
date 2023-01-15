@@ -16,7 +16,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(strict), perl(version), perl(warnings)
 
 Requires:       perl(Date::Parse) >= 2.27
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is an alternative to Test::MockTime which enables test suites to 

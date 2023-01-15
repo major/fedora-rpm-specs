@@ -18,7 +18,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The purpose of this module is to provide user with current list of

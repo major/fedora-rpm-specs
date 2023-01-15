@@ -85,7 +85,6 @@ BuildRequires:  perl(Test::More) >= 1.302183
 BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(Net::Server)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Daemon) >= 6.12
 Requires:       perl(MIME::Base64)
 Requires:       perl(Module::Load) >= 0.36
@@ -111,7 +110,6 @@ used by them.
 %if %{with perl_RPC_XML_enables_mod_perl}
 %package -n perl-Apache-RPC
 Summary:    Companion packages for RPC::XML tuned for mod_perl environments
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description -n perl-Apache-RPC
 This package contains Apache::RPC::Server and Apache::RPC::Status, useful for

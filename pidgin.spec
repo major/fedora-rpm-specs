@@ -403,7 +403,6 @@ instant messaging clients or plugins for any libpurple based client.
 %package -n libpurple-perl
 Summary:    Perl scripting support for libpurple
 Requires:   libpurple = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description -n libpurple-perl
 Perl plugin loader for libpurple. This package will allow you to write or

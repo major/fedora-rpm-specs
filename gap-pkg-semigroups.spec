@@ -9,7 +9,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        5.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GAP methods for semigroups
 
 License:        GPL-3.0-or-later
@@ -100,7 +100,7 @@ sed -i 's/ -O3//' Makefile.in
 %build
 export LC_ALL=C.UTF-8
 export CPPFLAGS="-I%{_includedir}/eigen3"
-%configure --with-gaproot=%{gap_dir} --disable-silent-rules \
+%configure --with-gaproot=%{gap_archdir} --disable-silent-rules \
   --with-external-libsemigroups --without-march-native
 
 # Get rid of undesirable hardcoded rpaths; workaround libtool reordering
@@ -113,27 +113,27 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %make_build
 
 # Link to main GAP documentation
-ln -s %{gap_dir}/doc ../../doc
+ln -s %{gap_libdir}/doc ../../doc
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
 gap -l "$PWD/..;" makedoc.g
 rm -fr ../../doc ../pkg
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g bin data gap tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
+mkdir -p %{buildroot}%{gap_archdir}/pkg/%{pkgname}/doc
+cp -a *.g bin data gap tst %{buildroot}%{gap_archdir}/pkg/%{pkgname}
 %gap_copy_docs
 
 %check
 export LC_ALL=C.UTF-8
 cd tst
-gap -l "%{buildroot}%{gap_dir};" << EOF
+gap -l "%{buildroot}%{gap_archdir};" << EOF
 LoadPackage("semigroups");
 GAP_EXIT_CODE(Test("testinstall.tst", rec( compareFunction := "uptowhitespace" )));
 EOF
 
 %if %{with bigtest}
-gap -l "%{buildroot}%{gap_dir};" teststandard.g
+gap -l "%{buildroot}%{gap_archdir};" teststandard.g
 %endif
 
 cd -
@@ -141,14 +141,17 @@ cd -
 %files
 %doc CHANGELOG.md README.md VERSIONS
 %license GPL LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/
+%exclude %{gap_archdir}/pkg/%{pkgname}/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
+%docdir %{gap_archdir}/pkg/%{pkgname}/doc/
+%{gap_archdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 5.2.0-2
+- Update for split GAP directories
+
 * Mon Dec  5 2022 Jerry James <loganjerry@gmail.com> - 5.2.0-1
 - Version 5.2.0
 

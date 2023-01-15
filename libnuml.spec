@@ -123,7 +123,6 @@ BuildRequires: perl-devel
 BuildRequires: perl-generators
 BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: perl(Test::More)
-Requires:      perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %description -n perl-%{octpkg}
 The %{octpkg} perl package contains the libraries to 
 develop applications with libNUML Perl bindings.

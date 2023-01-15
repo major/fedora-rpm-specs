@@ -24,7 +24,6 @@ BuildRequires:  perl(warnings)
 # Testing
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 WWW::Twilio::TwiML creates Twilio-compatible TwiML documents. Documents can

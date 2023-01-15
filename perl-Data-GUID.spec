@@ -24,7 +24,6 @@ BuildRequires:  perl(warnings)
 # tests
 BuildRequires:  perl(Test::More) >= 0.96
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Data::GUID provides a simple interface for generating and using globally

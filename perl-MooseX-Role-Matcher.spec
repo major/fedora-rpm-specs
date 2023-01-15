@@ -17,7 +17,6 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(MooseX::Role::Parameterized) >= 0.03
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This role adds flexible matching and searching capabilities to your Moose

@@ -6,7 +6,6 @@ License:        Artistic 2.0
 
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/MooseX-SemiAffordanceAccessor-%{version}.tar.gz 
 URL:            https://metacpan.org/release/MooseX-SemiAffordanceAccessor
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  coreutils

@@ -40,7 +40,6 @@ BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(Test::Exception) >= 0.27
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::use::ok) >= 0.02
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # DateTime >= 0.4302 rounded to two places
 Requires:       perl(DateTime) >= 0.44
 # DateTime::Locale >= 0.4001 rounded to two places

@@ -31,7 +31,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
 Requires:       perl(DynaLoader)
 Requires:       perl(ExtUtils::Mksymlists)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module tries to check if the current system is capable of compiling,

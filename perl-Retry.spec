@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A one-feature module, this provides a method to wrap any function in

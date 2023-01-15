@@ -20,7 +20,6 @@ BuildRequires:  perl(File::Spec)
 # English not used
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides methods for obtaining information about the currently

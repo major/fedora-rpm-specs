@@ -49,7 +49,6 @@ BuildRequires:  perl(IO::Socket)
 BuildRequires:  perl(Test::Pod) >= 1.22
 # Test::Pod::Coverage not used
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Socket::INET)
 # Keep Net::Ping::External optional
 Suggests:       perl(Net::Ping::External)

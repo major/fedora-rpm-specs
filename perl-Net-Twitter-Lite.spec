@@ -43,7 +43,6 @@ Requires:       perl(Net::OAuth) >= 0.25
 Requires:       perl(Scalar::Util)
 Requires:       perl(Storable)
 Requires:       perl(URI) >= 1.40
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(JSON\\)$

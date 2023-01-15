@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::Simple)
 BuildRequires:  perl(warnings)
 Requires:       perl(Carp)
 Requires:       perl(Exporter)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This package supports both conventional Roman algorisms (which range from 1

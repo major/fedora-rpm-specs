@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(UNIVERSAL::require)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # TODO: Regenerate bundled data, CPAN RT#118709
 Provides:       bundled(tzdata) = 2007g
 

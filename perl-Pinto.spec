@@ -145,7 +145,6 @@ Requires:       perl(MooseX::ClassAttribute) >= 0.27
 Requires:       perl(Plack) >= 1.0028
 Requires:       perl(Starman) >= 0.3014
 Requires:       perl(Throwable::Error) >= 0.200005
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 Requires(post):   systemd
 Requires(preun):  systemd

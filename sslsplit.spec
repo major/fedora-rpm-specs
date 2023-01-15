@@ -1,10 +1,14 @@
 Summary: Transparent and scalable SSL/TLS interception
 Name: sslsplit
 Version: 0.5.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD
 Url: http://www.roe.ch/SSLsplit
 Source: http://mirror.roe.ch/rel/sslsplit/sslsplit-%{version}.tar.bz2
+
+# https://github.com/droe/sslsplit/commit/e17de8454a65d2b9ba432856971405dfcf1e7522
+Patch1: sslsplit-0.5.5-openssl3.patch
+
 BuildRequires: make
 Buildrequires: libevent-devel, openssl-devel, check-devel gcc
 Buildrequires: libpcap-devel libnet-devel
@@ -22,6 +26,7 @@ It uses Linux netfilter REDIRECT and TPROXY
 
 %prep
 %setup -q
+%autopatch -p1
 
 %build
 # work around some odd build system option passing
@@ -44,6 +49,9 @@ cp -a %{name}.1  %{buildroot}%{_mandir}/man1/
 %{_mandir}/*/*
 
 %changelog
+* Fri Jan 13 2023 Paul Wouters <paul.wouters@aiven.io - 0.5.5-10
+- Resolves: rhbz#2021905 sslsplit: FTBFS with OpenSSL 3.0.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

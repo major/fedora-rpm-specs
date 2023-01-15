@@ -20,7 +20,6 @@ BuildRequires:  perl(Exporter::Tidy)
 Requires:       perl(Carp)
 Requires:       perl(strict)
 Requires:       perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides an intuitive, Perl-ish way to write forking

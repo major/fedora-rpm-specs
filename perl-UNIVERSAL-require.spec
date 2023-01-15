@@ -25,7 +25,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.47
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(UNIVERSAL)
 
 %description

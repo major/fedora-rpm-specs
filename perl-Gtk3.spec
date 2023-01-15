@@ -41,7 +41,6 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  font(:lang=en)
 %endif
 Requires:       gtk3
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Cairo::GObject) >= 1.000
 # Glib::Object::Introspection version for
 # Glib::Object::Introspection:convert_flags_to_sv(), CPAN RT#122761

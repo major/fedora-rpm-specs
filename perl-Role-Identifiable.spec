@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

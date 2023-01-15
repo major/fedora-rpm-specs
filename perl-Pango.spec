@@ -43,7 +43,6 @@ BuildRequires:  perl(Gtk2) >= 1.220
 %endif
 BuildRequires:  xorg-x11-server-Xvfb
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Cairo) >= 1.000
 
 %{?perl_default_filter}

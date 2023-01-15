@@ -31,7 +31,6 @@ BuildRequires:  perl(SelectSaver)
 # Test::More version from Test::Simple in META
 BuildRequires:  perl(Test::More) >= 0.44
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

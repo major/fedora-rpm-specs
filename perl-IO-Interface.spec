@@ -10,7 +10,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::CBuilder)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 IO::Interface adds methods to IO::Socket objects that allows them to

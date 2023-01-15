@@ -29,7 +29,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(Data::Dumper)
 
 %description

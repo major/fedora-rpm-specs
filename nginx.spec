@@ -198,7 +198,6 @@ BuildRequires:     perl-generators
 %endif
 BuildRequires:     perl(ExtUtils::Embed)
 Requires:          nginx(abi) = %{nginx_abiversion}
-Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:          perl(constant)
 
 %description mod-http-perl

@@ -18,7 +18,6 @@ BuildRequires:  perl(Unicode::GCString)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %{?perl_default_subpackage_tests}
 

@@ -76,7 +76,6 @@ BuildRequires:  perl(PerlIO::encoding)
 BuildRequires:  perl(Test::Pod) >= 1.41
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Copy)
 Requires:       perl(File::MimeInfo)
 Requires:       perl(File::Path)

@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(Module::Runtime)
 

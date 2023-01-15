@@ -6,7 +6,6 @@ License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Specify fine granularity test plans
 Source:     https://cpan.metacpan.org/authors/id/A/AD/ADIE/Test-Block-%{version}.tar.gz
 Url:        https://metacpan.org/release/Test-Block
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 # Fixed Test-Block-0.13 for perl 5.23.8 and later (CPAN RT#112462)
 Patch0:     Test-Block-0.13-Make-Test-Block-work-with-perl-5.23.8.patch

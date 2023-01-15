@@ -11,7 +11,6 @@ BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       openjade
 
 %description

@@ -18,7 +18,6 @@ BuildRequires:  perl(warnings)
 # Test
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(autodie)
 Requires:       perl(Syntax::Keyword::Try)
 Requires:       perl(Try::Tiny)

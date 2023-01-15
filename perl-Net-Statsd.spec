@@ -27,7 +27,6 @@ BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module implements a client for a statsd statistics collection server, such

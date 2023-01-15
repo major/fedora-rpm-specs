@@ -21,7 +21,6 @@ BuildRequires:  perl(Sub::Exporter) >= 0.982
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test2::V0) >= 0.000094
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Sub::Exporter) >= 0.982
 
 # Remove under-specified dependencies

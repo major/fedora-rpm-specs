@@ -19,7 +19,6 @@ BuildArch: noarch
 %global __requires_exclude App::Music::ChordPro
 
 Requires: perl(:VERSION) >= 5.10.1
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 Requires: perl(App::Packager)               >= 1.430
 Requires: perl(PDF::API2)                   >= 2.043

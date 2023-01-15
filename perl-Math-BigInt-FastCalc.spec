@@ -26,7 +26,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Math::BigFloat)
 BuildRequires:  perl(Math::BigInt) >= 1.999831
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl < 4:5.22.0-348
 
 # Filter modules bundled for tests

@@ -6,7 +6,7 @@
 # 1. Build this package in bootstrap mode.
 # 2. Build gap-pkg-spinsym
 # 4. Build this package in non-bootstrap mode.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.3.4

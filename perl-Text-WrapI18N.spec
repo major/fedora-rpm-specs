@@ -17,7 +17,6 @@ BuildRequires:  perl(Text::CharWidth) >= 0.02
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

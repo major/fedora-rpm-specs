@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::Simple) >= 0.88
 Requires:       perl(B::Compiling) >= 0.02
 Requires:       perl(B::Hooks::EndOfScope) >= 0.08
 Requires:       perl(Devel::Declare) >= 0.006
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Devel-Declare-Parser is a higher-level API sitting on top of

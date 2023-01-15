@@ -4,6 +4,7 @@
 %bcond_without dnstap
 %bcond_with    systemd
 %bcond_without doh
+%bcond_with redis
 
 %global _hardened_build 1
 
@@ -29,8 +30,8 @@
 
 Summary: Validating, recursive, and caching DNS(SEC) resolver
 Name: unbound
-Version: 1.17.0
-Release: 2%{?extra_version:.%{extra_version}}%{?dist}
+Version: 1.17.1
+Release: 1%{?extra_version:.%{extra_version}}%{?dist}
 License: BSD-3-Clause
 Url: https://nlnetlabs.nl/projects/unbound/
 Source: https://nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?extra_version}.tar.gz
@@ -77,6 +78,9 @@ BuildRequires: systemd-devel
 %endif
 %if %{with doh}
 BuildRequires: libnghttp2-devel
+%endif
+%if %{with redis}
+BuildRequires: redis-devel
 %endif
 %if 0%{?fedora} >= 30 || 0%{?rhel} >= 9
 BuildRequires: systemd-rpm-macros
@@ -181,7 +185,7 @@ Python 3 modules and extensions for unbound
 
 %prep
 %if 0%{?fedora}
-%gpgverify -k 19 -s 18 -d 0
+%{gpgverify} --keyring='%{SOURCE19}' --signature='%{SOURCE18}' --data='%{SOURCE0}'
 %endif
 %global pkgname %{name}-%{version}%{?extra_version}
 
@@ -225,7 +229,8 @@ cp -a %{dir_primary} %{dir_secondary}
             --with-pidfile=%{_rundir}/%{name}/%{name}.pid \\\
             --enable-sha2 --disable-gost --enable-ecdsa \\\
             --with-rootkey-file=%{_sharedstatedir}/unbound/root.key \\\
-            --enable-linux-ip-local-port-range
+            --enable-linux-ip-local-port-range \\\
+
 
 pushd %{dir_primary}
 
@@ -244,6 +249,10 @@ pushd %{dir_primary}
 %endif
 %if 0%{?rhel}
             --disable-sha1 \
+%endif
+%if %{with redis}
+            --with-libhiredis \
+            --enable-cachedb \
 %endif
             %{configure_args}
 
@@ -481,6 +490,10 @@ popd
 %{_mandir}/man1/unbound-*
 
 %changelog
+* Fri Jan 13 2023 Paul Wouters <paul.wouters@aiven.io - 1.17.1-1
+- Resolved rhbz#2160397 unbound-1.17.1 is available (bugfix release)
+- Add support for building with redis
+
 * Thu Dec 01 2022 Petr Menšík <pemensik@redhat.com> - 1.17.0-2
 - Move unbound user creation to libs (#2149036)
 - Use systemd-sysusers for user creation (#2105416)

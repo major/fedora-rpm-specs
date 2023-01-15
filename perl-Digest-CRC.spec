@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Fcntl)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(DynaLoader)
 Requires:       perl(Symbol)
 

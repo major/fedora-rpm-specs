@@ -21,7 +21,6 @@ BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Term::EditorEdit is a tool for prompting the user to edit a piece of text

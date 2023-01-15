@@ -34,7 +34,6 @@ BuildRequires:  perl(Test)
 # Optional tests:
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Bundles https://sourceforge.net/projects/ol2mbox/files/LibDBX/, bug #234861
 Provides:  bundled(libdbx) = 1.0.3
 

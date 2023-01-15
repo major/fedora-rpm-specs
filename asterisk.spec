@@ -540,7 +540,6 @@ Legacy SIP channel driver for Asterisk
 Summary: Module that enables SNMP monitoring of Asterisk
 Requires: asterisk = %{version}-%{release}
 # This subpackage depends on perl-libs, this Requires tracks versioning.
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description snmp
 Module that enables SNMP monitoring of Asterisk.

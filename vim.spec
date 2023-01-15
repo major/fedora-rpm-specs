@@ -235,7 +235,6 @@ Suggests: lua-libs
 
 %if "%{withperl}" == "1"
 Suggests: perl-devel
-Suggests: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %endif
 
 Suggests: python3
@@ -309,7 +308,6 @@ Suggests: lua-libs
 
   %if "%{withperl}" == "1"
 Suggests: perl-devel
-Suggests: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
   %endif
 
 Suggests: python3

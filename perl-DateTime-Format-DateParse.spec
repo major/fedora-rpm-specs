@@ -17,7 +17,6 @@ BuildRequires:  perl(Time::Zone) >= 2.22
 BuildRequires:  perl(lib)
 BuildRequires:  perl(DateTime::Duration)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Date::Parse) >= 2.27
 Requires:       perl(DateTime) >= 0.29
 Requires:       perl(DateTime::TimeZone) >= 0.27

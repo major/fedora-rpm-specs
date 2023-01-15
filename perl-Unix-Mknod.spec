@@ -24,7 +24,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(File::stat)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows access to the device routines major()/minor()/makedev()

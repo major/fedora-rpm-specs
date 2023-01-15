@@ -18,7 +18,6 @@ BuildRequires:  perl(Test2::V0) >= 0.000094
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module allows Moose instances to be constructed with a single

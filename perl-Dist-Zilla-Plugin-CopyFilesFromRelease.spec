@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Moose::Conflicts)
 BuildRequires:  perl(Module::Runtime::Conflicts)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Dist::Zilla::Role::AfterRelease)
 
 %description

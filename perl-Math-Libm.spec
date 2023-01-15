@@ -21,7 +21,6 @@ BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is a translation of the C math.h file. It exports the following

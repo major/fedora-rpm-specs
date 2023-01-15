@@ -93,7 +93,6 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
 BuildRequires:  font(:lang=en)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Benchmark)
 Requires:       perl(blib)
 Requires:       perl(File::Temp)

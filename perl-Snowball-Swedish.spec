@@ -22,7 +22,6 @@ BuildRequires:  perl(English)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More) >= 0.42
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 The stem function takes a scalar as a parameter and stems the word according to

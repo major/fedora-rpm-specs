@@ -19,7 +19,6 @@ BuildRequires:  perl(ExtUtils::PkgConfig)
 BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This subclass of Module::Build provides some handy methods to assist the

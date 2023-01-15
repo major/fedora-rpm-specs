@@ -1,5 +1,5 @@
 %global toolchain clang
-%global compiler_rt_version 15.0.6
+%global compiler_rt_version 15.0.7
 #global rc_ver 3
 %global crt_srcdir compiler-rt-%{compiler_rt_version}%{?rc_ver:rc%{rc_ver}}.src
 
@@ -11,7 +11,7 @@
 
 Name:		compiler-rt
 Version:	%{compiler_rt_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	1%{?dist}
 Summary:	LLVM "compiler-rt" runtime libraries
 
 License:	NCSA or MIT
@@ -111,6 +111,9 @@ popd
 %endif
 
 %changelog
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-1
+- Update to LLVM 15.0.7
+
 * Thu Dec 15 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-2
 - Remove ppc64le ieeelongdouble workaround
 

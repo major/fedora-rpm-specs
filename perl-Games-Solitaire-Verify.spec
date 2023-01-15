@@ -9,7 +9,6 @@ License:    MIT
 Url:        https://metacpan.org/release/%{upstream_name}
 Source0:    https://www.cpan.org/modules/by-module/Games/%{upstream_name}-%{version}.tar.gz
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: findutils
 BuildRequires: perl-generators
 BuildRequires: perl-interpreter

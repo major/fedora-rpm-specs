@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::Requires::Git)
 # Optional tests only
 # CPAN::Meta not useful
 # CPAN::Meta::Prereqs not useful
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module adds an AUTOLOAD method to Git::Repository, enabling it to

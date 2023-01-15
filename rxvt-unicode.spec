@@ -42,7 +42,6 @@ BuildRequires:  signify
 BuildRequires:  startup-notification-devel
 BuildRequires:  xorg-x11-proto-devel
 Requires:       startup-notification
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # We just provide a single binary now.
 Obsoletes:      rxvt-unicode-ml <= 9.22-17

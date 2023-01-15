@@ -59,7 +59,6 @@ BuildRequires:  perl(XML::LibXSLT) >= 1.58
 BuildRequires:  tex(tex)
 BuildRequires:  tex(latex)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Getopt::Long) >= 2.37
 Requires:       perl(Image::Magick)
 Requires:       perl(MIME::Base64)

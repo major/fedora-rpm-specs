@@ -30,7 +30,6 @@ BuildRequires:  perl(XSLoader)
 # Tests only:
 BuildRequires:  perl(Errno)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(:VERSION) >= 5.6.1
 
 %{?perl_default_filter}

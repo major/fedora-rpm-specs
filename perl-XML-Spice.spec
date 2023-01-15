@@ -25,7 +25,6 @@ BuildRequires:  perl(overload)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::XML)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(XML::Tidy::Tiny)
 
 %description

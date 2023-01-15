@@ -19,7 +19,6 @@ BuildRequires:      perl(Pod::Coverage) >= 0.18
 BuildRequires:      perl(Test::More)
 BuildRequires:      perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:      perl(Test::Pod) >= 1.22
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 An object oriented front end for the QRZ.COM Amateur Radio call-sign database.

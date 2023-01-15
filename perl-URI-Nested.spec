@@ -22,7 +22,6 @@ BuildRequires:  perl(URI) >= 1.40
 BuildRequires:  perl(URI::QueryParam)
 BuildRequires:  perl(base)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This class provides support for nested URIs, where the scheme is a

@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::Pod::Coverage)
 
 Requires:       perl(Catalyst::Runtime)
 Requires:       perl(Class::Accessor::Fast)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Many dynamic websites perform heavy processing on most pages, yet this

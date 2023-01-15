@@ -12,14 +12,14 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/pore
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# - drop copy_dir
+# - replace copy_dir with fs_extra
 # - replace isatty with atty
 # - bump joinery to 3.0
 Patch:          pore-fix-metadata.diff
-# Based on merged https://github.com/jmgao/pore/pull/98
+# Based on merged https://github.com/jmgao/pore/pull/102
+Patch:          pore-replace-copy_dir.diff
+# Based on merged https://github.com/jmT142411827gao/pore/pull/98
 Patch:          pore-replace-isatty.diff
-# Not upstreamed yet as the current patch is POSIX only
-Patch:          pore-remove-copy_dir.diff
 
 BuildRequires:  rust-packaging >= 21
 

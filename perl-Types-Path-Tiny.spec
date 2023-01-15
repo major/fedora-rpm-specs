@@ -28,7 +28,6 @@ BuildRequires:  perl(Type::Utils)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides Path::Tiny types for Moose, Moo, etc.

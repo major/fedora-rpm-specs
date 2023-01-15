@@ -26,7 +26,6 @@ BuildRequires:	perl(vars)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 LDAP implementation of Apache::Session. Sessions are stored as LDAP entries

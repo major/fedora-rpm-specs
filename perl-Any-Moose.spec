@@ -27,7 +27,6 @@ BuildRequires:  perl(MooseX::Types)
 BuildRequires:  perl(MouseX::Types)
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # Virtual provides in perl-Moose and perl-Mouse
 Requires:       perl(Any-Moose) >= 0.40
 Requires:       perl(Carp)

@@ -1,11 +1,13 @@
 Name:           libmawk
 Version:        1.0.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Embed awk scripting language in any application written in C
 
 License:        GPLv2
 URL:            http://repo.hu/projects/libmawk
 Source0:        http://repo.hu/projects/libmawk/releases/%{name}-%{version}.tar.gz
+Patch0: libmawk-configure-c99.patch
+Patch1: libmawk-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -33,7 +35,7 @@ HTML documentation for %{name}.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -68,6 +70,9 @@ HTML documentation for %{name}.
 
 
 %changelog
+* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.0.3-3
+- C99 compatibility fixes (#2160704)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

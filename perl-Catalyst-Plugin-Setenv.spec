@@ -13,7 +13,6 @@ BuildRequires:  perl(MRO::Compat)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 perl Build.PL ./Build ./Build test ./Build install

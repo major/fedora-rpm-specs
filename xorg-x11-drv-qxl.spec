@@ -24,7 +24,7 @@ Name:      xorg-x11-drv-qxl
 
 Version:   0.1.5
 
-Release:   22%{?gver}%{?dist}
+Release:   23%{?gver}%{?dist}
 URL:       http://www.x.org
 Source0:  http://xorg.freedesktop.org/releases/individual/driver/%{tarball}-%{version}.tar.bz2
 #Source0:   %{tarball}-%{gitdate}.tar.bz2
@@ -37,6 +37,8 @@ Patch5: 0005-Xspice-Adjust-shebang-to-explicitly-mention-python3.patch
 Patch6: 0006-qxl-call-provider-init.patch
 # https://gitlab.freedesktop.org/xorg/driver/xf86-video-qxl/-/merge_requests/5
 Patch7: 0001-configure-Simplify-fragile-libdrm-detection.patch
+# https://gitlab.freedesktop.org/xorg/driver/xf86-video-qxl/-/merge_requests/6
+Patch8: 0001-Fix-a-build-error-with-Xorg-master.patch
 
 License:   MIT
 
@@ -122,6 +124,9 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/X11/spiceqxl.xorg.conf
 
 
 %changelog
+* Wed Jan 11 2023 Olivier Fourdan <ofourdan@redhat.com> - 0.1.5-23
+- Fix build with recent Xorg (#2047132)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

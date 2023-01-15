@@ -31,7 +31,6 @@ BuildRequires:	perl(XML::XPath)
 BuildRequires:	perl(Test::Builder::Tester)
 BuildRequires:	perl(XML::SAX::Base)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Only XML::LibXML is actually needed for Test::XML::XPath, but we require
 # XML::XPath too in case someone wants to use Test::XML::XPath::XML::XPath
 # directly for some reason

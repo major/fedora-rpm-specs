@@ -49,7 +49,6 @@ BuildRequires:  perl(Devel::CallParser)
 %endif
 BuildRequires:  perl(Filter::Util::Call)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # necessary minimum versions not automatically detected
 Requires:       perl(B::Hooks::EndOfScope) >= 0.05
 

@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::Requires)
 %if 0%{!?perl_bootstrap:1}
 BuildRequires:  perl(Plack::Test)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -1,6 +1,6 @@
 Name:    sc
 Version: 7.16
-Release: 19%{?dist}
+Release: 20%{?dist}
 Summary: Spreadsheet Calculator
 
 License: Public Domain
@@ -32,7 +32,7 @@ bindings similar to vi and less.
 %autosetup
 
 %build
-make all sc.1 psc.1 %{?_smp_mflags} CFLAGS="%{optflags} -DSYSV3"
+make all sc.1 psc.1 %{?_smp_mflags} CFLAGS="%{optflags} -DSYSV3 -std=gnu89"
 
 %install
 # The "install" target of upstream's makefile does not work, so install manually
@@ -58,6 +58,9 @@ install -m 0644 tutorial.sc %{buildroot}%{_datadir}/sc
 %{_datadir}/sc
 
 %changelog
+* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 7.16-20
+- Build in C89 mode (#2160639)
+
 * Thu Aug 04 2022 Mat Booth <mat.booth@gmail.com> - 7.16-19
 - Fix newly detected format-security errors
 

@@ -55,7 +55,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 # Optional tests:
 # PerlIO::Util not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 %if %{with perl_IO_Pager_enables_File_Which}
 Recommends:     perl(File::Which)

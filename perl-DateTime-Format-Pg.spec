@@ -25,7 +25,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module understands the formats used by PostgreSQL for its DATE, TIME,

@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests
 # Test::CheckManifest not used
 BuildRequires:  perl(Test::Pod) >= 1.22
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Math::Utils contains implementations of commonly used mathematical

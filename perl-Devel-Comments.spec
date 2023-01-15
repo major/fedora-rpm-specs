@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(IO::Capture::Stderr::Extended)
 BuildRequires:  perl(IO::Capture::Stdout::Extended)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Filter::Simple) >= 0.8
 Requires:       perl(Test::More) >= 0.94
 Requires:       perl(Text::Balanced) >= 2

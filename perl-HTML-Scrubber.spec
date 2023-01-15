@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::CPAN::Meta) perl(Test::Differences) perl(Test::Kwalit
 BuildRequires:	perl(HTML::Parser) >= 3.47
 BuildRequires:	perl(List::Util) >= 1.33
 BuildRequires:	perl(strict), perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 If you wanna "scrub" or "sanitize" html input in a reliable an flexible

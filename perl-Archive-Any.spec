@@ -30,7 +30,6 @@ BuildRequires:	perl(Test::Warn)
 # Optional Tests
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is a single interface for manipulating different archive

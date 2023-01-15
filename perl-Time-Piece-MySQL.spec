@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(warnings)
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Time::Piece) >= 1.03
 
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Time::Piece\\)

@@ -109,7 +109,6 @@ BuildRequires:  wget
 Requires:       iptables
 Requires:       libvirt
 Requires:       mariadb-common
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Mojolicious::Plugin::Config)
 Requires:       perl(Mojolicious::Plugin::I18N)
 Requires:       perl(Mojolicious) >= 7.01

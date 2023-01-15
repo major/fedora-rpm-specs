@@ -19,7 +19,6 @@ Source0:        https://github.com/dacav/%{module}/archive/v%{version}.tar.gz#/%
 Patch0:         %{name}.libexec.patch
 
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:       pft = %{version}-%{release}
 
 BuildRequires: make

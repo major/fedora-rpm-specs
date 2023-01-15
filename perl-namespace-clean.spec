@@ -45,7 +45,6 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Variable::Magic)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(B::Hooks::EndOfScope) >= 0.12
 Requires:	perl(Package::Stash) >= 0.23
 

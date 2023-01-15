@@ -30,7 +30,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Test2::V0) >= 0.000121
 BuildRequires:  perl(Test::Alien)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base) >= 2.37
 # This RPM package ensures libxml2 is installed on the system
 Requires:       pkgconfig(libxml-2.0) = %(type -p pkgconf >/dev/null && pkgconf --exists libxml-2.0 && pkg-config --modversion libxml-2.0 || echo 0)

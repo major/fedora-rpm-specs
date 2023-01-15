@@ -22,7 +22,6 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 WARNING: THIS MODULE IS EXPERIMENTAL AND SUBJECT TO CHANGE WITHOUT NOTICE

@@ -79,7 +79,6 @@ BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(Time::localtime)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B)
 Requires:       perl(Data::Dumper)
 Requires:       perl(Data::MessagePack) >= 0.38

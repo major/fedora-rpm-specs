@@ -20,7 +20,6 @@ BuildRequires:  perl(Test2::API) >= 1.302165
 BuildRequires:  perl(Test2::Hub)
 # Tests:
 BuildRequires:  perl(Test2::V0) >= 0.000124
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::UUID) >= 1.148
 Requires:       perl(Test2::API) >= 1.302165
 Requires:       perl(Test2::Hub)

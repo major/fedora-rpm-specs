@@ -58,7 +58,6 @@ BuildRequires:	perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:	perl(Test::Portability::Files)
 BuildRequires:	perl(Test::Vars)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This role loads simple configfiles to set object attributes. It is based on the

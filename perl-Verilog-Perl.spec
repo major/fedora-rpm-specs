@@ -49,7 +49,6 @@ BuildRequires: perl(Devel::Leak)
 BuildRequires: perl(Storable)
 BuildRequires: perl(Test::Pod) >= 1.00
 
-Requires:      perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 Provides:      perl-Verilog     = %{version}-%{release}
 Obsoletes:     perl-Verilog     < 3.213-2

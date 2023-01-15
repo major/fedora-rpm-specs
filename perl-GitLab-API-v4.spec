@@ -50,7 +50,6 @@ BuildRequires:  perl(namespace::clean) >= 0.27
 BuildRequires:  perl(strict)
 BuildRequires:  perl(strictures) >= 2.000003
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides a one-to-one interface with the GitLab API v4.

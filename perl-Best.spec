@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.14
 # Test::Pod::Coverage not useful
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:   perl(Data::Dumper)
 
 %{?perl_default_filter}

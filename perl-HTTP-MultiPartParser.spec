@@ -31,7 +31,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::ReadmeFromPod)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This class provides a low-level API for processing MultiPart MIME data

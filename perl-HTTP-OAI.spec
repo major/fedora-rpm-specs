@@ -44,7 +44,6 @@ BuildRequires:  perl(XML::SAX)
 BuildRequires:  perl(XML::SAX::Base) >= 1
 BuildRequires:  perl(XML::SAX::ParserFactory)
 BuildRequires:  perl(XML::SAX::Writer)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This is a stub module, you probably want to look at HTTP::OAI::Harvester or

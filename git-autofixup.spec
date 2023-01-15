@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More)
 # The plugins needs only the basic functionalities of git
 # git requires git-core so all users with git or git-all have it
 Requires:       git-core
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 git-autofixup parses hunks of changes in the working directory out of \

@@ -15,7 +15,6 @@ BuildRequires:  perl(XML::SAX::ParserFactory)
 BuildRequires: make
 # rpmlint isn't happy with libxslt, but we need xsltproc
 Requires:       libxslt openjade texinfo %{_bindir}/sgml2xml
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Required by bin/* scripts, who does know why rpmbuild does not generate
 # dependencies automatically:
 Requires:  perl(Exporter)

@@ -23,7 +23,6 @@ BuildRequires:  perl(XSLoader)
 # Tests only
 BuildRequires:  perl(integer)
 BuildRequires:  perl(Test::More) >= 0.54
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %{?perl_default_filter}
 

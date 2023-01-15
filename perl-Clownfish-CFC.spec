@@ -59,7 +59,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(File::stat)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Clownfish not used. I believe it's used only when Clownfish-CFC is called
 # from the Clownfish. Adding symetric dependency between Clownfish-CFC and
 # Clownfish would create a cycle which is not desired for bulding and

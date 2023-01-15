@@ -45,7 +45,6 @@ BuildRequires:  perl-generators
 BuildRequires:  udev
 %{?systemd_requires}
 
-Requires:        perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:        dahdi-tools-libs%{?_isa} = %{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Requires:        systemd-udev

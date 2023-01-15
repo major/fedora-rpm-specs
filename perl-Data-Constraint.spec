@@ -26,7 +26,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A constraint is some sort of condition on a datum. This module checks one

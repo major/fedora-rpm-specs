@@ -13,7 +13,6 @@ BuildRequires:     perl-interpreter
 BuildRequires:     perl-generators
 BuildRequires:     systemd
 Requires:          logrotate
-Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:          perl(DBD::mysql)
 Requires:          perl(DBD::Pg)
 Requires:          perl(IO::Socket::SSL)

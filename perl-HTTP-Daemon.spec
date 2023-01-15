@@ -45,7 +45,6 @@ BuildRequires:  perl(LWP::UserAgent)
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Date) >= 6
 Requires:       perl(HTTP::Request) >= 6
 Requires:       perl(HTTP::Response) >= 6

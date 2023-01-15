@@ -8,7 +8,6 @@ Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Eval-Context-%{version
 # Perl 5.18 comptability, CPAN RT#86017
 Patch0:     Eval-Context-0.09.11-hash-randomization.patch
 Url:        https://metacpan.org/release/Eval-Context
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

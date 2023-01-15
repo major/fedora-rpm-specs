@@ -28,7 +28,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Lexical::SealRequireHints) >= 0.010
 
 %{?perl_default_filter}

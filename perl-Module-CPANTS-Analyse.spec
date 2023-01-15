@@ -56,7 +56,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::More) >= 0.88
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Archive::Any::Lite) >= 0.06
 Requires:       perl(Archive::Tar) >= 1.76
 Requires:       perl(Array::Diff) >= 0.04

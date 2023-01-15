@@ -46,7 +46,6 @@ BuildRequires:  perl(Test::More) >= 0.45
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Encode) >= 1.98
 Requires:       perl(MIME::Charset) >= 1.006.2
 

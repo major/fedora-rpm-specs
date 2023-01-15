@@ -47,7 +47,6 @@ BuildRequires:  perl(IO::Select)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Socket)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(XSLoader)
 

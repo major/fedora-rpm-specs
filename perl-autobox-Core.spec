@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests only
 BuildRequires:  perl(Test::Output)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(autobox) >= 2.71
 Requires:       perl(Want) >= 0.26
 

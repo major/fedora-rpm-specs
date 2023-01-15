@@ -18,7 +18,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::Simple)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Config::Grammar is a module to parse configuration files. The

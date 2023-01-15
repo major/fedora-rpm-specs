@@ -42,7 +42,6 @@ BuildRequires:  perl(vars)
 # Optional tests only
 # XXX: BuildRequires:  perl(Acme::Colour)
 BuildRequires:  perl(Data::Structure::Util) >= 0.04
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Class::ISA) >= 0.01
 Requires:       perl(Data::UUID) >= 0.01
 Requires:       perl(Error) >= 0.15

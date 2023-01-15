@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More)
 # Building core modules must not require non-core modules when bootstrapping
 BuildRequires:  perl(Test::NoWarnings)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(Digest::MD5)
 Conflicts:      perl < 4:5.22.0-347
 

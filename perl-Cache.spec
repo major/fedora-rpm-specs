@@ -42,7 +42,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(warnings::register)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(IO::Handle) >= 1.21
 
 %{?perl_default_filter}

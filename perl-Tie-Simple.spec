@@ -21,7 +21,6 @@ BuildRequires:  perl(Tie::Hash)
 BuildRequires:  perl(Tie::Scalar)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module adds the ability to quickly create new types of tie objects

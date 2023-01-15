@@ -32,7 +32,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(ExtUtils::testlib)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Find)
 Requires:       perl(Tie::IxHash)
 

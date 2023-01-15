@@ -83,7 +83,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(Math::Int128)
 BuildRequires:  perl(Net::Works::Network) >= 0.21
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(DateTime)
 Suggests:       perl(MaxMind::DB::Reader::XS) >= 1.000003
 

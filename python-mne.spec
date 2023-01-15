@@ -5,7 +5,7 @@
 # in setup.py for install_requires.
 
 Name:           python-mne
-Version:        1.2.1
+Version:        1.3.0
 Release:        %autorelease
 Summary:        Magnetoencephalography (MEG) and Electroencephalography (EEG) data analysis
 
@@ -20,12 +20,6 @@ Source0:        https://github.com/mne-tools/mne-python/archive/v%{version}/%{na
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-
-# BUG: Work around ppc64le bugs
-# https://github.com/mne-tools/mne-python/pull/11284
-#
-# Rebased on 1.2.1
-Patch:          0001-BUG-Work-around-ppc64le-bugs-11284.patch
 
 # The base package is arched to make it easier for us to detect arch-dependent
 # test failures, since the tests will always be run on every platform, and

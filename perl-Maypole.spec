@@ -20,7 +20,6 @@ BuildRequires:	perl(Apache2::Request), perl(Test::Pod), perl(Class::DBI)
 BuildRequires:	perl(Test::Pod::Coverage), perl(Class::DBI::Loader)
 BuildRequires:	perl(Template), perl(CGI::Untaint::email), perl(HTTP::Body)
 BuildRequires:	perl(File::MMagic::XS)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	mod_perl
 
 %description

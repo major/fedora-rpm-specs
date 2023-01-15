@@ -58,7 +58,6 @@ BuildRequires:  perl(RDF::Trine)
 BuildRequires:  perl(RDF::Trine::NamespaceMap)
 BuildRequires:  perl(Types::Attean)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # We need at least one of them, we choose XML::CommonNS
 %if %{with perl_URI_NamespaceMap_enables_rdf}
 Recommends:     perl(RDF::NS) >= 20130802

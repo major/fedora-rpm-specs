@@ -22,7 +22,6 @@ BuildRequires:  perl(Gtk3)
 # gtk3 gobject typelib at run-time.
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Gtk3 has a powerful, but complex MVC (Model, View, Controller) system used

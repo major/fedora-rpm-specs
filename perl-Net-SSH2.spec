@@ -47,7 +47,6 @@ BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(Test::More)
 # Optional tests only
 BuildRequires:  perl(IO::Scalar)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(IO::Socket::IP)
 Recommends:     perl(Term::ReadKey)
 Provides:       perl(Net::SSH2::Constants) = %{version}

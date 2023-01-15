@@ -19,7 +19,6 @@ BuildRequires:  perl(Module::Build) >= 0.35
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Test::More)
 Requires:       perl(bytes)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Accessor::Classy) >= 0.1.3
 # RPM's auto require for perl(Class::Accessor::Classy) fails, handle manually
 %define __requires_exclude ^perl\\(Class::Accessor::Classy\\)$

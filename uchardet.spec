@@ -1,11 +1,11 @@
 %undefine __cmake_in_source_build
 
 Name:          uchardet
-Version:       0.0.6
-Release:       16%{?dist}
+Version:       0.0.8
+Release:       1%{?dist}
 Summary:       An encoding detector library ported from Mozilla
 
-License:       MPLv1.1 or GPLv2+ or LGPLv2+
+License:       MPL-1.1 or GPL-2.0-or-later or LGPL-2.0-or-later
 URL:           https://www.freedesktop.org/wiki/Software/%{name}
 Source0:       https://www.freedesktop.org/software/%{name}/releases/%{name}-%{version}.tar.xz
 
@@ -54,17 +54,21 @@ popd
 
 %files
 %license COPYING
-%doc AUTHORS
+%doc AUTHORS README.md
 %{_bindir}/%{name}
 %{_libdir}/lib%{name}.so.*
 %{_mandir}/man1/%{name}.1*
 
 %files devel
 %{_includedir}/%{name}/
+%{_libdir}/cmake/%{name}
 %{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 13 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 0.0.8-1
+- Update to 0.0.8
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

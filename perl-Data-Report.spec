@@ -9,7 +9,6 @@ Source0:	https://cpan.metacpan.org/authors/id/JV/Data-Report-%{version}.tar.gz
 Requires:       perl-interpreter
 Requires:       perl-generators
 Requires:       perl(:VERSION) >= 5.10.1
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	perl(Text::CSV)
 
 BuildArch:	noarch

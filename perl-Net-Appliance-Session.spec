@@ -31,7 +31,6 @@ BuildRequires:  perl(Sub::Quote)
 BuildRequires:  perl(Try::Tiny)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Class::Load)
 Requires:       perl(Net::CLI::Interact) >= 2.300003
 

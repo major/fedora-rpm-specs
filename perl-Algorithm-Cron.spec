@@ -19,7 +19,6 @@ BuildRequires:  perl(Time::timegm)
 # Tests
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Objects in this class implement a time scheduling algorithm such as used by

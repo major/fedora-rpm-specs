@@ -22,7 +22,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 %{?perl_default_filter}

@@ -18,7 +18,6 @@ BuildRequires:  perl(Test::More) >= 0.6
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Sometimes we need data split into records and a simple split on the

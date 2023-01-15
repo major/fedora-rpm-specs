@@ -28,7 +28,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(GIS::Distance) >= 0.17
 BuildRequires:  perl(Test2::V0) >= 0.000094
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(GIS::Distance::Formula) >= 0.17
 Requires:       perl(namespace::clean) >= 0.24
 # XSLoader || DynaLoader

@@ -30,7 +30,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 
@@ -40,7 +39,6 @@ Invoke callbacks on construction of entersub OPs for certain CVs.
 %package devel
 Summary:        XS support for B::Hooks::OP::Check::EntersubForCV
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl-devel%{?_isa}
 
 %description devel

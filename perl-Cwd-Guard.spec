@@ -2,9 +2,9 @@
 
 Name:		perl-Cwd-Guard
 Version:	0.05
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Temporarily change the current directory
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cwd-Guard
 Source0:	https://cpan.metacpan.org/authors/id/K/KA/KAZEBURO/Cwd-Guard-%{version}.tar.gz
 BuildArch:	noarch
@@ -30,7 +30,6 @@ BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Requires)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Cwd::Guard can change the current directory (chdir) using a limited scope.
@@ -67,6 +66,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/Cwd::Guard.3*
 
 %changelog
+* Fri Jan 13 2023 Paul Howarth <paul@city-fan.org> - 0.05-21
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -41,7 +41,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Mojolicious::Lite)
 BuildRequires:  perl(Test::Mojo)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(SQL::Abstract) >= 1.85
 
 %{?perl_default_filter}

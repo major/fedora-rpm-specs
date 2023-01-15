@@ -33,7 +33,6 @@ BuildRequires:  perl(XML::Simple)
 # Tests
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CGI)
 Requires:       perl(Crypt::DH::GMP) >= 0.00011
 Requires:       perl(HTML::Parser) >= 3.40

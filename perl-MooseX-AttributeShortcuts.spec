@@ -50,7 +50,6 @@ BuildRequires:  perl(Test::Requires)
 # Optional tests:
 BuildRequires:  perl(MooseX::SemiAffordanceAccessor)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Ever find yourself repeatedly specifying writers and builders, because there's

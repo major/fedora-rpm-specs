@@ -28,7 +28,6 @@ BuildRequires:  perl(RDF::Trine::Namespace)
 BuildRequires:  perl(strict)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Module::Install::Admin::RDF) >= 0.004
 # Module::Install::Base version from Module::Install in META
 Requires:       perl(Module::Install::Base) >= 1.00

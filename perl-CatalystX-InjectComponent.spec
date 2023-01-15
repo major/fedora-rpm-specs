@@ -18,7 +18,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
 Requires:       perl(Catalyst::Runtime) >= 5.80000
 Requires:       perl(parent)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

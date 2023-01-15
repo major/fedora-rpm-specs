@@ -13,7 +13,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Tk)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  xorg-x11-server-Xvfb, xorg-x11-fonts-misc
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module captures that standard error of a program and redirects it

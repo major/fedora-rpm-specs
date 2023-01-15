@@ -14,7 +14,6 @@ BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::More)
 Requires:       perl(Test::Builder)
 Requires:       perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Fennec does a ton, but it may be hard to adopt it all at once. It also is a

@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::Builder::Tester::Color)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Exporter)
 Requires:       perl(Test::Builder) >= 0.70
 Requires:       perl(Text::Diff) >= 0.35

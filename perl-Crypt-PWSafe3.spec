@@ -45,7 +45,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Bytes::Random::Secure)
 Requires:       perl(Crypt::CBC) >= 2.3
 Requires:       perl(Crypt::ECB) >= 1.45

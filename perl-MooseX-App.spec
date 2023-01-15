@@ -61,7 +61,6 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
 BuildRequires:  perl(Test::NoWarnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 Requires:       perl(I18N::Langinfo)
 Requires:       perl(Moose) >= 2.00
 

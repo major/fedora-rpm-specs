@@ -8,7 +8,6 @@ License:    GPL+ or Artistic
 Summary:    Attributes with aliases for constructor arguments 
 Source:     https://cpan.metacpan.org/authors/id/F/FR/FRODWITH/MooseX-MultiInitArg-%{version}.tar.gz 
 Url:        https://metacpan.org/release/MooseX-MultiInitArg
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 BuildRequires: perl-interpreter
 BuildRequires: perl-generators

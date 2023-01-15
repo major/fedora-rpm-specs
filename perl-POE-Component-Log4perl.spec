@@ -14,7 +14,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(POE), perl(Log::Log4perl)
 BuildRequires:  perl(Test::More), perl(Test::Pod)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Log4perl encapsulation within the POE environment.

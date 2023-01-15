@@ -52,7 +52,6 @@ BuildRequires:  perl(Test::More) >= 0.45
 %if %{with perl_version_enables_optional_test} && ! %{defined perl_bootstrap}
 BuildRequires:  perl(Test::Taint)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(B)
 Requires:       perl(Carp)
 Requires:       perl(locale)

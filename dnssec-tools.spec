@@ -12,7 +12,6 @@ Source2: libval-config
 # the tools do run time tests for their existence.  But most of the tools
 # are much more useful with the modules in place, so we hand require them.
 Requires: dnssec-tools-perlmods, bind, perl(Getopt::GUI::Long)
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: perl(GraphViz)
 BuildRequires: gcc
 BuildRequires: openssl-devel

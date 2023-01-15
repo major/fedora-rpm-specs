@@ -20,7 +20,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Often in program logic, multiple different steps need to be taken that are

@@ -46,7 +46,6 @@ BuildRequires:  perl(LV)
 BuildRequires:  perl(CPAN)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 This module implements JSONPath, an XPath-like language for searching JSON-

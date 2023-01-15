@@ -13,7 +13,6 @@ Patch0:		eg-1.7.5.2-fix-use-false-detection.patch
 BuildRequires:  bash-completion
 BuildRequires:	perl-generators
 Requires:       perl-interpreter
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 Requires:       git
 

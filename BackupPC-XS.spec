@@ -21,7 +21,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Test::More)
 BuildRequires: make
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 Provides:       bundled(zlib) = 1.2.3
 

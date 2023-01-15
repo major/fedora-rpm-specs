@@ -42,7 +42,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Time::Timezone)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  perl(Time::Timezone)
 
 %description

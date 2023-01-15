@@ -1,12 +1,12 @@
 Name:           electron-cash
-Version:        4.2.12
+Version:        4.2.13
 Release:        1%{?dist}
 Summary:        A lightweight Bitcoin Cash client
 
 License:        MIT
 URL:            https://electroncash.org/
 Source0:        https://github.com/Electron-Cash/Electron-Cash/releases/download/%{version}/Electron-Cash-%{version}.tar.gz
-Source1:        https://github.com/Electron-Cash/keys-n-hashes/raw/master/sigs-and-sums/%{version}/win-liunx/Electron-Cash-%{version}.tar.gz.asc
+Source1:        https://github.com/Electron-Cash/keys-n-hashes/raw/master/sigs-and-sums/%{version}/win-linux/Electron-Cash-%{version}.tar.gz.asc
 #Sun 15 Dec 2019, exported the upstream gpg key using the command:
 #gpg2 --armor --export --export-options export-minimal D56C110F4555F371AEEFCB254FD06489EFF1DDE1 D465135F97D0047E18E99DC321810A542031C02C > gpgkey-electron-cash.gpg
 Source2:        gpgkey-electron-cash.gpg
@@ -99,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.elect
 %{python3_sitelib}/Electron_Cash-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 13 2023 Jonny Heggheim <hegjon@gmail.com> - 4.2.13-1
+- Updated to version 4.2.13
+
 * Mon Nov 14 2022 Jonny Heggheim <hegjon@gmail.com> - 4.2.12-1
 - Updated to version 4.2.12
 

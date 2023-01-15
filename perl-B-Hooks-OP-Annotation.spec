@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid provides from perl shared objects
 %{?perl_default_filter}

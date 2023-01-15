@@ -18,7 +18,6 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(IO::Handle)
 

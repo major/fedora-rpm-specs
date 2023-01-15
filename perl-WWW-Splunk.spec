@@ -23,7 +23,6 @@ BuildRequires:  perl(XML::LibXML)
 # Tests
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 WWW::Splunk is a client for Splunk log search engine. It consists of a utility

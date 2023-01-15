@@ -12,7 +12,7 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        7.18.2
+Version:        7.19.1
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
@@ -117,6 +117,9 @@ k="${k-}${k+ and }not test_lint[long_run-positive]"
 k="${k-}${k+ and }not test_tibanna"
 # Requires py-tes. Currently not packaged for Fedora.
 k="${k-}${k+ and }not test_tes"
+# Require a running slurm instance; maybe this is possible to set up
+# temporarily in the offline build environment, but we don’t know how.
+k="${k-}${k+ and }not test_slurm_"
 # tests/test_google_lifesciences.py needs a network connection (and GCP credentials)
 %pytest -v -k "${k-}" --ignore tests/test_google_lifesciences.py
 %endif

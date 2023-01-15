@@ -17,7 +17,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 IO::Null is a class for null filehandles.  Calling a constructor of

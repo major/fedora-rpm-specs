@@ -25,7 +25,6 @@ BuildRequires:	perl(Test::More) >= 0.1
 BuildRequires:	perl(utf8)
 BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides encoding to LaTeX escapes from utf8 using mapping tables

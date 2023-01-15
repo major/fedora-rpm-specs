@@ -26,7 +26,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 # Runtime
 Requires:       hostname
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Socket)
 
 # Avoid unwanted dependencies from testall.pl

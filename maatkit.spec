@@ -14,7 +14,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 Requires:       perl(DBD::mysql) >= 1.0
 Requires:       perl(Term::ReadKey) >= 2.10
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(MooseX::Role::WithOverloading)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moose) >= 2.0300
 
 %{?perl_default_filter}

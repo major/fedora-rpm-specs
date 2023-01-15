@@ -18,7 +18,6 @@ Requires:       perl(Gtk2)
 Requires:       perl(Chart::Lines)
 
 # neither are picked up automagically.
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The QWizard module allows script authors to concentrate on the

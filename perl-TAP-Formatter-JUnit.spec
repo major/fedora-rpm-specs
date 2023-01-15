@@ -45,7 +45,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::XML)
 BuildRequires:  perl(version)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(TAP::Formatter::Console)
 Requires:       perl(TAP::Formatter::Console::Session)
 

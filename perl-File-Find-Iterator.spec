@@ -25,7 +25,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Spec) >= 0.19
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Iterator) >= 0.1
 Requires:       perl(Storable) >= 2.04
 

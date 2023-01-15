@@ -43,7 +43,6 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::Pod) >= 1.41
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Hashes are great for storing named data, but if you want more than one entry

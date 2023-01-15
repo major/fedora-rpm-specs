@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(IO::Scalar) >= 2.110
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(Test::More) >= 0.42
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

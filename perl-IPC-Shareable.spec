@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::SharedFork) >= 0.35
 # (no additional requirements)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
 

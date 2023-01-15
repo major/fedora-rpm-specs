@@ -36,7 +36,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(Module::Install)
 Requires:       perl(Module::Install::ReadmeFromPod)
 Requires:       perl(Pod::Markdown)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Module::Install::ReadmeMarkdownFromPod is a Module::Install extension that

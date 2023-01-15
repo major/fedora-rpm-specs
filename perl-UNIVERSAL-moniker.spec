@@ -20,7 +20,6 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(Lingua::EN::Inflect)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter bogus provide for perl(UNIVERSAL) (rpm 4.9 onwards)
 %global __provides_exclude ^perl\\(UNIVERSAL\\)

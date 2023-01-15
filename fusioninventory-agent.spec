@@ -14,7 +14,6 @@ Source0:     https://github.com/fusioninventory/%{name}/releases/download/%{vers
 Source1:     %{name}.cron
 Source10:    %{name}.service
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: coreutils
 BuildRequires: findutils
 BuildRequires: make
@@ -77,7 +76,6 @@ You can add additional packages for optional tasks:
 %package -n perl-FusionInventory-Agent
 Summary:        Libraries for Fusioninventory agent
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(LWP)
 Requires:       perl(Net::CUPS)
 Requires:       perl(Net::SSLeay)

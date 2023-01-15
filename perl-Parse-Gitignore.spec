@@ -28,7 +28,6 @@ BuildRequires:  perl(Path::Tiny) >= 0.076
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More) >= 0.88
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Path::Tiny) >= 0.076
 
 %{?perl_default_filter}

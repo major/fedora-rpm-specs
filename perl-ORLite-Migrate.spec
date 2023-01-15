@@ -35,7 +35,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # The following three requires are not detected automatically:
 Requires:       perl(File::pushd)
 Requires:       perl(IPC::Run3)

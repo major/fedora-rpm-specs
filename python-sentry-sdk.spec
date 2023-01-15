@@ -1,5 +1,5 @@
 Name:           python-sentry-sdk
-Version:        1.12.1
+Version:        1.13.0
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
@@ -63,7 +63,7 @@ Summary:        %{summary}
 %description -n python3-sentry-sdk %_description
 
 
-# Dependencies for quart, sanic, beam, pyspark, and chalice extras are not yet in Fedora
+# Dependencies for quart, sanic, beam, pyspark, chalice, and starlite extras are not yet in Fedora
 # falcon version >= 3.0 is not yet supported => skipping this extra as well
 %global _extras %{expand:
   flask
@@ -110,6 +110,7 @@ sed -i 's/opentelemetry-distro>=0.350b0/opentelemetry-distro>=0.35b0/' setup.py
   -e sentry_sdk.integrations.falcon
   -e sentry_sdk.integrations.quart
   -e sentry_sdk.integrations.sanic
+  -e sentry_sdk.integrations.starlite
   -e sentry_sdk.integrations.trytond
 }
 %pyproject_check_import %_check_import_options
@@ -128,31 +129,23 @@ sed -i '/def test_auto_enabling_integrations_catches_import_error/i@pytest.mark.
 %pytest --durations=5 \
   --deselect tests/integrations/celery/test_celery.py::test_newrelic_interference \
   --deselect tests/integrations/celery/test_celery.py::test_retry \
-  --deselect tests/integrations/gcp/test_gcp.py::test_handled_exception \
-  --deselect tests/integrations/gcp/test_gcp.py::test_performance_error \
-  --deselect tests/integrations/gcp/test_gcp.py::test_performance_no_error \
-  --deselect tests/integrations/gcp/test_gcp.py::test_timeout_error \
-  --deselect tests/integrations/gcp/test_gcp.py::test_traces_sampler_gets_correct_values_in_sampling_context \
-  --deselect tests/integrations/gcp/test_gcp.py::test_unhandled_exception \
-  --deselect tests/integrations/httpx \
   --deselect tests/integrations/requests/test_requests.py::test_crumb_capture \
   --deselect tests/integrations/stdlib/test_httplib.py::test_crumb_capture \
   --deselect tests/integrations/stdlib/test_httplib.py::test_crumb_capture_hint \
   --deselect tests/integrations/stdlib/test_httplib.py::test_httplib_misuse \
   --deselect tests/integrations/threading/test_threading.py \
-  --deselect tests/integrations/wsgi/test_wsgi.py \
-  --deselect tests/test_profiler.py::test_thread_scheduler_takes_first_samples \
-  --deselect tests/test_profiler.py::test_thread_scheduler_takes_more_samples \
   --deselect tests/test_transport.py::test_transport_works \
-  --deselect tests/tracing/test_deprecated.py \
   --deselect tests/utils/test_contextvars.py \
   --ignore tests/integrations/bottle \
-  --ignore tests/integrations/flask \
   --ignore tests/integrations/django \
+  --ignore tests/integrations/flask \
+  --ignore tests/integrations/gcp \
+  --ignore tests/integrations/httpx \
   --ignore tests/integrations/pymongo \
   --ignore tests/integrations/pyramid \
   --ignore tests/integrations/redis \
-  --ignore tests/integrations/rq
+  --ignore tests/integrations/rq \
+  --ignore tests/integrations/wsgi
 
 
 %files -n python3-sentry-sdk -f %{pyproject_files}
@@ -160,6 +153,10 @@ sed -i '/def test_auto_enabling_integrations_catches_import_error/i@pytest.mark.
 
 
 %changelog
+* Fri Jan 13 2023 Roman Inflianskas <rominf@aiven.io> - 1.13.0-1
+- Update to 1.13.0 (resolve rhbz#2160514)
+- Cleanup check section
+
 * Thu Jan 12 2023 Roman Inflianskas <rominf@aiven.io> - 1.12.1-1
 - Update to 1.12.1 (resolve rhbz#2153838)
 - Add fastapi, pymongo, and opentelemetry extras

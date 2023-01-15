@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(File::Temp)
 # perl executed used as "perl -MO=Deparse"
 Requires:       perl-interpreter
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # B::Deparse used as "perl -MO=Deparse"
 Requires:       perl(B::Deparse)
 # O used as "perl -MO=Deparse"

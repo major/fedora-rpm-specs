@@ -40,7 +40,6 @@ BuildRequires:  perl(warnings)
 %if %with core_iedoc
 BuildRequires:  selenium-core
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Time::HiRes)
 
 %description

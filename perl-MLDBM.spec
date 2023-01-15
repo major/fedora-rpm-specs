@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(DB_File)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module can serve as a transparent interface to any TIEHASH package that is

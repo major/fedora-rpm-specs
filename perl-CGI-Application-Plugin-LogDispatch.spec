@@ -18,7 +18,6 @@ BuildRequires:  perl(UNIVERSAL::require)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 Requires:       perl(Sub::WrapPackages)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

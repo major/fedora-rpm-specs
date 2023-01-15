@@ -20,7 +20,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is about the native integer numerical data type. A native

@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  ncurses-devel
 BuildRequires:  make
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Liboping is a C library to generate ICMP echo requests, better known as

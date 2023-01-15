@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::More) >= 0.42
 BuildRequires:  perl(Test::Strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  vim-enhanced
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

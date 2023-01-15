@@ -27,7 +27,6 @@ BuildRequires:  perl(DBIx::Class::Core)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Because the many-to-many relationships are not real relationships, they can

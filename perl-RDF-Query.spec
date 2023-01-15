@@ -83,7 +83,6 @@ BuildRequires:  perl(utf8)
 # Optional tests:
 # LWP::Simple requires only for on-line tests which are disabled by default.
 BuildRequires:  perl(Test::JSON) >= 0.03
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CGI)
 Requires:       perl(Exporter)
 Recommends:     perl(Geo::Distance) >= 0.09

@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.05
+Version: 11.06
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -514,6 +514,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 13 2023 Nick Clifton  <nickc@redhat.com> - 11.06-1
+- Annocheck: Fix handling of file built by multiple versions of gcc.  (#2160700)
+
 * Mon Jan 09 2023 Nick Clifton  <nickc@redhat.com> - 11.05-1
 - Annocheck: Fix handling of empty files.  (#2159292)
 

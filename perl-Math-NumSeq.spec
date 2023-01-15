@@ -66,7 +66,6 @@ BuildRequires:  perl(Data::Float)
 # Devel::FindRef not available because it does not work since Perl 5.22.
 BuildRequires:  perl(Devel::StackTrace)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(Encode)
 Requires:       perl(File::HomeDir)
 Requires:       perl(File::Temp)

@@ -10,7 +10,6 @@ URL:            https://github.com/so-fancy/diff-so-fancy
 Source0:        %{url}/archive/v%{version}/%{name}-v%{version}.tar.gz
 BuildArch:      noarch
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  perl-generators
 BuildRequires:  sed

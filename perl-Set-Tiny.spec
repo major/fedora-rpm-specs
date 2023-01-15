@@ -14,7 +14,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Set::Tiny is a thin wrapper around regular Perl hashes to perform often

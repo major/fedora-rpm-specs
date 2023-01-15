@@ -43,7 +43,6 @@ BuildRequires:  perl(Test2::V0) >= 0.000065
 BuildRequires:  perl(Test::Alien) >= 0.08
 # This RPM package ensures libpkgconf.so is installed on the system
 Requires:       libpkgconf-devel(%{__isa}) = %(type -p pkgconf >/dev/null && pkgconf --exists libpkgconf && pkgconf --modversion libpkgconf || echo 0)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::ShareDir) >= 1.102
 Requires:       perl(JSON::PP) >= 2.27400
 

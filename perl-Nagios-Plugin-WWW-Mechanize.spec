@@ -26,7 +26,6 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(WWW::Mechanize)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 This module ties Monitoring::Plugin with WWW::Mechanize so that there's less

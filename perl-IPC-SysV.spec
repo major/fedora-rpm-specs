@@ -39,7 +39,6 @@ BuildRequires:  perl(Pod::Coverage) >= 0.10
 BuildRequires:  perl(Test::Pod) >= 0.95
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl < 4:5.22.0-351
 
 %description

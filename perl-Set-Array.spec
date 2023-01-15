@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Set::Array allows you to create arrays as objects and use OO-style methods

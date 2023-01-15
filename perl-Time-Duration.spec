@@ -6,7 +6,6 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:            https://metacpan.org/release/Time-Duration
 Buildarch:      noarch
 Source:         https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 BuildRequires:  make
 BuildRequires:  perl-generators

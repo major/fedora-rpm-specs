@@ -19,7 +19,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(SOAP::Lite) >= 0.716
 
 %global __requires_exclude %{?__requires_exclude?__requires_exclude|}^perl\\(SOAP::Lite\\)$

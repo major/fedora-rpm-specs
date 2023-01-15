@@ -33,7 +33,6 @@ BuildRequires:  perl(XML::Simple) >= 2
 # Tests:
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Flickr::API) >= 1.09
 Requires:       perl(Getopt::Long) >= 1
 Requires:       perl(HTTP::Request::Common) >= 1

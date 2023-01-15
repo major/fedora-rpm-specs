@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::Tester)
 # Optional tests:
 # Test::Apocalypse skips all tests as release tests, do not use it. It is also
 # in build cycle with this package.
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(App::PodLinkCheck::ParseSections)
 Requires:       perl(Capture::Tiny)
 Requires:       perl(Config)

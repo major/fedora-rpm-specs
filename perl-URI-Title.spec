@@ -39,7 +39,6 @@ BuildRequires:  perl(lib)
 # Needed for Twitter in live tests
 BuildRequires:  perl(LWP::Protocol::https)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Encode)
 Requires:       perl(File::Type) >= 0.22
 Requires:       perl(LWP::Protocol::https)

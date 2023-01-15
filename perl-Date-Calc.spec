@@ -22,7 +22,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(vars)
 # Tests only
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Bit::Vector) >= 7.1
 Requires:       perl(Carp::Clan) >= 6.04
 

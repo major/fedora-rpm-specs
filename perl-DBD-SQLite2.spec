@@ -28,7 +28,6 @@ BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
 BuildRequires:	sqlite2-devel
 BuildRequires:  perl(Fatal)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 %{summary}.

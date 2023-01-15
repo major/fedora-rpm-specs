@@ -19,7 +19,6 @@ BuildRequires:  perl(Module::Install::Base)
 BuildRequires:  perl(Module::Install)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Plug-in for Module::Install
 Requires:       perl(Module::Install)
 

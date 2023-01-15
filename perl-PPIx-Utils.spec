@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 Requires:       perl(B::Keywords) >= 1.09
 Requires:       perl(PPI) >= 1.250
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Filter duplicate unversioned requires
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(B::Keywords\\)$

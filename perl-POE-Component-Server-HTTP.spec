@@ -48,7 +48,6 @@ BuildRequires:  perl(POE::Kernel)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(YAML)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Keep Data::Dumper optional
 # POE 0.3007 needed but future versions are 3-digit only
 Requires:  perl(POE) >= 0.300

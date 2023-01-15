@@ -28,7 +28,7 @@ License:	BSD-3-Clause AND GPL-3.0-or-later WITH Bison-exception-2.0
 URL:		http://www.scalasca.org/
 Source0:	http://apps.fz-juelich.de/scalasca/releases/scalasca/%shortver/dist/%name-%version.tar.gz
 BuildRequires: make
-BuildRequires:	otf2-devel >= 3.0, cube-devel >= 4,8
+BuildRequires:	otf2-devel >= 3.0, cube-devel >= 4.8
 BuildRequires:	zlib-devel openmpi-devel chrpath gcc-c++
 %if %{with mpich}
 BuildRequires:	mpich-devel
@@ -36,6 +36,8 @@ BuildRequires:	mpich-devel
 # Needed by square, to be moved out of the scorep package.
 # (The -instrument option is deprecated, so don't require/recommend scorep.)
 Requires:	%_bindir/scorep-config
+# As for scorep
+ExcludeArch: s390 s390x armv7hl i686
 
 %global desc \
 Scalasca is a software tool that supports the performance optimization\

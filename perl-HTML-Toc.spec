@@ -29,7 +29,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Roman)
 
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(HTML::_.*\\)

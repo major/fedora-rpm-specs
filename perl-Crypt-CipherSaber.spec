@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warn)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Scalar::Util) >= 1.4.2
 
 # Filter under-specified dependencies

@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Simple)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This POE component serves as a wrapper for POE::Wheel::Run, obviating

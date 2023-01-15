@@ -25,7 +25,6 @@ BuildRequires:  perl(XML::LibXML) >= 1.7
 BuildRequires:  perl(Web::Scraper)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # not picked up by rpm deptracker
 Requires:       perl(HTML::TreeBuilder::XPath) >= 0.14
 Requires:       perl(XML::LibXML) >= 1.7

@@ -16,7 +16,6 @@ BuildArch:         noarch
 BuildRequires:     perl-generators
 BuildRequires:     perl-podlators
 BuildRequires:     systemd
-Requires:          perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 ## Note: If --privacy specified, perl(Digest::SHA) will be needed.
 #Requires:          perl(BerkeleyDB)
 #Requires:          perl(Fcntl)

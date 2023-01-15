@@ -36,7 +36,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Monitoring::Plugin and its associated Monitoring::Plugin::* modules are a

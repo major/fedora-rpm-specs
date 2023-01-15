@@ -14,7 +14,6 @@ VCS:		scm:git:https://github.com/%{upstream}/%{realname}.git
 Source0:	https://github.com/%{upstream}/%{realname}/archive/a08518142126f5fc541a3a3c4a04c27f24448bae/%{realname}-%{version}.tar.gz
 BuildRequires:	erlang-rebar
 BuildRequires:	perl-generators
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description

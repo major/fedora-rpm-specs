@@ -34,7 +34,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Net::EmptyPort)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This is an abstract base class for objects backed by a socket which

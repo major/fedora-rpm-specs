@@ -43,7 +43,6 @@ BuildRequires:  vim-enhanced
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Tie::StdHandle)
 BuildRequires:  perl(XML::Parser)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Path::Class) >= 0.04
 Requires:       perl(Term::ANSIColor) >= 1.03
 Requires:       vim-enhanced

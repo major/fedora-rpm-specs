@@ -27,7 +27,6 @@ BuildRequires:  perl(XML::RegExp)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(XML::Parser::PerlSAX) >= 0.07
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(XML::Parser) >= 2.30
 Obsoletes:      perl-libxml-enno <= 1.02
 

@@ -19,7 +19,6 @@ BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::_server)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 After this module is installed, the URI package provides the same set of

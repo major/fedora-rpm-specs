@@ -61,7 +61,6 @@ Requires:       perl(Net::OAuth) >= 0.28
 Requires:       perl(Software::License)
 Requires:       perl(URI) >= 1.71
 Requires:       perl(HTTP::Request)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes:      perl-Net-Dropbox-API <= 1.9
 
 %description

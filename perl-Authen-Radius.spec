@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
 # Optional Tests
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper) >= 1
 Requires:       perl(Data::HexDump) >= 0.02
 Requires:       perl(Digest::MD5) >= 2.20

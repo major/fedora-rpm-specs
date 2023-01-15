@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       perl(L) = %{version}
 
 # Remove under-specified provides

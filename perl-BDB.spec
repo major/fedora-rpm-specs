@@ -23,7 +23,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(common::sense)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 %{?perl_default_filter}

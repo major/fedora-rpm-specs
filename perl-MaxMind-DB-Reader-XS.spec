@@ -66,7 +66,6 @@ BuildRequires:  perl(version)
 # Optional tests:
 BuildRequires:  perl(Net::Works::Network) >= 0.21
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(MaxMind::DB::Reader::Role::HasMetadata)
 
 # Remove under-specified dependencies

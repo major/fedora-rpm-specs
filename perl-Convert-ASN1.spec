@@ -41,7 +41,6 @@ BuildRequires:  perl(Test::More) >= 0.90
 # Optional tests:
 BuildRequires:  perl(Data::Dumper)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(bytes)
 Requires:       perl(Carp)
 Requires:       perl(Encode)

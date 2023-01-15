@@ -14,7 +14,6 @@ BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -16,7 +16,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Filter::Util::Call)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

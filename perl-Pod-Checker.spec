@@ -33,7 +33,6 @@ BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 # VMS::Filespec not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Pod::Simple) >= 3.28
 
 %description

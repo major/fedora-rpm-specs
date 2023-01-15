@@ -41,7 +41,6 @@ BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(MRO::Compat)
 %endif
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Algorithm::C3) >= 0.07
 Requires:	perl(Scalar::Util) >= 1.10
 

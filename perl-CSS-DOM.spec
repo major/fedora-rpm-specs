@@ -17,7 +17,6 @@ BuildRequires:  perl(Test::More)
 # Dependencies not detected automatically:
 Requires:       perl(Clone) >= 0.09
 Requires:       perl(Encode) >= 2.10
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

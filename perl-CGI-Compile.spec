@@ -9,7 +9,6 @@ License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/R/RK/RKITOVER/CGI-Compile-%{version}.tar.gz 
 URL:            https://metacpan.org/release/CGI-Compile
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  perl-interpreter

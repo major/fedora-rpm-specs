@@ -15,7 +15,6 @@ BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 You can use it to check if a port is open or closed for a given host

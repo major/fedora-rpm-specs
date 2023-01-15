@@ -34,7 +34,6 @@ BuildRequires:	perl(Error)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Taint::Runtime)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter unwanted provides and requires (rpm 4.9 onwards)
 %global __provides_exclude ^perl\\(Test::Unit::(Debug|HarnessUnit|Result|TestCase|TestRunner|TestSuite)\\)$

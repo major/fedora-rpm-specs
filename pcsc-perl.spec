@@ -27,7 +27,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(strict)
 Requires:       %{pcsclib}%{?mark64}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       perl-pcsc = %{version}-%{release}
 
 %description

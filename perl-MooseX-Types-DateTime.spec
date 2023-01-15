@@ -10,7 +10,6 @@ License:    GPL+ or Artistic
 Summary:    DateTime related constraints and coercions for Moose
 Source:     https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Types-DateTime-%{version}.tar.gz
 Url:        https://metacpan.org/release/MooseX-Types-DateTime
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: coreutils

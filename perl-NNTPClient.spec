@@ -22,7 +22,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Do not scan documentation for dependencies
 %{?perl_default_filter}

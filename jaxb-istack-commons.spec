@@ -1,10 +1,6 @@
-%global commit 7ed1368ef26d2b4ef752b35ae33a98ec372ef3f8
-%global _buildNumber %(c=%{commit}; echo ${c:0:7})
-%global _scmBranch %{version}
-
 Name:           jaxb-istack-commons
-Version:        3.0.12
-Release:        5%{?dist}
+Version:        4.1.1
+Release:        1%{?dist}
 Summary:        iStack Common Utility Code
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-istack-commons
@@ -39,50 +35,53 @@ Code shared between JAXP, JAXB, SAAJ, and JAX-WS projects.
 
 %package -n istack-commons-maven-plugin
 Summary:        istack-commons Maven Mojo
+
 %description -n istack-commons-maven-plugin
 This package contains the istack-commons Maven Mojo.
 
 %package -n import-properties-plugin
 Summary:        istack-commons import properties plugin
+
 %description -n import-properties-plugin
 This package contains the istack-commons import properties Maven Mojo.
 
 %package -n istack-commons-runtime
 Summary:        istack-commons runtime
+
 %description -n istack-commons-runtime
 This package contains istack-commons runtime.
 
 %package -n istack-commons-tools
 Summary:        istack-commons tools
+
 %description -n istack-commons-tools
 This package contains istack-commons tools.
 
 %package -n istack-commons-buildtools
 Summary:        istack-commons buildtools
+
 %description -n istack-commons-buildtools
 This package contains istack-commons buildtools.
 
 %package -n istack-commons-soimp
 Summary:        istack-commons soimp
+
 %description -n istack-commons-soimp
 This package contains istack-commons soimp.
 
 %package -n istack-commons-test
 Summary:        istack-commons test
+
 %description -n istack-commons-test
 This package contains istack-commons test.
 
 %prep
-%autosetup
+%setup -q
 
 pushd istack-commons
-# disable very verbose warnings
-sed -i -e '/Xlint:all/d' pom.xml
 
-# remove unnecessary dependency on parent POM
 %pom_remove_parent
 
-# remove unnecessary maven plugins
 %pom_remove_plugin :buildnumber-maven-plugin
 %pom_remove_plugin :glassfish-copyright-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
@@ -98,9 +97,8 @@ popd
 
 %build
 pushd istack-commons
-# - skip javadoc build due to https://github.com/fedora-java/xmvn/issues/58
-# - ignore test
-%mvn_build -f -j -s -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8 -DscmBranch=%{_scmBranch} -DbuildNumber=%{_buildNumber}
+# Javadoc fails on module.info files: "error: too many module declarations found"
+%mvn_build -f -s -j
 popd
 
 %install
@@ -130,6 +128,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Mon Nov 21 2022 Marian Koncek <mkoncek@redhat.com> - 4.1.1-1
+- Update to upstream version 4.1.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -165,4 +166,3 @@ popd
 
 * Tue Aug 11 2020 Fabio Valentini <decathorpe@gmail.com> - 3.0.11-2
 - Initial package renamed from istack-commons.
-

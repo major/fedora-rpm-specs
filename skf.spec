@@ -88,7 +88,6 @@ Requires:	%{name}-common = %{version}-%{release}
 %package	perl
 Summary:	Perl extension module for %{name}
 Requires:	%{name}-common = %{version}-%{release}
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This package contains utility binary files in skf.

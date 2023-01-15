@@ -15,7 +15,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The IPTables::Parse package provides an interface to parse iptables rules

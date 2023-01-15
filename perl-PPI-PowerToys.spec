@@ -32,7 +32,6 @@ BuildRequires:  perl(PPI)
 BuildRequires:  perl(Probe::Perl) >= 0.01
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Test::Script) >= 1.03
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove underspecified dependecies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(File::Find::Rule\\)$

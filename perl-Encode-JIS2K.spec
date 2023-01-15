@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 BuildRequires:  perl-Encode-devel
 BuildRequires:  perl-generators
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Encode::JP::H2Z)
 
 %{?perl_default_filter}

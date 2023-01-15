@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Regexp::Pattern is a convention for organizing reusable regexp patterns in modules.

@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 BuildRequires:  rsync
 Requires:       rsync
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Perl Convenience wrapper for the rsync(1) program. Written for rsync-

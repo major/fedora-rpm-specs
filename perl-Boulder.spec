@@ -32,7 +32,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(XML::Parser)
 # Tests:
 BuildRequires:  perl(lib)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Boulder provides a simple stream-oriented format for transmitting data

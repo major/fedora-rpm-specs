@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(diagnostics)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 Net::NBName is a class that allows you to perform simple NetBIOS Name

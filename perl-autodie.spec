@@ -53,7 +53,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(BSD::Resource)
 BuildRequires:  perl(Import::Into) >= 1.002004
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B)
 Requires:       perl(Fcntl)
 Requires:       perl(POSIX)

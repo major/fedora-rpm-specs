@@ -5,7 +5,6 @@ Release:        %autorelease
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/J/JD/JDEGUEST/CLASS-v%{version}.tar.gz
 URL:            https://metacpan.org/release/CLASS
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  make

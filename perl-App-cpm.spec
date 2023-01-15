@@ -69,7 +69,6 @@ BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
 Requires:       gzip
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Archive::Tar)
 Requires:       perl(Archive::Zip) >= 1.68
 Requires:       perl(Command::Runner) >= 0.100

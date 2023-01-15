@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 BuildRequires:  perl(Dist::Zilla::Plugin::NextRelease) >= 6.005
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Dist::Zilla::File::InMemory)
 Requires:       perl(Dist::Zilla::Role::BeforeRelease)
 Requires:       perl(Dist::Zilla::Role::FileGatherer)

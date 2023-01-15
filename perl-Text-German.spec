@@ -15,7 +15,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Exporter)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This is a rather incomplete implementation of work done by Gudrun Putze-Meier. 

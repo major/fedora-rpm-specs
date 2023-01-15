@@ -8,8 +8,8 @@
 # This is stable release:
 #%%global rcversion RC1
 Name:       pcre2
-Version:    10.40
-Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}.1
+Version:    10.42
+Release:    %{?rcversion:0.}1%{?rcversion:.%rcversion}%{?dist}
 %global     myversion %{version}%{?rcversion:-%rcversion}
 Summary:    Perl-compatible regular expression library
 # the library:                          BSD with exceptions
@@ -46,8 +46,8 @@ Summary:    Perl-compatible regular expression library
 # testdata:                             Public Domain
 License:    BSD
 URL:        https://www.pcre.org/
-Source0:    https://ftp.pcre.org/pub/pcre/%{?rcversion:Testing/}%{name}-%{myversion}.tar.bz2
-Source1:    https://ftp.pcre.org/pub/pcre/%{?rcversion:Testing/}%{name}-%{myversion}.tar.bz2.sig
+Source0:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{version}.tar.bz2
+Source1:    https://github.com/PCRE2Project/pcre2/releases/download/pcre2-%{version}/pcre2-%{version}.tar.bz2.sig
 Source2:    https://ftp.pcre.org/pub/pcre/Public-Key
 # Do no set RPATH if libdir is not /usr/lib
 Patch0:     pcre2-10.10-Fix-multilib.patch
@@ -152,7 +152,7 @@ autoreconf -vif
 %global optflags %{optflags} -fno-strict-aliasing
 %endif
 %configure \
-%ifarch s390 sparc64 sparcv9 riscv64
+%ifarch s390 sparc64 sparcv9
     --disable-jit \
     --disable-pcre2grep-jit \
 %else
@@ -255,6 +255,10 @@ make %{?_smp_mflags} check VERBOSE=yes
 %{_mandir}/man1/pcre2test.*
 
 %changelog
+* Fri Dec 16 2022 Lukas Javorsky <ljavorsk@redhat.com> - 10.42-1
+- Rebase to version 10.42
+- RISC-V is JIT enabled according to the https://github.com/PCRE2Project/pcre2/issues/14
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.40-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

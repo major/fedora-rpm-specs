@@ -17,7 +17,6 @@ BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(Net::SMTP)
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.47
-Requires: perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Implements the same API as Net::SMTP, but uses IO::Socket::SSL for its

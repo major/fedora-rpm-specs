@@ -52,7 +52,6 @@ BuildRequires:  perl(Dist::Zilla::Plugin::ModuleBuildTiny) >= 0.011
 # Module::Runtime::Conflicts not helpful
 # Moose::Conflicts not helpful
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(autovivification)
 # This is a Dist::Zilla plugin
 Requires:       perl(Dist::Zilla) >= 4.300039

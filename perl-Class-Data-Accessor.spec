@@ -39,7 +39,6 @@ BuildRequires: perl(Test::More)
 #BuildRequires: perl(Test::Spelling) >= 0.11
 #BuildRequires: perl(Test::Strict) >= 0.05
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Class::Data::Accessor is the marriage of Class::Accessor and

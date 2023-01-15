@@ -45,7 +45,6 @@ BuildRequires:	perl(PadWalker)
 BuildRequires:	perl(Test::Tester) >= 0.108
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 
 %description

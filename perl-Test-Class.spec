@@ -40,7 +40,6 @@ BuildRequires:  perl(Test::Exception) >= 0.25
 BuildRequires:  perl(Test::More) >= 1.001002
 # Optional tests:
 BuildRequires:  perl(Contextual::Return)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Attribute::Handlers) >= 0.77
 Requires:       perl(MRO::Compat) >= 0.11
 Requires:       perl(Storable) >= 2.04

@@ -15,7 +15,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::Depends), perl(ExtUtils::PkgConfig)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl-Mojolicious
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       pkgconf-pkg-config
 
 %{?perl_default_filter}

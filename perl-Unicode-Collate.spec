@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Unicode::Normalize)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Unicode::Normalize)
 Conflicts:      perl < 4:5.22.0-347
 

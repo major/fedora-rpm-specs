@@ -28,7 +28,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Base)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Encode::DoubleEncodedUTF8 adds a new encoding utf-8-de and fixes

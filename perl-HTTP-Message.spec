@@ -47,7 +47,6 @@ BuildRequires:  perl(Test::Needs)
 # Time::Local only used on MacOS
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(URI::URL)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(IO::Compress::Brotli)
 Requires:       perl(Clone) => 0.46
 Requires:       perl(Compress::Raw::Zlib) >= 2.062

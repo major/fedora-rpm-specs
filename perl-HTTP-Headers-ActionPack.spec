@@ -41,7 +41,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warnings)
 # Commented out to break the cycle 'perl(Web::Machine) <-> perl(HTTP::Headers::ActionPack)'
 # BuildRequires:  perl(Web::Machine)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 This is a module to handle the inflation and deflation of complex HTTP

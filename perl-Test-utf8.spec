@@ -32,7 +32,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::Builder::Tester) >= 0.09
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is a collection of tests that's useful when dealing with utf8

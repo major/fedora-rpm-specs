@@ -17,7 +17,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module converts English text into numbers. It supports both ordinal

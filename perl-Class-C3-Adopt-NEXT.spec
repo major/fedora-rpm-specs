@@ -24,7 +24,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Exception) >= 0.27
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 NEXT was a good solution a few years ago, but isn't any more. It's

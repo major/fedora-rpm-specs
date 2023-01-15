@@ -6,7 +6,6 @@ License:    LGPLv2+
 Summary:    A FastCGI process manager
 Source:     https://cpan.metacpan.org/authors/id/A/AR/ARODLAND/FCGI-ProcManager-%{version}.tar.gz
 Url:        https://metacpan.org/release/FCGI-ProcManager
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

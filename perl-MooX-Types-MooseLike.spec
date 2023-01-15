@@ -38,7 +38,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Role::Tiny)
 BuildRequires:  perl(Test::Fatal) >= 0.003
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:   perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:   perl(Module::Runtime) >= 0.014
 
 # Remove under-specified dependencies

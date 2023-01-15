@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.22
 Requires:       perl(MooseX::Object::Pluggable) >= 0.0008
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 It aims to change the code to be better (to be worse if you want).

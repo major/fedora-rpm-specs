@@ -17,7 +17,6 @@ BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module strips scripting constructs out of HTML, leaving as much non-

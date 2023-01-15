@@ -29,7 +29,6 @@ BuildRequires: perl(Test::use::ok)
 BuildRequires: perl(asa)
 BuildRequires: perl(Moose)
 BuildRequires: perl(Moose::Role)
-Requires:      perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:      perl(IO::Handle)
 
 %description

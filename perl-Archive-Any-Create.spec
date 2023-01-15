@@ -17,7 +17,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More) >= 0.90
 BuildRequires:  perl(UNIVERSAL::require)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Archive::Any::Create is a wrapper module to create tar/tar.gz/zip files

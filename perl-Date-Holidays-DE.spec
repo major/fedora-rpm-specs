@@ -10,7 +10,6 @@ Release:        9%{?dist}
 License:        MIT
 URL:            https://metacpan.org/release/%{pkgname}
 Source:         https://cpan.metacpan.org/authors/id/F/FR/FROGGS/%{pkgname}-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make

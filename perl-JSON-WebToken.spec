@@ -26,7 +26,6 @@ Requires:       perl(JSON)
 Requires:       perl(MIME::Base64)
 Requires:       perl(Module::Runtime)
 Requires:       perl(parent)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 JSON::WebToken is JSON Web Token (JWT) implementation for Perl

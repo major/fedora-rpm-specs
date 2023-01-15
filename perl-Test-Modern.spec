@@ -47,7 +47,6 @@ BuildRequires:	perl(LWP::UserAgent)
 BuildRequires:	perl(Moose) >= 2.0600
 BuildRequires:	perl(namespace::clean)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(B)
 Requires:	perl(Moose::Util)
 Requires:	perl(Mouse::Util)

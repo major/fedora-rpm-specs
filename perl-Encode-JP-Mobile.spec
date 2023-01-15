@@ -35,7 +35,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(YAML)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Encode) >= 2.23
 Requires:       perl(File::ShareDir) >= 0.05
 Requires:       perl(MIME::Words) >= 5.428

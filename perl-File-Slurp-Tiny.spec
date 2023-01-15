@@ -28,7 +28,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides functions for fast and correct slurping and spewing

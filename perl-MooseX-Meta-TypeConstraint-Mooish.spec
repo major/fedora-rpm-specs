@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::CheckDeps) >= 0.010
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::Moose::More) >= 0.028
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moose::Meta::TypeConstraint)
 
 %description

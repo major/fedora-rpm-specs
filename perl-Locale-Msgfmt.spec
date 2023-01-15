@@ -27,7 +27,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Getopt::Long)
 BuildRequires:  perl(Locale::Maketext::Gettext)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module does the same thing as msgfmt from GNU gettext-tools, 

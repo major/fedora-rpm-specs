@@ -29,7 +29,6 @@ BuildRequires:  perl(Test2::Tools::Basic) >= 0.000124
 BuildRequires:  perl(Test2::Tools::Compare)
 BuildRequires:  perl(Test2::Tools::Defer)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test2::API) >= 1.302165
 Requires:       perl(Test2::Util::Times) >= 0.000126
 # Removed from perl-Test2-Harness-0.001083

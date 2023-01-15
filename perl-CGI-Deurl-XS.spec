@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module decodes a URL-encoded parameter string in the manner of CGI.pm.

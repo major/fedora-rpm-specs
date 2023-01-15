@@ -32,7 +32,6 @@ BuildRequires:  perl(lib)
 # Plack::Test not used
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(YAML)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(JSON::MaybeXS) >= 1.003000
 
 %description

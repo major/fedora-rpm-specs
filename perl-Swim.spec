@@ -40,7 +40,6 @@ BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
 BuildRequires:  perl(TestML::Bridge)
 BuildRequires:  perl(TestML::Run::TAP)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Hash::Merge)
 Requires:       perl(IPC::Run)
 Requires:       perl(Pegex) >= 0.41

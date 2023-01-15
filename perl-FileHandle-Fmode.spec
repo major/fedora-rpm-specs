@@ -5,7 +5,6 @@ Summary:        FileHandle::Fmode Perl module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/FileHandle-Fmode
 Source0:        https://cpan.metacpan.org/modules/by-module/FileHandle/FileHandle-Fmode-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  gcc
 BuildRequires:  coreutils
 BuildRequires:  dos2unix

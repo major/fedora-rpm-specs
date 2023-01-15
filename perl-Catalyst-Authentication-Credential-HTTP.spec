@@ -30,7 +30,6 @@ BuildRequires:  sed
 Requires:       perl(Catalyst::Plugin::Authentication) >= 0.10005
 Requires:       perl(Class::Accessor::Fast)
 Requires:       perl(Data::UUID) >= 0.11
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

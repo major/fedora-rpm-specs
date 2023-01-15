@@ -42,7 +42,6 @@ BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(warnings)
 # Optional tests only
 BuildRequires:  perl(Test::Memory::Cycle)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(CGI::Util)
 Requires:       perl(Config)

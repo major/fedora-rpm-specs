@@ -18,7 +18,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests only
 # (nothing)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Carp)
 
 %description

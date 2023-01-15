@@ -67,7 +67,6 @@ BuildRequires:	perl(Test::Pod) >= 1.41
 # Test::Pod::Coverage 1.00 not used
 %endif
 # =========== Module Runtime =========================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(MIME::Base64)
 Requires:	perl(XSLoader)
 

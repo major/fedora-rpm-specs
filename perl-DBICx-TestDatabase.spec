@@ -30,7 +30,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(ok)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(DBD::SQLite) >= 1.29
 Requires:       perl(SQL::Translator)
 

@@ -45,7 +45,6 @@ BuildRequires:	perl(if)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::UseAllModules)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Data::Dump)
 Requires:	perl(JSON::PP)
 Requires:	perl(Module::CoreList)

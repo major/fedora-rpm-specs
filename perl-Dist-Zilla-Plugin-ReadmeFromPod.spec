@@ -32,7 +32,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
 # Test::Kwalitee 1.21 not used
 # Test::Pod 1.41 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Dist::Zilla::File::InMemory)
 # Dist::Zilla::Role::FilePruner version from Dist::Zilla in META
 Requires:       perl(Dist::Zilla::Role::FilePruner) >= 6.000

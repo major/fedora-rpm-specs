@@ -47,7 +47,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::CPAN::Meta)
 BuildRequires:  perl(Test::CPAN::Meta::JSON)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Fcntl)
 Requires:       perl(XSLoader)
 

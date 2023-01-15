@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(warnings)
 Requires:       perl(Catalyst) >= 5.70
 Requires:       perl(MooseX::Emulate::Class::Accessor::Fast)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This plugin will enhance the standard Catalyst debug screen by including a

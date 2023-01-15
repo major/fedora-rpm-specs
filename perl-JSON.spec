@@ -43,7 +43,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(JSON::XS) >= 4.00
 BuildRequires:  perl(Types::Serialiser)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(B)
 Requires:       perl(Encode)
 Requires:       perl(Math::BigFloat)

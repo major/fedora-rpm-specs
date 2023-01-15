@@ -38,7 +38,6 @@ BuildRequires:  perl(Template::View)
 BuildRequires:  perl(Test::More) 
 # Optional tests:
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
 Requires:       perl(Digest::MD5) >= 1

@@ -9,7 +9,6 @@ URL:            https://metacpan.org/release/%{pkgname}
 Source:         https://cpan.metacpan.org/authors/id/T/TH/THOR/%{pkgname}-%{version}.tar.gz
 # Use distribution CFLAGS for tests, bug #1242794, CPAN RT#105853
 Patch0:         Net-LibIDN-0.12-Respect-Config-s-cc-ccflags-and-ldflags.patch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  libidn-devel >= 0.4.0

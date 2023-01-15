@@ -29,7 +29,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(version) >= 0.77
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 %if ! ( 0%{?rhel} )
 Requires:       perl(List::Util) >= 1.33
 %else

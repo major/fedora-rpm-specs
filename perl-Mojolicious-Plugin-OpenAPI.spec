@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Mojo)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Text::Markdown)
 BuildRequires:  perl(lib)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(JSON::Validator) >= 5.00
 Requires:       perl(Mojolicious::Plugin)
 Recommends:     perl(Config)

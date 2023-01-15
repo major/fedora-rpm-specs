@@ -54,7 +54,6 @@ BuildRequires:  perl(DBD::DBM) >= 0.06
 BuildRequires:  perl(DBD::File) >= 0.40
 BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(MLDBM)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Clone) >= 0.30
 Requires:       perl(DBI) >= 1.616
 Requires:       perl(Math::Base::Convert)

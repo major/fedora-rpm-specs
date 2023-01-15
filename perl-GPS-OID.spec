@@ -9,7 +9,6 @@ BuildArch:	noarch
 BuildRequires: make
 BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::MakeMaker), perl(Test::More)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:	perl-GPS-PRN = %{version}-%{release}
 Provides:	perl(GPS::OID) = %{version}
 Obsoletes:	perl-GPS-PRN < 0.07

@@ -55,7 +55,6 @@ BuildRequires:  perl(Test::Number::Delta) >= 1.06
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Time::Piece)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Exporter)
 Requires:       perl(XSLoader) >= 0.02
 

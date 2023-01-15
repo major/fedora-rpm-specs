@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
 BuildRequires:  perl(Types::Common::Numeric) >= 1.004
 BuildRequires:  perl(Types::Standard)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module defines color names and their associated RGB values from the

@@ -24,7 +24,6 @@ BuildRequires:  pkgconfig
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       pkgconfig
 
 %description

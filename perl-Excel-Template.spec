@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::Deep) >= 0.095
 BuildRequires:  perl(Test::Exception) >= 0.21
 BuildRequires:  perl(Test::More) >= 0.47
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This is a module used for templating Excel files. Its genesis came from the

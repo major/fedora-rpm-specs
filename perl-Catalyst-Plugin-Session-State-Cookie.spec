@@ -33,7 +33,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # This is a Catalyst plugin
 Requires:       perl(Catalyst) >= 5.80005
 # This is a Catalyst::Plugin::Session extension

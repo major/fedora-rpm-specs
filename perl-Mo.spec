@@ -25,7 +25,6 @@ BuildRequires:  perl(PPI)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 Mo provides the bare-minimum for a Perl object system, compared to other similar

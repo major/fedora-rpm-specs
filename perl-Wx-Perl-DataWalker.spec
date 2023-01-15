@@ -22,7 +22,6 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
 BuildRequires:  font(:lang=en)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Wx::Perl::DataWalker implements a Wx::Frame subclass that shows a

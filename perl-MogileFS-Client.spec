@@ -27,7 +27,6 @@ BuildRequires:  perl(Time::HiRes)
 # Tests
 BuildRequires:  perl(LWP)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(IO::WrapTie) >= 2.102
 
 # Remove under-specified dependencies

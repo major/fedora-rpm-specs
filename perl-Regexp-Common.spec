@@ -28,7 +28,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Regexp)
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Regexp::Common - Provide commonly requested regular expressions

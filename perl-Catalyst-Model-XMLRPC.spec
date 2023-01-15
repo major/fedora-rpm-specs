@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Model-XMLRPC
 Source0:        https://cpan.metacpan.org/authors/id/F/FM/FMERGES/Catalyst-Model-XMLRPC-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 Patch0:         config.patch
 

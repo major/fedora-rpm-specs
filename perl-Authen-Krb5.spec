@@ -17,7 +17,6 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Authen::Krb5 is an object oriented interface to the Kerberos 5 API. Both

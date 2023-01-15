@@ -43,7 +43,6 @@ BuildRequires:  perl(vars)
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Spec) >= 0.82
 # Pod::Usage executes perldoc from perl-Pod-Perldoc by default
 Requires:       perl-Pod-Perldoc

@@ -48,7 +48,6 @@ BuildRequires:	perl(UNIVERSAL::require)
 BuildRequires:	perl(Devel::Leak)
 BuildRequires:	perl(Test::Pod)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:	perl(FileHandle::Unget) = %{version}
 
 %description

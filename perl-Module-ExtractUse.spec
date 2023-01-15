@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 BuildRequires:  perl(UNIVERSAL::require)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Module::ExtractUse is basically a Parse::RecDescent grammar to parse Perl

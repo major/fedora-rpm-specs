@@ -6,7 +6,6 @@ Summary:    The Mersenne Twister PRNG
 Source:     https://cpan.metacpan.org/authors/id/F/FA/FANGLY/Math-Random-MT-%{version}.tar.gz
 Url:        http://metacpan.org/release/Math-Random-MT
 
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 BuildRequires: coreutils
 BuildRequires: findutils

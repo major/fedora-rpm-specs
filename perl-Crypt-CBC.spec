@@ -48,7 +48,6 @@ BuildRequires:  perl(Crypt::Rijndael)
 # Crypt::IDEA doesn't need bootstrapping and we get extra test coverage by including it
 BuildRequires:  perl(Crypt::IDEA)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Crypt::Cipher::AES)
 Requires:       perl(Scalar::Util)
 # Optional module needed for CTR mode

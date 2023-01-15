@@ -17,7 +17,6 @@ BuildRequires:  perl(XML::Parser::Lite::Tree) >= 0.11
 # Tests
 BuildRequires:  perl(lib)
 Requires:       perl(XML::Parser::Lite::Tree) >= 0.11
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

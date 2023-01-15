@@ -56,7 +56,6 @@ BuildRequires:  perl(Module::Signature)
 BuildRequires:  perl(Thread::Queue)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(IO::Socket) >= 1.18
 Requires:       perl(List::MoreUtils) >= 0.15
 Requires:       perl(Scalar::Util) >= 1.11

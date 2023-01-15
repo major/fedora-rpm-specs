@@ -74,7 +74,6 @@ BuildRequires:  perl(Tk::Pod)
 # Pod::Perldoc::ToMan executes roff
 Requires:       groff-base
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Temp) >= 0.22
 Requires:       perl(HTTP::Tiny)
 Requires:       perl(IO::Handle)

@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(Time::Piece) >= 1.08
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Email::Abstract)
 
 %description

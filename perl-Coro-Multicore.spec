@@ -41,7 +41,6 @@ BuildRequires:  perl(Coro) >= 6.44
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Coro::AnyEvent)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(AnyEvent) >= 7
 Requires:       perl(Carp)
 Requires:       perl(Coro) >= 6.44

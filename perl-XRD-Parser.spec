@@ -37,7 +37,6 @@ BuildRequires:  perl(XML::LibXML) >= 1.70
 %endif
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_XRD_Parser_enables_literal}
 Recommends:     perl(RDF::Trine::Node::Literal::XML)
 %endif

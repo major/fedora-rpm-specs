@@ -47,7 +47,6 @@ BuildRequires:  perl(utf8)
 # Optional tests
 BuildRequires:  perl(Test::CPAN::Changes)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Spec) >= 0.82
 Requires:       perl(File::Temp) >= 0.17
 Requires:       perl(HTML::Entities) >= 3.69

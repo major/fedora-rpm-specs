@@ -38,7 +38,6 @@ BuildRequires:	perl(POSIX)
 BuildRequires:	perl(threads)
 BuildRequires:	perl(threads::shared)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Use Devel::GlobalDestruction::XS on older perls
 %if %{want_xs}

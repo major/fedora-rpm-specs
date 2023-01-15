@@ -27,7 +27,6 @@ BuildRequires:    perl(warnings)
 
 Requires:         perl(Net::DNS) >= 0.62
 Requires:         perl(URI)
-Requires:         perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

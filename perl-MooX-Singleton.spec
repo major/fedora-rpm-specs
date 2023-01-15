@@ -19,7 +19,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Moo)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a Moo role that provides "instance" method turning your object

@@ -20,7 +20,6 @@ BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Data::Uniqid provides three simple routines for generating unique ids.

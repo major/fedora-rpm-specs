@@ -8,7 +8,6 @@ URL:            https://metacpan.org/release/DBI-Dumper
 Source0:        https://cpan.metacpan.org/authors/id/W/WS/WSMITH/DBI-Dumper-%{version}.tar.gz
 # Perl 5.18 compatibility, CPAN RT#87243
 Patch0:         DBI-Dumper-2.01-qw-does-not-produce-parentheses.patch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 BuildRequires:  coreutils
 BuildRequires:  findutils

@@ -12,7 +12,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(GD::Graph3d), perl(GD::Graph), perl(GD::Text)
 BuildRequires:  perl(Template), perl(Test::More)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(Template), perl(GD::Text), perl(GD::Graph), perl(GD::Graph3d)
 
 %description

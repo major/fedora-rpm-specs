@@ -26,7 +26,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Test::More)
 # Optional tests only
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Sort::Key) >= 0.13
 Requires:       perl(Time::HiRes) >= 1.74
 

@@ -38,7 +38,6 @@ BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(Test::Most)
 BuildRequires:	perl(Test::Pod) >= 1.00
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove Mac::Files dependency, only needed on MacOS
 %global __requires_exclude ^perl\\(Mac::Files\\)

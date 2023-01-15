@@ -33,7 +33,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Math::BigInt)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows you to compose Test::More tests from roles. It is inspired

@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::More) >= 0.82
 BuildRequires:  perl(Text::Abbrev)
 # Optional tests
 BuildRequires:  perl(Devel::Cycle)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
 Requires:       perl(Heap::Fibonacci)

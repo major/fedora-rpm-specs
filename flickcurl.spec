@@ -1,10 +1,11 @@
 Name:           flickcurl
 Version:        1.26
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        C library for the Flickr API
 License:        LGPL-2.1-or-later OR GPL-2.0-or-later OR Apache-2.0
 URL:            http://librdf.org/flickcurl
 Source0:        http://download.dajobe.org/%{name}/%{name}-%{version}.tar.gz
+Patch0: flickcurl-configure-c99.patch
 BuildRequires:  chrpath
 BuildRequires:  libcurl-devel
 BuildRequires:  libxml2-devel
@@ -35,7 +36,7 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --disable-static
@@ -71,6 +72,9 @@ chrpath --delete %{buildroot}%{_bindir}/flickrdf
 %{_mandir}/man1/%{name}-config.1*
 
 %changelog
+* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.26-19
+- Port configure script to C99
+
 * Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.26-18
 - SPDX migration
 

@@ -33,7 +33,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  make
 
 # This is needed for perl files
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: perl(NKF)
 
 Source0: https://github.com/tats/%{name}/archive/v%{version}+git%{gitdate}/%{name}-%{version}+git%{gitdate}.tar.gz

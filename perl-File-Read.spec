@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Portability::Files)
 BuildRequires:  perl(Text::Unidecode)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module mainly proposes functions for reading one or more files, with

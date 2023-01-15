@@ -28,7 +28,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Recommends:     perl(PerlIO::utf8_strict)
 
 %description

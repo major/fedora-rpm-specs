@@ -24,7 +24,6 @@ BuildRequires:  perl(POE)
 # Tests
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Future)
 Requires:       perl(IO::Async)
 Requires:       perl(MCE)

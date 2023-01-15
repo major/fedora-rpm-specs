@@ -24,7 +24,6 @@ BuildRequires:  perl(Readonly)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Perl::Critic::Policy)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Some Perl::Critic policies that will help you keep your code in good shape

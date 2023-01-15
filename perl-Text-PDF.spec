@@ -7,7 +7,6 @@ Summary:    Module for manipulating PDF files
 Source:     https://cpan.metacpan.org/authors/id/B/BH/BHALLISSY/Text-PDF-%{version}.tar.gz
 Patch0:     Text-PDF-0.29-formats.patch
 Url:        https://metacpan.org/release/Text-PDF
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

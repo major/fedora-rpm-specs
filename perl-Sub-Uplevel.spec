@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional:
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 # Explicit Run-time:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 # Remove bogus perl(DB) provide

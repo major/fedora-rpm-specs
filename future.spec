@@ -19,7 +19,7 @@ clean Py3-style codebase, module by module.
 Name: future
 Summary: Easy, clean, reliable Python 2/3 compatibility
 Version: 0.18.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: http://python-future.org/
 Source0: https://github.com/PythonCharmers/python-future/archive/refs/tags/v%{version}/python-%{name}-%{version}.tar.gz
@@ -28,9 +28,7 @@ BuildArch: noarch
 # https://github.com/PythonCharmers/python-future/issues/165
 Patch0: %{name}-skip_tests_with_connection_errors.patch
 
-# Python 3.9 support
-# https://github.com/PythonCharmers/python-future/pull/544
-Patch1: %{name}-python39.patch
+Patch1: %{name}-fix_tests.patch
 
 # https://docs.python.org/3.11/whatsnew/3.11.html
 Patch2: %{name}-python311.patch
@@ -40,50 +38,39 @@ Patch2: %{name}-python311.patch
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary: Easy, clean, reliable Python 2/3 compatibility
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 BuildRequires: python%{python3_pkgversion}-devel
 BuildRequires: python%{python3_pkgversion}-setuptools
 BuildRequires: python%{python3_pkgversion}-numpy
 BuildRequires: python%{python3_pkgversion}-requests
 BuildRequires: python%{python3_pkgversion}-pytest
 Provides:      future-python3 = 0:%{version}-%{release}
+Provides:      future = 0:%{version}-%{release}
+%py_provides   python3-%{name}
 
 Obsoletes: python2-%{name} < 0:%{version}-%{release}
 Obsoletes: %{name}-python2 < 0:%{version}-%{release}
-Provides:  future = 0:%{version}-%{release}
 Obsoletes: python34-%{name} < 0:%{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}
 %{_description}
 
 %prep
-%setup -qc -n python-future-%{version}
+%setup -q -n python-future-%{version}
 
-pushd python-future-%{version}
-%patch0 -p0 -b .backup
-%if 0%{?python3_version_nodots} >= 39
+%patch0 -p1 -b .backup
 %patch1 -p1 -b .backup
-%endif
 %if 0%{?python3_version_nodots} >= 311
 %patch2 -p1 -b .backup
 %endif
-popd
-
-cp -a python-future-%{version} python3
 
 %if 0%{?fedora}
-find python3 -name '*.py' | xargs %{_pathfix} -pn -i "%{__python3}"
+find . -name '*.py' | xargs %{_pathfix} -pn -i "%{__python3}"
 %endif
 
 %build
-
-pushd python3
 %py3_build
-popd
 
 %install
-
-pushd python3
 %py3_install
 mv $RPM_BUILD_ROOT%{_bindir}/futurize $RPM_BUILD_ROOT%{_bindir}/futurize-%{python3_version}
 mv $RPM_BUILD_ROOT%{_bindir}/pasteurize $RPM_BUILD_ROOT%{_bindir}/pasteurize-%{python3_version}
@@ -92,8 +79,6 @@ ln -sf ./pasteurize-%{python3_version} $RPM_BUILD_ROOT%{_bindir}/pasteurize-3
 ln -sf ./futurize-%{python3_version} $RPM_BUILD_ROOT%{_bindir}/futurize
 ln -sf ./pasteurize-%{python3_version} $RPM_BUILD_ROOT%{_bindir}/pasteurize
 sed -i -e '/^#!\//, 1d' $RPM_BUILD_ROOT%{python3_sitelib}/future/backports/test/pystone.py
-popd
-
 chmod a+x $RPM_BUILD_ROOT%{python3_sitelib}/future/backports/test/pystone.py
 
 ## This packages ships PEM certificates in future/backports/test directory.
@@ -101,20 +86,17 @@ chmod a+x $RPM_BUILD_ROOT%{python3_sitelib}/future/backports/test/pystone.py
 %check
 
 # Bugs
-# https://github.com/PythonCharmers/python-future/issues/474
 # https://github.com/PythonCharmers/python-future/issues/508
-pushd python3
 %if 0%{?python3_version_nodots} > 37
-PYTHONPATH=$PWD/build/lib py.test-%{python3_version} -k "not test_urllib2 and not test_urllibnet and not test_single_exception_stacktrace and not test_pow" -q
+PYTHONPATH=$PWD/build/lib py.test-%{python3_version} -k "not test_urllibnet and not test_single_exception_stacktrace" -q
 %endif
 %if 0%{?python3_version_nodots} <= 37
 PYTHONPATH=$PWD/build/lib py.test-%{python3_version}
 %endif
-popd
 
 %files -n python%{python3_pkgversion}-%{name}
-%license python3/LICENSE.txt
-%doc python3/README.rst
+%license LICENSE.txt
+%doc README.rst
 %{_bindir}/futurize-3
 %{_bindir}/pasteurize-3
 %{_bindir}/futurize
@@ -128,6 +110,9 @@ popd
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Fri Jan 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.18.3-2
+- Add updated patch for fixing tests
+
 * Thu Jan 12 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.18.3-1
 - Release 0.18.3
 

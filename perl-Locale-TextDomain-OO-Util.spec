@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::NoWarnings)
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides methods for lexicon constants, to join and split
@@ -43,7 +42,6 @@ lexicon keys and to extract the gettext file header.
 %package -n js-Locale-TextDomain-OO-Util
 Summary:        Lexical Utils for Locale::TextDomain::OO in JavaScript
 BuildRequires:  web-assets-devel
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       js-jquery
 Requires:       web-assets-filesystem
 

@@ -26,7 +26,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Module::CPANfile) >= 1.1004
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CPAN::Meta::Requirements) >= 2.130
 Requires:       perl(Exporter) >= 5.57
 Requires:       perl(YAML::PP) >= 0.027

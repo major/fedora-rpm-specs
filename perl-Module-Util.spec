@@ -6,7 +6,6 @@ License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Module name tools and transformations
 Source:     https://cpan.metacpan.org/authors/id/M/MA/MATTLAW/Module-Util-%{version}.tar.gz
 Url:        https://metacpan.org/release/Module-Util
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 BuildRequires: perl-interpreter
 BuildRequires: perl-generators

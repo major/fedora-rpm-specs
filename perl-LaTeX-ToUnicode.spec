@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
 # Test::Synopsis not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides a method to convert LaTeX-style markups for accents

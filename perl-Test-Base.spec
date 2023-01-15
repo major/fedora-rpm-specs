@@ -52,7 +52,6 @@ BuildRequires:  perl(Test::Tester)
 BuildRequires:  perl(Test::Pod) >= 1.41
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_Test_Base_enables_diff}
 Requires:       perl(Algorithm::Diff) >= 1.15
 %endif

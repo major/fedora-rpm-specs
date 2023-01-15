@@ -7,7 +7,6 @@ Release:        4%{?dist}
 License:        GPL+ or Artistic 
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/A/AS/ASB/%{pkgname}-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Archive::Zip) >= 1.18

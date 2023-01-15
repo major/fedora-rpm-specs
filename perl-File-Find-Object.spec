@@ -32,7 +32,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::File) >= 1.993
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 File::Find::Object does the same job as File::Find but works like an object

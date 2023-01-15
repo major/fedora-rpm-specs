@@ -25,7 +25,6 @@ BuildRequires:  perl(Moo)
 BuildRequires:  perl(Test::More) >= 0.9
 Requires:       perl(Module::Pluggable) >= 4.8
 Requires:       perl(Moo::Role) >= 1.003000
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module allows a class consuming several roles based on rules passed to

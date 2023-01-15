@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Text::Wrap) >= 2001.0929
 
 %description

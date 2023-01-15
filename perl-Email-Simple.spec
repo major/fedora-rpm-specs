@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Email::Date::Format)
 
 %description

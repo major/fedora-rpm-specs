@@ -44,7 +44,6 @@ BuildRequires:  python3
 BuildRequires:  python3-devel
 Requires:       perl(Inline) >= 0.46
 Requires:       perl(Inline::denter)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Remove underspecified generated dependency
 %global __requires_exclude ^perl\\(Inline\\)$

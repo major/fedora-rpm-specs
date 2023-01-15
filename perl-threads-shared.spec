@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Time::HiRes)
 # Win32 not needed
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(threads) >= 1.73
 Requires:       perl(XSLoader)

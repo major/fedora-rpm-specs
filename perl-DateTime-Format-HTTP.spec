@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.47
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(DateTime) >= 0.17
 Requires:       perl(HTTP::Date) >= 1.44
 

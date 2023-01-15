@@ -17,7 +17,6 @@ BuildRequires:  perl(Unicode::Stringprep) >= 1.1
 BuildRequires:  perl(Unicode::Stringprep::Mapping)
 BuildRequires:  perl(Unicode::Stringprep::Prohibited)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

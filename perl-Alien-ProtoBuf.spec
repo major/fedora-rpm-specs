@@ -26,7 +26,6 @@ BuildRequires:  perl(Alien::Base)
 # Tests:
 BuildRequires:  perl(Test::More)
 # Test::Pod not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(Module::Build) >= 0.28
 # A purpose of this package is to ensure a user can develop against protobuf.

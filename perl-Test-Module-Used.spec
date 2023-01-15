@@ -31,7 +31,6 @@ BuildRequires:  perl(version) >= 0.77
 # Tests:
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(version) >= 0.77
 
 # Remove under-specified depepndencies

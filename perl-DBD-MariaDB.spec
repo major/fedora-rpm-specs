@@ -68,7 +68,6 @@ BuildRequires:  perl(Proc::ProcessTable)
 BuildRequires:  perl(Storable)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter private modules for tests
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(lib.pl\\)

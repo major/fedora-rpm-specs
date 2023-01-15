@@ -23,7 +23,6 @@ BuildRequires:  perl(Module::Install::ManifestSkip) >= 0.19
 BuildRequires:  perl(Moo) >= 0.009008
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(File::Path)
 

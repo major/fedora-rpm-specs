@@ -30,7 +30,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl-interpreter >= 4:5.22.0-351
 # Per Perl packaging guidelines, build-requiring perl-generators should
 # deliver Perl macros

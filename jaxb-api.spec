@@ -1,6 +1,6 @@
 Name:           jaxb-api
 Version:        4.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jakarta XML Binding API
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-api
@@ -47,6 +47,9 @@ This package contains javadoc for %{name}.
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Jan 13 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.0-2
+- Rebuild
+
 * Fri Jan 06 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.0-1
 - Update to upstream version 4.0.0
 

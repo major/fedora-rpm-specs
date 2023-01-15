@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(warnings)
 Requires:       perl(Moo) >= 0.009014
 Requires:       perl(Package::Stash) >= 0.33
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Moo\\)$

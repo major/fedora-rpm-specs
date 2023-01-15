@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(warnings)
 
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 DefHash - Define things according to a specification, using hashes.

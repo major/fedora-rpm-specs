@@ -15,7 +15,6 @@ BuildRequires:  perl-generators
 BuildRequires:  kakasi-devel >= 2.3.1, kakasi-dict
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  gcc
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       kakasi >= 2.3.1
 
 %description

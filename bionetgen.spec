@@ -138,7 +138,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Math::Trig)
 BuildRequires:  make
 Requires:       bionetgen = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Math::Trig)
 Provides:       bundled(XML-TreePP) = 0.41
 %description perl

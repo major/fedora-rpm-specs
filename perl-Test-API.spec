@@ -31,7 +31,6 @@ BuildRequires:	perl(CPAN::Meta)
 BuildRequires:	perl(CPAN::Meta::Requirements) >= 2.120900
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This simple test module checks the subroutines provided by a module. This is

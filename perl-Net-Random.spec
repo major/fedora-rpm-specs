@@ -26,7 +26,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Test::MockObject) >= 1.07
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(LWP::Protocol::https)
 
 %description

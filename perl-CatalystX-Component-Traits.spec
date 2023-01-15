@@ -7,7 +7,6 @@ License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/R/RK/RKITOVER/CatalystX-Component-Traits-%{version}.tar.gz
 URL:            https://metacpan.org/release/CatalystX-Component-Traits
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  coreutils

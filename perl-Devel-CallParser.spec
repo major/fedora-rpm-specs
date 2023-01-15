@@ -36,7 +36,6 @@ BuildRequires:  perl(Lexical::Sub) >= 0.004
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Devel::CallChecker) >= 0.002
 Requires:       perl(DynaLoader)
 Requires:       perl(DynaLoader::Functions) >= 0.001

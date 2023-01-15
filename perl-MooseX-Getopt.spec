@@ -62,7 +62,6 @@ BuildRequires:  perl(MooseX::StrictConstructor)
 %endif
 BuildRequires:  perl(YAML)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Make sure we don't get doc-file dependencies from the tests
 %{?perl_default_filter}

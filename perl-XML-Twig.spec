@@ -66,7 +66,6 @@ BuildRequires:  perl(XML::Handler::YAWriter)
 BuildRequires:  perl(XML::SAX::Writer) >= 0.39
 BuildRequires:  perl(XML::Simple)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Encode)
 Requires:       perl(HTML::TreeBuilder) >= 4.00
 Requires:       perl(IO::Scalar)

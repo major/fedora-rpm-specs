@@ -33,7 +33,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(version) >= 0.77
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  perl(ExtUtils::Manifest)
 # Software::LicenseUtils version from Software::License in META
 Requires:  perl(Software::LicenseUtils) >= 0.103005

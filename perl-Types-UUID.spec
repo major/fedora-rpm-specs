@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::TypeTiny)
 # Optional tests:
 BuildRequires:  perl(URI)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Type::Tiny) >= 1.000000
 Requires:       perl(UUID::Tiny) >= 1.02
 

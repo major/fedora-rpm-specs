@@ -11,7 +11,6 @@ Patch2:			p0rn-paths.patch
 BuildArch:      noarch
 BuildRequires:      perl-generators
 Requires:       lynx, wget, mmv
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 p0rn-comfort consists of several support programs for browsing

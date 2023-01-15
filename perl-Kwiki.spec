@@ -54,7 +54,6 @@ BuildRequires:  perl(Spiffy)
 BuildRequires:  perl(Test::More)
 # Optional tests only
 BuildRequires:  perl(Test::Memory::Cycle)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(CPAN)
 Requires:       perl(Cwd)
 

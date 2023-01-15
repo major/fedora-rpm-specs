@@ -20,7 +20,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::Moose)
 BuildRequires:  perl(Test::More) >= 0.92
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 MooseX::MarkAsMethods allows one to easily mark certain functions as Moose

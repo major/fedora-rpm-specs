@@ -40,7 +40,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(Test::Pod) >= 1.14
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(B)
 Requires:	perl(XSLoader)
 

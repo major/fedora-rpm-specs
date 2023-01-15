@@ -12,7 +12,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More) >= 0.32
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 HTML::Entities::Numbered is a content conversion filter for named HTML

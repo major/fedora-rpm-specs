@@ -34,7 +34,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 %if %{with perl_HTTP_Link_Parser_enables_rdf}
 Requires:       perl(RDF::Trine) >= 0.135

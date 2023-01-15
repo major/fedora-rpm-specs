@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Hash::Case is the base class for various classes which tie special treatment

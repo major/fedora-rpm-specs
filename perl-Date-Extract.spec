@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::More)
 
 BuildRequires:  perl(inc::Module::Install)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Search a string for something that looks like a date string, and build a

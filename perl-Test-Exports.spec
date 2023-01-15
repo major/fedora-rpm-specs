@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::Tester) >= 0.08
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides simple test functions for testing other modules'

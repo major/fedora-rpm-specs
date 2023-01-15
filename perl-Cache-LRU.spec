@@ -19,7 +19,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Cache::LRU is a simple, fast implementation of an in-memory LRU cache in

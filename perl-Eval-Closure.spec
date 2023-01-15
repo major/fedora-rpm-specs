@@ -45,7 +45,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::Output)
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Devel::LexAlias) >= 0.05
 Requires:       perl(Perl::Tidy)
 

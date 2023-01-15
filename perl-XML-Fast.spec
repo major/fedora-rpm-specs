@@ -29,7 +29,6 @@ BuildRequires:  perl(utf8)
 # Optional tests:
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::NoWarnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module implements simple, state machine based, XML parser

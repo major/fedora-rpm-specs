@@ -7,7 +7,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Ex
 Source0:        https://cpan.metacpan.org/authors/id/L/LJ/LJEPSON/CGI-Ex-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 BuildRequires:  coreutils
 BuildRequires:  findutils

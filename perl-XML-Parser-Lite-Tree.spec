@@ -19,7 +19,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a singleton class for parsing XML into a tree structure. How does

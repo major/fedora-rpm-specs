@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WWW-Mechanize
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/WWW-Mechanize-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # HTML::Status is not used anymore probably
 #Requires:       perl(HTTP::Status)
 # LWP is not run-time dependecy probably

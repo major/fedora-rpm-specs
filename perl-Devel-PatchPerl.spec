@@ -29,7 +29,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 # Test::Pod not used
 # Test::Pod::Coverage not used
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       patch
 Requires:       perl(ExtUtils::MakeMaker)
 Requires:       perl(File::pushd) >= 1.00

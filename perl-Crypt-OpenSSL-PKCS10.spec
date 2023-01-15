@@ -28,7 +28,6 @@ Recommends:     perl(Crypt::OpenSSL::Bignum)
 # Tests:
 BuildRequires:  perl(Crypt::OpenSSL::RSA)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Crypt::OpenSSL::PKCS10 Perl module provides the ability to create PKCS10

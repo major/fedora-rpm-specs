@@ -32,7 +32,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(CPAN::Meta)
 BuildRequires:  perl(CPAN::Meta::Requirements)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

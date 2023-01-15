@@ -39,7 +39,6 @@ BuildRequires:  perl(Storable)
 BuildRequires:  perl(Taint::Runtime)
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -6,7 +6,6 @@ Release:        8%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Catalyst-Manual-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Manual
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires: make

@@ -30,7 +30,6 @@ BuildRequires:  perl(File::Temp) >= 0.12
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(IPC::Run3)
 BuildRequires:  perl(Test::More) >= 0.32
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(AppConfig) >= 1.52
 Requires:       perl(Carp)
 Requires:       perl(POSIX)

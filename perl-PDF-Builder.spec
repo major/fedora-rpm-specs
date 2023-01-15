@@ -90,7 +90,6 @@ BuildRequires:  GraphicsMagick
 BuildRequires:  urw-base35-fonts-legacy
 %endif
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Compress::Zlib) >= 1
 # They can be disabled at run-time. There is an imperfect pure-Perl fallback.
 %if %{with perl_PDF_Builder_enables_tiff}

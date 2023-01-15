@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-Natural
-Version:        1.13
-Release:        3%{?dist}
+Version:        1.15
+Release:        1%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Natural
@@ -21,6 +21,7 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Clone)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(DateTime)
+BuildRequires:  perl(DateTime::HiRes)
 BuildRequires:  perl(DateTime::TimeZone)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Find)
@@ -34,9 +35,8 @@ BuildRequires:  perl(Storable)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Date::Calc)
 BuildRequires:  perl(FindBin)
-BuildRequires:  perl(Test::MockTime)
+BuildRequires:  perl(Test::MockTime::HiRes)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Params::Validate) >= 1.15
 
 %{?perl_default_filter}
@@ -116,6 +116,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.15-1
+- 1.15 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -30,7 +30,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(Test::More)
 # Test::Pod not used
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl(Filter::Util::Call)
 Requires:   perl(Spiffy)
 Requires:   perl(Test::Base) >= 0.86

@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::Builder::Tester)
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 There are a number of different situations (like testing caching code) where

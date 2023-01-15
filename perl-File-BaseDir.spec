@@ -32,7 +32,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(File::Which)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter modules bundled for tests
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Helper\\)
@@ -49,7 +48,6 @@ as well be used for non-GUI applications.
 %if %{with perl_File_BaseDir_enables_xdg_user_dirs}
 %package -n perl-File-UserDirs
 Summary:        Find extra media and documents Freedesktop.org directories
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This package does not make sense without xdg-user-dirs
 Requires:       xdg-user-dirs
 Conflicts:      %{name} < 0.06-2

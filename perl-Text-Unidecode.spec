@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Text::Wrap)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 

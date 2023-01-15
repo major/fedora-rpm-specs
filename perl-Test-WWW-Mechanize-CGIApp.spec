@@ -20,7 +20,6 @@ BuildRequires:  perl(Test::Pod)
 Requires:       perl(Test::More)
 Requires:       perl(Test::WWW::Mechanize)
 Requires:       perl(CGI::Application)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

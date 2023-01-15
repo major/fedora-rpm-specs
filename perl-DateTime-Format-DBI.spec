@@ -6,7 +6,6 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-DBI
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFAERBER/DateTime-Format-DBI-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # Build
 BuildRequires:  %{_bindir}/iconv
 BuildRequires:  coreutils

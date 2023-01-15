@@ -53,7 +53,6 @@ BuildRequires:  perl(JSON)
 BuildRequires:  perl(Symbol)
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid provides for private perl objects
 %{?perl_default_filter}

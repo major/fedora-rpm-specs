@@ -24,7 +24,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(Test::More)
 # Test::Pod - optional
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(YAML::PP) >= 0.018
 # Optional, not package yet

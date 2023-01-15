@@ -15,7 +15,6 @@ BuildRequires:  perl(Moose)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(XML::Writer)
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %{?perl_default_subpackage_tests}

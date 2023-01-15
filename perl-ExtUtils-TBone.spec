@@ -15,7 +15,6 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is intended for folks who release CPAN modules with t/*.t

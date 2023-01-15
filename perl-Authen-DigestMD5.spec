@@ -23,7 +23,6 @@ BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module supports DIGEST-MD5 SASL authentication as defined in RFC-2831.

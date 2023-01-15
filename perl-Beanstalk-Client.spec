@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(version)
 # Optional tests:
 # JSON::XS is not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Beanstalk::Client provides a Perl API of protocol version 1.0 to the

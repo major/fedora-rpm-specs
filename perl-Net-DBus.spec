@@ -5,7 +5,6 @@ Summary:        Use and provide DBus services
 License:        GPLv2+ or Artistic
 URL:            https://metacpan.org/release/Net-DBus
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DANBERR/Net-DBus-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildRequires:  dbus-devel  >= 1.00, pkgconfig
 BuildRequires:  findutils
 BuildRequires:  gcc

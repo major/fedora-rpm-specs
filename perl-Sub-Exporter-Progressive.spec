@@ -28,7 +28,6 @@ BuildRequires:	perl(constant)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More)
 # =============== Module Runtime ====================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 Requires:	perl(Exporter) >= 5.58
 Requires:	perl(Sub::Exporter)

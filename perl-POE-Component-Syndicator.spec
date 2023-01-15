@@ -17,7 +17,6 @@ BuildRequires:  perl(POE) >= 1.311
 BuildRequires:  perl(Test::More)
 Requires:       perl(Object::Pluggable) >= 1.29
 Requires:       perl(POE) >= 1.311
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Underspecified dependencies filter
 # RPM 4.8 style

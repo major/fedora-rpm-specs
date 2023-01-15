@@ -28,7 +28,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

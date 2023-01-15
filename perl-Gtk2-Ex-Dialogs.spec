@@ -22,7 +22,6 @@ BuildRequires:  perl(Gtk2::Ex::Constants)
 BuildRequires:  perl(Gtk2::Ex::Utils) >= 0.08
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Type) >= 0.22
 Requires:       perl(Gtk2) >= 1.04
 Requires:       perl(Gtk2::Ex::Utils) >= 0.08

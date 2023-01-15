@@ -23,7 +23,6 @@ BuildRequires:	perl(strict)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't provide private perl libs
 %{?perl_default_filter}

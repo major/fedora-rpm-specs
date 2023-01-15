@@ -21,7 +21,6 @@ BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(vars)
 # Test:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This is a thin wrapper around the shellwords.pl package, which comes

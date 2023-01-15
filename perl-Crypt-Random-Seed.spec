@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More) >= 0.45
 # Test::Perl::Critic not used
 # Test::Pod not used
 # Test::Pod::Coverage not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Crypt::Random::TESHA2 not used since we have /dev/random
 %if %{with perl_Crypt_Random_Seed_enables_egd}
 Suggests:       egd

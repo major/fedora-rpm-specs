@@ -20,7 +20,6 @@ BuildRequires:  perl(Test::Without::Module)
 BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Recommends:     perl(XML::XPath)
 
 %{?perl_default_filter}

@@ -22,7 +22,6 @@ BuildRequires:  perl(Tie::Array)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Perl maintains environment variables in a special hash named %%ENV. For when

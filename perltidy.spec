@@ -41,7 +41,6 @@ BuildRequires:	perl(Test)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(utf8)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(File::Spec)
 Requires:	perl(HTML::Entities)
 Requires:	perl(Pod::Html)

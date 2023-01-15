@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More)
 # Text::Wrap - not used for tests
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Cwd)
 Requires:       perl(File::Basename)
 Requires:       perl(Text::Wrap)

@@ -29,7 +29,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Text::Autoformat)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module lets you define attributes which can come from a configuration

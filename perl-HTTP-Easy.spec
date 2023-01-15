@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(lib::abs)
 BuildRequires:  perl(URI)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Set of useful helpers for HTTP work with Perl.

@@ -38,7 +38,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IPC::Open3)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config)
 Requires:       perl(ExtUtils::MakeMaker)
 Requires:       perl(File::Spec)

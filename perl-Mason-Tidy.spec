@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::Class)
 BuildRequires:  perl(Test::Class::Most)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Method::Signatures::Simple) >= 1.02
 Requires:       perl(Moo) >= 0.0091010
 

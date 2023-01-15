@@ -1,7 +1,11 @@
 %global toolchain clang
 #global rc_ver 3
-%global polly_version 15.0.6
+%global polly_version 15.0.7
 %global polly_srcdir polly-%{polly_version}%{?rc_ver:rc%{rc_ver}}.src
+
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+# https://bugzilla.redhat.com/show_bug.cgi?id=2158587
+%undefine _include_frame_pointers
 
 Name: polly
 Version: %{polly_version}%{?rc_ver:~rc%{rc_ver}}
@@ -101,6 +105,12 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-1
+- Update to LLVM 15.0.7
+
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.6-2
+- Omit frame pointers when building
+
 * Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
 - Update to LLVM 15.0.6
 

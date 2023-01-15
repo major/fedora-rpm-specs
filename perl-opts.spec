@@ -5,7 +5,6 @@ Release:        25%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKIHOSHI/opts-0.07.tar.gz 
 URL:            https://metacpan.org/release/opts
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  perl-generators

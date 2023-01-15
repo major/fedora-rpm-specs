@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Scalar::Util)
 Recommends:     perl(Scalar::Util)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Sub::Infix creates fake infix operators using overloading. It doesn't use

@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(DateTime::SpanSet)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(DateTime) >= 0.27
 Requires:       perl(DateTime::Set) >= 0.3600
 

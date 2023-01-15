@@ -33,7 +33,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::Scalar)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # Specific version ≥ 2.92 for Encode is recommended but not required
 Requires:       perl(Encode)
 # IO::Handle is loaded by XS code

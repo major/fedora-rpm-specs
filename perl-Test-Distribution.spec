@@ -27,7 +27,6 @@ BuildRequires:	perl(warnings)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # these are considered "optional"; autoreq doesn't pick them up
 Requires:	perl(File::Find::Rule) >= 0.03
 Requires:	perl(Module::CoreList) >= 1.93

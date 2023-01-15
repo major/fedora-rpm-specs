@@ -41,7 +41,6 @@ BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Socket)
 }
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Suggests:       perl(Sys::Syslog)
 # threads is prefered over Threads
 Suggests:       perl(threads)

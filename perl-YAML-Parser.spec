@@ -29,7 +29,6 @@ BuildRequires:  perl(YAML::PP::Perl)
 # Tests
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 YAML::Parser is the first 100% YAML 1.2 spec compliant parser for Perl. The

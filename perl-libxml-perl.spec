@@ -19,7 +19,6 @@ BuildRequires:  perl(UNIVERSAL)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(XML::Parser) >= 2.19
 # Tests:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XML::Parser) >= 2.19
 
 # Filter out unversioned provides

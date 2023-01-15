@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Test::More) >= 0.98
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Modern Perl often relies on the presence of several core and CPAN pragmas

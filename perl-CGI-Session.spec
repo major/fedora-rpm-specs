@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Session
 Source0:        https://cpan.metacpan.org/modules/by-module/CGI/CGI-Session-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(CGI) >= 3.26
 Requires:       perl(File::Path)
 Requires:       perl(Text::Abbrev)

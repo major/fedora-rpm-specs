@@ -17,7 +17,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(XML::Catalog)
 BuildRequires:  perl(XML::Parser) >= 2
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(IO::File)
 Requires:       perl(XML::Catalog)
 Requires:       perl(XML::Parser) >= 2

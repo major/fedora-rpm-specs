@@ -19,7 +19,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a simple object-oriented storage for XML name spaces.

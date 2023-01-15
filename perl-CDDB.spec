@@ -30,7 +30,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
 }
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Encode)
 
 %{?perl_default_filter}

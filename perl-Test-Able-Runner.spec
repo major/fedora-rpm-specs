@@ -25,7 +25,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::Able::Role)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Load) >= 0.20
 Requires:       perl(Module::Pluggable) >= 3.6
 Requires:       perl(Moose) >= 0.94

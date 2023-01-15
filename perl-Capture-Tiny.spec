@@ -30,7 +30,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(PerlIO::scalar)
 # Test::Differences is optional
 BuildRequires:  perl(Test::More) >= 0.62
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Capture::Tiny provides a simple, portable way to capture anything sent to

@@ -7,7 +7,7 @@
 # 2. Build gap-pkg-tomlib
 # 3. Build gap-pkg-ctbllib
 # 4. Build this package in non-bootstrap mode.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.1.6

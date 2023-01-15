@@ -136,7 +136,6 @@ file-translation code.
 
 %package -n perl-%{name}
 Summary: Perl wrapper for the Open Babel library
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires: perl-devel
 BuildRequires: perl-generators

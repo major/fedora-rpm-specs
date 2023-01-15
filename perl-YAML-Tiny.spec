@@ -50,7 +50,6 @@ BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(JSON::MaybeXS) >= 1.001000
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Exporter)
 Requires:       perl(Fcntl)

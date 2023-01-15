@@ -17,7 +17,6 @@ BuildRequires:  perl(POE) >= 1.310
 BuildRequires:  perl(Test::More) >= 0.90
 BuildRequires:  perl(Test::Fatal) >= 0.003
 BuildRequires:  perl(Test::Moose)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 MooseX::POE::Object is a Moose wrapper around a POE::Session.

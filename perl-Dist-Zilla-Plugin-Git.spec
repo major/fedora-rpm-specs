@@ -81,7 +81,6 @@ BuildRequires:  perl(Dist::Zilla::Plugin::Config::Git)
 BuildRequires:  perl(Module::Runtime::Conflicts)
 BuildRequires:  perl(Moose::Conflicts)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DateTime)
 Requires:       perl(Dist::Zilla::Plugin::GatherDir) >= 4.200016
 Requires:       perl(Dist::Zilla::Role::AfterBuild)

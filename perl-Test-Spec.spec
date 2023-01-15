@@ -36,7 +36,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(TAP::Parser)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Package::Stash) >= 0.23
 Requires:       perl(Scalar::Util) >= 1.11
 Requires:       perl(Test::Deep) >= 0.103

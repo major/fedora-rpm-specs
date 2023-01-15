@@ -15,7 +15,6 @@ BuildRequires:  perl(Test::CPAN::Meta)
 BuildRequires:  perl(Test::MinimumVersion)
 BuildRequires:  perl(Test::Pod)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

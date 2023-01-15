@@ -21,7 +21,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(vars)
 # Tests:
 # Config not used on Linux
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Digest::MD5) >= 2
 Requires:       perl(Digest::SHA) >= 1
 

@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::Builder::Module)
 BuildRequires:  perl(Test::LeakTrace)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Tie::Array)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 # Filter modules bundled for tests

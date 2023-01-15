@@ -19,7 +19,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Exporter)
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:  perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 There are two kinds of numbers in English -- cardinals (1,

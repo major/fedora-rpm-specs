@@ -14,7 +14,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 Requires:       perl(Catalyst::Runtime)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 These classes provide mod_perl support for Catalyst.

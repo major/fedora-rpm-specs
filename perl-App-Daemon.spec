@@ -30,7 +30,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Sysadm::Install) >= 0.37
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Log::Log4perl) >= 1.0
 Requires:       perl(Proc::ProcessTable)
 

@@ -48,7 +48,6 @@ BuildRequires:  perl(String::ShellQuote)
 # BuildRequires:  perl(URI)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       git
 Requires:       perl(Class::Tiny) >= 1.001
 Requires:       perl(CPAN::Common::Index) >= 0.006

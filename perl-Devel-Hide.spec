@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::Pod) >= 1.18
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Given a list of Perl modules/filenames, this module makes require and use

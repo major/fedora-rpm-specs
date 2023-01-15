@@ -19,7 +19,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl-XML-SAX < 0.99-1
 
 # Move to unversioned documentation directories from F-20

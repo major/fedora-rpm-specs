@@ -47,7 +47,6 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(AnyEvent)
 BuildRequires:  perl(Proc::Guard)
 BuildRequires:  perl(Test::TCP)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The ZMQ::LibZMQ4 module is a wrapper of the fourth version of ØMQ message

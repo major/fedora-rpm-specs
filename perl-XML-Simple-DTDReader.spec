@@ -17,7 +17,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XML::Parser) >= 2.28
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(XML::Parser) >= 2.28
 
 # Filter under-specified dependencies

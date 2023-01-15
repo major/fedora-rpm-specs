@@ -10,7 +10,6 @@ BuildRequires:  perl-interpreter >= 1:5.6.0
 BuildRequires:  perl-generators
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More) >= 0.01
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The accessors pragma lets you create simple accessors at compile-time.

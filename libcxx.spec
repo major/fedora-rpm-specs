@@ -1,6 +1,6 @@
 %global toolchain clang
 
-%global libcxx_version 15.0.6
+%global libcxx_version 15.0.7
 #global rc_ver 3
 %global libcxx_srcdir libcxx-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
 %global libcxxabi_srcdir libcxxabi-%{libcxx_version}%{?rc_ver:rc%{rc_ver}}.src
@@ -139,6 +139,9 @@ mv ../%{libcxxabi_srcdir} libcxxabi
 %{_libdir}/libc++abi.a
 
 %changelog
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-1
+- Update to LLVM 15.0.7
+
 * Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
 - Update to LLVM 15.0.6
 

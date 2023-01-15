@@ -21,7 +21,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 %{?perl_default_filter}

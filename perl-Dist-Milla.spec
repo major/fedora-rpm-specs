@@ -66,7 +66,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.88
 # Test::Pod 1.41 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Dist::Zilla::App version from Dist::Zilla in META
 Requires:       perl(Dist::Zilla::App) >= 6
 Requires:       perl(Dist::Zilla::Plugin::InlineFiles)

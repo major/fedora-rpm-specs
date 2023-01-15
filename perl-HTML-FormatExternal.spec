@@ -64,7 +64,6 @@ BuildRequires:  perl(Devel::StackTrace)
 BuildRequires:  perl(HTML::TreeBuilder)
 BuildRequires:  perl(Taint::Util)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Encode)
 Requires:       perl(File::Copy)
 Requires:       perl(File::Temp) >= 0.18
@@ -90,7 +89,6 @@ by dumping it through the respective external programs. Available modules are:
 Summary:        Format HTML as plain text using ELinks
 Requires:       %{name} = %{?epoch:%{epoch:}}%{version}-%{release}
 Requires:       elinks
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(URI::file) >= 0.08
 %description Elinks
 This Perl module turns HTML into plain text using the ELinks program.
@@ -100,7 +98,6 @@ This Perl module turns HTML into plain text using the ELinks program.
 %package Html2text
 Summary:        Format HTML as plain text using html2text
 Requires:       %{name} = %{?epoch:%{epoch:}}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       python3-html2text
 %description Html2text
 This Perl module turns HTML into plain text using the html2text program.
@@ -111,7 +108,6 @@ This Perl module turns HTML into plain text using the html2text program.
 Summary:        Format HTML as plain text using Links
 Requires:       %{name} = %{?epoch:%{epoch:}}%{version}-%{release}
 Requires:       links
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(URI::file) >= 0.08
 %description Links
 This Perl module turns HTML into plain text using the Links program.
@@ -122,7 +118,6 @@ This Perl module turns HTML into plain text using the Links program.
 Summary:        Format HTML as plain text using Lynx
 Requires:       %{name} = %{?epoch:%{epoch:}}%{version}-%{release}
 Requires:       lynx
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(URI::file) >= 0.08
 %description Lynx
 This Perl module turns HTML into plain text using the Lynx program.
@@ -133,7 +128,6 @@ This Perl module turns HTML into plain text using the Lynx program.
 Summary:        Format HTML as plain text using Netrik
 Requires:       %{name} = %{?epoch:%{epoch:}}%{version}-%{release}
 Requires:       netrik
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(URI::file) >= 0.08
 %description Netrik
 This Perl module turns HTML into plain text using the Netrik program.
@@ -143,7 +137,6 @@ This Perl module turns HTML into plain text using the Netrik program.
 %package Vilistextum
 Summary:        Format HTML as plain text using Vilistextum
 Requires:       %{name} = %{?epoch:%{epoch:}}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       vilistextum
 %description Vilistextum
 This Perl module turns HTML into plain text using the Vilistextum program.
@@ -153,7 +146,6 @@ This Perl module turns HTML into plain text using the Vilistextum program.
 %package W3m
 Summary:        Format HTML as plain text using w3m
 Requires:       %{name} = %{?epoch:%{epoch:}}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(URI::file) >= 0.08
 Requires:       w3m
 %description W3m
@@ -164,7 +156,6 @@ This Perl module turns HTML into plain text using the w3m program.
 %package Zen
 Summary:        Format HTML as plain text using Zen
 Requires:       %{name} = %{?epoch:%{epoch:}}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       zen
 %description Zen
 This Perl module turns HTML into plain text using the Zen program.

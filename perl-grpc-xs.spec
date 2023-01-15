@@ -35,7 +35,6 @@ BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a low-level binding to a client part of the gRPC library.

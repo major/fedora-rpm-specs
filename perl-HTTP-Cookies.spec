@@ -27,7 +27,6 @@ BuildRequires:  perl(HTTP::Response)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(URI)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(HTTP::Date) >= 6
 Requires:       perl(HTTP::Headers::Util) >= 6

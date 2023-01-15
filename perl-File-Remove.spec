@@ -6,7 +6,6 @@ License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 
 URL:		https://metacpan.org/release/File-Remove
 Source0:	https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/File-Remove-%{version}.tar.gz
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 BuildRequires:	%{__perl}
 BuildRequires:	%{__make}

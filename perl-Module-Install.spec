@@ -69,7 +69,6 @@ BuildRequires:  perl(Module::Install::AuthorTests)
 BuildRequires:  perl(Module::Install::ExtraTests) >= 0.007
 %endif
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Archive::Zip) >= 1.37
 Requires:       perl(Carp)
 Requires:       perl(CPAN)

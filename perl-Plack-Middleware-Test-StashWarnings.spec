@@ -18,7 +18,6 @@ BuildRequires:  perl(Plack::Request)
 BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Synopsis)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::ReadmeFromPod)

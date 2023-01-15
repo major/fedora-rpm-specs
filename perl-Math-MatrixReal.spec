@@ -29,7 +29,6 @@ BuildRequires:  perl(Math::Complex)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
 BuildRequires:  perl(Test::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Implements the data type "matrix of reals" (and consequently also

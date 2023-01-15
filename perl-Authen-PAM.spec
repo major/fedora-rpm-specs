@@ -23,7 +23,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 %{?_with_check:BuildRequires:  perl(POSIX)}
 %{?_with_check:BuildRequires:  perl(strict)}
 %{?_with_check:BuildRequires:  perl(vars)}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides a Perl interface to the PAM library.

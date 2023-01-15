@@ -20,7 +20,6 @@ BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More)
 # Apache::Test must be configured before use.
 # BuildRequires:  perl(Apache::Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

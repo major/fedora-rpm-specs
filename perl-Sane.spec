@@ -27,7 +27,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows you to access SANE-compatible scanners in a Perlish and

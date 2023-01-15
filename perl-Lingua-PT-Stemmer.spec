@@ -17,7 +17,6 @@ BuildRequires:  perl(warnings)
 # -
 # Tests only
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module implements a Portuguese stemming algorithm proposed in the

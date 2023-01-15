@@ -43,7 +43,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(YAML::Tiny)
 
 # As by /etc/rpmdevtools/spectemplate-perl.spec
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

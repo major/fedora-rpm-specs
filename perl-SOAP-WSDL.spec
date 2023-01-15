@@ -60,7 +60,6 @@ BuildRequires: perl(warnings)
 BuildRequires: perl(XML::Parser::Expat)
 BuildRequires: perl(Template::Plugin::CGI)
 
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:      perl(SOAP::Lite)
 
 %{?perl_default_filter}

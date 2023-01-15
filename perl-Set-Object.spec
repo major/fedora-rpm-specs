@@ -38,7 +38,6 @@ BuildRequires: perl(Test::Pod::Coverage)
 BuildRequires: perl(threads)
 BuildRequires: perl(threads::shared)
 BuildRequires: perl(warnings)
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires: perl(Scalar::Util)
 
 %description

@@ -71,7 +71,6 @@ BuildRequires: perl(YAML::Tiny)
 Requires: %{_bindir}/nsgmls
 Requires: %{_bindir}/xsltproc
 Requires: gettext
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # hope texlive-kpseas-bin missing deps was fixed
 # epel7 doesn't have /usr/share/texlive/texmf-dist/web2c/texmf.cnf
 Requires: texlive-kpathsea

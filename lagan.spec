@@ -1,6 +1,6 @@
 Name:           lagan
 Version:        2.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Local, global, and multiple alignment of DNA sequences
 
 License:        GPLv2
@@ -8,6 +8,7 @@ URL:            http://lagan.stanford.edu
 Source0:        http://lagan.stanford.edu/lagan_web/lagan20.tar.gz
 Patch0:         lagan20-chris.patch
 Patch1:         lagan20-gcc10.patch
+Patch2:         lagan-c99.patch
 BuildRequires:  perl-generators
 BuildRequires:  gcc-c++
 BuildRequires: make
@@ -30,6 +31,7 @@ The 4 main parts of LAGAN are:
 %setup -q -n lagan20
 %patch0 -p1 -b .chris
 %patch1 -p1 -b .gcc10
+%patch2 -p1
 
 sed -i 's/^CC .*$/CC = gcc $(RPM_OPT_FLAGS)/;
         s/^CPP .*$/CPP = g++ $(RPM_OPT_FLAGS)/' Makefile
@@ -88,6 +90,9 @@ rm -f Readmes/*.chris
 
 
 %changelog
+* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 2.0-37
+- C99 compatibility fixes (#2160661)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

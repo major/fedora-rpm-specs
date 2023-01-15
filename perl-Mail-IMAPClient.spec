@@ -12,7 +12,6 @@ BuildRequires:  perl(IO::File), perl(IO::Select), perl(Fcntl), perl(Errno), perl
 BuildRequires:  perl(Data::Dumper), perl(Parse::RecDescent), perl(Test::More)
 BuildRequires:	perl(Authen::SASL), perl(Test::Pod)
 BuildArch:      noarch
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides perl routines that simplify a sockets connection

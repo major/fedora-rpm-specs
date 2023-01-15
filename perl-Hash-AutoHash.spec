@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test::Pod) >= 1.48
 BuildRequires:  perl(Test::Pod::Content) >= 0.0.6
 BuildRequires:  perl(Tie::Hash::MultiValue) >= 1.02
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.2
 Requires:       perl(List::MoreUtils) >= 0.33
 Requires:       perl(Tie::Hash) >= 1.04

@@ -16,7 +16,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(ExtUtils::Installed)
 Conflicts:      perl-Module-Build < 2:0.42.10-4
 

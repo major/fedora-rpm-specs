@@ -35,7 +35,6 @@ BuildRequires:	perl(warnings)
 # Extra Tests
 BuildRequires:	perl(Test::Pod)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Net::Domain) >= 1.05
 Requires:	perl(Net::NNTP)
 

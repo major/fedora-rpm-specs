@@ -14,7 +14,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A perl 5 module for sorting of revision-like numbers

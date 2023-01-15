@@ -37,7 +37,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::NoWarnings)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter unused dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(FindBin\\)

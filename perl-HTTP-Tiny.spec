@@ -49,7 +49,6 @@ BuildRequires:  perl(lib)
 # Net::SSLeay 1.49 not needed
 BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(bytes)
 Requires:       perl(Carp)
 Requires:       perl(Fcntl)

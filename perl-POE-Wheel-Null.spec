@@ -14,7 +14,6 @@ BuildRequires:  perl(POE::Wheel)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 POE::Wheel::Null creates a wheel which doesn't do anything upon put(), and

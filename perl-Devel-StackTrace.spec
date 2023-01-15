@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The Devel::StackTrace module contains two classes, Devel::StackTrace

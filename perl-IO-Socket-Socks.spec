@@ -31,7 +31,6 @@ BuildRequires:	perl(IO::Socket)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Time::HiRes)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(constant) >= 1.03
 Requires:	perl(Socket) >= 1.94
 

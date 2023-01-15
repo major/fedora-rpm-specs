@@ -22,7 +22,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 The goal here is simply to provide recursive versions of mkdir() and

@@ -35,7 +35,6 @@ BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:	perl(Test::Spelling), aspell-en
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Mouse) >= 0.39
 Requires:	perl(MouseX::Getopt) >= 0.22
 Requires:	perl(MouseX::Types) >= 0.02

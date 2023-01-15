@@ -41,7 +41,6 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod) >= 1.41
 BuildRequires:	perl(XSLoader)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(DynaLoader)
 Requires:	perl(ExtUtils::CBuilder)
 Requires:	perl(ExtUtils::ParseXS)

@@ -85,7 +85,6 @@ BuildRequires:  perl(Test::MockTime)
 BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # LWP 6.03 needed indirectly to support 100 Continue HTTP response
 Requires:       perl(LWP) >= 6.03
 # HTTPS required because "secure" attribute is enabled by default
@@ -116,7 +115,6 @@ To find out more about S3, please visit <http://s3.amazonaws.com/>.
 %package -n perl-Shared-Examples-Net-Amazon-S3
 Summary:    Example modules for Net::Amazon::S3 Perl tool kit
 Requires:   perl-Net-Amazon-S3 = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl(Test::Deep) >= 0.111
 
 %description -n perl-Shared-Examples-Net-Amazon-S3

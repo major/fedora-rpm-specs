@@ -25,7 +25,6 @@ BuildRequires: perl(strict)
 BuildRequires: perl(Time::ParseDate)
 BuildRequires: perl(vars)
 
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 X10 Perl module for the Firecracker, ActiveHome, and TwoWay/TW523 interfaces.

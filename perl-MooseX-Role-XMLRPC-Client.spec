@@ -7,7 +7,6 @@ License:    LGPLv2+
 Summary:    Provide the needed bits to be a XML-RPC client 
 Source:     https://cpan.metacpan.org/authors/id/R/RS/RSRCHBOY/MooseX-Role-XMLRPC-Client-%{version}.tar.gz 
 Url:        https://metacpan.org/release/MooseX-Role-XMLRPC-Client
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

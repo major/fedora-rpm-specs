@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
 

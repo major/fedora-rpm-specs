@@ -96,7 +96,6 @@ The %{name}-doc package contains documentation for users of %{name}.
 %package        cilly
 Summary:        Support programs for %{name}
 Requires:       %{name} = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # test and doc use cilly: Requires must also be BuildRequires
 BuildRequires:  perl-generators
 BuildRequires:  perl(Carp)

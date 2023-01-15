@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides an extension to HTML::Template which allows

@@ -41,7 +41,6 @@ BuildRequires:  perl(warnings)
 # BuildRequires:  perl(IO::Compress::Gzip)
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Class::Tiny) >= 1.001
 Requires:       perl(CPAN::Meta) >= 2.120921
 Requires:       perl(CPAN::Meta::Requirements) >= 2.121

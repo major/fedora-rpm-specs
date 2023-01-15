@@ -47,7 +47,6 @@ BuildRequires:  perl(Inline::Filters)
 Requires:       gcc-c++(%{__isa})
 # Perl header files included into generated code
 Requires:       perl-devel(%{__isa})
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Inline::C) >= 0.80
 
 # Remove under-specified dependencies

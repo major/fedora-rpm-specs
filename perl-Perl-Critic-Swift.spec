@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::Perl::Critic) >= 1.01
 # Test::Pod not used
 # Test::Pod::Coverage not sued
 # Test::Spelling not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(List::MoreUtils) >= 0.21
 Requires:       perl(Perl::Critic::Policy) >= 1.082
 Requires:       perl(Perl::Critic::Utils) >= 1.082

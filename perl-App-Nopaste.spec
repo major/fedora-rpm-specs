@@ -42,7 +42,6 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Trap)
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # for ssh plugin
 Requires:       /usr/bin/scp
 Requires:       perl(Clipboard)

@@ -34,7 +34,6 @@ BuildRequires:  perl(XML::XPath)
 BuildRequires:  perl(Test::HasVersion)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Class::ErrorHandler)
 Requires:       perl(XML::RSS) >= 1.47
 

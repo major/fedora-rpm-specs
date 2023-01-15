@@ -40,7 +40,6 @@ BuildRequires:  perl(Test::More)
 # Test::Pod 1.14 not used
 # Test::Pod::Coverage 1.08 not used
 # Pod::Coverage 0.17 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(AutoSplit)
 Requires:       perl(Data::Dumper)
 Requires:       perl(File::Compare)

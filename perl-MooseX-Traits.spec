@@ -7,7 +7,6 @@ License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Traits-%{version}.tar.gz
 URL:            https://metacpan.org/release/MooseX-Traits
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  perl-generators

@@ -9,7 +9,6 @@ Source:		http://downloads.sf.net/%{name}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 BuildRequires:	perl-generators
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 ReMoot is a remote control that supports many popular multimedia applications

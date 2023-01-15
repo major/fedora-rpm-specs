@@ -27,7 +27,6 @@ BuildRequires:  perl(CGI::Application::Server)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

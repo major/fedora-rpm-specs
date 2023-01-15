@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(IO::Socket::IP)
 
 %{?perl_default_filter}

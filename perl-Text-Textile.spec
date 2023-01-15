@@ -31,7 +31,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.14
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Optional run-time:
 Requires:       perl(charnames)
 Requires:       perl(File::Spec)

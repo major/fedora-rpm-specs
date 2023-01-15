@@ -22,7 +22,6 @@ BuildRequires:  perl(XSLoader)
 # Tests
 BuildRequires:  perl(PDF::API2)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 PDF::API2 will make use of this distribution, if it's installed, to speed

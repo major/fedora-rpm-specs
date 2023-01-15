@@ -11,7 +11,6 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 String::Approx lets you match and substitute strings approximately. With

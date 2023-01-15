@@ -18,7 +18,6 @@ BuildRequires:  perl(IO::Socket)
 # Optional: perl(Locale::Country)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Net::Whois::Domain new() attempts to retrieve and parse the given

@@ -38,7 +38,6 @@ BuildRequires:  perl(Test::CPAN::Changes)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 The Sys::Virt module provides a Perl XS binding to the libvirt virtual

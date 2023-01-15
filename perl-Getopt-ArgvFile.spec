@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More) >= 0.11
 # Optional tests only
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module simply interpolates option file hints in @ARGV by the contents

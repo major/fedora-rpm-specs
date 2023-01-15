@@ -64,7 +64,6 @@ BuildRequires:  perl(Test::More)
 Requires:       dejavu-sans-fonts
 Requires:       dejavu-sans-mono-fonts
 Requires:       dejavu-serif-fonts
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Compress::Zlib) >= 1.0
 Requires:       perl(Storable)
 

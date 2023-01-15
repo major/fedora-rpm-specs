@@ -24,7 +24,6 @@ BuildRequires:  perl(Scalar::Util)
 # Tests:
 BuildRequires:  perl(HTML::FormFu) >= 1.00
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Captcha::reCAPTCHA) >= 0.93
 Requires:       perl(Clone) >= 0.31
 Requires:       perl(HTML::FormFu::Constraint)

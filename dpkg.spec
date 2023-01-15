@@ -105,7 +105,6 @@ for example, most packages need make and the C compiler gcc.
 %package perl
 Summary: Dpkg perl modules
 Requires: dpkg = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires: perl-TimeDate
 Requires: perl-Time-Piece
 Requires: perl(Digest::MD5)
@@ -158,7 +157,6 @@ modules.
 %package -n dselect
 Summary:  Debian package management front-end
 Requires: %{name} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description -n dselect
 dselect is a high-level interface for managing the installation and

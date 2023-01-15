@@ -63,7 +63,6 @@ BuildRequires:  perl(TAP::Harness::Archive)
 BuildRequires:  perl(YAML)
 %endif
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(Term::ANSIColor)
 Suggests:       perl(Time::HiRes)
 

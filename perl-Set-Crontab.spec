@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Set::Crontab parses crontab-style lists of integers and defines some

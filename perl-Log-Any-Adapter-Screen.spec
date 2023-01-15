@@ -33,7 +33,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This Log::Any adapter prints log messages to screen (STDERR/STDOUT).  The

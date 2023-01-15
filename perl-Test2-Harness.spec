@@ -115,7 +115,6 @@ BuildRequires:  perl(Test2::Require::Module) >= %{test2_require_module_min_versi
 # gcc not used
 # App::Yath::Plugin::Git tries "git" command
 Suggests:       git-core
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(Cpanel::JSON::XS)
 Requires:       perl(Data::Dumper)
 Suggests:       perl(Devel::Cover)

@@ -45,7 +45,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Simple)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(CGI::Cookie) >= 0.01
 Requires:       perl(File::Temp) >= 0.01
 Requires:       perl(File::Type) >= 0.01

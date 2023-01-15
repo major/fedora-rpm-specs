@@ -19,7 +19,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(Moose) >= 1.24
 Requires:       perl(MooseX::Getopt) >= 0.35
 Requires:       perl(WWW::DuckDuckGo) >= 0.004
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Moose\\)$

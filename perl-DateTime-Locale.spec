@@ -53,7 +53,6 @@ BuildRequires:  perl(CPAN::Meta::Check) >= 0.011
 BuildRequires:  perl(CPAN::Meta::Prereqs)
 BuildRequires:  perl(CPAN::Meta::Requirements)
 BuildRequires:  perl(Storable)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Dist::CheckConflicts) >= 0.02
 # perl-DateTime-Locale used to be bundled with perl-DateTime
 # ideally, this would be resolved with

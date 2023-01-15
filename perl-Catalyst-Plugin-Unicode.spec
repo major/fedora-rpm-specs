@@ -41,7 +41,6 @@ BuildRequires:  perl(warnings)
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # This is a Catalyst plugin
 Requires:       perl(Catalyst::Runtime) >= 5.70
 

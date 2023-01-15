@@ -22,7 +22,6 @@ BuildRequires: perl(strict)
 BuildRequires: perl(Template)
 BuildRequires: perl(Test::More)
 
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provide easy interface to make MIME::Lite object with html

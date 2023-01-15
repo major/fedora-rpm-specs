@@ -18,7 +18,6 @@ BuildRequires:  desktop-file-utils
 BuildRequires:  perl-generators
 BuildRequires:  sed
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(SOAP::Lite)
 Requires:       perl-Gtk3
 Requires:       perl-libwww-perl

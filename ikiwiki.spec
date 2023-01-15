@@ -115,7 +115,6 @@ BuildRequires:  perl(XML::Twig)
 BuildRequires:  python%{python3_pkgversion}-docutils
 BuildRequires:  subversion
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(CGI::FormBuilder) >= 3.02.02
 Requires:       perl(CGI::Session)
 Requires:       perl(Digest::SHA)

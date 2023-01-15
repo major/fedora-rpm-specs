@@ -17,7 +17,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(Test::Exception)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

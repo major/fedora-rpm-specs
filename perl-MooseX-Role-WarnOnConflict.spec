@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 When using Moose::Role, a class which provides a method a role provides

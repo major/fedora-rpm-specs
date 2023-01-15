@@ -29,7 +29,6 @@ BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl < 4:5.22.0-347
 
 %description

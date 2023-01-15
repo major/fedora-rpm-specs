@@ -26,7 +26,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Crypt::OpenSSL::Random)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # a strong PRNG required, the simplest one
 Requires:       perl(Crypt::OpenSSL::Random)
 

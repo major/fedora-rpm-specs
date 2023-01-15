@@ -37,7 +37,6 @@ BuildRequires:  perl(threads::shared)
 # Optional tests
 BuildRequires:  perl(Storable)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper) >= 2.131
 Requires:       perl(Scalar::Util) >= 1.23
 

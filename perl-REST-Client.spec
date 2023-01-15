@@ -23,7 +23,6 @@ BuildRequires:  perl(URI)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XML::LibXML)
 Requires:       perl(XML::LibXML)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 REST::Client provides a simple way to interact with HTTP RESTful resources.

@@ -23,7 +23,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.05
 Requires:       perl(warnings)
 

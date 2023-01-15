@@ -29,7 +29,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # used with Moose 'with' so not found by perl-generators
 Requires:       perl(MooseX::Deprecated)
 

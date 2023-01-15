@@ -7,8 +7,8 @@
 %endif
 
 Name:          libwebp
-Version:       1.2.4
-Release:       2%{?dist}
+Version:       1.3.0
+Release:       1%{?dist}
 URL:           http://webmproject.org/
 Summary:       Library and tools for the WebP graphics format
 # Additional IPR is licensed as well. See PATENTS file for details
@@ -21,8 +21,8 @@ Patch0:        libwebp-freeglut.patch
 Patch1:        libwebp-mingw-libsuffix.patch
 # Fix cmake module install location
 Patch2:        libwebp-cmakedir.patch
-# Honour libsuffix in libdir set in pkgconfig files
-Patch3:        libwebp_libsuffix.patch
+# Kill rpath
+Patch3:        libwebp-rpath.patch
 
 BuildRequires: cmake
 BuildRequires: freeglut-devel
@@ -183,14 +183,20 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 %{_libdir}/%{name}decoder.so.3*
 %{_libdir}/%{name}demux.so.2*
 %{_libdir}/%{name}mux.so.3*
+%{_libdir}/libsharpyuv.so.0*
 
 %files devel
-%{_libdir}/%{name}*.so
+%{_libdir}/%{name}.so
+%{_libdir}/%{name}decoder.so
+%{_libdir}/%{name}demux.so
+%{_libdir}/%{name}mux.so
+%{_libdir}/libsharpyuv.so
 %{_includedir}/webp/
 %{_libdir}/pkgconfig/libwebp.pc
 %{_libdir}/pkgconfig/libwebpdecoder.pc
 %{_libdir}/pkgconfig/libwebpdemux.pc
 %{_libdir}/pkgconfig/libwebpmux.pc
+%{_libdir}/pkgconfig/libsharpyuv.pc
 %{_libdir}/cmake/WebP/
 
 %files tools
@@ -221,16 +227,19 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 %{mingw32_bindir}/libwebpdecoder-3.dll
 %{mingw32_bindir}/libwebpdemux-2.dll
 %{mingw32_bindir}/libwebpmux-3.dll
+%{mingw32_bindir}/libsharpyuv-0.dll
 %{mingw32_includedir}/webp/
 %{mingw32_libdir}/pkgconfig/libwebp.pc
 %{mingw32_libdir}/pkgconfig/libwebpdecoder.pc
 %{mingw32_libdir}/pkgconfig/libwebpdemux.pc
 %{mingw32_libdir}/pkgconfig/libwebpmux.pc
+%{mingw32_libdir}/pkgconfig/libsharpyuv.pc
 %{mingw32_libdir}/cmake/WebP/
 %{mingw32_libdir}/libwebp.dll.a
 %{mingw32_libdir}/libwebpdecoder.dll.a
 %{mingw32_libdir}/libwebpdemux.dll.a
 %{mingw32_libdir}/libwebpmux.dll.a
+%{mingw32_libdir}/libsharpyuv.dll.a
 
 %files -n mingw64-libwebp
 %license PATENTS COPYING
@@ -244,19 +253,25 @@ cp swig/*.jar swig/*.so %{buildroot}/%{_libdir}/%{name}-java/
 %{mingw64_bindir}/libwebpdecoder-3.dll
 %{mingw64_bindir}/libwebpdemux-2.dll
 %{mingw64_bindir}/libwebpmux-3.dll
+%{mingw64_bindir}/libsharpyuv-0.dll
 %{mingw64_includedir}/webp/
 %{mingw64_libdir}/pkgconfig/libwebp.pc
 %{mingw64_libdir}/pkgconfig/libwebpdecoder.pc
 %{mingw64_libdir}/pkgconfig/libwebpdemux.pc
 %{mingw64_libdir}/pkgconfig/libwebpmux.pc
+%{mingw64_libdir}/pkgconfig/libsharpyuv.pc
 %{mingw64_libdir}/cmake/WebP/
 %{mingw64_libdir}/libwebp.dll.a
 %{mingw64_libdir}/libwebpdecoder.dll.a
 %{mingw64_libdir}/libwebpdemux.dll.a
 %{mingw64_libdir}/libwebpmux.dll.a
+%{mingw64_libdir}/libsharpyuv.dll.a
 
 
 %changelog
+* Fri Jan 13 2023 Sandro Mani <manisandro@gmail.com> - 1.3.0-1
+- Update to 1.3.0
+
 * Thu Sep 22 2022 Sandro Mani <manisandro@gmail.com> - 1.2.4-2
 - Add libwebp_libsuffix.patch
 

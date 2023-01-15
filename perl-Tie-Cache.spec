@@ -21,7 +21,6 @@ BuildRequires:  perl(vars)
 # Testing
 BuildRequires:  perl(Benchmark)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # filter dependencies
 %{?perl_default_filter}

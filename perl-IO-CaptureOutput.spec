@@ -38,7 +38,6 @@ BuildRequires:  perl(Test::More) >= 0.62
 #BuildRequires:  perl(Inline::C)
 %endif
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 %{summary}.

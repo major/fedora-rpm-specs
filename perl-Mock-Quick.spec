@@ -26,7 +26,6 @@ BuildRequires:	perl(Path::Class)
 BuildRequires:	perl(Test::Exception) >= 0.29
 BuildRequires:	perl(Test::More) >= 0.88
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Mock-Quick is here to solve the current problems with Mocking libraries.

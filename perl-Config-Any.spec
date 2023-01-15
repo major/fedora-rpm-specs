@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(XML::LibXML) >= 1.59
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config::General) >= 2.47
 Requires:       perl(Config::Tiny)
 Requires:       perl(Cpanel::JSON::XS)

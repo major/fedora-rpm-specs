@@ -26,7 +26,6 @@ BuildRequires:	perl(Test::More) >= 0.47
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Env::Sanctify is a module that provides lexically-scoped manipulation and

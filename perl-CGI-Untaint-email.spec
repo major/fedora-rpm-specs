@@ -16,7 +16,6 @@ BuildRequires:  perl(Email::Valid) >= 0.13
 BuildRequires:  perl(Mail::Address) >= 1.40
 BuildRequires:  perl(Test::More)
 Requires:  perl(CGI::Untaint) >= 0.07
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 CGI::Untaint::email input handler verifies that it is a valid RFC2822 mailbox

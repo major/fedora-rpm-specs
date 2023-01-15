@@ -93,7 +93,6 @@ Obsoletes:      amavisd-new < 2.12.0-3
 
 %package -n perl-Amavis
 Summary:        Amavis perl module
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %if %{with snmp}
 %package snmp

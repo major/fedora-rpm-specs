@@ -38,7 +38,6 @@ BuildRequires:  perl(IO::Scalar)
 BuildRequires:  perl(Test::Harness)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Output)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 GNU Stow is a program for managing the installation of software packages,

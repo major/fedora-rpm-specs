@@ -13,7 +13,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(Tk)
 BuildRequires:  perl(Tk::MMutil)
 BuildRequires:  xorg-x11-server-Xvfb, xorg-x11-fonts-misc
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This widget provides a dynamic image that looks just like

@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::CheckDeps) >= 0.010
 BuildRequires:  perl(Test::More) >= 0.94
 # Optional tests:
 # CPAN::Meta not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a simple autoboxifying wrapper around Syntax::Keyword::Junction Perl

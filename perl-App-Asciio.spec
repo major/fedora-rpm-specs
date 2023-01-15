@@ -6,7 +6,6 @@ License:    GPL+ or Artistic
 Summary:    Asciio back-end libraries 
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/App-Asciio-%{version}.tar.gz 
 Url:        https://metacpan.org/release/App-Asciio
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 # non-perl

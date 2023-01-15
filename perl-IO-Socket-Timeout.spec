@@ -37,7 +37,6 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::TCP)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(PerlIO::via::Timeout) >= 0.32
 
 # Filter under-specified dependencies

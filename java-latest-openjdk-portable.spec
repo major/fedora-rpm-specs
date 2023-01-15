@@ -392,7 +392,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        10
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1196,22 +1196,14 @@ function installjdk() {
         # Install nss.fips.cfg: NSS configuration for global FIPS mode (crypto-policies)
         install -m 644 nss.fips.cfg ${imagepath}/conf/security/
 
-        # Turn on system security properties
-        sed -i -e "s:^security.useSystemPropertiesFile=.*:security.useSystemPropertiesFile=true:" \
-            ${imagepath}/conf/security/java.security
-
-
-        # Rename OpenJDK cacerts database
-        mv ${imagepath}/lib/security/cacerts{,.upstream}
-        # Install cacerts symlink needed by some apps which hard-code the path
-        ln -sv /etc/pki/java/cacerts ${imagepath}/lib/security
-
         # Create fake alt-java as a placeholder for future alt-java
-        pushd ${imagepath}
-        # add alt-java man page
-        echo "Hardened java binary recommended for launching untrusted code from the Web e.g. javaws" > man/man1/%{alt_java_name}.1
-        cat man/man1/java.1 >> man/man1/%{alt_java_name}.1
-        popd
+        if [ -d man/man1 ] ; then
+          pushd ${imagepath}
+            # add alt-java man page
+            echo "Hardened java binary recommended for launching untrusted code from the Web e.g. javaws" > man/man1/%{alt_java_name}.1
+            cat man/man1/java.1 >> man/man1/%{alt_java_name}.1
+          popd
+       fi
     fi
 }
 
@@ -1302,20 +1294,15 @@ EOF
 %endif
 
 for suffix in %{build_loop} ; do
-
   if [ "x$suffix" = "x" ] ; then
       debugbuild=release
   else
       # change --something to something
       debugbuild=`echo $suffix  | sed "s/-//g"`
   fi
-
-
   for loop in %{main_suffix} %{staticlibs_loop} ; do
-
     builddir=%{buildoutputdir -- ${suffix}${loop}}
     bootbuilddir=boot${builddir}
-
     if test "x${loop}" = "x%{main_suffix}" ; then
       link_opt="%{link_type}"
 %if %{system_libs}
@@ -1360,6 +1347,7 @@ for suffix in %{build_loop} ; do
   # Final setup on the main image
   top_dir_abs_main_build_path=$(pwd)/%{buildoutputdir -- ${suffix}%{main_suffix}}
   installjdk ${top_dir_abs_main_build_path}/images/%{jdkimage}
+  installjdk ${top_dir_abs_main_build_path}/images/%{jreimage}
   # Check debug symbols were built into the dynamic libraries
   debugcheckjdk ${top_dir_abs_main_build_path}/images/%{jdkimage}
 
@@ -1368,11 +1356,40 @@ for suffix in %{build_loop} ; do
 
 ################################################################################
   pushd ${top_dir_abs_main_build_path}/images
-  if [ "x$suffix" == "x" ] ; then
-    nameSuffix=""
-  else
-    nameSuffix=`echo "$suffix"| sed s/-/./`
-  fi
+    if [ "x$suffix" == "x" ] ; then
+      nameSuffix=""
+    else
+      nameSuffix=`echo "$suffix"| sed s/-/./`
+    fi
+    # additional steps needed for fluent repack; most of them done twice, as images are already populated
+    # maybe most of them should be done in upstream build?
+    for imagedir  in %{jdkimage} %{jreimage} ; do
+      pushd $imagedir
+        # Convert man pages to UTF8 encoding
+		if [ -d man/man1 ] ; then # jre do not have man pages...
+          for manpage in man/man1/*  ; do
+            iconv -f ISO_8859-1 -t UTF8 $manpage -o $manpage.tmp
+            mv -f $manpage.tmp $manpage
+          done
+        fi
+        # Install release notes
+        cp -a %{SOURCE10} `pwd`
+        cp -a %{SOURCE10} `pwd`/legal
+        # stabilize permissions; aprtially duplicated in instalojdk
+        find `pwd` -name "*.so" -exec chmod 755 {} \; -exec echo "set 755 to so {}" \; ;
+        find `pwd` -type d -exec chmod 755 {} \; -exec echo "set 755 to dir {}" \; ;
+        find `pwd`/legal -type f -exec chmod 644 {} \; -exec echo "set 644 to licences {}" \; ;
+      popd # jdkimage/jreimage
+    done # jre/sdk work in loop
+    # javadoc is done only for release sdkimage
+    if ! echo $suffix | grep -q "debug" ; then
+      # Install Javadoc documentation
+      #cp -a docs %{jdkimage}  # not sure if the plaintext javadoc is for some use
+      built_doc_archive=jdk-%{filever}%{ea_designator_zip}+%{buildver}%{lts_designator_zip}-docs.zip
+      cp -a  `pwd`/../bundles/${built_doc_archive} `pwd`/%{jdkimage}/javadocs.zip || ls -l `pwd`/../bundles
+    fi
+    # end of additional steps
+
     mv %{jdkimage} %{jdkportablename -- "$nameSuffix"}
     mv %{jreimage} %{jreportablename -- "$nameSuffix"}
     tar -cJf ../../../../%{jdkportablearchive -- "$nameSuffix"}  --exclude='**.debuginfo' %{jdkportablename -- "$nameSuffix"}
@@ -1403,134 +1420,8 @@ for suffix in %{build_loop} ; do
 done # end of release / debug cycle loop
 
 %install
-STRIP_KEEP_SYMTAB=libjvm*
-
-
 for suffix in %{build_loop} ; do
 top_dir_abs_main_build_path=$(pwd)/%{buildoutputdir -- ${suffix}%{main_suffix}}
-if [ "fixme" == "todo" ] ; then  #todo, extract some parts to build, drop the rest - but keep it in rpms after repack
-
-# done in build
-%if %{include_staticlibs}
-top_dir_abs_staticlibs_build_path=$(pwd)/%{buildoutputdir -- ${suffix}%{staticlibs_loop}}
-%endif
-jdk_image=${top_dir_abs_main_build_path}/images/%{jdkimage}
-
-# tbd in rpms
-# Install the jdk
-mkdir -p $RPM_BUILD_ROOT%{_jvmdir}
-cp -a ${jdk_image} $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}
-
-pushd ${jdk_image}
-
-# tbd in rpms
-%if %{with_systemtap}
-  # Install systemtap support files
-  install -dm 755 $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset
-  # note, that uniquesuffix  is in BUILD dir in this case
-  cp -a $RPM_BUILD_DIR/%{uniquesuffix ""}/tapset$suffix/*.stp $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/
-  pushd  $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/
-   tapsetFiles=`ls *.stp`
-  popd
-  install -d -m 755 $RPM_BUILD_ROOT%{tapsetdir}
-  for name in $tapsetFiles ; do
-    targetName=`echo $name | sed "s/.stp/$suffix.stp/"`
-    ln -srvf $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/tapset/$name $RPM_BUILD_ROOT%{tapsetdir}/$targetName
-  done
-%endif
-
-# tbd in rpms
-  # Install version-ed symlinks
-  pushd $RPM_BUILD_ROOT%{_jvmdir}
-    ln -sf %{sdkdir -- $suffix} %{jrelnk -- $suffix}
-  popd
-
-# todo fix in build
-  # Install man pages
-  install -d -m 755 $RPM_BUILD_ROOT%{_mandir}/man1
-  for manpage in man/man1/*
-  do
-    # Convert man pages to UTF8 encoding
-    iconv -f ISO_8859-1 -t UTF8 $manpage -o $manpage.tmp
-    mv -f $manpage.tmp $manpage
-    install -m 644 -p $manpage $RPM_BUILD_ROOT%{_mandir}/man1/$(basename \
-      $manpage .1)-%{uniquesuffix -- $suffix}.1
-  done
-  # Remove man pages from jdk image
-  rm -rf $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/man
-
-popd
-
-# done in build
-# Install static libs artefacts
-%if %{include_staticlibs}
-mkdir -p $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/%{static_libs_install_dir}
-cp -a ${top_dir_abs_staticlibs_build_path}/images/%{static_libs_image}/lib/*.a \
-  $RPM_BUILD_ROOT%{_jvmdir}/%{sdkdir -- $suffix}/%{static_libs_install_dir}
-%endif
-
-# todo fix in build
-if ! echo $suffix | grep -q "debug" ; then
-  # Install Javadoc documentation
-  install -d -m 755 $RPM_BUILD_ROOT%{_javadocdir}
-  cp -a ${top_dir_abs_main_build_path}/images/docs $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}
-  built_doc_archive=jdk-%{filever}%{ea_designator_zip}+%{buildver}%{lts_designator_zip}-docs.zip
-  cp -a ${top_dir_abs_main_build_path}/bundles/${built_doc_archive} \
-     $RPM_BUILD_ROOT%{_javadocdir}/%{uniquejavadocdir -- $suffix}.zip || ls -l ${top_dir_abs_main_build_path}/bundles/
-fi
-
-# todo fix in build
-# Install release notes
-commondocdir=${RPM_BUILD_ROOT}%{_defaultdocdir}/%{uniquejavadocdir -- $suffix}
-install -d -m 755 ${commondocdir}
-cp -a %{SOURCE10} ${commondocdir}
-
-# Install icons and menu entries
-for s in 16 24 32 48 ; do
-  install -D -p -m 644 \
-    %{top_level_dir_name}/src/java.desktop/unix/classes/sun/awt/X11/java-icon${s}.png \
-    $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/${s}x${s}/apps/java-%{javaver}-%{origin}.png
-done
-
-# tbd in rpms
-# Install desktop files
-install -d -m 755 $RPM_BUILD_ROOT%{_datadir}/{applications,pixmaps}
-for e in jconsole$suffix ; do
-    desktop-file-install --vendor=%{uniquesuffix -- $suffix} --mode=644 \
-        --dir=$RPM_BUILD_ROOT%{_datadir}/applications $e.desktop
-done
-
-# tbd in rpms
-# Install /etc/.java/.systemPrefs/ directory
-# See https://bugzilla.redhat.com/show_bug.cgi?id=741821
-mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/.java/.systemPrefs
-
-# todo fix in build
-# copy samples next to demos; samples are mostly js files
-cp -r %{top_level_dir_name}/src/sample  $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/
-
-
-# tbd in rpms
-# moving config files to /etc
-mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}
-mkdir -p $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/lib
-mv $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/conf/  $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}
-mv $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/lib/security  $RPM_BUILD_ROOT/%{etcjavadir -- $suffix}/lib
-pushd $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}
-  ln -srv $RPM_BUILD_ROOT%{etcjavadir -- $suffix}/conf  ./conf
-popd
-pushd $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/lib
-  ln -srv $RPM_BUILD_ROOT%{etcjavadir -- $suffix}/lib/security  ./security
-popd
-# end moving files to /etc
-
-# todo fix in build
-# stabilize permissions
-find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -name "*.so" -exec chmod 755 {} \; ;
-find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/ -type d -exec chmod 755 {} \; ;
-find $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/legal -type f -exec chmod 644 {} \; ;
-
-fi # fixme, todo
 
 ################################################################################
   if [ "x$suffix" == "x" ] ; then
@@ -1588,14 +1479,14 @@ $JAVA_HOME/bin/java --add-opens java.base/javax.crypto=ALL-UNNAMED TestCryptoLev
 $JAVA_HOME/bin/javac -d . %{SOURCE14}
 $JAVA_HOME/bin/java $(echo $(basename %{SOURCE14})|sed "s|\.java||")
 
-# Check system crypto (policy) is active and can be disabled
+# Check system crypto (policy) is deactive and can not be enabled
 # Test takes a single argument - true or false - to state whether system
 # security properties are enabled or not.
 $JAVA_HOME/bin/javac -d . %{SOURCE15}
 export PROG=$(echo $(basename %{SOURCE15})|sed "s|\.java||")
 export SEC_DEBUG="-Djava.security.debug=properties"
-$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} true
-$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=true ${PROG} false
+$JAVA_HOME/bin/java ${SEC_DEBUG} ${PROG} false
+$JAVA_HOME/bin/java ${SEC_DEBUG} -Djava.security.disableSystemPropertiesFile=false ${PROG} false
 
 # Check java launcher has no SSB mitigation
 if ! nm $JAVA_HOME/bin/java | grep set_speculation ; then true ; else false; fi
@@ -1703,6 +1594,18 @@ done
 %endif
 
 %changelog
+* Thu Jan 12 2023 Jiri Vanel <jvanek@redhat.com> - 1:19.0.1.0.10-3.rolling
+- keep system crypto policy honoring disabled (test adapted)
+- keep upstream cacerts
+- call  installjdk also for jreimage.
+- add alt-java man page conditionaly (se install openjdk for jre above)
+- convert man pages to utf8 (conditionally, man pages are not in jre)
+- stabilised permissions as was in rpms
+- use NEWS both in tarball and outside
+- for release sdk use javadoc archive.
+- remove STRIP_KEEP_SYMTAB=libjvm* and all todo as it is going to continue in rpms only
+  (hopefully)
+
 * Thu Dec 01 2022 Petra Alice Mikova <pmikova@redhat.com> - 1:19.0.1.0.10-2.rolling
 - initial import
 

@@ -24,7 +24,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module sets the buffer-size of a file handle to an other value than the

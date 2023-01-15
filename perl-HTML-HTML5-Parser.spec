@@ -56,7 +56,6 @@ BuildRequires:  perl(Test::Requires)
 # Optional tests:
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(URI::Escape)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(Exporter)
 Requires:       perl(HTML::HTML5::Entities) >= 0.002

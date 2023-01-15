@@ -42,7 +42,6 @@ BuildRequires:  perl(YAML::Tiny)
 BuildRequires:  perl(Scalar::Util)
 # Text::Diff not helpful
 # Test::Differences not helpful
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(Encode)
 
 %description

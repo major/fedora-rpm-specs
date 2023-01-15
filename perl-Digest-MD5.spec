@@ -33,7 +33,6 @@ BuildRequires:  perl(vars)
 # Optional tests:
 BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(threads)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Digest::base) >= 1.00
 Requires:       perl(XSLoader)
 

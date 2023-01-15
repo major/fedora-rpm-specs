@@ -69,7 +69,6 @@ BuildRequires:	perl(Mouse)
 BuildRequires:	perl(namespace::autoclean)
 %endif
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Ref::Util) >= 0.112
 Requires:	perl(Sub::Util) >= 1.40
 Requires:	perl(XString)

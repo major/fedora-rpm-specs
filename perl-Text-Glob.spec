@@ -18,7 +18,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Text::Glob implements glob(3) style matching that can be used to match

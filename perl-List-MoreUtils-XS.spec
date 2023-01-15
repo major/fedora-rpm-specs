@@ -45,7 +45,6 @@ BuildRequires:	perl(Test::LeakTrace)
 BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(Tie::Array)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

@@ -23,7 +23,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(ok)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Sometimes you need to call a function, get the results, act on the results,

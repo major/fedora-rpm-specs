@@ -17,7 +17,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Benchmark)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 %{summary}.

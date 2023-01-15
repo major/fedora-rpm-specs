@@ -41,7 +41,6 @@ BuildRequires:	perl(Time::Local)
 BuildRequires:	perl(vars)
 BuildRequires:	perl(warnings)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Need perl(IO::Socket::SSL) for LDAP over SSL (#122066, #207430)
 Requires:	perl(IO::Socket::SSL)
 

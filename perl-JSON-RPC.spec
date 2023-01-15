@@ -21,7 +21,6 @@ BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Router::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes:      perl-JSON-RPC-legacy < %{version}
 Provides:       perl-JSON-RPC-legacy = %{version}
 

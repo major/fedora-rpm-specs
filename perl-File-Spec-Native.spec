@@ -25,7 +25,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 BuildRequires:  perl(Path::Class)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is a stupid hack to make the default File::Spec behavior

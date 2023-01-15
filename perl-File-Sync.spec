@@ -28,7 +28,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(POSIX)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The fsync() function takes a Perl file handle as its only argument, and

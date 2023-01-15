@@ -23,7 +23,6 @@ BuildRequires:  perl(XML::LibXML) >= 1.70
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
 BuildRequires:  perl(XML::LibXML::Debugging)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XML::LibXML) >= 1.70
 
 # Remove under-specified dependencies

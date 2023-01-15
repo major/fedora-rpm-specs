@@ -16,7 +16,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Meta programming is becoming more and more popular. The popularity of Meta

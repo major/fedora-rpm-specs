@@ -23,7 +23,6 @@ BuildRequires:	perl(LWP::UserAgent)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Perl version anchor
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Not picked up by rpm (required rather than used)
 Requires:	perl(Encode)
 Requires:	perl(Exporter)

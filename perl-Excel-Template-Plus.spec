@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(warnings)
 Requires:       perl(Moose) >= 0.18
 Requires:       perl(MooseX::Param) >= 0.01
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Moose\\)$
 %global __requires_exclude %__requires_exclude|^perl\\(MooseX::Param\\)$

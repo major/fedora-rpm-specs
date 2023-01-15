@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Email::Find is a module for finding a *subset* of RFC 822 email

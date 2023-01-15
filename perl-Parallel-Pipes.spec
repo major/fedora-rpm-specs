@@ -23,7 +23,6 @@ BuildRequires:  perl(Storable)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Time::HiRes)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Parallel::Pipes tries to solve problems of parallel processing for

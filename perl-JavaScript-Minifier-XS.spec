@@ -29,7 +29,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(JavaScript::Minifier)
 BuildRequires:  perl(Test::DiagINC)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

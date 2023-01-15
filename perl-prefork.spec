@@ -6,7 +6,6 @@ License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/prefork
 Source0: 	https://cpan.metacpan.org/authors/id/E/ET/ETHER/prefork-%{version}.tar.gz
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch: noarch
 
 BuildRequires: %{__perl}

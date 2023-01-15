@@ -21,7 +21,6 @@ BuildRequires:  perl(Safe::Isa) >= 1.000010
 BuildRequires:  perl(Test::Builder)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module uses Data::Dump::Filtered and a set of sensible filters to dump

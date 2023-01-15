@@ -27,7 +27,6 @@ BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test2::V0) >= 0.000121
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This plugin is designed for downloading assets from a GitLab instance.

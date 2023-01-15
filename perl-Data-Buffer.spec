@@ -19,7 +19,6 @@ BuildRequires:	perl(vars)
 # Test Suite
 BuildRequires:	perl(Test)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Data::Buffer implements a low-level binary buffer in which you can get and put

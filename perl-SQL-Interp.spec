@@ -28,7 +28,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DBI) >= 1
 
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(DBI\\)\s*$

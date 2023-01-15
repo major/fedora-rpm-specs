@@ -42,7 +42,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(UNIVERSAL)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Date::Calc) >= 5
 Requires:       perl(Email::Valid)
 Requires:       perl(File::MMagic) >= 1.17

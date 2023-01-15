@@ -37,7 +37,6 @@ BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::SQLite)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Storm is a Moose based library for storing and retrieving objects over a

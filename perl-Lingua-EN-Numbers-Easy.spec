@@ -19,7 +19,6 @@ BuildRequires:  perl(Lingua::EN::Numbers) >= 1.01
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Lingua::EN::Numbers is a module that translates numbers to English words.

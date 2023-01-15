@@ -19,7 +19,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Geo::METAR is Perl module for accessing aviation weather information. 

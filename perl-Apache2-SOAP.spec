@@ -18,7 +18,6 @@ BuildRequires: mod_perl-devel
 #BuildRequires: httpd, perl(SOAP::Lite), perl(LWP::UserAgent)
 #BuildRequires: perl(Test::More)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

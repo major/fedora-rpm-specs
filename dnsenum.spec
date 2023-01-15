@@ -9,7 +9,6 @@ Source0:    https://github.com/fwaeytens/dnsenum/archive/%{version}.tar.gz
 BuildArch:  noarch
 BuildRequires:  perl-generators
 
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:   perl-Net-Whois-IP
 Requires:   perl-WWW-Mechanize
 Requires:   perl-Readonly

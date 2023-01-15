@@ -28,7 +28,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # XSLodaer is optional but highly recommended as we deliver the XS
 # implementation in the same package.
 Requires:       perl(XSLoader)

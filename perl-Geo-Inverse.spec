@@ -14,7 +14,6 @@ BuildRequires:  perl(Geo::Constants) >= 0.04
 BuildRequires:  perl(Geo::Functions) >= 0.03
 BuildRequires:  perl(Geo::Ellipsoids) >= 0.09
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 %{summary}.

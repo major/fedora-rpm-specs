@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::Refcount)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 %{?perl_default_filter}

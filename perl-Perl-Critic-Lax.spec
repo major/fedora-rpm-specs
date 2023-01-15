@@ -29,7 +29,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Perl::Critic::TestUtils)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This is plug-in into Perl::Critic
 Requires:       perl(Perl::Critic) >= 1.088
 Requires:       perl(Perl::Critic::Policy)

@@ -20,7 +20,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module use the a modified version of the Porter Stemming Algorithm to

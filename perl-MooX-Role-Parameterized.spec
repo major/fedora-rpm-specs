@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(autodie)
 BuildRequires:  perl(utf8)
 Requires:       perl(Moo::Role)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

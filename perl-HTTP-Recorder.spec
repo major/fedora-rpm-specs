@@ -33,7 +33,6 @@ BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 0.95
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 
 %description

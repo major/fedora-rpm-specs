@@ -20,7 +20,6 @@ BuildRequires:  perl(Sub::Exporter) >= 0.972
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Obsoletes:      perl-String-RewritePrefix-tests < 0.007-1
 
 %{?perl_default_filter}

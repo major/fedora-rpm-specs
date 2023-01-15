@@ -8,7 +8,6 @@ URL:            https://metacpan.org/release/capitalization
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/capitalization-%{version}.tar.gz
 
 BuildArch:      noarch
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  %{__make}
 

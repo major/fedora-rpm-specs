@@ -17,7 +17,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::Emoticon) >= 0.03
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.32
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Text::Emoticon\\)$
 

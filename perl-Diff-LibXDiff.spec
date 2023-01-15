@@ -23,7 +23,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More) >= 0.42
 BuildRequires:  perl(Test::Most)
 Requires:       perl(Carp::Clan)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # The libxdiff packaged in Fedora doesn't work with this module
 Provides:       bundled(libxdiff) = 0.23
 

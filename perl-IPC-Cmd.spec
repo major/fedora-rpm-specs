@@ -50,7 +50,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(ExtUtils::MM::Utils)
 Requires:       perl(FileHandle)
 Requires:       perl(IO::Handle)

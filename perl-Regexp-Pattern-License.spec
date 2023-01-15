@@ -26,7 +26,6 @@ BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Regexp::Pattern::License provides a hash of regular expression patterns related

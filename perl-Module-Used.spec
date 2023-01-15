@@ -26,7 +26,6 @@ BuildRequires:  perl(PPI::Document) >= 1.205
 BuildRequires:  perl(Test::Deep) >= 0.098
 BuildRequires:  perl(Test::More) >= 0.72
 BuildRequires:  perl(version) >= 0.74
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Exporter) >= 5.57
 Requires:       perl(File::Next) >= 1.02
 Requires:       perl(Module::Path) >= 0.01

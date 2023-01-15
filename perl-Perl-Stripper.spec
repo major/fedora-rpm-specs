@@ -28,7 +28,6 @@ BuildRequires:  perl(Log::Any)
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module is yet another PPI-based Perl source code stripper. Its focus

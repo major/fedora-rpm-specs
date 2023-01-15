@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::Alien)
 # Alien modules' purpose is to ensure one can compile against a library.
 # libffi version is compiled into alien.json.
 Requires:       libffi-devel%{?_isa} %(perl -MPkgConfig::LibPkgConf -e 'print qq{= } . pkgconf_version(q{libffi})' 2>/dev/null)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base) >= 2.10
 
 # Remove under-specified dependencies

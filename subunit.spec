@@ -62,7 +62,6 @@ and subunit.
 %package perl
 Summary:        Perl bindings for subunit
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%{perl_version})
 
 %description perl
 Subunit perl bindings.  See the python-subunit package for test

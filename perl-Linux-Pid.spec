@@ -22,7 +22,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %{?perl_default_filter}

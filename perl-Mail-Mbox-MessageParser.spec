@@ -50,7 +50,6 @@ BuildRequires:	perl(UNIVERSAL::require)
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	grep, gzip, bzip2, lzip >= 1.3, xz, /usr/bin/diff
 Requires:	perl(Storable)
 

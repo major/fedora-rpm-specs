@@ -28,7 +28,6 @@ BuildRequires:  perl(version)
 # perl(Test::InDistDir) dependency patched out
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 The Comprehensive Perl Archive Network (CPAN) is a very useful collection

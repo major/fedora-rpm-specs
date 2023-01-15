@@ -44,7 +44,6 @@ BuildRequires:	perl(JSON::XS) >= 3.0
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Needs) >= 0.002006
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Cpanel::JSON::XS) >= 2.3310
 
 %description

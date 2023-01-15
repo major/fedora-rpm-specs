@@ -19,7 +19,6 @@ BuildRequires:  perl(HTTP::Headers) >= 6
 # Tests only:
 BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Headers) >= 6
 Conflicts:      perl-libwww-perl < 6
 

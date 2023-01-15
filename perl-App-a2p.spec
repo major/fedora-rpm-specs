@@ -37,7 +37,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::More) >= 0.89
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl < 4:5.18.2-300
 
 %description

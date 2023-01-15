@@ -20,7 +20,6 @@ BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Text::Diff)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Text::Patch combines source text with given diff (difference) data. Diff

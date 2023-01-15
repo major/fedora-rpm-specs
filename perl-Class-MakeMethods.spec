@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::Harness)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::RefHash)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 The Class::MakeMethods framework allows Perl class developers to quickly

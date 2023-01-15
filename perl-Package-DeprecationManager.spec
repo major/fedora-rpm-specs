@@ -32,7 +32,6 @@ BuildRequires:	perl(Test::Warnings)
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows you to manage a set of deprecations for one or more modules.

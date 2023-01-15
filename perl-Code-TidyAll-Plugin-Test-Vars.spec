@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Vars) >= 0.008
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # perl-generators misses Code::TidyAll::Plugin "extends":
 # c.f. lib/Code/TidyAll/Plugin/Test/Vars.pm

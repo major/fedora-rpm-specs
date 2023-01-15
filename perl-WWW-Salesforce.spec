@@ -24,7 +24,6 @@ BuildRequires:  perl(URI)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Socket::SSL) >= 1.94
 Requires:       perl(LWP::Protocol::https) >= 6.00
 Requires:       perl(SOAP::Lite) >= 1.0

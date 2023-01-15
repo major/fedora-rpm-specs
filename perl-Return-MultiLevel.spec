@@ -23,7 +23,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Optional Functionality
 BuildRequires:  perl(Scope::Upper) >= 0.29
 Requires:       perl(Scope::Upper) >= 0.29

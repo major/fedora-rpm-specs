@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Params::Util) >= 0.20
 Requires:       perl(Template) >= 2.10
 

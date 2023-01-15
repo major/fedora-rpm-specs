@@ -27,7 +27,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  syslog
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       syslog
 
 # Don't "provide" private Perl libs

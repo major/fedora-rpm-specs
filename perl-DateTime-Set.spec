@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 # Test Suite
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 DateTime::Set is a module for datetime sets. It can be used to handle two

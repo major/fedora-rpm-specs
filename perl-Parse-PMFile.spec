@@ -36,7 +36,6 @@ BuildRequires:  perl(version::vpp)
 # Test::Pod not used
 # Test::Pod::Coverage not used
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(JSON::PP) >= 2.00
 Requires:       perl(version) >= 0.83
 

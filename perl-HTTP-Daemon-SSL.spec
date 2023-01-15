@@ -22,7 +22,6 @@ BuildRequires:  perl(IO::Socket::SSL::Utils)
 
 Requires:       perl(HTTP::Daemon) >= 1
 Requires:       perl(IO::Socket::SSL) >= 0.93
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Instances of the HTTP::Daemon::SSL class are HTTP/1.1 servers that listen

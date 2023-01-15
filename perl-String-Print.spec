@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Test::More) >= 0.86
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Date::Parse) >= 2.30
 
 # Remove under-specifed dependencies

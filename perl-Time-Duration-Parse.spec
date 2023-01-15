@@ -6,7 +6,6 @@ License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Parse string that represents time duration
 Source:     https://cpan.metacpan.org/authors/id/N/NE/NEILB/Time-Duration-Parse-%{version}.tar.gz
 Url:        https://metacpan.org/release/Time-Duration-Parse
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: %{__perl}

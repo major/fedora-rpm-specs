@@ -32,7 +32,6 @@ BuildRequires:  perl(DBIx::Class::Schema)
 BuildRequires:  perl(Test::More)
 Requires:       perl(Carp::Clan) >= 6.0
 Requires:       perl(DBIx::Class) >= 0.08124
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %?perl_default_filter
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Carp::Clan\\)$

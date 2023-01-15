@@ -22,7 +22,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides one function, "equals", which works like perl's "eq", but

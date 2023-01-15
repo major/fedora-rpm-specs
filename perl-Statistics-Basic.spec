@@ -37,7 +37,6 @@ BuildRequires:  perl(Math::BigFloat) >= 1.60
 # Test::Pod not used
 # Test::Pod::Coverage not used
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Number::Format) >= 1.42
 
 # Remove underspecified dependecies

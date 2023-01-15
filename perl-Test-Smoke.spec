@@ -67,7 +67,6 @@ BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Mail::Sendmail)
 Requires:       perl(File::Spec) >= 0.82
 

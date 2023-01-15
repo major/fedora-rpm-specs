@@ -21,7 +21,6 @@ BuildRequires:  perl(XSLoader)
 # Test Suite
 # (no additional dependencies)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 Requires:       perl(warnings)
 Requires:       perl(XSLoader)

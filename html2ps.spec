@@ -45,7 +45,6 @@ BuildRequires:  sed
 Requires:       ghostscript
 # paperconf is obsolete, "paper" is the new utility.
 Requires:       paper
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Cookies)
 Requires:       perl(HTTP::Request)
 Requires:       perl(LWP::UserAgent)

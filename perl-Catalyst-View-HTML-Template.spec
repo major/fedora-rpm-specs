@@ -14,7 +14,6 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %if 0%{?fedora} < 15
 Requires:       perl(Catalyst::View)

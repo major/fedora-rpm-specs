@@ -42,7 +42,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 File::Find::Object::Rule is a friendlier interface to File::Find::Object. It 

@@ -33,7 +33,6 @@ BuildRequires:  perl(Data::Dumper)
 # Optional tests:
 BuildRequires:  perl(Crypt::CBC) > 1.22
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

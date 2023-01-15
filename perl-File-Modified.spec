@@ -23,7 +23,6 @@ BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Digest::MD2)
 BuildRequires:  perl(Digest::SHA1)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Digest::MD5)
 
 %description

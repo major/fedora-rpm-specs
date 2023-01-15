@@ -2,9 +2,9 @@
 
 Name:           cppcheck
 Version:        2.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for static C/C++ code analysis
-License:        GPLv3+
+License:        GPL-3.0
 URL:            http://cppcheck.wiki.sourceforge.net/
 Source0:        https://github.com/danmar/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -112,6 +112,9 @@ cd %{_vpath_builddir}/bin
 %{_bindir}/cppcheck-htmlreport
 
 %changelog
+* Fri Jan 13 2023 Steve Grubb <sgrubb@redhat.com> - 2.9-3
+- SPDX Migration
+
 * Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 2.9-2
 - Rebuild for tinyxml2-9.0.0
 

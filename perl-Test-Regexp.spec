@@ -27,7 +27,6 @@ BuildRequires:	perl(Test::Tester)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.00
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is intended to test your regular expressions. Given a subject

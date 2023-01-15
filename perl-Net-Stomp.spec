@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::NiceDump)
 # Optional tests:
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Pod) >= 1.14
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Prefer IO::Socket::IP over IO::Socket::INET
 Requires:       perl(IO::Socket::IP) >= 0.20
 Requires:       perl(Socket)

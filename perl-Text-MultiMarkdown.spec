@@ -36,7 +36,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Spelling) >= 0.11
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Text::Markdown) >= 1.000026
 
 %{?perl_default_filter}

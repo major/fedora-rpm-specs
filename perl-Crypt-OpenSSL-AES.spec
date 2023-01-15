@@ -11,7 +11,6 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  openssl openssl-devel perl(Test::More) perl(ExtUtils::MakeMaker)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Crypt::OpenSSL::AES - A Perl wrapper around OpenSSL's AES library

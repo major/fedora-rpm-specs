@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 BuildRequires:  perl(threads)
 BuildRequires:  perl(Thread::Queue)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Crypt::GCrypt provides a Perl interface to the libgcrypt cryptographic

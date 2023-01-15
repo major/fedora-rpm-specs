@@ -1,12 +1,11 @@
 Name:           perl-GDGraph
 Epoch:          1
-Version:        1.54
-Release:        21%{?dist}
+Version:        1.56
+Release:        1%{?dist}
 Summary:        Graph generation package for Perl
-License:        (GPL+ or Artistic) and GPLv2+
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later
 URL:            https://metacpan.org/release/GDGraph
 Source0:        https://cpan.metacpan.org/modules/by-module/GD/GDGraph-%{version}.tar.gz
-Patch0:         GDGraph-1.54-XBM-Magic.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -36,7 +35,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(warnings)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(GD) >= 1.18
 Requires:       perl(GD::Text) >= 0.80
@@ -50,10 +48,6 @@ Requires:       perl(Text::ParseWords)
 
 %prep
 %setup -q -n GDGraph-%{version}
-
-# Fix logo_xbm_noext test
-# https://github.com/mgjv/GDGraph/pull/1
-%patch0 -p1
 
 # Fix shellbangs
 perl -pi -e 's{^#!/usr/local/bin/perl\b}{#!%{__perl}}' \
@@ -75,7 +69,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 make test
 
 %files
-# Dustismo_Sans.ttf is GPLv2+, everything else is GPL+ or Artistic
+# Dustismo_Sans.ttf is GPL-2.0-or-later, everything else is GPL-1.0-or-later OR Artistic-1.0-Perl
 %license Dustismo.LICENSE
 %doc CHANGES README Dustismo_Sans.ttf samples/
 %{perl_vendorlib}/GD/
@@ -87,6 +81,20 @@ make test
 %{_mandir}/man3/GD::Graph::hbars.3*
 
 %changelog
+* Fri Jan 13 2023 Paul Howarth <paul@city-fan.org> - 1:1.56-1
+- Update to 1.56
+  - Improve language in documentation
+
+* Fri Jan 13 2023 Paul Howarth <paul@city-fan.org> - 1:1.55-1
+- Update to 1.55
+  - Fix failing XBM test resulting from some upstream changes (CPAN RT#140940)
+  - Skip samples tests if libgd has image support disabled, which is the
+    default starting with version 2.3.3
+    (see https://github.com/libgd/libgd/issues/428)
+- Use SPDX-format license tag
+- Drop perl(:MODULE_COMPAT_XXX) dependency
+  (https://fedoraproject.org/wiki/Changes/Perl_replace_MODULE_COMPAT_by_generator)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.54-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

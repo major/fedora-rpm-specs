@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Moose)
 BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(Test::Moose)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B)
 Requires:       perl(Devel::OverrideGlobalRequire)
 

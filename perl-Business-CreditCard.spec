@@ -18,7 +18,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 These subroutines tell you whether a credit card number is self-consistent

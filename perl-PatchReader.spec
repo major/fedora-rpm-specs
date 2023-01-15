@@ -19,7 +19,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 Requires:       cvs
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 PatchReader is a set of utilities for reading in, transforming, and doing

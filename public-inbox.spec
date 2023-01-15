@@ -30,7 +30,6 @@ BuildRequires:  man-db
 BuildRequires:  sqlite
 BuildRequires:  xapian-core
 Requires:       perl-PublicInbox = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # not automatically picked up since it's required dynamically
 # via `eval` in Search.pm. *shudders*
 Requires:       perl(Search::Xapian)
@@ -45,7 +44,6 @@ or HTML archives.
 
 %package -n perl-PublicInbox
 Summary:        Perl libraries for public-inbox
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 #Requires: git >= 2.6, libgit2, perl-DBD-SQLite, perl-Search-Xapian, xapian-core, perl-URI, perl-TimeDate, perl-Mail-IMAPClient, perl-Linux-Inotify2, perl-Email-Address-XS, perl-sort, perl-Sys-Syslog, perl-Sys-Hostname, perl-Inline-C, sqlite
 
 %description -n perl-PublicInbox

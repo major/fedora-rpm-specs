@@ -30,7 +30,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More) >= 0.92
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Basename)
 Requires:       perl(Pod::Usage)
 

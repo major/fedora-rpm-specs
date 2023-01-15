@@ -48,7 +48,6 @@ BuildRequires:  perl(Archive::Extract)
 BuildRequires:  perl(Archive::Tar)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Config::GitLike)
 
 %description

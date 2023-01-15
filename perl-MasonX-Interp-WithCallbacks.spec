@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More) >= 0.17
 BuildRequires:  perl(Test::Pod) >= 1.20
 BuildRequires:  perl(Test::Simple) >= 0.17
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Container) >= 0.09
 Requires:       perl(HTML::Mason) >= 1.23
 Requires:       perl(HTML::Mason::MethodMaker)

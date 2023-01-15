@@ -6,7 +6,6 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tree-Simple-VisitorFactory
 Source0:        https://cpan.metacpan.org/authors/id/R/RS/RSAVAGE/Tree-Simple-VisitorFactory-%{version}.tgz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Core
 BuildRequires:  coreutils

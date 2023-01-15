@@ -83,7 +83,6 @@ BuildRequires:  perl(PerlIO)
 # Keep YAML optional
 # Keep YAML::Tiny optional
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B)
 Recommends:     perl(CPAN::Meta) >= 2.143240
 Suggests:       perl(CPAN::Meta::Converter) >= 2.141170
@@ -143,7 +142,6 @@ Dougherty and the perl5-porters.
 Summary:        Perl routines to replace common UNIX commands in Makefiles
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(File::Copy)
 Requires:       perl(File::Find)
@@ -160,7 +158,6 @@ easier to deal with in Makefiles.
 Summary:        ExtUtils::MM methods without dependency on ExtUtils::MakeMaker
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description -n perl-ExtUtils-MM-Utils
 This is a collection of ExtUtils::MM subroutines that are used by many

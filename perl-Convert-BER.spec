@@ -25,7 +25,6 @@ BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(IO::Socket)
 # lib not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description

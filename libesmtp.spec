@@ -3,7 +3,7 @@
 Summary:        SMTP client library
 Name:           libesmtp
 Version:        1.0.6
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        LGPLv2+
 Source:         http://www.stafford.uklinux.net/libesmtp/%{name}-%{version}.tar.bz2
 URL:            http://www.stafford.uklinux.net/libesmtp/
@@ -11,6 +11,7 @@ BuildRequires:  gcc
 BuildRequires:  openssl-devel pkgconfig autoconf automake libtool
 BuildRequires: make
 Patch0: libesmtp-1.0.6-openssl-1.1.patch
+Patch1: libesmtp-configure-c99.patch
 
 %description
 LibESMTP is a library to manage posting (or submission of) electronic
@@ -36,6 +37,7 @@ necessary for building programs against libesmtp.
 %prep 
 %setup -q
 %patch0 -p1 -b .openssl-1.1
+%patch1 -p1
 
 autoreconf -fi
 
@@ -94,6 +96,9 @@ install -p -m644 -D libesmtp.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig/libesmtp.pc
 %{_libdir}/pkgconfig/libesmtp.pc
 
 %changelog
+* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.0.6-26
+- C99 compatibility fix for the configure script
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -46,7 +46,7 @@
 %endif
 
 Name:           nest
-Version:        3.2
+Version:        3.3
 
 Release:        %autorelease
 Summary:        The neural simulation tool
@@ -71,13 +71,12 @@ Patch1:         0002-tweak-PYEXECDIR.patch
 Patch2:         0003-Use-system-Random123.patch
 # Remove rpath
 Patch3:         0004-Remove-rpath.patch
-# define sonames for shared objects
-# https://github.com/nest/nest-simulator/pull/2250
-Patch4:         0005-Define-soname-versions.patch
+# version shared objects
+Patch4:         https://github.com/nest/nest-simulator/commit/a6492c6f4a66e17e8f625635b83cd20d6e0afd0b.patch
 # Install in standard libdir
-Patch5:         0006-Install-in-libdir.patch
+Patch5:         0005-Install-in-libdir.patch
 # Use online docs for helpdesk
-Patch6:         0007-Use-online-documentation.patch
+Patch6:         0006-Use-online-documentation.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake

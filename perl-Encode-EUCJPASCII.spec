@@ -21,7 +21,6 @@ BuildRequires:  perl-devel
 BuildRequires:  perl-Encode-devel
 BuildRequires:  perl-generators
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

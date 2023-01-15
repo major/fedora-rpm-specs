@@ -5,7 +5,6 @@ Release:        17%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Class-Mix-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Class-Mix
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  coreutils

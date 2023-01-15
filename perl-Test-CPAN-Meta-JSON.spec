@@ -29,7 +29,6 @@ BuildRequires:	perl(Test::CPAN::Meta)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Test::Pod::Coverage) >= 0.08
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module was written to ensure that a META.json file, provided with a

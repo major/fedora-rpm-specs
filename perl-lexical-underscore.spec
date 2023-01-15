@@ -21,7 +21,6 @@ BuildRequires:  perl(if)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # PadWalker required only for 5.9 <= perl < 5.23.4
 
 %description

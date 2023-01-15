@@ -38,7 +38,6 @@ BuildRequires:  perl(Test::mysqld)
 BuildRequires:  perl(Test::PostgreSQL)
 BuildRequires:  perl(Test::Requires)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 DBIx::QueryLog logs each execution time and the actual query.

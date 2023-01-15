@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::Builder::Tester) >= 1.02
 BuildRequires:  perl(Test::More) >= 0.62
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(File::Find)
 Requires:       perl(Pod::Simple) >= 3.05
 Requires:       perl(Test::More) >= 0.62

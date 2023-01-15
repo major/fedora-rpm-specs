@@ -464,7 +464,6 @@ Requires:       git = %{version}-%{release}
 Summary:        Perl interface to Git
 BuildArch:      noarch
 Requires:       git = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %description -n perl-Git
 %{summary}.
 
@@ -472,7 +471,6 @@ Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $versi
 Summary:        Perl interface to Git::SVN
 BuildArch:      noarch
 Requires:       git = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %description -n perl-Git-SVN
 %{summary}.
 

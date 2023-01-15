@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 BuildRequires:  libcurl-devel
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 
 %{?perl_default_filter}
 

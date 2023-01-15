@@ -65,7 +65,6 @@ BuildRequires:  perl(version)
 Requires:       perl(DBIx::Class::Schema::Loader)
 Requires:       perl(Log::Contextual::Role::Router)
 Requires:       perl(Type::Tiny)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

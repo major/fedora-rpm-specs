@@ -58,7 +58,6 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.06
 BuildRequires:  perl(Test::Portability::Files)
 # POE::Component::Server::Syslog is not packaged yet
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Fcntl)
 Requires:       perl(XSLoader)
 

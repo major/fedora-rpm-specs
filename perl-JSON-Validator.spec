@@ -62,7 +62,6 @@ BuildRequires:  perl(lib)
 # Optional test deps
 # Test::JSON::Schema::Acceptance not yet packaged
 BuildRequires:  perl(boolean)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Recommends:     perl(Config)
 Suggests:       perl(Data::Validate::Domain)
 Suggests:       perl(Data::Validate::IP)

@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # not detected by automated find-requires:
 Requires:       perl(Email::Date::Format)
 Requires:       perl(MIME::Types) >= 1.28

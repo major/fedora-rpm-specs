@@ -4,7 +4,7 @@
 %bcond_without perl_Object_Pad_enables_optional_test
 
 Name:           perl-Object-Pad
-Version:        0.77
+Version:        0.78
 Release:        1%{dist}
 Summary:        Simple syntax for lexical slot-based objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -77,7 +77,6 @@ BuildRequires:  perl(Devel::MAT) >= 0.46
 BuildRequires:  perl(Devel::MAT::Dumper)
 BuildRequires:  perl(List::Util)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # experimental since perl 5.20
 Requires:       perl(experimental)
 Requires:       perl(strict)
@@ -132,7 +131,6 @@ with "%{_libexecdir}/%{name}/test".
 Summary:        Build-time support for Object::Pad plugins
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-interpreter
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # rpm for /usr/lib/rpm/macros.d directory
 Requires:       rpm
 
@@ -205,6 +203,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 13 2023 Petr Pisar <ppisar@redhat.com> - 0.78-1
+- 0.78 bump
+
 * Tue Jan 03 2023 Petr Pisar <ppisar@redhat.com> - 0.77-1
 - 0.77 bump
 

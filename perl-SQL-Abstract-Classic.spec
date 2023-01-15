@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::Warn)
 Requires:       perl(Exporter) >= 5.57
 Requires:       perl(mro)
 Requires:       perl(Text::Balanced) >= 2.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Exporter\\)
 

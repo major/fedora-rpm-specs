@@ -23,7 +23,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(JSON) >= 1
 Requires:       perl(locale) >= 1
 

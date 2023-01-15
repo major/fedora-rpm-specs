@@ -23,7 +23,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 # Tests
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(SVG::Element\\)$
 

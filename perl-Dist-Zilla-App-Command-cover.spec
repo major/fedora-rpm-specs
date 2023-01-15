@@ -23,7 +23,6 @@ BuildRequires:  perl(Dist::Zilla::App)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl-Devel-Cover
 Requires:       perl(File::chdir)
 Requires:       perl(File::Temp)

@@ -51,7 +51,6 @@ BuildRequires:  perl(Test::Output) >= 1.03
 BuildRequires:  perl(Test::Spec) >= 0.47
 #BuildRequires:  perl(Test::TempDir::Tiny) >= 0.016
 BuildRequires:  wget
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Capture::Tiny) >= 0.48
 Requires:       perl(CPAN::Perl::Releases) >= 5.20220720
 Requires:       perl(Cwd)

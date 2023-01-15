@@ -37,7 +37,6 @@ BuildRequires:  perl(strict)
 # perl(vars)
 ## Optional run-time:
 # perl(Locale::gettext)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(Locale::gettext)
 
 %description

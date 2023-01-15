@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.4
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Carp::Assert is intended for a purpose like the ANSI C library assert.h.

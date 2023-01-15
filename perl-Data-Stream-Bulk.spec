@@ -19,7 +19,6 @@ BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::TempDir)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

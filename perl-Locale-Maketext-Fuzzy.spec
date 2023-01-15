@@ -29,7 +29,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Locale::Maketext)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is a subclass of Locale::Maketext, with additional

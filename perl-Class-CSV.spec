@@ -22,7 +22,6 @@ BuildRequires:  perl(Text::CSV_XS) >= 0.23
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 Requires:       perl(Class::Accessor) >= 0.18
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Class::Accessor\\)$
 

@@ -5,7 +5,6 @@ Release:        24%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOBTFISH/Catalyst-Plugin-Authentication-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Plugin-Authentication
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  make

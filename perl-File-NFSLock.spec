@@ -22,7 +22,6 @@ BuildRequires:  perl(Sys::Hostname)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 Requires:       perl(Sys::Hostname)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Program based of concept of hard linking of files being atomic across NFS. 

@@ -13,7 +13,6 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  augeas-devel
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Augeas is a library and command line tool that focuses on the most basic

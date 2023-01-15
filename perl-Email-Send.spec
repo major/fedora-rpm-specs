@@ -18,7 +18,6 @@ BuildRequires:  perl(vars), perl(version), perl(warnings),
 BuildRequires:  sed
 BuildRequires:  /usr/sbin/sendmail
 BuildArch:      noarch
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Not automatically detected, but needed.
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1000737
 #     https://bugzilla.redhat.com/show_bug.cgi?id=1031298

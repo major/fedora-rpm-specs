@@ -54,7 +54,6 @@ BuildRequires:  perl(Tie::StdHash)
 BuildRequires:  perl(Tie::StdScalar)
 BuildRequires:  perl(vars)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B::Deparse) >= 0.59
 Requires:       perl(Data::Dumper)
 

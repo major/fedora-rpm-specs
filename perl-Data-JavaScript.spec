@@ -25,7 +25,6 @@ BuildRequires:  perl(Test2::Tools::Subtest)
 BuildRequires:  perl(Test2::Tools::PerlCritic)
 BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

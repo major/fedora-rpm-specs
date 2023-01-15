@@ -14,7 +14,6 @@ BuildRequires:	perl(Rose::Object)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	perl(Exporter)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %filter_from_requires /perl(Rose::DateTime::Util)/d
 %filter_setup

@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More)
 # Used in the installed script `bro-perl` - added by perl-generators
 # BuildRequires:  perl(Getopt::Long)
 # BuildRequires:  perl(Time::HiRes)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 IO::Compress::Brotli is a module that compresses Brotli buffers and

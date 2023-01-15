@@ -20,7 +20,6 @@ BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is intended to easily test network connectivity before functional

@@ -7,7 +7,6 @@ URL: https://metacpan.org/release/Net-Telnet
 Source0: https://cpan.metacpan.org/authors/id/J/JR/JROGERS/Net-Telnet-%{version}.tar.gz
 
 # runtime depends
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: perl(IO::Socket::INET)
 
 # build

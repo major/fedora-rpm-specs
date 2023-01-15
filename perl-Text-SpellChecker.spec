@@ -33,7 +33,6 @@ BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Text::Aspell), aspell-en
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # hunspell is the preferred spell checking backend in Fedora
 Requires:	perl(Text::Hunspell)
 

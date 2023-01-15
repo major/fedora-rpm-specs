@@ -6,7 +6,6 @@ License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Creates temporary files and directories from a structured description
 Source:     https://cpan.metacpan.org/authors/id/N/NK/NKH/Directory-Scratch-Structured-%{version}.tar.gz 
 Url:        https://metacpan.org/release/Directory-Scratch-Structured
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

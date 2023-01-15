@@ -40,7 +40,6 @@ BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(utf8)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Archive::Tar)
 Requires:	perl(Encode)
 Requires:	perl(Expect)

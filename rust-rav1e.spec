@@ -34,6 +34,9 @@ Patch:          rav1e-fix-metadata-auto.diff
 Patch:          rav1e-fix-metadata.diff
 # * Remove useless / no-op hawktracer macros
 Patch:          0001-remove-unused-hawktracer-usage.patch
+# * Backported patch to fix UB / crash in test code
+#   https://github.com/xiph/rav1e/commit/d56fe64:
+Patch:          0001-Fix-UB-in-pred_max-test.patch
 
 ExclusiveArch:  %{rust_arches}
 

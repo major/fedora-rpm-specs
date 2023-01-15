@@ -77,7 +77,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(lib)
 # Test::Future::AsyncAwait::Awaitable not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Suggests:       perl(Cpanel::JSON::XS) >= 4.09
 Requires:       perl(experimental)
 Requires:       perl(FindBin)
@@ -100,7 +99,6 @@ Requires:       perl(Time::Local) >= 1.2
 
 %package -n perl-Test-Mojo
 Summary:        Test::Mojo perl Module
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description -n perl-Test-Mojo
 %{summary}

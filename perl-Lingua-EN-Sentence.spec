@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings) >= 1.0.6
 BuildRequires:  perl(Test::More) >= 0.94
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The Lingua::EN::Sentence module contains the function get_sentences, which

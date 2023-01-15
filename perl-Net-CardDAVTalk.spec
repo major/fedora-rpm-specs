@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Date::Format) >= 2.24
 Requires:       perl(File::MMagic) >= 1.30
 Requires:       perl(List::MoreUtils) >= 0.01

@@ -28,7 +28,6 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.47
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CSS::Tiny) >= 1.10
 Requires:       perl(Params::Util) => 0.05
 Requires:       perl(PPI) >= 0.990

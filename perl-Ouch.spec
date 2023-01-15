@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
 BuildRequires:  perl(Test::Trap)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Ouch provides a class for exception handling that doesn't require a

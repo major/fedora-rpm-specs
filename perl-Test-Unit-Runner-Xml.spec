@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::Unit) >= 0.24
 BuildRequires:  perl(Test::Unit::TestCase)
 BuildRequires:  perl(Test::Unit::TestSuite)
 BuildRequires:  perl(XML::XPath)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test::Unit::Runner::XML generates XML reports from unit test results. The

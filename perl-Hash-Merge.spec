@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Clone::PP)
 BuildRequires:  perl(Storable)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # required but not detected automatically
 Requires:       perl(Clone)
 

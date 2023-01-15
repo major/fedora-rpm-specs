@@ -31,7 +31,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 # Test::Pod 1.00 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Optional run-time:
 Requires:       perl(Algorithm::DiffOld)
 

@@ -32,7 +32,6 @@ BuildRequires:  perl(IPC::SysV)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 These are some helper functions for X11::Protocol.

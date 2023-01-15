@@ -29,7 +29,6 @@ BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 0.95
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(URI) >= 1.60
 Obsoletes:      %{name}-tests < 20140709-5
 

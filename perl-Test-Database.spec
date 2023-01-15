@@ -35,7 +35,6 @@ BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More) >= 0.88
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(YAML::Tiny) >= 1.62
 
 %{?perl_default_filter}

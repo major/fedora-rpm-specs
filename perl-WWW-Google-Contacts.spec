@@ -52,7 +52,6 @@ Requires:       perl(Crypt::SSLeay)
 #Requires:       perl(Perl6::Junction)
 #Requires:       perl(Try::Tiny)
 #Requires:       perl(XML::Simple)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module implements 'Google Contacts Data API' according to

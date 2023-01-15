@@ -44,7 +44,6 @@ BuildRequires:  perl(LWP::Online) >= 1.06
 BuildRequires:  perl(Test::More) >= 0.42
 BuildRequires:  perl(Test::Script) >= 1.02
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Archive::Zip) >= 1.29
 Requires:       perl(CPAN) >= 1.76
 Requires:       perl(CPAN::Inject) >= 0.07

@@ -6,7 +6,6 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Test-SharedFork-%{version}.tar.gz
 URL:            https://metacpan.org/release/Test-SharedFork
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  %{__perl}

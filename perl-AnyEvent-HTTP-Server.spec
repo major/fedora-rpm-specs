@@ -46,7 +46,6 @@ BuildRequires:  perl(Test::Pod)
 Requires:       perl(AnyEvent) >= 5
 Requires:       perl(Digest::SHA1) >= 2
 Requires:       perl(JSON::XS) >= 3
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 AnyEvent::HTTP::Server is a very fast asynchronous HTTP server written in

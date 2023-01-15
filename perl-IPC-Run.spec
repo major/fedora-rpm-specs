@@ -58,7 +58,6 @@ BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Readonly)
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(File::Basename)
 Requires:       perl(IO::Pty) >= 1.08

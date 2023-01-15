@@ -121,7 +121,6 @@ BuildRequires:  perl(ExtUtils::Embed)
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-Test
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Summary:        PERL bindings for libSBML
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 

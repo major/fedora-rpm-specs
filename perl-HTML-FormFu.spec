@@ -82,7 +82,6 @@ Requires:       perl(Locale::Maketext)
 Requires:       perl(MooseX::Attribute::Chained) >= 1.0.1
 Requires:       perl(Template)
 Requires:       perl(YAML::XS) >= 0.32
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter:
 %filter_from_provides /perl(unicode/d

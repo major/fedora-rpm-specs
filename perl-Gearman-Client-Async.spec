@@ -40,7 +40,6 @@ BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter double Requires:
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Danga::Socket\\)$

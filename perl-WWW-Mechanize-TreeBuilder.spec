@@ -34,7 +34,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(WWW::Mechanize)
 # Optional tests:
 BuildRequires:  perl(HTML::TreeBuilder::XPath)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # not automatically detected
 Requires:       perl(HTML::TreeBuilder)
 # not strictly required, but recommended

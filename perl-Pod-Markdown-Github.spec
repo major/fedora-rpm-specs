@@ -26,7 +26,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Github flavored markdown allows for syntax highlighting using three

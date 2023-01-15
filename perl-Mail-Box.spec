@@ -56,7 +56,6 @@ BuildRequires:  perl(User::Identity::Item)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The Mail::Box folder is a modern mail-folder manager -- at least at

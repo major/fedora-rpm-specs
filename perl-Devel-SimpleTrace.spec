@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::Distribution)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 0.08
 BuildRequires:  perl(Test::Portability::Files)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 
 %description

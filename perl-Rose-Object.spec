@@ -23,7 +23,6 @@ BuildRequires:	perl(warnings)
 Requires:	perl(B)
 Requires:	perl(Test::More)
 Requires:	perl(Test::Simple)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %filter_from_requires /perl(Rose::DateTime::Util)/d
 %filter_setup

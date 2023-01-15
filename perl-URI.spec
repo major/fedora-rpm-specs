@@ -48,7 +48,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Warnings)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Cwd)
 Requires:       perl(Data::Dumper)
 Requires:       perl(Encode)

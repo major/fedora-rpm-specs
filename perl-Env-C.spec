@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(DynaLoader)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides a Perl API for getenv(3), setenv(3) and unsetenv(3).

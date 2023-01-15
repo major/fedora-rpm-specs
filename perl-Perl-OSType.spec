@@ -48,7 +48,6 @@ BuildRequires:	perl(Test::Spelling), hunspell-en
 BuildRequires:	perl(Test::Version)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Modules that provide OS-specific behaviors often need to know if the current

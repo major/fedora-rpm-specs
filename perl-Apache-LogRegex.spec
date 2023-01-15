@@ -15,7 +15,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Designed as a simple class to parse Apache log files.  It will construct

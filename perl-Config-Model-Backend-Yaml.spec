@@ -31,7 +31,6 @@ BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is used directly by Config::Model to read or write the content

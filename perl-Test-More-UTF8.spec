@@ -29,7 +29,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(utf8)
 
 %description

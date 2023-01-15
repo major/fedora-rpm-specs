@@ -58,7 +58,6 @@ BuildRequires:  perl(File::stat)
 BuildRequires:  perl(IPC::Run3) >= 0.048
 BuildRequires:  perl(PAR::SetupTemp)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Archive::Zip) >= 1
 Requires:       perl(Compress::Zlib) >= 1.3
 Requires:       perl(File::Temp) >= 0.05
@@ -84,7 +83,6 @@ stand-alone executables, perl scripts and PAR files.
 Summary:        Front-end to pp written in Perl/Tk
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(ExtUtils::MakeMaker)
 Requires:       perl(File::Temp)
 Requires:       perl(Tk::ColoredButton)

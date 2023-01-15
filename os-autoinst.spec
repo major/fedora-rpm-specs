@@ -90,7 +90,6 @@ BuildRequires:  systemd
 BuildRequires:  perl(Mojo::File)
 %endif # no_fullstack
 # tinycv is a compiled public module, so we should have this
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Recommends:     tesseract
 Recommends:     qemu >= 4.0.0
 Recommends:     qemu-kvm

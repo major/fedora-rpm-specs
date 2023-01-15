@@ -20,7 +20,6 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:  	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A simple tree object.

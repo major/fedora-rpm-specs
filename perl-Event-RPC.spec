@@ -36,7 +36,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 # Benchmark not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # TODO:  Split dependencies on an event controller ||(AnyEvent Event Glib)
 # Dependent on a format: ||(Sereal CBOR::XS JSON::XS Storable).
 # The requires in lib/Event/RPC/Message.pm are void, CPAN RT#107405.
@@ -57,7 +56,6 @@ every event loop implementation available for Perl.
 
 %package Message-CBOR
 Summary:        CBOR message format for Event::RPC
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Event::RPC::Message::SerialiserBase)
 Provides:       %{name}-format = %{version}-%{release}
 
@@ -66,7 +64,6 @@ This implements CBOR message format for Event::RPC Perl RPC framework.
 
 %package Message-JSON
 Summary:        JSON message format for Event::RPC
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Event::RPC::Message::SerialiserBase)
 Provides:       %{name}-format = %{version}-%{release}
 
@@ -75,7 +72,6 @@ This implements JSON message format for Event::RPC Perl RPC framework.
 
 %package Message-Sereal
 Summary:        Sereal message format for Event::RPC
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Event::RPC::Message)
 Requires:       perl(Sereal) >= 3
 Provides:       %{name}-format = %{version}-%{release}
@@ -88,7 +84,6 @@ This implements Sereal message format for Event::RPC Perl RPC framework.
 
 %package Message-Storable
 Summary:        Storable message format for Event::RPC
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Event::RPC::Message)
 Provides:       %{name}-format = %{version}-%{release}
 

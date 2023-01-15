@@ -17,7 +17,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Allows the caller to develop a tree structure, using nested arrays of

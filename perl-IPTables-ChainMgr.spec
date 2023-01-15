@@ -17,7 +17,6 @@ BuildRequires:  perl(IPTables::Parse)
 BuildRequires:  perl(NetAddr::IP)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The IPTables::ChainMgr package provides an interface to manipulate iptables

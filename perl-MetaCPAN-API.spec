@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::RequiresInternet)
 BuildRequires:  perl(Test::TinyMocker)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Socket::SSL)
 
 %description

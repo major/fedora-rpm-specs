@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::DZil)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This is a Dist::Zilla plugin
 Requires:       perl(Dist::Zilla) >= 4.30003
 Requires:       perl(Dist::Zilla::Role::LicenseProvider)

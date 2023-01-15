@@ -38,7 +38,6 @@ BuildRequires:  perl(TestML1)
 BuildRequires:  perl(TestML1::Bridge)
 BuildRequires:  perl(TestML1::Util)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(JSON::XS)
 Requires:       perl(Template) >= 2.22

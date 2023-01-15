@@ -13,7 +13,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Pod::PseudoPod) >= 0.15
 BuildRequires:  perl(Test::More) >= 0.60
 Requires:       perl(Pod::PseudoPod) >= 0.15
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # The patch changes 'Verbatim' to 'verbatim' in:
 #   lib/Pod/PseudoPod/LaTeX.pm

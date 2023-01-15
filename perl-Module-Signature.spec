@@ -44,7 +44,6 @@ BuildRequires:  perl(IPC::Run)
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Test::More)
 # Module runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       gnupg2
 Requires:       perl(Digest::SHA)
 Requires:       perl(Digest::SHA1)

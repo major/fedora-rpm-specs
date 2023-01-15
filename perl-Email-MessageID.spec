@@ -25,7 +25,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
 # Optional tests:
 # CPAN::Meta 2.12090 not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Sys::Hostname)
 Suggests:       perl(Sys::Hostname::Long)
 

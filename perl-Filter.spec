@@ -53,7 +53,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
 BuildRequires:  perl(vars)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 # For Filer::sh
 Suggests:       bash

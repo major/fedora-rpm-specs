@@ -58,7 +58,6 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(utf8)
 # Optional tests:
 BuildRequires:  perl(Dist::Zilla::Plugin::PodWeaver)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Dist::Zilla::File::InMemory)
 Requires:       perl(Dist::Zilla::Role::AfterBuild)
 Requires:       perl(Dist::Zilla::Role::AfterRelease)

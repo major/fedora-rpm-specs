@@ -24,7 +24,6 @@ BuildRequires:  findutils
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  recode
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl-Net-IP, perl-Net-DNS, perl-Geo-IP
 Requires:   crontabs  
 Requires(post): perl-interpreter

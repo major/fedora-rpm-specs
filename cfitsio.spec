@@ -1,6 +1,6 @@
 Name: cfitsio
 Version: 4.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for manipulating FITS data files
 
 License: MIT
@@ -93,13 +93,9 @@ cmp -s testprog.lis testprog.out
 cmp -s testprog.fit testprog.std
 
 %install
-mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_libdir}
-mkdir -p %{buildroot}%{_includedir}/%{name}
-make LIBDIR=%{_libdir} INCLUDEDIR=%{_includedir}/%{name} \
+%make_install LIBDIR=%{_libdir} INCLUDEDIR=%{_includedir}/%{name} \
  CFITSIO_LIB=%{buildroot}%{_libdir} \
- CFITSIO_INCLUDE=%{buildroot}%{_includedir}/%{name} \
-install
+ CFITSIO_INCLUDE=%{buildroot}%{_includedir}/%{name}
 cp -p f{,un}pack %{buildroot}%{_bindir}
 
 chmod 755 %{buildroot}%{_libdir}/libcfitsio.so.*
@@ -131,6 +127,9 @@ chmod 755 %{buildroot}%{_bindir}/f{,un}pack
 %{_bindir}/funpack
 
 %changelog
+* Thu Jan 05 2023 Kalev Lember <klember@redhat.com> - 4.2.0-2
+- Use make_install macro
+
 * Fri Nov 25 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 4.2.0-1
 - New upstream version 4.2.0
 

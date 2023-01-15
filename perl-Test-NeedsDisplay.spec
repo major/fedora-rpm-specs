@@ -36,7 +36,6 @@ BuildRequires:  perl(warnings)
 # Test::Pod 1.26 not used
 # xeyes for xeyes (will pull in xorg-x11-apps on older distros)
 BuildRequires:  xeyes
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Spec) >= 0.80
 Requires:       perl(Test::More) >= 0.47
 

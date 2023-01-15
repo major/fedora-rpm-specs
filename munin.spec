@@ -75,7 +75,6 @@ Requires:       %{name}-web-support
 Requires:       /bin/mail
 Requires:       dejavu-sans-mono-fonts
 Requires:       logrotate
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(DateTime)
 Requires:       perl(Digest::MD5)
 Requires:       perl(FCGI)
@@ -125,7 +124,6 @@ Requires:       bc
 Requires:       conntrack-tools
 Requires:       firewalld-filesystem
 Requires:       hdparm
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Cache::Cache)
 Requires:       perl(IO::Socket::INET6)
 Requires:       perl(Net::CIDR)
@@ -164,7 +162,6 @@ This package includes some extra plugins from Munin contrib plugins.
 %package common
 Summary:        Network-wide resource monitoring tool (common files)
 Requires:       acl
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires(pre):  shadow-utils
 %{?systemd_requires}
 BuildArch:      noarch

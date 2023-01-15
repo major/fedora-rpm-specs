@@ -20,7 +20,6 @@ Requires:       perl(URI) >= 1
 Requires:       perl(Image::Size) >= 2.9
 Requires:       perl(Image::ExifTool) >= 9.07
 Requires:       perl(Math::Trig)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # added manually
 Requires:       hugin-base libpano13-tools ImageMagick enblend zenity autotrace
 BuildRequires:  perl(Test::More) desktop-file-utils

@@ -18,7 +18,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Devel::Declare::MethodInstaller::Simple)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides basic method and func keywords with simple

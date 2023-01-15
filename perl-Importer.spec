@@ -17,7 +17,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove private modules
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}perl\\(My::Exporter\\)

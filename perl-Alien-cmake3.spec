@@ -32,7 +32,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Test2::V0) >= 0.000060
 BuildRequires:  perl(Test::Alien) >= 0.92
 Requires:       cmake >= 3.0.0
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base) >= 0.92
 
 # Remove under-specified dependencies

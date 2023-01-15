@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Output)
 BuildRequires:  perl(Test::Script) >= 1.05
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The MooseX::Aliases module will allow you to quickly alias methods in

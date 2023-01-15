@@ -25,7 +25,6 @@ Patch7:         CGI-SpeedyCGI-2.22-Fix-building-on-Perl-without-dot-in-INC.patch
 # Fix building with GCC 10, bug #1793916, CPAN RT#131596
 Patch8:         CGI-SpeedyCGI-2.22-Fix-building-with-GCC-10.patch
 Patch9:         perl-CGI-SpeedyCGI-c99.patch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc

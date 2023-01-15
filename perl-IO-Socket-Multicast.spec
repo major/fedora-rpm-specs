@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(IO::Interface) >= 0.94
 
 Requires:       perl(IO::Interface) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The IO::Socket::Multicast module sub-classes IO::Socket::INET to enable you

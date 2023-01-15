@@ -18,7 +18,6 @@ BuildRequires:  perl(BDB) >= 1.5
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(AnyEvent) >= 3.81
 Requires:       perl(BDB) >= 1.5
 Requires:       perl(Exporter)

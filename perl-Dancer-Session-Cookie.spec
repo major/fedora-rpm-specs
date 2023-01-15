@@ -53,7 +53,6 @@ BuildRequires:  perl(Plack) >= 1.0029
 BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(YAML)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module implements a session engine for sessions stored entirely in

@@ -59,7 +59,6 @@ BuildRequires:  perl(Software::License::Artistic_1_0)
 BuildRequires:  perl(Software::License::Perl_5)
 BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config::MVP::Assembler)
 Requires:       perl(Config::MVP::Assembler::WithBundles)
 Requires:       perl(Config::MVP::Reader::Finder)

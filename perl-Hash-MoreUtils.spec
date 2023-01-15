@@ -12,7 +12,6 @@ BuildRequires:  %{__perl}
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More) >= 0.90
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Similar to List::MoreUtils, Hash::MoreUtils contains trivial but commonly-

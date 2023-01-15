@@ -18,7 +18,6 @@ BuildRequires:  perl(SelfLoader)
 BuildRequires:  perl(Term::ReadKey)
 # Tests:
 BuildRequires:  perl(Term::ReadLine)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Term::ReadKey)
 
 %description

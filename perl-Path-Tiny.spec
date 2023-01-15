@@ -60,7 +60,6 @@ BuildRequires:	perl(Test::FailWarnings)
 BuildRequires:	perl(Test::MockRandom)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Cwd)
 Requires:	perl(Digest) >= 1.03
 Requires:	perl(Digest::SHA) >= 5.45

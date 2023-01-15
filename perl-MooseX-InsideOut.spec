@@ -33,7 +33,6 @@ BuildRequires:  perl(Pod::Coverage::TrustPod)
 BuildRequires:  perl(Test::Pod) >= 1.41
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::MOP) >= 0.80
 Requires:       perl(Moose) >= 0.94
 Requires:       perl(namespace::clean) >= 0.11

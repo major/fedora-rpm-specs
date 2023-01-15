@@ -48,7 +48,6 @@ BuildRequires:  perl(Time::Warp)
 BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(DateTime) >= 0.55
 Requires:       perl(DBIx::Class) >= 0.08009
 Requires:       perl(DBIx::Class::DynamicDefault) >= 0.03

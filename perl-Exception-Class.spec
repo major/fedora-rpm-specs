@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(CPAN::Meta::Prereqs)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Exception::Class allows you to declare exception hierarchies in your

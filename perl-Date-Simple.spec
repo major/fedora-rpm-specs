@@ -29,7 +29,6 @@ BuildRequires:	perl(warnings::register)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(warnings)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(DynaLoader)
 
 # Don't "provide" private Perl libs

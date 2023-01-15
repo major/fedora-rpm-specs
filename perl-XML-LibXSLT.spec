@@ -48,7 +48,6 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl(DynaLoader)
 Requires:   perl(Exporter)
 Requires:   perl(XML::LibXML) >= %{version}

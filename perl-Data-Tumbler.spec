@@ -25,7 +25,6 @@ BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Most) >= 0.11
 BuildRequires:	perl(Time::HiRes)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The tumble() method calls a sequence of 'provider' code references, each of

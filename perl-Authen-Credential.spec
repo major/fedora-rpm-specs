@@ -28,7 +28,6 @@ BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 Requires:       perl(No::Worries::Die) >= 1.1
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(No::Worries::Die\\)$

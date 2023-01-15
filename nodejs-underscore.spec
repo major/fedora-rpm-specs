@@ -10,7 +10,7 @@
 
 Name:       nodejs-underscore
 Version:    1.13.1
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    JavaScript's functional programming helper library
 License:    MIT
 URL:        http://underscorejs.org/
@@ -67,7 +67,7 @@ rm -f underscore-min.*
 
 %install
 mkdir -p %{buildroot}%{nodejs_sitelib}/underscore
-cp -pr package.json underscore.js underscore-min.js underscore-min.js.map \
+cp -pr package.json underscore*.js underscore*.cjs underscore*.map \
     %{buildroot}%{nodejs_sitelib}/underscore
 
 # Install browser version
@@ -97,6 +97,9 @@ cp -pr underscore.js underscore-min.js underscore-min.js.map \
 
 
 %changelog
+* Fri Jan 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.1-4
+- Install additional scripts to satisfy dependency (bug 2123435)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

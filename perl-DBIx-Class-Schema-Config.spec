@@ -31,7 +31,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 Requires:       perl(Config::Any) >= 0.23
 Requires:       perl(DBIx::Class) >= 0.08100
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Config::Any\\)\s*$
 

@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 # CPAN::Meta not heplful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moo) >= 1.000003
 
 # Remove under-specified dependencies

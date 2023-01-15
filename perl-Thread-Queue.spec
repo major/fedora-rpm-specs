@@ -26,7 +26,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Test::More) >= 0.50
 BuildRequires:  perl(Thread::Semaphore)
 BuildRequires:  perl(threads)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}%{_datadir}/doc/

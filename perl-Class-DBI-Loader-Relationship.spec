@@ -11,7 +11,6 @@ BuildRequires:	perl-generators
 BuildRequires:	perl(Class::DBI::Loader), perl(Lingua::EN::Inflect::Number)
 BuildRequires:	perl(Test::More), perl(ExtUtils::MakeMaker)
 Requires:  perl(Class::DBI::Loader), perl(Lingua::EN::Inflect::Number)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 %{summary}.

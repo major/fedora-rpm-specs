@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Time::Out provides an easy interface to alarm(2) based timeouts. Nested

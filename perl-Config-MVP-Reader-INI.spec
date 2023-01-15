@@ -20,7 +20,6 @@ BuildRequires:  perl(Test::More)
 Requires:       perl(Config::INI::Reader)
 Requires:       perl(Config::MVP::Reader)
 Requires:       perl(Config::MVP::Reader::Findable::ByExtension)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

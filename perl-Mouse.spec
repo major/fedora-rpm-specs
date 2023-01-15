@@ -76,7 +76,6 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Output)
 BuildRequires:  perl(URI)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Scalar::Util) >= 1.14
 Requires:       perl(Data::Dumper)
 Requires:       perl(mro)

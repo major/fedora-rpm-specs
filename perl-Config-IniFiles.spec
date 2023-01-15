@@ -43,7 +43,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Not autodetected. Found in lib/Config/IniFiles.pm:2761
 Requires:       perl(IO::Scalar) >= 2.109
 # Also not autodetected

@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Controller-FormBuilder
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSTROUT/Catalyst-Controller-FormBuilder-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  findutils
 BuildRequires:  make

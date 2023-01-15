@@ -32,7 +32,6 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod) >= 1.14
 BuildRequires:	perl(warnings)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

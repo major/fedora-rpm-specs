@@ -14,7 +14,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::ReadmeFromPod)

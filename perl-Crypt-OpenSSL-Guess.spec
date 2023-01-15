@@ -23,7 +23,6 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter) >= 5.57
 Recommends:     openssl
 

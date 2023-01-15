@@ -76,7 +76,6 @@ BuildRequires:  perl(Moose)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Readonly)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(CPAN::DistnameInfo)
 # CPAN::Releases::Latest not yet packaged
 # JSON or JSON::PP by Devel::Cover::DB::IO::JSON

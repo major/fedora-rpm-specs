@@ -18,7 +18,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(HTML::FromText) >= 1.004
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -20,7 +20,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Convert::Color::RGB)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Convert::Color::RGB8) >= 0.06
 Suggests:       perl(Convert::Color::X11)
 

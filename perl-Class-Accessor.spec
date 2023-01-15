@@ -23,7 +23,6 @@ BuildRequires:  perl(Sub::Name)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::Hash)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module automagically generates accessors/mutators for your class.

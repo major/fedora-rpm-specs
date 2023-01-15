@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  procps-ng
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       procps-ng
 
 %description

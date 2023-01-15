@@ -18,7 +18,6 @@ BuildRequires: 	perl(Number::Compare)
 BuildRequires: 	perl(Text::Glob)
 BuildRequires:  perl(Test::More) >= 0.07
 
-Requires:  	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 File::Find::Rule is a friendlier interface to File::Find.  It allows

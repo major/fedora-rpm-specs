@@ -34,7 +34,6 @@ BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Accessor) >= 0.51
 Requires:       perl(Iterator::Simple) >= 0.07
 

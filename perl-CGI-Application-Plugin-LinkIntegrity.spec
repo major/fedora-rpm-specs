@@ -20,7 +20,6 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(URI::QueryParam)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -41,7 +41,6 @@ BuildRequires: perl(Test::Warnings)
 BuildRequires: perl(Test::Without::Module)
 BuildRequires: perl(Test::use::ok)
 BuildRequires: perl(namespace::clean) >= 0.08
-Requires:      perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

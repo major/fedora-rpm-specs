@@ -24,7 +24,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CPAN::Meta::YAML) >= 0.002
 Requires:       perl(version) >= 0.87
 Conflicts:      perl-Module-Build < 0.42.07

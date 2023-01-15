@@ -34,7 +34,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # This isn't picked up automatically by rpmbuild
 Requires:       perl(XSLoader)

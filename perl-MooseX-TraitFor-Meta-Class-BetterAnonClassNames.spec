@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::CheckDeps) >= 0.010
 BuildRequires:  perl(Test::Moose::More)
 BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Moose meta class role helps with creating anonymous classes.

@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 0.95
 BuildRequires:  perl(Test::Tester) >= 0.08
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This single-purpose module attempts to eliminate uncaught syntax errors or

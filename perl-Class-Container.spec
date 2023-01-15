@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(B::Deparse)
 Requires:       perl(Params::Validate) >= 0.23
 Recommends:     perl(Scalar::Util)

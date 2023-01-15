@@ -27,7 +27,6 @@ BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(XML::Parser::PerlSAX)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 XML::Grove is a tree-based object model for accessing the information

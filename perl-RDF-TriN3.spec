@@ -46,7 +46,6 @@ BuildRequires:  perl(Test::More) >= 0.61
 # Require at least one database storage. Otherwise a t/02dbi.t test fails
 # because Memory storage does not provide clear_restrictions() method.
 BuildRequires:  perl(RDF::Trine::Store::DBI::SQLite)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(RDF::Trine) >= 0.135
 
 

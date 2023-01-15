@@ -32,7 +32,6 @@ BuildRequires:  perl(Unicode::LineBreak)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Text::vFile::asData\\)$
 

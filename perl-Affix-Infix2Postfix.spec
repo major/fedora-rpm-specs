@@ -18,7 +18,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Infix2Postfix as the name suggests converts from infix to postfix notation.

@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 TNEF stands for Transport Neutral Encapsulation Format, and if you've

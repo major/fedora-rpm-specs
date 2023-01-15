@@ -26,7 +26,6 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # dprofpp from perl-Devel-DProf is executed
 Requires:       perl-Devel-DProf
 

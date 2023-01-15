@@ -10,7 +10,6 @@ BuildRequires:  gcc
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -33,7 +33,6 @@ BuildRequires:  perl(strict)
 # Tests
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Type)
 Requires:       perl(Image::Size)
 Requires:       perl(Paper::Specs) >= 0.10

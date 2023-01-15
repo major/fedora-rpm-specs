@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Simple) >= 0.44
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Capture) >= 0.05
 
 %description

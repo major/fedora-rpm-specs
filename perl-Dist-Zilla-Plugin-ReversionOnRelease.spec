@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Test::Pod 1.41 not used
 # Optional tests:
 BuildRequires:  perl(Dist::Zilla::Plugin::VersionFromModule)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This is a Dist::Zilla plugin
 Requires:       perl(Dist::Zilla) >= 4.2
 Requires:       perl(Dist::Zilla::Role::FileMunger)

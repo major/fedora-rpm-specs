@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::Requires) >= 0.05
 # Optional tests:
 BuildRequires:  perl(:VERSION) >= 5.10
 BuildRequires:  perl(Test::Synopsis) >= 0.14
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Term::Chrome is a domain-specific language (DSL) for terminal decoration

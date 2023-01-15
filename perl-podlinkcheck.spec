@@ -51,7 +51,6 @@ BuildRequires:  perl(Data::Dumper)
 # Devel::FindRef does not built with Perl 5.22
 # Devel::StackTrace not used
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config)
 Requires:       perl(File::Find::Iterator)
 Requires:       perl(File::HomeDir)

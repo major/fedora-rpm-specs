@@ -1,8 +1,8 @@
-%global beta beta7
+%global beta beta8
 
 Name: conan
 Version: 2.0.0
-Release: 0.5.%{beta}%{?dist}
+Release: 0.6.%{beta}%{?dist}
 
 License: MIT
 Summary: Open-source C/C++ package manager
@@ -64,6 +64,9 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.6.beta8
+- Updated to version 2.0.0-beta8.
+
 * Thu Dec 22 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.5.beta7
 - Updated to version 2.0.0-beta7.
 

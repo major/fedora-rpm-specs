@@ -31,7 +31,6 @@ BuildRequires:  perl(Sub::Name)
 # Tests:
 BuildRequires:  perl(Test::HexString)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Optional run-time:
 Requires:       perl(Sub::Name)
 

@@ -33,7 +33,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(Test::More) >= 0.90
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Cwd) >= 3.12
 Requires:       perl(File::Path) >= 2.01
 Requires:       perl(File::Spec) >= 3.12

@@ -30,7 +30,6 @@ BuildRequires:  perl(Exporter)
 # Test Suite
 BuildRequires:  perl(Storable)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is Perl binding to the LZF compression library.

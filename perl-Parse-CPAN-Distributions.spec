@@ -30,7 +30,6 @@ BuildRequires:  perl(version)
 BuildRequires:  perl(Test::More) >= 0.70
 # Test::Pod 1.0 not used
 # Test::Pod::Coverage 0.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides the ability to index the distributions that are

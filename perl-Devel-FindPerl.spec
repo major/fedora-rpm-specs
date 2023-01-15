@@ -24,7 +24,6 @@ BuildRequires:  perl(IPC::Open2)
 BuildRequires:  perl(Scalar::Util)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module tries to find the path to the currently running perl.

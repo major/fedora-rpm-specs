@@ -16,7 +16,6 @@ BuildRequires:  perl(namespace::clean)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module activates community provided syntax extensions to Perl. You

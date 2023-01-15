@@ -31,7 +31,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(LWP::Simple)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::TCP) >= 0.06
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

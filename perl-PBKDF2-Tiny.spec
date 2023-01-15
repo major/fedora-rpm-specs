@@ -31,7 +31,6 @@ BuildRequires:  perl(Exporter) >= 5.57
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Digest::SHA or Digest::SHA::::PurePerl
 Requires:       perl(Digest::SHA)
 

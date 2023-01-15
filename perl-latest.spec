@@ -19,7 +19,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(version)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Shake out any obscure problems that might result from your code being used by a

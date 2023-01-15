@@ -16,7 +16,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Spreadsheet::WriteExcel::Simple)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This library provides a simple abstraction of the Spreadsheet::ParseExcel 

@@ -26,7 +26,6 @@ BuildRequires:  perl(URI::Escape) >= 3.28
 # Testing
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(List::Util) >= 1.29
 Requires:       perl(LWP::Protocol::https)
 Requires:       perl(LWP::UserAgent) >= 2.03

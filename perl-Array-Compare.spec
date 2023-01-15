@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 If you have two arrays and you want to know if they are the same or

@@ -32,7 +32,6 @@ BuildRequires:  perl(File::Temp) >= 0.18
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Specio)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This library provides a set of Path::Tiny types and coercions for Specio.

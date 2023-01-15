@@ -173,7 +173,6 @@ binaries and applications.
 %package agent-libs
 Summary:   The NET-SNMP runtime agent libraries
 # the libs link against libperl.so:
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description agent-libs

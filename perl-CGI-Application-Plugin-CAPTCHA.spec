@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::WWW::Mechanize)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

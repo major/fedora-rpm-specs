@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Perl::Critic)
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Pod) >= 1.14
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Test::Pod::Content)
 
 %description

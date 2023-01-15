@@ -61,7 +61,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 # CPAN::Meta 2.120900 not useful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides basic support for the Unicode bidirectional (Bidi)

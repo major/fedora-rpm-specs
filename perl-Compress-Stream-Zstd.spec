@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Unbundling is not possible, because libzstd-devel doesn't not contains
 # 'compress/zstdmt_compress.h', which is used by lib/Compress/Stream/Zstd.xs 
 Provides:       bundled(zstd) = 1.4.3

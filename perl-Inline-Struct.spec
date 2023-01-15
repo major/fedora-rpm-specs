@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Inline) >= 0.66
 Requires:       perl(Inline::C) >= 0.62
 Requires:       perl(Parse::RecDescent)

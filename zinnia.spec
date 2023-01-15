@@ -64,7 +64,6 @@ use %{name}.
 %package  	perl
 Summary:	Perl bindings for %name
 Requires:	%{name} = %{version}-%{release}
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description 	perl

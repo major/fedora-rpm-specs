@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(JSON) >= 2.50
 Requires:       perl(Moo) >= 0.009007
 Requires:       perl(URI) >= 1.58
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(JSON\\)$

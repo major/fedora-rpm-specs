@@ -24,7 +24,6 @@ BuildRequires:  perl(XML::SAX::Base)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(XML::SAX) >= 0.05
 BuildRequires:  perl(XML::SAX::Writer)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(LWP::UserAgent)
 
 %description

@@ -30,7 +30,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::CheckDeps) >= 0.010
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Dist::Zilla::Role::Plugin) >= 1.000
 Requires:       perl(Moose) >= 0.34
 Requires:       perl(MooseX::Types) >= 0.06

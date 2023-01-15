@@ -40,7 +40,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(FileHandle)
 # Symbol not needed
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(POSIX)
 
 # Filter unused dependencies

@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(CPAN::Meta::YAML) >= 0.011
 Requires:       perl(Encode)
 Requires:       perl(JSON::PP) >= 2.27300

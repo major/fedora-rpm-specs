@@ -7,7 +7,6 @@ URL:            https://metacpan.org/release/File-Find-Rule-Perl
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/File-Find-Rule-Perl-%{version}.tar.gz
 # Filter out the files rpm generates in sourcedir.
 Patch0:         0001-File-Find-Rule-Perl-1.16-fedora.patch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  %{__make}

@@ -28,7 +28,6 @@ BuildRequires:	perl(vars)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Apache::Session::NoSQL)-Driver = %{version}-%{release}
 
 %description

@@ -20,7 +20,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(base)
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is the Class::Singleton module. A Singleton describes an object class

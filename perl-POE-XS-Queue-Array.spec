@@ -24,7 +24,6 @@ BuildRequires:  perl(Errno)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # Prefer XSLoader over DynaLoader
 Requires:       perl(XSLoader)
 

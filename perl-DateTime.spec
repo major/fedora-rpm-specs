@@ -64,7 +64,6 @@ BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::Warn)
 %endif
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 # Avoid provides from DateTime.so

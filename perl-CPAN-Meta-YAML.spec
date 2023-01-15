@@ -60,7 +60,6 @@ BuildRequires:	perl(Test::CPAN::Meta)
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Version)
 %endif
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 Requires:	perl(Fcntl)
 

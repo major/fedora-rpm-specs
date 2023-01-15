@@ -30,7 +30,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module attempts to guess a file's type from its contents like the file(1)

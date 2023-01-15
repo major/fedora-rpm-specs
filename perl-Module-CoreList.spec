@@ -25,7 +25,6 @@ BuildRequires:  perl(List::Util)
 BuildRequires:  perl(version) >= 0.88
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(List::Util)
 Requires:       perl(version) >= 0.88
 

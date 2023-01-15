@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 Requires:       perl(Data::Dump::Filtered)
 Requires:       perl(Data::Dump::FilterContext)
 Requires:       perl(MIME::Base64)

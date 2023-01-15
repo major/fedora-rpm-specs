@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Optional tests:
 BuildRequires:  perl(YAML)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 URI::Query provides simple URI query string manipulation, allowing you to

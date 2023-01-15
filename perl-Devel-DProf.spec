@@ -27,7 +27,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Benchmark)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(deprecate)
 Requires:       perl(Pod::Usage)
 

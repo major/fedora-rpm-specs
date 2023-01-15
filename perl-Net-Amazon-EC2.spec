@@ -34,7 +34,6 @@ BuildRequires: perl(XML::Simple)
 BuildRequires: perl(blib)
 BuildRequires: perl(Test::Exception)
 BuildRequires: perl(Test::More)
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires: perl(Moose) >= 0.38
 Requires: perl(XML::Simple) >= 2.18
 

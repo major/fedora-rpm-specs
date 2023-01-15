@@ -19,7 +19,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl(Date::Parse) >= 2.20
 
 %description

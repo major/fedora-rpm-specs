@@ -40,7 +40,6 @@ BuildRequires:  perl(Math::BigInt::GMP)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(threads)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 %{?perl_default_filter}

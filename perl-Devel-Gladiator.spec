@@ -26,7 +26,6 @@ BuildRequires:  perl(Devel::Peek)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Devel::Gladiator iterates Perl's internal memory structures and can be used to

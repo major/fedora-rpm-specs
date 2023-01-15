@@ -27,7 +27,6 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Reads the content of perl modules the same way perl does. This includes

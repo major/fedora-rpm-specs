@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides a portable, secure generator of RFC-4122 version 4

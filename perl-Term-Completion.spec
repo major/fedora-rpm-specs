@@ -7,7 +7,6 @@ Source:     https://cpan.metacpan.org/authors/id/M/MA/MAREKR/Term-Completion-%{v
 Url:        https://metacpan.org/release/Term-Completion
 # Fixed handling of spaces and tabs after the end of completed file (CPAN RT#121992)
 Patch0:     Term-Completion-1.00-Fix-handling-of-spaces-and-tabs.patch
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 BuildRequires: findutils
 BuildRequires: make

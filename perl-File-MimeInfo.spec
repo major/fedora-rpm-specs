@@ -61,7 +61,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 # Test::Pod::No404s not used
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::BaseDir) >= 0.03
 Requires:       perl(File::DesktopEntry) >= 0.04
 %if %{with perl_File_MimeInfo_enables_stdin}

@@ -3,10 +3,12 @@
 Summary: A dynamic OpenSSL provider for IBMCA
 Name: openssl-ibmca
 Version: 2.3.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: ASL 2.0
 URL: https://github.com/opencryptoki
 Source0: https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+# post GA fixes
+Patch0: %{name}-%{version}-fixes.patch
 Requires: libica >= 4.0.0
 BuildRequires: make
 BuildRequires: gcc
@@ -53,6 +55,9 @@ make check
 
 
 %changelog
+* Fri Jan 13 2023 Dan Horák <dan@danny.cz> - 2.3.1-4
+- add post GA fixes
+
 * Fri Jan 06 2023 Dan Horák <dan@danny.cz> - 2.3.1-3
 - switch to building only the provider
 

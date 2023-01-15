@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module allows you to check an IP address against one or more IP

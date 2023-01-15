@@ -38,7 +38,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 1.001002
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config::IniFiles) >= 2.88
 Requires:       perl(DateTime::Format::HTTP) >= 0.42
 Requires:       perl(DateTime::Format::Strptime) >= 1.73

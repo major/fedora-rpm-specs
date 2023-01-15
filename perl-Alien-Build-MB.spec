@@ -28,7 +28,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test2::V0) >= 0.000121
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Build) >= 1.14
 
 # Remove under-specified dependencies

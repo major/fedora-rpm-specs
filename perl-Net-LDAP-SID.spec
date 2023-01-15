@@ -18,7 +18,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Active Directory Security Identifier manipulation

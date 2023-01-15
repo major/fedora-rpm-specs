@@ -19,7 +19,6 @@ BuildRequires:  perl(Sub::Delete)
 # Tests
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  perl(SUPER)
 Requires:  perl(Sub::Delete)
 Patch0:    01_fix_pod.patch

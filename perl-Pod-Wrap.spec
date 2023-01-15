@@ -23,7 +23,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Pod::Stripper)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Text::Diff)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a Pod::Parser subclass, based on Pod::Stripper. It parses perl

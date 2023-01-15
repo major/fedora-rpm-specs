@@ -24,7 +24,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.14
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Hook::LexWrap allows you to install a pre- or post-wrapper (or both)

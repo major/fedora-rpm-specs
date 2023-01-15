@@ -35,7 +35,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Filter modules bundled for tests
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Geo::ShapeFile::TestHelpers\\)

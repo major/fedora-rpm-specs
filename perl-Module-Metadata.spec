@@ -38,7 +38,6 @@ BuildRequires:	perl(vars)
 # Optional test requirements
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Encode)
 Requires:	perl(Fcntl)
 

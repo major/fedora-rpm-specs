@@ -1,7 +1,7 @@
 %global toolchain clang
 %global maj_ver 15
 %global min_ver 0
-%global patch_ver 6
+%global patch_ver 7
 #global rc_ver 3
 %global libunwind_version %{maj_ver}.%{min_ver}.%{patch_ver}
 
@@ -9,7 +9,7 @@
 
 Name:       llvm-libunwind
 Version:    %{libunwind_version}%{?rc_ver:~rc%{rc_ver}}
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    LLVM libunwind
 
 License:    ASL 2.0 or NCSA or MIT
@@ -137,6 +137,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-1
+- Update to LLVM 15.0.7
+
 * Mon Jan 02 2023 Nikita Popov <npopov@redhat.com> - 15.0.6-2
 - Provide libunwind.a
 

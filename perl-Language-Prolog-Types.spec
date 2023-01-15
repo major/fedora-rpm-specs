@@ -14,7 +14,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module exports subroutines to create Prolog terms in Perl, to test

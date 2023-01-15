@@ -26,7 +26,6 @@ BuildRequires:  perl(CPAN::Meta::YAML)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 File::ShareDir::Install allows you to install read-only data files from a

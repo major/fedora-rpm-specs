@@ -25,7 +25,6 @@ BuildRequires:  perl(Sub::Exporter)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More) >= 1.001002
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(File::Spec)
 Requires:       perl(Path::IsDev) >= 0.2.2

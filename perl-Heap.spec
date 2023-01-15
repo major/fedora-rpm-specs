@@ -20,7 +20,6 @@ BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Heap collection of modules provide routines that manage a heap of 

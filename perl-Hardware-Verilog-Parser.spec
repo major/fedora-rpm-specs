@@ -19,7 +19,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Parse::RecDescent)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter bogus requires/provides of PrecompiledParser
 %global __provides_exclude ^perl\\((Parse::RecDescent::)?PrecompiledParser\\)

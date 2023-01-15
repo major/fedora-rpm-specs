@@ -26,7 +26,6 @@ BuildRequires:  perl(YAML)
 # Tests
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::use::ok)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::HexDump::XXD)
 Requires:       perl(YAML)
 

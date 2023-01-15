@@ -34,7 +34,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(warnings::register)
 BuildRequires:  perl(XSLoader)
 Requires:       perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module adds support for 64 bit integers, signed and unsigned, to Perl.

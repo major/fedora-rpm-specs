@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::More)
 Requires:       perl(HTTP::ProxyAutoConfig)
 Requires:       perl(IO::Socket::SSL)
 Requires:       perl(Net::DNS)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides the user with methods to connect to a remote server, 

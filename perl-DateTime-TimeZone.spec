@@ -89,7 +89,6 @@ BuildRequires:  perl(DateTime) >= 0.1501
 BuildRequires:  perl(Test::Output)
 BuildRequires:  perl(Test::Taint)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(File::Basename)
 Requires:       perl(File::Compare)
 Requires:       perl(File::Find)

@@ -40,7 +40,6 @@ BuildRequires:  perl(Test::More)
 # Test::Pod not used
 # Test::Pod::Coverage not used
 # Test::Script not helpful because of no script files
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides bindings to perform some geometric operations using

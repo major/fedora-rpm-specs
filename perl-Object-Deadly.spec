@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Object::Deadly is meant to be used in testing. All possible

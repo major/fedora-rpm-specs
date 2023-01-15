@@ -19,7 +19,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(URI)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is an HTTP request parser. It takes chunks of text as received and

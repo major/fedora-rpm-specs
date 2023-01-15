@@ -26,7 +26,6 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(Test::More)
 # Optional tests
 BuildRequires:	perl(Test::Pod) >= 1.14
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	aspell >= 0.50.1
 
 %{?perl_default_filter}

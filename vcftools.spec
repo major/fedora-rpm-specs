@@ -11,7 +11,6 @@ BuildRequires:	gcc-c++
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 BuildRequires:	zlib-devel
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 
 %description

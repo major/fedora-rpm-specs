@@ -1,12 +1,14 @@
 Summary: Interface statistics
 Name: ifstat
 Version: 1.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 License: GPLv2+
 URL: http://gael.roualland.free.fr/ifstat/
 Source0: http://gael.roualland.free.fr/ifstat/ifstat-%{version}.tar.gz
 Patch0: ifstat-destdir.patch
 Patch1: ifstat-UTF8.patch
+Patch2: ifstat-configure-c99.patch
+Patch3: ifstat-configure-snmp-c99.patch
 BuildRequires: net-snmp-devel
 BuildRequires: gcc
 BuildRequires: make
@@ -21,6 +23,8 @@ need to have snmpd running for this though).
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 %configure \
@@ -39,6 +43,9 @@ need to have snmpd running for this though).
 %{_bindir}/ifstat
 
 %changelog
+* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.1-38
+- Port configure script to C99 (#2160642)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

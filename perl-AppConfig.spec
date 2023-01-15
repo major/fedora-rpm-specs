@@ -31,7 +31,6 @@ BuildRequires:  perl(vars)
 # Optional Tests:
 BuildRequires:  perl(Test::Pod) >= 1.14
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 AppConfig has a powerful but easy to use module for parsing

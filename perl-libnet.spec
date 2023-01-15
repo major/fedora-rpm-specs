@@ -74,7 +74,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(IO::Socket::SSL::Utils)
 %endif
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Basename)
 Requires:       perl(IO::Socket) >= 1.05
 # Prefer IO::Socket::IP over IO::Socket::INET6 and IO::Socket::INET

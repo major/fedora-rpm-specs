@@ -17,7 +17,6 @@ BuildRequires:  perl(Net::FTP)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 Net::INET6Glue is a collection of modules to make common modules IPv6 ready

@@ -26,7 +26,6 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(Test::More)
 # Optional tests:
 # Test::Pod not used if login is not salva
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter bogus provide of perl(DB)
 %global __provides_exclude ^perl\\(DB\\)

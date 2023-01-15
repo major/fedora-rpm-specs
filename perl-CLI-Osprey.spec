@@ -32,7 +32,6 @@ BuildRequires:  perl(Test::Lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(lib)
 Requires:       perl(Pod::Usage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

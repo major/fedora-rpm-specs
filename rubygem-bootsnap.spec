@@ -2,8 +2,8 @@
 %global gem_name bootsnap
 
 Name: rubygem-%{gem_name}
-Version: 1.4.7
-Release: 9%{?dist}
+Version: 1.15.0
+Release: 1%{?dist}
 Summary: Boot large ruby/rails apps faster
 License: MIT
 URL: https://github.com/Shopify/bootsnap
@@ -12,16 +12,20 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # The bootsnap gem doesn't ship with the test suite.
 # You may check it out like so:
 # git clone http://github.com/Shopify/bootsnap.git --no-checkout
-# cd bootsnap && git archive -v -o bootsnap-1.4.7-tests.txz v1.4.7 test/
+# cd bootsnap && git archive -v -o bootsnap-1.15.0-tests.txz v1.15.0 test/
 Source1: %{gem_name}-%{version}-tests.txz
+# Correctly determine StdLib files as stable.
+# https://github.com/Shopify/bootsnap/issues/431
+# https://github.com/Shopify/bootsnap/commit/72202aab5e5b3602ece4e8748bcdeefe2d789ab5
+Patch0: rubygem-bootsnap-1.15.0-Use-RbConfig-CONFIG-rubylibdir-to-check-for-stdlib-files.patch
+Patch1: rubygem-bootsnap-1.15.0-Use-RbConfig-CONFIG-rubylibdir-to-check-for-stdlib-files-test.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel >= 2.0.0
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(mocha)
-# Bundler is needed just for one test, that is failing atm.
-# BuildRequires: rubygem(bundler)
+BuildRequires: rubygem(bundler)
 BuildRequires: rubygem(msgpack)
 # Compiler is required for build of gem binary extension.
 # https://fedoraproject.org/wiki/Packaging:C_and_C++#BuildRequires_and_Requires
@@ -40,7 +44,13 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version} -a 1
+%setup -q -n %{gem_name}-%{version} -b 1
+
+%patch0 -p1
+
+pushd %{_builddir}
+%patch1 -p1
+popd
 
 sed -i -e "/^\s*\$CFLAGS / s/^/#/g" \
   ext/bootsnap/extconf.rb
@@ -61,36 +71,37 @@ cp -a .%{gem_extdir_mri}/%{gem_name}/*.so %{buildroot}%{gem_extdir_mri}/%{gem_na
 # Prevent dangling symlink in -debuginfo (rhbz#878863).
 rm -rf %{buildroot}%{gem_instdir}/ext/
 
+mkdir -p %{buildroot}%{_bindir}
+cp -a .%{_bindir}/* \
+        %{buildroot}%{_bindir}/
+
+find %{buildroot}%{gem_instdir}/exe -type f | xargs chmod a+x
+
 %check
-# copy the previously unpacked test files
-cp -a test/ .%{gem_instdir}
 pushd .%{gem_instdir}
+ln -s %{_builddir}/test test
 
-# Remove bundler dependency, also, we have
-# newer minitest than upstream is testing with.
-sed -i -e "/^require('bundler/ s/^/#/" \
-  test/test_helper.rb
-mv test/bundler_test.rb{,.disable}
+cat <<GEMFILE > Gemfile
+gem "minitest"
+gem "mocha"
+gem "msgpack"
+GEMFILE
 
-# '/usr/share/ruby/time.rb' is expected to be in stable prefix,
-# but that is failing for some reason. Same issue with bundler.
-# https://github.com/Shopify/bootsnap/issues/173
-sed -i -e "/^\s*assert(stable.stable?,/ s/^/#/g" \
-       -e "/^\s*refute(stable.volatile?,/ s/^/#/g" \
-       -e "/^\s*assert(bundler.stable?,/ s/^/#/g" \
-       -e "/^\s*Bundler/ s/^/#/g" \
-  test/load_path_cache/path_test.rb
-
-ruby -rpathname -rset -Ilib:test:%{buildroot}%{gem_extdir_mri} -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+# Plese note that `KernelTest` testcases are executed in separate process,
+# which needs to subsequetnly load `bootsnap/setup`, therefore we need to
+# use RUBYOPT to define load paths. This is normally handled by Bunler and
+# `gemspec` directive. But we would need to have the bootsnap .gemspec in
+# the directory.
+RUBYOPT="-I$(dirs +1)%{gem_extdir_mri}:$(dirs +1)%{gem_libdir}" \
+  ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
-
 
 %files
 %dir %{gem_instdir}
+%{_bindir}/bootsnap
 %{gem_extdir_mri}
-%exclude %{gem_instdir}/.*
 %license %{gem_instdir}/LICENSE.txt
-%exclude %{gem_instdir}/bootsnap.gemspec
+%{gem_instdir}/exe
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
@@ -98,17 +109,13 @@ popd
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/CHANGELOG.md
-%doc %{gem_instdir}/CONTRIBUTING.md
-%{gem_instdir}/Gemfile
-%doc %{gem_instdir}/README.jp.md
 %doc %{gem_instdir}/README.md
-%{gem_instdir}/Rakefile
-%{gem_instdir}/dev.yml
-%{gem_instdir}/shipit.rubygems.yml
-%{gem_instdir}/bin
-%doc %{gem_instdir}/CODE_OF_CONDUCT.md
 
 %changelog
+* Thu Jan 12 2023 Vít Ondruch <vondruch@redhat.com> - 1.15.0-1
+- Update to Bootsnap 1.15.0.
+  Resolves: rhbz#1868112
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.7-9
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

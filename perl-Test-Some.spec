@@ -8,7 +8,6 @@ Summary:    Run a subset of tests
 Source:     https://cpan.metacpan.org/authors/id/Y/YA/YANICK/%{upstream_name}-%{version}.tar.gz
 Url:        https://metacpan.org/release/%{upstream_name}
 BuildArch:  noarch
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:   perl-interpreter
 BuildRequires: coreutils
 BuildRequires: make

@@ -56,7 +56,6 @@ BuildRequires:	perl(Types::Standard)
 %endif
 %endif
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:	perl(Class::XSAccessor) >= 1.17
 Recommends:	perl(Sub::Util) >= 1.40
 

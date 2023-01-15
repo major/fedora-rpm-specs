@@ -45,7 +45,6 @@ BuildRequires:  perl(Tk::ROText)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This framework is intended to support unit testing in an object-oriented

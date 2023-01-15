@@ -10,7 +10,6 @@ BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Pure Perl SNMP v1 and SNMP v2 support for Perl 5.

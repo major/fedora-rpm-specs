@@ -143,7 +143,6 @@ BuildRequires:  perl(Validation::Class) >= 7.900017
 BuildRequires:  perl(Validation::Class::Simple)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(B::Deparse)
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)

@@ -15,7 +15,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(URI::URL)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This is an extension of the HTTP::Request suite. It allows easy processing

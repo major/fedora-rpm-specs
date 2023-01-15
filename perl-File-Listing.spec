@@ -22,7 +22,6 @@ BuildRequires:  perl(HTTP::Date)
 BuildRequires:  perl(Config)
 # LWP::Simple not used
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Conflicts:      perl-libwww-perl < 6
 
 # Do not provide private modules

@@ -20,7 +20,6 @@ BuildRequires:	perl(strict)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More) >= 0.40
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Allows you to both load one or more modules, while setting up inheritance

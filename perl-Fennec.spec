@@ -37,7 +37,6 @@ BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::Pod) >= 1.00
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Child) >= 0.010
 Requires:	perl(Mock::Quick) >= 1.106
 Requires:	perl(Test::Exception) >= 0.29

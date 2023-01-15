@@ -28,7 +28,6 @@ BuildRequires:  perl(String::ShellQuote)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Suggests:       perl(String::ShellQuote)
 
 %{?perl_default_filter}

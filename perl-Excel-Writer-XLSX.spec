@@ -35,7 +35,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(Archive::Zip) >= 1.3
 Requires:       perl(File::Temp) >= 0.19
 Requires:       perl(IO::File) >= 1.14
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(Archive::Zip\\)$

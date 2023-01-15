@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Symbol) >= 1.08
 BuildRequires:  perl(Test::More) >= 1.302120
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(base)
 Requires:       perl(Exporter) >= 5.72
 Requires:       perl(Fcntl) >= 1.13

@@ -38,7 +38,6 @@ BuildRequires:  perl(XSLoader)
 # Optional run-time dependency
 Recommends:     perl(Filter::Util::Call)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module allows code that runs at compile-time to do something at

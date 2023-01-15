@@ -5,7 +5,6 @@ Release:        25%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/A/AR/ARISTOTLE/Hash-MultiValue-%{version}.tar.gz
 URL:            https://metacpan.org/release/Hash-MultiValue
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  make

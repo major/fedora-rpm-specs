@@ -11,7 +11,6 @@ BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) perl(Storable) perl(Time::HiRes) perl(String::CRC32) perl(Test::More)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

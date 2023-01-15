@@ -59,7 +59,6 @@ BuildRequires:	perl(Package::Anon)
 BuildRequires:	perl(Variable::Magic)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # For performance and consistency
 Requires:	perl(Package::Stash::XS) >= 0.26
 # Not found by rpm auto-provides

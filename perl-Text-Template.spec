@@ -36,7 +36,6 @@ BuildRequires:  perl(Safe)
 # BuildRequires:  perl(Test::More::UTF8)
 BuildRequires:  perl(Test::Warnings)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

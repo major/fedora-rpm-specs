@@ -21,7 +21,6 @@ BuildRequires:  perl(Exporter)
 # Tests:
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Period.pm is a Perl module that contains code to deal with time periods.

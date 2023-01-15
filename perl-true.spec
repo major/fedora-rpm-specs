@@ -34,7 +34,6 @@ BuildRequires:	perl(lib)
 BuildRequires:	perl(Moo) >= 2.003004
 BuildRequires:	perl(Test::More)
 # ============= Module Runtime ==================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

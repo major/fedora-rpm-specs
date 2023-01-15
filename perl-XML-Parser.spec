@@ -41,7 +41,6 @@ BuildRequires:  perl(if)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::File)
 Requires:       perl(IO::Handle)
 

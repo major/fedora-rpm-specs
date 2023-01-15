@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 # Test::CheckManifest not used
 BuildRequires:  perl(Test::Pod) >= 1.22
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl package exports functions for performing numerical first

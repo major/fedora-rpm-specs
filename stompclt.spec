@@ -10,7 +10,6 @@ BuildRequires:	make
 BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::MakeMaker)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	perl(Net::STOMP::Client) >= 2.0
 # the following one is in theory optional but really nice to have everywhere
 Requires:	perl(Directory::Queue)

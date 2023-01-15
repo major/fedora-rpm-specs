@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module maps country names, and their 2-letter, 3-letter and numerical 

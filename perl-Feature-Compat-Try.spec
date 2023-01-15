@@ -29,7 +29,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(Syntax::Keyword::Try) >= 0.27
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module makes syntax support for try/catch control flow easily available.

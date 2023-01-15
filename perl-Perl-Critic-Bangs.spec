@@ -31,7 +31,6 @@ BuildRequires:  perl(Perl::Critic::TestUtils)
 BuildRequires:  perl(Perl::Critic::UserProfile)
 BuildRequires:  perl(PPI::Document)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Perl::Critic) >= 1.122
 
 %description

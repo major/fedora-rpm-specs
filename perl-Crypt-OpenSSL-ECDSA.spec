@@ -32,7 +32,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Crypt::OpenSSL::EC) >= 0.05
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(XSLoader)
 
 %description

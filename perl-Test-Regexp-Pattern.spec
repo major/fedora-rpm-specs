@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module performs various checks on a module's Regexp::Pattern patterns.

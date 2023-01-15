@@ -22,7 +22,6 @@ BuildRequires:  perl(Exporter)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module defines a few generally useful utility functions that process

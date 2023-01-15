@@ -32,7 +32,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(DynaLoader)
 Requires:       perl(Exporter)
 Requires:       perl(Net::CIDR::Lite) >= 0.20
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module uses a Patricia Trie data structure to quickly perform IP

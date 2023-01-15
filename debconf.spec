@@ -17,7 +17,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires: make
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Required in Debconf/Encoding.pm
 # to test frontends : dpkg-reconfigure --frontend=kde tzdata
 %if  0%{?rhel} > 7

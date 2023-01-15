@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Alien)
 BuildRequires:  perl(Test::More) >= 0.98
 # alien.json bakes in m4 version at build-time
 Requires:       m4 %(perl -e 'print qq{ = $1} if qx{m4 --version} =~ m{(\d+\.\d+\.\d+)}' 2>/dev/null)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Alien::Base) >= 0.038
 Requires:       perl(alienfile) >= 0.32
 Requires:       perl(Capture::Tiny)

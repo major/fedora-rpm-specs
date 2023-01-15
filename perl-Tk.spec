@@ -85,7 +85,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(MIME::Base64)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%{perlver})
 Requires:       perl(locale)
 Provides:       perl(Tk::LabRadio) = 4.004
 Provides:       perl(Tk) = %{version}

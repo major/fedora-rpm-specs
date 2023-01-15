@@ -59,7 +59,6 @@ BuildRequires:	perl(Test::Synopsis)
 BuildRequires:	perl(Test::Vars)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This "license pack" contains all of the licenses from Creative Commons, except

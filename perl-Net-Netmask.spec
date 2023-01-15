@@ -34,7 +34,6 @@ BuildRequires:  perl(Test2::V0) >= 0.000111
 BuildRequires:  perl(utf8)
 # Optional tests
 # Test::Vars not used
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Math::BigInt) >= 1.999811
 
 # Remove under-specified dependencies

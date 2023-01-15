@@ -6,7 +6,6 @@ License:    GPL+ or Artistic
 Summary:    Generate An HTML Tag Cloud 
 Source:     https://cpan.metacpan.org/authors/id/R/RO/ROBERTSD/HTML-TagCloud-%{version}.tar.gz
 Url:        https://metacpan.org/release/HTML-TagCloud
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

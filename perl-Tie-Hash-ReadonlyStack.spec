@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::More)
 # Test::Perl::Critic not used
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module allows you to have your main hash and then assign hashes to

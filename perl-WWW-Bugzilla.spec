@@ -21,7 +21,6 @@ BuildRequires:  perl(WWW::Mechanize) >= 1.22
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Crypt::SSLeay)
 BuildRequires:  perl(Params::Validate)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Class::MethodMaker) >= 1.08
 
 %{?perl_default_filter}

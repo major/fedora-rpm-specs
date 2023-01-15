@@ -31,7 +31,6 @@ BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Loading this plugin causes your tests to fail if there are any warnings while

@@ -21,7 +21,6 @@ BuildRequires:  perl(Test::Builder::Module)
 # Tests only
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Recommends:     perl(Devel::Gladiator)
 
 %description

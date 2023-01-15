@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::Script::Run)
 BuildRequires:  perl(base)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This is a simple module which tries to split any SQL code, even including

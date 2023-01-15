@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Plugin-CGI-Untaint
 Source0:        https://cpan.metacpan.org/authors/id/T/TJ/TJC/Catalyst-Plugin-CGI-Untaint-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires: make
 BuildRequires:  perl-generators

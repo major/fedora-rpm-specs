@@ -23,7 +23,6 @@ BuildRequires:  perl(SVG)
 BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 GD::SVG seamlessly enables the scalable vector graphics (SVG) output

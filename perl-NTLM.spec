@@ -30,7 +30,6 @@ BuildRequires:  perl(warnings)
 # Optional tests
 BuildRequires:  perl(Test::Pod)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides methods to use NTLM authentication.  It can be used

@@ -49,7 +49,6 @@ BuildRequires:  perl(Test::More)
 %if !%{defined perl_bootstrap}
 BuildRequires:  %{_bindir}/find
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl < 4:5.18.2-300
 
 %description

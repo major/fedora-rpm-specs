@@ -58,7 +58,6 @@ BuildRequires:  perl(Time::HiRes)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 # Test::Pod::Coverage not useful
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Class::Trigger) >= 0.13
 Requires:       perl(IPC::Run3) >= 0.036
 

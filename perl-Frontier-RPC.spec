@@ -28,7 +28,6 @@ BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(XML::Parser)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl-Frontier-RPC-doc = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %package Client

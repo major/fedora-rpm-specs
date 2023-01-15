@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::NoWarnings)
 # Optional tests
 BuildRequires:  perl(HTTP::Request::Common)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 %{summary}.

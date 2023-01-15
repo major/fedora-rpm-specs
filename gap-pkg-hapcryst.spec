@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.1.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Integral cohomology computations of Bieberbach groups
 
 License:        GPL-2.0-or-later
@@ -45,10 +45,10 @@ resolutions for Bieberbach groups.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Nimbus: AGPL-3.0-only
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND AGPL-3.0-only
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND AGPL-3.0-only
 Summary:        HAPcryst documentation
 Requires:       %{name} = %{version}-%{release}
 Requires:       gap-online-help
@@ -72,10 +72,10 @@ rm -fr ../pkg
 sed -i "s,\./lib,.&,g" doc/*.html
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
-cp -a *.g examples lib tst %{buildroot}%{gap_dir}/pkg/%{pkgname}
-rm -fr %{buildroot}%{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
+cp -a *.g examples lib tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}
+rm -fr %{buildroot}%{gap_libdir}/pkg/%{pkgname}/lib/datatypes/doc
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/lib/datatypes/doc
 %gap_copy_docs
 %gap_copy_docs -d lib/datatypes/doc
 
@@ -86,25 +86,28 @@ export LC_ALL=C.UTF-8
 polymake --reconfigure - <<< exit;
 
 # Run the actual tests
-gap -l "%{buildroot}%{gap_dir};" tst/testall.g
+gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 
 %files
 %doc CHANGES README
 %license LICENSE
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/examples/
-%exclude %{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/examples/
+%exclude %{gap_libdir}/pkg/%{pkgname}/lib/datatypes/doc/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%docdir %{gap_dir}/pkg/%{pkgname}/examples/
-%docdir %{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/examples/
-%{gap_dir}/pkg/%{pkgname}/lib/datatypes/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%docdir %{gap_libdir}/pkg/%{pkgname}/examples/
+%docdir %{gap_libdir}/pkg/%{pkgname}/lib/datatypes/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/examples/
+%{gap_libdir}/pkg/%{pkgname}/lib/datatypes/doc/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.1.15-3
+- Update for split GAP directories
+
 * Thu Nov 10 2022 Jerry James <loganjerry@gmail.com> - 0.1.15-2
 - Clarify license of the doc subpackage
 

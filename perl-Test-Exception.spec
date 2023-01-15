@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::Harness)
 BuildRequires:  perl(Test::More)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 # Avoid bogus perl(DB) provide

@@ -27,7 +27,6 @@ BuildRequires:  perl(Test2::V0)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 String::Copyright Parses common styles of copyright statements and serializes

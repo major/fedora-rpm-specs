@@ -23,7 +23,6 @@ BuildRequires:  perl(Try::Tiny) >= 0.12
 BuildRequires:  perl(URI::Escape) >= 1.60
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Compile a log format string to perl-code. For faster generation of

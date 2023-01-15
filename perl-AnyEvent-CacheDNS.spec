@@ -22,7 +22,6 @@ BuildRequires:  perl(Data::Dumper)
 # Tests:
 BuildRequires:  perl(AnyEvent)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides a very simple DNS resolver that caches its results

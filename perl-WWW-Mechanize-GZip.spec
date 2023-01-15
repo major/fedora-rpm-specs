@@ -8,7 +8,6 @@ Summary:    Fetch compressed web pages
 Source:     https://cpan.metacpan.org/authors/id/P/PE/PEGI/WWW-Mechanize-GZip-%{version}.tar.gz 
 Url:        https://metacpan.org/release/WWW-Mechanize-GZip
 
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

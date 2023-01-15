@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Unicode::CaseFold)
 BuildRequires:  perl(XSLoader)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

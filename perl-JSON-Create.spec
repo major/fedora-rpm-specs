@@ -53,7 +53,6 @@ BuildRequires:  perl(JSON::PP)
 BuildRequires:  perl(JSON::Tiny)
 BuildRequires:  perl(Types::Serialiser)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(JSON::Parse) >= 0.60
 Requires:       perl(Unicode::UTF8) >= 0.62
 

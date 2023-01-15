@@ -6,7 +6,6 @@ License:        Public Domain
 URL:            https://metacpan.org/release/HTML-CalendarMonthSimple
 Source0:        https://cpan.metacpan.org/modules/by-module/HTML/HTML-CalendarMonthSimple-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Date::Calc)

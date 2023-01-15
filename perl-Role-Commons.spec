@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::More) >= 0.61
 # Optional tests:
 BuildRequires:  perl(Moose) >= 2.02
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Types::TypeTiny version taken from Types::Standard in META
 Requires:       perl(Types::TypeTiny) >= 1.000000
 

@@ -21,7 +21,6 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(MIME::Types)
 BuildRequires:  perl(MIME::Type)
 BuildRequires:  perl(MIME::Base64)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

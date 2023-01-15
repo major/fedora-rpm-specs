@@ -149,7 +149,6 @@ http://www.imagemagick.org/
 %package perl
 Summary:        ImageMagick perl bindings
 Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes:      %{name}7-perl        < %{epoch}:%{version}-%{release}
 Provides:       %{name}7-perl        = %{epoch}:%{version}-%{release}
 

@@ -30,7 +30,6 @@ BuildRequires:  perl(mixin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Kwiki) >= 0.34
 Requires:       perl(Kwiki::Installer)
 

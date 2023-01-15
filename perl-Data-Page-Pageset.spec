@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::Exception)
 # rpm misses this
 Requires:       perl(Data::Page) >= 2
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Pages number can be very high, and it is not comfortable to show user from

@@ -53,7 +53,6 @@ BuildRequires:  perl(Pegex::Base)
 BuildRequires:  perl(Pegex::Parser)
 BuildRequires:  perl(Tie::IxHash)
 BuildRequires:  which
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(List::Util)
 Requires:       perl(Text::Diff)

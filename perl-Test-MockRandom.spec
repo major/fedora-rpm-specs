@@ -20,7 +20,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This perhaps ridiculous-seeming module was created to test routines that

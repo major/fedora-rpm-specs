@@ -1,5 +1,5 @@
 Name:           fennel
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        A Lisp that compiles to Lua
 

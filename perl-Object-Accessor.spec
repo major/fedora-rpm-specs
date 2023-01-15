@@ -29,7 +29,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(deprecate)
 
 %description

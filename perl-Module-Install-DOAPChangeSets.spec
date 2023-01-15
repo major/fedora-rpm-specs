@@ -35,7 +35,6 @@ BuildRequires:  perl(URI::file) >= 4.0
 # Module::Install::Admin::RDF 0.006 not used at tests
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Module::Install::Admin::RDF version from Module::Install::RDF in META
 Recommends:     perl(Module::Install::Admin::RDF) >= 0.006
 Requires:       perl(RDF::Query) >= 2.906

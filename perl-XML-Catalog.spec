@@ -24,7 +24,6 @@ BuildRequires:  perl(XML::Parser)
 # Tests
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module implements draft 0.4 of John Cowan's XML Catalog (formerly

@@ -24,7 +24,6 @@ BuildRequires:  perl(Expect)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Term::ReadLine)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Test::Expect is a module for automated driving and testing of

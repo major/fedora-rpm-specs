@@ -24,7 +24,6 @@ BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Net::DNS::Resolver::Programmable is a Net::DNS::Resolver descendant class

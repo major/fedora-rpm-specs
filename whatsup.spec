@@ -96,7 +96,6 @@ pingd daemon for %{name}
 %package -n    perl-%{libname}
 Summary:       Perl bindings for %{libname}
 Requires:      %{libname} = %{version}-%{release}
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %description -n perl-%{libname}
 Perl bindings for %{libname}
 

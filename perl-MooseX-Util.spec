@@ -41,7 +41,6 @@ BuildRequires:  perl(Test::Requires)
 # Reindeer not yet packaged
 # Reindeer::Role not yet packaged
 #%%endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moose::Meta::Class)
 Requires:       perl(MooseX::TraitFor::Meta::Class::BetterAnonClassNames) >= 0.002001
 

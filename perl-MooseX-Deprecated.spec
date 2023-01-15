@@ -24,7 +24,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 MooseX::Deprecated is a parameterizable role that makes it easy to

@@ -8,7 +8,6 @@ License:       GPL+ or Artistic
 URL:           https://github.com/duncs/clusterssh
 Source0:       https://cpan.metacpan.org/authors/id/D/DU/DUNCS/%{modname}-%{version}.tar.gz
 BuildArch:     noarch
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  xterm
 # 2016-05-16 attempt to fix rhbz #1025913 (crash w/o fonts)
 Requires:  xorg-x11-fonts-75dpi xorg-x11-fonts-100dpi

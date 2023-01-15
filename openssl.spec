@@ -29,7 +29,7 @@ print(string.sub(hash, 0, 16))
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
 Version: 3.0.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch: 1
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
@@ -192,6 +192,8 @@ Patch82: 0082-Propagate-selection-all-the-way-on-key-export.patch
 Patch83: 0083-Update-documentation-for-keymgmt-export-utils.patch
 Patch84: 0084-Add-test-for-EVP_PKEY_eq.patch
 Patch85: 0085-Drop-explicit-check-for-engines-in-opt_legacy_okay.patch
+# https://github.com/openssl/openssl/pull/13817
+Patch100: 0100-RSA-PKCS15-implicit-rejection.patch
 
 License: ASL 2.0
 URL: http://www.openssl.org/
@@ -530,6 +532,10 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Jan 05 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.7-3
+- Backport implicit rejection for RSA PKCS#1 v1.5 encryption
+  Resolves: rhbz#2153470
+
 * Thu Jan 05 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.7-2
 - Refactor embedded mac verification in FIPS module
   Resolves: rhbz#2156045

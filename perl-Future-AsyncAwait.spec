@@ -89,7 +89,6 @@ BuildRequires:  perl(Syntax::Keyword::Try) >= 0.22
 BuildRequires:  perl(Test::MemoryGrowth)
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Future) >= %{future_min_ver}
 %if %{with perl_Future_AsyncAwait_enables_role}
 Recommends:     perl(Role::Tiny)
@@ -134,7 +133,6 @@ Summary:        Build script for Future::AsyncAwait extensions
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 # An RPM macro executes perl
 Requires:       perl-interpreter
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # For the macro file
 Requires:       rpm
 
@@ -145,7 +143,6 @@ module.
 %package Test
 Summary:        Conformance tests for Future::AsyncAwait::Awaitable role
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::More) >= 0.88
 
 %description Test

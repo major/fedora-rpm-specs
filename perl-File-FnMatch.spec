@@ -21,7 +21,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # RPM 4.8 style:
 %{?filter_setup:

@@ -31,7 +31,6 @@ BuildRequires:  perl(Throwable)
 BuildRequires:  perl(Tie::IxHash)
 BuildRequires:  perl(Try::Tiny)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # not automatically detected
 Requires:       perl(Throwable)
 Requires:       perl(Role::Identifiable::HasIdent)

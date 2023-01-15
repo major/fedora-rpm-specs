@@ -117,7 +117,6 @@ Provides python 3 bindings for prelude.
 %package -n perl-prelude
 Summary:        Perl bindings for prelude
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description -n perl-prelude
 Provides perl bindings for prelude.

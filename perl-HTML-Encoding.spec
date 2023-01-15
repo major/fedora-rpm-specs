@@ -14,7 +14,6 @@ BuildRequires:  perl(HTML::Parser)
 BuildRequires:  perl(HTTP::Headers::Util)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Test::More)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 HTML::Encoding helps to determine the encoding of HTML and XML/XHTML

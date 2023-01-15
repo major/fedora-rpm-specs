@@ -19,7 +19,6 @@ BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(DateTime) >= 0.10
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(DateTime::Format::Builder) >= 0.6
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(DateTime::Format::Builder\\)$

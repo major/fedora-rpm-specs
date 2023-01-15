@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 Requires:       perl(Moose::Meta::Role)
 Requires:       perl(Moose::Meta::Role::Application::ToClass)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

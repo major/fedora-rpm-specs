@@ -28,7 +28,6 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Digest::SHA1)
 
 %description

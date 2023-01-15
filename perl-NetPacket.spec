@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 NetPacket provides a base class for a cluster of modules related to decoding

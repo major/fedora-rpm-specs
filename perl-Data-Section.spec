@@ -44,7 +44,6 @@ BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(Test::Pod) >= 1.41
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Data::Section provides an easy way to access multiple named chunks of

@@ -23,7 +23,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(utf8)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 
 %description

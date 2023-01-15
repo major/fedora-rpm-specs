@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Get caller return OP address and Perl interpreter context.

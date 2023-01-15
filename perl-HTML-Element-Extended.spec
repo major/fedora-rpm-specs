@@ -16,7 +16,6 @@ BuildRequires:  perl(HTML::Element) >= 3.01
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(HTML::Element\\)$
 

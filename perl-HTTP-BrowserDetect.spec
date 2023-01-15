@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::Warnings)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Test::Most)
 BuildRequires:  perl(Test::NoWarnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 
 %description
 The HTTP::BrowserDetect object does a number of tests on an HTTP user agent

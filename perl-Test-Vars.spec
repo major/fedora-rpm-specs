@@ -51,7 +51,6 @@ BuildRequires:	perl(Test::Synopsis)
 # ===================================================================
 # Runtime requirements
 # ===================================================================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Test::Vars finds unused variables in order to keep the source code tidy.

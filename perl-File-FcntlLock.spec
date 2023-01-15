@@ -28,7 +28,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:	perl(POSIX)
 # Tests:
 BuildRequires:  perl(Test)
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 FcntlLock is a module to do file locking in an object oriented

@@ -19,7 +19,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More) >= 0.17
 BuildRequires:  perl(Test::Pod) >= 1.41
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module exports a number of functions that are useful for validating

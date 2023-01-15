@@ -37,7 +37,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Given a line from a crontab, tells you the time at which cron will next run

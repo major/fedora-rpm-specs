@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::Most) >= 0.31
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Class::Load)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::Class) >= 0.38
 Requires:       perl(Test::Most) >= 0.31
 

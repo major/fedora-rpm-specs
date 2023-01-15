@@ -128,7 +128,6 @@ BuildRequires:  perl(Test::More)
 %if %{with biber_enables_extra_test}
 BuildRequires:  perl(File::Compare)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(autovivification)
 Requires:       perl(Business::ISBN)
 Requires:       perl(Business::ISMN)

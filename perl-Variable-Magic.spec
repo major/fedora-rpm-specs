@@ -44,7 +44,6 @@ BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Hash)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(XSLoader)
 

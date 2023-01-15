@@ -24,7 +24,6 @@ BuildRequires:  perl(Cairo::Install::Files)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  pkgconfig(goocanvas-2.0)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Tests:
 BuildRequires:  perl(File::Spec)

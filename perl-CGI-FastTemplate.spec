@@ -12,7 +12,6 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 BuildRequires:  perl(strict)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 CGI::FastTemplate manages templates and parses templates replacing

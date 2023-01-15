@@ -6,7 +6,6 @@ License:    GPL+ or Artistic
 Summary:    Provides standard configuration options
 Source:     https://cpan.metacpan.org/authors/id/N/NE/NEILB/AppConfig-Std-%{version}.tar.gz
 Url:        https://metacpan.org/release/AppConfig-Std
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: make

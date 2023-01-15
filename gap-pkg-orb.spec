@@ -1,6 +1,6 @@
 %global pkgname orb
 
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
 Version:        4.9.0

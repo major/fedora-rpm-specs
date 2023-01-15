@@ -29,7 +29,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Perl::Critic::Policy)
 BuildRequires:  perl(Test2::V0)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -7,7 +7,6 @@ License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/Params-Validate
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Params-Validate-%{version}.tar.gz
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators

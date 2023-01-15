@@ -25,7 +25,6 @@ BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Data::Dumper)
 
 %description

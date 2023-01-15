@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 # Extra Tests
 BuildRequires:  perl(Test::Pod) >= 1.41
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is responsible for parsing email content type headers according

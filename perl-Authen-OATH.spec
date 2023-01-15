@@ -34,7 +34,6 @@ BuildRequires:  perl(bignum)
 BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Default digest algorithm, also SHA1 is needed by HOTP specification.
 Requires:       perl(Digest::SHA)
 

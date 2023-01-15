@@ -14,7 +14,6 @@ BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Test::More) >= 0.62
 BuildRequires:  perl(URI)
 BuildRequires:  perl(Module::Build)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 AuthSub is Google's method of authentication for their web

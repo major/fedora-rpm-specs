@@ -53,7 +53,6 @@ BuildRequires:  font(:lang=en)
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

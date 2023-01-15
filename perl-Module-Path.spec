@@ -23,7 +23,6 @@ BuildRequires:  perl(Devel::FindPerl)
 BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(FindBin) >= 0.05
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Module::Path Perl module provides a single function, module_path(), which

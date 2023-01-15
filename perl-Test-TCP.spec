@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::SharedFork) >= 0.29
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test::TCP is test utilities for TCP/IP program.

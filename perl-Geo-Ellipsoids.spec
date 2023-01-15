@@ -13,7 +13,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(Geo::Constants) >= 0.04
 BuildRequires:  perl(Geo::Functions) >= 0.03
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Standard Geo:: ellipsoids a, b, f and 1/f values.

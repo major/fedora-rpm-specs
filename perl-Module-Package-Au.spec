@@ -17,7 +17,6 @@ BuildRequires:	perl(Module::Install::ReadmeMarkdownFromPod)
 BuildRequires:	perl(Module::Install::Repository)
 BuildRequires:	perl(Module::Package) >= 0.24
 BuildRequires:	perl(Pod::Markdown)
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

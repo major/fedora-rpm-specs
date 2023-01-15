@@ -27,7 +27,6 @@ BuildRequires: perl(common::sense) >= 3.3
 # test deps
 BuildRequires: perl(AnyEvent::Impl::Perl)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

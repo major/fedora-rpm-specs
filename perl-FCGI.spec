@@ -35,7 +35,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(XSLoader)
 # fcgiapp.c, os_unix.c, os_win32.c are copied and modified from FastCGI

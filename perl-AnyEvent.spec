@@ -110,7 +110,6 @@ BuildRequires:  perl(IO::Async::Loop) >= 0.33
 %endif
 
 # Runtime requires
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Temp)
 %if %{have_weak_deps}
 # Optional but recommended

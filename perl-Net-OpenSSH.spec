@@ -32,7 +32,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       openssh-clients
 Requires:       perl(File::Glob)
 Suggests:       perl(IO::Pty)

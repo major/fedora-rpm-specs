@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(DBD::SQLite) >= 0.27
 BuildRequires:  perl(XML::SAX)
 BuildRequires:  perl(XML::SAX::Writer)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description

@@ -15,7 +15,6 @@ BuildRequires:  findutils
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(Module::Build)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       /usr/bin/curl
 Requires:       /usr/bin/dnf
 Requires:       rpm-build

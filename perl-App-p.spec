@@ -16,7 +16,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.30
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Modules are autoloaded by L module that is loaded by '-ML' exec's argument
 Requires:       perl(Data::Dump)
 Requires:       perl(Encode)

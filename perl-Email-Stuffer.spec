@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(utf8)
 # Optional
 BuildRequires:  perl(IO::All)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Email::Stuffer is a fairly casual module used to stuff things into an email

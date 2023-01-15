@@ -336,7 +336,6 @@ This plugin handles PDF and Postscript attachments.
 
 %package plugins-perl
 Summary:        Perl based extended filtering engine for Claws Mail
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       claws-mail(plugin-api)%{?_isa} = %pluginapi
 
 %description plugins-perl

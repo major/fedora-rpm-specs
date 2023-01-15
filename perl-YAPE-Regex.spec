@@ -18,7 +18,6 @@ BuildRequires:  perl(Text::Balanced)
 BuildRequires:  perl(vars)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module is yet another parser and tree-builder for Perl regular

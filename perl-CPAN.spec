@@ -155,7 +155,6 @@ BuildRequires:  perl(YAML) >= 0.60
 %endif
 
 Requires:       make
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Some subpackages modules are not dual-lived. E.g. "open". If a distribution
 # on CPAN declares a dependency on such a module, CPAN client will fail
 # because the only provider is perl distribution.

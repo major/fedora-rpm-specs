@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::More)
 # Test::Pod::Coverage 1.08 not used
 # Optional tests:
 # Test::Perl::Critic not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Simple eye-candy ASCII tables with auto-selection columns width, as seen

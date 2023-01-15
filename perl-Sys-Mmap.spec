@@ -26,7 +26,6 @@ BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(XSLoader)
 %{?perl_default_filter}

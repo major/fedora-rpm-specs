@@ -30,7 +30,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(blib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter} # Filters (not)shared c libs
 

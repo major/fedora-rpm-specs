@@ -70,7 +70,6 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
 BuildRequires:  font(:lang=en)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 This class provides a GUI for Config::Model.

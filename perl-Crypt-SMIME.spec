@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Taint)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 #Add a test sub package.
 %{?perl_default_subpackage_tests}

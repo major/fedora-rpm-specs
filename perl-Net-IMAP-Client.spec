@@ -22,7 +22,6 @@ BuildRequires:  perl(IO::Socket::SSL)
 BuildRequires:  perl(List::MoreUtils)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Net::IMAP::Client provides methods to access an IMAP server. It aims to

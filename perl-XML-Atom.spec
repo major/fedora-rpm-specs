@@ -41,7 +41,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XML::Parser)
 # Optional tests:
 # DateTime::Format::Atom not yet packaged
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 # not automatically detected
 Requires:       perl(HTML::Parser)
 Requires:       perl(XML::LibXML) >= 1.69
@@ -54,7 +53,6 @@ data. XML::Atom implements the feed format as well as a client for the API.
 
 %package Server
 Summary:        Server for the Atom API
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Apache::Constants)
 Requires:       perl(CGI)
 

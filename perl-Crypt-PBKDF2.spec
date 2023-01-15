@@ -36,7 +36,6 @@ BuildRequires:	perl(Encode)
 BuildRequires:	perl(Test::Fatal)
 BuildRequires:	perl(Test::More)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 PBKDF2 is a secure password hashing algorithm that uses the techniques of "key

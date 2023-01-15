@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::TCP) >= 2.08
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::SharedFork)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %package start_server
 Summary:        perl-Server-Starter start_server script

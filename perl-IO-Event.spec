@@ -37,7 +37,6 @@ BuildRequires:  perl(warnings)
 Requires:       perl(AnyEvent)
 Requires:       perl(IO::Socket::INET)
 Requires:       perl(IO::Socket::UNIX)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

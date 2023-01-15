@@ -46,7 +46,6 @@ BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	xz
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(XSLoader)
 # Built-against version is embedded in module, so we have a strict version dependency
 Requires:	xz-libs%{?_isa} = %((pkg-config --modversion liblzma 2>/dev/null || echo 0) | tr -dc '[0-9.]')

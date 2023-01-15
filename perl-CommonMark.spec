@@ -28,7 +28,6 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::LeakTrace)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(constant)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 This module is a wrapper around the official CommonMark C library libcmark.

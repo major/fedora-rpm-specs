@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::Builder)
 # Tests only:
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moose) >= 0.94
 
 # Do not export underspecified dependencies

@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/MooseX-Types-Path-Class-%{version}.tar.gz 
 URL:            https://metacpan.org/release/MooseX-Types-Path-Class
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  perl-generators

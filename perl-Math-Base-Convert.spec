@@ -22,7 +22,6 @@ BuildRequires:  perl(diagnostics)
 # Optional tests only
 BuildRequires:  perl(Benchmark)
 BuildRequires:  perl(Math::BigInt)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module provides fast functions and methods to convert between

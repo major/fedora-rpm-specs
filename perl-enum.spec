@@ -22,7 +22,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is used to define a set of constants with ordered numeric

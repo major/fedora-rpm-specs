@@ -4,11 +4,11 @@
 # is not a valid python file, only for the IDE
 %global _python_bytecompile_errors_terminate_build 0
 
-%global clangver 15.0.6
+%global clangver 15.0.7
 
 Name:           qt-creator
 Version:        9.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
@@ -215,6 +215,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 9.0.1-3
+- Rebuild against Clang 15.0.7
+
 * Wed Jan 11 2023 Sandro Mani <manisandro@gmail.com> - 9.0.1-2
 - Backport patch for QTCREATORBUG-28505
 

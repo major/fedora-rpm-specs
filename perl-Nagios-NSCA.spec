@@ -10,7 +10,6 @@ BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Digest::CRC)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Nagios::NSCA Perl module

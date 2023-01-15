@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::ReadmeFromPod)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 HTML::RewriteAttributes is designed for simple yet powerful HTML attribute

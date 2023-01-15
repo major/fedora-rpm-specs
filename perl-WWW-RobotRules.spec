@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 # Tests:
 # LWP::RobotUA not used
 # URI::URL not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(URI) >= 1.10
 Conflicts:      perl-libwww-perl < 6
 

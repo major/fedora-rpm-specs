@@ -22,7 +22,6 @@ BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Test::Builder::Module)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This test module is intended to simplify testing of external commands. It does

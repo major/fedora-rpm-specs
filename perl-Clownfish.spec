@@ -49,7 +49,6 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Generates perl binding, needs perl header files that are included from
 # templates installed into _include directory.
 Requires:       perl-devel%{?_isa}

@@ -15,7 +15,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Gtk2) >= 1.04
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Gtk2) >= 1.04
 
 # Remove under-specified dependencies

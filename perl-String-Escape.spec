@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides a flexible calling interface to some frequently-

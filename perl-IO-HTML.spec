@@ -25,7 +25,6 @@ BuildRequires:  perl(Exporter) >= 5.57
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 IO::HTML provides an easy way to open a file containing HTML while

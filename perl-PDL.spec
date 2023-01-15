@@ -133,7 +133,6 @@ BuildRequires:  proj-devel
 # Need by PDL::IO::Browser, currently disabled
 # BuildRequires:  ncurses-devel
 BuildRequires:  sharutils
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(ExtUtils::Liblist)
 Requires:       perl(ExtUtils::MakeMaker)
 Requires:       perl(ExtUtils::MM)

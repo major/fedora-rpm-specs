@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.22
 Requires:       perl(Lexical::Sub)
 Requires:       perl(syntax) >= 0.004
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

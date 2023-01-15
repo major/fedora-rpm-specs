@@ -18,7 +18,6 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Pod::Html)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 AcePerl is a Perl interface for the ACEDB object-oriented database.

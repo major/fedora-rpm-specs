@@ -15,7 +15,6 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Not picked up automatically.
 Requires:       perl(MIME::QuotedPrint)
 Recommends:     perl(Digest::MD5)

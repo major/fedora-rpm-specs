@@ -5,7 +5,6 @@ Release:        19%{?dist}
 License:        Artistic 2.0
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/MooseX-ClassAttribute-%{version}.tar.gz 
 URL:            https://metacpan.org/release/MooseX-ClassAttribute
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires: make

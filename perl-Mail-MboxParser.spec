@@ -38,7 +38,6 @@ BuildRequires:  perl(MIME::Words)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(MIME::Tools) >= 5
 Requires:       perl(Mail::Mbox::MessageParser)
 

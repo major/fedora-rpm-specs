@@ -24,7 +24,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XML::Filter::BufferText) >= 1.00
 BuildRequires:  perl(XML::NamespaceSupport) >= 1.00
 BuildRequires:  perl(XML::SAX::Exception) >= 1.01
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A new XML Writer to match the SAX2 effort.

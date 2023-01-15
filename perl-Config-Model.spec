@@ -81,7 +81,6 @@ BuildRequires:  perl(YAML::Tiny)
 BuildRequires:  fuse
 BuildRequires:  kmod
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(MouseX::NativeTraits)
 Requires:       perl(Text::Levenshtein::Damerau)
 

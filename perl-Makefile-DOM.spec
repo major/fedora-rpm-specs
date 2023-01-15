@@ -46,7 +46,6 @@ BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Clone) >= 0.18
 Requires:       perl(List::MoreUtils) >= 0.21
 Requires:       perl(Params::Util) >= 0.22

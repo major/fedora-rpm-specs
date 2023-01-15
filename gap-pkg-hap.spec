@@ -12,7 +12,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.49
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Homological Algebra Programming for GAP
 
 License:        GPL-2.0-or-later
@@ -141,11 +141,11 @@ gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 %install
-mkdir -p %{buildroot}%{gap_dir}/pkg/%{pkgname}/doc
+mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc
 cp -a *.g boolean date lib tst tutorial version www \
-   %{buildroot}%{gap_dir}/pkg/%{pkgname}
-rm -f %{buildroot}%{gap_dir}/pkg/%{pkgname}/tutorial/clean
-rm -fr %{buildroot}%{gap_dir}/pkg/%{pkgname}/lib/CompiledGAP
+   %{buildroot}%{gap_libdir}/pkg/%{pkgname}
+rm -f %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tutorial/clean
+rm -fr %{buildroot}%{gap_libdir}/pkg/%{pkgname}/lib/CompiledGAP
 %gap_copy_docs
 
 %if %{without bootstrap}
@@ -157,22 +157,25 @@ polymake --reconfigure - <<< exit;
 
 # Now we can run the actual test; the 2G default is not enough on s390x
 # Do not run the very slow tests
-gap -l "%{buildroot}%{gap_dir};" -o 3G tst/testquick.g
+gap -l "%{buildroot}%{gap_libdir};" -o 3G tst/testquick.g
 %endif
 
 %files
 %doc README.md
 %license www/copyright/*.html
-%{gap_dir}/pkg/%{pkgname}/
-%exclude %{gap_dir}/pkg/%{pkgname}/doc/
-%exclude %{gap_dir}/pkg/%{pkgname}/tutorial/
+%{gap_libdir}/pkg/%{pkgname}/
+%exclude %{gap_libdir}/pkg/%{pkgname}/doc/
+%exclude %{gap_libdir}/pkg/%{pkgname}/tutorial/
 
 %files doc
-%docdir %{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/doc/
-%{gap_dir}/pkg/%{pkgname}/tutorial/
+%docdir %{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/doc/
+%{gap_libdir}/pkg/%{pkgname}/tutorial/
 
 %changelog
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.49-2
+- Update for split GAP directories
+
 * Mon Jan  9 2023 Jerry James <loganjerry@gmail.com> - 1.49-1
 - Version 1.49
 

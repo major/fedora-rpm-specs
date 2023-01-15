@@ -16,7 +16,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Exporter)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Class::Iterator is a generic iterator object class. It uses a closure that

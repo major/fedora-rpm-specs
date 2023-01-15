@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Map from US two-letter codes to states and vice versa.

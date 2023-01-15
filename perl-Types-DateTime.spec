@@ -28,7 +28,6 @@ BuildRequires:  perl(Types::Standard)
 BuildRequires:  perl(Type::Tiny) >= 0.041
 BuildRequires:  perl(Type::Utils)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Types::DateTime is a type constraint library suitable for use with

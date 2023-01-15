@@ -56,7 +56,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Sub::Name) >= 0.11
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # Unneded Requires:       perl(Apache)
 # Optional features
 Suggests:       perl(Browser::Open)

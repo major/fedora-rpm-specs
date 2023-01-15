@@ -34,7 +34,6 @@ BuildRequires:  txt2man
 
 Requires:       elfutils
 Requires:       vtable-dumper >= 1.1
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -59,7 +59,6 @@ BuildRequires:  perl(version) >= 0.9905
 # BuildRequires:  perl(version::vpp)
 # Tests
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Archive::Tar)
 Requires:       perl(Archive::Zip)
 Requires:       perl(Capture::Tiny)

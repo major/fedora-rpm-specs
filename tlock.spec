@@ -1,11 +1,12 @@
 Name:           tlock
 Version:        1.6
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Terminal lock
 
 License:        GPLv2+
 URL:            http://pjp.dgplug.org/tools/
 Source0:        http://pjp.dgplug.org/tools/%{name}-%{version}.tar.gz
+Patch0:         tlock-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -26,7 +27,7 @@ applications using librpass library. librpass is used by, and distributed with
 tlock program.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --disable-static
@@ -52,6 +53,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/librpass.la
 %_mandir/man3/*
 
 %changelog
+* Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.6-17
+- Fix missing prototype for crypt (pointer truncation) (#2160647)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

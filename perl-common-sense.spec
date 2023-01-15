@@ -31,7 +31,6 @@ BuildRequires:	/usr/bin/pod2text
 # Test Suite
 # (no additional dependencies)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module implements some sane defaults for Perl programs, as defined

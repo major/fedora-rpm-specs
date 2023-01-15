@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::Pod) >= 1.22
 # Try::Tiny not used by tests
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # JavaScript::Packer1 is defined by this package, but it should not be
 # listed in Provides.
@@ -35,7 +34,6 @@ http://github.com/einars/js-beautify/tree/master/beautify.js
 %package -n perl-Code-TidyAll-Plugin-JSBeautifier
 Summary:        Use JavaScript::Beautifier with tidyall
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       %{_bindir}/js_beautify.pl
 Requires:       perl(Code::TidyAll::Plugin)
 

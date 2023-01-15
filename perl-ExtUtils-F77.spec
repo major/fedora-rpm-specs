@@ -13,7 +13,6 @@ BuildRequires:  perl(File::Which)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More)
 BuildRequires:  gcc-gfortran
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module tries to figure out how to link C programs with Fortran

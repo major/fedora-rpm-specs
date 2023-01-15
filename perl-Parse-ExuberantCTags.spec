@@ -20,7 +20,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter autoloader libraries out
 %{?perl_default_filter}

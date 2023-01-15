@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-Server-SOAP
 Source0:        https://cpan.metacpan.org/authors/id/A/AP/APOCAL/POE-Component-Server-SOAP-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildRequires: make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators

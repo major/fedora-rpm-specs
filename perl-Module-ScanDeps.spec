@@ -70,7 +70,6 @@ BuildRequires:  perl(prefork)
 %endif
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(B)
 Requires:       perl(DynaLoader)
 Requires:       perl(Data::Dumper)

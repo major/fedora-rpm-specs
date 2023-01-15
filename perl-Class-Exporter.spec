@@ -18,7 +18,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %description

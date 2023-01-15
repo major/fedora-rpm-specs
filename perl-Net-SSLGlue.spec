@@ -28,7 +28,6 @@ Requires:       perl(LWP::Protocol::https) >= 6.06
 Requires:       perl(Net::FTP)
 Requires:       perl(Net::FTP::dataconn)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(IO::Socket::SSL\\)$

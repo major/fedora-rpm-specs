@@ -16,7 +16,6 @@ BuildRequires:  perl(warnings)
 # for improved testing
 BuildRequires:  perl(Test::Pod) >= 1.00
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides a number of list utility functions, all of which take

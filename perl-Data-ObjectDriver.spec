@@ -20,7 +20,6 @@ BuildRequires:  perl(Class::Data::Inheritable)
 BuildRequires:  perl(Class::Trigger)
 BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(DBI)
-Requires: perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}%{perl_vendorlib}/Data/ObjectDriver/Driver/DBD/Oracle.pm

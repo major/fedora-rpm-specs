@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::Pod) >= 1.14
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(FileHandle)
 
 %description

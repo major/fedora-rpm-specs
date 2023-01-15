@@ -19,7 +19,6 @@ BuildRequires:  perl(Parse::RecDescent)
 BuildRequires:  perl(Test::Simple)
 BuildRequires:  dos2unix
 BuildRequires:  glibc-common
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module can be used, along with a CSS::Parse::* module, to parse

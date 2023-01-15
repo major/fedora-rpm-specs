@@ -56,7 +56,6 @@ BuildRequires:  perl(Module::Runtime::Conflicts)
 BuildRequires:  perl(Moose::Conflicts)
 BuildRequires:  perl(Pod::Weaver::Section::Contributors)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 # This is a Dist::Zilla plugin
 Requires:       perl(Dist::Zilla) >= 4.300039

@@ -24,7 +24,6 @@ BuildRequires:  perl(open)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Unicode::Collate) >= 1.04
 
 %description

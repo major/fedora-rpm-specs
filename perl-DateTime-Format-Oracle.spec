@@ -20,7 +20,6 @@ BuildRequires:  perl(DateTime)
 BuildRequires:  perl(DateTime::Format::Builder)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module may be used to convert Oracle date and timestamp values into

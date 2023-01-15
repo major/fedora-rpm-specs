@@ -2,7 +2,7 @@
 %bcond_without perl_XS_Parse_Keyword_enables_optional_test
 
 Name:           perl-XS-Parse-Keyword
-Version:        0.31
+Version:        0.32
 Release:        1%{?dist}
 Summary:        XS functions to assist in parsing keyword syntax
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -39,7 +39,6 @@ BuildRequires:  perl(utf8)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This module maintains multiple ABIs whose compatibility is checked at
 # run-time by S_boot_xs_parse_keyword() compiled into the users of this module.
 # This ABI range is defined with XS::Parse::Keyword/ABIVERSION_MIN and
@@ -68,7 +67,6 @@ using the PL_keyword_plugin hook mechanism.
 Summary:        Build-time support for XS::Parse::Keyword
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-interpreter
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Subpackaged in 0.06
 Conflicts:      %{name}%{?_isa} < 0.06
 
@@ -151,6 +149,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 13 2023 Petr Pisar <ppisar@redhat.com> - 0.32-1
+- 0.32 bump
+
 * Thu Jan 05 2023 Petr Pisar <ppisar@redhat.com> - 0.31-1
 - 0.31 bump
 

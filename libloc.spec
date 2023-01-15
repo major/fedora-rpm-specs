@@ -135,7 +135,6 @@ applications using libloc library.
 %package -n perl-%{name}
 Summary:        Perl interface to libloc library
 License:        LGPL-2.1-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description -n perl-%{name}

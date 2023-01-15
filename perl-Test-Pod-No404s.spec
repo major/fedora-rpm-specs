@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Apocalypse) >= 1.000
 %endif
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Inject correct provide, bug #1160263
 Provides:       perl(Test::Pod::No404s) = %{version}
 

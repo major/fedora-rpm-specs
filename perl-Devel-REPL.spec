@@ -48,7 +48,6 @@ BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(if)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Moose) >= 0.93
 Requires:       perl(Moose::Meta::Role)
 Requires:       perl(MooseX::Getopt) >= 0.18
@@ -93,7 +92,6 @@ MultiLine::PPI plugin is delivered within %{name}-MultiLine-PPI package.
 %package Plugin-Completion
 Summary:        Devel-REPL plugin for tab completion
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-Completion
 This Perl interactive shell plugin provides extensible tab completion. By
@@ -103,7 +101,6 @@ Term::ReadLine::Perl fallback file name completion.
 %package Plugin-CompletionDriver-INC
 Summary:        Devel-REPL plugin for completing module names
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-CompletionDriver-INC
 This Perl interactive shell plugin provides module names completion.
@@ -111,7 +108,6 @@ This Perl interactive shell plugin provides module names completion.
 %package Plugin-CompletionDriver-Keywords
 Summary:        Devel-REPL plugin for completing keywords and operators
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-CompletionDriver-Keywords
 This Perl interactive shell plugin provides keyword and operator names
@@ -120,7 +116,6 @@ completion.
 %package Plugin-DDC
 Summary:        Devel-REPL plugin for formatting results with Data::Dumper::Concise
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-DDC
 This Perl interactive shell plugin formats results with Data::Dumper::Concise.
@@ -128,7 +123,6 @@ This Perl interactive shell plugin formats results with Data::Dumper::Concise.
 %package Plugin-DDS
 Summary:        Devel-REPL plugin for formatting results with Data::Dump::Streamer
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Data::Dump::Streamer) >= 2.39
 
 %description Plugin-DDS
@@ -137,7 +131,6 @@ This Perl interactive shell plugin formats results with Data::Dump::Streamer.
 %package Plugin-Interrupt
 Summary:        Devel-REPL plugin for trapping INT signal
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-Interrupt
 By default Devel::REPL exits on SIGINT (usually Ctrl-C). If you load this
@@ -148,7 +141,6 @@ module, SIGINT will be trapped and used to kill long-running commands
 %package Plugin-LexEnv
 Summary:        Devel-REPL plugin for lexical environments
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-LexEnv
 This Perl interactive shell plugin provides environments for lexical variables.
@@ -156,7 +148,6 @@ This Perl interactive shell plugin provides environments for lexical variables.
 %package Plugin-MultiLine-PPI
 Summary:        Devel-REPL plugin for multi-line blocks
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-MultiLine-PPI
 This Perl interactive shell plugin will collect lines until you have no
@@ -166,7 +157,6 @@ loops, etc. more naturally.
 %package Plugin-Nopaste
 Summary:        Devel-REPL plugin for uploading data to a nopaste site
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(App::Nopaste)
 
 %description Plugin-Nopaste
@@ -176,7 +166,6 @@ output to a nopaste site.
 %package Plugin-PPI
 Summary:        Devel-REPL plugin for dumping Perl code
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-PPI
 This Perl interactive shell plugin provides a "ppi" command that uses
@@ -185,7 +174,6 @@ PPI::Dumper to dump PPI-parsed Perl documents.
 %package Plugin-Refresh
 Summary:        Devel-REPL plugin for reloading libraries
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description Plugin-Refresh
 This Perl interactive shell plugin allows you to reload Perl libraries with

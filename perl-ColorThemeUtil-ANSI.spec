@@ -25,7 +25,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More) >= 0.98
 Requires:       perl(Color::ANSI::Util) >= 0.161
 Requires:       perl(Exporter) >= 5.57
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Exporter\\)\\s*$
 %global __requires_exclude %{?__requires_exclude}|perl\\(Color::ANSI::Util\\)\\s*$

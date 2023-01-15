@@ -10,7 +10,6 @@ BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Perl package that generates PostScript files.

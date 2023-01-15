@@ -14,7 +14,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(FCGI) >= 0.6
 BuildRequires:  perl(Test::More)
 Requires:       perl(CGI::Application)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

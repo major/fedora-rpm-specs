@@ -15,7 +15,6 @@ BuildRequires:  perl(AnyEvent)
 BuildRequires:  perl(Net::DBus)
 BuildRequires:  perl(Net::DBus::Binding::Watch)
 BuildRequires:  perl(common::sense)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

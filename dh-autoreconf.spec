@@ -11,7 +11,6 @@ Source0:        http://ftp.de.debian.org/debian/pool/main/d/%{name}/%{name}_%{ve
 BuildRequires:  perl-generators
 BuildRequires:  perl(Pod::Text)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       debhelper
 Requires:       autoconf
 Requires:       automake

@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides things that are useful in decoding Pod E<...> sequences.

@@ -16,7 +16,6 @@ BuildRequires: make
 BuildRequires:    /usr/bin/pod2man
 BuildRequires:    perl-generators
 
-Requires:         perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:         perl(Curses::UI)
 Requires:         logrotate
 Requires:         perl-Tk

@@ -79,7 +79,6 @@ BuildRequires:  /usr/bin/dpkg-parsechangelog
 BuildRequires:  /usr/bin/help2man
 BuildRequires:  pkgconfig(bash-completion)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       dpkg-dev
 Requires:       sensible-utils
 # man for manpage-alert

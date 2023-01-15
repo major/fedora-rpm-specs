@@ -32,7 +32,6 @@ BuildRequires:  perl(XML::Fast) >= 0.11
 BuildRequires:  perl(XML::Spice) >= 0.03
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Tiny) >= 0.016
 Requires:       perl(Tie::DataUUID) >= 1.02
 Requires:       perl(URI) >= 1.60

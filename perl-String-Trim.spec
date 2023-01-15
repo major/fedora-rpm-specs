@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::Builder) >= 0.94
 BuildRequires:  perl(Test::More) >= 0.94
 # Optional tests:
 # Test::Script 1.05 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 String::Trim trims white space off your strings. chomp trims only $/

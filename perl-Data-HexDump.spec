@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Dump in hexadecimal the content of a scalar. The result is returned in a

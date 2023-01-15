@@ -22,7 +22,6 @@ BuildRequires:  perl(Log::Log4perl)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Log::Log4perl)
 
 %description

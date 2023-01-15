@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 # Test Suite
 # (no additioanl dependencies)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildRequires:  perl(Carp)
 
 %description

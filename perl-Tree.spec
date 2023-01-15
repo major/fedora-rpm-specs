@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::Warn)
 # Optional tests:
 BuildRequires:  perl(Test::Memory::Cycle) >= 1.02
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This implements a full-featured N-ary tree representation with configurable

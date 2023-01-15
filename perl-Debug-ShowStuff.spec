@@ -34,7 +34,6 @@ BuildRequires:  perl(Tie::IxHash)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Class::ISA)
 Requires:       perl(Devel::StackTrace)
 Requires:       perl(MemHandle)

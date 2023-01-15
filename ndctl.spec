@@ -1,5 +1,5 @@
 Name:		ndctl
-Version:	74
+Version:	75
 Release:	1%{?dist}
 Summary:	Manage "libnvdimm" subsystem devices (Non-volatile Memory)
 License:	GPLv2
@@ -235,6 +235,9 @@ fi
 
 
 %changelog
+* Fri Jan 13 2023 Vishal Verma <vishal.l.verma@intel.com> - 75-1
+- release v75
+
 * Wed Aug 24 2022 Vishal Verma <vishal.l.verma@intel.com> - 74-1
 - release v74
 

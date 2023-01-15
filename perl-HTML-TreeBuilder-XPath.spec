@@ -14,7 +14,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(XML::XPathEngine) >= 0.12
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?filter_setup:
 %filter_from_provides /perl(HTML::Element)/d

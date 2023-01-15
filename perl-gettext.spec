@@ -37,7 +37,6 @@ internationalize software.
 
 %package -n perl-%{tarname}
 Summary:        %{summary}
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description -n perl-%{tarname}
 The gettext module permits access from perl to the gettext() family of

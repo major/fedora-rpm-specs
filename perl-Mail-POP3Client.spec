@@ -16,7 +16,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 # For the tests
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module implements an Object-Oriented interface to a POP3 server. It

@@ -28,7 +28,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
 # Optional tests are skipped
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 Requires:       perl(Text::Aligner) >= 0.05
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Text::Aligner\\)$

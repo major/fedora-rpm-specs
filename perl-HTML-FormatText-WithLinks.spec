@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::MockObject)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 0.08
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # not picked up automatically since it is called through SUPER
 Requires:       perl(HTML::FormatText) >= 2
 

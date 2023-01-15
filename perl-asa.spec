@@ -27,7 +27,6 @@ BuildRequires:  perl(vars)
 # Optional tests:
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Perl 5 doesn't natively support Java-style interfaces, and it doesn't support

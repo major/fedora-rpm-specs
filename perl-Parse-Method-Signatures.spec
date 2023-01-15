@@ -41,7 +41,6 @@ BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Moose)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Load) >= 0.19
 Requires:       perl(List::MoreUtils) >= 0.20
 Requires:       perl(MooseX::Traits) >= 0.06

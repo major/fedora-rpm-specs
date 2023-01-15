@@ -54,7 +54,6 @@ develop gnumeric-based applications.
 %package plugins-extras
 Summary:          Additional plugins for Gnumeric incl. Perl and Python support
 Requires:         %{name}%{?_isa} = %{epoch}:%{version}-%{release}
-Requires:         perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:         python(abi) = %{python3_version}
 
 %description plugins-extras

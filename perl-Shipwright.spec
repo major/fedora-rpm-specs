@@ -69,7 +69,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(UNIVERSAL::require)
 BuildRequires:  perl(version)
 BuildRequires:  perl(YAML::Tiny)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Algorithm::Dependency::Ordered)
 Requires:       perl(Algorithm::Dependency::Source::HoA)
 Requires:       perl(CPAN) >= 1.9205

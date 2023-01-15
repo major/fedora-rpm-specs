@@ -68,7 +68,6 @@ BuildRequires:  perl(Log::Dispatch)
 BuildRequires:  perl(SQL::Statement) >= 1.20
 BuildRequires:  perl(Sys::Syslog)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Encode)
 Requires:       perl(Net::LDAP)
 Requires:       perl(Safe)
@@ -93,7 +92,6 @@ perl-Log-Log4perl-Config-DOMConfigurator package.
 
 %package Appender-DBI
 Summary:        Log to a database
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       %{name} = %{version}-%{release}
 Conflicts:      %{name} < 1.46-2
 
@@ -104,7 +102,6 @@ using DBI interface via Log4perl.
 %if %{with RRD}
 %package Appender-RRDs
 Summary:        Log to a RRDtool archive
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       %{name} = %{version}-%{release}
 Conflicts:      %{name} < 1.46-2
 
@@ -115,7 +112,6 @@ RRDtool round-robin archives via Log4perl.
 
 %package Config-DOMConfigurator
 Summary:        Read log4j XML configuration files
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       %{name} = %{version}-%{release}
 Conflicts:      %{name} < 1.46-2
 

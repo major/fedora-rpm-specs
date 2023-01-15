@@ -5,7 +5,6 @@ Release:        24%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/Catalyst-Plugin-SubRequest-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Plugin-SubRequest
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  findutils

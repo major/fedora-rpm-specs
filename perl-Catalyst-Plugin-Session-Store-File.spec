@@ -36,7 +36,6 @@ Requires:       perl(Cache::Cache) >= 1.02
 Requires:       perl(Catalyst::Plugin::Session)
 Requires:       perl(Catalyst::Runtime) >= 5.7000
 Requires:       perl(Class::Data::Inheritable) >= 0.04
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Catalyst::Plugin::Session::Store::File is an easy to use storage plugin for

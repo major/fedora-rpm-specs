@@ -25,7 +25,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(JSON::XS)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Text::VCardFast is designed to parse VCards very quickly compared to pure-Perl

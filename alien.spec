@@ -8,7 +8,6 @@ URL:            https://sourceforge.net/projects/alien-pkg-convert/
 Source:         http://downloads.sourceforge.net/alien-pkg-convert/%{name}_%{version}.tar.xz
 
 Requires:       dpkg, debhelper, rpm-build
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)

@@ -18,7 +18,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Test::Builder)
 
 %{?perl_default_filter}

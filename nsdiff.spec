@@ -19,7 +19,6 @@ BuildRequires:	perl(Pod::Man)
 BuildRequires:	perl(Pod::Html)
 BuildArch:	noarch
 Requires:	bind-utils
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version+`"; echo $version))
 Requires:	perl(:VERSION) >= 5.10
 
 %description

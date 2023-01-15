@@ -14,7 +14,6 @@ BuildRequires:	make
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %package doc
 Summary:	Grid Community Toolkit - GRAM Job ManagerScripts Documentation Files

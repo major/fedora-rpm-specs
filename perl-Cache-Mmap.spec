@@ -33,7 +33,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(IO::File)
 BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module implements a shared data cache, using memory mapped files. If

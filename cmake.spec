@@ -68,7 +68,7 @@
 %{?rcsuf:%global versuf -%{rcsuf}}
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 1
+%global baserelease 2
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -525,6 +525,9 @@ popd
 
 
 %changelog
+* Fri Jan 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.25.1-2
+- Adjust ctest macro to use native out-of-tree support
+
 * Mon Dec 05 2022 Björn Esser <besser82@fedoraproject.org> - 3.25.1-1
 - cmake-3.25.1
   Fixes rhbz#2149681

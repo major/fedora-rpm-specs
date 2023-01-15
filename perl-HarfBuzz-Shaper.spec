@@ -11,7 +11,6 @@ Release: 4%{?dist}
 Source: %{metacpan}/%{FullName}-%{version}.tar.gz
 Url: https://metacpan.org/release/%{FullName}
 
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 BuildRequires: coreutils findutils gcc make perl-devel
 BuildRequires: harfbuzz-devel >= 1.7.7

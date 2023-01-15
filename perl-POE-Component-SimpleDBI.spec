@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 # CPAN::Meta not usefull
 # Test::Apocalypse 1.000 needed only for author tests.
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(warnings)
 

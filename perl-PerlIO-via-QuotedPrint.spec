@@ -18,7 +18,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(MIME::QuotedPrint)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl < 4:5.22.0-347
 
 %description

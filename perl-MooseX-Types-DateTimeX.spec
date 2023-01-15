@@ -34,7 +34,6 @@ BuildRequires:  perl(DateTime::Format::DateManip)
 BuildRequires:  perl(Test::Exception) >= 0.27
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::use::ok) >= 0.02
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(DateTimeX::Easy) >= 0.085
 Requires:       perl(Moose) >= 0.41
 Requires:       perl(MooseX::Types) >= 0.04

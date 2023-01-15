@@ -28,7 +28,6 @@ BuildRequires:  perl(diagnostics)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Cache::Memcached)
 Requires:       perl(CGI::Session::Driver) >= 4
 

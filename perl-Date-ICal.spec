@@ -21,7 +21,6 @@ BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.45
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Date::Leapyear) >= 1.03
 
 # Filter under-specified dependencies

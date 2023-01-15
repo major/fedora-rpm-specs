@@ -26,7 +26,6 @@ BuildRequires:  perl(Moo)
 # Tests:
 # File::Copy not used
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Time::Duration::Parse)
 
 %description

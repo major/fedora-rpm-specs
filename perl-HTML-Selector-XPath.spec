@@ -25,7 +25,6 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(HTML::TreeBuilder::XPath)
 BuildRequires:  perl(Test::Pod) >= 1.00
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 HTML::Selector::XPath is a utility function to compile CSS2 selector to the

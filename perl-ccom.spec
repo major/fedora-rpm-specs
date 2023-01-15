@@ -9,7 +9,6 @@ License:        LGPLv2+
 URL:            https://www.heise.de/ct/ftp/99/25/252/
 Source0:        ftp://ftp.heise.de/pub/ct/listings/phonet.tgz
 Patch0:         perl-ccom-1.4.1-format-security.patch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-devel

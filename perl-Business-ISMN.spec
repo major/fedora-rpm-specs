@@ -25,7 +25,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(subs)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(GD::Barcode::EAN13)
 
 %description

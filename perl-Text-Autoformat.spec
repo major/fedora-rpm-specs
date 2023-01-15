@@ -23,7 +23,6 @@ BuildRequires:  perl(Text::Tabs)
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 
 %description
 Text::Autoformat provides intelligent formatting of plain text without the

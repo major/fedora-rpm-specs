@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 # Pod::Coverage::TrustPod not used
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Test::Builder::Module version from Test::Builder in META
 Requires:       perl(Test::Builder::Module) >= 0.86
 

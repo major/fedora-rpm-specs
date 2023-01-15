@@ -14,7 +14,6 @@ BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	perl(Image::ExifTool) >= 5.72
 BuildRequires:	perl(Getopt::Long) >= 2.34
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	/usr/bin/jpegtran
 %if 0%{?fedora}
 Recommends:	perl(Image::Magick)

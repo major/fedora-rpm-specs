@@ -31,7 +31,6 @@ BuildRequires:	perl(File::Spec::Functions)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(Test::More) >= 0.88
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl-devel
 Requires:	perl(Devel::CheckCompiler)
 Requires:	perl(Devel::PPPort)

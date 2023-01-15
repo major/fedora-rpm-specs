@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Try::Tiny)
 # Optional tests only
 # CPAN::Meta not useful
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Module::Path)
 
 %{?perl_default_filter}

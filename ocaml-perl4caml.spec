@@ -43,7 +43,6 @@ BuildRequires:  perl(ExtUtils::Embed)
 Requires: perl-libs%{?_isa}
 
 # We're also going to pick up a versioned dependency, to help track things:
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description

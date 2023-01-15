@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-GeneratePassword
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-GeneratePassword-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76

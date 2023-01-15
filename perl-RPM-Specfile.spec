@@ -28,7 +28,6 @@ BuildRequires:  perl(vars)
 # YAML not used at tests
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a simple module for creation of RPM Spec files. Most of the methods

@@ -15,7 +15,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(IO::File) >= 1.06
 BuildRequires:  perl(XML::Parser::PerlSAX) >= 0.06
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(IO::File) >= 1.06
 Requires:       perl(XML::Parser::PerlSAX) >= 0.06
 

@@ -2,7 +2,7 @@
 
 Name:           mingw-libepoxy
 Version:        1.5.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows libepoxy library
 
 License:        MIT
@@ -30,6 +30,7 @@ This package contains the MinGW Windows cross compiled libepoxy library.
 
 %package -n mingw32-libepoxy
 Summary:        MinGW Windows libepoxy library
+Requires:       mingw32-angleproject
 
 %description -n mingw32-libepoxy
 Epoxy is a library for handling OpenGL function pointer management.
@@ -39,6 +40,7 @@ This package contains the MinGW Windows cross compiled libepoxy library.
 
 %package -n mingw64-libepoxy
 Summary:        MinGW Windows libepoxy library
+Requires:       mingw64-angleproject
 
 %description -n mingw64-libepoxy
 Epoxy is a library for handling OpenGL function pointer management.
@@ -77,6 +79,9 @@ This package contains the MinGW Windows cross compiled libepoxy library.
 %{mingw64_includedir}/epoxy/
 
 %changelog
+* Fri Jan 13 2023 Kalev Lember <klember@redhat.com> - 1.5.10-2
+- Add missing runtime requires on mingw-angleproject
+
 * Wed Jan 04 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.5.10-1
 - Update to 1.5.10
 - Enable egl thanks to ANGLE

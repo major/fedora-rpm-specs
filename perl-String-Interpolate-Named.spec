@@ -15,7 +15,6 @@ Url: https://metacpan.org/release/%{FullName}
 BuildArch: noarch
 
 Requires: perl(:VERSION) >= 5.10.1
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 BuildRequires: coreutils
 BuildRequires: make

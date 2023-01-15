@@ -23,7 +23,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(DateTime)
 

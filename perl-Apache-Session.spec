@@ -52,7 +52,6 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.41
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Apache::Session is a persistence framework that is particularly useful for

@@ -26,7 +26,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 
 BuildRequires:  libpq-devel
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The %{modname} module permits you to access all functions of the Libpq interface of

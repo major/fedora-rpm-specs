@@ -52,7 +52,6 @@ BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::Pod)
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Software-License contains templates for common open source software licenses.

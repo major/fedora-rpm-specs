@@ -46,7 +46,6 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 # Compress::PPMd not available (broken on 64-bit)
 # This is an old claim; we need to doublecheck that.
 #Requires:       perl(Compress::PPMd)

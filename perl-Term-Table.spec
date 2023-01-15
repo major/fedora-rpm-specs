@@ -42,7 +42,6 @@ BuildRequires:  perl(Test2::API)
 BuildRequires:  perl(Test2::Tools::Tiny) >= 1.302097
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Importer) >= 0.024
 %if %{with perl_Term_Table_enables_terminal}
 Suggests:       perl(Term::ReadKey) >= 2.32

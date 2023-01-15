@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exception::Class) >= 1.32
 Requires:       perl(Fcntl)
 Requires:       perl(Object::InsideOut) >= 3.88

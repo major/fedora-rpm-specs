@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::CPAN::Meta) >= 0.12
 BuildRequires:  perl(Test::MinimumVersion) >= 0.008
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Test::Pod) >= 1.26
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 There are a number of different modules and systems that constrain image

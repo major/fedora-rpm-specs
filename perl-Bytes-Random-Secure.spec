@@ -48,7 +48,6 @@ BuildRequires:  perl(Statistics::Basic)
 # Test::Pod::Coverage
 BuildRequires:  perl(Test::Warn)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Scalar::Util) >= 1.21
 Requires:       perl(MIME::QuotedPrint) >= 3.03
 

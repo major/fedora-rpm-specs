@@ -28,7 +28,6 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(Test::Pod) >= 1.00
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B)
 
 %description

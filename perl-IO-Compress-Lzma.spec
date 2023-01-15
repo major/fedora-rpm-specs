@@ -60,7 +60,6 @@ BuildRequires:	perl(Test::Pod) >= 1.00
 BuildRequires:	/usr/bin/7z
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This distribution provides a Perl interface to allow reading and writing of

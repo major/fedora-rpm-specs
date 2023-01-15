@@ -13,7 +13,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Catalyst)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(strict)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Catalyst::Plugin::Redirect is a Catalyst Plugin that provides

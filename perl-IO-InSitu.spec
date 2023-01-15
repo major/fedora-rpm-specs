@@ -17,7 +17,6 @@ BuildRequires:	perl(base)
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(File::Temp)
 BuildRequires:	perl(IO::File)
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter from provides
 %filter_from_provides /perl(IO::File::SE)/d

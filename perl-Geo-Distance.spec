@@ -24,7 +24,6 @@ BuildRequires:  perl(Test2::Require::Module)
 BuildRequires:  perl(Test2::V0) >= 0.000094
 # Optional tests:
 BuildRequires:  perl(DBD::SQLite) >= 1.46
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Const::Fast) >= 0.014
 Requires:       perl(GIS::Distance) >= 0.14
 Requires:       perl(GIS::Distance::Constants) >= 0.14

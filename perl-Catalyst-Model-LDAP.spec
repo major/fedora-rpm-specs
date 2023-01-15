@@ -45,7 +45,6 @@ Requires:       perl(Module::Runtime) >= 0.015
 Requires:       perl(Net::LDAP) >= 0.65
 Requires:       perl(Net::LDAP::Control::ProxyAuth) >= 1.09
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Module::Runtime\\)\s*$
 %global __requires_exclude %__requires_exclude|^perl\\(Net::LDAP\\)\s*$

@@ -9,7 +9,6 @@ Source0:	https://cpan.metacpan.org/authors/id/A/AD/ADAMK/Class-Autouse-%{version
 # Upstream does its very best to prevent us from running them.
 %bcond_with	xt_tests
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:	noarch
 
 BuildRequires:  %{__perl}

@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::Fatal) >= 0.003
 BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(threads)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl-Moo < 2.003000
 
 %description

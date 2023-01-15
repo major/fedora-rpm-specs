@@ -30,7 +30,6 @@ BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(Tangerine) >= 0.15
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Tangerine) >= 0.15
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Tangerine\\)$

@@ -20,7 +20,6 @@ BuildRequires:  perl(Sub::Name)
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(Variable::Magic)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

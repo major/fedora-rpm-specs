@@ -24,7 +24,6 @@ BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Cookie::Baker provides simple cookie string generator and parser.

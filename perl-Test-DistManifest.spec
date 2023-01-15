@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More)
 # Test::Warnings not used without $ENV{AUTHOR_TESTING}
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove private modules
 %global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}

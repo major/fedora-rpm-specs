@@ -47,7 +47,6 @@ Requires:       perl(File::Spec) >= 0.80
 Requires:       perl(File::stat) >= 1.00
 Requires:       perl(File::chmod) >= 0.30
 Requires:       perl(Params::Util) >= 0.21
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(CPAN::Checksums\\)\s*$

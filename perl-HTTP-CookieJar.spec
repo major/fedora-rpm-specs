@@ -28,7 +28,6 @@ BuildRequires:  perl(Time::Local)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(strict), perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module implements a minimalist HTTP user agent cookie jar in

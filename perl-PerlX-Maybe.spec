@@ -30,7 +30,6 @@ BuildRequires:  perl(PerlX::Maybe::XS) >= 0.003
 %endif
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 Requires:       perl(Exporter::Tiny)
 %if %{with perl_PerlX_Maybe_enables_xs}

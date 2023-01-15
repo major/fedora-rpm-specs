@@ -23,7 +23,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(Test2::Bundle::Extended)
 BuildRequires:	perl(Test::More)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Data::Dumper)
 
 %description

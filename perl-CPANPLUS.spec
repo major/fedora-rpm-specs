@@ -64,7 +64,6 @@ BuildRequires:  perl(version)
 BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # lib/CPANPLUS/Internals.pm:465
 Requires:       perl(File::Glob)
 # File::Path not found in lib/CPANPLUS/Internals/Utils.pm:68 and

@@ -22,7 +22,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(warnings)
 Requires:       perl(Exporter)
 Requires:       perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Crypt::MySQL emulates MySQL PASSWORD() SQL function, without

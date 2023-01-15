@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More)
 # Missing in Fedora
 # BuildRequires:  perl(Tie:IxHash)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Easy OO parsing of debian control-like files .

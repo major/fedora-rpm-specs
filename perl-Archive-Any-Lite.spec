@@ -43,7 +43,6 @@ BuildRequires:	perl(Parallel::ForkManager) >= 0.7.6
 BuildRequires:	perl(Test::Pod) >= 1.18
 BuildRequires:	perl(Test::Pod::Coverage) >= 1.04
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(IO::Uncompress::Bunzip2)
 Requires:	perl(IO::Zlib)
 

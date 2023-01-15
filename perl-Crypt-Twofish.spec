@@ -25,7 +25,6 @@ BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Benchmark)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Crypt::CBC)
 
 %{?perl_default_filter}

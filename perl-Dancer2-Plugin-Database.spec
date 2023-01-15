@@ -25,7 +25,6 @@ BuildRequires:  perl(DBD::SQLite)
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

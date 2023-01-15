@@ -35,7 +35,6 @@ BuildRequires:  perl(Math::BigInt)
 # Sys::Hostname not used at tests
 # Tests:
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Crypt::DES) >= 2.03
 Requires:       perl(Digest::HMAC) >= 1.00

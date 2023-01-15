@@ -170,7 +170,6 @@ required to use the OCaml bindings for %{name}.
 %package -n perl-%{name}
 Summary:       Perl bindings for %{name}
 Requires:      %{name}-libs = %{version}-%{release}
-Requires:      perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description -n perl-%{name}

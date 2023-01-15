@@ -37,7 +37,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.88
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(GTop)
 Suggests:       perl(IPC::SharedCache)
 Suggests:       perl(Storable)

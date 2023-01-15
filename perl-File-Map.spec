@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::Warnings) >= 0.005
 BuildRequires:  perl(threads)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

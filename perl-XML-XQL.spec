@@ -28,7 +28,6 @@ BuildRequires:  perl(XML::Parser) >= 2.30
 BuildRequires:  perl(XML::RegExp)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Date::Manip) >= 5.33
 Requires:       perl(POSIX)
 Requires:       perl(XML::DOM)

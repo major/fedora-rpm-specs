@@ -32,7 +32,6 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Time::HiRes)
 # Runtime dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(XSLoader)
 
 # Avoid provides from perl shared objects

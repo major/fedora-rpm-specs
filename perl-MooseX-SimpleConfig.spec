@@ -31,7 +31,6 @@ BuildRequires:  perl(CPAN::Meta)
 BuildRequires:  perl(CPAN::Meta::Prereqs) >= 2.120900
 BuildRequires:  perl(YAML::Syck)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(MooseX::ConfigFromFile)
 
 %description

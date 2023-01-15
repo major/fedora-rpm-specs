@@ -7,7 +7,6 @@ License:    GPL+ or Artistic
 Summary:    Autoboxed wrappers for native Perl datatypes 
 Source:     https://cpan.metacpan.org/authors/id/E/ET/ETHER/Moose-Autobox-%{version}.tar.gz
 Url:        https://metacpan.org/release/Moose-Autobox
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: coreutils

@@ -40,7 +40,6 @@ BuildRequires:  perl(Test::Vars)
 BuildRequires:  perl(Text::Password::Pronounceable)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

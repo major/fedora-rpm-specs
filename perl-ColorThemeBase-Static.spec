@@ -22,7 +22,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Color::RGB::Util) >= 0.600
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Color::RGB::Util\\)\\s*$

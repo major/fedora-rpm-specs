@@ -64,7 +64,6 @@ This package contains a Java interface for Hyper Estraier
 %package perl
 Summary:	Hyper Estraier library for Perl
 Requires:	%{name} = %{version}-%{release}
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description perl
 This package contains a Perl interface for Hyper Estraier

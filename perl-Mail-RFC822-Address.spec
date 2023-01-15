@@ -6,7 +6,6 @@ License:        MIT
 URL:            https://metacpan.org/release/Mail-RFC822-Address
 Source0:        https://cpan.metacpan.org/modules/by-module/Mail/Mail-RFC822-Address-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)

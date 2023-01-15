@@ -26,7 +26,6 @@ BuildRequires:  perl(Params::Validate)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 The Statistics::Contingency class helps you calculate several useful

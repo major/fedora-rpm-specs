@@ -13,7 +13,6 @@ Release:        4%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{pkgname}
 Source:         https://cpan.metacpan.org/authors/id/S/SS/SSCHECK/%{pkgname}-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Scalar::Util) >= 1.01
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter

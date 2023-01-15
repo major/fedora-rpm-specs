@@ -24,7 +24,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 # Run-time:
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

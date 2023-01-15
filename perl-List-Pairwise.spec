@@ -26,7 +26,6 @@ BuildRequires:  perl(warnings)
 # Devel::Cover is not used, because t/coverage.pl is not executed
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.42
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 List::Pairwise provides functions to map and grep lists two elements at a

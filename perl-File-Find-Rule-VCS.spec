@@ -20,7 +20,6 @@ BuildRequires:  perl(Text::Glob) >= 0.08
 BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Many tools need to be equally useful both on ordinary files, and on code

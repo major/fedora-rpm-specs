@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests only
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Module with small flags icons. You can get them in base64 inline HTML image

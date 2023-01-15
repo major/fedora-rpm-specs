@@ -26,7 +26,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module includes a number of smaller modules suited for

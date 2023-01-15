@@ -27,7 +27,6 @@ BuildRequires:	perl(namespace::autoclean)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(threads)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Data::UUID) >= 1.148
 
 # Don't provide perl(UNIVERSAL)

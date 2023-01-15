@@ -8,7 +8,6 @@ Source0:    http://downloads.sourceforge.net/qooxdoo/qooxdoo-%{version}-backend.
 Patch0:     perl-qooxdoo-compat-0.7.3-strict.patch
 BuildArch:  noarch
 BuildRequires:  perl-generators
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This package provides the Perl backend for Qooxdoo, a comprehensive

@@ -90,7 +90,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(MogileFS::Admin)
 BuildRequires:  perl(MogileFS::Client)
 BuildRequires:  perl-MogileFS-Utils
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       perl-mogilefs-server = %{version}-%{release}
 Obsoletes:      perl-mogilefs-server < 2.37
 
@@ -103,7 +102,6 @@ Server part of the MogileFS distributed file system.
 
 %package -n mogilefsd
 Summary:        MogileFS tracker daemon
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       mogilefsd-storage = %{version}-%{release}
 Recommends:     mogilefsd-storage-mysql = %{version}-%{release}
 Requires(pre):      glibc-common
@@ -121,7 +119,6 @@ start the storage DBMS before the mogilefsd.service.
 
 %package -n mogilefsd-storage-mysql
 Summary:        MySQL storage for MogileFS tracker daemon
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       mogilefsd-storage = %{version}-%{release}
 
 %description -n mogilefsd-storage-mysql
@@ -130,7 +127,6 @@ Provides:       mogilefsd-storage = %{version}-%{release}
 
 %package -n mogilefsd-storage-postgres
 Summary:        PostgreSQL storage for MogileFS tracker daemon
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       mogilefsd-storage = %{version}-%{release}
 
 %description -n mogilefsd-storage-postgres
@@ -139,7 +135,6 @@ Provides:       mogilefsd-storage = %{version}-%{release}
 
 %package -n mogilefsd-storage-sqlite
 Summary:        SQLite storage for MogileFS tracker daemon
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       mogilefsd-storage = %{version}-%{release}
 
 %description -n mogilefsd-storage-sqlite
@@ -148,7 +143,6 @@ Provides:       mogilefsd-storage = %{version}-%{release}
 
 %package -n mogstored
 Summary:        MogileFS storage daemon
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Mogstored::ChildProcess::DiskUsage)
 Requires:       perl(Mogstored::ChildProcess::IOStat)
 Requires:       perl(Mogstored::HTTPServer::None)
@@ -168,7 +162,6 @@ The MogileFS storage daemon mogstored.
 %package -n mogstored-backend-apache
 Summary:    Apache back-end for mogstored
 Requires:   httpd
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description -n mogstored-backend-apache
 Apache back-end for mogstored, the MogileFS storage daemon.
@@ -177,7 +170,6 @@ Apache back-end for mogstored, the MogileFS storage daemon.
 %package -n mogstored-backend-lighttpd
 Summary:    Lighttpd back-end for mogstored
 Requires:   lighttpd
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description -n mogstored-backend-lighttpd
 Lighttpd back-end for mogstored, the MogileFS storage daemon.
@@ -186,7 +178,6 @@ Lighttpd back-end for mogstored, the MogileFS storage daemon.
 %package -n mogstored-backend-nginx
 Summary:    Nginx back-end for mogstored
 Requires:   nginx
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description -n mogstored-backend-nginx
 Nginx back-end for mogstored, the MogileFS storage daemon.
@@ -194,7 +185,6 @@ Nginx back-end for mogstored, the MogileFS storage daemon.
 
 %package -n mogstored-backend-none
 Summary:    Back-end which allows mogstored to work with unmanaged DAV servers
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description -n mogstored-backend-none
 Back-end which allows mogstored to work with unmanaged DAV servers.
@@ -202,7 +192,6 @@ Back-end which allows mogstored to work with unmanaged DAV servers.
 
 %package -n mogstored-backend-perlbal
 Summary:    Perlbal back-end for mogstored
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl(IO::AIO) >= 1.6
 Requires:   perl(Perlbal) >= 1.79
 

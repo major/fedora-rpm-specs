@@ -6,7 +6,6 @@ License:    GPL+ or Artistic
 Summary:    FastCGI daemon start/stop script for using FastCgiExternalServer 
 Source:     https://cpan.metacpan.org/authors/id/Z/ZI/ZIGOROU/Catalyst-Helper-FastCGI-ExternalServer-%{version}.tar.gz 
 Url:        https://metacpan.org/release/Catalyst-Helper-FastCGI-ExternalServer
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:  noarch
 
 BuildRequires: findutils

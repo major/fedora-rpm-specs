@@ -47,7 +47,6 @@ BuildRequires:  perl(FindBin)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       cpio
 Requires:       perl(MooseX::Traits)
 Requires:       rpm

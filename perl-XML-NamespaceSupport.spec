@@ -18,7 +18,6 @@ BuildRequires:  perl(constant)
 BuildRequires:  perl(vars)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module offers a simple to process name-spaced XML names (unames) from

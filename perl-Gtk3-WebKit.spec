@@ -32,7 +32,6 @@ BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  xorg-x11-xinit
 BuildRequires:  font(:lang=en)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # Typelib for WebKit2-4.0 is provided by webkit2gtk3
 Requires:       webkit2gtk3
 

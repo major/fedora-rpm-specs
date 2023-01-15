@@ -45,7 +45,6 @@ BuildRequires:  perl(Mail::Box::Test) >= 3
 BuildRequires:  perl(Mail::Message) >= 3
 BuildRequires:  perl(Mail::Message::Body::Lines) >= 3
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Mail::Box) >= 3.007
 Requires:       perl(Mail::Box::Net) >= 3
 Requires:       perl(Mail::IMAPClient) >= 3.42
@@ -71,7 +70,6 @@ using the IMAP4 protocol.
 Summary:        IMAP4 server implementation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Mail::Box::Manage::User) >= 3
 Requires:       perl(Mail::Box::Search) >= 3
 Requires:       perl(Mail::Server) >= 3

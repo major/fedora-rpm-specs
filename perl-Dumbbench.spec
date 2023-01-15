@@ -45,7 +45,6 @@ BuildRequires:  perl(Capture::Tiny)
 BuildRequires:  perl(Test::More) >= 1
 # bash for /usr/bin/sh executed by sudo, not used at tests
 Requires:       bash
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # bin/dumbbench requires Capture::Tiny only if SOOT is available
 %if %{with perl_Dumbbench_enables_SOOT}
 Requires:       perl(Capture::Tiny)
@@ -67,7 +66,6 @@ does some statistical analysis to discard outliers, and prints the results.
 Summary:        Dumbbench visualization using ROOT
 # This package run-requires perl-SOOT which isn't available on ARM, bug #1139141
 ExclusiveArch: %{ix86} x86_64 noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_Dumbbench_enables_SOOT}
 Requires:       perl(SOOT)
 %endif

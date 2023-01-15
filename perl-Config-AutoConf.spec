@@ -41,7 +41,6 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl(ExtUtils::CBuilder)
 # Unused BuildRequires:  perl(IO::String)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(/usr/bin/perl -V:version)"; echo $version))
 %if %{with perl_Config_AutoConf_enables_File_Slurper}
 Suggests:       perl(File::Slurper)
 %endif

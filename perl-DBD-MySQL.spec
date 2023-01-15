@@ -35,7 +35,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
 BuildRequires:  zlib-devel
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       perl-DBD-mysql = %{version}-%{release}
 
 %{?perl_default_filter}

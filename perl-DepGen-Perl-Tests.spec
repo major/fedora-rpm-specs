@@ -32,7 +32,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Simple)
 BuildRequires:  perl(version) >= 0.77
 BuildRequires:  perl(XSLoader)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       rpm-build
 Requires:       tar
 # Some of the test data are executed

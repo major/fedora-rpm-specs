@@ -17,7 +17,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(Test::Exception)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Time::HiRes)
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 There are several other modules to do this, you probably want one of them. This

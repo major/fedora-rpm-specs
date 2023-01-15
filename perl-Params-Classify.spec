@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Devel::CallChecker) >= 0.003
 Requires:       perl(Exporter)
 Requires:       perl(Scalar::Util) >= 1.01

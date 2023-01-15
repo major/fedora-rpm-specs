@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::Deep::JSON)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This is a simple document-oriented interface to a SQLite database, modelled

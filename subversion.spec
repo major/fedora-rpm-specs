@@ -194,7 +194,6 @@ using HTTP, via the Apache httpd server.
 Summary: Perl bindings to the Subversion libraries
 BuildRequires: perl-devel >= 2:5.8.0, perl-generators, perl(ExtUtils::MakeMaker)
 BuildRequires: perl(Test::More), perl(ExtUtils::Embed)
-Requires: %(eval `perl -V:version`; echo "perl(:MODULE_COMPAT_$version)")
 Requires: subversion-libs%{?_isa} = %{version}-%{release}
 
 %description perl

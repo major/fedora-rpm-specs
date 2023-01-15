@@ -31,7 +31,6 @@ BuildRequires:  perl(warnings)
 # RDF::TrineX::Serializer::MockTurtleSoup
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # 1.00 version from Module::Install in META.yml
 Requires:       perl(Module::Install::Base) >= 1.0
 Requires:       perl(RDF::Trine) >= 0.135

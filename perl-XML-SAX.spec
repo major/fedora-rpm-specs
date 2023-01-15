@@ -48,7 +48,6 @@ BuildRequires:  perl(Fatal)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(Test)
 
-Requires:       perl(:MODULE_COMPAT_%(perl -MConfig -e 'print $Config{version}'))
 Requires:       perl(LWP::UserAgent)
 
 # Remove bogus XML::SAX::PurePerl* dependencies and unversioned provides

@@ -21,7 +21,6 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl-generators
 
 Requires:       perl(File::Basename)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Test::Toolbox provides tools for automated testing, much like other testing

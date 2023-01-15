@@ -85,7 +85,6 @@ BuildRequires:  perl(HTTP::Response)
 # We don't require various webserver transports (Apache*/APR, FCGI);
 # this would introduced a huge dependency chain and people will generally want only one
 # The server also introduces a huge dependency chain not everyone really wants.
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Compress::Zlib)
 # FIXME: Unpackaged Requires:       perl(DIME::Message)
 # FIXME: Unpackaged Requires:       perl(DIME::Payload)

@@ -21,7 +21,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Data::Dumper)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module converts hashes of binary octets into ASCII messages

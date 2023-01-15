@@ -100,7 +100,6 @@ BuildRequires:	perl(Text::CSV_XS)
 %endif
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 Requires:	perl(overload)
 Requires:	perl(Scalar::Util)

@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(Test::More)
 # ncurses for infocmp tool
 Requires:       ncurses
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Conflicts:      perl < 4:5.22.0-347
 

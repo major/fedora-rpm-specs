@@ -40,7 +40,6 @@ Requires:       perl(HTML::TreeBuilder)
 Requires:       perl(Moose) >= 0.89
 Requires:       perl(MooseX::Traits)
 Requires:       perl(MooseX::Types) >= 0.19
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %global __requires_exclude perl\\(Moose|perl\\(MooseX::Types
 

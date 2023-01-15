@@ -26,7 +26,6 @@ BuildRequires:  perl(XSLoader)
 # Tests
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       bundled(dovecot)
 
 %description

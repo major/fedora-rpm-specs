@@ -92,7 +92,6 @@ Patch0: spamassassin-4.0.0-gnupg2.patch
 # add a logfile and homedir for razor
 Patch1: spamassassin-4.0.0-add-logfile-homedir-options.patch
 # end of patches
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 %if %{use_systemd} == 0
 Requires: /sbin/chkconfig /sbin/service
 %endif

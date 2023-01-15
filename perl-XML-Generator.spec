@@ -27,7 +27,6 @@ BuildRequires:      perl(Test::More)
 BuildRequires:      perl(utf8)
 # Optional tests:
 BuildRequires:      perl(Tie::IxHash)
-Requires:           perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:           perl(warnings)
 
 %description

@@ -110,7 +110,6 @@ BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::File::ShareDir)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # Archive::Tar is a fall-back for missing optional Archive::Tar::Wrapper 0.15
 Requires:       perl(Archive::Tar)
 #Requires:       perl(autobox) >= 2.53

@@ -46,7 +46,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  libevent-devel >= 2.1
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is a Perl wrapper around libevent(3) as available from

@@ -27,7 +27,6 @@ BuildRequires:	procps-ng
 %endif
 BuildRequires:	words
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module is a faster but simpler version of Regexp::Assemble or

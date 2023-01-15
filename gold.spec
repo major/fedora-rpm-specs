@@ -18,7 +18,6 @@ Patch1:		gold-configure-ac.patch
 
 BuildArch:	noarch 
 Requires(pre):	shadow-utils
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	sqlite
 
 # For some reason, these requires are missed:
@@ -46,7 +45,6 @@ to use either MySQL or PostgreSQL instead.
 Summary:			Gold Allocation Manager Web Frontend
 Requires:			%{name} = %{version}-%{release}
 Requires:			webserver
-Requires:			perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:		perl-interpreter
 
 %description web

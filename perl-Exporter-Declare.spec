@@ -24,7 +24,6 @@ BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Simple) >= 0.88
 BuildRequires:  perl(warnings)
 Requires:       perl(Meta::Builder) >= 0.003
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Remove underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Meta::Builder\\)\s*$

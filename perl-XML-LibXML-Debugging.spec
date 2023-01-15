@@ -21,7 +21,6 @@ BuildRequires:  perl(parent)
 BuildRequires:  perl(XML::LibXML)
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.61
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module adds a couple of additional methods to XML::LibXML::Node

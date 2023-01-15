@@ -62,7 +62,6 @@ BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::MockObject)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       git
 Requires:       perl(CPAN::Meta)
 Requires:       perl(CPAN::ParseDistribution)

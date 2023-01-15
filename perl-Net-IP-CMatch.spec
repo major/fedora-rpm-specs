@@ -23,7 +23,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Test::More)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Net::IP::CMatch is based upon, and does the same thing as Net::IP::Match. The

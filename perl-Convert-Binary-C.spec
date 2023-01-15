@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::Pod) >= 0.95
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:  perl(Thread)
 BuildRequires:  perl(threads)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Convert::Binary::C is a preprocessor and parser for C type definitions. It

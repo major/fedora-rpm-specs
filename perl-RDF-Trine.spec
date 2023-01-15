@@ -102,7 +102,6 @@ BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::JSON)
 BuildRequires:  perl(URI::file)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(Data::UUID)
 Requires:       perl(GraphViz)
 Requires:       perl(List::Util) >= 1.33
@@ -130,7 +129,6 @@ separate packages (e.g. %{name}-mysql).
 %package redland
 Summary:        Redland support for RDF::Trine
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Scalar::Util) >= 1.24
 
 %description redland
@@ -141,7 +139,6 @@ This provides Redland parser and storage for RDF::Trine Perl framework.
 %package postgresql
 Summary:        RDF::Trine store in PostgreSQL
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DBD::Pg)
 Requires:       perl(Scalar::Util) >= 1.24
 
@@ -153,7 +150,6 @@ This provides an RDF::Trine::Store API to interact with PostgreSQL server.
 %package mysql
 Summary:        RDF::Trine store in MySQL
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DBD::mysql)
 Requires:       perl(Scalar::Util) >= 1.24
 
@@ -165,7 +161,6 @@ This provides an RDF::Trine::Store API to interact with MySQL server.
 %package sqlite
 Summary:        RDF::Trine store in SQLite
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DBD::SQLite) >= 1.14
 Requires:       perl(Scalar::Util) >= 1.24
 
@@ -177,7 +172,6 @@ This provides an RDF::Trine::Store API to interact with MySQL server.
 %package redis
 Summary:        RDF::Trine store in Redis
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(JSON) >= 2.0
 Requires:       perl(List::Util) >= 1.33
 Requires:       perl(Scalar::Util) >= 1.24
@@ -189,7 +183,6 @@ This provides an RDF::Trine::Store API to interact with a Redis server.
 %package -n perl-Test-RDF-Trine-Store
 Summary:        Collection of functions to test RDF::Trine stores
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::More) >= 0.88
 
 %description -n perl-Test-RDF-Trine-Store

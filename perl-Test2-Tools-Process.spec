@@ -42,7 +42,6 @@ BuildRequires:  bash
 # Tests:
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test2::V0) >= 0.000121
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config)
 Requires:       perl(Test2::API) >= 1.302015
 Requires:       perl(Test2::Compare) >= 0.000121

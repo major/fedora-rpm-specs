@@ -26,7 +26,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
 # Tests only
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(POE) >= 0.17
 Requires:       perl(Time::HiRes)
 

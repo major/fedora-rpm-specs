@@ -31,7 +31,6 @@ BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 # Optional tests only
 BuildRequires:  perl(Test::Pod) >= 1.14
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 # Optional Requires:       perl(Tk::CursorControl)
 Requires:       perl(Tk::LabEntry)
 

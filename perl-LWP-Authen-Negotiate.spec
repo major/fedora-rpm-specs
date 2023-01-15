@@ -17,7 +17,6 @@ BuildRequires:  perl(LWP::Debug)
 BuildRequires:  perl(Test::More)
 Requires:       perl(GSSAPI) >= 0.18
 Requires:       perl(LWP::Debug)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 WWW-Negotiate supporting Webservers are IIS or Apache with 

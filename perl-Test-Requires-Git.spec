@@ -25,7 +25,6 @@ BuildRequires:  perl-generators
 
 %global __requires_exclude ^perl\\(Git::Version::Compare\\)$
 Requires:       perl(Git::Version::Compare) >= 1.001
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Test::Requires::Git checks if the version of Git available for testing

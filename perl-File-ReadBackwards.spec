@@ -23,7 +23,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module reads a file backwards line by line. It is simple to use,

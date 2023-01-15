@@ -32,7 +32,6 @@ BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(Test::Tester) >= 0.108
 BuildRequires:	perl(Test::Warnings) >= 0.009
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Kwalitee is an automatically-measurable gauge of how good your software

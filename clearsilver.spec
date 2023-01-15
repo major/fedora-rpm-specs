@@ -51,7 +51,6 @@ BuildRequires:  perl-generators
 %if 0%{?rhel} > 7
 BuildRequires:  perl-ExtUtils-MakeMaker
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:       %{name}-perl = %{version}-%{release}
 
 %description -n perl-%{name}

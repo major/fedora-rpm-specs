@@ -20,7 +20,6 @@ BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 MDV::Packdrakeng is a simple indexed archive builder and extractor using

@@ -33,7 +33,6 @@ BuildRequires:  perl(Cwd)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Test::More) >= 0.90
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(DBD::File) >= 0.44
 Requires:       perl(DBI) >= 1.628
 Requires:       perl(Exporter)

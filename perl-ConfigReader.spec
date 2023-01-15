@@ -6,7 +6,6 @@ License:        LGPLv2+
 URL:            https://metacpan.org/release/ConfigReader
 Source0:        https://cpan.metacpan.org/modules/by-module/ConfigReader/ConfigReader-%{version}.tar.gz
 BuildArch:      noarch
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 

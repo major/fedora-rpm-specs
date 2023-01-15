@@ -150,7 +150,6 @@ Recommends:     djvulibre
 # Prefer libtiff-tools (/usr/bin/tiff2ps) over poppler-utils or ghostscript
 # for PostScript support
 Requires:       libtiff-tools
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(if)
 Recommends:     perl(Image::Magick)
 Requires:       perl(PDF::Builder) >= 3.022

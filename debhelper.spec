@@ -82,7 +82,6 @@ Requires:       dpkg-dev >= 1.18.2
 Requires:       dpkg-perl >= 1.17.14
 # PerlIO::gzip || gzip
 Requires:       gzip
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Digest::SHA)
 Requires:       perl(Dpkg::Arch)

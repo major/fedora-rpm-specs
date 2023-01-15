@@ -45,7 +45,6 @@ BuildRequires:  procps-ng
 BuildRequires:  perl(Thread::Queue)
 BuildRequires:  perl(Thread::Semaphore)
 BuildRequires:  perl(threads::shared)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 %{?perl_default_filter}

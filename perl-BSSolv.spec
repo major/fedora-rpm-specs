@@ -40,7 +40,6 @@ BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test::More)
 Requires:       libsolv%{?_isa} >= %{min_libsolv_version}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter private modules
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}perl\\(t::testlib\\)

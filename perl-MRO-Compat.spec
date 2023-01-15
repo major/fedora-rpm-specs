@@ -19,7 +19,6 @@ BuildRequires:	perl(warnings)
 # Test
 BuildRequires:	perl(Test::More) >= 0.47
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The "mro" namespace provides several utilities for dealing with method

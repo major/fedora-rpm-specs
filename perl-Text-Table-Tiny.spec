@@ -22,7 +22,6 @@ BuildRequires:  perl(String::TtyLength)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 Text::Table::Tiny provides a single function, generate_table, which formats

@@ -19,7 +19,6 @@ BuildRequires:  perl(Carp)
 # Tests only
 BuildRequires:  perl(Memoize)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module implements an expiry policy for Memoize that follows LRU

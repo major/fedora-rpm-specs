@@ -44,7 +44,6 @@ BuildRequires:  perl(DateTime::Format::ICal)
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if %{with perl_DateTimeX_Easy_enables_Date_Manip}
 Suggests:       perl(DateTime::Format::DateManip)
 %endif

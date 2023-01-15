@@ -142,7 +142,6 @@ Requires:       make
 # A subset of Alien-Build modules is packaged in perl-Alien-Base to minimize
 # dependencies.
 Requires:       perl-Alien-Base = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 %if !%{defined perl_bootstrap}
 # Build cycle: perl-Alien-cmake3 → perl-Alien-Build
 Requires:       perl(Alien::cmake3) >= 0.02
@@ -208,7 +207,6 @@ client, and work closely with Alien::Base which is used at run time.
 
 %package -n perl-Alien-Base
 Summary:        Base classes for Alien:: modules
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DynaLoader)
 Requires:       perl(FFI::CheckLib)
 Requires:       perl(File::Find)
@@ -231,7 +229,6 @@ Alien::Base comprises base classes to help in the construction of
 %package Plugin-Decode-HTML
 Summary:        Alien::Build plugin to extract links from HTML
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTML::LinkExtor)
 Requires:       perl(URI)
 Requires:       perl(URI::Escape)
@@ -245,7 +242,6 @@ candidates for your Prefer plugin.
 %package Plugin-Decode-Mojo
 Summary:        Alien::Build plugin to extract links from HTML
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Prefer Mojo::DOM with Mojolicious >= 7.00 over Mojo::DOM58 that is not yet
 # packaged.
 Requires:       perl(Mojo::DOM)

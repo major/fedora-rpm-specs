@@ -25,7 +25,6 @@ BuildRequires:  perl(parent)
 # CPAN::Meta::Prereqs not helpful
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides functions that are the inverse of built-in perl functions

@@ -21,7 +21,6 @@ BuildRequires:  perl(Types::Standard)
 BuildRequires:  perl(namespace::clean)
 BuildRequires:  perl(namespace::autoclean)
 BuildRequires:  perl(ok)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

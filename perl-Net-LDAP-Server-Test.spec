@@ -43,7 +43,6 @@ BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  %{__make}
 BuildRequires:  %{__perl}
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test your Net::LDAP code without having a real LDAP server available.

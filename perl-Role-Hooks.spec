@@ -42,7 +42,6 @@ BuildRequires:  perl(Mouse)
 BuildRequires:  perl(Package::Variant)
 BuildRequires:  perl(Role::Basic)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Not sure, if this dep should be mandatory
 Recommends:	perl(Carp)

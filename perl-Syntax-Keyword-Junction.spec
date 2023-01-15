@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::Requires) >= 0.07
 BuildRequires:  perl(Sub::Exporter) >= 0.986
 BuildRequires:  perl(syntax)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(if)
 Requires:       perl(overload)
 Requires:       perl(Sub::Exporter::Progressive) >= 0.001006

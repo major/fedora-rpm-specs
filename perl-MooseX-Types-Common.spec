@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Warnings) >= 0.005
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # With MooseX::Types >= 0.42
 Requires:       perl(namespace::autoclean)
 

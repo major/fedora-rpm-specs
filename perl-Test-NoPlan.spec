@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 BuildRequires:  perl(Pod::Coverage) >= 0.18
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 It is a good idea to ensure you have defined how many tests should be run

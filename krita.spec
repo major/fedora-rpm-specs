@@ -10,7 +10,7 @@
 
 Name:           krita
 Version:        5.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Krita is a sketching and painting program
 License:        GPL-2.0-or-later
@@ -173,6 +173,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.krita.des
 
 
 %changelog
+* Fri Jan 13 2023 Richard Shaw <hobbes1069@gmail.com> - 5.1.4-3
+- Rebuild for OpenColorIO.
+
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 5.1.4-2
 - LibRaw rebuild
 

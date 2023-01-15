@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 # Test Suite
 # (no additional dependencies)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(AutoLoader)
 
 %description

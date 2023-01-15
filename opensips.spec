@@ -247,7 +247,6 @@ Summary:  Perl virtual database engine
 BuildRequires: perl(ExtUtils::MakeMaker)
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Requires: %{name}-perl%{?_isa} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides: %{name}-perlvdb%{?_isa} = %{version}-%{release}
 Obsoletes: %{name}-perlvdb
 
@@ -463,7 +462,6 @@ BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: perl(ExtUtils::Embed), perl-devel
 BuildRequires: perl-generators
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description perl
 The time needed when writing a new OpenSIPS module unfortunately is quite
@@ -758,7 +756,6 @@ protocol.
 %package  snmpstats
 Summary:  SNMP management interface for the OpenSIPS
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires: net-snmp-devel
 
 %description snmpstats

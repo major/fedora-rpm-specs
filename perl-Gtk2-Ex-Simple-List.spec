@@ -21,7 +21,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Gtk2::TestHelper)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Gtk2 has a powerful, but complex MVC (Model, View, Controller) system used

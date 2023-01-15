@@ -31,7 +31,6 @@ BuildRequires:  perl(Data::Dumper)
 # Devel::StackTrace not used
 # Test::More not used
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 # Remove private modules

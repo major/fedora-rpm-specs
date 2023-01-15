@@ -56,7 +56,6 @@ BuildRequires:  perl(HTTP::Request)
 BuildRequires:  perl(LWP::Protocol::https) >= 6.02
 BuildRequires:  perl(LWP::UserAgent)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       /etc/pki/tls/certs/ca-bundle.crt
 Requires:       perl(XSLoader)
 

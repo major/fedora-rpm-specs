@@ -44,7 +44,6 @@ BuildRequires:  perl(URI)
 BuildRequires:  perl(version) >= 0.68
 BuildRequires:  perl(YAML::Syck) >= 0.60
 BuildRequires:  perl(Time::Progress)
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  perl(App::CLI)
 Requires:  perl(Class::Accessor::Fast)
 Requires:  perl(Class::Data::Inheritable)

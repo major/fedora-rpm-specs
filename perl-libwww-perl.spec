@@ -94,7 +94,6 @@ BuildRequires:  perl(Test::LeakTrace)
 %endif
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Authen::NTLM) >= 1.02
 Suggests:       perl(CPAN::Config)
 Requires:       perl(Encode) >= 2.12

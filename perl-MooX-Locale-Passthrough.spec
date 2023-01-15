@@ -19,7 +19,6 @@ BuildRequires:  perl(Moo::Role)
 # Tests
 BuildRequires:  perl(Moo) >= 1.003
 BuildRequires:  perl(Test::More) >= 0.90
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # 1.003 from Moo in META.json which is not used
 Requires:       perl(Moo::Role) >= 1.003
 

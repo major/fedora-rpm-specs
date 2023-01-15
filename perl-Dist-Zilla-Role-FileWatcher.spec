@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Test::Warnings not used
 # Optional tests:
 BuildRequires:  perl(Moose::Conflicts)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # This is a Dist::Zilla plugin
 Requires:       perl(Dist::Zilla) >= 4.300039
 

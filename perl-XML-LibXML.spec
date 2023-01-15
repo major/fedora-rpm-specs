@@ -78,7 +78,6 @@ BuildRequires:  perl(utf8)
 # Author test - Test::Pod
 # Author test - Test::Kwalitee
 # Author test - Test::TrailingSpace
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 # Run-require "perl-interpreter" because a triggerin script needs it.
 Requires:           perl-interpreter

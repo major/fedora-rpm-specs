@@ -50,7 +50,6 @@ BuildRequires:  perl(MooX::TypeTiny)
 BuildRequires:  perl(Mouse)
 BuildRequires:  perl(Test::Moose)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 If you've used Moose's native attribute traits, or MooX::HandlesVia before,

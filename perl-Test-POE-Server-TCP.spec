@@ -21,7 +21,6 @@ Requires:       perl(POE) >= 1.004
 Requires:       perl(POE::Filter::Line)
 Requires:       perl(POE::Wheel::ReadWrite)
 Requires:       perl(POE::Wheel::SocketFactory)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test::POE::Server::TCP is a POE component that provides a TCP server

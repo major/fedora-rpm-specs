@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.80
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is an experimental distribution that attempts to intuit the underlying

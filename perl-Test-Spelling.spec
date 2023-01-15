@@ -33,7 +33,6 @@ BuildRequires:  perl(utf8)
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       hunspell
 Requires:       perl(Carp)
 

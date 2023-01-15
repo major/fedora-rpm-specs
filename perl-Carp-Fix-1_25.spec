@@ -21,7 +21,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More) >= 0.88
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Carp 1.25 made a change to its formatting, adding a period at the end of the

@@ -81,7 +81,6 @@ BuildRequires:	perl(Test::Spelling) >= 0.12
 # ===================================================================
 # Runtime requirements
 # ===================================================================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 
 %description

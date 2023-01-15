@@ -89,7 +89,6 @@ BuildRequires:	perl(lib)
 BuildRequires:	perl(Test)
 BuildRequires:	perl(Test::More)		>= 0.61
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Digest::BubbleBabble)
 Requires:	perl(File::Basename)
 Requires:	perl(File::Path)

@@ -47,7 +47,6 @@ BuildRequires:	perl(Test::CPAN::Meta) >= 0.17
 BuildRequires:	perl(Test::MinimumVersion) >= 0.101080
 BuildRequires:	perl(Test::Pod) >= 1.44
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Crypt::DSA::Keychain calls openssl for DSA parameter generation
 Requires:	openssl
 # Convert::ASN1 used by Crypt::DSA::Signature

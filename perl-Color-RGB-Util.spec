@@ -26,7 +26,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test::RandomResult)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Digest::SHA)
 Requires:       perl(Exporter) >= 5.57
 

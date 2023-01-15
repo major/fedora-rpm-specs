@@ -42,7 +42,6 @@ BuildRequires:	perl(Test::More) >= 0.96
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The File::LibMagic module is a simple perl interface to libmagic from the

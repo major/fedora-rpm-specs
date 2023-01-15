@@ -38,7 +38,6 @@ BuildRequires:  perl(utf8)
 %if %{with perl_Locale_Maketext_enables_optional_test} && !%{defined perl_bootstrap}
 BuildRequires:  perl(Test::Pod) >= 1.14
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(I18N::LangTags) >= 0.31
 # utf8 is used only if it has already been loaded
 Requires:       perl(warnings)

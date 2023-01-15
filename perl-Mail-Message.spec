@@ -71,7 +71,6 @@ BuildRequires:	perl(Data::Dumper)
 BuildRequires:	perl(Email::Abstract)
 %endif
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Date::Parse)
 %if !%{defined perl_bootstrap}
 Requires:	perl(Mail::Transport::Send)

@@ -38,7 +38,6 @@ Requires:       gzip
 Requires:       hostname
 Requires:       man-db
 Requires:       mercurial
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter)
 # redhat-lsb-core for lsb_release
 Requires:       redhat-lsb-core

@@ -21,7 +21,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 Requires:       perl(Env::Path)
 Requires:       perl(File::Spec) >= 0.8
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides the ability to search a path-like environment variable

@@ -40,7 +40,6 @@ interoperates with all common DC hub software.
 %package xmlrpc
 Summary:    CLI xmlrpc
 Requires:   %{name}%{?_isa} = %{version}-%{release}
-Requires:   perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`";echo $version))
 
 %description xmlrpc
 Subpackage with CLI xmlrpc for %{name}.

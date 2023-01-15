@@ -22,7 +22,6 @@ BuildRequires:  perl(XSLoader)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Avoid perl object provides
 %{?perl_default_filter}

@@ -61,7 +61,6 @@ programs which use remctl's libraries, you need to install this package.
 %package perl
 Summary: Perl interface to remctl
 Requires: %{name} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description perl
 remctl implements a client/server protocol for running single commands 

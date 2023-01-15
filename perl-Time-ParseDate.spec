@@ -12,7 +12,6 @@ BuildArch:      noarch
 Provides:       perl-Time-modules = %{version}-%{release}
 Obsoletes:      perl-Time-modules <= 2013.0912-3
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  findutils
 BuildRequires:  make

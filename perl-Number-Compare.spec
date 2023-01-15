@@ -13,7 +13,6 @@ BuildRequires:	perl-generators
 BuildRequires:	perl(Carp)
 BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	perl(Test::More)
-Requires:  	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Number::Compare compiles a simple comparison to an anonymous subroutine,

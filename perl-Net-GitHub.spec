@@ -38,7 +38,6 @@ BuildRequires:  perl(URI::Escape)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(LWP::Protocol::https)
 Obsoletes:      %{name}-tests <= 0.50
 

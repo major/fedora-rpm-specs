@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::Distribution)
 BuildRequires:  perl(Test::Exception)
 # Test::Spelling not used
 # Test::Portability::Files not used
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # DynaLoader not used if XSLoader is available
 Requires:  perl(XSLoader)
 

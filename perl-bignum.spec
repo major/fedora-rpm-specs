@@ -34,7 +34,6 @@ BuildRequires:  perl(Math::BigInt::GMP)
 # Math::BigInt::Pari not package yet
 # Socket not used
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp) >= 1.22
 Requires:       perl(Math::BigInt) >= 1.999830
 Requires:       perl(Math::BigRat) >= 0.2623

@@ -29,7 +29,6 @@ BuildRequires:  perl(Test::More) >= 0.94
 BuildRequires:  perl(Test::Needs)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Sub::Exporter::ForMethods)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Devel::PartialDump) >= 0.13
 Requires:       perl(Moose) >= 1.08
 Requires:       perl(Moose::Meta::TypeCoercion)

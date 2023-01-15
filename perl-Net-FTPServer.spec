@@ -51,7 +51,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  %{_bindir}/uudecode
 BuildRequires:  %{_bindir}/compress
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Optional run-time:
 Requires:       perl(Archive::Zip)
 Requires:       perl(Authen::PAM)

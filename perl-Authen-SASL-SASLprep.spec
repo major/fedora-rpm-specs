@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::NoWarnings)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Unicode::Stringprep) >= 1
 
 # Remove under-specified dependencies

@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::CPAN::Meta)
 BuildRequires:  perl(Test::CPAN::Meta::JSON)
 BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description

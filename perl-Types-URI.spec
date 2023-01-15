@@ -51,7 +51,6 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Types::Attean) >= 0.024
 BuildRequires:  perl(Types::Namespace) >= 1.10
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Type::Library) >= 1.000000
 
 # Remove under-specified dependencies

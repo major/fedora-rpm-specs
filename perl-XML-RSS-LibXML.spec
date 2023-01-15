@@ -44,7 +44,6 @@ BuildRequires:  perl(Test::Differences)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Warn)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(constant)
 
 %{?perl_default_filter}

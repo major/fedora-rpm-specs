@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More)
 # Test::Pod 1.00
 # Test::Spelling
 # Test::Synopsis
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module can be used to test that you're logging the right thing with

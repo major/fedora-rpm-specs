@@ -31,7 +31,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(CPAN::Meta::Prereqs)
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 It's boring to deal with opening files for IO, converting strings to

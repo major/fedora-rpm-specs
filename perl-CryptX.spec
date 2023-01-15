@@ -50,7 +50,6 @@ BuildRequires:  perl(Math::Complex)
 BuildRequires:  perl(Storable) >= 2.0
 BuildRequires:  perl(Test::Pod)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 Provides:       bundled(libtomcrypt) = 1.18.2-1.20210604git673f5ce2
 Provides:       bundled(libtommath) = 1.2.0-1.20180923git8b9f98ba

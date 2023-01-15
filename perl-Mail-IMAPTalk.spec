@@ -29,7 +29,6 @@ BuildRequires:  perl(warnings)
 # IO::Socket
 # MIME::Base64
 # Socket
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Authen::SASL)
 Requires:       perl(Encode)
 Requires:       perl(Encode::IMAPUTF7)

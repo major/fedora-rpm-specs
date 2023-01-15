@@ -20,7 +20,6 @@ BuildRequires:	perl(XSLoader)
 # Test Suite
 BuildRequires:	perl(Socket)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(XSLoader)
 
 # Avoid provides from private shared objects

@@ -69,7 +69,6 @@ BuildRequires:  perl(Test::NoWarnings)
 %endif
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Glob)
 
 # This is wrapper for different Compress modules

@@ -47,7 +47,6 @@ BuildRequires:  perl(IO::Select)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Compress::Raw::Zlib)
 Requires:       perl(IO::Uncompress::Gunzip)
 # Prefer IO::Socket::IP over IO::Socket::INET and IO::Socket::INET6

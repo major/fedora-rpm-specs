@@ -22,7 +22,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 RFC 1924 describes a compact, fixed-size representation of IPv6 addresses

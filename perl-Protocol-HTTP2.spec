@@ -32,7 +32,6 @@ BuildRequires:  perl(Net::SSLeay) >= 1.45
 BuildRequires:  perl(Test::LeakTrace)
 BuildRequires:  perl(Test::More) >= 0.98
 BuildRequires:  perl(Test::TCP)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(MIME::Base64) >= 3.11
 
 # Remove under-specified dependencies

@@ -31,7 +31,6 @@ BuildRequires:	perl(Encode)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(MIME::Base64)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

@@ -24,7 +24,6 @@ BuildRequires:  perl(vars)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IPC::ShareLite) >= 0.06
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(IPC::ShareLite\\)$

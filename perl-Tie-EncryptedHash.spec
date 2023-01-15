@@ -26,7 +26,6 @@ BuildRequires:	perl(vars)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(warnings)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Crypt::Blowfish)
 Requires:	perl(Crypt::DES)
 

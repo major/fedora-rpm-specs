@@ -29,7 +29,6 @@ BuildRequires:	perl(CPAN::Meta::Prereqs)
 BuildRequires:	perl(File::Spec)
 BuildRequires:	perl(Test::More) >= 0.88
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # We actually have this everywhere, so use it
 BuildRequires:	perl(Hash::Util::FieldHash)

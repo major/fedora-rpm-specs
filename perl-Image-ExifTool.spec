@@ -36,7 +36,6 @@ BuildRequires:	perl(POSIX)
 BuildRequires:	perl(Time::Local)
 # Win32::API not used on Linux
 # Win32::API not used on Linux
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:	perl(FileHandle)
 
 %description

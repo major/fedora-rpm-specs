@@ -33,7 +33,6 @@ BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(CPAN::Meta::Prereqs)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # New upstream maintainer for 2.112 finally got the dist name right
 Provides:	perl-IO-Stringy = %{version}-%{release}

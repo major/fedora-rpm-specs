@@ -22,7 +22,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(Time::HiRes) >= 1.9764
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  perl(Time::HiRes) >= 1.9764
 
 %description

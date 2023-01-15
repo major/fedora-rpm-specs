@@ -29,7 +29,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Compare)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides a character encoding scheme (CES) switching a set of

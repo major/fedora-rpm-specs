@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Pod::Coverage) >= 0.18
 BuildRequires:  perl(Test::Pod) >= 1.22
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Perl Tie::Hash::Method module provides a way to create a tied hash with

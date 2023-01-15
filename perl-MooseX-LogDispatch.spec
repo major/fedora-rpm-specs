@@ -33,7 +33,6 @@ BuildRequires:  perl(Moose)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:       perl(MooseX::LogDispatch::ConfigMaker) = %{version}
 Provides:       perl(MooseX::LogDispatch::Interface) = %{version}
 Provides:       perl(MooseX::LogDispatch::Logger) = %{version}

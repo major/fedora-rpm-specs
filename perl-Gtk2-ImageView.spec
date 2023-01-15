@@ -21,7 +21,6 @@ BuildRequires:  perl(ExtUtils::Depends) >= 0.2
 BuildRequires:  perl(ExtUtils::PkgConfig) >= 1.03
 BuildRequires:  perl(Gtk2)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Glib) >= 1.163
 Requires:       perl(Cairo) >= 1.00
 

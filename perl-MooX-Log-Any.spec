@@ -27,7 +27,6 @@ BuildRequires:  perl(Log::Any::Test)
 BuildRequires:  perl(Moo)
 BuildRequires:  perl(Test::More)
 # Test::Version not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 A logging role building a very lightweight wrapper to Log::Any for use with

@@ -34,7 +34,6 @@ BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(lib)
 # Not automatically detected
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
 Requires:       perl(Data::Dumper::Names) >= 0.03

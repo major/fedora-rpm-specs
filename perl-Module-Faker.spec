@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(Text::Template)
 BuildRequires:  perl(warnings)
 Requires:       perl(Path::Class) >= 0.06
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Path::Class\\)\s*$
 

@@ -6,7 +6,6 @@ License:        Artistic 2.0
 Summary:        Make your object constructors blow up on unknown attributes 
 Source:         https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/MooseX-StrictConstructor-%{version}.tar.gz 
 Url:            https://metacpan.org/release/MooseX-StrictConstructor
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  perl-generators

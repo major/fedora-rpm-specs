@@ -29,7 +29,6 @@ BuildRequires:  perl(Tie::Handle)
 # The code defaults to Compress::Zlib, but a user can override it to gzip by
 # importing :gzip_external symbol
 Requires:       gzip
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Compress::Zlib) >= 2
 Requires:       perl(IO::Handle)
 

@@ -20,7 +20,6 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Importer) >= 0.024
 # Tests:
 BuildRequires:  perl(Test2::Tools::Tiny) >= 1.302072
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Importer) >= 0.024
 
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Importer\\)$

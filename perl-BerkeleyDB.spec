@@ -64,7 +64,6 @@ BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Hard-code Berkeley DB requirement to avoid problems like #592209
 Requires:       %{db_pkg} = %{db_ver}
 Requires:       perl(XSLoader)

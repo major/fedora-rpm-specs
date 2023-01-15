@@ -58,7 +58,6 @@ Provides:       libapreq-devel = %{version}-%{release}
 %package     -n perl-%{name}
 Summary:        Perl interface to the Apache HTTP request library
 Requires:       mod_perl >= 2.0.0-0.rc5
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Provides:       perl-libapreq = %{version}-%{release}
 
 %description -n perl-%{name}

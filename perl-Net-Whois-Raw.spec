@@ -34,7 +34,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::RequiresInternet)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(HTTP::Headers)
 Requires:       perl(HTTP::Request)
@@ -71,7 +70,6 @@ Summary:        Perl written whois client
 # Getopt::Long not used at tests
 # Net::IDN::Punycode 1 not used at tests
 # Win32API::Registry not used on Linux
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Getopt::Long) >= 2
 Requires:       perl(Net::IDN::Punycode) >= 1
 # Win32API::Registry not used on Linux

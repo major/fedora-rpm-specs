@@ -32,7 +32,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(Crypt::OpenSSL::Bignum) >= 0.04
 BuildRequires:  perl(Crypt::OpenSSL::Bignum::CTX)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This package provides a Perl standard (non-object-oriented) interface to the

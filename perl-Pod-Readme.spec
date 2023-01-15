@@ -59,7 +59,6 @@ BuildRequires:  perl(Test::Exception)
 #BuildRequires: perl(Test::Kit)
 BuildRequires:  perl(Test::More) >= 0.88
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Role::Tiny)
 
 %description

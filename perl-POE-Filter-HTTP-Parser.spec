@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More) >= 0.47
 # Test::Pod::Coverage not used
 BuildRequires:  perl(Test::POE::Client::TCP) >= 0.1
 BuildRequires:  perl(Test::POE::Server::TCP) >= 0.16
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(HTTP::Parser) >= 0.06
 # bytes is strictly optional but needed for correctess
 Requires:       perl(bytes)

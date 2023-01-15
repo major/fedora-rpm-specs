@@ -6,7 +6,6 @@ License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Encodes text to be safe in JavaScript
 Source:     https://cpan.metacpan.org/authors/id/M/MI/MIYAGAWA/Template-Plugin-JavaScript-%{version}.tar.gz
 Url:        https://metacpan.org/release/Template-Plugin-JavaScript
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 BuildArch:  noarch
 # Build
 BuildRequires: make

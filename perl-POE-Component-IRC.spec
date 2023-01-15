@@ -75,7 +75,6 @@ BuildRequires:  perl(Socket::GetAddrInfo)
 BuildRequires:  perl(Test::Differences) >= 0.61
 BuildRequires:  perl(Test::More) >= 0.47
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(IRC::Utils) >= 0.12
 Requires:       perl(List::Util) >= 1.33
 Requires:       perl(overload)

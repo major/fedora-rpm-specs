@@ -35,7 +35,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Cmd) >= 1.05
 BuildRequires:  perl(Test::Distribution) >= 1.22
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Text::Glob) >= 0.06
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(Text::Glob\\)\s*$

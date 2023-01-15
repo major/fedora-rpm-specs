@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::WWW::Mechanize::Catalyst)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -30,7 +30,6 @@ BuildRequires:	perl(Getopt::Std)
 # Test Suite
 BuildRequires:	perl(Test::More)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(HTML::TreeBuilder)
 Requires:	perl(Pod::Parser) >= 1.14
 Requires:	perl(PPI) >= 1.115

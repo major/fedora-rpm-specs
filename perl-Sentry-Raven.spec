@@ -42,7 +42,6 @@ BuildRequires:  perl(Time::Piece)
 BuildRequires:  perl(URI)
 BuildRequires:  perl(UUID::Tiny)
 Requires:       perl(LWP::Protocol::https)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module implements the recommended raven interface for posting events

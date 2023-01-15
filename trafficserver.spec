@@ -126,7 +126,6 @@ Summary: Perl bindings for Apache Traffic Server management
 BuildArch:           noarch
 BuildRequires:       perl-generators
 Requires: %{name} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description perl
 A collection of Perl interfaces to manage Apache Traffic Server

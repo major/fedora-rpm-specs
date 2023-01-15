@@ -27,7 +27,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Use epoll, sendfile, from Perl. Mostly Linux-only support now, but more

@@ -10,7 +10,6 @@ BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Image::Base)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This class module provides basic load, manipulate and save functionality for

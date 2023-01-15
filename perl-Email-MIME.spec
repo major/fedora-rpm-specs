@@ -39,7 +39,6 @@ BuildRequires:  perl(version) > 0.99
 # Release Tests
 BuildRequires:  perl(Test::Pod) >= 1.41
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Email::Simple::Creator)
 Requires:       perl(MIME::Types) >= 1.13
 

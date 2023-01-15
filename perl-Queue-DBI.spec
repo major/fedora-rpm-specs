@@ -17,7 +17,6 @@ BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Type)
 BuildRequires:  perl(Try::Tiny)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::Perl::Critic)
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 BuildRequires:  perl(Test::Pod) >= 1.14
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Iterate through the contents of a given path without having to build the

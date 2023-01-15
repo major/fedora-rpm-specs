@@ -19,7 +19,6 @@ BuildRequires:  perl(Module::Build) >= 0.37
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # No tests run
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::ShareDir) >= 1.02
 Provides:       perl(STD) = %{version}
 

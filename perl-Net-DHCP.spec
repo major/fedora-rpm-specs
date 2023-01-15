@@ -31,7 +31,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Vars)
 BuildRequires:  perl(Test::Warn)
 # Generic Perl Requires
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

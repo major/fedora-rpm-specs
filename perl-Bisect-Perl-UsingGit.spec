@@ -17,7 +17,6 @@ BuildRequires:  perl(MooseX::Types::Path::Class)
 BuildRequires:  perl(Test::More) >= 0.01
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.14
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       git
 Requires:       perl(MooseX::Getopt)
 

@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 # BuildRequires:  perl(Test::TrailingSpace)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description

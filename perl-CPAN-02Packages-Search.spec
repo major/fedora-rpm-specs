@@ -20,7 +20,6 @@ BuildRequires:  perl(Search::Dict) >= 1.07
 BuildRequires:  perl(Tie::Handle::SkipHeader) >= 0.004
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Search::Dict) >= 1.07
 Requires:       perl(Tie::Handle::SkipHeader) >= 0.004
 

@@ -34,7 +34,6 @@ Requires:       perl(base)
 Requires:       perl(constant)
 Requires:       perl(strict)
 Requires:       perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 # This RPM package ensures cfitsio is installed on the system
 Requires:       pkgconfig(cfitsio) = %(type -p pkgconf >/dev/null && pkgconf --exists cfitsio && pkg-config --modversion cfitsio || echo 0)
 

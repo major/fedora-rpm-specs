@@ -29,7 +29,6 @@ BuildRequires:  perl(XSLoader)
 # Tests only
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Algorithm::Diff) >= 1.19
 Requires:       perl(XSLoader)
 

@@ -35,7 +35,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(vars)
 # Tests only
 # nothing
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(bytes)
 Requires:       perl(Bit::Vector) >= 7.1
 Requires:       perl(Carp::Clan) >= 5.3

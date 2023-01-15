@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::More::UTF8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 In keyword search, it is common practice to suppress a collection of

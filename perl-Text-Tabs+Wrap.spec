@@ -22,7 +22,6 @@ BuildRequires:  perl(warnings::register)
 BuildRequires:  perl(bytes)
 # Optional tests:
 # Benchmark not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Sub-packaged from perl.spec, it would conflicted on manual pages
 Conflicts:      perl < 4:5.20.2-325
 Requires:       perl(warnings)

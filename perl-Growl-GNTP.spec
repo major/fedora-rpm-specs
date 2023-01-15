@@ -17,7 +17,6 @@ BuildRequires:  perl(Filter::Util::Call)
 BuildRequires:  perl(Module::Build::Tiny)
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Growl::GNTP is Perl implementation of GNTP Protocol (Client Part).

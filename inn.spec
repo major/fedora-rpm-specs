@@ -61,7 +61,6 @@ Requires(pre): shadow-utils
 Requires: bash >= 2.0
 Requires: coreutils
 Requires: grep
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires: sed
 Requires: wget
 Requires(post): inews

@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(threads)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(overload)
 Suggests:       perl(Scalar::Util) >= 1.01
 Conflicts:      perl-interpreter < 4:5.30.1-451

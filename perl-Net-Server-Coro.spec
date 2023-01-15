@@ -15,7 +15,6 @@ BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(inc::Module::Install)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # This one is not automatically caught by RPM
 Requires:       perl(Net::SSLeay)

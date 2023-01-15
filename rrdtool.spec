@@ -91,7 +91,6 @@ server load average). This package contains documentation on using RRD.
 %package perl
 Summary: Perl RRDtool bindings
 Requires: %{name} = %{version}-%{release}
-Requires: perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Obsoletes: perl-%{name} < %{version}-%{release}
 Provides: perl-%{name} = %{version}-%{release}
 

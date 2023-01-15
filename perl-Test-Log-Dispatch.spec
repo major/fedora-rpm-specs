@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::Tester)
 
 BuildRequires:  perl(inc::Module::Install)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test::Log::Dispatch is a Log::Dispatch object that keeps track of

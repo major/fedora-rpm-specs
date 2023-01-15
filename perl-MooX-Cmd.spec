@@ -42,7 +42,6 @@ BuildRequires:  perl(MooX::ConfigFromFile) >= 0.008
 BuildRequires:  perl(MooX::Options) >= 4.103
 %endif
 BuildRequires:  perl(Text::Abbrev)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(List::MoreUtils) >= 0.406
 Requires:       perl(Module::Pluggable::Object) >= 4.8
 # 0.009013 from Moo in META which is not used

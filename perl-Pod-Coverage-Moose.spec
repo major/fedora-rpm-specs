@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(MooseX::AttributeHelpers)
 BuildRequires:  perl(MooseX::Role::WithOverloading)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 When using Pod::Coverage in combination with Moose, it will report any

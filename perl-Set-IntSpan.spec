@@ -13,7 +13,6 @@ BuildRequires:  %{__make}
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Set::IntSpan manages sets of integers. It is optimized for sets that

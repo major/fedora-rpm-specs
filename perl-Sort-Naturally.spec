@@ -20,7 +20,6 @@ BuildRequires: perl(integer)
 BuildRequires: perl(locale)
 # Tests
 BuildRequires: perl(Test)
-Requires:      perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This module exports two functions, 'nsort' and 'ncmp'; they are used in

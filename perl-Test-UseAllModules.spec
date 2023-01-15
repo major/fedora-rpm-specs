@@ -29,7 +29,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Pod) >= 1.18
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 # Dependencies:
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::Builder) >= 0.30
 Requires:       perl(Test::More) >= 0.60
 

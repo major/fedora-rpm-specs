@@ -7,7 +7,6 @@ License:        MIT
 URL:            https://metacpan.org/release/Locale-Maketext-Lexicon
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DRTECH/Locale-Maketext-Lexicon-%{version}.tar.gz
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Encode)
 Requires:       perl(File::Glob)
 Requires:       perl(File::Spec)

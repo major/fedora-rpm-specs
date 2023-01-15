@@ -42,7 +42,6 @@ BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Log::Dispatch::Array)
 Requires:       perl(Log::Dispatch::File)
 Requires:       perl(Log::Dispatch::Screen)

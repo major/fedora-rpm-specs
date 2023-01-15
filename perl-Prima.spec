@@ -156,7 +156,6 @@ BuildRequires:  liberation-sans-fonts
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:     perl(Compress::Raw::Zlib)
 Suggests:       gv
 # Public modules without a package keyword:
@@ -182,7 +181,6 @@ A Perl program using PRIMA looks and behaves identically on X, Win32.
 Summary:        Test tools for Prima Perl graphic toolkit
 License:        BSD-2-Clause
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description Test
 This Perl module contains a small set or tool used for testing of

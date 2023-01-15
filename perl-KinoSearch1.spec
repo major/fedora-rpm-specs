@@ -58,7 +58,6 @@ BuildRequires:  perl(List::Util)
 # XXX: BuildRequires:  perl(Plucene::Index::Writer)
 # XXX: BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(Lingua::Stem::Snowball) >= 0.94
 Requires:       perl(Lingua::StopWords) >= 0.02

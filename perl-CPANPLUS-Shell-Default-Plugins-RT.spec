@@ -24,7 +24,6 @@ BuildRequires: perl(vars)
 # Tests
 BuildRequires: perl(lib)
 BuildRequires: perl(Test::More)
-Requires:      perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # not automagically picked up...
 Requires:      perl(CPANPLUS::Shell::Default)
 

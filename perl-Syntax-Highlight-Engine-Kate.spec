@@ -41,7 +41,6 @@ BuildRequires:  perl(Test::Warn) >= 0.30
 BuildRequires:  perl(Time::HiRes)
 # Optional tests:
 # Test::Pod 1.00 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(base)
 
 %description

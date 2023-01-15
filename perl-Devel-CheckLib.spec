@@ -37,7 +37,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Mock::Config)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Devel::CheckLib is a perl module that checks whether a particular C library

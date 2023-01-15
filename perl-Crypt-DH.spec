@@ -25,7 +25,6 @@ BuildRequires:	perl(strict)
 # =============== Test Suite ====================
 BuildRequires:	perl(Test::More)
 # =============== Dependencies ==================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Math::BigInt) >= 1.60
 Requires:	perl(Math::BigInt::GMP) >= 1.24
 

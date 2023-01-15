@@ -6,7 +6,6 @@ License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Slurp
 Source0:        https://cpan.metacpan.org/modules/by-module/File/File-Slurp-%{version}.tar.gz
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch: noarch
 
 BuildRequires:  %{__perl}

@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::CheckDeps)
 BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test::use::ok)
 Requires:       perl(File::NFSLock)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

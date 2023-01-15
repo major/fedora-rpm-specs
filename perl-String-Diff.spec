@@ -35,7 +35,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(Test::Perl::Critic)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Spelling)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Algorithm::Diff)
 # The XS variant is preferred by default, with PP as a fallback:
 Recommends:     perl(Algorithm::Diff::XS)

@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(PAR::Dist)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::ShareDir) >= 1.02
 Requires:       perl(PAR) >= 0.989
 

@@ -14,7 +14,6 @@ BuildRequires:  perl(Crypt::PasswdMD5)
 BuildRequires:  perl(Digest::SHA)
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(MIME::Base64)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description

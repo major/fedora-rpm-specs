@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Builder::Module)
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
-Requires:  perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 The Perl garbage collector uses simple reference counting during the normal

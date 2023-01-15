@@ -85,7 +85,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(version) >= 0.87
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(CPAN::Meta) >= 2.142060
 Requires:       perl(CPAN::Meta::Converter) >= 2.141170
 Requires:       perl(CPAN::Meta::Merge)

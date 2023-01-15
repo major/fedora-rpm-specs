@@ -19,7 +19,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Net::IP is very feature complete, but I found I was only using three of its

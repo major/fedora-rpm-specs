@@ -34,7 +34,6 @@ BuildRequires:	perl(lib)
 BuildRequires:	perl(Test)
 BuildRequires:	perl(Test::More)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Encode)
 Requires:	perl(Encode::Alias)
 Requires:	perl(Encode::Guess)

@@ -22,7 +22,6 @@ BuildRequires:  perl(Test2::Plugin::UTF8)
 BuildRequires:  perl(Test::More) >= 1.302015
 BuildRequires:  perl(warnings)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 
 %description

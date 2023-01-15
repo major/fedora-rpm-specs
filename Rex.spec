@@ -9,7 +9,6 @@ Source0:		https://cpan.metacpan.org/authors/id/F/FE/FERKI/%{name}-%{version}.tar
 
 BuildArch:		noarch
 
-Requires:		perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 Requires:		perl(Data::Validate::IP)
 Requires:		perl(Net::SSH2)

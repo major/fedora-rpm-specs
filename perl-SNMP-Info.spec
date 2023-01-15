@@ -36,7 +36,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # File::Find not used
 # Test::Distribution not used
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(mro)
 Requires:       perl(NetAddr::IP) >= 4.068
 

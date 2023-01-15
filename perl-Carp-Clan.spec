@@ -23,7 +23,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Object::Deadly)
 BuildRequires:  perl(Test::More)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(DB\\)
 

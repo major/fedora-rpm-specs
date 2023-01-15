@@ -6,7 +6,6 @@ License:        GPL+ or Artistic
 
 Source0:        https://cpan.metacpan.org/authors/id/M/MS/MSTROUT/Test-WWW-Mechanize-Catalyst-%{version}.tar.gz
 URL:            https://metacpan.org/release/Test-WWW-Mechanize-Catalyst
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildArch:      noarch
 
 BuildRequires:  findutils

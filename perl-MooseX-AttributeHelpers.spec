@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::Exception) >= 0.21
 BuildRequires:  perl(Test::Moose)
 BuildRequires:  perl(Test::More) >= 0.94
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Moose) >= 0.56
 
 %description

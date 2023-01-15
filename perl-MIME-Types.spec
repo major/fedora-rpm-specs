@@ -52,7 +52,6 @@ BuildRequires:  perl(Test::MinimumVersion)
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 MIME types are used in many applications, for instance as part of e-mail

@@ -39,7 +39,6 @@ Requires:       perl(MooX::HandlesVia) >= 0.001004
 Requires:       perl(Sub::HandlesVia) >= 0.013
 %endif
 Requires:       perl(Type::Utils) >= 1.000001
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Filter under-specified requires
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Moo\\)$

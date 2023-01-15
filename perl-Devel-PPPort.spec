@@ -36,7 +36,6 @@ BuildRequires:  perl(warnings)
 # File::Spec not helpful
 BuildRequires:  perl(Test::Pod) >= 0.95
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter modules bundled for tests
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(.::parts/.*\\)

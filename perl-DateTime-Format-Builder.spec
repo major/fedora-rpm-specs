@@ -51,7 +51,6 @@ BuildRequires:  perl(Test::Memory::Cycle)
 BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Provides:       perl(DateTime::Format::Builder) = %{version}
 
 # Avoid doc-file dependencies from tests

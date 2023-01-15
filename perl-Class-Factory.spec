@@ -21,7 +21,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.62
 # Optional tests:
 # Devel::Cover not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a simple module that factory classes can use to generate new types

@@ -1,6 +1,6 @@
 Name:           yaz
-Version:        5.33.0
-Release:        2%{?dist}
+Version:        5.34.0
+Release:        1%{?dist}
 Summary:        Z39.50/SRW/SRU toolkit
 License:        BSD
 URL:            http://www.indexdata.com/yaz/
@@ -143,6 +143,9 @@ make check
 %{_pkgdocdir}
 
 %changelog
+* Fri Jan 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.34.0-1
+- 5.34.0
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 5.33.0-2
 - Rebuild for ICU 72
 

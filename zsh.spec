@@ -1,7 +1,7 @@
 Summary: Powerful interactive shell
 Name: zsh
 Version: 5.9
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 URL: http://zsh.sourceforge.net/
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
@@ -15,6 +15,8 @@ Source7: dotzprofile
 
 # do not use egrep in tests to make them pass again
 Patch1: 0001-zsh-5.9-do-not-use-egrep-in-tests.patch
+# Upstream commit ab4d62eb975a4c4c51dd35822665050e2ddc6918
+Patch2: 0002-zsh-Use-int-main-in-test-c-codes.patch
 
 BuildRequires: autoconf
 BuildRequires: coreutils
@@ -163,6 +165,9 @@ fi
 %doc Doc/*.html
 
 %changelog
+* Fri Jan 13 2023 Timm Bäder <tbaeder@redhat.com> - 5.9-4
+- use 'int main()' in test C-codes in configure
+
 * Mon Jan 09 2023 Kamil Dudka <kdudka@redhat.com> - 5.9-3
 - do not use egrep in tests to make them pass again
 

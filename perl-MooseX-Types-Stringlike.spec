@@ -29,7 +29,6 @@ BuildRequires:	perl(version)
 BuildRequires:	perl(CPAN::Meta)
 BuildRequires:	perl(CPAN::Meta::Requirements) >= 2.120900
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides a more general version of the Str type. If coercions are

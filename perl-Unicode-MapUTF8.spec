@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::Distribution)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.06
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 
 %description
 Unicode::MapUTF8 Provides an adapter layer between core routines for

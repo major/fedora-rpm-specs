@@ -57,7 +57,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
 # Optional tests:
 BuildRequires:  perl(YAML::PP) >= 0.019
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Data::Dumper)
 Requires:       perl(JSON::PP)
 Requires:       perl(Term::ANSIColor)

@@ -36,7 +36,6 @@ BuildRequires:  perl(Text::Balanced)
 # Optional run-time requirement
 Recommends:     perl(Type::Parser)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module is optionally used by Type::Tiny 0.045_03 and above to provide

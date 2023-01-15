@@ -34,7 +34,6 @@ BuildRequires:  perl(Test::Distribution)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(Test::Pod::Coverage)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Lingua::Stem::Snowball::Da) >= 1.01
 Requires:       perl(Lingua::Stem::Snowball::No) >= 1.00
 Requires:       perl(Lingua::Stem::Snowball::Se) >= 1.01

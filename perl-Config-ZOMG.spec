@@ -27,7 +27,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Warn)
 # Optional tests:
 BuildRequires:  perl(Config::General)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Clone)
 
 %description

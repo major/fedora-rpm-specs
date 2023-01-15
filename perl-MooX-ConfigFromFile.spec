@@ -37,7 +37,6 @@ BuildRequires:  perl(MooX::Cmd) >= 0.012
 BuildRequires:  perl(MooX::Cmd::Tester)
 BuildRequires:  perl(MooX::Options) >= 4.001
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Find::Rule) >= 0.30
 Requires:       perl(Moo::Role) >= 1.003
 Requires:       perl(MooX::File::ConfigDir) >= 0.002

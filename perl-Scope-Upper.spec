@@ -33,7 +33,6 @@ BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 # Optional tests only
 BuildRequires:  perl(Time::HiRes)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(XSLoader)
 
 %{?perl_default_filter}

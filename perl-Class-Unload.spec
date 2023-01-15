@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Requires)
 # Optional tests:
 BuildRequires:  perl(Moose)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Unloads the given class by clearing out its symbol table and removing it

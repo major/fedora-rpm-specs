@@ -16,7 +16,6 @@ BuildRequires:  perl(HTML::Parser) >= 2.2
 BuildRequires:  perl(HTTP::Request) >= 1.23
 BuildRequires:  perl(LWP::UserAgent) >= 1.62
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Perl interface to get stock quotes from Yahoo! Finance

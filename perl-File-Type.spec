@@ -17,7 +17,6 @@ BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 File::Type uses magic numbers (typically at the start of a file) to

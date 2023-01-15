@@ -22,7 +22,6 @@ BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 # Tests only
 # -
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 %{summary}.

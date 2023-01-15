@@ -23,7 +23,6 @@ BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(MIME::Base64)
 
 # Filter modules bundled for tests

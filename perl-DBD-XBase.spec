@@ -13,7 +13,6 @@ BuildRequires: make
 BuildRequires:  perl-generators
 BuildRequires:  perl(DBI)
 BuildRequires:  perl(ExtUtils::MakeMaker)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module can read and write XBase database files, known as dbf in

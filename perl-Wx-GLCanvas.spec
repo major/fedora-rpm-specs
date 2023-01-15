@@ -28,7 +28,6 @@ BuildRequires:  perl(Wx)
 BuildRequires:  perl(Wx::ScrolledWindow)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 A wrapper for wxWidgets' wxGLCanvas, used to display OpenGL graphics.

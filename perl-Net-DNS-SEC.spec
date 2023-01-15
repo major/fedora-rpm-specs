@@ -34,7 +34,6 @@ BuildRequires:  perl(Net::DNS::ZoneFile)
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(File::Spec) >= 0.86
 Requires:       perl(Net::DNS) >= 1.08
 

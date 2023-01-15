@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::Builder::Module)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::Tester)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides a single subroutine, bits_is(), for testing

@@ -7,7 +7,6 @@ URL:		https://metacpan.org/release/Calendar-Simple
 Source0:	https://cpan.metacpan.org/authors/id/D/DA/DAVECROSS/Calendar-Simple-v%{version}.tar.gz
 BuildArch:	noarch
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 BuildRequires:  %{__perl}
 BuildRequires:  %{__make}

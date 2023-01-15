@@ -22,7 +22,6 @@ BuildRequires:  perl(inc::Module::Install)
 BuildRequires: perl(Test::Pod::Coverage) >= 1.04
 BuildRequires: perl(Test::Pod) >= 1.14
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 IPC::Run and IPC::Run3 are both very upset when you try to use them under

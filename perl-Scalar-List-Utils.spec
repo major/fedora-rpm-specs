@@ -40,7 +40,6 @@ BuildRequires:  perl(Tie::Handle)
 BuildRequires:  perl(Tie::Scalar)
 BuildRequires:  perl(Tie::StdScalar)
 BuildRequires:  perl(vars)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Carp)
 
 %{?perl_default_filter}

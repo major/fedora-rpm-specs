@@ -18,7 +18,6 @@ BuildRequires:  perl(HTML::Entities) >= 1.26
 BuildRequires:  perl(Text::Tabs) >= 98.1128
 BuildRequires:  perl(Test::More) >= 0.47
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

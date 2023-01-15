@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(Test::NoWarnings)
 Requires:       libxml2 >= 2.6.27
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # RDF::Trine::Error version from RDF::Trine in META
 Requires:       perl(RDF::Trine::Error) >= 0.111
 

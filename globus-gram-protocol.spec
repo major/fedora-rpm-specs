@@ -21,7 +21,6 @@ BuildRequires:	perl-interpreter
 #		Additional requirements for make check
 BuildRequires:	openssl
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %package devel
 Summary:	Grid Community Toolkit - GRAM Protocol Library Development Files

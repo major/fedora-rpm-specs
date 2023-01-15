@@ -52,7 +52,7 @@
 Summary: System for algebraic geometry and commutative algebra
 Name:    Macaulay2
 Version: 1.21
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # GPL-2.0-only OR GPL-3.0-only:
 #   - the project as a whole
@@ -613,6 +613,9 @@ make check -C BUILD/%{_target_platform}/Macaulay2/bin
 
 
 %changelog
+* Thu Jan 12 2022 Jerry James <loganjerry@gmail.com> - 1.21-2
+- Rebuild for libfplll 5.4.4
+
 * Thu Dec 22 2022 Jerry James <loganjerry@gmail.com> - 1.21-1
 - Version 1.21
 - Drop upstreamed patch for crash when building documentation

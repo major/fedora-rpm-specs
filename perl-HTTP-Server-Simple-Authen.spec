@@ -19,7 +19,6 @@ BuildRequires:  perl(Test::More) >= 0.32
 Requires:       perl(Authen::Simple) >= 0.04
 Requires:       perl(HTTP::Server::Simple) >= 0.16
 Requires:       perl(Test::More) >= 0.32
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

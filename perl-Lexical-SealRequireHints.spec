@@ -24,7 +24,6 @@ BuildRequires:  perl(Thread::Semaphore)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl(B:Hooks::OP::Check) < 0.19
 
 %{?perl_default_filter}

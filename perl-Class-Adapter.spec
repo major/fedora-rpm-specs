@@ -21,7 +21,6 @@ BuildRequires:  perl(base)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More) >= 0.96
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Class::Adapter class is intended as an abstract base class for creating

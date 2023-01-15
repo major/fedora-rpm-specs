@@ -23,7 +23,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Required for the unit tests
 BuildRequires:  perl(Test::More)

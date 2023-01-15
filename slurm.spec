@@ -218,7 +218,6 @@ on the node according to Slurm.
 
 %package perlapi
 Summary: Perl API to Slurm
-Requires: perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %description perlapi
 Perl API package for Slurm.  This package includes the perl API to provide a

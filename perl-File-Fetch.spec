@@ -35,7 +35,6 @@ BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Spec) >= 0.82
 Requires:       perl(IPC::Cmd) >= 0.42
 Requires:       perl(Locale::Maketext::Simple)

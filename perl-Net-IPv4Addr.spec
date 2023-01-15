@@ -20,7 +20,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(AutoLoader)
 Requires:       perl(Exporter)
 Obsoletes:      perl-Network-IPv4Addr < 0.10-1

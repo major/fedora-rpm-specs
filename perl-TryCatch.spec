@@ -51,7 +51,6 @@ BuildRequires:  perl(MooseX::Types::Structured)
 # XML::SAX::Base useless without XML::SAX::Expat
 # XML::SAX::Expat not yet packaged
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B::Hooks::EndOfScope) >= 0.12
 Requires:       perl(B::Hooks::OP::PPAddr) >= 0.03
 Requires:       perl(Devel::Declare) >= 0.005007

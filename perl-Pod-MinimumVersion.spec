@@ -29,7 +29,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter)
 # Scalar::Util not used
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::String) >= 1.02
 # This module has been divided from perl-Perl-Critic-Pulp
 Conflicts:      perl-Perl-Critic-Pulp < 49

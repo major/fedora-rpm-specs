@@ -45,7 +45,6 @@ BuildRequires:  perl(Test::More) >= 0.61
 # Optional tests:
 BuildRequires:  perl(Data::Printer) >= 0.36
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B::Deparse)
 Requires:       perl(Data::Dumper)
 Requires:       perl(Data::Printer) >= 0.36

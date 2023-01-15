@@ -18,7 +18,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(MIME::Base64)
 # Tests:
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl module provides functions to convert strings to and from the Base64

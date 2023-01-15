@@ -24,7 +24,6 @@ EUC.
 
 %package -n perl-NKF
 Summary:	Perl extension for Network Kanji Filter
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description -n perl-NKF
 This is a Perl Extension version of nkf (Network Kanji Filter).

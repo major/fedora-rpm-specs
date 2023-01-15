@@ -23,7 +23,6 @@ BuildRequires:  perl(Mojo::JSON)
 # test requirements
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Crypt::OpenSSL::RSA)
 Requires:       perl(Digest::SHA)
 

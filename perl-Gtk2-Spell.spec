@@ -39,7 +39,6 @@ BuildRequires:  font(:lang=en)
 BuildRequires:  perl(constant)
 BuildRequires:  xorg-x11-server-Xvfb
 %endif
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  perl(Gtk2) >= 1.00
 
 %{?perl_default_filter}
@@ -57,7 +56,6 @@ Glib::Object::Introspection Perl module instead.
 %package devel
 Summary:   XS support for Gtk2::Spell (deprecated)
 Requires:  %name = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  pkgconfig(gtkspell-2.0) >= 2.0.0
 
 %description devel

@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 
 BuildRequires:  perl(inc::Module::Install)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Warnings are an important part of any application. Your web application

@@ -67,7 +67,6 @@ Requires:       perl(POE) >= 1.312
 Requires:       perl(POE::Component::Client::Keepalive) >= 0.2710
 Requires:       perl(Socket) >= 2.001
 Requires:       perl(URI) >= 1.37
-Requires:  perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %{?perl_default_filter}
 

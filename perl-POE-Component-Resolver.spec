@@ -32,7 +32,6 @@ Requires:       perl(POE::Wheel::Run)
 Requires:       perl(Socket) >= 2.001
 Requires:       perl(Storable) >= 2.18
 Requires:       perl(Time::HiRes) >= 1.9711
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %{?perl_default_filter}
 %global __requires_exclude %{?__requires_exclude:__requires_exclude|}^perl\\(POE\\)

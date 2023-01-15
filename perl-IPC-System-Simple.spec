@@ -41,7 +41,6 @@ BuildRequires:	perl(BSD::Resource)
 BuildRequires:	perl(Test::NoWarnings)
 %endif
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Calling Perl's in-built 'system()' function is easy; determining if it

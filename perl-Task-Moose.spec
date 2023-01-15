@@ -106,7 +106,6 @@ Requires:       perl(namespace::autoclean) >= 0.09
 # Utilities
 Requires:       perl(Pod::Coverage::Moose)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This Task installs Moose and a number of Moose extensions.

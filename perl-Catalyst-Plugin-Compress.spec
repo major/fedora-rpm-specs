@@ -33,7 +33,6 @@ BuildRequires:  sed
 Requires:       perl(Catalyst::Runtime) >= 5.80001
 Requires:       perl(Compress::Bzip2) >= 2
 Requires:       perl(Compress::Zlib)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module combines Catalyst::Plugin::Deflate, Catalyst::Plugin::Gzip

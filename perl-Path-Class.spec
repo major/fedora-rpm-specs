@@ -33,7 +33,6 @@ BuildRequires:	perl(Test)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(warnings)
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(File::Copy)
 Requires:	perl(Perl::OSType)
 

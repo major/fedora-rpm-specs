@@ -65,7 +65,6 @@ BuildRequires:  perl(Path::Class)
 %endif
 
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(B::Deparse)
 Requires:       libyaml >= 0.2.4
 

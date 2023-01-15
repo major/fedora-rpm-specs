@@ -42,7 +42,6 @@ Its features include:
 Summary:	Conmux client which will connect to a Conmux server
 Obsoletes:	conmux-common < %{version}-%{release}
 Provides:	conmux-common = %{version}-%{release}
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description client
 Conmux client connects to a conmux server. 

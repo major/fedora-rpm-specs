@@ -56,7 +56,6 @@ BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(threads)
 # Optional tests:
 BuildRequires:  perl(CPAN::Meta::Requirements)
-Requires:       perl(:MODULE_COMPAT_%(eval "`/usr/bin/perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 Requires:       perl(Class::Method::Modifiers) >= 1.10
 Requires:       perl(Devel::GlobalDestruction) >= 0.11

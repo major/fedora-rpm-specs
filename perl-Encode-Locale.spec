@@ -27,7 +27,6 @@ BuildRequires:  perl(I18N::Langinfo)
 # Tests only:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Encode) >= 2
 # Encode::HanExtra not yet packaged
 # Recommended:

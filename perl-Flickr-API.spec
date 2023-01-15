@@ -37,7 +37,6 @@ BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Term::ReadLine)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Script)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # HTTP::Message 1.56 needed because it brings decoded_content()
 Requires:       perl(HTTP::Message) >= 1.56
 Requires:       perl(URI) >= 1.18

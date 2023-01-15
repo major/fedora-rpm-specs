@@ -23,7 +23,6 @@ BuildRequires:  perl(Test::More) >= 0.88
 # Test::Pod 1.41 not used
 # Test::Spelling not used
 # Test::Synopsis not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(warnings)
 
 %{?perl_default_filter}

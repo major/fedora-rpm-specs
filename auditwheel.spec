@@ -1,6 +1,6 @@
 Name:           auditwheel
-Version:        5.1.2
-Release:        4%{?dist}
+Version:        5.3.0
+Release:        1%{?dist}
 Summary:        Cross-distribution Linux wheels auditing and relabeling
 
 License:        MIT
@@ -43,12 +43,6 @@ like static linking, may implicate copyright concerns.
 
 %prep
 %autosetup -p1
-# On Fedora 35, we don't have 6.2 yet and it builds fine with 6.0
-# https://github.com/pypa/auditwheel/pull/364
-%if 0%{?fedora} < 36
-sed -i 's/setuptools_scm>=6.2/setuptools_scm[toml]>=6.0/' pyproject.toml
-%endif
-
 # pypatchelf is patchelf, packaged for pip -- we'll use the native one instead
 sed -E -i 's/(, )?"pypatchelf"//' setup.py
 
@@ -95,6 +89,10 @@ done
 
 
 %changelog
+* Fri Jan 13 2023 Miro Hrončok <mhroncok@redhat.com> - 5.3.0-1
+- Update to 5.3.0
+- Fixes: rhbz#2136978
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -22,7 +22,6 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Text::ParseWords)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Text::ParseWords)
 # Recommended:
 Requires:       perl(Pod::Usage) >= 1.14

@@ -20,7 +20,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(ok)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::RefHash)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 
 %description

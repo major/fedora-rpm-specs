@@ -14,7 +14,6 @@ BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Moose) >= 0.86
 BuildRequires:  perl(Test::More) >= 0.42
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

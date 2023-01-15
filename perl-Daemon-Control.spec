@@ -26,7 +26,6 @@ BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(Test::More) >= 0.88
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(File::Path) >= 2.08
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(File::Path\\)$

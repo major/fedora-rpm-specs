@@ -39,7 +39,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  dos2unix
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 POE::Component::Client::LDAP->new() starts up a new POE::Session and

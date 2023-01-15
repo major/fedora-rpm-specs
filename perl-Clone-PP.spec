@@ -22,7 +22,6 @@ BuildRequires:  perl(Benchmark)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Data::Dumper)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module provides a general-purpose clone function to make deep copies

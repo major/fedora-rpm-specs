@@ -20,7 +20,6 @@ BuildRequires: perl-generators
 BuildRequires: perl(ExtUtils::MakeMaker)
 Obsoletes: newt-perl < 1.08-15
 Provides: newt-perl = %{version}-%{release}
-Requires: %(eval `perl -V:version`; echo "perl(:MODULE_COMPAT_$version)")
 License: GPL+ or Artistic
 
 %description

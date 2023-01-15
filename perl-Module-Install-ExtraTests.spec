@@ -27,7 +27,6 @@ BuildRequires:  perl(ExtUtils::Command)
 BuildRequires:  perl(File::Spec)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(ExtUtils::Command)
 Requires:       perl(File::Find)
 Requires:       perl(File::Spec)

@@ -24,7 +24,6 @@ BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	mecab-jumandic
 
 Requires:	mecab = %{version}
-Requires:	perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 %{summary}.

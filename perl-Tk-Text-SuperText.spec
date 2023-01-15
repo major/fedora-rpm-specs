@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Tk::Text::SuperText implements many new features over the standard Tk::Text

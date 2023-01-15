@@ -8,7 +8,6 @@ URL: 		https://metacpan.org/release/Business-Hours
 Source0: https://cpan.metacpan.org/authors/id/B/BP/BPS/Business-Hours-%{version}.tar.gz
 BuildArch: 	noarch
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(Set::IntSpan) >= 1.12
 
 BuildRequires:	%{__perl}

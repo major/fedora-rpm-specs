@@ -2,7 +2,7 @@
 
 Name:		python-%{modname}
 Version:	0.5.7
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A Python wrapper for fplll
 License:	GPL-2.0-or-later
 URL:		https://github.com/fplll/%{modname}
@@ -70,6 +70,9 @@ popd
 %{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* THu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.5.7-3
+- Rebuild for libfplll 5.4.4
+
 * Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 0.5.7-2
 - Convert License tag to SPDX
 

@@ -16,7 +16,6 @@ BuildRequires:  perl(MooseX::Types)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::use::ok)
 BuildRequires:  perl(URI)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provides abstractions for JSON-RPC 1.0, 1.1 (both variations) and

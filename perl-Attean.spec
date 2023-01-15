@@ -108,7 +108,6 @@ BuildRequires:  perl(Test::Roo)
 # Optional tests:
 BuildRequires:  perl(RDF::Trine)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Exporter::Tiny) >= 1
 Requires:       perl(IRI) >= 0.005
 Requires:       perl(Math::Cartesian::Product) >= 1.008
@@ -137,7 +136,6 @@ web (RDF and SPARQL) data.
 %package -n perl-Test-Attean
 Summary:        Modules for testing Attean semantic web framework
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Test::Modern) >= 0.012
 # Renamed from perl-Attean-tests-0.030-6.
 # No Obsoletes and Provides because perl-Attean-tests was reused for a different purpose.

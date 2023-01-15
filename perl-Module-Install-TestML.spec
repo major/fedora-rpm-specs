@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 # Tests:
 BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Module::Install::Base) >= 1.10
 # TestML::Setup not available, removed from TestML-0.54_05,
 # <https://github.com/ingydotnet/module-install-testml-pm/issues/2>

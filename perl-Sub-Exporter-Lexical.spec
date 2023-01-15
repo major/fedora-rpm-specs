@@ -21,7 +21,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Sub::Exporter::Lexical provides an alternate installer for Sub::Exporter.

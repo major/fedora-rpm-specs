@@ -37,7 +37,6 @@ BuildRequires:  perl(IO::Socket::INET)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Net::IP::Minimal) >= 0.02
 Requires:       perl(POE) >= 1.311
 Requires:       perl(POE::Component::Resolver) >= 0.917

@@ -27,7 +27,6 @@ BuildRequires:	perl(Test::Exception) >= 0.27
 BuildRequires:	perl(Test::More) >= 0.82
 BuildRequires:	perl(Test::Warn) >= 0.11
 # Dependencies
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Don't "provide" private Perl libs
 %{?perl_default_filter}

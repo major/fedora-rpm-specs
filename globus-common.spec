@@ -16,7 +16,6 @@ BuildRequires:	doxygen
 BuildRequires:	perl-generators
 BuildRequires:	perl-interpreter
 
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 #		Obsolete dropped packages from GCT
 Obsoletes:	globus-usage < 6
 

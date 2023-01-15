@@ -37,7 +37,6 @@ BuildRequires:  perl(XML::Simple)
 Requires:       rgb
 Requires:       perl(Compress::Zlib)
 Requires:       perl(IO::Scalar)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This Perl extension allows you to extract meta information from

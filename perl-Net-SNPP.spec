@@ -34,7 +34,6 @@ BuildRequires:  perl(IO::File)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(Net::Cmd) >= 0.01
 
 # Filter under-specified dependencies

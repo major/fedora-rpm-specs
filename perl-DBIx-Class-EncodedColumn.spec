@@ -35,7 +35,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(Digest::SHA)
 
 %{?perl_default_filter}

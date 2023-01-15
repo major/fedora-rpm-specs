@@ -68,7 +68,6 @@ BuildRequires:	perl(Mouse)
 BuildRequires:	perl(Mouse::Role)
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Recommends:	perl(Role::Tiny) >= 1.003000
 
 %description

@@ -22,7 +22,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
 Requires:       perl(MooseX::ClassAttribute) >= 0.25
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

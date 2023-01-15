@@ -45,7 +45,6 @@ BuildRequires:  perl(threads::shared)
 BuildRequires:  perl(Trace::Mask) >= 0.000005
 BuildRequires:  perl(Trace::Mask::Reference)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(utf8)
 # Optional run-time:
 Suggests:       perl(Sub::Name) >= 0.11

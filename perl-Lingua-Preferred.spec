@@ -16,7 +16,6 @@ BuildRequires:  perl(AutoLoader)
 BuildRequires:  perl(Exporter)
 # Tests
 BuildRequires:  perl(Data::Dumper)
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

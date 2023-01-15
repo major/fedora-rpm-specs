@@ -28,7 +28,6 @@ BuildRequires:  perl(warnings)
 # CPAN::Meta not usefull
 # CPAN::Meta::Prereqs not usefull
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       git
 Requires:       make
 

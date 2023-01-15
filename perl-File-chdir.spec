@@ -26,7 +26,6 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Perl's chdir() has the unfortunate problem of being very, very, very

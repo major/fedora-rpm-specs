@@ -48,7 +48,6 @@ BuildRequires:  perl(Test::Pod) >= 1.2
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.06
 %endif
 Requires:       dmidecode
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Suggests:       perl(Data::Dumper)
 Requires:       perl(File::Which) >= 0.05
 

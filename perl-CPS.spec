@@ -17,7 +17,6 @@ BuildRequires:  perl(Sub::Name)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Refcount)
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The functions in this module implement or assist the writing of

@@ -55,7 +55,6 @@ BuildRequires:  perl(Hash::Util)
 # Test::LeakTrace omitted because it's not a core module requried for building
 # core Storable.
 BuildRequires:  perl(Tie::Hash)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Config)
 # Fcntl is optional, but locking is good
 Requires:       perl(Fcntl)

@@ -33,7 +33,6 @@ BuildRequires:  postgresql-server
 # Tests:
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::SharedFork) >= 0.06
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # The DBD::Pg is used via DBI->connect() first argument
 Requires:       perl(DBD::Pg)
 # initdb, pg_ctl, and postgres or postmaster tools are used

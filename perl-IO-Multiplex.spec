@@ -30,7 +30,6 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(IO::Socket)
 BuildRequires:	perl(Test)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Time::HiRes)
 
 %description

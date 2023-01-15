@@ -49,7 +49,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Proc::ProcessTable)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Prefer XSLoader over DynaLoader
 Requires:       perl(XSLoader)
 

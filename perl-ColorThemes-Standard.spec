@@ -22,7 +22,6 @@ BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(ColorThemeBase::Static::FromStructColors) >= 0.006
 
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((ColorThemeBase::Static::FromStructColors)\\)\s*$

@@ -10,7 +10,6 @@ Patch0:         pisg-0.72-systemdirs.patch
 BuildArch:      noarch
 BuildRequires:      perl-generators
 Requires:       perl(Text::Iconv)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

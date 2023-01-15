@@ -18,7 +18,6 @@ BuildRequires:  perl(IO::CaptureOutput) >= 1.08
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::More) >= 0.62
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 # Filter bogus dependencies
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(strict\\)

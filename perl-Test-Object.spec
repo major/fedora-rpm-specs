@@ -27,7 +27,6 @@ BuildRequires:  perl(File::Spec::Functions)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Builder::Tester)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Test::Object is a testing package designed to allow you to easily test

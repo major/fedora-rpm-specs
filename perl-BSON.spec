@@ -76,7 +76,6 @@ BuildRequires:  perl(MongoDB::Timestamp)
 %endif
 BuildRequires:  perl(Test::Exception)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(DateTime)
 Requires:       perl(DateTime::Tiny)
 # Keep Mango::BSON::Time optional. It's yet another MongoDB client

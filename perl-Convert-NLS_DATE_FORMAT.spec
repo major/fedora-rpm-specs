@@ -16,7 +16,6 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Convert Oracle's NLS_DATE_FORMAT string into a strptime format string, or

@@ -33,7 +33,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 # CPAN::Meta 2.120900 is not needed but its absence causes an unitialized
 # variable warning, CPAN RT#97618. We can live with the warning.
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # MooseX::Types >= 0.42 needs namespace::autoclean
 Requires:       perl(namespace::autoclean)
 

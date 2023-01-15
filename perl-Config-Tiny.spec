@@ -39,7 +39,6 @@ BuildRequires:	perl(Test::MinimumVersion) >= 0.101080
 BuildRequires:	perl(Test::Pod) >= 1.44
 %endif
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Config::Tiny is a Perl module designed for reading and writing .ini

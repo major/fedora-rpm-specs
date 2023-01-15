@@ -27,7 +27,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Builder::Tester)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Testing code can involve making sure that files are created and deleted as

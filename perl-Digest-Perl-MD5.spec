@@ -22,7 +22,6 @@ BuildRequires:	perl(vars)
 # Test Suite
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test)
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Symbol)
 
 %description

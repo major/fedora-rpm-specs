@@ -20,7 +20,6 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(Moose) >= 0.24
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 MooseX::Role::Cmd is a Moose role intended to ease the task of building

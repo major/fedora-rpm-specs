@@ -114,7 +114,6 @@ BuildRequires:  perl(LWP::UserAgent)
 %endif
 
 Requires:       httpd-mmn = %{_httpd_mmn}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # For Apache::SizeLimit::Core
 Requires:       perl(Linux::Pid)
 
@@ -150,7 +149,6 @@ like for it to directly incorporate a Perl interpreter.
 Summary:        Files needed for building XS modules that use mod_perl
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       httpd-devel%{?_isa}
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Dir)
 
 %description devel 
@@ -163,7 +161,6 @@ modules that use mod_perl.
 Version:        0.13
 Summary:        Reload changed Perl modules
 License:        ASL 2.0
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # The mod_perl2 1.99022 is not used, pick for example ModPerl::Util to
 # constrain the version.
 Requires:       perl(ModPerl::Util) >= 1.99022

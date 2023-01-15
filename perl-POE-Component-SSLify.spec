@@ -52,7 +52,6 @@ BuildRequires:  perl(POE::Filter::Stream)
 BuildRequires:  perl(IO::Prompt::Tiny)
 BuildRequires:  perl(Test::Apocalypse) >= 1.000
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(POE) >= 1.267
 Requires:       perl(warnings)
 

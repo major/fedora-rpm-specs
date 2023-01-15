@@ -23,7 +23,6 @@ BuildRequires:  perl(vars)
 # Tests:
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This is a generic input parsing/checking mechanism. It allows you to

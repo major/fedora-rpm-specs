@@ -44,7 +44,6 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Pod::Coverage)
 # ================ Module Runtime ====================
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Convert::BinHex)
 
 # Currently fails a couple of kwalitee tests

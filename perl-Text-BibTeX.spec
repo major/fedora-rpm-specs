@@ -42,7 +42,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 BuildRequires:  sed
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl-Scalar-List-Utils >= 1.42
 
 %description

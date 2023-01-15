@@ -44,7 +44,6 @@ BuildRequires:  perl(YAML::Syck)
 BuildRequires:  perl(YAML::Tiny)
 BuildRequires:  perl(YAML::XS)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Default backend; can also optionally use YAML::Syck, YAML::Tiny, or YAML::XS
 Requires:       perl(YAML) >= 0.60
 

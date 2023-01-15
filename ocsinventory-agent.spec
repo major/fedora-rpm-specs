@@ -101,7 +101,6 @@ de commandes ou de fichiers sur les clients Windows ou Linux.
 Summary:   Libraries %{name}
 BuildArch: noarch
 
-Requires:  perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:  perl(Data::UUID)
 Requires:  perl(Digest::MD5)
 Requires:  perl(File::Temp)

@@ -46,7 +46,6 @@ BuildRequires:  perl(open)
 BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(utf8)
 # Dependencies
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(File::Path)
 Requires:       perl(POSIX)
 Requires:       perl(Sereal) >= 3.015

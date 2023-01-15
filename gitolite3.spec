@@ -25,7 +25,6 @@ BuildRequires:      perl-generators
 Provides:       perl(%{name}) = %{version}-%{release}
 Requires:       git
 Requires:       openssh-clients
-Requires:       perl(:MODULE_COMPAT_%(eval $(%{__perl} -V:version); echo $version))
 Requires(pre):  shadow-utils
 Requires:       subversion
 

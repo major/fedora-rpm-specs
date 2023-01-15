@@ -40,7 +40,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests
 BuildRequires:  perl(File::Temp)
 # Optional not yet packaged  perl(Tk::Dial)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Cwd)
 Requires:       perl(Data::Dumper)
 Requires:       perl(File::Basename)

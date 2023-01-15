@@ -34,7 +34,6 @@ BuildRequires:  perl(warnings)
 # Text::CSV_XS not used
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.00
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Handle)
 Suggests:       perl(Text::CSV_XS) >= 1.46
 

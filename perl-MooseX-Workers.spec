@@ -32,7 +32,6 @@ BuildRequires:  perl(POE::Filter::Reference)
 BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
 BuildRequires:  perl(warnings)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(POE::Wheel::Run)
 
 %{?perl_default_filter}

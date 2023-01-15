@@ -66,7 +66,6 @@ BuildRequires:  perl(Inline)
 BuildRequires:  perl(Inline::C)
 BuildRequires:  perl(Parse::RecDescent)
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       pkgconfig
 Requires:       rgb
 Requires:       perl(Devel::CheckLib)

@@ -32,7 +32,6 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(utf8)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 This module allows you to interface with the GNOME Virtual File System

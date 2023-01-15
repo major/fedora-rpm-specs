@@ -69,7 +69,6 @@ BuildRequires:  perl(Plack::Test)
 BuildRequires:  perl(XML::LibXML)
 BuildRequires:  perl(XML::LibXML::Error)
 %endif
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Devel::GlobalDestruction) >= 0.09
 Requires:       perl(Encode) >= 2.00
 # Makefile.PL states Log::Report::Optional 1.03 for contained
@@ -96,7 +95,6 @@ try to simplify this.
 
 %package Dancer
 Summary:    Reroute Dancer logs into Log::Report
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl(Exporter)
 Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
 
@@ -106,7 +104,6 @@ with non-Dancer modules which need logging.
 
 %package Dancer2
 Summary:    Reroute Dancer2 logs into Log::Report
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl(Dancer2::Core::Role::Logger)
 Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
 
@@ -118,7 +115,6 @@ be sent to multiple destinations at the same time via flexible dispatchers.
 
 %package DBIC
 Summary:    Query profiler for DBIx::Class
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
 
 %description DBIC
@@ -126,7 +122,6 @@ Log DBIx::Class queries via Log::Report.
 
 %package Dispatcher-Log4perl
 Summary:    Log::Log4perl back-end for Log::Report
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
 # Makefile.PL states Log::Report::Optional 1.03 for contained
 # Log::Report::{Minimal::Domain,Util}
@@ -137,7 +132,6 @@ This is an optional Log::Log4perl back-end for Log::Report logging framework.
 
 %package Dispatcher-LogDispatch
 Summary:    Log::Dispatch back-end for Log::Report
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
 # Makefile.PL states Log::Report::Optional 1.03 for contained
 # Log::Report::{Minimal::Domain,Util}
@@ -148,7 +142,6 @@ This is an optional Log::Dispatch back-end for Log::Report logging framework.
 
 %package Dispatcher-Syslog
 Summary:    Sys::Syslog back-end for Log::Report
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
 Requires:   perl(Encode) >= 2.00
 Requires:   perl(Sys::Syslog) >= 0.27
@@ -161,7 +154,6 @@ This is an optional Sys::Syslog back-end for Log::Report logging framework.
 
 %package Mojo
 Summary:    Divert log messages into Log::Report
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:   perl-Log-Report = %{?epoch:%epoch:}%{version}-%{release}
 Requires:   perl(Mojo::Log)
 

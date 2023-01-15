@@ -29,7 +29,6 @@ BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Compare)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Encode::ISO2022) >= 0.03
 
 # Filter under-specified dependencies

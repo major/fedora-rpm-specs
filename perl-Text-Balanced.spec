@@ -30,7 +30,6 @@ BuildRequires:  perl(Test::More) >= 0.47
 # Test::MinimumVersion 0.101082 not used
 # Test::Pod 1.26 not used
 # Test::Pod::Coverage 0.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Conflicts:      perl < 4:5.22.0-347
 
 %description

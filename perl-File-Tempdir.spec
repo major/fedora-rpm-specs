@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 # Testing
 BuildRequires:  perl(Test::More)
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This module provide an object interface to tempdir() from File::Temp. This

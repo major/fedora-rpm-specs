@@ -17,7 +17,6 @@ BuildRequires:  perl(Socket)
 BuildRequires:  perl(Text::ParseWords)
 # Tests:
 BuildRequires:  perl(Data::Dumper)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 This is the Perl5 module for interfacing with the Mon system monitoring

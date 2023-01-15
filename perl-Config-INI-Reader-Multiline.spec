@@ -25,7 +25,6 @@ BuildRequires:  perl(IPC::Open3)
 BuildRequires:  perl(Test::More)
 # Test::Pod 1.41 not used
 # Test::Pod::Coverage 1.08 not used
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 The Config::INI::Reader::Multiline Perl module is a subclass of

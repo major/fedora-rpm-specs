@@ -54,7 +54,6 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Class::Load) >= 0.19
 Requires:       perl(Locale::MO::File) >= 0.09
 Requires:       perl(Locale::PO) >= 0.24

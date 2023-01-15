@@ -61,7 +61,6 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.00
 %endif
 Requires:       bzip2
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(IO::Compress::Bzip2)
 Requires:       perl(IO::Uncompress::Bunzip2)
 Requires:       perl(LWP::Protocol::https)

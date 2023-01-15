@@ -26,7 +26,6 @@ BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Test::FailWarnings)
 BuildRequires:  perl(Test::More) >= 0.96
 BuildRequires:  perl(version)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:       perl(Carp)
 
 

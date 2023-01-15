@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::More)
 # Optional tests:
 BuildRequires:  perl(Test::Pod) >= 1.18
 %endif
-Requires:   perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Using Shell while importing "foo" creates a subroutine "foo" in the name space

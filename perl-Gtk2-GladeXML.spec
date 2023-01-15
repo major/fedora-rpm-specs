@@ -35,7 +35,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  font(:lang=en)
 %endif
-Requires:  perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:  perl(Gtk2) >= 1.000
 
 %{?perl_default_filter}

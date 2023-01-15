@@ -31,7 +31,6 @@ BuildRequires:  perl(Moose)
 BuildRequires:  perl(Mouse)
 
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 Because Perl methods are just regular subroutines, it's difficult to tell

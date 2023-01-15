@@ -27,7 +27,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::More) >= 0.47
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # List::Util version from Scalar::Util in META
 Requires:       perl(List::Util) >= 1.13
 

@@ -10,7 +10,6 @@ Release:        16%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{pkgname}
 Source:         https://cpan.metacpan.org/authors/id/B/BR/BRICKER/%{pkgname}-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  make

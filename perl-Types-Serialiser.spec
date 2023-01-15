@@ -21,7 +21,6 @@ BuildRequires:	perl(overload)
 # Test Suite
 # (no dependencies)
 # Runtime
-Requires:	perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 Requires:	perl(Carp)
 
 %description

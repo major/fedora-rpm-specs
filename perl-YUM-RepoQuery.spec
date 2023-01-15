@@ -36,7 +36,6 @@ BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Test::DBICSchemaLoaderDigest)
 BuildRequires:  perl(Test::UseAllModules)
 BuildRequires:  perl(Test::More) >= 0.94
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %description
 YUM::RepoQuery takes the URI to a package repository with YUM meta-data, and

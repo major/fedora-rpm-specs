@@ -22,7 +22,6 @@ Requires:       perl(Devel::NYTProf) >= 3.01
 Requires:       perl(Moose) >= 0.93
 Requires:       perl(namespace::autoclean) >= 0.09
 Requires:       perl(Sub::Identify) >= 0.04
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter}
 

@@ -25,7 +25,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(English)
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 # Perl::Critic 1.083_001 rounded to 3 decimal digits
 Requires:       perl(Perl::Critic::Policy) >= 1.084
 

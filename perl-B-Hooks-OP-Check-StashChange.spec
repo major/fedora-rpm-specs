@@ -5,7 +5,6 @@ Summary:        Invoke callbacks when the stash code is being compiled in change
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Hooks-OP-Check-StashChange
 Source0:        https://cpan.metacpan.org/authors/id/F/FL/FLORA/B-Hooks-OP-Check-StashChange-%{version}.tar.gz
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 BuildRequires:  coreutils
 BuildRequires:  findutils

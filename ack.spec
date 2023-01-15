@@ -47,7 +47,6 @@ BuildRequires:  perl(Term::ANSIColor) >= 1.10
 BuildRequires:  perl(Test::Builder)
 BuildRequires:  perl(Test::Harness) >= 2.5
 BuildRequires:  perl(Test::More) >= 0.98
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:       perl(File::Basename) >= 1.00015
 Requires:       perl(Config)
 Requires:       perl(File::Next) >= 1.18

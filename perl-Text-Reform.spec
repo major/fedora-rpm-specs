@@ -23,7 +23,6 @@ BuildRequires:  perl(overload)
 BuildRequires:  perl(Test::More)
 # Optional tests only
 BuildRequires:  perl(Test::Pod) >= 1.14 
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 Requires:       perl(TeX::Hyphen)
 
 %description

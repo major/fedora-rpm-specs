@@ -41,7 +41,6 @@ BuildRequires:  perl(Test::Requires)
 BuildRequires:  perl(Test2::V0)
 # Optional tests only
 BuildRequires:  perl(Test::Without::Module)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 Watch for changes to files, easily, cleanly, and across different platforms.

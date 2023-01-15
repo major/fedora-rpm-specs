@@ -25,7 +25,6 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.18
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 # Runtime
-Requires:       perl(:MODULE_COMPAT_%(eval "`perl -V:version`"; echo $version))
 
 %description
 Do you want to check that every one of your Perl modules in a distribution has

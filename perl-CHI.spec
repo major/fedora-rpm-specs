@@ -61,7 +61,6 @@ BuildRequires:  perl(Cache::FileCache)
 BuildRequires:  perl(Cache::FastMmap)
 %endif
 
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 # Filter out bogus provides
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Bar\\)

@@ -18,7 +18,6 @@ BuildRequires:  perl(vars)
 # Tests only
 BuildRequires:  perl(base)
 BuildRequires:  perl(Test)
-Requires:       perl(:MODULE_COMPAT_%(eval "$(perl -V:version)"; echo $version))
 
 %description
 This is Class::ErrorHandler, a base class for classes that need to do
