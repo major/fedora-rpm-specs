@@ -8,8 +8,8 @@
 Summary:	Point Data Abstraction Library
 Name:		PDAL
 # NOTE: Re-verifiy test exclusions in %%check when updating
-Version:	2.4.3
-Release:	3%{?dist}
+Version:	2.5.0
+Release:	1%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
 # - vendor/arbiter/*, plugins/nitf/io/nitflib.h and plugins/oci/io/OciWrapper.* are Expat/MIT
@@ -216,11 +216,11 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 %license vendor/arbiter/LICENSE
 %license plugins/e57/libE57Format/LICENSE.md
-%{_libdir}/libpdal_base.so.14*
-%{_libdir}/libpdal_plugin_kernel_fauxplugin.so.14*
-%{_libdir}/libpdal_plugin_reader_pgpointcloud.so.14*
-%{_libdir}/libpdal_plugin_writer_pgpointcloud.so.14*
-%{_libdir}/libpdal_util.so.14*
+%{_libdir}/libpdal_base.so.15*
+%{_libdir}/libpdal_plugin_kernel_fauxplugin.so.15*
+%{_libdir}/libpdal_plugin_reader_pgpointcloud.so.15*
+%{_libdir}/libpdal_plugin_writer_pgpointcloud.so.15*
+%{_libdir}/libpdal_util.so.15*
 
 %files devel
 %{_bindir}/pdal-config
@@ -246,6 +246,9 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 14 2023 Sandro Mani <manisandro@gmail.com> - 2.5.0-1
+- Update to 2.5.0
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 2.4.3-3
 - Rebuild (gdal)
 

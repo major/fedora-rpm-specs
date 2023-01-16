@@ -1,11 +1,11 @@
 Name:           linode-cli
-Version:        5.23.0
+Version:        5.28.1
 Release:        %autorelease
 Summary:        Official command-line interface to the Linode platform
 
 License:        BSD
 URL:            https://github.com/linode/linode-cli/
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 # Downloaded from https://www.linode.com/docs/api/openapi.yaml
 Source1:        openapi.yaml
 BuildArch:      noarch
@@ -20,7 +20,7 @@ Linode CLI is a simple command-line interface to the Linode platform.
 %autosetup
 cp -p %SOURCE1 .
 # harcode version as script requires connection
-sed -i setup.py -e "s/version=get_version()/version='%{version}'/"
+sed -i setup.py -e "s/version = get_version()/version='%{version}'/"
 
 %generate_buildrequires
 %pyproject_buildrequires -r

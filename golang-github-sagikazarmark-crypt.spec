@@ -4,7 +4,7 @@
 
 # https://github.com/sagikazarmark/crypt
 %global goipath         github.com/sagikazarmark/crypt
-Version:                0.8.0
+Version:                0.9.0
 
 %gometa
 
@@ -21,9 +21,6 @@ Summary:        Store and retrieve encrypted configs from etcd or consul
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
-
-# Required for F37 & F36
-BuildRequires:  golang(github.com/coreos/go-semver/semver)
 
 %description %{common_description}
 

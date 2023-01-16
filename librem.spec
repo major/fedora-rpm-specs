@@ -1,6 +1,6 @@
 Summary:        Audio and video processing media library
 Name:           librem
-Version:        2.10.0
+Version:        2.11.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/rem
@@ -10,7 +10,7 @@ BuildRequires:  cmake
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
-BuildRequires:  libre-devel >= 2.10.0
+BuildRequires:  libre-devel >= 2.11.0
 %if 0%{?rhel} == 7
 # Atomic support in libre >= 2.1.0
 BuildRequires:  devtoolset-8-toolchain
@@ -76,7 +76,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %files
 %license LICENSE
 %doc CHANGELOG.md README.md
-%{_libdir}/%{name}.so.4*
+%{_libdir}/%{name}.so.5*
 
 %files devel
 %{_libdir}/%{name}.so
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 14 2023 Robert Scheck <robert@fedoraproject.org> 2.11.0-1
+- Upgrade to 2.11.0 (#2160251)
+
 * Wed Dec 07 2022 Robert Scheck <robert@fedoraproject.org> 2.10.0-1
 - Upgrade to 2.10.0 (#2151700)
 

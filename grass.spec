@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.2.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -31,6 +31,8 @@ Source0:	https://grass.osgeo.org/%{name}%{shortver}/source/%{name}-%{version}.ta
 # fix pkgconfig file
 Patch0:		grass-pkgconfig.patch
 Patch1:		gettext_codeset.patch
+# Fix PDAL detection
+Patch2:		grass-pdal.patch
 
 BuildRequires:	bison
 %if %{with flexiblas}
@@ -183,6 +185,7 @@ GRASS GIS development headers
 %setup -q
 %patch0 -p1 -b.libdir
 %patch1 -p1
+%patch2 -p1
 
 # Correct mysql_config query
 sed -i -e 's/--libmysqld-libs/--libs/g' configure
@@ -373,6 +376,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sat Jan 14 2023 Sandro Mani <manisandro@gmail.com> - 8.2.0-9
+- Rebuild (PDAL)
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 8.2.0-8
 - Rebuild (gdal)
 

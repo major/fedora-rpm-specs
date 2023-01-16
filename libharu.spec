@@ -3,7 +3,7 @@ Name:           libharu
 Version:        2.4.3
 Release:        1%{?dist}
 Summary:        C library for generating PDF files
-License:        zlib with acknowledgement
+License:        zlib-acknowledgement
 URL:            http://libharu.org
 Source0:        https://github.com/libharu/libharu/archive/v%{version}/%{name}-%{version}.tar.gz
 # Set the soname to the version of the library because upstream does not maintain ABI
@@ -51,7 +51,10 @@ developing applications that use %{name}.
 %{_libdir}/libhpdf.so
 
 %changelog
-* Mon Oct 17 200 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 2.4.3-1
+* Mon Jan 09 2023 Orion Poplawski <orion@nwra.com> - 2.4.3-1
+- Use SPDX License tag
+
+* Mon Oct 17 2022 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 2.4.3-1
 - Update to 2.4.3
 - Drop .version patch.
 

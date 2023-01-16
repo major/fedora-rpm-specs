@@ -1,6 +1,6 @@
 Name:           kicad
 Version:        6.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -223,6 +223,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat Jan 14 2023 Richard Shaw <hobbes1069@gmail.com> - 1:6.0.10-2
+- Rebuild for opencascade.
+
 * Sun Dec 18 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.10-1
 - Update to 6.0.10
 

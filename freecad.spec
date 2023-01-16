@@ -20,8 +20,8 @@
 
 Name:           freecad
 Epoch:          1
-Version:        0.20.1
-Release:        1%{?dist}.1
+Version:        0.20.2
+Release:        1%{?dist}
 Summary:        A general purpose 3D CAD modeler
 
 License:        GPLv2+
@@ -30,9 +30,6 @@ Source0:        https://github.com/FreeCAD/FreeCAD/archive/%{version}%{?pre:_pre
 Source102:      freecad.1
 
 Patch0:         freecad-unbundled-pycxx.patch
-# The following two patches are for Python 3.11 compatibility
-Patch1:         https://github.com/FreeCAD/FreeCAD/commit/1ae55905ba.patch
-Patch2:         https://github.com/FreeCAD/FreeCAD/commit/6820e0a9ec.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} > 36
@@ -64,7 +61,11 @@ BuildRequires:  eigen3-devel
 BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5UiTools)
+%ifarch x86_64 aarch64
 BuildRequires:  cmake(Qt5WebEngine)
+%else
+BuildRequires:  cmake(Qt5WebKit)
+%endif
 BuildRequires:  cmake(Qt5XmlPatterns)
 #BuildRequires:  SoQt-devel
 BuildRequires:  xerces-c xerces-c-devel
@@ -244,6 +245,9 @@ desktop-file-validate \
 
 
 %changelog
+* Fri Jan 13 2023 Richard Shaw <hobbes1069@gmail.com> - 1:0.20.2-1
+- Update to 0.20.2.
+
 * Tue Aug 30 2022 Richard Shaw <hobbes1069@gmail.com> - 1:0.20.1-1.1
 - Rebuild for retagged upstream source, fixes rhbz#2121671.
 - Readd Python 3.11 patches that did not make it into the current release.

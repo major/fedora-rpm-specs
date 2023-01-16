@@ -8,7 +8,7 @@
 
 Summary: XAPI Virtual Machine Monitoring Scripts
 Name:    %{upstream_name}-latest
-Version: 7.31.0
+Version: 7.33.0
 Release: %autorelease
 License: BSD
 URL:     https://github.com/xenserver/%{upstream_name}
@@ -35,8 +35,8 @@ This package follows the latest version of %{upstream_name} upstream.
 
 %prep
 %autosetup -p1 -n %{upstream_name}-%{version}
-ln -s ../ vendor/%{upstream_name}-%{version}
-ln -s vendor src
+mkdir -p src/github.com/xenserver
+ln -s $PWD src/github.com/xenserver/xe-guest-utilities
 
 sed -i -e 's:/usr/share/oem/xs:%{_sbindir}:' mk/%{service_name}.service
 # move xenstore utilities provided by this package to a private directory

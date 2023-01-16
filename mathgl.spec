@@ -18,8 +18,8 @@
 
 
 Name:          mathgl
-Version:       2.4.4
-Release:       18%{?dist}
+Version:       8.0.1
+Release:       1%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -37,13 +37,13 @@ Patch1:        mathgl-2.4.1-fltk-skip-fluid.patch
 Patch2:        mathgl-2.4.1-no_hdf4-and-hdf5-simultaneously.patch
 
 # Let macros to decide how to install octave module
-Patch3:        mathgl-2.4.1-nooctaveinstall.patch
+Patch3:        mathgl-nooctaveinstall.patch
 
 # There is no easy way to disable ONLY octave. Have to cut it from CmakeList.txt
 Patch4:        mathgl-2.4.1-nooctave.patch
 
 # Add python3 support
-Patch5:        mathgl-2.4.2-lang.patch
+Patch5:        mathgl-lang.patch
 
 # Fix convertions
 Patch6:        mathgl-2.4.1-gcc7.patch
@@ -58,6 +58,9 @@ Patch8:        mathgl-freeglut.patch
 # between different archs (or not if you are lucky. I'm not.)
 Patch9: mathgl-2.4.2.1-norebuild_l10n.patch
 
+# https://sourceforge.net/p/mathgl/bugs/48/
+# Support for libharu 2.4
+Patch10: mathgl-libharu2.4.patch
 
 Requires:      %{name}-common = %{version}-%{release}
 
@@ -72,7 +75,6 @@ BuildRequires: perl(Storable)
 BuildRequires: freeglut-devel hdf5-devel libjpeg-devel libtiff-devel
 BuildRequires: fltk-devel
 BuildRequires: qt5-qtbase-devel qt5-qtwebkit-devel
-BuildRequires: qt4-devel qt4-webkit-devel
 BuildRequires: wxGTK-devel giflib-devel libtool-ltdl-devel
 BuildRequires: libharu-devel
 BuildRequires: swig lua-devel
@@ -255,24 +257,12 @@ Requires:      zlib-devel%{?_isa}
 %{summary}.
 %endif
 
-%package qt4
-Summary:       Qt4 widgets of %{name} library
-Requires:      %{name} = %{version}-%{release}
-
-%description qt4
-%{summary}.
-
-%package qt4-devel
-Summary:       Devel files for qt4 widgets of %{name} library
-Requires:      %{name}-devel = %{version}-%{release}
-
-%description qt4-devel
-%{summary}.
-
 %package qt5
 Summary:       Qt5 widgets of %{name} library
 Requires:      %{name} = %{version}-%{release}
 Obsoletes:     %{name}-qt < 2.4
+Provides:      %{name}-qt = %{version}-%{release}
+Obsoletes:     %{name}-qt4 < 8.0
 
 %description qt5
 %{summary}.
@@ -281,6 +271,8 @@ Obsoletes:     %{name}-qt < 2.4
 Summary:       Devel files for qt5 widgets of %{name} library
 Requires:      %{name}-devel = %{version}-%{release}
 Obsoletes:     %{name}-qt-devel < 2.4
+Provides:      %{name}-qt-devel = %{version}-%{release}
+Obsoletes:     %{name}-qt4-devel < 8.0
 Requires:      qt5-qtbase-devel
 
 %description qt5-devel
@@ -324,8 +316,8 @@ Requires:      wxGTK-devel
 rm -rf addons/getopt
 
 # prep for both py2 and py3 build
-mkdir lang/python3
-touch lang/python3/CMakeLists.txt
+#mkdir lang/python3
+#touch lang/python3/CMakeLists.txt
 
 #convert EOL encodings, maintaining timestames
 for file in AUTHORS ChangeLog.txt README ; do
@@ -337,7 +329,7 @@ done
 %patch0 -p1 -b .examples
 %patch1 -p1 -b .fluid
 %patch2 -p1 -b .no-hdf4-and-hdf5-simultaneously
-%patch5 -p1 -b .lang
+#patch5 -p1 -b .lang
 %patch6 -p1 -b .gcc7
 %patch7 -p1 -b .no_updatedb
 %if 0%{?with_octave}
@@ -347,11 +339,12 @@ done
 %endif
 %patch8 -p0 -b .freeglut
 %patch9 -p1 -b .norebuild_l10n
+%patch10 -p1 -b .libharu2.4
 
 # Fix hardcoded Python version
-sed -i -e 's,3\.[0-9],%{python3_version},g' \
-       -e 's,cpython-3[0-9],cpython-%{python3_version_nodots},g' \
-          lang/python3/CMakeLists.txt
+#sed -i -e 's,3\.[0-9],%{python3_version},g' \
+#       -e 's,cpython-3[0-9],cpython-%{python3_version_nodots},g' \
+#          lang/python3/CMakeLists.txt
 
 # Fix hardcoded paths
 sed -i s,/usr/local/share/doc/mathgl/,%{_docdir}/%{name}/, udav/udav_wnd.h
@@ -396,6 +389,7 @@ BUILD_MPI="-Denable-mpi=off \
     -DMathGL_INSTALL_CMAKE_DIR=%{_libdir}/cmake/mathgl \\\
     -DMathGL_INSTALL_LIB_DIR=%{_libdir} \\\
     -Denable-all=on \\\
+    -Denable-qt5asqt=off \\\
     $BUILD_MPI \\\
     ..; \
 %{cmake_build}
@@ -497,8 +491,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 
 %ldconfig_scriptlets
 
-%ldconfig_scriptlets qt4
-
 %ldconfig_scriptlets qt5
 
 %ldconfig_scriptlets fltk
@@ -542,17 +534,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %{_mandir}/man1/mglview.1.gz
 %endif
 
-%files qt4
-%{_libdir}/libmgl-qt4.so.*
-
-%files qt4-devel
-%{_libdir}/libmgl-qt4.so
-
 %files qt5
+%{_libdir}/libmgl-qt.so.*
 %{_libdir}/libmgl-qt5.so.*
 %{_libdir}/libmgl-wnd.so.*
 
 %files qt5-devel
+%{_libdir}/libmgl-qt.so
 %{_libdir}/libmgl-qt5.so
 %{_libdir}/libmgl-wnd.so
 
@@ -632,6 +620,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Thu Oct 06 2022 Orion Poplawski <orion@nwra.com> - 8.0.1-1
+- Update to 8.0.1
+- Drop Qt4 support
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4.4-18
 - Rebuild for gsl-2.7.1
 

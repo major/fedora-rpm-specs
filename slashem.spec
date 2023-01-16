@@ -1,11 +1,11 @@
 Name:           slashem
 Version:        0.0.8
-Release:        0.33.E0F1%{?dist}
+Release:        0.34.E0F1%{?dist}
 Summary:        Super Lotsa Added Stuff Hack - Extended Magic
 
 License:        NGPL
-URL:            http://slashem.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/%{name}/se008e0f1.tar.gz
+URL:            https://slashem.sourceforge.net/
+Source0:        https://downloads.sourceforge.net/%{name}/se008e0f1.tar.gz
 Source1:        %{name}.desktop
 Source2:        %{name}.appdata.xml
 Patch0:         slashem-config.patch
@@ -13,9 +13,12 @@ Patch0:         slashem-config.patch
 Patch1:         slashem-libpng-1.5.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1037330
 Patch2:         slashem-format-security.patch
+# https://sourceforge.net/p/slashem/bugs/963/
+Patch3:         slashem-add-FDECLs-c99.patch
+Patch4:         slashem-configure-c99.patch
 
-BuildRequires: make
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/convert
 BuildRequires:  ncurses-devel
@@ -60,10 +63,7 @@ SLASH'EM is the (continuing) saga of one such variant...
 
 
 %prep
-%setup -q -n %{name}-%{version}E0F1
-%patch0 -p1 -b .config
-%patch1 -p1 -b .libpng
-%patch2 -p1 -b .format-security
+%autosetup -p1 -n %{name}-%{version}E0F1
 
 sed -i \
     -e 's:^\(#define FILE_AREA_VAR\).*:\1 "%{fa_var}/":' \
@@ -127,6 +127,7 @@ sed -i \
 mv %{buildroot}%{fa_unshare}/recover %{buildroot}%{_bindir}/slashem-recover
 mv %{buildroot}%{_mandir}/man6/recover.6 %{buildroot}%{_mandir}/man6/slashem-recover.6
 rm %{buildroot}%{_mandir}/man6/[^s]*
+rm %{buildroot}%{_pkgdocdir}/license
 
 sed -i -e 's:^!\(SlashEM.tile_file.*\):\1:' %{buildroot}%{fa_share}/SlashEM.ad
 
@@ -142,13 +143,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %files
-%doc history.txt doc/*.txt README.34 readme.* slamfaq.txt dat/license dat/history
+%doc history.txt doc/*.txt README.34 readme.* slamfaq.txt dat/history
+%license dat/license
 %{_bindir}/slashem
 %{_bindir}/slashem-recover
 %{fa_share}
 %dir %{fa_unshare}
 %{fa_unshare}/nhushare
-%{_mandir}/man6/*
+%{_mandir}/man6/*.6*
 %{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/applications/slashem.desktop
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
@@ -162,6 +164,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Sat Jan 14 2023 Peter Fordham <peter.fordham@gmail.com> - 0.0.8-0.34.E0F1
+- Add missing Forward declarations for rename_area and remove_area and fix a call-site.
+- Port configure script to C99.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-0.33.E0F1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

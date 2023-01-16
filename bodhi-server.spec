@@ -1,17 +1,15 @@
 %global pypi_name bodhi-server
-%global pypi_version 6.0.1
+%global src_name bodhi_server
+%global pypi_version 7.0.1
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Bodhi server
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/fedora-infra/bodhi
-Source0:        %{pypi_source}
-
-Patch:          bodhi-relax-deps.patch
-
+Source0:        %{pypi_source bodhi_server}
 BuildArch:      noarch
 
 BuildRequires:  make
@@ -30,8 +28,8 @@ BuildRequires:  createrepo_c
 BuildRequires:  skopeo
 BuildRequires:  dnf
 
-Requires: bodhi-client >= 6.0.0
-Requires: python3-bodhi-messages >= 6.0.0
+Requires: bodhi-client >= 7.0.0
+Requires: python3-bodhi-messages >= 7.0.0
 Requires: fedora-messaging
 Requires: git
 Requires: httpd
@@ -41,24 +39,16 @@ Requires: python3-mod_wsgi
 
 %{?sysusers_requires_compat}
 
-Provides:  bundled(aajohan-comfortaa-fonts)
-Provides:  bundled(abattis-cantarell-fonts)
-Provides:  bundled(bootstrap) = 3.0.1
-Provides:  bundled(bootstrap) = 3.0.2
-Provides:  bundled(bootstrap) = 3.1.1
 Provides:  bundled(chrissimpkins-hack-fonts)
-Provides:  bundled(fedora-bootstrap) = 1.0.1
-Provides:  bundled(fontawesome-fonts-web) = 4.4.0
-Provides:  bundled(js-chart)
-Provides:  bundled(js-excanvas)
-Provides:  bundled(js-jquery) = 1.10.2
-Provides:  bundled(js-jquery) = 2.0.3
-Provides:  bundled(js-messenger)
-Provides:  bundled(js-moment)
+Provides:  bundled(fedora-bootstrap) = 2.0.2
+Provides:  bundled(fontawesome-fonts-web) = 4.6.3
+Provides:  bundled(js-chart) = 3.8.0
+Provides:  bundled(js-jquery) = 3.6.0
+Provides:  bundled(js-messenger) = 1.4.1
+Provides:  bundled(js-moment) = 2.8.3
+Provides:  bundled(js-selectize) = 0.15.2
 Provides:  bundled(js-typeahead.js) = 1.1.1
-Provides:  bundled(nodejs-flot)
 Provides:  bundled(open-sans-fonts)
-Provides:  bundled(xstatic-bootstrap-datepicker-common)
 
 %py_provides python3-bodhi-server
 
@@ -82,7 +72,7 @@ repositories.
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{pypi_version}
+%autosetup -n %{src_name}-%{pypi_version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
@@ -121,7 +111,10 @@ install -pm0644 docs/_build/*.1 %{buildroot}%{_mandir}/man1/
 install -p -D -m 0644 %{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.sysusers
 
 %check
-%{pytest} -v
+# For some reason the pytest fixture responsible to set the testing
+# config file url doesn't work in Koji
+export BODHI_CONFIG=$(pwd)/tests/testing.ini
+%{pytest} -v -k "not TestSanityCheckRepodata and not test_sanity_check_"
 
 %pre -n %{pypi_name}
 %sysusers_create_compat %{name}.sysusers
@@ -163,6 +156,13 @@ install -p -D -m 0644 %{name}.sysusers %{buildroot}%{_sysusersdir}/%{name}.sysus
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Sat Jan 14 2023 Mattia Verga <mattia.verga@proton.me> - 7.0.1-1
+- Update to 7.0.1
+- Use SPDX identifier in license tag
+
+* Sat Jan 14 2023 Mattia Verga <mattia.verga@proton.me> - 6.0.1-6
+- Exclude broken tests in Koji
+
 * Thu Jan 12 2023 Mattia Verga <mattia.verga@proton.me> - 6.0.1-5
 - Rebuilt for Pyramid 2.0
 - Relax some dependencies

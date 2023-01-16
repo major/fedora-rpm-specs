@@ -18,7 +18,7 @@
 %global ninja 1
 
 Name:    kf5-%{framework}
-Version: 5.101.0
+Version: 5.102.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with advanced configuration system
 
@@ -213,6 +213,9 @@ make test %{?_smp_mflags} -C redhat-linux-build ARGS="--output-on-failure --time
 
 
 %changelog
+* Sat Jan 14 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.102.0-1
+- 5.102.0
+
 * Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
 - 5.101.0
 - use new macros to simplify code

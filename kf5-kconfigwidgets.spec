@@ -1,8 +1,8 @@
 %global framework kconfigwidgets
 
 Name:    kf5-%{framework}
-Version: 5.101.0
-Release: 2%{?dist}
+Version: 5.102.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 addon for creating configuration dialogs
 
 License: GPLv2+ and LGPLv2+ and MIT
@@ -86,6 +86,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Jan 14 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.102.0-1
+- 5.102.0
+
 * Tue Dec 13 2022 Jan Grulich <jgrulich@redhat.com> - 5.101.0-2
 - KColorSchemeManager: properly restore default palette
 

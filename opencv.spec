@@ -1,8 +1,9 @@
 %undefine __cmake_in_source_build
+
 %bcond_without  tests
 %bcond_without  extras
 # linters are enabled by default if BUILD_DOCS OR BUILD_EXAMPLES
-%bcond_without  linters
+%bcond_with     linters
 %bcond_with     ffmpeg
 %bcond_without  gstreamer
 %bcond_with     eigen2
@@ -63,13 +64,13 @@
 %endif
 
 Name:           opencv
-Version:        4.6.0
+Version:        4.7.0
 %global javaver %(foo=%{version}; echo ${foo//./})
 %global majorver %(foo=%{version}; a=(${foo//./ }); echo ${a[0]} )
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -86,8 +87,9 @@ Source1:        %{name}_contrib-clean-%{version}.tar.gz
 Source2:        %{name}_extra-clean-%{version}.tar.gz
 }
 Source3:        face_landmark_model.dat.xz
-# from https://github.com/opencv/ade/archive/v0.1.1f.zip
-Source4:        b624b995ec9c439cbc2e9e6ee940d3a2-v0.1.1f.zip
+# from https://github.com/opencv/ade/archive/v0.1.2a.zip
+# mv v0.1.2a.zip $(md5sum v0.1.2a.zip | cut -d' ' -f1)-v0.1.2a.zip
+Source4:        fa4b3e25167319cb0fa9432ef8281945-v0.1.2a.zip
 Source5:        xorg.conf
 
 Patch0:         opencv-4.1.0-install_3rdparty_licenses.patch
@@ -270,6 +272,8 @@ distribution, since the library maintains binary compatibility, and tries
 to provide decent performance and stability.
 
 %prep
+# autosetup doesn't work with 2 sources
+# https://github.com/rpm-software-management/rpm/issues/1204
 %setup -q -a1 %{?with_extras:-a2}
 %if 1
 # we don't use pre-built contribs except quirc
@@ -512,6 +516,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Fri Jan 13 2023 Sérgio Basto <sergio@serjux.com> - 4.7.0-1
+- Update opencv to 4.7.0 (#2157121)
+
 * Fri Dec 23 2022 Sandro Mani <manisandro@gmail.com> - 4.6.0-10
 - Rebuild (tesseract)
 

@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -759,6 +759,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Sat Jan 14 2023 Orion Poplawski <orion@nwra.com> - 5.15.0-46
+- Rebuild for libharu 2.4.3
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 5.15.0-45
 - Rebuild with wxWidgets 3.2
 

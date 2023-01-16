@@ -1,9 +1,9 @@
-%global gittag0 v1.13.0
+%global gittag0 v1.14.0
 
 Name: memkind
 Summary: User Extensible Heap Manager
-Version: 1.13.0
-Release: 2%{?checkout}%{?dist}
+Version: 1.14.0
+Release: 1%{?checkout}%{?dist}
 License: BSD
 URL: http://memkind.github.io/memkind
 BuildRequires: make
@@ -67,14 +67,17 @@ rm -f %{buildroot}/%{_docdir}/%{name}/VERSION
 %ldconfig_scriptlets
 
 %files
+%{_bindir}/memtier
 %{_libdir}/lib%{name}.so.*
 %{_libdir}/libautohbw.so.*
 %{_libdir}/libmemtier.so.*
 %{_bindir}/%{name}-hbw-nodes
 %{_bindir}/%{name}-auto-dax-kmem-nodes
 %{_mandir}/man1/%{name}*.1.*
+%{_mandir}/man1/memtier.1.*
 %{_mandir}/man7/autohbw.7.*
 %{_mandir}/man7/memtier.7.*
+%{_mandir}/man7/libmemtier.7.*
 %dir %{_docdir}/%{name}
 %doc %{_docdir}/%{name}/README
 %license %{_docdir}/%{name}/COPYING
@@ -94,8 +97,12 @@ rm -f %{buildroot}/%{_docdir}/%{name}/VERSION
 %{_mandir}/man3/hbwallocator.3.*
 %{_mandir}/man3/pmemallocator.3.*
 %{_mandir}/man3/fixedallocator.3.*
+%{_mandir}/man3/libmemtier.3.*
 
 %changelog
+* Fri Jan 13 2023 Rafael Aquini <aquini@linux.com> - 1.14.0-1
+- Update memkind source file to 1.14.0 upstream
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

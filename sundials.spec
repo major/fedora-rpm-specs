@@ -42,36 +42,40 @@
 %global with_superludist 0
 ###########
 
-## Fortran ##
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
+%if 0%{?rhel} && 0%{?rhel} >= 9
+# KLU support
+%global with_klu   1
+%global with_klu64 0
+##########
+# Fortran
+%if 0%{?with_klu64}
 %global with_fortran 1
-%else
+%endif
+%if 0%{?with_klu}
 %global with_fortran 0
 %endif
-#############
-
-# KLU support
-%if 0%{?rhel} && 0%{?rhel} >= 9
-%global with_klu   0
-%global with_klu64 0
+##########
 %endif
 %if 0%{?fedora}
 %ifarch s390x x86_64 %{power64} aarch64
 %global with_klu64 1
+%global with_fortran 1
 %endif
 %ifarch %{arm} %{ix86}
 %global with_klu 1
+%global with_fortran 0
 %endif
 %endif
 %if 0%{?rhel} && 0%{?rhel} == 8
 %global with_klu 1
+%global with_fortran 0
 %endif
 ##########
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
 Version:    5.8.0
-Release:    9%{?dist}
+Release:    10%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
 License:    BSD
@@ -969,6 +973,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %doc sundials-%{version}/doc/arkode/*
 
 %changelog
+* Sat Jan 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-10
+- Enable KLU support in EPEL9
+
 * Wed Jan 04 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-9
 - Build in EPEL9
 - Disable KLU support in EPEL9

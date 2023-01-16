@@ -39,25 +39,16 @@
 
 Summary: The Visualization Toolkit - A high level 3D visualization library
 Name: vtk
-Version: 9.1.0
-Release: 18%{?dist}
-# This is a variant BSD license, a cross between BSD and ZLIB.
-# For all intents, it has the same rights and restrictions as BSD.
-# http://fedoraproject.org/wiki/Licensing/BSD#VTKBSDVariant
-License: BSD
-Source0: https://www.vtk.org/files/release/9.1/VTK-%{version}.tar.gz
-Source1: https://www.vtk.org/files/release/9.1/VTKData-%{version}.tar.gz
+Version: 9.2.5
+Release: 1%{?dist}
+License: BSD-3-Clause
+Source0: https://www.vtk.org/files/release/9.2/VTK-%{version}.tar.gz
+Source1: https://www.vtk.org/files/release/9.2/VTKData-%{version}.tar.gz
 Source2: xorg.conf
 # Patch required libharu version (Fedora 33+ contains the needed VTK patches)
 Patch0: vtk-libharu.patch
-# Upstream patch to link kissfft with libm
-Patch1: vtk-kissfft-libm.patch
-# Upstream patch to support netcdf 4.9.0
-# https://gitlab.kitware.com/vtk/vtk/-/issues/18576
-Patch2: vtk-netcdf.patch
-# Duplicate define conflict with Xutil, see:
-# https://gitlab.kitware.com/vtk/vtk/-/issues/18048
-Patch3: vtk-AllValues.patch
+# Fix issue with Mayavi
+Patch1: https://gitlab.kitware.com/vtk/vtk/-/merge_requests/9616.patch
 
 URL: https://vtk.org/
 
@@ -94,11 +85,11 @@ BuildRequires:  gl2ps-devel
 %endif
 BuildRequires:  glew-devel
 BuildRequires:  hdf5-devel
+BuildRequires:  json-devel
 BuildRequires:  jsoncpp-devel
 BuildRequires:  libarchive-devel
 BuildRequires:  libGL-devel
-# Requires special patched version of libharu
-BuildRequires:  libharu-devel >= 2.3.0-9
+BuildRequires:  libharu-devel >= 2.4.0
 BuildRequires:  libICE-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
@@ -107,6 +98,7 @@ BuildRequires:  libtheora-devel
 BuildRequires:  libtiff-devel
 BuildRequires:  libxml2-devel
 BuildRequires:  libX11-devel
+BuildRequires:  libXcursor-devel
 BuildRequires:  libXext-devel
 BuildRequires:  libXt-devel
 BuildRequires:  lz4-devel
@@ -179,6 +171,7 @@ Requires: gdal-devel%{?_isa} \
 Requires: gl2ps-devel%{?_isa} \
 %endif \
 Requires: glew-devel%{?_isa} \
+Requires: json-devel%{?_isa} \
 Requires: jsoncpp-devel%{?_isa} \
 Requires: lapack-devel%{?_isa} \
 Requires: libarchive-devel%{?_isa} \
@@ -192,6 +185,7 @@ Requires: libtheora-devel%{?_isa} \
 Requires: libtiff-devel%{?_isa} \
 Requires: libxml2-devel%{?_isa} \
 Requires: libX11-devel%{?_isa} \
+Requires: libXcursor-devel%{?_isa} \
 Requires: libXext-devel%{?_isa} \
 Requires: libXt-devel%{?_isa} \
 Requires: lz4-devel%{?_isa} \
@@ -246,7 +240,7 @@ Provides: bundled(gl2ps) = 1.4.0
 Provides: bundled(ioss) = 20210512
 Provides: bundled(kissfft)
 Provides: bundled(metaio)
-Provides: bundled(verdict) = 1.2.0
+Provides: bundled(verdict) = 1.4.0
 Provides: bundled(vpic)
 Provides: bundled(xdmf2) = 2.1
 Provides: bundled(xdmf3)
@@ -566,6 +560,7 @@ export JAVA_TOOL_OPTIONS=-Xmx2048m
 %endif \
  -DVTK_MODULE_USE_EXTERNAL_VTK_exprtk:BOOL=OFF \\\
  -DVTK_MODULE_USE_EXTERNAL_VTK_ioss:BOOL=OFF \\\
+ -DVTK_MODULE_USE_EXTERNAL_VTK_verdict:BOOL=OFF \\\
  -DVTK_USE_TK=ON \\\
   %{?with_flexiblas:-DBLA_VENDOR=FlexiBLAS}
 # https://gitlab.kitware.com/cmake/cmake/issues/17223
@@ -577,7 +572,7 @@ export JAVA_TOOL_OPTIONS=-Xmx2048m
  -DVTK_BUILD_DOCUMENTATION:BOOL=ON \
  -DVTK_BUILD_EXAMPLES:BOOL=ON \
  -DVTK_BUILD_TESTING:BOOL=ON
-%cmake_build
+%cmake_build -- --output-sync
 %cmake_build --target DoxygenDoc
 
 %if %{with mpich}
@@ -593,7 +588,7 @@ export CXX=mpic++
  -DCMAKE_INSTALL_JNILIBDIR:PATH=lib/%{name} \
  -DCMAKE_INSTALL_QMLDIR:PATH=lib/qt5/qml \
  -DVTK_USE_MPI:BOOL=ON
-%cmake_build
+%cmake_build -- --output-sync
 %_mpich_unload
 %endif
 
@@ -610,7 +605,7 @@ export CXX=mpic++
  -DCMAKE_INSTALL_JNILIBDIR:PATH=lib/%{name} \
  -DCMAKE_INSTALL_QMLDIR:PATH=lib/qt5/qml \
  -DVTK_USE_MPI:BOOL=ON
-%cmake_build
+%cmake_build -- --output-sync
 %_openmpi_unload
 %endif
 
@@ -844,6 +839,10 @@ cat xorg.log
 
 
 %changelog
+* Mon Jan 09 2023 Orion Poplawski <orion@nwra.com> - 9.2.5-1
+- Update to 9.2.5
+- Use SPDX License tag
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 9.1.0-18
 - Rebuild (gdal)
 

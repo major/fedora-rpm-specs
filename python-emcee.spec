@@ -2,24 +2,19 @@
 
 %global srcname emcee
 
-%global common_description                                                   \
-emcee is a stable, well tested Python implementation of the affine-invariant \
-ensemble sampler for Markov chain Monte Carlo (MCMC) proposed by             \
-Goodman & Weare (2010). The code is open source and has already been         \
-used in several published projects in the Astrophysics literature.           
-
 Name: python-%{srcname}
-Version: 3.1.2
-Release: 3%{?dist}
+Version: 3.1.3
+Release: 1%{?dist}
 Summary: The Python ensemble sampling toolkit for affine-invariant MCMC
 License: MIT
 
-URL: http://dan.iel.fm/emcee/current/
+URL: https://emcee.readthedocs.io/en/stable/
 Source0: %{pypi_source}
 BuildRequires: python3-devel 
 BuildArch: noarch
 
-%global _description %{common_description}
+%global _description %{expand: 
+emcee is a stable, well tested Python implementation of the affine-invariant ensemble sampler for Markov chain Monte Carlo (MCMC) proposed by Goodman & Weare (2010). The code is open source and has already been used in several published projects in the Astrophysics literature.}
 
 %description %_description
 
@@ -27,8 +22,6 @@ BuildArch: noarch
 Summary: %{summary}
 BuildRequires: %{py3_dist setuptools}
 BuildRequires: %{py3_dist setuptools_scm}
-BuildRequires: %{py3_dist wheel}
-BuildRequires: %{py3_dist numpy}
 %if %{with check}
 BuildRequires: %{py3_dist pytest}
 BuildRequires: %{py3_dist scipy}
@@ -36,16 +29,21 @@ BuildRequires: %{py3_dist h5py}
 %endif
 
 %description -n python3-%{srcname}
-%{common_description}
+%_description
 
 %prep
 %autosetup -n %{srcname}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files emcee
 
 %if %{with check}
 %check
@@ -63,12 +61,13 @@ pushd %{buildroot}/%{python3_sitelib}
 popd
 %endif
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc AUTHORS.rst HISTORY.rst README.rst 
-%license LICENSE
-%{python3_sitelib}/*
 
 %changelog
+* Sat Jan 14 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.1.3-1
+- New upstream source 3.1.3
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

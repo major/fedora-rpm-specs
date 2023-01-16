@@ -8,7 +8,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.101.0
+Version: 5.102.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 solution for spell checking
 
@@ -118,6 +118,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Jan 14 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.102.0-1
+- 5.102.0
+
 * Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
 - 5.101.0
 - use new macros to simplify code

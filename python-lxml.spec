@@ -1,5 +1,5 @@
 Name:           python-lxml
-Version:        4.9.1
+Version:        4.9.2
 Release:        1%{?dist}
 Summary:        XML processing library combining libxml2/libxslt with the ElementTree API
 
@@ -10,11 +10,6 @@ Summary:        XML processing library combining libxml2/libxslt with the Elemen
 License:        BSD-3-Clause AND MIT-CMU AND MIT
 URL:            https://github.com/lxml/lxml
 Source:         %{pypi_source lxml}
-
-# Work around libxml2 bug in affected versions that failed to reset the
-# namespace count in the parser context.
-# Resolved upstream: https://github.com/lxml/lxml/commit/c742576c105f40fc8b754fcae56fee4aa35840a3
-Patch:          fix-namespace-count.patch
 
 BuildRequires:  gcc
 BuildRequires:  libxml2-devel
@@ -81,6 +76,9 @@ cp -a build/lib.%{python3_platform}-*/* src/
 %doc README.rst src/lxml/isoschematron/resources/xsl/iso-schematron-xslt1/readme.txt
 
 %changelog
+* Wed Dec 14 2022 Lumír Balhar <lbalhar@redhat.com> - 4.9.2-1
+- Update to 4.9.2 (rhbz#2153063)
+
 * Wed Sep 14 2022 Charalampos Stratakis <cstratak@redhat.com> - 4.9.1-1
 - Update to 4.9.1
 - Fix for CVE-2022-2309

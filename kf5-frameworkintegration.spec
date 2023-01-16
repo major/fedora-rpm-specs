@@ -1,8 +1,8 @@
 %global framework frameworkintegration
 
 Name:    kf5-%{framework}
-Version: 5.101.0
-Release: 2%{?dist}
+Version: 5.102.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 4 workspace and cross-framework integration plugins
 License: LGPLv2+
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -108,6 +108,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Jan 14 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.102.0-1
+- 5.102.0
+
 * Fri Jan 06 2023 Jan Grulich <jgrulich@redhat.com> - 5.101.0-2
 - Rebuild (qt5)
 

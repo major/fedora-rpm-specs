@@ -1,6 +1,6 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        2.10.0
+Version:        2.11.0
 Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
@@ -11,14 +11,15 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
+Patch0:         https://github.com/baresip/baresip/commit/dd9106090136304455e9e7a6295a50ed4406e481.patch#/baresip-2.11.0-no-pulse-simple.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 2.10.0
-BuildRequires:  librem-devel >= 2.10.0
+BuildRequires:  libre-devel >= 2.11.0
+BuildRequires:  librem-devel >= 2.11.0
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 1.1.0
 %else
@@ -255,7 +256,7 @@ This module provides the Portaudio audio driver.
 
 %package pulse
 Summary:        PulseAudio audio driver for baresip
-BuildRequires:  pkgconfig(libpulse-simple)
+BuildRequires:  pkgconfig(libpulse)
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description pulse
@@ -351,6 +352,7 @@ This module provides the X11 video output driver.
 
 %prep
 %setup -q
+%patch0 -p1 -b .no-pulse-simple
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -425,7 +427,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.2*
+%{_libdir}/lib%{name}.so.3*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -534,7 +536,6 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 
 %files pulse
 %{_libdir}/%{name}/modules/pulse.so
-%{_libdir}/%{name}/modules/pulse_async.so
 
 %files sdl
 %{_libdir}/%{name}/modules/sdl.so
@@ -561,6 +562,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sat Jan 14 2023 Robert Scheck <robert@fedoraproject.org> 2.11.0-1
+- Upgrade to 2.11.0 (#2160564)
+
 * Wed Dec 07 2022 Robert Scheck <robert@fedoraproject.org> 2.10.0-1
 - Upgrade to 2.10.0 (#2151456)
 

@@ -1,7 +1,7 @@
 %global framework kdelibs4support
 
 Name:    kf5-%{framework}
-Version: 5.101.0
+Version: 5.102.0
 Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 4 module with porting aid from KDELibs 4
 License: GPLv2+ and LGPLv2+ and BSD
@@ -189,6 +189,9 @@ rm -fv %{buildroot}%{_kf5_sysconfdir}/xdg/kdebugrc
 
 
 %changelog
+* Sat Jan 14 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.102.0-1
+- 5.102.0
+
 * Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
 - 5.101.0
 - use new macros to simplify code

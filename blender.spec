@@ -227,13 +227,6 @@ rm -f build_files/cmake/Modules/FindOpenJPEG.cmake
 # Fix all Python shebangs recursively in .
 %py3_shebang_fix .
 
-# Workaround for eigen3 trying to enforce power10 when fedora only supports power8.
-# https://bugzilla.redhat.com/show_bug.cgi?id=1996330
-%ifarch ppc64 ppc64le
-%global optflags_orig %optflags
-%global optflags %optflags_orig -DEIGEN_ALTIVEC_DISABLE_MMA
-%endif
-
 # Work around CMake boost module needing the python version to find the library
 sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     build_files/cmake/platform/platform_unix.cmake

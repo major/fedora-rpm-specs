@@ -1,6 +1,6 @@
 Name:		3Depict
 Version:	0.0.22
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Valued 3D point cloud visualization and analysis
 
 
@@ -130,6 +130,9 @@ mv docs/manual-latex/manual.pdf %{name}-%{version}-manual.pdf
 
 
 %changelog
+* Sat Jan 14 2023 Orion Poplawski <orion@nwra.com> - 0.0.22-15
+- Rebuild with mathgl 8.0.1
+
 * Mon Sep 12 2022 Scott Talbert <swt@techie.net> - 0.0.22-14
 - Rebuild with wxWidgets 3.2
 

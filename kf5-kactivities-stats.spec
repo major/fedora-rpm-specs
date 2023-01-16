@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Summary: A KDE Frameworks 5 Tier 3 library for accessing the usage data collected by the activities system
-Version: 5.101.0
+Version: 5.102.0
 Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -74,6 +74,9 @@ Requires: qt5-qtbase-devel
 
 
 %changelog
+* Sat Jan 14 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.102.0-1
+- 5.102.0
+
 * Mon Dec 12 2022 Marc Deop <marcdeop@fedoraproject.org> - 5.101.0-1
 - 5.101.0
 - use new macros to simplify code

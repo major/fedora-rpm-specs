@@ -1,18 +1,20 @@
 %global pkg_name %{name}3
 
 Name:           starcal
-Version:        3.1.13
+Version:        3.2.0
 Release:        1%{?dist}
 Summary:        A full-featured international calendar written in Python
 
 License:        GPLv3+
 URL:            http://ilius.github.io/starcal/
 Source0:        https://github.com/ilius/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# Following Sources are created by me. All of the following were sent upstream
-Source1:        %{pkg_name}.desktop
 
-Requires:       python3-gobject python3-httplib2 python3-psutil python3-bson
-Requires:       python3-dateutil
+Requires:       python3-gobject python3-httplib2 python3-psutil python3-cairo
+Requires:       python3-dateutil python3-cachetools python3-requests
+Requires:       libappindicator-gtk3
+
+Recommends:     gtksourceview4 python3-igraph python3-pygit2
+Suggests:       lxqt-openssh-askpass ntpdate
 
 BuildArch:      noarch
 BuildRequires:  python3-devel desktop-file-utils gettext git
@@ -25,10 +27,9 @@ as well as common English(Gregorian) calendar
 
 %prep
 %autosetup -S git -n %{name}-%{version}
-sed -i.pysupp "s|PY_SUPPORTED=(3.9|PY_SUPPORTED=(3.11 3.10 3.9|" install
 find -type f -name "*.py*" -exec chmod a+x {} \;
 find -type f -exec \
-   sed -i '1s=^#!/usr/bin/\(python\|env python.*\)\(.*\)$=#!%{__python3}\2=' {} \;
+   sed -i '1s=^#!/usr/bin/\(python\|env python\)[^ ]*\(.*\)$=#!%{__python3}\2=' {} \;
 find -name "*.py" -exec sh -c 'if ! grep "^#\!" {} &> /dev/null;  then \
    sed -i -e "1i#!%{__python3}" {}; fi'  \;
 
@@ -36,17 +37,19 @@ find -name "*.py" -exec sh -c 'if ! grep "^#\!" {} &> /dev/null;  then \
 %build
 
 %install
-./install %{buildroot} --for-pkg --prefix=%{_prefix}
+echo | ./distro/base/install.sh %{buildroot} --for-pkg --prefix=%{_prefix}
 
 # cleanups
 rm -rf %{buildroot}%{_datadir}/doc/
 rm -rf      \
   %{buildroot}%{_datadir}/%{pkg_name}/{*install*,README.md,donate} \
   %{buildroot}%{_datadir}/%{pkg_name}/locale.d
-rm -f %{buildroot}/%{_datadir}/applications/*
 
 desktop-file-install     \
-  --dir=%{buildroot}/%{_datadir}/applications %{SOURCE1}
+  --delete-original \
+  --remove-category=Utility --set-icon=%{pkg_name}2 \
+  --dir=%{buildroot}/%{_datadir}/applications \
+  %{buildroot}/%{_datadir}/applications/%{pkg_name}.desktop
 
 %find_lang %{pkg_name}
 
@@ -57,9 +60,12 @@ desktop-file-install     \
 %{_datadir}/%{pkg_name}
 %{_datadir}/applications/*
 %{_datadir}/pixmaps/*
-%{_datadir}/icons/hicolor/*/apps/%{pkg_name}.png
+%{_datadir}/icons/hicolor/*/apps/%{pkg_name}*.png
 
 %changelog
+* Sun Jan 08 2023 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 3.2.0-1
+- New upstream version, with many changes
+
 * Thu Nov 03 2022 Hedayat Vatankhah <hedayat.fwd+rpmchlog@gmail.com> - 3.1.13-1
 - New upstream version, fix f37 compatibility and other fixes
 

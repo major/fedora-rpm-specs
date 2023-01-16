@@ -3,7 +3,7 @@
 %undefine _package_note_file
 
 # Testing libpetsc ?
-%bcond_without check
+%bcond_with check
 #
 
 # Python binding and its testing
@@ -285,7 +285,7 @@
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
 Version: %{releasever}.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -437,6 +437,7 @@ modeled by partial differential equations.
 Summary:    Portable Extensible Toolkit for Scientific Computation (OpenMPI)
 Requires:   %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires:   openmpi-devel%{?_isa} = %{epoch}:%{openmpiversion}
+Requires:   hdf5-openmpi-devel%{?_isa}
 %description openmpi-devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
 %endif
@@ -545,7 +546,8 @@ modeled by partial differential equations.
 %package mpich-devel
 Summary:    Portable Extensible Toolkit for Scientific Computation (MPICH)
 Requires:   %{name}-mpich%{?_isa} = %{version}-%{release}
-Requires:       mpich-devel%{?_isa} = 0:%{mpichversion}
+Requires:   mpich-devel%{?_isa} = 0:%{mpichversion}
+Requires:   hdf5-mpich-devel%{?_isa}
 %description mpich-devel
 Portable Extensible Toolkit for Scientific Computation (developer files).
 %endif
@@ -777,6 +779,8 @@ install -pm 644 %{_arch}/include/*.mod %{buildroot}%{_fmoddir}/%{name}/
 cp -a include/* %{buildroot}%{_includedir}/%{name}/
 
 cp -a %{_arch}/lib/pkgconfig %{buildroot}%{_libdir}/
+sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc.pc
+ln -fs %{_libdir}/pkgconfig/petsc.pc %{buildroot}%{_libdir}/pkgconfig/PETSc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}%{_libdir}/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}%{_libdir}/%{name}/conf/
@@ -808,6 +812,8 @@ cp -a include/* %{buildroot}%{_includedir}/%{name}64/
 
 cp -p %{_arch}/lib/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/PETSc64.pc
 cp -p %{_arch}/lib/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc64.pc
+sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc64.pc
+sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/petsc64.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}%{_libdir}/%{name}64/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}%{_libdir}/%{name}64/conf/
@@ -843,6 +849,8 @@ sed -e 's|-I${includedir}/petsc|-I%{_includedir}/openmpi-%{_arch}/petsc|g' -i %{
 sed -e 's|-L${libdir}|-L%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|ldflag_rpath=-L|ldflag_rpath=-L%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|-lpetsc|-lpetsc -lhdf5|' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
+sed -e 's|${prefix}/lib|${prefix}/%{_lib}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
+ln -fs $MPI_LIB/pkgconfig/petsc.pc %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}$MPI_LIB/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}$MPI_LIB/%{name}/conf/
@@ -898,9 +906,8 @@ sed -e 's|-I${includedir}/petsc|-I%{_includedir}/mpich-%{_arch}/petsc|g' -i %{bu
 sed -e 's|-L${libdir}|-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|ldflag_rpath=-L|ldflag_rpath=-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|-lpetsc|-lpetsc -lhdf5|' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
-pushd %{buildroot}$MPI_LIB/pkgconfig
-#ln -fs PETSc.pc petsc.pc
-popd
+sed -e 's|${prefix}/lib|${prefix}/%{_lib}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
+ln -fs $MPI_LIB/pkgconfig/petsc.pc %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}$MPI_LIB/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}$MPI_LIB/%{name}/conf/
@@ -1152,6 +1159,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Sat Jan 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-5
+- Fix pkgconfig files bugs (rhbz#2060414)
+
 * Sun Jan 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-4
 - Build in EPEL9
 - Fix Epoch in EPEL9
