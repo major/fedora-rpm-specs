@@ -3,7 +3,7 @@
 
 Name:             apt-cacher-ng
 Version:          3.7.4
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Caching proxy for package files from Debian
 
 License:          BSD-4-Clause
@@ -34,7 +34,6 @@ Requires(postun): systemd
 
 Requires:         crontabs
 Requires:         logrotate
-Requires:         perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 Requires:         xz
 
 %description
@@ -126,6 +125,10 @@ sed -i 's/^# UseWrap: 0/UseWrap: 0/' %{buildroot}%{_sysconfdir}/apt-cacher-ng/ac
 %{_mandir}/man8/*
 
 %changelog
+* Sun Jan 15 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.7.4-2
+- Drop perl(:MODULE_COMPAT_XXX) dependency
+  (https://fedoraproject.org/wiki/Changes/Perl_replace_MODULE_COMPAT_by_generator)
+
 * Fri Dec 23 2022 Alexandre Detiste <alexandre.detiste@gmail.com> - 3.7.4-1
 - New upstream release
 - Workaround some remapping bug

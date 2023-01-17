@@ -1,11 +1,12 @@
 Name:		nss_updatedb
 Version:	10
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Maintains a local cache of network directory user and group information
 
 License:	GPL+
 URL:		http://www.padl.com/OSS/%{name}.html
 Source0:	http://www.padl.com/download/%{name}.tgz
+Patch0: nss_updatedb-configure-c99.patch
 
 #BuildRequires:	db4-devel
 BuildRequires: make
@@ -18,7 +19,7 @@ and group information. Used in conjunction with the pam_ccreds module,
 it provides a mechanism for disconnected use of network directories.
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 %configure
@@ -39,6 +40,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/doc/%name-%{version}
 
 
 %changelog
+* Sun Jan 15 2023 Florian Weimer <fweimer@redhat.com> - 10-25
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -14,9 +14,9 @@ Release: 1%{?dist}
 License: BSD
 URL:     https://api.kde.org/ecm/
 
-%global versiondir %(echo %{version} | cut -d. -f1-2)
+%global majmin %majmin_ver_kf5
 %global stable %stable_kf5
-Source0:        http://download.kde.org/%{stable}/frameworks/%{versiondir}/%{name}-%{version}.tar.xz
+Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{name}-%{version}.tar.xz
 BuildArch:      noarch
 
 ## bundle clang python bindings here, at least until they are properly packaged elsewhere, see:

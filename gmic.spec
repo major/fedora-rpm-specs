@@ -10,7 +10,7 @@
 Summary: GREYC's Magic for Image Computing
 Name:    gmic
 Version: 3.1.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Source0: https://gmic.eu/files/source/%{name}_%{version}.tar.gz
 # GIT archive snapshot of https://github.com/c-koi/zart
 Source1: zart-%{zart_version}.tar.gz
@@ -223,6 +223,9 @@ fi
 %{_libdir}/libcgmic.so.3*
 
 %changelog
+* Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 3.1.6-3
+- Rebuild for opencv 4.7.0
+
 * Sun Nov 13 2022 josef radinger <cheese@nosuchhost.net> - 3.1.6-2
 - build
 

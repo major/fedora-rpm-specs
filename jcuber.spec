@@ -2,8 +2,8 @@
 # MIT licence, per Fedora policy
 
 Name:           jcuber
-Version:        4.6
-Release:        6%{?dist}
+Version:        4.8
+Release:        1%{?dist}
 Summary:        CUBE reader for Java
 # tarviewer is ASL
 License:        BSD-3-Clause AND Apache-2.0
@@ -70,6 +70,9 @@ cp -rp examples AUTHORS %buildroot%_defaultdocdir/%name
 
 
 %changelog
+* Sun Dec 18 2022 Dave Love <loveshack@fedoraproject.org> - 4.8-1
+- New version (#2074552)
+
 * Thu Sep  8 2022 Dave Love <loveshack@fedoraproject.org> - 4.6-6
 - Use SPDX licence tag
 

@@ -1,6 +1,6 @@
 %global modname traitsui 
 Name:           python-%{modname}
-Version:        7.4.2
+Version:        7.4.3
 Release:        1%{?dist}
 Summary:        User interface tools designed to complement Traits
 
@@ -101,6 +101,9 @@ popd
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Sun Jan 15 2023 Orion Poplawski <orion@nwra.com> - 7.4.3-1
+- Update to 7.4.3
+
 * Mon Nov 07 2022 Orion Poplawski <orion@nwra.com> - 7.4.2-1
 - Update to 7.4.2
 

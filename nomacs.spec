@@ -5,11 +5,11 @@
 Name:		nomacs
 Summary:	Lightweight image viewer
 Version:	3.16
-Release:	12%{?dist}
+Release:	13%{?dist}
 License:	GPLv3+ and CC-BY
 Url:		http://nomacs.org
-Source0:	https://github.com/%{github_owner}/%{name}/archive/%{version}.%{build}.tar.gz/%{name}-%{version}.%{git_build}.tar.gz
-Source1:	https://github.com/%{github_owner}/%{name}-plugins/archive/%{version}.tar.gz/%{name}-plugins-%{version}.tar.gz
+Source0:	https://github.com/%{github_owner}/%{name}/archive/%{version}.%{git_build}/%{name}-%{version}.%{git_build}.tar.gz
+Source1:	https://github.com/%{github_owner}/%{name}-plugins/archive/%{version}/%{name}-plugins-%{version}.tar.gz
 # desktop entries rename (https://github.com/nomacs/nomacs/issues/528)
 Patch0:		%{name}-%{version}.%{git_build}-desktop.diff
 # plugins search path (https://github.com/nomacs/nomacs/issues/531)
@@ -117,6 +117,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 3.16-13
+- Rebuild for opencv 4.7.0
+
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.16-12
 - LibRaw rebuild
 

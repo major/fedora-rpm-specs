@@ -1,5 +1,5 @@
 Name:           perl-Config-INI
-Version:        0.028
+Version:        0.029
 Release:        1%{?dist}
 Summary:        Config::INI Perl module
 License:        GPL+ or Artistic
@@ -42,6 +42,9 @@ Config::INI - simple .ini-file format.
 %{_mandir}/man3/Config*
 
 %changelog
+* Sun Jan 15 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.029-1
+- Update to 0.029
+
 * Sun Jan 01 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.028-1
 - Update to 0.028
 

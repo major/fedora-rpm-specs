@@ -21,9 +21,9 @@ Release: 1%{?dist}
 License: LGPLv3+
 URL:     https://techbase.kde.org/Projects/Oxygen
 
-%global versiondir %(echo %{version} | cut -d. -f1-2)
+%global majmin %majmin_ver_kf5
 %global stable %stable_kf5
-Source0: http://download.kde.org/%{stable}/frameworks/%{versiondir}/%{framework}-%{version}.tar.xz
+Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 BuildArch: noarch
 
 # we are noarch, skip trying to find debuginfo

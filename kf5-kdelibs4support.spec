@@ -7,7 +7,7 @@ Summary: KDE Frameworks 5 Tier 4 module with porting aid from KDELibs 4
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-%global majmin %(echo %{version} | cut -d. -f1-2)
+%global majmin %majmin_ver_kf5
 %global stable %stable_kf5
 Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/portingAids/%{framework}-%{version}.tar.xz
 

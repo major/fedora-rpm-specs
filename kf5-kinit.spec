@@ -10,9 +10,9 @@ Summary:        KDE Frameworks 5 tier 3 solution for process launching
 License:        LGPLv2+ and BSD
 URL:            https://invent.kde.org/frameworks/%{framework}
 
-%global versiondir %(echo %{version} | cut -d. -f1-2)
+%global majmin %majmin_ver_kf5
 %global stable %stable_kf5
-Source0:        http://download.kde.org/%{stable}/frameworks/%{versiondir}/%{framework}-%{version}.tar.xz
+Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 
 Source10:       macros.kf5-kinit
 

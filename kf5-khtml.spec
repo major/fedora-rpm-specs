@@ -8,9 +8,9 @@ Summary: KDE Frameworks 5 Tier 4 solution with KHTML, a HTML rendering engine
 License: LGPLv2+ and GPLv3 and MIT and BSD
 URL:     https://invent.kde.org/frameworks/%{framework}
 
-%global versiondir %(echo %{version} | cut -d. -f1-2)
+%global majmin %majmin_ver_kf5
 %global stable %stable_kf5
-Source0:        http://download.kde.org/%{stable}/frameworks/%{versiondir}/portingAids/%{framework}-%{version}.tar.xz
+Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/portingAids/%{framework}-%{version}.tar.xz
 
 # filter plugin provides
 %global __provides_exclude_from ^(%{_kf5_plugindir}/.*\\.so)$

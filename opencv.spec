@@ -70,7 +70,7 @@ Version:        4.7.0
 %global minorver %(foo=%{version}; a=(${foo//./ }); echo ${a[1]} )
 %global padding  %(digits=00; num=%{minorver}; echo ${digits:${#num}:${#digits}} )
 %global abiver   %(echo %{majorver}%{padding}%{minorver} )
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Collection of algorithms for computer vision
 # This is normal three clause BSD.
 License:        BSD
@@ -516,6 +516,9 @@ ln -s -r %{buildroot}%{_jnidir}/opencv-%{javaver}.jar %{buildroot}%{_jnidir}/ope
 %{_libdir}/libopencv_xphoto.so.{%{abiver},%{version}}
 
 %changelog
+* Sun Jan 15 2023 Orion Poplawski <orion@nwra.com> - 4.7.0-2
+- Rebuild for vtk 9.2.5
+
 * Fri Jan 13 2023 Sérgio Basto <sergio@serjux.com> - 4.7.0-1
 - Update opencv to 4.7.0 (#2157121)
 

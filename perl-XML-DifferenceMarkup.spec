@@ -1,12 +1,13 @@
 Name:           perl-XML-DifferenceMarkup
 Version:        1.05
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        XML diff and merge
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/XML-DifferenceMarkup
 Source0:        https://cpan.metacpan.org/authors/id/V/VB/VBAR/XML-DifferenceMarkup-%{version}.tar.gz
 # Use system CLFAGS
 Patch0:         XML-DifferenceMarkup-1.05-Do-not-override-CCFLAGS.patch
+Patch1:         perl-XML-DifferenceMarkup-configure-c99.patch
 BuildRequires:  diffmark-devel
 BuildRequires:  findutils
 # Makefile.PL generates a temporary Makefile.PL distribution with an XS
@@ -38,6 +39,7 @@ output are DOM documents, as implemented by XML::LibXML.
 %prep
 %setup -q -n XML-DifferenceMarkup-%{version}
 %patch0 -p1
+%patch1 -p1
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$RPM_OPT_FLAGS"
@@ -58,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Jan 15 2023 Florian Weimer <fweimer@redhat.com> - 1.05-29
+- C99 compatibility fixes
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

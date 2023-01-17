@@ -13,7 +13,7 @@
 %global libver 15
 
 Name:          mingw-%{pkgname}
-Version:       15.0.6
+Version:       15.0.7
 Release:       1%{?dist}
 Summary:       LLVM for MinGW
 
@@ -249,6 +249,9 @@ install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mi
 
 
 %changelog
+* Sun Jan 15 2023 Sandro Mani <manisandro@gmail.com> - 15.0.7-1
+- Update to 15.0.7
+
 * Wed Dec 07 2022 Sandro Mani <manisandro@gmail.com> - 15.0.6-1
 - Update to 15.0.6
 

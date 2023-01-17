@@ -1,5 +1,8 @@
 %define _lto_cflags %{nil}
 
+# enable|disable system build flags
+%global system_build_flags 0
+
 # disable the package notes info on f36
 # workaround for linking issue
 %if 0%{?fedora} == 36
@@ -108,6 +111,13 @@
 # enable clang by default
 %global clang 1
 
+# set correct toolchain
+%if %{clang}
+%global toolchain clang
+%else
+%global toolchain gcc
+%endif
+
 # enable system brotli
 %global bundlebrotli 0
 
@@ -211,7 +221,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 109.0.5414.74
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -298,9 +308,6 @@ Patch86:	chromium-94.0.4606.81-clang-format.patch
 # Markdownsafe 2.0.1 removed soft_unicode (replaced with soft_str)
 # This is only in Fedora 37+
 Patch87:	chromium-99.0.4844.84-markdownsafe-soft_str.patch
-
-# drop build dependency on python3-importlib-metadata
-Patch88: chromium-108-drop-python-importlib-metadata.patch
 
 # patch for using system brotli
 Patch89: chromium-108-system-brotli.patch
@@ -409,7 +416,7 @@ Source16: https://github.com/web-platform-tests/wpt/raw/master/fonts/Ahem.ttf
 Source17: GardinerModBug.ttf
 Source18: GardinerModCat.ttf
 
-%if 0%{?clang}
+%if %{clang}
 %if 0%{?rhel} == 7
 BuildRequires: llvm-toolset-%{llvm_toolset_version}
 %else
@@ -434,7 +441,7 @@ BuildRequires: binutils
 %endif
 
 # build with system ffmpeg-free
-%if ! 0%{?bundleffmpegfree}
+%if ! %{bundleffmpegfree}
 BuildRequires: pkgconfig(libavcodec)
 BuildRequires: pkgconfig(libavfilter)
 BuildRequires: pkgconfig(libavformat)
@@ -442,7 +449,7 @@ BuildRequires: pkgconfig(libavutil)
 %endif
 
 # build with system libaom
-%if ! 0%{?bundlelibaom}
+%if ! %{bundlelibaom}
 BuildRequires: libaom-devel
 %endif
 
@@ -459,12 +466,12 @@ BuildRequires:	glib2-devel
 BuildRequires:	glibc-devel
 BuildRequires:	gperf
 
-%if 0%{?use_qt}
-BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(Qt5Widgets)
+%if %{use_qt}
+BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: pkgconfig(Qt5Widgets)
 %endif
 
-%if ! 0%{?bundleharfbuzz}
+%if ! %{bundleharfbuzz}
 BuildRequires:	harfbuzz-devel >= 2.4.0
 %endif
 
@@ -472,7 +479,7 @@ BuildRequires: libatomic
 BuildRequires:	libcap-devel
 BuildRequires:	libcurl-devel
 
-%if ! 0%{?bundlelibdrm}
+%if ! %{bundlelibdrm}
 BuildRequires:	libdrm-devel
 %endif
 
@@ -534,7 +541,7 @@ BuildRequires:	elfutils
 BuildRequires:	elfutils-libelf-devel
 BuildRequires:	flac-devel
 
-%if ! 0%{?bundlefreetype}
+%if ! %{bundlefreetype}
 BuildRequires:	freetype-devel
 %endif
 
@@ -545,29 +552,25 @@ BuildRequires:	kernel-headers
 BuildRequires:	libevent-devel
 BuildRequires:	libffi-devel
 
-%if ! 0%{?bundleicu}
+%if ! %{bundleicu}
 # If this is true, we're using the bundled icu.
 # We'd like to use the system icu every time, but we cannot always do that.
 # Not newer than 54 (at least not right now)
 BuildRequires:	libicu-devel = 54.1
 %endif
 
-%if ! 0%{?bundlelibjpeg}
+%if ! %{bundlelibjpeg}
 # If this is true, we're using the bundled libjpeg
 # which we need to do because the RHEL 7 libjpeg doesn't work for chromium anymore
 BuildRequires:	libjpeg-devel
 %endif
 
-%if ! 0%{?bundlelibpng}
+%if ! %{bundlelibpng}
 # If this is true, we're using the bundled libpng
 # which we need to do because the RHEL 7 libpng doesn't work right anymore
 BuildRequires:	libpng-devel
 %endif
 
-%if 0
-# see https://code.google.com/p/chromium/issues/detail?id=501318
-BuildRequires:	libsrtp-devel >= 1.4.4
-%endif
 BuildRequires:	libudev-devel
 
 %if ! %{bundlelibusbx}
@@ -575,7 +578,7 @@ Requires: libusbx >= 1.0.21-0.1.git448584a
 BuildRequires: libusbx-devel >= 1.0.21-0.1.git448584a
 %endif
 
-%if 0%{?use_vaapi}
+%if %{use_vaapi}
 BuildRequires:	libva-devel
 %endif
 
@@ -600,7 +603,7 @@ BuildRequires:	opus-devel
 BuildRequires:	perl(Switch)
 BuildRequires: %{chromium_pybin}
 
-%if 0%{gtk3}
+%if %{gtk3}
 BuildRequires:	pkgconfig(gtk+-3.0)
 %else
 BuildRequires:	pkgconfig(gtk+-2.0)
@@ -609,31 +612,32 @@ BuildRequires:	pkgconfig(gtk+-2.0)
 BuildRequires:	python3-devel
 BuildRequires: python3-zipp
 BuildRequires: python3-simplejson
+BuildRequires: python3-importlib-metadata
 
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8  
 BuildRequires: python3-dataclasses
 %endif
 
-%if ! 0%{?bundlepylibs}
+%if ! %{bundlepylibs}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: python3-beautifulsoup4
 BuildRequires: python3-html5lib
 BuildRequires: python3-markupsafe
 BuildRequires: python3-ply
 %else
-BuildRequires:	python-beautifulsoup4
-BuildRequires:	python-html5lib
-BuildRequires:	python-markupsafe
-BuildRequires:	python-ply
+BuildRequires: python-beautifulsoup4
+BuildRequires: python-html5lib
+BuildRequires: python-markupsafe
+BuildRequires: python-ply
 %endif
 %endif
 
-%if ! 0%{?bundlere2}
+%if ! %{bundlere2}
 Requires: re2 >= 20160401
 BuildRequires:	re2-devel >= 20160401
 %endif
 
-%if ! 0%{?bundlebrotli}
+%if ! %{bundlebrotli}
 BuildRequires: brotli-devel
 %endif
 
@@ -700,7 +704,7 @@ Source115: https://github.com/googlefonts/noto-fonts/blob/master/hinted/NotoSans
 BuildRequires:	ninja-build
 
 # Yes, java is needed as well..
-%if 0%{?build_headless}
+%if %{build_headless}
 BuildRequires:	java-1.8.0-openjdk-headless
 %endif
 
@@ -709,7 +713,7 @@ Requires: nss%{_isa} >= 3.26
 Requires: nss-mdns%{_isa}
 
 # GTK modules it expects to find for some reason.
-%if 0%{gtk3}
+%if %{gtk3}
 Requires: libcanberra-gtk3%{_isa}
 %else
 Requires: libcanberra-gtk2%{_isa}
@@ -742,7 +746,7 @@ Provides: bundled(bintrees) = 1.0.1
 # This is a fork of openssl.
 Provides: bundled(boringssl)
 
-%if 0%{?bundlebrotli}
+%if %{bundlebrotli}
 Provides: bundled(brotli) = 222564a95d9ab58865a096b8d9f7324ea5f2e03e
 %endif
 
@@ -755,34 +759,34 @@ Provides: bundled(expat) = 2.2.0
 Provides: bundled(fdmlibm) = 5.3
 
 # Don't get too excited. MPEG and other legally problematic stuff is stripped out.
-%if %{?bundleffmpegfree}
+%if %{bundleffmpegfree}
 Provides: bundled(ffmpeg) = 5.1.2
 %endif
 
-%if 0%{?bundlelibaom}
+%if %{bundlelibaom}
 Provides: bundled(libaom)
 %endif
 
 Provides: bundled(fips181) = 2.2.3
 
-%if 0%{?bundlefontconfig}
+%if %{bundlefontconfig}
 Provides: bundled(fontconfig) = 2.12.6
 %endif
 
-%if 0%{?bundlefreetype}
+%if %{bundlefreetype}
 Provides: bundled(freetype) = 2.11.0git
 %endif
 
 Provides: bundled(gperftools) = svn144
 
-%if 0%{?bundleharfbuzz}
+%if %{bundleharfbuzz}
 Provides: bundled(harfbuzz) = 2.4.0
 %endif
 
 Provides: bundled(hunspell) = 1.6.0
 Provides: bundled(iccjpeg)
 
-%if 0%{?bundleicu}
+%if %{bundleicu}
 Provides: bundled(icu) = 58.1
 %endif
 
@@ -790,20 +794,20 @@ Provides: bundled(kitchensink) = 1
 Provides: bundled(leveldb) = 1.20
 Provides: bundled(libaddressinput) = 0
 
-%if 0%{?bundlelibdrm}
+%if %{bundlelibdrm}
 Provides: bundled(libdrm) = 2.4.85
 %endif
 
 Provides: bundled(libevent) = 1.4.15
 Provides: bundled(libjingle) = 9564
 
-%if 0%{?bundlelibjpeg}
+%if %{bundlelibjpeg}
 Provides: bundled(libjpeg-turbo) = 1.4.90
 %endif
 
 Provides: bundled(libphonenumber) = a4da30df63a097d67e3c429ead6790ad91d36cf4
 
-%if 0%{?bundlelibpng}
+%if %{bundlelibpng}
 Provides: bundled(libpng) = 1.6.22
 %endif
 
@@ -840,7 +844,7 @@ Provides: bundled(ots) = 8d70cffebbfa58f67a5c3ed0e9bc84dccdbc5bc0
 Provides: bundled(protobuf) = 3.0.0.beta.3
 Provides: bundled(qcms) = 4
 
-%if 0%{?bundlere2}
+%if %{bundlere2}
 Provides: bundled(re2)
 %endif
 
@@ -874,10 +878,10 @@ Summary: Files needed for both the headless_shell and full Chromium
 %if 0%{?fedora} >= 30
 Requires: minizip-compat%{_isa}
 %else
-%if %{?rhel} == 7
+%if 0%{?rhel} == 7
 # Do nothing
 %else
-%if %{?rhel} == 9
+%if 0%{?rhel} == 9
 Requires: minizip1.2%{_isa}
 %else
 Requires: minizip%{_isa}
@@ -956,7 +960,7 @@ udev.
 %patch57 -p1 -b .missing-cstring
 %patch59 -p1 -b .VirtualCursor-std-layout
 
-%if ! 0%{?bundleminizip}
+%if ! %{bundleminizip}
 %patch61 -p1 -b .system-minizip
 %endif
 
@@ -972,15 +976,13 @@ udev.
 %patch87 -p1 -b .markdownsafe-soft_str
 %endif
 
-%patch88 -p1 -b .drop-build-dep-on-python3-importlib-metadata
-
-%if ! 0%{?bundlebrotli}
+%if ! %{bundlebrotli}
 %patch89 -p1 -b .system-brotli
 %endif
 
 %patch90 -p1 -b .disable-GlobalMediaControlsCastStartStop
 
-%if ! 0%{?bundleopus}
+%if ! %{bundleopus}
 %patch91 -p1 -b .system-opus
 %endif
 
@@ -993,7 +995,7 @@ udev.
 %patch12 -p1 -b .fedora-user-agent
 %endif
 
-%if ! 0%{?bundleffmpegfree}
+%if ! %{bundleffmpegfree}
 %patch114 -p1 -b .system-ffmppeg
 %patch115 -p1 -b .prop-codecs
 %patch116 -p1 -b .first_dts
@@ -1022,13 +1024,13 @@ udev.
 %endif
 
 # Feature specific patches
-%if 0%{?use_vaapi}
+%if %{use_vaapi}
 %patch202 -p1 -b .accel-mjpeg
 %patch205 -p1 -b .vaapi-intel-fix
 %patch206 -p1 -b .wayland-vaapi
 %endif
 
-%if 0%{?use_qt}
+%if %{use_qt}
 %patch121 -p1 -b .enable-allowqt
 %endif
 
@@ -1158,41 +1160,47 @@ sed -i 's|-g2|-g0|g' build/config/compiler/BUILD.gn
 sed -i 's|moc|moc-qt5|g' ui/qt/moc_wrapper.py
 
 %build
+# utf8 issue on epel7, Internal parsing error 'ascii' codec can't
+# decode byte 0xe2 in position 474: ordinal not in range(128)
+export LANG=en_US.UTF-8
+
 # Turning the buildsystem up to 11.
 ulimit -n 4096
 
 # reduce warnings
-FLAGS="-Wno-deprecated-declarations -Wno-unknown-warning-option"
-export CFLAGS="$FLAGS"
-export CXXFLAGS="$FLAGS"
+FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
+FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wunused-function -Wno-unused-variable'
+FLAGS+=' -Wno-unused-const-variable'
 
-%if 0%{?clang}
-export CC="clang"
-export CXX="clang++"
-export AR="llvm-ar"
-export NM="llvm-nm"
-export READELF="llvm-readelf"
+%if %{system_build_flags}
+CFLAGS=${CFLAGS/-fexceptions}
+CFLAGS=${CFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS}
+CFLAGS=${CFLAGS/-fcf-protection}
+CFLAGS=${CFLAGS/-fstack-clash-protection}
+CFLAGS="$CFLAGS $FLAGS"
+CXXFLAGS="$CFLAGS"
 %else
-export CC="gcc"
-export CXX="g++"
-export AR="ar"
-export NM="nm"
-export READELF="eu-readelf"
+# override system build flags
+CFLAGS="$FLAGS"
+CXXFLAGS="$FLAGS"
 %endif
+
+export CFLAGS
+export CXXFLAGS
+export AR=ar
+export NM=nm
 
 # enable toolset on el7
 %if 0%{?rhel} == 7
-# utf8 issue on epel7, Internal parsing error 'ascii' codec can't decode byte 0xe2 in position 474: ordinal not in range(128)
-export LANG=en_US.UTF-8
-%if 0%{?clang}
+%if %{clang}
 . /opt/rh/llvm-toolset-%{llvm_toolset_version}/enable
 %else
 . /opt/rh/%{toolset}-%{dts_version}/enable
 %endif
 %endif
 
-# enable toolset on el8
-%if 0%{?rhel} == 8 && !0%{?clang}
+# enable gcc toolset on el8
+%if 0%{?rhel} == 8 && ! %{clang}
 . /opt/rh/%{toolset}-%{dts_version}/enable
 %endif
 
@@ -1203,6 +1211,7 @@ CHROMIUM_CORE_GN_DEFINES+=' custom_toolchain="//build/toolchain/linux/unbundle:d
 CHROMIUM_CORE_GN_DEFINES+=' host_toolchain="//build/toolchain/linux/unbundle:default"'
 CHROMIUM_CORE_GN_DEFINES+=' is_debug=false dcheck_always_on=false dcheck_is_configurable=false'
 CHROMIUM_CORE_GN_DEFINES+=' use_goma=false'
+CHROMIUM_CORE_GN_DEFINES+=' enable_nacl=false'
 CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 
 %if %{official_build}
@@ -1217,17 +1226,18 @@ CHROMIUM_CORE_GN_DEFINES+=' google_api_key="%{api_key}"'
 %endif
 
 %if %{userestrictedapikeys}
-CHROMIUM_CORE_GN_DEFINES+=' google_default_client_id="%{default_client_id}" google_default_client_secret="%{default_client_secret}"'
+CHROMIUM_CORE_GN_DEFINES+=' google_default_client_id="%{default_client_id}"'
+CHROMIUM_CORE_GN_DEFINES+=' google_default_client_secret="%{default_client_secret}"'
 %endif
 
-%if %{?clang}
-  CHROMIUM_CORE_GN_DEFINES+=' is_clang=true'
-  CHROMIUM_CORE_GN_DEFINES+=' clang_base_path="%{_prefix}"'
-  CHROMIUM_CORE_GN_DEFINES+=' clang_use_chrome_plugins=false'
-  CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
+%if %{clang}
+CHROMIUM_CORE_GN_DEFINES+=' is_clang=true'
+CHROMIUM_CORE_GN_DEFINES+=' clang_base_path="%{_prefix}"'
+CHROMIUM_CORE_GN_DEFINES+=' clang_use_chrome_plugins=false'
+CHROMIUM_CORE_GN_DEFINES+=' use_lld=true'
 %else
-  CHROMIUM_CORE_GN_DEFINES+=' is_clang=false'
-  CHROMIUM_CORE_GN_DEFINES+=' use_lld=false'
+CHROMIUM_CORE_GN_DEFINES+=' is_clang=false'
+CHROMIUM_CORE_GN_DEFINES+=' use_lld=false'
 %endif
 
 CHROMIUM_CORE_GN_DEFINES+=' use_sysroot=false disable_fieldtrial_testing_config=true rtc_enable_symbol_export=true'
@@ -1238,49 +1248,51 @@ CHROMIUM_CORE_GN_DEFINES+=' use_gold=true'
 CHROMIUM_CORE_GN_DEFINES+=' use_gold=false'
 %endif
 
-# if systemwide ffmpeg free is used, the proprietary codecs can be set to true to load the codecs from ffmpeg-free
-# the codecs computation is passed to ffmpeg-free in this case
-%if ! %{?bundleffmpegfree}
-CHROMIUM_CORE_GN_DEFINES+=' ffmpeg_branding="Chrome" proprietary_codecs=true is_component_ffmpeg=true'
-%else
-CHROMIUM_CORE_GN_DEFINES+=' ffmpeg_branding="Chromium" proprietary_codecs=false is_component_ffmpeg=false'
+%ifarch aarch64
+CHROMIUM_CORE_GN_DEFINES+=' target_cpu="arm64"'
 %endif
 
-CHROMIUM_CORE_GN_DEFINES+=' media_use_openh264=false'
-CHROMIUM_CORE_GN_DEFINES+=' rtc_use_h264=false'
-CHROMIUM_CORE_GN_DEFINES+=' treat_warnings_as_errors=false'
-CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=false'
-CHROMIUM_CORE_GN_DEFINES+=' use_kerberos=true'
 CHROMIUM_CORE_GN_DEFINES+=' target_os="linux"'
 CHROMIUM_CORE_GN_DEFINES+=' current_os="linux"'
-CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
-CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false'
+CHROMIUM_CORE_GN_DEFINES+=' treat_warnings_as_errors=false'
+CHROMIUM_CORE_GN_DEFINES+=' use_custom_libcxx=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_iterator_debugging=false'
 CHROMIUM_CORE_GN_DEFINES+=' enable_js_type_check=false'
-
-%ifarch aarch64
-  CHROMIUM_CORE_GN_DEFINES+=' target_cpu="arm64"'
-%endif
-
-%if 0%{?rhel} == 8
-  CHROMIUM_CORE_GN_DEFINES+=' use_gnome_keyring=false use_glib=true'
-%endif
-
-%if 0%{?use_qt}
-  CHROMIUM_CORE_GN_DEFINES+=' use_qt=true'
-%else
-  CHROMIUM_CORE_GN_DEFINES+=' use_qt=false'
-%endif
+CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
+CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false'
+CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=0 symbol_level=0 v8_symbol_level=0'
 export CHROMIUM_CORE_GN_DEFINES
 
+# browser gn defines
 CHROMIUM_BROWSER_GN_DEFINES=""
+
+# if systemwide ffmpeg free is used, the proprietary codecs can be set to true to load the codecs from ffmpeg-free
+# the codecs computation is passed to ffmpeg-free in this case
+%if ! %{bundleffmpegfree}
+CHROMIUM_BROWSER_GN_DEFINES+=' ffmpeg_branding="Chrome" proprietary_codecs=true is_component_ffmpeg=true'
+%else
+CHROMIUM_BROWSER_GN_DEFINES+=' ffmpeg_branding="Chromium" proprietary_codecs=false is_component_ffmpeg=false'
+%endif
+CHROMIUM_BROWSER_GN_DEFINES+=' media_use_openh264=false'
+CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_h264=false'
+CHROMIUM_BROWSER_GN_DEFINES+=' use_kerberos=true'
+
+%if 0%{?rhel} == 8
+CHROMIUM_BROWSER_GN_DEFINES+=' use_gnome_keyring=false use_glib=true'
+%endif
+
+%if %{use_qt}
+CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=true'
+%else
+CHROMIUM_BROWSER_GN_DEFINES+=' use_qt=false'
+%endif
+
 CHROMIUM_BROWSER_GN_DEFINES+=' use_gio=true use_pulseaudio=true icu_use_data_file=true'
-CHROMIUM_BROWSER_GN_DEFINES+=' enable_nacl=false'
-CHROMIUM_BROWSER_GN_DEFINES+=' blink_symbol_level=0 enable_hangout_services_extension=true'
+CHROMIUM_BROWSER_GN_DEFINES+=' enable_hangout_services_extension=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_aura=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' enable_widevine=true'
 
-%if 0%{?use_vaapi}
+%if %{use_vaapi}
 CHROMIUM_BROWSER_GN_DEFINES+=' use_vaapi=true'
 %else
 CHROMIUM_BROWSER_GN_DEFINES+=' use_vaapi=false'
@@ -1296,32 +1308,36 @@ export CHROMIUM_BROWSER_GN_DEFINES
 # headless gn defines
 CHROMIUM_HEADLESS_GN_DEFINES=""
 CHROMIUM_HEADLESS_GN_DEFINES+=' use_ozone=true ozone_auto_platforms=false ozone_platform="headless" ozone_platform_headless=true'
-CHROMIUM_HEADLESS_GN_DEFINES+=' headless_use_embedded_resources=false icu_use_data_file=false v8_use_external_startup_data=false'
-CHROMIUM_HEADLESS_GN_DEFINES+=' enable_nacl=false enable_print_preview=false enable_remoting=false use_alsa=false'
-CHROMIUM_HEADLESS_GN_DEFINES+=' use_cups=false use_dbus=true use_gio=false use_kerberos=false use_libpci=false'
-CHROMIUM_HEADLESS_GN_DEFINES+=' use_pulseaudio=false use_udev=false use_gtk=false use_glib=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' angle_enable_vulkan=true angle_enable_swiftshader=true headless_use_embedded_resources=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' headless_use_prefs=false headless_use_policy=false icu_use_data_file=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' v8_use_external_startup_data=false enable_print_preview=false enable_remoting=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' use_alsa=false use_bluez=false use_cups=false use_dbus=false use_gio=false use_kerberos=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' use_libpci=false use_pulseaudio=false use_udev=false rtc_use_pipewire=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' v8_enable_lazy_source_positions=false use_glib=false use_gtk=false use_pangocairo=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' use_qt=false is_component_build=false enable_ffmpeg_video_decoders=false media_use_ffmpeg=false'
+CHROMIUM_HEADLESS_GN_DEFINES+=' media_use_libvpx=false proprietary_codecs=false'
 export CHROMIUM_HEADLESS_GN_DEFINES
 
 build/linux/unbundle/replace_gn_files.py --system-libraries \
-%if ! 0%{?bundlelibaom}
+%if ! %{bundlelibaom}
 	libaom \
 %endif
-%if ! 0%{?bundlebrotli}
+%if ! %{bundlebrotli}
 	brotli \
 %endif
-%if ! 0%{?bundlefontconfig}
+%if ! %{bundlefontconfig}
 	fontconfig \
 %endif
-%if ! 0%{?bundleffmpegfree}
+%if ! %{bundleffmpegfree}
 	ffmpeg \
 %endif
-%if ! 0%{?bundlefreetype}
+%if ! %{bundlefreetype}
 	freetype \
 %endif
-%if ! 0%{?bundleharfbuzz}
+%if ! %{bundleharfbuzz}
 	harfbuzz-ng \
 %endif
-%if ! 0%{?bundleicu}
+%if ! %{bundleicu}
 	icu \
 %endif
 %if ! %{bundlelibdrm}
@@ -1330,10 +1346,10 @@ build/linux/unbundle/replace_gn_files.py --system-libraries \
 %if ! %{bundlelibjpeg}
 	libjpeg \
 %endif
-%if !%{bundlelibpng}
+%if ! %{bundlelibpng}
 	libpng \
 %endif
-%if !%{bundlelibusbx}
+%if ! %{bundlelibusbx}
 	libusb \
 %endif
 %if ! %{bundlelibwebp}
@@ -1346,10 +1362,10 @@ build/linux/unbundle/replace_gn_files.py --system-libraries \
 %if ! %{bundleopus}
 	opus \
 %endif
-%if ! 0%{?bundlere2}
+%if ! %{bundlere2}
 	re2 \
 %endif
-%if ! 0%{?bundleminizip}
+%if ! %{bundleminizip}
 	zlib \
 %endif
 	flac
@@ -1371,15 +1387,12 @@ tools/gn/bootstrap/bootstrap.py --gn-gen-args="$CHROMIUM_CORE_GN_DEFINES $CHROMI
 %{builddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{remotingbuilddir}
 %endif
 
-echo
 %if %{build_headless}
 # Do headless first.
 %build_target %{headlessbuilddir} headless_shell
 %endif
 
-%build_target %{builddir} chrome
-%build_target %{builddir} chrome_sandbox
-%build_target %{builddir} chromedriver
+%build_target %{builddir} chrome chrome_sandbox chromedriver
 
 %if %{build_clear_key_cdm}
 %build_target %{builddir} clear_key_cdm
@@ -1393,16 +1406,13 @@ echo
 %build_target %{remotingbuilddir} remoting_all
 %endif
 
-# bug #827861, vk_swiftshader_icd.json not getting properly installed in out/Release
-sed -e 's|${ICD_LIBRARY_PATH}|./libvk_swiftshader.so|g' third_party/swiftshader/src/Vulkan/vk_swiftshader_icd.json.tmpl > out/Release/vk_swiftshader_icd.json
-
 %install
 rm -rf %{buildroot}
 
 mkdir -p %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{chromium_path}/locales
 
-%if 0%{?use_vaapi}
+%if %{use_vaapi}
 cp -a %{SOURCE3} %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
 %else
 grep -v features %{SOURCE3} > %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
@@ -1461,7 +1471,7 @@ pushd %{builddir}
 	strip %{buildroot}%{chromium_path}/libEGL.so
 	strip %{buildroot}%{chromium_path}/libGLESv2.so
 
-	%if 0%{?use_qt}
+	%if %{use_qt}
 		cp -a libqt5_shim.so %{buildroot}%{chromium_path}
 		strip %{buildroot}%{chromium_path}/libqt5_shim.so
 	%endif
@@ -1643,7 +1653,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %attr(4755, root, root) %{chromium_path}/chrome-sandbox
 %{chromium_path}/xdg-mime
 %{chromium_path}/xdg-settings
-%if 0%{?use_qt}
+%if %{use_qt}
 %{chromium_path}/libqt5_shim.so
 %endif
 %{_mandir}/man1/%{chromium_browser_channel}.*
@@ -1762,6 +1772,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sun Jan 15 2023 Than Ngo <than@redhat.com> - 109.0.5414.74-2
+- conditionalize system_build_flags
+- cleaned up gn defines
+- add BR on python3-importlib-metadata
+- set correct toolchain gcc|clang
+
 * Wed Jan 11 2023 Than Ngo <than@redhat.com> - 109.0.5414.74-1
 - update to 109.0.5414.74
 

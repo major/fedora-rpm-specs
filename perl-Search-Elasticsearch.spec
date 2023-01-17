@@ -1,5 +1,5 @@
 Name:           perl-Search-Elasticsearch
-Version:        7.717
+Version:        8.00
 Release:        1%{?dist}
 Summary:        Official client for Elasticsearch
 License:        ASL 2.0
@@ -88,6 +88,9 @@ the cloud. You can read more about it on elasticsearch.org.
 %{_mandir}/man3/Search*
 
 %changelog
+* Sun Jan 15 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 8.00-1
+- Update to 8.00
+
 * Sun Jul 31 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 7.717-1
 - Update to 7.717
 

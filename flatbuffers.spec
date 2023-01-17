@@ -12,13 +12,15 @@
 %bcond_with doc_pdf
 
 Name:           flatbuffers
-Version:        22.12.06
+Version:        23.1.4
 # The .so version is explicitly constructed from project version—search
 # CMakeLists.txt for FlatBuffers_Library_SONAME_MAJOR and
 # FlatBuffers_Library_SONAME_FULL—but we manually repeat the SOVERSION here,
 # and use the macro in the file lists, as a reminder to avoid undetected .so
-# version bumps.
-%global so_version 22
+# version bumps. Be aware that upstream does not offer ABI stability
+# guarantees; they have been asked to use the full version number as the .so
+# version in https://github.com/google/flatbuffers/issues/7759.
+%global so_version 23
 Release:        %autorelease
 Summary:        FlatBuffers: Memory Efficient Serialization Library
 

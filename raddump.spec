@@ -1,11 +1,12 @@
 Name:           raddump
 Version:        0.3.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        RADIUS packets interpreter
 
 License:        GPLv2+
 URL:            http://sourceforge.net/projects/raddump
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0:         raddump-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -17,7 +18,7 @@ length, RADIUS packet type, source and destination hosts and ports, and
 included attribute names and values for each packet. 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure
@@ -32,6 +33,9 @@ make install DESTDIR=%{buildroot} INSTALL="install -p"
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 14 2023 Peter Fordham <peter.fordham@gmail.com> - 0.3.1-29
+- Port configure script to C99.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

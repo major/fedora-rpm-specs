@@ -1,5 +1,5 @@
 Name:           pythran
-Version:        0.12.0
+Version:        0.12.1
 Release:        1%{?dist}
 Summary:        Ahead of Time Python compiler for numeric kernels
 
@@ -134,6 +134,9 @@ k="$k and not test_setup_bdist_install3"
 
 
 %changelog
+* Sun Jan 15 2023 Serge Guelton <serge.guelton@telecom-bretagne.eu> - 0.12.1-1
+- Update to 0.12.1
+
 * Wed Sep 28 2022 Miro Hrončok <mhroncok@redhat.com> - 0.12.0-1
 - Update to 0.12.0
 - Fixes: rhbz#2130464

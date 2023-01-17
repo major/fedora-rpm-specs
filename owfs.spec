@@ -2,19 +2,17 @@
 %{!?tcl_sitearch: %global tcl_sitearch %{_prefix}/%{_lib}/tcl%{tcl_version}}
 
 Name:		owfs
-Version:	3.2p3
-Release:	11.1%{?dist}
+Version:	3.2p4
+Release:	1%{?dist}
 Summary:	1-Wire Virtual File System
 
 # some parts licensed differently, see http://owfs.org/index.php?page=license
 License:	GPL-2.0-only
 URL:		http://www.owfs.org/
-Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:	https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:	owserver.xml
 # install into 'vendor' perl directories; not suitable for upstream
 Patch0:		owfs-0001-install-into-vendor-perl-directories.patch
-# https://github.com/owfs/owfs/pull/52
-Patch1:		owfs-0003-persistence-mutex-relocation.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
@@ -171,9 +169,6 @@ and owpresent.
 %setup -q
 # Perl dirs
 %patch0 -p1
-# GCC10 -fno-common default uncovered issue
-%patch1 -p1
-
 
 sed -i -e 's/) Makefile.PL/& INSTALLDIRS=vendor/' \
 	module/swig/perl5/Makefile.am \
@@ -359,6 +354,11 @@ exit 0
 
 
 %changelog
+* Sun Jan 15 2023 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.2p4-1
+- update to the most recent version
+- remove patch for issue fixed upstream
+- switch URL to GitHub (sources are the same, project have migrated)
+
 * Sun Aug 21 2022 Tomasz Torcz <ttorcz@fedoraproject.org> - 3.2p3-11.1
 - adjust to new libusb* package names (fixes rhbz#2113568)
 

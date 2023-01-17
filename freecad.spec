@@ -21,7 +21,7 @@
 Name:           freecad
 Epoch:          1
 Version:        0.20.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A general purpose 3D CAD modeler
 
 License:        GPLv2+
@@ -245,6 +245,9 @@ desktop-file-validate \
 
 
 %changelog
+* Sun Jan 15 2023 Orion Poplawski <orion@nwra.com> - 1:0.20.2-2
+- Rebuild for vtk 9.2.5
+
 * Fri Jan 13 2023 Richard Shaw <hobbes1069@gmail.com> - 1:0.20.2-1
 - Update to 0.20.2.
 

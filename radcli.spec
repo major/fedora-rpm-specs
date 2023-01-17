@@ -1,7 +1,7 @@
 Summary: RADIUS protocol client library
 Name: radcli
 Version: 1.3.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 #Breakdown of licenses. Under MIT license:
 # lib/avpair.c, lib/buildreq.c, lib/clientid.c, lib/config.c, lib/dict.c,
@@ -18,8 +18,10 @@ URL: http://radcli.github.io/radcli/
   sed 's/\./_/g')}
 
 Source0: https://github.com/radcli/radcli/releases/download/%{name}_%{myversion}/%{name}-%{version}.tar.gz
+Patch0: radcli-autoconf.c99.patch
 
-#BuildRequires: libtool, automake, autoconf, gettext-devel
+BuildRequires: libtool, automake, autoconf
+#BuildRequires: gettext-devel
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: nettle-devel >= 2.7.1
@@ -50,12 +52,12 @@ This package contains the compatibility headers and libraries for freeradius-cli
 and radiusclient-ng.
 
 %prep
-%setup -q
+%autosetup -p1
 rm -f lib/md5.c
 sed -i -e 's|sys_lib_dlsearch_path_spec="[^"]\+|& %{_libdir}|g' configure
 
 %build
-#autoreconf -fvi
+autoreconf -fvi
 %configure --disable-static --disable-rpath --with-nettle --with-tls --enable-legacy-compat
 make %{?_smp_mflags}
 
@@ -113,6 +115,9 @@ cp -p %{buildroot}%{_datadir}/%{name}/dictionary %{buildroot}%{_sysconfdir}/%{na
 %{_libdir}/libradiusclient-ng.so
 
 %changelog
+* Sat Jan 14 2023 Peter Fordham <peter.fordham@gmail.com> - 1.3.0-6
+- Add missing return type to main in configure.ac and enable autoreconf.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

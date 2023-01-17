@@ -1,7 +1,7 @@
-%global revision 2900
+%global revision 2974
 
 Name:		64tass
-Version:	1.57.%{revision}
+Version:	1.58.%{revision}
 Release:	1%{?dist}
 Summary:	6502 assembler
 License:	GPLv2+
@@ -43,6 +43,9 @@ install -m 644 64tass.1 %{buildroot}%{_mandir}/man1/
 %doc LICENSE-my_getopt
 
 %changelog
+* Sun Jan 15 2023 Dan Horák <dan[at]danny.cz> - 1.58.2974-1
+- Update to 1.58.2974 (rhbz#2159962)
+
 * Fri Jan 06 2023 Dan Horák <dan[at]danny.cz> - 1.57.2900-1
 - Update to 1.57.2900 (rhbz#2140305)
 

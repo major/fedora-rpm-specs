@@ -5,7 +5,7 @@
 
 Name:           opencascade
 Version:        %{major}.%{minor}.%{patch}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 License:        LGPLv2+ with exception
@@ -20,6 +20,10 @@ Source5:        occ-64.png
 Source6:        occ-48.png
 
 Patch0:         occt-config.patch
+# Support VTK 9.2 - mainly moving X11 headers after vtk ones
+# https://tracker.dev.opencascade.org/view.php?id=33164
+# https://gitlab.kitware.com/vtk/vtk/-/issues/18683
+Patch1:         opencascade-vtk.patch
 
 
 # Utilities
@@ -303,6 +307,10 @@ chmod 0755 %{buildroot}%{_bindir}/*.sh
 
 
 %changelog
+* Sat Jan 14 2023 Orion Poplawski <orion@nwra.com> - 7.6.3-2
+- Add patch for vtk 9.2 support
+- Rebuild for vtk 9.2.5
+
 * Wed Oct 26 2022 Richard Shaw <hobbes1069@gmail.com> - 7.6.3-1
 - Update to 7.6.3.
 

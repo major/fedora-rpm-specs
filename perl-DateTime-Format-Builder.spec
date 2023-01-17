@@ -9,13 +9,13 @@
 Name:           perl-DateTime-Format-Builder
 # 0.83 in reality, but rpm can't get it
 Version:        0.8300
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Create DateTime parser classes and objects        
-# examples/W3CDTF.pm:               GPL+ or Artistic
-# examples/MySQL.pm:                GPL+ or Artistic
-# lib/DateTime/Format/Builder.pm:   Artistic 2.0
-# LICENSE:                          Artistic 2.0 text
-License:        Artistic 2.0 and (GPL+ or Artistic)
+# examples/W3CDTF.pm:               GPL-1.0-or-later OR Artistic-1.0-Perl
+# examples/MySQL.pm:                GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/DateTime/Format/Builder.pm:   Artistic-2.0
+# LICENSE:                          Artistic-2.0 text
+License:        Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/DateTime-Format-Builder            
 Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-Builder-%{real_version}.tar.gz
 BuildArch:      noarch
@@ -89,11 +89,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes CODE_OF_CONDUCT.md CONTRIBUTING.md README.md examples/ t/
 %{perl_vendorlib}/DateTime/
 %{_mandir}/man3/DateTime::Format::Builder.3*
@@ -106,6 +102,10 @@ make test
 %{_mandir}/man3/DateTime::Format::Builder::Tutorial.3*
 
 %changelog
+* Sun Jan 15 2023 Paul Howarth <paul@city-fan.org> - 0.8300-9
+- Use SPDX-format license tag
+- Use %%license unconditionally
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8300-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

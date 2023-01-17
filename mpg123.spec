@@ -3,8 +3,8 @@
 %global syn syn123
 
 Name: mpg123
-Version: 1.31.1
-Release: 3%{?dist}
+Version: 1.31.2
+Release: 1%{?dist}
 Summary: Real time MPEG 1.0/2.0/2.5 audio player/decoder for layers 1, 2 and 3
 License: LGPLv2+
 URL: https://mpg123.org
@@ -161,6 +161,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/lib%{syn}.pc
 
 %changelog
+* Sun Jan 15 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.31.2-1
+- Update to 1.31.2
+
 * Sun Nov 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.31.1-3
 - Revert the previous change for now
 

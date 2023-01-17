@@ -285,7 +285,7 @@
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
 Version: %{releasever}.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -780,7 +780,7 @@ cp -a include/* %{buildroot}%{_includedir}/%{name}/
 
 cp -a %{_arch}/lib/pkgconfig %{buildroot}%{_libdir}/
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}|g' -i %{buildroot}%{_libdir}/pkgconfig/PETSc.pc
-ln -fs %{_libdir}/pkgconfig/petsc.pc %{buildroot}%{_libdir}/pkgconfig/PETSc.pc
+ln -fs %{_libdir}/pkgconfig/PETSc.pc %{buildroot}%{_libdir}/pkgconfig/petsc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}%{_libdir}/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}%{_libdir}/%{name}/conf/
@@ -850,7 +850,7 @@ sed -e 's|-L${libdir}|-L%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgcon
 sed -e 's|ldflag_rpath=-L|ldflag_rpath=-L%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|-lpetsc|-lpetsc -lhdf5|' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
-ln -fs $MPI_LIB/pkgconfig/petsc.pc %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
+ln -fs $MPI_LIB/pkgconfig/PETSc.pc %{buildroot}$MPI_LIB/pkgconfig/petsc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}$MPI_LIB/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}$MPI_LIB/%{name}/conf/
@@ -907,7 +907,7 @@ sed -e 's|-L${libdir}|-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfi
 sed -e 's|ldflag_rpath=-L|ldflag_rpath=-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|-lpetsc|-lpetsc -lhdf5|' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
 sed -e 's|${prefix}/lib|${prefix}/%{_lib}/mpich/lib|g' -i %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
-ln -fs $MPI_LIB/pkgconfig/petsc.pc %{buildroot}$MPI_LIB/pkgconfig/PETSc.pc
+ln -fs $MPI_LIB/pkgconfig/PETSc.pc %{buildroot}$MPI_LIB/pkgconfig/petsc.pc
 
 install -pm 644 %{_arch}/lib/petsc/conf/petscrules %{buildroot}$MPI_LIB/%{name}/conf/
 install -pm 644 %{_arch}/lib/petsc/conf/petscvariables %{buildroot}$MPI_LIB/%{name}/conf/
@@ -1159,6 +1159,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Sun Jan 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-6
+- Fix pkgconfig files bugs /2 (rhbz#2060414)
+
 * Sat Jan 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-5
 - Fix pkgconfig files bugs (rhbz#2060414)
 

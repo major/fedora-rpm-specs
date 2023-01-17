@@ -21,14 +21,14 @@
 
 Name:           mlt
 Version:        7.12.0
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
 # but is not used in Linux
 License:        GPLv3 and LGPLv2+
 URL:            http://www.mltframework.org/
-Source0:        https://github.com/mltframework/mlt/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/mltframework/mlt/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
@@ -82,6 +82,7 @@ BuildRequires:  ndi-sdk-devel
 %if %{with opencv}
 BuildRequires:  opencv-devel
 %endif
+BuildRequires:  pkgconfig(libarchive)
 
 %if %{with ruby}
 BuildRequires:  ruby-devel
@@ -165,6 +166,7 @@ rm -r src/win32/
        %{?with_ruby: -DSWIG_RUBY:BOOL=ON}   \
        %{!?with_freeworld: -DMOD_XINE:BOOL=OFF}  \
        %{?with_opencv: -DMOD_OPENCV:BOOL=ON}  \
+       -DMOD_GLAXNIMATE:BOOL=ON  \
        %{?with_ndi: -DMOD_NDI:BOOL=ON -DNDI_SDK_INCLUDE_PATH=%{_includedir}/ndi-sdk -DNDI_SDK_LIBRARY_PATH=%{_libdir} -DNDI_INCLUDE_DIR=%{_includedir}/ndi-sdk -DNDI_LIBRARY_DIR=%{_libdir}}
 
 %cmake_build
@@ -245,6 +247,12 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 7.12.0-3
+- Rebuild for opencv 4.7.0
+
+* Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 7.12.0-2
+- Enable module glaxnimate
+
 * Sun Nov 20 2022 Sérgio Basto <sergio@serjux.com> - 7.12.0-1
 - Update mlt to 7.12.0
 

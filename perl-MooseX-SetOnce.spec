@@ -1,7 +1,7 @@
-%global cpan_version 0.201
+%global cpan_version 0.203
 Name:           perl-MooseX-SetOnce
-Version:        0.201000
-Release:        6%{?dist}
+Version:        0.203000
+Release:        1%{?dist}
 Summary:        Write-once, read-many attributes for Moose
 License:        GPL+ or Artistic
 
@@ -53,6 +53,9 @@ and not set, but that cannot be altered once set.
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Sun Jan 15 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.203000-1
+- Update to 0.203
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.201000-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

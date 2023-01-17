@@ -1,6 +1,6 @@
 Name:           smesh
 Version:        9.8.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OpenCascade based MESH framework
 
 License:        LGPLv2
@@ -88,6 +88,9 @@ LDFLAGS='-Wl,--as-needed'; export LDFLAGS
 
 
 %changelog
+* Sun Jan 15 2023 Orion Poplawski <orion@nwra.com> - 9.8.0.2-4
+- Rebuild for vtk 9.2.5
+
 * Sat Jan 14 2023 Richard Shaw <hobbes1069@gmail.com> - 9.8.0.2-3
 - Rebuild for opencascade.
 

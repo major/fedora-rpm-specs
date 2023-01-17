@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.6.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -129,6 +129,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 1.6.0-9
+- Rebuild for opencv 4.7.0
+
 * Wed Nov 2 2022 Diego Herrera <dherrera@redhat.com> 1.6.0-8
 - Expose static library dependency
 

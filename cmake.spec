@@ -68,7 +68,7 @@
 %{?rcsuf:%global versuf -%{rcsuf}}
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
@@ -112,9 +112,13 @@ Patch101:       %{name}-fedora-flag_release.patch
 Patch102:       %{name}-mingw-dl.patch
 %endif
 
+# FindBoost: Add Boost 1.81 support.
+# https://github.com/Kitware/CMake/commit/a97032c4e7b1efb4c5535e5f705ef8ffd5fc2dd3
+Patch200:       https://github.com/Kitware/CMake/commit/a97032c4e7b1efb4c5535e5f705ef8ffd5fc2dd3.patch#/%{name}-3.25.1-Boost_181.patch
+
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
-Patch1:      %{name}-rename.patch
+Patch1:         %{name}-rename.patch
 %endif
 
 BuildRequires:  coreutils
@@ -525,6 +529,9 @@ popd
 
 
 %changelog
+* Sun Jan 15 2023 Björn Esser <besser82@fedoraproject.org> - 3.25.1-3
+- Backport upstream patch for Boost v1.81 support
+
 * Fri Jan 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.25.1-2
 - Adjust ctest macro to use native out-of-tree support
 

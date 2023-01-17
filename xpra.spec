@@ -44,7 +44,7 @@
 
 Name:           xpra
 Version:        4.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
 URL:            https://www.xpra.org/
@@ -74,9 +74,17 @@ BuildRequires:  libXdamage-devel
 BuildRequires:  libXres-devel
 BuildRequires:  cups-devel, cups
 BuildRequires:  redhat-rpm-config
+BuildRequires:  python3-rpm-macros
 BuildRequires:  gcc
 BuildRequires:  pam-devel
 BuildRequires:  pandoc
+# needs by setup.py to detect systemd `sd_listen_ENABLED = POSIX and pkg_config_ok("--exists", "libsystemd")`
+BuildRequires:  systemd-devel
+BuildRequires:  pkgconfig(libprocps)
+BuildRequires:  pkgconfig(libavif)
+BuildRequires:  pkgconfig(libqrencode)
+BuildRequires:  libdrm-devel
+BuildRequires:  pkgconfig(libwebp)
 %if 0%{?el8}
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  python3-cairo
@@ -142,8 +150,12 @@ Requires: js-jquery
 # Needed to create the xpra group
 Requires(pre):  shadow-utils
 
-# xpra-html5 is now separately provided 
+# xpra-html5 is now separately provided
 Obsoletes: xpra-html5 < 0:4.1-1
+
+Requires: systemd-udev%{?_isa}
+Obsoletes: xpra-udev < %{version}-%{release}
+Provides: xpra-udev = %{version}-%{release}
 
 %description
 Xpra is "screen for X": it allows you to run X programs, usually on a remote
@@ -156,14 +168,6 @@ desktop as regular programs, managed by your regular window manager.
 Sessions can be accessed over SSH, or password protected over plain TCP sockets.
 Xpra is usable over reasonably slow links and does its best to adapt to changing
 network bandwidth constraints.
-
-%package udev
-Summary:  xpra udev files
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: systemd-udev%{?_isa}
-
-%description udev
-Udev rules of xpra.
 
 %prep
 %autosetup -n %{name}-%{version} -N
@@ -201,10 +205,8 @@ export CFLAGS="%{build_cflags} -I%{_includedir}/cairo"
 %install
 %py3_install
 
-# Installation of these service files is not permitted on Fedora
-# See https://pagure.io/fesco/issue/1759
-rm -f %{buildroot}/lib/systemd/system/xpra.service
-rm -f %{buildroot}/lib/systemd/system/xpra.socket
+mkdir -p %{buildroot}%{_unitdir}
+mv %{buildroot}/lib/systemd/system/xpra.*  %{buildroot}%{_unitdir}/
 
 #move icon to proper directory
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor/48x48/apps
@@ -229,14 +231,11 @@ mkdir -p %{buildroot}%{_sysconfdir}/xpra
 install -pm 644 fs/etc/xpra/nvenc.keys %{buildroot}%{_sysconfdir}/xpra
 
 #remove doc stuff from /usr/share
-rm -f \
-    %{buildroot}%{_datadir}/xpra/README \
-    %{buildroot}%{_datadir}/xpra/COPYING
+rm %{buildroot}%{_datadir}/xpra/COPYING
 
-#fix shebangs from python3_sitearch
-find %{buildroot}%{python3_sitearch}/xpra -name '*.py' | xargs %{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}"
-find %{buildroot}%{python3_sitearch}/xpra -name '*.py' | xargs chmod 0755
+#fi shebangs from python3_sitearch
 for i in `ack -rl '^#!/.*python' %{buildroot}%{python3_sitearch}/xpra`; do
+    %py3_shebang_fix $i
     chmod 0755 $i
 done
 
@@ -252,9 +251,9 @@ find %{buildroot}%{_datadir}/xpra -name '*.swf' -exec rm {} \;
 mkdir -p %{buildroot}%{_rundir}/xpra
 
 # Remove use of /usr/bin/enx on scripts
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{cupslibdir}/backend/xpraforwarder
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{_libexecdir}/xpra/auth_dialog
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -pn -i "%{__python3}" %{buildroot}%{_libexecdir}/xpra/xdg-open
+%py3_shebang_fix %{buildroot}%{cupslibdir}/backend/xpraforwarder
+%py3_shebang_fix %{buildroot}%{_libexecdir}/xpra/auth_dialog
+%py3_shebang_fix %{buildroot}%{_libexecdir}/xpra/xdg-open
 
 for i in `find %{buildroot}%{_bindir} -perm /644 -type f \( -name "*" \)`; do
     chmod 0755 $i
@@ -311,12 +310,18 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{cupslibdir}/backend/xpraforwarder
 %{_tmpfilesdir}/xpra.conf
 %dir %{_rundir}/xpra
-%{_pkgdocdir}/
-
-%files udev
+%{_docdir}/xpra
+%{_unitdir}/xpra.service
+%{_unitdir}/xpra.socket
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Sun Jan 08 2023 Sérgio Basto <sergio@serjux.com> - 4.4.3-2
+- Add unitdir, we may have unitdir but by default disabled, preset just enable service by default which understandably was not approved.
+  to check presets run `systemctl status xpra | grep preset`
+- Un-split xpra-udev and other improvements
+- Add support to procps, avif, qrencode, libdrm and libwebp
+
 * Thu Dec 08 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.4.3-1
 - Release 4.4.3
 - Disable CUDA rebuilds

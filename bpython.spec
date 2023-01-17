@@ -1,6 +1,6 @@
 Name:          bpython
 Summary:       Fancy curses interface to the Python interactive interpreter
-Version:       0.23
+Version:       0.24
 Release:       1%{?dist}
 URL:           http://www.bpython-interpreter.org/
 License:       MIT
@@ -110,6 +110,9 @@ ln -s bpython %{buildroot}%{_bindir}/python3-bpython
 %{_bindir}/bpython-urwid
 
 %changelog
+* Sun Jan 15 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.24-1
+- 0.24
+
 * Fri Sep 02 2022 Terje Rosten <terje.rosten@ntnu.no> - 0.23-1
 - 0.23
 

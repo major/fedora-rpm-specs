@@ -8,7 +8,7 @@ Summary: KDE Frameworks 5 Tier 3 framework is foundation to build a primary user
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     https://invent.kde.org/frameworks/plasma
 
-%global majmin %(echo %{version} | cut -d. -f1-2)
+%global majmin %majmin_ver_kf5
 %global stable %stable_kf5
 Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 

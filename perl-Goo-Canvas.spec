@@ -22,7 +22,6 @@ BuildRequires:  perl(Glib) >= 1.103
 BuildRequires:  perl(Glib::MakeHelper)
 BuildRequires:  perl(Gtk2) >= 1.100
 BuildRequires:  perl(Test::More)
-Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 %{?perl_default_filter:
 %filter_from_requires /perl(Tetris/d

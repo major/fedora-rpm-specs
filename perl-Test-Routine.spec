@@ -1,6 +1,6 @@
 Name:           perl-Test-Routine
 Summary:        Composable units of assertion
-Version:        0.029
+Version:        0.030
 Release:        1%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Routine
@@ -70,6 +70,9 @@ composable units of assertion. In other words: roles.
 
 
 %changelog
+* Sun Jan 15 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.030-1
+- Update to 0.030
+
 * Sun Jan 01 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.029-1
 - Update to 0.029
 

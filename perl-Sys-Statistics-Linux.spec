@@ -1,12 +1,12 @@
 Name:           perl-Sys-Statistics-Linux
 Version:        0.66
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Front-end module to collect system statistics
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Sys-Statistics-Linux
 Source0:        https://cpan.metacpan.org/authors/id/B/BL/BLOONIX/Sys-Statistics-Linux-%{version}.tar.gz
-# https://rt.cpan.org/Public/Bug/Display.html?id=128904
-Patch0:         linux-4.18-diskstats.patch
+# https://bugzilla-attachments.redhat.com/attachment.cgi?id=1937394
+Patch0:         linux-5.5-diskstats.patch
 BuildArch:      noarch
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -28,7 +28,7 @@ modules to get more information about all possible statistics.
 
 %prep
 %setup -q -n Sys-Statistics-Linux-%{version}
-%patch0 -p1
+%patch0
 
 %build
 /usr/bin/perl Build.PL installdirs=vendor
@@ -48,6 +48,9 @@ modules to get more information about all possible statistics.
 %{_mandir}/man3/Sys*
 
 %changelog
+* Sun Jan 15 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.66-30
+- Update patch for linux kernel 5.5+
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.66-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

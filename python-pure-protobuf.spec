@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.1
-Release:        7%{?dist}
+Release:        %autorelease
 Summary:        Python implementation of Protocol Buffers data types with dataclasses support
 
 License:        MIT
@@ -79,39 +79,4 @@ popd
 
 
 %changelog
-* Tue Jan 10 2023 Diego Herrera <dherrera@redhat.com> - 2.0.1-7
-- Filter unneeded dependency for EPEL9
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.0.1-5
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 2.0.1-2
-- Rebuilt for Python 3.10
-
-* Sun Jan 31 2021 Lyes Saadi <fedora@lyes.eu> - 2.0.1-1
-- Updating to 2.0.1
-- Preparing for EPEL8 builds
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Fri May 29 2020 Lyes Saadi <fedora@lyes.eu> - 2.0.0-3
-- Removing useless dependencies (coverage/linting)
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 2.0.0-2
-- Rebuilt for Python 3.9
-
-* Fri Feb 21 2020 Artem Polishchuk <ego.cordatus@gmail.com> - 2.0.0-1
-- Initial package
+%autochangelog

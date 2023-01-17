@@ -18,7 +18,7 @@ License: (LGPLv2 or LGPLv3) and (GPLv2 or GPLv3)
 URL:     https://community.kde.org/Baloo
 #URL:     https://invent.kde.org/frameworks/%{framework}
 
-%global majmin %(echo %{version} | cut -d. -f1-2)
+%global majmin %majmin_ver_kf5
 %global stable %stable_kf5
 Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{version}.tar.xz
 

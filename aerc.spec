@@ -24,6 +24,13 @@ URL:            %{gourl}
 # The forge macros don't support Sourcehut.
 # https://src.fedoraproject.org/rpms/redhat-rpm-config/pull-request/209
 Source:         %{gourl}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# doc: fix English typos
+# https://git.sr.ht/~rjarry/aerc/commit/10b995f0196c8243132c3f435d4e11b3c9700e35
+Patch:          0001-doc-fix-English-typos.patch
+# filters: install them in $PREFIX/libexec/aerc/filters
+# https://git.sr.ht/~rjarry/aerc/commit/04303172d4f96b284e0c915ce4a7b87e1439bb87
+# Depends on previous patch. Slightly modified to remove CHANGELOG.md conflict.
+Patch:          0002-filters-install-them-in-PREFIX-libexec-aerc-filters.patch
 
 BuildRequires:  scdoc
 BuildRequires:  desktop-file-utils
@@ -37,6 +44,7 @@ Requires:       notmuch
 
 %prep
 %goprep
+%autopatch -p1
 
 # Disable building of aerc that we handle manually in the SPEC and
 # preserve mtimes
@@ -56,10 +64,13 @@ echo 'golang(github.com/brunnre8/go.notmuch)'
 
 %build
 export BUILDTAGS=notmuch
-export LDFLAGS="-X main.Prefix=%{_prefix} \
+export LDFLAGS="\
+                -X main.Version=%{version} \
+                -X main.Prefix=%{_prefix} \
                 -X main.ShareDir=%{_datadir}/aerc \
-                -X git.sr.ht/~rjarry/aerc/config.shareDir=%{_datadir}
-                -X main.Version=%{version} "
+                -X git.sr.ht/~rjarry/aerc/config.shareDir=%{_datadir} \
+                -X git.sr.ht/~rjarry/aerc/config.libexecDir=%{_libexecdir} \
+               "
 %gobuild -o aerc %{goipath}
 %gobuild -o wrap filters/wrap.go
 
@@ -77,12 +88,13 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/aerc.desktop
 %license LICENSE
 %doc doc README.md
 %{_bindir}/aerc
-%{_mandir}/man1/%{name}.1*
-%{_mandir}/man1/%{name}-*.1.*
-%{_mandir}/man5/%{name}-*.5.*
-%{_mandir}/man7/%{name}-*.7.*
-%{_datadir}/aerc
+%{_datadir}/aerc/
 %{_datadir}/applications/aerc.desktop
+%{_libexecdir}/aerc/
+%{_mandir}/man1/aerc-*.1.*
+%{_mandir}/man1/aerc.1*
+%{_mandir}/man5/aerc-*.5.*
+%{_mandir}/man7/aerc-*.7.*
 
 %changelog
 %autochangelog

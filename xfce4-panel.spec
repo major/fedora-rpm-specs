@@ -1,4 +1,4 @@
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 %global namespc Libxfce4panel
 
@@ -10,7 +10,7 @@
 %global _with_vala 0
 
 Name:           xfce4-panel
-Version:        4.16.5
+Version:        4.18.1
 Release:        %autorelease
 Summary:        Next generation panel for Xfce
 

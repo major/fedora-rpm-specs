@@ -2,7 +2,7 @@
 
 Name:           libfreenect
 Version:        0.6.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Device driver for the Kinect
 # Core libfreenect is available as ASL 2.0 OR GPLv2
 # OpenNI driver is available as ASL 2.0
@@ -179,6 +179,9 @@ mv %{buildroot}%{_libdir}/OpenNI2-FreenectDriver %{buildroot}%{_libdir}/openni2/
 %{_libdir}/openni2
 
 %changelog
+* Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 0.6.4-2
+- Rebuild for opencv 4.7.0
+
 * Sat Sep 24 2022 Phil Wyett <philip.wyett@kathenas.org> - 0.6.4-1
 - New upstream version 0.6.4
 - Remove old globals

@@ -1,7 +1,7 @@
 # SPDX-License-Identifier: MIT
 
 Name:    ibm-plex-fonts
-Version: 6.0.0
+Version: 6.1.1
 Release: 2%{?dist}
 Summary: IBM Plex, the new IBM set of coordinated grotesque corporate fonts
 
@@ -24,59 +24,78 @@ the Industrial Age, when IBM was born.
 }
 
 %global fontfamily1       Plex Sans
-%global fontsummary1      IBM Plex Sans, the new grotesque IBM corporate font family
-%global fontpkgheader1    %{expand:
-Suggests: font(ibmplexsansmono)
-Obsoletes: ibm-plex-fonts-common          < %{version}-%{release}
-Obsoletes: ibm-plex-sans-arabic-fonts     < %{version}-%{release}
-Obsoletes: ibm-plex-sans-condensed-fonts  < %{version}-%{release}
-Obsoletes: ibm-plex-sans-devanagari-fonts < %{version}-%{release}
-Obsoletes: ibm-plex-sans-hebrew-fonts     < %{version}-%{release}
-Obsoletes: ibm-plex-sans-thai-fonts       < %{version}-%{release}
-}
-%global fonts1            IBM-Plex-Sans/*.otf IBM-Plex-Sans-Condensed/*.otf IBM-Plex-Sans-Arabic/*.otf IBM-Plex-Sans-Hebrew/*.otf IBM-Plex-Sans-Thai/*.otf IBM-Plex-Sans-Devanagari/*.otf
-%global fontconfs1        %{SOURCE11}
+%global fontsummary1      IBM Plex Sans
+%global fonts1            IBM-Plex-Sans/*.otf IBM-Plex-Sans-Condensed/*.otf
+%global fontconfngs1      %{SOURCE11}
 %global fontdescription1  %{expand:
 %{common_description}
-This package provides the grotesque sans-serif variable-width IBM Plex Sans,
-the main font family of the Plex set.}
+This package provides IBM Plex Sans.}
 
-%global fontfamily2       Plex Mono
-%global fontsummary2      IBM Plex Mono, the monospace grotesque coding font family of the Plex set
-%global fonts2            IBM-Plex-Mono/*.otf
-%global fontconfs2        %{SOURCE12}
+%global fontfamily2       Plex Serif
+%global fontsummary2      IBM Plex Serif
+%global fonts2            IBM-Plex-Serif/*.otf
+%global fontconfngs2      %{SOURCE12}
 %global fontdescription2  %{expand:
 %{common_description}
-This package provides the grotesque sans-serif fixed-width IBM Plex Mono, a
-little something for developers, because monospace does not need to be monotone.}
+This package provides IBM Plex Serif.}
 
-%global fontfamily3       Plex Serif
-%global fontsummary3      IBM Plex Serif, the hybrid grotesque serif font family of the Plex set
-%global fonts3            IBM-Plex-Serif/*.otf
-%global fontconfs3        %{SOURCE13}
+%global fontfamily3       Plex Mono
+%global fontsummary3      IBM Plex Mono
+%global fonts3            IBM-Plex-Mono/*.otf
+%global fontconfngs3      %{SOURCE13}
 %global fontdescription3  %{expand:
 %{common_description}
-This package provides the hybrid grotesque serif variable-width IBM Plex Serif,
-combining the best of Plex, Bodoni, and Janson into a contemporary serif.}
+This package provides IBM Plex Mono.}
 
-%global fontfamily4       Plex Sans Thai Looped
-%global fontsummary4      IBM Plex Sans Thai Looped, a formal variant of IBM Plex Sans for Thai
-%global fontpkgheader4    %{expand:
-Requires: ibm-plex-sans-fonts
-Enhances: ibm-plex-sans-fonts
-}
-%global fonts4            IBM-Plex-Sans-Thai-Looped/*.otf
-%global fontconfs4        %{SOURCE14}
+%global fontfamily4       Plex Sans Arabic
+%global fontsummary4      IBM Plex Sans Arabic
+%global fonts4            IBM-Plex-Sans-Arabic/*.otf
+%global fontconfngs4      %{SOURCE14}
 %global fontdescription4  %{expand:
 %{common_description}
-This package provides a more formal and traditional form of Thai for the
-grotesque sans-serif variable-width IBM Plex Sans, that includes loops.}
+This package provides IBM Plex Sans Arabic.}
+
+%global fontfamily5       Plex Sans Devanagari
+%global fontsummary5      IBM Plex Sans Devanagari
+%global fonts5            IBM-Plex-Sans-Devanagari/*.otf
+%global fontconfngs5      %{SOURCE15}
+%global fontdescription5  %{expand:
+%{common_description}
+This package provides IBM Plex Sans Devanagari.}
+
+%global fontfamily6       Plex Sans Hebrew
+%global fontsummary6      IBM Plex Sans Hebrew
+%global fonts6            IBM-Plex-Sans-Hebrew/*.otf
+%global fontconfngs6      %{SOURCE16}
+%global fontdescription6  %{expand:
+%{common_description}
+This package provides IBM Plex Sans Hebrew.}
+
+%global fontfamily7       Plex Sans Thai
+%global fontsummary7      IBM Plex Sans Thai
+%global fonts7            IBM-Plex-Sans-Thai/*.otf
+%global fontconfngs7      %{SOURCE17}
+%global fontdescription7  %{expand:
+%{common_description}
+This package provides IBM Plex Sans Thai.}
+
+%global fontfamily8       Plex Sans Thai Looped
+%global fontsummary8      IBM Plex Sans Thai Looped, a formal variant of IBM Plex Sans for Thai
+%global fonts8            IBM-Plex-Sans-Thai-Looped/*.otf
+%global fontconfngs8      %{SOURCE18}
+%global fontdescription8  %{expand:
+%{common_description}
+This package provides IBM Plex Sans Thai Looped.}
 
 Source0:  https://github.com/IBM/plex/releases/download/v%{version}/OpenType.zip#/%{name}-%{version}.zip
 Source11: 58-%{fontpkgname1}.xml
 Source12: 58-%{fontpkgname2}.xml
 Source13: 58-%{fontpkgname3}.xml
 Source14: 59-%{fontpkgname4}.xml
+Source15: 59-%{fontpkgname5}.xml
+Source16: 59-%{fontpkgname6}.xml
+Source17: 59-%{fontpkgname7}.xml
+Source18: 59-%{fontpkgname8}.xml
 
 %description
 %{common_description}
@@ -100,6 +119,12 @@ Source14: 59-%{fontpkgname4}.xml
 %fontfiles -a
 
 %changelog
+* Sun Jan 15 2023 Michael Kuhn <suraia@fedoraproject.org> - 6.1.1-2
+- Split fonts into multiple packages
+
+* Sun Jan 15 2023 Michael Kuhn <suraia@fedoraproject.org> - 6.1.1-1
+- Update to 6.1.1
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.4.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD and MIT
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 2.4.7.1-2
+- Rebuild for opencv 4.7.0
+
 * Wed Jan 04 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.7.1-1
 - Update to 2.4.7.1.
 

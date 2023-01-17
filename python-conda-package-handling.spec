@@ -3,16 +3,15 @@
 %global pkgname conda_package_handling
 
 Name:           python-%{srcname}
-Version:        1.9.0
+Version:        2.0.2
 Release:        1%{?dist}
 Summary:        Create and extract conda packages of various formats
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/conda/%{srcname}
 Source0:        https://github.com/conda/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-BuildRequires:  gcc
-BuildRequires:  libarchive-devel
+BuildArch:      noarch
 
 %description
 Create and extract conda packages of various formats.
@@ -21,6 +20,7 @@ Create and extract conda packages of various formats.
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-conda-package-streaming
 BuildRequires:  python%{python3_pkgversion}-Cython
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-tqdm
@@ -46,18 +46,20 @@ sed -i -E '/--(no-)?cov/d' setup.cfg
 %py3_install
 
 %check
-# test_secure_refusal_to_extract_abs_paths is not ready upstream
-# https://github.com/conda/conda-package-handling/issues/59
-PYTHONPATH=%{buildroot}%{python3_sitearch} py.test-%{python3_version} -v tests -k 'not test_secure_refusal_to_extract_abs_paths'
+PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v tests 
 
 %files -n python%{python3_pkgversion}-%{srcname}
 %license LICENSE
 %doc AUTHORS.md CHANGELOG.md README.md
 %{_bindir}/cph
-%{python3_sitearch}/%{pkgname}-*.egg-info/
-%{python3_sitearch}/%{pkgname}/
+%{python3_sitelib}/%{pkgname}-*.egg-info/
+%{python3_sitelib}/%{pkgname}/
 
 %changelog
+* Sat Jan 14 2023 Orion Poplawski <orion@nwra.com> - 2.0.2-1
+- Update to 2.0.2
+- Use SPDX License tag
+
 * Fri Sep 23 2022 Orion Poplawski <orion@nwra.com> - 1.9.0-1
 - Update to 1.9.0
 

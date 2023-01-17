@@ -1,7 +1,7 @@
-%global	mainver		1.13.10
+%global	mainver		1.14.0
 #%%global	prever		.rc4
 
-%global	mainrel		2
+%global	mainrel		1
 %global	prerpmver		%(echo "%{?prever}" | sed -e 's|\\.||g')
 
 %global	gem_name	nokogiri
@@ -11,14 +11,14 @@
 Summary:	An HTML, XML, SAX, and Reader parser
 Name:		rubygem-%{gem_name}
 Version:	%{mainver}
-Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}.1
+Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}
 
 # MIT: see LICENSE.md
-# ASL 2.0
+# Apache-2.0
 #  1.12.0 bundles forked and modified gumbo -
 #  see gumbo-parser/src/attribute.c and ext/nokogiri/gumbo.c
 #  also lib/nokogiri/html5 is licensed under ASL 2.0
-License:	MIT and ASL 2.0
+License:	MIT and Apache-2.0
 Provides:	bundled(gumbo-parser) = 0.10.1
 
 URL:		https://nokogiri.org
@@ -183,6 +183,7 @@ cp -p %{gem_name}-%{version}/[A-Z]* %{buildroot}%{gem_instdir}/
 pushd %{buildroot}%{gem_instdir}
 rm -rf \
 	Gemfile* \
+	Rakefile \
 	dependencies.yml \
 	ext \
 	*gemspec \
@@ -274,6 +275,9 @@ popd
 %{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Sun Jan 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.0-1
+- 1.14.0
+
 * Tue Jan 03 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.10-2.1
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

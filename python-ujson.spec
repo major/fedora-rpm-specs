@@ -1,5 +1,5 @@
 Name:           python-ujson
-Version:        5.6.0
+Version:        5.7.0
 Release:        1%{?dist}
 Summary:        Ultra fast JSON encoder and decoder written in pure C
 
@@ -87,6 +87,9 @@ export UJSON_BUILD_DC_LIBS='-ldouble-conversion'
 %doc README.md
 
 %changelog
+* Sun Jan 15 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 5.7.0-1
+- Update to 5.7.0 (close RHBZ#2158945)
+
 * Thu Dec 01 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 5.6.0-1
 - Update to 5.6.0 (close RHBZ#2149975)
 

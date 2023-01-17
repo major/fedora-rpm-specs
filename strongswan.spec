@@ -13,8 +13,8 @@
 %endif
 
 Name:           strongswan
-Version:        5.9.8
-Release:        2%{?dist}
+Version:        5.9.9
+Release:        1%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 License:        GPLv2+
 URL:            http://www.strongswan.org/
@@ -410,6 +410,9 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Sun Jan 15 2023 Petr Menšík <pemensik@redhat.com> - 5.9.9-1
+- Update to 5.9.9 (#2157850)
+
 * Thu Dec 08 2022 Jitka Plesnikova <jplesnik@redhat.com> - 5.9.8-2
 - Add BR perl-generators to automatically generates run-time dependencies
   for installed Perl files
