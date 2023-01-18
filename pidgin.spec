@@ -125,7 +125,7 @@
 
 Name:           pidgin
 Version:        2.14.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD and GPLv2+ and GPLv2 and LGPLv2+ and MIT
 # GPLv2+ - libpurple, finch, pidgin, most prpls
 # GPLv2 - novell prpls
@@ -172,7 +172,7 @@ Summary:        A Gtk+ based multiprotocol instant messaging client
 # Require Binary Compatible glib
 # returns bogus value if glib2-devel is not installed in order for parsing to succeed
 # bogus value wont make it into a real package
-%global glib_ver %([ -a %{_libdir}/pkgconfig/glib-2.0.pc ] && pkg-config --modversion glib-2.0 | cut -d. -f 1,2 || echo -n "999")
+%global glib_ver %(pkg-config --modversion glib-2.0 2>/dev/null || echo -n "999" | cut -d. -f 1,2)
 BuildRequires: make
 BuildRequires:  glib2-devel
 Requires:       glib2 >= %{glib_ver}
@@ -700,6 +700,9 @@ find %{buildroot}/%{_libdir}/purple-2 -name \*.so\* -printf '%f|' | sed -e 's/|$
 %endif
 
 %changelog
+* Mon Jan 16 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.12-2
+- Fixed glib version detection
+
 * Mon Jan  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.14.12-1
 - New version
   Resolves: rhbz#2157241

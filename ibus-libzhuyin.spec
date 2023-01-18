@@ -1,8 +1,8 @@
 %global snapshot 0
 
 Name:       ibus-libzhuyin
-Version:    1.10.1
-Release:    2%{?dist}
+Version:    1.10.2
+Release:    1%{?dist}
 Summary:    New Zhuyin engine based on libzhuyin for IBus
 License:    GPLv2+
 URL:        https://github.com/libzhuyin/ibus-libzhuyin
@@ -71,6 +71,10 @@ based on libzhuyin for IBus.
 
 
 %changelog
+* Mon Jan 16 2023 Peng Wu <pwu@redhat.com> - 1.10.2-1
+- Update to 1.10.2
+- bug fixes
+
 * Wed Oct 19 2022 Adam Williamson <awilliam@redhat.com> - 1.10.1-2
 - Rebuild for libzhuyin soname bump
 

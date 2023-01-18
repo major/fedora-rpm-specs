@@ -1,6 +1,11 @@
+# XXX: Drop once f36 goes EOL
+%if 0%{?fedora} == 036
+%undefine _package_note_file
+%endif
+
 Name:           tabbed
-Version:        0.6
-Release:        22%{?dist}
+Version:        0.7
+Release:        1%{?dist}
 Summary:        Simple Xembed container manager
 
 %global         _tabbedsourcedir %{_usrsrc}/tabbed-user-%{version}-%{release}
@@ -10,10 +15,15 @@ URL:            http://tools.suckless.org/tabbed
 Source0:        http://dl.suckless.org/tools/%{name}-%{version}.tar.gz
 Source1:        %{name}-user
 Source2:        %{name}-user.1
+# Upstream tarball doesn't include the xembed manpage in 0.6; taken from
+# the git repository (fixed in 910e67db).
+Source3:        xembed.1
 BuildRequires:  binutils
 BuildRequires:  coreutils
+BuildRequires:  fontconfig-devel
 BuildRequires:  gcc
 BuildRequires:  libX11-devel
+BuildRequires:  libXft-devel
 BuildRequires:  make
 BuildRequires:  sed
 Requires(post): %{_sbindir}/update-alternatives
@@ -30,8 +40,10 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       binutils
 Requires:       coreutils
 Requires:       findutils
+Requires:       fontconfig-devel
 Requires:       gcc
 Requires:       libX11-devel
+Requires:       libXft-devel
 Requires:       make
 Requires:       patch
 Requires:       redhat-rpm-config
@@ -45,9 +57,11 @@ customized configurations.
 
 %prep
 %setup -q
+# XXX: To be dropped with 0.8+
+cp %{SOURCE3} .
 sed -e 's|/usr/local|%{_prefix}|g' \
     -e 's|/usr/lib|%{_libdir}|g' \
-    -e 's|-std=c99 -pedantic -Wall -O0|%{optflags}|g' \
+    -e 's|-std=c99 -pedantic -Wall -Os|%{optflags}|g' \
     -e 's|-s\b||' \
     -e 's|\(${LIBS}\)|\1 %{?__global_ldflags}|' \
     -i config.mk
@@ -69,7 +83,7 @@ sed -i -e 's/VERSION/%{version}/' \
        ${file}
 done
 mkdir -p %{buildroot}%{_tabbedsourcedir}
-install -m644 arg.h config.def.h config.mk Makefile tabbed.c \
+install -m644 arg.h config.def.h config.mk Makefile tabbed.c xembed.c \
      %{buildroot}%{_tabbedsourcedir}
 touch %{buildroot}%{_bindir}/%{name}
 
@@ -95,10 +109,12 @@ if [ $1 -eq 0 ] ; then
 fi
 
 %files
-%doc LICENSE README TODO
+%doc LICENSE README
 %ghost %{_bindir}/%{name}
 %{_bindir}/%{name}-fedora
+%{_bindir}/xembed
 %{_mandir}/man1/%{name}.*
+%{_mandir}/man1/xembed.*
 
 %files user
 %ghost %{_bindir}/%{name}
@@ -107,6 +123,14 @@ fi
 %{_tabbedsourcedir}
 
 %changelog
+* Mon Jan 16 2023 Petr Šabata <contyk@redhat.com> - 0.7-1
+- 0.7 bump
+- Now includes the xembed utility; as xembed has no implicit support for
+  config.def, this release doesn't include xembed customization via the user
+  subpackage; however, this could be improved in the future
+- Adding a temporary workaround for F36 builds
+- SPDX migration
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=549593
 
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 Name:           tumbler
-Version:        4.16.1
+Version:        4.18.0
 Release:        %autorelease
 Summary:        D-Bus service for applications to request thumbnails
 
@@ -21,6 +21,8 @@ BuildRequires:  intltool
 BuildRequires:  libpng-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  poppler-glib-devel
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  libxfce4util-devel >= %{xfceversion}
 
 # extra thumbnailers
 BuildRequires:  gstreamer1-plugins-base-devel
@@ -84,12 +86,13 @@ find %{buildroot} -type f -name "*.la" -delete
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog NEWS TODO
+%doc AUTHORS ChangeLog NEWS
 %config(noreplace) %{_sysconfdir}/xdg/tumbler/
 %{_datadir}/dbus-1/services/org.xfce.Tumbler.*.service
 %{_libdir}/libtumbler-*.so.*
 %{_libdir}/tumbler-*/
 %{_datadir}/icons/hicolor/*/*/org.xfce*%{name}*
+%{_userunitdir}/tumblerd.service
 %exclude %{_libdir}/tumbler-*/plugins/tumbler-gst-thumbnailer.so
 %exclude %{?fedora: %{_libdir}/tumbler-*/plugins/tumbler-raw-thumbnailer.so}
 

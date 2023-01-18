@@ -1,12 +1,11 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=554603
 
-%global minorversion 4.16
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 %global namespc Garcon
 
 Name:           garcon
-Version:        4.16.1
+Version:        4.18.0
 Release:        %autorelease
 Summary:        Implementation of the freedesktop.org menu specification
 
@@ -15,7 +14,7 @@ Summary:        Implementation of the freedesktop.org menu specification
 License:        LGPLv2+ and GFDL
 URL:            http://xfce.org/
 #VCS git:git://git.xfce.org/xfce/garcon
-Source0:        http://archive.xfce.org/src/xfce/%{name}/%{minorversion}/%{name}-%{version}.tar.bz2
+Source0:        http://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-%{version}.tar.bz2
 Source1:        xfce-documentation.directory
 Patch0:         garcon-%{xfceversion}-fedora-menus.patch
 
@@ -87,7 +86,6 @@ install -pm 644 %{SOURCE1} %{buildroot}%{_datadir}/desktop-directories
 %{_datadir}/desktop-directories/*.directory
 
 %files devel
-%doc HACKING STATUS TODO
 %{_includedir}/*
 %{_libdir}/*.so
 %{_libdir}/pkgconfig/*.pc

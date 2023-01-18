@@ -12,18 +12,19 @@
 
 Summary:    Xorg X11 vmware video driver
 Name:	    xorg-x11-drv-vmware
-Version:    13.2.1
-Release:    18%{?gver}%{?dist}
+Version:    13.3.0
+Release:    1%{?dist}
 URL:	    http://www.x.org
 License:    MIT
 
 %if 0%{?gitdate}
 Source0: %{tarball}-%{gitdate}.tar.bz2
 %else
-Source0:   ftp://ftp.x.org/pub/individual/driver/%{tarball}-%{version}.tar.bz2
+Source0:   https://ftp.x.org/archive/individual/driver/%{tarball}-%{version}.tar.bz2
+# upstream compile fixes
+Patch12:   0012-vmwgfx-Change-header-inclusion-order-to-avoid-xorg-h.patch
+Patch13:   0013-vmwgfx-fix-missing-array-notation.patch
 %endif
-
-Patch0: 0001-saa-Build-compatibility-with-xserver-1.20.patch
 
 ExclusiveArch: %{ix86} x86_64 ia64
 
@@ -42,8 +43,7 @@ Requires: libxatracker >= 8.0.1-4
 X.Org X11 vmware video driver.
 
 %prep
-%setup -q -n %{tarball}-%{?gitdate:%{gitdate}}%{!?gitdate:%{version}}
-%patch0 -p1
+%autosetup -p1 -n %{tarball}-%{?gitdate:%{gitdate}}%{!?gitdate:%{version}}
 
 %build
 autoreconf -v --install || exit 1
@@ -62,6 +62,9 @@ find $RPM_BUILD_ROOT -regex ".*\.la$" | xargs rm -f --
 %{_mandir}/man4/vmware.4*
 
 %changelog
+* Thu Dec 08 2022 Yaakov Selkowitz <yselkowi@redhat.com> - 13.3.0-1
+- Update to 13.3.0 (#1579342, #2047133)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 13.2.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

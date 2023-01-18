@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        46%{?dist}
+Release:        47%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -385,7 +385,7 @@ Summary:        Development files for using PLplot with wxGTK
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
 Requires:       %{name}-wxGTK%{?_isa} = %{version}-%{release}
-Requires:       wxGTK3-devel%{?_isa}
+Requires:       wxGTK-devel%{?_isa}
 
 %description    wxGTK-devel
 %{summary}.
@@ -759,6 +759,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Mon Jan 16 2023 Orion Poplawski <orion@nwra.com> - 5.15.0-47
+- Fix devel dep from wxGTK3-devel to wxGTK-devel
+
 * Sat Jan 14 2023 Orion Poplawski <orion@nwra.com> - 5.15.0-46
 - Rebuild for libharu 2.4.3
 

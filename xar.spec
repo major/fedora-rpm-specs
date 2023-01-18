@@ -2,7 +2,7 @@
 
 Name:           xar
 Version:        1.8.0.%{subversion}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        The eXtensible ARchiver
 License:        BSD
 URL:            https://opensource.apple.com/source/xar
@@ -15,8 +15,6 @@ BuildRequires:  zlib-devel
 BuildRequires:  bzip2-devel
 BuildRequires:  gawk
 BuildRequires:  autoconf
-ExcludeArch:    aarch64
-ExcludeArch:    ppc64le
 
 
 #First 4 patches taken from Gentoo Xar package. To make Xar more suitable for Linux systems
@@ -27,6 +25,7 @@ Patch2:         xar-1.8-arm-ppc.patch
 Patch3:         xar-1.8-openssl-1.1.patch
 
 Patch4:         xar-1.8-Add-OpenSSL-To-Configuration.patch
+Patch5:         xar-1.8-gnuconfig.patch
 
 
 %description
@@ -56,6 +55,7 @@ pushd xar
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 sed 's:-Wl,-rpath,::g' -i configure.ac #No rpath
 sed 's:filetree.h:../lib/filetree.h:g' -i src/xar.c #Fix path
 sed 's:util.h:../lib/util.h:g' -i src/xar.c #Fix path
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Mon Jan 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0.417.1-9
+- Enable build on aarch64, ppc64le
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0.417.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

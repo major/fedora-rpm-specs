@@ -3,8 +3,8 @@
 
 Summary: Hybrid image/package system
 Name: rpm-ostree
-Version: 2022.19
-Release: 2%{?dist}
+Version: 2023.1
+Release: 1%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
@@ -124,12 +124,6 @@ Requires:       librepo%{?_isa} >= %{librepo_version}
 #                     end of libdnf build deps                          #
 #########################################################################
 
-%if 0%{?rhel} <= 8
-# In current Fedora, this is a dependency of gpgme-devel, but
-# not in RHEL8.  Missing this package breaks -znow.
-BuildRequires:  libassuan-devel
-%endif
-
 # For now...see https://github.com/projectatomic/rpm-ostree/pull/637
 # and https://github.com/fedora-infra/fedmsg-atomic-composer/pull/17
 # etc.  We'll drop this dependency at some point in the future when
@@ -140,7 +134,7 @@ Requires: fuse
 
 # For container functionality
 # https://github.com/coreos/rpm-ostree/issues/3286
-Recommends: skopeo
+Requires: skopeo
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -247,6 +241,9 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Mon Jan 16 2023 Jonathan Lebon <jonathan@jlebon.com> - 2023.1-1
+- https://github.com/coreos/rpm-ostree/releases/tag/v2023.1
+
 * Tue Dec 20 2022 Colin Walters <walters@verbum.org> - 2022.19-2
 - https://github.com/coreos/rpm-ostree/releases/tag/v2022.19
 

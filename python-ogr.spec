@@ -1,7 +1,7 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.41.0
+Version:        0.42.0
 Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
@@ -52,6 +52,10 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Mon Jan 16 2023 Packit <hello@packit.dev> - 0.42.0-1
+- A bug in ogr resulting in returning only first page of pull requests for Pagure has been fixed. (#761)
+- ogr now raises `GitForgeInternalError` rather than `PagureAPIException` when getting 50x response from the Pagure API. (#762)
+
 * Thu Oct 27 2022 Packit <hello@packit.dev> - 0.41.0-1
 - `CommitComment.comment` has been deprecated in favour of `CommitComment.body` to make the naming consistent across objects. (#748)
 - ogr now requires Python 3.9 or later. (#746)

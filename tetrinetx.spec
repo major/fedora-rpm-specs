@@ -1,6 +1,6 @@
 Name:           tetrinetx
 Version:        1.13.16
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        The GNU TetriNET server
 
 License:        GPLv2
@@ -45,7 +45,7 @@ sed -i "s:game\\.log:%{_localstatedir}/log/tetrinetx/game\\.log:;
 
 
 %build
-%global optflags %(echo %{optflags} | sed 's/-Wp,-D_FORTIFY_SOURCE=2//')
+%undefine _fortify_level
 cd src
 ./compile.linux "%{optflags}"
 cd ..
@@ -108,6 +108,9 @@ getent passwd tetrinetx >/dev/null || \
 
 
 %changelog
+* Mon Jan 16 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 1.13.16-36
+- Use _fortify_level macro instead of twiddling with optflags.
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.16-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global cpan_version 6.57
 Name:           perl-Coro
 Version:        6.570
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        The only real threads in perl
 # Coro/libcoro:    GPL-2.0-or-later OR BSD-2-Clause
 # Rest of package: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -129,7 +129,7 @@ done
 %build
 # Disable FORTIFY_SOURCE on ARM as it breaks setjmp - RHBZ 750805
 %ifarch %{arm}
-RPM_OPT_FLAGS="${RPM_OPT_FLAGS} -Wp,-U_FORTIFY_SOURCE -Wp,-D_FORTIFY_SOURCE=0"
+%undefine _fortify_level
 %endif
 
 # Interactive configuration. Use default values.
@@ -166,6 +166,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 16 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 6.570-10
+- Use _fortify_level.
+
 * Tue Nov 22 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.570-9
 - Fix license for tests package
 

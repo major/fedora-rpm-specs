@@ -1,11 +1,11 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=554599
 
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 %global namespc Libxfce4ui
 
 Name:           libxfce4ui
-Version:        4.16.1
+Version:        4.18.1
 Release:        %autorelease
 Summary:        Commonly used Xfce widgets
 

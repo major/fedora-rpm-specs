@@ -9,7 +9,7 @@
 
 Name:    pango
 Version: 1.50.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System for layout and rendering of internationalized text
 
 License: LGPLv2+
@@ -66,6 +66,10 @@ The pango-devel package includes the header files for the pango package.
 %package doc
 Summary: Developer documentation for pango
 Requires: pango%{?_isa} = %{version}-%{release}
+# Because web fonts from upstream are not bundled in the gi-docgen package,
+# packages containing documentation generated with gi-docgen should depend on
+# this metapackage to ensure the proper system fonts are present.
+Recommends: gi-docgen-fonts
 
 %description doc
 The pango-doc package contains developer documentation for the pango package.
@@ -142,6 +146,9 @@ fi
 
 
 %changelog
+* Fri Dec 16 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.50.12-2
+- Ensure correct fonts are installed for HTML docs
+
 * Mon Nov 21 2022 David King <amigadave@amigadave.com> - 1.50.12-1
 - Update to 1.50.12
 

@@ -1,9 +1,9 @@
 %global owner gbcox
-%global commit 9cb5f4278e9fa473ac39968fc78bf19b52a875f1
+%global commit 4fc150aa6e666fbea9544d928bdc642af49a220b
 %global shortcommit %(c=%{commit}; echo ${c:0:12})
 
 Name:     ykocli
-Version:  1.0.2
+Version:  1.1.0
 Release:  1%{?dist}
 Summary:  Front-end script for ykman to obtain TOTP tokens
 
@@ -17,6 +17,7 @@ BuildRequires:  make
 Requires:       figlet
 Requires:       copyq
 Requires:       yubikey-manager
+Requires:       zbar
 
 %description
 ykocli is a front-end command line utility (actually, a bash script)
@@ -40,12 +41,19 @@ that places ykman obtained TOTP tokens into the CopyQ clipboard.
 %{_libexecdir}/%{name}/src-yko-ck-input.sh
 %{_libexecdir}/%{name}/src-yko-figlet.sh
 %{_libexecdir}/%{name}/src-yko-help.sh
-%{_libexecdir}/%{name}/src-yko-main.sh
+%{_libexecdir}/%{name}/src-yko-table.sh
 %{_libexecdir}/%{name}/src-yko-time.sh
 %{_libexecdir}/%{name}/src-yko-trap.sh
+%{_libexecdir}/%{name}/src-yko-totp.sh
+%{_libexecdir}/%{name}/src-yko-add.sh
+%{_libexecdir}/%{name}/src-yko-delete.sh
+%{_libexecdir}/%{name}/src-yko-rename.sh
 %{_mandir}/man1/ykocli.1*
 
 %changelog
+* Mon Jan 16 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.1.0-1
+- Refactor for Add, Delete, Rename functionality
+
 * Wed Dec 28 2022 Gerald Cox <gbcox@fedoraproject.org> - 1.0.2-1
 - Add optional background mode
 

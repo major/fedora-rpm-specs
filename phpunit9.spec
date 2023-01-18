@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    a2bc7ffdca99f92d959b3f2270529334030bba38
+%global gh_commit    954ca3113a03bf780d22f07bf055d883ee04b65e
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    9
 %global ver_minor    5
 
-%global upstream_version 9.5.27
+%global upstream_version 9.5.28
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -33,7 +33,7 @@ Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
 Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{upstream_version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -43,7 +43,7 @@ Patch0:         %{name}-rpm.patch
 
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7.3
-BuildRequires:  (php-composer(doctrine/instantiator) >= 1.3.1         with php-composer(doctrine/instantiator) <  2)
+BuildRequires:  (php-composer(doctrine/instantiator) >= 1.3.1         with php-composer(doctrine/instantiator) <  3)
 BuildRequires:  (php-composer(myclabs/deep-copy) >= 1.10.1            with php-composer(myclabs/deep-copy) <  2)
 BuildRequires:  (php-composer(phar-io/manifest) >= 2.0.3              with php-composer(phar-io/manifest) < 3)
 BuildRequires:  (php-composer(phar-io/version) >= 3.0.2               with php-composer(phar-io/version) <  4)
@@ -81,7 +81,7 @@ BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 #        "ext-mbstring": "*",
 #        "ext-xml": "*",
 #        "ext-xmlwriter": "*",
-#        "doctrine/instantiator": "^1.3.1",
+#        "doctrine/instantiator": "^1.3.1 || ^2",
 #        "myclabs/deep-copy": "^1.10.1",
 #        "phar-io/manifest": "^2.0.3",
 #        "phar-io/version": "^3.0.2",
@@ -109,7 +109,7 @@ Requires:       php-libxml
 Requires:       php-mbstring
 Requires:       php-xml
 Requires:       php-xmlwriter
-Requires:       (php-composer(doctrine/instantiator) >= 1.3.1         with php-composer(doctrine/instantiator) <  2)
+Requires:       (php-composer(doctrine/instantiator) >= 1.3.1         with php-composer(doctrine/instantiator) <  3)
 Requires:       (php-composer(myclabs/deep-copy) >= 1.10.1            with php-composer(myclabs/deep-copy) <  2)
 Requires:       (php-composer(phar-io/manifest) >= 2.0.3              with php-composer(phar-io/manifest) < 3)
 Requires:       (php-composer(phar-io/version) >= 3.0.2               with php-composer(phar-io/version) < 4)
@@ -171,6 +171,14 @@ find . -name \*.rpm -delete -print
 
 cat << 'EOF' | tee -a src/autoload.php
 // Dependencies
+if (PHP_VERSION_ID > 80100) {
+	$inst = [
+        '%{php_home}/Doctrine/Instantiator2/autoload.php',
+        '%{php_home}/Doctrine/Instantiator/autoload.php',
+    ];
+} else {
+	$inst = '%{php_home}/Doctrine/Instantiator/autoload.php';
+}
 \Fedora\Autoloader\Dependencies::required([
     '%{php_home}/SebastianBergmann/CodeCoverage9/autoload.php',
     '%{php_home}/SebastianBergmann/FileIterator3/autoload.php',
@@ -189,7 +197,7 @@ cat << 'EOF' | tee -a src/autoload.php
     '%{php_home}/SebastianBergmann/ResourceOperations3/autoload.php',
     '%{php_home}/SebastianBergmann/Type3/autoload.php',
     '%{php_home}/SebastianBergmann/Version3/autoload.php',
-    '%{php_home}/Doctrine/Instantiator/autoload.php',
+    $inst,
     '%{php_home}/DeepCopy/autoload.php',
     '%{php_home}/PharIo/Manifest2/autoload.php',
     '%{php_home}/PharIo/Version3/autoload.php',
@@ -244,6 +252,10 @@ exit $ret
 
 
 %changelog
+* Mon Jan 16 2023 Remi Collet <remi@remirepo.net> - 9.5.28-1
+- update to 9.5.28
+- allow doctrine/instantiator v2
+
 * Fri Dec  9 2022 Remi Collet <remi@remirepo.net> - 9.5.27-1
 - update to 9.5.27
 

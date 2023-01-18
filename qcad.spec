@@ -7,8 +7,8 @@
 #
 
 Name:    qcad
-Version: 3.27.8.0
-Release: 2%{?dist}
+Version: 3.27.9.0
+Release: 1%{?dist}
 Summary: Powerful 2D CAD system
 
 ## Main license: GPLv3
@@ -89,6 +89,10 @@ You dont need any CAD experience to get started with QCAD immediately.
 cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.7
 mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.7/qt-labs-qtscriptgenerator-5.15.3.pro \
  src/3rdparty/qt-labs-qtscriptgenerator-5.15.7/qt-labs-qtscriptgenerator-5.15.7.pro
+ 
+ cp -a src/3rdparty/qt-labs-qtscriptgenerator-5.15.3 src/3rdparty/qt-labs-qtscriptgenerator-5.15.8
+mv src/3rdparty/qt-labs-qtscriptgenerator-5.15.8/qt-labs-qtscriptgenerator-5.15.3.pro \
+ src/3rdparty/qt-labs-qtscriptgenerator-5.15.8/qt-labs-qtscriptgenerator-5.15.8.pro
 
 %build
 # QT is known not to work properly with LTO at this point.  Some of the issues
@@ -225,6 +229,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/*
 
 %changelog
+* Mon Jan 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.27.9.0-1
+- Release 3.27.9.0
+
 * Thu Dec 08 2022 Marie Loise Nolden <loise@kde.org> - 3.27.8.0-2
 - build with Qt 5.15.7
 

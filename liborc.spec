@@ -1,6 +1,6 @@
 Summary: Library for producing small, fast columnar storage for Hadoop workloads
 Name:    liborc
-Version: 1.8.1
+Version: 1.8.2
 Release: 1%{?dist}
 License: Apache-2.0
 URL:     http://orc.apache.org/
@@ -77,6 +77,10 @@ library.
 %patch1 -p1
 
 %build
+
+echo "RPM_OPT_FLAGS: $RPM_OPT_FLAGS"
+export CXXFLAGS="$RPM_OPT_FLAGS -Wno-error=dangling-reference"
+
 %cmake \
     -DOVERRIDE_INSTALL_PREFIX=/usr \
     -DCMAKE_COLOR_MAKEFILE:BOOL=OFF \
@@ -124,6 +128,9 @@ mv %{buildroot}%{_docdir}/orc/LICENSE %{buildroot}/%{_defaultlicensedir}/%{name}
      %{_libdir}/cmake/orc/orc*.cmake
 
 %changelog
+* Mon Jan 16 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 1.8.2-1
+- 1.8.2 GA (w/ gcc-13 -Wno-error=dangling-references)
+
 * Mon Dec 5 2022  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 1.8.1-1
 - 1.8.1 GA
 

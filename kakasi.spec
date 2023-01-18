@@ -74,8 +74,8 @@ iconv -f euc-jp -t utf-8 man/kakasi.1.ja > man/kakasi.1.ja.utf8 && touch -r man/
 %dir %{_datadir}/kakasi
 %{_bindir}/*
 %exclude %{_bindir}/kakasi-config
-%{_mandir}/man1/kakasi.1.gz
-%{_mandir}/ja/man1/kakasi.1.gz
+%{_mandir}/man1/kakasi.1*
+%{_mandir}/ja/man1/kakasi.1*
 %{_datadir}/kakasi/itaijidict
 
 %files libs
@@ -86,7 +86,7 @@ iconv -f euc-jp -t utf-8 man/kakasi.1.ja > man/kakasi.1.ja.utf8 && touch -r man/
 %license COPYING
 %{_bindir}/kakasi-config
 %{_libdir}/libkakasi.so
-%{_mandir}/man1/kakasi-config.1.gz
+%{_mandir}/man1/kakasi-config.1*
 %{_includedir}/libkakasi.h
 
 %files dict

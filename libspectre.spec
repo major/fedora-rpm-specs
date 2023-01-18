@@ -1,5 +1,5 @@
 Name:           libspectre
-Version:        0.2.11
+Version:        0.2.12
 Release:        1%{?dist}
 Summary:        A library for rendering PostScript(TM) documents
 
@@ -61,6 +61,10 @@ rm -fv %{buildroot}%{_libdir}/libspectre.la
 
 
 %changelog
+* Mon Jan 16 2023 Marek Kasik <mkasik@redhat.com> - 0.2.12-1
+- Update to 0.2.12
+- Resolves: #2159146
+
 * Mon Nov 07 2022 Marek Kasik <mkasik@redhat.com> - 0.2.11-1
 - Update to 0.2.11
 - Resolves: #2139968

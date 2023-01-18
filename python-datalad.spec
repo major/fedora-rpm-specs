@@ -1,4 +1,4 @@
-# require network, and nose, so disabled by default
+# require network, so disabled by default
 # to run on mock, use --enable-network
 # only a couple of tests fail
 %bcond_with tests
@@ -6,7 +6,7 @@
 %global forgeurl https://github.com/datalad/datalad
 
 Name:           python-datalad
-Version:        0.15.6
+Version:        0.18.1
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease
@@ -54,6 +54,8 @@ https://neurostars.org/tags/datalad/}
 %package -n python3-datalad
 Summary:        %{summary}
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
+BuildRequires:  git-core
 %if %{with tests}
 BuildRequires:  git-annex
 # for 7za
@@ -78,11 +80,12 @@ find . -type f -exec sed -i "s|#!/usr/bin/env.*python$|#!%{python3}|" '{}' ';'
 # remove shebangs
 find datalad/resources/procedures/ -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
+# required for tests, and man page generation
+git config --global user.name "Your Name"
+git config --global user.email "youremail@yourdomain.com"
 
 %if %{with tests}
 # Tests wants a git repo
-git config --global user.name "Your Name"
-git config --global user.email "youremail@yourdomain.com"
 git init .
 git add .
 git commit -m "Dummy commit"
@@ -91,25 +94,33 @@ git commit -m "Dummy commit"
 sed -i 's/auto_spec/autospec/' datalad/support/tests/test_annexrepo.py
 %endif
 
+# loosen chardet requirement
+# this was because requests didn't support chardet 5 before, but it does now:
+# https://github.com/psf/requests/blob/main/setup.py#L126
+# https://github.com/psf/requests/commit/73793ce43e3d940a0f8d6b9b8ff125617828d8a1
+# Issue filed upstream: https://github.com/datalad/datalad/issues/7256
+sed -i "s/chardet.*'/chardet'/" setup.py
+
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-x tests}
 
 %build
 %pyproject_wheel
+# build man pages
+%{python3} setup.py build_manpage
 
 %install
 %pyproject_install
 %pyproject_save_files datalad
 
+# install man pages
+install -m 0644 -p -Dt $RPM_BUILD_ROOT/%{_mandir}/man1/  build/man/*.1
+
+
 %check
 %if %{with tests}
-# Uses nose, unfortunately and it seems to be too hard to switch to pytest so
-# it's just nose for the moment
-# https://github.com/datalad/datalad/issues/4090
-# https://github.com/datalad/datalad/pull/4232
 export PATH="${PATH}:%{buildroot}/%{_bindir}"
-export PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}:%{python3_sitearch}"
-nosetests-%{python3_version}
+export PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}:%{python3_sitearch}" pytest
 %endif
 
 %files -n python3-datalad -f %{pyproject_files}
@@ -118,6 +129,9 @@ nosetests-%{python3_version}
 %{_bindir}/git-annex-remote-datalad
 %{_bindir}/git-annex-remote-datalad-archives
 %{_bindir}/git-annex-remote-ora
+%{_bindir}/git-annex-remote-ria
+%{_bindir}/git-credential-datalad
+%{_mandir}/man1/*.1*
 
 %changelog
 %autochangelog

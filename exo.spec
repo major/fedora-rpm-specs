@@ -1,7 +1,7 @@
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 Name:           exo
-Version:        4.16.4
+Version:        4.18.0
 Release:        %autorelease
 Summary:        Application library for the Xfce desktop environment
 
@@ -50,16 +50,15 @@ Development tools and static libraries and header files for the exo library.
 find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 
 
-%find_lang exo-2
+%find_lang exo
 
-%files -f exo-2.lang
+%files -f exo.lang
 %license COPYING
 %doc AUTHORS ChangeLog NEWS THANKS
 %{_bindir}/exo-desktop-item-edit
 %{_bindir}/exo-open
 %{_libdir}/libexo-2.so.0
 %{_libdir}/libexo-2.so.0.1.0
-%{_datadir}/icons/hicolor/*/*/*
 %{_datadir}/pixmaps/exo
 %{_mandir}/man1/exo-open.1.*
 

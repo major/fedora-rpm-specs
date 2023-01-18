@@ -1,11 +1,12 @@
 Name:           pf-bb-config
-Version:        22.07
+Version:        22.11
 Release:        1%{?dist}
 Summary:        PF BBDEV (baseband device) Configuration Application
 
 License:        Apache-2.0
 URL:            https://github.com/intel/pf-bb-config
 Source0:        %{url}/archive/v%{version}/pf-bb-config-%{version}.tar.gz
+Patch0:         %{url}/commit/2b02af16cdd0b704d49fe0cc621a3b5845c2ee2a.patch
 
 # Currently big endian is not supported due to a bug
 ExcludeArch:    s390x
@@ -22,7 +23,7 @@ through memory-mapped IO read/writes.
 
 
 %prep
-%autosetup
+%autosetup -p1
 sed -i "s/#VERSION_STRING#/%{version}/g" config_app.c
 
 
@@ -35,8 +36,6 @@ install -d -m 755 %{buildroot}%{_bindir}
 install -d -m 755 %{buildroot}%{_datadir}/pf-bb-config/acc100/
 install -p -D -m 755 pf_bb_config %{buildroot}%{_bindir}/pf_bb_config
 cp -a acc100/*.cfg %{buildroot}%{_datadir}/pf-bb-config/acc100/
-# FIXME
-ln -sf acc100_config_pf_4g5g.cfg %{buildroot}%{_datadir}/pf-bb-config/acc100/acc100_config.cfg
 
 
 %files
@@ -47,5 +46,8 @@ ln -sf acc100_config_pf_4g5g.cfg %{buildroot}%{_datadir}/pf-bb-config/acc100/acc
 
 
 %changelog
+* Mon Jan 16 2023 Timothy Redaelli <tredaelli@redhat.com> - 22.11-1
+- Update to 22.11
+
 * Mon Oct 03 2022 Timothy Redaelli <tredaelli@redhat.com> - 22.07-1
 - Initial import (fedora#2101769)

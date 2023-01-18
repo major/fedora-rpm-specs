@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Rails REST API documentation tool
 # The project itself is MIT
 # For ASL 2.0, see https://github.com/Apipie/apipie-rails/issues/66
@@ -11,6 +11,12 @@ Summary: Rails REST API documentation tool
 License: MIT AND Apache-2.0
 URL: http://github.com/Apipie/apipie-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Patch0, Patch1 were committed in https://github.com/Apipie/apipie-rails/pull/807
+# and will be included in the next release
+# Ruby 3.2 removes Fixnum, use Integer
+Patch0:  apipie-rails-0.8.1-ruby32-Fixnum-removal.patch
+# Ruby 3.2 removes File.exists? , use File.exist?
+Patch1:  apipie-rails-0.8.1-ruby32-File_exist-removal.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -49,6 +55,8 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version}
+%patch0 -p1
+%patch1 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -115,6 +123,10 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Mon Jan 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.1-2
+- Fix for ruby3.2 Fixnum removal in favor of Integer
+- Fix for ruby3.2 File.exists? removal in favor of File.exist?
+
 * Wed Aug 24 2022 Vít Ondruch <vondruch@redhat.com> - 0.8.1-1
 - Update to apipie-rails 0.8.1.
   Resolves: rhbz#1985794

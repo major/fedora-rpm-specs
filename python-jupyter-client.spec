@@ -3,7 +3,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-jupyter-client
-Version:        7.4.7
+Version:        7.4.9
 Release:        1%{?dist}
 Summary:        Jupyter protocol implementation and client libraries
 
@@ -21,6 +21,8 @@ BuildRequires:  python3-devel
 %if %{with tests}
 # The zmq tests are split in RPM only, the dependency is not tracked on Python level:
 BuildRequires:  python3-zmq-tests
+# Optional test dependency, look for test_datetimes_msgpack
+BuildRequires:  python3dist(msgpack)
 %endif
 
 %description
@@ -107,6 +109,9 @@ rm -r html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Mon Jan 16 2023 Miro Hrončok <mhroncok@redhat.com> - 7.4.9-1
+- Update to 7.4.9
+
 * Mon Nov 28 2022 Lumír Balhar <lbalhar@redhat.com> - 7.4.7-1
 - Update to 7.4.7 (rhbz#2133949)
 

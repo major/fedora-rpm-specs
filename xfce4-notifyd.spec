@@ -1,10 +1,10 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=499282
 
 %global minorversion 0.6
-%global xfceversion 4.14
+%global xfceversion 4.18
 
 Name:           xfce4-notifyd
-Version:        0.6.4
+Version:        0.6.5
 Release:        %autorelease
 Summary:        Simple notification daemon for Xfce
 

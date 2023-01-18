@@ -17,8 +17,8 @@
 
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
-Version: 6.4.1
-Release: 3%{?dist}
+Version: 6.4.2
+Release: 1%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -178,6 +178,9 @@ popd
 
 
 %changelog
+* Mon Jan 16 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-1
+- 6.4.2
+
 * Mon Dec 05 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-3
 - Move plugins out of -devel subpackage
 

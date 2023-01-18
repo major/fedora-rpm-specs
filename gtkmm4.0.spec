@@ -3,13 +3,13 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 %global glibmm_version 2.68.0
-%global gtk4_version 4.9.1
+%global gtk4_version 4.9.2
 %global cairomm_version 1.15.4
 %global pangomm_version 2.50.0
 %global gdk_pixbuf2_version 2.35.5
 
 Name:           gtkmm4.0
-Version:        4.9.1
+Version:        4.9.2
 Release:        %autorelease
 Summary:        C++ interface for the GTK+ library
 

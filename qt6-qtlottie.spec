@@ -8,7 +8,7 @@
 
 Summary: Qt6 - Lottie Animation
 Name:    qt6-%{qt_module}
-Version: 6.4.1
+Version: 6.4.2
 Release: 1%{?dist}
 
 License: GPLv3
@@ -77,6 +77,9 @@ Requires: qt6-qtbase-devel%{?_isa}
 
 
 %changelog
+* Mon Jan 16 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-1
+- 6.4.2
+
 * Wed Nov 23 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-1
 - 6.4.1
 

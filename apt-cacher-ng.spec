@@ -3,7 +3,7 @@
 
 Name:             apt-cacher-ng
 Version:          3.7.4
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Caching proxy for package files from Debian
 
 License:          BSD-4-Clause
@@ -27,6 +27,7 @@ BuildRequires:    systemd
 BuildRequires:    systemd-devel
 BuildRequires:    libevent-devel
 BuildRequires:    c-ares-devel
+BuildRequires:    perl-generators
 
 Requires(post):   systemd
 Requires(preun):  systemd
@@ -125,6 +126,9 @@ sed -i 's/^# UseWrap: 0/UseWrap: 0/' %{buildroot}%{_sysconfdir}/apt-cacher-ng/ac
 %{_mandir}/man8/*
 
 %changelog
+* Mon Jan 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.7.4-3
+- Add BR perl-generators
+
 * Sun Jan 15 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.7.4-2
 - Drop perl(:MODULE_COMPAT_XXX) dependency
   (https://fedoraproject.org/wiki/Changes/Perl_replace_MODULE_COMPAT_by_generator)

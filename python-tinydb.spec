@@ -1,15 +1,15 @@
 %global pypi_name tinydb
 %global author msiemens
-%global pypi_hash 2ab727ab4062800731c2e4d773358c6c25f8d630affa3e3ccdb21dc40d68
+%global pypi_hash 78f24df0fec08f0fb92fc4b4758adcab780660caa8c3f94c2e175eb7e2ba
 
 Name:           python-%{pypi_name}
-Version:        4.7.0
-Release:        3%{?dist}
+Version:        4.7.1
+Release:        1%{?dist}
 Summary:        TinyDB is a tiny, document oriented database
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}
-Source0:        https://files.pythonhosted.org/packages/77/b3/%{pypi_hash}/%{pypi_name}-%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/32/ed/%{pypi_hash}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -38,7 +38,10 @@ TinyDB is a lightweight document oriented database optimized for your happiness
 
 %install
 %py3_install
+rm -rf %{buildroot}/%{python3_sitelib}/tests
 
+%check
+%py3_check_import %{pypi_name}
 
 %files -n python%{python3_pkgversion}-%{pypi_name}
 %doc README.rst
@@ -47,6 +50,9 @@ TinyDB is a lightweight document oriented database optimized for your happiness
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 16 2023 Sundeep Anand <suanand@redhat.com> - 4.7.1-1
+- Update to latest version 4.7.1 (rhbz#2160948)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

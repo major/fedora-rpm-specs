@@ -2,8 +2,8 @@
 %bcond_without reflections
 
 Name:           jna
-Version:        5.12.1
-Release:        2%{?dist}
+Version:        5.13.0
+Release:        1%{?dist}
 Summary:        Pure Java access to native libraries
 # Most of code is dual-licensed under either LGPL 2.1+ only or Apache
 # License 2.0.  WeakIdentityHashMap.java was taken from Apache CXF,
@@ -163,6 +163,9 @@ install -m 755 build/native*/libjnidispatch*.so %{buildroot}%{_libdir}/%{name}/
 
 
 %changelog
+* Mon Jan 16 2023 Zuzana Miklankova <zmiklank@redhat.com> - 5.13.0-1
+- Rebase to version 5.13.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

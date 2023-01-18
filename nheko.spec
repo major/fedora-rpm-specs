@@ -1,5 +1,5 @@
 Name: nheko
-Version: 0.11.0
+Version: 0.11.1
 Release: 1%{?dist}
 
 # Main source - GPL-3.0-or-later.
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jan 16 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.1-1
+- Updated to version 0.11.1.
+
 * Fri Jan 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.0-1
 - Updated to version 0.11.0.
 

@@ -12,8 +12,8 @@
 %endif
 
 Name:           python-dns
-Version:        2.2.1
-Release:        4%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
@@ -45,15 +45,10 @@ Summary:        %{summary}
 %description -n python3-dns %_description
 
 %generate_buildrequires
-%pyproject_buildrequires -r %{?with_trio:-x trio} %{?with_curio:-x curio} %{?with_doh:-x doh}
+%pyproject_buildrequires -r -x dnssec -x idna %{?with_trio:-x trio} %{?with_curio:-x curio} %{?with_doh:-x doh}
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}%{rctag}
-# Update trio from 0.20 to 0.21
-sed -i "s/\(trio = {version=\">=0.14,<0.\)20\(\", optional=true}\)/\121\2/" pyproject.toml
-# Update cryptography from 37.0 to 38.0
-sed -i "s/\(cryptography = {version=\">=2.6,<\)37.0\(\", optional=true}\)/\138.0\2/" pyproject.toml
-
 # strip exec permissions so that we don't pick up dependencies from docs
 find examples -type f | xargs chmod a-x
 
@@ -90,6 +85,9 @@ find examples -type f | xargs chmod a-x
 %endif
 
 %changelog
+* Tue Jan 03 2023 Lumír Balhar <lbalhar@redhat.com> - 2.3.0-1
+- Update to 2.3.0 (rhbz#2156616)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

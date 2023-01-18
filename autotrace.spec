@@ -5,6 +5,8 @@ Summary:        Utility for converting bitmaps to vector graphics
 License:        GPLv2+ and LGPLv2+
 URL:            http://autotrace.sourceforge.net/
 Source0:	https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/autotrace/autotrace/pull/105
+Patch0:	autotrace-0.31.9-pr105-ImageMagick7.patch
 BuildRequires:	ImageMagick-devel
 BuildRequires:	autoconf
 BuildRequires:	automake

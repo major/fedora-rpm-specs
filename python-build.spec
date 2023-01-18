@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple, correct PEP517 package builder
 
 License:        MIT
@@ -29,6 +29,9 @@ A simple, correct PEP517 package builder.
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
+# deprecated python3-toml is not needed on Python 3.11+
+# upstream: https://github.com/pypa/build/pull/563
+sed -Ei '/\btoml\b/d' setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires -x test,virtualenv
@@ -59,6 +62,10 @@ A simple, correct PEP517 package builder.
 %{_bindir}/pyproject-build
 
 %changelog
+* Mon Jan 16 2023 Miro Hrončok <mhroncok@redhat.com> - 0.9.0-2
+- Drop redundant BuildRequries for deprecated python3-toml
+- https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+
 * Sun Oct 30 2022 Lumír Balhar <lbalhar@redhat.com> - 0.9.0-1
 - Update to 0.9.0
 Resolves: rhbz#2138145

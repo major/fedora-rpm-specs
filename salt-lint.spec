@@ -1,6 +1,6 @@
 Name:           salt-lint
-Version:        0.8.0
-Release:        4%{?dist}
+Version:        0.9.1
+Release:        1%{?dist}
 Summary:        Salt State file (SLS) lint tool
 
 License:        MIT
@@ -49,6 +49,10 @@ install -Dpm 0644 docs/man/salt-lint.1 %{buildroot}%{_mandir}/man1/salt-lint.1
 
 
 %changelog
+* Mon Jan 16 2023 Robby Callicotte <rcallicotte@fedoraproject.org> - 0.9.1-1
+- Rebased to new version
+  Resolves rhbz#2160859
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

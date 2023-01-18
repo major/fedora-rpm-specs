@@ -1,10 +1,15 @@
 # Add `--without gtk' option (enable gtk by default):
+# No GTK 2 in RHEL 10
+%if 0%{?rhel} > 9
+%bcond_with gtk
+%else
 %bcond_without gtk
+%endif
 
 Summary: Tools for certain user account management tasks
 Name: usermode
 Version: 1.114
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+
 URL: https://pagure.io/%{name}/
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
@@ -108,6 +113,9 @@ done
 %endif
 
 %changelog
+* Fri Jan 06 2023 Tomas Popela <tpopela@redhat.com> - 1.114-6
+- Don't build GTK 2 bits on RHEL 10 as GTK 2 won't be available there
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.114-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

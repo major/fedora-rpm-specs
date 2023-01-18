@@ -1,6 +1,6 @@
 Name:           translate-toolkit
-Version:        3.6.2
-Release:        3%{?dist}
+Version:        3.8.1
+Release:        1%{?dist}
 Summary:        Tools to assist with translation and software localization
 License:        GPLv2+
 URL:            http://toolkit.translatehouse.org/
@@ -15,22 +15,27 @@ Source7:        posplit.1
 Source8:        tmserver.1
 
 BuildArch:      noarch
+BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
+BuildRequires:  python3-aeidon
 BuildRequires:  python3-beautifulsoup4
 BuildRequires:  python3-chardet
 BuildRequires:  python3-enchant
 BuildRequires:  python3-iniparse
 BuildRequires:  python3-Levenshtein
 BuildRequires:  python3-lxml
+BuildRequires:  python3-phply
 BuildRequires:  python3-pycountry
 BuildRequires:  python3-ruamel-yaml
 BuildRequires:  python3-simplejson
 BuildRequires:  python3-six
+BuildRequires:  python3-sphinx
 BuildRequires:  python3-vobject
 
 Requires:       gettext
+Requires:       python3-aeidon
 Requires:       python3-beautifulsoup4
 Requires:       python3-chardet
 Requires:       python3-cheroot
@@ -38,12 +43,12 @@ Requires:       python3-enchant
 Requires:       python3-iniparse
 Requires:       python3-Levenshtein
 Requires:       python3-lxml
+Requires:       python3-phply
 Requires:       python3-pycountry
 Requires:       python3-ruamel-yaml
 Requires:       python3-simplejson
 Requires:       python3-six
 Requires:       python3-vobject
-Requires:       python3-aeidon
 
 %description
 A set of tools for managing translation and software localization via Gettext
@@ -82,7 +87,7 @@ the libraries in other localization tools.
 %build
 LANG=C.utf8
 %py3_build
-#make html -C docs/
+make html -C docs/
 
 %install
 LANG=C.utf8
@@ -105,9 +110,6 @@ for prog in %{buildroot}%{_bindir}/*; do
     esac
 done
 
-# remove documentation files from site-packages
-rm -r %{buildroot}%{python3_sitelib}/translate/docs
-
 %files
 %doc docs/license.rst
 %{_bindir}/*
@@ -118,6 +120,9 @@ rm -r %{buildroot}%{python3_sitelib}/translate/docs
 %doc docs/_build/html
 
 %changelog
+* Mon Jan 16 2023 Sundeep Anand <suanand@redhat.com> - 3.8.1-1
+- http://docs.translatehouse.org/projects/translate-toolkit/en/latest/releases/3.8.1.html
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

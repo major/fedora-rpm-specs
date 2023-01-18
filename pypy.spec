@@ -132,10 +132,6 @@ ExcludeArch:    %{ix86}
 # Easy way to enable/disable verbose logging:
 %global verbose_logs 0
 
-# Forcibly use the shadow-stack option for detecting GC roots, rather than
-# relying on hacking up generated assembler with regexps:
-%global shadow_stack 1
-
 # Easy way to turn off the selftests:
 %global run_selftests 1
 
@@ -502,34 +498,12 @@ BuildPyPy() {
   # How will we track garbage-collection roots in the generated code?
   #   http://pypy.readthedocs.org/en/latest/config/translation.gcrootfinder.html
 
-%if 0%{shadow_stack}
   # This is the most portable option, and avoids a reliance on non-guaranteed
   # behaviors within GCC's code generator: use an explicitly-maintained stack
   # of root pointers:
   %global gcrootfinder_options --gcrootfinder=shadowstack
 
   export CFLAGS=$(echo "$RPM_OPT_FLAGS" | sed -e 's/-g//')
-
-%else
-  # Go with the default, which is "asmgcc"
-
-  %global gcrootfinder_options %{nil}
-
-  # https://bugzilla.redhat.com/show_bug.cgi?id=588941#c18
-  # The generated Makefile compiles the .c files into assembler (.s), rather
-  # than direct to .o  It then post-processes this assembler to locate
-  # garbage-collection roots (building .lbl.s and .gcmap files, and a
-  # "gcmaptable.s").  (The modified .lbl.s files have extra code injected
-  # within them).
-  # Unfortunately, the code to do this:
-  #   pypy-1.4/pypy/translator/c/gcc/trackgcroot.py
-  # doesn't interract well with the results of using our standard build flags.
-  # For now, filter our CFLAGS of everything that could be conflicting with
-  # pypy.  Need to check these and reenable ones that are okay later.
-  # Filed as https://bugzilla.redhat.com/show_bug.cgi?id=666966
-  export CFLAGS=$(echo "$RPM_OPT_FLAGS" | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//' -e 's/-fexceptions//' -e 's/-fstack-protector//' -e 's/--param=ssp-buffer-size=4//' -e 's/-O2//' -e 's/-fasynchronous-unwind-tables//' -e 's/-march=i686//' -e 's/-mtune=atom//')
-
-%endif
 
   # The generated C code leads to many thousands of warnings of the form:
   #   warning: variable 'l_v26003' set but not used [-Wunused-but-set-variable]

@@ -1,10 +1,10 @@
 Name:           gnat-srpm-macros
-Version:        5
+Version:        6
 Release:        1%{?dist}
 Summary:        RPM macros needed when source packages that need GNAT are built
 Summary(sv):    RPM-makron som behövs när källkodspaket som behöver GNAT byggs
 
-License:        MIT
+License:        FSFAP
 URL:            https://src.fedoraproject.org/rpms/gnat-srpm-macros
 Source1:        macros.gnat-srpm
 BuildArch:      noarch
@@ -39,6 +39,9 @@ install -p -m 0644 -t %{buildroot}/%{rpmmacrodir} %{SOURCE1}
 
 
 %changelog
+* Mon Jan 16 2023 Björn Persson <Bjorn@Rombobjörn.se> - 6-1
+- Changed the license to FSFAP as "MIT" is now considered ambiguous.
+
 * Sat Jan 07 2023 Björn Persson <Bjorn@Rombobjörn.se> - 5-1
 - Dropped 32-bit ARM from GPRbuild_arches as it's no longer built in Koji.
 - Added riscv64 to GNAT_arches to synchronize with gcc.spec.

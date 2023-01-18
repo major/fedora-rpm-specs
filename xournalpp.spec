@@ -75,13 +75,6 @@ The %{name}-ui package contains a graphical user interface for  %{name}.
 %install
 %cmake_install
 
-#Remove depreciated key from desktop file
-#Fix desktop file associated with application
-desktop-file-install \
- --remove-key="Encoding" \
- --set-key="StartupWMClass" \
- --set-value="xournalpp" \
-  %{buildroot}%{_datadir}/applications/com.github.%{name}.%{name}.desktop
 %find_lang %{name}
 
 # REMOVE UNNECESSARY SCRIPTS

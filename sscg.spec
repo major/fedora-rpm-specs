@@ -9,7 +9,7 @@
 %{!?meson_test: %global meson_test %{__meson} test -C %{_vpath_builddir} --num-processes %{_smp_build_ncpus} --print-errorlogs}
 
 Name:           sscg
-Version:        3.0.2
+Version:        3.0.3
 Release:        %autorelease
 Summary:        Simple SSL certificate generator
 
@@ -18,28 +18,13 @@ URL:            https://%{provider_prefix}
 Source0:        https://%{provider_prefix}/archive/refs/tags/%{repo}-%{version}.tar.gz
 BuildRequires:  gcc
 BuildRequires:  libtalloc-devel
+BuildRequires:  openssl
 BuildRequires:  openssl-devel
 BuildRequires:  popt-devel
 BuildRequires:  libpath_utils-devel
 BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  help2man
-
-# Protect against negative bitshift
-# Author: Stephen Gallagher <sgallagh@redhat.com>
-Patch1: 0001-Protect-against-negative-bitshift.patch
-
-# Fix another negative bitshift issue
-# Author: Stephen Gallagher <sgallagh@redhat.com>
-Patch2: 0002-Fix-another-negative-bitshift-issue.patch
-
-# Fix incorrect error-check
-# Author: Stephen Gallagher <sgallagh@redhat.com>
-Patch3: 0003-Fix-incorrect-error-check.patch
-
-# Truncate IP address in SAN
-# Author: Stephen Gallagher <sgallagh@redhat.com>
-Patch4: 0004-Truncate-IP-address-in-SAN.patch
 
 
 %description

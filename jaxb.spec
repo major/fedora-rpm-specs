@@ -1,8 +1,8 @@
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name:           jaxb
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        JAXB Reference Implementation
 # EDL-1.0 license is BSD-3-clause
 License:        BSD
@@ -20,7 +20,6 @@ BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %if %{without bootstrap}
-BuildRequires:  mvn(com.sun.activation:jakarta.activation)
 BuildRequires:  mvn(com.sun.istack:istack-commons-runtime)
 BuildRequires:  mvn(com.sun.istack:istack-commons-tools)
 BuildRequires:  mvn(com.sun.xml.dtd-parser:dtd-parser)
@@ -38,15 +37,14 @@ GlassFish JAXB Reference Implementation.
 Summary:        Codemodel Core
 
 %description codemodel
-The core functionality of the CodeModel java source code generation
-library.
+The core functionality of the CodeModel java source code generation library.
 
 %package codemodel-annotation-compiler
 Summary:        Codemodel Annotation Compiler
 
 %description codemodel-annotation-compiler
-The annotation compiler ant task for the CodeModel java source code
-generation library.
+The annotation compiler ant task for the CodeModel java source code generation
+library.
 
 %package relaxng-datatype
 Summary:        RelaxNG Datatype
@@ -64,6 +62,12 @@ expected to be useful for applications that need to take XML Schema as an
 input.
 
 %if %{without bootstrap}
+%package core
+Summary:        JAXB Core
+
+%description core
+JAXB Core module. Contains sources required by XJC, JXC and Runtime modules.
+
 %package rngom
 Summary:        RELAX NG Object Model/Parser
 
@@ -86,16 +90,15 @@ TXW is a library that allows you to write XML documents.
 Summary:        JAXB XJC
 
 %description xjc
-JAXB Binding Compiler. Contains source code needed for binding
-customization files into java sources. In other words: the tool to
-generate java classes for the given xml representation.
+JAXB Binding Compiler. Contains source code needed for binding customization
+files into java sources. In other words: the tool to generate java classes for
+the given xml representation.
 
 %package txwc2
 Summary:        TXW2 Compiler
 
 %description txwc2
-JAXB schema generator. The tool to generate XML schema based on java
-classes.
+JAXB schema generator. The tool to generate XML schema based on java classes.
 %endif
 
 %prep
@@ -128,18 +131,8 @@ pushd jaxb-ri
 # Missing dependency on org.checkerframework:compiler
 %pom_disable_module jxc
 
-# Fix dep on xml resolver
-%pom_change_dep com.sun.org.apache.xml.internal:resolver xml-resolver:xml-resolver:1.2 xjc
-sed -i -e 's/com\.sun\.org\.apache\.xml\.internal\.resolver/org.apache.xml.resolver/' xjc/src/main/java/com/sun/tools/xjc/CatalogUtil.java
-
-%pom_remove_dep -r com.sun.org.apache.xml.internal:resolver
+%pom_remove_dep org.eclipse.angus:angus-activation core
 %endif
-
-# Compatibility
-%mvn_alias com.sun.xml.bind.external:relaxng-datatype com.github.relaxng:relaxngDatatype relaxngDatatype:relaxngDatatype
-%mvn_alias org.glassfish.jaxb:jaxb-runtime org.glassfish.jaxb:jaxb-core
-%mvn_alias org.glassfish.jaxb:jaxb-xjc com.sun.xml.bind:jaxb-xjc
-%mvn_alias org.glassfish.jaxb:xsom com.sun.xsom:xsom
 
 # Don't install aggregator and parent poms
 %mvn_package :jaxb-bom __noinstall
@@ -168,25 +161,23 @@ popd
 %files codemodel -f jaxb-ri/.mfiles-codemodel
 %license LICENSE.md NOTICE.md
 %files codemodel-annotation-compiler -f jaxb-ri/.mfiles-codemodel-annotation-compiler
-%license LICENSE.md NOTICE.md
 %files relaxng-datatype -f jaxb-ri/.mfiles-relaxng-datatype
 %license LICENSE.md NOTICE.md
 %files xsom -f jaxb-ri/.mfiles-xsom
-%license LICENSE.md NOTICE.md
 %if %{without bootstrap}
+%files core -f jaxb-ri/.mfiles-jaxb-core
 %files rngom -f jaxb-ri/.mfiles-rngom
-%license LICENSE.md NOTICE.md
 %files runtime -f jaxb-ri/.mfiles-jaxb-runtime
-%license LICENSE.md NOTICE.md
 %files txw2 -f jaxb-ri/.mfiles-txw2
 %license LICENSE.md NOTICE.md
 %files txwc2 -f jaxb-ri/.mfiles-txwc2
-%license LICENSE.md NOTICE.md
 %files xjc -f jaxb-ri/.mfiles-jaxb-xjc
-%license LICENSE.md NOTICE.md
 %endif
 
 %changelog
+* Mon Jan 16 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.1-2
+- Rebuild
+
 * Mon Nov 21 2022 Marian Koncek <mkoncek@redhat.com> - 4.0.1-1
 - Update to pstream version 4.0.1
 

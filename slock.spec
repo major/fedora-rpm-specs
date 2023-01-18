@@ -1,8 +1,8 @@
 #%%global _hardened_build 1
 
 Name:           slock
-Version:        1.4
-Release:        18%{?dist}
+Version:        1.5
+Release:        1%{?dist}
 Summary:        Simple X display locker
 License:        MIT
 URL:            http://tools.suckless.org/%{name}
@@ -47,6 +47,10 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 # binary for light windowmanagers, and it shouldn't appear in applications menu
 
 %changelog
+* Tue Jan 17 2023 Petr Šabata <contyk@redhat.com> - 1.5-1
+- 1.5 bump
+- SPDX migration
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

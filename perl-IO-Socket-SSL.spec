@@ -6,14 +6,14 @@
 %bcond_without perl_IO_Socket_SSL_test_IO_Socket_INET6
 
 Name:		perl-IO-Socket-SSL
-Version:	2.078
+Version:	2.079
 Release:	1%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-SSL-%{version}.tar.gz
 Patch0:		IO-Socket-SSL-2.076-use-system-default-cipher-list.patch
-Patch1:		IO-Socket-SSL-2.078-use-system-default-SSL-version.patch
+Patch1:		IO-Socket-SSL-2.079-use-system-default-SSL-version.patch
 # A test for Enable-Post-Handshake-Authentication-TLSv1.3-feature.patch,
 # bug #1632660, requires openssl tool
 Patch2:		IO-Socket-SSL-2.066-Test-client-performs-Post-Handshake-Authentication.patch
@@ -125,6 +125,11 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Mon Jan 16 2023 Paul Howarth <paul@city-fan.org> - 2.079-1
+- Update to 2.079
+  - Properly extract IPv6 address for verification from PeerAddr if
+    not explicitly given as SSL_verifycn_name (GH#123)
+
 * Mon Dec 12 2022 Paul Howarth <paul@city-fan.org> - 2.078-1
 - Update to 2.078
   - Revert decision from 2014 to not verify hostname by default if hostname is

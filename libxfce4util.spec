@@ -1,9 +1,9 @@
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 %global namespc Libxfce4util
 
 Name:           libxfce4util
-Version:        4.16.0
+Version:        4.18.1
 Release:        %autorelease
 Summary:        Utility library for the Xfce4 desktop environment
 

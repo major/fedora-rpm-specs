@@ -1,9 +1,9 @@
 Name:           ntfs2btrfs
-Version:        20210923
-Release:        3%{?dist}
+Version:        20220812
+Release:        %autorelease
 Summary:        Conversion tool from NTFS to Btrfs
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/maharmstone/ntfs2btrfs
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -51,26 +51,4 @@ free up space.
 
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20210923-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jul 14 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 20210923-2
-- Rebuild for fmt soversion bump
-
-* Sat Mar 12 2022 Neal Gompa <ngompa@fedoraproject.org> - 20210923-1
-- Update to version 20210923
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20210523-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 20210523-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Sun Jul 11 2021 Neal Gompa <ngompa13@gmail.com> - 20210523-1
-- Update to version 20210523
-
-* Fri Apr 02 2021 Neal Gompa <ngompa13@gmail.com> - 20210402-1
-- Update to version 20210402 for improved altarch support
-
-* Mon Mar 15 2021 Neal Gompa <ngompa13@gmail.com> - 20210105-1
-- Initial packaging for Fedora (RH#1938464)
+%autochangelog

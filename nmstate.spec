@@ -3,13 +3,17 @@
 
 Name:           nmstate
 Version:        2.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Declarative network manager API
 License:        LGPLv2+
 URL:            https://github.com/%{srcname}/%{srcname}
 Source0:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz
 Source1:        %{url}/releases/download/v%{version}/%{srcname}-%{version}.tar.gz.asc
 Source2:        https://nmstate.io/nmstate.gpg
+# We use `dep: dep_name` to prevent rust packaging generate incorect dependency
+# https://bugzilla.redhat.com/show_bug.cgi?id=2161128
+# but list Requires manually
+Patch1:         0001-Workaround-for-Fedora-rust-packaging.patch
 BuildRequires:  patchelf
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -34,6 +38,7 @@ BuildRequires:  (crate(uuid/v4) >= 1.1 with crate(uuid/v4) < 2.0)
 BuildRequires:  (crate(uuid/v5) >= 1.1 with crate(uuid/v5) < 2.0)
 BuildRequires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
 BuildRequires:  (crate(zvariant/default) >= 2.10 with crate(zvariant/default) < 3.0)
+BuildRequires:  (crate(nix/default) >= 0.24 with crate(nix/default) < 0.25)
 
 %description
 Nmstate is a library with an accompanying command line tool that manages host
@@ -117,6 +122,10 @@ which use "%{name}" crate with gen_conf feature.
 %package -n rust-%{name}+query_apply-devel
 Summary:        Rust crate of nmstate with default feature
 BuildArch:      noarch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2161128
+Requires:  (crate(nispor/default) >= 1.2.9 with crate(nispor/default) < 2.0)
+Requires:  (crate(nix/default) >= 0.24 with crate(nix/default) < 0.25)
+Requires:  (crate(zbus/default) >= 1.9 with crate(zbus/default) < 2.0)
 
 %description -n rust-%{name}+query_apply-devel
 This package contains library source intended for building other packages

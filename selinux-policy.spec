@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit b42deb870faaa63be41cd6b6b9d8a5846205e6ea
+%global commit 8b251cf41fa2f3d670f5f84e1298b7a0e549535a
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.4
+Version: 38.5
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,26 @@ exit 0
 %endif
 
 %changelog
+* Fri Jan 13 2023 Zdenek Pytela <zpytela@redhat.com> - 38.5-1
+- Allow insights client work with gluster and pcp
+- Add insights additional capabilities
+- Add interfaces in domain, files, and unconfined modules
+- Label fwupdoffline and fwupd-detect-cet with fwupd_exec_t
+- Allow sudodomain use sudo.log as a logfile
+- Allow pdns server map its library files and bind to unreserved ports
+- Allow sysadm_t read/write ipmi devices
+- Allow prosody manage its runtime socket files
+- Allow kernel threads manage kernel keys
+- Allow systemd-userdbd the sys_resource capability
+- Allow systemd-journal list cgroup directories
+- Allow apcupsd dbus chat with systemd-logind
+- Allow nut_domain manage also files and sock_files in /var/run
+- Allow winbind-rpcd make a TCP connection to the ldap port
+- Label /usr/lib/rpm/rpmdb_migrate with rpmdb_exec_t
+- Allow tlp read generic SSL certificates
+- Allow systemd-resolved watch tmpfs directories
+- Revert "Allow systemd-resolved watch tmpfs directories"
+
 * Mon Dec 19 2022 Zdenek Pytela <zpytela@redhat.com> - 38.4-1
 - Allow NetworkManager and wpa_supplicant the bpf capability
 - Allow systemd-rfkill the bpf capability

@@ -18,8 +18,6 @@
 # GOST is not allowed in Fedora/RHEL due to legal reasons (not NIST ECC)
 %bcond_with     gost
 
-%{?!snapshot:         %global snapshot        0}
-
 %if %{with python2} || %{with python3}
 %{?filter_setup:
 %global _ldns_internal_filter /^_ldns[.]so.*/d;
@@ -39,7 +37,7 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.8.3
-Release: 2
+Release: 3
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -48,13 +46,13 @@ Source1: https://www.nlnetlabs.nl/downloads/%{name}/%{name}-%{version}.tar.gz.as
 # Willem Toorop, https://www.nlnetlabs.nl/people/
 Source2: https://keys.openpgp.org/vks/v1/by-fingerprint/DC34EE5DB2417BCC151E5100E5F8F8212F77A498#/wtoorop.asc
 Patch1: ldns-1.7.0-multilib.patch
+# https://github.com/NLnetLabs/ldns/pull/204
+Patch2: ldns-1.8-python-dirs.patch
 
-# Only needed for builds from svn snapshot
-%if 0%{snapshot}
 BuildRequires: libtool
 BuildRequires: autoconf
 BuildRequires: automake
-%endif
+BuildRequires: autoconf-archive
 
 BuildRequires: gcc, make
 BuildRequires: libpcap-devel
@@ -67,8 +65,6 @@ BuildRequires: gcc-c++
 BuildRequires: doxygen
 BuildRequires: gnupg2
 
-# for snapshots only
-# BuildRequires: libtool, autoconf, automake
 %if %{with python2}
 BuildRequires: python2-devel, swig
 %endif
@@ -155,13 +151,13 @@ This package contains documentation for the ldns library
 pushd %{pkgname}
 
 %autopatch -p2
-# To built svn snapshots
-%if 0%{snapshot}
-  rm config.guess config.sub ltmain.sh
-  aclocal
-  libtoolize -c --install
-  autoreconf --install
-%endif
+
+rm -f config.guess config.sub ltmain.sh
+# Use ax_python_devel from autoconf-archive
+cp -p %{_datadir}/aclocal/{ax_python_devel,ax_pkg_swig}.m4 .
+aclocal
+libtoolize -c --install
+autoreconf --install
 
 # fixup .pc file
 sed -i "s/@includedir@/@includedir@\/ldns/" packaging/libldns.pc.in
@@ -334,6 +330,7 @@ rm -rf doc/man
 %doc %{pkgname}_python2/contrib/python/Changelog README.ldnsx
 %license LICENSE.ldnsx
 %{python2_sitearch}/*
+%{python3_sitelib}/*
 %endif
 
 %if %{with python3}
@@ -341,6 +338,7 @@ rm -rf doc/man
 %doc %{pkgname}_python3/contrib/python/Changelog README.ldnsx
 %license LICENSE.ldnsx
 %{python3_sitearch}/*
+%{python3_sitelib}/*
 %endif
 
 %if %{with perl}
@@ -354,6 +352,10 @@ rm -rf doc/man
 %doc doc
 
 %changelog
+* Tue Jan 03 2023 Petr Menšík <pemensik@redhat.com> - 1.8.3-3
+- Use recent autoconf python detection (#2155003)
+- Install python modules into separate directories
+
 * Fri Sep 30 2022 Petr Menšík <pemensik@redhat.com> - 1.8.3-2
 - Update License tag to SPDX identifier
 

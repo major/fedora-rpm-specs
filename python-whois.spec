@@ -8,7 +8,7 @@ Name: python-%{pypi_name}
 Summary: Python module for retrieving WHOIS information of domains
 License: MIT
 
-Version: 0.9.22
+Version: 0.9.23
 Release: 1%{?dist}
 
 URL: https://github.com/DannyCork/python-whois/
@@ -55,6 +55,9 @@ Summary: %{summary}
 
 
 %changelog
+* Mon Jan 16 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.23-1
+- Update to v0.9.23
+
 * Mon Jan 09 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.22-1
 - Update to v0.9.22
 

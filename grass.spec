@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.2.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -376,6 +376,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Mon Jan 16 2023 Markus Neteler <neteler@mundialis.de> 8.2.0-10
+- modify grass-pdal.patch for alternative C++ fix
+
 * Sat Jan 14 2023 Sandro Mani <manisandro@gmail.com> - 8.2.0-9
 - Rebuild (PDAL)
 

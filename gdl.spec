@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:           gdl
 Version:        1.0.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GNU Data Language
 
 License:        GPLv2+
@@ -65,7 +65,7 @@ BuildRequires:  grib_api-devel
 #BuildRequires:  mpich2-devel
 BuildRequires:  qhull-devel
 BuildRequires:  udunits2-devel
-BuildRequires:  wxGTK3-devel
+BuildRequires:  wxGTK-devel
 BuildRequires:  cmake3
 # For tests
 # EL8 s390x missing xorg-x11-drv-dummy
@@ -243,6 +243,9 @@ cat xorg.log
 
 
 %changelog
+* Tue Nov 15 2022 Scott Talbert <swt@techie.net> - 1.0.1-11
+- Rebuild with wxWidgets 3.2
+
 * Sat Nov 05 2022 Orion Poplawski <orion@nwra.com> - 1.0.1-10
 - Re-enable LTO on ppc64le
 

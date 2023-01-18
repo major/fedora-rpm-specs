@@ -8,7 +8,7 @@
 Summary: The GNU Portable Library Tool
 Name:    libtool
 Version: 2.4.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+ and LGPLv2+ and GFDL
 URL:     http://www.gnu.org/software/libtool/
 
@@ -171,6 +171,9 @@ rm -f %{buildroot}%{_libdir}/libltdl.{a,la}
 
 
 %changelog
+* Mon Jan 16 2023 Jakub Jelinek <jakub@redhat.com> - 2.4.7-5
+- bump: for gcc 13.* in rawhide
+
 * Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 2.4.7-4
 - C99 compatibility fix in the testsuite
 

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.10.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Google Protocol Buffers serialization and RPC implementation for Ruby
 # MIT: main library
 # BSD: proto/google/protobuf/compiler/plugin.proto
@@ -16,6 +16,9 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # https://github.com/ruby-protobuf/protobuf/pull/411
 # https://github.com/ruby-protobuf/protobuf/pull/415
 Patch0: %{name}-%{version}-generate-camel-cased-keys_add-message-from-json_64bit-int-as-json.patch
+# https://github.com/ruby-protobuf/protobuf/commit/4d2278e2fb5c365f2cf61ac56204f6e2fcbef09e
+# Needed for rails 6.x and higher, already included in 3.10.6
+Patch1: %{name}-3.10.6-Use-activesupport_all-in-tests.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -45,6 +48,7 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version}
 
 %patch0 -p1
+%patch1 -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -118,6 +122,9 @@ popd
 %{gem_instdir}/install-protobuf.sh
 
 %changelog
+* Mon Jan 16 2023 Mamoru TASAKA <mtasaka@feodraproject.org> - 3.10.3-5
+- Patch for upstream to support rails 6.x or higher
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

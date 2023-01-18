@@ -4,7 +4,7 @@
 %global libname flask_restx
 
 Name:           python-%{srcname}
-Version:        1.0.3
+Version:        1.0.5
 Release:        %autorelease
 Summary:        Framework for fast, easy and documented API development with Flask
 License:        BSD-3-Clause

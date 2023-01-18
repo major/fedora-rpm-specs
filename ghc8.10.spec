@@ -50,7 +50,7 @@ Version: 8.10.7
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -89,6 +89,8 @@ Patch18: Disable-unboxed-arrays.patch
 # Debian patches:
 Patch24: buildpath-abi-stability.patch
 Patch26: no-missing-haddock-file-warning.patch
+
+Patch27: ghc-configure-c99.patch
 
 # fedora ghc has been bootstrapped on
 # %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
@@ -350,6 +352,8 @@ rm -r libffi-tarballs
 # debian
 %patch24 -p1 -b .orig
 %patch26 -p1 -b .orig
+
+%patch27 -p1
 
 %if %{with haddock}
 %global gen_contents_index gen_contents_index.orig
@@ -698,6 +702,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Jan 16 2023 Florian Weimer <fweimer@redhat.com> - 8.10.7-6
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.10.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

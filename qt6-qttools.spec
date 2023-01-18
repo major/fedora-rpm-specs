@@ -10,7 +10,7 @@
 
 Summary: Qt6 - QtTool components
 Name:    qt6-qttools
-Version: 6.4.1
+Version: 6.4.2
 Release: 1%{?dist}
 
 License: LGPLv3 or LGPLv2
@@ -371,6 +371,9 @@ popd
 
 
 %changelog
+* Mon Jan 16 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-1
+- 6.4.2
+
 * Wed Nov 23 2022 Jan Grulich <jgrulich@redhat.com> - 6.4.1-1
 - 6.4.1
 

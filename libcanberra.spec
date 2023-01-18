@@ -1,13 +1,22 @@
+# RHEL 10 won't ship with GTK 2, don't build bit there, but build them elsewhere
+%if 0%{?rhel} > 9
+%bcond_with gtk2
+%else
+%bcond_without gtk2
+%endif
+
 Name: libcanberra
 Version: 0.30
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: Portable Sound Event Library
 Source0: http://0pointer.de/lennart/projects/libcanberra/libcanberra-%{version}.tar.xz
 Patch0: 0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch
 License: LGPLv2+
 Url: http://git.0pointer.de/?p=libcanberra.git;a=summary
 BuildRequires: gcc
+%if %{with gtk2}
 BuildRequires: gtk2-devel
+%endif
 BuildRequires: gtk3-devel
 BuildRequires: alsa-lib-devel
 BuildRequires: libvorbis-devel
@@ -26,6 +35,7 @@ Requires: pulseaudio-libs >= 0.9.15
 A small and lightweight implementation of the XDG Sound Theme Specification
 (http://0pointer.de/public/sound-theme-spec.html).
 
+%if %{with gtk2}
 %package gtk2
 Summary: Gtk+ 2.x Bindings for libcanberra
 Requires: %{name}%{?_isa} = %{version}-%{release}
@@ -34,6 +44,7 @@ Requires: %{name}-gtk3%{?_isa} = %{version}-%{release}
 
 %description gtk2
 Gtk+ 2.x bindings for libcanberra
+%endif
 
 %package gtk3
 Summary: Gtk+ 3.x Bindings for libcanberra
@@ -45,9 +56,11 @@ Gtk+ 3.x bindings for libcanberra
 %package devel
 Summary: Development Files for libcanberra Client Development
 Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: %{name}-gtk2%{?_isa} = %{version}-%{release}
 Requires: %{name}-gtk3%{?_isa} = %{version}-%{release}
+%if %{with gtk2}
+Requires: %{name}-gtk2%{?_isa} = %{version}-%{release}
 Requires: gtk2-devel
+%endif
 
 %description devel
 Development Files for libcanberra Client Development
@@ -63,7 +76,17 @@ Development Files for libcanberra Client Development
 %patch0 -p1 
 
 %build
-%configure --disable-static --enable-pulse --enable-alsa --enable-null --disable-oss --with-builtin=dso --with-systemdsystemunitdir=/usr/lib/systemd/system
+%configure \
+    --disable-static \
+    --enable-pulse \
+    --enable-alsa \
+%if %{without gtk2}
+    --disable-gtk \
+%endif
+    --enable-null \
+    --disable-oss \
+    --with-builtin=dso \
+    --with-systemdsystemunitdir=/usr/lib/systemd/system
 make %{?_smp_mflags}
 
 %install
@@ -86,9 +109,11 @@ rm $RPM_BUILD_ROOT%{_docdir}/libcanberra/README
 %{_prefix}/lib/systemd/system/canberra-system-shutdown.service
 %{_bindir}/canberra-boot
 
+%if %{with gtk2}
 %files gtk2
 %{_libdir}/libcanberra-gtk.so.*
 %{_libdir}/gtk-2.0/modules/libcanberra-gtk-module.so
+%endif
 
 %files gtk3
 %{_libdir}/libcanberra-gtk3.so.*
@@ -111,12 +136,14 @@ rm $RPM_BUILD_ROOT%{_docdir}/libcanberra/README
 %doc %{_datadir}/gtk-doc
 %{_includedir}/canberra-gtk.h
 %{_includedir}/canberra.h
-%{_libdir}/libcanberra-gtk.so
-%{_libdir}/libcanberra-gtk3.so
 %{_libdir}/libcanberra.so
-%{_libdir}/pkgconfig/libcanberra-gtk.pc
-%{_libdir}/pkgconfig/libcanberra-gtk3.pc
 %{_libdir}/pkgconfig/libcanberra.pc
+%if %{with gtk2}
+%{_libdir}/libcanberra-gtk.so
+%{_libdir}/pkgconfig/libcanberra-gtk.pc
+%endif
+%{_libdir}/libcanberra-gtk3.so
+%{_libdir}/pkgconfig/libcanberra-gtk3.pc
 # co-own these directories to avoid requiring vala
 %dir %{_datadir}/vala
 %dir %{_datadir}/vala/vapi
@@ -124,6 +151,9 @@ rm $RPM_BUILD_ROOT%{_docdir}/libcanberra/README
 %{_datadir}/vala/vapi/libcanberra.vapi
 
 %changelog
+* Tue Jan 10 2023 Tomas Popela <tpopela@redhat.com> - 0.30-30
+- Don't build GTK 2 bits on ELN/RHEL 10 as GTK 2 won't be there
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,4 +1,4 @@
-%global pypi_version 1.7
+%global pypi_version 1.8
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
@@ -65,7 +65,7 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 
 %files -n python3-virt-firmware
 %license LICENSE
-%doc README.md
+%doc README.md experimental
 %{_bindir}/host-efi-vars
 %{_bindir}/virt-fw-dump
 %{_bindir}/virt-fw-vars
@@ -85,6 +85,9 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/tests
 
 %changelog
+* Mon Jan 16 2023 Gerd Hoffmann <kraxel@redhat.com> - 1.8-1
+- update to version 1.8
+
 * Fri Dec 02 2022 Gerd Hoffmann <kraxel@redhat.com> - 1.7-1
 - update to version 1.7
 

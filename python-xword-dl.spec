@@ -1,13 +1,15 @@
 %global pypi_name xword_dl
 
 Name:           python-xword-dl
-Version:        2022.12.14
+Version:        2022.12.26
 Release:        %autorelease
 Summary:        Download tool for online crossword puzzles
 
 License:        MIT
 URL:            https://github.com/thisisparker/xword-dl
 Source:         %{pypi_source}
+# drop bs4 from requirements
+Patch:          %{url}/pull/91.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -30,7 +32,7 @@ Summary:        %{summary}
 %autosetup -p1 -n %{pypi_name}-%{version}
 
 # Relax dependencies version pinning
-sed -i requirements.txt -e '/bs4/d' -e 's/==.*$//g'
+sed -i requirements.txt -e 's/==.*$//g'
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -41,9 +43,6 @@ sed -i requirements.txt -e '/bs4/d' -e 's/==.*$//g'
 %install
 %pyproject_install
 %pyproject_save_files %{pypi_name}
-
-# Remove leftovers installed in the wrong place
-rm %{buildroot}%{_prefix}/{LICENSE,requirements.txt}
 
 %check
 %pyproject_check_import

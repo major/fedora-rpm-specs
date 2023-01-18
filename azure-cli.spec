@@ -112,6 +112,11 @@ sed -i '/nspkg/d' src/azure-cli/requirements.py3.Linux.txt
 # but we can't install those until we actually build this package.
 sed -i '/azure-cli.*/d' src/azure-cli/requirements.py3.Linux.txt
 
+# Allow an older PyNaCl on F37. See BZ 2038614.
+sed -i 's/PyNaCl>=1.5/PyNaCl>=1.4/' \
+    src/azure-cli/requirements.py3.Linux.txt \
+    src/azure-cli/setup.py
+
 # certifi's version is irrelevant since the package is empty in Fedora.
 sed -i 's/certifi.=.*$/certifi/' \
     src/azure-cli/requirements.py3.Linux.txt

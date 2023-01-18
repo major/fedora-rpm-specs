@@ -31,10 +31,16 @@ BuildRequires: make
 BuildRequires:  boost-devel
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc-c++
-BuildRequires:  pandoc
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  xsimd-devel >= 8
+
+# For docs
+# Avoid building the docs by default on RHEL not to drag pandoc into RHEL:
+%bcond docs %{undefined rhel}
+%if %{with docs}
+BuildRequires:  pandoc
+%endif
 
 # For tests
 BuildRequires:  python3-pytest
@@ -87,14 +93,16 @@ sed -i -e 's/-O0/-O1/g' -e 's/-Werror/-w/g' pythran/tests/__init__.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x doc
+%pyproject_buildrequires %{?with_docs:-x doc}
 
 
 %build
 %pyproject_wheel
 
+%if %{with docs}
 PYTHONPATH=$PWD make -C docs html
 rm -rf docs/_build/html/.{doctrees,buildinfo}
+%endif
 
 
 %install
@@ -128,7 +136,9 @@ k="$k and not test_setup_bdist_install3"
 %files -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
+%if %{with docs}
 %doc docs/_build/html
+%endif
 %{_bindir}/%{name}
 %{_bindir}/%{name}-config
 

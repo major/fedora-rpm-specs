@@ -1,8 +1,8 @@
 Name:           perl-Dist-Zilla-Plugin-GithubMeta
 Version:        0.58
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Automatically include GitHub meta information in META.yml
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-GithubMeta
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/Dist-Zilla-Plugin-GithubMeta-%{version}.tar.gz
 BuildArch:      noarch
@@ -42,8 +42,22 @@ distribution directory is under git version control and whether the
 origin is a GitHub repository and will set the repository and homepage
 meta in META.yml to the appropriate URLs for GitHub.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Dist-Zilla-Plugin-GithubMeta-%{version}
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
@@ -51,6 +65,17 @@ make %{?_smp_mflags}
 
 %install
 make pure_install DESTDIR=%{buildroot}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/00*
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/author-*
+cp -a corpus %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -62,7 +87,14 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Jan 16 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.58-17
+- Package tests
+- Update license to SPDX format
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.58-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

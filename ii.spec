@@ -1,6 +1,6 @@
 Name:           ii
 Version:        1.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        IRC IT, simple FIFO based IRC client
 License:        MIT
 URL:            http://tools.suckless.org/%{name}
@@ -38,6 +38,9 @@ chmod 755 %{buildroot}/%{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jan 17 2023 Petr Šabata <contyk@redhat.com> - 1.8-6
+- SPDX migration
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

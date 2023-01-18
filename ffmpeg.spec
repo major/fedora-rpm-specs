@@ -93,7 +93,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        5.1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPLv3+
 URL:            https://ffmpeg.org/
@@ -836,6 +836,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Sun Jan 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.2-4
+- Properly enable libzvbi_teletext decoder
+
 * Fri Dec 23 2022 Sandro Mani <manisandro@gmail.com> - 5.1.2-3
 - Rebuild (tesseract)
 

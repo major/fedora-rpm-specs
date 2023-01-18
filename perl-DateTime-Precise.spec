@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Precise
 Version:        1.05
-Release:        45%{?dist}
+Release:        46%{?dist}
 
 Summary:        Perform common time and date operations with additional GPS operations
 
@@ -9,9 +9,17 @@ URL:            https://metacpan.org/release/DateTime-Precise
 Source0:        https://cpan.metacpan.org/authors/id/B/BZ/BZAJAC/DateTime-Precise-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(integer)
+BuildRequires:  perl(overload)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
 
 %{?filter_setup:
 %filter_from_provides /perl(bigfloat)/d
@@ -21,7 +29,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker)
 %?perl_default_filter
 }
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}perl\\(big(float|int)\\)
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(DateTime::Math/big(float|int)\\.pl\\)
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}perl\\(DateTime::Math::big(float|int)\\.pl\\)
 
 %description
 The purpose of this library was to replace our dependence on Unix epoch time,
@@ -40,21 +48,17 @@ date/time manipulations used for the Global Positioning Satellite system.
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT
 
 
 %check
 make test
-
 
 
 %files
@@ -64,6 +68,10 @@ make test
 
 
 %changelog
+* Mon Jan 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.05-46
+- Update filter
+- Specify all dependencies
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

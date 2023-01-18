@@ -1,7 +1,7 @@
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 Name:           xfdesktop
-Version:        4.16.1
+Version:        4.18.0
 Release:        %autorelease
 Summary:        Desktop manager for the Xfce Desktop Environment
 

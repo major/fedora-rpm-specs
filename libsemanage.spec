@@ -1,13 +1,13 @@
-%define libsepolver 3.5-0
-%define libselinuxver 3.5-0
+%define libsepolver 3.5-0.rc2
+%define libselinuxver 3.5-0.rc2
 
 Summary: SELinux binary policy manipulation library
 Name: libsemanage
 Version: 3.5
-Release: 0.rc1.1%{?dist}
+Release: 0.rc2.1%{?dist}
 License: LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc1/libsemanage-3.5-rc1.tar.gz
-# fedora-selinux/selinux: git format-patch -N 3.5-rc1 -- libsemanage
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc2/libsemanage-3.5-rc2.tar.gz
+# fedora-selinux/selinux: git format-patch -N 3.5-rc2 -- libsemanage
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -75,7 +75,7 @@ The libsemanage-python3 package contains the python 3 bindings for developing
 SELinux management applications.
 
 %prep
-%autosetup -p 2 -n libsemanage-%{version}-rc1
+%autosetup -p 2 -n libsemanage-%{version}-rc2
 
 
 %build
@@ -154,6 +154,9 @@ cp %{SOURCE1} ${RPM_BUILD_ROOT}%{_sysconfdir}/selinux/semanage.conf
 %{_libexecdir}/selinux/semanage_migrate_store
 
 %changelog
+* Mon Jan 16 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc2.1
+- SELinux userspace 3.5-rc2 release
+
 * Fri Dec 23 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc1.1
 - SELinux userspace 3.5-rc1 release
 

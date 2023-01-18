@@ -5,7 +5,7 @@
 
 Name:           stratisd
 Version:        3.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 # ASL 2.0
@@ -24,12 +24,12 @@ Source1:        %{url}/releases/download/v%{version}/%{name}-%{version}-vendor.t
 Source2:        %{crates_source}
 
 
+%if 0%{?rhel}
 ExclusiveArch:  %{rust_arches}
-%if 0%{?rhel} && !0%{?eln}
 ExcludeArch:    i686
 %endif
 
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 BuildRequires:  rust-toolset
 %else
 BuildRequires:  rust-packaging
@@ -63,7 +63,9 @@ Recommends:     clevis-luks >= 18
 %package dracut
 Summary: Dracut modules for use with stratisd
 
+%if 0%{?rhel}
 ExclusiveArch:  %{rust_arches}
+%endif
 
 Requires:     stratisd
 Requires:     dracut >= 051
@@ -76,7 +78,7 @@ Requires:     plymouth
 %setup -q
 tar --strip-components=1 --extract --verbose --file %{SOURCE2}
 # Patches must be applied after the upstream package is extracted.
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 # Source1 is vendored dependencies
 %cargo_prep -V 1
 %else
@@ -86,7 +88,7 @@ tar --strip-components=1 --extract --verbose --file %{SOURCE2}
 %endif
 
 %build
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 %{cargo_build} --bin=stratisd
 %{cargo_build} --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features min,systemd_compat
 %else
@@ -100,7 +102,7 @@ a2x -f manpage docs/stratisd.txt
 
 %if %{with check}
 %check
-%if 0%{?rhel} && !0%{?eln}
+%if 0%{?rhel}
 %cargo_test --no-run
 %else
 %cargo_test -- --no-run
@@ -148,6 +150,10 @@ a2x -f manpage docs/stratisd.txt
 %{_systemd_util_dir}/system-generators/stratis-setup-generator
 
 %changelog
+* Mon Jan 16 2023 Bryan Gurney <bgurney@redhat.com> - 3.4.4-2
+- Remove Fedora ELN conditionals from spec file
+- Use ExclusiveArch only if RHEL
+
 * Tue Jan 03 2023 Bryan Gurney <bgurney@redhat.com> - 3.4.4-1
 - Update to 3.4.4
 

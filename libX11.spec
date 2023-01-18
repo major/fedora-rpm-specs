@@ -5,7 +5,7 @@
 Summary: Core X11 protocol client library
 Name: libX11
 Version: 1.8.3
-Release: 1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release: 2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -19,6 +19,7 @@ Source0: https://xorg.freedesktop.org/archive/individual/lib/%{name}-%{version}.
 
 
 Patch2: dont-forward-keycode-0.patch
+Patch3: 0001-Revert-Update-XPutBackEvent-to-support-clients-that-.patch
 
 BuildRequires: make
 BuildRequires: xorg-x11-util-macros >= 1.11
@@ -122,6 +123,9 @@ make %{?_smp_mflags} check
 %{_mandir}/man5/*.5*
 
 %changelog
+* Mon Jan 16 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.8.3-2
+- Fix XPutBackEvent() issues (#2161020)
+
 * Fri Jan 06 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.8.3-1
 - libX11 1.8.3
 

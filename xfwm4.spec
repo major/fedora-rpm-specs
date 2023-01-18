@@ -1,7 +1,7 @@
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 Name:           xfwm4
-Version:        4.16.1
+Version:        4.18.0
 Release:        %autorelease
 Summary:        Next generation window manager for Xfce
 

@@ -1,10 +1,10 @@
 Summary: SELinux Translation Daemon
 Name: mcstrans
 Version: 3.5
-Release: 0.rc1.1%{?dist}
+Release: 0.rc2.1%{?dist}
 License: GPL-2.0-or-later
 Url: https://github.com/SELinuxProject/selinux/wiki
-Source: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc1/mcstrans-3.5-rc1.tar.gz
+Source: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc2/mcstrans-3.5-rc2.tar.gz
 Source2: secolor.conf.8
 # fedora-selinux/selinux: git format-patch -N 3.3 -- mcstrans
 # i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
@@ -35,7 +35,7 @@ mcstrans provides an translation daemon to translate SELinux categories
 from internal representations to user defined representation.
 
 %prep
-%autosetup -p 2 -n mcstrans-%{version}-rc1
+%autosetup -p 2 -n mcstrans-%{version}-rc2
 
 %build
 %set_build_flags
@@ -54,7 +54,7 @@ rm -f %{buildroot}%{_libdir}/*.a
 cp -r share/* %{buildroot}%{_usr}/share/mcstrans/
 # Systemd 
 mkdir -p %{buildroot}%{_unitdir}
-ln -s %{_unitdir}/mcstrans.service %{buildroot}/%{_unitdir}/mcstransd.service
+ln -s mcstrans.service %{buildroot}/%{_unitdir}/mcstransd.service
 rm -rf %{buildroot}/%{_sysconfdir}/rc.d/init.d/mcstrans
 install -m644 %{SOURCE2} %{buildroot}%{_mandir}/man8/
 
@@ -91,6 +91,9 @@ install -m644 %{SOURCE2} %{buildroot}%{_mandir}/man8/
 %{_usr}/share/mcstrans/util/*
 
 %changelog
+* Mon Jan 16 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc2.1
+- SELinux userspace 3.5-rc2 release
+
 * Tue Dec 27 2022 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc1.1
 - SELinux userspace 3.5-rc1 release
 

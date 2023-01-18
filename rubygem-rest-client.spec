@@ -8,7 +8,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Simple HTTP and REST client for Ruby
 License: MIT
 URL: https://github.com/rest-client/rest-client
@@ -20,6 +20,10 @@ Patch0: rubygem-rest-client-2.1.0-Fix-broken-tests-with-Ruby-3.x.patch
 # networking.
 # https://github.com/jbox-web/rest-client/commit/15b20206404f0e59417f1fc202726e5a694d7d76
 Patch1: rubygem-rest-client-2.1.0-Fix-integration-tests-update-www.mozilla.org-CA-Cert.patch
+# https://github.com/jbox-web/rest-client/pull/1
+# ruby3.2 changes URI.parse behavior so that hostname returns
+# empty string instead of nil
+Patch2: rubygem-rest-client-2.1.0-ruby32-URL_parse-change-hostname.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -59,6 +63,8 @@ Documentation for %{name}.
 %gemspec_remove_file -t ["spec/integration/capath_digicert/3513523f.0", "spec/integration/capath_digicert/399e7759.0"]
 %gemspec_remove_file ["spec/integration/capath_digicert/3513523f.0", "spec/integration/capath_digicert/399e7759.0"]
 %gemspec_add_file ["spec/integration/capath_digicert/ce5e74ef.0"]
+
+( cat %PATCH2 | sed -e 's|rest_client|restclient|' | patch -p1 )
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -109,6 +115,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Mon Jan 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.1.0-9
+- Apply proposal patch for ruby3.2 URI.parse behavior change
+
 * Mon Aug 08 2022 Vít Ondruch <vondruch@redhat.com> - 2.1.0-8
 - Fix test suite compatibility with Ruby 3+.
   Resolves: rhbz#2113703

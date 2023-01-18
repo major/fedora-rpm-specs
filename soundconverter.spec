@@ -24,7 +24,6 @@ BuildRequires:  libappstream-glib
 
 Requires:       python3-gobject-base
 Requires:       gtk3
-Requires:       dconf
 Requires:       gstreamer1-plugins-base
 Requires:       gstreamer1-plugins-good
 Requires:       gstreamer1-plugins-ugly-free

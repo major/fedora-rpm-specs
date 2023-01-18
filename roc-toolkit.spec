@@ -1,18 +1,19 @@
 # git ls-remote https://github.com/roc-streaming/roc-toolkit.git
-%global git_commit 2017450a058eacb364c3a87620a32395e46a6e47
-%global git_date 20221224
+#global git_commit 127cfc645d0a807a33506001367b6d9a9d46f23e
+#global git_date 20230110
 
-%global git_short_commit %(echo %{git_commit} | cut -c -8)
-%global git_suffix %{git_date}git%{git_short_commit}
+#global git_short_commit %(echo %{git_commit} | cut -c -8)
+#global git_suffix %{git_date}git%{git_short_commit}
 
 Name:		roc-toolkit
-Version:	0.1.5^%{git_suffix}
+#Version:	0.2.1^%{git_suffix}
+Version:	0.2.1
 Release:	1%{?dist}
 Summary:	Real-time audio streaming
 License:	MPL-2.0 AND LGPL-2.1-or-later AND CECILL-C
 URL:		https://github.com/roc-streaming/roc-toolkit
-#Source0:	%%{URL}/archive/v%%{version}/%%{name}-%%{version}.tar.gz
-Source0:	%{url}/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
+#Source0:	%{url}/archive/%{git_commit}/%{name}-%{git_suffix}.tar.gz
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	python3-devel
@@ -35,6 +36,7 @@ BuildRequires:	speexdsp-devel
 BuildRequires:	doxygen
 # https://github.com/roc-streaming/roc-toolkit/issues/481
 Patch0:		roc-toolkit-0.1.5-no-explicit-cpp98.patch
+Patch1:		pkgdir.patch
 
 %description
 Roc is a toolkit for real-time audio streaming over the network.
@@ -61,7 +63,8 @@ Summary: Documentation for roc-toolkit
 Documentation for roc-toolkit.
 
 %prep
-%autosetup -p1 -n %{name}-%{git_commit}
+#autosetup -p1 -n %{name}-%{git_commit}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 scons %{?_smp_mflags} --with-openfec-includes=%{_includedir}/openfec \
@@ -83,6 +86,7 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %files devel
 %{_includedir}/roc
 %{_libdir}/libroc.so
+%{_libdir}/pkgconfig/roc.pc
 
 %files utils
 %{_bindir}/roc-conv
@@ -94,6 +98,9 @@ scons test --with-openfec-includes=%{_includedir}/openfec --enable-tests
 %doc docs/html
 
 %changelog
+* Tue Jan 10 2023 Wim Taymans <wtaymans@redhat.com> - 0.2.1-1
+- Update to 0.2.1
+
 * Sat Dec 24 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.1.5^20221224git2017450a-1
 - New snapshot
 

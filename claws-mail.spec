@@ -21,11 +21,14 @@ Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 
 Name:           claws-mail
 Version:        4.1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
 Source0:        http://downloads.sourceforge.net/sylpheed-claws/%{name}-%{version}.tar.xz
+
+# missing cstdint for GCC 13 
+Patch1: claws-mail-4.1.1-litehtml.patch
 
 # rhbz#1179279
 Patch11:        claws-mail-system-crypto-policies.patch
@@ -422,6 +425,8 @@ exporting of your meetings or all your calendars.
 %prep
 %setup -q
 
+%patch1 -p1 -b .litehtml
+
 %if 0%{?fedora} > 20
 %patch11 -p1 -b.syscrypto
 %endif
@@ -653,6 +658,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Mon Jan 16 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-4
+- For GCC 13 fix missing cstdint in litehtml plugin.
+
 * Wed Dec 21 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-3
 - /usr/bin/firefox no longer messes with $TMPDIR, so remove README.Fedora
 - Merge spec cleanups.

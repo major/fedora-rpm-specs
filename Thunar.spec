@@ -1,8 +1,8 @@
 %global _hardened_build 1
-%global xfceversion 4.16
+%global xfceversion 4.18
 
 Name:           Thunar
-Version:        4.16.11
+Version:        4.18.2
 Release:        %autorelease
 Summary:        Thunar File Manager
 
@@ -175,7 +175,9 @@ done
 
 %files docs
 %dir %{_datadir}/gtk-doc/html/thunarx
+%dir %{_datadir}/gtk-doc/html/thunar
 %{_datadir}/gtk-doc/html/thunarx/*
+%{_datadir}/gtk-doc/html/thunar/*
 
 %changelog
 %autochangelog

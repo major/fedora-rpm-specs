@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       4.9.1
-Release:       2%{?dist}
+Version:       4.9.2
+Release:       1%{?dist}
 BuildArch:     noarch
 
 License:       BSD
@@ -16,7 +16,8 @@ Patch0:        lxml-rt.patch
 
 BuildRequires: libxslt-devel
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-dlfcn
+BuildRequires: mingw32-filesystem
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-libxml2
 BuildRequires: mingw32-libxslt
@@ -24,7 +25,8 @@ BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
 BuildRequires: mingw32-python3-Cython
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-dlfcn
+BuildRequires: mingw64-filesystem
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-libxml2
 BuildRequires: mingw64-libxslt
@@ -80,6 +82,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Mon Jan 16 2023 Sandro Mani <manisandro@gmail.com> - 4.9.2-1
+- Update to 4.9.2
+
 * Tue Oct 11 2022 Sandro Mani <manisandro@gmail.com> - 4.9.1-2
 - Switch to python3-build
 

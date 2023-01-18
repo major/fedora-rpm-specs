@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.26.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -24,7 +24,6 @@ BuildRequires:  json-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  llvm-devel
 BuildRequires:  mbedtls-devel
-BuildRequires:  python3-devel
 BuildRequires:  yara-devel
 BuildRequires:  nativefiledialog-extended-devel
 %if 0%{?rhel}
@@ -127,6 +126,9 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Mon Jan 16 2023 Jonathan Wright <jonathan@almalinux.org> - 1.26.2-2
+- remove unndeeded BR on python3-devel
+
 * Thu Jan 05 2023 Jonathan Wright <jonathan@almalinux.org> - 1.26.2-1
 - update to 1.26.2 rhbz#2158673
 

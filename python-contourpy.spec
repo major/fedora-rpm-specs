@@ -3,7 +3,7 @@
 %global srcname contourpy
 
 Name:           python-%{srcname}
-Version:        1.0.6
+Version:        1.0.7
 Release:        %autorelease
 Summary:        Python library for calculating contours in 2D quadrilateral grids
 
@@ -33,12 +33,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
-%if %{with bootstrap}
-sed -i -e '/matplotlib/d' setup.cfg
-%endif
 
 %generate_buildrequires
-%pyproject_buildrequires -r -x bokeh,test-no-codebase
+%pyproject_buildrequires -x test%{?with_bootstrap:-no-images}
 
 %build
 %pyproject_wheel
@@ -48,7 +45,7 @@ sed -i -e '/matplotlib/d' setup.cfg
 %pyproject_save_files %{srcname}
 
 %check
-%pytest %{?with_bootstrap:-k 'not needs_mpl'}
+%pytest %{?with_bootstrap:-k 'not image'}
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.md

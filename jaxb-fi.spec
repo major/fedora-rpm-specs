@@ -1,6 +1,6 @@
 Name:           jaxb-fi
-Version:        1.2.18
-Release:        9%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Implementation of the Fast Infoset Standard for Binary XML
 # jaxb-fi is licensed ASL 2.0 and EDL-1.0 (BSD)
 # bundled org.apache.xerces.util.XMLChar.java is licensed ASL 1.1
@@ -11,20 +11,17 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
+Patch1:         0001-Port-to-jaxb-xsom-4.0.1.patch
+
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.sun.xml.stream.buffer:streambuffer)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.glassfish.jaxb:xsom)
-
-# package renamed in fedora 33, remove in fedora 35
-Provides:       glassfish-fastinfoset = %{version}-%{release}
-Obsoletes:      glassfish-fastinfoset < 1.2.15-5
-
-# javadoc subpackage is currently not built
-Obsoletes:      glassfish-fastinfoset-javadoc < 1.2.15-5
 
 %description
 Fast Infoset Project, an Open Source implementation of the Fast Infoset
@@ -55,45 +52,41 @@ Summary:        FastInfoset Utilities
 %{summary}.
 
 %prep
-%autosetup
+%setup -q
+%patch1 -p1
 
-pushd code
-# remove unnecessary dependency on parent POM
-# org.eclipse.ee4j:project is not packaged and not required
 %pom_remove_parent
 
-# disable unnecessary plugins
 %pom_remove_plugin :buildnumber-maven-plugin
 %pom_remove_plugin :glassfish-copyright-maven-plugin
+%pom_remove_plugin :maven-enforcer-plugin
 
-# disable parent
 %mvn_package :fastinfoset-project __noinstall
-popd
 
 %build
-pushd code
-%mvn_build -s -f -j -- -DbuildNumber=unknown -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
-popd
+# Javadoc fails: error: too many module declarations found
+%mvn_build -s -j
 
 %install
-pushd code
 %mvn_install
-popd
 
-%files -n FastInfoset -f code/.mfiles-FastInfoset
+%files -n FastInfoset -f .mfiles-FastInfoset
 %license LICENSE NOTICE.md
 %doc README.md
 
-%files -n FastInfosetRoundTripTests -f code/.mfiles-FastInfosetRoundTripTests
+%files -n FastInfosetRoundTripTests -f .mfiles-FastInfosetRoundTripTests
 %license LICENSE NOTICE.md
 
-%files -n FastInfosetSamples -f code/.mfiles-FastInfosetSamples
+%files -n FastInfosetSamples -f .mfiles-FastInfosetSamples
 %license LICENSE NOTICE.md
 
-%files -n FastInfosetUtilities -f code/.mfiles-FastInfosetUtilities
+%files -n FastInfosetUtilities -f .mfiles-FastInfosetUtilities
 %license LICENSE NOTICE.md
 
 %changelog
+* Mon Nov 21 2022 Marian Koncek <mkoncek@redhat.com> - 2.1.0-1
+- Update to upstream version 2.1.0
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.18-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -122,4 +115,3 @@ popd
 
 * Tue Aug 11 2020 Fabio Valentini <decathorpe@gmail.com> - 1.2.18-1
 - Initial package renamed from glassfish-fastinfoset.
-

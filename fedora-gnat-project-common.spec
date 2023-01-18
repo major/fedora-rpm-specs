@@ -4,18 +4,18 @@ Release:        1%{?dist}
 Summary:        Files shared by Ada libraries
 Summary(sv):    Gemensamma filer för adabibliotek
 
-License:        Copyright only
-URL:            https://src.fedoraproject.org/cgit/rpms/fedora-gnat-project-common.git
+License:        FSFAP
+URL:            https://src.fedoraproject.org/rpms/fedora-gnat-project-common
 Source1:        directories.gpr.in
 Source2:        macros.gnat.in
 Source3:        gnat-project.sh
 Source4:        gnat-project.csh
 Source5:        configure
-Source6:        LICENSE
 BuildArch:      noarch
 
 BuildRequires:  sed
-Requires:       setup
+Requires:       setup coreutils
+# setup owns /etc/profile.d and coreutils contains uname.
 
 %description
 The fedora-gnat-project-common package contains files that are used by the GNAT
@@ -47,7 +47,6 @@ cp -p macros.gnat %{buildroot}%{rpmmacrodir}/
 
 
 %files
-%license LICENSE
 %{_GNAT_project_dir}
 %config(noreplace) %{_sysconfdir}/profile.d/*
 %{rpmmacrodir}/*
@@ -57,6 +56,7 @@ cp -p macros.gnat %{buildroot}%{rpmmacrodir}/
 * Sat Jan 07 2023 Björn Persson <Bjorn@Rombobjörn.se> - 3.17-1
 - Added --no-manifest and -m to GPRinstall_flags.
 - Deprecated the "opt" part of macro names.
+- The license is now FSFAP.
 
 * Thu Sep 22 2022 Björn Persson <Bjorn@Rombobjörn.se> - 3.16-1
 - Adapted to backward compatibility breakage in uname.

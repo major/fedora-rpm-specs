@@ -1,17 +1,18 @@
 Name:           jaxb-dtd-parser
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SAX-like API for parsing XML DTDs
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-dtd-parser
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
+
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-BuildRequires:  git
+
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:buildnumber-maven-plugin)
+
 Provides:       glassfish-dtd-parser = %{version}-%{release}
 
 %description
@@ -19,41 +20,43 @@ SAX-like API for parsing XML DTDs.
 
 %package javadoc
 Summary:        API documentation for %{name}
+
 %description javadoc
 API documentation for %{name}.
 
-
 %prep
-# -S: enable usage of git repo
-%autosetup -S git
-# delete precompiled jar and class files
-find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
+%setup -q
 
-cd dtd-parser
-# remove unnecessary dependency on parent POM
-# org.eclipse.ee4j:project is not packaged and isn't needed
+pushd dtd-parser
+
 %pom_remove_parent
-# remove unnecessary plugins
+
+%pom_remove_plugin :buildnumber-maven-plugin
 %pom_remove_plugin :glassfish-copyright-maven-plugin
-cd -
+%pom_remove_plugin :maven-enforcer-plugin
+popd
 
 %build
-cd dtd-parser
+pushd dtd-parser
 %mvn_build
-cd -
+popd
 
 %install
-cd dtd-parser
+pushd dtd-parser
 %mvn_install
-cd -
+popd
 
 %files -f dtd-parser/.mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
+
 %files javadoc -f dtd-parser/.mfiles-javadoc
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Mon Jan 16 2023 Marian Koncek <mkoncek@redhat.com> - 1.5.0-4
+- Reduce dependencies
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -86,4 +89,3 @@ cd -
 
 * Fri May 08 2020 Fabio Valentini <decathorpe@gmail.com> - 1.4.3-1
 - Initial package renamed from glassfish-dtd-parser.
-

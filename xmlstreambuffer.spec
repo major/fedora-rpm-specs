@@ -1,18 +1,16 @@
-%global srcname metro-xmlstreambuffer
-
 Name:           xmlstreambuffer
-Version:        1.5.10
-Release:        7%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Stream Based Representation for XML Infoset
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/metro-xmlstreambuffer
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        %{url}/archive/%{version}/metro-xmlstreambuffer-%{version}.tar.gz
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.sun.activation:jakarta.activation)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.jvnet.staxex:stax-ex)
@@ -21,14 +19,19 @@ BuildRequires:  mvn(junit:junit)
 %description
 Stream based representation for XML infoset.
 
+%package javadoc
+Summary:        Javadoc for %{name}
+
+%description javadoc
+This package contains javadoc for %{name}.
+
 %prep
-%autosetup -n %{srcname}-%{version}
+%setup -q -n metro-xmlstreambuffer-%{version}
 
 pushd streambuffer
-# remove unnecessary dependency on parent POM
+
 %pom_remove_parent
 
-# remove unnecessary maven plugins
 %pom_remove_plugin :buildnumber-maven-plugin
 %pom_remove_plugin :glassfish-copyright-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
@@ -38,7 +41,7 @@ popd
 
 %build
 pushd streambuffer
-%mvn_build -j -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8 -DbuildNumber=unknown
+%mvn_build
 popd
 
 %install
@@ -50,7 +53,13 @@ popd
 %license LICENSE.md NOTICE.md
 %doc CONTRIBUTING.md README.md
 
+%files javadoc -f streambuffer/.mfiles-javadoc
+%license LICENSE.md NOTICE.md
+
 %changelog
+* Mon Nov 21 2022 Marian Koncek <mkoncek@redhat.com> - 2.1.0-1
+- Update to upstream version 2.1.0
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
@@ -157,4 +166,3 @@ popd
 
 * Sat Mar 31 2012 gil cattaneo <puntogil@libero.it> 1.4-1
 - initial rpm
-

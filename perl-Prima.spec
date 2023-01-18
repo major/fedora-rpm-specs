@@ -34,7 +34,7 @@
 
 Name:           perl-Prima
 Version:        1.67
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -57,6 +57,21 @@ URL:            https://metacpan.org/dist/Prima
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
 # Correct XRandr detection, in upstream after 1.67
 Patch0:         Prima-1.67-properly-detect-xrandr-version.patch
+# Prevent from desynchronizing Gtk and Perl locale, in upstream after 1.67
+Patch1:         Prima-1.67-always-call-gtk_disable_setlocale-as-it-is-same-as-P.patch
+# Fix an invalid memory access in handling Thai script, in upstream after 1.67,
+# <https://github.com/dk/Prima/issues/71>
+Patch2:         Prima-1.67-refs-71-memory-access-error.patch
+# Fix a crash in finding a font, in upstream after 1.67
+Patch3:         Prima-1.67-coredump-fix.patch
+# Make Prima compatible with multihreaded X11 applications,
+# in upstream after 1.67, <https://github.com/dk/Prima/issues/75>
+Patch4:         Prima-1.67-refs-75-fix-for-libX11-compiled-without-enable-threa.patch
+# Fix a crash when processing an event queue, in upstream after 1.67
+Patch5:         Prima-1.67-segfault-fix.patch
+# Fix un undefined behaviour triggering _FORTIFY_SOURCE=3 abort,
+# in upstream after 1.67, bug #2160077, <https://github.com/dk/Prima/issues/78>
+Patch6:         Prima-1.67-Avoid-invalidating-pointer.patch
 BuildRequires:  findutils
 BuildRequires:  giflib-devel
 BuildRequires:  gcc
@@ -310,6 +325,14 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 16 2023 Petr Pisar <ppisar@redhat.com> - 1.67-2
+- Fix un undefined behaviour triggering _FORTIFY_SOURCE=3 abort (bug #2160077)
+- Prevent from desynchronizing Gtk and Perl locale
+- Fix an invalid memory access in handling Thai script (upstream bug #71)
+- Fix a crash in finding a font
+- Make Prima compatible with multihreaded X11 applications (upstream bug #75)
+- Fix a crash when processing an event queue
+
 * Wed Nov 30 2022 Petr Pisar <ppisar@redhat.com> - 1.67-1
 - 1.67 bump
 

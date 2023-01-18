@@ -2,7 +2,7 @@
 Summary: Clam Anti-Virus on the KDE Desktop
 Name: klamav
 Version: 0.46
-Release: 37%{?dist}
+Release: 39%{?dist}
 Source0: http://downloads.sourceforge.net/klamav/%{name}-%{version}.tar.bz2
 Patch0: klamav-0.46-suse-clamav-path.patch
 # Upstream notified via mailing list:
@@ -16,8 +16,13 @@ Patch3: klamav-0.46-fix-docpath.patch
 Patch4: klamav-0.46-gzip-api.patch
 # fix FTBFS against clamav 0.101 (#1604507)
 Patch5: klamav-0.46-clamav-0.101.patch
+# fix build with clamav 1.0
+Patch6: klamav-clamav-1.0.patch
+Patch7: klamav-configure-c99.patch
+Patch8: klamav-c99.patch
+
 URL: http://klamav.sourceforge.net
-License: GPLv2+
+License: GPL-2.0-or-later
 Requires: clamav >= 0.93
 Requires: clamav-update >= 0.93
 BuildRequires: gcc
@@ -30,6 +35,7 @@ BuildRequires: desktop-file-utils
 BuildRequires: sqlite-devel >= 3.0
 BuildRequires: gettext
 BuildRequires: make
+BuildRequires: perl(File::Find)
 
 %description
 ClamAV Anti-Virus protection for the KDE desktop.
@@ -42,6 +48,12 @@ ClamAV Anti-Virus protection for the KDE desktop.
 %patch3 -p1 -b .fix-docpath
 %patch4 -p1 -b .gzip-api
 %patch5 -p1 -b .clamav-0.101
+%patch6 -p1 -b .clamav-1.0
+%patch7 -p1 -b .c99
+%patch8 -p1
+
+# Avoid re-running autoconf.
+touch -r aclocal.m4 acinclude.m4 configure*
 
 # Remove staled files (#553807)
 %{__rm} -f po/*.gmo
@@ -56,11 +68,10 @@ find doc \
 # kill rpath harder, inspired by https://fedoraproject.org/wiki/Packaging:Guidelines?rd=Packaging/Guidelines#Removing_Rpath
 # other more standard variants didnt work or caused other problems
 sed -i -e 's|"/lib /usr/lib|"/%{_lib} %{_libdir}|' libtool
-make %{?_smp_mflags}
+%make_build
 
 %install
-%{__rm} -rf "${RPM_BUILD_ROOT}"
-make DESTDIR="${RPM_BUILD_ROOT}" install
+%make_install
 
 # Fix Terminal value in desktop-file
 %{__sed} -i.orig -e '/^Terminal/s|^.*$|Terminal=false|' \
@@ -81,7 +92,8 @@ desktop-file-install \
 chmod 644 src/klammail/*.{c,h}
 
 %files -f %{name}.lang
-%doc AUTHORS ChangeLog COPYING README TODO
+%license COPYING
+%doc AUTHORS ChangeLog README TODO
 %{_datadir}/doc/HTML/en/klamav
 %{_bindir}/klamav
 %{_bindir}/klammail
@@ -94,6 +106,16 @@ chmod 644 src/klammail/*.{c,h}
 %{_datadir}/icons/*/*x*/apps/klamav.png
 
 %changelog
+* Mon Jan 16 2023 Florian Weimer <fweimer@redhat.com> - 0.46-39
+- C99 compatibility fixes (#2161358)
+
+* Mon Jan 16 2023 Orion Poplawski <orion@nwra.com> - 0.46-38
+- Add patch to support clamav 1.0
+- Use SPDX License tag
+- Use license macro
+- Use make macros
+- Add BR on perl(File::Find)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.46-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

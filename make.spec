@@ -4,15 +4,15 @@
 # optional versioned updates.
 Name: make
 Epoch: 1
-Version: 4.3
-Release: 11%{?dist}
+Version: 4.4
+Release: 1%{?dist}
 License: GPLv3+
 URL: http://www.gnu.org/software/make/
 Source: ftp://ftp.gnu.org/gnu/make/make-%{version}.tar.gz
 
 %if "%{name}" != "make"
 # Set this to the sub-package base name, for "make-latest"
-%global make make43
+%global make make44
 %if 0%{?rhel} > 0
 %global _prefix /opt/rh/%{make}
 %else
@@ -43,16 +43,6 @@ Patch1: make-4.0-noclock_gettime.patch
 
 # BZs #142691, #17374
 Patch2: make-4.3-j8k.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=1827850
-# https://savannah.gnu.org/bugs/?58232
-# Remove on next make rebase
-Patch3: make-4.3-cloexec.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2010506
-# https://savannah.gnu.org/bugs/?59093
-# Remove on next make rebase
-Patch4: make-4.3-filter-out.patch
 
 # autoreconf
 BuildRequires: make
@@ -144,6 +134,9 @@ echo ============END TESTING===========
 %{_includedir}/gnumake.h
 
 %changelog
+* Tue Nov 1 2022 DJ Delorie <dj@redhat.com> - 1:4.4-1
+- Rebase to make 4.4
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
