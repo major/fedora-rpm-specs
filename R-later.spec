@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Utilities for Scheduling Functions to Execute Later with Event Loops
 
 License:          MIT
@@ -87,6 +87,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/bgtest.cpp
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 1.3.0-1
 - update to 1.3.0
 - rebuild for R 4.2.1

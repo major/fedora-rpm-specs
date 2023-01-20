@@ -15,7 +15,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: ASL 2.0
 Url: https://openprinting.github.io/cups/
 # Apple stopped uploading the new versions into github, use OpenPrinting fork
@@ -679,6 +679,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.4.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.2-6
 - fix Find New Printers button in Web UI (upstream #518)
 

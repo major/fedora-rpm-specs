@@ -1,6 +1,6 @@
 Name:           btop
 Version:        1.2.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern and colorful command line resource monitor that shows usage and stats
 
 # The entire source code is ASL 2.0 except:
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/btop.desktop
 %{_datadir}/icons/hicolor/*/apps/btop.*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 08 2022 Jonathan Wright <jonathan@almalinux.org> - 1.2.13-1
 - update to 1.2.13 (rhbz#2140887)
 

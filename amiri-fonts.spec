@@ -1,5 +1,5 @@
 Version: 0.117
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     http://www.amirifont.org
 
 %global fontlicense       OFL-1.1
@@ -86,6 +86,9 @@ Source12: 67-%{fontpkgname2}.conf
 %fontfiles -a
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.117-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 03 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.117-1
 - Convert spec to new fonts packaging guidelines
 - Update to new upstream release 0.117

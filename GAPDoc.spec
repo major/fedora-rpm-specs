@@ -15,7 +15,7 @@
 
 Name:           GAPDoc
 Version:        1.6.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GAP documentation tool
 
 License:        GPL-2.0-or-later
@@ -215,6 +215,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{name}/example/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.6-4
 - Update for split GAP directories
 - Add dependency on grfext.sty for TeXLive 2022 compatibility

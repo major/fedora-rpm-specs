@@ -2,7 +2,7 @@
 %bcond_without tests
 
 Name:           pytz
-Version:        2022.7
+Version:        2022.7.1
 Release:        1%{?dist}
 Summary:        World Timezone Definitions for Python
 
@@ -68,6 +68,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 
 
 %changelog
+* Tue Jan 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 2022.7.1-1
+- 2022.7.1
+
 * Mon Dec 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 2022.7-1
 - 2022.7
 

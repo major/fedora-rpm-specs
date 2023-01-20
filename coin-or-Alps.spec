@@ -9,7 +9,7 @@
 Name:		coin-or-%{module}
 Summary:	COIN-OR High-Performance Parallel Search Framework
 Version:	1.5.7
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/CHiPPS-ALPS
 Source0:	https://github.com/coin-or/CHiPPS-ALPS/archive/releases/%{version}/CHiPPS-ALPS-%{version}.tar.gz
@@ -110,6 +110,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/alps_doxy.tag
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

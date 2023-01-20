@@ -2,7 +2,7 @@
 
 Name:      azote
 Version:   1.9.7
-Release:   1%{?dist}
+Release:   2%{?dist}
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
 
@@ -71,6 +71,9 @@ done
 %license LICENSE LICENSE-COLORTHIEF
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Bob Hepple <bob.hepple@gmail.com> - 1.9.7-1
 - new version
 - remove shebangs from library files

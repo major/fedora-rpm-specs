@@ -4,7 +4,7 @@
 
 Name:           budgie-desktop-view
 Version:        1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Official Budgie desktop icons application / implementation
 
 License:        ASL 2.0
@@ -50,6 +50,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.buddiesofbudgie.b
 %{_sysconfdir}/xdg/autostart/org.buddiesofbudgie.budgie-desktop-view-autostart.desktop
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

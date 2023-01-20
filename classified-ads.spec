@@ -1,6 +1,6 @@
 Name:		classified-ads
 Version:	0.15
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Classified ads is distributed, server-less messaging system
 
 License:	LGPLv2
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/classified-ads.deskt
 %{_datadir}/doc/classified-ads/examples/calendar.tcl
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

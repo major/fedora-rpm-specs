@@ -1,5 +1,5 @@
 Name:           perl-CPAN-Uploader
-Version:        0.103017
+Version:        0.103018
 Release:        1%{?dist}
 Summary:        Upload things to the CPAN
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -23,6 +23,7 @@ BuildRequires:  perl(Carp)
 # Unused BuildRequires:  perl(Digest::MD5)
 BuildRequires:  perl(File::Basename)
 BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(File::Temp)
 # Unused BuildRequires:  perl(Getopt::Long::Descriptive) >= 0.084
 BuildRequires:  perl(HTTP::Request::Common)
 BuildRequires:  perl(HTTP::Status)
@@ -80,7 +81,7 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -100,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 17 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.103018-1
+- 0.103018 bump
+
 * Tue Jan 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.103017-1
 - 0.103017 bump
 

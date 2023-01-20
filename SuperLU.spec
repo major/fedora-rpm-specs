@@ -3,7 +3,7 @@
 
 Name:		SuperLU
 Version:	5.3.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Subroutines to solve sparse linear systems
 License:	BSD and GPLv2+
 URL:		https://portal.nersc.gov/project/sparse/superlu/
@@ -145,6 +145,9 @@ popd
 %doc DOC
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

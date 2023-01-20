@@ -3,7 +3,7 @@
 
 Name:           aces_container
 Version:        1.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        ACES Container Reference
 
 License:        AMPAS BSD
@@ -73,6 +73,9 @@ chmod -x aces_writeattributes.*
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

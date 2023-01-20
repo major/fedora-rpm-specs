@@ -1,6 +1,6 @@
 Name:           cpdup
 Version:        1.18
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Filesystem mirroring utility
 
 %if 0%{?el5}
@@ -52,6 +52,9 @@ make install DESTDIR=$RPM_BUILD_ROOT -f %{SOURCE1}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.18-13
 - Add missing declaration of strlcpy for C99 compatibility (#2151452)
 

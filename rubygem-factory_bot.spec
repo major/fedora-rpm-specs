@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Framework and DSL for defining and using model instance factories
 License: MIT
 URL: https://github.com/thoughtbot/factory_bot
@@ -13,6 +13,9 @@ Source1: %{gem_name}-%{version}-specs.txz
 # git clone --no-checkout https://github.com/thoughtbot/factory_bot.git
 # git -C factory_bot archive -v -o factory_bot-6.2.1-features.txz v6.2.1 features/
 Source2: %{gem_name}-%{version}-features.txz
+# https://github.com/thoughtbot/factory_bot/pull/1561
+# ruby3.2 changes did_you_mean behavior
+Patch0:  %{name}-pr1561-ruby32-ruby32-did_you_mean-test.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -43,6 +46,12 @@ Documentation for %{name}.
 %prep
 # Unpack Source1 and Source2
 %setup -q -n %{gem_name}-%{version} -b 1 -b 2
+(
+cd %{_builddir}
+mv %{gem_name}-%{version}/lib .
+%patch0 -p1
+mv lib %{gem_name}-%{version}
+)
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -86,6 +95,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Tue Jan 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.2.1-3
+- Backport upstream patch for ruby3.2 did_you_mean behavior change
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

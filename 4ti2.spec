@@ -1,6 +1,6 @@
 Name:           4ti2
 Version:        1.6.9
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Algebraic, geometric and combinatorial problems on linear spaces
 
 %global relver %(tr . _ <<< %{version})
@@ -147,6 +147,9 @@ make check
 %{_libdir}/libzsolve*.so.0*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.9-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 1.6.9-14
 - Add patch to fix a memory leak
 

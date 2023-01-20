@@ -4,11 +4,11 @@
 %bcond_with docs
 
 Name:           python-%{srcname}
-Version:        2022.6.0
+Version:        2023.1.0
 Release:        %autorelease
 Summary:        N-D labeled arrays and datasets in Python
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/pydata/xarray
 Source0:        %pypi_source %{srcname}
 # Data for examples only.
@@ -47,7 +47,7 @@ for advanced analytics and visualization with these data structures.
 
 Xarray was inspired by and borrows heavily from pandas, the popular data
 analysis package focused on labelled tabular data. It is particularly
-tailored to working with netCDF files, which were the source of xarray's
+tailored to working with netCDF files, which were the source of xarray’s
 data model, and integrates tightly with dask for parallel computing.}
 
 %description %{_description}
@@ -116,6 +116,8 @@ rm -rf xarray
 pytest_args=(
   -n auto
   -m "not network"
+  # https://bugzilla.redhat.com/show_bug.cgi?id=2113663
+  -k 'not test_open_nczarr'
 )
 
 %{pytest} -ra "${pytest_args[@]}" --pyargs xarray

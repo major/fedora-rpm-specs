@@ -40,14 +40,14 @@
 %endif
 
 Name:           wine
-Version:        7.22
-Release:        2%{?dist}
+Version:        8.0
+Release:        0.rc4.1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPLv2+
 URL:            https://www.winehq.org/
-Source0:        https://dl.winehq.org/wine/source/7.x/wine-%{version}.tar.xz
-Source10:       https://dl.winehq.org/wine/source/7.x/wine-%{version}.tar.xz.sign
+Source0:        https://dl.winehq.org/wine/source/8.0/wine-%{version}-rc4.tar.xz
+Source10:       https://dl.winehq.org/wine/source/8.0/wine-%{version}-rc4.tar.xz.sign
 
 Source1:        wine.init
 Source2:        wine.systemd
@@ -94,7 +94,7 @@ Patch511:       wine-cjk.patch
 %if 0%{?wine_staging}
 # wine-staging patches
 # pulseaudio-patch is covered by that patch-set, too.
-Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}.tar.gz#/wine-staging-%{version}.tar.gz
+Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}-rc4.tar.gz#/wine-staging-%{version}-rc4.tar.gz
 %endif
 
 %if !%{?no64bit}
@@ -698,7 +698,7 @@ This package adds the opencl driver for wine.
 %endif
 
 %prep
-%setup -qn wine-%{version}
+%setup -qn wine-%{version}-rc4
 %patch100 -p1 -b.autoconf
 %patch511 -p1 -b.cjk
 
@@ -723,6 +723,7 @@ patches/patchinstall.sh DESTDIR="`pwd`" --all
 # disable fortify as it breaks wine
 # http://bugs.winehq.org/show_bug.cgi?id=24606
 # http://bugs.winehq.org/show_bug.cgi?id=25073
+%undefine _fortify_level
 # Disable Red Hat specs for package notes (Fedora 38+) and annobin.
 # MinGW GCC does not support these options.
 %if 0%{?fedora_version} == 36
@@ -731,12 +732,15 @@ export LDFLAGS="$(echo "%{build_ldflags}" | sed -e 's/-Wl,-z,relro//' -e 's/-Wl,
 export LDFLAGS="$(echo "%{build_ldflags}" | sed -e 's/-Wl,-z,relro//' -e 's/-Wl,--build-id=sha1//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-package-notes//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//')"
 %endif
 %ifarch x86_64
-export CFLAGS="$(echo "%{optflags}" | sed -e 's/-O2//' -e 's/-Wp,-D_FORTIFY_SOURCE=2//' -e 's/-fcf-protection//' -e 's/-fstack-protector-strong//' -e 's/-fstack-clash-protection//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//') -O2"
+export CFLAGS="$(echo "%{optflags}" | sed -e 's/-O2//' -e 's/-fcf-protection//' -e 's/-fstack-protector-strong//' -e 's/-fstack-clash-protection//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//') -O2"
 %else
-export CFLAGS="$(echo "%{optflags}" | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//' -e 's/-fcf-protection//' -e 's/-fstack-protector-strong//' -e 's/-fstack-clash-protection//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//')"
+export CFLAGS="$(echo "%{optflags}" | sed -e 's/-fcf-protection//' -e 's/-fstack-protector-strong//' -e 's/-fstack-clash-protection//' -e 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//')"
 %endif
 
 %ifarch  %{arm} aarch64
+# Wine enabled -Wl,-WX that turns linker warnings into errors
+# Fedora passes '--as-needed' for all binaries and this is a warning from the linker, now an error, so disable flag for now
+sed -i 's/-Wl,-WX//g' configure
 %if 0%{?fedora} >= 33
 %global toolchain clang
 %else
@@ -1435,6 +1439,7 @@ fi
 %endif
 %{_libdir}/wine/%{winepedir}/light.msstyles
 %{_libdir}/wine/%{winepedir}/loadperf.dll
+%{_libdir}/wine/%{winesodir}/localspl.so
 %{_libdir}/wine/%{winepedir}/localspl.dll
 %{_libdir}/wine/%{winepedir}/localui.dll
 %{_libdir}/wine/%{winepedir}/lodctr.exe
@@ -1770,6 +1775,7 @@ fi
 %{_libdir}/wine/%{winepedir}/wlanui.dll
 %{_libdir}/wine/%{winepedir}/wmphoto.dll
 %{_libdir}/wine/%{winepedir}/wnaspi32.dll
+%{_libdir}/wine/%{winepedir}/wofutil.dll
 %ifarch x86_64 aarch64
 %{_libdir}/wine/%{winepedir}/wow64.dll
 %{_libdir}/wine/%{winepedir}/wow64win.dll
@@ -2514,6 +2520,7 @@ fi
 %{_libdir}/wine/%{winesodir}/wlanui.dll.so
 %{_libdir}/wine/%{winesodir}/wmphoto.dll.so
 %{_libdir}/wine/%{winesodir}/wnaspi32.dll.so
+%{_libdir}/wine/%{winesodir}/wofutil.dll.so
 %{_libdir}/wine/%{winesodir}/wpc.dll.so
 %{_libdir}/wine/%{winesodir}/wpcap.dll.so
 %{_libdir}/wine/%{winesodir}/ws2_32.dll.so
@@ -2813,6 +2820,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 16 2023 Michael Cronenworth <mike@cchtml.com> - 8.0-0.rc4.1
+- version update
+
 * Mon Nov 28 2022 Michael Cronenworth <mike@cchtml.com> - 7.22-2
 - fix typo in openal obsoletes
 

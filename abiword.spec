@@ -3,7 +3,7 @@
 
 Name: abiword
 Version: 3.0.5
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 1
 Summary: Word processing program
 License: GPLv2+
@@ -125,7 +125,9 @@ aclocal
 automake
 
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS -DASIO_ENABLE_BOOST"
-%configure --enable-plugins --enable-clipart --enable-templates --enable-introspection
+%configure \
+  --enable-plugins --enable-clipart --enable-templates --enable-introspection \
+  --with-gir-dir=%{_datadir}/gir-1.0 --with-typelib-dir=%{_libdir}/girepository-1.0
 %{make_build} V=1
 
 # build the documentation
@@ -134,7 +136,7 @@ ABI_DOC_PROG=$(pwd)/../%{name}-%{version}/src/abiword ./make-html.sh
 popd
 
 %install
-%{make_install}
+%{make_install} overridesdir=%{python3_sitelib}/gi/overrides
 
 # install the documentation
 pushd abiword-docs-%{docsversion}
@@ -163,7 +165,7 @@ find %{buildroot} -name '*.a' -delete
 %{_datadir}/icons/hicolor/scalable/apps/abiword.svg
 # Abiword help
 %{_datadir}/%{name}-%{bigversion}/AbiWord
-%{_mandir}/man1/abiword.1.gz
+%{_mandir}/man1/abiword.1*
 
 %files -n libabiword
 %license COPYING COPYRIGHT.TXT
@@ -183,9 +185,12 @@ find %{buildroot} -name '*.a' -delete
 %{_datadir}/gir-1.0/Abi-3.0.gir
 
 %files -n python3-abiword
-%pycached %{python3_sitearch}/gi/overrides/Abi.py
+%pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %global forgeurl https://github.com/Yubico/yubikey-manager/
-%global commit 2bf65159332a7982d0a75dcc48ce2bdd8bd2d885
+%global commit a767ecaf26a18871c3222dacbae0906d8d67f05c
 
 Name:           yubikey-manager
-Version:        5.0.0
+Version:        5.0.1
 Release:        1%{?dist}
 Summary:        Python library and command line tool for configuring a YubiKey
 License:        BSD
@@ -59,6 +59,9 @@ Python library for configuring a YubiKey.
 %{_bindir}/ykman
 
 %changelog
+* Wed Jan 18 2023 Gerald Cox <gbcox@fedoraproject.org> - 5.0.1-1
+- Upstream release rhbz#2161986
+
 * Thu Oct 20 2022 Gerald Cox <gbcox@fedoraproject.org> - 5.0.0-1
 - Upstream release rhbz#2136583
 

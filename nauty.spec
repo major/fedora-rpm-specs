@@ -9,9 +9,9 @@ Summary:        Graph canonical labeling and automorphism group computation
 # The bundled cliquer code in nautycliquer.c is GPL-2.0-or-later, but we patch
 # it out.
 # Other licenses are due to embedded fonts in the PDF manual.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
-License:        Apache-2.0 AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
+License:        Apache-2.0 AND Knuth-CTAN AND GPL-1.0-or-later
 URL:            https://pallini.di.uniroma1.it/
 Source0:        https://pallini.di.uniroma1.it/%{name}%{nautytarver}.tar.gz
 

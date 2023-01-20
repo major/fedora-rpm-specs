@@ -11,7 +11,7 @@
 
 Name:             R-%{packname}
 Version:          2.4.2
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Tools to Make Developing R Packages Easier
 
 License:          GPLv2+
@@ -113,6 +113,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep  3 2022 Tom Callaway <spot@fedoraproject.org> - 2.4.2-5
 - rebuild for R 4.2.1
 

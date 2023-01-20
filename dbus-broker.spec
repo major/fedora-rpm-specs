@@ -2,7 +2,7 @@
 
 Name:                 dbus-broker
 Version:              32
-Release:              1%{?dist}
+Release:              2%{?dist}
 Summary:              Linux D-Bus Message Broker
 License:              ASL 2.0
 URL:                  https://github.com/bus1/dbus-broker
@@ -89,6 +89,9 @@ fi
 %{_userunitdir}/dbus-broker.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug  5 2022 David Rheinsberg <david.rheinsberg@gmail.com> - 32-1
 - Update to upstream v32.
 

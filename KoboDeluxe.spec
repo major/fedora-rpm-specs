@@ -1,6 +1,6 @@
 Name:           KoboDeluxe
 Version:        0.5.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Third person scrolling 2D shooter
 License:        GPLv2+
 URL:            http://olofson.net/kobodl/
@@ -85,6 +85,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

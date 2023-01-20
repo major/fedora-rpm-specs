@@ -10,7 +10,7 @@
 
 Name:           %{target}-newlib
 Version:        4.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        C library intended for use on %{target} embedded systems
 # For a breakdown of the licensing, see NEWLIB-LICENSING
 License:        BSD and MIT and LGPLv2+ and ISC
@@ -121,6 +121,9 @@ rm -rf $NANO_ROOT
 %{_prefix}/%{target}/lib/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 4.1.0-7
 - Simplify the redhat-rpm-config workaround logic
 

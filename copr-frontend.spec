@@ -49,7 +49,7 @@
 
 Name:       copr-frontend
 Version:    1.193
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Frontend for Copr
 
 License:    GPLv2+
@@ -389,6 +389,9 @@ usermod -L copr-fe
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.193-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> 1.193-1
 - fix get-tasks traceback when repos are not set
 

@@ -2,7 +2,7 @@ Summary:		A robust log colorizer
 Summary(ru):	Мощный коллоризатор логов
 Name:		ccze
 Version:		0.2.1
-Release:		30%{?dist}
+Release:		31%{?dist}
 # http://web.archive.org/web/20040803024236/bonehunter.rulez.org/CCZE.phtml
 URL:			http://bonehunter.rulez.org/CCZE.html
 License:		GPLv2+
@@ -64,6 +64,9 @@ rm %{buildroot}/%{_includedir}/ccze.h
 %{_mandir}/man7/ccze-plugin.7*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.2.1-30stable, %%define release 2.norlug
 - Port configure script to C99
 

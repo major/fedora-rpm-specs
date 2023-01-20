@@ -1,6 +1,6 @@
 Name:           bvi
 Version:        1.4.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Display-oriented editor for binary files
 Summary(fr):    Afficheur orienté editeur pour fichiers binaires
 
@@ -52,6 +52,9 @@ sed -i "s@/usr/local/share/bmore.help@/usr/share/bvi/bmore.help@" ./bmore.1
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 08 2022 Steven A. Falco <stevenfalco@gmail.com> - 1.4.1-9
 - Convert license to SPDX format
 

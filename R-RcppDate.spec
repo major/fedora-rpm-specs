@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          'date' C++ Header Library for Date and Time Functionality
 
 License:          GPLv2+
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 0.0.3-6
 - fix devel requires to align with noarch
 

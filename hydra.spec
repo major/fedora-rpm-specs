@@ -1,7 +1,7 @@
 Summary:        Very fast network log-on cracker
 Name:           hydra
 Version:        9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        AGPLv3 with exceptions
 # Old URL       https://www.thc.org/thc-hydra/
 URL:            https://github.com/vanhauser-thc/thc-hydra
@@ -12,7 +12,7 @@ Source2:        xhydra.png
 # Sent upstream via email 20120518
 Patch0:         hydra-use-system-libpq-fe.patch
 Patch1:         hydra-fix-dpl4hydra-dir.patch
-Patch2:         hydra-openssl3.patch
+Patch2:         hydra-c99.patch
 
 BuildRequires:  apr-devel
 BuildRequires:  desktop-file-utils
@@ -101,6 +101,9 @@ sed -i 's|^INSTALLDIR=.*|INSTALLDIR=/usr|' %{buildroot}/%{_bindir}/dpl4hydra.sh
 %{_datadir}/applications/*
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 9.4-2
+- C99 compatibility fixes
+
 * Sun Oct 16 2022 Othman Madjoudj <athmane@fedoraproject.org> - 9.4-1
 - Update to 9.4 (rhbz #2125386)
 - Switch to PCRE2 (rhbz #2128308)

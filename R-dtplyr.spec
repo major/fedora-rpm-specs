@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Data Table Back-End for 'dplyr'
 
 License:          MIT
@@ -81,6 +81,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 04 2022 Iñaki Úcar <iucar@fedoraproject.org> - 1.2.2-1
 - R 4.2.1, update to 1.2.2
 

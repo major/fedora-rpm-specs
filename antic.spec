@@ -1,6 +1,6 @@
 Name:           antic
 Version:        0.2.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Algebraic Number Theory In C
 
 License:        LGPL-2.1-or-later
@@ -60,6 +60,9 @@ fi
 %{_libdir}/libantic.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 0.2.5-2
 - Convert License tag to SPDX
 

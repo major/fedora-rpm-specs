@@ -25,7 +25,7 @@
 
 Name:           mingw-qt5-qtbase
 Version:        5.15.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Qt5 for Windows - QtBase component
 
 # See LGPL_EXCEPTIONS.txt, for exception details
@@ -814,6 +814,9 @@ ln -s %{mingw64_target}-qmake-qt5 %{buildroot}%{_bindir}/mingw64-qmake-qt5
 
 
 %changelog
+* Tue Jan 17 2023 Sandro Mani <manisandro@gmail.com> - 5.15.8-3
+- Fix -std=gnu++1Z -> -std=gnu++1z in qt5-qtbase-mingw-profile.patch
+
 * Mon Jan 09 2023 Sandro Mani <manisandro@gmail.com> - 5.15.8-2
 - Backport fix for QTBUG-44096
 

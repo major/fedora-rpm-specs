@@ -1,9 +1,9 @@
 %bcond_without check
-%define _warning_options -Wall -Werror=format-security -Wno-deprecated-declarations
+%define _warning_options -Wall -Werror=format-security -Wno-deprecated-declarations -Wno-maybe-uninitialized
 
 Name:          sbsigntools
 Version:       0.9.4
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Signing utility for UEFI secure boot
 License:       GPLv3+
 URL:           https://build.opensuse.org/package/show/home:jejb1:UEFI/sbsigntools
@@ -86,6 +86,9 @@ make check
 %{_mandir}/man1/sbverify.1.*
 
 %changelog
+* Tue Jan 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 0.9.4-10
+- fix build with GCC 13
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

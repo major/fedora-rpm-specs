@@ -2,7 +2,7 @@
 
 Name:           apron
 Version:        0.9.13
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Numerical abstract domain library
 
 # The entire package is LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -261,6 +261,9 @@ test/ctest1
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec  6 2022 Jerry James <loganjerry@gmail.com> - 0.9.13-14
 - Work around build failure with make 4.4 (rhbz#2150171)
 

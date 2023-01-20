@@ -1,6 +1,6 @@
 Name:           dSFMT
 Version:        2.2.3
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Double precision SIMD-oriented Fast Mersenne Twister
 
 License:        BSD
@@ -81,6 +81,9 @@ make std-check
 %doc html/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

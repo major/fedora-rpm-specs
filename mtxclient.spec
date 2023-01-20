@@ -7,6 +7,9 @@ Summary: Client API library for Matrix, built on top of Boost.Asio
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/Nheko-Reborn/mtxclient/pull/91
+Patch100: %{name}-gcc13-fixes.patch
+
 BuildRequires: cmake(mpark_variant)
 BuildRequires: cmake(nlohmann_json) >= 3.2.0
 BuildRequires: cmake(Olm) >= 3.2.12

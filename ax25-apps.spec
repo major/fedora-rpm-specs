@@ -3,7 +3,7 @@
 
 Name:		ax25-apps
 Version:	2.0.0
-Release:	7%{?dist}
+Release:	9%{?dist}
 Summary:	AX.25 ham radio applications
 
 #ax25ipd is BSD licensed, rest is GPLv2+
@@ -15,7 +15,6 @@ URL:		https://github.com/ve7fet/linuxax25
 # git archive --prefix=ax25apps-2.0.0/ -o ../ax25apps-2.0.0.tar.gz HEAD
 Source0:	ax25apps-%{version}.tar.gz
 
-Patch0:		ax25-apps-ax25rtd-config_c.patch
 Patch1:     ax25-apps-0.0.6-nongenericnames.patch
 
 BuildRequires:	autoconf
@@ -79,6 +78,12 @@ recode AUTHORS iso-8859-15
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 2.0.0-8
+- Drop ax25-apps-ax25rtd-config_c.patch, no longer needed.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

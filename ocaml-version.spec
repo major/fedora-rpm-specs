@@ -11,7 +11,7 @@ Summary:        Manipulate, parse and generate OCaml compiler version strings
 
 License:        ISC
 URL:            https://ocurrent.github.io/ocaml-version/
-Source0:        https://github.com/ocurrent/%{name}/releases/download/v%{version}/%{name}-%{version}.tbz
+Source0:        https://github.com/ocurrent/ocaml-version/releases/download/v%{version}/%{name}-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.07.0
 BuildRequires:  ocaml-alcotest-devel

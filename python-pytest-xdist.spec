@@ -2,12 +2,13 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-xdist
 Source0:        %{pypi_source}
+Patch0:         %{url}/pull/870/commits/8fd1bfd182e87f46e2c2ff6dbb43c0cd43d0cc00.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -32,7 +33,7 @@ Summary:        %{summary}
 %pyproject_extras_subpkg -n python3-%{pypi_name} psutil setproctitle
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-%{version} -p 1
 
 %generate_buildrequires
 %pyproject_buildrequires -x testing -x psutil -x setproctitle
@@ -54,6 +55,9 @@ Summary:        %{summary}
 %{python3_sitelib}/xdist/
 
 %changelog
+* Wed Jan 18 2023 Scott Talbert <swt@techie.net> - 3.1.0-2
+- Fix tests when PYTEST_XDIST_AUTO_NUM_WORKERS is set (#2161636)
+
 * Sun Dec 04 2022 Scott Talbert <swt@techie.net> - 3.1.0-1
 - Update to new upstream release 3.1.0 (#2150627)
 

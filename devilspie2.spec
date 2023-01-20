@@ -1,6 +1,6 @@
 Name:           devilspie2
 Version:        0.43
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A window-matching utility
 
 License:        GPLv3+
@@ -43,6 +43,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %doc README README.translators ChangeLog COPYING AUTHORS GPL3.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.43-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

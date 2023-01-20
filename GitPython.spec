@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        3.1.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Git Library
 
 License:        BSD
@@ -60,6 +60,9 @@ Requires:       git-core
 %doc CHANGES AUTHORS
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Lubomír Sedlář <lsedlar@redhat.com> - 3.1.30-1
 - Rebase to latest version
 

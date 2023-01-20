@@ -20,7 +20,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 57%{?dist}
+Release: 58%{?dist}
 Epoch: 10
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -498,6 +498,9 @@ Patch36: texlive-base-20220321-poppler-22.08.0.patch
 # libpaper v2 changes
 # 1. one psutils test needs adjustment, see https://github.com/rrthomas/libpaper/issues/23
 Patch37: texlive-base-libpaperv2.patch
+
+# Use dvisvgm 3.0.1
+Patch38: texlive-base-2022-dvisvgm-3.0.1.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -2455,7 +2458,8 @@ be found in the distribution of dvipsk which forms part of the
 TeX Live sources.
 
 %package -n %{shortname}-dvisvgm
-Version: svn64182
+# This is actually v3.0.1
+Version: svn64182.3.0.1
 Provides: texlive-dvisvgm = %{epoch}:%{source_date}-%{release}
 Provides: tex-dvisvgm = %{epoch}:%{source_date}-%{release}
 Provides: texlive-dvisvgm-bin = %{epoch}:%{source_date}-%{release}
@@ -2465,6 +2469,8 @@ License: GPL-1.0-or-later
 Summary: Convert DVI files to Scalable Vector Graphics format (SVG)
 Requires: texlive-base
 Requires: texlive-kpathsea
+# for mutool
+Requires: mupdf
 
 %description -n %{shortname}-dvisvgm
 Dvisvgm is a command line utility that converts TeX DVI files
@@ -7423,6 +7429,9 @@ for l in `unxz -c %{SOURCE3} | tar t`; do
 ln -s %{_texdir}/licenses/$l $l
 done
 
+# Update dvisvgm to 3.0.1
+%patch38 -p1 -b .301
+
 # Value here is "16" not "15" because we have a source0 at index 1.
 # Source15 at index 16 is our first "normal" noarch source file.
 # Also, this macro has to be here, not at the top, or it will not evaluate properly. :P
@@ -10139,6 +10148,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Tue Jan 17 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-58
+- hack in dvisvgm 3.0.1
+
 * Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-57
 - rebuild against libpaper v2
 

@@ -1,6 +1,6 @@
 Name:           rpmrebuild
-Version:        2.16
-Release:        3%{?dist}
+Version:        2.17
+Release:        1%{?dist}
 Summary:        A tool to build rpm file from rpm database
 
 License:        GPLv2+
@@ -26,11 +26,8 @@ make %{?_smp_mflags}
 [ "$RPM_BUILD_ROOT" != "/" ] && rm -rf "$RPM_BUILD_ROOT"
 make install DESTDIR="$RPM_BUILD_ROOT"
 
-%clean
-[ "$RPM_BUILD_ROOT" != "/" ] && rm -rf "$RPM_BUILD_ROOT"
-
-%files -f rpmrebuild.files
-%doc AUTHORS COPYING COPYRIGHT Changelog LISEZ.MOI News README Todo rpmrebuild.lsm
+%files
+%doc AUTHORS COPYING COPYRIGHT Changelog LISEZ.MOI News README Todo rpmrebuild.lsm Version
 %dir %{_prefix}/lib/rpmrebuild/
 %dir %{_prefix}/lib/rpmrebuild/plugins/
 %dir %{_prefix}/lib/rpmrebuild/locale/
@@ -38,6 +35,8 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 %dir %{_prefix}/lib/rpmrebuild/locale/en
 %dir %{_prefix}/lib/rpmrebuild/locale/fr_FR
 %attr(0755,root,root) %{_prefix}/bin/rpmrebuild
+%config(noreplace)    %{_prefix}/lib/rpmrebuild/optional_tags.cfg
+%attr(0644,root,root) %{_prefix}/lib/rpmrebuild/Version
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/nodoc.sh
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_parser.src
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_extract_tags.sh
@@ -57,6 +56,7 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_ghost.sh
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/rpmrebuild_files.sh
 %attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/compat_digest.sh
+%attr(0755,root,root) %{_prefix}/lib/rpmrebuild/plugins/exclude_file.sh
 %{_prefix}/lib/rpmrebuild/plugins/set_tag.plug
 %{_prefix}/lib/rpmrebuild/plugins/compat_digest.plug
 %{_prefix}/lib/rpmrebuild/plugins/nodoc.plug
@@ -66,6 +66,7 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 %{_prefix}/lib/rpmrebuild/plugins/demofiles.plug
 %{_prefix}/lib/rpmrebuild/plugins/un_prelink.plug
 %{_prefix}/lib/rpmrebuild/plugins/unset_tag.plug
+%{_prefix}/lib/rpmrebuild/plugins/exclude_file.plug
 %{_prefix}/lib/rpmrebuild/locale/en/rpmrebuild.lang
 %{_prefix}/lib/rpmrebuild/locale/fr_FR.UTF-8/rpmrebuild.lang
 %{_prefix}/lib/rpmrebuild/locale/fr_FR/rpmrebuild.lang
@@ -103,14 +104,14 @@ make install DESTDIR="$RPM_BUILD_ROOT"
 %doc %{_mandir}/man1/uniq.plug.1rrp*
 %doc %{_mandir}/fr_FR/man1/uniq.plug.1rrp*
 %doc %{_mandir}/fr_FR.UTF-8/man1/uniq.plug.1rrp*
+%doc %{_mandir}/man1/exclude_file.plug.1rrp*
+%doc %{_mandir}/fr_FR/man1/exclude_file.plug.1rrp*
+%doc %{_mandir}/fr_FR.UTF-8/man1/exclude_file.plug.1rrp*
 
 
 %changelog
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.16-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
+* Wed Jan 18 2023 Anderson Silva <ansilva@redhat.com> - 2.17-1
+- Latest package from upstream.
 
 * Tue Aug 24 2021 Anderson Silva <ansilva@redhat.com> - 2.16-1
 - Latest package from upstream.

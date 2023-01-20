@@ -6,7 +6,7 @@
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        1.git%{git_commit_hash}%{?dist}
+Release:        2.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -207,6 +207,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221215-2.gita4c31a3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Alexander Sosedkin <asosedkin@redhat.com> - 20221215-1.gita4c31a3
 - bind: expand the list of disableable algorithms
 

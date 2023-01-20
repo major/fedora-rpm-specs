@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.1.0
-Release:          14%{?dist}
+Release:          15%{?dist}
 Summary:          Debug R Packages
 
 License:          MIT
@@ -69,6 +69,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/README.markdown
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep  2 2022 Tom Callaway <spot@fedoraproject.org> - 1.1.0-14
 - rebuild for R 4.2.1
 

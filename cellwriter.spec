@@ -1,7 +1,7 @@
 Summary: Grid-entry natural handwriting input panel
 Name: cellwriter
 Version: 1.3.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 URL: https://github.com/risujin/cellwriter/
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -48,6 +48,9 @@ desktop-file-install --delete-original \
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

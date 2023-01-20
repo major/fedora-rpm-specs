@@ -1,6 +1,6 @@
 Name:		boswars-addons
 Version:	2.6
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Addon maps for Bos Wars real-time strategy game
 
 License:	GPLv2+
@@ -41,6 +41,9 @@ cp -a * $RPM_BUILD_ROOT%{_datadir}/boswars/maps
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -13,7 +13,7 @@ ExcludeArch: ppc64 s390x
 Name: ProDy
 Summary: Application for protein structure, dynamics and sequence analysis
 Version: 2.3.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # MIT is the main license for ProDy
 # prody/utilities/tnt/* code --> 'Public domain' license
@@ -135,6 +135,9 @@ popd
 %{python3_sitearch}/%{name}-*.egg-info
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 15 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.3.1-1
 - Release 2.3.1
 

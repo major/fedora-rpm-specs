@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.29.50
+Version:        1.29.51
 Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
@@ -13,14 +13,10 @@ BuildArch:      noarch
 
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
+
+# For tests:
 BuildRequires:  python3-jsonschema
-BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
-BuildRequires:  python3-wheel
-BuildRequires:  python3-jmespath
-BuildRequires:  python3-toml
-BuildRequires:  python3-dateutil
-BuildRequires:  python3-urllib3
 
 %description
 A low-level interface to a growing number of Amazon Web Services. The
@@ -66,6 +62,14 @@ rm -vr tests/functional/leak
 %{python3_sitelib}/%{pypi_name}-*.dist-info/
 
 %changelog
+* Tue Jan 17 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.51-1
+- 1.29.51
+
+* Mon Jan 16 2023 Miro Hrončok <mhroncok@redhat.com> - 1.29.50-2
+- Remove duplicated manual BuildRequires
+- Drop a redundant build dependency on deprecated python3-toml
+- https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
+
 * Fri Jan 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.50-1
 - 1.29.50
 

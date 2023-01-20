@@ -54,11 +54,11 @@ The GLPK package includes the following main components:
 # The content is GFDL-1.3-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Latin Modern: LPPL-1.0
 # XY: GPL-1.0-or-later
-License:        GFDL-1.3-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND LPPL-1.0
+License:        GFDL-1.3-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LPPL-1.0
 Summary:        Documentation for %{name}
 
 %description    doc

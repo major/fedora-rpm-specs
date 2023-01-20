@@ -25,24 +25,32 @@ https://github.com/uqfoundation/multiprocess/issues, with a legacy list
 maintained at https://uqfoundation.github.io/project/pathos/query.}
 
 Name:           python-multiprocess
-Version:        0.70.13
+Version:        0.70.14
 Release:        %autorelease
 Summary:        Better multiprocessing and multithreading in python
 
-License:        BSD
+# The entire source is BSD-3-Clause, except py*/doc/html4css1.css, which are
+# LicenseRef-Fedora-Public-Domain:
+#
+#   :Copyright: This stylesheet has been placed in the public domain.
+License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:            https://pypi.org/pypi/multiprocess
-Source0:        %{pypi_source multiprocess %{version} tar.gz}
+Source0:        %{pypi_source multiprocess}
 BuildArch:      noarch
+
+BuildRequires:  dos2unix
 
 %description %_description
 
 %package -n python3-multiprocess
 Summary:        %{summary}
+# This subpackage does not contain the public-domain CSS file.
+License:        BSD-3-Clause
+
 BuildRequires:  python3-devel
-# required for tests
-BuildRequires:  python-unversioned-command
-# Not automatically generated
+# Required for tests; not automatically generated
 BuildRequires:  python3-test
+BuildRequires:  python3dist(pox)
 
 %description -n python3-multiprocess %_description
 
@@ -54,14 +62,12 @@ This package provides documentation for %{name}.
 
 %prep
 %autosetup -n multiprocess-%{version}
-rm -rf multiprocess.egg-info
 
-# Fix wrong end of file encoding
-find py%{python3_version}/doc/ -name "*" -exec sed -i 's/\r$//' '{}' \;
-find py%{python3_version}/examples/ -name "*" -exec sed -i 's/\r$//' '{}' \;
+# Convert line endings
+find py%{python3_version}/{doc,examples}/ -type f -exec dos2unix '{}' '+'
 
-# remove shebang
-sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' py%{python3_version}/multiprocess/tests/__main__.py
+# Remove shebang
+sed -r -i '1{/^#!/d}' py%{python3_version}/multiprocess/tests/__main__.py
 
 # Upstream pretends not to be a pure-Python package to “force python-, abi-,
 # and platform-specific naming of bdist_wheel”; this isn’t needed here, and we
@@ -79,15 +85,10 @@ sed -r -i 's/^([[:blank:]]*)(distclass=BinaryDistribution,)/\1# \2/' setup.py
 %pyproject_save_files multiprocess _multiprocess
 
 %check
-export PYTHONPATH="$RPM_BUILD_ROOT/%{python3_sitearch}/:$RPM_BUILD_ROOT/%{python3_sitelib}/:."
-pushd py%{python3_version}
-# https://github.com/uqfoundation/multiprocess/blob/master/.travis.yml#L67
-for test in multiprocess/tests/__init__.py; do echo $test ; %{__python3} $test > /dev/null; done
-
-# These do not run properly in the build root: it cannot find the installed version even after PYTHONPATH is set
-#for test in multiprocess/tests/*.py; do if [[ $test != *"__"* && $test != *"mp_"*  ]]; then echo $test ; %%{__python3} $test > /dev/null; fi; done
-popd
-
+# See tox.ini (but don’t try to use %%tox unless we comment out the explicit
+# pip install command there):
+PYTHONPATH='%{buildroot}%{python3_sitelib}' %{python3} \
+    py%{python3_version}/multiprocess/tests/__main__.py
 
 %files -n python3-multiprocess -f %{pyproject_files}
 %doc README.md

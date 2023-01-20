@@ -3,7 +3,7 @@
 
 Name:           WALinuxAgent
 Version:        2.8.0.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Microsoft Azure Linux Agent
 
 License:        ASL 2.0
@@ -123,6 +123,9 @@ install -m0755 -D -t %{buildroot}%{_prefix}/lib/dracut/modules.d/%{dracut_modnam
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 31 2022 Vitaly Kuznetsov <vkuznets@redhat.com> - 2.8.0.11-1
 - Update to 2.8.0.11 (#2128547)
 

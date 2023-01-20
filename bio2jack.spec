@@ -1,6 +1,6 @@
 Name:		bio2jack
 Version:	0.9
-Release:	29%{?dist}
+Release:	30%{?dist}
 # The license file says GPLv2+ but the source files say LGPLv2+.
 # The author of the software confirmed (via email) that it is 
 # actually LGPLv2+.
@@ -69,6 +69,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           apiguardian
 Version:        1.1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        API Guardian Java annotation
 License:        ASL 2.0
 URL:            https://github.com/apiguardian-team/apiguardian
@@ -80,6 +80,9 @@ cp -p %{SOURCE100} pom.xml
 %license LICENSE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

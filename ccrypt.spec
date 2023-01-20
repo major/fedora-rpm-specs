@@ -1,6 +1,6 @@
 Name:           ccrypt
 Version:        1.10
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Secure encryption and decryption of files and streams
 
 License:        GPLv2+
@@ -39,6 +39,9 @@ which is notorious for using a very weak encryption algorithm.
 %{_bindir}/cc*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

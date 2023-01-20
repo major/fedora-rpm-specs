@@ -66,10 +66,6 @@ Summary:        Compiled elisp files to run Proof General under GNU Emacs
 Requires:       emacs(bin) >= %{_emacs_version}
 Requires:       emacs-common-%{pkg} = %{version}-%{release}
 
-# This can be removed when Fedora 33 reaches EOL
-Obsoletes:      emacs-%{pkg}-el < 4.4-11
-Provides:       emacs-%{pkg}-el = %{version}-%{release}
-
 %description -n emacs-%{pkg}
 Proof General is a generic front-end for proof assistants based on Emacs.
 

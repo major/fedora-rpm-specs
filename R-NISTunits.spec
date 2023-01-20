@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.1
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Fundamental Physical Constants and Unit Conversions from NIST
 
 License:          GPLv3+
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Tom Callaway <spot@fedoraproject.org> - 1.0.1-12
 - rebuild for R 4.2.1
 

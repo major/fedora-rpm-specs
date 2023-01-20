@@ -15,7 +15,7 @@ time from the Github event API.}
 %global godocs          README.md
 
 Name:           commit-stream
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Github event API consumer
 
 License:        MIT
@@ -57,6 +57,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.1.2-10
 - Rebuild to fix FTBFS
 

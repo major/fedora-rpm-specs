@@ -5,7 +5,7 @@
 Summary:	Multivariate normal and T distribution R Package
 Name:		R-%{packname}
 Version:	%{packver}.%{packrel}
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPLv2
 Source0:	https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 URL:		https://cran.r-project.org/web/packages/mvtnorm/index.html
@@ -61,6 +61,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/include
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Tom Callaway <spot@fedoraproject.org> - 1.1.3-1
 - update to 1.1-3
 - rebuild for R 4.2.1

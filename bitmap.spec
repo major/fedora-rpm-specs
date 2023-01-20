@@ -1,6 +1,6 @@
 Name: bitmap
 Version: 1.0.9
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Bitmaps editor and converter utilities for the X Window System
 Url: http://www.x.org
 
@@ -59,6 +59,9 @@ install -p -m644 %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/
 %{_mandir}/man1/*.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

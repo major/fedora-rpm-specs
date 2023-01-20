@@ -1,6 +1,6 @@
 Name:           arb
 Version:        2.23.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Arbitrary-precision floating point ball arithmetic
 
 License:        LGPL-2.1-or-later
@@ -108,6 +108,9 @@ rm -f doc/build/html/.buildinfo
 %license LICENSE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 2.23.0-2
 - Convert License tag to SPDX
 - Note additional licenses for the doc subpackage

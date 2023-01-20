@@ -3,7 +3,7 @@
 
 Name:           clblast
 Version:        1.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tuned OpenCL BLAS routines
 
 License:        Apache-2.0
@@ -97,6 +97,9 @@ sed -i 's,NAMES cblas blas,NAMES cblas blas flexiblas,' cmake/Modules/FindCBLAS.
 %{_bindir}/clblast*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Tom Rix <trix@redhat.com> - 1.5.3-2
 - Prepare for building on epel
 

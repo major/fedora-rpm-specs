@@ -3,7 +3,7 @@
 
 Name: aspell-%{lang}
 Version: 0.03
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: GNU Aspell Malayalam Dictionary Package
 
 License: GPLv3+
@@ -48,6 +48,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/aspell-0.60/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

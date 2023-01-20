@@ -16,7 +16,7 @@ Plot provides an API for building and drawing plots in Go.}
 %global godocs          AUTHORS README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Package for plotting and visualizing dataZ
 
 License:        BSD
@@ -83,6 +83,9 @@ BuildRequires:  golang(gonum.org/v1/gonum/mat)
 %gopkgfiles
 
 %changelog
+* Wed Jan 18 2023 Maxwell G <gotmax@e.email> - 0.8.1-8
+- rebuilt
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.8.1-7
 - Rebuild to fix FTBFS
 

@@ -1,6 +1,6 @@
 Name:           duply
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wrapper for duplicity
 License:        GPLv2
 URL:            http://duply.net/
@@ -52,6 +52,9 @@ mv gpl-2.0.txt LICENSE
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Thomas Moschny <thomas.moschny@gmx.de> - 2.4.1-1
 - Update to 2.4.1.
 

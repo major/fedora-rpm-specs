@@ -2,7 +2,7 @@
 
 Name:		cdcollect
 Version:	0.6.0
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Simple CD/DVD catalog for GNOME
 
 License:	GPLv2+
@@ -90,6 +90,9 @@ fi
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

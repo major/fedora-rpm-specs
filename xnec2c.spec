@@ -1,12 +1,13 @@
 Name:           xnec2c
 Version:        4.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GTK based graphical wrapper for nec2c
 
 License:        GPLv2+
 URL:            http://www.5b4az.org/
 Source0:        http://www.5b4az.org/pkg/nec2/xnec2c/%{name}-%{version}.tar.bz2
 Source100:      xnec2c.png
+Patch0: xnec2c-configure-c99.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++
@@ -30,7 +31,7 @@ batch style as the original does.
 
 
 %prep
-%autosetup
+%autosetup -p1
 %if 0%{?rhel}
     # Force lower version of intltool to be acceptable for RHEL.
     sed -i "s|0.50.0|0.40.0|g" configure
@@ -126,6 +127,9 @@ fi
 
 
 %changelog
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 4.1.1-6
+- Port configure script to C99 (#2161646)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

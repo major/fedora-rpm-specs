@@ -3,7 +3,7 @@
 Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
-Version: 4.99.2
+Version: 4.99.3
 Release: 1%{?dist}
 License: BSD with advertising
 URL: http://www.tcpdump.org
@@ -82,6 +82,9 @@ exit 0
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Wed Jan 18 2023 Michal Ruprich <mruprich@redhat.com> - 14:4.99.3-1
+- New version 4.99.3
+
 * Tue Jan 03 2023 Michal Ruprich <mruprich@redhat.com> - 14:4.99.2-1
 - New version 4.99.2
 

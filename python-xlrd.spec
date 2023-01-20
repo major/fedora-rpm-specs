@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -84,7 +84,7 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
 %doc README.rst CHANGELOG.rst
 %attr(755,root,root) %dir %{python3_sitelib}/xlrd
 %{python3_sitelib}/xlrd/*
-%{python3_sitelib}/*egg-info
+%{python3_sitelib}/xlrd-*egg-info
 %attr(755,root,root) %{_bindir}/*
 
 %if 0%{?with_python3_other}
@@ -93,10 +93,13 @@ rm -rf $RPM_BUILD_ROOT%{_bindir}/runxlrd.py* \
 %doc README.rst CHANGELOG.rst
 %attr(755,root,root) %dir %{python3_other_sitelib}/xlrd
 %{python3_other_sitelib}/xlrd/*
-%{python3_other_sitelib}/*egg-info
+%{python3_other_sitelib}/xlrd-*egg-info
 %endif
 
 %changelog
+* Wed Jan 18 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.0.1-10
+- Do not use glob on python sitelib
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

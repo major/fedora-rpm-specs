@@ -1,6 +1,6 @@
 Name:             st
-Version:          0.8.4
-Release:          6%{?dist}
+Version:          0.9
+Release:          1%{?dist}
 Summary:          A simple terminal implementation for X
 %global           _stsourcedir %{_usrsrc}/%{name}-user-%{version}-%{release}
 License:          MIT
@@ -107,6 +107,10 @@ fi
 %{_stsourcedir}
 
 %changelog
+* Tue Jan 17 2023 Petr Šabata <contyk@redhat.com> - 0.9-1
+- 0.9 bump
+- SPDX migration
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

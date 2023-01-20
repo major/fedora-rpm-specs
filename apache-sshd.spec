@@ -1,7 +1,7 @@
 Epoch:          1
 Name:           apache-sshd
 Version:        2.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Apache SSHD
 
 # One file has ISC licensing:
@@ -96,6 +96,9 @@ rm -rf sshd-core/src/main/java/org/apache/sshd/agent/unix
 %license LICENSE.txt NOTICE.txt assembly/src/main/legal/licenses/jbcrypt.txt
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

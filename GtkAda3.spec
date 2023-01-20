@@ -1,6 +1,6 @@
 Name:           GtkAda3
 Version:        2020
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        GTKada 3, an Ada binding to GTK+ 3
 Summary(sv):    GTKada 3, en adabindning till GTK+ 3
 
@@ -271,6 +271,12 @@ mkdir --parents %{buildroot}%{_licensedir}/%{name}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2020-8
+- Rebuilt with GCC 13.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

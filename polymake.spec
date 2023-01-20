@@ -22,7 +22,7 @@
 
 Name:           polymake
 Version:        %(tr r . <<< %{upver})
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -318,6 +318,9 @@ sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ni
 %doc doc/*
 
 %changelog
+* Mon Jan 16 2023 Jerry James <loganjerry@gmail.com> - 4.8-2
+- Rebuild for Singular 4.3.1p1
+
 * Mon Dec 19 2022 Jerry James <loganjerry@gmail.com> - 4.8-1
 - Version 4.8
 

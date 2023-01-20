@@ -24,7 +24,7 @@
 
 Name:           dolphin-emu
 Version:        5.0.%{snapnumber}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GameCube / Wii / Triforce Emulator
 
 Url:            https://dolphin-emu.org/
@@ -276,6 +276,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/dolphin-tool
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.16380-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 15 2022 Sandro Mani <manisandro@gmail.com> - 5.0.16380-7
 - Rebuild (minizip-ng)
 

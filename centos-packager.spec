@@ -1,6 +1,6 @@
 Name:           centos-packager
 Version:        0.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Tools and files necessary for building CentOS packages
 Group:          Applications/Productivity
 
@@ -47,6 +47,9 @@ install -p -m 0755 %{SOURCE2} %{buildroot}%{_bindir}/centos-cert
 %{_bindir}/centos-cert
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.3.2
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Threshold independent performance measures for probabilistic classifiers
 
 License:          GPLv2+
@@ -62,6 +62,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Tom Callaway <spot@fedoraproject.org> - 0.3.2-2
 - R 4.2.1
 

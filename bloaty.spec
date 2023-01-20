@@ -1,6 +1,6 @@
 Name:           bloaty
 Version:        1.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        A size profiler for binaries
 
 
@@ -56,6 +56,9 @@ support for WebAssembly.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Rich Mattes <richmattes@gmail.com> - 1.1-17
 - Rebuilt for abseil-cpp 20220623.0
 

@@ -3,7 +3,7 @@
 Summary: Gcore extension module for the crash utility
 Name: crash-gcore-command
 Version: 1.6.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 Source0: https://github.com/fujitsu/crash-gcore/archive/v%{version}/%{name}-%{version}.tar.gz
 URL: https://github.com/fujitsu/crash-gcore
@@ -43,6 +43,9 @@ install -m 0755 -t %{buildroot}%{_libdir}/crash/extensions %{_builddir}/%{repona
 %license COPYING
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 HATAYAMA Daisuke <d.hatayama@fujitsu.com> - 1.6.3-2
 - gcore.mk: fix mismatch of _FILE_OFFSET_BITS when building gcore.so
 - coredump: fix unexpected truncation of generated core files

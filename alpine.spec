@@ -6,7 +6,7 @@
 Summary: powerful, easy to use console email client
 Name: alpine
 Version: 2.26
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: ASL 2.0
 URL:     http://alpine.x10host.com/
@@ -126,6 +126,9 @@ touch $RPM_BUILD_ROOT%{_sysconfdir}/pine.conf.fixed
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Florian Weimer <fweimer@redhat.com> - 2.26-3
 - Port configure script to C99 (#2148656)
 

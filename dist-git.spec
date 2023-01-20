@@ -4,7 +4,7 @@
 
 Name:           dist-git
 Version:        1.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package source version control system
 
 # upload.cgi uses GPLv1
@@ -266,6 +266,9 @@ fi
 %{_bindir}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Miroslav Suchý <msuchy@redhat.com> 1.17-1
 - use spdx license
 - use pytest instead of nose test

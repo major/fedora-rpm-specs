@@ -25,7 +25,7 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.49.7
+Version:       1.49.8
 Release:       2%{?dist}
 License:       GPLv2+
 
@@ -48,9 +48,6 @@ Source1:       http://download.libguestfs.org/guestfs-tools/%{source_directory}/
 Source2:       libguestfs.keyring
 %endif
 
-# Upstream patch to fix virt-inspector test.
-Patch:         0001-inspector-Update-coreos-test-for-new-build_id-field.patch
-
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
 %endif
@@ -70,6 +67,7 @@ BuildRequires: pcre2-devel
 BuildRequires: libxml2-devel
 BuildRequires: jansson-devel
 BuildRequires: libvirt-devel
+BuildRequires: libosinfo-devel
 BuildRequires: libxcrypt-devel
 BuildRequires: ncurses-devel
 BuildRequires: ocaml-libguestfs-devel
@@ -429,6 +427,10 @@ end
 
 
 %changelog
+* Tue Jan 17 2023 Richard W.M. Jones <rjones@redhat.com> - 1.49.8-2
+- New upstream development version 1.49.8
+- +BR libosinfo-devel
+
 * Sat Dec 10 2022 Richard W.M. Jones <rjones@redhat.com> - 1.49.7-2
 - New upstream development version 1.49.7
 

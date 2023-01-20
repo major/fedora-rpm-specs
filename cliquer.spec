@@ -1,6 +1,6 @@
 Name:           cliquer
 Version:        1.22
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Find cliques in arbitrary weighted graphs
 
 License:        GPL-2.0-or-later
@@ -95,6 +95,9 @@ LD_LIBRARY_PATH=. make test CFLAGS="%build_cflags"
 %{_libdir}/libcliquer.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 1.22-4
 - Convert License tag to SPDX
 

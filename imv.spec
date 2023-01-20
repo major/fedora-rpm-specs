@@ -2,8 +2,8 @@
 %bcond_with     libheif
 
 Name:           imv
-Version:        4.3.1
-Release:        5%{?dist}
+Version:        4.4.0
+Release:        1%{?dist}
 Summary:        Image viewer for X11 and Wayland
 
 License:        MIT
@@ -71,7 +71,7 @@ done
 %meson_test
 desktop-file-validate \
     %{buildroot}/%{_datadir}/applications/imv.desktop \
-    %{buildroot}/%{_datadir}/applications/imv-folder.desktop
+    %{buildroot}/%{_datadir}/applications/imv-dir.desktop
 
 
 %files
@@ -79,16 +79,20 @@ desktop-file-validate \
 %doc README.md
 %config(noreplace) %{_sysconfdir}/%{name}_config
 %{_bindir}/%{name}
-%{_bindir}/%{name}-folder
+%{_bindir}/%{name}-dir
 %{_bindir}/%{name}-msg
 %{_bindir}/%{name}-wayland
 %{_bindir}/%{name}-x11
 %{_datadir}/applications/%{name}.desktop
-%{_datadir}/applications/%{name}-folder.desktop
+%{_datadir}/applications/%{name}-dir.desktop
 %{_mandir}/man1/%{name}*
 %{_mandir}/man5/%{name}*
 
 %changelog
+* Wed Jan 18 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 4.4.0-1
+- Update to 4.4.0 (#2162162)
+- Convert License tag to SPDX
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 4.3.1-5
 - Rebuild for ICU 72
 

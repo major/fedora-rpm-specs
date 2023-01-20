@@ -1,6 +1,6 @@
 Name:           btest
 Version:        0.57
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A Simple Driver for Basic Unit Tests
 
 License:        BSD
@@ -34,6 +34,9 @@ baseline.
 %{python3_sitelib}/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

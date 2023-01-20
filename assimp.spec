@@ -1,7 +1,7 @@
 %undefine __cmake_in_source_build
 Name:           assimp
 Version:        5.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library to import various 3D model formats into applications
 
 # Assimp is BSD
@@ -183,6 +183,9 @@ rm -f %{buildroot}%{_libdir}/libzlibstatic.a
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

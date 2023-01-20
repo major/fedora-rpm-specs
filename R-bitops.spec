@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.7
-Release:          6%{?dist}
+Release:          7%{?dist}
 Summary:          Functions for Bitwise operations
 
 License:          GPLv2+
@@ -41,6 +41,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_libdir}/R/library/%{packname}/libs
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Tom Callaway <spot@fedoraproject.org> - 1.0.7-6
 - rebuild for R 4.2.0
 

@@ -3,7 +3,7 @@
 
 Name:    copyq
 Version: 6.3.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Advanced clipboard manager
 License: GPLv3+
 
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/com.gi
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 26 2022 Gerald Cox <gbcox@member.fsf.org> - 6.3.2-1
 - Upstream release: rhbz#2129917
 

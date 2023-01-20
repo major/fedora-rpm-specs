@@ -5,7 +5,7 @@ Version: 1.8.3
 
 %forgemeta
 
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Aliza MS DICOM Viewer
 License: GPLv3
 URL:     %{forgeurl}
@@ -96,6 +96,9 @@ appstream-util validate-relax --nonet \
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 27 2022 Alessio <alessio@fedoraproject.org> - 1.8.3-1
 - Update to 1.8.3
 - Fixed issue with unused bits and Pixel Representation 1 files

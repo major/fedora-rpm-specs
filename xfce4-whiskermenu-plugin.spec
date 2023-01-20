@@ -2,8 +2,8 @@
 %global minorversion	2.7
 
 Name:		xfce4-whiskermenu-plugin
-Version:	2.7.1
-Release:	3%{?dist}
+Version:	2.7.2
+Release:	1%{?dist}
 Summary:	An alternate application launcher for Xfce
 
 License:	GPLv2+
@@ -57,6 +57,9 @@ that you’ve launched from it
 %{_mandir}/man1/xfce4-popup-whiskermenu.1*
 
 %changelog
+* Tue Jan 17 2023 Mukundan Ragavan <nonamedotc@fedoraproject.org> - 2.7.2-1
+- Update to v2.7.2
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

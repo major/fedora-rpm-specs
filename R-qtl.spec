@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	1.52
-Release:	3%{?dist}
+Release:	4%{?dist}
 Source0:	https://rqtl.org/download/%{packname}_%{version}.tar.gz
 License:	GPLv3
 URL:		https://rqtl.org/
@@ -87,6 +87,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/sampledata
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraprojet.org> - 1.52-3
 - rebuild for R 4.2.1
 

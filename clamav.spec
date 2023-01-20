@@ -34,7 +34,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    0.103.7
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -590,6 +590,9 @@ test -e %{freshclamlog} || {
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.103.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Sérgio Basto <sergio@serjux.com> - 0.103.7-4
 - (#2136977) not requires data(clamav) on clamav-libs
 - (#2023371) Add documentation to preserve user permissions of DatabaseOwner

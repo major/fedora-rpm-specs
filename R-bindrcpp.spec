@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.2
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          An 'Rcpp' Interface to Active Bindings
 
 License:          MIT
@@ -73,6 +73,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep  2 2022 Tom Callaway <spot@fedoraproject.org> - 0.2.2-15
 - rebuild for R 4.2.1
 

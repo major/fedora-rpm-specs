@@ -1,7 +1,7 @@
 Summary:   Documentation for Enlightenment, DR16
 Name:      e16-docs
 Version:   0.16.8.0.2
-Release:   23%{?dist}
+Release:   24%{?dist}
 License:   MIT with advertising
 URL:       http://www.enlightenment.org/
 Source:    http://downloads.sourceforge.net/enlightenment/%{name}-%{version}.tar.gz
@@ -28,6 +28,9 @@ This package contains documentation for Enlightenment, DR16.
 %{_datadir}/e16/E-docs
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.8.0.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.8.0.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

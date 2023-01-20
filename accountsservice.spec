@@ -1,6 +1,6 @@
 Name:           accountsservice
 Version:        22.08.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        D-Bus interfaces for querying and manipulating user account information
 License:        GPLv3+
 URL:            https://www.freedesktop.org/wiki/Software/AccountsService/
@@ -109,6 +109,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/accountsservice/interfaces/
 %{_datadir}/vala/vapi/accountsservice.*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.08.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 26 2022 Kalev Lember <klember@redhat.com> - 22.08.8-2
 - Rebuild
 

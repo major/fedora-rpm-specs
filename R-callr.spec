@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          3.7.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Call R from R
 
 License:          MIT
@@ -81,6 +81,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Tom Callaway <spot@fedoraproject.org> - 3.7.1-1
 - update to 3.7.1
 - rebuild for R 4.2.1

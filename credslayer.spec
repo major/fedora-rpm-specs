@@ -3,7 +3,7 @@
 
 Name:           credslayer
 Version:        0.1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extract credentials and other details from network captures
 
 License:        GPLv3
@@ -76,6 +76,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests/tes
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

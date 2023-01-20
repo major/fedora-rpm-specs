@@ -7,7 +7,7 @@
 
 Name:           apache-%{jarname}
 Version:        2.5.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Java-based dependency manager
 License:        ASL 2.0
 URL:            https://ant.apache.org/ivy
@@ -228,6 +228,9 @@ echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -31,7 +31,7 @@
 %global git_describe_str v1.0-283-g9d4029aa14323a7f3b496215d25e40bd14f33632
 
 # Set this to 1 when rebasing (changing git_describe_str) and increase otherwise
-%global release 1
+%global release 2
 
 # Run shell script to parse git_describe str into version, numcomm and sha1 hash
 %global booth_ver %(s=%{git_describe_str}; vver=${s%%%%-*}; echo ${vver:1})
@@ -310,6 +310,9 @@ VERBOSE=1 make check
 %{_usr}/lib/ocf/resource.d/booth/sharedrsc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-283.2.9d4029a.git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Jan Friesse <jfriesse@redhat.com> - 1.0-283.1.9d4029a.git
 - Rebase to newest upstream snapshot
 

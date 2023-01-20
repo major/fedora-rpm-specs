@@ -1,6 +1,6 @@
 Name:           drraw
 Version:        2.2
-Release:        0.28.b2%{?dist}
+Release:        0.29.b2%{?dist}
 Summary:        Web based presentation front-end for RRDtool
 
 License:        BSD
@@ -96,6 +96,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-0.29.b2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-0.28.b2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

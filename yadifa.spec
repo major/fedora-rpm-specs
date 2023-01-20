@@ -6,7 +6,7 @@
 
 Name:		yadifa
 Version:	2.6.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Lightweight authoritative Name Server with DNSSEC capabilities
 
 License:	BSD
@@ -14,6 +14,7 @@ URL:		http://www.yadifa.eu
 Source0:	http://cdn.yadifa.eu/sites/default/files/releases/%{name}-%{version}-%{revision}.tar.gz
 Source1:	yadifad.service
 Source3:	yadifa.logrotate
+Patch0: yadifa-configure-c99.patch
 
 BuildRequires:	gcc
 BuildRequires:	coreutils
@@ -58,7 +59,9 @@ required for development with YADIFA DNS server
 
 
 %prep
-%setup -q -n %{name}-%{version}-%{revision}
+%autosetup -p1 -n %{name}-%{version}-%{revision}
+# Avoid re-running autotools.
+touch -r aclocal.m4 configure* m4/*.m4
 
 %build
 export CPPFLAGS="%{optflags} -DNDEBUG -g"
@@ -182,6 +185,9 @@ exit 0
 
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 2.6.2-2
+- Port configure script to C99 (#2161927)
+
 * Fri Dec 09 2022 Denis Fateyev <denis@fateyev.com> - 2.6.2-1
 - Update to 2.6.2 release
 

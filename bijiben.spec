@@ -1,6 +1,6 @@
 Name:           bijiben
 Version:        40.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple Note Viewer
 
 # Bijiben is GPLv3+ apart a few files "LGPLv2 or LGPLv3"
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Notes.deskt
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 40.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

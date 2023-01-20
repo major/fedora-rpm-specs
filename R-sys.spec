@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          3.4
-Release:          5%{?dist}
+Release:          6%{?dist}
 Summary:          Powerful and Reliable Tools for Running System Commands in R
 
 License:          MIT
@@ -75,6 +75,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 25 2022 Tom Callaway <spot@fedoraproject.org> - 3.4-5
 - rebuild for R 4.2.1
 

@@ -16,7 +16,7 @@
 Summary: A debugger which detects memory allocation violations
 Name: ElectricFence
 Version: 2.2.2
-Release: 58%{?dist}
+Release: 59%{?dist}
 License: GPLv2
 URL: http://perens.com/FreeSoftware/ElectricFence/
 
@@ -88,6 +88,9 @@ echo ".so man3/efence.3" > %{buildroot}%{_mandir}/man3/libefence.3
 %{_mandir}/*/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

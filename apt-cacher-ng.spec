@@ -3,7 +3,7 @@
 
 Name:             apt-cacher-ng
 Version:          3.7.4
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Caching proxy for package files from Debian
 
 License:          BSD-4-Clause
@@ -126,6 +126,9 @@ sed -i 's/^# UseWrap: 0/UseWrap: 0/' %{buildroot}%{_sysconfdir}/apt-cacher-ng/ac
 %{_mandir}/man8/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.7.4-3
 - Add BR perl-generators
 

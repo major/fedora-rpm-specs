@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 24%{?dist}
+Release: 26%{?dist}
 License: GPLv2
 URL: https://collectd.org/
 
@@ -1224,6 +1224,12 @@ make check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Kevin Fenzi <kevin@scrye.com> - 5.12.0-25
+- Rebuild for new libowcapi. Fixes rhbz#2161616
+
 * Thu Jan 12 2023 Kevin Fenzi <kevin@scrye.com> - 5.12.0-24
 - Rebuild for new xen-libs. Fixes rhbz#2160499
 

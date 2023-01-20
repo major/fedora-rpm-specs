@@ -15,12 +15,13 @@ Influxdb1-clientv2 is the current Go client API for InfluxDB 1.x.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.10%{?dist}
+Release:        0.11%{?dist}
 Summary:        Old clientv2 for InfluxDB 1.x
 
 License:        MIT
 URL:            %{gourl}
-Source0:        %{gosource}
+Source:         %{gosource}
+Patch:          https://github.com/influxdata/influxdb1-client/pull/60.patch#/fix-test-failures.patch
 
 %description
 %{common_description}
@@ -29,6 +30,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%autopatch -p1
 
 %install
 %gopkginstall
@@ -41,6 +43,11 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Wed Jan 18 2023 Maxwell G <gotmax@e.email> - 0-0.11
+- Add patch to fix test failures
+- Fix FTBFS.
+- Closes: rhbz#2045526
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

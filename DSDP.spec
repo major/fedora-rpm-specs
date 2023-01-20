@@ -1,13 +1,13 @@
 Name:           DSDP
 Version:        5.8
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Software for semidefinite programming
 
 # The content is DSDP.  The remaining licenses cover the various fonts embedded
 # in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        DSDP AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        DSDP AND OFL-1.1-RFN AND Knuth-CTAN
 URL:            https://www.mcs.anl.gov/hs/software/DSDP/
 Source0:        https://www.mcs.anl.gov/hs/software/DSDP/%{name}%{version}.tar.gz
 # Man pages written by Jerry James using text from the sources.
@@ -49,8 +49,8 @@ global optimization problems.
 # The content is DSDP.  The remaining licenses cover the various fonts embedded
 # in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        DSDP AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        DSDP AND OFL-1.1-RFN AND Knuth-CTAN
 Summary:        Headers and libraries for developing with DSDP
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       bundled(js-jquery)
@@ -124,6 +124,9 @@ done
 %{_mandir}/man1/dsdp*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 5.8-31
 - Add SPDX License identifiers for PDF documentation
 - Minor spec file cleanups

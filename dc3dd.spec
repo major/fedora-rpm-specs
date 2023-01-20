@@ -1,6 +1,6 @@
 Name:           dc3dd
 Version:        7.2.646
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Patched version of GNU dd for use in computer forensics
 
 License:        GPLv3+
@@ -77,6 +77,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.646-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.646-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

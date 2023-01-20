@@ -1,6 +1,6 @@
 Name:		coan
 Version:	6.0.1
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	A command line tool for simplifying the pre-processor conditionals in source code
 License:	BSD
 URL:		http://coan2.sourceforge.net/
@@ -78,6 +78,9 @@ autoreconf -vi
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 18 2022 Peter Fordham <peter.fordham@gmail.com> - 6.0.1-29
 - Fix c99 complaince isses in configure.ac and add autoreconf to build.
 

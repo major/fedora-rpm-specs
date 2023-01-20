@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	C-API interface to CLP, CBC and CGL
 Version:	1.8.4
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	CPL
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -76,6 +76,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_libdir}/pkgconfig/coinmp.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 1.8.4-9
 - Port configure script to C99
 

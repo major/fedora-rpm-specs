@@ -1,22 +1,15 @@
 Name:       awstats
-Version:    7.8
-Release:    9%{?dist}
+Version:    7.9
+Release:    1%{?dist}
 Summary:    Advanced Web Statistics
 License:    GPLv3+
-URL:        http://awstats.sourceforge.net
-Source0:    http://downloads.sourceforge.net/project/awstats/AWStats/%{version}/awstats-%{version}.tar.gz
+URL:        https://www.awstats.org/
+Source0:    https://downloads.sourceforge.net/project/awstats/AWStats/%{version}/awstats-%{version}.tar.gz
 Source1:    %{name}.cron
 Patch0:     awstats-awredir.pl-sanitize-parameters.patch
 
 # fix configuration for httpd 2.4 (#871366)
-Patch1:     awstats-7.0-httpd-2.4.patch
-
-# https://github.com/eldy/awstats/pull/196/commits/0d4d4c05f8e73be8f71dd361dc55cbd52858b823.diff
-Patch2:     awstats-CVE-2020-35176.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2150632
-# https://github.com/eldy/AWStats/commit/38682330e1ec3f3af95f9436640358b2d9e4a965.diff
-Patch3:     awstats-CVE-2022-46391.patch
+Patch1:     awstats-7.9-httpd-2.4.patch
 
 BuildArch:  noarch
 BuildRequires:  coreutils
@@ -58,8 +51,6 @@ http://localhost/awstats/awstats.pl
 %setup -q
 %patch0 -p 1
 %patch1 -p 1
-%patch2 -p 1
-%patch3 -p 1
 
 # Fix style sheets.
 perl -pi -e 's,/icon,/awstatsicons,g' wwwroot/css/*
@@ -167,6 +158,12 @@ fi
 
 
 %changelog
+* Wed Jan 18 2023 Tim Jackson <rpm@timj.co.uk> - 7.9-1
+- Version 7.9
+
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Tim Jackson <rpm@timj.co.uk> - 7.8-9
 - Fix CVE-2022-46391 (rhbz #2150632)
 - Clean up spec file, removing conditionals for now-obsolete releases

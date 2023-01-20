@@ -1,6 +1,6 @@
 Name:           aeskeyfind
 Version:        1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 # 3-clause BSD license
 License:        BSD
 Summary:        Locate 128-bit and 256-bit AES keys in a captured memory image
@@ -88,6 +88,9 @@ install -p -m644 %{SOURCE3} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

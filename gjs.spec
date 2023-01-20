@@ -4,7 +4,7 @@
 
 Name:           gjs
 Version:        1.75.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -29,7 +29,9 @@ BuildRequires:  pkgconfig(sysprof-capture-4)
 BuildRequires:  gtk3
 # For dbus tests
 BuildRequires:  /usr/bin/dbus-run-session
-# xvfb for test suite
+#dbus-x11, xvfb, mesa-dri-drivers for test suite
+BuildRequires:  dbus-x11
+BuildRequires:  mesa-dri-drivers
 BuildRequires:  xorg-x11-server-Xvfb
 
 Requires: glib2%{?_isa} >= %{glib2_version}
@@ -92,6 +94,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Mon Jan 16 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.75.1-4
+- Pull in mesa-dri-drivers and dbus-x11 to fix the testsuite
+
 * Mon Jan 16 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.75.1-3
 - Rebuild against mozjs102-102.7.0-1
 

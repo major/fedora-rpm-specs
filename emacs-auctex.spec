@@ -59,8 +59,8 @@ This package is for GNU Emacs.
 %package doc
 # The content is GFDL-1.3-no-invariants-or-later.  The remaining licenses cover
 # the various fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        GFDL-1.3-no-invariants-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        GFDL-1.3-no-invariants-or-later AND Knuth-CTAN
 Summary:        Documentation in various formats for AUCTeX
 
 %description doc
@@ -71,8 +71,8 @@ including HTML and PDF.
 %package -n tex-preview
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        GPL-3.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        GPL-3.0-or-later AND Knuth-CTAN
 Summary:        Preview style files for LaTeX
 Requires:       tex(latex)
 Provides:       tex(preview.sty) = %{version}-%{release}

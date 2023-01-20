@@ -21,7 +21,7 @@ Obsoletes: claws-mail-plugins-dillo < 4.0.0-1
 
 Name:           claws-mail
 Version:        4.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Email client and news reader based on GTK+
 License:        GPLv3+
 URL:            http://claws-mail.org
@@ -658,6 +658,9 @@ touch -r NEWS %{buildroot}%{_includedir}/%{name}/config.h
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.1.1-4
 - For GCC 13 fix missing cstdint in litehtml plugin.
 

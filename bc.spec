@@ -1,7 +1,7 @@
 Summary: GNU's bc (a numeric processing language) and dc (a calculator)
 Name: bc
 Version: 1.07.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPLv2+
 URL: http://www.gnu.org/software/bc/
 Source: http://ftp.gnu.org/gnu/bc/bc-%{version}.tar.gz
@@ -41,6 +41,9 @@ rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 %{_infodir}/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.07.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -759,6 +759,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Tue Jan 17 2023 Orion Poplawski <orion@nwra.com> - 5.15.0-48
+- Rebuild for libgnat soname bump with gcc 13 (Fix FTI bz#2161624)
+
 * Mon Jan 16 2023 Orion Poplawski <orion@nwra.com> - 5.15.0-47
 - Fix devel dep from wxGTK3-devel to wxGTK-devel
 

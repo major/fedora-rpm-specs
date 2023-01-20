@@ -2,7 +2,7 @@
 
 Name: conan
 Version: 2.0.0
-Release: 0.6.%{beta}%{?dist}
+Release: 0.7.%{beta}%{?dist}
 
 License: MIT
 Summary: Open-source C/C++ package manager
@@ -64,6 +64,9 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-0.7.beta8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.6.beta8
 - Updated to version 2.0.0-beta8.
 

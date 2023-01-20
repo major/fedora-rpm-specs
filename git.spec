@@ -14,6 +14,13 @@
 %bcond_with                 linkcheck
 %endif
 
+# Settings for Fedora >= 38
+%if 0%{?fedora} >= 38
+%bcond_with                 perl_modcompat
+%else
+%bcond_without              perl_modcompat
+%endif
+
 # Settings for Fedora and EL >= 9
 %if 0%{?fedora} || 0%{?rhel} >= 9
 %bcond_without              asciidoctor
@@ -73,7 +80,7 @@
 %global _package_note_file  %{_builddir}/%{name}-%{version}%{?rcrev}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.39.0
+Version:        2.39.1
 Release:        1%{?rcrev}%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
@@ -464,6 +471,9 @@ Requires:       git = %{version}-%{release}
 Summary:        Perl interface to Git
 BuildArch:      noarch
 Requires:       git = %{version}-%{release}
+%if %{with perl_modcompat}
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+%endif
 %description -n perl-Git
 %{summary}.
 
@@ -471,6 +481,9 @@ Requires:       git = %{version}-%{release}
 Summary:        Perl interface to Git::SVN
 BuildArch:      noarch
 Requires:       git = %{version}-%{release}
+%if %{with perl_modcompat}
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
+%endif
 %description -n perl-Git-SVN
 %{summary}.
 
@@ -1019,6 +1032,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Tue Jan 17 2023 Todd Zullinger <tmz@pobox.com> - 2.39.1-1
+- update to 2.39.1 (CVE-2022-41903, CVE-2022-23521)
+
 * Mon Dec 12 2022 Todd Zullinger <tmz@pobox.com> - 2.39.0-1
 - update to 2.39.0
 

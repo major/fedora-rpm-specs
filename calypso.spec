@@ -6,7 +6,7 @@
 
 Name: calypso
 Version: 2.0
-Release: 0.9.%{date}git%{shortcommit}%{?dist}
+Release: 0.10.%{date}git%{shortcommit}%{?dist}
 Summary: Free and open-source CalDAV calendar server
 License: GPLv3+
 URL: https://keithp.com/blogs/calypso/
@@ -104,6 +104,9 @@ fi
 %dir %attr(0750,calypso,calypso) %{_sharedstatedir}/calypso
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.10.20190429git7317d88
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.9.20190429git7317d88
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

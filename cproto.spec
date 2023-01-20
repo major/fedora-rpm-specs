@@ -1,7 +1,7 @@
 Summary: Generates function prototypes and variable declarations from C code
 Name: cproto
 Version: 4.7t
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: Public Domain
 Source: https://invisible-island.net/datafiles/release/cproto.tar.gz
 URL: http://invisible-island.net/
@@ -37,6 +37,9 @@ definitions as much as other prototype generators.
 %{_mandir}/man1/cproto.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7t-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.7t-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

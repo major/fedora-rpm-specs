@@ -62,8 +62,8 @@ Conflicts: %1 \
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind
 License:  MPL-2.0
-Version:  9.18.8
-Release:  1%{?dist}
+Version:  9.18.10
+Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -71,7 +71,7 @@ Source0:  https://downloads.isc.org/isc/bind9/%{version}/%{upname}-%{version}.ta
 Source1:  named.sysconfig
 Source2:  https://downloads.isc.org/isc/bind9/%{version}/%{upname}-%{version}.tar.xz.asc
 Source3:  named.logrotate
-Source4:  https://downloads.isc.org/isc/pgpkeys/codesign2021.txt
+Source4:  https://www.isc.org/docs/isc-keyblock.asc
 Source16: named.conf
 # Refresh by command: dig @a.root-servers.net. +tcp +norec
 # or from URL
@@ -101,6 +101,8 @@ Patch16: bind-9.16-redhat_doc.patch
 Patch22: bind-9.11-fips-tests.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2122010
 Patch26: bind-9.18-unittest-netmgr-unstable.patch
+# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/7376/
+Patch27: bind-9.18-zt-include-rwlock.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -949,6 +951,16 @@ fi;
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 32:9.18.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Mon Jan 16 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.10-1
+- Update to 9.18.10 (#2143258)
+- Include rwlock.h from dns/zt.h
+
+* Mon Nov 21 2022 Petr Menšík <pemensik@redhat.com> - 32:9.18.9-1
+- Update to 9.18.9 (#2143258)
+
 * Sat Oct 22 2022 Petr Menšík <pemensik@redhat.com> - 32:9.18.8-1
 - Update to 9.18.8 (#2136100)
 

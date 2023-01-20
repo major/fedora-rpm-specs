@@ -2,7 +2,7 @@
 Summary: GUI for several command-line debuggers
 Name: ddd
 Version: 3.3.12
-Release: 42%{?dist}
+Release: 43%{?dist}
 License: GPLv2+
 URL: http://www.gnu.org/software/ddd/
 #Source0: http://dl.sf.net/ddd/ddd-%{version}.tar.gz
@@ -92,6 +92,9 @@ install -D -m 0644 %{SOURCE2} \
 %{_mandir}/man1/ddd.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.12-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.12-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

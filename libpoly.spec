@@ -12,7 +12,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(sympy)
+BuildRequires:  %{py3_dist sympy}
 
 %description
 LibPoly is a C library for manipulating polynomials.  The target

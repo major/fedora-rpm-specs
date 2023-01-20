@@ -5,7 +5,7 @@
 
 Name:           cubeb
 Version:        0.2
-Release:        9%{?fgittag:.%{fgittag}}%{?dist}
+Release:        10%{?fgittag:.%{fgittag}}%{?dist}
 Summary:        A cross platform audio library
 
 #cubeb is ISC, sanitizers-cmake is MIT
@@ -64,6 +64,9 @@ sed -i -e "/^\[!/d" -e "/INSTALL.md/d" README.md
 %{_docdir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-10.20220915.git28c8aa4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 10 2022 Jeremy Newton <alexjnewt AT hotmail DOT com> - 0.2-9.20220915.git28c8aa4
 - Build as static
 

@@ -1,6 +1,6 @@
 Name:           aprsdigi
 Version:        3.5.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        AX.25 Automatic Position Reporting System
 
 License:        GPLv2
@@ -79,6 +79,9 @@ EOL
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

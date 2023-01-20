@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Cut Generation Library
 Version:	0.60.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}
 Source0:	%{url}/archive/releases/%{version}/%{module}-%{version}.tar.gz
@@ -90,6 +90,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/cgl_doxy.tag
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.60.3-8
 - Port configure script to C99
 

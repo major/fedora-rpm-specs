@@ -6,19 +6,20 @@
 Name:           pass
 Summary:        A password manager using standard Unix tools
 Version:        1.7.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        GPLv2+
 Url:            http://zx2c4.com/projects/password-store/
 BuildArch:      noarch
 Source:         http://git.zx2c4.com/password-store/snapshot/password-store-%{version}.tar.xz
+Patch:          0001-Default-to-xclip-if-wl-clip-is-not-found.patch
 
 BuildRequires: make
 BuildRequires:       git-core
 BuildRequires:       gnupg2
 BuildRequires:       perl-generators
 BuildRequires:       tree >= 1.7.0
-Requires:            (wl-clipboard if libwayland-client else xclip)
-Requires:            (xclip if xorg-x11-server-Xorg else wl-clipboard)
+Recommends:          (wl-clipboard if libwayland-client else xclip)
+Recommends:          (xclip if xorg-x11-server-Xorg else wl-clipboard)
 Requires:            git-core
 Requires:            gnupg2
 Requires:            qrencode
@@ -44,7 +45,7 @@ clipboard.
 %endif
 
 %prep
-%setup -q -n password-store-%{version}
+%autosetup -p 1 -n password-store-%{version}
 rm -f contrib/emacs/.gitignore
 
 %install
@@ -80,6 +81,11 @@ make test
 %endif
 
 %changelog
+* Mon Aug 22 2022 Peter Georg <peter.georg@physik.uni-regensburg.de> - 1.7.4-6
+- Set wl-copy/xclip requires to recommends
+  Resolves: rhbz#2022909
+- Cherry-pick upstream commit handling wl-copy/xclip selection
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

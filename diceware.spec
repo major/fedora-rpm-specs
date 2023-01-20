@@ -1,6 +1,6 @@
 Name:		diceware
 Version:	0.9.5
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Create passphrases which one can remember
 
 License:	GPLv3+
@@ -70,6 +70,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

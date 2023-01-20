@@ -6,7 +6,7 @@
 
 Name:           desktop-backgrounds
 Version:        37.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Desktop backgrounds
 
 License:        LGPLv2
@@ -216,6 +216,9 @@ mkdir -p %{buildroot}%{_datadir}/glib-2.0/schemas
 %{_datadir}/backgrounds/default.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 6 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 37.0.0-4
 - Revert build requirement change for compat subpackage
 - Fix default png file patth for compat subpackage

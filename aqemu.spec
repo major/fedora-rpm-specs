@@ -3,7 +3,7 @@
 
 Name: aqemu
 Version: 0.9.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: A QT graphical interface to QEMU and KVM
 License: GPLv2+
 URL: http://aqemu.sourceforge.net
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

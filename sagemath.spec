@@ -40,33 +40,33 @@
 %global	elliptic_curves_pkg	elliptic_curves-0.8.1
 %global graphs_pkg		graphs-20210214
 %if %{with bundled_ipython}
-%global ipython_ver		7.29.0
+%global ipython_ver		8.4.0
 %global ipython_pkg		ipython-%{ipython_ver}
-%global prompt_toolkit_ver	3.0.22
+%global prompt_toolkit_ver	3.0.24
 %global prompt_tookit_pkg	prompt_toolkit-%{prompt_toolkit_ver}
 %endif
 %if %{with bundled_jupyter_jsmol}
-%global jupyter_jsmol_ver	0.2.4
+%global jupyter_jsmol_ver	2022.1.0
 %global jupyter_jsmol_pkg	jupyter_jsmol-%{jupyter_jsmol_ver}
 %endif
 %if %{with bundled_memory_allocator}
-%global memory_allocator_ver	0.1.1
+%global memory_allocator_ver	0.1.3
 %global memory_allocator_pkg	memory_allocator-%{memory_allocator_ver}
 %endif
 %if %{with bundled_pexpect}
 %global pexpect_pkg		pexpect-4.8.0
 %endif
 %global polytopes_db_pkg	polytopes_db-20170220
-%global sagetex_pkg		sagetex-3.5
+%global sagetex_pkg		sagetex-3.6.1
 %global Sphinx_pkg		Sphinx-4.4.0
-%global singular_pkg		singular-4.2.1p3
+%global singular_pkg		singular-4.3.1p1
 %if %{with bundled_threejs}
 %global threejs_ver		r122
 %global threejs_pkg		threejs-sage-%{threejs_ver}
 %endif
 
 # Spkg equivalents of required rpms; we pretend they are installed as spkgs.
-%global SAGE_REQUIRED_PKGS 4ti2-1.6.9 bliss-0.77 CoCoALib-0.99800 coxeter3-3.1 cryptominisat-5.8.0 database_cremona_ellcurve-%{cremona_ver} gap_packages-4.11.1 libsirocco-2.1.0 lrslib-072 mcqd-1.0.0 meataxe-1.0 primecount-7.3 qepcad-B.1.74 saclib-2.2.8 surf-1.0.6-gcc6 tdlib-0.9.2
+%global SAGE_REQUIRED_PKGS 4ti2-1.6.9 bliss-0.77 CoCoALib-0.99800 coxeter3-3.1 cryptominisat-5.8.0 database_cremona_ellcurve-%{cremona_ver} gap_packages-4.11.1 libsirocco-2.1.0 lrslib-072 mcqd-1.0.0 meataxe-1.0.1 qepcad-B.1.74 saclib-2.2.8 tdlib-0.9.2
 
 %ifarch %{ix86} x86_64
 %global SAGE_REQUIRED_PKGS %{SAGE_REQUIRED_PKGS} fes-0.2
@@ -83,8 +83,8 @@
 
 Name:		sagemath
 Summary:	A free open-source mathematics software system
-Version:	9.6
-Release:	8%{?dist}
+Version:	9.7
+Release:	1%{?dist}
 # The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file.
 # Note that many of the components listed in that file are not built in, but
 # are used as external libraries, and therefore do not affect the License tag.
@@ -96,10 +96,10 @@ Source0:	http://files.sagemath.org/src/sage-%{version}.tar.gz
 Source1:	https://github.com/JohnCremona/ecdata/archive/%{cremona_ver}/cremona-%{cremona_ver}.tar.gz
 Source2:	gprc.expect
 Source3:	org.sagemath.sage.metainfo.xml
-# Follow maxima's ExclusiveArch, except exclude 32-bit ARM.  The source RPM is
-# now about 2GB in size.  The 32-bit ARM builders run out of memory trying to
-# create the SRPM and also trying to unpack the SRPM before starting a build.
-# The i386 builders sometimes fail as well, so exclude all 32-bit platforms.
+# Follow maxima's ExclusiveArch.  The source RPM is now about 2GB in size.  The
+# 32-bit ARM builders run out of memory trying to create the SRPM and also
+# trying to unpack the SRPM before starting a build.  The i386 builders
+# sometimes fail as well, so exclude all 32-bit platforms.
 ExclusiveArch: aarch64 x86_64
 
 # Fix stray escapes in python strings
@@ -174,21 +174,12 @@ Patch19:	%{name}-tdlib.patch
 # Use local objects.inv for intersphinx since no network on koji builders
 Patch20:	%{name}-intersphinx.patch
 
-# Fix a typo that leads to infinite recursion
-Patch21:	%{name}-infinite-recursion.patch
-
-# Fix a use-after-free bug
-Patch22:	%{name}-use-after-free.patch
-
 # Adapt to changes in python 3.11
-Patch23:	%{name}-python3.11.patch
-
-# Adapt to changes in sphinx
-Patch24:	%{name}-sphinx.patch
+Patch21:	%{name}-python3.11.patch
 
 # Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2160197
 # Remove this when that bug is fixed
-Patch25:	%{name}-giac.patch
+Patch22:	%{name}-giac.patch
 
 BuildRequires:	4ti2
 BuildRequires:	4ti2-devel
@@ -280,6 +271,7 @@ BuildRequires:	glpk-devel
 BuildRequires:	glpk-utils
 BuildRequires:	gmp-ecm
 BuildRequires:	gmp-ecm-devel
+BuildRequires:	gnupg2
 BuildRequires:	gp2c
 BuildRequires:	ImageMagick
 BuildRequires:	iml-devel
@@ -305,6 +297,7 @@ BuildRequires:	mpfi-devel
 BuildRequires:	nauty
 BuildRequires:	ninja-build
 BuildRequires:	ntl-devel
+BuildRequires:	openssh
 BuildRequires:	openssl
 BuildRequires:	palp
 BuildRequires:	pandoc
@@ -364,6 +357,7 @@ BuildRequires:	python3-tdlib-devel
 BuildRequires:	python3-tkinter
 BuildRequires:	pythran
 BuildRequires:	%{py3_dist argon2-cffi}
+BuildRequires:	%{py3_dist asttokens}
 %if %{with bundled_ipython}
 BuildRequires:	%{py3_dist backcall}
 %endif
@@ -375,11 +369,16 @@ BuildRequires:	%{py3_dist colorlog}
 BuildRequires:	%{py3_dist cppy}
 BuildRequires:	%{py3_dist cvxopt}
 BuildRequires:	%{py3_dist cython}
+BuildRequires:	%{py3_dist deprecation}
 BuildRequires:	%{py3_dist docutils}
+BuildRequires:	%{py3_dist editables}
+BuildRequires:	%{py3_dist executing}
 BuildRequires:	%{py3_dist flit-core}
 BuildRequires:	%{py3_dist fpylll}
+BuildRequires:	%{py3_dist furo}
 BuildRequires:	%{py3_dist gast}
 BuildRequires:	%{py3_dist gmpy2}
+BuildRequires:  %{py3_dist hatchling}
 %if %{with sphinx_hack}
 BuildRequires:	%{py3_dist html5lib}
 BuildRequires:	%{py3_dist imagesize}
@@ -394,6 +393,7 @@ BuildRequires:	%{py3_dist ipywidgets}
 %if %{with bundled_ipython}
 BuildRequires:	%{py3_dist jedi}
 %endif
+BuildRequires:	%{py3_dist jupyter-packaging}
 BuildRequires:	%{py3_dist jupyter-sphinx}
 BuildRequires:	%{py3_dist jupyterlab-pygments}
 BuildRequires:	%{py3_dist kiwisolver}
@@ -421,11 +421,16 @@ BuildRequires:	%{py3_dist pkgconfig}
 BuildRequires:	%{py3_dist platformdirs}
 BuildRequires:	%{py3_dist pluggy}
 BuildRequires:	%{py3_dist ply}
+BuildRequires:	%{py3_dist poetry-core}
 BuildRequires:	%{py3_dist primecountpy}
 BuildRequires:	%{py3_dist ptyprocess}
+BuildRequires:	%{py3_dist pure-eval}
 BuildRequires:	%{py3_dist py}
 BuildRequires:	%{py3_dist pycryptosat}
 BuildRequires:	%{py3_dist pyopenssl}
+BuildRequires:	%{py3_dist pytz}
+BuildRequires:	%{py3_dist pytzdata}
+BuildRequires:	%{py3_dist pytz-deprecation-shim}
 %if %{with bundled_ipython}
 BuildRequires:	%{py3_dist pyzmq}
 %endif
@@ -441,8 +446,12 @@ BuildRequires:	%{py3_dist simplegeneric}
 BuildRequires:	%{py3_dist six}
 BuildRequires:	%{py3_dist soupsieve}
 BuildRequires:	%{py3_dist sphinx}
+BuildRequires:	%{py3_dist sphinx-basic-ng}
+BuildRequires:	%{py3_dist stack-data}
 BuildRequires:	%{py3_dist sympy}
+BuildRequires:	%{py3_dist tinycss2}
 BuildRequires:	%{py3_dist tomli}
+BuildRequires:	%{py3_dist tomlkit}
 BuildRequires:	%{py3_dist tox}
 BuildRequires:	%{py3_dist typing-extensions}
 BuildRequires:	%{py3_dist urllib3}
@@ -572,6 +581,7 @@ Requires:	pari-gp
 Requires:	pari-nftables
 Requires:	pari-seadata
 Requires:	python3-tdlib
+Requires:	%{py3_dist asttokens}
 %if %{with bundled_ipython}
 Requires:	%{py3_dist backcall}
 %endif
@@ -585,6 +595,7 @@ Requires:	%{py3_dist cysignals}
 Requires:	%{py3_dist cvxopt}
 Requires:	%{py3_dist cython}
 Requires:	%{py3_dist docutils}
+Requires:	%{py3_dist executing}
 Requires:	%{py3_dist flit-core}
 Requires:	%{py3_dist fpylll}
 Requires:	%{py3_dist gast}
@@ -622,7 +633,11 @@ Requires:	%{py3_dist pickleshare}
 Requires:	%{py3_dist pplpy}
 Requires:	%{py3_dist primecountpy}
 Requires:	%{py3_dist ptyprocess}
+Requires:	%{py3_dist pure-eval}
 Requires:	%{py3_dist pycryptosat}
+Requires:	%{py3_dist pytz}
+Requires:	%{py3_dist pytzdata}
+Requires:	%{py3_dist pytz-deprecation-shim}
 %if %{with bundled_ipython}
 Requires:	%{py3_dist pyzmq}
 %endif
@@ -633,7 +648,10 @@ Requires:	%{py3_dist simplegeneric}
 %endif
 Requires:	%{py3_dist six}
 Requires:	%{py3_dist sphinx}
+Requires:	%{py3_dist stack-data}
 Requires:	%{py3_dist sympy}
+Requires:	%{py3_dist tinycss2}
+Requires:	%{py3_dist tomlkit}
 Requires:	%{py3_dist urllib3}
 Requires:	%{py3_dist zodb3}
 Requires:	qepcad-B
@@ -860,6 +878,9 @@ Summary:	Jupyter integration for sagemath
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 Requires:	python-jupyter-filesystem
 Requires:	%{py3_dist argon2-cffi}
+Requires:	%{py3_dist deprecation}
+Requires:	%{py3_dist editables}
+Requires:	%{py3_dist hatchling}
 Requires:	%{py3_dist jupyter-sphinx}
 Requires:	%{py3_dist jupyterlab-pygments}
 Requires:	%{py3_dist matplotlib-inline}
@@ -1040,14 +1061,17 @@ sed -i '/GAP_ROOT_DIR/s,SAGE_SHARE,"%{_libdir}",' src/sage/env.py
 # Fix detection of Fedora
 sed -i 's/yum/rpm/' build/bin/sage-guess-package-system
 
+# Allow use of gcc 13
+sed -i 's/1\[3-9\].*)/1[4-9].*)/' configure
+
 # Allow use of python 3.11
 sed -i 's/3\.11\.0/3.12.0/g' configure
 
-# Allow use of libfplll 5.4.2
-sed -i 's/5\.4\.1/5.4.2/g' configure
+# Allow use of libfplll 5.4.4
+sed -i 's/5\.4\.2/5.4.4/g' configure
 
 # Allow use of eclib 20221012
-sed -i 's/20210625/20221012/g' configure
+sed -i 's/20220621/20221012/g' configure
 
 # Do not build with -march=native
 sed -i 's/CFLAGS_MARCH="-march=native"/CFLAGS_MARCH=""/' configure
@@ -2048,6 +2072,7 @@ end
 #------------------------------------------------------------------------
 %files		sagetex
 # GPL-2.0-or-later
+%{_bindir}/sagetex*
 %{python3_sitearch}/sagetex*
 %{python3_sitearch}/__pycache__/sagetex*
 %{_texmf}/tex/latex/sagetex/
@@ -2055,6 +2080,10 @@ end
 
 ########################################################################
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 9.7-1
+- Version 9.7
+- Drop upstreamed patches: -infinite-recursion, -use-after-free, -sphinx
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 9.6-8
 - Update for split GAP tree
 - Add patch for FTBFS with latest giac (see bz 2160197)

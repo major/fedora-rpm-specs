@@ -1,7 +1,7 @@
 Summary: 3D multi-player tank battle game
 Name: bzflag
 Version: 2.4.26
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2
 URL: http://bzflag.org
 Source0: https://download.bzflag.org/bzflag/source/%{version}/bzflag-%{version}.tar.bz2
@@ -157,6 +157,9 @@ exit 0
 %{_datadir}/bzflag/maps/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jeff Makey <jeff@makey.net> 2.4.26-1
 - version 2.4.26
 

@@ -3,7 +3,7 @@ Version:        2.1.0
 # Release candidate versions are messy. Give them a release of
 # e.g. "0.1.0%%{?dist}" for RC1 (and remember to adjust the Source0
 # URL). Non-RC releases go back to incrementing integers starting at 1.
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A non-linear least squares minimizer
 
 License:        BSD
@@ -146,6 +146,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Sandro Mani <manisandro@gmail.com> - 2.1.0-4
 - Add Requires: suitesparse-devel to ceres-solver-devel
 

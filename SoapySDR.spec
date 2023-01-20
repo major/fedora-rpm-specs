@@ -1,6 +1,6 @@
 Name:           SoapySDR
 Version:        0.8.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A Vendor Neutral and Platform Independent SDR Support Library
 
 License:        Boost
@@ -94,6 +94,9 @@ ctest -V %{?_smp_mflags}
 %{_pkgdocdir}/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Andrew Bauer <zonexpertconsulting@outlook.com> - 0.8.1-7
 - BZ 2154868 - Fix distutils dep for phyton 3.12
 

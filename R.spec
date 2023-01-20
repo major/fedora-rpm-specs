@@ -36,7 +36,7 @@
 
 Name:           R
 Version:        %{major_version}.%{minor_version}.%{patch_version}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A language for data analysis and graphics
 
 License:        GPLv2+
@@ -823,6 +823,9 @@ fi
 %{_libdir}/libRmath.a
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 4.2.2-6
 - Rebuild for ICU 72
 

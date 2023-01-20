@@ -1,6 +1,6 @@
 Name:           CSFML
 Version:        2.5.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        C Interface for the Simple and Fast Multimedia Library
 
 License:        zlib
@@ -76,6 +76,9 @@ rm %{buildroot}%{_datadir}/%{name}/readme.txt
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.5.1-6
 - Fix CMake-related FTBFS
 

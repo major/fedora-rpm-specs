@@ -1,6 +1,6 @@
 Name:           python-zope-sqlalchemy
 Version:        1.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 BuildArch:      noarch
 
 License:        ZPLv2.1
@@ -54,11 +54,15 @@ rm -rf %{modname}.egg-info
 %doc CHANGES.rst CREDITS.rst
 %license COPYRIGHT.txt LICENSE.txt
 # Co-own %%{python_sitelib}/zope/
-%{python3_sitelib}/*
+%{python3_sitelib}/zope.sqlalchemy-*
+%{python3_sitelib}/zope/sqlalchemy
 %exclude %{python3_sitelib}/zope/sqlalchemy/*.rst
 
 
 %changelog
+* Wed Jan 18 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 1.6-5
+- Do not use glob on python sitelib
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

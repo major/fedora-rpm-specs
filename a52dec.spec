@@ -1,7 +1,7 @@
 Summary:    Small test program for liba52
 Name:       a52dec
 Version:    0.7.4
-Release:    44%{?dist}
+Release:    45%{?dist}
 License:    GPLv2
 URL:        http://liba52.sourceforge.net
 Source0:    %{url}/files/%{name}-%{version}.tar.gz
@@ -91,6 +91,9 @@ done
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Peter Fordham <peter.fordham@gmail.com> - 0.7.4-44
 - Port configure script to C99
 

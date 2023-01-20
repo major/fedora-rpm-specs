@@ -5,7 +5,7 @@
 
 Name:           %{srcname}-factory
 Version:        0.7.0
-Release:        0.39.20200220git%{shortcommit0}%{?dist}
+Release:        0.40.20200220git%{shortcommit0}%{?dist}
 Summary:        Game engine and editors dedicated to creating great 2D games
 License:        GPLv3+ and CC-BY-SA
 URL:            https://github.com/j-jorge/bear
@@ -136,6 +136,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/cmake/%{srcname}-engine
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-0.40.20200220git2a78522
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 12 2022 Scott Talbert <swt@techie.net> - 0.7.0-0.39.20200220git2a78522
 - Rebuild with wxWidgets 3.2
 

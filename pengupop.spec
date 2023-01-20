@@ -1,11 +1,12 @@
 Name:           pengupop
 Version:        2.2.2
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Networked Game in the vein of Move/Puzzle Bobble
 
 License:        GPLv2+
 URL:            http://www.junoplay.com/pengupop
 Source0:        http://www.junoplay.com/files/%{name}-%{version}.tar.gz
+Patch0: pengupop-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -20,7 +21,7 @@ remove all orbs. You lose if any orb attaches below the white line.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -48,6 +49,9 @@ desktop-file-install \
 
 
 %changelog
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 2.2.2-30
+- C99 compatibility fixes (#2161674)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

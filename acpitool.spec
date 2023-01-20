@@ -1,7 +1,7 @@
 Summary: Command line ACPI client
 Name: acpitool
 Version: 0.5.1
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: GPLv2+
 URL: https://sourceforge.net/projects/acpitool/
 BuildRequires: gcc-c++
@@ -51,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/acpitool*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

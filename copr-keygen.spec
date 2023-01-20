@@ -3,7 +3,7 @@
 
 Name:       copr-keygen
 Version:    1.86
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
 License:    GPLv2+
@@ -177,6 +177,9 @@ systemctl condrestart httpd &>/dev/null || :
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.86-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 1.86-1
 - move to GitHub home page
 - logging shouldn't affect stdout

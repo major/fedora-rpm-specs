@@ -28,7 +28,7 @@
 
 Name:			cairo-dock-plug-ins
 Version:		%{mainver}
-Release:		%{mainrel}%{?use_git:.%{gitdate}git%{shorthash}}%{?dist}
+Release:		%{mainrel}%{?use_git:.%{gitdate}git%{shorthash}}%{?dist}.1
 Summary:		Plug-ins files for Cairo-Dock
 
 License:		GPLv3+
@@ -414,6 +414,9 @@ popd
 %{_datadir}/cairo-dock/plug-ins/Dbus/CDApplet.h
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-42.20210730gitf24f769.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-42.20210730gitf24f769
 - Handle PEP632, switch from distutils to setuptools
 

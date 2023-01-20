@@ -1,18 +1,14 @@
 %global puzzleset xword-dl
 %global srcname puzzle-sets-%{puzzleset}
 
-%global date 20220905
-%global commit 5b233eba14166b5663e1c594b1183c2289433fa2
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-
 Name:           crosswords-%{srcname}
-Version:        0.3.0~%{date}git%{shortcommit}
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Puzzle Sets from assorted newspapers for GNOME Crosswords
 
 License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/jrb/%{srcname}
-Source:         %{url}/-/archive/%{commit}/%{srcname}-%{commit}.tar.gz
+Source:         %{url}/-/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  gcc
@@ -28,12 +24,16 @@ Supplements:    crosswords
 # For the downloader script
 Requires:       python3-xword-dl
 
+# Replace puzzlepull which has been merged into xword-dl
+Provides:       crosswords-puzzle-sets-puzzlepull = %{version}-%{release}
+Obsoletes:      crosswords-puzzle-sets-puzzlepull < 0.3.0-2
+
 %description
 Download crossword puzzles for GNOME Crosswords from assorted newspapers using
 xword-dl.
 
 %prep
-%autosetup -n %{srcname}-%{commit} -p1
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
 %meson
@@ -47,6 +47,8 @@ appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/org.gnome.Crosswords.PuzzleSets.%{puzzleset}.metainfo.xml
 
 %files
+%license COPYING
+%doc README.md
 %{_datadir}/crosswords/puzzle-sets/%{puzzleset}
 %{_metainfodir}/org.gnome.Crosswords.PuzzleSets.%{puzzleset}.metainfo.xml
 

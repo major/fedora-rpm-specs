@@ -3,7 +3,7 @@
 
 Name:               bacula
 Version:            13.0.1
-Release:            5%{?dist}
+Release:            6%{?dist}
 Summary:            Cross platform network backup for Linux, Unix, Mac and Windows
 # See LICENSE for details
 License:            AGPLv3 with exceptions
@@ -643,6 +643,9 @@ exit 0
 %{_libdir}/nagios/plugins/check_bacula
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Florian Weimer <fweimer@redhat.com> - 13.0.1-5
 - Port configure script to C99
 

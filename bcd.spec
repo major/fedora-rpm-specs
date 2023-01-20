@@ -4,7 +4,7 @@
 
 Name:           bcd
 Version:        1.1
-Release:        8.%{?date0}git%{?shortcommit0}%{?dist}
+Release:        9.%{?date0}git%{?shortcommit0}%{?dist}
 Summary:        Bayesian Collaborative Denoiser for Monte-Carlo Rendering
 # BSD: main program
 # AGPLv3+: src/io/exr
@@ -140,6 +140,9 @@ cp -pr include/* %{buildroot}%{_includedir}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-9.20180610gitd94c9fa
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-8.20180610gitd94c9fa
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

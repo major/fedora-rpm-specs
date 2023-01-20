@@ -17,25 +17,18 @@ Source0:        %pypi_source BTrees
 
 BuildRequires:  gcc
 BuildRequires:  make
-%if 0%{?fedora} > 35
 BuildRequires:  python-zope-interface-doc
-%endif
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python3-persistent-devel
 BuildRequires:  python3-persistent-doc
-%if 0%{?fedora} < 36
-BuildRequires:  %{py3_dist nose}
-%endif
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist repoze.sphinx.autointerface}
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
-%if 0%{?fedora} > 35
 BuildRequires:  %{py3_dist tox}
 BuildRequires:  %{py3_dist tox-current-env}
-%endif
 BuildRequires:  %{py3_dist transaction}
 BuildRequires:  %{py3_dist zope.interface}
 BuildRequires:  %{py3_dist zope.testrunner}
@@ -96,9 +89,7 @@ Documentation for %{name}.
 # Use local objects.inv for intersphinx
 sed -e "s|\('https://docs\.python\.org/3/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
     -e "s|\('https://persistent\.readthedocs\.io/en/latest/': \)None|\1'%{_docdir}/python3-persistent-doc/objects.inv'|" \
-%if 0%{?fedora} > 35
     -e 's|\("https://zopeinterface\.readthedocs\.io/en/latest/": \)None|\1"%{_docdir}/python-zope-interface/html/objects.inv"|' \
-%endif
     -i docs/conf.py
 
 %if %{without bootstrap}
@@ -124,13 +115,7 @@ chmod 0755 %{buildroot}%{python3_sitearch}/BTrees/*.so
 sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 
 %check
-# See https://src.fedoraproject.org/rpms/python-zope-interface/pull-request/3
-# for why %%tox does not work on Fedora < 36
-%if 0%{?fedora} > 35
 %tox
-%else
-%{python3} setup.py test
-%endif
 
 %files -n python3-BTrees -f %{pyproject_files}
 %doc CHANGES.html README.html
@@ -140,6 +125,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 4.11.3-1
+- Remove support for Fedora 35 and earlier
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 4.11.3-1
 - Version 4.11.3
 - Clarify license of the doc subpackage

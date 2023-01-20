@@ -19,7 +19,7 @@ clean Py3-style codebase, module by module.
 Name: future
 Summary: Easy, clean, reliable Python 2/3 compatibility
 Version: 0.18.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: http://python-future.org/
 Source0: https://github.com/PythonCharmers/python-future/archive/refs/tags/v%{version}/python-%{name}-%{version}.tar.gz
@@ -110,6 +110,9 @@ PYTHONPATH=$PWD/build/lib py.test-%{python3_version}
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Tue Jan 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.18.3-3
+- Upload new source archive
+
 * Fri Jan 13 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.18.3-2
 - Add updated patch for fixing tests
 

@@ -23,7 +23,7 @@
 
 Name:           dnsmasq
 Version:        2.88
-Release:        2%{?extraversion:.%{extraversion}}%{?dist}
+Release:        3%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
 License:        GPL-2.0-only or GPL-3.0-only
@@ -211,6 +211,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.88-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Petr Menšík <pemensik@redhat.com> - 2.88-2
 - Create dnsmasq-langpack subpackage with translations (#2131681)
 

@@ -1,6 +1,6 @@
 Name:           abcMIDI
 Version:        2022.12.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ABC to/from MIDI conversion utilities
 
 Group:          Applications/Multimedia
@@ -60,6 +60,9 @@ install -p -m 644 doc/yaps.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12.09-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Stuart Gathman <stuart@gathman.org> - 2022.12.09-1
 - New upstream release, removes compiled binaries :-{
 

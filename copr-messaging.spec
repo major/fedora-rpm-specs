@@ -8,7 +8,7 @@ copr messages.
 
 Name:       copr-messaging
 Version:    0.7
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Abstraction for Copr messaging listeners/publishers
 
 License:    GPLv2+
@@ -86,6 +86,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 0.7-1
 - move to GitHub home page
 - sync tooling with other sub-projects

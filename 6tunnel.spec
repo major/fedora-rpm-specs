@@ -1,6 +1,6 @@
 Name:           6tunnel
 Version:        0.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tunnelling for application that don't speak IPv6
 
 License:        GPL-2.0-only
@@ -50,5 +50,8 @@ autoreconf -vif
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 jonathanspw <jonathan@almalinux.org> - 0.13-1
 - Initial package build

@@ -10,8 +10,8 @@
 %global verify_tarball_signature 1
 
 Name:           hivex
-Version:        1.3.21
-Release:        13%{?dist}
+Version:        1.3.23
+Release:        1%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPLv2
@@ -26,9 +26,6 @@ Source1:        http://libguestfs.org/download/hivex/%{name}-%{version}.tar.gz.s
 %if 0%{verify_tarball_signature}
 Source2:       libguestfs.keyring
 %endif
-
-# Upstream Python removal of distutils (RHBZ#2155013)
-Patch:          0001-build-Replace-Python-distutils-by-sysconfig.patch
 
 BuildRequires:  make
 BuildRequires:  autoconf, automake, libtool, gettext-devel
@@ -73,9 +70,6 @@ Requires:       %{name}-libs = %{version}-%{release}
 
 Conflicts:      %{name} < 1.3.20-6
 Obsoletes:      %{name} < 1.3.20-6
-
-# https://fedoraproject.org/wiki/Packaging:No_Bundled_Libraries#Packages_granted_exceptions
-Provides:      bundled(gnulib)
 
 
 %description
@@ -236,17 +230,6 @@ rm $RPM_BUILD_ROOT%{python3_sitearch}/libhivexmod.la
 
 
 %check
-# Disable some gnulib tests which fail on Arm and POWER and S/390
-# (2020-07, 2020-12):
-for f in test-float test-perror2 test-pthread_sigmask1 test-strerror_r; do
-    pushd gnulib/tests
-    make $f
-    rm -f $f
-    touch $f
-    chmod +x $f
-    popd
-done
-
 if ! make check -k; then
     for f in $( find -name test-suite.log | xargs grep -l ^FAIL: ); do
         echo
@@ -258,7 +241,7 @@ if ! make check -k; then
 fi
 
 %files -f %{name}.lang
-%doc README
+%doc README.md
 %license LICENSE
 %{_bindir}/hivexget
 %{_bindir}/hivexml
@@ -269,7 +252,7 @@ fi
 
 
 %files libs
-%doc README
+%doc README.md
 %license LICENSE
 %{_libdir}/libhivex.so.*
 
@@ -291,7 +274,7 @@ fi
 
 %if %{with ocaml}
 %files -n ocaml-%{name}
-%doc README
+%doc README.md
 %{_libdir}/ocaml/hivex
 %exclude %{_libdir}/ocaml/hivex/*.a
 %exclude %{_libdir}/ocaml/hivex/*.cmxa
@@ -329,6 +312,11 @@ fi
 
 
 %changelog
+* Wed Jan 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.23-1
+- New development version 1.3.23
+- Second attempt to fix Python 3.12 removal of distutils (RHBZ#2155013)
+- Remove gnulib since it is no longer bundled by upstream.
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.21-13
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

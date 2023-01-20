@@ -1,6 +1,6 @@
 Name:           dfc
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Report file system space usage information with style
 
 License:        BSD-3-Clause AND BSD-2-Clause
@@ -49,5 +49,8 @@ rm -f %{buildroot}%{_docdir}/%{name}/{HACKING.md,LICENSE}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 06 2022 Jonathan Wright <jonathan@almalinux.org> - 3.1.1-1
 - Initial package build

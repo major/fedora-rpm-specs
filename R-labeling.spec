@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.4.2
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Axis Labeling
 
 License:          MIT
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 0.4.2-7
 - rebuild for R 4.2.1
 

@@ -4,7 +4,7 @@
 
 Name:       apcupsd
 Version:    3.14.14
-Release:    27%{?dist}
+Release:    28%{?dist}
 Summary:    APC UPS Power Control Daemon
 
 License:    GPLv2
@@ -166,6 +166,9 @@ rm examples/*.in
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.14-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 02 2022 Jason L Tibbitts III <j@tib.bs> - 3.14.14-27
 - Depend on libusb-compat-0.1-devel to avoid build breakage.
 

@@ -1,6 +1,6 @@
 Name:           clamz
 Version:        0.5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Amazon Downloader
 License:        GPL-3.0-or-later
 URL:            https://code.google.com/archive/p/clamz/
@@ -38,6 +38,9 @@ make install DESTDIR=%{buildroot} UPDATE_MIME_DATABASE=: UPDATE_DESKTOP_DATABASE
 %{_datadir}/mime/packages/%{name}.xml
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 15 2022 David Cantrell <dcantrell@redhat.com> - 0.5-25
 - Change License tag to use SPDX license expression
 

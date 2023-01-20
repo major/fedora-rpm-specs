@@ -1,8 +1,7 @@
 # Upstream doesn't make releases.  We have to check the code out of git.
-%global owner    berkeley-abc
-%global gittag   a9237f50ea01efdd62f86d334a38ffbe80a3d141
+%global gittag   66a5fe7aecd88d3fb0a70cc87aacc642b2d67c8c
 %global shorttag %(cut -b -7 <<< %{gittag})
-%global gitdate  20220731
+%global gitdate  20221229
 
 # WARNING: When updating to a newer snapshot, because upstream doesn't do
 # shared library versioning, run abipkgdiff (from libabigail) against the
@@ -22,7 +21,7 @@
 
 Name:           abc
 Version:        1.01
-Release:        35.git%{gitdate}%{?dist}
+Release:        37.git%{gitdate}%{?dist}
 Summary:        Sequential logic synthesis and formal verification
 
 # The ABC code itself is MIT-Modern-Variant.
@@ -32,7 +31,7 @@ Summary:        Sequential logic synthesis and formal verification
 # The bundled satoko code is BSD-2-Clause
 License:        MIT-Modern-Variant AND MIT AND BSD-2-Clause AND BSD-3-Clause
 URL:            https://people.eecs.berkeley.edu/~alanmi/abc/abc.htm
-Source0:        https://github.com/%{owner}/%{name}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
+Source0:        https://github.com/berkeley-abc/abc/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 # Man page created by Jerry James using upstream text; hence, it is covered by
 # the same copyright and license as the code.
 Source1:        %{name}.1
@@ -51,6 +50,15 @@ Patch4:         %{name}-format.patch
 Patch5:         %{name}-gia.patch
 # Prevent a possible buffer overflow
 Patch6:         %{name}-overflow.patch
+# Fix two cases of use-after-free
+# https://github.com/berkeley-abc/abc/pull/193
+Patch7:         %{name}-use-after-free.patch
+# Do not pass NULL to fprintf
+# https://github.com/berkeley-abc/abc/pull/194
+Patch8:         %{name}-null-fprintf.patch
+# Weaken an overzealous assert
+# https://bitbucket.org/alanmi/abc/issue/27/assertion-failure-in-write_pla-command
+Patch9:         %{name}-weaken-assert.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -101,7 +109,7 @@ Headers and libraries for developing applications that use ABC.
 %prep
 %autosetup -p0 -n %{name}-%{gittag}
 
-# Do not use the bundled bzip2, zlib, or Windows libraries
+# Do not use the bundled bzip2 or zlib libraries
 rm -fr lib src/misc/{bzlib,zlib}
 
 # Set the version number in the man page
@@ -112,11 +120,12 @@ touch -r %{SOURCE1} %{name}.1
 sed -i 's/ -O//' Makefile
 
 %build
-export CFLAGS="%{build_cflags} -DNDEBUG"
+export CFLAGS='%{build_cflags} -DNDEBUG'
+export CXXFLAGS='%{build_cxxflags} -DNDEBUG'
 %ifarch s390x
 CFLAGS="$CFLAGS -DEPD_BIG_ENDIAN"
+CXXFLAGS="$CXXFLAGS -DEPD_BIG_ENDIAN"
 %endif
-export CXXFLAGS="$CFLAGS"
 export ABC_MAKE_VERBOSE=1
 export ABC_USE_STDINT_H=1
 %cmake -DCMAKE_SKIP_RPATH:BOOL=YES -DCMAKE_SKIP_INSTALL_RPATH:BOOL=YES
@@ -138,8 +147,8 @@ cd -
 # Install the header files
 cd src
 mkdir -p %{buildroot}%{_includedir}/%{name}
-tar -cBf - $(find -O3 . -name \*.h) | \
-  (cd %{buildroot}%{_includedir}/%{name}; tar -xBf -)
+tar -cf - $(find -O3 . -name \*.h) | \
+  (cd %{buildroot}%{_includedir}/%{name}; tar -xf -)
 cd -
 
 # Install the man page
@@ -153,13 +162,21 @@ install -p -m 0644 %{name}.1 %{buildroot}%{_mandir}/man1
 
 %files libs
 %license copyright.txt
-%{_libdir}/lib%{name}.so.*
+%{_libdir}/lib%{name}.so.0*
 
 %files devel
 %{_includedir}/%{name}/
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-37.git20221229
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 1.01-36.git20221229
+- Update to latest git snapshot
+- Add -use-after-free, -null-fprintf, and -weaken-assert patches
+- Minor spec file cleanups
+
 * Mon Aug  1 2022 Jerry James <loganjerry@gmail.com> - 1.01-35.git20220731
 - Update to latest git snapshot
 - Convert License field to SPDX

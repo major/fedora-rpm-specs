@@ -1,7 +1,7 @@
 %global icon_dest_dir %{_datadir}/icons/hicolor/32x32/apps
 Name:     7kaa
 Version:  2.15.4p1
-Release:  7%{?dist}
+Release:  8%{?dist}
 Summary:  Seven Kingdoms: Ancient Adversaries
 
 # Main program: GPLv2+
@@ -97,6 +97,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/COPYING
 %{_datadir}/%{name}/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.4p1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.4p1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

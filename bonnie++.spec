@@ -1,6 +1,6 @@
 Name:           bonnie++
 Version:        2.00a
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Filesystem and disk benchmark & burn-in suite
 License:        GPLv2
 URL:            http://www.coker.com.au/bonnie++/
@@ -49,6 +49,9 @@ test servers.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.00a-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 07 2022 Filipe Rosset <rosset.filipe@gmail.com> - 2.00a-6
 - spec cleanup and modernization
 

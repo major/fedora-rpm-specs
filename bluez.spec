@@ -6,7 +6,7 @@
 
 Name:    bluez
 Version: 5.66
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Bluetooth utilities
 License: GPLv2+
 URL:     http://www.bluez.org/
@@ -321,6 +321,9 @@ install emulator/btvirt ${RPM_BUILD_ROOT}/%{_libexecdir}/bluetooth/
 %{_userunitdir}/obex.service
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.66-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 17 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 5.66-4
 - Move meshctl to deprecated
 

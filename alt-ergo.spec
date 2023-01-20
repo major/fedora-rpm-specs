@@ -16,7 +16,7 @@
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The project as a whole is Apache-2.0.
@@ -258,6 +258,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 2.3.3-3
 - Convert License tag to SPDX
 - Note that the AB plugin has a different license

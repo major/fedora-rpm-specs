@@ -1,6 +1,6 @@
 Name:           bsp
 Version:        5.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        The most popular node builder for Doom
 
 License:        GPLv2+
@@ -50,6 +50,9 @@ install -D -p -m 644 bsp.6 $RPM_BUILD_ROOT/%{_mandir}/man6/bsp.6
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Peter Fordham <peter.fordham@gmail.com> - 5.2-31
 - Port configure script to C99.
 

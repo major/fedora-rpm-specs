@@ -1,6 +1,6 @@
 Name: cvise
 Version: 2.4.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Super-parallel Python port of the C-Reduce
 License: BSD
 URL: https://github.com/marxin/cvise
@@ -71,6 +71,9 @@ cd objdir && pytest
 %{_datadir}/cvise
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

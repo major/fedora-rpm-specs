@@ -1,6 +1,6 @@
 Name:           dumb-init
 Version:        1.2.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Entry-point for containers that proxies signals
 
 License:        MIT
@@ -48,6 +48,9 @@ install -Dpm0644 %{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 %doc README.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.2.5-7
 - Remove build-time dependency on python3-mock (https://fedoraproject.org/wiki/Changes/DeprecatePythonMock)
 - Remove EPEL7-specific parts of the spec

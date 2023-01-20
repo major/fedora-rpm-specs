@@ -37,7 +37,7 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.8.3
-Release: 3
+Release: 4%{?dist}
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -352,6 +352,9 @@ rm -rf doc/man
 %doc doc
 
 %changelog
+* Tue Jan 17 2023 Petr Menšík <pemensik@redhat.com> - 1.8.3-4
+- Return back dist tag to release
+
 * Tue Jan 03 2023 Petr Menšík <pemensik@redhat.com> - 1.8.3-3
 - Use recent autoconf python detection (#2155003)
 - Install python modules into separate directories

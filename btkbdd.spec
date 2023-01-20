@@ -1,6 +1,6 @@
 Name:           btkbdd
 Version:        1.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Bluetooth keyboard service
 
 License:        GPL+
@@ -48,6 +48,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

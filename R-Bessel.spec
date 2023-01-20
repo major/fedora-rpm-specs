@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packvers}.%{packrel}
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Computations and Approximations for Bessel Functions
 
 License:          GPLv2+
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep  3 2022 Tom Callaway <spot@fedoraproject.org> - 0.6.0-12
 - rebuild for R 4.2.1
 

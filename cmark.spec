@@ -3,7 +3,7 @@
 
 Name:           cmark
 Version:        0.29.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        CommonMark parsing and rendering
 
 License:        BSD and MIT
@@ -89,6 +89,9 @@ rm %{buildroot}%{_libdir}/libcmark.a
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

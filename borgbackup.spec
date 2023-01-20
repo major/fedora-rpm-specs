@@ -2,7 +2,7 @@
 
 Name:           %{srcname}
 Version:        1.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A deduplicating backup program with compression and authenticated encryption
 License:        BSD and zlib
 
@@ -141,6 +141,9 @@ py.test-3 -x -vk "$TEST_SELECTOR" borg/testsuite/*.py
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 27 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 1.2.3-1
 - update to 1.2.3
 

@@ -1,6 +1,6 @@
 Name:           libportal
 Version:        0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Flatpak portal library
 License:        LGPLv3
 Url:            https://github.com/flatpak/libportal
@@ -11,6 +11,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  gi-docgen
 BuildRequires:  meson
 BuildRequires:  vala
+BuildRequires:  git
 BuildRequires:  pkgconfig(gio-2.0)
 BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
@@ -20,6 +21,9 @@ BuildRequires:  pkgconfig(Qt5Core)
 BuildRequires:  pkgconfig(Qt5Gui)
 BuildRequires:  pkgconfig(Qt5Widgets)
 BuildRequires:  pkgconfig(Qt5X11Extras)
+
+# Backport from post-0.6 fixes
+Patch0: 0.6-backports.patch
 
 %description
 libportal provides GIO-style asynchronous APIs for most Flatpak portals.
@@ -104,7 +108,7 @@ libportal provides GIO-style asynchronous APIs for most Flatpak portals.
 This package provides development documentations for libportal.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -S git_am
 
 %build
 %meson
@@ -163,6 +167,9 @@ This package provides development documentations for libportal.
 %{_datadir}/doc/libportal-1
 
 %changelog
+* Wed Jan 18 2023 Bastien Nocera <bnocera@redhat.com> - 0.6-5
+- Backport post-0.6 bug fixes
+
 * Thu Dec 15 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.6-4
 - Ensure correct fonts are installed for HTML docs
 

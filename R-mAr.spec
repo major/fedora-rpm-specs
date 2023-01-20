@@ -5,7 +5,7 @@
 Summary: R module to evaluate functions for multivariate AutoRegressive analysis
 Name: R-%{packname}
 Version: %{packver}.%{packrel}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 Source0: ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}-%{packrel}.tar.gz
 Source1: COPYING
@@ -50,6 +50,9 @@ cp %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/R/library/%{packname}
 %{_datadir}/R/library/%{packname}/R
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 1.2.0-1
 - update to 1.2-0
 - rebuild for R 4.2.1

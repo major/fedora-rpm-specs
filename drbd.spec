@@ -1,7 +1,7 @@
 Name: drbd
 Summary: DRBD user-land tools and scripts
 Version: 9.22.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://pkg.linbit.com/downloads/%{name}/utils/%{name}-utils-%{version}.tar.gz
 Patch0: drbd-utils-9.12.2-disable_xsltproc_network_read.patch
 Patch1: drbd-utils-9.15.0-make_configure-workaround.patch
@@ -274,6 +274,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Oct 15 2022 Peter Hanecak <hany@hany.sk> - 9.22.0-1
 - Upstream release of 9.22.0
 - selinux sub package

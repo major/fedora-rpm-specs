@@ -1,4 +1,4 @@
-%global lit_version 15.0.6
+%global lit_version 15.0.7
 #global rc_ver 1
 #global post_ver 0
 
@@ -6,7 +6,7 @@
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 BuildArch: noarch
 
 License: NCSA
@@ -57,6 +57,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 %{_bindir}/lit
 
 %changelog
+* Tue Jan 17 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-2
+- Update to LLVM 15.0.7
+
 * Tue Dec 06 2022 Nikita Popov <npopov@redhat.com> - 15.0.6-1
 - Update to LLVM 15.0.6
 

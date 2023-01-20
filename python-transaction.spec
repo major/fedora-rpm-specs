@@ -1,6 +1,6 @@
 Name:           python-transaction
 Version:        3.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Transaction management for Python
 
 License:        ZPLv2.1
@@ -53,10 +53,13 @@ rm -rf %{modname}.egg-info
 %files -n python3-transaction
 %doc README.rst LICENSE.txt COPYRIGHT.txt
 %{python3_sitelib}/transaction/
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/transaction-*.egg-info
 
 
 %changelog
+* Wed Jan 18 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.1-9
+- Do not use glob in python sitelib.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

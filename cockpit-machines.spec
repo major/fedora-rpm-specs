@@ -17,7 +17,7 @@
 
 Name:           cockpit-machines
 Version:        281
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPLv2+ and MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 281-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Packit <hello@packit.dev> - 281-1
 - Summarize system and user session differences
 - Virtual watchdog device support

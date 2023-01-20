@@ -13,7 +13,7 @@
 Summary: High-level 3D visualization library
 Name: Coin2
 Version: 2.5.0
-Release: 43%{?dist}
+Release: 44%{?dist}
 
 # LICENSE.GPL says ".. or later" but source files tell "GPLv2"
 License: GPL-2.0-only
@@ -178,6 +178,9 @@ fi
 %ghost %{_libdir}/pkgconfig/Coin.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.5.0-43
 - Convert license to SPDX.
 - Modernize spec.

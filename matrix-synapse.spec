@@ -5,7 +5,7 @@
 
 Name:       matrix-%{srcname}
 Version:    1.66.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    Apache-2.0
 URL:        https://github.com/matrix-org/%{srcname}
@@ -13,7 +13,10 @@ Source0:    %{url}/archive/v%{version}%{rcx}/%{srcname}-%{version}%{rcx}.tar.gz
 Source1:    synapse.sysconfig
 Source2:    synapse.service
 Source3:    matrix-synapse.sysusers
+
 BuildArch:  noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 Recommends:     %{name}+postgres
 Recommends:     %{name}+systemd
@@ -111,6 +114,9 @@ fi
 
 
 %changelog
+* Sun Jan 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.66.0-2
+- Drop support for i686
+
 * Wed Sep 07 2022 Kai A. Hiller <V02460@gmail.com> - 1.66.0-1
 - Update to v1.66.0
 

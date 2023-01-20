@@ -1,21 +1,17 @@
 %global pypi_name txaio
 
 Name:           python-%{pypi_name}
-Version:        22.2.1
-Release:        4%{?dist}
+Version:        23.1.1
+Release:        1%{?dist}
 Summary:        Compatibility API between asyncio/Twisted/Trollius
 
 License:        MIT
 URL:            https://txaio.readthedocs.io/
 Source0:        https://files.pythonhosted.org/packages/source/t/txaio/txaio-%{version}.tar.gz
-Patch0:         python-txaio-skip-packaging-tests.patch
 # The test_utils module can no longer be imported from asyncio
 # and is undocumented intentionaly because it's private.
 # This is a hack that calls stop on the loop soon after calling run_forever().
 Patch2:         run_once.patch
-# The test_as_future, test_call_later and test_is_future are failing because
-# asyncio.coroutine decorator was removed from Python 3.11
-Patch181:       https://github.com/crossbario/txaio/pull/181.patch
 BuildArch:      noarch
 
 %description
@@ -53,9 +49,7 @@ asyncio. Documentation in html format.
 
 %prep
 %setup -qn %{pypi_name}-%{version}
-%patch0
 %patch2 -p1
-%patch181 -p1
 # Remove upstream's egg-info
 rm -rf %{pypi_name}.egg-info
 # README is just a symlink to index.rst. Using this file as README
@@ -89,6 +83,9 @@ ln -s /usr/share/javascript/jquery/latest/jquery.min.js _build/html/_static/jque
 %doc docs/_build/html
 
 %changelog
+* Tue Jan 17 2023 Julien Enselme <jujens@jujens.eu> - 23.1.1-1
+- Update to 23.1.1
+
 * Tue Jan 10 2023 Julien Enselme <jujens@jujens.eu> - 22.2.1-4
 - Remove build dep on python3-mock:
   not needed causes issues when building for EPEL9.

@@ -15,7 +15,7 @@ library is almost a verbatim copy of the code from OpenBSD and PuTTY.}
 
 Name:           crypto
 Version:        1.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple AES/DES encryption and SHA1/SHA2 hashing library
 
 License:        Public Domain and MIT and BSD
@@ -65,6 +65,9 @@ mv %{buildroot}%{_docdir}/%{name}-devel/crypto.LICENSE.txt .
 %{_libdir}/lib%{name}*.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

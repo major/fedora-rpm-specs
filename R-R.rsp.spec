@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Dynamic Generation of Scientific Reports
 
 License:          LGPLv2+
@@ -107,6 +107,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.45.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Tom Callaway <spot@fedoraproject.org> - 0.45.0-1
 - update to 0.45.0
 - rebuild for R 4.2.1

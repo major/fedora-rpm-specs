@@ -1,6 +1,6 @@
 %global pkgver 2.2.12
 #global prerel rc1
-%global baserelease 8
+%global baserelease 9
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -192,6 +192,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

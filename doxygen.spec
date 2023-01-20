@@ -22,12 +22,12 @@ Name:    doxygen
 Epoch:   2
 Version: 1.9.6
 %if 0%{?stable}
-Release: 1%{?dist}
+Release: 3%{?dist}
 %else
 %global commit e18f715eb55121a4219d00bc4d824cebf1fb504b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global date 20220217
-Release: 0.%{date}git%{shortcommit}
+Release: 0.%{date}git%{shortcommit}.1
 %endif
 # No version is specified.
 License: GPL+
@@ -45,7 +45,9 @@ Source2: doxywizard-icons.tar.xz
 
 BuildRequires: %{_bindir}/python3
 BuildRequires: gcc-c++ gcc
-BuildRequires: perl-interpreter
+BuildRequires: perl-interpreter, perl-open
+BuildRequires: texlive-bibtex
+
 %if ! 0%{?_module_build}
 BuildRequires: tex(dvips)
 BuildRequires: tex(latex)
@@ -109,16 +111,14 @@ BuildRequires: ghostscript
 BuildRequires: gettext
 BuildRequires: desktop-file-utils
 BuildRequires: graphviz
-%else
-BuildRequires: zlib-devel
 %endif
+BuildRequires: zlib-devel
 BuildRequires: flex
 BuildRequires: bison
 BuildRequires: cmake
 BuildRequires: git
 %if "x%{?xapian_core_support}" == "xON"
 BuildRequires: xapian-core-devel
-BuildRequires: zlib-devel
 %endif
 %if "x%{?clang_support}" == "xON"
 BuildRequires: llvm-devel
@@ -319,6 +319,12 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.9.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Wed Jan 18 2023 Than Ngo <than@redhat.com> - 2:1.9.6-2
+- fixed bz#2161515 - doxygen FTBFS if _module_build is 1
+
 * Tue Jan 03 2023 Than Ngo <than@redhat.com> - 2:1.9.6-1
 - fixed bz#2156564, update to 1.9.6
 

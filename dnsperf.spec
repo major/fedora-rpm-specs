@@ -9,7 +9,7 @@
 Summary: Benchmarking authorative and recursing DNS servers
 Name: dnsperf
 Version: 2.10.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 # New page was found, but on github is also project, that seems to be official.
 #
 # Github project has different license and so far is the only one with any
@@ -41,8 +41,8 @@ BuildRequires: openssl-devel
 BuildRequires: ck-devel
 BuildRequires: libnghttp2-devel
 
-%if %{with python2} || %{with python3}
-BuildRequires: /usr/bin/pathfix.py
+%if %{with python3}
+BuildRequires: python3-devel
 %endif
 
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
@@ -55,6 +55,7 @@ Requires:   gnuplot
 %if %{with python3}
 BuildRequires: python3-devel
 %endif
+
 %if %{with python2}
 BuildRequires: python2-devel
 %endif
@@ -97,10 +98,10 @@ autoreconf -fi
 %make_build
 
 %if %{with python2}
-%{_bindir}/pathfix.py -i %{__python2} -p -n contrib/queryparse/queryparse
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python2} -p -n contrib/queryparse/queryparse
 %endif
 %if %{with python3}
-%{_bindir}/pathfix.py -i %{__python3} -p -n contrib/queryparse/queryparse
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -p -n contrib/queryparse/queryparse
 %endif
 
 %install
@@ -133,6 +134,12 @@ install -m 755 -p %{SOURCE2} %{buildroot}%{_bindir}/dnsperf-data
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Paul Wouters <paul.wouters@aiven.io - 2.10.0-2
+- pathfix by Lumír Balhar (https://src.fedoraproject.org/rpms/dnsperf/pull-request/2)
+
 * Fri Nov 11 2022 Petr Menšík <pemensik@redhat.com> - 2.10.0-1
 - Update to 2.10.0
 

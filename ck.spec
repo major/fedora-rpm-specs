@@ -1,6 +1,6 @@
 Name: ck
 Version: 0.7.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Library for high performance concurrent programming
 
 License: BSD
@@ -77,6 +77,9 @@ make check
 %{_mandir}/man3/*.3.gz
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

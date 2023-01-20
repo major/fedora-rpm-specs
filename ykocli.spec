@@ -1,9 +1,9 @@
 %global owner gbcox
-%global commit 4fc150aa6e666fbea9544d928bdc642af49a220b
+%global commit 5b9f62d5eb60861afa0e4369dd014ee13d564be7
 %global shortcommit %(c=%{commit}; echo ${c:0:12})
 
 Name:     ykocli
-Version:  1.1.0
+Version:  1.1.1
 Release:  1%{?dist}
 Summary:  Front-end script for ykman to obtain TOTP tokens
 
@@ -48,9 +48,13 @@ that places ykman obtained TOTP tokens into the CopyQ clipboard.
 %{_libexecdir}/%{name}/src-yko-add.sh
 %{_libexecdir}/%{name}/src-yko-delete.sh
 %{_libexecdir}/%{name}/src-yko-rename.sh
+%{_libexecdir}/%{name}/src-yko-devinfo.sh
 %{_mandir}/man1/ykocli.1*
 
 %changelog
+* Tue Jan 17 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.1.1-1
+- Allow multiple yubikeys rhbz#2161474
+
 * Mon Jan 16 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.1.0-1
 - Refactor for Add, Delete, Rename functionality
 

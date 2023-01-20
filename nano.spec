@@ -7,7 +7,7 @@
 
 Summary:         A small text editor
 Name:            nano
-Version:         7.1
+Version:         7.2
 Release:         1%{?dist}
 License:         GPLv3+
 URL:             https://www.nano-editor.org
@@ -19,7 +19,7 @@ Source1:         https://www.nano-editor.org/dist/latest/%{name}-%{version}.tar.
 Source2:         bensberg.pgp
 
 # Additional sources
-Source3:        nanorc
+Source3:         nanorc
 
 # Shell snippets for default-editor setup
 Source11:        nano-default-editor.sh
@@ -114,9 +114,10 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 %doc AUTHORS ChangeLog NEWS README THANKS TODO
 %doc build/doc/sample.nanorc
 %doc doc/{faq,nano}.html
-%{_bindir}/*
+%{_bindir}/{,r}nano
 %config(noreplace) %{_sysconfdir}/nanorc
-%{_mandir}/man*/*
+%{_mandir}/man1/{,r}nano.1*
+%{_mandir}/man5/nanorc.5*
 %{_infodir}/nano.info*
 %{_datadir}/nano
 
@@ -132,6 +133,11 @@ install -Dpm 0644 %{SOURCE13} %{buildroot}%{_datadir}/fish/vendor_conf.d/%{basen
 
 
 %changelog
+* Wed Jan 18 2023 Lukáš Zaoral <lzaoral@redhat.com> - 7.2-1
+- Update to 7.2 (rhbz#2161916)
+- Do not use %%{_bindir}/* and %%{_mandir}/* as suggested by the packaging
+  guidelines.
+
 * Wed Dec 14 2022 Lukáš Zaoral <lzaoral@redhat.com> - 7.1-1
 - new upstream release (#2153268)
 

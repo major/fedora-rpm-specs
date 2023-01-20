@@ -1,6 +1,6 @@
 Name:           badvpn
 Version:        1.999.130
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Peer-to-peer VPN solution
 
 License:        BSD
@@ -50,6 +50,9 @@ BadVPN is a layer 2 peer-to-peer VPN solution.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.999.130-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.999.130-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

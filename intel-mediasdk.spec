@@ -5,9 +5,11 @@
 Summary: Hardware-accelerated video processing on Intel integrated GPUs library
 Name: intel-mediasdk
 Version: 22.6.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/Intel-Media-SDK/MediaSDK
 Source0: %{url}/archive/%{name}-%{version}.tar.gz
+# fix build with GCC 13
+Patch0: %{name}-gcc13.patch
 License: MIT
 ExclusiveArch: x86_64
 BuildRequires: cmake3
@@ -61,6 +63,7 @@ questions and issues.
 
 %prep
 %setup -q -n MediaSDK-%{name}-%{version}
+%patch0 -p1 -b .gcc13
 
 %build
 %cmake3 \
@@ -108,6 +111,9 @@ questions and issues.
 %{_libdir}/libmfx-tracer.so.%{mfx_version}
 
 %changelog
+* Tue Jan 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 22.6.4-2
+- fix build with GCC 13
+
 * Wed Dec 28 2022 Nicolas Chauvet <kwizart@gmail.com> - 22.6.4-1
 - Update to 22.6.4
 

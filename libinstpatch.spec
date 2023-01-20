@@ -36,6 +36,10 @@ License:        LGPL-2.1-only AND LicenseRef-Fedora-Public-Domain
 %global forgeurl https://github.com/swami/%{name}/
 Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# Fix warning from libinstpatch-scan.c (gtkdoc)
+# https://github.com/swami/libinstpatch/pull/71
+Patch:          %{forgeurl}/pull/71.patch
+
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  ninja-build
@@ -109,7 +113,7 @@ The %{name}-doc package contains documentation and examples for
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 # Remove example for nonexistent Python bindings
 find examples -type f -name '*.py' -print -delete

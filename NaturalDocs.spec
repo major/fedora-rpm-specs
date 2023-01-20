@@ -1,6 +1,6 @@
 Name:           NaturalDocs
 Version:        1.52
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Documentation generator for multiple programming languages
 
 License:        GPLv2+
@@ -73,6 +73,9 @@ install -pm 755 NaturalDocs %{buildroot}%{_bindir}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.52-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

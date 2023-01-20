@@ -1,7 +1,7 @@
 Name:           gnatcoll-db
 Epoch:          2
 Version:        21.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The GNAT Components Collection – database packages
 Summary(sv):    GNAT Components Collection – databaspaket
 
@@ -14,6 +14,10 @@ Source:         https://github.com/AdaCore/gnatcoll-db/archive/v%{version}/%{nam
 # This patch makes gnatcoll_db2ada run dborm.py in python3, and also corrects
 # the location of dborm.py:
 Patch:          gnatcoll-db-2018-dborm_python3.patch
+
+# Backport: Fix ambiguity for "=" operator involving String and Unbounded_String:
+# https://github.com/AdaCore/gnatcoll-db/commit/3ab81e8c21b5ce937f779767bd374c262d7fc306
+Patch:          gnatcoll-db-operator_ambiguity.patch
 
 BuildRequires:  gcc-gnat gprbuild fedora-gnat-project-common sed
 BuildRequires:  gnatcoll-core-devel = %{epoch}:%{version}
@@ -265,6 +269,9 @@ cp --preserve=timestamps COPYING3 COPYING.RUNTIME \
 
 
 %changelog
+* Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2:21.0.0-6
+- Backported a fix for operator ambiguity.
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:21.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

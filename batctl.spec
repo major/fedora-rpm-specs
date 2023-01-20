@@ -1,6 +1,6 @@
 Name:           batctl
 Version:        2022.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        B.A.T.M.A.N. advanced control and management tool
 
 License:        GPLv2
@@ -51,6 +51,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -I%{_prefix}/include/libnl3" V=s
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 10 2022 Felix Kaechele <heffer@fedoraproject.org> - 2022.3-1
 - update to 2022.3
 

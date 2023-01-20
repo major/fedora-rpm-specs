@@ -1,6 +1,6 @@
 Name:       dnsenum 
 Version:    1.2.4.2
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    A tool to enumerate DNS info about domains 
 
 License:    GPLv2+
@@ -34,6 +34,9 @@ perform reverse lookups on netranges, writes ip-blocks to domain_ips.txt.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           acpica-tools
 Version:        20220331
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ACPICA tools for the development and debug of ACPI tables
 
 License:        GPLv2
@@ -259,6 +259,9 @@ fi
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220331-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220331-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

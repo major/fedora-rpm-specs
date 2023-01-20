@@ -1,6 +1,6 @@
 Name:           audex
 Version:        0.79
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Audio ripper
 License:        GPLv3+
 URL:            https://userbase.kde.org/Audex
@@ -61,6 +61,9 @@ desktop-file-install \
 %{_kde4_appsdir}/audex/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.79-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.79-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

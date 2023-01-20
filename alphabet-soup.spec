@@ -1,6 +1,6 @@
 Name:           alphabet-soup
 Version:        1.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Guide your worm through the soup to spell words
 License:        Crystal Stacker
 URL:            http://www.t3-i.com/asoup.htm
@@ -47,6 +47,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/icons/hicolor/48x48/apps/%{name}.png
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

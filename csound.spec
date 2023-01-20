@@ -6,7 +6,7 @@
 
 Name:    csound
 Version: 6.16.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A sound synthesis language and library
 URL:     http://csound.github.io/
 License: LGPLv2+
@@ -375,6 +375,9 @@ rm -rf %{buildroot}%{_datadir}/samples/
 %doc html/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.16.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 17 2022 Hans Ulrich Niedermann <hun@n-dimensional.de> - 6.16.2-7
 - Stop building java parts on i686 (#2104031)
 

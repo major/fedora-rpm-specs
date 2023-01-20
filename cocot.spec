@@ -1,6 +1,6 @@
 Name:		cocot
 Version:	20080315
-Release:	26%{?dist}
+Release:	27%{?dist}
 License:	BSD
 URL:		http://vmi.jp/software/cygwin/cocot.html
 Source0:	http://vmi.jp/software/cygwin/%{name}-%{version}.tar.bz2
@@ -33,6 +33,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_bindir}/cocot
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080315-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 20080315-26
 - C99 compatibility fix
 

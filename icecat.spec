@@ -101,8 +101,8 @@ ExcludeArch: %{arm}
 
 Name: icecat
 Epoch:   1
-Version: 102.6.0
-Release: 2.%{redhat_ver}%{?pre_tag}%{?dist}
+Version: 102.7.0
+Release: 1.%{redhat_ver}%{?pre_tag}%{?dist}
 Summary: GNU version of Firefox browser
 
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
@@ -825,6 +825,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/%{name}-wayland.desktop
 
 %changelog
+* Tue Jan 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.7.0-1.rh1
+- Release 102.7.0
+
 * Mon Dec 19 2022 Antonio Trande <sagitter@fedoraproject.org> - 1:102.6.0-2.rh1
 - Remove openjpeg dependency
 

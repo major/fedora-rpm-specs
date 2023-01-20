@@ -12,13 +12,21 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.10
-Release:        7%{?dist}
+Release:        10%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPLv2+
 URL:            https://releases.pagure.org/bind-dyndb-ldap
 Source0:        https://releases.pagure.org/%{name}/%{name}-%{VERSION}.tar.bz2
 Source1:        https://releases.pagure.org/%{name}/%{name}-%{VERSION}.tar.bz2.asc
+
+# https://pagure.io/bind-dyndb-ldap/pull-request/217
+# https://pagure.io/bind-dyndb-ldap/c/00131b7b72daa953ab2bf5e6a4fd5508052debb0
+Patch1:         bind-dyndb-ldap-bind-9.18.10-db-options.patch
+# https://pagure.io/bind-dyndb-ldap/c/47902df23bf637e6c7ece67b928339e0fda58ae0
+Patch2:         bind-dyndb-ldap-bind-9.18.10-logs.patch
+# https://pagure.io/bind-dyndb-ldap/c/5dd2fefa0bc7cd7689004cec64304c3a02be9eab
+Patch3:         bind-dyndb-ldap-bind-9.18.10-staleok.patch
 
 BuildRequires:  bind-devel >= %{bind_version}, bind-lite-devel >= %{bind_version}
 BuildRequires:  krb5-devel
@@ -114,6 +122,17 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.10-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Mon Jan 16 2023 Petr Menšík <pemensik@redhat.com> - 11.10-9
+- Rebuilt for BIND 9.18.10 (#2143258)
+- Include changes needed to build with latest BIND9
+
+* Mon Nov 21 2022 Petr Menšík <pemensik@redhat.com> - 11.10-8
+- Rebuilt for BIND 9.18.9 (#2143258)
+- Support error header change
+
 * Sat Oct 22 2022 Petr Menšík <pemensik@redhat.com> - 11.10-7
 - Rebuilt for BIND 9.18.8 (#2136100)
 

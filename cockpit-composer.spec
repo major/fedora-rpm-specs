@@ -1,6 +1,6 @@
 Name:           cockpit-composer
 Version:        42
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Composer GUI for use with Cockpit
 
 License:        MIT
@@ -40,6 +40,9 @@ cp -a public/io.weldr.cockpit-composer.metainfo.xml %{buildroot}/%{_datadir}/met
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Packit <hello@packit.dev> - 42-1
 - Update most components to use React 17 and PF4
 - Update store to user redux-toolkit

@@ -1,6 +1,6 @@
 Name:           deco
 Version:        1.6.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Extractor for various archive file formats
 License:        GPLv3
 URL:            https://github.com/peha/deco/
@@ -33,6 +33,9 @@ install -dm 755 %{buildroot}/%{_var}/lib/%{name}
 %dir %{_var}/lib/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

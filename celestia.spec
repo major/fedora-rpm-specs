@@ -2,7 +2,7 @@
 
 Name:           celestia
 Version:        1.6.2
-Release:        0.8.%{betaver}%{?dist}
+Release:        0.9.%{betaver}%{?dist}
 Summary:        OpenGL real-time visual space simulation
 License:        GPLv2+ and CC-BY
 # Previously, JPL images, Scott Hudson's asteroid models, and Shrox's Mars rover models were removed.
@@ -177,6 +177,9 @@ fi
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-0.9.beta3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-0.8.beta3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

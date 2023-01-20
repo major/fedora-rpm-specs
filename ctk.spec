@@ -5,7 +5,7 @@
 
 Name: ctk
 Version: 0.1
-Release: 0.24.20190721%{?dist}
+Release: 0.25.20190721%{?dist}
 Summary: The Commmon Toolkit for biomedical imaging
 
 License: ASL 2.0
@@ -173,6 +173,9 @@ popd
 %doc %{__cmake_builddir}/Documentation/html
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.25.20190721
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.1-0.24.20190721
 - Rebuild for dcmtk soname bump
 

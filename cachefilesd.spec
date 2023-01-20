@@ -2,7 +2,7 @@
 
 Name:		cachefilesd
 Version:	0.10.10
-Release:	14%{?dist}%{?buildid}
+Release:	15%{?dist}%{?buildid}
 Summary:	CacheFiles user-space management daemon
 License:	GPLv2+
 URL:		http://people.redhat.com/~dhowells/fscache/
@@ -72,6 +72,9 @@ install -m 644 cachefilesd.service %{buildroot}%{_unitdir}/cachefilesd.service
 %{_localstatedir}/cache/fscache
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.10-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.10-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

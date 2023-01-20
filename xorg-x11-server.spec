@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   15%{?gitdate:.%{gitdate}}%{?dist}
+Release:   16%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -134,11 +134,9 @@ Patch121: 0007-xkb-reset-the-radio_groups-pointer-to-NULL-after-fre.patch
 # Fix for buggy patch to CVE-2022-46340
 Patch122: 0008-Xext-fix-invalid-event-type-mask-in-XTestSwapFakeInp.patch
 
-# Only on F38 and later
-%if 0%{fedora} >= 38
+# Only on F38 and later (patch number starts at 3801, see autopatch below)
 # Upstream commits 73d6e88, f69280dd and 4127776, minus the xwayland.pc.in change
-Patch200: 0001-Disallow-byte-swapped-clients-by-default.patch
-%endif
+Patch3801: 0001-Disallow-byte-swapped-clients-by-default.patch
 
 BuildRequires: make
 BuildRequires: systemtap-sdt-devel
@@ -327,7 +325,11 @@ cp %{SOURCE1} .gitignore
 # ick
 %global __scm git
 %{expand:%__scm_setup_git -q}
+%if 0%{fedora} >= 38
 %autopatch
+%else
+%autopatch -M 3800
+%endif
 
 %if 0%{?stable_abi}
 # check the ABI in the source against what we expect.
@@ -550,6 +552,10 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Tue Jan 17 2023 Olivier Fourdan <ofourdan@redhat.com> - 1.20.14-16
+- Use the recommended way to apply conditional patches without
+  conditionalizing the sources (for byte-swapped clients).
+
 * Fri Jan 13 2023 Leif Liddy <leifliddy@fedoraproject.org> 1.20.14-15
 - Xorg server does not correctly select the DCP for the display
   without a quirk on Apple silicon machines (#2152414)

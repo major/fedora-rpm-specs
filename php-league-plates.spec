@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-league-plates
 #
-# Copyright (c) 2016-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    6d3ee31199b536a4e003b34a356ca20f6f75496a
+%global gh_commit    a6a3238e46c6e19af7318fdc36bfbe49b0620231
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     thephpleague
 %global gh_project   plates
@@ -19,8 +19,8 @@
 %global ns_project   Plates
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        3.4.0
-Release:        5%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Native PHP template system
 
 Group:          Development/Libraries
@@ -95,7 +95,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmd in php php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 || ret=1
   fi
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Wed Jan 18 2023 Remi Collet <remi@remirepo.net> - 3.5.0-1
+- update to 3.5.0
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

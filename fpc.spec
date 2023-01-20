@@ -7,7 +7,7 @@
 
 Name:           fpc
 Version:        3.2.2
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Free Pascal Compiler
 
 License:        GPLv2+ and LGPLv2+ with exceptions
@@ -68,9 +68,47 @@ Patch4:         fpc-3.2.2--ppc64le-toc-fixes.patch
 # Submitted upstream: https://gitlab.com/freepascal.org/fpc/source/-/merge_requests/185
 Patch5:         fpc-3.2.2--pas2jni-cthreads.patch
 
+# By default, the textmode IDE installs some data files (templates, ASCII art)
+# in the same directory as the executable (i.e. /usr/bin). This patch moves
+# the data files inside the main FPC install directory (LIBDIR/fpc/VERSION/ide).
+Patch6:         fpc-3.2.2--fix-IDE-data-files-locations.patch
+
+# FPC's LaTeX docs use the \htmladdnormallink command, which has been removed in recent TexLive versions.
+# Alias the command to \href.
+#
+# Taken from OpenSUSE: https://build.opensuse.org/package/view_file/openSUSE:Leap:15.5:Update/fpc/hyperref-2022.patch
+Patch10:         hyperref-2022.patch
+
+# FPC uses its own architecture names that do not align with the ones used by Fedora.
+# TODO: It might be a good idea to move "fpcarchname" to the fpc-srcm-macros package.
+%ifarch %{arm}
+  %global ppcname ppcarm
+  %global fpcarchname arm
+%else
+  %ifarch aarch64
+    %global ppcname ppca64
+    %global fpcarchname aarch64
+  %else
+    %ifarch ppc64 ppc64le
+      %global ppcname ppcppc64
+      %global fpcarchname powerpc64
+    %else
+      %ifarch x86_64
+        %global ppcname ppcx64
+        %global fpcarchname x86_64
+      %else
+        %global ppcname ppc386
+        %global fpcarchname i386
+      %endif
+    %endif
+  %endif
+%endif
+
+# Helper macro to reduce amount of typing
+%global units_native units-%{fpcarchname}-linux
+
 Requires:       binutils
-Requires:       gpm
-Requires:       ncurses
+Requires:       %{name}-%{units_native}%{?_isa} = %{version}-%{release}
 
 %if ! 0%{?bootstrap}
 BuildRequires:  fpc
@@ -83,15 +121,41 @@ BuildRequires:  tex(tex)
 BuildRequires:  tex(upquote.sty)
 BuildRequires:  tetex-fonts
 
+# Required in F38 and F39, can be removed later
+# See: https://fedoraproject.org/wiki/Changes/F38-FPC-repackaging
+Obsoletes:      fpc%{?isa} < 3.2.2-8
+
 ExclusiveArch:  %{arm} aarch64 %{ix86} x86_64 ppc64le
+
 
 %description
 Free Pascal is a free 32/64bit Pascal Compiler. It comes with a run-time
 library and is fully compatible with Turbo Pascal 7.0 and nearly Delphi
 compatible. Some extensions are added to the language, like function
 overloading and generics. Shared libraries can be linked. This package
-contains the command-line compiler and utilities. Provided units are the
-runtime library (RTL), free component library (FCL) and packages.
+contains the command-line compiler and utilities.
+
+%package ide
+Summary: Free Pascal Compiler - terminal-based IDE
+Requires: %{name}-%{units_native}%{?_isa} = %{version}-%{release}
+Requires: gpm
+Requires: ncurses
+
+# Required in F38 and F39, can be removed later
+# See: https://fedoraproject.org/wiki/Changes/F38-FPC-repackaging
+Obsoletes:      fpc%{?isa} < 3.2.2-8
+
+%description ide
+The fpc-ide package provides "fp", the official terminal-based IDE
+for the Free Pascal Compiler.
+
+%package %{units_native}
+Summary: Free Pascal Compiler - units for %{fpcarchname}-linux
+
+%description %{units_native}
+This package provides pre-compiled unit files for developing Free Pascal
+applications for Linux (%{fpcarchname} processor architecture). It includes
+the runtime library (RTL), the free component library (FCL) and packages.
 
 %package doc
 Summary: Free Pascal Compiler - documentation and examples
@@ -108,38 +172,19 @@ BuildArch: noarch
 The fpc-src package contains the sources of Free Pascal, for documentation or
 automatical-code generation purposes.
 
+
 %global smart _smart
-%global fpcopt -k"--build-id"
-%global fpcdebugopt -gl
+%global fpmakeopt %{?_smp_build_ncpus:-T %{_smp_build_ncpus}}
 %ifarch %{arm}
-  %global fpcopt -dFPC_ARMHF -k"--build-id"
-  %global ppcname ppcarm
-  %global fpcarchname arm
+  %global fpcopt -dFPC_ARMHF -k--build-id
 %else
-  %ifarch aarch64
-    %global ppcname ppca64
-    %global fpcarchname aarch64
+  %ifarch ppc64le
+    %global fpcopt -Cb- -Caelfv2 -k--build-id
   %else
-    %ifarch ppc64
-      %global ppcname ppcppc64
-      %global fpcarchname powerpc64
-    %else
-      %ifarch ppc64le
-        %global fpcopt -Cb- -Caelfv2 -k"--build-id"
-        %global ppcname ppcppc64
-        %global fpcarchname powerpc64
-      %else
-        %ifarch x86_64
-          %global ppcname ppcx64
-          %global fpcarchname x86_64
-        %else
-          %global ppcname ppc386
-          %global fpcarchname i386
-        %endif
-      %endif
-    %endif
+    %global fpcopt -k--build-id
   %endif
 %endif
+%global fpcdebugopt -gl -gw
 
 
 %prep
@@ -156,6 +201,11 @@ pushd fpcsrc
 %patch3 -p1
 %patch4 -p2
 %patch5 -p1
+%patch6 -p2
+popd
+
+pushd fpcdocs
+%patch10 -p1
 
 
 %build
@@ -163,8 +213,17 @@ pushd fpcsrc
 mkdir -p fpc_src
 cp -a fpcsrc/rtl fpc_src
 cp -a fpcsrc/packages fpc_src
-rm -rf fpc_src/packages/extra/amunits
-rm -rf fpc_src/packages/extra/winunits
+
+# Remove some unused units
+rm -rf fpc_src/packages/amunits/    # Amiga (Motorola 64k CPU)
+rm -rf fpc_src/packages/arosunits/  # AROS
+rm -rf fpc_src/packages/morphunits/ # MorphOS
+rm -rf fpc_src/packages/os2units/   # OS/2
+rm -rf fpc_src/packages/os4units/   # Amiga OS4
+rm -rf fpc_src/packages/palmunits/  # PalmOS
+rm -rf fpc_src/packages/tosunits/   # Atari TOS/GEM
+rm -rf fpc_src/packages/winceunits/ # MS Windows CE
+
 
 %if 0%{?bootstrap}
 STARTPP=$(pwd)/fpc-%{version}-bin/%{ppcname}-%{version}-bootstrap
@@ -177,9 +236,10 @@ NEWPP=$(pwd)/compiler/%{ppcname}
 DATA2INC=$(pwd)/utils/data2inc
 # FIXME: -j1 as there is a race on armv7hl - seen on "missing" `prt0.o' and 'dllprt0.o'.
 make -j1 compiler_cycle FPC=${STARTPP} OPT='%{fpcopt} %{fpcdebugopt}'
-make %{?_smp_mflags} rtl_clean rtl%{smart} FPC=${NEWPP} OPT='%{fpcopt}'
-make %{?_smp_mflags} packages%{smart} FPC=${NEWPP} OPT='%{fpcopt}'
-make %{?_smp_mflags} utils_all FPC=${NEWPP} DATA2INC=${DATA2INC} OPT='%{fpcopt} %{fpcdebugopt}'
+# No -j here as it has no effect. Parallel compilation is controlled via FPMAKEOPT
+make rtl_clean rtl%{smart} FPC=${NEWPP} OPT='%{fpcopt} %{fpcdebugopt}' FPMAKEOPT='%{fpmakeopt}'
+make packages%{smart} FPC=${NEWPP} OPT='%{fpcopt} %{fpcdebugopt}' FPMAKEOPT='%{fpmakeopt}'
+make utils_all FPC=${NEWPP} DATA2INC=${DATA2INC} OPT='%{fpcopt} %{fpcdebugopt}' FPMAKEOPT='%{fpmakeopt}'
 popd
 
 # FIXME: -j1 as there is a race - seen on "missing" `rtl.xct'.
@@ -258,6 +318,32 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 %doc %{_defaultdocdir}/%{name}/faq*
 %license %{_defaultdocdir}/%{name}/COPYING*
 %{_mandir}/*/*
+# Exclude units
+%exclude %{_libdir}/%{name}/%{version}/fpmkinst/
+%exclude %{_libdir}/%{name}/%{version}/units/
+# Exclude IDE-specific files
+%exclude %{_bindir}/fp
+%exclude %{_bindir}/fp.rsj
+%exclude %{_libdir}/%{name}/%{version}/fpmkinst/%{fpcarchname}-linux/ide.fpm
+%exclude %{_libdir}/%{name}/%{version}/ide
+%exclude %{_mandir}/man1/fp.1*
+
+%files %{units_native}
+%dir %{_libdir}/%{name}/
+%dir %{_libdir}/%{name}/%{version}/
+%dir %{_libdir}/%{name}/%{version}/fpmkinst/
+%dir %{_libdir}/%{name}/%{version}/units/
+%{_libdir}/%{name}/%{version}/fpmkinst/%{fpcarchname}-linux/
+%{_libdir}/%{name}/%{version}/units/%{fpcarchname}-linux/
+# Don't forget about the IDE
+%exclude %{_libdir}/%{name}/%{version}/fpmkinst/%{fpcarchname}-linux/ide.fpm
+
+%files ide
+%{_bindir}/fp
+%{_bindir}/fp.rsj
+%{_libdir}/%{name}/%{version}/fpmkinst/%{fpcarchname}-linux/ide.fpm
+%{_libdir}/%{name}/%{version}/ide
+%{_mandir}/man1/fp.1*
 
 %files doc
 %dir %{_defaultdocdir}/%{name}/
@@ -269,6 +355,16 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Wed Jan 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.2-9
+- Add a patch to fix docs failing to build with Texlive 2022
+
+* Tue Jan 17 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.2-8
+- Move the TUI IDE to a subpackage
+- Add a patch to fix IDE-related non-executable files being installed to /usr/bin
+- Move units to a separate sub-package
+- Use FPMAKEOPT for parallel compilation
+- Remove some non-Linux units from the "fpc-src" subpackage
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

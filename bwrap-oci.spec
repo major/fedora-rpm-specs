@@ -1,7 +1,7 @@
 Summary: Run OCI containers with bubblewrap
 Name: bwrap-oci
 Version: 0.1.2
-Release: 19%{?dist}
+Release: 20%{?dist}
 Source0: %{url}/archive/%{name}-%{version}.tar.gz
 License: LGPLv2+
 URL: https://github.com/projectatomic/bwrap-oci
@@ -41,6 +41,9 @@ env NOCONFIGURE=1 ./autogen.sh
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packvers}.%{packrel}
-Release:          28%{?dist}
+Release:          29%{?dist}
 Summary:          R routines for combinatorics
 License:          GPLv2
 URL:              http://cran.r-project.org/web/packages/combinat/index.html
@@ -43,6 +43,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Tom Callaway <spot@fedoraproject.org> - 0.0.8-28
 - rebuild for R 4.2.1
 

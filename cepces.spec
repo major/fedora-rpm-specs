@@ -5,7 +5,7 @@
 
 Name:           cepces
 Version:        0.3.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Certificate Enrollment through CEP/CES
 
 License:        GPLv3+
@@ -190,6 +190,9 @@ fi
 %files selinux -f selinux-files.txt
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 24 2022 Ding-Yi Chen <dchen@redhat.com> - 0.3.5-6
 - Review comment #16 addressed
 - It make more sense that -selinux and -certmonger depends on main package,

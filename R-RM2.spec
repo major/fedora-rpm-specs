@@ -2,7 +2,7 @@
 
 Name:             R-%{packname}
 Version:          0.0
-Release:          32%{?dist}
+Release:          33%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{version}.tar.gz
 License:          GPLv3+
 URL:              http://cran.r-project.org/web/packages/RM2/
@@ -40,6 +40,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 03 2022 Iñaki Úcar <iucar@fedoraproject.org> - 0.0-32
 - R 4.2.1
 

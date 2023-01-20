@@ -16,14 +16,14 @@
 %global baserelease 1
 
 # github fails to create a version including a ~
-%global gh_ver  1.0.0b2
+%global gh_ver  1.0.0b3
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.0.0~b2
+Version:        1.0.0~b3
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{baserelease}%{?dist}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source:         %{URL}/archive/%{gh_ver}/%{name}-%{version}.tar.gz
 
@@ -131,7 +131,11 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
-* Fri Sep 23 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b2-1%{?dist}
+* Tue Jan 17 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b3-1
+- New upstream release 1.0.0~b3
+- Switch license identifier to SPDX
+
+* Fri Sep 23 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b2-1
 - New upstream release 1.0.0b2, fixes rhbz#2125807
 
 * Wed Aug 24 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b1-2

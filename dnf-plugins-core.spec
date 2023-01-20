@@ -34,7 +34,7 @@
 
 Name:           dnf-plugins-core
 Version:        4.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Core Plugins for DNF
 License:        GPLv2+
 URL:            https://github.com/rpm-software-management/dnf-plugins-core
@@ -784,6 +784,9 @@ ln -sf %{_mandir}/man1/%{yum_utils_subpackage_name}.1.gz %{buildroot}%{_mandir}/
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 23 2022 Jaroslav Rohel <jrohel@redhat.com> - 4.3.1-1
 - Update to 4.3.1
 - Update translations (fix RhBug:2127011)

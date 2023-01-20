@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.4.1
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Creating Pretty Documents from R Markdown
 
 License:          ASL 2.0
@@ -84,6 +84,9 @@ popd
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 03 2022 Iñaki Úcar <iucar@fedoraproject.org> - 0.4.1-7
 - R 4.2.1
 

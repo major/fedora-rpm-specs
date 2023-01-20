@@ -64,7 +64,7 @@
 
 Name: %{cross}-binutils
 Version: 2.39
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPLv3+
 URL: https://sourceware.org/binutils
@@ -666,7 +666,9 @@ rm -rf %{buildroot}%{auxbin_prefix}/*/lib/ldscripts
 rmdir %{buildroot}%{auxbin_prefix}/*/lib || :
 
 echo "=== REMOVE include and dev files ==="
-find %{buildroot}/usr/include -type f -name "*.h" -delete
+if [ -d %{buildroot}/usr/include ]; then
+    find %{buildroot}/usr/include -type f -name "*.h" -delete
+fi
 rm -rf %{buildroot}/etc/gprofng.rc
 
 echo "=== BUILD file lists ==="
@@ -809,6 +811,9 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 30 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.39-1
 - sync to binutils-2.39-7.fc38
 

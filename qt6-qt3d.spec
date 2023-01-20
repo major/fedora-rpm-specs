@@ -59,7 +59,6 @@ Requires: qt6-qtbase-devel%{?_isa}
 %if 0%{?examples}
 %package examples
 Summary: Programming examples for %{name}
-# BuildRequires: qt6-qt3d-devel >= %{version}
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %description examples
 %{summary}.
@@ -76,8 +75,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 # Disable LTO
 %define _lto_cflags %{nil}
 
-%cmake_qt6 -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF}
-# -DQT_FEATURE_qt3d_system_assimp=ON
+%cmake_qt6 \
+  -DQT_BUILD_EXAMPLES:BOOL=%{?examples:ON}%{!?examples:OFF} \
+  -DQT_FEATURE_qt3d_system_assimp=OFF
 
 %cmake_build
 

@@ -1,10 +1,9 @@
 Name:           veusz
 Version:        3.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI scientific plotting package
 
-# The entire source code is GPLv2+ except helpers/src/_nc_cntr.c which is Python
-License:        GPLv2+ and Python
+License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
 URL:            https://veusz.github.io/
 Source0:        https://github.com/veusz/veusz/releases/download/veusz-%{version}/veusz-%{version}.tar.gz
 
@@ -24,10 +23,7 @@ Provides:       python3-veusz
 
 # we don't want to provide private python extension libs
 # https://fedoraproject.org/wiki/Packaging:AutoProvidesAndRequiresFiltering
-%{?filter_setup:
-%filter_provides_in %{python3_sitearch}/veusz/helpers/.*\.so$
-%filter_setup
-}
+%global __provides_exclude_from ^%{python3_sitearch}/veusz/helpers/.*\\.so$
 
 # install docs in version specific for old releases
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -117,18 +113,23 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %doc README.md AUTHORS COPYING
 %doc examples
 %doc Documents/manual/html
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_datadir}/applications/*
-%{_datadir}/mime/packages/*
-%{_datadir}/appdata/*
-%{_datadir}/pixmaps/*
-%{_datadir}/icons/hicolor/*/apps/*
+%{_bindir}/veusz
+%{_mandir}/man1/veusz.1.gz
+%{_datadir}/applications/veusz.desktop
+%{_datadir}/mime/packages/veusz.xml
+%{_datadir}/appdata/veusz.appdata.xml
+%{_datadir}/pixmaps/veusz.png
+%{_datadir}/icons/hicolor/*/apps/veusz.*
 %{_datadir}/veusz
 %{python3_sitearch}/veusz-*.egg-info
 %{python3_sitearch}/veusz
 
 %changelog
+* Mon Jan 16 2023 Jeremy Sanders <jeremy@jeremysanders.net> - 3.5.3-2
+- Use explicit files, rather than glob all
+- Update licence to new rules
+- Update provide filtering to new method for internal libraries
+
 * Tue Nov 01 2022 Jeremy Sanders <jeremy@jeremysanders.net> - 3.5.3-1
 - Update to Veusz 3.5.3
 

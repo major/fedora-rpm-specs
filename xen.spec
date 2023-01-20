@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -109,6 +109,7 @@ Patch41: xen.gcc9.fixes.patch
 Patch43: xen.gcc11.fixes.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
+Patch47: xen.gcc13.fixes.patch
 
 
 %if %build_qemutrad
@@ -319,6 +320,7 @@ manage Xen virtual machines.
 %patch43 -p1
 %patch45 -p1
 %patch46 -p1
+%patch47 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -933,6 +935,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 17 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-3
+- build fix for gcc13
+
 * Sun Jan 08 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-2
 - fix clean up of init scripts if /etc/rc.d/init.d doesn't exist
 

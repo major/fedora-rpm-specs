@@ -54,7 +54,7 @@
 
 Name:		busybox
 Version:	1.36.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Epoch:		1
 Summary:	Statically linked binary providing simplified versions of system commands
 License:	GPLv2
@@ -321,6 +321,9 @@ install -m 644 docs/busybox.shared.1 %{buildroot}%{_mandir}/man1/busybox.shared.
 %{_mandir}/man1/busybox.shared.1.gz
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.36.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Tom Callaway <spot@fedoraproject.org> - 1:1.36.0-1
 - update to 1.36.0
 - fix musl builds to be properly static (bz2079295)

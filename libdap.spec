@@ -3,13 +3,16 @@ Summary: The C++ DAP2 library from OPeNDAP
 Version: 3.20.10
 Release: 2%{?dist}
 
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL: http://www.opendap.org/
 Source0: http://www.opendap.org/pub/source/libdap-%{version}.tar.gz
 #Don't run HTTP tests - builders don't have network connections
 Patch0: libdap-offline.patch
 # Fix for i686 build
 Patch1: https://github.com/OPENDAP/libdap4/pull/192.patch
+# Add missing includes for gcc 13
+# https://github.com/OPENDAP/libdap4/pull/215
+Patch2: libdap-include.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++

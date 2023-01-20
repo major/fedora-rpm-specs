@@ -3,7 +3,7 @@
 Name:           aopalliance
 Epoch:          0
 Version:        1.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Java/J2EE AOP standards
 License:        Public Domain
 URL:            http://aopalliance.sourceforge.net/
@@ -55,6 +55,9 @@ jar umf %{SOURCE2} build/%{name}.jar
 %files -f .mfiles
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 29 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 0:1.0-31
 - Implement bootstrap mode
 

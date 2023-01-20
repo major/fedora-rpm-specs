@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.8.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Read and Write from the System Clipboard
 
 License:          GPLv3
@@ -79,6 +79,9 @@ TRAVIS=true TRAVIS_CLIP=xsel CLIPR_ALLOW=TRUE \
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Tom Callaway <spot@fedoraproject.org> - 0.8.0-1
 - update to 0.8.0
 - rebuild against R 4.2.1

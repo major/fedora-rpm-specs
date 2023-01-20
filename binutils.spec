@@ -39,7 +39,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?name_cross}%{?_with_debug:-debug}
 Version: 2.39
-Release: 7%{?dist}
+Release: 9%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -314,6 +314,10 @@ Patch23: binutils-libiberty-configure-compile-warnings.patch
 # Purpose:  Fix a potential reference of a NULL pointer.
 # Lifetime: Fixed in 2.40
 Patch24: binutils-CVE-2022-4285.patch
+
+# Purpose:  Speed up objcopy's note merging algorithm.
+# Lifetime: Fixed in 2.41
+Patch25: binutils-objcopy-note-merge-speedup.patch
 
 #----------------------------------------------------------------------------
 
@@ -971,6 +975,12 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Mon Jan 16 2023 Nick Clifton  <nickc@redhat.com> - 2.39-8
+- Speed up objcopy's note merging algorithm.  (#29993)
+
 * Tue Dec 13 2022 Nick Clifton  <nickc@redhat.com> - 2.39-7
 - Fix a potential dereference of a NULL pointer.  (#2152946)
 

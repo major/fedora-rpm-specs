@@ -4,7 +4,7 @@
 
 Name:           alliance
 Version:        5.1.1
-Release:        27.%{snapdate}git%{shortcommit}%{?dist}
+Release:        28.%{snapdate}git%{shortcommit}%{?dist}
 Summary:        VLSI EDA System
 License:        GPL-2.0-only
 URL:            https://soc-extras.lip6.fr/en/alliance-abstract-en/
@@ -305,6 +305,9 @@ source %{_sysconfdir}/profile.d/alc_env.sh
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-28.20160506gitd8c05cd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.1.1-27.20160506gitd8c05cd
 - Convert license to SPDX.
 

@@ -5,7 +5,7 @@
 
 Name:           R-%{packname}
 Version:        4.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Discrete-Event Simulation for R
 
 License:        GPLv2+
@@ -72,6 +72,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0
 %{rlibdir}/%{packname}/include
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep  2 2022 Tom Callaway <spot@fedoraproject.org> - 4.4.5-3
 - rebuild for R 4.2.1
 

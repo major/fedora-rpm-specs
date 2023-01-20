@@ -1,7 +1,7 @@
 Name:		daa2iso
 Summary: 	Program for converting DAA files to ISO
 Version:	0.1.7e
-Release:	23%{?dist}
+Release:	24%{?dist}
 License:	GPLv2+
 Source0:	http://aluigi.altervista.org/mytoolz/daa2iso.zip
 URL:		http://aluigi.altervista.org/mytoolz.htm
@@ -34,6 +34,9 @@ install -p src/daa2iso $RPM_BUILD_ROOT%{_bindir}
 %{_bindir}/daa2iso
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7e-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7e-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

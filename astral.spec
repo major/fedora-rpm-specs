@@ -14,7 +14,7 @@ Go calculations for the position of the sun and moon.}
 %global godocs          AUTHORS README.md
 
 Name:           astral
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Go calculations for the position of the sun and moon
 
 # Upstream license specification: Apache-2.0
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

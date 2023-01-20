@@ -1,6 +1,6 @@
 Name:           codespell
 Version:        2.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fix common misspellings in text files
 
 License:        GPLv2 and CC-BY-SA
@@ -43,6 +43,9 @@ rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/codespell_lib/tests
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Bastien Nocera <bnocera@redhat.com> - 2.2.2-2
 - Re-add egg-info
 

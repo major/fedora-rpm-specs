@@ -4,7 +4,7 @@
 
 Name:		R-%{packname}
 Version:	0.3.17
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	littler: R at the Command-Line via 'r'
 
 License:	GPLv2+
@@ -90,6 +90,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check --ignore-vignettes %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.3.17-1
 - New upstream release 0.3.17
 

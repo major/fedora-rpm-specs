@@ -12,7 +12,7 @@ Name:          dump
 %endif
 Epoch:         1
 Version:       0.4
-Release:       0.50.%{PREVER}%{?dist}
+Release:       0.51.%{PREVER}%{?dist}
 License:       BSD
 URL:           https://sourceforge.net/projects/dump/
 Source:        http://downloads.sourceforge.net/dump/dump-%{DUMP_VERSION}.tar.gz
@@ -131,6 +131,9 @@ popd
 %{_mandir}/man8/rrestore.8*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4-0.51.b47
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4-0.50.b47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

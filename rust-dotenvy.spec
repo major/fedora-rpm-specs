@@ -10,9 +10,12 @@ Summary:        Well-maintained fork of the dotenv crate
 
 License:        MIT
 URL:            https://crates.io/crates/dotenvy
-Source:         %{crates_source}
+Source0:        %{crates_source}
+# https://github.com/allan2/dotenvy/issues/61
+# https://github.com/allan2/dotenvy/pull/64
+Source1:        https://github.com/allan2/dotenvy/raw/v0.15.6/LICENSE
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 Well-maintained fork of the dotenv crate.}
@@ -21,12 +24,18 @@ Well-maintained fork of the dotenv crate.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# Apache-2.0 OR MIT
+# MIT
+# MIT OR Apache-2.0
+# Unlicense OR MIT
+License:        MIT
+# LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
 
 %files       -n %{crate}
-# https://github.com/allan2/dotenvy/issues/61
-# FIXME: no license files detected
+%license LICENSE
+%license LICENSE.dependencies
 %doc README.md
 %{_bindir}/dotenvy
 
@@ -40,7 +49,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-# FIXME: no license files detected
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -83,19 +92,23 @@ use the "cli" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+cp -pav %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires -a
 
 %build
 %cargo_build -a
+%{cargo_license -a} > LICENSE.dependencies
 
 %install
 %cargo_install -a
 
 %if %{with check}
 %check
+# * files required by doctests are not included in published crates
 %cargo_test -a -- --lib
+%cargo_test -a -- --tests
 %endif
 
 %changelog

@@ -1,5 +1,5 @@
 Version: 7.040
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/alerque/libertinus
 
 %global foundry alerque
@@ -63,5 +63,8 @@ Source10: 60-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.040-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Jonny Heggheim <hegjon@gmail.com> - 7.040-1
 - Initial package

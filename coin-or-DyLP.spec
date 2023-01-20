@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Implementation of the dynamic simplex algorithm
 Version:	1.10.4
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -110,6 +110,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test DYLP_ERRMSGDIR=$PWD/src/Dylp/
 %{_docdir}/%{name}/dylp_doxy.tag
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 1.10.4-9
 - Port configure script to C99
 

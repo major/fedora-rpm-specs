@@ -1,7 +1,7 @@
 %global srcname pytest-rerunfailures
 
 Name:           python-%{srcname}
-Version:        10.3
+Version:        11.0
 Release:        1%{?dist}
 Summary:        A py.test plugin that re-runs failed tests to eliminate flakey failures
 
@@ -51,6 +51,9 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %changelog
+* Tue Jan 17 2023 Scott K Logan <logans@cottsay.net> - 11.0-1
+- Update to 11.0 (rhbz#2160820)
+
 * Tue Nov 22 2022 Scott K Logan <logans@cottsay.net> - 10.3-1
 - Update to 10.3 (rhbz#2144871)
 - Define _description variable to reduce duplication

@@ -1,6 +1,6 @@
 Name:           caribou
 Version:        0.4.21
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        A simplified in-place on-screen keyboard
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/Caribou
@@ -154,6 +154,9 @@ desktop-file-validate %{buildroot}%{_libdir}/gnome-settings-daemon-3.0/gtk-modul
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.21-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 24 2022 Leigh Scott <leigh123linux@gmail.com> - 0.4.21-32
 - Only recommend gtk2-module
 

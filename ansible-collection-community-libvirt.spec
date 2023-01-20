@@ -10,7 +10,7 @@
 
 Name:           ansible-collection-%{collection_namespace}-%{collection_name}
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manages virtual machines supported by libvirt
 License:        GPLv3+
 URL:            %{ansible_collection_url}
@@ -71,6 +71,9 @@ popd
 %{ansible_collection_files}
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug  5 2022 Paul Howarth <paul@city-fan.org> - 1.2.0-1
 - Update to 1.2.0
   - libvirt: Add extra guest information to inventory (GH#113)

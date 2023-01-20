@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.4.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Run 'R CMD check' from 'R' and Capture Results
 
 License:          MIT
@@ -83,6 +83,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep  3 2022 Tom Callaway <spot@fedoraproject.org> - 1.4.0-1
 - update to 1.4.0
 - rebuild for R 4.2.1

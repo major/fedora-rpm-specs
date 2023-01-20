@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.48.0
-Release:          1%{dist}
+Release:          2%{dist}
 Summary:          Representation and manipulation of genomic intervals
 License:          Artistic 2.0
 URL:              http://www.bioconductor.org/packages/release/bioc/html/GenomicRanges.html
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/libs/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.48.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep  3 2022 Tom Callaway <spot@fedoraproject.org> - 1.48.0-1
 - update to 1.48.0
 - rebuild for R 4.2.1

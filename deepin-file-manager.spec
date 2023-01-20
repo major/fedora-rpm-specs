@@ -18,6 +18,7 @@ Patch0002: 0002-Include-dfsearch.pri-if-ANYTHING-is-disabled.patch
 Patch0003: 0003-fix-undefined-sleep_for.patch
 # Fix build on GCC 12
 Patch0004: 0004-fix-undefined-std-array.patch
+Patch5: deepin-file-manager-c99-fsearch.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils

@@ -25,7 +25,7 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.1
-Release: 23%{?dist}
+Release: 24%{?dist}
 License: ASL 2.0
 URL: https://apr.apache.org/
 Source0: https://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
@@ -236,6 +236,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 1.6.1-23
 - Port configure script to C99
 

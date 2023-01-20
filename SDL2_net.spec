@@ -1,6 +1,6 @@
 Name:		SDL2_net
 Version:	2.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	SDL portable network library
 License:	zlib
 URL:		http://www.libsdl.org/projects/SDL_net/
@@ -50,6 +50,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 13 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2.0-1
 - Update to v2.2.0
 

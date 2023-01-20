@@ -15,9 +15,10 @@ Patch0:         Clownfish-CFC-0.6.0-Use-system-lemon-if-possible.patch
 # <https://issues.apache.org/jira/browse/CLOWNFISH-113>
 Patch1:         Clownfish-CFC-0.6.1-Segment-ExtUtils-PkgConfig-output-into-arguments.patch
 # There is charmonizer.c which is becoming a separate project
-# <git://git.apache.org/lucy-charmonizer.git>. However, lucy-charmonizer has
-# not yet been released <http://lucy.apache.org/download.html>. Also
-# Clownfish-CFC'c lib/Clownfish/CFC/Perl/Build/Charmonic.pm still relies on
+# <https://git-wip-us.apache.org/repos/asf/lucy-charmonizer.git>. However,
+# lucy-charmonizer has not yet been released
+# <http://lucy.apache.org/download.html>. Also Clownfish-CFC'c
+# lib/Clownfish/CFC/Perl/Build/Charmonic.pm still relies on
 # the local location. charmonizer.c is used only at build time.
 # Therefore I'm not going to unbudle the charmonizer.c now.
 BuildRequires:  cmark-devel

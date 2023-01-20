@@ -3,7 +3,7 @@
 
 Name:           cinnamon-translations
 Version:        5.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Translations for Cinnamon and Nemo
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ Translations for Cinnamon, Nemo and Mintlocale.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 17 2022 Leigh Scott <leigh123linux@gmail.com> - 5.6.1-1
 - Update to 5.6.1 release
 

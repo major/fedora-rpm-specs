@@ -1,6 +1,6 @@
 Name:		distribution-gpg-keys
 Version:	1.81
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	GPG keys of various Linux distributions
 
 License:	CC0-1.0
@@ -53,6 +53,9 @@ cp -a keys/* %{buildroot}%{_datadir}/%{name}/
 %{_datadir}/%{name}/copr
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.81-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Miroslav Suchý <msuchy@redhat.com> 1.81-1
 - update copr keys
 - Add remi 2023 key

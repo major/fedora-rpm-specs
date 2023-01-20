@@ -1,6 +1,6 @@
 Name:           cutter-re
 Version:        2.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI for Rizin reverse engineering framework
 
 # CC-BY-SA: src/img/icons/
@@ -95,6 +95,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Riccardo Schirone <rschirone91@gmail.com> - 2.1.2-1
 - Rebase to version 2.1.2
 

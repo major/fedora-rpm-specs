@@ -20,7 +20,7 @@
 
 Name: SuperLUMT
 Version: 3.1.0
-Release: 33%{?dist}
+Release: 35%{?dist}
 Summary: Single precision real SuperLU routines for shared memory parallel machines
 License: BSD
 URL: http://crd-legacy.lbl.gov/~xiaoye/SuperLU/
@@ -44,6 +44,9 @@ Patch2: %{name}64-build_shared.patch
 Patch3: %{name}64-fix_testsuite.patch
 Patch4: %{name}-fix_examples.patch
 Patch5: %{name}64-fix_examples.patch
+Patch6: SuperLUMT-c99-1.patch
+Patch7: SuperLUMT-c99-2.patch
+Patch8: SuperLUMT-c99-3.patch
 
 Requires: %{name}-common = %{version}-%{release}
 
@@ -173,12 +176,19 @@ done
 %if 0%{?arch64}
 # Duplicating of examples source code
 cp -a EXAMPLE EXAMPLE64
+
+pushd EXAMPLE64
+%patch7 -p2
+popd
 %endif
 %endif
 
 %patch0 -p0
 %patch1 -p0
 %patch4 -p0
+%patch6 -p1
+%patch7 -p1
+%patch8 -p1
 
 %build
 cp -p MAKE_INC/make.linux.openmp make.inc
@@ -459,6 +469,12 @@ done
 %doc DOC README
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 3.1.0-34
+- C99 compatibility fixes
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

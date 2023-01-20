@@ -7,7 +7,7 @@ License: GPLv3
 %global git_commit_short  %(c="%{git_commit}"; echo ${c:0:8})
 
 Version: 0
-Release: 25.%{git_date}git%{git_commit_short}%{?dist}
+Release: 26.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://github.com/yeyushengfan258/%{name}
 Source0: %{url}/archive/%{git_commit}/%{name}-%{git_commit}.tar.gz
@@ -126,6 +126,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/We10X-dark &>/dev/null || :
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-26.20220917git3ffc38fe
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 21 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0-25.20220917git3ffc38fe
 - Update to latest git snapshot (2022-09-17)
 

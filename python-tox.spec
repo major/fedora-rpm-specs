@@ -19,7 +19,7 @@
 %undefine _py3_shebang_s
 
 Name:           python-tox
-Version:        4.3.2
+Version:        4.3.3
 Release:        1%{?dist}
 Summary:        Virtualenv-based automation of test activities
 
@@ -27,7 +27,7 @@ License:        MIT
 URL:            https://tox.readthedocs.io/
 Source0:        %{pypi_source tox}
 
-# Remove dependency on devpi-process and 1 test that cannot work without it.
+# Remove dependency on devpi-process.
 # Remove coverage-related dependencies.
 # Adjust virtualenv environment variables to make it work with our patched virtualenv.
 Patch:          fix-tests.patch
@@ -157,6 +157,9 @@ k="${k-}${k+ and }not test_local_execute_write_a_lot"
 
 
 %changelog
+* Mon Jan 16 2023 Miro Hrončok <mhroncok@redhat.com> - 4.3.3-1
+- Update to 4.3.3 (rhbz#2161429)
+
 * Mon Jan 16 2023 Miro Hrončok <mhroncok@redhat.com> - 4.3.2-1
 - Update to 4.3.2 (rhbz#2161388)
 

@@ -11,11 +11,11 @@
 %endif
 
 # The source directory.
-%global source_directory 2.2-stable
+%global source_directory 2.3-development
 
 Name:          virt-v2v
 Epoch:         1
-Version:       2.2.0
+Version:       2.3.1
 Release:       1%{?dist}
 Summary:       Convert a virtual machine to run on KVM
 
@@ -319,6 +319,9 @@ done
 
 
 %changelog
+* Tue Jan 17 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.3.1-1
+- New development branch version 2.3.1
+
 * Tue Jan 10 2023 Richard W.M. Jones <rjones@redhat.com> - 1:2.2.0-1
 - New stable branch version 2.2.0
 

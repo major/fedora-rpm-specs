@@ -46,7 +46,7 @@ Summary: Algebraic Multigrid Package based on PSBLAS
 
 # Mixed Source Licensing
 Version: %{major_minor}.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD and MIT
 URL: https://psctoolkit.github.io/products/amg4psblas/
 Source0: https://github.com/sfilippone/amg4psblas/archive/V%{version}%{?postrelease_version}/amg4psblas-%{version}%{?postrelease_version}.tar.gz
@@ -497,6 +497,9 @@ popd
 %license serial-build/LICENSE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

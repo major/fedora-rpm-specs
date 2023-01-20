@@ -1,7 +1,7 @@
 Name:          bpython
 Summary:       Fancy curses interface to the Python interactive interpreter
 Version:       0.24
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           http://www.bpython-interpreter.org/
 License:       MIT
 Source0:       https://github.com/bpython/bpython/archive/%{version}-release.tar.gz
@@ -110,6 +110,9 @@ ln -s bpython %{buildroot}%{_bindir}/python3-bpython
 %{_bindir}/bpython-urwid
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 15 2023 Terje Rosten <terje.rosten@ntnu.no> - 0.24-1
 - 0.24
 

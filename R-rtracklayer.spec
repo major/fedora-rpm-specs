@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.56.1
-Release:          1%{dist}
+Release:          2%{dist}
 Summary:          R interface to genome browsers and their annotation tracks
 License:          Artistic 2.0 and BSD
 URL:              http://www.bioconductor.org/packages/release/bioc/html/rtracklayer.html
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/%{packname}/tests/quickload/T_species_Oc
 %{_libdir}/R/library/%{packname}/unitTests/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.56.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 04 2022 Iñaki Úcar <iucar@fedoraproject.org> - 1.56.1-1
 - R 4.2.1, update to 1.56.1
 

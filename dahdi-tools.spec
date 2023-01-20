@@ -3,7 +3,7 @@
 
 Name:           dahdi-tools
 Version:        %{tools_version}
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Userspace tools to configure the DAHDI kernel modules
 
 License:        GPLv2 and LGPLv2
@@ -221,6 +221,9 @@ install -D -p -m 0644 dahdi.service %{buildroot}%{_unitdir}/dahdi.service
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

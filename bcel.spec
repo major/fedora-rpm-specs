@@ -1,6 +1,6 @@
 Name:           bcel
 Version:        6.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Byte Code Engineering Library
 License:        ASL 2.0
 URL:            http://commons.apache.org/proper/commons-bcel/
@@ -60,6 +60,9 @@ This package provides %{summary}.
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.5.0-3
 - Fix arbitrary bytecode produced via out-of-bounds writing
 - Resolves: CVE-2022-42920

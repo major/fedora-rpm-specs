@@ -57,30 +57,29 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Headers and other development files for PicoSAT.
 
 %prep
-%setup -q
-%patch0
+%autosetup -p0
 
 %build
 # The configure script is NOT autoconf-generated and chooses its own CFLAGS,
 # so we mimic its effects instead of using it.
 
 # Build the version with R support
-sed -e "s/@CC@/gcc/" \
-    -e "s|@CFLAGS@|$RPM_OPT_FLAGS -D_GNU_SOURCE=1 -DNDEBUG -DRCODE -I%{_includedir}/R|" \
-    -e "s|-Xlinker libpicosat.so|-Xlinker libpicosat.so.0 $RPM_LD_FLAGS -L%{_libdir}/R/lib -lR|" \
-    -e "s/libpicosat/libpicosat-R/g" \
-    -e "s/-lpicosat/-lpicosat-R/g" \
-    -e "s/@TARGETS@/libpicosat-R.so/" \
+sed -e 's/@CC@/gcc/' \
+    -e 's|@CFLAGS@|%{build_cflags} -D_GNU_SOURCE=1 -DNDEBUG -DRCODE -I%{_includedir}/R|' \
+    -e 's|-Xlinker libpicosat.so|-Xlinker libpicosat.so.0 %{build_ldflags} -L%{_libdir}/R/lib -lR|' \
+    -e 's/libpicosat/libpicosat-R/g' \
+    -e 's/-lpicosat/-lpicosat-R/g' \
+    -e 's/@TARGETS@/libpicosat-R.so/' \
   makefile.in > makefile
 %make_build
 
 # Build the version with trace support
-sed -e "s/@CC@/gcc/" \
-    -e "s|@CFLAGS@|$RPM_OPT_FLAGS -D_GNU_SOURCE=1 -DNDEBUG -DTRACE|" \
-    -e "s|-Xlinker libpicosat.so|-Xlinker libpicosat.so.0 $RPM_LD_FLAGS|" \
-    -e "s/libpicosat/libpicosat-trace/g" \
-    -e "s/-lpicosat/-lpicosat-trace/g" \
-    -e "s/@TARGETS@/libpicosat-trace.so picosat picomus/" \
+sed -e 's/@CC@/gcc/' \
+    -e 's|@CFLAGS@|%{build_cflags} -D_GNU_SOURCE=1 -DNDEBUG -DTRACE|' \
+    -e 's|-Xlinker libpicosat.so|-Xlinker libpicosat.so.0 %{build_ldflags}|' \
+    -e 's/libpicosat/libpicosat-trace/g' \
+    -e 's/-lpicosat/-lpicosat-trace/g' \
+    -e 's/@TARGETS@/libpicosat-trace.so picosat picomus/' \
   makefile.in > makefile
 %make_build
 mv picosat picosat.trace
@@ -88,10 +87,10 @@ mv picosat picosat.trace
 # Build the fast version.
 # Note that picomus needs trace support, so we don't rebuild it.
 rm -f *.o *.s config.h
-sed -e "s/@CC@/gcc/" \
-    -e "s|@CFLAGS@|$RPM_OPT_FLAGS -D_GNU_SOURCE=1 -DNDEBUG|" \
-    -e "s|-Xlinker libpicosat.so|-Xlinker libpicosat.so.0 $RPM_LD_FLAGS|" \
-    -e "s/@TARGETS@/libpicosat.so picosat picomcs picogcnf/" \
+sed -e 's/@CC@/gcc/' \
+    -e 's|@CFLAGS@|%{build_cflags} -D_GNU_SOURCE=1 -DNDEBUG|' \
+    -e 's|-Xlinker libpicosat.so|-Xlinker libpicosat.so.0 %{build_ldflags}|' \
+    -e 's/@TARGETS@/libpicosat.so picosat picomcs picogcnf/' \
   makefile.in > makefile
 %make_build
 
@@ -136,14 +135,14 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1
 %doc NEWS
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
-%{_libdir}/libpicosat-R.so.*
+%{_libdir}/libpicosat-R.so.0*
 
 %files libs
 %doc NEWS
 %{!?_licensedir:%global license %%doc}
 %license LICENSE
-%{_libdir}/libpicosat-trace.so.*
-%{_libdir}/libpicosat.so.*
+%{_libdir}/libpicosat-trace.so.0*
+%{_libdir}/libpicosat.so.0*
 
 %files devel
 %{_includedir}/picosat.h
@@ -152,6 +151,9 @@ cp -p %{SOURCE1} %{SOURCE2} %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man1
 %{_libdir}/libpicosat.so
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 965-15
+- Minor spec file cleanups
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 965-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

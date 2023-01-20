@@ -15,19 +15,20 @@
 
 # Commit IDs for the (unversioned) redis-doc repository
 # https://fedoraproject.org/wiki/Packaging:SourceURL "Commit Revision"
-%global doc_commit 5921ba4cdef2761bfed34b982368f1fe077d03e9
+%global doc_commit 281af38767956c125d237ff4015485516bcfaf23
 %global short_doc_commit %(c=%{doc_commit}; echo ${c:0:7})
 
 # %%{rpmmacrodir} not usable on EL-6
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:              redis
-Version:           7.0.7
-Release:           2%{?dist}
+Version:           7.0.8
+Release:           1%{?dist}
 Summary:           A persistent key-value database
-# redis, jemalloc, linenoise, lzf, hiredis are BSD
-# lua is MIT
-License:           BSD and MIT
+# redis, hiredis: BSD-3-Clause
+# hdrhistogram, jemalloc, lzf, linenoise: BSD-2-Clause
+# lua: MIT
+License:           BSD-3-Clause AND BSD-2-Clause AND MIT
 URL:               https://redis.io
 Source0:           https://download.redis.io/releases/%{name}-%{version}.tar.gz
 Source1:           %{name}.logrotate
@@ -119,7 +120,7 @@ API documentation is available in the redis-doc package.
 
 %package           doc
 Summary:           Documentation for Redis including man pages
-License:           CC-BY-SA
+License:           CC-BY-SA-4.0
 BuildArch:         noarch
 
 # http://fedoraproject.org/wiki/Packaging:Conflicts "Splitting Packages"
@@ -308,6 +309,9 @@ fi
 
 
 %changelog
+* Tue Jan 17 2023 Remi Collet <remi@remirepo.net> - 7.0.8-1
+- Upstream 7.0.8 release.
+
 * Fri Dec 16 2022 Remi Collet <remi@remirepo.net> - 7.0.7-2
 - Upstream 7.0.7 release.
 - refresh documentation

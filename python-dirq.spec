@@ -3,14 +3,14 @@
 
 Name:           python-dirq
 Version:        1.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Directory based queue
 License:        ASL 2.0
 URL:            https://github.com/cern-mig/%{name}
 Source0:        http://pypi.python.org/packages/source/d/%{srcname}/%{srcname}-%{version}.tar.gz
 Patch0:         python-dirq-no-nlink.patch
 BuildArch:      noarch
-BuildRequires:	python3-devel
+BuildRequires:	python3-devel, python3-setuptools
 
 %global _description\
 The goal of this module is to offer a simple queue system using the\
@@ -57,6 +57,9 @@ rm -f test/*.pyc
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jan 18 2023 Lionel Cons <lionel.cons@cern.ch> - 1.8-6
+- Added setuptools dependency (rhbz #2155022)
+
 * Mon Aug 15 2022 Lionel Cons <lionel.cons@cern.ch> - 1.8-5
 - Disabled the nlink optimization (rhbz #2113618).
 

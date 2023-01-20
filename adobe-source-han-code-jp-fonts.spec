@@ -31,7 +31,7 @@
 # simplify cut and pasting.
 #
 Version: 2.011
-Release: 11%{?dist}
+Release: 12%{?dist}
 URL:     https://github.com/adobe-fonts/source-han-code-jp/
 
 # The identifier of the entity, that released the font family.
@@ -98,6 +98,9 @@ chmod 0644 README.md README-JP.md
 %fontfiles
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.011-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Akira TAGOH <tagoh@redhat.com> - 2.011-11
 - Convert License tag to SPDX.
 

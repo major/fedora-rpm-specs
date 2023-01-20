@@ -1,11 +1,11 @@
-%global         cvs 20080502
+%global        cvs 20080502
 
-Summary:        Library of Assorted Spiffy Things
-Name:           libast
-Version:        0.7.1
-Release:        0.34.%{cvs}cvs%{?dist}
-License:        BSD
-URL:            http://www.eterm.org/
+Summary:       Library of Assorted Spiffy Things
+Name:          libast
+Version:       0.7.1
+Release:       0.35.%{cvs}cvs%{?dist}
+License:       BSD
+URL:           http://www.eterm.org/
 # Sources are pulled from cvs:
 # $ cvs -z3 -d :pserver:anonymous@anoncvs.enlightenment.org:/var/cvs/e \
 #      co -d libast-20080502 -D 20080502 eterm/libast
@@ -29,17 +29,17 @@ well as some debugging aids and other similar tools.
 It's not documented yet, mostly because it's not finished.  Hence the
 version number that begins with 0.
 
-%package  devel
-Summary:  Header files, libraries and development documentation for %{name}
-Requires: %{name} = %{version}-%{release}
+%package       devel
+Summary:       Header files, libraries and development documentation for libast
+Requires:      libast = %{version}-%{release}
 
 %description devel
-This package contains the header files, static libraries and development
-documentation for %{name}. If you like to develop programs using %{name},
-you will need to install %{name}-devel.
+This package contains the header files, static libraries and
+development documentation for libast. If you like to develop programs
+using libast, you will need to install libast-devel.
 
 %prep
-%autosetup -n %{name}-%{cvs}
+%autosetup -n libast-%{cvs}
 
 %build
 ./autogen.sh
@@ -51,32 +51,35 @@ autoupdate
 %make_install
 
 for header in sysdefs types ; do
-    mv %{buildroot}%{_includedir}/%{name}/$header.h \
-       %{buildroot}%{_includedir}/%{name}/$header-%{_arch}.h
-    install -m 0644 -c %{SOURCE1} %{buildroot}%{_includedir}/%{name}/$header.h
-    sed -i -e 's/<HEADER>/'$header'/g' %{buildroot}%{_includedir}/%{name}/$header.h
-    touch -r ChangeLog %{buildroot}%{_includedir}/%{name}/$header.h
+    mv %{buildroot}%{_includedir}/libast/$header.h \
+       %{buildroot}%{_includedir}/libast/$header-%{_arch}.h
+    install -m 0644 -c %{SOURCE1} %{buildroot}%{_includedir}/libast/$header.h
+    sed -i -e 's/<HEADER>/'$header'/g' %{buildroot}%{_includedir}/libast/$header.h
+    touch -r ChangeLog %{buildroot}%{_includedir}/libast/$header.h
 done
-sed -i -e '/^LDFLAGS=/d' %{buildroot}%{_bindir}/%{name}-config
-touch -r ChangeLog %{buildroot}%{_bindir}/%{name}-config
+sed -i -e '/^LDFLAGS=/d' %{buildroot}%{_bindir}/libast-config
+touch -r ChangeLog %{buildroot}%{_bindir}/libast-config
 
 %ldconfig_scriptlets
 
 %files
 %license LICENSE
 %doc ChangeLog DESIGN README
-%{_libdir}/%{name}.so.*
+%{_libdir}/libast.so.*
 
 %files devel
-%dir %{_includedir}/%{name}
-%{_bindir}/%{name}-config
-%{_libdir}/%{name}.so
-%{_includedir}/%{name}.h
-%{_includedir}/%{name}/*.h
-%{_datadir}/aclocal/%{name}.m4
+%dir %{_includedir}/libast
+%{_bindir}/libast-config
+%{_libdir}/libast.so
+%{_includedir}/libast.h
+%{_includedir}/libast/*.h
+%{_datadir}/aclocal/libast.m4
 %exclude %{_libdir}/*.a
 
 %changelog
+* Tue Jan 17 2023 Terje Rosten <terje.rosten@ntnu.no>- 0.7.1-0.35.20080502cvs
+- Add armv7 support
+
 * Wed Oct 26 2022 Terje Rosten <terje.rosten@ntnu.no>- 0.7.1-0.34.20080502cvs
 - Switch to POSIX regex
 

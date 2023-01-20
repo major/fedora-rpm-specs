@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          2.3.5
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Methods to Convert R Data to YAML and Back
 
 # R library is BSD; bundled libyaml is MIT.
@@ -67,6 +67,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/implicit.re
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 2.3.5-1
 - update to 2.3.5
 - rebuild for R 4.2.1

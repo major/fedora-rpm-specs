@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          1.8.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          High Performance CommonMark and Github Markdown Rendering in R
 
 License:          BSD
@@ -79,6 +79,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Tom Callaway <spot@fedoraproject.org> - 1.8.0-1
 - update to 1.8.0
 - rebuild for R 4.2.1

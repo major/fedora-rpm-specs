@@ -10,7 +10,7 @@ Summary:        Crystallographic AlgoRithms And Tables
 
 %forgemeta
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://lbfm-rwth.github.io/carat/
 Source0:        %{forgesource}
@@ -49,9 +49,9 @@ Tables for CARAT binaries to consume.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
 Summary:        Documentation and examples for CARAT
 BuildArch:      noarch
 
@@ -116,6 +116,9 @@ cd -
 %license LICENSE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Jerry James <loganjerry@gmail.com> - 1:2.1-1.20211018gitfd0b757
 - Version 2.1 plus bug fixes from git
 - Bump epoch to fix broken upgrade path

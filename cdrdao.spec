@@ -7,7 +7,7 @@
 Summary:   Writes audio CD-Rs in disk-at-once (DAO) mode
 Name:      cdrdao
 Version:   1.2.4
-Release:   10%{?dist}
+Release:   11%{?dist}
 License:   GPLv2+
 URL:       http://cdrdao.sourceforge.net/
 Source0:   http://prdownloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
@@ -87,6 +87,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

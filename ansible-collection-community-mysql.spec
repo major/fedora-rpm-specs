@@ -6,7 +6,7 @@
 
 Name:           ansible-collection-community-mysql
 Version:        3.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MySQL collection for Ansible
 
 # All files are GPL-3.0-or-later except:
@@ -51,6 +51,9 @@ find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{
 %doc README.md CHANGELOG.rst
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 06 2022 Maxwell G <gotmax@e.email> - 3.5.1-1
 - Update to 3.5.1. Fixes rhbz#1956098.
 

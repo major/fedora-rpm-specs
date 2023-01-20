@@ -8,7 +8,7 @@
 
 Name:           babel
 Version:        2.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for internationalizing Python applications
 
 License:        BSD
@@ -124,6 +124,9 @@ export TZ=UTC
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 01 2023 Felix Schwarz <fschwarz@fedoraproject.org> - 2.11.0-1
 - update to 2.11.0
 

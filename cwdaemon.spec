@@ -1,6 +1,6 @@
 Name:		cwdaemon
 Version:	0.10.2
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Morse daemon for the parallel or serial port
 
 License:	GPLv2+
@@ -70,6 +70,9 @@ install -m 755 %{SOURCE2} %{buildroot}%{_unitdir}/cwdaemon.service
 %{_mandir}/man8/%{name}.8.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:    calligraplan
 Version: 3.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A Project Planner 
 
 License: GPLv2+ and LGPLv2+
@@ -176,6 +176,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.calligrap
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Epoch:          2
 Name:           gnatcoll
 Version:        21.0.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        The GNAT Components Collection
 Summary(sv):    GNAT Components Collection
 
@@ -221,6 +221,9 @@ chrpath --delete %{buildroot}/%{_libdir}/libgnatcoll.so.%{version}
 
 
 %changelog
+* Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2:21.0.0-9
+- Rebuilt with GCC 13.
+
 * Tue Aug 24 2022 Pavel Zhukov <landgraf@fedoraproject.org> - 2:21.0.0-8
 - Specify hardware_platform for gprinstall 
 

@@ -16,8 +16,9 @@ Summary:        Highly customizable Wayland bar for Sway and Wlroots based compo
 License:        MIT AND BSL-1.0 AND ISC
 URL:            https://github.com/Alexays/Waybar
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         waybar-0.9.16-Revert-catch2-update.patch
+# https://github.com/Alexays/Waybar/pull/1959
+Patch0:         waybar-0.9.17-test-fix-build-with-Catch2-v2.x.patch
+Patch1:         waybar-0.9.17-fix-sway-add-missing-includes-for-GCC-13.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

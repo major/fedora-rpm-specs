@@ -5,7 +5,7 @@
 
 Name: chatty
 Version: 0.7.0~rc5
-Release: 0%{?dist}
+Release: 1%{?dist}
 Summary: A libpurple messaging client
 
 License: GPLv3+
@@ -131,4 +131,7 @@ echo "%{_libdir}/chatty" > %{buildroot}/%{_sysconfdir}/ld.so.conf.d/chatty.conf
 %license COPYING
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0~rc5-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 %autochangelog

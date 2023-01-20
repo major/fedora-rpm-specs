@@ -8,7 +8,7 @@ Name: ampache_browser
 %global vername %{name}_1
 
 Version: 1.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C++ and Qt based client library for Ampache access
 
 License: GPLv3
@@ -72,6 +72,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/cmake/%{vername}
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 10 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 1.0.4-1
 - Update to 1.0.4 (no build needed, just a potential compilation fix).
 

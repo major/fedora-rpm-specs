@@ -1,6 +1,6 @@
 Name:		cpmtools
 Version:	2.23
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Programs for accessing CP/M disks
 
 License:	GPLv3+
@@ -51,6 +51,9 @@ make install BINDIR=$RPM_BUILD_ROOT%{_bindir} MANDIR=$RPM_BUILD_ROOT%{_mandir} D
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.23-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Florian Weimer <fweimer@redhat.com> - 2.23-2
 - Port configure script to C99 (#2155164)
 

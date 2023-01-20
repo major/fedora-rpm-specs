@@ -15,7 +15,7 @@
 
 Name:           ddupdate
 Version:        0.7.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool updating DNS data for dynamic IP addresses
 
 Group:          Applications/System
@@ -89,6 +89,9 @@ export FINAL_PREFIX=/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Alec Leamas <leamas.alec@nowhere.net> - 0.7.1-5
 - Added missing python3-keyring dependency, upstream bug 71.
 

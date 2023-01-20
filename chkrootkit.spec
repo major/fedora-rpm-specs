@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           chkrootkit
 Version:        0.55
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Tool to locally check for signs of a rootkit
 License:        BSD and GPLv2+ and Python
 URL:            http://www.chkrootkit.org
@@ -107,6 +107,9 @@ install -p -m0644 %{SOURCE6} .
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

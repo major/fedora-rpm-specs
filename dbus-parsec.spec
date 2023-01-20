@@ -9,7 +9,7 @@
 
 Name:          dbus-parsec
 Version:       0.4.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       DBus PARSEC interface
 
 License:       EUPL 1.2
@@ -69,6 +69,9 @@ mv %{buildroot}%{_bindir}/dbus-parsec %{buildroot}%{_libexecdir}/
 %{_unitdir}/dbus-parsec.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.0-1
 - Update to 0.4.0
 

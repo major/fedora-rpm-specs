@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -373,6 +373,10 @@ done
 install -pm 644 -D %{SOURCE1} $RPM_BUILD_ROOT%{_xinputconf}
 
 install -m 755 -d $RPM_BUILD_ROOT%pkgcache/bus
+# `rpm -Vaq ibus` compare st_mode of struct stat with lstat(2) and
+# st_mode of the RPM cache and if the file does not exist, st_mode of
+# RPM cache is o0100000 while the actual st_mode is o0100644.
+touch $RPM_BUILD_ROOT%pkgcache/bus/registry
 
 # install .desktop files
 %if %with_python2
@@ -554,6 +558,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Jan 17 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-12
+- Resolves: #2160957 Fix st_mode in struct stat of registry file with rpm -Va
+
 * Thu Jan 12 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-11
 - Refactor surrounding text warning
 

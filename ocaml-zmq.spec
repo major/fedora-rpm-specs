@@ -6,7 +6,7 @@ Release:        1%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
-URL:            https://github.com/issuu/%{name}
+URL:            https://github.com/issuu/ocaml-zmq
 Source0:        %{url}/releases/download/%{version}/zmq-%{version}.tbz
 
 BuildRequires:  ocaml >= 4.03.0

@@ -1,7 +1,7 @@
 Summary:	Graphical music notation program
 Name:		denemo
 Version:	2.6.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPLv3+
 Source:		https://ftp.gnu.org/gnu/denemo/denemo-%{version}.tar.gz
 Source1:	%{name}-feta.metainfo.xml
@@ -152,6 +152,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 14 2022 Roy Rankin <rrankin@ihug.com.au> - 2.6.0-4
 > - fix jack-audio dependency, configure issue
 

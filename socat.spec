@@ -2,8 +2,8 @@
 
 Summary: Bidirectional data relay between two data channels ('netcat++')
 Name: socat
-Version: 1.7.4.2
-Release: 4%{?dist}
+Version: 1.7.4.4
+Release: 1%{?dist}
 License: GPLv2
 Url:  http://www.dest-unreach.org/socat/
 Source: http://www.dest-unreach.org/socat/download/%{name}-%{version}.tar.gz
@@ -45,10 +45,10 @@ mv CHANGES.utf8 CHANGES
         --enable-openssl --enable-sycls --enable-filan \
         --enable-retry # --enable-fips
 
-make %{?_smp_mflags}
+%make_build
 
 %install
-make DESTDIR=%{buildroot} install
+ %make_install
 install -d %{buildroot}/%{_docdir}/socat
 install -m 0644 *.sh %{buildroot}/%{_docdir}/socat/
 echo ".so man1/socat.1" | gzip > %{buildroot}/%{_mandir}/man1/filan.1.gz
@@ -75,6 +75,9 @@ export OD_C=/usr/bin/od
 %doc %{_mandir}/man1/*
 
 %changelog
+* Tue Jan 17 2023 Clemens Lang <cllang@redhat.com> - 1.7.4.4-1
+- Resolves: rhbz#2038615 socat-1.7.4.4 is available
+
 * Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 1.7.4.2-4
 - Port configure script to C99 (#2152488)
 

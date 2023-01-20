@@ -1,6 +1,6 @@
 Name:           libetpan
 Version:        1.9.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Portable, efficient middle-ware for different kinds of mail access
 
 License:        BSD
@@ -21,6 +21,7 @@ Patch102:       libetpan-1.9.4-0002-Detect-extra-data-after-STARTTLS-responses-i
 # https://github.com/dinhvh/libetpan/issues/420
 # Workaround, "formal" fix is under discussion
 Patch103:       libetpan-1.9.4-mailbox_data_status-info_list-invalid-free.patch
+Patch104: libetpan-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  liblockfile-devel
@@ -60,6 +61,7 @@ sed -i.flags libetpan.pc.in \
 %patch101 -p1 -b .CVE-2020-15953-1
 %patch102 -p1 -b .CVE-2020-15953-2
 %patch103 -p1 -b .CVE-2022-4121.tmp
+%patch104 -p1
 
 # 2013-08-05 F20 development, bz 992070: The configure scripts adds some
 # extra libs to the GnuTLS link options, which cause rebuilds to fail, since
@@ -101,6 +103,9 @@ iconv -f iso8859-1 -t utf-8 ChangeLog > ChangeLog.conv && mv -f ChangeLog.conv C
 %{_libdir}/%{name}.so
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 1.9.4-10
+- Port configure script to C99
+
 * Wed Nov 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.9.4-9
 - Workaround for CVE-2022-4121 (bug 2144914)
 

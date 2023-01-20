@@ -4,7 +4,7 @@ Name:		GeoIP-GeoLite-data
 #
 # No further releases of IPv4 GeoLite Legacy databases will be made from April 2018.
 Version:	2018.06
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Free GeoLite IP geolocation country database
 # License specified at http://dev.maxmind.com/geoip/legacy/geolite/#License
 License:	CC-BY-SA
@@ -146,6 +146,9 @@ exit 0
 %{_datadir}/GeoIP/GeoLiteASNumv6.dat
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2018.06-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2018.06-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

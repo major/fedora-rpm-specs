@@ -27,7 +27,7 @@
 
 Name:           bigloo
 Version:        4.5a
-Release:        1%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
+Release:        2%{?patch_ver:.%{patch_ver}}%{?prerel:.%{prerel}}%{?dist}
 Summary:        A compiler for the Scheme programming language
 
 # The compiler and tools are GPL-2.0-or-later.
@@ -351,6 +351,9 @@ make test
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5a-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Jerry James <loganjerry@gmail.com> - 4.5a-1.1
 - Version 4.5a-1
 - Drop upstreamed patches: emacs28, bde-bmem-c99

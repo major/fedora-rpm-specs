@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.3
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Common S3 Generics not Provided by Base R Methods Related to Model Fitting
 
 License:          MIT
@@ -72,6 +72,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  9 2022 Tom Callaway <spot@fedoraproject.org> - 0.1.3-1
 - update to 0.1.3
 - rebuild for R 4.2.1

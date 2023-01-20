@@ -5,7 +5,7 @@
 Summary: A password-checking library
 Name: cracklib
 Version: 2.9.7
-Release: 30%{?dist}
+Release: 31%{?dist}
 URL: https://github.com/cracklib/cracklib
 License: LGPLv2+
 Source0: https://github.com/cracklib/cracklib/releases/download/v%{version}/cracklib-%{version}.tar.gz
@@ -171,6 +171,9 @@ make test DESTDIR=$RPM_BUILD_ROOT
 %{_sbindir}/mkdict
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.7-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 30 2022 Parag Nemade <pnemade AT redhat DOT com> - 2.9.7-30
 - As -dicts subpackage installs files under %%{_libdir} path it should not be noarch
 - this fixes FTBFS on F37+

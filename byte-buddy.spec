@@ -2,7 +2,7 @@
 
 Name:           byte-buddy
 Version:        1.12.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Runtime code generation for the Java virtual machine
 License:        ASL 2.0
 URL:            http://bytebuddy.net/
@@ -163,6 +163,9 @@ sed -i -e '/SuppressFBWarnings/d' $(grep -lr SuppressFBWarnings)
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

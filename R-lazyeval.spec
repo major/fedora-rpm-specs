@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          0.2.2
-Release:          10%{?dist}
+Release:          11%{?dist}
 Summary:          Lazy (Non-Standard) Evaluation
 
 License:          GPLv3
@@ -74,6 +74,9 @@ export NOT_CRAN=true
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 0.2.2-11
 - rebuild for R 4.2.1
 - disable with_doc (and tests in that case)

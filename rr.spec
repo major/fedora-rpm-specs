@@ -4,7 +4,7 @@
 %global commit da33770d22b404d7333e46e26495eaca0c5a6d8a
 %global gittag 5.6.0
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global baserelease 4
+%global baserelease 5
 
 ExclusiveArch:  %{ix86} x86_64 aarch64
 
@@ -26,10 +26,11 @@ License:        MIT and CC0 and BSD
 URL:            http://rr-project.org
 
 Source: https://github.com/rr-debugger/rr/archive/%{gittag}/%{name}-%{version}.tar.gz
-Patch1: rr-mount.patch
+#Patch1: rr-mount.patch
 Patch2: rr-time.patch
 Patch3: rr-ethtool-struct.patch
 Patch4: rr-test-include-sys-mount.patch
+Patch5: rr-cstdint.patch
 
 %if  0%{?rhel} == 7
 BuildRequires: cmake3
@@ -127,6 +128,9 @@ patchelf --set-rpath '%{_libdir}/rr/' %{buildroot}%{_libdir}/rr/testsuite/obj/bi
 %license LICENSE
 
 %changelog
+* Wed Jan 18 2023 William Cohen <wcohen@redhat.com> - 5.6.0-5
+- Fix FTBFS issue with gcc-13.
+
 * Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 5.6.0-4
 - Avoid implicit function declaration in test (C99 compatibility)
 

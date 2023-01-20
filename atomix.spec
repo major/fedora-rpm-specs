@@ -1,6 +1,6 @@
 Name:           atomix
 Version:        3.34.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Puzzle game: Build molecules out of isolated atoms
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/atomix.desktop
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

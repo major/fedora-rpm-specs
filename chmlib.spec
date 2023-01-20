@@ -1,7 +1,7 @@
 Name:		chmlib
 Summary:	Library for dealing with ITSS/CHM format files
 Version:	0.40
-Release:	27%{?dist}
+Release:	28%{?dist}
 License:	LGPLv2+
 Url:		http://www.jedrea.com/chmlib/
 %if 0%{?el7}%{?fedora}
@@ -82,6 +82,9 @@ rm -f %{buildroot}/%{_libdir}/*.la
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.40-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

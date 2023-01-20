@@ -2,7 +2,7 @@
 
 Name:           diff-so-fancy
 Version:        1.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Good-lookin' diffs
 
 License:        MIT
@@ -63,5 +63,8 @@ bats test
 %{_datadir}/%{name}/DiffHighlight.pm
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 11 2022 Arthur Bols <arthur@bols.dev> - 1.4.3-1
 - Initial package

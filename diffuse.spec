@@ -1,6 +1,6 @@
 Name:			diffuse
 Version:		0.7.7
-Release:		1%{?dist}
+Release:		2%{?dist}
 Summary:		Graphical tool for merging and comparing text files
 License:		GPLv2+
 URL:			https://mightycreak.github.io/diffuse/
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mightycreak
 %{_datadir}/gnome/help/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 10 2022 niohiani <notinsideofhereiamnotinside@gmail.com> 0.7.7-1
 - New release - 0.7.7
 

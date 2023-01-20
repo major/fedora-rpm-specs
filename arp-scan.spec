@@ -1,6 +1,6 @@
 Name:           arp-scan
 Version:        1.9.7
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Scanning and fingerprinting tool
 
 # Includes getopt, which is LGPLv2+, but the whole is GPLv2+.
@@ -49,6 +49,9 @@ chmod 0755 $RPM_BUILD_ROOT%{_sbindir}/*
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

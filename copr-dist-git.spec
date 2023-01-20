@@ -2,7 +2,7 @@
 
 Name:       copr-dist-git
 Version:    0.59
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Copr services for Dist Git server
 
 License:    GPLv2+
@@ -140,6 +140,9 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.59-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> 0.59-1
 - start copr-dist-git.service after redis.service
 - background workers mark themselves as done (needed by the manager logic)

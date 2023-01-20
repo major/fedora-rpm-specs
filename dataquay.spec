@@ -3,7 +3,7 @@
 
 Name:           dataquay
 Version:        0.9.1
-Release:        8.20190227git%{shortcommit}%{?dist}
+Release:        9.20190227git%{shortcommit}%{?dist}
 Summary:        Simple RDF for C++ and Qt applications
 
 # README says BSD but this is more similar to MIT text
@@ -87,6 +87,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-9.20190227gitb82360a98f49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-8.20190227gitb82360a98f49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           asio
 Version:        1.24.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A cross-platform C++ library for network programming
 
 License:        Boost
@@ -55,6 +55,9 @@ autoreconf --install
 %{_libdir}/pkgconfig/asio.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 03 2022 Julian Sikorski <belegdol@fedoraproject.org> - 1.24.0-2
 - Rebuild due to disappearing side tag
 

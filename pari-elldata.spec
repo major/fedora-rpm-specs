@@ -20,13 +20,13 @@ Elliptic Curve Database of J. E. Cremona Elliptic, which can be queried by
 ellsearch and ellidentify.
 
 %prep
+# Verify the source file
+%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+
 %setup -cq
 
 # We'll ship the README as %%doc
 mv data/elldata/README .
-
-# Verify the source file
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
 
 %build
 # Pari can read compressed data files, so save space
@@ -42,6 +42,9 @@ cp -a data/elldata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 20210301-4
+- Verify the source archive before unpacking it
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 20210301-4
 - Convert License tag to SPDX
 

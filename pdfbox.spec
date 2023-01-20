@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.27
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -108,7 +108,7 @@ Apache PDFBox Reactor POM.
 
 %package -n preflight
 # See: preflight/pom.xml
-Requires:      mvn(javax.activation:activation)
+Requires:      mvn(jakarta.activation:jakarta.activation-api:1.2.2)
 Requires:      mvn(javax.xml.bind:jaxb-api)
 # See: preflight/target/classes/META-INF/DEPENDENCIES
 Requires:      mvn(commons-logging:commons-logging)
@@ -254,6 +254,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Jan 18 2023 Sérgio Basto <sergio@serjux.com> - 2.0.27-5
+- Also reuqires compat jakarta.activation
+
 * Mon Jan 09 2023 Marian Koncek <mkoncek@redhat.com> - 2.0.27-4
 - Depend on compat jakarta.activation
 

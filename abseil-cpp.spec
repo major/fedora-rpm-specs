@@ -3,7 +3,7 @@
 
 Name:           abseil-cpp
 Version:        20220623.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -99,6 +99,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220623.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 02 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 20220623.1-2
 - Update to 20220623.1 (close RHBZ#2123181)
 

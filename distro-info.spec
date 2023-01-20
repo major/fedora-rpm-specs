@@ -1,6 +1,6 @@
 Name:    distro-info
 Version: 0.18
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 Summary: Provides information about releases of Debian and Ubuntu
 License: ISC
@@ -93,6 +93,9 @@ PATH="/usr/share/shunit2:${PATH}" make test || true
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -50,7 +50,7 @@
 Summary: Automatic bug detection and reporting tool
 Name: abrt
 Version: 2.16.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -966,6 +966,9 @@ killall abrt-dbus >/dev/null 2>&1 || :
 %config(noreplace) %{_sysconfdir}/profile.d/abrt-console-notification.sh
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Michal Srb <michal@redhat.com> - 2.16.0-1
 - Update to upstream release 2.16.0
 

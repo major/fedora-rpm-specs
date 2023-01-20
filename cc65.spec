@@ -39,7 +39,7 @@ infodir="%{_infodir}"
 
 Name:           cc65
 Version:        2.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A free C compiler for 6502 based systems
 
 # For license clarification see:
@@ -256,6 +256,9 @@ they have been split into this package.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

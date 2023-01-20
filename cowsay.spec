@@ -6,7 +6,7 @@
 
 Name:           cowsay
 Version:        3.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Configurable speaking/thinking cow
 License:        GPLv3+
 URL:            https://github.com/cowsay-org/cowsay
@@ -81,6 +81,9 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{compdir}/%{name}
 %{compdir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Hans Ulrich Niedermann <hun@n-dimensional.de> - 3.7.0-6
 - ship /etc/cowsay/cowpath.d directory
 

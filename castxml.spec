@@ -2,7 +2,7 @@
 
 Name:		castxml
 Version:	0.5.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C-family abstract syntax tree XML output tool
 
 License:	ASL 2.0
@@ -61,6 +61,9 @@ rm %{buildroot}%{_pkgdocdir}/NOTICE
 %license LICENSE NOTICE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.5.1-1
 - Update to version 0.5.1
 

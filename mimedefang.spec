@@ -1,6 +1,6 @@
 Summary:        E-mail filtering framework using Sendmail's Milter interface
 Name:           mimedefang
-Version:        3.2
+Version:        3.3
 Release:        1%{?dist}
 # {event{,_tcp}.{c,h},eventpriv.h} are GPL-2.0-or-later, rest is GPL-2.0-only
 License:        GPL-2.0-only AND GPL-2.0-or-later
@@ -170,6 +170,9 @@ fi
 %dir %attr(0750,defang,defang) %{_localstatedir}/spool/MD-Quarantine/
 
 %changelog
+* Wed Jan 18 2023 Robert Scheck <robert@fedoraproject.org> 3.3-1
+- Upgrade to 3.3 (#2161362)
+
 * Mon Oct 24 2022 Robert Scheck <robert@fedoraproject.org> 3.2-1
 - Upgrade to 3.2 (#2136815)
 

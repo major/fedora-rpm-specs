@@ -50,7 +50,7 @@ License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
 Version:        283
-Release:        1%{?dist}
+Release:        2%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 # in RHEL 8 the source package is duplicated: cockpit (building basic packages like cockpit-{bridge,system})
@@ -675,6 +675,9 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 283-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Packit <hello@packit.dev> - 283-1
 - Services: Create timer to run every minute
 

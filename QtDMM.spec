@@ -1,6 +1,6 @@
 Name: QtDMM
 Version: 0.8.12
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: A digital multimeter readout software
 License: GPLv2+
 
@@ -62,6 +62,9 @@ desktop-file-install \
 %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.12-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.12-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

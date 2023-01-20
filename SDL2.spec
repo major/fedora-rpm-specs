@@ -10,7 +10,7 @@
 
 Name:           SDL2
 Version:        2.26.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform multimedia library
 License:        zlib and MIT
 URL:            http://www.libsdl.org/
@@ -169,6 +169,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 %{_libdir}/cmake/SDL2/SDL2staticTargets*.cmake
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Neal Gompa <ngompa@fedoraproject.org> - 2.26.0-1
 - Update to 2.26.0
 

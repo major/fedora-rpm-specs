@@ -1,6 +1,6 @@
 Name:           cmospwd
 Version:        5.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        BIOS password cracker utility
 
 License:        GPLv2+
@@ -64,6 +64,9 @@ install -D -m 755 src/%{name} $RPM_BUILD_ROOT%{_sbindir}/%{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

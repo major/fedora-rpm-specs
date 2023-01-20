@@ -1,6 +1,6 @@
 Name:		fvwm
 Version:	2.7.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Highly configurable multiple virtual desktop window manager
 License:	GPLv2+
 URL:		https://www.fvwm.org/
@@ -28,7 +28,6 @@ BuildRequires:	libXrender-devel
 BuildRequires:	libXt-devel
 BuildRequires:	libpng-devel
 BuildRequires:	librsvg2-devel
-BuildRequires:	libstroke-devel
 BuildRequires:	libxslt
 BuildRequires:	make
 BuildRequires:	perl-generators
@@ -82,6 +81,10 @@ install -D -m0644 -p %{SOURCE1} \
 
 
 %changelog
+* Wed Jan 18 2023 Peter Lemenkov <lemenkov@gmail.com> - 2.7.0-3
+- Rebuild for FTBFS
+- libstroke is abandoned
+
 * Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 2.7.0-2
 - Fixes for C99 compatibility
 

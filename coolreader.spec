@@ -1,7 +1,7 @@
 Summary: Cross platform open source e-book reader
 Name: coolreader
 Version: 3.2.59
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 URL: https://github.com/buggins/coolreader
 Source0: https://github.com/buggins/coolreader/archive/cr%{version}/coolreader-cr%{version}.tar.gz
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/cr3.appdata.xm
 %doc README.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.59-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.59-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

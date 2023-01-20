@@ -1,7 +1,7 @@
 Name:    aisleriot
 Epoch:   1
 Version: 3.22.21
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A collection of card games
 
 License: GPLv3+ and LGPLv3+ and GFDL
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/sol.desktop
 %{_mandir}/man6/sol.6*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.22.21-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.22.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

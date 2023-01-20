@@ -3,7 +3,7 @@
 
 Name:           catalyst
 Version:        2.0
-Release:        0.5.20201218git%{shortcommit}%{?dist}
+Release:        0.6.20201218git%{shortcommit}%{?dist}
 Summary:        API specification for simulations to analyze and visualize data in situ
 
 # Conduit is also licensed under the BSD 3-Clause license,
@@ -69,6 +69,9 @@ rm -r thirdparty/conduit/{libb64,libyaml,rapidjson}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.6.20201218git2fc94c5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.5.20201218git2fc94c5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           chessx
 Version:        1.5.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Chess Database and PGN viewer
 
 # Various parts of code are annotated with different licenses:
@@ -83,6 +83,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

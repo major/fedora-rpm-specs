@@ -1,6 +1,6 @@
 Name: datovka
 Version: 4.21.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
 License: GPLv3+ with exceptions
@@ -55,6 +55,9 @@ make %{?_smp_mflags}
 %{_datadir}/metainfo/datovka.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.21.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.21.1-1
 - New version
   Resolves: rhbz#2144857

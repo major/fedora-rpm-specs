@@ -1,6 +1,6 @@
 Name: cdw
 Version: 0.7.1 
-Release: 28%{?dist}
+Release: 29%{?dist}
 Summary: Front-end for tools used for burning data CD/DVD
 
 License: GPLv2+ 
@@ -50,6 +50,9 @@ make check LIBS="-lm"
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 %global tar_ver %{version}
 
@@ -308,6 +308,9 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 4.2-3
 - Rebuilt for flac 1.4.0
 

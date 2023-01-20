@@ -13,7 +13,7 @@
 
 Name:           arprec
 Version:        2.2.19
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Software package for performing arbitrary precision arithmetic
 
 License:        BSD
@@ -416,6 +416,9 @@ popd
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.19-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.19-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
 Version: 1.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
 License: GPLv3+
 Source: https://github.com/freeipa/ansible-freeipa/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -176,6 +176,9 @@ cp -rp tests %{buildroot}%{_datadir}/ansible-freeipa/
 %{_datadir}/ansible-freeipa/requirements-tests.txt
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec  6 2022 Thomas Woerner <twoerner@redhat.com> - 1.9.0-1
 - Update to version 1.9.0
   https://github.com/freeipa/ansible-freeipa/releases/tag/v1.9.0

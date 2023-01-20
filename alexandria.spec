@@ -14,7 +14,7 @@ BuildRequires:  %{*} \
 
 Name:		alexandria
 Version:	%{majorver}
-Release:	%{rel}%{?dist}
+Release:	%{rel}%{?dist}.1
 Summary:	Book collection manager
 
 License:	GPLv2+
@@ -356,6 +356,9 @@ done
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.9-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 17 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.9-2
 - Backport some changes on upstream git for ruby3.2 File.exists? removal
 

@@ -10,8 +10,8 @@ Release:        3%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
-URL:            https://github.com/ocamllabs/ocaml-ctypes
-Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+URL:            https://yallop.github.io/ocaml-ctypes/
+Source0:        https://github.com/yallop/ocaml-ctypes/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.03.0
@@ -119,6 +119,9 @@ make test
 %doc *.html *.css
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 0.20.1-3
+- New URLs
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          1.14.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Extension of `data.frame`
 
 License:          MPLv2.0
@@ -120,6 +120,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 1.14.2-1
 - update to 1.14.2
 - rebuild for R 4.2.1

@@ -1,6 +1,6 @@
 Name:           appmenu-qt
 Version:        0.2.7+14.04.20140305
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Global application menu to Qt4
 
 License:        LGPLv2 with exceptions and GPLv3
@@ -38,6 +38,9 @@ This package allows Qt to export its menus over DBus.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7+14.04.20140305-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7+14.04.20140305-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

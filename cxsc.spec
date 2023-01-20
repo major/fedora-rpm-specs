@@ -2,7 +2,7 @@
 
 Name:           cxsc
 Version:        %(tr - . <<< %{upstreamver})
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        C++ library for Extended Scientific Computing
 
 %global majver  %(cut -d. -f1 <<< %{version})
@@ -204,6 +204,9 @@ make toolboxtest_dyn
 %doc docu/apidoc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 31 2022 Jerry James <loganjerry@gmail.com> - 2.5.4-21
 - Update ppc64 patch due to "uname -p" breakage
 

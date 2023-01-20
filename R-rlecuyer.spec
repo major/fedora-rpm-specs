@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          12%{dist}
+Release:          13%{dist}
 Summary:          R interface to RNG with multiple streams
 Summary(fr):      Interface R pour RNG avec divers options
 
@@ -56,6 +56,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %{_libdir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  8 2022 Dave Love <loveshack@fedoraproject.org> - 0.3.5-12
 - Use SPDX licence TAG
 

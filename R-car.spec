@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          15%{?dist}
+Release:          16%{?dist}
 Source0:          http://cran.r-project.org/src/contrib/car_%{packver}-%{packrel}.tar.gz
 License:          GPLv2+
 URL:              http://cran.r-project.org/web/packages/car/index.html
@@ -63,6 +63,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/R.css
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep  2 2022 Tom Callaway <spot@fedoraproject.org> - 2.0.22-15
 - rebuild for R 4.2.1
 

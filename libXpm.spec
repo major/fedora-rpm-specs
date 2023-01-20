@@ -1,7 +1,7 @@
 Summary: X.Org X11 libXpm runtime library
 Name: libXpm
-Version: 3.5.14
-Release: 1%{?dist}
+Version: 3.5.15
+Release: 2%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -11,6 +11,7 @@ BuildRequires: xorg-x11-util-macros
 BuildRequires: autoconf automake libtool make
 BuildRequires: gettext
 BuildRequires: pkgconfig(xext) pkgconfig(xt) pkgconfig(xau)
+BuildRequires: ncompress gzip
 
 %description
 X.Org X11 libXpm runtime library
@@ -56,6 +57,12 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/*.3*
 
 %changelog
+* Wed Jan 18 2023 Peter Hutterer <peter.hutterer@redhat.com> - 3.5.15-2
+- Add missing BuildRequires
+
+* Wed Jan 18 2023 Peter Hutterer <peter.hutterer@redhat.com> - 3.5.15-1
+- libXpm 3.5.15, fixes CVE-2022-46285, CVE-2022-44617, CVE-2022-4883
+
 * Wed Jan 11 2023 Peter Hutterer <peter.hutterer@redhat.com> - 3.5.14-1
 - libXpm 3.5.14
 

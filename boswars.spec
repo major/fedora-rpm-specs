@@ -1,6 +1,6 @@
 Name:           boswars
 Version:        2.7
-Release:        28.svn160110%{?dist}
+Release:        29.svn160110%{?dist}
 Summary:        Bos Wars is a futuristic real-time strategy game
 License:        GPLv2
 URL:            http://www.boswars.org/
@@ -80,6 +80,9 @@ install -p -m 644 %{SOURCE5} $RPM_BUILD_ROOT%{_mandir}/man6
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-29.svn160110
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-28.svn160110
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

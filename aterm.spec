@@ -1,6 +1,6 @@
 Name:           aterm
 Version:        1.0.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 
 Summary:        Afterstep XVT, VT102 emulator for the X Window system
 License:        GPLv2+
@@ -65,6 +65,9 @@ chrpath --delete %{buildroot}%{_bindir}/aterm
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 1.0.1-37
 - Port configure script to C99 (#2148747)
 

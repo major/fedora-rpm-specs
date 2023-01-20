@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          1.5.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Cross-Platform File System Operations Based on 'libuv'
 
 License:          GPLv3
@@ -99,6 +99,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug  4 2022 Tom Callaway <spot@fedoraproject.org> - 1.5.2-1
 - update to 1.5.2
 - rebuild for R 4.2.1

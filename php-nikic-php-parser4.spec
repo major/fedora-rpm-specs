@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-nikic-php-parser4
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -17,7 +17,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    f59bbe44bf7d96f24f3e2b4ddc21cd52c1d2adbc
+%global gh_commit    570e980a201d8ed0236b0a62ddf2c9cbb2034039
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -27,11 +27,11 @@
 %global major        4
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        4.15.2
+Version:        4.15.3
 Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -125,16 +125,10 @@ cat << 'AUTOLOAD' | tee vendor/autoload.php
 AUTOLOAD
 
 : Upstream test suite
-BITS=$(php -r 'echo PHP_INT_SIZE;')
-if [ $BITS -lt 8 ]; then
-   # ignore test failing on 32-bit (in koji)
-   FILTER="--filter '^((?!(testParse|testLexNewFeatures)).)*$'"
-else
-   FILTER="--filter '^((?!(testLexNewFeatures)).)*$'"
-fi
+FILTER="--filter '^((?!(testLexNewFeatures)).)*$'"
 
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 -d include_path=%{php_home} \
@@ -157,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Tue Jan 17 2023 Remi Collet <remi@remirepo.net> - 4.15.3-1
+- update to 4.15.3
+
 * Mon Nov 14 2022 Remi Collet <remi@remirepo.net> - 4.15.2-1
 - update to 4.15.2
 

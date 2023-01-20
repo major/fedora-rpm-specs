@@ -1,6 +1,6 @@
 Name:           boinc-tui
 Version:        2.5.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fullscreen Text Mode Manager For BOINC Client
 
 License:        GPLv3+
@@ -61,6 +61,9 @@ install -m 0644 boinctui.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

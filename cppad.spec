@@ -14,7 +14,7 @@
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
 Name: cppad
 Version: %{yyyymmdd}.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
 
 License: EPL-2.0 or GPLv2+
@@ -210,6 +210,9 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220000.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220000.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

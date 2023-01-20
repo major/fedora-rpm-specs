@@ -2,7 +2,7 @@
 
 Name:           0xFFFF
 Version:        0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Open Free Fiasco Firmware Flasher
 License:        GPLv3
 URL:            https://talk.maemo.org/showthread.php?t=87996
@@ -33,6 +33,9 @@ options, packing/unpacking FIASCO firmware format and more.
 %{_mandir}/man1/0xFFFF.1.gz
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 25 2022 Filipe Rosset <rosset.filipe@gmail.com> - 0.10-1
 - Update to 0.10 fixes rhbz#2113088
 

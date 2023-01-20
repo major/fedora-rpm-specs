@@ -4,7 +4,7 @@ Summary:    Download Ticket Service
 URL:        http://www.thregr.org/~wavexx/software/dl/
 Name:       dl
 Version:    0.17.1
-Release:    14%{?dist}
+Release:    15%{?dist}
 License:    GPLv2+
 
 Source0:    http://www.thregr.org/~wavexx/software/dl/releases/dl-%{version}.zip
@@ -114,6 +114,9 @@ fi
 %dir %attr(0755,apache,apache) %{_localstatedir}/spool/dl/data
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

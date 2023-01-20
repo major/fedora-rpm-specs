@@ -3,7 +3,7 @@
 Summary: C# bindings for D-Bus
 Name: dbus-sharp
 Version: 0.8.1
-Release: 17%{?dist}
+Release: 18%{?dist}
 Epoch: 2
 URL: http://mono.github.com/dbus-sharp/
 Source0: https://github.com/downloads/mono/dbus-sharp/%{name}-%{version}.tar.gz
@@ -66,6 +66,9 @@ test "%{_libdir}" = "%{_prefix}/lib" || mv $RPM_BUILD_ROOT/%{_prefix}/lib/pkgcon
 %{_libdir}/pkgconfig/dbus-sharp-2.0.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.8.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.8.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

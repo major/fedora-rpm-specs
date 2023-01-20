@@ -1,6 +1,6 @@
 Name:           blackbox
 Version:        0.77
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Very small and fast Window Manager
 License:        MIT
 URL:            https://github.com/bbidulock/blackboxwm
@@ -88,6 +88,9 @@ install -pDm0755 %{SOURCE2} \
 %{_libdir}/pkgconfig/libbt.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.77-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 27 2022 Filipe Rosset <rosset.filipe@gmail.com> - 0.77-3
 - Fix FTBFS rhbz#2113121
 

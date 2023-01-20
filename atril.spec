@@ -15,9 +15,9 @@
 Name:          atril
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       3%{?dist}
+Release:       4%{?dist}
 %else
-Release:       0.17%{?git_rel}%{?dist}
+Release:       0.18%{?git_rel}%{?dist}
 %endif
 Summary:       Document viewer
 License:       GPLv2+ and LGPLv2+ and MIT
@@ -194,6 +194,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/atril.desktop
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

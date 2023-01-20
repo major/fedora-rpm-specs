@@ -1,6 +1,6 @@
 Name:           SOIL
 Version:        1.07
-Release:        32.20080706%{?dist}
+Release:        33.20080706%{?dist}
 Summary:        Simple OpenGL Image Library
 
 # src/image_helper.{c,h} are MIT-licensed
@@ -72,6 +72,9 @@ chmod 755 $RPM_BUILD_ROOT%{_libdir}/lib%{name}.so.1.07-20071110
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-33.20080706
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-32.20080706
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

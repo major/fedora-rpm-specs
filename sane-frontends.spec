@@ -1,6 +1,6 @@
 Name: sane-frontends
 Version: 1.0.14
-Release: 43%{?dist}
+Release: 44%{?dist}
 Summary: Graphical frontend to SANE
 URL: http://www.sane-project.org
 Source0: ftp://ftp.sane-project.org/pub/sane/%{name}-%{version}/%{name}-%{version}.tar.gz
@@ -21,6 +21,9 @@ Patch3: sane-frontends-1.0.14-update-to-current-lprng-plp_snprintf.patch
 # original PR https://gitlab.com/sane-project/frontends/-/merge_requests/1 (bz1837961)
 # updated PR https://gitlab.com/sane-project/frontends/-/merge_requests/7 (bz2133813)
 Patch4: frontends-scanadf-segv.patch
+
+Patch5: sane-frontends-configure-c99.patch
+Patch6: sane-frontends-c99.patch
 
 License: GPLv2+ and LGPLv2+ and GPLv2+ with exceptions
 # gcc is no longer in buildroot by default
@@ -59,6 +62,9 @@ rm -f %{buildroot}%{_datadir}/sane/sane-style.rc
 # intended to be used from the command line
 
 %changelog
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 1.0.14-44
+- Fix C99 compatibility issues
+
 * Wed Oct 12 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.14-43
 - 2133813 - scanadf crashes on device enumeration
 

@@ -5,7 +5,7 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       28.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPLv3+ and CC0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
@@ -231,23 +231,6 @@ grep -v "pong.elc" lisp/Makefile.in > lisp/Makefile.in.new \
 rm -f lisp/play/tetris.el lisp/play/tetris.elc
 rm -f lisp/play/pong.el lisp/play/pong.el
 
-# Sorted list of info files
-%define info_files ada-mode auth autotype bovine calc ccmode cl dbus dired-x ebrowse ede ediff edt efaq-w32 efaq eieio eintr elisp emacs-gnutls emacs-mime emacs epa erc ert eshell eudc eww flymake forms gnus htmlfontify idlwave ido info mairix-el message mh-e newsticker nxml-mode octave-mode org pcl-cvs pgg rcirc reftex remember sasl sc semantic ses sieve smtpmail speedbar srecode todo-mode tramp url vhdl-mode vip viper widget wisent woman
-
-# Since the list of info files has to be maintained, check if all info files
-# from the upstream tarball are actually present in %%info_files.
-cd info
-fs=( $(ls *.info) )
-is=( %info_files  )
-files=$(echo ${fs[*]} | sed 's/\.info//'g | sort | tr -d '\n')
-for i in $(seq 0 $(( ${#fs[*]} - 1 ))); do
-  if test "${fs[$i]}" != "${is[$i]}.info"; then
-    echo Please update %%info_files: ${fs[$i]} != ${is[$i]}.info >&2
-    break
-  fi
-done
-cd ..
-
 %ifarch %{ix86}
 %define setarch setarch %{_arch} -R
 %else
@@ -406,6 +389,15 @@ rm -f *-filelist {common,el}-*-files
 
 )
 
+# Sorted list of info files
+%define info_files auth autotype bovine calc ccmode cl dbus dired-x ebrowse ede ediff edt efaq eieio eintr elisp emacs-gnutls emacs-mime emacs epa erc ert eshell eudc eww flymake forms gnus htmlfontify idlwave ido mairix-el message mh-e modus-themes newsticker nxml-mode octave-mode org pcl-cvs pgg rcirc reftex remember sasl sc semantic ses sieve smtpmail speedbar srecode todo-mode tramp transient url vhdl-mode vip viper widget wisent woman
+
+for info_f in %info_files; do
+    echo "%{_infodir}/${info_f}.info*" >> info-filelist
+done
+# info.gz is a rename of info.info.gz and thus needs special handling
+echo "%{_infodir}/info*" >> info-filelist
+
 # Put the lists together after filtering  ./usr to /usr
 sed -i -e "s|\.%{_prefix}|%{_prefix}|" *-files
 cat common-*-files > common-filelist
@@ -432,13 +424,24 @@ cp -ar build-gtk/native-lisp/${gtk_comp_native_ver} %{buildroot}%{native_lisp}
 cp -ar build-lucid/native-lisp/${lucid_comp_native_ver} %{buildroot}%{native_lisp}
 cp -ar build-nox/native-lisp/${nox_comp_native_ver} %{buildroot}%{native_lisp}
 
-# List of binary specific files
-echo %{emacs_libexecdir}/${gtk_pdmp} > gtk-filelist
-echo %{emacs_libexecdir}/${lucid_pdmp} > lucid-filelist
-echo %{emacs_libexecdir}/${nox_pdmp} > nox-filelist
-echo %{native_lisp}/${gtk_comp_native_ver} >> gtk-filelist
-echo %{native_lisp}/${lucid_comp_native_ver} >> lucid-filelist
-echo %{native_lisp}/${nox_comp_native_ver} >> nox-filelist
+(TOPDIR=${PWD}
+ cd %{buildroot}
+ find .%{native_lisp}/${gtk_comp_native_ver} \( -type f -name '*eln' -fprintf $TOPDIR/gtk-eln-filelist "%%%%attr(755,-,-) %%p\n" \) -o \( -type d -fprintf $TOPDIR/gtk-dirs "%%%%dir %%p\n" \)
+)
+(TOPDIR=${PWD}
+ cd %{buildroot}
+ find .%{native_lisp}/${lucid_comp_native_ver} \( -type f -name '*eln' -fprintf $TOPDIR/lucid-eln-filelist "%%%%attr(755,-,-) %%p\n" \) -o \( -type d -fprintf $TOPDIR/lucid-dirs "%%%%dir %%p\n" \)
+)
+(TOPDIR=${PWD}
+ cd %{buildroot}
+ find .%{native_lisp}/${nox_comp_native_ver} \( -type f -name '*eln' -fprintf $TOPDIR/nox-eln-filelist "%%%%attr(755,-,-) %%p\n" \) -o \( -type d -fprintf $TOPDIR/nox-dirs "%%%%dir %%p\n" \)
+)
+echo %{emacs_libexecdir}/${gtk_pdmp} >> gtk-eln-filelist
+echo %{emacs_libexecdir}/${lucid_pdmp} >> lucid-eln-filelist
+echo %{emacs_libexecdir}/${nox_pdmp} >> nox-eln-filelist
+
+# remove leading . from filelists
+sed -i -e "s|\.%{native_lisp}|%{native_lisp}|" *-eln-filelist *-dirs
 
 # remove exec permissions from eln files to prevent the debuginfo extractor from
 # trying to extract debuginfo from them
@@ -477,7 +480,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_sbindir}/alternatives --install %{_bindir}/etags emacs.etags %{_bindir}/etags.emacs 80 \
        --slave %{_mandir}/man1/etags.1.gz emacs.etags.man %{_mandir}/man1/etags.emacs.1.gz || :
 
-%files -f gtk-filelist
+%files -f gtk-eln-filelist -f gtk-dirs
 %{_bindir}/emacs-%{version}
 %attr(0755,-,-) %ghost %{_bindir}/emacs
 %{_datadir}/applications/emacs.desktop
@@ -488,17 +491,17 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/emacs.ico
 %{_datadir}/icons/hicolor/scalable/mimetypes/emacs-document.svg
 
-%files lucid -f lucid-filelist
+%files lucid -f lucid-eln-filelist -f lucid-dirs
 %{_bindir}/emacs-%{version}-lucid
 %attr(0755,-,-) %ghost %{_bindir}/emacs
 %attr(0755,-,-) %ghost %{_bindir}/emacs-lucid
 
-%files nox -f nox-filelist
+%files nox -f nox-eln-filelist -f nox-dirs
 %{_bindir}/emacs-%{version}-nox
 %attr(0755,-,-) %ghost %{_bindir}/emacs
 %attr(0755,-,-) %ghost %{_bindir}/emacs-nox
 
-%files common -f common-filelist -f el-filelist
+%files common -f common-filelist -f el-filelist -f info-filelist
 %config(noreplace) %{_sysconfdir}/skel/.emacs
 %{_rpmconfigdir}/macros.d/macros.emacs
 %license etc/COPYING
@@ -507,12 +510,18 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_bindir}/emacsclient
 %{_bindir}/etags.emacs
 %{_bindir}/gctags
-%{_mandir}/*/*
-%{_infodir}/*
+%{_mandir}/man1/ebrowse.1*
+%{_mandir}/man1/emacs.1*
+%{_mandir}/man1/emacsclient.1*
+%{_mandir}/man1/etags.emacs.1*
+%{_mandir}/man1/gctags.1*
 %dir %{_datadir}/emacs/%{version}
 %{_datadir}/emacs/%{version}/etc
 %{_datadir}/emacs/%{version}/site-lisp
-%{_libexecdir}/emacs
+%dir %{emacs_libexecdir}/
+%{emacs_libexecdir}/movemail
+%{emacs_libexecdir}/hexl
+%{emacs_libexecdir}/rcs2log
 %{_userunitdir}/emacs.service
 %attr(0644,root,root) %config(noreplace) %{_datadir}/emacs/site-lisp/default.el
 %attr(0644,root,root) %config %{_datadir}/emacs/site-lisp/site-start.el
@@ -531,6 +540,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Tue Jan 17 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1:28.2-2
+- Don't include everything in %%emacs_libexecdir in common subpackage, fixes rhbz#2160550
+- Don't remove exec permissions from eln files, fixes rhbz#2160547
+
 * Tue Nov  1 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 1:28.2-1
 - New upstream release 28.2, fixes rhbz#2126048
 - Add patch to fix CVE-2022-45939, fixes rhbz#2149381

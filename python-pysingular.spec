@@ -1,6 +1,6 @@
 Name:           python-pysingular
 Version:        0.9.7
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python interface to Singular
 
 License:        GPL-2.0-or-later
@@ -43,6 +43,9 @@ Summary:        Python 3 interface to Singular
 %license GPLv2
 
 %changelog
+* Mon Jan 16 2023 Jerry James <loganjerry@gmail.com> - 0.9.7-13
+- Rebuild for Singular 4.3.1p1
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.9.7-12
 - Convert License tag to SPDX
 

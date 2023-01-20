@@ -16,7 +16,7 @@
 
 Name:		Singular
 Version:	%{downstreamver}%{?patchver}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Computer Algebra System for polynomial computations
 # License analysis:
 # - The project as a whole is GPL-2.0-only OR GPL-3.0-only
@@ -457,6 +457,9 @@ make check
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1p1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Jerry James <loganjerry@gmail.com> - 4.3.1p1-1
 - Version 4.3.1p1
 - Remove the surfex subpackage

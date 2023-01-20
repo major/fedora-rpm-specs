@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          4.7.1.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Breiman and Cutler's Random Forests for Classification and Regression
 
 License:          GPLv2+
@@ -64,6 +64,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 4.7.1.1-1
 - update to 4.7-1.1
 - rebuild for R 4.2.1

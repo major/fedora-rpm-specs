@@ -7,7 +7,7 @@
 
 Name: dnsdist
 Version: 1.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Highly DNS-, DoS- and abuse-aware loadbalancer
 License: GPLv2
 URL: https://dnsdist.org
@@ -119,6 +119,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 02 2022 Sander Hoentjen <sander@hoentjen.eu> - 1.7.3-1
 - Update to 1.7.3 (#2096239)
 

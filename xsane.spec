@@ -10,7 +10,7 @@
 Name: xsane
 Summary: X Window System front-end for the SANE scanner interface
 Version: 0.999
-Release: 43%{?dist}
+Release: 44%{?dist}
 Source0: http://www.xsane.org/download/%{name}-%{version}.tar.gz
 Source1: xsane-256x256.png
 # use "xdg-open" instead of "netscape" to launch help browser
@@ -69,6 +69,9 @@ Patch15: xsane-0.999-signal-handling.patch
 
 # autoconf-generated files
 Patch100: xsane-0.999-7-autoconf.patch.bz2
+
+Patch101: xsane-configure-c99.patch
+
 License: GPLv2+ and LGPLv2+
 URL: http://www.xsane.org/
 
@@ -142,6 +145,7 @@ done
 %patch15 -p1 -b .signal-handling
 
 %patch100 -p1 -b .autoconf
+%patch101 -p1 -b .c99
 
 # in-root config.h breaks off-root building
 rm include/config.h
@@ -265,6 +269,9 @@ fi
 %{_datadir}/sane/xsane
 
 %changelog
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 0.999-44
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.999-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

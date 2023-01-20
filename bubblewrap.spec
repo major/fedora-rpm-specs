@@ -1,6 +1,6 @@
 Name: bubblewrap
 Version: 0.5.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Core execution tool for unprivileged containers
 
 License: LGPLv2+
@@ -48,6 +48,9 @@ find %{buildroot} -name '*.la' -delete -print
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

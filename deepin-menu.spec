@@ -1,6 +1,6 @@
 Name:           deepin-menu
 Version:        5.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Deepin menu service
 License:        GPLv3+
 URL:            https://github.com/linuxdeepin/deepin-menu
@@ -42,6 +42,9 @@ sed -i 's|/usr/bin|%{_libexecdir}|' data/com.deepin.menu.service \
 %{_datadir}/dbus-1/services/com.deepin.menu.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

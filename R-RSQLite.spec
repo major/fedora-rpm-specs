@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          LGPLv2+
 URL:              http://cran.r-project.org/web/packages/RSQLite/index.html
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/R/library/%{packname}/include/
 %{_libdir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 2.2.16-1
 - update to 2.2.16
 - rebuild for R 4.2.1

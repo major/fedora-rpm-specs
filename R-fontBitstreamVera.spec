@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.1
-Release:          15%{?dist}
+Release:          16%{?dist}
 Summary:          Fonts with 'Bitstream Vera Fonts' License
 
 License:          Bitstream Vera
@@ -86,6 +86,9 @@ done
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug  4 2022 Tom Callaway <spot@fedoraproject.org> - 0.1.1-15
 - rebuild for R 4.2.1
 

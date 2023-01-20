@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.0.2
-Release:          8%{?dist}
+Release:          9%{?dist}
 Summary:          Truncated Multivariate Normal Simulation
 
 License:          GPLv2
@@ -65,6 +65,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 1.0.2-8
 - rebuild for R 4.2.1
 

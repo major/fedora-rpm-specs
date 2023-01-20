@@ -6,7 +6,7 @@
 Summary:    A GNU tool for automatically configuring source code
 Name:       autoconf
 Version:    2.71
-Release:    4%{?dist}
+Release:    5%{?dist}
 License:    GPLv2+ and GFDL
 Source0:    https://ftp.gnu.org/gnu/autoconf/autoconf-%{version}.tar.xz
 Source1:    config.site
@@ -129,6 +129,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_emacs_sitestartdir}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.71-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 11 2022 Frederic Berat <fberat@redhat.com> - 2.71-4
 - Cherry-pick: Fix typo in variable name (#2132715)
 - Backport: Fix testsuite failures with bash 5.2

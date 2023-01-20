@@ -4,13 +4,15 @@
 %bcond_with doc
 
 Name:           python-pyproject-metadata
-Version:        0.6.1
-Release:        1%{?dist}
+Version:        0.7.0
+Release:        2%{?dist}
 Summary:        PEP 621 metadata parsing
 
 License:        MIT
 URL:            https://github.com/FFY00/python-pyproject-metadata
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# Remove two tests that throw different errors in python 3.11 and 3.12
+Patch0:         %{name}-test.patch
 
 BuildArch:      noarch
 
@@ -20,7 +22,6 @@ BuildRequires:  %{py3_dist packaging}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist tomli}
 BuildRequires:  %{py3_dist wheel}
 
 %if %{with doc}
@@ -61,7 +62,10 @@ Documentation for python3-pyproject-metadata.
 %endif
 
 %prep
-%autosetup
+%autosetup -p1
+
+# Allow usage of packaging 21 until we can update Feodra to >= 22
+sed -i 's/22\.0/21.0/' setup.cfg
 
 %build
 %pyproject_wheel
@@ -92,5 +96,11 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Wed Jan 18 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-2
+- Work around FTI due to version of packaging (rhbz#2161981)
+
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-1
+- Version 0.7.0
+
 * Tue Jul 26 2022 Jerry James <loganjerry@gmail.com> - 0.6.1-1
 - Initial RPM, obsoleting python-pep621

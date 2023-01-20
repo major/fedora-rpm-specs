@@ -1,6 +1,6 @@
 Name:           ansible-packaging
 Version:        1
-Release:        8.1%{?dist}
+Release:        9.1%{?dist}
 Summary:        RPM packaging macros and generators for Ansible collections
 
 License:        GPL-3.0-or-later
@@ -149,6 +149,9 @@ echo "Ensure macro prefers the collection namespace and name passed as an argume
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-9.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 24 2022 Maxwell G <gotmax@e.email> - 1-8.1
 - Refactor %%ansible_collection_url, %%ansible_collection_install,
   %%ansible_test_unit.

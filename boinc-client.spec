@@ -18,7 +18,7 @@
 Summary:       The BOINC client
 Name:          boinc-client
 Version:       7.20.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       LGPLv2+
 URL:           http://boinc.berkeley.edu/
 
@@ -353,6 +353,9 @@ fi
 %{_libdir}/pkgconfig/libboinc_opencl.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.20.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 7.20.2-3
 - Suppress spurious diagnostics related to C99 porting
 

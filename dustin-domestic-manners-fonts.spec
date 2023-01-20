@@ -3,7 +3,7 @@
 
 Name:          %{fontname}-fonts
 Version:       20030527
-Release:       26%{?dist}
+Release:       27%{?dist}
 Summary:       Handwriting font by Dustin Norlander
 
 License:       GPLv2+
@@ -51,6 +51,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %license license.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20030527-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20030527-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

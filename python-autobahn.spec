@@ -1,7 +1,7 @@
 %global pypi_name autobahn
 
 Name:           python-%{pypi_name}
-Version:        22.12.1
+Version:        23.1.1
 Release:        1%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
@@ -48,18 +48,15 @@ Summary:        Documentation for %{name}
 
 BuildRequires:  %py3_dist sphinx
 BuildRequires:  %py3_dist sphinx-rtd-theme
-#BuildRequires:  %py3_dist sphinxcontrib.images
+#BuildRequires:  %%py3_dist sphinxcontrib.images
 %description -n python-%{pypi_name}-doc
 Documentation for %{name}.
 
 %{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/%{pypi_name}-%{version}*-py%{python3_version}.egg-info twisted}
 
 %prep
-%autosetup -n %{pypi_name}-python-%{version}
+%autosetup -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
-# There is a requirement for pytest 6.2+ in pytest.ini and we don't have that yet
-# it works with 6.0 just fine and the config file is not needed
-rm pytest.ini
 # Some packages are always outdated...
 sed -i -e "s/cryptography>=3.4.6/cryptography>=3.4.2/g" setup.py
 
@@ -78,7 +75,7 @@ USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_
 
 %files -n python3-%{pypi_name}
 %license LICENSE
-%doc README.rst DEVELOPERS.md
+%doc README.rst
 %{_bindir}/wamp
 %{_bindir}/xbrnetwork
 %{_bindir}/xbrnetwork-ui
@@ -91,10 +88,12 @@ USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_
 %{python3_sitelib}/twisted/plugins/__pycache__/autobahn*.py*
 
 %files -n python-%{pypi_name}-doc
-%doc docs/
 %license LICENSE
 
 %changelog
+* Tue Jan 17 2023 Julien Enselme <jujens@jujens.eu> - 23.1.1-1
+- Update to 23.1.1
+
 * Wed Jan 04 2023 Orion Poplawski <orion@nwra.com> - 22.12.1-1
 - Update to 22.12.1
 

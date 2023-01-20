@@ -12,11 +12,11 @@ system. It is based on an open architecture where developers can add new
 plugins or exports modules.}
 
 Name:		glances	
-Version:	3.3.0.4
+Version:	3.3.1
 Release:	%autorelease
-Summary:	A cross-platform curses-based monitoring tool
+Summary:	A cross-platform system monitoring tool
 
-License:	GPLv3
+License:	LGPL-3.0-only AND MIT
 URL:		https://nicolargo.github.io/glances/
 Source0:	https://github.com/nicolargo/glances/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	%{name}.service
@@ -27,7 +27,7 @@ BuildArch:	noarch
 
 BuildRequires:	python3-devel
 BuildRequires:	python3-dateutil
-BuildRequires:	pyproject-rpm-macros
+BuildRequires:	python3-ujson
 BuildRequires:	systemd-units
 Requires:	python3-bottle
 
@@ -40,6 +40,12 @@ Requires:	python3-bottle
 # update disabled, no need for packaging dep
 sed -i "s/, 'packaging'//" setup.py
 sed -i '/packaging/d' requirements.txt
+
+# https://github.com/nicolargo/glances/pull/2248
+sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' glances/__main__.py
+
+# remove gitigore
+find -name .gitignore -exec rm -f {} \;
 
 %generate_buildrequires
 %pyproject_buildrequires -t
@@ -65,7 +71,7 @@ install -D -p -m 644 conf/glances.conf $RPM_BUILD_ROOT/etc/glances/glances.conf
 %systemd_preun %{name}.service
 
 %postun
-%systemd_postun %{name}.service
+%systemd_postun_with_restart %{name}.service
 
 %files -n glances -f %{pyproject_files}
 %doc AUTHORS COPYING README.rst

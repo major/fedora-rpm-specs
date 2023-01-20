@@ -2,7 +2,7 @@
 
 Name:           MyPasswordSafe
 Version:        0.6.7
-Release:        45.%{datever}%{?dist}
+Release:        46.%{datever}%{?dist}
 Summary:        A graphical password management tool
 
 License:        GPLv2+
@@ -94,6 +94,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-46.20061216
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-45.20061216
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           dhcpdump
 Version:        1.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parse DHCP packets
 
 License:        BSD
@@ -35,6 +35,9 @@ install -D -p -m 644 -t %{buildroot}%{_mandir}/man8/ %{name}.8
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 11 2022 Florian Weimer <fweimer@redhat.com> - 1.8-3
 - Port to C99 (#2152420)
 

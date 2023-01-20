@@ -1,6 +1,6 @@
 Name:           TOPCOM
 Version:        0.17.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Triangulations Of Point Configurations and Oriented Matroids
 
 %global upver %(tr . _ <<< %{version})
@@ -20,8 +20,8 @@ BuildRequires:  gmp-devel
 BuildRequires:  make
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
-%global topcom_major $(echo %{version} | cut -d. -f1)
-%global topcom_minor $(echo %{version} | cut -d. -f2)
+%global topcom_major %(cut -d. -f1 <<< %{version})
+%global topcom_minor %(cut -d. -f2 <<< %{version})
 
 %description
 TOPCOM is a package for computing Triangulations Of Point Configurations
@@ -139,6 +139,9 @@ done
 %doc examples
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0.17.10-2
 - Use more specific globs in %%files
 - Convert License tag to SPDX

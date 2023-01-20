@@ -1,7 +1,7 @@
 Summary:        Tools for network auditing and penetration testing
 Name:           dsniff
 Version:        2.4
-Release:        0.39.b1%{?dist}
+Release:        0.41.b1%{?dist}
 License:        BSD
 URL:            https://www.monkey.org/~dugsong/%{name}/
 Source0:        https://www.monkey.org/~dugsong/%{name}/beta/%{name}-%{version}b1.tar.gz
@@ -40,6 +40,7 @@ Patch31:        dsniff-2.4-remote_typo.patch
 Patch32:        dsniff-2.4-smp_mflags.patch
 Patch33:        dsniff-2.4-libtirpc.patch
 Patch34:        dsniff-2.4-pcap_init.patch
+Patch35: dsniff-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  libnet-devel
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -107,6 +108,7 @@ by exploiting weak bindings in ad-hoc PKI.
 %patch33 -p1 -b .libtirpc
 %endif
 %patch34 -p1 -b .pcap_init
+%patch35 -p1
 
 %build
 %if 0%{?rhel} == 7
@@ -158,6 +160,12 @@ sed \
 %{_mandir}/man8/webspy.8*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-0.41.b1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 2.4-0.40.b1
+- Port configure script to C99
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-0.39.b1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

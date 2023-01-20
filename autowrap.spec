@@ -3,7 +3,7 @@
 Name: autowrap
 Summary: Generates Python Extension modules from [Cython] PXD files
 Version: 0.22.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL: https://pypi.org/project/autowrap/
 Source0: https://github.com/OpenMS/autowrap/archive/refs/tags/release/%{version}/%{name}-release-%{version}.tar.gz
@@ -80,6 +80,9 @@ popd
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 24 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.22.11-1
 - Release 0.22.11
 

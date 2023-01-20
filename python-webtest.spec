@@ -2,7 +2,7 @@
 
 Name:           python-webtest
 Version:        3.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Helper to test WSGI applications
 
 License:        MIT
@@ -78,9 +78,12 @@ cp -a CHANGELOG.rst docs/
 %files -n python3-webtest
 %doc docs/* CHANGELOG.rst
 %{python3_sitelib}/webtest
-%{python3_sitelib}/*.egg-info
+%{python3_sitelib}/WebTest-*.egg-info
 
 %changelog
+* Wed Jan 18 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.0.0-5
+- Do not use glob on python sitelib
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

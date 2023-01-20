@@ -1,6 +1,6 @@
 Name:           deco-archive
 Version:        1.7
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Extraction scripts for various archive formats for use of deco
 License:        GPLv3
 URL:            https://github.com/peha/deco-archive/
@@ -170,6 +170,9 @@ cat %{name}-ghosts.list %{name}-links.list > %{name}.files
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

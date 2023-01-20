@@ -7,7 +7,7 @@ License: CC0
 URL: https://www.wfonts.com/font/segment16a
 
 Version: 20171229
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global foundry  Daniel Wikholm
 %global fontdocs  Segment16.txt
@@ -113,6 +113,9 @@ cp %{SOURCE20} ./cc0.txt
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20171229-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jun 27 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20171229-2
 - Move each font variant into separate subpackage
 - Add info about differences between Segment16 A/B/C to descriptions

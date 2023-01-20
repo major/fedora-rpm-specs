@@ -16,7 +16,7 @@ BuildRequires:  %1 \
 
 Name:		catfish
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betaver}%{?dist}
+Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betaver}%{?dist}.1
 Summary:	A handy file search tool
 
 License:	GPLv2+
@@ -175,6 +175,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.4-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.16.4-1
 - 4.16.4
 

@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainrel		1
+%global	mainrel		2
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -70,6 +70,7 @@ Source1:	create-ugene-free-tarball.sh
 Source2:	create-%{name}-git-bare-tarball.sh
 # This is not installed
 Source10:	ugene.wrapper
+Patch1:	ugene-45.1-gcc13-header-inclusion.patch
 # Currently distro-specific
 Patch102:	ugene-44.x-libs_3rdparty-breakpad-sys_mmap_use_system_mmap.patch
 Patch103:	ugene-40.1-libs_3rdparty-breakpad-unwind-nonsupported-arch.patch
@@ -131,6 +132,9 @@ git checkout -b %{version}-fedora %{gitcommit_free}
 git config user.name "%{name} Fedora maintainer"
 git config user.email "%{name}-maintainers@fedoraproject.org"
 %endif
+
+%patch1 -p1 -b .gcc13 -Z
+	%GIT commit -m "add missing header file" -a
 
 %patch102 -p1 -b .sys_mmap -Z
 	%GIT commit -m "libs_3rdparty/breakpad: use C function instead of directly using syscall assemble code" -a
@@ -250,6 +254,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45.1-2
+- Header file inclusion fix for gcc13
+
 * Sun Jan  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 45.1-1
 - A Happy New Year 45.1 release
 

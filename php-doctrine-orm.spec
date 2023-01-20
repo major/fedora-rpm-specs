@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-doctrine-orm
 #
-# Copyright (c) 2013-2022 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2013-2023 Shawn Iwinski <shawn.iwinski@gmail.com>
 #                         Remi Collet <remi@fedoraproject.org>
 #
 # License: MIT
@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      orm
-%global github_version   2.14.0
-%global github_commit    f82485e651763fbd1b34879726f4d3b91c358bd9
+%global github_version   2.14.1
+%global github_commit    de7eee5ed7b1b35c99b118f26f210a8281e6db8e
 
 %global composer_vendor  doctrine
 %global composer_project orm
@@ -360,6 +360,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Jan 17 2023 Remi Collet <remi@remirepo.net> - 2.14.1-1
+- update to 2.14.1
+
 * Tue Dec 20 2022 Remi Collet <remi@remirepo.net> - 2.14.0-1
 - update to 2.14.0
 - allow doctrine/collections v2

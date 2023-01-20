@@ -2,7 +2,7 @@ Name:           dionaea
 Version:        0.7.0
 Summary:        Low interaction honeypot
 # Show as the RPM release number (keep same number line for tarball and git builds)
-%global         baserelease     17
+%global         baserelease     18
 
 %if 0%{?rhel}
 # Group needed for EPEL
@@ -493,6 +493,9 @@ getent passwd dionaea >/dev/null || \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

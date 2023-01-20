@@ -1,7 +1,7 @@
 Summary: Garbage collector for C and C++
 Name:    gc
 Version: 8.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD
 URL:     https://www.hboehm.info/gc/
@@ -10,6 +10,8 @@ Source0: https://github.com/ivmai/bdwgc/releases/download/v%{version}/gc-%{versi
 ## upstreamable patches
 
 ## downstream patches
+# Already upstream: https://github.com/ivmai/bdwgc/commit/4489757f1cc1fe4aa98d4c1ebbe0789b2b308e11
+Patch0: pthread_setname_np.patch
 
 BuildRequires: automake libtool
 BuildRequires: gcc-c++
@@ -105,6 +107,10 @@ make check %{?arch_ignore}
 
 
 %changelog
+* Tue Jan 17 2023 Timm Bäder <tbaeder@redhat.com> - 8.2.2-2
+- Fix undefined pthread_setname_np
+- https://fedoraproject.org/wiki/Toolchain/PortingToModernC
+
 * Tue Sep 20 2022 Rex Dieter <rdieter@fedoraproject.org> 8.2.2-1
 - 8.2.2 (#2124760)
 

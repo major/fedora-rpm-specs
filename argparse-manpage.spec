@@ -28,7 +28,7 @@ There is a limited support for (deprecated) optparse objects, too.
 
 Name:           argparse-manpage
 Version:        4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum Python}
 BuildArch:      noarch
 
@@ -180,6 +180,9 @@ PYTHONPATH=%buildroot%python3_sitearch %__python3 -m pytest -vv
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 31 2022 Pavel Raiskup <praiskup@redhat.com> - 4-1
 - new upstream release:
   https://github.com/praiskup/argparse-manpage/releases/tag/v4

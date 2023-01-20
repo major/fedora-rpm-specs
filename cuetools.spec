@@ -1,6 +1,6 @@
 Name:    cuetools
 Version: 1.4.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Utilities to work with cue and TOC files
 License: GPLv2
 URL:     https://github.com/svend/cuetools
@@ -38,6 +38,9 @@ autoreconf -fiv
 %{_mandir}/man1/cue*.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

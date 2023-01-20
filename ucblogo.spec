@@ -1,6 +1,6 @@
 Name:           ucblogo
-Version:        6.2.2
-Release:        4%{?dist}
+Version:        6.2.3
+Release:        1%{?dist}
 Summary:        An interpreter for the Logo programming language
 
 License:        GPLv3+
@@ -121,6 +121,9 @@ fi
 %{_bindir}/ucblogo-x11
 
 %changelog
+* Tue Jan 17 2023 Joshua Cogliati <jrincayc@yahoo.com> - 6.2.3-1
+- Updating to 6.2.3 release
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 6.2.2-4
 - Rebuild with wxWidgets 3.2
 

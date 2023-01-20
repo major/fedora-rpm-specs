@@ -1,6 +1,6 @@
 Name:           OpenMesh
 Version:        6.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A generic and efficient polygon mesh data structure
 License:        LGPLv3+ with exceptions
 URL:            http://www.openmesh.org/
@@ -122,6 +122,9 @@ done
 %doc %{_vpath_builddir}/Build/share/OpenMesh/Doc/html/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

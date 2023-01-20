@@ -1,6 +1,6 @@
 Name:           R2spec
 Version:        5.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python script to generate R spec file
 
 License:        GPLv3+
@@ -44,6 +44,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/R2rpm.1.gz
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

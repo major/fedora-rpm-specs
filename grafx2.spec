@@ -3,14 +3,14 @@
 
 Name:		grafx2
 Version:	2.8
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A bitmap paint program specialized in 256 color drawing
 URL:		http://grafx2.chez.com/
 # recoil is GPLv2+, grafX2 is GPLv2 only
 # two files are CeCILL v2
 # 6502 has license permission to be used as GPLv2 in this program, see 6502-RELICENSE
 # src/libraw2crtc.*
-License:	GPLv2 and CeCILL
+License:	GPL-2.0-only AND CECILL-2.0
 # Source0:	https://gitlab.com/GrafX2/grafX2/-/archive/v%%{version}/grafX2-v%%{version}.tar.bz2
 # We need to remove src/realpath.c as there is no license for it.
 Source0:	grafX2-v%{version}-clean.tar.bz2
@@ -22,7 +22,14 @@ Source4:	6502-RELICENSE
 # Replacement file for unlicensed realpath.c
 Source5:	realpath-linux.c
 Patch0:		grafX2-v2.8-recoil6.patch
-BuildRequires:	SDL-devel, SDL_image-devel, SDL_ttf-devel, zlib-devel, libtiff-devel
+# https://gitlab.com/GrafX2/grafX2/-/commit/103fc6bd49ac5e4c34013f056f441686a6c0c019
+# https://gitlab.com/GrafX2/grafX2/-/commit/77f24ad3a435a59e5e8a44716cc766f81ab46b23
+Patch1:		grafX2-v2.8-fix-tiff-saving.patch
+# https://gitlab.com/GrafX2/grafX2/-/commit/7e5daa65a8699f6640bf51272c925f4307164f9f
+Patch2:		grafX2-v2.8-fix-ttf.patch
+# https://gitlab.com/GrafX2/grafX2/-/commit/a851e49f861c7b9bdf1b89c0dd55b8fc12676009
+Patch3:		grafX2-v2.8-fix-coords.patch
+BuildRequires:	SDL2-devel, SDL2_image-devel, SDL2_ttf-devel, zlib-devel, libtiff-devel
 BuildRequires:	libpng-devel, freetype-devel, libX11-devel, lua-devel, gcc, make
 BuildRequires:	fontconfig-devel, desktop-file-utils
 Provides:	bundled(recoil) = %{recoilver}
@@ -38,6 +45,9 @@ mouse.
 %prep
 %setup -q -n grafX2-v%{version}
 %patch0 -p1 -b .r6
+%patch1 -p1 -b .fix-tiff-saving
+%patch2 -p1 -b .ttf-fix
+%patch3 -p1 -b .fix-coords
 
 cp %{SOURCE5} src/realpath.c
 
@@ -55,18 +65,18 @@ cp -a %{SOURCE1} %{SOURCE3} 3rdparty/archives/
 
 %build
 cd src
-make %{?_smp_mflags}
+make %{?_smp_mflags} API=sdl2
 
 %install
 cd src
-make DESTDIR=%{buildroot} PREFIX=%{_prefix} CP="cp -a" install
+make API=sdl2 DESTDIR=%{buildroot} PREFIX=%{_prefix} CP="cp -a" install
 
 # install appdata file
 mkdir -p %{buildroot}%{_metainfodir}
 cp %{SOURCE2} %{buildroot}%{_metainfodir}
 
 pushd %{buildroot}%{_bindir}
-ln -s grafx2-sdl grafx2
+ln -s grafx2-sdl2 grafx2
 popd
 
 %check
@@ -82,6 +92,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/grafx2.desktop
 %{_datadir}/icons/hicolor/scalable/apps/*
 
 %changelog
+* Thu Dec 29 2022 Tom Callaway <spot@fedoraproject.org> - 2.8-5
+- merge in some upstream fixes
+- use SDL2
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

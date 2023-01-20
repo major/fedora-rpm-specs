@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          1.8.4
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Export Tables to LaTeX or HTML
 
 License:          GPLv2+
@@ -82,6 +82,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Tom Callaway <spot@fedoraproject.org> - 1.8.4-12
 - rebuild for R 4.2.1
 

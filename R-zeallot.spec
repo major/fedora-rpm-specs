@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.0
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Multiple, Unpacking, and Destructuring Assignment
 
 License:          MIT
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Tom Callaway <spot@fedoraproject.org> - 0.1.0-12
 - rebuild for R 4.2.1
 

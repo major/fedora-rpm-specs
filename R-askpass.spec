@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.1
-Release:          12%{?dist}
+Release:          13%{?dist}
 Summary:          Safe Password Entry for R, Git, and SSH
 
 License:          MIT
@@ -71,6 +71,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/mac-{askpass,simplepass}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 25 2022 Tom Callaway <spot@fedoraproject.org> - 1.1-12
 - rebuild for R 4.2.1
 

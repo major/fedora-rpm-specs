@@ -1,6 +1,6 @@
 Name:           bygfoot
 Version:        2.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Football management game
 License:        GPLv2
 URL:            http://www.bygfoot.com
@@ -61,6 +61,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/bygfoot
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Florian Weimer <fweimer@redhat.com> - 2.3.4-3
 - Apply upstream patches to improve C99 compatibility
 

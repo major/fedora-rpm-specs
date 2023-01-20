@@ -1,7 +1,7 @@
 %global _lto_cflags %nil
 Name:           cataclysm-dda
 Version:        0.F.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Turn-based survival game set in a post-apocalyptic world
 
 License:        CC-BY-SA
@@ -197,6 +197,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.F.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 02 2022 Petr Salaba <psalaba@redhat.com> - 0.F.3-1
 - Update to 0.F-3
 

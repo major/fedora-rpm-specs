@@ -1,6 +1,6 @@
 Name: dapl
 Version: 2.1.9
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Library providing access to the DAT 2.0 API
 License: GPLv2 or BSD or CPL
 Url: https://www.openfabrics.org/
@@ -75,6 +75,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Florian Weimer <fweimer@redhat.com> - 2.1.9-17
 - C99 compatibility fix (#2155655)
 

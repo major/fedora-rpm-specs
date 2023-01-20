@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          2.3.57
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Chronological Objects which can Handle Dates and Times
 
 License:          GPLv2
@@ -71,6 +71,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.57-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Tom Callaway <spot@fedoraproject.org> - 2.3.57-1
 - update to 2.3-57
 - rebuild for R 4.2.1

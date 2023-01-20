@@ -44,21 +44,13 @@
 
 Name:           xpra
 Version:        4.4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
 URL:            https://www.xpra.org/
 Source0:        https://github.com/Xpra-org/xpra/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
-
 # Appdata file for Fedora
 Source1:        %{name}.appdata.xml
-
-# Horrible fix to find py3cairo.h in python3-cairo-1.16.3
-Patch0:         %{name}-find_py3cairo.patch
-
-# Install into /usr/libexec always
-Patch1:         %{name}-force_always_libexec.patch
-
 Patch2:         %{name}-bug3693.patch
 
 BuildRequires:  python3-devel
@@ -80,18 +72,20 @@ BuildRequires:  pam-devel
 BuildRequires:  pandoc
 # needs by setup.py to detect systemd `sd_listen_ENABLED = POSIX and pkg_config_ok("--exists", "libsystemd")`
 BuildRequires:  systemd-devel
+%if 0%{?fedora}
 BuildRequires:  pkgconfig(libprocps)
+%endif
 BuildRequires:  pkgconfig(libavif)
 BuildRequires:  pkgconfig(libqrencode)
 BuildRequires:  libdrm-devel
 BuildRequires:  pkgconfig(libwebp)
 %if 0%{?el8}
-BuildRequires:  xorg-x11-server-Xvfb
-BuildRequires:  python3-cairo
-BuildRequires:  cairo-devel
+#BuildRequires:  xorg-x11-server-Xvfb
+#BuildRequires:  cairo-devel
 BuildRequires:  pygobject3-devel
 %else
 BuildRequires:  python3-gobject-devel
+%endif
 BuildRequires:  libappstream-glib
 BuildRequires:  python3-cairo-devel
 BuildRequires:  xorg-x11-server-Xorg
@@ -99,7 +93,6 @@ BuildRequires:  xorg-x11-drv-dummy
 BuildRequires:  xorg-x11-xauth
 BuildRequires:  xkbcomp
 BuildRequires:  setxkbmap
-%endif
 %if %{with debug}
 BuildRequires: libasan
 %endif
@@ -172,11 +165,6 @@ network bandwidth constraints.
 %prep
 %autosetup -n %{name}-%{version} -N
 
-%if 0%{?el8}
-%patch0 -p1 -b .backup
-%patch1 -p1 -b .backup
-sed -i 's|@@python3_sitearch@@|%{python3_sitearch}|' setup.py
-%endif
 %patch2 -p1 -R -b .backup
 
 # cc1: error: unrecognized compiler option ‘-mfpmath=387’
@@ -186,9 +174,6 @@ sed -i 's|-mfpmath=387|-mfloat-abi=hard|' setup.py
 
 %build
 %set_build_flags
-%if 0%{?el8}
-export CFLAGS="%{build_cflags} -I%{_includedir}/cairo"
-%endif
 %{__python3} setup.py build --executable="%{__python3} -s" \
     --with-verbose \
     --with-vpx \
@@ -316,6 +301,10 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Wed Jan 18 2023 Sérgio Basto <sergio@serjux.com> - 4.4.3-3
+- Fix epel builds, seems upstream sort out py3cairo hack on el8
+- el8 now also have xorg-x11-drv-dummy
+
 * Sun Jan 08 2023 Sérgio Basto <sergio@serjux.com> - 4.4.3-2
 - Add unitdir, we may have unitdir but by default disabled, preset just enable service by default which understandably was not approved.
   to check presets run `systemctl status xpra | grep preset`

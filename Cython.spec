@@ -6,7 +6,7 @@
 
 Name:           Cython
 Version:        0.29.32
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Language for writing Python extension modules
 
 License:        ASL 2.0
@@ -133,6 +133,9 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.32-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Miro Hrončok <mhroncok@redhat.com> - 0.29.32-2
 - emacs-cython-mode: Wrap the docstring of cython-default-compile-format to 80 characters
 - Fixes: rhbz#2155090

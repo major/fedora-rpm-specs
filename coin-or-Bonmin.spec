@@ -5,7 +5,7 @@
 Name:		coin-or-%{module}
 Summary:	Basic Open-source Nonlinear Mixed INteger programming
 Version:	1.8.8
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -183,6 +183,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 %{_pkgdocdir}/bonmin_doxy.tag
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 1.8.8-10
 - Port configure script to C99
 

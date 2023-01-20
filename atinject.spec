@@ -2,7 +2,7 @@
 
 Name:           atinject
 Version:        1.0.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Dependency injection specification for Java (JSR-330)
 License:        ASL 2.0
 URL:            https://github.com/eclipse-ee4j/injection-api
@@ -47,6 +47,9 @@ beneficial to most nontrivial applications.
 %license LICENSE.txt NOTICE.md
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{pkgver}.%{pkgrel}
-Release:          1%{dist}
+Release:          2%{dist}
 Summary:          Robust Covariance Matrix Estimators
 
 License:          GPLv2+
@@ -60,6 +60,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/data
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 3.0.2-1
 - update to 3.0-2
 - rebuild for R 4.2.1

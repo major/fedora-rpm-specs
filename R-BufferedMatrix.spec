@@ -3,7 +3,7 @@
 
 Name:              R-%{packname}
 Version:           1.60.0
-Release:           2%{dist}
+Release:           3%{dist}
 Summary:           A matrix data storage object method from bioconductor
 Summary(fr):       Stockage des données d'un matrice dans un fichier temporaire
 License:           LGPLv2+
@@ -74,6 +74,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.60.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Tom Callaway <spot@fedoraproject.org> - 1.60.0-2
 - actually build against R 4.2.1
 

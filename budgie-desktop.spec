@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.6.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -171,6 +171,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.6.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 24 2022 Neal Gompa <ngompa@fedoraproject.org> - 10.6.4-2
 - Put the gobject-introspection files in the right place
 

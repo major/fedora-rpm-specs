@@ -3,7 +3,7 @@
 
 Name:           authselect
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Configures authentication and identity sources from supported profiles
 URL:            https://github.com/authselect/authselect
 
@@ -341,6 +341,9 @@ fi
 exit 0
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 5 2022 Pavel Březina <pbrezina@redhat.com> - 1.4.2-1
 - Rebase to 1.4.2
 

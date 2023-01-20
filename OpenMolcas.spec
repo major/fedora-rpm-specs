@@ -3,7 +3,7 @@
 
 Name:           OpenMolcas
 Version:        22.10
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A multiconfigurational quantum chemistry software package
 License:        LGPLv2
 URL:            https://gitlab.com/Molcas/OpenMolcas
@@ -140,6 +140,9 @@ cp -p Tools/pymolcas/pymolcas.py %{buildroot}%{_bindir}/pymolcas
 %{_bindir}/pymolcas
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 25 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 22.10-2
 - Bump for libxc rebuild.
 

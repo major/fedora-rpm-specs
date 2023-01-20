@@ -1,7 +1,7 @@
 Summary: Utility to autorestart SSH tunnels
 Name: autossh
 Version: 1.4g
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: BSD
 URL: https://www.harding.motd.ca/autossh/
 Source0: https://www.harding.motd.ca/autossh/autossh-1.4g.tgz
@@ -81,6 +81,9 @@ fi
 %{_unitdir}/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4g-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Peter Fordham <peter.fordham@gmail.com> - 1.4g-10
 - Port configure script to C99.
 

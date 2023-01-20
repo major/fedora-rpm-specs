@@ -2,7 +2,7 @@
 
 Name:       aunit
 Version:    2020
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    Unit test framework for Ada
 License:    GPLv2+
 URL:        http://libre.adacore.com/libre/tools/aunit
@@ -73,6 +73,9 @@ rm -rf %{buildroot}/%{_datadir}/gps/
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

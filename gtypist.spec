@@ -1,10 +1,11 @@
 Name:			gtypist
 Version: 		2.9.5
-Release: 		14%{?dist}
+Release: 		15%{?dist}
 Summary: 		GNU typing tutor
 License:		GPLv3+
 Url: 			ftp://ftp.gnu.org/gnu/gtypist
 Source0: 		ftp://ftp.gnu.org/gnu/gtypist/gtypist-2.9.5.tar.xz
+Patch0: gtypist-c99.patch
 BuildRequires:  gcc
 BuildRequires:		emacs
 BuildRequires:		gettext
@@ -25,7 +26,7 @@ been compiled and used in Unix (GNU/Linux, Aix, Solaris, openBSD) and
 also in DOS/Windows (DOS 6.22, Windows 98, Windows XP).
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --with-lispdir='${datarootdir}/emacs/site-lisp/gtypist'
@@ -55,6 +56,9 @@ cp gtypist-init.el $RPM_BUILD_ROOT/%{_emacs_sitestartdir}
 %{_emacs_sitestartdir}/gtypist-init.el
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 2.9.5-15
+- C99 compatibility fixes (#2162074)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global clientversion 3.0.8.2
 Name: argus
 Version: 3.0.8.2
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Network transaction audit tool
 License: GPLv2+
 Url: http://qosient.com/argus
@@ -129,6 +129,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 %{_includedir}/argus/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 3.0.8.2-20
 - Port configure scripts to C99
 

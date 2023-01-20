@@ -5,7 +5,7 @@
 
 Name:		GarminPlugin
 Version:	0.3.27
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Garmin Communicator Plugin port for Linux
 %if 0%{?rhel} && 0%{?rhel} <= 5
 %endif # 0%%{?rhel} && 0%%{?rhel} <= 5
@@ -89,6 +89,9 @@ popd
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.27-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.27-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

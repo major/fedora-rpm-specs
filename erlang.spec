@@ -68,8 +68,8 @@
 
 
 Name:		erlang
-Version:	25.2
-Release:	3%{?dist}
+Version:	25.2.1
+Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
 License:	ASL 2.0
@@ -1971,6 +1971,9 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Wed Jan 18 2023 Peter Lemenkov <lemenkov@gmail.com> - 25.2.1-1
+- Ver. 25.2.1
+
 * Fri Jan  6 2023 Peter Lemenkov <lemenkov@gmail.com> - 25.2-3
 - Fix deps
 

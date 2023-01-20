@@ -1,6 +1,6 @@
 Name:           GtkAda
 Version:        2.24.2
-Release:        40%{?dist}
+Release:        42%{?dist}
 Summary:        GTKada 2, an Ada binding to GTK+ 2
 Summary(sv):    GTKada 2, en adabindning till GTK+ 2
 License:        GPLv2+
@@ -250,6 +250,12 @@ install --mode=u=rw,go=r,a-s --preserve-timestamps COPYING %{buildroot}%{_licens
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.2-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2.24.2-41
+- Rebuilt with GCC 13.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

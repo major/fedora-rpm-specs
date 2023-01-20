@@ -1,6 +1,6 @@
 Name:               conman
 Version:            0.3.0
-Release:            8%{?dist}
+Release:            9%{?dist}
 Summary:            ConMan - The Console Manager
 
 License:            GPLv3+
@@ -89,6 +89,9 @@ chmod -x $RPM_BUILD_ROOT%{_datadir}/%{name}/*.exp
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

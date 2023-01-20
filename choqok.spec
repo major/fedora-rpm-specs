@@ -8,7 +8,7 @@ License: GPLv3
 
 %{forgemeta}
 
-Release: 8%{?dist}
+Release: 9%{?dist}
 URL:     %{forgeurl}
 Source0: %{forgesource}
 Source1: %{name}.rpmlintrc
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.choqok.de
 %{_kf5_libdir}/libtwitterapihelper.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

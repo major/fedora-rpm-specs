@@ -1,6 +1,6 @@
 Name:           aiksaurus
 Version:        1.2.1
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        An English-language thesaurus library
 
 Epoch:          1
@@ -113,6 +113,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{SOURCE2}
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.1-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Peter Fordham <peter.fordham@gmail.com> - 1:1.2.1-50
 - Port configure script to C99.
 

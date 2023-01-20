@@ -13,7 +13,7 @@ Version:       1.1.1
 %endif
 
 Name:           coccinelle
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPLv2
@@ -282,6 +282,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 03 2022 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-14
 - Switch to using forge macros
 

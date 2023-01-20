@@ -40,9 +40,9 @@ mathematics, such as ZFC set theory, HOL, and Peano arithmetic.
 # The content is CC0-1.0.  The remaining licenses cover the various fonts
 # embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
-License:        CC0-1.0 AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
+License:        CC0-1.0 AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
 Summary:        The Metamath book
 BuildArch:      noarch
 

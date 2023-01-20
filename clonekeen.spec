@@ -1,6 +1,6 @@
 Name:           clonekeen
 Version:        0.8.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        "Commander Keen: Invasion of the Vorticons" clone
 License:        GPLv3+
 URL:            http://clonekeen.sourceforge.net/
@@ -86,6 +86,9 @@ install -p -m 644 %{SOURCE7} \
 %{_datadir}/icons/hicolor/24x24/apps/%{name}.png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

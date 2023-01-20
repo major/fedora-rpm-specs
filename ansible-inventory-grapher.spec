@@ -10,7 +10,7 @@
 
 Name:           %{archive_name}
 Version:        2.5.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Creates graphs representing ansible inventory
 
 License:        GPL-3.0-or-later
@@ -102,6 +102,9 @@ ln -sr %{_bindir}/%{name} %{buildroot}%{_bindir}/%{name}-3
 %{python3_sitelib}/ansible_inventory_grapher-%{version}-py3.*.egg-info
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Parag Nemade <pnemade AT redhat DOT com> - 2.5.0-13
 - Update package to use SPDX expression license
 

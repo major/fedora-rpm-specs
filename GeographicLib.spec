@@ -1,5 +1,5 @@
 %global nativever 2.1.2
-%global baserelease 2
+%global baserelease 3
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -245,6 +245,9 @@ popd
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-2
 - Switch to python3-build
 

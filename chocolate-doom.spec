@@ -1,6 +1,6 @@
 Name:		chocolate-doom
 Version:	3.0.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Historically compatible Doom engine
 License:	GPLv2+
 URL:		http://chocolate-doom.org/
@@ -128,6 +128,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 %{_mandir}/man6/chocolate-strife.6*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -15,7 +15,7 @@
 
 Name: cp2k
 Version: 2023.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Ab Initio Molecular Dynamics
 License: GPLv2+
 URL: http://cp2k.org/
@@ -255,6 +255,9 @@ done
 %{_libdir}/mpich/lib/cp2k/lib*.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Dominik Mierzejewski <dominik@greysector.net> - 2023.1-1
 - update to 2023.1 (#2105463)
 

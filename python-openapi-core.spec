@@ -7,18 +7,31 @@ Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source:         %{pypi_source openapi_core}
+URL:            https://github.com/p1c2u/%{srcname}
+# The GitHub archive has the tests; the PyPI sdist does not.
+Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 # https://github.com/p1c2u/openapi-core/pull/450
 Patch:          openapi-core_0.16.4_avoid-dependency.patch
+# Cherry-pick “allow openapi-schema-validator 0.4”
+# https://github.com/p1c2u/openapi-core/commit/f218f04a44161c4066f80aefa8006c3e9be27f3e
+# Rebased on top of the patch from PR#450, with irrelevant (to us) poetry.lock
+# changes dropped.
+Patch:          0002-allow-openapi-schema-validator-0.4.patch
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
-BuildRequires:  poetry
 
-# Dependencies not automatically pulled in
+BuildRequires:  python3-devel
+
+# Test dependencies; see [tool.poetry.dev-dependencies], but note that this
+# contains both test dependencies and unwanted linters etc.
+BuildRequires:  python3dist(djangorestframework)
+BuildRequires:  python3dist(httpx)
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(responses)
 BuildRequires:  python3dist(starlette)
+BuildRequires:  python3dist(strict-rfc3339)
+BuildRequires:  python3dist(webob)
 
 %global _description %{expand:
 Openapi-core is a Python library that adds client-side and server-side
@@ -33,11 +46,14 @@ Summary:        %{summary}
 %description -n python3-%{srcname} %_description
 
 
-%pyproject_extras_subpkg -n python3-openapi-core django flask requests starlette
+%pyproject_extras_subpkg -n python3-openapi-core django falcon flask requests starlette
 
 
 %prep
-%autosetup -n %{modname}-%{version} -p1
+%autosetup -n %{srcname}-%{version} -p1
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i '/^--cov[-=]/d' pyproject.toml
+
 
 %generate_buildrequires
 %pyproject_buildrequires -x django -x falcon -x flask -x requests -x starlette
@@ -53,7 +69,7 @@ Summary:        %{summary}
 
 
 %check
-%pyproject_check_import
+%pytest
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

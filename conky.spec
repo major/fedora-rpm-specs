@@ -22,7 +22,7 @@
 
 Name:           conky
 Version:        1.15.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A system monitor for X
 
 License:        GPLv3+
@@ -121,6 +121,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 25 2022 Miroslav Lichvar <mlichvar@redhat.com> - 1.15.0-1
 - update to 1.15.0
 

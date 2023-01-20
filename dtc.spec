@@ -8,7 +8,7 @@
 
 Name:          dtc
 Version:       1.6.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Device Tree Compiler
 License:       GPLv2+
 URL:           https://devicetree.org/
@@ -148,6 +148,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/ftdump
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.6.1-6
 - Add mingw sub-packages. Fixes rhbz#1997511
 

@@ -7,7 +7,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.1
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Create Rich Command Line Applications
 
 License:          MIT
@@ -93,6 +93,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 04 2022 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.1-7
 - R 4.2.1
 

@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.5.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extended ROOT file server
 
 License:	LGPLv3+
@@ -26,6 +26,15 @@ Patch0:		0001-Disable-LTO-for-XrdPosix-on-32-bit-architectures.patch
 #		Check operator++ in <atomic> check
 #		https://github.com/xrootd/xrootd/pull/1806
 Patch1:		0001-Check-all-sizes-8-16-32-64-in-atomic-check.patch
+#		Backported from upstream
+Patch2:		0001-feat-Use-setuptools-over-setuptools._distutils.core.patch
+Patch3:		0002-chore-Remove-check-for-setuptools-over-distutils.patch
+#		Add missing include - fixes build failure with gcc 13
+#		https://github.com/xrootd/xrootd/pull/1880
+Patch4:		0001-Add-missing-include-causing-build-failure-with-gcc-1.patch
+#		Fix build failure due to possible large memory allocation
+#		https://github.com/xrootd/xrootd/pull/1881
+Patch5:		0001-Fix-build-faildure-due-to-possible-large-memory-allo.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3 >= 3.6
@@ -49,21 +58,25 @@ BuildRequires:	zlib-devel
 BuildRequires:	doxygen
 BuildRequires:	graphviz
 BuildRequires:	selinux-policy-devel
-BuildRequires:	systemd
+BuildRequires:	systemd-rpm-macros
 BuildRequires:	systemd-devel
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 8
 BuildRequires:	python3-devel
 BuildRequires:	python3-pip
+BuildRequires:	python3-setuptools
 BuildRequires:	python3-wheel
 BuildRequires:	python3-sphinx
 %endif
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	python2-devel
 BuildRequires:	python2-pip
+BuildRequires:	python2-setuptools
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-pip
+BuildRequires:	python%{python3_pkgversion}-setuptools
 BuildRequires:	python%{python3_other_pkgversion}-devel
 BuildRequires:	python%{python3_other_pkgversion}-pip
+BuildRequires:	python%{python3_other_pkgversion}-setuptools
 BuildRequires:	python2-sphinx
 %endif
 BuildRequires:	json-c-devel
@@ -249,7 +262,7 @@ interfacing with the Ceph storage platform.
 %if %{?rhel}%{!?rhel:0} == 7
 %package -n python2-%{name}
 Summary:	Python 2 bindings for xrootd
-%{?python_provide:%python_provide python2-%{name}}
+%py_provides	python2-%{name}
 Provides:	%{name}-python = %{epoch}:%{version}-%{release}
 Obsoletes:	%{name}-python < 1:4.6.1-6
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
@@ -261,7 +274,7 @@ This package contains Python 2 bindings for xrootd.
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary:	Python 3 bindings for xrootd
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+%py_provides	python%{python3_pkgversion}-%{name}
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
@@ -269,13 +282,13 @@ Requires:	%{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
 This package contains Python 3 bindings for xrootd.
 
 %if %{?rhel}%{!?rhel:0} == 7
-%package -n python%{python3_other_pkgversion}-%{name}
+%package -n python%{?python3_other_pkgversion}-%{name}
 Summary:	Python 3 bindings for xrootd
-%{?python_provide:%python_provide python%{?python3_other_pkgversion}-%{name}}
+%py_provides	python%{python3_other_pkgversion}-%{name}
 Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
-%description -n python%{python3_other_pkgversion}-%{name}
+%description -n python%{?python3_other_pkgversion}-%{name}
 This package contains Python 3 bindings for xrootd.
 %endif
 
@@ -290,6 +303,10 @@ This package contains the API documentation of the xrootd libraries.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
@@ -672,7 +689,7 @@ fi
 %{python3_sitearch}/XRootD
 
 %if %{?rhel}%{!?rhel:0} == 7
-%files -n python%{python3_other_pkgversion}-%{name}
+%files -n python%{?python3_other_pkgversion}-%{name}
 %{python3_other_sitearch}/xrootd-*.*-info
 %{python3_other_sitearch}/pyxrootd
 %{python3_other_sitearch}/XRootD
@@ -682,6 +699,10 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Tue Jan 17 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.1-2
+- Add missing include - fixes build failure with gcc 13
+- Fix build failure due to possible large memory allocation
+
 * Wed Oct 19 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.1-1
 - Update to version 5.5.1
 - Drop doxygen patch accepted upstream

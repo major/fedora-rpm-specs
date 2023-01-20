@@ -5,7 +5,7 @@
 
 Name:           %{project}
 Version:        3.14.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Improved builder for Docker images
 License:        BSD
@@ -206,6 +206,9 @@ cp -a docs/manpage/atomic-reactor.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 15 2022 Jens Petersen <petersen@redhat.com> - 3.14.0-2
 - update rpmqa RPMDB_PATH to /usr/lib/sysimage/rpm for F36+ to unbreak
   containerBuilds (#2142731)

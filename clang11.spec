@@ -4,7 +4,7 @@
 %global min_ver 1
 %global patch_ver 0
 %global rc_ver 2
-%global baserelease 10
+%global baserelease 11
 
 %global clang_tools_binaries \
 	%{_bindir}/clang-apply-replacements \
@@ -539,6 +539,9 @@ false
 
 %endif
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.0-0.11.rc2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.0-0.10.rc2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

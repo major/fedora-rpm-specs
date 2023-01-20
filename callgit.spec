@@ -1,6 +1,6 @@
 Name:		callgit
 Version:	2.0
-Release:	29%{dist}
+Release:	30%{dist}
 Summary:	A tool for Ham Radio Operators to look up call-signs on the web
 License:	GPLv3
 URL:		http://www.hamsoftware.org/
@@ -37,6 +37,9 @@ cp %{SOURCE2} %{buildroot}%{_datadir}/pixmaps/Ham_Icon-1-48.png
 %{_datadir}/pixmaps/Ham_Icon-1-48.png
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

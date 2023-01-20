@@ -6,7 +6,7 @@
 Name:		coin-or-%{module}
 Summary:	An exact solver for nonconvex MINLPs
 Version:	0.5.8
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	EPL-1.0
 URL:		https://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -151,6 +151,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}:$LD_LIBRARY_PATH make test
 %{_pkgdocdir}/couenne_doxy.tag
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 0.5.8-10
 - Port configure script to C99
 

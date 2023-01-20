@@ -1,7 +1,7 @@
 Summary: A Differential X Protocol Compressor
 Name:    dxpc
 Version: 3.9.2
-Release: 22%{?dist}
+Release: 23%{?dist}
 
 License: BSD
 URL:     http://www.vigor.nu/%{name}/
@@ -51,6 +51,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

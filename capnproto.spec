@@ -5,7 +5,7 @@
 
 Name:           capnproto
 Version:        0.10.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A data interchange format and capability-based RPC system
 
 License:        MIT
@@ -88,6 +88,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/cmake/CapnProto/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Fabio Valentini <decathorpe@gmail.com> - 0.10.3-1
 - Update to version 0.10.3
 - Fixes RHBZ#2149787

@@ -14,8 +14,8 @@
 
 Summary: A GTK widget for VNC clients
 Name: gtk-vnc
-Version: 1.3.0
-Release: 5%{?dist}
+Version: 1.3.1
+Release: 1%{?dist}
 License: LGPLv2+
 Source: https://download.gnome.org/sources/%{name}/%{verdir}/%{name}-%{version}.tar.xz
 URL: https://gitlab.gnome.org/GNOME/gtk-vnc
@@ -275,7 +275,7 @@ rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/gvnccapture.1*
 
 %if %{with_mingw}
 # Mingw32
-%files -n mingw32-gvnc -f gtk-vnc.lang
+%files -n mingw32-gvnc -f mingw32-gtk-vnc.lang
 %doc AUTHORS
 %doc ChangeLog
 %doc ChangeLog-old
@@ -297,7 +297,7 @@ rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/gvnccapture.1*
 %{mingw32_bindir}/gvnccapture.exe
 
 # Mingw64
-%files -n mingw64-gvnc -f gtk-vnc.lang
+%files -n mingw64-gvnc -f mingw64-gtk-vnc.lang
 %doc AUTHORS
 %doc ChangeLog
 %doc ChangeLog-old
@@ -320,6 +320,9 @@ rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/gvnccapture.1*
 %endif
 
 %changelog
+* Mon Jan 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.3.1-1
+- Update to 1.3.1 release
+
 * Mon Aug  8 2022 Daniel P. Berrangé <berrange@redhat.com> - 1.3.0-5
 - Pull in mingw sub-packages
 

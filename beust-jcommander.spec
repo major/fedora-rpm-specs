@@ -2,7 +2,7 @@
 
 Name:           beust-jcommander
 Version:        1.82
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java framework for parsing command line parameters
 License:        ASL 2.0
 URL:            http://jcommander.org/
@@ -61,6 +61,9 @@ cp -p %SOURCE1 pom.xml
 %license license.txt notice.md
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.82-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 07 2022 Marian Koncek <mkoncek@redhat.com> - 1.82-1
 - Update to upstream version 1.82
 

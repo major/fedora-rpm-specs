@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          2.0.3
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Finding Files in Project Subdirectories
 
 License:          MIT
@@ -80,6 +80,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Tom Callaway <spot@fedoraproject.org> - 2.0.3-1
 - update to 2.0.3
 - rebuild for R 4.2.1

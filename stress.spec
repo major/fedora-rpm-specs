@@ -1,6 +1,6 @@
 %define _hardened_build 1
 Name:           stress
-Version:        1.0.5
+Version:        1.0.6
 Release:        1%{?dist}
 Summary:        A tool to put given subsystems under a specified load
 
@@ -40,6 +40,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 
 %changelog
+* Wed Jan 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.6-1
+- 1.0.6
+
 * Tue Dec 06 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.0.5-1
 - 1.0.5
 

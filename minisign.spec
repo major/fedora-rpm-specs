@@ -3,13 +3,13 @@
 %global public_key RWQf6LRCGA9i53mlYecO4IzT51TGPpvWucNSCh1CBM0QTaLn73Y7GFO3
 
 Name:           minisign
-Version:        0.10
-Release:        3%{?dist}
+Version:        0.11
+Release:        1%{?dist}
 Summary:        A dead simple tool to sign files and verify digital signatures
 License:        ISC
 URL:            https://github.com/jedisct1/minisign
-Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-Source1:        %{url}/releases/download/%{version}/%{version}.tar.gz.minisig
+Source0:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
+Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.minisig
 
 BuildRequires:  libsodium-devel
 BuildRequires:  cmake
@@ -26,7 +26,7 @@ Minisign is a dead simple tool to sign files and verify signatures.
 /usr/bin/minisign -V -m %{SOURCE0} -x %{SOURCE1} -P %{public_key}
 %endif
 
-%autosetup
+%autosetup -c
 
 %build
 %cmake -DCMAKE_STRIP=0 .
@@ -42,6 +42,10 @@ Minisign is a dead simple tool to sign files and verify signatures.
 %doc README.md
 
 %changelog
+* Tue Jan 17 2023 François Kooman <fkooman@tuxed.net> - 0.11-1
+- update to 0.11
+- update source URLs to point to release tarballs
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

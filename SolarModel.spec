@@ -1,7 +1,7 @@
 Name:		SolarModel
 Summary: 	Real-time 3D Solar System simulation
 Version:	2.1
-Release:	34%{?dist}
+Release:	35%{?dist}
 License:	GPL+
 Source0:	http://downloads.sourceforge.net/solarmodel/%{name}_src_2_1.zip
 # Upstream only has these .dat files in the binary zip file for 2.1
@@ -66,6 +66,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE3}
 %{_datadir}/pixmaps/SolarModel.png
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

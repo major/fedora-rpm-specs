@@ -3,11 +3,12 @@
 
 Name:           cdk
 Version:        %{mainver}.%{datever}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Curses Development Kit
 License:        BSD with advertising
 URL:            http://invisible-island.net/cdk/
 Source0:        ftp://invisible-island.net/cdk-%{mainver}-%{datever}.tgz
+Patch0: cdk-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
 BuildRequires:  make
@@ -26,7 +27,7 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -qn %{name}-%{mainver}-%{datever}
+%autosetup -p1 -n %{name}-%{mainver}-%{datever}
 
 %build
 %configure --with-ncurses --enable-const
@@ -58,6 +59,12 @@ rm -vrf %{buildroot}%{_docdir}
 %{_libdir}/libcdk.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.20211216-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 5.0.20211216-2
+- Port configure script to C99 (#2161912)
+
 * Fri Aug 26 2022 Filipe Rosset <rosset.filipe@gmail.com> - 5.0.20211216-1
 - Update to 5.0.20211216 fixes rhbz#2033571
 

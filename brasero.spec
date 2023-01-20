@@ -12,7 +12,7 @@
 
 Name:      brasero
 Version:   3.12.3
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Gnome CD/DVD burning application
 
 
@@ -174,6 +174,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Kalev Lember <klember@redhat.com> - 3.12.3-4
 - Obsolete brasero-nautilus subpackage
 

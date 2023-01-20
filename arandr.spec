@@ -1,6 +1,6 @@
 Name:           arandr
 Version:        0.1.10
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Simple GTK+ XRandR GUI
 
 License:        GPLv3
@@ -55,6 +55,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/arandr.desktop
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 08 2022 Frantisek Sumsal <frantisek@sumsal.cz> - 0.1.10-13
 - Fix compatibility with Python 3.11 [BZ#2141076]
 

@@ -1,6 +1,6 @@
 Name:           capstone
 Version:        4.0.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A lightweight multi-platform, multi-architecture disassembly framework
 
 %global         gituser         aquynh
@@ -239,6 +239,9 @@ make check LD_LIBRARY_PATH="`pwd`"
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 - drop java binding for platforms not in %%{java_arches}

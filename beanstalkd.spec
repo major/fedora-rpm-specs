@@ -7,7 +7,7 @@
 
 Name:           beanstalkd
 Version:        1.10
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A simple, fast work-queue service
 
 License:        MIT
@@ -96,6 +96,9 @@ fi
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

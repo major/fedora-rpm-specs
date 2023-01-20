@@ -1,6 +1,6 @@
 Name:		consolation
 Version:	0.0.7
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Copy-paste for the Linux console
 
 License:	GPLv2+
@@ -62,6 +62,9 @@ install -pm644 consolation.service %{buildroot}%{_unitdir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

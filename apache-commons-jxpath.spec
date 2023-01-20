@@ -2,7 +2,7 @@
 
 Name:           apache-commons-jxpath
 Version:        1.3
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Simple XPath interpreter
 License:        ASL 2.0
 URL:            http://commons.apache.org/jxpath/
@@ -68,6 +68,9 @@ rm src/test/org/apache/commons/jxpath/servlet/JXPathServletContextTest.java
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

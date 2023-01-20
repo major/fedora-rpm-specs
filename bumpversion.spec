@@ -1,6 +1,6 @@
 Name:           bumpversion
 Version:        1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Version-bump your software with a single command
 
 License:        MIT
@@ -50,6 +50,9 @@ commits and tags:
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 08 2022 Jonathan Wright <jonathan@almalinux.org> - 1.0.1-2
 - Modernize spec file
 - Add tests

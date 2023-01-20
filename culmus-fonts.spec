@@ -3,7 +3,7 @@ BuildRequires: /usr/bin/makeotfexe
 BuildRequires: fontforge
 
 Version:   0.133
-Release:   6%{?dist}
+Release:   7%{?dist}
 License:   GPL-2.0-only
 URL:       http://culmus.sourceforge.net
 
@@ -306,6 +306,9 @@ fontforge ./modify-font-metadata.pe
 %fontfiles -a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.133-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.133-6
 - Update for SPDX license expression
 

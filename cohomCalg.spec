@@ -1,6 +1,6 @@
 Name:           cohomCalg
 Version:        0.32
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Sheaf cohomologies for line bundles on toric varieties
 
 License:        GPL-3.0-or-later
@@ -28,11 +28,11 @@ varieties.
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
 # Txfonts: GPL-1.0-or-later
 # Utopia: LicenseRef-Utopia
-License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later AND LicenseRef-Utopia
+License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later AND LicenseRef-Utopia
 Summary:        Manual for %{name}
 BuildArch:      noarch
 
@@ -78,6 +78,9 @@ popd
 %doc manual/latex_source/manual.pdf
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Jerry James <loganjerry@gmail.com> - 0.32-12
 - Add upstream patch to fix missing assignment
 - Clarify documentation license

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.58.0
-Release:          1%{dist}
+Release:          2%{dist}
 Summary:          A collection of pre-processing functions
 License:          LGPLv2+
 URL:              http://bioconductor.org/packages/release/bioc/html/%{packname}.html
@@ -70,6 +70,9 @@ install -m 664 -p %{SOURCE1}  %{buildroot}%{_libdir}/R/library/%{packname}
 %{_libdir}/R/library/%{packname}/include/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.58.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 25 2022 Tom Callaway <spot@fedoraproject.org> - 1.58.0-1
 - update to 1.58.0
 - rebuild for R 4.2.1

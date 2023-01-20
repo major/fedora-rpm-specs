@@ -39,7 +39,7 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	A C language family front-end for LLVM
 
 License:	NCSA
@@ -595,6 +595,9 @@ false
 
 %endif
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.0.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 08 2022 Nikita Popov <npopov@redhat.com> - 14.0.5-8
 - Add dep from clang15-devel to clang15-libs
 

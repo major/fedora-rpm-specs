@@ -1,6 +1,6 @@
 Name:           cmocka
 Version:        1.1.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 
 License:        ASL 2.0
 Summary:        An elegant unit testing framework for C with support for mock objects
@@ -137,6 +137,9 @@ ln -s libcmocka.so %{buildroot}%{_libdir}/libcmockery.so
 %doc %{__cmake_builddir}/doc/html
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

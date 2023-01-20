@@ -1,6 +1,6 @@
 Name:          commoncpp2
 Version:       1.8.1
-Release:       27%{?dist}
+Release:       28%{?dist}
 Summary:       GNU Common C++ class framework
 
 # Library is GPLv2+ with exceptions
@@ -118,6 +118,9 @@ popd
 %{_infodir}/commoncpp2.info*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

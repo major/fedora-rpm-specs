@@ -1,6 +1,6 @@
 Name:           arora
 Version:        0.11.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A cross platform web browser
 
 License:        GPLv2+
@@ -61,6 +61,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications\
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

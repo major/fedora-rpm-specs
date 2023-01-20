@@ -1,7 +1,7 @@
 Summary: 	CVS Utilities
 Name: 		cvsutils
 Version: 	0.2.6
-Release: 	16%{?dist}
+Release: 	17%{?dist}
 License: 	GPL-3.0-or-later
 URL: 		http://www.red-bean.com/cvsutils
 Source: 	http://www.red-bean.com/cvsutils/releases/cvsutils-%{version}.tar.gz
@@ -38,6 +38,9 @@ done
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.2.6-16
 - Modernize spec.
 - Convert license to SPDX.

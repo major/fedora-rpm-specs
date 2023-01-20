@@ -1,6 +1,6 @@
 Name:           deepin-topbar
 Version:        0.7.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Topbar for Deepin desktop environment
 License:        GPLv3
 URL:            https://github.com/justforlxz/deepin-topbar
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/polkit-1/actions/*.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

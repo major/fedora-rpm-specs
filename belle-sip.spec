@@ -1,6 +1,6 @@
 Name:           belle-sip
 Version:        1.4.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Linphone SIP stack
 License:        GPLv2+ and BSD and BSD with advertising and MIT
 URL:            http://www.linphone.org/technical-corner/belle-sip/overview
@@ -13,6 +13,8 @@ Patch0:         belle-sip-1.4.2-antlr34.patch
 Patch1:         belle-sip-1.4.2-fix-typo.patch
 # readdir_r is deprecated, other compiler warning fixes
 Patch2:		belle-sip-1.4.2-warn.patch
+Patch3: belle-sip-sockaddr-bounds.patch
+Patch4: belle-sip-realloc.patch
 BuildRequires:  gcc-c++
 BuildRequires:  antlr3-tool
 BuildRequires:  antlr3-C-devel
@@ -42,6 +44,8 @@ Libraries and headers required to develop software with belle-sip.
 %patch0 -p1 -b .antlr34
 %patch1 -p1 -b .typo
 %patch2 -p1 -b .warn
+%patch3 -p1
+%patch4 -p1
 
 autoreconf -ifv
 
@@ -78,6 +82,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/pkgconfig/belle-sip.pc
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 1.4.2-17
+- Fix new GCC 13 warnings
+
 * Fri Aug  5 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-16
 - Remove i686 support due to lack of a JDK
 

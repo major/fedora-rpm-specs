@@ -16,7 +16,7 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.1
+Version:        6.4.2
 Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtMultimedia component
 
@@ -211,6 +211,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Wed Jan 18 2023 Sandro Mani <manisandro@gmail.com> - 6.4.2-1
+- Update to 6.4.2
+
 * Sat Nov 26 2022 Sandro Mani <manisandro@gmail.com> - 6.4.1-1
 - Update to 6.4.1
 

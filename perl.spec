@@ -104,7 +104,7 @@ License:        GPL+ or Artistic
 Epoch:          %{perl_epoch}
 Version:        %{perl_version}
 # release number must be even higher, because dual-lived modules will be broken otherwise
-Release:        493%{?dist}
+Release:        494%{?dist}
 Summary:        Practical Extraction and Report Language
 Url:            https://www.perl.org/
 Source0:        https://www.cpan.org/src/5.0/perl-%{perl_version}.tar.xz
@@ -176,6 +176,7 @@ Patch201:       perl-5.16.3-Link-XS-modules-to-libperl.so-with-EU-MM-on-Linux.pa
 
 # If optimizing -O is used, add the definition to .ph files, bug #2152012
 Patch202:       perl-5.36.0-Add-definition-of-OPTIMIZE-to-.ph-files.patch
+Patch203: perl-configure-c99.patch
 
 # Update some of the bundled modules
 # see http://fedoraproject.org/wiki/Perl/perl.spec for instructions
@@ -4199,6 +4200,7 @@ you're not running VMS, this module does nothing.
 %patch200 -p1
 %patch201 -p1
 %patch202 -p1
+%patch203 -p1
 
 %if !%{defined perl_bootstrap}
 # Local patch tracking
@@ -7003,6 +7005,9 @@ popd
 
 # Old changelog entries are preserved in CVS.
 %changelog
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 4:5.36.0-494
+- Port Configure script to C99
+
 * Tue Jan 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4:5.36.0-493
 - Add definition of OPTIMIZE to .ph files, if optimizing is used
 

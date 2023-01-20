@@ -1,6 +1,6 @@
 Name:           dlm
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2 and GPLv2+ and LGPLv2+
 # For a breakdown of the licensing, see README.license
 Summary:        dlm control daemon and tool
@@ -99,6 +99,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 18 2022 David Teigland <teigland@redhat.com> - 4.2.0-1
 - new upstream version
 

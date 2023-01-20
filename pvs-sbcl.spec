@@ -5,7 +5,13 @@ Version:        7.1
 Release:        8%{?dist}
 Summary:        Interactive theorem prover from SRI
 
-License:        GPLv2+ and BSD and Public Domain
+# GPL-2.0-or-later: the project as a whole
+# GPL-3.0-or-later: emacs/pvs-ltx.el
+# MIT: src/cl-json, src/utils/b64.c
+# ???: src/defsystem.lisp
+# LicenseRef-Fedora-Public-Domain: src/{md5,metering,Field/decimals}.lisp
+# Knuth-CTAN: Computer Modern fonts in the PDFs
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain AND Knuth-CTAN
 URL:            https://pvs.csl.sri.com/
 Source0:        https://github.com/SRI-CSL/PVS/archive/pvs%{version}.tar.gz
 Source1:        https://pvs.csl.sri.com/doc/pvs-prelude.pdf
@@ -229,6 +235,9 @@ rm %{buildroot}%{_libdir}/pvs/emacs/.readme
 %{_texmf}/tex/latex/pvs/
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 7.1-8
+- Convert License tag to SPDX
+
 * Mon Aug  1 2022 Jerry James <loganjerry@gmail.com> - 7.1-8
 - Add -emacs patch for Emacs 28 compatibility
 - Limit builds to x86_64

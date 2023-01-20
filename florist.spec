@@ -7,7 +7,7 @@
 Name:           florist
 Epoch:          2
 Version:        %{upstream_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Source implementation of the POSIX Ada Bindings
 
 License:        GPLv2+ with exceptions
@@ -135,6 +135,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2:22.0.0-3
+- Rebuilt with GCC 13.
+
 * Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 2:22.0.0-2
 - C99 compatibility fixes
 

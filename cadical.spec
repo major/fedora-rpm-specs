@@ -1,7 +1,7 @@
 Name:           cadical
 Epoch:          1
 Version:        1.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simplified SAT solver
 
 License:        MIT
@@ -107,6 +107,9 @@ make -C test
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 10 2022 Jerry James <loganjerry@gmail.com> - 1:1.5.3-1
 - Version 1.5.3
 

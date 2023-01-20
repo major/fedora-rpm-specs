@@ -5,13 +5,13 @@
 
 Name:           coxeter
 Version:        3.1
-Release:        8.%{gitdate}.%{shorttag}%{?dist}
+Release:        9.%{gitdate}.%{shorttag}%{?dist}
 Summary:        Combinatorial aspects of Coxeter group theory
 
 # The content is GPL-1.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        GPL-1.0-or-later AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        GPL-1.0-or-later AND Knuth-CTAN
 URL:            https://github.com/tscrim/coxeter
 Source0:        %{url}/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
 # See https://github.com/tscrim/coxeter/pull/14
@@ -101,6 +101,9 @@ fi
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-9.20180226.7b5a1f0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 3.1-8.20180226.7b5a1f0
 - Convert the License tag to SPDX
 

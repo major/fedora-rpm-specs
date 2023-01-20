@@ -3,7 +3,7 @@
 
 Name:           cli11
 Version:        2.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command line parser for C++11
 
 License:        BSD-3-Clause
@@ -81,6 +81,9 @@ CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
 %doc docs/CLI11.svg docs/CLI11_100.png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 2.3.2-1
 - Version 2.3.2
 

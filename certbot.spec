@@ -9,7 +9,7 @@
 
 Name:           certbot
 Version:        2.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, automated certificate authority client
 
 License:        Apache-2.0
@@ -136,6 +136,9 @@ restorecon -R %{_sysconfdir}/letsencrypt || :
 %{_bindir}/certbot-3
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
 - Update to 2.1.0
 

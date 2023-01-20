@@ -1,7 +1,7 @@
 Summary: The GNU Scientific Library for numerical analysis
 Name: gsl
 Version: 2.7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://www.gnu.org/software/gsl/
 License: GPLv3+
 Source: http://ftp.gnu.org/gnu/gsl/%{name}-%{version}.tar.gz
@@ -9,6 +9,7 @@ Patch0: gsl-1.10-lib64.patch
 # http://lists.gnu.org/archive/html/bug-gsl/2015-12/msg00012.html
 Patch1: gsl-tol.patch
 Patch2: gsl-test.patch
+Patch3: gsl-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: pkgconfig
@@ -33,6 +34,7 @@ developing programs using the GSL (GNU Scientific Library).
 %patch0 -p1 -b .lib64
 %patch1 -p1 -b .tol
 %patch2 -p1 -b .test
+%patch3 -p1
 
 iconv -f windows-1252 -t utf-8 THANKS  > THANKS.aux
 touch -r THANKS THANKS.aux
@@ -81,6 +83,9 @@ rm -r %{buildroot}%{_libdir}/*.a
 %{_includedir}/gsl/
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 2.7.1-3
+- Port configure script to C99
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.1-2
 - Rebuild again for bodhi issue
 

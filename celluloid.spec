@@ -1,6 +1,6 @@
 Name:           celluloid
 Version:        0.24
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A simple GTK+ frontend for mpv
 
 License:        GPLv3+
@@ -58,6 +58,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.celluloid_p
  %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 13 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 0.24-4
 - Rebuilt due to mpv update.
 

@@ -1,6 +1,6 @@
 Name:           chafa
 Version:        1.10.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 %global sum     Image-to-text converter for terminal
 Summary:        %{sum}
 License:        LGPLv3+
@@ -109,6 +109,9 @@ autoreconf -ivf
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.10.3-3
 - Rebuild for ImageMagick 7
 

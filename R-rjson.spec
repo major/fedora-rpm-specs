@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          1%{?dist}
+Release:          2%{?dist}
 Source0:          %{url}&version=%{version}#/%{packname}_%{packver}.tar.gz
 License:          GPLv2
 URL:              https://CRAN.R-project.org/package=%{packname}
@@ -49,6 +49,9 @@ chmod +x %{buildroot}%{_libdir}/R/library/rjson/rpc_server/start_server
 %{_libdir}/R/library/%{packname}/unittests
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> 0.2.21-1
 - update to 0.2.21
 - rebuild for R 4.2.1

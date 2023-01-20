@@ -1,6 +1,6 @@
 Name:    easytag
 Version: 2.4.3
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Tag editor for MP3, Ogg, FLAC and other music files
 
 License: GPLv2+
@@ -86,6 +86,9 @@ make check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.4.3-17
 - Rebuilt for flac 1.4.0
 

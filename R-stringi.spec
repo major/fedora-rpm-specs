@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.7.8
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Character String Processing Facilities
 
 License:          BSD
@@ -89,6 +89,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.7.8-2
 - Rebuild for ICU 72
 

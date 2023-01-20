@@ -17,7 +17,7 @@
 
 Name:      NetworkManager-strongswan
 Version:   1.6.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   NetworkManager strongSwan IPSec VPN plug-in
 License:   GPLv2+
 URL:       https://www.strongswan.org/
@@ -118,6 +118,9 @@ rm -f %{buildroot}%{_libdir}/NetworkManager/libnm-*.la
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

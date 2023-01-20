@@ -1,7 +1,7 @@
 %global module	redisearch
 Name:		RediSearch
 Version:	1.2.2
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Full-text search over Redis
 
 %global disable_tests 0
@@ -57,6 +57,9 @@ install -pDm755 src/%{module}.so %{buildroot}%{redis_modules_dir}/%{module}.so
 %{redis_modules_dir}/%{module}.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

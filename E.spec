@@ -1,14 +1,14 @@
 Name:		E
 Version:	2.6
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Equational Theorem Prover
 
 # The content is GPL-2.0-or-later OR LGPL-2.1-or-later.  The remaining licenses
 # cover the various fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
 # CM-Super: GPL-1.0-or-later
-License:	(GPL-2.0-or-later OR LGPL-2.1-or-later) AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain AND GPL-1.0-or-later
+License:	(GPL-2.0-or-later OR LGPL-2.1-or-later) AND OFL-1.1-RFN AND Knuth-CTAN AND GPL-1.0-or-later
 URL:		https://www.eprover.org/
 Source0:	https://wwwlehre.dhbw-stuttgart.de/~sschulz/WORK/E_DOWNLOAD/V_%{version}/%{name}.tgz
 # Bibliography file, courtesy of Debian, with modifications by Jerry James
@@ -127,6 +127,9 @@ diff -u test-results test-expected-results
 %{_mandir}/man1/eprover.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.6-4
 - Convert License tag to SPDX
 

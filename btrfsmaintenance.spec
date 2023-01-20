@@ -1,6 +1,6 @@
 Name: btrfsmaintenance
 Version: 0.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Scripts for btrfs maintenance tasks
 BuildArch: noarch
 
@@ -88,6 +88,9 @@ install -Dpm644 sysconfig.%{name} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

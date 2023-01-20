@@ -3,7 +3,7 @@
 Summary: Cross platform C library for parsing GNU style command line arguments
 Name: argtable
 Version: 2.13
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: LGPLv2+
 Url: http://argtable.sourceforge.net/
 Source: http://prdownloads.sourceforge.net/argtable/%{name}2-13.tar.gz
@@ -64,6 +64,9 @@ install -pm 644 AUTHORS ChangeLog COPYING README ${RPM_BUILD_ROOT}%{_pkgdocdir}
 %ldconfig_scriptlets
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 2.13-24
 - Port to C99 (#2151244)
 

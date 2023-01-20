@@ -32,7 +32,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.5
-%global specversion 3
+%global specversion 4
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit a3f44794f94e1571c6ba0042915ade369b4ce4b1
@@ -207,6 +207,7 @@ Source0:       https://codeload.github.com/%{github_owner}/%{name}/tar.gz/%{arch
 Source1:       https://codeload.github.com/%{github_owner}/%{nagios_name}/tar.gz/%{nagios_archive_github_url}
 
 # upstream commits
+Patch0:        0001-Fix-fenced-use-enum-fenced_target_by-consistently.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -798,6 +799,10 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Wed Jan 18 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-4
+- use enum fenced_target_by consistency to cope with increased
+  pickiness of gcc
+
 * Thu Dec 8 2022 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-3
 - Update for new upstream release tarball: Pacemaker-2.1.5,
   for full details, see included ChangeLog file or

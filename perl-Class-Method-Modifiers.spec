@@ -7,9 +7,9 @@
 
 Name:           perl-Class-Method-Modifiers
 Summary:        Provides Moose-like method modifiers
-Version:        2.13
-Release:        13%{?dist}
-License:        GPL+ or Artistic
+Version:        2.14
+Release:        1%{?dist}
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Method-Modifiers
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Method-Modifiers-%{version}.tar.gz
 BuildArch:      noarch
@@ -30,18 +30,14 @@ BuildRequires:  perl(Exporter)
 # Test Suite
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(if)
-BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::More) >= 0.88
-BuildRequires:  perl(Test::Needs)
 # Optional Test Requirements
-%if 0%{!?perl_bootstrap:1} && %{with perl_Class_Method_Modifiers_enables_optional_test}
+%if %{with perl_Class_Method_Modifiers_enables_optional_test}
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
-BuildRequires:  perl(Moose)
 %endif
 # Runtime
 Requires:       perl(B)
 Requires:       perl(Carp)
-Requires:       perl(Exporter)
 
 # Avoid doc-file dependencies
 %{?perl_default_filter}
@@ -84,6 +80,11 @@ make test
 %{_mandir}/man3/Class::Method::Modifiers.3*
 
 %changelog
+* Tue Jan 17 2023 Paul Howarth <paul@city-fan.org> - 2.14-1
+- Update to 2.14 (rhbz#2161420)
+  - Remove Test::Fatal and Test::Needs from test prereqs (GH#7, GH#8)
+- Use SPDX-format license tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

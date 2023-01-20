@@ -1,7 +1,7 @@
 # Created by pyp2rpm-3.2.2
 Name:           ampy
 Version:        1.0.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Command line tool to interact with a MicroPython board over a serial connection
 
 License:        MIT
@@ -63,6 +63,9 @@ sed -i '1d' $(grep -lr '#!/usr/')
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

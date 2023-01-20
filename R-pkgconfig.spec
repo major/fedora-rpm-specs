@@ -5,7 +5,7 @@
 
 Name:             R-%{packname}
 Version:          2.0.3
-Release:          11%{?dist}
+Release:          12%{?dist}
 Summary:          Private Configuration for 'R' Packages
 
 License:          MIT
@@ -72,6 +72,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/README.markdown
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Tom Callaway <spot@fedoraproject.org> - 2.0.3-11
 - rebuild for R 4.2.1
 

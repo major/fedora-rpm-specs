@@ -1,6 +1,6 @@
 Name:           asciidoc
 Version:        9.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Text based document generation
 
 License:        GPL+ and GPLv2+
@@ -147,6 +147,9 @@ rm -f %{buildroot}/%{_mandir}/man1/testasciidoc.1*
 %config(noreplace) %{_sysconfdir}/asciidoc/filters/latex/*.conf
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

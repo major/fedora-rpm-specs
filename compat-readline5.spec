@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: compat-readline5
 Version: 5.2
-Release: 43%{?dist}
+Release: 44%{?dist}
 License: GPLv2+
 URL: http://cnswww.cns.cwru.edu/php/chet/readline/rltop.html
 Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
@@ -114,6 +114,9 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}
 %{_libdir}/readline5/lib*.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Florian Weimer <fweimer@redhat.com> - 5.2-43
 - Avoid C89isms in configure and the source code
 

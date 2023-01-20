@@ -1,7 +1,7 @@
 Summary: C source code tree search and browse tool
 Name: cscope
 Version: 15.9
-Release: 17%{?dist}
+Release: 18%{?dist}
 Source0: https://downloads.sourceforge.net/project/%{name}/%{name}/v%{version}/%{name}-%{version}.tar.gz
 URL: http://cscope.sourceforge.net
 License: BSD and GPLv2+
@@ -109,6 +109,9 @@ rm -f %{emacs_lisp_path}/xcscope.el
 rm -f %{vim_plugin_path}/cctree.vim
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.9-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 27 2022 Vladis Dronov <vdronov@redhat.com> - 15.9-17
 - Update to the upstream git @ 7f2369ac
 

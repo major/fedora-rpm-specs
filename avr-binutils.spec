@@ -2,7 +2,7 @@
 
 Name:           %{target}-binutils
 Version:        2.39
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU binutils targeted at %{target}
 License:        GPLv2+
@@ -86,6 +86,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.39-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 1:2.39-2
 - Apply patch from binutils-2.39-6.fc38 to avoid C89 constructs
 

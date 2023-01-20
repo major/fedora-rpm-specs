@@ -1,7 +1,7 @@
 Summary:	Parser Generator with Java Extension
 Name:		byaccj
 Version:	1.15
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	Public Domain
 URL:		http://byaccj.sourceforge.net/
 
@@ -42,6 +42,9 @@ install -p -m 755 src/yacc %{buildroot}%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 1.15-29
 - C99 compatibility fix
 

@@ -13,7 +13,7 @@ the CJK Unifonts project.
 
 Name:           %{fontname}-fonts
 Version:        0.2.20080216.1
-Release:        66%{?dist}
+Release:        67%{?dist}
 Summary:        Chinese Unicode TrueType font in Kai face
 
 License:        Arphic
@@ -75,6 +75,9 @@ ln -s %{_fontdir}/ %{buildroot}%{catalogue}/%{name}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20080216.1-67
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20080216.1-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

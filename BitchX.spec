@@ -1,7 +1,7 @@
 Summary: IrcII chat client
 Name: BitchX
 Version: 1.2.1
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: BSD and GPLv2+
 URL: http://www.bitchx.org
 Source0: http://www.bitchx.ca/%{name}-%{version}.tar.gz
@@ -48,6 +48,9 @@ make DESTDIR=%{buildroot} install
 %{_mandir}/man1/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 1.2.1-30
 - Fixes for building in strict(er) C99 mode (#2148940)
 

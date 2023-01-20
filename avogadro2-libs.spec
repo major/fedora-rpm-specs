@@ -12,7 +12,7 @@
 
 Name:           avogadro2-libs
 Version:        1.97.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Avogadro2 libraries
 
 # BSD is main license
@@ -190,6 +190,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %license LICENSE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.97.0-1
 - Release 1.97.0
 

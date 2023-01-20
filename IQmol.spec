@@ -1,6 +1,6 @@
 Name:           IQmol
 Version:        2.15.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A free open-source molecular editor and visualization package
 License:        BSD and GPLv2+ and GPLv3+
 URL:            http://iqmol.org
@@ -86,6 +86,9 @@ cp -pr share %{buildroot}%{_datadir}/IQmol
 %doc samples/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

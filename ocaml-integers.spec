@@ -6,7 +6,7 @@ Release:        3%{?dist}
 Summary:        Various signed and unsigned integer types for OCaml
 
 License:        MIT
-URL:            https://github.com/ocamllabs/ocaml-integers
+URL:            https://github.com/yallop/ocaml-integers
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fedora does not need stdlib-shims, which is for older OCaml systems
 Patch0:         %{name}-stdlib-shims.patch
@@ -52,6 +52,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-3
+- New project URL
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

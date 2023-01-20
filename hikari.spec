@@ -12,7 +12,7 @@ BuildRequires: mk-files
 BuildRequires: gcc
 BuildRequires: pkgconfig(wayland-protocols)
 BuildRequires: pkgconfig(libucl)
-BuildRequires: pkgconfig(wlroots) >= 0.15
+BuildRequires: (pkgconfig(wlroots) >= 0.15 with pkgconfig(wlroots) < 0.16)
 BuildRequires: pkgconfig(pango)
 BuildRequires: pkgconfig(cairo)
 BuildRequires: pkgconfig(libinput)

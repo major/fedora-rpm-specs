@@ -1,6 +1,6 @@
 Name:       appres
 Version:    1.0.6
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    X11 utility to print application resources
 
 License:    MIT
@@ -39,6 +39,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

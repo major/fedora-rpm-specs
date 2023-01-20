@@ -9,7 +9,7 @@
 
 Name:    GConf2
 Version: 3.2.6
-Release: 36%{?dist}
+Release: 37%{?dist}
 Summary: A process-transparent configuration system
 
 License: LGPLv2+ and GPLv2+
@@ -154,6 +154,9 @@ fi
 %{_datadir}/gir-1.0
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 02 2022 Michael Catanzaro <mcatanzaro@redhat.com> - 3.2.6-36
 - Remove GIO GSettings backend, GLib should not load obsolete extensions
 - Move build stuff from %prep to %build

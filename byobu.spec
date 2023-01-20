@@ -6,7 +6,7 @@
 
 Name:		byobu
 Version:	5.133
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Light-weight, configurable window manager built upon GNU screen
 
 License:	GPLv3
@@ -126,6 +126,9 @@ cp -p usr/share/byobu/pixmaps/byobu.svg %{buildroot}%{_iconsscaldir}
 %config(noreplace) %{_sysconfdir}/%{name}/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.133-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 07 2022 Filipe Rosset <rosset.filipe@gmail.com> - 5.133-8
 - Add patch to use dnf when installed (thanks to Ankur Sinha ankursinha)
 

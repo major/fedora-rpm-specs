@@ -1,6 +1,6 @@
 Name:           dnstracer
 Version:        1.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Trace DNS queries to the source
 
 License:        BSD
@@ -41,6 +41,9 @@ mkdir -p %{buildroot}%{_mandir}/man8
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 05 2022 Jonathan Wright <jonathan@almalinux.org> - 1.10-1
 - Update to 1.10
 

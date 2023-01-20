@@ -5,7 +5,7 @@
 
 Name:           cryptominisat
 Version:        5.8.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        SAT solver
 
 # The project as a whole is MIT.
@@ -17,6 +17,8 @@ Source0:        https://github.com/msoos/%{name}/archive/%{version}/%{name}-%{ve
 Patch0:         %{name}-cmake.patch
 # Use setuptools instead of distutils (bz 2154857)
 Patch1:         %{name}-setuptools.patch
+# Add a missing #include statement
+Patch2:         %{name}-include.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  chrpath
@@ -122,6 +124,12 @@ chrpath -d %{buildroot}%{python3_sitearch}/pycryptosat*.so
 %{python3_sitearch}/pycryptosat*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 5.8.0-11
+- Add -include patch for GCC 13 compatibility
+
 * Mon Dec 19 2022 Jerry James <loganjerry@gmail.com> - 5.8.0-11
 - Use setuptools instead of distutils (rhbz#2154857)
 

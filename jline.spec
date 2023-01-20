@@ -1,6 +1,6 @@
 Name:           jline
-Version:        3.21.0
-Release:        6%{?dist}
+Version:        3.22.0
+Release:        1%{?dist}
 Summary:        Java library for handling console input
 License:        BSD-3-Clause
 URL:            https://github.com/jline/jline3
@@ -8,8 +8,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/jline-parent-%{version}.tar.gz
-# Adapt to changed package names in apache-sshd 2.8.0
-Patch0:         %{name}-apache-sshd.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(com.googlecode.juniversalchardet:juniversalchardet)
@@ -17,6 +15,7 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(net.java.dev.jna:jna)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.apache.sshd:sshd-core) >= 2.6.0
 BuildRequires:  mvn(org.apache.sshd:sshd-scp) >= 2.6.0
@@ -181,6 +180,10 @@ This package contains a telnet client.
 %files remote-telnet -f .mfiles-jline-remote-telnet
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 3.22.0-1
+- Version 3.22.0
+- Drop upstreamed -apache-sshd patch
+
 * Wed Nov 23 2022 Jerry James <loganjerry@gmail.com> - 3.21.0-6
 - Convert License tag to SPDX
 

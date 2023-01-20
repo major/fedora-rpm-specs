@@ -6,7 +6,7 @@
 
 Name:           chromaprint
 Version:        1.5.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library implementing the AcoustID fingerprinting
 
 License:        GPLv2+
@@ -106,6 +106,9 @@ rm  -f %{buildroot}%{_libdir}/lib*.la
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Sérgio Basto <sergio@serjux.com> - 1.5.1-6
 - Backport oficial ffmpeg 5 support
 

@@ -2,7 +2,7 @@
 
 Name:		adobe-afdko
 Version:	3.6.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Adobe Font Development Kit for OpenType
 License:	ASL 2.0
 URL:		https://github.com/adobe-type-tools/afdko
@@ -36,6 +36,9 @@ find ./ -type f -executable -exec install -p -m 0755 "{}" \
 %{_bindir}/*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 Name:          crawl
 Summary:       Roguelike dungeon exploration game
 Version:       0.29.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 # Main license : GPLv2+
 # 2-clause BSD: all contributions by Steve Noonan and Jesse Luehrs
 # Public Domain|CC0: most of tiles, perlin.cc, perlin.h
@@ -240,6 +240,9 @@ mv %{buildroot}%{_metainfodir}/org.develz.Crawl_tiles.appdata.xml %{buildroot}%{
 %{_metainfodir}/%{name}-tiles.appdata.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 16 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.29.1-2
 - Use XDG specifications (upstream request #2188)
 

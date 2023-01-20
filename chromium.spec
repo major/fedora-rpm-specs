@@ -16,7 +16,7 @@
 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 0
+%global use_all_cpus 1
 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
@@ -221,7 +221,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 109.0.5414.74
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -371,6 +371,9 @@ Patch120: chromium-109-clang14-c++20-link-error.patch
 
 # enable Qt
 Patch121: chromium-108-enable-allowqt.patch
+
+# gcc13
+Patch122: chromium-109-gcc13.patch
 
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
@@ -1023,15 +1026,17 @@ udev.
 %patch120 -p1 -b .link-error-clang14
 %endif
 
+%if %{use_qt}
+%patch121 -p1 -b .enable-allowqt
+%endif
+  
+%patch122 -p1 -b .gcc13
+
 # Feature specific patches
 %if %{use_vaapi}
 %patch202 -p1 -b .accel-mjpeg
 %patch205 -p1 -b .vaapi-intel-fix
 %patch206 -p1 -b .wayland-vaapi
-%endif
-
-%if %{use_qt}
-%patch121 -p1 -b .enable-allowqt
 %endif
 
 %if 0%{?rhel} >= 8
@@ -1169,8 +1174,8 @@ ulimit -n 4096
 
 # reduce warnings
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
-FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wunused-function -Wno-unused-variable'
-FLAGS+=' -Wno-unused-const-variable'
+FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -Wno-unused-variable'
+FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration'
 
 %if %{system_build_flags}
 CFLAGS=${CFLAGS/-fexceptions}
@@ -1776,11 +1781,15 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 109.0.5414.74-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 15 2023 Than Ngo <than@redhat.com> - 109.0.5414.74-2
 - conditionalize system_build_flags
 - cleaned up gn defines
 - add BR on python3-importlib-metadata
 - set correct toolchain gcc|clang
+- fix FTBFS with gcc13
 
 * Wed Jan 11 2023 Than Ngo <than@redhat.com> - 109.0.5414.74-1
 - update to 109.0.5414.74

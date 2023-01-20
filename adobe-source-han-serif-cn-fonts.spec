@@ -5,7 +5,7 @@
 
 Name:           adobe-source-han-serif-cn-fonts
 Version:        2.001
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Adobe OpenType Pan-CJK font family for Simplified Chinese
 
 License:        OFL
@@ -46,6 +46,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.001-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.001-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

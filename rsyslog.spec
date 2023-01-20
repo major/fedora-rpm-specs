@@ -35,7 +35,7 @@
 Summary: Enhanced system logging and kernel message trapping daemon
 Name: rsyslog
 Version: 8.2210.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: (GPLv3+ and ASL 2.0)
 URL: http://www.rsyslog.com/
 Source0: http://www.rsyslog.com/files/download/rsyslog/%{name}-%{version}.tar.gz
@@ -757,6 +757,10 @@ done
 
 
 %changelog
+* Tue Jan 17 2023 Attila Lakatos <alakatos@redhat.com> - 8.2210.0-3
+- Remove CAP_PERFMON from the capability set
+- Add CAP_DAC_OVERRIDE to the capability set
+
 * Fri Dec 16 2022 Attila Lakatos <alakatos@redhat.com> - 8.2210.0-2
 - Move all if rhel feature conditions to bcond
 - Move to bcond: rdkafka, relp, mysql, pgsql, gssapi, gnutls, udpspoof, omamqp1

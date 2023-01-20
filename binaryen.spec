@@ -3,7 +3,7 @@
 Summary:       Compiler and toolchain infrastructure library for WebAssembly
 Name:          binaryen
 Version:       111
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 URL:           https://github.com/WebAssembly/binaryen
 Source0:       %{url}/archive/version_%{version}/%{name}-version_%{version}.tar.gz
@@ -105,6 +105,9 @@ rm -v %{buildroot}%{_bindir}/binaryen-{lit,unittests}
 %{_libdir}/%{name}/libbinaryen.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 111-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Dominik Mierzejewski <dominik@greysector.net> 111-1
 - update to 111 (#2144160)
 - backport upstream fixes for OOB reads in string_view

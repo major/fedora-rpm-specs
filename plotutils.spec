@@ -1,6 +1,6 @@
 Name:      plotutils
 Version:   2.6
-Release:   29%{?dist}
+Release:   30%{?dist}
 Summary:   GNU vector and raster graphics utilities and libraries
 
 # libxmi is GPLv2+
@@ -11,6 +11,7 @@ Source0:   ftp://ftp.gnu.org/gnu/plotutils/plotutils-%{version}.tar.gz
 Patch0:    plotutils-2.6-png15.patch
 Patch1:    plotutils-aarch64.patch
 Patch2:    plotutils-werror-format-security.patch
+Patch3: plotutils-configure-c99.patch
 
 BuildRequires:   gcc-c++
 BuildRequires:   make
@@ -47,6 +48,9 @@ applications
 %patch0 -p1 -b .png15
 %patch1 -p1 -b .aarch64
 %patch2 -p1 -b .format-security
+%patch3 -p1
+# Avoid attempting autotools rebuild.
+touch -r aclocal.m4 configure*
 
 %build
 %configure --disable-static --enable-libplotter --enable-libxmi --enable-ps-fonts-in-pcl
@@ -93,6 +97,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 2.6-30
+- Port configure script to C99 (#2161952)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

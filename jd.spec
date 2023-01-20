@@ -27,7 +27,7 @@
 ##########################################
 # Defined by vendor
 #
-%define         vendor_rel    1
+%define         vendor_rel    2
 %define         extra_rel     %{nil}
 %define         use_gitcommit_as_rel  0
 # Tag name changed from vendor to vendorname so as not to
@@ -82,6 +82,8 @@ Source1:        create-JD-git-bare-tarball.sh
 
 Patch0:         jdim-0.3.0-env-pkg-distro-specific.patch
 # Upstream patch
+# https://github.com/JDimproved/JDim/pull/1093
+Patch1:         0001-buidfix-add-missing-cstdint-to-misccharcode.cpp.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  %{gtkmmdevel}
@@ -140,6 +142,8 @@ git reset %{gitcommit}
 git reset %{reponame}-v%{main_ver}
 %endif
 
+cat %PATCH1 | git am
+
 %build
 cd %{reponame}
 
@@ -176,7 +180,8 @@ export LDFLAGS="$(echo $LDFLAGS   | sed -e 's|-specs=[^ \t][^ \t]*hardened[^ \t]
     -Dtls=gnutls \
     %{nil}
 
-%meson_build
+%meson_build \
+	--ninja-args "-k 0"
 
 %install
 cd %{reponame}
@@ -209,6 +214,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Wed Jan 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.9.0-2
+- Add missing cstdint header inclusion (gcc13)
+
 * Sun Jan  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.9.0-1
 - JDim 0.9.0
 

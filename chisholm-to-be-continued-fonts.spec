@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20090124
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Decorative Sans Serif Font
 
 License:        OFL
@@ -47,6 +47,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090124-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20090124-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

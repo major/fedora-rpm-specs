@@ -1,7 +1,7 @@
 Name:           cddlib
 Epoch:          1
 Version:        0.94m
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library for generating all vertices in convex polyhedrons
 License:        GPL-2.0-or-later
 URL:            https://people.inf.ethz.ch/fukudak/cdd_home/
@@ -37,8 +37,8 @@ a linear function over P.
 # The content is GPL-2.0-or-later.  The remaining licenses cover the various
 # fonts embedded in PDFs.
 # AMS: OFL-1.1-RFN
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        GPL-2.0-or-later AND OFL-1.1-RFN AND Knuth-CTAN
 Summary:        Headers for cddlib
 Requires:       gmp-devel%{?_isa}
 Requires:       %{name}%{?_isa} = 1:%{version}-%{release}
@@ -155,6 +155,9 @@ rm -fr %{buildroot}%{_pkgdocdir}
 %{_bindir}/testshoot_gmp
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.94m-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Jerry James <loganjerry@gmail.com> - 1:0.94m-5
 - Add patch to fix a segfault in blockelimination
 - Clarify documentation-related licenses

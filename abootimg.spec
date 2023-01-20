@@ -3,7 +3,7 @@
 
 Name:           abootimg
 Version:        0.6
-Release:        25.%{checkout}%{?dist}
+Release:        26.%{checkout}%{?dist}
 Summary:        Tool for manipulating Android boot images
 
 License:        GPLv2+
@@ -46,6 +46,9 @@ install -D -m 644 -p debian/abootimg.1 ${RPM_BUILD_ROOT}/%{_mandir}/man1/abootim
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-26.20110830gitff8e759
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-25.20110830gitff8e759
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

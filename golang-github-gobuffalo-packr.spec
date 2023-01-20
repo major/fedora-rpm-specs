@@ -18,12 +18,13 @@ are developing.}
 %global godocs          example README.md SHOULDERS.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple and easy way to embed static files into Go binaries
 
 License:        MIT
 URL:            %{gourl}
-Source0:        %{gosource}
+Source:         %{gosource}
+Patch:          fix-test-failures.patch
 
 BuildRequires:  golang(github.com/gobuffalo/envy)
 BuildRequires:  golang(github.com/gobuffalo/logger)
@@ -50,6 +51,7 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 
 %prep
 %goprep
+%autopatch -p1
 
 %install
 %gopkginstall
@@ -62,6 +64,9 @@ BuildRequires:  golang(github.com/stretchr/testify/require)
 %gopkgfiles
 
 %changelog
+* Wed Jan 18 2023 Maxwell G <gotmax@e.email> - 2.8.1-6
+- Add patch to fix test failures
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

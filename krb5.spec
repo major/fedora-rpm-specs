@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 4
+%global baserelease 6
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -73,6 +73,7 @@ Patch11: 0011-downstream-Catch-SHA-1-digest-disallowed-error-for-P.patch
 Patch12: 0012-Add-and-use-ts_interval-helper.patch
 Patch13: 0013-downstream-Make-tests-compatible-with-sssd_krb5_loca.patch
 Patch14: 0014-downstream-Include-missing-OpenSSL-FIPS-header.patch
+Patch15: 0015-downstream-Do-not-set-root-as-ksu-file-owner.patch
 
 License: MIT
 URL: https://web.mit.edu/kerberos/www/
@@ -709,6 +710,14 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Wed Jan 18 2023 Julien Rische <jrische@redhat.com> - 1.20.1-6
+- Set aes256-cts-hmac-sha384-192 as EXAMLE.COM master key in kdc.conf
+- Add AES SHA-2 HMAC family as EXAMPLE.COM supported etypes in kdc.conf
+- Resolves: rhbz#2114771
+
+* Mon Jan 09 2023 Julien Rische <jrische@redhat.com> - 1.20.1-5
+- Strip debugging data from ksu executable file
+
 * Thu Jan 05 2023 Julien Rische <jrische@redhat.com> - 1.20.1-4
 - Include missing OpenSSL FIPS header
 - Make tests compatible with sssd_krb5_locator_plugin.so

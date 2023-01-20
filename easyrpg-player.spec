@@ -47,7 +47,7 @@ URL: https://easyrpg.org
 License: GPLv3+ and BSD and Unlicense and (Unlicense or MIT-0) and Baekmuk and Public Domain and MIT and GPLv2+ with exceptions
 
 Version: 0.7.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
@@ -127,6 +127,9 @@ rm src/external/dr_wav.h src/external/picojson.h
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

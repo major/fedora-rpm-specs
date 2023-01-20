@@ -5,7 +5,7 @@
 
 Name:           %{fontname}-fonts
 Version:        2.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Korean bitmap fonts
 
 License:        Baekmuk
@@ -67,6 +67,9 @@ fi
 %{catalogue}/%{name}
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov  2 2022 Akira TAGOH <tagoh@redhat.com> - 2.2-33
 - Drop old dependencies.
 

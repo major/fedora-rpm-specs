@@ -1,13 +1,19 @@
 Name:       miniz
-Version:    3.0.1
+Version:    3.0.2
 Release:    1%{?dist}
 Summary:    Compression library implementing the zlib and Deflate
-# LICENSE:  MIT text
-# miniz.c:  MIT
 # examples/example1.c:  Unlicense (refers to "unlicense" statement at the end
 #                       of tinfl.c from miniz-1.15)
+# examples/example2.c:  Unlicense
+# examples/example3.c:  Unlicense
+# examples/example4.c:  Unlicense
+# examples/example5.c:  Unlicense ("Public domain. See unlicense statement")
+# examples/example6.c:  Unlicense
+# LICENSE:  MIT text
+# miniz.c:  MIT
 # miniz.h:  Unlicense (See "unlicense" statement at the end of this file.)
-License:    MIT and Unlicense
+# readme.md:    MIT
+License:    MIT AND Unlicense
 URL:        https://github.com/richgel999/%{name}
 Source0:    %{url}/releases/download/%{version}/%{name}-%{version}.zip
 # Adjust examples for building against a system miniz library,
@@ -127,6 +133,9 @@ install -m 0644 %{name}.h '%{buildroot}/%{_includedir}'
 
 
 %changelog
+* Tue Jan 17 2023 Petr Pisar <ppisar@redhat.com> - 3.0.2-1
+- 3.0.2 bump
+
 * Mon Nov 07 2022 Petr Pisar <ppisar@redhat.com> - 3.0.1-1
 - 3.0.1 bump
 

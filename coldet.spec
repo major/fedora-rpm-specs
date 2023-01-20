@@ -1,6 +1,6 @@
 Name:           coldet
 Version:        1.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        3D Collision Detection Library
 License:        LGPLv2+
 URL:            http://coldet.sourceforge.net/
@@ -76,6 +76,9 @@ install -m 644 src/coldet.h src/math3d.h $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -14,7 +14,7 @@
 Name:       distgen
 Summary:    Templating system/generator for distributions
 Version:    1.14
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPLv2+
 URL:        https://github.com/devexp-db/distgen
 BuildArch:  noarch
@@ -74,6 +74,9 @@ make PYTHON=%{pybin} check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 Zuzana Miklankova <zmiklank@redhat.com> - 1.14-1
 - new upstream release, https://github.com/devexp-db/distgen/releases/tag/v1.14
 

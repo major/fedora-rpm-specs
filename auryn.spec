@@ -14,7 +14,7 @@
 
 Name:           auryn
 Version:        0.8.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Plastic Recurrent Network Simulator
 
 License:        GPLv3
@@ -293,6 +293,9 @@ export MPI_COMPILE_TYPE="-openmpi"
 # openmpi
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

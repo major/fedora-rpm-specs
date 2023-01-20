@@ -28,7 +28,7 @@
 
 Name:		certmonger
 Version:	0.79.17
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
 License:	GPLv3+
@@ -266,6 +266,9 @@ exit 0
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.17-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec  6 2022 Rob Crittenden <rcritten@redhat.com> - 0.79.17-2
 - Rename DBus service and conf files to match canonical name (#2151243)
 

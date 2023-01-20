@@ -1,8 +1,8 @@
 %{?python_enable_dependency_generator}
 
 Name:           python-repoze-tm2
-Version:        2.1
-Release:        10%{?dist}
+Version:        2.2.0
+Release:        2%{?dist}
 Summary:        Zope-like transaction manager via WSGI middleware
 
 License:        BSD
@@ -50,10 +50,17 @@ This package contains the python3 version of the library.
 %files -n python3-repoze-tm2
 %license LICENSE.txt
 %doc README.rst COPYRIGHT.txt CHANGES.rst
-%{python3_sitelib}/*
+%{python3_sitelib}/repoze.tm2-*
+%{python3_sitelib}/repoze/tm
 
 
 %changelog
+* Wed Jan 18 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.2.0-2
+- Do not use everything under sitelib, use repoze/tm only.
+
+* Tue Jan 17 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.2-1
+- Update to upstream.
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

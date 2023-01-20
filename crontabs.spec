@@ -2,7 +2,7 @@
 Summary: Root crontab files used to schedule the execution of programs
 Name: crontabs
 Version: 1.11
-Release: 28.%{snap_release}git%{?dist}
+Release: 29.%{snap_release}git%{?dist}
 License: Public Domain and GPLv2
 URL: https://github.com/cronie-crond/crontabs
 Source0: https://github.com/cronie-crond/crontabs/releases/download/crontabs-%{snap_release}/%{name}-%{version}-%{snap_release}git.tar.gz
@@ -54,6 +54,9 @@ touch $RPM_BUILD_ROOT/etc/sysconfig/run-parts
 %{_mandir}/man4/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-29.20190603git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-28.20190603git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

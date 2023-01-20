@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          0.3.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Easily work with 'Font Awesome' Icons
 # Font bits are OFL
 # Rest is MIT
@@ -73,5 +73,8 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %{rlibdir}/%{packname}/fontawesome
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep  2 2022 Tom Callaway <spot@fedoraproject.org> - 0.3.0-1
 - initial package

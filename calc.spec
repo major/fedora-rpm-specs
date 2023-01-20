@@ -24,6 +24,7 @@ URL:           http://isthe.com/chongo/tech/comp/calc/
 Source0:       https://github.com/lcn2/calc/releases/download/v%{version}/calc-%{version}.tar.bz2
 Source1:       calc-converted-to-gpl.txt
 Source2:       calc-COPYING-GPL
+Patch0: calc-c99.patch
 
 BuildRequires: gcc, sed, util-linux
 
@@ -81,7 +82,7 @@ useful in themselves.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 %if %{with_readline}
   for f in help.c version.c calc.man $( ls help/*|grep  '^help/credit$' ) ; do

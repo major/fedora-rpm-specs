@@ -1,6 +1,6 @@
 Name:		Judy
 Version:	1.0.5
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	General purpose dynamic array
 License:	LGPLv2+
 URL:		http://sourceforge.net/projects/judy/
@@ -87,6 +87,9 @@ cd -
 %{_mandir}/man3/J*.3*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

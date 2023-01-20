@@ -1,6 +1,6 @@
 Name: bombardier
 Version: 0.8.3
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: The GNU Bombing utility
 
 License: GPLv2+        
@@ -56,6 +56,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.2.1
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Another Approach to Package Installation
 
 License:          GPLv3
@@ -100,6 +100,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 04 2022 Iñaki Úcar <iucar@fedoraproject.org> - 0.1.2.1-7
 - R 4.2.1
 

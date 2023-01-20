@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          2.56.0
-Release:          1%{dist}
+Release:          2%{dist}
 Summary:          Base functions for Bioconductor
 License:          Artistic 2.0
 URL:              http://bioconductor.org/packages/release/bioc/html/Biobase.html
@@ -61,6 +61,9 @@ rm -rf %{buildroot}%{_libdir}/R/library/R.css
 %doc %{_libdir}/R/library/%{packname}/html
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.56.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep  2 2022 Tom Callaway <spot@fedoraproject.org> - 2.56.0-1
 - update to 2.56.0
 - rebuild for R 4.2.1

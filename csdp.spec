@@ -2,13 +2,13 @@
 
 Name:           csdp
 Version:        6.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        C library for SemiDefinite Programming
 
 # The content is CPL-1.0.  The remaining licenses cover the various fonts
 # embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        CPL-1.0 AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        CPL-1.0 AND Knuth-CTAN
 URL:            https://github.com/coin-or/Csdp/wiki
 Source0:        http://www.coin-or.org/download/source/Csdp/Csdp-%{version}.tgz
 # Written by Jerry James for Octave
@@ -158,6 +158,9 @@ cp -p %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} \
 %{octavedir}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 6.2.0-14
 - Convert License tag to SPDX
 

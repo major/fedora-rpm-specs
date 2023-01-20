@@ -2,7 +2,7 @@
 
 Name:           butt
 Version:        0.1.36
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Broadcast using this tool
 License:        GPLv2+
 URL:            https://danielnoethen.de/butt/
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn}.metain
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.36-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 03 2022 Carl George <carl@george.computer> - 0.1.36-1
 - Latest upstream, resolves rhbz#2098461
 

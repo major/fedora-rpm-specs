@@ -1,7 +1,7 @@
 Summary:        Top-like display of Apache logs
 Name:           apachetop
 Version:        0.19.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/tessus/apachetop
 Source0:        https://github.com/tessus/apachetop/releases/download/%{version}/apachetop-%{version}.tar.gz
@@ -38,6 +38,9 @@ fields in combined) and generates human-parsable output in realtime.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

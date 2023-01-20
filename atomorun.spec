@@ -2,7 +2,7 @@
 
 Name:           atomorun
 Version:        1.1
-Release:        0.38.%{prever}%{?dist}
+Release:        0.39.%{prever}%{?dist}
 Summary:        Jump & Run game where you have to flee an exploding nuclear bomb
 License:        GPL+
 URL:            http://atomorun.whosme.de/index.php
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-0.39.pre2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec  7 2022 Peter Fordham <peter.fordham@gmail.com> - 1.1-0.38.pre2
 - Port configure script to C99
 

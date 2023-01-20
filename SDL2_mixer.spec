@@ -1,6 +1,6 @@
 Name:           SDL2_mixer
 Version:        2.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple DirectMedia Layer - Sample Mixer Library
 
 License:        zlib
@@ -69,6 +69,9 @@ find %{buildroot} -name '*.la' -print -delete
 %{_includedir}/SDL2/SDL_mixer.h
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 03 2022 Pete Walter <pwalter@fedoraproject.org> - 2.6.2-1
 - Update to 2.6.2
 

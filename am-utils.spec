@@ -2,7 +2,7 @@ Summary: Automount utilities including an updated version of Amd
 Name: am-utils
 Version: 6.2.0
 %define upstream_version 6.2
-Release: 51%{?dist}
+Release: 52%{?dist}
 License: BSD
 Epoch: 5
 URL: http://am-utils.org
@@ -283,6 +283,9 @@ fi
 %{_libdir}/libamu.so*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5:6.2.0-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Ian Kent <raven@themaw.net> - 5:6.2.0-50
 - remove BuildRequires: kernel-modules for s390x.
 - add hack to ensure NFSv4 is seen as supported on s390x.

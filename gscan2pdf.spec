@@ -3,7 +3,7 @@
 %bcond_without gscan2pdf_enables_test
 
 Name:           gscan2pdf
-Version:        2.13.1
+Version:        2.13.2
 Release:        1%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
@@ -310,19 +310,23 @@ fi
 %files -f %{name}.lang
 %license LICENCE
 %doc COPYING History
-%{_bindir}/*
-%{perl_vendorlib}/*
+%{_bindir}/%{name}
+%{perl_vendorlib}/Gscan2pdf
 %{_datadir}/%{name}
 %{_datadir}/applications/net.sourceforge.gscan2pdf.desktop
-%{_datadir}/help/*
+%dir %{_datadir}/help/*
+%{_datadir}/help/*/%{name}
 %{_datadir}/metainfo/net.sourceforge.gscan2pdf.appdata.xml
 %{_datadir}/pixmaps/%{name}.svg
-%{_mandir}/man1/*.1*
+%{_mandir}/man1/%{name}.1*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Jan 18 2023 Petr Pisar <ppisar@redhat.com> - 2.13.2-1
+- 2.13.2 bump
+
 * Tue Jan 03 2023 Petr Pisar <ppisar@redhat.com> - 2.13.1-1
 - 2.13.1 bump
 

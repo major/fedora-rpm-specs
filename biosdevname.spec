@@ -1,6 +1,6 @@
 Name:		biosdevname
 Version:	0.7.3
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Udev helper for naming devices per BIOS names
 License:	GPLv2
 URL:		http://linux.dell.com/files/%{name}
@@ -46,6 +46,9 @@ make install install-data DESTDIR=%{buildroot}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

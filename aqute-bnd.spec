@@ -8,7 +8,7 @@
 
 Name:           aqute-bnd
 Version:        6.3.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        BND Tool
 # Part of jpm is under BSD, but jpm is not included in binary RPM
 License:        ASL 2.0 or EPL-2.0
@@ -244,6 +244,9 @@ echo "aqute-bnd slf4j/api slf4j/simple osgi-annotation osgi-core osgi-compendium
 %license LICENSE
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 08 2022 Stephen Gallagher <sgallagh@redhat.com> - 6.3.1-2
 - Re-enable maven plugin for RHEL 10+
 

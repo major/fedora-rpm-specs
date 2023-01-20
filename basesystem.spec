@@ -3,7 +3,7 @@
 Summary: The skeleton package which defines a simple %{distroname} system
 Name: basesystem
 Version: 11
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: Public Domain
 Requires(pre): setup filesystem
 BuildArch: noarch
@@ -23,6 +23,9 @@ should never be removed.
 %files
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 11-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           linsmith
 Version:        0.99.31
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Smith charting program
 
 License:        GPLv2
@@ -27,6 +27,9 @@ It's main features are:
 %autosetup
 
 %build
+%set_build_flags
+# Build in C89 mode due to many implicit function declarations.
+CC="$CC -std=gnu89"
 export CPPFLAGS="$CPPFLAGS -fcommon"
 %configure
 %make_build
@@ -66,6 +69,9 @@ mv %{buildroot}/%{_datadir}/%{name} examples/
 
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 0.99.31-11
+- Build in C89 mode (#2161938)
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.31-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

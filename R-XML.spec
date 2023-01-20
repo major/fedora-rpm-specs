@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          3.99.0.10
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Tools for Parsing and Generating XML Within R and S-Plus
 
 License:          BSD
@@ -70,6 +70,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.99.0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 3.99.0.10-1
 - update to 3.99-0.10
 - rebuild for R 4.2.1

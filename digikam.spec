@@ -6,7 +6,7 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 7.9.0
-Release: 3%{?beta}%{?dist}
+Release: 4%{?beta}%{?dist}
 
 License: GPLv2+
 URL:     http://www.digikam.org/
@@ -253,6 +253,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 7.9.0-3
 - Rebuild for opencv 4.7.0
 

@@ -1,7 +1,7 @@
 Name:       burp
 Summary:    A network-based backup and restore program
 Version:    2.1.32
-Release:    13%{?dist}
+Release:    14%{?dist}
 License:    AGPLv3 and BSD and GPLv2+ and LGPLv2+
 URL:        http://burp.grke.org/
 Source0:    https://github.com/grke/burp/archive/%{version}.tar.gz
@@ -190,6 +190,9 @@ fi
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.32-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.32-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: p0f
 Version: 3.09b
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 Summary: Versatile passive OS fingerprinting tool
 License: LGPLv2+
@@ -8,6 +8,7 @@ URL: http://lcamtuf.coredump.cx/p0f.shtml
 Source: http://lcamtuf.coredump.cx/p0f3/releases/p0f-%{version}.tgz
 # Fix up build script to use proper flags
 Patch1: p0f-3.06b-compiler.patch
+Patch2: p0f-configure-c99.patch
 BuildRequires: make
 BuildRequires: libpcap-devel
 BuildRequires: gcc
@@ -22,6 +23,7 @@ uptime, other guy's network hookup (DSL, OC3, avian carriers) and his ISP.
 %prep
 %setup -q
 %patch1 -p1
+%patch2 -p1
 
 %build
 make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS -DFP_FILE=\"%{_sysconfdir}/p0f/p0f.fp\""
@@ -51,6 +53,9 @@ make %{?_smp_mflags} CFLAGS="$RPM_OPT_FLAGS"
 
 
 %changelog
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 3.09b-15
+- Fix pre-build probe for C99 compatibility (#2161649)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.09b-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

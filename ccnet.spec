@@ -2,7 +2,7 @@
 
 Name:           ccnet
 Version:        6.1.8
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A framework for writing networked applications in C
 
 License:        GPLv3
@@ -100,6 +100,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.8-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

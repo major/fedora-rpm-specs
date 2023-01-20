@@ -1,6 +1,6 @@
 Name:           compiz-manager
 Version:        0.7.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A wrapper script to start compiz with proper options
 
 License:        GPLv2+
@@ -35,6 +35,9 @@ cp -p %{name} %{buildroot}/%{_bindir}/
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

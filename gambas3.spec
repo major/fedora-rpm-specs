@@ -11,10 +11,13 @@
 # Disable automatic removal of .la files
 %global __brp_remove_la_files %nil
 
+# Gambas3 does not like fortify flags
+%undefine _fortify_level
+
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.17.3
-Release:	6%{?dist}
+Version:	3.18.0
+Release:	1%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -64,8 +67,6 @@ BuildRequires: make
 Patch1:		%{name}-3.12.2-nolintl.patch
 Patch2:		%{name}-3.12.2-noliconv.patch
 Patch5:		%{name}-3.14.1-gst1.patch
-Patch6:		gambas-3.17.3-force-pcre2.patch
-Patch7:		gambas3-configure-c99.patch
 
 %description
 Gambas3 is a free development environment based on a Basic interpreter
@@ -148,6 +149,7 @@ Requires:	%{name}-gb-jit = %{version}-%{release}
 Requires:	%{name}-gb-markdown = %{version}-%{release}
 Requires:	%{name}-gb-net = %{version}-%{release}
 Requires:	%{name}-gb-net-curl = %{version}-%{release}
+Requires:	%{name}-gb-pcre = %{version}-%{release}
 Requires:	%{name}-gb-settings = %{version}-%{release}
 Requires:	%{name}-gb-signal = %{version}-%{release}
 Requires:	%{name}-gb-term = %{version}-%{release}
@@ -488,6 +490,14 @@ Requires:       %{name}-gb-qt5 = %{version}-%{release}
 
 %description gb-gtk3-x11
 %{summary}.
+
+%package gb-hash
+Summary:	Gambas3 component package that implements hashing functions
+Requires:	%{name}-runtime = %{version}-%{release}
+
+%description gb-hash
+Gambas3 component package that implements the Md5(), Sha1(),
+Sha256(), and Sha512() functions.
 
 %package gb-httpd
 Summary:	Gambas3 component package for httpd
@@ -1019,8 +1029,6 @@ Requires:	%{name}-gb-xml = %{version}-%{release}
 %patch1 -p1 -b .nolintl
 %patch2 -p1 -b .noliconv
 %patch5 -p1 -b .gst1
-%patch6 -p1 -b .force-pcre2
-%patch7 -p1
 for i in `find . |grep acinclude.m4`; do
 	sed -i 's|$AM_CFLAGS -O3|$AM_CFLAGS|g' $i
 	sed -i 's|$AM_CXXFLAGS -Os -fno-omit-frame-pointer|$AM_CXXFLAGS|g' $i
@@ -1040,8 +1048,12 @@ chmod -x main/lib/option/getoptions.*
 chmod -x main/lib/option/main.c
 
 %build
-# Gambas can't deal with -Wp,-D_FORTIFY_SOURCE=2
-MY_CFLAGS=`echo $RPM_OPT_FLAGS | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//g'`
+# This is handled in a cleaner way with F38+, see:
+# https://src.fedoraproject.org/rpms/redhat-rpm-config/blob/rawhide/f/buildflags.md#source-fortification
+%if 0%{?fedora} <= 37
+# Gambas can't deal with -Wp,-D_FORTIFY_SOURCE=2 (or 3)
+MY_CFLAGS=`echo %{build_cflags} | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//g' | sed -e 's/-Wp,-U_FORTIFY_SOURCE,-D_FORTIFY_SOURCE=3//g'`
+%endif
 %configure \
 	--disable-silent-rules \
 	--datadir="%{_datadir}" \
@@ -1090,7 +1102,11 @@ MY_CFLAGS=`echo $RPM_OPT_FLAGS | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//g'`
 	--with-xml-libraries=%{_libdir} \
 	--with-xslt-libraries=%{_libdir} \
 	--with-zlib-libraries=%{_libdir} \
-	AM_CFLAGS="$MY_CFLAGS" AM_CXXFLAGS="$MY_CFLAGS" CC="gcc $MY_CFLAGS"
+%if %{?fedora} <= 37
+	AM_CFLAGS="$MY_CFLAGS" AM_CXXFLAGS="$MY_CFLAGS" CC="%{build_cc} $MY_CFLAGS"
+%else
+	AM_CFLAGS="%{build_cflags}" AM_CXXFLAGS="%{build_cflags}" CC="%{build_cc} %{build_cflags}"
+%endif
 # rpath removal
 for i in main; do
 	sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' $i/libtool
@@ -1149,6 +1165,7 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %dir %{_datadir}/%{name}/info/
 %{_datadir}/%{name}/info/gb.debug.*
 %{_datadir}/%{name}/info/gb.eval.*
+%{_datadir}/%{name}/info/gb.geom.*
 %{_datadir}/%{name}/info/gb.gui.*
 %{_datadir}/%{name}/info/gb.info
 %{_datadir}/%{name}/info/gb.list
@@ -1409,6 +1426,12 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.gtk3.x11.info
 %{_datadir}/%{name}/info/gb.gtk3.x11.list
 
+%files gb-hash
+%{_libdir}/%{name}/gb.hash.component
+%{_libdir}/%{name}/gb.hash.so*
+%{_libdir}/%{name}/gb.hash.la
+%{_datadir}/%{name}/info/gb.hash.info
+%{_datadir}/%{name}/info/gb.hash.list
 
 %files gb-httpd
 %{_libdir}/%{name}/gb.httpd.*
@@ -1766,6 +1789,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Wed Jan 18 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.0-1
+- update to 3.18.0
+
 * Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 3.17.3-6
 - C99 compatibility fixes for the configure scripts
 

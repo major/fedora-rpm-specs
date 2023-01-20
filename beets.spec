@@ -1,6 +1,6 @@
 Name:           beets
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Music library manager and MusicBrainz tagger
 License:        MIT and ISC
 URL:            http://beets.io
@@ -131,6 +131,9 @@ rm -f docs/_build/html/{.buildinfo,objects.inv}
 %files doc
 %doc docs/_build/html docs/_build/text
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Michele Baldessari <michele@acksyn.org> - 1.6.0-1
 - New upstream
 - Add python-mediafile as a new dependency

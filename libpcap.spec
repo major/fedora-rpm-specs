@@ -1,6 +1,6 @@
 Name:     libpcap
 Epoch:    14
-Version:  1.10.2
+Version:  1.10.3
 Release:  1%{?dist}
 Summary:  A system-independent interface for user-level packet capture
 License:  BSD with advertising
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libpcap.a
 %{_mandir}/man5/pcap*.5*
 
 %changelog
+* Mon Jan 17 2023 Michal Ruprich <mruprich@redhat.com> - 14:1.10.3-1
+- New version 1.10.3
+
 * Tue Jan 03 2023 Michal Ruprich <mruprich@redhat.com> - 14:1.10.2-1
 - New version 1.10.2
 

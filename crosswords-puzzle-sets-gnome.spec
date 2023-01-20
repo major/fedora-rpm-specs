@@ -1,17 +1,15 @@
 %global puzzleset gnome
 %global srcname puzzle-sets-%{puzzleset}
-%global date 20221107
-%global commit 0bef3d252c097610cd34b65f8704abe87d823d97
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           crosswords-%{srcname}
-Version:        0.3.0~%{date}git%{shortcommit}
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Extra puzzles to go with GNOME Crosswords
 
-License:        GPL-3.0-or-later
+# Code is under GPL-3.0-or-later, puzzles are under CC-BY-SA-4.0
+License:        GPL-3.0-or-later and CC-BY-SA-4.0
 URL:            https://gitlab.gnome.org/jrb/%{srcname}
-Source:         %{url}/-/archive/%{commit}/%{srcname}-%{commit}.tar.gz
+Source:         %{url}/-/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  gcc
@@ -29,7 +27,7 @@ This package is for collecting the great puzzles put out by crossword
 authors to go with GNOME Crosswords.
 
 %prep
-%autosetup -n %{srcname}-%{commit} -p1
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
 %meson
@@ -43,6 +41,7 @@ appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/org.gnome.Crosswords.PuzzleSets.%{puzzleset}.metainfo.xml
 
 %files
+%license LICENSE COPYING.GPLv3
 %doc README.md
 %{_datadir}/crosswords/puzzle-sets/%{puzzleset}
 %{_metainfodir}/org.gnome.Crosswords.PuzzleSets.%{puzzleset}.metainfo.xml

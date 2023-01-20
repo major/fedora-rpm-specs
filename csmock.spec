@@ -4,7 +4,7 @@
 
 Name:       csmock
 Version:    3.3.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
 License:    GPLv3+
@@ -273,6 +273,9 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Kamil Dudka <kdudka@redhat.com> 3.3.5-1
 - update to latest upstream release
 

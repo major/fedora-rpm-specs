@@ -1,5 +1,5 @@
 Name:           simdutf
-Version:        2.0.9
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Unicode validation and transcoding at billions of characters per second
 

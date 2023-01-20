@@ -1,6 +1,6 @@
 Name:           aggregate
 Version:        1.6
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        IPv4 CIDR prefix aggregator
 
 License:        ISC
@@ -55,6 +55,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Peter Fordham <peter.fordham@gmail.com> - 1.6-25
 - Port configure script to C99.
 

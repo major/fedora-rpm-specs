@@ -18,7 +18,7 @@
 
 Name:    argon2
 Version: %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The password-hashing tools
 
 License: Public Domain or ASL 2.0
@@ -131,6 +131,9 @@ make test
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20190702-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Tom Callaway <spot@fedoraproject.org> - 20190702-1
 - update to 20190702
 

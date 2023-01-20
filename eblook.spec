@@ -1,6 +1,6 @@
 Name:           eblook
 Version:        1.6.1
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Command-line EB and EPWING dictionary search program
 
 License:        GPLv2+
@@ -53,6 +53,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

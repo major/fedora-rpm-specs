@@ -23,7 +23,7 @@
 Name:  coin-or-%{module}
 Summary: Interior Point OPTimizer
 Version: 3.14.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: EPL-1.0
 URL:  https://coin-or.github.io/%{module}/
 Source0: https://github.com/coin-or/Ipopt/archive/releases/%{version}/Ipopt-releases-%{version}.tar.gz
@@ -541,6 +541,9 @@ cd ..
 %{_docdir}/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 30 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.14.9-1
 - Release 3.14.9
 

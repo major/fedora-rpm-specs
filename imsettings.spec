@@ -1,6 +1,6 @@
 Name:		imsettings
 Version:	1.8.3
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -106,6 +106,22 @@ or the desktop.
 This package contains a module to get this working on Qt
 applications.
 
+%package	plasma
+Summary:	Plasma Workspace support on imsettings
+Requires:	%{name}%{?_isa} = %{version}-%{release}
+Requires:	im-chooser
+Requires:	kf5-filesystem
+Provides:	imsettings-desktop-module%{?_isa} = %{version}-%{release}
+
+%description	plasma
+IMSettings is a framework that delivers Input Method
+settings and applies the changes so they take effect
+immediately without any need to restart applications
+or the desktop.
+
+This package contains Plasma Workspace support on
+imsettings.
+
 %package	mate
 Summary:	MATE support on imsettings
 Requires:	%{name}%{?_isa} = %{version}-%{release}
@@ -209,6 +225,9 @@ chmod 0755 $RPM_BUILD_ROOT%{_libexecdir}/imsettings-target-checker.sh
 chmod 0755 $RPM_BUILD_ROOT%{_libexecdir}/xinputinfo.sh
 chmod 0755 $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit/xinitrc.d/50-xinput.sh
 
+install -d $RPM_BUILD_ROOT%{_sysconfdir}/xdg/plasma-workspace/env
+ln -sf $(realpath --relative-to=$RPM_BUILD_ROOT%{_sysconfdir}/xdg/plasma-workspace/env/ $RPM_BUILD_ROOT%{_sysconfdir}/X11/xinit/xinitrc.d/)/50-xinput.sh $RPM_BUILD_ROOT%{_sysconfdir}/xdg/plasma-workspace/env/xinput.sh
+
 # clean up the unnecessary files
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 rm -f $RPM_BUILD_ROOT%{_libdir}/imsettings/*.la
@@ -287,6 +306,11 @@ fi
 %doc AUTHORS ChangeLog NEWS README
 %{_libdir}/imsettings/libimsettings-qt.so
 
+%files	plasma
+%license COPYING
+%doc AUTHORS ChangeLog NEWS README
+%{_sysconfdir}/xdg/plasma-workspace/env/xinput.sh
+
 %files	mate
 %license COPYING
 %doc AUTHORS ChangeLog NEWS README
@@ -316,6 +340,10 @@ fi
 %endif
 
 %changelog
+* Wed Jan 18 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.3-8
+- Add Plasma Workspace support.
+  Resolves: rhbz#2157582
+
 * Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 1.8.3-7
 - Convert License tag to SPDX.
 

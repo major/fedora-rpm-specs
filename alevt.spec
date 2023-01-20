@@ -1,6 +1,6 @@
 Name: alevt
 Version: 1.6.2
-Release: 40%{?dist}
+Release: 41%{?dist}
 Summary: Teletext decoder/browser
 License: GPLv2
 URL: http://goron.de/~froese
@@ -61,6 +61,9 @@ desktop-file-install \
 %doc README CHANGELOG COPYRIGHT
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

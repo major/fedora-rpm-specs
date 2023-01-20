@@ -1,6 +1,6 @@
 Name:          archivemount
 Version:       0.9.1
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       FUSE based filesystem for mounting compressed archives
 
 License:       LGPLv2+
@@ -38,6 +38,9 @@ rm -f archivemount.1
 %{_bindir}/archivemount
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

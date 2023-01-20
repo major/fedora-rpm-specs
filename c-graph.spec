@@ -1,6 +1,6 @@
 Name:		c-graph
 Version:	2.0.1
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	GPLv3+
 Summary:	Convolution Graph
 URL:		http://www.gnu.org/software/%{name}
@@ -57,6 +57,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %doc %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

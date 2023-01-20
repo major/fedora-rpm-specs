@@ -1,6 +1,6 @@
 Name: HdrHistogram_c
 Version: 0.11.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: C port of the HdrHistogram 
 License: BSD and Public Domain
 URL: https://github.com/HdrHistogram/%{name}
@@ -64,6 +64,9 @@ find $RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

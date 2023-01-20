@@ -1,6 +1,6 @@
 Name: docbook-utils
 Version: 0.6.14
-Release: 55%{?dist}
+Release: 56%{?dist}
 
 Summary: Shell scripts for managing DocBook documents
 URL: http://sources.redhat.com/docbook-tools/
@@ -135,6 +135,9 @@ rm -rf $RPM_BUILD_ROOT/tmp
 %{_mandir}/*/docbook2ps.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.14-56
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.14-55
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

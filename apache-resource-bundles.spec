@@ -6,7 +6,7 @@
 
 Name:           apache-resource-bundles
 Version:        37
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apache Resource Bundles
 License:        ASL 2.0
 URL:            https://repo1.maven.org/maven2/org/apache/apache-resource-bundles/
@@ -89,6 +89,9 @@ popd
 %files -f .mfiles
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 07 2022 Marian Koncek <mkoncek@redhat.com> - 37-1
 - Update to upstream version 37
 

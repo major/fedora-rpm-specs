@@ -430,10 +430,12 @@ install -d %{buildroot}%{_mandir}/man1
 install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 
 %files -f .mfiles
-%{_bindir}/*
-%{_datadir}/mime-info/*
-%{_datadir}/mime/packages/*
-%{_mandir}/man1/*
+%{_bindir}/fsc
+%{_bindir}/scala*
+%{_datadir}/mime-info/scala.*
+%{_datadir}/mime/packages/scala-mime-info.xml
+%{_mandir}/man1/fsc.1*
+%{_mandir}/man1/scala*
 
 %files library -f .mfiles-library
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
@@ -445,6 +447,9 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 2.13.10-1
+- Expand overly generic file globs
+
 * Mon Oct 10 2022 Jerry James <loganjerry@gmail.com> - 2.13.10-1
 - Version 2.13.10
 - Remove font dependencies from main package

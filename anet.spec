@@ -1,6 +1,6 @@
 Name:           anet
 Version:        0.4.1
-Release:        12%{?dist}
+Release:        14%{?dist}
 Summary:        Ada Networking Library
 
 License:        GPLv2+ with exceptions
@@ -96,6 +96,12 @@ make tests %{all_the_flags}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 0.4.1-13
+- Rebuilt with GCC 13.
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

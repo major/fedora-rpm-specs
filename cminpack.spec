@@ -3,7 +3,7 @@
 
 Name:           cminpack
 Version:        1.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Solver for nonlinear equations and nonlinear least squares problems
 
 License:        BSD
@@ -76,6 +76,9 @@ cminpack.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

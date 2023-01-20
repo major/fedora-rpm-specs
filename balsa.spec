@@ -2,7 +2,7 @@
 
 Name:           balsa
 Version:        2.6.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mail Client
 
 License:        GPLv2+
@@ -84,6 +84,9 @@ desktop-file-install $RPM_BUILD_ROOT%{_datadir}/applications/org.desktop.Balsa.d
 %config(noreplace) %{_sysconfdir}/sound/events/balsa.soundlist
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Pawel Salek <pawsa0@gmail.com> - 2.6.4-1
 - Update to upstream balsa-2.6.4
 

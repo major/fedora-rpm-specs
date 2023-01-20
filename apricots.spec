@@ -3,7 +3,7 @@
 %define apricotsdir %{_datadir}/apricots
 Name: apricots
 Version:  0.2.7
-Release:  4%{?dist}
+Release:  5%{?dist}
 Summary: 2D air combat game
 
 License: GPLv2
@@ -73,6 +73,9 @@ install -p -m 644 %{SOURCE1} \
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

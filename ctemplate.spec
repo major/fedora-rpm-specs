@@ -1,6 +1,6 @@
 Name:           ctemplate
 Version:        2.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A simple but powerful template language for C++
 License:        BSD
 URL:            https://github.com/olafvdspek/ctemplate
@@ -72,6 +72,9 @@ make check
 %{_libdir}/pkgconfig/libctemplate_nothreads.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

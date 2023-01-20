@@ -14,7 +14,7 @@
 
 Name:           apt
 Version:        2.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPLv2+
@@ -309,6 +309,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Sérgio Basto <sergio@serjux.com> - 2.5.4-1
 - Update apt to 2.5.4 (#2138830)
 

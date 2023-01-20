@@ -10,7 +10,7 @@
 
 Name:       copr-backend
 Version:    1.163
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Backend for Copr
 
 License:    GPLv2+
@@ -245,6 +245,9 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/playbooks
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.163-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> 1.163-1
 - start systemd services after the redis.service
 - build worker - list the built RPMs with rpm --nosignature

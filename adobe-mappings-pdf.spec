@@ -1,7 +1,7 @@
 Name:             adobe-mappings-pdf
 Summary:          PDF mapping resources from Adobe
 Version:          20190401
-Release:          2%{?dist}
+Release:          3%{?dist}
 License:          BSD
 
 URL:              https://www.adobe.com/
@@ -73,6 +73,9 @@ _EOF
 # =============================================================================
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20190401-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20190401-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

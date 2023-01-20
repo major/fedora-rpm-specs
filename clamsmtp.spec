@@ -1,7 +1,7 @@
 Summary:                A SMTP virus scanning system
 Name:                   clamsmtp
 Version:                1.10
-Release:                38%{?dist}
+Release:                39%{?dist}
 License:                BSD
 URL:                    http://memberwebs.com/stef/software/clamsmtp/
 
@@ -107,6 +107,9 @@ exit 0
 %{_mandir}/man8/clamsmtpd.8.gz
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 17 2022 Peter Fordham <peter.fordham@gmail.com> - 1.10-38
 - Fix check in acsite.m4 to be C99 compatible.
 - Add autoreconf step to build to flush non C99 compatible checks from configure.

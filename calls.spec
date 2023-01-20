@@ -2,7 +2,7 @@
 
 Name:		calls
 Version:	44~alpha.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A phone dialer and call handler
 
 License:	GPLv3+ and MIT
@@ -128,4 +128,7 @@ SH
 %license COPYING
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44~alpha.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 %autochangelog

@@ -3,7 +3,7 @@
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
 Version:       9.0.%{patchlevel}
-Release:       28%{?dist}
+Release:       29%{?dist}
 License:       BSD with advertising and MIT
 # Most of the package is under a three-clause BSD license, but the file
 # ckaut2.h appears to be covered by three licenses:
@@ -93,6 +93,9 @@ install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
 %doc README.fedora
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.302-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 02 2022 David Cantrell <dcantrell@redhat.com> - 9.0.302-28
 - Fix FTBFS (#2113148)
 

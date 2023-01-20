@@ -2,7 +2,7 @@ Name:			banner
 Summary:		Prints a short string to the console in very large letters
 
 Version:		1.3.5
-Release:		6%{?dist}
+Release:		7%{?dist}
 
 License:		GPLv2
 BuildRequires:		gcc
@@ -34,6 +34,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/banner*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

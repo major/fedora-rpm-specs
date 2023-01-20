@@ -60,6 +60,7 @@ find examples -type f | xargs chmod a-x
 %pyproject_save_files dns
 
 %check
+export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %pytest
 
 %files -n python3-dns -f %{pyproject_files}

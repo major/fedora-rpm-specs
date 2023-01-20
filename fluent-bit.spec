@@ -1,6 +1,6 @@
 Name: fluent-bit
 Version: 1.9.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Fast data collector for Linux
 License: ASL 2.0
 URL: https://github.com/fluent/fluent-bit
@@ -13,6 +13,7 @@ Patch1: 0002-CMake-fix-up-install-paths.patch
 Patch2: 0003-onigmo-add-fPIC-to-CFLAGS.patch
 # Fix Tail input plugin tests. https://github.com/fluent/fluent-bit/issues/5723
 Patch3: 0004-tests-runtime-in_tail-allow-to-append-to-local-files.patch
+Patch4: fluent-bit-cmake-c99.patch
 
 BuildRequires: pkgconfig
 BuildRequires: make
@@ -86,6 +87,9 @@ rm -rvf %{buildroot}%{_includedir}
 %{_unitdir}/%{name}.service
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 1.9.9-2
+- C99 compatibility fixes for CMake scripts
+
 * Thu Oct 13 2022 Ben Kircher <bkircher@0xadd.de> - 1.9.9-1
 - Update to 1.9.9
 

@@ -19,8 +19,8 @@
 %define release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-qtbase
-Version:        6.4.1
-Release:        3%{?dist}
+Version:        6.4.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - QtBase component
 # Can't make package noarch as it could lead to -DQT_HOST_PATH_CMAKE_DIR=%%{_libdir}/cmake ponting to the wrong libdir
 
@@ -480,6 +480,9 @@ sed -i "1i CROSS_COMPILE=%{mingw64_target}-" %{buildroot}%{mingw64_libdir}/qt6/m
 
 
 %changelog
+* Wed Jan 18 2023 Sandro Mani <manisandro@gmail.com> - 6.4.2-1
+- Update to 6.4.2
+
 * Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 6.4.1-3
 - Rebuild (mingw-icu)
 

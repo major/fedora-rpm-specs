@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          0.1.9
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Modelling Functions that Work with the Pipe
 
 License:          GPLv3
@@ -73,6 +73,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 01 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.1.9-1
 - Update to 0.1.9 + rebuilt for R 4.2.1
 

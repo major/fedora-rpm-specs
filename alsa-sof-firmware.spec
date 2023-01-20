@@ -17,7 +17,7 @@
 Summary:        Firmware and topology files for Sound Open Firmware project
 Name:           alsa-sof-firmware
 Version:        %{sof_ver}
-Release:        2%{?sof_ver_rel}%{?dist}
+Release:        3%{?sof_ver_rel}%{?dist}
 # See later in the spec for a breakdown of licensing
 License:        BSD
 URL:            https://github.com/thesofproject/sof-bin
@@ -130,6 +130,9 @@ if st and st.type == "link" then
 end
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan  9 2023 Jaroslav Kysela <perex@perex.cz> - 2.2.4-2
 - Update to v2.2.4
 

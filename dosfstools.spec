@@ -1,7 +1,7 @@
 Name: dosfstools
 Summary: Utilities for making and checking MS-DOS FAT filesystems on Linux
 Version: 4.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv3+
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 URL: https://github.com/dosfstools/dosfstools
@@ -37,6 +37,9 @@ rm -f %{buildroot}%{_docdir}/%{name}/COPYING
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 4.2-5
 - Added weak dependency on glibc-gconv-extra
   Resolves: rhbz#2021638

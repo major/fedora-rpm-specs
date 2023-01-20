@@ -1,6 +1,6 @@
 Name:           devio
 Version:        1.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Read and write utility for block devices
 
 License:        MIT
@@ -42,6 +42,9 @@ install -Dp -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 1.2-26
 - Increase C99 compatibility of the configure script
 

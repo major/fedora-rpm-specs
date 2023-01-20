@@ -4,7 +4,7 @@
 Name:           cura
 Epoch:          1
 Version:        %{major_minor_version}.%{patch_version}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        3D printer / slicing GUI
 
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/MOUNX6I3POCDMYWBNJ7JPLLIKVYWVRBJ/
@@ -169,6 +169,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{reverse_dns_name}.d
 %{_prefix}/lib/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.13.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Miro Hrončok <mhroncok@redhat.com> - 1:4.13.1-5
 - Use the default flags for Python in the shebang of /usr/bin/cura
 - Fixes: rhbz#2117729

@@ -15,7 +15,7 @@
 
 Name:             byteman
 Version:          4.0.16
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Java agent-based bytecode injection tool
 License:          LGPLv2+
 URL:              http://www.jboss.org/byteman
@@ -216,6 +216,9 @@ ln -s %{_javadir}/byteman/byteman.jar $RPM_BUILD_ROOT%{homedir}/lib/byteman.jar
 %{homedir}/lib/byteman-dtest.jar
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.16-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Severin Gehwolf <sgehwolf@redhat.com> - 4.0.16-7
 - Rebuild with latest maven-verifier-plugin
 

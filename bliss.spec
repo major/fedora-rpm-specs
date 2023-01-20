@@ -1,6 +1,6 @@
 Name:           bliss
 Version:        0.77
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Compute automorphism groups and canonical labelings of graphs
 
 License:        LGPL-3.0-only
@@ -123,6 +123,9 @@ touch -r %{SOURCE1} %{buildroot}%{_mandir}/man1/bliss.1
 %{_libdir}/libbliss.so.2*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.77-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Jerry James <loganjerry@gmail.com> - 0.77-3
 - Convert License tag to SPDX
 

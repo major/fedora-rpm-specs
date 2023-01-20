@@ -9,7 +9,7 @@ and writing passive aggressive office memos.
 
 Name:           %{fontname}-fonts
 Version:        2.51
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A typeface family inspired by Comic Sans
 
 License:        OFL
@@ -98,6 +98,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.51-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.51-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

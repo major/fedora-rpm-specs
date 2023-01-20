@@ -1,6 +1,6 @@
 Name:           xgalaxy
 Version:        2.0.34
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Arcade game: shoot down the space ships attacking the planet
 License:        GPL+
 URL:            http://sourceforge.net/projects/xgalaga/
@@ -14,6 +14,7 @@ Patch3:         %{name}-2.0.34-joy.patch
 Patch4:         %{name}-2.0.34-fullscreen-viewport.patch
 Patch5:         %{name}-2.0.34-alsa.patch
 Patch6:         %{name}-2.0.34-dga-compile-fix.patch
+Patch7:         xgalaxy-configure-c99.patch
 BuildRequires: make
 BuildRequires:  libXt-devel libXpm-devel libXmu-devel libXxf86vm-devel
 BuildRequires:  alsa-lib-devel desktop-file-utils ImageMagick gcc
@@ -36,6 +37,7 @@ ships attacking the planet.
 %patch4 -p1 -z .viewport
 %patch5 -p1 -z .alsa
 %patch6 -p1 -z .no-dga
+%patch7 -p1 -z .c99
 sed -e 's/Debian/Fedora/g' debian/README.Debian > README.fedora
 cat >> README.fedora << EOF
 
@@ -96,6 +98,9 @@ install -p -m 644 %{name}.png \
 
 
 %changelog
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 2.0.34-39
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.34-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

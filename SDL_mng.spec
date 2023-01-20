@@ -1,7 +1,7 @@
 Summary: Simple DirectMedia Layer - MNG Loading Library
 Name: SDL_mng
 Version: 0.2.8
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: LGPLv2+
 URL: https://github.com/dulsi/SDL_mng
 Source0: http://www.identicalsoftware.com/btbuilder/%{name}-%{version}.tgz
@@ -49,6 +49,9 @@ export CXXFLAGS="%{optflags} -Wl,--as-needed"
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

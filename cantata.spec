@@ -2,7 +2,7 @@
 Name:    cantata
 Summary: Music Player Daemon (MPD) graphical client
 Version: 2.4.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPLv2+
 URL:     https://github.com/cdrummond/cantata
@@ -102,6 +102,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/cantata.desktop
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

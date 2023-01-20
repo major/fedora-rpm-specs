@@ -8,7 +8,7 @@
 
 Name:             R-%{packname}
 Version:          1.5.4
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          HTML Widgets for R
 
 License:          MIT
@@ -83,6 +83,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 1.5.4-1
 - update to 1.5.4
 - rebuild for R 4.2.1

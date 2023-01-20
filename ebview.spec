@@ -1,6 +1,6 @@
 Name:		ebview
 Version:	0.3.6.2
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	EPWING CD-ROM dictionary viewer
 
 License:	GPLv2+
@@ -124,6 +124,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.3.6.2-32
 - Port for strict c99, -Werror=implicit-int -Werror=implicit-function-declaration
 

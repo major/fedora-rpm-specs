@@ -10,6 +10,8 @@ Source0:        https://github.com/libxls/libxls/releases/download/v%{version}/%
 Patch0001:      https://github.com/libxls/libxls/pull/95.patch
 Patch0002:      https://github.com/libxls/libxls/pull/96.patch
 Patch0003:      https://github.com/libxls/libxls/pull/97.patch
+# Fixes build with GCC 13
+Patch0004:      https://github.com/libxls/libxls/pull/118.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make

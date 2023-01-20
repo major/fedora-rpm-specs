@@ -3,13 +3,13 @@
 
 Name:		python-messaging
 Version:	1.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Python abstraction of a "message"
 License:	ASL 2.0
 URL:		https://github.com/cern-mig/%{name}
 Source0:	http://pypi.python.org/packages/source/m/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:	noarch
-BuildRequires:	python3-devel
+BuildRequires:	python3-devel, python3-setuptools
 # For python < 2.6 python-simplejson is required
 
 %global _description\
@@ -61,6 +61,9 @@ rm -f test/*.pyc
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jan 18 2023 Lionel Cons <lionel.cons@cern.ch> - 1.2-5
+- Added setuptools dependency (rhbz #2154999)
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

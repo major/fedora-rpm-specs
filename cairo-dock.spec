@@ -26,7 +26,7 @@
 
 Name:			cairo-dock
 Version:		3.4.1
-Release:		%{mainrel}%{?use_git:.D%{gitdate}git%{shorthash}}%{?dist}%{flagrel}.2
+Release:		%{mainrel}%{?use_git:.D%{gitdate}git%{shorthash}}%{?dist}%{flagrel}.3
 Summary:		Light eye-candy fully themable animated dock
 
 License:		GPLv3+
@@ -248,6 +248,9 @@ popd
 %{_libdir}/pkgconfig/gldi.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-18.D20210327git6c569e6.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-18.D20210327git6c569e6.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -15,8 +15,8 @@
 %bcond_with test
 
 Name:           z3
-Version:        4.11.2
-Release:        2%{?dist}
+Version:        4.12.0
+Release:        1%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
 License:        MIT
@@ -24,10 +24,6 @@ URL:            https://github.com/Z3Prover/z3
 Source0:        https://github.com/Z3Prover/z3/archive/%{name}-%{version}.tar.gz
 # Change the way python finds the shared object; see bz 1910923
 Patch0:         %{name}-python.patch
-# Fix use of an uninitialized variable
-Patch1:         %{name}-uninit.patch
-# Fix a data race that can cause a segfault; see bz 2157972
-Patch2:         %{name}-data-race.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -171,6 +167,9 @@ sed -e '/libz3java/s,\(System\.load\)Library("\(.*\)"),\1("%{_libdir}/z3/\2.so")
     -e "s/@MAJVER@/$majver/" \
     -i scripts/update_api.py
 
+# Turn off HTML timestamps for reproducible builds
+sed -i '/HTML_TIMESTAMP/s/YES/NO/' doc/z3api.cfg.in doc/z3code.dox
+
 %build
 export LANG=C.UTF-8
 export PYTHON=%{python3}
@@ -236,6 +235,9 @@ rm -rf %{buildroot}%{_docdir}/Z3
 mkdir -p %{buildroot}%{_mandir}/man1
 help2man -N -o %{buildroot}%{_mandir}/man1/z3.1 %{_vpath_builddir}/z3
 
+# Fix the pkgconfig file
+sed -i 's,//usr,,' %{buildroot}%{_libdir}/pkgconfig/z3.pc
+
 %if %{with test}
 %check
 export LANG="C.UTF-8"
@@ -252,7 +254,7 @@ cd -
 
 %files libs
 %license LICENSE.txt
-%{_libdir}/libz3.so.4.11*
+%{_libdir}/libz3.so.4.12*
 
 %files devel
 %{_includedir}/z3/
@@ -288,6 +290,10 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 4.12.0-1
+- Version 4.12.0
+- Drop upstreamed -data-race and -uninit patches
+
 * Sun Jan  8 2023 Jerry James <loganjerry@gmail.com> - 4.11.2-2
 - Add -data-race patch to fix segfault (bz 2157972)
 - Add -uninit patch to fix use of an uninitialized value

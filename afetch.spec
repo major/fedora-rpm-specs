@@ -1,6 +1,6 @@
 Name:           afetch
 Version:        2.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple system info written in C
 
 License:        GPL-3.0-only
@@ -39,6 +39,9 @@ written in POSIX compliant C99
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 21 2022 Jonathan Wright <jonathan@almalinux.org> - 2.2.0-2
 - Fix spec to build on f35
 

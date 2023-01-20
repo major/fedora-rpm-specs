@@ -5,7 +5,7 @@ License:	GPLv2
 %global		releasenum 2022-07-31a
 %global		releasetag %(rel="%{releasenum}"; echo "${rel//-/}")
 Version:	%{releasetag}
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 URL:		https://www.dokuwiki.org/dokuwiki
 Source0:	https://download.dokuwiki.org/src/%{name}/%{name}-%{releasenum}.tgz
@@ -229,6 +229,9 @@ fi
 %doc DOKUWIKI-SELINUX.README
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220731a-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 20220731a-2
 - Unbundle php-splitbrain-php-archive
 - Unbundle php-splitbrain-php-cli

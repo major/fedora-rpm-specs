@@ -5,7 +5,7 @@
 
 Name:       cldr-emoji-annotation
 Version:    42
-Release:    1%{?dist}
+Release:    2%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
 %endif
@@ -126,6 +126,9 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:42-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Takao Fujiwara <tfujiwar@gmail.com> - 1:42
 - Migrate license tag to SPDX
 - Bump to release-42

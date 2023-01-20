@@ -2,7 +2,7 @@
 Name: aqbanking
 Summary: A library for online banking functions and financial data import/export
 Version: 6.5.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
 Source0: https://www.aquamaniac.de/rdm/attachments/download/467/aqbanking-%{version}.tar.gz
 License: GPLv2 or GPLv3
@@ -118,6 +118,9 @@ make check ||:
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Gwyn Ciesla <gwync@protonmail.com> - 6.5.3-2
 - Enable libchipcard.
 

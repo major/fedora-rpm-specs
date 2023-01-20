@@ -5,7 +5,7 @@
 
 Name:           bionetgen
 Version:        2.8.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Software for rule-based modeling of biochemical systems
 # Bionetgen binary file is compiled against bundled muparser (MIT) and sundials-2.6.0 (BSD) libraries
 License:        GPLv3 and BSD and MIT
@@ -285,6 +285,9 @@ echo "Tests finished."
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 11 2022 Florian Weimer <fweimer@redhat.com> - 2.8.4-3
 - Port bundled CVODE CMake script to C99
 

@@ -35,6 +35,9 @@ Source2:        webkitgtk-keys.gpg
 # https://bugs.webkit.org/show_bug.cgi?id=250689
 Patch0:         angle-build.patch
 
+# https://bugs.webkit.org/show_bug.cgi?id=250701
+Patch1:         unbreak-headers.patch
+
 BuildRequires:  bison
 BuildRequires:  bubblewrap
 BuildRequires:  cmake
@@ -312,7 +315,10 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 # Reduce debuginfo verbosity 32-bit builds to reduce memory consumption even more.
 # https://bugs.webkit.org/show_bug.cgi?id=140176
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/I6IVNA52TXTBRQLKW45CJ5K4RA4WNGMI/
-%ifarch %{ix86}
+#
+# Do this for s390x too as a temporary measure.
+# https://pagure.io/fedora-infrastructure/issue/11000
+%ifarch %{ix86} s390x
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
 

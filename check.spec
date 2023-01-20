@@ -1,6 +1,6 @@
 Name:           check
 Version:        0.15.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A unit test framework for C
 Source0:        https://github.com/libcheck/check/archive/%{version}/%{name}-%{version}.tar.gz
 License:        LGPL-2.1-or-later
@@ -148,6 +148,9 @@ cd -
 %{_mandir}/man1/checkmk.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Jerry James <loganjerry@gmail.com> - 0.15.2-7
 - Convert License tags to SPDX
 

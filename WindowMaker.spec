@@ -1,7 +1,7 @@
 Summary:        A fast, feature rich Window Manager
 Name:           WindowMaker
 Version:        0.95.9
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        GPLv2+
 URL:            http://www.windowmaker.org 
 Source0:        http://windowmaker.org/pub/source/release/WindowMaker-%{version}.tar.gz
@@ -305,6 +305,9 @@ chrpath --delete %{buildroot}%{_libdir}/libWMaker.so.1.0.1
 %{_includedir}/wraster.h
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.9-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.95.9-10
 - Rebuild for ImageMagick 7
 

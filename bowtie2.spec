@@ -1,6 +1,6 @@
 Name: bowtie2
 Version: 2.4.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 # Use the word "ultra fast" rather than "ultrafast".
 # https://github.com/BenLangmead/bowtie2/issues/291
 Summary: An ultra fast and memory-efficient read aligner
@@ -131,6 +131,9 @@ scripts/test/simple_tests.pl \
 %{_mandir}/man1/bowtie2-inspect.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

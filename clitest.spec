@@ -3,7 +3,7 @@
 
 Name:    clitest
 Version: 0.4.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Command Line Tester
 
 License: MIT
@@ -49,6 +49,9 @@ install -D -m755 -p clitest %{buildroot}%{_bindir}/clitest
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

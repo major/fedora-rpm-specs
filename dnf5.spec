@@ -1,14 +1,19 @@
 %global project_version_major 5
 %global project_version_minor 0
-%global project_version_patch 1
+%global project_version_patch 4
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
+Patch1:         0001-Disable-tutorial-unit-tests.patch
+Patch2:         0002-modules-Add-ModuleQuery-filter-latest.patch
+Patch3:         0003-dnf5-Fix-rawhide-build-error.patch
+Patch4:         0004-test-Fix-rawhide-build-errors.patch
+
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       dnf-data
@@ -54,7 +59,7 @@ Recommends:     bash-completion
 # ========== versions of dependencies ==========
 
 %global libmodulemd_version 2.5.0
-%global librepo_version 1.13.0
+%global librepo_version 1.15.0
 %global libsolv_version 0.7.21
 %global swig_version 4
 %global zchunk_version 0.9.11
@@ -68,7 +73,6 @@ BuildRequires:  doxygen
 BuildRequires:  gettext
 BuildRequires:  pkgconfig(check)
 BuildRequires:  pkgconfig(fmt)
-BuildRequires:  (pkgconfig(gpgme) or gpgme-devel)
 BuildRequires:  pkgconfig(json-c)
 BuildRequires:  pkgconfig(libcrypto)
 BuildRequires:  pkgconfig(librepo) >= %{librepo_version}
@@ -245,6 +249,23 @@ Library for working with a terminal in a command-line package manager.
 %license COPYING.md
 %license lgpl-2.1.txt
 %endif
+
+# ========== dnf5-devel ==========
+
+%package -n dnf5-devel
+Summary:        Development files for dnf5
+License:        LGPL-2.1-or-later
+Requires:       dnf5%{?_isa} = %{version}-%{release}
+Requires:       libdnf5-devel%{?_isa} = %{version}-%{release}
+Requires:       libdnf5-cli-devel%{?_isa} = %{version}-%{release}
+
+%description -n dnf5-devel
+Develpment files for dnf5.
+
+%files -n dnf5-devel
+%{_includedir}/dnf5/
+%license COPYING.md
+%license lgpl-2.1.txt
 
 
 # ========== libdnf5-devel ==========
@@ -574,6 +595,46 @@ Core DNF5 plugins that enhance dnf5 with builddep and changelog commands.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Wed Jan 18 2023 Nicola Sella <nsella@redhat.com> - 5.0.4-2
+- Backport downstream patch to disable unit tests for python tutorials
+- Fix build in rawhide
+
+* Thu Jan 12 2023 Nicola Sella <nsella@redhat.com> - 5.0.4-1
+- Many fixes in perl bindings
+- Test functions enhanced
+- Extend unit tests for OptionString and OptionStringList
+
+* Wed Jan 04 2023 Nicola Sella <nsella@redhat.com> - 5.0.3-1
+- Add Python docs for: Base, Goal, RepoQuery, Package and PackageQuery
+- Add docs for Python bindings: they are auto generated now
+- Add --what* and --exactdeps options to repoquery
+- Add "user enter password" to dnf5daemon functionalities
+- Fix: remove repeating headers in transaction table
+- Fix: Set status of download progress bar after successful download
+- Fix: RepoDownloader::get_cache_handle: Don't set callbacks in LibrepoHandle
+- Refactor internal utils
+- Improved GlobalLogger
+- Improved C++ API docs
+
+* Thu Dec 08 2022 Nicola Sella <nsella@redhat.com> - 5.0.2-1
+- Implement group remove command
+- Improved options in config
+- Add support for any number of user IDs in a PGP key
+- Use new librepo PGP API
+- remove gpgme dependency
+- Improved exceptions and dnf5 errors
+- Add dnf5-devel package
+- Update README.md with up to date information
+- Repoquery: Add --duplicates option
+- Improved documentation for Repoquery, Upgrande and About section
+- Add tutorials for python3 bindings
+- dnf5-changes-doc: Add more structure using different headings
+- Add ModuleQuery
+- Improvements in comps logic
+
 * Fri Nov 25 2022 Nicola Sella <nsella@rehat.com> - 5.0.1-1
 - Update to 5.0.1
 - Fix loading known keys for RepoGpgme

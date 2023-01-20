@@ -3,7 +3,7 @@
 
 Name:           accerciser
 Version:        3.40.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interactive Python accessibility explorer for the GNOME desktop
 
 License:        BSD
@@ -73,6 +73,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/accerciser.desktop
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.40.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 29 2022 Kalev Lember <klember@redhat.com> - 3.40.0-1
 - Update to 3.40.0
 

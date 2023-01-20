@@ -3,7 +3,7 @@
 
 Name:           ddnet
 Version:        16.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 # Disabled while can't fix build
@@ -172,6 +172,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 25 2022 Sérgio Basto <sergio@serjux.com> - 16.4-1
 - Update ddnet to 16.4 (#2127583)
 

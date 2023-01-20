@@ -6,7 +6,7 @@
  
 Name:           Io-language
 Version:        20170906
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Io is a small, prototype-based programming language
 License:        BSD
 URL:            https://iolanguage.org
@@ -266,6 +266,9 @@ done
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20170906-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 20170906-8
 - Move away from pcre by dropping Regex addon
 

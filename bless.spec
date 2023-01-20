@@ -3,7 +3,7 @@
 
 Name: bless
 Version: 0.6.3
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: High quality, full featured hex editor    
 
 License: GPLv2+        
@@ -75,6 +75,9 @@ mv ${RPM_BUILD_ROOT}/usr/share/help/C/bless ${RPM_BUILD_ROOT}/%{_docdir}
 %{_docdir}/bless/
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

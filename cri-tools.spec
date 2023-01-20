@@ -29,7 +29,7 @@
 
 Name: cri-tools
 Version: 1.24.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CLI and validation tools for Container Runtime Interface
 License: ASL 2.0
 URL: https://%{provider_prefix}
@@ -172,6 +172,9 @@ install -p -m 644 docs/crictl.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/crictl*.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Maxwell G <gotmax@e.email> - 1.24.2-1
 - Update to 1.24.2.
 - Fix FTBFS

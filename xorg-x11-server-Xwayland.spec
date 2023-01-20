@@ -9,13 +9,22 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   22.1.7
-Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
 Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{pkgname}-%{shortcommit}.tar.gz
 %else
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
+%endif
+
+# Only on F38 and later
+%if 0%{fedora} >= 38
+# Disallow byte-swapped clients by default
+# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1029
+Patch1: 0001-Fix-some-indentation-issues.patch
+Patch2: 0002-dix-localize-two-variables.patch
+Patch3: 0003-Disallow-byte-swapped-clients-by-default.patch
 %endif
 
 License:   MIT
@@ -124,6 +133,9 @@ rm -Rf $RPM_BUILD_ROOT%{_localstatedir}/lib/xkb
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Tue Jan 17 2023 Olivier Fourdan <ofourdan@redhat.com> - 22.1.7-2
+- Disallow byte-swapped clients on Fedora 38 and above (#2159489)
+
 * Mon Dec 19 2022 Olivier Fourdan <ofourdan@redhat.com> - 22.1.7-1
 - xwayland 22.1.7
 

@@ -1,6 +1,6 @@
 Name:               carbon-c-relay
 Version:            3.7.3
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Enhanced C implementation of Carbon relay, aggregator and rewriter
 License:            ASL 2.0
 URL:                https://github.com/grobian/carbon-c-relay
@@ -117,6 +117,9 @@ exit 0
 %{_unitdir}/%{name}.service
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

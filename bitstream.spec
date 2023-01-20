@@ -1,6 +1,6 @@
 Name:           bitstream
 Version:        1.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Simpler access to binary structures such as specified by MPEG, DVB, IETF
 
 License:        MIT
@@ -43,6 +43,9 @@ such as specified by MPEG, DVB, IETF, etc.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

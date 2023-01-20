@@ -4,7 +4,7 @@
 %global min_ver 0
 %global patch_ver 0
 #%%global rc_ver 6
-%global baserelease 15
+%global baserelease 16
 
 %global clang_tools_binaries \
 	%{_bindir}/clang-apply-replacements \
@@ -492,6 +492,9 @@ LD_LIBRARY_PATH=%{buildroot}/%{pkg_libdir} %cmake_build --target check-all || \
 
 %endif
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

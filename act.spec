@@ -2,7 +2,7 @@ Name:           act
 %global lname   AutomaticComponentToolkit
 %global goipath github.com/Autodesk/%{lname}
 Version:        1.6.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Automatic Component Toolkit
 License:        BSD
 
@@ -41,6 +41,9 @@ install -m 0755 -vp act %{buildroot}%{_bindir}/
 %{_bindir}/act
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,12 +1,10 @@
 Name:           perl-Redis
-Version:        1.999
-Release:        5%{?dist}
+Version:        2.000
+Release:        1%{?dist}
 Summary:        Perl binding for Redis database
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Redis
 Source0:        https://cpan.metacpan.org/modules/by-module/Redis/Redis-%{version}.tar.gz
-# Fix tests for Redis 7.0.0, GH#154
-Patch0:         Redis-1.999-Fix-of-test-for-multiple-arguments-in-info-command.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -67,7 +65,6 @@ Pure perl bindings for http://redis.io/
 
 %prep
 %setup -q -n Redis-%{version}
-%patch0 -p1
 
 %build
 perl Build.PL --installdirs=vendor
@@ -92,6 +89,9 @@ RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Redis::Sentinel.3*
 
 %changelog
+* Mon Jan 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.000-1
+- 2.000 bump
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.999-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

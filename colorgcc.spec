@@ -1,7 +1,7 @@
 Summary:    Script to colorize the compiler output
 Name:       colorgcc
 Version:    1.4.5
-Release:    17%{?dist}
+Release:    18%{?dist}
 License:    GPL+
 Url:        http://schlueters.de/colorgcc.html
 Source0:    https://github.com/colorgcc/colorgcc/archive/%{version}.tar.gz
@@ -59,6 +59,9 @@ done
 %doc README colorgccrc.sample
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

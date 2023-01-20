@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	1
+%global	fedorarel	2
 
 %global	gem_name	rspec-core
 
@@ -105,6 +105,12 @@ sed -i '/backtrace_exclusion_patterns/ s/rspec-core/rspec-core-%{version}/' \
 sed -i spec/integration/spec_file_load_errors_spec.rb \
 	-e '\@nicely handles load-time errors in user spec files@s| it | xit |'
 
+# ruby3.2 + compile with YJIT + LTO seems to make rspec-core GC test fail.
+# disabling this, per ruby upsteram advice:
+# https://bugs.ruby-lang.org/issues/19254
+sed -i spec/rspec/core/example_spec.rb \
+	-e '\@defined.*RUBY_ENGINE.*truffleruby@s|^\(.*\)$|\1 \&\& false|'
+
 # FIXME seed 33413 sees test failure
 ruby -Ilib -S exe/rspec --seed 1 #33413
 
@@ -175,6 +181,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Thu Jan 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-2
+- Disable GC related test, with the advice from ruby upstream
+
 * Thu Oct 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-1
 - 3.12.0
 

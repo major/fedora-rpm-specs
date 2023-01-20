@@ -1,7 +1,7 @@
 Summary: A utility which provides statistics based on the output of diff
 Name: diffstat
 Version: 1.65
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: https://invisible-island.net/diffstat
 Source0: https://invisible-mirror.net/archives/diffstat/%{name}-%{version}.tgz
@@ -42,6 +42,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.65-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Tim Waugh <twaugh@redhat.com> - 1.65-1
 - Update to 1.65 (bug #2133330).
 

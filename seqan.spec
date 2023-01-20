@@ -2,10 +2,13 @@
 # /usr/bin/ld: error: lto-wrapper failed
 %define _lto_cflags %{nil}
 
+# %%_fortify_level
+%undefine _fortify_level
+
 Name:      seqan
 Summary:   Open source C++ library of efficient algorithms and data structures
 Version:   1.4.2
-Release:   50%{?dist}
+Release:   51%{?dist}
 License:   BSD and GPLv3+ and LGPLv3+
 URL:       http://www.seqan.de/
 Source0:   http://packages.seqan.de/seqan-src/seqan-src-%{version}.tar.gz
@@ -83,7 +86,7 @@ cp -p extras/apps/seqan_flexbar/INFO extras/apps/seqan_flexbar/README
 mkdir -p build/Release && pushd build/Release
 # cc1plus: out of memory on ARM
 %ifarch %{arm}
-SEQAN_OPT_FLAGS=$(echo "$RPM_OPT_FLAGS" | sed -e 's/-O2/-O0/g' -e 's/-Wp,-D_FORTIFY_SOURCE=2//g')
+SEQAN_OPT_FLAGS=$(echo "$RPM_OPT_FLAGS" | sed -e 's/-O2/-O0/g')
 SEQAN_OPT_FLAGS="$SEQAN_OPT_FLAGS -fPIC"
 %else
 SEQAN_OPT_FLAGS="$RPM_OPT_FLAGS -fPIC"
@@ -143,6 +146,9 @@ find %{buildroot}%{_bindir} -type f -name "*.h" -exec chmod 0755 '{}' \;
 %{_includedir}/seqan/
 
 %changelog
+* Tue Jan 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.4.2-51
+- Use _fortify_level (rhbz#2161371)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

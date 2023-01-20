@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 1.009
-Release: 5%{?dist}
+Release: 6%{?dist}
 URL:     http://arkandis.tuxfamily.org/adffonts.html
 
 %global foundry           ADF
@@ -81,6 +81,9 @@ install -m 0644 -p %{SOURCE1} .
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.009-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Michael J Gruber <mjg@fedoraproject.org> - 1.009-5
 - SPDX migration
 

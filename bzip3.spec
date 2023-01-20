@@ -1,6 +1,6 @@
 Name:           bzip3
 Version:        1.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for compressing and decompressing bzip3 files
 # bz3grep:                  BSD-2-Clause
 # include/common.h:         LGPL-3.0-or-later
@@ -158,6 +158,9 @@ fi
 %{_libdir}/pkgconfig/bzip3.pc
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Petr Pisar <ppisar@redhat.com> - 1.2.2-1
 - 1.2.2 bump
 

@@ -6,7 +6,7 @@ Name: ansible-core
 Summary: A radically simple IT automation system
 Version: 2.14.1
 %global uversion %{version_no_tilde %{quote:%nil}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 # The main license is GPLv3+. Many of the files in lib/ansible/module_utils
 # are BSD licensed. There are various files scattered throughout the codebase
 # containing code under different licenses.
@@ -240,6 +240,9 @@ make PYTHON=%{python3} tests-py3
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Maxwell G <gotmax@e.email> - 2.14.1-1
 - Update to 2.14.1.
 

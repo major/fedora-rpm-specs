@@ -4,7 +4,7 @@
 
 Name:           %{artifactId}
 Version:        1.8.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Clojure plugin for Maven
 
 License:        EPL-1.0
@@ -71,6 +71,9 @@ export LANG=en_US.utf8
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

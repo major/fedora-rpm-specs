@@ -23,7 +23,7 @@ Requires: %1 \
 Name:    copr-rpmbuild
 Version: 0.62
 Summary: Run COPR build tasks
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/fedora-copr/copr
 License: GPLv2+
 
@@ -334,6 +334,9 @@ install -p -m 644 copr_distgit_client.py %{buildroot}%{expand:%%%{python}_siteli
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.62-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 0.62-1
 - migrate from pipes to shlex
 - move to GitHub home page

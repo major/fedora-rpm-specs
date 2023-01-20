@@ -1,7 +1,7 @@
 Name:    tbb
 Summary: The Threading Building Blocks library abstracts low-level threading details
 Version: 2020.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: ASL 2.0
 URL:     http://threadingbuildingblocks.org/
 
@@ -30,6 +30,9 @@ Patch3: tbb-2019-test-task-scheduler-init.patch
 # Fix ABI break resulting from tbb::empty_task being removed from libtbb.so's
 # exported symbols
 Patch4: tbb-mark-empty_task-execute-with-gnu-used.patch
+
+# Fix "error: declaration of 'tbb::task& tbb::internal::task_prefix::task()' changes meaning of 'task' [-fpermissive]"
+Patch5: tbb-2020-task-namespace.patch
 
 BuildRequires: cmake
 BuildRequires: doxygen
@@ -206,6 +209,9 @@ cmake \
 %{python3_sitearch}/__pycache__/TBB*
 
 %changelog
+* Mon Jan 16 2023 Thomas Rodgers <trodgers@redhat.com> - 2020.3-14
+- Fix build failure with GCC13 (bz 2161412)
+
 * Wed Jan 11 2023 Thomas Rodgers <trodgers@redhat.com> - 2020.3-13
 - Fix build failure with Python 3.12.0 (bz 2154975)
 

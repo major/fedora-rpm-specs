@@ -1,8 +1,8 @@
-%global revision 20230107
+%global revision 20230114
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.4
-Release: 1.%{revision}%{?dist}
+Release: 2.%{revision}%{?dist}
 License: MIT
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -281,6 +281,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Tue Jan 17 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-2.20230114
+- update to 6.4-20230114 (#2160276)
+
 * Mon Jan 09 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-1.20230107
 - update to 6.4-20230107
 - restore compat-libs (ABI 5) subpackage (#2129865)

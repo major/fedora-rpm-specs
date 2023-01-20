@@ -4,7 +4,7 @@
 #
 Name:           airrac
 Version:        1.00.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        C++ Simulated Revenue Accounting (RAC) System Library
 
@@ -103,6 +103,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

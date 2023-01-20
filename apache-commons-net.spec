@@ -1,6 +1,6 @@
 Name:           apache-commons-net
 Version:        3.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Internet protocol suite Java library
 License:        ASL 2.0
 URL:            http://commons.apache.org/net/
@@ -57,6 +57,9 @@ rm src/test/java/org/apache/commons/net/ftp/FTPSClientTest.java
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 07 2022 Marian Koncek <mkoncek@redhat.com> - 3.8.0-1
 - Update to upstream version 3.8.0
 

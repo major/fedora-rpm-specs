@@ -9,7 +9,7 @@
 
 Name:           cocoalib
 Version:        0.99800
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C++ library for computations in commutative algebra
 
 License:        GPL-3.0-or-later
@@ -61,8 +61,8 @@ Headers and library links for developing applications that use %{name}.
 %package doc
 # The content is GFDL-1.2-no-invariants-only.  The remaining licenses cover the
 # various fonts embedded in PDFs.
-# CM: Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
-License:        GFDL-1.2-no-invariants-only AND Knuth-CTAN AND LicenseRef-Fedora-Public-Domain
+# CM: Knuth-CTAN
+License:        GFDL-1.2-no-invariants-only AND Knuth-CTAN
 Summary:        Documentation for %{name}
 BuildArch:      noarch
 
@@ -166,6 +166,9 @@ make check
 %doc examples
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99800-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99800-4
 - Rebuild for gsl-2.7.1
 

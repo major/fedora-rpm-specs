@@ -1,11 +1,12 @@
 Name:           perl-Net-Pcap
 Version:        0.20
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Interface to pcap(3) LBL packet capture library
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Pcap
 Source0:        https://cpan.metacpan.org/authors/id/C/CO/CORION/Net-Pcap-%{version}.tar.gz
+Patch0: perl-Net-Pcap-c99.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -53,7 +54,7 @@ Requires:  perl(XSLoader)
 perl-Net-Pcap provides Perl bindings to the LBL pcap(3) library.
 
 %prep
-%setup -q -n Net-Pcap-%{version}
+%autosetup -p1 -n Net-Pcap-%{version}
 
 for f in README Changes ; do
   iconv -f iso-8859-1 -t utf-8 $f >$f.conv && mv -f $f.conv $f
@@ -84,6 +85,9 @@ make test
 %{_mandir}/man?/*
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 0.20-5
+- C99 compatibility fix
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

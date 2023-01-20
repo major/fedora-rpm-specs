@@ -3,7 +3,7 @@
 Name:           dummy-test-package-crested
 
 Version:        0
-Release:        3764
+Release:        3765
 Summary:        Dummy Test Package called Crested
 License:        CC0
 URL:            http://fedoraproject.org/wiki/DummyTestPackages
@@ -32,6 +32,9 @@ cp -p uuid %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-3765
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-3764
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

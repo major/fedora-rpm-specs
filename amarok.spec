@@ -4,7 +4,7 @@
 Name:    amarok
 Summary: Media player
 Version: 2.9.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -291,6 +291,9 @@ grep '^NoDisplay' %{buildroot}%{_kde4_datadir}/applications/kde4/amzdownloader.d
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

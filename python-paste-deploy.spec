@@ -7,7 +7,7 @@ this configuration file.
 
 Name:           python-paste-deploy
 Version:        2.1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -59,10 +59,14 @@ PYTHONPATH=. py.test-3
 
 %files -n python3-paste-deploy
 %license license.txt
-%{python3_sitelib}/*
+%{python3_sitelib}/PasteDeploy-*
+%{python3_sitelib}/paste/deploy
 
 
 %changelog
+* Wed Jan 18 2023 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 2.1.1-8
+- Do not use glob on python sitelib
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

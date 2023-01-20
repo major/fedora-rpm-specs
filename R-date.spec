@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          1.2.39
-Release:          9%{?dist}
+Release:          10%{?dist}
 Summary:          Functions for Handling Dates
 
 License:          GPLv2
@@ -59,6 +59,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.39-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug  3 2022 Tom Callaway <spot@fedoraproject.org> - 1.2.39-9
 - rebuild for R 4.2.1
 

@@ -1,7 +1,7 @@
 Summary:        PostScript Type 1 font rasterizer
 Name:           t1lib
 Version:        5.1.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 License:        LGPLv2+
 URL:            ftp://sunsite.unc.edu/pub/Linux/libs/graphics/t1lib-%{version}.lsm
 Source0:        ftp://sunsite.unc.edu/pub/Linux/libs/graphics/t1lib-%{version}.tar.gz
@@ -18,6 +18,8 @@ Patch3:         t1lib-5.1.2-type1-inv-rw-fix.patch
 Patch4:         t1lib-5.1.2-aarch64.patch
 Patch5:         t1lib-5.1.2-format-security.patch
 Patch6:         t1lib-5.1.2-t1.patch
+Patch7:         t1lib-configure-c99.patch
+Patch8:         t1lib-c99.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  libXaw-devel
@@ -63,6 +65,8 @@ This package contains static libraries for %{name}.
 %patch4 -p1 -b .aarch64
 %patch5 -p1 -b .format-security
 %patch6 -p1 -b .t1
+%patch7 -p1 -b .configure-c99
+%patch8 -p1 -b .c99
 
 # use debian patches directly instead of duplicating them
 #patch -p1 < debian/patches/segfault.diff -b -z .segf
@@ -82,7 +86,7 @@ mv Changes.utf8 Changes
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
-make %{?_smp_mflags} without_doc
+make without_doc
 touch -r lib/t1lib/t1lib.h.in lib/t1lib.h
 touch -r lib/t1lib/t1libx.h lib/t1libx.h
 ln README.t1lib-%{version} README
@@ -146,6 +150,9 @@ touch $RPM_BUILD_ROOT%{_datadir}/t1lib/{FontDatabase,t1lib.config}
 %{_libdir}/libt1x.a
 
 %changelog
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 5.1.2-33
+- C99 compatibility fixes (#2161950)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

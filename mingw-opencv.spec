@@ -3,8 +3,8 @@
 %global pkgname opencv
 
 Name:          mingw-%{pkgname}
-Version:       4.6.0
-Release:       4%{?dist}
+Version:       4.7.0
+Release:       1%{?dist}
 Summary:       MinGW Windows OpenCV library
 
 BuildArch:     noarch
@@ -204,9 +204,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 %files -n mingw32-%{pkgname}
 %license install_licenses/*
-%{mingw32_bindir}/libopencv_*460.dll
+%{mingw32_bindir}/libopencv_*470.dll
 %{mingw32_includedir}/opencv4/
-%{mingw32_libdir}/libopencv_*460.dll.a
+%{mingw32_libdir}/libopencv_*470.dll.a
 %{mingw32_libdir}/cmake/OpenCV/
 %{mingw32_datadir}/opencv4
 
@@ -219,9 +219,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 %files -n mingw64-%{pkgname}
 %license install_licenses/*
-%{mingw64_bindir}/libopencv_*460.dll
+%{mingw64_bindir}/libopencv_*470.dll
 %{mingw64_includedir}/opencv4/
-%{mingw64_libdir}/libopencv_*460.dll.a
+%{mingw64_libdir}/libopencv_*470.dll.a
 %{mingw64_libdir}/cmake/OpenCV/
 %{mingw64_datadir}/opencv4
 
@@ -233,6 +233,9 @@ rm -f %{buildroot}%{mingw64_prefix}/{LICENSE,setup_vars_opencv4.cmd}
 
 
 %changelog
+* Tue Jan 17 2023 Sandro Mani <manisandro@gmail.com> - 4.7.0-1
+- Update to 4.7.0
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 4.6.0-4
 - Rebuild (gdal)
 

@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Vol (Volume Algorithm)
 Version:	1.5.4
-Release:	8%{?dist}
+Release:	10%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -15,6 +15,7 @@ BuildRequires:	make
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
+Patch1: coin-or-Vol-configure-c99.patch
 
 %description
 Vol (Volume Algorithm) is an open-source implementation of a subgradient
@@ -90,6 +91,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_docdir}/%{name}/vol_doxy.tag
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 1.5.4-9
+- Port configure script to C99
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

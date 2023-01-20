@@ -31,7 +31,7 @@
 # simplify cut and pasting.
 #
 Version: 2.002
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL:     https://github.com/adobe-fonts/source-han-sans/
 
 # The identifier of the entity, that released the font family.
@@ -91,6 +91,9 @@ Source10: 68-adobe-source-han-sans-kr-fonts.conf
 %fontfiles
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.002-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Akira TAGOH <tagoh@redhat.com> - 2.002-7
 - Convert License tag to SPDX.
 

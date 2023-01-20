@@ -1,11 +1,11 @@
 Name:           azove
 Version:        2.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Another Zero-One Vertex Enumeration tool
 
 License:        GPL-2.0-or-later
-URL:            http://people.mpi-inf.mpg.de/alumni/d1/2019/behle/azove.html
-Source0:        http://people.mpi-inf.mpg.de/alumni/d1/2019/behle/%{name}-%{version}.tar.gz
+URL:            https://people.mpi-inf.mpg.de/alumni/d1/2019/behle/azove.html
+Source0:        https://people.mpi-inf.mpg.de/alumni/d1/2019/behle/%{name}-%{version}.tar.gz
 # Man page written by Jerry James from text found in the sources.  Therefore,
 # the copyright and license of the man page is the same as the sources.
 Source1:        %{name}2.1
@@ -51,6 +51,9 @@ install -m 0644 -p %{SOURCE1} %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/%{name}2.1*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Jerry James <loganjerry@gmail.com> - 2.0-24
 - Convert License tag to SPDX
 

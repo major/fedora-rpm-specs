@@ -1,6 +1,6 @@
 Name:           antlrworks
 Version:        1.5.2
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Grammar development environment for ANTLR v3 grammars
 
 License:        BSD
@@ -98,6 +98,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/appdata/%{name}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

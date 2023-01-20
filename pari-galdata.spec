@@ -17,10 +17,10 @@ This package contains the optional PARI package galdata, which provides
 the Galois resolvents for the polgalois function, for degrees 8 through 11.
 
 %prep
-%setup -cq
-
 # Verify the source file
-%{gpgverify} --keyring=%{SOURCE2} --signature=%{SOURCE1} --data=%{SOURCE0}
+%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
+
+%setup -cq
 
 %build
 
@@ -33,6 +33,9 @@ cp -a data/galdata %{buildroot}%{_datadir}/pari/
 %{_datadir}/pari/
 
 %changelog
+* Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 20080411-22
+- Verify the source tarball before unpacking it
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 20080411-22
 - Convert License tag to SPDX
 

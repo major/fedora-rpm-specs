@@ -19,7 +19,7 @@
 
 Name: fragments
 Version: 1.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Easy to use BitTorrent client which follows the GNOME HIG
 
 # The entire source code is GPLv3+ except:
@@ -32,6 +32,8 @@ Source1: %{transmission_url}/transmission/tarball/%{transmission_commit}#/transm
 Source2: %{transmission_url}/libnatpmp/tarball/%{libnatpmp_commit}#/libnatpmp-%{libnatpmp_shortcommit}.tar.gz
 Source3: %{transmission_url}/dht/tarball/%{dht_commit}#/dht-%{dht_shortcommit}.tar.gz
 Source4: %{transmission_url}/libutp/tarball/%{libutp_commit}#/libutp-%{libutp_shortcommit}.tar.gz
+# Cannot use %%patch because this package uses %%autosetup multiple times.
+Source5: 0001-Add-missing-declaration-for-tr_strcasestr.patch
 
 BuildRequires: cmake
 BuildRequires: desktop-file-utils
@@ -71,6 +73,11 @@ includes well thought-out features.
 %autosetup -n %{appname}-%{version} -D -T -a 2
 %autosetup -n %{appname}-%{version} -D -T -a 3
 %autosetup -n %{appname}-%{version} -D -T -a 4
+
+%dnl Workaround for multiple calls to %%autosetup.
+pushd transmission-transmission-*
+patch -p1 < %{SOURCE5}
+popd
 
 mv transmission-libnatpmp-%{libnatpmp_shortcommit}/* \
    transmission-transmission-%{transmission_shortcommit}/third-party/libnatpmp
@@ -132,6 +139,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 1.5-6
+- Apply upstream patch to fix C99 compatibility issue
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

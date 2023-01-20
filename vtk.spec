@@ -49,6 +49,9 @@ Source2: xorg.conf
 Patch0: vtk-libharu.patch
 # Fix issue with Mayavi
 Patch1: https://gitlab.kitware.com/vtk/vtk/-/merge_requests/9616.patch
+# Add missing includes for gcc 13
+# https://gitlab.kitware.com/vtk/vtk/-/issues/18782
+Patch2: vtk-include.patch
 
 URL: https://vtk.org/
 

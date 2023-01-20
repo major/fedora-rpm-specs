@@ -3,7 +3,7 @@
 
 Name: audacious
 Version: 4.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %global tar_ver %{version}
 
@@ -189,6 +189,9 @@ fi
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 12 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 4.2-2
 - Qt GUI requires qt5-qtsvg plugin.
 - Update to 4.2.

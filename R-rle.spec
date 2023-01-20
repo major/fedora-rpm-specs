@@ -4,7 +4,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          7%{?dist}
+Release:          8%{?dist}
 Summary:          Common Functions for Run-Length Encoded Vectors
 
 License:          GPLv3
@@ -70,6 +70,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/NEWS
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 0.9.2-7
 - rebuild for R 4.2.1
 - disable covr so it is easier to build

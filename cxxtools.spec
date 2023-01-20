@@ -1,6 +1,6 @@
 Name:           cxxtools
 Version:        3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A collection of general-purpose C++ classes
 Epoch:          1
 
@@ -81,6 +81,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 %{_includedir}/cxxtools/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Martin Gansser <martinkg@fedoraproject.org> - 1:3.0-6
 - Add %%{name}-%%{version}-timer.patch to fix (BZ#2113165)
 

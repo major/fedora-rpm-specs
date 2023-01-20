@@ -1,6 +1,6 @@
-%global DATE 20230115
-%global gitrev 7699a0a3101bf1315fb8e350ac718d1f7b3f7816
-%global gcc_version 13.0.0
+%global DATE 20230117
+%global gitrev fedc064ac31b465edcfd22884b94bbdd05312224
+%global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
 # %%{release}, append them after %%{gcc_release} on Release: line.
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.9%{?dist}
+Release: %{gcc_release}.1%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -287,8 +287,7 @@ Patch9: gcc13-Wno-format-security.patch
 Patch10: gcc13-rh1574936.patch
 Patch11: gcc13-d-shared-libphobos.patch
 Patch12: gcc13-pr107678.patch
-Patch13: gcc13-pr107608.patch
-Patch14: gcc13-pr108411.patch
+Patch13: gcc13-pr108411.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -380,6 +379,7 @@ including templates and exception handling.
 Summary: GNU Standard C++ Library
 Autoreq: true
 Requires: glibc >= 2.10.90-7
+BuildRequires: tzdata >= 2017c
 Requires: tzdata >= 2017c
 
 %description -n libstdc++
@@ -863,8 +863,7 @@ so that there cannot be any synchronization problems.
 %endif
 %patch11 -p0 -b .d-shared-libphobos~
 %patch12 -p0 -b .pr107678~
-%patch13 -p0 -b .pr107608~
-%patch14 -p0 -b .pr108411~
+%patch13 -p0 -b .pr108411~
 
 %patch50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -928,7 +927,7 @@ OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-flto=auto//g;s/-flto//g;s/-ffat-lto-object
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-m64//g;s/-m32//g;s/-m31//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-mfpmath=sse/-mfpmath=sse -msse2/g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/ -pipe / /g'`
-OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-fno-omit-frame-pointer //g;s/-mbackchain //g;s/-mno-omit-leaf-frame-pointer //g'`
+OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-fno-omit-frame-pointer//g;s/-mbackchain//g;s/-mno-omit-leaf-frame-pointer//g'`
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-Werror=format-security/-Wformat-security/g'`
 %ifarch sparc
 OPT_FLAGS=`echo $OPT_FLAGS|sed -e 's/-mcpu=ultrasparc/-mtune=ultrasparc/g;s/-mcpu=v[78]//g'`
@@ -1095,7 +1094,7 @@ CONFIGURE_OPTS="\
 %endif
 %endif
 %ifarch ppc64le
-%if 0%{?rhel} == 9
+%if 0%{?rhel} >= 9
 	--with-cpu-32=power9 --with-tune-32=power9 --with-cpu-64=power9 --with-tune-64=power9 \
 %else
 	--with-cpu-32=power8 --with-tune-32=power8 --with-cpu-64=power8 --with-tune-64=power8 \
@@ -1130,7 +1129,7 @@ CONFIGURE_OPTS="\
 %if 0%{?rhel} >= 7
 %if 0%{?rhel} > 7
 %if 0%{?rhel} > 8
-%if 0%{?rhel} == 9
+%if 0%{?rhel} >= 9
 	--with-arch=z14 --with-tune=z15 \
 %else
 	--with-arch=z13 --with-tune=arch13 \
@@ -1142,10 +1141,14 @@ CONFIGURE_OPTS="\
 	--with-arch=z196 --with-tune=zEC12 \
 %endif
 %else
+%if 0%{?fedora} >= 38
+	--with-arch=z13 --with-tune=z14 \
+%else
 %if 0%{?fedora} >= 26
 	--with-arch=zEC12 --with-tune=z13 \
 %else
 	--with-arch=z9-109 --with-tune=z10 \
+%endif
 %endif
 %endif
 	--enable-decimal-float \
@@ -3457,5 +3460,13 @@ end
 %endif
 
 %changelog
+* Tue Jan 17 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.1
+- update from trunk
+  - PRs c++/105593, fortran/108421, go/108426, ipa/106077, libstdc++/108288,
+	libstdc++/108413, other/108413, target/55522, target/96795,
+	target/105980, target/107515, target/108272, tree-optimization/94793,
+	tree-optimization/106523
+- don't build ppc64le unwinder with -fno-omit-frame-pointer (#2161595)
+
 * Sun Jan 15 2023 Jakub Jelinek <jakub@redhat.com> 13.0.0-0.9
 - new package

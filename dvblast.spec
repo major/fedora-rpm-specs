@@ -1,6 +1,6 @@
 Name:           dvblast
 Version:        3.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Simple and powerful streaming application
 
 License:        GPLv2+
@@ -57,6 +57,9 @@ install -pm 0755 extra/dvbiscovery/dvbiscovery.sh %{buildroot}%{_bindir}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

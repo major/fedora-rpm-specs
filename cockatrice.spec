@@ -16,7 +16,7 @@ Supplements:	(%{name} = %{version}-%{release} and langpacks-%{1})\
 
 Name:		cockatrice
 Version:	2.8.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	A cross-platform virtual tabletop software for multi-player card games
 
 # * Public Domain (cockatrice/resources/countries/*.svg)
@@ -159,6 +159,9 @@ rm %{buildroot}%{_datadir}/oracle/translations/oracle_en@pirate.qm
 %{_datadir}/applications/servatrice.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 10 2022 Link Dupont <linkdupont@fedoraproject.org> - 2.8.0-7
 - Split servatrice into separate subpackage
 

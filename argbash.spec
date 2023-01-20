@@ -1,6 +1,6 @@
 Name: argbash
 Version: 2.10.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Bash argument parsing code generator
 License: BSD
 URL: https://argbash.io
@@ -68,6 +68,9 @@ cd resources && make check
 %{_datarootdir}/bash-completion/completions/argbash
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

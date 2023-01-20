@@ -7,7 +7,7 @@
 
 Name:           coffee-script
 Version:        1.10.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A programming language that transcompiles to JavaScript
 License:        MIT
 URL:            http://coffeescript.org/
@@ -150,6 +150,9 @@ end
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

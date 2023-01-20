@@ -3,7 +3,7 @@
 
 Name:           daggy
 Version:        2.1.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Data Aggregation Utility and developer library
 
 License:        MIT
@@ -59,6 +59,9 @@ daggy --version
 %{_includedir}/DaggyCore
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 2.1.3-2
 - Rebuild for yaml-cpp 0.7.0.
 

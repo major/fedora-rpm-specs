@@ -2,7 +2,7 @@
 
 Name:           cdi-api
 Version:        2.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        CDI API
 License:        ASL 2.0
 URL:            https://github.com/eclipse-ee4j/cdi
@@ -49,6 +49,9 @@ rm -rf api/src/main/java/javax/enterprise/{context/,inject/spi/,inject/se/,injec
 %license LICENSE.txt
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

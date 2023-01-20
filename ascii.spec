@@ -1,6 +1,6 @@
 Name:           ascii
 Version:        3.18
-Release:        15%{?dist}
+Release:        16%{?dist}
 URL:            http://www.catb.org/~esr/ascii/
 Source0:        http://www.catb.org/~esr/ascii/ascii-3.18.tar.gz
 BuildRequires:  xmlto, gcc
@@ -37,6 +37,9 @@ cp ascii.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %license COPYING
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Didier Fabert <didier.fabert@gmail.com> - 3.18-15
 - Fix license
 

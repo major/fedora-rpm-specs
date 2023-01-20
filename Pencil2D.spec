@@ -2,7 +2,7 @@
 
 Name:           Pencil2D
 Version:        0.6.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Animation/drawing software
 License:        GPLv2
 URL:            https://github.com/pencil2d/pencil
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

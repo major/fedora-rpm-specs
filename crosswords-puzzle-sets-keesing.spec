@@ -19,6 +19,7 @@ BuildRequires:  glib2-devel
 BuildRequires:  json-glib-devel
 
 Requires:       crosswords
+Supplements:    crosswords
 
 # For the downloader script
 Requires:       python3

@@ -3,7 +3,7 @@
 
 Name:           %{srcname}
 Version:        1.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        GPLv2 or GPLv3
@@ -45,6 +45,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/pyqtbuild/bundle/dlls
 %{python3_sitelib}/PyQt_builder-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 %global srcname docstring-parser
 
 Name:           python-%{srcname}
-Version:        0.14.1
-Release:        2%{?dist}
+Version:        0.15
+Release:        1%{?dist}
 Summary:        Parse Python docstrings
 License:        MIT
 URL:            https://github.com/rr-/docstring_parser
-Source:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Wed Jan 18 2023 Piotr Szubiakowski <pszubiak@eso.org> - 0.15-1
+- Update to 0.15
+
 * Wed Jul 20 2022 Piotr Szubiakowski <pszubiak@eso.org> - 0.14.1-2
 - Apply code review fixes
 

@@ -5,7 +5,7 @@
 Summary: R module, Basic wavelet routines for 1,2 and 3-dimensional signal processing
 Name: R-%{packname}
 Version: 1.8.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Source0: ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{version}.tar.gz
 URL: http://waveslim.r-forge.r-project.org/
@@ -40,6 +40,9 @@ cd ..; R CMD INSTALL %{packname} -l %{buildroot}%{_libdir}/R/library
 %{_libdir}/R/library/%{packname}
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 1.8.4-1
 - update to 1.8.4
 - rebuild for R 4.2.1

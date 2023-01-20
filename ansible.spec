@@ -31,7 +31,7 @@ Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
 Version:        7.1.0
 %global uversion %(tr -d '~' <<< %{version})
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # In addition to GPL-3.0-or-later, the following licenses apply.
 # License text that solely exists in file headers were not considered.
@@ -213,6 +213,9 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 %{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Maxwell G <gotmax@e.email> - 7.1.0-1
 - Update to 7.1.0.
 

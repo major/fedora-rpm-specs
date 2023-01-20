@@ -1,7 +1,7 @@
 
 Name:           colord-kde
 Version:        22.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Colord support for KDE
 
 License:        GPLv2+
@@ -65,6 +65,9 @@ KDE support for colord including KDE Daemon module and System Settings module.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.1-1
 - 22.12.1
 

@@ -16,8 +16,8 @@
 %global release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 
 Name:           mingw-qt6-%{qt_module}
-Version:        6.4.1
-Release:        2%{?dist}
+Version:        6.4.2
+Release:        1%{?dist}
 Summary:        Qt6 for Windows - Qt5Compat component
 
 License:        LGPL-3.0-only OR GPL-2.0-only
@@ -125,6 +125,9 @@ Fedora Windows cross-compiler.
 
 
 %changelog
+* Wed Jan 18 2023 Sandro Mani <manisandro@gmail.com> - 6.4.2-1
+- Update to 6.4.2
+
 * Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 6.4.1-2
 - Rebuild (mingw-icu)
 

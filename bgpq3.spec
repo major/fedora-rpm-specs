@@ -1,6 +1,6 @@
 Name:           bgpq3
 Version:        0.1.36.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Automate BGP filter generation based on routing database information
 
 License:        BSD
@@ -35,6 +35,9 @@ filter generation for your routers? Well, with BGPQ3 it's easy.
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.36.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.36.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

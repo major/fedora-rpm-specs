@@ -3,7 +3,7 @@
 Summary:           IRC to other chat networks gateway
 Name:              bitlbee
 Version:           3.6
-Release:           9%{?dist}
+Release:           10%{?dist}
 License:           GPLv2+ and MIT
 URL:               https://www.bitlbee.org/
 Source0:           https://get.bitlbee.org/src/%{name}-%{version}.tar.gz
@@ -133,6 +133,9 @@ mkdir -p $RPM_BUILD_ROOT{%{_localstatedir}/lib,%{_libdir}}/%{name}/
 %endif
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 31 2022 Robert Scheck <robert@fedoraproject.org> 3.6-9
 - Added sysusers.d file to achieve user() and group() provides
 

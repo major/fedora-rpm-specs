@@ -6,7 +6,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          10%{?dist}
+Release:          11%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}-%{packrel}.tar.gz
 License:          GPLv2+
 URL:              http://cran.r-project.org/web/packages/%{packname}/index.html
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/R/library/%{packname}/*.bat
 %{_datadir}/R/library/%{packname}/RunSnow*
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 0.4.4-1
 - update to 0.4-4
 - rebuild for R 4.2.1

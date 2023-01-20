@@ -1,6 +1,6 @@
 Name: cfitsio
 Version: 4.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Library for manipulating FITS data files
 
 License: MIT
@@ -127,6 +127,9 @@ chmod 755 %{buildroot}%{_bindir}/f{,un}pack
 %{_bindir}/funpack
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Kalev Lember <klember@redhat.com> - 4.2.0-2
 - Use make_install macro
 

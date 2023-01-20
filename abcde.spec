@@ -1,6 +1,6 @@
 Name:           abcde
 Version:        2.9.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Better CD Encoder
 
 # cddb-tool is Public Domain, otherwise GPLv2+
@@ -80,6 +80,9 @@ install -pm 755 cue2discid $RPM_BUILD_ROOT%{_bindir}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:             R-%{packname}
 Version:          1.74.0
-Release:          1%{dist}
+Release:          2%{dist}
 Summary:          Bioconductor tools to support tcltk widgets
 License:          LGPLv2+
 URL:              http://bioconductor.org/packages/release/bioc/html/widgetTools.html
@@ -45,6 +45,9 @@ test -d %{packname}/src && (cd %{packname}/src; rm -f *.o *.so)
 %{_datadir}/R/library/%{packname}/help
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.74.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 1.74.0-1
 - update to 1.74.0
 - rebuild for R 4.2.1

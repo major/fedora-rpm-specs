@@ -17,7 +17,7 @@
 
 Name:           cockpit-podman
 Version:        60
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPLv2+
 URL:            https://github.com/cockpit-project/cockpit-podman
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 60-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Packit <hello@packit.dev> - 60-1
 - Patternfly update and other maintenance
 

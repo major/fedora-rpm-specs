@@ -1,6 +1,6 @@
 Name:           clifm
 Version:        1.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Shell-like, command line terminal file manager
 
 # source is pretty evently split between these
@@ -70,6 +70,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Jonathan Wright <jonathan@almalinux.org> - 1.7-2
 - adjust description per upstream request
 - https://github.com/leo-arch/clifm/issues/154#issuecomment-1233102727

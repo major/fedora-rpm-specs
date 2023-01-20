@@ -3,7 +3,7 @@
 
 Name:           apx
 Version:        0.1
-Release:        33.%{date0}git%{?dist}
+Release:        34.%{date0}git%{?dist}
 Summary:        QIX clone, cut into and claim the square area
 
 License:        MIT
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-34.20160804git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-33.20160804git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

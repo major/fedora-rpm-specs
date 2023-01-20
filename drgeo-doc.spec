@@ -1,7 +1,7 @@
 Summary: Html documentation for drgeo
 Name: drgeo-doc
 Version: 1.6
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: GFDL
 URL: http://www.ofset.org/drgeo
 
@@ -32,6 +32,9 @@ mkdir -p %{buildroot}%{_datadir}/drgeo/help/{fr,es,eu,it,nl}/figures/
 %{_datadir}/drgeo/help
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

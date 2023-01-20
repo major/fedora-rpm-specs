@@ -1,7 +1,7 @@
 Summary: Convert filename encodings
 Name: convmv
 Version: 2.05
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: GPLv2 or GPLv3
 URL: http://j3e.de/linux/convmv
@@ -45,6 +45,9 @@ make PREFIX=%{_prefix} DESTDIR=%{buildroot} install
 %{_mandir}/man*/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

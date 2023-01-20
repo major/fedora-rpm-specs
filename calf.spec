@@ -1,6 +1,6 @@
 Name:		calf
 Version:	0.90.3
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Audio plugins pack
 # The jackhost code is GPLv2+ 
 # The GUI code is LGPLv2+
@@ -150,6 +150,9 @@ ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 %{_libdir}/dssi/%{name}.so
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.90.3-13
 - Drop ladspa, BZ 2064061
 

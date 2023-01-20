@@ -1,6 +1,6 @@
 Name:           abi-compliance-checker
 Version:        2.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        An ABI Compliance Checker
 
 License:        GPLv2+ or LGPLv2+
@@ -57,6 +57,9 @@ perl Makefile.pl -install --prefix=%{_prefix} --destdir=%{buildroot}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

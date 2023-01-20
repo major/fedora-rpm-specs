@@ -1,6 +1,6 @@
 Name:          arx-libertatis
 Version:       1.2.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Cross-platform, open source port of the Arx Fatalis RPG
 
 # Main source - GPLv3+
@@ -84,5 +84,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/arx-libertatis.deskto
 %{_datadir}/blender/scripts/addons/arx
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 13 2022 Jonathan Schleifer <js@nil.im> - 1.2.1-1
 - Initial package

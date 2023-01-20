@@ -3,7 +3,7 @@
 Summary: C++/Qt4 wrapper around the ALSA library sequencer interface
 Name:    drumstick0
 Version: 0.5.0
-Release: 32%{?dist}
+Release: 33%{?dist}
 #define svn svn
 
 License: GPLv2+
@@ -78,6 +78,9 @@ rm -fr $RPM_BUILD_ROOT%{_bindir} $RPM_BUILD_ROOT%{_datadir}/icons \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

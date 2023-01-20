@@ -10,7 +10,7 @@
 
 Name:             R-%{packname}
 Version:          3.4.0
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Draw Geographical Maps
 
 License:          GPLv2
@@ -81,6 +81,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Tom Callaway <spot@fedoraproject.org> - 3.4.0-1
 - update to 3.4.0
 - rebuild for R 4.2.1

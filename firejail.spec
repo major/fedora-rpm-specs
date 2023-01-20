@@ -3,7 +3,7 @@
 # Originally created by Firejail authors
 
 Name: firejail
-Version: 0.9.70
+Version: 0.9.72
 Release: 1%{?dist}
 Summary: Linux namespaces sandbox program
 BuildRequires: gcc make python3-devel
@@ -12,7 +12,7 @@ Requires: xdg-dbus-proxy
 
 # spec released under GPLv2+, contacted upstream whether it can be 
 # released under MIT
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://github.com/netblue30/firejail
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -39,6 +39,7 @@ for f in \
 do
     sed -i "1 s/^.*$/\#\!\/usr\/bin\/python3/" "$f";
 done
+rm %{buildroot}%{_datadir}/gtksourceview-5/language-specs/firejail-profile.lang
 
 %files
 %doc README RELNOTES CONTRIBUTING.md
@@ -63,6 +64,10 @@ done
 %config(noreplace) %{_sysconfdir}/%{name}
 
 %changelog
+* Tue Jan 17 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.72-1
+- Update to v0.9.72
+- Migrate License tag to SPDX
+
 * Tue Sep 06 2022 Maxwell G <gotmax@e.email> - 0.9.70-1
 - Update to 0.9.70 (rhbz#2042724).
 - Mitigates CVE-2022-31214 (rhbz#2095070).

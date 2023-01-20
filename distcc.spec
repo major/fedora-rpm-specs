@@ -2,7 +2,7 @@
 
 Name:       distcc
 Version:    3.3.5
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    Distributed C/C++ compilation
 License:    GPLv2+
 URL:        https://github.com/distcc/distcc
@@ -139,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/*
 %dir /usr/lib/gcc-cross
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.3.5-11
 - BR setuptools.
 
