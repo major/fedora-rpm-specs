@@ -8,7 +8,7 @@
 
 Name:          marisa
 Version:       0.2.4
-Release:       58%{?dist}
+Release:       59%{?dist}
 Summary:       Static and spece-efficient trie data structure library
 
 License:       BSD or LGPLv2+
@@ -223,6 +223,9 @@ rm -f $RPM_BUILD_ROOT%{perl_vendorarch}/sample.pl
 %{ruby_vendorarchdir}/marisa.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.4-58
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

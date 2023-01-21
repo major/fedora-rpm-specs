@@ -7,7 +7,7 @@
 
 Name:           ocaml-%{libname}
 Version:        1.3.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        High-level and functional interface to the Format module
 
 License:        BSD
@@ -98,6 +98,9 @@ dune runtest
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

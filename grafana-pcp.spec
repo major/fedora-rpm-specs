@@ -16,7 +16,7 @@ end}
 
 Name:           grafana-pcp
 Version:        5.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Performance Co-Pilot Grafana Plugin
 License:        ASL 2.0
 URL:            https://github.com/performancecopilot/grafana-pcp
@@ -190,6 +190,9 @@ yarn test
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 27 2022 Andreas Gerstmayr <agerstmayr@redhat.com> 5.1.1-1
 - update to 5.1.1 tagged upstream community sources, see CHANGELOG
 - resolve CVE-2022-27664 golang: net/http: handle server errors after sending GOAWAY

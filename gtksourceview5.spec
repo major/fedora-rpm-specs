@@ -5,7 +5,7 @@
 
 Name:           gtksourceview5
 Version:        5.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Source code editing widget
 
 License:        LGPLv2+
@@ -95,6 +95,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 27 2022 Kalev Lember <klember@redhat.com> - 5.6.1-2
 - Rebuild to fix sysprof-capture symbols leaking into libraries consuming it
 

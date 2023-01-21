@@ -15,9 +15,9 @@
 Name:           libmatekbd
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        3%{?dist}
+Release:        4%{?dist}
 %else
-Release:        0.16%{?git_rel}%{?dist}
+Release:        0.17%{?git_rel}%{?dist}
 %endif
 Summary:        Libraries for mate kbd
 License:        LGPLv2+
@@ -99,6 +99,9 @@ find %{buildroot} -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

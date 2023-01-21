@@ -1,8 +1,8 @@
 Name:		Judy
 Version:	1.0.5
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	General purpose dynamic array
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 URL:		http://sourceforge.net/projects/judy/
 Source0:	http://downloads.sf.net/judy/Judy-%{version}.tar.gz
 Source1:	README.Fedora
@@ -87,6 +87,9 @@ cd -
 %{_mandir}/man3/J*.3*
 
 %changelog
+* Thu Jan 19 2023 Paul Howarth <paul@city-fan.org> - 1.0.5-31
+- Use SPDX-format license tag
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

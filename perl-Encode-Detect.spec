@@ -1,6 +1,6 @@
 Name: perl-Encode-Detect
 Version: 1.01
-Release: 40%{?dist}
+Release: 41%{?dist}
 Summary: Encode::Encoding subclass that detects the encoding of data
 
 License: MPLv1.1 or GPLv2+ or LGPLv2+
@@ -50,6 +50,9 @@ find "${RPM_BUILD_ROOT}" -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/Encode::Detect::Detector.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

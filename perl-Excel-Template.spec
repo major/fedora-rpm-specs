@@ -1,6 +1,6 @@
 Name:           perl-Excel-Template
 Version:        0.34
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Create Excel files from templates
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Excel-Template
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

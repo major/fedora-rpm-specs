@@ -38,7 +38,7 @@ Consul provides several key features:
 %global godocs          INTERNALS.md README.md CHANGELOG.md README-api.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Solution to connect and configure applications across dynamic, distributed infrastructure
 
 # Upstream license specification: MPL-2.0
@@ -85,6 +85,9 @@ mv api/README.md README-api.md
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Sérgio Basto <sergio@serjux.com> - 1.18.0-1
 - Update golang-github-hashicorp-consul-api to 1.18.0 (#1918591)
 - Added tag api/v%%{version}

@@ -36,7 +36,7 @@ ExcludeArch: ppc64
 
 Name:           gomtree
 Version:        0.4.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Go CLI tool for mtree support
 License:        BSD
 URL:            https://%{provider_prefix}
@@ -180,6 +180,9 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/Godeps/_workspace:%{gopath}
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

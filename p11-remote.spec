@@ -2,7 +2,7 @@
 
 Name:           p11-remote
 Version:        0.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Remoting of PKCS#11 modules across sessions
 
 License:        BSD
@@ -65,6 +65,9 @@ systemctl --no-reload preset --global p11-kit-remote.socket >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

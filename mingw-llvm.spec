@@ -14,7 +14,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       15.0.7
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       LLVM for MinGW
 
 License:       NCSA
@@ -249,6 +249,9 @@ install -Dpm 0755 %{_vpath_builddir}/bin/llvm-tblgen %{buildroot}%{_prefix}/%{mi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 15 2023 Sandro Mani <manisandro@gmail.com> - 15.0.7-1
 - Update to 15.0.7
 

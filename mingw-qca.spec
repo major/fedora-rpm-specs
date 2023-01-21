@@ -4,7 +4,7 @@
 
 Name:           mingw-%{pkgname}
 Version:        2.3.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        MinGW Windows Qt Cryptographic Architecture
 BuildArch:      noarch
 
@@ -136,6 +136,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 20 2022 Sandro Mani <manisandro@gmail.com> - 2.3.4-6
 - Install pkgconfig file
 

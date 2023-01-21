@@ -20,7 +20,7 @@ PostgreSQL driver and toolkit for Go.}
 %global godocs          examples CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        PostgreSQL driver and toolkit for Go
 
 License:        MIT
@@ -66,6 +66,9 @@ sed -i 's|github.com/jackc/pgx|github.com/jackc/pgx-3|' $(find . -iname "*.go" -
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

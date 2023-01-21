@@ -10,7 +10,7 @@
 
 Name:           mathicgb
 Version:        1.0
-Release:        31.%{gitdate}.git%{shorttag}%{?dist}
+Release:        32.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        Groebner basis computations
 
 License:        GPL-2.0-or-later
@@ -100,6 +100,9 @@ make check
 %{_libdir}/lib%{name}.so.0*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-32.20220621.gitf3a05da
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.0-31.20220621.gitf3a05da
 - Convert License tag to SPDX
 

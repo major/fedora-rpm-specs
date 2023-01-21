@@ -3,7 +3,7 @@
 
 Name:           ocaml-obuild
 Version:        0.1.10
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Simple package build system for OCaml
 
 License:        BSD
@@ -64,6 +64,9 @@ help2man \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.10-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

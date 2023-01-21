@@ -1,6 +1,6 @@
 Name:		libpaper
 Version:	2.0.4
-Release:	2%{?dist}
+Release:	3%{?dist}
 # Needed to replace separate paper package
 Epoch:		1
 Summary:	Library and tools for handling papersize
@@ -108,6 +108,9 @@ install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 %{_mandir}/man5/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 9 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.4-2
 - move /etc/paperspecs to libpaper to ensure proper functionality in cases where paper subpackage
   is not installed

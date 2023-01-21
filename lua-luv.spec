@@ -44,7 +44,7 @@ BuildRequires:  lua5.1-compat53
 
 Name:           lua-luv
 Version:        %{real_version}.%{extra_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        ASL 2.0
 Summary:        Bare libuv bindings for lua
@@ -295,6 +295,9 @@ rm luv.so
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 09 2022 Andreas Schneider <asn@redhat.com> - 1.44.2.1-1
 - Update to version 1.44.2.1
   * https://github.com/luvit/luv/releases/tag/1.44.2-1

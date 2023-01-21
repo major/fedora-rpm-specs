@@ -1,6 +1,6 @@
 Name:		libindicator
 Version:	12.10.1
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Shared functions for Ayatana indicators
 
 License:	GPLv3
@@ -215,6 +215,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %{_libexecdir}/indicator-loader3
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.10.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 12.10.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

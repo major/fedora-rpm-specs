@@ -3,7 +3,7 @@
 Summary:        Python tool for decrypting MS Office files with passwords or other keys
 Name:           msoffcrypto-tool
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 URL:            https://github.com/nolze/msoffcrypto-tool
 Source:         https://github.com/nolze/msoffcrypto-tool/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -64,6 +64,9 @@ pytest-3
 %license LICENSE.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 26 2022 Michal Ambroz <rebus _AT seznam.cz> 5.0.0-1
 - Upgrade to 5.0.0
 - migrate the spec to poetry / pyproject-rpm-macros

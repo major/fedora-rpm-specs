@@ -1,6 +1,6 @@
 Name: metacity
 Version: 3.46.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Unobtrusive window manager
 URL: https://wiki.gnome.org/Projects/Metacity
 Source0: https://download.gnome.org/sources/metacity/3.46/metacity-%{version}.tar.xz
@@ -118,6 +118,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.46.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 04 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 3.46.0-2
 - build: Minor build update to conform current Fedora guidelines
   Mostly cosmetic. It also fixes some warnings during build process.

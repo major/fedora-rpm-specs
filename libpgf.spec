@@ -1,6 +1,6 @@
 Name:           libpgf
 Version:        6.14.12
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        PGF (Progressive Graphics File) library
 
 License:        LGPLv2+
@@ -81,6 +81,9 @@ rm -fv %{buildroot}%{_libdir}/libpgf.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.14.12-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.14.12-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

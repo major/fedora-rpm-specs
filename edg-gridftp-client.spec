@@ -1,6 +1,6 @@
 Name:           edg-gridftp-client
 Version:        1.2.9.2
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Command line clients to GridFTP libraries
 
 License:        EU Datagrid
@@ -80,6 +80,9 @@ rm -rf %{buildroot}%{_defaultdocdir}
 %doc LICENSE README
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9.2-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

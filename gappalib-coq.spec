@@ -14,7 +14,7 @@
 
 Name:           gappalib-coq
 Version:        1.5.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Coq support library for gappa
 
 License:        LGPL-3.0-or-later
@@ -100,6 +100,9 @@ remake check
 %{gappadir}/*.v
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 1.5.2-5
 - Rebuild for coq 8.16.1
 

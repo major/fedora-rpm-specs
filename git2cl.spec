@@ -1,6 +1,6 @@
 Name:           git2cl
 Version:        2.0
-Release:        0.22.git8373c9f%{?dist}
+Release:        0.23.git8373c9f%{?dist}
 Summary:        Converts git logs to GNU style ChangeLog format
 
 License:        GPLv2+
@@ -41,6 +41,9 @@ install -p -m 755 git2cl $RPM_BUILD_ROOT%{_bindir}/git2cl
 %doc README COPYING
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.23.git8373c9f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.22.git8373c9f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

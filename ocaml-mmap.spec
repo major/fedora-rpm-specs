@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-mmap
 Version:        1.1.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        File mapping functionality
 
 %global libname mmap
@@ -66,6 +66,9 @@ dune runtest
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

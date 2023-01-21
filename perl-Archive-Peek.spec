@@ -1,6 +1,6 @@
 Name:		perl-Archive-Peek
 Version:	0.37
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Peek into archives without extracting them
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Archive-Peek
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/Archive::Peek.3*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.37-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

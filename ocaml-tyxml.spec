@@ -6,7 +6,7 @@
 
 Name:           ocaml-tyxml
 Version:        4.5.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Build valid HTML and SVG documents
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -147,6 +147,9 @@ developing applications that use %{name}-ppx.
 %files ppx-devel -f .ofiles-tyxml-ppx-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 4.5.0-14
 - Rebuild for ocaml-ppxlib 0.28.0
 

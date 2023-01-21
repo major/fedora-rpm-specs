@@ -11,7 +11,7 @@
 
 %if 0%{?dev_release}
 %global postrelease dev
-%global release 10
+%global release 11
 %else
 %global postrelease 0
 %global release 3
@@ -123,6 +123,9 @@ py.test-3 -vv tests
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

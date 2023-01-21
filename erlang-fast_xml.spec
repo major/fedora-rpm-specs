@@ -4,7 +4,7 @@
 
 Name: erlang-%{srcname}
 Version: 1.1.49
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: ASL 2.0
 Summary: Fast Expat based Erlang XML parsing and manipulation library
 URL:     https://github.com/processone/fast_xml/
@@ -61,6 +61,9 @@ install -p -D -m 755 priv/lib/* --target-directory=$RPM_BUILD_ROOT%{_erllibdir}/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.49-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Peter Lemenkov <lemenkov@gmail.com> - 1.1.49-1
 - Rebuild for Erlang 25
 - Ver. 1.1.49

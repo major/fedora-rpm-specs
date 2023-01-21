@@ -1,6 +1,6 @@
 Name:           fftw2
 Version:        2.1.5
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Fast Fourier Transform library (version 2)
 %define         real_name fftw
 
@@ -115,6 +115,9 @@ rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 %{_libdir}/*.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 17 2022 Florian Weimer <fweimer@redhat.com> - 2.1.5-44
 - Avoid implicit function declaration during configure (#2143573)
 

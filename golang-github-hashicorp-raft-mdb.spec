@@ -18,7 +18,7 @@ implementation of both a LogStore and StableStore.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.25%{?dist}
+Release:        0.26%{?dist}
 Summary:        LMDB backend for Raft
 
 # Upstream license specification: MPL-2.0
@@ -66,6 +66,9 @@ end
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0-0.25
 - Rebuild to fix FTBFS
 

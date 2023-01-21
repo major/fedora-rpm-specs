@@ -6,7 +6,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       11.9.0
-Release:       7%{?commit:.git%{shortcommit}}%{?dist}
+Release:       8%{?commit:.git%{shortcommit}}%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD and GPLv3+ and ASL 2.0
@@ -98,6 +98,9 @@ rm -rf %{buildroot}%{mingw64_includedir}/SPIRV
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.9.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 11.9.0-7
 - Update for 1.3.231.1 sdk
 

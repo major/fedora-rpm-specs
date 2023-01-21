@@ -3,7 +3,7 @@
 
 Name:           nmstate
 Version:        2.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Declarative network manager API
 License:        LGPLv2+
 URL:            https://github.com/%{srcname}/%{srcname}
@@ -210,4 +210,7 @@ popd
 %ghost %{cargo_registry}/%{name}-%{version}/Cargo.toml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 %autochangelog

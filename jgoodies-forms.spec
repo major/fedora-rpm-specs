@@ -2,7 +2,7 @@
 
 Name:           jgoodies-forms
 Version:        1.9.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Framework to lay out and implement elegant Swing panels in Java
 
 License:        BSD
@@ -65,6 +65,9 @@ cp %{SOURCE1} pom.xml
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

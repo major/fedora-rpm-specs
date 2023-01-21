@@ -2,7 +2,7 @@
 
 Name:           icon
 Version:        9.5.20i
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Icon programming language
 License:        Public Domain
 URL:            https://www2.cs.arizona.edu/icon/
@@ -110,6 +110,9 @@ install -p -m0755 bin/xgamma %{buildroot}%{_bindir}/icon-xgamma
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.20i-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.20i-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

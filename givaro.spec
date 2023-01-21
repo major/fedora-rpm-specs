@@ -20,20 +20,25 @@
 Name:		givaro
 Version:	4.1.1
 %global so_version 9
-Release:	9%{?dist}
+Release:	11%{?dist}
 Summary:	C++ library for arithmetic and algebraic computations
 
-# The entire source is CeCILL-B except for src/kernel/recint/reclonglong.h,
-# which is LGPLv3+.
-License:	CeCILL-B and LGPLv3+
+# The entire source is CECILL-B except for src/kernel/recint/reclonglong.h,
+# which is LGPL-3.0-or-later, and various Autotools build-system files, which
+# do not contribute to the licenses of the binary RPMs.
+License:	CECILL-B AND LGPL-3.0-or-later
 URL:		https://casys.gricad-pages.univ-grenoble-alpes.fr/givaro/
 Source0:	https://github.com/linbox-team/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Fix a memory leak.  The original code creates a temporary object, then does
 # not dispose of it.  This change prevents creation of the temporary.
 # https://github.com/linbox-team/givaro/pull/134
-Patch0:		%{name}-mem-leak.patch
+Patch:		%{name}-mem-leak.patch
 # Sagemath patch to fix issues with long long and flint
-Patch1:		%{name}-26932_recintvsflint_longlong.patch
+Patch:		%{name}-26932_recintvsflint_longlong.patch
+# Add missing #include <cstdint> for (u)int64_t
+# Fixes failure to compile on GCC 13.
+# https://github.com/linbox-team/givaro/pull/218
+Patch:          https://github.com/linbox-team/%{name}/pull/218.patch
 
 %if %{with doc_pdf}
 BuildRequires:	doxygen
@@ -41,6 +46,9 @@ BuildRequires:	doxygen-latex
 BuildRequires:  tex-xetex-bin
 BuildRequires:  /usr/bin/xindy
 BuildRequires:	tex(stmaryrd.sty)
+# LaTeX errors due to missing dependency on texlive-wasy
+# https://bugzilla.redhat.com/show_bug.cgi?id=2162170
+BuildRequires:  texlive-wasy
 %endif
 
 BuildRequires:	gcc-c++
@@ -193,6 +201,14 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 
 
 %changelog
+* Thu Jan 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-11
+- Update License to SPDX
+- Work around missing dependency on texlive-wasy
+- Fix missing include for GCC 13; stop numbering patches
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-9
 - Build docs as PDF instead of HTML due to guidelines issues
 - Move large documentation to a new -devel-doc subpackage

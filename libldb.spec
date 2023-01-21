@@ -25,7 +25,7 @@
 
 Name: libldb
 Version: 2.6.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A schema-less, ldap like, API and database
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
@@ -222,6 +222,9 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man3/_*
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 08 2022 Guenther Deschner <gdeschner@redhat.com> - 2.6.1-1
 - rhbz#2114621 - libldb-2.6.1 is available
 

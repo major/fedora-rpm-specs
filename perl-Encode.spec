@@ -8,7 +8,7 @@ Version:        %{cpan_version}
 # perl-encoding sub-package has independent version which does not change
 # often and consecutive builds would clash on perl-encoding NEVRA. This is the
 # same case as in perl.spec.
-Release:        492%{?dist}
+Release:        493%{?dist}
 Summary:        Character encodings in Perl
 # ucm:          UCD
 # bin/encguess: Artistic 2.0
@@ -214,6 +214,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.19-493
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Jitka Plesnikova <jplesnik@redhat.com> - 4:3.19-492
 - Increase release to solve conflicts with sub-package perl-encoding in the
   module perl-bootstrap

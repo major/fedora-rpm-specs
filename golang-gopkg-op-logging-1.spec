@@ -19,7 +19,7 @@ different log levels per backend and logger.}
 %global godocs          examples CONTRIBUTORS README.md
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Golang logging library
 
 # Upstream license specification: BSD-3-Clause
@@ -53,6 +53,9 @@ Patch:          0001-Fix-function-name-query-for-callpath.patch
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

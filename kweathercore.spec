@@ -8,7 +8,7 @@
 
 Name:           kweathercore
 Version:        0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPLv2+
 Summary:        Library to facilitate retrieval of weather information
 Url:            https://invent.kde.org/libraries/kweathercore
@@ -88,6 +88,9 @@ BuildArch: noarch
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Justin Zobel <justin@1707.io> - 0.7-1
 - Update to 0.7
 

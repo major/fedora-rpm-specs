@@ -1,6 +1,6 @@
 Name:           lightning
 Version:        2.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for generating assembly code on run time
 License:        LGPLv3+
 URL:            http://www.gnu.org/software/lightning/lightning.html
@@ -59,6 +59,9 @@ make check V=1 CFLAGS="-g -fno-strict-aliasing -fPIC"
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 05 2022 Antonio Trande <sagitter@fedoraproject.org> 2.1.4-1
 - Release 2.1.4
 

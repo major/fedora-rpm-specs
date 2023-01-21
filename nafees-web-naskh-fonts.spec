@@ -5,7 +5,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Nafees Web font for writing Urdu in the Naskh script 
 
 License:        Bitstream Vera
@@ -71,6 +71,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

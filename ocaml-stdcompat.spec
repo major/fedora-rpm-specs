@@ -2,7 +2,7 @@
 
 Name:           ocaml-stdcompat
 Version:        19
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Compatibility module for the OCaml standard library
 
 License:        BSD-2-Clause
@@ -77,6 +77,9 @@ make test
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 19-4
 - Convert License tag to SPDX
 

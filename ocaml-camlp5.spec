@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-camlp5
 Version:        8.00.03
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Classical version of camlp4 OCaml preprocessor
 
 License:        BSD
@@ -106,6 +106,9 @@ popd
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.00.03-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.00.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

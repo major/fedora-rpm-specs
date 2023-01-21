@@ -12,7 +12,7 @@
 Name:    kexi
 Summary: An integrated environment for managing data
 Version: 3.2.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPLv2+
 
@@ -191,6 +191,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 3.2.0-6
 - Rebuild for new PostgreSQL 15 
 

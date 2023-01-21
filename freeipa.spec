@@ -213,7 +213,7 @@
 
 Name:           %{package_name}
 Version:        %{IPA_VERSION}
-Release:        2%{?rc_version:.%rc_version}%{?dist}
+Release:        2%{?rc_version:.%rc_version}%{?dist}.1
 Summary:        The Identity, Policy and Audit system
 
 License:        GPLv3+
@@ -1741,6 +1741,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  1 2022 Alexander Bokovoy <abokovoy@redhat.com> - 4.10.1-2
 - Rebuild against krb5-1.20.1-1
 

@@ -1,7 +1,7 @@
 Name:       libdc1394
 Summary:    1394-based digital camera control library
 Version:    2.2.6
-Release:    8%{?dist}
+Release:    9%{?dist}
 License:    LGPLv2+
 URL:        http://sourceforge.net/projects/%{name}/
 
@@ -106,6 +106,9 @@ find %{buildroot} -name "*.la" -delete
 %{_mandir}/man1/dc1394_vloopback.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

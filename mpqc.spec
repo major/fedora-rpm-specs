@@ -1,7 +1,7 @@
 Name:           mpqc
 Summary:        Ab-inito chemistry program
 Version:        2.3.1
-Release:        53%{?dist}
+Release:        54%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            http://www.mpqc.org/
 Source0:        http://downloads.sourceforge.net/mpqc/%{name}-%{version}.tar.bz2
@@ -190,6 +190,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-54
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.3.1-53
 - Make configure (wrt Fortran symbol detection) c99 conformant
   for -Werror=implicit-int -Werror=implicit-function-declaration

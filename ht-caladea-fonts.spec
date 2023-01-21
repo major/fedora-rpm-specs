@@ -4,7 +4,7 @@ Epoch: 1
 Version: 1.001
 %forgemeta
 
-Release:  8%{?dist}
+Release:  9%{?dist}
 URL:     https://github.com/huertatipografica/Caladea
 
 %global foundry           HT
@@ -56,6 +56,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.001-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:1.001-8
 - Update license tag to SPDX format
 

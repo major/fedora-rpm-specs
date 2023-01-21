@@ -22,7 +22,7 @@
 
 Name: oddjob
 Version: 0.34.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source0: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz
 Source1: https://releases.pagure.org/oddjob/oddjob-%{version}.tar.gz.asc
 Patch1: oddjob-override-mask-fix.patch
@@ -249,6 +249,9 @@ fi
 exit 0
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Alexander Bokovoy <abokovoy@redhat.com> - 0.34.7-7
 - Provide a switch to restore pre-CVE-2020-10737 behavior
 - Always set the home directory permissions according to HOME_MODE

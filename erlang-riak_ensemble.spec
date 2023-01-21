@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	3.0.10
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Multi-Paxos framework in Erlang
 License:	ASL 2.0
 URL:		https://github.com/%{upstream}/%{realname}
@@ -58,6 +58,9 @@ gcc $LDFLAGS -shared -L%{_libdir}/erlang/usr/lib -lei c_src/riak_ensemble_clock.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 20 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.0.10-2
 - Rebuild for Erlang 25
 

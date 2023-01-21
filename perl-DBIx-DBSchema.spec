@@ -1,6 +1,6 @@
 Name:           perl-DBIx-DBSchema
 Version:        0.47
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Database-independent schema objects
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -66,6 +66,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.47-2
 - Remove DESTDIR in call to %%{make_install}.
 - Convert license to SPDX.

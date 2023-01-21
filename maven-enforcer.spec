@@ -2,7 +2,7 @@
 
 Name:           maven-enforcer
 Version:        3.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Maven Enforcer
 License:        ASL 2.0
 URL:            https://maven.apache.org/enforcer
@@ -110,6 +110,9 @@ find -name EvaluateBeanshell.java -delete
 %doc LICENSE NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

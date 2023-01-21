@@ -1,6 +1,6 @@
 Name:		libotf
 Version:	0.9.13
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	A Library for handling OpenType Font
 
 License:	LGPLv2+
@@ -67,6 +67,9 @@ rm $RPM_BUILD_ROOT/usr/bin/libotf-config
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.13-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

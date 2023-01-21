@@ -1,6 +1,6 @@
 Name: orangefs
 Version: 2.9.8
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Parallel network file system client
 URL: https://www.orangefs.org/
 # BSD (2 clause) maint/config/ssl.m4
@@ -45,6 +45,7 @@ Patch1: orangefs-lmdb.patch
 Patch2: orangefs-no-start-stop.patch
 # Autoconf 2.71 fix, https://github.com/waltligon/orangefs/pull/87
 Patch3: orangefs-autotools-2.71.patch
+Patch4: orangefs-configure-c99.patch
 
 %global _hardened_build 1
 
@@ -71,6 +72,7 @@ the kernel module.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 rm -r src/apps/devel/lmdb
 rm -r src/common/lmdb
@@ -293,6 +295,9 @@ This package contains the FUSE client.
 %{_bindir}/pvfs2fuse
 
 %changelog
+* Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 2.9.8-8
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

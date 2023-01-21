@@ -1,6 +1,6 @@
 Name:           maven-reporting-api
 Version:        3.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        API to manage report generation
 License:        Apache-2.0
@@ -46,6 +46,9 @@ rm README.md.orig
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1:3.1.1-1
 - Version 3.1.1
 - Convert License tag to SPDX

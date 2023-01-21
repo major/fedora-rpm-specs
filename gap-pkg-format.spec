@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Formations of finite solvable groups
 
 License:        GPL-2.0-or-later
@@ -80,6 +80,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.3-8
 - Update for split GAP directories
 

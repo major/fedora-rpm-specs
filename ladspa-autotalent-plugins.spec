@@ -1,6 +1,6 @@
 Name:           ladspa-autotalent-plugins
 Version:        0.2
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A pitch correction LADSPA plugin
 
 # The files mayer_fft.h and mayer_hht.c are from Pure Data, which is under a
@@ -56,6 +56,9 @@ make install INSTALL_PLUGINS_DIR="%{buildroot}%{_libdir}/ladspa"
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

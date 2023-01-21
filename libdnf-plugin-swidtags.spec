@@ -5,7 +5,7 @@
 Summary: Keeping SWID tags in sync with rpms installed via libdnf-based tools
 Name: libdnf-plugin-swidtags
 Version: 0.8.8
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL: https://github.com/swidtags/%{name}
 Source0: https://github.com/swidtags/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 License: LGPLv2
@@ -50,6 +50,9 @@ make test
 %{_libdir}/libdnf/plugins/swidtags_plugin.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

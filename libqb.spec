@@ -2,7 +2,7 @@
 
 Name:           libqb
 Version:        2.0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library providing high performance logging, tracing, ipc, and poll
 
 License:        LGPLv2+
@@ -87,6 +87,9 @@ This package contains a program to create nicely-formatted man pages from Doxyge
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Christine Caulfield <ccaulfie@redhat.com> 2.0.6-4
   ipc: Retry receiving credentials if the the message is short
 

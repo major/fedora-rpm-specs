@@ -19,7 +19,7 @@ standard library's log package.}
 %global godocs          CONTRIBUTORS README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Structured, composable logging for go
 
 # Upstream license specification: MIT and Apache-2.0
@@ -50,6 +50,9 @@ BuildRequires:  golang(github.com/mattn/go-isatty)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

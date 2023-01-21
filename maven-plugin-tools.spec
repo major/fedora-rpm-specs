@@ -2,7 +2,7 @@
 
 Name:           maven-plugin-tools
 Version:        3.6.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Maven Plugin Tools
 License:        ASL 2.0
 URL:            http://maven.apache.org/plugin-tools/
@@ -159,6 +159,9 @@ rm maven-plugin-plugin/src/main/java/org/apache/maven/plugin/plugin/PluginReport
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 3.6.4-3
 - Rename javadocs subpackage to javadoc
 

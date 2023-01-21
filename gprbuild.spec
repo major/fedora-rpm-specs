@@ -23,7 +23,7 @@
 
 Name:       gprbuild
 Version:    2020
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Ada project builder
 License:    GPLv3+
 URL:        http://libre.adacore.com
@@ -243,6 +243,9 @@ rm -rf %{buildroot}%{_GNAT_project_dir}/manifests
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2020-12
 - Rebuilt with GCC 13.
 

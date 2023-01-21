@@ -2,7 +2,7 @@
 
 Name: gnome-break-timer
 Version: 2.0.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Break timer application for GNOME
 
 License: GPLv3+
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

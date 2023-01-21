@@ -1,5 +1,5 @@
 Name:          volk
-Version:       2.5.2
+Version:       3.0.0
 Release:       1%{?dist}
 Summary:       The Vector Optimized Library of Kernels
 License:       GPLv3+
@@ -116,6 +116,10 @@ rm -f %{buildroot}%{_libdir}/libcpu_features.a
 
 
 %changelog
+* Thu Jan 19 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.0.0-1
+- New version
+  Resolves: rhbz#2161009
+
 * Mon Sep  5 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 2.5.2-1
 - New version
   Resolves: rhbz#2124323

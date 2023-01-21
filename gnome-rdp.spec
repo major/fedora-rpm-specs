@@ -2,7 +2,7 @@
 
 Name:           gnome-rdp        
 Version:        0.3.1.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Remote Desktop Protocol client for the GNOME desktop environment
 
 License:        GPLv3+
@@ -83,6 +83,9 @@ install -pm 0644 Menu/%{name}.png %{buildroot}%{_datadir}/icons/hicolor/48x48/ap
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

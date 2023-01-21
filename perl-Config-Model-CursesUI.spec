@@ -1,6 +1,6 @@
 Name:           perl-Config-Model-CursesUI
 Version:        1.107
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Curses interface to edit config data
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Config-Model-CursesUI
@@ -51,6 +51,9 @@ Config::Model.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.107-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.107-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

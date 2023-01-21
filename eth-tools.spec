@@ -1,6 +1,6 @@
 Name: eth-tools
 Version: 11.4.0.0
-Release: 200%{?dist}
+Release: 201%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD
@@ -91,6 +91,9 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.4.0.0-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 1 2022 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-198
 - Added Ubuntu support to INSTALL script
 - Updated man pages for FastFabric tools

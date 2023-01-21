@@ -12,7 +12,7 @@
 Summary: The exim mail transfer agent
 Name: exim
 Version: 4.96
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv2+
 Url: https://www.exim.org/
 
@@ -503,6 +503,9 @@ fi
 %{_sysconfdir}/cron.daily/greylist-tidy.sh
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.96-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 4.96-7
 - Fix pointer truncation bug in DLOPEN_LOCAL_SCAN extension (#2152978)
 

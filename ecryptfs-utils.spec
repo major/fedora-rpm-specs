@@ -16,7 +16,7 @@ the interface supplied by the %{name} library.
 
 Name: ecryptfs-utils
 Version: 111
-Release: 29%{?dist}
+Release: 30%{?dist}
 Summary: The eCryptfs mount helper and support libraries
 License: GPLv2+
 URL: https://launchpad.net/ecryptfs
@@ -316,6 +316,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 111-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Michal Hlavinka <mhlavink@redhat.com> - 111-29
 - require only gettext-runtime (#2119010)
 

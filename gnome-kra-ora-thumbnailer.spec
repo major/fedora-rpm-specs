@@ -1,6 +1,6 @@
 Name:           gnome-kra-ora-thumbnailer
 Version:        1.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Thumbnailer for Krita and MyPaint images
 
 License:        GPLv2+
@@ -43,6 +43,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

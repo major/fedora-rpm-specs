@@ -1,6 +1,6 @@
 Name:           java-diff-utils
 Version:        4.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java library to create and apply patches
 
 License:        Apache-2.0
@@ -67,6 +67,9 @@ difference algorithms.
 %files jgit -f .mfiles-java-diff-utils-jgit
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Jerry James <loganjerry@gmail.com> - 4.12-1
 - Convert License tag to SPDX
 

@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.2.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GAP Table of Marks package
 
 License:        GPL-2.0-or-later
@@ -72,6 +72,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.2.9-9
 - Update for split GAP directories
 

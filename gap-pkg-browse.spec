@@ -24,8 +24,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.8.19
-Release:        2%{?dist}
+Version:        1.8.20
+Release:        1%{?dist}
 Summary:        GAP browser for 2-dimensional arrays of data
 
 License:        GPL-3.0-or-later
@@ -145,6 +145,12 @@ cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_archdir}/pkg/%{upname}
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 19 2023 Jerry James <loganjerry@gmail.com> - 1.8.20-1
+- Version 1.8.20
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.19-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.8.19-2
 - Update for split GAP directories
 

@@ -7,7 +7,7 @@
 
 Name:           perl-Class-Data-Inheritable
 Version:        0.09
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Inheritable, overridable class data
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Data-Inheritable
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Class::Data::Inheritable.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

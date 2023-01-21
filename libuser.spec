@@ -1,6 +1,6 @@
 Name: libuser
 Version: 0.63
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: LGPLv2+
 URL: https://pagure.io/libuser
 Source: https://releases.pagure.org/libuser/libuser-%{version}.tar.xz
@@ -122,6 +122,9 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 23 2022 Correct popt memory handling
 - Resolves: rhbz#2125904 unable to change shells using sudo lchsh
 

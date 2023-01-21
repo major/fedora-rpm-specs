@@ -7,7 +7,7 @@
 Summary:        Free firewire audio driver library
 Name:           libffado
 Version:        2.4.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv2 or GPLv3
 URL:            http://www.ffado.org/
 Source0:        http://www.ffado.org/files/%{name}-%{version}.tgz
@@ -165,6 +165,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.6-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 03 2022 Nils Philippsen <nils@tiptoe.de> - 2.4.6-3
 - Fix yet another int/float crash, this time in the crossbar router
 

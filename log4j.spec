@@ -2,7 +2,7 @@
 
 Name:           log4j
 Version:        2.17.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -284,6 +284,9 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Marian Koncek <mkoncek@redhat.com> - 2.17.2-6
 - Re-add log4j-web subpackage
 

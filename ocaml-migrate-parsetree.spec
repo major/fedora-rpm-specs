@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-migrate-parsetree
 Version:        2.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Convert OCaml parsetrees between different major versions
 
 License:        LGPLv2 with exceptions
@@ -77,6 +77,9 @@ dune runtest --profile release
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -35,7 +35,11 @@ Source1:        https://raw.githubusercontent.com/arbor-sim/arbor/master/scripts
 Source2:        https://raw.githubusercontent.com/arbor-sim/arbor/master/scripts/run_cpp_examples.sh
 License:        BSD
 
-Patch1:         0001-Quote-various-cmake-var-values.patch
+Patch:          0001-Quote-various-cmake-var-values.patch
+# Add some missing #include directives
+# Fixes failure to compile with GCC 13.
+# https://github.com/arbor-sim/arbor/pull/2080
+Patch:          %{forgeurl}/pull/2080.patch
 
 # Random123 does not support:
 #   mips64r2 mips32r2 s390
@@ -136,8 +140,7 @@ Provides:   arbor-openmpi-static = %{version}-%{release}
 %endif
 
 %prep
-%forgesetup
-%patch1 -p1
+%forgeautosetup -p1
 
 # correct catalogue location
 sed -i 's|dummy-catalogue.so|lib/dummy-catalogue.so|' python/test/unit/test_catalogues.py

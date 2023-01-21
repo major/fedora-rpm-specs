@@ -19,7 +19,7 @@
 %endif
 Name:           ibus-chewing
 Version:        1.6.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        The Chewing engine for IBus input platform
 Summary(zh_TW): IBus新酷音輸入法
 License:        GPL-2.0-or-later
@@ -141,6 +141,9 @@ fi
 %{_libexecdir}/ibus-setup-chewing
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.6.1-20
 - Migrate license tag to SPDX
 

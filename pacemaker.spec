@@ -191,7 +191,7 @@
 Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
-Release:       %{pcmk_release}%{?dist}
+Release:       %{pcmk_release}%{?dist}.1
 License:       GPLv2+ and LGPLv2+
 Url:           https://www.clusterlabs.org/
 
@@ -799,6 +799,9 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-4.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-4
 - use enum fenced_target_by consistency to cope with increased
   pickiness of gcc

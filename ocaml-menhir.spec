@@ -19,7 +19,7 @@
 
 Name:           ocaml-menhir
 Version:        20220210
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        LR(1) parser generator for OCaml
 
 # The generator is GPL-2.0-only
@@ -145,6 +145,9 @@ rm -rf %{buildroot}%{ocamldir}/coq-menhirlib/
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 20220210-10
 - Rebuild for coq 8.16.1
 

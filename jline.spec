@@ -1,6 +1,6 @@
 Name:           jline
 Version:        3.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java library for handling console input
 License:        BSD-3-Clause
 URL:            https://github.com/jline/jline3
@@ -180,6 +180,9 @@ This package contains a telnet client.
 %files remote-telnet -f .mfiles-jline-remote-telnet
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 3.22.0-1
 - Version 3.22.0
 - Drop upstreamed -apache-sshd patch

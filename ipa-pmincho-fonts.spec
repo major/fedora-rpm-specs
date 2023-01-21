@@ -31,7 +31,7 @@
 # simplify cut and pasting.
 #
 Version: 003.03
-Release: 23%{?dist}
+Release: 24%{?dist}
 URL:     http://ossipedia.ipa.go.jp/ipafont/
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -95,6 +95,9 @@ Source10: 68-ipa-pmincho-fonts.conf
 %fontfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 003.03-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Akira TAGOH <tagoh@redhat.com> - 003.03-23
 - Revise the spec file for new packaging guidelines.
 

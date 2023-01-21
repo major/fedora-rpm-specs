@@ -1,6 +1,6 @@
 Name:           graphite2
 Version:        1.3.14
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Font rendering capabilities for complex non-Roman writing systems
 License:        (LGPLv2+ or GPLv2+ or MPLv1.1) and (Netscape or GPLv2+ or LGPLv2+)
 
@@ -75,6 +75,9 @@ find %{buildroot} -type f -name "*.la" -print -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

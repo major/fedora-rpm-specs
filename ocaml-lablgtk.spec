@@ -2,7 +2,7 @@
 
 Name:           ocaml-lablgtk
 Version:        2.18.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 Summary:        Objective Caml interface to gtk+
 
@@ -135,6 +135,9 @@ sed -i '/propcc/d;/varcc/d' .ofiles
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 12 2022 Jerry James <loganjerry@gmail.com> - 2.18.13-1
 - Version 2.18.13
 - Convert License tag to SPDX

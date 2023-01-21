@@ -1,6 +1,6 @@
 Name:           m4rie
 Version:        20200125
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Linear Algebra over F_2^e
 License:        GPL-2.0-or-later
 URL:            https://bitbucket.org/malb/%{name}
@@ -105,6 +105,9 @@ make check
 %{_libdir}/lib%{name}.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200125-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 20200125-7
 - Convert License tag to SPDX
 

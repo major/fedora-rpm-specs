@@ -1,6 +1,6 @@
 Name: neochat
 Version: 22.11
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 22.11-2
 - Rebuilt against libquotient 0.7.0 with E2EE enabled.
 - Switched to SPDX license tag.

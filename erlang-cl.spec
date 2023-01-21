@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.2.4
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	OpenCL binding for Erlang
 License:	MIT
 URL:		https://github.com/%{upstream}/%{realname}
@@ -46,6 +46,9 @@ OpenCL binding for Erlang.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

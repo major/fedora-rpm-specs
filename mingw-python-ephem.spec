@@ -5,19 +5,21 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name}
 Version:       4.1.3
-Release:       4%{?dist}
+Release:       5%{?dist}
 BuildArch:     noarch
 
 License:       MIT
 URL:           http://rhodesmill.org/pyephem/
 Source0:       %{pypi_source}
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
@@ -70,6 +72,9 @@ MinGW Windows Python3 %{pypi_name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 11 2022 Sandro Mani <manisandro@gmail.com> - 4.1.3-4
 - Switch to python3-build
 

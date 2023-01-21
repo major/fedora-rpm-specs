@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.0.4
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Erlang GTK2 binding
 License:	MIT
 URL:		https://github.com/%{upstream}/%{realname}
@@ -56,6 +56,9 @@ install -D -p -m 0755 priv/generator/build/gtknode  %{buildroot}%{erlang_appdir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

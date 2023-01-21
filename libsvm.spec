@@ -11,7 +11,7 @@
 
 Name:           libsvm
 Version:        3.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Library for Support Vector Machines
 
 License:        BSD-3-Clause
@@ -268,6 +268,9 @@ cp -p README java/README-Java
 %{_datadir}/applications/*%{name}-svm-toy-qt.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 3.30-1
 - Version 3.3
 - Convert License tag to SPDX

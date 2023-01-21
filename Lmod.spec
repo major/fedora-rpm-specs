@@ -3,12 +3,12 @@
 %global debug_package %{nil}
 
 Name:           Lmod
-Version:        8.7.18
-Release:        2%{?dist}
+Version:        8.7.19
+Release:        1%{?dist}
 Summary:        Environmental Modules System in Lua
 
 # Lmod-5.3.2/tools/base64.lua is LGPLv2
-License:        MIT and LGPLv2
+License:        MIT AND LGPL-2.0-only
 URL:            https://www.tacc.utexas.edu/tacc-projects/lmod
 Source0:        https://github.com/TACC/Lmod/archive/%{version}/Lmod-%{version}.tar.gz
 Source1:        macros.%{name}
@@ -144,6 +144,10 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Orion Poplawski <orion@nwra.com> - 8.7.19-1
+- Update to 8.7.19
+- Use SPDX License tag
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.7.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

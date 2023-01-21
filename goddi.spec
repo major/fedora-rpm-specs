@@ -14,7 +14,7 @@ Goddi (go dump domain info) dumps Active Directory domain information.}
 %global godocs          README.md
 
 Name:           goddi
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Dumper for Active Directory domain information
 
 # Upstream license specification: BSD-3-Clause
@@ -53,6 +53,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

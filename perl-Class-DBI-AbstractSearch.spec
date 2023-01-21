@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-AbstractSearch
 Version:        0.07
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Abstract Class::DBI's SQL with SQL::Abstract
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI-AbstractSearch
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

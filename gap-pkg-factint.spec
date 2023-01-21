@@ -3,7 +3,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.6.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Advanced methods for factoring integers
 
 License:        GPL-2.0-or-later
@@ -87,6 +87,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.3-9
 - Update for split GAP directories
 

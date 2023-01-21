@@ -9,7 +9,7 @@
 
 Name:    pango
 Version: 1.50.12
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: System for layout and rendering of internationalized text
 
 License: LGPLv2+
@@ -146,6 +146,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.50.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 16 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.50.12-2
 - Ensure correct fonts are installed for HTML docs
 

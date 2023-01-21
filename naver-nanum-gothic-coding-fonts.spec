@@ -6,7 +6,7 @@
 
 Name:		%{fontname}-fonts
 Version:	2.000
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Nanum Gothic Coding family of Korean TrueType fonts
 
 License:	OFL
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

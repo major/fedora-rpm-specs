@@ -5,7 +5,7 @@
 Summary:  Open Source SIP Server
 Name:     opensips
 Version:  3.3.3
-Release:  1%{?dist}
+Release:  2%{?dist}
 License:  GPLv2+
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fedora-specific patches
@@ -1492,6 +1492,9 @@ useradd -r -g %{name} -d %{_localstatedir}/run/%{name} -s /sbin/nologin \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.3.3-1
 - Ver. 3.3.3
 

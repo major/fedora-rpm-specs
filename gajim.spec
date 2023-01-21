@@ -2,7 +2,7 @@
 
 Name:     gajim
 Version:  1.6.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Jabber client written in PyGTK
 License:  GPLv3
 URL:      https://gajim.org/
@@ -91,6 +91,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}-symbolic.svg
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 14 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.6.1-1
 - Update to 1.6.1
 

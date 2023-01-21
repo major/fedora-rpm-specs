@@ -7,7 +7,7 @@
 
 Name:           kabi-dw
 Version:        0
-Release:        0.22%{?dist}
+Release:        0.23%{?dist}
 Summary:        Detect changes in the ABI between kernel builds
 License:        GPLv3+
 URL:            %{forgeurl}
@@ -50,6 +50,9 @@ install -m 0755 %{name} %{buildroot}%{_bindir}/
 %license COPYING
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

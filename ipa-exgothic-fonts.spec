@@ -33,7 +33,7 @@
 %global archivever 00401
 
 Version: 004.01
-Release: 13%{?dist}
+Release: 14%{?dist}
 URL:     https://moji.or.jp/ipafont/
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -103,6 +103,9 @@ sed -ie 's/\r//g' Readme_ipaexg%{archivever}.txt
 %fontfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 004.01-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 16 2022 Akira TAGOH <tagoh@redhat.com> - 004.01-13
 - Replace old ipa-ex-gothic-fonts.
 

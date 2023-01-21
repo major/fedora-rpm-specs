@@ -6,7 +6,7 @@
 Name: hunspell-nl
 Summary: Dutch hunspell dictionaries
 Version: 2.20.19
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source: https://github.com/OpenTaal/opentaal-hunspell/archive/2.20.19.tar.gz
 URL: https://opentaal.org/
 License: BSD or CC-BY
@@ -41,6 +41,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.19-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.19-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

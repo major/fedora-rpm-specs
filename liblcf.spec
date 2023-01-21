@@ -20,7 +20,7 @@ Summary: Library to handle RPG Maker 2000/2003 game data
 License: MIT and BSD and Boost
 
 Version: 0.7.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 URL: https://github.com/EasyRPG/liblcf
 Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -120,6 +120,9 @@ ln -s %{_includedir}/ini.h %{buildroot}%{_includedir}/lcf/ini.h
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 0.7.0-6
 - Rebuild for ICU 72
 

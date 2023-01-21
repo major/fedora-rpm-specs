@@ -3,7 +3,7 @@
 Summary: X.Org X11 libXmu/libXmuu runtime libraries
 Name: libXmu
 Version: 1.1.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -87,6 +87,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}
 %{_libdir}/pkgconfig/xmuu.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 04 2022 Benjamin Tissoires <benjamin.tissoires@redhat.com> 1.1.4-1
 - libXmu 1.1.4-1
 

@@ -9,7 +9,7 @@
 Summary: High-performance library for parallel solution of eigenvalue problems
 Name: elpa
 Version: 2022.05.001
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://elpa.mpcdf.mpg.de/software
 Source0: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz
 Source1: https://elpa.mpcdf.mpg.de/software/tarball-archive/Releases/%{version}/elpa-%{version}.tar.gz.asc
@@ -354,6 +354,9 @@ done
 %{_fmoddir}/openmpi*/*.mod
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.05.001-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Dominik Mierzejewski <dominik@greysector.net> 2022.05.002-1
 - update to 2022.05.002 (ABI break) (#2027276)
 - re-enable all mpich tests

@@ -1,7 +1,7 @@
 %global short_version 1.0
 Name:           freedroidrpg
 Version:        %{short_version}rc2
-Release:        0.2%{?dist}
+Release:        0.3%{?dist}
 Summary:        Role playing game with Freedroid theme and Tux as the hero
 
 License:        GPLv2+
@@ -94,6 +94,9 @@ rm -f freedroidrpg-dialogs.lang
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0rc2-0.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0rc2-0.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

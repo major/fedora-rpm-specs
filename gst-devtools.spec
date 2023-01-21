@@ -2,7 +2,7 @@
 
 Name:           gst-devtools
 Version:        1.19.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Development and debugging tools for GStreamer
 
 License:        LGPLv2+
@@ -72,6 +72,9 @@ sed -i "s/env\ //g" %{buildroot}%{_bindir}/gst-validate-launcher
 %{_libdir}/libgstvalidate-default-overrides-1.0.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           gpredict
 Version:        2.2.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Real-time satellite tracking and orbit prediction program
 License:        GPLv2+
 URL:            http://gpredict.oz9aec.net/
@@ -60,6 +60,9 @@ install -m 644 %{SOURCE2} %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.2.1-13
 - Rebuild for updated hamlib 4.5.
 

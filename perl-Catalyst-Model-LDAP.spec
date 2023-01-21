@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Model-LDAP
 Version:        0.21
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        LDAP model class for Catalyst
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Model-LDAP
@@ -75,6 +75,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -12,7 +12,7 @@
 
 Name:     memtest86+
 Version:  5.31
-Release:  0.7.%{?prerel_long}%{?dist}
+Release:  0.8.%{?prerel_long}%{?dist}
 License:  GPLv2
 Summary:  Stand-alone memory tester for x86 and x86-64 computers
 Source0:  http://www.memtest.org/download/%{version}%{?prerel_short}/%{name}-%{version}%{?prerel_short}.tar.gz
@@ -107,6 +107,9 @@ install -Dpm 0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/memtest86+.conf
 %{_mandir}/man8/*.8.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.31-0.8.beta
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.31-0.7.beta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

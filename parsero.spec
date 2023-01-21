@@ -1,6 +1,6 @@
 Name:           parsero
 Version:        0.81
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        A Python based Robots.txt audit tool
 
 License:        GPLv2+
@@ -40,6 +40,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{python3_sitelib}/__pycache__/%{name}*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

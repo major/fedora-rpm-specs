@@ -16,7 +16,7 @@ Houses generated source code for imported libraries used within Istio.}
 %global godocs          CONTRIBUTING.md README.md SUPPORT.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Houses generated source code for imported libraries used within Istio
 
 # Upstream license specification: BSD-3-Clause and Apache-2.0 and MIT
@@ -51,6 +51,9 @@ BuildRequires:  golang(google.golang.org/grpc/status)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 1.8.2-6
 - Rebuild to fix FTBFS
 

@@ -5,7 +5,7 @@
 
 Name:           mcqd
 Version:        1.0.0
-Release:        8.%{gitdate}.%{shortcommit}%{?dist}
+Release:        9.%{gitdate}.%{shortcommit}%{?dist}
 Summary:        Maximum clique in an undirected graph
 
 License:        GPL-3.0-or-later
@@ -85,6 +85,9 @@ LD_LIBRARY_PATH=$PWD ./mcqd test.clq > test.log 2>&1
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-9.20160901.9ab9717
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.0.0-8.20160901.9ab9717
 - Convert License tag to SPDX
 

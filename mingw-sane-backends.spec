@@ -2,7 +2,7 @@
 
 Name:           mingw-sane-backends
 Version:        1.0.30
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        MinGW package for SANE
 # lib/ is LGPLv2+, backends are GPLv2+ with exceptions
 # Tools are GPLv2+
@@ -148,6 +148,9 @@ rm -r $RPM_BUILD_ROOT%{mingw64_libdir}/bin
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.30-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.30-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

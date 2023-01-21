@@ -3,7 +3,7 @@
 
 Name:		emacs-%{pkg}
 Version:	1.7.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Emacs add-on to go to last change in current buffer
 
 License:	GPLv2+
@@ -40,6 +40,9 @@ cp -p *.el *.elc $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 20 2022 Willmann Sébastien <sebastien.willmann@gmail.com> - 1.7.5-1
 - Update to version 1.7.5
 

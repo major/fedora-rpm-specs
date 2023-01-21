@@ -3,7 +3,7 @@
 
 Name: la-capitaine-icon-theme
 Version: 0.6.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Icon pack designed to integrate with most desktop environments
 BuildArch: noarch
 
@@ -78,6 +78,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/%{themename} &>/dev/null || :
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

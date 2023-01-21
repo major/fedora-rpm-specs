@@ -4,7 +4,7 @@
 
 Name:           json
 Version:        3.11.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # The entire source is MIT except
 # include/nlohmann/thirdparty/hedley/hedley.hpp, which is CC0-1.0
@@ -71,6 +71,9 @@ ln -svf %{_includedir}/doctest/doctest.h ./tests/thirdparty/doctest/doctest.h
 %{_datadir}/pkgconfig/nlohmann_json.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 14 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 3.11.2-1
 - Updated to version 3.11.2.
 

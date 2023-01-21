@@ -4,7 +4,7 @@
 
 Name:           nautilus-python
 Version:        4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for Nautilus
 
 License:        GPLv2+
@@ -71,6 +71,9 @@ rm -rfv $RPM_BUILD_ROOT%{_docdir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 4.0-1
 - Update to 4.0
 

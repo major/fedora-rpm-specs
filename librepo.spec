@@ -12,7 +12,7 @@
 
 Name:           librepo
 Version:        1.15.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Repodata downloading library
 
 License:        LGPL-2.1-or-later
@@ -96,6 +96,9 @@ Python 3 bindings for the librepo library.
 %{python3_sitearch}/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Jaroslav Rohel <jrohel@redhat.com> - 1.15.1-1
 - Update to 1.15.1
 - Adds API support for waiting on network in an event driven manner (new API function lr_handle_network_wait)

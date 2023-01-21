@@ -15,9 +15,9 @@
 Name:          engrampa
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       4%{?dist}
+Release:       5%{?dist}
 %else
-Release:       0.16%{?git_rel}%{?dist}
+Release:       0.17%{?git_rel}%{?dist}
 %endif
 Summary:       MATE Desktop file archiver
 License:       GPLv2+ and LGPLv2+
@@ -105,6 +105,9 @@ find %{buildroot} -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:           libzfcphbaapi
 Summary:        HBA API for the zFCP device driver
 Version:        2.2.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        CPL
 URL:            http://www.ibm.com/developerworks/linux/linux390/zfcp-hbaapi.html
 # http://www.ibm.com/developerworks/linux/linux390/zfcp-hbaapi-%%{hbaapiver}.html
@@ -91,6 +91,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

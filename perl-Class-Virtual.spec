@@ -1,6 +1,6 @@
 Name:           perl-Class-Virtual
 Version:        0.08
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Base class for virtual base classes in Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Virtual
@@ -59,6 +59,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-TBone
 Version:        1.124
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Skeleton for writing t/*.t Perl test files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/ExtUtils-TBone
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.124-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.124-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

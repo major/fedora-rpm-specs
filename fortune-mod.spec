@@ -10,7 +10,7 @@
 
 Name:		fortune-mod
 Version:	3.14.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A program which will display a fortune
 
 License:	BSD
@@ -129,6 +129,9 @@ chrpath -d %{buildroot}%{_bindir}/fortune
 %{_mandir}/man*/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Shlomi Fish <shlomif@shlomifish.org> 3.14.1-1
 - New upstream version
 

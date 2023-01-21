@@ -13,7 +13,7 @@
 
 Name:           %{srcname}
 Version:        1.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        %{summary}
 
 %global git_tag RELEASE_%(r=%{version}; echo $r | tr '.' '_')
@@ -145,6 +145,9 @@ install -c -m 644 doc/keycloak-httpd-client-install.8 %{buildroot}/%{_mandir}/ma
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 4 2023 keycloak-httpd-client-install fails to build with Python 3.12 - 1.1.14
 - Resolves: rhbz#2155009 - keycloak-httpd-client-install fails to build with
   Python 3.12: ModuleNotFoundError: No module named 'distutils'

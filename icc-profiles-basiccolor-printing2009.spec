@@ -1,6 +1,6 @@
 Name:           icc-profiles-basiccolor-printing2009
 Version:        1.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        The OpenICC profiles from basICColor
 
 License:        zlib
@@ -55,6 +55,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

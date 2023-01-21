@@ -1,7 +1,7 @@
 Name:           oraculum
 # Don't forget to also change oraculum/__init__.py
 Version:        0.2.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Backend and API for Fedora QA Dashboard
 
 License:        GPLv2+
@@ -88,6 +88,9 @@ install -p -m 644 conf/oraculum.conf.nginx %{buildroot}%{_sysconfdir}/nginx/conf
 %config(noreplace) %{_sysconfdir}/nginx/conf.d/oraculum.conf
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

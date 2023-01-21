@@ -4,7 +4,7 @@
 
 Name:		openssh-ldap-authkeys
 Version:	0.1.0%{?commitdate:~git%{commitdate}.%{shortcommit}}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Python script to generate SSH authorized_keys files using an LDAP directory
 
 License:	MIT
@@ -90,6 +90,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0~git20200205.aee4c46-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0~git20200205.aee4c46-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

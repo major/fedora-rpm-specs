@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   22.1.7
-Release:   2%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   3%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -18,14 +18,12 @@ Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
 %endif
 
-# Only on F38 and later
-%if 0%{fedora} >= 38
+# Only on F38 and later (patch number starts at 3801, see autopatch below)
 # Disallow byte-swapped clients by default
 # https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1029
-Patch1: 0001-Fix-some-indentation-issues.patch
-Patch2: 0002-dix-localize-two-variables.patch
-Patch3: 0003-Disallow-byte-swapped-clients-by-default.patch
-%endif
+Patch3801: 0001-Fix-some-indentation-issues.patch
+Patch3802: 0002-dix-localize-two-variables.patch
+Patch3803: 0003-Disallow-byte-swapped-clients-by-default.patch
 
 License:   MIT
 
@@ -101,7 +99,13 @@ The development package provides the developmental files which are
 necessary for developing Wayland compositors using Xwayland.
 
 %prep
-%autosetup -S git_am -n %{pkgname}-%{?gitdate:%{commit}}%{!?gitdate:%{version}}
+%autosetup -N -S git_am -n %{pkgname}-%{?gitdate:%{commit}}%{!?gitdate:%{version}}
+
+%if 0%{fedora} >= 38
+%autopatch
+%else
+%autopatch -M 3800
+%endif
 
 %build
 %meson \
@@ -133,6 +137,10 @@ rm -Rf $RPM_BUILD_ROOT%{_localstatedir}/lib/xkb
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Thu Jan 19 2023 Olivier Fourdan <ofourdan@redhat.com> - 22.1.7-3
+- Use the recommended way to apply conditional patches without
+  conditionalizing the sources (for byte-swapped clients).
+
 * Tue Jan 17 2023 Olivier Fourdan <ofourdan@redhat.com> - 22.1.7-2
 - Disallow byte-swapped clients on Fedora 38 and above (#2159489)
 

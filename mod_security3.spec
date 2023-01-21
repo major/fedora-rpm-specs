@@ -6,7 +6,7 @@
 
 Name: mod_security3
 Version: 0.0.9
-Release: 0.%{commit_date}git%{shortcommit}.1%{?dist}.2
+Release: 0.%{commit_date}git%{shortcommit}.1%{?dist}.3
 Summary: ModSecurity v3 Apache Connector
 
 License: ASL 2.0
@@ -99,6 +99,9 @@ install -m 755 src/.libs/mod_security3.so %{buildroot}%{_httpd_moddir}
 %attr(770,apache,root) %dir %{_localstatedir}/lib/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-0.20210819git0488c77.1.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-0.20210819git0488c77.1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

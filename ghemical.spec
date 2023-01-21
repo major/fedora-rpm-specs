@@ -1,7 +1,7 @@
 Name:           ghemical
 Summary:        Molecular mechanics and quantum mechanics front end for GNOME
 Version:        3.0.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 License:        GPLv2+
 URL:            http://www.bioinformatics.org/ghemical/ghemical/index.html
 
@@ -104,6 +104,9 @@ desktop-file-install %{name}.desktop --dir=%{buildroot}%{_datadir}/applications
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

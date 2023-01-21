@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	0.1.1
-Release:	19%{?dist}
+Release:	20%{?dist}
 BuildArch:	noarch
 Summary:	Mustache template engine for Erlang
 License:	MIT
@@ -46,6 +46,9 @@ reused across language boundaries and for other language independent uses.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           micropipenv
 Version:        1.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A simple wrapper around pip to support Pipenv and Poetry files
 
 License:        LGPLv3+
@@ -44,6 +44,9 @@ sed -i '1{\@^#!/usr/bin/env python@d}' %{name}.py
 %{_bindir}/micropipenv
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Lumír Balhar <lbalhar@redhat.com> - 1.4.5-1
 - Update to 1.4.5 (rhbz#2159707)
 

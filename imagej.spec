@@ -1,6 +1,6 @@
 Name:           imagej
 Version:        1.53v
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Image Processing and Analysis in Java
 
 License:        Public Domain
@@ -119,6 +119,9 @@ desktop-file-install --vendor=''                     \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.53v-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.53v-1
 - Update to 1.53v (close RHBZ#2121261)
 

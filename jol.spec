@@ -1,6 +1,6 @@
 Name:           jol
 Version:        0.16
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Java Object Layout
 
 # GPL-2.0-only: the project as a whole
@@ -92,6 +92,9 @@ sed -i 's/1\.7/1.8/' pom.xml
 %files cli -f .mfiles-jol-cli
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 0.16-6
 - Convert License tag to SPDX
 

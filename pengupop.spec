@@ -1,6 +1,6 @@
 Name:           pengupop
 Version:        2.2.2
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Networked Game in the vein of Move/Puzzle Bobble
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 2.2.2-30
 - C99 compatibility fixes (#2161674)
 

@@ -4,7 +4,7 @@
 Summary: KDE zeroconf implementation based on avahi
 Name:	 kdnssd-avahi
 Version: 0.1.3
-Release: 0.39.%{beta}%{?dist}
+Release: 0.40.%{beta}%{?dist}
 
 License: LGPLv2+
 URL:	 http://helios.et.put.poznan.pl/~jstachow/pub/
@@ -95,6 +95,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-0.40.20080116svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-0.39.20080116svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: A SAML 2.0 authentication module for the Apache Httpd Server
 Name: mod_auth_mellon
 Version: 0.18.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://github.com/latchset/mod_auth_mellon/archive/refs/tags/v0.18.1.tar.gz
 Source1: auth_mellon.conf
 Source2: 10-auth_mellon.conf
@@ -107,6 +107,9 @@ in the doc directory for instructions on using the diagnostics build.
 %dir /run/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 6 2023 Tomas Halman <thalman@redhat.com> - 0.18.1-1
 - Resolves: rhbz#2158456 - new version is available
 

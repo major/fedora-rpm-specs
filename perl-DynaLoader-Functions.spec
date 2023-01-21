@@ -9,7 +9,7 @@
 
 Name:           perl-DynaLoader-Functions
 Version:        0.003
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Deconstructed dynamic C library loading
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DynaLoader-Functions
@@ -103,6 +103,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.003-17
 - Package tests
 - Update license to SPDX format

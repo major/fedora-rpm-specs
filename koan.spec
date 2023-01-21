@@ -3,7 +3,7 @@
 
 Name:           koan
 Version:        3.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Kickstart over a network
 
 License:        GPLv2+
@@ -60,6 +60,9 @@ pathfix.py -pni "%{__python3} %{py3_shbang_opts}" bin
 %{python3_sitelib}/koan*.egg-info
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

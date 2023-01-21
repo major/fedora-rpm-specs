@@ -10,7 +10,7 @@
 Name:       gmsh
 Summary:    A three-dimensional finite element mesh generator
 Version:    4.11.1
-Release:    2%{?dist}
+Release:    3%{?dist}
 
 # gmsh is GPLv2+ with exceptions, see LICENSE.txt
 # contrib/{DiscreteIntegration, HighOrderMeshOptimizer, MeshOptimizer, onelab} are MIT, see respective README.txt
@@ -391,6 +391,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE.txt
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 14 2023 Richard Shaw <hobbes1069@gmail.com> - 4.11.1-2
 - Rebuild for opencascade.
 

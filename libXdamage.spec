@@ -1,7 +1,7 @@
 Summary: X Damage extension library
 Name: libXdamage
 Version: 1.1.5
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: MIT
 URL: http://www.x.org
 
@@ -53,6 +53,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/pkgconfig/xdamage.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

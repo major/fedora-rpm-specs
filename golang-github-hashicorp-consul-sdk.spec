@@ -39,7 +39,7 @@ Consul provides several key features:
 %global gosupfiles testutil
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Solution to connect and configure applications across dynamic, distributed infrastructure
 
 # Upstream license specification: MPL-2.0
@@ -78,6 +78,9 @@ mv sdk/README.md README-sdk.md
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Sérgio Basto <sergio@serjux.com> - 1.13.0-1
 - Update golang-github-hashicorp-consul-sdk to 1.13.0 (#1918592)
 

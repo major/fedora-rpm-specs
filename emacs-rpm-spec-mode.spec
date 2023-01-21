@@ -3,7 +3,7 @@
 
 Name:           emacs-%{pkg}
 Version:        0.16
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Major GNU Emacs mode for editing RPM spec files
 
 License:        GPLv2+
@@ -42,6 +42,9 @@ install -m 644 %SOURCE1 %{buildroot}%{_emacs_sitestartdir}
 %{_emacs_sitelispdir}/rpm-spec-mode/rpm-spec-mode.elc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 08 2022 Bhavin Gandhi <bhavin192@fedoraproject.org> - 0.16-14
 - Fix compatibility with latest Emacs, fixes rhbz#2113202
 

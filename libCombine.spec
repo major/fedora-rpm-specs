@@ -4,7 +4,7 @@
 Name:           libCombine
 Summary:        C++ library for working with the COMBINE Archive format
 Version:        0.2.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/sbmlteam/libCombine
 Source0:        %{url}/archive/%{version}/libCombine-%{version}.tar.gz
 
@@ -119,6 +119,9 @@ rm -rf %{buildroot}%{_datadir}
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 22 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.2.19-1
 - Release 0.2.19
 

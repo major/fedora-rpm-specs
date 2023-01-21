@@ -2,7 +2,7 @@
 Name:    kdepim3
 Summary: Compatibility support for kdepim3 
 Version: 3.5.10
-Release: 38%{?dist}
+Release: 39%{?dist}
 
 License: GPLv2
 URL:     http://www.kde.org/
@@ -137,6 +137,9 @@ export QA_RPATHS=0x0001
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 3.5.10-38
 - Port configure script to C99
 

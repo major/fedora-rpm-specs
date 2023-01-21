@@ -5,7 +5,7 @@ Version:       1.2.2
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 License:       Apache-2.0 OR MIT
@@ -97,5 +97,8 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.2-1
 - Initial package

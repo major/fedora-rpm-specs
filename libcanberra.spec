@@ -7,7 +7,7 @@
 
 Name: libcanberra
 Version: 0.30
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: Portable Sound Event Library
 Source0: http://0pointer.de/lennart/projects/libcanberra/libcanberra-%{version}.tar.xz
 Patch0: 0001-gtk-Don-t-assume-all-GdkDisplays-are-GdkX11Displays-.patch
@@ -151,6 +151,9 @@ rm $RPM_BUILD_ROOT%{_docdir}/libcanberra/README
 %{_datadir}/vala/vapi/libcanberra.vapi
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Tomas Popela <tpopela@redhat.com> - 0.30-30
 - Don't build GTK 2 bits on ELN/RHEL 10 as GTK 2 won't be there
 

@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-Loader
 Version:        0.34
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Dynamic definition of Class::DBI sub classes
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI-Loader
@@ -66,6 +66,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

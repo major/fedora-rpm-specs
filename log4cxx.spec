@@ -2,7 +2,7 @@
 
 Name: log4cxx
 Version: 0.13.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A port to C++ of the Log4j project
 
 License: ASL 2.0
@@ -69,6 +69,9 @@ Documentation for %{name}.
 %doc %{_vpath_builddir}/src/site/html/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

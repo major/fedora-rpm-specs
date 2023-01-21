@@ -4,7 +4,7 @@
 
 Name: intel-compute-runtime
 Version: %{neo_major}.%{neo_minor}.%{neo_build}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Compute API support for Intel graphics
 
 %global _lto_cflags %{nil}
@@ -133,6 +133,9 @@ rm -rv third_party/sse2neon
 %doc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.43.24558-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 22.43.24558-1
 - intel-compute-runtime-22.43.24558 (fixes RHBZ#2135350 )
 

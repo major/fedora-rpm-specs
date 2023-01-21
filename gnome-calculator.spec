@@ -5,7 +5,7 @@
 
 Name:           gnome-calculator
 Version:        43.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A desktop calculator
 
 License:        GPLv3+
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43.0.1-1
 - Update to 43.0.1
 

@@ -32,7 +32,7 @@
 Summary:		Milter for greylisting, the next step in the spam control war
 Name:			milter-greylist
 Version:		4.6.4
-Release:		6%{?dist}
+Release:		7%{?dist}
 License:		BSD with advertising
 URL:			http://hcpnet.free.fr/milter-greylist/
 Source0:		ftp://ftp.espci.fr/pub/milter-greylist/milter-greylist-%{version}.tgz
@@ -271,6 +271,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Florian Weimer <fweimer@redhat.com> - 4.6.4-6
 - Build with -D_GNU_SOURCE for improved C99 compatibility (#2160360)
 

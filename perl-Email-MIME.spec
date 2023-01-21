@@ -1,6 +1,6 @@
 Name:           perl-Email-MIME
 Version:        1.953
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Easy MIME message parsing
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-MIME
@@ -86,6 +86,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.953-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan  9 2023 Paul Howarth <paul@city-fan.org> - 1.953-1
 - Update to 1.953
   - As promised, this release no longer works on v5.8; in fact, due to some

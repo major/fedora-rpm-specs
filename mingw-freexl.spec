@@ -5,7 +5,7 @@
 Name:          mingw-%{pkgname}
 Version:       1.0.6
 Summary:       MinGW Windows freexl library
-Release:       6%{?dist}
+Release:       7%{?dist}
 
 BuildArch:     noarch
 License:       MPLv1.1 or GPLv2+ or LGPLv2+
@@ -76,6 +76,9 @@ find %{buildroot} -name *.la -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

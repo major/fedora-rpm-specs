@@ -26,7 +26,7 @@
 Summary: GNOME base library
 Name: libgnome
 Version: 2.32.1
-Release: 26%{?dist}
+Release: 27%{?dist}
 URL: http://www.gnome.org
 Source0: http://download.gnome.org/sources/libgnome/2.32/%{name}-%{version}.tar.bz2
 Source1: desktop_gnome_peripherals_monitor.schemas
@@ -172,6 +172,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/pixmaps
 %{_datadir}/gtk-doc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.32.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.32.1-26
 - Add missing BR for gtk-doc
 

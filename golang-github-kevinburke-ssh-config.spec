@@ -23,7 +23,7 @@ you want to retrieve ("Port"). The keywords are case insensitive.}
 %global godocs          AUTHORS.txt README.md
 
 Name:           %{goname}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Go parser for ssh_config files
 
 License:        MIT
@@ -51,6 +51,9 @@ BuildRequires:  golang(github.com/pelletier/go-buffruneio)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 Summary: Builds packages inside chroots
 Name: mock
 Version: 3.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL-2.0-or-later
 # Source is created by
 # git clone https://github.com/rpm-software-management/mock.git
@@ -261,6 +261,9 @@ pylint-3 py/mockbuild/ py/*.py py/mockbuild/plugins/* || :
 %dir  %{_datadir}/cheat
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Pavel Raiskup <praiskup@redhat.com> 3.5-1
 - check for qemu-user-static raises InvalidArchitecture()
 - forcearch: map armv7hl to the /usr/bin/qemu-arm-static binary

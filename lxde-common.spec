@@ -21,7 +21,7 @@
 
 Name:           lxde-common
 Version:        0.99.2
-Release:        20%{?git_version:.%{?git_version}}%{?dist}
+Release:        21%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Default configuration files for LXDE
 
 License:        GPLv2+
@@ -166,6 +166,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.2-20
 - F-37: update default background image
 

@@ -12,7 +12,7 @@
 
 Name:          mutter
 Version:       43.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -188,6 +188,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Olivier Fourdan <ofourdan@redhat.com> - 43.1-3
 - Add Xwayland byte-swapped clients support on Fedora 38 and above (#2159489)
 

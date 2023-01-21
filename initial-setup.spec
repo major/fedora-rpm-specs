@@ -1,8 +1,8 @@
 Summary: Initial system configuration utility
 Name: initial-setup
 URL: https://fedoraproject.org/wiki/InitialSetup
-Version: 0.3.95
-Release: 2%{?dist}
+Version: 0.3.96
+Release: 1%{?dist}
 
 # This is a Red Hat maintained package which is specific to
 # our distribution.
@@ -15,7 +15,7 @@ Source0: %{name}-%{version}.tar.gz
 %define debug_package %{nil}
 %define anacondaver 37.8-1
 
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildRequires: gettext
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
@@ -104,8 +104,9 @@ rm -rf %{buildroot}
 %{python3_sitelib}/initial_setup/gui/
 
 %changelog
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.95-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+* Thu Jan 19 2023 Martin Kolman <mkolman@redhat.com> - 0.3.96-1
+- SPDX compatible License: line (mkolman)
+- Fixup version in setup.py (mkolman)
 
 * Wed Jul 20 2022 Martin Kolman <mkolman@redhat.com> - 0.3.95-1
 - Use Anaconda DBus read-write properties (vponcova)

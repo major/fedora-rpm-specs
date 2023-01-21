@@ -1,6 +1,6 @@
 Name:           pdf2svg
 Version:        0.2.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Small tool to convert PDF files into SVG
 
 License:        GPLv2+
@@ -36,6 +36,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

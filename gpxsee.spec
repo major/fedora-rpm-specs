@@ -2,7 +2,7 @@
 
 Name:           gpxsee
 Version:        11.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPLv3
@@ -69,6 +69,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Nikola Forró <nforro@redhat.com> - 11.11-1
 - Update to version 11.11
   resolves: #2143883

@@ -1,6 +1,6 @@
 Name:           oneVPL
 Version:        2022.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        oneAPI Video Processing Library
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -112,6 +112,9 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_datadir}/vpl/examples
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Simone Caronni <negativo17@gmail.com> - 2022.2.2-1
 - Update to 2022.2.2.
 - Patch system_analyzer so it works without devel subpackage installed.

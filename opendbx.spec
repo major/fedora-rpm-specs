@@ -1,6 +1,6 @@
 Name:           opendbx
 Version:        1.4.6
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Lightweight but extensible database access library written in C
 
 #License:        LGPLv2+
@@ -184,6 +184,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

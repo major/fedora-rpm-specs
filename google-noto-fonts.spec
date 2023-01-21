@@ -22,7 +22,7 @@ in Unicode.\
 
 Name:           %{fontname}-fonts
 Version:        20201206^1.git%{snapver}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
 URL:            https://github.com/googlefonts/noto-fonts/
@@ -1072,6 +1072,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Akira TAGOH <tagoh@redhat.com> - 20201206^1.git0c78c8329-9
 - Drop unnecessary config.
 

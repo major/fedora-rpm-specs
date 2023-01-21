@@ -3,7 +3,7 @@
 Summary:   Library for querying compressed XML metadata
 Name:      libxmlb
 Version:   0.3.10
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/hughsie/libxmlb
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
@@ -89,6 +89,9 @@ Executable and data files for installed tests.
 %{_datadir}/installed-tests/libxmlb/libxmlb.test
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 11 2022 Richard Hughes <richard@hughsie.com> 0.3.10-1
 - New upstream release
 - Fix dumping and exporting multiple files from the CLI

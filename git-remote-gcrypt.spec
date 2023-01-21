@@ -1,6 +1,6 @@
 Name:       git-remote-gcrypt
 Version:    1.5
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    GNU Privacy Guard-encrypted git remote
 
 License:    GPLv3
@@ -40,4 +40,7 @@ export prefix="%{_prefix}"
 %doc CHANGELOG CONTRIBUTING.rst README.rst
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 %autochangelog

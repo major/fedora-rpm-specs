@@ -4,7 +4,7 @@
 
 Name:           partio
 Version:        1.14.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for manipulating common animation particle
 
 License:        BSD-3-Clause-Modification
@@ -112,6 +112,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/test
 #%%{_datadir}/%%{name}/test/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Luya Tshimbalanga <luya@fedoraproject.org> - 1.14.6-5
 - Migrate to SPDX license
 - Use py3_shebang_fix macro (#2155193)

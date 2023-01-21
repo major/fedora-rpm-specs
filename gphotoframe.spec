@@ -26,7 +26,7 @@
 
 Name:		gphotoframe
 Version:	%{mainver}
-Release:	%{fedorarel}%{?dist}
+Release:	%{fedorarel}%{?dist}.1
 Summary:	Photo Frame Gadget for the GNOME Desktop
 
 # GPLv3 seems safer than GPLv3+
@@ -311,6 +311,9 @@ find %{buildroot}%{_prefix} -name \*.py3 -delete
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-17.hg2084299dffb6.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.0.2-17.hg2084299dffb6
 - Use HTTPDownloader or so in python-twisted 21.7 (removed on 22.1) to
   workaround

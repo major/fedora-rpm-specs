@@ -9,7 +9,7 @@
 Summary:   An enterprise-strength fax server
 Name:      hylafax+
 Version:   7.0.6
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   libtiff and BSD with advertising
 URL:       http://hylafax.sourceforge.net
 
@@ -425,6 +425,9 @@ fi
 %dir %{faxspool}/etc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 Lee Howard <faxguy@howardsilvan.com> - 7.0.6-1
 - update to 7.0.6
 

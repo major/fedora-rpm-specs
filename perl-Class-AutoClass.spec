@@ -1,6 +1,6 @@
 Name:           perl-Class-AutoClass
 Version:        1.56
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Define classes and objects for Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-AutoClass
@@ -65,6 +65,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.56-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.56-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

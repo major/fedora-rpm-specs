@@ -1,6 +1,6 @@
 Name:           fmt
 Version:        9.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        MIT
 Summary:        Small, safe and fast formatting library for C++
@@ -60,6 +60,9 @@ This package contains the header file for using %{name}.
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 28 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 9.1.0-1
 - Updated to version 9.1.0.
 

@@ -10,7 +10,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       0.13.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 BuildArch:     noarch
 
 # ./pep517/colorlog.py is Apache-2.0, rest is MIT
@@ -111,6 +111,9 @@ cp -a pep517 %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 31 2022 Sandro Mani <manisandro@gmail.com> - 0.13.0-4
 - Full build
 

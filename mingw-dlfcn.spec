@@ -4,7 +4,7 @@
 
 Name:          mingw-dlfcn
 Version:       1.3.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Implements a wrapper for dlfcn (dlopen dlclose dlsym dlerror)
 
 License:       LGPLv2+
@@ -123,6 +123,9 @@ export MINGW_BUILDDIR_SUFFIX=-static
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Sandro Mani <manisandro@gmail.com> - 1.3.1-1
 - Update to 1.3.1
 

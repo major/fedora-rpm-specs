@@ -3,7 +3,7 @@
 Name:           fpdns
 Epoch:          1
 Version:        0.10.0
-Release:        11.%{gittag}%{?dist}
+Release:        12.%{gittag}%{?dist}
 Summary:        Fingerprint DNS servers
 License:        BSD
 URL:            https://github.com/kirei/fpdns
@@ -47,6 +47,9 @@ make test
 %{_bindir}/fpdns
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.0-12.20190131
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.10.0-11.20190131
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Name:    kde-baseapps
 Summary: KDE Core Applications 
 Version: 16.12.2
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 License: GPLv2 and GFDL
 URL:     http://kde.org/
@@ -60,6 +60,9 @@ Obsoletes: libkonq < 16.12
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.12.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 16.12.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,9 +3,9 @@
 
 Name:           yubikey-manager
 Version:        5.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library and command line tool for configuring a YubiKey
-License:        BSD
+License:        BSD-2-Clause
 
 %forgemeta
 
@@ -59,6 +59,9 @@ Python library for configuring a YubiKey.
 %{_bindir}/ykman
 
 %changelog
+* Thu Jan 19 2023 Gerald Cox <gbcox@fedoraproject.org> - 5.0.1-2
+- Update for SPDX rhbz#2161986
+
 * Wed Jan 18 2023 Gerald Cox <gbcox@fedoraproject.org> - 5.0.1-1
 - Upstream release rhbz#2161986
 

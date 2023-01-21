@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.1.15
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Integral cohomology computations of Bieberbach groups
 
 License:        GPL-2.0-or-later
@@ -105,6 +105,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/lib/datatypes/doc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.15-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.1.15-3
 - Update for split GAP directories
 

@@ -6,7 +6,7 @@
 Name:           mingw-python-%{mod_name}
 Summary:        MinGW Python %{pypi_name} library
 Version:        12.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 BuildArch:      noarch
 
 License:        GPL-2.0-only OR GPL-3.0-only
@@ -15,11 +15,13 @@ Source0:        %{pypi_source}
 
 
 BuildRequires:  mingw32-filesystem >= 102
+BuildRequires:  mingw32-dlfcn
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw32-python3
 BuildRequires:  mingw32-python3-build
 
 BuildRequires:  mingw64-filesystem >= 102
+BuildRequires:  mingw64-dlfcn
 BuildRequires:  mingw64-gcc
 BuildRequires:  mingw64-python3
 BuildRequires:  mingw64-python3-build
@@ -76,6 +78,9 @@ MinGW Python 3 %{pypi_name} library.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.11.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 12.11.0-2
 - Switch to python3-build
 

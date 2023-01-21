@@ -2,7 +2,7 @@
 
 Name:           gigolo
 Version:        0.5.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GIO/GVFS management application
 
 License:        GPLv2
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/gigolo.1.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

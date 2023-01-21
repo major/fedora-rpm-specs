@@ -16,7 +16,7 @@ notifications.}
 %global godocs          AUTHORS CONTRIBUTING.md CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Cross-platform file system notifications for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -44,6 +44,9 @@ rm example_test.go
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

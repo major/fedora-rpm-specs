@@ -3,7 +3,7 @@
 Summary:    Alternative C/C++ preprocessor
 Name:       mcpp
 Version:    2.7.2
-Release:    31%{?dist}
+Release:    32%{?dist}
 License:    BSD
 Source:     http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 URL:        http://mcpp.sourceforge.net/
@@ -97,6 +97,9 @@ This package provides an html manual for mcpp.
 %lang(ja) %doc  doc-jp/mcpp-manual-jp.html
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

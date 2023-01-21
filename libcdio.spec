@@ -1,6 +1,6 @@
 Name: libcdio
 Version: 2.1.0
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: CD-ROM input and control library
 License: GPLv3+
 URL: http://www.gnu.org/software/libcdio/
@@ -120,6 +120,9 @@ make check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 30 2022 Parag Nemade <pnemade AT redhat DOT com> - 2.1.0-8
 - Fix the realpath test failure (upstream patch)
 

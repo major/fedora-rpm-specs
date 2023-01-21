@@ -1,6 +1,6 @@
 Name:           perl-ExtUtils-CppGuess
 Version:        0.26
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Guess C++ compiler and flags
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/ExtUtils-CppGuess
@@ -60,6 +60,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/ExtUtils::CppGuess*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

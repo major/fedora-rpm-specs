@@ -1,12 +1,13 @@
 Name:           sage
 Version:        0.2.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        OpenGL extensions library using SDL
 
 License:        LGPLv2+
 URL:            http://worldforge.org/dev/eng/libraries/sage
 Source0:        http://downloads.sourceforge.net/worldforge/%{name}-%{version}.tar.gz
 Patch0:         sage-0.1.2-noopt.patch
+Patch1: sage-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -31,6 +32,7 @@ Libraries and header files for developing applications that use sage.
 %setup -q
 touch -r configure.ac configure.ac.stamp
 %patch0 -p0
+%patch1 -p1
 touch -r configure.ac.stamp configure.ac
 rm -f sage/glxext_sage.h
 rm -f sage/wglext_sage.h
@@ -70,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib%{name}.la
 
 
 %changelog
+* Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 0.2.0-29
+- Port configure script to C99
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name:           mirrormanager2
 Version:        0.16
-Release:        4%{?dist}
+Release:        6%{?dist}
 Summary:        Mirror management application
 
 # Most MirrorManager files are licensed under the MIT license. Some
@@ -26,6 +26,8 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:         patch-requirements
 
 BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  python%{python_pkgversion}-devel
 BuildRequires:  python%{python_pkgversion}-flask
@@ -459,6 +461,12 @@ MM2_SKIP_NETWORK_TESTS=1 ./runtests.sh -v
 %{_bindir}/mirrorlist_statistics
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Sun Jan 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.16-5
+- Drop support for i686
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

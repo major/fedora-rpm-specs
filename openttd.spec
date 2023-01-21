@@ -3,7 +3,7 @@
 
 Name:           openttd
 Version:        12.2
-Release:        5%{?prever:.%{prever}}%{?dist}
+Release:        6%{?prever:.%{prever}}%{?dist}
 Summary:        Transport system simulation game
 
 License:        GPLv2+
@@ -136,6 +136,9 @@ EOF
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 12.2-5
 - Rebuild for ICU 72
 

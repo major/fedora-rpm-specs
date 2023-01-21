@@ -18,7 +18,7 @@
 
 Name:      etckeeper
 Version:   1.18.18
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Store /etc in a SCM system (git, mercurial, bzr or darcs)
 License:   GPLv2+
 URL:       https://etckeeper.branchable.com/
@@ -291,6 +291,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec  2 2022 Thomas Moschny <thomas.moschny@gmx.de> - 1.18.18-1
 - Update to 1.18.18.
 - Rebase patches.

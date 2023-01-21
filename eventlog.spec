@@ -1,6 +1,6 @@
 Name:           eventlog
 Version:        0.2.13
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Syslog-ng v2/v3 support library
 
 License:        BSD
@@ -90,6 +90,9 @@ rm -f %{buildroot}%{_libdir}/libevtlog.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.13-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

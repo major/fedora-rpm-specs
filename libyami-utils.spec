@@ -4,7 +4,7 @@
 
 Name:           libyami-utils
 Version:        1.3.1
-Release:        10.%{commitdate0}git%{shortcommit0}%{?dist}
+Release:        11.%{commitdate0}git%{shortcommit0}%{?dist}
 Summary:        Libyami Utilities
 
 License:        ASL 2.0
@@ -61,6 +61,9 @@ autoreconf -vif
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-11.20191205gitc3d25b6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-10.20191205gitc3d25b6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

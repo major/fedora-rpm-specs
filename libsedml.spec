@@ -22,7 +22,7 @@
 Name:           libsedml
 Summary:        Library that fully supports SED-ML for SBML
 Version:        2.0.32
-Release:        4%{?dist}
+Release:        5%{?dist}
 Epoch:          2
 URL:            https://github.com/fbergmann/libSEDML
 Source0:        https://github.com/fbergmann/libSEDML/archive/v%{version}/libSEDML-%{version}.tar.gz
@@ -379,6 +379,9 @@ make test -C build
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.0.32-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 03 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2:2.0.32-4
 - Fixes for SWIG 4.1.0 macro definition correction (BZ#2127982)
 

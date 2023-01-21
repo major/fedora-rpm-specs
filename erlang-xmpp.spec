@@ -9,7 +9,7 @@
 
 Name:       erlang-%{srcname}
 Version:    1.4.9
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Erlang/Elixir XMPP parsing and serialization library
 
 License:    ASL 2.0
@@ -69,6 +69,9 @@ install -p -D -m 755 priv/lib/* --target-directory=%{buildroot}%{erlang_appdir}/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

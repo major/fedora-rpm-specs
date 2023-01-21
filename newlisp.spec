@@ -1,6 +1,6 @@
 Name:           newlisp
 Version:        10.7.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Lisp-like general purpose scripting
 
 License:        GPLv3+
@@ -60,6 +60,9 @@ make install_home HOME=%{buildroot}/usr/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.7.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.7.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

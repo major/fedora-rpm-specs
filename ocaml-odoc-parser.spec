@@ -6,7 +6,7 @@
 
 Name:           ocaml-odoc-parser
 Version:        2.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parser for OCaml documentation comments
 
 License:        ISC
@@ -60,6 +60,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  2 2022 Jerry James <loganjerry@gmail.com> - 2.0.0-1
 - Version 2.0.0
 

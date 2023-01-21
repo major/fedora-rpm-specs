@@ -1,6 +1,6 @@
 Name:           ht
 Version:        2.1.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        File editor/viewer/analyzer for executables
 
 License:        GPL-2.0-only
@@ -48,6 +48,9 @@ mv %{buildroot}%{_bindir}/ht %{buildroot}%{_bindir}/hte
 %{_bindir}/hte
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

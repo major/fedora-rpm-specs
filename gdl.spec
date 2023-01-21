@@ -10,7 +10,7 @@ ExcludeArch: %{ix86}
 
 Name:           gdl
 Version:        1.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GNU Data Language
 
 License:        GPLv2+
@@ -243,6 +243,9 @@ cat xorg.log
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 15 2022 Scott Talbert <swt@techie.net> - 1.0.1-11
 - Rebuild with wxWidgets 3.2
 

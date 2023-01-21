@@ -1,6 +1,6 @@
 Name:           perl-CSS-DOM
 Version:        0.17
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Document Object Model for Cascading Style Sheets
 
 License:        GPL+ or Artistic
@@ -51,6 +51,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

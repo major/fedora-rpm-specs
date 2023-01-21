@@ -8,7 +8,7 @@
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
 Version:	4.32
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
 Source0:	https://cpan.metacpan.org/authors/id/R/RU/RURBAN/Cpanel-JSON-XS-%{version}.tar.gz
@@ -180,6 +180,9 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 13 2022 Paul Howarth <paul@city-fan.org> - 4.32-1
 - Update to 4.32
   - Fix new JSON::PP::Boolean overload redefinition warnings (GH#200)

@@ -10,7 +10,7 @@
 
 Name:           ocaml-ppx-sexp-conv
 Version:        0.15.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Generate S-expression conversion functions from type definitions
 License:        MIT
 URL:            https://github.com/janestreet/ppx_sexp_conv
@@ -63,6 +63,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.15.1-5
 - Rebuild for ocaml-ppxlib 0.28.0
 

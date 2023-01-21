@@ -10,7 +10,7 @@
 
 Name:           gap-pkg-autodoc
 Version:        2022.10.20
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generate documentation from GAP source code
 
 License:        GPL-2.0-or-later
@@ -83,6 +83,9 @@ gap -l "%{buildroot}%{gap_libdir};" --bare -c 'LoadPackage("GAPDoc");' tst/testa
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.10.20-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2022.10.20-2
 - Update for split GAP directories
 

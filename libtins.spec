@@ -1,6 +1,6 @@
 Name:           libtins
 Version:        4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A high-level, multiplatform C++ network packet sniffing and crafting library
 
 License:        BSD
@@ -67,5 +67,8 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 01 2022 Vasiliy Glazov <vascom2@gmail.com> - 4.4-1
 - Initial packaging for Fedora

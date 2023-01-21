@@ -4,7 +4,7 @@
 
 Name:       perl-%{upstream_name}
 Version:    0.6.1
-Release:    10%{?dist}
+Release:    11%{?dist}
 
 Summary:    Load texts or blobs from a directory of files
 License:    MIT
@@ -61,6 +61,9 @@ perl Build.PL --installdirs=vendor
 %perl_vendorlib/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

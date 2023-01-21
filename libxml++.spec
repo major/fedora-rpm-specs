@@ -4,7 +4,7 @@
 
 Name:           libxml++
 Version:        2.42.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C++ wrapper for the libxml2 XML parser library
 
 License:        LGPL-2.1-or-later
@@ -75,6 +75,9 @@ sed -i s'#\r##' examples/dom_parser/example_with_namespace.xml
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 19 2022 Kalev Lember <klember@redhat.com> - 2.42.2-1
 - Update to 2.42.2
 

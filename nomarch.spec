@@ -1,7 +1,7 @@
 Summary:       Free de-archiver for old ARC and ARK archives
 Name:          nomarch
 Version:       1.4
-Release:       28%{?dist}
+Release:       29%{?dist}
 License:       GPLv2+
 URL:           https://www.svgalib.org/rus/nomarch.html
 Source0:       ftp://ftp.ibiblio.org/pub/Linux/utils/compress/%{name}-%{version}.tar.gz
@@ -31,6 +31,9 @@ quite common for old CP/M or MS-DOS stuff.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

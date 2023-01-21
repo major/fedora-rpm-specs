@@ -1,7 +1,7 @@
 Summary: Photomosaic Generator
 Name: metapixel
 Version: 1.0.2
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: GPLv2 and LGPLv2+
 URL: http://www.complang.tuwien.ac.at/schani/metapixel/
 Source: http://www.complang.tuwien.ac.at/schani/%{name}/files/%{name}-%{version}.tar.gz
@@ -51,6 +51,9 @@ make PREFIX=$RPM_BUILD_ROOT/usr install
 %{_bindir}/metapixel-sizesort
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

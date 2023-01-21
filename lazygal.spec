@@ -1,6 +1,6 @@
 Name:           lazygal
 Version:        0.10.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A static web gallery generator
 
 License:        GPLv2+ and MIT
@@ -71,6 +71,9 @@ cp -pr build/mo/* %{buildroot}%{_datadir}/locale/
 %{_mandir}/man5/%{name}.conf.5*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

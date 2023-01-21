@@ -16,7 +16,7 @@ with RFC 5280 and the CA/Browser Forum Baseline Requirements (v.1.4.8).}
 
 Name:           %{goname}
 Epoch:          1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        X.509 Certificate Linter based on CA/B Forum Baseline Requirements and RFC 5280
 
 # Upstream license specification: Apache-2.0
@@ -73,6 +73,9 @@ help2man --no-discard-stderr --no-info --version-string=%{version} %{buildroot}%
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 1:1.1.0-8
 - Rebuild to fix FTBFS
 

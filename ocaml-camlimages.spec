@@ -3,7 +3,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        5.0.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OCaml image processing library
 License:        LGPLv2 with exceptions
 
@@ -118,6 +118,9 @@ dune runtest
 %{_libdir}/ocaml/%{srcname}/*/*.mli
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

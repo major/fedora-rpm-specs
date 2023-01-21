@@ -1,6 +1,6 @@
 Name:		glue-schema
 Version:	2.0.11
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	LDAP schema files for the GLUE 1.3 and GLUE 2.0 Schema
 License:	ASL 2.0
 URL:		https://github.com/EGI-Foundation/%{name}
@@ -33,6 +33,9 @@ make prefix=%{buildroot} install
 %license debian/copyright
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 18 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.0.11-16
 - New upstream location on github
 - Drop doc sub-package

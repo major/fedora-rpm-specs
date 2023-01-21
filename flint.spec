@@ -7,7 +7,7 @@
 
 Name:           flint
 Version:        2.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast Library for Number Theory
 
 # Flint itself is LGPL-2.0-or-later.
@@ -230,6 +230,9 @@ popd
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.9.0-2
 - Convert License tag to SPDX
 

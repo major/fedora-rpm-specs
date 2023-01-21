@@ -1,6 +1,6 @@
 Name:		mspdebug
 Version:	0.25
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Debugger and gdb proxy for MSP430 MCUs
 License:	GPLv2+
 URL:		http://dlbeer.co.nz/mspdebug/
@@ -36,6 +36,9 @@ make install DESTDIR=$RPM_BUILD_ROOT PREFIX=%{_prefix} INSTALL="install -p" \
 %{_libdir}/mspdebug
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

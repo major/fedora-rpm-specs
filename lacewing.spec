@@ -1,6 +1,6 @@
 Name:           lacewing
 Version:        1.10
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Arcade-style shoot-em-up
 License:        GPLv2+
 URL:            http://users.olis.net.au/zel/
@@ -77,6 +77,9 @@ install -p -m 644 %{SOURCE3} \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

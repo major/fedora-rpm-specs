@@ -6,7 +6,7 @@
 
 Name:               gfal2
 Version:            2.21.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Grid file access library 2.0
 License:            ASL 2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
@@ -340,6 +340,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 2.21.2-1
 - Upgrade to upstream release 2.21.2
 

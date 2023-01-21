@@ -3,7 +3,7 @@
 
 Name:           mingw-cppunit
 Version:        1.12.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        MinGW Windows C++ unit testing framework
 
 License:        LGPLv2+
@@ -70,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{mingw32_libdir}/*.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

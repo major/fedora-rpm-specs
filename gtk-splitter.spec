@@ -1,6 +1,6 @@
 Name:           gtk-splitter
 Version:        2.2.1
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A file splitter
 
 License:        GPLv2+
@@ -45,6 +45,9 @@ desktop-file-install                                    \
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

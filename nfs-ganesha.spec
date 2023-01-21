@@ -115,7 +115,7 @@ Requires: openSUSE-release
 
 Name:		nfs-ganesha
 Version:	4.2
-Release:	1%{?dev:%{dev}}%{?dist}
+Release:	2%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -897,6 +897,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.2-1
 - NFS-Ganesha 4.2 GA
 

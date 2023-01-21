@@ -1,6 +1,6 @@
 Name:           jakarta-mail
 Version:        1.6.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jakarta Mail API
 License:        EPL-2.0 or GPLv2 with exceptions
 URL:            https://github.com/eclipse-ee4j/mail
@@ -87,6 +87,9 @@ sed -i "/-Werror/d" mail/pom.xml
 %doc README.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

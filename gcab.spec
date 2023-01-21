@@ -1,6 +1,6 @@
 Name:           gcab
 Version:        1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cabinet file library and tool
 
 License:        LGPLv2+
@@ -78,6 +78,9 @@ Libraries, includes, etc. to compile with the gcab library.
 %{_libdir}/pkgconfig/libgcab-1.0.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 05 2022 Marc-André Lureau <marcandre.lureau@redhat.com> - 1.5-1
 - new version
 

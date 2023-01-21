@@ -1,7 +1,7 @@
 Summary: A utility for displaying and/or setting hard disk parameters
 Name: hdparm
 Version: 9.63
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL:    https://sourceforge.net/projects/%{name}/
 Source: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -42,6 +42,9 @@ install -c -m 644 hdparm.8 $RPM_BUILD_ROOT%{_mandir}/man8
 %{_mandir}/man8/hdparm.8*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.63-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Vojtech Trefny <vtrefny@redhat.com> - 9.63-1
 - New upstream version 9.63
 

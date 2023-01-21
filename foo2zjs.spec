@@ -4,7 +4,7 @@
 
 Name:           foo2zjs
 Version:        0.%{foo2zjs_ver}
-Release:        20%{?dist}
+Release:        21%{?dist}
 
 # Main code - GPL-2.0-only.
 # Some PPD files - GPL-3.0-or-later.
@@ -414,6 +414,9 @@ rm -f %{buildroot}%{_mandir}/man1/usb_printerid.1
 %{_datadir}/cups/model/Ricoh-SP_201Nw.ppd.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20201003-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20201003-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

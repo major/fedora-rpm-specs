@@ -3,7 +3,7 @@
 
 Name:           glm
 Version:        0.9.9.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        C++ mathematics library for graphics programming
 
 License:        MIT
@@ -127,6 +127,9 @@ rm -rf $RPM_BUILD_ROOT%{_includedir}/%{name}/{CMakeFiles,libglm_shared.so}
 %doc doc/api/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 30 2022 Orion Poplawski <orion@nwra.com> - 0.9.9.8-5
 - Use cmake_install/ctest macros
 - Cleanup library artifacts if they get installed (seen on EPEL8)

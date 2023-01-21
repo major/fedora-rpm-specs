@@ -1,6 +1,6 @@
 Name:               irssi-xmpp
 Version:            0.54
-Release:            12%{?dist}
+Release:            13%{?dist}
 Summary:            XMPP plugin into irssi
 License:            GPLv2
 URL:                http://cybione.org/~irssi-xmpp/
@@ -41,6 +41,9 @@ Irssi-xmpp is an irssi plugin to connect to the Jabber network.
 %{_libdir}/irssi/modules/libxmpp_core.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

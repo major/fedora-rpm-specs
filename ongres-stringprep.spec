@@ -2,7 +2,7 @@
 
 Name:       ongres-%upstream_name
 Version:    1.1
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    RFC 3454 Preparation of Internationalized Strings in pure Java
 License:    BSD
 URL:            https://github.com/ongres/%upstream_name
@@ -50,6 +50,9 @@ find \( -name '*.jar' -o -name '*.class' \) -delete
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

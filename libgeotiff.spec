@@ -6,7 +6,7 @@
 
 Name:          libgeotiff
 Version:       1.7.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 
 Summary:       GeoTIFF format library
 License:       MIT
@@ -221,6 +221,9 @@ EOF
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 04 2022 Sandro Mani <manisandro@gmail.com> - 1.7.1-5
 - Rebuild (proj)
 

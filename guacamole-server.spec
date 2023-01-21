@@ -6,7 +6,7 @@
 
 Name:           guacamole-server
 Version:        1.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
 License:        ASL 2.0
 URL:            https://guacamole.apache.org/
@@ -237,6 +237,9 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %attr(750,%{username},%{username}) %{_sharedstatedir}/guacd
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Simone Caronni <negativo17@gmail.com> - 1.4.0-6
 - Rebuild for updated FreeRDP.
 

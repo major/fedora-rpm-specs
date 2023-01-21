@@ -2,7 +2,7 @@
 
 Name:           ocaml-zarith
 Version:        1.12
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml interface to GMP
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -94,6 +94,9 @@ make tests
 %doc Changes html
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 1.12-7
 - Convert License tag to SPDX
 

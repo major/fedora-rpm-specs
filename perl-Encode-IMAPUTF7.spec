@@ -2,7 +2,7 @@
 
 Name:           perl-Encode-IMAPUTF7
 Version:        1.05
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Process the special UTF-7 variant required by IMAP
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Encode-IMAPUTF7
@@ -41,6 +41,9 @@ make test
 %_mandir/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

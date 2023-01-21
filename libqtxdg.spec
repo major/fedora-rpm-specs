@@ -3,7 +3,7 @@
 Name:           libqtxdg
 Summary:        QtXdg, a Qt5 implementation of XDG standards
 Version:        3.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPLv2+
 URL:            https://lxqt-project.org
 Source0:        https://github.com/lxqt/libqtxdg/archive/%{version}/%{name}-%{version}.tar.gz
@@ -86,6 +86,9 @@ cd build
 %{_qt5_archdatadir}/plugins/iconengines/libQt5XdgIconPlugin.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 3.10.0-1
 - Update version to 3.10.0
 

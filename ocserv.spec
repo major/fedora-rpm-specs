@@ -1,5 +1,5 @@
 Version:	1.1.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 %global _hardened_build 1
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -272,6 +272,9 @@ install -D -m 0755 %{SOURCE11} %{buildroot}/%{_initrddir}/%{name}
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 Summary: High speed arctic racing game
 Name: extremetuxracer
 Version: 0.8.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 URL: http://extremetuxracer.sourceforge.net
 # This is really
@@ -173,6 +173,9 @@ install -Dm 0644 -p %{SOURCE7} %{buildroot}%{_mandir}/de/man6/etr.6
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

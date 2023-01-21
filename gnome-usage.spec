@@ -3,7 +3,7 @@
 
 Name:		gnome-usage
 Version:	3.38.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A GNOME app to view information about use of system resources
 
 License:	GPLv3+
@@ -55,6 +55,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Usage.deskt
 %{_datadir}/metainfo/org.gnome.Usage.appdata.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

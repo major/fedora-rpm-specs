@@ -1,7 +1,7 @@
 Name:           libemu
 Version:        0.2.0
 Summary:        The x86 shell-code detection and emulation
-%global         baserelease     22
+%global         baserelease     23
 %if 0%{?rhel}
 # Group needed for EPEL
 Group:          Applications/System
@@ -429,6 +429,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-23.20130410gitab48695
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-22.20130410gitab48695
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -20,7 +20,7 @@
 
 Name:           imgbased
 Version:        1.2.5
-Release:        %{?_release}%{?!_release:0.1}%{?dist}.9
+Release:        %{?_release}%{?!_release:0.1}%{?dist}.10
 Summary:        Tools to work with an image based rootfs
 
 License:        GPLv2+
@@ -174,6 +174,9 @@ make -C py3 install DESTDIR="%{buildroot}"
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-0.1.10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-0.1.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

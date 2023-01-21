@@ -1,6 +1,6 @@
 Name:           klavaro
 Version:        3.14
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Typing tutor
 
 License:        GPL-3.0-or-later
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_metainfodir}/%{name}.appdata.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 3.14-2
 - Add recommends espeak
 

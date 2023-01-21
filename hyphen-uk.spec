@@ -2,7 +2,7 @@ Name: hyphen-uk
 Summary: Ukrainian hyphenation rules
 %global upstreamid 20030903
 Version: 0.%{upstreamid}
-Release: 25%{?dist}
+Release: 26%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_uk_UA.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
 License: GPLv2+
@@ -29,6 +29,9 @@ cp -p *.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20030903-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20030903-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

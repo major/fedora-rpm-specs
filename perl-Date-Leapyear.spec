@@ -1,6 +1,6 @@
 Name:           perl-Date-Leapyear
 Version:        1.72
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Is a particular year a leap year?
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Date-Leapyear
@@ -41,6 +41,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.72-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.72-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

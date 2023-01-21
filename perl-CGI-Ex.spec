@@ -1,6 +1,6 @@
 Name:           perl-CGI-Ex
 Version:        2.54
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        CGI utility suite - makes powerful application writing fun and easy
 License:        GPL+ or Artistic
 
@@ -83,6 +83,9 @@ rm -f samples/app/app1/INSTALL
 %{_mandir}/man3/CGI*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.54-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.54-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

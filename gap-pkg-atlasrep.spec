@@ -11,7 +11,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.1.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GAP interface to the Atlas of Group Representations
 
 License:        GPL-3.0-or-later
@@ -139,6 +139,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.1.6-2
 - Update for split GAP directories
 

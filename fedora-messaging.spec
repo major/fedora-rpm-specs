@@ -7,7 +7,7 @@ Tools and APIs to make working with AMQP in Fedora easier.
 
 Name:           %{pkgname}
 Version:        3.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Set of tools for using Fedora's messaging infrastructure
 
 License:        GPLv2+
@@ -112,6 +112,9 @@ install -D -p -m 644 fm-consumer@.service $RPM_BUILD_ROOT%{_unitdir}/fm-consumer
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 17 2022 Packit <hello@packit.dev> - 3.2.0-5
 - Version 3.2.0 (Aurélien Bompard)
 - Use tomllib from the standard library on Python 3.11 (Miro Hrončok)

@@ -3,7 +3,7 @@
 Summary:        Fast Scanner Generator
 Name:           jflex
 Version:        1.7.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 License:        BSD
 URL:            http://jflex.de/
 BuildArch:      noarch
@@ -102,6 +102,9 @@ install -p -m 644 %{SOURCE4} %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

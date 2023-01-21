@@ -3,7 +3,7 @@
 
 Name:        %{fontname}-fonts
 Version:    0.1.0
-Release:    22%{?dist}
+Release:    23%{?dist}
 Summary:    English asymmetric font
 
 License:    GPLv3+ with exceptions
@@ -59,6 +59,9 @@ install -Dm 0644 -p %{SOURCE3} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

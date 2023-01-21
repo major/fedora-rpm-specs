@@ -4,7 +4,7 @@
 Name:           koffice-kivio
 Epoch:          3
 Version:        1.6.3
-Release:        63%{?dist}
+Release:        64%{?dist}
 Summary:        A flowcharting application
 
 License:        GPLv2+
@@ -229,6 +229,9 @@ mv -f kivio-unique.lang kivio.lang
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.6.3-64
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  8 2022 Florian Weimer <fweimer@redhat.com> - 3:1.6.3-63
 - Port configure script to C99 (#2151969)
 

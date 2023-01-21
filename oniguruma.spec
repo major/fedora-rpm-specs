@@ -25,7 +25,7 @@
 
 Name:		oniguruma
 Version:	%{mainver}%{?postver:.%postver}
-Release:	%{?prerelease:0.}%{fedorarel}%{?betaver:.%betaver}%{?gitversion:.%{?gitversion}}%{?dist}
+Release:	%{?prerelease:0.}%{fedorarel}%{?betaver:.%betaver}%{?gitversion:.%{?gitversion}}%{?dist}.1
 Summary:	Regular expressions library
 
 License:	BSD
@@ -127,6 +127,9 @@ find $RPM_BUILD_ROOT -name '*.la' \
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.9.8-2.D20220919gitb041f6d.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.9.8-2.D20220919gitb041f6d
 - Update to the latest git, expecially:
   - Update to Unicode 15.0 (upstream #272)

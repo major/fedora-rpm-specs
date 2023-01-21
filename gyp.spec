@@ -12,7 +12,7 @@
 
 Name:		gyp
 Version:	0.1
-Release:	0.47%{?revision:.%{revision}git}%{?dist}
+Release:	0.48%{?revision:.%{revision}git}%{?dist}
 Summary:	Generate Your Projects
 
 License:	BSD-3-Clause
@@ -91,6 +91,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.48.fcd686f1git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 0.1-0.47.fcd686f1git
 - Convert License tag to SPDX.
 

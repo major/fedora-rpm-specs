@@ -1,6 +1,6 @@
 Name:           perl-Email-Stuffer
 Version:        0.020
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        More casual approach to creating and sending emails
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Stuffer
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.020-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.020-1
 - 0.020 bump
 - Package tests

@@ -4,7 +4,7 @@
 Summary:	The NetBSD Editline library
 Name:		libedit
 Version:	3.1
-Release:	44.%{snap}cvs%{?dist}
+Release:	45.%{snap}cvs%{?dist}
 
 # The project as a whole is BSD-3-Clause.
 # These files are BSD-2-Clause:
@@ -95,6 +95,9 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man3/history.3*
 %{_includedir}/editline/readline.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-45.20221030cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 3.1-44.20221030cvs
 - New version (20221030-3.1)
 

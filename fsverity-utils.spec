@@ -1,6 +1,6 @@
 Name: fsverity-utils
 Version: 1.4
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: fsverity utilities
 
 License: BSD
@@ -61,6 +61,9 @@ find %{buildroot} -type f -name "*.a" -delete
 %{_libdir}/pkgconfig/libfsverity.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

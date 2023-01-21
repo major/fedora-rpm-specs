@@ -8,7 +8,7 @@
 
 Name:           mumble
 Version:        1.4.%{build_number}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Low-latency and high-quality voice-chat program
 # The main source code is BSD licensed.
 # The bundled libraries used are licensed as follows:
@@ -325,6 +325,9 @@ rmdir --ignore-fail-on-non-empty %{_sysconfdir}/murmur
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.274-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 11 2022 spike <spike@fedoraproject.org> - 1.4.274-3
 - Fix non-existent source when calling sysusers_create_compat macro
 

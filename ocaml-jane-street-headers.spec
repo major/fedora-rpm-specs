@@ -6,7 +6,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        0.15.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Jane Street header files
 
 License:        MIT
@@ -51,6 +51,9 @@ sed -ri '/(archive|plugin)/d' \
 %{ocamldir}/%{srcname}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

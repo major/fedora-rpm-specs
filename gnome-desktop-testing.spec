@@ -1,6 +1,6 @@
 Name:           gnome-desktop-testing
 Version:        2018.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GNOME test runner for installed tests
 
 License:        LGPLv2+
@@ -38,6 +38,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_bindir}/ginsttest-runner
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2018.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2018.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

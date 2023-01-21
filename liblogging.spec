@@ -1,6 +1,6 @@
 Name:    liblogging
 Version: 1.0.6
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: An easy to use logging library
 License: BSD
 URL:     http://www.liblogging.org/
@@ -69,6 +69,9 @@ rm -f \
 %{_mandir}/man3/stdlog.3.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

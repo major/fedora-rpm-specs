@@ -8,7 +8,7 @@
 Summary: Tools for managing the osinfo database
 Name: osinfo-db-tools
 Version: 1.10.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+
 Source: https://releases.pagure.org/libosinfo/%{name}-%{version}.tar.xz
 URL: https://libosinfo.org
@@ -144,6 +144,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/man
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Daniel P. Berrangé <berrange@redhat.com> - 1.10.0-5
 - Switch to soup3
 

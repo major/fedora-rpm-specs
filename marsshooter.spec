@@ -3,7 +3,7 @@
 Summary:        M.A.R.S. - A Ridiculous Shooter
 Name:           marsshooter
 Version:        0.7.6
-Release:        24%{?dist}
+Release:        25%{?dist}
 # Engine is GPLv3+, the libs under ext_libs_for_windows are LGPLv2+ / MPLv1.1
 # but those are unused, so the resulting binary is pure GPLv3+
 License:        GPLv3+
@@ -118,6 +118,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.7.6-24
 - Rebuilt for rawhide
 - Add "%%global __cmake_in_source_build 1" due marsshooter doesn't support out-of-src tree builds

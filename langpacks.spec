@@ -4,7 +4,7 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   27%{?dist}
+Release:   28%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -1428,6 +1428,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 3.0-27
 - Update license tag to SPDX format
 

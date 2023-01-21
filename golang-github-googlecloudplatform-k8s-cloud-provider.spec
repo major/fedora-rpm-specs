@@ -16,7 +16,7 @@ Platform.}
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Support code for implementing a Kubernetes cloud provider for GCP
 
 # Upstream license specification: Apache-2.0
@@ -54,6 +54,9 @@ BuildRequires:  golang(golang.org/x/oauth2/google)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 1.13.0-7
 - Rebuild to fix FTBFS
 

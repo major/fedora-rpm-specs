@@ -1,6 +1,6 @@
 Name:           nfoview
 Version:        1.28.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Viewer for NFO files
 
 License:        GPLv3+
@@ -59,6 +59,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/io.otsaloma.nf
 %{_datadir}/icons/hicolor/*/apps/io.otsaloma.nfoview*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

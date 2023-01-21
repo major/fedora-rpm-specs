@@ -2,7 +2,7 @@
 
 Name:           guava
 Version:        31.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Google Core Libraries for Java
 # Most of the code is under ASL 2.0
 # Few classes are under CC0, grep for creativecommons
@@ -98,6 +98,9 @@ com[.]google[.]j2objc[.]annotations[.] \
 %files testlib -f .mfiles-guava-testlib
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 31.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 08 2022 Marian Koncek <mkoncek@redhat.com> - 31.1-1
 - Update to upstream version 31.1
 

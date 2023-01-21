@@ -21,7 +21,7 @@ ExcludeArch: s390x
 
 Name:    openmeeg
 Version: 2.5.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Low-frequency bio-electromagnetism solving forward problems in the field of EEG and MEG
 License: CeCILL-B
 URL:     http://openmeeg.github.io/
@@ -187,6 +187,9 @@ export OPENMEEG_DATA_PATH=%{_builddir}/%{name}-%{version}/data
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 28 2022 Iñaki Úcar <iucar@fedoraproject.org> - 2.5.5-1
 - Release 2.5.5
 - Switch back to flexiblas rhbz#2121388

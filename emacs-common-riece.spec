@@ -3,7 +3,7 @@
 
 Name:		emacs-common-%{pkg}
 Version:	8.0.0
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Yet Another IRC Client for Emacs and XEmacs
 
 License:	GPLv2+
@@ -122,6 +122,9 @@ install -m 644 %{name}-init.el $RPM_BUILD_ROOT%{_xemacs_sitestartdir}/%{pkg}-ini
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

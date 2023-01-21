@@ -1,6 +1,6 @@
 Name:           perl-Carp-Assert
 Version:        0.21
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Executable comments
 
 License:        GPL+ or Artistic
@@ -51,6 +51,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

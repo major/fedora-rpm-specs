@@ -4,7 +4,7 @@
 
 Name:           mingw-%{name1}
 Version:        2.40.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        MinGW Windows C++ wrapper for the libxml2 XML parser library
 
 License:        LGPLv2+
@@ -89,6 +89,9 @@ rm -f $RPM_BUILD_ROOT%{mingw64_libdir}/*.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.40.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

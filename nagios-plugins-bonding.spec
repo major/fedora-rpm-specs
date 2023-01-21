@@ -8,7 +8,7 @@
 
 Name:          nagios-plugins-bonding
 Version:       1.4
-Release:       20%{?dist}
+Release:       21%{?dist}
 Summary:       Nagios plugin to monitor Linux bonding interfaces
 
 License:       GPLv3+
@@ -67,6 +67,9 @@ install -Dp -m 0644 man/%{plugin}.8 %{buildroot}%{_mandir}/man8/%{plugin}.8
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 Name:           pass
 Summary:        A password manager using standard Unix tools
 Version:        1.7.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPLv2+
 Url:            http://zx2c4.com/projects/password-store/
 BuildArch:      noarch
@@ -81,6 +81,9 @@ make test
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Peter Georg <peter.georg@physik.uni-regensburg.de> - 1.7.4-6
 - Set wl-copy/xclip requires to recommends
   Resolves: rhbz#2022909

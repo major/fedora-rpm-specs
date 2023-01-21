@@ -9,7 +9,7 @@
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
 Version:       42.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 
 # The sources are under the GPLv2+ license, except for:
 # - the gnome-music icon which is CC-BY-SA
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Music.deskt
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

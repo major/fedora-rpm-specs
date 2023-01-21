@@ -28,7 +28,7 @@ migrate—and because it's an easy to grok API.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Convenience library for generating, comparing and inspecting password hashes
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  golang(golang.org/x/crypto/scrypt)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

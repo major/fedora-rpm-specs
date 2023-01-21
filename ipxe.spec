@@ -39,7 +39,7 @@
 
 Name:    ipxe
 Version: %{date}
-Release: 2.git%{hash}%{?dist}
+Release: 3.git%{hash}%{?dist}
 Summary: A network boot loader
 
 License: GPLv2 with additional permissions and BSD
@@ -278,6 +278,9 @@ cp -a src/bin-arm64-efi/ipxe.efi %{buildroot}/%{_datadir}/%{name}/arm64-efi/ipxe
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-3.git64113751
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220210-2.git64113751
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

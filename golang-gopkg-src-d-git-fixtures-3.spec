@@ -27,7 +27,7 @@ Several git fixtures to run go-git tests.}
 %global gosupfiles      data/*
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Several git fixtures to run go-git tests
 
 # Upstream license specification: Apache-2.0
@@ -62,6 +62,9 @@ BuildRequires:  golang(gopkg.in/src-d/go-git.v4/plumbing)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

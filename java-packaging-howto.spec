@@ -1,6 +1,6 @@
 Name:           java-packaging-howto
 Version:        26.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Fedora Java packaging HowTo
 License:        BSD
 URL:            https://github.com/fedora-java/howto
@@ -32,6 +32,9 @@ VERSION=%{version} make
 %doc index.html images
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 26.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

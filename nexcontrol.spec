@@ -1,6 +1,6 @@
 Name:		nexcontrol
 Version:	0.2
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Software to control your Celestron NexStar Telescope
 
 License:	GPLv2+
@@ -28,6 +28,9 @@ install -Dpm 755 nexcontrol.pl $RPM_BUILD_ROOT%{_bindir}/nexcontrol
 %{_bindir}/nexcontrol
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

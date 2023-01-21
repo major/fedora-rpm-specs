@@ -1,7 +1,7 @@
 Summary: Enhanced backup plugin for J-Pilot
 Name: jpilot-backup
 Version: 0.60
-Release: 34%{dist}
+Release: 35%{dist}
 License: GPLv2+
 Source: http://www.jlogday.com/code/jpilot-backup/%{name}-%{version}.tar.gz
 Patch0: jpilot-backup-libdir.patch
@@ -44,6 +44,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/jpilot/plugins/libbackup.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.60-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.60-34%{dist}
 - Port configure script to C99
 

@@ -7,7 +7,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        1.4.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Jupyter kernel written in GAP
 
 License:        BSD-3-Clause
@@ -96,6 +96,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.4.1-6
 - Update for split GAP directories
 

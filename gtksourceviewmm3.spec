@@ -7,7 +7,7 @@
 
 Name:           gtksourceviewmm3
 Version:        3.18.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A C++ wrapper for gtksourceview3
 
 License:        LGPLv2+
@@ -92,6 +92,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %doc %{_docdir}/%{tarname}-%{api_ver}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

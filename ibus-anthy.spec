@@ -18,7 +18,7 @@
 
 Name:           ibus-anthy
 Version:        1.5.14
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        The Anthy engine for IBus input platform
 License:        GPL-2.0-or-later
 URL:            https://github.com/ibus/ibus/wiki
@@ -156,6 +156,9 @@ make -C data check
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.14-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.14-8
 - Migrate license tag to SPDX
 

@@ -13,7 +13,7 @@
 
 Name:           guayadeque
 Version:        0.4.7
-Release:        0.40.%{gitdate}git%{shortcommit0}%{?dist}
+Release:        0.41.%{gitdate}git%{shortcommit0}%{?dist}
 Summary:        Music player
 
 # The entire source code is GPLv3+ except hmac/ which is BSD
@@ -133,6 +133,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-0.41.20220801gita8b47a6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.4.7-0.49.20220801gita8b47a6
 - Rebuild without debug flag as long as https://github.com/anonbeat/guayadeque/issues/151 is not fixed
 

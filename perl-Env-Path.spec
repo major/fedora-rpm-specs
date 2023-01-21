@@ -1,6 +1,6 @@
 Name:           perl-Env-Path
 Version:        0.19
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Advanced operations on path variables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Env-Path
@@ -47,6 +47,9 @@ make test
 %{_bindir}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

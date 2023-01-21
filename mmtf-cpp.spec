@@ -9,7 +9,7 @@
 
 Name:    mmtf-cpp
 Version: 1.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: The Macromolecular Transmission Format (MMTF) header only files
 License: MIT
 URL:     https://github.com/rcsb/%{name}
@@ -73,6 +73,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 03 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.1.0-1
 - Release 1.1.0
 

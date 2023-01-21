@@ -8,7 +8,7 @@
 
 Name:           gnome-shell-extension-netspeed
 Version:        3.32
-Release:        0.6.%{gitdate}git%{shortcommit}%{?dist}
+Release:        0.7.%{gitdate}git%{shortcommit}%{?dist}
 Summary:        A gnome-shell extension to show speed of the internet
 License:        GPLv3+
 URL:            https://github.com/hedayaty/NetSpeed
@@ -61,6 +61,9 @@ rm -rf %{builddir}/%{_datadir}/gnome-shell/extensions/%{uuid}/schemas/
 %{_datadir}/glib-2.0/schemas/org.gnome.shell.extensions.netspeed.gschema.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.32-0.7.20220421git5a96082
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Oct 29 2022 Martin Gansser <martinkg@fedoraproject.org> - 3.32-0.6.20220421git5a96082
 - Add gnome 43 Support
 

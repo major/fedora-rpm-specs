@@ -1,6 +1,6 @@
 Name: glui
 Version:  2.36
-Release:  24%{?dist}
+Release:  25%{?dist}
 Summary: A GLUT-Based User Interface Library
 
 License: zlib
@@ -65,6 +65,9 @@ ln -s %{_libdir}/libglui.so.0 %{buildroot}%{_libdir}/libglui.so
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

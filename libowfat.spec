@@ -6,7 +6,7 @@
 
 Name:           libowfat
 Version:        0.30
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Reimplementation of libdjb 
 License:        GPLv2
 URL:            http://www.fefe.de/libowfat/
@@ -61,6 +61,9 @@ make -f GNUmakefile install \
 %{_mandir}/man3/**
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 0.30-21
 - Apply C99 compatibility fixes (#2153016)
 

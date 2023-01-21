@@ -4,7 +4,7 @@
 
 Name:       git-extras
 Version:    6.5.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Little git extras
 
 License:    MIT
@@ -63,6 +63,9 @@ install -pm 0644 man/*.md md
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Sérgio Basto <sergio@serjux.com> - 6.5.0-1
 - Update git-extras to 6.5.0 (#2132833)
 

@@ -16,7 +16,7 @@ Version:                0.4.0
 %global godocs          example README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An embeddable terminal widget for tcell
 
 License:        MIT
@@ -44,6 +44,9 @@ Source:         %{gourl}/archive/v%{version}.tar.gz#/tcell-term-%{version}.tar.g
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 30 2022 Maxwell G <gotmax@e.email> - 0.4.0-1
 - Update to 0.4.0. Fixes rhbz#2156426.
 

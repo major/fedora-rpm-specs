@@ -2,7 +2,7 @@
 
 Name:           mingw-gstreamer
 Version:        0.10.36
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        MinGW Windows Streaming-Media Framework Runtime
 
 License:        LGPLv2+
@@ -219,6 +219,9 @@ rm -f $RPM_BUILD_ROOT%{mingw64_datadir}/aclocal/gst-element-check-0.10.m4
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.36-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.36-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

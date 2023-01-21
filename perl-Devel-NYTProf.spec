@@ -1,6 +1,6 @@
 Name:           perl-Devel-NYTProf
 Version:        6.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Powerful feature-rich perl source code profiler
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-NYTProf
@@ -143,6 +143,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Jitka Plesnikova <jplesnik@redhat.com> - 6.12-1
 - 6.12 bump
 

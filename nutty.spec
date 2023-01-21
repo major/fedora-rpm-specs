@@ -2,7 +2,7 @@
 
 Name:           nutty
 Version:        1.1.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Simple utility for network information
 
 # The entire source code is GPLv3+ except *speedtest-cli* which is ASL 2.0
@@ -82,6 +82,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{file_name}.desktop
 %{_metainfodir}/%{file_name}.appdata.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:           ocaml-bin-prot
 Version:        0.15.0
 Epoch:          1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Read and write OCaml values in a type-safe binary protocol
 
 # The project as a whole is MIT.
@@ -72,6 +72,9 @@ ocamlmklib -g -ldopt "%{build_ldflags}" -o bin_prot_stubs blit_stubs.o
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.15.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 1:0.15.0-8
 - Rebuild for ocaml-ppxlib 0.28.0
 

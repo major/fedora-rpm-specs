@@ -1,6 +1,6 @@
 Name:           httptunnel
 Version:        3.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Tunnels a data stream in HTTP requests
 
 License:        GPLv2
@@ -47,6 +47,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Peter Fordham <peter.fordham@gmail.com> - 3.3-31
 - Port configure script to C99.
 

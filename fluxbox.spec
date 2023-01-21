@@ -1,6 +1,6 @@
 Name:           fluxbox
 Version:        1.3.7
-Release:        20%{?dist}
+Release:        21%{?dist}
 
 Summary:        Window Manager based on Blackbox
 
@@ -128,6 +128,9 @@ install -m 0644 -p 3rd/vim/vim/syntax/fluxmenu.vim %{buildroot}%{_datadir}/vim/v
 %{_datadir}/vim/vimfiles/syntax/flux*.vim
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

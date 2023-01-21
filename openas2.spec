@@ -22,7 +22,7 @@
 
 Name:           openas2
 Version:        2.10.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Java-based implementation of the EDIINT AS2 standard
 
 License:        BSD
@@ -329,6 +329,9 @@ systemctl daemon-reload >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

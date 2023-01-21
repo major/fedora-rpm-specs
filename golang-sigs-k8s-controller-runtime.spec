@@ -17,7 +17,7 @@ Repo for the controller-runtime subproject of kubebuilder (sig-apimachinery).}
                         LOGGING.md VERSIONING.md code-of-conduct.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Repo for the controller-runtime subproject of kubebuilder (sig-apimachinery)
 
 # Upstream license specification: Apache-2.0
@@ -129,6 +129,9 @@ BuildRequires:  golang(k8s.io/api/apps/v1beta1)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.6.5-6
 - Rebuild to fix FTBFS
 

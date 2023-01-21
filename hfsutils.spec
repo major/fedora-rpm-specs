@@ -1,7 +1,7 @@
 Summary: Tools for reading and writing Macintosh HFS volumes
 Name: hfsutils
 Version: 3.2.6
-Release: 45%{?dist}
+Release: 46%{?dist}
 License: GPLv2+
 Source: ftp://ftp.mars.org/pub/hfs/%{name}-%{version}.tar.gz
 Patch0: hfsutils-3.2.6-errno.patch
@@ -112,6 +112,9 @@ ln -sf hfsck $RPM_BUILD_ROOT/%{_bindir}/fsck.hfs
 %{_includedir}/rsrc.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.6-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Peter Fordham <peter.fordham@gmail.com> - 3.2.6-45
 - Port configure script to C99 and add missing include.
 

@@ -1,6 +1,6 @@
 Name:           logserial
 Version:        0.4.2 
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Package for logging incoming bytes on asynchronous serial ports
 
 License:        GPL+
@@ -39,6 +39,9 @@ install -p -D -m 755 %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           maven-parent
 Version:        37
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Apache Maven parent POM
 License:        ASL 2.0
 URL:            https://maven.apache.org
@@ -45,6 +45,9 @@ Apache Maven parent POM file used by other Maven projects.
 %doc LICENSE NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 Marian Koncek <mkoncek@redhat.com> - 37-1
 - Update to upstream version 37
 

@@ -6,7 +6,7 @@
 Summary:        Perl Object Oriented Interface to GnuPG
 Name:           perl-Crypt-GPG
 Version:        1.64
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{pkgname}
 Source0:        https://cpan.metacpan.org/authors/id/A/AG/AGUL/%{pkgname}-%{version}.tar.gz
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Crypt::GPG.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.64-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

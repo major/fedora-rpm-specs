@@ -1,6 +1,6 @@
 Name:           netcdf-fortran
 Version:        4.5.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fortran libraries for NetCDF-4
 
 License:        NetCDF and ASL 2.0
@@ -279,6 +279,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

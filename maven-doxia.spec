@@ -4,7 +4,7 @@
 Name:           maven-doxia
 Epoch:          0
 Version:        1.11.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Content generation framework
 License:        Apache-2.0
 
@@ -243,6 +243,9 @@ rm doxia-core/src/test/java/org/apache/maven/doxia/util/XmlValidatorTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:1.11.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0:1.11.1-3
 - Convert License tag to SPDX
 

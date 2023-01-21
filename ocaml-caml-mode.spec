@@ -6,7 +6,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        4.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Opam file for caml-mode
 
 # GPL-2.0-or-later: the project as a whole
@@ -75,6 +75,9 @@ cd -
 %{_emacs_sitestartdir}/caml-mode-site-file.el
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 4.9-3
 - Convert the License tag to SPDX
 

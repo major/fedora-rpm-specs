@@ -1,6 +1,6 @@
 Name:           pageedit
 Version:        1.9.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ePub visual XHTML editor
 
 License:        GPL-3.0-or-later AND Apache-2.0
@@ -56,5 +56,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.20-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 04 2022 Dan Horák <dan@danny.cz> - 1.9.20-1
 - initial Fedora version

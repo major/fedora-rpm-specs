@@ -7,7 +7,7 @@
 
 Name:		perl-Class-Load
 Version:	0.25
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	A working (require "Class::Name") and more
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Class-Load
@@ -93,6 +93,9 @@ make test
 %{_mandir}/man3/Class::Load.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

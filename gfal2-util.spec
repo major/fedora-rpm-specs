@@ -20,7 +20,7 @@
 
 Name:           gfal2-util
 Version:        1.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GFAL2 utility tools
 Group:          Applications/Internet
 License:        ASL 2.0
@@ -158,6 +158,9 @@ Obsoletes:      gfal2-util < %{version}-%{release}
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Mihai Patrascoiu <mipatras@cern.ch> - 1.8.0-1
 - Upgrade to upstream release 1.8.0
 

@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.3.231.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       Apache-2.0
@@ -105,6 +105,9 @@ mv %{buildroot}%{mingw64_libdir}/libVkLayer_utils.dll %{buildroot}%{mingw64_bind
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.231.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 1.3.231.1-1
 - Update to 1.3.231.1
 

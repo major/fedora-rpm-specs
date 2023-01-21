@@ -13,7 +13,7 @@
 Name:           ocaml-cairo
 Epoch:          2
 Version:        0.6.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml library for accessing cairo graphics
 
 License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
@@ -166,6 +166,9 @@ popd
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.6.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 12 2022 Jerry James <loganjerry@gmail.com> - 2:0.6.4-1
 - New upstream version 0.6.4
 - Convert License tag to SPDX

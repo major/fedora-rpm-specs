@@ -3,7 +3,7 @@
 Summary: Basic networking tools
 Name: net-tools
 Version: 2.0
-Release: 0.64.%{checkout}%{?dist}
+Release: 0.65.%{checkout}%{?dist}
 License: GPLv2+
 URL: http://sourceforge.net/projects/net-tools/
 
@@ -148,6 +148,9 @@ install -D -p -m 644 %{SOURCE9} %{buildroot}%{_unitdir}/arp-ethers.service
 %attr(0644,root,root)   %{_unitdir}/arp-ethers.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.65.20160912git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 23 2022 Michal Ruprich <mruprich@redhat.com> - 2.0-0.64.20160912git
 - Resolves: #2077846 - net-tools utilities display incorrect statistics for interfaces with 15-character names
 

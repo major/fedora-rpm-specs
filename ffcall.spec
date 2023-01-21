@@ -1,6 +1,6 @@
 Name:           ffcall
 Version:        2.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Libraries for foreign function call interfaces
 
 # The project as a whole is GPL-2.0-or-later.
@@ -103,6 +103,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 2.4-4
 - Convert License tags to SPDX
 

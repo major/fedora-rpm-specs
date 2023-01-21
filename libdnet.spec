@@ -6,7 +6,7 @@ License:       BSD
 Version:       1.16.3
 %forgemeta
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 
@@ -93,6 +93,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Richard W.M. Jones <rjones@redhat.com> - 1.16.3-1
 - Rebase to 1.16.3
 - Use Fedora forge hosting macros.

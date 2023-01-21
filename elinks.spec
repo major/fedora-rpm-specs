@@ -1,7 +1,7 @@
 Name:      elinks
 Summary:   A text-mode Web browser
 Version:   0.16.0
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPLv2
 URL:       https://github.com/rkd77/elinks
 Source:    https://github.com/rkd77/elinks/releases/download/v%{version}/elinks-%{version}.tar.xz
@@ -129,6 +129,9 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 02 2023 Kamil Dudka <kdudka@redhat.com> - 0.16.0-1
 - make the IDN2 support work again (#1098789)
 - new upstream release

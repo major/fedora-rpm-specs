@@ -17,7 +17,7 @@ BuildRequires:	%1 \
 
 Name:		fantasdic
 Version:	%{mainver}
-Release:	%{fullrel}%{?dist}
+Release:	%{fullrel}%{?dist}.1
 Summary:	Dictionary application using Ruby
 
 License:	GPLv2+
@@ -215,6 +215,9 @@ exit $STATUS
 %{ruby_vendorlibdir}/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.21.beta7.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov  9 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0-0.21.beta7
 - Use YAML.unsafe_load for psych 4.0.x
 - Some misc fixes for ruby 3.1

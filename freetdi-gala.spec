@@ -3,7 +3,7 @@
 
 Name:           %{owner}-%{project}
 Version:        1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C++ graph abstraction with low-level access
 
 # The project as a whole is GPL-3.0-or-later.
@@ -20,6 +20,8 @@ Patch1:         %{name}-32bit.patch
 Patch2:         %{name}-deprecated.patch
 # Remove tautological asserts
 Patch3:         %{name}-always-true.patch
+# The stdint header is no longer included transitively
+Patch4:         %{name}-stdint.patch
 
 BuildArch:      noarch
 BuildRequires:  boost-devel
@@ -69,6 +71,12 @@ make check LOCAL_CXXFLAGS="%{build_cxxflags} -DHAVE_TLX_CONTAINER_BTREE_SET_HPP 
 %{_includedir}/%{project}/
 
 %changelog
+* Thu Jan 19 2023 Jerry James <loganjerry@gmail.com> - 1-5
+- Add -stdint patch to fix FBTFS
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 1-4
 - Convert License tag to SPDX
 

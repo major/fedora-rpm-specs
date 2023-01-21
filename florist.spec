@@ -7,7 +7,7 @@
 Name:           florist
 Epoch:          2
 Version:        %{upstream_version}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open Source implementation of the POSIX Ada Bindings
 
 License:        GPLv2+ with exceptions
@@ -135,6 +135,9 @@ sed --regexp-extended --in-place \
 ###############
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:22.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2:22.0.0-3
 - Rebuilt with GCC 13.
 

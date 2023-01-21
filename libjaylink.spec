@@ -1,6 +1,6 @@
 Name:           libjaylink
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for SEGGER J-Link and compatible devices
 
 License:        GPLv2+
@@ -59,6 +59,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Jiri Kastner <jkastner@fedoraproject.org> - 0.3.0-1
  - update to 0.3.0
 

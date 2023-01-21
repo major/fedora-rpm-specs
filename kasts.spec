@@ -2,7 +2,7 @@
 
 Name:           kasts
 Version:        22.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+
 Summary:        A mobile podcast application
 Url:            https://apps.kde.org/%{name}
@@ -60,6 +60,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_qmldir}/org/kde/%{name}/solidextras/libkasts-solidextrasqmlplugin.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
 - Update to 22.11
 

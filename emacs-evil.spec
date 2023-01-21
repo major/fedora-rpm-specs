@@ -3,7 +3,7 @@
 
 Name:		emacs-%{pkg}
 Version:	1.14.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Extensible vi layer for Emacs	
 Summary(fr):	Surcouche vi extensible pour Emacs
 
@@ -48,6 +48,9 @@ cp -p *.el *.elc $RPM_BUILD_ROOT%{_emacs_sitelispdir}/%{pkg}
 %{_emacs_sitelispdir}/%{pkg}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 02 2022 Bhavin Gandhi <bhavin192@fedoraproject.org> - 1.14.2-1
 - Update to version 1.14.2, fixes rhbz#2113192
 

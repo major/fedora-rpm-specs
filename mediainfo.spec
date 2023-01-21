@@ -2,7 +2,7 @@
 
 Name:           mediainfo
 Version:        22.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Supplies technical and tag information about a video or audio file (CLI)
 
 License:        BSD-2-Clause
@@ -209,6 +209,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 23 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 22.12-3
 - Update to 22.12
 - Fix EPEL build

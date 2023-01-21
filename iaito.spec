@@ -25,10 +25,10 @@ VCS:            https://github.com/radareorg/iaito/
 %global         iaito_translations__shortcommit %(c=%{iaito_translations_commit}; echo ${c:0:7})
 
 %if %{with releasetag}
-Release:        %{rel}%{?dist}
+Release:        %{rel}%{?dist}.1
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %else
-Release:        0.%{rel}.%{gitdate}git%{shortcommit}%{?dist}
+Release:        0.%{rel}.%{gitdate}git%{shortcommit}%{?dist}.1
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 %endif
 
@@ -190,6 +190,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.8-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 27 2022 Michal Ambroz <rebus _AT seznam.cz> - 5.7.8-1
 - bump to 5.7.8
 

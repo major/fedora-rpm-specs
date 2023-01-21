@@ -3,7 +3,7 @@
 %bcond_with docs
 
 Name:           python-%{pypi_name}
-Version:        5.1.0
+Version:        5.2.1
 Release:        1%{?dist}
 Summary:        Objects and routines pertaining to date and time (tempora)
 
@@ -57,7 +57,7 @@ Documentation for tempora
 %autosetup -n %{pypi_name}-%{version}
 # Remove test that requires pytest-freezer.
 # there's only one and the dep is not packaged in Fedora
-sed -i 217,225d tempora/__init__.py
+sed -i 211,223d tempora/__init__.py
 
 %build
 LANG=C.utf-8 %{__python3} -m build --no-isolation
@@ -89,6 +89,9 @@ LANG=C.utf-8 %{__python3} -m pytest --ignore=build
 %endif
 
 %changelog
+* Thu Jan 19 2023 Dan Radez <dradez@redhat.com> - 5.2.1-1
+- update to 5.2.1 (rhbz#2157607)
+
 * Wed Nov 23 2022 Dan Radez <dradez@redhat.com> - 5.1.0-1
 - update to 5.1.0 (rhbz#2144174)
 

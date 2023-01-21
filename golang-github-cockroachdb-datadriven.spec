@@ -14,7 +14,7 @@ Data-Driven Testing for Go.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Data-Driven Testing for Go
 
 # Upstream license specification: Apache-2.0
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/pmezard/go-difflib/difflib)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 1.0.0-6
 - Rebuild to fix FTBFS
 

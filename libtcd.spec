@@ -8,7 +8,7 @@
 
 Name:		libtcd
 Version:	%{mainver}
-Release:	%{rpmrel}%{?dist}.4
+Release:	%{rpmrel}%{?dist}.5
 Summary:	Tide Constituent Database Library
 BuildRequires:	gcc
 BuildRequires: make
@@ -64,6 +64,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/%{name}/*html
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-3.r3.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-3.r3.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

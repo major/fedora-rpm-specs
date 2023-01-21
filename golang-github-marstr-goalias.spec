@@ -18,7 +18,7 @@ package.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.13%{?dist}
+Release:        0.14%{?dist}
 Summary:        Generates a Go package that acts as a ghost of another
 
 License:        MIT
@@ -46,6 +46,9 @@ BuildRequires:  golang(github.com/marstr/collection)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

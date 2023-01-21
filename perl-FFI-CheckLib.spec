@@ -3,7 +3,7 @@
 
 Name:           perl-FFI-CheckLib
 Version:        0.31
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Check that a library is available for FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FFI-CheckLib
@@ -122,6 +122,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Petr Pisar <ppisar@redhat.com> - 0.31-2
 - Remove a bogus Alien::libbar RPM provide from perl-FFI-CheckLib-tests
 

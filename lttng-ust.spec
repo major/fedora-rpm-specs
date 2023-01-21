@@ -14,7 +14,7 @@
 
 Name:           lttng-ust
 Version:        2.13.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        LGPLv2.1, MIT and GPLv2
 Summary:        LTTng Userspace Tracer library
@@ -136,6 +136,9 @@ make check
 %{python3_sitelib}/lttngust-*.egg-info
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 18 2022 Michael Jeanson <mjeanson@efficios.com> - 2.13.5-1
 - New upstream release
 - Add builddep on python3-setuptools in prevision of python 3.12 removing distutils

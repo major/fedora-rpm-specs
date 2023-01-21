@@ -12,7 +12,7 @@ Version:                0.10.0
 Go standard library TLS 1.3 implementation, modified for QUIC.}
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Go standard library TLS 1.3 implementation, modified for QUIC
 
 # https://github.com/marten-seemann/qtls/issues/3
@@ -50,6 +50,9 @@ BuildRequires:  golang(github.com/golang/mock/gomock)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

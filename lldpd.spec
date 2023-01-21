@@ -10,7 +10,7 @@
 
 Name:     lldpd
 Version:  1.0.4
-Release:  11%{?dist}
+Release:  12%{?dist}
 Summary:  ISC-licensed implementation of LLDP
 
 License:  ISC
@@ -174,6 +174,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  8 2022 Florian Weimer <fweimer@redhat.com> - 1.0.4-11
 - Port configure script to C99
 

@@ -4,7 +4,7 @@ Name:           kalendar
 %global uuid    org.kde.%{name}
 %global suuid   %{uuid}ac
 Version:        22.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A calendar application using Akonadi to sync with external services
 License:        GPLv3+
 URL:            https://invent.kde.org/pim/%{name}
@@ -112,6 +112,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/%{uuid}.ap
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.1-1
 - 22.12.1
 

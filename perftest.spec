@@ -1,7 +1,7 @@
 Name:           perftest
 Summary:        IB Performance Tests
 Version:        4.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        GPLv2 or BSD
 Source:         https://github.com/linux-rdma/perftest/releases/download/v4.5-0.12/perftest-4.5-0.12.ge93c538.tar.gz
 Url:            https://github.com/linux-rdma/perftest
@@ -40,6 +40,9 @@ done
 %_bindir/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

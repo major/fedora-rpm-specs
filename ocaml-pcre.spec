@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-pcre
 Version:        7.5.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl compatibility regular expressions (PCRE) for OCaml
 
 License:        LGPLv2 with exceptions
@@ -90,6 +90,9 @@ dune runtest --profile release
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

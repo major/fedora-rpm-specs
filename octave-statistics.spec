@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        1.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Additional statistics functions for Octave
 License:        GPLv3+ and Public Domain
 URL:            https://github.com/gnu-octave/%{octpkg}
@@ -61,6 +61,9 @@ chmod a-x %{buildroot}/%{octpkgdir}/*.m
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 17 2022 Orion Poplawski <orion@nwra.com> - 1.5.2-1
 - Update to 1.5.2
 

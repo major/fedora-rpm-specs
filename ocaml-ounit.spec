@@ -6,7 +6,7 @@
 
 Name:           ocaml-ounit
 Version:        2.2.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Unit test framework for OCaml
 
 License:        MIT
@@ -108,6 +108,9 @@ files for developing applications that use %{name}-lwt.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 2.2.6-2
 - Bump and rebuild
 

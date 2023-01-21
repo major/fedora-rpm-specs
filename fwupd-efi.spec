@@ -3,7 +3,7 @@
 Summary:   Firmware update EFI binaries
 Name:      fwupd-efi
 Version:   1.3
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/fwupd/fwupd-efi
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
@@ -60,6 +60,9 @@ rm -vf %{fwup_efi_fn}.tmp
 %{_libexecdir}/fwupd/efi/*.efi.signed
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

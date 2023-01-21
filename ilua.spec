@@ -1,6 +1,6 @@
 Name:           ilua
 Version:        0.2.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Portable Lua kernel for Jupyter
 
 # The package contains the Lua logo, which has some modification restrictions.
@@ -74,6 +74,9 @@ grep Traceback check.log && exit 1 || true
 %license %{_datadir}/jupyter/kernels/lua/logo-license.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.2.1-12
 - Drop support for i686
 

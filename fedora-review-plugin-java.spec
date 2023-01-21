@@ -1,6 +1,6 @@
 Name:           fedora-review-plugin-java
 Version:        4.6.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Java plugin for FedoraReview
 License:        GPLv2+
 URL:            https://github.com/fedora-java/fedora-review-plugin-java
@@ -32,6 +32,9 @@ install -pm644 fedora-review/java_guidelines.py %{buildroot}%{_datadir}/fedora-r
 %{_datadir}/fedora-review/plugins/java_guidelines.py*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

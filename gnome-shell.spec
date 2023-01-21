@@ -2,7 +2,7 @@
 
 Name:           gnome-shell
 Version:        43.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
@@ -246,6 +246,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/evolution-calendar.de
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Adam Williamson <awilliam@redhat.com> - 43.1-4
 - Backport MR #2548 to fix keyboard shortcut inhibiting
 

@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Locale
 Version:        1.37
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Localization support for DateTime.pm
 # Although the CLDR license is listed as "MIT" on the Fedora Wiki, it's more
 # similar to recently added "Unicode-DFS-2015" license.
@@ -117,6 +117,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 25 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.37-1
 - 1.37 bump
 

@@ -1,6 +1,6 @@
 Name:           jaxb-api2
 Version:        2.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jakarta XML Binding API
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-api
@@ -70,6 +70,9 @@ sed -i 's/JAXB-API/glassfish-jaxb-api\/jakarta.xml.bind-api-%{version}/' %{build
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Marian Koncek <mkoncek@redhat.com> - 2.3.3-3
 - Provide a jaxb-api.jar symlink
 

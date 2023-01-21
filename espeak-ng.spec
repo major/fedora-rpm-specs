@@ -1,6 +1,6 @@
 Name:          espeak-ng
 Version:       1.51.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       eSpeak NG Text-to-Speech
 
 License:       GPLv3+
@@ -105,6 +105,9 @@ ESPEAK_DATA_PATH=`pwd` LD_LIBRARY_PATH=src:${LD_LIBRARY_PATH} src/espeak-ng ...
 %doc docs/*.html
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

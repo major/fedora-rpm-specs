@@ -6,7 +6,7 @@
 
 Name:		llvm-test-suite
 Version:	%{llvm_test_suite_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	C/C++ Compiler Test Suite
 
 License:	NCSA and BSD and GPLv1 and GPLv2+ and GPLv2 and MIT and Python and Public Domain and CRC32 and AML and Rdisc and ASL 2.0 and LGPLv3
@@ -82,6 +82,9 @@ cp -R %{_builddir}/%{test_suite_srcdir}/* %{buildroot}%{_datadir}/llvm-test-suit
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-1
 - Update to LLVM 15.0.7
 

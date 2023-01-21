@@ -4,7 +4,7 @@
 
 Name:           lbzip2
 Version:        2.5
-Release:        25.%{date}git%{shortcommit}%{?dist}
+Release:        26.%{date}git%{shortcommit}%{?dist}
 Summary:        Fast, multi-threaded bzip2 utility
 License:        GPLv3+
 URL:            https://github.com/kjn/lbzip2/
@@ -57,6 +57,9 @@ build-aux/autogen.sh
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-26.20171011gitb6dc48a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Florian Weimer <fweimer@redhat.com> - 2.5-25.20171011gitb6dc48a
 - Fix C99 compatibility issue
 

@@ -1,6 +1,6 @@
 Name:           pachi
 Version:        1.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Pachi El Marciano - Platform Game
 License:        GPLv2+
 URL:            http://dragontech.sourceforge.net/index.php?main=pachi&lang=en
@@ -13,6 +13,7 @@ Patch0:         %{name}-fixes.patch
 Patch1:         %{name}-nosound.patch
 Patch2:         %{name}-more-fixes.patch
 Patch3:         %{name}-alt-warnigs-fix.patch
+Patch4: pachi-configure-c99.patch
 BuildRequires: make
 BuildRequires:  gcc gcc-c++ SDL_mixer-devel
 BuildRequires:  desktop-file-utils ImageMagick libappstream-glib
@@ -28,6 +29,7 @@ Pachi El Marciano is a cool 2D platform game.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p0
+%patch4 -p1
 
 
 %build
@@ -77,6 +79,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 1.0-36
+- Port configure script to C99
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

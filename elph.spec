@@ -1,6 +1,6 @@
 Name:           elph
 Version:        1.0.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Tool to find motifs in a set of DNA or protein sequences
 
 License:        Artistic clarified
@@ -44,6 +44,9 @@ install -m 755 sources/elph $RPM_BUILD_ROOT/%{_bindir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

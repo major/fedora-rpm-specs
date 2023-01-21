@@ -5,7 +5,7 @@ Summary: %{summ program}
 License: LGPLv2+
 
 Version: 1.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: https://github.com/grom358/hqx
 Source0: %{URL}/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -88,6 +88,9 @@ rm %{buildroot}%{_libdir}/lib%{name}.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Date-ICal
 Version:        2.679
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl extension for ICalendar date objects
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-ICal
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.679-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.679-1
 - 2.679 bump
 

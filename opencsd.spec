@@ -2,7 +2,7 @@
 
 Name:           opencsd
 Version:        1.3.3
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        An open source CoreSight(tm) Trace Decode library
 
 License:        BSD-3-Clause
@@ -58,6 +58,9 @@ PREFIX=%{buildroot}%{_prefix} LIB_PATH=%{_lib} make install DISABLE_STATIC=1 DEF
 
 #------------------------------------------------------------------------------
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jeremy Linton <jeremy.linton@arm.com> - 1.3.3-0
 - Update to upstream 1.3.3, and SPDX migration
 

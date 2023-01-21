@@ -4,7 +4,7 @@
 
 Name:		perl-Apache-Session-NoSQL
 Version:	0.2
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	NoSQL implementation of Apache::Session
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Apache-Session-NoSQL
@@ -114,6 +114,9 @@ make test
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

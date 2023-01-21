@@ -34,7 +34,7 @@
 %global        download_root   http://android.git.kernel.org/?p=platform/frameworks/base.git;a=blob_plain;f=data/fonts/
 
 Version: 1.00
-Release: 0.29.%{archivedate}git%{?dist}
+Release: 0.30.%{archivedate}git%{?dist}
 URL:     http://android.git.kernel.org/?p=platform/frameworks/base.git;a=tree;f=data/fonts
 BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
@@ -101,6 +101,9 @@ cp %{SOURCE21} .
 %fontfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-0.30.20110406git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec  2 2022 Akira TAGOH <tagoh@redhat.com> - 1.00-0.29.20110406git
 - Convert License tag to SPDX.
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-FormValidator
 Version:        4.88
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Validates user input (usually from an HTML form) based on input profile
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-FormValidator
@@ -79,6 +79,9 @@ make test
 %{_mandir}/man3/Data*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.88-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.88-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

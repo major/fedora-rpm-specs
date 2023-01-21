@@ -17,7 +17,7 @@
 
 Name:           %{prefix}-healthcheck
 Version:        0.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Health check tool for %{productname}
 BuildArch:      noarch
 License:        GPLv3
@@ -156,6 +156,9 @@ PYTHONPATH=src PATH=$PATH:$RPM_BUILD_ROOT/usr/bin pytest-3 tests/test_*
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  1 2022 Rob Crittenden <rcritten@redhat.com> - 0.12
 - Update to 0.12 release
 

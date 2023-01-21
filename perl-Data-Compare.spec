@@ -1,6 +1,6 @@
 Name:           perl-Data-Compare
 Version:        1.27
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Compare perl data structures
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Compare
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/Data::Compare::Plugins::Scalar::Properties.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.27-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

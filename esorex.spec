@@ -1,6 +1,6 @@
 Name: esorex
 Version: 3.13.6
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Recipe Execution Tool of the European Southern Observatory 
 
 License: GPLv2+
@@ -41,6 +41,9 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/bash-completion/completions/esorex
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 3.13.6-4
 - Regenerate with autoreconf so that runstatedir is recognized
 - Add autoconf >= 2.71 and automake to deps

@@ -1,6 +1,6 @@
 Name:           joni
 Version:        2.1.43
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java port of Oniguruma regexp library
 License:        MIT
 URL:            https://github.com/jruby/%{name}
@@ -41,6 +41,9 @@ find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
 %doc README.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.43-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.43-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

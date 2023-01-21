@@ -1,5 +1,5 @@
 Version:        4.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 URL:            https://google.github.io/material-design-icons/
 
 %global fontlicense     Apache-2.0
@@ -49,6 +49,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %fontfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 4.0.0-7
 - Convert License tag to SPDX
 

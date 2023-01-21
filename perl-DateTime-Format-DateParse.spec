@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-DateParse
 Version:        0.05
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Parse Date::Parse compatible formats
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-DateParse
@@ -78,6 +78,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.05-31
 - Package tests
 - Update license to SPDX format

@@ -2,7 +2,7 @@
 
 Name:           morse2txt
 Version:        1.0.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        A Morse Code Reader
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.0-35
 - Rebuild for gsl-2.7.1
 

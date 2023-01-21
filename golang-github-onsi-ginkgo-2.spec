@@ -16,7 +16,7 @@ A Modern Testing Framework for Go.}
                         RELEASING.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Modern Testing Framework for Go
 
 License:        MIT
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Maxwell G <gotmax@e.email> - 2.7.0-1
 - Update to 2.7.0. Fixes rhbz#2141119.
 

@@ -5,7 +5,7 @@
 
 Name:           emacs-common-%{pkg}
 Version:        18.10.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{pkgname} add-on package for Emacs
 
 # The ess license is GPLV+2, the license of julia-mode.el is MIT
@@ -139,6 +139,9 @@ done
 %{_docdir}/emacs-%{pkg}-doc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.10.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 18.10.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

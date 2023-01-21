@@ -3,7 +3,7 @@
 
 Name:           mona
 Version:        %{upver}r%{uprel}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A decision procedure for the WS1S and WS2S logics
 
 License:        GPL-2.0-or-later
@@ -138,6 +138,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/mona-mode.el .
 %{_emacs_sitelispdir}/mona/mona-mode.el*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4r18-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.4r18-7
 - Move the manual to the devel subpackage
 - Convert License tags to SPDX

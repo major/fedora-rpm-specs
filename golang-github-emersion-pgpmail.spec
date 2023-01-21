@@ -15,7 +15,7 @@ PGP-encrypted email library for Go.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PGP-encrypted email library for Go
 
 License:        MIT
@@ -50,6 +50,9 @@ sed -i "s|golang.org/x/crypto|github.com/ProtonMail/go-crypto|" $(find . -name "
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 11 2022 Maxwell G <gotmax@e.email> - 0.2.0-1
 - Update to 0.2.0. Fixes rhbz#2125409.
 

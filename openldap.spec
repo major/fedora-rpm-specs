@@ -14,7 +14,7 @@
 
 Name: openldap
 Version: 2.6.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: LDAP support libraries
 License: OpenLDAP
 URL: http://www.openldap.org/
@@ -504,6 +504,9 @@ exit 0
 %{_libdir}/libslapi-2.4*.so.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 17 2022 Simon Pichugin <spichugi@redhat.com> - 2.6.3-1
 - Rebase to version 2.6.3
   Related: rhbz#2107382

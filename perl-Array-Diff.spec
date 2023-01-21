@@ -6,7 +6,7 @@ Name:           perl-Array-Diff
 # but not in RPM world :-(
 Epoch:          1
 Version:        0.09
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Find the differences between two arrays
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Array-Diff
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/Array::Diff.3*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.09-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.09-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

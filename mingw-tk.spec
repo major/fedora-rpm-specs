@@ -10,7 +10,7 @@
 Summary:       MinGW Windows graphical toolkit for the Tcl scripting language
 Name:          mingw-%{pkgname}
 Version:       %{vers}
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       TCL
 URL:           http://tcl.sourceforge.net/
 Source0:       http://downloads.sourceforge.net/sourceforge/tcl/%{pkgname}%{version}-src.tar.gz
@@ -155,6 +155,9 @@ rm -rf %{buildroot}/%{mingw64_datadir}/%{pkgname}%{majorver}/ldAix
 %doc license.terms
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.12-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.6.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

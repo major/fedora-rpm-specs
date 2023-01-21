@@ -2,7 +2,7 @@ Name: eiciel
 Version: 0.10.0
 %global tar_version %{version}
 
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Graphical editor for ACLs and xattr
 License: GPLv2+
 URL: http://rofi.roger-ferrer.org/eiciel
@@ -59,6 +59,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 30 2022 Michael Schwendt <mschwendt@fedoraproject.org> - 0.10.0-1
 - Update to 0.10.0 final (no code changes but added manual page).
 

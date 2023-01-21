@@ -22,7 +22,7 @@
 Summary:    Suite of nonlinear solvers
 Name:       sundials2
 Version:    2.7.0
-Release:    11%{?dist}
+Release:    12%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
 License:    BSD
@@ -31,6 +31,8 @@ Source0:    https://www.llnl.gov/casc/sundials/download/code/sundials-%{version}
 
 # This patch rename superLUMT library
 Patch0:     %{name}-%{version}-set_superlumt_name.patch
+Patch1: sundials2-cmake-c99.patch
+Patch2: sundials2-hypre-c99.patch
 
 BuildRequires: make
 BuildRequires: %{?dts}gcc-gfortran
@@ -139,6 +141,8 @@ This package contains the documentation files.
 pushd sundials-%{version}
 %ifnarch %{power64} aarch64
 %patch0 -p0
+%patch1 -p1
+%patch2 -p1
 %endif
 
 # Set destination of the include libraries
@@ -520,6 +524,9 @@ find %{buildroot}${MPI_LIB} -name "libsundials-*" -exec rename 's/libsundials/li
 %endif
 
 %changelog
+* Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 2.7.0-12
+- C99 compatibility fixes
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

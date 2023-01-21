@@ -16,7 +16,7 @@
 Name:           libgda5
 Epoch:          1
 Version:        5.2.10
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Library for writing gnome database programs
 
 License:        LGPLv2+
@@ -389,6 +389,9 @@ rm %{buildroot}/%{_sysconfdir}/%{upstream}-%{apiver}/sales_test.db
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.2.10-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec  5 2022 Florian Weimer <fweimer@redhat.com> - 1:5.2.10-13
 - Port to C99
 

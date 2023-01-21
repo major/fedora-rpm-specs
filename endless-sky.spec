@@ -1,6 +1,6 @@
 Name:		endless-sky
 Version:	0.9.16.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 License:	GPLv3
@@ -104,6 +104,9 @@ sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.9.16.1-1
 - 0.9.16.1
 

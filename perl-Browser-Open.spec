@@ -1,6 +1,6 @@
 Name:           perl-Browser-Open
 Version:        0.04
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Open a browser in a given URL
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Browser-Open
@@ -74,6 +74,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.04-33
 - Package tests
 - Simplify build and install phases

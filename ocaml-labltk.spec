@@ -7,7 +7,7 @@
 
 Name:          ocaml-labltk
 Version:       8.06.12
-Release:       1%{?dist}
+Release:       2%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -121,6 +121,9 @@ install -m 0644 camltk/*.o $RPM_BUILD_ROOT%{_libdir}/ocaml/labltk
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.06.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Richard W.M. Jones <rjones@redhat.com> - 8.06.12-1
 - New upstream version 8.06.12
 - Enable verbose output from configure script.

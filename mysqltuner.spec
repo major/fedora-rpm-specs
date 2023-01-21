@@ -4,7 +4,7 @@
 
 Name:           mysqltuner
 Version:        1.8.3
-Release:        3%{?shortcommit:.git.%{shortcommit}}%{?dist}
+Release:        4%{?shortcommit:.git.%{shortcommit}}%{?dist}
 Summary:        MySQL configuration assistant
 
 License:        GPLv3+
@@ -48,6 +48,9 @@ install -Dpm 755 mysqltuner.pl $RPM_BUILD_ROOT%{_bindir}/mysqltuner
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-4.git.1333ea9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-3.git.1333ea9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

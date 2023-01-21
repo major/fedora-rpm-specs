@@ -2,7 +2,7 @@
 
 Name:           lximage-qt
 Version:        1.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The image viewer and screenshot tool for LXQt
 License:        GPLv2+
 URL:            https://lxqt-project.org/
@@ -100,6 +100,9 @@ fi
 %dir %{_datadir}/lximage-qt/translations
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
 - Update version to 1.2.0
 

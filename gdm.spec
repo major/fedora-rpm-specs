@@ -11,7 +11,7 @@
 Name: gdm
 Epoch: 1
 Version: 43.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: The GNOME Display Manager
 
 License: GPLv2+
@@ -301,6 +301,9 @@ fi
 %{_libdir}/pkgconfig/gdm-pam-extensions.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 27 2022 Ray Strode <rstrode@redhat.com> - 1:43.0-3
 - Keep F36 behavior for hybrid machines with vendor nvidia
   driver, rather than defaulting to Xorg with wayland as

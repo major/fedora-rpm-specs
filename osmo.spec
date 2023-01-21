@@ -5,7 +5,7 @@
 %if %{svn}
 # svn co https://osmo-pim.svn.sourceforge.net/svnroot/osmo-pim/trunk osmo-pim
 # tar cvJf osmo-%{svn}.tar.xz osmo-pim/ --exclude=".svn*"
-%global release 0.%{rel}.svn%{svn}%{?dist}.6
+%global release 0.%{rel}.svn%{svn}%{?dist}.7
 %global tarname %{name}-%{svn}.tar.xz
 %global _dirname osmo-pim
 %else
@@ -153,6 +153,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_datadir}/sounds/osmo/alarm.wav
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Name:           maven-file-management
 Epoch:          1
 Version:        3.0.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Maven File Management API
 License:        ASL 2.0
 URL:            http://maven.apache.org/shared/file-management
@@ -50,6 +50,9 @@ API documentation for %{name}.
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

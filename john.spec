@@ -3,7 +3,7 @@
 Summary:          John the Ripper password cracker
 Name:             john
 Version:          1.8.0
-Release:          21%{?dist}
+Release:          22%{?dist}
 
 URL:              http://www.openwall.com/john
 License:          GPLv2
@@ -91,6 +91,9 @@ rm doc/INSTALL
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

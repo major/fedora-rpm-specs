@@ -4,7 +4,7 @@
 
 Name: mbedtls
 Version: 2.28.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Light-weight cryptographic and SSL/TLS library
 License: Apache-2.0
 URL: https://www.trustedfirmware.org/projects/mbed-tls
@@ -94,6 +94,9 @@ chmod 755 %{buildroot}%{_libdir}/*.so.*
 %doc apidoc/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 16 2022 Benson Muite <benson_muite@emailplus.org> - 2.28.2-1
 - Update to 2.28.2
 - Update URLs

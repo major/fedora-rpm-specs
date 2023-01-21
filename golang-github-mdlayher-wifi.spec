@@ -16,7 +16,7 @@ Package wifi provides access to IEEE 802.11 WiFi device actions and statistics.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.16%{?dist}
+Release:        0.17%{?dist}
 Summary:        Access to IEEE 802.11 WiFi device actions and statistics
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  golang(github.com/mdlayher/genetlink/genltest)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022  Jan Kuparinen <copperi@fedoraproject.org> - 0-0.16
 - Fix release version
 

@@ -1,6 +1,6 @@
 Name:           perl-Data-FormValidator-Constraints-DateTime
 Version:        1.11
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Data::FormValidator constraints for dates and times
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-FormValidator-Constraints-DateTime
@@ -60,6 +60,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

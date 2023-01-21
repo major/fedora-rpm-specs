@@ -2,7 +2,7 @@
 
 Name:	 	mono-cecil-flowanalysis
 Version:	0.1
-Release:	0.41.20110512svn100264%{?dist}
+Release:	0.42.20110512svn100264%{?dist}
 Summary:	Flowanalysis engine for Cecil
 URL:		https://github.com/mono/cecil/tree/master/flowanalysis
 License:	MIT
@@ -56,6 +56,9 @@ gacutil -i bin/Cecil.FlowAnalysis.dll -f -package Cecil.FlowAnalysis -root ${RPM
 %{_libdir}/pkgconfig/cecil-flowanalysis.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.42.20110512svn100264
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.41.20110512svn100264
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

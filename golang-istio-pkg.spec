@@ -16,7 +16,7 @@ Common packages used by other repos.}
 %global godocs          CONTRIBUTING.md README.md SUPPORT.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Common packages used by other repos
 
 # Upstream license specification: Apache-2.0
@@ -85,6 +85,9 @@ sed -i 's|gotest.tools|gotest.tools/v3|' $(find . -type f -iname "*.go")
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 1.8.2-7
 - Rebuild to fix FTBFS
 

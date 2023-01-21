@@ -3,7 +3,7 @@
 
 Name:           hddtemp
 Version:        0.3
-Release:        0.52.%{beta}%{?dist}
+Release:        0.53.%{beta}%{?dist}
 Summary:        Hard disk temperature tool
 License:        GPLv2+
 URL:            http://savannah.nongnu.org/projects/hddtemp/
@@ -98,6 +98,9 @@ install -Dpm 644 %{S:5} %{buildroot}%{_sysconfdir}/security/console.apps/hddtemp
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-0.53.beta15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  8 2022 Florian Weimer <fweimer@redhat.com> - 0.3-0.52.beta15
 - Port configure script to C99
 

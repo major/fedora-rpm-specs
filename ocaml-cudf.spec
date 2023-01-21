@@ -4,7 +4,7 @@
 
 Name:           ocaml-cudf
 Version:        0.9
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Format for describing upgrade scenarios
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -113,6 +113,9 @@ make test
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

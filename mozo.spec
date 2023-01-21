@@ -2,7 +2,7 @@
 
 Name:          mozo
 Version:       %{branch}.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MATE Desktop menu editor
 License:       LGPLv2+
 URL:           http://mate-desktop.org
@@ -52,6 +52,9 @@ desktop-file-install                                  \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Oct 29 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.2-1
 - update to 1.26.2
 - fix rhbz (2136074)

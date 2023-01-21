@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.7.4
-Release:	16%{?dist}
+Release:	17%{?dist}
 BuildArch:	noarch
 Summary:	Erlang library and packrat parser-generator for parsing expression grammars
 License:	MIT
@@ -43,6 +43,9 @@ install -p -m 0644 priv/neotoma_parse.peg priv/peg_includes.hrl %{buildroot}%{er
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.4-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

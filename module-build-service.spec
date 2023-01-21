@@ -5,7 +5,7 @@
 
 Name:           module-build-service
 Version:        3.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Module Build Service for Modularity
 
 License:        MIT
@@ -279,6 +279,9 @@ done
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Tomas Hrcka <thrcka@redhat.com> - 3.8.0-2
 - rebuilt
 

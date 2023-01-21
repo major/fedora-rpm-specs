@@ -4,7 +4,7 @@
 
 Name:		mecab-java
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.1
+Release:	%{?betaver:0.}%{relnumber}%{?betaver:.%betaver}%{?dist}.2
 Summary:	Java binding for MeCab
 
 License:	BSD or LGPLv2+ or GPL+
@@ -71,6 +71,9 @@ LANG=ja_JP.utf8
 %{_jnidir}/MeCab.jar
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-4.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-4.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

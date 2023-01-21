@@ -1,10 +1,10 @@
-%global commit c65bc88db5338daada5b1362a1181aa6e6a4ab58
+%global commit 88e927d2302966993724f06d57e89cc4bf6d5e35
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global tz_ver 2022g
 
 Name:          libzonedetect
 Version:       0~git%{shortcommit}
-Release:       2%{?snap}%{?dist}
+Release:       4%{?snap}%{?dist}
 Summary:       Find the timezone for a given latitude and longitude
 
 # The library is BSD-3, timezone-boundary-builder is MIT, the built database is ODbL-1.0
@@ -21,6 +21,8 @@ Source4:       README.data
 Patch1:        ZoneDetect_builddb.patch
 # Improve help of sample program, fix memory leak
 Patch2:        ZoneDetect_demo.patch
+# Add missing cstdint include
+Patch3:        ZoneDetect_cstdint.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake
@@ -131,9 +133,15 @@ cp -a %{SOURCE4} %{buildroot}%{_datadir}/ZoneDetect/
 
 
 %changelog
-* Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 1~gitc65bc88
+* Thu Jan 19 2023 Sandro Mani <manisandro@gmail.com> - 0~git.88e927d-4
+- Update to git 88e927d
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0~gitc65bc88-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 0~gitc65bc88-2
 - Fix pkgname -> name
 - List ODbL-1.0 in License
 
-* Fri Dec 16 2022 Sandro Mani <manisandro@gmail.com> - 0~gitc65bc88
+* Fri Dec 16 2022 Sandro Mani <manisandro@gmail.com> - 0~gitc65bc88-1
 - Initial package

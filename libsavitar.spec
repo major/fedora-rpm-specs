@@ -1,6 +1,6 @@
 Name:           libsavitar
 Version:        4.13.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C++ implementation of 3mf loading with SIP Python bindings
 License:        LGPLv3+
 URL:            https://github.com/Ultimaker/libSavitar
@@ -97,6 +97,9 @@ export CXXFLAGS="%{optflags} -Wl,--as-needed"
 %{python3_sitearch}/Savitar.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-AtteanX-Compatibility-Trine
 Version:        0.002
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Compatibility layer between RDF::Trine and Attean
 # COPYRIGHT:    Public Domain
 # other files:  GPL+ or Artistic
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.002-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

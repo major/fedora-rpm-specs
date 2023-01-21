@@ -1,6 +1,6 @@
 Name:		fbpanel
 Version:	7.0
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	A lightweight X11 desktop panel
 
 # %%{_bindir}/fbpanel and almost all plugins are under LGPLv2+
@@ -121,6 +121,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/%{name}/libvolume.so
 %doc www
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

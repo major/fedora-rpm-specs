@@ -5,7 +5,7 @@
 
 Name:		erlang-%{realname}
 Version:	0
-Release:	0.36.git05ae1bb%{?dist}
+Release:	0.37.git05ae1bb%{?dist}
 Summary:	Erlang mmap interface
 License:	ASL 2.0
 URL:		https://github.com/%{upstream}/%{realname}
@@ -46,6 +46,9 @@ the Erlang memory space.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.37.git05ae1bb
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.36.git05ae1bb
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

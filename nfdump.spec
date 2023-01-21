@@ -1,7 +1,7 @@
 
 Name:		nfdump
 Version:	1.7.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	NetFlow collecting and processing tools
 
 License:	BSD and GPLv2+
@@ -86,6 +86,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Denis Fateyev <denis@fateyev.com> - 1.7.1-1
 - Update to version 1.7.1
 

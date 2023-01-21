@@ -1,6 +1,6 @@
 Name:           perl-Class-Iterator
 Version:        0.3
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Iterator class
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-Iterator
@@ -62,6 +62,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

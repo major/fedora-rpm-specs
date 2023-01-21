@@ -31,7 +31,7 @@
  
 Name:           lxappearance
 Version:        0.6.3
-Release:        %{fedorarel}%{?dist}.3
+Release:        %{fedorarel}%{?dist}.4
 Summary:        Feature-rich GTK+ theme switcher for LXDE
 
 License:        GPLv2+
@@ -176,6 +176,9 @@ popd
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-13.D20200807gitd132fdd8.4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-13.D20200807gitd132fdd8.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

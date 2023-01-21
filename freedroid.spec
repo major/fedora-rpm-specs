@@ -1,6 +1,6 @@
 Name:           freedroid
 Version:        1.0.2
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Clone of the C64 game Paradroid
 
 License:        GPLv2+
@@ -87,6 +87,9 @@ install -Dpm 644 freedroid.png \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

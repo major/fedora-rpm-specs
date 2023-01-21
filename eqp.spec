@@ -2,7 +2,7 @@
 Summary: Automated theorem prover for first-order equational logic
 Name: eqp
 Version: 09e
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: Public Domain
 URL: http://www.cs.unm.edu/~mccune/eqp/
 Source0: http://www.cs.unm.edu/~mccune/old-ftp/eqp-09e.tar.gz
@@ -79,6 +79,9 @@ run_eqp "examples/robbins/eqp-lemma0.in"
 %attr(0755,root,root) %{_bindir}/eqp
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 09e-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 09e-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

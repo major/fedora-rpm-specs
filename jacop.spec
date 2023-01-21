@@ -3,7 +3,7 @@
 
 Name:		jacop
 Version:	4.8
-Release:	9%{?dist}
+Release:	10%{?dist}
 License:	AGPLv3 with exceptions 
 Summary:	Java Constraint Programming solver
 URL:		http://jacop.osolpro.com/
@@ -64,6 +64,9 @@ This package contains the API documentation for %{name}.
 %license LICENSE.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

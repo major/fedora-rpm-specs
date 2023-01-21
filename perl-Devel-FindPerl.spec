@@ -1,6 +1,6 @@
 Name:           perl-Devel-FindPerl
 Version:        0.016
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Find the path to the current Perl interpreter
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-FindPerl
@@ -74,6 +74,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.016-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 16 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.016-3
 - Package tests
 - Simplify build and install phase

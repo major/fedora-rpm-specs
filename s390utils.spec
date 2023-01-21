@@ -10,7 +10,7 @@
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
 Version:        2.25.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          2
 License:        MIT
 ExclusiveArch:  s390 s390x
@@ -907,6 +907,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Thu Jan 19 2023 Dan Horák <dan[at]danny.cz> - 2:2.25.0-2
+- update kernel install script to write /etc/kernel/cmdline
+
 * Fri Dec 09 2022 Dan Horák <dan[at]danny.cz> - 2:2.25.0-1
 - rebased to 2.25.0
 

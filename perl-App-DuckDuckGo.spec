@@ -1,6 +1,6 @@
 Name:           perl-App-DuckDuckGo
 Version:        0.008
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Application class used to query duckduckgo.com from the command line
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/App-DuckDuckGo
@@ -65,6 +65,9 @@ shell script to automatically work with the DuckDuckGo API results.
 %{_bindir}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

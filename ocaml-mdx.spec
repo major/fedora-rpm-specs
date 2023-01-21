@@ -6,7 +6,7 @@
 
 Name:           ocaml-mdx
 Version:        2.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -79,6 +79,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan  9 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-1
 - Version 2.2.0
 - Drop cmdliner patch

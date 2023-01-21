@@ -14,7 +14,7 @@
 
 Name:           mod_form
 Version:        0.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 # The tarball's contents were downloaded from:
 # http://apache.webthing.com/svn/apache/forms/mod_form.c
 # http://apache.webthing.com/svn/apache/forms/mod_form.h
@@ -67,6 +67,9 @@ cp -p mod_form.h %{buildroot}/%{apache_includedir}
 %{apache_includedir}/mod_form.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

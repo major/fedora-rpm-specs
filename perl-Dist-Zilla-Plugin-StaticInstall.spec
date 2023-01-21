@@ -3,7 +3,7 @@
 
 Name:           perl-Dist-Zilla-Plugin-StaticInstall
 Version:        0.012
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Identify a distribution as eligible for static installation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Plugin-StaticInstall
@@ -88,6 +88,9 @@ unset AUTHOR_TESTING
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.012-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.012-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

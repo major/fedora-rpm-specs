@@ -3,7 +3,7 @@
 
 Name: grubby
 Version: 8.40
-Release: 68%{?dist}
+Release: 69%{?dist}
 Summary: Command line tool for updating bootloader configs
 License: GPLv2+
 Source1: grubby-bls
@@ -77,6 +77,9 @@ fi
 %{_mandir}/man8/grubby.8*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.40-69
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Robbie Harwood <rharwood@redhat.com> - 8.40-68
 - Drop custom rpm-sort
 - See-also: https://github.com/rpm-software-management/rpm/pull/2249

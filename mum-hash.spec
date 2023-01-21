@@ -3,7 +3,7 @@
 
 Name:           mum-hash
 Version:        0
-Release:        4.20210318git%{commit}%{?dist}
+Release:        5.20210318git%{commit}%{?dist}
 Summary:        Fast non-cryptographic hash function
 
 License:        MIT
@@ -39,6 +39,9 @@ install -p -m 644 mum512.h %{buildroot}%{_includedir}
 %{_includedir}/mum*h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-5.20210318git8e1c0a5699c34bc4952e86dc0509070770f2c625
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-4.20210318git8e1c0a5699c34bc4952e86dc0509070770f2c625
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -18,7 +18,7 @@ your CLI, enabling a native experience.}
 %global godocs          docs examples BUILDING.md README.md implementors.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        OCI Registry As Storage
 
 License:        MIT
@@ -96,6 +96,9 @@ mkdir .test
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.11.1-8
 - Rebuild to fix FTBFS
 

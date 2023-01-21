@@ -21,6 +21,7 @@ Source0:        https://github.com/XEphem/XEphem/archive/%{commit}/XEphem-%{comm
 %endif
 # Desktop file is not provided by upstream
 Source1:        io.github.xephem.desktop
+Patch0: xephem-c99.patch
 
 # Patch to use system libraries and not override CFLAGS
 Patch:          xephem_makefile.patch

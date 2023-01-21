@@ -2,7 +2,7 @@
 
 Name:           gnome-logs
 Version:        43.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Log viewer for the systemd journal
 
 License:        GPLv3+
@@ -58,6 +58,9 @@ A log viewer for the systemd journal.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 24 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 

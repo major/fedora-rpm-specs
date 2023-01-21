@@ -1,6 +1,6 @@
 Name:		perl-Date-Range
 Version:	1.41
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	GPLv2+
 Summary:	Work with a range of dates
 URL:		https://metacpan.org/release/Date-Range
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/Date::Range.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.41-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.41-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

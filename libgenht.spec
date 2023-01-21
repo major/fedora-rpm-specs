@@ -2,7 +2,7 @@
 
 Name:           lib%{srcname}
 Version:        1.1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple generic hash table implementation in C
 
 License:        Public Domain
@@ -62,6 +62,9 @@ Static library to develop applications using genht. Please, prefer the shared li
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 Alain Vigne <avigne@fedoraproject.org> - 1.1.3-1
 - Upstream release 1.1.3
 

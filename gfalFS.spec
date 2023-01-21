@@ -4,7 +4,7 @@
 
 Name:			gfalFS
 Version:		1.5.2
-Release:		13%{?dist}
+Release:		14%{?dist}
 Summary:		Filesystem client based on GFAL 2.0
 License:		ASL 2.0
 URL:			https://svnweb.cern.ch/trac/lcgutil/wiki/gfal2
@@ -59,6 +59,9 @@ as if they were local files.
 %{_docdir}/%{name}-%{version}/readme.html
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

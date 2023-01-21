@@ -1,6 +1,6 @@
 Name:           linsmith
 Version:        0.99.31
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A Smith charting program
 
 License:        GPLv2
@@ -69,6 +69,9 @@ mv %{buildroot}/%{_datadir}/%{name} examples/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.31-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 0.99.31-11
 - Build in C89 mode (#2161938)
 

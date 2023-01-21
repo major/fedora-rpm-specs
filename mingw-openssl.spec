@@ -15,7 +15,7 @@
 
 Name:           mingw-openssl
 Version:        3.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW port of the OpenSSL toolkit
 
 License:        OpenSSL
@@ -376,6 +376,9 @@ mkdir -m700 %{buildroot}%{mingw64_sysconfdir}/pki/CA/private
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Sandro Mani <manisandro@gmail.com> - 3.0.7-1
 - Update to 3.0.7
 

@@ -1,6 +1,6 @@
 Name:           keepassx0
 Version:        0.4.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Cross-platform password manager
 
 # apg/ and crypto/ directory contains BSD files
@@ -98,6 +98,9 @@ install -D -m 644 -p x-keepassx0.desktop \
 %{_datadir}/icons/hicolor/*/apps/keepassx0.png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

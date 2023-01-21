@@ -1,6 +1,6 @@
 Name:		hsetroot
 Version:	1.0.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Yet another wallpaper application
 
 License:	GPLv2
@@ -40,5 +40,8 @@ mkdir -p %{buildroot}%{_bindir}
 %{_bindir}/hsr-outputs
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Jani Juhani Sinervo <jani@sinervo.fi> - 1.0.5-1
 - Do initial packaging work

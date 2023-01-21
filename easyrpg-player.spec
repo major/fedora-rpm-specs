@@ -47,15 +47,19 @@ URL: https://easyrpg.org
 License: GPLv3+ and BSD and Unlicense and (Unlicense or MIT-0) and Baekmuk and Public Domain and MIT and GPLv2+ with exceptions
 
 Version: 0.7.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 %global repo_owner EasyRPG
 %global repo_name Player
 Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/%{version}/%{repo_name}-%{version}.tar.gz
 
+# Unbundle libraries
 Patch0: 0000-unbundle-dirent.patch
 Patch1: 0001-unbundle-picojson.patch
 Patch2: 0002-unbundle-dr_wav.patch
+
+# Fix build failures with GCC13
+Patch3: 0003-fix-gcc13-build-failures.patch
 
 BuildRequires: asciidoc
 BuildRequires: cmake >= 3.7
@@ -92,10 +96,7 @@ a RPG Maker 2000/2003 game project folder (same place as RPG_RT.exe).
 
 
 %prep
-%setup -q -n %{repo_name}-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
+%autosetup -n %{repo_name}-%{version} -p1
 
 # These are all un-bundled and can be removed
 rm src/external/dr_wav.h src/external/picojson.h
@@ -127,6 +128,9 @@ rm src/external/dr_wav.h src/external/picojson.h
 
 
 %changelog
+* Thu Jan 19 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.7.0-6
+- Add a patch to fix build failures under GCC13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

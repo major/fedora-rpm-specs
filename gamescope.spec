@@ -2,7 +2,7 @@
 
 Name:           gamescope
 Version:        3.11.49
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Micro-compositor for video games on Wayland
 
 License:        BSD
@@ -72,6 +72,9 @@ export PKG_CONFIG_PATH=pkgconfig
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.49-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 3.11.49-1
 - Rebase to 3.11.49 (fixes RHBZ#2143471 )
 

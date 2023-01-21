@@ -53,7 +53,7 @@ workload isolation and security advantages of VMs. https://katacontainers.io/.}
                     src/agent/README.md
 
 Name:       %{repo}
-Release:    1%{?rcrel}%{?dist}
+Release:    1%{?rcrel}%{?dist}.1
 Summary:    Kata Containers version 2.x repository
 License:    ASL 2.0
 Url:        https://%{download}
@@ -374,6 +374,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Eduardo Lima (Etrunko) <etrunko@redhat.com> - 3.0.1-1
 - kata-containers-3.0.1
 

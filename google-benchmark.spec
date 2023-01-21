@@ -3,7 +3,7 @@
 
 Name: google-benchmark
 Version: 1.7.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: Apache-2.0
 Summary: A microbenchmark support library
@@ -74,6 +74,9 @@ sed -e '/get_git_version/d' -e '/-Werror/d' -i CMakeLists.txt
 %{_docdir}/%{intname}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.7.1-2
 - Update License to SPDX
 

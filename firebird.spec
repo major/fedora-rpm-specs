@@ -10,7 +10,7 @@
 
 Name:           firebird
 Version:        %{upversion}
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        SQL relational database management system
 License:        Interbase
@@ -376,6 +376,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2.2816-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  1 2022 Florian Weimer <fweimer@redhat.com> - 4.0.2.2816-3
 - Port configure script to C99
 

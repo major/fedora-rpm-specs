@@ -2,7 +2,7 @@
 
 Name:           kio_gopher
 Version:        0.1.99
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Gopher KIO slave
 
 License:        GPLv2+
@@ -50,6 +50,9 @@ application.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.99-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.99-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

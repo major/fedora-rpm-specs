@@ -12,7 +12,7 @@
 %define my_subversion b7
 Name:           html2ps
 Version:        1.0
-Release:        0.46.%{my_subversion}%{?dist}
+Release:        0.47.%{my_subversion}%{?dist}
 Summary:        HTML to PostScript converter
 # contrib/xhtml2ps/LICENSE:     GPL-2.0 text
 # contrib/xhtml2ps/README:      "X-html2ps is GPL"
@@ -153,6 +153,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/*xhtml2ps.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.47.b7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Petr Pisar <ppisar@redhat.com> - 1.0-0.46.b7
 - Convert a License tag to an SPDX format
 

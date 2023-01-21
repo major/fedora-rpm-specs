@@ -3,7 +3,7 @@
 
 Name:       perl-DBD-Multi
 Version:    1.02
-Release:    16%{?dist}
+Release:    17%{?dist}
 # See Build.PL
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    DB Proxy with fail-over and load balancing
@@ -67,6 +67,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

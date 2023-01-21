@@ -3,7 +3,7 @@
 Summary: Tools for managing the Oracle Cluster Filesystem 2
 Name: ocfs2-tools
 Version: 1.8.7
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2
 Source0: https://github.com/markfasheh/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 # https://github.com/markfasheh/ocfs2-tools/issues/18#issuecomment-360449375
@@ -179,6 +179,9 @@ chmod 755 %{buildroot}/%{python2_sitearch}/ocfs2interface/*.so
 %{_includedir}/ocfs2/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

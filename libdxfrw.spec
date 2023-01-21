@@ -3,7 +3,7 @@
 
 Name:		libdxfrw
 Version:	1.1.0
-Release:	0.2.rc1%{?dist}
+Release:	0.3.rc1%{?dist}
 Summary:	Library to read/write DXF files
 License:	GPLv2+
 URL:		https://github.com/LibreCAD/libdxfrw
@@ -71,6 +71,9 @@ Development files for libdxfrw.
 %{_libdir}/pkgconfig/libdxfrw.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-0.3.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 30 2022 Tom Callaway <spot@fedoraproject.org> - 1.1.0-0.2.rc1
 - update to latest code in git
 - drop patch0 for now

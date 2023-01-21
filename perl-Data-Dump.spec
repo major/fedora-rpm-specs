@@ -1,6 +1,6 @@
 Name:           perl-Data-Dump
 Version:        1.25
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Pretty printing of data structures
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Dump
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/Data::Dump::Trace.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

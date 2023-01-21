@@ -3,7 +3,7 @@
 
 Name:      lua-vstruct
 Version:   2.1.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Lua library to manipulate binary data
 License:   MIT
 URL:       %{forgeurl}
@@ -53,5 +53,8 @@ print(vstruct._VERSION)'
 %{lua_pkgdir}/vstruct/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Jonny Heggheim <hegjon@gmail.com> - 2.1.1-1
 - Initial package

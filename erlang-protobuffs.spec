@@ -8,7 +8,7 @@
 
 Name:		erlang-%{realname}
 Version:	0.9.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 BuildArch:	noarch
 Summary:	A set of Protocol Buffers tools and modules for Erlang applications
 License:	ASL 2.0
@@ -73,6 +73,9 @@ install -D -p -m 0755 %{SOURCE1} %{buildroot}%{_bindir}/protoc-erl
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

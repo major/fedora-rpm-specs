@@ -2,7 +2,7 @@
 
 Name: gtk-doc
 Version: 1.33.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPLv2+ and GFDL
@@ -72,6 +72,9 @@ mv doc/README doc/README.docs
 %{_libdir}/cmake/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

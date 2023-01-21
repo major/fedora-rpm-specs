@@ -18,7 +18,7 @@ Package for downloading things from a string URL using a variety of protocols.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        5.lite+6d9c071%{?dist}
+Release:        6.lite+6d9c071%{?dist}
 Summary:        Package for downloading things from a string URL using a variety of protocols
 
 # Upstream license specification: MPL-2.0
@@ -53,6 +53,9 @@ BuildRequires:  golang(github.com/ulikunitz/xz)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6.lite+6d9c071
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5.lite+6d9c071
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

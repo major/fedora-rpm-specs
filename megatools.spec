@@ -2,7 +2,7 @@
 
 Name:           megatools
 Version:        1.11.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Command line client for MEGA
 License:        GPLv3+
 URL:            http://megatools.megous.com/
@@ -58,6 +58,9 @@ allow. Memory requirements and CPU utilization are kept at minimum.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

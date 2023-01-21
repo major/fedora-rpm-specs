@@ -14,7 +14,7 @@
 
 Name:       fedora-review
 Version:    0.9.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Review tool for fedora rpm packages
 
 License:    GPLv2+
@@ -115,7 +115,7 @@ cp -a pycodestyle.conf pylint.conf "%{buildroot}%{_datadir}/%{name}"
 
 # Fix shebangs in %%{_bindir}.
 chmod -c 0755 %{buildroot}%{_bindir}/*
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" %{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/*
+%py3_shebang_fix %{buildroot}%{python3_sitelib} %{buildroot}%{_bindir}/*
 
 
 %check
@@ -155,6 +155,9 @@ mock --quiet -r fedora-36-x86_64 --uniqueext=hugo --init
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.9.0-1
 - New upstream release 0.9.0
 

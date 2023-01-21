@@ -1,6 +1,6 @@
 Name:           extractpdfmark
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extract page mode and named destinations as PDFmark from PDF
 
 License:        GPLv3+
@@ -68,6 +68,9 @@ make check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 3 2022 Federico Bruni <fede@inventati.org> - 1.1.1-1
 - Upgrade to version 1.1.1
 

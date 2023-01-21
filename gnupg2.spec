@@ -8,7 +8,7 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv3+
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -225,6 +225,9 @@ make -k check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Todd Zullinger <tmz@pobox.com> - 2.4.0-1
 - update to 2.4.0 (#2155170)
 

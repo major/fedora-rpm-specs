@@ -17,7 +17,7 @@ various web servers on the campus network.
 Summary: ht://Dig - Web search engine
 Name: htdig
 Version: 3.2.0
-Release: 0.43.b6%{?dist}
+Release: 0.44.b6%{?dist}
 Epoch: 4
 License: GPLv2
 Url: http://www.htdig.org/
@@ -147,6 +147,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/htdig_db/*.la
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.2.0-0.44.b6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4:3.2.0-0.43.b6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

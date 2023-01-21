@@ -1,6 +1,6 @@
 Name:           jfreechart
 Version:        1.5.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A 2D chart library for Java applications (JavaFX, Swing or server-side)
 License:        LGPLv2+
 URL:            https://www.jfree.org/jfreechart
@@ -43,6 +43,9 @@ multiple formats including SVG, PNG and PDF).
 %doc README.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:    fuse-pingfs
 Version: 0
-Release: 0.6.%{snapinfo}%{?dist}
+Release: 0.7.%{snapinfo}%{?dist}
 Summary:  Stores your data in ICMP ping packets
 
 License: ISC
@@ -37,6 +37,9 @@ cp -a pingfs %{buildroot}%{_bindir}/pingfs
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7.20200820gitf2f2b5f
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.6.20200820gitf2f2b5f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

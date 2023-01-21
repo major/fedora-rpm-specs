@@ -3,7 +3,7 @@
 Summary: High-performance algorithms for vectors, matrices, and polynomials 
 Name:    ntl 
 Version: 11.5.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # LGPL-2.1-or-later: the project as a whole
 # BSD-2-Clause: src/FFT.cpp
@@ -128,6 +128,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 10 2022 Jerry James <loganjerry@gmail.com> - 11.5.1-4
 - Convert License tag to SPDX
 

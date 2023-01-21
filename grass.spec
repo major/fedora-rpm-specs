@@ -3,7 +3,7 @@
 
 Name:		grass
 Version:	8.2.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -198,9 +198,6 @@ sed -i -e 's/-lblas/-lflexiblas/g' -e 's/-llapack/-lflexiblas/g' configure
 find -name \*.pl | xargs sed -i -e 's,#!/usr/bin/env perl,#!%{__perl},'
 
 %build
-# Package is not ready for -Werror=format-security or the C++11 standard
-CFLAGS="$(echo ${RPM_OPT_FLAGS} | sed -e 's/ -Werror=format-security//')"
-CXXFLAGS="-std=c++98 ${CFLAGS}"
 %configure \
 	--prefix=%{_libdir} \
 	--with-cxx \
@@ -376,6 +373,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Markus Neteler <neteler@mundialis.de> 8.2.0-10
 - modify grass-pdal.patch for alternative C++ fix
 

@@ -1,6 +1,6 @@
 Name:		jack_capture
 Version:	0.9.73
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Record sound files with JACK
 # As explained in the COPYING file,
 # jack_capture.c and atomicity/* are GPLv2+,
@@ -45,6 +45,9 @@ make install DESTDIR=%{buildroot} PREFIX=%{_prefix}
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.73-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Florian Weimer <fweimer@redhat.com> - 0.9.73-13
 - C99 compatibility fixes
 

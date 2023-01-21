@@ -1,6 +1,6 @@
 Name:		perl-Data-Tumbler
 Version:	0.010
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Dynamic generation of nested combinations
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Data-Tumbler
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Data::Tumbler.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

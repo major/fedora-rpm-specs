@@ -2,7 +2,7 @@
 
 Name:		magic
 Version:	8.3.361
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A very capable VLSI layout tool
 
 License:	MIT
@@ -171,6 +171,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.361-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.361-1
 - 8.3.361
 

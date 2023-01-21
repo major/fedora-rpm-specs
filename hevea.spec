@@ -6,7 +6,7 @@
 
 Name:		hevea
 Version:	2.36
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	LaTeX to HTML translator
 
 # QPL-1.0: the project as a whole
@@ -84,6 +84,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 2.36-2
 - Convert License tag to SPDX
 

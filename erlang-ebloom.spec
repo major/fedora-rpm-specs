@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.1.0
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	A NIF wrapper around a basic bloom filter
 # c_src/bloom_filter.hpp and c_src/serialyzer.hpp are licensed under CPL
 # and the rest of the sources are licensed under ASL 2.0
@@ -41,6 +41,9 @@ A NIF wrapper around a basic bloom filter.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

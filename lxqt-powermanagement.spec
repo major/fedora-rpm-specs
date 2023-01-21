@@ -3,7 +3,7 @@
 Name:    lxqt-powermanagement
 Summary: Powermanagement daemon for LXQt desktop suite
 Version: 1.2.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -91,6 +91,9 @@ fi
 %dir %{_datadir}/lxqt/translations/lxqt-config-powermanagement
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
 - Update version to 1.2.0
 

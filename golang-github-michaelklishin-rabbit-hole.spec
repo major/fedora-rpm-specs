@@ -16,7 +16,7 @@ This library is a RabbitMQ HTTP API client for the Go language.}
 %global godocs          CONTRIBUTING.md ChangeLog.md README.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        RabbitMQ HTTP API client in Go
 
 # Upstream license specification: BSD-2-Clause
@@ -51,6 +51,9 @@ BuildRequires:  golang(github.com/streadway/amqp)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

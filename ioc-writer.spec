@@ -2,7 +2,7 @@
 
 Name:           ioc-writer
 Version:        0.3.3
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Tool to create and edit OpenIOC objects
 
 License:        ASL 2.0
@@ -39,6 +39,9 @@ supports a basic CRUD (create, read, update, delete) for various items.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

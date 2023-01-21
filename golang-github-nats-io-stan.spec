@@ -18,7 +18,7 @@ platform powered by NATS.}
                         MAINTAINERS.md README.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Performant, lightweight reliable streaming platform
 
 # Upstream license specification: Apache-2.0
@@ -57,6 +57,9 @@ BuildRequires:  golang(github.com/nats-io/nats-streaming-server/server)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

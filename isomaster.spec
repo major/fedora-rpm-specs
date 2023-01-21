@@ -1,7 +1,7 @@
 Name:		isomaster
 Summary:	An easy to use GUI CD image editor
 Version:	1.3.15
-Release:	6%{?dist}
+Release:	7%{?dist}
 License:	GPLv2
 URL:		http://littlesvr.ca/isomaster/
 #moved to .rpmmacros
@@ -62,6 +62,9 @@ desktop-file-install \
 %{_mandir}/man1/isomaster.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,8 +6,8 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.18
-Release:        2%{?dist}
+Version:        6.19
+Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
 # i686, armv7hl: The webpack terser plugin aborts with JS heap memory exhaustion on these arches
@@ -44,6 +44,8 @@ Patch3:         pgadmin4_flask22.patch
 Patch4:         pgadmin4_azure-mgmt-rdbms.patch
 # ??? FIXME Fix crash on None username, retest with 6.16
 Patch10:        pgadmin4_username.patch
+# Drop requirement on unpackaged python-sphinxcontrib-youtube
+Patch11:        pgadmin4_sphinx_youtube.patch
 
 # Patch for building bundled mozjpeg
 %global mozjpeg_ver 4.1.1
@@ -72,9 +74,10 @@ Requires: python3dist(flask) >= 2.1
 Requires: (python3dist(flask-gravatar) >= 0 with python3dist(flask-gravatar) < 1)
 Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
 Requires: (python3dist(flask-mail) >= 0 with python3dist(flask-mail) < 1)
-Requires: (python3dist(flask-migrate) >= 3 with python3dist(flask-migrate) < 4)
+Requires: (python3dist(flask-migrate) >= 3 with python3dist(flask-migrate) < 5)
+Requires: python3dist(dnspython) >= 2.2.1
 Requires: (python3dist(flask-sqlalchemy) >= 2.5 with python3dist(flask-sqlalchemy) < 2.6)
-Requires: (python3dist(flask-wtf) >= 1 with python3dist(flask-wtf) < 2)
+Requires: python3dist(flask-wtf) >= 1.0.1
 Requires: (python3dist(flask-compress) >= 1 with python3dist(flask-compress) < 2)
 Requires: (python3dist(flask-paranoid) >= 0 with python3dist(flask-paranoid) < 1)
 Requires: (python3dist(flask-babel) >= 2 with python3dist(flask-babel) < 3)
@@ -110,7 +113,6 @@ Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 21
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.9
-Requires: python3dist(ua-parser) >= 0.15
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -265,6 +267,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Sandro Mani <manisandro@gmail.com> - 6.19-1
+- Update to 6.19
+
+* Wed Jan 18 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 6.18-3
+- Allow Flask-Migrate 4.x
+
 * Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 6.18-2
 - Backport fix for CVE-2021-35065 for bundled glob-parent
 

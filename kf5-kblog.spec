@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 20.04.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: The KBlog Library
 
 License: LGPLv2+
@@ -114,6 +114,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.04.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20.04.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libinsane
 Version:        1.0.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Cross-platform access to image scanners
 
 License:        LGPLv3+
@@ -121,6 +121,9 @@ Vala bindings for libinsane.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.9-6
 - Drop support for i686
 

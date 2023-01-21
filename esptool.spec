@@ -1,6 +1,6 @@
 Name:           esptool
 Version:        4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A utility to communicate with the ROM bootloader in Espressif ESP8266 & ESP32
 
 License:        GPL-2.0-or-later
@@ -59,6 +59,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Karolina Surma <ksurma@redhat.com> - 4.4-1
 - Update to 4.4
 Resolves: rhbz#2144654

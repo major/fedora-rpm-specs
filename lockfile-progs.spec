@@ -1,6 +1,6 @@
 Name:           lockfile-progs
 Version:        0.1.17
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Command-line programs to safely lock and unlock files and mailboxes
 
 License:        GPLv2
@@ -44,6 +44,9 @@ cp -r --preserve=all man/* %{buildroot}%{_mandir}/man1/
 %doc COPYING
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.17-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

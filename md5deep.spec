@@ -6,7 +6,7 @@
 
 Name:           md5deep
 Version:        4.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A set of cross-platform tools to compute hashes
 License:        GPLv2
 URL:            http://md5deep.sf.net/
@@ -50,6 +50,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

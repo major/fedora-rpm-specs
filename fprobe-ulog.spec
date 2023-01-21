@@ -2,7 +2,7 @@
 
 Name:		fprobe-ulog
 Version:	1.2
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	NetFlow probe
 License:	GPLv2
 URL:		https://github.com/opoplawski/fprobe-ulog
@@ -34,6 +34,9 @@ mv $RPM_BUILD_ROOT/%{_sbindir}/fprobe-ulog $RPM_BUILD_ROOT/%{_bindir}/fprobe-ulo
 %{_mandir}/man8/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

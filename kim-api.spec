@@ -1,7 +1,7 @@
 Name:           kim-api
 Version:        2.2.1
 %global sover   2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open Knowledgebase of Interatomic Models KIM API
 License:        CDDL-1.0
 Url:            https://www.openkim.org
@@ -94,6 +94,9 @@ rm %{buildroot}/usr/share/doc/kim-api/{LICENSE.CDDL,NEWS}
 %{_libdir}/kim-api/simulator-models/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

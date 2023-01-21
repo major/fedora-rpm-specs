@@ -1,6 +1,6 @@
 Name:           mussh
 Version:        1.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Multihost SSH wrapper
 
 License:        GPL+
@@ -35,6 +35,9 @@ install -p mussh.1.gz ${RPM_BUILD_ROOT}%{_mandir}/man1/
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:           perl-CGI-Simple
 Epoch:          1
 Version:        1.280
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple totally OO CGI interface that is CGI.pm compliant
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Simple
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.280-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.280-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           socket_wrapper
-Version:        1.3.4
+Version:        1.4.0
 Release:        1%{?dist}
 
 License:        BSD
@@ -90,6 +90,10 @@ LD_PRELOAD=%{__cmake_builddir}/src/libsocket_wrapper.so bash -c '>/dev/null'
 %{_libdir}/pkgconfig/socket_wrapper_noop.pc
 
 %changelog
+* Thu Jan 19 2023 Andreas Schneider <asn@redhat.com> - 1.4.0-1
+- Update to version 1.4.0
+  * https://gitlab.com/cwrap/socket_wrapper/-/blob/socket_wrapper-1.4.0/CHANGELOG
+
 * Thu Jul 21 2022 Andreas Schneider <asn@redhat.com> - 1.3.4-1
 - Update to version 1.3.4
   * https://gitlab.com/cwrap/socket_wrapper/-/blob/socket_wrapper-1.3.4/CHANGELOG

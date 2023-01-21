@@ -33,6 +33,10 @@ Source0:        %{gosource}
 
 %generate_buildrequires
 %go_generate_buildrequires
+# XXX: Manually add dependency that generator missed
+%if 0%{?fedora} >= 38
+echo 'golang(github.com/quic-go/qtls-go1-20)'
+%endif
 
 %install
 %gopkginstall

@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/hluk/CopyQ/
-%global commit fbd79890273bae1216ee1cc7a604bf3968e22d2d
+%global commit af7a2a53aafaa5fe690c470cedecad166bfcd08d
 
 Name:    copyq
-Version: 6.3.2
-Release: 2%{?dist}
+Version: 6.4.0
+Release: 1%{?dist}
 Summary: Advanced clipboard manager
-License: GPLv3+
+License: GPL-3.0-or-later
 
 %{forgemeta}
 
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/com.gi
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Thu Jan 19 2023 Gerald Cox <gbcox@member.fsf.org> - 6.4.0-1
+- Upstream release rhbz#2162413
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

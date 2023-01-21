@@ -1,6 +1,6 @@
 Name:           gupnp-igd
 Version:        1.2.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library to handle UPnP IGD port mapping
 
 License:        LGPLv2+
@@ -62,6 +62,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 David King <amigadave@amigadave.com> - 1.2.0-7
 - Use pkgconfig for BuildRequires
 - Remove old python provides and obsoletes

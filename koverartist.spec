@@ -1,6 +1,6 @@
 Name:           koverartist
 Version:        0.7.6
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Create CD/DVD covers
 License:        GPLv2+
 URL:            http://www.kde-apps.org/content/show.php?content=38195
@@ -42,6 +42,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/kde4/%{name}.desktop
 %{_datadir}/mime/packages/mime-types/x-koa*.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

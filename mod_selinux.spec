@@ -9,7 +9,7 @@
 
 Name: mod_selinux
 Version: 2.4.4
-Release: 20%{?dist}
+Release: 21%{?dist}
 Summary: Apache/SELinux plus module
 License: ASL 2.0
 URL: http://code.google.com/p/sepgsql/
@@ -100,6 +100,9 @@ fi
 %{_datadir}/selinux/packages/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

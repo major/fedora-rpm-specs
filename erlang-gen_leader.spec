@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.0
-Release:	24%{?dist}
+Release:	25%{?dist}
 BuildArch:	noarch
 Summary:	A leader election behavior modeled after gen_server
 License:	ERPL
@@ -44,6 +44,9 @@ distributed server with master-slave semantics.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

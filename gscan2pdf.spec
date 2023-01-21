@@ -4,7 +4,7 @@
 
 Name:           gscan2pdf
 Version:        2.13.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GUI for producing a multipage PDF from a scan
 # icons/180_degree.svg: GPL-3.0-only
 # icons/scanner.svg:    GPL-2.0-only
@@ -324,6 +324,9 @@ fi
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Petr Pisar <ppisar@redhat.com> - 2.13.2-1
 - 2.13.2 bump
 

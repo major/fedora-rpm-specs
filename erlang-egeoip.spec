@@ -5,7 +5,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.1
-Release:	17%{?dist}
+Release:	18%{?dist}
 BuildArch:	noarch
 Summary:	Erlang IP Geolocation module
 License:	MIT and BSD with advertising
@@ -53,6 +53,9 @@ ln -s %{_datadir}/GeoIP/GeoIPCity.dat %{buildroot}%{erlang_appdir}/priv/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

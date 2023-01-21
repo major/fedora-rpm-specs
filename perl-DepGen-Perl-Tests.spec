@@ -1,7 +1,7 @@
 %global dist_name DepGen-Perl-Tests
 Name:           perl-%{dist_name}
 Version:        0.1.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Tests for RPM dependency generator for Perl packages
 License:        GPLv3+
 URL:            http://ppisar.fedorapeople.org/%{dist_name}/
@@ -78,6 +78,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

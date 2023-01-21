@@ -1,13 +1,13 @@
 #global rctag rc4
 
 Name:		wsjtx
-Version:	2.5.4
-Release:	5%{?dist}
+Version:	2.6.1
+Release:	1%{?dist}
 Summary:	Weak Signal communication by K1JT
 License:	GPLv3+
 
 URL:		http://physics.princeton.edu/pulsar/k1jt/wsjtx.html
-Source0:	http://physics.princeton.edu/pulsar/k1jt/%{name}-%{version}%{?rctag:-%{rctag}}.tgz
+Source0:    https://sourceforge.net/projects/wsjt/files/%{name}-%{version}%{?rctag:-%{rctag}}/%{name}-%{version}%{?rctag:-%{rctag}}.tgz
 Source100:	wsjtx.appdata.xml
 
 BuildRequires:	cmake
@@ -95,6 +95,8 @@ cd %{name}
 cd %{name}
 %cmake_install
 
+dos2unix %{buildroot}%{_datadir}/applications/message_aggregator.desktop
+
 # Make sure the right style is used.
 desktop-file-edit --set-key=Exec --set-value="wsjtx --style=fusion" \
     %{buildroot}/%{_datadir}/applications/%{name}.desktop
@@ -112,18 +114,20 @@ install -pm 0644 %{SOURCE100} %{buildroot}%{_metainfodir}/
 install -p -m 0644 -t %{buildroot}%{_datadir}/doc/%{name} GUIcontrols.txt jt9.txt \
   v1.7_Features.txt wsjtx_changelog.txt
 
+# drop wsjtx hamlib bins
+rm -f %{buildroot}%{_bindir}/rigctl*-wsjtx
+
 
 %if 0%{?fedora}
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %endif
 
-# drop wsjtx hamlib bins
-rm -f %{buildroot}%{_bindir}/rigctl*-wsjtx
 
 %files
 %license COPYING
 %doc %{_datadir}/doc/%{name}
+%{_bindir}/echosim
 %{_bindir}/fcal
 %{_bindir}/fmeasure
 %{_bindir}/fmtave
@@ -150,6 +154,9 @@ rm -f %{buildroot}%{_bindir}/rigctl*-wsjtx
 
 
 %changelog
+* Thu Jan 19 2023 Richard Shaw <hobbes1069@gmail.com> - 2.6.1-1
+- Update to 2.6.0.
+
 * Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 2.5.4-5
 - Rebuild for updated hamlib 4.5.
 

@@ -2,7 +2,7 @@
 
 Name:           jakarta-annotations
 Version:        1.3.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Jakarta Annotations
 License:        EPL-2.0 or GPLv2 with exceptions
 URL:            https://github.com/eclipse-ee4j/common-annotations-api
@@ -68,6 +68,9 @@ that applies across a variety of Java technologies.
 %doc README.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

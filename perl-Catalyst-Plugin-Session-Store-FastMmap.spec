@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Session-Store-FastMmap
 Version:        0.16
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        FastMmap session storage backend
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Plugin-Session-Store-FastMmap
@@ -55,6 +55,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

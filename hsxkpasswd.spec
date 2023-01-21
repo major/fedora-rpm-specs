@@ -1,7 +1,7 @@
 # perl-Crypt-HSXKPasswd
 Name:           hsxkpasswd
 Version:        3.6
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Secure memorable password generator
 
 # Main program is BSD, dictionaries are GPL except EN and ES which are BSD
@@ -97,6 +97,9 @@ rm -rf $RPM_BUILD_ROOT%{perl_vendorlib}/auto
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Petr Pisar <ppisar@redhat.com> - 3.6-14
 - Restore compatibility with Type-Tiny-2.000001 (bug #2133001)
 

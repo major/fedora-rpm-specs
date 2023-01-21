@@ -1,6 +1,6 @@
 Name:           gpicview
 Version:        0.2.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Simple and fast Image Viewer for X
 
 License:        GPLv2+
@@ -60,6 +60,9 @@ desktop-file-install --delete-original      \
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 27 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.5-16
 - Use gtk3 on F-37+
 

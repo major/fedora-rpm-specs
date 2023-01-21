@@ -2,16 +2,19 @@
 
 Name:		knights
 Version:	22.12.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A chess board for KDE
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
-URL:		https://github.com/KDE/knights/
-Source0:	https://github.com/KDE/knights/archive/v%{version}/knights-%{version}.tar.gz
-BuildRequires:	libkdegames-devel >= 22.03.80
-BuildRequires:	gettext
-BuildRequires:	desktop-file-utils
+URL:     https://invent.kde.org/games/knights
+
+%global stable %stable_kf5
+Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+BuildRequires:  libkdegames-devel >= 22.03.80
+BuildRequires:  gettext
+BuildRequires:  desktop-file-utils
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-kdbusaddons-devel
 BuildRequires:  kf5-kconfigwidgets-devel
@@ -64,6 +67,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.1-1
 - 22.12.1
 

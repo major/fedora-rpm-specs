@@ -1,6 +1,6 @@
 Name:           perl-Class-Factory-Util
 Version:        1.7
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Provide utility methods for factory classes 
 
 License:        GPL+ or Artistic
@@ -48,6 +48,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

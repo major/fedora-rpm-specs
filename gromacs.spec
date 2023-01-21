@@ -29,7 +29,7 @@ ExcludeArch:    i686 armv7hl
 
 Name:		gromacs
 Version:	2022.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Fast, Free and Flexible Molecular Dynamics
 License:	GPLv2+
 URL:		http://www.gromacs.org
@@ -373,6 +373,9 @@ done
 %{_libdir}/mpich/bin/gmx_mpich*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Christoph Junghans <junghans@votca.org> - 2022.3-2
 - Rebuild for muparser
 

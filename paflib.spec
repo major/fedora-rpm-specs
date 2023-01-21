@@ -1,6 +1,6 @@
 Name:    paflib
 Version: 0.3.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Library for accessing Power Architecture Facilities
 License: MIT
 URL:     https://github.com/paflib/paflib
@@ -73,6 +73,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man3/libpaf-ppr.3*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

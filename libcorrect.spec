@@ -4,7 +4,7 @@
 
 Name:           libcorrect
 Version:        0
-Release:        9.%{date}git%{gitcommit}%{?dist}
+Release:        10.%{date}git%{gitcommit}%{?dist}
 Summary:        C library for Convolutional codes and Reed-Solomon
 License:        BSD
 URL:            https://github.com/quiet/libcorrect
@@ -63,6 +63,9 @@ sed -e "s|DESTINATION lib|DESTINATION %{_lib}|" \
 %{_libdir}/libcorrect.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-10.20181010gitf5a28c7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-9.20181010gitf5a28c7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

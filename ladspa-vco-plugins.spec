@@ -1,6 +1,6 @@
 Name:           ladspa-vco-plugins
 Version:        0.3.0
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Anti-aliased pulse and sawtooth oscillators
 License:        GPLv2+
 URL:            http://www.kokkinizita.net/linuxaudio/
@@ -48,6 +48,9 @@ sed -i -e "s|/usr/lib/ladspa|\\\$\(DESTDIR\)%{_libdir}/ladspa|g" \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

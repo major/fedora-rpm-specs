@@ -1,6 +1,6 @@
 Name:           gnome-dictionary
 Version:        40.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A dictionary application for GNOME
 
 License:        GPLv3+ and LGPLv2+ and GFDL
@@ -54,6 +54,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %{_mandir}/man1/gnome-dictionary.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 40.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 40.0-5
 - Fix the build with meson 0.61 (#2113245)
 

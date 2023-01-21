@@ -1,6 +1,6 @@
 Name:       ibus-typing-booster
-Version:    2.19.13
-Release:    2%{?dist}
+Version:    2.20.0
+Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
 URL:        https://mike-fabian.github.io/ibus-typing-booster/
@@ -248,6 +248,14 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Thu Jan 19 2023 Mike FABIAN <mfabian@redhat.com> - 2.20.0-1
+- Update to 2.20.0
+- Allow predictions when 0 characters have been typed
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/268)
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.13-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 08 2023 Mike FABIAN <mfabian@redhat.com> - 2.19.13-2
 - Update tarball to version with corrected changelog upstream
 

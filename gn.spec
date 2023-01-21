@@ -1,5 +1,8 @@
 # Build HTML docs from markdown using pandoc?
 %bcond_without html_docs
+# Normally, treating warnings as errors is too strict for downstream builds.
+# It’s nice to be able to turn it on, though.
+%bcond_with werror
 
 Name:           gn
 # Upstream uses the number of commits in the git history as the version number.
@@ -51,6 +54,12 @@ Source2:        update-version
 # Stop overriding optimization flags; not sent upstream because this is
 # intentional on their part
 Patch:          gn-0153d369-no-O3.patch
+# Error: redundant move in return statement (GCC 13)
+# https://bugs.chromium.org/p/gn/issues/detail?id=318
+Patch:          gn-5e19d2fb166f-redundant-move.patch
+# Missing #include <stdint.h> for uint8_t (GCC 13)
+# https://bugs.chromium.org/p/gn/issues/detail?id=319
+Patch:          gn-5e19d2fb166f-stdint.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -123,6 +132,7 @@ AR='gcc-ar'; export AR
 # not with g++. We do get LTO on Fedora anyway, since we respect the
 # distribution’s build flags.
 %{python3} build/gen.py \
+    %{?!with_werror:--allow-warnings} \
     --no-last-commit-position \
     --no-strip \
     --no-static-libstdc++

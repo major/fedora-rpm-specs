@@ -1,6 +1,6 @@
 Name:		perl-Apache-Session-LDAP
 Version:	0.5
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	LDAP implementation of Apache::Session
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Apache-Session-LDAP
@@ -61,6 +61,9 @@ make test
 %{_mandir}/man3/Apache::Session::Store::LDAP.3*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

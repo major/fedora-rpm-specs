@@ -18,7 +18,7 @@ for non-parametric methods.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        Assortment of more specialized math routines for Go
 
 # Upstream license specification: BSD-3-Clause
@@ -50,6 +50,9 @@ BuildRequires:  golang(gonum.org/v1/gonum/mat)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0-0.15
 - Rebuild to fix FTBFS
 

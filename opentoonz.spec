@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.6.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -129,6 +129,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 1.6.0-9
 - Rebuild for opencv 4.7.0
 

@@ -5,7 +5,7 @@
 
 Name:           mingw-gdk-pixbuf
 Version:        2.42.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MinGW Windows GDK Pixbuf library
 
 License:        LGPLv2+
@@ -135,6 +135,9 @@ install -m 0644 %{SOURCE1} %{buildroot}%{mingw64_libdir}/gdk-pixbuf-2.0/2.10.0/l
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.42.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Oct 30 2022 Sandro Mani <manisandro@gmail.com> - 2.42.10-1
 - Update to 2.42.10
 

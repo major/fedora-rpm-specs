@@ -1,7 +1,7 @@
 Summary:	Java GNOME bindings
 Name:		java-gnome
 Version:	4.1.3
-Release:	31%{?dist}
+Release:	32%{?dist}
 URL:		http://java-gnome.sourceforge.net
 Source0:	http://ftp.gnome.org/pub/gnome/sources/java-gnome/4.1/java-gnome-%{version}.tar.xz
 # Workaround for brp-java-repack-jars skipping top-level dot-files
@@ -117,6 +117,9 @@ cp -rp doc/api %{buildroot}%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

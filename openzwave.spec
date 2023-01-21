@@ -1,6 +1,6 @@
 Name:     openzwave
 Version:  1.6.1914
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  Sample Executables for OpenZWave
 URL:      http://www.openzwave.net
 License:  LGPLv3+
@@ -142,6 +142,9 @@ rm -f %{buildroot}%{_defaultdocdir}/openzwave-%{version}/ChangeLog.old
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1914-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1914-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

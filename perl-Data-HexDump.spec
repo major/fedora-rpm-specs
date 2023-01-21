@@ -1,6 +1,6 @@
 Name:           perl-Data-HexDump
 Version:        0.04
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Hexadecimal Dumper
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-HexDump
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/Data::HexDump.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

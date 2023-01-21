@@ -17,7 +17,7 @@ encrypted cookie values for Go web applications.}
 %global gosupfiles      glide.lock glide.yaml
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Encodes and decodes authenticated cookie values for Go web applications
 
 # Upstream license specification: BSD-3-Clause
@@ -56,6 +56,9 @@ end
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

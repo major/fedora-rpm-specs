@@ -1,6 +1,6 @@
 Name:           perl-Event-RPC
 Version:        1.10
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Event based transparent client/server RPC framework
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Event-RPC
@@ -136,6 +136,9 @@ make test
 %{_mandir}/man3/Event::RPC::Message::Storable.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

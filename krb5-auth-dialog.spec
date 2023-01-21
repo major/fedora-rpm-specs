@@ -1,7 +1,7 @@
 Name:    krb5-auth-dialog
 Summary: Kerberos 5 authentication dialog
 Version: 43.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL:     https://honk.sigxcpu.org/piki/projects/krb5-auth-dialog/
 Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{version}.tar.xz
@@ -51,6 +51,9 @@ tickets are about to expire and lets them renew them.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 28 2022 David King <amigadave@amigadave.com> - 43.0-1
 - Update to 43.0
 

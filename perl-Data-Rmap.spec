@@ -1,6 +1,6 @@
 Name:           perl-Data-Rmap
 Version:        0.65
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Recursive map, apply a block to a data structure
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Rmap
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.65-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.65-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		perl-Expect
 Version:	1.35
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Expect for Perl
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Expect
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Expect.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.35-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

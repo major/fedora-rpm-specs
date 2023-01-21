@@ -12,7 +12,7 @@ produced by the html package.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        CSS selector library in Go
 
 # Upstream license specification: BSD-2-Clause
@@ -39,6 +39,9 @@ BuildRequires:  golang(golang.org/x/net/html)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jul 25 2022 Maxwell G <gotmax@e.email> - 1.2.0-8
 - Remove unneeded empty subpackage
 

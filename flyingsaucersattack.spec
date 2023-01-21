@@ -1,6 +1,6 @@
 Name:           flyingsaucersattack
 Version:        1.20h
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Shoot down the attacking UFOs and to save the city
 # Engine is MIT, resources are CC-BY-SA-4.0
 License:        MIT and CC-BY-SA
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20h-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20h-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           netcdf
 Version:        4.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Libraries for the Unidata network Common Data Form
 
 License:        NetCDF
@@ -389,6 +389,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Orion Poplawski <orion@nwra.com> - 4.9.0-4
 - Apply upstream patch to fix infinite loop in file inferencing
 

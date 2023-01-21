@@ -1,6 +1,6 @@
 Name:           lxsession-edit
 Version:        0.2.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Simple GUI to configure what’s automatically started in LXDE
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ desktop-file-install                                       \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

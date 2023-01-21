@@ -1,6 +1,6 @@
 Name:           nox
 Version:        2022.11.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Flexible test automation
 
 License:        ASL 2.0
@@ -47,6 +47,9 @@ file for configuration.
 %{_bindir}/tox-to-nox
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.11.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 ondaaak <ondaaak@gmail.com> - 2022.11.21-1
 - Update to 2022.11.21
 

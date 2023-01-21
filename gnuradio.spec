@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.4.0
-Release:	3%{?alphatag:.%{alphatag}}%{?dist}
+Release:	5%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -196,6 +196,12 @@ rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Thu Jan 19 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.4.0-5
+- Rebuilt for new volk
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 3.10.4.0-3
 - Rebuild (qwt)
 

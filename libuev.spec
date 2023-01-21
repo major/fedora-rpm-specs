@@ -5,7 +5,7 @@ Version:        2.4.0
 
 %forgemeta
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple event loop for Linux
 License:        MIT
 URL:     %{forgeurl}
@@ -67,6 +67,9 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

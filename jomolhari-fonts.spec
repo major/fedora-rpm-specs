@@ -1,5 +1,5 @@
 Version:        0.003
-Release:        37%{?dist}
+Release:        38%{?dist}
 
 URL: https://fonts.google.com/specimen/Jomolhari
 
@@ -40,6 +40,9 @@ Source1:        65-0-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.003-37
 - Update license tag to SPDX format
 

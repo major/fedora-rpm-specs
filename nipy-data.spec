@@ -1,6 +1,6 @@
 Name:           nipy-data
 Version:        0.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Test data and brain templates for nipy
 
 License:        BSD
@@ -29,6 +29,9 @@ done
 %{_datadir}/nipy/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 
 Name:           nx-libs
 Version:        3.5.99.26
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        NX X11 protocol compression libraries
 
 License:        GPLv2+
@@ -470,6 +470,9 @@ pathfix.py -pni "%{__python2} %{py2_shbang_opts}" %{buildroot}%{_bindir}/nxdialo
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.99.26-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jul 25 2022 Orion Poplawski <orion@nwra.com> - 3.5.99.26-6
 - Drop xorg-x11-font-utils requirement on EL9+ (bz#2104335)
 

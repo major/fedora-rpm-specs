@@ -3,7 +3,7 @@
 
 Name:           perl-Business-Stripe
 Version:        0.07
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Interface for Stripe payment system
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Business-Stripe
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

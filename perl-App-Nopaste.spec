@@ -1,6 +1,6 @@
 Name:           perl-App-Nopaste
 Version:        1.013
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Easy access to any pastebin
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-Nopaste
@@ -95,6 +95,9 @@ make test
 %{_mandir}/man1/nopaste.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.013-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 1.013-11
 - Convert a License tag to an SPDX format
 

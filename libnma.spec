@@ -14,7 +14,7 @@
 Name:           libnma
 Summary:        NetworkManager GUI library
 Version:        1.10.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 # The entire source code is GPLv2+ except some files in shared/ which are LGPLv2+
 License:        GPLv2+ and LGPLv2+
 URL:            https://gitlab.gnome.org/GNOME/libnma/
@@ -145,6 +145,9 @@ files to be used for integrating GUI tools with NetworkManager.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 08 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.10.6-1
 - Update to 1.10.6 release
 

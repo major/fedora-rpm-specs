@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/adam900710/btrfs-fuse
-%global commit ca53ed5448d2ac7faa2cbc9ff1e11dc7ae521dea
+%global commit 812c4b70c6fd4e2efdd13256c3b5c4a7fd596b2a
 %forgemeta
 
 Name:           btrfs-fuse

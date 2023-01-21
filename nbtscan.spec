@@ -1,6 +1,6 @@
 Name:           nbtscan
 Version:        1.5.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Tool to gather NetBIOS info from Windows networks
 
 License:        GPLv2+
@@ -51,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 1.5.1-29
 - Port to C99 (#2148247)
 

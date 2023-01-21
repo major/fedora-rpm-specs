@@ -4,21 +4,24 @@
 %bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
-Version: 2.0.10
-Release: 8%{?dist}
+Version: 2.0.11
+Release: 1%{?dist}
 Summary: Generic interface to multiple Ruby template engines
 License: MIT
-URL: http://github.com/rtomayko/tilt/
+URL: https://github.com/rtomayko/tilt/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rtomayko/tilt.git && cd tilt
-# git archive -v -o tilt-2.0.10-man.tar.gz v2.0.10 man/
+# git archive -v -o tilt-2.0.11-man.tar.gz v2.0.11 man/
 Source1: %{gem_name}-%{version}-man.tar.gz
 # git clone https://github.com/rtomayko/tilt.git && cd tilt
-# git archive -v -o tilt-2.0.10-test.tar.gz v2.0.10 test/
+# git archive -v -o tilt-2.0.11-test.tar.gz v2.0.11 test/
 Source2: %{gem_name}-%{version}-test.tar.gz
-# Fix Ruby 3.0 compatibility.
-# https://github.com/rtomayko/tilt/pull/360
-Patch0: tilt-2.0.10-Fix-Ruby-3.0-compatibility.patch
+# We don't use Bundler neither upstream necessarily does.
+# https://github.com/rtomayko/tilt/pull/375/commits/66e702813b4fef3951dff941b4778b595929e092
+Patch0: rubygem-tilt-2.0.11-Remove-use-of-Bundler-setup.patch
+# Fix Sass test failures.
+# https://github.com/rtomayko/tilt/pull/375/commits/20b6424425037adf2029bba2e86f0d1b3c007251
+Patch1: rubygem-tilt-2.0.11-Chomp-newline-in-sass-tests.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -26,7 +29,12 @@ BuildRequires: ruby
 # BuildRequires: rubygem(erubis)
 # BuildRequires: rubygem(maruku)
 # BuildRequires: rubygem(wikicloth)
-BuildRequires: /usr/bin/node
+# Disable in an effort to let Coffeescript to be updated to version 2.x
+# https://bugzilla.redhat.com/show_bug.cgi?id=2139183
+# and possibly to let `rubygem(coffee-script)` go away. It seems both cannot
+# be reasonably achieved.
+# https://github.com/rtomayko/tilt/issues/384
+# BuildRequires: rubygem(coffee-script)
 BuildRequires: rubygem(creole)
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(nokogiri)
@@ -34,7 +42,6 @@ BuildRequires: rubygem(erubi)
 BuildRequires: rubygem(builder)
 BuildRequires: rubygem(RedCloth)
 BuildRequires: rubygem(redcarpet)
-BuildRequires: rubygem(coffee-script)
 BuildRequires: rubygem(kramdown)
 BuildRequires: rubygem(rdiscount)
 BuildRequires: rubygem(liquid)
@@ -64,7 +71,10 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1 -b 2
 
+pushd %{_builddir}
 %patch0 -p1
+%patch1 -p1
+popd
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -102,20 +112,13 @@ find %{buildroot}%{gem_instdir}/bin -type f | xargs chmod a+x
 pushd .%{gem_instdir}
 ln -s %{_builddir}/test test
 
-# Get rid of Bundler.
-sed -i '/[Bb]undler/ s/^/#/' test/test_helper.rb
-
-# DocBook 4.5 has been removed since AsciiDoctor 2.0.0.
-# https://github.com/asciidoctor/asciidoctor/issues/3005
-sed -i '/docbook 4.5/a\      skip' test/tilt_asciidoctor_test.rb
-
 LANG=C.UTF-8 ruby -Ilib:test -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 %endif
 
 %files
 %dir %{gem_instdir}
-%{_bindir}/%{gem_name}
+%{_bindir}/tilt
 %license %{gem_instdir}/COPYING
 %{gem_instdir}/bin
 %{gem_libdir}
@@ -128,6 +131,10 @@ popd
 
 
 %changelog
+* Thu Jan 19 2023 Vít Ondruch <vondruch@redhat.com> - 2.0.11-1
+- Update to Tilt 2.0.11.
+  Resolves: rhbz#2110035
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

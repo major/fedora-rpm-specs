@@ -2,7 +2,7 @@ Name: mythes-ru
 Summary: Russian thesaurus
 %global upstreamid 20070613
 Version: 0.%{upstreamid}
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Below source link is dead now
 # Source: http://download.i-rs.ru/pub/openoffice/dict/thes_ru_RU_v2.zip
 Source: thes_ru_RU_v2.zip
@@ -37,6 +37,9 @@ done
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070613-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070613-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

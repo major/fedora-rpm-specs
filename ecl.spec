@@ -5,7 +5,7 @@
 
 Name:           ecl
 Version:        21.2.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Embeddable Common-Lisp
 
 # The project as a whole is LGPL-2.0-or-later.  Other licenses in play:
@@ -101,6 +101,8 @@ sed -i 's/{.*,.*,.*,.*,.*}/{&}/g' src/c/symbols_list.h
 # Don't give the library a useless rpath
 sed -i "/ECL_LDRPATH='-Wl,--rpath,~A'/d" src/configure
 
+# Adapt to texinfo changes
+sed -i 's/mv ecl/&_html/' src/doc/manual/Makefile
 
 %build
 %configure --enable-manual=html --with-sse=auto \
@@ -159,6 +161,9 @@ appstreamcli validate --no-net \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Jerry James <loganjerry@gmail.com> - 21.2.1-6
 - Convert License tag to SPDX
 

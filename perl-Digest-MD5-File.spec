@@ -1,6 +1,6 @@
 Name:		perl-Digest-MD5-File
 Version:	0.08
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Perl extension for getting MD5 sums for files and URLs
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Digest-MD4
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/Digest::MD5::File.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

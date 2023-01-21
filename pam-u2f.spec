@@ -6,7 +6,7 @@
 
 Name:          pam-u2f
 Version:       1.2.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Implements PAM authentication over U2F
 
 License:       BSD-2-Clause
@@ -69,6 +69,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.2.1-3
 - Migrate spec file to SPDX license specification (BSD -> BSD-2-Clause)
 

@@ -1,7 +1,7 @@
 Version: 1.14.15
 Summary: Universal Plug and Play (UPnP) SDK
 Name: libupnp
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 URL: https://github.com/pupnp/pupnp
 Source: %{url}/archive/release-%{version}/%{name}-%{version}.tar.gz
@@ -60,6 +60,9 @@ sed -i.rpath 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %{_libdir}/pkgconfig/libupnp.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.14.15-1
 - 1.14.15
 

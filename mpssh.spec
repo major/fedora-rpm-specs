@@ -3,7 +3,7 @@
 
 Name:		mpssh
 Version:	1.3.3
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Parallel ssh tool
 
 License:	BSD
@@ -54,6 +54,9 @@ install -p -D -m 0644 %{name}.1.gz %{buildroot}%{_mandir}/man1/%{name}.1.gz
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

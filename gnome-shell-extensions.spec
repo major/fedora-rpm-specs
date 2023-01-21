@@ -7,7 +7,7 @@
 
 Name:           gnome-shell-extensions
 Version:        43.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
 License:        GPLv2+
@@ -256,6 +256,9 @@ workspaces.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 28 2022 Florian Müllner <fmuellner@redhat.com> - 43.1-2
 - Adjust gnome-shell dependency
 

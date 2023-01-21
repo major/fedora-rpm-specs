@@ -1,6 +1,6 @@
 Name:		libcbor
 Version:	0.7.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	A CBOR parsing library
 
 License:	MIT
@@ -56,6 +56,9 @@ cp doc/build/man/* %{buildroot}%{_mandir}/man1/
 %{_libdir}/pkgconfig/libcbor.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 0.7.0-8
 - Update license to SPDX format
 - spec file tidy/modernization

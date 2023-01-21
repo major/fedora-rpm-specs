@@ -15,7 +15,7 @@
 
 Name:           nova-agent
 Version:        2.1.25
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Agent for setting up clean servers on Xen
 License:        ASL 2.0
 URL:            https://github.com/Rackspace-DOT/nova-agent
@@ -128,6 +128,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.25-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 %global commitdate 20170704
 
 # For rpmdev-bumpspec
-%global baserelease 9
+%global baserelease 10
 
 %define service recompress
 
@@ -48,6 +48,9 @@ It supports to compress, uncompress or recompress files from or to
 %{_prefix}/lib/obs/service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-10.git20170704.59bf231
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-9.git20170704.59bf231
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

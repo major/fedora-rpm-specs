@@ -1,7 +1,7 @@
 Summary:        Google C++ testing framework
 Name:           gtest
 Version:        1.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 # scripts/generator/* are ASL 2.0
 License:        BSD and ASL 2.0
 URL:            https://github.com/google/googletest
@@ -100,6 +100,9 @@ sed -e "s/set(GOOGLETEST_VERSION .*)/set(GOOGLETEST_VERSION %{version})/" -i CMa
 %{_libdir}/pkgconfig/gmock_main.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.13.0-1
 - 1.13.0
 

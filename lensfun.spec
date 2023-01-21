@@ -6,7 +6,7 @@
 Name:    lensfun
 Version: 0.3.3
 Summary: Library to rectify defects introduced by photographic lenses
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv3 and CC-BY-SA
 URL: https://lensfun.github.io/
@@ -154,6 +154,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Rex Dieter <rdieter@fedoraproject.org> 0.3.3-1
 - lensfun-0.3.3
 

@@ -1,6 +1,6 @@
 Name:           perl-Alien-ZMQ
 Version:        0.06
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Find and install libzmq library
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Alien-ZMQ
@@ -67,6 +67,9 @@ unset RELEASE_TESTING
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

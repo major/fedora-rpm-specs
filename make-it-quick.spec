@@ -1,6 +1,6 @@
 Name:           make-it-quick
 Version:        0.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A make-only build system for C/C++ programs
 License:        GPLv3+
 URL:            https://github.com/tao-3D/%{name}
@@ -51,6 +51,9 @@ Development files for make-it-quick
 %{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 1 2022 Christophe de Dinechin <dinechin@redhat.com> - 0.3.2-2
 - Fix license install path to *not* use LICENSEDIR, not available at that step
 

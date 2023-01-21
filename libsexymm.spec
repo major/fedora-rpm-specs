@@ -1,6 +1,6 @@
 Name:           libsexymm
 Version:        0.1.9
-Release:        35%{?dist}
+Release:        36%{?dist}
 
 Summary:        C++ wrapper for libsexy
 
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Florian Weimer <fweimer@redhat.com> - 0.1.9-35
 - Port configure script to C99
 

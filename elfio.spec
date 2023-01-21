@@ -1,10 +1,11 @@
 %global debug_package %{nil}
 
 Name:           elfio
-Version:        3.10
+Version:        3.11
 Release:        %autorelease
 Summary:        C++ library for reading and generating ELF files
 
+# This is the proper SPDX license
 License:        MIT
 URL:            http://elfio.sourceforge.net/
 Source0:        https://downloads.sf.net/elfio/elfio-%{version}.tar.gz
@@ -42,7 +43,7 @@ format is required. Such Information can easily be found on the Web.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -58,8 +59,8 @@ rm -r %{buildroot}%{_datadir}/docs
 %{_vpath_builddir}/examples/elfdump/elfdump %{_bindir}/cmake
 
 %files devel
-%license COPYING
-%doc AUTHORS doc/elfio.pdf README.md
+%license LICENSE.txt
+%doc doc/elfio.pdf README.md
 %{_includedir}/elfio/
 %{_datadir}/elfio/
 

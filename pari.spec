@@ -1,6 +1,6 @@
 Name:           pari
 Version:        2.15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Number Theory-oriented Computer Algebra System
 
 %global majver %(cut -d. -f1-2 <<< %{version})
@@ -170,6 +170,9 @@ make test-all
 %{_libdir}/libpari.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 2.15.2-1
 - Version 2.15.2
 

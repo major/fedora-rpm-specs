@@ -6,7 +6,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        1.16.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        OCaml library of cryptographic and hash functions
 License:        LGPLv2 with exceptions
 
@@ -141,6 +141,9 @@ find %{buildroot}%{_libdir}/ocaml -name \*.ml -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

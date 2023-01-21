@@ -2,7 +2,7 @@
 
 Name:           jaxb
 Version:        4.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        JAXB Reference Implementation
 # EDL-1.0 license is BSD-3-clause
 License:        BSD
@@ -175,6 +175,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Marian Koncek <mkoncek@redhat.com> - 4.0.1-2
 - Rebuild
 

@@ -1,6 +1,6 @@
 Name:		open-amp
 Version:	2020.10.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Open Asymmetric Multi Processing (OpenAMP) framework project
 
 License:	BSD
@@ -66,6 +66,9 @@ baremetal, and RTOS environments.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.10.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

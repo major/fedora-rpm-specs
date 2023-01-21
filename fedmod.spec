@@ -2,7 +2,7 @@
 
 Name:           fedmod
 Version:        0.6.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Utilities for generating & maintaining modulemd files
 
 License:        GPLv2+ and GPLv3+ and MIT
@@ -79,6 +79,9 @@ fi
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Kalev Lember <klember@redhat.com> - 0.6.5-5
 - Update the dataset for Fedora 37
 - fedora.yaml: Drop armhfp arch

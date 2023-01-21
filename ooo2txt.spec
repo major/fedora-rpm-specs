@@ -1,6 +1,6 @@
 Name:           ooo2txt
 Version:        0.0.6
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Convert OpenOffice documents to simple text
 License:        LGPLv2+
 URL:            http://ooo2txt.fr.st/
@@ -43,6 +43,9 @@ install -p -m644 ooo2txt.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %{_mandir}/man1/ooo2txt.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

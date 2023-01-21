@@ -1,6 +1,6 @@
 Name:           gtkpod
 Version:        2.1.5
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Graphical song management program for Apple's iPod
 
 # The help documentation is under GFDL, the rest of the code is GPLv2+
@@ -98,6 +98,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} \;
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 2.1.5-22
 - Rebuilt for flac 1.4.0
 

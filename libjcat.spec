@@ -4,7 +4,7 @@
 Summary:   Library for reading Jcat files
 Name:      libjcat
 Version:   0.1.12
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/hughsie/libjcat
 Source0:   https://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
@@ -88,6 +88,9 @@ Executable and data files for installed tests.
 %dir %{_datadir}/installed-tests/libjcat
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 11 2022 Richard Hughes <richard@hughsie.com> 0.1.12-1
 - New upstream release
 - Correctly export the AliasIds in all cases

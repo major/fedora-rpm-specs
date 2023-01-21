@@ -15,7 +15,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.2
-Release:        27.%{gitdate}git%{shorttag}%{?dist}
+Release:        28.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
 License:        GPL-2.0-or-later
@@ -98,6 +98,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-28.20221102gitd54d393
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.2-27.20221102git
 - Update for split GAP directories
 

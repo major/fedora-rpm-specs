@@ -2,7 +2,7 @@
 
 Name:           lv2
 Version:        1.18.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Audio Plugin Standard
 
 # lv2specgen template.html is CC-AT-SA
@@ -200,6 +200,9 @@ end
 %doc %{_vpath_builddir}/doc/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 30 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.18.8-4
 - Fix pretrans lua script error for first installation (not upgrade)
   (#2131236)

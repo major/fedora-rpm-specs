@@ -1,6 +1,6 @@
 Name:           nauty
 Version:        2.8.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graph canonical labeling and automorphism group computation
 
 %global nautytarver %(tr . _ <<< %{version})
@@ -153,6 +153,9 @@ LD_LIBRARY_PATH=$PWD/.libs PATH=$PWD:$PATH make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Jerry James <loganjerry@gmail.com> - 2.8.6-1
 - Version 2_8_6
 - Convert License tag to SPDX

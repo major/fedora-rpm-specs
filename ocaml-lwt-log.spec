@@ -2,7 +2,7 @@
 
 Name:           ocaml-lwt-log
 Version:        1.1.1
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Lwt logging library
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -45,6 +45,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug  8 2022 Jerry James <loganjerry@gmail.com> - 1.1.1-24
 - Rebuild for ocaml-lwt 5.6.1
 - Use SPDX license name

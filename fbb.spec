@@ -6,7 +6,7 @@
 Name:             fbb
 URL:              https://sourceforge.net/projects/linfbb/
 Version:          7.0.11
-Release:          %{?prerel:0.}1%{?prerel:.%{prerel}}%{?dist}.3
+Release:          %{?prerel:0.}1%{?prerel:.%{prerel}}%{?dist}.4
 License:          GPLv2+
 Summary:          Packet radio mailbox and utilities
 BuildRequires:    gcc
@@ -211,6 +211,9 @@ statis.dat,themes.dat,tpstat.sys,wfbid.sys,sat/satel.dat,wp/wp.sys}
 %{_datadir}/polkit-1/actions/org.fbb.gui.policy
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.11-1.4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 16 2022 Florian Weimer <fweimer@redhat.com> - 7.0.11-1.3
 - Remove call to obsolete _XmGrabTheFocus function (#2154201)
 

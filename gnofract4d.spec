@@ -1,6 +1,6 @@
 Name:           gnofract4d
 Version:        4.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Gnofract 4D is a Gnome-based program to draw fractals
 License:        BSD-3-Clause
 
@@ -114,6 +114,9 @@ mv ../test_main_window.py fract4dgui/tests
 %{_metainfodir}/com.github.fract4d.%{name}.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Jerry James <loganjerry@gmail.com> - 4.3-9
 - Correct License tag (LGPLv2+ to BSD-3-Clause) and convert to SPDX
 

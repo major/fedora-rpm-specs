@@ -1,6 +1,6 @@
 Name:           atanks
-Version:        6.5
-Release:        16%{?dist}
+Version:        6.6
+Release:        1%{?dist}
 Summary:        Remake of a classic DOS game "Scorched Earth"
 
 License:        GPLv2+
@@ -103,6 +103,9 @@ EOF
 
 
 %changelog
+* Thu Jan 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.6-1
+- 6.6
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

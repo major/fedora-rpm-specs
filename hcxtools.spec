@@ -1,6 +1,6 @@
 Name:           hcxtools
 Version:        6.2.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Portable solution for conversion WiFi dump files to hashcat formats
 
 License:        MIT
@@ -106,5 +106,8 @@ install -Dpm 0644 man/%{name}.1 -t %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 6.2.7-1
 - Initial package

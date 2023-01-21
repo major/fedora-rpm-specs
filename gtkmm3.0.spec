@@ -11,7 +11,7 @@
 
 Name:           gtkmm3.0
 Version:        3.24.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ interface for the GTK+ library
 
 License:        LGPLv2+
@@ -114,6 +114,9 @@ cp -a demos/ _docs/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 23 2022 Kalev Lember <klember@redhat.com> - 3.24.7-2
 - Rename from gtkmm30 to gtkmm3.0
 

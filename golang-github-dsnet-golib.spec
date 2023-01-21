@@ -17,7 +17,7 @@ are pulled out and placed here.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Collection of mostly unrelated helper Go packages
 
 # Upstream license specification: BSD-3-Clause
@@ -50,6 +50,9 @@ BuildRequires:  golang(github.com/google/go-cmp/cmp/cmpopts)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           mikmod
 Version:        3.2.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Console music module player
 
 License:        GPLv2 and LGPLv2+
@@ -42,6 +42,9 @@ Install the mikmod package if you need a MOD music file player.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

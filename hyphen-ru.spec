@@ -2,7 +2,7 @@ Name: hyphen-ru
 Summary: Russian hyphenation rules
 %global upstreamid 20200325
 Version: 0.%{upstreamid}
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source1: http://mirrors.ctan.org/language/hyph-utf8/tex/generic/hyph-utf8/patterns/tex/hyph-ru.tex
 Source2: http://mirrors.ctan.org/language/hyph-utf8/tex/generic/hyph-utf8/patterns/txt/hyph-ru.pat.txt
 URL: https://ctan.org/tex-archive/language/hyph-utf8
@@ -46,6 +46,9 @@ done
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20200325-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Caolan McNamara <caolanm@redhat.com> - 0.20200325-6
 - Resolves: rhbz#2148806 fix changelog dates
 

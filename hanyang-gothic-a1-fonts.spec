@@ -3,7 +3,7 @@
 %global git_commit_short %(c="%{git_commit}"; echo "${c:0:8}")
 
 Version: 163840
-Release: 7.%{git_date}git%{git_commit_short}%{?dist}
+Release: 8.%{git_date}git%{git_commit_short}%{?dist}
 
 URL: https://www.hanyang.co.kr/hygothic/
 
@@ -54,6 +54,9 @@ Source99: gothicA1-fetch.sh
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 163840-8.20180313git16680f86
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 163840-7.20180313git16680f86
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

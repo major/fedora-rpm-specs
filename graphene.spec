@@ -1,6 +1,6 @@
 Name:           graphene
 Version:        1.10.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Thin layer of types for graphic libraries
 
 License:        MIT
@@ -78,6 +78,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
 

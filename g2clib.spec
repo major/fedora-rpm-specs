@@ -2,7 +2,7 @@
 
 Name:           g2clib
 Version:        1.6.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GRIB2 encoder/decoder and search/indexing routines in C
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -111,6 +111,9 @@ echo %%g2clib %g2clib > $RPM_BUILD_ROOT%{macrosdir}/macros.g2clib
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 1.6.3-8
 - SPDX migration: "Public Domain" -> "LicenseRef-Fedora-Public-Domain"
 

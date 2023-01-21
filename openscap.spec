@@ -1,6 +1,6 @@
 Name:           openscap
 Version:        1.3.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPLv2+
@@ -220,6 +220,9 @@ ln -sf ../oscap-remediate.service %{buildroot}%{_unitdir}/system-update.target.w
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 17 2022 Jan Černý <jcerny@redhat.com> - 1:1.3.6-11
 - Add systemd-rpm-macros to BuildRequires (rhbz#2126078)
 

@@ -1,6 +1,6 @@
 Name:			gtypist
 Version: 		2.9.5
-Release: 		15%{?dist}
+Release: 		16%{?dist}
 Summary: 		GNU typing tutor
 License:		GPLv3+
 Url: 			ftp://ftp.gnu.org/gnu/gtypist
@@ -56,6 +56,9 @@ cp gtypist-init.el $RPM_BUILD_ROOT/%{_emacs_sitestartdir}
 %{_emacs_sitestartdir}/gtypist-init.el
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 2.9.5-15
 - C99 compatibility fixes (#2162074)
 

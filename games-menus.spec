@@ -1,6 +1,6 @@
 Name:           games-menus
 Version:        0.3.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Catagorized submenus for the MATE/KDE Games menu
 License:        GPLv2+
 URL:            https://www.redhat.com/archives/fedora-games-list/2007-March/msg00003.html
@@ -44,6 +44,9 @@ cp -a icons/* $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

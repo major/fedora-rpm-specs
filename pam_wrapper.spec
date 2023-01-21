@@ -1,6 +1,6 @@
 Name:           pam_wrapper
 Version:        1.1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 Summary:        A tool to test PAM applications and PAM modules
 License:        GPLv3+
@@ -138,6 +138,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %{python3_sitearch}/pypamtest.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

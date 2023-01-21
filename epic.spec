@@ -1,7 +1,7 @@
 Summary: An ircII chat client
 Name: epic
 Version: 2.10.10
-Release: 6%{?dist}
+Release: 7%{?dist}
 Epoch: 4
 # The entire source code is Freely redistributable without restriction except some
 # files (notably, glob.c, and compat.c) may contain some source covered by BSD
@@ -87,6 +87,9 @@ rm -f $RPM_BUILD_ROOT/%{_libexecdir}/wserv
 %{_datadir}/epic/help/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:2.10.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 4:2.10.10-6
 - Port configure.in to C99, add autoreconf step to build and add a few missing includes.
 

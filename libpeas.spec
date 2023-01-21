@@ -2,7 +2,7 @@
 
 Name:           libpeas
 Version:        1.34.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plug-ins implementation convenience library
 
 License:        LGPLv2+
@@ -107,6 +107,9 @@ that are needed to write applications that use libpeas.
 %{_datadir}/glade/catalogs/libpeas-gtk.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.34.0-2
 - Ensure correct fonts are installed for HTML docs
 

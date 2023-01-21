@@ -19,7 +19,7 @@ Name:           %{goname}
 # Upstream includes release notes for past releases, but does not post 
 # tarballs or use git tags, so we ship the latest Git.
 Version:        1.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A BibTeX source for fzf
 
 # Upstream license specification: BSD-3-Clause
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %{_bindir}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

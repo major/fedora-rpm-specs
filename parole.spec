@@ -3,7 +3,7 @@
 
 Name:           parole
 Version:        4.16.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Media player for the Xfce desktop
 
 License:        GPLv2+
@@ -109,6 +109,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

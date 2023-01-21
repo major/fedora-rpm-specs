@@ -1,7 +1,7 @@
 
 Name:           fusion-icon
 Version:        0.2.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Epoch:          1
 Summary:        Compiz Fusion panel applet
 License:        GPLv2+
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/fusion-icon.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2.4-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan  5 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.2.4-22
 - Added setuptools build requirement
   Resolves: rhbz#2154823

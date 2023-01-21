@@ -3,7 +3,7 @@
 
 Name:           jcuber
 Version:        4.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CUBE reader for Java
 # tarviewer is ASL
 License:        BSD-3-Clause AND Apache-2.0
@@ -70,6 +70,9 @@ cp -rp examples AUTHORS %buildroot%_defaultdocdir/%name
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 18 2022 Dave Love <loveshack@fedoraproject.org> - 4.8-1
 - New version (#2074552)
 

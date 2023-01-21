@@ -17,7 +17,7 @@ specifically targeted towards DevOps tools, servers, etc..}
 %global godocs          CHANGELOG.md README.md spec.md examples
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        HashiCorp configuration language
 
 # Upstream license specification: MPL-2.0
@@ -69,6 +69,9 @@ mapfile -t testfiles <<< $(find $(find . -iname 'test-fixtures' -type d) -type f
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

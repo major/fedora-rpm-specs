@@ -1,7 +1,7 @@
 Summary: The basic directory layout for a Linux system
 Name: filesystem
 Version: 3.18
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: Public Domain
 URL: https://pagure.io/filesystem
 Source1: https://pagure.io/filesystem/raw/master/f/lang-exceptions
@@ -310,6 +310,9 @@ end
 /var/yp
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 09 2022 Martin Osvald <mosvald@redhat.com> - 3.18-2
 - Filesystem has a dependency on /bin/sh (rhbz#1306489)
 

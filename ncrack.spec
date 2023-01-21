@@ -2,7 +2,7 @@
 
 Name:           ncrack
 Version:        0.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A high-speed network auth cracking tool
 
 License:        GPLv2 with exceptions
@@ -53,6 +53,9 @@ export CFLAGS="${RPM_OPT_FLAGS} -fcommon"
 %{_datadir}/%{name}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 0.7-8
 - Regenerate autotools; Fixes: RHBZ#2143996
 - Backport upstream fix for IPv6 support

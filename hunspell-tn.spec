@@ -8,7 +8,7 @@ Name: hunspell-tn
 Summary: Tswana hunspell dictionaries
 %global upstreamid 20150904
 Version: 0.%{upstreamid}
-Release: 11%{?dist}
+Release: 12%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/347396/tswana_spell_checker-%{upstreamid}-sm+tb+fx+an+fn.xpi
 URL: https://addons.mozilla.org/en-US/firefox/addon/tswana-spell-checker/
 License: GPLv3+
@@ -43,6 +43,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20150904-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20150904-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

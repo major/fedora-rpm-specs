@@ -1,6 +1,6 @@
 Name:           onesixtyone
 Version:        0.3.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        An efficient SNMP scanner
 
 License:        GPLv2+
@@ -43,6 +43,9 @@ install -m 0644 -pD %{SOURCE2} %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

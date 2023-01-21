@@ -4,7 +4,7 @@
 Name:           epson-inkjet-printer-escpr2
 Summary:        Drivers for Epson inkjet printers
 Version:        1.1.49
-Release:        1.%{lsb}%{?dist}
+Release:        2.%{lsb}%{?dist}
 License:        GPLv2+
 # Search for something like ET-3700
 URL:            http://download.ebz.epson.net/dsc/search/01/search/?OSC=LX
@@ -69,6 +69,9 @@ done
 %{_datadir}/ppd/Epson/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.49-2.1lsb3.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Orion Poplawski <orion@nwra.com> - 1.1.49-1.1lsb3.2
 - Update to 1.1.49
 - Cleanup conditional

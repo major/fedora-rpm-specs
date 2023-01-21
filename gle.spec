@@ -5,7 +5,7 @@
 Summary:       Graphics Layout Engine
 Name:          gle
 Version:       4.2.5
-Release:       20%{?dist}
+Release:       21%{?dist}
 License:       GPLv2+
 URL:           http://www.gle-graphics.org/
 Source0:       http://downloads.sourceforge.net/glx/gle-graphics-%{version}f-src.tar.gz
@@ -136,6 +136,9 @@ rm -f %{buildroot}%{_libdir}/pkgconfig/gle-graphics.pc
 %doc gle-manual.pdf GLEusersguide.pdf
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.5-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

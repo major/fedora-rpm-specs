@@ -7,7 +7,7 @@
 
 Name:           freecol
 Version:        0.11.6
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Turn-based multi-player strategy game
 License:        GPL-1.0-or-later
 URL:            http://www.freecol.org/
@@ -146,6 +146,9 @@ install -p -m 644 packaging/common/freecol.svg \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.6-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 0.11.6-21
 - Change license string to the SPDX format required by Fedora
 

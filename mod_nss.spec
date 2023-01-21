@@ -6,7 +6,7 @@
 
 Name: mod_nss
 Version: 1.0.17
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: SSL/TLS module for the Apache HTTP server
 License: ASL 2.0
 URL: https://pagure.io/mod_nss/
@@ -173,6 +173,9 @@ fi
 %{_sbindir}/gencert
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

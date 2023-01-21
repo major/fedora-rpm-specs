@@ -1,6 +1,6 @@
 Name:           ortp
 Version:        0.23.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A C library implementing the RTP protocol (RFC3550)
 Epoch:          2
 
@@ -83,6 +83,9 @@ rm -r %{buildroot}%{_datadir}/doc/%{name}-%{version}
 %{_libdir}/pkgconfig/ortp.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.23.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:0.23.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

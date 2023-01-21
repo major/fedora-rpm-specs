@@ -1,6 +1,6 @@
 Name:		foremost
 Version:	1.5.7
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Recover files by "carving" them from a raw disk
 
 License:	Public Domain
@@ -46,6 +46,9 @@ make install BIN=$RPM_BUILD_ROOT%{_bindir} MAN=$RPM_BUILD_ROOT%{_mandir}/man8 \
 %config(noreplace) %{_sysconfdir}/foremost.conf
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.7-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

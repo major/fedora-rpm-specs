@@ -7,7 +7,7 @@
 
 Name:           ocaml-%{libname}
 Version:        1.2.1
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Safe and fast binary data format
 
 License:        BSD
@@ -100,6 +100,9 @@ make test
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

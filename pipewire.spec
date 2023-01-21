@@ -9,7 +9,7 @@
 %global ms_version   0.4.1
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -73,6 +73,9 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 %endif
 
 ## upstream patches
+Patch0001:	0001-spa-Fix-audioconvert-overflow-when-scaling.patch
+Patch0002:	0002-filter-chain-fix-AVX-dsp_sum-index-increment.patch
+Patch0003:	0003-keys-don-t-remove-deprecated-symbols-by-default.patch
 
 ## upstreamable patches
 
@@ -663,6 +666,11 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu Jan 19 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.64-3
+- Add patch to avoid DSP mixing issues with AVX in filter-chain.
+- Add patch to revert API breakage with deprecated symbols.
+- Add patch to fix scaling overflow that could cause stuttering.
+
 * Tue Jan 17 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.64-2
 - Re-enabled roc-toolkit support.
 

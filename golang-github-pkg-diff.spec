@@ -24,7 +24,7 @@ The subpackages provide very fine-grained control over every aspect:
 
 Name:           %{goname}
 Version:        0
-Release:        0.6%{?dist}
+Release:        0.7%{?dist}
 Summary:        Create, modify, and print diffs
 
 # Upstream license specification: BSD-3-Clause
@@ -51,6 +51,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jul 25 2022 Maxwell G <gotmax@e.email> - 0-0.6
 - Remove unneeded, incorrect empty subpackage
 

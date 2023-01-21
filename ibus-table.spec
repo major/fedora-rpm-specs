@@ -1,6 +1,6 @@
 Name:       ibus-table
 Version:    1.16.14
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    The Table engine for IBus platform
 License:    LGPL-2.1-or-later
 URL:        https://github.com/mike-fabian/ibus-table
@@ -150,6 +150,9 @@ fi
 %{_datadir}/installed-tests/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.14-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Mike FABIAN <mfabian@redhat.com> - 1.16.14-2
 - Migrate license tag to SPDX
 

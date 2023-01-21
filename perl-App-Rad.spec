@@ -1,6 +1,6 @@
 Name:           perl-App-Rad
 Version:        1.05
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Rapid creation of command line applications
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/App-Rad
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

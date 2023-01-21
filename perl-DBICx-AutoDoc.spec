@@ -1,6 +1,6 @@
 Name:           perl-DBICx-AutoDoc
 Version:        0.09
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Generate automatic documentation of DBIx::Class::Schema objects
 License:        GPL+ or Artistic
 
@@ -62,6 +62,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

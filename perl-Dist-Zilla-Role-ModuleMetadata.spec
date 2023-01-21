@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla-Role-ModuleMetadata
 Version:        0.006
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Role for plugins that use Module::Metadata
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Dist-Zilla-Role-ModuleMetadata
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

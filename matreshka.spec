@@ -4,7 +4,7 @@
 
 Name:       matreshka
 Version:    %{major}.1
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Set of Ada libraries to help to develop information systems
 License:    BSD
 URL:        http://forge.ada-ru.org/matreshka
@@ -738,6 +738,9 @@ chrpath --delete %{buildroot}%{_libdir}/lib*
 %{_libdir}/libmatreshka-servlet-%{rtl_version}.so.%{version}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 20.1-12
 - Rebuilt with GCC 13.
 

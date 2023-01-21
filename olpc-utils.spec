@@ -1,6 +1,6 @@
 Name:       olpc-utils
 Version:    6.0.6
-Release:    9%{?dist}
+Release:    10%{?dist}
 Summary:    OLPC utilities
 URL:        http://wiki.laptop.org/go/Olpc-utils
 License:    GPLv2+
@@ -116,6 +116,9 @@ rm -f /.olpc-configured # force re-configuration on upgrade
 %config(noreplace) %{_sysconfdir}/pam.d/olpc-login
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

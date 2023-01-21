@@ -1,6 +1,6 @@
 Name:		lgogdownloader
 Version:	3.9
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	GOG.com download client
 
 License:	WTFPL
@@ -47,6 +47,9 @@ same API as the official GOG Galaxy.
 %{_mandir}/man1/lgogdownloader.1.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 3.9-2
 - Rebuild for tinyxml2-9.0.0
 

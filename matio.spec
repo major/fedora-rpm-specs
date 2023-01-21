@@ -1,6 +1,6 @@
 Name:           matio
 Version:        1.5.23
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Library for reading/writing Matlab MAT files
 
 License:        BSD
@@ -90,6 +90,9 @@ make check || ( cat test/testsuite.log && exit $fail )
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.23-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.23-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

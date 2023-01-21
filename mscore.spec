@@ -4,7 +4,7 @@
 Name:          mscore
 Summary:       Music Composition & Notation Software
 Version:       %{shortver}.2
-Release:       13%{?dist}
+Release:       14%{?dist}
 # The MuseScore project itself is GPL-2.0-only WITH Font-exception-2.0.  Other
 # licenses in play:
 # - rtf2html is LGPL-2.1-or-later
@@ -444,6 +444,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %{_datadir}/fonts/mscore-leland-fonts/metadata.json
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Jerry James <loganjerry@gmail.com> - 3.6.2-13
 - Fix 100% CPU after restarting sound devices (bz 2055986)
 - Fix Aeolus crash at exit

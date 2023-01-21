@@ -2,7 +2,7 @@
 
 Name:           git-filter-repo
 Version:        2.34.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Quickly rewrite git repository history (git-filter-branch replacement)
 License:        MIT
 Group:          Development/Tools/Version Control
@@ -80,6 +80,9 @@ t/run_tests
 %{_mandir}/man1/git-filter-repo.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.34.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 23 2022 Todd Zullinger <tmz@pobox.com> - 2.34.0-5
 - improve python provides
 - require git-core rather than git

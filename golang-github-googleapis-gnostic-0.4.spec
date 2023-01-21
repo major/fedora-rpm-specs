@@ -38,7 +38,7 @@ generate-gnostic directory.}
 %global godocs          examples CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Compiler for APIs described by the OpenAPI Specification
 
 # Upstream license specification: Apache-2.0
@@ -87,6 +87,9 @@ sed -i 's|github.com/googleapis/gnostic|github.com/googleapis/gnostic-0.4|' $(fi
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

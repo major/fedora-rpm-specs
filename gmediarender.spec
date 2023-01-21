@@ -9,7 +9,7 @@
 
 Name:    gmediarender
 Version: 0.0.9
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Resource efficient UPnP/DLNA renderer
 License: GPLv2+
 # Following is for Forge-hosted projects packaging automation
@@ -92,6 +92,9 @@ fi
 %{_prefix}/lib/firewalld/services/%{name}.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

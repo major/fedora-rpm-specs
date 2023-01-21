@@ -2,7 +2,7 @@
 #
 Name:             gerbv
 Version:          2.9.5
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Gerber file viewer from the gEDA toolkit
 License:          GPL-2.0-only
 URL:              https://github.com/gerbv/gerbv
@@ -133,6 +133,9 @@ popd
 
 
 %Changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 11 2022 Alain Vigne <avigne@fedoraproject.org> - 2.9.5-1
 - new upstream release
 - SPDX license identifier

@@ -2,7 +2,7 @@
 
 Name:           frescobaldi
 Version:        3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
@@ -99,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.2-2
 - Patch for event issue.
 

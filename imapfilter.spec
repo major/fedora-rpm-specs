@@ -1,6 +1,6 @@
 Name:           imapfilter
 Version:        2.6.15
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A flexible client side mail filtering utility for IMAP servers
 
 License:        MIT
@@ -44,6 +44,9 @@ make install PREFIX=%{_prefix} DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.15-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

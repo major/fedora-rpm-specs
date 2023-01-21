@@ -2,7 +2,7 @@
 
 Name:           featherpad
 Version:        1.3.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight Qt5 Plain-Text Editor
 
 License:        GPLv3+
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/metainfo/featherpad.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Jonathan Wright <jonathan@almalinux.org> - 1.3.5-2
 - Update to 1.3.5 rhbz#2159098
 

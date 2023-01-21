@@ -3,7 +3,7 @@
 Summary:	Collection of LV2 plugins
 Name:		lv2-ll-plugins
 Version:	0.2.8
-Release:	32%{?dist}
+Release:	33%{?dist}
 License:	GPLv3+
 URL:		http://ll-plugins.nongnu.org/
 Source:		http://download.savannah.nongnu.org/releases/ll-plugins/%{pkgname}-%{version}.tar.bz2
@@ -49,6 +49,9 @@ rm -f %{buildroot}%{_docdir}/%{pkgname}/*
 %{_libdir}/lv2/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

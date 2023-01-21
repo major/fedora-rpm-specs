@@ -5,7 +5,7 @@
 
 Name:    keyutils
 Version: 1.6.1
-Release: 5%{?buildid}%{?dist}
+Release: 6%{?buildid}%{?dist}
 Summary: Linux Key Management Utilities
 License: GPLv2+ and LGPLv2+
 Url:     http://people.redhat.com/~dhowells/keyutils/
@@ -96,6 +96,9 @@ make \
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

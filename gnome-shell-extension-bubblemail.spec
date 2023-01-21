@@ -2,7 +2,7 @@
 
 Name:           gnome-shell-extension-bubblemail
 Version:        19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Shell indicator for new and unread mail using Bubblemail 
 
 License:        GPL-2.0-or-later
@@ -43,6 +43,9 @@ mv src/LICENSE ./
 %{_datadir}/gnome-shell/extensions/bubblemail@razer.framagit.org/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 19-1
 - Update to v19
 - Switch to SPDX license identifier

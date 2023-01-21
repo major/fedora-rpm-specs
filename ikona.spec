@@ -8,7 +8,7 @@
 
 Name:           ikona
 Version:        1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Icon Preview designed for Plasma
 
 License:        GPLv2+
@@ -150,6 +150,9 @@ Fish completions for %{name}-cli.
 %{_datadir}/metainfo/*.appdata.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

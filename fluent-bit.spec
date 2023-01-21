@@ -1,6 +1,6 @@
 Name: fluent-bit
 Version: 1.9.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Fast data collector for Linux
 License: ASL 2.0
 URL: https://github.com/fluent/fluent-bit
@@ -87,6 +87,9 @@ rm -rvf %{buildroot}%{_includedir}
 %{_unitdir}/%{name}.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 1.9.9-2
 - C99 compatibility fixes for CMake scripts
 

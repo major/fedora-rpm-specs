@@ -16,6 +16,7 @@ Source:         %{crates_source %{crate} %{upstream_version}}
 # Manually created patch for downstream crate metadata changes
 # * remove version suffix from crate version
 # * default to novendor
+# * bump bindgen to 0.63
 Patch:          libbpf-sys-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

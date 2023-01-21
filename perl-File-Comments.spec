@@ -1,7 +1,7 @@
 Summary:	Recognizes file formats and extracts format-specific comments
 Name:		perl-File-Comments
 Version:	0.08
-Release:	35%{?dist}
+Release:	36%{?dist}
 License:	GPL+ or Artistic
 Url:		https://metacpan.org/release/File-Comments
 Source0:	https://cpan.metacpan.org/authors/id/M/MS/MSCHILLI/File-Comments-%{version}.tar.gz
@@ -81,6 +81,9 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/File::Comments::Plugin::Shell.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

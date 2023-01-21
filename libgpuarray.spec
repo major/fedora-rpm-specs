@@ -6,7 +6,7 @@
 
 Name:           libgpuarray
 Version:        0.7.6
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Library to manipulate tensors on a GPU
 
 # All files are ISC except src/util/xxhash.{c,h}, which are BSD-2-Clause
@@ -175,6 +175,9 @@ make test
 %{python3_sitearch}/pygpu/*.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0.7.6-18
 - Convert License tags to SPDX
 

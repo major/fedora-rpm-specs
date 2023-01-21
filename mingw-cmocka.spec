@@ -2,7 +2,7 @@
 
 Name:           mingw-cmocka
 Version:        1.1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        MinGW Lightweight library to simplify and generalize unit tests for C
 
 License:        ASL 2.0
@@ -127,6 +127,9 @@ test -f %{buildroot}%{mingw32_bindir}/libcmocka.dll && mv %{buildroot}%{mingw32_
 %{mingw32_libdir}/cmake/cmocka*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

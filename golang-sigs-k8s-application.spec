@@ -15,7 +15,7 @@ Application metadata descriptor CRD.}
 %global godocs          docs CONTRIBUTING.md README.md code-of-conduct.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Application metadata descriptor CRD
 
 # Upstream license specification: Apache-2.0
@@ -98,6 +98,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.8.3-8
 - Rebuild to fix FTBFS
 

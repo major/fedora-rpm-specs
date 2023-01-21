@@ -1,7 +1,7 @@
 %global _legacy_common_support 1
 Name:           libtpcimgio
 Version:        1.5.10
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Turku PET Centre for image file input and output procedures
 
 License:        LGPLv2+
@@ -99,6 +99,9 @@ popd
 %{_libdir}/%{name}.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.10-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Peter Fordham <peter.fordham@gmail.com> - 1.5.10-29
 - Add string.h include for strcasecmp for C99 compatibility.
 

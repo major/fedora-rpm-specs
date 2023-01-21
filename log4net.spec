@@ -8,7 +8,7 @@ Name:	 	log4net
 URL:		http://logging.apache.org/log4net/
 License:	ASL 2.0
 Version:	2.0.8
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	A .NET framework for logging
 Source:		http://mirror.reverse.net/pub/apache/logging/log4net/source/%{name}-%{version}-src.zip
 Patch0:		log4net-2.0.8-xmlconfigurator.patch
@@ -90,6 +90,9 @@ gacutil -i build/bin/net/*/debug/log4net.dll -f -package log4net -root ${RPM_BUI
 %{_libdir}/pkgconfig/log4net.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

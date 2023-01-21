@@ -23,7 +23,7 @@ Summary:        Stack trace visualizer
 
 %forgemeta
 
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        CDDL-1.0
 URL:            http://www.brendangregg.com/flamegraphs.html
 Source0:        %{forgesource}
@@ -184,6 +184,9 @@ cp -p *.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/stackcollapse-xdebug.php.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov  2 2022 Jerry James <loganjerry@gmail.com> - 1.0-12
 - Update to git HEAD for various enhancements and bug fixes
 

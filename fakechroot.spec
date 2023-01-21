@@ -1,6 +1,6 @@
 Name:           fakechroot
 Version:        2.20.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Gives a fake chroot environment
 License:        LGPLv2+
 URL:            https://github.com/dex4er/fakechroot
@@ -81,6 +81,9 @@ find %{buildroot}%{_libdir} -name '*.la' -delete -print
 %{_libdir}/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 25 2022 Sérgio Basto <sergio@serjux.com> - 2.20.1-13
 - PR #104 have more 2 commits
 - Patch to fix test on 32bits is not needed anymore, maybe glibc was fixed (on 32 bits), I don't know

@@ -2,7 +2,7 @@
 
 Name:           fontforge
 Version:        20230101
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Outline and bitmap font editor
 
 License:        GPL-3.0-or-later
@@ -123,6 +123,9 @@ popd
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230101-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 02 2023 Parag Nemade <pnemade AT redhat DOT com> - 20230101-2
 - Update license tag to SPDX format
 - Fix test failure

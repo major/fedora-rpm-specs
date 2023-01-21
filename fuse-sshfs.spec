@@ -1,6 +1,6 @@
 Name:           fuse-sshfs
 Version:        3.7.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        FUSE-Filesystem to access remote filesystems via SSH
 License:        GPLv2
 URL:            https://github.com/libfuse/sshfs
@@ -61,6 +61,9 @@ python3 -m pytest test/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

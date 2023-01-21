@@ -36,7 +36,7 @@ ExclusiveArch: x86_64
 
 Name:		gnome-boxes
 Version:	43.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 License:	LGPLv2+
@@ -154,6 +154,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Boxes.deskt
 %{_datadir}/metainfo/org.gnome.Boxes.appdata.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 30 2022 David King <amigadave@amigadave.com> - 43.2-1
 - Update to 43.2
 

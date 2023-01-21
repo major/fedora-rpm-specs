@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	0.983
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	16x16 JIS X 0212:1990 Bitmap font
 License:	LicenseRef-Fedora-Public-Domain
 
@@ -48,6 +48,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{catalogue}/%{name}
 %{catalogue}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.983-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 0.983-28
 - Convert License tag to SPDX.
 

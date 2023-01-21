@@ -3,7 +3,7 @@
 
 Name:		perl-Compress-Raw-Lzma
 Version:	2.201
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Low-level interface to lzma compression library
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Compress-Raw-Lzma
@@ -87,6 +87,9 @@ make test
 %{_mandir}/man3/Compress::Raw::Lzma.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.201-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.201-5
 - Rebuild against xz-5.2.9
 

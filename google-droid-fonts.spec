@@ -3,7 +3,7 @@ BuildArch: noarch
 
 # No sane versionning upstream, use git clone timestamp
 Version: 20200215
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: ASL 2.0
 URL:     https://android.googlesource.com/
 
@@ -109,6 +109,9 @@ Summary:  A set of general-purpose font families released by Google as part of A
 %fontfiles -a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200215-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20200215-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

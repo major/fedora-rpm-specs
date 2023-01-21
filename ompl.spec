@@ -4,7 +4,7 @@
 
 Name:           ompl
 Version:        1.5.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        The Open Motion Planning Library
 
 License:        BSD
@@ -96,6 +96,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 24 2022 Robert-André Mauchin <zebob.m@gmail.com> - 1.5.0-12
 - Rebuilt for Ode soname bump
 

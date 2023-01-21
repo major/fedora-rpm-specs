@@ -1,6 +1,6 @@
 Name:           perl-Devel-CheckOS
 Version:        1.95
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Check what OS we're running on
 # Devel/AssertOS/Extending.pod: CC-BY-SA-2.0-UK
 # Devel/CheckOS/Families.pod:   CC-BY-SA-2.0-UK
@@ -100,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.95-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 31 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.95-1
 - 1.95 bump
 

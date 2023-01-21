@@ -1,6 +1,6 @@
 Name:		packmol
 Version:	20.11.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Packing optimization for molecular dynamics simulations
 License:	MIT
 URL:		http://m3g.iqm.unicamp.br/packmol/home.shtml
@@ -66,6 +66,9 @@ done
 %{_bindir}/packmol_solvate
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 20.11.1-1
 - Update to 20.11.1.
 

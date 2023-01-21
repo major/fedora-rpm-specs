@@ -4,7 +4,7 @@ Version:            2.3.0
 %forgemeta
 
 Name:               fedora-business-cards
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            The Fedora business card generator
 
 License:            GPLv2+
@@ -41,6 +41,9 @@ for Fedora Project contributors.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

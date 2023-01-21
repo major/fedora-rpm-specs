@@ -3,7 +3,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        2.3.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GAP interface to CARAT
 
 License:        GPL-2.0-or-later
@@ -97,6 +97,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{upname}/htm/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.3.4-3
 - Update for split GAP directories
 

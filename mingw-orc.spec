@@ -2,7 +2,7 @@
 
 Name:           mingw-orc
 Version:        0.4.27
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Cross compiled Oil Run-time Compiler
 
 License:        BSD
@@ -113,6 +113,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw32_datadir}/gtk-doc $RPM_BUILD_ROOT%{mingw64_datadi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.27-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.27-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

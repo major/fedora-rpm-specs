@@ -4,7 +4,7 @@
 
 Name: pdns-recursor
 Version: 4.7.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Modern, advanced and high performance recursing/non authoritative name server
 License: GPLv2
 URL: https://powerdns.com
@@ -120,6 +120,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Sander Hoentjen <sander@hoentjen.eu> - 4.7.2-1
 - Update to 4.7.2 (#2120543)
 

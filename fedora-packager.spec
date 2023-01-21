@@ -4,7 +4,7 @@
 
 Name:           fedora-packager
 Version:        0.6.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for setting up a fedora maintainer environment
 
 License:        GPLv2+
@@ -98,6 +98,9 @@ sed -i -r 's|#!/usr/bin/python$|#!%{__python3}|' %{buildroot}/usr/*bin/*
 %{_sysconfdir}/pki/ipa/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0.7-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

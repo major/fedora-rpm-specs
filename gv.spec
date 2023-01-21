@@ -1,7 +1,7 @@
 Summary: A X front-end for the Ghostscript PostScript(TM) interpreter
 Name: gv
 Version: 3.7.4
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: GPLv3+
 %if 0%{?fedora} || 0%{?rhel} >= 8
 Requires: ghostscript-x11
@@ -108,6 +108,9 @@ rm -f ${RPM_BUILD_ROOT}%{_infodir}/dir
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

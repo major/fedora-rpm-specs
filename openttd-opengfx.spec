@@ -3,7 +3,7 @@
 
 Name:           openttd-opengfx
 Version:        7.1
-Release:        3%{?prever:.%{prever}}%{?dist}
+Release:        4%{?prever:.%{prever}}%{?dist}
 Summary:        OpenGFX replacement graphics for OpenTTD
 
 License:        GPLv2
@@ -55,6 +55,9 @@ make check _V= PYTHON=/usr/bin/python3
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

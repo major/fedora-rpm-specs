@@ -16,7 +16,7 @@ github.com/sergi/go-diff, mainly for diffing strings in tests.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.8%{?dist}
+Release:        0.9%{?dist}
 Summary:        Quick'n'easy string diffs for Go, mainly for diffing strings in tests
 
 License:        MIT
@@ -44,6 +44,9 @@ BuildRequires:  golang(github.com/sergi/go-diff/diffmatchpatch)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -15,9 +15,9 @@
 Name:          eom
 Version:       %{branch}.0
 %if 0%{?rel_build}
-Release:       9%{?dist}
+Release:       10%{?dist}
 %else
-Release:       0.16%{?git_rel}%{?dist}
+Release:       0.17%{?git_rel}%{?dist}
 %endif
 Summary:       Eye of MATE image viewer
 License:       GPLv2+ and LGPLv2+ 
@@ -141,6 +141,9 @@ find ${RPM_BUILD_ROOT} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Robert Scheck <robert@fedoraproject.org> - 1.26.0-9
 - Fix building with ImageMagick 7 (#2159313)
 

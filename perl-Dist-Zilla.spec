@@ -1,6 +1,6 @@
 Name:           perl-Dist-Zilla
 Version:        6.029
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution builder; installer not included!
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla
@@ -180,6 +180,9 @@ make test
 %{_sysconfdir}/bash_completion.d
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.029-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.029-1
 - 6.029 bump
 

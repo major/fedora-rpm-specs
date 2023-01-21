@@ -4,7 +4,7 @@
 
 Name:           libdnf-plugin-txnupd
 Version:        0.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        libdnf plugin to implement transactional updates
 
 License:        LGPLv2+
@@ -64,6 +64,9 @@ echo "%{name}" > %{buildroot}%{_sysconfdir}/dnf/protected.d/txnupd.conf
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

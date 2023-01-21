@@ -1,7 +1,7 @@
 Summary:      LASH Audio Session Handler
 Name:         lash
 Version:      0.5.4
-Release:      49%{?dist}
+Release:      50%{?dist}
 License:      GPLv2+
 URL:          http://www.nongnu.org/lash/
 Source0:      http://download.savannah.gnu.org/releases/lash/lash-%{version}.tar.gz
@@ -141,6 +141,9 @@ fi
 %{_libdir}/liblash.so.1.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.5.4-49
 - Revert to jack-audio-connection-kit
 

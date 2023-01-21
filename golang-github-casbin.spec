@@ -18,7 +18,7 @@ access control models.}
 
 Name:           %{goname}
 Epoch:          1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Authorization library that supports access control models in Go
 
 # Upstream license specification: Apache-2.0
@@ -47,6 +47,9 @@ BuildRequires:  golang(github.com/Knetic/govaluate)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

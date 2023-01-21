@@ -1,6 +1,6 @@
 Name:           perl-Export-Attrs
 Version:        0.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        The Perl 6 'is export(...)' trait as a Perl 5 attribute
 License:        GPL+ or Artistic
 
@@ -47,6 +47,9 @@ AUTHOR_TESTING=1 RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Export*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

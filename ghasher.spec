@@ -1,6 +1,6 @@
 Name:           ghasher
 Version:        1.2.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        GUI hasher for GTK+ 2
 License:        BSD
 URL:            http://asgaard.homelinux.org/code/ghasher/
@@ -49,6 +49,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

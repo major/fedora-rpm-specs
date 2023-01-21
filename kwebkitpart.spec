@@ -12,7 +12,7 @@
 Name:    kwebkitpart
 Summary: A KPart based on QtWebKit
 Version: 1.4.0
-Release: 0.12.%{snap}%{?dist}
+Release: 0.13.%{snap}%{?dist}
 
 License: LGPLv2+
 URL:     https://cgit.kde.org/kwebkitpart.git/
@@ -106,6 +106,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-0.13.20190110
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-0.12.20190110
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

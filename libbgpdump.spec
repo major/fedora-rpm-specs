@@ -1,7 +1,7 @@
 Summary:        C library for analyzing BGP related dump files
 Name:           libbgpdump
 Version:        1.6.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 License:        MIT and GPLv2+
 URL:            https://bitbucket.org/ripencc/bgpdump/wiki
 Source:         https://ris.ripe.net/source/bgpdump/%{name}-%{version}.tgz
@@ -65,6 +65,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_bindir}/bgpdump
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           ocamlify
 Version:        0.0.2
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Include files in OCaml code
 
 License:        LGPLv2+ with exceptions
@@ -59,6 +59,9 @@ ocaml setup.ml -test
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

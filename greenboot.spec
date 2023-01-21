@@ -2,7 +2,7 @@
 
 Name:               greenboot
 Version:            0.15.3
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Generic Health Check Framework for systemd
 License:            LGPLv2+
 
@@ -166,6 +166,9 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %{_prefix}/lib/%{name}/check/required.d/02_watchdog.sh
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Packit <hello@packit.dev> - 0.15.3-1
 - Release 0.15.3 (Paul Whalen)
 - packit: add koji, bodhi jobs, upstream url (Paul Whalen)

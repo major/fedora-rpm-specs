@@ -1,6 +1,6 @@
 Name:           munin
 Version:        2.0.69
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Network-wide resource monitoring tool
 License:        GPLv2
 URL:            http://munin-monitoring.org/
@@ -652,6 +652,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.69-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 24 2022 Kim B. Heino <b@bbbs.net> - 2.0.69-5
 - Bump release for rebuild
 

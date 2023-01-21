@@ -2,7 +2,7 @@
 
 Name:     opus
 Version:  1.3.1
-Release:  11%{?candidate:.%{candidate}}%{?dist}
+Release:  12%{?candidate:.%{candidate}}%{?dist}
 Summary:  An audio codec for use in low-delay speech and audio communication
 License:  BSD
 URL:      https://www.opus-codec.org/
@@ -65,6 +65,9 @@ make check %{?_smp_mflags} V=1
 %{_datadir}/man/man3/opus_*.3.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

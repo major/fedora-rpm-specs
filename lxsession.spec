@@ -29,7 +29,7 @@
 %global	git_version	D%{gitbaredate}git%{git_short}
 %endif
 
-%global	mainrel 8
+%global	mainrel 9
 
 %if 0%{?use_release} >= 1
 %global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
@@ -74,10 +74,13 @@ Patch1005:      lxsession-0.5.4-load-settings-nullcheck.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1830588
 # add custom directory to XDG_CONFIG_DIRS
 Patch2001:      lxsession-0.5.5-add-custom-xdg-config-dir.patch
+# Split out appindicator support and kill it for now:
+# libappindicator 12.10.1 kills GTK2 vapi support
+Patch2002:      lxsession-0.5.5-split-indicator-support.patch
 
 BuildRequires:  pkgconfig(gtk+-2.0)
-BuildRequires:  pkgconfig(indicator-0.4)
-BuildRequires:  pkgconfig(appindicator-0.1)
+#BuildRequires:  pkgconfig(indicator-0.4)
+#BuildRequires:  pkgconfig(appindicator-0.1)
 BuildRequires:  pkgconfig(libnotify)
 BuildRequires:  pkgconfig(polkit-agent-1)
 BuildRequires:  make
@@ -184,6 +187,7 @@ git commit -m "base" -q
 %patch1002 -p1 -b .notify
 %patch1005 -p1 -b .nullcheck
 %patch2001 -p1 -b .custom
+%patch2002 -p1 -b .indicator
 %if 0%{?use_gitbare}
 git commit -m "Apply Fedora specific configulation" -a
 %endif
@@ -298,6 +302,12 @@ cd ..
 %{_datadir}/%{name}/ui/lxpolkit.ui
 
 %changelog
+* Fri Jan 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5-9.D20210419git82580e45
+- F-37+: kill appindicator support for now due to 12.10.1 GTK2 support removal
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-8.D20210419git82580e45.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.5-8.D20210419git82580e45
 - Update to the latest git (20210419)
 

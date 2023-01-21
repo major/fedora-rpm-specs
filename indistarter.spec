@@ -4,7 +4,7 @@
 
 Name:           indistarter
 Version:        2.3.1^%{date}%{shortcommit}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI to start, stop and control an INDI server
 
 License:        GPLv3+
@@ -62,6 +62,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1^2022041052da97e-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1^2022041052da97e-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

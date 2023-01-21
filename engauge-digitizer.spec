@@ -1,7 +1,7 @@
 Name:    engauge-digitizer
 Summary: Convert graphs or map files into numbers
 Version: 12.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPLv2+
 URL:     http://markummitchell.github.io/%{name}/
 Source0: https://github.com/markummitchell/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -259,6 +259,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:12.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:12.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

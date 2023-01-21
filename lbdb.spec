@@ -19,7 +19,7 @@
 Name:           lbdb
 Summary:        Address Database for mutt
 Version:        0.41
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        GPLv2+
 Url:            http://www.spinnaker.de/lbdb/
 Source:         http://www.spinnaker.de/debian/lbdb_%{version}.tar.gz
@@ -81,6 +81,9 @@ BUILD_ROOT=${RPM_BUILD_ROOT} make \
 %doc %{_mandir}/man?/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.41-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.41-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

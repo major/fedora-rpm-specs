@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Action-REST
 Version:        1.21
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Automated REST Method Dispatching
 License:        GPL+ or Artistic
 
@@ -110,6 +110,9 @@ make test
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

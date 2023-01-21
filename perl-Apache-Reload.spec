@@ -1,6 +1,6 @@
 Name:           perl-Apache-Reload
 Version:        0.13
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Reload changed Perl modules
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Apache-Reload
@@ -77,6 +77,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.13-22
 - Simplify build and install phases
 - Update license to SPDX format

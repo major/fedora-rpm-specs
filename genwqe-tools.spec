@@ -23,7 +23,7 @@
 Summary: GenWQE userspace tools
 Name: genwqe-tools
 Version: 4.0.20
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: ASL 2.0
 URL: https://github.com/ibm-genwqe/genwqe-user/
 BuildRequires: gcc
@@ -153,6 +153,9 @@ rmdir %{buildroot}%{_libdir}/genwqe/
 %{_libdir}/*.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.20-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.20-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           pcsc-lite
 Version:        1.9.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PC/SC Lite smart card framework and applications
 
 License:        BSD
@@ -171,6 +171,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Jakub Jelen <jjelen@redhat.com> - 1.9.9-2
 - Remove downstream patch breaking flatpak (#2054826)
 

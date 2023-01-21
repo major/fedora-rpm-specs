@@ -12,7 +12,7 @@
 
 Name:           ocaml-bisect-ppx
 Version:        2.8.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Code coverage for OCaml and Reason
 
 # The project as a whole is MIT.
@@ -91,6 +91,9 @@ _build/install/default/bin/bisect-ppx-report --help groff > \
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 31 2022 Jerry James <loganjerry@gmail.com> - 2.8.1-6
 - Rebuild for ocaml-ppxlib 0.28.0
 - Add patch to adapt to changed API in ppxlib 0.28.0

@@ -1,6 +1,6 @@
 Name:           perl-Alien-CFITSIO
 Version:        4.1.0.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Build and Install the CFITSIO library
 License:        GPL-3.0-only
 Group:          Development/Libraries
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Maxwell G <gotmax@e.email> - 4.1.0.5-2
 - Rebuild for cfitsio 4.2
 

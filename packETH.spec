@@ -1,6 +1,6 @@
 Name:           packETH
 Version:        2.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A GUI packet generator tool
 
 License:        GPLv2+
@@ -46,6 +46,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/packeth
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

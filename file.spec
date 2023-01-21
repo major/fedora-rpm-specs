@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.42
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
 Source1: http://ftp.astron.com/pub/file/file-%{version}.tar.gz.asc
@@ -217,6 +217,9 @@ make -C tests check
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.42-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 Florian Weimer <fweimer@redhat.com> - 5.42-4
 - Fix use-after-free with large file -f list (#2110622)
 

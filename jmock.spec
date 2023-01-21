@@ -1,6 +1,6 @@
 Name:           jmock
 Version:        2.12.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Java library for testing code with mock objects
 License:        BSD
 URL:            http://www.jmock.org/
@@ -119,6 +119,9 @@ Source for JAR files used in jMock Core tests.
 %license LICENSE.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.12.0-10
 - Change BR: jaxws-api to jakarta.xml.ws-api
 - Enable enforcer plugin

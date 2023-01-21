@@ -1,6 +1,6 @@
 Name:           pdfarranger
 Version:        1.9.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PDF file merging, rearranging, and splitting
 
 License:        GPLv3
@@ -86,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 28 2022 David Auer <dreua@posteo.de> - 1.9.2-1
 - Update to 1.9.2 (closes rhbz#2149537)
 

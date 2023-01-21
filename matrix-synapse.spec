@@ -5,7 +5,7 @@
 
 Name:       matrix-%{srcname}
 Version:    1.66.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    A Matrix reference homeserver written in Python using Twisted
 License:    Apache-2.0
 URL:        https://github.com/matrix-org/%{srcname}
@@ -114,6 +114,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.66.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 08 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.66.0-2
 - Drop support for i686
 

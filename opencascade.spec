@@ -5,7 +5,7 @@
 
 Name:           opencascade
 Version:        %{major}.%{minor}.%{patch}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SDK intended for development of applications dealing with 3D CAD data
 
 License:        LGPLv2+ with exception
@@ -307,6 +307,9 @@ chmod 0755 %{buildroot}%{_bindir}/*.sh
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.6.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 14 2023 Orion Poplawski <orion@nwra.com> - 7.6.3-2
 - Add patch for vtk 9.2 support
 - Rebuild for vtk 9.2.5

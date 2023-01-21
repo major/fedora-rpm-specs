@@ -114,8 +114,12 @@
 # set correct toolchain
 %if %{clang}
 %global toolchain clang
+%global CC clang
+%global CXX clang++
 %else
 %global toolchain gcc
+%global CC gcc
+%global CXX g++
 %endif
 
 # enable system brotli
@@ -289,25 +293,14 @@ Patch65: chromium-91.0.4472.77-java-only-allowed-in-android-builds.patch
 Patch69: chromium-103.0.5060.53-update-rjsmin-to-1.2.0.patch
 
 # Update six to 1.16.0
-Patch70:	chromium-105.0.5195.52-python-six-1.16.0.patch
+Patch70: chromium-105.0.5195.52-python-six-1.16.0.patch
 
 # Fix crashes with components/cast_*
 # Thanks to Gentoo
-Patch80:	chromium-108-EnumTable-crash.patch
+Patch80: chromium-108-EnumTable-crash.patch
 
 # Disable tests on remoting build
-Patch82:	chromium-98.0.4758.102-remoting-no-tests.patch
-
-# Add missing cmath header
-Patch84:	chromium-94.0.4606.71-remoting-missing-cmath-header.patch
-
-# Clean up clang-format for python3
-# thanks to Jon Nettleton
-Patch86:	chromium-94.0.4606.81-clang-format.patch
-
-# Markdownsafe 2.0.1 removed soft_unicode (replaced with soft_str)
-# This is only in Fedora 37+
-Patch87:	chromium-99.0.4844.84-markdownsafe-soft_str.patch
+Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
 # patch for using system brotli
 Patch89: chromium-108-system-brotli.patch
@@ -627,11 +620,13 @@ BuildRequires: python3-beautifulsoup4
 BuildRequires: python3-html5lib
 BuildRequires: python3-markupsafe
 BuildRequires: python3-ply
+BuildRequires: python3-jinja2
 %else
 BuildRequires: python-beautifulsoup4
 BuildRequires: python-html5lib
 BuildRequires: python-markupsafe
 BuildRequires: python-ply
+BuildRequires: python-jinja2
 %endif
 %endif
 
@@ -972,12 +967,6 @@ udev.
 %patch70 -p1 -b .update-six-to-1.16.0
 %patch80 -p1 -b .EnumTable-crash
 %patch82 -p1 -b .remoting-no-tests
-%patch84 -p1 -b .remoting-missing-cmath-header
-%patch86 -p1 -b .clang-format-py3
-
-%if 0%{?fedora} >= 37
-%patch87 -p1 -b .markdownsafe-soft_str
-%endif
 
 %if ! %{bundlebrotli}
 %patch89 -p1 -b .system-brotli
@@ -1190,6 +1179,8 @@ CFLAGS="$FLAGS"
 CXXFLAGS="$FLAGS"
 %endif
 
+export CC=%{CC}
+export CXX=%{CXX}
 export CFLAGS
 export CXXFLAGS
 export AR=ar

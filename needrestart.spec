@@ -1,6 +1,6 @@
 Name:           needrestart
 Version:        3.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Restart daemons after library updates
 
 License:        GPLv2+
@@ -112,6 +112,9 @@ echo "IUCODE_TOOL_EXTRA_OPTIONS=--ignore-broken" >%{buildroot}/%{_sysconfdir}/de
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Jitka Plesnikova <jplesnik@redhat.com> - 3.6-6
 - Add BR perl-generators to automatically generates run-time dependencies
   for installed Perl files

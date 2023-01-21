@@ -17,7 +17,7 @@ Utils for Vault/GCP integrations. Includes helpers for:
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Common code shared by Google Cloud Platform-maintained plugins
 
 # Upstream license specification: MPL-2.0
@@ -53,6 +53,9 @@ BuildRequires:  golang(google.golang.org/api/iam/v1)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.6.0-7
 - Rebuild to fix FTBFS
 

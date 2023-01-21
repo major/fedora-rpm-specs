@@ -2,7 +2,7 @@
 
 Name:           libvoikko
 Version:        4.3.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Voikko is a library for spellcheckers and hyphenators
 
 License:        GPL-2.0-or-later
@@ -122,6 +122,9 @@ mkdir -p %{buildroot}%{_prefix}/lib/voikko
 %pycached %{python3_sitelib}/%{name}.py
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Mike FABIAN <mfabian@redhat.com> - 4.3.1-6
 - Migrate license tag to SPDX
 

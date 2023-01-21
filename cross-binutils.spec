@@ -15,6 +15,7 @@
 %global build_hppa		%{build_all}
 %global build_hppa64		%{build_all}
 %global build_ia64		%{build_all}
+%global build_loongarch64	%{build_all}
 %global build_m32r		%{build_all}
 %global build_m68k		%{build_all}
 %global build_metag		%{build_all}
@@ -64,7 +65,7 @@
 
 Name: %{cross}-binutils
 Version: 2.39
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A GNU collection of cross-compilation binary utilities
 License: GPLv3+
 URL: https://sourceware.org/binutils
@@ -271,6 +272,7 @@ Cross-build binary image generation, manipulation and query tools. \
 %do_package hppa64-linux-gnu	%{build_hppa64}
 %do_package i386-linux-gnu	%{build_i386}
 %do_package ia64-linux-gnu	%{build_ia64}
+%do_package loongarch64-linux-gnu %{build_loongarch64}
 %do_package m32r-linux-gnu	%{build_m32r}
 %do_package m68k-linux-gnu	%{build_m68k}
 %do_package metag-linux-gnu	%{build_metag}
@@ -389,6 +391,7 @@ cd ..
     prep_target hppa64-linux-gnu	%{build_hppa64}
     prep_target i386-linux-gnu		%{build_i386}
     prep_target ia64-linux-gnu		%{build_ia64}
+    prep_target loongarch64-linux-gnu	%{build_loongarch64}
     prep_target m32r-linux-gnu		%{build_m32r}
     prep_target m68k-linux-gnu		%{build_m68k}
     prep_target metag-linux-gnu		%{build_metag}
@@ -782,6 +785,7 @@ cd -
 %do_files hppa64-linux-gnu	%{build_hppa64}
 %do_files i386-linux-gnu	%{build_i386}
 %do_files ia64-linux-gnu	%{build_ia64}
+%do_files loongarch64-linux-gnu	%{build_loongarch64}
 %do_files m32r-linux-gnu	%{build_m32r}
 %do_files m68k-linux-gnu	%{build_m68k}
 %do_files metag-linux-gnu	%{build_metag}
@@ -811,6 +815,9 @@ cd -
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Thu Jan 19 2023 Michael Brown <mbrown@fensystems.co.uk> - 2.39-3
+- Enable support for LoongArch64
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

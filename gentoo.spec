@@ -1,6 +1,6 @@
 Name:           gentoo
 Version:        0.20.7
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Graphical file management program written in GTK+3
 License:        GPLv2
 URL:            https://sourceforge.net/projects/gentoo/
@@ -70,6 +70,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_mandir}/man1/gentoo.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.7-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.7-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       loook
 Version:    0.8.1
-Release:    26%{?dist}
+Release:    27%{?dist}
 Summary:    OpenOffice.org document search tool
 
 License:    GPLv2+
@@ -57,6 +57,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT%{_datadir}/applications %{name}.deskt
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

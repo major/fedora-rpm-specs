@@ -17,7 +17,7 @@
 
 Name:        libbytesize
 Version:     2.7
-Release:     4%{?dist}
+Release:     5%{?dist}
 Summary:     A library for working with sizes in bytes
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libbytesize
@@ -115,6 +115,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 2.7-4
 - Change license string to the SPDX format required by Fedora
 

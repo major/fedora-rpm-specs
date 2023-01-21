@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-View-HTML-Template
 Version:        0.03
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        HTML::Template View Class
 License:        GPL+ or Artistic
 
@@ -45,6 +45,9 @@ TEST_POD=yep ./Build test
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

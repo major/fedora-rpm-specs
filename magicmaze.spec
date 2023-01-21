@@ -1,6 +1,6 @@
 Name:           magicmaze
 Version:        1.0.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Board game featuring a maze which the players change each turn
 License:        zlib and Redistributable, no modification permitted
 URL:            http://www.helixsoft.nl/project_page.php?file_name=magicmaze.proj
@@ -75,6 +75,9 @@ install -p -m 644 %{name}.png \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

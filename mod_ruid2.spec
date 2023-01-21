@@ -1,6 +1,6 @@
 Name: mod_ruid2
 Version: 0.9.8
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: A suexec module for Apache
 
 License: ASL 2.0
@@ -57,6 +57,9 @@ install -m 755 .libs/mod_ruid2.so %{buildroot}%{_httpd_moddir}
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.8-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

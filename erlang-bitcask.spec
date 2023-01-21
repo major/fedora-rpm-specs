@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.1.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Eric Brewer-inspired key/value store
 License:	ASL 2.0
 URL:		https://github.com/%{upstream}/%{realname}
@@ -55,6 +55,9 @@ cp -arv priv/bitcask_multi.schema %{buildroot}%{erlang_appdir}/priv
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Peter Lemenkov <lemenkov@gmail.com> - 2.1.0-8
 - Fix FTBFS with rebar3
 

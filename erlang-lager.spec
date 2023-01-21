@@ -4,7 +4,7 @@
 
 Name:       erlang-%{realname}
 Version:    3.9.2
-Release:    6%{?dist}
+Release:    7%{?dist}
 BuildArch:  noarch
 Summary:    A logging framework for Erlang/OTP
 License:    ASL 2.0
@@ -56,6 +56,9 @@ plays nicely with traditional UNIX logging tools like logrotate and syslog.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Oct  2 2022 Peter Lemenkov <lemenkov@gmail.com> - 3.9.2-6
 - Switch to Rebar3
 

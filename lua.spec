@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -229,6 +229,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  8 2022 Charles R. Anderson <cra@alum.wpi.edu> - 5.4.4-7
 - Add patch for http://lua-users.org/lists/lua-l/2022-02/msg00112.html (#2111138)
 

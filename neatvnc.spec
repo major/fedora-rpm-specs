@@ -2,7 +2,7 @@
 
 Name:     neatvnc
 Version:  0.5.4
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  a liberally licensed VNC server library
 # main source is ISC
 # include/sys/queue.h is BSD
@@ -61,6 +61,9 @@ This package contains header files for %{name}.
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 12 2022 Bob Hepple <bob.hepple@gmail.com> - 0.5.4-1
 - new version
 

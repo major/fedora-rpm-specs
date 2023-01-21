@@ -1,7 +1,7 @@
 BuildArch: noarch
 
 Version:        1.31.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 License:        ASL 2.0
 #URL:            
 
@@ -109,6 +109,9 @@ echo %{fontpkgname}
 %fontfiles -a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.31.0-14
 - Update license tag to SPDX format
 

@@ -150,7 +150,7 @@
 
 Name:             mariadb
 Version:          10.5.18
-Release:          1%{?with_debug:.debug}%{?dist}
+Release:          2%{?with_debug:.debug}%{?dist}
 Epoch:            3
 
 Summary:          A very fast and robust SQL database server
@@ -1639,6 +1639,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:10.5.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Michal Schorm <mschorm@redhat.com> - 3:10.5.18-1
 - Rebase to 10.5.18
 - OpenSSL 3 patch upstreamed

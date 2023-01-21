@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A JSON/UBJSON/MessagePack encoder/decoder for MATLAB/Octave
 License:        GPLv3+ or BSD
 URL:            http://openjdata.org/jsonlab
@@ -58,6 +58,9 @@ mv *.m inst/
 %{octpkgdir}/packinfo
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

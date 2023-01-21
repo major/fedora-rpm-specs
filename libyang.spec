@@ -7,7 +7,7 @@
 %endif
 
 Name: libyang
-Version: 2.1.4
+Version: 2.1.30
 Release: 1%{?dist}
 Summary: YANG data modeling language library
 Url: https://github.com/CESNET/libyang
@@ -106,6 +106,10 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %{_docdir}/libyang
 
 %changelog
+* Thu Jan 19 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.30-1
+- Rebase to version 2.1.30
+- Resolves: rhbz#2162362
+
 * Wed Nov 09 2022 Jakub Ružička <jakub.ruzicka@nic.cz> - 2.1.4-1
 - Rebase to version 2.1.4 (Resolves: rhbz#2141228)
 - Add patch to disable tests failing on s390x

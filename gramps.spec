@@ -1,7 +1,7 @@
 #global		_beta 2
 Name:           gramps
 Version:        5.1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Genealogical Research and Analysis Management Programming System
 
 License:        GPLv2+
@@ -109,6 +109,9 @@ desktop-file-install --delete-original  \
 %{python3_sitelib}/gramps/plugins
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

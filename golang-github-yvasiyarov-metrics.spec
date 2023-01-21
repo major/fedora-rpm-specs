@@ -21,7 +21,7 @@ Go port of Coda Hale's Metrics library.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.17%{?dist}
+Release:        0.18%{?dist}
 Summary:        Go port of Coda Hale's Metrics library
 
 License:        BSD
@@ -52,6 +52,9 @@ find . -name "*.go" -exec sed -i "s|github.com/influxdb/influxdb/client|github.c
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

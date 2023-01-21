@@ -5,7 +5,7 @@
 
 Name:           perl-Alien-Base-ModuleBuild
 Version:        1.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl framework for building Alien:: modules and their libraries
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-Base-ModuleBuild
@@ -186,6 +186,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Petr Pisar <ppisar@redhat.com> - 1.17-1
 - 1.17 bump
 - Package the tests

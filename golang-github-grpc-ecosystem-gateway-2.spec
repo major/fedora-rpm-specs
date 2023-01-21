@@ -14,7 +14,7 @@ GRPC to JSON proxy generator following the gRPC HTTP spec.}
 %global godocs          docs examples ADOPTERS.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GRPC to JSON proxy generator following the gRPC HTTP spec
 
 # Upstream license specification: BSD-3-Clause
@@ -68,6 +68,9 @@ install -m 0755 -vp %{gobuilddir}/src/github.com/grpc-ecosystem/grpc-gateway/v2/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 2.7.3-7
 - Rebuild to fix FTBFS
 

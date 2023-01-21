@@ -10,7 +10,7 @@
 
 Name:           %{project_name}7
 Version:        %{major}.%{minor}
-Release:        0.5.%{commitdate}.git%{shortcommit}%{?dist}
+Release:        0.6.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:        To develop tools create proper & improper Java '.class' files for jdk11 and down
 
 License:        GPLv2+
@@ -93,6 +93,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 %files javadoc -f maven/.mfiles-javadoc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.b10-0.6.20210610.gitf40a2c0
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 08 2021 Jayashree Huttanagoudar <jhuttana@redhat.com> - 7.0.b10-0.4.20210610.gitf40a2c0
 - Use XMvn javadoc so as to work-around maven-javadoc-plugin issue.
 

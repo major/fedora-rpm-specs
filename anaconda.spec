@@ -1,7 +1,7 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.15
-Release: 2%{?dist}
+Version: 38.17
+Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
 
@@ -464,6 +464,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Jan 19 2023 Packit <hello@packit.dev> - 38.17-1
+- Remove the is_complete method of the DNF payload class (vponcova)
+- Use another type to make new GCC warnings go away (vslavik)
+- Remove outdated GCC error suppression (vslavik)
+- Ignore non-quoted array expansion in ShellCheck (vslavik)
+- Handle the `repo` kickstart command in the DNF module (vponcova)
+- Extend the is_network_required method of the DNF module (vponcova)
+- Add the Repositories DBus property to the DNF module (vponcova)
+- Fix the check_kickstart_interface testing function (vponcova)
+- Always use blivet.arch.is_s390() to detect s390 (vslavik)
+- Update translations from Weblate
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -45,7 +45,7 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          9.56.1
-Release:          6%{?dist}
+Release:          7%{?dist}
 
 License:          AGPLv3+
 
@@ -437,6 +437,9 @@ done
 # =============================================================================
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.56.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 9.56.1-6
 - rebuild for libpaper v2
 

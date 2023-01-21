@@ -1,6 +1,6 @@
 Name:           flterm
 Version:        1.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Firmware download program
 License:        GPLv3
 URL:            http://milkymist.org
@@ -32,6 +32,9 @@ install -p tools/flterm %{buildroot}%{_bindir}/
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

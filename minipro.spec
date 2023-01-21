@@ -1,6 +1,6 @@
 Name:           minipro
 Version:        0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility for MiniPro TL866A/TL866/CS programmer
 
 License:        GPLv3+
@@ -47,6 +47,9 @@ rm %{buildroot}%{_udevrulesdir}/61-minipro-plugdev.rules
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Lubomir Rintel <lkundrak@v3.sk> - 0.6
 - Update to version 0.6
 

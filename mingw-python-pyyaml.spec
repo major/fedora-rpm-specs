@@ -5,7 +5,7 @@
 
 Name:          mingw-python-%{mod_name}
 Version:       6.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       MinGW Windows Python %{pypi_name} library
 BuildArch:     noarch
 
@@ -72,6 +72,9 @@ MinGW Windows Python2 %{pypi_name} library.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 13 2022 Sandro Mani <manisandro@gmail.com> - 6.0-7
 - Switch to python3-build
 

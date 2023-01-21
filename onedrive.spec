@@ -3,7 +3,7 @@
 
 Name:           onedrive
 Version:        2.4.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OneDrive Free Client written in D
 License:        GPLv3
 URL:            https://github.com/%{project}/%{repo}
@@ -55,6 +55,9 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 13 2022 Zamir SUN <sztsian@gmail.com> - 2.4.21-1
 - Update to 2.4.21
 

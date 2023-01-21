@@ -2,7 +2,7 @@
 
 Name:           ocaml-ocamlgraph
 Version:        2.0.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        OCaml library for arc and node graphs
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -115,6 +115,9 @@ install -m 0755 -p _build/default/view_graph/viewGraph_test.exe \
 %{_bindir}/ocamlgraph*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 2.0.0-9
 - Convert License tag to SPDX
 

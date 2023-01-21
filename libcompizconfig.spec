@@ -2,7 +2,7 @@
 
 Name:           libcompizconfig
 Version:        0.8.18
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        Configuration back end for compiz
 # backends/libini.so is GPLv2+, other parts are LGPLv2+
@@ -86,6 +86,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

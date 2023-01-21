@@ -2,7 +2,7 @@
 
 Name:           ocaml-camlbz2
 Version:        0.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml bindings for bzip2
 
 License:        LGPL-2.1-or-later WITH OCaml-LGPL-linking-exception
@@ -73,6 +73,9 @@ make install DESTDIR=$OCAMLFIND_DESTDIR INSTALL='%{_bindir}/install -p'
 %doc doc/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 0.7.0-7
 - Convert License tag to SPDX
 

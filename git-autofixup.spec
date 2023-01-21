@@ -1,6 +1,6 @@
 Name:       git-autofixup
 Version:    0.003001
-Release:    5%{?dist}
+Release:    6%{?dist}
 
 Summary:    Autofixup - create fixup commits for topic branches
 
@@ -67,6 +67,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003001-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.003001-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

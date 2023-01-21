@@ -2,7 +2,7 @@
 
 Name:           mojo-parent
 Version:        70
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Codehaus MOJO parent project pom file
 License:        ASL 2.0
 URL:            https://www.mojohaus.org/mojo-parent/
@@ -43,6 +43,9 @@ cp %SOURCE1 .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 70-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 Marian Koncek <mkoncek@redhat.com> - 70-1
 - Update to upstream version 70
 

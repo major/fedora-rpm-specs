@@ -17,7 +17,7 @@ used by the other packages.}
                         README-ocdiscover.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Go packages for auto discovery of resource information in various environments
 
 # Upstream license specification: Apache-2.0
@@ -63,6 +63,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.1.2-11
 - Rebuild to fix FTBFS
 

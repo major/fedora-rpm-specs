@@ -1,6 +1,6 @@
 Name:           mailnag
 Version:        2.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Mail notification daemon
 
 License:        GPLv2
@@ -56,6 +56,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT/%{_datadir}/metainfo/*.app
 %{_datadir}/icons/hicolor/*/apps/%{name}*png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Thorsten Leemhuis <fedora@leemhuis.info> - 2.2.0-8
 - add BR python3-setuptools per #BZ 2155041 due to deprecated distutils package
 

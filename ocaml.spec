@@ -34,7 +34,7 @@
 
 Name:           ocaml
 Version:        4.14.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        OCaml compiler and programming environment
 
@@ -400,6 +400,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/eventlog_metadata
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep  5 2022 Richard W.M. Jones <rjones@redhat.com> - 4.14.0-3
 - Include more upstream patches from 4.14 branch
 

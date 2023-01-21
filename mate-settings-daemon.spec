@@ -19,9 +19,9 @@
 Name:           mate-settings-daemon
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        6%{?dist}
+Release:        7%{?dist}
 %else
-Release:        0.15%{?git_rel}%{?dist}
+Release:        0.16%{?git_rel}%{?dist}
 %endif
 Summary:        MATE Desktop settings daemon
 License:        GPLv2+
@@ -147,6 +147,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/mate-settings-dae
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:    kscreen
 Epoch:   1
 Version: 5.26.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Display Management software
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -99,6 +99,9 @@ KCM and KDED modules for managing displays in KDE.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.26.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 1:5.26.5-1
 - Update to 5.26.5
 

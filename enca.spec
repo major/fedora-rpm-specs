@@ -1,7 +1,7 @@
 Name: enca
 Summary: Character set analyzer and detector
 Version: 1.19
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPLv2
 Source: http://dl.cihar.com/enca/enca-%{version}.tar.xz
 URL: http://cihar.com/software/enca
@@ -91,6 +91,9 @@ make check LD_LIBRARY_PATH=$RPM_BUILD_ROOT/%{_libdir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

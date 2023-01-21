@@ -48,7 +48,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.49.8
-Release:       2%{?dist}
+Release:       3%{?dist}
 License:       LGPLv2+
 
 # Build only for architectures that have a kernel
@@ -1121,6 +1121,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.49.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:1.49.8-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

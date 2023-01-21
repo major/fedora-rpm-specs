@@ -5,7 +5,7 @@
 
 Name:           ocaml-pyml
 Version:        20220615
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        OCaml bindings for Python
 
 # The project is BSD except for pycaml.mli, which is LGPLv2+
@@ -151,6 +151,9 @@ cp -p _build/default/dllnumpy_stubs.so %{buildroot}%{ocamldir}/stublibs
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220615-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug  1 2022 Jerry James <loganjerry@gmail.com> - 20220615-3
 - Add patch for compatibility with python 3.11
 

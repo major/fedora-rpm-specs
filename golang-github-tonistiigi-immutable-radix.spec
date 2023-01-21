@@ -16,7 +16,7 @@ a single Tree implementation, optimized for sparse nodes.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.8%{?dist}
+Release:        0.9%{?dist}
 Summary:        Immutable radix tree implementation in Golang
 
 # Upstream license specification: MPL-2.0
@@ -54,6 +54,9 @@ find . -name "*.go" -exec sed -i "s|github.com/hashicorp/uuid|github.com/hashico
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

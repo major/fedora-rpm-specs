@@ -5,7 +5,7 @@
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
@@ -191,6 +191,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Robert Scheck <robert@fedoraproject.org> - 1.10.0-16
 - Build mingw32/64 packages only on Fedora branches (#2144671)
 

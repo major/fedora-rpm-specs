@@ -1,6 +1,6 @@
 Name:           perl-Data-Page-Pageset
 Version:        1.02
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Change long page list to be shorter and well navigate
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Page-Pageset
@@ -54,6 +54,9 @@ into some sets to shorten the page list.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.02-22
 - Convert license to SPDX.
 - Update sources to sha512.

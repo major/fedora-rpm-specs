@@ -68,14 +68,14 @@
 %{?rcsuf:%global versuf -%{rcsuf}}
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 4
+%global baserelease 1
 
 # Uncomment if building for EPEL
 #global name_suffix %%{major_version}
 %global orig_name cmake
 
 Name:           %{orig_name}%{?name_suffix}
-Version:        %{major_version}.%{minor_version}.1
+Version:        %{major_version}.%{minor_version}.2
 Release:        %{baserelease}%{?relsuf}%{?dist}
 Summary:        Cross-platform make system
 
@@ -102,19 +102,11 @@ Source5:        %{name}.req
 # http://public.kitware.com/Bug/view.php?id=12965
 # https://bugzilla.redhat.com/show_bug.cgi?id=822796
 Patch100:       %{name}-findruby.patch
-# replace release flag -O3 with -O2 for fedora
-%if 0%{?fedora} && 0%{?fedora} < 34
-Patch101:       %{name}-fedora-flag_release.patch
-%endif
 # Add dl to CMAKE_DL_LIBS on MINGW
 # https://gitlab.kitware.com/cmake/cmake/issues/17600
 %if 0%{?fedora} && 0%{?fedora} < 38
 Patch102:       %{name}-mingw-dl.patch
 %endif
-
-# FindBoost: Add Boost 1.81 support.
-# https://github.com/Kitware/CMake/commit/a97032c4e7b1efb4c5535e5f705ef8ffd5fc2dd3
-Patch200:       https://github.com/Kitware/CMake/commit/a97032c4e7b1efb4c5535e5f705ef8ffd5fc2dd3.patch#/%{name}-3.25.1-Boost_181.patch
 
 # Patch for renaming on EPEL
 %if 0%{?name_suffix:1}
@@ -529,6 +521,10 @@ popd
 
 
 %changelog
+* Thu Jan 19 2023 Björn Esser <besser82@fedoraproject.org> - 3.25.2-1
+- cmake-3.25.2
+  Fixes rhbz#2162459
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.25.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

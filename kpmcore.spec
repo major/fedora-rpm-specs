@@ -5,7 +5,7 @@
 
 Name:           kpmcore
 Version:        22.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for managing partitions by KDE programs
 License:        GPLv3+
 URL:            https://github.com/KDE/kpmcore
@@ -89,4 +89,7 @@ developing applications that use %{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 %autochangelog

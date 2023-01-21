@@ -2,7 +2,7 @@
 
 Name:           multimarkdown
 Version:        6.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Lightweight markup processor to produce HTML, LaTeX, and more
 
 # MultiMarkdown 6 is licensed under MIT, licenses of bundled software are next to the bundling declaration
@@ -77,6 +77,9 @@ rm %{buildroot}/usr/README.txt
 %{_datadir}/texmf/tex/latex/mmd6
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

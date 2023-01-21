@@ -1,7 +1,7 @@
 Name:       m17n-db
 Summary:    Multilingualization datafiles for m17n-lib
 Version:    1.8.0
-Release:    28%{?dist}
+Release:    29%{?dist}
 License:    LGPL-2.1-or-later
 URL:        http://www.nongnu.org/m17n
 
@@ -161,6 +161,9 @@ cp -p m17n-db-sayura-1.0.0/icons/si-sayura.png %{buildroot}%{_datadir}/m17n/icon
 %{_datadir}/pkgconfig/m17n-db.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Mike FABIAN <mfabian@redhat.com> - 1.8.0-28
 - Migrate license tag to SPDX
 

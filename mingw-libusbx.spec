@@ -2,7 +2,7 @@
 
 Name:           mingw-libusbx
 Version:        1.0.24
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        MinGW library which allows userspace access to USB devices
 
 License:        LGPLv2+
@@ -93,6 +93,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.24-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.24-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

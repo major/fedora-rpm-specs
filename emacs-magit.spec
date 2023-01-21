@@ -7,7 +7,7 @@
 
 Name:           emacs-%{pkg}
 Version:        2.90.1
-Release:        5.%{commitdate}git%{shortcommit}%{?dist}
+Release:        6.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Emacs interface to the most common Git operations
 License:        GPLv3+
 URL:            https://magit.vc
@@ -60,6 +60,9 @@ rm ${RPM_BUILD_ROOT}/%{_docdir}/%{pkg}/AUTHORS.md
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.90.1-6.20201015git084498406
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.90.1-5.20201015git084498406
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

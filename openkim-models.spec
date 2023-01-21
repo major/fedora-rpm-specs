@@ -1,7 +1,7 @@
 Name:           openkim-models
 Version:        2021.01.28
 %global         uversion %(v=%{version}; echo ${v//./-})
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Open Knowledgebase of Interatomic Models
 License:        CDDL-1.0 and ASL 2.0 and MPLv2.0 and GPLv3 and LGPLv3
 Url:            https://openkim.org
@@ -40,6 +40,9 @@ for i in $(find *model* -name "LICENSE*"); do echo ${i%/*}:; head -n 2 $i; echo;
 %{_libdir}/kim-api/simulator-models/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.01.28-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2021.01.28-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

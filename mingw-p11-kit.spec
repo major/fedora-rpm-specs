@@ -2,7 +2,7 @@
 
 Name:           mingw-p11-kit
 Version:        0.23.16.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        MinGW Library for loading and sharing PKCS#11 modules
 
 License:        BSD
@@ -126,6 +126,9 @@ rm -rf $RPM_BUILD_ROOT%{mingw64_datadir}/gtk-doc
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.16.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.16.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:    freeze
 Version: 2.5.0
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: freeze/melt/fcat compression utilities
 
 # Confirmed with upstream, see email text in Source1
@@ -55,6 +55,9 @@ done
 %{_mandir}/man?/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 27 2022 Florian Weimer <fweimer@redhat.com> - 2.5.0-34
 - Build in C89 mode (#2148750)
 

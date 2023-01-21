@@ -1,6 +1,6 @@
 Name:           ladspa-blop-plugins
 Version:        0.2.8
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Bandlimited LADSPA Oscillator Plugins
 License:        GPLv2+
 URL:            http://blop.sourceforge.net/
@@ -59,6 +59,9 @@ export LDADD="$RPM_LD_FLAGS"
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

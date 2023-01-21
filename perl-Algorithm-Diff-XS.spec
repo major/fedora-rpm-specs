@@ -1,6 +1,6 @@
 Name:           perl-Algorithm-Diff-XS
 Version:        0.04
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Algorithm::Diff with XS core loop
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Algorithm-Diff-XS
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

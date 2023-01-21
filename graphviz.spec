@@ -88,7 +88,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		7.0.6
-Release:		1%{?dist}
+Release:		2%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -743,6 +743,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 7.0.6-1
 - New version
   Resovles: rhbz#2158703

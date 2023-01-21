@@ -5,7 +5,7 @@
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.28.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 BuildArch:     noarch
 
 License:       Apache-2.0
@@ -70,6 +70,9 @@ sed -i '/#!\/usr\/.*python/d' requests/certs.py
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 13 2022 Sandro Mani <manisandro@gmail.com> - 2.28.1-3
 - Switch to python3-build
 

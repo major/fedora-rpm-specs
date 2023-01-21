@@ -1,6 +1,6 @@
 Name:           opensc
 Version:        0.23.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Smart card library and applications
 
 License:        LGPLv2+
@@ -200,6 +200,9 @@ rm %{buildroot}%{_mandir}/man1/opensc-notify.1*
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Jakub Jelen <jjelen@redhat.com> - 0.23.0-2
 - Remove needless configure option with hardcoded path to pcsclite
 - Fix import of RSA keys in pkcs11-tool (#2150010)

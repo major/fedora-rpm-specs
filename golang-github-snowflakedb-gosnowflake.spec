@@ -15,7 +15,7 @@ Go Snowflake Driver.}
 %global godocs          CHANGELOG.md CONTRIBUTING.md README.rst
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Go Snowflake Driver
 
 # Upstream license specification: Apache-2.0
@@ -53,6 +53,9 @@ BuildRequires:  golang(golang.org/x/crypto/ocsp)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 1.3.13-6
 - Rebuild to fix FTBFS
 

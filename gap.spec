@@ -32,7 +32,7 @@
 
 Name:           gap
 Version:        4.12.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Computational discrete algebra
 
 %global majver %(cut -d. -f1-2 <<< %{version})
@@ -445,6 +445,9 @@ make check
 %{_libdir}/libgap.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 4.12.2-2
 - Conform more closely to upstream's preferred file layout
 - Remove %%gap_arches from the RPM macro file

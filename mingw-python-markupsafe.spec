@@ -6,19 +6,21 @@
 Name:          mingw-python-%{mod_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       2.1.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 BuildArch:     noarch
 
 License:       BSD
 URL:           https://pypi.org/project/MarkupSafe/
 Source0:       %{pypi_source}
 
-BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
 
-BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
@@ -71,6 +73,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 11 2022 Sandro Mani <manisandro@gmail.com> - 2.1.1-4
 - Switch to python3-build
 

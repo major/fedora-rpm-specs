@@ -1,6 +1,6 @@
 Name:           perl-Encode-JIS2K
 Version:        0.03
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        JIS X 0212 (aka JIS 2000) Encodings
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Encode-JIS2K
@@ -60,6 +60,9 @@ make test
 %exclude %dir %{perl_vendorarch}/auto/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

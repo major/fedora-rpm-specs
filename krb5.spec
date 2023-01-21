@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 6
+%global baserelease 7
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -710,6 +710,9 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Julien Rische <jrische@redhat.com> - 1.20.1-6
 - Set aes256-cts-hmac-sha384-192 as EXAMLE.COM master key in kdc.conf
 - Add AES SHA-2 HMAC family as EXAMPLE.COM supported etypes in kdc.conf

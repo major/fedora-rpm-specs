@@ -1,6 +1,6 @@
 Name:           kde-plasma-ihatethecashew
 Version:        0.4
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Removes the KDE Plasma Cashew From the Corner of the Display
 
 License:        GPLv2
@@ -43,6 +43,9 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 %{_kde4_datadir}/kde4/services/plasma-applet-ihatethecashew.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Catalyst-Plugin-Authorization-Roles
 Version:        0.09
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Role based authorization for Catalyst based on Catalyst::Plugin::Authentication
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Catalyst-Plugin-Authorization-Roles
@@ -65,6 +65,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

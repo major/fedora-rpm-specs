@@ -14,7 +14,7 @@
 
 Name:		libspf2
 Version:	1.2.11
-Release:	5.20210922git%{git}%{?dist}
+Release:	6.20210922git%{git}%{?dist}
 Summary:	An implementation of the SPF specification
 License:	BSD or LGPLv2+
 Url:		http://www.libspf2.org/
@@ -201,6 +201,9 @@ exit 0
 %{_mandir}/man3/Mail::SPF_XS.3pm*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-6.20210922git4915c308
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Peter Fordham <peter.fordham@gmail.com> - 1.2.11-5.20210922git4915c308
 - Add missing include of string.h for memset in spf_utils.c
   https://github.com/shevek/libspf2/issues/41

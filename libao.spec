@@ -1,6 +1,6 @@
 Name:           libao
 Version:        1.2.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Cross Platform Audio Output Library
 License:        GPLv2+
 URL:            http://xiph.org/ao/
@@ -70,6 +70,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

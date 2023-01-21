@@ -4,7 +4,7 @@
 
 Name:          gnome-extensions-app
 Version:       43~beta
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Manage GNOME Shell extensions
 
 License:       GPLv2+
@@ -70,6 +70,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/gir-1.0
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43~beta-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Florian Müllner <fmuellner@redhat.com> - 43~beta-1
 - Update to 43.beta
 

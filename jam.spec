@@ -1,6 +1,6 @@
 Name:		jam
 Version:	2.5
-Release:	33%{?dist}
+Release:	34%{?dist}
 License:	Copyright only
 Summary:	Program construction tool, similar to make
 URL:		http://public.perforce.com/public/jam/index.html
@@ -42,6 +42,9 @@ install -m0755 bin.linux*/mkjambase $RPM_BUILD_ROOT/%{_bindir}
 %{_bindir}/mkjambase
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 2.5-33
 - Fixes for building in strict(e)r C99 mode (#2148378)
 

@@ -1,7 +1,7 @@
 Summary:        Utility to test Pluggable Authentication Modules (PAM)
 Name:           pamtester
 Version:        0.1.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        BSD
 URL:            http://pamtester.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{version}.tar.gz
@@ -36,6 +36,9 @@ using common standards such as NIS, SASL and LDAP.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.1.2-22
 - Port configure script to C99
 

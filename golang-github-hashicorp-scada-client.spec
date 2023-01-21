@@ -17,7 +17,7 @@ Implements a Golang client to the HashiCorp SCADA system.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.26%{?dist}
+Release:        0.27%{?dist}
 Summary:        Implements a Golang client to the HashiCorp SCADA system
 
 # Upstream license specification: MPL-2.0
@@ -61,6 +61,9 @@ end
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0-0.26
 - Rebuild to fix FTBFS
 

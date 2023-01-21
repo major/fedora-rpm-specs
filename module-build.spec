@@ -1,6 +1,6 @@
 Name: module-build
 Version: 0.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Tool/library for building module streams locally.
 License: MIT
 BuildArch: noarch
@@ -50,6 +50,9 @@ A library and a cli tool for building module streams.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Martin Curlej <mcurlej@redhat.com> - 0.2.1-2
 - Require mock-scm
 

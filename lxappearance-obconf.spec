@@ -16,7 +16,7 @@
 
 Name:           lxappearance-obconf
 Version:        0.2.3
-Release:        15%{?git_version:.%{?git_version}}%{?dist}
+Release:        16%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Plugin to configure Openbox inside LXAppearance
 
 License:        GPLv2+
@@ -81,6 +81,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.2.3-15
 - preview_menu: set parent for menu.title.bg when parentrelative
   (sfbug: 960)

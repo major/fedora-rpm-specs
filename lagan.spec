@@ -1,6 +1,6 @@
 Name:           lagan
 Version:        2.0
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Local, global, and multiple alignment of DNA sequences
 
 License:        GPLv2
@@ -90,6 +90,9 @@ rm -f Readmes/*.chris
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 2.0-37
 - C99 compatibility fixes (#2160661)
 

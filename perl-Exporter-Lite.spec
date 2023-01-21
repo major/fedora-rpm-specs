@@ -1,6 +1,6 @@
 Name:           perl-Exporter-Lite
 Version:        0.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight exporting of functions and variables
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Exporter-Lite
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-1
 - 0.09 bump
 - Specify all dependencies and modernize spec file

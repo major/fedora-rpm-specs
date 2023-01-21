@@ -28,6 +28,11 @@ Source0:        https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-
 #
 # Fixes RHBZ#2108658.
 Patch:          https://github.com/abseil/abseil-cpp/commit/09e96049995584c3489e4bd1467313e3e85af99c.patch
+# Comment out two static assertions in the tests that fail with GCC 13.
+#   Reported upstream:
+# Static assertion failures compiling AllocatorTraits.Rebind test (GCC 13)
+# https://github.com/abseil/abseil-cpp/issues/1366
+Patch:          abseil-cpp-20220623.1-gcc13.patch
 
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster

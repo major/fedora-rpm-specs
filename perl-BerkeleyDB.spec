@@ -1,10 +1,3 @@
-# We have db4 up to Fedora 13, then db5 (in the libdb package)
-%if 0%{?fedora} > 13 || 0%{?rhel} > 6
-%global db_pkg libdb
-%else
-%global db_pkg db4
-%endif
-
 # Run optional test
 %if ! 0%{?rhel}
 %bcond_without perl_BerkeleyDB_enables_optional_test
@@ -12,22 +5,21 @@
 %bcond_with perl_BerkeleyDB_enables_optional_test
 %endif
 
-
 # We need to know the exact DB version we're built against
 %global db_ver %(sed '/DB_VERSION_STRING/!d;s/.*Berkeley DB[[:space:]]*\\([^:]*\\):.*/\\1/' /usr/include/db.h 2>/dev/null || echo 4.0.0)
 
 Name:           perl-BerkeleyDB
 Version:        0.65
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Interface to Berkeley DB
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/BerkeleyDB
 Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMQS/BerkeleyDB-%{version}.tar.gz
 # Module Build
-BuildRequires:  %{db_pkg}-devel
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
+BuildRequires:  libdb-devel
 BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
@@ -65,7 +57,7 @@ BuildRequires:  perl(Test::Pod) >= 1.00
 %endif
 # Runtime
 # Hard-code Berkeley DB requirement to avoid problems like #592209
-Requires:       %{db_pkg} = %{db_ver}
+Requires:       libdb = %{db_ver}
 Requires:       perl(XSLoader)
 
 # Don't "provide" private Perl libs
@@ -114,6 +106,9 @@ make test
 %{_mandir}/man3/BerkeleyDB.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.65-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.65-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

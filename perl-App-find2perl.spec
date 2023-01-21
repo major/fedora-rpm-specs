@@ -1,6 +1,6 @@
 Name:           perl-App-find2perl
 Version:        1.005
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Translate find command lines to Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/App-find2perl
@@ -82,6 +82,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.005-19
 - Simplify build and install phases
 - Update license to SPDX format

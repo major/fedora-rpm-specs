@@ -1,6 +1,6 @@
 Name:           lightdm-autologin-greeter
 Version:        1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Autologin greeter using LightDM
 
 License:        MIT
@@ -84,6 +84,9 @@ sed -i "s:#!/usr/bin/python:#!%{__python2}:" %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 Name:    kate4
 Summary: Advanced Text Editor for KDE4
 Version: 4.14.3
-Release: 31%{?dist}
+Release: 32%{?dist}
 
 # kwrite LGPLv2+
 # kate: app LGPLv2, plugins, LGPLv2 and LGPLv2+ and GPLv2+
@@ -95,6 +95,9 @@ rm -fv %{buildroot}%{_kde4_libdir}/libkatepartinterfaces.so
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.3-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.14.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

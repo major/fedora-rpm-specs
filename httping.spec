@@ -1,6 +1,6 @@
 Name:           httping
 Version:        2.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Ping alike tool for http requests
 
 License:        GPL+ and OpenSSL
@@ -45,6 +45,9 @@ rm -rf %{buildroot}%{_defaultdocdir}
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

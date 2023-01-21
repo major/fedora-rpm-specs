@@ -1,6 +1,6 @@
 Name:		fedorainfinity-backgrounds
 Version:	0.0.5    
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Fedora Infinity desktop backgrounds
 URL:		http://fedoraproject.org/wiki/Artwork/F8Themes/Infinity
 
@@ -42,6 +42,9 @@ ln -s ../gnome-background-properties/desktop-backgrounds-infinity.xml \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

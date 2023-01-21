@@ -6,7 +6,7 @@
 
 Name:		erlang-%{realname}
 Version:	0
-Release:	0.19.20161011git%{short_tag}%{?dist}
+Release:	0.20.20161011git%{short_tag}%{?dist}
 Summary:	An implementation of the HyperLogLog algorithm in Erlang
 License:	MIT
 URL:		https://github.com/%{upstream}/%{realname}
@@ -56,6 +56,9 @@ of two filters is lossless.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.20.20161011git4b1abc4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.19.20161011git4b1abc4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

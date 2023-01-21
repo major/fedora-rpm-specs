@@ -2,7 +2,7 @@ Summary: %{nice_name} is a powerful open-source tool that parses and evaluates a
 %global nice_name ParserNG
 Name: parserng
 Version: 0.1.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: ASL 2.0
 URL: https://github.com/gbenroscience/ParserNG
 # tarred cloned repo without hidden files and without idea iml
@@ -69,6 +69,9 @@ install -d -m 755 $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Jiri Vanek <jvanek@redhat.com> - 0.1.8-1
 - bumped sources to upstream rc candidate
 

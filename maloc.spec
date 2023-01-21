@@ -1,6 +1,6 @@
 Name: maloc
 Version: 1.5
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: GPLv2+
 URL: http://www.fetk.org
 Summary: Minimal Abstraction Layer for Object-oriented C
@@ -70,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/maloc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.5-26
 - Update spec file
 

@@ -1,6 +1,6 @@
 Name:           execstack
 Version:        0.5.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Utility to set/clear/query executable stack bit
 
 %global commit 4c79120bcdbde0616f592458ccde7035e92ca3d8
@@ -59,6 +59,9 @@ install -Dm0644 doc/execstack.8 %{buildroot}%{_mandir}/man8/execstack.8
 %{_mandir}/man8/execstack.8.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Florian Weimer <fweimer@redhat.com> - 0.5.0-24
 - Avoid implicit function declarations in configure (#2144890)
 

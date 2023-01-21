@@ -1,7 +1,7 @@
 Name:           perl-Catalyst-Plugin-SubRequest
 Summary:        Make subrequests to actions in Catalyst
 Version:        0.21
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/J/JJ/JJNAPIORK/Catalyst-Plugin-SubRequest-%{version}.tar.gz
 URL:            https://metacpan.org/release/Catalyst-Plugin-SubRequest
@@ -67,6 +67,9 @@ TEST_POD=1 make test
 %{_mandir}/man3/Catalyst*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

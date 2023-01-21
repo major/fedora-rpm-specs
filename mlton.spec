@@ -4,7 +4,7 @@
 
 Name: mlton
 Version: 20180207
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Optimizing compiler for Standard ML
 
 License: MIT
@@ -111,6 +111,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/mlton/sml/ckit-lib/regression
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20180207-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20180207-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

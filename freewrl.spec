@@ -12,7 +12,7 @@
 
 Name:		freewrl
 Version:	%{majorrel}
-Release:	14.%{commitdate}git%{shortcommit}%{?dist}
+Release:	15.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	X3D / VRML visualization program
 License:	LGPLv3+
 URL:		http://freewrl.sourceforge.net
@@ -220,6 +220,9 @@ chrpath --delete %{buildroot}%{_libdir}/libFreeWRLEAI.so.*
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-15.20200221gite99ab4a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Tom Callaway <spot@fedoraproject.org> - 4.3.0-14.20200221gite99ab4a
 - disable plugin more completely with a conditional
 

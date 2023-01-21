@@ -3,7 +3,7 @@
 %global name1 jimtcl
 Name:           mingw-%{name1}
 Version:        0.81
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        MinGW small embeddable Tcl interpreter
 
 License:        BSD
@@ -108,6 +108,9 @@ rm -f %{buildroot}/%{mingw64_bindir}/jimdb
 %{mingw64_libdir}/pkgconfig/jimtcl.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -25,7 +25,7 @@
 
 Name:		openwsman
 Version:	2.7.1
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Open source Implementation of WS-Management
 
 License:	BSD
@@ -415,6 +415,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.7.1-9
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

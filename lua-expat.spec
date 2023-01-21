@@ -10,7 +10,7 @@
 Summary:        SAX XML parser based on the Expat library
 Name:           lua-expat
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 URL:            https://lunarmodules.github.io/luaexpat/
 Source0:        https://github.com/lunarmodules/luaexpat/archive/%{version}/luaexpat-%{version}.tar.gz
@@ -100,6 +100,9 @@ lua-%{lua_compat_version} -e \
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 03 2022 Robert Scheck <robert@fedoraproject.org> 1.5.1-1
 - Upgrade to 1.5.1
 

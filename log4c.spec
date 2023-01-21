@@ -1,6 +1,6 @@
 Name:       log4c
 Version:    1.2.4
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    Library for logging application messages
 
 License:    LGPLv2+
@@ -106,6 +106,9 @@ sed -r -i \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

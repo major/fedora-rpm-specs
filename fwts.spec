@@ -1,6 +1,6 @@
 Name:    fwts
 Version: 21.03.00
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Firmware Test Suite
 
 # The ACPICA code is licensed under both GPLv2 and Intel ACPI, a few
@@ -71,6 +71,9 @@ find %{buildroot} -type f -name "*.so" -delete
 %{_mandir}/man1/fwts*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.03.00-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.03.00-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

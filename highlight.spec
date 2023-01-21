@@ -1,7 +1,7 @@
 Name:           highlight
 Summary:        Universal source code to formatted text converter
 Version:        4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv3
 URL:            http://www.andre-simon.de/
 Source0:        http://www.andre-simon.de/zip/%{name}-%{version}.tar.bz2
@@ -104,6 +104,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 6 2022 Amit Shah <amitshah@fedoraproject.org> - 4.2-2
 - Allow disabling Qt deps
 

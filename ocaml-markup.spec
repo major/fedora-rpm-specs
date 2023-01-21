@@ -6,7 +6,7 @@
 
 Name:           ocaml-markup
 Version:        1.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Error-recovering streaming HTML5 and XML parsers for OCaml
 
 License:        MIT
@@ -95,6 +95,9 @@ sed -i '/uchar/d' markup.opam
 %files lwt-devel -f .ofiles-markup-lwt-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-4
 - Rebuild for ocaml-lwt 5.6.1
 

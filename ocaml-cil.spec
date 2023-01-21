@@ -4,7 +4,7 @@
 
 Name:           ocaml-cil
 Version:        1.7.3
-Release:        75%{?dist}
+Release:        76%{?dist}
 Summary:        CIL - Infrastructure for C Program Analysis and Transformation
 License:        BSD
 
@@ -205,6 +205,9 @@ cp doc/html/cil/CIL.pdf doc/ocaml-cil/cil-manual.pdf
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-76
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-75
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

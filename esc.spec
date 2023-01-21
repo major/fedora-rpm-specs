@@ -1,6 +1,6 @@
 Name: esc 
 Version: 1.1.2
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary: Enterprise Security Client Smart Card Client
 License: GPL+
 URL: http://directory.fedora.redhat.com/wiki/CoolKey 
@@ -125,6 +125,9 @@ cp %{SOURCE2} $RPM_BUILD_ROOT/%{_datadir}/%{appdir}
 %{_datadir}/%{appdir}/esc.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

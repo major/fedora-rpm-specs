@@ -2,7 +2,7 @@
 
 Name:           eglexternalplatform
 Version:        1.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        EGL External Platform Interface headers
 
 License:        MIT
@@ -42,6 +42,9 @@ install -p -m 0644 eglexternalplatform.pc %{buildroot}%{_datadir}/pkgconfig/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

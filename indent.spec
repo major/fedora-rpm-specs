@@ -1,7 +1,7 @@
 Summary:    A GNU program for formatting C code
 Name:       indent
 Version:    2.2.12
-Release:    10%{?dist}
+Release:    11%{?dist}
 # COPYING:                      GPLv3 text
 # doc/indent.info:              Verbatim (generated from doc/indent.texi)
 #   <http://lists.gnu.org/archive/html/bug-indent/2018-09/msg00008.html>
@@ -94,6 +94,9 @@ make check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

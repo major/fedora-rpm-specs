@@ -1,6 +1,6 @@
 Name:           four-in-a-row
 Version:        3.38.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GNOME Four-in-a-row game
 
 License:        GPLv2+ and GFDL and GPLv3+
@@ -54,6 +54,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Four-in-
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

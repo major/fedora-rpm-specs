@@ -6,7 +6,7 @@
 
 Name:		gnome-online-accounts
 Version:	3.46.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPLv2+
@@ -127,6 +127,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.46.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 26 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.46.0-4
 - Restore gtk-doc API documentation to -devel.
 

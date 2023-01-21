@@ -6,7 +6,7 @@
 
 Name:           mingw-winpthreads
 Version:        10.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW pthread library
 
 # The main license of winpthreads is MIT, but parts of this library
@@ -231,6 +231,9 @@ rm -rf /tmp/wine-winpthreads
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed May 04 2022 Sandro Mani <manisandro@gmail.com> - 10.0.0-2
 - Rebuild for standard dll provides move to mingw-crt
 - Spec cleanups

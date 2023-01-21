@@ -1,6 +1,6 @@
 Name:           inadyn-mt
 Version:        2.28.10
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Dynamic DNS Client
 License:        GPLv3
 URL:            http://inadyn-mt.sourceforge.net
@@ -112,6 +112,9 @@ exit 0
 %attr(755,inadyn,inadyn) %dir /var/cache/inadyn-mt/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.10-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Florian Weimer <fweimer@redhat.com> - 2.28.10-15
 - C99 compatibility fixes
 

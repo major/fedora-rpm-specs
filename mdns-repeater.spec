@@ -1,7 +1,7 @@
 Summary:        Multicast DNS repeater
 Name:           mdns-repeater
 Version:        1.11
-Release:        7%{?dist}
+Release:        8%{?dist}
 License:        GPLv2+
 URL:            https://github.com/kennylevinsen/mdns-repeater
 Source0:        https://github.com/kennylevinsen/mdns-repeater/archive/%{version}/%{name}-%{version}.tar.gz
@@ -63,6 +63,9 @@ mkdir -p $RPM_BUILD_ROOT%{_rundir}/%{name}/
 %dir %attr(0750,root,root) %{_rundir}/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

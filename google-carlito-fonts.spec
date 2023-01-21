@@ -1,7 +1,7 @@
 %global archivename crosextrafonts-carlito-20130920
 
 Version:        1.103
-Release:        0.20.20130920%{?dist}
+Release:        0.21.20130920%{?dist}
 URL:            https://bugs.chromium.org/p/chromium/issues/detail?id=280557
 
 %global foundry           google
@@ -45,6 +45,9 @@ Source2:        62-%{fontpkgname}.conf
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.103-0.21.20130920
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.103-0.20.20130920
 - Update license tag to SPDX format
 

@@ -1,6 +1,6 @@
 Name:           perl-Chart
 Version:        2.403.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Series of charting modules
 # lib/Chart.pm:         GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Chart/Manual.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.403.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Petr Pisar <ppisar@redhat.com> - 2.403.9-1
 - 2.403.9 bump
 

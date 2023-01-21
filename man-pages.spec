@@ -4,7 +4,7 @@
 Summary: Linux kernel and C library user-space interface documentation
 Name: man-pages
 Version: 6.02
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPL+ and GPLv2+ and BSD and MIT and Copyright only
 URL: http://www.kernel.org/doc/man-pages/
 Source: http://www.kernel.org/pub/linux/docs/man-pages/man-pages-%{version}.tar.xz
@@ -96,6 +96,9 @@ fi
 %{_mandir}/man*/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 02 2023 Nikola Forró <nforro@redhat.com> - 6.02-1
 - Rebase to version 6.02
   resolves: #2155908

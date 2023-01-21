@@ -2,7 +2,7 @@
 Name:    libksysguard
 Summary: Library for managing processes running on the system
 Version: 5.26.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -153,6 +153,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

@@ -8,7 +8,7 @@
 
 Name:      icu
 Version:   72.1
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   International Components for Unicode
 
 License:   MIT and UCD and Public Domain
@@ -193,6 +193,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 72.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 28 2022 Pete Walter <pwalter@fedoraproject.org> - 72.1-1
 - Update to 72.1
 

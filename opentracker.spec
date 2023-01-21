@@ -2,7 +2,7 @@
 
 Name:             opentracker
 Version:          0
-Release:          0.2.%{snapver}cvs%{?dist}
+Release:          0.3.%{snapver}cvs%{?dist}
 Summary:          BitTorrent Tracker
 
 License:          Beerware
@@ -169,6 +169,9 @@ exit 0
 
 # thx to Romain Wartel and Matt Domsch and Robert Scheck for the assistance in the review process.  
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.3.20210823cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.2.20210823cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

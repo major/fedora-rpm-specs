@@ -10,7 +10,7 @@
 
 Name:           openbios
 Version:        %{date}
-Release:        5.git%{hash}%{?dist}
+Release:        6.git%{hash}%{?dist}
 Epoch:          1
 Summary:        OpenBIOS implementation of IEEE 1275-1994
 
@@ -97,6 +97,9 @@ cp -a obj-sparc64/openbios-builtin.elf $qemudir/openbios-sparc64
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:20200725-6.git7f28286
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:20200725-5.git7f28286
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

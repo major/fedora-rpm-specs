@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Free Kannada opentype sans-serif font
 
 License:        OFL
@@ -53,6 +53,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

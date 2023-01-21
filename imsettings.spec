@@ -1,6 +1,6 @@
 Name:		imsettings
 Version:	1.8.3
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	LGPL-2.0-or-later
 URL:		https://gitlab.com/tagoh/%{name}/
 BuildRequires:	desktop-file-utils
@@ -340,6 +340,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Akira TAGOH <tagoh@redhat.com> - 1.8.3-8
 - Add Plasma Workspace support.
   Resolves: rhbz#2157582

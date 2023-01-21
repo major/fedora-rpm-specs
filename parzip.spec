@@ -1,6 +1,6 @@
 Name:           parzip
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High performance parallel pkzip implementation
 
 License:        GPLv3+
@@ -38,6 +38,9 @@ A command line utility to pack and unpack zip archives using multiple threads.
 %{_mandir}/man1/parunzip.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 07 2022 Filipe Rosset <rosset.filipe@gmail.com> - 1.3.0-1
 - Update to 1.3.0 fixes rhbz#1718070
 

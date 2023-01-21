@@ -1,6 +1,6 @@
 Name:           perl-Cwd-utf8
 Version:        0.011
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Fully UTF-8 aware Cwd
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Cwd-utf8
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.011-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.011-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

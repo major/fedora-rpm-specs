@@ -1,6 +1,6 @@
 Name:           minizip-ng
 Version:        3.0.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Minizip-ng contrib in zlib-ng with the latest bug fixes and advanced features
 
 License:        zlib
@@ -79,6 +79,9 @@ Development files for %{name} library.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Julian Sikorski <belegdol@fedoraproject.org> - 3.0.7-2
 - Fix broken pkg-config file (RH #1998742)
 - Update %%cmake call to use current and supported variables

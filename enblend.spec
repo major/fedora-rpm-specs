@@ -1,7 +1,7 @@
 Summary: Image Blending with Multiresolution Splines
 Name: enblend
 Version: 4.2
-Release: 24%{?dist}
+Release: 25%{?dist}
 License: GPLv2+
 Source0: http://downloads.sourceforge.net/enblend/enblend-enfuse-%{version}.tar.gz
 Patch0: enblend-limits.patch
@@ -65,6 +65,9 @@ make install DESTDIR=%{buildroot}
 #{_docdir}/enblend-enfuse/examples/enfuse/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.2-24
 - Rebuild for gsl-2.7.1
 

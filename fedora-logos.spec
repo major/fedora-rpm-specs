@@ -1,7 +1,7 @@
 Name:		fedora-logos
 Summary:	Fedora-related icons and pictures
 Version:	38.0.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 URL:		https://pagure.io/fedora-logos
 Source0:	https://pagure.io/fedora-logos/archive/%{version}/fedora-logos-%{version}.tar.gz
 License:	Licensed only for approved usage, see COPYING for details.
@@ -394,6 +394,9 @@ hardlink -vv %{buildroot}/usr
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 27 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 38.0.0-2
 - Install bootloader logos for m1n1
 

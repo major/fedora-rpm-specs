@@ -41,7 +41,7 @@
 
 Name:		pcmanfm
 Version:	%{mainver}
-Release:	%{fedorarel}%{?dist}.3
+Release:	%{fedorarel}%{?dist}.4
 Summary:	Extremly fast and lightweight file manager
 
 License:	GPLv2+
@@ -211,6 +211,9 @@ cd ..
 %{_includedir}/pcmanfm-modules.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-1.4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

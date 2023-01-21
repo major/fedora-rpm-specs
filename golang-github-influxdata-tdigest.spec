@@ -21,7 +21,7 @@ The implementation is based off Derrick Burns' C++ implementation.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Implementation of Ted Dunning's t-digest in Go
 
 # Upstream license specification: Apache-2.0
@@ -51,6 +51,9 @@ BuildRequires:  golang(gonum.org/v1/gonum/stat/distuv)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.0.1-6
 - Rebuild to fix FTBFS
 

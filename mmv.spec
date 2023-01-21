@@ -1,6 +1,6 @@
 Name:		mmv
 Version:	1.01b
-Release:	38%{?dist}
+Release:	39%{?dist}
 Summary:	Move/copy/append/link multiple files
 
 License:	GPL+
@@ -64,6 +64,9 @@ ln -s mmv.1.gz $RPM_BUILD_ROOT/%{_mandir}/man1/mln.1.gz
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01b-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.01b-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

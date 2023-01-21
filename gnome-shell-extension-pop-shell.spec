@@ -5,7 +5,7 @@
 
 Name:           gnome-shell-extension-%{extension}
 Version:        1.2.0^9.%{shortcommit}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Shell extension for advanced tiling window management
 License:        GPL-3.0-only
 URL:            https://github.com/pop-os/shell
@@ -85,6 +85,9 @@ install -p -m 0644 %{S:1} %{S:2} %{S:3} %{S:4} %{S:5} %{buildroot}%{_datadir}/gl
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0^9.886a069-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Carl George <carl@george.computer> - 1.2.0^9.886a069-1
 - Latest upstream snapshot
 

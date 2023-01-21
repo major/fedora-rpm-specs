@@ -1,6 +1,6 @@
 Name:           perl-CGI-Session-Driver-memcached
 Version:        0.04
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        CGI::Session driver for memcached
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Session-Driver-memcached
@@ -67,6 +67,9 @@ exit $rc
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

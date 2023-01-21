@@ -1,6 +1,6 @@
 Name: libmbim
 Version: 1.28.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Support library for the Mobile Broadband Interface Model protocol
 License: LGPLv2+
 URL: http://freedesktop.org/software/libmbim
@@ -98,6 +98,9 @@ cp -a src/mbimcli/mbimcli %{buildroot}%{_datadir}/bash-completion/completions/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 08 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.28.2-2
 - Fix location of completions file
 - Enable support for Dell DW5931e & DW5823e WWAN 5G

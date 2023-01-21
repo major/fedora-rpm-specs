@@ -1,6 +1,6 @@
 Name:		lhapdf
 Version:	6.4.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
 License:	GPLv3+
@@ -193,6 +193,9 @@ rm examples/Makefile*
 %license COPYING
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

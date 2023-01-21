@@ -5,7 +5,7 @@
 
 Name:           linbox
 Version:        1.6.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        C++ Library for High-Performance Exact Linear Algebra
 License:        LGPL-2.1-or-later
 URL:            https://linalg.org/
@@ -154,6 +154,9 @@ LD_LIBRARY_PATH=$PWD/linbox/.libs make check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 1.6.3-14
 - Rebuild for libfplll 5.4.4
 - Convert License tag to SPDX

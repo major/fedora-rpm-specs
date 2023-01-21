@@ -18,7 +18,7 @@ an unbounded data stream within low memory and CPU bounds.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.28%{?dist}
+Release:        0.29%{?dist}
 Summary:        Effective Computation of approximate quantiles
 
 License:        MIT
@@ -51,6 +51,9 @@ cp %{S:1} %{S:2} .
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

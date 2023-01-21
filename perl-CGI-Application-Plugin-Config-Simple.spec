@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-Config-Simple
 Version:        1.01
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Add Config::Simple support to CGI::Application
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application-Plugin-Config-Simple
@@ -44,6 +44,9 @@ LANG=C ./Build test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

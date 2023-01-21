@@ -18,7 +18,7 @@
 
 Name:           gnome-settings-daemon
 Version:        43.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
 License:        GPLv2+
@@ -206,6 +206,9 @@ install -p %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 %{_libdir}/pkgconfig/gnome-settings-daemon.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 30 2022 Kalev Lember <klember@redhat.com> - 43.0-2
 - Backport upstream patch to default to ibus for X11 clients (#2128423)
 

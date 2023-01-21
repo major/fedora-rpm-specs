@@ -7,7 +7,7 @@
 
 Name: jpcap
 Version: 0.7
-Release: 34%{?dist}
+Release: 35%{?dist}
 Summary: A Java library for capturing and sending network packets
 
 License: LGPLv2+ and BSD with advertising
@@ -72,6 +72,9 @@ cp -rp doc/javadoc/ $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7-34
 - Adopt %%java_arches https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
 

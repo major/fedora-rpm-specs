@@ -3,7 +3,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 Name:		mod_markdown
 Version:	1.0.4
-Release:	5.20211115git%{shortcommit}%{?dist}
+Release:	6.20211115git%{shortcommit}%{?dist}
 License:	ASL 2.0
 Summary:	Markdown content filters for the Apache HTTP Server
 URL:		https://github.com/hamano/%{srcname}
@@ -53,6 +53,9 @@ install -Dm 0644 %{SOURCE1} %{buildroot}%{_httpd_modconfdir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-6.20211115git1bf4fb4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5.20211115git1bf4fb4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

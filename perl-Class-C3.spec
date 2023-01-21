@@ -1,6 +1,6 @@
 Name:		perl-Class-C3
 Version:	0.35
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Pragma to use the C3 method resolution order algorithm
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Class-C3
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/Class::C3::next.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.35-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

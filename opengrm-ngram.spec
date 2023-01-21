@@ -3,7 +3,7 @@
 
 Name:           opengrm-%{shortname}
 Version:        1.3.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for making and modifying n-gram language models
 
 License:        ASL 2.0
@@ -108,6 +108,9 @@ LD_LIBRARY_PATH=$PWD/src/lib/.libs make check
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.3.14-4
 - Rebuild for gsl-2.7.1
 

@@ -8,7 +8,7 @@
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
 Version:       0.29.32
-Release:       2%{?dist}
+Release:       3%{?dist}
 BuildArch:     noarch
 
 License:       Apache-2.0
@@ -16,12 +16,14 @@ URL:           http://www.cython.org
 Source:        %{pypi_source}
 
 
-BuildRequires: mingw32-filesystem >= 102
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-gcc
 BuildRequires: mingw32-python3
 BuildRequires: mingw32-python3-build
 
-BuildRequires: mingw64-filesystem >= 102
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-gcc
 BuildRequires: mingw64-python3
 BuildRequires: mingw64-python3-build
@@ -86,6 +88,9 @@ MinGW Windows Python3 %{pypi_name} library.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.32-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 0.29.32-2
 - Switch to python3-build
 

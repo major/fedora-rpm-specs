@@ -1,6 +1,6 @@
 Name:           no-more-secrets
 Version:        1.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A recreation of the "decrypting text" effect from the 1992 movie Sneakers
 
 License:        GPLv3+
@@ -34,6 +34,9 @@ rm -f %{buildroot}%{_mandir}/man6/sneakers.6*
 %{_mandir}/man6/nms.6*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary:        High-performance, full-featured text search engine
 Name:           lucene
 Version:        9.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          0
 # License breakdown is present in NOTICE.txt file
 License:        ASL 2.0 and MIT and BSD
@@ -308,6 +308,9 @@ popd
 %files suggest -f .mfiles-lucene-suggest
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:9.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Marian Koncek <mkoncek@redhat.com> - 0:9.4.0-1
 - Update to upstream version 9.4.0
 

@@ -1,7 +1,7 @@
 Summary:   GLib wrapper around libusb1
 Name:      libgusb
 Version:   0.4.3
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   LGPLv2+
 URL:       https://github.com/hughsie/libgusb
 Source0:   https://github.com/hughsie/libgusb/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -57,6 +57,9 @@ GLib headers and libraries for gusb.
 %{_datadir}/vala/vapi/gusb.vapi
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Richard Hughes <richard@hughsie.com> 0.4.3-1
 - New upstream version
 - Export g_usb_device_has_tag()

@@ -4,7 +4,7 @@ Version:        1.4.1
 %forgemeta
 
 Name:           libpasastro
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pascal interface for standard astronomy libraries
 
 License:        GPLv2+
@@ -58,6 +58,9 @@ make install PREFIX=%{buildroot}%{_prefix}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

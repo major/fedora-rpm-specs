@@ -4,7 +4,7 @@
 
 Name:           gjs
 Version:        1.75.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Javascript Bindings for GNOME
 
 # The following files contain code from Mozilla which
@@ -94,6 +94,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.75.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.75.1-4
 - Pull in mesa-dri-drivers and dbus-x11 to fix the testsuite
 

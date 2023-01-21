@@ -3,7 +3,7 @@
 
 Name:           libproxy
 Version:        0.4.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 License:        LGPLv2+
@@ -208,6 +208,9 @@ install -Dpm 0644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/proxy.1
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 16 2022 František Zatloukal <fzatlouk@redhat.com> - 0.4.18-4
 - Rebuilt for duktape 2.7.0
 

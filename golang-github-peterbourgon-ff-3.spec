@@ -15,7 +15,7 @@ Flags-first package for configuration.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Flags-first package for configuration
 
 # Upstream license specification: Apache-2.0
@@ -45,6 +45,9 @@ BuildRequires:  golang(gopkg.in/yaml.v2)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 09 2022 Link Dupont <linkdupont@fedoraproject.org> - 3.3.0-1
 - Update to 3.3.0 (RHBZ#2036478)
 

@@ -1,6 +1,6 @@
 Name: pcs
 Version: 0.11.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
@@ -435,6 +435,9 @@ run_all_tests
 %license pyagentx_LICENSE.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.11.4-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 - Workaround for dnf dependency resolution confusion between nodejs16 vs nodejs

@@ -1,6 +1,6 @@
 Name:		perl-Devel-GlobalDestruction-XS
 Version:	0.03
-Release:	23%{?dist}
+Release:	24%{?dist}
 License:	GPL+ or Artistic
 Summary:	Faster implementation of the Devel::GlobalDestruction API
 URL:		https://metacpan.org/release/Devel-GlobalDestruction-XS
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/Devel::GlobalDestruction::XS.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

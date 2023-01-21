@@ -1,6 +1,6 @@
 Name:             freeipmi
 Version:          1.6.10
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          IPMI remote console and system management software
 License:          GPLv3+
 URL:              http://www.gnu.org/software/freeipmi/
@@ -339,4 +339,7 @@ rm -frv %{buildroot}%{_initrddir} %{buildroot}%{_sysconfdir}/init.d
 %dir %{_localstatedir}/cache/ipmiseld
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 %autochangelog

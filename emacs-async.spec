@@ -2,7 +2,7 @@
 
 Name:           emacs-%{pkg}
 Version:        1.9.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Asynchronous processing in Emacs
 License:        GPLv2+
 URL:            https://github.com/jwiegley/emacs-async
@@ -41,6 +41,9 @@ emacs --batch -L . -l async-test.el -f async-test-1 -f async-test-2 \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

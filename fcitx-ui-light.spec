@@ -1,6 +1,6 @@
 Name:		fcitx-ui-light
 Version:	0.1.3
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Light UI for fcitx
 License:	GPLv2+
 URL:		http://code.google.com/p/fcitx/
@@ -43,6 +43,9 @@ EOF
 %{_datadir}/applications/fcitx-light.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

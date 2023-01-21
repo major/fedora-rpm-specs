@@ -8,8 +8,8 @@ supports pickling for lambda expressions, functions and classes defined \
 interactively in the __main__ module.
 
 Name:           python-%{pypi_name}
-Version:        2.2.0
-Release:        3%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        Extended pickling support for Python objects
 
 License:        BSD
@@ -64,6 +64,9 @@ PYTHONPATH=tests/cloudpickle_testpkg %{__python3} -m pytest -v -k "not file_hand
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Jan 19 2023 Jonathan Wright <jonathan@almalinux.org> - 2.2.1-1
+- Update to 2.2.1 rhbz#2160509
+
 * Sat Nov 26 2022 Jonathan Wright <jonathan@almalinux.org> - 2.2.0-3
 - Update BRs for compatibility with EPEL9
 

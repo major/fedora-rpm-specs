@@ -4,7 +4,7 @@
 
 Name:		gtk-v4l
 Version:	0.4
-Release:	25.%{commitdate}git%{shortcommit}%{?dist}
+Release:	26.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	Video4Linux Device Preferences
 License:	LGPLv2+
 URL:		https://github.com/jwrdegoede/gtk-v4l/
@@ -44,6 +44,9 @@ gtk-v4l is a Video4Linux Web camera control app
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-26.20220522gitd3bcbc7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec  4 2022 Hans de Goede <hdegoede@redhat.com> - 0.4-25.20220522gitd3bcbc7
 - Update to a git snapshot
 - This adds support for v4l-subdevs which is useful for MIPI cameras

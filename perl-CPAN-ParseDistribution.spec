@@ -1,6 +1,6 @@
 Name:           perl-CPAN-ParseDistribution
 Version:        1.54
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Index a file from the BackPAN
 License:        GPLv2 or Artistic
 URL:            https://metacpan.org/release/CPAN-ParseDistribution
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.54-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.54-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

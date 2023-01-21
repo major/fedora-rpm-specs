@@ -3,7 +3,7 @@
 Summary:         Library for reading, mastering and writing optical discs
 Name:            libburn
 Version:         1.5.4
-Release:         5%{?dist}
+Release:         6%{?dist}
 License:         GPLv2+
 URL:             https://libburnia-project.org/
 Source0:         https://files.libburnia-project.org/releases/%{pkgname}-%{version}.tar.gz
@@ -133,6 +133,9 @@ fi
 %{_mandir}/man1/cdrskin%{?variant}.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

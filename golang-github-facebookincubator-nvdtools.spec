@@ -22,7 +22,7 @@ distributed by National Vulnerability Database (NVD)}
                         vulndb/sqlutil/README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        %{common_summary}
 
 # Upstream license specification: Apache-2.0
@@ -96,6 +96,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.1.4-8
 - Rebuild to fix FTBFS
 

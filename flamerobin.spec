@@ -2,7 +2,7 @@
 Summary:	Graphical client for Firebird
 Name:		flamerobin
 Version:	0.9.3.1
-Release:	23%{?dist}
+Release:	24%{?dist}
 License:	BSD
 Source0:	https://github.com/mariuz/%{name}/archive/%{name}-%{version}.tar.gz
 # PATCH-FIX-UPSTREAM flamerobin-desktop-file.patch gh#mariuz/flamerobin#5 badshah400@gmail.com -- Unhardcode icon path in GNU/Linux laucher; patch taken from upstream git
@@ -57,6 +57,9 @@ rm %{buildroot}%{_datadir}/pixmaps/*.png
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 0.9.3.1-23
 - Rebuild with wxWidgets 3.2
 

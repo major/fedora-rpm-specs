@@ -1,5 +1,5 @@
 Version:        3.0.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 URL:            https://github.com/RedHatBrand/overpass/
 
 %global         fontlicense     OFL-1.1 or LGPL-2.0-or-later
@@ -62,6 +62,9 @@ cp -a bower.json package.json %{buildroot}/usr/lib/node_modules/overpass/
 %fontfiles -z 1
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 03 2022 Parag Nemade <pnemade AT redhat DOT com> - 3.0.4-9
 - Convert spec to new fonts packaging guidelines
 

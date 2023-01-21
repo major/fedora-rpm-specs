@@ -14,7 +14,7 @@ Go library for accessing the deSEC API.}
 %global godocs          readme.md
 
 Name:           %{goname}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Go library for accessing the deSEC API
 
 # Upstream license specification: MPL-2.0
@@ -50,6 +50,9 @@ BuildRequires: golang(github.com/hashicorp/go-retryablehttp)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

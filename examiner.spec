@@ -1,6 +1,6 @@
 Name:           examiner
 Version:        0.5
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Utility to disassemble and comment foreign executable binaries 
 
 License:        GPLv2
@@ -58,6 +58,9 @@ rm %{buildroot}%{_datadir}/%{name}/os/linux/examiner_hashes.pl.hashes
 %{_datadir}/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

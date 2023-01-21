@@ -14,7 +14,7 @@ Distributed private networking.}
 %global godocs          README.md CHANGELOG.md
 
 Name:           meshbird
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Distributed private networking
 
 # Upstream license specification: Apache-2.0
@@ -55,6 +55,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

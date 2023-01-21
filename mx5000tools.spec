@@ -4,7 +4,7 @@
 
 Name:           mx5000tools
 Version:        0.1.2
-Release:        11.%{commitdate}git%{shortcommit}%{?dist}
+Release:        12.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Tools for the MX5000 series keyboard
 License:        GPLv2+
 URL:            https://github.com/jwrdegoede/mx5000tools
@@ -61,6 +61,9 @@ install -p -m 644 %{SOURCE1} $RPM_BUILD_ROOT%{_udevrulesdir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-12.20190613gitc575ea3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-11.20190613gitc575ea3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

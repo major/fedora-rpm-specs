@@ -1,6 +1,6 @@
 Name:		sdrangel
-Version:	7.8.5
-Release:	2%{?dist}
+Version:	7.8.6
+Release:	1%{?dist}
 Summary:	Software defined radio (SDR) and signal analyzer frontend to various hardware
 License:	GPLv3+
 URL:		https://github.com/f4exb/sdrangel
@@ -99,6 +99,10 @@ appstream-util validate-relax \
 %{_metainfodir}/org.sdrangel.SDRangel.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 7.8.6-1
+- New version
+  Resolves: rhbz#2160860
+
 * Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 7.8.5-2
 - Rebuild for opencv 4.7.0
 

@@ -2,7 +2,7 @@
 
 Name: google-compute-engine-guest-configs
 Version: 20221110.00
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Google Compute Engine guest environment tools
 License: ASL 2.0
 URL: https://github.com/GoogleCloudPlatform/%{srcname}
@@ -63,6 +63,9 @@ cp -vp                      src/lib/udev/google_nvme_id     %{buildroot}%{_udevr
 %config(noreplace) /etc/sysctl.d/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221110.00-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Major Hayden <major@redhat.com> - 20221110.00-1
 - new version
 

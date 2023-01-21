@@ -1,7 +1,7 @@
 Summary: Gamerzilla Integration Library
 Name: libgamerzilla
 Version: 0.1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: zlib
 URL: https://github.com/dulsi/libgamerzilla
 Source0: http://www.identicalsoftware.com/gamerzilla/%{name}-%{version}.tgz
@@ -60,6 +60,9 @@ the user's Hubzilla server and passes on the awards.
 %{_bindir}/gamerzillaserver
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           glpk
 Version:        5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        GNU Linear Programming Kit
 
 # GPL-3.0-or-later: the project as a whole
@@ -138,6 +138,9 @@ rm -Rf examples/{.deps,.libs,Makefile*,glpsol,glpsol.o} doc/*.tex
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Jerry James <loganjerry@gmail.com> - 5.0-5
 - Convert License tag to SPDX
 

@@ -1,6 +1,6 @@
 Name:           coturn
 Version:        4.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        TURN/STUN & ICE Server
 # MIT (src/{apps/relay/acme.c,server/ns_turn_khash.h} and BSD-3-Clause (the rest)
 License:        BSD-3-Clause AND MIT
@@ -13,6 +13,7 @@ Source4:        coturn.sysusersd
 # https://github.com/coturn/coturn/issues/952
 Patch0:         https://github.com/coturn/coturn/commit/9af9f6306ab73c3403f9e11086b1936e9148f7de.patch#/coturn-4.6.0-openssl.patch
 Patch1:         https://github.com/coturn/coturn/commit/50f33bf04ed7d10b65a7f877249032e1fc3254ab.patch#/coturn-4.6.1-install.patch
+Patch2:         https://github.com/coturn/coturn/commit/4ce784a8781ab086c150e2b9f5641b1a37fd9b31.patch#/coturn-4.6.1-openssl3.patch
 
 BuildRequires:  gcc
 BuildRequires:  hiredis-devel
@@ -116,6 +117,7 @@ This package contains the TURN client development headers.
 %setup -q
 %patch0 -p1 -b .openssl
 %patch1 -p1 -b .install
+%patch2 -p1 -b .openssl3
 
 # Upstream does not care about RHEL/CentOS 7
 %if 0%{?rhel} == 7
@@ -268,6 +270,9 @@ ldd %{buildroot}%{_bindir}/turnserver | grep -q libpq.so
 
 
 %changelog
+* Thu Jan 19 2023 Robert Scheck <robert@fedoraproject.org> - 4.6.1-3
+- Added upstream patch to fix OpenSSL 3 support 
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

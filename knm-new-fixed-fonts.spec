@@ -5,7 +5,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.1
-Release:	36%{?dist}
+Release:	37%{?dist}
 
 Summary:	12x12 JIS X 0208 Bitmap fonts
 License:	GPL-1.0-or-later
@@ -61,6 +61,9 @@ ln -s -f %{_fontdir} $RPM_BUILD_ROOT%{catalogue}/%{fontname}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  1 2022 Akira TAGOH <tagoh@redhat.com> - 1.1-36
 - Convert License tag to SPDX.
 

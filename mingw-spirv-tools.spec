@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       2022.2
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       Apache-2.0
@@ -132,6 +132,9 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 2022.2-6
 - Update for 1.3.231.1 sdk
 

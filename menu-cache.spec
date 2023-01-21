@@ -14,7 +14,7 @@
 
 Name:           menu-cache
 Version:        1.1.0
-Release:        %{fedorarel}%{?dist}.6
+Release:        %{fedorarel}%{?dist}.7
 Summary:        Caching mechanism for freedesktop.org compliant menus
 
 License:        LGPLv2+ and GPLv2+
@@ -107,6 +107,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2.7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

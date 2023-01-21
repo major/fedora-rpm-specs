@@ -8,7 +8,7 @@
 
 Name:           mingw-%{mingw_pkg_name}
 Version:        %{veryear}%{vermon}%{verday}
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        MinGW Windows C++ Wrapper for the SQLite3 embeddable SQL database engine
 
 License:        zlib
@@ -133,6 +133,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{mingw64_libdir}/pkgconfig/libsq3.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20071018-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 02 2022 Thomas Sailer <fedora@tsailer.ch> - 20071018-36
 - Replace mingw-pthreads with mingw-winpthreads
 

@@ -9,7 +9,7 @@
 
 Name:           nickle
 Version:        2.90
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A programming language-based prototyping environment
 
 License:        MIT
@@ -95,6 +95,9 @@ chmod a-x examples/turtle/snowflake.5c
 %{_includedir}/nickle
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

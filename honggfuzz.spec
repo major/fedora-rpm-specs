@@ -1,14 +1,10 @@
-%global gitdate   20210201
-%global gittag    b56729e6f29672be2edb2885807844df68d8db32
-%global shorttag  %(c=%{gittag}; echo ${c:0:7})
-
 Name:          honggfuzz
-Version:       2.3.2
-Release:       0.4.%{gitdate}git%{shorttag}%{?dist}
+Version:       2.5
+Release:       1%{?dist}
 Summary:       General-purpose, easy-to-use fuzzer
 
 License:       ASL 2.0
-URL:           http://google.github.io/honggfuzz/
+URL:           https://honggfuzz.dev/
 # The source contains proprietary binary blobs.  We remove the entire
 # third_party/ subdirectory when repackaging this:
 # ./generate-tarball.sh %%version %%gittag
@@ -25,6 +21,9 @@ Source2:       hello.c
 # FTBFS on armv7 and ppc64le:
 # https://github.com/google/honggfuzz/issues/376
 ExcludeArch:   %{arm} %{power64} s390 s390x
+
+# Upstream patch to fix binutils 2.39 init_disassemble_info() difference.
+Patch1:        0001-linux-bfd-use-DIAGNOSTIC_ERROR_SWITCH-define-to-figu.patch
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: binutils-devel
@@ -63,7 +62,7 @@ Development files for %{name}.
 %prep
 # Disable LTO since it breaks linking.
 %define _lto_cflags %{nil}
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -123,6 +122,12 @@ hfuzz_cc/hfuzz-g++ hello.cpp -o hello
 
 
 %changelog
+* Thu Jan 19 2023 Richard W.M. Jones <rjones@redhat.com> 2.5-1
+- New upstream version 2.5
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-0.5.20210201gitb56729e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-0.4.20210201gitb56729e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:     erlang-%{realname}
 Version:  4.7.0
-Release:  2%{?dist}
+Release:  3%{?dist}
 BuildArch: noarch
 Summary:  Release assembler for Erlang/OTP Releases
 License:  ASL 2.0
@@ -34,6 +34,9 @@ it will generate a release output.
 %{erlang_appdir}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

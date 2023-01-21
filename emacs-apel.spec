@@ -3,7 +3,7 @@
 
 Name:		emacs-%{pkg}
 Version:	10.8
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	A Portable Emacs Library
 
 License:	GPL-2.0-or-later
@@ -49,6 +49,9 @@ make PREFIX=$RPM_BUILD_ROOT%{_prefix} \
 %dir %{_emacs_sitelispdir}/%{pkg}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.8-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Akira TAGOH <tagoh@redhat.com> - 10.8-24
 - Convert License tag to SPDX.
 

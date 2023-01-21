@@ -7,7 +7,7 @@
 
 Name:           perl-Const-Fast
 Version:        0.014
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Facility for creating read-only scalars, arrays, and hashes
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Const-Fast
@@ -77,6 +77,9 @@ unset RELEASE_TESTING
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

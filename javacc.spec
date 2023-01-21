@@ -30,7 +30,7 @@
 
 Name:           javacc
 Version:        7.0.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Epoch:          0
 Summary:        A parser/scanner generator for java
 License:        BSD
@@ -121,6 +121,9 @@ ln -s %{_bindir}/javacc %{buildroot}%{_bindir}/javacc.sh
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:7.0.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0:7.0.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

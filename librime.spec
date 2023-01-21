@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.7.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPLv3
@@ -82,6 +82,9 @@ The %{name}-tools package contains tools for %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Fabio Valentini <decathorpe@gmail.com> - 1.7.3-5
 - Rebuild for capnproto 0.10.3 / CVE-2022-46149
 

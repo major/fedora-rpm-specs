@@ -4,7 +4,7 @@
 
 Name:           mcabber
 Version:        1.1.3
-Release:        0.1.%{date}git%{gitcommit}%{?dist}
+Release:        0.2.%{date}git%{gitcommit}%{?dist}
 Summary:        Console Jabber instant messaging client
 
 License:        GPLv2+
@@ -69,6 +69,9 @@ popd
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-0.2.20211025git87964c3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 1.1.3-0.1.20211025git87964c3
 - Update to latest git
 

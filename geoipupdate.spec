@@ -7,7 +7,7 @@ Version:	4.10.0
 %gometa
 
 Name:		geoipupdate
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Update GeoIP2 binary databases from MaxMind
 
 License:	Apache-2.0 OR MIT
@@ -106,6 +106,9 @@ install -p -m 0644 _build/GeoIP.conf.5 %{buildroot}%{_mandir}/man5/GeoIP.conf.5
 %config(noreplace) %{_sysconfdir}/cron.weekly/geoipupdate
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 27 2022 Paul Howarth <paul@city-fan.org> - 4.10.0-1
 - Update to 4.10.0
   - HTTPS proxies are now supported (GH#172)

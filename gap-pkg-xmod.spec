@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-xmod
 Version:        2.88
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Crossed Modules and Cat1-Groups for GAP
 
 License:        GPL-2.0-or-later
@@ -84,6 +84,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.88-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 2.88-4
 - Update for split GAP directories
 

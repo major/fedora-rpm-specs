@@ -1,6 +1,6 @@
 Name:           perl-DateTime-HiRes
 Version:        0.04
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create DateTime objects with sub-second current time resolution
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-HiRes
@@ -73,6 +73,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.04-2
 - Add gating.yaml
 

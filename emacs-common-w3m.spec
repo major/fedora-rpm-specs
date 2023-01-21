@@ -4,7 +4,7 @@
 
 Name:			emacs-common-%{pkg}
 Version:		1.4.631
-Release:		0.12.%{archivedate}%{?dist}
+Release:		0.13.%{archivedate}%{?dist}
 Summary:		W3m interface for Emacsen
 
 # GPLv3+ bookmark-w3m.el
@@ -143,6 +143,9 @@ rm -rf $RPM_BUILD_ROOT%{_xemacs_sitelispdir}/%{pkg}/{ChangeLog,ChangeLog.1,sChan
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.631-0.13.20180618cvs
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Akira TAGOH <tagoh@redhat.com> - 1.4.631-0.12.20180618cvs
 - Correct License tag
 - Convert License tag to SPDX.

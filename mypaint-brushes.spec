@@ -2,7 +2,7 @@
 
 Name: mypaint-brushes
 Version: 1.3.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Brushes to be used with the MyPaint library
 
 # According to Licenses.dep5 the files used for building/installing are GPLv2+
@@ -57,6 +57,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

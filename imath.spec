@@ -4,7 +4,7 @@
 
 Name:           imath
 Version:        3.1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library of 2D and 3D vector, matrix, and math operations for computer graphics
 
 License:        BSD
@@ -97,6 +97,9 @@ mv %{__cmake_builddir}/docs/sphinx ./html
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 3.1.6-1
 - Update to 3.1.6.
 

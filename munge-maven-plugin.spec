@@ -2,7 +2,7 @@
 
 Name:           munge-maven-plugin
 Version:        1.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Munge Maven Plugin
 License:        CDDL-1.0
 URL:            http://github.com/sonatype/munge-maven-plugin
@@ -67,6 +67,9 @@ This package provides %{summary}.
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

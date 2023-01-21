@@ -8,7 +8,7 @@
 Name:    kdegraphics-thumbnailers
 Summary: Thumbnailers for various graphic types 
 Version: 22.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # most sources GPLv2+, dscparse.* GPL, gscreator.* LGPLv2+, 
 License: GPLv2+
@@ -63,6 +63,9 @@ BuildRequires: cmake(KF5KDcraw)
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
 - Update to 22.12.1
 

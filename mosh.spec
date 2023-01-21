@@ -1,6 +1,6 @@
 Name:		mosh
 Version:	1.4.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Mobile shell that supports roaming and intelligent local echo
 
 License:	GPLv3+
@@ -55,6 +55,9 @@ Mosh is a remote terminal application that supports:
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 26 2022 Alex Chernyakhovsky <achernya@mit.edu> - 1.4.0-1
 - Update to mosh 1.4.0
 

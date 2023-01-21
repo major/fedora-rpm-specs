@@ -25,8 +25,8 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.49.8
-Release:       2%{?dist}
+Version:       1.49.9
+Release:       1%{?dist}
 License:       GPLv2+
 
 # Build only for architectures that have a kernel
@@ -70,6 +70,9 @@ BuildRequires: libvirt-devel
 BuildRequires: libosinfo-devel
 BuildRequires: libxcrypt-devel
 BuildRequires: ncurses-devel
+%ifarch x86_64
+BuildRequires: glibc-static
+%endif
 BuildRequires: ocaml-libguestfs-devel
 BuildRequires: ocaml-findlib-devel
 BuildRequires: ocaml-gettext-devel
@@ -151,6 +154,8 @@ like the df(1) command, but for virtual machines, except that it also
 works for Windows virtual machines.
 
 Virt-diff shows the differences between virtual machines.
+
+Virt-drivers detects the bootloader, kernel and drivers inside a guest.
 
 Virt-edit is a command line tool to edit the contents of a file in a
 virtual machine.
@@ -360,6 +365,7 @@ end
 %{_bindir}/virt-customize
 %{_bindir}/virt-df
 %{_bindir}/virt-diff
+%{_bindir}/virt-drivers
 %{_bindir}/virt-edit
 %{_bindir}/virt-filesystems
 %{_bindir}/virt-format
@@ -381,6 +387,7 @@ end
 %{_mandir}/man1/virt-customize.1*
 %{_mandir}/man1/virt-df.1*
 %{_mandir}/man1/virt-diff.1*
+%{_mandir}/man1/virt-drivers.1*
 %{_mandir}/man1/virt-edit.1*
 %{_mandir}/man1/virt-filesystems.1*
 %{_mandir}/man1/virt-format.1*
@@ -427,6 +434,14 @@ end
 
 
 %changelog
+* Thu Jan 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1.49.9-1
+- New upstream development version 1.49.9
+- New tool: virt-drivers
+- Add BR glibc-static for tests on x86_64.
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.49.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Richard W.M. Jones <rjones@redhat.com> - 1.49.8-2
 - New upstream development version 1.49.8
 - +BR libosinfo-devel

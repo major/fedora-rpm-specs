@@ -6,7 +6,7 @@
 
 Name:           libccd
 Version:        2.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for collision detection between convex shapes
 
 License:        BSD
@@ -86,6 +86,9 @@ make -C build test ||exit 0
 %{_libdir}/ccd
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

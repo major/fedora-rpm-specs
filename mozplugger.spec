@@ -1,7 +1,7 @@
 Summary: A generic mozilla plug-in
 Name: mozplugger
 Version: 2.1.6
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: GPLv2+
 Url: http://mozplugger.mozdev.org/
 Source0: http://mozplugger.mozdev.org/files/%{name}-%{version}.tar.gz
@@ -64,6 +64,9 @@ mv README_ README
 %{_mandir}/man7/mozplugger.7*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.6-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

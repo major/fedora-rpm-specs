@@ -1,6 +1,6 @@
 Name:           perl-Devel-Profiler
 Version:        0.04
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Perl profiler compatible with dprofpp
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Devel-Profiler
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

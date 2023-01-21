@@ -2,7 +2,7 @@
 
 Name:           paper-icon-theme
 Version:        1.5.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Modern freedesktop icon theme
 
 License:        CC-BY-SA
@@ -85,6 +85,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Paper-Mono-Dark &>/dev/null || :
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

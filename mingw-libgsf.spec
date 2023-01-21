@@ -5,7 +5,7 @@
 Summary:	MinGW build of structured file editing library
 Name:		mingw-%{_pkg_name}
 Version:	1.14.48
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	LGPLv2+
 URL:		http://www.gnome.org/
 Source:		http://ftp.gnome.org/pub/gnome/sources/libgsf/1.14/libgsf-%{version}.tar.xz
@@ -140,6 +140,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.48-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.48-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

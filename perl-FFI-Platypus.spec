@@ -7,7 +7,7 @@
 
 Name:           perl-FFI-Platypus
 Version:        2.05
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Write Perl bindings to non-Perl libraries with FFI
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FFI-Platypus
@@ -200,6 +200,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.05-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Petr Pisar <ppisar@redhat.com> - 2.05-2
 - Do not provide a test library libtest.so()
 

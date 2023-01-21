@@ -5,7 +5,7 @@
 
 Name:           libinput
 Version:        1.22.1
-Release:        1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Release:        2%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 Summary:        Input device library
 
 License:        MIT
@@ -151,6 +151,9 @@ intended to be run by users.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.22.1-1
 - libinput 1.22.1
 

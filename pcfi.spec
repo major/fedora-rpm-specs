@@ -2,7 +2,7 @@
 
 Name:           pcfi
 Version:        2010.08.09
-Release:        25.20111103git%{commit}%{?dist}
+Release:        26.20111103git%{commit}%{?dist}
 Summary:        PDF Core Font Information
 
 License:        BSD
@@ -44,6 +44,9 @@ cp %SOURCE1 .
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2010.08.09-26.20111103gitbd245c9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2010.08.09-25.20111103gitbd245c9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

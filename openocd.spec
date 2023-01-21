@@ -2,7 +2,7 @@
 %global rcVer 1
 Name:       openocd
 Version:    0.12.0
-Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.1
+Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.2
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
@@ -102,6 +102,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-0.rc1.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 19 2022 Jiri Kastner <jkastner@fedoraproject.org> - 0.12.0-0.rc1
 - release candidate 1
 

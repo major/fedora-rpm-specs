@@ -1,6 +1,6 @@
 Name:           machineball
 Version:        1.0
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        A futuristic ball game with simple rules
 License:        GPL+
 URL:            http://benny.kramekweb.com/machineball/
@@ -59,6 +59,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 24 2022 Robert-André Mauchin <zebob.m@gmail.com> - 1.0-41
 - Rebuilt for Ode soname bump
 

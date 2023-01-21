@@ -1,6 +1,6 @@
 Name:           onednn
 Version:        2.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deep Neural Network Library
 
 License:        ASL 2.0 and BSD and Boost and MIT
@@ -90,6 +90,9 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.7-1
 - Update to 2.7
 

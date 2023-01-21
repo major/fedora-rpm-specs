@@ -19,7 +19,7 @@ programming language.}
 %global godocs          example CHANGELOG.md CHANGELOG_PENDING.md CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        AWS SDK for the Go programming language
 
 # Upstream license specification: Apache-2.0
@@ -53,6 +53,9 @@ sed -i 's|github.com/aws/aws-sdk-go-v2|github.com/aws/aws-sdk-go-v2-0.24|' $(fin
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

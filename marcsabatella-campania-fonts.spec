@@ -1,5 +1,5 @@
 Version:        2.009
-Release:        6%{?dist}
+Release:        7%{?dist}
 URL:            https://github.com/MarcSabatella/Campania
 
 %global foundry           MarcSabatella
@@ -56,6 +56,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %fontfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.009-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 2.009-6
 - Convert License tag to SPDX
 

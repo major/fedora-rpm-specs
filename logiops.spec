@@ -3,7 +3,7 @@
 
 Name:    logiops
 Version: 0.2.3^1.git%{commitshakey}
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Unofficial driver for Logitech mice and keyboard
 
 License: GPLv3
@@ -53,6 +53,9 @@ This is currently only compatible with HID++ >2.0 devices.
 %doc logid.example.cfg
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3^1.gitdbe2b28-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3^1.gitdbe2b28-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

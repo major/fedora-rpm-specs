@@ -9,7 +9,7 @@ Name:           geolite2
 # released under CC-BY-SA.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1786211
 Version:        20191217
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Free IP geolocation databases
 License:        CC-BY-SA
 URL:            https://dev.maxmind.com/geoip/geoip2/geolite2/
@@ -72,6 +72,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20191217-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20191217-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -16,7 +16,7 @@ build a flexible logging system.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.21%{?dist}
+Release:        0.22%{?dist}
 Summary:        Hierarchical, leveled, and structured logging library for go
 
 # Upstream license specification: Apache-2.0
@@ -45,6 +45,9 @@ BuildRequires:  golang(github.com/spacemonkeygo/flagfile/utils)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

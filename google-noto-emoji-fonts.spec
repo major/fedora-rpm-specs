@@ -12,7 +12,7 @@
 
 Name:           %{fontname}-fonts
 Version:        20220916
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Google “Noto Emoji” Black-and-White emoji font
 
 # In noto-emoji-fonts source
@@ -113,6 +113,9 @@ install -m 0644 -p %{SOURCE3} %{buildroot}%{_datadir}/appdata
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220916-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Peng Wu <pwu@redhat.com> - 20220916-2
 - Update Upstream URL
 

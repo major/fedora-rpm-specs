@@ -1,6 +1,6 @@
 Name:           perl-Any-URI-Escape
 Version:        0.01
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Load URI::Escape::XS preferentially over URI::Escape
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ URI::Escape::XS and imports the two most common methods if XS is installed.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libgdata
 Version:        0.18.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library for the GData protocol
 
 License:        LGPLv2+
@@ -92,6 +92,9 @@ export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 %{_datadir}/vala/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Kalev Lember <klember@redhat.com> - 0.18.1-6
 - Build against gcr 4 (thanks Bastien Nocera!)
 

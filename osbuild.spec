@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        75
+Version:        76
 
 %forgemeta
 
@@ -10,7 +10,7 @@ Version:        75
 
 Name:           %{pypi_name}
 Release:        1%{?dist}
-License:        ASL 2.0
+License:        Apache-2.0
 
 URL:            %{forgeurl}
 
@@ -251,6 +251,17 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Packit <hello@packit.dev> - 76-1
+Changes with 76
+----------------
+  * sources/ostree: fix quotation marks in mTLS remote options (#1222)
+  * stages/mkdir: explicitly set mode using `chmod` and support handling of existing directories (#1224)
+
+Contributions from: Ondřej Budai, Sanne Raymaekers, Tomáš Hozza
+
+— Somewhere on the Internet, 2023-01-18
+
+
 * Wed Jan 04 2023 Packit <hello@packit.dev> - 75-1
 Changes with 75
 ----------------

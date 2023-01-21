@@ -5,7 +5,7 @@
 
 Name:           opencl-headers
 Version:        3.0
-Release:        12%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:        13%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        OpenCL (Open Computing Language) header files
 
 License:        MIT
@@ -56,6 +56,9 @@ rm -vf %{buildroot}%{_includedir}/CL/cl_{dx9,d3d}*
 %{_includedir}/CL/opencl.hpp
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-13.20220510gitdef8be9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-12.20220510gitdef8be9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

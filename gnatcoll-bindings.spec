@@ -1,7 +1,7 @@
 Name:           gnatcoll-bindings
 Epoch:          2
 Version:        21.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        The GNAT Components Collection – bindings
 Summary(sv):    GNAT Components Collection – bindningar
 
@@ -256,6 +256,9 @@ cp --preserve=timestamps COPYING3 COPYING.RUNTIME \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:21.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2:21.0.0-10
 - Rebuilt with GCC 13.
 

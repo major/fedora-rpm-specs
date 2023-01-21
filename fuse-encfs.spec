@@ -1,6 +1,6 @@
 Name:           fuse-encfs
 Version:        1.9.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Encrypted pass-thru filesystem in userspace
 
 License:        GPLv3+
@@ -58,6 +58,9 @@ rm -f %{buildroot}/%{_libdir}/*.so
 %{_mandir}/man1/encfs*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 25 2022 Rich Mattes <richmattes@gmail.com> - 1.9.5-15
 - Rebuild for tinyxml2-9.0.0
 

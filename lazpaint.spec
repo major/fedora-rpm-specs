@@ -10,7 +10,7 @@ URL: https://lazpaint.github.io
 License: GPLv3 and LGPLv2 and Boost
 
 Version: 7.2.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Versions taken from lazpaint/lazpaint.lpi
 %global bitmap_version   11.5.2
@@ -180,6 +180,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 7.2.2-1
 - Update to v7.2.2
 

@@ -10,7 +10,7 @@
 
 Name:           mingw-winstorecompat
 Version:        4.0.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        MinGW library to help porting to Windows Store
 License:        MIT
 
@@ -109,6 +109,9 @@ find $RPM_BUILD_ROOT -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 4.0.2-15
 - Rebuild with mingw-gcc-12
 

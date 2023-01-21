@@ -7,7 +7,7 @@
 
 Name:           fedora-license-data
 Version:        1.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -89,6 +89,9 @@ make DESTDIR=%{buildroot} install-json %{?with_rpmlint:install-rpmlint}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Miroslav Suchý <msuchy@redhat.com> 1.11-1
 - Add BSD-1-Clause license as an approved license
 - add perl-XML-Writer to Update UltraPermissive.txt

@@ -19,7 +19,7 @@
 
 Name:           netplan
 Version:        0.105
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Network configuration tool using YAML
 License:        GPLv3
 URL:            http://netplan.io/
@@ -240,6 +240,9 @@ make check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.105-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 11 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.105-3
 - Fix libnetplan.so permissions so dependency generation works
 

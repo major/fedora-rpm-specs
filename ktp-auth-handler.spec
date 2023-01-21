@@ -2,7 +2,7 @@
 Name:    ktp-auth-handler
 Summary: Provide UI/KWallet Integration
 Version: 22.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/network/%{name}
@@ -71,6 +71,9 @@ Provide UI/KWallet Integration For Passwords and SSL Errors on Account Connect.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
 - Update to 22.12.1
 

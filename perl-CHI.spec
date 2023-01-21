@@ -1,6 +1,6 @@
 Name:           perl-CHI
 Version:        0.61
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Unified cache handling interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CHI
@@ -142,6 +142,9 @@ find lib \( -type f -a -executable \) -exec chmod -x {} \;
 %{perl_vendorlib}/CHI/Test*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.61-5
 - Convert license to SPDX.
 

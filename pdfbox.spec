@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.27
-Release:       5%{?dist}
+Release:       7%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -107,9 +107,6 @@ Summary:        Apache PDFBox Reactor POM
 Apache PDFBox Reactor POM.
 
 %package -n preflight
-# See: preflight/pom.xml
-Requires:      mvn(jakarta.activation:jakarta.activation-api:1.2.2)
-Requires:      mvn(javax.xml.bind:jaxb-api)
 # See: preflight/target/classes/META-INF/DEPENDENCIES
 Requires:      mvn(commons-logging:commons-logging)
 Requires:      mvn(org.apache.pdfbox:fontbox)
@@ -208,6 +205,7 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %pom_xpath_set 'pom:target' 8 parent
 
 %pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api:1.2.2 preflight
+%pom_xpath_remove 'pom:dependency/pom:scope[text()="provided"]' preflight
 
 %build
 # Integration tests all require internet access to download test resources, so skip
@@ -254,6 +252,12 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.27-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Thu Jan 19 2023 Marian Koncek <mkoncek@redhat.com> - 2.0.27-6
+- Use generated Requires on API artifacts
+
 * Wed Jan 18 2023 Sérgio Basto <sergio@serjux.com> - 2.0.27-5
 - Also reuqires compat jakarta.activation
 

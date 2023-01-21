@@ -1,6 +1,6 @@
 Name:           lcms
 Version:        1.19
-Release:        34%{?dist}
+Release:        35%{?dist}
 
 Summary:        Color Management System
 License:        MIT
@@ -91,6 +91,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

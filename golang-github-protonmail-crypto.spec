@@ -16,7 +16,7 @@ Fork of go/x/crypto, providing an up-to-date OpenPGP implementation.}
 
 Name:           %{goname}
 Version:        0
-Release:        0.5%{?dist}
+Release:        0.6%{?dist}
 Summary:        Fork of go/x/crypto, providing an up-to-date OpenPGP implementation
 
 License:        BSD-3-Clause
@@ -44,6 +44,9 @@ Source:         %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 28 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0-0.5
 - Update to latest commit
 

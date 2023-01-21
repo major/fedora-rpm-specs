@@ -1,7 +1,7 @@
 Name: hyphen-ro
 Summary: Romanian hyphenation rules
 Version: 3.3.6
-Release: 22%{?dist}
+Release: 23%{?dist}
 Source: http://downloads.sourceforge.net/rospell/hyph_ro_RO.3.3.6.zip
 URL: http://rospell.sourceforge.net/
 License: GPLv2+
@@ -28,6 +28,9 @@ cp -p *.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

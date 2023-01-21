@@ -3,7 +3,7 @@
 
 Name:           jumpnbump
 Version:        1.61
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Cute multiplayer platform game with bunnies
 License:        GPLv2+
 URL:            https://gitlab.com/LibreGames/jumpnbump
@@ -119,6 +119,9 @@ fi
 %{_datadir}/applications/%{name}-menu.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

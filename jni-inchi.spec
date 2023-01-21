@@ -2,7 +2,7 @@
 
 Name:           jni-inchi
 Version:        0.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        International Chemical Identifiers for Java
 
 License:        LGPL-3.0-or-later
@@ -104,6 +104,9 @@ cp -p target/native/*.so %{buildroot}%{_libdir}/%{name}
 %{_libdir}/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 0.8-6
 - Convert License tag to SPDX
 

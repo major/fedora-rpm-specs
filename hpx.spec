@@ -1,6 +1,6 @@
 Name:           hpx
 Version:        1.8.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        Boost
 URL:            http://stellar.cct.lsu.edu/tag/hpx/
@@ -275,6 +275,9 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Patrick Diehl <patrickdiehl1@gmail.com> - 1.8.1-1
 - Bump to HPX 1.8.1
 

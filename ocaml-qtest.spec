@@ -2,7 +2,7 @@
 
 Name:           ocaml-qtest
 Version:        2.11.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Inline (Unit) Tests for OCaml
 
 License:        GPL-3.0-or-later
@@ -81,6 +81,9 @@ asciidoc README.adoc
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 2.11.2-10
 - Rebuild for ocaml-ounit 2.2.6
 - Convert License tag to SPDX

@@ -39,7 +39,7 @@
 Summary: An unwinding library
 Name: libunwind
 Version: 1.6.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD
 URL: http://savannah.nongnu.org/projects/libunwind
 Source: http://download-mirror.savannah.gnu.org/releases/libunwind/libunwind-%{version}.tar.gz
@@ -126,6 +126,9 @@ echo ====================TESTING END=====================
 %{_includedir}/libunwind*.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep  7 2022 Florian Weimer <fweimer@redhat.com> - 1.6.2-5
 - Run the testsuite during build
 

@@ -6,7 +6,7 @@
 
 Name:           ocaml-ppx-fields-conv
 Version:        0.15.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Generate accessor & iteration functions for OCaml records
 
 License:        MIT
@@ -56,6 +56,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-8
 - Rebuild for ocaml-ppxlib 0.28.0
 

@@ -6,7 +6,7 @@
 
 Name:           nagios
 Version:        4.4.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -469,6 +469,9 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 4.4.9-2
 - Port configure script to C99
 

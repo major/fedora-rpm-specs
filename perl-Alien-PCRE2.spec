@@ -1,6 +1,6 @@
 Name:           perl-Alien-PCRE2
 Version:        0.016000
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Install and locate PCRE2 library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-PCRE2
@@ -122,6 +122,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.016000-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Petr Pisar <ppisar@redhat.com> - 0.016000-4
 - Rebuild against pcre2-10.42 (bug #2160911)
 - Convert a License tag to an SPDX format

@@ -19,7 +19,7 @@ modified base58 encoding.}
 %global golicenses      LICENSE
 
 Name:           %{goname}-base58
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        API for encoding and decoding to and from the modified base58 encoding
 
 License:        ISC
@@ -46,6 +46,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

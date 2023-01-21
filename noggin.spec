@@ -1,6 +1,6 @@
 Name:           noggin
 Version:        1.6.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -100,6 +100,9 @@ touch %{buildroot}%{_localstatedir}/log/noggin/error.log
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 08 2022 Neal Gompa <ngompa@fedoraproject.org> - 1.6.1-4
 - Fix noggin.service to use correct launch method
 

@@ -1,7 +1,7 @@
 Summary:        A straightforward implementation of DBM
 Name:           kyotocabinet
 Version:        1.2.79
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv3
 URL:            https://dbmx.net/%{name}/
 Source:         https://dbmx.net/%{name}/pkg/%{name}-%{version}.tar.gz
@@ -140,6 +140,9 @@ make check
 %doc COPYING doc/api/* kyotocabinet.idl
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.79-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Peng Wu <pwu@redhat.com> - 1.2.79-1
 - Update to 1.2.79
 

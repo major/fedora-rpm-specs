@@ -25,7 +25,7 @@ event loop generally concurrent is vast.)}
 
 Name:           %{goname}
 Version:        0
-Release:        0.15%{?dist}
+Release:        0.16%{?dist}
 Summary:        Utility library to make use of the X Go Binding easier
 
 License:        WTFPL
@@ -60,6 +60,9 @@ find . -name "*.go" -exec sed -i "s|github.com/BurntSushi/freetype-go/freetype|g
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

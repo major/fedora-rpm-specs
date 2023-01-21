@@ -70,7 +70,7 @@
 Name:           jd
 Epoch:          1
 Version:        %{main_ver}%{?strtag:.%{strtag}}
-Release:        %{rel}%{flagrel}
+Release:        %{rel}%{flagrel}.1
 Summary:        A 2ch browser
 
 License:        GPLv2
@@ -214,6 +214,9 @@ export ASAN_OPTIONS=detect_leaks=0
 %{_datadir}/icons/hicolor/*/apps/jdim.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.0-2.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:0.9.0-2
 - Add missing cstdint header inclusion (gcc13)
 

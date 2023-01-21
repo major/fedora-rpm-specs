@@ -1,7 +1,7 @@
 Summary:	A sophisticated file transfer program
 Name:		lftp
 Version:	4.9.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 License:	GPLv3+
 Source0:	http://lftp.yar.ru/ftp/%{name}-%{version}.tar.xz
 URL:		http://lftp.yar.ru/
@@ -100,6 +100,9 @@ desktop-file-install	\
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 07 2022 Michal Ruprich <mruprich@redhat.com> - 4.9.2-7
 - Resolves: #2107872 - lftp fails to verify Let's Encrypt certificates
 

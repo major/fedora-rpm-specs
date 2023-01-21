@@ -5,7 +5,7 @@
 Summary: Online backup for InnoDB/XtraDB in MySQL, Percona Server and MariaDB
 Name: percona-xtrabackup
 Version: 8.0.29_22
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2 and Boost and MIT and Python
 URL: http://www.percona.com/software/percona-xtrabackup/
 # Real name is 8.0.29-22 ...
@@ -109,6 +109,9 @@ rm -rf %{buildroot}/usr/lib/*kmip*.a
 %{_datadir}/percona-xtrabackup-test-%{pxbu_major_minor}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.29_22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Paul Wouters <pwouters@redhat.com> - 8.0.29_22-1
 - Update to 8.0.29-22
 - Resolves: rhbz#1989019 F35FailsToInstall: percona-xtrabackup, percona-xtrabackup-test

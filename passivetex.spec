@@ -1,7 +1,7 @@
 Summary:	Macros to process XSL formatting objects
 Name:		passivetex
 Version:	1.25
-Release:  34%{?dist}
+Release:  35%{?dist}
 License:	MIT
 URL: https://github.com/sebastianrahtz/passivetex
 Source0:	https://github.com/sebastianrahtz/passivetex/archive/master.zip
@@ -49,6 +49,9 @@ exit 0
 %{_datadir}/texmf/tex/xmltex/passivetex
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

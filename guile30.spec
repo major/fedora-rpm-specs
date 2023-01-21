@@ -14,7 +14,7 @@
 
 Name: guile30
 Version: 3.0.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: A GNU implementation of Scheme for application extensibility
 License: LGPLv3+ and MIT and Public Domain and GPL+ and GPLv3+
 Source: https://ftp.gnu.org/gnu/guile/guile-%{version}.tar.gz
@@ -213,6 +213,9 @@ fi
 %{_includedir}/guile
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 3.0.7-7
 - Port configure script to C99
 

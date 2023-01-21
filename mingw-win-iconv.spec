@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       0.0.8
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Iconv implementation using Win32 API
 
 License:       LicenseRef-Fedora-Public-Domain
@@ -112,6 +112,9 @@ rm -rf %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 0.0.8-8
 - Rebuild with mingw-gcc-12
 

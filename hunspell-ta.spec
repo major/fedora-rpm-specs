@@ -7,7 +7,7 @@
 Name: hunspell-ta
 Summary: Tamil hunspell dictionaries
 Version: 1.0.0
-Release: 20%{?dist}
+Release: 21%{?dist}
 Epoch:   1
 Source: http://anishpatil.fedorapeople.org/ta_in.%{version}.tar.gz
 URL: https://gitorious.org/hunspell_dictionaries/hunspell_dictionaries.git
@@ -35,6 +35,9 @@ cp -p ta_IN/*.dic ta_IN/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Parag Nemade <pnemade AT redhat DOT com> - 1:1.0.0-20
 - Update license tag to SPDX format
 

@@ -1,6 +1,6 @@
 Name:           pdf2djvu
 Version:        0.9.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PDF to DjVu converter
 License:        GPLv2+
 URL:            http://jwilk.net/software/pdf2djvu
@@ -50,6 +50,9 @@ install -p -m 644 -D {doc,%{buildroot}%{_mandir}/man1}/%{name}.1
 %{_mandir}/ru/man1/%{name}.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 25 2022 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.19-1
 - Updated to 0.9.19 fixes rhbz#2113575 and rhbz#2117084
 

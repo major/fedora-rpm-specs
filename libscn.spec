@@ -3,7 +3,7 @@
 
 Name: libscn
 Version: 1.1.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: Apache-2.0
 Summary: Library for replacing scanf and std::istream
@@ -71,6 +71,9 @@ rm -rf %{buildroot}%{_datadir}/%{intname}
 %{_libdir}/%{name}.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 06 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.2-3
 - Add BR on fast_float-static
 

@@ -4,7 +4,7 @@ Version:        1.3.0
 %forgemeta
 
 Name:           libpasraw
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Pascal interface to libraw
 
 License:        GPLv3+
@@ -63,6 +63,9 @@ make install PREFIX=%{buildroot}%{_prefix}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-11
 - LibRaw rebuild
 

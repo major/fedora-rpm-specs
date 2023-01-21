@@ -2,7 +2,7 @@
 
 Name:		flaw
 Version:	1.3.2a
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Free top-down wizard battle game
 License:	GPLv3+
 URL:		http://flaw.sourceforge.net/
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2a-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2a-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

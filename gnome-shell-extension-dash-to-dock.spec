@@ -8,7 +8,7 @@
 
 Name:           gnome-shell-extension-dash-to-dock
 Version:        74
-Release:        1%{?dist}
+Release:        2%{?dist}
 #Release:        5.%%{commit_date}git%%{commit_short}%%{?dist}
 Summary:        Dock for the Gnome Shell by micxgx@gmail.com
 
@@ -90,6 +90,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 74-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 29 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 74-1
 - dash-to-dock 74
 

@@ -3,7 +3,7 @@ Name:               onboard
 Version:            1.4.1
 %global             major_version       1.4
 
-Release:            28%{?dist}
+Release:            29%{?dist}
 Summary:            On-screen keyboard for TabletPC and mobility impaired users (Xorg only)
 
 # The entire source code is GPLv3 apart from translation strings and
@@ -98,6 +98,9 @@ Requires:       onboard
 %{_datadir}/gnome-shell/extensions/Onboard_Indicator@onboard.org
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

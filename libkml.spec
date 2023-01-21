@@ -11,7 +11,7 @@
 
 Name:           libkml
 Version:        1.3.0
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Reference implementation of OGC KML 2.2
 
 License:        BSD
@@ -280,6 +280,9 @@ export MINGW64_CMAKE_ARGS="\
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Sandro Mani <manisandro@gmail.com> - 1.3.0-42
 - Rebuild (python-3.11)
 

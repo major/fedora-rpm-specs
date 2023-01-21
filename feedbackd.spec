@@ -2,7 +2,7 @@
 
 Name:           feedbackd
 Version:        0.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Feedback library for GNOME
 
 License:        GPLv3+
@@ -94,6 +94,9 @@ install -D -m 644 debian/feedbackd.udev %{buildroot}%{_udevrulesdir}/90-feedback
 %{_libdir}/pkgconfig/libfeedback-0.0.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.0.2-1
 - Update to 0.0.2
 

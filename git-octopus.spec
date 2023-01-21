@@ -17,7 +17,7 @@
 
 Name:           git-octopus
 Version:        2.0
-Release:        %{?pre_rel:0.}4%{?pre_rel:.%pre_rel}%{?dist}.14
+Release:        %{?pre_rel:0.}4%{?pre_rel:.%pre_rel}%{?dist}.15
 Summary:        Git commands for continuous delivery
 License:        LGPLv3
 URL:            https://%{provider_prefix}
@@ -82,6 +82,9 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/vendor:%{gopath}
 %{_mandir}/man1/git-*.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.4.beta.3.15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-0.4.beta.3.14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

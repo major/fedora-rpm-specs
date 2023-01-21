@@ -2,7 +2,7 @@
 %global libversion 1.0.0
 Name:           gearbox
 Version:        10.11
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A collection of usable peer-reviewed robotics-related libraries
 
 License:        LGPLv2+ and GPLv2+
@@ -99,6 +99,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/*
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 10.11-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

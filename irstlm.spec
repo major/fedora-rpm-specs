@@ -1,6 +1,6 @@
 Name:           irstlm
 Version:        6.00.05
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Statistical language model tool
 
 License:        LGPLv2+
@@ -110,6 +110,9 @@ rm -fr %{buildroot}%{_prefix}/doc
 %{_bindir}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.00.05-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.00.05-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

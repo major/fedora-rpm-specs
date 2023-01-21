@@ -1,6 +1,6 @@
 Name:           lv2-ir-plugins
 Version:        1.3.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        LV2 Plugin: low-latency, real-time, high performance signal convolver
 
 License:        GPLv2+
@@ -51,6 +51,9 @@ export LDFLAGS="%{__global_ldflags}"
 %{_libdir}/lv2/ir.lv2/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

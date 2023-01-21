@@ -4,7 +4,7 @@
 
 Name:           mingw-adwaita-qt
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Adwaita theme for Qt-based applications
 
 License:        GPLv2+ and MIT
@@ -209,6 +209,9 @@ popd
 %{mingw64_libdir}/libadwaitaqt6priv.dll.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 21 2022 Jan Grulich <jgrulich@redhat.com> - 1.4.2-1
 - 1.4.2
 

@@ -19,7 +19,7 @@ X.509 Certificate Linter focused on Web PKI standards and requirements.}
 %global godocs          CONTRIBUTING.md README.md v2/integration/README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        X.509 Certificate Linter focused on Web PKI standards and requirements
 
 # Upstream license specification: Apache-2.0
@@ -57,6 +57,9 @@ BuildRequires:  golang(golang.org/x/text/unicode/norm)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 2.2.1-6
 - Rebuild to fix FTBFS
 

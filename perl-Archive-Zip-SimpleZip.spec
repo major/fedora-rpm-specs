@@ -2,7 +2,7 @@
 
 Name:           perl-Archive-Zip-SimpleZip
 Version:        1.000
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create Zip Archives
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Archive-Zip-SimpleZip/
@@ -99,6 +99,9 @@ make test
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

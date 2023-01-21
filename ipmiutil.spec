@@ -4,7 +4,7 @@
 #
 Name:      ipmiutil
 Version: 3.1.2
-Release: 13%{?dist}
+Release: 14%{?dist}
 Summary:   Easy-to-use IPMI server management utilities
 License:   BSD
 Source:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -364,6 +364,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

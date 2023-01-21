@@ -2,7 +2,7 @@
 
 Name:           nodejs-packaging
 Version:        2022.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM Macros and Utilities for Node.js Packaging
 BuildArch:      noarch
 License:        MIT
@@ -92,6 +92,9 @@ install -Dpm0755 nodejs-packaging-bundler %{buildroot}%{_bindir}/nodejs-packagin
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 20 2022 Stephen Gallagher <sgallagh@redhat.com> - 2022.10-1
 - Move native module building tools here from Node.js
 - Add `Requires: /usr/bin/node`

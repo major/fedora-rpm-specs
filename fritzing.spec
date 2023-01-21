@@ -6,7 +6,7 @@ License:        GPLv3+
 URL:            http://fritzing.org/
 
 Version:        0.9.10
-%global baserelease 2
+%global baserelease 3
 
 # The fritzing-app repo does not contain a tag for v0.9.10.
 %global app_date 20220514
@@ -158,6 +158,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-3.20220514
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10-2.20220514
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

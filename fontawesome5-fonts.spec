@@ -1,7 +1,7 @@
 Name:           fontawesome5-fonts
 Summary:        Support files for the FontAwesome 5 fonts
 Version:        5.15.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        MIT
 URL:            https://fontawesome.com/
 BuildArch:      noarch
@@ -119,6 +119,9 @@ rm %{buildroot}%{_fontconfig_templatedir}/fonts.dtd
 %{_datadir}/fontawesome5/svgs/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Jerry James <loganjerry@gmail.com> - 5.15.4-3
 - Convert License tags to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        2.015
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A sanserif typeface family
 
 License:        OFL
@@ -78,6 +78,9 @@ install -Dm 0644 -p %{SOURCE2} \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.015-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.015-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

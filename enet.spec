@@ -1,6 +1,6 @@
 Name:           enet
 Version:        1.3.17
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Thin, simple and robust network layer on top of UDP
 
 License:        MIT
@@ -54,6 +54,9 @@ find %{buildroot} -name '*.la' -delete -print
 %{_libdir}/pkgconfig/lib%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.17-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 François Cami <fcami@fedoraproject.org> - 1.3.17-4
 - Add cmake version patches
 

@@ -201,11 +201,11 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          10.3
-Release:          1%{?prereltag:%{prereltag}}%{?dist}
+Release:          2%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.13
+Release:          0.@PACKAGE_RELEASE@%{?dist}.14
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -1635,6 +1635,9 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 11 2022  Kaleb S. KEITHLEY <kkeithle[at]redhat.com>
 - SPDX migration
 

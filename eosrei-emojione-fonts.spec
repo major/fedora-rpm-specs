@@ -2,7 +2,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A color emoji font
 
 # Note, the link below is the last "Android" build of the EmijoOne font
@@ -55,6 +55,9 @@ install -Dm 0644 -p %{SOURCE1} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

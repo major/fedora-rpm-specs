@@ -3,7 +3,7 @@
 
 Name:		libextractor
 Version:	1.10
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Simple library for keyword extraction
 
 License:	GPLv3+
@@ -238,6 +238,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 1.10-7
 - Rebuilt for flac 1.4.0
 

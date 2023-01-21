@@ -40,6 +40,7 @@ Summary:        Asahi Linux firmware tools
 # Ensure runtime dependencies are pulled in
 Requires:       liblzfse.so.%{liblzfse_majver}%{libsymbolsuffix}
 Requires:       python3dist(asn1)
+Requires:       tar
 
 %description -n python3-%{pypi_name}
 Asahi Linux firmware tools

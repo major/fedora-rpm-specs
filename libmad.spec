@@ -1,6 +1,6 @@
 Name:		libmad
 Version:	0.15.1b
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	MPEG audio decoder library
 
 License:	GPLv2+
@@ -112,6 +112,9 @@ touch -r mad.h.sed %{buildroot}/%{_includedir}/mad.h
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1b-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1b-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

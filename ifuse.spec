@@ -1,6 +1,6 @@
 Name:          ifuse
 Version:       1.1.4
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Mount Apple iPhone and iPod touch devices
 License:       GPLv2+
 URL:           http://www.libimobiledevice.org/
@@ -33,6 +33,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

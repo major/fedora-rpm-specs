@@ -6,7 +6,7 @@
 
 Name:           lfsc
 Version:        0.20210305
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SMT proof checker
 
 License:        BSD-3-Clause
@@ -24,6 +24,8 @@ Source8:        http://clc.cs.uiowa.edu/lfsc/color_base.plf
 Source9:        http://clc.cs.uiowa.edu/lfsc/color_euf.plf
 # Use std::unordered_map instead of the deprecated __gnu_cxx::hash_map
 Patch0:         %{name}-map.patch
+# The cstdint header is no longer included transitively
+Patch1:         %{name}-stdint.patch
 
 BuildRequires:  cmake
 BuildRequires:  flex
@@ -106,6 +108,12 @@ cd -
 %{_libdir}/liblfscc.so
 
 %changelog
+* Thu Jan 19 2023 Jerry James <loganjerry@gmail.com> - 0.20210305-5
+- Add -stdint patch to fix FTBFS
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210305-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 0.20210305-4
 - New project URL
 - Convert License tag to SPDX

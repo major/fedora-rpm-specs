@@ -4,7 +4,7 @@
 
 Name:		libechonest
 Version: 	2.3.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	C++ wrapper for the Echo Nest API
 
 License:	GPLv2+
@@ -113,6 +113,9 @@ time make test -C %{_target_platform} ARGS="--timeout 300 --output-on-failure" |
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

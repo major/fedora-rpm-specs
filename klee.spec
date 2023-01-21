@@ -8,7 +8,7 @@
 
 Name:           klee
 Version:        2.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Symbolic Execution Engine
 
 %define uclibc_version 1.3
@@ -148,6 +148,9 @@ cd "$BUILD_DIR"
 %{_libdir}/libkleeRuntest.so.1.0
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Jerry James <loganjerry@gmail.com> - 2.3-6
 - Rebuild for z3 4.11
 - Add z3-4.11.patch due to Z3_TRUE removal

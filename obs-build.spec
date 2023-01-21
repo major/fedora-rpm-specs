@@ -8,7 +8,7 @@
 %global obsrel 407.1
 
 # Actual release
-%global baserelease 1
+%global baserelease 2
 
 Name:           obs-build
 Version:        20230105
@@ -142,6 +142,9 @@ sed -e "s|#!/usr/bin/python|#!%{__python3}|" \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230105-407.1.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan  6 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 20230105-407.1.1
 - New upstream release 20230105, fixes rhbz#2158110
 

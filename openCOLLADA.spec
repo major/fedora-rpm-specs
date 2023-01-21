@@ -7,7 +7,7 @@
 
 Name:           openCOLLADA
 Version:        1.6.70
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        MIT
 Summary:        Collada 3D import and export libraries
 URL:            https://github.com/RemiArnaud/OpenCOLLADA/
@@ -131,6 +131,9 @@ cp -a Externals/MathMLSolver/include/* %{buildroot}%{_includedir}/MathMLSolver/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.70-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.70-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

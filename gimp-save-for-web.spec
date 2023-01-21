@@ -1,6 +1,6 @@
 Name:		gimp-save-for-web
 Version:	0.29.3
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Save for web plug-in for GIMP
 License:	GPLv2+ and MIT
 URL:		http://registry.gimp.org/node/33
@@ -54,6 +54,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.m
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

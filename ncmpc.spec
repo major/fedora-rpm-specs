@@ -1,6 +1,6 @@
 Name:           ncmpc
 Version:        0.47
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A curses client for the Music Player Daemon (MPD)
 
 License:        GPLv2+
@@ -69,6 +69,9 @@ install -p -m644 doc/keys.sample $RPM_BUILD_ROOT%{_sysconfdir}/ncmpc/keys
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.47-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

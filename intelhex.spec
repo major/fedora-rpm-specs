@@ -1,6 +1,6 @@
 Name:          intelhex
 Version:       2.3.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Utilities for manipulating Intel HEX file format
 License:       BSD
 URL:           https://github.com/python-intelhex/intelhex
@@ -76,6 +76,9 @@ popd
 %doc docs/manual/.build/html/searchindex.js
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

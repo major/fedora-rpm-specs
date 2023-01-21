@@ -5,7 +5,7 @@
 
 Name:           flatpak-builder
 Version:        1.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool to build flatpaks from source
 
 # src/builder-utils.c has portions derived from GPLv2+ code,
@@ -86,6 +86,9 @@ See https://flatpak.org/ for more information.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 26 2022 msuchy <msuchy@redhat.com> - 1.2.3-2
 - migrate to SPDX license
 

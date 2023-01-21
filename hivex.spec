@@ -11,7 +11,7 @@
 
 Name:           hivex
 Version:        1.3.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Read and write Windows Registry binary hive files
 
 License:        LGPLv2
@@ -312,6 +312,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3.23-1
 - New development version 1.3.23
 - Second attempt to fix Python 3.12 removal of distutils (RHBZ#2155013)

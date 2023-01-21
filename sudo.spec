@@ -1,15 +1,14 @@
-
 # comment out if no extra version
-%global extraver p3
+%global extraver p2
 
 Summary: Allows restricted root access for specified users
 Name: sudo
-Version: 1.9.11
+Version: 1.9.12
 # remove -b 3 after rebase !!!
 # use "-p -e % {?extraver}" when beta
 # use "-e % {?extraver}"" when patch version
 # use nothing special when normal version
-Release: %autorelease -e %{?extraver} -b 3
+Release: %autorelease -e %{?extraver}
 License: ISC
 URL: https://www.sudo.ws
 Source0: %{url}/dist/%{name}-%{version}%{?extraver}.tar.gz
@@ -90,7 +89,7 @@ export CFLAGS="$RPM_OPT_FLAGS $F_PIE" LDFLAGS="-pie -Wl,-z,relro -Wl,-z,now"
         --sbindir=%{_sbindir} \
         --libdir=%{_libdir} \
         --docdir=%{_pkgdocdir} \
-	--enable-openssl \
+        --enable-openssl \
         --disable-root-mailer \
         --disable-intercept \
         --with-logging=syslog \
@@ -104,8 +103,8 @@ export CFLAGS="$RPM_OPT_FLAGS $F_PIE" LDFLAGS="-pie -Wl,-z,relro -Wl,-z,now"
         --with-ldap \
         --with-selinux \
         --with-passprompt="[sudo] password for %p: " \
-	--enable-python \
-	--enable-zlib=system \
+        --enable-python \
+        --enable-zlib=system \
         --with-linux-audit \
         --with-sssd
 #       --without-kerb5 \
@@ -194,7 +193,6 @@ EOF
 %attr(0644,root,root) %{_libexecdir}/sudo/sudoers.so
 %attr(0644,root,root) %{_libexecdir}/sudo/audit_json.so
 %attr(0644,root,root) %{_libexecdir}/sudo/group_file.so
-%attr(0644,root,root) %{_libexecdir}/sudo/sample_approval.so
 %attr(0644,root,root) %{_libexecdir}/sudo/system_group.so
 %attr(0644,root,root) %{_libexecdir}/sudo/libsudo_util.so.?.?.?
 %{_libexecdir}/sudo/libsudo_util.so.?

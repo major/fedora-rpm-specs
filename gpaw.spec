@@ -13,6 +13,11 @@ gpaw-1.5 requires numpy 1.9 or newer
 ExcludeArch: ppc64
 %endif
 
+%if 0%{?fedora} >= 38
+# openmpi segmentation fault on i686 bug #2142304
+ExcludeArch: %{ix86}
+%endif
+
 %if 0%{?fedora} >= 21 || 0%{?el7} || 0%{?el6}
 %global blacs_libs 'mpiblacs'
 %else
@@ -21,7 +26,7 @@ ExcludeArch: ppc64
 
 Name:			gpaw
 Version:		22.8.0
-Release:		3%{?dist}
+Release:		5%{?dist}
 Summary:		A grid-based real-space PAW method DFT code
 
 License:		GPLv3+
@@ -301,6 +306,12 @@ popd
 
 
 %changelog
+* Thu Jan 19 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 22.8.0-5
+- Exlude %%{ix86} due to bug #2142304
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Marcin Dulak <marcindulak@fedoraproject.org> - 22.8.0-3
 - Rebuild for libxc-6.0.0 on f38
 

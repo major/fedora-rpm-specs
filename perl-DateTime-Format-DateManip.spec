@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-DateManip
 Version:        0.04
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Convert Date::Manip to DateTime and vice versa
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/DateTime-Format-DateManip
@@ -52,6 +52,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

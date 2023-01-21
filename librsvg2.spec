@@ -15,7 +15,7 @@
 Name:           librsvg2
 Summary:        An SVG library based on cairo
 Version:        2.55.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/LibRsvg
@@ -141,6 +141,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %{_mandir}/man1/rsvg-convert.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.55.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Kalev Lember <klember@redhat.com> - 2.55.1-3
 - Build against rust-lopdf 0.29.0 and rust-yeslogic-fontconfig-sys 4.0.1
 

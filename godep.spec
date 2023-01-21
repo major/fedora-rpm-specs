@@ -35,7 +35,7 @@
 
 Name:           %{repo}
 Version:        62
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Dependency tool for go
 License:        BSD
 URL:            https://%{provider_prefix}
@@ -188,6 +188,9 @@ export GOPATH=%{buildroot}/%{gopath}:$(pwd)/Godeps/_workspace:%{gopath}
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 62-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 62-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

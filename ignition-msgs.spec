@@ -3,7 +3,7 @@
 
 Name:		ignition-msgs
 Version:	1.0.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Common messages for the ignition framework
 
 # Bundled gtest and python helper scripts are licensed BSD, but not included in installation
@@ -87,6 +87,9 @@ rm -fr %{buildroot}%{_prefix}/lib/ruby
 %doc %{_vpath_builddir}/doxygen/html
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

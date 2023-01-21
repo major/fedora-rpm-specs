@@ -1,6 +1,6 @@
 Name:           perl-Data-Dmp
 Version:        0.242
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dump Perl data structures as Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-Dmp
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.242-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 29 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.242-1
 - 0.242 bump
 

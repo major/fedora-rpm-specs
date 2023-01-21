@@ -1,6 +1,6 @@
 Name:           gtkspell3
 Version:        3.0.10
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        On-the-fly spell checking for GtkTextView widgets
 
 License:        GPL-2.0-or-later
@@ -130,6 +130,9 @@ cat gtkspell3.lang | grep -v mingw32 > gtkspell3_native.lang
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.10-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022 Sandro Mani <manisandro@gmail.com> - 3.0.10-15
 - Exclude mingw lang files from native package
 

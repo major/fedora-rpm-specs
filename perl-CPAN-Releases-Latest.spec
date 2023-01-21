@@ -1,6 +1,6 @@
 Name:           perl-CPAN-Releases-Latest
 Version:        0.08
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Find latest release of all distributions on CPAN
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CPAN-Releases-Latest
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

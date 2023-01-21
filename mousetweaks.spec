@@ -1,6 +1,6 @@
 Name:           mousetweaks
 Version:        3.32.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mouse accessibility support for the GNOME desktop
 License:        GPLv3 and GFDL
 URL:            https://wiki.gnome.org/Projects/Mousetweaks
@@ -50,6 +50,9 @@ tab of the Mouse Preferences of GNOME Control Center or through command-line.
 %doc %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.32.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.32.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

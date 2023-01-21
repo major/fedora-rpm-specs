@@ -1,6 +1,6 @@
 Name:		f2fs-tools
 Version:	1.14.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Tools for Flash-Friendly File System (F2FS)
 License:	GPLv2+
 URL:		http://sourceforge.net/projects/f2fs-tools/
@@ -86,6 +86,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application
 Version:        4.61
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Framework for building reusable web-applications
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application
@@ -48,6 +48,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.61-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.61-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

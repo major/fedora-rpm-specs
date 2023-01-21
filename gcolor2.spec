@@ -1,6 +1,6 @@
 Name:           gcolor2
 Version:        0.4
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        A simple color selector for GTK+2
 
 License:        GPLv2
@@ -53,6 +53,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 0.4-26
 - Port to C99
 

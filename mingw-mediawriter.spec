@@ -4,7 +4,7 @@
 
 Name:           mingw-mediawriter
 Version:        5.0.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora Media Writer
 
 License:        GPLv2+
@@ -93,6 +93,9 @@ like flash drives or memory cards.
 %{mingw64_libexecdir}/%{shortname}/helper.exe
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 26 2022 Jan Grulich <jgrulich@redhat.com> - 5.0.4-1
 - 5.0.4
 

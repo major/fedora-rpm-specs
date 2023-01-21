@@ -1,6 +1,6 @@
 Name:           pdfpc
 Version:        4.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A GTK based presentation viewer application for GNU/Linux
 
 License:        GPLv2+
@@ -56,6 +56,9 @@ software.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

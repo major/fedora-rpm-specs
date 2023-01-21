@@ -3,7 +3,7 @@
 
 Name:           libdazzle
 Version:        3.44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Experimental new features for GTK+ and GLib
 
 License:        GPLv3+
@@ -88,6 +88,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.44.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

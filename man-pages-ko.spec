@@ -1,7 +1,7 @@
 Summary: Korean(Hangul) Man(manual) Pages from the Korean Manpage Project
 Name: man-pages-ko
 Version: 20050219
-Release: 43%{?dist}
+Release: 44%{?dist}
 License: Copyright only
 Epoch: 2
 #Vendor: Korean Manpage Project Team.
@@ -73,6 +73,9 @@ cp -a man? $RPM_BUILD_ROOT%{_mandir}/ko/
 %{_mandir}/ko/man*/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:20050219-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 30 2022 Peng Wu <pwu@redhat.com> - 2:20050219-43
 - Resolves: RHBZ#2155877
 - Removed killall.1

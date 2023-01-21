@@ -2,7 +2,7 @@
 
 Name: log4cplus
 Version: 2.0.8
-Release: 3%{?prever:.%{prever}}%{?dist}
+Release: 4%{?prever:.%{prever}}%{?dist}
 Summary: Logging Framework for C++
 
 License: ASL 2.0
@@ -82,6 +82,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/liblog4cplus*.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 04 2022 Martin Osvald <mosvald@redhat.com> - 2.0.8-3
 - Remove extra {} as it is no longer brace expansion
 

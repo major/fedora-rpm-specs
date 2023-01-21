@@ -3,7 +3,7 @@
 
 Name: libqtolm
 Version: 3.0.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: GPL-3.0-or-later
 URL: https://gitlab.com/b0/%{name}
@@ -55,6 +55,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/%{libname}.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

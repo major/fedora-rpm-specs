@@ -2,7 +2,7 @@
 
 Name:           mingw-libidn
 Version:        1.41
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows Internationalized Domain Name support library
 
 License:        LGPLv2+
@@ -127,6 +127,9 @@ find %{buildroot} -name "*.la" -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.41-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

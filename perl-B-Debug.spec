@@ -12,7 +12,7 @@
 
 Name:           perl-B-Debug
 Version:        1.26
-Release:        436%{?dist}
+Release:        437%{?dist}
 Summary:        Walk Perl syntax tree, print debug information about op-codes
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Debug
@@ -91,6 +91,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-437
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.26-436
 - Package tests
 - Update license to SPDX format

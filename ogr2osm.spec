@@ -1,6 +1,6 @@
 Name:           ogr2osm
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convert ogr-readable files like shapefiles into .pbf or .osm data
 
 License:        MIT
@@ -44,6 +44,9 @@ source to the .pbf or .osm output.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 06 2022 Andrea Musuruane <musuruan@gmail.com> - 1.1.2-1
 - Updated to new upstream release
 

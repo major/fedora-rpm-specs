@@ -3,7 +3,7 @@
 %global debug_package %{nil}
 Name:       libecb
 Version:    0.%{snapshot}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Compiler built-ins
 License:    BSD or GPLv2+
 URL:        http://software.schmorp.de/pkg/libecb.html
@@ -55,6 +55,9 @@ install -m 0644 -t %{buildroot}%{_mandir}/man3 *.3
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20211217-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20211217-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

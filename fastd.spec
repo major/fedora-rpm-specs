@@ -12,7 +12,7 @@
 
 Name:           fastd
 Version:        22
-Release:        7%{?gitshort:.git%{gitshort}}%{?dist}
+Release:        8%{?gitshort:.git%{gitshort}}%{?dist}
 Summary:        Fast and secure tunneling daemon
 
 License:        BSD
@@ -112,6 +112,9 @@ install -d $RPM_BUILD_ROOT/%{_sysconfdir}/%{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 22-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

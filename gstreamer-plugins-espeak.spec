@@ -1,6 +1,6 @@
 Name:	gstreamer-plugins-espeak
 Version:	0.5.0
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	A simple gstreamer plugin to use espeak
 License:	LGPLv2+
 URL:		http://wiki.sugarlabs.org/go/Activity_Team/gst-plugins-espeak
@@ -91,6 +91,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name: fping
 Version: 5.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Scriptable, parallelized ping-like utility
 License: BSD with advertising
 URL: http://www.fping.org/
@@ -34,6 +34,9 @@ use in scripting in mind.
 %{_mandir}/man8/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: nss-mdns
 Version: 0.15.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: glibc plugin for .local name resolution
 
 License: LGPLv2+
@@ -62,6 +62,9 @@ authselect disable-feature with-mdns4 &> /dev/null || :
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Petr Menšík <pemensik@redhat.com> - 0.15.1-7
 - Attempt to solve local heuristic (#2148500)
 

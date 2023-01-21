@@ -4,7 +4,7 @@
 
 Name:           ghex
 Version:        43.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Binary editor for GNOME
 
 # Source code is under GPLv2+, help is under GFDL and icon is under CC-BY-SA.
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 43.0-1
 - Update to 43.0
 - Fix gir directory ownership

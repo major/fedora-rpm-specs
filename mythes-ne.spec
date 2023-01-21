@@ -1,7 +1,7 @@
 Name: mythes-ne
 Summary: Nepali thesaurus
 Version: 1.1
-Release: 23%{?dist}
+Release: 24%{?dist}
 Source0: http://download.services.openoffice.org/contrib/dictionaries/thes_ne_NP_v2.zip
 URL: https://wiki.openoffice.org/wiki/Dictionaries
 License: LGPLv2
@@ -28,6 +28,9 @@ cp -p th_ne_NP_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes/
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

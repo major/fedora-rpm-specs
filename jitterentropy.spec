@@ -1,6 +1,6 @@
 Name:	jitterentropy
 Version:	3.4.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Library implementing the jitter entropy source
 
 License:	BSD or GPLv2
@@ -45,6 +45,9 @@ mkdir -p %{buildroot}/usr/include/
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 27 2022 Vladis Dronov <vdronov@redhat.com> - 3.4.1-3
 - Update to the upstream v3.4.1 @ 7bf9f85d
 - Fix a stack corruption on s390x

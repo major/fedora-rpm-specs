@@ -6,7 +6,7 @@
 
 Name: filezilla
 Version: 3.62.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPLv2+
 URL: https://filezilla-project.org/
@@ -148,6 +148,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.62.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.62.2-1
 - 3.62.2
 

@@ -4,7 +4,7 @@
 Summary:        MonoDevelop gdb Debugger Add-in
 Name:           monodevelop-debugger-gdb
 Version:        5.0.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 License:        MIT
 Source:         http://download.mono-project.com/sources/%{name}/%{name}-%{version}-0.tar.bz2
 URL:            http://www.monodevelop.com/
@@ -36,6 +36,9 @@ make install DESTDIR=%{buildroot}
 %{_prefix}/lib/monodevelop/AddIns/MonoDevelop.Debugger/MonoDevelop.Debugger.Gdb*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

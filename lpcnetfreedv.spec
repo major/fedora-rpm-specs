@@ -3,7 +3,7 @@
 
 Name:           lpcnetfreedv
 Version:        0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        LPCNet for FreeDV
 
 License:        BSD
@@ -78,6 +78,9 @@ cp %{SOURCE1} %{__cmake_builddir}/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 Name:             osmo-fl2k
 URL:              https://osmocom.org/projects/osmo-fl2k/wiki
 Version:          0.1.1
-Release:          0.14.%{git_suffix}%{?dist}
+Release:          0.15.%{git_suffix}%{?dist}
 License:          GPLv2+ and GPLv3+
 BuildRequires:    cmake, gcc-c++, libusbx-devel
 Requires:         systemd-udev
@@ -71,6 +71,9 @@ install -Dpm 644 ./osmo-fl2k.rules %{buildroot}%{_prefix}/lib/udev/rules.d/10-os
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-0.15.20211018git197f421c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-0.14.20211018git197f421c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

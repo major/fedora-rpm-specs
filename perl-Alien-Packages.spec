@@ -1,6 +1,6 @@
 Name:           perl-Alien-Packages
 Version:        0.003
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Find information of installed packages
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Alien-Packages
@@ -47,6 +47,9 @@ RPM.
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

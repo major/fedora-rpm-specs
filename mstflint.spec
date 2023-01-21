@@ -3,7 +3,7 @@
 Name:		mstflint
 Summary:	Mellanox firmware burning tool
 Version:	4.21.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPLv2+ or BSD
 Url:		https://github.com/Mellanox/%{name}
 Source0: 	https://github.com/Mellanox/%{name}/releases/download/v%{version}-1/%{name}-%{version}-1.tar.gz
@@ -59,6 +59,9 @@ find %{buildroot} -type f -name '*.a' -delete
 %{_mandir}/man1/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.21.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Michal Schmidt <mschmidt@redhat.com> - 4.21.0-1
 - Update to upstream release 4.21.0
 

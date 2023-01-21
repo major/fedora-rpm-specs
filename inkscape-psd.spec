@@ -1,6 +1,6 @@
 Name:		inkscape-psd
 Version:	0.1.1
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Inkscape PSD Importer
 License:	BSD
 URL:		http://pernsteiner.org/inkscape/psd_import/
@@ -35,6 +35,9 @@ cp -rp psd_import %{buildroot}%{_datadir}/inkscape/extensions
 %{_datadir}/inkscape/extensions/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

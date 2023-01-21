@@ -10,7 +10,7 @@ d=%{_sysconfdir}/rpm; echo $d)
 
 Name:           gnustep-make
 Version:        2.9.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        GNUstep makefile package
 License:        GPLv3+
 URL:            http://www.gnustep.org/
@@ -125,6 +125,9 @@ grep -rIl package_note . | \
 %doc %{_datadir}/GNUstep/Documentation/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 Antonio Trande <sagitter@fedoraproject.org> - 2.9.0-8
 - Remove injected package_note flag in Fedora < 37 only
 

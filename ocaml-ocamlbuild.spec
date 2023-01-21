@@ -5,7 +5,7 @@
 
 Name:          ocaml-ocamlbuild
 Version:       0.14.0
-Release:       34%{?dist}
+Release:       35%{?dist}
 
 Summary:       Build tool for OCaml libraries and programs
 
@@ -124,6 +124,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/ocaml/ocamlbuild/META
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

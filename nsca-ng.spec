@@ -1,6 +1,6 @@
 Name:           nsca-ng
 Version:        1.6
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Add-on for transferring check results (and other commands) to Nagios or Icinga
 
 License:        BSD
@@ -77,6 +77,9 @@ install -Dpm0644 -t %{buildroot}%{_unitdir} etc/nsca-ng.{service,socket}
 %{_mandir}/man5/nsca-ng.cfg.5*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Summary: Ncurses support utilities
 Name: ncurses
 Version: 6.4
-Release: 2.%{revision}%{?dist}
+Release: 3.%{revision}%{?dist}
 License: MIT
 URL: https://invisible-island.net/ncurses/ncurses.html
 Source0: https://invisible-mirror.net/archives/ncurses/current/ncurses-%{version}-%{revision}.tgz
@@ -281,6 +281,9 @@ xz NEWS
 %{_libdir}/lib*.a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4-3.20230114
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Miroslav Lichvar <mlichvar@redhat.com> 6.4-2.20230114
 - update to 6.4-20230114 (#2160276)
 

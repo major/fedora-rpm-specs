@@ -1,7 +1,7 @@
 Summary: A library for password generation and password quality checking
 Name: libpwquality
 Version: 1.4.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/libpwquality/libpwquality/
 Source0: https://github.com/libpwquality/libpwquality/releases/download/libpwquality-%{version}/libpwquality-%{version}.tar.bz2
 # The package is BSD licensed with option to relicense as GPLv2+
@@ -98,6 +98,9 @@ mkdir %{buildroot}%{_secconfdir}/pwquality.conf.d
 %{python3_sitearch}/*.egg-info
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Paul Wouters <paul.wouters@aiven.io - 1.4.5-1
 - Resolves: rhbz#2154991 libpwquality fails to build with Python 3.12: ModuleNotFoundError: No module named 'distutils'
 - Resolves: rhbz#2006063 RFE: Support running without cracklib-dicts installed

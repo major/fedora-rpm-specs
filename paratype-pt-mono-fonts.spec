@@ -19,7 +19,7 @@ Isabella Chaeva and with financial support of Google.\
 
 Name:           %{fontname}-fonts
 Version:        20141121
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A pan-Cyrillic monospace typeface
 
 License:        OFL
@@ -70,6 +70,9 @@ install -Dm 0644 -p %{SOURCE11} \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20141121-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20141121-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

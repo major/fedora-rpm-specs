@@ -5,7 +5,7 @@
 
 Name:       gitstats
 Version:    0
-Release:    0.25.%{checkout}%{?dist}
+Release:    0.26.%{checkout}%{?dist}
 Summary:    Generates statistics based on GIT repository activity
 
 # All code and content other than sortable.js is available under the GPLv2
@@ -63,6 +63,9 @@ install -p -m 0644 $RPM_BUILD_DIR/%{name}-%{commit}/doc/%{name}.1.gz %{buildroot
 %doc %{_mandir}/man1/%{name}.1.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26.20181107git55c5c28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25.20181107git55c5c28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

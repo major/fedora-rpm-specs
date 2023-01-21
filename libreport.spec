@@ -19,7 +19,7 @@
 Summary: Generic library for reporting various problems
 Name: libreport
 Version: 2.17.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -670,6 +670,9 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 06 2022 Packit <hello@packit.dev> - 2.17.6-1
 - Release version 2.17.6 (Michal Srb)
 - Update translations (mgrabovsky)

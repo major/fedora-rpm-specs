@@ -3,7 +3,7 @@
 
 Name:           gnome-firmware
 Version:        43.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Install firmware on devices
 
 License:        GPLv2+
@@ -57,6 +57,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
 %{_metainfodir}/*.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Richard Hughes <rhughes@redhat.com> - 43.1-1
 - New upstream release
 

@@ -7,7 +7,7 @@
 
 Name:           gtk-sharp-beans
 Version:        %{tagname}
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        C# bindings for GTK+ API not included in GTK#
 
 License:        LGPLv2
@@ -59,6 +59,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_libdir}/pkgconfig/%{name}-2.0.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

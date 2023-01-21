@@ -1,6 +1,6 @@
 Name:           lv2-mdala-plugins
 Version:        1.2.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of LV2 plugins ported from the MDA VST plugins
 
 # BSD for waflib
@@ -39,6 +39,9 @@ popd
 %{_libdir}/lv2/mda.lv2/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 19 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 1.2.10-1
 - Update to 1.2.10
 

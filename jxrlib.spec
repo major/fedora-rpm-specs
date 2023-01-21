@@ -1,6 +1,6 @@
 Name:           jxrlib
 Version:        1.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Open source implementation of jpegxr
 
 # See JPEGXR_DPK_Spec_1.0.doc. Upstream request for plain text license file at
@@ -140,6 +140,9 @@ rm -f %{buildroot}%{mingw64_includedir}/jxrlib/guiddef.h
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 05 2022 Sandro Mani <manisandro@gmail.com> - 1.1-23
 - Don't install guiddef.h for mingw
 

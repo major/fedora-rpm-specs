@@ -4,7 +4,7 @@
 
 Name:           mudita24
 Version:        1.1.0
-Release:        8.%{commitdate}git%{shortcommit0}%{?dist}
+Release:        9.%{commitdate}git%{shortcommit0}%{?dist}
 Summary:        ALSA GUI control tool for Envy24 (ice1712) soundcards
 
 License:        GPLv2+
@@ -72,6 +72,9 @@ desktop-file-install \
 %{_datadir}/pixmaps/%{name}.xpm
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9.20160218gite38b1a3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8.20160218gite38b1a3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

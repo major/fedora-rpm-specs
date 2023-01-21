@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -134,6 +134,9 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.34-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 03 2022 Nicolas Chauvet <kwizart@gmail.com> - 2.2.34-1
 - Update to 2.2.34
 - backport python3.11 fix - rhbz#2134944

@@ -1,7 +1,7 @@
 Summary:	Standalone converter for OpenOffice.org documents
 Name:		o3read
 Version:	0.0.4
-Release:	26%{?dist}
+Release:	27%{?dist}
 License:	GPLv2+
 URL:		http://siag.nu/o3read/
 Source0:	http://siag.nu/pub/o3read/%{name}-%{version}.tar.gz
@@ -33,6 +33,9 @@ make install DESTDIR=%buildroot PREFIX=%{_prefix} MANNDIR=%{_mandir}
 %{_mandir}/man1/*.*
 
 %Changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

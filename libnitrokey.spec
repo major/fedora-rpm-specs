@@ -1,6 +1,6 @@
 Name:           libnitrokey
 Version:        3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Communicate with Nitrokey stick devices in a clean and easy manner
 
 License:        LGPLv3+
@@ -52,6 +52,9 @@ to develop using libnitrokey.
 %{_includedir}/libnitrokey/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 01 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.7-1
 - Update to 3.7 (RHBZ #1870893)
 

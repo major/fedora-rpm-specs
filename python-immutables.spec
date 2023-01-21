@@ -16,10 +16,16 @@ get() operations, which is essentially O(1) for relatively small mappings.}
 
 Name:           python-%{srcname}
 Version:        0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Immutable Collections
-# The entire source code is Apache-2.0 except pythoncapi_compat.h which is
-# 0BSD.
+# The entire source code is Apache-2.0, except pythoncapi_compat.h, which is
+# 0BSD. While this file is unbundled, it is a header-only library; its entire
+# contents are compiled into the binary RPM, and packaging guidelines treat it
+# as a static library. Its license therefore contributes to the license of the
+# binary RPM. See discussion in
+# https://src.fedoraproject.org/rpms/python-immutables/pull-request/2, and the
+# (Rust-specific but relevant) policy
+# https://docs.fedoraproject.org/en-US/legal/license-field/#_rust_packages.
 License:        Apache-2.0 AND 0BSD
 URL:            https://github.com/MagicStack/immutables
 Source:         %pypi_source
@@ -35,14 +41,8 @@ BuildRequires:  python3-devel
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
-# https://github.com/python/pythoncapi-compat
-#
-# Not yet packaged separately in Fedora (review request:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2154546).
-#
-# Upstream has never versioned this header; the contents of the file suggest
-# that it corresponds to commit b079cc4f93f479d7fe92c92be481d7ba66731868.
-Provides:       bundled(pythoncapi-compat) = 0^20220804gitb079cc4
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#_packaging_header_only_libraries
+BuildRequires:  pythoncapi-compat-static
 
 %description -n python3-%{srcname} %{common_description}
 
@@ -55,6 +55,9 @@ sed -e '/include_package_data=/ s/True/False/' -i setup.py
 
 # delete mypy tests to avoid that dependency
 rm tests/conftest.py tests/test_mypy.py
+
+# remove bundled pythoncapi-compat
+rm -vf immutables/pythoncapi_compat.h
 
 
 %generate_buildrequires
@@ -83,6 +86,9 @@ rm tests/conftest.py tests/test_mypy.py
 
 
 %changelog
+* Mon Jan 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.19-2
+- Unbundle pythoncapi-compat
+
 * Fri Dec 16 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.19-1
 - Update License to SPDX
 - Indicate bundling of pythoncapi-compat header-only library

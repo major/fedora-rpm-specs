@@ -4,7 +4,7 @@
 Name:           kokkos
 Version:        3.7.01
 %global         sover 3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -79,6 +79,9 @@ This package contains the development files of %{name}.
 %{_bindir}/kokkos_launch_compiler
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.01-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 3.7.01-1
 - Version bump to v3.7.01 (bug #2151701)
 

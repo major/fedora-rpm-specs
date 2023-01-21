@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.102.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with various classes on top of QtCore
 
 License: LGPLv2+
@@ -117,6 +117,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.102.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 14 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.102.0-1
 - 5.102.0
 

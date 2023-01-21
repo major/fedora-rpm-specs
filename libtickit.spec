@@ -5,7 +5,7 @@
 
 Name:           lib%{libname}
 Version:        0.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Terminal Interface Construction Kit
 
 License:        MIT
@@ -79,6 +79,9 @@ make examples
 %{_mandir}/man7/%{libname}_*.7*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 30 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.4.3-1
 - 0.4.3 bump
 

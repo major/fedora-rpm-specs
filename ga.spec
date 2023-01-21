@@ -3,6 +3,11 @@
 # works on other fedora and epel releases, which are supported by this software.
 # No quick Rawhide-only fixes will be allowed.
 
+%if 0%{?fedora} >= 38
+# openmpi segmentation fault on i686 bug #2142304
+ExcludeArch: %{ix86}
+%endif
+
 %define mpich_name mpich
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -13,7 +18,7 @@
 
 Name:    ga
 Version: 5.7.2
-Release: 11%{?dist}
+Release: 13%{?dist}
 Summary: Global Arrays Toolkit
 License: BSD
 Source: https://github.com/GlobalArrays/ga/releases/download/v%{version}/ga-%{version}.tar.gz
@@ -238,6 +243,12 @@ cd ..
 %{_libdir}/openmpi/lib/lib*.a
 
 %changelog
+* Thu Jan 19 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 5.7.2-13
+- Exlude %%{ix86} due to bug #2142304
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 5.7.2-11
 - Apply upstream patches to port to C99
 

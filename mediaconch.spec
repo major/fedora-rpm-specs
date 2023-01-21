@@ -3,7 +3,7 @@
 
 Name:           mediaconch
 Version:        22.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Most relevant technical and tag data for video and audio files (CLI)
 
 License:        BSD
@@ -179,6 +179,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.09-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Oct 29 2022 Vasiliy N. Glazov <vascom2@gmail.com> - 22.09-1
 - Update to 22.09
 

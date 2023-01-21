@@ -1,7 +1,7 @@
 Name:		opal
 Summary:	Open Phone Abstraction Library
 Version:	3.10.11
-Release:	13%{?dist}
+Release:	14%{?dist}
 URL:		http://www.opalvoip.org/
 License:	MPLv1.0
 
@@ -96,6 +96,9 @@ EOF
 %{_libdir}/pkgconfig/opal.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.11-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 3.10.11-13
 - Port to C99
 

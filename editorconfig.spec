@@ -13,7 +13,7 @@ editors.}
 Name:           editorconfig
 Summary:        Parser for EditorConfig files written in C
 Version:        0.12.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        BSD
 
 URL:            https://github.com/editorconfig/editorconfig-core-c
@@ -90,6 +90,9 @@ rm %{buildroot}/%{_libdir}/libeditorconfig_static.a
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

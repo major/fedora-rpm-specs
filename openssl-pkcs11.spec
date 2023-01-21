@@ -1,5 +1,5 @@
 Version: 0.4.12
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Define the directory where the OpenSSL engines are installed
 %global enginesdir %{_libdir}/engines-3
@@ -117,6 +117,9 @@ make check %{?_smp_mflags} || if [ $? -ne 0 ]; then cat tests/*.log; exit 1; fi;
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 08 2022 Jakub Jelen <jjelen@redhat.com> - 0.4.12-2
 - Use upstream patches to unbreak IPA (#2115865)
 

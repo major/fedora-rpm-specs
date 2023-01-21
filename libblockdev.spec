@@ -125,7 +125,7 @@
 
 Name:        libblockdev
 Version:     2.28
-Release:     3%{?dist}
+Release:     4%{?dist}
 Summary:     A library for low-level manipulation with block devices
 License:     LGPL-2.1-or-later
 URL:         https://github.com/storaged-project/libblockdev
@@ -284,9 +284,6 @@ BuildRequires: systemd-devel
 Summary:     The Device Mapper plugin for the libblockdev library
 Requires: %{name}-utils%{?_isa} = %{version}-%{release}
 Requires: device-mapper
-%if %{with_dmraid}
-Requires: dmraid
-%endif
 
 %description dm
 The libblockdev library plugin (and in the same time a standalone library)
@@ -980,6 +977,9 @@ find %{buildroot} -type f -name "*.la" | xargs %{__rm}
 %files plugins-all
 
 %changelog
+* Thu Jan 19 2023 Vojtech Trefny <vtrefny@redhat.com> - 2.28-4
+- Remove dependency on dmraid
+
 * Fri Nov 11 2022 Vojtech Trefny <vtrefny@redhat.com> - 2.28-3
 - Change license string to the SPDX format required by Fedora
 

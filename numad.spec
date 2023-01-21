@@ -2,7 +2,7 @@
 
 Name: numad
 Version: 0.5
-Release: 37.20150602git%{?dist}
+Release: 38.20150602git%{?dist}
 Summary: NUMA user daemon
 
 License: LGPLv2
@@ -60,6 +60,9 @@ install -p -m 644 numad.logrotate %{buildroot}%{_sysconfdir}/logrotate.d/%{name}
 %systemd_postun numad.service
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-38.20150602git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-37.20150602git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

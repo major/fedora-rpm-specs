@@ -22,7 +22,7 @@
 Summary: KDE filesystem layout
 Name: kde-filesystem
 Version: 4
-Release: 68%{?dist}
+Release: 69%{?dist}
 
 License: Public Domain
 
@@ -191,6 +191,9 @@ mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/xdg/plasma-workspace/{env,shutdown}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4-69
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4-68
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

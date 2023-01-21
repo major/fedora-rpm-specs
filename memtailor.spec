@@ -6,7 +6,7 @@
 
 Name:           memtailor
 Version:        1.0
-Release:        20.%{gitdate}.git%{shorttag}%{?dist}
+Release:        21.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        C++ library of special-purpose memory allocators
 
 License:        BSD-3-Clause
@@ -95,6 +95,9 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-21.20220104.git95dbac7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 1.0-20.20220104.git95dbac7
 - Fix URL in the pkgconfig file
 - Convert License tag to SPDX

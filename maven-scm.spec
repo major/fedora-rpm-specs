@@ -30,7 +30,7 @@
 
 Name:           maven-scm
 Version:        1.10.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Common API for doing SCM operations
 License:        ASL 2.0
 URL:            http://maven.apache.org/scm
@@ -152,6 +152,9 @@ sed -i "s/org\.apache\.commons\.lang\./org.apache.commons.lang3./" \
 %doc LICENSE NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

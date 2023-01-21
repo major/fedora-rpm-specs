@@ -2,7 +2,7 @@
 
 Name:           libvarlink
 Version:        23
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Varlink C Library
 License:        ASL 2.0 and BSD-3-Clause
 URL:            https://github.com/varlink/%{name}
@@ -59,6 +59,9 @@ export LC_CTYPE=C.utf8
 %{_libdir}/pkgconfig/libvarlink.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

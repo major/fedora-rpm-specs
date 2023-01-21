@@ -6,7 +6,7 @@
 
 Name:		kreetingkard
 Version:	%{mainver}
-Release:	%{vendorrel}%{?dist}.2
+Release:	%{vendorrel}%{?dist}.3
 Summary:	Japanese greeting card writing software for KDE
 
 License:	GPLv2+
@@ -105,6 +105,9 @@ done
 %{_defaultdocdir}/HTML/en/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-9.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

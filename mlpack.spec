@@ -1,6 +1,6 @@
 Name:           mlpack
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 License:        BSD
@@ -290,6 +290,9 @@ cd ..;
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Ryan Curtin <ryan@ratml.org> - 4.0.1-1
 - Update to latest stable version.
 

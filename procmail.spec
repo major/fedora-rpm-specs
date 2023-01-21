@@ -7,26 +7,19 @@
 
 Summary: Mail processing program
 Name: procmail
-Version: 3.22
-Release: 57%{?dist}
+Version: 3.24
+Release: 1%{?dist}
 License: GPLv2+ or Artistic
-# Source: ftp://ftp.procmail.org/pub/procmail/procmail-%{version}.tar.gz
-# The original source doesn't seem to be available anymore, using mirror
-Source: ftp://ftp.ucsb.edu/pub/mirrors/procmail/procmail-%{version}.tar.gz
+URL: https://github.com/BuGlessRB/%{name}
+Source0: %{URL}/archive/v%{version}/%{name}-%{version}.tar.gz
 # Source2: http://www.linux.org.uk/~telsa/BitsAndPieces/procmailrc
 # The Telsa config file doesn't seem to be available anymore, using local copy
 Source2: procmailrc
-URL: http://www.procmail.org
-Patch0: procmail-3.22-rhconfig.patch
+Patch0: procmail-3.24-rhconfig.patch
 Patch1: procmail-3.15.1-man.patch
-Patch2: procmail_3.22-8.debian.patch
-Patch4: procmail-3.22-truncate.patch
-Patch5: procmail-3.22-ipv6.patch
-Patch6: procmail-3.22-getline.patch
-Patch7: procmail-3.22-CVE-2014-3618.patch
-Patch8: procmail-3.22-crash-fix.patch
-Patch9: procmail-3.22-CVE-2017-16844.patch
-Patch10: procmail-3.22-coverity-scan-fixes.patch
+Patch2: procmail-3.22-truncate.patch
+Patch3: procmail-3.24-ipv6.patch
+Patch4: procmail-3.24-coverity-scan-fixes.patch
 BuildRequires: make
 BuildRequires: gcc
 
@@ -39,17 +32,7 @@ chimes on your workstation for different types of mail) or selectively
 forward certain incoming mail automatically to someone.
 
 %prep
-%setup -q
-%patch0 -p1 -b .rhconfig
-%patch1 -p1
-%patch2 -p1
-%patch4 -p1 -b .truncate
-%patch5 -p1 -b .ipv6
-%patch6 -p1 -b .getline
-%patch7 -p1 -b .CVE-2014-3618
-%patch8 -p1 -b .crash-fix
-%patch9 -p1 -b .CVE-2017-16844
-%patch10 -p1 -b .coverity-scan-fixes
+%autosetup -p1
 
 find examples -type f | xargs chmod 644
 
@@ -66,12 +49,11 @@ make \
     BASENAME=${RPM_BUILD_ROOT}%{_prefix} MANDIR=${RPM_BUILD_ROOT}%{_mandir} \
     install
 
-cp debian/mailstat.1 ${RPM_BUILD_ROOT}%{_mandir}/man1
 cp -p %{SOURCE2} telsas_procmailrc
 
 
 %files
-%doc Artistic COPYING FAQ FEATURES HISTORY README KNOWN_BUGS examples telsas_procmailrc debian/QuickStart debian/README.Maildir
+%doc Artistic COPYING FAQ FEATURES HISTORY README KNOWN_BUGS examples telsas_procmailrc
 
 %{_bindir}/formail
 %attr(2755,root,mail) %{_bindir}/lockfile
@@ -81,6 +63,11 @@ cp -p %{SOURCE2} telsas_procmailrc
 %{_mandir}/man[15]/*
 
 %changelog
+* Thu Jan 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.24-1
+- Switched to the github fork
+- New version
+  Resolves: rhbz#2143702
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.22-57
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

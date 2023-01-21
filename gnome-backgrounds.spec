@@ -2,7 +2,7 @@
 
 Name:    gnome-backgrounds
 Version: 43
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Desktop backgrounds packaged with the GNOME desktop
 
 License: CC-BY-SA
@@ -91,6 +91,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/wood-l.webp
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 43-1
 - Update to 43
 

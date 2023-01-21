@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:		memtester
 Version:	4.3.0
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Utility to test for faulty memory subsystem
 
 License:	GPLv2
@@ -51,6 +51,9 @@ mv $RPM_BUILD_ROOT%{_prefix}/man/man8/memtester.8.gz $RPM_BUILD_ROOT%{_mandir}/m
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: lcov
 Version: 1.14
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 Summary: LTP GCOV extension code coverage tool
 License: GPLv2+
@@ -39,6 +39,9 @@ make install DESTDIR=$RPM_BUILD_ROOT BIN_DIR=%{_bindir} MAN_DIR=%{_mandir} CFG_D
 %config(noreplace) %attr(0644,root,root) %{_sysconfdir}/lcovrc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

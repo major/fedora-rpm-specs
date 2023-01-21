@@ -1,6 +1,6 @@
 Name:           pcp2pdf
 Version:        0.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Utility to create PDF reports from PCP archives
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ rm -rf $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

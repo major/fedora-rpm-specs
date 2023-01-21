@@ -1,6 +1,6 @@
 Name:          nmh
 Version:       1.8RC1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A capable MIME-email-handling system with a command-line interface
 License:       BSD
 URL:           http://savannah.nongnu.org/projects/nmh
@@ -53,6 +53,9 @@ CFLAGS="$RPM_OPT_FLAGS"
 %doc %{_pkgdocdir}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8RC1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan  1 2023 David Levine  <par.packager@gmail.com> - 1.8RC1-1
 - With upstream 1.8-RC1.
 

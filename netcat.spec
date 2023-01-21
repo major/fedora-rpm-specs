@@ -12,7 +12,7 @@ Summary:         OpenBSD netcat to read and write data across connections using 
 Name:            netcat
 # Version from CVS revision of OpenBSD netcat.c
 Version:         1.219
-Release:         2%{?dist}
+Release:         3%{?dist}
 # BSD-3-Clause: nc.1 and netcat.c
 # BSD-2-Clause: atomicio.{c,h} and socks.c
 License:         BSD-3-Clause AND BSD-2-Clause
@@ -79,6 +79,9 @@ fi
 %{_mandir}/man1/netcat.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.219-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 24 2022 Robert Scheck <robert@fedoraproject.org> 1.219-2
 - Rebuilt for libretls 3.7.0
 

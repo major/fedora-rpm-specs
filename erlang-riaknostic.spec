@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.1.7
-Release:	14%{?dist}
+Release:	15%{?dist}
 BuildArch:	noarch
 Summary:	A diagnostic tool for Riak installations
 License:	ASL 2.0
@@ -49,6 +49,9 @@ cp -arv priv/ %{buildroot}%{erlang_appdir}/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

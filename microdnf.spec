@@ -2,7 +2,7 @@
 
 Name:           microdnf
 Version:        3.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight implementation of DNF in C
 
 License:        GPLv2+
@@ -53,6 +53,9 @@ minimal environment possible so you can build up to exactly what you need.
 %{_bindir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Jaroslav Rohel <jrohel@redhat.com> - 3.9.0-1
 - Update to 3.9.0
 - Add leaves command - List installed packages not required by other installed packages

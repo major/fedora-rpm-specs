@@ -4,7 +4,7 @@
 Summary: A GNU utility for secure communication and data storage
 Name: gnupg1
 Version: 1.4.23
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPLv3+ with exceptions
 URL: http://www.gnupg.org/
 Source0: https://gnupg.org/ftp/gcrypt/gnupg/gnupg-%{version}.tar.bz2
@@ -101,6 +101,9 @@ done
 %{_mandir}/man1/gpgv1.1.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

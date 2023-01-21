@@ -9,9 +9,9 @@
 Name:		mecab
 Version:	%{mainver}
 %if %{?betaver:0}%{!?betaver:1}
-Release:	%{fedorarel}%{?dist}.4
+Release:	%{fedorarel}%{?dist}.5
 %else
-Release:	0.%{fedorarel}.%{betaver}%{?dist}.4
+Release:	0.%{fedorarel}.%{betaver}%{?dist}.5
 %endif
 Summary:	Yet Another Part-of-Speech and Morphological Analyzer
 
@@ -106,6 +106,9 @@ cd ..
 %{_includedir}/%{name}.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-3.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.996-3.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

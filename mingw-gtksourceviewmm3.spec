@@ -4,7 +4,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.18.0
-Release:       14%{?dist}
+Release:       15%{?dist}
 Summary:       MinGW Windows GtkSourceViewmm library
 License:       LGPLv2+
 BuildArch:     noarch
@@ -78,6 +78,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.18.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

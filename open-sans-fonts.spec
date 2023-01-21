@@ -3,7 +3,7 @@
 
 Name:       %{fontname}-fonts
 Version:    1.10
-Release:    17%{?dist}
+Release:    18%{?dist}
 Summary:    Open Sans is a humanist sans-serif typeface designed by Steve Matteson
 
 License:    ASL 2.0
@@ -53,6 +53,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %doc LICENSE.txt
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

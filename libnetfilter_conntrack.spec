@@ -1,6 +1,6 @@
 Name:           libnetfilter_conntrack
 Version:        1.0.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Netfilter conntrack userspace library
 License:        GPLv2+
 URL:            http://netfilter.org
@@ -53,6 +53,9 @@ find $RPM_BUILD_ROOT -type f -name "*.la" -delete
 %{_includedir}/libnetfilter_conntrack/*.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Peter Fordham <peter.fordham@gmail.com> - 1.0.8-6
 - Port autoconf script to C99 and enable autoreconf for this package.
   https://bugzilla.netfilter.org/show_bug.cgi?id=1654

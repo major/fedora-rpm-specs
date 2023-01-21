@@ -1,6 +1,6 @@
 Name:           libgudev
 Version:        237
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GObject-based wrapper library for libudev
 
 License:        LGPLv2+
@@ -70,6 +70,9 @@ This package is necessary to build programs using %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 237-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 237-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

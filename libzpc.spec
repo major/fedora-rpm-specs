@@ -1,6 +1,6 @@
 Name:		libzpc
 Version:	1.0.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Open Source library for the IBM Z Protected-key crypto feature
 
 License:	MIT
@@ -75,6 +75,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jun 22 2022 Joerg Schmidbauer <jschmidb@de.ibm.com> - 1.0.1
 - Updated spec file for rpm build and changed location
   of pkgconfig file to libdir.

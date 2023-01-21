@@ -1,7 +1,7 @@
 Summary:        Parallel brute forcing password cracker
 Name:           medusa
 Version:        2.2
-%global         baserelease     21
+%global         baserelease     22
 License:        GPLv2
 URL:            http://www.foofus.net/jmk/medusa/medusa.html
 #               https://github.com/jmk-foofus/medusa/releases
@@ -101,6 +101,9 @@ make DESTDIR=%{buildroot} install
 %{_libdir}/medusa/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-22.20181216git292193b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Simone Caronni <negativo17@gmail.com> - 2.2-21.20181216git292193b
 - Rebuild for updated FreeRDP.
 

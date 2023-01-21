@@ -14,7 +14,7 @@ proprietary standard fonts.
 
 Name:           %{fontname}-fonts
 Version:        5.3.0
-Release:        23.%{posttag}%{?dist}
+Release:        24.%{posttag}%{?dist}
 Summary:        Linux Libertine Open Fonts
 
 License:        GPL-2.0-or-later WITH Font-exception-2.0 OR OFL-1.1
@@ -108,6 +108,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/biolinum.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-24.2012_07_02
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec  2 2022 Akira TAGOH <tagoh@redhat.com> - 5.3.0-23.2012_07_02
 - Convert License tag to SPDX.
 

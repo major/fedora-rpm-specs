@@ -1,6 +1,6 @@
 Name:           juniversalchardet
 Version:        2.4.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Java character encoding detection
 
 # Choice of licenses offered in each source file
@@ -49,6 +49,9 @@ rm README.md.orig
 %license LICENSE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jerry James <loganjerry@gmail.com> - 2.4.0-7
 - Convert License tag to SPDX
 

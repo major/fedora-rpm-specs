@@ -13,7 +13,7 @@
 
 Name:           hamlib
 Version:        4.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Run-time library to control radio transceivers and receivers
 
 License:        GPL-2.0-or-later and LGPL-2.0-or-later
@@ -244,6 +244,9 @@ make V=1 check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 01 2023 Richard Shaw <hobbes1069@gmail.com> - 4.5.3-1
 - Update to 4.5.3.
 

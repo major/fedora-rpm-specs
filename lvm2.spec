@@ -45,7 +45,7 @@ Name: lvm2
 Epoch: %{rhel}
 %endif
 Version: 2.03.18
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
@@ -656,6 +656,9 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Marian Csontos <mcsontos@redhat.com> - 2.03.18-1
 - Update to upstream version 2.03.18.
 

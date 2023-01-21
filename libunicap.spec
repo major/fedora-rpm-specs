@@ -7,7 +7,7 @@
 Summary:        Library to access different kinds of (video) capture devices
 Name:           libunicap
 Version:        0.9.12
-Release:        31%{?dist}
+Release:        32%{?dist}
 License:        GPLv2+
 URL:            https://www.unicap-imaging.org/
 Source0:        https://www.unicap-imaging.org/downloads/%{name}-%{version}.tar.gz
@@ -102,6 +102,9 @@ mv -f $RPM_BUILD_ROOT%{_sysconfdir}/udev/rules.d/50-euvccam.rules $RPM_BUILD_ROO
 %{_datadir}/gtk-doc/html/%{name}/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

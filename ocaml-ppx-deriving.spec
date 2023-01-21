@@ -6,7 +6,7 @@
 
 Name:           ocaml-ppx-deriving
 Version:        5.2.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Type-driven code generation for OCaml
 
 License:        MIT
@@ -75,6 +75,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 5.2.1-17
 - Rebuild for ocaml-ppxlib 0.28.0
 

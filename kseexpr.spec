@@ -2,7 +2,7 @@
 
 Name: kseexpr
 Version: 4.0.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-or-later
 Summary: The embeddable expression engine fork for Krita
@@ -63,5 +63,8 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_datadir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 26 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 4.0.4.0-1
 - Initial SPEC release.

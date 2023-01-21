@@ -1,6 +1,6 @@
 Name:           glog
 Version:        0.3.5
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A C++ application logging library
 License:        BSD
 URL:            https://github.com/google/glog
@@ -57,6 +57,9 @@ rm -rf $RPM_BUILD_ROOT/%{_docdir}/%{name}-%{version}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

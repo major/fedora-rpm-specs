@@ -1,7 +1,7 @@
 Summary: A plain ASCII to PostScript converter
 Name: enscript
 Version: 1.6.6
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: GPLv3+ and LGPLv2+ and GPLv2+
 URL: http://www.gnu.org/software/enscript
 # Tarball exists nowhere. You have to obtain it via:
@@ -114,6 +114,9 @@ done
 %config(noreplace) %{_sysconfdir}/enscript.cfg
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

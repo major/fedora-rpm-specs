@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A library for handling streaming archive formats
 
 License:        BSD
@@ -225,6 +225,9 @@ run_testsuite
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Lukas Javorsky <ljavorsk@redhat.com> - 3.6.1-3
 - Resolves: CVE-2022-36227
 

@@ -12,7 +12,7 @@
 
 Name: libvirt-designer
 Version: 0.0.2
-Release: 18%{?dist}%{?extra_release}
+Release: 19%{?dist}%{?extra_release}
 Summary: Libvirt configuration designer
 License: LGPLv2+
 URL: http://libvirt.org/
@@ -126,6 +126,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libvirt-designer-1.0.la
 %{_datadir}/gtk-doc/html/libvirt-designer
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

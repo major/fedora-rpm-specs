@@ -3,7 +3,7 @@
 Name:    kf5-libkgeomap
 Summary: A wrapper around different world-map components, to browse and arrange photos over a map
 Version: 20.08.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/graphics/%{framework}
@@ -75,6 +75,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.08.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20.08.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

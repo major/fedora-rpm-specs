@@ -1,6 +1,6 @@
 Name:          maliit-framework
 Version:       2.3.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Input method framework
 
 License:       LGPLv2
@@ -126,6 +126,9 @@ This package contains tests and examples for %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 21 2022 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 2.3.0-2
 - Fix BZ#2128686 - maliit gtk3 package requirement removed from example package
 

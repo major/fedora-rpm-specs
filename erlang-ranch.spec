@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	2.0.0
-Release:	0.6.rc3%{?dist}
+Release:	0.7.rc3%{?dist}
 BuildArch:	noarch
 Summary:	Socket acceptor pool for TCP protocols
 License:	ISC
@@ -44,6 +44,9 @@ Socket acceptor pool for TCP protocols.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-0.7.rc3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-0.6.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: Converts LaTeX documents to HTML
 Name: latex2html
 Version: 2020.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+
 URL: https://github.com/latex2html/latex2html/releases
 # main latex2html source
@@ -217,6 +217,9 @@ make -C %{name}-%{version}JA check
 %{_mandir}/man1/pstoimg.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

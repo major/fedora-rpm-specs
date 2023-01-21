@@ -1,6 +1,6 @@
 Name:           maven2
 Version:        2.2.1
-Release:        72%{?dist}
+Release:        73%{?dist}
 Summary:        Java project management and project comprehension tool
 License:        ASL 2.0
 URL:            http://maven.apache.org
@@ -202,6 +202,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-73
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

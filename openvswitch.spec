@@ -45,7 +45,7 @@ Name: openvswitch
 Summary: Open vSwitch daemon/database/utilities
 URL: https://www.openvswitch.org/
 Version: 3.0.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # Nearly all of openvswitch is ASL 2.0.  The bugtool is LGPLv2+, and the
 # lib/sflow*.[ch] files are SISSL
@@ -576,6 +576,9 @@ fi
 %{_sysusersdir}/openvswitch.conf
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Timothy Redaelli <tredaelli@redhat.com> - 3.0.1-1
 - Update to 3.0.1 (#2073644)
 

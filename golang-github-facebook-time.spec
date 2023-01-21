@@ -15,7 +15,7 @@ Meta's Time libraries.}
 %global godocs          CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Release:        0.11%{?dist}
+Release:        0.12%{?dist}
 Summary:        Meta's Time libraries
 
 # Upstream license specification: Apache-2.0
@@ -162,6 +162,9 @@ rm timestamp/timestamp_linux_test.go
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0-0.11
 - Rebuild to fix FTBFS
 

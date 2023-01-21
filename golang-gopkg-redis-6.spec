@@ -18,7 +18,7 @@ Type-safe Redis client for Golang.}
 %global godocs          CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Type-safe Redis client for Golang
 
 # Upstream license specification: BSD-2-Clause
@@ -68,6 +68,9 @@ redis-cli -p 28126 SHUTDOWN || exit 1
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.15.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.15.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        3.9.5
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Lie AlGebras and UNits of group Algebras
 
 License:        GPL-2.0-or-later
@@ -74,6 +74,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.5-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 3.9.5-4
 - Update for split GAP directories
 

@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-sha
 Version:        1.15.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Binding to the SHA cryptographic functions
 
 License:        ISC
@@ -79,6 +79,9 @@ dune runtest --profile release
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 08 2022 Andy Li <andy@onthewings.net> - 1.15.2-1
 - New upstream version. (RHBZ#2051541)
 

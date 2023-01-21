@@ -1,6 +1,6 @@
 Name:       ibus-rawcode
 Version:    1.3.2
-Release:    24%{?dist}
+Release:    25%{?dist}
 Summary:    The Rawcode engine for IBus input platform
 License:    GPL-2.0-or-later
 URL:        https://pagure.io/ibus-rawcode
@@ -38,6 +38,9 @@ make DESTDIR=$RPM_BUILD_ROOT install INSTALL="install -p"
 %{_datadir}/ibus/component/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 1.3.2-24
 - Migrate license tag to SPDX
 

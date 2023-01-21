@@ -13,7 +13,7 @@
 
 Name:           lxdm
 Version:        0.5.3
-Release:        23%{?git_version:.%{?git_version}}%{?dist}
+Release:        24%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 License:        GPLv2+ and LGPLv2+
@@ -180,6 +180,9 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-24.D20220831git2d4ba970
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3-23.D20220831git2d4ba970
 - Update for tmpfiles.d guideline - config file is not %%config
 - Fix up %%{_localstatedir}/lib/%%{name}/%%{name}.conf entry

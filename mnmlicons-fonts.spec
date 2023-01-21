@@ -3,7 +3,7 @@
 
 Name:       %{fontname}-fonts
 Version:    1.1
-Release:    17%{?dist}
+Release:    18%{?dist}
 Summary:    Perkins Less Web Framework webfonts
 
 License:    MIT
@@ -45,6 +45,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

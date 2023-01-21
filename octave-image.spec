@@ -2,7 +2,7 @@
 
 Name:           octave-%{octpkg}
 Version:        2.14.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Image processing for Octave
 License:        GPLv2+
 URL:            http://octave.sourceforge.net/image/
@@ -58,6 +58,9 @@ export XTRA_CXXFLAGS="-fPIC"
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Oct 01 2022 Orion Poplawski <orion@nwra.com> - 2.14.0-4
 - Use XTRA_CXXFLAGS to set -fPIC
 - Drop EL6 conditional

@@ -2,7 +2,7 @@
 
 Name:           maven-verifier
 Version:        1.7.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Apache Maven Verifier Component
 License:        ASL 2.0
 URL:            https://maven.apache.org/shared/maven-verifier
@@ -48,6 +48,9 @@ rm src/test/java/org/apache/maven/it/ForkedLauncherTest.java
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

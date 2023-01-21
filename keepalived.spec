@@ -11,7 +11,7 @@
 Name: keepalived
 Summary: High Availability monitor built upon LVS, VRRP and service pollers
 Version: 2.2.7
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: GPLv2+
 URL: http://www.keepalived.org/
 
@@ -113,6 +113,9 @@ mkdir -p %{buildroot}%{_libexecdir}/keepalived
 %{_mandir}/man8/keepalived.8*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Ryan O'Hara <rohara@redhat.com> - 2.2.7-5
 - Enable JSON support
 

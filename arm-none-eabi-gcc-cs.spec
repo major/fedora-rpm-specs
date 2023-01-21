@@ -10,7 +10,7 @@
 Name:           %{target}-gcc-cs
 Epoch:          1
 Version:        12.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GNU GCC for cross-compilation for %{target} target
 
 # Most of the sources are licensed under GPLv3+ with these exceptions:
@@ -33,6 +33,8 @@ Source2:        bootstrapexplain
 
 Patch1:  	gcc12-hack.patch
 Patch2:         gcc12-Wno-format-security.patch
+Patch3:         gcc12-configure-c99-1.patch
+Patch4:         gcc12-configure-c99-2.patch
 
 #BuildRequires:	autoconf = 2.69
 BuildRequires:  gcc-c++
@@ -64,6 +66,8 @@ compile c++ code for the %{target} platform, instead of for the native
 pushd gcc-%{gcc_ver}
 %patch1 -p0 -b .hack
 %patch2 -p0 -b .wnosecerr
+%patch3 -p1
+%patch4 -p1
 popd
 pushd gcc-%{gcc_ver}/libiberty
 #autoconf -f
@@ -303,6 +307,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 1:12.2.0-3
+- Backport upstream patches for improved C99 compatibility
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:12.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

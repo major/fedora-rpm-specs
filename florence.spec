@@ -4,11 +4,12 @@
 
 Name:           florence
 Version:        0.6.3
-Release:        17%{?dist}
+Release:        19%{?dist}
 Summary:        Extensible scalable on-screen virtual keyboard for GNOME 
 License:        GPLv2+ and GFDL
 URL:            http://florence.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
+Patch0: florence-c99.patch
 BuildRequires:  desktop-file-utils
 BuildRequires:  GConf2-devel
 BuildRequires:  glib2-devel
@@ -57,7 +58,7 @@ This package contains libraries and header files for
 developing applications that use %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 sed -i -e 's|Icon=.*|Icon=%{name}|g' -e '/Encoding/d' data/%{name}.desktop.in.in
 
 %build
@@ -122,6 +123,12 @@ chrpath --delete %{buildroot}/usr/bin/florence
 %{_libdir}/pkgconfig/%{name}-1.0.pc
 
 %changelog
+* Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 0.6.3-19
+- Apply upstream patch to fix C99 compatibility issue
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.3-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		fcitx-unikey
 Version:	0.2.7
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Vietnamese Engine for Fcitx
 License:	GPLv3+
 URL:		https://fcitx-im.org/wiki/Unikey
@@ -38,6 +38,9 @@ A Vietnamese engine for Fcitx that uses Unikey.
 %{_datadir}/icons/hicolor/256x256/apps/fcitx-unikey.png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

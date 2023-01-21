@@ -1,6 +1,6 @@
 Name:			orsa
 Version:		0.7.0
-Release:		59%{?dist}
+Release:		60%{?dist}
 Summary:		Orbit Reconstruction, Simulation and Analysis
 
 License:		GPLv2+ 
@@ -233,6 +233,9 @@ rm %{buildroot}$MPI_LIB/{liborsa.la,libxorsa.la}
 %doc DEVELOPERS ORSA_MPI
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-60
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 0.7.0-59
 - Port configure script to C99
 

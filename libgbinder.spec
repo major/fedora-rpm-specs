@@ -1,6 +1,6 @@
 Name: libgbinder
 Version: 1.1.31
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Binder client library
 License: BSD
 URL: https://github.com/mer-hybris/libgbinder
@@ -82,6 +82,9 @@ Binder command line utilities
 %{_bindir}/binder-call
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.31-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.31-1
 - Update to 1.1.31
 - Re-enable s390x builds

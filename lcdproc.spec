@@ -5,7 +5,7 @@
 Summary:        Display real-time system information on a 20x4 back-lit LCD
 Name:           lcdproc
 Version:        0.5.9
-Release:        17.%{commitdate}git%{shortcommit}%{?dist}
+Release:        18.%{commitdate}git%{shortcommit}%{?dist}
 License:        GPLv2
 URL:            http://lcdproc.org
 Source0:        https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -163,6 +163,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-18.20210209git5c21e8c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.9-17.20210209git5c21e8c
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

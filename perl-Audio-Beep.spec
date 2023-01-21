@@ -1,6 +1,6 @@
 Name:		perl-Audio-Beep
 Version:	0.11
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Audio::Beep Perl module
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Audio-Beep
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

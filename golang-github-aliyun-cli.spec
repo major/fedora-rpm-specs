@@ -32,7 +32,7 @@ Alibaba Cloud (Aliyun) CLI.}
 %global godocs1         README-openapi-meta.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        %{godevelsummary0}
 
 # Upstream license specification: Apache-2.0 and MIT
@@ -129,6 +129,9 @@ cp -Trv /etc/skel %{getenv:HOME}
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.104-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.104-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

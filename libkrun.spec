@@ -4,7 +4,7 @@
 
 Name:           libkrun
 Version:        1.4.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 # Upstream license specification: Apache-2.0 AND BSD-3-Clause
@@ -161,6 +161,9 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov  8 2022 Sergio Lopez <slp@redhat.com> - 1.4.8-1
 - Update to upstream version 1.4.8
 - Add crossbeam-channel to the list of dependencies

@@ -8,7 +8,7 @@ Version:	3.1
 # logical transition we label the compat package libffi3.1-3.1-28
 # (next NEVRA bump) rather than the more confusing libffi3.1-3.1-1 since
 # there was already a 3.1-1 on May 19, 2014.
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	Compatibility package for libffi transition from 3.1 to 3.4.2.
 License:	MIT
 URL:		http://sourceware.org/libffi
@@ -78,6 +78,9 @@ cp %{_builddir}/libffi-3.1/LICENSE $RPM_BUILD_ROOT/%{_datadir}/licenses/libffi-3
 %{_libdir}/libffi.so.6
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

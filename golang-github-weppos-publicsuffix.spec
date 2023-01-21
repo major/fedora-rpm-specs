@@ -15,7 +15,7 @@ Suffix List.}
 %global godocs          CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Domain name parser for Go based on the Public Suffix List
 
 License:        MIT
@@ -49,6 +49,9 @@ BuildRequires:  golang(golang.org/x/net/publicsuffix)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.13.0-6
 - Rebuild to fix FTBFS
 

@@ -6,7 +6,7 @@
 
 Name:           %{fontname}-fonts
 Version:        2.91.2
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Free truetype font for Odia language
 
 License:        OFL
@@ -63,6 +63,9 @@ install -Dm 0644 -p %{metainfo}.xml \
 %{_datadir}/metainfo/%{metainfo}.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.2-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.91.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

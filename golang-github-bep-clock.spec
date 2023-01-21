@@ -15,7 +15,7 @@ A Golang clock that allows you to set the start time.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Golang clock that allows you to set the start time
 
 License:        MIT
@@ -44,5 +44,8 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 02 2022 W. Michael Petullo <mike@flyn.org> - 0.3.0-1
 - Initial package

@@ -1,6 +1,6 @@
 Name:           libportal
 Version:        0.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Flatpak portal library
 License:        LGPLv3
 Url:            https://github.com/flatpak/libportal
@@ -167,6 +167,9 @@ This package provides development documentations for libportal.
 %{_datadir}/doc/libportal-1
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Bastien Nocera <bnocera@redhat.com> - 0.6-5
 - Backport post-0.6 bug fixes
 

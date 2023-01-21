@@ -1,6 +1,6 @@
 Name:		garmintools
 Version:	0.10
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Tools for Garmin GPS-devices
 
 License:	GPLv2+
@@ -126,6 +126,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.10-24
 - Move udev and modprobe rules from /etc to /usr/lib (rhbz#1365584)
 

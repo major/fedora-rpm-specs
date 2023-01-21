@@ -15,7 +15,7 @@ Signs and authenticates HTTP requests based on a shared-secret HMAC signature.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Signs and authenticates HTTP requests based on a shared-secret HMAC signature
 
 License:        ISC
@@ -46,6 +46,9 @@ BuildRequires:  golang(github.com/bmizerany/assert)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

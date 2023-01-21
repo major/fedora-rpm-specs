@@ -4,7 +4,7 @@
 
 Name:           libva-v4l2-request
 Version:        1.0.0
-Release:        7.%{?date0}git%{?shortcommit0}%{?dist}
+Release:        8.%{?date0}git%{?shortcommit0}%{?dist}
 Summary:        VA-API Backend using v4l2-request API
 
 License:        LGPLv2+ and MIT
@@ -50,6 +50,9 @@ the Video Engine found in most Allwinner SoCs.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-8.20190517gita3c2476
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7.20190517gita3c2476
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

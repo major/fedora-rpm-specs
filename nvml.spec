@@ -38,7 +38,7 @@
 
 Name:		nvml
 Version:	%{upstreamversion}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Persistent Memory Development Kit (formerly NVML)
 License:	BSD
 URL:		http://pmem.io/pmdk
@@ -697,6 +697,9 @@ cp utils/pmdk.magic %{buildroot}%{_datadir}/pmdk/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Adam Borowski <kilobyte@angband.pl> - 1.12.1-2
 - Don't build docs from source on RHEL [Yaakov Selkowitz]
 

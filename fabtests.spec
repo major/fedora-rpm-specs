@@ -1,6 +1,6 @@
 Name:           fabtests
 Version:        1.15.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Test suite for libfabric API
 # include/jsmn.h and common/jsmn.c are licensed under MIT.
 # All other source files permit distribution under BSD. Some of them
@@ -41,6 +41,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %license COPYING
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Michal Schmidt <mschmidt@redhat.com> - 1.15.1-1
 - Update to upstream release 1.15.1
 

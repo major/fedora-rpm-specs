@@ -3,7 +3,7 @@
 
 Name:           perl-DBD-SQLite
 Version:        1.72
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        SQLite DBI Driver
 # lib/DBD/SQLite.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                  GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -158,6 +158,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.72-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 04 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.72-1
 - 1.72 bump
 - Package tests

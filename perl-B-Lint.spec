@@ -1,6 +1,6 @@
 Name:           perl-B-Lint
 Version:        1.20
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Perl lint
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Lint
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.20-26
 - Package tests
 - Simplify build and install phases

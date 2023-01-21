@@ -1,6 +1,6 @@
 Name:           figtoipe
 Version:        20091205
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        FIG to IPE conversion tool
 #
 # GPLv2, with an exception for the CGAL libraries.
@@ -43,6 +43,9 @@ install -pm0644 figtoipe.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/figtoipe.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20091205-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20091205-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

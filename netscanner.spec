@@ -14,7 +14,7 @@ A TCP/UDP scanner to find open or closed ports.}
 
 Name:           netscanner
 Version:        0
-Release:        0.7%{?dist}
+Release:        0.8%{?dist}
 Summary:        TCP/UDP scanner to find open or closed ports
 
 License:        MIT
@@ -51,6 +51,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

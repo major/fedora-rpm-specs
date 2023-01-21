@@ -2,7 +2,7 @@
 
 Name:           mingw-jasper
 Version:        3.0.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MinGW Windows Jasper library
 
 License:        JasPer-2.0
@@ -124,6 +124,9 @@ rmdir %{buildroot}%{mingw64_datadir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 30 2022 Sandro Mani <manisandro@gmail.com> - 3.0.6-2
 - Backport patch for CVE-2022-2963
 

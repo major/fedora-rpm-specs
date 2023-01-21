@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-SuperForm
 Version:        0.5
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Create sticky forms with HTML::SuperForm
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

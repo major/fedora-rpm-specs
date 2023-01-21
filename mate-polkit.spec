@@ -15,9 +15,9 @@
 Name:       mate-polkit
 Version:    %{branch}.1
 %if 0%{?rel_build}
-Release:    1%{?dist}
+Release:    2%{?dist}
 %else
-Release:    0.15%{?git_rel}%{?dist}
+Release:    0.16%{?git_rel}%{?dist}
 %endif
 Summary:    Integrates polkit authentication for MATE desktop
 License:    LGPLv2+
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/polkit-mate-authe
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Oct 09 2022 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.1-1
 - update to 1.26.1
 

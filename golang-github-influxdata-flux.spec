@@ -19,7 +19,7 @@ independently of those.}
 %global gosupfiles      "${flux[@]}" stdlib/testing/testdata/* stdlib/pandas_tests/testdata/* stdlib/strings/testdata/*
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Lightweight scripting language for querying databases
 
 License:        MIT
@@ -113,6 +113,9 @@ mapfile -t flux <<< $(find . -iname "*.flux" -type f)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.100.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.100.1-6
 - Rebuild to fix FTBFS
 

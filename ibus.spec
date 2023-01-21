@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -558,6 +558,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.27-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-12
 - Resolves: #2160957 Fix st_mode in struct stat of registry file with rpm -Va
 

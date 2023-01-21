@@ -40,7 +40,7 @@
 
 Name:           neovim
 Version:        0.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        ASL 2.0
 Summary:        Vim-fork focused on extensibility and agility
@@ -1892,6 +1892,9 @@ find %{buildroot}%{_datadir} \( -name "*.bat" -o -name "*.awk" \) \
 %{_datadir}/nvim/runtime/tutor/en/vim-01-beginner.tutor.json
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 30 2022 Andreas Schneider <asn@redhat.com> - 0.8.2-1
 - Update to version 0.8.2
   * https://github.com/neovim/neovim/releases/tag/v0.8.2

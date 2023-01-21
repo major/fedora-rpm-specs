@@ -2,7 +2,7 @@
 
 Name:		opal-prd
 Version:	7.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	OPAL Processor Recovery Diagnostics Daemon
 
 License:	ASL 2.0
@@ -114,6 +114,9 @@ install -m 644 -p %{SOURCE3} %{buildroot}%{_mandir}/man1/ffspart.1
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

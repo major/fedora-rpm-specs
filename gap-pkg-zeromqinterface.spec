@@ -3,7 +3,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.14
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        ZeroMQ bindings for GAP
 
 License:        GPL-2.0-or-later
@@ -81,6 +81,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.14-3
 - Update for split GAP directories
 

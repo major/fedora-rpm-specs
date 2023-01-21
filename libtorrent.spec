@@ -1,7 +1,7 @@
 Name:          libtorrent
 License:       GPLv2+
 Version:       0.13.8
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       BitTorrent library with a focus on high performance & good code
 URL:           https://github.com/rakshasa/libtorrent/
 Source0:       http://rtorrent.net/downloads/libtorrent-%{version}.tar.gz
@@ -60,6 +60,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Florian Weimer <fweimer@redhat.com> - 0.13.8-10
 - Port configure script to C99
 

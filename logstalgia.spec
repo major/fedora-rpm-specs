@@ -1,7 +1,7 @@
 Summary:        Web server access log visualizer
 Name:           logstalgia
 Version:        1.1.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPLv3+
 URL:            http://code.google.com/p/logstalgia/
 Source0:        https://github.com/acaudwell/Logstalgia/releases/download/logstalgia-%{version}/logstalgia-%{version}.tar.gz
@@ -48,6 +48,9 @@ touch -r aclocal.m4 m4/* configure*
 %{_mandir}/man1/logstalgia.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 1.1.3-4
 - Port configure script to C99
 

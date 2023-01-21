@@ -3,9 +3,9 @@
 
 Name:           mpdecimal
 Version:        2.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for general decimal arithmetic
-License:        BSD
+License:        BSD-2-Clause
 
 URL:            http://www.bytereef.org/mpdecimal/index.html
 Source0:        http://www.bytereef.org/software/mpdecimal/releases/mpdecimal-%{version}.tar.gz
@@ -31,14 +31,14 @@ The package contains development headers for the mpdecimal library.
 
 %package        doc
 Summary:        Documentation for mpdecimal library
-# docs is FBSDDL
+# docs is FreeBSD-DOC
 # bundles underscore.js: MIT
-# bundles jquery: MIT or GPLv2
-# jquery bundles sizzle.js: MIT and BSD and GPL
-License:        FBSDDL and BSD and GPL
+# bundles jquery: MIT
+# jquery bundles sizzle.js: MIT
+License:        FreeBSD-DOC AND MIT
 BuildArch:      noarch
-Provides:       bundled(js-jquery) = 1.7.2
-Provides:       bundled(js-underscore) = 1.4.4
+Provides:       bundled(js-jquery) = 3.4.1
+Provides:       bundled(js-underscore) = 1.3.1
 
 %description doc
 The package contains documentation for the mpdecimal library.
@@ -92,6 +92,9 @@ fi
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

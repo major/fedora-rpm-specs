@@ -5,7 +5,7 @@
 
 Name:           ocaml-result
 Version:        1.5
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Compat result type
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -75,6 +75,9 @@ dune runtest
 %{_libdir}/ocaml/%{libname}/opam
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

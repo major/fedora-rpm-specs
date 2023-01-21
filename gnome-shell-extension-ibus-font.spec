@@ -4,7 +4,7 @@
 
 Name:       gnome-shell-extension-%{shortname}
 Version:    0.%{snapshot_date}
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    A GNOME Shell extension for ibus-setup custom font settings
 
 License:    GPLv3+
@@ -35,6 +35,9 @@ install -Dp -m 0644 {extension.js,metadata.json,prefs.js,stylesheet.css} \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210510-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210510-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

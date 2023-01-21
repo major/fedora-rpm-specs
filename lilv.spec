@@ -3,7 +3,7 @@
 
 Name:       lilv
 Version:    0.24.14
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    An LV2 Resource Description Framework Library
 
 License:    MIT
@@ -117,6 +117,9 @@ chmod +x %{buildroot}%{_libdir}/lib%{name}-0.so.*
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

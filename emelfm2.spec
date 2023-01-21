@@ -1,6 +1,6 @@
 Name:           emelfm2
 Version:        0.9.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        File manager that implements the popular two-pane design
 
 License:        GPLv3+
@@ -118,6 +118,9 @@ rm -f ${RPM_BUILD_ROOT}%{_docdir}/%{name}/SPEC
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

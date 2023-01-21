@@ -5,7 +5,7 @@ License:       GPLv3
 Summary:       A backgammon game and analyser
 Epoch:         1
 Version:       1.07.001
-Release:       1%{?dist}
+Release:       2%{?dist}
 Source0:       https://ftp.gnu.org/gnu/gnubg/gnubg-release-%{version}-sources.tar.gz
 Source1:       gnubg.desktop
 Source2:       gnubg.png
@@ -114,6 +114,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/gnubg/gnubg.css
 %{_datadir}/gnubg/Shaders/
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.07.001-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 15 2022 Gwyn Ciesla <gwync@protonmail.com> - 1:1.07.001-1
 - 1.07.001
 

@@ -3,7 +3,7 @@
 
 Name:           %{fontname}-fonts
 Version:        8.01
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A font based on elements created by Demetrios Damilas (late 15th c.)
 License:        Public Domain
 URL:            http://users.teilar.gr/~g1951d/
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.01-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.01-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

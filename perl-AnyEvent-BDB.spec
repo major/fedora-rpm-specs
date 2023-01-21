@@ -1,6 +1,6 @@
 Name:           perl-AnyEvent-BDB
 Version:        1.1
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Truly asynchronous Berkeley DB access
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AnyEvent-BDB
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 25 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.1-41
 - Update license to SPDX format
 

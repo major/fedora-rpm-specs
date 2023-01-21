@@ -1,7 +1,7 @@
 Summary: Improved console FTP client
 Name: ncftp
 Version: 3.2.5
-Release: 25%{?dist}
+Release: 26%{?dist}
 Epoch: 2
 License: Artistic clarified
 URL: http://www.ncftp.com/ncftp/
@@ -63,6 +63,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.2.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.2.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

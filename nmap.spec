@@ -7,7 +7,7 @@ Name: nmap
 Epoch: 3
 Version: 7.93
 #global prerelease TEST5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Network exploration tool and security scanner
 URL: http://nmap.org/
 # Uses combination of licenses based on GPL license, but with extra modification
@@ -153,6 +153,9 @@ fi
 %{_mandir}/man1/ncat.1.gz
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:7.93-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 02 2022 Martin Osvald <mosvald@redhat.com> - 3:7.93-1
 - New version 7.93 (rhbz#2123556)
 

@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	0.5.1
-Release:	13%{?dist}
+Release:	14%{?dist}
 BuildArch:	noarch
 Summary:	Timer utility for Erlang tests
 License:	MIT
@@ -40,6 +40,9 @@ Timer utility for Erlang tests.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           libchardet
 Version:        1.0.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Mozilla's universal character set detector
 License:        MPLv1.1 or LGPLv2+ or GPLv2+
 URL:            http://ftp.oops.org/pub/oops/libchardet/
@@ -72,6 +72,9 @@ rm -rf %{buildroot}%{_datadir}/doc/%{name}/LICENSE
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

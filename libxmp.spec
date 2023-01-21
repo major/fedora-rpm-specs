@@ -2,7 +2,7 @@
 
 Name: libxmp
 Version: 4.5.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A multi-format module playback library
 Source0: https://downloads.sourceforge.net/project/xmp/libxmp/%{version}/libxmp-%{version}.tar.gz
 # https://github.com/libxmp/libxmp/issues/385
@@ -67,6 +67,9 @@ chmod 755 %{buildroot}%{_libdir}/libxmp.so.*
 %{_libdir}/libxmp.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

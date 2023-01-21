@@ -3,7 +3,7 @@
 
 Name:           grilo
 Version:        0.3.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Content discovery framework
 
 License:        LGPLv2+
@@ -86,6 +86,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/grilo-%{release_version}/plugins/
 %{_datadir}/vala/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Victor Toso <victortoso@redhat.com> - 0.3.15-2
 - Switch back to libsoup2 to avoid issues when apps are using
   libsoup2 and libsoup3

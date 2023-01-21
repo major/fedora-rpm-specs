@@ -1,6 +1,6 @@
 Name:           kongress
 Version:        22.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        CC0 and CC-BY-SA and BSD and GPLv3+
 Summary:        A companion application for conferences made by KDE
 Url:            https://apps.kde.org/kongress/
@@ -53,6 +53,9 @@ desktop-file-install --dir=%{buildroot}%{_kf5_datadir}/applications/ %{buildroot
 %license LICENSES/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Justin Zobel <justin@1707.io> - 22.11-1
 - Update to 22.11
 

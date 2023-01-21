@@ -4,7 +4,7 @@
 
 Name:           gcr
 Version:        3.92.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A library for bits of crypto UI and parsing
 
 License:        LGPLv2+
@@ -126,6 +126,9 @@ developing applications that use %{name}.
 %doc %{_datadir}/doc/gcr-4/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.92.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 26 2022 Kalev Lember <klember@redhat.com> - 3.92.0-1
 - Update to 3.92.0
 - Remove gtk3 and gtk4 subpackages as the gcr gtk3 and gtk4 libraries are gone

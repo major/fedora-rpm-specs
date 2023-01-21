@@ -1,6 +1,6 @@
 Name:           perl-Email-Simple
 Version:        2.218
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple parsing of RFC2822 message format and headers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Simple
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/Email::Simple::Header.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.218-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan  9 2023 Paul Howarth <paul@city-fan.org> - 2.218-1
 - Update to 2.218
   - Add ->header_rename to header object

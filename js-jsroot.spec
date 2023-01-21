@@ -8,7 +8,7 @@
 
 Name:		js-%{jsname}
 Version:	6.3.4
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	JavaScript ROOT - Interactive numerical data analysis graphics
 
 #		Most files are MIT, d3.js is BSD
@@ -140,6 +140,9 @@ ln -s %{_jsdir}/%{jsname}/img %{buildroot}%{_pkgdocdir}
 %doc changes.md demo docs/* index.htm readme.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

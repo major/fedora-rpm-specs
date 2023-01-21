@@ -18,7 +18,7 @@ session providers, including memory, file, Redis, Memcache, PostgreSQL, MySQL.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Middleware that provides the session management of Macaron
 
 # Upstream license specification: Apache-2.0
@@ -85,6 +85,9 @@ redis-cli -p 8130 shutdowm
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 1.0.2-6
 - Rebuild to fix FTBFS
 

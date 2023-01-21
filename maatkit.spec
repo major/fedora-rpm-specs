@@ -1,6 +1,6 @@
 Name:           maatkit
 Version:        7540
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Essential command-line utilities for MySQL
 
 License:        GPLv2 or Artistic
@@ -51,6 +51,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7540-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7540-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

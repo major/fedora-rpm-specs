@@ -111,7 +111,7 @@
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
  
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
  
 Name:           golang
 Version:        %{go_version}
@@ -535,6 +535,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20~rc3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Alejandro Sáez <asm@redhat.com> - 1.20~rc3-1
 - Update to go1.20rc3
 - Disable race package due go 1.20 new feature

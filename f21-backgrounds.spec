@@ -3,7 +3,7 @@
 
 Name:           %{bgname}-backgrounds
 Version:        21.1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fedora 21 default desktop background
 
 License:        CC-BY-SA
@@ -187,6 +187,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_datadir}/xfce4/backdrops/*.png
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

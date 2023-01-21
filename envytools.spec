@@ -2,7 +2,7 @@
 
 Name:           envytools
 Version:        0.0
-Release:        0.25.git%{gitdate}%{?dist}
+Release:        0.26.git%{gitdate}%{?dist}
 Summary:        Tools for people envious of nvidia's blob driver
 License:        MIT
 URL:            https://github.com/envytools/envytools
@@ -82,6 +82,9 @@ rm $RPM_BUILD_ROOT%{_docdir}/%{name}/hwdocs/*.py
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-0.26.git20200810
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0-0.25.git20200810
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

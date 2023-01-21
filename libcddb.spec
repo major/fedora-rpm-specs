@@ -1,7 +1,7 @@
 Summary:	Library (C API) for accessing CDDB servers
 Name:		libcddb
 Version:	1.3.2
-Release:	37%{?dist}
+Release:	38%{?dist}
 License:	LGPLv2+
 URL:		http://libcddb.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/libcddb/%{name}-%{version}.tar.bz2
@@ -68,6 +68,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

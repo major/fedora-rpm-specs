@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	1.7.0
-Release:	16%{?dist}
+Release:	17%{?dist}
 BuildArch:	noarch
 Summary:	Key Value Coding for Erlang data structures
 License:	MIT
@@ -48,6 +48,9 @@ inspired by Apple's NSKeyValueCoding protocol from Objective-C.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Peter Lemenkov <lemenkov@gmail.com> - 1.7.0-16
 - Fix FTBFS with Erlang 25
 - Switch to rebar3

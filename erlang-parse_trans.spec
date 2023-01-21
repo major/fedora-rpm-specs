@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	3.4.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 BuildArch:	noarch
 Summary:	Parse transform utilities for Erlang
 License:	EPL 1.1 and ASL 2.0
@@ -42,6 +42,9 @@ Parse transform utilities for Erlang.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

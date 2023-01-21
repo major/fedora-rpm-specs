@@ -1,6 +1,6 @@
 Name:		ffsb
 Version:	6.0
-Release:	0.24.rc2%{?dist}
+Release:	0.25.rc2%{?dist}
 Summary:	The Flexible Filesystem Benchmark
 
 License:	GPLv2+
@@ -42,6 +42,9 @@ rm -f examples/profile_smallfile_reads~
 %{_bindir}/ffsb
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-0.25.rc2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 6.0-0.24.rc2
 - Port to C99
 

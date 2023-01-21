@@ -2,7 +2,7 @@
 
 Name:           gnome-screenshot
 Version:        41.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A screenshot utility for GNOME
 
 License:        GPLv2+
@@ -61,6 +61,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Screenshot.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 07 2022 Kalev Lember <klember@redhat.com> - 41.0-4
 - Fix the build with meson 0.60 (#2113253)
 

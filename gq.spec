@@ -1,7 +1,7 @@
 Summary:       Graphical LDAP directory browser and editor
 Name:          gq
 Version:       1.3.4
-Release:       45%{?dist}
+Release:       46%{?dist}
 License:       GPLv2+
 URL:           http://sourceforge.net/projects/gqclient/
 Source0:       http://downloads.sourceforge.net/project/gqclient/GQ%20Unstable/%{version}/gq-%{version}.tar.gz
@@ -79,6 +79,9 @@ desktop-file-install --delete-original      \
 %dir %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

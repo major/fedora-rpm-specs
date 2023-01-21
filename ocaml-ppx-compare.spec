@@ -10,7 +10,7 @@
 
 Name:           ocaml-ppx-compare
 Version:        0.15.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Generate comparison functions from types
 
 License:        MIT
@@ -68,6 +68,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov  1 2022 Jerry James <loganjerry@gmail.com> - 0.15.0-9
 - Rebuild for ocaml-ppxlib 0.28.0
 

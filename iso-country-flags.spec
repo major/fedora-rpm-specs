@@ -5,7 +5,7 @@
 
 Name:		iso-country-flags
 Version:	0
-Release:	0.3.20170202git%{shortcommit}%{?dist}
+Release:	0.4.20170202git%{shortcommit}%{?dist}
 License:	MIT
 Summary:	Country flags
 URL:		https://github.com/%{gitowner}/%{gitproject}
@@ -45,6 +45,9 @@ cp -r flags/flags-iso/flat/* %{buildroot}%{_datadir}/%{name}/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.4.20170202git1d382a9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.3.20170202git1d382a9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

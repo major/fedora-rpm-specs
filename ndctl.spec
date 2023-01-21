@@ -1,6 +1,6 @@
 Name:		ndctl
 Version:	75
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Manage "libnvdimm" subsystem devices (Non-volatile Memory)
 License:	GPLv2
 Url:		https://github.com/pmem/ndctl
@@ -235,6 +235,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 75-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Vishal Verma <vishal.l.verma@intel.com> - 75-1
 - release v75
 

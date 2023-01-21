@@ -4,12 +4,12 @@
 # NOTE(mhayden): The package is awscli, but the source is aws-cli.
 %global         source_name     aws-cli
 %global         forgeurl        https://github.com/aws/aws-cli/
-Version:        1.27.51
+Version:        1.27.52
 %global         tag             %{version}
 %forgemeta
 
 Name:           awscli
-Release:        2%{?dist}
+Release:        1%{?dist}
 
 Summary:        Universal Command Line Environment for AWS
 
@@ -98,6 +98,9 @@ install -Dpm0644 bin/aws_zsh_completer.sh \
 %{_datadir}/zsh/site-functions/_awscli
 
 %changelog
+* Thu Jan 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.27.52-1
+- 1.27.52
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.51-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

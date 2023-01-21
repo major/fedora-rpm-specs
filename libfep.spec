@@ -1,6 +1,6 @@
 Name:		libfep
 Version:	0.1.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	Library to implement FEP (front end processor) on ANSI terminals
 
 License:	BSD and GPLv3+
@@ -66,6 +66,9 @@ cp -p fep/README README.fep
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

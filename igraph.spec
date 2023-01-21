@@ -9,7 +9,7 @@
 
 Name:               igraph
 Version:            0.10.3
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Library for creating and manipulating graphs
 
 License:             GPLv2+
@@ -82,6 +82,9 @@ export FLEXIBLAS=netlib
 %exclude %{_mandir}/man3/igraph.3*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.3-1
 - 0.10.3
 

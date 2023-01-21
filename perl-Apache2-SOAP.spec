@@ -1,6 +1,6 @@
 Name:          perl-Apache2-SOAP
 Version:       0.73
-Release:       40%{?dist}
+Release:       41%{?dist}
 Summary:       A replacement for Apache::SOAP designed to work with mod_perl 2
 
 License:       GPL+ or Artistic
@@ -59,6 +59,9 @@ chmod -R u+rwX,go+rX,go-w %{buildroot}/*
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.73-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-curl
 Version:        0.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        OCaml Curl library (ocurl)
 License:        MIT
 
@@ -81,6 +81,9 @@ make -C examples clean
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.9.2-2
 - Bump and rebuild
 

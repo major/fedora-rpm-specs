@@ -1,6 +1,6 @@
 Name:           libgnomekbd
 Version:        3.28.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A keyboard configuration library
 
 License:        LGPLv2+
@@ -71,6 +71,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gkbd-keyboard-disp
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 04 2022 Kalev Lember <klember@redhat.com> - 3.28.1-1
 - Update to 3.28.1
 - Switch to meson build system

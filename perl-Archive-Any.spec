@@ -1,6 +1,6 @@
 Name:		perl-Archive-Any
 Version:	0.0946
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Single interface to deal with file archives
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Archive-Any
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Archive::Any::Zip.3*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0946-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0946-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

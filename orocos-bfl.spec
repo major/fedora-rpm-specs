@@ -3,7 +3,7 @@ Name:       orocos-bfl
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %global checkout 20190423git%{shortcommit}
 Version:    0.8.99
-Release:    28.%{checkout}%{?dist}
+Release:    29.%{checkout}%{?dist}
 Summary:    A framework for inference in Dynamic Bayesian Networks
 
 # Explanation from upstream for multiple licenses:
@@ -89,6 +89,9 @@ rm -rf %{buildroot}%{_bindir}/bfl
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.99-29.20190423gitcf72962
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.99-28.20190423gitcf72962
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

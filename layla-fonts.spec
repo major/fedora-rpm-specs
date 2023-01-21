@@ -2,7 +2,7 @@
 %global fontconf 67-%{fontname}
 Name:		%{fontname}-fonts
 Version:	2.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	A collection of traditional Arabic fonts
 License:	OFL
 URL:		http://sites.google.com/site/mohammedisam2000/home/projects
@@ -127,6 +127,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

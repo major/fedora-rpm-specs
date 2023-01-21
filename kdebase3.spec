@@ -22,7 +22,7 @@
 Name:    kdebase3
 Summary: KDE 3 core files
 Version: 3.5.10
-Release: 73%{?dist}
+Release: 74%{?dist}
 
 # programs: GPLv2, libs: LGPLv2
 License: GPLv2
@@ -762,6 +762,9 @@ fi
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.10-74
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jul 25 2022 Than Ngo <than@redhat.com> - 3.5.10-73
 - fixed FTBFS
 

@@ -14,7 +14,7 @@ Mmark: a powerful markdown processor in Go geared towards the IETF.}
 %global godocs          README.md CONVERSION_RFC7328.md
 
 Name:           %{goname}
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Powerful markdown processor in Go geared towards the IETF
 
 # Upstream license specification: BSD-2-Clause
@@ -43,6 +43,9 @@ BuildRequires:  golang(github.com/BurntSushi/toml)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

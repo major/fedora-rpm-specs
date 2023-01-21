@@ -8,7 +8,7 @@
 
 Name:           ocaml-merlin
 Version:        4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Context sensitive completion for OCaml
 
 # The entire source is MIT except:
@@ -139,6 +139,9 @@ cd -
 %{vimfiles_root}/*/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 4.5-3
 - Convert License tags to SPDX
 

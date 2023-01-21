@@ -8,7 +8,7 @@ Epoch:                  1
 
 Name:           eclipse-swt
 Version:        4.26
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Eclipse SWT: The Standard Widget Toolkit for GTK+
 
 License:        EPL-2.0
@@ -134,6 +134,9 @@ cp -a %{swtsrcdir}/*.so %{buildroot}/%{_libdir}/%{name}
 %license NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.26-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 1:4.26-1
 - Bump to 4.26
 

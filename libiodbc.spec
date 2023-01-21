@@ -5,7 +5,7 @@
 Summary: iODBC Driver Manager
 Name: libiodbc
 Version: 3.52.15
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2 or BSD
 URL: http://www.iodbc.org/
 #URL: https://github.com/openlink/iODBC
@@ -112,6 +112,9 @@ rm -rfv %{buildroot}%{_datadir}/libiodbc/samples
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.52.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.52.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

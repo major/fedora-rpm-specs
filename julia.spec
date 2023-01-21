@@ -27,7 +27,7 @@
 
 Name:           julia
 Version:        1.8.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
@@ -472,6 +472,9 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Pete Walter <pwalter@fedoraproject.org> - 1.8.2-2
 - Rebuild for libgit2 1.4
 

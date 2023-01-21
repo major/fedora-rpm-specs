@@ -2,7 +2,7 @@ Name:           frogr
 Version:        1.6
 Summary:        Flickr Remote Organizer for GNOME
 Summary(de):    Flickr-Verwaltung für GNOME
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 License:        GPLv3
 URL:            https://wiki.gnome.org/Apps/Frogr
@@ -75,6 +75,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

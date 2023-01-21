@@ -8,7 +8,7 @@
 
 Name:    metis
 Version: 5.1.0
-Release: 33%{?dist}
+Release: 34%{?dist}
 Summary: Serial Graph Partitioning and Fill-reducing Matrix Ordering
 License: ASL 2.0 and BSD and LGPLv2+
 URL:     http://glaros.dtc.umn.edu/gkhome/views/%{name}
@@ -256,6 +256,9 @@ popd
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

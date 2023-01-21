@@ -10,7 +10,7 @@
 
 Name:           links
 Version:        2.20.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        Web browser running in both graphics and text mode
 License:        GPLv2+
@@ -111,6 +111,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.20.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.20.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

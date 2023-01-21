@@ -2,7 +2,7 @@
 
 Name:           lxpolkit
 Version:        0.1.0
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Simple PolicyKit authentication agent
 
 License:        GPLv2+
@@ -60,6 +60,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

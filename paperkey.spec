@@ -1,6 +1,6 @@
 Name:           paperkey
 Version:        1.6
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        An OpenPGP key archiver
 
 License:        GPL-2.0-or-later
@@ -51,6 +51,9 @@ restoring a key.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Todd Zullinger <tmz@pobox.com> - 1.6-10
 - convert license to SPDX
 

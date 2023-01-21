@@ -4,7 +4,7 @@
 Name:           openjfx
 Epoch:          3
 Version:        17.0.0.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Rich client application platform for Java
 
 License:        GPL v2 with exceptions and BSD
@@ -162,6 +162,9 @@ cp -a modules/javafx.graphics/mvn-lib{decora,javafx_font,javafx_font_freetype,ja
 %doc README.md
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:17.0.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Nicolas De Amicis <deamicis@bluewin.ch> - 3:17.0.0.1-5
 - Conditional requires between openjdk 11, 17 or latest packages
 

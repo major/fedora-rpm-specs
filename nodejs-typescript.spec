@@ -2,7 +2,7 @@
 
 Name:           nodejs-%{npm_name}
 Version:        4.1.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A language for application scale JavaScript development
 License:        ASL 2.0
 URL:            https://www.typescriptlang.org
@@ -46,6 +46,9 @@ ln -s %{nodejs_sitelib}/%{npm_name}/bin/tsc %{buildroot}%{_bindir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

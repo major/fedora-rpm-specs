@@ -1,6 +1,6 @@
 Name:           libwbxml
 Version:        0.11.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library and tools to parse, encode and handle WBXML documents
 ## Used and installed:
 # COPYING:                          LGPL-2.1-or-later
@@ -95,6 +95,9 @@ developing applications that use %{name}.
 %{_libdir}/pkgconfig/libwbxml2.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Petr Pisar <ppisar@redhat.com> - 0.11.8-3
 - Convert a License tag to an SPDX format
 

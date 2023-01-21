@@ -1,6 +1,6 @@
 Name:       perl-AppConfig-Std
 Version:    1.10
-Release:    21%{?dist}
+Release:    22%{?dist}
 # see lib/AppConfig/Std.pm
 License:    GPL+ or Artistic 
 Summary:    Provides standard configuration options
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/AppConfig*.3*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

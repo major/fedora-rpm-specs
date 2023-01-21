@@ -1,6 +1,6 @@
 Name:           libsmi
 Version:        0.4.8
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A library to access SMI MIB information
 
 License:        GPLv2+ and BSD
@@ -98,6 +98,9 @@ make check ||:
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

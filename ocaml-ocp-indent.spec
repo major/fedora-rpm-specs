@@ -6,7 +6,7 @@
 
 Name:           ocaml-ocp-indent
 Version:        1.8.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A simple tool to indent OCaml programs
 
 # The entire source code is LGPL with the OCaml linking exception except
@@ -94,6 +94,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Jerry James <loganjerry@gmail.com> - 1.8.2-15
 - Rebuild for ocaml-cmdliner 1.1.1
 - Update the Emacs patch for Emacs 28

@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.5
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPLv3+
 URL:     http://www.gnu.org/software/parted
 
@@ -130,6 +130,9 @@ make check
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Brian C. Lane <bcl@redhat.com> - 3.5-7
 - libparted: Fix handling of msdos partition types
 - tests: Add a libparted test for ped_partition_set_system on msdos

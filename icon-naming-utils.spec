@@ -1,6 +1,6 @@
 Name:		icon-naming-utils
 Version:	0.8.90
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary: 	A script to handle icon names in desktop icon themes
 
 License:	GPLv2
@@ -46,6 +46,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/pkgconfig/icon-naming-utils-uninstalled.pc
 %{_datadir}/pkgconfig/icon-naming-utils.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.90-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.90-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

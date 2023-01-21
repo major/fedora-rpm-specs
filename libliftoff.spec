@@ -1,6 +1,6 @@
 Name:           libliftoff
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight KMS plane library
 
 License:        MIT
@@ -53,6 +53,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 0.3.0-1
 - Rebase to version 0.3.0
 

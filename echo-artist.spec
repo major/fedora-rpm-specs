@@ -1,6 +1,6 @@
 Name:           echo-artist
 Version:        0.1.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Automation tools for echo-icon-theme artists
 
 License:        LGPLv2+
@@ -42,6 +42,9 @@ rm -rf %{buildroot}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

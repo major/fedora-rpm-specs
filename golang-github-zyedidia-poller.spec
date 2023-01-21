@@ -19,7 +19,7 @@ Package Poller is a file-descriptor multiplexer.}
 Name:           %{goname}
 # Fork downgraded version
 Epoch:          1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Epoll(7)-based file-descriptor multiplexer
 
 # Upstream license specification: BSD-2-Clause
@@ -46,6 +46,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

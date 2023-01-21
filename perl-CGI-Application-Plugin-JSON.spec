@@ -1,6 +1,6 @@
 Name:           perl-CGI-Application-Plugin-JSON
 Version:        1.02
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Easy manipulation of JSON headers
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Application-Plugin-JSON
@@ -46,6 +46,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

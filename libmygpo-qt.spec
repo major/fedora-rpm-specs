@@ -6,7 +6,7 @@
 Name:    libmygpo-qt
 Summary: Qt4 Library that wraps the gpodder.net Web API
 Version: 1.1.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 License: LGPLv2+
 #Url:     http://wiki.gpodder.org/wiki/Libmygpo-qt
@@ -126,6 +126,9 @@ make test -C %{_target_platform}-qt5 ||:
 
  
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

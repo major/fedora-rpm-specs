@@ -8,7 +8,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       1.5.5
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       MIT
@@ -70,6 +70,9 @@ MinGW Windows %{pkgname}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 12 2022 Sandro Mani <manisandro@gmail.com> - 1.5.5-8
 - Update for 1.3.231.1 sdk
 

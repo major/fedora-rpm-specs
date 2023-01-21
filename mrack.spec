@@ -1,6 +1,6 @@
 Name:           mrack
 Version:        1.12.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -177,6 +177,9 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.12.3-4
 - chore: Add add tmt tests and plans and add them to sync (Tibor Dudlák)
 

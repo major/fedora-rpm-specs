@@ -2,7 +2,7 @@
 
 Name:           mingw-wavpack
 Version:        5.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Completely open audiocodec
 
 License:        BSD
@@ -129,6 +129,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 František Dvořák <valtri@civ.zcu.cz> - 5.5.0-1
 - Update to 5.5.0
 - Security fix for CVE-2022-2476

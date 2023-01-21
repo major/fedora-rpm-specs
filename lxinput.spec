@@ -2,7 +2,7 @@
 
 Name:           lxinput
 Version:        0.3.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Keyboard and mouse settings dialog for LXDE
 
 License:        GPLv2+
@@ -59,6 +59,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -26,7 +26,7 @@
 
 Name:           man-pages-l10n
 Version:        4.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Translated man pages from the Linux Documentation Project and other software projects
 
 # original man pages are under various licenses, translations are GPLv3+
@@ -97,6 +97,9 @@ end}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Lukas Javorsky <ljavorsk@redhat.com> - 4.16.0-1
 - Rebase to version 4.16.0
 

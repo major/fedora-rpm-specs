@@ -7,7 +7,7 @@
 
 Name: intel-llvm8.0-vc-intrinsics
 Version: 0
-Release: 2%{?vc_rev}%{?dist}
+Release: 3%{?vc_rev}%{?dist}
 Summary: New intrinsics on top of core LLVM IR instructions
 
 License: MIT
@@ -60,6 +60,9 @@ cp %{SOURCE1} .
 %doc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-3.20211222git753ad50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-2.20211222git753ad50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

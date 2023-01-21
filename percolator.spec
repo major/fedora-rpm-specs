@@ -4,7 +4,7 @@
 Name:      percolator
 Summary:   Software for postprocessing of shotgun proteomics data
 Version:   3.05
-Release:   10%{?dist}
+Release:   11%{?dist}
 
 ## Code under src/ (except RAMP and Fido sub-directories) is licensed under a ASL 2.0 license.
 ## Code under src/Fido under MIT license.
@@ -273,6 +273,9 @@ mkdir -p test && cd test
 %{_libdir}/percolator/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.05-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

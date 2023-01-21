@@ -21,7 +21,7 @@ security, connection string parsing and RPC for AMQP.}
 %global godocs          README.md changelog.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Common types and interfaces for Service Bus and Event Hubs
 
 License:        MIT
@@ -58,6 +58,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 3.1.0-7
 - Rebuild to fix FTBFS
 

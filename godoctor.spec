@@ -14,7 +14,7 @@ Go Doctor - The Golang Refactoring Engine.}
 %global godocs          doc README.md
 
 Name:           godoctor
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A golang refactoring tool
 
 # Upstream license specification: BSD-3-Clause
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

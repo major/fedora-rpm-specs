@@ -1,6 +1,6 @@
 Name:           libnatpmp
 Version:        20150609
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Library of The NAT Port Mapping Protocol (NAT-PMP)
 License:        LGPLv2+
 URL:            http://miniupnp.free.fr/libnatpmp.html
@@ -54,6 +54,9 @@ make testgetgateway
 %{_includedir}/natpmp.h
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20150609-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20150609-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           fpc
 Version:        3.2.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Free Pascal Compiler
 
 License:        GPLv2+ and LGPLv2+ with exceptions
@@ -355,6 +355,9 @@ rm -rf %{buildroot}/usr/lib/%{name}/lexyacc
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.2.2-9
 - Add a patch to fix docs failing to build with Texlive 2022
 

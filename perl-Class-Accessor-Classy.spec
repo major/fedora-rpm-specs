@@ -3,7 +3,7 @@
 
 Name:           perl-%{mod_basename}
 Version:        0.9.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Accessors with minimal inheritance
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/%{mod_basename}
@@ -56,6 +56,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

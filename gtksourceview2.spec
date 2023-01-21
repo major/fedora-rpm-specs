@@ -6,7 +6,7 @@
 Summary: A library for viewing source files
 Name: gtksourceview2
 Version: 2.11.2
-Release: 36%{?dist}
+Release: 37%{?dist}
 License: LGPLv2+ and GPLv2+
 # the library itself is LGPL, some .lang files are GPL
 URL: http://gtksourceview.sourceforge.net/
@@ -88,6 +88,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/gtksourceview-2.0/language-specs/convert.py
 %{_datadir}/gir-1.0/GtkSource-2.0.gir
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

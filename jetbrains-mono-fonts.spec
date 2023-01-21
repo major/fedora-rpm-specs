@@ -3,7 +3,7 @@
 Version:            2.304
 %forgemeta
 
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     https://jetbrains.com/mono/
 
 %global foundry           JetBrains
@@ -76,6 +76,9 @@ Source11: 58-%{fontpkgname1}.xml
 %fontfiles -a
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.304-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 14 2023 Michael Kuhn <suraia@fedoraproject.org> - 2.304-1
 - Update to 2.304
 

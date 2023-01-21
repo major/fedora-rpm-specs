@@ -5,7 +5,7 @@
 
 Name:       perl-DateTimeX-Easy
 Version:    0.091
-Release:    1%{?dist}
+Release:    2%{?dist}
 # lib/DateTimeX/Easy.pm:            GPL-1.0-or-later OR Artistic-1.0-Perl
 # LICENSE:                          GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:                           GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -107,6 +107,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.091-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 26 2022 Petr Pisar <ppisar@redhat.com> - 0.091-1
 - 0.091 bump
 

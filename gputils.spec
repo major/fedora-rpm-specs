@@ -1,6 +1,6 @@
 Name:		gputils
 Version:	1.5.2
-Release:	0%{?dist}
+Release:	1%{?dist}
 Summary:	Development utilities for Microchip (TM) PIC (TM) microcontrollers
 Summary(fr):	Outils de développement pour les microcontrôleurs PIC (TM) de Microchip (TM)
 
@@ -62,6 +62,9 @@ cp -f doc/%{name}.p* %{buildroot}/usr/share/doc/%{name}-doc/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 01 2023 Roy Rankin <rrankin[AT]ihug[DOT]com[DOT]au> 1.5.2-0
 - Upstream release
 

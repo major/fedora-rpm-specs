@@ -3,7 +3,7 @@
 
 Name:              monitorix
 Version:           3.15.0
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           A free, open source, lightweight system monitoring tool
 License:           GPLv2+
 URL:               http://www.monitorix.org
@@ -101,6 +101,9 @@ install -pDm644 docs/%{name}.service %{buildroot}%{_unitdir}/%{name}.service
 %attr(755,root,root) %{_sharedstatedir}/%{name}/usage
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.15.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Jordi Sanfeliu <jordi@fibranet.cat> - 3.15.0-1
 - Updated to 3.15.0.
 

@@ -1,6 +1,6 @@
 Name:           perl-Array-RefElem
 Version:        1.00
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Set up array elements as aliases
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Array-RefElem
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

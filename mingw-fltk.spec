@@ -2,7 +2,7 @@
 
 Name:           mingw-fltk
 Version:        1.3.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ user interface toolkit
 
 # See https://www.fltk.org/COPYING.php for exceptions 
@@ -135,6 +135,9 @@ Summary:       MinGW compiled fltk for the Win64 target
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

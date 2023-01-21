@@ -19,7 +19,7 @@ Requires:         gawk                       \
 Name:             initscripts
 Summary:          Basic support for legacy System V init scripts
 Version:          10.17
-Release:          1%{?dist}
+Release:          2%{?dist}
 
 License:          GPLv2
 
@@ -398,6 +398,9 @@ fi
 # =============================================================================
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Jan Macku <jamacku@redhat.com> - 10.17-1
 - service: Exit when `/etc/init.d` is missing
 - ci: Update workflows to run on main branch

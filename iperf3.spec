@@ -1,6 +1,6 @@
 Name:           iperf3
 Version:        3.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Measurement tool for TCP/UDP bandwidth performance
 
 License:        BSD
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{_libdir}/libiperf.la
 %{_libdir}/*.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jonathan Wright <jonathan@almalinux.org> - 3.12-1
 - Update to 3.12 rhbz#2131418
 

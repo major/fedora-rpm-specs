@@ -1,6 +1,6 @@
 Name:           perl-Crypt-Twofish
 Version:        2.18
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Twofish Encryption Algorithm
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-Twofish
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec  5 2022 Florian Weimer <fweimer@redhat.com> - 2.18-8
 - Port Makefile.PL to C99
 

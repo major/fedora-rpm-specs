@@ -18,7 +18,7 @@
 Name:           ldc
 Epoch:          1
 Version:        1.30.0%{?pre:~%{pre}}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        LLVM D Compiler
 
 # The DMD frontend in dmd/* GPL version 1 or artistic license
@@ -183,6 +183,9 @@ install -m0644 phobos.d.tags %{buildroot}/%{_datadir}/geany/tags/
 %{_datadir}/geany/tags/phobos.d.tags
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.30.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Kalev Lember <klember@redhat.com> - 1:1.30.0-4
 - Use ld.gold on RHEL 8 and 9 (#2134875)
 

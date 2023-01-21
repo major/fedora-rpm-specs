@@ -5,7 +5,7 @@
 Summary:       A powerful visualization and data analysis tool
 Name:          extrema
 Version:       4.4.5
-Release:       34%{?dist}
+Release:       35%{?dist}
 License:       GPLv2+
 URL:           http://exsitewebware.com/extrema/
 Source0:       http://downloads.sourceforge.net/extrema/extrema-%{version}.tar.gz
@@ -76,6 +76,9 @@ rm -f %{buildroot}%{_libdir}/lib%{name}.{la,a}
 %doc doc/*.pdf
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.5-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 4.4.5-34
 - Rebuild with wxWidgets 3.2
 

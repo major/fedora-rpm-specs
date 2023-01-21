@@ -9,7 +9,7 @@
 
 Name:           evince
 Version:        43.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Document viewer
 
 License:        GPLv2+ and GPLv3+ and LGPLv2+ and MIT and Afmparse
@@ -281,6 +281,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 43.1-2
 - Ensure correct fonts are installed for HTML docs
 

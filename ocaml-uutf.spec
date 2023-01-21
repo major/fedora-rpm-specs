@@ -6,7 +6,7 @@
 
 Name:           ocaml-uutf
 Version:        1.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Non-blocking streaming Unicode codec for OCaml
 
 License:        ISC
@@ -87,6 +87,9 @@ ocaml pkg/pkg.ml test
 %doc html/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-4
 - Add upstream patch for ocaml-cmdliner 1.1.x support
 

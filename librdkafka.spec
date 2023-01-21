@@ -1,6 +1,6 @@
 Name:		librdkafka
 Version:	1.9.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	The Apache Kafka C library
 
 License:	BSD
@@ -85,6 +85,9 @@ find %{buildroot} -name '*-static.pc' -delete -print
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 12 2022 Steve Traylen <steve.traylen@cern.ch> - 1.9.2-1
 - Update to 1.9.2
 

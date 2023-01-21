@@ -13,8 +13,8 @@ io operations appear blocking at the source code level.}
 %endif
 
 Name:           python-%{srcname}
-Version:        0.33.1
-Release:        5%{?dist}
+Version:        0.33.3
+Release:        1%{?dist}
 Summary:        Highly concurrent networking library
 License:        MIT
 
@@ -62,7 +62,7 @@ BuildRequires:  python3-zmq
 %if %{with tests}
 # Disable setting up dns (we have no /etc/resolv.conf in mock
 export EVENTLET_NO_GREENDNS=yes
-nosetests-%{python3_version} -v -e greendns_test -e socket_test -e test_patcher_existing_locks_locked -e test_017_ssl_zeroreturnerror -e test_018b_http_10_keepalive_framing
+nosetests-%{python3_version} -v -e greendns_test -e socket_test -e test_patcher_existing_locks_locked -e test_017_ssl_zeroreturnerror -e test_018b_http_10_keepalive_framing -e test_fork_after_monkey_patch
 %else
 %pyproject_check_import -t
 %endif
@@ -75,6 +75,9 @@ nosetests-%{python3_version} -v -e greendns_test -e socket_test -e test_patcher_
 %doc doc/_build/html
 
 %changelog
+* Wed Jan 18 2023 Sandro Mani <manisandro@gmail.com> - 0.33.3-1
+- Update to 0.33.3
+
 * Sun Sep 25 2022 Kevin Fenzi <kevin@scrye.com> - 0.33.1-5
 - Disable failing test to fix FTBFS
 

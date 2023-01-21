@@ -4,7 +4,7 @@
 Name:    kf5-libkipi
 Summary: Common plugin infrastructure for KDE image applications
 Version: 22.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/graphics/%{base_name}
@@ -79,6 +79,9 @@ Requires: cmake(KF5XmlGui)
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
 - Update to 22.12.1
 

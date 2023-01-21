@@ -16,9 +16,9 @@ Summary:        Terminal emulator for MATE
 Name:           mate-terminal
 Version:        %{branch}.0
 %if 0%{?rel_build}
-Release:        4%{?dist}
+Release:        5%{?dist}
 %else
-Release:        0.15%{?git_rel}%{?dist}
+Release:        0.16%{?git_rel}%{?dist}
 %endif
 License:        GPLv3+
 URL:            http://mate-desktop.org
@@ -96,6 +96,9 @@ desktop-file-install                                                    \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-4
 - fix rhbz (#2160523)
 

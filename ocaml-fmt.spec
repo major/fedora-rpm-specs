@@ -6,7 +6,7 @@
 
 Name:           ocaml-fmt
 Version:        0.9.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml Format pretty-printer combinators
 
 License:        ISC
@@ -80,6 +80,9 @@ ocaml pkg/pkg.ml test
 %doc html/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Jerry James <loganjerry@gmail.com> - 0.9.0-4
 - Rebuild for ocaml-cmdliner 1.1.1
 

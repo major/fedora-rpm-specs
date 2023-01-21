@@ -4,7 +4,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Nafees riqa font for writing Urdu in the Riqa script
 
 License:        Bitstream Vera
@@ -55,6 +55,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

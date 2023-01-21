@@ -2,7 +2,7 @@
 Summary: Musepack audio decoding library
 Name:	 libmpcdec
 Version: 1.2.6
-Release: 30%{?dist}
+Release: 31%{?dist}
 
 License: BSD 
 URL: 	 http://www.musepack.net/
@@ -62,6 +62,9 @@ rm -fv $RPM_BUILD_ROOT%{_libdir}/lib*.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

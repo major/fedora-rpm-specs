@@ -2,7 +2,7 @@
 
 Name:           perl-Config-Model-TkUI
 Version:        1.376
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TK GUI to edit config data through Config::Model
 License:        LGPL-2.1-only
 URL:            https://metacpan.org/release/Config-Model-TkUI
@@ -97,6 +97,9 @@ This class provides a GUI for Config::Model.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.376-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.376-1
 - 1.376 bump
 

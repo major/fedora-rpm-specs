@@ -3,7 +3,7 @@
 
 Name:           gnome-shell-extension-%{extension}
 Version:        12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNOME Shell extension for no overview at start-up
 License:        GPL-3.0-only
 URL:            https://extensions.gnome.org/extension/4099/no-overview/
@@ -43,6 +43,9 @@ cp -rp *.js metadata.json \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Takao Fujiwara <tfujiwar@redhat.com> - 12-1
 - Migrate license tag to SPDX
 - Bump to 12

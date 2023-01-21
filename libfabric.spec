@@ -2,7 +2,7 @@
 
 Name:           libfabric
 Version:        1.17.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD or GPLv2
@@ -94,6 +94,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Orion Poplawski <orion@nwra.com> - 1.17.0-2
 - Re-enable LTO on x86_64
 

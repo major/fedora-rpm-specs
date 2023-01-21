@@ -13,7 +13,7 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 1
+%global baserelease 2
 
 # github fails to create a version including a ~
 %global gh_ver  1.0.0b3
@@ -131,6 +131,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~b3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b3-1
 - New upstream release 1.0.0~b3
 - Switch license identifier to SPDX

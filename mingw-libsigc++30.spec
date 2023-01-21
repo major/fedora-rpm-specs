@@ -7,7 +7,7 @@
 
 Name:          mingw-%{pkgname}
 Version:       3.4.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       MinGW Windows sigc++ 3.0 library
 
 License:       LGPLv2+
@@ -78,6 +78,9 @@ MinGW Windows %{pkgname} library.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 3.4.0-1
 - Update to 3.4.0
 

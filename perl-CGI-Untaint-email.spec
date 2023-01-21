@@ -1,6 +1,6 @@
 Name:           perl-CGI-Untaint-email
 Version:        0.03
-Release:        44%{?dist}
+Release:        45%{?dist}
 Summary:        Validate an email address
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/CGI-Untaint-email
@@ -44,6 +44,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

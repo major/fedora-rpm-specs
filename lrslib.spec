@@ -2,7 +2,7 @@
 
 Name:           lrslib
 Version:        7.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Reverse search for vertex enumeration/convex hull problems
 
 %global upver 0%(sed 's/\\.//' <<< %{version})
@@ -175,6 +175,9 @@ cd ../..
 %{_mandir}/man1/lrs*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 7.2-2
 - Fix a few man page names
 - Convert License tag to SPDX

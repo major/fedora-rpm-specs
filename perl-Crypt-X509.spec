@@ -1,6 +1,6 @@
 Name:           perl-Crypt-X509
 Version:        0.54
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Parse a X.509 certificate
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-X509
@@ -51,6 +51,9 @@ most certificate elements.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.54-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.54-7
 - Convert license to SPDX.
 

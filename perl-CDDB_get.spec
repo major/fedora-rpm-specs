@@ -1,6 +1,6 @@
 Name:           perl-CDDB_get
 Version:        2.28
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Read the CDDB entry for an audio CD in your drive
 License:        GPLv2 or Artistic
 URL:            https://metacpan.org/release/CDDB_get
@@ -54,6 +54,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

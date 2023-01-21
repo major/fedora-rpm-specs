@@ -5,7 +5,7 @@
 
 Name:           krazy2
 Version:        2.97
-Release:        0.28.%{snapdate}git%(echo %{snaphash} | cut -c -13)%{?dist}
+Release:        0.29.%{snapdate}git%(echo %{snaphash} | cut -c -13)%{?dist}
 Summary:        Krazy is a tool for checking code against the KDE coding guidelines
 
 License:        GPLv2+
@@ -138,6 +138,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.97-0.29.20140114git35d9080f1870d
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.97-0.28.20140114git35d9080f1870d
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,13 +2,14 @@
 
 Name:		calls
 Version:	44~alpha.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A phone dialer and call handler
 
 License:	GPLv3+ and MIT
 URL:		https://gitlab.gnome.org/GNOME/calls
 Source0:	https://gitlab.gnome.org/GNOME/calls/-/archive/v44_alpha.1/%{name}-v44_alpha.1.tar.gz
 Source1:	https://gitlab.gnome.org/World/Phosh/libcall-ui/-/archive/%{libcall_ui_commit}/libcall-ui-%{libcall_ui_commit}.tar.gz
+Patch0:		calls-c99.patch
 
 BuildRequires:	gcc
 BuildRequires:	meson
@@ -44,6 +45,7 @@ A phone dialer and call handler.
 
 %prep
 %setup -a1 -q -n %{name}-v44_alpha.1
+%patch0 -p2
 
 mv libcall-ui-%{libcall_ui_commit}/* subprojects/libcall-ui/
 
@@ -128,6 +130,9 @@ SH
 %license COPYING
 
 %changelog
+* Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 44~alpha.1-3
+- C99 compatibility fix
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44~alpha.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

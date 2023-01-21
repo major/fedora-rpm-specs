@@ -3,7 +3,7 @@
 
 Name: libquotient
 Version: 0.7.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPL-2.1-or-later
 URL: https://github.com/quotient-im/%{libname}
@@ -75,6 +75,9 @@ rm -rf %{buildroot}%{_datadir}/ndk-modules
 %{_libdir}/%{libname}.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.7.1-1
 - Updated to version 0.7.1.
 

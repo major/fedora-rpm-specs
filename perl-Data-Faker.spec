@@ -1,6 +1,6 @@
 Name:           perl-Data-Faker
 Version:        0.10
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl extension for generating fake data
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Data-Faker
@@ -58,6 +58,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

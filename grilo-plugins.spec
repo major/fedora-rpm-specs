@@ -6,7 +6,7 @@
 
 Name:		grilo-plugins
 Version:	0.3.15
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Plugins for the Grilo framework
 
 License:	LGPLv2+
@@ -115,6 +115,9 @@ This package contains plugins to get information from theses sources:
 %{_libdir}/grilo-%{release_version}/*.so*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Victor Toso <victortoso@redhat.com> - 0.3.15-1
 - Update to 0.3.15
 

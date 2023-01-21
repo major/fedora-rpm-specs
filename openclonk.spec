@@ -11,7 +11,7 @@
 Name:           openclonk
 Summary:        Multiplayer action, tactics and skill game
 Version:        8.1
-Release:        19.%{date}git%{shortcommit}%{?dist}
+Release:        20.%{date}git%{shortcommit}%{?dist}
 URL:            http://www.openclonk.org/
 Source0:        https://github.com/openclonk/openclonk/archive/%{commit}/%{name}-%{commit}.tar.gz
 License:        ISC and CC-BY-SA
@@ -205,6 +205,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-20.20210103git701bcf3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 04 2022 Martin Gansser <martinkg@fedoraproject.org> - 8.1-19.20210103git701bcf3
 - Update to 8.1-19.20210103git701bcf3
 - Add openclonk-bin-path.patch

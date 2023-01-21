@@ -1,6 +1,6 @@
 Name:           klt
 Version:        1.3.4
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        An implementation of the Kanade-Lucas-Tomasi feature tracker
 
 License:        Public Domain
@@ -119,6 +119,9 @@ install -m 0644 -p *.h -t $RPM_BUILD_ROOT%{_includedir}/%{name}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

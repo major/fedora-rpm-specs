@@ -1,6 +1,6 @@
 Name:          nyancat
 Version:       1.5.2
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Nyancat rendered in your terminal
 
 License:       NCSA
@@ -54,6 +54,9 @@ install -m 0644 nyancat.1 %{buildroot}/%{_mandir}/man1/
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

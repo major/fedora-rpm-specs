@@ -2,7 +2,7 @@
 
 Name:           libg15render
 Version:        1.3.0
-Release:        0.9.svn%{svnrev}%{?dist}
+Release:        0.10.svn%{svnrev}%{?dist}
 Summary:        Library for rendering bitmaps for the Logitech G15 keyboard LCD
 License:        GPLv2+
 URL:            https://sourceforge.net/projects/g15tools/
@@ -57,6 +57,9 @@ rm -r $RPM_BUILD_ROOT%{_docdir}/%{name}-1.3
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-0.10.svn316
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-0.9.svn316
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

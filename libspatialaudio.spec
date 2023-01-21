@@ -4,7 +4,7 @@
 
 Name:           libspatialaudio
 Version:        3.1
-Release:        7.%{date0}git%{?shortcommit0}%{?dist}
+Release:        8.%{date0}git%{?shortcommit0}%{?dist}
 Summary:        Ambisonic encoding / decoding and binauralization library
 
 License:        LGPLv2+
@@ -64,6 +64,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-8.20200406gitd926a2e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-7.20200406gitd926a2e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

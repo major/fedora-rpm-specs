@@ -19,7 +19,7 @@
 
 Name: fragments
 Version: 1.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Easy to use BitTorrent client which follows the GNOME HIG
 
 # The entire source code is GPLv3+ except:
@@ -139,6 +139,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 1.5-6
 - Apply upstream patch to fix C99 compatibility issue
 

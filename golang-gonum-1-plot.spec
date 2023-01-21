@@ -16,7 +16,7 @@ Plot provides an API for building and drawing plots in Go.}
 %global godocs          AUTHORS README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Package for plotting and visualizing dataZ
 
 License:        BSD
@@ -83,6 +83,9 @@ BuildRequires:  golang(gonum.org/v1/gonum/mat)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Maxwell G <gotmax@e.email> - 0.8.1-8
 - rebuilt
 

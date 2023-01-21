@@ -15,7 +15,7 @@ Logging facade used by GCP guest environment for structured logging}
 
 Name:           %{goname}
 Version:        0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Common logger used by GCP guest environment
 
 # Upstream license specification: Apache-2.0
@@ -45,6 +45,9 @@ BuildRequires:  golang(google.golang.org/genproto/googleapis/logging/v2)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Major Hayden <major@redhat.com> - 0-6
 - Updated to 2021-06-21 commit.
 

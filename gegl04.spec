@@ -2,7 +2,7 @@
 
 Name:           gegl04
 Version:        0.4.38
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Graph based image processing framework
 
 # The binary is under the GPL, while the libs are under LGPL.
@@ -176,6 +176,9 @@ chrpath --delete %{buildroot}%{_libdir}/gegl-%{apiver}/*.so
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.38-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.4.38-2
 - LibRaw rebuild
 

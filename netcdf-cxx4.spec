@@ -1,6 +1,6 @@
 Name:           netcdf-cxx4
 Version:        4.3.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        NetCDF-4 C++ library
 
 License:        NetCDF
@@ -240,6 +240,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

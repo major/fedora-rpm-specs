@@ -2,7 +2,7 @@
 
 Name:		nvidia-texture-tools
 Version:	2.1.2
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Collection of image processing and texture manipulation tools
 License:	MIT and ASL 2.0 and BSD
 URL:		https://github.com/castano/nvidia-texture-tools/wiki
@@ -114,6 +114,9 @@ export LD_LIBRARY_PATH=$RPM_BUILD_ROOT/%{_libdir}:
 %{_libdir}/lib*.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Kalev Lember <klember@redhat.com> - 2.1.2-5
 - Drop unused openjpeg-devel build dep
 

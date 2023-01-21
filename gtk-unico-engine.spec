@@ -4,7 +4,7 @@
 
 Name:           gtk-unico-engine
 Version:        1.0.3
-Release:        0.20.%{revision_date}bzr%{revision}%{?dist}
+Release:        0.21.%{revision_date}bzr%{revision}%{?dist}
 Summary:        Unico Gtk+ theming engine
 
 License:        LGPLv2
@@ -51,6 +51,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/gtk-3.0/3.0.0/theming-engines/*.la
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-0.21.20140109bzr152
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-0.20.20140109bzr152
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@ Name:		bluefish
 Version:	%{pkgver}
 Release:	%{?prerel:0.}%{baserelease}%{?prerel:.%{prerel}}%{?dist}
 Summary:	Web development application for experienced users
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		http://bluefish.openoffice.nl/
 Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?prerel:-%{prerel}}.tar.bz2
 Patch0:		bluefish-2.2.10-strict-aliasing.patch

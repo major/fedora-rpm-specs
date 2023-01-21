@@ -82,7 +82,7 @@
 
 Name:           paraview
 Version:        %{pv_maj}.%{pv_min}.%{pv_patch}
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Parallel visualization application
 
 License:        BSD
@@ -93,7 +93,9 @@ Source2:        FindPEGTL.cmake
 # Fix cmake files install location
 # https://gitlab.kitware.com/paraview/paraview/issues/19724
 Patch0:         paraview-cmakedir.patch
-
+# Add missing includes for gcc 13
+# https://gitlab.kitware.com/vtk/vtk/-/issues/18782
+Patch1:         vtk-include.patch
 # Fix build with newer freetype
 # https://gitlab.kitware.com/vtk/vtk/-/issues/18033
 Patch3:         paraview-freetype.patch
@@ -521,6 +523,7 @@ developing applications that use %{name}-mpich.
 %prep
 %setup -q -n ParaView-v%{version}%{?versuf}
 %patch0 -p1
+%patch1 -p1
 %patch3 -p1 -b .freetype
 
 %if %{with VisitBridge}
@@ -767,6 +770,12 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Fri Jan 20 2023 Orion Poplawski <orion@nwra.com> - 5.11.0-3
+- Add patch for gcc 13
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 19 2022 Orion Poplawski <orion@nwra.com> - 5.11.0-1
 - Update to 5.11.0
 

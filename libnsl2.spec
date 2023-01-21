@@ -9,7 +9,7 @@
 
 Name:       libnsl2
 Version:    2.0.0
-Release:    4%{?relsuffix}%{?dist}
+Release:    5%{?relsuffix}%{?dist}
 Summary:    Public client interface library for NIS(YP) and NIS+
 
 License:    BSD and LGPLv2+
@@ -74,6 +74,9 @@ cp -p %{_libdir}/libnsl.so.%{old_sover}* %{buildroot}%{_libdir}
 %{_libdir}/pkgconfig/libnsl.pc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

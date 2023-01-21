@@ -1,6 +1,6 @@
 Name:           perl-Data-IEEE754
 Version:        0.02
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Pack and unpack big-endian IEEE 754 floats and doubles
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/Data-IEEE754/
@@ -84,6 +84,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

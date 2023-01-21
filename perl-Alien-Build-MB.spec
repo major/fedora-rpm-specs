@@ -1,6 +1,6 @@
 Name:           perl-Alien-Build-MB
 Version:        0.09
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Alien::Build installer class for Module::Build
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-Build-MB
@@ -94,6 +94,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 30 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.09-1
 - 0.09 bump
 

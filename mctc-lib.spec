@@ -1,6 +1,6 @@
 Name:           mctc-lib
 Version:        0.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Modular computation tool chain library
 License:        ASL 2.0
 URL:            https://grimme-lab.github.io/mctc-lib/
@@ -64,6 +64,9 @@ rm -rf %{buildroot}%{_includedir}/mctc-lib/
 %{_libdir}/libmctc-lib.so
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -17,7 +17,7 @@ Package githubv4 is a client library for accessing GitHub GraphQL API v4
 
 Name:           %{goname}
 Version:        0
-Release:        0.7%{?dist}
+Release:        0.8%{?dist}
 Summary:        Package githubv4 is a client library for accessing GitHub GraphQL API v4
 
 License:        MIT
@@ -45,6 +45,9 @@ Source:         %{gosource}
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 07 2022 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 0-0.7
 - Update to latest commit
 

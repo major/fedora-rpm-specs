@@ -1,6 +1,6 @@
 Name:           openosc
 Version:        1.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Open Object Size Check Library
 License:        ASL 2.0
 
@@ -72,6 +72,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

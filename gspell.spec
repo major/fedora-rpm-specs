@@ -3,7 +3,7 @@
 
 Name:           gspell
 Version:        1.12.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Spell-checking library for GTK+
 
 License:        LGPLv2+
@@ -84,6 +84,9 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.12.0-2
 - Rebuild for ICU 72
 

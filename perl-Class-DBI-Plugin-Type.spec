@@ -1,6 +1,6 @@
 Name:           perl-Class-DBI-Plugin-Type
 Version:        0.02
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Determine type information for columns
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Class-DBI-Plugin-Type
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

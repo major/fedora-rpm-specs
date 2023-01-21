@@ -3,7 +3,7 @@
 
 Name:           gitg
 Version:        41
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GTK+ graphical interface for the git revision control system
 
 License:        GPLv2+
@@ -141,6 +141,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Kalev Lember <klember@redhat.com> - 41-4
 - Fix the build with meson 0.61.0 (rhbz#2113239)
 

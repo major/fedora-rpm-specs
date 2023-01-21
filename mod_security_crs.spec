@@ -1,7 +1,7 @@
 Summary: ModSecurity Rules
 Name: mod_security_crs
 Version: 3.3.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: ASL 2.0
 URL: https://www.owasp.org/index.php/Category:OWASP_ModSecurity_Core_Rule_Set_Project
 Source: https://github.com/coreruleset/coreruleset/archive/refs/tags/v%{version}.tar.gz
@@ -48,6 +48,9 @@ done
 %{_datarootdir}/mod_modsecurity_crs
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Luboš Uhliarik <luhliari@redhat.com> - 3.3.4-2
 - Add Early blocking feature patch again
 

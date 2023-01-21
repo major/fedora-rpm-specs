@@ -1,6 +1,6 @@
 Name:           nrg2iso
 Version:        0.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Convert Nero Burning Rom image files into ISO
 
 # There is an included copy of the GPL, but the source is clearly marked LGPL.
@@ -37,6 +37,9 @@ install -D %{name} $RPM_BUILD_ROOT%{_bindir}/nrg2iso
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

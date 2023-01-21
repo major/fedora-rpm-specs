@@ -4,7 +4,7 @@
 
 Name:           materia-gtk-theme
 Version:        0.0.%{vergit}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Material Design theme for GNOME/GTK based desktop environments
 BuildArch:      noarch
 
@@ -138,6 +138,9 @@ end
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20210322-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.20210322-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

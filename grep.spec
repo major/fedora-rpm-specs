@@ -1,7 +1,7 @@
 Summary: Pattern matching utilities
 Name: grep
 Version: 3.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/grep/
 
@@ -84,6 +84,9 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan  3 2023 Florian Weimer <fweimer@redhat.com> - 3.8-2
 - Fix C99 compatibility issue in the configure script
 

@@ -2,7 +2,7 @@
 
 Name:           ocaml-zmq
 Version:        5.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        ZeroMQ bindings for OCaml
 
 License:        MIT
@@ -83,6 +83,9 @@ rm -fr %{buildroot}%{ocamldir}/zmq-async
 %files lwt-devel -f .ofiles-zmq-lwt-devel
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov  2 2022 Jerry James <loganjerry@gmail.com> - 5.2.1-1
 - Version 5.2.1
 

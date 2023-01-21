@@ -2,7 +2,7 @@
 
 Name:		nik4
 Version:	1.6.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Command-line interface to a Mapnik rendering toolkit
 
 License:	WTFPL
@@ -59,6 +59,9 @@ mv %{buildroot}/%{_bindir}/nik4.py %{buildroot}/%{_bindir}/nik4
 %endif
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

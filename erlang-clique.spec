@@ -4,7 +4,7 @@
 
 Name:		erlang-%{realname}
 Version:	0.3.12
-Release:	2%{?dist}
+Release:	3%{?dist}
 BuildArch:	noarch
 Summary:	CLI Framework for Erlang
 License:	ASL 2.0
@@ -46,6 +46,9 @@ build complex CLIs, but enough constraint to make them appear consistent.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-dbus
 Version:        0.30
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        OCaml library for using D-Bus
 License:        LGPLv2
 
@@ -89,6 +89,9 @@ chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dlldbus_stubs.so
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

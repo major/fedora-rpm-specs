@@ -6,7 +6,7 @@
 
 Name:           ocaml-ctypes
 Version:        0.20.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Combinators for binding to C libraries without writing any C
 
 License:        MIT
@@ -119,6 +119,9 @@ make test
 %doc *.html *.css
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 0.20.1-3
 - New URLs
 

@@ -2,7 +2,7 @@
 
 Name:           ocaml-gen
 Version:        1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple, efficient iterators for OCaml
 
 License:        BSD-2-Clause
@@ -60,6 +60,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 1.0-3
 - Convert License tag to SPDX
 

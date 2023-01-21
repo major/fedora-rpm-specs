@@ -18,7 +18,7 @@ errors to find out particular problems.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Dependable Go errors with tracebacks
 
 # Upstream license specification: BSD-3-Clause
@@ -47,6 +47,9 @@ BuildRequires: golang(github.com/go-check/check)
 %gopkgfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 10 2022 Stephen Gallagher <sgallagh@redhat.com> - 2.1.0-9
 - Add missing BuildRequires
 

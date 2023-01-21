@@ -1,6 +1,6 @@
 Name: man-pages-ja
 Version: 20220415
-Release: 2%{?dist}
+Release: 3%{?dist}
 # BSD - shadow, bsd-games, byacc, bzip2, dhcpcd, dump, file, hdparm, rssh, tcp_wrappers, tcsh
 # GFDL - GNU_*, cron, glibc-linuxthreads
 # GPL+/GPLv2+/BSD/MIT/Copyright only/IEEE - LDP_manpages, gnumaniak, ld.so
@@ -158,6 +158,9 @@ done
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220415-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220415-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           geoclue2
 Version:        2.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Geolocation service
 
 License:        GPLv2+
@@ -149,6 +149,9 @@ exit 0
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Kalev Lember <klember@redhat.com> - 2.6.0-4
 - Tighten dependencies between -libs and -demos subpackages
 

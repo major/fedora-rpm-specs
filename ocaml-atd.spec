@@ -16,7 +16,7 @@
 
 Name:           ocaml-%{project_name}
 Version:        2.2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Static Types for Json APIs
 
 License:        BSD
@@ -238,6 +238,9 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,s}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

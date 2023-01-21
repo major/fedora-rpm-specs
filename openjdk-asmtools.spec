@@ -8,7 +8,7 @@
 
 Name:           openjdk-asmtools
 Version:        %{major}.%{minor}
-Release:        0.1.%{commitdate}.git%{shortcommit}%{?dist}
+Release:        0.2.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:        To develop tools create proper & improper Java '.class' files
 
 License:        GPLv2+
@@ -95,6 +95,9 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 %files javadoc -f maven/.mfiles-javadoc
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b02.ea-0.2.20221108.git608867a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 10 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b02.ea-0.1.20221108.git608867a
 - bumped to asmtools8
 

@@ -3,7 +3,7 @@
 
 Name:           kio_mtp
 Version:        0.75
-Release:        26.%{snap}git%{git_commit}%{?dist}
+Release:        27.%{snap}git%{git_commit}%{?dist}
 Summary:        An MTP KIO slave for KDE
 
 License:        GPLv2+
@@ -64,6 +64,9 @@ make install/fast  DESTDIR=%{buildroot} -C %{_target_platform}
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.75-27.20141221gitc418634
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.75-26.20141221gitc418634
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

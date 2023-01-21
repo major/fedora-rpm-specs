@@ -1,8 +1,8 @@
 Name:		gtorrentviewer
 Version:	0.2b
-Release:	49%{?dist}
+Release:	50%{?dist}
 Summary:	A GTK2-based viewer and editor for BitTorrent meta files
-License:	GPL+
+License:	GPL-1.0-or-later
 URL:		http://gtorrentviewer.sourceforge.net/
 Source0:	http://downloads.sf.net/gtorrentviewer/GTorrentViewer-%{version}.tar.gz
 Patch0:		gtorrentviewer-0.2b-desktop.patch
@@ -60,7 +60,7 @@ download.
 # Avoid segfault when dealing with torrent that has no tracker (#1178062)
 %patch6
 
-# C99 compatibility issues.
+# C99 compatibility issues
 %patch7 -p1
 
 %build
@@ -102,6 +102,9 @@ desktop-file-install \
 %{_mandir}/man1/gtorrentviewer.1*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2b-50
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.2b-49
 - Port configure to C99
 

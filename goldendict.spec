@@ -3,7 +3,7 @@
 
 Name: goldendict
 Version: 1.5
-Release: 0.35.RC2%{?dist}
+Release: 0.36.RC2%{?dist}
 
 License: GPL-3.0-or-later
 Summary: A feature-rich dictionary lookup program
@@ -91,6 +91,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/help
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-0.36.RC2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.5-0.35.RC2
 - Rebased to 1064880 snapshot with different bugfixes.
 

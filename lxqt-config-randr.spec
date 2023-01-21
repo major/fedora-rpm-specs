@@ -10,9 +10,9 @@
 Name:           lxqt-config-randr
 Version:        0.1.2
 %if 0%{?gitdate}
-Release:        17.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
+Release:        18.%{gitdate}git%(c=%{commit0}; echo ${c:0:7} )%{?dist}
 %else
-Release:        17%{?dist}
+Release:        18%{?dist}
 %endif
 Summary:        GUI interface to RandR extension
 
@@ -90,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-18.20140202git6ada849
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-17.20140202git6ada849
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

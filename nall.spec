@@ -1,6 +1,6 @@
 Name:           nall
 Version:        1.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A simple, non-intrusive, everything notifier in the system tray
 License:        GPLv2+
 URL:            http://herewe.servebeer.com/nall/
@@ -49,6 +49,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -23,7 +23,7 @@ end}
 
 Name:             grafana
 Version:          9.0.9
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Metrics dashboard and graph editor
 License:          AGPLv3
 URL:              https://grafana.org
@@ -889,6 +889,9 @@ OPENSSL_FORCE_FIPS_MODE=1 GOLANG_FIPS=1 go test -v ./pkg/util -run TestEncryptio
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 21 2022 Andreas Gerstmayr <agerstmayr@redhat.com> 9.0.9-1
 - update to 9.0.9 tagged upstream community sources, see CHANGELOG
 - resolve CVE-2022-35957 grafana: Escalation from admin to server admin when auth proxy is used (rhbz#2128565)

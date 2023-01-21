@@ -1,6 +1,6 @@
 Name:		perl-Data-UUID
 Version:	1.226
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Globally/Universally Unique Identifiers (GUIDs/UUIDs)
 # Upstream says BSD but LICENSE file looks more like MIT
 # https://lists.fedoraproject.org/pipermail/legal/2013-August/002226.html
@@ -89,6 +89,9 @@ perl smp-test/collision.t
 %{_mandir}/man3/Data::UUID.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.226-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.226-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

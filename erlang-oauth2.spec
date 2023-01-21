@@ -3,7 +3,7 @@
 
 Name:       erlang-%{srcname}
 Version:    0.7.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 BuildArch:  noarch
 License:    MIT
 Summary:    An Oauth2 implementation for Erlang
@@ -44,6 +44,9 @@ OAuth2.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

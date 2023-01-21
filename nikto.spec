@@ -3,7 +3,7 @@ Name:           nikto
 # Handle the old versioning system 2.01, 2.02, 2.03 ...
 Epoch:          1
 Version:        2.1.6
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Web server scanner
 
 
@@ -91,6 +91,9 @@ rm -f %{buildroot}%{_datadir}/nikto/plugins/LW2.pm
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.6-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.1.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		fcitx-skk
 Version:	0.1.4
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Japanese SKK (Simple Kana Kanji) Engine for Fcitx
 
 License:	GPLv3+
@@ -46,6 +46,9 @@ Japanese input method using libskk.
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

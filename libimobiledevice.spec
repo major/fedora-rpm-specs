@@ -1,6 +1,6 @@
 Name:          libimobiledevice
 Version:       1.3.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Library for connecting to mobile devices
 
 License:       LGPLv2+
@@ -80,6 +80,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_includedir}/libimobiledevice/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

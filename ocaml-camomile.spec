@@ -4,7 +4,7 @@
 
 Name:           ocaml-camomile
 Version:        1.0.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Unicode library for OCaml
 
 # Several files are MIT and UCD licensed, but the overall work is LGPLv2+
@@ -122,6 +122,9 @@ cp _build/install/default/lib/camomile/library/*.mli %{buildroot}%{_libdir}/ocam
 
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

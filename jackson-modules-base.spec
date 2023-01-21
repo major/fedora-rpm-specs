@@ -2,7 +2,7 @@
 
 Name:           jackson-modules-base
 Version:        2.14.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
@@ -103,6 +103,9 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Marian Koncek <mkoncek@redhat.com> - 2.14.1-2
 - Rebuild with compat jakarta.activation version 1
 

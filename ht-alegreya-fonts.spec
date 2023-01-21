@@ -3,7 +3,7 @@
 Version: 2.008
 %forgemeta
 
-Release: 10%{?dist}
+Release: 11%{?dist}
 URL:     https://www.huertatipografica.com/en/fonts/alegreya-ht-pro
 
 %global foundry           HT
@@ -61,6 +61,9 @@ Source10: 58-%{fontpkgname}.conf
 %fontfiles
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.008-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.008-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

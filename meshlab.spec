@@ -1,9 +1,10 @@
 Name:		meshlab
 Summary:	A system for processing and editing unstructured 3D triangular meshes
 Version:	2022.02
-Release:	1%{?dist}
+Release:	3%{?dist}
 URL:		https://github.com/cnr-isti-vclab/meshlab
-License:	GPLv2+ and BSD and Public Domain and ASL 2.0
+# Bundled e57 is Boost-licensed
+License:	GPLv2+ and BSD and Public Domain and ASL 2.0 and Boost
 Source0:	https://github.com/cnr-isti-vclab/meshlab/archive/MeshLab-%{version}/%{name}-%{version}.tar.gz
 # Matches 2022.02:
 %global vcglibver e4950d1
@@ -20,10 +21,14 @@ Provides:	bundled(vcglib) = %{vcglibver}
 Patch1:         meshlab-2021.07-MESHLAB_LIB_INSTALL_DIR-fix.patch
 # Enable use of system levmar
 Patch2:         meshlab-2021.07-system-levmar.patch
+# Fix FTBFS with GCC 13+ by adding include <cstdint>
+# Upstream already added that in https://github.com/asmaloney/libE57Format/pull/176
+Patch3:         meshlab-2022.02-e57-gcc13.patch
 
 # Bundled things
 # This is a fork of a fork. Fun.
 Provides:	bundled(u3d) = 1.4.5-meshlab
+Provides:	bundled(e57) = 2.3.0
 
 BuildRequires:	bzip2-devel
 BuildRequires:	eigen3-devel
@@ -60,6 +65,7 @@ these kinds of meshes.
 # %%patch0 -p1 -b .installfix
 %patch1 -p1 -b .libdirfix
 %patch2 -p1 -b .system-levmar
+%patch3 -p1 -b .e57-gcc13
 cp %{SOURCE3} .
 rmdir src/vcglib && mv vcglib-%{vcglibver}* src/vcglib
 
@@ -155,6 +161,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/meshlab.desktop
 # %%license unsupported/plugins_unsupported/filter_poisson/license.txt
 
 %changelog
+* Thu Jan 19 2023 Miro Hrončok <mhroncok@redhat.com> - 2022.02-3
+- Fix build failure with GCC 13
+- Declare bundled e57 library by providing bundled(e57) and adding Boost to the list of licenses
+- Fixes: rhbz#2162550
+
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.02-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan  9 2023 Tom Callaway <spot@fedoraproject.org> - 2022.02-1
 - update to 2022.02
 

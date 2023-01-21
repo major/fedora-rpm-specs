@@ -3,7 +3,7 @@
 
 Name:           gap-pkg-%{pkgname}
 Version:        0.9.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Standardized generation of finite fields and cyclic subgroups
 
 License:        GPL-3.0-or-later
@@ -90,6 +90,9 @@ gap -l "%{buildroot}%{gap_archdir};" tst/testall.g
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.9.4-2
 - Update for split GAP directories
 

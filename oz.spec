@@ -1,6 +1,6 @@
 Name:    oz
 Version: 0.18.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Library and utilities for automated guest OS installs
 License: LGPLv2
 URL:     http://github.com/clalancette/oz
@@ -92,6 +92,9 @@ fi
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 03 2022 Stephen Gallagher <sgallagh@redhat.com> - 0.18.1-5
 - Backport upstream patch to enable the USB controller on aarch64
 

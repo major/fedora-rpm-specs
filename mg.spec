@@ -1,6 +1,6 @@
 Name:		mg
 Version:	20200723
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Tiny Emacs-like editor
 
 License:	BSD and ISC and MirOS
@@ -32,6 +32,9 @@ rm -rf %{buildroot}
 %{_mandir}/man1/mg.1.*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200723-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20200723-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

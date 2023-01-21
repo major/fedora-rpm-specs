@@ -1,6 +1,6 @@
 Name:       libloc
 Version:    0.9.16
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Library to determine a location of an IP address in the Internet
 # COPYING:                  LGPL-2.1 text
 # data/database.db:         CC-BY-SA-4.0
@@ -262,6 +262,9 @@ make check %{?_smp_mflags}
 %{_unitdir}/*
 
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 31 2022 Petr Pisar <ppisar@redhat.com> - 0.9.16-1
 - 0.9.16 bump
 - A database snapshot from 2022-10-20T06:27:23 is included
