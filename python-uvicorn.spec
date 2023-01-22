@@ -20,7 +20,7 @@ HTTP/1.1 and WebSockets.  Support for HTTP/2 is planned.}
 
 Name:           python-%{pkgname}
 Version:        0.15.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The lightning-fast ASGI server
 License:        BSD
 URL:            https://www.uvicorn.org
@@ -80,6 +80,9 @@ rm -rf %{eggname}.egg-info
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

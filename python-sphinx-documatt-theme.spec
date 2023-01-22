@@ -1,6 +1,6 @@
 Name:           python-sphinx-documatt-theme
 Version:        0.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Mobile-friendly Sphinx theme with beautiful typography
 
 # The project as a whole is MIT.
@@ -46,5 +46,8 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 25 2022 Jerry James <loganjerry@gmail.com> - 0.0.5-1
 - Initial RPM

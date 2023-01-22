@@ -2,7 +2,7 @@
 
 Name:           python-gstreamer1
 Version:        1.20.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python bindings for GStreamer
 
 License:        LGPLv2+
@@ -61,6 +61,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Wim Taymans <wtaymans@redhat.com> - 1.20.5-1
 - Update to 1.20.5
 

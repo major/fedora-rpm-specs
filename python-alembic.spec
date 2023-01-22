@@ -2,7 +2,7 @@
 
 Name:             python-alembic
 Version:          1.8.1
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Database migration tool for SQLAlchemy
 
 License:          MIT
@@ -100,6 +100,9 @@ py.test-3
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 29 2022 Kevin Fenzi <kevin@scrye.com> - 1.8.1-1
 - Update to 1.8.1. Fixes rhbz#2092126
 

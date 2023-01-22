@@ -1,6 +1,6 @@
 Name:           reaver
 Version:        1.6.6
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Brute force attack against Wifi Protected Setup
 
 License:        GPLv2
@@ -57,6 +57,9 @@ touch %{buildroot}%{_localstatedir}/lib/reaver/reaver.db
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

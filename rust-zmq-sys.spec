@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.11.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Low-level bindings to the zeromq library
 
 # Upstream license specification: MIT/Apache-2.0
@@ -77,6 +77,9 @@ echo 'pkgconfig(libzmq) >= 4.3.4'
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

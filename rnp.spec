@@ -24,7 +24,7 @@
 Name:          rnp
 Summary:       OpenPGP (RFC4880) tools
 Version:       0.16.2
-Release:       4%{?dist}
+Release:       5%{?dist}
 # See rnp-files-by-license.txt and upstream LICENSE* files
 License:       BSD-2-Clause AND BSD-3-Clause AND Apache-2.0 AND MIT
 
@@ -154,6 +154,9 @@ FILTER="$FILTER|cli_tests-Encryption|cli_tests-Misc"
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov  4 2022 Remi Collet <remi@remirepo.net> - 0.16.2-4
 - add upstream fix to clarify license and abandoned patent
 

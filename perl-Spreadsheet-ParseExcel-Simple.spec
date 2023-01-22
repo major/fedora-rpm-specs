@@ -1,6 +1,6 @@
 Name:           perl-Spreadsheet-ParseExcel-Simple
 Version:        1.04
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Simple interface to Excel data
 License:        GPLv2+
 URL:            https://metacpan.org/release/Spreadsheet-ParseExcel-Simple
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

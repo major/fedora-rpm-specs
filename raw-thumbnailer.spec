@@ -1,6 +1,6 @@
 Name:           raw-thumbnailer
 Version:        3.0.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Nautilus file manager thumbnailer for RAW images
 
 License:        GPLv2+
@@ -38,6 +38,9 @@ RawThumbnailer is a thumbnailer for RAW files that works with Nautilus.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-autobox-dump
 Version:        20090426.1746
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Human/perl readable strings from the results of an EXPR
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/autobox-dump
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/autobox::dump.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20090426.1746-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20090426.1746-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

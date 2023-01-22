@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        2.20.0
-Release:        2%{?dist}
+Version:        2.21.0
+Release:        1%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -94,6 +94,8 @@ k="${k-}${k+ and }not test_golang_hook"
 k="${k-}${k+ and }not test_golang_hook_still_works_when_gobin_is_set"
 k="${k-}${k+ and }not test_golang_with_recursive_submodule"
 k="${k-}${k+ and }not test_install_ruby_with_version"
+k="${k-}${k+ and }not test_installs_with_bootstrapped_rustup"
+k="${k-}${k+ and }not test_installs_with_existing_rustup"
 k="${k-}${k+ and }not test_installs_without_links_outside_env"
 k="${k-}${k+ and }not test_local_conda_additional_dependencies"
 k="${k-}${k+ and }not test_local_golang_additional_dependencies"
@@ -108,9 +110,6 @@ k="${k-}${k+ and }not test_run_a_node_hook_default_version"
 k="${k-}${k+ and }not test_run_ruby_hook_with_disable_shared_gems"
 k="${k-}${k+ and }not test_run_versioned_node_hook"
 k="${k-}${k+ and }not test_run_versioned_ruby_hook"
-# Requires Python 2 (forbidden as a BR, obsolete)
-k="${k-}${k+ and }not test_local_python_repo_python2"
-k="${k-}${k+ and }not test_switch_language_versions_doesnt_clobber"
 # Requires dart (not packaged):
 k="${k-}${k+ and }not test_dart_hook"
 k="${k-}${k+ and }not test_local_dart_additional_dependencies"
@@ -131,6 +130,12 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Fri Jan 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.21.0-1
+- Update to 2.21.0 (close RHBZ#2156253); fixes FTBFS with git ≥ 2.38.1
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.20.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{modulename}
 Version:        1.5.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A cached-property for decorating methods in Python classes
 License:        BSD
 URL:            https://github.com/pydanny/%{projectname}
@@ -57,6 +57,9 @@ PYTHONPATH=./ py.test-3
 %{python3_sitelib}/__pycache__/%{modulename}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

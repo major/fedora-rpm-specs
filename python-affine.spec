@@ -1,11 +1,11 @@
 %global srcname affine
 
 Name:           python-%{srcname}
-Version:        2.3.1
+Version:        2.4.0
 Release:        %autorelease
 Summary:        Matrices describing affine transformation of the plane
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/sgillies/affine
 Source0:        %pypi_source
 

@@ -1,6 +1,6 @@
 Name: radeon-profile-daemon
 Version: 20190603
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Daemon for radeon-profile GUI
 
 License: GPLv2+
@@ -55,6 +55,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20190603-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20190603-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

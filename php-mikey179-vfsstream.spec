@@ -16,7 +16,7 @@
 
 Name:           php-%{pk_owner}-%{pk_project}
 Version:        1.6.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP stream wrapper for a virtual file system
 
 License:        BSD
@@ -111,6 +111,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Remi Collet <remi@remirepo.net> - 1.6.11-1
 - update to 1.6.11
 

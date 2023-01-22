@@ -1,6 +1,6 @@
 Name: 		perl-Module-Refresh
 Version: 	0.18
-Release: 	4%{?dist}
+Release: 	5%{?dist}
 Summary: 	Refresh %INC files when updated on disk
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Module-Refresh
@@ -48,6 +48,9 @@ rm -r inc
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.18-4
 - Modernize spec.
 - Convert license to SPDX.

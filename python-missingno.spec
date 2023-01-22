@@ -9,7 +9,7 @@ that allows you to get a quick visual summary of the completeness
 
 Name:           python-%{pypi_name}
 Version:        0.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Missing data visualization module for Python
 License:        MIT
 URL:            https://github.com/ResidentMario/missingno
@@ -76,6 +76,9 @@ export PYTHONPATH=".:$RPM_BUILD_ROOT/%{python3_sitelib}"
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.5.0-4
 - Drop support for i686
 

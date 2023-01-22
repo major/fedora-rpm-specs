@@ -1,6 +1,6 @@
 Name:           python-sphinxext-rediraffe
 Version:        0.2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Sphinx extension to redirect nonexistent pages
 License:        MIT
 URL:            https://wpilib.org/
@@ -59,6 +59,9 @@ sed -i 's/main/%{version}/' setup.py
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

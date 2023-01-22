@@ -1,7 +1,7 @@
 
 Name: rst2pdf
 Version: 0.97
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Tool for transforming reStructuredText to PDF
 License: MIT
 
@@ -32,6 +32,9 @@ Tool for transforming reStructuredText to PDF using ReportLab
 %{python3_sitelib}/%{name}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.97-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

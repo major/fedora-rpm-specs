@@ -1,6 +1,6 @@
 Name:           perl-Test-Without-Module
 Version:        0.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Test fallback behavior in absence of modules
 License:        GPL+ or Artistic
 
@@ -53,6 +53,9 @@ have a fallback when a certain dependency module is not installed.
 %{_mandir}/man3/Test*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 25 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 0.21-1
 - Update to 0.21
 

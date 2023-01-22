@@ -1,7 +1,7 @@
 Name:           python-cffi
 %global general_version 1.15.1
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Foreign Function Interface for Python to call C code
 License:        MIT
 URL:            https://cffi.readthedocs.org/
@@ -74,6 +74,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{__python3} -m pytest c/ testing/
 %doc doc/build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Miro Hrončok <mhroncok@redhat.com> - 1.15.1-3
 - Fix build with pytest 7.2
 - Fixes: rhbz#2142063

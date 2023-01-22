@@ -1,6 +1,6 @@
 Name:           rundoc
 Version:        0.11
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        An Ant task designed to help with the single-sourcing of program documentation
 
 License:        BSD
@@ -52,6 +52,9 @@ mv javadoc/ %{buildroot}%{_javadocdir}/%{name}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

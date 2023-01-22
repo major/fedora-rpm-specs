@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.7.0.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Font-Awesome (XStatic packaging standard)
 
 # font awesome is licensed under SIL 1.1.
@@ -81,6 +81,9 @@ done
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

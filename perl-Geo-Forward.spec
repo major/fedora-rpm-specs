@@ -1,6 +1,6 @@
 Name:           perl-Geo-Forward
 Version:        0.14
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Calculate geographic location from lat, lon, distance, and heading
 
 License:        GPL+ or Artistic
@@ -50,6 +50,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

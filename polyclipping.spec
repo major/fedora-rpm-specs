@@ -3,7 +3,7 @@
 
 Name:           polyclipping
 Version:        6.4.2
-Release:        16%{?dist}
+Release:        17%{?dist}
 %global so_version 22
 Summary:        Polygon clipping library
 
@@ -87,6 +87,9 @@ popd
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 6.4.2-16
 - Update License to SPDX
 

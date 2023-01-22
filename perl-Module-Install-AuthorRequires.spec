@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-AuthorRequires
 Version:        0.02
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Declare author-only dependencies
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Install-AuthorRequires
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.02-30
 - Simplify build and install phase
 - Update license to SPDX format

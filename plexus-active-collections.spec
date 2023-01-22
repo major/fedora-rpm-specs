@@ -2,7 +2,7 @@
 
 Name:           plexus-active-collections
 Version:        1.0
-Release:        0.35.beta2%{?dist}
+Release:        0.36.beta2%{?dist}
 Summary:        Plexus Container-Backed Active Collections
 
 License:        ASL 2.0
@@ -51,6 +51,9 @@ cp %{SOURCE1} .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.36.beta2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.35.beta2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:          pygsl
 Version:       2.3.0
-Release:       20%{?dist}
+Release:       21%{?dist}
 Summary:       %{sum}
 
 # The package is mostly GPL+ but there are two scripts
@@ -83,6 +83,9 @@ Development files for pygsl
 %doc testing tests
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec  3 2022 Florian Weimer <fweimer@redhat.com> - 2.3.0-20
 - Avoid implicit function declarations in SWIG-generated code
 

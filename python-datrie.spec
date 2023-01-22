@@ -14,7 +14,7 @@ finding the longest-prefix item is also supported.}
 
 Name:           python-%{pypi_name}
 Version:        0.8.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Super-fast, efficiently stored Trie for Python
 
 License:        LGPLv2
@@ -74,6 +74,9 @@ pytest-%{python3_version}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

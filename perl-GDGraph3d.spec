@@ -1,6 +1,6 @@
 Name:           perl-GDGraph3d
 Version:        0.63
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        3D graph generation package for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GD-Graph3d
@@ -65,6 +65,9 @@ perl -pi -e 's/\r//g' Changes
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.63-50
 - Modernize spec.
 - Convert license to SPDX.

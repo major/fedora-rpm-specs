@@ -2,7 +2,7 @@
 
 Name:           perl-Log-Log4perl
 Version:        1.57
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Log4j implementation for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Log4perl
@@ -214,6 +214,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.57-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.57-1
 - 1.57 bump
 

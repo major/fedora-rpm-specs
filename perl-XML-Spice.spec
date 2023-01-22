@@ -1,6 +1,6 @@
 Name:           perl-XML-Spice
 Version:        0.05
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Generating XML in Perl way
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/XML-Spice
@@ -78,6 +78,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 03 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.05-20
 - Package tests
 - Update license to SPDX format

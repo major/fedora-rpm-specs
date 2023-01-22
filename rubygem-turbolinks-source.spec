@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.2.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Turbolinks JavaScript assets
 License: MIT
 URL: https://github.com/turbolinks/turbolinks-source-gem
@@ -61,6 +61,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

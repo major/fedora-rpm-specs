@@ -1,6 +1,6 @@
 Name:           perl-Test-TCP
 Version:        2.22
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Testing TCP program
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-TCP
@@ -56,6 +56,9 @@ sed -i -e 's,use Test::SharedFork 0.12;,use Test::SharedFork 0.29;,' lib/Test/TC
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.22-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.22-11
 - Modernize spec.
 - Convert license to SPDX.

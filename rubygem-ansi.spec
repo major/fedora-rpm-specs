@@ -7,7 +7,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.5.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: ANSI at your fingertips!
 License: BSD
 URL: http://rubyworks.github.com/ansi
@@ -100,6 +100,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

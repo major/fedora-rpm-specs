@@ -1,6 +1,6 @@
 Name:           perl-MooseX-LazyLogDispatch
 Version:        0.02
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Logging Role for Moose
 License:        GPL+ or Artistic
 
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Moose*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

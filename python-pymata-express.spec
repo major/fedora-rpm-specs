@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python Protocol Abstraction Library For Arduino Firmata
 
 License:        AGPLv3
@@ -46,6 +46,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/pymata_express-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -13,7 +13,7 @@ illusion (timezones doubly so).}
 
 Name:           python-%{pretty_name}
 Version:        %{?fullversion}
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Datetimes for Humans
 
 License:        MIT
@@ -83,6 +83,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

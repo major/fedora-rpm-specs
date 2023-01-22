@@ -1,6 +1,6 @@
 Name:       perl-Module-Util
 Version:    1.09
-Release:    30%{?dist}
+Release:    31%{?dist}
 # see lib/Module/Util.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Module name tools and transformations
@@ -52,6 +52,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man[13]/*.[13]*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

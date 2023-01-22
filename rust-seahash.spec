@@ -6,7 +6,7 @@
 
 Name:           rust-seahash
 Version:        4.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Blazingly fast, portable hash function with proven statistical guarantees
 
 # https://github.com/redox-os/tfs/pull/76
@@ -82,6 +82,9 @@ use the "use_std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 05 2022 Fabio Valentini <decathorpe@gmail.com> - 4.1.0-5
 - Drop unused, benchmark-only criterion dev-dependency to speed up builds.
 

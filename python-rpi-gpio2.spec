@@ -1,7 +1,7 @@
 Summary: A libgpiod compatibility layer for the RPi.GPIO API
 Name: python-rpi-gpio2
 Version: 0.4.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-3.0-or-later
 URL: https://github.com/underground-software/RPi.GPIO2
@@ -70,5 +70,8 @@ rm -rf %{buildroot}%{python3_sitelib}/examples
 %doc examples
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 31 2022 Joel Savitz <joelsavitz@gmail.com> - 0.4.0-1
 - initial package (Fixes rhbz#1871171)

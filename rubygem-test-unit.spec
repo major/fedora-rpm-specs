@@ -7,7 +7,7 @@ Summary:	Improved version of Test::Unit bundled in Ruby 1.8.x
 Name:		rubygem-%{gem_name}
 # 3.3.8 and above is for ruby 3.0+ only
 Version:	3.5.7
-Release:	200%{?dist}
+Release:	201%{?dist}
 # lib/test/unit/diff.rb is under BSD or Ruby or Python
 # lib/test-unit.rb changed to BSD or Ruby (from 3.3.7)
 # Other file: BSD or Ruby
@@ -98,6 +98,9 @@ popd
 %{gem_docdir}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.7-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.5.7-200
 - 3.5.7
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Widget to display page-based documents for Qt5/PyQt5
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later
@@ -74,6 +74,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE docs/source/license.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.6.2-2
 - Review fixes.
 

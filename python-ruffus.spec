@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.8.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Light-weight Python computational pipeline management
 
 License:        MIT
@@ -108,6 +108,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.4-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.8.4-11
 - Drop support for i686
 

@@ -4,7 +4,7 @@
 
 Name:             python-%{pypi_name}
 Version:          1.80
-Release:          3%{?dist}
+Release:          4%{?dist}
 Summary:          Python tools for computational molecular biology
 Source0:          %{pypi_source}
 
@@ -116,6 +116,9 @@ popd
 %license %{module}-%{version}/LICENSE.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 24 2022 Antonio Trande <sagitter@fedoraproject.org> - 1.80-3
 - Use python3-mysqlclient
 

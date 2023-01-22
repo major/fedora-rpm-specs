@@ -1,6 +1,6 @@
 Name:           perl-Workflow
 Version:        1.61
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple, flexible system to implement work-flows
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Workflow
@@ -109,6 +109,9 @@ systems.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.61-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Oct 09 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 1.61-1
 - Update to 1.61
 

@@ -3,7 +3,7 @@
 
 Name:           php-pecl-lzf
 Version:        1.7.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Extension to handle LZF de/compression
 License:        PHP
 URL:            https://pecl.php.net/package/%{pecl_name}
@@ -74,6 +74,9 @@ cd %{pecl_name}-%{version}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.7.0-4
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

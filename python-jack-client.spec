@@ -4,7 +4,7 @@
 
 Name:          python-jack-client
 Version:       0.5.2
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       JACK Audio Connection Kit (JACK) Client for Python
 BuildArch:     noarch
 
@@ -51,6 +51,9 @@ This package installs the library for Python.
 %{python3_sitelib}/jack.py
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Log-Dispatch-Array
 Version:        1.005
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Log events to an array (reference)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Dispatch-Array
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.005-1
 - 1.005 bump
 - Package tests

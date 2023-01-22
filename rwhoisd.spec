@@ -3,7 +3,7 @@
 
 Name:       rwhoisd 
 Version:    1.5.9.6
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    ARIN's Referral WHOIS server
 # tools/tcpd_wrapper/DISCLAIMER:    BSD (tcp_wrappers variant)
 # tools/tcpd_wrapper/strcasecmp.c:  BSD
@@ -157,6 +157,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.9.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 1.5.9.6-25
 - C99 compatibility fixes
 

@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.4
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Shared classes and tests for fog providers and services
 License: MIT
 URL: https://github.com/fog/fog-core
@@ -78,6 +78,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Log-Report
 Version:        1.34
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Report a problem with exceptions and translation support
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Report
@@ -273,6 +273,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Petr Pisar <ppisar@redhat.com> - 1.34-1
 - 1.34 bump
 

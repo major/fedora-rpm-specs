@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}0.17
 Version:        0.17.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Crossplatform terminal library for manipulating terminals
 
 # Upstream license specification: MIT
@@ -113,6 +113,9 @@ find -type f -executable -exec chmod -v -x '{}' +
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

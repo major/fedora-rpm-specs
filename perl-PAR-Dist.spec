@@ -1,6 +1,6 @@
 Name:           perl-PAR-Dist
 Version:        0.51
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Toolkit for creating and manipulating Perl PAR distributions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PAR-Dist
@@ -76,6 +76,9 @@ make test PERL_TEST_POD=1
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.51-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.51-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

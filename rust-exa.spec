@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.10.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Modern replacement for ls
 
 # Upstream license specification: MIT
@@ -80,6 +80,9 @@ install -Dpm0644 -T completions/completions.zsh \
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Pete Walter <pwalter@fedoraproject.org> - 0.10.1-7
 - Rebuild for libgit2 1.4
 

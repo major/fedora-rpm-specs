@@ -16,6 +16,9 @@ Source:         https://github.com/garrigue/lablgtk/archive/%{version}/lablgtk-%
 # Provide a definition of ml_rsvg_handle_new_gz for newer versions of librsvg
 # which do not explicitly expose an SVGZ interface.
 Patch0:         %{name}-svgz.patch
+# Mark an intermediate file that we want to install as precious.
+# Fixes FTBFS with make 4.4.
+Patch1:         %{name}-precious.patch
 
 BuildRequires:  help2man
 BuildRequires:  make
@@ -73,7 +76,6 @@ sed -e "s|-O|%{build_cflags}|" \
     -i src/Makefile
 %ifarch %{ocaml_native_compiler}
 make world CAMLOPT="ocamlopt.opt -g" CAMLC="ocamlc.opt -g"
-make opt CAMLOPT="ocamlopt.opt -g" CAMLC="ocamlc.opt -g"
 %else
 make world CAMLC="ocamlc -g"
 %endif

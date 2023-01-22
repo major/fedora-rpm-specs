@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.0.3
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Inspect and compare Debian repositories
 License:        GPLv3+
 URL:            https://pagure.io/debrepo
@@ -57,6 +57,9 @@ sed -i -e 's|#!/usr/bin/env python|#!%{__python3}|' \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

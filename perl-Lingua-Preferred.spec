@@ -1,6 +1,6 @@
 Name:           perl-Lingua-Preferred
 Version:        0.2.4
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Perl extension to choose a language
 
 License:        GPLv2+ or Artistic
@@ -51,6 +51,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

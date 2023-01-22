@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        System76 EC tool
 
 # Upstream license specification: MIT
@@ -128,6 +128,9 @@ which use "std" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

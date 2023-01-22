@@ -1,6 +1,6 @@
 Name:           python-scripttester
 Version:        0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Utility for testing command line scripts
 
 # The code is BSD-2-Clause.  Other licenses are due to files copied in by
@@ -82,6 +82,9 @@ rm -f doc/_build/html/.{buildinfo,nojekyll}
 %doc README.html doc/_build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.1-16
 - Convert License tag to SPDX
 

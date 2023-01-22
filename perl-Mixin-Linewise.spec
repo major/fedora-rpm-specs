@@ -1,6 +1,6 @@
 Name:           perl-Mixin-Linewise
 Version:        0.111
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Write your linewise code for handles; this does the rest
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Mixin-Linewise
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Mixin::Linewise::Writers.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.111-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan  1 2023 Paul Howarth <paul@city-fan.org> - 0.111-1
 - Update to 0.111
   - Update author information

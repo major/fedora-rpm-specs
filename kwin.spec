@@ -16,8 +16,8 @@
 %endif
 
 Name:    kwin
-Version: 5.26.5
-Release: 2%{?dist}
+Version: 5.26.90
+Release: 1%{?dist}
 Summary: KDE Window manager
 
 # all sources are effectively GPLv2+, except for:
@@ -63,6 +63,7 @@ BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  libxkbcommon-devel
+BuildRequires:  libxkbcommon-x11-devel
 # Uncomment for > 5.27.0 release as it's a new dependency
 #BuildRequires:  libxkbcommon-x11-devel
 BuildRequires:  libX11-devel
@@ -314,17 +315,17 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 %{_datadir}/kconf_update/kwin-5.23-remove-flip-switch.py
 %{_datadir}/kconf_update/kwin-5.23-remove-xrender-backend.py
 %{_datadir}/kconf_update/kwinrules-5.23-virtual-desktop-ids.py
-%{_kf5_datadir}/kservices5/kwin
 %{_kf5_datadir}/kservicetypes5/*.desktop
 %{_kf5_datadir}/kpackage/kcms/kcm_*
 %{_kf5_datadir}/knotifications5/kwin.notifyrc
 %{_kf5_datadir}/config.kcfg/kwin.kcfg
 %{_kf5_datadir}/config.kcfg/kwindecorationsettings.kcfg
 %{_kf5_datadir}/config.kcfg/virtualdesktopssettings.kcfg
-%{_kf5_datadir}/config.kcfg/kwin_colorcorrect.kcfg
+%{_kf5_datadir}/config.kcfg/nightcolorsettings.kcfg
 %{_kf5_datadir}/kconf_update/kwinrules-5.19-placement.pl
 %{_kf5_datadir}/kconf_update/kwinrules.upd
 %{_kf5_datadir}/kconf_update/kwin-5.25-effect-pluginid-config-group.py
+%{_kf5_datadir}/kconf_update/kwin-5.27-replace-cascaded-zerocornered.sh
 %{_datadir}/icons/hicolor/*/apps/kwin.*
 %{_datadir}/knsrcfiles/*.knsrc
 %{_datadir}/krunner/dbusplugins/kwin-runner-windows.desktop
@@ -361,6 +362,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

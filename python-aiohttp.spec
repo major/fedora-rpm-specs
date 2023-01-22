@@ -2,7 +2,7 @@
 
 Name:           python-aiohttp
 Version:        3.8.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        Apache-2.0
@@ -134,6 +134,9 @@ k="${k-}${k+ and }not test_tcp_connector_fingerprint_fail[pyloop]"
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 03 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.3-4
 - Stop patching out python-re-assert; it is now in EPEL9
 

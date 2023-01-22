@@ -1,6 +1,6 @@
 Name:           perl-MooX-Role-Parameterized
 Version:        0.082
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Roles with composition parameters
 License:        MIT
 
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/MooX*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.082-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.082-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

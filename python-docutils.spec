@@ -1,6 +1,6 @@
 Name:           python-docutils
 Version:        0.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        System for processing plaintext documentation
 
 # See COPYING.txt for information
@@ -78,6 +78,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Karolina Surma <ksurma@redhat.com> - 0.19-1
 - Update to 0.19
 Resolves: rhbz#2099884

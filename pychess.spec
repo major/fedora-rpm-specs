@@ -3,7 +3,7 @@
 
 Name:           pychess
 Version:        1.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Chess game for GNOME
 
 License:        GPLv3
@@ -159,6 +159,9 @@ PYTHONPATH=../lib PYCHESS_UNITTEST=true xvfb-run -a coverage run \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 13 2022 Davide Cavalca <dcavalca@fedoraproject.org> - 1.0.3-4
 - Add missing Requires for sqlalchemy
   Fixes: RHBZ#2118059

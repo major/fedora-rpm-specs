@@ -5,7 +5,7 @@
 
 Name:		python-cypari2
 Version:	2.1.2
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	A Python interface to the number theory library pari
 License:	GPL-2.0-or-later
 URL:		https://github.com/sagemath/%{modname}
@@ -103,6 +103,9 @@ export PATH PYTHONPATH
 %doc docs/build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 2.1.2-7
 - Rebuild for pari 2.15.0
 - Convert License tag to SPDX

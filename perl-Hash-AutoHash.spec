@@ -1,6 +1,6 @@
 Name:           perl-Hash-AutoHash
 Version:        1.17
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Object-oriented access to real and tied hashes
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Hash-AutoHash
@@ -66,6 +66,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

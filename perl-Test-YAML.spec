@@ -3,7 +3,7 @@
 
 Name:		perl-Test-YAML
 Version:	1.07
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Testing Module for YAML Implementations
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Test-YAML
@@ -58,6 +58,9 @@ make test %{?with_perl_Test_YAML_enables_extra_test:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test::YAML.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

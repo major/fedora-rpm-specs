@@ -1,6 +1,6 @@
 Name:           python-cs
 Version:        3.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A simple, yet powerful CloudStack API client for python and the command-line
 
 License:        BSD
@@ -66,6 +66,9 @@ Conflicts: clearsilver
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

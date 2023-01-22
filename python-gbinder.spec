@@ -2,7 +2,7 @@
 
 Name:           python-gbinder
 Version:        1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings for libgbinder
 
 License:        GPL-3.0-only
@@ -44,6 +44,9 @@ sed -i "/^USE_CYTHON =/s/False/True/" setup.py
 %files -n python3-gbinder -f %{pyproject_files}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.1-2
 - Re-enable s390x builds
 

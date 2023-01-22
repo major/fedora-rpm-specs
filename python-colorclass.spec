@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Yet another ANSI color text library for Python
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf colorclass.egg-info
 %{python3_sitelib}/colorclass*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Michal Ambroz <rebus _AT seznam.cz> - 2.2.2-1
 - bump to 2.2.2
 

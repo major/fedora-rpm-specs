@@ -25,7 +25,7 @@
 
 Name:           php-nrk-Predis
 Version:        1.1.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        PHP client library for Redis
 
 License:        MIT
@@ -133,6 +133,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Remi Collet <remi@remirepo.net> - 1.1.10-3
 - skip 2 more tests, FTBFS #2113590
 

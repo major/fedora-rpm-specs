@@ -1,6 +1,6 @@
 Name:           perl-NetPacket-SpanningTree
 Version:        0.01
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Assemble and disassemble IEEE 802.1D Spanning Tree protocol packets
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/NetPacket-SpanningTree
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

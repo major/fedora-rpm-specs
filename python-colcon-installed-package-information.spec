@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensions for colcon to inspect packages which have already been installed
 
 License:        ASL 2.0
@@ -64,6 +64,9 @@ extensions provided by colcon_core.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Scott K Logan <logans@cottsay.net> - 0.1.0-1
 - Update to 0.1.0
 - Change URL to point to GitHub repository

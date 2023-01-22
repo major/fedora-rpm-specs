@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -55,6 +55,9 @@ chmod 755 $RPM_BUILD_ROOT%{python3_sitearch}/_pylibmc.cpython-%{python3_version_
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.6.3-1
 - Update to 1.6.3
 

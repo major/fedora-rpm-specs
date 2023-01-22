@@ -11,7 +11,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -106,6 +106,9 @@ stestr run -E 'test_requirement_parsing|test_pep_517_support'
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 17 2022 Joel Capitao <jcapitao@redhat.com> - 5.10.0-1
 - Update to 5.10.0. Fixes rhbz#2117702
 

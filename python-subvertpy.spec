@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.10.1
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Python bindings for Subversion
 
 License:        LGPLv2+
@@ -53,6 +53,9 @@ chmod -x examples/ra_*.py
 %exclude %{python3_sitearch}/%{srcname}/tests
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

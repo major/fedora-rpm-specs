@@ -23,7 +23,7 @@
 
 Name:           php-%{gh_owner}-%{cname}
 Version:        1.7.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Zeta %{gh_project} Component
 
 License:        ASL 2.0
@@ -145,6 +145,9 @@ done
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

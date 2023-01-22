@@ -18,7 +18,7 @@
 
 Name:           python-%{pypi_name}
 Version:        21.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Core utilities for Python packages
 
 License:        BSD or ASL 2.0
@@ -136,6 +136,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Miro Hrončok <mhroncok@redhat.com> - 21.3-7
 - Fix tests on Big Endian builders
 

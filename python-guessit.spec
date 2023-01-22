@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 3.5.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to extract as much information as possible from a video filename
 License: LGPLv3
 URL: https://guessit.readthedocs.org/
@@ -79,6 +79,9 @@ done
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Juan Orti Alcaine <jortialc@redhat.com> - 3.5.0-1
 - Version 3.5.0 (RHBZ#2139558)
 

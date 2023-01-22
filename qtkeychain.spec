@@ -3,7 +3,7 @@
 
 Name:           qtkeychain
 Version:        0.13.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A password store library
 
 License:        BSD
@@ -132,6 +132,9 @@ grep %{_datadir}/qt6keychain/translations %{name}.lang > %{name}-qt6.lang
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 30 2022 Sandro Mani <manisandro@gmail.com> - 0.13.2-3
 - Add qt6 build
 

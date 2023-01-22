@@ -15,7 +15,7 @@
 
 Name:           php-true-punycode
 Version:        2.1.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A Bootstring encoding of Unicode for IDNA
 
 License:        MIT
@@ -91,6 +91,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

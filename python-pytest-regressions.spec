@@ -1,6 +1,6 @@
 Name:           python-pytest-regressions
 Version:        2.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Pytest fixtures for writing regression tests
 
 License:        MIT
@@ -100,6 +100,9 @@ fi
 %doc doc/_build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Jerry James <loganjerry@gmail.com> - 2.4.2-1
 - Version 2.4.2
 

@@ -12,7 +12,7 @@
 
 Name:        php-markdown
 Version:     1.9.1
-Release:     3%{?dist}
+Release:     4%{?dist}
 Summary:     Markdown implementation in PHP
 
 License:     BSD
@@ -99,6 +99,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

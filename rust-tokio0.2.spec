@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.2
 Version:        0.2.24
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Event-driven, non-blocking I/O platform for writing asynchronous I/O backed applications
 
 # Upstream license specification: MIT
@@ -495,6 +495,9 @@ which use "uds" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.24-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.24-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

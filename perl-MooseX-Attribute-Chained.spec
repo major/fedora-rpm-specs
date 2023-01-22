@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Attribute-Chained
 Version:        1.0.3
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Attribute that returns the instance to allow for chaining
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-Attribute-Chained
@@ -67,6 +67,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -49,30 +49,6 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+bear-lib-terminal-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+bear-lib-terminal-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "bear-lib-terminal" feature of the "%{crate}" crate.
-
-%files       -n %{name}+bear-lib-terminal-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+blt-backend-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+blt-backend-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "blt-backend" feature of the "%{crate}" crate.
-
-%files       -n %{name}+blt-backend-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+crossterm-devel
 Summary:        %{summary}
 BuildArch:      noarch

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.9.post1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Standalone CFF subroutinizer based on the AFDKO tx tool
 
 # The entire source is Apache-2.0, except:
@@ -97,6 +97,9 @@ k="${k-}${k+ and }not (TestSubroutinize and test_non_standard_upem_mute_font_mat
 %{_mandir}/man1/%{srcname}.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9.post1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.2.9.post1-5
 - Update License to SPDX
 

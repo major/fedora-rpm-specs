@@ -12,7 +12,7 @@ Supports both python 2 and 3 (tested with 2.7 and 3.5) }
 Summary: %{sum}
 Name: python-%{srcname}
 Version: 0.2.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Source0: https://gitlab.com/tgc-dk/%{srcname}/repository/archive.tar.gz?ref=%{version}#/%{srcname}-%{version}.tar.gz
 Source1: testdata-0.2.8.tar.gz
 License: GPLv2
@@ -55,6 +55,9 @@ Obsoletes:      python-%{srcname} < 0.2.7-7
 %{python3_sitelib}/pysword-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 07 2022 Tim Bentley <Tim.Bentley@openlp.org> - 0.2.8-1
 - Resolve build issues and versions.
 

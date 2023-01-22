@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.2
 Version:        0.2.18
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Parse command line argument by defining a struct
 
 # Upstream license specification: Apache-2.0/MIT
@@ -179,6 +179,9 @@ which use "yaml" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.18-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.18-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

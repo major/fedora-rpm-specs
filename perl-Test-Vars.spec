@@ -1,6 +1,6 @@
 Name:		perl-Test-Vars
 Version:	0.015
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Detects unused variables
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Test-Vars
@@ -80,6 +80,9 @@ prove -Ilib $(echo $(find xt/ -name '*.t'))
 %{_mandir}/man3/Test::Vars.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

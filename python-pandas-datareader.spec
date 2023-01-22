@@ -9,7 +9,7 @@ recent pandas versions.
 
 Name: python-%{srcname}
 Version: 0.10.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: %{summary}
 License: BSD
 
@@ -65,6 +65,9 @@ BuildRequires: python3-wrapt
 %{python3_sitelib}/pandas_datareader-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

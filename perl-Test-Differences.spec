@@ -6,7 +6,7 @@
 
 Name:           perl-Test-Differences
 Version:        %{RPM_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Test strings and data structures and show differences if not OK
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Differences
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Test::Differences.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6900-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6900-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

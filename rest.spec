@@ -1,6 +1,6 @@
 Name:          rest
 Version:       0.9.1
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       A library for access to RESTful web services
 
 License:       LGPLv2
@@ -80,6 +80,9 @@ Demo application for %{name}.
 %{_datadir}/applications/org.gnome.RestDemo.desktop
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 30 2022 Adam Williamson <awilliam@redhat.com> - 0.9.1-5
 - Backport MR #30 to fix some crashes in the libsoup3 port
 

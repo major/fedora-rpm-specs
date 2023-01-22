@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        37.0.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -125,6 +125,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37.0.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Christian Heimes <cheimes@redhat.com> - 37.0.2-6
 - Enable SHA1 signatures in test suite (ELN-only)
 

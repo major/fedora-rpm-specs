@@ -2,7 +2,7 @@
 
 Name:		python-invoke
 Version:	1.7.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	A Python task execution tool and library
 License:	BSD-2-Clause
 URL:		http://pyinvoke.org/
@@ -92,6 +92,9 @@ expect -c '
 %{python3_sitelib}/invoke-%{version}-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 04 2022 Jiri Kucera <jkucera@redhat.com> - 1.7.0-5
 - Fix improperly placed comment
 - Make expect to propagate spawned process' exit code

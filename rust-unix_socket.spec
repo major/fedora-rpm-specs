@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}
 Version:        0.5.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Unix domain socket bindings
 
 # Upstream license specification: MIT/Apache-2.0
@@ -71,6 +71,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

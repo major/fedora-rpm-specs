@@ -9,7 +9,7 @@ this code, please cite the papers listed in the README.rst file.}
 
 Name:           python-%{srcname}
 Version:        0.5.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Fast EMD for Python
 
 
@@ -67,6 +67,9 @@ pytest-%{python3_version} test
 %{python3_sitearch}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

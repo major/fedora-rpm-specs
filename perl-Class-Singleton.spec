@@ -2,7 +2,7 @@ Name:           perl-Class-Singleton
 Version:        1.6
 Release:        8%{?dist}
 Summary:        Implementation of a "Singleton" class
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Singleton
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Singleton-%{version}.tar.gz
 BuildArch:      noarch
@@ -19,7 +19,6 @@ BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(base)
 BuildRequires:  perl(Test::More)
-# Runtime
 
 %description
 This is the Class::Singleton module. A Singleton describes an object class

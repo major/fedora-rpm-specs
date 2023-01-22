@@ -2,7 +2,7 @@
 
 Name:           python-virt-firmware
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools for virtual machine firmware volumes
 
 License:        GPLv2
@@ -85,6 +85,9 @@ cp -ar tests %{buildroot}%{_datadir}/%{name}
 %{_datadir}/%{name}/tests
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Gerd Hoffmann <kraxel@redhat.com> - 1.8-1
 - update to version 1.8
 

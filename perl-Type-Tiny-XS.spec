@@ -1,6 +1,6 @@
 Name:           perl-Type-Tiny-XS
 Version:        0.025
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provides an XS boost for some of Type::Tiny's built-in type constraints
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/Type-Tiny-XS/
@@ -65,6 +65,9 @@ validation frameworks might also consider using it!)
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.025-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.025-2
 - Reflect comments from package review.
 

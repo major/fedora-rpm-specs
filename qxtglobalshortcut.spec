@@ -5,7 +5,7 @@
 
 Name:           qxtglobalshortcut
 Version:        0.0.1
-Release:        0.21.%{commitdate}git%{shortcommit}%{?dist}
+Release:        0.22.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Cross-platform library for handling system-wide shortcuts in Qt applications
 License:        BSD
 URL:            https://github.com/hluk/qxtglobalshortcut
@@ -57,6 +57,9 @@ rm -f appveyor.yml
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.22.20171021git1644620
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-0.21.20171021git1644620
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

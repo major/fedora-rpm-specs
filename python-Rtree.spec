@@ -1,6 +1,6 @@
 Name:           python-Rtree
 Version:        1.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        R-Tree spatial index for Python GIS
 
 # Since the package has a history of arch-dependent bugs (see RHBZ#2055249),
@@ -91,6 +91,9 @@ Requires:       spatialindex
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.0-5
 - Correct license from LGPLv2 to (SPDX) MIT
 

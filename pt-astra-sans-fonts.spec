@@ -1,5 +1,5 @@
 Version: 1.002
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://astralinux.ru/en/information/#section-fonts-astra
 
@@ -47,6 +47,9 @@ unzip -n %{SOURCE0} -d %{name}-%{version}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.002-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Benson Muite <benson_muite@emailplus.org> - 1.002-1
 - Update to latest release
 

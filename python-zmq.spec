@@ -8,7 +8,7 @@ multiple transport protocols and more.}
 
 Name:           python-zmq
 Version:        24.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Software library for fast, message-based applications
 
 License:        LGPLv3+ and ASL 2.0 and BSD
@@ -90,6 +90,9 @@ cd %{_topdir}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 24.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 07 2023 Kevin Fenzi <kevin@scrye.com> - 24.0.1-1
 - Update to 24.0.1. Fixes rhbz#2128693
 

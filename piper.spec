@@ -1,6 +1,6 @@
 Name: piper
 Version: 0.7
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPL-2.0-or-later AND LGPL-2.1-or-later
 URL: https://github.com/libratbag/%{name}
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_mandir}/man1/*.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

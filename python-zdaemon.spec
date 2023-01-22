@@ -1,6 +1,6 @@
 Name:           python-zdaemon
 Version:        4.2.0
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Python Daemon Process Control Library
 License:        ZPLv2.1
 URL:            https://pypi.io/project/zdaemon/
@@ -57,6 +57,9 @@ export PYTHONPATH="$PYTHONPATH:%{buildroot}%{python3_sitelib}"
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

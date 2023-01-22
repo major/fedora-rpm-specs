@@ -1,6 +1,6 @@
 Name:           python-colored-traceback
 Version:        0.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library to color exception traces
 
 License:        ISC
@@ -38,6 +38,9 @@ Colored-traceback is a python library to color exception traces.
 %{python3_sitelib}/colored_traceback/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -19,12 +19,12 @@
 %bcond_with python3
 %endif
 
-%global talloc_version 2.3.4
-%global tdb_version 1.4.7
-%global tevent_version 0.13.0
+%global talloc_version 2.4.0
+%global tdb_version 1.4.8
+%global tevent_version 0.14.0
 
 Name: libldb
-Version: 2.6.1
+Version: 2.7.0
 Release: 2%{?dist}
 Summary: A schema-less, ldap like, API and database
 Requires: libtalloc%{?_isa} >= %{talloc_version}
@@ -222,6 +222,10 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man3/_*
 %endif
 
 %changelog
+* Fri Jan 20 2023 Andreas Schneider <asn@redhat.com> - 2.7.0-1
+- Update to version 2.7.0
+- resolves: rhbz#1965818 - Fix ldb on systems with dotted language locale
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

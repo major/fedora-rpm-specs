@@ -1,6 +1,6 @@
 Name:           perl-MooseX-InsideOut
 Version:        0.106
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Inside-out objects with Moose
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-InsideOut
@@ -65,6 +65,9 @@ make test RELEASE_TESTING=1
 %{_mandir}/man3/MooseX::InsideOut::Role::Meta::Instance.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.106-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.106-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

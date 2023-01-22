@@ -2,7 +2,7 @@
 
 Name:           plexus-compiler
 Version:        2.12.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compiler call initiators for Plexus
 # extras subpackage has a bit different licensing
 # parts of compiler-api are ASL2.0/MIT
@@ -104,6 +104,9 @@ cp %{SOURCE2} LICENSE.MIT
 %doc LICENSE LICENSE.MIT
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 05 2022 Marian Koncek <mkoncek@redhat.com> - 2.12.1-1
 - Update to upstream version 2.12.1
 

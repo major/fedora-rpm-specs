@@ -1,6 +1,6 @@
 Name:		perl-Mail-Message
 Version:	3.012
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	MIME message handling
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Mail-Message
@@ -122,6 +122,9 @@ make test
 %{_mandir}/man3/Mail::*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.012-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.012-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           php-pear-File-Passwd
 Version:        1.1.7
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Manipulate many kinds of password files
 
 License:        PHP
@@ -73,6 +73,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

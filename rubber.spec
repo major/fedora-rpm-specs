@@ -1,6 +1,6 @@
 Name: rubber
 Version: 1.5.1
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: An automated system for building LaTeX documents
 
 License: GPL+
@@ -47,6 +47,9 @@ mv %{buildroot}/usr/man/* %{buildroot}/%{_mandir}
 %{_mandir}/fr/man1/*.gz
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        1.1.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Patch ssl.match_hostname for Unicode(idna) domains support
 
 License:        MIT
@@ -56,6 +56,9 @@ BuildRequires:  python3dist(idna) >= 2
 %{python3_sitelib}/__pycache__/idna_ssl.*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

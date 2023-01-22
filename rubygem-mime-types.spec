@@ -5,7 +5,7 @@
 Summary: The mime-types library provides a library
 Name: rubygem-%{gem_name}
 Version: 3.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 URL: https://github.com/mime-types/ruby-mime-types/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -100,6 +100,9 @@ popd
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.4.1-1
 - 3.4.1
 

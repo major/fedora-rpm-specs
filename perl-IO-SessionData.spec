@@ -1,6 +1,6 @@
 Name:           perl-IO-SessionData
 Version:        1.03
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        IO::SessionData and IO::SessionSet modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-SessionData
@@ -50,6 +50,9 @@ make test
 %{perl_vendorlib}/IO/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

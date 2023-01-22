@@ -1,7 +1,7 @@
 Name:           perl-Test-Name-FromLine
 Summary:        Automatically name tests from their source code
 Version:        0.13
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Name-FromLine
 
@@ -71,6 +71,9 @@ test from its source code declaration, unless it was explicitly named.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

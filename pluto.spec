@@ -3,7 +3,7 @@
 
 Name:           pluto
 Version:        0
-Release:        0.17git%{shortcommit}%{?dist}
+Release:        0.18git%{shortcommit}%{?dist}
 Summary:        Small utility library for SHA1, Tiny Encryption Algorithm, and UUID4
 
 License:        GPLv3+
@@ -64,6 +64,9 @@ mkdir %{_vpath_builddir}
 %doc doc/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.18gitc6cab36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17gitc6cab36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

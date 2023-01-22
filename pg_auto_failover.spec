@@ -4,7 +4,7 @@
 
 Name:           pg_auto_failover
 Version:        1.6.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Postgres extension and service for automated failover and high-availability
 
 License:        ASL 1.0
@@ -128,6 +128,9 @@ install -p -D -m 0644 docs/_build/man/*.5 -t %{buildroot}%{_mandir}/man5
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 1.6.3-6
 - Rebuild for new PostgreSQL 15
 

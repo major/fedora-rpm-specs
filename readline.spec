@@ -1,7 +1,7 @@
 Summary: A library for editing typed command lines
 Name: readline
 Version: 8.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 URL: https://tiswww.case.edu/php/chet/readline/rltop.html
 Source: ftp://ftp.gnu.org/gnu/readline/readline-%{version}.tar.gz
@@ -83,6 +83,9 @@ rm -vf %{buildroot}%{_infodir}/dir*
 %{_libdir}/libhistory.a
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 06 2022 Siteshwar Vashisht <svashisht@redhat.com> - 8.2-2
 - Update to readline-8.2 patchlevel 1
 

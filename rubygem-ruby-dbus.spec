@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.16.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Ruby module for interaction with D-Bus
 # MIT: lib/dbus/core_ext/*
 License: LGPLv2+ and MIT
@@ -87,6 +87,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

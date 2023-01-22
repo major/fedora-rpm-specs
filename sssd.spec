@@ -43,7 +43,7 @@
 
 Name: sssd
 Version: 2.8.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: System Security Services Daemon
 License: GPLv3+
 URL: https://github.com/SSSD/sssd/
@@ -1059,6 +1059,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Fri Jan 20 2023 Alexey Tikhonov <atikhono@redhat.com> - 2.8.2-2
+- Rebuild against Samba 4.18rc1
+
 * Fri Dec 9 2022 Pavel Březina <pbrezina@redhat.com> - 2.8.2-1
 - Rebase to SSSD 2.8.2
 

@@ -2,7 +2,7 @@
 
 Name:           reportd
 Version:        0.7.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Service reporting org.freedesktop.Problems2 entries
 
 License:        GPLv2+
@@ -56,6 +56,9 @@ A D-Bus service that exports libreport functionality.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

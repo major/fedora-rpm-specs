@@ -2,7 +2,7 @@
 
 Name:               python-http-ece
 Version:            1.1.0
-Release:            10%{?dist}
+Release:            11%{?dist}
 Summary:            A simple implementation of the encrypted content-encoding
 
 License:            MIT
@@ -51,6 +51,9 @@ nosetests-%{python3_version} -v
 %{python3_sitelib}/http_ece-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

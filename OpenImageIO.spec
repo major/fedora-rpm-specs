@@ -3,7 +3,7 @@
 
 Name:           OpenImageIO
 Version:        2.4.7.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD and MIT
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Fri Jan 20 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.7.1-4
+- Rebuild for opencv (again).
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        3.3.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP REST client, simplified for Python
 License:        MIT
 URL:            https://github.com/sendgrid/%{name}
@@ -55,6 +55,9 @@ This is a Python 3 version of the package.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

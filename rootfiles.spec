@@ -1,7 +1,7 @@
 Summary: The basic required files for the root user's directory
 Name: rootfiles
 Version: 8.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: Public Domain
 
 # This is a Red Hat maintained package which is specific to
@@ -41,6 +41,9 @@ fi
 %config(noreplace) /root/.[A-Za-z]*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           pybluez
 Version:        0.23
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python API for the BlueZ bluetooth stack 
 
 License:        GPLv2
@@ -48,6 +48,9 @@ chmod a-x examples/bluezchat/bluezchat.py
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

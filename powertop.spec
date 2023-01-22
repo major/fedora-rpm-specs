@@ -1,6 +1,6 @@
 Name:             powertop
 Version:          2.15
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Power consumption monitor
 
 License:          GPLv2
@@ -75,6 +75,9 @@ touch %{_localstatedir}/cache/powertop/{saved_parameters.powertop,saved_results.
 %{_datadir}/bash-completion/completions/powertop
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct  4 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 2.15-1
 - New version
   Resolves: rhbz#2131251

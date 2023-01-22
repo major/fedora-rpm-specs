@@ -10,7 +10,7 @@
 Name:           python-cherrypy
 %global         camelname CherryPy
 Version:        18.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pythonic, object-oriented web development framework
 License:        BSD
 URL:            https://cherrypy.dev/
@@ -98,6 +98,9 @@ export WEBTEST_INTERACTIVE=false
 %exclude %{python3_sitelib}/cherrypy/tutorial
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 19 2022 Dan Radez <dradez@redhat.com> - 18.8.0-2
 - Ignore urllib3.contrib.pyopenssl DeprecationWarnings to fix FTBFS
 

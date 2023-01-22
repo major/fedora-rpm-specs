@@ -1,6 +1,6 @@
 Name:           python-async-lru
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple lru_cache for asyncio
 License:        MIT
 URL:            https://github.com/aio-libs/async_lru
@@ -54,5 +54,8 @@ sed -i "/addopts/d" setup.cfg
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Lumír Balhar <lbalhar@redhat.com> - 1.0.3-1
 - Initial package

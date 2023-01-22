@@ -1,6 +1,6 @@
 Name:           ppc64-diag
 Version:        2.7.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PowerLinux Platform Diagnostics
 URL:            https://github.com/power-ras/%{name}
 License:        GPLv2
@@ -94,6 +94,7 @@ install -m 644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} $RPM_BUILD
 %{_datadir}/%{name}/message_catalog/*
 %{_unitdir}/opal_errd.service
 %{_sysconfdir}/cron.daily/run_diag_encl
+%{_sysconfdir}/cron.daily/run_diag_nvme
 
 # get rid of obsolete initscripts for rhel >=7
 %exclude %{_libexecdir}/%{name}/rtas_errd
@@ -114,6 +115,7 @@ install -m 644 %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} $RPM_BUILD
 %{_mandir}/man8/extract_platdump*
 %{_mandir}/man8/rtas_errd*
 %config(noreplace) %{_sysconfdir}/%{name}/ppc64-diag.config
+%config(noreplace) %{_sysconfdir}/%{name}/diag_nvme.config
 %{_sbindir}/convert_dt_node_props
 %{_sbindir}/extract_platdump
 %{_sbindir}/rtas_errd
@@ -167,6 +169,9 @@ if [ "$1" = "0" ]; then # last uninstall
 fi
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 18 2022 Than Ngo <than@redhat.com> - 2.7.9-1
 - update to 2.7.9
 - added BR on libvpd >= 2.2.9

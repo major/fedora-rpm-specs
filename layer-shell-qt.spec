@@ -1,6 +1,6 @@
 Name:    layer-shell-qt
-Version: 5.26.5
-Release: 3%{?dist}
+Version: 5.26.90
+Release: 1%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
 License: LGPLv3+
@@ -68,6 +68,9 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 
 %changelog
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

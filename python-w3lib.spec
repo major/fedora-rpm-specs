@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library of web-related functions
 
 License:        BSD-3-Clause
@@ -63,6 +63,9 @@ BuildRequires:  python3-setuptools
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 27 2022 Robby Callicotte <rcallicotte@fedoraproject.org> - 2.0.1-1
 - Rebased to new version
 - Resolves bz#2148631

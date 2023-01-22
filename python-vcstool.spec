@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to invoke vcs commands on multiple repositories
 
 License:        ASL 2.0
@@ -117,6 +117,9 @@ ln -s vcs %{buildroot}%{_datadir}/bash-completion/completions/vcs-%{python3_vers
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Oct 16 2022 Scott K Logan <logans@cottsay.net> - 0.3.0-1
 - Update to 0.3.0 (rhbz#1991775)
 - Drop Python 2 subpackage, which is no longer supported upstream

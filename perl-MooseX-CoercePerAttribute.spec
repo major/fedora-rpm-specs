@@ -1,6 +1,6 @@
 Name:           perl-MooseX-CoercePerAttribute
 Version:        1.001
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Define coercions per attribute
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-CoercePerAttribute
@@ -53,6 +53,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

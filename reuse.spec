@@ -1,6 +1,6 @@
 Name:           reuse
 Version:        1.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool for compliance with the REUSE recommendations
 License:        GPLv3+ and CC-BY-SA and ASL 2.0
 Url:            https://github.com/fsfe/reuse-tool
@@ -64,6 +64,9 @@ popd
 %{python3_sitelib}/%{name}*egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

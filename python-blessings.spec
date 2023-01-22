@@ -5,7 +5,7 @@
 
 Name:           python-blessings
 Version:        1.7
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Thin, practical wrapper around terminal coloring, styling, and positioning
 License:        MIT
 URL:            https://github.com/erikrose/blessings
@@ -60,6 +60,9 @@ BuildRequires:  python3-devel
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 26 2022 Carl George <carl@george.computer> - 1.7-18
 - Convert to pyproject macros
 

@@ -9,7 +9,7 @@
 
 Name:           rust-%{crate}
 Version:        2.0.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Rust text diffing and assertion library
 
 # Upstream license specification: MIT
@@ -83,6 +83,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

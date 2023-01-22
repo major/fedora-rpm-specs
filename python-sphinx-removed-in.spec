@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        versionremoved and removed-in directives for Sphinx
 License:        BSD
 URL:            https://github.com/MrSenko/sphinx-removed-in
@@ -52,6 +52,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %{python3_sitelib}/sphinx_removed_in-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

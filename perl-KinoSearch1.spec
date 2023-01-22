@@ -1,6 +1,6 @@
 Name:           perl-KinoSearch1
 Version:        1.01
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Search engine library
 # ApacheLicense2.0.txt included is included just becuase the upstream
 # author decided to include it and is only for informative purposes.
@@ -96,6 +96,9 @@ find %{buildroot} -type f -name '*.bs' -size 0 -exec rm -f {} +
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

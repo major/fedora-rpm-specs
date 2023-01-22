@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        MySQL/mariaDB database connector for Python
 
 License:        GPLv2
@@ -69,6 +69,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.1.1-2
 - Provide and Obsolete python3-mysql
 

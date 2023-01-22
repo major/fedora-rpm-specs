@@ -9,6 +9,8 @@ Summary:        Kernel coredump file access
 License:        LGPLv3+ or GPLv2+
 URL:            https://github.com/ptesarik/libkdumpfile
 Source:         %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# https://github.com/ptesarik/libkdumpfile/pull/67
+Patch:          libkdumpfile-py312-fix-tests.diff
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen
@@ -17,6 +19,7 @@ BuildRequires:  sed
 BuildRequires:  libzstd-devel
 BuildRequires:  lzo-devel
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  snappy-devel
 BuildRequires:  zlib-devel
 

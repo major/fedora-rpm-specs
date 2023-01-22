@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Auto-generate Sphinx API docs from Zope interfaces
 
 License:        BSD
@@ -55,6 +55,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitelib}/repoze*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

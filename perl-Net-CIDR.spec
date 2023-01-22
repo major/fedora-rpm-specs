@@ -1,6 +1,6 @@
 Name:           perl-Net-CIDR
 Version:        0.21
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Manipulate IPv4/IPv6 netblocks in CIDR notation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-CIDR
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/Net::CIDR.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

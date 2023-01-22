@@ -19,7 +19,7 @@ framework.}
 
 Name:           python-%{srcname}
 Version:        2.5.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Extensions to the Python standard library unit testing framework
 License:        MIT
 URL:            https://github.com/testing-cabal/testtools
@@ -95,6 +95,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m testtools.run testtools.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

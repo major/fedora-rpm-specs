@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        2.6.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Case-insensitive wrapper around strings
 
 # Upstream license specification: MIT/Apache-2.0
@@ -83,6 +83,9 @@ which use "nightly" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

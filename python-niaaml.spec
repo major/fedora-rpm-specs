@@ -24,7 +24,7 @@ classification pipeline, and optimize their hyperparameters.}
 
 Name:           python-%{pypi_name}
 Version:        1.1.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python automated machine learning framework
 
 License:        MIT
@@ -115,6 +115,9 @@ find examples -type f -name '*.py' |
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md CITATION.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 16 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.1.11-2
 - Update documentation with additional paper
 

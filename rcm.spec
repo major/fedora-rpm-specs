@@ -1,6 +1,6 @@
 Name:		rcm
 Version:	1.3.6
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Management suite for dotfiles
 
 License:	BSD
@@ -45,6 +45,9 @@ make check
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Link Dupont <linkdupont@fedoraproject.org> - 1.3.6-1
 - New upstream release
 

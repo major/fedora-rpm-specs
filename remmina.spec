@@ -5,7 +5,7 @@
 
 Name: remmina
 Version: 1.4.29
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Remote Desktop Client
 License: GPLv2+ and MIT
 URL: https://remmina.org
@@ -337,6 +337,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.29-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 07 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.29-2
 - Add patch: 0001_add_mime_text_formats_for_rdp_clibpoard.patch
 - Add patch: 0002_fix_unlock_crash.patch

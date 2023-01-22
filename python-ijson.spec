@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.1.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Iterative JSON parser
 
 License:        BSD
@@ -54,6 +54,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib}:$PWD %{python3} -m unittest discover
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

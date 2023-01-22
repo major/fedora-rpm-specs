@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 BuildArch:      noarch
 
@@ -163,6 +163,9 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Miro Hrončok <mhroncok@redhat.com> - 3.11-7
 - Bytecompilation: Unset $SOURCE_DATE_EPOCH when %%clamp_mtime_to_source_date_epoch is not set
 - Bytecompilation: Pass --invalidation-mode=timestamp to compileall (on Python 3.7+)

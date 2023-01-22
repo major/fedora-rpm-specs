@@ -1,7 +1,7 @@
 Summary: Graphical Boot Animation and Logger
 Name: plymouth
 Version: 22.02.122
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/Plymouth
 
@@ -402,6 +402,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.02.122-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Hans de Goede <hdegoede@redhat.com> - 22.02.122-3
 - Fix SimpleDRM sometimes not being ignored (rhbz#2127663)
 - Mark boot-duration file as %%verify(not mode (rhbz#2122896)

@@ -1,10 +1,10 @@
 Name:           perl-Date-Extract
-Version:        0.06
-Release:        21%{?dist}
+Version:        0.07
+Release:        1%{?dist}
 Summary:        Date::Extract Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Extract
-Source0:        https://cpan.metacpan.org/authors/id/A/AL/ALEXMV/Date-Extract-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Date-Extract-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  %{__make}
@@ -13,13 +13,13 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(Class::Data::Inheritable)
 BuildRequires:  perl(DateTime::Format::Natural) >= 0.60
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(parent)
+BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-BuildRequires:  perl(Test::MockTime)
+BuildRequires:  perl(Test::MockTime::HiRes)
 BuildRequires:  perl(Test::More)
-
-BuildRequires:  perl(inc::Module::Install)
 
 
 %description
@@ -28,11 +28,9 @@ DateTime object out of it.
 
 %prep
 %setup -q -n Date-Extract-%{version}
-rm -r inc/
 
 %build
-# --skipdeps causes ExtUtils::AutoInstall not to try auto-installing
-%{__perl} Makefile.PL INSTALLDIRS=vendor --skipdeps NO_PACKLIST=1 NO_PERLLOCAL=1
+%{__perl} Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %{make_build}
 
 %install
@@ -48,6 +46,10 @@ rm -r inc/
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.07-1
+- Upgrade to 0.07.
+- Reflect upstream Source0-URL having changed.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

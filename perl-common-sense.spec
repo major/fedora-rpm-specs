@@ -8,7 +8,7 @@
 Name:		perl-common-sense
 Summary:	"Common sense" Perl defaults 
 Version:	%{rpmversion}
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/common-sense
 Source0:	https://cpan.metacpan.org/authors/id/M/ML/MLEHMANN/common-sense-%{cpanversion}.tar.gz
@@ -85,6 +85,9 @@ make test
 %{_mandir}/man3/common::sense.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

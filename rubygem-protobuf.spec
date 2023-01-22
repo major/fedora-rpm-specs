@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.10.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Google Protocol Buffers serialization and RPC implementation for Ruby
 # MIT: main library
 # BSD: proto/google/protobuf/compiler/plugin.proto
@@ -122,6 +122,9 @@ popd
 %{gem_instdir}/install-protobuf.sh
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Mamoru TASAKA <mtasaka@feodraproject.org> - 3.10.3-5
 - Patch for upstream to support rails 6.x or higher
 

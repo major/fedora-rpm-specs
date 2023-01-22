@@ -1,7 +1,7 @@
 Name:           python-ffc
 Version:        2019.1.0.post0
 %global fenics_version 2019.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Compiler for finite element variational forms
 
 License:        LGPLv3+
@@ -68,6 +68,9 @@ sed -r -i '1d' ffc/__main__.py ffc/main.py
 %{_mandir}/man1/ffc.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0.post0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0.post0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

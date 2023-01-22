@@ -13,8 +13,8 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.12.0
-Release:        1%{?dist}
+Version:        0.13.0
+Release:        2%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -69,6 +69,14 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Fri Jan 20 2023 Packit <hello@packit.dev> - 0.13.0-1
+- Added `Section.options` attribute for convenient manipulation of section options. (#183)
+- specfile now supports single-line sections where section content is represented by a macro starting with a newline. (#182)
+- Added `evr` argument to `Specfile.add_changelog_entry()`. This allows adding a changelog entry with an EVR value that's different from the current specfile's value. This makes it easier to reconstruct a specfile's `%changelog` based on another source using the higher level interface. (#181)
+
 * Fri Jan 06 2023 Packit <hello@packit.dev> - 0.12.0-1
 - All classes including `Specfile` itself can now be copied using the standard `copy()` and `deepcopy()` functions from `copy` module. (#176)
 - `Section.name` attribute has been renamed to a more fitting `Section.id`. (#167)

@@ -2,7 +2,7 @@
 
 Name:           python-pymongo
 Version:        4.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # All code is ASL 2.0 except bson/time64*.{c,h} which is MIT
 License:        ASL 2.0 and MIT
@@ -109,6 +109,9 @@ chmod 755 %{buildroot}%{python3_sitearch}/pymongo/*.so
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 27 2022 Orion Poplawski <orion@nwra.com> - 4.2.0-1
 - Update to 4.2.0
 

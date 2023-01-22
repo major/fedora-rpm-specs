@@ -3,7 +3,7 @@
 
 Name:           perl-Inline-CPP
 Version:        0.80
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Write Perl subroutines and classes in C++
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/Inline-CPP
@@ -80,6 +80,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

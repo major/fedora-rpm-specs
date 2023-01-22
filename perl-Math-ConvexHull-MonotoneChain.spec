@@ -1,6 +1,6 @@
 Name:           perl-Math-ConvexHull-MonotoneChain
 Version:        0.01
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Monotone chain algorithm for finding a convex hull in 2D
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Math-ConvexHull-MonotoneChain
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 27 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.01-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

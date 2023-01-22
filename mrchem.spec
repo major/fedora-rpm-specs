@@ -1,6 +1,6 @@
 Name:           mrchem
-Version:        1.1.1
-Release:        2%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        A numerical real-space code for molecular electronic structure calculations
 License:        LGPLv3+
 URL:            https://github.com/MRChemSoft/mrchem/
@@ -88,7 +88,7 @@ mv %{buildroot}/usr/lib/python/mrchem %{buildroot}%{python3_sitelib}
 
 %check
 # Tests use OpenMP so we only want to run them one at a time
-%global _smp_mflags "-j 1"
+%global _smp_mflags "-j1"
 # Where to find the python library
 export PYTHONPATH=$PWD/python/
 # Generate dummy config module for ctest
@@ -114,6 +114,9 @@ EOF
 %{_datadir}/MRChem/
 
 %changelog
+* Fri Jan 20 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.1.2-1
+- Update to 1.1.2.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

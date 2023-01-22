@@ -1,6 +1,6 @@
 Name:           perl-Symbol-Global-Name
 Version:        0.05
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Finds name and type of a global variable
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Symbol-Global-Name
@@ -42,6 +42,9 @@ rm -rf inc/
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.05-28
 - Modernize spec.
 - Convert license to SPDX.

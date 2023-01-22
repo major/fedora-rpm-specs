@@ -1,6 +1,6 @@
 Name:               python-oauthlib
 Version:            3.2.1
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            An implementation of the OAuth request-signing logic
 
 License:            BSD
@@ -57,6 +57,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Major Hayden <major@redhat.com> - 3.2.1-2
 - Add SHA1 signature fix for ELN from yselkowitz. 👏
 

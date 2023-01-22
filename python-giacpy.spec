@@ -9,7 +9,7 @@ ExcludeArch: aarch64 %{power64} s390x
 
 Name:           python-%{pypi_name}
 Version:        0.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python binding for Giac
 License:        GPLv2+
 URL:            http://webusers.imj-prg.fr/~frederic.han/xcas/giacpy/
@@ -82,6 +82,9 @@ popd
 %{python3_sitearch}/%{pypi_name}/*.h
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Antonio Trande <sagitter@fedoraproject.org> - 0.7.1-1
 - Release 0.7.1
 

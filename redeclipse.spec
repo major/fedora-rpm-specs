@@ -1,6 +1,6 @@
 Name:           redeclipse
 Version:        1.6.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Free, Casual Arena Shooter
 
 # Game engine is zlib
@@ -139,6 +139,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/redeclipse.desktop
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

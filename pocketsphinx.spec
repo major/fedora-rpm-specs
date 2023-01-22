@@ -2,7 +2,7 @@
 
 Name:           pocketsphinx
 Version:        5
-Release:        0.12.%{extraver}%{?dist}
+Release:        0.13.%{extraver}%{?dist}
 Epoch:          1
 Summary:        Real-time speech recognition
 
@@ -139,6 +139,9 @@ rm -f doc/html/installdox
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5-0.13.prealpha
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:5-0.12.prealpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

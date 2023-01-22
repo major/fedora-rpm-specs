@@ -1,6 +1,6 @@
 Name:           python-stripe
 Version:        5.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for the Stripe API
 
 License:        MIT
@@ -64,6 +64,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Roman Inflianskas <rominf@aiven.io> - 5.0.0-1
 - Update to 5.0.0 (resolve rhbz#2133045)
 

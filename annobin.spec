@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.06
-Release: 3%{?dist}
+Version: 11.07
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -514,6 +514,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Fri Jan 20 2023 Nick Clifton  <nickc@redhat.com> - 11.07-1
+- Libannocheck: Fix bug causing infinite looping when running tests.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.06-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

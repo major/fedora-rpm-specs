@@ -1,6 +1,6 @@
 Name:           perlbrew
 Version:        0.96
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Manage perl installations in your $HOME
 License:        MIT
 URL:            https://metacpan.org/release/App-perlbrew
@@ -133,6 +133,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.96-1
 - 0.96 bump
 

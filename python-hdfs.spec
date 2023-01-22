@@ -6,7 +6,7 @@
 
 Name:           python-hdfs
 Version:        2.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        API and command line interface for HDFS
 
 License:        MIT
@@ -192,6 +192,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

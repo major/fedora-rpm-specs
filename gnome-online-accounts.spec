@@ -6,7 +6,7 @@
 
 Name:		gnome-online-accounts
 Version:	3.46.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPLv2+
@@ -17,9 +17,7 @@ Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.46/%{name}-%
 # https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/issues/63
 # https://bugzilla.redhat.com/show_bug.cgi?id=1913641
 Patch0:		0001-google-Remove-Photos-support.patch
-Patch1:         112.patch
-Patch2:         115.patch
-Patch3:         116.patch
+Patch1:         kerberos-fixes.patch
 
 
 BuildRequires:	pkgconfig(gcr-3)
@@ -67,8 +65,6 @@ developing applications that use %{name}.
 %endif
 
 %patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 %meson \
@@ -127,6 +123,10 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Fri Jan 20 2023 Ray Strode <rstrode@redhat.com> - 3.46.0-6
+- Add more kerberos fixes from upstream
+  Related: #2152695
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.46.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

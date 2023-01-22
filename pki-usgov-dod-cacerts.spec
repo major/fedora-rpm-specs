@@ -2,7 +2,7 @@
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 Name: pki-usgov-dod-cacerts
 Version: 0.0.6
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: A collection of U.S. Government CA Certs that the DOD uses
 BuildArch: noarch
 License: Public Domain
@@ -37,6 +37,9 @@ cp -a cacert-list.txt ${RPM_BUILD_ROOT}/%{_datadir}/pki-usgov-dod-cacerts/
 %doc README
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

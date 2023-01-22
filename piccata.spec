@@ -1,6 +1,6 @@
 Name:          piccata
 Version:       2.0.1
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       A simple Python based CoAP (RFC7252) toolkit
 License:       MIT
 URL:           https://github.com/NordicSemiconductor/piccata
@@ -46,5 +46,8 @@ communication over different link types. Transport for a UDP socket is provided.
 %{python3_sitelib}/piccata-%{version}-py*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 18 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0.1-1
 - Initial Package

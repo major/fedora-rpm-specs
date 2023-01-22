@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        8.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wildcard/glob file name matcher
 
 License:        MIT
@@ -62,6 +62,9 @@ globmatch which functions like fnmatch, but for paths.
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Parag Nemade <pnemade AT redhat DOT com> - 8.4.1-1
 - Update to new version 8.4.1
 

@@ -13,7 +13,7 @@
 
 Name:           php-pear-Net-LDAP2
 Version:        2.2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Object oriented interface for searching and manipulating LDAP-entries
 
 # LGPL doesn't require license file, but ask for it
@@ -97,6 +97,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

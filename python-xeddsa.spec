@@ -1,6 +1,6 @@
 Name:           python-xeddsa
 Version:        0.6.0~beta
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python implementation of the XEdDSA signature scheme
 
 License:        MIT
@@ -73,6 +73,9 @@ and X448 elliptic curve Diffie-Hellman functions.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0~beta-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.6.0~beta-9
 - Add explicit build dependancy on python3-setuptools (RHBZ#2142039)
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A library wrapping email authentication header verification and generation
 
 # Licensing described in LICENSE file
@@ -53,6 +53,9 @@ ln -sr %{buildroot}%{_datadir}/publicsuffix/public_suffix_list.dat %{buildroot}%
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

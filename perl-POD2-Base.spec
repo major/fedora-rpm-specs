@@ -1,6 +1,6 @@
 Name:           perl-POD2-Base
 Version:        0.043
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Base module for translations of Perl documentation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POD2-Base
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.043-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.043-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

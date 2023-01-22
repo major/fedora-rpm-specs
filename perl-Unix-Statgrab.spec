@@ -1,6 +1,6 @@
 Name:           perl-Unix-Statgrab
 Version:        0.112
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Perl extension for collecting information about the machine
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Unix-Statgrab
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.112-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.112-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

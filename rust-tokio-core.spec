@@ -8,7 +8,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.18
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Core I/O and event loop primitives for asynchronous I/O in Rust
 
 # Upstream license specification: MIT/Apache-2.0
@@ -78,6 +78,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Fabio Valentini <decathorpe@gmail.com> - 0.1.18-6
 - Disable checks due to flaky tests and the broken flate2/tokio dependency.
 

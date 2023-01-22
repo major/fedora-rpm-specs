@@ -3,12 +3,15 @@
 
 Name:           geany-plugins
 Version:        1.38
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Plugins for Geany
 
 License:        GPLv3+
 URL:            http://plugins.geany.org/
 Source0:        http://plugins.geany.org/geany-plugins/geany-plugins-%{version}.tar.bz2
+
+# https://github.com/geany/geany-plugins/pull/1178
+Patch:          geany-plugins-libgit2-1.4.x.patch
 
 BuildRequires:  geany-devel >= %{req_geany_ver} geany-libgeany >= %{req_geany_ver}
 BuildRequires:  gettext intltool pkgconfig
@@ -934,6 +937,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Fri Jan 20 2023 Pete Walter <pwalter@fedoraproject.org> - 1.38-7
+- Fix the build with libgit2 1.4.x
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.38-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Hash-AutoHash-Args
 Version:        1.18
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Object-oriented processing of keyword-based argument lists
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Hash-AutoHash-Args
@@ -58,6 +58,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.18-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

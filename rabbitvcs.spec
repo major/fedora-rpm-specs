@@ -2,7 +2,7 @@
 
 Name:           rabbitvcs
 Version:        0.18
-Release:        8%{?dist}
+Release:        10%{?dist}
 Summary:        %{sum}
 
 License:        GPLv2+
@@ -23,6 +23,7 @@ and straightforward access to the version control systems you use.
 %package        core
 Summary:        Common package of RabbitVCS
 Requires:       meld
+Obsoletes:      rabbitvcs-thunar < 0.18-10
 
 %description    core
 Contains files shared between the RabbitVCS extensions.
@@ -86,18 +87,6 @@ Requires:       nemo
 An extension for Nemo to allow better integration with the 
 source control system.
 
-%package        thunar
-Summary:        Thunar extension for RabbitVCS
-# thunar needs python3 for plugins
-Requires:       python3-rabbitvcs = %{version}-%{release}
-Requires:       python3-dbus
-Requires:       thunarx-python
-Requires:       thunar
-
-%description    thunar
-An extension for Thunar to allow better integration with the 
-source control system.
-
 %prep
 %autosetup -p1
 %py3_shebang_fix .
@@ -111,7 +100,6 @@ install -p -m0755 clients/cli/rabbitvcs -D %{buildroot}%{_bindir}/rabbitvcs
 install -p -m0644 clients/caja/RabbitVCS.py -D %{buildroot}%{_datadir}/caja-python/extensions/RabbitVCS.py
 install -p -m0644 clients/nautilus/RabbitVCS.py -D %{buildroot}%{_datadir}/nautilus-python/extensions/RabbitVCS.py
 install -p -m0644 clients/nemo/RabbitVCS.py -D %{buildroot}%{_datadir}/nemo-python/extensions/RabbitVCS.py
-install -p -m0644 clients/thunar/RabbitVCS.py -D %{buildroot}%{_datadir}/thunarx-python/extensions/RabbitVCS.py
 
 %py3_shebang_fix %{buildroot}%{_bindir}/rabbitvcs
 
@@ -139,10 +127,13 @@ install -p -m0644 clients/thunar/RabbitVCS.py -D %{buildroot}%{_datadir}/thunarx
 %files nemo
 %{_datadir}/nemo-python/extensions/*.py*
 
-%files thunar
-%{_datadir}/thunarx-python/extensions/*.py*
-
 %changelog
+* Fri Jan 20 2023 Pete Walter <pwalter@fedoraproject.org> - 0.18-10
+- Remove and obsolete rabbitvcs-thunar (rhbz#2159994)
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

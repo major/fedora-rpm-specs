@@ -1,6 +1,6 @@
 Name:           python-pygments-better-html
 Version:        0.1.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Better line numbers for Pygments HTML
 
 License:        BSD
@@ -42,6 +42,9 @@ Summary: %{summary}
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

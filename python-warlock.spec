@@ -4,7 +4,7 @@
 
 Name:           python-warlock
 Version:        1.3.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python object model built on top of JSON schema
 
 License:        ASL 2.0
@@ -62,6 +62,9 @@ rm -f requirements.txt
 %{python3_sitelib}/warlock-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.13
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Provides compile time random number generation
 
 # Upstream license specification: MIT OR Apache-2.0
@@ -71,6 +71,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

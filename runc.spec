@@ -31,7 +31,7 @@
 Name: %{repo}
 Epoch: 2
 Version: %{gen_version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: CLI for running Open Containers
 License: ASL 2.0 and BSD and MIT
 URL: %{git0}
@@ -139,6 +139,9 @@ install -p -m 0644 contrib/completions/bash/%{name} %{buildroot}%{_datadir}/bash
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Oct 15 2022 Jan Kuparinen <copperi@fedoraproject.org> - 2:1.1.4-1
 - Update to 1.1.4.
 

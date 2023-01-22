@@ -1,6 +1,6 @@
 Name:           perl-GraphViz2
 Version:        2.67
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GraphViz2 Perl module
 License:        GPL+ or Artistic
 
@@ -67,6 +67,9 @@ that preexisting code using (the Perl module) GraphViz continues to work.
 %{_mandir}/man3/GraphViz2*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.67-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 31 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 2.67-1
 - Update to 2.67
 

@@ -1,11 +1,11 @@
-%global catch_version 2.13.8
-%global libosmium_version 2.16.0
+%global catch_version 2.13.10
+%global libosmium_version 2.17.0
 %global protozero_version 1.6.3
 %global rapidjson_version 1.1.0
 
 Name:           osmium-tool
-Version:        1.14.0
-Release:        4%{?dist}
+Version:        1.15.0
+Release:        1%{?dist}
 Summary:        Command line tool for working with OpenStreetMap data
 
 License:        GPL-3.0-only
@@ -64,6 +64,9 @@ install -p -m644 zsh_completion/* %{buildroot}%{_datadir}/zsh/site-functions
 
 
 %changelog
+* Fri Jan 20 2023 Tom Hughes <tom@compton.nu> - 1.15.0-1
+- Update to 1.15.0 upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

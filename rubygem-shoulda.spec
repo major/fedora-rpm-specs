@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.6.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Making tests easy on the fingers and eyes
 License: MIT
 URL: https://github.com/thoughtbot/shoulda
@@ -129,6 +129,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Vít Ondruch <vondruch@redhat.com> - 3.6.0-12
 - Fix RoR 7+ compatibility.
   Resolves: rhbz#2113708

@@ -10,7 +10,7 @@
 
 Name:       python-copr
 Version:    1.124
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python interface for Copr
 
 License:    GPLv2+
@@ -244,6 +244,9 @@ cp -a docs/_build/html %{buildroot}%{_pkgdocdir}/
 %doc %{_pkgdocdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.124-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 1.124-1
 - move to GitHub home page
 - add external repos for custom build

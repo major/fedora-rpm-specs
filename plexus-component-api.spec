@@ -2,7 +2,7 @@
 
 Name:           plexus-component-api
 Version:        1.0
-Release:        0.36.alpha15%{?dist}
+Release:        0.37.alpha15%{?dist}
 Summary:        Plexus Component API
 
 License:        ASL 2.0
@@ -52,6 +52,9 @@ rm -rf $(readlink -f %{_javadocdir}/%{name}) %{_javadocdir}/%{name} || :
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.37.alpha15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.36.alpha15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

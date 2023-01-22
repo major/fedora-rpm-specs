@@ -7,7 +7,7 @@
 
 Name:           perl-Net-HTTP
 Version:        6.22
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Low-level HTTP connection (client)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-HTTP
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.22-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.22-4
 - Update license to SPDX format
 

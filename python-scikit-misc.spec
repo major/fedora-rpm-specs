@@ -16,7 +16,7 @@ Miscellaneous tools for data analysis and scientific computing.}
 
 Name:           python-%{pypi_name}
 Version:        0.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Miscellaneous tools for data analysis and scientific computing
 
 # MIT License applies to doc/theme/static/bootstrap-3.4.1
@@ -83,4 +83,7 @@ sed -i -e 's/--cov --cov-report=xml//' pytest.ini
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 %autochangelog

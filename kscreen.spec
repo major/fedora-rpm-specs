@@ -1,7 +1,7 @@
 Name:    kscreen
 Epoch:   1
-Version: 5.26.5
-Release: 2%{?dist}
+Version: 5.26.90
+Release: 1%{?dist}
 Summary: KDE Display Management software
 
 # KDE e.V. may determine that future GPL versions are accepted
@@ -82,7 +82,6 @@ KCM and KDED modules for managing displays in KDE.
 %{_datadir}/plasma/plasmoids/org.kde.kscreen/metadata.json
 %{_kf5_datadir}/applications/kcm_kscreen.desktop
 %{_kf5_datadir}/dbus-1/services/org.kde.kscreen.osdService.service
-%{_kf5_datadir}/kded_kscreen/qml/OsdSelector.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Orientation.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/Output.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_kscreen/contents/ui/OutputPanel.qml
@@ -99,6 +98,9 @@ KCM and KDED modules for managing displays in KDE.
 
 
 %changelog
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 1:5.26.90-1
+- 5.26.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.26.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pure-Python MySQL client library
 
 License:        MIT
@@ -62,6 +62,9 @@ rm -rf tests
 %{python3_sitelib}/pymysql/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.2-3
 - Add metapackages for “rsa” and “ed25519” extras
 - Drop hard dependency on python3-cryptography

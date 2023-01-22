@@ -1,6 +1,6 @@
 Name:           perl-Test-Abortable
 Version:        0.003
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple system for handling some exceptions in tests
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Abortable
@@ -80,6 +80,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.003-1
 - 0.003 bump
 - Package tests

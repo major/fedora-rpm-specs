@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        1.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Provides the raw data needed to convert to and from HTML entities
 
 # Upstream license specification: MIT
@@ -71,6 +71,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

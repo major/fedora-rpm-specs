@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}0.4
 Version:        0.4.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Non-cryptographic hash function using AES-NI for high performance
 
 # Upstream license specification: MIT OR Apache-2.0
@@ -120,6 +120,9 @@ which use "std" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

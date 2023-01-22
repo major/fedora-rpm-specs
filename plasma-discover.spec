@@ -12,8 +12,8 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 5.26.5
-Release: 1%{?dist}
+Version: 5.26.90
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -242,7 +242,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 %{_datadir}/icons/hicolor/*/apps/plasmadiscover.*
 %{_datadir}/icons/hicolor/*/apps/flatpak-discover.*
 %{_datadir}/kxmlgui5/plasmadiscover/
-%{_kf5_libexecdir}/discover/
+%{_libexecdir}/discover/
 %{_kf5_datadir}/kpackage/kcms/kcm_updates/
 %{_kf5_datadir}/applications/kcm_updates.desktop
 
@@ -306,6 +306,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        9.2.32
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python interface for analyzing binary formats
 
 License:        BSD
@@ -53,6 +53,9 @@ loader by the OS's loader.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.32-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Jonathan Wright <jonathan@almalinux.org> - 9.2.32-1
 - Update to 9.2.32 rhbz#1999782
 

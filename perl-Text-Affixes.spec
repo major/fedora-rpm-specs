@@ -1,7 +1,7 @@
 Name:           perl-Text-Affixes
 Summary:        Prefixes and suffixes analysis of text
 Version:        0.09
-Release:        21%{?dist}
+Release:        22%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Affixes
 Source0:        https://cpan.metacpan.org/authors/id/C/CO/COG/Text-Affixes-%{version}.tar.gz
@@ -48,6 +48,9 @@ Provides methods for prefixes and suffixes analysis of text.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

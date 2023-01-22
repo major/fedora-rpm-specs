@@ -3,7 +3,7 @@
 Name:    qt5-%{qt_module}
 Summary: Qt5 - module with set of QtQuick controls for embedded
 Version: 5.15.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+ or LGPLv3 and GFDL
 Url:     http://www.qt.io
@@ -112,6 +112,9 @@ rm -f %{buildroot}%{_qt5_libdir}/libQt5*.la
 %{_libdir}/cmake/Qt5QuickTemplates2/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-1
 - 5.15.8
 

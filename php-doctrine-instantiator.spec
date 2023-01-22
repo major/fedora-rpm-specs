@@ -22,7 +22,7 @@
 
 Name:           php-doctrine-instantiator
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Instantiate objects in PHP without invoking their constructors
 
 License:        MIT
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 1.5.0-1
 - update to 1.5.0
 

@@ -1,6 +1,6 @@
 Name:           pstreams-devel
 Version:        1.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        POSIX Process Control in C++
 
 License:        Boost
@@ -50,6 +50,9 @@ make install  DESTDIR=$RPM_BUILD_ROOT includedir=%{_includedir}
 %doc doc/html README AUTHORS ChangeLog
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Jonathan Wakely <jwakely@redhat.com> - 1.0.3-6
 - Fix build by passing build flags in the relevant make variable
 - Add pstreams-doc subpackage and separate check phase of build

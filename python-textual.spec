@@ -1,6 +1,6 @@
 Name:           python-textual
 Version:        0.1.18
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -60,6 +60,9 @@ Summary:        Docs and examples for python3-textual
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 31 2022 Jonathan Wright <jonathan@almalinux.org> - 0.1.18-1
 - Initial package build
 - rhbz#2121258

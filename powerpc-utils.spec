@@ -1,6 +1,6 @@
 Name:           powerpc-utils
 Version:        1.3.10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        PERL-based scripts for maintaining and servicing PowerPC systems
 
 License:        GPLv2
@@ -204,6 +204,9 @@ systemctl enable hcn-init.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 02 2022 Than Ngo <than@redhat.com> - 1.3.10-5
 - Fix lsslot -c mem output when using 4GB LMB size
 - Add NVMf-FC boot support for Power

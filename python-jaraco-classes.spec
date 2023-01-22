@@ -6,7 +6,7 @@
 
 Name:           python-%{pkg_name}
 Version:        3.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utility functions for Python class constructs
 
 License:        MIT
@@ -85,6 +85,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Dan Radez <dan@radez.net> - 3.2.3-1
 - update to 3.2.3 - rhbz#2130354
 - converting spec to use pyproject macros

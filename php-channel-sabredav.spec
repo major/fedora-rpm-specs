@@ -3,7 +3,7 @@
 
 Name:       php-channel-sabredav
 Version:    1.3
-Release:    20%{?dist}
+Release:    21%{?dist}
 Summary:    Adds the SabreDAV channel to PEAR
 
 License:    Public Domain
@@ -54,6 +54,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

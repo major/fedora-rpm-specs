@@ -6,7 +6,7 @@
 
 Name:           perl-Image-Size
 Version:        3.300
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Determine the size of images in several common formats in Perl
 License:        LGPLv2 or Artistic 2.0
 URL:            https://metacpan.org/release/Image-Size
@@ -80,6 +80,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.300-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.300-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

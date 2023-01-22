@@ -8,7 +8,7 @@
 Summary: Qt6 - QtTranslations module
 Name:    qt6-%{qt_module}
 Version: 6.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2 with exceptions or GPLv3 with exceptions and GFDL
 Url:     http://www.qt.io
@@ -125,6 +125,9 @@ Provides: %{_qt6}-zh_TW = %{version}-%{release}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-1
 - 6.4.2
 

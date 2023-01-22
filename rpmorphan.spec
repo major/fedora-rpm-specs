@@ -1,7 +1,7 @@
 Summary:          List packages that have no dependencies (like deborphan)
 Name:             rpmorphan
 Version:          1.17
-Release:          17%{?dist}
+Release:          18%{?dist}
 License:          GPLv2+
 
 BuildArch:        noarch
@@ -87,6 +87,9 @@ mv $RPM_BUILD_ROOT/usr/lib/%{name} $RPM_BUILD_ROOT%{_datadir}/%{name}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

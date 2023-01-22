@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        sshd AuthorizedKeysCommand to read ~/.ssh/authorized_keys.d
 
 License:        Apache-2.0
@@ -94,6 +94,9 @@ install -Dpm0644 -t %{buildroot}%{_sysconfdir}/ssh/sshd_config.d conf/40-ssh-key
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 14 2022 Steven Presti <spresti@redhat.com> - 0.1.4-1
 - New release
 - Regenerate with rust2rpm 22

@@ -1,7 +1,7 @@
 #This file is licensed under the terms of GNU GPLv2+.
 Name:           perl-Proc-SyncExec
 Version:        1.01
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Spawn processes but report exec() errors
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Proc-SyncExec
@@ -41,6 +41,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

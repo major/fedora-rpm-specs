@@ -1,6 +1,6 @@
 Name:           python-virtualenv
 Version:        20.17.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -142,6 +142,9 @@ rm -r tmp_path
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.17.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Miro Hrončok <mhroncok@redhat.com> - 20.17.1-2
 - Require python-wheel0.37-wheel for older Pythons
 

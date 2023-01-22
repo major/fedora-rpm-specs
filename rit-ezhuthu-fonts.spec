@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version:    1.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 URL:        https://gitlab.com/rit-fonts/%{fontfamily}
 
 %global foundry RIT
@@ -49,6 +49,9 @@ make otf
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 Summary:        Parallel LZMA compressor using XZ
 Name:           pxz
 Version:        4.999.9
-Release:        24.beta.%{git_date}git%{?dist}
+Release:        25.beta.%{git_date}git%{?dist}
 License:        GPLv2+
 URL:            https://jnovy.fedorapeople.org/pxz/
 Source0:        https://github.com/jnovy/%{name}/archive/%{commit}/%{name}-%{version}beta.%{git_date}git%{shortcommit}.tar.gz
@@ -44,6 +44,9 @@ cmp COPYING COPYING.test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.999.9-25.beta.20220509git
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.999.9-24.beta.20220509git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

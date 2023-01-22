@@ -1,6 +1,6 @@
 Name:           perl-XML-Feed
 Version:        0.63
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Syndication feed parser and auto-discovery
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/XML-Feed
@@ -63,6 +63,9 @@ implements feed auto-discovery for finding feeds, given a URI.
 %{_mandir}/man3/XML*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

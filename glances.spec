@@ -30,6 +30,7 @@ BuildRequires:	python3-dateutil
 BuildRequires:	python3-ujson
 BuildRequires:	systemd-units
 Requires:	python3-bottle
+Requires:	python3-ujson
 
 %description
 %{desc}

@@ -1,6 +1,6 @@
 Name:           perl-Parse-CPAN-Packages
 Version:        2.40
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Parse 02packages.details.txt.gz
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-CPAN-Packages
@@ -62,6 +62,9 @@ make test
 %{_mandir}/man3/Parse::CPAN::Packages::Package.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.40-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

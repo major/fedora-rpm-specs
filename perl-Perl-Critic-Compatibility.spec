@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Compatibility
 Version:        1.001
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Perl::Critic policies for compatibility with Perl versions
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perl-Critic-Compatibility
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.001-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

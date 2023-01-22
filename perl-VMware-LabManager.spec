@@ -1,6 +1,6 @@
 Name:           perl-VMware-LabManager
 Version:        0.01
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Perl module to provide basic VMware Lab Manager operations
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/VMware-LabManager
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

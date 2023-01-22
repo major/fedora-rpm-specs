@@ -1,6 +1,6 @@
 Name:           perl-File-PathList
 Version:        1.04
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Find a file within a set of paths (like @INC or Java classpaths)
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/File-PathList
@@ -63,6 +63,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

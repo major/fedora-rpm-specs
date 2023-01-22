@@ -16,7 +16,7 @@ RRID:SCR_001376.}
 
 Name:           python-%{pypi_name}
 Version:        1.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        File-format to store metadata in an organized way
 
 License:        BSD
@@ -96,6 +96,9 @@ PYTHONPATH=. pytest-%{python3_version} --deselect test/test_version_converter.py
 %doc html examples
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

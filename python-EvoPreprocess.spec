@@ -10,7 +10,7 @@ implementation of nature-inspired algorithms.}
 
 Name:           python-%{pypi_name}
 Version:        0.4.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A Python Toolkit for Data Preprocessing
 License:        GPLv3
 URL:            https://github.com/karakatic/%{pypi_name}
@@ -50,6 +50,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

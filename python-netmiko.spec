@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        MIT and ASL 2.0
@@ -69,6 +69,9 @@ sed -i '/ntc-templates/d' setup.py
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 Karolina Kula <kkula@redhat.com> - 4.1.1-2
 - Revert removal of ntc-templates removing sed
 

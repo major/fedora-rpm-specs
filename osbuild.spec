@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        76
+Version:        77
 
 %forgemeta
 
@@ -251,6 +251,17 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Packit <hello@packit.dev> - 77-1
+Changes with 77
+----------------
+  * CI deploy script and SSH keys cleanup (#1225)
+  * stages/mkdir: revert explicitly setting mode using `os.chmod` (#1227)
+
+Contributions from: Tomáš Hozza
+
+— Somewhere on the Internet, 2023-01-20
+
+
 * Thu Jan 19 2023 Packit <hello@packit.dev> - 76-1
 Changes with 76
 ----------------

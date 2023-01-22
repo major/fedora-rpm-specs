@@ -14,7 +14,7 @@ Part of the implementation has been adapted, improved and fixed from Molten.}
 Name:           python-%{pypi_name}
 Summary:        Style preserving TOML library
 Version:        0.11.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        MIT
 
 URL:            https://github.com/sdispater/tomlkit
@@ -64,6 +64,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 13 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.11.4-1
 - Update to 0.11.4 (close RHBZ#2078161)
 

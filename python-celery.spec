@@ -6,7 +6,7 @@
 
 Name:           python-celery
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        BSD
@@ -137,6 +137,9 @@ export TEST_BACKEND=rpc
 %{python3_sitelib}/celery
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0~b1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.3.0~b1-1
 - Celery 5.3.0b1 (closes RHBZ#2091392)
 

@@ -4,8 +4,8 @@
 #%%global		dev rc3
 
 Name:		libntirpc
-Version:	4.2
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	4.3
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	New Transport Independent RPC Library
 License:	BSD-3-Clause
 Url:		https://github.com/nfs-ganesha/ntirpc
@@ -83,6 +83,9 @@ ln -s %{name}.so.%{version} %{buildroot}%{_libdir}/%{name}.so.4
 %{_libdir}/pkgconfig/libntirpc.pc
 
 %changelog
+* Fri Jan 20 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> 4.3-1
+- ntirpc-4.3 GA
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

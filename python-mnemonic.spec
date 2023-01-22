@@ -2,7 +2,7 @@
 
 Name:      python-%{srcname}
 Version:   0.20
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Implementation of Bitcoin BIP-0039
 
 License:   MIT
@@ -53,6 +53,9 @@ rm -rf %{srcname}.egg-info
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

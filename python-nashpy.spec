@@ -11,7 +11,7 @@ enumeration, Lemke Howson algorithm.}
 
 Name:           python-%{pypi_name}
 Version:        0.0.36
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A library to compute equilibria of 2 player normal form games
 
 License:        MIT
@@ -91,6 +91,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.36-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.0.36-2
 - Enable tests
 

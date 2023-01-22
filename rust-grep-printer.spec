@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Implementation of the grep crate's Sink trait
 
 # Upstream license specification: Unlicense/MIT
@@ -120,6 +120,9 @@ which use "serde_json" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

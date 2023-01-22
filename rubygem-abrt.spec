@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.4.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: ABRT support for Ruby
 License: MIT
 URL: http://github.com/voxik/abrt-ruby
@@ -73,6 +73,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.10.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Safe-to-use proc-macro-free self-referential structs in stable Rust
 
 # Upstream license specification: Apache-2.0
@@ -94,6 +94,9 @@ which use "rustversion" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

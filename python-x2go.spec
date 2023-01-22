@@ -6,7 +6,7 @@
 
 Name:           python-x2go
 Version:        0.6.1.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python module providing X2Go client API
 
 License:        AGPLv3+
@@ -145,6 +145,9 @@ make -C docs SPHINXBUILD=/usr/bin/sphinx-build-3 html
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.3-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

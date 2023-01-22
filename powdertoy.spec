@@ -10,7 +10,7 @@ URL: https://powdertoy.co.uk
 License: GPLv3 and MIT and ASL 2.0
 
 Version: 97.0.352
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 %global repo_owner The-Powder-Toy
 %global repo_name The-Powder-Toy
@@ -20,6 +20,9 @@ Source0: https://github.com/%{repo_owner}/%{repo_name}/archive/v%{version}/%{rep
 # but in Fedora we always used "powdertoy". This patch edits some files
 # which refer to "powder" and makes them use "powdertoy" instead.
 Patch0: 0000-use-powdertoy-instead-of-powder-as-name.patch
+
+# Some missing includes worked fine until GCC13 and now cause build failures
+Patch1: 0001-fix-gcc13-build-failures.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc-c++
@@ -147,6 +150,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rtld_name}.m
 
 
 %changelog
+* Fri Jan 20 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 97.0.352-3
+- Add a patch to fix build failures with GCC13
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 97.0.352-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 97.0.352-1
 - Update to v97.0.352 (stable release)
 

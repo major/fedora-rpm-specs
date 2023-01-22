@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        5.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Jupyter Notebook format
 
 License:        BSD
@@ -74,6 +74,9 @@ sed -i "s/{VERSION}/%{version}/" pyproject.toml
 %{_bindir}/jupyter-trust
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Lumír Balhar <lbalhar@redhat.com> - 5.7.0-1
 - Update to 5.7.0 (rhbz#1909560)
 

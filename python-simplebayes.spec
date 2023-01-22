@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.8
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A memory-based, optional-persistence naïve bayesian text classifier
 
 License:        MIT
@@ -66,6 +66,9 @@ nosetests-3
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.5.8-19
 - Drop support for i686
 

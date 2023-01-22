@@ -1,6 +1,6 @@
 Name:           reprotest
 Version:        0.7.22
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Build packages and check them for reproducibility
 URL:            https://salsa.debian.org/reproducible-builds/%{name}
 License:        GPLv3+
@@ -52,6 +52,9 @@ rm -rf %{name}.egg-info
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 10 2022 Frédéric Pierret (fepitre) <frederic@invisiblethingslab.com> - 0.7.22-1
 - version 0.7.22
 

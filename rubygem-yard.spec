@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.9.28
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Documentation tool for consistent and usable documentation in Ruby
 License: MIT and (BSD or Ruby)
 URL: http://yardoc.org
@@ -118,6 +118,9 @@ popd
 %{gem_instdir}/%{gem_name}.gemspec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.28-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 08 2022 Vít Ondruch <vondruch@redhat.com> - 0.9.28-1
 - Update to YARD 0.9.28.
   Resolves: rhbz#2027537

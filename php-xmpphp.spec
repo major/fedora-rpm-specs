@@ -5,7 +5,7 @@
 
 Name:           php-%{realname}
 Version:        0.1
-Release:        0.28.%{relcand}.%{prerelease}%{?dist}
+Release:        0.29.%{relcand}.%{prerelease}%{?dist}
 Summary:        XMPPHP is the successor to Class.Jabber.PHP
 
 License:        GPLv2+
@@ -63,6 +63,9 @@ cp -p *.php examples
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.29.rc2.r77
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-0.28.rc2.r77
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

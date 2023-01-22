@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.1.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Json2yaml (XStatic packaging standard)
 
 License:        MIT
@@ -92,6 +92,9 @@ rmdir %{buildroot}%{python3_sitelib}/xstatic/pkg/json2yaml/data/
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

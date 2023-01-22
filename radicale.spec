@@ -26,7 +26,7 @@
 
 Name:             radicale
 Version:          %{radicale_version}
-Release:          37%{?dist}
+Release:          38%{?dist}
 Summary:          A simple CalDAV (calendar) and CardDAV (contact) server
 License:          GPLv3+
 URL:              https://radicale.org
@@ -459,6 +459,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.7-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Peter Bieringer <pb@bieringer.de> - 3.1.7-37
 - Add radicale-disable-timestamp-if-started-by-systemd-PR-1276.patch
 - Fix still unsolved SELinux issues (#2156633)

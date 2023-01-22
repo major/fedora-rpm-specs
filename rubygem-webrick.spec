@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.7.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: HTTP server toolkit
 License: Ruby and BSD-2-Clause
 URL: https://github.com/ruby/webrick
@@ -67,6 +67,9 @@ popd
 %{gem_instdir}/webrick.gemspec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

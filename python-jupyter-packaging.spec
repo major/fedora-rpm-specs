@@ -2,7 +2,7 @@
 
 Name:           python-jupyter-packaging
 Version:        0.12.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to help build and install Jupyter Python packages
 
 License:        BSD
@@ -53,6 +53,9 @@ not test_run \
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 27 2022 Lumír Balhar <lbalhar@redhat.com> - 0.12.3-1
 - Update to 0.12.3
 Resolves: rhbz#2121488

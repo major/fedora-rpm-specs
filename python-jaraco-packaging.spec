@@ -7,7 +7,7 @@
 
 Name:           python-%{pkg_name}
 Version:        9.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tools to supplement packaging Python releases
 
 License:        MIT
@@ -93,6 +93,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Dan Radez <dradez@redhat.com> - 9.1.2-1
 - update to 9.1.2 rhbz#2156792
 

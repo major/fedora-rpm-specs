@@ -1,6 +1,6 @@
 Name:           pwgen
 Version:        2.08
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Automatic password generation
 
 License:        GPL+
@@ -38,6 +38,9 @@ digits are placed in a way that eases memorizing the password.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.08-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.08-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

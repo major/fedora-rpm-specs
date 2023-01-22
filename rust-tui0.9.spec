@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}0.9
 Version:        0.9.5
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Library to build rich terminal user interfaces or dashboards
 
 # Upstream license specification: MIT
@@ -99,6 +99,9 @@ which use "termion" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

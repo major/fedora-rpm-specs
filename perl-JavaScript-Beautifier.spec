@@ -1,6 +1,6 @@
 Name:           perl-JavaScript-Beautifier
 Version:        0.25
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Beautify Javascript (beautifier for javascript)
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/JavaScript-Beautifier
@@ -69,6 +69,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Code*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: python-molecule-podman
 Version: 2.0.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Molecule Podman plugin
 License: MIT
 
@@ -52,6 +52,9 @@ provisioning test resources.
 %doc *.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 16 2022 Maxwell G <gotmax@e.email> - 2.0.3-1
 - Update to 2.0.3.
 

@@ -3,7 +3,7 @@
 
 Name:           perl-TestML1
 Version:        0.57
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Generic software testing meta language (version 1)
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/TestML1
@@ -96,6 +96,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

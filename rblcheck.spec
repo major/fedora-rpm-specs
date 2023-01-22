@@ -4,7 +4,7 @@ Name:		rblcheck
 Summary:	Command-line interface to RBL-style listings
 
 Version:	1.5
-Release:	42%{?dist}
+Release:	43%{?dist}
 
 Source0:	https://github.com/logic/rblcheck/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:	rblcheckrc
@@ -67,6 +67,9 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %{_sysconfdir}/rblcheckrc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Florian Weimer <fweimer@redhat.com> - 1.5-42
 - Port configure script to C99
 

@@ -21,7 +21,7 @@
 Summary:        ZeroMQ messaging
 Name:           php-%{pecl_name}
 Version:        1.1.3
-Release:        23%{?dist}
+Release:        24%{?dist}
 License:        BSD
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -168,6 +168,9 @@ export TEST_PHP_EXECUTABLE=%{_bindir}/zts-php
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.1.3-23
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 - add patch for PHP 8.2 from https://github.com/zeromq/php-zmq/pull/228

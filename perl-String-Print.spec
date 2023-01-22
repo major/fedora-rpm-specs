@@ -1,6 +1,6 @@
 Name:           perl-String-Print
 Version:        0.94
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Alternative for Perl printf
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/String-Print
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.94-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.94-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

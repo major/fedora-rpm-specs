@@ -2,7 +2,7 @@
 
 Name:           python-primecountpy
 Version:        0.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python Primecount wrapper
 
 # GPL-3.0-only: setup.py
@@ -97,6 +97,9 @@ rm docs/build/html/.buildinfo
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.1.0-6
 - Convert License tags to SPDX
 

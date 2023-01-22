@@ -1,6 +1,6 @@
 Name:           perl-Role-Basic
 Version:        0.13
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Just roles. Nothing else
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Role-Basic
@@ -44,6 +44,9 @@ mv Changes~ Changes
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.13-27
 - Modernize spec.
 

@@ -2,7 +2,7 @@ Name:           perl-Icon-FamFamFam-Silk
 %global cpan_version 0.002001003
 # Normalized version
 Version:        0.2.1.3
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Embed FamFamFam Silk icons in your code
 # lib/Icon/FamFamFam/Silk.pm:   CC-BY and Public Domain
 ## Not in the binary package
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1.3-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

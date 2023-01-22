@@ -1,11 +1,12 @@
 Name: libfilezilla
 Version: 0.40.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://lib.filezilla-project.org/
 Summary: C++ Library for FileZilla
 License: GPLv2+
 
 Source0: https://download.filezilla-project.org/%{name}/%{name}-%{version}.tar.bz2
+Patch0: gcc13.patch
 
 %if 0%{?rhel} == 8
 # libuv-devel not present on s390x on EL-8
@@ -33,7 +34,7 @@ functionality to build high-performing, platform-independent programs.
 This package contains files needed to compile code using libfilezilla.
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 %build
 %configure --disable-static
@@ -58,6 +59,9 @@ This package contains files needed to compile code using libfilezilla.
 %{_libdir}/pkgconfig/libfilezilla.pc
 
 %changelog
+* Fri Jan 20 2023 Scott Talbert <swt@techie.net> - 0.40.0-3
+- Fix FTBFS with GCC 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

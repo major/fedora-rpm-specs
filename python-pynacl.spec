@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python binding to the Networking and Cryptography (NaCl) library
 
 License:        ASL 2.0
@@ -63,6 +63,9 @@ export SODIUM_INSTALL=system
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 31 2022 Major Hayden <major@mhtx.net> - 1.5.0-1
 - Update to 1.5.0 (#2038614)
 

@@ -31,7 +31,7 @@ Patch0:     python-kubernetes-el7.patch
 Name:       python-%{library}
 Epoch:      1
 Version:    24.2.0
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Python client for the kubernetes API.
 License:    ASL 2.0
 URL:        https://pypi.python.org/pypi/kubernetes
@@ -224,6 +224,9 @@ cp -pr kubernetes/e2e_test %{buildroot}%{python3_sitelib}/%{library}/
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:24.2.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 02 2022 Jason Montleon <jmontleo@redhat.com> - 1:24.2.0-4
 - Align release / changelog
 

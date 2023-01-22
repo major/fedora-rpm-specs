@@ -1,7 +1,7 @@
 Name:           perl-opts
 Summary:        Simple command line option parser
 Version:        0.070
-Release:        25%{?dist}
+Release:        26%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/M/MI/MIKIHOSHI/opts-0.07.tar.gz 
 URL:            https://metacpan.org/release/opts
@@ -51,6 +51,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null ';'
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.070-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.070-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

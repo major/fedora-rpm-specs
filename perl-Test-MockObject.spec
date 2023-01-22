@@ -1,6 +1,6 @@
 Name:           perl-Test-MockObject
 Version:        1.20200122
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Perl extension for emulating troublesome interfaces
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-MockObject
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Test::MockObject::Extends.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20200122-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20200122-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

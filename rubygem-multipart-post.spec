@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.2.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A multipart form post accessory for Net::HTTP
 License: MIT
 URL: https://github.com/socketry/multipart-post
@@ -69,6 +69,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Vít Ondruch <vondruch@redhat.com> - 2.2.3-1
 - Upgrade to Multipart::Post 2.2.3.
   Resolves: rhbz#1707660

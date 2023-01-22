@@ -7,7 +7,7 @@
 
 Name:		perl-IO-Socket-SSL
 Version:	2.080
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
@@ -125,6 +125,9 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.080-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Paul Howarth <paul@city-fan.org> - 2.080-1
 - Update to 2.080
   - Move test certificates into t/ directory where they belong

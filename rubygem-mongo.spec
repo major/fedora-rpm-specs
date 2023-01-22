@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.14.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Ruby driver for MongoDB
 License: ASL 2.0
 URL: https://docs.mongodb.com/ruby-driver/current/
@@ -152,6 +152,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 09 2022 Vít Ondruch <vondruch@redhat.com> - 2.14.0-6
 - Fix FTBFS caused by RubyGems 3.3.20+.
 

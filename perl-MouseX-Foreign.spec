@@ -1,6 +1,6 @@
 Name:           perl-MouseX-Foreign
 Version:        1.000
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Extends non-Mouse classes as well as Mouse classes
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MouseX-Foreign
@@ -64,6 +64,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.000-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

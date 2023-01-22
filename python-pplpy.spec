@@ -1,6 +1,6 @@
 Name:           python-pplpy
 Version:        0.8.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python PPL wrapper
 
 License:        GPL-3.0-or-later
@@ -96,6 +96,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitearch}/ppl/*.pxd
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.8.7-8
 - Move API documentation to the devel subpackage
 - Convert License tags to SPDX

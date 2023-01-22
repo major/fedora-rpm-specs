@@ -1,6 +1,6 @@
 Name:           qascade
 Version:        0.1
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Classic puzzle game
 
 License:        GPLv2+
@@ -54,6 +54,9 @@ install -D -p -m 644 blue.png \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

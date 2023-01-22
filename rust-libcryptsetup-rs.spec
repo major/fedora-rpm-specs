@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        High level Rust bindings for libcryptsetup
 
 # Upstream license specification: MPL-2.0
@@ -81,6 +81,9 @@ use the "mutex" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 26 2022 mulhern <amulhern@redhat.com> - 0.6.0-1
 - Update to version 0.6.0
 

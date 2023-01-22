@@ -3,7 +3,7 @@
 Name:             python3-%{module_name}
 Summary:          Python bindings to libcangjie
 Version:          1.2
-Release:          29%{?dist}
+Release:          30%{?dist}
 License:          LGPLv3+
 URL:              http://cangjians.github.io/projects/pycangjie
 Source0:          http://cangjians.github.io/downloads/pycangjie/%{module_name}-%{version}.tar.xz
@@ -49,6 +49,9 @@ make check
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

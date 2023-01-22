@@ -1,6 +1,6 @@
 Name:           perl-Test-TempDir
 Version:        0.11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Temporary files support for testing
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-TempDir
@@ -48,6 +48,9 @@ Test::TempDir provides temporary directory creation with testing in mind.
 %{_mandir}/man3/Test::TempDir*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

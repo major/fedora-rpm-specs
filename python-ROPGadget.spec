@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        6.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool to find ROP gadgets in program files
 
 License:        BSD
@@ -54,6 +54,9 @@ done
 %{_bindir}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

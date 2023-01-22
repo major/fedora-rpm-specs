@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        2.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hamcrest matchers for Python
 
 License:        BSD-3-Clause
@@ -55,6 +55,9 @@ Python 3 version.
 %files -n python3-%{modname} -f %{pyproject_files}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 05 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 2.0.3-1
 - Update to 2.0.3 (RHBZ #1788673)
 

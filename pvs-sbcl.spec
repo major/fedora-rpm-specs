@@ -2,7 +2,7 @@
 
 Name:           pvs-sbcl
 Version:        7.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Interactive theorem prover from SRI
 
 # GPL-2.0-or-later: the project as a whole
@@ -235,6 +235,9 @@ rm %{buildroot}%{_libdir}/pvs/emacs/.readme
 %{_texmf}/tex/latex/pvs/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 7.1-8
 - Convert License tag to SPDX
 

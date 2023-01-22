@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python libraries for interacting with windows remote management
 
 License:        MIT
@@ -53,6 +53,9 @@ Python 3 version.
 %{python3_sitelib}/winrm/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 31 2022 Orion Poplawski <orion@nwra.com> - 0.4.3-1
 - Update to 0.4.3
 

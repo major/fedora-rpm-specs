@@ -4,7 +4,7 @@
 Name:           perl-SQL-Translator
 Summary:        Manipulate structured data definitions (SQL and more)
 Version:        1.62
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILMARI/SQL-Translator-%{version}.tar.gz
 URL:            https://metacpan.org/release/SQL-Translator
@@ -193,6 +193,9 @@ make test
 %{_mandir}/man1/sqlt-graph.*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

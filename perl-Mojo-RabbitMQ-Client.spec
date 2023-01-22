@@ -1,6 +1,6 @@
 Name:           perl-Mojo-RabbitMQ-Client
 Version:        0.3.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Mojo::IOLoop based RabbitMQ client
 License:        Artistic 2.0 and BSD
 
@@ -72,6 +72,9 @@ TEST_RMQ='' MOJO_RABBITMQ_DEBUG="" MOJO_CONNECT_TIMEOUT="" ./Build test
 %{_mandir}/man3/Mojo*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

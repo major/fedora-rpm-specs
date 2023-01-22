@@ -4,7 +4,7 @@
 
 Name:               python-Mastodon
 Version:            1.8.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python wrapper for the Mastodon API
 
 
@@ -60,6 +60,9 @@ Python %{python3_version} version.
 %{python3_sitelib}/%{modname}.py-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.8.0-1
 - 1.8.0
 

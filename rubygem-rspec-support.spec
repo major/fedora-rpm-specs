@@ -12,7 +12,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	%{mainver}
-Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}
+Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}.1
 
 Summary:	Common functionality to Rspec series
 License:	MIT
@@ -111,6 +111,9 @@ rspec spec/ || rspec --tag ~broken
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-3.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 11 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-3
 - Backport upstrem patch for pending broken test with ruby >= 3.1.3
 

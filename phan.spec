@@ -22,7 +22,7 @@
 
 Name:           %{gh_project}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        A static analyzer for PHP
 
 License:        MIT
@@ -219,6 +219,9 @@ EOF
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep  8 2022 Remi Collet <remi@remirepo.net> - 5.4.1-1
 - update to 5.4.1
 - raise dependency on microsoft/tolerant-php-parser 0.1.1

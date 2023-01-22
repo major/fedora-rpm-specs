@@ -1,6 +1,6 @@
 Name:           perl-WWW-Mechanize-TreeBuilder
 Version:        1.20000
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        WWW::Mechanize::TreeBuilder Perl module
 License:        GPL+ or Artistic
 
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/WWW*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20000-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20000-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

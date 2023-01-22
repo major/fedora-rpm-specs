@@ -1,6 +1,6 @@
 Name:		rebloom
 Version:	1.1.0
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Bloom Filter Module for Redis
 
 # Commit ID for latest goodform fix (not released)
@@ -55,6 +55,9 @@ install -pDm755 %{name}.so %{buildroot}%{redis_modules_dir}/%{name}.so
 %{redis_modules_dir}/%{name}.so
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

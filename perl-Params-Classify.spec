@@ -7,7 +7,7 @@
 
 Name:           perl-Params-Classify
 Version:        0.015
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Argument type classification
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Params-Classify
@@ -74,6 +74,9 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Params::Classify.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 Summary: Utilities for managing processes on your system
 Name: psmisc
 Version: 23.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL: https://gitlab.com/psmisc/psmisc
 
@@ -69,6 +69,9 @@ mv $RPM_BUILD_ROOT%{_bindir}/fuser $RPM_BUILD_ROOT%{_sbindir}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Jan Rybar <jrybar@redhat.com> - 23.6-1
 - Rebase to psmisc-23.6
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 23.4-4

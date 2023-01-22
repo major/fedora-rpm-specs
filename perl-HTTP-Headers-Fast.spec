@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Headers-Fast
 Version:        0.22
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Faster implementation of HTTP::Headers
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTTP-Headers-Fast
@@ -52,6 +52,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.22-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

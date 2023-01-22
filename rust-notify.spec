@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        4.0.15
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Cross-platform filesystem notification library
 
 # Upstream license specification: CC0-1.0
@@ -99,6 +99,9 @@ which use "timing_tests" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.15-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.15-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

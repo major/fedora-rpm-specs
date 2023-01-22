@@ -1,6 +1,6 @@
 Name:           perl-Net-SMTPS
 Version:        0.10
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        SSL/STARTTLS support for Net::SMTP
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-SMTPS
@@ -62,6 +62,9 @@ document of IO::Socket::SSL about these options detail.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

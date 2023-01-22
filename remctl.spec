@@ -1,6 +1,6 @@
 Name: remctl
 Version: 3.18
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Client/server for Kerberos-authenticated command execution
 
 License: MIT
@@ -189,6 +189,9 @@ cp -p php/remctl.ini %{buildroot}%{php_inidir}/%{ini_name}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.18-4
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

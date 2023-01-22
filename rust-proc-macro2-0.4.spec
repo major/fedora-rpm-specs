@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}-0.4
 Version:        0.4.30
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Stable implementation of the upcoming new `proc_macro` API
 
 # Upstream license specification: MIT/Apache-2.0
@@ -109,6 +109,9 @@ which use "span-locations" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.30-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.30-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

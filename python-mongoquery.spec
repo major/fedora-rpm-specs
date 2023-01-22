@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python implementation of mongodb queries
 
 License:        Unlicense
@@ -50,6 +50,9 @@ parsers. It follows the specification of queries for MongoDB version 3.2.
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.4.2-1
 - Update to latest upstream release 1.4.2 (closes #2090356)
 

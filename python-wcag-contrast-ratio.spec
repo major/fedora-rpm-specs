@@ -1,6 +1,6 @@
 Name:           python-wcag-contrast-ratio
 Version:        0.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library for computing contrast ratios, as required by WCAG 2.0
 License:        MIT
 URL:            https://github.com/gsnedders/wcag-contrast-ratio
@@ -53,6 +53,9 @@ sed -i 's/{envbindir}\/py.test/py.test/g' tox.ini
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

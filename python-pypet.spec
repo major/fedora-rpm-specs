@@ -14,7 +14,7 @@ of your simulations and analyses becomes a piece of cake!}
 
 Name:           python-%{pypi_name}
 Version:        0.5.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Parameter exploration toolbox
 
 License:        BSD
@@ -100,6 +100,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} pypet/tests/all_single_co
 %doc doc/build/html examples/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

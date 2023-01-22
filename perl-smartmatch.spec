@@ -1,7 +1,7 @@
 # This file is licensed under the terms of GNU GPLv2+
 Name:           perl-smartmatch
 Version:        0.05
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Pluggable smart matching back-ends
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/smartmatch
@@ -69,6 +69,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

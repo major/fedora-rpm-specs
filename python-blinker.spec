@@ -2,7 +2,7 @@
 
 Name:           python-blinker
 Version:        1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast, simple object-to-object and broadcast signaling
 
 License:        MIT
@@ -48,6 +48,9 @@ of interested parties to subscribe to events, or "signals".
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.5-1
 - Bump to blinker 1.5 (fixes python 3.11 support)
 

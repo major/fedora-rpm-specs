@@ -2,7 +2,7 @@
 
 Name:           pungi
 Version:        4.3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Distribution compose tool
 
 License:        GPLv2
@@ -138,6 +138,9 @@ rm %{buildroot}%{_bindir}/pungi
 %{_bindir}/%{name}-wait-for-signed-ostree-handler
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Ondřej Nosek <onosek@redhat.com> - 4.3.7-1
 - osbuild: test passing of rich repos from configuration (lsedlar)
 - osbuild: support specifying `package_sets` for repos (thozza)

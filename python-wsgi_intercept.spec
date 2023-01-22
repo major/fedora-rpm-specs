@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        wsgi_intercept installs a WSGI application in place of a real URI for testing
 
 License:        MIT
@@ -82,6 +82,9 @@ sed -i 's/\r$//' html/_static/jquery.js
 %doc html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Joel Capitao <jcapitao@redhat.com> - 1.10.0-1
 - Update to 1.10.0 (#2040722)
 

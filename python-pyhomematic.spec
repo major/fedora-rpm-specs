@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.77
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Python Homematic interface
 
 License:        MIT
@@ -47,6 +47,9 @@ sed -i 's/\r$//' README.rst
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.77-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.77-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

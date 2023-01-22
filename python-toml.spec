@@ -9,7 +9,7 @@ or tomli/tomli-w.
 
 Name:           python-%{pypi_name}
 Version:        0.10.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A deprecated Python Library for Tom's Obvious, Minimal Language
 
 License:        MIT
@@ -78,6 +78,9 @@ toml-test $(pwd)/tests/decoding_test3.sh
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Miro Hrončok <mhroncok@redhat.com> - 0.10.2-10
 - This package is now deprecated
 - https://fedoraproject.org/wiki/Changes/DeprecatePythonToml

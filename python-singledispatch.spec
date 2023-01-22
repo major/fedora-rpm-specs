@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.4.0.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        This library brings functools.singledispatch from Python 3.4 to Python 2.6-3.3
 
 License:        MIT
@@ -60,6 +60,9 @@ sed -i '1d' singledispatch_helpers.py
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

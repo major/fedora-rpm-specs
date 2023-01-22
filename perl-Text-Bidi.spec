@@ -3,7 +3,7 @@
 
 Name:           perl-Text-Bidi
 Version:        2.18
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Unicode bidirectional algorithm using libfribidi
 # LICENSE:          GPL-1.0-or-later OR Artistic-1.0-Perl
 # t/MirrorTest.txt: Unicode-DFS-2016 (a copy of
@@ -18,8 +18,11 @@ URL:            https://metacpan.org/release/Text-Bidi
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KAMENSKY/Text-Bidi-%{version}.tar.gz
 # bidi is a plugin, CPAN RT#108737
 Patch0:         Text-Bidi-2.12-Remove-script-attributes-from-bidi.patch
+# Respect swig failures, proposed to the upstream,
+# <https://github.com/mkamensky/Text-Bidi/pull/13>
+Patch1:         Text-Bidi-2.18-Do-not-ignore-Swig-failures.patch
 # Adjust a test for an out-tree testing, not suitable for upstream
-Patch1:         Text-Bidi-2.16-Skip-nonexisting-scripts.patch
+Patch2:         Text-Bidi-2.16-Skip-nonexisting-scripts.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -145,11 +148,15 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{_bindir}/*
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Text*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_bindir}/fribidi.pl
+%dir %{perl_vendorarch}/auto/Text
+%{perl_vendorarch}/auto/Text/Bidi
+%dir %{perl_vendorarch}/Text
+%{perl_vendorarch}/Text/Bidi
+%{perl_vendorarch}/Text/Bidi.pm
+%{_mandir}/man1/fribidi.pl.1*
+%{_mandir}/man3/Text::Bidi.*
+%{_mandir}/man3/Text::Bidi::*
 
 %files urxvt
 %license LICENSE
@@ -160,6 +167,12 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Petr Pisar <ppisar@redhat.com> - 2.18-5
+- Respect swig failures
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 28 2022 Petr Pisar <ppisar@redhat.com> - 2.18-3
 - Correct tests license to (GPL-1.0-or-later OR Artistic-1.0-Perl) AND
   Unicode-DFS-2016

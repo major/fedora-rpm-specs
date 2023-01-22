@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        WTForms integration for SQLAlchemy
 
 License:        BSD
@@ -55,5 +55,8 @@ sed -i '/tests_require = coverage/d' setup.cfg
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 11 2022 Matěj Grabovský <mgrabovs@redhat.com> - 0.3.0-1
 - Initial package

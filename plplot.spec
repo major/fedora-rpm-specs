@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -759,6 +759,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.0-49
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Orion Poplawski <orion@nwra.com> - 5.15.0-48
 - Rebuild for libgnat soname bump with gcc 13 (Fix FTI bz#2161624)
 

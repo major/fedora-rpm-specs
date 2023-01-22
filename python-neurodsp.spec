@@ -30,7 +30,7 @@ https://doi.org/10.21105/joss.01272}
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A tool for digital signal processing for neural time series
 
 License:        ASL 2.0
@@ -84,6 +84,9 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

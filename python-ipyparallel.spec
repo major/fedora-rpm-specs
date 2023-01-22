@@ -2,7 +2,7 @@
 
 Name:		python-ipyparallel
 Version:	8.4.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Interactive Parallel Computing with IPython
 
 License:	BSD
@@ -143,6 +143,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %doc docs/build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 03 2022 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.4.1-3
 - Rename tests subpackage to fix auto provides
 - Ignore deprecation warnings from jupyter-core

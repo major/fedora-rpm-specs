@@ -1,6 +1,6 @@
 Name:           perl-Parse-RecDescent
 Version:        1.967015
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Generate Recursive-Descent Parsers
 License:        (GPL+ or Artistic) and (GPLv2+ or Artistic)
 # demo/demo_another_Cgrammar.pl:    GPLv2+ or Artistic
@@ -77,6 +77,9 @@ make test
 %{_mandir}/man3/Parse::RecDescent.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.967015-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.967015-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

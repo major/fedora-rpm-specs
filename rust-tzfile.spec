@@ -6,7 +6,7 @@
 
 Name:           rust-tzfile
 Version:        0.1.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Chrono::TimeZone implementation using system tz database
 
 License:        MIT
@@ -72,6 +72,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 30 2022 Fabio Valentini <decathorpe@gmail.com> - 0.1.3-5
 - Skip a test that fails with tzdata 2022b and newer.
 

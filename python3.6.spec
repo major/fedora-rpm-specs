@@ -17,7 +17,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 16%{?dist}
+Release: 17%{?dist}
 # Python is Python
 # pip MIT is and bundles:
 #   appdirs: MIT
@@ -1870,6 +1870,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.15-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Miro Hrončok <mhroncok@redhat.com> - 3.6.15-16
 - Ensure the source mtime is clamped to $SOURCE_DATE_EPOCH before bytecompilation
 

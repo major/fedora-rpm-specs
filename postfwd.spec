@@ -1,7 +1,7 @@
 Summary:        Postfix policyd to combine complex restrictions in a ruleset
 Name:           postfwd
 Version:        2.03
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        BSD-3-Clause
 URL:            https://postfwd.org/
 Source0:        https://github.com/postfwd/postfwd/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -86,6 +86,9 @@ mv -f doc/postfwd3.CHANGELOG CHANGELOG
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/lib/%{name}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 29 2022 Robert Scheck <robert@fedoraproject.org> 2.03-5
 - Added sysusers.d file to achieve user() and group() provides
 

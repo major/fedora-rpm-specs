@@ -7,7 +7,7 @@ Name: php-%{author}-%{project}
 %global git_cmmt %(c="%{git_commit}"; echo "${c:0:7}")
 
 Version: 1.8.3
-Release: 2.%{git_date}git%{git_cmmt}%{?dist}
+Release: 3.%{git_date}git%{git_cmmt}%{?dist}
 
 Summary: XML-RPC library for PHP
 License: BSD
@@ -99,6 +99,9 @@ phpunit8 --verbose --bootstrap %{buildroot}%{pkgdir}/autoload.php
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-3.20220717git4a17452
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 28 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.8.3-2.20220717git4a17452
 - Add missing dependencies (as reported by phpcompatinfo)
 - Make package directory hierarchy PSR-0 compatible

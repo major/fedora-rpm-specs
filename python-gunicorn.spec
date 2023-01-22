@@ -7,7 +7,7 @@ speedy.}
 
 Name:           python-%{srcname}
 Version:        20.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python WSGI HTTP Server
 License:        MIT
 URL:            https://gunicorn.org/
@@ -68,6 +68,9 @@ ln -s %{_bindir}/gunicorn %{buildroot}%{_bindir}/gunicorn-%{python3_version}
 %doc docs/build/html/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.1.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jul 27 2022 Carl George <carl@george.computer> - 20.1.0-7
 - Convert to pyproject macros
 - Build docs with make

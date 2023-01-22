@@ -1,6 +1,6 @@
 Name:       perl-MooseX-Role-XMLRPC-Client 
 Version:    0.07
-Release:    21%{?dist}
+Release:    22%{?dist}
 # lib/MooseX/Role/XMLRPC/Client.pm -> LGPLv2+
 License:    LGPLv2+
 
@@ -68,6 +68,9 @@ find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

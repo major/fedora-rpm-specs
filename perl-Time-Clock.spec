@@ -1,6 +1,6 @@
 Name:		perl-Time-Clock
 Version:	1.03
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Twenty-four hour clock object with nanosecond precision
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Time-Clock
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/Time::Clock.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

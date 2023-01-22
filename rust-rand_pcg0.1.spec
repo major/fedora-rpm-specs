@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.1
 Version:        0.1.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Selected PCG random number generators
 
 # Upstream license specification: MIT/Apache-2.0
@@ -110,6 +110,9 @@ which use "serde_derive" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

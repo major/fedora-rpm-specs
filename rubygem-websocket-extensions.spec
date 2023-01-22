@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.1.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Generic extension manager for WebSocket connections
 License: Apache-2.0
 URL: https://github.com/faye/websocket-extensions-ruby
@@ -74,6 +74,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 08 2022 Vít Ondruch <vondruch@redhat.com> - 0.1.5-1
 - Update to websocket-extensions 0.1.5.
   Resolves: rhbz#2113712

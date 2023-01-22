@@ -1,6 +1,6 @@
 Name:           perl-perlindex
 Version:        1.606
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Index and search the perl documentation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/perlindex
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.606-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.606-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

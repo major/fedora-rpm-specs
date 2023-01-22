@@ -1,6 +1,6 @@
 Name:           perl-Memoize-ExpireLRU
 Version:        0.56
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Expiry plug-in for Memoize that adds LRU cache expiration
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Memoize-ExpireLRU
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:               python-iniconfig
 Version:            1.1.1
-Release:            10%{?dist}
+Release:            11%{?dist}
 Summary:            Brain-dead simple parsing of ini files
 License:            MIT
 URL:                http://github.com/RonnyPfannschmidt/iniconfig
@@ -64,6 +64,9 @@ sed -i "s/py\.test/pytest/" testing/test_iniconfig.py
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Lumír Balhar <lbalhar@redhat.com> - 1.1.1-10
 - Fix build with pytest 7.2 and tox 4
 

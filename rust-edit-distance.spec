@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}
 Version:        2.1.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Levenshtein edit distance between strings, a measure for similarity
 
 # Upstream license specification: Apache-2.0
@@ -69,6 +69,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

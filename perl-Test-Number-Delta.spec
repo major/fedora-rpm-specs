@@ -1,6 +1,6 @@
 Name:           perl-Test-Number-Delta
 Version:        1.06
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Compare the difference between numbers against a given tolerance
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Number-Delta
@@ -63,6 +63,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

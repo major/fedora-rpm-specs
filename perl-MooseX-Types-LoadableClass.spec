@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Types-LoadableClass
 Version:        0.015
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        ClassName type constraint with coercion to load the class
 License:        GPL+ or Artistic
 
@@ -59,6 +59,9 @@ ClassName type constraint with coercion to load the class.
 %{_mandir}/man3/MooseX*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.015-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

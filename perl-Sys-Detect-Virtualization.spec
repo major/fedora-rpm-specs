@@ -3,7 +3,7 @@
 
 Name:           perl-Sys-Detect-Virtualization
 Version:        0.107
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Library to detect if a UNIX system is running as a virtual machine
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Sys-Detect-Virtualization
@@ -104,6 +104,9 @@ make test
 %{_bindir}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.107-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.107-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           rtaudio
 Version:        5.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Real-time Audio I/O Library
 
 License:        MIT
@@ -88,6 +88,9 @@ export CFLAGS="%optflags -fPIC"
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 06 2022 Richard Shaw <hobbes1069@gmail.com> - 5.2.0-1
 - Update to 5.2.0.
 

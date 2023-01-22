@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.10.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: An iterations per second enhancement to Benchmark
 License: MIT
 URL: https://github.com/evanphx/benchmark-ips
@@ -79,6 +79,9 @@ popd
 %{gem_instdir}/examples/*.rb
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

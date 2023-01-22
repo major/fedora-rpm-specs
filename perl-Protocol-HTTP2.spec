@@ -1,6 +1,6 @@
 Name:           perl-Protocol-HTTP2
 Version:        1.10
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        HTTP/2 protocol implementation (RFC 7540)
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Protocol-HTTP2
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT/%{_mandir} -type f -empty -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

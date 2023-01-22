@@ -1,6 +1,6 @@
 Name:           python-sphinxcontrib-zopeext
 Version:        0.3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Sphinx extension for documenting Zope interfaces
 
 License:        BSD-2-Clause
@@ -50,6 +50,9 @@ sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<7/' pyproject.toml
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Lumír Balhar <lbalhar@redhat.com> - 0.3.3-4
 - Allow newer importlib-metadata and fix FTI
 Resolves: rhbz#2157864

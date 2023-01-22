@@ -1,7 +1,7 @@
 Summary: A Router Advertisement daemon
 Name: radvd
 Version: 2.19
-Release: 8%{?dist}
+Release: 9%{?dist}
 
 # The code includes the advertising clause, so it's GPL-incompatible
 License: BSD with advertising
@@ -99,6 +99,9 @@ make check
 %{_sbindir}/radvdump
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 2.19-8
 - Apply upstream patches to fix C99 compatibility issue
 - Run autoconf/automake during the build

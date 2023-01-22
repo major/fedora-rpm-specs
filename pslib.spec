@@ -1,6 +1,6 @@
 Name:           pslib
 Version:        0.4.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        C-library to create PostScript files
 
 License:        LGPLv2+ and MPLv1.0 and MIT
@@ -73,6 +73,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 0.4.6-4
 - C99 compatibility fix
 

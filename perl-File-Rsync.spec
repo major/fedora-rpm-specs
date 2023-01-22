@@ -1,6 +1,6 @@
 Name:           perl-File-Rsync
 Version:        0.49
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Perl module interface to rsync
 License:        GPL+ or Artistic
 URL:            http://search.cpan.org/dist/File-Rsync/
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.49-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{upstream_name}
 Version:        4.3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python interface to the Redis key-value store
 License:        MIT
 URL:            https://github.com/redis/redis-py
@@ -63,6 +63,9 @@ kill %1
 %doc CHANGES README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 18 2022 Kevin Fenzi <kevin@scrye.com> - 4.3.4-1
 - Update to 4.3.4. Fixes rhbz#2101428
 

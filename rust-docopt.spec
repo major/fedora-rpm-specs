@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        1.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Command line argument parsing
 
 # Upstream license specification: Unlicense/MIT
@@ -90,6 +90,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/bash-completion/completions \
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

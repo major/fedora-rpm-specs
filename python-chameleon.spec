@@ -2,7 +2,7 @@
 
 Name:           python-chameleon
 Version:        3.10.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        XML-based template compiler
 
 License:        BSD
@@ -62,6 +62,9 @@ find %{buildroot}%{python3_sitelib}/chameleon -name '*.txt' -exec rm \{\} \;
 %{python3_sitelib}/Chameleon-%{version}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 18 2022 Ján ONDREJ (SAL) <ondrejj(at)salstar.sk> - 3.10.2-1
 - Update to upstream.
 

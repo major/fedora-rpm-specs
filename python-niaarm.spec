@@ -22,7 +22,7 @@ framework called NiaPy.}
 
 Name:           python-%{pypi_name}
 Version:        0.2.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A minimalistic framework for numerical association rule mining
 
 License:        MIT
@@ -100,6 +100,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 %doc CODE_OF_CONDUCT.md CONTRIBUTING.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 1 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.4-2
 - Do not test text mining suite (nltk data is missing)
 

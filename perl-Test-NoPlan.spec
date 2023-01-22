@@ -1,6 +1,6 @@
 Name:           perl-Test-NoPlan
 Version:        0.0.6
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Check perl test files for no_plan
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-NoPlan
@@ -54,6 +54,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

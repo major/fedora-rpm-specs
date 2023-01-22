@@ -10,7 +10,7 @@
 
 Name:           perl-Net-SSH-Expect
 Version:        1.09
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Net-SSH-Expect - SSH wrapper to execute remote commands
 
 License:        GPL+ or Artistic
@@ -76,6 +76,9 @@ find %{buildroot} -depth -type d -exec rmdir {} ';' 2>/dev/null
 %{pvendorlib}/Net/SSH/Expect.pod
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

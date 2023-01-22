@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.3.2
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: A fast, safe and extensible Markdown to (X)HTML parser
 # https://github.com/vmg/redcarpet/issues/502
 License: MIT and ISC
@@ -75,6 +75,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.3.2-24
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

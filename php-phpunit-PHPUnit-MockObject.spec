@@ -25,7 +25,7 @@
 
 Name:           php-phpunit-PHPUnit-MockObject
 Version:        %{major}.%{minor}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Mock Object library for PHPUnit
 
 License:        BSD
@@ -168,6 +168,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

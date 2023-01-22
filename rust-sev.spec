@@ -8,7 +8,7 @@
 
 Name:           rust-sev
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for AMD SEV
 
 License:        Apache-2.0
@@ -83,6 +83,9 @@ use the "openssl" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Tyler Fanelli <tfanelli@redhat.com> - 1.0.1-1
 - Rebase to 1.0.1 release (rhbz#2141113)
 

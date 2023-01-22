@@ -6,7 +6,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Mathematical expressions involving multidimensional arrays
 
 License:        BSD
@@ -144,6 +144,9 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug  6 2022 Jerry James <loganjerry@gmail.com> - 1.1.2-5
 - Regenerate cython sources to fix FTBFS (rhbz#2113658)
 

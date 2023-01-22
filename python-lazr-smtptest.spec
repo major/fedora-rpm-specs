@@ -9,7 +9,7 @@ ensure proper operation of your applications which send email.
 
 Name:           python-%{pkgname}
 Version:        2.0.3
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        %{summary}
 
 License:        LGPLv3
@@ -98,6 +98,9 @@ Requires:       python%{python3_other_pkgversion}-nose
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

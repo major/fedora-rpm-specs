@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Async
 Version:        0.07
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Set of Metaclasses for MooseX::POE and it's siblings
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MooseX-Async
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.07-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

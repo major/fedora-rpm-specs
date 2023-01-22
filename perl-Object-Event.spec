@@ -1,6 +1,6 @@
 Name:           perl-Object-Event
 Version:        1.23
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Class that provides an event callback interface
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Object-Event
@@ -53,6 +53,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Make Sphinx better at documenting Python functions and methods
 License:        MIT or ASL 2.0
 URL:            https://github.com/python-trio/sphinxcontrib-trio
@@ -64,6 +64,9 @@ rst2html README.rst README.html
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 5.26.5
+Version: 5.26.90
 Release: 1%{?dist}
 
 License: GPLv2+ and (GPLv2 or GPLv3)
@@ -158,7 +158,7 @@ Requires:       kf5-kirigami2%{?_isa}
 BuildRequires:  qqc2-desktop-style
 Requires:       qqc2-desktop-style%{?_isa}
 
-# for ibus-ui-emojier-plasma
+# for kimpanel-ibus-panel and kimpanel-ibus-panel-launcher
 Recommends: ibus
 
 # Virtual provides for plasma-workspace
@@ -267,7 +267,7 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.knetattach.d
 %{_bindir}/kaccess
 %{_bindir}/knetattach
 %{_bindir}/solid-action-desktop-gen
-%{_bindir}/ibus-ui-emojier-plasma
+%{_bindir}/plasma-emojier
 %{_bindir}/tastenbrett
 %{_bindir}/krunner-plugininstaller
 %{_kf5_libexecdir}/kauth/kcmdatetimehelper
@@ -331,6 +331,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.knetattach.d
 
 
 %changelog
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

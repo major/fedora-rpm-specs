@@ -1,6 +1,6 @@
 Name:		rteval
 Version:	3.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
 Group:		Development/Tools
@@ -62,6 +62,9 @@ to the screen.
 %{_bindir}/rteval
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 John Kacur <jkacur@redhat.com> - 3.5-1
 - Rebuild latest upstream release
 

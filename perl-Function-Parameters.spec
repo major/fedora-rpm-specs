@@ -2,40 +2,40 @@
 %bcond_without perl_Function_Parameters_enables_optional_test
 
 Name:           perl-Function-Parameters
-%global cpan_version 2.001003
-Version:        2.1.3
-Release:        16%{?dist}
+%global cpan_version 2.001004
+Version:        2.1.4
+Release:        1%{?dist}
 Summary:        Subroutine definitions with parameter lists
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Function-Parameters
 Source0:        https://cpan.metacpan.org/authors/id/M/MA/MAUKE/Function-Parameters-%{cpan_version}.tar.gz
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Find)
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(Moose)
-BuildRequires:  perl(strict)
-BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Moose::Util::TypeConstraints)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Tests:
 BuildRequires:  perl(aliased)
 BuildRequires:  perl(attributes)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Dir::Self)
 BuildRequires:  perl(feature)
+BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Hash::Util) >= 0.07
 BuildRequires:  perl(integer)
 BuildRequires:  perl(lib)
+BuildRequires:  perl(Moose)
 BuildRequires:  perl(Moose::Util)
 BuildRequires:  perl(MooseX::Types)
 BuildRequires:  perl(MooseX::Types::Moose)
@@ -61,24 +61,35 @@ and doesn't require a source filter.
 %setup -q -n Function-Parameters-%{cpan_version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="%{optflags}"
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Function*
-%{_mandir}/man3/*
+%{perl_vendorarch}/auto/Function/
+%{perl_vendorarch}/Function/
+%{_mandir}/man3/Function::Parameters.3*
+%{_mandir}/man3/Function::Parameters::Info.3*
 
 %changelog
+* Fri Jan 20 2023 Paul Howarth <paul@city-fan.org> - 2.1.4-1
+- Update to 2.001004 (rhbz#2162566)
+  - Drop Dir::Self test dependency (use FindBin instead)
+- Use SPDX-format license tag
+- Use %%{make_build} and %%{make_install}
+- Make %%files list more explicit
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

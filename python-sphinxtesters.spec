@@ -1,6 +1,6 @@
 Name:           python-sphinxtesters
 Version:        0.2.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Utilities for testing Sphinx extensions
 
 # The code is BSD-2-Clause.  Other licenses are due to files copied in by
@@ -67,6 +67,9 @@ rm -f build/sphinx/html/.{buildinfo,nojekyll}
 %doc README.html build/sphinx/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.2.3-14
 - Convert License tag to SPDX
 

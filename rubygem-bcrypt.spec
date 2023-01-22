@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.1.17
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Wrapper around bcrypt() password hashing algorithm
 # ext/* - Public Domain
 # spec/TestBCrypt.java - ISC
@@ -72,6 +72,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.17-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 3.1.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

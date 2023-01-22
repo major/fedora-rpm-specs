@@ -1,6 +1,6 @@
 Name:           qodem
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Terminal emulator and communications package
 
 License:        GPLv2+
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 05 2022 Richard Shaw <hobbes1069@gmail.com> - 1.0.1-1
 - Update to 1.0.1.
 

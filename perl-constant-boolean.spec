@@ -1,6 +1,6 @@
 Name:           perl-constant-boolean
 Version:        0.02
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Define TRUE and FALSE constants
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/constant-boolean
@@ -41,6 +41,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

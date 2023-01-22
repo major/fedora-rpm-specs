@@ -1,6 +1,6 @@
 Name:           pigz
 Version:        2.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parallel implementation of gzip
 License:        zlib
 URL:            https://www.zlib.net/pigz/
@@ -39,6 +39,9 @@ make tests CFLAGS="$RPM_OPT_FLAGS"
 %{_datadir}/man/man1/pigz.*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

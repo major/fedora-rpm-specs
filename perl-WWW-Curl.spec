@@ -1,6 +1,6 @@
 Name:           perl-WWW-Curl
 Version:        4.17
-Release:        31%{?dist}
+Release:        33%{?dist}
 Summary:        Perl extension interface for libcurl
 License:        MIT
 URL:            https://metacpan.org/release/WWW-Curl
@@ -10,6 +10,10 @@ Patch0:         WWW-Curl-4.17-Skip-preprocessor-symbol-only-CURL_STRICTER.patch
 Patch1:         WWW-Curl-4.17-define-CURL-as-void.patch
 # Adapt to changes in cURL 7.69.0, bug #1812910, CPAN RT#132197
 Patch2:         WWW-Curl-4.17-Adapt-to-changes-in-cURL-7.69.0.patch
+# Adapt to changes in cURL 7.87.0, bug #2160057, CPAN RT#145992
+Patch3:         WWW-Curl-4.17-Adapt-to-curl-7.87.0.patch
+# Workound a bug in cURL 7.87.0, bug #2160057, CPAN RT#145992
+Patch4:         WWW-Curl-4.17-Work-around-a-macro-bug-in-curl-7.87.0.patch
 BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
@@ -38,6 +42,8 @@ WWW::Curl is a Perl extension interface for libcurl.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 rm -rf inc && sed -i -e '/^inc\//d' MANIFEST
 
 %build
@@ -71,6 +77,12 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Petr Pisar <ppisar@redhat.com> - 4.17-33
+- Adapt to changes in cURL 7.87.0 (bug #2160057)
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.17-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.17-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

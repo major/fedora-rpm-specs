@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        3.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Khronos XML API Registry, exposed as byte string constants
 
 # Upstream license specification: Apache-2.0
@@ -79,6 +79,9 @@ cp -p %{SOURCE1} .
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

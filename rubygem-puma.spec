@@ -8,7 +8,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.6.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A simple, fast, threaded, and highly concurrent HTTP 1.1 server
 License: BSD-3-Clause
 URL: https://puma.io
@@ -199,6 +199,9 @@ popd
 %{gem_instdir}/tools
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 5.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

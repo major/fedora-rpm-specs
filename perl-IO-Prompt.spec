@@ -2,7 +2,7 @@ Name:           perl-IO-Prompt
 Summary:        Interactively prompt for user input
 %global cpanver 0.997004
 Version:        0.997.004
-Release:        19%{?dist}
+Release:        20%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/IO-Prompt-%{cpanver}.tar.gz 
 URL:            https://metacpan.org/release/IO-Prompt
@@ -60,6 +60,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.997.004-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.997.004-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

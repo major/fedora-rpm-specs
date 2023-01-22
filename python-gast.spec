@@ -1,6 +1,6 @@
 Name:           python-gast
 Version:        0.5.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python AST that abstracts the underlying Python version
 License:        BSD
 URL:            https://github.com/serge-sans-paille/gast/
@@ -51,6 +51,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

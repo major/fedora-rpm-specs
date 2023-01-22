@@ -7,7 +7,7 @@ also happens to be valid Markdown (a text-to-HTML format).
 
 Name:           python-%{upname}
 Version:        2020.1.16
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        %{common_sum}
 
 License:        GPLv3
@@ -79,6 +79,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1.16-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1.16-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

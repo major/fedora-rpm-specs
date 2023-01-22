@@ -13,7 +13,7 @@
 
 Name:           php-pear-Net-URL2
 Version:        2.2.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Class for parsing and handling URL
 
 License:        BSD
@@ -100,6 +100,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

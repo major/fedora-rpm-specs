@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DBus library in Python 3
 
 License:        LGPL-2.1-or-later
@@ -57,6 +57,9 @@ Requires:       python3-gobject-base
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Vendula Poncova <vponcova@redhat.com> - 1.7-1
 - CI: Use dnf instead of yum to install CentOS packages (vponcova)
 - Documentation: Improve the installation instruction (vponcova)

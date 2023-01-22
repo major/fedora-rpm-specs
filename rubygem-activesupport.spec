@@ -5,7 +5,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 7.0.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A support libraries and Ruby core extensions extracted from the Rails framework
 License: MIT
 URL: http://rubyonrails.org
@@ -136,6 +136,9 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:7.0.4-2
 - Backport upstream fix for test failure with ruby3.2 wrt class_serial removal
 

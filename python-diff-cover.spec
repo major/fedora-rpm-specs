@@ -10,7 +10,7 @@ diff.
 
 Name:           python-diff-cover
 Version:        7.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        ASL 2.0
@@ -98,6 +98,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 %{_bindir}/diff-quality
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Kevin Fenzi <kevin@scrye.com> - 7.3.0-1
 - Update to 7.3.0. Fixes rhbz#2068325
 

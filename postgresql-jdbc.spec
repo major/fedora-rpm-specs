@@ -49,7 +49,7 @@
 Summary:	JDBC driver for PostgreSQL
 Name:		postgresql-jdbc
 Version:	42.5.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	BSD
 URL:		http://jdbc.postgresql.org/
 
@@ -174,6 +174,9 @@ opts="-f"
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Zuzana Miklankova <zmiklank@redhat.com> - 42.5.1-1
 - rebase to version 42.5.1 (bz#2147486)
 

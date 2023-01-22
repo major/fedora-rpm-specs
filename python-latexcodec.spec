@@ -1,6 +1,6 @@
 Name:           python-latexcodec
 Version:        2.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Lexer and codec to work with LaTeX code in Python
 
 License:        MIT
@@ -80,6 +80,9 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc doc/_build/html/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 2.0.1-9
 - Convert License tags to SPDX
 

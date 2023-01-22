@@ -1,6 +1,6 @@
 Name:           rasqal
 Version:        0.9.33
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        RDF Query Library
 
 License:        LGPLv2+ or ASL 2.0
@@ -93,6 +93,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Caolán McNamara <caolanm@redhat.com> - 0.9.33-21
 - Resolves: rhbz#2128363 disable-pcre
 

@@ -2,7 +2,7 @@
 
 Name:           python-qemu-qmp
 Version:        0.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QEMU Monitor Protocol library
 
 License:        GPL-2.0-only AND LGPL-2.0-or-later
@@ -99,5 +99,8 @@ avocado --config avocado.cfg run tests/*.py
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 25 2022 John Snow <jsnow@redhat.com> - 0.0.2-1
 - Initial package. Fixes rhbz#2112474

@@ -5,7 +5,7 @@ Version:        2.28.0
 %forgemeta
 
 Name:           python-%{srcname}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A bridge from UFOs to FontTool objects
 
 # The entire source is (SPDX) MIT, except:
@@ -77,6 +77,9 @@ k="${k-}${k+ and }not (TTFInterpolatablePreProcessorTest and test_custom_filters
 %doc README.rst
  
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Oct 15 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.28.0-3
 - Fix SPDX expression (and→AND)
 - Drop obsolete python_provide macro

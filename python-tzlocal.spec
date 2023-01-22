@@ -1,6 +1,6 @@
 Name:           python-tzlocal
 Version:        4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Python module that tries to figure out what your local timezone is
 
 License:        MIT
@@ -54,6 +54,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 4.2-1
 - Update to 4.2 (close RHBZ#1993583)
 

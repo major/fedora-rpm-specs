@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Request-Params
 Version:        1.02
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Retrieve GET/POST Parameters from HTTP Requests
 
 License:        GPL+ or Artistic
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

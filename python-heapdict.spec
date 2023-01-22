@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A heap with decrease-key and increase-key operations
 
 License:        BSD
@@ -59,6 +59,9 @@ BuildRequires:  python3-test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.0.1-11
 - Drop support for i686
 

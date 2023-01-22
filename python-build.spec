@@ -1,8 +1,8 @@
 %global pypi_name build
 
 Name:           python-%{pypi_name}
-Version:        0.9.0
-Release:        2%{?dist}
+Version:        0.10.0
+Release:        %autorelease
 Summary:        A simple, correct PEP517 package builder
 
 License:        MIT
@@ -31,7 +31,7 @@ A simple, correct PEP517 package builder.
 %autosetup -p1 -n %{pypi_name}-%{version}
 # deprecated python3-toml is not needed on Python 3.11+
 # upstream: https://github.com/pypa/build/pull/563
-sed -Ei '/\btoml\b/d' setup.cfg
+sed -Ei '/\btoml\b/d' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires -x test,virtualenv
@@ -62,44 +62,4 @@ sed -Ei '/\btoml\b/d' setup.cfg
 %{_bindir}/pyproject-build
 
 %changelog
-* Mon Jan 16 2023 Miro Hrončok <mhroncok@redhat.com> - 0.9.0-2
-- Drop redundant BuildRequries for deprecated python3-toml
-- https://fedoraproject.org/wiki/Changes/DeprecatePythonToml
-
-* Sun Oct 30 2022 Lumír Balhar <lbalhar@redhat.com> - 0.9.0-1
-- Update to 0.9.0
-Resolves: rhbz#2138145
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jun 14 2022 Python Maint <python-maint@redhat.com> - 0.8.0-3
-- Rebuilt for Python 3.11
-
-* Tue May 24 2022 Miro Hrončok <mhroncok@redhat.com> - 0.8.0-2
-- Package the build[virtualenv] extra
-
-* Mon May 23 2022 Lumír Balhar <lbalhar@redhat.com> - 0.8.0-1
-- Update to 0.8.0
-Resolves: rhbz#2089034
-
-* Fri Mar 18 2022 Miro Hrončok <mhroncok@redhat.com> - 0.7.0-3
-- Fix virtualenv creation by using the "venv" sysconfig installation scheme
-- Resolves: rhbz#2059268
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Sep 20 2021 Lumír Balhar <lbalhar@redhat.com> - 0.7.0-1
-- Update to 0.7.0
-Resolves: rhbz#2005146
-
-* Wed Aug 04 2021 Lumír Balhar <lbalhar@redhat.com> - 0.6.0-1
-- Update to 0.6.0
-Resolves: rhbz#1989297
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Jun 24 2021 Lumír Balhar <lbalhar@redhat.com> - 0.5.1-1
-- Initial package.
+%autochangelog

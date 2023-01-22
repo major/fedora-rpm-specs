@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        VCR imitation for python-requests
 
 License:        Apache-2.0
@@ -61,6 +61,9 @@ py.test-%{python3_version} -vk "$TEST_SELECTOR"
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.8.1-18
 - Update license tag to SPDX format
 

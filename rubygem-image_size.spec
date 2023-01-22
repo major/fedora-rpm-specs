@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	3.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Measure image size using pure Ruby
 License:	Ruby or GPLv2
@@ -83,6 +83,9 @@ popd
 %doc	%{gem_instdir}/CHANGELOG.markdown
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov  6 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.2.0-1
 - 3.2.0
 

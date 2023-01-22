@@ -2,7 +2,7 @@
 
 Name:          plexus-pom
 Version:       10
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Root Plexus Projects POM
 License:       ASL 2.0
 URL:           https://github.com/codehaus-plexus/plexus-pom
@@ -41,6 +41,9 @@ cp -p %{SOURCE1} LICENSE
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 Marian Koncek <mkoncek@redhat.com> - 10-1
 - Update to upstream version 10
 

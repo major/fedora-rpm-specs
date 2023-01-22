@@ -3,7 +3,7 @@
 
 Name:		python-%{pkg_name}
 Version:	2.0.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Adds i18n/l10n support to Flask applications
 License:	BSD
 URL:		http://github.com/mitsuhiko/%{pkg_name}/
@@ -72,6 +72,9 @@ PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}:%{python3_sitelib} pytest -v
 %{python3_sitelib}/flask_babel
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

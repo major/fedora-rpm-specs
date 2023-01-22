@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.2.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Sprockets Rails integration
 License: MIT
 URL: https://github.com/rails/sprockets-rails
@@ -70,6 +70,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.2.2-6
 - Backport upstream fix for supporting actionview 7
 

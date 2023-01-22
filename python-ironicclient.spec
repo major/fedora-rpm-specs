@@ -8,7 +8,7 @@
 
 Name:           python-ironicclient
 Version:        5.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python client for Ironic
 
 License:        ASL 2.0
@@ -86,6 +86,9 @@ rm -rf {test-,}requirements.txt tools/{pip,test}-requires
 %{python3_sitelib}/python_%{sname}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 17 2022 Alfredo Moralejo <amoralej@redhat.com> 5.0.1-1
 - Update to upstream version 5.0.1
 

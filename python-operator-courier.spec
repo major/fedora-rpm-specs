@@ -1,6 +1,6 @@
 Name:           python-operator-courier
 Version:        2.1.9
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library and CLI tool to build, verify and push operator metadata
 
 License:        ASL 2.0
@@ -62,6 +62,9 @@ push Operator Artifacts to quay.io application registries.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.9-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

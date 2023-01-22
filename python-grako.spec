@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        3.99.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python grammar compiler, EBNF input, PEG/Packrat parser output
 
 License:        BSD
@@ -86,6 +86,9 @@ done
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.99.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.99.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-IPC-Signal
 Version:        1.00
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Utility functions dealing with signals for Perl 
 License:        GPL+ or Artistic
 
@@ -46,6 +46,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.00-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

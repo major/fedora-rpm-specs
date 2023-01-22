@@ -2,7 +2,7 @@
 
 Name:           perl-%{cpan_name}
 Version:        0.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        FTP client class with automatic reconnect on failure
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/%{cpan_name}
@@ -68,6 +68,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 0.3-38
 - Convert a License tag to an SPDX format
 - Package the tests

@@ -2,7 +2,7 @@
 
 Name:           plexus-build-api
 Version:        0.0.7
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Plexus Build API
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-build-api
@@ -63,6 +63,9 @@ cp -p %{SOURCE1} .
 %doc LICENSE-2.0.txt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.7-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

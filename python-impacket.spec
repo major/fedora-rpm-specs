@@ -1,6 +1,6 @@
 Name:           python-impacket
 Version:        0.10.0
-%global         baserelease     1
+%global         baserelease     2
 
 License:        ASL 1.1 and zlib
 URL:            https://github.com/SecureAuthCorp/impacket
@@ -184,6 +184,9 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 26 2022 Michal Ambroz <rebus _AT seznam.cz> - 0.10.0-1
 - bump to 0.10.0
 - version 0.10.0 is dropping support for python2.7

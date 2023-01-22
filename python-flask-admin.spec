@@ -4,7 +4,7 @@
 
 Name:		python-%{pkgname}
 Version:	1.6.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	%{sum}
 License:	BSD
 URL:		https://github.com/flask-admin/flask-admin/
@@ -80,6 +80,9 @@ rm flask_admin/translations/README.md
 %{python3_sitelib}/*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

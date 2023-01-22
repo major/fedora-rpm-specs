@@ -3,7 +3,7 @@
 
 Name:		qtermwidget
 Version:	1.2.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPLv2+
 Summary:	Qt5 terminal widget
 URL:		https://github.com/lxqt/%{name}/
@@ -87,6 +87,9 @@ make install/fast DESTDIR=%{buildroot} -C %{_vpath_builddir}
 %dir %{_datadir}/qtermwidget5/translations
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 1.2.0-1
 - Update version to 1.2.0
 

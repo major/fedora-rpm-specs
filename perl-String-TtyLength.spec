@@ -1,6 +1,6 @@
 Name:           perl-String-TtyLength
 Version:        0.03
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Length or width of string excluding ANSI tty codes
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/pod/String::TtyLength
@@ -49,6 +49,9 @@ escape codes.
 %{_mandir}/man3/String*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

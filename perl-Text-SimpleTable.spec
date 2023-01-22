@@ -1,7 +1,7 @@
 Name:           perl-Text-SimpleTable
 Summary:        Simple Eyecandy ASCII Tables
 Version:        2.07
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        Artistic 2.0
 Source0:        https://cpan.metacpan.org/authors/id/M/MR/MRAMBERG/Text-SimpleTable-%{version}.tar.gz 
 URL:            https://metacpan.org/release/Text-SimpleTable
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Low level bindings to PCRE2
 
 # Upstream license specification: Unlicense/MIT
@@ -74,6 +74,9 @@ echo 'pkgconfig(libpcre2-8)'
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name: preproc-rpmspec
 Version: 1.3
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Minimalistic tool for rpm spec-file preprocessing
 License: GPLv2+
 URL: https://pagure.io/preproc-rpmspec.git
@@ -52,6 +52,9 @@ sed -i '1 s|#.*|#!%{python}|' %{buildroot}%{_bindir}/preproc-rpmspec
 %{_bindir}/preproc-rpmspec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 
 Name:           rust-%{crate}
 Version:        3.0.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Randomization routines
 
 # Upstream license specification: 0BSD
@@ -98,6 +98,9 @@ which use "serde" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

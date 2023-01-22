@@ -1,6 +1,6 @@
 Name:           perl-Trace-Mask
 Version:        0.000008
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Masking frames in stack traces
 # License URLs in PODs are wrong
 # <https://github.com/exodist/Trace-Mask/issues/2>.
@@ -96,6 +96,9 @@ make test
 %{_mandir}/man3/Trace::Mask::Test.*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.000008-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.000008-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

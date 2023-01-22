@@ -25,9 +25,9 @@
 Name:           php-%{gh_owner}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
 %if 0%{?gh_date}
-Release:        1%{gh_date}git%{gh_short}%{?dist}
+Release:        2%{gh_date}git%{gh_short}%{?dist}
 %else
-Release:        1%{?dist}
+Release:        2%{?dist}
 %endif
 Summary:        MongoDB driver library
 
@@ -193,6 +193,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Remi Collet <remi@remirepo.net> - 1.15.0-1
 - update to 1.15.0
 - raise dependency on mongodb extension version 1.15

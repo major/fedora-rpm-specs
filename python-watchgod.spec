@@ -10,7 +10,7 @@ with watchdog.}
 
 Name:           python-%{srcname}
 Version:        0.8.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Simple, modern file watching and code reload
 License:        MIT
 URL:            https://github.com/samuelcolvin/watchgod
@@ -73,6 +73,9 @@ sed -e 's/0.0.dev0/%{version}/' -i watchgod/version.py
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

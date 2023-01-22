@@ -22,7 +22,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.8.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PHP Enum implementation
 
 License:        MIT
@@ -124,6 +124,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug  4 2022 Remi Collet <remi@remirepo.net> - 1.8.4-1
 - update to 1.8.4
 

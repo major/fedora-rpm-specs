@@ -1,54 +1,63 @@
-%global modname multidict
-#global rctag b4
-
-Name:           python-%{modname}
-Version:        6.0.2%{?rctag:~%{rctag}}
-Release:        7%{?dist}
+Name:           python-multidict
+Version:        6.0.4
+Release:        1%{?dist}
 Summary:        MultiDict implementation
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/aio-libs/multidict
-Source0:        %{url}/archive/v%{version}%{?rctag:%{rctag}}/%{modname}-%{version}%{?rctag:%{rctag}}.tar.gz
+Source:         %{pypi_source multidict}
 
 BuildRequires:  gcc
 
-%global _description \
-Multidicts are useful for working with HTTP headers, URL query args etc.
+%global _description %{expand:
+Multidict is dict-like collection of key-value pairs where key might occur more
+than once in the container.}
 
-%description %{_description}
+%description %_description
 
-%package -n python3-%{modname}
+%package -n python3-multidict
 Summary:        %{summary}
-
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3-Cython
-BuildRequires:  python3dist(pytest)
-%{?python_provide:%python_provide python3-%{modname}}
+BuildRequires:  python3-pytest
 
-%description -n python3-%{modname} %{_description}
+%description -n python3-multidict %_description
+
 
 %prep
-%autosetup -n %{modname}-%{version}%{?rctag:%{rctag}}
+%autosetup -n multidict-%{version}
 sed -i -e '/addopts/d' setup.cfg
 
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
-rm -vf %{buildroot}%{python3_sitearch}/%{modname}/*.{c,pyx}
+%pyproject_install
+%pyproject_save_files multidict
+
 
 %check
 %pytest -v tests
 
-%files -n python3-%{modname}
-%license LICENSE
+
+%files -n python3-multidict -f %{pyproject_files}
 %doc README.rst
-%{python3_sitearch}/%{modname}-*.egg-info/
-%{python3_sitearch}/%{modname}/
+
 
 %changelog
+* Fri Jan 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 6.0.4-1
+- Update to 6.0.4, resolves rhbz#2150589
+- Convert to pyproject macros
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

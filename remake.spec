@@ -1,6 +1,6 @@
 Name:           remake
 Version:        0.14
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Build system that bridges the gap between make and redo
 
 License:        GPL-3.0-or-later
@@ -87,6 +87,9 @@ cd testsuite
 %exclude %{_docdir}/%{name}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 0.14-6
 - Convert License tag to SPDX
 

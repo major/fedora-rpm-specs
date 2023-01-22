@@ -5,7 +5,7 @@
 
 Name:           perl-Term-Table
 Version:        0.016
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Format a header and rows into a table
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-Table
@@ -111,6 +111,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.016-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 10 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.016-5
 - Update license to SPDX format
 

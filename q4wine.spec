@@ -2,7 +2,7 @@
 
 Name:           q4wine
 Version:        1.3.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Qt GUI for wine
 
 License:        GPLv3+
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_datadir}/q4wine
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> 1.3.13-3
 - Update q4wine.appdata.xml for cs translation.
 - Release bump.

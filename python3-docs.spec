@@ -7,7 +7,7 @@ Summary:        Documentation for the Python 3 programming language
 #global         prerel ...
 %global         upstream_version %{general_version}%{?prerel}
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 # The documentation is licensed as Python itself: Python-2.0.1
 # Examples, recipes, and other code in the documentation are dual licensed under Python-2.0.1/0BSD
 License:        Python-2.0.1 AND (Python-2.0.1 OR 0BSD)
@@ -69,6 +69,9 @@ linkchecker \
 %doc Misc/NEWS Misc/HISTORY Misc/README Doc/build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.11.1-1
 - Update to 3.11.1
 

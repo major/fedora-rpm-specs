@@ -3,7 +3,7 @@
 
 Name:           procdump
 Version:        1.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sysinternals process dump utility
 
 License:        MIT
@@ -45,6 +45,9 @@ other scripts.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Matěj Grabovský <mgrabovs@redhat.com> - 1.3-1
 - New upstream release 1.3
 - BREAKING CHANGE: CLI interface has been changed to match ProcDump for Windows.

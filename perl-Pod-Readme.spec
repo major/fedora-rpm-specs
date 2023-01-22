@@ -1,6 +1,6 @@
 Name:           perl-Pod-Readme
 Version:        1.2.3
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Intelligently generate a README file from POD
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Pod-Readme
@@ -101,6 +101,9 @@ make test
 %{_mandir}/man3/Pod::Readme::Types.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

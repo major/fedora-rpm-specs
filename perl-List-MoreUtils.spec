@@ -1,6 +1,6 @@
 Name:		perl-List-MoreUtils
 Version:	0.430
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Provide the stuff missing in List::Util
 License:	(GPL+ or Artistic) and ASL 2.0
 URL:		https://metacpan.org/release/List-MoreUtils
@@ -82,6 +82,9 @@ make test
 %{_mandir}/man3/List::MoreUtils::PP.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.430-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.430-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

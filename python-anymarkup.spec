@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Parse or serialize any markup in Python
 
 License:        BSD
@@ -53,6 +53,9 @@ xml and yaml.
 %{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

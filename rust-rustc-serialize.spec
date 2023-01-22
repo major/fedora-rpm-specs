@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}
 Version:        0.3.24
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Generic serialization/deserialization support
 
 # Upstream license specification: MIT/Apache-2.0
@@ -75,6 +75,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.24-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.24-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

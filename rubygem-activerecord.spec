@@ -4,7 +4,7 @@
 Name: rubygem-%{gem_name}
 Epoch: 1
 Version: 7.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Object-relational mapper framework (part of Rails)
 License: MIT
 URL: http://rubyonrails.org
@@ -134,6 +134,9 @@ popd
 %{gem_instdir}/examples
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Pavel Valena <pvalena@redhat.com> - 1:7.0.4-1
 - Update to activerecord 7.0.4.
 

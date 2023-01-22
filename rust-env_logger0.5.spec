@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.5
 Version:        0.5.13
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Logging implementation for `log` which is configured via environment variable
 
 # Upstream license specification: MIT/Apache-2.0
@@ -84,6 +84,9 @@ which use "regex" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.13-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.13-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

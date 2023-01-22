@@ -1,6 +1,6 @@
 Name:           perl-Perl-MinimumVersion
 Version:        1.40
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Find a minimum required version of perl for Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-MinimumVersion
@@ -69,6 +69,9 @@ Find a minimum required version of perl for Perl code
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.40-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.40-8
 - Modernize spec.
 - Convert license to SPDX.

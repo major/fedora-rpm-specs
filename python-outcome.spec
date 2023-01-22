@@ -11,7 +11,7 @@ call, so that it can be passed around.}
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Capture the outcome of Python function calls
 License:        MIT or ASL 2.0
 URL:            https://github.com/python-trio/outcome
@@ -61,6 +61,9 @@ BuildRequires:  %{py3_dist pytest pytest-asyncio}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

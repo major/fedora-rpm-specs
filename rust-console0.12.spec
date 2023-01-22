@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.12
 Version:        0.12.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Terminal and console abstraction for Rust
 
 # Upstream license specification: MIT
@@ -110,6 +110,9 @@ which use "unicode-width" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

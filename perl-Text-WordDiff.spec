@@ -1,6 +1,6 @@
 Name:           perl-Text-WordDiff
 Version:        0.09
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Track changes between documents
 License:        GPL+ or Artistic
 
@@ -67,6 +67,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Text::WordDiff::HTMLTwoLines.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

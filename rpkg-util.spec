@@ -14,7 +14,7 @@
 
 Name: rpkg-util
 Version: 3.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: RPM packaging utility
 License: GPLv2+
 URL: https://pagure.io/rpkg-util.git
@@ -126,6 +126,9 @@ cp -a rpkg.bash %{buildroot}%{_datarootdir}/bash-completion/completions/
 %{_mandir}/*/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		python3-%{srcname}
 Version:	2.15.2
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	A PEG Parser-Interpreter in Python
 %{?python_provide:%python_provide python3-%{srcname}}
 
@@ -44,6 +44,9 @@ PYTHONPATH=. py.test-%{python3_version} pypeg2/test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

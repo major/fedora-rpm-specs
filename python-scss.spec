@@ -9,7 +9,7 @@
 
 Name:           python-scss
 Version:        1.3.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A Scss compiler for Python
 
 License:        MIT
@@ -71,6 +71,9 @@ cp -ar docs/_build/man/pyscss.1 %{buildroot}%{_mandir}/man1/pyscss.1
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

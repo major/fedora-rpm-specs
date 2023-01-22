@@ -9,7 +9,7 @@
 
 Name:           python-%{modname}
 Version:        0.3.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Easy to use wrappers generator for C libraries based on ctypes
 
 License:        BSD
@@ -94,6 +94,9 @@ find %{buildroot}%{python3_sitearch} -name '*.so' -exec chmod 755 {} ';'
 %{python3_sitearch}/%{modname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

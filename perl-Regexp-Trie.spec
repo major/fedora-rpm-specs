@@ -1,6 +1,6 @@
 Name:		perl-Regexp-Trie
 Version:	0.02
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Build trie-ized regexp
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Regexp-Trie
@@ -59,6 +59,9 @@ prove --lib %{buildroot}%{perl_vendorlib} t/01-dict.t :: /usr/share/dict/words
 %{_mandir}/man3/Regexp::Trie.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

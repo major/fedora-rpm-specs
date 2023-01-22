@@ -1,6 +1,6 @@
 Name: rudiments
 Version: 1.3.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: C++ class library for developing systems and applications
 
 # Library source code is LGLPv2.
@@ -85,6 +85,9 @@ echo "d /run/%{name} 0777 root root -" > %{buildroot}%{_tmpfilesdir}/%{name}.con
 %{_docdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

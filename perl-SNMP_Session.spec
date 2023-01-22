@@ -1,6 +1,6 @@
 Name:           perl-SNMP_Session
 Version:        1.13
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        SNMP support for Perl 5
 
 License:        Artistic 2.0
@@ -46,6 +46,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

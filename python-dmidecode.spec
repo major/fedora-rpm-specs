@@ -13,7 +13,7 @@
 Name: python-dmidecode
 Summary: Python module to access DMI data
 Version: 3.12.3
-Release: 1%{date}%{shortcommit}%{?dist}
+Release: 2%{date}%{shortcommit}%{?dist}
 License: GPLv2
 URL: https://github.com/nima/python-dmidecode
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -77,6 +77,9 @@ make -C unit-tests
 %{_datadir}/%{name}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 25 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.12.3-1
 - Release 3.12.3
 - Temporary fix for rhbz#2154949

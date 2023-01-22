@@ -2,7 +2,7 @@
 
 Name:           python-zope-deprecation
 Version:        4.4.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Zope 3 Deprecation Infrastructure
 
 License:        ZPLv2.1
@@ -50,6 +50,9 @@ rm -f %{buildroot}%{python3_sitelib}/zope/deprecation/tests.py*
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

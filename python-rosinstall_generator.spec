@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.22
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Generates rosinstall files
 
 License:        BSD
@@ -72,6 +72,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} nosetests-%{python3_version} test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.22-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.22-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

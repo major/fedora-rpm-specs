@@ -1,6 +1,6 @@
 Name:           perl-MooseX-Types-VariantTable
 Version:        0.04
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Type constraint based variant table
 License:        GPL+ or Artistic
 
@@ -44,6 +44,9 @@ make test
 %{_mandir}/man3/Moose*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

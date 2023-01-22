@@ -1,6 +1,6 @@
 Name:           pyutil
 Version:        3.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A collection of mature utilities for Python programmers
 
 License:        GPLv2+
@@ -86,6 +86,9 @@ find %{buildroot}%{python3_sitelib}/%{name} \
 %{_bindir}/%{name}_passphrase
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

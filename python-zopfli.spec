@@ -3,7 +3,7 @@
 
 Name:           python-zopfli
 Version:        0.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zopfli module for python
 License:        Apache-2.0
 URL:            https://github.com/obp/py-zopfli
@@ -50,6 +50,9 @@ export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}}"
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.2.2-2
 - Update license to SPDX expression
 

@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.16.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -185,6 +185,9 @@ from the initramfs.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 14 2022 Benjamin Gilbert <bgilbert@redhat.com> - 0.16.1-2
 - Build with mbrman 0.5.0
 

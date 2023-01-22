@@ -4,7 +4,7 @@
 
 Name:          python-%{srcname}
 Version:       2.1.2
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Console user interface library
 
 License:       LGPLv2+
@@ -58,6 +58,9 @@ PYTHON=%{__python3} %{__python3} setup.py test || :
 %{python3_sitearch}/urwid-%{version}*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

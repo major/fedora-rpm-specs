@@ -1,6 +1,6 @@
 Name:           perl-HTML-Tiny
 Version:        1.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight, dependency free HTML/XML generation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/HTML*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 09 2022 Petr Pisar <ppisar@redhat.com> - 1.08-1
 - 1.08 bump
 

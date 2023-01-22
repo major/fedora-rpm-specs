@@ -1,6 +1,6 @@
 Name:           python-retry
 Version:        0.9.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Easy to use retry decorator
 
 License:        Apache-2.0
@@ -53,6 +53,9 @@ export PBR_VERSION="%{version}"
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Jonathan Wright <jonathan@almalinux.org> - 0.9.4-1
 - Change upstream to https://github.com/eSAMTrade/retry
 - Update to 0.9.4

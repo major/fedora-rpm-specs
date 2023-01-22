@@ -9,7 +9,7 @@
 
 Name:           python-zope-event
 Version:        4.5.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Zope Event Publication
 License:        ZPLv2.1
 URL:            https://pypi.python.org/pypi/zope.event/
@@ -105,6 +105,9 @@ rm -f docs/_build/html/.buildinfo
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Miro Hrončok <mhroncok@redhat.com> - 4.5.0-4
 - Disable bootstrap
 - Enable docs

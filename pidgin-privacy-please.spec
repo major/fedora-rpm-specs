@@ -1,6 +1,6 @@
 Name:           pidgin-privacy-please
 Version:        0.7.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Security and Privacy plugin for Pidgin
 Summary(fr):    Plugin de sécurité et confidentialité pour Pidgin
 
@@ -77,6 +77,9 @@ autorisation
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

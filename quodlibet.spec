@@ -1,6 +1,6 @@
 Name:		quodlibet
 Version:	4.5.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A music management program
 
 License:	GPLv2+
@@ -129,6 +129,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Johannes Lips <hannes@fedoraproject.org> - 4.5.0-4
 - built without distutils for python 3.12
 

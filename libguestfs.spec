@@ -47,8 +47,8 @@
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.49.8
-Release:       3%{?dist}
+Version:       1.49.9
+Release:       1%{?dist}
 License:       LGPLv2+
 
 # Build only for architectures that have a kernel
@@ -99,6 +99,7 @@ BuildRequires: perl(Pod::Man)
 BuildRequires: /usr/bin/pod2text
 BuildRequires: po4a
 BuildRequires: augeas-devel >= 1.7.0
+BuildRequires: ocaml-augeas-devel >= 0.6
 BuildRequires: readline-devel
 BuildRequires: xorriso
 BuildRequires: libxml2-devel
@@ -1121,6 +1122,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Fri Jan 20 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.49.9-1
+- New upstream development version 1.49.9
+- +BR ocaml-augeas-devel
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.49.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

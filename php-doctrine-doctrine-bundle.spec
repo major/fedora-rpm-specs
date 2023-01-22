@@ -72,7 +72,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Symfony Bundle for Doctrine
 
 License:       MIT
@@ -292,6 +292,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.13-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 12 2022 Shawn Iwinski <shawn.iwinski@gmail.com> - 1.12.13-6
 - Skip tests known to fail to fix FTBFS
 

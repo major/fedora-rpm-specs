@@ -1,8 +1,8 @@
 Name:           perl-Dist-Zilla-App-Command-cover
 Version:        1.101001
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Code coverage metrics for your distribution
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dist-Zilla-App-Command-cover
 Source0:        https://cpan.metacpan.org/authors/id/D/DO/DOHERTY/Dist-Zilla-App-Command-cover-%{version}.tar.gz
 BuildArch:      noarch
@@ -37,11 +37,11 @@ Devel::Cover.
 %setup -q -n Dist-Zilla-App-Command-cover-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -54,6 +54,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.101001-23
+- Simplify build and install phases
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.101001-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

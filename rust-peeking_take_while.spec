@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Like `Iterator::take_while`, but calls the predicate on a peeked value
 
 # Upstream license specification: Apache-2.0/MIT
@@ -68,6 +68,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name: 		perl-Test-Inline
 Version: 	2.214
-Release: 	8%{?dist}
+Release: 	9%{?dist}
 Summary: 	Test::Inline Perl module
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Test-Inline
@@ -82,6 +82,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.214-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 2.214-8
 - Modernize spec.
 - Convert license to SPDX.

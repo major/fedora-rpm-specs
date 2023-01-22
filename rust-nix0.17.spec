@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}0.17
 Version:        0.17.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Rust friendly bindings to *nix APIs
 
 # Upstream license specification: MIT
@@ -76,6 +76,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

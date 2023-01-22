@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        1.20141219.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Index tables for simplified Chinese character encodings
 
 # Upstream license specification: CC0-1.0
@@ -74,6 +74,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20141219.5-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20141219.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

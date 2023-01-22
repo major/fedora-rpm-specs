@@ -24,7 +24,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.10.4
-Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        JSON diff/rearrange/patch/pointer library for PHP
 
 License:        MIT
@@ -110,6 +110,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 10 2022 Remi Collet <remi@remirepo.net> - 3.10.4-1
 - update to 3.10.4
 

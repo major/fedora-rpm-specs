@@ -1,6 +1,6 @@
 Name:           python-debian
 Version:        0.1.49
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modules for Debian-related data formats
 # debfile.py, arfile.py, debtags.py are release under GPL v3 or above
 # everything else is GPLv2+
@@ -99,6 +99,9 @@ touch lib/debian/tests/test_debfile.py
 %doc README.rst HISTORY.deb822
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.49-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Frédéric Pierret (fepitre) <frederic@invisiblethingslab.com> - 0.1.49-1
 - version 0.1.49
 

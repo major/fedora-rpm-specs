@@ -7,7 +7,7 @@
 
 Name: rubygem-%{gem_name}
 Version: %{coffee_script_version}
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: The CoffeeScript Compiler
 License: MIT
 URL: http://jashkenas.github.com/coffee-script/
@@ -71,6 +71,9 @@ ln -sf %{_jsdir}/coffee-script/coffee-script.js \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

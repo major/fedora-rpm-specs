@@ -1,6 +1,6 @@
 Name:           perl-Test-Needs
 Version:        0.002009
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Skip tests when modules not available
 License:        GPL+ or Artistic
 
@@ -51,6 +51,9 @@ to compile will exit with an error rather than skip.
 %{_mandir}/man3/Test*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.002009-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.002009-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

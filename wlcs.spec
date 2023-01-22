@@ -1,5 +1,5 @@
 # List copied from gcc.spec
-# Current as of 12.2.1 (line 60)
+# Current as of 13.0.1 (line 66)
 # Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
 %bcond_without asan
@@ -8,7 +8,7 @@
 %endif
 
 # List copied from gcc.spec
-# Current as of 12.2.1 (line 75)
+# Current as of 13.0.1 (line 86)
 # Note that this covers all Fedora primary architectures.
 %ifarch %{ix86} x86_64 ppc ppc64 ppc64le ppc64p7 s390 s390x %{arm} aarch64
 %bcond_without ubsan
@@ -17,7 +17,7 @@
 %endif
 
 # List copied from gcc.spec
-# Current as of 12.2.1 (line 65)
+# Current as of 13.0.1 (line 76)
 %ifarch x86_64 ppc64 ppc64le aarch64 s390x
 %bcond_without tsan
 %else
@@ -25,7 +25,7 @@
 %endif
 
 Name:           wlcs
-Version:        1.4.0
+Version:        1.5.0
 Release:        %autorelease
 Summary:        Wayland Conformance Test Suite
 
@@ -55,12 +55,14 @@ Summary:        Wayland Conformance Test Suite
 #   - src/protocol/primary-selection-unstable-v1.xml
 #   - src/protocol/relative-pointer-unstable-v1.xml
 #   - src/protocol/wayland.xml
+#   - src/protocol/wlr-virtual-pointer-unstable-v1.xml
 #   - src/protocol/xdg-output-unstable-v1.xml
 #   - src/protocol/xdg-shell-unstable-v6.xml
 #   - src/protocol/xdg-shell.xml
 #   - tests/test_bad_buffer.cpp
 #   - tests/test_surface_events.cpp
 #   - tests/text_input_v3_with_input_method_v2.cpp
+#   - tests/wlr_virtual_pointer_v1.cpp
 #   - tests/xdg_popup_v6.cpp
 #   - tests/xdg_surface_stable.cpp
 #   - tests/xdg_surface_v6.cpp
@@ -72,7 +74,7 @@ Summary:        Wayland Conformance Test Suite
 #   and are not directly included in the binary RPMs.
 License:        GPL-3.0-only AND (LGPL-2.0-only OR LGPL-3.0-only)
 URL:            https://github.com/MirServer/wlcs
-Source0:        %{url}/releases/download/v%{version}/wlcs-%{version}.tar.xz
+Source0:        %{url}/archive/v%{version}/wlcs-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -143,6 +145,10 @@ sed -r -i 's/-Werror //' CMakeLists.txt
 
 %install
 %cmake_install
+
+
+%check
+%ctest
 
 
 %files

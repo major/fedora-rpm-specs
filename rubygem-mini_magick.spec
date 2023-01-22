@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.11.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Manipulate images with minimal use of memory via ImageMagick / GraphicsMagick
 License: MIT
 URL: https://github.com/minimagick/minimagick
@@ -103,6 +103,9 @@ popd
 %{gem_instdir}/Rakefile
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Mamoru TASAKA <mtasaka@fedoraprpject.org> - 4.11.0-7
 - Prevent GraphicsMagick test being executed by ImageMagick on
   image_spec test

@@ -26,7 +26,7 @@ Version:        0.90.4
 # When changing release number, please make it sure that
 # the new EVR won't be higher than the one of higher branch!!
 #
-Release:        %{mainrel}%{?dist}.1
+Release:        %{mainrel}%{?dist}.2
 Summary:        Ruby binding of libgnome/libgnomeui-2.x
 
 
@@ -858,6 +858,9 @@ done
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-11.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.90.4-11.1
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

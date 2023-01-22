@@ -1,6 +1,6 @@
 Name:           perl-Time-Mock
 Version:        0.0.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Replaces actual time with simulated time - alternative to Test::MockTime
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Time-Mock
@@ -44,6 +44,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Perl4-CoreLibs
 Version:        0.004
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Libraries historically supplied with Perl 4
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl4-CoreLibs
@@ -129,6 +129,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.004-19
 - Package tests
 - Update license to SPDX format

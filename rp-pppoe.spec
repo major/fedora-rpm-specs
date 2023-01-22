@@ -1,6 +1,6 @@
 Name: rp-pppoe
 Version: 3.15
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A PPP over Ethernet client (for xDSL support).
 License: GPLv2+
 Url: https://dianne.skoll.ca/projects/rp-pppoe/
@@ -100,6 +100,9 @@ rm -rf %{buildroot}/etc/ppp/pppoe.conf \
 %{_mandir}/man?/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.15-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

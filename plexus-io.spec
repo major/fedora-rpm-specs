@@ -2,7 +2,7 @@
 
 Name:           plexus-io
 Version:        3.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Plexus IO Components
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-io
@@ -58,6 +58,9 @@ sed -i /class/i@org.junit.Ignore src/test/java/org/codehaus/plexus/components/io
 %license NOTICE.txt LICENSE-2.0.txt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

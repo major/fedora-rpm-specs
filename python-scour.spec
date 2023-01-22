@@ -3,7 +3,7 @@
 
 Name:               python-scour
 Version:            0.38.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            %{sum}
 
 License:            ASL 2.0
@@ -58,6 +58,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.38.2-1
 - 0.38.2
 

@@ -2,7 +2,7 @@
 
 Name:           plasma-applet-translator
 Version:        0.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Plasma 5 applet for translate-shell
 
 License:        MIT
@@ -41,6 +41,9 @@ desktop-file-validate %{buildroot}%{_datadir}/plasma/plasmoids/%{orig_name}/meta
 %{_datadir}/plasma/plasmoids/%{orig_name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

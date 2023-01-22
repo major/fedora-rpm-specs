@@ -1,6 +1,6 @@
 Name:           perl-Inline-Module
 Version:        0.34
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Support for Inline-based CPAN extension modules
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Inline-Module
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

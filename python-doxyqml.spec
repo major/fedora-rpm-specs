@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        BSD
 Summary:        Doxygen to document your QML classes
 Url:            https://invent.kde.org/sdk/%{srcname}
@@ -45,5 +45,8 @@ Recommends:     python3-%{srcname}
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 0.5.1-1
 - Initial version of package

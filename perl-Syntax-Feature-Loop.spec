@@ -1,6 +1,6 @@
 Name:           perl-Syntax-Feature-Loop
 Version:        1.8.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Provides the loop BLOCK syntax for unconditional loops
 # lib/Syntax/Feature/ppport.h:  GPL+ or Artistic
 # other files:                  CC0
@@ -57,6 +57,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-IO-Digest
 Version:        0.11
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Calculate digests while reading or writing
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/IO-Digest
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

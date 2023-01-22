@@ -25,7 +25,7 @@
 
 Name:           php-phpunit-PHPUnit
 Version:        %{major}.%{minor}
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        The PHP Unit Testing framework version 5
 
 License:        BSD
@@ -225,6 +225,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.27-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.27-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: A simple, fast Mysql library for Ruby, binding to libmysql
 License: MIT
 URL: https://github.com/brianmario/mysql2
@@ -125,13 +125,20 @@ mysql_install_db \
   --port="${MYSQL_TEST_PORT}" \
   --ssl &
 
+conn_found=false
 for i in $(seq 10); do
+  echo "Waiting for the DB server to accept connections... ${i}"
   sleep 1
-  if grep -q 'ready for connections.' "${MYSQL_TEST_LOG}"; then
+  if grep -q 'ready for connections' "${MYSQL_TEST_LOG}"; then
+    conn_found=true
     break
   fi
-  echo "Waiting connections... ${i}"
 done
+if ! "${conn_found}"; then
+  echo "ERROR: Failed to connect the DB server."
+  cat "${MYSQL_TEST_LOG}"
+  exit 1
+fi
 
 # Reset password for the root user due to MariaDB 10.4 authentication change.
 # See https://mariadb.com/kb/en/authentication-from-mariadb-104/#altering-the-user-account-to-revert-to-the-previous-authentication-method
@@ -195,6 +202,9 @@ kill "$(cat "${MYSQL_TEST_PID_FILE}")"
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 0.5.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

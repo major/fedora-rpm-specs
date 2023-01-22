@@ -1,6 +1,6 @@
 Name:           perl-WWW-Pastebin-PastebinCom-Create
 Version:        1.003
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Paste to http://pastebin.com from Perl
 License:        GPL+ or Artistic
 
@@ -49,6 +49,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

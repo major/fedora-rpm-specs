@@ -8,7 +8,7 @@
 
 Name:    qcad
 Version: 3.27.9.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Powerful 2D CAD system
 
 ## Main license: GPLv3
@@ -229,6 +229,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.27.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.27.9.0-1
 - Release 3.27.9.0
 

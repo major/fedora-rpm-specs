@@ -1,5 +1,5 @@
 Name:		pepc
-Version:	1.3.41
+Version:	1.3.42
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 

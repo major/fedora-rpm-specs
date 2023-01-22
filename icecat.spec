@@ -102,7 +102,7 @@ ExcludeArch: %{arm}
 Name: icecat
 Epoch:   1
 Version: 102.7.0
-Release: 1.%{redhat_ver}%{?pre_tag}%{?dist}
+Release: 2.%{redhat_ver}%{?pre_tag}%{?dist}
 Summary: GNU version of Firefox browser
 
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
@@ -578,7 +578,7 @@ MOZ_LINK_FLAGS="-Wl,--no-keep-memory"
 echo "ac_add_options --enable-linker=gold" >> .mozconfig
 %endif
 %endif
-%ifarch %{arm} %{ix86} %{power64}
+%ifarch %{arm} %{ix86} %{power64} s390x
 export RUSTFLAGS="-Cdebuginfo=0"
 export MOZ_RUST_DEFAULT_FLAGS="-Cdebuginfo=0 -Copt-level=0"
 %endif
@@ -825,6 +825,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/%{name}-wayland.desktop
 
 %changelog
+* Fri Jan 20 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.7.0-2.rh1
+- Set RUSTFLAGS -Cdebuginfo=0 in s390x
+
 * Tue Jan 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.7.0-1.rh1
 - Release 102.7.0
 

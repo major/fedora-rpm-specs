@@ -17,7 +17,7 @@ DSLs (domain specific languages).
 
 Name:           python-%{srcname}
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Recursive descent parsing library based on functional combinators
 
 License:        MIT
@@ -60,6 +60,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 05 2022 Dridi Boukelmoune <dridi@fedoraproject.org> - 1.0.1-1
 - Bump version to 1.0.1
 

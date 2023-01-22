@@ -15,7 +15,7 @@ possible), plus lots of nifty extra stuff on top.}
 
 Name:           python-%{src_name}
 Version:        5.2.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utils for streaming large files (S3, HDFS, gzip, bz2, and more)
 
 License:        MIT
@@ -71,6 +71,9 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %{python3_sitelib}/%{src_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

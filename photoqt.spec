@@ -1,6 +1,6 @@
 Name:		photoqt
 Version:	2.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A fast Qt image viewer
 
 License:	GPLv2+
@@ -72,6 +72,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.%{name
 %{_datadir}/appdata/org.%{name}.PhotoQt.appdata.xml
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.8-2
 - LibRaw rebuild
 

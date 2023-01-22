@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        5.17.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Library for adding Swagger support to clients and servers
 
 License:        BSD
@@ -43,6 +43,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/bravado_core-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

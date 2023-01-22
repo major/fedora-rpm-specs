@@ -8,7 +8,7 @@
 Summary:        AMD Radeon video cards monitoring utility
 Name:           radeontop
 Version:        1.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        GPLv3
 URL:            https://github.com/clbr/%{name}
 
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.metai
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

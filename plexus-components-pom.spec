@@ -2,7 +2,7 @@
 
 Name:           plexus-components-pom
 Version:        10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Plexus Components POM
 License:        ASL 2.0
 URL:            https://github.com/codehaus-plexus/plexus-components
@@ -39,6 +39,9 @@ cp -p %{SOURCE1} LICENSE
 %doc LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 Marian Koncek <mkoncek@redhat.com> - 10.0-1
 - Update to upstream version 10.0
 

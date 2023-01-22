@@ -11,7 +11,7 @@
 
 Name: flang
 Version: %{flang_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: a Fortran language front-end designed for integration with LLVM
 
 License: Apache-2.0 WITH LLVM-exception
@@ -31,6 +31,7 @@ Patch2: link-against-libclang-cpp.patch
 # one has been upstreamed as https://reviews.llvm.org/D131475.
 Patch3: 0001-flang-docs-nfc-Refine-FlangOptionsDocs.td.patch
 Patch4: 0001-Use-find_program-for-clang-tblgen.patch
+Patch5: 0001-Flang-Explicitly-include-cstdint-NFC.patch
 
 # Avoid gcc reaching 4GB of memory on 32-bit targets and also running out of
 # memory on builders with many CPUs.
@@ -214,6 +215,9 @@ export LD_LIBRARY_PATH=%{_builddir}/%{flang_srcdir}/%{_build}/lib
 %doc %{_pkgdocdir}/html/
 
 %changelog
+* Thu Jan 19 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-3
+- Fix build with GCC 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

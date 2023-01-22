@@ -1,6 +1,6 @@
 Name:           perl-Parse-CPAN-Distributions
 Version:        0.14
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Provides an index for current CPAN distributions
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/Parse-CPAN-Distributions
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

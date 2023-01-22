@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Google oAuth Authentication Library
 
 License:        ASL 2.0
@@ -49,6 +49,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v tests
 %{python3_sitelib}/google_auth_oauthlib-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Fabian Affolter <mail@fabian-affolter.ch> - 0.5.3-1
 - Update to latest upstream release 0.5.3 (closes rhbz#2095595)
 

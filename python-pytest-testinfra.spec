@@ -2,7 +2,7 @@
 
 Name:    python-%{srcname}
 Version: 6.8.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Unit testing for config-managed server state
 
 URL:     https://github.com/pytest-dev/pytest-testinfra
@@ -74,6 +74,9 @@ rm -vr html/.{doctrees,buildinfo}
 %{python3_sitelib}/pytest_testinfra-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

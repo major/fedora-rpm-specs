@@ -3,7 +3,7 @@
 Summary: Qucs circuit simulator which works with SPICE
 Name:    qucs-s
 Version: 1.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL:     https://ra3xdh.github.io/
 
@@ -102,6 +102,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov  1 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 1.0.0-1
 - New version
   Resolves: rhbz#2138647

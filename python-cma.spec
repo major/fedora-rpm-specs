@@ -1,7 +1,7 @@
 %global srcname cma
 Name:           python-cma
 Version:        3.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Covariance Matrix Adaptation Evolution Strategy numerical optimizer
 
 License:        BSD
@@ -45,6 +45,9 @@ sed -i '1d' cma/{bbobbenchmarks.py,purecma.py,test.py}
 %{python3_sitelib}/cma-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

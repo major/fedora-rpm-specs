@@ -1,6 +1,6 @@
 Name:           python-stack-data
 Version:        0.6.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extract data from python stack frames and tracebacks for informative displays
 
 License:        MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Lumír Balhar <lbalhar@redhat.com> - 0.6.2-1
 - Update to 0.6.2 (rhbz#2148769)
 

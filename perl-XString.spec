@@ -1,6 +1,6 @@
 Name:		perl-XString
 Version:	0.005
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Isolated String helpers from B
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/XString
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/XString.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.005-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

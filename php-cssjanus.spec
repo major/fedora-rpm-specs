@@ -1,6 +1,6 @@
 Name:		php-cssjanus
 Version:	2.1.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Convert CSS stylesheets between left-to-right and right-to-left
 
 License:	ASL 2.0
@@ -40,6 +40,9 @@ cp -p src/CSSJanus.php %{buildroot}%{_datadir}/php/cssjanus
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:       perl-Task-Catalyst 
 Version:    4.02
-Release:    31%{?dist}
+Release:    32%{?dist}
 # lib/Task/Catalyst.pm -> GPL+ or Artistic
 License:    GPL+ or Artistic 
 
@@ -96,6 +96,9 @@ RELEASE_TESTING=1 TEST_POD=1 make test
 %{_mandir}/man3/Task*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.02-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.02-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

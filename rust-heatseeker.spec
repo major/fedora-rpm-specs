@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        1.7.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Fast, robust, and portable fuzzy finder
 
 # Upstream license specification: MIT
@@ -56,6 +56,9 @@ export TRAVIS=1
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

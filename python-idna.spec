@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        3.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Internationalized Domain Names in Applications (IDNA)
 
 License:        BSD and Python and Unicode
@@ -60,6 +60,9 @@ rm -rf %{srcname}.egg-info
 %doc README.rst HISTORY.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Lumír Balhar <lbalhar@redhat.com> - 3.4-1
 - Update to 3.4
 Resolves: rhbz#2126582

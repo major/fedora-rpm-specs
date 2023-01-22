@@ -3,7 +3,7 @@
 
 Name:		python-%{srcname}
 Version:	0.26
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	Adds network extension support to python-novaclient
 
 License:	ASL 2.0
@@ -40,6 +40,9 @@ Requires:	python3-novaclient
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

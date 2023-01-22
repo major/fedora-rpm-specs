@@ -3,7 +3,7 @@
 
 Name:           pitivi
 Version:        2022.06.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Non-linear video editor
 
 License:        LGPLv2+
@@ -102,6 +102,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.pitivi.Pitivi.des
 %{python3_sitearch}/pitivi/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.06.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 2022.06.0-3
 - Require gstreamer1-plugin-libav.
 

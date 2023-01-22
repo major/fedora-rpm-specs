@@ -2,7 +2,7 @@
 
 Name:          python-%{srcname}
 Version:       2.12.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -88,6 +88,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov  6 2022 Paul Howarth <paul@city-fan.org> - 2.12.0-1
 - Update to 2.12.0 (rhbz#2140281)
   - Add a 'transport_factory' kwarg to 'SSHClient.connect' for advanced users

@@ -1,6 +1,6 @@
 Name:           perl-Menlo
 Version:        1.9019
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        A CPAN client
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Menlo
@@ -92,6 +92,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9019-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.9019-16
 - Update license to SPDX format and use %%make_* macros
 

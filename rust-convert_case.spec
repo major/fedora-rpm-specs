@@ -6,7 +6,7 @@
 
 Name:           rust-convert_case
 Version:        0.4.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Convert strings into any case
 
 # https://github.com/rutrum/convert-case/commit/f72ca63
@@ -95,6 +95,9 @@ use the "random" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Fabio Valentini <decathorpe@gmail.com> - 0.4.0-6
 - Disable LTO to work around LLVM crashes on ppc64le.
 

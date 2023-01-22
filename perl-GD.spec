@@ -1,6 +1,6 @@
 Name:           perl-GD
 Version:        2.76
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl interface to the GD graphics library
 License:        GPL+ or Artistic 2.0
 URL:            https://metacpan.org/release/GD
@@ -93,6 +93,9 @@ make test TEST_VERBOSE=1
 %{_mandir}/man3/GD::Simple.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.76-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.76-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

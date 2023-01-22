@@ -4,7 +4,7 @@
 
 Name:           php-phpseclib-net-ssh2
 Version:        0.3.9
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Pure-PHP implementation of SSHv2
 
 License:        MIT
@@ -83,6 +83,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.9-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

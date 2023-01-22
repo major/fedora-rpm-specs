@@ -8,7 +8,7 @@ License:       LGPLv2
 
 # There's no versioning upstream, it's all about the Git hash
 Version:       0
-Release:       0.31.git%{shortcommit}%{?dist}
+Release:       0.32.git%{shortcommit}%{?dist}
 
 # There aren't any release yet, I'm downloading straight from the last commit
 Source0:       https://github.com/psykoyiko/pycanberra/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
@@ -50,6 +50,9 @@ install -D -p -m 0644 pycanberra.py -t %{buildroot}%{python3_sitelib}/
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.32.git88c53cd
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.31.git88c53cd
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

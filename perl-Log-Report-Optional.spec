@@ -1,6 +1,6 @@
 Name:           perl-Log-Report-Optional
 Version:        1.07
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Base class for large Log::Report and simple Log::Report::Minimal
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Log-Report-Optional
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

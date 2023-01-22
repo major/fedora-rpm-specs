@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Tinyish
 Version:        0.18
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP::Tiny compatible HTTP client wrappers
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTTP-Tinyish
@@ -109,6 +109,9 @@ Provides:       perl(:HTTP-Tinyish:backend) = %{version}
 %{perl_vendorlib}/HTTP/Tinyish/Wget.pm
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

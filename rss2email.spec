@@ -1,6 +1,6 @@
 Name:           rss2email
 Version:        3.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deliver news from RSS feeds to your SMTP server as text or HTML mail
 
 License:        GPLv2+ or GPLv3+
@@ -77,6 +77,9 @@ PATH="${PATH}:%{buildroot}%{_bindir}" PYTHONPATH=%{buildroot}%{python3_sitelib} 
 %{_datadir}/zsh/functions/Completion/Unix/_r2e
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 27 2022 David Kaufmann <astra@ionic.at> - 3.14-1
 - Update to 3.14
 

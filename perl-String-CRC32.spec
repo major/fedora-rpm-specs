@@ -1,6 +1,6 @@
 Name:           perl-String-CRC32
 Version:        2.100
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Perl interface for cyclic redundancy check generation
 License:        Public Domain
 URL:            https://metacpan.org/release/String-CRC32
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/String::CRC32.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.100-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.100-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

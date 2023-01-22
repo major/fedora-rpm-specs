@@ -1,6 +1,6 @@
 Name:           perl-Net-Domain-TLD
 Version:        1.75
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Work with TLD names
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Domain-TLD
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.75-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

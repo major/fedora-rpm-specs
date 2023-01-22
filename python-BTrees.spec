@@ -8,7 +8,7 @@
 
 Name:           python-BTrees
 Version:        4.11.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Scalable persistent object containers
 
 License:        ZPL-2.1
@@ -125,6 +125,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 4.11.3-1
 - Remove support for Fedora 35 and earlier
 

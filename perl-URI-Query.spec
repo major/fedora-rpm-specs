@@ -3,7 +3,7 @@
 
 Name:           perl-URI-Query
 Version:        0.16
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Class providing URI query string manipulation
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/URI-Query
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

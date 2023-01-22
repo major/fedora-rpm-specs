@@ -1,6 +1,6 @@
 Name:           jakarta-activation1
 Version:        1.2.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Jakarta Activation Specification and Implementation
 License:        BSD
 URL:            https://jakartaee.github.io/jaf-api/
@@ -41,8 +41,9 @@ sed -i 's/${main.basedir}/${basedir}/' pom.xml
 %pom_remove_plugin :osgiversion-maven-plugin
 sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 
-%mvn_compat_version jakarta*: %{version} 1.2.1 1.2.0 1.1.1
+%mvn_compat_version jakarta*: 1 %{version} 1.2.1 1.2.0 1.1.1
 
+# TODO delete
 %mvn_file com.sun.activation:jakarta.activation %{name}/jakarta.activation javax.activation
 
 %build
@@ -58,6 +59,9 @@ sed -i "s/\${activation.osgiversion}/%{version}/g" activation/pom.xml
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 1.2.2-8
+- Add major compat version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

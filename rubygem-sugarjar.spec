@@ -12,7 +12,7 @@ to make rebase-based and squash-based workflows simpler.}
 
 Name: rubygem-%{gem_name}
 Version: %{version}
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A git/github helper utility
 License: ASL 2.0
 URL: http://www.github.com/jaymzh/sugarjar
@@ -80,6 +80,9 @@ rm -rf %{buildroot}
 %{gem_spec}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 07 2022 Phil Dibowitz <phil@ipom.com> - 0.0.11-1
 - Update to upstream 0.0.11
 

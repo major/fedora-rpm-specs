@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.29.52
+Version:        1.29.53
 Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
@@ -62,6 +62,12 @@ rm -vr tests/functional/leak
 %{python3_sitelib}/%{pypi_name}-*.dist-info/
 
 %changelog
+* Fri Jan 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.53-1
+- 1.29.53
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.52-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.52-1
 - 1.29.52
 

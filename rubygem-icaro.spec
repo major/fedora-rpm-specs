@@ -3,7 +3,7 @@
 Summary: Icaro API for Ruby
 Name: rubygem-%{gem_name}
 Version: 1.0.6
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPLv3
 URL: http://github.com/aeperezt/ruby-icaro 
 Source0: http://rubygems.org/downloads/%{gem_name}-%{version}.gem
@@ -51,6 +51,9 @@ cp -a ./%{gem_dir}/* %{buildroot}%{gem_dir}/
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

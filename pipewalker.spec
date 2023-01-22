@@ -3,7 +3,7 @@ Summary: Puzzle game about connecting components into a single circuit
 License: GPLv3+
 
 Version: 0.9.4
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 URL: http://pipewalker.sourceforge.net
 Source0: https://downloads.sourceforge.net/project/pipewalker/pipewalker/%{version}/pipewalker-%{version}.tar.gz
@@ -65,6 +65,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

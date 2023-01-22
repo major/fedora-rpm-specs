@@ -24,7 +24,7 @@
 
 Name:           php-%{gh_project}
 Version:        3.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{namespace} Framework %{library}/%{subproj} component
 
 License:        BSD
@@ -144,6 +144,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 3.4.0-1
 - update to 3.4.0 (no change)
 - raise dependency on PHP 8.0

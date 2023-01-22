@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Scrapes and parses application data from Google Play Store
 
 License:        MIT
@@ -44,6 +44,9 @@ Scrapes and parses application data from Google Play Store.
 %{python3_sitelib}/play_scraper-%{version}-py*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

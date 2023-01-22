@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Entity-Parser
 Version:        0.25
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        PSGI compliant HTTP Entity Parser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Entity-Parser
@@ -68,6 +68,9 @@ data and application/json.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.25-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.25-8
 - Convert license to SPDX.
 

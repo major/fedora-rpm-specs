@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{zstd_version}.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Zstd Bindings for Python
 
 License:        BSD
@@ -67,6 +67,9 @@ sed -i -e '/test_version/d' tests/__init__.py
 %{python3_sitearch}/%{pypi_name}*.so
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

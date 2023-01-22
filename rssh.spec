@@ -1,6 +1,6 @@
 Name:           rssh
 Version:        2.3.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Restricted shell for use with OpenSSH, allowing only scp and/or sftp
 License:        BSD 
 URL:            http://www.pizzashack.org/rssh/
@@ -79,6 +79,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 2.3.4-24
 - Port configure script to C99
 

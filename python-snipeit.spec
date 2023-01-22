@@ -4,7 +4,7 @@
 Name:           python-%{modname}
 # changelog has versions in README
 Version:        1.2 
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python Interface to the SnipeIT API
 
 # MIT license mentioned in setup.py
@@ -49,6 +49,9 @@ Requires:       python3-simplejson
 %{python3_sitelib}/%{modname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

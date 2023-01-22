@@ -4,7 +4,7 @@
 
 Name:		phosh
 Version:	0.23.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/World/Phosh/phosh
@@ -161,6 +161,9 @@ SH
 %license COPYING
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 28 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 0.23.0-1
 - Update to 0.23.0
 

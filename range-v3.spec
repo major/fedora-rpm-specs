@@ -3,7 +3,7 @@
 Name: range-v3
 Summary: Experimental range library for C++11/14/17
 Version: 0.12.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSL-1.0
 URL: https://github.com/ericniebler/%{name}
@@ -53,6 +53,9 @@ Provides: %{name}-static = %{version}-%{release}
 %{_libdir}/cmake/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

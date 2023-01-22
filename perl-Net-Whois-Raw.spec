@@ -3,7 +3,7 @@
 Name:           perl-Net-Whois-Raw
 # Keep 2-digit precision
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Get Whois information for domains
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-Whois-Raw
@@ -88,6 +88,9 @@ server name.
 %{_bindir}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.99.037-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 14 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 2.99.037-2
 - Bump to rebuild
 

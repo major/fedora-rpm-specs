@@ -8,7 +8,7 @@
 Name:           perl-YAML-LibYAML
 Epoch:          1
 Version:        0.85
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl YAML Serialization using XS and libyaml
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/YAML-LibYAML
@@ -110,6 +110,9 @@ make test
 %{_mandir}/man3/YAML::XS::LibYAML.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.85-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.85-1
 - Update to 0.85 (rhbz#2126164)
   - Convert doc from Swim to Markdown

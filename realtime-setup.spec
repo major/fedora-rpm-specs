@@ -1,6 +1,6 @@
 Name: realtime-setup
 Version: 2.2.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Summary: Setup RT/low-latency environment details
 Source0: https://gitlab.com/rt-linux-tools/${name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
@@ -74,6 +74,9 @@ Neither the slub script or realtime-entsk are active by default.
 %license gpl-2.0.txt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           premake
 Version:        4.3
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Cross-platform build configuration tool
 
 License:        BSD
@@ -52,6 +52,9 @@ install -m 644 -Dp ./premake4.1 %{buildroot}/%{_mandir}/man1/premake4.1
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

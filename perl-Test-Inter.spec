@@ -1,6 +1,6 @@
 Name:           perl-Test-Inter
 Version:        1.09
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Framework for more readable interactive test scripts
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Inter
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.09-13
 - Package tests
 - Update license to SPDX format

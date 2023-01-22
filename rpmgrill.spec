@@ -1,6 +1,6 @@
 Name:           rpmgrill
 Version:        0.34
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A utility for catching problems in koji builds
 License:        Artistic 2.0
 Source0:        https://github.com/default-to-open/%{name}/archive/%{version}.tar.gz
@@ -96,6 +96,9 @@ find %{buildroot} -type f -name .packlist -exec rm -f {} \;
 %{_datadir}/%{name}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.34-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

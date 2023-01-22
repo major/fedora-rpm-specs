@@ -1,6 +1,6 @@
 Name:           perl-Path-Tiny-Rule
 Version:        0.02
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Path::Iterator::Rule subclass that returns Path::Tiny objects
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Path-Tiny-Rule
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

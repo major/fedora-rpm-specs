@@ -1,6 +1,6 @@
 Name:           perl-Unicode-Map
 Version:        0.112
-Release:        58%{?dist}
+Release:        59%{?dist}
 Summary:        Perl module for mapping charsets from and to utf16 unicode
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Unicode-Map
@@ -79,6 +79,9 @@ make test
 %{_mandir}/man3/Unicode::Map.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.112-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.112-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

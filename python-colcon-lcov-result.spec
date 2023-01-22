@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Extension for colcon to provide test results using LCOV
 
 License:        ASL 2.0
@@ -79,6 +79,9 @@ the following coverage metrics:
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Scott K Logan <logans@cottsay.net> - 0.5.0-8
 - Add dependency on command line tools (gcov/lcov/genhtml/c++flit)
 

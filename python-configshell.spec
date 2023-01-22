@@ -6,7 +6,7 @@ License:        ASL 2.0
 Summary:        A framework to implement simple but nice CLIs
 Epoch:          1
 Version:        1.1.29
-Release:        9%{?dist}
+Release:        10%{?dist}
 URL:            https://github.com/open-iscsi/configshell-fb
 Source:         %{url}/archive/v%{version}/%{oname}-%{version}.tar.gz
 Patch0:         0001-replace-getargspec-with-getfullargspec.patch
@@ -44,6 +44,9 @@ sed -r -i "s/'pyparsing.*'/'pyparsing'/" setup.py
 %doc COPYING README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.29-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Vojtech Trefny <vtrefny@redhat.com> - 1:1.1.29-9
 - Python 3.11: replace getargspec() with getfullargspec()
 

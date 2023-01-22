@@ -12,7 +12,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.17.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Easy access to Digital Ocean APIs to deploy droplets, images and more
 
 License:        LGPLv3
@@ -121,6 +121,9 @@ This is the Python 3 version of the package.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 12 2022 Jonathan Wright <jonathan@almalinux.org> - 1.17.0-5
 - Remove python-mock requirement
 

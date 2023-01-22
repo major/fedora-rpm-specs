@@ -1,6 +1,6 @@
 Name:		perl-TeX-Encode
 Version:	2.010
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Encoding to LaTeX escapes
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/TeX-Encode
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.010-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.010-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.22
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -62,6 +62,9 @@ nosetests-%{python3_version} -v -e testing -e ssh_tests -e local_tests
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Orion Poplawski <orion@nwra.com> - 0.3.22-2
 - Skip tests on EL9 due to deprecated python-nose
 

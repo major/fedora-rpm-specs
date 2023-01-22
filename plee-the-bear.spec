@@ -1,6 +1,6 @@
 Name:           plee-the-bear
 Version:        0.7.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        2D platform game
 # Code and artwork respectively
 License:        GPLv3 and CC-BY-SA
@@ -124,6 +124,9 @@ EOF
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Hans de Goede <hdegoede@redhat.com> - 0.7.1-14
 - Drop . from %%cmake invocation to fix FTBFS (rhbz#2113597)
 

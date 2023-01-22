@@ -2,7 +2,7 @@
 
 Name:           qgis
 Version:        3.28.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
 # http://issues.qgis.org/issues/3789
@@ -28,6 +28,8 @@ Patch0:         %{name}-serverprefix.patch
 Patch1:         %{name}-yarn-offline.patch
 # Fix build against qwt-6.2
 Patch2:         %{name}-qwt.patch
+# Fix GCC13 FTBFS
+Patch3:         %{name}-gcc13.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -302,6 +304,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.28.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Sandro Mani <manisandro@gmail.com> - 3.28.2-2
 - Rebuild (qwt)
 

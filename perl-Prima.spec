@@ -34,7 +34,7 @@
 
 Name:           perl-Prima
 Version:        1.67
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -325,6 +325,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.67-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Petr Pisar <ppisar@redhat.com> - 1.67-2
 - Fix un undefined behaviour triggering _FORTIFY_SOURCE=3 abort (bug #2160077)
 - Prevent from desynchronizing Gtk and Perl locale

@@ -3,7 +3,7 @@
 
 Name:           python-empy
 Version:        3.3.4a
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 License:        LGPLv2+
 URL:            http://www.alcyone.com/software/empy/
@@ -42,6 +42,9 @@ text; it takes an EmPy source file, processes it, and produces output.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.4a-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Filipe Rosset <rosset.filipe@gmail.com> - 3.3.4a-2
 - added BR for python3-setuptools for Python 3.12 fixes rhbz#2155021
 

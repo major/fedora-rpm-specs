@@ -1,6 +1,6 @@
 Name:           python-trezor
 Version:        0.13.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for communicating with TREZOR Hardware Wallet
 
 License:        LGPLv3
@@ -69,6 +69,9 @@ install -Dpm 644 bash_completion.d/trezorctl.sh %{buildroot}%{bash_completions_d
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Jonny Heggheim <hegjon@gmail.com> - 0.13.5-1
 - Updated to version 0.13.5
 

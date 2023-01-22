@@ -1,6 +1,6 @@
 Name:           perl-Marpa-XS
 Version:        1.008000
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Language grammar parser module for Perl
 License:        LGPLv3+
 URL:            https://metacpan.org/release/Marpa-XS
@@ -104,6 +104,9 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008000-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec  7 2022 Florian Weimer <fweimer@redhat.com> - 1.008000-36
 - Build in C89 mode (#2151502)
 

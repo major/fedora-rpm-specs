@@ -1,6 +1,6 @@
 Name:           python-manuel
 Version:        1.12.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Build tested documentation
 
 # The content is Apache-2.0.  Other licenses are due to files copied in by
@@ -84,6 +84,9 @@ cp -p src/manuel/myst-markdown.md build/lib/manuel
 %license COPYRIGHT.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.12.4-2
 - Convert License tag to SPDX
 

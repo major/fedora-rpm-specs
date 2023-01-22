@@ -2,7 +2,7 @@
 
 Name:           perl-Mojolicious-Plugin-I18N
 Version:        1.6
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Internationalization Plugin for Mojolicious
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/Mojolicious-Plugin-I18N
@@ -58,6 +58,9 @@ works with Mojolicious 4.0+.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

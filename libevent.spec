@@ -66,7 +66,7 @@ This package contains the development documentation for %{name}.
 %patch03 -p1 -b .fix-install-2
 %patch04 -p1 -b .revert-problematic-change
 
-pathfix.py -i %{__python3} -pn test/check-dumpevents.py \
+%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn test/check-dumpevents.py \
                                event_rpcgen.py
 
 %build

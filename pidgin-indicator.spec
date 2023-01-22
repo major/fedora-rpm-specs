@@ -2,7 +2,7 @@
 Name:    pidgin-indicator
 Summary: StatusNotifierItem tray icon plugin for Pidgin
 Version: 1.0.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: GPLv2+
 URL:     https://github.com/philipl/pidgin-indicator
@@ -68,6 +68,9 @@ rm -fv %{buildroot}%{_libdir}/pidgin/indicator.la
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

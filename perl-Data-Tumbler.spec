@@ -2,7 +2,7 @@ Name:		perl-Data-Tumbler
 Version:	0.010
 Release:	25%{?dist}
 Summary:	Dynamic generation of nested combinations
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Data-Tumbler
 Source0:	https://cpan.metacpan.org/modules/by-module/Data/Data-Tumbler-%{version}.tar.gz
 BuildArch:	noarch
@@ -24,7 +24,6 @@ BuildRequires:	perl(List::Util)
 BuildRequires:	perl(Test::More) >= 0.88
 BuildRequires:	perl(Test::Most) >= 0.11
 BuildRequires:	perl(Time::HiRes)
-# Runtime
 
 %description
 The tumble() method calls a sequence of 'provider' code references, each of

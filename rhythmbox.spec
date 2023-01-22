@@ -6,7 +6,7 @@
 
 Name:    rhythmbox
 Version: 3.4.6
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Music Management Application
 
 License: GPLv2+ with exceptions and GFDL
@@ -172,6 +172,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Rhythmbox3
 %{_datadir}/vala/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

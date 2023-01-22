@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Logging formatter which produces well-formatted RFC5424 Syslog Protocol messages
 
 License:        ISC
@@ -47,5 +47,8 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/syslog_rfc5424_formatter-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Laura Barcziova <lbarczio@redhat.com> - 1.2.3-1
 - Initial package.

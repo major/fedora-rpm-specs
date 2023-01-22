@@ -1,6 +1,6 @@
 Name:           perl-Test-Prereq
 Version:        2.003
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Check if Makefile.PL has the right pre-requisites
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/Test-Prereq
@@ -65,6 +65,9 @@ make test
 %{_mandir}/man3/Test::Prereq::Build.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.003-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.003-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

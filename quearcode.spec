@@ -1,6 +1,6 @@
 Name:           quearcode
 Version:        0.2.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A tool for creating QR Codes
 
 License:        GPLv3+
@@ -49,6 +49,9 @@ desktop-file-install \
 %{python3_sitelib}/quearcode-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

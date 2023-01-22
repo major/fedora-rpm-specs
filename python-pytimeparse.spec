@@ -14,7 +14,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.8
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Time expression parser
 
 License:        MIT
@@ -111,6 +111,9 @@ find . -name '*.py' -exec sed -i '1 { /^#!/ d }' {} \+
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

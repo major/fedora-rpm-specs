@@ -1,6 +1,6 @@
 Name:           perl-X11-Protocol-Other
 Version:        31
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Miscellaneous X11::Protocol helpers
 License:        GPLv3+
 URL:            https://metacpan.org/release/X11-Protocol-Other
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 31-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 31-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

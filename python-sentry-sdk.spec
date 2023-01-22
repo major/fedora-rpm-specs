@@ -1,6 +1,6 @@
 Name:           python-sentry-sdk
 Version:        1.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
 License:        BSD
@@ -153,6 +153,9 @@ sed -i '/def test_auto_enabling_integrations_catches_import_error/i@pytest.mark.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Roman Inflianskas <rominf@aiven.io> - 1.13.0-1
 - Update to 1.13.0 (resolve rhbz#2160514)
 - Cleanup check section

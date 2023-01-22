@@ -5,7 +5,7 @@ Small library to fetch files over HTTP and resume their download.}
 
 Name:           python-%{pypi_name}
 Version:        0.1.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Small library to fetch files over HTTP and resume their download
 
 License:        MIT
@@ -53,6 +53,9 @@ PYTHONPATH=. pytest-3
 %{python3_sitelib}/resumable_urlretrieve-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

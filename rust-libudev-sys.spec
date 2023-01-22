@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.4
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        FFI bindings to libudev
 
 # Upstream license specification: MIT
@@ -73,6 +73,9 @@ echo 'pkgconfig(libudev)'
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

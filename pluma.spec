@@ -16,9 +16,9 @@ Summary:  Text editor for the MATE desktop
 Name:     pluma
 Version:  %{branch}.0
 %if 0%{?rel_build}
-Release:  5%{?dist}
+Release:  6%{?dist}
 %else
-Release:  0.14%{?git_rel}%{?dist}
+Release:  0.15%{?git_rel}%{?dist}
 %endif
 License:  GPLv2+ and LGPLv2+
 URL:      http://mate-desktop.org
@@ -153,6 +153,9 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 07 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-5
 - update spec file to build with python-3.12 in f39
 

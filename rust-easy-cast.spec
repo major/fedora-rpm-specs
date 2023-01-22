@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.4.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Type conversions which are expected to succeed
 
 # Upstream license specification: Apache-2.0
@@ -137,6 +137,9 @@ which use "std" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

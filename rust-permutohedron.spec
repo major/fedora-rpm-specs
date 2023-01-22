@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.4
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Generate permutations of sequences
 
 # Upstream license specification: MIT/Apache-2.0
@@ -78,6 +78,9 @@ which use "std" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

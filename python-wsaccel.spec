@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Accelerator for ws4py and AutobahnPython
 
 License:        ASL 2.0
@@ -67,6 +67,9 @@ PYTHONPATH="$(echo build/lib.linux-%{_arch}-cpython-%{python3_version_nodots} | 
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Julien Enselme <jujens@jujens.eu> - 0.6.4-1
 - Update to 0.6.4
 

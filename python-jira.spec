@@ -1,6 +1,6 @@
 Name:               python-jira
 Version:            3.4.1
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Python library for interacting with JIRA via REST APIs
 
 License:            BSD
@@ -64,6 +64,9 @@ grep    -w 'jirashell' "%{pyproject_files}" >jirashell.files
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 04 2022 Alois Mahdal <netvor@vornet.cz> - 3.4.1-2
 - Split jirashell to own sub-package with proper dependencies (close RHBZ#2149660)
 

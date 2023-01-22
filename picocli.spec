@@ -1,6 +1,6 @@
 Name:           picocli
 Version:        4.6.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java command line parser with both an annotations API and a programmatic API
 License:        ASL 2.0
 URL:            https://github.com/remkop/picocli
@@ -276,6 +276,9 @@ cp -p %{SOURCE1} %{name}-tests/pom.xml
 %doc %{name}-shell-jline3/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

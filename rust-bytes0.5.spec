@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}0.5
 Version:        0.5.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Types and traits for working with bytes
 
 # Upstream license specification: MIT
@@ -96,6 +96,9 @@ which use "std" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

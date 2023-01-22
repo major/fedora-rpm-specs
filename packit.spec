@@ -2,8 +2,8 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.65.2
-Release:        2%{?dist}
+Version:        0.66.0
+Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
 License:        MIT
@@ -102,6 +102,13 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 20 2023 Packit <hello@packit.dev> - 0.66.0-1
+- When configuring Copr chroot (target in Packit terminology) specific configuration, make sure to specify `additional_modules` as a string containing module names separated with a comma, example: "httpd:2.4,python:4". (#1826)
+- Target-specific configuration for Copr builds can now be defined and Packit will set it for the appropriate Copr chroots. (#1822)
+- You can now specify `update_release: false` in the configuration to tell Packit not to change the `Version` and `Release` in the spec file. It works the same as `--no-update-release` (renamed from now deprecated `--no-bump`) in the CLI. (#1827)
+- Packit now supports setting `module_hotfixes` for Copr projects. (#1829)
+- All Copr projects created by Packit now default to `enable_net=False`. Our documentation stated this but it wasn't the case. This is now corrected. (#1825)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.65.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-DiagINC
 Version:        0.010
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        List modules and versions loaded if tests fail
 License:        ASL 2.0
 
@@ -60,6 +60,9 @@ during a test run.
 %{_mandir}/man3/Test*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 14 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 0.010-1
 - Update to 0.010
 

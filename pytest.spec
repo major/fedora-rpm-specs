@@ -2,7 +2,7 @@ Name:           pytest
 %global base_version 7.2.0
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
@@ -166,6 +166,9 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 10 2022 Miro Hrončok <mhroncok@redhat.com> - 7.2.0-2
 - Remove -s from Python shebang,
   ensure that packages installed with pip to user locations are testable

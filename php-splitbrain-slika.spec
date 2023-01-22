@@ -3,7 +3,7 @@
 Name: php-%{author}-%{project}
 
 Version: 1.0.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 Summary: Image handling library for PHP
 License: MIT
@@ -103,6 +103,9 @@ phpunit8 --verbose --bootstrap ./bootstrap.php
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 06 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.0.5-3
 - Fix package being non-installable due to borked dependencies
 

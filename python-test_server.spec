@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        0.0.31
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Server to test HTTP clients, written in Python
 
 License:        MIT
@@ -83,6 +83,9 @@ rm -fv docs/html/.build*
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.31-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.31-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

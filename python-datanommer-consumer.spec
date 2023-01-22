@@ -2,7 +2,7 @@
 
 Name:           python-datanommer-consumer
 Version:        0.8.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Hub consumer plugin for datanommer
 
 License:        GPLv3+
@@ -50,6 +50,9 @@ rm -rf *.egg-info
 %{python3_sitelib}/%{modname}-%{version}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python3-mypy
 Version:        0.991
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
@@ -14,7 +14,7 @@ Source0:        https://github.com/python/mypy/archive/v%{version}/mypy-%{versio
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-typing-extensions
-BuildRequires:  python3-tomli
+BuildRequires:  (python3-tomli if python3 < 3.11)
 Requires:  python3-typing-extensions
 
 # Remove for f38+
@@ -81,6 +81,12 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Fri Jan 20 2023 Miro Hrončok <mhroncok@redhat.com> - 0.991-2
+- Conditionalize an unused build dependency on python3-tomli
+
 * Tue Nov 15 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.991-1
 - 0.991
 

@@ -4,44 +4,36 @@
 %bcond_without tilt_integration_tests
 
 Name: rubygem-%{gem_name}
-Version: 2.2.0
-Release: 3%{?dist}
+Version: 3.0.5
+Release: 2%{?dist}
 Summary: Ruby-based web application framework
 License: MIT
 URL: http://sinatrarb.com/
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/sinatra/sinatra.git && cd sinatra
-# git archive -v -o sinatra-2.2.0-test.tar.gz v2.2.0 test/
+# git archive -v -o sinatra-3.0.5-test.tar.gz v3.0.5 test/
 Source1: %{gem_name}-%{version}-test.tar.gz
-# error_highlight is causing some test failures.
-# https://github.com/sinatra/sinatra/issues/1774
-Patch0: rubygem-sinatra-3.0.0-Internal-Sinatra-errors-now-extend-Sinatra-Error.patch
-Patch1: rubygem-sinatra-3.0.0-Internal-Sinatra-errors-now-extend-Sinatra-Error-test.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.2.0
+BuildRequires: ruby >= 2.6.0
 %if %{without bootstrap}
-BuildRequires: rubygem(rack-protection) = %{version}
-BuildRequires: rubygem(builder)
-BuildRequires: rubygem(coffee-script)
-BuildRequires: rubygem(creole)
-BuildRequires: rubygem(liquid)
+BuildRequires: rubygem(rack-protection) >= %{version}
 BuildRequires: rubygem(mustermann)
 BuildRequires: rubygem(rack-test)
 BuildRequires: rubygem(minitest) > 5
-BuildRequires: rubygem(redcarpet)
 # Tilt is actually required from base_test
 BuildRequires: rubygem(tilt)
-BuildRequires: nodejs
 %if %{with tilt_integration_tests}
 BuildRequires: rubygem(asciidoctor)
-BuildRequires: rubygem(rdiscount)
-BuildRequires: rubygem(kramdown)
-BuildRequires: rubygem(nokogiri)
+BuildRequires: rubygem(builder)
 BuildRequires: rubygem(erubi)
 BuildRequires: rubygem(haml)
+BuildRequires: rubygem(kramdown)
+BuildRequires: rubygem(liquid)
+BuildRequires: rubygem(nokogiri)
+BuildRequires: rubygem(rdiscount)
+BuildRequires: rubygem(redcarpet)
 BuildRequires: rubygem(slim)
-BuildRequires: rubygem(sass)
 %endif
 %endif
 Epoch: 1
@@ -63,10 +55,11 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-%patch0 -p1
-pushd %{_builddir}
-%patch1 -p1
-popd
+# The strict dependency does not seems to have impact. This is changed mainly
+# due to older Musteramnn and can be eventually removed or tightened in the
+# future.
+%gemspec_remove_dep -g mustermann "~> 3.0"
+%gemspec_add_dep -g mustermann
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -82,7 +75,7 @@ cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
 
-# Fix for rpmlint, though those are examples.
+# Fix shebangs, though those are examples.
 sed -i -e 's|^#!/usr/bin/env ruby|#!/usr/bin/ruby|' \
   %{buildroot}%{gem_instdir}/examples/*.rb
 
@@ -91,23 +84,13 @@ sed -i -e 's|^#!/usr/bin/env ruby|#!/usr/bin/ruby|' \
 pushd .%{gem_instdir}
 cp -a %{_builddir}/test test
 
-# Avodid ActiveSupport dependency, which should not be needed anyway.
-sed -i '/active_support/ s/$/ unless Hash.method_defined?(:slice)/' test/helper.rb
+# Avoid ActiveSupport dependency, which should not be needed anyway.
+sed -i '/active_support/ s/^/#/' test/helper.rb
 
 # We can't do integration test
 # because we don't ship sinatra-contrib including Sinatra::Runner.
 mv test/integration_test.rb{,.disabled}
 mv test/integration_async_test.rb{,.disabled}
-
-# False positive: inline layouts are rendered differently than expected
-# https://github.com/sinatra/sinatra/issues/1775
-#-"<h1>THIS. IS. <EM>SPARTA</EM></h1>
-#+# encoding: ASCII-8BIT
-#+#    valid: true
-#+"<h1>THIS. IS. <EM>SPARTA</EM>
-#+</h1>
-sed -i '/ layouts" do/ a \
-  skip' test/haml_test.rb
 
 # TODO: Is it worth of testing all the possible template engines integration?
 ruby -e 'Dir.glob "./test/*_test.rb", &method(:require)'
@@ -116,7 +99,7 @@ popd
 
 %files
 %dir %{gem_instdir}
-%exclude %{gem_instdir}/.*
+%exclude %{gem_instdir}/.yardopts
 %license %{gem_instdir}/LICENSE
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -129,7 +112,7 @@ popd
 %doc %{gem_instdir}/CONTRIBUTING.md
 %{gem_instdir}/Gemfile
 %doc %{gem_instdir}/MAINTENANCE.md
-%doc %{gem_instdir}/README*.md
+%doc %{gem_instdir}/README.md
 %{gem_instdir}/Rakefile
 %doc %{gem_instdir}/SECURITY.md
 %{gem_instdir}/VERSION
@@ -137,6 +120,13 @@ popd
 %{gem_instdir}/sinatra.gemspec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Thu Jan 19 2023 Vít Ondruch <vondruch@redhat.com> - 1:3.0.5-1
+- Update to Sinatra 3.0.5.
+  Resolves: rhbz#2107692
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

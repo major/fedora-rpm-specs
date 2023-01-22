@@ -1,6 +1,6 @@
 Name:           perl-Importer
 Version:        0.026
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Alternative interface to modules that export symbols
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Importer
@@ -75,6 +75,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.026-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.026-8
 - Package tests
 - Update license to SPDX format

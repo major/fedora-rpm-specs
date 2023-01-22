@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Zero-dependency DBus library for Python with asyncio support
 
 License:        MIT
@@ -87,6 +87,9 @@ chmod -x examples/*.py
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

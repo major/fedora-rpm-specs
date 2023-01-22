@@ -9,7 +9,7 @@ VCS:            https://github.com/rizinorg/rizin
 %global         rel             1
 %global         shortversion    %(c=%{version}; echo ${c} | cut -d'.' -f-2)
 
-Release:        %{rel}%{?dist}.1
+Release:        %{rel}%{?dist}.2
 Source0:        https://github.com/%{gituser}/%{gitname}/releases/download/v%{version}/%{name}-src-v%{version}.tar.xz
 
 License:        LGPLv3+ and GPLv2+ and BSD and MIT and ASL 2.0 and MPLv2.0 and zlib
@@ -170,6 +170,9 @@ information
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-1.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 10 2022 Richard Hughes <richard@hughsie.com> - 0.4.1-1
 - Rebase to upstream version 0.4.1
 - Fixed CVE-2022-36039

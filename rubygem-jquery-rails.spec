@@ -19,7 +19,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 4.4.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Use jQuery with Rails 4+
 License: MIT
 URL: https://github.com/rails/jquery-rails
@@ -135,6 +135,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 25 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.4.0-4
 - Bump jquery3_system_version to 3.6.3
 

@@ -1,6 +1,6 @@
 Name:       perl-Time-Duration-Parse
 Version:    0.16
-Release:    6%{?dist}
+Release:    7%{?dist}
 # see lib/Time/Duration/Parse.pm
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 Summary:    Parse string that represents time duration
@@ -48,6 +48,9 @@ duration_exact() in Time::Duration and is roundtrip safe.
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.16-6
 - Convert license to SPDX.
 

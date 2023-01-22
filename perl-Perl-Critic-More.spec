@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-More
 Version:        1.003
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Supplemental policies for Perl::Critic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Critic-More
@@ -95,6 +95,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.003-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 10 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.003-26
 - Package tests
 - Update license to SPDX format

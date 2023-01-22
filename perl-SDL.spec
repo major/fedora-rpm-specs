@@ -1,6 +1,6 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
 License:        LGPLv2+
 URL:            http://sdl.perl.org/
@@ -120,6 +120,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/Module::*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

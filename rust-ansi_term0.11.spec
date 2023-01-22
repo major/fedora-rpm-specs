@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.11
 Version:        0.11.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library for ANSI terminal colours and styles (bold, underline)
 
 # Upstream license specification: MIT
@@ -78,6 +78,9 @@ grep -IUlr $'\r' | xargs sed -i 's/\r$//'
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:    qt5-doc
 Summary: Qt5 - Complete documentation
 Version: 5.15.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 BuildArch: noarch
 
 License: GFDL
@@ -377,6 +377,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:               python-%{srcname}
 Version:            1.1.0^%{date}%{shortcommit}
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Mako template bindings for the Pyramid web framework
 
 License:            BSD-4-Clause
@@ -70,6 +70,9 @@ sed -i 's|pytest-cover|pytest-cov|g' setup.cfg
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0^2023011250a2322-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Mattia Verga <mattia.verga@proton.me> - 1.1.0^2023011250a2322-1
 - Update to latest git svn for Pyramid 2.0 compatibility
 - Use SPDX identifier in license tag

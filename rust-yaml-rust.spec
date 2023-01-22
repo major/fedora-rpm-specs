@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.4.5
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Missing YAML 1.2 parser for rust
 
 # Upstream license specification: MIT/Apache-2.0
@@ -73,6 +73,9 @@ chmod -x tests/specs/cpp2rust.rb
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

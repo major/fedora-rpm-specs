@@ -1,6 +1,6 @@
 Name:           pg_repack
 Version:        1.4.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
 License:        BSD
@@ -62,6 +62,9 @@ make
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 1.4.8-2
 - Rebuild for new PostgreSQL 15
 

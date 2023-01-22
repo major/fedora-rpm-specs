@@ -6,7 +6,7 @@
 
 Name:           rust-vm-memory
 Version:        0.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Safe abstractions for accessing the VM physical memory
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -128,6 +128,9 @@ use the "backend-mmap" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 04 2022 Fabio Valentini <decathorpe@gmail.com> - 0.8.0-3
 - Drop unused, benchmark-only criterion dev-dependency.
 - Regenerate with rust2rpm 23.

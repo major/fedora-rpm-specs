@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Windows Negotiate Authentication Client and Server
 
 License:        MIT
@@ -61,6 +61,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Fabian Affolter <mail@fabian-affolter.ch> - 0.6.0-1
 - Update to latest upstream release 0.6.0 (closes rhbz#2105846, closes #2113657)
 

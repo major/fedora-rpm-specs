@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Asynchronous Python Serial Port Extension
 
 License:        BSD
@@ -60,6 +60,9 @@ rm -rf html/.{doctrees,buildinfo}
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

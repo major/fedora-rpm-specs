@@ -1,6 +1,6 @@
 Name:           perl-Module-Manifest-Skip
 Version:        0.23
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        MANIFEST.SKIP Manangement for Modules
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Module-Manifest-Skip
@@ -108,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.23-27
 - Remove obsolete code
 

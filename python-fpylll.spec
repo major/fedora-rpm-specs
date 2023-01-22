@@ -2,7 +2,7 @@
 
 Name:		python-%{modname}
 Version:	0.5.7
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A Python wrapper for fplll
 License:	GPL-2.0-or-later
 URL:		https://github.com/fplll/%{modname}
@@ -70,6 +70,9 @@ popd
 %{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * THu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.5.7-3
 - Rebuild for libfplll 5.4.4
 

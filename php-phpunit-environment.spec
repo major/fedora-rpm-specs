@@ -20,7 +20,7 @@
 
 Name:           php-phpunit-environment
 Version:        2.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Handle HHVM/PHP environments
 
 License:        BSD
@@ -92,6 +92,9 @@ cp -pr                           SebastianBergmann/Environment \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

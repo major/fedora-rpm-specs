@@ -1,6 +1,6 @@
 Name:           perl-Graphics-ColorUtils
 Version:        0.17
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Easy-to-use color space conversions and more
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Graphics-ColorUtils
@@ -54,6 +54,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

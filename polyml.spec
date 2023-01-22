@@ -3,7 +3,7 @@
 
 Name:           polyml
 Version:        5.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Poly/ML compiler and runtime system
 
 License:        LGPL-2.1-or-later
@@ -110,6 +110,9 @@ make check
 %{_libdir}/libpolyml.so.13*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Jerry James <loganjerry@gmail.com> - 5.9-4
 - Convert License tag to SPDX
 

@@ -1,6 +1,6 @@
 Name:           perl-Plack-Middleware-Test-StashWarnings
 Version:        0.08
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Test your application's warnings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Plack-Middleware-Test-StashWarnings
@@ -49,6 +49,9 @@ rm -r inc/
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.08-28
 - Modernize spec.
 - Convert license to SPDX.

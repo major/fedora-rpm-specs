@@ -1,6 +1,6 @@
 Name:           proxytunnel
 Version:        1.10.20200907
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tool to tunnel a connection through an standard HTTP(S) proxy
 
 License:        GPLv2+ and BSD and MIT
@@ -50,6 +50,9 @@ done
 %{_mandir}/man1/proxytunnel.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.20200907-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.20200907-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

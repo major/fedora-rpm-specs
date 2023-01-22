@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:    plasma-sdk
-Version: 5.26.5
-Release: 1%{?dist}
+Version: 5.26.90
+Release: 2%{?dist}
 Summary: Development tools for Plasma 5
 
 License: GPLv2+ and LGPLv2+
@@ -123,6 +123,7 @@ Plasma SDK contains the following tools for Plasma-related development:
 %{_kf5_datadir}/applications/org.kde.plasmoidviewer.desktop
 %{_kf5_datadir}/metainfo/org.kde.plasmaengineexplorer.appdata.xml
 %{_kf5_datadir}/metainfo/org.kde.plasmoidviewer.appdata.xml
+%{_kf5_datadir}/zsh/site-functions/_plasmoidviewer
 %if ! 0%{?bootstrap}
 %{_kf5_metainfodir}/org.kde.plasma.plasmoidviewershell.appdata.xml
 %{_kf5_metainfodir}/org.kde.plasma.lookandfeelexplorer.appdata.xml
@@ -142,8 +143,13 @@ Plasma SDK contains the following tools for Plasma-related development:
 %{_kf5_datadir}/plasmate/
 %endif
 
-
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

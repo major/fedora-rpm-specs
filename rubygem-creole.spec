@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.5.0
-Release: 18%{?dist}
+Release: 19%{?dist}
 Summary: Lightweight markup language
 # README.creole says "the same license as Ruby" and "Copyright (c) 2008", so we
 # assume "GPLv2 or Ruby". It was Ruby 1.9.3 that made the transition to "Ruby
@@ -83,6 +83,9 @@ popd
 %exclude %{gem_instdir}/test
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

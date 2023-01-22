@@ -7,7 +7,7 @@
 
 Name:           perl-PDF-Builder
 Version:        3.024
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
 # lib/PDF/Builder/Basic/PDF/Pages.pm:   MIT OR Artistic-1.0-Perl
@@ -194,6 +194,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.024-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Petr Pisar <ppisar@redhat.com> - 3.024-2
 - Adapt tests to EPEL9 (bug #2158422)
 

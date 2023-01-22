@@ -1,6 +1,6 @@
 Name:           perl-Pod-Spell
 Version:        1.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A formatter for spell-checking POD
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Pod-Spell
@@ -101,6 +101,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 05 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.25-1
 - 1.25 bump
 

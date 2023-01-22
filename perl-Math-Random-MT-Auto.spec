@@ -1,6 +1,6 @@
 Name:           perl-Math-Random-MT-Auto
 Version:        6.23
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Auto-seeded Mersenne Twister PRNGs
 License:        BSD 
 URL:            https://metacpan.org/release/Math-Random-MT-Auto
@@ -79,6 +79,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.23-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.23-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

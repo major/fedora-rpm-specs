@@ -10,7 +10,7 @@ a wide range of target languages.
 
 Name: python-%{pypi_name}
 Version: 0.10
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A new way to develop parsers for binary structures
 License: MIT
 URL: https://kaitai.io
@@ -46,6 +46,9 @@ rm -r %{pypi_name}.egg-info
 %{python3_sitelib}/__pycache__/%{pypi_name}.cpython-%{python3_version_nodots}*.pyc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

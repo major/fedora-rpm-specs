@@ -5,7 +5,7 @@
 
 Name:           rust-sevctl
 Version:        0.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Administrative utility for AMD SEV
 
 License:        Apache-2.0
@@ -63,6 +63,9 @@ cp -pav %{SOURCE1} .
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Tyler Fanelli <tfanelli@redhat.com> - 0.3.2-1
 - Update to 0.3.2 (rhbz#2143857)
 

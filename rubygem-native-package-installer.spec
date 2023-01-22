@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.1.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Native packages installation helper
 
 License:	LGPLv3+
@@ -77,6 +77,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.5-1
 - 1.1.5
 

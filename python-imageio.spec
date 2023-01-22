@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 2.22.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Python IO of image, video, scientific, and volumetric data formats.
 License: BSD
 URL: https://imageio.github.io
@@ -47,6 +47,9 @@ BuildRequires: python3-setuptools
 %exclude %{_bindir}/imageio*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Sergio Pascual <sergiopr@fedoraproject.org> - 2.22.4-1
 - New upstream source (2.22.4)
 

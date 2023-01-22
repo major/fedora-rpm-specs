@@ -2,10 +2,10 @@
 
 Summary:   A drop in replacement for xpyb, an XCB python binding
 Name:      python-xcffib
-Version:   0.11.1
-Release:   5%{?dist}
+Version:   1.2.0
+Release:   1%{?dist}
 Source0:   %{pypi_source}
-License:   ASL 2.0
+License:   Apache-2.0
 URL:       https://github.com/tych0/xcffib
 BuildArch: noarch
 
@@ -13,7 +13,6 @@ BuildRequires:  libxcb-devel
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-pycparser
 BuildRequires:  python3-cffi >= 1.1.2
 BuildRequires:  python3-six
 
@@ -28,7 +27,6 @@ the 29 (xprint and xkb are missing) X extensions in 1.10.
 
 %package -n python3-xcffib
 Summary: A drop in replacement for xpyb, an XCB python binding
-Requires:  python3-six
 Requires:  python3-cffi
 Requires:  libxcb
 
@@ -60,6 +58,10 @@ the 29 (xprint and xkb are missing) X extensions in 1.10.
 
 
 %changelog
+* Fri Jan 20 2023 Orion Poplawski <orion@nwra.com> - 1.2.0-1
+- Update to 1.2.0
+- Use SPDX License tag
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

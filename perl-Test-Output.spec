@@ -3,7 +3,7 @@
 Name:           perl-Test-Output
 # Keep 2-digit precision
 Version:        %(echo '%{cpan_version}' | sed 's/\(\...\)\(.\)/\1.\2/')
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Utilities to test STDOUT and STDERR messages
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-Output
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Test::Output.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.03.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -285,7 +285,7 @@
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
 Version: %{releasever}.4
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -1159,6 +1159,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 15 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-6
 - Fix pkgconfig files bugs /2 (rhbz#2060414)
 

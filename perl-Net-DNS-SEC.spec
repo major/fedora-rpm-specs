@@ -1,6 +1,6 @@
 Name:           perl-Net-DNS-SEC
 Version:        1.20
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        DNSSEC modules for Perl
 License:        MIT
 URL:            https://metacpan.org/release/Net-DNS-SEC
@@ -71,6 +71,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

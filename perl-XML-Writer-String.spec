@@ -1,6 +1,6 @@
 Name:           perl-XML-Writer-String
 Version:        0.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Capture output from XML::Writer module
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/XML-Writer-String
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

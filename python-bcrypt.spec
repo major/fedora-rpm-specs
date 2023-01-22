@@ -6,7 +6,7 @@
 
 Name:               python-bcrypt
 Version:            3.2.2
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            %{sum}
 
 #crypt_blowfish code is in Public domain and all other code in ASL 2.0
@@ -67,6 +67,9 @@ find %{buildroot}%{python3_sitearch} -name '*.so' -exec chmod 755 {} ';'
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jul 25 2022 Miro Hrončok <mhroncok@redhat.com> - 3.2.2-4
 - Bump the obsoleted release of python3-py-bcrypt
 

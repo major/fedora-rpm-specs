@@ -6,7 +6,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.13.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        JOSE protocol implementation in Python
 
 License:        ASL 2.0
@@ -104,6 +104,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 docs/_build/man/*.1*
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

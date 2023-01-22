@@ -1,10 +1,12 @@
 Name:		  lxcfs
-Version:	  5.0.2
-Release:	  2%{?dist}
+Version:	  5.0.3
+Release:	  1%{?dist}
 Summary:	  FUSE based filesystem for LXC
 License:	  ASL 2.0
 URL:		  https://linuxcontainers.org/lxcfs
-Source0:	  https://linuxcontainers.org/downloads/%{name}/%{name}-%{version}.tar.gz
+Source:	  	  https://linuxcontainers.org/downloads/%{name}/%{name}-%{version}.tar.gz
+# revert https://github.com/lxc/lxcfs/pull/555
+Patch: 		  lxcfs-5.0.3-fix-service.patch
 BuildRequires:	  meson
 BuildRequires:	  gcc
 BuildRequires:	  python3-jinja2
@@ -75,6 +77,9 @@ mkdir -p %{buildroot}%{_sharedstatedir}/%{name}
 
 
 %changelog
+* Fri Jan 20 2023 Thomas Moschny <thomas.moschny@gmx.de> - 5.0.3-1
+- Update to 5.0.3.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

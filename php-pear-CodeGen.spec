@@ -4,7 +4,7 @@
 Summary:           Framework to create code generators that operate on XML descriptions
 Name:              php-pear-%{pear_name}
 Version:           1.0.7
-Release:           25%{?dist}
+Release:           26%{?dist}
 License:           PHP
 URL:               https://pear.php.net/package/%{pear_name}
 Source0:           https://pear.php.net/get/%{pear_name}-%{version}.tgz
@@ -61,6 +61,9 @@ fi
 %{pear_phpdir}/%{pear_name}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

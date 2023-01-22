@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Easy
 Version:        0.02
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HTTP helpers for Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/dist/HTTP-Easy
@@ -50,6 +50,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug  4 2022 Yanko Kaneti <yaneti@declera.com> - 0.02-2
 - Address review issues (#2111647)
 

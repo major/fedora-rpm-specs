@@ -23,7 +23,7 @@
 
 Name:           php-%{gh_project}
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD
@@ -169,6 +169,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

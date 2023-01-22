@@ -3,7 +3,7 @@
 
 Name:       python-distlib
 Version:    0.3.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Low-level components of distutils2/packaging, augmented with higher-level APIs
 
 License:    Python
@@ -67,6 +67,9 @@ export SKIP_ONLINE=1
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 27 2022 Lumír Balhar <lbalhar@redhat.com> - 0.3.6-1
 - Update to 0.3.6
 

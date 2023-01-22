@@ -28,7 +28,7 @@
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
 Version:        4.15.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -151,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Remi Collet <remi@remirepo.net> - 4.15.3-1
 - update to 4.15.3
 

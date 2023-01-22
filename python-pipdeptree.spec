@@ -7,7 +7,7 @@ globally on a machine as well as in a virtualenv.
 
 Name:           python-%{srcname}
 Version:        2.3.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Command line utility to show dependency tree of packages
 
 License:        MIT
@@ -57,6 +57,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION="%{version}"
 %{_bindir}/pipdeptree
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 2.3.3-1
 - Update to 2.3.3
 Resolves: rhbz#2138912

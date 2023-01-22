@@ -1,7 +1,7 @@
 Summary:	Hashes (and objects based on hashes) with encrypting fields
 Name:		perl-Tie-EncryptedHash
 Version:	1.24
-Release:	39%{?dist}
+Release:	40%{?dist}
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Tie-EncryptedHash
 Source0:	https://cpan.metacpan.org/modules/by-module/Tie/Tie-EncryptedHash-%{version}.tar.gz
@@ -72,6 +72,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/Tie::EncryptedHash.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

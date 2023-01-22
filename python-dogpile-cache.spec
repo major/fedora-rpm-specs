@@ -23,7 +23,7 @@ heap.
 
 Name:               python-dogpile-cache
 Version:            1.1.8
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            %{sum}
 
 License:            MIT
@@ -87,6 +87,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-%{version}-*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 18 2022 Kevin Fenzi <kevin@scrye.com> - 1.1.8-1
 - Update to 1.1.8. Fixes rhbz#2095790
 

@@ -1,6 +1,6 @@
 Name:           perl-WWW-Splunk
 Version:        2.08
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Client for Splunk log search engine
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WWW-Splunk
@@ -77,6 +77,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.08-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 03 2022 Michal Josef Špaček <mspacek@redhat.com> - 2.08-17
 - Package tests
 - Update license format to SPDX

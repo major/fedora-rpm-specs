@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.15
 Version:        0.15.44
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Parser for Rust source code
 
 # Upstream license specification: MIT OR Apache-2.0
@@ -203,6 +203,9 @@ which use "visit-mut" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.44-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.44-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

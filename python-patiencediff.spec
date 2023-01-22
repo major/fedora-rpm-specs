@@ -1,16 +1,15 @@
 %global pypi_name patiencediff
-Name:           python-%{pypi_name}
-Version:        0.2.6
+Name:           python-patiencediff
+Version:        0.2.12
 Release:        1%{?dist}
 Summary:        Python implementation of the patiencediff algorithm
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.breezy-vcs.org/
-Source0:        %{pypi_source}
+Source:         %{pypi_source}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  gcc
+BuildRequires:  python3-devel
 
 %global _description %{expand:
 This package contains the implementation of the patiencediff algorithm, as
@@ -22,31 +21,40 @@ humans, and implementation simplicity.}
 
 %description %_description
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-patiencediff
 Summary:        %{summary}
 
-%description -n python3-%{pypi_name} %_description
+%description -n python3-patiencediff %_description
 
 
 %prep
-%autosetup -p1 -n %{pypi_name}-%{version}
+%autosetup -p1 -n patiencediff-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files patiencediff
 
 %check
-%{python3} setup.py test
+%py3_test_envvars %{python3} -m unittest patiencediff.test_patiencediff
 
-%files -n python3-%{pypi_name}
-%license COPYING
+%files -n python3-patiencediff -f %{pyproject_files}
 %doc README.rst
-%{python3_sitearch}/%{pypi_name}/
-%{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
+%{_bindir}/patiencediff
 
 %changelog
+* Mon Jan 16 2023 Ondřej Pohořelský <opohorel@redhat.com> - 0.2.12-1
+- Update to 0.2.12
+- Migrate to the newest python macros
+- Convert license to SPDX
+- Resolves: rhbz#2137836
+
 * Wed Oct 19 2022 Ondřej Pohořelský <opohorel@redhat.com> - 0.2.6-1
 - Update to 0.2.6
 - Resolves: rhbz#2135936

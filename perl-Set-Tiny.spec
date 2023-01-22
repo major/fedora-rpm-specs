@@ -1,6 +1,6 @@
 Name:           perl-Set-Tiny
 Version:        0.04
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Simple sets of strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Set-Tiny
@@ -40,6 +40,9 @@ checking whether one is contained within the other.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.04-24
 - Modernize spec.
 - Convert license to SPDX.

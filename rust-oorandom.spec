@@ -6,7 +6,7 @@
 
 Name:           rust-oorandom
 Version:        11.1.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Tiny, robust PRNG implementation
 
 License:        MIT
@@ -65,6 +65,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.1.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Kalev Lember <klember@redhat.com> - 11.1.3-6
 - Re-generate packaging with rust2rpm 23
 

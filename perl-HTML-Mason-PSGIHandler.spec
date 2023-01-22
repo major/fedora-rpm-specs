@@ -1,6 +1,6 @@
 Name:           perl-HTML-Mason-PSGIHandler
 Version:        0.53
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        PSGI handler for HTML::Mason
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTML-Mason-PSGIHandler
@@ -55,6 +55,9 @@ web servers that support PSGI.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.53-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.53-29
 - Modernize spec.
 - Convert license to SPDX.

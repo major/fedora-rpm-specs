@@ -1,6 +1,6 @@
 Name:           perl-Struct-Dumb
 Version:        0.13
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Make simple lightweight record-like structures
 License:        GPL+ or Artistic
 
@@ -51,6 +51,9 @@ that access or modify the values stored.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 28 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 0.13-1
 - Update to 0.13
 

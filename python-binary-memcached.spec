@@ -4,7 +4,7 @@
 
 Name:           %{module}
 Version:        0.31.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module python-binary-memcached
 
 License:        MIT
@@ -13,6 +13,8 @@ Source:         https://github.com/jaysonsantos/%{module}/archive/refs/tags/v%{v
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-six
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-m2r
 BuildRequires:  python3-flake8
@@ -54,6 +56,9 @@ Requires:  memcached
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Alfredo Moralejo <amoralej@redhat.com> - 0.31.1-1
 - Initial build with version 0.31.1
 

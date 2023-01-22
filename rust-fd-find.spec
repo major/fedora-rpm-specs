@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        8.2.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple, fast and user-friendly alternative to find
 
 # Upstream license specification: MIT/Apache-2.0
@@ -81,6 +81,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions \
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fabio Valentini <decathorpe@gmail.com> - 8.2.1-8
 - Bump lscolors from 0.7 to 0.10.
 

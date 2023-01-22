@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Bindings to netmap - the fast packet I/O framework
 
 # Upstream license specification: BSD-2-Clause
@@ -79,6 +79,9 @@ which use "netmap_with_libs" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

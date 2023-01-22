@@ -3,7 +3,7 @@
 
 Name:           python-deepdiff
 Version:        6.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Deep Difference and search of any Python object/data
 License:        MIT
 URL:            https://github.com/seperman/deepdiff/
@@ -80,6 +80,9 @@ rm -rf docs/_build/html/.{doctrees,buildinfo}
 %{python3_sitelib}/deepdiff-%{version}-py*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 01 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 6.1.0-1
 - Update to 6.1.0.
 

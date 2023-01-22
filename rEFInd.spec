@@ -31,7 +31,7 @@ Linux kernels that provide EFI stub support.
 
 Name:		rEFInd
 Version:	0.13.3.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	User friendly EFI boot manager
 License:	GPL-3.0-or-later
 
@@ -174,6 +174,9 @@ echo "no need to install this update in the ESP."                       >> READM
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.13.3.1-5
 - Make sure rEFInd metapackage pulls in correct bootloader package (rhbz#2157177)
 - Fix syntax error in refind-install caused by efi-size detection patch (rhbz#2157178)

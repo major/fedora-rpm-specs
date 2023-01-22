@@ -7,7 +7,7 @@
 
 Name:           python-%{pkg_name}
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Classes for orchestrating Python (virtual) environments
 
 License:        MIT
@@ -94,6 +94,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif # with docs
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 19 2022 Charalampos Stratakis <cstratak@redhat.com> - 2.4.0-1
 - Update to 2.4.0
 Resolves: rhbz#2080532

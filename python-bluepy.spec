@@ -5,7 +5,7 @@ access to Bluetooth Low Energy devices from Python.}
 
 Name:           python-bluepy
 Version:        1.3.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python interface to Bluetooth LE
 
 #bluepy uses code from the bluez project, which is made available under
@@ -75,6 +75,9 @@ done
 %doc docs/_build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

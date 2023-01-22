@@ -12,7 +12,7 @@
 
 Name:           perl-Wx
 Version:        0.9932
-Release:        25%{?dist}
+Release:        27%{?dist}
 Summary:        Interface to the wxWidgets cross-platform GUI toolkit
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Wx
@@ -21,7 +21,9 @@ Source0:        https://cpan.metacpan.org/authors/id/M/MD/MDOOTSON/Wx-%{version}
 # wxGTK, CPAN RT#121464, <http://trac.wxwidgets.org/ticket/13599>.
 Patch0:         Wx-0.9932-Undefine-BOM_UTF8.patch
 Patch1:         gtk3.patch
-BuildRequires: make
+Patch2:         wxWidgets_3.2_MakeMaker.patch
+Patch3:         wxWidgets_3.2_port.patch
+BuildRequires:  make
 BuildRequires:  wxGTK3-devel
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -43,6 +45,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More), perl(Test::Harness)
 BuildRequires:  perl(Test::Pod)
 BuildRequires:  perl(YAML) >= 0.35
+BuildRequires:  dos2unix
 
 
 # Manual provides from XS
@@ -671,6 +674,13 @@ you can download it from http://wxperl.sourceforge.net/.
 %setup -q -n Wx-%{version}
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
+
+# Hooray for line ending differences.
+dos2unix MANIFEST
+dos2unix typemap
+
+%patch3 -p1 -b .port
 
 chmod -c a-x README.txt docs/todo.txt samples/*/*.pl
 find . -type f -name "*.pm" -o -name "*.h" -o -name "*.cpp" |
@@ -714,6 +724,12 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Jan 20 2023 Scott Talbert <swt@techie.net> - 0.9932-27
+- Rebuild with wxWidgets 3.2
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9932-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9932-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

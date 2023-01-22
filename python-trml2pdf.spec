@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.6
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	LGPLv2
 Summary:	Easy creating PDF using ReportLab's RML
 URL:		https://github.com/romanlv/trml2pdf
@@ -54,6 +54,9 @@ Open source implementation of RML (Report Markup Language) from ReportLab
 %{_mandir}/man1/trml2pdf.1.*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -26,7 +26,7 @@
 
 Name:           php-phpunit-PHP-CodeCoverage
 Version:        %{major}.%{minor}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        PHP code coverage information
 
 License:        BSD
@@ -197,6 +197,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.8-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.8-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

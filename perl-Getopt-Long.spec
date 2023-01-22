@@ -1,7 +1,7 @@
 Name:           perl-Getopt-Long
 Epoch:          1
 Version:        2.54
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extended processing of command line options
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Getopt-Long
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.54-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1:2.54-1
 - 2.54 bump
 

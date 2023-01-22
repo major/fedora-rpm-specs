@@ -5,7 +5,7 @@
 Summary: Application for remote coredump analysis
 Name: retrace-server
 Version: 1.24.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2+
 URL: https://github.com/abrt/retrace-server
 Source0: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -246,6 +246,9 @@ exit 0
 %license COPYING
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 18 2022 Packit <hello@packit.dev> - 1.24.2-1
 - Release version 1.24.2-1 (Matěj Grabovský)
 - stats: Fix Releases counting by using wildcard at end and add el9 (Dave Wysochanski)

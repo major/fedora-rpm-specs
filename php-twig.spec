@@ -31,7 +31,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       The flexible, fast, and secure template engine for PHP
 
 License:       BSD
@@ -179,6 +179,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.44.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 29 2022 Remi Collet <remi@remirepo.net> - 1.44.7-1
 - update to 1.44.7
 

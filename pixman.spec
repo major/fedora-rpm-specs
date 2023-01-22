@@ -3,7 +3,7 @@
 
 Name:           pixman
 Version:        0.40.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Pixel manipulation library
 
 License:        MIT
@@ -64,6 +64,9 @@ sed -i 's/120/600/' test/meson.build
 %{_libdir}/pkgconfig/pixman-1.pc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.40.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        5.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensible memoizing collections and decorators
 
 License:        MIT
@@ -52,6 +52,9 @@ BuildRequires:  python3-setuptools
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan  9 2023 John Eckersberg <jeckersb@redhat.com> - 5.2.1-1
 - New upstream release 5.2.1 (rhbz#2159140)
 

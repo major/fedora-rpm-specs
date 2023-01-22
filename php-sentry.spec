@@ -39,7 +39,7 @@
 
 Name:          php-%{composer_project}
 Version:       %{github_version}
-Release:       15%{?github_release}%{?dist}
+Release:       16%{?github_release}%{?dist}
 Summary:       PHP client for Sentry
 
 # ASL 2.0:
@@ -205,6 +205,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

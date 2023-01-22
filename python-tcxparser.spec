@@ -11,7 +11,7 @@ attributes of sport activity.}
 
 Name:           python-%{pretty_name}
 Version:        2.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tcxparser is a minimal parser for Garmin TCX file format
 
 License:        BSD
@@ -55,6 +55,9 @@ python3 -m unittest
 %doc README.rst AUTHORS.rst CHANGES.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 31 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 2.3.0-1
 - Upgrade to 2.3.0
 

@@ -18,7 +18,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.38.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Built-package format for Python
 
@@ -129,6 +129,9 @@ rm setup.cfg  # to drop pytest coverage options configured there
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.38.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Lumír Balhar <lbalhar@redhat.com> - 1:0.38.4-1
 - Update to 0.38.4 (rhbz#2136627)
 

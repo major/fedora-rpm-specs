@@ -7,7 +7,7 @@ a "user data dir".}
 
 Name:           python-%{srcname}
 Version:        2.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module for determining appropriate platform-specific dirs
 License:        MIT
 URL:            https://github.com/platformdirs/platformdirs
@@ -64,6 +64,9 @@ sed -r -i '/^[[:blank:]]*"pytest-cov\b/d' pyproject.toml
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Lumír Balhar <lbalhar@redhat.com> - 2.6.0-1
 - Update to 2.6.0 (rhbz#2151438)
 

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Add color methods to String class
 License: GPLv2
 URL: https://github.com/fazibear/colorize
@@ -63,6 +63,9 @@ ruby -Ilib -e 'Dir.glob "./test/test_*.rb", &method(:require)'
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

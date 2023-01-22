@@ -1,6 +1,6 @@
 Name:           perl-Pegex
 Version:        0.75
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Pegex Parser Generator
 # inc/lib/TestML:       GPL-1.0-or-later OR Artistic-1.0-Perl (bundled from
 #                       TestML-0.46)
@@ -129,6 +129,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.75-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Petr Pisar <ppisar@redhat.com> - 0.75-11
 - Specify all dependencies
 - Package the tests

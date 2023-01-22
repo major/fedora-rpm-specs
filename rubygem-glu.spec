@@ -4,7 +4,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	8.3.0
-Release:	22%{?dist}
+Release:	23%{?dist}
 
 Summary:	Glu bindings for the opengl gem
 License:	MIT
@@ -103,6 +103,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.0-22
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

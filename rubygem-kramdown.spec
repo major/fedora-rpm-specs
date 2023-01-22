@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.4.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Fast, pure-Ruby Markdown-superset converter
 
 License:	MIT
@@ -118,6 +118,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan  8 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4.0-5
 - Skip one test failing with texlive 2022, due to perhaps font issue
 

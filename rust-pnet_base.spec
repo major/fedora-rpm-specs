@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.27.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fundamental base types and code used by pnet
 
 # Upstream license specification: MIT/Apache-2.0
@@ -82,6 +82,9 @@ which use "serde" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

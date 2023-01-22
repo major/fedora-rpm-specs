@@ -1,7 +1,7 @@
 Name:           perl-HTML-FormFu-Model-DBIC
 Summary:        Integrate HTML::FormFu with DBIx::Class
 Version:        2.03
-Release:        16%{?dist}
+Release:        17%{?dist}
 License:        GPL+ or Artistic
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFRANKS/HTML-FormFu-Model-DBIC-%{version}.tar.gz
 URL:            https://metacpan.org/release/HTML-FormFu-Model-DBIC
@@ -83,6 +83,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

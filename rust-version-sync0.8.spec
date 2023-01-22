@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.8
 Version:        0.8.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple crate for ensuring that version numbers in README files are updated
 
 # Upstream license specification: MIT
@@ -78,6 +78,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

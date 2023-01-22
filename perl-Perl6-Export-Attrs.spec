@@ -1,7 +1,7 @@
 Name:           perl-Perl6-Export-Attrs
 Summary:        Perl 6 'is export(...)' trait as a Perl 5 attribute
 Version:        0.000006
-Release:        15%{?dist}
+Release:        16%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perl6-Export-Attrs
 Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCONWAY/Perl6-Export-Attrs-%{version}.tar.gz
@@ -51,6 +51,9 @@ mechanism will look like.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.000006-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.000006-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

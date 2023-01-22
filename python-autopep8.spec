@@ -3,7 +3,7 @@
 
 Name:           python-autopep8
 Version:        1.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        The package autopep8 formats Python code based on the output of the pep8 utility
 
 License:        MIT
@@ -57,6 +57,9 @@ popd
 %{_bindir}/%{pypi_name}-%{python3_version}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

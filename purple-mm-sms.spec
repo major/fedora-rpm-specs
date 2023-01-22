@@ -1,6 +1,6 @@
 Name:           purple-mm-sms
 Version:        0.1.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A libpurple plugin for sending and receiving SMS via ModemManager
 
 License:        GPLv3+
@@ -42,6 +42,9 @@ cp %{SOURCE1} %{buildroot}/usr/share/licenses/purple-mm-sms/COPYING
 %license COPYING
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

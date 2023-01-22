@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            3.19.5
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Slack Developer Kit for Python
 
 License:            MIT
@@ -54,6 +54,9 @@ Python %{python3_pkgversion} version.
 %{python3_sitelib}/slack_sdk-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.19.5-1
 - 3.19.5
 

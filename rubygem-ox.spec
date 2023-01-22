@@ -1,15 +1,15 @@
 %global gem_name ox
 
 Name:           rubygem-%{gem_name}
-Version:        2.14.12
-Release:        2%{?dist}
+Version:        2.14.13
+Release:        1%{?dist}
 Summary:        Fast XML parser and object serializer
 
 License:        MIT
 URL:            http://www.ohler.com/ox
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/ohler55/ox && cd ox
-# git archive -v -o rubygem-ox-2.14.12-repo.tgz v2.14.12 test/ examples/
+# git archive -v -o rubygem-ox-2.14.13-repo.tgz v2.14.13 test/ examples/
 Source1:        %{name}-%{version}-repo.tgz
 
 BuildRequires:  gcc
@@ -95,6 +95,12 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 František Dvořák <valtri@civ.zcu.cz> - 2.14.13-1
+- Update to 2.14.13 (#2161449)
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.14.12-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

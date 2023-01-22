@@ -13,7 +13,7 @@
 
 Name:           php-pear-Net-Sieve
 Version:        1.4.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Handles talking to a sieve server
 
 License:        BSD
@@ -81,6 +81,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec  6 2022 Remi Collet <remi@remirepo.net> - 1.4.6-1
 - update to 1.4.6
 

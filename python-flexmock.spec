@@ -1,6 +1,6 @@
 Name:           python-flexmock
 Version:        0.11.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Testing library that makes it easy to create mocks, stubs and fakes
 
 License:        BSD-2-Clause-Views
@@ -68,6 +68,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/{LICENSE,docs,*.md,tests}
 %doc README.md CHANGELOG.md docs/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Hunor Csomortáni <csomh@redhat.com> - 0.11.3-4
 - Migrate license to SPDX format
 

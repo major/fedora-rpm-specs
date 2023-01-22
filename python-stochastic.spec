@@ -17,7 +17,7 @@ using the Euler-Maruyama method.}
 
 Name:           python-%{pypi_name}
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Generate realizations of stochastic processes in python
 
 License:        MIT
@@ -96,6 +96,9 @@ toml-adapt -path pyproject.toml -a change -dep ALL -ver X
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

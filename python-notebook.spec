@@ -7,7 +7,7 @@ Name:           python-notebook
 
 # Updating this package? Update the list of bundled things bellow
 Version:        6.4.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A web-based notebook environment for interactive computing
 License:        BSD
 URL:            https://jupyter.org
@@ -186,6 +186,9 @@ end
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 03 2022 Karolina Surma <ksurma@redhat.com> - 6.4.12-1
 - Update to 6.4.12
 

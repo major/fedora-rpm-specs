@@ -9,7 +9,7 @@ formats found in the wild are supported, as are VERP and RFC 3464 (DSN).
 
 Name:           python-%{pkgname}
 Version:        3.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{summary}
 
 License:        ASL 2.0
@@ -100,6 +100,9 @@ rm -rf %{buildroot}%{_prefix}/lib*/python*/site-packages/flufl/bounce/{*.rst,doc
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

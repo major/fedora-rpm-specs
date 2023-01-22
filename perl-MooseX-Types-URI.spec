@@ -1,6 +1,6 @@
 Name:          perl-MooseX-Types-URI
 Version:       0.09
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       URI related types and coercions for Moose
 # see lib/MooseX/Types/URI.pm
 License:       GPL+ or Artistic
@@ -74,6 +74,9 @@ ducktyping will work anyway (e.g. URI::WithBase does not inherit URI).
 %{_mandir}/man3/MooseX*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

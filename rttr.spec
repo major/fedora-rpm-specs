@@ -3,7 +3,7 @@
 
 Name:           rttr
 Version:        0.9.7
-Release:        0.3git%{shortcommit0}%{?dist}
+Release:        0.4git%{shortcommit0}%{?dist}
 Summary:        Run Time Type Reflection
 
 License:        MIT
@@ -112,6 +112,9 @@ rm -rf %{buildroot}%{_datadir}/rttr/{LICENSE.txt,README.md}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-0.4git7edbd58
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-0.3git7edbd58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

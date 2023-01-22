@@ -6,8 +6,8 @@
 %global         base_name   breeze
 
 Name:    plasma-breeze
-Version: 5.26.5
-Release: 1%{?dist}
+Version: 5.26.90
+Release: 2%{?dist}
 Summary: Artwork, styles and assets for the Breeze visual style for the Plasma Desktop
 
 License: GPLv2+
@@ -107,11 +107,14 @@ Provides:       breeze-cursor-themes = %{version}-%{release}
 %license LICENSES/*.txt
 %{_kf5_qtplugindir}/org.kde.kdecoration2/breezedecoration.so
 %{_kf5_qtplugindir}/styles/breeze.so
+%{_kf5_qtplugindir}/plasma/kcms/breeze/kcm_breezedecoration.so
+%{_kf5_qtplugindir}/plasma/kcms/systemsettings_qwidgets/breezestyleconfig.so
 %{_kf5_datadir}/kstyle/themes/breeze.themerc
-%{_kf5_qtplugindir}/kstyle_breeze_config.so
 %{_kf5_datadir}/kconf_update/breezehighcontrasttobreezedark.upd
 %{_kf5_datadir}/kconf_update/breezetobreezeclassic.upd
 %{_kf5_datadir}/kconf_update/breezetobreezelight.upd
+%{_kf5_datadir}/applications/breezestyleconfig.desktop
+%{_kf5_datadir}/applications/kcm_breezedecoration.desktop
 %{_kf5_libdir}/kconf_update_bin/breezehighcontrasttobreezedark
 %{_kf5_libdir}/kconf_update_bin/breezetobreezeclassic
 %{_kf5_libdir}/kconf_update_bin/breezetobreezelight
@@ -119,8 +122,6 @@ Provides:       breeze-cursor-themes = %{version}-%{release}
 %{_libdir}/libbreezecommon5.so.5*
 %{_bindir}/breeze-settings5
 %{_datadir}/icons/hicolor/*/apps/breeze-settings.*
-%{_kf5_datadir}/kservices5/breezedecorationconfig.desktop
-%{_kf5_datadir}/kservices5/breezestyleconfig.desktop
 # fedora does autodep on cmake-filesystem, others?
 %if ! 0%{?fedora}
 %dir %{_libdir}/cmake/
@@ -142,8 +143,13 @@ Provides:       breeze-cursor-themes = %{version}-%{release}
 %{_kf5_datadir}/icons/breeze_cursors/cursors/
 %{_kf5_datadir}/icons/breeze_cursors/index.theme
 
-
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

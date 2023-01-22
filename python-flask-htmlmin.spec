@@ -7,7 +7,7 @@ application.
 
 Name:       python-%{pkg_name}
 Version:    2.2.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Flask html response minifier
 License:    BSD
 URL:        https://github.com/hamidfzm/%{mod_name}
@@ -56,6 +56,9 @@ rm -rf %{pypi_name}.egg-info
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 26 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 2.2.1-1
 - Update to the latest release
 - Remove pytest-runner dependency

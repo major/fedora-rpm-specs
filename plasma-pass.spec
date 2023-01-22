@@ -4,7 +4,7 @@
 
 Name:           plasma-pass
 Version:        1.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Plasma applet to access passwords from the Pass password manager
 License:        LGPLv2+
 URL:            https://invent.kde.org/plasma/%{name}.git
@@ -85,6 +85,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/kservices5/plasma-applet-org.kde.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

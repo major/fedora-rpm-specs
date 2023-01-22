@@ -17,7 +17,7 @@
 Name: python-%{pkgsuf}
 # See https://github.com/containers/python-podman/issues/27
 Version: 0.0.0
-Release: 0.14.%{snapshot_date}git%{shortcommit}%{?dist}
+Release: 0.15.%{snapshot_date}git%{shortcommit}%{?dist}
 Summary: Python bindings for using Varlink access to Podman Service
 
 License: ASL 2.0
@@ -80,6 +80,9 @@ export PBR_VERSION="0.0.0"
 %{python3_sitelib}/%{srcname}-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0-0.15.20200614gitd4b8263
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0-0.14.20200614gitd4b8263
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

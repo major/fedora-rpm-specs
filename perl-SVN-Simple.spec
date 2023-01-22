@@ -1,6 +1,6 @@
 Name:           perl-SVN-Simple
 Version:        0.28
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A simple interface for writing a delta editor
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/SVN-Simple
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

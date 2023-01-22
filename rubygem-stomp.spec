@@ -3,7 +3,7 @@
 Summary: Ruby client for the Stomp messaging protocol
 Name: rubygem-%{gem_name}
 Version: 1.4.10
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: ASL 2.0
 URL: http://stomp.codehaus.org/
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -80,6 +80,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

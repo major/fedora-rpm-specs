@@ -1,6 +1,6 @@
 Name:           perl-Path-Dispatcher
 Version:        1.08
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Flexible and extensible dispatch
 License:        GPL+ or Artistic
 
@@ -66,6 +66,9 @@ running their code-blocks.
 %{_mandir}/man3/Path*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.08-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

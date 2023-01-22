@@ -64,7 +64,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       3%{?dist}
+Release:       4%{?dist}
 # Epoch bumped to permit downgrade to 1.1.7 due to breaking change in 1.1.8 from v2 to v3 google API bz#1386167
 Epoch:         2
 Summary:       Client library for Google APIs
@@ -248,6 +248,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.10.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.10.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-HTML-HTML5-Parser
 Version:        0.992
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Parse HTML reliably
 # COPYRIGHT:    Public Domain
 # other files:  GPL+ or Artistic
@@ -91,6 +91,9 @@ HTML parser with XML::LibXML-like DOM interface.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.992-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.992-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

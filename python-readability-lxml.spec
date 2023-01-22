@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fast html to text parser (article readability tool)
 
 License:        ASL 2.0
@@ -72,6 +72,9 @@ done
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0
-Release:        %{?betaver:0.}1%{dotbetaver}%{?dist}.8
+Release:        %{?betaver:0.}1%{dotbetaver}%{?dist}.9
 Summary:        Pluggable search for Django
 
 License:        BSD
@@ -108,6 +108,9 @@ find . -name "last_build" -exec rm -f {} \;
 %doc docs/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-0.1.b2.9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-0.1.b2.8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           perl-IO-CaptureOutput
 Version:        1.1105
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Capture STDOUT/STDERR from sub-processes and XS/C modules
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/IO-CaptureOutput
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/IO::CaptureOutput.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1105-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1105-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

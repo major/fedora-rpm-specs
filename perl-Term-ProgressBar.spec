@@ -1,6 +1,6 @@
 Name:           perl-Term-ProgressBar
 Version:        2.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provide a progress meter on a standard terminal
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-ProgressBar
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.23-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.23-1
 - 2.23 bump
 - Package tests

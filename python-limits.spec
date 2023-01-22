@@ -29,7 +29,7 @@ limiting with commonly used storage backends
 
 Name:           python-%{pypi_name}
 Version:        2.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Utilities to implement rate limiting using various strategies
 
 # SPDX
@@ -120,6 +120,9 @@ sed -r -i '/(paramlinks)/d' doc/source/conf.py
 # Cannot use remote intersphinx inventories in offline build:
 echo 'intersphinx_mapping.clear()' >> doc/source/conf.py
 
+# Relax packaging version constraint
+sed -i 's/packaging>=21,<23/packaging>=21,<24/' requirements/main.txt
+
 %generate_buildrequires
 %if %{with async_redis} && %{with async_memcached} && %{with async_mongodb} && %{with redis}
 %pyproject_buildrequires -x all %{?with_tests:requirements/test-filtered.txt}
@@ -183,6 +186,9 @@ m="${m-}${m+ and }not memcached"
 
 
 %changelog
+* Fri Jan 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.8.0-2
+- Relax packaging version constraint
+
 * Tue Dec 27 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-1
 - Drop F35 conditionals
 - Update to 2.8.0 (close RHBZ#2152428)

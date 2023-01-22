@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}0.5
 Version:        0.5.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Simple Parsing Expression Grammar (PEG) parser generator
 
 # Upstream license specification: MIT
@@ -98,6 +98,9 @@ mv %{buildroot}/%{_bindir}/rust-peg %{buildroot}/%{_bindir}/rust-peg-0.5
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

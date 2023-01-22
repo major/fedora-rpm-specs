@@ -2,7 +2,7 @@
 
 Name:          python-%{modname}
 Version:       0.6.2
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Lightweight way of building RPMs, and sabotaging them
 
 License:       GPLv2+
@@ -53,6 +53,9 @@ python3 -m unittest %{modname}.test
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 18 2022 Jan Hutar <jhutar@redhat.com> - 0.6.2-1
 - Change deprecated distutils to setuptools
 

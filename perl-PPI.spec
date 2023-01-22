@@ -7,7 +7,7 @@
 
 Name:           perl-PPI
 Version:        1.276
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parse, Analyze and Manipulate Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PPI
@@ -93,6 +93,9 @@ make test
 %{_mandir}/man3/PPI*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.276-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.276-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

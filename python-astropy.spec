@@ -4,7 +4,7 @@
 
 Name: python-%{srcname}
 Version: 5.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A Community Python Library for Astronomy
 License: BSD
 
@@ -155,6 +155,9 @@ popd
 %license LICENSE.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Sergio Pascual <sergiopr@fedoraproject.org> - 5.2-2
 - Skip two tests in aarch64
 

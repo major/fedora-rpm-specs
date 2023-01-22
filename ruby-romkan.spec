@@ -4,7 +4,7 @@
 
 Name:		ruby-romkan
 Version:	0.4
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Romaji <-> Kana conversion library for Ruby
 License:	Ruby
 URL:		http://0xcc.net/ruby-romkan/
@@ -52,6 +52,9 @@ sh test.sh
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

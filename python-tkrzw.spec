@@ -2,7 +2,7 @@
 
 Name:		python-%{module}
 Version:	0.1.28
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	ASL 2.0
 Summary:	TKRZW Python bindings
 URL:		https://dbmx.net/tkrzw/
@@ -78,6 +78,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.28-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.28-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

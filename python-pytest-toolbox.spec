@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Numerous useful plugins for pytest
 
 License:        MIT
@@ -49,6 +49,9 @@ rm -rf %{buildroot}%{python3_sitelib}/pytest_toolbox/__pycache__/*.cpython-%{pyt
 %{python3_sitelib}/pytest_toolbox-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

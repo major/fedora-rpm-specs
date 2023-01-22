@@ -1,6 +1,6 @@
 Name:           ptrash
 Version:        1.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Move file(s) to $XDG_DATA_HOME/Trash directory
 
 License:        GPLv2+
@@ -40,6 +40,9 @@ rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

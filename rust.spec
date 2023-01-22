@@ -84,7 +84,7 @@
 
 Name:           rust
 Version:        1.66.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -1056,6 +1056,9 @@ end}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.66.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Josh Stone <jistone@redhat.com> - 1.66.1-1
 - Update to 1.66.1.
 - Security fix for CVE-2022-46176

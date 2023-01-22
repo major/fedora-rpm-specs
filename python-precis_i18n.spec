@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for internationalized usernames and passwords
 
 License:        MIT
@@ -59,6 +59,9 @@ Summary:        %{summary}
 %doc README.rst CHANGELOG.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 07 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.0.5-1
 - Update to 1.0.5
 - Update to newer Python packaging guidelines

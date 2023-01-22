@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Thin-wrapper around the mock package for easier use with py.test
 
 License:        MIT
@@ -59,6 +59,9 @@ sed -i "s/import py\.code//" tests/test_pytest_mock.py
 %{python3_sitelib}/%{file_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Lumír Balhar <lbalhar@redhat.com> - 3.10.0-1
 - Update to 3.10.0
 Resolves: rhbz#2132453

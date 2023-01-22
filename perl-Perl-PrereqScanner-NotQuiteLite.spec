@@ -1,6 +1,6 @@
 Name:		perl-Perl-PrereqScanner-NotQuiteLite
 Version:	0.9916
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A tool to scan your Perl code for its prerequisites
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Perl-PrereqScanner-NotQuiteLite
@@ -124,6 +124,9 @@ make test
 %{_mandir}/man3/Perl::PrereqScanner::NotQuiteLite::Util::Prereqs.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9916-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9916-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

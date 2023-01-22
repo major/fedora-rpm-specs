@@ -28,7 +28,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Diff implementation
 
 License:        BSD
@@ -118,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug  3 2022 Remi Collet <remi@remirepo.net> - 3.0.3-6
 - fix test suite with recent symfony, FTBFS #2113592
 

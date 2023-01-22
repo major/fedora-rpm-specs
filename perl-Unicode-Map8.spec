@@ -1,6 +1,6 @@
 Name:           perl-Unicode-Map8
 Version:        0.13
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Mapping table between 8-bit chars and Unicode for Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Unicode-Map8
@@ -78,6 +78,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

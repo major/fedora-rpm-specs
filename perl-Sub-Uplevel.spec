@@ -2,7 +2,7 @@ Name:           perl-Sub-Uplevel
 Summary:        Apparently run a function in a higher stack frame
 Epoch:          1
 Version:        0.2800
-Release:        18%{?dist}
+Release:        19%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Sub-Uplevel
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/Sub-Uplevel-%{version}.tar.gz 
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/Sub::Uplevel.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2800-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.2800-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

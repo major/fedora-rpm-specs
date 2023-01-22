@@ -9,7 +9,7 @@
 
 Name:           qdigidoc
 Version:        4.2.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Estonian digital signature and encryption application
 License:        LGPLv2+
 URL:            https://github.com/open-eid/DigiDoc4-Client
@@ -151,6 +151,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/qdigidoc4.desktop
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 16 2022 Germano Massullo <germano.massullo@gmail.com> - 4.2.12-2
 - adds dword_cast.patch
 

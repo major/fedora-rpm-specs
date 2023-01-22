@@ -1,6 +1,6 @@
 Name:           perl-Parse-MIME
 Version:        1.006
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Parse MIME types, match against media ranges
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Parse-MIME
@@ -76,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.006-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 17 2022 Petr Pisar <ppisar@redhat.com> - 1.006-1
 - 1.006 bump
 - Package the tests

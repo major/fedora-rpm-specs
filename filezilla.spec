@@ -1,18 +1,19 @@
 # Enable (1 = enabled/0 = disabled) if configure regeneration etc. is required.
-%define run_autogen 0
+%define run_autogen 1
 
 # Needs not yet packaged storj/uplink-c
 %bcond_with storj
 
 Name: filezilla
 Version: 3.62.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: FTP, FTPS and SFTP client
 License: GPLv2+
 URL: https://filezilla-project.org/
 
 Source0: https://download.filezilla-project.org/FileZilla_%{version}_src.tar.bz2
 #Patch0: appdata.patch
+Patch1: wxwidgets3.2.patch
 
 %if 0%{?rhel} == 8
 # libuv-devel not present on s390x on EL-8
@@ -41,7 +42,7 @@ BuildRequires: golang-storj-uplink-c-devel
 BuildRequires: nettle-devel
 BuildRequires: pugixml-devel >= 1.7
 BuildRequires: sqlite-devel
-BuildRequires: wxGTK3-devel >= 3.0.4
+BuildRequires: wxGTK-devel
 BuildRequires: xdg-utils
 BuildRequires: make
 
@@ -67,7 +68,7 @@ autoreconf -if
 
 %build
 # For wxGTK3 - needed to find wxrc
-export WXRC=%{_bindir}/wxrc-3.0
+export WXRC=%{_bindir}/wxrc-3.2
 
 # Do not use '--enable-buildtype=official' in configure. That option enables the
 # "check for updates" dialog to download new binaries from the official website.
@@ -76,7 +77,7 @@ export WXRC=%{_bindir}/wxrc-3.0
   --enable-locales \
   --disable-manualupdatecheck \
   --with-pugixml=system \
-  --with-wx-config=wx-config-3.0 \
+  --with-wx-config=wx-config-3.2 \
   --with-dbus \
   --enable-gnutlssystemciphers \
 %if %{with storj}
@@ -148,6 +149,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Thu Jan 19 2023 Scott Talbert <swt@techie.net> - 3.62.2-3
+- Rebuild with wxWidgets 3.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.62.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

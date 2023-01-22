@@ -1,7 +1,7 @@
 %global pypi_name boto3
 
 Name:           python-%{pypi_name}
-Version:        1.26.52
+Version:        1.26.53
 Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
@@ -47,6 +47,12 @@ rm -rf tests/integration
 %{python3_sitelib}/%{pypi_name}-%{version}-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.26.53-1
+- 1.26.53
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.52-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.26.52-1
 - 1.26.52
 

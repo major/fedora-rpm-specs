@@ -4,7 +4,7 @@
 
 Name:           plantumlqeditor
 Version:        1.2
-Release:        25.%{date}git%{shortcommit0}%{?dist}
+Release:        26.%{date}git%{shortcommit0}%{?dist}
 Summary:        Simple editor for PlantUML
 License:        GPLv3+
 URL:            https://sourceforge.net/projects/plantumlqeditor/
@@ -110,6 +110,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-26.20170403git964d4ef
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.2-25.20170403git964d4ef
 - Add BR javapackages-filesystem for substituting correctly %%{_javadir}
 

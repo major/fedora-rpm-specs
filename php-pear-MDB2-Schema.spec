@@ -4,7 +4,7 @@
 
 Name:           php-pear-MDB2-Schema
 Version:        0.8.5
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Database Abstraction Layer
 
 License:        BSD
@@ -82,6 +82,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

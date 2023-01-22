@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        13.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Line oriented search tool
 
 # Upstream license specification: Unlicense OR MIT
@@ -83,6 +83,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions \
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

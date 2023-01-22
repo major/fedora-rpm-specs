@@ -1,6 +1,6 @@
 Name:           perl-File-Tail
 Version:        1.3
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl extension for reading from continuously updated files
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/File-Tail
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/File::Tail.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

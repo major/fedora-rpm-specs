@@ -1,7 +1,7 @@
 Summary: Perl interface to the Amazon Elastic Compute Cloud (EC2)
 Name: perl-Net-Amazon-EC2
 Version: 0.36
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPL+ or Artistic
 URL: https://metacpan.org/release/Net-Amazon-EC2
 Source0: https://cpan.metacpan.org/authors/id/M/MA/MALLEN/Net-Amazon-EC2-%{version}.tar.gz
@@ -64,6 +64,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.36-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 Name:           perl-Alien-wxWidgets
 Version:        0.69
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Building, finding and using wxWidgets binaries
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Alien-wxWidgets
 Source0:        https://cpan.metacpan.org/authors/id/M/MB/MBARBON/Alien-wxWidgets-%{version}.tar.gz
 BuildRequires:  gcc, gcc-c++
-BuildRequires:  wxGTK3-devel
+BuildRequires:  wxGTK-devel
 # A lot of stuff used by inc/My/Build/Base.pm.
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
@@ -42,7 +42,7 @@ settings from an installed wxWidgets.
 
 
 %build
-export WX_CONFIG="%{_bindir}/wx-config-3.0"
+export WX_CONFIG="%{_bindir}/wx-config-3.2"
 %{__perl} Build.PL installdirs=vendor < /dev/null
 ./Build
 
@@ -62,6 +62,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Thu Jan 19 2023 Scott Talbert <swt@techie.net> - 0.69-23
+- Rebuild with wxWidgets 3.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.69-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

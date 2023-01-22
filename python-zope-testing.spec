@@ -3,7 +3,7 @@
 
 Name:           python-zope-testing
 Version:        5.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Zope Testing Framework
 License:        ZPLv2.1
 URL:            https://pypi.io/project/%{modname}
@@ -54,6 +54,9 @@ rm -f %{buildroot}%{python3_sitelib}/zope/__init__.py*
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Dan Radez <dradez@redhat.com> - 5.0.1-1
 - update to 5.0.1 (rhbz#2155219)
 

@@ -23,7 +23,7 @@
 
 Name:           php-%{gh_project}
 Version:        2.16.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD-3-Clause
@@ -192,6 +192,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.16.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan  3 2023 Remi Collet <remi@remirepo.net> - 2.16.0-1
 - update to 2.16.0
 

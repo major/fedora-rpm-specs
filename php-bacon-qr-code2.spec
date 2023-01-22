@@ -23,7 +23,7 @@
 
 Name:           php-%{pk_project}%{major}
 Version:        2.0.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        QR code generator for PHP
 
 Group:          Development/Libraries
@@ -149,6 +149,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  8 2022 Remi Collet <remi@remirepo.net> - 2.0.8-1
 - update to 2.0.8
 

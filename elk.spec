@@ -29,7 +29,7 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 %else
 %global BLASLAPACK openblas
 %endif
-%global FFTW -L%{_libdir} -lfftw3
+%global FFTW -L%{_libdir} -lfftw3 -lfftw3f
 %if 0%{?fedora} >= 25 || 0%{?el8}
 %global LIBXC -L%{_libdir} -lxc -lxcf90
 %else
@@ -37,14 +37,13 @@ ExclusiveArch:          x86_64 %{ix86} aarch64 %{arm} %{power64}
 %endif
 
 Name:			elk
-Version:		8.5.10
-Release:		2%{?dist}
+Version:		8.7.2
+Release:		1%{?dist}
 Summary:		An all-electron full-potential linearised augmented-plane wave code
 
 License:		GPLv3+
 URL:			http://elk.sourceforge.net/
 Source0:		https://downloads.sourceforge.net/project/%{name}/%{name}-%{version}.tgz
-Patch0:			elk-8.5.10-libxc6.patch
 
 BuildRequires:		patch
 BuildRequires:		time
@@ -121,7 +120,6 @@ This package contains the common binaries.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
 
 # create common make.inc.common
 # default serial fortran
@@ -135,12 +133,11 @@ echo "AR = ar" >> make.inc.common
 echo "SRC_MKL = mkl_stub.f90" >> make.inc.common
 echo "SRC_BLIS = blis_stub.f90" >> make.inc.common
 echo "SRC_W90S = w90_stub.f90" >> make.inc.common
-echo "LIB_LPK = -L%{_libdir} -l%{BLASLAPACK}" >> make.inc.common
-# enable fftw/libxc dynamic linking
-echo "LIB_FFT = %FFTW" >> make.inc.common
-echo "SRC_FFT = zfftifc_fftw.f90" >> make.inc.common
-echo "LIB_libxc = %LIBXC" >> make.inc.common
-echo "SRC_libxc = libxcf90.f90 libxcifc.f90" >> make.inc.common
+# enable blas/fftw/libxc dynamic linking
+echo "F90_LIB = -L%{_libdir} -l%{BLASLAPACK} %{FFTW}" >> make.inc.common
+echo "SRC_FFT = zfftifc_fftw.f90 cfftifc_fftw.f90" >> make.inc.common
+echo "LIB_LIBXC = %LIBXC" >> make.inc.common
+echo "SRC_LIBXC = libxcf90.f90 libxcifc.f90" >> make.inc.common
 
 # remove bundling of BLAS/LAPACK/FFTW/LIBXC/ERF
 sed -i "s/blas lapack fft elk/elk/" src/Makefile
@@ -248,14 +245,16 @@ export TIMEOUT_OPTS='--preserve-status --kill-after 10 7200'
 # To avoid replicated code define a macro
 %global docheck() \
 cp -rp tests-libxc.orig tests-libxc&& \
-sed -i "s#../../src/elk#$ELK_EXECUTABLE#g" tests-libxc/test.sh&& \
-sed -i "/Failed/ a \ \ \ \ cat test.log" tests-libxc/test.sh&& \
+cp -rp tests.orig tests&& \
+sed -i "s#../../src/elk#$ELK_EXECUTABLE#g" tests/test-mpi.sh&& \
+sed -i "/Failed/ a \ \ \ \ cat test.log" tests/test-mpi.sh&& \
 timeout ${TIMEOUT_OPTS} time %{__make} test-libxc 2>&1 | tee test-libxc.${NPROC}$MPI_SUFFIX.log&& \
+rm -rf tests tests-libxc&& \
 cp -rp tests.orig tests&& \
 sed -i "s#mpirun -n 4 ../../src/elk#$ELK_EXECUTABLE#g" tests/test-mpi.sh&& \
 sed -i "/Failed/ a \ \ \ \ cat test.log" tests/test-mpi.sh&& \
 timeout ${TIMEOUT_OPTS} time %{__make} test-mpi 2>&1 | tee test-mpi.${NPROC}$MPI_SUFFIX.log&& \
-rm -rf tests tests-libxc
+rm -rf tests
 
 # check serial version
 ELK_EXECUTABLE="../../%{name}" MPI_SUFFIX=_openmp %docheck
@@ -303,6 +302,9 @@ mv tests.orig tests
 
 
 %changelog
+* Thu Jan 19 2023 Marcin Dulak <marcindulak@fedoraproject.org> - 8.7.2-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

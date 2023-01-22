@@ -1,6 +1,6 @@
 Name:		perl-File-TreeCreate
 Version:	0.0.1
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Recursively create a directory tree
 License:	MIT
 URL:		https://metacpan.org/release/File-TreeCreate
@@ -49,6 +49,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/File::TreeCreate.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

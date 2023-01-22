@@ -1,6 +1,6 @@
 Name:           perl-Sys-Hostname-Long
 Version:        1.5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Try every conceivable way to get full hostname
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Sys-Hostname-Long
@@ -58,6 +58,9 @@ perl testall.pl
 %{_mandir}/man3/Sys::Hostname::Long.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

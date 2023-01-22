@@ -15,7 +15,7 @@ and support for limiting size/connection etc.
 
 Name:           python-oslo-middleware
 Version:        5.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        OpenStack Oslo Middleware library
 
 License:        ASL 2.0
@@ -163,6 +163,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Hirotaka Wakabayashi <hiwkby@yahoo.com>  - 5.0.0-6
 - Fixes issues on packaging guidelines
 

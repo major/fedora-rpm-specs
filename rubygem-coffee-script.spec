@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.4.1
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Ruby CoffeeScript Compiler
 License: MIT
 URL: https://github.com/rails/ruby-coffee-script.git
@@ -64,6 +64,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

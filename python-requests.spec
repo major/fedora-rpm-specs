@@ -10,7 +10,7 @@
 
 Name:           python-requests
 Version:        2.28.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
 License:        ASL 2.0
@@ -93,6 +93,9 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Kevin Fenzi <kevin@scrye.com> - 2.28.1-3
 - Enable all tests and drop no longer needed test patch.
 

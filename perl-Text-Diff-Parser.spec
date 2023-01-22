@@ -1,6 +1,6 @@
 Name:           perl-Text-Diff-Parser
 Version:        0.1001
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Parse patch files containing unified and standard diffs
 License:        GPL+ or Artistic
 
@@ -52,6 +52,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1001-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1001-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

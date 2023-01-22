@@ -2,7 +2,7 @@
 Name:    picmi
 Summary: A nonogram logic game
 Version: 22.12.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+ and GFDL
 URL:     https://cgit.kde.org/%{name}.git
@@ -72,6 +72,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Justin Zobel <justin@1707.io> - 22.12.1-1
 - Update to 22.12.1
 

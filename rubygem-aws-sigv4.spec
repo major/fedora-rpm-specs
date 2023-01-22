@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        AWS Signature Version 4 library
 
 License:        ASL 2.0
@@ -83,6 +83,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec  3 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.2-12
 - Backport upstream patch for ruby32 File.exists? removal
 

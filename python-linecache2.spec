@@ -5,7 +5,7 @@
 
 Name:           python-%{pkgname}
 Version:        1.0.0
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Backport of the linecache module
 
 License:        Python
@@ -65,6 +65,9 @@ mv %{pkgname}/tests .
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

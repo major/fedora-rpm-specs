@@ -1,7 +1,7 @@
 Summary: Python wrapper module around the OpenSSL library
 Name: pyOpenSSL
-Version: 21.0.0
-Release: 4%{?dist}
+Version: 23.0.0
+Release: 1%{?dist}
 Source0: https://files.pythonhosted.org/packages/source/p/pyOpenSSL/pyOpenSSL-%{version}.tar.gz
 
 BuildArch: noarch
@@ -70,6 +70,12 @@ rm doc/_build/html/.buildinfo
 %doc CHANGELOG.rst doc/_build/html
 
 %changelog
+* Fri Jan 20 2023 Paul Wouters <paul.wouters@aiven.io - 23.0.0-1
+- Resolves rhbz#2048162 pyOpenSSL-23.0.0 is available
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 21.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

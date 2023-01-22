@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        0.1.2
-Release:        0.9.20200715.%{shortcommit}%{?dist}
+Release:        0.10.20200715.%{shortcommit}%{?dist}
 Summary:        Use decorators to validate forms
 BuildArch:      noarch
 
@@ -70,6 +70,9 @@ To do this you should provide a callback for error_handler.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-0.10.20200715.7fa5a26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-0.9.20200715.7fa5a26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

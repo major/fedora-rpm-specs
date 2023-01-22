@@ -3,7 +3,7 @@
 
 Name:           perl-GraphViz
 Version:        2.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Interface to the GraphViz graphing tool
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/GraphViz
@@ -124,6 +124,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Jitka Plesnikova <jplesnik@redhat.com> - 2.25-1
 - 2.25 bump
 - Package tests

@@ -37,7 +37,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lacking future-compat polyfills for PHPUnit
 
 License:        MIT
@@ -190,6 +190,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 12 2022 Remi Collet <remi@remirepo.net> - 1.6.0-1
 - update phpunitgoodpractices/polyfill to 1.6.0
 - update phpunitgoodpractices/traits to 1.9.2

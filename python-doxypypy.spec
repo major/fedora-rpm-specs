@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.8.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2
 Summary:        A more Pythonic version of doxypy, a Doxygen filter for Python
 Url:            https://github.com/Feneric/%{srcname}
@@ -47,5 +47,8 @@ find . -name \*.py -exec sed -i '/#!\/usr\/bin\/python/d' '{}' \;
 %{_bindir}/%{srcname}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 0.8.8.6-1
 - Initial version of package

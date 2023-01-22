@@ -1,6 +1,6 @@
 Name:           perl-Kwiki-Revisions
 Version:        0.15
-Release:        51%{?dist}
+Release:        52%{?dist}
 Summary:        Kwiki Revisions Plugin
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Kwiki-Revisions
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-52
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.15-51
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

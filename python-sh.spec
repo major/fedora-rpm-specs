@@ -9,7 +9,7 @@ Name:           python-%{srcname}
 License:        MIT
 Summary:        Python subprocess replacement
 Version:        1.14.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            https://github.com/amoffat/sh
 Source0:        %pypi_source
 BuildArch:      noarch
@@ -57,6 +57,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 18 2022 Kevin Fenzi <kevin@scrye.com> - 1.14.3-1
 - Update to 1.14.3. Fixes rhbz#2108380
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        1.2.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        DIDL-Lite (Digital Item Declaration Language) tools
 
 License:        ASL 2.0
@@ -49,6 +49,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/python_didl_lite-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

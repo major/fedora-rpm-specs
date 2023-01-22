@@ -3,7 +3,7 @@
 
 Name:           python-%{modname}
 Version:        2.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A micro-framework for Python based on Werkzeug, Jinja 2 and good intentions
 
@@ -79,6 +79,9 @@ ln -sf %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %doc examples
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 09 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.2.2-1
 - Update to 2.2.2 (closes RHBZ#2116586)
 

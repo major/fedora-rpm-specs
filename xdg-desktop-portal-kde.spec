@@ -2,7 +2,7 @@
 
 Name:    xdg-desktop-portal-kde
 Summary: Backend implementation for xdg-desktop-portal using Qt/KF5
-Version: 5.26.5
+Version: 5.26.90
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -28,10 +28,13 @@ BuildRequires:  qt5-qtwayland-devel
 
 
 BuildRequires:  plasma-wayland-protocols-devel
+BuildRequires:  wayland-protocols-devel
 BuildRequires:  wayland-devel
 
 BuildRequires:  cmake(KF5Config)
 BuildRequires:  cmake(KF5CoreAddons)
+BuildRequires:  cmake(KF5GlobalAccel)
+BuildRequires:  cmake(KF5GuiAddons)
 BuildRequires:  cmake(KF5IconThemes)
 BuildRequires:  cmake(KF5I18n)
 BuildRequires:  cmake(KF5KIO)
@@ -43,6 +46,7 @@ BuildRequires:  cmake(KF5Plasma)
 BuildRequires:  cmake(KF5Kirigami2)
 BuildRequires:  cmake(KF5Declarative)
 
+BuildRequires:  qt5-qtbase-static
 Requires:       xdg-desktop-portal
 Supplements:    plasma-desktop
 
@@ -74,9 +78,13 @@ pieces of KDE infrastructure.
 %{_datadir}/xdg-desktop-portal/portals/kde.portal
 %{_datadir}/applications/org.freedesktop.impl.portal.desktop.kde.desktop
 %{_datadir}/knotifications5/xdg-desktop-portal-kde.notifyrc
+%{_datadir}/qlogging-categories5/xdp-kde.categories
 %{_userunitdir}/plasma-xdg-desktop-portal-kde.service
 
 %changelog
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

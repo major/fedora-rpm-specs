@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sphinx theme for readthedocs.org
 
 License:        MIT
@@ -191,6 +191,9 @@ grep 'format("woff2\?")' \
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 09 2022 Karolina Surma <ksurma@redhat.com> - 1.1.1-1
 - Update to the new upstream version
 - Relax the python-docutils version requirement to <0.20

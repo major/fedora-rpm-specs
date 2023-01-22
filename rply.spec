@@ -1,6 +1,6 @@
 Name:		rply
 Version:	1.1.2
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	A library to read and write PLY files
 License:	MIT
 URL:		http://www.tecgraf.puc-rio.br/~diego/professional/rply/
@@ -79,6 +79,9 @@ Rply Library Header Files and Link Libraries
 %dir %{_datadir}/%{name}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

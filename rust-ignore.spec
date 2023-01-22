@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.4.18
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast library for efficiently matching ignore files
 
 # Upstream license specification: Unlicense/MIT
@@ -87,6 +87,9 @@ which use "simd-accel" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.18-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.18-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

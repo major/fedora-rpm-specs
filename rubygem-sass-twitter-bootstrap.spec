@@ -3,7 +3,7 @@
 Summary:       Gem of the Twitter Bootstrap
 Name:          rubygem-%{gem_name}
 Version:       2.3.0
-Release:       16%{?dist}
+Release:       17%{?dist}
 License:       ASL 2.0
 URL:           http://github.com/wadetandy/sass-twitter-bootstrap
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -60,6 +60,9 @@ rm -rf %{buildroot}%{gem_instdir}/{.rvmrc,.document,.require_paths,.gitignore,.t
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

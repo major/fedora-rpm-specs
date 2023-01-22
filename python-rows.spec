@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.4.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        A common, beautiful interface to tabular data, no matter the format
 
 License:        GPLv3+
@@ -97,6 +97,9 @@ EXCLUDE_ARG="$EXCLUDE_ARG -e test_table_add_time"
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Joel Capitao <jcapitao@redhat.com> - 0.4.1-15
 - Replace unicodecsv by standard csv module
 

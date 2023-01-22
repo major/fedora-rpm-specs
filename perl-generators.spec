@@ -1,6 +1,6 @@
 Name:           perl-generators
 Version:        1.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        RPM Perl dependencies generators
 License:        GPL-1.0-or-later
 URL:            http://jplesnik.fedorapeople.org/generators
@@ -112,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.16-1
 - 1.16 bump
 

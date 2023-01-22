@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Dynamic
 Version:        0.05
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Non-static policies for Perl::Critic
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Perl-Critic-Dynamic
@@ -64,6 +64,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

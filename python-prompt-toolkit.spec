@@ -12,7 +12,7 @@ applications in Python.}
 
 Name:           python-%{pkgname}
 Version:        3.0.29
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for building powerful interactive command line applications in Python
 License:        BSD
 URL:            https://github.com/prompt-toolkit/python-prompt-toolkit
@@ -64,6 +64,9 @@ Recommends:     python3-pygments
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.29-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.29-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

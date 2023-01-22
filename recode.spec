@@ -1,6 +1,6 @@
 Name:       recode
-Version:    3.7.12
-Release:    3%{?dist}
+Version:    3.7.13
+Release:    1%{?dist}
 Summary:    Conversion between character sets and surfaces
 # COPYING:              GPLv3 text
 # COPYING-LIB:          LGPLv3 text
@@ -53,8 +53,9 @@ Summary:    Conversion between character sets and surfaces
 License:    GPLv3+ and LGPLv3+ and BSD and OFSFDL
 URL:        https://github.com/rrthomas/recode
 Source:     %{url}/releases/download/v%{version}/recode-%{version}.tar.gz
-# Make internal hash function identifiers unique
-Patch0:     recode-3.7.1-Rename-coliding-hash-functions.patch
+Patch:      recode-3.7.13-Rename-coliding-hash-functions.patch
+Patch:      0001-src-Makefile.am-allow-build-without-help2man.patch
+
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -88,8 +89,7 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 This package provides the header files for a recode library.
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -p1 -n %{name}-%{version}
 autoreconf -fi
 
 %build
@@ -132,6 +132,10 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/*
 
 %changelog
+* Tue Jan 17 2023 Ondrej Pohorelsky <opohorel@redhat.com> - 3.7.13-1
+- 3.7.13 bump
+- Resolves: rhbz#2158811
+
 * Thu Oct 27 2022 Ondrej Pohorelsky <opohorel@redhat.com> - 3.7.12-3
 - Adds BuildRequire for Python 3.12
 

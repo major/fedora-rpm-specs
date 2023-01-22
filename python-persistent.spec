@@ -1,6 +1,6 @@
 Name:           python-persistent
 Version:        5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Translucent persistent python objects
 
 License:        ZPL-2.1
@@ -118,6 +118,9 @@ zope-testrunner --test-path=src -vc
 %doc docs/_build/html/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan  9 2023 Jerry James <loganjerry@gmail.com> - 5.0-1
 - Version 5.0
 - Run tests with zope-testrunner

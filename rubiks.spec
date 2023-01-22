@@ -1,6 +1,6 @@
 Name:           rubiks
 Version:        20070912
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Rubiks cube solvers
 
 # See the description for the licensing breakdown
@@ -119,6 +119,9 @@ done
 %{_mandir}/man1/rubiks_optimal.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20070912-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 20070912-5
 - Convert License tag to SPDX
 

@@ -3,7 +3,7 @@
 
 Name:           python-%{mod_name}
 Version:        0.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provide HDMI CEC devices as objects
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{pypi_name}.egg-info
 %{_bindir}/pycec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

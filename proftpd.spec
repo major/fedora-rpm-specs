@@ -35,7 +35,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 1
+%global baserelease 2
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
@@ -484,6 +484,9 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec  5 2022 Paul Howarth <paul@city-fan.org> - 1.3.8-1
 - Update to 1.3.8 (see RELEASE_NOTES for details)
 - Update mod_vroot to 0.9.11

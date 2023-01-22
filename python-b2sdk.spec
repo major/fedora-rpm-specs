@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Backblaze B2 SDK
 
 License:        MIT
@@ -51,6 +51,9 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.18.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 17 2022 Jonny Heggheim <hegjon@gmail.com> - 1.18.0-1
 - Updated to version 1.18.0
 

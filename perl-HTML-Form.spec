@@ -1,6 +1,6 @@
 Name:           perl-HTML-Form
 Version:        6.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Class that represents an HTML form element
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-Form
@@ -59,6 +59,9 @@ passed to the request() method of LWP::UserAgent.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 12 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 6.10-1
 - Update to 6.10
 

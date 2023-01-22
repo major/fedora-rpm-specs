@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python 3 compatible NTLM library (requires md4, thus legacy OpenSSL settings)
 
 License:        MIT
@@ -71,6 +71,9 @@ export OPENSSL_CONF=${PWD}/openssl.cnf
 %{python3_sitelib}/ntlm_auth/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Maxwell G <gotmax@e.email> - 1.5.0-8
 - Fix license (the project was relicensed to MIT 5 years ago)
 - Tweak description

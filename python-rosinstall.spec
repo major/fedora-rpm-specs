@@ -3,7 +3,7 @@
 %global realname rosinstall
 Name:           python-rosinstall
 Version:        0.7.8
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        ROS installation utilities
 
 License:        BSD
@@ -79,6 +79,9 @@ install -p -m 0644 doc/_build/man/%{realname}.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 %{python3_sitelib}/%{realname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

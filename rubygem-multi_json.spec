@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.15.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A common interface to multiple JSON libraries
 License: MIT
 URL: https://github.com/intridea/multi_json
@@ -96,6 +96,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 Vít Ondruch <vondruch@redhat.com> - 1.15.0-6
 - Fix RSpec 3.11.0+ compatibility.
   Resolves: rhbz#2113694

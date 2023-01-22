@@ -19,7 +19,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.39.4
+Version:        2.39.5
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -31,12 +31,6 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --import aperez.key carlosgc.key
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
-
-# https://bugs.webkit.org/show_bug.cgi?id=250689
-Patch0:         angle-build.patch
-
-# https://bugs.webkit.org/show_bug.cgi?id=250701
-Patch1:         unbreak-headers.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
@@ -304,10 +298,18 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 # Increase the DIE limit so our debuginfo packages can be size-optimized.
 # This previously decreased the size for x86_64 from ~5G to ~1.1G, but as of
 # 2022 it's more like 850 MB -> 675 MB. This requires lots of RAM on the
-# builders, so only do this for x86_64 to avoid overwhelming non-x86_64
-# builders.
+# builders, so only do this for x86_64 and aarch64 to avoid overwhelming
+# builders with less RAM.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1456261
 %global _dwz_max_die_limit_x86_64 250000000
+%global _dwz_max_die_limit_aarch64 250000000
+
+# Disable dwz optimization on builders that have low amount of RAM, until we
+# get https://sourceware.org/pipermail/debugedit/2023-January/000173.html into
+# koji build roots.
+%ifarch ppc64le s390x
+%global _find_debuginfo_dwz_opts %{nil}
+%endif
 
 # Require 32 GB of RAM per vCPU for debuginfo processing. 16 GB is not enough.
 %global _find_debuginfo_opts %limit_build -m 32768
@@ -315,10 +317,7 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 # Reduce debuginfo verbosity 32-bit builds to reduce memory consumption even more.
 # https://bugs.webkit.org/show_bug.cgi?id=140176
 # https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/I6IVNA52TXTBRQLKW45CJ5K4RA4WNGMI/
-#
-# Do this for s390x too as a temporary measure.
-# https://pagure.io/fedora-infrastructure/issue/11000
-%ifarch %{ix86} s390x
+%ifarch %{ix86}
 %global optflags %(echo %{optflags} | sed 's/-g /-g1 /')
 %endif
 
@@ -462,7 +461,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %license _license_files/*WebCore*
 %license _license_files/*WebInspectorUI*
 %license _license_files/*WTF*
-%{_libdir}/libwebkitgtk-6.0.so.0*
+%{_libdir}/libwebkitgtk-6.0.so.1*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/WebKit-6.0.typelib
 %{_libdir}/girepository-1.0/WebKitWebExtension-6.0.typelib

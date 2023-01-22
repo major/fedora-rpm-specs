@@ -1,6 +1,6 @@
 Name:           perl-capitalization
 Version:        0.03
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        No capitalization on method names
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -45,6 +45,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-46
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.03-45
 - Modernize spec.
 - Convert license to SPDX.

@@ -1,6 +1,6 @@
 Name:           jaxb-api2
 Version:        2.3.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Jakarta XML Binding API
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-api
@@ -40,10 +40,9 @@ This package contains javadoc for %{name}.
 # Mark dependency on jakarta.activation as optional
 %pom_xpath_inject "pom:dependency[pom:groupId='jakarta.activation']" "<optional>true</optional>" jaxb-api
 
-# Add compatibility aliases for old artifact coordinates
-%mvn_file :jakarta.xml.bind-api glassfish-jaxb-api/jakarta.xml.bind-api
+%mvn_compat_version jakarta*: 2 %{version} 2.3.2
 
-%mvn_compat_version jakarta*: %{version} 2.3.2
+# TODO delete
 %mvn_file javax.xml.bind:jaxb-api JAXB-API jaxb-api
 
 %build
@@ -70,6 +69,10 @@ sed -i 's/JAXB-API/glassfish-jaxb-api\/jakarta.xml.bind-api-%{version}/' %{build
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 2.3.3-5
+- Add major compat version
+- Remove glassfish alias
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

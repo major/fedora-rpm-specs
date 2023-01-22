@@ -6,7 +6,7 @@
 
 Name:           rust-mbrman
 Version:        0.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        MBR Partition Management in Rust
 
 License:        MIT OR Apache-2.0
@@ -73,6 +73,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 14 2022 Benjamin Gilbert <bgilbert@redhat.com> - 0.5.0-1
 - New release
 - Regenerate with rust2rpm 22

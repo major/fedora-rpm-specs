@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.32.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for using Linux device mapper
 
 License:        MPL-2.0
@@ -66,6 +66,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Bryan Gurney <bgurney@redhat.com> - 0.32.3-1
 - Update to version 0.32.3
 

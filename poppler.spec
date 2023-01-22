@@ -15,7 +15,7 @@
 Summary: PDF rendering library
 Name:    poppler
 Version: 22.08.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -282,6 +282,9 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.08.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Marek Kasik <mkasik@redhat.com> - 22.08.0-4
 - Update font after restore in Cairo
 - Provide Unicode marker when ensuring fonts

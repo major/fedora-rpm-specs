@@ -1,6 +1,6 @@
 Name:           perl-File-Slurp
 Version:        9999.32
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Efficient Reading/Writing of Complete Files
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/File-Slurp
@@ -66,6 +66,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9999.32-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 9999.32-9
 - Modernize spec.
 - Convert license to SPDX.

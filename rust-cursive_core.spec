@@ -5,15 +5,16 @@
 %global crate cursive_core
 
 Name:           rust-cursive_core
-Version:        0.3.6
+Version:        0.3.7
 Release:        %autorelease
 Summary:        Core components for the Cursive TUI
 
 License:        MIT
 URL:            https://crates.io/crates/cursive_core
 Source:         %{crates_source}
-# PR to add license to the crates: https://github.com/gyscos/cursive/pull/702
-Source1:        https://raw.githubusercontent.com/gyscos/cursive/main/LICENSE
+# Manually created patch for downstream crate metadata changes
+# * drop ansi and ansi-parser (missing deps include ufmt with test failures)
+Patch:          cursive_core-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -46,30 +47,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+ansi-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+ansi-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "ansi" feature of the "%{crate}" crate.
-
-%files       -n %{name}+ansi-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+ansi-parser-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+ansi-parser-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "ansi-parser" feature of the "%{crate}" crate.
-
-%files       -n %{name}+ansi-parser-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+doc-cfg-devel
@@ -134,7 +111,6 @@ use the "unstable_scroll" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

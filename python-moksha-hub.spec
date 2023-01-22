@@ -10,7 +10,7 @@
 
 Name:           python-moksha-hub
 Version:        1.5.17
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Hub components for Moksha
 
 License:        ASL 2.0
@@ -209,6 +209,9 @@ ln -s ./moksha-hub %{buildroot}%{_bindir}/moksha-hub-%{python3_version}
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.17-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

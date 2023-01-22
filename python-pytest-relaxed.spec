@@ -5,7 +5,7 @@ Name:           python-pytest-relaxed
 %global commit  000bba0e55ffc726c398485a1cefad63e28c9d2b
 %global short   000bba0e
 Version:        1.1.5^%{date}git%{short}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Relaxed test discovery/organization for pytest
 License:        BSD-2-Clause
 URL:            https://github.com/bitprophet/pytest-relaxed
@@ -57,6 +57,9 @@ sed -i 's/decorator>=4,<5/decorator>=4,<6/' setup.py
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5^20220502git000bba0e-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon May 02 2022 Miro Hrončok <mhroncok@redhat.com> - 1.1.5^20220502git000bba0e-1
 - Initial package from upstream pull request #22
   https://github.com/bitprophet/pytest-relaxed/pull/22

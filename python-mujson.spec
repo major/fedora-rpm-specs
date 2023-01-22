@@ -7,7 +7,7 @@ encoding or decoding functionality.}
 
 Name:           python-%{srcname}
 Version:        1.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Use the fastest JSON functions available at import time
 License:        MIT
 URL:            https://github.com/mattgiles/mujson
@@ -49,6 +49,9 @@ BuildRequires:  %{py3_dist setuptools}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Test-Pod-LinkCheck
 Version:        0.008
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Tests POD for invalid links
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Pod-LinkCheck
@@ -105,6 +105,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Petr Pisar <ppisar@redhat.com> - 0.008-32
 - Do not provide symlinked modules by perl-Test-Pod-LinkCheck-tests
 - Convert a license tag to SPDX format

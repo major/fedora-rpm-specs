@@ -1,6 +1,6 @@
 Name:           python-pyclip
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform Clipboard module for Python with binary support
 
 License:        ASL 2.0
@@ -39,6 +39,9 @@ Summary:        %{summary}
 %{_bindir}/pyclip
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 03 2022 Alessandro Astone <ales.astone@gmail.com> - 0.7.0-1
 - Update to v0.7.0
 

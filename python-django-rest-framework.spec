@@ -2,7 +2,7 @@
 
 Name:           python-django-rest-framework
 Version:        3.13.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Web APIs for Django, made easy
 
 License:        BSD
@@ -87,6 +87,9 @@ find . -name *.po -exec rm -f '{}' \;
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

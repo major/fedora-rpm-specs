@@ -6,7 +6,7 @@ Name:		qpdfview
 Version:	0.5.0
 #Release:	1%%{?dist}
 # Use the following format for beta
-Release:	0.2.%{?prerelease}%{?dist}
+Release:	0.3.%{?prerelease}%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
@@ -184,6 +184,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-0.3.beta1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 23 2022 Sandro Mani <manisandro@gmail.com> - 0.5.0-0.2.beta1
 - Rebuild (tesseract)
 

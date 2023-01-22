@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Read access to Windows Registry files
 
 License:        ASL 2.0
@@ -58,6 +58,9 @@ sed -i -e '/^#!\//, 1d' Registry/*.py
 %{python3_sitelib}/python_registry-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Joel Capitao <jcapitao@redhat.com> - 1.4-8
 - Replace unicodecsv by standard csv module
 

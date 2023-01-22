@@ -1,7 +1,7 @@
 %global giturl	https://github.com/kotelnik/
 Name:			plasma-applet-weather-widget
 Version:		1.6.10
-Release:		11%{?dist}
+Release:		12%{?dist}
 Summary:		Plasma applet for displaying weather information
 License:		GPLv2+
 Url:			%{giturl}%{name}
@@ -39,6 +39,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_kf5_datadir}\
 %{_kf5_datadir}/plasma/plasmoids/org.kde.weatherWidget/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.10-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

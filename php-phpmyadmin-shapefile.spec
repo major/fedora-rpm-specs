@@ -17,7 +17,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}
 Version:        2.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        ESRI ShapeFile library for PHP
 
 License:        GPLv2+
@@ -117,6 +117,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

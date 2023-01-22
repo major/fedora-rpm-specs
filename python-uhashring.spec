@@ -2,7 +2,7 @@
 
 Name:           python-%{module}
 Version:        2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module uhashring
 
 License:        BSD-3-Clause
@@ -45,6 +45,9 @@ Summary:        %{summary}
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Alfredo Moralejo <amoralej@redhat.com> - 2.1-1
 - Initial build with version 2.1 
 

@@ -1,16 +1,12 @@
 %global pypi_name pytest-testmon
 
 Name:           python-%{pypi_name}
-Version:        1.4.2
-Release:        2%{?dist}
+Version:        1.4.5
+Release:        1%{?dist}
 Summary:        A py.test plug-in which executes only tests affected by recent changes
 License:        MIT
 URL:            http://testmon.org/
 Source0:        %pypi_source
-# Upstream made this change without any corresponding code changes
-# https://github.com/tarpas/pytest-testmon/commit/cf4517c6c3e929be82f87c744742aca018915975
-# This patch should be safe to drop when 1.4.3 releases.
-Patch0:         pytest-testmon-1.4.2-allow-coverage-7.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -55,6 +51,9 @@ This a Python 3 version of the package.
 %{python3_sitelib}/pytest_testmon-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Jan 18 2023 Dan Radez <dradez@redhat.com> - 1.4.4-1
+- update to 1.4.5 (rhbz#2155546)
+
 * Sat Dec 31 2022 Tom Callaway <spot@fedoraproject.org> - 1.4.2-2
 - allow use of coverage v7 (upstream already has this change in git) (#2157154)
 

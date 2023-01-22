@@ -3,7 +3,7 @@
 
 Name:           python-pygatt
 Version:        4.0.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Python Module for Bluetooth LE Generic Attribute Profile
 
 License:        ASL 2.0
@@ -55,6 +55,9 @@ pygatt wraps BlueZ's 'gatttool' command-line utility with a Pythonic API.
 %{python3_sitelib}/*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

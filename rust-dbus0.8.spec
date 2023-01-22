@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}0.8
 Version:        0.8.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Bindings to D-Bus
 
 # Upstream license specification: Apache-2.0/MIT
@@ -97,6 +97,9 @@ which use "no-string-validation" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

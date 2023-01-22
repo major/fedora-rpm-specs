@@ -6,7 +6,7 @@
 
 Name:           rust-config
 Version:        0.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Layered configuration system for Rust applications
 
 # Upstream license specification: MIT/Apache-2.0
@@ -216,5 +216,8 @@ use the "yaml-rust" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 21 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 0.12.0-1
 - Initial package

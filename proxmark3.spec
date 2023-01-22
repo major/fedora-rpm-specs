@@ -1,6 +1,6 @@
 Name:		proxmark3
 Version:	4.15864
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	The Swiss Army Knife of RFID Research - RRG/Iceman repo
 License:	GPLv3+
 URL:		https://github.com/RfidResearchGroup/proxmark3
@@ -48,6 +48,9 @@ rm -rf %{buildroot}%{_datadir}/doc/proxmark3
 %doc doc/ AUTHORS.md CHANGELOG.md COMPILING.txt CONTRIBUTING.md README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.15864-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 
 * Mon Nov 14 2022 Marlin Soose <marlin.soose@laro.se> - 4.15864
 - Bumping package to v4.15864

@@ -1,6 +1,6 @@
 Name:           perl-Perl-Critic-Lax
 Version:        0.014
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Policies that let you slide on common exceptions
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Critic-Lax
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/Perl::Critic::Policy::Lax::RequireExplicitPackage::ExceptForPragmata.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.014-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan  1 2023 Paul Howarth <paul@city-fan.org> - 0.014-1
 - Update to 0.014 (rhbz#2157212)
   - Update packaging and metadata

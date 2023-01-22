@@ -1,6 +1,6 @@
 Name:           perl-Pod-Elemental-PerlMunger
 Version:        0.200007
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Take a string of Perl and rewrite its documentation
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Pod-Elemental-PerlMunger
@@ -86,6 +86,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.200007-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Petr Pisar <ppisar@redhat.com> - 0.200007-1
 - 0.200007 bump
 - Package the tests

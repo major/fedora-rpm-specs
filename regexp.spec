@@ -1,7 +1,7 @@
 Name:           regexp
 Epoch:          1
 Version:        1.5
-Release:        40%{?dist}
+Release:        41%{?dist}
 Summary:        Simple regular expressions API
 License:        ASL 2.0
 URL:            http://jakarta.apache.org/%{name}/
@@ -72,6 +72,9 @@ mkdir lib
 %doc LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 05 2022 Marian Koncek <mkoncek@redhat.com> - 1:1.5-40
 - Explicitly specify JVM source and target version
 

@@ -1,6 +1,6 @@
 Name:		perl-Params-Util
 Version:	1.102
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Simple standalone parameter-checking functions
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Params-Util
@@ -68,6 +68,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.102-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.102-9
 - Modernize spec.
 - Convert license to SPDX.

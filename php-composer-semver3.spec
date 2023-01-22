@@ -21,7 +21,7 @@
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
 Version:        3.3.2
-Release:        2%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
+Release:        3%{?gh_date:.%{gh_date}git%{gh_short}}%{?dist}
 Summary:        Semver library version %{major}
 
 License:        MIT
@@ -108,6 +108,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

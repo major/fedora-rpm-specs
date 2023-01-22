@@ -1,6 +1,6 @@
 Name:           perl-STD
 Version:        20101111
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        The Standard Perl 6 Grammar
 License:        Artistic 2.0
 URL:            https://metacpan.org/release/STD
@@ -54,6 +54,9 @@ perl Build.PL installdirs=core
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20101111-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20101111-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

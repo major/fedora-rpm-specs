@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.22.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python library to mock out calls with Python requests
 License:        ASL 2.0
 URL:            https://github.com/getsentry/responses
@@ -58,6 +58,9 @@ sed -i -e '/\/tests\//d' %{pyproject_files}
 %exclude %{python3_sitelib}/responses/tests
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Miro Hrončok <mhroncok@redhat.com> - 0.22.0-2
 - Drop a dependency on deprecated python3-toml
 - https://fedoraproject.org/wiki/Changes/DeprecatePythonToml

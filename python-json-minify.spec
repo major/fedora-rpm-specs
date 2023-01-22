@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.3.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python port of the JSON-minify utility
 
 License:        MIT
@@ -63,6 +63,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.3.0-15
 - Drop support for i686
 

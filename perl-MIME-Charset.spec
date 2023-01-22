@@ -1,6 +1,6 @@
 Name:           perl-MIME-Charset
 Version:        1.013.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Charset Informations for MIME
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MIME-Charset
@@ -68,6 +68,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.013.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Petr Pisar <ppisar@redhat.com> - 1.013.1-1
 - 1.013.1 bump (bug #2116641)
 

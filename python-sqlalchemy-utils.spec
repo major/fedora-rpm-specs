@@ -2,7 +2,7 @@
 
 Name:               python-sqlalchemy-utils
 Version:            0.37.8
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Various utility functions for SQLAlchemy
 
 License:            BSD
@@ -66,6 +66,9 @@ find . -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.37.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

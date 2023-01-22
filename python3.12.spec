@@ -17,7 +17,7 @@ URL: https://www.python.org/
 %global prerel a4
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Python-2.0.1
 
 # Getting this build in Koji on 32bit ARM is frustrating due to technical problems
@@ -1579,6 +1579,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0~a4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a4-1
 - Update to 3.12.0a4
 

@@ -1,6 +1,6 @@
 Name:           perl-UNIVERSAL-can
 Version:        1.20140328
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Hack around people calling UNIVERSAL::can() as a function
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/UNIVERSAL-can
@@ -57,6 +57,9 @@ make test
 %{_mandir}/man3/UNIVERSAL::can.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20140328-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20140328-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

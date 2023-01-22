@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Setup and control loop devices
 
 # Upstream license specification: MIT
@@ -81,6 +81,9 @@ use the "direct_io" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 21 2022 mulhern <amulhern@redhat.com> - 0.4.0-1
 - Update to 0.4.0
 

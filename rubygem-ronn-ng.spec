@@ -3,7 +3,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        0.9.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Builds man pages from Markdown
 License:        MIT
 URL:            https://github.com/apjanke/ronn-ng
@@ -114,6 +114,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 08 2022 Vít Ondruch <vondruch@redhat.com> - 0.9.1-6
 - Fix FTBFS due to Ruby 3.1 / Psych 4.0 test incompatibility.
   Resolves: rhbz#2113704

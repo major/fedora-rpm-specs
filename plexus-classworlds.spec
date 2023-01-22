@@ -2,7 +2,7 @@
 
 Name:           plexus-classworlds
 Version:        2.6.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Plexus Classworlds Classloader Framework
 License:        ASL 2.0 and Plexus
 URL:            https://github.com/codehaus-plexus/plexus-classworlds
@@ -56,6 +56,9 @@ sed -i /testConfigure_Optionally_Existent/s/./@org.junit.Ignore/ $(find -name Co
 %license LICENSE.txt LICENSE-2.0.txt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

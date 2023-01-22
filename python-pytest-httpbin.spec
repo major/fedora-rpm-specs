@@ -16,7 +16,7 @@ provides your test with the URL in the fixture.
 
 Name:           python-%{github_name}
 Version:        2.0.0~rc1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 # License is included in-line in README.md
@@ -80,6 +80,9 @@ PYTHONPATH=./ py.test-3 -k "not test_redirect_location_is_https_for_secure_serve
 
 #################################################################################
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0~rc1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022 Adam Williamson <awilliam@redhat.com> - 2.0.0~rc1-1
 - Update to 2.0.0~rc1, disable a broken test
 

@@ -1,6 +1,6 @@
 Name:           perl-Hash-Diff
 Version:        0.010
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Return difference between two hashes as a hash
 License:        GPL+ or Artistic
 
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/Hash::Diff.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

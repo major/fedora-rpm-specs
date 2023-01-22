@@ -27,7 +27,7 @@
 
 Name:           php-phpspec
 Version:        7.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Specification-oriented BDD framework for PHP
 
 License:        MIT
@@ -170,6 +170,9 @@ done
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Remi Collet <remi@remirepo.net> - 7.3.0-1
 - update to 7.3.0
 

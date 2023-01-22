@@ -2,7 +2,7 @@
 
 Name:           spatialite-gui
 Version:        2.1.0
-Release:        0.14%{?pre:.%pre}%{?dist}
+Release:        0.15%{?pre:.%pre}%{?dist}
 Summary:        GUI to manage Spatialite databases
 
 License:        GPL-3.0-or-later
@@ -63,6 +63,9 @@ GUI to manage Spatialite databases.
 
 
 %changelog
+* Fri Jan 20 2023 Sandro Mani <manisandro@gmail.com> - 2.1.0-0.15.beta1
+- Rebuild (libxlsxwriter)
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 2.1.0-0.14.beta1
 - Rebuild with wxWidgets 3.2
 

@@ -17,7 +17,7 @@
 
 Name:           php-%{pk_project}
 Version:        9.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Selenium RC integration for PHPUnit 9
 
 License:        BSD
@@ -82,6 +82,9 @@ cp -pr PHPUnit/* %{buildroot}%{php_home}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

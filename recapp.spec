@@ -3,7 +3,7 @@
 
 Name:           recapp
 Version:        1.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        User friendly Open Source screencaster for Linux written in GTK
 BuildArch:      noarch
 
@@ -65,6 +65,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

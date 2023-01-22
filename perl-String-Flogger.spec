@@ -1,6 +1,6 @@
 Name:           perl-String-Flogger
 Version:        1.101246
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        String munging for loggers
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Flogger
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.101246-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.101246-1
 - 1.101246 bump
 

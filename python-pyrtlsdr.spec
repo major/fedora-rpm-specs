@@ -1,7 +1,7 @@
 %global srcname pyrtlsdr
 Name:             python-%{srcname}
 Version:          0.2.93
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          Python binding for librtlsdr
 License:          GPLv3
 URL:              https://github.com/roger-/pyrtlsdr
@@ -43,6 +43,9 @@ find . -name '*.py' | xargs sed -i '1s|^#!.*|#!%{__python3}|'
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.93-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug  4 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 0.2.93-1
 - New version
   Resolves: rhbz#2113786

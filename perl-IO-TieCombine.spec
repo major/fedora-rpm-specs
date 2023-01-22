@@ -1,6 +1,6 @@
 Name:       perl-IO-TieCombine 
 Version:    1.005
-Release:    21%{?dist}
+Release:    22%{?dist}
 License:    GPL+ or Artistic
 Summary:    Produce tied (and other) separate but combined variables 
 Url:        https://metacpan.org/release/IO-TieCombine
@@ -49,6 +49,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

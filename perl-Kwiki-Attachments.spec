@@ -1,6 +1,6 @@
 Name:           perl-Kwiki-Attachments
 Version:        0.21
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Kwiki Page Attachments Plugin
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Kwiki-Attachments
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

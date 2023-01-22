@@ -4,7 +4,7 @@ operations required for synchronizing plain text.
 
 Name:          python-%{srcname}
 Version:       20200713
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Algorithms for synchronzing plain text
 
 License:       ASL 2.0
@@ -48,6 +48,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-3 -v
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200713-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20200713-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

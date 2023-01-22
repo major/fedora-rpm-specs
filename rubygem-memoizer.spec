@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Memoize your methods
 License: MIT
 URL: https://github.com/wegowise/memoizer
@@ -63,6 +63,9 @@ rspec spec
 %exclude %{gem_docdir}/rdoc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 19 2022 Benson Muite <benson_muite@emailplus.org> - 1.0.3-2
 - Remove Rakefile from packaged files
 - Do not require bundler or rake

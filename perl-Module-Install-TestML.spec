@@ -1,6 +1,6 @@
 Name:           perl-Module-Install-TestML
 Version:        0.02
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Module::Install support for TestML
 # The URL to Artistic license is wrong,
 # <https://github.com/ingydotnet/module-install-testml-pm/issues/1>
@@ -55,6 +55,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

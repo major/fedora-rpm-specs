@@ -24,7 +24,7 @@ Toolbox - Go utility library.}
 %global godocs          CHANGELOG.md README.md
 
 Name:           %{goname}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Go utility library
 
 # Upstream license specification: Apache-2.0
@@ -58,6 +58,9 @@ BuildRequires:  golang(github.com/stretchr/testify/assert)
 BuildRequires:  golang(golang.org/x/net/context)
 %endif
 
+# Quick fix not yet reported to upstream
+Patch0001:  0001-typo-in-service.patch
+
 %description
 %{common_description}
 
@@ -65,6 +68,7 @@ BuildRequires:  golang(golang.org/x/net/context)
 
 %prep
 %goprep
+%patch0001 -p1
 
 %install
 %gopkginstall
@@ -78,6 +82,10 @@ BuildRequires:  golang(golang.org/x/net/context)
 %gopkgfiles
 
 %changelog
+* Fri Jan 20 2023 Alejandro Sáez <asm@redhat.com> - 0.33.2-8
+- Fix typo in service.go
+- Fix FTBFS (rhbz#2045627).
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

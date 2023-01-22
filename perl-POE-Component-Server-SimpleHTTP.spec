@@ -3,7 +3,7 @@
 
 Name:           perl-POE-Component-Server-SimpleHTTP
 Version:        2.28
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Serve HTTP requests in POE
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/POE-Component-Server-SimpleHTTP
@@ -141,6 +141,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Petr Pisar <ppisar@redhat.com> - 2.28-14
 - Fix checking a failure after posting to a POE kernel (bug #2109851)
 - Package the tests

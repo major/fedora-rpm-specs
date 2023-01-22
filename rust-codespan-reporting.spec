@@ -9,7 +9,7 @@
 
 Name:           rust-%{crate}
 Version:        0.11.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Beautiful diagnostic reporting for text-based programming languages
 
 # Upstream license specification: Apache-2.0
@@ -101,6 +101,9 @@ cp -prt "${PWD}"    '%{SOURCE1}' '%{SOURCE2}'
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

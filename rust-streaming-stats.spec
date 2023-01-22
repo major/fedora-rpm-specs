@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Experimental crate for computing basic statistics on streams
 
 # Upstream license specification: Unlicense/MIT
@@ -72,6 +72,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global pypi_name arpeggio
 Name:           python-%{pypi_name}
 Version:        1.10.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Packrat parser interpreter
 
 License:        MIT
@@ -53,6 +53,9 @@ Arpeggio is a recursive descent parser with memoization based on PEG grammars
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

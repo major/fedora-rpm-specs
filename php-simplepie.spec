@@ -15,7 +15,7 @@
 
 Name:       php-%{gh_project}
 Version:    1.7.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A simple Atom/RSS parsing library for PHP
 
 Group:      Development/Libraries
@@ -128,6 +128,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 30 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.7.0-1
 - 1.7.0
 

@@ -41,7 +41,7 @@
 
 Name:           php-opencloud-openstack
 Version:        %{github_version}
-Release:        9%{?github_release}%{?dist}
+Release:        10%{?github_release}%{?dist}
 Summary:        PHP SDK for OpenStack clouds
 
 License:        ASL 2.0
@@ -207,6 +207,9 @@ $cmd %{_bindir}/phpunit7 \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

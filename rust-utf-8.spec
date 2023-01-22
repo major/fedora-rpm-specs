@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.7.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Incremental, zero-copy UTF-8 decoding with error handling
 
 # Upstream license specification: MIT OR Apache-2.0
@@ -71,6 +71,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

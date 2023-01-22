@@ -3,7 +3,7 @@
 %global pear_name Mail_mimeDecode
 Name:           php-pear-Mail-mimeDecode
 Version:        1.5.6
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Class to decode mime messages
 
 License:        BSD
@@ -98,6 +98,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.3.6
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        UTF-8 and UTF-16 character types, iterators and related methods
 
 # Upstream license specification: MIT/Apache-2.0
@@ -99,6 +99,9 @@ which use "std" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

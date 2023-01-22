@@ -1,6 +1,6 @@
 Name:           perl-Search-Elasticsearch
 Version:        8.00
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Official client for Elasticsearch
 License:        ASL 2.0
 
@@ -88,6 +88,9 @@ the cloud. You can read more about it on elasticsearch.org.
 %{_mandir}/man3/Search*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.00-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 15 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 8.00-1
 - Update to 8.00
 

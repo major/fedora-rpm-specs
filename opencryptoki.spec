@@ -36,6 +36,8 @@ BuildRequires:		make
 BuildRequires:		systemd-rpm-macros
 %ifarch s390 s390x
 BuildRequires:		libica-devel >= 2.3
+# for /usr/include/libudev.h
+BuildRequires:		systemd-devel
 %endif
 Requires(pre):		%{name}-libs%{?_isa} = %{version}-%{release}
 Requires:		%{name}-libs%{?_isa} = %{version}-%{release}

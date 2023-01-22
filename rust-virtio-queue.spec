@@ -6,7 +6,7 @@
 
 Name:           rust-virtio-queue
 Version:        0.4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Virtio queue implementation
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -88,6 +88,9 @@ cp %{SOURCE2} .
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 04 2022 Fabio Valentini <decathorpe@gmail.com> - 0.4.0-2
 - Drop unused, benchmark-only criterion dev-dependency.
 - Regenerate with rust2rpm 23.

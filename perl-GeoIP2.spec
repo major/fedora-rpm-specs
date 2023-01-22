@@ -1,6 +1,6 @@
 Name:           perl-GeoIP2
 Version:        2.006002
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl API for MaxMind's GeoIP2 web services and databases
 # lib/GeoIP2.pm:    GPL+ or Artistic
 # lib/GeoIP2/Model/Country.pm:  GPL+ or Artistic
@@ -135,6 +135,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.006002-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.006002-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-feedparser
 Version:        6.0.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Parse RSS and Atom feeds in Python
 
 License:        BSD
@@ -94,6 +94,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} tests/runtests.py || :
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.10-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 
 Name:           php-phpunit-PHP-Timer
 Version:        1.0.9
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        PHP Utility class for timing
 
 License:        BSD
@@ -98,6 +98,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Tangerine
 Version:        0.23
-Release:        19%{?dist}
+Release:        21%{?dist}
 Summary:        Analyse perl files and report module-related information
 License:        MIT
 URL:            https://metacpan.org/release/Tangerine
@@ -17,11 +17,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  sed
 # Runtime
 BuildRequires:  perl(Exporter)
-%if ! ( 0%{?rhel} )
 BuildRequires:  perl(List::Util) >= 1.33
-%else
-BuildRequires:  perl(List::MoreUtils)
-%endif
 BuildRequires:  perl(parent)
 BuildRequires:  perl(PPI)
 BuildRequires:  perl(Scalar::Util)
@@ -29,27 +25,46 @@ BuildRequires:  perl(utf8)
 BuildRequires:  perl(version) >= 0.77
 # Tests only
 BuildRequires:  perl(Test::More)
-%if ! ( 0%{?rhel} )
 Requires:       perl(List::Util) >= 1.33
-%else
-Requires:       perl(List::MoreUtils)
-%endif
 
 %description
 Tangerine statically analyses perl files and reports various information
 about provided, used (compile-time dependencies) and required (runtime
 dependencies) modules.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Tangerine-%{version}
+# Help generators to recognize Perl scripts
+for F in $(find t/ -name '*.t'); do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+# Remove author tests
+rm -f %{buildroot}%{_libexecdir}/%{name}/t/author-pod-syntax.t
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -61,7 +76,18 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man*/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Fri Jan 20 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.23-21
+- Package tests
+- Remove dependency to old List::MoreUtils
+- Simplify build and install phases
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

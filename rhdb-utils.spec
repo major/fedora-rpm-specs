@@ -8,7 +8,7 @@
 Summary: Miscellaneous utilities for PostgreSQL - Red Hat Edition
 Name: rhdb-utils
 Version: 14.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/df7cb/pg_filedump
 License: GPLv2+
 
@@ -47,6 +47,9 @@ install -p -m 755 pg_filedump ${RPM_BUILD_ROOT}%{_bindir}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 14.1-2
 - Rebuild for new PostgreSQL 15
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A library to deal with UFO font sources
 
 License:        Apache-2.0
@@ -57,6 +57,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m pytest -v
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 0.7.1-11
 - Update license tag to SPDX format
 

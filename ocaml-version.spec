@@ -5,8 +5,8 @@
 %endif
 
 Name:           ocaml-version
-Version:        3.5.0
-Release:        3%{?dist}
+Version:        3.6.0
+Release:        1%{?dist}
 Summary:        Manipulate, parse and generate OCaml compiler version strings
 
 License:        ISC
@@ -15,7 +15,7 @@ Source0:        https://github.com/ocurrent/ocaml-version/releases/download/v%{v
 
 BuildRequires:  ocaml >= 4.07.0
 BuildRequires:  ocaml-alcotest-devel
-BuildRequires:  ocaml-dune >= 1.0
+BuildRequires:  ocaml-dune >= 3.6
 
 %description
 This library provides facilities to parse version numbers of the OCaml
@@ -59,6 +59,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Fri Jan 20 2023 Jerry James <loganjerry@gmail.com> - 3.6.0-1
+- Version 3.6.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

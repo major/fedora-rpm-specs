@@ -2,7 +2,7 @@
 
 Name:		python-%{srcname}
 Version:	1.1.8
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Lightweight markup language-based html5 slideshow generator
 
 License:	ASL 2.0
@@ -67,6 +67,9 @@ find %{buildroot} -name 'main.py' | xargs chmod 0755
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

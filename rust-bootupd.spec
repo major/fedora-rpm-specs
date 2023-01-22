@@ -4,8 +4,8 @@
 %global crate bootupd
 
 Name:           rust-%{crate}
-Version:        0.2.8
-Release:        3%{?dist}
+Version:        0.2.9
+Release:        1%{?dist}
 Summary:        Bootloader updater
 
 License:        ASL 2.0
@@ -44,8 +44,7 @@ License:        ASL 2.0
 
 %prep
 %autosetup -n %{crate}-%{version} -p1
-mkdir vendor
-tar -xv -C vendor -f %{SOURCE1}
+tar -xv -f %{SOURCE1}
 mkdir -p .cargo
 cat >.cargo/config << EOF
 [source.crates-io]

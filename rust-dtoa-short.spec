@@ -7,7 +7,7 @@
 
 Name:           rust-dtoa-short
 Version:        0.3.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Serialize float number and truncate to certain precision
 
 License:        MPL-2.0
@@ -67,6 +67,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 05 2022 Kalev Lember <klember@redhat.com> - 0.3.3-5
 - Re-generate spec file with rust2rpm 22
 

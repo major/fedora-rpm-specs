@@ -1,6 +1,6 @@
 Name:      python-pathvalidate
 Version:   2.5.2
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   Library to sanitize/validate a string such as file-names/file-paths/etc
 
 License:   MIT
@@ -50,6 +50,9 @@ BuildRequires:  python3-tcolorpy
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 21 2022 Jonny Heggheim <hegjon@gmail.com> - 2.5.2-1
 - Updated to version 2.5.2
 

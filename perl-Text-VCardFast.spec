@@ -1,6 +1,6 @@
 Name:           perl-Text-VCardFast
 Version:        0.11
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl extension for very fast parsing of VCards
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-VCardFast
@@ -88,6 +88,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 09 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.11-21
 - Package tests
 - Update license to SPDX format

@@ -8,7 +8,7 @@
 
 Name:           python-%{srcname}
 Version:        6.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Explicitly typed attributes for Python
 # Images have different licenses. For image license breakdown check
 # image_LICENSE.txt file.
@@ -92,6 +92,9 @@ popd
 %{python3_sitearch}/%{modname}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 13 2022 Orion Poplawski <orion@nwra.com> - 6.4.1-1
 - Update to 6.4.1
 

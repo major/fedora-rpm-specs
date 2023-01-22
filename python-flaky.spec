@@ -1,6 +1,6 @@
 Name:           python-flaky
 Version:        3.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Plugin for pytest that automatically reruns flaky tests
 License:        ASL 2.0
 URL:            https://github.com/box/flaky
@@ -67,6 +67,9 @@ sed -i -e 's/import mock/from unittest import mock/' \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

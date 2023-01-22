@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.6
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Tools for working with translations of modulemd
 
 License:        MIT
@@ -54,6 +54,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

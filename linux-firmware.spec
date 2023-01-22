@@ -1,11 +1,11 @@
 %global debug_package %{nil}
-%global firmware_release 145
+%global firmware_release 146
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20221214
+Version:	20230117
 Release:	%{firmware_release}%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -529,6 +529,25 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
+* Tue Dec 20 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20230117-146
+- Update to upstream 20230117 release
+- Update for Intel Bluetooth AX200/201/210/211/9260/9560
+- brcm: add configuration files for CyberTan WC121
+- qcom: add firmware files for Adreno A200
+- rtw89: 8852c: update fw to v0.27.56.10
+- QCA: Add Bluetooth firmware for QCA2066
+- amdgpu: a bunch of additions/updates from amd-5.4
+- iwlwifi: add/update new FWs from core76-35 release
+- iwlwifi: update cc/Qu/QuZ firmwares for core76-35 release
+- iwlwifi: add new FWs from core75-47 release
+- iwlwifi: update 9000-family firmwares to core75-47
+- amdgpu: update renoir PSP/DMCUB firmware
+- amdgpu: update copyright date for LICENSE.amdgpu
+- update firmware for MT7921/MT7922 WiFi device
+- update firmware for mediatek bluetooth chip (MT7921/MT7922)
+- cxgb4: Update firmware to revision 1.27.1.0
+- qca: Update firmware files for BT chip WCN6750
+
 * Tue Dec 20 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20221109-145
 - Update to upstream 20221214 release
 - amdgpu: updated various generations to firmware for amd-5.4

@@ -6,9 +6,11 @@ Summary:        Implementation of various BackupPC functions in a perl-callable 
 License:        GPLv3+ and (GPL+ or Artistic) and zlib
 URL:            https://github.com/backuppc/backuppc-xs
 Source0:        https://github.com/backuppc/backuppc-xs/releases/download/%{version}/%{name}-%{version}.tar.gz
-Patch0: BackupPC-configure-c99.patch
+
+Patch0:         BackupPC-configure-c99.patch
 
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  perl-interpreter perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl(constant)
@@ -19,7 +21,6 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(XSLoader)
 # Testing requirement
 BuildRequires:  perl(Test::More)
-BuildRequires: make
 
 
 Provides:       bundled(zlib) = 1.2.3

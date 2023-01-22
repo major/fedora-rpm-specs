@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.8.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GPT manager that allows you to copy partitions from one disk to another
 
 # Upstream license specification: MIT or ASL 2.0
@@ -85,6 +85,9 @@ which use "nix" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

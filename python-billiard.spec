@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        A multiprocessing pool extensions
 
@@ -52,6 +52,9 @@ py.test-3
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:4.1.0-1
 - billiard 4.1.0 (closes RHBZ#2153206)
 

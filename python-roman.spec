@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Integer to Roman numerals converter
 
 License:        Python
@@ -49,6 +49,9 @@ export PYTHON=%{__python3}
 %{python3_sitelib}/__pycache__/%{pypi_name}.cpython-*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

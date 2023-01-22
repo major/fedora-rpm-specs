@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Allows synapse to use LDAP as a password provider
 
 License:        ASL 2.0
@@ -52,6 +52,9 @@ BuildRequires:  python3-devel
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 14 2022 Dan Callaghan <djc@djc.id.au> - 0.2.2-1
 - new upstream release 0.2.2
 

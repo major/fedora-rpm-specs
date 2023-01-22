@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.0.0
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Fixtures, reusable state for writing clean tests and more
 
 License:        ASL 2.0 or BSD
@@ -65,6 +65,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m testtools.run fixtures.t
 %doc README GOALS NEWS
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

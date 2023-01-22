@@ -1,6 +1,6 @@
 Name:           perl-Log-Any
 Version:        1.710
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Bringing loggers and listeners together
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Log-Any
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.710-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.710-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

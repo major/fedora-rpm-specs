@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.6.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Library for generating PDFs and graphics
 License:        BSD and GPLv2+
 URL:            https://www.reportlab.com/opensource/
@@ -104,6 +104,9 @@ cp -a build/lib.%{python3_platform}-cpython-%{python3_version_nodots}/reportlab 
 %{python3_sitearch}/reportlab-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 28 2022 Antonio Trande <sagitter@fedoraproject.org> - 3.6.12-1
 - Release 3.6.12
 

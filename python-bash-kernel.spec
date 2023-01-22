@@ -1,6 +1,6 @@
 Name:           python-bash-kernel
 Version:        0.9.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bash kernel for Jupyter
 License:        BSD-3-Clause
 URL:            https://github.com/takluyver/bash_kernel
@@ -51,6 +51,9 @@ cd -
 %{_datadir}/jupyter/kernels/bash/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 18 2022 Jerry James <loganjerry@gmail.com> - 0.9.0-1
 - Version 0.9.0
 

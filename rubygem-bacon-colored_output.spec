@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.1.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Colored output for Bacon test framework! http://i.imgur.com/EpTpw.png
 
 License:        MIT
@@ -51,6 +51,9 @@ cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 %exclude %{gem_instdir}/bacon-colored_output.gemspec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

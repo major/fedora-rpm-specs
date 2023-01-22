@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.8
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Color management with Ruby
 License: MIT
 URL: https://github.com/halostatue/color
@@ -75,6 +75,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

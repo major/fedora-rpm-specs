@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.8.4
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Text wrapper with ANSI colors and styles support
 
 License:        ASL 2.0
@@ -59,6 +59,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version} -v test
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

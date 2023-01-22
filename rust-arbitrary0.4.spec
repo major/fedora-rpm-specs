@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.4
 Version:        0.4.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Trait for generating structured data from unstructured data
 
 # Upstream license specification: MIT/Apache-2.0
@@ -95,6 +95,9 @@ which use "derive_arbitrary" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

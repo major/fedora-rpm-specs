@@ -1,6 +1,6 @@
 Name:    pinentry
 Version: 1.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Collection of simple PIN or passphrase entry dialogs
 
 License: GPLv2+
@@ -146,6 +146,9 @@ rm -fv $RPM_BUILD_ROOT%{_infodir}/dir
 %{_bindir}/pinentry-tty
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 25 2022 Jakub Jelen <jjelen@redhat.com> - 1.2.1-1
 - New upstream release (#2121079)
 

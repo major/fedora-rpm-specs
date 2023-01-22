@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fancy and practical functional tools
 
 License:        BSD-3-Clause
@@ -43,6 +43,9 @@ Summary:        %{summary}
 %doc README.rst CHANGELOG
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.17-1
 - Update to 1.17 (RHBZ #2098917 and #2113627)
 

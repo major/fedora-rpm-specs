@@ -4,7 +4,7 @@
 
 Name:               python-flask-mako
 Version:            0.4
-Release:            23%{?dist}
+Release:            24%{?dist}
 Summary:            Mako templating support for Flask applications
 License:            BSD
 URL:                http://pypi.python.org/pypi/%{srcname}
@@ -50,6 +50,9 @@ to use Mako Templates instead of the default Jinja2 templating engine.
 %{python3_sitelib}/__pycache__/flask_mako*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

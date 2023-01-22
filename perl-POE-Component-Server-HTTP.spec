@@ -1,6 +1,6 @@
 Name:           perl-POE-Component-Server-HTTP
 Version:        0.09
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Foundation of a POE HTTP Daemon
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-Server-HTTP
@@ -88,6 +88,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

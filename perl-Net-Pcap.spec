@@ -1,6 +1,6 @@
 Name:           perl-Net-Pcap
 Version:        0.20
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Interface to pcap(3) LBL packet capture library
 
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -85,6 +85,9 @@ make test
 %{_mandir}/man?/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 0.20-5
 - C99 compatibility fix
 

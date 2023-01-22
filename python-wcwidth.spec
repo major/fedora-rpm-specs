@@ -4,7 +4,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Measures number of Terminal column cells of wide-character codes
 
 License:        MIT
@@ -52,6 +52,9 @@ printable width of a string on a Terminal.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

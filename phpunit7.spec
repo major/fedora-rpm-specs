@@ -28,7 +28,7 @@
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{ver_major}.%{ver_minor}.%{ver_patch}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD
@@ -249,6 +249,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.5.20-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 26 2022 Remi Collet <remi@remirepo.net> - 7.5.20-11
 - backport upstream fix for new sebastian/comparator
 

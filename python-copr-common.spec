@@ -17,7 +17,7 @@
 
 Name:       python-copr-common
 Version:    0.17
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python code used by Copr
 
 License:    GPLv2+
@@ -115,6 +115,9 @@ version=%version %py2_install
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 0.17-1
 - move to GitHub home page
 - logging shouldn't affect stdout

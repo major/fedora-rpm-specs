@@ -5,10 +5,10 @@
 
 Name: liblangtag
 Version: 0.6.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: An interface library to access tags for identifying languages
 
-License: LGPLv3+ or MPLv2.0
+License: LGPL-3.0-or-later OR MPL-2.0
 URL: http://tagoh.bitbucket.org/liblangtag/
 Source0: https://bitbucket.org/tagoh/%{name}/downloads/%{name}-%{version}.tar.bz2
 Patch0: liblangtag-noparallel-gir.patch
@@ -135,6 +135,9 @@ export LD_LIBRARY_PATH=`pwd`/liblangtag/.libs:`pwd`/liblangtag-gobject/.libs${LD
 %{_datadir}/gtk-doc/html/%{name}
 
 %changelog
+* Fri Jan 20 2023 Eike Rathke <erack@redhat.com> - 0.6.4-4
+- Migrated to SPDX license IDs
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

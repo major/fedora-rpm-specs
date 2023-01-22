@@ -2,7 +2,7 @@
 
 Name:    python-%{srcname}
 Version: 0.2.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Reference implementation of Shamir's Secret-Sharing for Mnemonic Codes
 
 License: MIT
@@ -47,6 +47,9 @@ rm -rf *.egg-info/
 %{_bindir}/shamir
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

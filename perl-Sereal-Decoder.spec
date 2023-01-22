@@ -3,7 +3,7 @@
 
 Name:           perl-Sereal-Decoder
 Version:        5.001
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Perl deserialization for Sereal format
 # lib/Sereal/Decoder.pm:    GPL+ or Artistic
 ## Unbundled:
@@ -112,6 +112,9 @@ make test
 %{_mandir}/man3/Sereal::Performance.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.001-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Petr Pisar <ppisar@redhat.com> - 5.001-3
 - Finish bootstrapping against miniz-3.0.0 (bug #2137798)
 

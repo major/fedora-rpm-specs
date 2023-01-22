@@ -4,7 +4,7 @@ Name:           python-simpleparse
 License:        BSD
 Summary:        A simple and fast parser generator
 Version:        2.2.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 URL:            http://launchpad.net/simpleparse
 Source0:        https://pypi.io/packages/source/S/SimpleParse/%{oname}-%{version}.tar.gz
 Patch0:         pytuple_check.patch
@@ -42,6 +42,9 @@ Summary:        %summary
 %{python3_sitearch}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 2.2.2-10
 - Fix undefined reference to Py_UNICODE_COPY
 

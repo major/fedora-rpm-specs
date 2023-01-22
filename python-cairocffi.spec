@@ -2,7 +2,7 @@
 
 Name:           python-cairocffi
 Version:        1.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        cffi-based cairo bindings for Python
 License:        BSD
 URL:            https://pypi.python.org/pypi/cairocffi/
@@ -72,6 +72,9 @@ rm -rf %{srcname}.egg-info
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Carl George <carl@george.computer> - 1.3.0-6
 - Add dependencies on libraries that are loaded with dlopen rhbz#2157817
 

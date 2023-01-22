@@ -5,7 +5,7 @@
 Summary:	Test file attributes through Test::Builder
 Name:		perl-Test-File
 Version:	%{rpmversion}
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	Artistic-2.0
 URL:		https://metacpan.org/release/Test-File
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Test-File-%{cpanversion}.tar.gz
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/Test::File.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan  2 2023 Paul Howarth <paul@city-fan.org> - 1.99.3-1
 - Update to 1.993
   - Try harder to check for symlinks on Windows by stealing some code from

@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.8.14
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: This library provides a simple way to write new native resources for puppet
 License: ASL 2.0
 URL: https://github.com/puppetlabs/puppet-resource_api
@@ -71,6 +71,9 @@ rm -rf %{buildroot}%{gem_instdir}/{.gitignore,.rubocop.yml,.travis.yml,appveyor.
 %exclude %{gem_instdir}/.rspec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.14-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

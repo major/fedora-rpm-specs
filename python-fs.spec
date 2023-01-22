@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.11
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Python's Filesystem abstraction layer
 
 License:        MIT
@@ -55,6 +55,9 @@ Summary:        %{summary}
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.11-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.11-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

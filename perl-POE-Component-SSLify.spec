@@ -3,7 +3,7 @@
 
 Name:           perl-POE-Component-SSLify
 Version:        1.012
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Makes using SSL in the world of POE easy!
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/POE-Component-SSLify
@@ -133,6 +133,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.012-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.012-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

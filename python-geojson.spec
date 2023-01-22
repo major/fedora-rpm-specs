@@ -2,7 +2,7 @@
 
 Name:       python-%{pypi_name}
 Version:    2.5.0
-Release:    10%{?dist}
+Release:    11%{?dist}
 Summary:    Encoder/decoder for simple GIS features
 
 License:    BSD
@@ -47,6 +47,9 @@ interface.
 %{python3_sitelib}/%{pypi_name}-%{version}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

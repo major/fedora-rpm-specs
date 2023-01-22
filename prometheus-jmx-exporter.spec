@@ -10,7 +10,7 @@
 
 Name:           prometheus-jmx-exporter
 Version:        0.16.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Prometheus JMX Exporter
 
 License:        ASL 2.0
@@ -122,6 +122,9 @@ OpenJDK 17 binding package for %{name}
 # empty files for the binding package
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Severin Gehwolf <sgehwolf@redhat.com> - 0.16.1-8
 - Add patch to fix CVE-2022-1471
 

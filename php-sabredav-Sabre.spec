@@ -5,7 +5,7 @@
 
 Name:           php-sabredav-Sabre
 Version:        1.0.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Base for Sabre_DAV packages
 
 License:        BSD
@@ -76,6 +76,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

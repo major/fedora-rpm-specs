@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Python library for (de)serializing objects to/from JSON
 
 License:        MIT
@@ -49,6 +49,9 @@ No magic, no special types, no polluting your objects.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 25 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.0-5
 - Disable failing test (closes rhbz#2113633)
 

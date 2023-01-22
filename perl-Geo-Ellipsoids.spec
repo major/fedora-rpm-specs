@@ -1,6 +1,6 @@
 Name:           perl-Geo-Ellipsoids
 Version:        0.16
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Standard Geo:: ellipsoids
 
 License:        GPL+ or Artistic
@@ -49,6 +49,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

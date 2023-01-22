@@ -3,7 +3,7 @@
 Name:    quassel
 Summary: A modern distributed IRC system
 Version: 0.14.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2 or GPLv3
 URL:     https://quassel-irc.org/
@@ -163,6 +163,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

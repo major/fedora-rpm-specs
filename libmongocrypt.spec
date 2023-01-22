@@ -27,6 +27,8 @@ Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{version}.tar.g
 
 # drop all reference to static libraries
 Patch0:    %{libname}-static.patch
+# For GCC 13
+Patch1:    %{libname}-gcc13.patch
 
 BuildRequires: cmake >= 3.5
 BuildRequires: gcc
@@ -104,6 +106,10 @@ fi
 
 
 %changelog
+* Wed Dec  7 2022 Remi Collet <remi@remirepo.net> - 1.6.2-2
+- add patch for GCC 13 from
+  https://github.com/mongodb/libmongocrypt/pull/535
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

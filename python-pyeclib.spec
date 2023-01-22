@@ -1,6 +1,6 @@
 Name:           python-pyeclib
 Version:        1.6.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python interface to erasure codes
 
 License:        BSD
@@ -44,6 +44,9 @@ or through the C interface liberasurecode.
 %{python3_sitearch}/pyeclib*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

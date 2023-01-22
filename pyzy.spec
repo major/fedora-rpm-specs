@@ -1,6 +1,6 @@
 Name:       pyzy
 Version:    0.1.0
-Release:    28%{?dist}
+Release:    29%{?dist}
 Summary:    The Chinese PinYin and Bopomofo conversion library
 License:    LGPLv2+
 URL:        http://code.google.com/p/pyzy
@@ -89,6 +89,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_datadir}/pyzy/db/android.db
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

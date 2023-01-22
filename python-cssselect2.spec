@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CSS selectors for Python ElementTree
 License:        BSD
 URL:            https://%{srcname}.readthedocs.io/
@@ -55,6 +55,9 @@ sed -i -e "s/--flake8//" -e "s/, 'pytest-flake8'//" pyproject.toml
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 19 2022 Felix Schwarz <fschwarz@fedoraproject.org> - 0.7.0-1
 - update to 0.7.0
 

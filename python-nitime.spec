@@ -32,7 +32,7 @@ Documentation is available at http://nipy.org/nitime/documentation.html
 
 Name:           python-%{srcname}
 Version:        0.8.1
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Timeseries analysis for neuroscience data
 
 License:        BSD
@@ -138,6 +138,9 @@ PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitearch} nosetests-3 '--exclude=test_(cohe
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

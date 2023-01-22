@@ -7,7 +7,7 @@
 Name:           pocl
 %global ver 1.8
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(string.lower(ver))}
-Release:        2%{?candidate:.%{candidate}}%{?shortcommit:.%{shortcommit}}%{?dist}
+Release:        3%{?candidate:.%{candidate}}%{?shortcommit:.%{shortcommit}}%{?dist}
 Summary:        Portable Computing Language - an OpenCL implementation
 # The whole code is under MIT
 # except include/utlist.h which is under BSD (and unbundled) and
@@ -135,6 +135,9 @@ find . -depth -name utlist* -print -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

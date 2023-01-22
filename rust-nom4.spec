@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}4
 Version:        4.2.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Byte-oriented, zero-copy, parser combinators library
 
 # Upstream license specification: MIT
@@ -163,6 +163,9 @@ which use "verbose-errors" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

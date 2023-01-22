@@ -79,7 +79,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Doctrine Object-Relational-Mapper (ORM)
 
 License:       MIT
@@ -360,6 +360,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Remi Collet <remi@remirepo.net> - 2.14.1-1
 - update to 2.14.1
 

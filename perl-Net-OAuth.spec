@@ -1,6 +1,6 @@
 Name:           perl-Net-OAuth
 Version:        0.28
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        OAuth protocol support library for Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-OAuth
@@ -54,6 +54,9 @@ find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.28-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

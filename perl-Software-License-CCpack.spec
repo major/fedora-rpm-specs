@@ -15,7 +15,7 @@
 
 Name:		perl-Software-License-CCpack
 Version:	1.11
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Software::License pack for Creative Commons' licenses
 License:	LGPLv3
 URL:		https://metacpan.org/release/Software-License-CCpack
@@ -119,6 +119,9 @@ make test TEST_FILES="$(echo $(find xt/ -name '*.t'))" RELEASE_TESTING=1
 %{_mandir}/man3/Software::License::CC_PDM_1_0.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

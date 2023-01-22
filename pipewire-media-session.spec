@@ -1,7 +1,7 @@
 Name:           pipewire-media-session
 Summary:        PipeWire reference session manager
-Version:        0.4.1
-Release:        5%{?dist}
+Version:        0.4.2
+Release:        1%{?dist}
 License:        MIT
 URL:            https://pipewire.org/
 Source0:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/%{version}/media-session-%{version}.tar.gz
@@ -11,11 +11,12 @@ Provides:       pipewire-session-manager
 Conflicts:      pipewire-session-manager
 
 BuildRequires:  meson gcc pkgconfig
-BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.39
+BuildRequires:  pkgconfig(libpipewire-0.3) >= 0.3.44
 BuildRequires:  pkgconfig(dbus-1)
 BuildRequires:  gettext
 BuildRequires:  systemd-devel
 BuildRequires:  alsa-lib-devel
+BuildRequires:  systemd
 BuildRequires:  systemd-rpm-macros
 
 Requires:       systemd
@@ -60,6 +61,12 @@ Media Session is the reference session manager for the PipeWire media server.
 %{_datadir}/pipewire/media-session.d/with-pulseaudio
 
 %changelog
+* Fri Jan 10 2023 Wim Taymans <wtaymans@redhat.com> 0.4.2-1
+- media-session 0.4.2
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

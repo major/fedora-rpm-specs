@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.4
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Pytest plugin for aiohttp support
 
 License:        ASL 2.0
@@ -68,6 +68,9 @@ export SETUPTOOLS_SCM_PRETEND_VERSION=%{version}
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

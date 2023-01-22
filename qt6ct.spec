@@ -10,9 +10,9 @@ Summary: Qt6 - Configuration Tool
 Name:    qt6ct
 Version: 0.7
 %if 0%{?usesnapshot}
-Release: 0.1%{?snapshottag}%{?dist}
+Release: 0.2%{?snapshottag}%{?dist}
 %else
-Release: 1%{?dist}
+Release: 2%{?dist}
 %endif
 
 # The entire source code is under BSD-2-Clause License
@@ -80,6 +80,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/qss/*.qss
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.7-1
 - Update to 0.7-1
 

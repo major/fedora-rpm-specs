@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        1.57
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to work with the Github API
 License:        LGPLv3+
 URL:            https://github.com/PyGithub/PyGithub
@@ -52,6 +52,9 @@ Obsoletes:      python3-PyGithub < 1.29-8
 %exclude %{python3_sitelib}/%{libname}/tests
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.57-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Jiri Popelka <jpopelka@redhat.com> - 1.57-1
 - 1.57
 

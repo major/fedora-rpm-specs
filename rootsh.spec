@@ -1,7 +1,7 @@
 Name:		rootsh
 Summary: 	Shell wrapper for auditing
 Version:	1.5.3
-Release:	29%{?dist}
+Release:	30%{?dist}
 License:	GPLv3+
 Source0:	http://download.sourceforge.net/rootsh/%{name}-%{version}.tar.gz
 # Bug filed upstream 
@@ -39,6 +39,9 @@ mkdir -p $RPM_BUILD_ROOT/var/log/rootsh
 %attr(700, root, root) /var/log/rootsh/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 1.5.3-29
 - Port configure script to C99 (#2148224)
 

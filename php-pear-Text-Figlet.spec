@@ -4,7 +4,7 @@
 
 Name:           php-pear-Text-Figlet
 Version:        1.0.2
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Render text using FIGlet fonts
 
 License:        PHP
@@ -82,6 +82,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

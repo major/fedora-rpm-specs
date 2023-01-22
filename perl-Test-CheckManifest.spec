@@ -1,6 +1,6 @@
 Name:           perl-Test-CheckManifest
 Version:        1.42
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Check if your Manifest matches your distro
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-CheckManifest
@@ -73,6 +73,9 @@ cd ..
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.42-13
 - Modernize spec.
 - Convert license to SPDX.

@@ -5,7 +5,7 @@
 
 Name:           qatzip
 Version:        1.1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Intel QuickAssist Technology (QAT) QATzip Library
 License:        BSD
 URL:            https://github.com/intel/%{githubname}
@@ -86,6 +86,9 @@ rm -vf %{buildroot}%{_mandir}/*.pdf
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Vladis Dronov <vdronov@redhat.com> - 1.1.1-1
 - Update to qatzip v1.1.1
 - Add support for pkgconfig

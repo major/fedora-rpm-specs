@@ -2,8 +2,8 @@
 %bcond_without psutils_enables_unbundling_gnulib
 
 Name:       psutils
-Version:    2.07
-Release:    3%{?dist}
+Version:    2.09
+Release:    1%{?dist}
 Summary:    PostScript utilities
 # COPYING:          GPLv3 text
 # epsffit.1:        GPLv3+
@@ -177,6 +177,13 @@ make check %{?_smp_mflags}
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Ondřej Pohořelský <opohorel@redhat.com> - 2.09-1
+- 2.09 bump
+- resolves: rhbz#2035916
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.07-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

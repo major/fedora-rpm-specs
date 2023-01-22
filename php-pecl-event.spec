@@ -22,7 +22,7 @@
 Summary:       Provides interface to libevent library
 Name:          php-pecl-%{pecl_name}
 Version:       %{upstream_version}%{?upstream_prever:~%{upstream_prever}}%{?upstream_postver:+%{upstream_postver}}
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       PHP
 URL:           https://pecl.php.net/package/event
 Source0:       https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}%{?upstream_postver}.tgz
@@ -190,6 +190,9 @@ TEST_PHP_ARGS="-n $OPTS -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov  9 2022 Remi Collet <remi@remirepo.net> - 3.0.8-1
 - update to 3.0.8
 

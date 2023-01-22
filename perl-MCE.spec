@@ -1,6 +1,6 @@
 Name:           perl-MCE
 Version:        1.884
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Many-core Engine for Perl providing parallel processing capabilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MCE
@@ -169,6 +169,9 @@ make test
 %{_bindir}/mce_zfgrep
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.884-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan  5 2023 Paul Howarth <paul@city-fan.org> - 1.884-1
 - Update to 1.884
   - Disabled non-blocking dequeue_nb and recv_nb tests on the Windows platform,

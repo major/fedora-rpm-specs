@@ -1,6 +1,6 @@
 Name:           perl-String-Trim-More
 Version:        0.03
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Various string trimming utilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -55,6 +55,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

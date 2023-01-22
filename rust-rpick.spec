@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.8.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Helps you pick items from a list by various algorithms
 
 # Upstream license specification: GPL-3.0-only
@@ -97,6 +97,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.11-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Fabio Valentini <decathorpe@gmail.com> - 0.8.11-2
 - Disable doctests on ppc64le to work around a compiler crash on LLVM 15.
 

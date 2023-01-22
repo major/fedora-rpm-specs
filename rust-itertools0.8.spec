@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.8
 Version:        0.8.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extra iterator adaptors, iterator methods, free functions, and macros
 
 # Upstream license specification: MIT/Apache-2.0
@@ -82,6 +82,9 @@ which use "use_std" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

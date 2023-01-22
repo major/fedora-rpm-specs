@@ -1,6 +1,6 @@
 Name:           python-j1m.sphinxautozconfig
 Version:        0.1.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Sphinx support for ZConfig
 
 License:        MIT
@@ -48,6 +48,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitelib}/j1m.sphinxautozconfig-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

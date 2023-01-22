@@ -10,7 +10,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.3.7.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        bootswatch (XStatic packaging standard)
 
 License:        MIT
@@ -163,6 +163,9 @@ done
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.7.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

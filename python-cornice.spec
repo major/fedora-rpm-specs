@@ -3,7 +3,7 @@
 
 Name:             python-cornice
 Version:          6.0.1
-Release:          4%{?dist}
+Release:          5%{?dist}
 BuildArch:        noarch
 
 License:          MPLv2.0
@@ -67,6 +67,9 @@ Requires:   %{py3_dist venusian}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Mattia Verga <mattia.verga@proton.me> - 6.0.1-4
 - Rebuilt for Pyramid 2.0
 

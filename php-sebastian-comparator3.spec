@@ -25,7 +25,7 @@
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
 Version:        3.0.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compare PHP values for equality
 
 License:        BSD
@@ -118,6 +118,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022 Remi Collet <remi@remirepo.net> - 3.0.5-1
 - update to 3.0.5
 - sources from git snapshot

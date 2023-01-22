@@ -7,7 +7,7 @@
 
 Name:           rust-%{crate}
 Version:        7.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rust-native wrapper around TSS 2.0 Enhanced System API
 
 # Upstream license specification: Apache-2.0
@@ -91,6 +91,9 @@ echo 'pkgconfig(tss2-tctildr) >= 3.1.0'
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jul 28 2022 Peter Robinson <pbrobinson@gmail.com> - 7.1.0-1
 - Update to 7.1.0
 

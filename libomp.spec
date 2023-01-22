@@ -1,5 +1,9 @@
 %global toolchain clang
 
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+# https://bugzilla.redhat.com/show_bug.cgi?id=2158587
+%undefine _include_frame_pointers
+
 %global maj_ver 15
 %global libomp_version %{maj_ver}.0.7
 #global rc_ver 3
@@ -14,7 +18,7 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: OpenMP runtime for clang
 
 License: NCSA
@@ -24,6 +28,9 @@ Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp
 Source2: release-keys.asc
 Source3: run-lit-tests
 Source4: lit.fedora.cfg.py
+
+# TODO: Not needed with LLVM 16.
+Patch1: 0001-libomp-Explicitly-include-string-header-NFC.patch
 
 BuildRequires: clang
 # For clang-offload-packager
@@ -160,6 +167,12 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libexecdir}/tests/libomp/
 
 %changelog
+* Fri Jan 20 2023 Tom Stellard <tstellar@redhat.com> - 15.0.7-4
+- Omit frame pointers when building
+
+* Fri Jan 20 2023 Nikita Popov <npopov@redhat.com> - 15.0.7-3
+- Fix build against GCC 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

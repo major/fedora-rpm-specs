@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        A Django app for generic per-object permissions and custom permission checks
 
 License:        BSD
@@ -63,6 +63,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/example
 %{python3_sitelib}/django_authority-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Summary:	Small and fast replacement for ruby's huge and slow test/unit
 Name:		rubygem-%{gem_name}4
 # With 4.7.5, some test fails, so for now use 4.7.0
 Version:	4.7.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 
 License:	MIT
 URL:		https://github.com/seattlerb/minitest
@@ -98,6 +98,9 @@ done
 %doc	%{gem_docdir}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Oct  8 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.7.0-20
 - Fix test failure with ruby3.2 (wrt removal of Fixnum, Object#=~)
 

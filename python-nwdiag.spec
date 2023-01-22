@@ -18,7 +18,7 @@ Enjoy documentation with nwdiag !
 
 Name:           python-%{srcname}
 Version:        3.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Generate network-diagram images from text
 
 License:        ASL 2.0
@@ -91,6 +91,9 @@ ALL_TESTS=1 %tox
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

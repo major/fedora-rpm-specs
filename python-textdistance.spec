@@ -16,7 +16,7 @@ Features:
 
 Name:           python-%{pypi_name}
 Version:        4.2.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Compute distance between the two texts
 
 License:        MIT
@@ -71,6 +71,9 @@ chmod 644 %{buildroot}%{_docdir}/python3-%{pypi_name}/README.md
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

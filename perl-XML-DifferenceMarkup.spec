@@ -1,6 +1,6 @@
 Name:           perl-XML-DifferenceMarkup
 Version:        1.05
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        XML diff and merge
 # ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # README:       GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -90,6 +90,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Petr Pisar <ppisar@redhat.com> - 1.05-30
 - Convert a License tag to an SPDX format
 - Package the tests

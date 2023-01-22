@@ -23,7 +23,7 @@
 
 Name:           php-%{gh_project}
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Laminas Framework %{library} component
 
 License:        BSD
@@ -147,6 +147,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 1.5.0-1
 - update to 1.5.0 (no change)
 - raise dependency on PHP 8.0

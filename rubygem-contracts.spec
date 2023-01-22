@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.17
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 Summary:	Contracts for Ruby
 License:	BSD
@@ -81,6 +81,9 @@ popd
 %{gem_instdir}/benchmarks/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct  4 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.17-5
 - Fix for ruby3.2 wrt Fixnum removal
 

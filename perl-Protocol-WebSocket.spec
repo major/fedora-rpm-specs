@@ -1,6 +1,6 @@
 Name:           perl-Protocol-WebSocket
 Version:        0.26
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        WebSocket protocol
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Protocol-WebSocket
@@ -80,6 +80,9 @@ PERL5LIB=test_simple_patch/lib ./Build test
 %{_bindir}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-furo
 Version:        2022.12.07
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Clean customizable Sphinx documentation theme
 
 License:        MIT
@@ -127,6 +127,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12.07-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 2022.12.07-1
 - Version 2022.12.07
 

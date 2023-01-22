@@ -2,7 +2,7 @@
 
 Name:      python-allpairspy
 Version:   2.5.0
-Release:   7%{?dist}
+Release:   8%{?dist}
 Summary:   Pairwise test combinations generator
 
 License:   MIT
@@ -51,6 +51,9 @@ install -m 644 %{SOURCE1} .
 %{python3_sitelib}/allpairspy/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Jonny Heggheim <hegjon@gmail.com> - 2.5.0-7
 - Added missing BuildRequires for python3-setuptools
   Fixes rhbz#2142044

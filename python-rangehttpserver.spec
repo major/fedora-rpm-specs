@@ -6,7 +6,7 @@ SimpleHTTPServer with support for Range requests.}
 
 Name:           python-%{pypi_name}
 Version:        1.2.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        SimpleHTTPServer with support for Range requests
 
 License:        ASL 2.0
@@ -60,6 +60,9 @@ PYTHONPATH=. pytest-3
 %{python3_sitelib}/rangehttpserver-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

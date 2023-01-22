@@ -1,6 +1,6 @@
 Name:           perl-String-Util
 Version:        1.32
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        String processing utilities
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/String-Util
@@ -51,6 +51,9 @@ perl Build.PL
 %{_mandir}/man3/String::Util.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

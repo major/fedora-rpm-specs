@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A setuptools_scm plugin that adds support for git archives
 
 License:        MIT
@@ -61,6 +61,9 @@ pytest-3 tests.py
 %{python3_sitelib}/%{srcname}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 01 2022 Nikola Forró <nforro@redhat.com> - 1.4-1
 - New upstream release 1.4 (#2099895)
 

@@ -11,7 +11,7 @@
 Summary:	An HTML, XML, SAX, and Reader parser
 Name:		rubygem-%{gem_name}
 Version:	%{mainver}
-Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}
+Release:	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}%{?dist}.1
 
 # MIT: see LICENSE.md
 # Apache-2.0
@@ -275,6 +275,9 @@ popd
 %{gem_dir}/doc/%{gem_name}-%{mainver}%{?prever}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.14.0-1
 - 1.14.0
 

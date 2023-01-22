@@ -1,6 +1,6 @@
 Name:           perl-Test-Regression
 Version:        0.08
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Test library that can generate outputs and compare against them
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Test-Regression
@@ -71,6 +71,9 @@ unset TEST_AUTHOR TEST_REGRESSION_GEN
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

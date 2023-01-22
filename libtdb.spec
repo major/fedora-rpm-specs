@@ -3,8 +3,8 @@
 %endif
 
 Name: libtdb
-Version: 1.4.7
-Release: 5%{?dist}
+Version: 1.4.8
+Release: 1%{?dist}
 Summary: The tdb library
 License: LGPLv3+
 URL: http://tdb.samba.org/
@@ -15,8 +15,6 @@ Source2: tdb.keyring
 
 # Patches
 Patch0001: 0003-wafsamba-Fix-few-SyntaxWarnings-caused-by-regular-ex.patch
-Patch0002: libtdb-revert-breaking-tdb.h.patch
-Patch0003: libtdb-waf18-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -103,6 +101,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 19 2023 Andreas Schneider <asn@redhat.com> - 1.4.8-1
+- Update to version 1.4.8
+- resolves: rhbz#2155422 - Fixed waf with python 3.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

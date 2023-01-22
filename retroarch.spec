@@ -28,7 +28,7 @@ ExcludeArch: %{ix86}
 
 Name:           %{appname}%{?p_suffix}
 Version:        1.14.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
 # CC-BY:        Assets
@@ -512,6 +512,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 1.14.0-1
 - chore: Update to 1.14.0
 

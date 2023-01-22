@@ -1,6 +1,6 @@
 Name:		pogo
 Version:	1.0.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Probably the simplest and fastest audio player for Linux
 Summary(de):	Möglicherweise der einfachste und schnellste Audioplayer für Linux
 
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

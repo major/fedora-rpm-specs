@@ -1,7 +1,7 @@
 Name:           perl-Lingua-Identify
 Summary:        Language identification
 Version:        0.56
-Release:        22%{?dist}
+Release:        23%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Lingua-Identify
 Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMBS/Lingua/Lingua-Identify-%{version}.tar.gz
@@ -90,6 +90,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.56-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

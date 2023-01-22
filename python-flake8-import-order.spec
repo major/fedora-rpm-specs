@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.18.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Flake8 plugin for checking order of imports in Python code
 
 License:        LGPLv3
@@ -65,6 +65,9 @@ mv flake8_import_order/pylama_linter.py flake8_import_order/pylama_linter.NOT
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-openid-teams
 Version:        1.1
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Teams extension for python-openid
 
 License:        BSD
@@ -48,6 +48,9 @@ This package includes the python 3 version of the module.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

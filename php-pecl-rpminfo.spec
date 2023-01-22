@@ -20,7 +20,7 @@
 Summary:        RPM information
 Name:           php-pecl-%{pecl_name}
 Version:        0.6.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        PHP
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
@@ -164,6 +164,9 @@ REPORT_EXIT_STATUS=1 \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 0.6.0-6
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

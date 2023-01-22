@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        5.1.11
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A bridge from Glyphs source files to UFOs
 
 License:        ASL 2.0
@@ -62,6 +62,9 @@ This library provides a bridge from Glyphs source files (.glyphs) to UFOs
 %{_bindir}/ufo2glyphs
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.11-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.11-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

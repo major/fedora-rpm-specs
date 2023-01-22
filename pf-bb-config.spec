@@ -1,6 +1,6 @@
 Name:           pf-bb-config
 Version:        22.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PF BBDEV (baseband device) Configuration Application
 
 License:        Apache-2.0
@@ -46,6 +46,9 @@ cp -a acc100/*.cfg %{buildroot}%{_datadir}/pf-bb-config/acc100/
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Timothy Redaelli <tredaelli@redhat.com> - 22.11-1
 - Update to 22.11
 

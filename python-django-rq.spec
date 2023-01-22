@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        2.4.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        App that provides django integration for RQ (Redis Queue)
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -vr *.egg-info
 %{python3_sitelib}/django_rq/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

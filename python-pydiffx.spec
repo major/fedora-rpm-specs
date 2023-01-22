@@ -1,6 +1,6 @@
 Name:           python-pydiffx
 Version:        1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python implementation of the DiffX specification
 License:        MIT
 URL:            https://diffx.org/pydiffx/
@@ -59,6 +59,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Jonathan Wright <jonathan@almalinux.org> - 1.1-1
 - Initial package build
 

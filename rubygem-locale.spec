@@ -31,7 +31,7 @@
 Summary:	Pure ruby library which provides basic APIs for localization
 Name:		rubygem-%{gem_name}
 Version:	2.1.3
-Release:	%{fedorarel}%{?dist}.5
+Release:	%{fedorarel}%{?dist}.6
 License:	GPLv2 or Ruby
 URL:		http://locale.rubyforge.org/
 %if	0%{?usegit} >= 1
@@ -205,6 +205,9 @@ popd
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-1.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-1.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

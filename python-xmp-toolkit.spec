@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Python XMP Toolkit for working with metadata
 
 License:        BSD
@@ -87,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 2.0.1-16
 - Drop support for i686
 

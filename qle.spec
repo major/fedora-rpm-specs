@@ -1,6 +1,6 @@
 Name:           qle
 Version:        0.0.18
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        A QSO Logger and log Editor
 
 License:        GPLv2+
@@ -83,6 +83,9 @@ desktop-file-install \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.18-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Richard Shaw <hobbes1069@gmail.com> - 0.0.18-31
 - Rebuild for hamlib 4.5.
 

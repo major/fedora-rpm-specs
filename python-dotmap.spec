@@ -11,7 +11,7 @@ The key feature is exactly what you want: dot-access.}
 
 Name:           python-%{pypi_name}
 Version:        1.3.30
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Dot access dictionary with dynamic hierarchy creation and ordered iteration
 
 License:        MIT
@@ -57,6 +57,9 @@ python3 -m unittest
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.30-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

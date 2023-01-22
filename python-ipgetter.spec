@@ -3,7 +3,7 @@
 
 Name:           python-ipgetter
 Version:        0.6
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        %{sum}
 
 License:        WTFPL
@@ -41,6 +41,9 @@ from a server list to minimize request overhead on a single server.
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

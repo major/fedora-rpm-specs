@@ -1,6 +1,6 @@
 Name:           perl-HTML-Encoding
 Version:        0.61
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Determine the encoding of HTML/XML/XHTML documents
 
 License:        GPL+ or Artistic
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/HTML::Encoding.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.61-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

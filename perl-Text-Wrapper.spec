@@ -1,6 +1,6 @@
 Name: 		perl-Text-Wrapper
 Version: 	1.05
-Release: 	27%{?dist}
+Release: 	28%{?dist}
 Summary:	Simple word wrapping perl module
 License: 	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL: 		https://metacpan.org/release/Text-Wrapper
@@ -42,6 +42,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.05-27
 - Modernize spec.
 - Convert license to SPDX.

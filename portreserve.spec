@@ -3,7 +3,7 @@
 Summary: TCP port reservation utility
 Name: portreserve
 Version: 0.0.5
-Release: 30%{?dist}
+Release: 31%{?dist}
 License: GPLv2+
 URL: http://cyberelk.net/tim/portreserve/
 Source0: http://cyberelk.net/tim/data/portreserve/stable/%{name}-%{version}.tar.bz2
@@ -81,6 +81,9 @@ EOF
 %{_mandir}/*/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Tim Waugh <twaugh@redhat.com> - 0.0.5-30
 - Fix PID file location (bug #1805970).
 

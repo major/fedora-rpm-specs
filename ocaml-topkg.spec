@@ -9,8 +9,8 @@
 %bcond_with care
 
 Name:           ocaml-topkg
-Version:        1.0.6
-Release:        2%{?dist}
+Version:        1.0.7
+Release:        1%{?dist}
 Summary:        The transitory OCaml software packager
 
 License:        ISC
@@ -161,6 +161,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Fri Jan 20 2023 Jerry James <loganjerry@gmail.com> - 1.0.7-1
+- Version 1.0.7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

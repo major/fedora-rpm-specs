@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.9.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Strictly RFC 4511 conforming LDAP V3 pure Python client
 
 License:        LGPLv2+
@@ -46,6 +46,9 @@ rm -vf %{pypi_name}/utils/ordDict.py
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 02 2022 Maíra Canal <mairacanal@riseup.net> - 2.9.1-1
 - Update to 2.9.1
 - Remove deprecated macros

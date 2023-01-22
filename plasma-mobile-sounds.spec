@@ -2,7 +2,7 @@
 
 Name:           plasma-mobile-sounds
 Version:        0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        CC-BY-SA and CC0 and CC-BY
 Summary:        Plasma Mobile Sound Theme
 Url:            https://invent.kde.org/plasma-mobile/plasma-mobile-sounds
@@ -33,6 +33,9 @@ BuildRequires: pkgconfig(Qt5Core)
 %{_kf5_datadir}/sounds/plasma-mobile
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

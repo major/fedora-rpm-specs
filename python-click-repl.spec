@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        REPL plugin for Click
 
 License:        MIT
@@ -46,6 +46,9 @@ Summary:        %{summary}
 %{python3_sitelib}/click_repl-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

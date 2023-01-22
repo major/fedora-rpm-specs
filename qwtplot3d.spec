@@ -5,7 +5,7 @@
 Name:           qwtplot3d
 Epoch:          1
 Version:        0.3.0
-Release:        2.%{commitdate}git%{shortcommit}%{?dist}
+Release:        3.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Extended version of the original QwtPlot3D library
 License:        Zlib
 URL:            https://github.com/SciDAVis/%{name}
@@ -184,6 +184,9 @@ popd
 #
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.0-3.20210828gitb265574
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 08 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:0.3.0-2.20210828gitb265574
 - Fix Obsolete tags
 

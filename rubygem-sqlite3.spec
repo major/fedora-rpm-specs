@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.4.2
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Allows Ruby scripts to interface with a SQLite3 database
 License: BSD
 URL: https://github.com/sparklemotion/sqlite3-ruby
@@ -84,6 +84,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 1.4.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

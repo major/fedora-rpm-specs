@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Exploratory analysis of Bayesian models
 
 License:        ASL 2.0
@@ -51,6 +51,9 @@ Recommends:  python3dist(ujson)
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

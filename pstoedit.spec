@@ -4,7 +4,7 @@
 
 Name:           pstoedit
 Version:        3.78
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Translates PostScript and PDF graphics into other vector formats
 License:        GPLv2+
 URL:            http://www.pstoedit.net
@@ -98,6 +98,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/pstoedit
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.78-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 3.78-6
 - Rebuild for ImageMagick 7
 

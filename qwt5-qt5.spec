@@ -14,7 +14,7 @@
 
 Name:    LGPL-2.1-or-later WITH Qwt-exception-1.0
 Version: 5.2.3a
-Release: 15.%{commitdate}git%{shortcommit0}%{?dist}
+Release: 16.%{commitdate}git%{shortcommit0}%{?dist}
 Summary: Qt Widgets for Technical Applications adapted to Qt5
 
 License: LGPLv2+ with exceptions
@@ -91,6 +91,9 @@ pushd %{name}-master
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 5.2.3a-15.20210522gita2b11e3
 - Really remove the path
 

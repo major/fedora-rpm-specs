@@ -12,7 +12,7 @@ Code from the future, delivered to you in the now.
 
 Name:           python-%{pypi_name}
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Useful additions to futures, from the future
 
 License:        ASL 2.0
@@ -95,6 +95,9 @@ rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Alfredo Moralejo <amoralej@redhat.com> 2.4.1-1
 - Update to upstream version 2.4.1
 

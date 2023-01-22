@@ -1,6 +1,6 @@
 Name:           perl-HTTP-MultiPartParser
 Version:        0.02
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        HTTP MultiPart Parser
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-MultiPartParser
@@ -58,6 +58,9 @@ streams conforming to MultiPart types as defined in RFC 2616.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.02-19
 - Modernize spec.
 - Convert license to SPDX.

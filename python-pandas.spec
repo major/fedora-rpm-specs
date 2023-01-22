@@ -13,7 +13,7 @@
 
 Name:           python-pandas
 Version:        1.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library providing high-performance data analysis tools
 
 # The entire source is BSD-3-Clause and covered by LICENSE, except:
@@ -669,6 +669,9 @@ export PYTHONHASHSEED="$(
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 04 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 1.5.2-1
 - Update to 1.5.2
 - Re-enable python-gcsfs BR/weak-dep. on F38 and later

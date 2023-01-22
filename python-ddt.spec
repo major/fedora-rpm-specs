@@ -8,7 +8,7 @@ different test data, and make it appear as multiple test cases.}
 
 Name:           python-%{srcname}
 Version:        1.6.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library to multiply test cases
 License:        MIT
 URL:            https://github.com/datadriventests/ddt
@@ -62,6 +62,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 22 2022 Joel Capitao <jcapitao@redhat.com> - 1.6.0-1
 - Latest upstream, resolves: rhbz#2089550
 

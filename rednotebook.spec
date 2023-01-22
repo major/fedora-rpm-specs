@@ -1,6 +1,6 @@
 Name:           rednotebook
 Version:        2.29.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daily journal with calendar, templates and keyword searching
 
 License:        GPLv2+
@@ -66,6 +66,9 @@ mv %{buildroot}/%{_datadir}/metainfo/%{name}.appdata.xml %{buildroot}/%{_datadir
 %{python3_sitelib}/%{name}/__pycache__
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.29.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Phil Wyett <philip.wyett@kathenas.org> - 2.29.3-1
 - New upstream version 2.29.3
 

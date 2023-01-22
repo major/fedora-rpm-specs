@@ -1,6 +1,6 @@
 Name:           python-yara
 Version:        4.2.3
-%global         baserelease     1
+%global         baserelease     2
 Summary:        Python binding for the YARA pattern matching tool
 License:        ASL 2.0
 URL:            https://github.com/VirusTotal/yara-python/
@@ -136,6 +136,9 @@ EXCLUDE='not testModuleData'
 
 #====================================================================
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Michal Ambroz <rebus at, seznam.cz> - 4.2.3-1
 - Rebuilt for yara-4.2.3 - second service :)
 

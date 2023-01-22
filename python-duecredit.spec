@@ -13,7 +13,7 @@ software provides multiple citeable implementations.}
 
 Name:           python-%{srcname}
 Version:        0.9.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Automated collection and reporting of citations
 
 License:        BSD
@@ -74,6 +74,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{pytest} duecredit/tests --ignore=du
 %doc examples/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

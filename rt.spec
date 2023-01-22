@@ -52,7 +52,7 @@ Requires: mod_fcgid
 
 Name:		rt
 Version:	5.0.3
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Request tracker
 
 License:	GPL-2.0-or-later
@@ -648,6 +648,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 5.0.3-3
 - Filter out ./t/lifecycles/utils.pl to work-around rpm bogusly adding
   R: perl(.::t/lifecycles/utils.pl) (RHBZ#2148952).

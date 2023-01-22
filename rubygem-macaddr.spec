@@ -2,7 +2,7 @@
 
 Name:           rubygem-%{gem_name}
 Version:        1.7.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        MAC Address Determination for Ruby
 
 License:        Ruby or BSD
@@ -88,6 +88,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

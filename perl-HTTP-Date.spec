@@ -1,6 +1,6 @@
 Name:           perl-HTTP-Date
 Version:        6.05
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Date conversion routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Date
@@ -89,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.05-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.05-11
 - Package tests
 - Update license to SPDX format

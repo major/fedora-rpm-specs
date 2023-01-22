@@ -4,7 +4,7 @@
 
 Name:       php-gettext-gettext
 Version:    5.7.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 BuildArch:  noarch
 
 License:    MIT
@@ -112,6 +112,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Sundeep Anand <suanand@fedoraproject.org> - 5.7.0-1
 - update to 5.7.0 (#2111800)
 

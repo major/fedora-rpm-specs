@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 3.0.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A virtual BMC for controlling virtual machines using IPMI commands
 License: ASL 2.0
 URL: https://opendev.org/openstack/virtualbmc
@@ -107,6 +107,9 @@ PYTHON=%{__python3} stestr run
 %doc doc/build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 26 2022 Juan Orti Alcaine <jortialc@redhat.com> - 3.0.0-1
 - Version 3.0.0 (#2137838)
 

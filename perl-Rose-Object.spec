@@ -1,6 +1,6 @@
 Name:		perl-Rose-Object
 Version:	0.860
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Simple object base class
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Rose-Object
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/Rose*.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.860-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.860-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

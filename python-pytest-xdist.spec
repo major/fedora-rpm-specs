@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
@@ -55,6 +55,9 @@ Summary:        %{summary}
 %{python3_sitelib}/xdist/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Scott Talbert <swt@techie.net> - 3.1.0-2
 - Fix tests when PYTEST_XDIST_AUTO_NUM_WORKERS is set (#2161636)
 

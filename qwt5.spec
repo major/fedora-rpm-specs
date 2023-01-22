@@ -5,7 +5,7 @@
 Name:    qwt5
 Summary: Qt Widgets for Technical Applications
 Version: 5.2.2
-Release: 44%{?dist}
+Release: 45%{?dist}
 
 License: LGPLv2 with exceptions
 URL:     http://qwt.sourceforge.net/
@@ -104,6 +104,9 @@ mv %{buildroot}%{_qt4_docdir}/html/html \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-45
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

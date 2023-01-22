@@ -10,7 +10,7 @@ such as proper co-routine support.
 
 Name:		python-%{srcname}
 Version:	1.9
-Release:	7.%{snapinfo}%{?dist}
+Release:	8.%{snapinfo}%{?dist}
 Summary:	Python wrapper around Lua and LuaJIT
 
 License:	MIT
@@ -59,6 +59,9 @@ BuildRequires:	python3-setuptools
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-8.20200822git831599a
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-7.20200822git831599a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

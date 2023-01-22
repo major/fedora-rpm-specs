@@ -20,7 +20,7 @@
 
 Name:           php-%{gh_project}
 Version:        2.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD
@@ -218,6 +218,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 11 2022 Remi Collet <remi@remirepo.net> - 2.19.0-1
 - update to 2.19.0 (no change)
 

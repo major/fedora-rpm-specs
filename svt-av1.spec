@@ -21,9 +21,6 @@ License:        BSD-3-Clause and MIT and ISC and Public Domain
 URL:            https://gitlab.com/AOMediaCodec/SVT-AV1
 Source0:        %url/-/archive/v%{version}/%{name}-%{version}.tar.bz2
 
-# 64Bits, 5th Generation Intel® Core™ processor only
-ExclusiveArch:  x86_64
-
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

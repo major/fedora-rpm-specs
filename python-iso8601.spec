@@ -7,7 +7,7 @@ This module parses the most common forms of ISO 8601 date strings \
 
 Name:           python-%{srcname}
 Version:        1.1.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple module to parse ISO 8601 dates
 
 License:        MIT
@@ -52,6 +52,9 @@ sed -e 's/\^/>=/' -i pyproject.toml
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 14 2022 Carl George <carl@george.computer> - 1.1.0-1
 - Update to 1.1.0
 

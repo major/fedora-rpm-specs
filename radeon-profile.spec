@@ -1,6 +1,6 @@
 Name: radeon-profile
 Version: 20200824
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: Application to read current clocks of ATi Radeon cards
 
 License: GPLv2+
@@ -97,6 +97,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200824-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20200824-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

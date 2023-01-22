@@ -1,6 +1,6 @@
 Name:           perl-MIME-Lite-HTML
 Version:        1.24
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Provide routine to transform a HTML page in a MIME-Lite mail
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/MIME-Lite-HTML
@@ -75,6 +75,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

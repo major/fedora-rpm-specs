@@ -2,7 +2,7 @@
 
 Name: python-%{pname}
 Version: 3.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Fortran preprocessor
 License: BSD
 URL: https://github.com/aradi/fypp
@@ -52,6 +52,9 @@ test/runtests.sh %{__python3}
 %{python3_sitelib}/__pycache__/%{pname}.cpython-%{python3_version_nodots}.pyc
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-MooseX-SingleArg
 Version:        0.09
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        No-fuss instantiation of Moose objects using a single argument
 License:        GPL+ or Artistic
 URL:            http://search.cpan.org/dist/MooseX-SingleArg/
@@ -50,6 +50,9 @@ find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	2.8.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 Summary:	Simplistic port-like solution for developers
 License:	MIT
@@ -86,6 +86,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 29 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.8.1-1
 - 2.8.1
 

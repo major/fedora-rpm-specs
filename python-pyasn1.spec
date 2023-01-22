@@ -3,7 +3,7 @@
 
 Name:           python-pyasn1
 Version:        0.4.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        ASN.1 tools for Python
 License:        BSD
 Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
@@ -85,6 +85,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %doc docs/build/html/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

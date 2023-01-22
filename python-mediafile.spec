@@ -1,13 +1,12 @@
 %global shortname mediafile
 Name:           python-mediafile
-Version:        0.9.0
+Version:        0.11.0
 Release:        1%{?dist}
 Summary:        Elegant audio file tagging in Python
 
 License:        MIT
 URL:            https://github.com/beetbox/mediafile
 Source0:        %{pypi_source mediafile}
-Patch0:         tox-recent-python.diff
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -52,5 +51,11 @@ Python 3 version.
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Michele Baldessari <michele@acksyn.org> - 0.11.0-1
+- New package (drop unneeded patches)
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 15 2022 Michele Baldessari <michele@acksyn.org> - 0.9.0-1
 - New package

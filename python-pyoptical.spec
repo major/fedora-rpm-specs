@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        0.4
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Pure python interface to OptiCAL
 License:        MIT
 URL:            https://github.com/esc/pyoptical
@@ -46,6 +46,9 @@ sed -i -e '1s|^.*$|#!%{__python3}|' %{buildroot}%{_bindir}/%{modname}
 %{python3_sitelib}/__pycache__/%{modname}.*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

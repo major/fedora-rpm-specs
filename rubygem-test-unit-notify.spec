@@ -6,7 +6,7 @@
 Summary:	Test::Unit::Notify - A test result notify extension for Test::Unit
 Name:		rubygem-%{gem_name}
 Version:	1.0.4
-Release:	15%{?dist}
+Release:	16%{?dist}
 # https://github.com/test-unit/test-unit-notify/issues/2
 License:	LGPLv2+ and (LGPLv2+ or GFDL or CC-BY-SA)
 URL:		http://rubyforge.org/projects/test-unit/
@@ -86,6 +86,9 @@ rm -f %{buildroot}%{gem_instdir}/{Gemfile,Rakefile,.yardopts}
 %doc	%{gem_instdir}/screenshot/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

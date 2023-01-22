@@ -6,7 +6,7 @@
 Name: qt3
 Summary: The shared library for the Qt 3 GUI toolkit
 Version: 3.3.8b
-Release: 93%{?dist}
+Release: 94%{?dist}
 License: QPL or GPLv2 or GPLv3
 Url: http://www.troll.no
 Source0: ftp://ftp.trolltech.com/qt/source/qt-x11-free-%{version}.tar.gz
@@ -646,6 +646,9 @@ mkdir -p %{buildroot}%{qtdir}/plugins/styles
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.8b-94
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Ondřej Sloup <osloup@redhat.com> - 3.3.8b-93
 - Rebuild for new PostgreSQL 15
 

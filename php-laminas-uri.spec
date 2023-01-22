@@ -24,7 +24,7 @@
 
 Name:           php-%{gh_project}
 Version:        2.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD
@@ -155,6 +155,9 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 17 2022 Remi Collet <remi@remirepo.net> - 2.10.0-1
 - update to 2.10.0
 - raise dependency on PHP 8.0

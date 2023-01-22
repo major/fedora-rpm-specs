@@ -1,6 +1,6 @@
 Name: rancid
 Version: 3.13
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Really Awesome New Cisco confIg Differ
 
 License: BSD with advertising
@@ -110,6 +110,9 @@ exit 0
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

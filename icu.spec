@@ -8,10 +8,10 @@
 
 Name:      icu
 Version:   72.1
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   International Components for Unicode
 
-License:   MIT and UCD and Public Domain
+License:   Unicode-DFS-2016 AND BSD-2-Clause AND BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
 URL:       http://site.icu-project.org/
 Source0:   https://github.com/unicode-org/icu/releases/download/release-72-1/icu4c-72_1-src.tgz
 %if 0%{?use_tzdata_update}
@@ -193,6 +193,9 @@ LD_LIBRARY_PATH=lib:stubdata:tools/ctestfw:$LD_LIBRARY_PATH bin/uconv -l
 
 
 %changelog
+* Fri Jan 20 2023 Eike Rathke <erack@redhat.com> - 72.1-3
+- migrated to SPDX license IDs
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 72.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

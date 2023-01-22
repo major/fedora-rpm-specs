@@ -2,7 +2,7 @@ Summary:        Perl module to read TNEF files
 Name:           perl-Convert-TNEF
 Version:        0.18
 Release:        27%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-TNEF
 Source0:        https://cpan.metacpan.org/modules/by-module/Convert/Convert-TNEF-%{version}.tar.gz
 BuildArch:      noarch

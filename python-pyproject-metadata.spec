@@ -5,7 +5,7 @@
 
 Name:           python-pyproject-metadata
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        PEP 621 metadata parsing
 
 License:        MIT
@@ -96,6 +96,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Jerry James <loganjerry@gmail.com> - 0.7.0-2
 - Work around FTI due to version of packaging (rhbz#2161981)
 

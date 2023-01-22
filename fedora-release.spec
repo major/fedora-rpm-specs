@@ -203,6 +203,7 @@ Summary:        Package providing the identity for Fedora Cinnamon Spin
 RemovePathPostfixes: .cinnamon
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-cinnamon = %{version}-%{release}
 
 
 %description identity-cinnamon
@@ -240,6 +241,7 @@ Summary:        Package providing the identity for Fedora Cloud Edition
 RemovePathPostfixes: .cloud
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-cloud = %{version}-%{release}
 
 
 %description identity-cloud
@@ -277,6 +279,7 @@ Summary:        Package providing the identity for Fedora Comp Neuro Lab
 RemovePathPostfixes: .compneuro
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-compneuro = %{version}-%{release}
 
 
 %description identity-compneuro
@@ -314,6 +317,7 @@ Summary:        Package providing the identity for Fedora Container Base Image
 RemovePathPostfixes: .container
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-container = %{version}-%{release}
 
 
 %description identity-container
@@ -351,6 +355,7 @@ Summary:        Package providing the identity for Fedora CoreOS
 RemovePathPostfixes: .coreos
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-coreos = %{version}-%{release}
 
 
 %description identity-coreos
@@ -389,6 +394,7 @@ Summary:        Package providing the identity for Fedora Design Suite Lab
 RemovePathPostfixes: .designsuite
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-designsuite = %{version}-%{release}
 
 
 %description identity-designsuite
@@ -436,6 +442,7 @@ Suggests: lorax-templates-rhel
 RemovePathPostfixes: .eln
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-eln = %{version}-%{release}
 
 
 %description identity-eln
@@ -473,6 +480,7 @@ Summary:        Package providing the identity for Fedora IoT Edition
 RemovePathPostfixes: .iot
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-iot = %{version}-%{release}
 
 
 %description identity-iot
@@ -510,6 +518,7 @@ Summary:        Package providing the identity for Fedora KDE Plasma Spin
 RemovePathPostfixes: .kde
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-kde = %{version}-%{release}
 
 
 %description identity-kde
@@ -547,6 +556,7 @@ Summary:        Package providing the identity for Fedora MATE-Compiz Spin
 RemovePathPostfixes: .matecompiz
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-matecompiz = %{version}-%{release}
 
 
 %description identity-matecompiz
@@ -584,6 +594,7 @@ Summary:        Package providing the identity for Fedora Server Edition
 RemovePathPostfixes: .server
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-server = %{version}-%{release}
 
 
 %description identity-server
@@ -628,6 +639,7 @@ Summary:        Package providing the identity for Fedora Silverblue
 RemovePathPostfixes: .silverblue
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-silverblue = %{version}-%{release}
 
 
 %description identity-silverblue
@@ -666,6 +678,7 @@ Summary:        Package providing the identity for Fedora Kinoite
 RemovePathPostfixes: .kinoite
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-kinoite = %{version}-%{release}
 
 
 %description identity-kinoite
@@ -712,6 +725,7 @@ Summary:        Package providing the identity for Fedora Snappy environments
 RemovePathPostfixes: .snappy
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-snappy = %{version}-%{release}
 
 
 %description identity-snappy
@@ -749,6 +763,7 @@ Summary:        Package providing the identity for Fedora Sugar on a Stick
 RemovePathPostfixes: .soas
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-soas = %{version}-%{release}
 
 
 %description identity-soas
@@ -793,6 +808,7 @@ Summary:        Package providing the identity for Fedora Workstation Edition
 RemovePathPostfixes: .workstation
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-workstation = %{version}-%{release}
 
 
 %description identity-workstation
@@ -830,6 +846,7 @@ Summary:        Package providing the identity for Fedora Xfce Spin
 RemovePathPostfixes: .xfce
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-xfce = %{version}-%{release}
 
 
 %description identity-xfce
@@ -867,6 +884,7 @@ Summary:        Package providing the identity for Fedora i3 Spin
 RemovePathPostfixes: .i3
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-i3 = %{version}-%{release}
 
 
 %description identity-i3
@@ -904,6 +922,7 @@ Summary:        Package providing the identity for Fedora LXQt Spin
 RemovePathPostfixes: .lxqt
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-lxqt = %{version}-%{release}
 
 
 %description identity-lxqt
@@ -940,6 +959,7 @@ Summary:        Package providing the identity for Fedora Budgie Spin
 RemovePathPostfixes: .budgie
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-budgie = %{version}-%{release}
 
 
 %description identity-budgie
@@ -977,6 +997,7 @@ Summary:        Package providing the identity for Fedora Sway Spin
 RemovePathPostfixes: .sway
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-sway = %{version}-%{release}
 
 
 %description identity-sway
@@ -1015,6 +1036,7 @@ Summary:        Package providing the identity for Fedora Sericea
 RemovePathPostfixes: .sericea
 Provides:       fedora-release-identity = %{version}-%{release}
 Conflicts:      fedora-release-identity
+Requires(meta): fedora-release-sericea = %{version}-%{release}
 
 
 %description identity-sericea

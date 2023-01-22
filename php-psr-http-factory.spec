@@ -17,7 +17,7 @@
 
 Name:      php-%{pk_vendor}-%{pk_project}
 Version:   1.0.1
-Release:   8%{?dist}
+Release:   9%{?dist}
 Summary:   Common interfaces for PSR-7 HTTP message factories
 
 License:   MIT
@@ -92,6 +92,9 @@ exit (interface_exists("Psr\\Http\\Message\\RequestFactoryInterface") ? 0 : 1);
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

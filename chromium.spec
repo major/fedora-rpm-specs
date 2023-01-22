@@ -1,5 +1,3 @@
-%define _lto_cflags %{nil}
-
 # enable|disable system build flags
 %global system_build_flags 0
 
@@ -9,15 +7,16 @@
 %undefine _package_note_file
 %endif
 
-%global numjobs 10
+# set default numjobs for the koji build
+%global numjobs 16
 %ifarch aarch64
 %global numjobs 8
 %endif
-
+ 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 1
-
+%global use_all_cpus 0
+ 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
 %endif
@@ -1034,7 +1033,8 @@ udev.
 
 # Change shebang in all relevant files in this directory and all subdirectories
 # See `man find` for how the `-exec command {} +` syntax works
-find -type f -exec sed -iE '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
+find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
+
 
 # Unpack fonts
 pushd third_party/test_fonts

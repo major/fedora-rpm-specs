@@ -4,7 +4,7 @@
 
 Name:           python-%{tar_name}
 Version:        1.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -67,6 +67,9 @@ identity providers, for example, Microsoft’s Azure Active Directory
 %{_bindir}/oidc-register
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 David Kirwan <dkirwan@redhat.com> - 1.5.0-1
 - Switch rpm to point at Fork, release 1.5.0 with PyJWT fix PR: puiterwijk/flask-oidc/pull/144
 

@@ -4,7 +4,7 @@
 
 Name: %{vagrant_plugin_name}
 Version: 0.7.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: libvirt provider for Vagrant
 License: MIT
 URL: https://github.com/vagrant-libvirt/vagrant-libvirt
@@ -19,6 +19,12 @@ Patch0: vagrant-libvirt-0.7.0-Allow-the-connection.client.libversion-call.patch
 # Reduce patching for distro default session use
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1424
 Patch1: vagrant-libvirt-0.7.0-Reduce-patching-for-distro-default-session-use.patch
+
+# https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1709
+# ruby3.2 fix wrt File.exits? removal and URI.split host result change
+# A bit modified: spec/support/libvirt_acceptance_context.rb does not exist
+# with 0.7.0 yet
+Patch2: vagrant-libvirt-pr1709-ruby32-File_exists-URL-parse.patch
 
 # Enable QEMU Session by default
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/969
@@ -63,6 +69,7 @@ Documentation for %{name}.
 
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 %patch100 -p1
 
 %build
@@ -132,6 +139,10 @@ popd
 %{vagrant_plugin_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.0-5
+- Backport upstream fix for ruby3.2 compatibility
+  (File.exists? removal, URI#parse host name result change)
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

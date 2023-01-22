@@ -1,6 +1,6 @@
 Name:           perl-Redis
 Version:        2.000
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Perl binding for Redis database
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Redis
@@ -89,6 +89,9 @@ RELEASE_TESTING=1 ./Build test
 %{_mandir}/man3/Redis::Sentinel.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.000-1
 - 2.000 bump
 

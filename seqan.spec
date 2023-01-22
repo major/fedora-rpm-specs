@@ -85,7 +85,7 @@ cp -p extras/apps/seqan_flexbar/INFO extras/apps/seqan_flexbar/README
 %build
 mkdir -p build/Release && pushd build/Release
 # cc1plus: out of memory on ARM
-%ifarch %{arm}
+%ifarch %{arm} %{ix86}
 SEQAN_OPT_FLAGS=$(echo "$RPM_OPT_FLAGS" | sed -e 's/-O2/-O0/g')
 SEQAN_OPT_FLAGS="$SEQAN_OPT_FLAGS -fPIC"
 %else
@@ -146,8 +146,9 @@ find %{buildroot}%{_bindir} -type f -name "*.h" -exec chmod 0755 '{}' \;
 %{_includedir}/seqan/
 
 %changelog
-* Tue Jan 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.4.2-51
+* Fri Jan 20 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.4.2-51
 - Use _fortify_level (rhbz#2161371)
+- Reduce optimization level in i686
 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

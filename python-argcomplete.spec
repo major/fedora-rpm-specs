@@ -8,7 +8,7 @@
 Name:          python-argcomplete
 Summary:       Bash tab completion for argparse
 Version:       2.0.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       ASL 2.0
 URL:           https://github.com/kislyuk/argcomplete
 Source0:       %pypi_source argcomplete
@@ -88,6 +88,9 @@ export INPUTRC=$PWD/.inputrc
 %{bash_completions_dir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 12 2022 Todd Zullinger <tmz@pobox.com> - 2.0.0-5
 - Install bash-completion in default location
 

@@ -1,6 +1,6 @@
 Name:           perl-IPTables-ChainMgr
 Version:        1.6
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Perl extension for manipulating iptables policies
 License:        Artistic 2.0
 URL:            http://www.cipherdyne.org/modules/
@@ -48,6 +48,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

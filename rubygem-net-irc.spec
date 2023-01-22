@@ -7,7 +7,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.0.9
-Release:	21.D%{gitdate_num}git%{shorthash}%{?dist}
+Release:	22.D%{gitdate_num}git%{shorthash}%{?dist}
 
 Summary:	Library for implementing IRC server and client
 # Ruby's
@@ -127,6 +127,9 @@ rspec spec/
 %{gem_instdir}/examples/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-22.D20121021git4cf339fa69
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.9-21.D20121021git4cf339fa69
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

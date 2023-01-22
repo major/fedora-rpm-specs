@@ -1,6 +1,6 @@
 Name:		physfs
 Version:	3.0.2
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	zlib
 Summary:	Library to provide abstract access to various archives
 URL:		http://www.icculus.org/physfs/
@@ -89,6 +89,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

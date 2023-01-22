@@ -1,7 +1,7 @@
 %global upstream_name urwid_readline
 Name:           python-urwid-readline
 Version:        0.13
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A textbox edit widget for urwid that supports readline shortcuts
 
 License:        MIT
@@ -52,6 +52,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

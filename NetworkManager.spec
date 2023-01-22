@@ -5,7 +5,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.41.8
+%global real_version 1.41.90
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -250,7 +250,6 @@ BuildRequires: gnutls-devel >= 2.12
 %else
 BuildRequires: nss-devel >= 3.11.7
 %endif
-BuildRequires: dhclient
 BuildRequires: readline-devel
 BuildRequires: audit-libs-devel
 %if %{with regen_docs}
@@ -605,8 +604,9 @@ Preferably use nmcli instead.
 %if %{with test}
 	--werror \
 %endif
-	-Dnft=/usr/sbin/nft \
-	-Diptables=/usr/sbin/iptables \
+	-Dnft=%{_sbindir}/nft \
+	-Diptables=%{_sbindir}/iptables \
+	-Ddhclient=%{_sbindir}/dhclient \
 	-Ddhcpcanon=no \
 	-Ddhcpcd=no \
 	-Dconfig_dhcp_default=%{dhcp_default} \
@@ -734,9 +734,9 @@ autoreconf --install --force
 	--with-runstatedir=%{_rundir} \
 	--enable-silent-rules=no \
 	--enable-static=no \
-	--with-nft=/usr/sbin/nft \
-	--with-iptables=/usr/sbin/iptables \
-	--with-dhclient=yes \
+	--with-nft=%{_sbindir}/nft \
+	--with-iptables=%{_sbindir}/iptables \
+	--with-dhclient=%{_sbindir}/dhclient \
 	--with-dhcpcd=no \
 	--with-dhcpcanon=no \
 	--with-config-dhcp-default=%{dhcp_default} \
@@ -1224,6 +1224,10 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fernando Fernandez Mancera <ffmancera@riseup.net> - 1:1.41.90-1
+- Update to 1.42-rc1 (1.41.90) (release candidate)
+- Upstream sync specfile
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.41.8-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

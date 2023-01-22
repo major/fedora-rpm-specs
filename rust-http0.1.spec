@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.1
 Version:        0.1.21
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Set of types for representing HTTP requests and responses
 
 # Upstream license specification: MIT/Apache-2.0
@@ -71,6 +71,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.21-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.21-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global modname traitsui 
 Name:           python-%{modname}
 Version:        7.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        User interface tools designed to complement Traits
 
 # Images have different licenses. For image license breakdown check
@@ -101,6 +101,9 @@ popd
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 15 2023 Orion Poplawski <orion@nwra.com> - 7.4.3-1
 - Update to 7.4.3
 

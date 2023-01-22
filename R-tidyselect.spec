@@ -1,12 +1,12 @@
 %bcond_with bootstrap
 
 %global packname tidyselect
-%global packver  1.1.2
+%global packver  1.2.0
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Select from a Set of Strings
 
 License:          MIT
@@ -15,19 +15,20 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-ellipsis, R-glue >= 1.3.0, R-purrr >= 0.3.2, R-rlang >= 0.4.6, R-vctrs >= 0.3.0
-# Suggests:  R-covr, R-crayon, R-dplyr, R-knitr, R-magrittr, R-rmarkdown, R-testthat >= 2.3.0, R-tibble >= 2.1.3, R-withr
+# Imports:   R-cli >= 3.3.0, R-glue >= 1.3.0, R-lifecycle >= 1.0.3, R-rlang >= 1.0.4, R-vctrs >= 0.4.1, R-withr
+# Suggests:  R-covr, R-crayon, R-dplyr, R-knitr, R-magrittr, R-rmarkdown, R-testthat >= 3.1.1, R-tibble >= 2.1.3
 # LinkingTo:
 # Enhances:
 
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-ellipsis
+BuildRequires:    R-cli >= 3.3.0
 BuildRequires:    R-glue >= 1.3.0
-BuildRequires:    R-purrr >= 0.3.2
-BuildRequires:    R-rlang >= 1.0.1
-BuildRequires:    R-vctrs >= 0.3.0
+BuildRequires:    R-lifecycle >= 1.0.3
+BuildRequires:    R-rlang >= 1.0.4
+BuildRequires:    R-vctrs >= 0.4.1
+BuildRequires:    R-withr
 %if %{without bootstrap}
 BuildRequires:    R-crayon
 BuildRequires:    R-dplyr
@@ -36,7 +37,6 @@ BuildRequires:    R-magrittr
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-testthat >= 3.1.1
 BuildRequires:    R-tibble >= 2.1.3
-BuildRequires:    R-withr
 %endif
 
 %description
@@ -84,6 +84,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-tests
 
 
 %changelog
+* Fri Jan 20 2023 Tom Callaway <spot@fedoraproject.org> - 1.2.0-1
+- update to 1.2.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-doctrine-persistence3
 #
-# Copyright (c) 2018-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2018-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
 %global bootstrap    0
-%global gh_commit    b44d128311af55275dbed6a4558ca59a2b9f9387
+%global gh_commit    920da294b4bb0bb527f2a91ed60c18213435880f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   persistence
@@ -27,7 +27,7 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        3.1.2
+Version:        3.1.3
 Release:        1%{?dist}
 Summary:        Doctrine Persistence abstractions, version %{major}
 
@@ -169,6 +169,12 @@ exit $ret
 
 
 %changelog
+* Fri Jan 20 2023 Remi Collet <remi@remirepo.net> - 3.1.3-1
+- update to 3.1.3
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Remi Collet <remi@remirepo.net> - 3.1.2-1
 - update to 3.1.2
 

@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A set of flexible objects for representing UFO data
 
 License:        MIT
@@ -59,6 +59,9 @@ format.
 %{python3_sitelib}/%{srcname}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

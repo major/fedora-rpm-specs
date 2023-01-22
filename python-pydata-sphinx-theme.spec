@@ -1,6 +1,6 @@
 Name:           python-pydata-sphinx-theme
 Version:        0.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Bootstrap-based Sphinx theme from the PyData community
 
 # This project is BSD-3-Clause.
@@ -148,6 +148,9 @@ cd -
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 0.9.0-2
 - Fix unexpanded macros in the doc subpackage
 - Convert License tag to SPDX

@@ -1,6 +1,6 @@
 Name:           python-pypresence
 Version:        4.2.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A Discord Rich Presence Client in Python 
 License:        MIT
 URL:            https://qwertyquerty.github.io/pypresence/html/index.html
@@ -55,5 +55,8 @@ rm -rf %{buildroot}/docs
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 2 2022 Steve Cossette <farchord@gmail.com> - 4.2.1-1
 - Initital release of pypresence (4.2.1)

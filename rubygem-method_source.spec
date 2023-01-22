@@ -4,7 +4,7 @@
 Summary: Retrieve the source code for a method
 Name: rubygem-%{gem_name}
 Version: 1.0.0
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: MIT
 URL: http://banisterfiend.wordpress.com
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -64,6 +64,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

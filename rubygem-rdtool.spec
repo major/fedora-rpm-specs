@@ -8,7 +8,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	0.6.38
-Release:	19%{?dist}
+Release:	20%{?dist}
 
 Summary:	Formatter for RD
 # From README.rd
@@ -115,6 +115,9 @@ popd
 %{gem_instdir}/utils/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.38-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.38-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

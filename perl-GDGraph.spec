@@ -1,7 +1,7 @@
 Name:           perl-GDGraph
 Epoch:          1
 Version:        1.56
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Graph generation package for Perl
 License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND GPL-2.0-or-later
 URL:            https://metacpan.org/release/GDGraph
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man3/GD::Graph::hbars.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.56-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Paul Howarth <paul@city-fan.org> - 1:1.56-1
 - Update to 1.56
   - Improve language in documentation

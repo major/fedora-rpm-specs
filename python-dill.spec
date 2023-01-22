@@ -2,7 +2,7 @@
 
 Name: python-%{srcname}
 Version: 0.3.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Serialize all of Python
 
 License: BSD
@@ -61,6 +61,9 @@ command.
 %{python3_sitelib}/%{srcname}*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.3.6-1
 - 0.3.6
 

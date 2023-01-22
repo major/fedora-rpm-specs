@@ -23,7 +23,7 @@ Version: 3.6.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 1%{?prerelease}%{?dist}
+Release: 2%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -196,6 +196,9 @@ configuration.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Vojtech Trefny <vtrefny@redhat.com> - 3.6.1-1
 - misc: Remove "warn: false" from Ansible "command" (vtrefny)
 - spec: Change license string to the SPDX format required by Fedora (vtrefny)

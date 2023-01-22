@@ -1,6 +1,6 @@
 Name:           perl-Image-PNG-Libpng
 Version:        0.57
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl interface to the libpng library
 # lib/Image/PNG/Const.pm:   GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Image/PNG/Libpng.pod: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -153,6 +153,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.57-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Petr Pisar <ppisar@redhat.com> - 0.57-7
 - Convert a License tag to the SPDX format
 

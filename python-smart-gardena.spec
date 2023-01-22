@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        0.7.10
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python client to communicate with Gardena systems
 
 License:        MIT
@@ -57,6 +57,9 @@ rm -rf src/__init__.py
 %{python3_sitelib}/py_smart_gardena-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.10-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

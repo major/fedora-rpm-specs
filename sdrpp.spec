@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.0.4
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 License:        GPLv3 and MIT and WTFPL and Public Domain
@@ -29,6 +29,9 @@ Patch2:         add-libraries.patch
 Patch3:         configfile-libdir.patch
 # Remove libcorrect
 Patch4:         remove-libcorrect.patch
+# std::runtime_error requires <stdexcept>
+# https://github.com/AlexandreRouma/SDRPlusPlus/issues/970
+Patch5:         sdrpp-stdexcept.patch
 
 
 BuildRequires:  cmake
@@ -152,6 +155,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Fri Jan 20 2023 Richard Shaw <hobbes1069@gmail.com> - 1.0.4-11
+- Rebuild for volk.
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.0.4-10
 - Rebuilt due to spdlog update.
 

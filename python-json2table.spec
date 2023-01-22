@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.1.5
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Python module to convert JSON to an HTML table
 
 License:        MIT
@@ -45,6 +45,9 @@ returns a string of converted HTML.
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

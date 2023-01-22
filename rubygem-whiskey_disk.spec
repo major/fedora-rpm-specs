@@ -3,7 +3,7 @@
 Summary: Ruby tool for embarrassingly fast deployments
 Name: rubygem-%{gem_name}
 Version: 0.6.24
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: MIT
 URL: http://github.com/flogic/whiskey_disk
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -77,6 +77,9 @@ popd
 %{gem_instdir}/scenarios
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.24-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.24-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

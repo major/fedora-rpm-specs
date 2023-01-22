@@ -1,7 +1,7 @@
 Name: pngnq
 Summary: Pngnq is a tool for quantizing PNG images in RGBA format
 Version: 1.1
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: BSD with advertising and MIT and BSD
 URL: http://pngnq.sourceforge.net/
 Source0: http://downloads.sourceforge.net/pngnq/pngnq-%{version}.tar.gz
@@ -35,6 +35,9 @@ on many types of images.
 %{_mandir}/man1/*1*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 1.1-28
 - C99 compatibility fix
 

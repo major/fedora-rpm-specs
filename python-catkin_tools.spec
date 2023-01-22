@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.8.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Command line tools for working with catkin
 
 License:        ASL 2.0
@@ -112,6 +112,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Scott K Logan <logans@cottsay.net> - 0.8.2-4
 - Add upstream patch for Python 3.11 compatibility (rhbz#2094337)
 

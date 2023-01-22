@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 1.9.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: %{summary}
 
 # This software uses the BSD-Source-Code license
@@ -72,6 +72,9 @@ PYTHONPATH="%{buildroot}%{python3_sitelib}" %{_bindir}/pytest-3
 %{python3_sitelib}/%{srcname}*egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 
 * Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 1.9.0-3
 - SPDX migration: change BSD to BSD-Source-Code

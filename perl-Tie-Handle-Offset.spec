@@ -1,6 +1,6 @@
 Name:           perl-Tie-Handle-Offset
 Version:        0.004
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Tied handle that hides the beginning of a file
 License:        Apache-2.0
 URL:            https://metacpan.org/release/Tie-Handle-Offset
@@ -76,6 +76,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Jitka Plesnikova <jplesnik@redhat.com> - 0.004-16
 - Package tests
 

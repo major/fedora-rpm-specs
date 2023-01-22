@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.0.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Coverage PTH file to enable coverage at the virtualenv level
 
 # See github repo for license information
@@ -49,6 +49,9 @@ cp %{SOURCE1} .
 %{python3_sitelib}/%{pypi_name}.pth
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-Role-Hooks
 Version:        0.008
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Role callbacks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -71,6 +71,9 @@ or to another role.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.008-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 21 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.008-2
 - Reflect feedback from review.
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.1.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python client for several popular geocoding web services
 
 License:        MIT
@@ -64,6 +64,9 @@ sed -i 's/geographiclib<2,/geographiclib/' setup.py
 %{python3_sitelib}/%{pypi_name}*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jul 25 2022 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 2.1.0-8
 - fix FTI
 

@@ -7,7 +7,7 @@
 Version:                r2016.08.01
 %global commit          a6b53ec6cb22a3699387a57a161566f9402ee85b
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 The MongoDB driver for Go.}
@@ -16,7 +16,7 @@ The MongoDB driver for Go.}
 %global godocs          README.md
 
 Name:           %{goname}
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        MongoDB driver for Go
 
 # Upstream license specification: BSD-2-Clause
@@ -25,10 +25,12 @@ URL:            %{gourl}
 Source0:        %{gosource}
 
 BuildRequires:  golang(gopkg.in/tomb.v2)
+BuildRequires:  cyrus-sasl-devel
 
 %if %{with check}
 # Tests
 BuildRequires:  golang(gopkg.in/check.v1)
+BuildRequires:  golang(gopkg.in/yaml.v2)
 %endif
 
 %description
@@ -52,6 +54,10 @@ BuildRequires:  golang(gopkg.in/check.v1)
 %gopkgfiles
 
 %changelog
+* Fri Jan 20 2023 Maxwell G <gotmax@e.email> - r2016.08.01-12
+- Fix test failures
+- Fixes: rhbz#2045640
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - r2016.08.01-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

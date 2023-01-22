@@ -3,7 +3,7 @@
 
 Name:		python-%{modname}
 Version:	0.7.2
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Python library to display tabular data in tables
 
 License:	BSD
@@ -64,6 +64,9 @@ a row range.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

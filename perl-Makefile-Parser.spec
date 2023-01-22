@@ -1,6 +1,6 @@
 Name:           perl-Makefile-Parser
 Version:        0.216
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Simple parser for Makefiles
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Makefile-Parser
@@ -116,6 +116,9 @@ make test
 %{_bindir}/plmake
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.216-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.216-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

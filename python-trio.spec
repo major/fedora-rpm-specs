@@ -13,7 +13,7 @@ right.}
 
 Name:           python-trio
 Version:        0.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A friendly Python library for async concurrency and I/O
 License:        Apache-2.0 OR MIT
 URL:            https://github.com/python-trio/trio
@@ -60,6 +60,9 @@ BuildRequires:  python3-pytest
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 31 2022 Carl George <carl@george.computer> - 0.22.0-1
 - Update to 0.22.0, resolves rhbz#2094511
 

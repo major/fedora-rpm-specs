@@ -5,7 +5,7 @@ Name:           picard
 Version:        2.8.5
 Summary:        MusicBrainz-based audio tagger
 License:        GPLv2+
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 %forgemeta
 
@@ -68,6 +68,9 @@ desktop-file-install \
 %{python3_sitearch}/picard/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Gerald Cox <gbcox@member.fsf.org> - 2.8.5-1
 - Upstream release - rhbz#2151167
 

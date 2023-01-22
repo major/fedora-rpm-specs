@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.17.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Terminals served to term.js using Tornado websockets
 
 License:        BSD-2-Clause
@@ -59,6 +59,9 @@ export INPUTRC=$PWD/.inputrc
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Orion Poplawski <orion@nwra.com> - 0.17.1-2
 - Use SPDX License tag
 

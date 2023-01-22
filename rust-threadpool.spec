@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        1.8.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Thread pool for running a number of jobs on a fixed set of worker threads
 
 # Upstream license specification: MIT/Apache-2.0
@@ -72,6 +72,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

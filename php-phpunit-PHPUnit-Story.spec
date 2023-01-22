@@ -18,7 +18,7 @@
 
 Name:           php-phpunit-PHPUnit-Story
 Version:        1.0.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Story extension for PHPUnit to facilitate Behaviour-Driven Development
 
 License:        BSD
@@ -89,6 +89,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

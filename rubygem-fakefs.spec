@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: A fake filesystem. Use it in your tests
 License: MIT
 URL: https://github.com/fakefs/fakefs
@@ -85,6 +85,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 13 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.2-6
 - Backport upstream fix for ruby32 wrt Object#=~ removal
 - Backport upstream fix for ruby32 wrt some method detection issue

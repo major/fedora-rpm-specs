@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 5.17.0
-Release: 200%{?dist}
+Release: 201%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 License: MIT
 URL: https://github.com/seattlerb/minitest
@@ -93,6 +93,9 @@ popd
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.0-201
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.17.0-200
 - 5.17.0
 

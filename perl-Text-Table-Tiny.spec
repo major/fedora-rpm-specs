@@ -1,6 +1,6 @@
 Name:           perl-Text-Table-Tiny
 Version:        1.03
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Makes simple tables from two-dimensional arrays, with limited templating options
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Text-Table-Tiny
@@ -50,6 +50,9 @@ is good enough for most uses.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

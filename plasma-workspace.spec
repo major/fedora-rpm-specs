@@ -27,8 +27,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.26.5
-Release: 1%{?dist}
+Version: 5.26.90
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -605,6 +605,7 @@ fi
 %{_sysconfdir}/xdg/startkderc
 %endif
 %{_sysconfdir}/xdg/autostart/*.desktop
+%{_datadir}/zsh/site-functions/_plasmashell
 %{_datadir}/icons/hicolor/*/*/*font*.png
 %{_datadir}/icons/hicolor/scalable/apps/preferences-desktop-font-installer.svgz
 %{_datadir}/desktop-directories/*.directory
@@ -691,7 +692,6 @@ fi
 %if 0%{?kf5_pim}
 %{_kf5_qtplugindir}/plasmacalendarplugins/
 %endif
-%{_kf5_qtplugindir}/*.so
 %exclude %{_kf5_qtplugindir}/plasma/dataengine/plasma_engine_geolocation.so
 %exclude %{_kf5_qtplugindir}/plasma/geolocationprovider/plasma-geolocation-gps.so
 %exclude %{_kf5_qtplugindir}/plasma/geolocationprovider/plasma-geolocation-ip.so
@@ -704,7 +704,9 @@ fi
 %{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_*.so
 %{_libdir}/kconf_update_bin/krunnerhistory
 %{_libdir}/kconf_update_bin/krunnerglobalshortcuts
+%{_libdir}/kconf_update_bin/plasmashell-5.27-use-panel-thickness-in-default-group
 %{_kf5_qtplugindir}/kf5/parts/kfontviewpart.so
+%{_kf5_qtplugindir}/kf5/thumbcreator/fontthumbnail.so
 %{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_applauncher.so
 %{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_contextmenu.so
 %{_kf5_qtplugindir}/plasma/containmentactions/plasma_containmentactions_paste.so
@@ -717,6 +719,7 @@ fi
 %{_libexecdir}/plasma-sourceenv.sh
 %{_kf5_datadir}/kconf_update/krunnerhistory.upd
 %{_kf5_datadir}/kconf_update/krunnerglobalshortcuts2.upd
+%{_kf5_datadir}/kconf_update/plasmashell-5.27-use-panel-thickness-in-default-group.upd
 %{_kf5_datadir}/kglobalaccel/org.kde.krunner.desktop
 
 %files geolocation
@@ -782,6 +785,12 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

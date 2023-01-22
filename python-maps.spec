@@ -2,7 +2,7 @@
 
 Name:           python-%{modname}
 Version:        4.2.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Flavors of Python dictionaries
 
 License:        MIT
@@ -45,6 +45,9 @@ py.test-%{python3_version} -v
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

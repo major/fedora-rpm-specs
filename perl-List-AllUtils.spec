@@ -1,6 +1,6 @@
 Name:           perl-List-AllUtils
 Version:        0.19
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Combines List::Util and List::SomeUtils
 # CODE_OF_CONDUCT.md:   CC-BY-4.0
 # lib/List/AllUtils.pm: Artistic-2.0
@@ -95,6 +95,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Michal Josef Špaček <mspacek@redhat.com> - 0.19-8
 - Update license to SPDX format
 

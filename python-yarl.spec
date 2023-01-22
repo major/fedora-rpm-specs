@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module to handle URLs
 
 License:        ASL 2.0
@@ -53,6 +53,9 @@ sed -e '/addopts/d' -i setup.cfg
 %{python3_sitearch}/%{pypi_name}-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 04 2022 Fabian Affolter <mail@fabian-affolter.ch> - 1.8.2-1
 - Update to latest upstream release 1.8.2 (closes rhbz#2150499)
 

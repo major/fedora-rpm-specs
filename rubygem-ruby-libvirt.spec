@@ -4,7 +4,7 @@
 Summary: Ruby bindings for LIBVIRT
 Name: rubygem-%{gem_name}
 Version: 0.7.1
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: LGPLv2+
 URL: http://libvirt.org/ruby/
 Source0: http://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -81,6 +81,9 @@ popd
 %{gem_instdir}/tests
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 0.7.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

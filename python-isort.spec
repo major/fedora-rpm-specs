@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            5.11.4
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -57,6 +57,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.11.4-1
 - 5.11.4
 

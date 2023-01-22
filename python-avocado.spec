@@ -35,7 +35,7 @@
 
 Name: python-avocado
 Version: 92.0
-Release: 1%{?gitrel}%{?dist}
+Release: 2%{?gitrel}%{?dist}
 Summary: Framework with tools and libraries for Automated Testing
 # Found licenses:
 # avocado/core/tapparser.py: MIT
@@ -444,6 +444,9 @@ Again Shell code (and possibly other similar shells).
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 92.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug  9 2022 Cleber Rosa <crosa@redhat.com> - 92.0-1
 - Use selftests/check.py job instead of more limited selftests/run
 - Included avocado-runner-sysinfo, avocado-runner-requirement-package,

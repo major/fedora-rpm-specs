@@ -3,7 +3,7 @@
 Summary:	Domain Name manipulation library for Ruby
 Name:		rubygem-%{gem_name}
 Version:	0.5.20190701
-Release:	8%{?dist}
+Release:	9%{?dist}
 
 # See LICENSE.txt
 # data/effective_tld_names.dat is not included in binary rpm
@@ -86,6 +86,9 @@ popd
 %exclude	%{gem_instdir}/data/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20190701-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20190701-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

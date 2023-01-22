@@ -6,7 +6,7 @@
 
 Name:           rust-cssparser
 Version:        0.28.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Rust implementation of CSS Syntax Level 3
 
 License:        MPL-2.0
@@ -104,6 +104,9 @@ use the "serde" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.28.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 05 2022 Kalev Lember <klember@redhat.com> - 0.28.1-4
 - Re-generate spec file with rust2rpm 22
 

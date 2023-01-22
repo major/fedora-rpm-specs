@@ -14,7 +14,7 @@
 
 Name:           python-pifpaf
 Version:        2.2.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Pifpaf is a suite of fixtures to manage daemons 
 License:        ASL 2.0
 URL:            https://github.com/jd/pifpaf
@@ -121,6 +121,9 @@ stop daemons for a quick throw-away usage.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-dpkt
 Version:        1.9.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        %{sum}
 
 License:        BSD
@@ -57,6 +57,9 @@ with definitions for the basic TCP/IP protocols.
 %{python3_sitelib}/dpkt*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Michele Baldessari <michele@acksyn.org> - 1.9.7.2-1
 - New upstream
 - Skip unit tests on s390x

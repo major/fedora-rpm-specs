@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.42.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Packit <hello@packit.dev> - 0.42.0-1
 - A bug in ogr resulting in returning only first page of pull requests for Pagure has been fixed. (#761)
 - ogr now raises `GitForgeInternalError` rather than `PagureAPIException` when getting 50x response from the Pagure API. (#762)

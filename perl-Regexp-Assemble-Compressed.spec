@@ -1,7 +1,7 @@
 Name:           perl-Regexp-Assemble-Compressed
 Summary:        Assemble more compressed Regular Expression
 Version:        0.02
-Release:        29%{?dist}
+Release:        30%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Regexp-Assemble-Compressed
 Source0:        https://cpan.metacpan.org/authors/id/T/TA/TANIGUCHI/Regexp-Assemble-Compressed-%{version}.tar.gz
@@ -62,6 +62,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

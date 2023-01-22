@@ -5,7 +5,7 @@
 
 Name:           python-%{modname}
 Version:        7.4.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Generic User Interface objects
 
 # Images have different licenses. For image license breakdown check
@@ -151,6 +151,9 @@ done
 %files -n python%{python3_pkgversion}-%{modname}-qt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Orion Poplawski <orion@nwra.com> - 7.4.4-1
 - Update to 7.4.4
 

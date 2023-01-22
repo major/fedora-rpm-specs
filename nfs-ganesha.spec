@@ -114,8 +114,8 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	4.2
-Release:	2%{?dev:%{dev}}%{?dist}
+Version:	4.3
+Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
 Url:		https://github.com/nfs-ganesha/nfs-ganesha/wiki
@@ -160,7 +160,7 @@ BuildRequires: libwbclient-devel
 %endif
 BuildRequires:	gcc-c++
 %if ( %{with_system_ntirpc} )
-BuildRequires:	libntirpc-devel >= 4.2
+BuildRequires:	libntirpc-devel >= 4.3
 %else
 Requires: libntirpc = @NTIRPC_VERSION_EMBED@
 %endif
@@ -897,6 +897,9 @@ exit 0
 %endif
 
 %changelog
+* Fri Jan 20 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.3-1
+- NFS-Ganesha 4.3 GA
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

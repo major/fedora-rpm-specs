@@ -1,6 +1,6 @@
 Name:           python-pdir2
 Version:        0.3.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pretty dir() printing with joy
 
 License:        MIT
@@ -52,6 +52,9 @@ sed -r -i 's/=(=[[:digit:]])/>\1/' pyproject.toml
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 0.3.6-2
 - Fix a stray comment
 - Remove version upper-bounds; in particular, allow typing-extensions ≥4.3

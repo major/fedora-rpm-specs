@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Wrappers to build Python packages using PEP 517 hooks
 
 %bcond_without tests
@@ -69,6 +69,9 @@ sed -i '/pytest-flake8/d' dev-requirements.txt
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Lumír Balhar <lbalhar@redhat.com> - 0.13.0-1
 - Update to 0.13.0
 Resolves: rhbz#2112398

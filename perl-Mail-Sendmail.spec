@@ -1,6 +1,6 @@
 Name:           perl-Mail-Sendmail
 Version:        0.80
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Simple platform independent mailer for Perl
 
 License:        GPL+ or Artistic
@@ -54,6 +54,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.80-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

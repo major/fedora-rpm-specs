@@ -13,7 +13,7 @@ It is built on top of wxPython and xnatpy.}
 
 Name:           python-%{pypi_name}
 Version:        0.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        wxnatpy is a wxPython widget which allows users to browse the contents of a XNAT repository.
 License:        ASL 2.0
 URL:            https://github.com/pauldmccarthy/wxnatpy
@@ -59,6 +59,9 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

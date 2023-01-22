@@ -1,6 +1,6 @@
 Name:		perl-Parse-Distname
 Version:	0.05
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Parse a distribution name
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/dist/Parse-Distname
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/Parse::Distname.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.05-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

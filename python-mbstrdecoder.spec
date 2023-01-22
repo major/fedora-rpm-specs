@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        multi-byte character string decoder
 
 License:        MIT
@@ -45,6 +45,9 @@ sed -i 's/chardet>=3.0.4,<5/chardet>=3.0.4/g' requirements/requirements.txt
 %doc README.rst
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 
 * Thu Aug 04 2022 Karolina Kula <kkula@redhat.com> - 1.1.0-2
 - Remove chardet <5 requirement

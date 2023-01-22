@@ -1,7 +1,7 @@
 Summary:        In memory VT-compatible terminal emulator
 Name:           python-pyte
 Version:        0.8.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        LGPLv3
 URL:            https://github.com/selectel/pyte
 Source0:        https://github.com/selectel/pyte/archive/%{version}/pyte-%{version}.tar.gz
@@ -56,6 +56,9 @@ pushd docs && make all
 %doc docs/_build/html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

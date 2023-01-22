@@ -1,6 +1,6 @@
 Name:           perl-PerlIO-via-Timeout
 Version:        0.32
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        PerlIO layer that adds read & write timeout to a handle
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/PerlIO-via-Timeout
@@ -59,6 +59,9 @@ perl Build.PL --installdirs=vendor
 %{_mandir}/man3/PerlIO::via::Timeout.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

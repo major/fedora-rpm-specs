@@ -1,6 +1,6 @@
 Name:		perl-Regexp-Grammars
 Version:	1.058
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Add grammatical parsing features to perl regular expressions
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Regexp-Grammars
@@ -50,6 +50,9 @@ perl Build.PL installdirs=vendor
 %{_mandir}/man3/Regexp::Grammars.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.058-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Bill Pemberton <wfp5p@worldbroken.com> - 1.058-1
 - update to version 1.058
 

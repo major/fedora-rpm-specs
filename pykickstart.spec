@@ -5,7 +5,7 @@
 
 Name:      pykickstart
 Version:   3.43
-Release:   1%{?dist}
+Release:   2%{?dist}
 License:   GPLv2 and MIT
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -77,6 +77,9 @@ make PYTHON=%{__python3} test
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.43-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 29 2022 Brian C. Lane <bcl@redhat.com> - 3.43-1
 - pyproject.toml: Add dependencies (bcl)
 - sshkey: Escapes quotes in the ssh key (bcl)

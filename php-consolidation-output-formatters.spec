@@ -52,7 +52,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       1%{?github_release}%{?dist}
+Release:       2%{?github_release}%{?dist}
 Summary:       Format text by applying transformations provided by plug-in formatters
 
 License:       MIT
@@ -232,6 +232,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 07 2022 Shawn Iwinski <shawn@iwin.ski> - 4.2.2-1
 - Update to 4.2.2 (RHBZ #2035735)
 

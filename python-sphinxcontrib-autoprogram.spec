@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Sphinx extension for documenting CLI programs
 
 License:        BSD
@@ -67,6 +67,9 @@ cp %SOURCE1 .
 %{python3_sitelib}/sphinxcontrib_autoprogram-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

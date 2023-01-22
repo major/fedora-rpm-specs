@@ -11,7 +11,7 @@ generate ordinal numbers like ``forty-second``.}
 
 Name:           python-%{pypi_name}
 Version:        0.5.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Module to convert numbers to words
 
 License:        LGPLv2+
@@ -61,6 +61,9 @@ rm -rf %{pypi_name}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Alessio <alciregi@fedoraproject.org> - 0.5.12-1
 - Update to v0.5.12
 

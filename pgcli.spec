@@ -2,7 +2,7 @@
 
 Name:           %{pypi_name}
 Version:        3.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CLI for Postgres Database. With auto-completion and syntax highlighting
 
 License:        BSD-3-Clause
@@ -50,6 +50,9 @@ CLI for Postgres Database. With auto-completion and syntax highlighting
 %{_bindir}/%{pypi_name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 3.5.0-2
 - Update License to SPDX
 

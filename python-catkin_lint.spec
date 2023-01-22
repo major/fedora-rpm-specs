@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.6.17
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Check catkin packages for common errors
 
 License:        BSD
@@ -88,6 +88,9 @@ install -p -D -m0644 bash/%{srcname} %{buildroot}%{_sysconfdir}/bash_completion.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.17-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 01 2022 Scott K Logan <logans@cottsay.net> - 1.6.17-4
 - Add upstream patch for Python 3.11 compatibility (rhbz#2098858, rhbz#2113616)
 

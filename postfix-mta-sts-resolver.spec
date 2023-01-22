@@ -2,7 +2,7 @@
 
 Name:           postfix-mta-sts-resolver
 Version:        1.1.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon providing MTA-STS map to Postfix
 
 License:        MIT
@@ -125,6 +125,9 @@ getent passwd mta-sts >/dev/null || \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 26 2022 Marc Dequènes (Duck) <duck@redhat.com> - 1.1.4-1
 - NUR
 - recommends now available uvloop

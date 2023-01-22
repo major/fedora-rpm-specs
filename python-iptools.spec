@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.7.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A few useful functions and objects for manipulating IP addresses in python
 
 License:        BSD
@@ -53,6 +53,9 @@ find -name .gitignore -delete
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

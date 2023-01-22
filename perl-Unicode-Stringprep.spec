@@ -1,7 +1,7 @@
 Name:           perl-Unicode-Stringprep
 Summary:        Preparation of Internationalized Strings (RFC 3454)
 Version:        1.105
-Release:        24%{?dist}
+Release:        25%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Unicode-Stringprep
 Source0:        https://cpan.metacpan.org/authors/id/C/CF/CFAERBER/Unicode-Stringprep-%{version}.tar.gz
@@ -61,6 +61,9 @@ mv README.utf8 README
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.105-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.105-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

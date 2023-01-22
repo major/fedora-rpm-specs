@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Testing utilities for the kazoo library
 
 License:        ASL 2.0
@@ -54,6 +54,9 @@ cp -p %{SOURCE1} .
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

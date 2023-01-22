@@ -18,7 +18,7 @@ Python and LaTeX.}
 
 Name:           python-%{pypi_name}
 Version:        1.4.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Library for creating LaTeX files and snippets
 
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
@@ -182,6 +182,9 @@ popd
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

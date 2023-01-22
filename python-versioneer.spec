@@ -9,7 +9,7 @@ version-control system about the current tree.}
 
 Name:           python-%{pypi_name}
 Version:        0.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Easy VCS-based management of project version strings
 
 License:        Public Domain
@@ -57,6 +57,9 @@ rm -rf %{python3_sitelib}/%{pypi_name}-0.18-py%{python3_version}.egg-info
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

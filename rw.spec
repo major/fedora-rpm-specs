@@ -1,7 +1,7 @@
 Name:		rw
 Summary:	Program that calculates rank-width and rank-decompositions
 Version:	0.9
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	GPL-2.0-or-later
 URL:		https://sourceforge.net/projects/rankwidth/
 Source0:	https://downloads.sourceforge.net/rankwidth/%{name}-%{version}.tar.gz
@@ -58,6 +58,9 @@ rm %{buildroot}%{_libdir}/*.la
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 0.9-4
 - Convert License tag to SPDX
 

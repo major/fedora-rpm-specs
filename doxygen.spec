@@ -22,7 +22,7 @@ Name:    doxygen
 Epoch:   2
 Version: 1.9.6
 %if 0%{?stable}
-Release: 3%{?dist}
+Release: 4%{?dist}
 %else
 %global commit e18f715eb55121a4219d00bc4d824cebf1fb504b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -149,6 +149,7 @@ Summary: Support for producing latex/pdf output from doxygen
 Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: tex(latex)
 Requires: tex(dvips)
+Requires: texlive-wasy
 %if 0%{?fedora} > 17 || 0%{?rhel} > 6
 # From doc/manual.sty
 Requires: tex(helvet.sty)
@@ -319,6 +320,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
 %changelog
+* Fri Jan 20 2023 Than Ngo <than@redhat.com> - 2:1.9.6-4
+- fixed bz#2162170, add Require on texlive-wasy
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:1.9.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

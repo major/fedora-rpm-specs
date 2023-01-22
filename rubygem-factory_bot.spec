@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 6.2.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Framework and DSL for defining and using model instance factories
 License: MIT
 URL: https://github.com/thoughtbot/factory_bot
@@ -95,6 +95,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 6.2.1-3
 - Backport upstream patch for ruby3.2 did_you_mean behavior change
 

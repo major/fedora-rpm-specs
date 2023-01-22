@@ -5,7 +5,7 @@
 Name:           python-vevents
 # version 0.1.0 unofficially mentioned in sitepackages
 Version:        0.1.0
-Release:        0.12.%{date0}git%{scommit0}%{?dist}
+Release:        0.13.%{date0}git%{scommit0}%{?dist}
 Summary:        vSphere Events from the command-line
 
 # license header in src/vevents-cli for BSD, PR#2
@@ -58,6 +58,9 @@ vEvents is an application that allows you to view and monitor
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-0.13.20149631git3ff37a2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-0.12.20149631git3ff37a2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

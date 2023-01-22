@@ -3,7 +3,7 @@
 Summary:	Gemified version of Syck from Ruby's stdlib
 Name:		rubygem-%{gem_name}
 Version:	1.4.1
-Release:	5%{?dist}
+Release:	6%{?dist}
 
 # README.rdoc
 License:	MIT
@@ -108,6 +108,9 @@ popd
 %doc	%{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.4.1-5
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

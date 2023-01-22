@@ -1,6 +1,6 @@
 Name:           perl-Ouch
 Version:        0.0501
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Exceptions that don't hurt
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Ouch
@@ -56,6 +56,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0501-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0501-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

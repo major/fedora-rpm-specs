@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Timeout decorator for Python
 
 License:        MIT
@@ -44,6 +44,9 @@ A python module which provides a timeout decorator.
 %{python3_sitelib}/timeout_decorator-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

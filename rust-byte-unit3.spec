@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}3
 Version:        3.1.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for interaction with units of bytes
 
 # Upstream license specification: MIT
@@ -93,6 +93,9 @@ which use "u128" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

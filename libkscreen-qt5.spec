@@ -2,8 +2,8 @@
 
 Name:    libkscreen-qt5
 Summary: KDE display configuration library
-Version: 5.26.5
-Release: 2%{?dist}
+Version: 5.26.90
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{base_name}
@@ -33,6 +33,7 @@ BuildRequires:  libxcb-devel
 BuildRequires:  libXrandr-devel
 BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  qt5-qtwayland-devel
 BuildRequires:  qt5-qtx11extras-devel
 BuildRequires:  wayland-devel
@@ -85,22 +86,28 @@ developing applications that use %{name}.
 %{_kf5_bindir}/kscreen-doctor
 %{_kf5_libexecdir}/kscreen_backend_launcher
 %{_kf5_libdir}/libKF5Screen.so.5.*
-%{_kf5_libdir}/libKF5Screen.so.7*
+%{_kf5_libdir}/libKF5Screen.so.8*
+%{_kf5_libdir}/libKF5ScreenDpms.so.5.*
+%{_kf5_libdir}/libKF5ScreenDpms.so.8*
 %{_kf5_plugindir}/kscreen/
 %{_datadir}/dbus-1/services/org.kde.kscreen.service
 %{_kf5_datadir}/qlogging-categories5/libkscreen.categories
+%{_kf5_datadir}/zsh/site-functions/_kscreen-doctor
 %{_userunitdir}/plasma-kscreen.service
 
 %files devel
 %{_kf5_includedir}/KScreen/
 %{_kf5_includedir}/kscreen_version.h
 %{_kf5_libdir}/libKF5Screen.so
+%{_kf5_libdir}/libKF5ScreenDpms.so
 %{_kf5_libdir}/cmake/KF5Screen/
 %{_libdir}/pkgconfig/kscreen2.pc
 %{_kf5_archdatadir}/mkspecs/modules/qt_KScreen.pri
 
-
 %changelog
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

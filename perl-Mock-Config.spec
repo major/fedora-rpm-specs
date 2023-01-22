@@ -1,6 +1,6 @@
 Name:           perl-Mock-Config
 Version:        0.03
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        Temporarily set Config or XSConfig values
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Mock-Config
@@ -43,6 +43,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

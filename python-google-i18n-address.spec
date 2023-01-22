@@ -2,7 +2,7 @@ Name:           python-google-i18n-address
 %global srcname %(echo %{name} | sed 's/^python-//')
 
 Version:        2.5.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Address validation helpers for Google's i18n address database
 
 License:        BSD with advertising
@@ -56,6 +56,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/tests
 %{python3_sitelib}/google_i18n_address*egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 02 2022 Paul Wouters <paul.wouters@aiven.io - 2.5.2-1
 - Resolves rhbz#2077524 python-google-i18n-address-2.5.2 is available
 

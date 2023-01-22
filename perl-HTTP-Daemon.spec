@@ -3,7 +3,7 @@
 
 Name:           perl-HTTP-Daemon
 Version:        6.14
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Simple HTTP server class
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Daemon
@@ -112,6 +112,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.14-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 25 2022 Michal Josef Špaček <mspacek@redhat.com> - 6.14-8
 - Update license to SPDX format
 

@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.7.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Packet capture API around pcap/wpcap
 
 # Upstream license specification: MIT OR Apache-2.0
@@ -158,6 +158,9 @@ which use "tokio-core" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

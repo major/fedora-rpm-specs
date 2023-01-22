@@ -4,7 +4,7 @@
 Name:			python-%{srcname}
 Summary:		%{sum}
 Version:		3.5
-Release:		15%{?dist}
+Release:		16%{?dist}
 License:		ASL 2.0
 Source0:		https://github.com/bear/python-twitter/archive/v%{version}.tar.gz
 URL:			https://github.com/bear/python-twitter
@@ -56,6 +56,9 @@ export PYTHONPATH=%{buildroot}/%{python_sitelib}
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

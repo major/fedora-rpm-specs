@@ -3,8 +3,8 @@
 Summary:  A python library for handling exceptions
 Name: python-meh
 Url: https://github.com/rhinstaller/python-meh
-Version: 0.50
-Release: 7%{?dist}
+Version: 0.51
+Release: 1%{?dist}
 # This is a Red Hat maintained package which is specific to
 # our distribution.  Thus the source is only available from
 # within this srpm.
@@ -13,7 +13,7 @@ Release: 7%{?dist}
 #   cd python-meh && make archive
 Source0: https://github.com/rhinstaller/python-meh/archive/%{name}-%{version}.tar.gz
 
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: gettext
@@ -85,23 +85,10 @@ make DESTDIR=%{buildroot} install
 %{_datadir}/python-meh
 
 %changelog
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 15 2022 Python Maint <python-maint@redhat.com> - 0.50-6
-- Rebuilt for Python 3.11
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 0.50-3
-- Rebuilt for Python 3.10
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.50-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
+* Fri Jan 20 2023 Martin Kolman <mkolman@redhat.com> - 0.51-1
+- SPDX compatible License: line (mkolman)
+- setup.py: switch from distutils to setuptools (tim.orling@konsulko.com)
+- Improve formatting and data in setup.py (vslavik)
 
 * Tue Sep 29 2020 Martin Kolman <mkolman@redhat.com> - 0.50-1
 - Merge pull request #33 from mzidek-gh/master (mkolman)

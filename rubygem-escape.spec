@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.0.4
-Release: 23%{?dist}
+Release: 24%{?dist}
 Summary: HTML/URI/shell escaping utilities
 License: BSD
 URL: http://www.a-k-r.org/%{gem_name}
@@ -50,6 +50,9 @@ rm %{buildroot}/%{gem_instdir}/Readme
 %doc %{gem_docdir}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

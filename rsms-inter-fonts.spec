@@ -1,5 +1,5 @@
 Version:        3.19
-Release:        5%{?dist}
+Release:        6%{?dist}
 URL:            https://rsms.me/inter/
 
 %global foundry rsms
@@ -46,6 +46,9 @@ Source10:       63-%{fontpkgname}.conf
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 04 2022 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.19-5
 - Package hinted TrueType fonts instead of Type 1 OTF fonts (RHBZ #2122246)
 

@@ -25,7 +25,7 @@ simple, declarative interface.}
 
 Name:           python-%{pkgname}
 Version:        0.17.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Syntax-highlighting, declarative and composable pretty printer
 License:        MIT
 URL:            https://github.com/tommikaikkonen/prettyprinter
@@ -96,6 +96,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} --verbose t
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

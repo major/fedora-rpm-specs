@@ -10,13 +10,16 @@
 
 Name:           kcov
 Version:        39
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Code coverage tool without special compilation options
 
 # Licenses of kcov itself and its bundled js libraries (see below)
 License:        GPLv2 and BSD and MIT
 URL:            https://simonkagstrom.github.io/%{name}
 Source:         https://github.com/SimonKagstrom/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0:         0001-Fix-build-with-binutils-2.39.patch
+Patch1:         0002-Fix-build-on-gcc-13-add-missing-stdint.h-include.patch
 
 # https://github.com/SimonKagstrom/kcov/blob/v35/src/solib-parser/lib.c#L87-L97
 ExcludeArch:    s390 s390x
@@ -74,7 +77,7 @@ long-running applications.
 
 
 %prep
-%setup -q
+%autosetup -p1
 rm -frv external/ # remove LLDB headers bundled for MacOS
 
 
@@ -112,6 +115,9 @@ tests/tools/run-tests build/src/kcov /tmp/ build-tests/ $(pwd) -v
 
 
 %changelog
+* Fri Jan 20 2022 Dridi Boukelmoune <dridi@fedoraproject.org> - 39-6
+- Patch for GCC 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 39-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

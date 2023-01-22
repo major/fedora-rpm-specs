@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        4.1.0
-Release:        4%{dist}
+Release:        5%{dist}
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
 Summary:        Manage Jenkins jobs with YAML
@@ -59,6 +59,9 @@ stestr run
 %{_bindir}/jenkins-jobs
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 12 2022 Christoph Erhardt <fedora@sicherha.de> - 1:4.1.0-4
 - Migrate to SPDX license identifier
 

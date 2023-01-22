@@ -1,6 +1,6 @@
 Name:           perl-JSON-Path
 Version:        1.0.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Search nested hashref/arrayref structures using JSONPath
 
 License:        MIT
@@ -78,6 +78,9 @@ like structures.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Dec 25 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 1.0.3-1
 - Update to 1.0.3
 

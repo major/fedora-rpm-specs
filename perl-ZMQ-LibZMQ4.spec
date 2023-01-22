@@ -1,6 +1,6 @@
 Name:           perl-ZMQ-LibZMQ4
 Version:        0.01
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Libzmq 4.x wrapper for Perl
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/ZMQ-LibZMQ4
@@ -79,6 +79,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.01-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

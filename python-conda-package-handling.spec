@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        2.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Create and extract conda packages of various formats
 
 License:        BSD-3-Clause
@@ -56,6 +56,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} py.test-%{python3_version} -v tests
 %{python3_sitelib}/%{pkgname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 14 2023 Orion Poplawski <orion@nwra.com> - 2.0.2-1
 - Update to 2.0.2
 - Use SPDX License tag

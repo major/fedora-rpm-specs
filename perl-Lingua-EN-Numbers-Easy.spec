@@ -1,6 +1,6 @@
 Name:           perl-Lingua-EN-Numbers-Easy
 Version:        2014120401
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Hash access to Lingua::EN::Numbers objects
 License:        MIT
 URL:            https://metacpan.org/release/Lingua-EN-Numbers-Easy
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2014120401-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2014120401-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

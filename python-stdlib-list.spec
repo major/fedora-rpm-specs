@@ -9,7 +9,7 @@ not a module is part of the standard library will come in}
 
 Name:       python-%{pypi_name}
 Version:    0.8.0
-Release:    6%{?dist}
+Release:    7%{?dist}
 Summary:    A list of Python Standard Libraries
 
 License:    MIT
@@ -71,6 +71,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

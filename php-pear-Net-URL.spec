@@ -4,7 +4,7 @@
 
 Name:           php-pear-Net-URL
 Version:        1.0.15
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Easy parsing of URLs
 
 License:        BSD
@@ -68,6 +68,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

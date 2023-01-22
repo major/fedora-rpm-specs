@@ -7,7 +7,7 @@
 
 Name:           perl-XML-XPath
 Version:        1.48
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        XPath parser and evaluator for Perl
 # XML/XPath.pm, XML/XPath/PerlSAX.pm, REAME: GPL-1.0-or-later OR Artistic-1.0-Perl
 # Others: Artistic-2.0
@@ -128,6 +128,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.48-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Jitka Plesnikova <jplesnik@redhat.com> - 1.48-2
 - Filter invalid dependency 'perl(-norequire)'
 

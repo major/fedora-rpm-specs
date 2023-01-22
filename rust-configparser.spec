@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        2.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple configuration parsing utility with no dependencies
 
 # Upstream license specification: MIT OR LGPL-3.0-or-later
@@ -75,6 +75,9 @@ chmod -x README.md CHANGELOG.md Cargo.toml.orig src/*.rs tests/*.rs
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

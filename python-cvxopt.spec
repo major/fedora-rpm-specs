@@ -2,7 +2,7 @@
 
 Name:           python-cvxopt
 Version:        1.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Python Package for Convex Optimization
 License:        GPL-3.0-or-later
 URL:            https://cvxopt.org/
@@ -125,6 +125,9 @@ rm -f doc/build/html/.buildinfo
 %doc examples/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 1.3.0-5
 - Split documentation out into separate doc subpackage
 - Convert License tags to SPDX

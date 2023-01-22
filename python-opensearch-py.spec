@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python low-level client for OpenSearch
 
 License:        ASL 2.0
@@ -47,6 +47,9 @@ For more information, see opensearch.org.
 %doc README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 30 2022 Steve Traylen <steve.traylen@cern.ch> - 2.0.0-1
 - Upgrade to version 2.0.0
 

@@ -1,6 +1,6 @@
 Name:           perl-HTML-TreeBuilderX-ASP_NET
 Version:        0.09
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Scrape ASP.NET/VB.NET sites which utilize Javascript POST-backs
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTML-TreeBuilderX-ASP_NET
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

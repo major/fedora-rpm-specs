@@ -7,7 +7,7 @@
 
 Name:           python-%{srcname}
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        An AMQP Messaging Framework for Python
 
@@ -82,6 +82,9 @@ also provide proven and tested solutions to common messaging problems.
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.3.0~b2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Oct 19 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1:5.3.0~b2-1
 - kombu 5.3.0b2 (closes RHBZ#2136176)
 

@@ -2,13 +2,15 @@
 
 Name: conan
 Version: 2.0.0
-Release: 0.7.%{beta}%{?dist}
+Release: 0.8.%{beta}%{?dist}
 
 License: MIT
 Summary: Open-source C/C++ package manager
 URL: https://github.com/%{name}-io/%{name}
 Source0: %{url}/archive/%{version}-%{beta}/%{name}-%{version}-%{beta}.tar.gz
 BuildArch: noarch
+# I have no idea who thought this was a good idea to hardcode and then check against.
+Patch0: conan-2.0.0-beta8-gcc13.patch
 
 BuildRequires: python3-devel
 
@@ -44,7 +46,7 @@ also creates and maintains packages in ConanCenter and Bincrafters
 repositories in Bintray.
 
 %prep
-%autosetup -n %{name}-%{version}-%{beta}
+%autosetup -n %{name}-%{version}-%{beta} -p1
 sed -e 's/, .*//g' -i %{name}s/requirements.txt
 find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \; -exec sed -i '1d' {} \; \)
 
@@ -64,6 +66,9 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Tom Callaway <spot@fedoraproject.org> - 2.0.0-0.8.beta8
+- teach conan to make fire ... i mean, teach conan that gcc 13 exists
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-0.7.beta8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           perl-Inline-C
 Version:        0.82
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Write Perl subroutines in C
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Inline-C
@@ -169,6 +169,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Petr Pisar <ppisar@redhat.com> - 0.82-5
 - Stop providing symlinked modules from perl-Inline-C-tests
 

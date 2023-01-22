@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.8.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Template compilation framework in Ruby
 License: MIT
 URL: https://github.com/judofyr/temple
@@ -83,6 +83,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.8.2-6
 - Backport upstream patch for ruby32 Object#=~ removal
 

@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        5.101.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Very thin wrapper around the ncurses TUI library
 
 # Upstream license specification: MIT
@@ -145,6 +145,9 @@ which use "wide_chtype" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.101.0-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.101.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

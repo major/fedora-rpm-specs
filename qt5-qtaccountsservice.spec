@@ -3,7 +3,7 @@
 Name:           qt5-%{qt_module}
 Summary:        Qt5 - AccountService addon
 Version:        0.6.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 
 License:        LGPLv2+
 URL:            https://github.com/hawaii-desktop/qtaccountsservice
@@ -64,6 +64,9 @@ Files for development using Qt Account Service Addon.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

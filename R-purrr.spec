@@ -2,12 +2,12 @@
 %bcond_with bootstrap
 
 %global packname purrr
-%global packver  1.0.0
+%global packver  1.0.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          12%{?dist}
+Release:          1%{?dist}
 Summary:          Functional Programming Tools
 
 License:          GPLv3
@@ -85,6 +85,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Fri Jan 20 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.1-1
+- update to 1.0.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

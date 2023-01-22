@@ -2,7 +2,7 @@
 
 Name:          rygel
 Version:       0.42.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       A collection of UPnP/DLNA services
 
 License:       LGPLv2+
@@ -142,6 +142,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/rygel-preferences.de
 %{_datadir}/vala/vapi/rygel*.vapi
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 10 2022 David King <amigadave@amigadave.com> - 0.42.0-2
 - Fix devel subpackage installation (#2152302)
 

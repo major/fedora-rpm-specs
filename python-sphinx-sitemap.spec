@@ -1,6 +1,6 @@
 Name:           python-sphinx-sitemap
 Version:        2.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sitemap generator for Sphinx
 
 License:        MIT
@@ -47,6 +47,9 @@ rst2html --no-datestamp README.rst README.html
 %exclude %{python3_sitelib}/tests
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 2.4.0-1
 - Version 2.4.0
 - Verify that MIT is the correct SPDX identifier

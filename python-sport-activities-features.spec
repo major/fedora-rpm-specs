@@ -18,7 +18,7 @@ total ascent, total descent and many others.}
 
 Name:           python-%{pypi_name}
 Version:        0.3.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A minimalistic toolbox for extracting features from sports activity files
 
 License:        MIT
@@ -122,6 +122,9 @@ sed -r -i 's/(release = ")[[:digit:].]+"/\1%{version}"/' docs/conf.py
 %doc examples/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.3.8-1
 - Upgrade to 0.3.8
 

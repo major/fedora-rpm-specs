@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.4.5
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Really simple JSON and XML parsing, ripped from Merb and Rails
 License: MIT
 URL: https://github.com/jnunemaker/crack
@@ -75,6 +75,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

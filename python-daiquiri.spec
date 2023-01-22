@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.5.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Library to configure Python logging easily
 
 License:        ASL 2.0
@@ -73,6 +73,9 @@ PYTHON=python3 %{__python3} setup.py test
 %doc html 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

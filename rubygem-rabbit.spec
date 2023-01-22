@@ -6,7 +6,7 @@ BuildRequires:	%1 \
 
 Name:		rubygem-%{gem_name}
 Version:	3.0.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 
 Summary:	RD-document-based presentation application
 # CC-BY: rubykaigi2011-background-white.jpg and
@@ -163,6 +163,9 @@ popd
 %doc	%{gem_instdir}/sample/	
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

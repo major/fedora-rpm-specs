@@ -1,6 +1,6 @@
 Name:           perl-Regexp-Common-net-CIDR
 Version:        0.03
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Provide patterns for CIDR blocks
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -53,6 +53,9 @@ done
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Ralf Corsépius <corsepiu@fedoraproject.org> - 0.03-23
 - Modernize spec.
 - Convert license to SPDX.

@@ -26,7 +26,7 @@ and writes hoomd schema gsd files with an easy to use syntax.\
 
 Name: python-gsd
 Version: 2.5.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Read and write hoomd schema gsd files with an easy to use syntax 
 License: BSD
 URL: https://gsd.readthedocs.io/
@@ -117,6 +117,9 @@ rm -v gsd/fl.cpython-%{python3_version_nodots}-%{python3_platform_triplet}.so
 %{python3_sitearch}/%{pname}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

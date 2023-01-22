@@ -2,7 +2,7 @@
 
 Name:     python-hidapi
 Version:  0.13.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Interface to the hidapi library
 
 License:  GPLv3+ or BSD or Public Domain
@@ -57,6 +57,9 @@ rm -rf hidapi hidapi.egg-info hid.c
 %{python3_sitearch}/hidapi-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jonny Heggheim <hegjon@gmail.com> - 0.13.1-1
 - Updated to version 0.13.1
 

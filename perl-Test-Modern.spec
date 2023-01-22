@@ -1,6 +1,6 @@
 Name:		perl-Test-Modern
 Version:	0.013
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Precision testing for modern perl
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Test-Modern
@@ -87,6 +87,9 @@ make test
 %{_mandir}/man3/Test::Modern.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.013-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

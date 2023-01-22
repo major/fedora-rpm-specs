@@ -1,6 +1,6 @@
 Name:           picocom
 Version:        3.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Minimal serial communications program
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ exit 0
 %{_mandir}/man1/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

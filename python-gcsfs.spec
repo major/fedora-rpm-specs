@@ -6,7 +6,7 @@
 
 Name:           python-gcsfs
 Version:        2022.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Convenient Filesystem interface over GCS
 
 License:        BSD-3-Clause
@@ -89,6 +89,9 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Benjamin A. Beasley <code@musicinmybrain.net> - 2022.11.0-1
 - Update to 2022.11.0 (close RHBZ#2130978, close RHBZ#2136233)
 

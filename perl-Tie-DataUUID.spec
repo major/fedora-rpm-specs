@@ -1,6 +1,6 @@
 Name:           perl-Tie-DataUUID
 Version:        1.02
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Tie interface to Data::UUID
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Tie-DataUUID
@@ -87,6 +87,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 11 2022 Michal Josef Špaček <mspacek@redhat.com> - 1.02-20
 - Package tests
 - Simplify build and install

@@ -10,7 +10,7 @@
 
 Name:           python-attrs
 Version:        22.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python attributes without boilerplate
 
 License:        MIT
@@ -61,6 +61,9 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} py.test-3 -v
 %{python3_sitelib}/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Lumír Balhar <lbalhar@redhat.com> - 22.2.0-1
 - Update to 22.2.0 (rhbz#2155469)
 

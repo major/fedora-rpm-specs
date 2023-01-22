@@ -1,6 +1,6 @@
 Name:          python-tcolorpy
 Version:       0.1.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Python library to apply true color for terminal text
 
 License:       MIT
@@ -56,6 +56,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

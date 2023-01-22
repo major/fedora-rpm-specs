@@ -3,7 +3,7 @@
 
 Name:           perl-Net-Ping
 Version:        2.75
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Check a remote host for reachability
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Ping/
@@ -119,6 +119,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.75-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 02 2022 Michal Josef Špaček <mspacek@redhat.com> - 2.75-2
 - Package tests
 - Unify to use macros

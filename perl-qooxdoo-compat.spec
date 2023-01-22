@@ -1,7 +1,7 @@
 Summary:    Perl backend for Qooxdoo
 Name:       perl-qooxdoo-compat
 Version:    0.7.3
-Release:    42%{?dist}
+Release:    43%{?dist}
 License:    LGPLv2 or EPL
 URL:        http://qooxdoo.org/
 Source0:    http://downloads.sourceforge.net/qooxdoo/qooxdoo-%{version}-backend.tar.gz
@@ -33,6 +33,9 @@ Qooxdoo 0.7.
 %{perl_vendorlib}/Qooxdoo
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

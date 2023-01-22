@@ -3,7 +3,7 @@
 
 Name:       perl-Log-Log4perl-Appender-Socket-UNIX
 Version:    1.04
-Release:    25%{?dist}
+Release:    26%{?dist}
 Summary:    Log4perl appender for writing to UNIX domain sockets
 License:    GPL+ or Artistic
 URL:        https://metacpan.org/release/Log-Log4perl-Appender-Socket-UNIX
@@ -79,6 +79,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

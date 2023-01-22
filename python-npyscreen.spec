@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        4.10.5
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Writing user interfaces without all that ugly mucking about in hyperspace
 
 License:        BSD
@@ -49,6 +49,9 @@ done
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

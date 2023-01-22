@@ -1,6 +1,6 @@
 Name:           perl-URI-ws
 Version:        0.03
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        WebSocket support for URI package
 License:        GPL+ or Artistic
 
@@ -46,6 +46,9 @@ make test
 %{_mandir}/man3/URI*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.03-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

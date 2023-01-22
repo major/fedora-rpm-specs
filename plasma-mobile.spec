@@ -1,6 +1,6 @@
 Name:           plasma-mobile
-Version:        5.26.5
-Release:        1%{?dist}
+Version:        5.26.90
+Release:        2%{?dist}
 License:        CC0 and GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and LGPLv2.1 and LGPLv2.1+ and LGPLv3 and LGPLv3 and MIT
 Summary:        General UI components for Plasma Phone including shell, containment and applets
 Url:            https://invent.kde.org/plasma/plasma-mobile
@@ -33,6 +33,7 @@ BuildRequires: cmake(KF5ItemViews)
 BuildRequires: cmake(KF5JobWidgets)
 BuildRequires: cmake(KF5KCMUtils)
 BuildRequires: cmake(KF5KIO)
+BuildRequires: cmake(KF5KirigamiAddons)
 BuildRequires: cmake(KF5ModemManagerQt)
 BuildRequires: cmake(KF5NetworkManagerQt)
 BuildRequires: cmake(KF5Notifications)
@@ -107,6 +108,12 @@ Requires: qt5-qtwayland
 %{_kf5_qtplugindir}/plasma/applets/*.so
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
 * Sat Jan 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.5-1
 - 5.26.5
 

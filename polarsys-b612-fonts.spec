@@ -1,6 +1,6 @@
 %global forgeurl https://github.com/polarsys/b612/
 Version: 1.008
-Release: 10%{?dist}
+Release: 11%{?dist}
 URL: https://projects.eclipse.org/projects/polarsys.b612
 
 %global tag %{version}
@@ -107,6 +107,9 @@ install -m 0644 -p %{SOURCE1} .
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.008-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

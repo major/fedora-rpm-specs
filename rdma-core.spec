@@ -1,6 +1,6 @@
 Name: rdma-core
 Version: 41.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: RDMA core userspace libraries and daemons
 
 # Almost everything is licensed under the OFA dual GPLv2, 2 Clause BSD license
@@ -660,6 +660,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 02 2022 Michal Schmidt <mschmidt@redhat.com> - 41.0-1
 - Rebase to upstream release v41.0
 

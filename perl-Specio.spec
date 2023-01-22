@@ -7,7 +7,7 @@
 
 Name:		perl-Specio
 Version:	0.48
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Type constraints and coercions for Perl
 # lib/Specio/PartialDump.pm:	GPL+ or Artistic
 #				<https://github.com/houseabsolute/Specio/issues/17>
@@ -161,6 +161,9 @@ make test
 %{_mandir}/man3/Test::Specio.3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.48-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

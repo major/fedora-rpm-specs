@@ -10,7 +10,7 @@ from their threaded parts
 
 Name:           python-%{srcname}
 Version:        1.10.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        A library that makes it easier to use Twisted from blocking code
 
 # With Python 3.10 test_shutdown leads to timeout. This is just temporary and
@@ -82,6 +82,9 @@ rm docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

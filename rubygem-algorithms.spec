@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.6.1
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: Useful algorithms and data structures for Ruby. Optional C extensions
 License: MIT
 URL: https://github.com/kanwei/algorithms
@@ -93,6 +93,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.6.1-24
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

@@ -3,7 +3,7 @@
 
 Name: %{fontname}-fonts
 Version: 1.3.3
-Release: 22%{?dist}
+Release: 23%{?dist}
 Summary: Unicode compliant OpenType font for Telugu
 
 License: GPLv2+ with exceptions
@@ -47,6 +47,9 @@ install -Dm 0644 -p %{SOURCE1} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

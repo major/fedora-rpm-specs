@@ -1,7 +1,7 @@
 Name: routino
 Summary: Router for OpenStreetMap Data
 Version: 3.3.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: AGPLv3+
 URL: http://www.routino.org/
 Source0: http://www.routino.org/download/routino-%{version}.tgz
@@ -102,6 +102,9 @@ make install DESTDIR=%{buildroot} libdir=%{_libdir}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name: python-%{srcname}
 Version: 2020.7.4
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Read and write TIFF(r) files
 
 License: BSD
@@ -66,6 +66,9 @@ pytest-%{python3_version} -v tests \
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.7.4-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2020.7.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

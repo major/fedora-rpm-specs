@@ -12,7 +12,7 @@ out of nbconvert (formerly ExecutePreprocessor). NBClient lets you execute noteb
 
 Name:           python-%{pypi_name}
 Version:        0.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A client library for executing notebooks
 
 License:        BSD
@@ -60,6 +60,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 30 2022 Lumír Balhar <lbalhar@redhat.com> - 0.7.2-1
 - Update to 0.7.2 (rhbz#2132802)
 

@@ -4,7 +4,7 @@
 
 Name:           python-%{pkgname}
 Version:        %{pypi_version}
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        SQLAlchemy data model for datanommer
 
 License:        GPLv3+
@@ -68,6 +68,9 @@ install -m 644 alembic.ini %{buildroot}%{_sysconfdir}/%{pkgname}/alembic.ini
 %config(noreplace) %{_sysconfdir}/%{pkgname}/alembic.ini
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

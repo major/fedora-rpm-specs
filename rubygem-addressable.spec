@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.8.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: URI Implementation
 License: Apache-2.0
 URL: https://github.com/sporkmonger/addressable
@@ -70,6 +70,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Vít Ondruch <vondruch@redhat.com> - 2.8.1-1
 - Update to Addressable 2.8.1.
   Resolves: rhbz#2119778

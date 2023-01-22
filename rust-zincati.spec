@@ -11,7 +11,7 @@
 
 Name:           rust-%{crate}
 Version:        0.0.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -387,6 +387,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 27 2022 Luca BRUNO <lucab@lucabruno.net> - 0.0.25-1
 - New upstream version
   https://github.com/coreos/zincati/releases/tag/v0.0.25

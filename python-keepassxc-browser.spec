@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.1.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Access the KeepassXC Browser API from python
 
 License:        AGPLv3+
@@ -42,6 +42,9 @@ Summary:        %{summary}
 %{python3_sitelib}/keepassxc_browser
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name: rasterview
 Summary: CUPS raster file viewer
 Version: 1.7.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: GPLv2+
 Source: https://www.msweet.org/files/project7/rasterview-%{version}.tar.gz
 Url: http://www.msweet.org/projects.php/rasterview
@@ -60,6 +60,9 @@ desktop-file-install \
 %{_datadir}/applications/Development/rasterview.desktop
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

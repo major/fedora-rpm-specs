@@ -5,7 +5,7 @@
 
 Name:           rust-pleaser
 Version:        0.5.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Please, a polite regex-first sudo alternative
 
 License:        GPL-3.0-or-later
@@ -118,6 +118,9 @@ EOF
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 31 2022 Fabio Valentini <decathorpe@gmail.com> - 0.5.3-1
 - Update to version 0.5.3.
 - Regenerate spec file with rust2rpm v23.

@@ -2,7 +2,7 @@
 
 Name:		rubygem-%{gem_name}
 Version:	1.6.2
-Release:	201%{?dist}
+Release:	202%{?dist}
 
 Summary:	LALR(1) parser generator
 License:	BSD
@@ -125,6 +125,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-202
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.6.2-201
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

@@ -2,7 +2,7 @@ Name:           perl-Array-Compare
 Version:        3.0.8
 Release:        8%{?dist}
 Summary:        Perl extension for comparing arrays
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Array-Compare
 Source0:        https://cpan.metacpan.org/modules/by-module/Array/Array-Compare-v%{version}.tar.gz
 BuildArch:      noarch

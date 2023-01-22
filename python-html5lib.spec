@@ -1,7 +1,7 @@
 Name:           python-html5lib
 Summary:        A python based HTML parser/tokenizer
 Version:        1.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Epoch:          1
 License:        MIT
 URL:            https://github.com/html5lib/html5lib-python
@@ -63,6 +63,9 @@ sed -i 's/from mock import/from unittest.mock import/' html5lib/tests/test_meta.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

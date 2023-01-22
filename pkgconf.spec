@@ -24,7 +24,7 @@
 
 Name:           pkgconf
 Version:        1.8.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 License:        ISC
@@ -212,6 +212,9 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Amit Shah <amitshah@fedoraproject.org> - 1.8.0-4
 - Depend on system-rpm-config
 

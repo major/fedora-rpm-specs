@@ -12,7 +12,7 @@
 
 Name:           perl-SystemC-Vregs
 Version:        1.470
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Utility routines used by vregs
 
 License:        LGPLv3+ or Artistic 2.0
@@ -115,6 +115,9 @@ install -pm 0644 vregs-mode.el vregs-mode.elc %{buildroot}%{emacs_lispdir}/
 %{emacs_lispdir}/vregs-mode.el*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.470-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.470-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

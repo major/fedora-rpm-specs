@@ -1,6 +1,6 @@
 Name:           perl-XML-Merge 
 Version:        1.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Flexibly merge XML documents
 
 License:        GPLv3
@@ -72,6 +72,9 @@ make test
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

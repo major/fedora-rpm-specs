@@ -5,7 +5,7 @@ Summary:       A MongoDB driver for Ruby
 Name:          rubygem-%{gem_name}
 Epoch:         1
 Version:       1.5.3
-Release:       15%{?dist}
+Release:       16%{?dist}
 License:       MIT
 URL:           http://mongoid.org/en/moped
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -68,6 +68,9 @@ rm -rf %{buildroot}%{gem_instdir}/.yard*
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.3-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

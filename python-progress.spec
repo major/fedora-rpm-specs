@@ -20,7 +20,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Easy to use progress bars
 
 License:        ISC
@@ -98,6 +98,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 15 2022 Pavel Raiskup <praiskup@redhat.com> - 1.6-6
 - use time.monotonic(), bar.avg is infinity for zero speed
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A commonmark compliant parser, with bridges to docutils & sphinx
 
 License:        MIT
@@ -76,6 +76,9 @@ Summary:        %{summary}
 %{_bindir}/myst-docutils-pseudoxml
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 09 2022 Karolina Surma <ksurma@redhat.com> - 0.18.1-3
 - Skip tests failing with Sphinx 5.2+
 

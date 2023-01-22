@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}0.12
 Version:        0.12.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Generic types implementing functionality of arrays
 
 # Upstream license specification: MIT
@@ -83,6 +83,9 @@ which use "serde" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

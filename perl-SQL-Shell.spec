@@ -3,7 +3,7 @@
 
 Name:       perl-SQL-Shell 
 Version:    1.17
-Release:    12%{?dist}
+Release:    13%{?dist}
 # lib/SQL/Shell.pm: GPLv2+
 # bin/sqlsh:        GPLv2+
 # README:           GPLv2+
@@ -108,6 +108,9 @@ make test
 %{_mandir}/man1/sqlsh.1.gz
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

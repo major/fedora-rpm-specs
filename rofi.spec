@@ -1,6 +1,6 @@
 Name:    rofi
 Version: 1.7.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A window switcher, application launcher and dmenu replacement
 
 # lexer/theme-parser.[ch]:
@@ -129,6 +129,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rofi*.desktop
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 21 2022 Anthony Rabbito <hello@anthonyrabbito.com> - 1.7.5-1
 - Update to 1.7.5 (#2119919)
   update owner in URL

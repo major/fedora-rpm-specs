@@ -2,7 +2,7 @@
 
 Name:       python-%{pypi_name}
 Version:    2.1.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The nginx plugin for certbot
 
 License:    Apache-2.0
@@ -62,6 +62,9 @@ rm -rf %{pypi_name}.egg-info
 %exclude %{python3_sitelib}/certbot_nginx/tests
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Nick Bebout <nb@fedoraproject.org> - 2.1.0-1
 - Update to 2.1.0
 

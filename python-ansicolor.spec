@@ -23,7 +23,7 @@ and diffing.
 
 Name:           python-%{srcname}
 Version:        0.2.4
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        A library to produce ANSI color output
 
 License:        ASL 2.0
@@ -118,6 +118,9 @@ rm -f docs/_build/html/.buildinfo
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

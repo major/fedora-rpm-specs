@@ -3,7 +3,7 @@
 
 Name:           perl-LWP-ConsoleLogger
 Version:        1.000000
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LWP tracing and debugging
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/LWP-ConsoleLogger
@@ -150,6 +150,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.000000-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Petr Pisar <ppisar@redhat.com> - 1.000000-1
 - 1.000000 bump
 

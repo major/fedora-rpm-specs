@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Python API for IQVIA data
 
 License:        MIT
@@ -39,6 +39,9 @@ A Python API for IQVIA data.
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

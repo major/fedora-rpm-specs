@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common utilities for Synapse, Sydent and Sygnal
 
 License:        ASL 2.0
@@ -51,6 +51,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Kai A. Hiller <V02460@gmail.com> - 1.3.0-1
 - Update to v1.3.0
 

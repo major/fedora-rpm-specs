@@ -1,6 +1,6 @@
 Name:           python-ZEO
 Version:        5.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Client-server storage implementation for ZODB
 
 License:        ZPL-2.1
@@ -85,6 +85,9 @@ rst2html --no-datestamp README.rst README.html
 %{_bindir}/zeopack
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 5.3.0-3
 - Convert License tag to SPDX
 

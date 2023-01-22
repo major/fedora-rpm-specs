@@ -3,7 +3,7 @@
 Summary:    Zope Exceptions
 Name:       python-zope-exceptions
 Version:    4.0.8
-Release:    24%{?dist}
+Release:    25%{?dist}
 Source0:    http://pypi.python.org/packages/source/z/%{modname}/%{modname}-%{version}.tar.gz
 License:    ZPLv2.1
 BuildArch:  noarch
@@ -53,6 +53,9 @@ rm -rf %{modname}.egg-info
 %{python3_sitelib}/%{modname}-*-nspkg.pth
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.8-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.8-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

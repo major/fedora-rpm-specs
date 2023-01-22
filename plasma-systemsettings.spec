@@ -2,7 +2,7 @@
 
 Name:    plasma-%{base_name}
 Summary: KDE System Settings application
-Version: 5.26.5
+Version: 5.26.90
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -106,6 +106,7 @@ Obsoletes: plasma-systemsettings-devel < 5.20.90
 %{_datadir}/applications/kdesystemsettings.desktop
 %{_datadir}/applications/systemsettings.desktop
 %{_datadir}/metainfo/org.kde.systemsettings.metainfo.xml
+%{_datadir}/zsh/site-functions/_systemsettings
 %{_kf5_datadir}/kservicetypes5/*.desktop
 %{_kf5_datadir}/kxmlgui5/systemsettings
 %{_kf5_datadir}/kglobalaccel/systemsettings.desktop
@@ -119,6 +120,12 @@ Obsoletes: plasma-systemsettings-devel < 5.20.90
 
 
 %changelog
+* Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
+- 5.26.90
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Justin Zobel <justin@1707.io> - 5.26.5-1
 - Update to 5.26.5
 

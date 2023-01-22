@@ -29,7 +29,7 @@
 #-- PREAMBLE ------------------------------------------------------------------#
 Name:           php-scssphp
 Version:        1.10.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A compiler for SCSS written in PHP
 
 License:        MIT
@@ -183,6 +183,9 @@ EOF
 
 #-- CHANGELOG -----------------------------------------------------------------#
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 9 2022 Christopher Engelhard <ce@lcts.de> - 1.10.5-1
 - Update to 1.10.5-1 (rhbz#1876684, rhbz#1933633)
 - Upstream has changed from leafo/scssphp to scssphp/scssphp on packagist

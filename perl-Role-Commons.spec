@@ -3,7 +3,7 @@
 
 Name:           perl-Role-Commons
 Version:        0.104
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Roles that can be commonly used
 # COPYRIGHT:    Public Domain
 # LICENSE:      GPL+ or Artistic
@@ -67,6 +67,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.104-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.104-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

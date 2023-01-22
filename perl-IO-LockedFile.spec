@@ -1,6 +1,6 @@
 Name:           perl-IO-LockedFile
 Version:        0.23
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Something
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/IO-LockedFile
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-42
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

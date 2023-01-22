@@ -1,6 +1,6 @@
 Name:           perl-HTML-Template-Pro
 Version:        0.9524
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Perl/XS module to use HTML Templates from CGI scripts
 License:        GPL+ or Artistic or LGPLv2+
 URL:            https://metacpan.org/release/HTML-Template-Pro
@@ -67,6 +67,9 @@ A fast and lightweight C/Perl+XS HTML Template engine implementation.
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9524-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 24 2022 Emmanuel Seyman <emmanuel@seyman.fr> - 0.9524-4
 - Build against pcre2 instead of pcre
 

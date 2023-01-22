@@ -4,7 +4,7 @@
 
 Name:           python-%{modname}
 Version:        0.7.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Port David Beazley's PLY to RPython
 
 License:        BSD
@@ -50,6 +50,9 @@ pytest-%{python3_version} -v
 %{python3_sitelib}/%{modname}/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 # https://github.com/charmbracelet/bubbles
 %global goipath         github.com/charmbracelet/bubbles
-Version:                0.14.0
+Version:                0.15.0
 
 %gometa -f
 

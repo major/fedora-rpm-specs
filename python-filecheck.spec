@@ -7,7 +7,7 @@
 
 Name: python-%{pypi_name}
 Version: 0.0.22
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Flexible pattern matching file verifier
 License: ASL 2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -72,6 +72,9 @@ fi
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.22-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 04 2022 Miro Hrončok <mhroncok@redhat.com> - 0.0.22-2
 - Enable testsuite due to fixed rhbz#2102736
 

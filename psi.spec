@@ -1,6 +1,6 @@
 Name:           psi
 Version:        1.5
-Release:        9%{?dist}
+Release:        10%{?dist}
 
 # GPL-2.0-or-later - core project.
 # LGPL-2.1-or-later - iris library, widgets, several tools.
@@ -156,6 +156,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

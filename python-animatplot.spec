@@ -3,7 +3,7 @@
 
 Name:           python-%{srcname}
 Version:        0.4.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Making animating in Matplotlib easy
 
 License:        MIT
@@ -89,6 +89,9 @@ popd
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 07 2022 David Bold <davidsch@fedoraproject.org> - 0.4.1-15
 - Add patch to work around changes in matplotlib
 

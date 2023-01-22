@@ -74,7 +74,7 @@ URL: https://www.python.org/
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 29%{?dist}
+Release: 30%{?dist}
 %if %{with rpmwheels}
 License: Python
 %else
@@ -1751,6 +1751,9 @@ CheckPython \
 # ======================================================
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.18-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Miro Hrončok <mhroncok@redhat.com> - 2.7.18-29
 - Ensure the source mtime is clamped to $SOURCE_DATE_EPOCH before bytecompilation
 

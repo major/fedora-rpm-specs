@@ -8,7 +8,7 @@
 
 Name:           rust-average
 Version:        0.13.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Calculate statistics iteratively
 
 # Upstream license specification: MIT/Apache-2.0
@@ -183,6 +183,9 @@ use the "std" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 17 2022 Fabio Valentini <decathorpe@gmail.com> - 0.13.1-5
 - Bump serde-big-array from 0.3 to 0.4.
 

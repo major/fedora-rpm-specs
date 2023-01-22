@@ -33,7 +33,7 @@ Epoch: 0
 # So use %.2f with upstream acknowledgment
 # Remember to check upver macro on each update
 Version:     0.90
-Release:     1%{?dist}
+Release:     2%{?dist}
 
 
 # Prog is GPLv2 - Symbols/Elements are Creative Commons Attribution
@@ -246,6 +246,9 @@ cat qet.lang >>qelectrotech.lang
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:0.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan  6 2023 Remi Collet <remi@remirepo.net> - 0.90-1
 - update to 0.90
 - use SPDX license id

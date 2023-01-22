@@ -1,6 +1,6 @@
 Name:           perl-Variable-Magic
 Version:        0.63
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Associate user-defined magic to variables from Perl
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 
@@ -79,6 +79,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 21 2022 Paul Howarth <paul@city-fan.org> - 0.63-1
 - Update to 0.63 (rhbz#2128532)
   - Add support for 5.37.3's PADSV_STORE optimization; B.pm-related tests have

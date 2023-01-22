@@ -4,7 +4,7 @@
 
 Name:           puppet
 Version:        7.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Network tool for managing many disparate systems
 License:        ASL 2.0
 URL:            https://puppet.com
@@ -208,6 +208,9 @@ useradd -r -u 52 -g puppet -s /sbin/nologin \
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.21.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 17 2022 Ewoud Kohl van Wijngaarden <ewoud@kohlvanwijngaarden.nl> - 7.21.0-1
 - Update to 7.21.0 (fixes rhbz#2151953)
 

@@ -2,7 +2,7 @@
 
 Name:               python3-%{modname}
 Version:            1.5.4
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            A fork of the ast module with type annotations
 
 License:            ASL 2.0
@@ -41,6 +41,9 @@ as supported in Python 3.6.
 %{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

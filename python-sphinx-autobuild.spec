@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-autobuild
 Version:        2021.3.14
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Autobuild a Sphinx directory when a change is detected
 
 License:        MIT
@@ -92,6 +92,9 @@ help2man -N %{buildroot}%{_bindir}/sphinx-autobuild > \
 %doc html
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3.14-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 2021.3.14-3
 - Convert License tags to SPDX
 

@@ -12,7 +12,7 @@ any of the services that it supports.}
 
 Name:           python-%{shortname}
 Version:        3.6.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python library to address multiple cloud provider APIs
 
 License:        ASL 2.0
@@ -74,6 +74,9 @@ chmod -x demos/gce_demo.py demos/compute_demo.py
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 30 2022 Robby Callicotte <rcallicotte@fedoraproject.org> - 3.6.0-3
 - Removed python-requests 2.26 requirement for epel9 build
 

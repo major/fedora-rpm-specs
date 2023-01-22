@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        3.3.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Coveralls.io provides seamless integration with coverage.py
 
 LICENSE:        MIT
@@ -66,6 +66,9 @@ cp %{buildroot}%{_bindir}/coveralls %{buildroot}%{_bindir}/coveralls-py3
 %doc docs/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Tom Callaway <spot@fedoraproject.org> - 3.3.1-4
 - raise the coverage high bound to 8 (we have 7 in fedora now) (#2157153)
 

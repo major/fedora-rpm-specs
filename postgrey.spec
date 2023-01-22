@@ -2,7 +2,7 @@
 
 Name:              postgrey
 Version:           1.37
-Release:           18%{?dist}
+Release:           19%{?dist}
 Summary:           Postfix Greylisting Policy Server
 # File headers only state "GNU GPL", but the LICENSE sections state v2 and "any
 # later version"
@@ -130,6 +130,9 @@ exit 0
 %dir %attr(0751,postgrey,postfix) %{_localstatedir}/spool/postfix/postgrey/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.37-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

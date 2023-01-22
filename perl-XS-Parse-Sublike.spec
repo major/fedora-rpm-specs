@@ -3,7 +3,7 @@
 
 Name:           perl-XS-Parse-Sublike
 Version:        0.16
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        XS functions to assist in parsing sub-like syntax
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/XS-Parse-Sublike
@@ -132,6 +132,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

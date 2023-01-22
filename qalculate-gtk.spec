@@ -6,17 +6,17 @@
 
 Summary:	A multi-purpose desktop calculator for GNU/Linux
 Name:		qalculate-gtk
-Version:	4.5.0
+Version:	4.5.1
 Release:	%autorelease
 License:	GPLv2+
 
 URL:		https://qalculate.github.io/
 Source0:	https://github.com/%{srcnm}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc-c++
 BuildRequires:	gtk3-devel
-BuildRequires:	libqalculate-devel
+BuildRequires:	libqalculate-devel >= %{version}
 BuildRequires:	gettext
 BuildRequires:	desktop-file-utils
 BuildRequires:	perl(XML::Parser)

@@ -1,6 +1,6 @@
 Name:           perl-JSON-RPC-Common
 Version:        0.11
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Perl module for handling JSON-RPC objects
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/JSON-RPC-Common
@@ -47,6 +47,9 @@ make test
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

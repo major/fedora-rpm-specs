@@ -3,7 +3,7 @@
 
 Name:           python-upoints
 Version:        0.12.2
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        %{sum}
 
 License:        GPLv3+
@@ -61,6 +61,9 @@ with online UK trigpoint databases and various other databases.
 %{python3_sitelib}/%{srcname}*.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.3.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Yet Another Python Profiler, supports Multithread/CPU time profiling
 
 License:        MIT
@@ -67,6 +67,9 @@ export PYTHONPATH=%{buildroot}/%{python3_sitearch}
 %{_bindir}/%{srcname}-3*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Florian Weimer <fweimer@redhat.com> - 1.3.6-2
 - Work around broken has_function setup check (#2153038)
 

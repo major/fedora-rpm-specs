@@ -1,6 +1,6 @@
 Name:          perl-Net-DNS
 Version:       1.36
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       DNS resolver modules for Perl
 # Other files:          MIT
 # demo/mresolv:         GPL+ or Artistic
@@ -189,6 +189,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.36-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Paul Wouters <paul.wouters@aiven.io - 1.36-1
 - Resolves: rhbz#2132181 perl-Net-DNS-1.36 is available
 - Add source download gpg verification

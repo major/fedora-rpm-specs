@@ -2,8 +2,8 @@
 
 Summary:        Automate BGP filter generation based on routing database information
 Name:           bgpq4
-Version:        1.7
-Release:        2%{?dist}
+Version:        1.8
+Release:        1%{?dist}
 # bgpq4 itself is BSD-2-Clause but uses other source codes, breakdown:
 # BSD-3-Clause: include/sys/queue.h
 # ISC: compat/strlcpy.c
@@ -42,6 +42,9 @@ autoreconf --install
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Sat Jan 21 2023 Robert Scheck <robert@fedoraproject.org> 1.8-1
+- Upgrade to 1.8 (#2162768)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

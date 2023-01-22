@@ -22,7 +22,7 @@ Server Features \
 
 Name: pymodbus
 Version: 3.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: %{sum}
 
 License: BSD
@@ -73,6 +73,9 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/test
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 07 2022 Christian Krause <chkr@fedoraproject.org> - 3.0.2-1
 - Update to 3.0.2 (#2140564)
 

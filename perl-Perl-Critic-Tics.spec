@@ -1,7 +1,7 @@
 # This file is lincesed under the terms of GNU GPLv2+.
 Name:           perl-Perl-Critic-Tics
 Version:        0.010
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Policies for things that make me wince
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl-Critic-Tics
@@ -83,6 +83,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.010-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Petr Pisar <ppisar@redhat.com> - 0.010-1
 - 0.010 bump
 - Package the tests

@@ -1,7 +1,7 @@
 Summary: Arcade 2D shoot-them-up game
 Name: powermanga
 Version: 0.90
-Release: 32%{?dist}
+Release: 33%{?dist}
 License: GPLv3+
 URL: http://linux.tlk.fr/games/Powermanga/
 Source0: http://linux.tlk.fr/games/Powermanga/download/powermanga-%{version}.tgz
@@ -83,6 +83,9 @@ echo "Lang=en" > \
 
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.90-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

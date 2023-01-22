@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Confluent's Apache Kafka client for Python
 
 License:        ASL 2.0
@@ -57,6 +57,9 @@ rm -f  %{buildroot}/%{_prefix}/LICENSE.txt
 %{python3_sitearch}/confluent_kafka-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 21 2022 Javier Peña <jpena@redhat.com> - 1.6.1-1
 - Updated to version 1.6.1
 - Removed Python 2 subpackage

@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.0
 #global snapver rc1
-%global baserelease 9
+%global baserelease 10
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -617,6 +617,9 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-9
 - Generate Python egg-info from automake (#2135561)
 - Drop setup.py-based Python build (#2135719)

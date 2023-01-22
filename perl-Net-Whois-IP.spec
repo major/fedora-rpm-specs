@@ -1,6 +1,6 @@
 Name:           perl-Net-Whois-IP
 Version:        1.19
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl extension for looking up the whois information for ip addresses
 
 License:        GPL+ or Artistic
@@ -45,6 +45,9 @@ find %{buildroot} -type f -name .packlist -delete
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

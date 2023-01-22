@@ -1,6 +1,6 @@
 Name:           perl-IO-Compress-Brotli
 Version:        0.004001
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Perl bindings for Brotli compression
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress-Brotli/
@@ -68,6 +68,9 @@ make test
 %{_bindir}/bro-perl
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004001-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Petr Salaba <psalaba@redhat.com> - 0.004001-6
 - Update package summary
 

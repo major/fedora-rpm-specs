@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.2.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Python Vehicle Interface Toolkit
 
 License:        GPLv3+
@@ -46,6 +46,9 @@ common hardware interfaces and protocols used in the automotive systems.
 %exclude %{python3_sitelib}/test/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

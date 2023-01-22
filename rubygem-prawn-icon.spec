@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 3.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Provides icon fonts for PrawnPDF
 License: Ruby or GPLv2 or GPLv3
 URL: https://github.com/jessedoyle/prawn-icon/
@@ -73,6 +73,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 12 2022 Sergi Jimenez <tripledes@fedoraproject.org> - 3.1.0-1
 - Bump to 3.1.0
 

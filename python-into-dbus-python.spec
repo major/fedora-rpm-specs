@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.08
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Transformer to dbus-python types
 
 License:        ASL 2.0
@@ -45,6 +45,9 @@ Python 3 version.
 %{python3_sitelib}/into_dbus_python-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.08-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

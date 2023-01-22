@@ -5,7 +5,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.5.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: New IO for Ruby
 # The entire source code is MIT, bundled libev is BSD or GPLv2+
 License: MIT and (BSD or GPLv2+)
@@ -108,6 +108,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Vít Ondruch <vondruch@redhat.com> - 2.5.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

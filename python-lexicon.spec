@@ -3,7 +3,7 @@
 
 Name:		python-lexicon
 Version:	2.0.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Powerful dict subclass(es) with aliasing and attribute access
 License:	BSD
 URL:		https://github.com/bitprophet/lexicon
@@ -49,6 +49,9 @@ Lexicon is a simple collection of dict sub-classes providing extra power.
 %{python3_sitelib}/lexicon-%{version}-*.egg-info/
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 02 2022 Miro Hrončok <mhroncok@redhat.com> - 2.0.1-6
 - Use pytest-relaxed, to avoid a transitive dependency on deprecated nose
 

@@ -4,7 +4,7 @@
 
 Name:           qdox
 Version:        2.0.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Extract class/interface/method definitions from sources
 License:        ASL 2.0
 URL:            https://github.com/paul-hammant/qdox
@@ -89,6 +89,9 @@ jar ufm target/%{name}-%{upstream_version}.jar %{SOURCE1}
 %license LICENSE.txt
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

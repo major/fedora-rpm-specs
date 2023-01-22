@@ -1,6 +1,6 @@
 Name:           perl-Test-Time
 Version:        0.092
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Overrides the time() and sleep() core functions for testing
 License:        GPL+ or Artistic
 
@@ -50,6 +50,9 @@ set custom time by passing time => number after the use statement.
 %{_mandir}/man3/Test*
 
 %changelog
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.092-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.092-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
