@@ -1,6 +1,6 @@
 Name: xdg-desktop-portal-lxqt
 Version: 0.3.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A backend implementation for xdg-desktop-portal that is using Qt/KF5/libfm-qt
 License: LGPL-2.0-or-later
 URL: https://lxqt-project.org
@@ -44,6 +44,9 @@ make install DESTDIR=%{buildroot} -C %{_target_platform}
 %{_libexecdir}/xdg-desktop-portal-lxqt
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Zamir SUN <sztsian@gmail.com> - 0.3.0-1
 - Update version to 0.3.0
 

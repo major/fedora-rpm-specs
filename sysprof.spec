@@ -2,7 +2,7 @@
 
 Name:           sysprof
 Version:        3.46.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A system-wide Linux profiler
 
 License:        GPLv3+
@@ -178,6 +178,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.46.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 20 2022 Kalev Lember <klember@redhat.com> - 3.46.0-1
 - Update to 3.46.0
 

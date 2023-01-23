@@ -4,7 +4,7 @@
 Summary:	LZMA compression utilities
 Name:		xz
 Version:	5.2.9
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
 # GPLv2+, binaries are Public Domain (linked against LGPL getopt_long but its
@@ -161,6 +161,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.9-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Richard W.M. Jones <rjones@redhat.com> - 5.2.9-1
 - Rebase to version 5.2.9 (#2142405)
 

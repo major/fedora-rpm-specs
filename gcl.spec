@@ -17,8 +17,8 @@
 %global _lto_cflags %{nil}
 
 Name:           gcl
-Version:        2.6.13
-Release:        2%{?dist}
+Version:        2.6.14
+Release:        1%{?dist}
 Summary:        GNU Common Lisp
 
 # LGPL-2.0-or-later:
@@ -46,8 +46,8 @@ Summary:        GNU Common Lisp
 License:        LGPL-2.0-or-later AND GPL-1.0-or-later AND MIT-Modern-Variant AND LOOP
 URL:            https://www.gnu.org/software/gcl/
 Source0:        https://www.gnu.org/software/gcl/%{name}-%{version}.tar.gz
-#Source1:        https://www.gnu.org/software/gcl/%%{name}-%%{version}.tar.gz.sig
-#Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
+Source1:        https://www.gnu.org/software/gcl/%{name}-%{version}.tar.gz.sig
+Source2:        https://ftp.gnu.org/gnu/gnu-keyring.gpg
 Source3:        gcl.el
 
 # Upstream builds point releases for Debian, and uploads the patches directly
@@ -91,15 +91,21 @@ Patch507:       %{name}-2.6.12-infrastructure.patch
 # handling of system extensions.  For example, on glibc-based systems, some
 # functionality is available only when _GNU_SOURCE is defined.
 Patch508:       %{name}-2.6.12-extension.patch
-# Changes needed for the Modern C initiative.  See
-# https://fedoraproject.org/wiki/Changes/PortingToModernC
-Patch509:       %{name}-2.6.12-modern-c.patch
+# Move #include directives out of function definitions.  This no longer works
+# with glibc 2.36.9000, which has inline definitions of some functions when
+# FORTIFY_SOURCE is in use.  The unpatched unrandomize.h header then declares
+# them as nested functions, leading to compilation errors.
+Patch509:       %{name}-2.6.14-unrandomize.patch
+
+# Disable s390x build until a bug can be tracked down and fixed.
+# See https://bugzilla.redhat.com/show_bug.cgi?id=2162910
+ExcludeArch:    s390x
 
 BuildRequires:  binutils-devel
 BuildRequires:  bzip2
 BuildRequires:  gcc
 BuildRequires:  gmp-devel
-#BuildRequires:  gnupg2
+BuildRequires:  gnupg2
 BuildRequires:  make
 BuildRequires:  pkgconfig(libtirpc)
 BuildRequires:  pkgconfig(readline)
@@ -138,10 +144,7 @@ Emacs mode for interacting with GCL
 
 
 %prep
-# Upstream is currently having trouble signing with the GNU key, and has
-# instead signed with a key that I cannot find on any public key server.
-# Disable this until upstream fixes the issue.
-#%%{gpgverify} --data=%%{SOURCE0} --signature=%%{SOURCE1} --keyring=%%{SOURCE2}
+%{gpgverify} --data=%{SOURCE0} --signature=%{SOURCE1} --keyring=%{SOURCE2}
 
 %autosetup -p1
 
@@ -172,7 +175,6 @@ chmod a+x bin/info bin/info1 gcl-tk/gcltksrv.in gcl-tk/ngcltksrv mp/gcclab
 chmod a+x o/egrep-def utils/replace xbin/*
 
 %build
-export CFLAGS="%{build_cflags} -fwrapv"
 %configure --enable-readline --enable-ansi --enable-dynsysgmp --enable-xgcl \
   --enable-tclconfig=%{_libdir} --enable-tkconfig=%{_libdir}
 # FIXME: %%{?_smp_mflags} breaks the build
@@ -184,8 +186,8 @@ make -C info gcl.info
 
 # dwdoc needs two extra LaTeX runs to resolve references
 cd xgcl-2
-pdflatex -interaction=batchmode dwdoc.tex
-pdflatex -interaction=batchmode dwdoc.tex
+pdflatex dwdoc.tex
+pdflatex dwdoc.tex
 cd -
 
 
@@ -250,6 +252,14 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Sat Jan 21 2023 Jerry James <loganjerry@gmail.com> - 2.6.14-1
+- Update to 2.6.14
+- Verify the tarball
+- Drop upstreamed modern C patch
+- The -fwrapv compiler flag is no longer needed
+- Add -unrandomize patch to fix compilation with glibc 2.36.9000
+- Do not build for s390x until a compiler issue can be resolved
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

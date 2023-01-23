@@ -2,7 +2,7 @@
 
 Name:		wcm
 Version:	0.20.0
-Release:	20%{?dist}
+Release:	21%{?dist}
 Summary:	WCM Commander
 License:	MIT
 Url:		https://github.com/corporateshark/WalCommander
@@ -88,6 +88,9 @@ install -Dm 0644 %{SOURCE3} %{buildroot}/%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

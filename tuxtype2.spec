@@ -1,6 +1,6 @@
 Name:           tuxtype2
 Version:        1.8.1
-Release:        29%{?dist}
+Release:        30%{?dist}
 
 Summary:        Tux Typing, an educational typing tutor for children
 License:        GPLv2+
@@ -115,6 +115,9 @@ EOF
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

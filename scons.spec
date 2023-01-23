@@ -29,7 +29,7 @@
 
 Name:      scons
 Version:   4.4.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   An Open Source software construction tool
 License:   MIT
 URL:       http://www.scons.org
@@ -311,6 +311,9 @@ popd
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 01 2022 Antonio Trande <sagitter@fedoraproject.org> - 4.4.0-2
 - Build documentation
 

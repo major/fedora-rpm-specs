@@ -1,6 +1,6 @@
 Name:           stoken
 Version:        0.92
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Token code generator compatible with RSA SecurID 128-bit (AES) token
 License:        LGPLv2+
 URL:            http://%{name}.sf.net
@@ -108,6 +108,9 @@ rm -fr %{buildroot}%{_docdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

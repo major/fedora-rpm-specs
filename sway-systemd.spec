@@ -1,6 +1,6 @@
 Name:           sway-systemd
 Version:        0.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Systemd integration for Sway session
 
 License:        MIT
@@ -59,6 +59,9 @@ This includes several areas of integration:
 %{_libexecdir}/%{name}/assign-cgroups.py
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

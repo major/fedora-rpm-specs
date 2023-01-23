@@ -4,7 +4,7 @@
 
 Name:		xfce4-pulseaudio-plugin
 Version:	0.4.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Pulseaudio plugin for Xfce4
 
 License:	GPLv2+
@@ -67,6 +67,9 @@ rm -f %{buildroot}/%{defaultdocdir}/README
 %{_datadir}/icons/hicolor/scalable/status/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Kevin Fenzi <kevin@scrye.com> - 0.4.5-1
 - Update to 0.4.5. Fixes rhbz#2127276
 

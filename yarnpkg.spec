@@ -12,7 +12,7 @@
 
 Name:           yarnpkg
 Version:        1.22.19
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, reliable, and secure dependency management.
 URL:            https://github.com/yarnpkg/yarn
 # we need tarball with node_modules
@@ -96,6 +96,9 @@ if [[ $(%{buildroot}%{_bindir}/%{old_name} --version) == %{version} ]] ; then ec
 %{nodejs_sitelib}/%{npm_name}/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.19-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Sandro Mani <manisandro@gmail.com> - 1.22.19-3
 - Add patches for CVE-2021-43138, CVE-2022-3517, CVE-2020-7677
 

@@ -1,6 +1,6 @@
 Name:    vcs-diff-lint
 Version: 4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: VCS Differential Code Analysis Tool
 BuildArch: noarch
 
@@ -49,6 +49,9 @@ install -p vcs-diff-lint-csdiff-mypy   %buildroot%_bindir
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Pavel Raiskup <praiskup@redhat.com> 4-1
 - don't print Mypy errors from files that are not explicitly analyzed
 

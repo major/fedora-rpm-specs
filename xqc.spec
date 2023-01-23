@@ -2,7 +2,7 @@
 
 Name:           xqc
 Version:        1.0
-Release:        0.22.%{snapshot}%{?dist}
+Release:        0.23.%{snapshot}%{?dist}
 Summary:        C/C++ API for interfacing with XQuery processors
 
 License:        BSD
@@ -49,6 +49,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.23.20101120svn7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-0.22.20101120svn7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

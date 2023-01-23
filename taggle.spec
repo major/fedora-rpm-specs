@@ -1,6 +1,6 @@
 Name:		taggle
 Version:	1.0
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	An online french word game
 
 License:	GPLv3+
@@ -94,6 +94,9 @@ install -D -p -m 0755 %{S:4} %{buildroot}%{_bindir}/%{name}-server
 %{_bindir}/%{name}-server
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

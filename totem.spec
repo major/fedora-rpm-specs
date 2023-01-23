@@ -6,7 +6,7 @@
 Name: totem
 Epoch: 1
 Version: 43.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Movie player for GNOME
 
 License: GPLv2+ with exceptions
@@ -174,6 +174,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Totem.de
 %{_datadir}/gir-1.0/Totem-1.0.gir
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 16 2022 Bastien Nocera <bnocera@redhat.com> - 43.0-1
 + totem-43.0-1
 - Update to 43.0

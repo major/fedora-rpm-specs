@@ -1,6 +1,6 @@
 Name:           soapy-rtlsdr
 Version:        0.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        SoapySDR module for RTL-SDR hardware
 
 License:        MIT
@@ -31,6 +31,9 @@ RTL-SDR hardware.
 %{_libdir}/SoapySDR/modules*/librtlsdrSupport.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

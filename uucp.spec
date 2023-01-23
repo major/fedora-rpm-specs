@@ -20,7 +20,7 @@
 Summary: A set of utilities for operations between systems
 Name: uucp
 Version: 1.07
-Release: 67%{?dist}
+Release: 68%{?dist}
 License: GPLv2+
 Url: http://www.airs.com/ian/uucp.html
 Source0: ftp://ftp.gnu.org/pub/gnu/uucp/uucp-%{version}.tar.gz
@@ -299,6 +299,9 @@ fi
 %{_mandir}/man1/cu.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.07-68
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.07-67
 - Port configure script to C99
 

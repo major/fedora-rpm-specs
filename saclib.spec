@@ -1,6 +1,6 @@
 Name:           saclib
 Version:        2.2.8
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Computer algebra library
 
 License:        ISC
@@ -59,12 +59,14 @@ export CFLAGS='%{build_cflags} -frounding-math'
 
 # Build the documentation
 cd doc/user_guide
-pdflatex -interaction=batchmode saclocal
-pdflatex -interaction=batchmode sackwic
-pdflatex -interaction=batchmode saclib
+rm *.{aux,dvi,ilg,ind,log,toc,lof,pdf}
+pdflatex saclocal
+pdflatex saclocal
+pdflatex sackwic
+pdflatex saclib
 makeindex saclib
-pdflatex -interaction=batchmode saclib
-pdflatex -interaction=batchmode saclib
+pdflatex saclib
+pdflatex saclib
 
 %install
 # Install the library
@@ -88,6 +90,9 @@ cp -p include/*.h %{buildroot}%{_includedir}/%{name}
 %{_libdir}/libsaclib.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Jerry James <loganjerry@gmail.com> - 2.2.8-4
 - Convert License tag to SPDX and correct it to ISC
 

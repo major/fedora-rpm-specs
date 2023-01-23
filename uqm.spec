@@ -1,6 +1,6 @@
 Name:           uqm
 Version:        0.7.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        The Ur-Quan Masters, a port of the classic game Star Control II
 
 License:        GPLv2+
@@ -124,6 +124,9 @@ EOF
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

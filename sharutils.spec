@@ -1,7 +1,7 @@
 Summary:    The GNU shar utilities for packaging and unpackaging shell archives
 Name:       sharutils
 Version:    4.15.2
-Release:    22%{?dist}
+Release:    23%{?dist}
 # The main code:                GPLv3+
 # intl/dngettext.c:             LGPLv2+
 # lib (gnulib):                 GPLv3+
@@ -95,6 +95,9 @@ make check
 %{_mandir}/man5/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.2-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.2-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

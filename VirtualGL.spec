@@ -10,7 +10,7 @@ Patch2:         %{name}-redhatlibexecpathsfix.patch
 Release:        5%{?dist}
 License:        wxWindows
 BuildRequires:  make
-%if 0%{?rhel} < 8
+%if 0%{?rhel} == 7
 BuildRequires:  cmake3
 %else
 BuildRequires:  cmake
@@ -101,7 +101,7 @@ cmake3 \
          -DCMAKE_INSTALL_PREFIX=%{_prefix}/ \
          -DCMAKE_INSTALL_LIBDIR=%{_libdir}/VirtualGL/ \
          -DCMAKE_INSTALL_DOCDIR=%{_docdir}/%{name}/ \
-         -DCMAKE_INSTALL_BINDIR=%{_bindir}/ .
+         -DCMAKE_INSTALL_BINDIR=%{_bindir}/
 %if 0%{?rhel} == 7
 make %{?_smp_mflags}
 %else
@@ -118,7 +118,7 @@ make install DESTDIR=$RPM_BUILD_ROOT
 # and rename the command
 mv $RPM_BUILD_ROOT/%{_bindir}/glxinfo $RPM_BUILD_ROOT/%{_bindir}/vglxinfo
 mkdir -p $RPM_BUILD_ROOT%{_libdir}/fakelib/
-ln -sf %{_libdir}/VirtualGL/librrfaker.so $RPM_BUILD_ROOT%{_libdir}/fakelib/libGL.so
+ln -rsf %{_libdir}/VirtualGL/librrfaker.so $RPM_BUILD_ROOT%{_libdir}/fakelib/libGL.so
 # fix for bz1088475
 mkdir $RPM_BUILD_ROOT%{_libexecdir}
 %if 0%{?__isa_bits} == 64

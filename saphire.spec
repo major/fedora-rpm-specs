@@ -4,7 +4,7 @@
 
 Name:		saphire
 Version:	3.6.5
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Yet another shell
 
 License:	MIT
@@ -156,6 +156,9 @@ make install \
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec  6 2022 Florian Weimer <fweimer@redhat.com> - 3.6.5-29
 - Declare string_chomp in the installed header file (#2151172)
 

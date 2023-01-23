@@ -13,7 +13,7 @@ Name: simde
 Version: 0.7.3
 # Align the release format with the packages setting Source0 by commit hash
 # such as podman.spec and moby-engine.spec.
-Release: 3.git%{short_commit_simde}%{?dist}
+Release: 4.git%{short_commit_simde}%{?dist}
 Summary: SIMD Everywhere
 # find simde/ -type f | xargs licensecheck
 #   simde: MIT
@@ -304,6 +304,9 @@ _test
 %{_includedir}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-4.git3378ab3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-3.git3378ab3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

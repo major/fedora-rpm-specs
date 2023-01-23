@@ -1,7 +1,7 @@
 
 Name: wcslib
 Version: 7.12
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: An implementation of the FITS World Coordinate System standard
 
 # Library is under LGPLv3+ utils under GPLv3+
@@ -74,6 +74,9 @@ make check
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 28 2022 Sergio Pascual <sergiopr@fedoraproject.org> 7.12-1
 - New upstream version (7.12)
 

@@ -2,7 +2,7 @@
 
 Name:           seafile-client
 Version:        8.0.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Seafile cloud storage desktop client
 
 # main source:  Apache 2.0
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/seafile.appdat
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan 01 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 8.0.10-1
 - Update to 8.0.10
 

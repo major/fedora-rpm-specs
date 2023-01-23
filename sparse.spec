@@ -13,7 +13,7 @@ Version: 0.6.4
 %define dotrc           %{nil}
 %endif
 
-Release: 3%{dotrc}%{?dist}
+Release: 3%{dotrc}%{?dist}.1
 Summary:    A semantic parser of source files
 License:    MIT
 URL:        https://sparse.wiki.kernel.org
@@ -76,6 +76,9 @@ make clean
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 29 2022 Jeff Layton <jlayton@redhat.com> - 0.6.4-3
 - bump release to get around package version issue
 

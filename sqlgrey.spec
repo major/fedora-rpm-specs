@@ -1,6 +1,6 @@
 Name:           sqlgrey
 Version:        1.8.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Postfix grey-listing policy service
 License:        GPLv2+
 URL:            http://sqlgrey.sourceforge.net/
@@ -80,6 +80,9 @@ exit 0
 %systemd_postun_with_restart sqlgrey.service
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 # vkamrk dynamicly loads modules that reference static functions in the main binary
 %undefine _strict_symbol_defs_build
 
-%global codate 20220617
-%global commit0 d872846e2e7c47010c11227eb713d00ccfdd35c6
+%global codate 20230121
+%global commit0 30d2cd37f0566589d90914501fc7c51a4e51f559
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 # Some tests fail on s390x
@@ -11,12 +11,15 @@ ExcludeArch:    s390x
 
 Name:           vkmark
 Version:        2017.08
-Release:        0.16.%{codate}git%{shortcommit0}%{?dist}
+Release:        0.18.%{codate}git%{shortcommit0}%{?dist}
 Summary:        Vulkan benchmarking suite
 
 License:        LGPLv2+
 URL:            https://github.com/vkmark/vkmark
 Source0:        https://github.com/vkmark/vkmark/archive/%{commit0}.tar.gz#/%{name}-%{version}-%{shortcommit0}.tar.gz
+
+# https://github.com/vkmark/vkmark/pull/49
+Patch0:         cstdint.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -38,7 +41,7 @@ vkmark is an extensible Vulkan benchmarking suite with targeted,
 configurable scenes.
 
 %prep
-%autosetup -n %{name}-%{commit0}
+%autosetup -p1 -n %{name}-%{commit0}
 
 
 %build
@@ -63,6 +66,12 @@ configurable scenes.
 
 
 %changelog
+* Sat Jan 21 2023 Yanko Kaneti <yaneti@declera.com> - 2017.08-0.18.20230121git30d2cd3
+- Pull a recent snapshot + addtional patch to fixup standard includes
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2017.08-0.17.20220617gitd872846
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2017.08-0.16.20220617gitd872846
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

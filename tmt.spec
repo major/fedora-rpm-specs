@@ -1,6 +1,6 @@
 Name: tmt
 Version: 1.20.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 Summary: Test Management Tool
 License: MIT
@@ -206,6 +206,9 @@ chmod 1777 %{buildroot}%{workdir_root}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 Lukáš Zachar <lzachar@redhat.com> - 1.20.0-1
 - Do not prune `html` and `junit` reports
 - Skip extending fmf context if cli context missing

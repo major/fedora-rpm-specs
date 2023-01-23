@@ -1,6 +1,6 @@
 Name:           wol
 Version:        0.7.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Wake On Lan client
 
 License:        GPLv2+
@@ -42,6 +42,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_bindir}/%{name}*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 0.7.1-30
 - Port configure script to C99 (#2148875)
 

@@ -1,6 +1,6 @@
 Name:              zathura
 Version:           0.5.2
-Release:           2%{?dist}
+Release:           3%{?dist}
 Summary:           A lightweight document viewer
 License:           Zlib
 URL:               http://pwmt.org/projects/%{name}/
@@ -149,6 +149,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 03 2022 Alain Vigne <avigne@fedoraproject.org> - 0.5.2-2
 - Fix noarch build
 

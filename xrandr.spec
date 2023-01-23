@@ -1,6 +1,6 @@
 Name:       xrandr
 Version:    1.5.2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Commandline utility to change output properties
 
 License:    MIT
@@ -41,6 +41,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/xkeystone
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.5.2-1
 - xrandr 1.5.2
 

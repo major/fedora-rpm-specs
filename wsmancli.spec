@@ -1,6 +1,6 @@
 Name:           wsmancli
 Version:        2.6.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 License:        BSD
 Url:            http://www.openwsman.org/
 # You can get this tarball here:
@@ -45,6 +45,9 @@ make DESTDIR=%{buildroot} install
 %doc COPYING README AUTHORS
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.6.0-19
 - Replace obsolete getpass function
 

@@ -1,6 +1,6 @@
 Name:    vsomeip3
 Version: 3.1.20.3
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
 License: MPLv2.0 and Boost
@@ -238,6 +238,9 @@ exit 0
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.20.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug  3 2022 Stephen Smoogen <smooge@fedoraproject.org> - 3.1.20.3-9
 - Add patch to bring up to 2022-03-15 git 17cc55f24d1c56f6a5dcca6065a227ca91d01c90
 - Remove patch for bigendian and boost-1.76 due to inclusion to git

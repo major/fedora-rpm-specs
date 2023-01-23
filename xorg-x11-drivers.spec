@@ -1,7 +1,7 @@
 Summary: X.Org X11 driver installation package
 Name: xorg-x11-drivers
 Version: 2022
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: MIT
 
 # relevant hardware
@@ -54,6 +54,9 @@ individual driver packages to be installed.
 %files
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 01 2022 Adam Jackson <ajax@redhat.com> - 2022-3
 - Drop vesa and fbdev for https://fedoraproject.org/wiki/Changes/LegacyXorgDriverRemoval
 

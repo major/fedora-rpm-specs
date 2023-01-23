@@ -1,6 +1,6 @@
 Name:           servicelog
 Version:        1.1.16
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Servicelog Tools
 
 License:        GPLv2
@@ -46,6 +46,9 @@ help2man -s 8 -N $RPM_BUILD_ROOT/%{_sbindir}/slog_common_event > $RPM_BUILD_ROOT
 %{_mandir}/man[18]/*.[18]*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

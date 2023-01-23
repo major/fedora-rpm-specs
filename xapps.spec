@@ -1,6 +1,6 @@
 Name:           xapps
 Version:        2.4.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Common files for XApp desktop apps
 
 License:        LGPLv2+
@@ -122,6 +122,9 @@ rm %{buildroot}%{_datadir}/format
 %{python3_sitearch}/gi/overrides/__pycache__/XApp.cpython-%{python3_version_nodots}*.py*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Leigh Scott <leigh123linux@gmail.com> - 2.4.1-1
 - Update to 2.4.1 release
 

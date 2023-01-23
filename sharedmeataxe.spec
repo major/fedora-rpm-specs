@@ -1,6 +1,6 @@
 Name:           sharedmeataxe
 Version:        1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Matrix representations over finite fields
 
 License:        GPL-2.0-or-later
@@ -231,6 +231,9 @@ LD_LIBRARY_PATH=$PWD/src/.libs make check
 %doc html
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 1.0.1-2
 - Use more explicit man and library globs in %%files
 - Convert License tags to SPDX

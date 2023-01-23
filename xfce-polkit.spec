@@ -1,6 +1,6 @@
 Name:           xfce-polkit
 Version:        0.3
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Simple PolicyKit authentication agent for Xfce
 
 License:        GPLv2+
@@ -43,6 +43,9 @@ desktop-file-edit --remove-key=NotShowIn --add-only-show-in=XFCE \
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

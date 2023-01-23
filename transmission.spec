@@ -2,7 +2,7 @@
 
 Name:           transmission
 Version:        3.00
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPLv2
@@ -182,6 +182,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.00-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Gwyn Ciesla <gwync@protonmail.com> - 3.00-14
 - Patch from Debian to use OpenSSL 3.x
 

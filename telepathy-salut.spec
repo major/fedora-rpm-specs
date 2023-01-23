@@ -1,6 +1,6 @@
 Name:           telepathy-salut
 Version:        0.8.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Link-local XMPP telepathy connection manager
 
 License:        LGPLv2+
@@ -85,6 +85,9 @@ make check
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

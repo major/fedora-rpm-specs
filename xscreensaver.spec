@@ -74,7 +74,7 @@
 Summary:         X screen saver and locker
 Name:            %{name}
 Version:         %{mainversion}
-Release:         %{?beta_ver:0.}%{fedora_rel}%{?beta_ver:.%beta_ver}%{?dist}%{flagrel}%{?extrarel}
+Release:         %{?beta_ver:0.}%{fedora_rel}%{?beta_ver:.%beta_ver}%{?dist}%{flagrel}%{?extrarel}.1
 Epoch:           1
 License:         MIT
 URL:             http://www.jwz.org/xscreensaver/
@@ -1157,6 +1157,9 @@ exit 0
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.06-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.06-1
 - Update to 6.06
 

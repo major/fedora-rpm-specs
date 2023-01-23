@@ -4,7 +4,7 @@
 
 Name:           sushi
 Version:        43.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A quick previewer for Nautilus
 
 License:        GPLv2+ with exceptions
@@ -59,6 +59,9 @@ file manager.
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 08 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 43.0-2
 - Add patch to fix local previewing of some Evince types
 

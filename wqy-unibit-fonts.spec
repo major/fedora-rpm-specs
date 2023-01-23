@@ -2,7 +2,7 @@
 
 Name:           %{fontname}-fonts
 Version:        1.1.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        WenQuanYi Unibit Bitmap Font
 
 License:        GPLv2 with exceptions
@@ -57,6 +57,9 @@ install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

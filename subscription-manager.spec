@@ -96,7 +96,7 @@
 
 Name: subscription-manager
 Version: 1.29.30
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools and libraries for subscription and repository management
 %if 0%{?suse_version}
 Group:   Productivity/Networking/System
@@ -736,6 +736,9 @@ rmdir %{python_sitearch}/subscription_manager-*-*.egg-info --ignore-fail-on-non-
 rm -f /var/lib/rhsm/cache/rhsm_icon.json
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 09 2022 Christopher Snyder <csnyder@redhat.com> 1.29.30-1
 - Fix issue, when connection is not shared (jhnidek@redhat.com)
 - Unit tests: Add stub class for SyspurposeComplianceStatusCache

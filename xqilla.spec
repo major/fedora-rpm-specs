@@ -1,6 +1,6 @@
 Name:           xqilla
 Version:        2.3.3
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        XQuery and XPath 2.0 library, built on top of Xerces-C
 
 License:        ASL 2.0
@@ -94,6 +94,9 @@ install -D -p -m0664 %{SOURCE1} %{buildroot}/%{_mandir}/man1/%{name}.1
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

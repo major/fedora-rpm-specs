@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20201231
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPLv2+
@@ -479,6 +479,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20201231-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 15 2022 Richard Shaw <hobbes1069@gmail.com> - 20201231-36
 - Rebuild for yaml-cpp 0.7.0.
 

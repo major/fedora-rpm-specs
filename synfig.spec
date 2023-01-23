@@ -1,6 +1,6 @@
 Name:           synfig
 Version:        1.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Vector-based 2D animation rendering backend
 
 License:        GPLv2+
@@ -125,6 +125,9 @@ touch -r README $RPM_BUILD_ROOT%{_bindir}/synfig-config
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.5.1-5
 - Rebuild for ImageMagick 7
 

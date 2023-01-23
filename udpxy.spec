@@ -2,7 +2,7 @@
 
 Name:           udpxy
 Version:        1.0.23
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        UDP-to-HTTP multicast traffic relay daemon
 
 License:        GPLv3+
@@ -56,6 +56,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.23-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.23-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

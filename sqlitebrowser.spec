@@ -3,7 +3,7 @@
 
 Name:           sqlitebrowser
 Version:        3.13.0
-Release:        0.5%{?commit:.git%{shortcommit}}%{?dist}
+Release:        0.6%{?commit:.git%{shortcommit}}%{?dist}
 Summary:        Create, design, and edit SQLite database files
 
 License:        GPL-3.0-or-later OR MPL-2.0
@@ -76,6 +76,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-0.6.gita302128
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 29 2022 Carl George <carl@george.computer> - 3.13.0-0.5.gita302128
 - Rebuild for sqlcipher soname bump
 - Drop erroneous antlr-C++ build requirement

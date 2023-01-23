@@ -6,7 +6,7 @@
 
 Name:           zmap
 Version:        2.1.1
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Network scanner for Internet-wide network studies
 License:        ASL 2.0
 URL:            https://zmap.io
@@ -81,6 +81,9 @@ find ./examples/ -type f -exec sed -i 's/\r$//' {} \+
 %{_mandir}/man1/ztee.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	3.10
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Uyghur Computer Science Association (UKIJ) Unicode fonts
 
 License:	OFL
@@ -44,6 +44,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.10-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

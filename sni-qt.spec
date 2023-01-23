@@ -7,7 +7,7 @@
 Name:    sni-qt
 Summary: Plugin for Qt4 that turns QSystemTrayIcons into status notifiers
 Version: 0.2.7
-Release: 0.11.%{snap}%{?dist}
+Release: 0.12.%{snap}%{?dist}
 
 License: LGPLv3
 URL:     https://launchpad.net/sni-qt
@@ -61,6 +61,9 @@ make check ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-0.12.20170217
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-0.11.20170217
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

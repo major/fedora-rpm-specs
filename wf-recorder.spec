@@ -11,7 +11,7 @@ Version:  0.3.1
 
 Name:     wf-recorder
 Summary:  Screen recorder for wlroots-based compositors eg swaywm
-Release:  0.1%{?dist}
+Release:  0.2%{?dist}
 License:  MIT
 URL:      %{forgeurl}
 Source0:  %{forgesource}
@@ -54,6 +54,9 @@ and xdg-output).
 %license LICENSE
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-0.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Bob Hepple <bob.hepple@gmail.com> - 0.3.1-0.1.20221222git3933ab2
 - moving to rawhide/f38 - retire from fusion now that ffmpeg-free is available
 - merge https://github.com/ammen99/wf-recorder/pull/198:

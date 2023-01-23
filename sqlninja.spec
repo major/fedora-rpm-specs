@@ -1,6 +1,6 @@
 Name:           sqlninja
 Version:        0.2.999        
-Release:        0.18.alpha1%{?dist}
+Release:        0.19.alpha1%{?dist}
 Summary:        A tool for SQL server injection and takeover
 
 License:        GPLv2+
@@ -54,6 +54,9 @@ install -pm 0755 -d %{buildroot}%{_sysconfdir}
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.999-0.19.alpha1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.999-0.18.alpha1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

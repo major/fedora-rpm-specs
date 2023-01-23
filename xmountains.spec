@@ -14,7 +14,7 @@
 
 Name:           xmountains
 Version:        2.9
-Release:        %{fedorarel}%{?dist}.5
+Release:        %{fedorarel}%{?dist}.6
 Summary:        A fractal terrain generator
 
 License:        MIT
@@ -102,6 +102,9 @@ fi
 %{_datadir}/xscreensaver/*/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-4.D20170103git3ba444a4f7.6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.9-4.D20170103git3ba444a4f7.5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

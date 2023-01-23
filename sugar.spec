@@ -1,6 +1,6 @@
 Name:    sugar
 Version: 0.120
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Constructionist learning platform
 URL:     http://sugarlabs.org/
 License: GPLv2+
@@ -236,6 +236,9 @@ install -p %{SOURCE1} %{buildroot}%{_datadir}/sugar/data/activities.defaults
 %{_datadir}/sugar/extensions/cpsection/webaccount
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.120-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 21 2022 Ibiam Chihurumnaya <ibiam@sugarlabs.org> - 0.120-1
 - New Release 0.120
 

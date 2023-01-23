@@ -18,7 +18,7 @@
 
 Name:		yash
 Version:	%{mainver}
-Release:	%{?minorver:0.}%{mainrel}%{?minorver:.%{minorver}}%{?dist}
+Release:	%{?minorver:0.}%{mainrel}%{?minorver:.%{minorver}}%{?dist}.1
 Summary:	Yet Another SHell
 
 License:	GPLv2+
@@ -139,6 +139,9 @@ exit 0
 %lang(ja)	%{yashdocdir}/ja/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.53-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 28 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.53-1
 - 2.53
 

@@ -7,7 +7,7 @@
 
 Name:		tpm2-pkcs11
 Version:	1.8.0
-Release:	2%{?candidate:.%{candidate}}%{?dist}
+Release:	3%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD
@@ -103,6 +103,9 @@ cd tools
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Jakub Jelen <jjelen@redhat.com> - 1.8.0-2
 - Add missing requires for the tools subpackage (#2148392)
 

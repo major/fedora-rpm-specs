@@ -1,7 +1,7 @@
 Summary: A threaded Internet news reader
 Name: slrn
 Version: 1.0.3a
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPLv2+
 URL: http://slrn.sourceforge.net/
 Source0: http://jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2
@@ -125,6 +125,9 @@ exit 0
 %{_mandir}/man1/slrnpull.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3a-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3a-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

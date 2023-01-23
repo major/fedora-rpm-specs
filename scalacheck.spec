@@ -7,7 +7,7 @@
 
 Name:           scalacheck
 Version:        1.17.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Property-based testing for Scala
 
 License:        BSD-3-Clause
@@ -94,6 +94,9 @@ sbt package deliverLocal publishM2Configuration
 %license LICENSE
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 16 2022 Jerry James <loganjerry@gmail.com> - 1.17.0-1
 - Version 1.17.0
 - Convert License tag to SPDX

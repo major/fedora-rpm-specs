@@ -5,7 +5,7 @@
 
 Name:           symfpu
 Version:        0
-Release:        0.12.%{gitdate}git%{shorttag}%{?dist}
+Release:        0.13.%{gitdate}git%{shorttag}%{?dist}
 Summary:        An implementation of IEEE-754 / SMT-LIB floating-point 
 
 License:        GPL-3.0-or-later
@@ -90,6 +90,9 @@ export LD_LIBRARY_PATH=$PWD
 %{_libdir}/lib%{name}.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.13.20190517gitc3acaf6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0-0.12.20190517gitc3acaf6
 - Add upstream patch to fix creation of zero-size bitvector
 - Add patch to avoid infinite recursion

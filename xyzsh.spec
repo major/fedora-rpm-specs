@@ -3,7 +3,7 @@
 
 Name:			xyzsh
 Version:		1.5.8
-Release:		22%{?dist}
+Release:		23%{?dist}
 Summary:		Interactive shell and text processing tool
 
 License:		MIT
@@ -109,6 +109,9 @@ make install \
 %{_includedir}/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jul 24 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.5.8-22
 - Fix for gcc12 -Werror=format-security -Werror=implicit-function-declaration
 

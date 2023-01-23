@@ -1,6 +1,6 @@
 Name:           ucblogo
 Version:        6.2.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An interpreter for the Logo programming language
 
 License:        GPLv3+
@@ -121,6 +121,9 @@ fi
 %{_bindir}/ucblogo-x11
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Joshua Cogliati <jrincayc@yahoo.com> - 6.2.3-1
 - Updating to 6.2.3 release
 

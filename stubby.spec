@@ -1,6 +1,6 @@
 Name:           stubby
 Version:        0.4.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Application that act as a local DNS Privacy stub resolver
 
 License:        BSD-3-Clause
@@ -66,6 +66,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Petr Menšík <pemensik@redhat.com> - 0.4.3-1
 - Update to 0.4.3 (#2156047)
 

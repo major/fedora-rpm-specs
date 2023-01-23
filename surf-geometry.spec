@@ -1,7 +1,7 @@
 Name:		surf-geometry
 Version:	1.0.6
 Summary:	Tool to visualize some real algebraic geometry
-Release:	34%{?dist}
+Release:	35%{?dist}
 Source0:	http://downloads.sourceforge.net/surf/surf-%{version}.tar.gz
 Source1:	%{name}.module.in
 Patch0:		%{name}-min-max.patch
@@ -76,6 +76,9 @@ mv $RPM_BUILD_ROOT%{_mandir}/man1/surf.1 \
 %{_datadir}/modulefiles/%{name}-%{_arch}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 21 2022 Jerry James <loganjerry@gmail.com> - 1.0.6-34
 - Convert License tag to SPDX
 

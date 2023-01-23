@@ -2,7 +2,7 @@
 
 Name:           yaml-cpp
 Version:        0.7.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A YAML parser and emitter for C++
 License:        MIT 
 URL:            https://github.com/jbeder/yaml-cpp
@@ -90,6 +90,9 @@ mv %{buildroot}%{_libdir}/pkgconfig/%{name}.pc \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 06 2022 Richard Shaw <hobbes1069@gmail.com> - 0.7.0-1
 - Update to 0.7.0.
 

@@ -1,6 +1,6 @@
 Name:           waybar
 Version:        0.9.17
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Highly customizable Wayland bar for Sway and Wlroots based compositors
 # Source files/overall project licensed as MIT, but
 # - BSL-1.0
@@ -92,6 +92,9 @@ Suggests:       font(fontawesome5free)
 %{_userunitdir}/%{name}.service
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.17-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.9.17-1
 - Update to 0.9.17
 - Convert License tag to SPDX

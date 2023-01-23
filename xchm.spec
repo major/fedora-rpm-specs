@@ -1,7 +1,7 @@
 Summary:        A GUI front-end to CHMlib
 Name:           xchm
 Version:        1.33
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 URL:            https://github.com/rzvncj/xCHM
 Source0:        %{url}/releases/download/%{version}/xchm-%{version}.tar.gz
@@ -46,6 +46,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/xchm.appd
 %{_mandir}/man1/xchm.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Yaakov Selkowitz <yselkowi@redhat.com> - 1.33-1
 - Update to 1.33
 - Modernize spec

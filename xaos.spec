@@ -1,6 +1,6 @@
 Name:           xaos
 Version:        3.6
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A fast, portable real-time interactive fractal zoomer
 
 License:        GPLv2+
@@ -122,6 +122,9 @@ find $RPM_BUILD_ROOT%{_prefix} -exec chmod u+rw '{}' ';'
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 23 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.6-18
 - Rebuild for gsl-2.7.1
 

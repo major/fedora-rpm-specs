@@ -6,7 +6,7 @@
 
 Name:           xfce4-weather-plugin
 Version:        0.11.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Weather plugin for the Xfce panel
 
 License:        BSD
@@ -59,6 +59,9 @@ chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/*.so
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

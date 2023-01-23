@@ -1,6 +1,6 @@
 Name:           xblast
 Version:        2.10.4
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Lay bombs and Blast the other players of the field (SDL version)
 License:        GPLv2+
 URL:            http://xblast.sourceforge.net
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.4-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.4-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

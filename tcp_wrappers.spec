@@ -1,7 +1,7 @@
 Summary: A security tool which acts as a wrapper for TCP daemons
 Name: tcp_wrappers
 Version: 7.6
-Release: 102%{?dist}
+Release: 103%{?dist}
 
 %global LIB_MAJOR 0
 %global LIB_MINOR 7
@@ -151,6 +151,9 @@ rm -f ${RPM_BUILD_ROOT}%{_mandir}/man3/*
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.6-103
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 7.6-102
 - Fix pointer truncation issue and C99 compatibility (#2148869)
 

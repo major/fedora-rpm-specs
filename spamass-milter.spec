@@ -1,39 +1,3 @@
-# This package uses systemd init from Fedora 16, but can use it for
-# Fedora 15 if built using --with systemd
-%if !((0%{?rhel} && 0%{?rhel} <= 6) || (0%{?fedora} && 0%{?fedora} <= 15))
-%global _with_systemd --with-systemd
-%endif
-%global use_systemd %{!?_with_systemd:0}%{?_with_systemd:1}
-
-# The runtime directory is on tmpfs from Fedora 15 regardless of whether or not we're using systemd init
-%if (0%{?rhel} && 0%{?rhel} <= 6) || (0%{?fedora} && 0%{?fedora} <= 14)
-%global rundir %{_localstatedir}/run
-%global rundir_tmpfs 0
-%else
-%global rundir /run
-%global rundir_tmpfs 1
-%endif
-
-# systemd-units merged into systemd at Fedora 17
-%if (0%{?fedora} && 0%{?fedora} <= 16)
-%global systemd_units systemd-units
-%else
-%global systemd_units systemd
-%endif
-
-# Support systemd presets and drop support for SysV migration from Fedora 18, RHEL 7
-%if (0%{?rhel} && 0%{?rhel} <= 6) || (0%{?fedora} && 0%{?fedora} <= 17)
-%global preset_support 0
-%global sysv_to_systemd %{use_systemd}
-# Flag file for SysV-to-systemd migration
-%global migrfile /run/%{name}-%{version}-%{release}-%{_arch}.systemd-migration
-# This macro not defined until Fedora 18
-%global _tmpfilesdir %{_prefix}/lib/tmpfiles.d
-%else
-%global preset_support 1
-%global sysv_to_systemd 0
-%endif
-
 # Milter header files package name
 %if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 25)
 %global milter_devel_package sendmail-devel
@@ -47,16 +11,13 @@
 Summary:	Milter (mail filter) for spamassassin
 Name:		spamass-milter
 Version:	0.4.0
-Release:	22%{?dist}
-License:	GPLv2+
+Release:	24%{?dist}
+License:	GPL-2.0-or-later
 URL:		http://savannah.nongnu.org/projects/spamass-milt/
 Source0:	http://savannah.nongnu.org/download/spamass-milt/spamass-milter-%{version}.tar.gz
 Source1:	spamass-milter.README.Postfix
 Source2:	spamass-milter-tmpfs.conf
 Source3:	spamass-milter-postfix-tmpfs.conf
-# SysV init
-Source10:	spamass-milter.sysv
-Source11:	spamass-milter-sysconfig.sysv
 # systemd
 Source20:	spamass-milter.service
 Source21:	spamass-milter-root.service
@@ -79,25 +40,14 @@ BuildRequires:	make
 BuildRequires:	%milter_devel_package
 BuildRequires:	spamassassin
 Requires:	spamassassin, /usr/sbin/sendmail
-%if %{rundir_tmpfs}
 # Needed for ownership of %%{_tmpfilesdir}
-Requires:	%{systemd_units}
-%endif
+Requires:	systemd
 
 Requires(pre): glibc-common, shadow-utils
-%if %{sysv_to_systemd}
-Requires(pre): chkconfig, coreutils, systemd-sysv
-%endif
-%if %{use_systemd}
-BuildRequires: %{systemd_units}
-Requires(post): coreutils, %{systemd_units}
-Requires(preun): %{systemd_units}
-Requires(postun): %{systemd_units}
-%else
-Requires(post): chkconfig
-Requires(preun): chkconfig, initscripts
-Requires(postun): initscripts
-%endif
+BuildRequires: systemd
+Requires(post): coreutils, systemd
+Requires(preun): systemd
+Requires(postun): systemd
 
 %description
 A milter (Mail Filter) application that pipes incoming mail (including things
@@ -147,19 +97,10 @@ cp -p %{SOURCE3} spamass-milter-postfix-tmpfs.conf
 %endif
 
 # With systemd, the runtime directory is /run rather than /var/run
-%if %{rundir_tmpfs}
 %patch11 -b .rundir
-%endif
-
-# Copy in SysV init files
-%if !%{use_systemd}
-cp -p %{SOURCE10} %{SOURCE11} .
-%endif
 
 # Copy in systemd files
-%if %{use_systemd}
 cp -p %{SOURCE20} %{SOURCE21} %{SOURCE22} %{SOURCE23} .
-%endif
 
 %build
 export SENDMAIL=/usr/sbin/sendmail
@@ -170,9 +111,8 @@ make %{?_smp_mflags}
 make DESTDIR=%{buildroot} install
 
 install -m 755 -d %{buildroot}%{_localstatedir}/lib/spamass-milter
-install -m 711 -d %{buildroot}%{rundir}/spamass-milter
-install -m 750 -d %{buildroot}%{rundir}/spamass-milter/postfix
-%if %{use_systemd}
+install -m 711 -d %{buildroot}/run/spamass-milter
+install -m 750 -d %{buildroot}/run/spamass-milter/postfix
 install -m 644 -D spamass-milter.service \
 	%{buildroot}%{_unitdir}/spamass-milter.service
 install -m 644 -D spamass-milter-root.service \
@@ -181,26 +121,17 @@ install -m 644 -D spamass-milter-sysconfig.systemd \
 	%{buildroot}%{_sysconfdir}/sysconfig/spamass-milter
 install -m 644 -D spamass-milter-postfix-sysconfig.systemd \
 	%{buildroot}%{_sysconfdir}/sysconfig/spamass-milter-postfix
-%else
-install -m 755 -D spamass-milter.sysv \
-	%{buildroot}%{_initddir}/spamass-milter
-install -m 644 -D spamass-milter-sysconfig.sysv \
-	%{buildroot}%{_sysconfdir}/sysconfig/spamass-milter
-%endif
 
-# Make sure %%{rundir}/spamass-milter{,/postfix} exist at boot time for systems
-# with %%{rundir} on tmpfs (#656692)
-%if %{rundir_tmpfs}
+# Make sure /run/spamass-milter{,/postfix} exist at boot time (#656692)
 install -m 755 -d %{buildroot}%{_tmpfilesdir}
 install -m 644 spamass-milter-tmpfs.conf \
 	%{buildroot}%{_tmpfilesdir}/spamass-milter.conf
 install -m 644 spamass-milter-postfix-tmpfs.conf \
 	%{buildroot}%{_tmpfilesdir}/spamass-milter-postfix.conf
-%endif
 
 # Create dummy sockets for %%ghost-ing
-: > %{buildroot}%{rundir}/spamass-milter/spamass-milter.sock
-: > %{buildroot}%{rundir}/spamass-milter/postfix/sock
+: > %{buildroot}/run/spamass-milter/spamass-milter.sock
+: > %{buildroot}/run/spamass-milter/postfix/sock
 
 %pre
 getent group sa-milt >/dev/null || groupadd -r sa-milt
@@ -209,68 +140,32 @@ getent passwd sa-milt >/dev/null || \
 		-s /sbin/nologin -c "SpamAssassin Milter" sa-milt
 # Fix homedir for upgrades
 usermod --home %{_localstatedir}/lib/spamass-milter sa-milt &>/dev/null
-%if %{sysv_to_systemd}
-# Start SysV-to-systemd migration
-rm -f %{migrfile} &>/dev/null
-if [ $1 -gt 1 -a ! -e %{_unitdir}/spamass-milter.service -a -e %{_initddir}/spamass-milter ]; then
-	systemd-sysv-convert --save spamass-milter &>/dev/null
-	chkconfig --del spamass-milter &>/dev/null
-	touch %{migrfile} &>/dev/null
-fi
-%endif
 exit 0
 
 %post
 if [ $1 -eq 1 ]; then
 	# Initial installation
-%if %{use_systemd}
 	systemctl daemon-reload &>/dev/null || :
-%else
-	chkconfig --add spamass-milter || :
-%endif
-%if %{preset_support}
 	systemctl preset spamass-milter.service &>/dev/null || :
 	systemctl preset spamass-milter-root.service &>/dev/null || :
-%endif
 fi
 
 %preun
 if [ $1 -eq 0 ]; then
 	# Package removal, not upgrade
-%if %{use_systemd}
 	systemctl --no-reload disable spamass-milter.service &>/dev/null || :
 	systemctl stop spamass-milter.service &>/dev/null || :
 	systemctl --no-reload disable spamass-milter-root.service &>/dev/null || :
 	systemctl stop spamass-milter-root.service &>/dev/null || :
-%else
-	%{_initddir}/spamass-milter stop &>/dev/null || :
-	chkconfig --del spamass-milter || :
-%endif
 fi
 
 %postun
-%if %{use_systemd}
 systemctl daemon-reload &>/dev/null || :
-%endif
 if [ $1 -ge 1 ]; then
 	# Package upgrade, not uninstall
-%if %{use_systemd}
 	systemctl try-restart spamass-milter.service &>/dev/null || :
 	systemctl try-restart spamass-milter-root.service &>/dev/null || :
-%else
-	%{_initddir}/spamass-milter condrestart &>/dev/null || :
-%endif
 fi
-
-%if %{sysv_to_systemd}
-%triggerpostun -- spamass-milter
-# Complete the SysV-to-system migration started in %%pre
-if [ $1 -gt 0 -a -e %{migrfile} ]; then
-	systemctl daemon-reload &>/dev/null || :
-	systemctl try-restart spamass-milter.service &>/dev/null
-fi
-rm -f %{migrfile} &>/dev/null || :
-%endif
 
 %post postfix
 # This is needed because the milter needs to "give away" the MTA communication
@@ -282,32 +177,31 @@ usermod -a -G postfix sa-milt || :
 %doc AUTHORS ChangeLog NEWS README
 %{_mandir}/man1/spamass-milter.1*
 %config(noreplace) %{_sysconfdir}/sysconfig/spamass-milter
-%if %{rundir_tmpfs}
 %{_tmpfilesdir}/spamass-milter.conf
-%endif
-%if %{use_systemd}
 %{_unitdir}/spamass-milter.service
 %{_unitdir}/spamass-milter-root.service
-%else
-%{_initddir}/spamass-milter
-%endif
 %{_sbindir}/spamass-milter
 %dir %attr(-,sa-milt,sa-milt) %{_localstatedir}/lib/spamass-milter/
-%dir %attr(-,sa-milt,sa-milt) %{rundir}/spamass-milter/
-%ghost %{rundir}/spamass-milter/spamass-milter.sock
+%dir %attr(-,sa-milt,sa-milt) /run/spamass-milter/
+%ghost /run/spamass-milter/spamass-milter.sock
 
 %files postfix
 %doc README.Postfix
-%if %{rundir_tmpfs}
 %{_tmpfilesdir}/spamass-milter-postfix.conf
-%endif
-%if %{use_systemd}
 %config(noreplace) %{_sysconfdir}/sysconfig/spamass-milter-postfix
-%endif
-%dir %attr(-,sa-milt,postfix) %{rundir}/spamass-milter/postfix/
-%ghost %{rundir}/spamass-milter/postfix/sock
+%dir %attr(-,sa-milt,postfix) /run/spamass-milter/postfix/
+%ghost /run/spamass-milter/postfix/sock
 
 %changelog
+* Sat Jan 21 2023 Paul Howarth <paul@city-fan.org> - 0.4.0-24
+- Package clean-up
+  - Use SPDX-format license tag
+  - Drop SysV init support
+  - Always assume run-directory is /run
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

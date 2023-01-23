@@ -1,7 +1,7 @@
 Summary:          Image and video capture application using unicap toolkit
 Name:             ucview
 Version:          0.33
-Release:          23%{?dist}
+Release:          24%{?dist}
 License:          GPLv2+
 URL:              https://www.unicap-imaging.org/
 Source0:          https://www.unicap-imaging.org/downloads/%{name}-%{version}.tar.gz
@@ -98,6 +98,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.33-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

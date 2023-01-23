@@ -6,7 +6,7 @@
 
 Name:           utop
 Version:        2.9.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Improved toplevel for OCaml
 
 License:        BSD-3-Clause
@@ -86,6 +86,9 @@ cp -p src/top/utop.elc %{buildroot}%{_emacs_sitelispdir}
 %{_emacs_sitestartdir}/%{name}-autoloads.el*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 2.9.2-4
 - Rebuild for ocaml-lwt 5.6.1
 - Convert License tag to SPDX

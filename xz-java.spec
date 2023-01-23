@@ -2,7 +2,7 @@
 
 Name:           xz-java
 Version:        1.9
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Java implementation of XZ data compression
 License:        Public Domain
 URL:            http://tukaani.org/xz/java.html
@@ -57,6 +57,9 @@ mkdir -p extdoc && touch extdoc/package-list
 %license COPYING
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

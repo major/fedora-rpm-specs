@@ -1,6 +1,6 @@
 Name:           thonny
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python IDE for beginners
 
 # Code is MIT, toolbar icons are EPL-1.0
@@ -92,6 +92,9 @@ xvfb-run py.test-3 --pyargs thonny
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 17 2022 abrarwali <abrarwali@tutanota.com> - 4.0.1-1
 - New upstream version 4.0.1
 

@@ -1,6 +1,6 @@
 Name:		sirius
 Version:	0.8.0
-Release:	43%{?dist}
+Release:	44%{?dist}
 
 Summary:	Reversi game for Gnome
 License:	GPLv2+
@@ -76,6 +76,9 @@ desktop-file-install                 --delete-original	\
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-44
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           vis
 Version:        0.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A vim-like editor with structural regex from plan9
 
 # The entire source code is ISC except for the following exceptions,
@@ -68,6 +68,9 @@ BuildArch:      noarch
 %doc lua/doc/index.html lua/doc/ldoc_fixed.css
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

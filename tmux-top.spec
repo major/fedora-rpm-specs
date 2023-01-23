@@ -17,7 +17,7 @@ Version:        0.1.1
 %gometa
 
 Name:           tmux-top
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Monitoring information for your tmux status line.
 License:        GPLv2+
 URL:            %{gourl}
@@ -67,6 +67,9 @@ make test
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

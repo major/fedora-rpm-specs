@@ -4,7 +4,7 @@
 
 Name:           xpilot-ng
 Version:        4.7.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Space arcade game for multiple players
 
 License:        GPLv2+
@@ -218,6 +218,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.3-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Florian Weimer <fweimer@redhat.com> - 4.7.3-27
 - C99 port (#2155781)
 - Fix build issue due to SDL_Window identifier conflict with newer SDL

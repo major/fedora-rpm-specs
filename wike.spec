@@ -2,7 +2,7 @@
 
 Name:           wike
 Version:        1.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Wikipedia Reader for the GNOME Desktop
 
 License:        GPLv3
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
 %{_datadir}/gnome-shell/search-providers/%{appid}.SearchProvider.ini
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 24 2022 Gustavo Costa <xfgusta@gmail.com> - 1.8.1-2
 - Fix _fill_menu bug (rhbz#2128121)
 

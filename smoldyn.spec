@@ -9,7 +9,7 @@
 Name:  smoldyn
 Summary: A particle-based spatial stochastic simulator
 Version: 2.67.3
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # The rxnparam.c and SurfaceParam.c source code files are in the public domain.
 #
@@ -221,6 +221,9 @@ xvfb-run ctest -j1 -VV -R "test_api|test_sanity|test_biosimulator" --output-on-f
 %doc docs/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.67.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.67.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

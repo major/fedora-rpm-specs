@@ -1,11 +1,11 @@
 Name:			rasdaemon
-Version:		0.6.8
-Release:		3%{?dist}
+Version:		0.7.0
+Release:		1%{?dist}
 Summary:		Utility to receive RAS error tracings
 Group:			Applications/System
 License:		GPLv2
 URL:			http://git.infradead.org/users/mchehab/rasdaemon.git
-Source0:		http://www.infradead.org/~mchehab/rasdaemon/%{name}-%{version}.tar.gz
+Source0:		http://www.infradead.org/~mchehab/rasdaemon/%{name}-%{version}.tar.bz2
 
 ExcludeArch:		s390 s390x
 BuildRequires:		make
@@ -42,9 +42,16 @@ autoreconf -vfi
 
 %build
 %ifarch %{arm} aarch64
-%configure --enable-sqlite3 --enable-aer --enable-mce --enable-extlog --enable-devlink --enable-diskerror --enable-abrt-report --enable-non-standard --enable-arm --enable-hisi-ns-decode --with-sysconfdefdir=%{_sysconfdir}/sysconfig
+%configure --enable-sqlite3 --enable-aer --enable-non-standard --enable-arm \
+	   --enable-mce --enable-extlog --enable-devlink --enable-diskerror \
+	   --enable-memory-failure --enable-abrt-report --enable-hisi-ns-decode \
+	   --enable-memory-ce-pfa --enable-amp-ns-decode --enable-cpu-fault-isolation \
+	   --with-sysconfdefdir=%{_sysconfdir}/sysconfig
 %else
-%configure --enable-sqlite3 --enable-aer --enable-mce --enable-extlog --enable-devlink --enable-diskerror --enable-abrt-report --with-sysconfdefdir=%{_sysconfdir}/sysconfig
+%configure --enable-sqlite3 --enable-aer \
+	   --enable-mce --enable-extlog --enable-devlink --enable-diskerror \
+	   --enable-memory-failure --enable-abrt-report --enable-cpu-fault-isolation \
+	   --with-sysconfdefdir=%{_sysconfdir}/sysconfig
 %endif
 make %{?_smp_mflags}
 
@@ -65,14 +72,16 @@ rm INSTALL %{buildroot}/usr/include/*.h
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %changelog
+* Sat Jan 21 2023 Mauro Carvalho Chehab <mchehab@kernel.org>  0.7.0
+- Bump to version 0.7.0 with several fixes and additions
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-
-* Fri Apr 01 2022 Mauro Carvalho Chehab <mchehab+huawei@kernel.org>  0.6.8-1
+* Fri Apr 01 2022 Mauro Carvalho Chehab <mchehab@kernel.org>  0.6.8-1
 - Fix sysconfdir issues and upgrade to version 0.6.8
 
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.7-3

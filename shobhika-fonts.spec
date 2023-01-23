@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.04
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	Free Indian truetype/open type fonts
 License:	OFL
 URL:		https://github.com/Sandhi-IITBombay/Shobhika
@@ -55,6 +55,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/metainfo/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.04-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:		xdg-user-dirs
 Version:	0.18
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Handles user special directories
 
 License:	GPLv2+ and MIT
@@ -46,6 +46,9 @@ homedirectory based on the defaults configured by the administrator.
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 David King <amigadave@amigadave.com> - 0.18-1
 - Update to 0.18 (#2135324)
 

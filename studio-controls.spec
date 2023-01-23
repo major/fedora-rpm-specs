@@ -1,6 +1,6 @@
 Name:               studio-controls
 Version:            2.1.0
-Release:            6%{?dist}
+Release:            7%{?dist}
 Summary:            Studio control for audio devices
 BuildArch:          noarch
 
@@ -93,6 +93,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %config %{_sysconfdir}/acpi/events/studio-unplug
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

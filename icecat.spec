@@ -1,13 +1,13 @@
 ### Naming ###
 # Set to true if it's going to be submitted as update
-%global release_build 1
+%global release_build 0
 
 # Set new source-code build version
 # This tag indicates a new rebuild for Fedora
 %global redhat_ver rh1
 
-#%%global pre_tag .test
-%global pre_tag %{nil}
+%global pre_tag .test
+#global pre_tag %%{nil}
 
 # Exclude ARM for the following error:
 #  terminate called after throwing an instance of 'std::bad_alloc'
@@ -102,7 +102,7 @@ ExcludeArch: %{arm}
 Name: icecat
 Epoch:   1
 Version: 102.7.0
-Release: 2.%{redhat_ver}%{?pre_tag}%{?dist}
+Release: 3.%{redhat_ver}%{?pre_tag}%{?dist}
 Summary: GNU version of Firefox browser
 
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
@@ -167,6 +167,7 @@ Patch220: firefox-nss-version.patch
 Patch221: firefox-nss-addon-hack.patch
 Patch223: %{name}-glibc-dynstack.patch
 Patch224: %{name}-GLIBCXX-fix-for-GCC-12.patch
+Patch225: %{name}-%{version}-fix_gcc13_build.patch
 
 # ARM run-time patch
 Patch226: rhbz-1354671.patch
@@ -366,6 +367,7 @@ tar -xf %{SOURCE5}
 %patch219 -p1 -b .rhbz-1173156
 %patch221 -p1 -b .firefox-nss-addon-hack
 %patch224 -p1 -b .glibcxx
+%patch225 -p1 -b .gcc13
 
 # ARM run-time patch
 %ifarch aarch64
@@ -825,6 +827,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/%{name}-wayland.desktop
 
 %changelog
+* Sat Jan 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.7.0-3.rh1.test
+- Fix GCC-13 build
+
 * Fri Jan 20 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.7.0-2.rh1
 - Set RUSTFLAGS -Cdebuginfo=0 in s390x
 

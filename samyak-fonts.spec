@@ -8,7 +8,7 @@ Scripts Devanagari, Gujarati, Malayalam, Odia and Tamil
 
 Name:	 %{fontname}-fonts
 Version:	1.2.2
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Free Indian truetype/opentype fonts
 License:	GPLv3+ with exceptions
 URL:	http://sarovar.org/projects/samyak/
@@ -156,6 +156,9 @@ install -Dm 0644 -p %{SOURCE11} \
 %dir %{_fontdir}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

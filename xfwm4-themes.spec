@@ -2,7 +2,7 @@
 
 Name:           xfwm4-themes
 Version:        4.10.0
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Additional themes for xfwm4
 
 License:        GPL+ and BSD
@@ -35,6 +35,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_datadir}/themes/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

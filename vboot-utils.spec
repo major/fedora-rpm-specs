@@ -2,7 +2,7 @@
 
 Name:		vboot-utils
 Version:	20220621
-Release:	2.git%{gitshort}%{?dist}
+Release:	3.git%{gitshort}%{?dist}
 Summary:	Verified Boot Utility from Chromium OS
 License:	BSD
 URL:		https://chromium.googlesource.com/chromiumos/platform/vboot_reference
@@ -90,6 +90,9 @@ rm -f %{buildroot}/usr/lib/libvboot_host.a
 %{_datadir}/vboot/devkeys/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220621-3.git61971455
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220621-2.git61971455
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

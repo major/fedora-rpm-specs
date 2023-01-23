@@ -1,6 +1,6 @@
 Name:		xerces-c
 Version:	3.2.3
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Validating XML Parser
 
 License:	ASL 2.0
@@ -84,6 +84,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc README NOTICE CREDITS doc _docs/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

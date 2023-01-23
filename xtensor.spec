@@ -2,7 +2,7 @@
 
 Name:           xtensor
 Version:        0.24.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        C++ tensors with broadcasting and lazy computing
 License:        BSD
 URL:            http://xtensor.readthedocs.io/
@@ -69,6 +69,9 @@ find -name '*.npy' -exec %{__python3} -c "import numpy as np; np.save('{}', np.l
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Name:           tabbed
 Version:        0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple Xembed container manager
 
 %global         _tabbedsourcedir %{_usrsrc}/tabbed-user-%{version}-%{release}
@@ -123,6 +123,9 @@ fi
 %{_tabbedsourcedir}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Petr Šabata <contyk@redhat.com> - 0.7-1
 - 0.7 bump
 - Now includes the xembed utility; as xembed has no implicit support for

@@ -1,6 +1,6 @@
 Name:           squirrel
 Version:        2.2.5
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        High level imperative/OO programming language
 
 License:        zlib
@@ -98,6 +98,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.5-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Aug 01 2022 Dan Horák <dan[at]danny.cz> - 2.2.5-25
 - backport fixes for CVE-2021-41556 and CVE-2022-30292
 

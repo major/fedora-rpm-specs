@@ -9,7 +9,7 @@
 
 Name:    upm
 Version: 2.0.0
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: A high level library for sensors and actuators
 License: MIT
 URL:     https://projects.eclipse.org/projects/iot.upm/
@@ -111,6 +111,9 @@ sed -i '/Requires: jpeg/d' %{buildroot}/%{_libdir}/pkgconfig/upm-vcap.pc
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

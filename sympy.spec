@@ -7,7 +7,7 @@
 
 Name:           sympy
 Version:        1.11.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A Python library for symbolic mathematics
 
 # The project as a whole is BSD-3-Clause.
@@ -233,6 +233,9 @@ fi
 %{_docdir}/%{name}-doc/html
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 27 2022 Jerry James <loganjerry@gmail.com> - 1.11.1-2
 - Do not run antlr on i386 where it doesn't exist
 - Be archful so we don't BR a package that doesn't exist on i386

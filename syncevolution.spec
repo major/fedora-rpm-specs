@@ -2,7 +2,7 @@ Summary:       SyncML client for evolution
 Name:          syncevolution
 Epoch:         1
 Version:       2.0.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 License:       LGPLv2+
 URL:           http://syncevolution.org/
 Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{version}.tar.gz
@@ -197,6 +197,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sync.desktop
 %{_datadir}/syncevolution/xml/*.pl
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 21 2022 Milan Crha <mcrha@redhat.com> - 1:2.0.0-6
 - Resolves: #2128381 (Port to pcre2)
 - Disable build of the libsoup transport layer (previous change only enabled libcurl)

@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.5.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
@@ -139,6 +139,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1.5.8-7
 - Rebuild for ICU 72
 

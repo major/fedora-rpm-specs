@@ -3,7 +3,7 @@
 
 Name:           subunit
 Version:        1.4.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        C bindings for subunit
 
 %global majver  %(cut -d. -f-2 <<< %{version})
@@ -266,6 +266,9 @@ make check
 %exclude %{_bindir}/%{name}-diff
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 17 2022 Jerry James <loganjerry@gmail.com> - 1.4.2-1
 - Version 1.4.2
 

@@ -1,6 +1,6 @@
 Name:          zenity
 Version:       3.43.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Display dialog boxes from shell scripts
 
 License:       LGPLv2+
@@ -47,6 +47,9 @@ rm -f $RPM_BUILD_ROOT%{_bindir}/gdialog
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.43.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.43.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

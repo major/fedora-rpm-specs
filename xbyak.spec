@@ -3,7 +3,7 @@ Name:           xbyak
 License:        BSD-3-Clause
 
 Version:        6.63
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 URL:            https://github.com/herumi/xbyak
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
@@ -79,6 +79,9 @@ make test
 %{_includedir}/xbyak/*.h
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.63-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 27 2022 Tom Rix <trix@redhat.com> - 6.63-3
 - Make check optional
 

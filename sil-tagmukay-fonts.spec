@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 2.000
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 %global foundry           SIL
 %global fontlicense       OFL
@@ -48,6 +48,9 @@ chmod 644 %{fontdocs} %{fontlicenses}
 %fontfiles
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

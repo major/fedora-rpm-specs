@@ -1,6 +1,6 @@
 Name:           string-template-maven-plugin
 Version:        1.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Execute StringTemplate files during a maven build
 
 License:        MIT
@@ -74,6 +74,9 @@ sed -i 's/1\.6/1.8/g' pom.xml tests/pom.xml \
 %files javadoc -f .mfiles-javadoc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

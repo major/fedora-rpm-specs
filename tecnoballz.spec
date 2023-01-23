@@ -1,6 +1,6 @@
 Name: tecnoballz
 Version: 0.92
-Release: 40%{?dist}
+Release: 41%{?dist}
 Summary: A Brick Busting game
 
 License: GPLv3+
@@ -97,6 +97,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-41
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.92-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

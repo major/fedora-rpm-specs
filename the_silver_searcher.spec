@@ -6,7 +6,7 @@
 
 Name:           the_silver_searcher
 Version:        2.2.0^%{date}.%{shortcommit}
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Super-fast text searching tool (ag)
 License:        ASL 2.0 and BSD
 URL:            https://github.com/ggreer/the_silver_searcher
@@ -75,6 +75,9 @@ make test
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0^2020704.5a1c8d8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0^2020704.5a1c8d8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

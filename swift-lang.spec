@@ -28,7 +28,7 @@
 
 Name:           swift-lang
 Version:        %{package_version}
-Release:        %{fedora_release}%{?dist}
+Release:        %{fedora_release}%{?dist}.1
 Summary:        The Swift programming language
 License:        Apache 2.0
 URL:            https://www.swift.org
@@ -226,6 +226,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Ron Olson <tachoknight@gmail.com> - 5.7.2-1
 - Updated to Swift 5.7.2-RELEASE
   Resolves: rhbz#2153189

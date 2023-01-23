@@ -8,7 +8,7 @@
 Summary:   Xorg X11 Intel video driver
 Name:      xorg-x11-drv-intel
 Version:   2.99.917
-Release:   54%{?gitrev}%{?dist}
+Release:   55%{?gitrev}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -103,6 +103,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libI*XvMC.so
 %{_bindir}/intel-virtual-output
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.99.917-55.20210115
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Olivier Fourdan <ofourdan@redhat.com> - 2.99.917-54.20210115
 - New git snapshot
 

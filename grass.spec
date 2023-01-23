@@ -2,8 +2,8 @@
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
 Name:		grass
-Version:	8.2.0
-Release:	11%{?dist}
+Version:	8.2.1
+Release:	1%{?dist}
 Summary:	GRASS GIS - Geographic Resources Analysis Support System
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
@@ -30,9 +30,6 @@ Source0:	https://grass.osgeo.org/%{name}%{shortver}/source/%{name}-%{version}.ta
 
 # fix pkgconfig file
 Patch0:		grass-pkgconfig.patch
-Patch1:		gettext_codeset.patch
-# Fix PDAL detection
-Patch2:		grass-pdal.patch
 
 BuildRequires:	bison
 %if %{with flexiblas}
@@ -184,8 +181,6 @@ GRASS GIS development headers
 %prep
 %setup -q
 %patch0 -p1 -b.libdir
-%patch1 -p1
-%patch2 -p1
 
 # Correct mysql_config query
 sed -i -e 's/--libmysqld-libs/--libs/g' configure
@@ -373,6 +368,9 @@ fi
 %{_libdir}/%{name}%{shortver}/include
 
 %changelog
+* Sat Jan 21 2023 Markus Neteler <neteler@mundialis.de> 8.2.1-1
+- New upstream version GRASS GIS 8.2.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

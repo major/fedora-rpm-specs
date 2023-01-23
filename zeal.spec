@@ -4,7 +4,7 @@
 
 Name:           zeal
 Version:        0.6.1
-Release:        13.20220826.%{shortcommit}%{?dist}
+Release:        14.20220826.%{shortcommit}%{?dist}
 Summary:        Offline documentation browser inspired by Dash
 
 License:        GPLv3+
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.zealdocs.z
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-14.20220826.00d4b9c
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 26 2022 Lumír Balhar <lbalhar@redhat.com> - 0.6.1-13.20220826.00d4b9c
 - Update to commit 00d4b9c
 

@@ -2,7 +2,7 @@ Summary: A signing server and related software client
 Name: sigul
 
 Version: 1.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2
 
 URL: https://pagure.io/sigul/
@@ -186,6 +186,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

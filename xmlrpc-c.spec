@@ -4,7 +4,7 @@
 
 Name:           xmlrpc-c
 Version:        1.51.08
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Lightweight RPC library based on XML and HTTP
 # See doc/COPYING for details.
 # The Python 1.5.2 license used by a few files is just BSD.
@@ -184,6 +184,9 @@ This package contains some handy XML-RPC demo applications.
 %{_bindir}/xmlrpc_dumpserver
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.51.08-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Jonathan Wright <jonathan@almalinux.org> - 1.51.08-1
 - update to 1.51.08
 - Remove meson build code, follow upstream build methods

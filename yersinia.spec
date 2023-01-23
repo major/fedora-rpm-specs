@@ -1,6 +1,6 @@
 Name:           yersinia
 Version:        0.8.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Network protocols tester and attacker
 
 License:        GPLv2+
@@ -65,6 +65,9 @@ make %{?_smp_mflags} CFLAGS="%{optflags} -fcommon"
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 10 2022 Florian Weimer <fweimer@redhat.com> - 0.8.2-13
 - Port configure script to C99
 

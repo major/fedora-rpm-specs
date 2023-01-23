@@ -1,6 +1,6 @@
 Name:           sound-juicer
 Version:        3.38.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Clean and lean CD ripper
 
 License:        GPLv2+
@@ -70,6 +70,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.SoundJui
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 14 2022 Hans de Goede <hdegoede@redhat.com> - 3.38.0-6
 - Fix FTBFS (rhbz#2113732)
 

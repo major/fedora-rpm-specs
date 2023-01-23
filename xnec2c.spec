@@ -1,6 +1,6 @@
 Name:           xnec2c
 Version:        4.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GTK based graphical wrapper for nec2c
 
 License:        GPLv2+
@@ -127,6 +127,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 4.1.1-6
 - Port configure script to C99 (#2161646)
 

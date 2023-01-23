@@ -1,6 +1,6 @@
 Name:    scottfree
 Version: 1.14
-Release: 25%{?dist}
+Release: 26%{?dist}
 Summary: Interpreter for Scott Adams format text adventure games
 
 License: GPLv2+
@@ -61,6 +61,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}%{_mandir}/man6/
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 17 2022 Andrea Musuruane <musuruan@gmail.com> - 1.14-25
 - Added a patch from Debian to fix FTBFS (fix #2113724)
 - Added a patch from Debian to fix a crash when restoring a save file

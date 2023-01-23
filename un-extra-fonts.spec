@@ -36,7 +36,7 @@ Extra 모음 \
 
 Name:        %{fontname}-fonts
 Version:     1.0.2
-Release:     0.34.%{alphatag}%{?dist}
+Release:     0.35.%{alphatag}%{?dist}
 Summary:     Un Extra family of Korean TrueType fonts
 Summary(ko): 한글 은글꼴 Extra 모음
 
@@ -296,6 +296,9 @@ done
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.35.080608
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.34.080608
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

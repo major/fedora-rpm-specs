@@ -1,6 +1,6 @@
 Name:           sirocco
 Version:        2.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        ROot Certified COntinuator
 
 # See https://github.com/miguelmarco/SIROCCO2/issues/1
@@ -71,6 +71,9 @@ make check
 %{_libdir}/libsirocco.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 2.1.0-4
 - Upstream states that the license is GPL-3.0-only
 - Convert License tag to SPDX

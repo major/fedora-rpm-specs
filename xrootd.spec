@@ -14,7 +14,7 @@
 Name:		xrootd
 Epoch:		1
 Version:	5.5.1
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Extended ROOT file server
 
 License:	LGPLv3+
@@ -699,6 +699,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.1-2
 - Add missing include - fixes build failure with gcc 13
 - Fix build failure due to possible large memory allocation

@@ -3,7 +3,7 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
 Version: 4.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPLv2+
 BuildArch: noarch
@@ -63,6 +63,9 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Sandro Bonazzola <sbonazzo@redhat.com> - 4.4-3
 - Workaround distutils removal in Python 3.12 (#2154961)
 

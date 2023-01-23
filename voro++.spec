@@ -3,7 +3,7 @@
 
 Name:           voro++
 Version:        0.4.6
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Library for 3D computations of the Voronoi tessellation
 
 License:        LBNL BSD
@@ -86,6 +86,9 @@ find examples -name "Makefile" -exec sed -i 's/..\/..\/config.mk/..\/config.mk/g
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

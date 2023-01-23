@@ -1,6 +1,6 @@
 Name:           xmakemol
 Version:        5.16
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Program for visualizing atomic and molecular systems
 License:        GPLv2+
 URL:            https://www.nongnu.org/xmakemol/
@@ -66,6 +66,9 @@ bonds.  Features include:
 %{_bindir}/xmake_anim.pl
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.16-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Susi Lehtola <jussilehtola@fedoraproject.org> - 5.16-15
 - Freeglut is now available in RHEL9.
 

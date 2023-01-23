@@ -1,6 +1,6 @@
 Name:           tuxpaint
 Version:        0.9.28
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Epoch:          1
 Summary:        Drawing program designed for young children
@@ -156,6 +156,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %{_includedir}/tuxpaint/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9.28-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 1:0.9.28-5
 - rebuild for new libpaper v2
 

@@ -9,7 +9,7 @@ License:        GPLv3+
 %{forgemeta}
 
 URL:            %{forgeurl}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Source0:        %{forgesource}
 Source1:        %{name}.rpmlintrc
 
@@ -56,6 +56,9 @@ that transcodes FLAC audio files into various lossy formats.
 %{_mandir}/man1/transflac.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

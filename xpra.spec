@@ -44,7 +44,7 @@
 
 Name:           xpra
 Version:        4.4.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
 URL:            https://www.xpra.org/
@@ -301,6 +301,9 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Sérgio Basto <sergio@serjux.com> - 4.4.3-3
 - Fix epel builds, seems upstream sort out py3cairo hack on el8
 - el8 now also have xorg-x11-drv-dummy

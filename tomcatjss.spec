@@ -29,7 +29,7 @@ License:          LGPLv2+
 BuildArch:        noarch
 ExclusiveArch:  %{java_arches} noarch
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/tomcatjss.git
@@ -180,6 +180,9 @@ export JAVA_HOME=%{java_home}
 
 ################################################################################
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.0-1.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.0-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

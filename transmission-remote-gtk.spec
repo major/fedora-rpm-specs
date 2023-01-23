@@ -1,6 +1,6 @@
 Name:           transmission-remote-gtk
 Version:        1.5.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GTK remote control for the Transmission BitTorrent client
 
 License:        GPLv2+
@@ -44,6 +44,9 @@ the Transmission BitTorrent client, using its HTTP RPC protocol.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

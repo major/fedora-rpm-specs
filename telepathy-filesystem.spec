@@ -1,6 +1,6 @@
 Name:           telepathy-filesystem
 Version:        0.0.2
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Telepathy filesystem layout
 
 License:        Public Domain
@@ -32,6 +32,9 @@ mkdir -p $RPM_BUILD_ROOT%{_includedir}/telepathy-1.0
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

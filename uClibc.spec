@@ -1,6 +1,6 @@
 Name: uClibc
 Version: 0.9.33.2
-Release: 26%{?dist}
+Release: 27%{?dist}
 Summary: C library for embedded Linux
 
 License: LGPLv2
@@ -101,6 +101,9 @@ rm -rf  $RPM_BUILD_ROOT/include/
 %{_libdir}/uClibc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33.2-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33.2-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          speech-dispatcher
 Version:       0.11.4
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
 # Almost all files are under GPLv2+, however 
@@ -225,6 +225,9 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %{python3_sitearch}/speechd*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.4-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.11.4-1
 - 0.11.4
 

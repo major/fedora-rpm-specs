@@ -5,14 +5,14 @@
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools 1
+%global patches_touch_autotools %{nil}
 
 # The source directory.
 %global source_directory 1.15-development
 
 Name:           libnbd
-Version:        1.15.8
-Release:        4%{?dist}
+Version:        1.15.9
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPLv2+
@@ -27,12 +27,6 @@ Source2:       libguestfs.keyring
 
 # Maintainer script which helps with handling patches.
 Source3:        copy-patches.sh
-
-# Upstream fix for changed ubdsrv API.
-Patch:          0001-ublk-Update-for-ubdsrv-changing-API.patch
-
-# Upstream Python change (RHBZ#2152674).
-Patch:          0002-build-Replace-Python-distutils-by-sysconfig.patch
 
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool
@@ -352,6 +346,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Sat Jan 21 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.9-1
+- New upstream development version 1.15.9
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.8-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

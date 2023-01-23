@@ -2,7 +2,7 @@
 
 Name:      spatialindex
 Version:   1.9.3
-Release:   8%{?dist}
+Release:   9%{?dist}
 Summary:   Spatial index library 
 License:   MIT
 URL:       http://libspatialindex.org
@@ -58,6 +58,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

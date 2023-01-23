@@ -1,6 +1,6 @@
 Name:    sugar-chat
 Version: 86
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Chat client for Sugar
 License: GPLv2+
 URL:     http://wiki.laptop.org/go/Chat
@@ -46,6 +46,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 86-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 86-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

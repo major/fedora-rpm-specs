@@ -1,6 +1,6 @@
 Name:           xorgxrdp
 Version:        0.9.19
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Implementation of xrdp backend as Xorg modules
 
 License:        MIT
@@ -122,6 +122,9 @@ CFLAGS="$RPM_OPT_FLAGS -I/usr/include/libdrm" \
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.19-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Bojan Smojver <bojan@rexursive.com> - 0.9.19-5
 - Insert glamoregl module into xorg.conf for glamor package
 - Add missed Xorg server dependencies into glamor package

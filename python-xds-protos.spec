@@ -281,7 +281,22 @@ dest="${PWD}/testlib"
     '%{python3_sitelib}/google' \
     '%{python3_sitelib}/opencensus' \
     '%{python3_sitelib}/opentelemetry'
-PYTHONPATH="${PWD}/testlib" %{python3} < %{py_cwd}/generated_file_import_test.py
+if [ -d '%{python3_sitearch}/google/protobuf' ]
+then
+  ln -s '%{python3_sitearch}/google/protobuf' "${dest}/google/protobuf"
+fi
+find '%{python3_sitearch}' '%{python3_sitelib}' \
+    -maxdepth 1 -mindepth 1 |
+  while read -r dir
+  do
+    mod="$(basename "${dir}")"
+    if [ ! -e "${dest}/${mod}" ]
+    then
+      ln -s "${dir}" "${dest}/${mod}"
+    fi
+  done
+PYTHONPATH="${PWD}/testlib" PYTHONDONTWRITEBYTECODE=1 \
+    %{python3} -S < %{py_cwd}/generated_file_import_test.py
 
 
 %files -n python3-xds-protos

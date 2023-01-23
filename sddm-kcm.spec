@@ -2,7 +2,7 @@
 
 Name:    sddm-kcm
 Version: 5.26.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: SDDM KDE configuration module
 
 License: GPLv2+
@@ -76,6 +76,9 @@ SDDM Display Manager
 %{_qt5_plugindir}/plasma/kcms/systemsettings/kcm_sddm.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
 - 5.26.90
 

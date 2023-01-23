@@ -1,6 +1,6 @@
 Name:           vertica-python
 Version:        1.0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A native Python adapter for the Vertica database
 
 License:        MIT
@@ -52,6 +52,9 @@ Requires:       python%{python3_pkgversion}-future
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           torrent-file-editor
 Version:        0.3.17
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Qt based GUI tool designed to create and edit .torrent files
 
 License:        GPLv3+
@@ -66,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.17-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.17-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:      zram
 Version:   0.4
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   ZRAM for swap config and services for Fedora
 License:   GPLv2+
 
@@ -53,6 +53,9 @@ install -pm 0755 %{SOURCE4} %{buildroot}%{_sbindir}
 %{_sbindir}/zramstop
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -15,9 +15,7 @@ Source0:        http://www.w1hkj.com/files/%{name}/%{name}-%{version}.tar.gz
 %endif
 Source100:      flrig.appdata.xml
 
-# Various fixes I have submitted upstream via my branch:
-# https://sourceforge.net/p/fldigi/flrig/ci/pu/hb9/~/tree/
-#Patch0:         flrig-fixes.patch
+Patch0:         flrig_atoi.patch
 
 BuildRequires:  gcc gcc-c++ make
 BuildRequires:  fltk-devel >= 1.3.0

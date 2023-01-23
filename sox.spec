@@ -4,7 +4,7 @@ Name: sox
 # This workaround will go away with rebase to 14.4.3
 # it affects Source, %%prep and Version
 Version: 14.4.2.0
-Release: 35%{?dist}
+Release: 36%{?dist}
 License: GPLv2+ and LGPLv2+ and MIT
 # Modified source tarball with libgsm license, without unlicensed liblpc10:
 # _Source: http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.gz
@@ -150,6 +150,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/sox/*.a
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14.4.2.0-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Florian Weimer <fweimer@redhat.com> - 14.4.2.0-35
 - Fix C99 compatibile issue in src/sox_sample_test.h
 

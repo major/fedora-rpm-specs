@@ -2,7 +2,7 @@
 
 Name: semver
 Version: 0.3.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: MIT
 Summary: Semantic Versioning for modern C++
@@ -64,6 +64,9 @@ ln -svf %{_includedir}/catch2 test/3rdparty/Catch2
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

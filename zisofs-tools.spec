@@ -1,7 +1,7 @@
 Summary: Utilities for creating compressed CD-ROM filesystems
 Name: zisofs-tools
 Version: 1.0.8
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: GPL+
 URL: http://www.kernel.org/pub/linux/utils/fs/zisofs/
 #Source: http://www.kernel.org/pub/linux/utils/fs/zisofs/zisofs-tools-%{version}.tar.bz2
@@ -33,6 +33,9 @@ make install INSTALLROOT="$RPM_BUILD_ROOT"
 %{_mandir}/man1/mkzftree.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 1.0.8-29
 - Port configure script to C99
 

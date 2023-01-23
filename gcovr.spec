@@ -3,8 +3,8 @@
 %bcond_without  docs
 
 Name:           gcovr
-Version:        5.0
-Release:        6%{?dist}
+Version:        5.2
+Release:        1%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
 License:        BSD
@@ -99,6 +99,9 @@ popd
 
 
 %changelog
+* Sat Jan 21 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 5.2-1
+- New upstream release 5.2, fixes rhbz#2068872
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

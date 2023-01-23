@@ -1,6 +1,6 @@
 Name:           verilator
 Version:        4.226
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A fast simulator for synthesizable Verilog
 License:        LGPLv3 or Artistic 2.0
 URL:            https://veripool.org/verilator/
@@ -95,6 +95,9 @@ mv %{buildroot}%{_datadir}/pkgconfig/verilator.pc %{buildroot}%{_libdir}/pkgconf
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.226-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 24 2022 Filipe Rosset <rosset.filipe@gmail.com> - 4.226-1
 - Update to 4.226, enabled tests, spec cleanup and modernization
 - Fixes rhbz#1933296 rhbz#2047099 and rhbz#2026957

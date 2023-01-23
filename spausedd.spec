@@ -3,7 +3,7 @@
 Name: spausedd
 Summary: Utility to detect and log scheduler pause
 Version: 20210719
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: ISC
 URL: https://github.com/jfriesse/spausedd
 Source0: https://github.com/jfriesse/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
@@ -70,6 +70,9 @@ install -m 644 -p init/%{name}.service %{buildroot}/%{_unitdir}
 %systemd_postun spausedd.service
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20210719-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20210719-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

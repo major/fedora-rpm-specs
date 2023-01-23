@@ -1,6 +1,6 @@
 Name:           safetyblanket
 Version:        1.01
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Creepy blanket simulator
 
 #See LICENSE.txt file in source for details
@@ -72,6 +72,9 @@ install -p -D -m 0644 res/gfx/title_text1.png \
 %{_datadir}/appdata/*.appdata.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

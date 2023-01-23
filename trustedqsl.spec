@@ -5,7 +5,7 @@
 
 Name:           trustedqsl
 Version:        2.6.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for digitally signing Amateur Radio QSO records
 License:        BSD
 URL:            http://sourceforge.net/projects/trustedqsl/
@@ -121,6 +121,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 22 2022 Richard Shaw <hobbes1069@gmail.com> - 2.6.5-2
 - Rebuild for updated wxGTK.
 

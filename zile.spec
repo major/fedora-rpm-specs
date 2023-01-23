@@ -1,7 +1,7 @@
 Summary: Zile Is Lossy Emacs
 Name: zile
 Version: 2.6.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: http://www.gnu.org/software/%{name}/
 Source0: http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
@@ -40,6 +40,9 @@ mv THANKS{.utf8,}
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Aug 27 2022 Filipe Rosset <rosset.filipe@gmail.com> - 2.6.2-1
 - Update to 2.6.2 rhbz#1894929 exclude ppc64le arch for now
 

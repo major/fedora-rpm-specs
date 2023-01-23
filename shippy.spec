@@ -1,6 +1,6 @@
 Name:           shippy
 Version:        1.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Space invaders / Galaxians like game with power-ups
 License:        GPL+
 URL:            http://identicalsoftware.com/shippy1984/
@@ -108,6 +108,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

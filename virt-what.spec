@@ -1,6 +1,6 @@
 Name:           virt-what
 Version:        1.25
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Detect if we are running in a virtual machine
 License:        GPLv2+
 
@@ -115,6 +115,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 17 2022 Richard W.M. Jones <rjones@redhat.com> - 1.25-1
 - New upstream version 1.25
 

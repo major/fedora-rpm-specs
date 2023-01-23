@@ -1,6 +1,6 @@
 Name: tuna
 Version: 0.18
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -88,6 +88,9 @@ done
 %doc docs/oscilloscope+tuna.pdf
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 12 2022 Federico Pellegrin <fede@evolware.org> - 0.18-1
 - update to 0.18, remove now merged patch
 

@@ -13,7 +13,7 @@ Obsoletes: seqan2-doc < 0:2.4.0-8
 Name:      seqan2
 Summary:   C++ library of efficient algorithms and data structures
 Version:   2.4.0
-Release:   18%{?dist}
+Release:   19%{?dist}
 License:   BSD
 URL:       http://www.seqan.de/
 Source0:   https://github.com/seqan/seqan/archive/seqan-v%{version}.tar.gz#/seqan-seqan-v%{version}.tar.gz
@@ -271,6 +271,9 @@ ctest --force-new-ctest-process -VV --parallel %{?_smp_mflags} -E app_test_fiona
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           x11vnc
 Version:        0.9.16
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        VNC server for the current X11 session
 Summary(ru):    VNC-сервер для текущей сессии X11
 # COPYING:                  GPL-2.0-or-later text
@@ -161,6 +161,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/x11vnc.desktop
 %{_mandir}/man1/x11vnc.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Sep 13 2022 Petr Pisar <ppisar@redhat.com> - 0.9.16-11
 - Convert a license tag to an SPDX format
 

@@ -1,7 +1,7 @@
 Summary: Modular Assembler
 Name: yasm
 Version: 1.3.0
-Release: 16%{?dist}
+Release: 17%{?dist}
 # See COPYING for the detail, there is quite a lot!
 License: BSD and (GPLv2+ or Artistic or LGPLv2+) and LGPLv2
 
@@ -75,6 +75,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

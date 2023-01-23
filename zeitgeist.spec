@@ -1,6 +1,6 @@
 Name:           zeitgeist
 Version:        1.0.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Framework providing Desktop activity awareness
 # most of the source code is LGPLv2+, except:
 # datahub/ is LGPLv3+
@@ -166,6 +166,9 @@ make check
 %{_datadir}/vala/vapi/zeitgeist-datamodel-2.0.vapi
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.0.4-7
 - F-37+: Replace inspect.getargspec removed on python3.11 (bug 2159916)
 

@@ -3,7 +3,7 @@
 
 Name:           tennix
 Version:        1.2.1
-Release:        7.20190802gitfb013a1%{?dist}
+Release:        8.20190802gitfb013a1%{?dist}
 Summary:        A simple tennis game
 
 License:        GPLv2+
@@ -88,6 +88,9 @@ EOF
 %attr(0664,root,games) /usr/share/tennix/tennix.tnx
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8.20190802gitfb013a1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-7.20190802gitfb013a1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

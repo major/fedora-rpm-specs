@@ -20,7 +20,7 @@
 
 Name:           sharpfont
 Version:        4.0.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Url:            https://github.com/Robmaister/%{libname}
 Summary:        Cross-platform FreeType bindings for .NET
 License:        MIT
@@ -85,6 +85,9 @@ EOT
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

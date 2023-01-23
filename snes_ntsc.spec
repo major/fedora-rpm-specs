@@ -2,7 +2,7 @@
 
 Name:          snes_ntsc
 Version:       0.2.2
-Release:       27%{?dist}
+Release:       28%{?dist}
 Summary:       Provides a SNES NTSC video filtering library
 
 License:       LGPLv2+
@@ -102,6 +102,9 @@ install -m0755 snes_ntsc_demo %{buildroot}%{_bindir}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

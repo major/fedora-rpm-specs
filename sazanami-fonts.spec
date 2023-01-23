@@ -8,7 +8,7 @@ They also contains some embedded Japanese bitmap fonts.
 
 Name:		%{fontname}-fonts
 Version:	0.20040629
-Release:	42%{?dist}
+Release:	43%{?dist}
 BuildArch:	noarch
 BuildRequires:	ttmkfdir >= 3.0.6
 BuildRequires:	mkfontdir xorg-x11-fonts-misc >= 7.5-11
@@ -130,6 +130,9 @@ ln -sf %{_fontdir}/mincho $RPM_BUILD_ROOT%{catalogue}/%{name}-mincho
 %dir %{_fontdir}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040629-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec  5 2022 Akira TAGOH <tagoh@redhat.com> - 0.20040629-42
 - Convert License tag to SPDX.
 

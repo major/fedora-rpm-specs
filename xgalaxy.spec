@@ -1,6 +1,6 @@
 Name:           xgalaxy
 Version:        2.0.34
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Arcade game: shoot down the space ships attacking the planet
 License:        GPL+
 URL:            http://sourceforge.net/projects/xgalaga/
@@ -98,6 +98,9 @@ install -p -m 644 %{name}.png \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.34-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Florian Weimer <fweimer@redhat.com> - 2.0.34-39
 - Port configure script to C99
 

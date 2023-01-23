@@ -31,7 +31,7 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       1%{?dist}
+Release:       3%{?dist}
 License:       GPLv2+
 
 ExclusiveArch: %{kernel_arches}
@@ -45,6 +45,9 @@ Source0:       http://download.libguestfs.org/supermin/%{source_directory}/%{nam
 Source1:       http://download.libguestfs.org/supermin/%{source_directory}/%{name}-%{version}.tar.gz.sig
 # Keyring used to verify tarball signature.
 Source2:       libguestfs.keyring
+
+# https://fedoraproject.org/wiki/Changes/RelocateRPMToUsr
+Patch1:        0001-rpm-New-RPM-database-location-in-usr-lib-sysimage-rp.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -187,6 +190,13 @@ make check || {
 
 
 %changelog
+* Sat Jan 21 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-3
+- Deal with new RPM database location
+- https://fedoraproject.org/wiki/Changes/RelocateRPMToUsr
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 18 2022 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-1
 - New upstream development version 5.3.3
 

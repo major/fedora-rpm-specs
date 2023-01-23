@@ -1,6 +1,6 @@
 Name:       xisxwayland
 Version:    2
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Tool to check if the X server is XWayland
 
 License:    MIT
@@ -34,6 +34,9 @@ Xwayland server and 1 otherwise.
 %{_mandir}/man1/xisxwayland.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 24 2022 Peter Hutterer <peter.hutterer@redhat.com> - 2-1
 - xisxwayland 2
 

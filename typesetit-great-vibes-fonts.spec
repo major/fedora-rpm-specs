@@ -4,7 +4,7 @@
 %forgemeta
 
 Version: 1.101
-Release: 11%{?dist}
+Release: 12%{?dist}
 URL:     %{forgeurl}
 
 %global foundry           TypeSETit
@@ -41,6 +41,9 @@ Source10: 57-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.101-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.101-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

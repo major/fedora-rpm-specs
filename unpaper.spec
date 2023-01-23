@@ -1,6 +1,6 @@
 Name:           unpaper
 Version:        7.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Post-processing of scanned and photocopied book pages
 # AUTHORS:      GPLv2
 # constants.h:  GPLv2
@@ -130,6 +130,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Petr Pisar <ppisar@redhat.com> - 7.0.0-4
 - Set an update option to supress a warning with ffmpeg-5.1 (upstream #113)
 

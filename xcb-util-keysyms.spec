@@ -1,6 +1,6 @@
 Name:		xcb-util-keysyms
 Version:	0.4.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Standard X key constants and keycodes conversion on top of libxcb
 License:	MIT
 URL:		http://xcb.freedesktop.org
@@ -61,6 +61,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  1 2022 Thomas Moschny <thomas.moschny@gmx.de> - 0.4.1-1
 - Update to 0.4.1.
 

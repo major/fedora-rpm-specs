@@ -1,6 +1,6 @@
 Name:           stdair
 Version:        1.00.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        C++ Standard Airline IT Object Library
 
@@ -127,6 +127,9 @@ ctest
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.12-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

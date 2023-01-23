@@ -4,8 +4,8 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-srpm-macros
-Version:        1.5.0
-Release:        8%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        RPM macros for building Haskell source packages
 
 License:        GPLv2+
@@ -35,6 +35,11 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc-srpm
 
 
 %changelog
+* Sat Jan 21 2023 Jens Petersen <petersen@redhat.com> - 1.6.0-1
+- drop long unused ghc_arches_with_ghci
+- update (unused) ghc_arches
+- replace unused ghc_devel_prof with with_ghc_prof (moved from ghc-rpm-macros)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

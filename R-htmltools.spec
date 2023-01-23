@@ -1,12 +1,12 @@
 %bcond_with bootstrap
 
 %global packname htmltools
-%global packver  0.5.3
+%global packver  0.5.4
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Tools for HTML
 
 License:          GPLv2+
@@ -15,7 +15,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-utils, R-digest, R-grDevices, R-base64enc, R-rlang
+# Imports:   R-utils, R-digest, R-grDevices, R-base64enc, R-rlang >= 0.4.10, R-fastmap >= 1.1.0, R-ellipsis
 # Suggests:  R-markdown, R-testthat, R-withr, R-Cairo, R-ragg, R-shiny
 # LinkingTo:
 # Enhances:
@@ -28,6 +28,7 @@ BuildRequires:    R-grDevices
 BuildRequires:    R-base64enc
 BuildRequires:    R-rlang >= 0.4.10
 BuildRequires:    R-fastmap >= 1.1.0
+BuildRequires:    R-ellipsis
 %if %{without bootstrap}
 BuildRequires:    R-markdown
 BuildRequires:    R-testthat
@@ -72,11 +73,15 @@ export LANG=C.UTF-8
 %{rlibdir}/%{packname}/Meta
 %{rlibdir}/%{packname}/R
 %{rlibdir}/%{packname}/help
+%{rlibdir}/%{packname}/fill
 %dir %{rlibdir}/%{packname}/libs
 %{rlibdir}/%{packname}/libs/%{packname}.so
 
 
 %changelog
+* Sat Jan 21 2023 Tom Callaway <spot@fedoraproject.org> - 0.5.4-1
+- update to 0.5.4
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

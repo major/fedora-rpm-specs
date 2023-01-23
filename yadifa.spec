@@ -6,7 +6,7 @@
 
 Name:		yadifa
 Version:	2.6.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Lightweight authoritative Name Server with DNSSEC capabilities
 
 License:	BSD
@@ -185,6 +185,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 2.6.2-2
 - Port configure script to C99 (#2161927)
 

@@ -15,7 +15,7 @@
 %bcond_with test
 
 Name:           z3
-Version:        4.12.0
+Version:        4.12.1
 Release:        1%{?dist}
 Summary:        Satisfiability Modulo Theories (SMT) solver
 
@@ -290,6 +290,12 @@ cd -
 %{python3_sitelib}/z3/
 
 %changelog
+* Sat Jan 21 2023 Jerry James <loganjerry@gmail.com> - 4.12.1-1
+- Version 4.12.1
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.12.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 4.12.0-1
 - Version 4.12.0
 - Drop upstreamed -data-race and -uninit patches

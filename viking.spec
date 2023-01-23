@@ -1,6 +1,6 @@
 Name:           viking
 Version:        1.8
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GPS data editor and analyzer
 
 License:        GPLv2+
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

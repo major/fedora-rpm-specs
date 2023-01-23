@@ -1,7 +1,7 @@
 Name:		xbsql
 Summary:	A SQL wrapper for xbase
 Version:	0.11
-Release:	42%{?dist}
+Release:	43%{?dist}
 License:	LGPLv2+
 URL:		http://www.quaking.demon.co.uk/xbsql/
 Source0: 	http://www.rekallrevealed.org/packages/%{name}-%{version}.tgz
@@ -52,6 +52,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/*.a
 %{_libdir}/*.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-43
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

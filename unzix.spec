@@ -1,6 +1,6 @@
 Name:           unzix
 Version:        0.3.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A WinZix archive extractor
 
 License:        BSD
@@ -33,6 +33,9 @@ make install DESTDIR=%{buildroot}
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

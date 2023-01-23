@@ -15,7 +15,7 @@
 Summary: Storage Management Service
 Name: udisks
 Version: 1.0.5
-Release: 22%{?dist}
+Release: 23%{?dist}
 License: GPLv2+
 URL: http://www.freedesktop.org/wiki/Software/udisks
 Source0: http://hal.freedesktop.org/releases/%{name}-%{version}.tar.gz
@@ -177,6 +177,9 @@ mv $RPM_BUILD_ROOT%{_sysconfdir}/profile.d/udisks-bash-completion.sh \
 %{_datadir}/gtk-doc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global packname IRkernel
-%global packver  1.3.1
+%global packver  1.3.2
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -54,7 +54,7 @@ pushd %{packname}
 # Remove bundled Python code
 rm -r tests/testthat/jkt
 rm -r tests/testthat/njr
-rm -r tests/testthat/__pycache__
+# rm -r tests/testthat/__pycache__
 sed -i -e '/jkt/d' -e '/__pycache__/d' MD5
 popd
 

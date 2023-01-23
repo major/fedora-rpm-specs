@@ -1,6 +1,6 @@
 Name:		mold
-Version:	1.9.0
-Release:	2%{?dist}
+Version:	1.10.0
+Release:	1%{?dist}
 Summary:	A Modern Linker
 
 License:	AGPL-3.0-or-later AND (Apache-2.0 OR MIT)
@@ -16,6 +16,9 @@ Patch0:		tbb-strip-werror.patch
 
 # Allow building against the system-provided `xxhash.h`
 Patch1:		0001-Use-system-compatible-include-path-for-xxhash.h.patch
+
+# Fix out-of-bounds memory access (https://github.com/rui314/mold/issues/969)
+Patch2:		0002-Fix-out-of-bound-memory-access.patch
 
 # mold currently cannot produce native binaries for MIPS
 ExcludeArch:	%{mips}
@@ -103,6 +106,10 @@ fi
 %{_mandir}/man1/mold.1*
 
 %changelog
+* Sat Jan 21 2023 Christoph Erhardt <fedora@sicherha.de> - 1.10.0-1
+- Bump version to 1.10.0
+- Refresh patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

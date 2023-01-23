@@ -1,7 +1,7 @@
 Summary: File system tree viewer
 Name: tree-pkg
 Version: 2.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # The entire source code is GPLv2+ except strverscmp.c which is LGPLv2+
 License: GPLv2+ and LGPLv2+
@@ -62,6 +62,9 @@ sed -e 's/LINUX/__linux__/' -i tree.c
 %doc README
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 28 2022 Kamil Dudka <kdudka@redhat.com> - 2.1.0-1
 - update to the latest upstream release
 

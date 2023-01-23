@@ -1,6 +1,6 @@
 Name:           xrotor
 Version:        7.55
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Design and analysis tools for propellers and windmills
 
 # Plotlib is LGPLv2+, the rest is GPLv2+
@@ -54,6 +54,9 @@ export CFLAGS="%{optflags}"
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.55-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.55-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

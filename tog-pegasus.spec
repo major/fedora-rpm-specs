@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        68%{?dist}
+Release:        69%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -569,6 +569,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-69
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 2:2.14.1-68
 - Avoid tog-pegasus-libs file conflict on i686 (#2145172)
 

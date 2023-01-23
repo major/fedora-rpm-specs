@@ -1,7 +1,7 @@
 Summary: Chdir for DOS and Unix
 Name: wcd
 Version: 6.0.4
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 Source: http://waterlan.home.xs4all.nl/wcd/%{name}-%{version}.tar.gz
 URL: http://waterlan.home.xs4all.nl/
@@ -50,6 +50,9 @@ make -C src install-profile DESTDIR=${RPM_BUILD_ROOT} prefix=%{_prefix} sysconfd
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           systemd-coredump-python
 Version:        2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        systemd-coredump helper to log Python exceptions
 
 License:        GPLv2+
@@ -50,6 +50,9 @@ sed -i "s/'1'/'2'/" setup.py
 %{python3_sitelib}/systemd_coredump_python-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

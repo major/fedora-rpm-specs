@@ -1,7 +1,7 @@
 Summary: A set of system configuration and setup files
 Name: setup
 Version: 2.14.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: Public Domain
 Group: System Environment/Base
 URL: https://pagure.io/setup/
@@ -123,6 +123,9 @@ end
 %{_sysusersdir}/20-setup-users.conf
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 27 2022 Martin Osvald <mosvald@redhat.com> - 2.14.3-1
 - sysusers.d: add script and generate configuration fragment for users
 - Add fallback to hostname determination for csh.login (rhbz#2079768)

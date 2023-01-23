@@ -6,7 +6,7 @@
 
 Name:           xfce4-genmon-plugin
 Version:        4.1.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Generic monitor plugin for the Xfce panel
 
 License:        LGPLv2+
@@ -57,6 +57,9 @@ chmod -c +x %{buildroot}%{_libdir}/xfce4/panel/plugins/*.so
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

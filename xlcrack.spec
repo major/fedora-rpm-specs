@@ -1,6 +1,6 @@
 Name:           xlcrack
 Version:        1.2
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Recover lost and forgotten passwords from XLS files
 
 License:        GPLv2+
@@ -39,6 +39,9 @@ install -Dp -m 0755 %{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -5,7 +5,7 @@ Name:       yubioath-desktop
 Version:    5.1.0
 Summary:    Yubikey tool for generating OATH event-based HOTP and time-based TOTP codes
 License:    BSD
-Release:    10%{?dist}
+Release:    11%{?dist}
 URL:        %{forgeurl}
 
 %forgemeta
@@ -53,6 +53,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/icons/hicolor/128x128/apps resources
 %{_datadir}/applications/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Gerald Cox <gbcox@fedoraproject.org> - 5.1.0-10
 - Requires yubikey-manager < 5.0.0 rhbz#2136583
 

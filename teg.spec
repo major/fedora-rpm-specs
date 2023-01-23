@@ -1,6 +1,6 @@
 Name:           teg
 Version:        0.12.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Turn based strategy game
 License:        GPLv2
 URL:            https://github.com/wfx/teg/
@@ -99,6 +99,9 @@ popd
 %{_datadir}/GConf/gsettings/teg.convert
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:		wofi
 Summary:	A launcher/menu for wlroots based wayland compositors
 Version:	1.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 
 License:	GPLv3
 URL:		https://hg.sr.ht/~scoopta/wofi
@@ -53,6 +53,9 @@ Files for development with %{name}.
 %{_mandir}/man3/wofi.3*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 26 2022 Stefano Figura <stefano@figura.im> - 1.3-1
 - Update to version 1.3
 

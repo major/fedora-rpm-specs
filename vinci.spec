@@ -1,6 +1,6 @@
 Name:           vinci
 Version:        1.0.5
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Algorithms for volume computation
 
 License:        GPL-1.0-or-later
@@ -62,6 +62,9 @@ touch -r %{SOURCE1} %{buildroot}%{_mandir}/man1/%{name}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 1.0.5-23
 - Convert License tag to SPDX
 

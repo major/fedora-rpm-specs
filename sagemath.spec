@@ -84,7 +84,7 @@
 Name:		sagemath
 Summary:	A free open-source mathematics software system
 Version:	9.7
-Release:	1%{?dist}
+Release:	2%{?dist}
 # The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file.
 # Note that many of the components listed in that file are not built in, but
 # are used as external libraries, and therefore do not affect the License tag.
@@ -2080,6 +2080,9 @@ end
 
 ########################################################################
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 9.7-1
 - Version 9.7
 - Drop upstreamed patches: -infinite-recursion, -use-after-free, -sphinx

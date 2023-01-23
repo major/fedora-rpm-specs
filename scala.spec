@@ -16,7 +16,7 @@
 
 Name:           scala
 Version:        2.13.10
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Hybrid functional/object-oriented language for the JVM
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -447,6 +447,9 @@ install -p -m 644 man/man1/* %{buildroot}%{_mandir}/man1
 %license LICENSE NOTICE doc/LICENSE.md doc/License.rtf
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Jerry James <loganjerry@gmail.com> - 2.13.10-1
 - Expand overly generic file globs
 

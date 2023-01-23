@@ -25,7 +25,7 @@
 
 Name:		skf
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}.1
+Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}.2
 Summary:	Utility binary files in Simple Kanji Filter
 
 License:	BSD and MIT and UCD
@@ -381,6 +381,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.15-2.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.15-2.1
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2
 

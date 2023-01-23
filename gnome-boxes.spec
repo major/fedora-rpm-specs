@@ -36,7 +36,7 @@ ExclusiveArch: x86_64
 
 Name:		gnome-boxes
 Version:	43.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
 License:	LGPLv2+
@@ -76,6 +76,7 @@ Requires:	libvirt-daemon-kvm
 %else
 Requires:	libvirt-daemon-qemu
 %endif
+Requires:	/usr/bin/virsh
 
 # Pulls in the libvirtd NAT 'default' network
 # Original request: https://bugzilla.redhat.com/show_bug.cgi?id=1081762
@@ -154,6 +155,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Boxes.deskt
 %{_datadir}/metainfo/org.gnome.Boxes.appdata.xml
 
 %changelog
+* Sat Jan 21 2023 David King <amigadave@amigadave.com> - 43.2-3
+- Require virsh (#2162816)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

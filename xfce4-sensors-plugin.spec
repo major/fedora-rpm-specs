@@ -4,7 +4,7 @@
 
 Name:           xfce4-sensors-plugin
 Version:        1.4.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Sensors plugin for the Xfce panel
 
 License:        GPLv2+
@@ -87,6 +87,9 @@ desktop-file-install --vendor "" \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

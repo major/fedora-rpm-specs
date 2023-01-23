@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 3.10.5
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Application and environment virtualization
 
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
@@ -242,6 +242,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 David Trudgian <dtrudg@sylabs.io> - 3.10.5-1
 - Upgrade to 3.10.5 upstream version.
 - Addresses CVE-2022-23538 / GHSA-7p8m-22h4-9pj7

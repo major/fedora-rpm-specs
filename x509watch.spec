@@ -1,7 +1,7 @@
 Summary:          Simple tool to list expiring or expired X.509 certificates
 Name:             x509watch
 Version:          0.6.1
-Release:          13%{?dist}
+Release:          14%{?dist}
 License:          GPLv2+
 URL:              https://ftp.robert-scheck.de/linux/%{name}/
 Source:           https://ftp.robert-scheck.de/linux/%{name}/%{name}-%{version}.tar.gz
@@ -49,6 +49,9 @@ encoded DER and PEM X.509 certificates are supported.
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

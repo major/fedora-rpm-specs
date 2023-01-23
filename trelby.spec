@@ -1,6 +1,6 @@
 Name:           trelby
 Version:        2.4.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The free, multiplatform, feature-rich screenwriting program
 
 License:        GPLv2 and GPLv3+
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man1/trelby.1.gz
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.7-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 24 2022 Gwyn Ciesla <gwync@protonmail.com> - 2.4.7-1
 - 2.4.7
 

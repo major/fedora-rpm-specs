@@ -4,7 +4,7 @@
 
 Name:           tsung
 Version:        1.7.0
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        A distributed multi-protocol load testing tool
 License:        GPLv2
 URL:            http://tsung.erlang-projects.org/
@@ -118,6 +118,9 @@ rm -frv examples/*.xml.in
 %doc docs examples
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

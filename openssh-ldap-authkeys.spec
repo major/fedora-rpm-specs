@@ -1,29 +1,17 @@
-%global commit aee4c4660818e51c8bde81a3921ca9db4bd914d0
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20200205
-
 Name:		openssh-ldap-authkeys
-Version:	0.1.0%{?commitdate:~git%{commitdate}.%{shortcommit}}
-Release:	8%{?dist}
+Version:	0.2.0
+Release:	1%{?dist}
 Summary:	Python script to generate SSH authorized_keys files using an LDAP directory
 
 License:	MIT
 URL:		https://github.com/fuhry/%{name}
-Source0:	%{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:	noarch
 
-%if 0%{?el7}
-BuildRequires:	systemd
-%else
 BuildRequires:	systemd-rpm-macros
-%endif
-
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-setuptools
-
-Requires(pre):	%{_sbindir}/groupadd
-Requires(pre):	%{_sbindir}/useradd
 
 # This is only for cases that we don't have a dependency generator active...
 %if ! (%{defined python_enable_dependency_generator} || %{defined python_disable_dependency_generator})
@@ -47,11 +35,7 @@ to who used them.
 
 
 %prep
-%if %{defined commitdate}
-%autosetup -n %{name}-%{commit} -p1
-%else
 %autosetup -p1
-%endif
 
 
 %build
@@ -69,6 +53,13 @@ touch %{buildroot}%{_sysconfdir}/%{name}/authmap
 rm %{buildroot}%{_sysconfdir}/%{name}/*.example
 
 
+%if 0%{?el7}
+%post
+%sysusers_create %{name}.sysusers.conf
+%tmpfiles_create %{name}.tmpfiles.conf
+%endif
+
+
 %files
 %license COPYING
 %doc README.md
@@ -80,16 +71,13 @@ rm %{buildroot}%{_sysconfdir}/%{name}/*.example
 %ghost %config(noreplace) %{_sysconfdir}/%{name}/olak.yml
 %ghost %config(noreplace) %{_sysconfdir}/%{name}/authmap
 %{_tmpfilesdir}/openssh-ldap-authkeys.tmpfiles.conf
-
-%pre
-getent group olak >/dev/null || groupadd -r olak
-getent passwd olak >/dev/null || \
-    useradd -r -g olak -d /dev/null -s /bin/false \
-    -c "System account for %{name} to run as" olak
-exit 0
+%{_sysusersdir}/openssh-ldap-authkeys.sysusers.conf
 
 
 %changelog
+* Sat Jan 21 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-1
+- Update to 0.2.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0~git20200205.aee4c46-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

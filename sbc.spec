@@ -1,6 +1,6 @@
 Name:          sbc
 Version:       2.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Sub Band Codec used by bluetooth A2DP
 
 License:       GPLv2 and LGPLv2+
@@ -65,6 +65,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/libsbc.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 11 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0-1
 - Update to 2.0
 

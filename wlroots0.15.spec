@@ -5,7 +5,7 @@
 
 Name:           %{compat_name}%{compat_ver}
 Version:        %{compat_ver}.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A modular Wayland compositor library
 
 # Source files/overall project licensed as MIT, but
@@ -121,5 +121,8 @@ MESON_OPTIONS=(
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.15.1-1
 - Initialize wlroots0.15 package from rpms/wlroots@b335d4d

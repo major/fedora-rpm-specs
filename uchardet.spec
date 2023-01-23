@@ -2,7 +2,7 @@
 
 Name:          uchardet
 Version:       0.0.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       An encoding detector library ported from Mozilla
 
 License:       MPL-1.1 or GPL-2.0-or-later or LGPL-2.0-or-later
@@ -66,6 +66,9 @@ popd
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 0.0.8-1
 - Update to 0.0.8
 

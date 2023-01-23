@@ -18,7 +18,9 @@ Source1:        vendor.conf
 
 # https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/164
 # https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/165
+# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/177
 Patch0:         webkitgtk-6.0.patch
+Patch1:         webkitgtk-2.39.5.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

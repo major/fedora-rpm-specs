@@ -2,7 +2,7 @@ Name: zaf
 Summary: South Africa hyphenation rules
 %define upstreamid 20080714
 Version: 0
-Release: 0.25.%{upstreamid}svn%{?dist}
+Release: 0.26.%{upstreamid}svn%{?dist}
 Source: zaf-0-0.1.%{upstreamid}svn.tar.bz2
 # Below URL is dead now, don't file any bugs for updating it.
 URL: http://zaf.sourceforge.net/
@@ -55,6 +55,9 @@ popd
 %{_datadir}/hyphen/hyph_zu*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26.20080714svn
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.25.20080714svn
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

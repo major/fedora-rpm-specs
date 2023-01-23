@@ -18,7 +18,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.1.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 # lib/ is LGPLv2+, backends are GPLv2+ with exceptions
 # Tools are GPLv2+, docs are public domain
 # see LICENSE for details
@@ -392,6 +392,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 01 2022 Zdenek Dohnal <zdohnal@redhat.com> - 1.1.1-10
 - remove ldflags from pkgconfig file completely
 

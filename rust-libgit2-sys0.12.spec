@@ -24,6 +24,8 @@ Patch:          libgit2-sys-fix-metadata.diff
 # * build against the bundled copy of libgit2 unconditionally:
 #   the version in the Fedora repositories is too old
 Patch:          0001-build-with-vendored-libgit2-unconditionally.patch
+# * update bundled libgit2 from v1.3.0 to v1.3.2 for latest security fixes
+Patch:          0002-update-to-libgit2-v1.3.2.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -36,7 +38,7 @@ Native bindings to the libgit2 library.}
 Summary:        %{summary}
 BuildArch:      noarch
 
-Provides:       bundled(libgit2) = 1.3.0
+Provides:       bundled(libgit2) = 1.3.2
 Provides:       bundled(http-parser) = 2.0
 Provides:       bundled(pcre) = 8.44
 

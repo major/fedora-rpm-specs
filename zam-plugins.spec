@@ -14,7 +14,7 @@
 
 Name:           zam-plugins
 Version:        %{gittag}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A collection of LV2/LADSPA/JACK audio plugins
 
 License:        GPLv2+ and ISC
@@ -95,6 +95,9 @@ chmod -x %{buildroot}%{_libdir}/lv2/*.lv2/*.ttl
 %doc README.md
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.14-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

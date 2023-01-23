@@ -1,6 +1,6 @@
 Name:       xcursorgen
 Version:    1.0.7
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Prepare X11 cursor sets for use with libXcursor
 
 License:    MIT
@@ -36,6 +36,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name: vagrant
 Version: 2.2.19
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Build and distribute virtualized development environments
 License: MIT
 URL: http://vagrantup.com
@@ -517,6 +517,9 @@ end
 %{vagrant_plugin_instdir}/vagrant-spec.config.example.rb
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org>
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Jarek Prokop <jprokop@redhat.com> - 2.2.19-8
 - Enable rubygem-ed25519 requires.
   Resolves: rhbz#1962869

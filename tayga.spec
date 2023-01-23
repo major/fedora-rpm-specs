@@ -2,7 +2,7 @@
 
 Name:		tayga
 Version:	0.9.2
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Simple, no-fuss NAT64
 
 License:	GPLv2+
@@ -116,6 +116,9 @@ install -d -m 0755 %{buildroot}%{_localstatedir}/run/%{name}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 02 2023 Florian Weimer <fweimer@redhat.com> - 0.9.2-19
 - C99 compatibility fix (#2157585)
 

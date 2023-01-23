@@ -1,6 +1,6 @@
 Name:		scim-sayura
 Version:	0.3.0
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Sri Lankan input method for SCIM
 License:	GPLv2
 URL:		http://sinhala.sourceforge.net/
@@ -40,6 +40,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/*/*.la
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Florian Weimer <fweimer@redhat.com> - 0.3.0-32
 - Port configure script to C99
 

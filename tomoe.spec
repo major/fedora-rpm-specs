@@ -3,7 +3,7 @@
 
 Name:           tomoe
 Version:        0.6.0
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Handwritten input system for Japanese and Chinese
 
 License:        LGPLv2+
@@ -102,6 +102,9 @@ find ${RPM_BUILD_ROOT}%{_libdir} -name '*.la' | xargs rm
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-51
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

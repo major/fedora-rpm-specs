@@ -1,6 +1,6 @@
 Name:		usbsoftrock
 Version:	1.0.2
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Command line utility for interfacing with Si570 based SDR kits
 
 License:	GPLv2+
@@ -46,6 +46,9 @@ install -p -m 644 %{SOURCE1} %{buildroot}/lib/udev/rules.d/99-%{name}.rules
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

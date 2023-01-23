@@ -11,7 +11,7 @@
 
 Name:    salt
 Version: 3005.1%{?__rc_ver}
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A parallel remote execution system
 Group:   System Environment/Daemons
 License: ASL 2.0
@@ -317,6 +317,9 @@ install -p -m 0644 pkg/%{name}.zsh %{buildroot}%{zsh_dir}/_%{name}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3005.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Robby Callicotte <rcallicotte@fedoraproject.org> - 3005.1-2
 - Removed macros from changelog
 

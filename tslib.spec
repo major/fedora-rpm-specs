@@ -1,6 +1,6 @@
 Name:           tslib
 Version:        1.22
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Touchscreen Access Library
 License:        LGPLv2
 URL:            https://github.com/kergoth/tslib
@@ -65,6 +65,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/tslib.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Tom Callaway <spot@fedoraproject.org> - 1.22-7
 - apply upstream fix for issue where tslib could segfault when running ts_conf
 

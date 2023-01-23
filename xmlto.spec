@@ -1,7 +1,7 @@
 Summary: A tool for converting XML files to various formats
 Name: xmlto
 Version: 0.0.28
-Release: 19%{?dist}
+Release: 20%{?dist}
 License: GPLv2+
 #Older versions up to xmlto-0.0.20
 #URL: http://cyberelk.net/tim/xmlto/
@@ -88,6 +88,9 @@ make check
 %{_datadir}/xmlto/format/xhtml1/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.28-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 24 2022 Florian Weimer <fweimer@redhat.com> - 0.0.28-19
 - Apply upstream patches to support building in stricer C99 mode
 

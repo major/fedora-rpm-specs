@@ -2,7 +2,7 @@
 
 Name:           xbean
 Version:        4.21
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Java plugin based web server
 License:        ASL 2.0
 URL:            https://geronimo.apache.org/xbean/
@@ -91,6 +91,9 @@ sed -i '/testGetBytecode/i@org.junit.Ignore' xbean-finder/src/test/java/org/apac
 %license LICENSE NOTICE
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 09 2022 Marian Koncek <mkoncek@redhat.com> - 4.21-1
 - Update to upstream version 4.21
 

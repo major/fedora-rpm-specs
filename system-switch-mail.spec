@@ -4,7 +4,7 @@
 Summary: The Mail Transport Agent Switcher
 Name: system-switch-mail
 Version: 2.0.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 Url: http://than.fedorapeople.org/system-switch-mail
 Source0: http://than.fedorapeople.org/system-switch-mail/%{name}-%{version}.tar.xz
 Patch0: system-switch-mail-2.0.1-python3.patch
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appname}.desktop
 %{_datadir}/pixmaps/*.png
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

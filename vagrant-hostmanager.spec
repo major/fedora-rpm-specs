@@ -2,7 +2,7 @@
 
 Name: vagrant-hostmanager
 Version: 1.8.9
-Release: 9%{?dist}
+Release: 10%{?dist}
 BuildArch: noarch
 
 License: MPLv2.0
@@ -83,6 +83,9 @@ cp -a .%{vagrant_plugin_dir}/* \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

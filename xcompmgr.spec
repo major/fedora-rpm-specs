@@ -1,7 +1,7 @@
 Summary:       X11 composite manager
 Name:          xcompmgr
 Version:       1.1.8
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       MIT
 URL:           https://gitlab.freedesktop.org/xorg/app/xcompmgr
 Source0:       https://www.x.org/archive/individual/app/%{name}-%{version}.tar.gz
@@ -35,6 +35,9 @@ DAMAGE, and COMPOSITE extensions. It enables basic eye-candy effects
 %{_mandir}/man1/xcompmgr.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

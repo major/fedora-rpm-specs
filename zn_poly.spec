@@ -1,6 +1,6 @@
 Name:           zn_poly
 Version:        0.9.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        C library for polynomial arithmetic
 
 # All files released under "GPLv2 or GPLv3", except:
@@ -88,6 +88,9 @@ make test LDFLAGS='%{build_ldflags}'
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0.9.2-8
 - Convert License tag to SPDX
 

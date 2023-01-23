@@ -1,6 +1,6 @@
 Name:           solaar
 Version:        1.1.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Device manager for a wide range of Logitech devices
 URL:            https://github.com/pwr/Solaar
 Source:         %{url}/archive/%{version}/Solaar-%{version}.tar.gz
@@ -122,6 +122,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.1.8-1
 - update to 1.1.8 (#2152380)
 - add weak dependency on hid-parser, required to recognize some devices

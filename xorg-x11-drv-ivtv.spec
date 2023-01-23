@@ -4,7 +4,7 @@
 
 Name:           xorg-x11-drv-ivtv
 Version:        1.2.0
-Release:        0.37%{?dist}
+Release:        0.38%{?dist}
 Summary:        Xorg X11 ivtv video driver
 
 License:        MIT
@@ -50,6 +50,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/xorg/modules/drivers/ivtv_drv.la
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-0.38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-0.37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

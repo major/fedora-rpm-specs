@@ -1,7 +1,7 @@
 Summary: A tool for generating SELinux security policies for containers
 Name: udica
 Version: 0.2.7
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/containers/udica/archive/v%{version}.tar.gz
 Patch001: 0001-Add-device-access-option.patch
 Patch002: 0002-Syntax-changes-after-running-black.patch
@@ -62,6 +62,9 @@ install -m 0644 udica/man/man8/udica.8 %{buildroot}%{_mandir}/man8/udica.8
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Oct 21 2022 Vit Mojzis <vmojzis@redhat.com> - 0.2.7-3
 - Add --devices option
 

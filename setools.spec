@@ -3,7 +3,7 @@
 
 Name:           setools
 Version:        4.4.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only and LGPL-2.1-only
@@ -146,6 +146,9 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/apol*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

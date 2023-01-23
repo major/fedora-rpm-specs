@@ -1,6 +1,6 @@
 Name:       xhost
 Version:    1.0.9
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Manage hosts or users allowed to connect to the X server
 
 License:    MIT
@@ -38,6 +38,9 @@ autoreconf -v --install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Peter Hutterer <peter.hutterer@redhat.com> - 1.0.9-2
 - add xgettext to build requires
 

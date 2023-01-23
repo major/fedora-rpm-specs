@@ -5,7 +5,7 @@
 
 Name:           thunar-vcs-plugin
 Version:        0.2.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Version Contol System plugin for the Thunar filemanager
 
 License:        GPLv2+
@@ -75,6 +75,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/thunarx-*/%{name}.la
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-29
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

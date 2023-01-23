@@ -6,7 +6,7 @@
 
 Name:           xfce4-cpugraph-plugin
 Version:        1.2.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CPU monitor for the Xfce panel
 
 License:        GPLv2+
@@ -60,6 +60,9 @@ make check
 %{_datadir}/icons/hicolor/*/*/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

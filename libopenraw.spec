@@ -58,6 +58,8 @@ digital cameras, in GTK+ applications.
 
 %prep
 %autosetup
+# this may be installed into a different prefix than gdk-pixbuf2 (e.g. flatpaks)
+sed -i -e '/gdk_pixbuf_moduledir/s/PKG_CONFIG/& --define-variable=prefix=${prefix}/' configure
 
 %build
 %configure --disable-static --enable-gnome --disable-silent-rules

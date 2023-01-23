@@ -1,6 +1,6 @@
 Name:       xmessage
 Version:    1.0.5
-Release:    5%{?dist}
+Release:    6%{?dist}
 Summary:    Display a message in a window
 
 License:    MIT
@@ -40,6 +40,9 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/Xmessage-color
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

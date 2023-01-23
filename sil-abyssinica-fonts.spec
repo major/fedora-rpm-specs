@@ -1,5 +1,5 @@
 Version:        1.200
-Release:        25%{?dist}
+Release:        26%{?dist}
 
 %global foundry           SIL
 %global fontlicense       OFL-1.1
@@ -52,6 +52,9 @@ Source1:        66-%{fontpkgname}.conf
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.200-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.200-25
 - Update license tag to SPDX format
 

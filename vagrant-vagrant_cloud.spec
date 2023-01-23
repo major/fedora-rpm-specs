@@ -3,7 +3,7 @@
 
 Name: vagrant-%{vagrant_plugin_name}
 Version: 3.0.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Vagrant Cloud API Library
 License: MIT
 URL: https://github.com/hashicorp/vagrant_cloud
@@ -64,6 +64,9 @@ popd
 %doc %{vagrant_plugin_instdir}/README.md
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

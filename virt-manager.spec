@@ -8,7 +8,7 @@
 
 Name: virt-manager
 Version: 4.1.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 %global verrel %{version}-%{release}
 
 Summary: Desktop tool for managing virtual machines via libvirt
@@ -163,6 +163,9 @@ machine).
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Cole Robinson <crobinso@redhat.com> - 4.1.0-1
 - Update to version 4.1.0
 

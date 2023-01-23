@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 20200215
-Release: 12%{?dist}
+Release: 13%{?dist}
 URL:     https://fonts.google.com/specimen/Patrick+Hand
 
 %global foundry           Wagesreiter
@@ -44,6 +44,9 @@ Source10: 60-%{fontpkgname}.xml
 %fontfiles
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200215-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20200215-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

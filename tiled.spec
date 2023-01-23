@@ -1,6 +1,6 @@
 Name:           tiled
 Version:        1.9.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tiled Map Editor
 # tiled itself is GPLv2+, libtiled and tmxviewer are BSD
 License:        GPLv2+ and BSD
@@ -259,6 +259,9 @@ mkdir -p %{buildroot}%{_libdir}
 %{_libdir}/%{name}/plugins/libyy.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 1.9.2-2
 - Fix loading modules on 64-bit platforms (again)
 

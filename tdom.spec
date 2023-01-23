@@ -2,7 +2,7 @@
 
 Name:           tdom
 Version:        0.8.2
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        DOM parser for Tcl
 
 # Most files MPL except for ./generic/xmlsimple.c and ./generic/domhtml.c
@@ -71,6 +71,9 @@ sed -i -e "s#%{_libdir}/%{name}%{version}#%{_libdir}#" %{buildroot}%{_libdir}/td
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 0.8.2-34
 - Remove implicit function declarations from configure script
 

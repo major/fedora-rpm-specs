@@ -5,7 +5,7 @@
 
 Name:           stratisd
 Version:        3.4.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 # ASL 2.0
@@ -150,6 +150,9 @@ a2x -f manpage docs/stratisd.txt
 %{_systemd_util_dir}/system-generators/stratis-setup-generator
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Bryan Gurney <bgurney@redhat.com> - 3.4.4-2
 - Remove Fedora ELN conditionals from spec file
 - Use ExclusiveArch only if RHEL

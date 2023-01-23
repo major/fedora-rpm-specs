@@ -2,7 +2,7 @@
 
 Name:          treelayout
 Version:       1.0.3
-Release:       19%{?dist}
+Release:       20%{?dist}
 Summary:       Efficient and customizable Tree Layout Algorithm in Java
 License:       BSD-3-Clause
 URL:           http://treelayout.sourceforge.net/
@@ -71,6 +71,9 @@ fi
 %license %{core}/src/LICENSE.TXT
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 1.0.3-19
 - Convert License tag to SPDX
 

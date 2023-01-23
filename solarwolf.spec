@@ -1,6 +1,6 @@
 Name: solarwolf
 Version:  1.6.0
-Release:  13%{?dist}.a4
+Release:  14%{?dist}.a4
 Summary: A Python port of SolarFox
 
 License: LGPLv2+
@@ -69,6 +69,9 @@ install -p -m 644 dist/solarwolf.png \
 %{_datadir}/icons/hicolor/64x64/apps/solarwolf.png
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-14.a4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-13.a4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

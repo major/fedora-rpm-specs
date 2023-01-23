@@ -1,6 +1,6 @@
 Name:           x2goclient
 Version:        4.1.2.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        X2Go Client application
 
 License:        GPLv2+
@@ -106,6 +106,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/httpd/conf.d
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2.2-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

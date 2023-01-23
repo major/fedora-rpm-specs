@@ -3,7 +3,7 @@
 
 Name:           signon-plugin-oauth2
 Version:        0.24
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        OAuth2 plugin for the Accounts framework
 
 License:        LGPLv2
@@ -74,6 +74,9 @@ rm -rvf %{buildroot}/%{_sysconfdir}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.24-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

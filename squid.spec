@@ -2,7 +2,7 @@
 
 Name:     squid
 Version:  5.7
-Release:  3%{?dist}
+Release:  4%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -333,6 +333,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7:5.7-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Tomas Korbar <tkorbar@redhat.com> - 7:5.7-3
 - Backport adding IP_BIND_ADDRESS_NO_PORT flag to outgoing connections
 

@@ -1,6 +1,6 @@
 Name:           slashem
 Version:        0.0.8
-Release:        0.34.E0F1%{?dist}
+Release:        0.35.E0F1%{?dist}
 Summary:        Super Lotsa Added Stuff Hack - Extended Magic
 
 License:        NGPL
@@ -164,6 +164,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-0.35.E0F1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 14 2023 Peter Fordham <peter.fordham@gmail.com> - 0.0.8-0.34.E0F1
 - Add missing Forward declarations for rename_area and remove_area and fix a call-site.
 - Port configure script to C99.

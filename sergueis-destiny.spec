@@ -1,6 +1,6 @@
 Name:		sergueis-destiny
 Version:	1.1
-Release:	27%{?dist}
+Release:	28%{?dist}
 Summary:	Serguei's Destiny, an AGI adventure game
 
 License:	Redistributable, no modification permitted
@@ -57,6 +57,9 @@ install -p -m 0644 %{SOURCE3} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%
 %{_bindir}/sergueis-destiny-wrapper.sh
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:		sedutil
 Version:	%{gittag0}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Tools to manage the activation and use of self encrypting drives
 
 # Everything is GPLv3+ except:
@@ -81,6 +81,9 @@ ln -sr %{buildroot}%{_sbindir}/linuxpba %{buildroot}%{_libexecdir}/linuxpba
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 06 2022 Filipe Brandenburger <filbranden@fedoraproject.org> - 1.20.0-2
 - Make linuxpba symlink in libexec relative
 

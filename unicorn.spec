@@ -1,6 +1,6 @@
 Name:           unicorn
 Version:        1.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Lightweight multi-platform, multi-architecture CPU emulator framework
 
 # GPLv2:        Most of unicorn is licensed under the GPLv2, with exception
@@ -80,6 +80,9 @@ rm -rf %{buildroot}%{python3_sitelib}/unicorn/lib
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

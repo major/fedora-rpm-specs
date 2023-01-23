@@ -32,7 +32,7 @@ Core 모음: \
 
 Name:           %{fontname}-fonts
 Version:        1.0.2
-Release:        0.41.%{alphatag}%{?dist}
+Release:        0.42.%{alphatag}%{?dist}
 Summary:        Un Core family of Korean TrueType fonts
 Summary(ko):    한글 은글꼴 Core 모음
 
@@ -225,6 +225,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.42.080608
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-0.41.080608
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

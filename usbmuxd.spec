@@ -1,6 +1,6 @@
 Name:          usbmuxd
 Version:       1.1.1
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Daemon for communicating with Apple's iOS devices
 # All code is dual licenses as GPLv3+ or GPLv2+, except libusbmuxd which is LGPLv2+.
 License:       GPLv3+ or GPLv2+
@@ -66,6 +66,9 @@ exit 0
 %{_datadir}/man/man8/usbmuxd.8.gz
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

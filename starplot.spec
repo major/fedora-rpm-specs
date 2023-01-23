@@ -1,7 +1,7 @@
 Summary:	3-dimensional perspective star map viewer
 Name:		starplot
 Version:	0.95.5
-Release:	35%{?dist}
+Release:	36%{?dist}
 License:	GPLv2+
 URL:		http://starplot.org/
 Source0:	http://starplot.org/downloads/%{name}-%{version}.tar.gz
@@ -90,6 +90,9 @@ rm -f ./doc/examples/*.stars
 %{_datadir}/%{name}/test.stars
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.5-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.5-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

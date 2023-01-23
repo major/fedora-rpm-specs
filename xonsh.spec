@@ -1,6 +1,6 @@
 Name:           xonsh
 Version:        0.13.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A general purpose, Python-ish shell
 
 # xonsh is BSD-2-Clause.
@@ -121,6 +121,9 @@ fi
 %{python3_sitelib}/xonsh-%{version}*-py%{python3_version}.egg-info/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Oct 06 2022 Carmen Bianca Bakker <carmenbianca@fedoraproject.org> - 0.13.3-1
 - new version
 

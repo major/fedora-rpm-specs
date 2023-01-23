@@ -8,7 +8,7 @@
 
 Name:          tesseract
 Version:       5.3.0
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -242,6 +242,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Sandro Mani <manisandro@gmail.com> - 5.3.0-3
 - Rebuild (mingw-icu)
 

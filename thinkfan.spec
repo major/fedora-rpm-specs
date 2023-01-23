@@ -1,6 +1,6 @@
 Name:          thinkfan
 Version:       1.3.1
-Release:       3%{?dist}
+Release:       4%{?dist}
 Summary:       A simple fan control program
 
 License:       GPL-3.0-or-later
@@ -77,6 +77,9 @@ rm -f %{buildroot}/%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 1.3.1-3
 - Rebuild for yaml-cpp 0.7.0.
 

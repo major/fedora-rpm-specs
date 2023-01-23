@@ -1,6 +1,6 @@
 Name:		xcb-util-renderutil
 Version:	0.3.10
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Convenience functions for the Render extension
 License:	MIT
 URL:		http://xcb.freedesktop.org
@@ -66,6 +66,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec  1 2022 Thomas Moschny <thomas.moschny@gmx.de> - 0.3.10-1
 - Update to 0.3.10.
 

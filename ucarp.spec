@@ -2,7 +2,7 @@
 Summary: Common Address Redundancy Protocol (CARP) for Unix
 Name: ucarp
 Version: 1.5.2
-Release: 33%{?dist}
+Release: 34%{?dist}
 # See the COPYING file which details everything
 License: MIT and BSD
 URL: http://www.ucarp.org/
@@ -93,6 +93,9 @@ fi
 %{_sbindir}/ucarp
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

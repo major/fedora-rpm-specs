@@ -5,7 +5,7 @@
 Name:           seahorse-nautilus
 Version:        3.11.92
 %global         release_version %(echo %{version} | awk -F. '{print $1"."$2}')
-Release:        22%{?gitdate:.%{gitdate}git%{shortcommit0}}%{?dist}
+Release:        23%{?gitdate:.%{gitdate}git%{shortcommit0}}%{?dist}
 Summary:        PGP encryption and signing for nautilus
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Seahorse
@@ -62,6 +62,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/seahorse-pgp-signatur
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.92-23.20220906git2cc2a06
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022 Kalev Lember <klember@redhat.com> - 3.11.92-22.20220906git2cc2a06
 - Update to git snapshot for nautilus 43 support
 - Drop old seahorse-plugins obsoletes

@@ -1,6 +1,6 @@
 Name:       xload
 Version:    1.1.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Tool to display system load average
 
 License:    X11
@@ -39,6 +39,9 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/XLoad
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 28 2022 Jos de Kloe <josdekloe@gmail.com> 1.1.4-3
 - SPDX migration: change generic MIT to specific X11 license tag.
 

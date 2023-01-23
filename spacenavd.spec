@@ -1,6 +1,6 @@
 Name:           spacenavd
 Version:        1.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A free, compatible alternative for 3Dconnexion's input drivers
 
 License:        GPLv3+
@@ -61,6 +61,9 @@ install -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Sep 04 2022 Richard Shaw <hobbes1069@gmail.com> - 1.1-1
 - Update to 1.1.
 

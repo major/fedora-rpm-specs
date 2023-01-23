@@ -2,7 +2,7 @@
 
 Name:       swaks
 Version:    20190914.0
-Release:    7%{?dist}
+Release:    8%{?dist}
 Summary:    Command-line SMTP transaction tester
 
 License:    GPLv2+
@@ -43,6 +43,9 @@ mkdir -p %buildroot/%_mandir/man1
 %doc README.txt doc/Changes.txt doc/recipes.txt doc/ref.txt
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20190914.0-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20190914.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

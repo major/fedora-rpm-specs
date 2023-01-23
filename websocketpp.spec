@@ -2,7 +2,7 @@
 Name:    websocketpp
 Summary: C++ WebSocket Protocol Library
 Version: 0.8.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 
 License: BSD
 Url:     https://www.zaphoyd.com/websocketpp
@@ -86,6 +86,9 @@ rm -rfv %{buildroot}%{_includedir}/test_connection/
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 Wolfgang Stöggl <c72578@yahoo.de> - 0.8.2-9
 - Add patch: websocketpp-0.8.2-fix-cmake-find-boost.patch
 

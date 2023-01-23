@@ -4,7 +4,7 @@
 Summary: Opportunistically encrypt TCP connections
 Name: tcpcrypt
 Version: 0.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD
 Url: http://tcpcrypt.org/
 Source0: http://tcpcrypt.org//%{name}-%{version}.tar.gz
@@ -106,6 +106,9 @@ useradd -r -g tcpcryptd -d /var/run/tcpcryptd -s /sbin/nologin \
 %systemd_postun_with_restart tcpcryptd.service
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

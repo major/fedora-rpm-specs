@@ -1,6 +1,6 @@
 Name:           tpm2-tss-engine
 Version:        1.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:      OpenSSL Engine for TPM2 devices using the tpm2-tss software stack
 
 License:     BSD
@@ -82,6 +82,9 @@ uses the tpm2-tss software stack
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

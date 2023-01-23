@@ -4,7 +4,7 @@
 
 Name:           vim-%upstream_name
 Version:        3.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Asynchronous Vim Lint Engine
 License:        BSD
 
@@ -77,6 +77,9 @@ done
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Kir Kolyshkin <kolyshkin@gmail.com> - 3.2.0-1
 - new upstream release, per release notes:
   https://github.com/dense-analysis/ale/releases/tag/v3.2.0

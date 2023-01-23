@@ -1,7 +1,7 @@
 %global _legacy_common_support 1
 Name:		sxhkd
 Version:	0.6.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Simple X hotkey daemon
 
 License:	BSD
@@ -63,6 +63,9 @@ install -p -D -m 0644 contrib/systemd/%{name}.service \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

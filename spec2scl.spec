@@ -3,7 +3,7 @@
 
 Name:           %{pypi_name}
 Version:        1.2.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Convert RPM specfiles to be SCL ready
 
 License:        MIT
@@ -48,6 +48,9 @@ PYTHONPATH=$(pwd) py.test-%{python3_version}
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

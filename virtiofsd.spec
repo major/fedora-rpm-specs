@@ -1,6 +1,6 @@
 Name:           virtiofsd
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
 # Upstream license specification: Apache-2.0 AND BSD-3-Clause
@@ -44,6 +44,9 @@ install -D -p -m 0644 50-qemu-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-
 %{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jul 26 2022 Sergio Lopez <slp@redhat.com> - 1.4.0-1
 - Update to version 1.4.0
 

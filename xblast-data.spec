@@ -1,6 +1,6 @@
 Name:           xblast-data
 Version:        2.10.0
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        Data files for the game xblast
 License:        GPLv2+
 URL:            http://xblast.sourceforge.net
@@ -39,6 +39,9 @@ cp -a image level sounds $RPM_BUILD_ROOT%{_datadir}/xblast
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

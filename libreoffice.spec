@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 7.4.4
+%global libo_version 7.5.0
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -238,8 +238,8 @@ BuildRequires: dejavu-sans-fonts
 BuildRequires: dejavu-serif-fonts
 BuildRequires: google-carlito-fonts
 BuildRequires: google-rubik-fonts
-# KacstBook used in vcl/qa/cppunit tests
-BuildRequires: kacst-book-fonts
+# Amiri used in vcl/qa/cppunit tests
+BuildRequires: amiri-fonts
 BuildRequires: liberation-mono-fonts
 BuildRequires: liberation-narrow-fonts
 BuildRequires: liberation-sans-fonts
@@ -263,7 +263,12 @@ Patch1: 0001-disble-tip-of-the-day-dialog-by-default.patch
 Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 # backported
 Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
-Patch4: 0001-Related-tdf-151898-fix-gtk4-build-in-7-4.patch
+Patch4: 0001-don-t-crash-with-disable-pdfium.patch
+Patch5: 0002-don-t-crash-with-disable-pdfium.patch
+Patch6: 0001-change-test-to-use-Calibri-instead-of-Cambria.patch
+Patch7: 0001-std-abort-during-CppunitTest_sw_layoutwriter.patch
+# TODO investigate these
+Patch8: 0001-aarch64-failing-here.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -911,6 +916,7 @@ Rules for auto-correcting common %{langname} typing errors. \
 
 %define langpack_lang Simplified Chinese
 %langpack -l zh-Hans -n %{langpack_lang} -f zh_CN -a zh -p zh_CN -s cjk -T -L zh-CN -x zh-CN -g zh_CN
+%{baseinstdir}/share/template/common/l10n/zh_CN_ott_normal.ott
 
 %define langpack_lang Traditional Chinese
 %langpack -l zh-Hant -n %{langpack_lang} -f zh_TW -a zh -p zh_TW -s cjk -T -L zh-TW -x zh-TW -g zh_TW
@@ -1630,7 +1636,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/libscnlo.so
 %{baseinstdir}/program/libscriptframe.so
 %{baseinstdir}/program/libsdlo.so
-%{baseinstdir}/program/libsdfiltlo.so
 %{baseinstdir}/program/libsdbc2.so
 %{baseinstdir}/program/libsdbtlo.so
 %{baseinstdir}/program/libsddlo.so
@@ -1742,8 +1747,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %dir %{baseinstdir}/share/config/soffice.cfg
 %{baseinstdir}/share/config/soffice.cfg/modules
 %{baseinstdir}/share/config/soffice.cfg/*/ui
-%dir %{baseinstdir}/share/emojiconfig
-%{baseinstdir}/share/emojiconfig/emoji.json
 %{baseinstdir}/share/palette
 %{baseinstdir}/share/config/webcast
 %{baseinstdir}/share/config/wizard
@@ -1774,6 +1777,7 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/share/template/common/presnt
 %{baseinstdir}/share/template/common/styles
 %{baseinstdir}/share/template/common/wizard
+%dir %{baseinstdir}/share/template/common/l10n
 %{baseinstdir}/share/template/wizard
 %dir %{baseinstdir}/share/wordbook
 %{baseinstdir}/share/wordbook/en-GB.dic
@@ -2033,6 +2037,7 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/share/config/soffice.cfg/simpress/effects.xml
 %{baseinstdir}/share/config/soffice.cfg/simpress/layoutlist.xml
 %{baseinstdir}/share/config/soffice.cfg/simpress/objectlist.xml
+%{baseinstdir}/share/config/soffice.cfg/simpress/styles.xml
 %{baseinstdir}/share/config/soffice.cfg/simpress/transitions.xml
 %{baseinstdir}/share/registry/impress.xcd
 %{baseinstdir}/program/pagein-impress
@@ -2135,7 +2140,6 @@ rm -f %{buildroot}%{baseinstdir}/program/classes/smoketest.jar
 %{baseinstdir}/program/libunsafe_uno_uno.so
 %{baseinstdir}/program/libuuresolverlo.so
 %{baseinstdir}/program/libxmlreaderlo.so
-%{baseinstdir}/program/regmerge
 %{baseinstdir}/program/regview
 %{baseinstdir}/program/services.rdb
 %{baseinstdir}/program/types.rdb
@@ -2267,6 +2271,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Fri Jan 20 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.0.2-1
+- 7.5.0 beta
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.4.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

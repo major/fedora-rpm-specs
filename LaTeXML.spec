@@ -1,9 +1,9 @@
 Name:           LaTeXML
-Version:        0.8.6
+Version:        0.8.7
 Release:        %autorelease
 Summary:        Converts TeX and LaTeX to XML/HTML/ePub/MathML
 
-License:        Public Domain
+License:        LicenseRef-Fedora-Public-Domain
 URL:            http://dlmf.nist.gov/LaTeXML/
 Source0:        http://search.cpan.org/CPAN/authors/id/B/BR/BRMILLER/%{name}-%{version}.tar.gz
 

@@ -1,6 +1,6 @@
 Name:		stress-ng
 Version:	0.15.00
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Stress test a computer system in various ways
 
 License:	GPLv2+
@@ -54,6 +54,9 @@ install -pm 644 bash-completion/%{name} \
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.00-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 0.15.00-2
 - Improve compatibility with strict(er) C99 compilers
 

@@ -4,7 +4,7 @@ Summary: A network traffic monitoring tool
 Name: tcpdump
 Epoch: 14
 Version: 4.99.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD with advertising
 URL: http://www.tcpdump.org
 Requires(pre): shadow-utils
@@ -82,6 +82,9 @@ exit 0
 %{_mandir}/man8/tcpdump.8*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14:4.99.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Michal Ruprich <mruprich@redhat.com> - 14:4.99.3-1
 - New version 4.99.3
 

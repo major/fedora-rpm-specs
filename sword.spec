@@ -4,7 +4,7 @@
 Name:           sword
 Epoch:          1
 Version:        1.9.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Free Bible Software Project
 License:        GPLv2
 URL:            http://www.crosswire.org/sword/
@@ -151,6 +151,9 @@ make tests
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.9.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 1:1.9.0-15
 - Rebuild for ICU 72
 

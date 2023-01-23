@@ -1,7 +1,7 @@
 Name: systemd-swap
 Summary: Creating hybrid swap space from zram swaps, swap files and swap partitions
 Version: 3.3.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: GPLv3+
 URL: https://github.com/Nefelim4ag/%{name}
 Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -74,6 +74,9 @@ help2man -o .%{_mandir}/man1/%{name}.1 .%{_bindir}/%{name}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

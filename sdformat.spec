@@ -4,7 +4,7 @@
 
 Name:		sdformat
 Version:	6.0.0
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	The Simulation Description Format
 
 License:	ASL 2.0
@@ -115,6 +115,9 @@ export GTEST_COLOR=no
 %doc %{_vpath_builddir}/doxygen/html
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

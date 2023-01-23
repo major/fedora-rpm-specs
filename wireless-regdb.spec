@@ -2,7 +2,7 @@
 
 Name:           wireless-regdb
 Version:        2022.08.12
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Regulatory database for 802.11 wireless networking
 
 License:        ISC
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/usr/lib/crda
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.08.12-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 31 2022 John W. Linville <linville@redhat.com> - 2022.08.12-1
 - Update to version 2022.08.12 from upstream
 

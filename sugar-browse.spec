@@ -1,6 +1,6 @@
 Name:    sugar-browse
 Version: 207
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Browse activity for Sugar
 License: GPLv2+
 URL:     http://wiki.laptop.org/go/Browse
@@ -45,6 +45,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 207-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 207-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

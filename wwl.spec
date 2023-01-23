@@ -1,7 +1,7 @@
 Summary: Calculates distance and azimuth between two Maidenhead locators
 Name: wwl
 Version: 1.3
-Release: 6%{?dist}
+Release: 7%{?dist}
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/SVSSA3AYDGFHA4NZWJPZCNNBRSSUV5DT/
 License: Semi-Permissive
 URL: http://www.db.net/downloads/
@@ -34,6 +34,9 @@ chmod 0644 %{buildroot}%{_mandir}/man1/wwl.1*
 %{_mandir}/*/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

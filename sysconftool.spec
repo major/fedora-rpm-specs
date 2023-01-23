@@ -2,7 +2,7 @@ Summary:	Macros for aclocal to install configuration files
 Summary(pl):	Makra dla aclocal do instalacji plików konfiguracyjnych
 Name:		sysconftool
 Version:	0.21
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPLv3 with exceptions
 Source0:	https://downloads.sourceforge.net/project/courier/sysconftool/%{version}/%{name}-%{version}.tar.bz2
 Source1:	https://downloads.sourceforge.net/project/courier/sysconftool/%{version}/%{name}-%{version}.tar.bz2.sig
@@ -58,6 +58,9 @@ ln -sf ../share/sysconftool/sysconftoolize.pl %{buildroot}%{_bindir}/sysconftool
 %{_datadir}/aclocal/sysconftool.m4
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Dominik Mierzejewski <dominik@greysector.net> - 0.21-1
 - update to 0.21 (#2142594)
 

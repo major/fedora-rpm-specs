@@ -3,7 +3,7 @@ Summary: Help barbie the seahorse float on bubbles to the moon
 License: GPLv2+
 
 Version: 1.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 URL: http://www.imitationpickles.org/barbie/
 
@@ -86,6 +86,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

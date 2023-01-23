@@ -1,6 +1,6 @@
 Name:       safelease
 Version:    1.0.1
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    Legacy locking utility for VDSM
 
 License:    GPLv2+
@@ -36,6 +36,9 @@ make %{?_smp_mflags}
 %{_libexecdir}/%{name}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

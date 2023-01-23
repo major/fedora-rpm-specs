@@ -1,6 +1,6 @@
 Name:           ws-commons-util
 Version:        1.0.2
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Common utilities from the Apache Web Services Project
 
 License:        ASL 2.0
@@ -73,6 +73,9 @@ Summary:        Javadoc for %{name}
 %license LICENSE.txt
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-21
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

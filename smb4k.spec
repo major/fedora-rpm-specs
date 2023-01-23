@@ -11,7 +11,7 @@
 
 Name:       smb4k
 Version:    3.1.6
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    The SMB/CIFS Share Browser for KDE
 
 License:    GPLv2+
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_kf5_metainfodir}/*.appdata
 %{_kf5_qmldir}/org/kde/smb4k/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Dec 15 2022 Sérgio Basto <sergio@serjux.com> - 3.1.6-1
 - Update smb4k to 3.1.6
 

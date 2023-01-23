@@ -1,6 +1,6 @@
 Name:           perl-App-ccdiff
 Version:        0.32
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Colored Character diff
 
 License:        Artistic-2.0
@@ -64,13 +64,16 @@ make test
 %files
 %license LICENSE
 %doc ChangeLog CONTRIBUTING.md README.md
-%{_bindir}/*
+%{_bindir}/ccdiff
 %{perl_vendorlib}/*
-%{_mandir}/man1/*.1*
-%{_mandir}/man3/*.3*
+%{_mandir}/man1/ccdiff.1*
+%{_mandir}/man3/App::ccdiff.3*
 
 
 %changelog
+* Sat Jan 21 2023 Richard Fearn <richardfearn@gmail.com> - 0.32-3
+- Don't glob everything under shared directories in %%files
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

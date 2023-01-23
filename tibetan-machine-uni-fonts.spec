@@ -3,7 +3,7 @@
 
 Name:		%{fontname}-fonts
 Version:	1.901
-Release:	30%{?dist}
+Release:	31%{?dist}
 Summary:	Tibetan Machine Uni font for Tibetan, Dzongkha and Ladakhi
 
 # .ttf file now states GPLv3+ with fonts exceptions
@@ -44,6 +44,9 @@ install -Dm 0644 -p %{SOURCE1} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.901-31
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 05 2022 Parag Nemade <pnemade AT redhat DOT com> - 1.901-30
 - Update license tag to SPDX format
 

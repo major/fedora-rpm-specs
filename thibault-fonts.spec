@@ -21,7 +21,7 @@ and Rockets.
 
 Name:           %{fontname}-fonts
 Version:        0.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 
 Summary:        Thibault.org font collection
 License:        LGPLv2+
@@ -205,6 +205,9 @@ install -Dm 0644 -p %{SOURCE13} \
 %doc staypuft/COPYING.LIB staypuft/README.txt
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

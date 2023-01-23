@@ -2,7 +2,7 @@
 
 Name:             vim-omnicppcomplete
 Version:          0.41
-Release:          19%{?dist}
+Release:          20%{?dist}
 Summary:          vim c++ completion omnifunc with a ctags database
 
 License:          GPLv2+
@@ -66,6 +66,9 @@ vim -c ":helptags %{vimfiles_root}/doc" -c :q &> /dev/null
 %{vimfiles_root}/autoload
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.41-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.41-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

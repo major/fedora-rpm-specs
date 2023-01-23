@@ -7,7 +7,7 @@ locations such as terminals.
 
 Name: %{fontname}-fonts
 Version: 0.3
-Release: 29%{?dist}
+Release: 30%{?dist}
 License: Public Domain
 URL: http://www.cl.cam.ac.uk/~mgk25/ucs-fonts.html
 Source0: http://www.cl.cam.ac.uk/~mgk25/download/ucs-fonts.tar.gz
@@ -68,6 +68,9 @@ ln -s %{_fontconfig_templatedir}/%{fontconf} \
 %doc README
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

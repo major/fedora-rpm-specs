@@ -3,7 +3,7 @@
 
 Name: xpa
 Version: 2.1.19
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: The X Public Access messaging system
 
 License: MIT
@@ -110,6 +110,9 @@ mv %{buildroot}%{_libdir}/libtcl* %{buildroot}%{tcl_sitearch}/tclxpa
 #%doc doc/*.pdf
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.19-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Peter Fordham <peter.fordham@gmail.com> - 2.1.19-9
 - Port configure script to C99.
 

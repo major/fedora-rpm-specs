@@ -5,7 +5,7 @@
 
 Name:           xfce4-dict
 Version:        0.8.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A Dictionary Client for the Xfce desktop environment
 Summary(de):    Ein Wörterbuch-Client für die Xfce Desktop-Umgebung
 
@@ -81,6 +81,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/xfce4/panel/plugins/*.desktop
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

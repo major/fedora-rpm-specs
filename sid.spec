@@ -14,7 +14,7 @@ Name: sid
 Epoch: %{rhel}
 %endif
 Version: 0.0.5
-Release: 6%{?scmsnap:.%{scmsnap}}%{?dist}
+Release: 7%{?scmsnap:.%{scmsnap}}%{?dist}
 Summary: Storage Instantiation Daemon (SID)
 
 License: GPL-2.0-or-later
@@ -388,6 +388,9 @@ Daemon (SID).
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Peter Rajnoha <prajnoha@redhat.com> - 0.0.5-6
 - Use SPDX values for License fields in RPM spec file.
 

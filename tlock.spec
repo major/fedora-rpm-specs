@@ -1,6 +1,6 @@
 Name:           tlock
 Version:        1.6
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Terminal lock
 
 License:        GPLv2+
@@ -53,6 +53,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/librpass.la
 %_mandir/man3/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Florian Weimer <fweimer@redhat.com> - 1.6-17
 - Fix missing prototype for crypt (pointer truncation) (#2160647)
 

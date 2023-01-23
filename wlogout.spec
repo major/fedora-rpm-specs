@@ -2,7 +2,7 @@
 
 Name: wlogout
 Version: 1.1.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: Wayland based logout menu
 License: MIT
 URL:     https://github.com/ArtsyMacaw/wlogout
@@ -49,6 +49,9 @@ A wayland based logout menu.
 %config(noreplace) %{_sysconfdir}/%{name}/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

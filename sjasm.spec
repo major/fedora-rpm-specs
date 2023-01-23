@@ -1,6 +1,6 @@
 Name:           sjasm
 Version:        0.42c
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A z80 cross assembler
 License:        BSD
 URL:            http://www.xl2s.tk
@@ -49,6 +49,9 @@ make -C sjasmsrc42c install DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42c-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Lubomir Rintel <lkundrak@v3.sk> - 0.42c-1
 - Update to version 0.42c
 

@@ -3,7 +3,7 @@
 
 Name:           web-assets
 Version:        5
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A simple framework for bits pushed to browsers
 License:        MIT
 URL:            https://fedoraproject.org/wiki/User:Patches/PackagingDrafts/Web_Assets
@@ -117,6 +117,9 @@ install -Dpm0644 %{SOURCE4} %{buildroot}%{_sysconfdir}/nginx/default.d/web-asset
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5-19
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

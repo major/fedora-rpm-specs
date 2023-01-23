@@ -1,6 +1,6 @@
 Name:           scim-thai
 Version:        0.1.3
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Thai Input Method Engine for SCIM
 
 License:        GPLv2+
@@ -56,6 +56,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/scim-1.0/*/{IMEngine,SetupUI}/thai*.la
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.3-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

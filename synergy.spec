@@ -6,7 +6,7 @@ Summary: Share mouse and keyboard between multiple computers over the network
 Name: synergy
 Epoch: 1
 Version: 1.14.3.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 URL: https://symless.com/synergy
 Source0: https://github.com/symless/synergy-core/archive/refs/tags/%{version}-stable.tar.gz
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/synergy.desktop
 %{_mandir}/man8/synergys.8.gz
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.14.3.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.14.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

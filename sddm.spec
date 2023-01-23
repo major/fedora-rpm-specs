@@ -20,7 +20,7 @@
 
 Name:           sddm
 Version:        0.19.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 Summary:        QML based desktop and login manager
 
@@ -297,6 +297,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0^git20221123.3e48649-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 24 2022 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20221123.3e48649-1
 - Update to new snapshot
 - Add patch to support non-default wayland socket names for sway/weston/etc.

@@ -3,7 +3,7 @@
 
 Name:		xclip
 Version:	0.13
-Release:	18.git%{shortcommit}%{?dist}
+Release:	19.git%{shortcommit}%{?dist}
 License:	GPLv2+
 Summary:	Command line clipboard grabber
 URL:		http://sourceforge.net/projects/xclip
@@ -45,6 +45,9 @@ make DESTDIR=$RPM_BUILD_ROOT install.man
 %{_mandir}/man1/xclip*.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-19.git11cba61
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-18.git11cba61
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

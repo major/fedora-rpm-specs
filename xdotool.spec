@@ -1,7 +1,7 @@
 Name:           xdotool
 Version:        3.20211022.1
 Epoch:          1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fake keyboard/mouse input
 License:        BSD
 URL:            https://github.com/jordansissel/xdotool
@@ -59,6 +59,9 @@ chmod 0644 examples/ffsp.sh
 %doc examples
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.20211022.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Nov 05 2022 Orion Poplawski <orion@nwra.com> - 1:3.20111022.1-1
 - Update to 3.20111022.1
 - Use set_build_flags and make macros

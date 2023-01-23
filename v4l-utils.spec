@@ -1,6 +1,6 @@
 Name:           v4l-utils
 Version:        1.22.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Utilities for video4linux and DVB devices
 # libdvbv5, dvbv5 utils, ir-keytable and v4l2-sysfs-path are GPLv2 only
 License:        GPLv2+ and GPLv2
@@ -208,6 +208,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/qv4l2.desktop
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Oct 23 2022 Hans de Goede <hdegoede@redhat.com> - 1.22.1-4
 - Fix libv4lconvert issues when stride > width (with some formats)
 

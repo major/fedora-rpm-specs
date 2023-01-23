@@ -8,7 +8,7 @@
 
 Name:		tideEditor
 Version:	%{mainver}
-Release:	%{rpmrel}%{?dist}.4
+Release:	%{rpmrel}%{?dist}.5
 Summary:	Editor for Tide Constituent Database (TCD) files
 
 License:	GPLv3+
@@ -56,6 +56,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_bindir}/tideEditor
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-5.r2.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-5.r2.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           xwax
 Version:        1.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Open source vinyl emulation software for Linux
 License:        GPLv2
 URL:            http://www.xwax.org
@@ -48,6 +48,9 @@ make ALSA=yes JACK=yes install PREFIX=%{buildroot}/%{_prefix} EXECDIR=%{buildroo
 %doc %{_mandir}/man1/xwax.1.gz
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

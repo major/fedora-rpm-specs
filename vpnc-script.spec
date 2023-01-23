@@ -3,7 +3,7 @@
 
 Name:		vpnc-script
 Version:	%{git_date}
-Release:	2.git%{git_commit_hash}%{?dist}
+Release:	3.git%{git_commit_hash}%{?dist}
 
 Summary:	Routing setup script for vpnc and openconnect
 BuildArch:	noarch
@@ -34,6 +34,9 @@ install -m 0755 vpnc-script \
 %{_sysconfdir}/vpnc/vpnc-script
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220509-3.gite52f8e66
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20220509-2.gite52f8e66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

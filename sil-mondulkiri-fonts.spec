@@ -1,6 +1,6 @@
 # SPDX-License-Identifier: MIT
 Version: 7.100
-Release: 12%{?dist}
+Release: 13%{?dist}
 URL:     https://scripts.sil.org/Mondulkiri
 
 %global foundry           SIL
@@ -65,6 +65,9 @@ This package provides optional documentation files shipped with
 %doc documentation/*pdf
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.100-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.100-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

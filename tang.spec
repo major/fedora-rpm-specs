@@ -1,6 +1,6 @@
 Name:           tang
 Version:        11
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Network Presence Binding Daemon
 
 License:        GPLv3+
@@ -100,6 +100,9 @@ fi
 %{_sysusersdir}/tang.conf
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 07 2022 Sergio Correia <scorreia@redhat.com> - 11-5
 - Report error details when json_load_file() fails
 

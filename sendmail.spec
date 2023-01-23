@@ -29,7 +29,7 @@
 Summary: A widely used Mail Transport Agent (MTA)
 Name: sendmail
 Version: 8.17.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: Sendmail
 URL: http://www.sendmail.org/
 
@@ -711,6 +711,9 @@ exit 0
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.17.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Nov 13 2022 Jaroslav Škarvada <jskarvad@redhat.com> - 8.17.1-7
 - Fixed SASL auth with cyrus-sasl-2.1.28
   Resolves: rhbz#2140596

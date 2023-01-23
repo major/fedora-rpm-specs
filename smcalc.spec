@@ -2,7 +2,7 @@ Name: smcalc
 Summary: Matrix Calculator
 URL: http://smcalc.sourceforge.net
 Version: 1.0.1
-Release: 8%{?dist}
+Release: 9%{?dist}
 Source0: https://sourceforge.net/projects/smcalc/files/smcalc/%{name}-%{version}.tar.gz
 License: MIT
 
@@ -33,6 +33,9 @@ cd src
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

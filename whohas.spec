@@ -1,6 +1,6 @@
 Name:           whohas
 Version:        0.29.1
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Command line tool for query package lists
 
 License:        GPLv2+
@@ -55,6 +55,9 @@ rm -rf %{buildroot}%{_defaultdocdir}/whohas/examples/whohas.cf
 %{_bindir}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.1-18
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

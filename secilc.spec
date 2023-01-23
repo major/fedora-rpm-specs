@@ -2,7 +2,7 @@
 
 Name:           secilc
 Version:        3.5
-Release:        0.rc2.1%{?dist}
+Release:        0.rc2.1%{?dist}.1
 Summary:        The SELinux CIL Compiler
 
 License:        BSD-2-Clause
@@ -66,6 +66,9 @@ make %{?_smp_mflags} DESTDIR="%{buildroot}" SBINDIR="%{buildroot}%{_sbindir}" LI
 %license LICENSE
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-0.rc2.1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc2.1
 - SELinux userspace 3.5-rc2 release
 

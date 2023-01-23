@@ -1,6 +1,6 @@
 Name:           telepathy-farstream
 Version:        0.6.1
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Telepathy client library to handle Call channels
 
 License:        LGPLv2+
@@ -84,6 +84,9 @@ make check
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           zps
 Version:        1.2.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A small utility for listing and cleaning up zombie processes
 
 License:        GPL-3.0-only
@@ -35,5 +35,8 @@ desktop-file-install --dir=%{buildroot}/%{_datadir}/applications .application/%{
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Gustavo Costa <xfgusta@gmail.com> 1.2.8-1
 - Initial package

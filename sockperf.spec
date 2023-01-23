@@ -1,6 +1,6 @@
 Name:           sockperf
 Version:        3.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Network benchmarking utility for testing latency and throughput
 License:        BSD
 URL:            https://github.com/Mellanox/%{name}
@@ -70,6 +70,9 @@ make %{?_smp_mflags}
 %{_pkgdocdir}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

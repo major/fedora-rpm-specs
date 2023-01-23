@@ -13,7 +13,7 @@
 
 Name:		wkhtmltopdf
 Version:	%{mainver}
-Release:	%{?prerelease:0.}%{fedorarel}%{?minorver:.%minorver}%{?dist}.4
+Release:	%{?prerelease:0.}%{fedorarel}%{?minorver:.%minorver}%{?dist}.5
 Summary:	Simple shell utility to convert html to pdf
 
 License:	GPLv3+
@@ -107,6 +107,9 @@ make install \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-1.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.6-1.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

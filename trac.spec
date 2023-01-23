@@ -1,6 +1,6 @@
 Name:           trac
 Version:        1.5.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Enhanced wiki and issue tracking system
 License:        BSD
 URL:            http://trac.edgewall.com/
@@ -99,6 +99,9 @@ mv $RPM_BUILD_ROOT{%{_bindir}/tracd,%{_sbindir}/tracd}
 #%%{_var}/www/cgi-bin/trac.wsgi
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Gwyn Ciesla <gwync@protonmail.com> - 1.5.3-8
 - Patch for soft_unicode->soft_str
 

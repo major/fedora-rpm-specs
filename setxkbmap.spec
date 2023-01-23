@@ -1,6 +1,6 @@
 Name:       setxkbmap
 Version:    1.3.3
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    X11 keymap client
 
 License:    MIT
@@ -35,6 +35,9 @@ on the command line.
 %{_mandir}/man1/setxkbmap.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

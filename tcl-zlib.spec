@@ -8,7 +8,7 @@
 
 Name:		tcl-%{realname}
 Version:	2.0.1
-Release:	0.31.svn40%{?dist}
+Release:	0.32.svn40%{?dist}
 Summary:	Tcl extension for zlib support
 License:	MIT
 URL:		http://svn.scheffers.net/
@@ -59,6 +59,9 @@ chmod -x %{buildroot}%{tcl_sitearch}/%{realname}%{version}/libzlibstub*.a
 %{_includedir}/*.h
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-0.32.svn40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Florian Weimer <fweimer@redhat.com> - 2.0.1-0.31.svn40
 - Avoid implicit declaration of exit in configure script
 

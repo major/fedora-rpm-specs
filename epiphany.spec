@@ -17,6 +17,9 @@ Source0: https://download.gnome.org/sources/epiphany/44/%{name}-%{tarball_versio
 # Fedora bookmarks
 Patch0: epiphany-default-bookmarks.patch
 
+# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1266
+Patch1: webkitgtk-2.39.5.patch
+
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
 BuildRequires: gettext-devel

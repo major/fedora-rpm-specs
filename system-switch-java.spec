@@ -4,7 +4,7 @@
 
 Name: system-switch-java
 Version: 1.1.8
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: A tool for changing the default Java toolset
 
 
@@ -77,6 +77,9 @@ desktop-file-install \
 %config(noreplace) /etc/security/console.apps/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

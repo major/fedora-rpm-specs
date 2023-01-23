@@ -4,7 +4,7 @@
 
 Name:           vdpauinfo
 Version:        1.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tool to query the capabilities of a VDPAU implementation
 
 License:        MIT
@@ -40,6 +40,9 @@ autoreconf -vif
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 17 2022 Nicolas Chauvet <kwizart@gmail.com> - 1.5-1
 - Update to 1.5
 

@@ -9,7 +9,7 @@
 Name:           sgabios
 Epoch:          1
 Version:        0.%{date}git
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Serial graphics BIOS option rom
 
 License:        ASL 2.0
@@ -89,6 +89,9 @@ install -m 0644 sgabios.bin $RPM_BUILD_ROOT%{_datadir}/sgabios
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.20180715git-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.20180715git-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

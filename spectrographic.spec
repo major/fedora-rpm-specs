@@ -5,7 +5,7 @@ Summary: Turn an image into sound whose spectrogram looks like the image
 License: MIT
 
 Version: 0.9.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 
 URL: https://github.com/LeviBorodenko/%{pypi_name}
 Source0: %{pypi_source}
@@ -84,6 +84,9 @@ install -m 644 build/sphinx/man/%{name}.1 %{buildroot}%{_mandir}/man1/
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 22 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.9.3-11
 - Fix python package metadata containing no version information
 

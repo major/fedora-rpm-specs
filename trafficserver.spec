@@ -3,7 +3,7 @@
 %global selinuxtype targeted
 
 Name:           trafficserver
-Version:        9.1.4
+Version:        9.2.0
 Release:        1%{?dist}
 Summary:        Fast, scalable and extensible HTTP/1.1 and HTTP/2 caching proxy server
 
@@ -27,13 +27,12 @@ Patch0:         trafficserver-crypto-policy.patch
 # Fencepost error when parsing bracketed IP address with no port; OOB string_view access
 # Upstream PR: https://github.com/apache/trafficserver/pull/8468 
 Patch1:         string-index-oob.patch
-# Define standard config layout for Fedora/RHEL systems
-# Upstream PR: https://github.com/apache/trafficserver/pull/8815
-Patch2:         config-layout-redhat.patch
-# glibc 2.36 (Fedora 37) introduces mount.h conflict
-# Change doc: https://sourceware.org/glibc/wiki/Release/2.36#Usage_of_.3Clinux.2Fmount.h.3E_and_.3Csys.2Fmount.h.3E
-# Upstream PR: https://github.com/apache/trafficserver/pull/9027
-Patch3:         glibc-2.36.patch
+# glibc 2.37 will require additional explicit includes
+# Upstream PR: https://github.com/apache/trafficserver/pull/9325
+Patch2:         glibc-237.patch
+# ppc64le stack grows down
+# Upstream PR: https://github.com/apache/trafficserver/pull/9326
+Patch3:         ppc64-stack-growth.patch
 
 # Upstream does not support 32-bit architectures:
 # https://github.com/apache/trafficserver/issues/4432
@@ -245,7 +244,7 @@ fi
 
 %files
 %license LICENSE
-%doc README CHANGELOG* NOTICE STATUS
+%doc README.md CHANGELOG* NOTICE STATUS
 
 %attr(0750, trafficserver, trafficserver) %dir %{_sysconfdir}/%{name}
 %attr(-, trafficserver, trafficserver) %config(noreplace) %{_sysconfdir}/%{name}/body_factory
@@ -305,6 +304,9 @@ fi
 
 
 %changelog
+* Fri Jan 20 2023 Jered Floyd <jered@redhat.com> 9.2.0-1
+- Update to upstream 9.2.0
+
 * Mon Dec 19 2022 Jered Floyd <jered@redhat.com> 9.1.4-1
 - Update to 9.1.4, resolves CVE-2022-32749, CVE-2022-37392, CVE-2022-40743
 

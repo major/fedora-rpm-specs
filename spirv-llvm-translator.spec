@@ -4,7 +4,7 @@
 
 Name:           spirv-llvm-translator
 Version:        15.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LLVM to SPIRV Translator
 
 License:        NCSA
@@ -71,6 +71,9 @@ This package contains the standalone llvm to spirv tool.
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 15.0.0-2
 - Bump to a later llvm 15 branch commit including backported fixes
 - Add spirv-tools dep

@@ -7,7 +7,7 @@
 
 Name:           sdljava
 Version:        0.9.1
-Release:        58%{?dist}
+Release:        59%{?dist}
 Summary:        Java binding to the SDL API
 License:        LGPLv2+
 URL:            http://sdljava.sourceforge.net/
@@ -215,6 +215,9 @@ ln -s $(fc-match -f "%{file}" "sans:bold:italic") \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-59
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-58
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

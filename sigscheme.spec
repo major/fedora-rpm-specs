@@ -1,6 +1,6 @@
 Name:		sigscheme
 Version:	0.9.1
-Release:	6%{?dist}
+Release:	7%{?dist}
 License:	BSD-3-Clause
 URL:		https://github.com/uim/sigscheme
 BuildRequires: make
@@ -59,6 +59,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/sigscheme
 %{_libdir}/pkgconfig/sigscheme.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec  5 2022 Akira TAGOH <tagoh@redhat.com> - 0.9.1-6
 - Convert License tag to SPDX.
 

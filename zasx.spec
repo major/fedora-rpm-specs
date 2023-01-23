@@ -1,6 +1,6 @@
 Name:           zasx
 Version:        1.30
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Asteroid like game with powerups
 License:        GPLv2+ and Freely redistributable without restriction
 URL:            https://www.allegro.cc/depot/Zasx/
@@ -63,6 +63,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.30-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           xalan-j2
 Version:        2.7.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Java XSLT processor
 # src/org/apache/xpath/domapi/XPathStylesheetDOM3Exception.java is W3C
 License:        ASL 2.0 and W3C
@@ -139,6 +139,9 @@ mv %{_javadir}/jaxp_transform_impl.jar{.tmp,} || :
 %doc build/docs/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-14
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

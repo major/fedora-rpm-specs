@@ -1,7 +1,7 @@
 Summary:       A polyphonic sampler synthesizer with stereo fx
 Name:          samplv1
 Version:       0.9.23
-Release:       4%{?dist}
+Release:       5%{?dist}
 License:       GPLv2+
 URL:           https://%{name}.sourceforge.io/
 Source0:       https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_libdir}/lv2/%{name}.lv2/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.23-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

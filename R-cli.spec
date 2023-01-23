@@ -1,12 +1,12 @@
 %bcond_without check
 
 %global packname cli
-%global packver  3.5.0
+%global packver  3.6.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Helpers for Developing Command Line Interfaces
 
 License:          MIT
@@ -99,6 +99,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Sat Jan 21 2023 Tom Callaway <spot@fedoraproject.org> - 3.6.0-1
+- update to 3.6.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

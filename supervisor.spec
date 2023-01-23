@@ -1,7 +1,7 @@
 Name: supervisor
 Summary:  A System for Allowing the Control of Process State on UNIX
 Version: 4.2.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD and MIT
 URL: http://supervisord.org/
 Source0: https://pypi.python.org/packages/source/s/%{name}/%{name}-%{version}.tar.gz
@@ -69,6 +69,9 @@ rm -f %{buildroot}%{_prefix}/doc/*.txt
 %config(noreplace) %{_sysconfdir}/logrotate.d/supervisor
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

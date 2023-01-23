@@ -1,6 +1,6 @@
 Name:           txt2regex
 Version:        0.9
-Release:        7%{?dist}
+Release:        9%{?dist}
 Summary:        Regular expression wizard that converts human sentences to regexes
 
 License:        GPL-2.0-only
@@ -46,10 +46,16 @@ install -p -m 644 man/txt2regex.man %{buildroot}%{_mandir}/man1/txt2regex.1
 %files -f %{name}.lang
 %doc CHANGELOG.md CONTRIBUTING.md README.md TODO
 %license COPYRIGHT
-%{_bindir}/*
-%{_mandir}/*/*
+%{_bindir}/txt2regex
+%{_mandir}/man1/txt2regex.1*
 
 %changelog
+* Sat Jan 21 2023 Richard Fearn <richardfearn@gmail.com> - 0.9-9
+- Don't glob everything under shared directories in %%files
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 27 2022 Richard Fearn <richardfearn@gmail.com> - 0.9-7
 - Use SPDX license identifier
 

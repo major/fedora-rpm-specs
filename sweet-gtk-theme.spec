@@ -28,7 +28,7 @@ URL: https://www.gnome-look.org/p/1253385/
 	) | sort -rn | head -n1)
 
 Version: 3.0
-Release: 8.%{git_date}%{?dist}
+Release: 9.%{git_date}%{?dist}
 
 %global repo_name  Sweet
 %global repo_url   https://github.com/EliverLara/%{repo_name}
@@ -131,6 +131,9 @@ mv "%{buildroot}%{_datadir}/themes/Sweet-master" "%{buildroot}%{_datadir}/themes
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-9.20230107
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.0-8.20230107
 - Update to latest git snapshots
 - Migrate License tag to SPDX

@@ -1,7 +1,7 @@
 Summary:        PostScript Type 1 font rasterizer
 Name:           t1lib
 Version:        5.1.2
-Release:        33%{?dist}
+Release:        34%{?dist}
 License:        LGPLv2+
 URL:            ftp://sunsite.unc.edu/pub/Linux/libs/graphics/t1lib-%{version}.lsm
 Source0:        ftp://sunsite.unc.edu/pub/Linux/libs/graphics/t1lib-%{version}.tar.gz
@@ -150,6 +150,9 @@ touch $RPM_BUILD_ROOT%{_datadir}/t1lib/{FontDatabase,t1lib.config}
 %{_libdir}/libt1x.a
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Florian Weimer <fweimer@redhat.com> - 5.1.2-33
 - C99 compatibility fixes (#2161950)
 

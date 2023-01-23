@@ -2,7 +2,7 @@ Summary: A Bayesian spam filter
 Name: spamprobe
 # upstream uses letters for patch version numbers
 Version: 1.4d
-Release: 26%{?dist}
+Release: 27%{?dist}
 
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 # Compile fixes for EL6, F16, F17 -- Tracker 3557020
@@ -56,6 +56,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4d-27
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 12 2022 Florian Weimer <fweimer@redhat.com> - 1.4d-26
 - Port configure script to C99
 

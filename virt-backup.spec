@@ -1,6 +1,6 @@
 Name:           virt-backup
 Version:        0.2.25
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Backup script for libvirt managed VM
 
 License:        GPLv2+
@@ -59,6 +59,9 @@ mkdir -p %{buildroot}%{_sharedstatedir}/libvirt/backup
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.25-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.25-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

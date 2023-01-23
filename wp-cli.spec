@@ -2,7 +2,7 @@
 
 Name:       wp-cli
 Version:    2.4.0
-Release:    8%{?dist}
+Release:    9%{?dist}
 Summary:    The command line interface for WordPress
 License:    MIT
 URL:        http://%{name}.org/
@@ -42,6 +42,9 @@ install -p -m 0644 %{SOURCE2} %{buildroot}%{_mandir}/man1/
 %{_mandir}/man1/wp.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

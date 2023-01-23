@@ -3,7 +3,7 @@
 
 Name:           abseil-cpp
 Version:        20220623.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        C++ Common Libraries
 
 # The entire source is Apache-2.0, except:
@@ -28,11 +28,13 @@ Source0:        https://github.com/abseil/abseil-cpp/archive/%{version}/%{name}-
 #
 # Fixes RHBZ#2108658.
 Patch:          https://github.com/abseil/abseil-cpp/commit/09e96049995584c3489e4bd1467313e3e85af99c.patch
-# Comment out two static assertions in the tests that fail with GCC 13.
-#   Reported upstream:
+
+# Backport upstream commit 4eef16170014f75f4291ae335a271900f89eaedf by
+# cherry-picking and rebasing onto 20220623.1; fixes:
+#
 # Static assertion failures compiling AllocatorTraits.Rebind test (GCC 13)
 # https://github.com/abseil/abseil-cpp/issues/1366
-Patch:          abseil-cpp-20220623.1-gcc13.patch
+Patch:          0001-Update-absl-allocator_traits-and-absl-pointer_traits.patch
 
 BuildRequires:  cmake
 # The default make backend would work just as well; ninja is observably faster
@@ -104,6 +106,9 @@ Development headers for %{name}
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Sat Jan 21 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 20220623.1-4
+- Backport upstream commit 4eef161 for GCC 13
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220623.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

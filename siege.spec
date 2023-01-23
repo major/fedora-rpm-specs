@@ -1,6 +1,6 @@
 Name:           siege
 Version:        4.1.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTTP regression testing and benchmarking utility
 
 License:        GPLv2+
@@ -52,6 +52,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/siege
 %config(noreplace) %{_sysconfdir}/siege/siegerc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 09 2023 Fabian Affolter <mail@fabian-affolter.ch> - 4.1.6-1
 - Update to latest upstream release 4.1.6 (closes rhbz#2158611)
 

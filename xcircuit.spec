@@ -11,7 +11,7 @@
 
 Name:			xcircuit
 Version:		%{short_version}.30
-Release:		5%{?dist}
+Release:		6%{?dist}
 Summary:		Electronic circuit schematic drawing program
 
 License:		GPLv2+
@@ -117,6 +117,9 @@ desktop-file-install \
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.30-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.30-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

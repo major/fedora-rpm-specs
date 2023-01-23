@@ -1,10 +1,10 @@
 Name:          nmh
-Version:       1.8RC1
-Release:       2%{?dist}
+Version:       1.8RC2
+Release:       1%{?dist}
 Summary:       A capable MIME-email-handling system with a command-line interface
 License:       BSD
-URL:           http://savannah.nongnu.org/projects/nmh
-Source0:       http://download-mirror.savannah.gnu.org/releases/%{name}/%{name}-1.8-RC1.tar.gz
+URL:           https://savannah.nongnu.org/projects/nmh
+Source0:       https://download-mirror.savannah.gnu.org/releases/%{name}/%{name}-1.8-RC2.tar.gz
 Patch0:        nmh-use-smtp-port.patch
 BuildRequires: cyrus-sasl-devel
 BuildRequires: gcc
@@ -29,7 +29,7 @@ Optional GUI interfaces are provided by the external xmh and exmh
 projects.  nmh is a descendant of the RAND MH, Mail Handler, project.
 
 %prep
-%setup -q -n %{name}-1.8-RC1
+%setup -q -n %{name}-1.8-RC2
 %patch0 -p1
 
 # Avoid regenerating autotools machinery.
@@ -53,6 +53,9 @@ CFLAGS="$RPM_OPT_FLAGS"
 %doc %{_pkgdocdir}/*
 
 %changelog
+* Sat Jan 21 2023 David Levine  <par.packager@gmail.com> - 1.8RC2-1
+- With upstream 1.8-RC2.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8RC1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

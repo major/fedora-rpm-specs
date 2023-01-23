@@ -1,6 +1,6 @@
 Name:           tintin 
 Version:        2.02.30
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TinTin++, aka tt++, is a free MUD client
 License:        GPL-3.0-only
 URL:            http://%{name}.mudhalla.net/
@@ -61,6 +61,9 @@ cd src
 %doc docs/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.02.30-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Petr Šabata <contyk@redhat.com> - 2.02.30-1
 - 2.02.30 bump
 - License correction; GPLv3 since 2.01.8

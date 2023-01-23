@@ -8,7 +8,7 @@
 
 Name:           sphinxbase
 Version:        5
-Release:        0.14.%{extraver}%{?dist}
+Release:        0.15.%{extraver}%{?dist}
 Epoch:          1
 Summary:        Common library for CMU Sphinx voice recognition products
 
@@ -163,6 +163,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{python3_sitearch}/sphinxbase
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5-0.15.prealpha
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:5-0.14.prealpha
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

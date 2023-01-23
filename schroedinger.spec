@@ -2,7 +2,7 @@
 
 Name:           schroedinger
 Version:        1.0.11
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Portable libraries for the high quality Dirac video codec
 
 # No version is given for the GPL or the LGPL
@@ -78,6 +78,9 @@ find %{buildroot} -name \*.la -delete
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-28
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

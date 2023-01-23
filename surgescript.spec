@@ -21,7 +21,7 @@ Summary: Scripting language for games
 License: %{license_main}
 
 Version: 0.5.6
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 URL: https://opensurge2d.org
 Source0: https://github.com/alemart/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -123,6 +123,9 @@ rmdir %{buildroot}%{_datadir}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Sep 02 2022 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.5.6-1
 - Update to v0.5.6
 

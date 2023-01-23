@@ -1,5 +1,5 @@
 %global packname dbplyr
-%global packver  2.2.1
+%global packver  2.3.0
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((Lahman|RPostgreSQL)\\)
@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          A 'dplyr' Back End for Databases
 
 License:          MIT
@@ -18,7 +18,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-assertthat >= 0.2.0, R-blob >= 1.2.0, R-cli >= 3.3.0, R-DBI >= 1.0.0, R-dplyr >= 1.0.9, R-glue >= 1.2.0, R-lifecycle >= 1.0.0, R-magrittr, R-methods, R-pillar >= 1.5.0, R-purrr >= 0.2.5, R-R6 >= 2.2.2, R-rlang >= 1.0.0, R-tibble >= 1.4.2, R-tidyselect >= 0.2.4, R-utils, R-vctrs >= 0.4.1, R-withr
+# Imports:   R-assertthat >= 0.2.0, R-blob >= 1.2.0, R-cli >= 3.4.1, R-DBI >= 1.0.0, R-dplyr >= 1.0.10, R-glue >= 1.2.0, R-lifecycle >= 1.0.3, R-magrittr, R-methods, R-pillar >= 1.5.0, R-purrr >= 1.0.1, R-R6 >= 2.2.2, R-rlang >= 1.0.6, R-tibble >= 1.4.2, R-tidyselect >= 1.2.0, R-utils, R-vctrs >= 0.5.0, R-withr
 # Suggests:  R-bit64, R-covr, R-knitr, R-Lahman, R-nycflights13, R-odbc, R-RMariaDB >= 1.0.2, R-rmarkdown, R-RPostgres >= 1.1.3, R-RPostgreSQL, R-RSQLite >= 2.1.0, R-testthat >= 3.0.2, R-tidyr >= 1.2.0
 # LinkingTo:
 # Enhances:
@@ -28,21 +28,21 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-assertthat >= 0.2.0
 BuildRequires:    R-blob >= 1.2.0
-BuildRequires:    R-cli >= 3.3.0
+BuildRequires:    R-cli >= 3.4.1
 BuildRequires:    R-DBI >= 1.0.0
-BuildRequires:    R-dplyr >= 1.0.9
+BuildRequires:    R-dplyr >= 1.0.10
 BuildRequires:    R-glue >= 1.2.0
-BuildRequires:    R-lifecycle >= 1.0.0
+BuildRequires:    R-lifecycle >= 1.0.3
 BuildRequires:    R-magrittr
 BuildRequires:    R-methods
 BuildRequires:    R-pillar >= 1.5.0
-BuildRequires:    R-purrr >= 0.2.5
+BuildRequires:    R-purrr >= 1.0.1
 BuildRequires:    R-R6 >= 2.2.2
-BuildRequires:    R-rlang >= 1.0.0
+BuildRequires:    R-rlang >= 1.0.6
 BuildRequires:    R-tibble >= 1.4.2
-BuildRequires:    R-tidyselect >= 0.2.4
+BuildRequires:    R-tidyselect >= 1.2.0
 BuildRequires:    R-utils
-BuildRequires:    R-vctrs >= 0.4.1
+BuildRequires:    R-vctrs >= 0.5.0
 BuildRequires:    R-withr
 BuildRequires:    R-bit64
 BuildRequires:    R-knitr
@@ -111,6 +111,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Fri Jan 20 2023 Tom Callaway <spot@fedoraproject.org> - 2.3.0-1
+- update to 2.3.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

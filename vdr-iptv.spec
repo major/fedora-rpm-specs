@@ -6,7 +6,7 @@
 
 Name:           vdr-iptv
 Version:        2.4.0
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        IPTV plugin for VDR
 License:        GPLv2+
 URL:            https://github.com/rofafor/vdr-plugin-iptv
@@ -50,6 +50,9 @@ sed -i "s|^CHANNELS_CONF=.*|CHANNELS_CONF=%{vdr_configdir}/channels.conf|; \
 %config(noreplace) %{vdr_resdir}/plugins/iptv/vlc2iptv
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.4.0-22
 - Rebuilt for new VDR API version
 

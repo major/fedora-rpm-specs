@@ -8,7 +8,7 @@
 
 Name:           vdr-%{pname}
 Version:        2.0.11
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Powerful next generation recordings menu replacement plugin for VDR
 
 License:        GPLv2+
@@ -49,6 +49,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Martin Gansser <martinkg@fedoraproject.org> - 2.0.11-9
 - Rebuilt for new VDR API version
 

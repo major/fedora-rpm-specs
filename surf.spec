@@ -1,6 +1,6 @@
 Name:           surf
 Version:        2.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Simple web browser
 License:        MIT
 URL:            http://surf.suckless.org/
@@ -66,6 +66,9 @@ install -pm0644 %{S:2} %{buildroot}%{_datadir}/pixmaps/
 %{_datadir}/pixmaps/%{name}.svg
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

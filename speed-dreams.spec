@@ -15,9 +15,9 @@ Summary: The Open Racing Car Simulator
 Name:    speed-dreams
 Version: 2.2.3
 %if 0%{?sf_release}
-Release: 5%{?dist}
+Release: 6%{?dist}
 %else
-Release: 0.14.%{svndate}svn%(echo %{src_release} | tr '-' '_').rc1%{?dist}
+Release: 0.15.%{svndate}svn%(echo %{src_release} | tr '-' '_').rc1%{?dist}
 %endif
 Epoch:   1
          # Contains LGPLv2 files also published under GPLv2+
@@ -202,6 +202,9 @@ find %{buildroot} -size 0 -delete
 %{_includedir}/%{name}-2/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.3-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

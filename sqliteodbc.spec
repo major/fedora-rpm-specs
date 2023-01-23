@@ -1,6 +1,6 @@
 Name:		sqliteodbc
 Version:	0.9996
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	SQLite ODBC Driver
 
 License:	BSD
@@ -154,6 +154,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9996-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9996-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

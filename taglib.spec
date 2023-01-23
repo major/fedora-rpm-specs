@@ -8,7 +8,7 @@
 Name:       taglib	
 Summary:    Audio Meta-Data Library
 Version:    1.12
-Release:    7%{?dist}
+Release:    8%{?dist}
 
 License:    LGPLv2 or MPLv1.1
 URL:        http://taglib.github.io/
@@ -122,6 +122,9 @@ test "$(pkg-config --modversion taglib_c)" = "%{version}"
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

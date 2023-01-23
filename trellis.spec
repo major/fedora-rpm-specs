@@ -10,7 +10,7 @@
 
 Name:          trellis
 Version:       1.2.1
-Release:       12.%{snapdate}git%{shortcommit0}%{?dist}
+Release:       13.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:       Lattice ECP5 FPGA bitstream creation/analysis/programming tools
 License:       ISC
 URL:           https://github.com/YosysHQ/prj%{name}
@@ -117,6 +117,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 man1/*
 %{_datadir}/%{name}/database
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-13.20221109git35f5aff
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 09 2022 Gabriel Somlo <gsomlo@gmail.com> - 1.2.1-12.20221109git35f5aff
 - Update to newer snapshot
 

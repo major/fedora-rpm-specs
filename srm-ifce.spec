@@ -3,7 +3,7 @@
 
 Name:		srm-ifce
 Version:	1.24.5
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	SRM client side library
 License:	ASL 2.0
 URL:		https://dmc-docs.web.cern.ch/dmc-docs/srm-ifce.html
@@ -72,6 +72,9 @@ the srm-ifce.
 %{_pkgdocdir}/RELEASE-NOTES
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.5-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.24.5-2
 - Rebuild against gsoap-2.8.124 (bugzilla #2155574)
 

@@ -1,7 +1,7 @@
 Name:    skrooge
 Summary: Personal finances manager
 Version: 2.28.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     http://skrooge.org
@@ -145,6 +145,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.skrooge.d
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Oct 10 2022 Rex Dieter <rdieter@gmail.com> - 2.28.0-1
 - 2.28.0
 

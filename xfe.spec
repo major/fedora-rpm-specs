@@ -3,7 +3,7 @@
 
 Name:		xfe
 Version:	1.45
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	X File Explorer File Manager
 
 License:	GPLv2+
@@ -150,6 +150,9 @@ ln -sf %{_sysconfdir}/xferc %{buildroot}%{_datadir}/%{name}/xferc
 %exclude	%{_datadir}/%{name}/icons/gnome*-theme/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.45-1
 - 1.45
 

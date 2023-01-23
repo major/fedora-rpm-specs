@@ -1,6 +1,6 @@
 Name:           yices
 Version:        2.6.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SMT solver
 
 # The yices code is GPL-3.0-or-later.  The cudd code is BSD-3-Clause.
@@ -182,6 +182,9 @@ make check MODE=debug
 %license copyright.txt LICENSE.txt
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.4-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 28 2022 Jerry James <loganjerry@gmail.com> - 2.6.4-5
 - Regenerate the cudd configure script to fix FTBFS
 - Convert License tag to SPDX

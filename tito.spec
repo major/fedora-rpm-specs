@@ -17,7 +17,7 @@
 
 Name: tito
 Version: 0.6.22
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A tool for managing rpm based git projects
 
 License: GPLv2
@@ -118,6 +118,9 @@ install -Dp -m 0644 share/tito_completion.sh %{buildroot}%{_datadir}/bash-comple
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.22-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 14 2022 Jakub Kadlcik <frostyx@email.cz> 0.6.22-1
 - Fix python2 urlretrieve import (frostyx@email.cz)
 - Fixed submodule archives concatenation (jerzy.drozdz@jdsieci.pl)

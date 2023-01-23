@@ -1,6 +1,6 @@
 Name:		unity-gtk-module
 Version:	0.0.0+17.04.20170403
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	GTK+ module for exporting old-style menus as GMenuModels
 
 License:	LGPLv3
@@ -215,6 +215,9 @@ done
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0+17.04.20170403-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.0+17.04.20170403-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

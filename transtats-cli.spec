@@ -7,7 +7,7 @@
 
 Name:           %{name}
 Version:        0.6.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 License:        ASL 2.0
 URL:            https://github.com/%{project}/%{name}
@@ -58,6 +58,9 @@ rm -fr %{buildroot}%{python3_sitelib}/tests
 %{_datadir}/bash-completion/completions/transtats.bash
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

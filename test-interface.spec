@@ -3,7 +3,7 @@
 
 Name:           test-interface
 Version:        %{test_interface_version}
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Uniform interface to Scala and Java test frameworks
 
 License:        BSD-3-Clause
@@ -100,6 +100,9 @@ cp pom.xml target/%{name}-%{version}.pom
 %doc LICENSE
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 1.0-22
 - Convert License tag to SPDX
 

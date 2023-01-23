@@ -4,7 +4,7 @@
 Name:		%{fontname}-fonts
 Summary:	An artistic and minimal sans-serif font family
 Version:	001.001
-Release:	25%{?dist}
+Release:	26%{?dist}
 License:	OFL
 Source0:	http://www.woodardworks.com/laconic.zip
 Source1:	%{name}-fontconfig.conf
@@ -71,6 +71,9 @@ install -Dm 0644 -p %{SOURCE4} \
 %doc laconic_eula.pdf
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 001.001-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 001.001-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

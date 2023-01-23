@@ -4,7 +4,7 @@
 
 Name:          %{fontname}-fonts
 Version:       0.6
-Release:       22%{?dist}
+Release:       23%{?dist}
 Summary:       Sans-serif Cartoon Fonts
 License:       GPLv2+
 URL:           http://serafettin.sourceforge.net/
@@ -58,6 +58,9 @@ install -Dm 0644 -p %{SOURCE2} \
 %{_datadir}/appdata/%{fontname}-condensed.metainfo.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-23
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

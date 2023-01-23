@@ -1,6 +1,6 @@
 Name:           whatmask
 Version:        1.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Convert between different netmask types and show information
 
 License:        GPLv2+
@@ -37,6 +37,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-32
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 23 2022 Peter Fordham <peter.fordham@gmail.com> - 1.2-31
 - Port configure script to C99.
 

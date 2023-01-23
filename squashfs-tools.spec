@@ -7,7 +7,7 @@ Summary: Utility for the creation of squashfs filesystems
 %forgemeta -i -v
 URL:	 %{forgeurl}
 Source:  %{forgesource}
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 
 BuildRequires: make
@@ -50,6 +50,9 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

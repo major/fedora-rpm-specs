@@ -3,7 +3,7 @@
 %global ver_patch 1
 Name:		tomsfastmath
 Version:	%{ver_maj}.%{ver_min}.%{ver_patch}
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Fast large integer arithmetic library
 
 License:	Public Domain or WTFPL
@@ -59,6 +59,9 @@ install -p -m0644 -D src/headers/tfm.h %{buildroot}%{_includedir}
 %{_libdir}/libtfm.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

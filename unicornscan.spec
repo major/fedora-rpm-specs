@@ -4,7 +4,7 @@
 Summary:        Scalable, accurate, flexible and efficient network probing
 Name:           unicornscan
 Version:        0.4.7
-Release:        32%{?dist}
+Release:        33%{?dist}
 License:        GPLv2+
 URL:            https://sourceforge.net/projects/osace/
 Source0:        https://downloads.sourceforge.net/sourceforge/osace/unicornscan/unicornscan%20-%200.4.7%20source/%{name}-%{version}-2.tar.bz2
@@ -173,6 +173,9 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/lib/%{name}/web/
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-33
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 25 2022 Florian Weimer <fweimer@redhat.com> - 0.4.7-32
 - Port configure script to C99
 

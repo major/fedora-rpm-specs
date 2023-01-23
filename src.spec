@@ -1,6 +1,6 @@
 Name:           src
 Version:        1.29
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple Revision Control
 
 License:        BSD
@@ -54,6 +54,9 @@ echo "${result}"
 %{_mandir}/man1/src.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.29-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Bob Hepple <bob.hepple@gmail.com> - 1.29-1
 - new version
 - remove Patch0:src-1.28-backport-1bbebb4a.patch 

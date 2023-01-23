@@ -20,7 +20,7 @@
 
 Name:		scalasca
 Version:	2.6.1
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Toolset for performance analysis of large-scale parallel applications
 
 # ScoutPatternParser and SilasConfigParser are Bison-generated
@@ -204,6 +204,9 @@ make check VERBOSE=1
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Dec 19 2022 Dave Love <loveshack@fedoraproject.org> - 2.6.1-1
 - New version (#2153767)
 

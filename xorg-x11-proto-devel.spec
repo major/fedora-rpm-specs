@@ -6,7 +6,7 @@
 Summary: X.Org X11 Protocol headers
 Name: xorg-x11-proto-devel
 Version: 2022.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: MIT
 URL: https://www.x.org
 BuildArch: noarch
@@ -209,6 +209,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/*/*.{html,svg}
 %{_docdir}/xorgproto/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 11 2022 Peter Hutterer <peter.hutterer@redhat.com> - 2022.2-2
 - xorgproto 2022.2
 

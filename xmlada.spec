@@ -7,7 +7,7 @@
 
 Name:           xmlada
 Version:        2020
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        XML library for Ada
 License:        GPLv3+
 URL:            http://libre.adacore.com
@@ -159,6 +159,9 @@ find %{buildroot}/%{_includedir}/%{name}/sources -type d -empty -delete
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Björn Persson <Bjorn@Rombobjörn.se> - 2020-9
 - Rebuilt with GCC 13.
 

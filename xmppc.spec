@@ -1,6 +1,6 @@
 Name:           xmppc
 Version:        0.1.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A command-line interface (CLI) XMPP Client
 
 License:        GPLv3
@@ -75,6 +75,9 @@ make check
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 15 2022 Matthieu Saulnier <fantom@fedoraproject.org> - 0.1.2-2
 - Fix Requires tag in the doc subpackage
 

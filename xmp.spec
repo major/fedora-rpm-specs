@@ -1,6 +1,6 @@
 Name: xmp
 Version: 4.1.0
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: A multi-format module player
 Source0: https://downloads.sourceforge.net/project/xmp/xmp/%{version}/xmp-%{version}.tar.gz
 # use pulseaudio output by default
@@ -42,6 +42,9 @@ Fasttracker II XM, Scream Tracker 3 S3M and Impulse Tracker IT files.
 %{_mandir}/man1/xmp.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

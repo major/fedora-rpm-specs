@@ -1,6 +1,6 @@
 Name:    zsh-syntax-highlighting
 Version: 0.7.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 Summary: Fish shell like syntax highlighting for Zsh
 License: BSD
@@ -41,6 +41,9 @@ rm %{buildroot}/%{_docdir}/%{name}/COPYING.md
 %{_datadir}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

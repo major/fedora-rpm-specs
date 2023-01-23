@@ -2,7 +2,7 @@
 %bcond_without	system_nss
 %bcond_without	system_libvpx
 %bcond_without	system_webp
-%bcond_without	system_icu
+%bcond_with	system_icu
 %bcond_without	system_ffi
 %bcond_with	system_hunspell
 %bcond_with	system_cairo
@@ -18,8 +18,8 @@
 %bcond_without	irc
 %bcond_with	debugqa
 
-%global nspr_version	4.25.0
-%global nss_version	3.53.1
+%global nspr_version	4.32.0
+%global nss_version	3.79.0
 %global libvpx_version	1.5.0
 %global webp_version	1.0.0
 %global icu_version	63.1
@@ -38,8 +38,8 @@
 
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
-Version:        2.53.14
-Release:        4%{?dist}
+Version:        2.53.15
+Release:        1%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -49,11 +49,12 @@ Source0:	http://archive.mozilla.org/pub/seamonkey/releases/%{version}/source/sea
 Source1:	http://archive.mozilla.org/pub/seamonkey/releases/%{version}/source/seamonkey-%{version}.source-l10n.tar.xz
 %endif
 
-Source3:	seamonkey-2.53.8-GNUmakefile
+Source3:	seamonkey-2.53.15-GNUmakefile
 Source4:	seamonkey.desktop
 Source5:	seamonkey-mail.desktop
 Source6:	seamonkey-ua-update.json.in
 
+Patch1:		seamonkey-2.53.15-nss_3_79_0.patch
 Patch3:		seamonkey-2.53.9-mozilla-1516803.patch
 Patch5:		firefox-35-rhbz-1173156.patch
 Patch7:		firefox-51-mozilla-1005640.patch
@@ -76,26 +77,25 @@ Patch25:	seamonkey-2.53.7-mailnews-useragent.patch
 Patch26:	seamonkey-2.53.13-userDisabled.patch
 Patch27:	seamonkey-2.53.8-ext-if-needed.patch
 Patch28:	seamonkey-2.53.8-mozilla-1619108.patch
+Patch29:	seamonkey-2.53.15-prtypes.patch
 Patch30:	seamonkey-2.53.5-nss_pkcs11_v3.patch
 Patch31:	seamonkey-2.53.1-mozilla-526293.patch
 Patch34:	seamonkey-2.53.3-startupcache.patch
 Patch35:	seamonkey-2.53.8-server-folder.patch
-Patch36:	seamonkey-2.53.9-locale-matchos-UI.patch
-Patch37:	seamonkey-2.53.9-mozilla-1720968.patch
+Patch36:	seamonkey-2.53.15-locale-matchos-UI.patch
+Patch37:	seamonkey-2.53.15-mozilla-1720968.patch
 Patch38:	seamonkey-2.53.8-mozilla-521861.patch
 Patch39:	seamonkey-2.53.8.1-dateformat.patch
 Patch40:	seamonkey-2.53.10-slowscript.patch
-Patch41:	seamonkey-2.53.10-revert-1737436.patch
+Patch41:	seamonkey-2.53.15-revert-1737436.patch
 Patch42:	seamonkey-2.53.10-postmessage.patch
-Patch44:	seamonkey-2.53.14-pre-regexp.patch
+Patch44:	seamonkey-2.53.15-pre-regexp.patch
 Patch45:	seamonkey-2.53.13-regexp.patch
 Patch46:	seamonkey-2.53.10-regexp-imported.patch
 Patch47:	seamonkey-2.53.13-ffmpeg59-headers.patch
-Patch48:	seamonkey-2.53.13-ffmpeg59-1750760.patch
-Patch49:	seamonkey-2.53.14-mozilla-1193394.patch
-Patch50:	seamonkey-2.53.14-mozilla-1480236.patch
-Patch51:	seamonkey-2.53.14-mozilla-1443429.patch
-Patch52:	seamonkey-2.53.14-mozilla-1443746.patch
+Patch48:	seamonkey-2.53.15-ffmpeg59-1750760.patch
+Patch49:	seamonkey-2.53.15-post-regexp.patch
+Patch50:	seamonkey-2.53.15-mozilla-1464782.patch
 
 Patch60:	seamonkey-2.53.11-ua-update.patch
 Patch61:	seamonkey-2.53.13-ua-update-preload.patch
@@ -199,6 +199,7 @@ cd mozilla
 
 cp %{SOURCE3} GNUmakefile
 
+%patch1 -p0 -b .nss_3_79_0
 %patch3 -p1 -b .1516803
 %patch5 -p2 -b .1173156
 %patch7 -p1 -b .1005640
@@ -222,6 +223,7 @@ cp %{SOURCE3} GNUmakefile
 %patch27 -p0 -b .ext-if-needed
 %patch28 -p0 -b .1619108
 
+%{?with_system_nss:%patch29 -p1 -b .prtypes}
 %{?with_system_nss:%patch30 -p3 -b .nss_pkcs11_v3}
 %patch31 -p3 -b .526293
 %patch34 -p2 -b .startupcache
@@ -241,10 +243,8 @@ rm -rf js/src/{irregexp,new-regexp}
 %patch46 -p1
 %patch47 -p1
 %patch48 -p1 -b .1750760
-%patch49 -p1 -b .1193394
-%patch50 -p1 -b .1480236
-%patch51 -p1 -b .1443429
-%patch52 -p1 -b .1443746
+%patch49 -p0
+%patch50 -p1 -b .1464782
 
 %patch60 -p1 -b .ua-update
 %patch61 -p1 -b .ua-update-preload
@@ -344,8 +344,6 @@ pref("app.updatecheck.override", true);
 pref("extensions.update.autoUpdateDefault", false);
 pref("browser.helperApps.deleteTempFileOnExit", true);
 pref("general.smoothScroll", true);
-pref("intl.locale.matchOS",   true);
-pref("intl.regional_prefs.use_os_locales", true);
 pref("extensions.shownSelectionUI", true);
 pref("extensions.autoDisableScopes", 0);
 pref("shell.checkDefaultApps",   0);
@@ -366,6 +364,10 @@ pref("extensions.ui.lastCategory", "addons://list/extension");
 /*  use system dictionaries (hunspell)   */
 pref("spellchecker.dictionary_path", "%{_datadir}/hunspell");
 
+/*  provide "locale match OS" behaviour   */
+pref("intl.locale.requested", "");
+pref("intl.regional_prefs.use_os_locales", true);
+
 /* Allow sending credetials to all https:// sites */
 pref("network.negotiate-auth.trusted-uris", "https://");
 
@@ -374,7 +376,7 @@ lockPref("calendar.useragent.extra", "");
 
 /* Completely mimic to Firefox for compatibility with this World nowadays...  */
 pref("general.useragent.compatMode.strict-firefox", true);
-pref("general.useragent.compatMode.version", "78.0");
+pref("general.useragent.compatMode.version", "91.0");
 
 /* Keep the same behaviour as for years  */
 pref("browser.tabs.autoHide", true);
@@ -533,6 +535,13 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Sat Jan 21 2023 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.15-1
+- update to 2.53.15
+- add fix for mozbz 1464782
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.53.14-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Pete Walter <pwalter@fedoraproject.org> - 2.53.14-4
 - Rebuild for ICU 72
 

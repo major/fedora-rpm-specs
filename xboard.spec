@@ -1,7 +1,7 @@
 Summary: An X Window System graphical chessboard
 Name: xboard
 Version: 4.9.1
-Release: 16%{?dist}
+Release: 17%{?dist}
 URL: https://www.gnu.org/software/xboard/
 Source0: ftp://ftp.gnu.org/pub/gnu/xboard/xboard-%{version}.tar.gz
 Source1: xboard.desktop
@@ -71,6 +71,9 @@ install -pm 755 -p cmail $RPM_BUILD_ROOT%{_bindir}
 %{_datadir}/mime/packages/xboard.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.9.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

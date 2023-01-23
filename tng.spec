@@ -13,7 +13,7 @@ beginning of the file.
 
 Name:          tng
 Version:       1.8.2
-Release:       12%{?dist}
+Release:       13%{?dist}
 Summary:       Trajectory Next Generation binary format manipulation library
 
 License:       BSD and zlib
@@ -101,6 +101,9 @@ popd
 %{_docdir}/%{name}
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

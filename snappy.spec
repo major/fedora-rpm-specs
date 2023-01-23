@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:           snappy
 Version:        1.1.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Fast compression and decompression library
 
 License:        BSD
@@ -95,6 +95,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-6
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

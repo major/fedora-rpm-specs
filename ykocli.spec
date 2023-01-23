@@ -4,7 +4,7 @@
 
 Name:     ykocli
 Version:  1.1.1
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  Front-end script for ykman to obtain TOTP tokens
 
 License:  GPL-3.0-or-later
@@ -52,6 +52,9 @@ that places ykman obtained TOTP tokens into the CopyQ clipboard.
 %{_mandir}/man1/ykocli.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 17 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.1.1-1
 - Allow multiple yubikeys rhbz#2161474
 

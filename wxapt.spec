@@ -1,6 +1,6 @@
 Name:           wxapt
 Version:        1.7.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Console application for decoding and saving weather images
 
 License:        GPLv2+
@@ -41,6 +41,9 @@ install -pm 0755 src/%{name} %{buildroot}%{_bindir}/
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-9
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

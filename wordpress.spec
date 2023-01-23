@@ -21,7 +21,7 @@ Summary:    Blog tool and publishing platform
 URL:        http://www.wordpress.org
 Name:       wordpress
 Version:    %{upstream_version}%{?upstream_prever:~%upstream_lower}
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    GPLv2
 
 Source0:    https://wordpress.org/%{name}-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}.tar.gz
@@ -262,6 +262,9 @@ end
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Remi Collet <remi@remirepo.net> - 6.1.1-1
 - WordPress 6.1.1 Maintenance Release
 

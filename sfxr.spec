@@ -1,6 +1,6 @@
 Name:           sfxr
 Version:        1.2.1
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Sound effect generator
 License:        MIT
 URL:            http://www.drpetter.se/project_sfxr.html
@@ -48,6 +48,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

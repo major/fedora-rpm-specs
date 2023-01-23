@@ -4,7 +4,7 @@
 
 Name:           zulucrypt
 Version:        6.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Qt GUI front end to cryptsetup
 
 # Major license is GPLv3+ (but GPLv2+ for some source files)
@@ -199,6 +199,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/zulu*.desktop
 %doc docs/README docs/*.jpg
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sun Aug 14 2022 Ian McInerney <ian.s.mcinerney@ieee.org> - 6.2.0-1
 - Update to version 6.2.0 (fixes rhbz#2088941)
 

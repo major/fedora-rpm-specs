@@ -2,7 +2,7 @@
 
 Name:           wmCalClock
 Version:        1.25
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        A Calendar clock with antialiased text
 
 License:        GPLv2+
@@ -40,6 +40,9 @@ cd Src
 %{_mandir}/man1/wmCalClock.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-37
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.25-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

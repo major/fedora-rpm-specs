@@ -1,6 +1,6 @@
 Name:		tuptime
 Version:	5.2.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Report historical system real time
 
 License:	GPL-2.0-or-later
@@ -102,6 +102,9 @@ su -s /bin/sh _tuptime -c "(umask 0022 && /usr/bin/tuptime -q)"
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jan 07 2023 Frank Crawford <frank@crawford.emu.id.au> - 5.2.2-2
 - Update from -x to -q in setup
 

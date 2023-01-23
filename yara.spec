@@ -2,7 +2,7 @@ Name:           yara
 Version:        4.3.0
 %global         upversion         %{version}-rc1
 
-Release:        0.rc1.1%{?dist}
+Release:        0.rc1.2%{?dist}
 Summary:        Pattern matching Swiss knife for malware researchers
 
 # yara package itself is licensed with BSD 3 clause license
@@ -32,7 +32,10 @@ Source0:        https://github.com/%{gituser}/%{gitname}/archive/v%{upversion}.t
 # to avoid static installation of font files on fedora >= 24
 Patch1:         yara-docs-theme.patch
 
-
+# https://github.com/VirusTotal/yara/commit/90c43e24f0dedd130bea199e6c23094271c3f491
+# test-pe fails on s390x
+Patch2:         https://github.com/VirusTotal/yara/commit/90c43e24f0dedd130bea199e6c23094271c3f491.patch#/yara-4.3.0-test-pe-s390x.patch
+Patch3:         https://github.com/VirusTotal/yara/commit/d1a6ef20c049d86a136111dce53b4eb65c4df1bd.patch#/yara-4.3.0-test-pe2-s390x.patch
 
 BuildRequires:  git
 BuildRequires:  gcc
@@ -43,6 +46,7 @@ BuildRequires:  binutils
 BuildRequires:  coreutils
 BuildRequires:  sharutils
 BuildRequires:  file
+BuildRequires:  sed
 BuildRequires:  gawk
 BuildRequires:  gzip
 BuildRequires:  xz
@@ -96,14 +100,18 @@ developing applications that use %{name}.
 autoreconf --force --install
 
 
+
+
+
 %build
 
-# Add missing definition on RHEL7
+# Add missing protobuf definition on RHEL7, and also configure for the libcrypto11/openssl11 from EPEL
 %if 0%{?rhel} && 0%{?rhel} == 7
-export CFLAGS="$CFLAGS -D PROTOBUF_C_FIELD_FLAG_ONEOF=4"
+export CFLAGS="%{optflags} -D PROTOBUF_C_FIELD_FLAG_ONEOF=4 $(pkg-config --cflags libcrypto11)"
+export LDFLAGS="$LDFLAGS $(pkg-config --libs libcrypto11)"
 %endif
 
-# macro %%configure already does use CFLAGS="\{optflags}" and yara build
+# macro %%configure already does use CFLAGS="%%{optflags}" and yara build
 # scripts configure/make already honors that CFLAGS
 %configure --enable-magic --enable-cuckoo --enable-debug --enable-dotnet \
         --enable-macho --enable-dex --enable-pb-tests \
@@ -133,20 +141,26 @@ rm -f %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo
 %endif
 
 %check
-%ifarch s390x
-    # test-pe and test-dotnet fails for x390x at this point
-    make check || (
-        echo "===== ./test-suite.log"
-        [ -f ./test-suite.log ] && cat ./test-suite.log
-        echo "===== test-pe.log"
-        [ -f ./test-pe.log ] && cat ./test-pe.log
-        echo "===== test-dotnet.log"
-        [ -f ./test-dotnet.log ] && cat ./test-dotnet.log
-    )
-%else
-    make check
-%endif
+make check || (
+    # print more verbose info in case the test(s) fail
+    echo "===== ./test-suite.log"
+    [ -f ./test-suite.log ] && cat ./test-suite.log
+    # Build in COPR lacking the hwinfo.log
+    echo "===== /proc/cpu"
+    head -n 35 /proc/cpuinfo
+    echo "===== /etc/os-release"
+    cat /etc/os-release
+    echo "===== uname -a"
+    uname -a
 
+%ifarch s390x
+    # test-pe and test-dotnet fails for x390x at this point - ignored for rc1
+    true
+%else
+    # test-pe fails for RHEL9 x86-64 at this point in copr on "AMD EPYC" cpu, it doesn't affect Fedora build on Intel CPU
+    false
+%endif
+)
 
 %files
 %license COPYING
@@ -171,6 +185,12 @@ rm -f %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo
 
 
 %changelog
+* Sat Jan 21 2023 Michal Ambroz <rebus at, seznam.cz> - 4.3.0-0.rc1.2
+- fix EPEL7 build
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-0.rc1.1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 03 2023 Michal Ambroz <rebus at, seznam.cz> - 4.3.0-0.rc1.1
 - bump to 4.3.0 rc1
 - remove the androguard module which is no longer available from github

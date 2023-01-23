@@ -24,7 +24,7 @@ Name:      xorg-x11-drv-qxl
 
 Version:   0.1.5
 
-Release:   23%{?gver}%{?dist}
+Release:   24%{?gver}%{?dist}
 URL:       http://www.x.org
 Source0:  http://xorg.freedesktop.org/releases/individual/driver/%{tarball}-%{version}.tar.bz2
 #Source0:   %{tarball}-%{gitdate}.tar.bz2
@@ -124,6 +124,9 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/X11/spiceqxl.xorg.conf
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Olivier Fourdan <ofourdan@redhat.com> - 0.1.5-23
 - Fix build with recent Xorg (#2047132)
 

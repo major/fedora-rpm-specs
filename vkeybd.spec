@@ -7,7 +7,7 @@
 Summary:      Virtual MIDI keyboard
 Name:         vkeybd
 Version:      0.1.18d
-Release:      24%{?dist}
+Release:      25%{?dist}
 License:      GPLv2+
 URL:          http://www.alsa-project.org/~iwai/alsa.html
 Source0:      http://www.alsa-project.org/~iwai/vkeybd-0.1.18d.tar.bz2
@@ -68,6 +68,9 @@ desktop-file-install \
 %{_datadir}/icons/hicolor/64x64/apps/vkeybd.png
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18d-25
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18d-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

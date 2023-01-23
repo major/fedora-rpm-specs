@@ -1,6 +1,6 @@
 Name:           svg2svgt
 Version:        0.9.6
-Release:        16%{?commit:.git%shortcommit}%{?dist}
+Release:        17%{?commit:.git%shortcommit}%{?dist}
 Summary:        SVG to SVG Tiny converter
 
 License:        LGPLv2+
@@ -143,6 +143,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/{applications,icons,metainfo}/
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-17
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           srt
 Version:        1.5.1
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPLv2.0
@@ -59,12 +59,13 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 %check
 # - test are broken on s390x for some slowness/timing reason
 # - tests can't be run in parallel because they reuse port numbers
-# - %%ctest macro doesn't support additional ctest arguments
 # - TestIPv6 are known broken due to v4_v6 mapping differnces between platforms
 #   https://github.com/Haivision/srt/issues/1972#
+# - Skip one more test (TestSocketOptions.InvalidVals) for now
+#   https://github.com/Haivision/srt/issues/2623
 %ifnarch s390x
-cd "%{__cmake_builddir}"
-%{__ctest} --output-on-failure --force-new-ctest-process -j1 -E TestIPv6
+%define _smp_build_ncpus 1
+%ctest -E 'TestIPv6|TestSocketOptions.InvalidVals'
 %endif
 
 
@@ -91,6 +92,12 @@ cd "%{__cmake_builddir}"
 
 
 %changelog
+* Sat Jan 21 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.1-3
+- Additional test tweaks
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 26 2022 Yanko Kaneti <yaneti@declera.com> - 1.5.1-1
 - Update to 1.5.1
 

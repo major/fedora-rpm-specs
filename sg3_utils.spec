@@ -3,7 +3,7 @@
 Summary: Utilities for devices that use SCSI command sets
 Name: sg3_utils
 Version: 1.46
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+ and BSD
 Source0: http://sg.danny.cz/sg/p/sg3_utils-%{version}.tar.xz
 Source2: scsi-rescan.8
@@ -98,6 +98,9 @@ install -p -m 755 scripts/fc_wwpn_id $RPM_BUILD_ROOT/usr/lib/udev
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.46-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

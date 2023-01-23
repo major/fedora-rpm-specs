@@ -14,7 +14,7 @@
 
 Name:           wallpapoz
 Version:        %{mainver}
-Release:        %{rel}%{?dist}.2
+Release:        %{rel}%{?dist}.3
 Summary:        Gnome Multi Backgrounds and Wallpapers Configuration Tool
 
 License:        GPLv2+
@@ -223,6 +223,9 @@ install -cpm 0644  \
 %{_datadir}/applications/*%{name}.desktop
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-13.3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-13.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

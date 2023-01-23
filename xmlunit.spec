@@ -2,7 +2,7 @@
 
 Name:           xmlunit
 Version:        2.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provides classes to do asserts on xml
 # The whole package is ASL 2.0 except for xmlunit-legacy which is BSD
 License:        ASL 2.0 and BSD
@@ -128,6 +128,9 @@ rm -rf xmlunit-core/src/{main,test}/java/org/xmlunit/builder/{jaxb/,JaxbBuilder.
 %files placeholders -f .mfiles-xmlunit-placeholders
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.9.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Oct 04 2022 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.9.0-2
 - Fix BuildRequires on javapackages-extra
 

@@ -1,7 +1,7 @@
 Name:           stardict
 Summary:        A powerful dictionary platform written in GTK+2
 Version:        3.0.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 # The entire source code is GPLv3+ except
 # dict/src/lib/ctype-{uca,utf8}.cpp which is GPLv2+
 # dict/src/lib/ctype-uca.cpp which is GPLv2+
@@ -90,6 +90,9 @@ rm dict/doc/{Makefile*,Readme.mac,README_windows.txt}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

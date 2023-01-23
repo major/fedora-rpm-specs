@@ -1,6 +1,6 @@
 Name:           ski
 Version:        1.3.2
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        IA-64 user and system mode simulator
 
 License:        GPLv2+
@@ -97,6 +97,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 11 2023 Florian Weimer <fweimer@redhat.com> - 1.3.2-37
 - Apply patches from github.com/trofi/ski to fix C99 compatibility issues
 - Fix sporadic build failure due to missing makefile dependency

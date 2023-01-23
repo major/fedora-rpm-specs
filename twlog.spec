@@ -3,7 +3,7 @@
 
 Name:		twlog
 Version:	3.4
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Records basic ham radio log information
 License:	GPLv2+
 
@@ -73,6 +73,9 @@ install -p -D -m 0644 ./src/Twlog %{buildroot}/%{_datadir}/X11/app-defaults/Twlo
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Peter Fordham <peter.fordham@gmail.com> - 3.4-7
 - Port configure script to C99
 

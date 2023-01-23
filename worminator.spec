@@ -1,6 +1,6 @@
 Name:           worminator
 Version:        3.0R2.1
-Release:        39%{?dist}
+Release:        40%{?dist}
 Summary:        Sidescrolling platform and shoot'em up action-game
 License:        GPLv2+
 URL:            http://sourceforge.net/projects/worminator/
@@ -59,6 +59,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0R2.1-40
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 23 2022 Peter Fordham <peter.fordham@gmail.com> - 3.0R2.1-39
 - Add a missing int for C99 compliance.
 

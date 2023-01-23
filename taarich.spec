@@ -2,7 +2,7 @@ Summary: Tells the Hebrew date, Torah readings, and generates calendars
 Summary(he): תוכנות להדפסת התאריך העברי, פרשות השבוע, ולוחות שנה.
 Name: taarich
 Version: 1.20051120
-Release: 34%{?dist}
+Release: 35%{?dist}
 URL: ftp://ftp.math.technion.ac.il/calendar/gauss/
 Source0: gauss-%{version}.tar.gz
 License: BSD
@@ -41,6 +41,9 @@ install -m644 {luach.man,taarich.man} %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20051120-35
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.20051120-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

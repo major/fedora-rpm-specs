@@ -6,7 +6,7 @@
 
 Name:           s3cmd
 Version:        2.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for accessing Amazon Simple Storage Service
 
 License:        GPL-2.0-or-later
@@ -80,6 +80,9 @@ install -D -p -m 0644 -t %{buildroot}%{_mandir}/man1 s3cmd.1
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Nov 21 2022 Frank Crawford <frank@crawford.emu.id.au> - 2.3.0-2
 - SPDX license update
 

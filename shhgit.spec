@@ -14,7 +14,7 @@ Find GitHub secrets in real time.}
 %global godocs          README.md
 
 Name:           shhgit
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        GitHub secrets search tool
 
 License:        MIT
@@ -56,6 +56,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Aug 10 2022 Maxwell G <gotmax@e.email> - 0.2-10
 - Rebuild to fix FTBFS
 

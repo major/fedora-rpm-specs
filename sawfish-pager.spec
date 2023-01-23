@@ -1,6 +1,6 @@
 Name:           sawfish-pager
 Version:        0.90.4
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Pager for Sawfish window manager
 License:        GPLv2+
 URL:            http://sawfish.wikia.com/
@@ -43,6 +43,9 @@ make %{?_smp_mflags}
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.4-20
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 13 2022 Florian Weimer <fweimer@redhat.com> - 0.90.4-19
 - Re-enable deprecated GTK/GDK features for C99 compatibility (#2153033)
 

@@ -18,7 +18,7 @@ ExclusiveArch: %{power64} x86_64 aarch64
 Name:      sdsl-lite
 Summary:   SDSL v3 - Succinct Data Structure Library
 Version:   3.0.1
-Release:   2%{date}%{shortcommit}%{?dist}
+Release:   3%{date}%{shortcommit}%{?dist}
 License:   BSD and MIT
 URL:       https://github.com/xxsds/sdsl-lite
 Source0:   https://github.com/xxsds/sdsl-lite/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -94,6 +94,9 @@ rm -f %{buildroot}%{_includedir}/sdsl/.gitignore
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

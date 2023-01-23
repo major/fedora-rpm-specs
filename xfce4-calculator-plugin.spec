@@ -4,7 +4,7 @@
 
 Name:		xfce4-calculator-plugin
 Version:	0.7.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	A calculator plugin for the Xfce4 panel
 
 License:	GPLv2+
@@ -54,6 +54,9 @@ rm -f NEWS
 %{_datadir}/icons/hicolor/*/*/*calculator*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

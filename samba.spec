@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.0
-%global baserelease 1
+%global baserelease 2
 # This should be rc1 or %%nil
 %global pre_release rc1
 
@@ -4368,6 +4368,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.18.0-0.2.rc1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 19 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.0rc1
 - resolves: #2162097 - Update to version 4.18.0rc1
 

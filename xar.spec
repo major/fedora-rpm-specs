@@ -2,7 +2,7 @@
 
 Name:           xar
 Version:        1.8.0.%{subversion}
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        The eXtensible ARchiver
 License:        BSD
 URL:            https://opensource.apple.com/source/xar
@@ -91,6 +91,9 @@ popd
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0.417.1-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.8.0.417.1-9
 - Enable build on aarch64, ppc64le
 

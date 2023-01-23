@@ -1,6 +1,6 @@
 Name:              torsocks
 Version:           2.4.0
-Release:           3%{?dist}
+Release:           4%{?dist}
 
 Summary:           Use SOCKS-friendly applications with Tor
 License:           GPLv2+
@@ -64,6 +64,9 @@ popd
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 2.4.0-3
 - Improve C99 compatibility (#2154535)
 

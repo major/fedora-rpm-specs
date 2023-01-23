@@ -93,7 +93,7 @@ BuildRequires: metis-devel
 
 Name: superlu_dist
 Version: 8.1.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Epoch:   1
 
 Summary: Solution of large, sparse, nonsymmetric systems of linear equations
@@ -504,6 +504,9 @@ popd
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:8.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Dec 31 2022 Antonio Trande <sagitter@fedoraproject.org> - 1:8.1.1-2
 - Disable colamd support in epel9
 

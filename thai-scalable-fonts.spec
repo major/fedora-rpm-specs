@@ -9,7 +9,7 @@
 
 Name:      %{fontname}-fonts
 Version:   0.7.3
-Release:   3%{?dist}
+Release:   4%{?dist}
 Summary:   Thai TrueType fonts
 License:   GPLv2+ and Bitstream Vera
 URL:       http://linux.thai.net/projects/thaifonts-scalable
@@ -308,6 +308,9 @@ install -Dm 0644 -p %{SOURCE23} \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

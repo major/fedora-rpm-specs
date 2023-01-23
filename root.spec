@@ -25,11 +25,7 @@
 %global root7 0
 %endif
 
-%if %{?fedora}%{!?fedora:0} >= 33 || %{?rhel}%{!?rhel:0} >= 7
 %global xrootd5 1
-%else
-%global xrootd5 0
-%endif
 
 %global webgui 1
 
@@ -65,7 +61,7 @@
 Name:		root
 Version:	6.26.10
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPLv2+
@@ -183,6 +179,11 @@ Patch36:	%{name}-PyROOT-Prevent-cast-error-when-calling-PyTuple_SET_I.patch
 #		Avoid race condition between C++ an Python version of test
 #		https://github.com/root-project/root/pull/11643
 Patch37:	%{name}-avoid-race-condition-tutorial-roofit-rf512.patch
+#		Add missing #include <cstdint>
+#		https://github.com/root-project/root/pull/12065
+Patch38:	%{name}-add-missing-include-cstdint.patch
+#		Backport from upstream
+Patch39:	%{name}-fix-compilation-with-gcc13.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	devtoolset-8-toolchain
@@ -519,7 +520,7 @@ to call Python from ROOT.
 %if %{buildpy2}
 %package -n python2-%{name}
 Summary:	Python extension for ROOT
-%{?python_provide:%python_provide python2-%{name}}
+%py_provides	python2-%{name}
 Provides:	%{name}-python = %{version}-%{release}
 Obsoletes:	%{name}-python < 6.08.00
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -532,7 +533,7 @@ possible to use ROOT classes in Python.
 
 %package -n python2-jupyroot
 Summary:	ROOT Jupyter kernel
-%{?python_provide:%python_provide python2-jupyroot}
+%py_provides	python2-jupyroot
 Requires:	python2-%{name}%{?_isa} = %{version}-%{release}
 Requires:	python2-jsmva = %{version}-%{release}
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -554,7 +555,7 @@ The Jupyter kernel for the ROOT notebook.
 %package -n python2-jsmva
 Summary:	TMVA interface used by JupyROOT
 BuildArch:	noarch
-%{?python_provide:%python_provide python2-jsmva}
+%py_provides	python2-jsmva
 Requires:	%{name}-tmva = %{version}-%{release}
 
 %description -n python2-jsmva
@@ -563,7 +564,7 @@ TMVA interface used by JupyROOT.
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary:	Python extension for ROOT
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+%py_provides	python%{python3_pkgversion}-%{name}
 Provides:	%{name}-python%{python3_pkgversion} = %{version}-%{release}
 Obsoletes:	%{name}-python%{python3_pkgversion} < 6.08.00
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -578,7 +579,7 @@ possible to use ROOT classes in Python.
 
 %package -n python%{python3_pkgversion}-jupyroot
 Summary:	ROOT Jupyter kernel
-%{?python_provide:%python_provide python%{python3_pkgversion}-jupyroot}
+%py_provides	python%{python3_pkgversion}-jupyroot
 Requires:	python%{python3_pkgversion}-%{name}%{?_isa} = %{version}-%{release}
 Requires:	python%{python3_pkgversion}-jsmva = %{version}-%{release}
 Requires:	%{name}-core%{?_isa} = %{version}-%{release}
@@ -599,7 +600,7 @@ The Jupyter kernel for the ROOT notebook.
 %package -n python%{python3_pkgversion}-jsmva
 Summary:	TMVA interface used by JupyROOT
 BuildArch:	noarch
-%{?python_provide:%python_provide python%{python3_pkgversion}-jsmva}
+%py_provides	python%{python3_pkgversion}-jsmva
 Requires:	%{name}-tmva = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-jsmva
@@ -609,7 +610,7 @@ TMVA interface used by JupyROOT.
 %package -n python%{python3_pkgversion}-distrdf
 Summary:	Distributed RDataFrame
 BuildArch:	noarch
-%{?python_provide:%python_provide python%{python3_pkgversion}-distrdf}
+%py_provides	python%{python3_pkgversion}-distrdf
 Requires:	python%{python3_pkgversion}-%{name} = %{version}-%{release}
 Requires:	%{name}-tree-dataframe = %{version}-%{release}
 
@@ -2049,6 +2050,8 @@ This package contains an ntuple extension for ROOT 7.
 %patch35 -p1
 %patch36 -p1
 %patch37 -p1
+%patch38 -p1
+%patch39 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2771,17 +2774,11 @@ excluded="${excluded}|\
 pyunittests-pyroot-roofit-roodataset-numpy"
 %endif
 
-%ifarch %{ix86} %{arm}
-%if %{?fedora}%{!?fedora:0} <= 35
-# Tests failing on 32 bit architectures (dataframe)
-# - gtest-roofit-RDataFrameHelpers-test-testActionHelpers
-# - gtest-tree-dataframe-test-dataframe-*
-# - gtest-tree-dataframe-test-datasource-*
+%if %{?fedora}%{!?fedora:0} >= 38
+# Failures with Fedora 38 (GCC 13 related?)
 excluded="${excluded}|\
-gtest-roofit-RDataFrameHelpers-test-testActionHelpers|\
-gtest-tree-dataframe-test-dataframe|\
-gtest-tree-dataframe-test-datasource"
-%endif
+pyunittests-dataframe-histograms|\
+tutorial-legacy-rootenv"
 %endif
 
 %ifarch %{arm}
@@ -2828,7 +2825,7 @@ test-stressroostats-interpreted|\
 pyunittests-pyroot-pyz-rdataframe-makenumpy|\
 tutorial-dataframe-df032_MakeNumpyDataFrame-py"
 
-%if %{?fedora}%{!?fedora:0} == 34 || %{?fedora}%{!?fedora:0} == 35 || %{?rhel}%{!?rhel:0} == 9
+%if %{?rhel}%{!?rhel:0} == 9
 # tmva/tmva/test/branchlessForest.cxx:215: Failure
 # Expected equality of these values:
 #   predictions[1]
@@ -2942,19 +2939,31 @@ test-stressgraphics"
 %endif
 
 %if %{?fedora}%{!?fedora:0} >= 38
-# - pyunittests-pyroot-pyz-rdataframe-asnumpy
-# - pyunittests-pyroot-pyz-rdataframe-makenumpy
-# - tutorial-dataframe-df024_Display(-py)
-# - tutorial-dataframe-df026_AsNumpyArrays-py
-# - tutorial-dataframe-df032_MakeNumpyDataFrame-py
-# - tutorial-tmva-tmva002_RDataFrameAsTensor
+# Segmentation faults and invalid pointers
+# Mainly related to DataFrame
 excluded="${excluded}|\
+pyunittests-dataframe|\
+pyunittests-distrdf-unit-backend-test-dist|\
+pyunittests-distrdf-unit-test-headnode|\
 pyunittests-pyroot-pyz-rdataframe-asnumpy|\
 pyunittests-pyroot-pyz-rdataframe-makenumpy|\
-tutorial-dataframe-df024_Display|\
-tutorial-dataframe-df026_AsNumpyArrays-py|\
-tutorial-dataframe-df032_MakeNumpyDataFrame-py|\
-tutorial-tmva-tmva002_RDataFrameAsTensor"
+pyunittests-pyroot-rdfdescription|\
+gtest-roofit-RDataFrameHelpers-test-testActionHelpers|\
+gtest-tree-dataframe-test-dataframe|\
+gtest-tree-dataframe-test-datasource|\
+gtest-tree-ntuple-v7-test-ntuple-rdf|\
+tutorial-dataframe-df|\
+tutorial-graphs-timeSeriesFromCSV_TDF|\
+tutorial-multicore-mt304_fillHistos|\
+tutorial-rcanvas|\
+tutorial-roofit-rf408_RDataFrameToRooFit-py|\
+tutorial-roofit-rf508_listsetmanip-py|\
+tutorial-tmva-tmva002_RDataFrameAsTensor|\
+tutorial-v7-concurrentfill.cxx|\
+tutorial-v7-histops.cxx|\
+tutorial-v7-perf.cxx|\
+tutorial-v7-perfcomp.cxx|\
+tutorial-v7-simple.cxx"
 %endif
 %endif
 
@@ -3985,6 +3994,9 @@ fi
 %endif
 
 %changelog
+* Fri Jan 20 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.10-4
+- Add missing #include <cstdint>
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.26.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

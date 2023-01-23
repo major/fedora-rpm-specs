@@ -1,6 +1,6 @@
 Name:           spice-vdagent
 Version:        0.22.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Agent for Spice guests
 License:        GPLv3+
 URL:            https://spice-space.org/
@@ -75,6 +75,9 @@ autoreconf -fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.22.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

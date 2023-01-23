@@ -10,7 +10,7 @@
 
 Name:           tilix
 Version:        1.9.5
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Tiling terminal emulator
 
 # The tilix source code is MPL-2.0,
@@ -150,6 +150,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/com.gexperts.Tilix
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 06 2022 Kalev Lember <klember@redhat.com> - 1.9.5-7
 - Run self tests as part of the package build
 

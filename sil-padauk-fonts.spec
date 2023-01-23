@@ -8,7 +8,7 @@ on all OpenType and Graphite based systems.
 
 Name:    %{fontname}-fonts
 Version: 3.003
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: A font for Burmese and the Myanmar script
 
 License: OFL
@@ -75,6 +75,9 @@ install -Dm 0644 -p %{SOURCE4} \
         %{buildroot}%{_datadir}/appdata/%{fontname}-book.metainfo.xml
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.003-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

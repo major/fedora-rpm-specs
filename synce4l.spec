@@ -4,7 +4,7 @@
 
 Name:		synce4l
 Version:	0
-Release:	3.%{gitdate}git%{gitrel}%{?dist}
+Release:	4.%{gitdate}git%{gitrel}%{?dist}
 Summary:	SyncE implementation for Linux
 
 License:	GPL-2.0-or-later
@@ -64,6 +64,9 @@ echo '.so man8/synce4l.8' > $RPM_BUILD_ROOT%{_mandir}/man5/synce4l.conf.5
 %{_mandir}/man8/*.8*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-4.20221114gitca51d5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 16 2022 Miroslav Lichvar <mlichvar@redhat.com> 0-3.20221114gitca51d5
 - update to 20221114gitca51d5 (#2141038)
 

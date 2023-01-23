@@ -1,7 +1,7 @@
 Summary: Transparent and scalable SSL/TLS interception
 Name: sslsplit
 Version: 0.5.5
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: BSD
 Url: http://www.roe.ch/SSLsplit
 Source: http://mirror.roe.ch/rel/sslsplit/sslsplit-%{version}.tar.bz2
@@ -49,6 +49,9 @@ cp -a %{name}.1  %{buildroot}%{_mandir}/man1/
 %{_mandir}/*/*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.5-11
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Paul Wouters <paul.wouters@aiven.io - 0.5.5-10
 - Resolves: rhbz#2021905 sslsplit: FTBFS with OpenSSL 3.0.0
 

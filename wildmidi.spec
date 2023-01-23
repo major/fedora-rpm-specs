@@ -1,6 +1,6 @@
 Name:           wildmidi
 Version:        0.4.5
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Softsynth midi player
 License:        GPLv3+
 URL:            http://www.mindwerks.net/projects/wildmidi
@@ -73,6 +73,9 @@ ln -s ../timidity.cfg $RPM_BUILD_ROOT%{_sysconfdir}/%{name}/%{name}.cfg
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.5-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Karel Volný <kvolny@redhat.com> - 0.4.5-1
 - New upstream release 0.4.5 (rhbz#2161010)
 

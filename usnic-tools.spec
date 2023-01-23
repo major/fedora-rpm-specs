@@ -1,6 +1,6 @@
 Name:           usnic-tools
 Version:        1.1.2.1
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Diagnostic tool for Cisco usNIC devices
 License:        GPLv2 or BSD
 Url:            https://github.com/cisco/usnic_tools
@@ -34,6 +34,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/usnic_devinfo
 %{_mandir}/man1/usnic_devinfo.1.gz
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2.1-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2.1-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

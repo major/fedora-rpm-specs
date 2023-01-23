@@ -3,7 +3,7 @@
 
 Name:           setzer
 Version:        0.4.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        LaTeX editor written in Python with Gtk
 
 %forgemeta
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{uuid}.desktop
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 29 2022 Lyes Saadi <fedora@lyes.eu> - 0.4.8-1
 - Updating to 0.4.8 (fix #2112453)
 

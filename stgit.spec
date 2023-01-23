@@ -1,7 +1,7 @@
 Summary: Patch stack for Git repositories
 Name: stgit
 Version: 1.5
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 URL: https://stacked-git.github.io/
 Source: https://github.com/stacked-git/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -69,6 +69,9 @@ install -m 644 -D contrib/vim/ftdetect/stg.vim $RPM_BUILD_ROOT%{_datadir}/vim/vi
 %{_datadir}/vim/vimfiles/ftdetect/stg.vim
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

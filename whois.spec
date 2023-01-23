@@ -9,7 +9,7 @@
 
 Name:       whois       
 Version:    5.5.15
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Improved WHOIS client
 License:    GPLv2+
 URL:        https://www.linux.it/~md/software/
@@ -150,6 +150,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.15-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Petr Menšík <pemensik@redhat.com> - 5.5.15-2
 - Switch back to debian archives with signature checking
 - Correct VCS tag format

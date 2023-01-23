@@ -17,7 +17,7 @@ to be sent to the system via a broker.}
 %global godocs          INSTALL.md HACKING.md README.md
 
 Name:           yggdrasil
-Release:        0.4%{?dist}
+Release:        0.5%{?dist}
 Summary:        Remote execution client and dispatch service
 
 License:        GPLv3
@@ -148,6 +148,9 @@ install -D -m 0644 -vp data/yggdrasil/config.toml %{buildroot}%{_sysconfdir}/%{l
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.98^1.ffb580f-0.5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.98^1.ffb580f-0.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

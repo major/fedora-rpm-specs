@@ -1,6 +1,6 @@
 Name:           soundconverter
 Version:        4.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Simple sound converter application for GNOME
 License:        GPLv3
 
@@ -82,6 +82,9 @@ rm -f %{buildroot}%{_datadir}/glib-2.0/schemas/gschemas.compiled
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

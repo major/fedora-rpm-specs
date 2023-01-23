@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:           stress
 Version:        1.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A tool to put given subsystems under a specified load
 
 License:        GPLv2+
@@ -40,6 +40,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 18 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.6-1
 - 1.0.6
 

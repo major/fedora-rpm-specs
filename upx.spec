@@ -1,6 +1,6 @@
 Name:           upx
 Version:        4.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ultimate Packer for eXecutables
 
 License:        GPLv2+ and Public Domain
@@ -47,6 +47,9 @@ rm -f %{buildroot}%{_datadir}/doc/upx/*
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-2
 - Patches for CVE-2023-23456, CVE-2023-23457
 

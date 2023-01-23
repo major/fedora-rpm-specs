@@ -4,7 +4,7 @@
 
 Name:           subtitleeditor
 Version:        0.54.0
-Release:        17.%{date}git%{shortcommit}%{?dist}
+Release:        18.%{date}git%{shortcommit}%{?dist}
 Summary:        GTK+3 tool to edit subtitles for GNU/Linux/*BSD
 
 License:        GPLv3+
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.kiton
 %{_libdir}/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.54.0-18.20220919git75fa38b
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 13 2023 Dominik 'Rathann' Mierzejewski <dominik@greysector.net> - 0.54.0-17.20220919git75fa38b
 - update to current git HEAD
 - switch to enchant2 (enchant is EOL, last release in 2010)

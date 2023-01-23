@@ -49,7 +49,7 @@ Name:           sbd
 Summary:        Storage-based death
 License:        GPLv2+
 Version:        1.5.1
-Release:        %{buildnum}%{?dist}.1
+Release:        %{buildnum}%{?dist}.2
 Url:            https://github.com/%{github_owner}/%{name}
 Source0:        https://github.com/%{github_owner}/%{name}/archive/%{longcommit}/%{name}-%{longcommit}.tar.gz
 Patch0:         0001-Refactor-sbd-md-alloc-de-alloc-reverse-order-in-slot.patch
@@ -177,6 +177,9 @@ fi
 %{_libdir}/libsbdtestbed*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2.2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

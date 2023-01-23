@@ -1,11 +1,11 @@
 Name:           perl-Email-Date-Format
-Version:        1.005
-Release:        24%{?dist}
+Version:        1.008
+Release:        1%{?dist}
 Summary:        Produce RFC 2822 date strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Date-Format
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Email-Date-Format-%{version}.tar.gz
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -42,6 +42,9 @@ make test
 %{_mandir}/man3/*.3*
 
 %changelog
+* Sat Jan 21 2023 Tom Callaway <spot@fedoraproject.org> - 1.008-1
+- update to 1.008
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

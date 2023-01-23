@@ -1,6 +1,6 @@
 Name:           transmageddon
 Version:        1.5
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Video transcoder
 
 License:        LGPLv2+
@@ -66,6 +66,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/transmageddon.desk
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-30
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

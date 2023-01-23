@@ -122,7 +122,7 @@ m     stapdev  stapdev
 
 Name: systemtap
 Version: 4.8
-Release: 1%{?release_override}%{?dist}
+Release: 2%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1284,6 +1284,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 03 2022 Serhei Makarov <serhei@serhei.io> - 4.8-1
 - Upstream release, see wiki page below for detailed notes.
   https://sourceware.org/systemtap/wiki/SystemTapReleases

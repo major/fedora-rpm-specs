@@ -4,12 +4,14 @@
 
 Name:           tlx
 Version:        0.5.20210401
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Sophisticated C++ data structures, algorithms, and helpers
 
 License:        BSL-1.0
 URL:            https://panthema.net/tlx
 Source0:        https://github.com/tlx/tlx/archive/%{gittag}/%{name}-%{shorttag}.tar.gz
+# Add missing #include <cstdint> directives
+Patch0:         tlx-cstdint.patch
 
 BuildRequires:  cmake
 BuildRequires:  doxygen
@@ -54,7 +56,7 @@ BuildArch:     noarch
 Doxygen documentation for tlx.
 
 %prep
-%autosetup -n tlx-%{gittag}
+%autosetup -n tlx-%{gittag} -p1
 
 %build
 %cmake \
@@ -88,6 +90,12 @@ doxygen
 %doc doxygen-html
 
 %changelog
+* Sat Jan 21 2023 Jerry James <loganjerry@gmail.com> - 0.5.20210401-2
+- Add cstdint patch to fix FTBFS
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.20210401-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 0.5.20210401-1
 - Version 0.5.20210401
 - Convert License tag to SPDX

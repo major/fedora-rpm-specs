@@ -2,7 +2,7 @@ Summary: A utility which maintains a system's symbolic links
 Name: symlinks
 URL: http://ibiblio.org/pub/Linux/utils/file/
 Version: 1.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: Copyright only
 # Upstream maintainer provided tarball, ibiblio no longer allowing uploads
 Source0: http://ibiblio.org/pub/Linux/utils/file/%{name}-%{version}.tar.gz
@@ -40,6 +40,9 @@ install -m 644 symlinks.1 $RPM_BUILD_ROOT%{_mandir}/man1
 %{_mandir}/man1/symlinks.1*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

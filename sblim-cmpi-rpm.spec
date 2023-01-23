@@ -1,6 +1,6 @@
 Name:           sblim-cmpi-rpm
 Version:        1.0.1
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        CIM access to installed software packages (currently RPMs)
 
 License:        CPL
@@ -166,6 +166,9 @@ fi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-34
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Nov 23 2022 Florian Weimer <fweimer@redhat.com> - 1.0.1-33
 - Avoid undeclared exit function in configure
 

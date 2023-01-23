@@ -1,6 +1,6 @@
 Name:           zaz
 Version:        1.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A puzzle game where the player has to arrange balls in triplets
 
 # Music released under CC-BY-SA
@@ -115,6 +115,9 @@ install -p -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_mandir}/man6/
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

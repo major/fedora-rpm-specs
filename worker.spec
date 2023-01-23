@@ -1,6 +1,6 @@
 Name:		worker
 Version:	4.11.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	File Manager for the X11
 
 License:	GPLv2+
@@ -54,6 +54,9 @@ desktop-file-install	\
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Sep 19 2022 Filipe Rosset <rosset.filipe@gmail.com> - 4.11.0-1
 - Update to 4.11.0 fixes rhbz#2127764
 

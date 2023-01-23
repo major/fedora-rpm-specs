@@ -1,6 +1,6 @@
 Name:		stp
 Version:	2.3.3
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	Constraint solver/decision procedure
 
 # MIT: the project as a whole
@@ -18,6 +18,8 @@ Patch1:         %{name}-private-libs.patch
 # Distutils has been deprecated.  Use sysconfig instead.
 # https://github.com/stp/stp/pull/450
 Patch2:         %{name}-distutils.patch
+# Add a missing include for cstdint
+Patch3:         %{name}-cstdint.patch
 
 BuildRequires:	bison
 BuildRequires:	boost-devel
@@ -125,6 +127,12 @@ mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-24
+- Add cstdint patch to fix FTBFS
+
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-24
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Dec 14 2022 Jerry James <loganjerry@gmail.com> - 2.3.3-23
 - Add distutils patch
 - Use more specific globs in %%files

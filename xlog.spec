@@ -1,6 +1,6 @@
 Name:          xlog
 Version:       2.0.22
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Logging program for Hamradio Operators
 
 License:       GPLv3
@@ -64,6 +64,9 @@ desktop-file-install \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.22-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 08 2022 Richard Shaw <hobbes1069@gmail.com> - 2.0.22-9
 - Rebuild for updated hamlib 4.5.
 

@@ -1,7 +1,7 @@
 Name:		ser2net
 Summary: 	Proxy that allows tcp connections to serial ports
 Version:	3.5
-Release:	12%{?dist}
+Release:	13%{?dist}
 License:	GPLv2+
 Source0:	http://download.sourceforge.net/ser2net/%{name}-%{version}.tar.gz
 Source1:	%{name}.service
@@ -61,6 +61,9 @@ install %{SOURCE1} %{buildroot}%{_unitdir}
 %{_mandir}/man8/%{name}*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

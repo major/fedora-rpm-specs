@@ -1,6 +1,6 @@
 Name:           webtech
 Version:        1.2.11
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tool to identify technologies used on websites
 
 License:        GPLv3+
@@ -37,6 +37,9 @@ sed -i -e '/^#!\//, 1d' webtech/*.py
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

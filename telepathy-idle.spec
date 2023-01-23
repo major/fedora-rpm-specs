@@ -1,6 +1,6 @@
 Name:		telepathy-idle
 Version:	0.2.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	IRC connection manager for Telepathy
 
 License:	LGPL-2.1-only AND LGPL-2.1-or-later
@@ -53,6 +53,9 @@ make check
 %{_mandir}/man8/%{name}.8*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue May 17 2022 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 0.2.2-1
 - Update to 0.2.2 (RHBZ #2064643)
 

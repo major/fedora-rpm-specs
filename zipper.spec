@@ -1,7 +1,7 @@
 Name:           zipper
 Summary:        C++ wrapper around minizip compression library
 Version:        1.0.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 URL:            https://github.com/sebastiandev/zipper
 
 ## Source archive from github obtained by
@@ -86,6 +86,9 @@ rm -f %{buildroot}%{_bindir}/Zipper-test
 %{_libdir}/libZipper-static.a
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

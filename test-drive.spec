@@ -1,6 +1,6 @@
 Name:           test-drive
 Version:        0.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The simple testing framework
 License:        ASL 2.0 or MIT
 URL:            https://github.com/fortran-lang/test-drive
@@ -47,6 +47,9 @@ rm -rf %{buildroot}%{_includedir}/test-drive/
 %{_libdir}/libtest-drive.so
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

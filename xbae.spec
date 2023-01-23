@@ -1,6 +1,6 @@
 Name:           xbae
 Version:        4.60.4
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Motif matrix, caption and text input widgets
 # all the files are covered by the MIT license, except DebugUtil.c LGPLv2+
 License:        LGPLv2+
@@ -161,6 +161,9 @@ mv __dist_examples __dist_code_examples/code_examples
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.60.4-36
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 4.60.4-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

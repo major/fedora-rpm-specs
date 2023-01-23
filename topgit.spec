@@ -1,6 +1,6 @@
 Name:		topgit
 Version:	0.19.13
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A different patch queue manager
 License:	GPLv2
 URL:		https://mackyle.github.io/topgit/
@@ -65,6 +65,9 @@ make DEFAULT_TEST_TARGET=prove \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.13-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.13-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           tth
 Version:        4.16
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        TeX to HTML/MathML translators
 
 License:        GPL-2.0-only
@@ -252,6 +252,9 @@ cp -p tthgold/tth*.sty %{buildroot}%{_texmf_main}/tex/generic/%{name}
 %{_includedir}/tth.h
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.16-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Jerry James <loganjerry@gmail.com> - 4.16-1
 - Version 4.16
 - Convert License tag to SPDX

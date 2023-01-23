@@ -3,7 +3,7 @@
 
 Name:		xfce4-timer-plugin
 Version:	1.7.1
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Timer for the Xfce panel
 License:	GPLv2+
 URL:		http://goodies.xfce.org/projects/panel-plugins/%{name}
@@ -47,6 +47,9 @@ certain times.
 %{_datadir}/icons/hicolor/*/apps/xfce4-timer-plugin.*g
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

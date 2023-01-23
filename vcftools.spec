@@ -1,6 +1,6 @@
 Name:		vcftools
 Version:	0.1.16
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	VCF file manipulation tools
 
 License:	GPLv3 
@@ -69,6 +69,9 @@ make check
 %{_mandir}/man1/vcftools.1.gz
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.16-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Sep 01 2022 Filipe Rosset <rosset.filipe@gmail.com> - 0.1.16-15
 - spec cleanup and modernization
 

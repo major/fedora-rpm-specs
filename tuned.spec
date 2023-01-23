@@ -50,7 +50,7 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.19.0
-Release: 2%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Release: 3%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPLv2+
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -564,6 +564,9 @@ fi
 %{_mandir}/man7/tuned-profiles-openshift.7*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 12 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.19.0-2
 - added fix for python-3.12
   resolves: rhbz#2154801

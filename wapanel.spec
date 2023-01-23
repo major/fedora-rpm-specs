@@ -1,6 +1,6 @@
 Name:       wapanel
 Version:    1.1.0
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Desktop-dedicated wayland bar for wayfire and other wlroots based compositors
 
 License:    MIT
@@ -83,6 +83,9 @@ rm %{buildroot}%{_libdir}/lib%{name}-appletapi.a
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

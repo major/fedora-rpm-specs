@@ -11,7 +11,7 @@
 
 Name:           why3
 Version:        1.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Software verification platform
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -310,6 +310,9 @@ chmod 0755 %{buildroot}%{_bindir}/* \
 %files all
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan  6 2023 Jerry James <loganjerry@gmail.com> - 1.5.1-4
 - BR tex(tgtermes.sty) to fix FTBFS with TeXLive 2022
 

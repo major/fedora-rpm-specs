@@ -1,7 +1,7 @@
 Summary: Realtime software looping sampler
 Name: sooperlooper
 Version: 1.7.3
-Release: 21%{?dist}
+Release: 22%{?dist}
 License: GPLv2+
 URL: http://essej.net/sooperlooper/
 Source0: http://essej.net/sooperlooper/sooperlooper-%{version}.tar.gz
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-22
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Aug 04 2022 Scott Talbert <swt@techie.net> - 1.7.3-21
 - Rebuild with wxWidgets 3.2
 

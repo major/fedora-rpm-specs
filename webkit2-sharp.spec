@@ -4,7 +4,7 @@
 
 Name:       webkit2-sharp
 Version:    0
-Release:    0.16%{?snapshotdate:.%{snapshotdate}git%{shortcommit}}%{?dist}
+Release:    0.17%{?snapshotdate:.%{snapshotdate}git%{shortcommit}}%{?dist}
 Summary:    C# bindings for WebKit 2 with GTK+ 3
 
 License:    MIT
@@ -85,6 +85,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.17.20170219gita59fd76
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.16.20170219gita59fd76
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

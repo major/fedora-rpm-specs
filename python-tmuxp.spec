@@ -1,10 +1,11 @@
 %global srcname tmuxp
 
 Name:           python-%{srcname}
-Version:        1.18.1
+Version:        1.25.0
 Release:        %autorelease
 Summary:        Tmux session manager
 
+# This is the proper SPDX license
 License:        MIT
 URL:            https://tmuxp.git-pull.com/
 Source:         %{pypi_source}

@@ -4,7 +4,7 @@
 
 Name:		tcl-%{realname}
 Version:	2.4.1
-Release:	25%{?dist}
+Release:	26%{?dist}
 Summary:	Multi-column hierarchical listbox widget for Tk
 License:	TCL
 URL:		http://tktreectrl.sourceforge.net/
@@ -44,6 +44,9 @@ rm -rf $RPM_BUILD_ROOT%{tcl_sitearch}/treectrl%{version}/htmldoc
 %{_mandir}/mann/treectrl*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-26
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

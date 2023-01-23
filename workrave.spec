@@ -4,7 +4,7 @@
 
 Name: workrave
 Version: 1.10.50
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Program that assists in the recovery and prevention of RSI
 # Based on older packages by Dag Wieers <dag@wieers.com> and Steve Ratcliffe
 License: GPLv3+
@@ -210,6 +210,9 @@ desktop-file-install \
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.50-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 04 2022 Yaakov Selkowitz <yselkowi@redhat.com> - 1.10.50-1
 - Update to 1.10.50
 - Enable GNOME Flashback applet

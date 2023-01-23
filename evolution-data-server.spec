@@ -58,11 +58,14 @@
 
 Name: evolution-data-server
 Version: 3.47.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.47/%{name}-%{version}.tar.xz
+
+# https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/112
+Patch0: webkitgtk-2.39.5.patch
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
@@ -488,6 +491,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Jan 20 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 3.47.1-3
+- Build against WebKitGTK 2.39.5
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.47.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

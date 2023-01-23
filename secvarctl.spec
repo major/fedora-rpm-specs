@@ -1,6 +1,6 @@
 Name:		secvarctl
 Version:	0.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	A command line tool for managing Secure Boot Variables on POWER
 
 License:	ASL 2.0
@@ -44,6 +44,9 @@ The sub-commands are:
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

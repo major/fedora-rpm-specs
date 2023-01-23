@@ -1,6 +1,6 @@
 Name:           wordgrinder
 Version:        0.8
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A command line word processor
 
 License:        MIT
@@ -82,6 +82,9 @@ update-mime-database %{?fedora:-n} %{_datadir}/mime &> /dev/null || :
 
 ###############################################################################
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

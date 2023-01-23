@@ -7,7 +7,7 @@
 
 Name:           spirv-llvm8.0-translator
 Version:        8
-Release:        4%{?vc_rev}%{?dist}
+Release:        5%{?vc_rev}%{?dist}
 Summary:        LLVM 8.0 to SPIRV Translator
 
 License:        NCSA
@@ -82,6 +82,9 @@ This package contains the standalone llvm 8.0 to spirv tool.
 %{_libdir}/pkgconfig/LLVMSPIRVLib.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8-5.20211223gita44863e
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 8-4.20211223gita44863e
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

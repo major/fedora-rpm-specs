@@ -1,6 +1,6 @@
 Name:           xml-commons-resolver
 Version:        1.2
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Resolver subproject of xml-commons
 License:        ASL 2.0
 URL:            http://xerces.apache.org/xml-commons/components/resolver/
@@ -72,6 +72,9 @@ install -p -m 644 %{SOURCE8} ${RPM_BUILD_ROOT}%{_mandir}/man1/xml-xread.1
 %doc LICENSE.resolver.txt NOTICE-resolver.txt
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-39
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

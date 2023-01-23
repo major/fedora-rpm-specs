@@ -3,7 +3,7 @@
 
 Name: scitokens-cpp
 Version: 0.7.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: C++ Implementation of the SciTokens Library
 License: ASL 2.0
 URL: https://github.com/scitokens/scitokens-cpp
@@ -74,6 +74,9 @@ Requires: %{name}%{?_isa} = %{version}
 %dir %{_includedir}/scitokens
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Nov 01 2022 Derek Weitzel <dweitzel@unl.edu> - 0.7.3-1
 - Retry failed key renewal every 5 minutes
 

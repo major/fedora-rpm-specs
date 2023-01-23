@@ -1,6 +1,6 @@
 Name:           shotwell
 Version:        0.31.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A photo organizer for the GNOME desktop
 
 # LGPLv2+ for the code
@@ -112,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shotwell-Vi
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31.7-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Dec 20 2022 Gwyn Ciesla <gwync@protonmail.com> - 0.31.7-2
 - LibRaw rebuild
 

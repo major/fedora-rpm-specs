@@ -2,7 +2,7 @@
 
 Name:           tmux
 Version:        3.3a
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A terminal multiplexer
 
 # Most of the source is ISC licensed; some of the files in compat/ are 2 and
@@ -67,6 +67,9 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3a-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Aug 19 2022 Filipe Rosset <rosset.filipe@gmail.com> - 3.3a-1
 - Update to 3.3a
 

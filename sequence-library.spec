@@ -1,6 +1,6 @@
 Name:           sequence-library
 Version:        1.0.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Textual diff and merge library
 
 License:        Sequence     
@@ -47,6 +47,9 @@ cp -pr %{SOURCE1} pom.xml
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-15
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

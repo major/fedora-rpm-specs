@@ -1,6 +1,6 @@
 Name:           xcalc
 Version:        1.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Scientific Calculator X11 Client
 
 License:        MIT
@@ -51,6 +51,9 @@ desktop-file-validate ${RPM_BUILD_ROOT}%{_datadir}/applications/xcalc.desktop
 %doc ChangeLog README.md
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

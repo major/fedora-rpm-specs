@@ -2,7 +2,7 @@
 
 Name:		vpnc
 Version:	0.5.3
-Release:	44%{snapshot}%{?dist}
+Release:	45%{snapshot}%{?dist}
 Summary:	IPSec VPN client compatible with Cisco equipment
 License:	GPLv2+
 URL:		http://www.unix-ag.uni-kl.de/~massar/vpnc/
@@ -100,6 +100,9 @@ install -m 0644 %{SOURCE8} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-45.svn550
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-44.svn550
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

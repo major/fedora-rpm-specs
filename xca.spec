@@ -4,7 +4,7 @@
 Summary:	Graphical X.509 certificate management tool
 Name:		xca
 Version:	2.4.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 License:	BSD
 URL:		https://hohnstaedt.de/xca/
 Source0:	https://github.com/%{gitowner0}/%{gitproject0}/releases/download/RELEASE.%{version}/%{name}-%{version}.tar.gz
@@ -111,6 +111,9 @@ desktop-file-install --mode 0644					\
 
 #-------------------------------------------------------------------------------
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

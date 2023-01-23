@@ -1,6 +1,6 @@
 Name:		voms-clients-java
 Version:	3.3.2
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Virtual Organization Membership Service Java clients
 
 License:	ASL 2.0
@@ -149,6 +149,9 @@ fi
 %license LICENSE
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

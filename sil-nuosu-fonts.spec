@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 #
 Version: 2.200
-Release: 6%{?dist}
+Release: 7%{?dist}
 URL:     http://scripts.sil.org/SILYi_home
 
 %global foundry           SIL
@@ -42,6 +42,9 @@ sed -i 's/\r//' OFL.txt FONTLOG.txt
 %fontfiles
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.200-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.200-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

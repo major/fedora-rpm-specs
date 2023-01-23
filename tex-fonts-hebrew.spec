@@ -3,7 +3,7 @@
 Summary: Culmus Hebrew fonts support for LaTeX
 Name: tex-fonts-hebrew
 Version: 0.1
-Release: 37%{?dist}
+Release: 38%{?dist}
 URL: http://culmus.sf.net
 # There is no real upstream for this package. It was based on Yotam Medini's
 # http://www.medini.org/hebrew/culmus2ltx-2003-02-28.tar.gz but is now
@@ -92,6 +92,9 @@ fi
 /usr/bin/texhash >/dev/null 2>&1 || :
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-38
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,7 +9,7 @@
 Summary: Tools for certain user account management tasks
 Name: usermode
 Version: 1.114
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+
 URL: https://pagure.io/%{name}/
 Source: https://releases.pagure.org/%{name}/%{name}-%{version}.tar.xz
@@ -113,6 +113,9 @@ done
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.114-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jan 06 2023 Tomas Popela <tpopela@redhat.com> - 1.114-6
 - Don't build GTK 2 bits on RHEL 10 as GTK 2 won't be available there
 

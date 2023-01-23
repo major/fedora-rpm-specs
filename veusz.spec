@@ -1,6 +1,6 @@
 Name:           veusz
 Version:        3.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        GUI scientific plotting package
 
 License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
@@ -125,6 +125,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Jeremy Sanders <jeremy@jeremysanders.net> - 3.5.3-2
 - Use explicit files, rather than glob all
 - Update licence to new rules

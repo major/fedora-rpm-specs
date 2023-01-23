@@ -1,6 +1,6 @@
 Name:       tipcutils
 Version:    3.0.4
-Release:    7%{?dist}
+Release:    8%{?dist}
 License:    BSD
 URL:        http://tipc.sourceforge.net/
 Summary:    TIPC utilities package for Linux
@@ -66,6 +66,9 @@ make install DESTDIR=%{buildroot}
 make check
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

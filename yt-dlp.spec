@@ -8,7 +8,7 @@
 
 Name:           yt-dlp
 Version:        2023.01.06
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A command-line program to download videos from online video platforms
 
 License:        Unlicense
@@ -112,6 +112,9 @@ make yt-dlp.1 completion-bash completion-zsh completion-fish
 %{fish_completions_dir}/%{name}.fish
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2023.01.06-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Jan 10 2023 Maxwell G <gotmax@e.email> - 2023.01.06-1
 - Update to 2023.01.06. Fixes rhbz#2157879.
 

@@ -1,6 +1,6 @@
 Name:		tint2
 Version:	17.0.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	A lightweight X11 desktop panel and task manager
 
 License:	GPLv2
@@ -87,6 +87,9 @@ fi
 %{_mandir}/man1/tint2*
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.2-4
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

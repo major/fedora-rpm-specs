@@ -1,7 +1,7 @@
 Summary: A complete ODBC driver manager for Linux
 Name: unixODBC
 Version: 2.3.11
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://www.unixODBC.org/
 # Programs are GPL, libraries are LGPL, except News Server library is GPL.
 License: GPLv2+ and LGPLv2+
@@ -115,6 +115,9 @@ find $RPM_BUILD_ROOT%{_libdir} -name "*.so"   | sed "s|^$RPM_BUILD_ROOT||" > dev
 %_libdir/pkgconfig/*.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.11-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Tue Aug 16 2022 Michal Schorm <mschorm@redhat.com> - 2.3.11-1
 - Rebase to 2.3.11
 

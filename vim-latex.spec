@@ -1,6 +1,6 @@
 Name:		vim-latex
 Version:	1.10.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Tools to view, edit and compile LaTeX documents in Vim
 # According to doc/latex-suite license is Vim charityware license
 License:	Vim
@@ -73,6 +73,9 @@ Documentation for vim-latex.
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-12
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Jan 04 2023 Arthur Bols <arthur@bols.dev> - 1.10.0-11
 - Spec file cleanup
 

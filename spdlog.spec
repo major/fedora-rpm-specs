@@ -1,6 +1,6 @@
 Name:           spdlog
 Version:        1.11.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        MIT
 Summary:        Super fast C++ logging library
@@ -66,6 +66,9 @@ ln -svf %{_includedir}/catch2/catch.hpp ./tests/catch.hpp
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Nov 03 2022 Vitaly Zaitsev <vitaly@easycoding.org> - 1.11.0-1
 - Updated to version 1.11.0.
 

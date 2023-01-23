@@ -1,6 +1,6 @@
 Name:           wgrib2
 Version:        2.0.8
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Manipulate, inventory and decode GRIB2 files
 
 # most files are public domain, geo.c and Netcdf.c are GPL+, gribtab.c is GPLv2+
@@ -64,6 +64,9 @@ install wgrib2/wgrib2 $RPM_BUILD_ROOT%{_bindir}/wgrib2
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-13
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

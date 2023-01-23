@@ -18,7 +18,7 @@
 Summary:        The SCSI target daemon and utility programs
 Name:           scsi-target-utils
 Version:        1.0.79
-Release:        6%{?dist}
+Release:        7%{?dist}
 License:        GPLv2
 URL:            http://stgt.sourceforge.net/
 Source0:        https://github.com/fujita/tgt/archive/v%{version}/tgt-v%{version}.tar.gz
@@ -141,6 +141,9 @@ pushd usr
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.79-7
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.79-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Console-based network traffic monitor
 Name: vnstat
 Version: 2.10
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2
 URL: http://humdi.net/vnstat/
@@ -100,6 +100,9 @@ exit 0
 %{_bindir}/vnstati
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 09 2022 Adrian Reber <adrian@lisas.de> - 2.10-1
 - Upgrade to 2.10 (#2137399)
 

@@ -1,7 +1,7 @@
 Summary:       A graphical X3D/VRML97 editor, simple 3D modeler and animation tool
 Name:          wdune
 Version:       1.958
-Release:       9%{?dist}
+Release:       10%{?dist}
 License:       GPLv2+ and GPLv3+ and LGPLv3+ and BSD and Public Domain and ASL 2.0
 URL:           http://wdune.ourproject.org/
 Source:        ftp://ftp.ourproject.org/pub/wdune/wdune-%{version}.tar.bz2
@@ -219,6 +219,9 @@ desktop-file-install                                         \
 %doc README.txt docs
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.958-10
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.958-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

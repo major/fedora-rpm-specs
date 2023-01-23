@@ -41,7 +41,7 @@
 
 Name:           wine
 Version:        8.0
-Release:        0.rc4.1%{?dist}
+Release:        0.rc4.1%{?dist}.1
 Summary:        A compatibility layer for windows applications
 
 License:        LGPLv2+
@@ -2820,6 +2820,9 @@ fi
 %endif
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-0.rc4.1.1
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Mon Jan 16 2023 Michael Cronenworth <mike@cchtml.com> - 8.0-0.rc4.1
 - version update
 

@@ -2,7 +2,7 @@
 
 Name:           wlr-randr
 Version:        0.2.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An xrandr clone for wlroots compositors
 
 # Overall project license: MIT
@@ -44,6 +44,9 @@ wlr-randr is an xrandr clone for wlroots compositors
 %{_bindir}/wlr-randr
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Dec 02 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.0-1
 - Update to 0.2.0
 - Convert License tag to SPDX

@@ -1,6 +1,6 @@
 Name:           touchegg
 Version:        2.0.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Multi-touch gesture recognizer
 
 License:        GPLv3+
@@ -78,6 +78,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/%{name}.desktop
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.15-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Nov 18 2022 Maxwell G <gotmax@e.email> - 2.0.15-1
 - Update to 2.0.15. Fixes rhbz#2143434.
 

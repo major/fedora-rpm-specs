@@ -4,7 +4,7 @@
 
 Name:           unicode-ucd
 Version:        15.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Unicode Character Database
 
 # https://fedoraproject.org/wiki/Licensing/MIT#Modern_Style_without_sublicense_.28Unicode.29
@@ -62,6 +62,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.0-2
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Wed Sep 14 2022 Jens Petersen <petersen@redhat.com> - 15.0.0-1
 - https://www.unicode.org/versions/Unicode15.0.0/ (#2126234)
 - http://blog.unicode.org/2022/09/announcing-unicode-standard-version-150.html

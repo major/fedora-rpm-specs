@@ -4,7 +4,7 @@
 Epoch:   1
 Name:    svnkit
 Version: 1.8.12
-Release: 15%{?dist}
+Release: 16%{?dist}
 Summary: Pure Java library to manage Subversion working copies and repositories
 
 # License located at https://svnkit.com/license.html
@@ -140,6 +140,9 @@ done
 %license LICENSE.txt ASL-2.0.txt
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.12-16
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.12-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

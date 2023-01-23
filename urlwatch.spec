@@ -1,6 +1,6 @@
 Name:           urlwatch
 Version:        2.21
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A tool for monitoring webpages for updates
 
 License:        BSD
@@ -57,6 +57,9 @@ chmod a+x %{buildroot}%{python3_sitelib}/%{name}/handler.py
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-8
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 

@@ -9,9 +9,9 @@
 Name:       shutter
 Version:    0.99.2
 %if 0%{?usesnapshot}
-Release:    0.3%{?snapshottag}%{?dist}
+Release:    0.4%{?snapshottag}%{?dist}
 %else
-Release:    4%{?dist}
+Release:    5%{?dist}
 %endif
 Summary:    GTK+3-based screenshot application written in Perl
 
@@ -142,6 +142,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-5
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Fri Jul 22 2022 Martin Gansser <martinkg@fedoraproject.org> - 0.99.2-4
 - Add %%{name}-appdata.patch to fix invalid tag in xml file (BZ#2109819)
 
