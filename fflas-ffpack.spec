@@ -57,9 +57,6 @@ BuildRequires:  make
 BuildRequires:  tex(stmaryrd.sty)
 # Default font for graphviz/dot
 BuildRequires:  font(freesans)
-# LaTeX errors due to missing dependency on texlive-wasy
-# https://bugzilla.redhat.com/show_bug.cgi?id=2162170
-BuildRequires:  texlive-wasy
 %endif
 
 # Although there are references to linbox-devel files in this package,

@@ -1017,6 +1017,7 @@ sed -i -e /CppunitTest_sc_financial_functions_test/d sc/Module_sc.mk # ppc64*
 sed -i -e /CppunitTest_sc_statistical_functions_test/d sc/Module_sc.mk # aarch64/ppc64*
 sed -i -e /CppunitTest_dbaccess_hsqldb_test/d dbaccess/Module_dbaccess.mk # ppc64le
 sed -i -e s/CppunitTest_dbaccess_RowSetClones// dbaccess/Module_dbaccess.mk # ppc64le
+sed -i -e s/CppunitTest_sw_macros_test// sw/Module_sw.mk # s390x
 
 #see rhbz#2072615
 git rm vcl/qa/cppunit/graphicfilter/data/tiff/fail/CVE-2017-9936-1.tiff

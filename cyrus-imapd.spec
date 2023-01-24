@@ -6,7 +6,7 @@
 
 Name: cyrus-imapd
 Version: 3.6.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 %define ssl_pem_file_prefix /etc/pki/%name/%name
 
@@ -673,6 +673,9 @@ getent passwd cyrus >/dev/null || /usr/sbin/useradd -c "Cyrus IMAP Server" -d /v
 
 
 %changelog
+* Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 3.6.0-3
+- Rebuild for clamav 1.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

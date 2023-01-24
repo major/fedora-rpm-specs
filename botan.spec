@@ -2,7 +2,7 @@
 
 Name:           botan
 Version:        %{major_version}.17
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Crypto library written in C++
 
 License:        BSD
@@ -19,6 +19,8 @@ Patch1:         botan-boost_python.patch
 Patch2:         botan-1.10.13-python-init.patch
 # 2to3 doc/conf.py
 Patch3:         botan-1.10.17-doc-conf-2to3.patch
+# Fix FTBFS
+Patch4:         botan-1.10.17-u64bit.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3
@@ -193,6 +195,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./check --validate
 
 
 %changelog
+* Sun Jan 22 2023 Thomas Moschny <thomas.moschny@gmx.de> - 1.10.17-35
+- Add patch to fix FTBFS.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.17-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

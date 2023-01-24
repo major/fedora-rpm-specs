@@ -1,14 +1,14 @@
 # These are the build option passed to ./configure command
 %global build_options  --enable-m17n --enable-unicode --enable-nls --with-editor=/bin/vi --with-mailer="gnome-open mailto:%s" --with-browser=gnome-open --with-charset=UTF-8 --with-gc --with-termlib=ncurses --enable-nntp --enable-gopher --enable-image=x11,fb --with-imagelib=gtk2 --enable-keymap=w3m
 
-%global gitdate 20220429
+%global gitdate 20230121
 
 %{?perl_default_filter}
 %global __requires_exclude perl\\(w3mhelp-
 
 Name:     w3m
 Version:  0.5.3
-Release:  59.git%{gitdate}%{?dist}
+Release:  60.git%{gitdate}%{?dist}
 # UCD is added for EastAsianWidth.txt source
 License:  MIT and UCD
 URL:      http://w3m.sourceforge.net/
@@ -37,7 +37,6 @@ Requires: perl(NKF)
 
 Source0: https://github.com/tats/%{name}/archive/v%{version}+git%{gitdate}/%{name}-%{version}+git%{gitdate}.tar.gz
 Source1: w3mconfig
-Patch0:  https://github.com/tats/w3m/commit/419ca82d57c72242817b55e2eaa4cdbf6916e7fa.patch#/w3m-0.5-3-cve-2022-38223.patch
 
 Summary:  Pager with Web browsing abilities
 Provides: webclient
@@ -110,6 +109,9 @@ rm -f doc*/w3m.1
 %{_libexecdir}/w3m/w3mimgdisplay
 
 %changelog
+* Sun Jan 22 2023 Robert Scheck <robert@fedoraproject.org> - 0.5.3-60.git20230121
+- Rebase to latest upstream gitrev 20230121 (#2163003)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-59.git20220429
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

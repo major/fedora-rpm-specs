@@ -10,6 +10,8 @@ Summary:        Handwriting note-taking software with PDF annotation support
 License:	GPLv2+
 URL:            https://github.com/%{name}/%{name}
 Source:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+# Add missing include for gcc 13
+Patch:          xournalpp-include.patch
 
 BuildRequires:  cmake >= 3.10
 BuildRequires:  desktop-file-utils
@@ -61,7 +63,7 @@ The %{name}-ui package contains a graphical user interface for  %{name}.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %cmake \

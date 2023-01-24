@@ -1,4 +1,5 @@
 %global srcname Mathics3
+%global forgeurl https://github.com/Mathics3/mathics-core
 
 Name:           python-mathics3
 Version:        5.0.2
@@ -13,11 +14,15 @@ URL:            https://mathics.org
 Source:         %{srcname}-%{version}.tar.gz
 Source:         mathics-repackage-source.sh
 # ExampleData: update copyright byline for Namespaces.xml
-Patch:          https://github.com/Mathics3/mathics-core/pull/733.patch
+Patch:          %{forgeurl}/commit/fdd29ecdd8a71d6154571dab392d0480b53419d3.patch
+# Add setuptools to install requirements
+Patch:          %{forgeurl}/commit/b3e5e34622c8080c52af32a6325fce6f5753ffc9.patch
+# Adjust test so it works on BigEndian systems
+# Backport of https://github.com/Mathics3/mathics-core/pull/762
+Patch:          mathics-big-endian-test-fix.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  python3-Cython
 BuildRequires:  python3-pytest
 
 %global _description %{expand:
@@ -29,14 +34,15 @@ open-source alternative to Mathematica.}
 %package -n     mathics
 Summary:        %{summary}
 License:        GPL-3.0-only
+Recommends:     python3dist(mathics[cython]) = %{version}-%{release}
+Recommends:     python3dist(mathics[full]) = %{version}-%{release}
 Recommends:     mathics-data = %{version}-%{release}
 Provides:       python-mathics3 = %{version}-%{release}
 Provides:       mathics3 = %{version}-%{release}
 
-# Needed for pkg_resources which is used in mathics/settings.py
-Requires:       python3dist(setuptools)
-
 %description -n mathics %_description
+
+%pyproject_extras_subpkg -n mathics cython full
 
 %package -n     mathics-data
 Summary:        Example data files for Mathics
@@ -59,7 +65,7 @@ chmod -x mathics/data/ExampleData/{InventionNo1.xml,numberdata.csv}
 
 export USE_CYTHON=1
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x cython -x full
 
 %build
 export USE_CYTHON=1
@@ -72,13 +78,10 @@ export USE_CYTHON=1
 
 %check
 # test_string_split: https://github.com/Mathics3/mathics-core/issues/743
-# test_system_specific_long_integer:
-# https://github.com/Mathics3/mathics-core/issues/760
+# test_image: disabled because it doesn't run in mock
 %pytest \
-%ifarch s390x
-  --deselect=test/test_evaluation.py::test_system_specific_long_integer \
-%endif
-  --deselect=test/test_strings.py::test_string_split
+  --deselect=test/test_strings.py::test_string_split \
+  --deselect=test/builtin/image/test_image.py::test_image[BinaryImageQ[Binarize[img]]-True-]
 
 %files -n mathics -f %{pyproject_files}
 %license COPYING.txt

@@ -3,8 +3,8 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.0.5
-Release:	2%{?dist}
+Version:	4.0.8
+Release:	1%{?dist}
 
 Summary:	Ruby binding of Clutter-GStreamer
 License:	LGPLv2+
@@ -54,7 +54,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
 # Adjust rubygems-gnome2 requirement to be more flexible
-sed -i -e 's|= 4\.0\.5|>= 4.0.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.0\.8|>= 4.0.8|' %{gem_name}-%{version}.gemspec
 sed -i dependency-check/Rakefile \
 	-e '\@PKGConfig\.check_version@s|clutter-gst-3.0|glib-2.0|'
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
@@ -127,6 +127,9 @@ popd
 %doc	%{gem_instdir}/sample/
 
 %changelog
+* Sun Jan 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.8-1
+- 4.0.8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

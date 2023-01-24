@@ -12,6 +12,8 @@ Patch0:         mrchem-1.0.2-eigen3.patch
 Patch1:         mrchem-1.0.2-pythonpath.patch
 # Disable use of rpath
 Patch2:         mrchem-1.1.0-rpath.patch
+# Re-enable creation of shared library
+Patch3:         mrchem-1.1.2-object.patch
 
 # mrcpp doesn't build on s390x which is not supported by upstream (BZ#2035671)
 ExcludeArch:    s390x
@@ -72,6 +74,7 @@ This package contains the data files for MRChem.
 %patch0 -p1 -b .eigen3
 %patch1 -p1 -b .pythonpath
 %patch2 -p1 -b .rpath
+%patch3 -p1 -b .object
 # Remove bundled catch
 rm -rf external/catch/
 

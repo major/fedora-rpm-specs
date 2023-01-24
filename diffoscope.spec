@@ -1,5 +1,5 @@
 Name:          diffoscope
-Version:       221
+Version:       233
 Release:       %autorelease
 Summary:       In-depth comparison of files, archives, and directories
 License:       GPLv3+
@@ -59,7 +59,6 @@ ExcludeArch:  %{ix86}
     python3-argcomplete \
     python3-debian \
     python3-h5py \
-    python3-PyPDF2 \
     python3-magic \
     python3-pdfminer \
     python3-tlsh \
@@ -75,6 +74,10 @@ ExcludeArch:  %{ix86}
 # js-beautify
 # /usr/bin/dumpxsb from xmlbeans-scripts, xmlbeans
 # docx2txt
+
+# Does not work with python3-PyPDF2-1.26.0
+# python3-pypdf >= 3.0
+# https://bugzilla.redhat.com/show_bug.cgi?id=2073259
 
 %ifnarch ppc64 ppc64le
 %global tools2 \
@@ -151,6 +154,11 @@ DESELECT=(
 
   # What exactly is the point of those tests?
   --deselect=tests/test_source.py::test_code_is_black_clean
+
+  # https://salsa.debian.org/reproducible-builds/diffoscope/-/issues/330
+  --deselect=tests/comparators/test_ico_image.py::test_diff_meta
+  --deselect=tests/comparators/test_ico_image.py::test_diff_meta2
+  --deselect=tests/comparators/test_jpeg_image.py::test_diff_meta
 )
 
 LC_CTYPE=C.utf8 \

@@ -28,9 +28,6 @@ BuildRequires:  pkgconfig(xtst)
 %if %{with doc_pdf}
 BuildRequires:  doxygen
 BuildRequires:  doxygen-latex
-# LaTeX errors due to missing dependency on texlive-wasy
-# https://bugzilla.redhat.com/show_bug.cgi?id=2162170
-BuildRequires:  texlive-wasy
 %endif
 
 %description

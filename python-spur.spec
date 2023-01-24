@@ -5,13 +5,14 @@
 
 Name:           python-%{srcname}
 Version:        0.3.22
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        %{sum}
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/mwilliamson/spur.py
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 Patch0:         python-spur-encode.patch
+Patch1:         python-spur-paramiko.patch
 BuildArch:      noarch
 
 %description
@@ -24,7 +25,7 @@ BuildRequires:  python3-setuptools
 %if 0%{?rhel} < 9
 BuildRequires:  python3-nose
 %endif
-BuildRequires:  (python3dist(paramiko) >= 1.13.1 with python3dist(paramiko) < 3)
+BuildRequires:  python3dist(paramiko) >= 1.13.1
 %{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
@@ -32,8 +33,7 @@ BuildRequires:  (python3dist(paramiko) >= 1.13.1 with python3dist(paramiko) < 3)
 
 
 %prep
-%setup -q -n %{srcname}.py-%{version}
-%patch0 -p1 -b .encode
+%autosetup -p1 -n %{srcname}.py-%{version}
 sed -i -e "s/’/'/g" README.rst
 
 
@@ -46,7 +46,7 @@ sed -i -e "s/’/'/g" README.rst
 
 
 # skip tests on EL9 due to deprecated python-nose
-%if 0%{?rhel} < 9
+%if 0%{?rhel} && 0%{?rhel} < 9
 %check
 # Tests which require SSH server
 # Some tests are failing with python 3.8
@@ -62,6 +62,11 @@ nosetests-%{python3_version} -v -e testing -e ssh_tests -e local_tests
 
 
 %changelog
+* Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 0.3.22-4
+- Relax paramiko version requirement
+- Use SPDX License tag
+- Fix check version conditional
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

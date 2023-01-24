@@ -1,6 +1,6 @@
 Name:           rpminspect
 Version:        1.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Build deviation compliance tool
 Group:          Development/Tools
 # librpminspect is licensed under the LGPLv3+, but 5 source files in
@@ -166,6 +166,9 @@ control files.
 
 
 %changelog
+* Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 1.10-4
+- Rebuild for clamav 1.0.0
+
 * Mon Aug 01 2022 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.10-3
 - Rebuilt for ICU 71.1
 

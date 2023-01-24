@@ -7,8 +7,8 @@
 # Planned for F-20+ only
 Summary:	Ruby binding of GDK-3.x
 Name:		rubygem-%{gem_name}
-Version:	4.0.5
-Release:	2%{?dist}
+Version:	4.0.8
+Release:	1%{?dist}
 
 # Various files in gem
 License:	LGPLv2+
@@ -76,7 +76,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 # Permission
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
-sed -i -e 's|= 4\.0\.5|>= 4.0.5|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.0\.8|>= 4.0.8|' %{gem_name}-%{version}.gemspec
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
 
 %build
@@ -154,6 +154,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Sun Jan 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.8-1
+- 4.0.8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

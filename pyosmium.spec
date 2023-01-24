@@ -2,8 +2,8 @@
 %global pybind_version 2.9.2
 
 Name:           pyosmium
-Version:        3.5.0
-Release:        2%{?dist}
+Version:        3.6.0
+Release:        1%{?dist}
 Summary:        Python bindings for libosmium
 
 License:        BSD-2-Clause
@@ -66,6 +66,9 @@ make -C doc html SPHINXBUILD=sphinx-build-3
 
 
 %changelog
+* Sun Jan 22 2023 Tom Hughes <tom@compton.nu> - 3.6.0-1
+- Update to 3.6.0 upstream release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

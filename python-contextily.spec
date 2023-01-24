@@ -11,8 +11,10 @@ Summary:        Context geo-tiles in Python
 License:        BSD
 URL:            https://github.com/geopandas/contextily
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
+# https://github.com/geopandas/contextily/pull/206
+Patch:          0001-TST-update-tests-to-match-the-return-206.patch
 # https://github.com/geopandas/contextily/pull/124
-Patch0001:      0001-Mark-tests-that-require-the-network.patch
+Patch:          0002-Mark-tests-that-require-the-network.patch
 
 BuildArch:      noarch
 

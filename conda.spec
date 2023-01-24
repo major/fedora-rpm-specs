@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           conda
-Version:        22.11.1
+Version:        23.1.0
 Release:        %autorelease
 Summary:        Cross-platform, Python-agnostic binary package manager
 
@@ -61,6 +61,7 @@ can only use conda to create and manage new environments.}
         python%{python3_pkgversion}-conda-package-handling >= 1.3.0 \
         python%{python3_pkgversion}-distro >= 1.0.4 \
         python%{python3_pkgversion}-frozendict >= 1.2 \
+        python%{python3_pkgversion}-pluggy >= 1.0.0 \
         python%{python3_pkgversion}-pycosat >= 0.6.3 \
         python%{python3_pkgversion}-pyOpenSSL >= 16.2.0 \
         python%{python3_pkgversion}-pyyaml \

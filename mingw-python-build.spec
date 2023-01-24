@@ -1,11 +1,16 @@
+# python-built requires itself to build wheels.
+# To bootstrap, we copy the files to appropriate locations manually and create a minimal dist-info metadata.
+# Note that as a pure Python package, the wheel contains no pre-built binary stuff.
+%bcond_with     bootstrap
+
 %{?mingw_package_header}
 
 %global pypi_name build
 
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
-Version:        0.9.0
-Release:        2%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -17,11 +22,15 @@ Source2:        macros.mingw64-python3-wheel
 
 BuildRequires:  mingw32-filesystem >= 102
 BuildRequires:  mingw32-python3
-BuildRequires:  mingw32-python3-setuptools
+%if %{without bootstrap}
+BuildRequires:  mingw32-python3-build
+%endif
 
 BuildRequires:  mingw64-filesystem >= 102
 BuildRequires:  mingw64-python3
-BuildRequires:  mingw64-python3-setuptools
+%if %{without bootstrap}
+BuildRequires:  mingw64-python3-build
+%endif
 
 
 %description
@@ -57,17 +66,39 @@ MinGW Python 3 %{pypi_name} library.
 
 
 %build
-%mingw32_py3_build
-%mingw64_py3_build
-%mingw32_py3_build_host
-%mingw64_py3_build_host
+%if %{with bootstrap}
+%global distinfo %{pypi_name}-%{version}+rpmbootstrap.dist-info
+mkdir %{distinfo}
+cat > %{distinfo}/METADATA << EOF
+Metadata-Version: 2.2
+Name: %{pypi_name}
+Version: %{version}+rpmbootstrap
+EOF
+%else
+%global distinfo %{pypi_name}-%{version}.dist-info
+%mingw32_py3_build_wheel
+%mingw64_py3_build_wheel
+%mingw32_py3_build_host_wheel
+%mingw64_py3_build_host_wheel
+%endif
 
 
 %install
-%mingw32_py3_install
-%mingw64_py3_install
-%mingw32_py3_install_host
-%mingw64_py3_install_host
+%if %{with bootstrap}
+mkdir -p %{buildroot}%{mingw32_python3_sitearch}
+mkdir -p %{buildroot}%{mingw64_python3_sitearch}
+cp -a src/build %{distinfo} %{buildroot}%{mingw32_python3_sitearch}/
+cp -a src/build %{distinfo} %{buildroot}%{mingw64_python3_sitearch}/
+mkdir -p %{buildroot}%{mingw32_python3_hostsitearch}
+mkdir -p %{buildroot}%{mingw64_python3_hostsitearch}
+cp -a src/build %{distinfo} %{buildroot}%{mingw32_python3_hostsitearch}/
+cp -a src/build %{distinfo} %{buildroot}%{mingw64_python3_hostsitearch}/
+%else
+%mingw32_py3_install_wheel
+%mingw64_py3_install_wheel
+%mingw32_py3_install_host_wheel
+%mingw64_py3_install_host_wheel
+%endif
 
 # Install macros
 install -Dpm 0644 %{SOURCE1} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw32-python3-wheel
@@ -78,24 +109,27 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 %license LICENSE
 %{mingw32_bindir}/pyproject-build
 %{mingw32_python3_sitearch}/%{pypi_name}/
-%{mingw32_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info
+%{mingw32_python3_sitearch}/%{distinfo}
 %{_prefix}/%{mingw32_target}/bin/pyproject-build
 %{mingw32_python3_hostsitearch}/%{pypi_name}/
-%{mingw32_python3_hostsitearch}/%{pypi_name}-%{version}-py%{mingw32_python3_version}.egg-info
+%{mingw32_python3_hostsitearch}/%{distinfo}
 %{_rpmconfigdir}/macros.d/macros.mingw32-python3-wheel
 
 %files -n mingw64-python3-%{pypi_name}
 %license LICENSE
 %{mingw64_bindir}/pyproject-build
 %{mingw64_python3_sitearch}/%{pypi_name}/
-%{mingw64_python3_sitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info
+%{mingw64_python3_sitearch}/%{distinfo}
 %{_prefix}/%{mingw64_target}/bin/pyproject-build
 %{mingw64_python3_hostsitearch}/%{pypi_name}/
-%{mingw64_python3_hostsitearch}/%{pypi_name}-%{version}-py%{mingw64_python3_version}.egg-info
+%{mingw64_python3_hostsitearch}/%{distinfo}
 %{_rpmconfigdir}/macros.d/macros.mingw64-python3-wheel
 
 
 %changelog
+* Sun Jan 22 2023 Sandro Mani <manisandro@gmail.com> - 0.10.0-1
+- Update to 0.10.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

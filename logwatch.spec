@@ -1,13 +1,11 @@
 %global _unitdir /usr/lib/systemd/system
 Summary: Analyzes and Reports on system logs
 Name: logwatch
-Version: 7.7
-Release: 4%{?dist}
+Version: 7.8
+Release: 1%{?dist}
 License: MIT
 URL: https://sourceforge.net/projects/logwatch/
 Source0: https://sourceforge.net/projects/logwatch/files/%{name}-%{version}/%{name}-%{version}.tar.gz
-# Changes for F36 that didn't make it into 7.7 - drop when 7.8 is released
-Patch0: logwatch-f36.patch
 BuildRequires: perl-generators
 Requires: grep
 Requires: perl(Date::Manip)
@@ -31,7 +29,6 @@ of the package on many systems.
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 
@@ -130,6 +127,9 @@ echo "# Configuration overrides for specific logfiles/services may be placed her
 %{_unitdir}/logwatch.timer
 
 %changelog
+* Sun Jan 22 2023 Frank Crawford <frank@crawford.emu.id.au> - 7.8-1
+- Update to 7.8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

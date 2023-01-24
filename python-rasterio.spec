@@ -10,6 +10,10 @@ URL:            https://github.com/mapbox/rasterio
 # PyPI tarball doesn't include test data.
 Source0:        https://github.com/mapbox/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
 Patch:          0001-Loosen-up-build-requirements.patch
+# Backport test fix for GDAL 3.6.1
+Patch:          https://github.com/rasterio/rasterio/pull/2680.patch
+# Backport test fix for affine 2.4.0
+Patch:          https://github.com/rasterio/rasterio/commit/2fb7802b42a1893a7a729f2a6f78deb35229935f.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 1.11

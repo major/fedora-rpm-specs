@@ -1,15 +1,15 @@
 %global appid com.github.quaternion
 %global forgeurl    https://github.com/quotient-im/Quaternion
-%global tag         %{version}
+%global commit      0315b395584b184cafef358aaf7ff309bc410583
 
 Name:       quaternion
-Version:    0.0.95.1
+Version:    0.0.95.50~20230106g0315b395
 Release:    %autorelease
 
 %forgemeta
 
 Summary:    A Qt5-based IM client for Matrix
-License:    GPLv3
+License:    GPL-3.0-or-later
 URL:        %{forgeurl}
 Source0:    %{forgesource}
 

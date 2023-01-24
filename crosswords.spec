@@ -1,3 +1,4 @@
+%bcond_without docs
 # tests are broken on s390x
 # https://gitlab.gnome.org/jrb/crosswords/-/issues/118
 %ifarch s390x
@@ -7,7 +8,7 @@
 %endif
 
 Name:           crosswords
-Version:        0.3.6
+Version:        0.3.7.1
 Release:        %autorelease
 Summary:        Solve crossword puzzles
 
@@ -23,6 +24,11 @@ BuildRequires:  gcc
 BuildRequires:  libappstream-glib
 BuildRequires:  meson
 BuildRequires:  sed
+%if %{with docs}
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3dist(sphinx-rtd-theme)
+BuildRequires:  python3dist(myst-parser)
+%endif
 %if %{with tests}
 # gen-word-list requires en_US.UTF8
 # https://gitlab.gnome.org/jrb/crosswords/-/issues/109
@@ -35,14 +41,16 @@ BuildRequires:  pkgconfig(gtk4)
 BuildRequires:  pkgconfig(iso-codes)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libadwaita-1)
-BuildRequires:  pkgconfig(libipuz-0.1)
+BuildRequires:  pkgconfig(libipuz-0.4)
 BuildRequires:  pkgconfig(librsvg-2.0)
 
 Requires:       dbus-common
 Requires:       %{name}-puzzle-sets-cats-and-dogs = %{version}-%{release}
 Requires:       %{name}-puzzle-sets-uri = %{version}-%{release}
 Suggests:       crossword-editor = %{version}-%{release}
+%if %{with docs}
 Suggests:       %{name}-doc = %{version}-%{release}
+%endif
 
 %description
 A simple and fun game of crosswords. Load your crossword files, or play one of
@@ -76,12 +84,14 @@ Recommends:     ipuz-convertor = %{version}-%{release}
 This package contains puzzle sets used internally by GNOME Crosswords to load
 additional puzzles from disk.
 
+%if %{with docs}
 %package        doc
 Summary:        Documentation for %{name}
 BuildArch:      noarch
 
 %description    doc
 This package contains additional documentation for GNOME Crosswords.
+%endif
 
 %package -n     crossword-editor
 Summary:        Crossword puzzle editor
@@ -122,11 +132,17 @@ sed -i 's:data/images/:images/:g' README.md
 # isn't _really_ required, so relax it on f36 to unbreak the build
 %if 0%{?fc36}
 sed -i "s:gtk4_req_version = '4.8':gtk4_req_version = '4.5':" meson.build
+sed -i '/gtk_event_controller_set_static_name/d' src/play-cell.c
 %endif
 
 %build
 %meson -Ddevelopment=false
 %meson_build
+
+%if %{with docs}
+sphinx-build-3 docs html
+rm -rf html/.{doctrees,buildinfo}
+%endif
 
 %install
 %meson_install
@@ -158,9 +174,11 @@ desktop-file-validate \
 %{_datadir}/mime/packages/org.gnome.Crosswords.xml
 %{_metainfodir}/org.gnome.Crosswords.metainfo.xml
 
+%if %{with docs}
 %files doc
 %license COPYING
-%doc docs
+%doc html
+%endif
 
 %files puzzle-sets-cats-and-dogs
 %license COPYING

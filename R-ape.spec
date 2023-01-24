@@ -10,12 +10,15 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrev}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Analyses of Phylogenetics and Evolution
 
-License:          GPLv2 or GPLv3
+License:          GPL-2.0-only or GPL-3.0-only
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrev}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 # Here's the R view of the dependencies world:
 # Depends:
@@ -104,6 +107,10 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Sun Jan 22 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 5.6.2-3
+- Drop support for i686
+- Switch to SPDX licenses
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

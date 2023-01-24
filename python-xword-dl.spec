@@ -1,15 +1,13 @@
 %global pypi_name xword_dl
 
 Name:           python-xword-dl
-Version:        2022.12.26
+Version:        2023.1.19
 Release:        %autorelease
 Summary:        Download tool for online crossword puzzles
 
 License:        MIT
 URL:            https://github.com/thisisparker/xword-dl
 Source:         %{pypi_source}
-# drop bs4 from requirements
-Patch:          %{url}/pull/91.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel

@@ -9,11 +9,11 @@ ExcludeArch: %{ix86}
 
 
 Name:           gdl
-Version:        1.0.1
-Release:        12%{?dist}
+Version:        1.0.2
+Release:        1%{?dist}
 Summary:        GNU Data Language
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://gnudatalanguage.sourceforge.net/
 Source0:        https://github.com/gnudatalanguage/gdl/archive/v%{version}/gdl-%{version}.tar.gz
 #Source0:        https://github.com/gnudatalanguage/gdl/archive/%{commit}/gdl-%{version}-git-%{shortcommit}.tar.gz
@@ -23,6 +23,9 @@ Source4:        xorg.conf
 # Build with system antlr library.  Request for upstream change here:
 # https://sourceforge.net/tracker/index.php?func=detail&aid=2685215&group_id=97659&atid=618686
 Patch1:         gdl-antlr.patch
+# Fix install directory for drivers
+Patch2:         https://patch-diff.githubusercontent.com/raw/gnudatalanguage/gdl/pull/1486.patch
+Patch3:         gdl-size.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  antlr-C++
@@ -121,6 +124,8 @@ rm -rf src/antlr
 # Not yet possible to build with external dSFMT
 #rm -r src/dSFMT
 %patch1 -p1 -b .antlr
+%patch2 -p1 -b .libdir
+%patch3 -p1 -b .size
 
 # Find grib_api on architectures where needed
 sed -i -e '/find_library(GRIB_LIBRARIES/s/eccodes/eccodes grib_api/' CMakeModules/FindGrib.cmake
@@ -135,11 +140,12 @@ popd
 %global __python %{__python3}
 %global python_sitearch %{python3_sitearch}
 %global cmake_opts \\\
-   -DWXWIDGETS=ON \\\
+   -DGDL_LIB_DIR:PATH=%{_libdir}/gnudatalanguage \\\
    -DGEOTIFF_INCLUDE_DIR=%{_includedir}/libgeotiff \\\
    -DGRIB=ON \\\
    -DOPENMP=ON \\\
    -DPYTHON_EXECUTABLE=%{__python} \\\
+   -DWXWIDGETS=ON \\\
    %{?cmake_qhull} \\\
 %{nil}
 # TODO - build an mpi version
@@ -172,7 +178,7 @@ popd
 pushd build-python
 %make_install
 # Install the python module in the right location
-install -d -m 0755 $RPM_BUILD_ROOT/%{python_sitearch}
+install -d -m 0755 $RPM_BUILD_ROOT%{python_sitearch}
 %if "%{_lib}" != "lib"
 mv $RPM_BUILD_ROOT%{_prefix}/lib/python*/site-packages/GDL.so \
   $RPM_BUILD_ROOT%{python_sitearch}/GDL.so
@@ -180,14 +186,15 @@ mv $RPM_BUILD_ROOT%{_prefix}/lib/python*/site-packages/GDL.so \
 popd
 
 # Install the profile file to set GDL_PATH
-install -d -m 0755 $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d
-install -m 0644 %SOURCE1 $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d
-install -m 0644 %SOURCE2 $RPM_BUILD_ROOT/%{_sysconfdir}/profile.d
+install -d -m 0755 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
+install -m 0644 %SOURCE1 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
+install -m 0644 %SOURCE2 $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 
 
 # EL8 s390x missing xorg-x11-drv-dummy
 %if ! ( 0%{?rhel} >= 8 && "%{_arch}" == "s390x" )
 %check
+export GDL_DRV_DIR=$RPM_BUILD_ROOT%{_libdir}/gnudatalanguage
 cd build
 cp %SOURCE4 .
 if [ -x /usr/libexec/Xorg ]; then
@@ -219,7 +226,8 @@ failing_tests="test_l64"
 failing_tests="test_(byte_conversion|bytscl|finite|matrix_multiply)"
 %endif
 %ifarch s390x
-failing_tests="test_(byte_conversion|bytsc)"
+# test_hdf5 - https://github.com/gnudatalanguage/gdl/issues/1488
+failing_tests="test_(byte_conversion|bytsc|hdf5)"
 %endif
 make test VERBOSE=1 ARGS="-V -E '$failing_tests'"
 make test VERBOSE=1 ARGS="-V -R '$failing_tests' --timeout 600" || :
@@ -233,6 +241,7 @@ cat xorg.log
 %doc AUTHORS HACKING NEWS README
 %config(noreplace) %{_sysconfdir}/profile.d/gdl.*sh
 %{_bindir}/gdl
+%{_libdir}/gnudatalanguage/
 %{_mandir}/man1/gdl.1*
 
 %files common
@@ -243,6 +252,10 @@ cat xorg.log
 
 
 %changelog
+* Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 1.0.2-1
+- Update to 1.0.2
+- Use SPDX License tag
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

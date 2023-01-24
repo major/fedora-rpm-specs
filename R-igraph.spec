@@ -14,18 +14,19 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Network Analysis and Visualization
 
 # Main: GPLv2+; html_library.tcl: TCL
-License:          GPLv2+ and TCL
+License:          GPL-2.0-or-later AND TCL
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 # Unbundle some things:
 Patch0002:        0002-Unbundle-uuid.patch
 Patch0003:        0003-Unbundle-arpack.patch
-Patch0004:        0004-Increase-tolerances-to-work-on-all-arches.patch
-Patch0005:        R-igraph-disable-i686-test.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 # Here's the R view of the dependencies world:
 # Depends:   R-methods
@@ -87,9 +88,6 @@ pushd %{packname}
 %if %{with sys_arpack}
 %patch0003 -p1
 %endif
-# do we need this?
-# %%patch0004 -p1
-%patch0005 -p1
 
 # Fix executable files.
 chmod -x src/vendor/simpleraytracer/*.*
@@ -143,6 +141,10 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
 
 
 %changelog
+* Sun Jan 22 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.3.5-3
+- Drop support for i686
+- Switch to SPDX licenses
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

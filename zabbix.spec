@@ -16,8 +16,8 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        6.0.8
-Release:        3%{?dist}
+Version:        6.0.12
+Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
 License:        GPLv2+
@@ -798,6 +798,9 @@ fi
 %files web-pgsql
 
 %changelog
+* Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 1:6.0.12-1
+- Update to 6.0.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

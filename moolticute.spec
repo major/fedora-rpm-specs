@@ -1,10 +1,8 @@
 %bcond_without  tests
 
-%global udev_commit a0776914c1cd3922530d322f36244b0d413b29b8
-
 Name:           moolticute
 Version:        1.00.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Companion GUI application for Mooltipass password manager devices
 
 # The entire source code is GPL-3.0-or-later except:
@@ -22,19 +20,20 @@ Summary:        Companion GUI application for Mooltipass password manager device
 License:        GPL-3.0-or-later AND (GPL-3.0-only WITH Qt-GPL-exception-1.0) AND BSD-2-Clause AND BSD-3-Clause AND MIT AND OFL-1.1 AND CC-BY-3.0
 URL:            https://github.com/mooltipass/moolticute
 Source0:        https://github.com/mooltipass/%{name}/archive/refs/tags/v%{version}.tar.gz
-Source1:        https://raw.githubusercontent.com/mooltipass/mooltipass-udev/%{udev_commit}/udev/69-mooltipass.rules
 # Add missing license: https://github.com/mooltipass/moolticute/pull/1098
-Source2:        LICENSE.CyoEncode
-Source3:        LICENSE.SimpleCrypt
-Source4:        LICENSE.zxcvbn-c
+Source1:        LICENSE.CyoEncode
+Source2:        LICENSE.SimpleCrypt
+Source3:        LICENSE.zxcvbn-c
 
 # QSimpleUpdater is licensed under DBAD, which isn't approved. The updater isn't used anyway, so this patch removes it
 # until it is fixed upstream: https://github.com/alex-spataru/QSimpleUpdater/issues/28
-Patch0:         moolticute-0.55.0-remove-updater.patch
+Patch0:         0001-remove-updater.patch
+# Udev rules are in the mooltipass-udev package
+Patch1:         0002-makefile-remove-udev.patch
 
 Requires:       systemd
-Requires:       udev
 Requires:       hicolor-icon-theme
+Requires:       mooltipass-udev
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -59,8 +58,6 @@ daemon (it uses a WebSocket connection and simple JSON messages).
 
 %prep
 %autosetup -p1
-# Patch /lib to $(PREFIX)/lib
-sed -i 's|$(DESTDIR)/lib|$(DESTDIR)$(PREFIX)/lib|g' Makefile
 
 # Change the version from git to the specific release version.
 # Also set the APP_TYPE to deb to disable the update checker. This isn't
@@ -77,12 +74,10 @@ EOF
 %build
 mkdir -p build
 cd build
-%{qmake_qt5} ../Moolticute.pro
+%{qmake_qt5} PREFIX=%{_prefix} ../Moolticute.pro
 %make_build
 
 %install
-# Install udev rules (source 1)
-install -pm 0644 %{SOURCE1} .
 %make_install
 install -Dpm 0644 systemd/moolticuted.service %{buildroot}%{_unitdir}/moolticuted.service
 
@@ -95,9 +90,9 @@ install -pm 0644 src/http-parser/LICENSE-MIT LICENSES/LICENSE.http-parser
 install -pm 0644 src/qtcsv/LICENSE LICENSES/LICENSE.qtcsv
 install -pm 0644 src/qtcsv6/LICENSE LICENSES/LICENSE.qtcsv6
 # Install missing licenses
-install -pm 0644 %{SOURCE2} LICENSES/LICENSE.CyoEncode
-install -pm 0644 %{SOURCE3} LICENSES/LICENSE.SimpleCrypt
-install -pm 0644 %{SOURCE4} LICENSES/LICENSE.zxcvbn-c
+install -pm 0644 %{SOURCE1} LICENSES/LICENSE.CyoEncode
+install -pm 0644 %{SOURCE2} LICENSES/LICENSE.SimpleCrypt
+install -pm 0644 %{SOURCE3} LICENSES/LICENSE.zxcvbn-c
 
 
 %check
@@ -109,14 +104,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %post
-%udev_rules_update
 %systemd_post moolticuted.service
 
 %preun
 %systemd_preun moolticuted.service
 
 %postun
-%udev_rules_update
 %systemd_postun_with_restart moolticuted.service
 
 %files
@@ -129,10 +122,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/icons/hicolor/scalable/apps/moolticute.svg
 %{_datadir}/icons/hicolor/32x32/apps/moolticute.png
 %{_datadir}/icons/hicolor/128x128/apps/moolticute.png
-%_udevrulesdir/69-mooltipass.rules
 %{_unitdir}/moolticuted.service
 
 %changelog
+* Sun Jan 22 2023 Arthur Bols <arthur@bols.dev> - 1.00.1-5
+- Split off udev rules to mooltipass-udev
+- Rename patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

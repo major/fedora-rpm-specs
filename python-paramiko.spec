@@ -1,8 +1,8 @@
 %global srcname paramiko
 
 Name:          python-%{srcname}
-Version:       2.12.0
-Release:       2%{?dist}
+Version:       3.0.0
+Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
 # No version specified
@@ -14,9 +14,8 @@ Source0:       %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # Can be removed when https://github.com/paramiko/paramiko/pull/1665/ is released
 Patch3:        0003-remove-pytest-relaxed-dep.patch
 
-# Avoid use of deprecated python-mock by using unittest.mock instead
-# Can be removed when https://github.com/paramiko/paramiko/pull/1666/ is released
-Patch4:        0004-remove-mock-dep.patch
+# icecream not packaged in Fedora, nor needed for regular builds
+Patch4:        0004-remove-icecream-dep.patch
 
 BuildArch:     noarch
 
@@ -35,14 +34,13 @@ encrypted tunnel (this is how sftp works, for example).
 
 %package -n python%{python3_pkgversion}-%{srcname}
 Summary:       SSH2 protocol library for python
-BuildRequires: python%{python3_pkgversion}-devel
-BuildRequires: %{py3_dist bcrypt} >= 3.1.3
-BuildRequires: %{py3_dist cryptography} >= 2.5
+BuildRequires: python%{python3_pkgversion}-devel >= 3.6
+BuildRequires: %{py3_dist bcrypt} >= 3.2
+BuildRequires: %{py3_dist cryptography} >= 3.3
 BuildRequires: %{py3_dist pyasn1} >= 0.1.7
-BuildRequires: %{py3_dist pynacl} >= 1.0.1
+BuildRequires: %{py3_dist pynacl} >= 1.5
 BuildRequires: %{py3_dist pytest}
 BuildRequires: %{py3_dist setuptools}
-BuildRequires: %{py3_dist six}
 Recommends:    %{py3_dist pyasn1} >= 0.1.7
 
 %description -n python%{python3_pkgversion}-%{srcname}
@@ -88,6 +86,69 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Sun Jan 22 2023 Paul Howarth <paul@city-fan.org> - 3.0.0-1
+- Update to 3.0.0 (rhbz#2162914)
+  - Remove some unnecessary '__repr__' calls when handling bytes-vs-str
+    conversions; this was apparently doing a lot of unintentional data
+    processing, which adds up in some use cases, such as SFTP transfers,
+    which may now be significantly faster (GH#2110)
+  - Streamline some redundant (and costly) byte conversion calls in the
+    packetizer and the core SFTP module; this should lead to some SFTP
+    speedups at the very least (GH#2165)
+  - 'paramiko.util.retry_on_signal' (and any internal uses of same, and also
+    any internal retries of 'EINTR' on e.g. socket operations) has been
+    removed; as of Python 3.5, per PEP 475 (https://peps.python.org/pep-0475/),
+    this functionality (and retrying 'EINTR' generally) is now part of the
+    standard library
+    Note: This change is backwards incompatible if you were explicitly
+    importing/using this particular function; the observable behavior otherwise
+    should not be changing
+  - '~paramiko.config.SSHConfig' used to straight-up delete the 'proxycommand'
+    key from config lookup results when the source config said
+    'ProxyCommand none'; this has been altered to preserve the key and give it
+    the Python value 'None', thus making the Python representation more in line
+    with the source config file
+    Note: This change is backwards incompatible if you were relying on the old
+    (1.x, 2.x) behavior for some reason (e.g. assuming all 'proxycommand'
+    values were valid subcommand strings)
+  - The behavior of private key classes' (i.e. anything inheriting from
+    '~paramiko.pkey.PKey') private key writing methods used to perform a
+    manual, extra 'chmod' call after writing; this hasn't been strictly
+    necessary since the mid 2.x release line (when key writing started giving
+    the 'mode' argument to 'os.open'), and has now been removed entirely; this
+    should only be observable if you were mocking Paramiko's system calls
+    during your own testing, or similar
+  - 'PKey.__cmp__' has been removed - ordering-oriented comparison of key files
+    is unlikely to have ever made sense (the old implementation attempted to
+    order by the hashes of the key material) and so we have not bothered
+    setting up '__lt__' and friends at this time; the class continues to have
+    its original '__eq__' untouched
+    Note: This change is backwards incompatible if you were actually trying to
+    sort public key objects (directly or indirectly); please file bug reports
+    detailing your use case if you have some intractable need for this
+    behavior, and we'll consider adding back the necessary Python 3 magic
+    methods so that it works as before
+  - A handful of lower-level classes (notably 'paramiko.message.Message' and
+    'paramiko.pkey.PKey') previously returned 'bytes' objects from their
+    implementation of '__str__', even under Python 3; and there was never any
+    '__bytes__' method; these issues have been fixed by renaming '__str__' to
+    '__bytes__' and relying on Python's default "stringification returns the
+    output of '__repr__'" behavior re: any real attempts to 'str()' such objects
+  - 'paramiko.common.asbytes' has been moved to 'paramiko.util.asbytes'
+    Note: This change is backwards incompatible if you were directly using this
+    function (which is unlikely)
+  - Remove the now irrelevant 'paramiko.py3compat' module
+    Note: This change is backwards incompatible - such references should be
+    search-and-replaced with their modern Python 3.6+ equivalents; in some
+    cases, still-useful methods or values have been moved to 'paramiko.util'
+    (most) or 'paramiko.common' ('byte_*')
+  - Drop support for Python versions less than 3.6, including Python 2; so long
+    and thanks for all the fish! Our packaging metadata has been updated to
+    include 'python_requires', so this should not cause breakage unless you're
+    on an old installation method that can't read this metadata
+    Note: As part of this change, our dependencies have been updated; e.g. we
+    now require Cryptography>=3.3, up from 2.5
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

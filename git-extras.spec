@@ -1,7 +1,3 @@
-# Define %%bash_completions_dir for EL <= 9
-# https://src.fedoraproject.org/rpms/epel-rpm-macros/pull-request/57
-%{?!bash_completions_dir:%global bash_completions_dir %{_datadir}/bash-completion/completions}
-
 Name:       git-extras
 Version:    6.5.0
 Release:    2%{?dist}

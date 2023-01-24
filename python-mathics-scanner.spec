@@ -21,14 +21,17 @@ Language.}
 
 %package -n     python3-mathics-scanner
 Summary:        %{summary}
+Recommends:     python3dist(mathics_scanner[full]) = %{version}-%{release}
 
 %description -n python3-mathics-scanner %_description
+
+%pyproject_extras_subpkg -n python3-mathics-scanner full
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x full
 
 %build
 %pyproject_wheel

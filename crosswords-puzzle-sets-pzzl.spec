@@ -2,7 +2,7 @@
 %global srcname puzzle-sets-%{puzzleset}
 
 Name:           crosswords-%{srcname}
-Version:        3.1
+Version:        4.0
 Release:        %autorelease
 Summary:        Dutch puzzle sets from pzzl.net for GNOME Crosswords
 
@@ -49,6 +49,7 @@ appstream-util validate-relax --nonet \
   %{buildroot}%{_metainfodir}/org.gnome.Crosswords.PuzzleSets.%{puzzleset}.metainfo.xml
 
 %files
+%license COPYING
 %doc README.md
 %{_datadir}/crosswords/puzzle-sets/%{puzzleset}
 %{_libexecdir}/ipzzl

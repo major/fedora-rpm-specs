@@ -36,8 +36,8 @@ fi                                               \
 
 
 Name:             AusweisApp2
-Version:          1.24.4
-Release:          3%{?dist}
+Version:          1.26.2
+Release:          1%{?dist}
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -322,6 +322,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Jan 22 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.2-1
+- New upstream release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

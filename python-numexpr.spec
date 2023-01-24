@@ -1,6 +1,6 @@
 Summary:        Fast numerical array expression evaluator for Python and NumPy
 Name:           python-numexpr
-Version:        2.8.1
+Version:        2.8.4
 Release:        %autorelease
 URL:            https://github.com/pydata/numexpr
 Source0:        https://github.com/pydata/numexpr/archive/v%{version}/numexpr-%{version}.tar.gz

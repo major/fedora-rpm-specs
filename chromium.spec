@@ -1,3 +1,6 @@
+# set default fuzz=2 for patch
+%global _default_patch_fuzz 2
+
 # enable|disable system build flags
 %global system_build_flags 0
 
@@ -113,12 +116,8 @@
 # set correct toolchain
 %if %{clang}
 %global toolchain clang
-%global CC clang
-%global CXX clang++
 %else
 %global toolchain gcc
-%global CC gcc
-%global CXX g++
 %endif
 
 # enable system brotli
@@ -224,7 +223,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 109.0.5414.74
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -333,10 +332,6 @@ Patch103: chromium-99.0.4844.51-epel7-old-headers-workarounds.patch
 # Revert: https://github.com/chromium/chromium/commit/c3213f8779ddc427e89d982514185ed5e4c94e91
 Patch104: chromium-99.0.4844.51-epel7-old-cups.patch
 
-# libdrm on EL7 is rather old and chromium assumes newer
-# This gets us by for now
-Patch105: chromium-85.0.4183.83-el7-old-libdrm.patch
-
 # error: no matching function for call to 'std::basic_string<char>::erase(std::basic_string<char>::const_iterator, __gnu_cxx::__normal_iterator<const char*, std::basic_string<char> >&)'
 #   33 |   property_name.erase(property_name.cbegin(), cur);
 # Not sure how this EVER worked anywhere, but it only seems to fail on EPEL-7.
@@ -398,7 +393,7 @@ Source9: chromium-browser.xml
 Source11: chrome-remote-desktop@.service
 Source13: master_preferences
 
-# RHEL 7|8 needs newer nodejs
+# RHEL 8 needs newer nodejs
 %if 0%{?rhel} == 8
 Source19: https://nodejs.org/dist/latest-v16.x/node-%{nodejs_version}-linux-x64.tar.xz
 Source21: https://nodejs.org/dist/latest-v16.x/node-%{nodejs_version}-linux-arm64.tar.xz
@@ -509,9 +504,7 @@ BuildRequires:	minizip-compat-devel
 %endif
 
 # RHEL 8 needs newer nodejs
-%if 0%{?rhel} == 8
-# nothing
-%else
+%if ! 0%{?rhel} == 8
 BuildRequires:	nodejs
 %endif
 
@@ -527,7 +520,7 @@ BuildRequires:	pkgconfig(libpipewire-0.3)
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
 # gn needs these
-BuildRequires:  libstdc++-static
+BuildRequires: libstdc++-static
 # Fedora tries to use system libs whenever it can.
 BuildRequires:	bzip2-devel
 BuildRequires:	dbus-glib-devel
@@ -1001,7 +994,6 @@ udev.
 %patch101 -p1 -b .wayland-strndup-error
 %patch103 -p1 -b .epel7-header-workarounds
 %patch104 -p1 -b .el7cups
-%patch105 -p1 -b .el7-old-libdrm
 %patch106 -p1 -b .el7-erase-fix
 %patch107 -p1 -b .el7-extra-operator-equalequal
 %endif
@@ -1179,8 +1171,13 @@ CFLAGS="$FLAGS"
 CXXFLAGS="$FLAGS"
 %endif
 
-export CC=%{CC}
-export CXX=%{CXX}
+%if %{clang}
+export CC=clang
+export CXX=clang++
+%else
+export CC=gcc
+export CXX=g++ 
+%endif
 export CFLAGS
 export CXXFLAGS
 export AR=ar
@@ -1213,8 +1210,6 @@ CHROMIUM_CORE_GN_DEFINES+=' system_libdir="%{_lib}"'
 %if %{official_build}
 CHROMIUM_CORE_GN_DEFINES+=' is_official_build=true use_thin_lto=false is_cfi=false chrome_pgo_phase=0 use_debug_fission=true'
 sed -i 's|OFFICIAL_BUILD|GOOGLE_CHROME_BUILD|g' tools/generate_shim_headers/generate_shim_headers.py
-# Too much debuginfo
-sed -i 's|-g2|-g0|g' build/config/compiler/BUILD.gn
 %endif
 
 %if %{useapikey}
@@ -1539,6 +1534,13 @@ popd
 	pushd %{buildroot}%{_sysconfdir}/pam.d/
 		ln -s system-auth chrome-remote-desktop
 	popd
+
+   cp -a remoting/host/linux/linux_me2me_host.py %{buildroot}%{crd_path}/chrome-remote-desktop
+   cp -a remoting/host/installer/linux/is-remoting-session %{buildroot}%{crd_path}/
+
+   mkdir -p %{buildroot}%{_unitdir}
+   cp -a %{SOURCE11} %{buildroot}%{_unitdir}/
+   sed -i 's|@@CRD_PATH@@|%{crd_path}|g' %{buildroot}%{_unitdir}/chrome-remote-desktop@.service
 %endif
 
 %if %{build_headless}
@@ -1547,15 +1549,6 @@ popd
 		# Explicitly strip headless_shell binary
 		strip %{buildroot}%{chromium_path}/headless_shell
 	popd
-%endif
-
-%if %{build_remoting}
-	cp -a remoting/host/linux/linux_me2me_host.py %{buildroot}%{crd_path}/chrome-remote-desktop
-	cp -a remoting/host/installer/linux/is-remoting-session %{buildroot}%{crd_path}/
-
-	mkdir -p %{buildroot}%{_unitdir}
-	cp -a %{SOURCE11} %{buildroot}%{_unitdir}/
-	sed -i 's|@@CRD_PATH@@|%{crd_path}|g' %{buildroot}%{_unitdir}/chrome-remote-desktop@.service
 %endif
 
 # Add directories for policy management
@@ -1772,6 +1765,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sun Jan 22 2023 Than Ngo <than@redhat.com> - 109.0.5414.74-4
+- clean up
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 109.0.5414.74-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,18 +10,16 @@
 %global debug_package %{nil}
 
 Name:           python-%{srcname}
-Version:        2022.12.1
-%global tag     2022.12.1
+Version:        2023.1.0
+%global tag     2023.1.0
 Release:        %autorelease
 Summary:        Parallel PyData with Task Scheduling
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/dask/dask
 Source0:        %{pypi_source %{srcname}}
 # https://github.com/dask/dask/issues/6725
 Patch:          0001-Skip-test_encoding_gh601-on-big-endian-machines.patch
-# https://github.com/dask/dask/pull/9775
-Patch:          0002-TST-Reduce-size-of-expected-DoK-sparse-matrix.patch
 
 %description
 Dask is a flexible parallel computing library for analytics.
@@ -68,8 +66,8 @@ Recommends:     python3-%{srcname}+distributed = %{version}-%{release}
 Obsoletes:      python3-%{srcname}+diagnostics < 2022.5.0-1
 
 # There is nothing that can be unbundled; there are some some snippets forked
-# or copied from unspecified versions of numpy, under a BSD license similar to
-# that of dask itself.
+# or copied from unspecified versions of numpy, under a BSD-3-Clause license
+# similar to that of dask itself.
 #
 # - dask/array/numpy_compat.py:
 #     _Recurser, moveaxis, rollaxis, sliding_window_view
@@ -112,9 +110,6 @@ Documentation for dask.
 %autosetup -n %{srcname}-%{version} -p1
 # we don't use pre-commit when running tests
 sed -i '/"pre-commit"/d' setup.py
-
-# https://github.com/dask/dask/pull/9774
-chmod -x dask/dataframe/io/orc/utils.py
 
 
 %generate_buildrequires
@@ -216,8 +211,11 @@ pytest_args=(
   -W ignore::DeprecationWarning
 
   -k "${k-}"
+
+  --pyargs dask
 )
 
+cd docs
 %{pytest} "${pytest_args[@]}"
 
 %files -n python3-%{srcname} -f %{pyproject_files}

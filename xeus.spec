@@ -1,25 +1,16 @@
 Name:           xeus
-Version:        2.0.0
+Version:        3.0.5
 Release:        %autorelease
 Summary:        C++ implementation of the Jupyter kernel protocol
 
 License:        BSD
 URL:            https://github.com/jupyter-xeus/xeus
 Source0:        https://github.com/jupyter-xeus/xeus/archive/%{version}/%{name}-%{version}.tar.gz
-# Backport to make further backports easier
-# https://github.com/jupyter-xeus/xeus/pull/292
-Patch:          0001-switched-from-gtest-to-doctest-292.patch
-# https://github.com/jupyter-xeus/xeus/pull/298
-Patch:          0002-Never-delete-context-before-sockets.patch
-# Backport a refactor that only adds API, but leave out the documentation
-# changes, plus a few later bug fixes.
-# https://github.com/jupyter-xeus/xeus/pull/285
-# https://github.com/jupyter-xeus/xeus/pull/314
-# https://github.com/jupyter-xeus/xeus/pull/315
-Patch:          0003-Fix-non-standard-messages.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 BuildRequires:  cmake >= 3.8
-BuildRequires:  cmake(cppzmq) >= 4.3.0
 BuildRequires:  cmake(nlohmann_json) >= 3.2.0
 BuildRequires:  cmake(xtl) >= 0.7
 BuildRequires:  doctest-devel
@@ -27,8 +18,7 @@ BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  libuuid-devel
 BuildRequires:  make
-BuildRequires:  openssl-devel >= 1.0.1
-BuildRequires:  pkgconfig(libzmq) >= 4.2.5
+BuildRequires:  pkgconfig(uuid)
 BuildRequires:  python3dist(breathe)
 BuildRequires:  python3dist(jupyter-kernel-test)
 BuildRequires:  python3dist(pytest)
@@ -72,7 +62,7 @@ rm docs/build/html/.buildinfo
 %files
 %doc README.md docs/build/html
 %license LICENSE
-%{_libdir}/libxeus.so.5*
+%{_libdir}/libxeus.so.8*
 
 %files devel
 %{_includedir}/xeus/
