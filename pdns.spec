@@ -3,11 +3,12 @@
 
 Name: pdns
 Version: 4.7.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: A modern, advanced and high performance authoritative-only nameserver
 License: GPLv2
 URL: http://powerdns.com
 Source0: http://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
+Patch0: pdns-gcc13.patch
 ExcludeArch: %{arm} %{ix86}
 
 Requires(pre): shadow-utils
@@ -138,7 +139,7 @@ BuildRequires: yaml-cpp-devel
 This package contains the ixfrdist program.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 export CPPFLAGS="-DLDAP_DEPRECATED"
@@ -320,6 +321,9 @@ exit 0
 %{_unitdir}/ixfrdist@.service
 
 %changelog
+* Mon Jan 23 2023 Morten Stevens <mstevens@fedoraproject.org> - 4.7.2-4
+- Fix missing include for gcc13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

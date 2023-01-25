@@ -5,8 +5,8 @@
 %undefine _package_note_file
 
 Name:           ocaml-findlib
-Version:        1.9.5
-Release:        3%{?dist}
+Version:        1.9.6
+Release:        1%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -105,6 +105,9 @@ make install \
 
 
 %changelog
+* Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-1
+- New upstream version 1.9.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

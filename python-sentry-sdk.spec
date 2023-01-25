@@ -1,6 +1,6 @@
 Name:           python-sentry-sdk
-Version:        1.13.0
-Release:        2%{?dist}
+Version:        1.14.0
+Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
 License:        BSD
@@ -114,9 +114,12 @@ sed -i 's/opentelemetry-distro>=0.350b0/opentelemetry-distro>=0.35b0/' setup.py
   -e sentry_sdk.integrations.trytond
 }
 %pyproject_check_import %_check_import_options
-# Testing suite relies on the test to be executed on clean env.
-# By some reason, skipping the test breaks other tests, marking it as expected to fail.
+# Testing suite relies on the test to be executed on clean env (first line), other tests are broken on Python 3.11.
+# By some reason, skipping the tests breaks other tests, marking them as expected to fail.
 sed -i '/def test_auto_enabling_integrations_catches_import_error/i@pytest.mark.xfail' tests/test_basics.py
+sed -i '/def test_extract_stack_with_max_depth/i@pytest.mark.xfail' tests/test_profiler.py
+sed -i '/def test_active_thread_id/i@pytest.mark.xfail' tests/integrations/fastapi/test_fastapi.py
+
 # Deselect/ignore:
 # 1. Network-dependent tests
 # 2. Tests which cannot be run during Fedora build because of the version of pytest:
@@ -153,6 +156,9 @@ sed -i '/def test_auto_enabling_integrations_catches_import_error/i@pytest.mark.
 
 
 %changelog
+* Mon Jan 23 2023 Roman Inflianskas <rominf@aiven.io> - 1.14.0-1
+- Update to 1.14.0 (resolve rhbz#2163387)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

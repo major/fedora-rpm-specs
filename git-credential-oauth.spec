@@ -3,7 +3,7 @@
 
 # https://github.com/hickford/git-credential-oauth
 %global goipath         github.com/hickford/git-credential-oauth
-Version:                0.1.5
+Version:                0.4.1
 
 %gometa -f
 
@@ -25,6 +25,7 @@ URL:            %{gourl}
 Source:         %{gosource}
 
 Enhances: git
+Recommends: xdg-utils
 
 %description %{common_description}
 

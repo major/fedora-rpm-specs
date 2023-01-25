@@ -98,6 +98,19 @@ Patch0015:      0015-transform-fix-memory-corruption-issues.patch
 Patch0016:      0016-riscv-add-target-abi-metadata-flag.patch
 Patch0017:      0017-interp-add-support-for-constant-icmp-instructions.patch
 Patch0018:      0018-ci-add-support-for-LLVM-15.patch
+# Backport patches for Go 1.20 support
+# https://github.com/tinygo-org/tinygo/pull/3368
+Patch0019:      0019-src-runtime-add-xorshift-based-fastrand64.patch
+# https://github.com/tinygo-org/tinygo/pull/3387
+Patch0020:      0020-testing-implement-t.Setenv.patch
+# https://github.com/tinygo-org/tinygo/pull/3391
+Patch0021:      0021-compiler-add-support-for-new-unsafe-slice-string-fun.patch
+Patch0022:      0022-runtime-implement-math-rand.fastrand64-to-fix-linker.patch
+Patch0023:      0023-runtime-implement-internal-godebug.setUpdate-as-a-st.patch
+Patch0024:      0024-syscall-implement-setenv-unsetenv-in-the-runtime.patch
+Patch0025:      0025-builder-add-support-for-Go-1.20.patch
+# https://github.com/tinygo-org/tinygo/issues/3408
+Patch0026:      0026-Skip-archive-zip-tests.patch
 
 # Not supported upstream yet.
 ExcludeArch:    armv7hl ppc64le s390x

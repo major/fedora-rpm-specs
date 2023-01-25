@@ -1,25 +1,13 @@
 Name:		dcap
-Version:	2.47.12
-Release:	17%{?dist}
+Version:	2.47.13
+Release:	1%{?dist}
 Summary:	Client Tools for dCache
 
-#		plugins/gssapi/{base64.[ch],gssIoTunnel.c,util.c} - BSD license
+#		plugins/gssapi/{base64.[ch],util.c} - BSD license
 #		the rest - LGPLv2+ license
 License:	LGPLv2+ and BSD
-URL:		http://www.dcache.org/manuals/libdcap.shtml
+URL:		https://www.dcache.org/manuals/libdcap.shtml
 Source0:	https://github.com/dCache/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-#		Fix autoconf for EPEL 6
-#		https://github.com/dCache/dcap/pull/17
-Patch0:		%{name}-am-prog-ar.patch
-#		Missing function declaration
-#		https://github.com/dCache/dcap/pull/18
-Patch1:		%{name}-missing-declaration.patch
-#		Fixing some typos
-#		https://github.com/dCache/dcap/pull/20
-Patch2:		%{name}-typos.patch
-#		Fixing some compiler warnings
-#		https://github.com/dCache/dcap/pull/20
-Patch3:		%{name}-warnings.patch
 
 Requires:	%{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires:	globus-gssapi-gsi-devel
@@ -92,10 +80,6 @@ This library is dynamically loaded at runtime.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 %build
 ./bootstrap.sh
@@ -154,6 +138,10 @@ rm -rf %{buildroot}/%{_docdir}
 %{_libdir}/%{name}/libtelnetTunnel.so
 
 %changelog
+* Mon Jan 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.47.13-1
+- New upstream release
+- Drop patches accepted upstream
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.47.12-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

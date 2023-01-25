@@ -1,12 +1,17 @@
 %undefine _package_note_flags
+
+%global forgeurl https://github.com/c-cube/seq
+%global tag v0.3.1
+%forgemeta
+
 Name:           ocaml-seq
-Version:        0.2.2
-Release:        11%{?dist}
+Version:        0.3.1
+Release:        1%{?dist}
 Summary:        Compatibility package for OCaml's standard iterator type
 License:        LGPLv2+ with exceptions
 
-URL:            https://github.com/c-cube/seq
-Source0:        %{url}/archive/%{version}/seq-%{version}.tar.gz
+URL:            %{forgeurl}
+Source:         %{forgesource}
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune >= 1.1.0
@@ -71,6 +76,10 @@ rm -fr %{buildroot}%{_prefix}/doc
 
 
 %changelog
+* Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 0.3.1-1
+- Move to version 0.3.1
+- Use forge macros
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

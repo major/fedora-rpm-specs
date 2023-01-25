@@ -2,7 +2,7 @@
 
 Name:           stellarium
 Version:        1.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPLv2+
@@ -64,6 +64,9 @@ done
 #Fix appdata
 sed -i /url/d $RPM_BUILD_ROOT%{_datadir}/metainfo/org.stellarium.Stellarium.appdata.xml
 
+# Fix mimetype icon: https://github.com/Stellarium/stellarium/pull/3011
+sed -i -e 's/<icon/<generic-icon/' $RPM_BUILD_ROOT%{_datadir}/mime/packages/stellarium.xml
+
 # Remove unwanted files
 rm -f $RPM_BUILD_ROOT%{_datadir}/stellarium/data/*.ttf
 rm -f $RPM_BUILD_ROOT%{_datadir}/pixmaps/stellarium.xpm
@@ -87,6 +90,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Mon Jan 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-4
+- Fix mimetype icon.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

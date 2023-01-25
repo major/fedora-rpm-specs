@@ -48,13 +48,11 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.8.9
+Version:   1.8.10
 Release:   %autorelease
 License:   LGPLv2+
 URL:       https://github.com/fwupd/fwupd
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
-
-Patch1:    0001-mtd-Use-dummy-SMBIOS-data-to-fix-self-test-on-s390x.patch
 
 BuildRequires: gettext
 BuildRequires: glib2-devel >= %{glib2_version}
@@ -404,6 +402,8 @@ done
 %if 0%{?have_uefi}
 %{_datadir}/installed-tests/fwupd/efi
 %endif
+%{_datadir}/installed-tests/fwupd/chassis_type
+%{_datadir}/installed-tests/fwupd/sys_vendor
 %{_datadir}/fwupd/device-tests/*.json
 %{_libexecdir}/installed-tests/fwupd/*
 %dir %{_sysconfdir}/fwupd/remotes.d

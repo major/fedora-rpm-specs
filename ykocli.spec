@@ -1,10 +1,10 @@
 %global owner gbcox
-%global commit 5b9f62d5eb60861afa0e4369dd014ee13d564be7
+%global commit 01500f50f2aeb7ba0e397e632854c74eef9f77a5
 %global shortcommit %(c=%{commit}; echo ${c:0:12})
 
 Name:     ykocli
-Version:  1.1.1
-Release:  2%{?dist}
+Version:  1.2.1
+Release:  1%{?dist}
 Summary:  Front-end script for ykman to obtain TOTP tokens
 
 License:  GPL-3.0-or-later
@@ -34,11 +34,14 @@ that places ykman obtained TOTP tokens into the CopyQ clipboard.
 %files
 %license LICENSE.md
 %doc README.md contributors.txt examples/
-%config(noreplace) %{_sysconfdir}/ykocli.conf
+%config %{_sysconfdir}/ykocli.conf
 %{_bindir}/ykocli
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/src-yko-set-colors.sh
+%{_libexecdir}/%{name}/src-yko-set-variables.sh
+%{_libexecdir}/%{name}/src-yko-conf-override.sh
 %{_libexecdir}/%{name}/src-yko-ck-input.sh
+%{_libexecdir}/%{name}/src-yko-ck-touch.sh
 %{_libexecdir}/%{name}/src-yko-figlet.sh
 %{_libexecdir}/%{name}/src-yko-help.sh
 %{_libexecdir}/%{name}/src-yko-table.sh
@@ -52,6 +55,12 @@ that places ykman obtained TOTP tokens into the CopyQ clipboard.
 %{_mandir}/man1/ykocli.1*
 
 %changelog
+* Mon Jan 23 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.2.1-1
+- Add Touch Mode; mod cfg ovrd rhbz#2162909; rhbz#2162885
+
+* Mon Jan 23 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.2.0-1
+- Add Touch Mode; mod cfg ovrd rhbz#2162909; rhbz#2162885
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

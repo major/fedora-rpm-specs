@@ -1,6 +1,6 @@
 Name:           viking
 Version:        1.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        GPS data editor and analyzer
 
 License:        GPLv2+
@@ -81,6 +81,9 @@ make test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 1.8-12
+- rebuild for new libgps
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

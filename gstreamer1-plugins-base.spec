@@ -5,8 +5,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-base
-Version:        1.20.5
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.21.90
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework base plugins
 
 License:        LGPLv2+
@@ -197,7 +197,6 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstaudio-1.0.so.*
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstapp.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstencoding.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstrawparse.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideoscale.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstplayback.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstcdparanoia.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libgstriff-1.0.so.*
@@ -207,7 +206,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgsttypefin
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudioresample.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstlibvisual.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudioconvert.so
-chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideoconvert.so
+chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideoconvertscale.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstvideorate.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstaudiotestsrc.so
 chrpath --delete $RPM_BUILD_ROOT%{_libdir}/gstreamer-%{majorminor}/libgstadder.so
@@ -269,9 +268,8 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %{_libdir}/gstreamer-%{majorminor}/libgstsubparse.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttcp.so
 %{_libdir}/gstreamer-%{majorminor}/libgsttypefindfunctions.so
-%{_libdir}/gstreamer-%{majorminor}/libgstvideoconvert.so
+%{_libdir}/gstreamer-%{majorminor}/libgstvideoconvertscale.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideorate.so
-%{_libdir}/gstreamer-%{majorminor}/libgstvideoscale.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvideotestsrc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstvolume.so
 
@@ -435,6 +433,7 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-info.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-multiview.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-resampler.h
+%{_includedir}/gstreamer-%{majorminor}/gst/video/video-sei.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-scaler.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video-tile.h
 %{_includedir}/gstreamer-%{majorminor}/gst/video/video.h
@@ -483,6 +482,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/gst-play-1.0
 %endif
 
 %changelog
+* Fri Jan 20 2023 Wim Taymans <wtaymans@redhat.com> - 1.21.90-1
+- Update to 1.21.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

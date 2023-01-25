@@ -1,3 +1,7 @@
+# Support HTML language
+%bcond_without perl_PDF_Builder_enables_html
+# Support Markdown language
+%bcond_without perl_PDF_Builder_enables_markdown
 # Perform optional tests
 %bcond_without perl_PDF_Builder_enables_optional_test
 # Fully support PNG images with a libpng library
@@ -6,28 +10,29 @@
 %bcond_without perl_PDF_Builder_enables_tiff
 
 Name:           perl-PDF-Builder
-Version:        3.024
-Release:        3%{?dist}
+Version:        3.025
+Release:        1%{?dist}
 Summary:        Creation and modification of PDF files in Perl
 # docs/buildDoc.pl:             same as PDF-Builder
+# examples/Column.pl:           LGPL-2.1-or-later
 # lib/PDF/Builder/Basic/PDF/Pages.pm:   MIT OR Artistic-1.0-Perl
-# lib/PDF/Builder.pm:           LGPL-2.0-or-later
-# lib/PDF/Builder/Matrix.pm:    LGPL-2.0-or-later (same as PDF::API2)
-# LICENSE:                      LGPL-2.0-or-later
-# README:                       LGPL-2.0-or-later (v2+ according to the upstream)
-License:        LGPL-2.0-or-later AND MIT
+# lib/PDF/Builder.pm:           LGPL-2.1-or-later
+# lib/PDF/Builder/Matrix.pm:    LGPL-2.1-only ("same as PDF::API2")
+# LICENSE:                      LGPL-2.1-or-later
+# README:                       LGPL-2.1-or-later
+# README.md:                    LGPL-2.1-or-later
+License:        LGPL-2.1-or-later AND LGPL-2.1-only AND MIT
 URL:            https://metacpan.org/release/PDF-Builder
 Source0:        https://cpan.metacpan.org/authors/id/P/PM/PMPERRY/PDF-Builder-%{version}.tar.gz
-# Adapt tests to Fedora fonts, in upstream after 3.024,
-# <https://github.com/PhilterPaper/Perl-PDF-Builder/pull/188>
-Patch0:         PDF-Builder-3.024-tests-Add-font-paths-on-Fedora.patch
 # Renable tests, we have downstream-fixed ghostcript-9.56.1, bug #2123391,
 # not suitable for the upstream
-Patch1:         PDF-Builder-3.024-Don-t-skip-ghostscript-9.56.-0-1.patch
+Patch0:         PDF-Builder-3.024-Don-t-skip-ghostscript-9.56.-0-1.patch
 # Adapt tests to EPEL9 fonts,
 # <https://bugzilla.redhat.com/show_bug.cgi?id=2158422>, not suitable for the
-# upstream until EPEL9 moved the fonts a better path.
-Patch2:         PDF-Builder-3.024-Search-URW-fonts-in-usr-share-GraphicsMagick.patch
+# upstream until EPEL9 moves the fonts to a better path.
+# PFB font format is deprecated, an attempt to move to T1 format
+# <https://github.com/PhilterPaper/Perl-PDF-Builder/issues/194>.
+Patch1:         PDF-Builder-3.024-Search-URW-fonts-in-usr-share-GraphicsMagick.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -53,6 +58,9 @@ BuildRequires:  perl(Font::TTF::Font)
 %if %{with perl_PDF_Builder_enables_tiff}
 BuildRequires:  perl(Graphics::TIFF) >= 19
 %endif
+%if %{with perl_PDF_Builder_enables_html}
+# HTML::TreeBuilder >= 5.07 not used at tests
+%endif
 %if %{with perl_PDF_Builder_enables_png}
 BuildRequires:  perl(Image::PNG::Const)
 BuildRequires:  perl(Image::PNG::Libpng) >= 0.57
@@ -62,6 +70,9 @@ BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Math::Trig)
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
+%if %{with perl_PDF_Builder_enables_markdown}
+# Text::Markdown >= 1.000031 not used at tests
+%endif
 BuildRequires:  perl(Unicode::UCD)
 BuildRequires:  perl(vars)
 # Tests:
@@ -95,9 +106,15 @@ Requires:       perl(Compress::Zlib) >= 1
 %if %{with perl_PDF_Builder_enables_tiff}
 Recommends:     perl(Graphics::TIFF) >= 19
 %endif
+%if %{with perl_PDF_Builder_enables_html}
+Recommends:  perl(HTML::TreeBuilder) >= 5.07
+%endif
 %if %{with perl_PDF_Builder_enables_png}
 Recommends:     perl(Image::PNG::Const)
 Recommends:     perl(Image::PNG::Libpng) >= 0.57
+%endif
+%if %{with perl_PDF_Builder_enables_markdown}
+Recommends:     perl(Text::Markdown) >= 1.000031
 %endif
 
 # Remove under-specified dependencies
@@ -118,7 +135,7 @@ Portagble Document Format (mostly compliant to PDF 1.4 version).
 
 %package tests
 Summary:        Tests for %{name}
-License:        LGPL-2.0-or-later
+License:        LGPL-2.1-or-later
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 Requires:       perl(Test::Memory::Cycle) >= 1
@@ -145,9 +162,8 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %autosetup -p1 -n PDF-Builder-%{version}
-# Remove unused tests and disabled features
+# Remove disabled features
 for F in \
-    t/author-critic.t t/author-pod-syntax.t \
 %if !%{with perl_PDF_Builder_enables_optional_test}
     t/gd.t \
 %endif
@@ -156,7 +172,7 @@ for F in \
     perl -i -ne 'print $_ unless m{^\Q'"$F"'\E}' MANIFEST
 done
 # Correct EOLs
-perl -i -pe 's/\r$//' Changes INFO/Changes_2021
+perl -i -pe 's/\r$//' Changes CONTRIBUTING.md INFO/Changes_2021 INFO/SPONSORS README.md
 # Help generators to recognize Perl scripts
 chmod +x t/*.t
 
@@ -183,9 +199,9 @@ make test
 
 %files
 %license LICENSE
-%doc Changes contrib CONTRIBUTING examples README.md tools
+%doc Changes contrib CONTRIBUTING.md examples README.md tools
 %doc INFO/CONVERSION INFO/DEPRECATED INFO/Changes* INFO/KNOWN_INCOMP
-%doc INFO/PATENTS INFO/RoadMap INFO/SUPPORT
+%doc INFO/PATENTS INFO/RoadMap INFO/SPONSORS INFO/SUPPORT
 %dir %{perl_vendorlib}/PDF
 %{perl_vendorlib}/PDF/Builder*
 %{_mandir}/man3/PDF::Builder*
@@ -194,6 +210,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Jan 23 2023 Petr Pisar <ppisar@redhat.com> - 3.025-1
+- 3.025 bump
+- License corrected to "LGPL-2.1-or-later AND LGPL-2.1-only AND MIT"
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.024-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 Name:           stringtemplate4
-Version:        4.3.3
-Release:        4%{?dist}
+Version:        4.3.4
+Release:        1%{?dist}
 Summary:        A Java template engine
 License:        BSD-3-Clause
 URL:            http://www.stringtemplate.org/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-Source0:        https://github.com/antlr/stringtemplate4/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/antlr/stringtemplate4/archive/ST4-%{version}/%{name}-%{version}.tar.gz
 # Adapt to JDK 11
 Patch0:         %{name}-java11.patch
 
@@ -32,7 +32,7 @@ Summary:       Javadoc for %{name}
 This package contains javadoc for %{name}.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-ST4-%{version}
 
 # sonatype-oss-parent is deprecated in Fedora
 %pom_remove_parent
@@ -51,6 +51,9 @@ xvfb-run -d %mvn_build
 %license LICENSE.txt
 
 %changelog
+* Mon Jan 23 2023 Jerry James <loganjerry@gmail.com> - 4.3.4-1
+- Version 4.3.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

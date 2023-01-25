@@ -1,8 +1,8 @@
 Name:      mapnik
 Version:   3.1.0
-Release:   23%{?dist}
+Release:   24%{?dist}
 Summary:   Free Toolkit for developing mapping applications
-License:   LGPL-2.1-or-later
+License:   LGPL-2.1-only
 URL:       http://mapnik.org/
 Source0:   https://github.com/mapnik/mapnik/releases/download/v%{version}/mapnik-v%{version}.tar.bz2
 Source1:   https://github.com/mapnik/test-data/archive/v%{version}/test-data-v%{version}.tar.gz
@@ -21,6 +21,8 @@ Patch3:    mapnik-rpath.patch
 Patch4:    mapnik-proj.patch
 # https://github.com/mapnik/mapnik/pull/4159
 Patch5:    mapnik-scons4.patch
+# https://github.com/mapnik/mapnik/pull/4378
+Patch6:    mapnik-stdint.patch
 
 # Exclude big endian architectures as mapnik does not support them
 # https://github.com/mapnik/mapnik/issues/2313
@@ -257,6 +259,9 @@ LANG="C.UTF-8" make test
 
 
 %changelog
+* Mon Jan 23 2023 Tom Hughes <tom@compton.nu> - 3.1.0-24
+- Add missing cstdint include
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

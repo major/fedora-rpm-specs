@@ -1,6 +1,6 @@
 Name:           vfrnav
 Version:        20201231
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        VFR/IFR Navigation
 
 License:        GPLv2+
@@ -479,6 +479,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 20201231-38
+- rebuild for new libgps
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20201231-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

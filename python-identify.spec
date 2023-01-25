@@ -2,8 +2,8 @@
 %global pypi_name identify
 
 Name:           python-%{pypi_name}
-Version:        2.5.13
-Release:        2%{?dist}
+Version:        2.5.15
+Release:        1%{?dist}
 Summary:        File identification library for Python
 
 License:        MIT
@@ -65,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Mon Jan 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.15-1
+- 2.5.15
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

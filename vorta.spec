@@ -1,5 +1,5 @@
 Name:           vorta
-Version:        0.8.9
+Version:        0.8.10
 Release:        2%{?dist}
 Summary:        A GUI for Borg Backup
 License:        GPL-3.0-only AND BSD-2-Clause AND OFL-1.1
@@ -11,11 +11,10 @@ Source0:        https://github.com/borgbase/%{name}/archive/v%{version}/%{name}-
 BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-# for tests
-BuildRequires:  pytest
 
 Requires:       borgbackup
 Requires:       hicolor-icon-theme
+Requires:       qt5-qtsvg
 
 BuildArch:      noarch
 
@@ -63,6 +62,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Mon Jan 23 2023 Jonathan Wright <jonathan@almalinux.org> - 0.8.10-2
+- Add requires qt5-qtsvg rhbz#2162072
+
+* Sun Jan 22 2023 Jonathan Wright <jonathan@almalinux.org> - 0.8.10-1
+- Update to 0.8.10 rhbz#2163001
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

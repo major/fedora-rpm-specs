@@ -18,7 +18,7 @@ ExclusiveArch: %{power64} x86_64 aarch64
 Name:      sdsl-lite
 Summary:   SDSL v3 - Succinct Data Structure Library
 Version:   3.0.1
-Release:   3%{date}%{shortcommit}%{?dist}
+Release:   4%{date}%{shortcommit}%{?dist}
 License:   BSD and MIT
 URL:       https://github.com/xxsds/sdsl-lite
 Source0:   https://github.com/xxsds/sdsl-lite/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -73,9 +73,6 @@ Info files of SeqAn's apps.
 mkdir -p %{buildroot}%{_prefix}
 cp -a include %{buildroot}%{_prefix}
 
-mkdir -p %{buildroot}%{_libdir}/cmake/%{name}
-install -pm 644 sdsl-lite.pc.cmake %{buildroot}%{_libdir}/cmake/%{name}/
-
 rm -f %{buildroot}%{_includedir}/sdsl/.gitignore
 
 %if %{with check}
@@ -91,9 +88,11 @@ rm -f %{buildroot}%{_includedir}/sdsl/.gitignore
 %files devel
 %license LICENSE
 %{_includedir}/sdsl/
-%{_libdir}/cmake/%{name}/
 
 %changelog
+* Mon Jan 23 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.1-4
+- Remove pkgconfig file
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

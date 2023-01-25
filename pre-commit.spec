@@ -2,7 +2,7 @@
 
 Name:           pre-commit
 Version:        2.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -38,7 +38,7 @@ BuildRequires:  luarocks
 BuildRequires:  npm
 BuildRequires:  nodejs
 BuildRequires:  perl-CPAN
-BuildRequires:  rubypick
+BuildRequires:  ruby
 BuildRequires:  rubygems
 
 # Manually added to speed up the %%check section
@@ -130,6 +130,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Mon Jan 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.21.0-2
+- Use ruby, not rubypick
+
 * Fri Jan 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.21.0-1
 - Update to 2.21.0 (close RHBZ#2156253); fixes FTBFS with git ≥ 2.38.1
 

@@ -36,8 +36,8 @@
 %global ftver 2.12.1
 
 Name:           python-matplotlib
-Version:        3.6.2
-%global Version 3.6.2
+Version:        3.6.3
+%global Version 3.6.3
 Release:        %autorelease
 Summary:        Python 2D plotting library
 # qt_editor backend is MIT

@@ -54,12 +54,15 @@ Source2:        update-version
 # Stop overriding optimization flags; not sent upstream because this is
 # intentional on their part
 Patch:          gn-0153d369-no-O3.patch
-# Error: redundant move in return statement (GCC 13)
-# https://bugs.chromium.org/p/gn/issues/detail?id=318
-Patch:          gn-5e19d2fb166f-redundant-move.patch
 # Missing #include <stdint.h> for uint8_t (GCC 13)
 # https://bugs.chromium.org/p/gn/issues/detail?id=319
 Patch:          gn-5e19d2fb166f-stdint.patch
+# Error: redundant move in return statement (GCC 13)
+# https://bugs.chromium.org/p/gn/issues/detail?id=318
+# Apparently, removing the std::move causes an error (error: use of deleted
+# function 'base::Value::Value(const base::Value&)) on compiler versions before
+# GCC 13. Maybe this is a GCC bug?
+Patch:          gn-5e19d2fb166f-redundant-move.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

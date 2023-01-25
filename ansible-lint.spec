@@ -3,8 +3,8 @@
 
 Name:           %{archive_name}
 Epoch:          1
-Version:        6.10.2
-Release:        2%{?dist}
+Version:        6.11.0
+Release:        1%{?dist}
 Summary:        Best practices checker for Ansible
 
 # README file says its just GPLv3
@@ -66,6 +66,9 @@ ln -sr %{buildroot}%{_bindir}/%{name}{,-3}
 %{_bindir}/%{name}-3
 
 %changelog
+* Mon Jan 23 2023 Parag Nemade <pnemade AT redhat DOT com> - 1:6.11.0-1
+- Update to 6.11.0 version (#2161931)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.10.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

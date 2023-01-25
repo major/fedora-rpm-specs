@@ -3,8 +3,8 @@
 
 Summary:	LZMA compression utilities
 Name:		xz
-Version:	5.2.9
-Release:	2%{?dist}
+Version:	5.4.1
+Release:	1%{?dist}
 
 # Scripts xz{grep,diff,less,more} and symlinks (copied from gzip) are
 # GPLv2+, binaries are Public Domain (linked against LGPL getopt_long but its
@@ -131,6 +131,9 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/man1/*xz*
 %{_mandir}/de/man1/*xz*
 %{_mandir}/fr/man1/*xz*
+%{_mandir}/ko/man1/*xz*
+%{_mandir}/ro/man1/*xz*
+%{_mandir}/uk/man1/*xz*
 %{profiledir}/*
 
 
@@ -158,9 +161,15 @@ LD_LIBRARY_PATH=$PWD/src/liblzma/.libs make check
 %{_mandir}/man1/*lz*
 %{_mandir}/de/man1/*lz*
 %{_mandir}/fr/man1/*lz*
+%{_mandir}/ko/man1/*lz*
+%{_mandir}/ro/man1/*lz*
+%{_mandir}/uk/man1/*lz*
 
 
 %changelog
+* Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 5.4.1-1
+- Rebase to version 5.4.1 (#2142405)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -117,14 +117,23 @@ use the "rayon" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+# skip tests that fail when run on vms, on tmpfs, or in systemd-nspawn
+%if 0%{?fedora} >= 38
+SKIP_TESTS=""
+%else
+SKIP_TESTS=" --skip test_disks"
+%endif
+
 %ifarch s390x
 # these tests panic with assertion failures on s390x
-%cargo_test -- -- \
-  --skip test::check_cpus_number \
-  --skip test::check_processes_cpu_usage
-%else
-%cargo_test
+SKIP_TESTS+=" --skip test::check_cpus_number --skip test::check_processes_cpu_usage"
 %endif
+
+if [ -e ${SKIP_TESTS} ]; then
+%cargo_test
+else
+%cargo_test -- -- ${SKIP_TESTS}
+fi
 %endif
 
 %changelog

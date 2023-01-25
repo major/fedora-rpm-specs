@@ -324,6 +324,10 @@ BuildRequires: zlib-devel >= 1.2.3
 
 BuildRequires: pkgconfig(libsystemd)
 
+%if 0%{?fedora} >= 37
+BuildRequires: mold
+%endif
+
 %if %{with vfs_glusterfs}
 BuildRequires: glusterfs-api-devel >= 3.4.0.16
 BuildRequires: glusterfs-devel >= 3.4.0.16
@@ -1242,9 +1246,13 @@ rm -f lib/crypto/{aes,rijndael}*.c
 # TODO: resolve underlinked python modules
 export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
 
-# Use the gold linker
-# See https://bugzilla.redhat.com/show_bug.cgi?id=2043178 ; For f36 do not use ld.gold till it is fixed
-#export LDFLAGS="%%{__global_ldflags} -fuse-ld=gold"
+# Use the mold linker
+%if 0%{?fedora} >= 37
+export LDFLAGS="%{__global_ldflags} -fuse-ld=mold"
+export python_LDFLAGS="$(echo ${LDFLAGS} | sed -e 's/-Wl,-z,defs//g')"
+%else
+export python_LDFLAGS="$(echo %{__global_ldflags} | sed -e 's/-Wl,-z,defs//g')"
+%endif
 
 %configure \
         --enable-fhs \

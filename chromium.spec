@@ -1,3 +1,5 @@
+%define _lto_cflags %{nil}
+
 # set default fuzz=2 for patch
 %global _default_patch_fuzz 2
 
@@ -26,6 +28,13 @@
 
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1
+
+# enable|disble bootstrap for gn
+%if 0%{?rhel} >= 8 || 0%{?fedora}
+%global bootstrap 0
+%else
+%global bootstrap 1
+%endif
 
 # Fancy build status, so we at least know, where we are..
 # %1 where
@@ -311,13 +320,13 @@ Patch90: chromium-109-disable-GlobalMediaControlsCastStartStop.patch
 Patch91: chromium-108-system-opus.patch
 
 # Fix extra qualification error
-Patch97:	chromium-107.0.5304.110-remoting-extra-qualification.patch
+Patch97: chromium-107.0.5304.110-remoting-extra-qualification.patch
 
 # From gentoo
-Patch98:	chromium-94.0.4606.71-InkDropHost-crash.patch
+Patch98: chromium-94.0.4606.71-InkDropHost-crash.patch
 
 # Enable WebRTCPPipeWireCapturer by default
-Patch99:	chromium-108-enable-WebRTCPipeWireCapturer-byDefault.patch
+Patch99: chromium-108-enable-WebRTCPipeWireCapturer-byDefault.patch
 
 # need to explicitly include a kernel header on EL7 to support MFD_CLOEXEC, F_SEAL_SHRINK, F_ADD_SEALS, F_SEAL_SEAL
 Patch100: chromium-108-el7-include-fcntl-memfd.patch
@@ -424,7 +433,7 @@ BuildRequires: %{toolset}-%{dts_version}-libatomic-devel
 BuildRequires: %{toolset}-%{dts_version}-toolchain, %{toolset}-%{dts_version}-libatomic-devel
 %endif
 %if 0{?fedora} || 0%{?rhel} > 8
-BuildRequires:	gcc-c++
+BuildRequires: gcc-c++
 BuildRequires: gcc
 BuildRequires: binutils
 %endif
@@ -497,15 +506,19 @@ BuildRequires:	minizip-compat-devel
 # RHEL 8 needs to use the compat-minizip (provided by minizip1.2)
 %if 0%{?rhel} >= 8
 BuildRequires:	minizip-compat-devel
-%else
-# RHEL 7 used to have minizip, but as of 7.9, it does not.
-# BuildRequires:	minizip-devel
 %endif
 %endif
 
 # RHEL 8 needs newer nodejs
-%if ! 0%{?rhel} == 8
-BuildRequires:	nodejs
+%if 0%{?rhel} == 8
+# nothing
+%else
+BuildRequires: nodejs
+%endif
+
+# use system gn on fedora and rhel >=8, el7 needs bundle gn
+%if ! %{bootstrap}
+BuildRequires: gn
 %endif
 
 BuildRequires:	nss-devel >= 3.26
@@ -519,8 +532,12 @@ BuildRequires:	pkgconfig(libpipewire-0.3)
 
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
+
+%if %{bootstrap}
 # gn needs these
 BuildRequires: libstdc++-static
+%endif
+
 # Fedora tries to use system libs whenever it can.
 BuildRequires:	bzip2-devel
 BuildRequires:	dbus-glib-devel
@@ -624,16 +641,16 @@ BuildRequires: python-jinja2
 
 %if ! %{bundlere2}
 Requires: re2 >= 20160401
-BuildRequires:	re2-devel >= 20160401
+BuildRequires: re2-devel >= 20160401
 %endif
 
 %if ! %{bundlebrotli}
 BuildRequires: brotli-devel
 %endif
 
-BuildRequires:	speech-dispatcher-devel
-BuildRequires:	yasm
-BuildRequires:	zlib-devel
+BuildRequires: speech-dispatcher-devel
+BuildRequires: yasm
+BuildRequires: zlib-devel
 
 # Technically, this logic probably applies to older rhel too... but whatever.
 # RHEL 8 and 9 do not have gnome-keyring. Not sure why, but whatever again.
@@ -691,7 +708,7 @@ Source114: https://github.com/googlefonts/noto-fonts/blob/master/unhinted/NotoSa
 Source115: https://github.com/googlefonts/noto-fonts/blob/master/hinted/NotoSansTibetan/NotoSansTibetan-Regular.ttf
 
 # using the built from source version on aarch64
-BuildRequires:	ninja-build
+BuildRequires: ninja-build
 
 # Yes, java is needed as well..
 %if %{build_headless}
@@ -905,7 +922,7 @@ Remote desktop support for google-chrome & chromium.
 %endif
 
 %package -n chromedriver
-Summary:	WebDriver for Google Chrome/Chromium
+Summary: WebDriver for Google Chrome/Chromium
 Requires: chromium-common%{_isa} = %{version}-%{release}
 
 %description -n chromedriver
@@ -1159,6 +1176,7 @@ FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -W
 FLAGS+=' -Wno-unused-const-variable -Wno-unneeded-internal-declaration'
 
 %if %{system_build_flags}
+CFLAGS=${CFLAGS/-g }
 CFLAGS=${CFLAGS/-fexceptions}
 CFLAGS=${CFLAGS/-Wp,-D_GLIBCXX_ASSERTIONS}
 CFLAGS=${CFLAGS/-fcf-protection}
@@ -1369,7 +1387,12 @@ if python3 -c 'import google ; print google.__path__' 2> /dev/null ; then \
     exit 1 ; \
 fi
 
+%if %{bootstrap}
 tools/gn/bootstrap/bootstrap.py --gn-gen-args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES"
+%else
+mkdir -p %{builddir} && cp -a %{_bindir}/gn %{builddir}/
+%endif
+
 %{builddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{builddir}
 
 %if %{build_headless}

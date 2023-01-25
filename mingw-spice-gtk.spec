@@ -1,15 +1,15 @@
 %{?mingw_package_header}
 
 Name:           mingw-spice-gtk
-Version:        0.41
+Version:        0.42
 Release:        1%{?dist}
 Summary:        A GTK+ widget for SPICE clients
 
 License:        LGPLv2+
 URL:            http://spice-space.org/page/Spice-Gtk
 Source0:        http://www.spice-space.org/download/gtk/spice-gtk-%{version}%{?_version_suffix}.tar.xz
-Source1:        http://www.spice-space.org/download/gtk/spice-gtk-%{version}%{?_version_suffix}.tar.xz.sig
-Source2:        victortoso-E37A484F.keyring
+#Source1:        http://www.spice-space.org/download/gtk/spice-gtk-%{version}%{?_version_suffix}.tar.xz.sig
+#Source2:        victortoso-E37A484F.keyring
 
 BuildArch: noarch
 
@@ -106,7 +106,7 @@ A SPICE client library using GLib2.
 
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+#gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %autosetup -S git_am -n spice-gtk-%{version}%{?_version_suffix}
 
 %build
@@ -172,6 +172,9 @@ find $RPM_BUILD_ROOT -name "*.1" -delete
 %{mingw64_includedir}/spice-client-gtk-3.0
 
 %changelog
+* Mon Jan 23 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.42-1
+- new version
+
 * Thu Jan 19 2023 Richard W.M. Jones <rjones@redhat.com> - 0.41-1
 - New upstream version 0.41
 

@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 9
+%global openssh_rel 10
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -73,7 +73,6 @@ Source13: sshd-keygen
 Source15: sshd-keygen.target
 Source16: ssh-agent.service
 Source17: ssh-agent.socket
-Source18: openssh-systemd-sysusers.conf
 Source19: openssh-server-systemd-sysusers.conf
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
@@ -115,8 +114,6 @@ Patch502: openssh-6.6p1-keycat.patch
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1644
 Patch601: openssh-6.6p1-allow-ip-opts.patch
-#https://bugzilla.mindrot.org/show_bug.cgi?id=1893 (WONTFIX)
-Patch604: openssh-6.6p1-keyperm.patch
 #(drop?) https://bugzilla.mindrot.org/show_bug.cgi?id=1925
 Patch606: openssh-5.9p1-ipv6man.patch
 #?
@@ -380,7 +377,6 @@ popd
 %patch502 -p1 -b .keycat
 
 %patch601 -p1 -b .ip-opts
-%patch604 -p1 -b .keyperm
 %patch606 -p1 -b .ipv6man
 %patch607 -p1 -b .sigpipe
 %patch609 -p1 -b .x11
@@ -585,7 +581,6 @@ install -m744 %{SOURCE13} $RPM_BUILD_ROOT/%{_libexecdir}/openssh/sshd-keygen
 install -m755 contrib/ssh-copy-id $RPM_BUILD_ROOT%{_bindir}/
 install contrib/ssh-copy-id.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 install -d -m711 ${RPM_BUILD_ROOT}/%{_datadir}/empty.sshd
-install -p -D -m 0644 %{SOURCE18} %{buildroot}%{_sysusersdir}/openssh.conf
 install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/openssh-server.conf
 
 %if ! %{no_gnome_askpass}
@@ -611,11 +606,13 @@ pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
 popd
 %endif
 
-%pre
-%sysusers_create_compat %{SOURCE18}
-
 %pre server
 %sysusers_create_compat %{SOURCE19}
+# Migration scriptlet for Fedora 38/39
+# We want to remove group ownership for standard host keys if they exist
+test -f /etc/ssh/ssh_host_rsa_key     && /usr/bin/chmod g-r /etc/ssh/ssh_host_rsa_key     || :
+test -f /etc/ssh/ssh_host_ecdsa_key   && /usr/bin/chmod g-r /etc/ssh/ssh_host_ecdsa_key   || :
+test -f /etc/ssh/ssh_host_ed25519_key && /usr/bin/chmod g-r /etc/ssh/ssh_host_ed25519_key || :
 
 %post server
 %systemd_post sshd.service sshd.socket
@@ -653,9 +650,8 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_bindir}/ssh-keygen
 %attr(0644,root,root) %{_mandir}/man1/ssh-keygen.1*
 %attr(0755,root,root) %dir %{_libexecdir}/openssh
-%attr(2555,root,ssh_keys) %{_libexecdir}/openssh/ssh-keysign
+%attr(4555,root,root) %{_libexecdir}/openssh/ssh-keysign
 %attr(0644,root,root) %{_mandir}/man8/ssh-keysign.8*
-%attr(0644,root,root) %{_sysusersdir}/openssh.conf
 
 %files clients
 %attr(0755,root,root) %{_bindir}/ssh
@@ -724,6 +720,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Fri Dec 02 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-10
+- Restore upstream behaviour and default host key permissions (rhbz#2141272)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0p1-9.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

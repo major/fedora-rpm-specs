@@ -13,8 +13,8 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.13.0
-Release:        2%{?dist}
+Version:        0.13.1
+Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
 License:        MIT
@@ -69,6 +69,9 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Mon Jan 23 2023 Packit <hello@packit.dev> - 0.13.1-1
+- Fixed a bug in section parsing that caused sections to be ignored when there were macro definitions spread across the spec file and not cumulated at the top. (#191)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

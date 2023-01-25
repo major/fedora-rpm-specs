@@ -25,6 +25,8 @@ Summary:        Go wrapper for libsass, the only Sass 3.5 compiler for Go
 License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+# https://github.com/wellington/go-libsass/pull/83
+Patch:          0001-Fix-build-with-Go-1.20.patch
 
 BuildRequires:  golang(golang.org/x/net/context)
 BuildRequires:  gcc-c++
@@ -37,6 +39,7 @@ BuildRequires:  libsass-devel >= 3.5.4
 
 %prep
 %goprep
+%autopatch -p1
 
 # Remove bundled libsass.
 rm -rf libsass-build

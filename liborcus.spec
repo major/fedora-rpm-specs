@@ -24,6 +24,7 @@ License: MPL-2.0
 URL: https://gitlab.com/orcus/orcus
 Source0: https://kohei.us/files/orcus/src/%{name}-%{version}.tar.xz
 Patch0:  liborcus-noexamples.patch
+Patch1:  0001-include-cstdint.patch
 
 BuildRequires: make
 BuildRequires: boost-devel

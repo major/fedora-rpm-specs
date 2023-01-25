@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Graphical debugger based on GDB
 License:	GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Url:		https://www.sourceware.org/insight/
@@ -89,6 +89,7 @@ Patch201:	insight-13.0-symtab_no_format_overflow.patch
 Patch202:	insight-13.0-bfd-CVE-2022-4285,patch
 Patch203:	insight-13.0-print-check-value.patch
 Patch204:	insight-13.0-distutils.patch
+Patch205:	insight-13.0-noselfmove.patch
 
 
 %description
@@ -123,6 +124,7 @@ the latest GDB version.
 %patch202 -p1
 %patch203 -p1
 %patch204 -p1
+%patch205 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -318,10 +320,13 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Tue Jan 24 2023 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-7
+- Patch "noselfmove" removes the move to self tests.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.50.20220502-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-#-------------------------------------------------------------------------------
 
 * Fri Dec 23 2022 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-5
 - Patch "distutils" removes deprecated python 3.12 module use.

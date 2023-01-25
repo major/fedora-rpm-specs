@@ -13,8 +13,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-bad-free
-Version:        1.20.5
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.21.90
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer streaming media framework "bad" plugins
 
 License:        LGPLv2+ and LGPLv2
@@ -30,10 +30,6 @@ URL:            http://gstreamer.freedesktop.org/
 %endif
 Source0:        gst-plugins-bad-free-%{version}.tar.xz
 Source1:        gst-p-bad-cleanup.sh
-# Fix build failure with opencv disabled:
-# https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/-/issues/1406
-# https://gitlab.freedesktop.org/gstreamer/gst-plugins-bad/-/merge_requests/1570
-Patch0:         0001-examples-only-check-opencv_dep-if-option-is-not-disa.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc-c++
@@ -235,7 +231,6 @@ aren't tested well enough, or the code is not of good enough quality.
 
 %prep
 %setup -q -n gst-plugins-bad-%{version}
-%patch0 -p1
 
 %build
 %meson \
@@ -279,7 +274,8 @@ aren't tested well enough, or the code is not of good enough quality.
 %endif
     %{!?with_extras:-D qroverlay=disabled } 		\
     -D openh264=disabled -D gs=disabled -D isac=disabled \
-    -D onnx=disabled -D openaptx=disabled -Dgpl=enabled
+    -D onnx=disabled -D openaptx=disabled -Dgpl=enabled \
+    -D amfcodec=disabled -D directshow=disabled -D qsv=disabled
 
 %meson_build
 
@@ -373,6 +369,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgstbadaudio-%{majorminor}.so.*
 %{_libdir}/libgstcodecparsers-%{majorminor}.so.*
 %{_libdir}/libgstcodecs-%{majorminor}.so.*
+%{_libdir}/libgstcuda-%{majorminor}.so.*
 %{_libdir}/libgstinsertbin-%{majorminor}.so.*
 %{_libdir}/libgstisoff-%{majorminor}.so.*
 %{_libdir}/libgstmpegts-%{majorminor}.so.*
@@ -388,17 +385,21 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgstva-%{majorminor}.so.*
 %endif
 %{_libdir}/libgstwebrtc-%{majorminor}.so.*
+%{_libdir}/libgstwebrtcnice-%{majorminor}.so.*
 %if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/libgstwayland-%{majorminor}.so.*
 %endif
 
+%{_libdir}/girepository-1.0/CudaGst-1.0.typelib
 %{_libdir}/girepository-1.0/GstBadAudio-1.0.typelib
 %{_libdir}/girepository-1.0/GstCodecs-1.0.typelib
+%{_libdir}/girepository-1.0/GstCuda-1.0.typelib
 %{_libdir}/girepository-1.0/GstInsertBin-1.0.typelib
 %{_libdir}/girepository-1.0/GstMpegts-1.0.typelib
 %{_libdir}/girepository-1.0/GstPlay-1.0.typelib
 %{_libdir}/girepository-1.0/GstPlayer-1.0.typelib
 %{_libdir}/girepository-1.0/GstTranscoder-1.0.typelib
+%{_libdir}/girepository-1.0/GstVa-1.0.typelib
 %{_libdir}/girepository-1.0/GstVulkan-1.0.typelib
 %{_libdir}/girepository-1.0/GstVulkanWayland-1.0.typelib
 %{_libdir}/girepository-1.0/GstWebRTC-1.0.typelib
@@ -418,6 +419,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstbayer.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcamerabin.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcodecalpha.so
+%{_libdir}/gstreamer-%{majorminor}/libgstcodectimestamper.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcoloreffects.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdash.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdvbsubenc.so
@@ -494,6 +496,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/gstreamer-%{majorminor}/libgstdtls.so
 %{_libdir}/gstreamer-%{majorminor}/libgsthls.so
 %{_libdir}/gstreamer-%{majorminor}/libgstgsm.so
+%{_libdir}/gstreamer-%{majorminor}/libgstgtkwayland.so
 %{_libdir}/gstreamer-%{majorminor}/libgstkms.so
 %{_libdir}/gstreamer-%{majorminor}/libgstnvcodec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstopusparse.so
@@ -568,13 +571,16 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %doc %{_datadir}/gtk-doc/html/gst-plugins-bad-libs-%{majorminor}
 %endif
 
+%{_datadir}/gir-1.0/CudaGst-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstBadAudio-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstCodecs-%{majorminor}.gir
+%{_datadir}/gir-1.0/GstCuda-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstInsertBin-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstMpegts-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstPlay-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstPlayer-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstTranscoder-%{majorminor}.gir
+%{_datadir}/gir-1.0/GstVa-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstVulkan-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstVulkanWayland-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstWebRTC-%{majorminor}.gir
@@ -582,6 +588,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgstadaptivedemux-%{majorminor}.so
 %{_libdir}/libgstbasecamerabinsrc-%{majorminor}.so
 %{_libdir}/libgstbadaudio-%{majorminor}.so
+%{_libdir}/libgstcuda-%{majorminor}.so
 %{_libdir}/libgstcodecparsers-%{majorminor}.so
 %{_libdir}/libgstcodecs-%{majorminor}.so
 %{_libdir}/libgstinsertbin-%{majorminor}.so
@@ -599,6 +606,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgstva-%{majorminor}.so
 %endif
 %{_libdir}/libgstwebrtc-%{majorminor}.so
+%{_libdir}/libgstwebrtcnice-%{majorminor}.so
 %if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/libgstwayland-%{majorminor}.so
 %endif
@@ -606,6 +614,7 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_includedir}/gstreamer-%{majorminor}/gst/audio
 %{_includedir}/gstreamer-%{majorminor}/gst/basecamerabinsrc
 %{_includedir}/gstreamer-%{majorminor}/gst/codecparsers
+%{_includedir}/gstreamer-%{majorminor}/gst/cuda/
 %{_includedir}/gstreamer-%{majorminor}/gst/insertbin
 %{_includedir}/gstreamer-%{majorminor}/gst/interfaces/photography*
 %{_includedir}/gstreamer-%{majorminor}/gst/isoff/
@@ -616,12 +625,14 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_includedir}/gstreamer-%{majorminor}/gst/sctp
 %{_includedir}/gstreamer-%{majorminor}/gst/transcoder
 %{_includedir}/gstreamer-%{majorminor}/gst/uridownloader
+%{_includedir}/gstreamer-%{majorminor}/gst/va/
 %{_includedir}/gstreamer-%{majorminor}/gst/vulkan/
 %{_includedir}/gstreamer-%{majorminor}/gst/wayland/
 %{_includedir}/gstreamer-%{majorminor}/gst/webrtc/
 
 # pkg-config files
 %{_libdir}/pkgconfig/gstreamer-bad-audio-%{majorminor}.pc
+%{_libdir}/pkgconfig/gstreamer-cuda-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-codecparsers-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-insertbin-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-mpegts-%{majorminor}.pc
@@ -632,12 +643,17 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/pkgconfig/gstreamer-sctp-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-transcoder-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-webrtc-%{majorminor}.pc
+%{_libdir}/pkgconfig/gstreamer-webrtc-nice-%{majorminor}.pc
+%{_libdir}/pkgconfig/gstreamer-va-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-vulkan-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-vulkan-wayland-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-wayland-%{majorminor}.pc
 
 
 %changelog
+* Fri Jan 20 2023 Wim Taymans <wtaymans@redhat.com> - 1.21.90-1
+- Update to 1.21.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

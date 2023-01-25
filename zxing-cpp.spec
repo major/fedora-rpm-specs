@@ -42,6 +42,8 @@ Patch1: %{url}/pull/269.patch
 Patch2: zxing-cpp-1.2.0-system-pybind11.patch
 # fix for recent libfmt
 Patch3: 0001-test-update-to-libfmt-v9.0.0.patch
+# fix for gcc 13
+Patch4: 0001-include-cstdint.patch
 
 %description
 ZXing-C++ ("zebra crossing") is an open-source, multi-format 1D/2D barcode

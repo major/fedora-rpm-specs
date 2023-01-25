@@ -1,6 +1,14 @@
+%if 0%{?el9}
+# Disable LTO for ppc64le to work around build failures
+# Cf. https://bugzilla.redhat.com/show_bug.cgi?id=1996330
+%ifarch ppc64le
+%global _lto_cflags %{nil}
+%endif
+%endif
+
 Name:           movit
 Version:        1.6.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        GPU video filter library
 License:        GPLv2+
 Url:            https://movit.sesse.net
@@ -88,6 +96,9 @@ rm %{buildroot}%{_libdir}/libmovit.la
 %{_libdir}/pkgconfig/movit.pc
 
 %changelog
+* Mon Jan 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.6.3-8
+- Work around bug in RHEL 9 GCC for ppc64le with LTO and eigen3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

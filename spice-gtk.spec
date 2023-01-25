@@ -1,7 +1,7 @@
 #define _version_suffix
 
 Name:           spice-gtk
-Version:        0.41
+Version:        0.42
 Release:        %autorelease
 Summary:        A GTK+ widget for SPICE clients
 
@@ -14,7 +14,6 @@ Source0:        https://www.spice-space.org/download/gtk/%{name}-%{version}%{?_v
 
 BuildRequires: git-core
 BuildRequires: meson
-BuildRequires: intltool
 BuildRequires: usbredir-devel >= 0.7.1
 BuildRequires: libusb1-devel >= 1.0.21
 BuildRequires: pixman-devel libjpeg-turbo-devel

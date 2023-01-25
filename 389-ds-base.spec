@@ -45,8 +45,8 @@ ExcludeArch: i686
 
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
-Version:          2.3.1
-Release:          3%{?dist}
+Version:          2.3.2
+Release:          1%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -65,16 +65,16 @@ Provides:  bundled(crate(base64)) = 0.13.1
 Provides:  bundled(crate(bitflags)) = 1.3.2
 Provides:  bundled(crate(byteorder)) = 1.4.3
 Provides:  bundled(crate(cbindgen)) = 0.9.1
-Provides:  bundled(crate(cc)) = 1.0.76
+Provides:  bundled(crate(cc)) = 1.0.78
 Provides:  bundled(crate(cfg-if)) = 1.0.0
 Provides:  bundled(crate(clap)) = 2.34.0
 Provides:  bundled(crate(concread)) = 0.2.21
 Provides:  bundled(crate(crossbeam)) = 0.8.2
 Provides:  bundled(crate(crossbeam-channel)) = 0.5.6
 Provides:  bundled(crate(crossbeam-deque)) = 0.8.2
-Provides:  bundled(crate(crossbeam-epoch)) = 0.9.11
-Provides:  bundled(crate(crossbeam-queue)) = 0.3.6
-Provides:  bundled(crate(crossbeam-utils)) = 0.8.12
+Provides:  bundled(crate(crossbeam-epoch)) = 0.9.13
+Provides:  bundled(crate(crossbeam-queue)) = 0.3.8
+Provides:  bundled(crate(crossbeam-utils)) = 0.8.14
 Provides:  bundled(crate(entryuuid)) = 0.1.0
 Provides:  bundled(crate(entryuuid_syntax)) = 0.1.0
 Provides:  bundled(crate(fastrand)) = 1.8.0
@@ -85,52 +85,52 @@ Provides:  bundled(crate(getrandom)) = 0.2.8
 Provides:  bundled(crate(hashbrown)) = 0.12.3
 Provides:  bundled(crate(hermit-abi)) = 0.1.19
 Provides:  bundled(crate(instant)) = 0.1.12
-Provides:  bundled(crate(itoa)) = 1.0.4
+Provides:  bundled(crate(itoa)) = 1.0.5
 Provides:  bundled(crate(jobserver)) = 0.1.25
-Provides:  bundled(crate(libc)) = 0.2.137
+Provides:  bundled(crate(libc)) = 0.2.139
 Provides:  bundled(crate(librnsslapd)) = 0.1.0
 Provides:  bundled(crate(librslapd)) = 0.1.0
 Provides:  bundled(crate(lock_api)) = 0.4.9
 Provides:  bundled(crate(log)) = 0.4.17
 Provides:  bundled(crate(lru)) = 0.7.8
-Provides:  bundled(crate(memoffset)) = 0.6.5
-Provides:  bundled(crate(once_cell)) = 1.16.0
-Provides:  bundled(crate(openssl)) = 0.10.42
+Provides:  bundled(crate(memoffset)) = 0.7.1
+Provides:  bundled(crate(once_cell)) = 1.17.0
+Provides:  bundled(crate(openssl)) = 0.10.45
 Provides:  bundled(crate(openssl-macros)) = 0.1.0
-Provides:  bundled(crate(openssl-sys)) = 0.9.77
+Provides:  bundled(crate(openssl-sys)) = 0.9.80
 Provides:  bundled(crate(parking_lot)) = 0.11.2
-Provides:  bundled(crate(parking_lot_core)) = 0.8.5
+Provides:  bundled(crate(parking_lot_core)) = 0.8.6
 Provides:  bundled(crate(paste)) = 0.1.18
 Provides:  bundled(crate(paste-impl)) = 0.1.18
 Provides:  bundled(crate(pin-project-lite)) = 0.2.9
 Provides:  bundled(crate(pkg-config)) = 0.3.26
 Provides:  bundled(crate(ppv-lite86)) = 0.2.17
-Provides:  bundled(crate(proc-macro-hack)) = 0.5.19
-Provides:  bundled(crate(proc-macro2)) = 1.0.47
+Provides:  bundled(crate(proc-macro-hack)) = 0.5.20+deprecated
+Provides:  bundled(crate(proc-macro2)) = 1.0.50
 Provides:  bundled(crate(pwdchan)) = 0.1.0
-Provides:  bundled(crate(quote)) = 1.0.21
+Provides:  bundled(crate(quote)) = 1.0.23
 Provides:  bundled(crate(rand)) = 0.8.5
 Provides:  bundled(crate(rand_chacha)) = 0.3.1
 Provides:  bundled(crate(rand_core)) = 0.6.4
 Provides:  bundled(crate(redox_syscall)) = 0.2.16
 Provides:  bundled(crate(remove_dir_all)) = 0.5.3
-Provides:  bundled(crate(ryu)) = 1.0.11
+Provides:  bundled(crate(ryu)) = 1.0.12
 Provides:  bundled(crate(scopeguard)) = 1.1.0
-Provides:  bundled(crate(serde)) = 1.0.147
-Provides:  bundled(crate(serde_derive)) = 1.0.147
-Provides:  bundled(crate(serde_json)) = 1.0.88
+Provides:  bundled(crate(serde)) = 1.0.152
+Provides:  bundled(crate(serde_derive)) = 1.0.152
+Provides:  bundled(crate(serde_json)) = 1.0.91
 Provides:  bundled(crate(slapd)) = 0.1.0
 Provides:  bundled(crate(slapi_r_plugin)) = 0.1.0
 Provides:  bundled(crate(smallvec)) = 1.10.0
 Provides:  bundled(crate(strsim)) = 0.8.0
-Provides:  bundled(crate(syn)) = 1.0.103
+Provides:  bundled(crate(syn)) = 1.0.107
 Provides:  bundled(crate(synstructure)) = 0.12.6
 Provides:  bundled(crate(tempfile)) = 3.3.0
 Provides:  bundled(crate(textwrap)) = 0.11.0
-Provides:  bundled(crate(tokio)) = 1.21.2
-Provides:  bundled(crate(tokio-macros)) = 1.8.0
-Provides:  bundled(crate(toml)) = 0.5.9
-Provides:  bundled(crate(unicode-ident)) = 1.0.5
+Provides:  bundled(crate(tokio)) = 1.24.2
+Provides:  bundled(crate(tokio-macros)) = 1.8.2
+Provides:  bundled(crate(toml)) = 0.5.11
+Provides:  bundled(crate(unicode-ident)) = 1.0.6
 Provides:  bundled(crate(unicode-width)) = 0.1.10
 Provides:  bundled(crate(unicode-xid)) = 0.2.4
 Provides:  bundled(crate(uuid)) = 0.8.2
@@ -141,8 +141,16 @@ Provides:  bundled(crate(wasi)) = 0.11.0+wasi_snapshot_preview1
 Provides:  bundled(crate(winapi)) = 0.3.9
 Provides:  bundled(crate(winapi-i686-pc-windows-gnu)) = 0.4.0
 Provides:  bundled(crate(winapi-x86_64-pc-windows-gnu)) = 0.4.0
+Provides:  bundled(crate(windows-sys)) = 0.42.0
+Provides:  bundled(crate(windows_aarch64_gnullvm)) = 0.42.1
+Provides:  bundled(crate(windows_aarch64_msvc)) = 0.42.1
+Provides:  bundled(crate(windows_i686_gnu)) = 0.42.1
+Provides:  bundled(crate(windows_i686_msvc)) = 0.42.1
+Provides:  bundled(crate(windows_x86_64_gnu)) = 0.42.1
+Provides:  bundled(crate(windows_x86_64_gnullvm)) = 0.42.1
+Provides:  bundled(crate(windows_x86_64_msvc)) = 0.42.1
 Provides:  bundled(crate(zeroize)) = 1.5.7
-Provides:  bundled(crate(zeroize_derive)) = 1.3.2
+Provides:  bundled(crate(zeroize_derive)) = 1.3.3
 ##### Bundled cargo crates list - END #####
 
 BuildRequires:    nspr-devel >= 4.32
@@ -708,6 +716,48 @@ exit 0
 %endif
 
 %changelog
+* Mon Jan 23 2023 Mark Reynolds <mreynolds@redhat.com> - 2.3.2-1
+- Bump version to 2.3.2
+- Issue 5547 - automember plugin improvements
+- Issue 5607, 5351, 5611 - UI/CLI - fix various issues
+- Issue 5610 - Build failure on Debian
+- Issue 5608 - UI - need to replace some "const" with "let"
+- Issue 5560 - dscreate run by non superuser set defaults requiring superuser privilege (#5579)
+- Issue 3604 - Create a private key/CSR with dsconf/Cockpit (#5584)
+- Issue 5605 - Adding a slapi_log_backtrace function in libslapd (#5606)
+- Issue 5602 - UI - browser crash when trying to modify read-only variable
+- Issue 5581 - UI - Support cockpit dark theme
+- Issue 5593 - CLI - dsidm account subtree-status fails with TypeError
+- Issue 5591 - BUG - Segfault in cl5configtrim with invalid confi (#5592)
+- Fix latest npm audit failures
+- Issue 5599 - CI - webui tests randomly fail
+- Issue 5348 - RFE - CLI - add functionality to do bulk updates to entries
+- Issue 5588 - Fix CI tests
+- Issue 5585 - lib389 password policy DN handling is incorrect (#5587)
+- Issue 5521 - UI - Update plugins for new split PAM and LDAP pass thru auth
+- Bump json5 from 2.2.1 to 2.2.3 in /src/cockpit/389-console
+- Issue 5236 - UI add specialized group edit modal
+- Issue 5550 - dsconf monitor crashes with Error math domain error (#5553)
+- Issue 5278 - CLI - dsidm asks for the old password on password reset
+- Issue 5531 - CI - use universal_lines in capture_output
+- Issue 5425 - CLI - add confirmation arg when deleting backend
+- Issue 5558 - non-root instance fails to start on creation (#5559)
+- Issue 5545 - A random crash in import over lmdb (#5546)
+- Issue 3615 - CLI - prevent virtual attribute indexing
+- Update specfile and rust crates
+- Issue 5413 - Allow mutliple MemberOf fixup tasks with different bases/filters
+- Issue 5554 - Add more tests to security_basic_test suite (#5555)
+- Issue 5561 - Nightly tests are failing
+- Issue 5521 - RFE - split pass through auth cli
+- Issue 5521 - BUG - Pam PTA multiple issues
+- Issue 5544 - Increase default task TTL
+- Issue 5526 - RFE - Improve saslauthd migration options (#5528)
+- Issue 5539 - Make logger's parameter name unified (#5540)
+- Issue 5541 - Fix typo in `lib389.cli_conf.backend._get_backend` (#5542)
+- Issue 3729 - (cont) RFE Extend log of operations statistics in access log (#5538)
+- Issue 5534 - Fix a rebase typo (#5537)
+- Issue 5534 - Add copyright text to the repository files
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

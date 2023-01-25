@@ -30,11 +30,17 @@ Summary:        Vectorized math library
 #   src/gencoef/qp.h
 #   src/gencoef/simplexfr.c
 #   src/gencoef/sp.h
-# Since CC-BY-4.0 is allowed for content but not for code, these are removed in
-# %%prep to prove that they are not used in the build.
+# Since CC-BY-4.0 is allowed for content but not for code, these are removed
+# before uploading the source to the lookaside cache.
 License:        BSL-1.0
 URL:            https://sleef.org
-Source0:        https://github.com/shibatch/sleef/archive/%{version}/sleef-%{version}.tar.gz
+# This is a filtered version of:
+#   https://github.com/shibatch/sleef/archive/%%{version}/sleef-%%{version}.tar.gz
+# See the comment above License for why this is necessary. The archive is
+# produced by using the script in Source1:
+#   ./get_source.sh ${VERSION}
+Source0:        sleef-%{version}-filtered.tar.xz
+Source1:        get_source.sh
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

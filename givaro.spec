@@ -20,7 +20,7 @@
 Name:		givaro
 Version:	4.1.1
 %global so_version 9
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	C++ library for arithmetic and algebraic computations
 
 # The entire source is CECILL-B except for src/kernel/recint/reclonglong.h,
@@ -46,9 +46,6 @@ BuildRequires:	doxygen-latex
 BuildRequires:  tex-xetex-bin
 BuildRequires:  /usr/bin/xindy
 BuildRequires:	tex(stmaryrd.sty)
-# LaTeX errors due to missing dependency on texlive-wasy
-# https://bugzilla.redhat.com/show_bug.cgi?id=2162170
-BuildRequires:  texlive-wasy
 %endif
 
 BuildRequires:	gcc-c++
@@ -201,6 +198,9 @@ export LD_LIBRARY_PATH=$PWD/src/.libs
 
 
 %changelog
+* Mon Jan 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-12
+- Revert workaround for missing dependency on texlive-wasy
+
 * Thu Jan 19 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.1.1-11
 - Update License to SPDX
 - Work around missing dependency on texlive-wasy

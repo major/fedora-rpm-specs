@@ -1,8 +1,8 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-rtsp-server
-Version:        1.20.5
-Release:        2%{?dist}
+Version:        1.21.90
+Release:        1%{?dist}
 Summary:        GStreamer RTSP server library
 
 License:        LGPLv2+
@@ -84,6 +84,9 @@ chrpath --delete %{buildroot}%{_libdir}/libgstrtspserver-%{majorminor}.so*
 %endif
 
 %changelog
+* Fri Jan 20 2023 Wim Taymans <wtaymans@redhat.com> - 1.21.90-1
+- Update to 1.21.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

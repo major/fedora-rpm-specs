@@ -54,7 +54,7 @@ Version: 12.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 13%{?dist}
+Release: 14%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1190,6 +1190,11 @@ fi
 %endif
 
 %changelog
+* Mon Jan 23 2023 Keith Seitz <keiths@redhat.com> - 12.1-14
+  From Sergey Mende:
+- Backport upstream patch "gdb: call check_typedef at beginning of
+  dwarf_expr_context::fetch_result". (Simon Marchi)
+
 * Fri Jan 20 2023 Kevin Buettner <kevinb@redhat.com> - 12.1-13
 - Backport fix for problems associated with GCC 13's self-move warning.
   (Jan-Benedict Glaw)

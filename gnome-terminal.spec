@@ -7,8 +7,8 @@
 %define desktop_file_utils_version 0.2.90
 
 Name:    gnome-terminal
-Version: 3.45.90
-Release: 2%{?dist}
+Version: 3.46.7
+Release: 1%{?dist}
 Summary: Terminal emulator for GNOME
 
 License: GPLv3+ and GFDL and LGPLv2+
@@ -17,8 +17,6 @@ Source0: https://gitlab.gnome.org/GNOME/%{name}/-/archive/%{version}/%{name}-%{v
 Source1: org.gnome.Terminal.gschema.override
 
 Patch0:  gnome-terminal-cntr-ntfy-autottl-ts.patch
-Patch1:  gnome-terminal-3.45.90-nautilus-extension.patch
-Patch2:  gnome-terminal-3.45.90-xml-namespaces.patch
 
 BuildRequires: pkgconfig(dconf)
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
@@ -90,6 +88,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Terminal.de
 %doc README.md
 %{_bindir}/gnome-terminal
 %{_datadir}/applications/org.gnome.Terminal.desktop
+%{_datadir}/applications/org.gnome.Terminal.Preferences.desktop
+%{_libexecdir}/gnome-terminal-preferences
 %{_libexecdir}/gnome-terminal-server
 %{_datadir}/dbus-1/services/org.gnome.Terminal.service
 %{_datadir}/glib-2.0/schemas/org.gnome.Terminal.gschema.xml
@@ -97,6 +97,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Terminal.de
 %{_datadir}/gnome-shell
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Terminal.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Terminal-symbolic.svg
+%{_datadir}/icons/hicolor/scalable/apps/org.gnome.Terminal.Preferences.svg
+%{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Terminal.Preferences-symbolic.svg
+%dir %{_datadir}/xdg-terminals
+%{_datadir}/xdg-terminals/org.gnome.Terminal.desktop
 %dir %{_libdir}/gnome-terminal
 %{_libdir}/gnome-terminal/gschemas.compiled
 %{_mandir}/man1/gnome-terminal.1*
@@ -108,6 +112,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Terminal.de
 %{_metainfodir}/org.gnome.Terminal.Nautilus.metainfo.xml
 
 %changelog
+* Mon Jan 23 2023 David King <amigadave@amigadave.com> - 3.46.7-1
+- Update to 3.46.7 (#2155523)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.45.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

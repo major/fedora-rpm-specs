@@ -27,9 +27,9 @@ the purposes of CI/CD tasks.
 
 Name:       %srcname
 Summary:    %sum - client tooling
-Version:    4.8
-Release:    2%{?dist}
-License:    GPLv2+
+Version:    4.9
+Release:    1%{?dist}
+License:    GPL-2.0-or-later
 URL:        https://github.com/praiskup/resalloc
 BuildArch:  noarch
 
@@ -39,6 +39,7 @@ BuildRequires: postgresql-server
 
 %if %{with python3}
 BuildRequires: python3-alembic
+BuildRequires: python3-argparse-manpage
 BuildRequires: python3-devel
 BuildRequires: python3-psycopg2
 BuildRequires: python3-pytest
@@ -56,6 +57,7 @@ BuildRequires: python3-yaml
 
 %if %{with python2}
 BuildRequires: python-alembic
+BuildRequires: python2-argparse-manpage
 BuildRequires: python2-devel
 BuildRequires: python-psycopg2
 BuildRequires: python2-mock
@@ -292,6 +294,9 @@ useradd -r -g "$group" -G "$group" -s /bin/bash \
 
 
 %changelog
+* Mon Jan 23 2023 Pavel Raiskup <praiskup@redhat.com> - 4.9-1
+- new upstream release https://github.com/praiskup/resalloc/releases/tag/v4.9
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

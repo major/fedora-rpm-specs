@@ -9,6 +9,12 @@
 %endif
 %bcond_with python2
 
+# Macro for creating an option which enables bootstraping build without dependencies,
+# which cause problems during rebuilds. Currently it is circular dependency of graphviz and
+# doxygen - in case a dependency of graphviz/doxygen bumps SONAME and graphviz/doxygen
+# has to be rebuilt, we can break the circular dependency by building with --with bootstrap.
+%bcond_with bootstrap
+
 %if 0%{?rhel} >= 10
 %bcond_with gtk2
 %else
@@ -88,7 +94,7 @@
 Name:			graphviz
 Summary:		Graph Visualization Tools
 Version:		7.0.6
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		EPL-1.0
 URL:			http://www.graphviz.org/
 Source0:		https://gitlab.com/%{name}/%{name}/-/archive/%{version}/%{name}-%{version}.tar.bz2
@@ -177,7 +183,9 @@ BuildRequires:		poppler-glib-devel
 BuildRequires:		freeglut-devel
 BuildRequires:		libglade2-devel
 BuildRequires:		gtkglext-devel
+%if %{without bootstrap}
 BuildRequires:		doxygen
+%endif
 %if %{GOLANG}
 BuildRequires:		golang
 %endif
@@ -457,7 +465,10 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 
 %make_build CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -fno-strict-overflow %{?FFSTORE}" \
   CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing -fno-strict-overflow %{?FFSTORE}"
+
+%if %{without bootstrap}
 make doxygen
+%endif
 
 %install
 %make_install docdir=%{_docdir}/%{name} \
@@ -743,6 +754,9 @@ php --no-php-ini \
 %endif
 
 %changelog
+* Mon Jan 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 7.0.6-3
+- add %%bcond_with bootstrap to break circular dependency with doxygen if needed
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           yara
 Version:        4.3.0
 %global         upversion         %{version}-rc1
 
-Release:        0.rc1.2%{?dist}
+Release:        0.rc1.3%{?dist}
 Summary:        Pattern matching Swiss knife for malware researchers
 
 # yara package itself is licensed with BSD 3 clause license
@@ -141,6 +141,8 @@ rm -f %{buildroot}%{_datadir}/doc/%{name}/html/.buildinfo
 %endif
 
 %check
+# reenable the validation of SHA1 certificates in OPENSSL (RHEL9 disabled that by default)
+export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 make check || (
     # print more verbose info in case the test(s) fail
     echo "===== ./test-suite.log"
@@ -157,7 +159,6 @@ make check || (
     # test-pe and test-dotnet fails for x390x at this point - ignored for rc1
     true
 %else
-    # test-pe fails for RHEL9 x86-64 at this point in copr on "AMD EPYC" cpu, it doesn't affect Fedora build on Intel CPU
     false
 %endif
 )
@@ -185,6 +186,9 @@ make check || (
 
 
 %changelog
+* Tue Jan 24 2023 Michal Ambroz <rebus at, seznam.cz> - 4.3.0-0.rc1.3
+- fix EPEL9 build = reenable the SHA1 certificate validation in OpenSSL for make check
+
 * Sat Jan 21 2023 Michal Ambroz <rebus at, seznam.cz> - 4.3.0-0.rc1.2
 - fix EPEL7 build
 

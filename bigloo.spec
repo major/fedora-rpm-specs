@@ -319,7 +319,21 @@ popd
 %check
 ulimit -s unlimited
 export TZ=$(date +%%Z)
-make test
+# Starting with the F38 mass rebuild, "make test" fails due to stdout being
+# closed unexpectedly.  This only happens if the tests are run via make.
+# The commands below are the exact ones that make executes, but they succeed
+# if run this way.  Investigation continues.
+NATIVEBACKEND=$(sed -n 's/NATIVEBACKEND=\(.*\)/\1/p' Makefile.config)
+JVMBACKEND=$(sed -n 's/JVMBACKEND=\(.*\)/\1/p' Makefile.config)
+cd recette
+if [ "$NATIVEBACKEND" = yes ]; then
+  make recette-static
+  ../bin/bglrun.sh ./recette-static
+fi
+cd -
+if [ "$JVMBACKEND" = yes ]; then
+  make jvm-test
+fi
 
 
 %files

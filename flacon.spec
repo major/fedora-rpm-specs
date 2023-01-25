@@ -2,11 +2,11 @@
 %bcond_with tests
 
 Name:          flacon
-Version:       9.5.1
-Release:       2%{?dist}
+Version:       10.0.0
+Release:       1%{?dist}
 Summary:       Audio File Encoder
 
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 URL:           https://flacon.github.io/
 Source0:       https://github.com/%{name}/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -37,16 +37,10 @@ Recommends:     %{_bindir}/faac
 Recommends:     %{_bindir}/mac
 # formats/flac.h (encoder, decoder)
 Recommends:     %{_bindir}/flac
-# formats/flac.h (gain)
-Recommends:     %{_bindir}/metaflac
 # formats/mp3.h (encoder)
 Recommends:     %{_bindir}/lame
-# formats/mp3.h (gain)
-Recommends:     %{_bindir}/mp3gain
 # formats/ogg.h (encoder)
 Recommends:     %{_bindir}/oggenc
-# formats/ogg.h (gain)
-Recommends:     %{_bindir}/vorbisgain
 # formats/opus.h (encoder)
 Recommends:     %{_bindir}/opusenc
 # formats/tta.h (decoder)
@@ -55,8 +49,6 @@ Recommends:     %{_bindir}/ttaenc
 Recommends:     %{_bindir}/wavpack
 # formats/wc.h (decoder)
 Recommends:     %{_bindir}/wvunpack
-# formats/wc.h (gain)
-Recommends:     %{_bindir}/wvgain
 
 %description
 Flacon extracts individual tracks from one big audio file containing
@@ -95,6 +87,10 @@ cd %{_target_platform}/tests && ./flacon_test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jan 23 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 10.0.0-1
+- Update to 10.0.0
+- Drop unneeded Recommends
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

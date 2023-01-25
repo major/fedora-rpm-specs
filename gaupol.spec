@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           gaupol
-Version:        1.11
+Version:        1.12
 Release:        %autorelease
 Summary:        Editor for text-based subtitle files
 

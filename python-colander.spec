@@ -1,9 +1,8 @@
-%{?python_enable_dependency_generator}
 %global modname colander
 
 Name:           python-%{modname}
-Version:        1.8.3
-Release:        8%{?dist}
+Version:        2.0
+Release:        1%{?dist}
 Summary:        Simple schema-based serialization and deserialization library
 
 License:        BSD
@@ -20,45 +19,47 @@ An extensible package which can be used to:\
 - serialize an arbitrary data structure to a data structure composed of\
   strings, mappings, and lists.
 
+
 %description %{_description}
+
 
 %package -n python3-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-nose
-BuildRequires:  python3-coverage
-BuildRequires:  python3-translationstring
-BuildRequires:  python3-iso8601
+
 
 %description -n python3-%{modname} %{_description}
-
 Python 3 version.
+
 
 %prep
 %autosetup -p1 -n %{modname}-%{version}
 
-# The presence of this file creates an rpmlint error.  Remove it.
-rm docs/.gitignore
-rm -rf docs/.static
+%generate_buildrequires
+%pyproject_buildrequires -x testing
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files colander
 
 %check
-%{__python3} setup.py test
+%pytest
 
-%files -n python3-%{modname}
+
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE.txt COPYRIGHT.txt
 %doc README.rst CONTRIBUTORS.txt CHANGES.rst docs
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Mon Jan 23 2023 Jonathan Wright <jonathan@almalinux.org> - 2.0-1
+- Update to 2.0 rhbz#2157806
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

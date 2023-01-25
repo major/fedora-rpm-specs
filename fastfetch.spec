@@ -1,6 +1,6 @@
 Name:           fastfetch
-Version:        1.8.2
-Release:        2%{?dist}
+Version:        1.9.0
+Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
 License:        MIT
@@ -50,6 +50,9 @@ Recommends:     ocl-icd
 Recommends:     chafa
 %endif
 
+# https://github.com/LinusDierheimer/fastfetch/issues/401
+Patch:          add_s390x_support.patch
+
 %description
 fastfetch is a neofetch-like tool for fetching system information and
 displaying them in a pretty way. It is written in c to achieve much better
@@ -97,6 +100,9 @@ BuildArch: noarch
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Mon Jan 23 2023 Jonathan Wright <jonathan@almalinux.org> - 1.9.0-1
+- Update to 1.9.0 rhbz#2163335
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

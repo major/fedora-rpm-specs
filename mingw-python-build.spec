@@ -1,7 +1,7 @@
 # python-built requires itself to build wheels.
 # To bootstrap, we copy the files to appropriate locations manually and create a minimal dist-info metadata.
 # Note that as a pure Python package, the wheel contains no pre-built binary stuff.
-%bcond_with     bootstrap
+%bcond_without     bootstrap
 
 %{?mingw_package_header}
 
@@ -10,7 +10,7 @@
 Name:           mingw-python-%{pypi_name}
 Summary:        MinGW Python %{pypi_name} library
 Version:        0.10.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 BuildArch:      noarch
 
 License:        MIT
@@ -127,6 +127,9 @@ install -Dpm 0644 %{SOURCE2} %{buildroot}%{_rpmconfigdir}/macros.d/macros.mingw6
 
 
 %changelog
+* Mon Jan 23 2023 Sandro Mani <manisandro@gmail.com> - 0.10.0-2
+- Bootstrap build
+
 * Sun Jan 22 2023 Sandro Mani <manisandro@gmail.com> - 0.10.0-1
 - Update to 0.10.0
 

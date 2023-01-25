@@ -1,6 +1,6 @@
 Name:           python-dotenv
-Version:        0.21.0
-Release:        2%{?dist}
+Version:        0.21.1
+Release:        1%{?dist}
 Summary:        Read key-value pairs from a .env file and set them as environment variables
 
 License:        BSD
@@ -56,6 +56,9 @@ sed -i "s/coverage run --parallel -m pytest {posargs}/pytest {posargs}/" tox.ini
 
 
 %changelog
+* Mon Jan 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.1-1
+- 0.21.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

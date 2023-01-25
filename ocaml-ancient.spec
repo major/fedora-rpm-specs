@@ -5,7 +5,7 @@
 
 Name:           ocaml-ancient
 Version:        0.9.0
-Release:        66%{?dist}
+Release:        67%{?dist}
 Summary:        OCaml library for large memory structures and sharing
 License:        LGPLv2+ with exceptions
 
@@ -120,6 +120,9 @@ chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
 
 
 %changelog
+* Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.0-67
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

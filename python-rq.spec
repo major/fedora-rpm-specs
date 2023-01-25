@@ -1,15 +1,24 @@
 %global srcname rq
+%bcond_without tests
 
 Name:           python-%{srcname}
-Version:        1.7.0
-Release:        9%{?dist}
+Version:        1.12.0
+Release:        1%{?dist}
 Summary:        Simple, lightweight, library for creating background jobs, and processing them
 
-License:        BSD
-URL:            https://github.com/rq/rq
-Source:         %{pypi_source}
+License:        BSD-2-Clause
+URL:            https://python-rq.org
+Source:         https://github.com/rq/rq/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
+%if %{with tests}
+BuildRequires:  python3-pytest
+BuildRequires:  python3-psutil
+BuildRequires:  python3-sentry-sdk
+BuildRequires:  redis
+%endif
 
 %global _description %{expand:
 RQ (Redis Queue) is a simple Python library for queueing jobs
@@ -21,11 +30,8 @@ It should be integrated in your web stack easily.}
 
 %package     -n python3-%{srcname}
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 
 %description -n python3-%{srcname} %{_description}
-
 Python 3 version.
 
 %prep
@@ -41,6 +47,13 @@ Python 3 version.
 %pyproject_install
 %pyproject_save_files %{srcname}
 
+%check
+%if %{with tests}
+%{_bindir}/redis-server --bind 127.0.0.1 --port 6379 --daemonize yes &
+%pytest -v
+%{_libexecdir}/redis-shutdown
+%endif
+
 %files -n python3-%{srcname} -f %pyproject_files
 %license LICENSE
 %doc README.md
@@ -49,6 +62,9 @@ Python 3 version.
 %{_bindir}/rqworker
 
 %changelog
+* Mon Jan 23 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.12.0-1
+- Update to 1.12.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

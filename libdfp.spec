@@ -1,8 +1,8 @@
 Name:		libdfp
 Version:	1.0.16
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Decimal Floating Point C Library
-License:	LGPLv2
+License:	LGPL-2.1-or-later
 Url:		https://github.com/libdfp/libdfp
 Source0:	https://github.com/libdfp/libdfp/releases/download/%{version}/%{name}-%{version}.tar.gz
 #
@@ -43,6 +43,7 @@ developing applications that use %{name}.
 
 %package	static
 Summary:	Static libraries for %{name}
+License:	LGPL-2.1-or-later AND GPL-3.0-or-later WITH GCC-exception-3.1
 # Use _isa to specify an arch-specific requirement.
 Requires:	%{name}-devel%{?_isa} = %{version}-%{release}
 
@@ -146,6 +147,11 @@ done
 %{_libdir}/pkgconfig/libdecnumber.pc
 
 %changelog
+* Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 1.0.16-6
+- Update licenses to SPDX indentifiers.
+- Add the license GPL-3.0-or-later WITH GCC-exception-3.1 in order to cover
+  libdecnumber distributed in the -static package.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.16-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

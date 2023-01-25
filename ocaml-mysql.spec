@@ -2,13 +2,13 @@
 %global opt %(test -x %{_bindir}/ocamlopt && echo 1 || echo 0)
 
 Name:           ocaml-mysql
-Version:        1.2.2
-Release:        25%{?dist}
+Version:        1.2.4
+Release:        1%{?dist}
 Summary:        OCaml library for accessing MySQL databases
 License:        LGPLv2+ with exceptions
 
 URL:            https://github.com/ygrek/ocaml-mysql
-Source0:        https://github.com/ygrek/ocaml-mysql/releases/download/v1.2.2/ocaml-mysql-1.2.2.tar.gz
+Source0:        https://github.com/ygrek/ocaml-mysql/releases/download/v%{version}/ocaml-mysql-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  ocaml >= 3.10.0
@@ -43,6 +43,8 @@ developing applications that use %{name}.
 
 
 %build
+# Parallel builds of this package fail.
+unset MAKEFLAGS
 LDFLAGS="-L%{_libdir}/mariadb" \
 %configure
 make all
@@ -84,6 +86,9 @@ make install
 
 
 %changelog
+* Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-1
+- Update to version 1.2.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

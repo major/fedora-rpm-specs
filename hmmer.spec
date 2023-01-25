@@ -1,17 +1,18 @@
 Name:           hmmer
 Version:        3.3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Biosequence analysis using profile hidden Markov models
 
 License:        GPLv3
 URL:            http://hmmer.org
 Source0:        http://eddylab.org/software/hmmer/hmmer-%{version}.tar.gz
 BuildRequires:  perl
-BuildRequires: make
+BuildRequires:  make
 # HMMER3 requires SSE or VMX vector instructions - Bug 2112825
 # VMX only works for big endian in HMMER3
 # author says more arch will be supported in HMMER4 (no ETA)
-ExcludeArch: aarch64 ppc64le s390x
+ExcludeArch:    aarch64 ppc64le s390x
+Patch0:         hmmer-3.3.2-chris.patch
 
 %description
 HMMER is used for searching sequence databases for sequence homologs, and for
@@ -35,6 +36,7 @@ This package includes documentation files for the hmmer software package.
 
 %prep
 %setup -q
+%patch0 -p1 -b .chris
 
 
 %build
@@ -81,6 +83,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Mon Jan 23 2023 Christian Iseli <Christian.Iseli@epfl.ch> - 3.3.2-4
+- Add small patch to fix #2148156
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

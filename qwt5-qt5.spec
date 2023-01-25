@@ -12,12 +12,12 @@
 %global commitdate 20210522
 %global owner gbm19
 
-Name:    LGPL-2.1-or-later WITH Qwt-exception-1.0
+Name:    qwt5-qt5
 Version: 5.2.3a
 Release: 16.%{commitdate}git%{shortcommit0}%{?dist}
 Summary: Qt Widgets for Technical Applications adapted to Qt5
 
-License: LGPLv2+ with exceptions
+License: LGPL-2.1-or-later WITH Qwt-exception-1.0
 URL:     https://github.com/gbm19/qwt5-qt5
 Source:  https://github.com/%{owner}/%{name}/archive/master/%{name}-master.tar.gz
 
@@ -91,7 +91,7 @@ pushd %{name}-master
 
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.3a-16.20210522gita2b11e3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Sat Jul 23 2022 Alexander Ploumistos <alexpl@fedoraproject.org> - 5.2.3a-15.20210522gita2b11e3

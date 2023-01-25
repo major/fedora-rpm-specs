@@ -5,7 +5,7 @@
 
 Name: remmina
 Version: 1.4.29
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Remote Desktop Client
 License: GPLv2+ and MIT
 URL: https://remmina.org
@@ -43,7 +43,11 @@ BuildRequires: pkgconfig(freerdp2)
 BuildRequires: pkgconfig(gtk+-3.0)
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(libsecret-1)
+%if 0%{?fedora} >= 37
+BuildRequires: pkgconfig(libsoup-3.0)
+%else
 BuildRequires: pkgconfig(libsoup-2.4)
+%endif
 BuildRequires: pkgconfig(libssh) >= 0.8.0
 BuildRequires: pkgconfig(libvncserver)
 BuildRequires: pkgconfig(libpcre2-8)
@@ -51,7 +55,11 @@ BuildRequires: pkgconfig(libpcre2-8)
 BuildRequires: pkgconfig(spice-client-gtk-3.0)
 %endif
 BuildRequires: pkgconfig(vte-2.91)
+%if 0%{?fedora} >= 37
+BuildRequires: pkgconfig(webkit2gtk-4.1)
+%else
 BuildRequires: pkgconfig(webkit2gtk-4.0)
+%endif
 BuildRequires: pkgconfig(x11)
 BuildRequires: pkgconfig(xkbfile)
 
@@ -337,6 +345,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Mon Jan 23 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.29-4
+- Fix flatpak build - Yaakov Selkowitz <yselkowi@redhat.com>.
+- Make Fedora greater than or equal to 37 use libsoup3 and webkit2gtk-4.1.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.29-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,8 +8,6 @@
 %bcond_without  opencv
 %endif
 
-%bcond_with     freeworld
-
 # needs nonfree/ndi-sdk
 %bcond_with  ndi
 
@@ -21,7 +19,7 @@
 
 Name:           mlt
 Version:        7.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -45,7 +43,7 @@ BuildRequires:  SDL_image-devel
 BuildRequires:  SDL2_image-devel
 %endif
 BuildRequires:  gtk2-devel
-BuildRequires:  jack-audio-connection-kit-devel
+BuildRequires:  pipewire-jack-audio-connection-kit-devel
 BuildRequires:  libatomic
 BuildRequires:  libogg-devel
 #Deprecated dv and kino modules are not built.
@@ -69,15 +67,14 @@ BuildRequires:  movit-devel
 BuildRequires:  eigen3-devel
 BuildRequires:  libebur128-devel
 BuildRequires:  rubberband-devel
-%if %{with freeworld}
-BuildRequires:  ffmpeg-devel
+BuildRequires:  ffmpeg-free-devel
 BuildRequires:  xine-lib-devel
-Provides: mlt-freeworld = %{version}-%{release}
-Obsoletes:mlt-freeworld < %{version}-%{release}
+Provides:  mlt-freeworld = %{version}-%{release}
+Obsoletes: mlt-freeworld < %{version}-%{release}
+
 %if %{with ndi}
 BuildRequires:  libndi-devel
 BuildRequires:  ndi-sdk-devel
-%endif
 %endif
 %if %{with opencv}
 BuildRequires:  opencv-devel
@@ -106,11 +103,12 @@ transcoders, web streamers and many more types of applications. The
 functionality of the system is provided via an assortment of ready to use
 tools, xml authoring components, and an extendible plug-in based API.
 
-%package freeworld
-Summary:        ffmpeg support for MLT
-%description freeworld
-MLT was packaged in Fedora without ffmpeg support, this package give us
-the ffmpeg support.
+%if %{with ndi}
+%package ndi
+Summary:        NDI support for MLT
+%description ndi
+This package adds NDI support through the NDI SDK to MLT.
+%endif
 
 %package devel
 Summary:        Libraries, includes to develop applications with %{name}
@@ -207,15 +205,11 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 %{_libdir}/libmlt-7.so.*
 %{_datadir}/mlt-7/
 %{_mandir}/man1/melt-7.1*
-%if %{with freeworld}
-%exclude %{_libdir}/mlt-7/libmltavformat.so
-%exclude %{_libdir}/mlt-7/libmltxine.so
-%exclude %{_datadir}/mlt-7/avformat
+%if %{with ndi}
+%exclude %{_libdir}/mlt-7/libmltndi.so
 
-%files freeworld
-%{_libdir}/mlt-7/libmltavformat.so
-%{_libdir}/mlt-7/libmltxine.so
-%{_datadir}/mlt-7/avformat
+%files ndi
+%{_libdir}/mlt-7/libmltndi.so
 %endif
 
 %files -n python3-mlt
@@ -247,6 +241,10 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Mon Jan 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 7.12.0-4
+- Build the ffmpeg and xine plugins in the main package
+- Rename freeworld to ndi subpackage since it has only ndi plugin
+
 * Mon Jan 16 2023 Sérgio Basto <sergio@serjux.com> - 7.12.0-3
 - Rebuild for opencv 4.7.0
 

@@ -1,6 +1,6 @@
 Name:           jaxb-api2
 Version:        2.3.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Jakarta XML Binding API
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-api
@@ -56,11 +56,11 @@ cp jaxb-api/pom.xml jaxb-api2.pom
 %mvn_install
 
 rm %{buildroot}%{_javadir}/JAXB-API.jar
-ln -s -f glassfish-jaxb-api/jakarta.xml.bind-api-%{version}.jar %{buildroot}%{_javadir}/jaxb-api.jar
+ln -s -f jaxb-api2/jakarta.xml.bind-api-2.jar %{buildroot}%{_javadir}/jaxb-api.jar
 rm %{buildroot}%{_datadir}/maven-poms/JAXB-API.pom
-ln -s -f glassfish-jaxb-api/jakarta.xml.bind-api-%{version}.pom %{buildroot}%{_datadir}/maven-poms/jaxb-api.pom
+ln -s -f jaxb-api2/jakarta.xml.bind-api-2.pom %{buildroot}%{_datadir}/maven-poms/jaxb-api.pom
 sed -i /JAXB-API/d .mfiles
-sed -i 's/JAXB-API/glassfish-jaxb-api\/jakarta.xml.bind-api-%{version}/' %{buildroot}%{_datadir}/maven-metadata/*
+sed -i 's/JAXB-API/jaxb-api2\/jakarta.xml.bind-api-2/' %{buildroot}%{_datadir}/maven-metadata/*
 
 %files -f .mfiles
 %license LICENSE.md NOTICE.md
@@ -69,6 +69,9 @@ sed -i 's/JAXB-API/glassfish-jaxb-api\/jakarta.xml.bind-api-%{version}/' %{build
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Mon Jan 23 2023 Marian Koncek <mkoncek@redhat.com> - 2.3.3-6
+- Fix wrong symlink targets
+
 * Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 2.3.3-5
 - Add major compat version
 - Remove glassfish alias

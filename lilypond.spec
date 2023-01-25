@@ -3,8 +3,8 @@
 %global _python_bytecompile_extra 0
 
 Name:		lilypond
-Version:	2.25.0
-Release:	2%{?dist}
+Version:	2.25.1
+Release:	1%{?dist}
 Summary:	A typesetting system for music notation
 
 License:	GPLv3
@@ -118,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Mon Jan 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.1-1
+- 2.25.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.25.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

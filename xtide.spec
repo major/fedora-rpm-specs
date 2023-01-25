@@ -2,7 +2,7 @@
 #%%define          betatag   dev-20160114
 %define          dwfdate   20220109
 
-%define          fedorarel 1
+%define          fedorarel 2
 
 
 %define          rel        %{?betatag:0.}%{fedorarel}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
@@ -11,7 +11,7 @@
 Summary:         Calculate tide all over the world
 Name:            xtide
 Version:         %{mainver}
-Release:         %{rel}%{?dist}.2
+Release:         %{rel}%{?dist}
 
 URL:             http://www.flaterco.com/xtide/
 Source0:         https://flaterco.com/files/xtide/%{name}-%{version}%{?betatag:-%betatag}.tar.xz
@@ -340,6 +340,9 @@ exit 0
 %{_datadir}/man/man8/xttpd.8*
 
 %changelog
+* Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 2.15.5-2
+- rebuild for new libgps
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.5-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:          pdfbox
 Version:       2.0.27
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Apache PDFBox library for working with PDF documents
 License:       ASL 2.0
 URL:           http://pdfbox.apache.org/
@@ -20,7 +20,7 @@ BuildRequires:  mvn(org.apache:apache:pom:)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.bouncycastle:bcmail-jdk15on)
 BuildRequires:  mvn(org.bouncycastle:bcprov-jdk15on)
-BuildRequires:  mvn(javax.xml.bind:jaxb-api)
+BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api:2)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.2.2)
 BuildRequires:  mvn(org.mockito:mockito-core)
 
@@ -204,7 +204,8 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %pom_xpath_set 'pom:source' 8 parent
 %pom_xpath_set 'pom:target' 8 parent
 
-%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api:1.2.2 preflight
+%pom_change_dep -r javax.activation:activation jakarta.activation:jakarta.activation-api:1.2.2
+%pom_change_dep -r javax.xml.bind:jaxb-api jakarta.xml.bind:jakarta.xml.bind-api:2
 %pom_xpath_remove 'pom:dependency/pom:scope[text()="provided"]' preflight
 
 %build
@@ -219,7 +220,7 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 # wrapper scripts
 %jpackage_script org.apache.pdfbox.debugger.PDFDebugger "" "" %{name}-debugger:commons-logging:fontbox:%{name}:bcmail:bcpkix:bcprov pdfbox-debugger true
 %jpackage_script org.apache.pdfbox.tools.PDFBox "" "" %{name}-tools:commons-logging:fontbox:%{name}:%{name}-debugger:bcmail:bcpkix:bcprov pdfbox true
-%jpackage_script org.apache.pdfbox.preflight.Validator_A1b "" "" preflight:jakarta-activation:jaxb-api:commons-logging:fontbox:%{name}:xmpbox:bcmail:bcpkix:bcprov pdfbox-preflight true
+%jpackage_script org.apache.pdfbox.preflight.Validator_A1b "" "" preflight:jakarta-activation1/jakarta.activation-api-1:jaxb-api2/jakarta.xml.bind-api-2:commons-logging:fontbox:%{name}:xmpbox:bcmail:bcpkix:bcprov pdfbox-preflight true
 
 %files -f .mfiles-%{name}
 %doc README.md RELEASE-NOTES.txt
@@ -252,6 +253,9 @@ rm pdfbox/src/test/java/org/apache/pdfbox/pdmodel/graphics/image/CCITTFactoryTes
 %license LICENSE.txt NOTICE.txt
 
 %changelog
+* Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 2.0.27-8
+- Depend on compat versions of activation and XML bind
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.27-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

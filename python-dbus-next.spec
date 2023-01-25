@@ -76,7 +76,9 @@ chmod -x examples/*.py
 %check
 # tests require dbus daemon to be running
 %global __pytest  /usr/bin/dbus-run-session -- %{__pytest}
-%pytest
+# test_tcp_connection_with_forwarding is broken by dbus 1.14.4
+# altdesktop/python-dbus-next#135
+%pytest -k 'not test_tcp_connection_with_forwarding'
 
 %endif
 
@@ -87,6 +89,9 @@ chmod -x examples/*.py
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Jan 23 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.3-5
+- Skip failing test
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

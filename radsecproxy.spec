@@ -1,7 +1,7 @@
 Summary:        Generic RADIUS proxy with RadSec support
 Name:           radsecproxy
-Version:        1.9.1
-Release:        5%{?dist}
+Version:        1.9.2
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://radsecproxy.github.io/
 Source0:        https://github.com/radsecproxy/radsecproxy/releases/download/%{version}/%{name}-%{version}.tar.gz
@@ -91,10 +91,13 @@ chmod 644 tools/*.sh
 %dir %attr(0750,%{name},%{name}) %{_localstatedir}/log/%{name}/
 
 %changelog
+* Tue Jan 24 2023 Robert Scheck <robert@fedoraproject.org> 1.9.2-1
+- Upgrade to 1.9.2 (#2163576)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Fri Jul 29 2022  Robert Scheck <robert@fedoraproject.org> 1.9.1-4
+* Fri Jul 29 2022 Robert Scheck <robert@fedoraproject.org> 1.9.1-4
 - Added sysusers.d file to achieve user() and group() provides
 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-3

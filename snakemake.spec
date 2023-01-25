@@ -12,15 +12,18 @@ Finally, Snakemake workflows can entail a description of required software,
 which will be automatically deployed to any execution environment.}
 
 Name:           snakemake
-Version:        7.19.1
+Version:        7.20.0
 Release:        %autorelease 
 Summary:        Workflow management system to create reproducible and scalable data analyses
 
 # The entire project is (SPDX) MIT, except:
-# - versioneer.py is LicenseRef-Fedora-Public-Domain (“License: Public Domain”)
-#   but does not contribute to the license of the binary RPM
-# SPDX
-License:        MIT
+# - versioneer.py is Unlicense
+# - snakemake/_version.py says:
+#     This file is released into the public domain.
+#   which would be LicenseRef-Fedora-Public-Domain, except that the comments in
+#   versioneer.py make it clear that Unlicense is intended for the generated
+#   files as well.
+License:        MIT AND Unlicense
 URL:            https://snakemake.readthedocs.io/en/stable/index.html
 Source0:        https://github.com/snakemake/snakemake/archive/v%{version}/snakemake-%{version}.tar.gz
 

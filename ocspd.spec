@@ -4,7 +4,7 @@
 
 Name:		ocspd
 Version:	1.9.0
-Release:	25%{?alphatag:.}%{?alphatag}%{?dist}
+Release:	26%{?alphatag:.}%{?alphatag}%{?dist}
 Summary:	OpenCA OCSP Daemon
 License:	ASL 1.0
 Source:		http://downloads.sourceforge.net/openca/openca-ocspd-%{version}%{revision}.tar.gz
@@ -26,12 +26,13 @@ URL:		http://www.openca.org/projects/ocspd
 Obsoletes:	openca-ocspd <= %{version}-%{release}
 Provides:	openca-ocspd = %{version}-%{release}
 Requires(pre):	shadow-utils
-BuildRequires: make
+BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	openssl-devel
 BuildRequires:	openldap-devel
 BuildRequires:	automake autoconf
 BuildRequires:	perl-podlators
+BuildRequires:	systemd-rpm-macros
 Requires(post):	systemd
 Requires(post):	systemd-sysv
 Requires(preun):systemd
@@ -156,6 +157,11 @@ exit 0
 
 #-------------------------------------------------------------------------------
 %changelog
+#-------------------------------------------------------------------------------
+
+* Tue Jan 24 2023 Patrick Monnerat <patrick@monnerat.net> 1.9.0-26
+- BR systemd-rpm-macros.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -192,8 +198,6 @@ exit 0
 
 * Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-#-------------------------------------------------------------------------------
 
 * Wed Mar  7 2018 Patrick Monnerat <patrick@monnerat.net> 1.9.0-13
 - "Modernize" spec file.

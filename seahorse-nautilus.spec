@@ -5,7 +5,7 @@
 Name:           seahorse-nautilus
 Version:        3.11.92
 %global         release_version %(echo %{version} | awk -F. '{print $1"."$2}')
-Release:        23%{?gitdate:.%{gitdate}git%{shortcommit0}}%{?dist}
+Release:        24%{?gitdate:.%{gitdate}git%{shortcommit0}}%{?dist}
 Summary:        PGP encryption and signing for nautilus
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Apps/Seahorse
@@ -14,6 +14,7 @@ Source0:        https://gitlab.gnome.org/GNOME/%{name}/-/archive/%{commit0}/%{na
 %else
 Source0:        https://download.gnome.org/sources/%{name}/%{release_version}/%{name}-%{version}.tar.xz
 %endif
+Patch0:         seahorse-nautilus-fix_gnupg2_ver.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -33,7 +34,7 @@ and decryption of OpenPGP files using GnuPG.
 
 
 %prep
-%autosetup -p1 -n %{?gitdate:%{name}-%{commit0}}%{!?gitdate:%{name}-%{tarball_version}}
+%autosetup -p0 -n %{?gitdate:%{name}-%{commit0}}%{!?gitdate:%{name}-%{tarball_version}}
 
 
 %build
@@ -62,6 +63,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/seahorse-pgp-signatur
 
 
 %changelog
+* Mon Jan 23 2023 Alexander Ploumistos <alexpl@fedoraproject.org> - 3.11.92-24.20220906git2cc2a06
+- Allow building with gnupg2 2.4.x
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.92-23.20220906git2cc2a06
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

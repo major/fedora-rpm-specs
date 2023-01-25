@@ -4,8 +4,8 @@
 
 %global crate hashbrown
 
-Name:           rust-hashbrown
-Version:        0.13.2
+Name:           rust-hashbrown0.12
+Version:        0.12.3
 Release:        %autorelease
 Summary:        Rust port of Google's SwissTable hash map
 
@@ -58,6 +58,18 @@ This package contains library source intended for building other packages which
 use the "ahash" feature of the "%{crate}" crate.
 
 %files       -n %{name}+ahash-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+ahash-compile-time-rng-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+ahash-compile-time-rng-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "ahash-compile-time-rng" feature of the "%{crate}" crate.
+
+%files       -n %{name}+ahash-compile-time-rng-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+bumpalo-devel
@@ -135,7 +147,13 @@ use the "serde" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
+%ifarch %{arm}
+# * some doctests inconsistently fail on armv7hl:
+#   https://github.com/rust-lang/hashbrown/issues/349
+%cargo_test -- --lib
+%else
 %cargo_test
+%endif
 %endif
 
 %changelog

@@ -101,6 +101,9 @@ export LDFLAGS="$LDFLAGS -X %{goipath}/pkg/version.versionFromGit=v%{version} "
 
 %files
 %license LICENSE
+%if 0%{?with_bundled}
+%license vendor/modules.txt
+%endif
 %doc README.md CONTRIBUTING.md AUTHORS
 %{_bindir}/s2i
 

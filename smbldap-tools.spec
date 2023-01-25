@@ -2,7 +2,7 @@ Summary:	User and group administration tools for Samba/OpenLDAP
 Name:		smbldap-tools
 Version:	0.9.11
 Release:	24%{?dist}
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://gna.org/projects/smbldap-tools/
 Source0:	http://download.gna.org/smbldap-tools/sources/%{version}/smbldap-tools-%{version}.tar.gz
 Patch0:		smbldap-tools-0.9.11-bz1456783.patch
@@ -83,11 +83,7 @@ sed -e 's|@PERL_COMMAND@|/usr/bin/perl|' smbldap-upgrade-0.9.6.pl > \
 chmod 755 %{buildroot}%{_sbindir}/smbldap-upgrade-0.9.6.pl
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYING
-%else
-%doc COPYING
-%endif
 %doc ChangeLog CONTRIBUTORS FILES INFRA INSTALL README TODO
 %doc doc/*.conf.example doc/migration_scripts/ doc/*.pdf
 %dir %{_sysconfdir}/smbldap-tools/

@@ -16,8 +16,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.20.5
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.21.90
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -183,6 +183,7 @@ to be installed.
   -D dv=%{?with_extras:enabled}%{!?with_extras:disabled} \
   -D dv1394=%{?with_extras:enabled}%{!?with_extras:disabled} \
 %endif
+  -D qt6=disabled
 
 %meson_build
 
@@ -211,6 +212,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 %{_datadir}/gstreamer-%{majorminor}/presets/GstQTMux.prs
 
 # non-core plugins without external dependencies
+%{_libdir}/gstreamer-%{majorminor}/libgstadaptivedemux2.so
 %{_libdir}/gstreamer-%{majorminor}/libgstalaw.so
 %{_libdir}/gstreamer-%{majorminor}/libgstalphacolor.so
 %{_libdir}/gstreamer-%{majorminor}/libgstalpha.so
@@ -256,6 +258,7 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 %{_libdir}/gstreamer-%{majorminor}/libgstwavenc.so
 %{_libdir}/gstreamer-%{majorminor}/libgstwavparse.so
 %{_libdir}/gstreamer-%{majorminor}/libgstximagesrc.so
+%{_libdir}/gstreamer-%{majorminor}/libgstxingmux.so
 %{_libdir}/gstreamer-%{majorminor}/libgsty4menc.so
 
 # gstreamer-plugins with external dependencies but in the main package
@@ -298,6 +301,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Fri Jan 20 2023 Wim Taymans <wtaymans@redhat.com> - 1.21.90-1
+- Update to 1.21.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

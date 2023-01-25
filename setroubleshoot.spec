@@ -102,7 +102,7 @@ BuildRequires: python3-devel
 Requires: systemd-python3 >= 206-1
 Requires: python3-gobject-base >= 3.11
 Requires: dbus
-Requires: python3-dbus python3-dasbus
+Requires: python3-dbus python3-dasbus python3-six
 Requires: polkit
 Requires: initscripts-service
 

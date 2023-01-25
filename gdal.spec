@@ -75,7 +75,9 @@ Patch0:        gdal_utils.patch
 #   inlining failed in call to ‘always_inline’ ‘open.localalias’
 # See https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2526 for a similar issue
 Patch1:        gdal-fortify-source.patch
-
+# Add missing include needed for gcc 13
+# https://github.com/OSGeo/gdal/commit/412b7fe6604141ee371f5a5a628bab1c5304de76
+Patch2:        gdal-include.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -358,7 +360,7 @@ MinGW Windows Python3 GDAL bindings.
 %endif
 
 %prep
-%autosetup -p1 -n %{name}-%{version}-fedora
+%autosetup -N -p1 -n %{name}-%{version}-fedora
 
 # Delete bundled libraries
 rm -rf frmts/zlib
@@ -374,6 +376,9 @@ rm -rf third_party/LercLib
 # Setup autotest directory
 tar xf %{SOURCE1}
 mv %{name}autotest-%{version} autotest
+
+# Need to patch autotest
+%autopatch -p1
 
 # Copy in PROVENANCE.TXT-fedora
 cp -a %{SOURCE4} .
