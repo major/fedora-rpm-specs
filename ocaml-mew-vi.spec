@@ -6,7 +6,7 @@
 
 Name:           ocaml-mew-vi
 Version:        0.5.0
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Modal Editing Witch, VI interpreter
 
 License:        MIT
@@ -58,6 +58,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.5.0-17
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

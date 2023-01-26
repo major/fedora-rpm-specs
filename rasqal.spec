@@ -1,6 +1,6 @@
 Name:           rasqal
 Version:        0.9.33
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        RDF Query Library
 
 License:        LGPLv2+ or ASL 2.0
@@ -17,6 +17,9 @@ BuildRequires:  libgcrypt-devel
 BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(XML::DOM)
 
+# Upstream PR: https://github.com/dajobe/rasqal/pull/11
+Patch1: define-printf.patch
+
 %description
 Rasqal is a library providing full support for querying Resource
 Description Framework (RDF) including parsing query syntaxes, constructing
@@ -32,6 +35,7 @@ Libraries, includes etc to develop with the Rasqal RDF query language library.
 
 %prep
 %setup -q
+%patch1 -p1 -b .printf
 
 # hack to nuke rpaths
 %if "%{_libdir}" != "/usr/lib"
@@ -93,6 +97,10 @@ fi
 
 
 %changelog
+* Tue Jan 24 2023 Timm Bäder <tbaeder@redhat.com> - 0.9.33-23
+- Fix undefined printf() in configure check.
+- https://fedoraproject.org/wiki/Changes/PortingToModernC
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.33-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

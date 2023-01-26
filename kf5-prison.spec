@@ -3,7 +3,7 @@
 Name:    kf5-%{framework}
 Summary: KDE Frameworks 5 Tier 1 barcode library
 Version: 5.102.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: BSD 
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -16,6 +16,7 @@ BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-rpm-macros >= %{majmin}
 
 BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Multimedia)
 BuildRequires:  pkgconfig(Qt5Quick)
 
 BuildRequires:  cmake(ZXing)
@@ -56,16 +57,22 @@ developing applications that use %{name}.
 %license LICENSES/*.txt
 %{_kf5_datadir}/qlogging-categories5/%{framework}.*
 %{_kf5_libdir}/libKF5Prison.so.5*
+%{_kf5_libdir}/libKF5PrisonScanner.so.5*
 %{_kf5_qmldir}/org/kde/prison/
 
 %files devel
 %{_kf5_includedir}/Prison/
+%{_kf5_includedir}/PrisonScanner/
 %{_kf5_libdir}/libKF5Prison.so
+%{_kf5_libdir}/libKF5PrisonScanner.so
 %{_kf5_libdir}/cmake/KF5Prison/
 %{_kf5_archdatadir}/mkspecs/modules/qt_Prison.pri
 
 
 %changelog
+* Mon Jan 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.102.0-3
+- Enable PrisonScanner library
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.102.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

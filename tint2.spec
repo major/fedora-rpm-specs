@@ -1,11 +1,11 @@
 Name:		tint2
-Version:	17.0.2
-Release:	4%{?dist}
+Version:	17.1.3
+Release:	1%{?dist}
 Summary:	A lightweight X11 desktop panel and task manager
 
 License:	GPLv2
-URL:		https://gitlab.com/o9000/%{name}
-Source0:	%url/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
+URL:		https://gitlab.com/nick87720z/%{name}
+Source0:	%url/-/archive/%{version}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -31,7 +31,7 @@ specifically made for Openbox3 but should also work with other window managers
 (GNOME, KDE, etc...). It's based on ttm code http://code.google.com/p/ttm/.
 
 %prep
-%autosetup -p1 -n %{name}-v%{version}
+%autosetup -p1
 
 %build
 %{cmake} -DENABLE_EXAMPLES=ON -GNinja
@@ -57,26 +57,13 @@ desktop-file-install	\
 
 %find_lang tint2conf
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-%post
-/bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null || :
-
-%postun
-if [ $1 -eq 0 ] ; then
-    /bin/touch --no-create %{_datadir}/icons/hicolor &>/dev/null
-    /usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-fi
-
-%posttrans
-/usr/bin/gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
-%endif
-
 %files -f tint2conf.lang
 %doc AUTHORS ChangeLog README.md doc/images/
 %doc doc/manual.html doc/readme.html doc/tint2.md
 %license COPYING
 %{_bindir}/tint2
 %{_bindir}/tint2conf
+%{_bindir}/tint2-send
 %dir %{_sysconfdir}/xdg/tint2/
 %config(noreplace) %{_sysconfdir}/xdg/tint2/tint2rc
 %{_datadir}/tint2/
@@ -87,6 +74,9 @@ fi
 %{_mandir}/man1/tint2*
 
 %changelog
+* Tue Jan 24 2023 Leigh Scott <leigh123linux@gmail.com> - 17.1.3-1
+- New version 17.1.3
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -45,7 +45,7 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: LGPLv2+
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
@@ -681,6 +681,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 6.5-10
+- Rebuild OCaml packages for F38
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.5-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

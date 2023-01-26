@@ -9,11 +9,11 @@
 %global copr_common_version 0.16.4.dev
 
 Name:       copr-backend
-Version:    1.163
-Release:    2%{?dist}
+Version:    1.165
+Release:    1%{?dist}
 Summary:    Backend for Copr
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
@@ -245,8 +245,16 @@ useradd -r -g copr -G lighttpd -s /bin/bash -c "COPR user" copr
 %exclude %{_pkgdocdir}/playbooks
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.163-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Wed Jan 25 2023 Jakub Kadlcik <frostyx@email.cz> 1.165-1
+- Skip the test_run_prunerepo test because of Koji
+
+* Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 1.164-1
+- Fix chroot version parsing with new python-packaging
+- Fix traceback for non-existing tasks
+- Python: drop the unneeded marshmallow dep
+- Log general exceptions to find issues more easily
+- Proper log argument formatting instead of .format
+- Use spdx license
 
 * Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> 1.163-1
 - start systemd services after the redis.service

@@ -12,6 +12,7 @@ Source1:        https://bitbucket.org/fenics-project/dolfin/downloads/dolfin-%{v
 Source2:        3083BE4C722232E28AD0828CBED06106DD22BAB3.gpg
 
 Patch:          0001-pkgconfig-drop-irrelevant-part-from-Libs-and-Cflags.patch
+Patch:          0001-Add-missing-include-for-compatiblity-with-gcc-13.patch
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %global blaslib flexiblas
@@ -44,7 +45,7 @@ BuildRequires:  python3dist(fenics-ufl) >= %{fenics_version}
 BuildRequires:  python3dist(fenics-dijitso) >= %{fenics_version}
 # go cmake go
 BuildRequires:  chrpath
-BuildRequires: make
+BuildRequires:  make
 
 # check-buildroot flags the python .so, but it should be fine after rpath removal.
 # It seems that the original path to the library is stored in some comment.

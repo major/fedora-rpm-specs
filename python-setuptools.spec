@@ -132,7 +132,9 @@ A Python wheel of setuptools to use with venv.
 # If we don't have setuptools installed yet, we use the pre-generated .egg-info
 # See https://github.com/pypa/setuptools/pull/2543
 # And https://github.com/pypa/setuptools/issues/2550
-rm -r %{srcname}.egg-info
+# WARNING: We cannot remove this folder since Python 3.11.1,
+#          see https://github.com/pypa/setuptools/issues/3761
+#rm -r %%{srcname}.egg-info
 %endif
 
 # Strip shbang

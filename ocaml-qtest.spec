@@ -2,7 +2,7 @@
 
 Name:           ocaml-qtest
 Version:        2.11.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Inline (Unit) Tests for OCaml
 
 License:        GPL-3.0-or-later
@@ -81,6 +81,9 @@ asciidoc README.adoc
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.11.2-12
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

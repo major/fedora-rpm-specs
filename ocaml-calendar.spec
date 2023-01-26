@@ -5,7 +5,7 @@
 
 Name:           ocaml-calendar
 Version:        2.04
-Release:        45%{?dist}
+Release:        46%{?dist}
 Summary:        Objective Caml library for managing dates and times
 License:        LGPLv2
 
@@ -79,6 +79,9 @@ make install
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.04-46
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.04-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

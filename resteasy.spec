@@ -3,7 +3,7 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
@@ -17,6 +17,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.1.1)
+BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api:2)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.apache.tomcat:tomcat-servlet-api)
@@ -181,7 +182,7 @@ find -name '*.jar' -print -delete
 %pom_change_dep org.jboss.spec.javax.servlet: org.apache.tomcat:tomcat-servlet-api providers/jackson2
 
 # add dependencies for EE APIs that were removed in Java 11
-%pom_add_dep javax.xml.bind:jaxb-api resteasy-jaxrs
+%pom_add_dep jakarta.xml.bind:jakarta.xml.bind-api:2 resteasy-jaxrs
 
 %pom_remove_plugin :maven-clean-plugin
 
@@ -218,6 +219,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Mon Jan 23 2023 Marian Koncek <mkoncek@redhat.com> - 3.0.26-21
+- Depend on compat jaxb-api version 2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.26-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

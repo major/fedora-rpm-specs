@@ -9,10 +9,10 @@ Name:		perl-Specio
 Version:	0.48
 Release:	3%{?dist}
 Summary:	Type constraints and coercions for Perl
-# lib/Specio/PartialDump.pm:	GPL+ or Artistic
+# lib/Specio/PartialDump.pm:	GPL-1.0-or-later OR Artistic-1.0-Perl
 #				<https://github.com/houseabsolute/Specio/issues/17>
-# other files:			Artistic 2.0
-License:	Artistic 2.0 and (GPL+ or Artistic)
+# other files:			Artistic-2.0
+License:	Artistic-2.0 AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:		https://metacpan.org/release/Specio
 Source0:	https://cpan.metacpan.org/modules/by-module/Test/Specio-%{version}.tar.gz
 BuildArch:	noarch

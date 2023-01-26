@@ -1,6 +1,6 @@
 Name:           libell
-Version:        0.55
-Release:        2%{?dist}
+Version:        0.56
+Release:        1%{?dist}
 Summary:        Embedded Linux library
 License:        LGPLv2+
 URL:            https://01.org/ell
@@ -56,6 +56,9 @@ find %{buildroot} -type f -name "*.la" -delete
 
 
 %changelog
+* Tue Jan 24 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.56-1
+- Update to 0.56
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.55-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

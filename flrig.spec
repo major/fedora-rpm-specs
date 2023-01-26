@@ -15,7 +15,7 @@ Source0:        http://www.w1hkj.com/files/%{name}/%{name}-%{version}.tar.gz
 %endif
 Source100:      flrig.appdata.xml
 
-Patch0:         flrig_atoi.patch
+Patch0:         flrig-headers.patch
 
 BuildRequires:  gcc gcc-c++ make
 BuildRequires:  fltk-devel >= 1.3.0

@@ -1,25 +1,29 @@
 Name:           python-ZEO
-Version:        5.3.0
-Release:        4%{?dist}
+Version:        5.4.0
+Release:        1%{?dist}
 Summary:        Client-server storage implementation for ZODB
 
 License:        ZPL-2.1
 URL:            https://www.zodb.org/
 Source0:        %pypi_source ZEO
-BuildArch:      noarch
 
+BuildRequires:  gcc
+BuildRequires:  python-ZODB-doc
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist funcsigs}
+BuildRequires:  python3-docs
+BuildRequires:  python3-persistent-doc
+BuildRequires:  %{py3_dist cython}
 BuildRequires:  %{py3_dist manuel}
 BuildRequires:  %{py3_dist msgpack}
-BuildRequires:  %{py3_dist pbr}
 BuildRequires:  %{py3_dist persistent}
 BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist random2}
+BuildRequires:  %{py3_dist repoze-sphinx-autointerface}
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist six}
+BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist sphinx-rtd-theme}
+BuildRequires:  %{py3_dist tox}
+BuildRequires:  %{py3_dist tox-current-env}
 BuildRequires:  %{py3_dist transaction}
 BuildRequires:  %{py3_dist uvloop}
 BuildRequires:  %{py3_dist wheel}
@@ -30,6 +34,7 @@ BuildRequires:  %{py3_dist zodb}
 BuildRequires:  %{py3_dist zope.interface}
 BuildRequires:  %{py3_dist zope.testing}
 BuildRequires:  %{py3_dist zope.testrunner}
+BuildRequires:  %{py3_dist zopeundo}
 
 %global common_desc                                                   \
 ZEO is a client-server system for sharing a single storage among many \
@@ -42,16 +47,31 @@ protocol layered on top of TCP.
 %description
 %{common_desc}
 
-%package -n python3-ZEO
+%package        doc
+Summary:        Documentation for ZEO
+BuildArch:      noarch
+
+%description    doc
+Documentation for ZEO.
+
+%package     -n python3-ZEO
 Summary:        Client-server storage implementation for ZODB
 
 %description -n python3-ZEO
 %{common_desc}
 
+%pyproject_extras_subpkg -n python3-ZEO msgpack uvloop
+
 %prep
 %autosetup -n ZEO-%{version}
 
-# Remove a version number that leads to an attempted download from pypi
+# Use local objects.inv for intersphinx
+sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
+    -e "s|\('https://persistent\.readthedocs\.io/en/latest/', \)None|\1'%{_docdir}/python3-persistent-doc/objects.inv'|" \
+    -e 's|\("https://zodb-docs\.readthedocs\.io/en/latest/", \)None|\1"%{_docdir}/python-ZODB-doc/html/objects.inv"|' \
+    -i docs/conf.py
+
+# Fedora has only msgpack 1.x; this likely means the msgpack extra does not work
 sed -i 's/msgpack < 1/msgpack/' setup.py
 
 # Use mock from unittests
@@ -63,18 +83,33 @@ sed -i "/'mock'/d" setup.py
 %py3_shebang_fix src/ZEO
 
 %build
+cd src/ZEO/asyncio
+cythonize -i *.pyx
+cd -
 %pyproject_wheel
-
-# Convert documentation to HTML
-rst2html --no-datestamp CHANGES.rst CHANGES.html
-rst2html --no-datestamp README.rst README.html
 
 %install
 %pyproject_install
 %pyproject_save_files ZEO
 
+# Because we built the Cython interface, we have to move everything from the
+# noarch directory to the arch-specific directory.
+if [ "%{python3_sitearch}" != "%{python3_sitelib}" ]; then
+  mkdir -p %{buildroot}%{python3_sitearch}
+  mv %{buildroot}%{python3_sitelib}/* %{buildroot}%{python3_sitearch}
+  rm -fr %{buildroot}%{_prefix}/lib
+  sed -i 's,%{python3_sitelib},%{python3_sitearch},g' ../python*
+fi
+cp -p src/ZEO/asyncio/*.so %{buildroot}%{python3_sitearch}/ZEO/asyncio
+
+# Build documentation
+export PYTHONPATH=%{buildroot}%{python3_sitearch}
+sphinx-build -b html -d docs/_build/doctrees docs docs/_build/html
+rst2html --no-datestamp CHANGES.rst CHANGES.html
+rst2html --no-datestamp README.rst README.html
+
 %check
-%pytest
+%tox
 
 %files -n python3-ZEO -f %{pyproject_files}
 %doc CHANGES.html README.html
@@ -83,8 +118,16 @@ rst2html --no-datestamp README.rst README.html
 %{_bindir}/zeo-nagios
 %{_bindir}/zeoctl
 %{_bindir}/zeopack
+%{python3_sitearch}/ZEO/asyncio/_futures.cpython*
+%{python3_sitearch}/ZEO/asyncio/_smp.cpython*
+
+%files doc
+%doc docs/_build/html
 
 %changelog
+* Tue Jan 24 2023 Jerry James <loganjerry@gmail.com> - 5.4.0-1
+- Version 5.4.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

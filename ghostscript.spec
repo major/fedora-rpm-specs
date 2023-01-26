@@ -44,8 +44,8 @@
 
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
-Version:          9.56.1
-Release:          7%{?dist}
+Version:          10.0.0
+Release:          1%{?dist}
 
 License:          AGPLv3+
 
@@ -103,10 +103,9 @@ BuildRequires:    make
 # Upstream patches -- official upstream patches released by upstream since the
 # ----------------    last rebase that are necessary for any reason:
 #Patch000: example000.patch
-Patch000: ghostscript-9.56-fix-PDFFitPage-with-square-MediaBox.patch
-Patch001: ghostscript-9.56.1-Fix-color-info-juggling-with-x11-devices.patch
-Patch002: ghostscript-9.56.1-use-proper-bounds-check-for-subfunctions-of.patch
-Patch003: ghostscript-9.56.1-Deal-with-different-VM-modes-during-CIDFont-loading.patch
+
+Patch001: ghostscript-10.0.0-Fix-color-info-juggling-with-x11-devices.patch
+Patch002: ghostscript-10.0.0-Deal-with-different-VM-modes-during-CIDFont-loading.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -437,11 +436,8 @@ done
 # =============================================================================
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.56.1-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sun Jan  8 2023 Tom Callaway <spot@fedoraproject.org> - 9.56.1-6
-- rebuild for libpaper v2
+* Mon Jan 23 2023 Richard Lescak <rlescak@redhat.com> - 10.0.0-1
+- rebase to new version 10.0.0 (#2128814)
 
 * Thu Oct 27 2022 Richard Lescak <rlescak@redhat.com> - 9.56.1-5
 - fix loading of CIDFonts (#2137856)

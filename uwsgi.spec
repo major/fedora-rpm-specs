@@ -186,7 +186,7 @@
 
 Name:           uwsgi
 Version:        2.0.21
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Fast, self-healing, application container server
 # uwsgi is licensed under GPLv2 with a linking exception
 # docs are licensed under MIT
@@ -1835,6 +1835,9 @@ exit 0
 
 
 %changelog
+* Tue Jan 24 2023 Ralf Ertzinger <ralf@skytale.net> - 2.0.21-5
+- Rebuilt for new libgo.so
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

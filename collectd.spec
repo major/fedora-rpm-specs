@@ -4,7 +4,7 @@
 Summary: Statistics collection daemon for filling RRD files
 Name: collectd
 Version: 5.12.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 License: GPLv2
 URL: https://collectd.org/
 
@@ -1224,6 +1224,9 @@ make check
 
 
 %changelog
+* Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 5.12.0-27
+- rebuild for new libgps
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.12.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

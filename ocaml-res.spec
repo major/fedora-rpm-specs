@@ -9,7 +9,7 @@
 
 Name:           ocaml-res
 Version:        5.0.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml library for resizing arrays and strings
 License:        LGPLv2+ with exceptions
 
@@ -101,6 +101,9 @@ rm -fr %{buildroot}%{_prefix}/doc
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.0.1-5
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

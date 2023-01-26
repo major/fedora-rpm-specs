@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-ocplib-endian
 Version:        1.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Functions to read/write int16/32/64 from strings, bigarrays
 
 %global libname ocplib-endian
@@ -91,6 +91,9 @@ dune runtest --profile release
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2-7
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

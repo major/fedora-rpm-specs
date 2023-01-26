@@ -4,7 +4,7 @@
 
 Name:          jboss-jaxrs-2.0-api
 Version:       1.0.0
-Release:       21%{?dist}
+Release:       22%{?dist}
 Summary:       JAX-RS 2.0: The Java API for RESTful Web Services
 # ASL 2.0 src/main/java/javax/ws/rs/core/GenericEntity.java
 License:       (CDDL or GPLv2 with exceptions) and ASL 2.0
@@ -14,7 +14,7 @@ Source0:       https://github.com/jboss/jboss-jaxrs-api_spec/archive/%{oname}-%{
 BuildRequires: maven-local
 BuildRequires: mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires: mvn(org.jboss:jboss-parent:pom:)
-BuildRequires: mvn(javax.xml.bind:jaxb-api)
+BuildRequires: mvn(jakarta.xml.bind:jakarta.xml.bind-api:2)
 
 BuildArch:     noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -29,7 +29,7 @@ JSR 339: JAX-RS 2.0: The Java API for RESTful Web Services.
 %pom_remove_plugin :maven-source-plugin
 
 # Fix JDK11 build, add missing javax.xml.bind
-%pom_add_dep javax.xml.bind:jaxb-api
+%pom_add_dep jakarta.xml.bind:jakarta.xml.bind-api:2
 
 %mvn_file :%{oname} %{name}
 
@@ -46,6 +46,9 @@ JSR 339: JAX-RS 2.0: The Java API for RESTful Web Services.
 %license LICENSE
 
 %changelog
+* Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 1.0.0-22
+- Depend on compat versions of activation and XML bind
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

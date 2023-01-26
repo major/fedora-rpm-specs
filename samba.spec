@@ -306,8 +306,10 @@ BuildRequires: perl-generators
 BuildRequires: perl(Archive::Tar)
 BuildRequires: perl(Test::More)
 BuildRequires: popt-devel
+BuildRequires: python3-cryptography
 BuildRequires: python3-devel
 BuildRequires: python3-dns
+BuildRequires: python3-requests
 BuildRequires: python3-setuptools
 BuildRequires: quota-devel
 BuildRequires: readline-devel
@@ -351,17 +353,6 @@ BuildRequires: librados-devel
 BuildRequires: python3-etcd
 %endif
 
-%if %{with dc} || %{with testsuite}
-# Add python3-iso8601 to avoid that the
-# version in Samba is being packaged
-BuildRequires: python3-iso8601
-BuildRequires: python3-pyasn1 >= 0.4.8
-
-BuildRequires: bind
-BuildRequires: krb5-server >= %{required_mit_krb5}
-#endif with dc
-%endif
-
 # pidl requirements
 BuildRequires: perl(ExtUtils::MakeMaker)
 BuildRequires: perl(FindBin)
@@ -392,10 +383,15 @@ BuildRequires: lmdb-devel
 %if %{with dc} || %{with testsuite}
 BuildRequires: bind
 BuildRequires: krb5-server >= %{required_mit_krb5}
+%if 0%{?fedora} || 0%{?rhel} >= 9
+BuildRequires: python3-dateutil
+%else
+BuildRequires: python3-iso8601
+%endif
 BuildRequires: python3-gpg
 BuildRequires: python3-markdown
+BuildRequires: python3-pyasn1 >= 0.4.8
 BuildRequires: python3-setproctitle
-BuildRequires: python3-cryptography
 
 %if %{without includelibs}
 BuildRequires: tdb-tools
@@ -844,11 +840,13 @@ Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-common-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires: %{name}-dc-libs = %{samba_depver}
-Requires: python3-talloc
-Requires: python3-tevent
-Requires: python3-tdb
-Requires: python3-ldb
+Requires: python3-cryptography
 Requires: python3-dns
+Requires: python3-ldb
+Requires: python3-requests
+Requires: python3-talloc
+Requires: python3-tdb
+Requires: python3-tevent
 %if %{with libsmbclient}
 Requires: libsmbclient = %{samba_depver}
 %endif
@@ -1456,12 +1454,6 @@ for i in \
     %{python3_sitearch}/samba/remove_dc.py \
     %{python3_sitearch}/samba/samdb.py \
     %{python3_sitearch}/samba/schema.py \
-    %{python3_sitearch}/samba/third_party/iso8601/__init__.py \
-    %{python3_sitearch}/samba/third_party/iso8601/__pycache__/__init__.*.pyc \
-    %{python3_sitearch}/samba/third_party/iso8601/__pycache__/iso8601.*.pyc \
-    %{python3_sitearch}/samba/third_party/iso8601/__pycache__/test_iso8601.*.pyc \
-    %{python3_sitearch}/samba/third_party/iso8601/iso8601.py \
-    %{python3_sitearch}/samba/third_party/iso8601/test_iso8601.py \
     %{python3_sitearch}/samba/uptodateness.py \
     %{_sbindir}/samba-gpupdate \
     ; do

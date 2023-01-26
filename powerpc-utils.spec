@@ -1,20 +1,14 @@
 Name:           powerpc-utils
-Version:        1.3.10
-Release:        6%{?dist}
+Version:        1.3.11
+Release:        1%{?dist}
 Summary:        PERL-based scripts for maintaining and servicing PowerPC systems
 
 License:        GPLv2
 URL:            https://github.com/ibm-power-utilities/powerpc-utils
 Source0:        https://github.com/ibm-power-utilities/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        nx-gzip.udev
-Patch0:         powerpc-utils-1.3.10-manpages.patch
+Patch0:         powerpc-utils-1.3.11-manpages.patch
 Patch1:         powerpc-utils-1.3.10-distro.patch
-# bz#2121470, Fix lsslot -c mem output when using 4GB LMB size
-Patch3:         powerpc-utils-b1b9e7-LMB_size_4GB.patch
-Patch4:         powerpc-utils-e1f1de-lmb_address_in_hexadecimal.patch
-# bz#2110129, Add NVMf-FC boot support for Power - powerpc-utils
-Patch5:         powerpc-utils-c01580-add_NVMf-FC_boot_support_part1.patch
-Patch6:         powerpc-utils-2fbd7c-add_NVMf-FC_boot_support_part2.patch
 
 ExclusiveArch:  ppc %{power64}
 
@@ -200,10 +194,14 @@ systemctl enable hcn-init.service >/dev/null 2>&1 || :
 %{_mandir}/man8/nvram.8*
 %{_mandir}/man8/ofpathname.8*
 %{_mandir}/man8/drmgr.8*
+%{_mandir}/man8/drmgr-hooks.8*
 %{_mandir}/man8/lparnumascore.8*
 
 
 %changelog
+* Tue Jan 24 2023 Than Ngo <than@redhat.com> - 1.3.11-1
+- update to 1.3.11
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.10-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,18 +1,19 @@
-%global date          20191120
-%global commit0       c106c94d1a5a84e8582c936528303528608776c2
+%global date          20210115
+%global commit0       3bdb0b13e5ceb6b686f4e7f9424179b5bcb71ab8
 %global shortcommit0  %(c=%{commit0}; echo ${c:0:7})
 %global the_owner     srdgame
 
 Name:           librs232
 Version:        1.0.4
-Release:        8.%{date}git%{shortcommit0}%{?dist}
+Release:        10.%{date}git%{shortcommit0}%{?dist}
 Summary:        Library for serial communications over RS-232 with Lua bindings
 License:        MIT
 Url:            https://github.com/%{the_owner}/%{name}/
 Source:         https://github.com/%{the_owner}/%{name}/archive/%{commit0}.tar.gz#/%{name}-%{version}-%{date}git%{shortcommit0}.tar.gz
-# Allow to compile using lua >=5.4
-# Upstrem reference: https://patch-diff.githubusercontent.com/raw/srdgame/librs232/pull/8.patch
-Patch0:         https://patch-diff.githubusercontent.com/raw/%{the_owner}/%{name}/pull/8.patch#/%{name}-%{version}-Remove-upper-limit-of-lua-version.patch
+# Fix FTBFS on gcc 13:
+# Upstrem reference: https://patch-diff.githubusercontent.com/raw/srdgame/librs232/pull/10.patch
+Patch0:         https://patch-diff.githubusercontent.com/raw/%{the_owner}/%{name}/pull/10.patch#/%{name}-%{version}-Fix-rs232_set_-prototypes-mismatch.patch
+
 
 BuildRequires:  /usr/bin/git
 BuildRequires:  gcc
@@ -22,7 +23,7 @@ BuildRequires:  libtool
 BuildRequires:  pkgconfig
 BuildRequires:  lua >= 5.1
 BuildRequires:  lua-devel >= 5.1
-BuildRequires: make
+BuildRequires:  make
 
 
 %description
@@ -90,6 +91,13 @@ find %{buildroot} -name '*.la' -exec rm {} \;
 
 
 %changelog
+* Tue Jan 24 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.0.4-10.20210115git3bdb0b1
+- Add missing patch to repository
+
+* Tue Jan 24 2023 Damian Wrobel <dwrobel@ertelnet.rybnik.pl> - 1.0.4-9.20210115git3bdb0b1
+- Remove patch upstream merged
+- Add patch to fix FTBFS on gcc 13 (f38)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-8.20191120gitc106c94
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

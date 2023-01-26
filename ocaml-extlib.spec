@@ -5,7 +5,7 @@
 
 Name:           ocaml-extlib
 Version:        1.7.8
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        OCaml ExtLib additions to the standard library
 License:        LGPLv2+ with exceptions
 
@@ -85,6 +85,9 @@ make install -j1
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.8-12
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.8-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

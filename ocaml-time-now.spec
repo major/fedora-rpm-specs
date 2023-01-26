@@ -2,7 +2,7 @@
 
 Name:           ocaml-time-now
 Version:        0.15.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Get the current time in OCaml
 
 License:        MIT
@@ -60,6 +60,9 @@ cd -
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-11
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

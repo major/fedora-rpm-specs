@@ -16,6 +16,7 @@ Patch0:  gnome-keyring-42.0-fix-strncpy.patch
 BuildRequires: pkgconfig(gcr-3) >= %{gcr_version}
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(libsystemd)
+BuildRequires: pkgconfig(systemd)
 BuildRequires: pkgconfig(p11-kit-1)
 BuildRequires: docbook-dtds
 BuildRequires: docbook-style-xsl

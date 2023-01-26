@@ -2,7 +2,7 @@
 
 Name:           ocaml-ppx-import
 Version:        1.10.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Syntax extension for importing declarations from interface files
 
 License:        MIT
@@ -51,6 +51,9 @@ sed -i 's/oUnit/ounit2/' src_test/ppx_deriving/dune
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.10.0-6
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

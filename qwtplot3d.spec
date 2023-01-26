@@ -5,7 +5,7 @@
 Name:           qwtplot3d
 Epoch:          1
 Version:        0.3.0
-Release:        3.%{commitdate}git%{shortcommit}%{?dist}
+Release:        4.%{commitdate}git%{shortcommit}%{?dist}
 Summary:        Extended version of the original QwtPlot3D library
 License:        Zlib
 URL:            https://github.com/SciDAVis/%{name}
@@ -135,6 +135,10 @@ install -pm 755 %{__cmake_builddir}/examples/mesh2/mesh2 %{buildroot}%{_libexecd
 
 mkdir -p %{buildroot}%{_qt6_headerdir}/%{name}-qt6
 install -pm 644 include/*  %{buildroot}%{_qt6_headerdir}/%{name}-qt6/
+mv %{buildroot}%{_qt6_headerdir}/%{name}-qt6/qwt3d_version.h.in %{buildroot}%{_qt6_headerdir}/%{name}-qt6/qwt3d_version.h
+sed -e 's|@PROJECT_VERSION_MAJOR@|0|g' -i %{buildroot}%{_qt6_headerdir}/%{name}-qt6/qwt3d_version.h
+sed -e 's|@PROJECT_VERSION_MINOR@|3|g' -i %{buildroot}%{_qt6_headerdir}/%{name}-qt6/qwt3d_version.h
+sed -e 's|@PROJECT_VERSION_PATCH@|0|g' -i %{buildroot}%{_qt6_headerdir}/%{name}-qt6/qwt3d_version.h
 
 # Remove rpaths
 chrpath -d %{buildroot}%{_libexecdir}/%{name}-qt6/*
@@ -152,6 +156,10 @@ install -pm 755 %{__cmake_builddir}/examples/mesh2/mesh2 %{buildroot}%{_libexecd
 
 mkdir -p %{buildroot}%{_qt5_headerdir}/%{name}-qt5
 install -pm 644 include/*  %{buildroot}%{_qt5_headerdir}/%{name}-qt5/
+mv %{buildroot}%{_qt5_headerdir}/%{name}-qt5/qwt3d_version.h.in %{buildroot}%{_qt5_headerdir}/%{name}-qt5/qwt3d_version.h
+sed -e 's|@PROJECT_VERSION_MAJOR@|0|g' -i %{buildroot}%{_qt5_headerdir}/%{name}-qt5/qwt3d_version.h
+sed -e 's|@PROJECT_VERSION_MINOR@|3|g' -i %{buildroot}%{_qt5_headerdir}/%{name}-qt5/qwt3d_version.h
+sed -e 's|@PROJECT_VERSION_PATCH@|0|g' -i %{buildroot}%{_qt5_headerdir}/%{name}-qt5/qwt3d_version.h
 
 # Remove rpaths
 chrpath -d %{buildroot}%{_libexecdir}/%{name}-qt5/*
@@ -184,6 +192,9 @@ popd
 #
 
 %changelog
+* Tue Jan 24 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:0.3.0-4.20210828gitb265574
+- Fix qwt3d_version.h (rhbz#2163530)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.3.0-3.20210828gitb265574
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

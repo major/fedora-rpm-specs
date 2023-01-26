@@ -1,3 +1,5 @@
+%undefine _package_note_flags
+
 %global srcname jane-street-headers
 
 # This package creates no ELF files, but cannot be noarch since the install
@@ -6,7 +8,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        0.15.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Jane Street header files
 
 License:        MIT
@@ -51,6 +53,9 @@ sed -ri '/(archive|plugin)/d' \
 %{ocamldir}/%{srcname}/
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-8
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           ocaml-parsexp
 Version:        0.15.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        S-expression parsing library
 
 License:        MIT
@@ -68,6 +68,9 @@ developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.0-9
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

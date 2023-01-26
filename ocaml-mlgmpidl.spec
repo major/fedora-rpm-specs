@@ -5,7 +5,7 @@
 
 Name:           ocaml-%{srcname}
 Version:        1.2.14
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        OCaml interface to GMP and MPFR libraries
 # The license includes a linking exception
 License:        LGPLv2 with exceptions
@@ -164,6 +164,9 @@ cp -p opam/opam $RPM_BUILD_ROOT%{my_ocaml_lib_dir}
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.14-8
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.14-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

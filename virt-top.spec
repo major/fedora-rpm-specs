@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           virt-top
 Version:        1.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Utility like top(1) for displaying virtualization stats
 License:        GPLv2+
 
@@ -116,6 +116,9 @@ install -m 0644 processcsv.py.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-9
+- Rebuild OCaml packages for F38
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

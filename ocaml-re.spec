@@ -7,7 +7,7 @@
 
 Name:           ocaml-re
 Version:        1.10.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        A regular expression library for OCaml
 
 License:        LGPLv2 with exceptions
@@ -84,6 +84,9 @@ cp -aLr _build/install/default/lib/* %{buildroot}%{_libdir}/ocaml/
 %{_libdir}/ocaml/re/*.mli
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.10.3-8
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           jacktrip
-Version:        1.6.8
+Version:        1.7.0
 Release:        %autorelease
 Summary:        A system for high-quality audio network performance over the Internet
 
@@ -18,6 +18,7 @@ BuildRequires:  cmake(Qt5Network)
 BuildRequires:  cmake(Qt5NetworkAuth)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(Qt5Quick)
+BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  cmake(Qt5Qml)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5WebSockets)
@@ -25,6 +26,8 @@ BuildRequires:  hicolor-icon-theme
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 Requires:       hicolor-icon-theme
+Requires:       qt5-qtquickcontrols2%{?_isa}
+Requires:       qt5-qtsvg%{?_isa}
 Obsoletes:      jacktrip-doc < 1.4.0
 
 %description

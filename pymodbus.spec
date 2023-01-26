@@ -21,7 +21,7 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.1.0
+Version: 3.1.1
 Release: 1%{?dist}
 Summary: %{sum}
 
@@ -72,6 +72,9 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/test
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Jan 24 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 3.1.1-1
+- Update to 3.1.1
+
 * Mon Jan 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 3.1.0-1
 - Update to 3.1.0
 - Update URLs for new location

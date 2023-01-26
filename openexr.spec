@@ -10,6 +10,8 @@ License:        BSD
 URL:            https://www.openexr.com/
 Source0:        https://github.com/AcademySoftwareFoundation/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+Patch0:         openexr-cstdint.patch
+
 BuildRequires:  cmake gcc gcc-c++
 BuildRequires:  boost-devel
 BuildRequires:  imath-devel

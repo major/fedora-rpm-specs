@@ -7,7 +7,7 @@
 
 Name:		zenon
 Version:	0.8.5
-Release:	12%{?dist}
+Release:	14%{?dist}
 Summary:	Automated theorem prover for first-order classical logic
 License:	BSD-3-Clause
 URL:		http://zenon-prover.org/
@@ -98,6 +98,12 @@ fi
 %{_mandir}/man5/zenon-format.5*
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-14
+- Bump release and rebuild
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.8.5-13
+- Rebuild OCaml packages for F38
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

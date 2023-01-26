@@ -3,7 +3,7 @@
 
 Name:           ocaml-expat
 Version:        0.9.1
-Release:        78%{?dist}
+Release:        80%{?dist}
 Summary:        OCaml wrapper for the Expat XML parsing library
 License:        MIT
 
@@ -79,6 +79,12 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/ocaml/stublibs/*.so
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-80
+- Bump release and rebuild.
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-79
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-78
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

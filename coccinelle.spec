@@ -13,7 +13,7 @@ Version:       1.1.1
 %endif
 
 Name:           coccinelle
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
 License:        GPLv2
@@ -282,6 +282,9 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-16
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

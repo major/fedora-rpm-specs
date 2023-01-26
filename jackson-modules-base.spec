@@ -2,7 +2,7 @@
 
 Name:           jackson-modules-base
 Version:        2.14.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
@@ -18,7 +18,7 @@ BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-base:pom:) >= %{version}
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.2.2)
-BuildRequires:  mvn(javax.xml.bind:jaxb-api)
+BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api:2.3.3)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.mockito:mockito-all)
@@ -49,9 +49,6 @@ framework to read and write XML.
 
 # no need for Java 9 module stuff
 %pom_remove_plugin -r :moditect-maven-plugin
-
-# move to "old" glassfish-jaxb-api artifactId
-%pom_change_dep -r jakarta.xml.bind:jakarta.xml.bind-api javax.xml.bind:jaxb-api
 
 # Disable bundling of asm
 %pom_remove_plugin ":maven-shade-plugin" afterburner mrbean paranamer
@@ -103,6 +100,9 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 2.14.1-4
+- Depend on compat versions of activation and XML bind
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

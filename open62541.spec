@@ -1,26 +1,20 @@
 Name:     open62541
 Version:  1.3.4
-Release:  1%{?dist}
+Release:  2%{?dist}
 Summary:  OPC UA implementation
 License:  MPLv2.0
 URL:      http://open62541.org
 Source0:  https://github.com/open62541/open62541/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: gcc-c++
 BuildRequires: cmake3
+BuildRequires: gcc
+BuildRequires: graphviz
 BuildRequires: make
-%if 0%{?rhel} != 7
+BuildRequires: openssl-devel
 BuildRequires: python3
 BuildRequires: python3dist(six)
 BuildRequires: python3dist(sphinx)
 BuildRequires: python3dist(sphinx-rtd-theme)
-%else
-BuildRequires: python
-BuildRequires: python-six
-BuildRequires: python-sphinx
-BuildRequires: python-sphinx_rtd_theme
-%endif
-BuildRequires: graphviz
 
 %description
 open62541 is a C-based library (linking with C++ projects is possible)
@@ -51,12 +45,24 @@ cd build
 # The version is usually extracted from the git tag, which is not available in the tarball.
 # Therefore we need to set it manually.
 %cmake3 \
-  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-%if 0%{?rhel} != 7
-  -DCMAKE_C_FLAGS="-Wno-error=cast-function-type -Wno-stringop-overflow"\
-%endif
   -DOPEN62541_VERSION=v%{version} \
-  -DUA_ENABLE_AMALGAMATION=ON ..
+  -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+  -DCMAKE_INSTALL_LIBDIR=%{_libdir} \
+  -DUA_ENABLE_AMALGAMATION=ON \
+  -DUA_ENABLE_DA=ON \
+  -DUA_ENABLE_DISCOVERY=ON \
+  -DUA_ENABLE_ENCRYPTION_OPENSSL=ON \
+  -DUA_ENABLE_JSON_ENCODING=ON \
+  -DUA_ENABLE_METHODCALLS=ON \
+  -DUA_ENABLE_PUBSUB=ON \
+  -DUA_ENABLE_SUBSCRIPTIONS=ON \
+  -DUA_ENABLE_SUBSCRIPTIONS_EVENTS=ON \
+  ..
+
+# We want these but they need further investigation
+# Mostly issues around libraries, ssl library options etc
+## UA_ENABLE_ENCRYPTION_TPM2=ON UA_ENABLE_DISCOVERY_MULTICAST=ON UA_ENABLE_PUBSUB_ENCRYPTION=ON UA_ENABLE_PUBSUB_MQTT=ON
+## DUA_ENABLE_WEBSOCKET_SERVER=ON 
 
 %cmake_build
 cd %{__cmake_builddir}
@@ -90,16 +96,19 @@ chmod 0644 examples/nodeset/Opc.Ua.POWERLINK.NodeSet2.bsd
 %license LICENSE LICENSE-CC0
 %doc FEATURES.md
 %{_libdir}/libopen62541.so
-
 %{_libdir}/pkgconfig/open62541.pc
 %{_includedir}/open62541.h
-%{_libdir}/cmake/open62541*
+%{_libdir}/cmake/%{name}/
 
 %files doc
 %doc stage-docs/*
 %doc examples/
 
 %changelog
+* Tue Jan 24 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.3.4-2
+- Enable features: Discovery serviice (LDS), JSON encoding, Discovery service,
+  Methods, Subscriptions, PubSub, Event monitoring, Data Access
+
 * Fri Jan 20 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.3.4-1
 - Update to 1.3.4
 

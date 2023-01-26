@@ -1,8 +1,14 @@
 Name:           perl-IPTables-libiptc
 Version:        0.52
-Release:        43%{?dist}
+Release:        44%{?dist}
 Summary:        Perl extension for iptables libiptc
-License:        GPLv2+
+# iptables/iptables.c*:             GPL-2.0-or-later
+# iptables/iptables-blocking.c:     GPL-2.0-or-later
+# iptables/iptables-standalone.c*   GPL-2.0-or-later
+# lib/IPTables/libiptc.pm:          GPL-2.0-or-later
+# ppport.h:     GPL-1.0-or-later OR Artistic-1.0-Perl
+# README:       GPL-2.0-or-later
+License:        GPL-2.0-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/IPTables-libiptc
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAWK/IPTables-libiptc-%{version}.tar.gz
 # RT#70639
@@ -23,6 +29,10 @@ Patch6:         IPTables-libiptc-0.52-Stop-linking-against-nsl-library.patch
 Patch7:         IPTables-libiptc-0.52-Disable-locking.patch
 # Fix make install invocation
 Patch8:         IPTables-libiptc-0.52-Fix-make-install.patch
+# Adapt to iptables-1.8.9, CPAN RT#70639
+Patch9:         IPTables-libiptc-0.52-Adapt-to-iptables-1.8.9.patch
+# Adapt to GCC 13, CPAN RT#146048
+Patch10:        IPTables-libiptc-0.52-Adapt-to-GCC-13.patch
 # kernel-headers >= 4.5.0-0.rc0.git6.1.fc24 and < 4.6.0-0.rc7.git3.1.fc25
 # were broken, bug #1300223
 BuildConflicts: kernel-headers < 4.6.0-0.rc7.git3.1.fc25
@@ -67,6 +77,7 @@ library libiptc.
 
 %package tests
 Summary:        Tests for %{name}
+License:        GPL-2.0-or-later
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
@@ -76,16 +87,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n IPTables-libiptc-%{version}
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
+%autosetup -p1 -n IPTables-libiptc-%{version}
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -99,8 +101,8 @@ perl Makefile.PL PREFIX=%{_prefix} INSTALLDIRS=vendor NO_PACKLIST=1 \
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -116,14 +118,21 @@ make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/IPTables*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/IPTables
+%{perl_vendorarch}/auto/IPTables/libiptc
+%dir %{perl_vendorarch}/IPTables
+%{perl_vendorarch}/IPTables/libiptc.pm
+%{_mandir}/man3/IPTables::libiptc.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 24 2023 Petr Pisar <ppisar@redhat.com> - 0.52-44
+- Adapt to iptables-1.8.9
+- Adapt to gcc-13 (CPAN RT#146048)
+- Convert a License tag to an SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.52-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 
 Name:           ocaml-seq
 Version:        0.3.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Compatibility package for OCaml's standard iterator type
 License:        LGPLv2+ with exceptions
 
@@ -55,7 +55,7 @@ rm -fr %{buildroot}%{_prefix}/doc
 %dir %{_libdir}/ocaml/seq/
 %{_libdir}/ocaml/seq/META
 %{_libdir}/ocaml/seq/seq.cma
-%{_libdir}/ocaml/seq/seq.cmi
+%{_libdir}/ocaml/seq/seq_redef.cmi
 %ifarch %{ocaml_native_compiler}
 %{_libdir}/ocaml/seq/seq.cmxs
 %endif
@@ -66,16 +66,19 @@ rm -fr %{buildroot}%{_prefix}/doc
 %ifarch %{ocaml_native_compiler}
 %{_libdir}/ocaml/seq/seq.a
 %{_libdir}/ocaml/seq/seq.cmxa
-%{_libdir}/ocaml/seq/seq.cmx
+%{_libdir}/ocaml/seq/seq_redef.cmx
 %endif
-%{_libdir}/ocaml/seq/seq.mli
-%{_libdir}/ocaml/seq/seq.cmt
-%{_libdir}/ocaml/seq/seq.cmti
+%{_libdir}/ocaml/seq/seq_redef.mli
+%{_libdir}/ocaml/seq/seq_redef.cmt
+%{_libdir}/ocaml/seq/seq_redef.cmti
 %{_libdir}/ocaml/seq/dune-package
 %{_libdir}/ocaml/seq/opam
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.3.1-2
+- Rebuild OCaml packages for F38
+
 * Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 0.3.1-1
 - Move to version 0.3.1
 - Use forge macros

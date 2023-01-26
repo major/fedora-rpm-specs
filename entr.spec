@@ -1,6 +1,6 @@
 Name:           entr
-Version:        5.2
-Release:        3%{?dist}
+Version:        5.3
+Release:        1%{?dist}
 Summary:        Run arbitrary commands when files change
 
 # The entire source code is ISC except missing/sys/event.h which is BSD
@@ -29,10 +29,6 @@ export LDFLAGS="%{?__global_ldflags}"
 export PREFIX=%{_prefix}
 %make_install
 
-%check
-export CFLAGS="%{optflags}"
-export LDFLAGS="%{?__global_ldflags}"
-make test
 
 %files
 %license LICENSE
@@ -41,6 +37,9 @@ make test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jan 23 2023 Lubomír Sedlář <lsedlar@redhat.com> - 5.3-1
+- New upstream release 5.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

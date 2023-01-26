@@ -48,11 +48,11 @@
 }
 
 Name:       copr-frontend
-Version:    1.193
-Release:    2%{?dist}
+Version:    1.194
+Release:    1%{?dist}
 Summary:    Frontend for Copr
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
@@ -92,7 +92,6 @@ BuildRequires: python3-flask-caching
 BuildRequires: python3-flask-cache
 %endif
 BuildRequires: python3-flask-openid
-BuildRequires: python3-flask-restful
 BuildRequires: python3-flask-sqlalchemy
 BuildRequires: python3-flask-whooshee
 BuildRequires: python3-flask-wtf
@@ -103,7 +102,6 @@ BuildRequires: python3-humanize
 BuildRequires: python3-libmodulemd1 >= 1.7.0
 BuildRequires: python3-lxml
 BuildRequires: python3-markdown
-BuildRequires: python3-marshmallow >= 2.0.0
 BuildRequires: python3-munch
 BuildRequires: python3-netaddr
 BuildRequires: python3-openid-teams
@@ -115,10 +113,12 @@ BuildRequires: python3-redis
 BuildRequires: python3-requests
 BuildRequires: python3-sphinx
 BuildRequires: python3-sphinxcontrib-httpdomain
+BuildRequires: python3-sqlalchemy-utils
 BuildRequires: python3-whoosh
 BuildRequires: python3-wtforms >= 2.2.1
 BuildRequires: python3-ldap
 BuildRequires: python3-yaml
+BuildRequires: python3-backoff
 BuildRequires: redis
 BuildRequires: modulemd-tools >= 0.6
 %endif
@@ -150,7 +150,6 @@ Requires: python3-flask-caching
 Requires: python3-flask-cache
 %endif
 Requires: python3-flask-openid
-Requires: python3-flask-restful
 Requires: python3-flask-sqlalchemy
 Requires: python3-flask-whooshee
 Requires: python3-flask-wtf
@@ -162,7 +161,6 @@ Requires: python3-humanize
 Requires: python3-libmodulemd1 >= 1.7.0
 Requires: python3-lxml
 Requires: python3-markdown
-Requires: python3-marshmallow
 Requires: python3-mod_wsgi
 Requires: python3-munch
 Requires: python3-netaddr
@@ -173,10 +171,12 @@ Requires: python3-pylibravatar
 Requires: python3-pytz
 Requires: python3-redis
 Requires: python3-requests
+Requires: python3-sqlalchemy-utils
 Requires: python3-templated-dictionary
 Requires: python3-wtforms >= 2.2.1
 Requires: python3-zmq
 Requires: python3-ldap
+Requires: python3-backoff
 Requires: xstatic-bootstrap-scss-common
 Requires: xstatic-datatables-common
 Requires: js-jquery-ui
@@ -389,8 +389,31 @@ usermod -L copr-fe
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.193-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 1.194-1
+- Don't resubmit anitya builds for pre-release versions
+- Anytia query using sqlalchemy
+- Anitya builds handled on background
+- Pypi anitya buils respects spec generator option
+- Allow uploading artificial payload in custom webhook
+- Fix traceback for non-existing tasks
+- Fix typo in basearch example value
+- Fix batches race logic by adding locks
+- wTForms validate function now expect additional parameter
+- Change order of RPM build logs
+- Update alembic migration template
+- Drop the unneeded marshmallow dependency
+- Fix APIv3 additional_modules CoprChroot option
+- Customizable group link to FAS
+- Don't depend on flask-restful
+- Fix homepage user count
+- Add command for managing warning banner
+- More understandable module hotfixes description
+- Don't let PR builds affect status badges
+- Add hover for table rows
+- Frontend: fix a jinja2 traceback when displaying a nonexisting batch
+- Add openeuler logo
+- Disable appstream by default
+- Use SPDX license
 
 * Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> 1.193-1
 - fix get-tasks traceback when repos are not set

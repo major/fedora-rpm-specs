@@ -6,7 +6,7 @@
 
 Name:           ocaml-fileutils
 Version:        0.5.2
-Release:        34%{?dist}
+Release:        36%{?dist}
 Summary:        OCaml library for common file and filename operations
 
 License:        LGPLv2 with exceptions
@@ -104,6 +104,12 @@ make test
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.5.2-36
+- Bump release and rebuild
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.5.2-35
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

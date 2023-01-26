@@ -2,7 +2,7 @@
 
 Name:           ocaml-sedlex
 Version:        3.0
-Release:        3%{?dist}
+Release:        6%{?dist}
 Summary:        Unicode-friendly lexer generator
 
 License:        MIT
@@ -75,6 +75,15 @@ sed -i "s/14\\.0\\.0/$univer/" examples/regressions.ml \
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.0-6
+- Bump release and rebuild
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.0-5
+- Bump release and rebuild
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.0-4
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,14 +4,16 @@
 
 Name:          mingw-%{_basename}
 Version:       0.12
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       A high-level API for decoding and seeking within .opus files
 
-License:       BSD
+License:       BSD-3-Clause
 URL:           https://www.opus-codec.org/
 Source0:       https://downloads.xiph.org/releases/opus/%{_basename}-%{version}.tar.gz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1675383
 Patch0:        opusfile-0.11-disable-cert-store-integration.patch
+# https://bugzilla.redhat.com/show_bug.cgi?id=2163898
+Patch1:        mingw-opusfile-0.12-CVE-2022-47021.patch
 
 BuildArch:     noarch
 
@@ -76,8 +78,7 @@ This is the MinGW version, built for the win64 target.
 
 
 %prep
-%setup -q -n %{_basename}-%{version}
-%patch0 -p1
+%autosetup -p1 -n %{_basename}-%{version}
 
 
 %build
@@ -118,6 +119,9 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Tue Jan 24 2023 David King <amigadave@amigadave.com> - 0.12-10
+- Fix CVE-2022-47021 (#2163898)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Summary:          Bouncy Castle Cryptography APIs for Java
 Name:             bouncycastle
 Version:          1.70
-Release:          7%{?dist}
+Release:          8%{?dist}
 License:          MIT
 URL:              http://www.bouncycastle.org
 
@@ -30,7 +30,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:    aqute-bnd
 BuildRequires:    ant
 BuildRequires:    ant-junit
-BuildRequires:    jakarta-activation
+BuildRequires:    jakarta-activation1
 BuildRequires:    jakarta-mail
 BuildRequires:    javapackages-local
 
@@ -120,7 +120,7 @@ cp -p %{SOURCE6} bcutil.pom
 ant -f ant/jdk15+.xml \
   -Djunit.jar.home=$(build-classpath junit) \
   -Dmail.jar.home=$(build-classpath jakarta-mail/jakarta.mail) \
-  -Dactivation.jar.home=$(build-classpath jakarta-activation/jakarta.activation) \
+  -Dactivation.jar.home=$(build-classpath jakarta-activation1/jakarta.activation) \
   -Drelease.debug=true -Dbc.javac.source=1.8 -Dbc.javac.target=1.8 \
   clean build-provider build #test
 
@@ -218,6 +218,9 @@ fi
 %license LICENSE.html
 
 %changelog
+* Tue Jan 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.70-8
+- Adapt to changes in the jakarta-activation package
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.70-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

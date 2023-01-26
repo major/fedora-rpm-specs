@@ -1,11 +1,14 @@
 Name:           perl-POSIX-AtFork
 Version:        0.04
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Hook registrations at fork(2)
-# lib/POSIX/AtFork.pm:      GPL+ or Artistic
+# lib/POSIX/AtFork.pm:          GPL-1.0-or-later OR Artistic-1.0-Perl
+# README:                       GPL-1.0-or-later OR Artistic-1.0-Perl
+## Unbundled
+# inc/Module/Install/XSUtil.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used
-# android/pthread-atfork.c: BSD
-License:        GPL+ or Artistic
+# android/pthread-atfork.c:     BSD-2-Clause
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/POSIX-AtFork
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NIKOLAS/POSIX-AtFork-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -33,11 +36,22 @@ Requires:       perl(XSLoader) >= 0.1
 %{?perl_default_filter}
 
 # Filter under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(XSLoader\\)
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\((Test::More|XSLoader)\\)$
 
 %description
 This module is an interface to pthread_atfork(3), which registers handlers
 called before and after fork(2).
+
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(Test::More) >= 0.88
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n POSIX-AtFork-%{version}
@@ -54,19 +68,38 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/POSIX*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/POSIX
+%dir %{perl_vendorarch}/auto/POSIX/AtFork
+%{perl_vendorarch}/auto/POSIX/AtFork/AtFork.so
+%dir %{perl_vendorarch}/POSIX
+%{perl_vendorarch}/POSIX/AtFork.pm
+%{_mandir}/man3/POSIX::AtFork.*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 24 2023 Petr Pisar <ppisar@redhat.com> - 0.04-12
+- Convert a License tag to an SPDX format
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

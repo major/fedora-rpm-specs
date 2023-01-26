@@ -9,7 +9,7 @@
 
 Name:           perl-LDAP
 Version:        0.68
-Release:        9%{?dist}
+Release:        10%{?dist}
 Epoch:          1
 Summary:        LDAP Perl module
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -91,6 +91,7 @@ Requires:       perl(Time::Local)
 # Remove under-specified dependencies
 %global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(Net::LDAP::Filter\\)$
 %global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(Convert::ASN1\\)$
+%global __requires_exclude %{__requires_exclude}|^perl\\(t::common.pl\\)
 
 %description
 Net::LDAP is a collection of modules that implements an LDAP services API
@@ -208,6 +209,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 24 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1:0.68-10
+- Filter run-require perl(t::common.pl) (BZ#2163998)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.68-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

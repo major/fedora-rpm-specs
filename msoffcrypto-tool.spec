@@ -16,6 +16,7 @@ BuildRequires:  pyproject-rpm-macros
 
 # Tests
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-setuptools
 
 Requires:       python%{python3_pkgversion}-%{modulename}
 

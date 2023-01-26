@@ -7,7 +7,7 @@
 
 Name:          ocaml-labltk
 Version:       8.06.12
-Release:       2%{?dist}
+Release:       3%{?dist}
 
 Summary:       Tcl/Tk interface for OCaml
 
@@ -121,6 +121,9 @@ install -m 0644 camltk/*.o $RPM_BUILD_ROOT%{_libdir}/ocaml/labltk
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 8.06.12-3
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.06.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

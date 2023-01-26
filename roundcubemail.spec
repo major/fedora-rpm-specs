@@ -11,14 +11,14 @@
 
 # support for apache / nginx / php-fpm
 %global with_phpfpm 1
-%global upstream_version     1.6.0
+%global upstream_version     1.6.1
 #global upstream_prever      rc
 
 %global roundcubedir %{_datadir}/roundcubemail
 %global _logdir /var/log  
 Name: roundcubemail
 Version:  %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:  2%{?dist}
+Release:  1%{?dist}
 Summary: Round Cube Webmail is a browser-based multilingual IMAP client
 
 # Since 0.8 beta, the main code has been GPLv3+ with exceptions and
@@ -32,7 +32,7 @@ Summary: Round Cube Webmail is a browser-based multilingual IMAP client
 # https://github.com/pear/Crypt_GPG
 # http://jqueryui.com/
 # http://www.tinymce.com/
-License: GPLv3+ with exceptions and GPLv3+ and GPLv2 and LGPLv2+ and CC-BY-SA and MIT and BSD and PHP
+License: GPL-3.0-or-later AND GPL-2.0-only AND LGPL-2.0-or-later AND CC-BY-SA-3.0 AND MIT AND BSD-2-Clause AND BSD-3-Clause AND PHP-3.01
 URL: http://www.roundcube.net
 Source0: https://github.com/roundcube/roundcubemail/releases/download/%{upstream_version}%{?upstream_prever:-%{upstream_prever}}/roundcubemail-%{upstream_version}%{?upstream_prever:-%{upstream_prever}}-complete.tar.gz
 
@@ -134,11 +134,11 @@ Provides: bundled(js-tinymce-langs) = 5.8.2
 # License BSD
 Provides: bundled(php-pear-auth-sasl) = v1.1.0
 # License BSD-2-Clause
-Provides: bundled(php-bacon-bacon-qr-code) = 2.0.7
+Provides: bundled(php-bacon-bacon-qr-code) = 2.0.8
 Provides: bundled(php-dasprid-enum) = 1.0.3
 Provides: bundled(php-pear-console-getopt) = v1.4.3
-Provides: bundled(php-pear-net-sieve) = 1.4.5
-Provides: bundled(php-pear-net-smtp) = 1.10.0
+Provides: bundled(php-pear-net-sieve) = 1.4.6
+Provides: bundled(php-pear-net-smtp) = 1.10.1
 Provides: bundled(php-pear-pear-exception) = v1.0.2
 # License BSD-3-Clause
 Provides: bundled(php-pear-mail-mime) = 1.10.11
@@ -153,16 +153,16 @@ Provides: bundled(php-pear-crypt-gpg) = v1.6.7
 # License LGPL-3.0
 Provides: bundled(php-pear-net-ldap2) = v2.2.0
 # License MIT
-Provides: bundled(php-guzzlehttp-guzzle) = 7.4.5
-Provides: bundled(php-guzzlehttp-promises) = 1.5.1
-Provides: bundled(php-guzzlehttp-psr7) = 2.4.0
-Provides: bundled(php-masterminds-html5) = 2.7.5
+Provides: bundled(php-guzzlehttp-guzzle) = 7.5.0
+Provides: bundled(php-guzzlehttp-promises) = 1.5.2
+Provides: bundled(php-guzzlehttp-psr7) = 2.4.3
+Provides: bundled(php-masterminds-html5) = 2.7.6
 Provides: bundled(php-pear-console-commandline) = v1.2.4
 Provides: bundled(php-psr-http-client) = 1.0.1
 Provides: bundled(php-psr-http-factory) = 1.0.1
 Provides: bundled(php-psr-http-message) = 1.0.1
 Provides: bundled(php-ralouphie-getallheaders) = 3.0.3
-Provides: bundled(php-symfony-deprecation-contracts) = v2.2.0
+Provides: bundled(php-symfony-deprecation-contracts) = v3.2.0
 # License PHP License
 Provides: bundled(php-pear-net-socket) = v1.2.2
 
@@ -314,6 +314,10 @@ fi
 
 
 %changelog
+* Tue Jan 24 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
+- update to 1.6.1
+- use SPDX license id
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

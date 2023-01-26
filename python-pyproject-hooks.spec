@@ -1,3 +1,6 @@
+# Needed for Python bootstrap
+%bcond_without tests
+
 Name:           python-pyproject-hooks
 Version:        1.0.0
 Release:        %autorelease
@@ -34,7 +37,7 @@ sed -i "/flake8/d" dev-requirements.txt
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_tests:-t}
 
 
 %build
@@ -46,8 +49,10 @@ sed -i "/flake8/d" dev-requirements.txt
 %pyproject_save_files pyproject_hooks
 
 
+%if %{with tests}
 %check
 %tox
+%endif
 
 
 %files -n python3-pyproject-hooks -f %{pyproject_files}

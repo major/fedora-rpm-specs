@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-benchmark
 Version:        1.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Benchmarking module for OCaml
 
 License:        LGPLv3+ with exceptions
@@ -74,6 +74,9 @@ dune runtest --profile release
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.6-3
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

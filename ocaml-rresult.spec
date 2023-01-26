@@ -6,7 +6,7 @@
 
 Name:           ocaml-rresult
 Version:        0.7.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Result value combinators for OCaml
 
 License:        ISC
@@ -69,6 +69,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.7.0-7
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

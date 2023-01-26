@@ -2,11 +2,11 @@
 %global copr_common_version 0.16.3.dev
 
 Name:       copr-keygen
-Version:    1.86
-Release:    2%{?dist}
+Version:    1.88
+Release:    1%{?dist}
 Summary:    Part of Copr build system. Aux service that generate keys for signd
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
@@ -177,8 +177,12 @@ systemctl condrestart httpd &>/dev/null || :
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.86-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 1.88-1
+- Fix validation for projects with dash and/or dot in their name
+
+* Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 1.87-1
+- Validate name_email that we read from client query
+- Use SPDX license
 
 * Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 1.86-1
 - move to GitHub home page

@@ -11,7 +11,7 @@
 
 Name:          geos
 Version:       3.11.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       GEOS is a C++ port of the Java Topology Suite
 
 License:       LGPLv2
@@ -19,6 +19,8 @@ URL:           http://trac.osgeo.org/geos/
 Source0:       http://download.osgeo.org/%{name}/%{name}-%{version}.tar.bz2
 # Fix doxygen errors
 Patch0:        geos_docs.patch
+# Fix GCC13 FTBFS
+Patch1:        geos_gcc13.patch
 
 BuildRequires: cmake
 BuildRequires: doxygen
@@ -165,6 +167,9 @@ rm -f %{buildroot}%{mingw64_bindir}/geos-config
 
 
 %changelog
+* Tue Jan 24 2023 Sandro Mani <manisandro@gmail.com> - 3.11.1-3
+- Add geos_gcc13.patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

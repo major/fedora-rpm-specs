@@ -4,7 +4,7 @@
 
 Name:           ocaml-omake
 Version:        0.10.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Build system with automated dependency analysis
 License:        LGPLv2+ with exceptions and GPLv2+ and BSD
 
@@ -70,6 +70,9 @@ chmod 0755 $RPM_BUILD_ROOT%{_bindir}/omake
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.10.3-39
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

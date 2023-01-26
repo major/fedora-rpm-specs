@@ -7,7 +7,7 @@
 
 Name:           ocaml-gsl
 Version:        1.19.1
-Release:        44%{?dist}
+Release:        46%{?dist}
 Summary:        Interface to GSL (GNU scientific library) for OCaml
 License:        GPLv2
 
@@ -89,6 +89,12 @@ make install
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.1-46
+- Bump release and rebuild.
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.19.1-45
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

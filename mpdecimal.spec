@@ -3,7 +3,7 @@
 
 Name:           mpdecimal
 Version:        2.5.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Library for general decimal arithmetic
 License:        BSD-2-Clause
 
@@ -17,13 +17,24 @@ BuildRequires:  gcc-c++
 BuildRequires:  unzip
 
 %description
-The package contains a library limpdec implementing General Decimal Arithmetic
-Specification. The specification, written by Mike Cowlishaw from IBM, defines
-a general purpose arbitrary precision data type together with rigorously
-specified functions and rounding behavior.
+The package contains a library libmpdec implementing General Decimal
+Arithmetic Specification. The specification, written by Mike Cowlishaw from
+IBM, defines a general purpose arbitrary precision data type together with
+rigorously specified functions and rounding behavior.
+
+%package -n %{name}++
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+Summary:        Library for general decimal arithmetic (C++)
+
+%description -n %{name}++
+The package contains a library libmpdec++ implementing General Decimal
+Arithmetic Specification. The specification, written by Mike Cowlishaw from
+IBM, defines a general purpose arbitrary precision data type together with
+rigorously specified functions and rounding behavior.
 
 %package        devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}++%{?_isa} = %{version}-%{release}
 Summary:        Development headers for mpdecimal library
 
 %description devel
@@ -76,6 +87,8 @@ fi
 %license LICENSE.txt
 %{_libdir}/libmpdec.so.%{version}
 %{_libdir}/libmpdec.so.3
+
+%files -n %{name}++
 %{_libdir}/libmpdec++.so.%{version}
 %{_libdir}/libmpdec++.so.3
 
@@ -92,6 +105,10 @@ fi
 %ldconfig_scriptlets
 
 %changelog
+* Thu Jan 19 2023 Miro Hrončok <mhroncok@redhat.com> - 2.5.1-6
+- Split libmpdec++ into a mpdecimal++ subpackage
+- This prevents packages only using the libmpdec library from transitively depending on libstdc++
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

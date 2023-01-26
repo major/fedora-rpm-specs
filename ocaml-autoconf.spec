@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-autoconf
 Version:        1.1
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Autoconf macros for OCaml
 
 
@@ -49,6 +49,9 @@ make install \
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-33
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

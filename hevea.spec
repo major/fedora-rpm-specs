@@ -6,7 +6,7 @@
 
 Name:		hevea
 Version:	2.36
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	LaTeX to HTML translator
 
 # QPL-1.0: the project as a whole
@@ -84,6 +84,9 @@ ulimit -s unlimited
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.36-4
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

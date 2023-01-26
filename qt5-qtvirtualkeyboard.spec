@@ -3,7 +3,7 @@
 Summary: Qt5 - VirtualKeyboard component
 Name:    qt5-%{qt_module}
 Version: 5.15.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -19,6 +19,7 @@ BuildRequires: qt5-qtbase-private-devel
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 BuildRequires: qt5-qtdeclarative-devel >= %{version}
 BuildRequires: qt5-qtsvg-devel >= %{version}
+BuildRequires: hunspell-devel
 
 # version unknown
 Provides: bundled(libpinyin)
@@ -83,6 +84,7 @@ popd
 
 %files
 %license LICENSE.*
+%{_qt5_libdir}/libQt5HunspellInputMethod.so.5*
 %{_qt5_libdir}/libQt5VirtualKeyboard.so.5*
 %{_qt5_libdir}/cmake/Qt5Gui/Qt5Gui_QVirtualKeyboardPlugin.cmake
 %{_qt5_plugindir}/platforminputcontexts/libqtvirtualkeyboardplugin.so
@@ -90,11 +92,16 @@ popd
 %{_qt5_qmldir}/QtQuick/VirtualKeyboard/
 
 %files devel
+%{_qt5_headerdir}/QtHunspellInputMethod/
 %{_qt5_headerdir}/QtVirtualKeyboard/
+%{_qt5_libdir}/libQt5HunspellInputMethod.prl
+%{_qt5_libdir}/libQt5HunspellInputMethod.so
 %{_qt5_libdir}/libQt5VirtualKeyboard.prl
 %{_qt5_libdir}/libQt5VirtualKeyboard.so
+%{_qt5_libdir}/cmake/Qt5HunspellInputMethod/
 %{_qt5_libdir}/cmake/Qt5VirtualKeyboard/
 %{_qt5_libdir}/pkgconfig/Qt5VirtualKeyboard.pc
+%{_qt5_archdatadir}/mkspecs/modules/qt_lib_hunspellinputmethod*.pri
 %{_qt5_archdatadir}/mkspecs/modules/qt_lib_virtualkeyboard*.pri
 
 %files examples
@@ -102,6 +109,9 @@ popd
 
 
 %changelog
+* Mon Jan 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.15.8-3
+- Enable the Hunspell input method
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

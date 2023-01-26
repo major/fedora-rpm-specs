@@ -7,12 +7,13 @@
 
 Name: libvirt-glib
 Version: 4.0.0
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: libvirt glib integration for events
 License: LGPLv2+
 URL: https://libvirt.org/
 Source0: https://libvirt.org/sources/glib/%{name}-%{version}.tar.xz
-Patch1: %{name}-%{version}-cast-align.patch
+Patch: %{name}-%{version}-cast-align.patch
+Patch: %{name}-%{version}-pointer-cast.patch
 
 BuildRequires: meson
 BuildRequires: glib2-devel
@@ -132,8 +133,7 @@ MinGW Windows libvirt-gobject virtualization library.
 %endif
 
 %prep
-%setup -q
-%patch1 -p1
+%autosetup -p1
 
 %build
 %meson -Drpath=disabled
@@ -294,6 +294,9 @@ MinGW Windows libvirt-gobject virtualization library.
 %endif
 
 %changelog
+* Mon Aug  8 2022 Daniel P. Berrangé <berrange@redhat.com> - 4.0.0-8
+- Fix pointer cast warning
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

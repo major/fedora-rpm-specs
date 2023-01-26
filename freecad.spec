@@ -30,6 +30,7 @@ Source0:        https://github.com/FreeCAD/FreeCAD/archive/%{version}%{?pre:_pre
 Source102:      freecad.1
 
 Patch0:         freecad-unbundled-pycxx.patch
+Patch1:         freecad-cstdint.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} > 36

@@ -1,7 +1,7 @@
 %define _legacy_common_support 1
 Name:		simh
 Version:	3.11.0
-Release:	20%{?dist}
+Release:	22%{?dist}
 Summary:	A highly portable, multi-system emulator
 
 #The licensing is mostly MIT, but there is also some GPL+ (literally, v1+) code
@@ -17,6 +17,7 @@ Source0:	simh-%{version}-noroms.tar.gz
 # tarball's directory:
 # ./simh-generate-tarball.sh 3.8.1
 Source1:	simh-generate-tarball.sh
+Patch0:		simh-3.11.0-crl.patch
 
 
 BuildRequires: make
@@ -48,10 +49,13 @@ SIMH implements simulators for:
 
 %prep
 %setup -qn %{name}-%{version}/sim
+%patch0 -p2
 
 
 %build
 mkdir -p BIN
+CC="$CC -I . -fPIE -g"
+LDFLAGS="$LDFLAGS -lm"
 make %{?_smp_mflags} -e ROMS_OPT="%{optflags}" USE_NETWORK=1
 
 
@@ -75,6 +79,13 @@ for i in `find -iname "*.txt"`; do dos2unix -k $i; done
 
 
 %changelog
+* Tue Jan 24 2023 Lucian Langa <lucilanga@gnome.eu.org> - 3.11.0-22
+- forgot the patch file in previous commit
+
+* Tue Jan 24 2023 Lucian Langa <lucilanga@gnome.eu.org> - 3.11.0-21
+- add patch from Joshua Cogliati <jrincayc@yahoo.com> to fix FTBFS
+- update build flags
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.17
+Version: 38.18
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -464,6 +464,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 24 2023 Packit <hello@packit.dev> - 38.18-1
+- Extend the DBus API of the DNF module (vponcova)
+- webui: Disable check for unexpected SELinux denials (martin)
+- Clean up the DNF module (vponcova)
+- Update translations from Weblate
+
 * Thu Jan 19 2023 Packit <hello@packit.dev> - 38.17-1
 - Remove the is_complete method of the DNF payload class (vponcova)
 - Use another type to make new GCC warnings go away (vslavik)

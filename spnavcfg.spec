@@ -10,8 +10,7 @@ License:        GPLv3+
 URL:            http://spacenav.sourceforge.net/
 Source0:        https://github.com/FreeSpacenav/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
-#Patch0:         spnavcfg-0.3-fix_icon-install.patch
-
+Patch0:         spnavcfg-qt.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -28,7 +27,7 @@ Spacenav daemon interactive configuration program.
 
 
 %prep
-%autosetup
+%autosetup -p1
 sed -i "s/uic/uic-qt5/g" Makefile.in
 sed -i "s/moc/moc-qt5/g" Makefile.in
 sed -i "s/rcc/rcc-qt5/g" Makefile.in

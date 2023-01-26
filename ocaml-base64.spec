@@ -3,6 +3,10 @@
 %global debug_package %{nil}
 %endif
 
+# Not a circular dependency, but useful to be able to build
+# without odoc which has loads of dependencies.
+%bcond_with doc
+
 Name:           ocaml-base64
 Version:        3.5.0
 Release:        %autorelease
@@ -14,7 +18,10 @@ Source0:        https://github.com/mirage/ocaml-base64/releases/download/v%{vers
 
 BuildRequires:  ocaml
 BuildRequires:  ocaml-dune-devel
+
+%if %{with doc}
 BuildRequires:  ocaml-odoc
+%endif
 
 
 %description
@@ -41,7 +48,9 @@ Development files for %{name}.
 # require packages that we don't have or need.
 rm -r bench fuzz test
 dune build %{?_smp_mflags}
+%if %{with doc}
 dune build %{?_smp_mflags} @doc
+%endif
 
 
 %install
@@ -67,7 +76,10 @@ rm -fr %{buildroot}%{_prefix}/doc
 
 
 %files devel
-%doc CHANGES.md _build/default/_doc/*
+%doc CHANGES.md
+%if %{with doc}
+%doc _build/default/_doc/*
+%endif
 %ifarch %{ocaml_native_compiler}
 %{_libdir}/ocaml/base64/*.a
 %{_libdir}/ocaml/base64/*.cmx

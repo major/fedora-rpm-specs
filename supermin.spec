@@ -31,7 +31,7 @@
 Summary:       Tool for creating supermin appliances
 Name:          supermin
 Version:       5.3.3
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPLv2+
 
 ExclusiveArch: %{kernel_arches}
@@ -190,6 +190,9 @@ make check || {
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-4
+- Rebuild OCaml packages for F38
+
 * Sat Jan 21 2023 Richard W.M. Jones <rjones@redhat.com> - 5.3.3-3
 - Deal with new RPM database location
 - https://fedoraproject.org/wiki/Changes/RelocateRPMToUsr

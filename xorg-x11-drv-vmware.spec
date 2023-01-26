@@ -12,18 +12,15 @@
 
 Summary:    Xorg X11 vmware video driver
 Name:	    xorg-x11-drv-vmware
-Version:    13.3.0
-Release:    2%{?dist}
+Version:    13.4.0
+Release:    1%{?dist}
 URL:	    http://www.x.org
 License:    MIT
 
 %if 0%{?gitdate}
 Source0: %{tarball}-%{gitdate}.tar.bz2
 %else
-Source0:   https://ftp.x.org/archive/individual/driver/%{tarball}-%{version}.tar.bz2
-# upstream compile fixes
-Patch12:   0012-vmwgfx-Change-header-inclusion-order-to-avoid-xorg-h.patch
-Patch13:   0013-vmwgfx-fix-missing-array-notation.patch
+Source0:   https://ftp.x.org/archive/individual/driver/%{tarball}-%{version}.tar.xz
 %endif
 
 ExclusiveArch: %{ix86} x86_64 ia64
@@ -39,7 +36,7 @@ Requires: Xorg %(xserver-sdk-abi-requires ansic)
 Requires: Xorg %(xserver-sdk-abi-requires videodrv)
 Requires: libxatracker >= 8.0.1-4
 
-%description 
+%description
 X.Org X11 vmware video driver.
 
 %prep
@@ -62,6 +59,9 @@ find $RPM_BUILD_ROOT -regex ".*\.la$" | xargs rm -f --
 %{_mandir}/man4/vmware.4*
 
 %changelog
+* Tue Jan 24 2023 Peter Hutterer <peter.hutterer@redhat.com> - 13.4.0-1
+- vmware 13.4.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

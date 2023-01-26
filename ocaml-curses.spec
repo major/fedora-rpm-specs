@@ -3,7 +3,7 @@
 
 Name:           ocaml-curses
 Version:        1.0.4
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        OCaml bindings for ncurses
 License:        LGPLv2+
 
@@ -89,6 +89,9 @@ ocamlfind install curses META *.cmi *.cma *.a *.so *.mli
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.4-29
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

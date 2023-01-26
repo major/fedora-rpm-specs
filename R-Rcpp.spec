@@ -3,8 +3,8 @@
 %global __suggests_exclude ^R\\((pkgKitten|rbenchmark|tinytest)\\)
 
 Name:		R-%{packname}
-Version:	1.0.9
-Release:	4%{?dist}
+Version:	1.0.10
+Release:	1%{?dist}
 Summary:	Seamless R and C++ Integration
 
 #		The following three files uses the Boost Software License:
@@ -111,6 +111,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %{_libdir}/R/library/%{packname}/examples
 
 %changelog
+* Tue Jan 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1.0.10-1
+- Update to 1.0.10
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,7 +16,7 @@
 
 Name:		alt-ergo
 Version:	%{minorver}.%{patchrel}
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Automated theorem prover including linear arithmetic
 
 # The project as a whole is Apache-2.0.
@@ -258,6 +258,9 @@ cd sources
 %{ocamldir}/%{name}-lib/*.cmti
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.3.3-5
+- Rebuild OCaml packages for F38
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

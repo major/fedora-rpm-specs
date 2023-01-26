@@ -12,7 +12,7 @@
 
 Name:           libnbd
 Version:        1.15.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPLv2+
@@ -346,6 +346,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.9-2
+- Rebuild OCaml packages for F38
+
 * Sat Jan 21 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.9-1
 - New upstream development version 1.15.9
 

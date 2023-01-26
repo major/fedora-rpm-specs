@@ -10,7 +10,7 @@
 
 Name:           ocaml-topkg
 Version:        1.0.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The transitory OCaml software packager
 
 License:        ISC
@@ -161,6 +161,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.0.7-2
+- Rebuild OCaml packages for F38
+
 * Fri Jan 20 2023 Jerry James <loganjerry@gmail.com> - 1.0.7-1
 - Version 1.0.7
 

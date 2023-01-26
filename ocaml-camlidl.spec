@@ -5,7 +5,7 @@
 
 Name:           ocaml-camlidl
 Version:        1.09
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Stub code generator and COM binding for Objective Caml
 License:        QPL and LGPLv2 with exceptions
 
@@ -109,6 +109,9 @@ make DESTDIR=$RPM_BUILD_ROOT install
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.09-14
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

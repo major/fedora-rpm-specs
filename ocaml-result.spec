@@ -5,7 +5,7 @@
 
 Name:           ocaml-result
 Version:        1.5
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Compat result type
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -75,6 +75,9 @@ dune runtest
 %{_libdir}/ocaml/%{libname}/opam
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.5-15
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

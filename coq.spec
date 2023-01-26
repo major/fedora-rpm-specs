@@ -19,7 +19,7 @@
 
 Name:           coq
 Version:        8.16.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Proof management system
 
 # The project as a whole is LGPL-2.1-only.  Exceptions:
@@ -403,6 +403,9 @@ cp -p coq-doc.opam %{buildroot}%{ocamldir}/coq-doc/opam
 %endif
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 8.16.1-3
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.16.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

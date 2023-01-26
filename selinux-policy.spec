@@ -404,7 +404,7 @@ end
 %build
 
 %prep
-%setup -n %{name}-%{commit} -q
+%autosetup -n %{name}-%{commit}
 tar -C policy/modules/contrib -xf %{SOURCE35}
 
 mkdir selinux_config

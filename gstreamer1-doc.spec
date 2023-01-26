@@ -1,7 +1,7 @@
 %global         majorminor      1.0
 
 Name:           gstreamer1-doc
-Version:        1.21.90
+Version:        1.22.0
 Release:        1%{?dist}
 BuildArch:      noarch
 Summary:        GStreamer documentation
@@ -41,6 +41,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/gtk-doc/html/GStreamer-%{majorminor}/GStreamer.dev
 %{_datadir}/gtk-doc/html/GStreamer-%{majorminor}/
 
 %changelog
+* Tue Jan 24 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.0-1
+- Update to 1.22.0
+
 * Fri Jan 20 2023 Wim Taymans <wtaymans@redhat.com> - 1.21.90-1
 - Update to 1.21.90
 

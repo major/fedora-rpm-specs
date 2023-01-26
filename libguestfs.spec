@@ -48,7 +48,7 @@ Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
 Version:       1.49.9
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       LGPLv2+
 
 # Build only for architectures that have a kernel
@@ -1122,6 +1122,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.49.9-2
+- Rebuild OCaml packages for F38
+
 * Fri Jan 20 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.49.9-1
 - New upstream development version 1.49.9
 - +BR ocaml-augeas-devel

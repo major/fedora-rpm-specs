@@ -28,6 +28,7 @@ BuildRequires: avahi-devel
 BuildRequires: gnutls-devel
 BuildRequires: openssl-devel
 BuildRequires: zlib-devel
+BuildRequires: systemd-rpm-macros
 
 Requires(post): systemd
 Requires(preun): systemd

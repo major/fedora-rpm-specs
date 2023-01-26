@@ -1,18 +1,18 @@
-# Use ondrejbudai's fork for now since upstream appears unmaintained.
+# Use QORTEC's fork for now since upstream appears unmaintained.
 # See https://github.com/pdewacht/brlaser/issues/145
-%global forgeurl https://github.com/ondrejbudai/brlaser
-%global commit   7716c7d44230f5955061d1e8896425c6e8e57b59
-%global date     20220509
+%global forgeurl https://github.com/QORTEC/brlaser
 
 Name:           printer-driver-brlaser
-Version:        6
+Version:        6.2
 %forgemeta
-Release:        4%{?dist}
+Release:        %autorelease
 Summary:        Brother laser printer driver
 
 License:        GPLv2+
 URL:            %{forgeurl}
 Source0:        %{forgesource}
+
+Patch0:         0001-fix-build-under-Fedora-38.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -32,7 +32,7 @@ For a detailed list of supported printers, please refer to
 %{forgeurl}
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 
 %build
 %cmake
@@ -51,14 +51,4 @@ For a detailed list of supported printers, please refer to
 %license COPYING
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 6-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon May 09 2022 Ondrej Budai <ondrej@budai.cz> - 6-2
-- Add support for many devices by pulling merging unmerged upstream PRs
-
-* Sun Mar 27 2022 Ondrej Budai <ondrej@budai.cz> - 6-1
-- Initial package version
+%autochangelog

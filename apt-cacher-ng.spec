@@ -3,7 +3,7 @@
 
 Name:             apt-cacher-ng
 Version:          3.7.4
-Release:          4%{?dist}
+Release:          5%{?dist}
 Summary:          Caching proxy for package files from Debian
 
 License:          BSD-4-Clause
@@ -92,10 +92,13 @@ sed -i '/^Remap-kxlrep/s/;/# ;/' %{buildroot}%{_sysconfdir}/apt-cacher-ng/acng.c
 sed -i 's/^# UseWrap: 0/UseWrap: 0/' %{buildroot}%{_sysconfdir}/apt-cacher-ng/acng.conf
 
 %pre
-%sysusers_create %{name}.conf
 
 %post
+%sysusers_create %{name}.conf
 %tmpfiles_create %{name}.conf
+chown -R %{name}:%{name} /var/log/%{name}/
+chown -R %{name}:%{name} /var/cache/%{name}/
+chown -R %{name}:%{name} /run/%{name}/
 %systemd_post %{name}.service
 
 %preun
@@ -126,6 +129,9 @@ sed -i 's/^# UseWrap: 0/UseWrap: 0/' %{buildroot}%{_sysconfdir}/apt-cacher-ng/ac
 %{_mandir}/man8/*
 
 %changelog
+* Tue Jan 24 2023 Alexandre Detiste <alexandre.detiste@gmail.com> - 3.7.4-5
+- Fix clean install without needing a reboot (upgrade was already OK)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -40,7 +40,9 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1
-
+# Fix GCC 13 build
+# https://github.com/mfontanini/libtins/pull/496
+sed -i 's|stdint.h|cstdint|' include/tins/ip_address.h
 
 %build
 %cmake -DLIBTINS_BUILD_TESTS=OFF -DCMAKE_INSTALL_LIBDIR=%{_lib}

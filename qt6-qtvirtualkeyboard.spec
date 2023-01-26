@@ -9,7 +9,7 @@
 Summary: Qt6 - VirtualKeyboard component
 Name:    qt6-%{qt_module}
 Version: 6.4.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
 License: LGPLv2 with exceptions or GPLv3 with exceptions
@@ -35,6 +35,7 @@ BuildRequires: qt6-qtdeclarative-devel >= %{version}
 BuildRequires: qt6-qtsvg-devel >= %{version}
 BuildRequires: pkgconfig(xkbcommon)
 BuildRequires: openssl-devel
+BuildRequires: hunspell-devel
 
 # version unknown
 Provides: bundled(libpinyin)
@@ -83,15 +84,20 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %files
 %license LICENSES/*
+%{_qt6_libdir}/libQt6HunspellInputMethod.so.6*
 %{_qt6_libdir}/libQt6VirtualKeyboard.so.6*
 %{_qt6_plugindir}/platforminputcontexts/libqtvirtualkeyboardplugin.so
 %{_qt6_qmldir}/QtQuick/VirtualKeyboard/
 
 %files devel
+%{_qt6_headerdir}/QtHunspellInputMethod/
 %{_qt6_headerdir}/QtVirtualKeyboard/
+%{_qt6_libdir}/libQt6HunspellInputMethod.prl
+%{_qt6_libdir}/libQt6HunspellInputMethod.so
 %{_qt6_libdir}/libQt6VirtualKeyboard.prl
 %{_qt6_libdir}/libQt6VirtualKeyboard.so
 %{_qt6_libdir}/cmake/Qt6/
+%{_qt6_libdir}/cmake/Qt6HunspellInputMethod/
 %{_qt6_libdir}/cmake/Qt6VirtualKeyboard/
 %{_qt6_libdir}/cmake/Qt6BuildInternals/StandaloneTests/QtVirtualKeyboardTestsConfig.cmake
 %{_qt6_libdir}/cmake/Qt6BundledOpenwnn/Qt6BundledOpenwnnDependencies.cmake
@@ -99,7 +105,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_qt6_libdir}/cmake/Qt6BundledTcime/Qt6BundledTcimeDependencies.cmake
 %{_qt6_libdir}/cmake/Qt6Gui/Qt6QVirtualKeyboardPlugin*.cmake
 %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins/*.cmake
+%{_qt6_archdatadir}/mkspecs/modules/qt_lib_hunspellinputmethod*.pri
 %{_qt6_archdatadir}/mkspecs/modules/qt_lib_virtualkeyboard*.pri
+%{_qt6_datadir}/modules/HunspellInputMethod.json
 %{_qt6_datadir}/modules/VirtualKeyboard.json
 %{_qt6_libdir}/metatypes/qt6*_metatypes.json
 %{_qt6_libdir}/pkgconfig/*.pc
@@ -109,6 +117,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Mon Jan 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.4.2-3
+- Enable the Hunspell input method
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

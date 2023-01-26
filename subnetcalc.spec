@@ -1,10 +1,11 @@
 Name:           subnetcalc
-Version:        2.4.20
-Release:        2%{?dist}
+Version:        2.4.21
+Release:        1%{?dist}
 Summary:        IPv4/IPv6 Subnet Calculator
 License:        GPLv3+
-URL:            https://www.uni-due.de/~be0001/subnetcalc/
-Source0:        https://www.uni-due.de/~be0001/subnetcalc/download/%{name}-%{version}.tar.xz
+URL:            https://www.nntb.no/~dreibh/subnetcalc/
+Source:         https://github.com/dreibh/subnetcalc/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
+
 
 BuildRequires:  gcc gcc-c++
 BuildRequires:  GeoIP-devel
@@ -19,7 +20,7 @@ prints useful information on specific address types (e.g. type, scope,
 interface ID, etc.).
 
 %prep
-%setup -q
+%autosetup -n %{name}-%{name}-%{version}
 
 %build
 %cmake
@@ -35,6 +36,9 @@ interface ID, etc.).
 %{_mandir}/man1/subnetcalc.1*
 
 %changelog
+* Tue Jan 24 2023 Yanko Kaneti <yaneti@declera.com> - 2.4.21-1
+- Update to 2.4.21. New project URL
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

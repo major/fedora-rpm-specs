@@ -134,6 +134,9 @@ Patch40:          nss-no-dbm-man-page.patch
 # https://bugzilla.mozilla.org/show_bug.cgi?id=1774659
 Patch51:	nss-3.79-dbtool.patch
 
+# fix rebuilds error
+Patch52:          nss-3.85-fedora-rebuild-errors.patch
+
 Patch100:         nspr-config-pc.patch
 Patch101:         nspr-gcc-atomics.patch
 
@@ -1091,6 +1094,9 @@ update-crypto-policies &> /dev/null || :
 
 
 %changelog
+* Tue Jan 24 2023 Bob Relyea - 3.87.0-2
+- Fix rebuild errors
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.87.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

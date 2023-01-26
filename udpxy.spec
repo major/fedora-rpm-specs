@@ -1,13 +1,13 @@
-%global realversion 1.0.23-9
+%global realversion 1.0-25.1
 
 Name:           udpxy
-Version:        1.0.23
-Release:        19%{?dist}
+Version:        1.0.25.1
+Release:        1%{?dist}
 Summary:        UDP-to-HTTP multicast traffic relay daemon
 
 License:        GPLv3+
-URL:            http://www.udpxy.com
-Source0:        http://www.udpxy.com/download/1_23/%{name}.%{realversion}-prod.tar.gz
+URL:            https://github.com/pcherenkov/udpxy
+Source0:        https://github.com/pcherenkov/udpxy/archive/%{realversion}.tar.gz
 Source1:        udpxy.service
 
 BuildRequires: make
@@ -25,13 +25,16 @@ to the requesting HTTP client.
 %prep
 %setup -q -n %{name}-%{realversion}
 
-sed -i 's|@cp $(UDPXREC)|@cp -a $(UDPXREC)|g' Makefile
+sed -i 's|@cp $(UDPXREC)|@cp -a $(UDPXREC)|g' chipmunk/Makefile
+sed -i 's|-Werror||' chipmunk/Makefile
 
 %build
+cd chipmunk
 make %{?_smp_mflags} CPPFLAGS="%{optflags}" rdebug
 
 
 %install
+cd chipmunk
 make DESTDIR=%{buildroot} PREFIX=%{_prefix} install
 
 install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
@@ -47,7 +50,7 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %files
-%doc README CHANGES gpl.txt
+%doc chipmunk/README chipmunk/README.russian chipmunk/CHANGES chipmunk/gpl.txt
 %{_bindir}/%{name}
 %{_bindir}/udpxrec
 %{_mandir}/man1/%{name}.1.gz
@@ -56,6 +59,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_unitdir}/%{name}.service
 
 
 %changelog
+* Tue Jan 24 2023 Alexey Kurov <nucleo@fedoraproject.org> - 1.0.25.1-1
+- udpxy 1.0-25.1
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.23-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

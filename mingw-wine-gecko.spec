@@ -57,7 +57,7 @@ BuildRequires:  python3
 BuildRequires:  perl-Getopt-Long
 BuildRequires:  yasm
 BuildRequires:  zip
-BuildRequires:  wine-core wine-wow
+BuildRequires:  wine-core
 BuildRequires:  wine-devel
 
 %description

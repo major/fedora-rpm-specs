@@ -6,7 +6,7 @@
 
 Name:           ocaml-ocplib-simplex
 Version:        0.4
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        Simplex algorithm for solving systems of linear inequalities
 
 License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
@@ -72,6 +72,9 @@ make local-tests
 %doc extra/simplex_invariants.txt
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.4-30
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

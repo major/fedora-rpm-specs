@@ -1,9 +1,9 @@
 Name:           radiotray-ng
 Version:        0.2.8
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Internet radio player
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/ebruck/radiotray-ng
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -32,7 +32,9 @@ Requires:       hicolor-icon-theme
 # Correct build flags
 sed -i 's|-Wall -Wextra -Werror -Wpedantic|%{optflags}|' CMakeLists.txt
 sed -i '/execute_process(COMMAND lsb_release/d' package/CMakeLists.txt
-
+# Fix build with GCC 13
+# https://github.com/ebruck/radiotray-ng/pull/193
+sed -i "s|#include <string>|#include <string>\n#include <cstdint>|" include/radiotray-ng/i_config.hpp
 
 %build
 %cmake3 \
@@ -72,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rtng-bookmark-editor.
 
 
 %changelog
+* Tue Jan 24 2023 Vasiliy Glazov <vascom2@gmail.com> 0.2.8-8
+- Fix build with GCC 13
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.8-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

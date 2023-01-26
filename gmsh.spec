@@ -33,6 +33,8 @@ Patch3:     gmsh_install.patch
 Patch4:     gmsh_build.patch
 # Unbundle gl2ps
 Patch5:     gmsh_unbundle_gl2ps.patch
+# Header fix for GCC 13
+Patch6:     gmsh-cstdint.patch
 
 BuildRequires: alglib-devel
 BuildRequires: ann-devel

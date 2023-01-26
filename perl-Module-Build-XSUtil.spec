@@ -2,7 +2,7 @@ Summary:	A Module::Build class for building XS modules
 Name:		perl-Module-Build-XSUtil
 Version:	0.19
 Release:	17%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://github.com/hideo55/Module-Build-XSUtil
 Source0:	https://cpan.metacpan.org/modules/by-module/Module/Module-Build-XSUtil-%{version}.tar.gz
 BuildArch:	noarch

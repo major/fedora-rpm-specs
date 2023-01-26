@@ -53,7 +53,7 @@ ExclusiveArch:  x86_64
 
 Name:           nbdkit
 Version:        1.33.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        NBD server
 
 License:        BSD
@@ -1243,6 +1243,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.33.7-3
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

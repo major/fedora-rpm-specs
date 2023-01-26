@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-ocamlnet
 Version:        4.1.9
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Network protocols for OCaml
 License:        BSD
 
@@ -218,6 +218,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/ocaml/rpc-generator/dummy.mli
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 4.1.9-10
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.9-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

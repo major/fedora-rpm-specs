@@ -1,12 +1,11 @@
 %undefine _package_note_flags
 
-%ifnarch %{ocaml_native_compiler}
+# debuginfo generation fails for unclear reasons.
 %global debug_package %{nil}
-%endif
 
 Name:           ocaml-odoc
 Version:        2.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Documentation compiler for OCaml and Reason
 
 # ISC: The project as a whole
@@ -95,6 +94,9 @@ _build/install/default/bin/odoc --help groff > %{buildroot}%{_mandir}/man1/odoc.
 %license LICENSE.md
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.0-3
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

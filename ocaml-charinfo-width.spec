@@ -5,7 +5,7 @@
 
 Name:           ocaml-charinfo-width
 Version:        1.1.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Determine column width for a character
 
 %global libname charInfo_width
@@ -71,6 +71,9 @@ cp -aLr _build/install/default/lib/%{libname}/* %{buildroot}%{_libdir}/ocaml/%{l
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.0-25
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

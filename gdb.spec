@@ -54,7 +54,7 @@ Version: 12.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 14%{?dist}
+Release: 15%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1190,6 +1190,13 @@ fi
 %endif
 
 %changelog
+* Tue Jan 24 2023 Keith Seitz <keiths@redhat.com> - 12.1-15
+- NVR bump for failed build.
+
+* Mon Jan 23 2023 Kevin Buettner <kevinb@redhat.com>
+- More tweaks to gdb-6.6-buildid-locate-rpm.patch, in which rpmTag
+  is replaced with rpmDbiTagVal.
+
 * Mon Jan 23 2023 Keith Seitz <keiths@redhat.com> - 12.1-14
   From Sergey Mende:
 - Backport upstream patch "gdb: call check_typedef at beginning of

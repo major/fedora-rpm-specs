@@ -1,7 +1,7 @@
 #%global shorttag 413855e
 Name:           direwolf
 Version:        1.6.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        Sound Card-based AX.25 TNC
 
 License:        GPLv2+
@@ -142,6 +142,9 @@ exit 0
 
 
 %changelog
+* Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 1.6.0-18
+- rebuild for new libgps
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

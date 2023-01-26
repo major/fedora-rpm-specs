@@ -3,7 +3,7 @@
 
 Name:           ocaml-SDL
 Version:        0.9.1
-Release:        56%{?dist}
+Release:        58%{?dist}
 Summary:        OCaml bindings for SDL
 License:        LGPLv2+
 
@@ -76,6 +76,12 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-58
+- Bump release and rebuild.
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.9.1-57
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

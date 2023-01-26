@@ -41,7 +41,7 @@ This package contains command line utilities for %{name}.
 
 %build
 ./autogen.sh
-%configure --disable-static
+%configure --disable-static --with-udev
 %make_build
 
 %install

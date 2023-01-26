@@ -17,7 +17,7 @@ Version:                %{basever}%{?prerel:~%{prerel}%{prerelnum}}
 Caddy is the web server with automatic HTTPS.}
 
 Name:           caddy
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Web server with automatic HTTPS
 %if %{with vendor}
 # github.com/caddyserver/caddy ASL 2.0
@@ -302,6 +302,9 @@ fi
 
 
 %changelog
+* Tue Jan 24 2023 Carl George <carl@george.computer> - 2.5.2-3
+- Rebuild for CVE-2022-41717 in golang
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

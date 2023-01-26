@@ -63,7 +63,7 @@
 
 Name:           plplot
 Version:        5.15.0
-Release:        49%{?dist}
+Release:        50%{?dist}
 Summary:        Library of functions for making scientific plots
 
 License:        LGPLv2+
@@ -759,6 +759,9 @@ export DISPLAY=:99
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.15.0-50
+- Rebuild OCaml packages for F38
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.0-49
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

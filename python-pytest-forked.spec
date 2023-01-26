@@ -2,12 +2,13 @@
 
 Name:           python-%{pypi_name}
 Version:        1.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        py.test plugin for running tests in isolated forked subprocesses
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-forked
 Source0:        %{pypi_source}
+Patch0:         de584eda15df6db7912ab6197cfb9ff23024ef23.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -47,6 +48,9 @@ Requires:       %{py3_dist py}
 %{python3_sitelib}/pytest_forked*
 
 %changelog
+* Tue Jan 24 2023 Scott Talbert <swt@techie.net> - 1.4.0-6
+- Fix FTBFS with pytest 7.2.0+
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

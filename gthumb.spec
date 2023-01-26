@@ -10,6 +10,8 @@ Summary: Image viewer, editor, organizer
 License: GPLv2+
 URL:     https://wiki.gnome.org/Apps/gthumb
 Source0: https://download.gnome.org/sources/%{name}/3.12/%{name}-%{version}.tar.xz
+# upstream commit
+Patch0:  0001-Fix-build-libraw-0-21.patch
 
 %if %{defined el8}
 # RHEL8 doesn't ship LibRaw-devel on s390x

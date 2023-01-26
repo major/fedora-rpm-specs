@@ -3,8 +3,8 @@
 %global commitdate0 20200428
 
 Name:		glmark2
-Version:	2021.12
-Release:	3%{?dist}
+Version:	2023.01
+Release:	1%{?dist}
 Summary:	Benchmark for OpenGL 2.0
 
 
@@ -63,8 +63,6 @@ Source11:	%{name}-wayland.xcf
 Source7:	%{name}.appdata.xml
 
 
-# fixes https://bugzilla.redhat.com/show_bug.cgi?id=2045440
-Patch0:		%{name}-gcc12.patch
 
 ##
 ## BRs
@@ -215,6 +213,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Tue Jan 24 2023 Dominik Mierzejewski <dominik@greysector.net> - 2023.01-1
+- update to 2023.01 (#2162833)
+- drop obsolete patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name: libuser
-Version: 0.63
-Release: 14%{?dist}
+Version: 0.64
+Release: 2%{?dist}
 License: LGPLv2+
 URL: https://pagure.io/libuser
-Source: https://releases.pagure.org/libuser/libuser-%{version}.tar.xz
+Source: libuser-%{version}.tar.gz
 BuildRequires: glib2-devel
 BuildRequires: linuxdoc-tools
 BuildRequires: pam-devel
@@ -15,7 +15,6 @@ BuildRequires: python3-devel
 # To make sure the configure script can find it
 BuildRequires: gcc
 # For %%check
-#BuildRequires: fakeroot
 BuildRequires: openldap-clients
 BuildRequires: openldap-servers
 BuildRequires: openssl
@@ -27,11 +26,6 @@ BuildRequires: gtk-doc
 BuildRequires: audit-libs-devel
 
 Summary: A user and group account administration library
-
-Patch0: %{url}/pull-request/49.patch#/libuser-0.63-PR49_add_yescrypt.patch
-Patch1: libuser-0.63-downstream_test_xcrypt.patch
-Patch2: libuser-0.63-test-ldif-backend.patch
-Patch3: libuser-0.63-PR55_popt.patch
 
 %global __provides_exclude_from ^(%{_libdir}/%{name}|%{python3_sitearch})/.*$
 
@@ -122,6 +116,13 @@ export PYTHONPATH
 %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Tue Jan 24 2023 Tomas Halman <thalman@redhat.com>
+- Disabling fs_test, fakeroot does not work on all architectures
+
+* Mon Jan 23 2023 Tomas Halman <thalman@redhat.com>
+- Rebase to version 0.64
+- Enable tests
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.63-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

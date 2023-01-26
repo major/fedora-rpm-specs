@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-tplib
 Version:        1.3
-Release:        71%{?dist}
+Release:        72%{?dist}
 Summary:        Tropical Polyhedra Library
 
 License:        LGPLv2+
@@ -119,6 +119,9 @@ _build/tests/test_tplib_rational
 %doc %{_mandir}/man1/*
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3-72
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3-71
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

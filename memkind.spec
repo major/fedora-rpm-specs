@@ -1,12 +1,15 @@
 %global gittag0 v1.14.0
+# WORKAROUND to avoid breaking the build at the atrocious libtool shell scrip
+# due to RPM environmental macros being lost for the subshells
+%undefine _package_note_file
 
 Name: memkind
 Summary: User Extensible Heap Manager
 Version: 1.14.0
-Release: 2%{?checkout}%{?dist}
+Release: 3%{?checkout}%{?dist}
 License: BSD
 URL: http://memkind.github.io/memkind
-BuildRequires: make
+BuildRequires: make patch
 BuildRequires: automake libtool numactl-devel systemd gcc gcc-c++ daxctl-devel
 
 # Upstream testing of memkind is done exclusively on x86_64; other archs
@@ -14,6 +17,10 @@ BuildRequires: automake libtool numactl-devel systemd gcc gcc-c++ daxctl-devel
 ExclusiveArch: x86_64 ppc64 ppc64le s390x aarch64
 
 Source0: https://github.com/%{name}/%{name}/archive/%{gittag0}/%{name}-%{version}.tar.gz
+
+# unbreak the atrocious autotools Makefile.am construction for
+# libmemkind archive creation target
+Patch0: Makefile.am.patch
 
 %description
 The memkind library is an user extensible heap manager built on top of
@@ -45,6 +52,7 @@ alpha release. Feedback on design or implementation is greatly appreciated.
 
 %prep
 %setup -q -a 0 -n %{name}-%{version}
+%patch0 -p1
 
 %build
 cd %{_builddir}/%{name}-%{version}
@@ -54,7 +62,7 @@ test -f configure || ./autogen.sh
 	   --includedir=%{_includedir} --sbindir=%{_sbindir} --bindir=%{_bindir} \
 	   --mandir=%{_mandir} --docdir=%{_docdir}/%{name} \
 	   CFLAGS="$RPM_OPT_FLAGS -std=gnu99" LDFLAGS="%{build_ldflags}"
-%{__make} V=1 %{?_smp_mflags}
+%{__make} V=1
 
 %install
 cd %{_builddir}/%{name}-%{version}
@@ -100,6 +108,9 @@ rm -f %{buildroot}/%{_docdir}/%{name}/VERSION
 %{_mandir}/man3/libmemtier.3.*
 
 %changelog
+* Tue Jan 24 2023 Rafael Aquini <aquini@linux.com> - 1.14.0-3
+- Fix build issues after https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,10 +1,12 @@
+%undefine _package_note_flags
+
 # This package contains generated C header files.  They differ by architecture,
 # so this package cannot be noarch, but there are no ELF objects in it.
 %global debug_package %{nil}
 
 Name:           ocaml-jst-config
 Version:        0.15.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Compile-time configuration for Jane Street libraries
 
 License:        MIT
@@ -54,6 +56,9 @@ sed -ri '/(archive|plugin)/d' \
 %{ocamldir}/jst-config/
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-5
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

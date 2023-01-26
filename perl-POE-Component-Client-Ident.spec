@@ -3,10 +3,16 @@
 
 Name:           perl-POE-Component-Client-Ident
 Version:        1.16
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        A component that provides non-blocking Ident lookups to your sessions
-# FSF address issue, rt#85675
-License:        GPL+ or Artistic
+# FSF address issue, CPAN RT #85675
+# lib/POE/Component/Client/Ident.pm:        GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/POE/Component/Client/Ident/Agent.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/POE/Filter/Ident.pm:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# LICENSE:                  GPL-1.0-or-later OR Artistic-1.0-Perl
+## Not used, unbundled
+# inc/Module/Install:       GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/POE-Component-Client-Ident
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BINGOS/POE-Component-Client-Ident-%{version}.tar.gz
 BuildArch:      noarch
@@ -15,6 +21,7 @@ BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(Config)
 BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(Module::Install::AutoLicense)
 BuildRequires:  perl(Module::Install::GithubMeta)
@@ -65,11 +72,33 @@ POE::Filter::Ident takes lines of raw Ident input and turns
 them into weird little data structures, suitable for feeding to
 POE::Component::Client::Ident::Agent.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(POE::Filter::Line)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n POE-Component-Client-Ident-%{version}
 # Remove bundled modules
 rm -r ./inc/*
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
+# Remove unused tests
+%if !%{with perl_POE_Component_Client_Ident_enables_optional_test}
+for T in t/99_pod*.t; do
+    rm "$T"
+    perl -i -ne 'print $_ unless m{^\Q'"$T"'\E}' MANIFEST
+done
+%endif
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done 
 
 %build
 perl Makefile.PL NO_PACKLIST=1 NO_PERLLOCAL=1 INSTALLDIRS=vendor
@@ -78,17 +107,44 @@ perl Makefile.PL NO_PACKLIST=1 NO_PERLLOCAL=1 INSTALLDIRS=vendor
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+%if %{with perl_POE_Component_Client_Ident_enables_optional_test}
+rm %{buildroot}%{_libexecdir}/%{name}/t/99_pod*.t 
+%endif
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%dir %{perl_vendorlib}/POE/
+%dir %{perl_vendorlib}/POE/Component
+%dir %{perl_vendorlib}/POE/Component/Client
+%{perl_vendorlib}/POE/Component/Client/Ident
+%{perl_vendorlib}/POE/Component/Client/Ident.pm
+%dir %{perl_vendorlib}/POE/Filter
+%{perl_vendorlib}/POE/Filter/Ident.pm
+%{_mandir}/man3/POE::Component::Client::Ident::*
+%{_mandir}/man3/POE::Component::Client::Ident.3*
+%{_mandir}/man3/POE::Filter::Ident.3*
+
+%files tests
+%{_libexecdir}/%{name}
 
 %changelog
+* Tue Jan 24 2023 Petr Pisar <ppisar@redhat.com> - 1.16-31
+- Convert a License tag to an SPDX format
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

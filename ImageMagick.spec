@@ -10,7 +10,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.0.57
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -371,6 +371,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Tue Jan 24 2023 Luya Tshimbalanga <luya@fedoraproject.org> - 1:7.1.0.57-3
+- Rebuilt for ghostcripts 10.0.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.1.0.57-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

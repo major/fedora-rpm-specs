@@ -6,7 +6,7 @@
 
 Name:           prooftree
 Version:        0.13
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Proof tree visualization for Proof General
 
 License:        GPL-3.0-or-later
@@ -61,6 +61,9 @@ sed -i 's/cp /cp -p /' Makefile.in
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.13-23
+- Rebuild OCaml packages for F38
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

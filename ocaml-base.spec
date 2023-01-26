@@ -6,7 +6,7 @@
 
 Name:           ocaml-base
 Version:        0.15.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Jane Street standard library for OCaml
 
 # MIT: The project as a whole
@@ -86,6 +86,9 @@ popd
 %files devel -f .ofiles-devel
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.15.1-3
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

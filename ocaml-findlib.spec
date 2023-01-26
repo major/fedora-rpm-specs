@@ -6,7 +6,7 @@
 
 Name:           ocaml-findlib
 Version:        1.9.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Objective CAML package manager and build helper
 License:        MIT
 
@@ -105,6 +105,9 @@ make install \
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-2
+- Rebuild OCaml packages for F38
+
 * Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.9.6-1
 - New upstream version 1.9.6
 

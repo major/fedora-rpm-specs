@@ -4,8 +4,8 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.4.4
-Release:        3%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 # ASL 2.0
@@ -40,6 +40,7 @@ BuildRequires:  dbus-devel
 BuildRequires:  libblkid-devel
 BuildRequires:  cryptsetup-devel
 BuildRequires:  clang
+BuildRequires:  glibc-static
 BuildRequires:  %{_bindir}/a2x
 
 # Required to calculate install directories
@@ -84,16 +85,20 @@ tar --strip-components=1 --extract --verbose --file %{SOURCE2}
 %else
 %cargo_prep
 %generate_buildrequires
-%cargo_generate_buildrequires -f dbus_enabled,min,systemd_compat
+%cargo_generate_buildrequires -f engine,dbus_enabled,min,systemd_compat
 %endif
 
 %build
 %if 0%{?rhel}
-%{cargo_build} --bin=stratisd
-%{cargo_build} --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features min,systemd_compat
+%{__cargo} build %{?_smp_mflags} --release --bin=stratisd
+%{__cargo} build %{?_smp_mflags} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
+%{__cargo} rustc %{?_smp_mflags} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
+%{__cargo} rustc %{?_smp_mflags} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %else
 %{__cargo} build %{?__cargo_common_opts} --release --bin=stratisd
-%{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features min,systemd_compat
+%{__cargo} build %{?__cargo_common_opts} --release --bin=stratis-min --bin=stratisd-min --bin=stratis-utils --no-default-features --features engine,min,systemd_compat
+%{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-str-cmp --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
+%{__cargo} rustc %{?__cargo_common_opts} --release --bin=stratis-base32-decode --no-default-features --features udev_scripts -- -Ctarget-feature=+crt-static
 %endif
 a2x -f manpage docs/stratisd.txt
 
@@ -150,6 +155,9 @@ a2x -f manpage docs/stratisd.txt
 %{_systemd_util_dir}/system-generators/stratis-setup-generator
 
 %changelog
+* Tue Jan 24 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.0-1
+- Update to 3.5.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

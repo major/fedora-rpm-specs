@@ -1,7 +1,7 @@
 %undefine _package_note_flags
 Name:           ocaml-zed
 Version:        3.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Abstract engine for text edition in OCaml
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -82,6 +82,9 @@ find %{buildroot}%{_libdir}/ocaml -name \*.cmxs -exec chmod a+x {} \+
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.1.0-14
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

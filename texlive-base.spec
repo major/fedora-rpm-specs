@@ -20,7 +20,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 59%{?dist}
+Release: 65%{?dist}
 Epoch: 10
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -10148,6 +10148,13 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Tue Jan 24 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-65
+- artificial bump to 65, I accidentally had ketcindy in both texlive and texlive-base.
+  removed it from texlive, rebuilt at release=65, building here at 65 so we have it
+
+* Tue Jan 24 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-61
+- rebuild for ghostscript 10.0.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10:20220321-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

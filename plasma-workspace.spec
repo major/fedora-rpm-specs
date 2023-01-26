@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.26.90
-Release: 3%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -785,9 +785,6 @@ fi
 
 
 %changelog
-* Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 5.26.90-3
-- rebuild for new libgps
-
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@
 
 Name:           ocaml-%{libname}
 Version:        1.7.0
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        An optimized parsing and printing library for the JSON format
 
 License:        BSD
@@ -95,6 +95,9 @@ dune runtest --profile release
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.7.0-25
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

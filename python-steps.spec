@@ -67,6 +67,10 @@ Patch:          0001-feat-replace-nose-invocations-with-pytest.patch
 Patch:          0002-Make-libstepsutil-static.patch
 # Add more template function to match
 Patch:          0007-template-matching-collections_hpp.patch
+# Add a missing #include directive
+# Fixes failure to compile with GCC 13.
+# https://github.com/CNS-OIST/STEPS/pull/29
+Patch:          https://github.com/CNS-OIST/STEPS/pull/29.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -154,6 +158,9 @@ Provides:       bundled(sundials2) = %{sundials_version}
 # upstream bundles
 rm -rf CMake/FindBLAS.cmake
 %autopatch -p1
+
+# gtest/gmock 1.13.0 requires C++14 or later
+sed -r -i 's/(CXX_DIALECT_OPT_CXX)11/\114/' CMakeLists.txt
 
 %if %{with system_sundials}
 # We add %%{_includedir}/sundials2 to the CXXFLAGS in %%build; we must also

@@ -13,7 +13,7 @@
 
 Name:           frama-c
 Version:        26.0
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Iron
@@ -282,6 +282,12 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 26.0-5
+- Bump release and rebuild
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 26.0-4
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

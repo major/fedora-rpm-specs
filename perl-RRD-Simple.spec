@@ -1,11 +1,8 @@
-# Need to tweak provides/requires filters differently if we have rpm 4.9 onwards
-%global rpm49 %(rpm --version | perl -p -e 's/^.* (\\d+)\\.(\\d+)\\.(\\d+).*/sprintf("%d.%03d%03d",$1,$2,$3) ge 4.009 ? 1 : 0/e' 2>/dev/null || echo 0)
-
 Name:		perl-RRD-Simple
 Version:	1.44
 Release:	46%{?dist}
 Summary:	Simple interface to create and store data in RRD files
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://metacpan.org/release/RRD-Simple
 Source0:	https://cpan.metacpan.org/authors/id/N/NI/NICOLAW/RRD-Simple-%{version}.tar.gz
 BuildArch:	noarch
@@ -67,17 +64,10 @@ if you do not need to, nor want to, bother defining custom RRA definitions.
 # RRD::Simple version should be from distribution version, not svn revision
 %global verfilt perl -p -e 's/(perl\\(RRD::Simple\\) =) \\d+/\\1 %{version}/'
 # Apply provides/requires filters
-%if %{rpm49}
-%global provfilt /bin/sh -c "%{docfilt} | %{__perllib_provides} | %{verfilt}"
-%global __perllib_provides %{provfilt}
-%global reqfilt /bin/sh -c "%{docfilt} | %{__perllib_requires}"
-%global __perllib_requires %{reqfilt}
-%else
 %global provfilt /bin/sh -c "%{docfilt} | %{__perl_provides} | %{verfilt}"
 %global __perl_provides %{provfilt}
 %global reqfilt /bin/sh -c "%{docfilt} | %{__perl_requires}"
 %global __perl_requires %{reqfilt}
-%endif
 
 %build
 # Prevent call-home query/timeout; not strictly necessary
@@ -92,11 +82,7 @@ AUTOMATED_TESTING=1 perl Build.PL --installdirs=vendor
 LC_ALL=C ./Build test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE NOTICE
-%else
-%doc LICENSE NOTICE
-%endif
 %doc Changes README examples/ t/
 %dir %{perl_vendorlib}/RRD/
 %dir %{perl_vendorlib}/RRD/Simple/

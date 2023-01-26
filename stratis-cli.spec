@@ -1,6 +1,6 @@
 Name:           stratis-cli
-Version:        3.4.1
-Release:        2%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Command-line tool for interacting with the Stratis daemon
 
 License:        ASL 2.0
@@ -11,7 +11,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  %{_bindir}/a2x
 # It runs without, but totally useless
-Requires:       (stratisd >= 3.4.0 with stratisd < 4.0.0)
+Requires:       (stratisd >= 3.5.0 with stratisd < 4.0.0)
 
 # stratisd only available on certain arches
 ExclusiveArch:  %{rust_arches} noarch
@@ -62,6 +62,9 @@ a2x -f manpage docs/stratis.txt
 %{python3_sitelib}/stratis_cli-*.egg-info/
 
 %changelog
+* Tue Jan 24 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.0-1
+- Update to 3.5.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

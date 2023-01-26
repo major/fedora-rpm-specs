@@ -19,6 +19,7 @@ Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  sed
 
 BuildRequires:  boost-devel
 
@@ -31,6 +32,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{srcname}-%{version}
+
+# Warnings shouldn't break the build
+sed -i 's/-Werror//' tests/CMakeLists.txt
 
 %build
 %cmake

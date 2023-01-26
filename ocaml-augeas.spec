@@ -3,7 +3,7 @@
 
 Name:           ocaml-augeas
 Version:        0.6
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        OCaml bindings for Augeas configuration API
 License:        LGPLv2+ with exceptions
 
@@ -97,6 +97,9 @@ chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6-23
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,15 +11,13 @@ Source0:        http://archive.xfce.org/src/apps/%{name}/%{minorversion}/%{name}
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  libxfce4util-devel
+BuildRequires:  xfce4-dev-tools
 BuildRequires:  gettext 
 BuildRequires:  intltool
 BuildRequires:  desktop-file-utils
 BuildRequires:  gtksourceview4-devel
 BuildRequires:  dbus-glib-devel
 BuildRequires:  glib2-devel
-BuildRequires:  exo-devel
-BuildRequires:  xfconf-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  gspell-devel
 

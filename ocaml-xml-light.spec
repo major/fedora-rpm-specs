@@ -5,7 +5,7 @@
 
 Name:           ocaml-xml-light
 Version:        2.4
-Release:        6%{?dist}
+Release:        8%{?dist}
 Summary:        Minimal XML parser and printer for OCaml
 
 License:        LGPLv2+ with exceptions
@@ -108,6 +108,12 @@ cp -p %{SOURCE1} $OCAMLFIND_DESTDIR/xml-light
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.4-8
+- Bump release and rebuild.
+
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.4-7
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

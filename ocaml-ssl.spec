@@ -3,7 +3,7 @@
 
 Name:           ocaml-ssl
 Version:        0.5.11
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        SSL bindings for OCaml
 License:        LGPLv2+ with exceptions
 
@@ -69,6 +69,9 @@ rm -rf %{buildroot}/usr/doc
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.5.11-3
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 
 Name:           ocaml-sqlite
 Version:        5.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        OCaml library for accessing SQLite3 databases
 License:        BSD
 
@@ -103,6 +103,9 @@ find _build/default/_doc/_html -name .dune-keep -delete
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 5.1.0-5
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

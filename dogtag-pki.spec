@@ -14,7 +14,7 @@ Name:             dogtag-pki
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 2
+%global           release_number 3
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
@@ -44,6 +44,9 @@ Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}
 # https://github.com/dogtagpki/pki/pull/4082
 # Fix with python-ldap 3.4.2
 Patch0: 0001-Don-t-use-deprecated-python-ldap-options-4082.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2158907
+Patch1: 0002-Resolve-jar-paths-using-xmvn.patch
 
 # To create a patch for all changes since a version tag:
 # $ git format-patch \
@@ -235,6 +238,7 @@ BuildRequires:    freeipa-healthcheck-core
 # PKICertImport depends on certutil and openssl
 BuildRequires:    nss-tools
 BuildRequires:    openssl
+BuildRequires:    maven-local
 
 # description for top-level package (if there is a separate meta package)
 %if "%{name}" != "%{product_id}"
@@ -1263,6 +1267,9 @@ fi
 
 ################################################################################
 %changelog
+* Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 11.2.0-3
+- Resolve jar paths using xmvn
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.0-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -16,11 +16,11 @@
 %endif
 
 Name:       python-copr-common
-Version:    0.17
-Release:    2%{?dist}
+Version:    0.18
+Release:    1%{?dist}
 Summary:    Python code used by Copr
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
@@ -115,8 +115,9 @@ version=%version %py2_install
 
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 0.18-1
+- Periodically dump the priority queue to a JSON file
+- Use SPDX license
 
 * Sat Nov 26 2022 Jakub Kadlcik <frostyx@email.cz> 0.17-1
 - move to GitHub home page

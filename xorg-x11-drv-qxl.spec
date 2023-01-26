@@ -22,23 +22,15 @@
 Summary:   Xorg X11 qxl video driver
 Name:      xorg-x11-drv-qxl
 
-Version:   0.1.5
+Version:   0.1.6
 
-Release:   24%{?gver}%{?dist}
+Release:   1%{?gver}%{?dist}
 URL:       http://www.x.org
-Source0:  http://xorg.freedesktop.org/releases/individual/driver/%{tarball}-%{version}.tar.bz2
+Source0:  http://xorg.freedesktop.org/releases/individual/driver/%{tarball}-%{version}.tar.xz
 #Source0:   %{tarball}-%{gitdate}.tar.bz2
 Patch1: 0001-worst-hack-of-all-time-to-qxl-driver.patch
-Patch2: 0002-Xspice-Use-print-instead-of-print.patch
-Patch3: 0003-Xspice-Remove-extra-space-before-assignment.patch
-Patch4: 0004-Xspice-Fix-Python3-str-vs-bytes-confusion.patch
 # This shebang patch is currently downstream-only
 Patch5: 0005-Xspice-Adjust-shebang-to-explicitly-mention-python3.patch
-Patch6: 0006-qxl-call-provider-init.patch
-# https://gitlab.freedesktop.org/xorg/driver/xf86-video-qxl/-/merge_requests/5
-Patch7: 0001-configure-Simplify-fragile-libdrm-detection.patch
-# https://gitlab.freedesktop.org/xorg/driver/xf86-video-qxl/-/merge_requests/6
-Patch8: 0001-Fix-a-build-error-with-Xorg-master.patch
 
 License:   MIT
 
@@ -111,12 +103,12 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/X11/spiceqxl.xorg.conf
 
 
 %files
-%doc COPYING README
+%doc COPYING README.md
 %{driverdir}/qxl_drv.so
 
 %if %{with_xspice}
 %files -n xorg-x11-server-Xspice
-%doc COPYING README.xspice README examples/spiceqxl.xorg.conf.example
+%doc COPYING README.xspice README.md examples/spiceqxl.xorg.conf.example
 %config(noreplace) %{_sysconfdir}/X11/spiceqxl.xorg.conf
 %{_bindir}/Xspice
 %{driverdir}/spiceqxl_drv.so
@@ -124,6 +116,9 @@ rm -f $RPM_BUILD_ROOT%{_sysconfdir}/X11/spiceqxl.xorg.conf
 
 
 %changelog
+* Tue Jan 24 2023 Peter Hutterer <peter.hutterer@redhat.com> - 0.1.6-1
+- qxl 0.1.6
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.5-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

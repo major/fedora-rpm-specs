@@ -1,6 +1,6 @@
 Name:    libcamera
 Version: 0.0.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A library to support complex camera ISPs
 # Library is LGPLv2.1+ and the cam tool is GPLv2
 License: LGPLv2+ and GPLv2
@@ -15,6 +15,8 @@ URL:     http://libcamera.org/
 Source0: %{name}-%{version}.tar.xz
 Source1: qcam.desktop
 Source2: qcam.metainfo.xml
+
+Patch0001:	0001-cam-fix-compilation-with-gcc-13.patch
 
 BuildRequires: doxygen
 BuildRequires: gcc-c++
@@ -163,6 +165,10 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_bindir}/lc-compliance
 
 %changelog
+* Tue Jan 24 2023 Wim Taymans <wtaymans@redhat.com> - 0.0.3-3
+- Rebuild for gtest .so bump rhbz#2161870
+- Add patch for gcc13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

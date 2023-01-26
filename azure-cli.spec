@@ -117,6 +117,10 @@ sed -i 's/PyNaCl>=1.5/PyNaCl>=1.4/' \
     src/azure-cli/requirements.py3.Linux.txt \
     src/azure-cli/setup.py
 
+# Allow newer paramiko in rawhide.
+sed -i 's/^paramiko==.*$/paramiko/' src/azure-cli/requirements.py3.Linux.txt
+sed -i 's/paramiko>=2.0.8,<3.0.0/paramiko>=2.0.8/' src/azure-cli-core/setup.py
+
 # certifi's version is irrelevant since the package is empty in Fedora.
 sed -i 's/certifi.=.*$/certifi/' \
     src/azure-cli/requirements.py3.Linux.txt

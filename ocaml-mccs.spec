@@ -3,7 +3,7 @@
 
 Name:           ocaml-mccs
 Version:        1.1
-Release:        39.%{extraver}%{?dist}
+Release:        40.%{extraver}%{?dist}
 Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
@@ -89,6 +89,9 @@ rm -fr %{buildroot}%{_prefix}/doc
 %{_libdir}/ocaml/*/*.mli
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-40.14
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-39.14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -15,6 +15,9 @@ URL:            https://github.com/MarkusEh/vdr-plugin-tvscraper
 Source0:        %url/archive/refs/tags/v%{version}.tar.gz#/%{pname}-%{version}.tar.gz
 Source1:        %{name}.conf
 
+# Build for armv7hl failed
+ExcludeArch:    armv7hl
+
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
@@ -67,7 +70,7 @@ install -dm 755 %{buildroot}%{vdr_cachedir}/%{pname}
 %attr(-,%{vdr_user},root) %dir %{vdr_cachedir}/%{pname}/
 
 %changelog
-* Mon Jan 23 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.1.9-1
+* Tue Jan 24 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.1.9-1
 - Update to 1.1.9
 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-4

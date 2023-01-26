@@ -59,6 +59,9 @@ Patch1003:      0003-Increase-a-few-test-tolerances-on-some-arches.patch
 
 # https://github.com/matplotlib/matplotlib/pull/21190#issuecomment-1223271888
 Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
+# https://github.com/matplotlib/matplotlib/pull/25068
+Source2000:     pgf_pdflatex.pdf
+Source2001:     pgf_rcupdate2.pdf
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -308,6 +311,8 @@ cp -p %{SOURCE1} mplsetup.cfg
 
 # Backports or reported upstream
 %patch0001 -p1
+# https://github.com/matplotlib/matplotlib/pull/25068
+cp -a %SOURCE2000 %SOURCE2001 lib/matplotlib/tests/baseline_images/test_backend_pgf/
 
 
 %generate_buildrequires

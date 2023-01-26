@@ -3,7 +3,7 @@
 
 Name:           ocaml-mysql
 Version:        1.2.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OCaml library for accessing MySQL databases
 License:        LGPLv2+ with exceptions
 
@@ -86,6 +86,9 @@ make install
 
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-2
+- Rebuild OCaml packages for F38
+
 * Mon Jan 23 2023 Richard W.M. Jones <rjones@redhat.com> - 1.2.4-1
 - Update to version 1.2.4
 

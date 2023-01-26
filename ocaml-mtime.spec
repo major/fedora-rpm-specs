@@ -2,7 +2,7 @@
 
 Name:           ocaml-mtime
 Version:        1.4.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Monotonic wall-clock time for OCaml
 
 License:        ISC
@@ -85,6 +85,9 @@ ocaml pkg/pkg.ml test
 %endif
 
 %changelog
+* Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.4.0-5
+- Rebuild OCaml packages for F38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

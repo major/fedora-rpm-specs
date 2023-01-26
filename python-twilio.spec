@@ -1,10 +1,10 @@
 %global github_name twilio-python
 %global pypi_name twilio
-%global version 7.12.0
+%global version 7.16.1
 
 Name:           python-%{pypi_name}
 Version:        %{version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Twilio API client and TwiML generator
 
 License:        MIT
@@ -58,6 +58,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Tue Jan 24 2023 Paul Wouters <paul.wouters@aiven.io - 7.16.1-1
+- Resolves rhbz#2117470 python-twilio-7.16.1 is available
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.12.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,11 @@
 %global copr_common_version 0.16.4.dev
 
 Name:       copr-dist-git
-Version:    0.59
-Release:    2%{?dist}
+Version:    0.60
+Release:    1%{?dist}
 Summary:    Copr services for Dist Git server
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/fedora-copr/copr
 
 # Source is created by:
@@ -140,8 +140,9 @@ touch %{buildroot}%{_var}/log/copr-dist-git/main.log
 %{_tmpfilesdir}/copr-dist-git.conf
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.59-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Jan 24 2023 Jakub Kadlcik <frostyx@email.cz> 0.60-1
+- Drop an unused cgit_pkg_list_location option
+- Use SPDX license
 
 * Wed Nov 30 2022 Pavel Raiskup <praiskup@redhat.com> 0.59-1
 - start copr-dist-git.service after redis.service

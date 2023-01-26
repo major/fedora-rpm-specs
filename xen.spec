@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -182,6 +182,7 @@ BuildRequires: edk2-ovmf
 %if %build_hyp
 BuildRequires: bison flex
 %endif
+BuildRequires: hostname
 
 %description
 This package contains the XenD daemon and xm command line
@@ -935,6 +936,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 24 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-5
+- now need BuildRequires for hostname
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.17.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

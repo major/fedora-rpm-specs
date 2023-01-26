@@ -1,6 +1,6 @@
 Name:          group-service
 Version:       1.3.0
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Dbus Group management CLI tool
 License:       GPLv3+ 
 URL:           https://github.com/zhuyaliang/%{name}
@@ -17,7 +17,7 @@ BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: glib2-devel
 BuildRequires: gettext
-BuildRequires: systemd-devel
+BuildRequires: pkgconfig(systemd)
 BuildRequires: dbus-devel
 BuildRequires: libxcrypt-devel
 BuildRequires: meson >= 0.50.0
@@ -79,6 +79,9 @@ group-service back-ends development.
 
 
 %changelog
+* Tue Jan 24 2023 Robert Scheck <robert@fedoraproject.org> - 1.3.0-7
+- Depend on pkgconfig(systemd) to ensure systemd.pc availability
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
