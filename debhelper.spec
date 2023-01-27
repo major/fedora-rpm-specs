@@ -1,14 +1,13 @@
 # we don't want to either provide or require anything from _docdir, per policy
-# https://fedoraproject.org/wiki/Packaging:AutoProvidesAndRequiresFiltering
-%{?filter_setup:
-%filter_provides_in %{_docdir}
-%filter_requires_in %{_docdir}
-%filter_setup
-}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/AutoProvidesAndRequiresFiltering/#_arch_specific_extensions_to_scripting_languages
+%global __provides_exclude_from ^%{_docdir}/.*$
+%global __requires_exclude_from ^%{_docdir}/.*$
+
+%bcond_without tests
 
 Name:           debhelper
-Version:        13.9.1
-Release:        2%{?dist}
+Version:        13.11.4
+Release:        1%{?dist}
 Summary:        Helper programs for debian/rules
 
 License:        GPLv2+
@@ -154,8 +153,10 @@ for lang in de es fr pt ja; do
 done
 
 
+%if %{with tests}
 %check
 make test
+%endif
 
 
 %files -f debhelper-mans.lang
@@ -168,6 +169,9 @@ make test
 %{perl_vendorlib}/*
 
 %changelog
+* Sun Jan 22 2023 Sérgio Basto <sergio@serjux.com> - 13.11.4-1
+- Update debhelper to 13.11.4 (#2133214)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

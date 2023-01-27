@@ -2,15 +2,14 @@
 %undefine	_strict_symbol_defs_build
 
 %global        EXIV2_REQ             0.14
-%global        GLIB_REQ              2.44.0
-%global        LIBGSF_REQ            1.12.0
-%global        POPPLER_REQ           0.8
+%global        GLIB_REQ              2.70.0
+%global        LIBGSF_REQ            1.14.26
+%global        POPPLER_REQ           0.18
 %global        TAGLIB_REQ            1.4
+%global        UNIQUE_REQ            0.9.3
 
 %global        mimeedit_rev          1958
 
-%global        use_autotool          0
-%global        update_po             0
 %global        if_pre                0
 
 %global        use_gcc_strict_sanitize        0
@@ -39,8 +38,8 @@
 %global        if_pre                1
 %endif
 
-%global        shortver              1.14
-%global        fullver               %{shortver}.3
+%global        shortver              1.16
+%global        fullver               %{shortver}.0
 %global        mainrel               1
 
 %if 0%{?use_release} >= 1
@@ -50,25 +49,11 @@
 %global        fedorarel             %{mainrel}.%{git_version}
 %endif
 
-%if 0%{?if_pre} > 0
-%global        use_autotool          1
-%endif
-%if 0%{?use_autotool} < 1
-%global        update_po             0
-%endif
-
-# Patch1 updates configure.in
-%global        use_autotool          1
-
-# Autotool seems still needed to avoid build failure
-# under doc/ diretory, need investigating
-%global        use_autotool          1
-
 Name:          gnome-commander
 # Downgrade 3 times, sorry...
 Epoch:         4
 Version:       %{fullver}
-Release:       %{fedorarel}%{flagrel}%{?dist}.2
+Release:       %{fedorarel}%{flagrel}%{?dist}
 Summary:       A nice and fast file manager for the GNOME desktop
 Summary(pl):   Menadżer plików dla GNOME oparty o Norton Commander'a (TM)
 Summary(sv):   GNOME Commander är en snabb och smidig filhanderare för GNOME
@@ -105,29 +90,22 @@ BuildRequires: pkgconfig(gnome-vfs-2.0)
 BuildRequires: pkgconfig(libgsf-1)        >= %{LIBGSF_REQ}
 BuildRequires: pkgconfig(poppler-glib)       >= %{POPPLER_REQ}
 BuildRequires: pkgconfig(taglib)        >= %{TAGLIB_REQ}
-BuildRequires: pkgconfig(unique-1.0)
+BuildRequires: pkgconfig(unique-1.0)        >= %{UNIQUE_REQ}
 
 BuildRequires: libICE-devel
 BuildRequires: libSM-devel
 
-BuildRequires: gnome-doc-utils
-BuildRequires: perl(XML::Parser)
-
-%if %{use_autotool}
-BuildRequires: automake
+BuildRequires: meson
 BuildRequires: flex
 BuildRequires: intltool
-BuildRequires: libtool
-BuildRequires: gnome-common
-%endif
-BuildRequires: make
+BuildRequires: yelp-tools
+
 BuildRequires: %{_bindir}/git
 BuildRequires: %{_bindir}/appstream-util
 
 # %%check
-BuildRequires: gtest-devel
+BuildRequires: pkgconfig(gtest)
 
-Requires:         gnome-vfs2-smb
 Requires:         meld
 Requires:         gnome-icon-theme-legacy
 
@@ -190,27 +168,6 @@ git config user.name "%{name} Fedora maintainer"
 git config user.email "%{name}-owner@fedoraproject.org"
 
 %if 0%{?use_release}
-cat > .gitignore <<EOF
-Makefile.in
-*/Makefile.in
-*/*/Makefile.in
-ChangeLog-*
-INSTALL
-aclocal.m4
-config.guess
-config.h.in
-config.sub
-configure
-compile
-depcomp
-install-sh
-ltmain.sh
-m4
-missing
-test-driver
-ylwrap
-EOF
-
 git add .
 git commit -m "base" -q
 %endif
@@ -220,13 +177,24 @@ git commit -m "Apply Fedora specific path configuration" -a
 %if 0%{?use_release}
 %endif
 
-%if 0%{use_autotool} > 0
-( export NOCONFIGURE=1 ; sh autogen.sh )
-%endif
+# Tweak samba detection
+sed -i meson.build \
+	-e 's|^\(samba = dependency\)|# \1|' \
+	-e 's|^\(have_samba = .*\)$|have_samba = true|' \
+	%{nil}
+git commit -m "Tweak samba detection" -a
 
-%{__sed} -i.pylib \
-   -e 's|\$PY_EXEC_PREFIX/lib|%{_libdir}|' \
-   configure
+# Don't install unneeded files
+find . -name meson.build | xargs sed -i \
+	-e '\@install_headers@,\@^)$@s|^\(.*\)$|# \1|' \
+	%{nil}
+sed -i libgcmd/meson.build \
+	-e '\@libgcmd = static_library@,$s@install: true@install : false@' \
+	%{nil}
+sed -i doc/meson.build \
+	-e '\@install_data@,\@^)$@s|^\(.*\)$|# \1|' \
+	%{nil}
+git commit -m "Don't install header files, static archives, documentation" -a
 
 %if 0%{?use_gitbare}
 pushd ..
@@ -235,16 +203,11 @@ pushd ..
 # gzip
 #gzip -9 ChangeLog-*
 
-mkdir TMPBINDIR
-cd TMPBINDIR
-ln -sf /bin/true ./update-mime-database
-
 %if 0%{?use_gitbare}
 popd
 %endif
 
 %build
-export PATH=$(pwd)/TMPBINDIR:$PATH
 export BUILD_TOP_DIR=$(pwd)
 
 %set_build_flags
@@ -259,85 +222,26 @@ pushd %{name}
 
 # Install wrapper script, and move binaries to
 # %%{_libexecdir}/%%{name}
-mkdir _builddir || :
-
-# For debuginfo issue
-find . -name \*.cc | while read f
-do
-   dirn=$(dirname $f)
-   %{__cat} $f | %{__sed} -n -e 's|^#line.*[ \t][ \t]*\"\(.*\)"$|\1|p' | \
-      sort | uniq | while read g
-   do
-      %{__mkdir_p} _builddir/$dirn
-      %{__cp} -p $dirn/$g _builddir/$dirn
-  done
-done
-
-pushd _builddir
-
-ln -sf ../configure
-%configure \
-   --srcdir=$(pwd)/.. \
+%meson \
    --bindir=%{_libexecdir}/%{name} \
-   --disable-Werror \
-   --disable-scrollkeeper \
    %{nil}
 
-%{__cp} -p README ${BUILD_TOP_DIR}
-
-%if %{update_po}
-%{__make} -C po gnome-commander.pot update-po
-%endif
-
-# First make po without _smp_mflags, so that messages
-# won't be mixed up
-# Second doc/, parallel make seems to fail
-%{__make} -C po GMSGFMT="msgfmt --statistics"
-%{__make} -C doc
-%{__make} %{?_smp_mflags} -k
-
-popd # from _builddir
+%meson_build --ninja-args "-k 0"
 
 %if 0%{?use_gitbare}
 popd
 %endif
 
 %install
-%{__rm} -rf %{buildroot}
-
-export PATH=$(pwd)/TMPBINDIR:$PATH
-
 %if 0%{?use_gitbare}
 pushd %{name}
 %endif
 
-pushd _builddir
-%{__make} \
-   INSTALL="%{__install} -c -p" \
-   DESTDIR=%{buildroot} \
-   install
-popd # from _builddir
-
-# Desktop file
-desktop-file-install \
-   --delete-original \
-   --vendor '' \
-   --remove-category Application \
-   --dir %{buildroot}%{_datadir}/applications \
-   %{buildroot}%{_datadir}/applications/org.gnome.%{name}.desktop
+%meson_install
 
 # Install wrapper
 %{__mkdir_p} %{buildroot}%{_bindir}
 %{__install} -cpm 0755 %SOURCE1 %{buildroot}%{_bindir}/%{name}
-
-# install gnome-file-types-properties (bug 458667)
-%if 0
-%{__install} -cpm 0755 mimeedit.sh \
-	%{buildroot}%{_libexecdir}/%{name}/gnome-file-types-properties
-%endif
-
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/*.{a,la}
-%{__rm} -f %{buildroot}%{_libdir}/%{name}/*/*.{a,la}
 
 %if 0%{?use_gitbare}
 popd
@@ -346,15 +250,15 @@ popd
 %find_lang %{name}
 
 %check
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.%{name}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.%{name}.appdata.xml
 
 %if 0%{?use_gitbare}
 pushd %{name}
 %endif
 
-pushd _builddir
 export ASAN_OPTIONS=detect_leaks=0
-make check
+%meson_test -v
 
 %if 0%{?use_gitbare}
 popd
@@ -364,10 +268,9 @@ popd
 %defattr(-,root,root,-)
 %doc AUTHORS
 %doc BUGS
-%doc ChangeLog*
-%doc COPYING
+%license COPYING
 %doc NEWS
-%doc README
+%doc README.md
 %doc TODO
 %doc doc/*.txt
 
@@ -383,10 +286,13 @@ popd
 
 %{_datadir}/glib-2.0/schemas/org.gnome.*xml
 
-%{_datadir}/pixmaps/%{name}.svg
+%{_datadir}/icons/hicolor/scalable/apps/%{name}*.svg
 %{_datadir}/pixmaps/%{name}/
 
 %changelog
+* Wed Jan 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4:1.16.0-1
+- 1.16.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4:1.14.3-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

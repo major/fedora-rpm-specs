@@ -1,5 +1,5 @@
 Name:           simdjson
-Version:        3.0.1
+Version:        3.1.0
 Release:        %autorelease
 Summary:        Parsing gigabytes of JSON per second
 
@@ -20,6 +20,7 @@ RapidJSON and 25x faster than JSON for Modern C++.
 
 %package devel
 Summary: Development files for %{name}
+Requires:		%{name} = %{version}-%{release}
 
 %description devel
 The package contains libraries and header files for developing applications

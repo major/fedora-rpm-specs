@@ -1,10 +1,10 @@
-%global commit 52da97ea4c5a1325ca0e25e01218cb278face660
+%global commit 1abc907b93a1ba402ca28652de42c81b90c80250
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20220410
+%global date 20230125
 
 Name:           indistarter
 Version:        2.3.1^%{date}%{shortcommit}
-Release:        3%{?dist}
+Release:        %autorelease
 Summary:        GUI to start, stop and control an INDI server
 
 License:        GPLv3+
@@ -62,10 +62,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1^2022041052da97e-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1^2022041052da97e-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
 %autochangelog

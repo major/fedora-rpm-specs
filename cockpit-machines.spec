@@ -16,10 +16,10 @@
 #
 
 Name:           cockpit-machines
-Version:        281
-Release:        2%{?dist}
+Version:        282
+Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
-License:        LGPLv2+ and MIT
+License:        LGPL-2.1-or-later AND MIT
 URL:            https://github.com/cockpit-project/cockpit-machines
 
 Source0:        https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -84,6 +84,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jan 25 2023 Packit <hello@packit.dev> - 282-1
+- Option to forcefully revert a snapshot
+- Fix tabular numbers font
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 281-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -53,7 +53,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 22.3.3
+%global ver 23.0.0-rc3
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT
@@ -66,6 +66,8 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
+# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/19778
+Patch11:        mesa-valgrind-build-fix.patch
 
 BuildRequires:  meson >= 0.61.4
 BuildRequires:  gcc
@@ -190,7 +192,7 @@ Provides:       libEGL-devel%{?_isa}
 Summary:        Mesa-based DRI drivers
 Requires:       %{name}-filesystem%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %if 0%{?with_va}
-Recommends:     %{name}-va-drivers%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+Recommends:     %{name}-va-drivers%{?_isa}
 %endif
 
 %description dri-drivers

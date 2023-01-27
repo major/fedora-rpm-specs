@@ -1,16 +1,13 @@
 %global srcname ducc0
 
 Name:           python-%{srcname}
-Version:        0.27.0
+Version:        0.28.0
 Release:        %autorelease
 Summary:        Programming tools for numerical computation
 
-License:        GPLv2+ and BSD
+License:        GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-3-Clause)
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %{pypi_source}
-
-# Fix pyproject.toml warnings
-Patch:          ducc0-0.24_pyproject.patch
 
 ExcludeArch:    %{ix86}
 # Tests started to fail from 0.25

@@ -1,9 +1,9 @@
 %global owner gbcox
-%global commit 01500f50f2aeb7ba0e397e632854c74eef9f77a5
+%global commit e4538038bcd2b2f2c9df3ccf7e860d03f14acaa9
 %global shortcommit %(c=%{commit}; echo ${c:0:12})
 
 Name:     ykocli
-Version:  1.2.1
+Version:  1.3.0
 Release:  1%{?dist}
 Summary:  Front-end script for ykman to obtain TOTP tokens
 
@@ -55,6 +55,9 @@ that places ykman obtained TOTP tokens into the CopyQ clipboard.
 %{_mandir}/man1/ykocli.1*
 
 %changelog
+* Wed Jan 25 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.3.0-1
+- Add Color Overrides rhbz#2162880
+
 * Mon Jan 23 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.2.1-1
 - Add Touch Mode; mod cfg ovrd rhbz#2162909; rhbz#2162885
 

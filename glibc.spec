@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-435-g569cfcc6bf
+%global glibcsrcdir glibc-2.36.9000-453-g0d50f477f4
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 23
+%global baserelease 24
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,28 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Jan 25 2023 Florian Weimer <fweimer@redhat.com> - 2.36.9000-24
+- Auto-sync with upstream branch master,
+  commit 0d50f477f47ba637b54fb03ac48d769ec4543e8d:
+- stdio-common: Handle -1 buffer size in __sprintf_chk & co (bug 30039)
+- Document '%F' format specifier
+- sparc (64bit): Regenerate ulps
+- ia64: Regenerate ulps
+- Update libc.pot for 2.37 release.
+- x86: Cache computation for AMD architecture.
+- manual: Fix typo
+- Add STATX_DIOALIGN from Linux 6.1 to bits/statx-generic.h
+- Add IPPROTO_L2TP from Linux 6.1 to netinet/in.h
+- AArch64: Improve strrchr
+- AArch64: Optimize strnlen
+- AArch64: Optimize strlen
+- AArch64: Optimize strcpy
+- AArch64: Improve strchrnul
+- AArch64: Optimize strchr
+- AArch64: Improve strlen_asimd
+- AArch64: Optimize memrchr
+- AArch64: Optimize memchr
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.36.9000-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

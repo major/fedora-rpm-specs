@@ -53,7 +53,7 @@ elseif posix.stat('macros.python-srpm') then
 end
 }
 Version:        %{__default_python3_version}
-Release:        8%{?dist}
+Release:        9%{?dist}
 
 BuildArch:      noarch
 
@@ -163,6 +163,10 @@ grep -E '^#[^%%]*%%[^%%]' %{buildroot}%{rpmmacrodir}/macros.* && exit 1 || true
 
 
 %changelog
+* Fri Jan 20 2023 Miro Hrončok <mhroncok@redhat.com> - 3.11-9
+- Memoize values of macros that execute python to get their value
+- Fixes: rhbz#2155505
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,11 +10,12 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.5.1
-Release:        2%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 
 # Macro files
 Source001:      macros.pyproject
+Source002:      macros.aaa-pyproject-srpm
 
 # Implementation files
 Source101:      pyproject_buildrequires.py
@@ -62,6 +63,7 @@ BuildRequires:  python3-rpm-macros
 Requires:       python-rpm-macros
 Requires:       python-srpm-macros
 Requires:       python3-rpm-macros
+Requires:       (pyproject-srpm-macros = %{?epoch:%{epoch}:}%{version}-%{release} if pyproject-srpm-macros)
 
 # We use the following tools outside of coreutils
 Requires:       /usr/bin/find
@@ -82,6 +84,17 @@ These macros replace %%py3_build and %%py3_install,
 which only work with setup.py.
 
 
+%package -n pyproject-srpm-macros
+Summary:        Minimal implementation of %%pyproject_buildrequires
+Requires:       (pyproject-rpm-macros = %{?epoch:%{epoch}:}%{version}-%{release} if pyproject-rpm-macros)
+
+%description -n pyproject-srpm-macros
+This package contains a minimal implementation of %%pyproject_buildrequires.
+When used in %%generate_buildrequires, it will generate BuildRequires
+for pyproject-rpm-macros. When both packages are installed, the full version
+takes precedence.
+
+
 %prep
 # Not strictly necessary but allows working on file names instead
 # of source numbers in install section
@@ -95,6 +108,7 @@ cp -p %{sources} .
 mkdir -p %{buildroot}%{_rpmmacrodir}
 mkdir -p %{buildroot}%{_rpmconfigdir}/redhat
 install -pm 644 macros.pyproject %{buildroot}%{_rpmmacrodir}/
+install -pm 644 macros.aaa-pyproject-srpm %{buildroot}%{_rpmmacrodir}/
 install -pm 644 pyproject_buildrequires.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -pm 644 pyproject_convert.py %{buildroot}%{_rpmconfigdir}/redhat/
 install -pm 644 pyproject_save_files.py  %{buildroot}%{_rpmconfigdir}/redhat/
@@ -126,7 +140,15 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 %doc README.md
 %license LICENSE
 
+%files -n pyproject-srpm-macros
+%{_rpmmacrodir}/macros.aaa-pyproject-srpm
+%license LICENSE
+
+
 %changelog
+* Fri Jan 20 2023 Miro Hrončok <miro@hroncok.cz> - 1.6.0-1
+- Add pyproject-srpm-macros with a minimal %%pyproject_buildrequires macro
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

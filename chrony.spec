@@ -9,10 +9,10 @@
 
 Name:           chrony
 Version:        4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An NTP client/server
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://chrony.tuxfamily.org
 Source0:        https://download.tuxfamily.org/chrony/chrony-%{version}%{?prerelease}.tar.gz
 Source1:        https://download.tuxfamily.org/chrony/chrony-%{version}%{?prerelease}-tar-gz-asc.txt
@@ -25,6 +25,10 @@ Source10:       https://github.com/mlichvar/clknetsim/archive/%{clknetsim_ver}/c
 
 # add distribution-specific bits to DHCP dispatcher
 Patch1:         chrony-nm-dispatcher-dhcp.patch
+# add chronyd-restricted service
+Patch2:         chrony-restricted.patch
+# warn if keys are world-accessible or chronyd doesn't have read-only access
+Patch3:         chrony-keyaccess.patch
 
 BuildRequires:  libcap-devel libedit-devel nettle-devel pps-tools-devel
 BuildRequires:  gcc gcc-c++ make bison systemd gnupg2
@@ -56,6 +60,8 @@ service to other computers in the network.
 %setup -q -n %{name}-%{version}%{?prerelease} -a 10
 %{?gitpatch:%patch0 -p1}
 %patch1 -p1 -b .nm-dispatcher-dhcp
+%patch2 -p1 -b .restricted
+%patch3 -p1 -b .keyaccess
 
 %{?gitpatch: echo %{version}-%{gitpatch} > version.txt}
 
@@ -63,11 +69,11 @@ service to other computers in the network.
 md5sum -c <<-EOF | (! grep -v 'OK$')
         b40117b4aac846d31e4ad196dc44cda3  examples/chrony-wait.service
         2d01b94bc1a7b7fb70cbee831488d121  examples/chrony.conf.example2
-        96999221eeef476bd49fe97b97503126  examples/chrony.keys.example
         6a3178c4670de7de393d9365e2793740  examples/chrony.logrotate
         c3992e2f985550739cd1cd95f98c9548  examples/chrony.nm-dispatcher.dhcp
         2b81c60c020626165ac655b2633608eb  examples/chrony.nm-dispatcher.onoffline
         677ad16d6439daa369da44a1b75d1772  examples/chronyd.service
+        f092f965dc61f691ca838958eeeb3377  examples/chronyd-restricted.service
 EOF
 
 # don't allow packaging without vendor zone
@@ -76,11 +82,9 @@ test -n "%{vendorzone}"
 # use example chrony.conf as the default config with some modifications:
 # - use our vendor zone (2.*pool.ntp.org names include IPv6 addresses)
 # - enable leapsectz to get TAI-UTC offset and leap seconds from tzdata
-# - enable keyfile
 # - use NTP servers from DHCP
 sed -e 's|^\(pool \)\(pool.ntp.org\)|\12.%{vendorzone}\2|' \
     -e 's|#\(leapsectz\)|\1|' \
-    -e 's|#\(keyfile\)|\1|' \
     -e 's|^pool.*pool.ntp.org.*|&\n\n# Use NTP servers from DHCP.\nsourcedir /run/chrony-dhcp|' \
         < examples/chrony.conf.example2 > chrony.conf
 
@@ -121,8 +125,6 @@ mkdir -p $RPM_BUILD_ROOT{%{_unitdir},%{_prefix}/lib/systemd/ntp-units.d}
 
 install -m 644 -p chrony.conf $RPM_BUILD_ROOT%{_sysconfdir}/chrony.conf
 
-install -m 640 -p examples/chrony.keys.example \
-        $RPM_BUILD_ROOT%{_sysconfdir}/chrony.keys
 install -m 755 -p %{SOURCE3} \
         $RPM_BUILD_ROOT%{_sysconfdir}/dhcp/dhclient.d/chrony.sh
 install -m 644 -p examples/chrony.logrotate \
@@ -130,6 +132,8 @@ install -m 644 -p examples/chrony.logrotate \
 
 install -m 644 -p examples/chronyd.service \
         $RPM_BUILD_ROOT%{_unitdir}/chronyd.service
+install -m 644 -p examples/chronyd-restricted.service \
+        $RPM_BUILD_ROOT%{_unitdir}/chronyd-restricted.service
 install -m 755 -p examples/chrony.nm-dispatcher.onoffline \
         $RPM_BUILD_ROOT%{_prefix}/lib/NetworkManager/dispatcher.d/20-chrony-onoffline
 install -m 755 -p examples/chrony.nm-dispatcher.dhcp \
@@ -144,6 +148,7 @@ cat > $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/chronyd <<EOF
 OPTIONS="%{?with_seccomp:-F 2}"
 EOF
 
+touch $RPM_BUILD_ROOT%{_sysconfdir}/chrony.keys
 touch $RPM_BUILD_ROOT%{_localstatedir}/lib/chrony/{drift,rtc}
 
 echo 'chronyd.service' > \
@@ -169,20 +174,20 @@ if test -a %{_libexecdir}/chrony-helper; then
                 sed 's|.*|server &|' < $f > /run/chrony-dhcp/"${f##*servers.}.sources"
         done 2> /dev/null
 fi
-%systemd_post chronyd.service chrony-wait.service
+%systemd_post chronyd.service chronyd-restricted.service chrony-wait.service
 
 %preun
-%systemd_preun chronyd.service chrony-wait.service
+%systemd_preun chronyd.service chronyd-restricted.service chrony-wait.service
 
 %postun
-%systemd_postun_with_restart chronyd.service
+%systemd_postun_with_restart chronyd.service chronyd-restricted.service
 
 %files
 %{!?_licensedir:%global license %%doc}
 %license COPYING
-%doc FAQ NEWS README
+%doc FAQ NEWS README examples/chrony.keys.example
 %config(noreplace) %{_sysconfdir}/chrony.conf
-%config(noreplace) %verify(not md5 size mtime) %attr(640,root,chrony) %{_sysconfdir}/chrony.keys
+%ghost %config %attr(640,root,chrony) %{_sysconfdir}/chrony.keys
 %config(noreplace) %{_sysconfdir}/logrotate.d/chrony
 %config(noreplace) %{_sysconfdir}/sysconfig/chronyd
 %{_sysconfdir}/dhcp/dhclient.d/chrony.sh
@@ -199,6 +204,11 @@ fi
 %dir %attr(750,chrony,chrony) %{_localstatedir}/log/chrony
 
 %changelog
+* Wed Jan 25 2023 Miroslav Lichvar <mlichvar@redhat.com> 4.3-3
+- drop default chrony.keys config (#2104918)
+- add chronyd-restricted service for minimal NTP client configurations
+- convert license tag to SPDX
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

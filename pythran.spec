@@ -1,6 +1,6 @@
 Name:           pythran
 Version:        0.12.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Ahead of Time Python compiler for numeric kernels
 
 # pythran is BSD
@@ -46,8 +46,13 @@ BuildRequires:  pandoc
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-xdist
 BuildRequires:  /usr/bin/python
-BuildRequires:  /usr/bin/ipython
 BuildRequires:  python3-scipy
+
+# ipython is not included in RHEL
+# this is only used to test integration with ipython
+%if %{undefined rhel}
+BuildRequires:  /usr/bin/ipython
+%endif
 
 # This is a package that compiles code, it runtime requires devel packages
 Requires:       flexiblas-devel
@@ -130,6 +135,10 @@ k="$k and not test_interp_8"
 # https://github.com/serge-sans-paille/pythran/pull/1946#issuecomment-992460026
 k="$k and not test_setup_bdist_install3"
 %endif
+%if %{defined rhel}
+# this test needs ipython
+k="$k and not test_loadext_and_run"
+%endif
 %pytest -n auto -k "$k"
 
 
@@ -144,6 +153,9 @@ k="$k and not test_setup_bdist_install3"
 
 
 %changelog
+* Wed Jan 25 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.12.1-3
+- Avoid ipython test dependency in RHEL builds
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

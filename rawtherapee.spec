@@ -27,6 +27,9 @@ Source2:        ReleaseInfo.cmake
 Source0:        https://rawtherapee.com/shared/source/%{name}-%{version}.tar.xz
 %endif
 
+# Patch to fix build failure with GCC13
+Patch:          rt_gcc13.patch
+
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++

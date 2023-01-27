@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -558,6 +558,10 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Wed Jan 25 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-14
+- Add active-surrounding-text property to IBusEngine
+- Refactor surrounding text warning & free focus-id tables
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.27-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

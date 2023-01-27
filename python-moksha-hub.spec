@@ -1,8 +1,6 @@
-%if 0%{?fedora} || 0%{?rhel} >= 8
+%if ( 0%{?fedora} && 0%{?fedora} >= 31 ) || ( 0%{?rhel} && 0%{?rhel} >= 8 )
 %global with_python3 1
-%endif
-
-%if 0%{?fedora} < 31 || 0%{?rhel}
+%else
 %global with_python2 1
 %endif
 
@@ -10,7 +8,7 @@
 
 Name:           python-moksha-hub
 Version:        1.5.17
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Hub components for Moksha
 
 License:        ASL 2.0
@@ -209,6 +207,9 @@ ln -s ./moksha-hub %{buildroot}%{_bindir}/moksha-hub-%{python3_version}
 %endif
 
 %changelog
+* Tue Jan 24 2023 Diego Herrera <dherrera@redhat.com> - 1.5.17-17
+- Fix python version filters for RHEL/EPEL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.17-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

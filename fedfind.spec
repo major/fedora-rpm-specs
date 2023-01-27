@@ -9,7 +9,7 @@ License:        GPLv3+
 URL:            https://pagure.io/fedora-qa/fedfind
 Source0:        https://files.pythonhosted.org/packages/source/f/%{srcname}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
-BuildRequires:  pyproject-rpm-macros
+BuildRequires:  python3-devel
 Requires:       python%{python3_pkgversion}-fedfind
 
 %description

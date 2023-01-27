@@ -110,6 +110,7 @@ Patch43: xen.gcc11.fixes.patch
 Patch45: xen.gcc12.fixes.patch
 Patch46: xen.efi.build.patch
 Patch47: xen.gcc13.fixes.patch
+Patch48: xsa425.patch
 
 
 %if %build_qemutrad
@@ -322,6 +323,7 @@ manage Xen virtual machines.
 %patch45 -p1
 %patch46 -p1
 %patch47 -p1
+%patch48 -p1
 
 # qemu-xen-traditional patches
 pushd tools/qemu-xen-traditional
@@ -936,7 +938,11 @@ fi
 %endif
 
 %changelog
-* Tue Jan 24 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-5
+* Wed Jan 25 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-5
+- Guests can cause Xenstore crash via soft reset [XSA-425, CVE-2022-42330]
+	(#2164520)
+
+* Tue Jan 24 2023 Michael Young <m.a.young@durham.ac.uk>
 - now need BuildRequires for hostname
 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.17.0-4

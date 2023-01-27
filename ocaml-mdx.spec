@@ -4,8 +4,8 @@
 %global debug_package %{nil}
 
 Name:           ocaml-mdx
-Version:        2.2.0
-Release:        4%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        Executable code blocks inside markdown files
 
 License:        ISC
@@ -78,6 +78,9 @@ files for developing applications that use %{name}.
 %files devel -f .ofiles-devel
 
 %changelog
+* Wed Jan 25 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-1
+- Version 2.2.1
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.0-4
 - Rebuild OCaml packages for F38
 

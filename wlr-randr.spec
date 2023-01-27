@@ -1,8 +1,8 @@
 %global forgeurl https://git.sr.ht/~emersion/wlr-randr
 
 Name:           wlr-randr
-Version:        0.2.0
-Release:        2%{?dist}
+Version:        0.3.0
+Release:        1%{?dist}
 Summary:        An xrandr clone for wlroots compositors
 
 # Overall project license: MIT
@@ -44,6 +44,9 @@ wlr-randr is an xrandr clone for wlroots compositors
 %{_bindir}/wlr-randr
 
 %changelog
+* Tue Jan 24 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.3.0-1
+- Update to 0.3.0 (#2164209)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

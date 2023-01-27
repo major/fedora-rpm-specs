@@ -6,7 +6,7 @@
 Summary: A utility for unpacking zip files
 Name: unzip
 Version: 6.0
-Release: 59%{?dist}
+Release: 60%{?dist}
 License: BSD
 Source: http://downloads.sourceforge.net/infozip/unzip60.tar.gz
 
@@ -72,6 +72,7 @@ Patch31: unzip-zipbomb-part5.patch
 Patch32: unzip-zipbomb-part6.patch
 Patch33: unzip-zipbomb-switch.patch
 Patch34: unzip-gnu89-build.patch
+Patch35: unzip-6.0-wcstombs-fortify.patch
 
 URL: http://infozip.sourceforge.net
 BuildRequires: make
@@ -125,6 +126,7 @@ a zip archive.
 %patch32 -p1
 %patch33 -p1
 %patch34 -p1
+%patch35 -p1
 
 %build
 # IZ_HAVE_UXUIDGID is needed for right functionality of unzip -X
@@ -143,6 +145,9 @@ make -f unix/Makefile prefix=$RPM_BUILD_ROOT%{_prefix} MANDIR=$RPM_BUILD_ROOT%{_
 %{_mandir}/*/*
 
 %changelog
+* Wed Jan 25 2023 Siddhesh Poyarekar <siddhesh@redhat.com> - 6.0-60
+- Fix length passed to wcstombs call (#2164068)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0-59
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

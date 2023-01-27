@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-brick-varexporter
 #
-# Copyright (c) 2020-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2020-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    3e263cd718d242594c52963760fee2059fd5833c
+%global gh_commit    b5853edea6204ff8fa10633c3a4cccc4058410ed
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     brick
 %global gh_project   varexporter
@@ -19,8 +19,8 @@
 %global ns_project   VarExporter
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.3.7
-Release:        3%{?dist}
+Version:        0.3.8
+Release:        1%{?dist}
 Summary:        A powerful alternative to var_export
 
 License:        MIT
@@ -111,7 +111,7 @@ EOF
 
 : Run upstream test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -130,6 +130,9 @@ exit $ret
 
 
 %changelog
+* Wed Jan 25 2023 Remi Collet <remi@remirepo.net> - 0.3.8-1
+- update to 0.3.8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

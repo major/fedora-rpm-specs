@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sabre-vobject4
 #
-# Copyright (c) 2013-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2013-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -12,7 +12,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    1f836740c88bac483f3b572a332eb8fd1cd04981
+%global gh_commit    fe6d9183154ed6f2f913f2b568d3d51d8ae9b308
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sabre-io
 %global gh_project   vobject
@@ -25,13 +25,12 @@
 
 Name:           php-sabre-vobject4
 Summary:        Library to parse and manipulate iCalendar and vCard objects
-Version:        4.5.1
-Release:        2%{?dist}
+Version:        4.5.3
+Release:        1%{?dist}
 
 URL:            http://sabre.io/vobject/
-License:        BSD
+License:        BSD-3-Clause
 Source0:        %{name}-%{version}-%{gh_short}.tgz
-Source1:        %{name}-autoload.php
 Source2:        makesrc.sh
 
 # replace composer autloader
@@ -41,31 +40,31 @@ BuildArch:      noarch
 %if %{with tests}
 BuildRequires:  php(language) >= 7.1
 BuildRequires:  php-mbstring
-BuildRequires:  (php-composer(sabre/xml)    >= 2.1  with php-composer(sabre/xml)     < 3)
+BuildRequires:  (php-composer(sabre/xml)    >= 2.1  with php-composer(sabre/xml)     < 5)
 BuildRequires:  php-date
 BuildRequires:  php-json
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 BuildRequires:  php-xml
 # From composer.json, "require-dev"
-#        "friendsofphp/php-cs-fixer": "~2.17.1",
+#        "friendsofphp/php-cs-fixer": "^2.17.1",
 #        "phpunit/phpunit" : "^7.5 || ^8.5 || ^9.0",
 #        "phpunit/php-invoker" : "^2.0 || ^3.1",
 #        "phpstan/phpstan": "^0.12"
 BuildRequires:  phpunit9
 %global phpunit %{_bindir}/phpunit9
-# Autoloader
-BuildRequires:  php-composer(fedora/autoloader)
 %endif
+# Autoloader
+BuildRequires:  php-fedora-autoloader-devel
 
 # From composer.json, "require"
 #        "php"          : "^7.1 || ^8.0",
 #        "ext-mbstring" : "*",
-#        "sabre/xml"    : "^2.1"
+#        "sabre/xml"    : "^2.1 || ^3.0 || ^4.0"
 Requires:       php(language) >= 7.1
 Requires:       php-mbstring
 #
-Requires:       (php-composer(sabre/xml)    >= 2.1  with php-composer(sabre/xml)     < 3)
+Requires:       (php-composer(sabre/xml)    >= 2.1  with php-composer(sabre/xml)     < 5)
 # From phpcompatinfo report for version 4.1.2
 %if %{with_cmd}
 Requires:       php-cli
@@ -97,7 +96,19 @@ Autoloader: %{_datadir}/php/Sabre/VObject4/autoload.php
 
 %patch0 -p1 -b .rpm
 
-cp %{SOURCE1} lib/autoload.php
+phpab -t fedora -o lib/autoload.php lib
+
+cat << 'EOF' | tee -a lib/autoload.php
+
+// Dependencies
+\Fedora\Autoloader\Dependencies::required([
+    [
+        '%{_datadir}/php/Sabre/Xml4/autoload.php',
+        '%{_datadir}/php/Sabre/Xml3/autoload.php',
+        '%{_datadir}/php/Sabre/Xml2/autoload.php',
+    ],
+]);
+EOF
 
 
 %build
@@ -139,7 +150,7 @@ fi
 
 : Run upstream test suite against installed library
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} $opt || ret=1
@@ -162,6 +173,11 @@ exit $ret
 %endif
 
 %changelog
+* Wed Jan 25 2023 Remi Collet <remi@remirepo.net> - 4.5.3-1
+- update to 4.5.3
+- allow sabre/xml v3 or v4
+- switch to classmap autoloader
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

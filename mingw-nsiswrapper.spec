@@ -1,6 +1,6 @@
 Name:           mingw-nsiswrapper
-Version:        11
-Release:        10%{?dist}
+Version:        12
+Release:        1%{?dist}
 Summary:        Helper program for making NSIS Windows installers
 
 License:        GPLv2+
@@ -14,9 +14,7 @@ BuildArch:      noarch
 
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-%if 0%{?fedora} > 18
 BuildRequires:  perl-podlators
-%endif
 
 
 %description
@@ -31,6 +29,7 @@ installer script that NSIS needs.
 %package -n mingw32-nsiswrapper
 Summary:        Helper program for making NSIS Windows installers
 Requires:       mingw32-binutils
+Requires:       mingw32-crt
 Requires:       mingw32-nsis
 
 %description -n mingw32-nsiswrapper
@@ -77,6 +76,10 @@ pod2man -c "NSIS" -r "%{name}-%{version}" %{SOURCE0} \
 
 
 %changelog
+* Wed Jan 25 2023 Richard W.M. Jones <rjones@redhat.com> - 12-1
+- Use mingw*-crt to search for DLLs (RHBZ#2164360)
+- Remove ancient Fedora conditional.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

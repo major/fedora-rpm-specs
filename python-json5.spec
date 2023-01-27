@@ -1,8 +1,8 @@
 %global pypi_name json5
 
 Name:           python-%{pypi_name}
-Version:        0.9.11
-Release:        2%{?dist}
+Version:        0.9.12
+Release:        1%{?dist}
 Summary:        Python implementation of the JSON5 data format
 
 License:        ASL 2.0
@@ -70,6 +70,9 @@ rm -rf %{buildroot}/%{python3_sitelib}/README.md
 %{_bindir}/pyjson5
 
 %changelog
+* Wed Jan 25 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.12-1
+- Update to latest upstream release 0.9.12
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,12 +7,14 @@ Release:        %autorelease
 Summary:        JSONSchema Spec with object-oriented paths
 
 License:        Apache-2.0
-URL:            https://pypi.python.org/pypi/%{srcname}
-Source:         %{pypi_source}
+URL:            https://github.com/p1c2u/%{srcname}
+# The GitHub archive has the tests; the PyPI sdist does not.
+Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
 BuildArch:      noarch
+
 BuildRequires:  python3-devel
-BuildRequires:  poetry
+BuildRequires:  python3dist(pytest)
 
 %global _description %{expand:
 A python library which provides traverse JSON resources like paths and
@@ -29,6 +31,9 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n %{srcname}-%{version}
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i '/^--cov[-=]/d' pyproject.toml
+
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -44,7 +49,7 @@ Summary:        %{summary}
 
 
 %check
-%pyproject_check_import
+%pytest
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

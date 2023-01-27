@@ -24,7 +24,7 @@ binary patterns. Each description, a.k.a rule, consists of a set of strings
 and a Boolean expression which determine its logic.}
 
 # Build with python2 support for RHEL7
-%if ( 0%{?rhel} && 0%{?rhel} < 8 )
+%if ( 0%{?rhel} && 0%{?rhel} <= 7 )
 %bcond_without     python2
 %endif
 
@@ -119,7 +119,17 @@ Summary:        Python2 binding for the YARA pattern matching tool
 EXCLUDE='not testModuleData'
 %endif
 
+%if ( 0%{?rhel} && 0%{?rhel} <= 7 )
+export CFLAGS="${CFLAGS:-${RPM_OPT_FLAGS}}" LDFLAGS="${LDFLAGS:-${RPM_LD_FLAGS}}"
+export PATH="%{buildroot}%{_bindir}:$PATH"
+export PYTHONPATH="${PYTHONPATH:-%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib}}"
+export PYTHONDONTWRITEBYTECODE=1
+export PYTEST_XDIST_AUTO_NUM_WORKERS=%{_smp_build_ncpus}}
+pytest-3 -k "$EXCLUDE" tests.py -v
+%else
 %pytest -k "$EXCLUDE" tests.py -v
+%endif
+
 
 #====================================================================
 %files -n python%{python3_pkgversion}-yara

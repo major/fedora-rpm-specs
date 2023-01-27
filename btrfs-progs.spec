@@ -2,11 +2,11 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.1.2
-Release:        2%{?dist}
+Version:        6.1.3
+Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://btrfs.wiki.kernel.org/index.php/Main_Page
 Source0:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.xz
 Source1:        https://www.kernel.org/pub/linux/kernel/people/kdave/%{name}/%{name}-v%{version_no_tilde}.tar.sign
@@ -34,7 +34,7 @@ check, modify and correct any inconsistencies in the btrfs filesystem.
 
 %package -n libbtrfs
 Summary:        btrfs filesystem-specific runtime libraries
-License:        GPLv2
+License:        GPL-2.0-only
 # Upstream deprecated this library
 Provides:       deprecated()
 # This was not properly split out before
@@ -46,7 +46,7 @@ filesystem-specific programs.
 
 %package -n libbtrfsutil
 Summary:        btrfs filesystem-specific runtime utility libraries
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 # This was not properly split out before
 Conflicts:      %{name}-devel < 4.20.2
 
@@ -57,7 +57,7 @@ filesystem-specific programs.
 %package devel
 Summary:        btrfs filesystem-specific libraries and headers
 # libbtrfsutil is LGPLv2+
-License:        GPLv2 and LGPLv2+
+License:        GPL-2.0-only and LGPL-2.1-or-later
 Requires:       %{name} = %{version}-%{release}
 Requires:       libbtrfs%{?_isa} = %{version}-%{release}
 Requires:       libbtrfsutil%{?_isa} = %{version}-%{release}
@@ -75,7 +75,7 @@ btrfs filesystem-specific programs.
 
 %package -n python3-btrfsutil
 Summary:        Python 3 bindings for libbtrfsutil
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Requires:       libbtrfsutil%{?_isa} = %{version}-%{release}
 %{?python_provide:%python_provide python3-btrfsutil}
 
@@ -147,6 +147,10 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Wed Jan 25 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.1.3-1
+- Update to 6.1.3
+- Switch to SPDX license identifiers
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

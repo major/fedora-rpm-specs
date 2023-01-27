@@ -4,7 +4,7 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   28%{?dist}
+Release:   29%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -150,6 +150,8 @@ Requires: %{name}-core-as
 %if 0%{?fedora}
 Recommends: google-noto-sans-bengali-vf-fonts
 Recommends: google-noto-sans-bengali-ui-vf-fonts
+Recommends: google-noto-serif-bengali-vf-fonts
+Recommends: google-noto-serif-bengali-ui-vf-fonts
 %endif
 
 %description as
@@ -203,6 +205,8 @@ Requires: %{name}-core-bn
 %if 0%{?fedora}
 Recommends: google-noto-sans-bengali-vf-fonts
 Recommends: google-noto-sans-bengali-ui-vf-fonts
+Recommends: google-noto-serif-bengali-vf-fonts
+Recommends: google-noto-serif-bengali-ui-vf-fonts
 %endif
 
 %description bn
@@ -503,6 +507,8 @@ Requires: %{name}-core-gu
 %if 0%{?fedora}
 Recommends: google-noto-sans-gujarati-fonts
 Recommends: google-noto-sans-gujarati-ui-fonts
+Recommends: google-noto-serif-gujarati-fonts
+Recommends: google-noto-serif-gujarati-ui-fonts
 Recommends: samyak-gujarati-fonts
 %endif
 
@@ -548,6 +554,8 @@ Requires: %{name}-core-hi
 %if 0%{?fedora}
 Recommends: google-noto-sans-devanagari-vf-fonts
 Recommends: google-noto-sans-devanagari-ui-vf-fonts
+Recommends: google-noto-serif-devanagari-vf-fonts
+Recommends: google-noto-serif-devanagari-ui-vf-fonts
 Recommends: samyak-devanagari-fonts
 %endif
 
@@ -735,6 +743,8 @@ Requires: %{name}-core-kn
 %if 0%{?fedora}
 Recommends: google-noto-sans-kannada-vf-fonts
 Recommends: google-noto-sans-kannada-ui-vf-fonts
+Recommends: google-noto-serif-kannada-vf-fonts
+Recommends: google-noto-serif-kannada-ui-vf-fonts
 %endif
 Recommends: gubbi-fonts
 Recommends: navilu-fonts
@@ -815,6 +825,8 @@ Requires: %{name}-core-mai
 %if 0%{?fedora}
 Recommends: google-noto-sans-devanagari-vf-fonts
 Recommends: google-noto-sans-devanagari-ui-vf-fonts
+Recommends: google-noto-serif-devanagari-vf-fonts
+Recommends: google-noto-serif-devanagari-ui-vf-fonts
 %endif
 
 %description mai
@@ -844,6 +856,8 @@ Recommends: rit-rachana-fonts
 %if 0%{?fedora}
 Recommends: google-noto-sans-malayalam-vf-fonts
 Recommends: google-noto-sans-malayalam-ui-vf-fonts
+Recommends: google-noto-serif-malayalam-vf-fonts
+Recommends: google-noto-serif-malayalam-ui-vf-fonts
 Recommends: lohit-malayalam-fonts
 Recommends: samyak-malayalam-fonts
 Recommends: smc-anjalioldlipi-fonts
@@ -871,6 +885,8 @@ Requires: %{name}-core-mr
 %if 0%{?fedora}
 Recommends: google-noto-sans-devanagari-vf-fonts
 Recommends: google-noto-sans-devanagari-ui-vf-fonts
+Recommends: google-noto-serif-devanagari-vf-fonts
+Recommends: google-noto-serif-devanagari-ui-vf-fonts
 Recommends: samyak-devanagari-fonts
 %endif
 
@@ -924,6 +940,8 @@ Requires: %{name}-core-ne
 %if 0%{?fedora}
 Recommends: google-noto-sans-devanagari-vf-fonts
 Recommends: google-noto-sans-devanagari-ui-vf-fonts
+Recommends: google-noto-serif-devanagari-vf-fonts
+Recommends: google-noto-serif-devanagari-ui-vf-fonts
 %endif
 
 %description ne
@@ -987,6 +1005,10 @@ Summary: Odia langpacks meta-package
 Requires: %{name}-core-or
 %if 0%{?fedora}
 Recommends: samyak-odia-fonts
+Recommends: google-noto-sans-oriya-fonts
+Recommends: google-noto-sans-oriya-vf-fonts
+Recommends: google-noto-serif-oriya-fonts
+Recommends: google-noto-serif-oriya-vf-fonts
 %endif
 
 %description or
@@ -1166,6 +1188,8 @@ Requires: %{name}-core-ta
 %if 0%{?fedora}
 Recommends: google-noto-sans-tamil-vf-fonts
 Recommends: google-noto-sans-tamil-ui-vf-fonts
+Recommends: google-noto-serif-tamil-vf-fonts
+Recommends: google-noto-serif-tamil-ui-vf-fonts
 Recommends: samyak-tamil-fonts
 Recommends: serafettin-cartoon-fonts
 %endif
@@ -1184,6 +1208,8 @@ Requires: %{name}-core-te
 %if 0%{?fedora}
 Recommends: google-noto-sans-telugu-fonts
 Recommends: google-noto-sans-telugu-ui-fonts
+Recommends: google-noto-serif-telugu-fonts
+Recommends: google-noto-serif-telugu-ui-fonts
 Recommends: pothana2000-fonts
 Recommends: vemana2000-fonts
 %endif
@@ -1428,6 +1454,9 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
+* Thu Jan 19 2023 Parag Nemade <pnemade AT redhat DOT com> - 3.0-29
+- Add serif fonts to some langpacks packages
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

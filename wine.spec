@@ -41,13 +41,13 @@
 
 Name:           wine
 Version:        8.0
-Release:        0.rc4.1%{?dist}.1
+Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
 License:        LGPLv2+
 URL:            https://www.winehq.org/
-Source0:        https://dl.winehq.org/wine/source/8.0/wine-%{version}-rc4.tar.xz
-Source10:       https://dl.winehq.org/wine/source/8.0/wine-%{version}-rc4.tar.xz.sign
+Source0:        https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz
+Source10:       https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz.sign
 
 Source1:        wine.init
 Source2:        wine.systemd
@@ -94,7 +94,7 @@ Patch511:       wine-cjk.patch
 %if 0%{?wine_staging}
 # wine-staging patches
 # pulseaudio-patch is covered by that patch-set, too.
-Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}-rc4.tar.gz#/wine-staging-%{version}-rc4.tar.gz
+Source900: https://github.com/wine-staging/wine-staging/archive/v%{version}.tar.gz#/wine-staging-%{version}.tar.gz
 %endif
 
 %if !%{?no64bit}
@@ -698,7 +698,7 @@ This package adds the opencl driver for wine.
 %endif
 
 %prep
-%setup -qn wine-%{version}-rc4
+%setup -qn wine-%{version}
 %patch100 -p1 -b.autoconf
 %patch511 -p1 -b.cjk
 
@@ -2820,6 +2820,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 24 2023 Michael Cronenworth <mike@cchtml.com> - 8.0-1
+- version update
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0-0.rc4.1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

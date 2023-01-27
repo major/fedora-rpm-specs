@@ -6,6 +6,8 @@ Summary:        A tool for detecting usbguard policy and device presence changes
 License:        GPLv2+
 URL:            https://github.com/Cropi/%{name}
 Source0:        https://github.com/Cropi/usbguard-notifier/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+# https://github.com/Cropi/usbguard-notifier/pull/74
+Patch0:         0001-gcc13.patch
 
 Requires: systemd
 
@@ -25,6 +27,7 @@ as well as device presence changes and displays them as pop-up notifications.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 mkdir -p ./m4

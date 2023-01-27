@@ -48,8 +48,8 @@
 
 Name: postfix
 Summary: Postfix Mail Transport Agent
-Version: 3.7.3
-Release: 4%{?dist}
+Version: 3.7.4
+Release: 1%{?dist}
 Epoch: 2
 URL: http://www.postfix.org
 License: (IBM and GPLv2+) or (EPL-2.0 and GPLv2+)
@@ -806,6 +806,10 @@ fi
 %endif
 
 %changelog
+* Wed Jan 25 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2:3.7.4-1
+- New version
+  Resolves: rhbz#2162932
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -178,7 +178,7 @@ Patch10: ruby-3.2.0-Revert-Test-syntax_suggest-by-make-check.patch
 Patch11: ruby-3.2.0-Use-SHA256-instead-of-SHA1.patch
 
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
-Suggests: rubypick
+%{?with_rubypick:Suggests: rubypick}
 Recommends: ruby(rubygems) >= %{rubygems_version}
 Recommends: rubygem(bigdecimal) >= %{bigdecimal_version}
 

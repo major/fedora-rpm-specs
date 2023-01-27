@@ -5,7 +5,7 @@
 
 # Make sure these are changed for every release!
 %global swift_version 5.7.3-RELEASE
-%global fedora_release 1
+%global fedora_release 2
 %global package_version 5.7.3
 
 # Set to the right version per the json file
@@ -70,6 +70,7 @@ Source31:       https://github.com/apple/swift-format/archive/swift-%{swift_vers
 Source32:       https://github.com/apple/swift-lmdb/archive/swift-%{swift_version}.tar.gz#/swift-lmdb.tar.gz
 Source33:       https://github.com/apple/swift-markdown/archive/swift-%{swift_version}.tar.gz#/swift-markdown.tar.gz
 
+Patch1:		uintptr.patch
 Patch2:		enablelzma.patch
 Patch3:   	fs.patch
 Patch4:		unusedvars.patch
@@ -172,6 +173,10 @@ mv ninja-%{ninja_version} ninja
 %py3_shebang_fix swift/utils/api_checker/swift-api-checker.py
 %py3_shebang_fix llvm-project/compiler-rt/lib/hwasan/scripts/hwasan_symbolize
 
+# Fix for uintptr_t not being declared because the header wasn't
+# explicitly declared
+%patch1 -p0
+
 # Enable LZMA
 %patch2 -p0
 
@@ -228,6 +233,9 @@ export QA_SKIP_RPATHS=1
 
 
 %changelog
+* Wed Jan 25 2023 Ron Olson <tachoknight@gmail.com> - 5.7.3-2
+- Added patch for missing includes
+  Resolves: rhbz#2162626
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.2-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 * Fri Jan 20 2023 Ron Olson <tachoknight@gmail.com> - 5.7.3-1

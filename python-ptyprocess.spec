@@ -4,7 +4,7 @@
 
 Name:           python-ptyprocess
 Version:        0.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Run a subprocess in a pseudo terminal
 
 License:        ISC
@@ -32,24 +32,29 @@ process and its pty.
 %prep
 %autosetup -n ptyprocess-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files ptyprocess
 
 %if %{with tests}
 %check
 %{__python3} -m pytest -v
 %endif
 
-%files -n python3-ptyprocess
+%files -n python3-ptyprocess -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/ptyprocess/
-%{python3_sitelib}/ptyprocess-*.egg-info
 
 %changelog
+* Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 0.7.0-3
+- Build with modern pyproject macros, fixes #2164207
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -23,8 +23,8 @@
 
 Summary: Apache HTTP Server
 Name: httpd
-Version: 2.4.54
-Release: 11%{?dist}
+Version: 2.4.55
+Release: 1%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -92,7 +92,6 @@ Patch30: httpd-2.4.43-cachehardmax.patch
 Patch34: httpd-2.4.43-socket-activation.patch
 Patch38: httpd-2.4.43-sslciphdefault.patch
 Patch39: httpd-2.4.43-sslprotdefault.patch
-Patch40: httpd-2.4.43-r1861269.patch
 Patch41: httpd-2.4.43-r1861793+.patch
 Patch42: httpd-2.4.48-r1828172+.patch
 Patch45: httpd-2.4.43-logjournal.patch
@@ -104,7 +103,6 @@ Patch60: httpd-2.4.43-enable-sslv3.patch
 Patch61: httpd-2.4.48-r1878890.patch
 Patch63: httpd-2.4.46-htcacheclean-dont-break.patch
 Patch65: httpd-2.4.51-r1894152.patch
-Patch66: httpd-2.4.54-proxy-util-loglevel.patch
 
 # Security fixes
 
@@ -194,7 +192,7 @@ Epoch: 1
 BuildRequires: openssl-devel
 Requires(pre): httpd-filesystem
 Requires: httpd-core = 0:%{version}-%{release}, httpd-mmn = %{mmnisa}
-Requires: sscg >= 2.2.0, /usr/bin/hostname
+Requires: sscg >= 3.0.3, /usr/bin/hostname
 # Require an OpenSSL which supports PROFILE=SYSTEM
 Conflicts: openssl-libs < 1:1.0.1h-4
 # mod_ssl/mod_nss cannot both be loaded simultaneously
@@ -260,7 +258,6 @@ written in the Lua programming language.
 %patch34 -p1 -b .socketactivation
 %patch38 -p1 -b .sslciphdefault
 %patch39 -p1 -b .sslprotdefault
-%patch40 -p1 -b .r1861269
 %patch41 -p1 -b .r1861793+
 %patch42 -p1 -b .r1828172+
 %patch45 -p1 -b .logjournal
@@ -271,7 +268,6 @@ written in the Lua programming language.
 %patch61 -p1 -b .r1878890
 %patch63 -p1 -b .htcacheclean-dont-break
 %patch65 -p1 -b .r1894152
-%patch66 -p1 -b .proxyutil-loglevel
 
 # Patch in the vendor string
 sed -i '/^#define PLATFORM/s/Unix/%{vstring}/' os/unix/os.h
@@ -854,6 +850,12 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Wed Jan 25 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.55-1
+- new version 2.4.55
+
+* Tue Jan 24 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.54-12
+- prevent sscg writing /dhparams.pem
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.54-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

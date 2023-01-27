@@ -6,14 +6,14 @@
 %bcond_without perl_IO_Socket_SSL_test_IO_Socket_INET6
 
 Name:		perl-IO-Socket-SSL
-Version:	2.080
-Release:	2%{?dist}
+Version:	2.081
+Release:	1%{?dist}
 Summary:	Perl library for transparent SSL
 License:	(GPL-1.0-or-later OR Artistic-1.0-Perl) AND MPL-2.0
 URL:		https://metacpan.org/release/IO-Socket-SSL
 Source0:	https://cpan.metacpan.org/modules/by-module/IO/IO-Socket-SSL-%{version}.tar.gz
-Patch0:		IO-Socket-SSL-2.076-use-system-default-cipher-list.patch
-Patch1:		IO-Socket-SSL-2.079-use-system-default-SSL-version.patch
+Patch0:		IO-Socket-SSL-2.081-use-system-default-cipher-list.patch
+Patch1:		IO-Socket-SSL-2.081-use-system-default-SSL-version.patch
 # A test for Enable-Post-Handshake-Authentication-TLSv1.3-feature.patch,
 # bug #1632660, requires openssl tool
 Patch2:		IO-Socket-SSL-2.080-Test-client-performs-Post-Handshake-Authentication.patch
@@ -125,6 +125,13 @@ make test
 %{_mandir}/man3/IO::Socket::SSL::PublicSuffix.3*
 
 %changelog
+* Wed Jan 25 2023 Paul Howarth <paul@city-fan.org> - 2.081-1
+- Update to 2.081
+  - New function set_msg_callback for user defined callback on each SSL message
+  - Showcase function in example/ssl_client.pl and example/ssl_server.pl for
+    computing JA3S/JA3 fingerprints
+  - Fix tracing added in 2.076 to no longer include SSL3_RT_HEADER (noise)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.080-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -22,7 +22,7 @@ Name:    doxygen
 Epoch:   2
 Version: 1.9.6
 %if 0%{?stable}
-Release: 4%{?dist}
+Release: 5%{?dist}
 %else
 %global commit e18f715eb55121a4219d00bc4d824cebf1fb504b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -320,6 +320,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
 %changelog
+* Wed Jan 25 2023 Than Ngo <than@redhat.com> - 2:1.9.6-5
+- rebuilt against new ghostscript-10 
+
 * Fri Jan 20 2023 Than Ngo <than@redhat.com> - 2:1.9.6-4
 - fixed bz#2162170, add Require on texlive-wasy
 

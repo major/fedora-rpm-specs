@@ -7,7 +7,7 @@
 
 Name:           debootstrap
 Version:        1.0.127
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Debian GNU/Linux bootstrapper
 
 License:        MIT
@@ -64,6 +64,9 @@ install -p -m 0644 debootstrap.8 %{buildroot}%{_mandir}/man8
 %{_mandir}/man8/debootstrap.8*
 
 %changelog
+* Wed Jan 25 2023 Sérgio Basto <sergio@serjux.com> - 1.0.127-3
+- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
 * Sat Sep 03 2022 Sérgio Basto <sergio@serjux.com> - 1.0.127-2
 - (#2119009) reading debian/rules seems that gettext is not required
 

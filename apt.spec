@@ -13,13 +13,14 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.5.4
-Release:        2%{?dist}
+Version:        2.5.5
+Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
 License:        GPLv2+
 URL:            https://tracker.debian.org/pkg/apt
 Source0:        https://salsa.debian.org/apt-team/%{name}/-/archive/%{version}/%{name}-%{version}.tar.gz
+Patch1:         apt_include_cstdint.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -309,6 +310,10 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Wed Jan 25 2023 Sérgio Basto <sergio@serjux.com> - 2.5.5-1
+- Update apt to 2.5.5 (#2161700)
+- Fix build with gcc13
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

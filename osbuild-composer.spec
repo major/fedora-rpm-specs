@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        72
+Version:        73
 
 %gometa
 
@@ -22,7 +22,7 @@ It is compatible with composer-cli and cockpit-composer clients.
 }
 
 Name:           osbuild-composer
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        An image building service based on osbuild
 
 # osbuild-composer doesn't have support for building i686 and armv7hl images
@@ -56,7 +56,7 @@ Provides: bundled(golang(github.com/acarl005/stripansi)) = v0.0.0_20180116102854
 Provides: bundled(golang(github.com/aws/aws_sdk_go)) = v1.44.114
 Provides: bundled(golang(github.com/aymerick/douceur)) = v0.2.0
 Provides: bundled(golang(github.com/Azure/azure_pipeline_go)) = v0.2.3
-Provides: bundled(golang(github.com/Azure/azure_sdk_for_go)) = v66.0.0+incompatible
+Provides: bundled(golang(github.com/Azure/azure_sdk_for_go)) = v68.0.0+incompatible
 Provides: bundled(golang(github.com/Azure/azure_storage_blob_go)) = v0.13.0
 Provides: bundled(golang(github.com/Azure/go_autorest)) = v14.2.0+incompatible
 Provides: bundled(golang(github.com/Azure/go_autorest/autorest)) = v0.11.28
@@ -571,6 +571,24 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Jan 25 2023 Packit <hello@packit.dev> - 73-1
+Changes with 73
+----------------
+  * Packer: workaround missing authselect-compat-1.2.5-2.el9_1 in RHUI repos (#3237)
+  * Rewrite RHEL 8 and CS8 image definitions using the new framework (#3213)
+  * Schutzfile: bump osbuild commit for GA RHEL (#3214)
+  * Support ignition in simplified-installer and raw-image (#3130)
+  * build(deps): bump github.com/Azure/azure-sdk-for-go from 66.0.0+incompatible to 68.0.0+incompatible (#3229)
+  * distro/rhel8: ensure the Azure SAP RHUI image uses appropriate config (#3233)
+  * fix ostree cannot boot on fedora37 (#3217)
+  * osbuild/mkdir: support new stage options and small fixes (#3226)
+  * schutzbot: delete ckellner's SSH key (#3224)
+
+Contributions from: Achilleas Koutsou, Antonio Murdaca, Gianluca Zuccarelli, Sanne Raymaekers, Tomáš Hozza, Xiaofeng Wang, dependabot[bot], yih
+
+— Somewhere on the Internet, 2023-01-25
+
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 72-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

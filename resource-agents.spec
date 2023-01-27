@@ -20,7 +20,7 @@
 #
 
 %global upstream_prefix ClusterLabs-resource-agents
-%global upstream_version 8ac4daaf
+%global upstream_version baddb06c
 
 # Whether this platform defaults to using systemd as an init system
 # (needs to be evaluated prior to BuildRequires being enumerated and
@@ -51,8 +51,8 @@
 
 Name:		resource-agents
 Summary:	Open Source HA Reusable Cluster Resource Scripts
-Version:	4.11.0
-Release:	2%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}.2
+Version:	4.12.0
+Release:	1%{?rcver:%{rcver}}%{?numcomm:.%{numcomm}}%{?alphatag:.%{alphatag}}%{?dirty:.%{dirty}}%{?dist}
 License:	GPLv2+ and LGPLv2+
 URL:		https://github.com/ClusterLabs/resource-agents
 Source0:	%{upstream_prefix}-%{upstream_version}.tar.gz
@@ -75,10 +75,7 @@ BuildRequires: python-devel
 
 %ifarch x86_64
 %if 0%{?fedora} || 0%{?centos} > 7 || 0%{?rhel} > 7
-BuildRequires: python3-google-api-client python3-pyroute2
-%endif
-%if 0%{?suse_version}
-BuildRequires: python3-google-api-python-client
+BuildRequires: python3-pyroute2
 %endif
 %endif
 
@@ -91,7 +88,11 @@ BuildRequires: libnet-devel
 
 %if 0%{?suse_version}
 BuildRequires:  libnet-devel
+%if 0%{?suse_version} > 1500
+BuildRequires:  cluster-glue-devel
+%else
 BuildRequires:  libglue-devel
+%endif
 BuildRequires:  libxslt docbook_4 docbook-xsl-stylesheets
 %endif
 
@@ -394,6 +395,9 @@ ccs_update_schema > /dev/null 2>&1 ||:
 %endif
 
 %changelog
+* Wed Jan 25 2023 Oyvind Albrigtsen <oalbrigt@redhat.com> - 4.12.0-1
+- Rebase to resource-agents 4.12.0 upstream release.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

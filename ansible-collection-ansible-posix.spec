@@ -1,43 +1,62 @@
-%global collection_namespace ansible
-%global collection_name posix
+%if %{undefined el8}
+%bcond_without tests
+%else
+%bcond_with tests
+%endif
 
-Name:           ansible-collection-%{collection_namespace}-%{collection_name}
-Version:        1.4.0
-Release:        3%{?dist}
+Name:           ansible-collection-ansible-posix
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Ansible Collection targeting POSIX and POSIX-ish platforms
 
-# plugins/module_utils/_version.py: Python Software Foundation License 2.0
 # plugins/module_utils/mount.py: Python Software Foundation License version 2
-License:        GPLv3+ and Python
-URL:            %{ansible_collection_url}
+License:        GPL-3.0-or-later and PSF-2.0
+URL:            %{ansible_collection_url ansible posix}
 Source:         https://github.com/ansible-collections/ansible.posix/archive/%{version}/%{name}-%{version}.tar.gz
-
+# Exclude unneceesary development files and duplicate docs from the built
+# collection. This is a downstream only patch. Upstreams include these files
+# for reasons that are irrelevant to Fedora.
+Patch0:         0001-Exclude-unnecessary-files-from-built-collection.patch
 BuildRequires:  ansible-packaging
+%if %{with tests}
+BuildRequires:  ansible-packaging-tests
+%endif
 
 BuildArch:      noarch
+
 
 %description
 %{summary}.
 
+
 %prep
-%autosetup -n ansible.posix-%{version}
-rm -vr tests/{integration,utils} .github changelogs/fragments/.keep {test-,}requirements.txt shippable.yml
-rm -vr .azure-pipelines
+%autosetup -n ansible.posix-%{version} -p1
 find -type f ! -executable -name '*.py' -print -exec sed -i -e '1{\@^#!.*@d}' '{}' +
-find -type f -name '.gitignore' -print -delete
+
 
 %build
 %ansible_collection_build
 
+
 %install
 %ansible_collection_install
 
-%files
+
+%check
+%if %{with tests}
+%ansible_test_unit
+%endif
+
+
+%files -f %{ansible_collection_filelist}
 %license COPYING PSF-license.txt
-%doc README.md
-%{ansible_collection_files}
+%doc README.md CHANGELOG.rst
+
 
 %changelog
+* Tue Jan 24 2023 Maxwell G <gotmax@e.email> - 1.5.1-1
+- Update to 1.5.1. Fixes rhbz#2162988.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,15 +1,15 @@
 %bcond_without fuse
 %bcond_without lz4
-%bcond_with lzma
+%bcond_without lzma
 %bcond_without selinux
 %bcond_without uuid
 
 Name:           erofs-utils
 Version:        1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Utilities for working with EROFS
-License:        GPLv2+
+License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0)
 URL:            https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git
 
 Source0:        %{url}/snapshot/%{name}-%{version}.tar.gz
@@ -18,19 +18,19 @@ BuildRequires:  gcc
 BuildRequires:  libtool
 BuildRequires:  make
 %if %{with fuse}
-BuildRequires:  fuse-devel
+BuildRequires:  pkgconfig(fuse) >= 2.6
 %endif
 %if %{with lz4}
-BuildRequires:  lz4-devel
+BuildRequires:  lz4-devel >= 1.9.3
 %endif
 %if %{with lzma}
 BuildRequires:  xz-devel >= 5.3.2
 %endif
 %if %{with selinux}
-BuildRequires:  libselinux-devel
+BuildRequires:  pkgconfig(libselinux)
 %endif
 %if %{with uuid}
-BuildRequires:  libuuid-devel
+BuildRequires:  pkgconfig(uuid)
 %endif
 
 %description
@@ -79,18 +79,22 @@ autoreconf -fi
 %{_mandir}/man1/fsck.erofs.1*
 %{_mandir}/man1/mkfs.erofs.1*
 %doc AUTHORS ChangeLog README
-%license LICENSES/GPL-2.0
+%license LICENSES/Apache-2.0 LICENSES/GPL-2.0
 
 %if %{with fuse}
 %files -n erofs-fuse
 %{_bindir}/erofsfuse
 %{_mandir}/man1/erofsfuse.1*
 %doc AUTHORS ChangeLog README
-%license LICENSES/GPL-2.0
+%license LICENSES/Apache-2.0 LICENSES/GPL-2.0
 %endif
 
 
 %changelog
+* Wed Jan 25 2023 David Michael <fedora.dm0@gmail.com> - 1.5-4
+- Enable MicroLZMA support by default.
+- Switch the License tag to SPDX, and ship matching noneffective license files.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

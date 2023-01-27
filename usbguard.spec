@@ -43,6 +43,8 @@ BuildRequires: systemd
 Patch1: usbguard-revert-catch.patch
 Patch2: policykit-dbus-chat-selinux.patch
 Patch3: usbguard-restore-support-access-control-names.patch
+# https://github.com/USBGuard/usbguard/pull/582
+Patch4: usbguard-gcc13.patch
 
 %description
 The USBGuard software framework helps to protect your computer against rogue USB
@@ -108,6 +110,7 @@ daemon.
 %patch1 -p1 -b .catch
 %patch2 -p1 -b .policykit
 %patch3 -p1 -b .access-contol-names
+%patch4 -p1 -b .gcc13
 
 # Remove bundled library sources before build
 rm -rf src/ThirdParty/{Catch,PEGTL}

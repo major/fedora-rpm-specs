@@ -1,6 +1,6 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.57.0
+Version:        1.58.1
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -9,9 +9,9 @@ URL:            https://github.com/aws/serverless-application-model
 # and tests.
 Source0:        %{url}/archive/v%{version}/serverless-application-model-%{version}.tar.gz
 
-# The base package is arched because we conditionalize tests; the binary
-# packages are all noarch, and there is no compiled code.
-%global debug_package %{nil}
+BuildArch:      noarch
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 
@@ -27,7 +27,23 @@ serverless applications.}
 %package -n     python3-aws-sam-translator
 Summary:        %{summary}
 
-BuildArch:      noarch
+# The bundled version is quite close to upstream. It has some “ignore” type
+# annotations added, some if statements were reordered (apparently to put this
+# library’s common case first for performance), and an LRU cache layer was
+# added.
+#
+# When the type annotations were the only difference, we unbundled this as a
+# downstream patch. Now we bundle again, but we have asked upstream about a
+# path to unbundling—a request which was mandated by
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/#bundling:
+#
+#   Path to using upstream py27hash as a dependency?
+#   https://github.com/aws/serverless-application-model/issues/2815
+#
+# Upstream refused: “Unfortunately due to how the SAM transform is consumed
+# this would be a little tricky, so unless there's customer impact, it's not
+# something we're looking to change at this time.”
+Provides:       bundled(python3dist(py27hash)) = 1.0.2
 
 Obsoletes:      python-aws-sam-translator-doc < 1.54.0-1
 
@@ -36,14 +52,6 @@ Obsoletes:      python-aws-sam-translator-doc < 1.54.0-1
 
 %prep
 %autosetup -n serverless-application-model-%{version}
-
-# Unbundle bundled “third-party” dependencies
-rm -rvf THIRD_PARTY_LICENSES samtranslator/third_party
-sed -r -i '/^[[:blank:]]*"THIRD_PARTY_LICENSES",[[:blank:]]*$/d' setup.py
-sed -r -i '/^[[:blank:]]*THIRD_PARTY_LICENSES[[:blank:]]*$/d' setup.cfg
-sed -r -i 's/samtranslator\.third_party\.(py27hash)/\1/g' \
-    samtranslator/utils/py27hash_fix.py
-echo 'py27hash >= 1.0.2' >> requirements/base.txt
 
 # Comment out a few dev dependencies that we will not use. Then, loosen
 # selected semver-pinned dev dependencies, allowing newer versions.
@@ -74,20 +82,14 @@ rm -rvf '%{buildroot}%{python3_sitelib}/bin'
 
 
 %check
-%if 0%{?__isa_bits} == 32
-# This test only has an expected value for 64-bit platforms. Since we no longer
-# need to support 32-bit platforms, we don’t bother trying to fix it:
-# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-# https://fedoraproject.org/wiki/Changes/RetireARMv7
-k="${k-}${k+ and }not (TestPy27UniStr and test_py27_hash)"
-%endif
 # See Makefile target “test”. We cannot run the interaction tests because they
 # interact with AWS.
 AWS_DEFAULT_REGION=us-east-1 %pytest -k "${k-}" -n auto
 
 
 %files -n python3-aws-sam-translator -f %{pyproject_files}
-# pyproject-rpm-macros handles LICENSE/NOTICE; verify with “rpm -qL -p …”
+# pyproject-rpm-macros handles LICENSE/NOTICE/THIRD_PARTY_LICENSES; verify with
+# “rpm -qL -p …”
 %doc CODE_OF_CONDUCT.md
 %doc CONTRIBUTING.md
 %doc DESIGN.md

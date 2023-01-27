@@ -7,13 +7,14 @@
 Summary: Small Footprint CIM Client Library
 Name: sblim-sfcc
 Version: 2.2.8
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: EPL-1.0
 URL: http://www.sblim.org
 Source0: http://downloads.sourceforge.net/project/sblim/%{name}/%{name}-%{version}.tar.bz2
 # Patch0: fixes docdir name and removes install of COPYING with license
 #   which is included through %%license
 Patch0: sblim-sfcc-2.2.8-docdir-license.patch
+Patch1: c99.patch
 BuildRequires: make
 BuildRequires: curl-devel chrpath
 BuildRequires: gcc gcc-c++
@@ -33,6 +34,7 @@ Small Footprint CIM Client Library Header Files and Link Libraries
 
 %setup -q
 %patch0 -p1 -b .docdir-license
+%patch1 -p1 -b .c99
 
 %build
 chmod a-x backend/cimxml/*.[ch]
@@ -64,6 +66,10 @@ chrpath --delete $RPM_BUILD_ROOT%{_libdir}/libcmpisfcc.so.1.0.0
 %{_libdir}/libcmpisfcc.so
 
 %changelog
+* Wed Jan 18 2023 Timm Bäder <tbaeder@redhat.com> - 2.2.8-21
+- Add downstream patch to fix c99 incompatibilities
+- https://fedoraproject.org/wiki/Changes/PortingToModernC
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.8-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

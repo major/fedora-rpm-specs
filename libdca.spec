@@ -3,7 +3,7 @@
 Summary: DTS Coherent Acoustics decoder library
 Name: libdca
 Version: 0.0.7
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: GPL-2.0-or-later
 URL: https://code.videolan.org/videolan/libdca
 Source: http://download.videolan.org/pub/videolan/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -31,6 +31,7 @@ applications that use %{name}.
 
 %package tools
 Summary: Various tools for use with %{name}
+Requires: %{name}%{?_isa} = %{version}-%{release}
 
 %description tools
 Various tools that use %{name}.
@@ -73,6 +74,9 @@ find $RPM_BUILD_ROOT -name '*.la' -or -name '*.a' | xargs rm -f
 %{_libdir}/%{name}.so
 
 %changelog
+* Wed Jan 25 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.0.7-8
+- Add strict dependency for tools on the library
+
 * Tue Jan 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.0.7-7
 - Adapt for Fedora
 

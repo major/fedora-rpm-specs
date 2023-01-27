@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phpmyadmin-sql-parser5
 #
 # Copyright (c) 2015-2023 Remi Collet
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    63f2f77847586864a661ef009ae687dbdda0a9f1
+%global gh_commit    0f5895aab2b6002d00b6831b60983523dea30bff
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpmyadmin
 #global gh_date      20150820
@@ -19,11 +19,11 @@
 %global major        5
 
 Name:           php-%{gh_owner}-%{gh_project}%{major}
-Version:        5.6.0
-Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Version:        5.7.0
+Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        A validating SQL lexer and parser with a focus on MySQL dialect
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
 
@@ -33,16 +33,18 @@ Patch0:         %{name}-autoload.patch
 BuildArch:      noarch
 BuildRequires:  gettext
 %if %{with tests}
-BuildRequires:  php(language) >= 7.1
-BuildRequires:  php-composer(phpmyadmin/motranslator) >= 3.0
+BuildRequires:  php(language) >= 7.2
+BuildRequires: (php-composer(phpmyadmin/motranslator) >= 5     with php-composer(phpmyadmin/motranslator) < 6)
+BuildRequires: (php-composer(symfony/polyfill-php80)  >= 1.16  with php-composer(symfony/polyfill-php80)  < 2)
 BuildRequires:  php-mbstring
 BuildRequires:  php-spl
 # For tests, from composer.json "require-dev": {
+#        "phpbench/phpbench": "^1.1",
 #        "phpmyadmin/coding-standard": "^3.0",
 #        "phpmyadmin/motranslator": "^4.0 || ^5.0",
 #        "phpstan/extension-installer": "^1.1",
-#        "phpstan/phpstan": "^1.2",
-#        "phpstan/phpstan-phpunit": "^1.0",
+#        "phpstan/phpstan": "^1.9.12",
+#        "phpstan/phpstan-phpunit": "^1.3.3",
 #        "phpunit/php-code-coverage": "*",
 #        "phpunit/phpunit": "^7.5 || ^8.5 || ^9.5",
 #        "psalm/plugin-phpunit": "^0.16.1",
@@ -56,15 +58,17 @@ BuildRequires:  php-composer(zumba/json-serializer) >= 3.0
 BuildRequires:  php-composer(fedora/autoloader)
 
 # From composer.json, "require": {
-#        "php": "^7.1 || ^8.0",
-#        "symfony/polyfill-mbstring": "^1.3"
+#        "php": "^7.2 || ^8.0",
+#        "symfony/polyfill-mbstring": "^1.3",
+#        "symfony/polyfill-php80": "^1.16"
 # From composer.json, "conflict": {
 #        "phpmyadmin/motranslator": "<3.0"
 # From composer.json, "suggest": {
 #        "ext-mbstring": "For best performance",
 #        "phpmyadmin/motranslator": "Translate messages to your favorite locale"
-Requires:       php(language) >= 7.1
-Requires:       php-composer(phpmyadmin/motranslator) >= 3.0
+Requires:       php(language) >= 7.2
+Requires:      (php-composer(phpmyadmin/motranslator) >= 5     with php-composer(phpmyadmin/motranslator) < 6)
+Requires:      (php-composer(symfony/polyfill-php80)  >= 1.16  with php-composer(symfony/polyfill-php80)  < 2)
 # Mandatory to avoid symfony/polyfill-mbstring
 Requires:       php-mbstring
 # From phpcompatinfo report for 5.0.0
@@ -101,10 +105,8 @@ require_once '%{_datadir}/php/Fedora/Autoloader/autoload.php';
 
 \Fedora\Autoloader\Autoload::addPsr4('%{ns_vendor}\\%{ns_project}\\', __DIR__);
 \Fedora\Autoloader\Dependencies::required([
-    [
-        '%{_datadir}/php/PhpMyAdmin/MoTranslator5/autoload.php',
-        '%{_datadir}/php/PhpMyAdmin/MoTranslator/autoload.php',
-    ]
+    '%{_datadir}/php/Symfony/Polyfill/autoload.php',
+    '%{_datadir}/php/PhpMyAdmin/MoTranslator5/autoload.php',
 ]);
 AUTOLOAD
 
@@ -131,9 +133,7 @@ install -Dpm 0755 bin/highlight-query %{buildroot}%{_bindir}/%{name}-highlight-q
 install -Dpm 0755 bin/lint-query      %{buildroot}%{_bindir}/%{name}-lint-query
 install -Dpm 0755 bin/tokenize-query  %{buildroot}%{_bindir}/%{name}-tokenize-query
 
-%if 0%{?fedora} >= 12 || 0%{?rhel} >= 7
 %find_lang sqlparser
-%endif
 
 
 %check
@@ -185,6 +185,11 @@ exit $ret
 
 
 %changelog
+* Wed Jan 25 2023 Remi Collet <remi@remirepo.net> - 5.7.0-1
+- update to 5.7.0
+- raise dependency on PHP 7.2
+- add dependency on symfony/polyfill-php80
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

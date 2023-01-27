@@ -18,7 +18,7 @@
 
 Name:		insight
 Version:	%(echo %{ver} | tr - .)%{?snap:.%{snap}}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Graphical debugger based on GDB
 License:	GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and BSD and Public Domain and GFDL
 Url:		https://www.sourceware.org/insight/
@@ -90,6 +90,7 @@ Patch202:	insight-13.0-bfd-CVE-2022-4285,patch
 Patch203:	insight-13.0-print-check-value.patch
 Patch204:	insight-13.0-distutils.patch
 Patch205:	insight-13.0-noselfmove.patch
+Patch206:	insight-configure-c99.patch
 
 
 %description
@@ -125,6 +126,7 @@ the latest GDB version.
 %patch203 -p1
 %patch204 -p1
 %patch205 -p1
+%patch206 -p1
 
 
 #-------------------------------------------------------------------------------
@@ -320,6 +322,9 @@ ${INSTALL} -m 644 gdb/gdbtk/insight_icon.svg				\
 
 #-------------------------------------------------------------------------------
 %changelog
+* Wed Jan 25 2023 Florian Weimer <fweimer@redhat.com> - 13.0.50.20220502-8
+- Apply binutils-gdb upstream patch to fix C99 issue in configure script
+
 #-------------------------------------------------------------------------------
 
 * Tue Jan 24 2023 Patrick Monnerat <patrick@monnerat.net> 13.0.50.20220502-7

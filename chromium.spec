@@ -29,13 +29,6 @@
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1
 
-# enable|disble bootstrap for gn
-%if 0%{?rhel} >= 8 || 0%{?fedora}
-%global bootstrap 0
-%else
-%global bootstrap 1
-%endif
-
 # Fancy build status, so we at least know, where we are..
 # %1 where
 # %2 what
@@ -48,9 +41,6 @@
 
 # enable|disable chrome-remote-desktop build
 %global build_remoting 0
-
-# set nodejs_version
-%global nodejs_version v16.17.0
 
 # set version for devtoolset and gcc-toolset
 %global dts_version 12
@@ -231,8 +221,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 109.0.5414.74
-Release: 4%{?dist}
+Version: 109.0.5414.119
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -264,9 +254,6 @@ Patch8: chromium-108-widevine-other-locations.patch
 
 # Do not download proprietary widevine module in the background (thanks Debian)
 Patch9: chromium-99.0.4844.51-widevine-no-download.patch
-
-# Tell bootstrap.py to always use the version of Python we specify
-Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
 
 # Add "Fedora" to the user agent string
 Patch12: chromium-101.0.4951.41-fedora-user-agent.patch
@@ -402,12 +389,6 @@ Source9: chromium-browser.xml
 Source11: chrome-remote-desktop@.service
 Source13: master_preferences
 
-# RHEL 8 needs newer nodejs
-%if 0%{?rhel} == 8
-Source19: https://nodejs.org/dist/latest-v16.x/node-%{nodejs_version}-linux-x64.tar.xz
-Source21: https://nodejs.org/dist/latest-v16.x/node-%{nodejs_version}-linux-arm64.tar.xz
-%endif
-
 # Unpackaged fonts
 Source14: https://fontlibrary.org/assets/downloads/gelasio/4d610887ff4d445cbc639aae7828d139/gelasio.zip
 Source15: http://download.savannah.nongnu.org/releases/freebangfont/MuktiNarrow-0.94.tar.bz2
@@ -509,17 +490,8 @@ BuildRequires:	minizip-compat-devel
 %endif
 %endif
 
-# RHEL 8 needs newer nodejs
-%if 0%{?rhel} == 8
-# nothing
-%else
 BuildRequires: nodejs
-%endif
-
-# use system gn on fedora and rhel >=8, el7 needs bundle gn
-%if ! %{bootstrap}
 BuildRequires: gn
-%endif
 
 BuildRequires:	nss-devel >= 3.26
 BuildRequires:	pciutils-devel
@@ -532,11 +504,6 @@ BuildRequires:	pkgconfig(libpipewire-0.3)
 
 # for /usr/bin/appstream-util
 BuildRequires: libappstream-glib
-
-%if %{bootstrap}
-# gn needs these
-BuildRequires: libstdc++-static
-%endif
 
 # Fedora tries to use system libs whenever it can.
 BuildRequires:	bzip2-devel
@@ -954,7 +921,6 @@ udev.
 %patch7 -p1 -b .widevine-hack
 %patch8 -p1 -b .widevine-other-locations
 %patch9 -p1 -b .widevine-no-download
-%patch11 -p1 -b .py3
 
 # Short term fixes (usually gcc and backports)
 %patch51 -p1 -b .gcc-remoting-constexpr
@@ -1117,23 +1083,8 @@ cp -a %{SOURCE114} .
 cp -a %{SOURCE115} .
 popd
 
-%if 0%{?rhel} == 8
-  pushd third_party/node/linux
-%ifarch x86_64
-  tar xf %{SOURCE19}
-  mv node-%{nodejs_version}-linux-x64 node-linux-x64
-%endif
-%ifarch aarch64
-  tar xf %{SOURCE21}
-  mv node-%{nodejs_version}-linux-arm64 node-linux-arm64
-  # This is weird, but whatever
-  ln -s node-linux-arm64 node-linux-x64
-%endif
-popd
-%else
-  mkdir -p third_party/node/linux/node-linux-x64/bin
-  ln -s %{_bindir}/node third_party/node/linux/node-linux-x64/bin/node
-%endif
+mkdir -p third_party/node/linux/node-linux-x64/bin
+ln -s %{_bindir}/node third_party/node/linux/node-linux-x64/bin/node
 
 # Get rid of the pre-built eu-strip binary, it is x86_64 and of mysterious origin
 rm -rf buildtools/third_party/eu-strip/bin/eu-strip
@@ -1387,20 +1338,14 @@ if python3 -c 'import google ; print google.__path__' 2> /dev/null ; then \
     exit 1 ; \
 fi
 
-%if %{bootstrap}
-tools/gn/bootstrap/bootstrap.py --gn-gen-args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES"
-%else
-mkdir -p %{builddir} && cp -a %{_bindir}/gn %{builddir}/
-%endif
-
-%{builddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{builddir}
+gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{builddir}
 
 %if %{build_headless}
-%{builddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_HEADLESS_GN_DEFINES" %{headlessbuilddir}
+gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_HEADLESS_GN_DEFINES" %{headlessbuilddir}
 %endif
 
 %if %{build_remoting}
-%{builddir}/gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{remotingbuilddir}
+gn --script-executable=%{chromium_pybin} gen --args="$CHROMIUM_CORE_GN_DEFINES $CHROMIUM_BROWSER_GN_DEFINES" %{remotingbuilddir}
 %endif
 
 %if %{build_headless}
@@ -1788,6 +1733,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Jan 25 2023 Than Ngo <than@redhat.com> - 109.0.5414.119-1
+- update to 109.0.5414.119
+
 * Sun Jan 22 2023 Than Ngo <than@redhat.com> - 109.0.5414.74-4
 - clean up
 

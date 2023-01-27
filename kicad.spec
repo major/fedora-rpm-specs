@@ -1,24 +1,24 @@
+%global candidate rc2
+
 Name:           kicad
-Version:        6.0.10
-Release:        4%{?dist}
+Version:        7.0.0
+Release:        0.3.%{candidate}%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
 License:        GPL-3.0-or-later
 URL:            https://www.kicad.org
 
-Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%{version}/kicad-%{version}.tar.gz
-Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%{version}/kicad-doc-%{version}.tar.gz
-Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{version}/kicad-templates-%{version}.tar.gz
-Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}/kicad-symbols-%{version}.tar.gz
-Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}/kicad-footprints-%{version}.tar.gz
-Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}/kicad-packages3D-%{version}.tar.gz
-
-Patch1:         gcc.patch
+Source0:        https://gitlab.com/kicad/code/kicad/-/archive/%{version}-%{candidate}/kicad-%{version}-%{candidate}.tar.gz
+Source1:        https://gitlab.com/kicad/services/kicad-doc/-/archive/%{version}-%{candidate}/kicad-doc-%{version}-%{candidate}.tar.gz
+Source2:        https://gitlab.com/kicad/libraries/kicad-templates/-/archive/%{version}-%{candidate}/kicad-templates-%{version}-%{candidate}.tar.gz
+Source3:        https://gitlab.com/kicad/libraries/kicad-symbols/-/archive/%{version}-%{candidate}/kicad-symbols-%{version}-%{candidate}.tar.gz
+Source4:        https://gitlab.com/kicad/libraries/kicad-footprints/-/archive/%{version}-%{candidate}/kicad-footprints-%{version}-%{candidate}.tar.gz
+Source5:        https://gitlab.com/kicad/libraries/kicad-packages3D/-/archive/%{version}-%{candidate}/kicad-packages3D-%{version}-%{candidate}.tar.gz
 
 
 # https://gitlab.com/kicad/code/kicad/-/issues/237
-ExclusiveArch:  %{ix86} x86_64 %{arm} aarch64 ppc64le
+ExclusiveArch:  x86_64 aarch64 ppc64le
 
 BuildRequires:  boost-devel
 BuildRequires:  chrpath
@@ -38,6 +38,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-wxpython4
 BuildRequires:  shared-mime-info
 BuildRequires:  swig
+BuildRequires:  unixODBC-devel
 BuildRequires:  zlib-devel
 
 # For F37 and up, use wxGTK-devel instead of wxGTK3-devel.  Once F36 becomes
@@ -52,17 +53,19 @@ BuildRequires:  wxGTK3-devel
 BuildRequires:  po4a
 BuildRequires:  rubygem-asciidoctor
 
+Provides:       bundled(fmt) = 9.0.0
 Provides:       bundled(libdxflib) = 3.26.4
 Provides:       bundled(polyclipping) = 6.4.2
 Provides:       bundled(potrace) = 1.15
 
 Requires:       electronics-menu
 Requires:       python3-wxpython4
+Requires:       unixODBC
 
 # ngspice contains the spice models.  Not strictly required, but recommended.
 Recommends:     ngspice
 
-Conflicts:      kicad-doc < %{epoch}:%{version}-%{release}
+Suggests:       kicad
 
 %description
 KiCad is EDA software to design electronic schematic
@@ -73,7 +76,7 @@ diagrams and printed circuit board artwork of up to
 Summary:        3D Models for KiCad
 License:        CC-BY-SA
 BuildArch:      noarch
-Requires:       kicad >= 6.0.0
+Requires:       kicad >= 7.0.0
 
 %description    packages3d
 3D Models for KiCad.
@@ -88,9 +91,31 @@ Documentation for KiCad.
 
 
 %prep
-%setup -q -a 1 -a 2 -a 3 -a 4 -a 5
+# The -rc1 source tar has a root directory that includes the -rc1
+# name component, so we have to account for that.
+%setup -n kicad-%{version}-%{candidate} -q
 
-%patch1 -p1
+# The doc repo will create a tar with -rc1 in the root dir name.  We
+# rename the dir to remove the -rc1 portion.  The remaining tars need
+# similar adjustments.
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 1
+mv kicad-doc-%{version}-%{candidate} kicad-doc-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 2
+mv kicad-templates-%{version}-%{candidate} kicad-templates-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 3
+mv kicad-symbols-%{version}-%{candidate} kicad-symbols-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 4
+mv kicad-footprints-%{version}-%{candidate} kicad-footprints-%{version}
+
+%setup -n kicad-%{version}-%{candidate} -q -D -T -a 5
+mv kicad-packages3D-%{version}-%{candidate} kicad-packages3D-%{version}
+
+# Once we get beyond the rc stage, we will be able to replace the above
+# with:
+#%%setup -q -a 1 -a 2 -a 3 -a 4 -a 5
 
 
 %build
@@ -104,7 +129,6 @@ Documentation for KiCad.
     -DKICAD_SPICE=ON \
     -DKICAD_BUILD_I18N=ON \
     -DKICAD_I18N_UNIX_STRICT_PATH=ON \
-    -DKICAD_PCM=ON \
     -DKICAD_USE_EGL=OFF \
     -DKICAD_VERSION_EXTRA=%{release} \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -211,7 +235,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/icons/hicolor/*/apps/*.*
 %{_datadir}/icons/hicolor/*/mimetypes/application-x-*.*
 %{_datadir}/mime/packages/*.xml
-%{_docdir}/%{name}/scripts/
 %{_metainfodir}/*.metainfo.xml
 %license LICENSE*
 %exclude %{_datadir}/%{name}/3dmodels/*
@@ -227,6 +250,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Wed Jan 25 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.0-0.3.rc2
+- Update to 7.0.0-0.3.rc2
+
+* Wed Jan 25 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.11-1
+- Update to 6.0.11
+
 * Thu Jan 19 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.10-4
 - GCC13 fix
 
@@ -235,6 +264,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 * Sat Jan 14 2023 Richard Shaw <hobbes1069@gmail.com> - 1:6.0.10-2
 - Rebuild for opencascade.
+
+* Sat Jan 07 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.0-0.1.rc1
+- Test build for 7.0.0-0.1.rc1
 
 * Sun Dec 18 2022 Steven A. Falco <stevenfalco@gmail.com> - 1:6.0.10-1
 - Update to 6.0.10

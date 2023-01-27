@@ -31,6 +31,7 @@ BuildRequires: zlib-devel >= 1.2.7
 BuildRequires: help2man
 %ifarch %{power64}
 BuildRequires: libcxl-devel
+BuildRequires: systemd-devel
 %endif
 BuildRequires: make
 Source0: https://github.com/ibm-genwqe/genwqe-user/archive/v%{version}.tar.gz#/genwqe-user-%{version}.tar.gz
@@ -71,14 +72,15 @@ developing applications that use %{name}.
 %autosetup -p1 -n genwqe-user-%{version}
 
 %build
-LDFLAGS="%{__global_ldflags}" CFLAGS="%{optflags}" make %{?_smp_mflags} tools lib \
- VERSION=%{version} CONFIG_ZLIB_PATH=%{_libdir}/libz.so V=2
+LDFLAGS="%{build_ldflags}" CFLAGS="%{build_cflags}" %{make_build} tools lib \
+ VERSION=%{version} CONFIG_ZLIB_PATH=%{_libdir}/libz.so V=2 PLATFORM=$(uname -m)
 
 %install
-make %{?_smp_mflags} install DESTDIR=%{buildroot}/%{_prefix} \
+%{make_install} DESTDIR=%{buildroot}/%{_prefix} \
     SYSTEMD_UNIT_DIR=%{buildroot}/%{_unitdir} \
     LIB_INSTALL_PATH=%{buildroot}/%{_libdir}/genwqe \
-    INCLUDE_INSTALL_PATH=%{buildroot}/%{_includedir}/genwqe
+    INCLUDE_INSTALL_PATH=%{buildroot}/%{_includedir}/genwqe \
+    PLATFORM=$(uname -m)
 
 # move genwqe_vpd.csv to expected location.
 mkdir -p %{buildroot}/%{_sysconfdir}/
@@ -125,7 +127,7 @@ rmdir %{buildroot}%{_libdir}/genwqe/
 %ifarch %{power64}
 %{_bindir}/genwqe_maint
 %{_bindir}/genwqe_loadtree
-/%{_unitdir}/genwqe_maint.service
+%{_unitdir}/genwqe_maint.service
 %{_mandir}/man1/genwqe_maint.1*
 %{_mandir}/man1/genwqe_loadtree.1*
 %endif

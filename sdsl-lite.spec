@@ -18,18 +18,19 @@ ExclusiveArch: %{power64} x86_64 aarch64
 Name:      sdsl-lite
 Summary:   SDSL v3 - Succinct Data Structure Library
 Version:   3.0.1
-Release:   4%{date}%{shortcommit}%{?dist}
+Release:   5%{date}%{shortcommit}%{?dist}
 License:   BSD and MIT
-URL:       https://github.com/xxsds/sdsl-lite
-Source0:   https://github.com/xxsds/sdsl-lite/archive/v%{version}/%{name}-%{version}.tar.gz
+URL:       https://github.com/xxsds/%{name}
+Source0:   https://github.com/xxsds/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake
 BuildRequires: cereal-devel >= 1.3.0
 BuildRequires: gtest-devel >= 1.10.0
 
-Patch0: sdsl-lite-unbundle_libraries.patch
-Patch1: sdsl-lite-disable_mbmi2_support.patch
+Patch0: %{name}-unbundle_libraries.patch
+Patch1: %{name}-disable_mbmi2_support.patch
+Patch2: %{name}-gcc13_support.patch
 
 %description
 The Succinct Data Structure Library (SDSL) is a powerful and flexible C++11
@@ -63,6 +64,7 @@ Info files of SeqAn's apps.
 
 %patch0 -p1 -b .unbundle_cereal
 %patch1 -p1 -b .disable_mbmi2_support
+%patch2 -p1 -b .gcc13
 
 %build
 %cmake -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE -DCMAKE_BUILD_TYPE:STRING=Release \
@@ -90,6 +92,9 @@ rm -f %{buildroot}%{_includedir}/sdsl/.gitignore
 %{_includedir}/sdsl/
 
 %changelog
+* Tue Jan 24 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.1-5
+- Fix for GCC-13
+
 * Mon Jan 23 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.0.1-4
 - Remove pkgconfig file
 

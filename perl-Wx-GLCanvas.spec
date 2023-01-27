@@ -1,6 +1,6 @@
 Name:           perl-Wx-GLCanvas
 Version:        0.09
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        Interface to wxWidgets' OpenGL canvas
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Wx-GLCanvas
@@ -16,7 +16,7 @@ BuildRequires:  perl(Exporter)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Wx::build::MakeMaker) >= 0.16
-BuildRequires:  wxGTK3-devel
+BuildRequires:  wxGTK-devel
 
 %bcond_without tests
 %if %{with tests}
@@ -38,7 +38,7 @@ rm -rf wx
 chmod -x Changes README.txt
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags} -I/usr/include/wx-3.0"
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags} -I/usr/include/wx-3.2"
 %make_build
 
 %install
@@ -61,6 +61,9 @@ xvfb-run make test
 %{_mandir}/man3/Wx::GLCanvas*
 
 %changelog
+* Sat Jan 21 2023 Scott Talbert <swt@techie.net> - 0.09-34
+- Rebuild with wxWidgets 3.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.09-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

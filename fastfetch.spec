@@ -1,5 +1,5 @@
 Name:           fastfetch
-Version:        1.9.0
+Version:        1.9.1
 Release:        1%{?dist}
 Summary:        Like neofetch, but much faster because written in c
 
@@ -50,9 +50,6 @@ Recommends:     ocl-icd
 Recommends:     chafa
 %endif
 
-# https://github.com/LinusDierheimer/fastfetch/issues/401
-Patch:          add_s390x_support.patch
-
 %description
 fastfetch is a neofetch-like tool for fetching system information and
 displaying them in a pretty way. It is written in c to achieve much better
@@ -100,6 +97,9 @@ BuildArch: noarch
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Wed Jan 25 2023 Jonathan Wright <jonathan@almalinux.org> - 1.9.1-1
+- Update to 1.9.1 rhbz#2163335
+
 * Mon Jan 23 2023 Jonathan Wright <jonathan@almalinux.org> - 1.9.0-1
 - Update to 1.9.0 rhbz#2163335
 

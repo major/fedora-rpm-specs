@@ -49,8 +49,8 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        283
-Release:        2%{?dist}
+Version:        284
+Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
 # in RHEL 8 the source package is duplicated: cockpit (building basic packages like cockpit-{bridge,system})
@@ -675,6 +675,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Jan 25 2023 Packit <hello@packit.dev> - 284-1
+- Services: Show logs for user units
+- Storage: Set up a system to use NBDE
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 283-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

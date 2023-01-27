@@ -2,8 +2,8 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        16.4
-Release:        2%{?dist}
+Version:        16.7.2
+Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 # Disabled while can't fix build
@@ -49,7 +49,9 @@ BuildRequires:  ninja-build
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
+BuildRequires:  cargo
 BuildRequires:  python3
+BuildRequires:  rust-packaging
 
 BuildRequires:  pkgconfig(freetype2)
 BuildRequires:  pkgconfig(glew)
@@ -73,7 +75,7 @@ BuildRequires:  glslang
 #BuildRequires:  pkgconfig(libswscale)
 #BuildRequires:  pkgconfig(libswresample)
 #BuildRequires:  pkgconfig(x264)
-
+BuildRequires:  (crate(cxx/default) >= 1.0.0 with crate(cxx/default) < 2.0.0~)
 BuildRequires:  gmock-devel
 # pkgconfig not available
 BuildRequires:  pnglite-devel
@@ -116,6 +118,8 @@ Standalone server for %{name}.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+%cargo_prep
+sed '/Cargo.lock/d' -i CMakeLists.txt
 touch CMakeLists.txt
 
 # Remove bundled stuff...
@@ -172,6 +176,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Wed Jan 25 2023 Sérgio Basto <sergio@serjux.com> - 16.7.2-1
+- Update ddnet to 16.7.2 (#2136968)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

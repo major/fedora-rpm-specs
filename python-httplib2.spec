@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.20.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Comprehensive HTTP client library
 License:        MIT
 URL:            https://pypi.python.org/pypi/httplib2
@@ -31,6 +31,8 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-timeout
 BuildRequires:  python3-six
 BuildRequires:  python3-cryptography
+# This is a runtime dependency required to run the tests:
+BuildRequires:  python3-pyparsing
 
 %description -n python3-%{srcname} %{_description}
 
@@ -74,6 +76,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest -k "not test_unknown_server \
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Wed Jan 25 2023 Miro Hrončok <mhroncok@redhat.com> - 0.20.4-8
+- Explicitly BuildRequire runtime dependencies for tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

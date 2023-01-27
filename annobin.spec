@@ -2,7 +2,7 @@
 Name:    annobin
 Summary: Annotate and examine compiled binary files
 Version: 11.07
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -372,9 +372,17 @@ export CFLAGS="$CFLAGS -DAARCH64_BRANCH_PROTECTION_SUPPORTED=1"
 export CFLAGS="$CFLAGS $RPM_OPT_FLAGS %build_cflags"
 export LDFLAGS="$LDFLAGS %build_ldflags"
 
+# Set target-specific security options to be used when building the
+# Clang and LLVM plugins.  FIXME: There should be a better way to do
+# this.
 %ifarch %{ix86} x86_64
-# FIXME: There should be a better way to do this.
 export CLANG_TARGET_OPTIONS="-fcf-protection"
+%endif
+
+%ifarch aarch64
+%if 0%{?fedora} != 0
+export CLANG_TARGET_OPTIONS="-mbranch-protection=standard"
+%endif
 %endif
 
 %ifarch ppc ppc64 ppc64le
@@ -514,6 +522,10 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Jan 25 2023 Nick Clifton  <nickc@redhat.com> - 11.07-2
+- LLVM & Clang Plugins: Build with branch protection on AArch64.  (#2164364)
+- Fix gating tests.
+
 * Fri Jan 20 2023 Nick Clifton  <nickc@redhat.com> - 11.07-1
 - Libannocheck: Fix bug causing infinite looping when running tests.
 

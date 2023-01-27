@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        38
-Release:        0.3%{?eln:.eln%{eln}}
+Release:        0.4%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -78,6 +78,7 @@ Source56:       RPM-GPG-KEY-fedora-36-primary
 Source57:       RPM-GPG-KEY-fedora-37-primary
 Source58:       RPM-GPG-KEY-fedora-38-primary
 Source59:       RPM-GPG-KEY-fedora-39-primary
+Source60:       RPM-GPG-KEY-fedora-40-primary
 # When bumping Rawhide to fN, create N+1 key (and update archmap). (This
 # ensures users have the next future key installed and referenced, even if they
 # don't update very often. This will smooth out Rawhide N->N+1 transition for them).
@@ -411,6 +412,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Wed Jan 25 2023 Tomas Hrcka <thrcka@redhat.com> - 38-0.4
+- Add RPM-GPG-KEY-fedora-40-primary
+
 * Tue Aug 16 2022 Adam Williamson <awilliam@redhat.com> - 38.0-3
 - Fix RPM-GPG-KEY-fedora-39-primary (dustymabe)
 

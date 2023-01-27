@@ -3,7 +3,8 @@
 
 # https://github.com/hsiafan/httpdump
 %global goipath         github.com/hsiafan/httpdump
-%global commit          e6fa868dadc05ec06439a3e9f3e658055a099592
+%global commit          49c42ed00eb34bec5e1c7926bbf6272f47b7dafb
+%global date            20220727
 
 %gometa
 
@@ -15,7 +16,7 @@ Capture and parse HTTP traffic.}
 
 Name:           httpdump
 Version:        0
-Release:        0.9%{?dist}
+Release:        0.10%{?dist}
 Summary:        Capture and parse HTTP traffic
 
 # Upstream license specification: BSD-2-Clause
@@ -71,6 +72,9 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
+* Sat Jan 21 2023 Michal Ambroz <rebus _AT seznam.cz> - 0-0.10
+- bump to current git commit from 20220727
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

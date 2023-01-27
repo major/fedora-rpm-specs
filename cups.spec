@@ -439,8 +439,6 @@ s:.*\('%{_datadir}'/\)\([^/_]\+\)\(.*\.po$\):%lang(\2) \1\2\3:
 ' > %{name}.lang
 
 %post
-%systemd_post %{name}.path %{name}.socket %{name}.service
-
 # remove this after F36 is EOL
 # - previously the file was empty by default, so check whether the directive exists
 #   and if not, add the directive+value
@@ -460,8 +458,11 @@ grep '^\s*DigestOptions' %{_sysconfdir}/cups/client.conf &> /dev/null || echo 'D
 # the ending tag, print the whole pattern buffer. The buffer is checked for AuthType and Require directives.
 # If they already exist, we don't add anything. cupsd.conf.rpmsave is created as a backup.
 sed -ne '/^\s*<Location \/admin>/ { :loop; /<\/Location>/ ! {N; b loop}; p }' %{_sysconfdir}/cups/cupsd.conf \
-| grep -E '^\s*(AuthType|Require)' &> /dev/null || cp %{_sysconfdir}/cups/cupsd.conf{,.rpmsave} && \
-sed -i '/^\s*<Location \/admin>/a\  AuthType Default\n  Require user @SYSTEM' %{_sysconfdir}/cups/cupsd.conf
+| grep -E '^\s*(AuthType|Require)' &> /dev/null || \
+sed -i.rpmsave '/^\s*<Location \/admin>/a\  AuthType Default\n  Require user @SYSTEM' %{_sysconfdir}/cups/cupsd.conf
+
+# required for systemd units
+%systemd_post %{name}.path %{name}.socket %{name}.service
 
 %post client
 %if %{use_alternatives}

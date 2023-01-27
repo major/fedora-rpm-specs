@@ -24,7 +24,7 @@ Patch1:         gtk3.patch
 Patch2:         wxWidgets_3.2_MakeMaker.patch
 Patch3:         wxWidgets_3.2_port.patch
 BuildRequires:  make
-BuildRequires:  wxGTK3-devel
+BuildRequires:  wxGTK-devel
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc-c++
@@ -71,6 +71,7 @@ Provides: perl(Wx::AutoBufferedPaintDC)
 Provides: perl(Wx::BannerWindow)
 Provides: perl(Wx::BestHelpController)
 Provides: perl(Wx::Bitmap)
+Provides: perl(Wx::BitmapBundle)
 Provides: perl(Wx::BitmapButton)
 Provides: perl(Wx::BitmapComboBox)
 Provides: perl(Wx::BitmapDataObject)
@@ -382,7 +383,7 @@ Provides: perl(Wx::OwnerDrawnComboBox)
 Provides: perl(Wx::PageSetupDialog)
 Provides: perl(Wx::PageSetupDialogData)
 Provides: perl(Wx::PaintDC)
-Provides: perl(Wx::PaintEvent)
+# Provides: perl(Wx::PaintEvent)
 Provides: perl(Wx::Palette)
 Provides: perl(Wx::Panel)
 Provides: perl(Wx::PasswordEntryDialog)
@@ -592,6 +593,7 @@ Provides: perl(Wx::TextCtrlBase)
 Provides: perl(Wx::TextCtrlIface)
 Provides: perl(Wx::TextDataObject)
 Provides: perl(Wx::TextDropTarget)
+Provides: perl(Wx::TextEntry)
 Provides: perl(Wx::TextEntryDialog)
 Provides: perl(Wx::TextUrlEvent)
 Provides: perl(Wx::TGAHandler)

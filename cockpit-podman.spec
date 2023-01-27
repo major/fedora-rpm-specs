@@ -16,10 +16,10 @@
 #
 
 Name:           cockpit-podman
-Version:        60
-Release:        2%{?dist}
+Version:        61
+Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/cockpit-project/cockpit-podman
 
 Source0:        https://github.com/cockpit-project/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
@@ -58,6 +58,10 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Jan 25 2023 Packit <hello@packit.dev> - 61-1
+- Use container image's default command
+- Fix tabular numbers font
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 60-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

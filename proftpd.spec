@@ -3,6 +3,11 @@
 #  --with integrationtests	enable integration tests (not fully maintained, likely to fail)
 #
 
+# pcre2 available from Fedora 27, EL-8 onwards
+%if (0%{?rhel} && 0%{?rhel} >= 8) || (0%{?fedora} && 0%{?fedora} >= 27)
+%global pcre2_support 1
+%endif
+
 # Switch from mysql-devel to mariadb-connector-c-devel from Fedora 28 onwards
 # Also disable tcp_wrappers support from Fedora 28 onwards (#1518776)
 %if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 27)
@@ -35,7 +40,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 2
+%global baserelease 3
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
@@ -78,6 +83,9 @@ BuildRequires:		ncurses-devel
 BuildRequires:		openldap-devel
 BuildRequires:		openssl-devel
 BuildRequires:		pam-devel
+%if 0%{?pcre2_support:1}
+BuildRequires:		pcre2-devel >= 10.30
+%endif
 BuildRequires:		perl-generators
 %if (0%{?rhel} && 0%{?rhel} <= 7) || (0%{?fedora} && 0%{?fedora} <= 25)
 BuildRequires:		perl
@@ -155,6 +163,9 @@ Requires:	ncurses-devel
 Requires:	openldap-devel
 Requires:	openssl-devel
 Requires:	pam-devel
+%if 0%{?pcre2_support:1}
+Requires:	pcre2-devel >= 10.30
+%endif
 Requires:	pkgconfig
 Requires:	%{postgresql_devel_pkg}
 Requires:	sqlite-devel
@@ -291,6 +302,7 @@ SMOD7=mod_unique_id
 			--enable-nls \
 			--enable-openssl \
 			--disable-pcre \
+%{?pcre2_support:	--enable-pcre2} \
 			--disable-redis \
 			--enable-shadow \
 			--enable-tests=nonetwork \
@@ -484,9 +496,11 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Sat Jan 21 2023 Paul Howarth <paul@city-fan.org> - 1.3.8-3
+- Add PCRE2 support
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 * Mon Dec  5 2022 Paul Howarth <paul@city-fan.org> - 1.3.8-1
 - Update to 1.3.8 (see RELEASE_NOTES for details)
 - Update mod_vroot to 0.9.11

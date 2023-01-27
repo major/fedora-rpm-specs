@@ -5,8 +5,8 @@
 %endif
 
 Name:           vdr-epg2vdr
-Version:        1.2.9
-Release:        2%{?dist}
+Version:        1.2.12
+Release:        1%{?dist}
 Summary:        A plugin to retrieve EPG data from a mysql database into VDR
 
 License:        GPL+
@@ -43,8 +43,6 @@ was loaded from a mysql database.
 iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 # disable AUX patch
 sed -i -e 's|WITH_AUX_PATCH = 1|#WITH_AUX_PATCH = 1|' Make.config
-# use python3
-sed -i -e 's|PYTHON ?= python|PYTHON ?= python3|' Make.config
 
 %build
 export CFLAGS="%{optflags}"
@@ -65,6 +63,9 @@ chmod 0755 %{buildroot}/%{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 %{vdr_plugindir}/libvdr-*.so.%{vdr_apiversion}
 
 %changelog
+* Wed Jan 25 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.2.12-1
+- Update to 1.2.12
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

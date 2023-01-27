@@ -37,7 +37,7 @@
 Summary: Low-level DNS(SEC) library with API
 Name: ldns
 Version: 1.8.3
-Release: 5%{?dist}
+Release: 6%{?dist}
 
 License: BSD-3-Clause
 Url: https://www.nlnetlabs.nl/%{name}/
@@ -314,44 +314,50 @@ rm -rf doc/man
 %{_bindir}/ldns-chaos
 %{_bindir}/ldns-compare-zones
 %{_bindir}/ldns-[d-z]*
-%{_mandir}/man1/*
+%{_mandir}/man1/drill*
+%{_mandir}/man1/%{name}*
 
 %files devel
 %doc Changelog README.git
 %{_libdir}/libldns.so
 %{_libdir}/pkgconfig/ldns.pc
 %{_bindir}/ldns-config
-%dir %{_includedir}/ldns
-%{_includedir}/ldns/*.h
-%{_mandir}/man3/*.3.gz
+%dir %{_includedir}/%{name}
+%{_includedir}/%{name}/*.h
+%{_mandir}/man3/%{name}*.3*
 
 %if %{with python2}
 %files -n python2-ldns
 %doc %{pkgname}_python2/contrib/python/Changelog README.ldnsx
 %license LICENSE.ldnsx
-%{python2_sitearch}/*
-%{python3_sitelib}/*
+%{python2_sitearch}/%{name}.py*
+%{python2_sitearch}/%{name}x.py*
+%{python2_sitearch}/_%{name}.so*
 %endif
 
 %if %{with python3}
 %files -n python3-ldns
 %doc %{pkgname}_python3/contrib/python/Changelog README.ldnsx
 %license LICENSE.ldnsx
-%{python3_sitearch}/*
-%{python3_sitelib}/*
+%pycached %{python3_sitearch}/%{name}.py
+%pycached %{python3_sitearch}/%{name}x.py
+%{python3_sitearch}/_%{name}.so*
 %endif
 
 %if %{with perl}
 %files -n perl-ldns
 %{perl_vendorarch}/*
 %exclude %dir %{perl_vendorarch}/auto/
-%{_mandir}/man3/*.3pm.gz
+%{_mandir}/man3/DNS::LDNS*.3pm.gz
 %endif
 
 %files doc
 %doc doc
 
 %changelog
+* Wed Jan 25 2023 Petr Menšík <pemensik@redhat.com> - 1.8.3-6
+- Python packaging cleanups (#2155003)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
