@@ -14,8 +14,8 @@
 
 Summary: Utility for determining file types
 Name: file
-Version: 5.42
-Release: 5%{?dist}
+Version: 5.44
+Release: 1%{?dist}
 License: BSD
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
 Source1: http://ftp.astron.com/pub/file/file-%{version}.tar.gz.asc
@@ -29,9 +29,8 @@ Patch0: file-localmagic.patch
 Patch1: file-4.17-rpm-name.patch
 Patch2: file-5.04-volume_key.patch
 
-# Upstream commit: https://github.com/file/file/commit/19bf47777d0002ee884467e45e6ace702e40a4c1
-Patch3: file-5.42-fix-stdin-input.patch
-Patch4: file-rh2110622.patch
+# upstream commit: https://github.com/file/file/commit/1dd21dd360472d7b830825df8e40a06cdc1cbbcf
+Patch3: file-5.44-compression.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -217,6 +216,9 @@ make -C tests check
 %endif
 
 %changelog
+* Fri Jan 20 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 5.44-1
+- update to new version 5.44
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.42-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

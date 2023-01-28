@@ -5,7 +5,7 @@
 %global crate bumpalo
 
 Name:           rust-bumpalo
-Version:        3.11.1
+Version:        3.12.0
 Release:        %autorelease
 Summary:        Fast bump allocation arena for Rust
 
@@ -15,6 +15,7 @@ URL:            https://crates.io/crates/bumpalo
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop tests and benchmarks that are not included in published crates
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          bumpalo-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

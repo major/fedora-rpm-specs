@@ -1,6 +1,6 @@
 Name:		openfec
-Version:	1.4.2.4
-Release:	4%{?dist}
+Version:	1.4.2.6
+Release:	1%{?dist}
 Summary:	Application-Level Forward Erasure Correction codes
 License:	CeCILL-C and GPLv2+ and BSD
 # GPLv2+:
@@ -17,12 +17,6 @@ BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	coreutils
 BuildRequires:	findutils
-# https://github.com/roc-streaming/openfec/pull/6
-# https://github.com/OpenFEC/OpenFEC/pull/2
-# after rebase use -DOPTIMIZE=DEFAULT to don't touch -O
-Patch0:		openfec-1.4.2-distro-cmake.patch
-# https://github.com/roc-streaming/openfec/pull/2
-Patch1:		openfec-1.4.2.4-big-endian-fix.patch
 
 %description
 Application-Level Forward Erasure Correction codes, or AL-FEC (also called
@@ -51,7 +45,7 @@ Utilities for openfec.
 %autosetup -p1
 
 %build
-%cmake
+%cmake -DOPTIMIZE=DEFAULT -DINSTALL_DEVTOOLS=ON
 %cmake_build
 
 %install
@@ -75,14 +69,18 @@ make test
 %files devel
 %{_includedir}/%{name}
 %{_libdir}/libopenfec.so
+%{_datadir}/pkgconfig/openfec.pc
 
 %files utils
-%{_bindir}/descr_stats
 %{_bindir}/eperftool
 %{_bindir}/simple_client
 %{_bindir}/simple_server
 
 %changelog
+* Thu Jan 26 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.2.6-1
+- New version
+  Resolves: rhbz#2164074
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

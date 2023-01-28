@@ -3,13 +3,16 @@
 Summary: Use a single keyboard and mouse to control multiple computers
 Name: barrier
 Version: 2.4.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv2
 URL: https://github.com/debauchee/barrier/wiki
 Source0: https://github.com/debauchee/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # https://github.com/debauchee/barrier/issues/1366
 Patch0: fix-includes.patch
+# Add missing #include directives needed for GCC 13
+# https://github.com/debauchee/barrier/pull/1886
+Patch1: https://github.com/debauchee/barrier/pull/1886.patch
 
 BuildRequires: avahi-compat-libdns_sd-devel
 BuildRequires: cmake3
@@ -121,6 +124,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/barrier.desktop
 %{_mandir}/man1/barriers.1*
 
 %changelog
+* Thu Jan 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.4.0-4
+- Add missing #include directives needed for GCC 13 (fix RHBZ#2113118)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

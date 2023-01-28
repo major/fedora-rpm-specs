@@ -5,7 +5,7 @@
 
 Name:           python-%{srcname}
 Version:        3.1.9
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple construction, analysis and modification of binary data
 
 License:        MIT
@@ -32,6 +32,7 @@ to a file or stream.
 Summary:        %{summary}
 BuildRequires:  python2-devel
 BuildRequires:  python2-pytest
+BuildRequires:  python2-setuptools
 %{?python_provide:%python_provide python2-%{srcname}}
 
 %description -n python2-%{srcname}
@@ -51,6 +52,7 @@ to a file or stream.
 Summary:        %{summary}
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-setuptools
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{srcname}}
 
 %description -n python%{python3_pkgversion}-%{srcname}
@@ -124,6 +126,9 @@ popd
 
 
 %changelog
+* Thu Jan 26 2023 Scott K Logan <logans@cottsay.net> - 3.1.9-6
+- Add missing dependency on setuptools (rhbz#2142041)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

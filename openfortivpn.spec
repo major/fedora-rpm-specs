@@ -1,6 +1,6 @@
 Name:           openfortivpn
-Version:        1.17.0
-Release:        6%{?dist}
+Version:        1.19.0
+Release:        1%{?dist}
 Summary:        Client for PPP+SSL VPN tunnel services
 
 License:        GPLv3+
@@ -46,6 +46,9 @@ make %{?_smp_mflags} V=1
 
 
 %changelog
+* Thu Jan 26 2023 Adrien Vergé <adrienverge@gmail.com> - 1.19.0-1
+- Update to latest upstream version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

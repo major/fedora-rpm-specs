@@ -43,7 +43,7 @@
 
 Name: sssd
 Version: 2.8.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: System Security Services Daemon
 License: GPLv3+
 URL: https://github.com/SSSD/sssd/
@@ -1059,6 +1059,9 @@ fi
 %systemd_postun_with_restart sssd.service
 
 %changelog
+* Thu Jan 26 2023 Stephen Gallagher <sgallagh@redhat.com> - 2.8.2-4
+- Rebuild against libunistring 1.1
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

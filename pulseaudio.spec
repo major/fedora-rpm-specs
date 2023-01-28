@@ -36,7 +36,7 @@
 Name:           pulseaudio
 Summary:        Improved Linux Sound Server
 Version:        %{pa_major}%{?pa_minor:.%{pa_minor}}
-Release:        3%{?snap:.%{snap}git%{shortcommit}}%{?dist}
+Release:        4%{?snap:.%{snap}git%{shortcommit}}%{?dist}
 License:        LGPLv2+
 URL:            http://www.freedesktop.org/wiki/Software/PulseAudio
 %if 0%{?gitrel}
@@ -273,7 +273,7 @@ sed -i.PACKAGE_VERSION -e "s|^PACKAGE_VERSION=.*|PACKAGE_VERSION=\'%{version}\'|
   -D system_user=pulse \
   -D system_group=pulse \
   -D access_group=pulse-access \
-  -D oss-output=disabled \
+  -D oss-output=enabled \
   -D jack=%{?enable_jack:enabled}%{!?enable_jack:disabled} \
   -D lirc=%{?enable_lirc:enabled}%{!?enable_lirc:disabled} \
   -D tcpwrap=disabled \
@@ -297,6 +297,21 @@ sed -i.PACKAGE_VERSION -e "s|^PACKAGE_VERSION=.*|PACKAGE_VERSION=\'%{version}\'|
 %install
 %meson_install
 
+## padsp multilib hack alert
+%ifarch %{multilib_archs}
+pushd %{buildroot}%{_bindir}
+# make 32 bit version available as padsp-32
+# %%{_libdir} == /usr/lib may be a naive check for 32bit-ness
+# but should be the only case we care about here -- rex
+%if "%{_libdir}" == "/usr/lib"
+ln -s padsp padsp-32
+%else
+cp -a padsp padsp-32
+sed -i -e "s|%{_libdir}/pulseaudio/libpulsedsp.so|/usr/lib/pulseaudio/libpulsedsp.so|g" padsp-32
+%endif
+popd
+%endif
+
 # upstream should use udev.pc
 mkdir -p $RPM_BUILD_ROOT%{_prefix}/lib/udev/rules.d
 mv -fv $RPM_BUILD_ROOT/lib/udev/rules.d/90-pulseaudio.rules $RPM_BUILD_ROOT%{_prefix}/lib/udev/rules.d
@@ -312,6 +327,8 @@ rm -fv $RPM_BUILD_ROOT%{_libdir}/pulseaudio/lib*.la
 rm -fv $RPM_BUILD_ROOT%{_libdir}/pulseaudio/modules/*.la
 # PA_MODULE_DEPRECATED("Please use module-udev-detect instead of module-detect!");
 rm -fv $RPM_BUILD_ROOT%{_libdir}/pulseaudio/modules/module-detect.so
+rm -fv $RPM_BUILD_ROOT%{_libdir}/pulseaudio/modules/liboss-util.so
+rm -fv $RPM_BUILD_ROOT%{_libdir}/pulseaudio/modules/module-oss.so
 
 %find_lang %{name}
 
@@ -549,6 +566,8 @@ systemctl --no-reload preset --global pulseaudio.socket >/dev/null 2>&1 || :
 %{_libdir}/libpulse-simple.so.0*
 %dir %{_libdir}/pulseaudio/
 %{_libdir}/pulseaudio/libpulsecommon-%{pa_major}.so
+%{_libdir}/pulseaudio/libpulsedsp.so
+
 
 %ldconfig_scriptlets libs-glib2
 
@@ -583,10 +602,15 @@ systemctl --no-reload preset --global pulseaudio.socket >/dev/null 2>&1 || :
 %{_bindir}/pamon
 %{_bindir}/parecord
 %{_bindir}/pax11publish
+%{_bindir}/padsp
+%ifarch %{multilib_archs}
+%{_bindir}/padsp-32
+%endif
 %{_bindir}/pasuspender
 %{_mandir}/man1/pacat.1*
 %{_mandir}/man1/pacmd.1*
 %{_mandir}/man1/pactl.1*
+%{_mandir}/man1/padsp.1*
 %{_mandir}/man1/pamon.1*
 %{_mandir}/man1/paplay.1*
 %{_mandir}/man1/parec.1*
@@ -610,6 +634,9 @@ systemctl --no-reload preset --global pulseaudio.socket >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Jan 26 2023 Wim Taymans <wtaymans@redhat.com> - 16.1-4
+- Add padsp again (rhbz#2120847)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 16.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

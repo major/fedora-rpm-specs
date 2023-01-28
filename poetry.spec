@@ -9,7 +9,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.2.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 License:        MIT
 
@@ -64,6 +64,9 @@ rm -r src/poetry/_vendor
 # https://bugzilla.redhat.com/show_bug.cgi?id=2138636
 # Merged upstream: https://github.com/python-poetry/poetry/pull/6924
 sed -i 's/requests-toolbelt = "^0.9.1"/requests-toolbelt = ">=0.9.1,<0.11.0"/' pyproject.toml
+# Allow newer dulwich
+# Upstream bumped it via https://github.com/python-poetry/poetry/pull/7390
+sed -i 's/dulwich = "^0.20.46"/dulwich = ">=0.20.46,<0.22"/' pyproject.toml
 
 
 %generate_buildrequires
@@ -127,6 +130,9 @@ not editable_builder" \
 
 
 %changelog
+* Thu Jan 26 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.2-4
+- Allow newer version of dulwich
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

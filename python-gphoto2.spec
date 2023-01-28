@@ -2,12 +2,13 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        A Python interface to libgphoto2
 
 License:        GPLv3+
 URL:            https://github.com/jim-easterbrook/python-gphoto2
 Source0:        %{pypi_source}
+Patch0:         python-gphoto2-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  libgphoto2-devel
@@ -33,7 +34,7 @@ gives direct access to nearly all the libgphoto2 functions, but sometimes in
 a rather un-Pythonic manner.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1 -n %{pypi_name}-%{version}
 # Remove shebang
 sed -e '1d' -i examples/*.py
 # Examples don't need to be executable
@@ -54,6 +55,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}
 %{python3_sitearch}/%{pypi_name}/
 
 %changelog
+* Thu Jan 26 2023 Florian Weimer <fweimer@redhat.com> - 2.0.0-15
+- Avoid implicit function declarations in SWIG-generated code
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -14,8 +14,8 @@ URL:            https://userbase.kde.org/KJots
 %global stable stable
 %endif
 Source0:        https://download.kde.org/%{stable}/%{name}/%{version}/src/%{name}-%{version}.tar.xz
-
-
+# upstream changes for compatibility with latest Akonadi/KPIM libraries
+Patch0:         kjots-akonadi-update.patch
 
 # handled by qt5-srpm-macros, which defines %%qt5_qtwebengine_arches
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
@@ -36,7 +36,6 @@ BuildRequires:  cmake(KF5Mime)
 BuildRequires:  cmake(KF5AkonadiNotes)
 BuildRequires:  cmake(KF5PimTextEdit)
 BuildRequires:  cmake(KF5KontactInterface)
-BuildRequires:  cmake(KF5Libkdepim)
 
 BuildRequires:  cmake(Grantlee5)
 

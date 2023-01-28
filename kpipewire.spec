@@ -1,7 +1,7 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
 Version: 5.26.90
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -53,10 +53,13 @@ into a file.
 
 %package        devel
 Summary:        Development files for %{name}
+# This requires pipewire headers to be installed
+Requires:       pipewire-devel
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Provides:       kpipewire-devel = %{version}-%{release}
 Provides:       kpipewire-devel%{?_isa} = %{version}-%{release}
 Obsoletes:      kpipewire-devel <= 1:5.2.0
+
 %description    devel
 The %{name}-devel package contains libraries and header files for
 developing applications that use %{name}.
@@ -96,6 +99,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Thu Jan 26 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.26.90-2
+- Add dependency on pipewire-devel for devel subpackage
+
 * Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
 - 5.26.90
 

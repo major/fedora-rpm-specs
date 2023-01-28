@@ -46,7 +46,8 @@ using GTK+.
 
 %prep
 %autosetup -n %{name} -p1
-sed -i "s|version='%%VERSION%'|version='%{version}'|g" setup.py
+# Newer version patch: https://github.com/Ulauncher/Ulauncher/issues/1194
+sed -i "s|version=''|version='%{version}'|g" setup.py
 
 
 %build

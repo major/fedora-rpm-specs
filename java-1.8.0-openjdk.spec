@@ -347,7 +347,7 @@
 # note, following three variables are sedded from update_sources if used correctly. Hardcode them rather there.
 %global shenandoah_project      openjdk
 %global shenandoah_repo         shenandoah-jdk8u
-%global openjdk_revision        jdk8u352-b08
+%global openjdk_revision        jdk8u362-b09
 %global shenandoah_revision     shenandoah-%{openjdk_revision}
 # Define old aarch64/jdk8u tree variables for compatibility
 %global project         %{shenandoah_project}
@@ -1289,9 +1289,8 @@ Provides: jre%{?1} = %{epoch}:%{version}-%{release}
 Requires: ca-certificates
 # Require javapackages-filesystem for ownership of /usr/lib/jvm/ and macros
 Requires: javapackages-filesystem
-# 2022d required as of JDK-8294357
-# Should be bumped to 2022e once available (JDK-8295173)
-Requires: tzdata-java >= 2022d
+# 2022g required as of JDK-8297804
+Requires: tzdata-java >= 2022g
 # for support of kernel stream control
 # libsctp.so.1 is being `dlopen`ed on demand
 Requires: lksctp-tools%{?_isa}
@@ -1397,7 +1396,7 @@ Provides: java-%{origin}-src%{?1} = %{epoch}:%{version}-%{release}
 
 Name:    java-%{javaver}-%{origin}
 Version: %{javaver}.%{updatever}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -1496,7 +1495,7 @@ Patch1003: rh1582504-rsa_default_for_keytool.patch
 Patch1000: rh1648249-add_commented_out_nss_cfg_provider_to_java_security.patch
 
 # Crypto policy and FIPS support patches
-# Patch is generated from the fips tree at https://github.com/rh-openjdk/jdk11u/tree/fips
+# Patch is generated from the fips tree at https://github.com/rh-openjdk/jdk8u/tree/fips
 # as follows: git diff %%{openjdk_revision} common jdk > fips-8u-$(git show -s --format=%h HEAD).patch
 # Diff is limited to src and make subdirectories to exclude .github changes
 # Fixes currently included:
@@ -1526,8 +1525,6 @@ Patch1001: fips-8u-%{fipsver}.patch
 #############################################
 # PR2737: Allow multiple initialization of PKCS11 libraries
 Patch5: pr2737-allow_multiple_pkcs11_library_initialisation_to_be_a_non_critical_error.patch
-# PR2095, RH1163501: 2048-bit DH upper bound too small for Fedora infrastructure (sync with IcedTea 2.x)
-Patch504: rh1163501-increase_2048_bit_dh_upper_bound_fedora_infrastructure_in_dhparametergenerator.patch
 # Turn off strict overflow on IndicRearrangementProcessor{,2}.cpp following 8140543: Arrange font actions
 Patch512: rh1649664-awt2dlibraries_compiled_with_no_strict_overflow.patch
 # RH1337583, PR2974: PKCS#10 certificate requests now use CRLF line endings rather than system line endings
@@ -1586,8 +1583,6 @@ Patch202: jdk8035341-allow_using_system_installed_libpng.patch
 # 8042159: Allow using a system-installed lcms2
 Patch203: jdk8042159-allow_using_system_installed_lcms2-root.patch
 Patch204: jdk8042159-allow_using_system_installed_lcms2-jdk.patch
-# JDK-8195607, PR3776, RH1760437: sun/security/pkcs11/Secmod/TestNssDbSqlite.java failed with "NSS initialization failed" on NSS 3.34.1
-Patch580: jdk8195607-pr3776-rh1760437-nss_sqlite_db_config.patch
 # JDK-8257794: Zero: assert(istate->_stack_limit == istate->_thread->last_Java_sp() + 1) failed: wrong on Linux/x86_32
 Patch581: jdk8257794-remove_broken_assert.patch
 # JDK-8282231: x86-32: runtime call to SharedRuntime::ldiv corrupts registers
@@ -1602,10 +1597,6 @@ Patch582: jdk8282231-x86_32-missing_call_effects.patch
 # able to be removed once that release is out
 # and used by this RPM.
 #############################################
-# JDK-8294357: (tz) Update Timezone Data to 2022d
-Patch2002: jdk8294357-tzdata2022d.patch
-# JDK-8295173: (tz) Update Timezone Data to 2022e
-Patch2003: jdk8295173-tzdata2022e.patch
 
 #############################################
 #
@@ -1675,9 +1666,8 @@ BuildRequires: java-%{buildjdkver}-openjdk-devel >= 1.7.0.151-2.6.11.3
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
-# 2022d required as of JDK-8294357
-# Should be bumped to 2022e once available (JDK-8295173)
-BuildRequires: tzdata-java >= 2022d
+# 2022g required as of JDK-8297804
+BuildRequires: tzdata-java >= 2022g
 # Earlier versions have a bug in tree vectorization on PPC
 BuildRequires: gcc >= 4.8.3-8
 
@@ -2040,7 +2030,6 @@ sh %{SOURCE12}
 
 # Upstreamable fixes
 %patch502
-%patch504
 %patch512
 %patch523
 %patch528
@@ -2048,7 +2037,6 @@ sh %{SOURCE12}
 %patch574
 %patch111
 %patch112
-%patch580
 %patch581
 %patch582
 
@@ -2057,9 +2045,6 @@ pushd %{top_level_dir_name}
 %patch1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
 %patch1000 -p1
-# tzdata updates targetted for 8u362
-%patch2002 -p1
-%patch2003 -p1
 popd
 
 # RPM-only fixes
@@ -2891,6 +2876,19 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Wed Jan 25 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:1.8.0.362.b09-1
+- Update to shenandoah-jdk8u362-b09 (GA)
+- Update release notes for shenandoah-8u362-b09.
+- Drop JDK-8195607/PR3776/RH1760437 now this is upstream
+- Require tzdata 2022g due to inclusion of JDK-8296108, JDK-8296715 & JDK-8297804
+- Drop tzdata patches for 2022d & 2022e (JDK-8294357 & JDK-8295173) which are now upstream
+- Update TestTranslations.java to test the new America/Ciudad_Juarez zone
+- Fix broken links and missing release notes in older releases.
+- Drop RH1163501 patch which is not upstream or in 11, 17 & 19 packages and seems obsolete
+  - Patch was broken by inclusion of "JDK-8293554: Enhanced DH Key Exchanges"
+  - Patch was added for a specific corner case of a 4096-bit DH key on a Fedora host that no longer exists
+  - Fedora now appears to be using RSA and the JDK now supports ECC in preference to large DH keys
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.8.0.352.b08-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

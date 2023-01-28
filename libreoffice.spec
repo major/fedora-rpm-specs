@@ -269,6 +269,7 @@ Patch6: 0001-change-test-to-use-Calibri-instead-of-Cambria.patch
 Patch7: 0001-std-abort-during-CppunitTest_sw_layoutwriter.patch
 # TODO investigate these
 Patch8: 0001-aarch64-failing-here.patch
+Patch9: 0001-include-filename-if-the-test-fails.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -1015,6 +1016,7 @@ sed -i -e /CppunitTest_sc_array_functions_test/d sc/Module_sc.mk # ppc64le
 sed -i -e /CppunitTest_sc_addin_functions_test/d sc/Module_sc.mk # aarch64/ppc64*/s390x
 sed -i -e /CppunitTest_sc_financial_functions_test/d sc/Module_sc.mk # ppc64*
 sed -i -e /CppunitTest_sc_statistical_functions_test/d sc/Module_sc.mk # aarch64/ppc64*
+sed -i -e /CppunitTest_dbaccess_hsqldb_test/d dbaccess/Module_dbaccess.mk # ppc64le
 sed -i -e s/CppunitTest_dbaccess_RowSetClones// dbaccess/Module_dbaccess.mk # ppc64le
 sed -i -e s/CppunitTest_sw_macros_test// sw/Module_sw.mk # s390x
 

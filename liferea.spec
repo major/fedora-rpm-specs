@@ -1,7 +1,7 @@
 Name:           liferea
 Epoch:          1
-Version:        1.13.9
-Release:        2%{?dist}
+Version:        1.14.0
+Release:        1%{?dist}
 Summary:        An RSS/RDF feed reader
 
 License:        GPLv2+
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Thu Jan 26 2023 josef radinger <cheese@nosuchhost.net> - 1:1.14.0-1
+- bump version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.13.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

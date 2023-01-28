@@ -59,10 +59,10 @@ BuildRequires: rust-parking_lot_core-devel
 BuildRequires: rust-pkg-config-devel
 BuildRequires: rust-proc-macro-hack-devel
 BuildRequires: rust-proc-macro2-devel
-BuildRequires: rust-pyo3-devel
-BuildRequires: rust-pyo3-build-config-devel
-BuildRequires: rust-pyo3-macros-devel
-BuildRequires: rust-pyo3-macros-backend-devel
+BuildRequires: (crate(pyo3/default) >= 0.15.0 with crate(pyo3/default) < 0.16.0)
+BuildRequires: (crate(pyo3-macros/default) >= 0.15.0 with crate(pyo3-macros/default) < 0.16.0)
+BuildRequires: (crate(pyo3-build-config/default) >= 0.15.0 with crate(pyo3-build-config/default) < 0.16.0)
+BuildRequires: (crate(pyo3-macros-backend/default) >= 0.15.0 with crate(pyo3-macros-backend/default) < 0.16.0)
 BuildRequires: rust-quote-devel
 BuildRequires: rust-rayon-devel
 BuildRequires: rust-rayon-core-devel
@@ -124,7 +124,7 @@ echo %{version} > VERSION
 %{python3} setup.py bdist_wheel
 
 %install
-%{py3_install_wheel %{module}-%{version}*%{_arch}.whl}
+%{py3_install_wheel %{module}-%{version}*.whl}
 install -D bin/%{name} %{buildroot}/%{_sbindir}/%{name}
 install -D data/%{name}.8 -t %{buildroot}/%{_mandir}/man8/
 desktop-file-install data/%{name}.desktop
@@ -144,5 +144,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %attr(755,root,root) %{_datadir}/applications/%{name}.desktop
 
 %changelog
-* Fri Jan 20 2023 John Wass <jwass3@gmail.com> 0.6.8-1
-- Initial import
+* Wed Jan 11 2023 John Wass <jwass3@gmail.com> 0.6.8-1
+- New release
+

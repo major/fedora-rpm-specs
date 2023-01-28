@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for phpunit8
 #
-# Copyright (c) 2010-2022 Remi Collet
+# Copyright (c) 2010-2023 Remi Collet
 #
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    33c126b09a42de5c99e5e8032b54e8221264a74e
+%global gh_commit    375686930d05c9fd7d20f6e5fc38121e8d7a9d55
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,15 +25,15 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.31
+%global upstream_version 8.5.32
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{upstream_version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -232,6 +232,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 26 2023 Remi Collet <remi@remirepo.net> - 8.5.32-1
+- update to 8.5.32
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.5.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

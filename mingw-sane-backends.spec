@@ -1,14 +1,14 @@
 %?mingw_package_header
 
 Name:           mingw-sane-backends
-Version:        1.0.30
-Release:        8%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        MinGW package for SANE
 # lib/ is LGPLv2+, backends are GPLv2+ with exceptions
 # Tools are GPLv2+
 License:        GPLv2+ and GPLv2+ with exceptions and Public Domain
 URL:            http://www.sane-project.org
-Source0:        https://gitlab.com/sane-project/backends/uploads/c3dd60c9e054b5dee1e7b01a7edc98b0/sane-backends-%{version}.tar.gz
+Source0:        https://gitlab.com/sane-project/backends/uploads/7d30fab4e115029d91027b6a58d64b43/sane-backends-%{version}.tar.gz
 
 Patch0:         %{name}-%{version}-mingw.patch
 
@@ -23,8 +23,7 @@ BuildRequires:  mingw32-binutils
 BuildRequires:  mingw64-binutils
 BuildRequires:  mingw32-libusbx
 BuildRequires:  mingw64-libusbx
-BuildRequires:  mingw32-pthreads
-BuildRequires:  mingw64-pthreads
+BuildRequires:  python3
 
 
 %description
@@ -127,7 +126,6 @@ rm -r $RPM_BUILD_ROOT%{mingw64_libdir}/bin
 
 %files -n mingw32-sane-backends-static
 %{mingw32_libdir}/libsane.dll.a
-%{mingw32_libdir}/libsane.la
 
 
 # Win64
@@ -144,10 +142,12 @@ rm -r $RPM_BUILD_ROOT%{mingw64_libdir}/bin
 
 %files -n mingw64-sane-backends-static
 %{mingw64_libdir}/libsane.dll.a
-%{mingw64_libdir}/libsane.la
 
 
 %changelog
+* Wed Jan 25 2023 Michael Cronenworth <mike@cchtml.com> - 1.1.1-1
+- New upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.30-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

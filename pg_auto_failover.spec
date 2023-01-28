@@ -3,17 +3,13 @@
 %global precise_version %{?epoch:%epoch:}%version-%release
 
 Name:           pg_auto_failover
-Version:        1.6.3
-Release:        7%{?dist}
+Version:        2.0
+Release:        1%{?dist}
 Summary:        Postgres extension and service for automated failover and high-availability
 
 License:        ASL 1.0
 URL:            https://github.com/citusdata/%{name}/
 Source0:        https://github.com/citusdata/%{name}/archive/refs/tags/v%{version}.tar.gz
-
-# Reverting sphinx_rtd_theme fork
-Patch0:         sphinx_rtd_theme.patch
-Patch1:         pg_auto_failover-1.6.3-string_format.patch
 
 # Requirements for pg_auto_failover code
 # openssl-devel provides necessary cryptography library
@@ -29,6 +25,11 @@ BuildRequires:  python3-sphinx
 # Requirements for doc files
 BuildRequires: python3-sphinx_rtd_theme graphviz
 %endif
+
+# Requirements for building latex documentation
+BuildRequires: texlive-scheme-basic tex(luatex85.sty) tex(standalone.cls) tex(cfr-lm.sty) 
+# Required tools for building latex documentation
+BuildRequires: latexmk poppler-utils
 
 # Fedora 35 include new dependency with postgresql-server-devel package:
 # postgresql-private-devel. It conflicts with libpq-devel.
@@ -82,13 +83,12 @@ This packages provides JIT support for pg_auto_failover.
 %endif
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p2
+%autosetup -n %{name}-%{version} -p2
 
 %build
 # Generate additionally man/doc files
-%make_build man %{?with_docs: docs}
+/usr/bin/make -O -j8 V=1 VERBOSE=1
+/usr/bin/make man docs 
 
 %install
 %make_install
@@ -128,6 +128,13 @@ install -p -D -m 0644 docs/_build/man/*.5 -t %{buildroot}%{_mandir}/man5
 %endif
 
 %changelog
+* Thu Jan 26 2023 Ondřej Sloup <osloup@redhat.com> - 2.0-0-1
+- Rebase to the newest version
+- Fix compatibility with PostgreSQL 15
+- Remove patches as they are merged in upstream
+- Use autosetup
+- Manually build the package for documentation
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

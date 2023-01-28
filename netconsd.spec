@@ -8,6 +8,8 @@ Summary:        The Netconsole Daemon
 License:        BSD
 URL:            https://facebookmicrosites.github.io/netconsd
 Source:         %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
+# ensure our LDFLAGS don't get clobbered
+Patch0:         %{forgeurl}/pull/14.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -24,7 +26,7 @@ These modules are shared object files which expose a small ABI that is called by
 netconsd with the content and metadata for netconsole messages it receives.
 
 %prep
-%forgesetup
+%autosetup -p1
 
 %build
 %set_build_flags

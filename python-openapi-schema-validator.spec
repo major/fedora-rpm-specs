@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           python-openapi-schema-validator
-Version:        0.4.0
+Version:        0.4.1
 Release:        %autorelease
 Summary:        OpenAPI schema validator for Python
 

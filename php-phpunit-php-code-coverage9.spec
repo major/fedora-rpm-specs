@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-phpunit-php-code-coverage9
 #
 # Copyright (c) 2013-2023 Remi Collet
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    9f1f0f9a2fbb680b26d1cf9b61b6eac43a6e4e9c
+%global gh_commit    2cf940ebc6355a9d430462811b5aaa308b174bed
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
@@ -25,8 +25,8 @@
 %global ver_major    9
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        9.2.23
-Release:        2%{?dist}
+Version:        9.2.24
+Release:        1%{?dist}
 Summary:        PHP code coverage information
 
 # SPDX: Main license is BSD-3-Clause
@@ -183,6 +183,9 @@ exit $ret
 
 
 %changelog
+* Thu Jan 26 2023 Remi Collet <remi@remirepo.net> - 9.2.24-1
+- update to 9.2.24
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.23-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

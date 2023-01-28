@@ -20,13 +20,12 @@ Patch:          https://pagure.io/fedora-rust/rust2rpm/c/1869f5a.patch
 Patch:          https://pagure.io/fedora-rust/rust2rpm/c/6a5931b.patch
 Patch:          https://pagure.io/fedora-rust/rust2rpm/c/3dec94d.patch
 Patch:          https://pagure.io/fedora-rust/rust2rpm/c/d9aa58b.patch
-
-# backported upstream patch for force-frame-pointers support
-# c.f. https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
-Patch:          c2176f2.patch
-
-# patches for backporting upstream bug fixes
 Patch:          https://pagure.io/fedora-rust/rust2rpm/c/b5c64f5.patch
+
+# upstream patch to add support for building with frame pointers:
+# https://pagure.io/fedora-rust/rust2rpm/c/c2176f2
+# https://pagure.io/fedora-rust/rust2rpm/c/3443c98
+Patch:          0002-Add-support-for-conditionally-building-with-frame-po.patch
 
 ExclusiveArch:  %{rust_arches}
 

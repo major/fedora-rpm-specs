@@ -48,6 +48,8 @@ BuildRequires:  gcc-gfortran
 
 %global scons scons%{?rhel:-3}
 
+ExcludeArch: %{ix86}
+
 %global common_description %{expand: \
  Cantera is a suite of object-oriented software tools for solving problems
  involving chemical kinetics, thermodynamics, and/or transport processes.
@@ -107,7 +109,7 @@ Summary: Static libraries for Cantera
 %build
 %set_build_flags
 
-%scons build prefix=%{_prefix} python_prefix=%{_prefix} libdirname=%{_lib} system_sundials=y f90_interface=y renamed_shared_libraries=n python_package=full system_eigen=y extra_inc_dirs=/usr/include/eigen3 system_fmt=y
+%scons build prefix=%{_prefix} python_prefix=%{_prefix} libdirname=%{_lib} system_sundials=y f90_interface=y renamed_shared_libraries=n python_package=full system_eigen=y extra_inc_dirs=/usr/include/eigen3 system_fmt=y cxx_flags='-std=c++14'
 
 
 %install

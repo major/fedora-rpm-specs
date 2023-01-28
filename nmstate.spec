@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.4
+Version:        2.2.5
 Release:        1%{?dist}
 Summary:        Declarative network manager API
 License:        LGPLv2+

@@ -5,7 +5,7 @@
 # Regression tests may take a long time (many cores recommended), skip them by
 # passing --nocheck to rpmbuild or by setting runselftest to 0 if defining
 # --nocheck is not possible (e.g. in koji build)
-%{!?runselftest:%global runselftest 1}
+%{!?runselftest:%global runselftest 0}
 
 # Set this to 1 to see which tests fail, but 0 on production ready build
 %global ignore_testsuite_result 0
@@ -75,8 +75,8 @@
 %global sameevr   %{?epoch:%{epoch}:}%{version}-%{release}
 
 Name:             community-mysql
-Version:          8.0.31
-Release:          3%{?with_debug:.debug}%{?dist}
+Version:          8.0.32
+Release:          1%{?with_debug:.debug}%{?dist}
 Summary:          MySQL client programs and shared libraries
 URL:              http://www.mysql.com
 
@@ -118,6 +118,7 @@ Patch51:          %{pkgnamepatch}-sharedir.patch
 Patch52:          %{pkgnamepatch}-rpath.patch
 Patch53:          %{pkgnamepatch}-mtr.patch
 Patch54:          %{pkgnamepatch}-arm32-timer.patch
+Patch55:          %{pkgnamepatch}-gcc13.patch
 
 # Patches taken from boost 1.59
 Patch111:         boost-1.58.0-pool.patch
@@ -388,6 +389,10 @@ the MySQL sources.
 %patch52 -p1
 %patch53 -p1
 %patch54 -p1
+# The GCC 13 has been first introdced in the Fedora 38
+%if 0%{?fedora} >= 38 || 0%{?rhel} > 9
+%patch55 -p1
+%endif
 
 # Patch Boost
 pushd boost/boost_$(echo %{boost_bundled_version}| tr . _)
@@ -540,6 +545,7 @@ install -p -m 755 %{_vpath_builddir}/scripts/mysql-check-socket %{buildroot}%{_l
 install -p -m 644 %{_vpath_builddir}/scripts/mysql-scripts-common %{buildroot}%{_libexecdir}/mysql-scripts-common
 install -D -p -m 0644 %{_vpath_builddir}/scripts/server.cnf %{buildroot}%{_sysconfdir}/my.cnf.d/%{pkg_name}-server.cnf
 
+rm %{buildroot}%{_infodir}/mysql.info*
 rm %{buildroot}%{_libdir}/mysql/*.a
 rm %{buildroot}%{_mandir}/man1/comp_err.1*
 
@@ -982,6 +988,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 26 2023 Lars Tangvald <lars.tangvald@oracle.com> - 8.0.32-1
+- Update to MySQL 8.0.32
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.31-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

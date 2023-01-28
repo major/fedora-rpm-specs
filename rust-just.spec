@@ -4,7 +4,7 @@
 %global crate just
 
 Name:           rust-just
-Version:        1.12.0
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Just a command runner
 
@@ -19,9 +19,7 @@ Patch0:         just-fix-metadata.diff
 # Remove all uses of cradle
 Patch1:         just-1.5.0-no-cradle.patch
 
-ExclusiveArch:  %{rust_arches}
-
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 just is a handy way to save and run project-specific commands.}
@@ -110,7 +108,7 @@ use the "help4help2man" feature of the "%{crate}" crate.
 
 %build
 %cargo_build
-%{?cargo_license} >LICENSE.dependencies
+%{cargo_license} >LICENSE.dependencies
 
 %install
 %cargo_install

@@ -3,10 +3,10 @@
 %global have_redis     1
 
 Name:		perl-Apache-Session-NoSQL
-Version:	0.2
-Release:	23%{?dist}
-Summary:	NoSQL implementation of Apache::Session
-License:	GPL+ or Artistic
+Version:	0.3
+Release:	1%{?dist}
+Summary:	(Deprecated) NoSQL implementation of Apache::Session
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-NoSQL
 Source0:	https://cpan.metacpan.org/modules/by-module/Apache/Apache-Session-NoSQL-%{version}.tar.gz
 BuildArch:	noarch
@@ -33,6 +33,9 @@ Requires:	perl(Apache::Session::NoSQL)-Driver = %{version}-%{release}
 %description
 NoSQL implementation of Apache::Session. Sessions are stored in NoSQL
 bases, either Redis or Cassandra.
+
+Note that this package is deprecated and Apache::Session::Browseable should
+be used in preference to it.
 
 %if %{have_cassandra}
 %package -n perl-Apache-Session-Cassandra
@@ -77,7 +80,7 @@ find %{buildroot} -name .packlist -delete
 make test
 
 %files
-%doc Changes README examples/
+%doc Changes examples/
 %dir %{perl_vendorlib}/Apache/
 %dir %{perl_vendorlib}/Apache/Session/
 %dir %{perl_vendorlib}/Apache/Session/Store/
@@ -114,6 +117,10 @@ make test
 %endif
 
 %changelog
+* Thu Jan 26 2023 Paul Howarth <paul@city-fan.org> - 0.3-1
+- Update to 0.3
+  - Mark as deprecated
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

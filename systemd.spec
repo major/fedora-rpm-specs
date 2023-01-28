@@ -324,8 +324,9 @@ Recommends:     libdw.so.1(ELFUTILS_0.186)%{?elf_bits}
 Recommends:     libelf.so.1%{?elf_suffix}
 Recommends:     libelf.so.1(ELFUTILS_1.7)%{?elf_bits}
 
-# used by home, cryptsetup, cryptenroll
+# used by home, cryptsetup, cryptenroll, logind
 Recommends:     libfido2.so.1%{?elf_suffix}
+Recommends:     libp11-kit.so.0%{?elf_suffix}
 Recommends:     libtss2-esys.so.0%{?elf_suffix}
 Recommends:     libtss2-mu.so.0%{?elf_suffix}
 Recommends:     libtss2-rc.so.0%{?elf_suffix}
@@ -356,6 +357,15 @@ machine, and to create or grow partitions and make file systems automatically.
 %package ukify
 Summary:        Tool to build Unified Kernel Images
 Requires:       %{name} = %{version}-%{release}
+
+# We prefer llvm-objcopy over objcopy.
+Requires:       (llvm or binutils)
+Recommends:     llvm
+
+Requires:       python3dist(pefile)
+Requires:       python3dist(zstd)
+Recommends:     python3dist(pillow)
+
 BuildArch:      noarch
 
 %description ukify
@@ -866,11 +876,17 @@ if systemctl -q is-enabled systemd-resolved.service &>/dev/null; then
   systemctl start systemd-resolved.service &>/dev/null || :
 fi
 
-%triggerpostun -- systemd < 247.3-2
+%triggerun -- systemd < 247.3-2
 # This is for upgrades from previous versions before oomd-defaults is available.
+systemctl --no-reload preset systemd-oomd.service &>/dev/null || :
+
+%triggerpostun -- systemd < 253~rc1-2
+# This is for upgrades from previous versions where systemd-journald-audit.socket
+# had a static enablement symlink.
 # We use %%triggerpostun here because rpm doesn't allow a second %%triggerun with
 # a different package version.
-systemctl --no-reload preset systemd-oomd.service &>/dev/null || :
+systemctl --no-reload preset systemd-journald-audit.socket &>/dev/null || :
+
 
 %global udev_services systemd-udev{d,-settle,-trigger}.service systemd-udevd-{control,kernel}.socket systemd-timesyncd.service %{?have_gnu_efi:systemd-boot-update.service}
 

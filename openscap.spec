@@ -1,18 +1,12 @@
 Name:           openscap
-Version:        1.3.6
-Release:        12%{?dist}
+Version:        1.3.7
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPLv2+
 URL:            http://www.open-scap.org/
 VCS:            https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
-Patch1:         openscap-1.3.7-pr-1841-fix-shellcheck-warning.patch
-Patch2:         openscap-1.3.7-pr-1843-prevent-fails-of-epoch-test.patch
-Patch3:         openscap-1.3.7-pr-1844-prevent-fails-of-epoch-test-2.patch
-Patch4:         openscap-1.3.7-pr-1846-prevent-file-permissions-errors.patch
-Patch5:         openscap-1.3.7-pr-1864-rpm-includes.patch
-Patch6:         openscap-1.3.7-pr-1850-relocate-rpmdb.patch
 BuildRequires:  make
 BuildRequires:  cmake >= 2.6
 BuildRequires:  gcc
@@ -220,6 +214,9 @@ ln -sf ../oscap-remediate.service %{buildroot}%{_unitdir}/system-update.target.w
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Thu Jan 26 2023 Jan Černý <jcerny@redhat.com> - 1:1.3.7-1
+- Upgrade to the latest upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,19 +4,16 @@
 %define _legacy_common_support 1
 
 Name:          mate-user-admin
-Version:       1.6.0
-Release:       5%{?dist}
+Version:       1.7.0
+Release:       1%{?dist}
 Summary:       User management tool
 License:       GPLv3+ 
 URL:           https://github.com/zhuyaliang/%{project_name}
 
 # downloading the tarball
 # spectool -g mate-user-admin.spec
+# wget https://github.com/zhuyaliang/user-admin/archive/refs/tags/v1.7.0.tar.gz -O mate-user-admin-1.7.0.tar.gz
 Source0:       %url/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Upstream patch to fix building with meson 0.62.0
-# https://github.com/zhuyaliang/user-admin/commit/1cc46ba
-Patch0:        mate-user-admin-1.6.0-meson.patch
 
 BuildRequires: accountsservice-devel
 BuildRequires: cmake
@@ -68,6 +65,9 @@ desktop-file-install                               \
 
 
 %changelog
+* Thu Jan 26 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.7.0-1
+- update to 1.7.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

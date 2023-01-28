@@ -25,7 +25,7 @@
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.49.9
+Version:       1.49.10
 Release:       1%{?dist}
 License:       GPLv2+
 
@@ -434,6 +434,9 @@ end
 
 
 %changelog
+* Thu Jan 26 2023 Richard W.M. Jones <rjones@redhat.com> - 1.49.10-1
+- New upstream development version 1.49.10
+
 * Thu Jan 19 2023 Richard W.M. Jones <rjones@redhat.com> - 1.49.9-1
 - New upstream development version 1.49.9
 - New tool: virt-drivers

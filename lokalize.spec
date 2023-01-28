@@ -56,11 +56,7 @@ BuildRequires: libappstream-glib
 ## fixme
 # aka python-unversioned-command
 Requires: /usr/bin/python
-%if 0%{?fedora} > 30
 Requires: python3-dbus
-%else
-Requires: python2-dbus
-%endif
 Requires: gettext
 # odf2xliff
 Requires: translate-toolkit

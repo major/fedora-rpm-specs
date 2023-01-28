@@ -1190,6 +1190,10 @@ fi
 %endif
 
 %changelog
+* Thu Jan 26 2023 Bruno Larsen <blarsen@redhat.com>
+- Remove gdb-rhbz1398387-tab-crash-test.patch as that test didn't
+  work anymore.
+
 * Tue Jan 24 2023 Keith Seitz <keiths@redhat.com> - 12.1-15
 - NVR bump for failed build.
 
@@ -1201,6 +1205,7 @@ fi
   From Sergey Mende:
 - Backport upstream patch "gdb: call check_typedef at beginning of
   dwarf_expr_context::fetch_result". (Simon Marchi)
+
 
 * Fri Jan 20 2023 Kevin Buettner <kevinb@redhat.com> - 12.1-13
 - Backport fix for problems associated with GCC 13's self-move warning.

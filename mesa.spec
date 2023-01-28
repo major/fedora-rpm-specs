@@ -69,6 +69,10 @@ Patch10:        gnome-shell-glthread-disable.patch
 # https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/19778
 Patch11:        mesa-valgrind-build-fix.patch
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2164667
+# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/20933
+Patch12:        20933.patch
+
 BuildRequires:  meson >= 0.61.4
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

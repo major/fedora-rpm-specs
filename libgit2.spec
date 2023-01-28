@@ -6,12 +6,15 @@
 %endif
 
 Name:           libgit2
-Version:        1.4.5
+Version:        1.5.1
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
 License:        GPLv2 with exceptions
 URL:            https://libgit2.org/
 Source0:        https://github.com/libgit2/libgit2/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+# https://github.com/libgit2/libgit2/pull/6357
+Patch0:         libgit2-remove-ftruncate-test.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.5.1
@@ -25,6 +28,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  pcre2-devel
 BuildRequires:  python3
 BuildRequires:  zlib-devel
+BuildRequires:  libgit2
 Provides:       bundled(libxdiff)
 
 %description
@@ -48,7 +52,7 @@ developing applications that use %{name}.
 find examples -name ".gitignore" -delete -print
 
 # Don't run "online" tests
-sed -i '/-sonline/s/^/#/' tests/CMakeLists.txt
+sed -i '/-sonline/s/^/#/' tests/libgit2/CMakeLists.txt
 
 # Remove bundled libraries
 rm -vr deps
@@ -58,6 +62,7 @@ rm -vr deps
   -GNinja \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
   -DREGEX_BACKEND=pcre2 \
+  -DBUILD_CLI=OFF \
   -DUSE_HTTP_PARSER=system \
   -DUSE_SHA1=HTTPS \
   -DUSE_HTTPS=OpenSSL \
@@ -72,12 +77,15 @@ rm -vr deps
 
 %install
 %cmake_install
+# Include previous ABI version for temporary binary compatibility
+cp -a %{_libdir}/libgit2.so.1.4* %{buildroot}%{_libdir}
 
 %check
 %ctest
 
 %files
 %license COPYING
+%{_libdir}/libgit2.so.1.5*
 %{_libdir}/libgit2.so.1.4*
 
 %files devel

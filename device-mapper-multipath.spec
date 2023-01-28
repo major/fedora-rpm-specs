@@ -1,59 +1,37 @@
 Name:    device-mapper-multipath
-Version: 0.9.3
-Release: 2%{?dist}
+Version: 0.9.4
+Release: 1%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 License: GPLv2
 URL:     http://christophe.varoqui.free.fr/
 
 # The source for this package was pulled from upstream's git repo.  Use the
 # following command to generate the tarball
-# curl -L https://github.com/opensvc/multipath-tools/archive/0.9.3.tar.gz -o multipath-tools-0.9.3.tgz
-Source0: multipath-tools-0.9.3.tgz
+# curl -L https://github.com/opensvc/multipath-tools/archive/0.9.4.tar.gz -o multipath-tools-0.9.4.tgz
+Source0: multipath-tools-0.9.4.tgz
 Source1: multipath.conf
-Patch0001: 0001-libmultipath-fix-show-paths-format-failure.patch
-Patch0002: 0002-fixup-Makefile.inc-fix-man-and-include-paths.patch
-Patch0003: 0003-multipath-tools-Makefile.inc-Fix-paths-for-systemd.patch
-Patch0004: 0004-multipath-tools-Makefile.inc-don-t-take-values-from-.patch
-Patch0005: 0005-multipath-tools-Makefile.inc-get-rid-of-RUN.patch
-Patch0006: 0006-multipath-tools-Makefile.inc-more-compact-code-for-L.patch
-Patch0007: 0007-multipath-tools-Makefiles-simplify-code-for-include-.patch
-Patch0008: 0008-multipath-tools-Makefiles-use-mandir.patch
-Patch0009: 0009-multipath-tools-Makefile.inc-simplify-expression-for.patch
-Patch0010: 0010-multipath-tools-Makefile.inc-untangle-paths-and-sour.patch
-Patch0011: 0011-multipath-tools-Makefiles-replace-libdir-by-plugindi.patch
-Patch0012: 0012-multipath-tools-Makefile.inc-use-simple-make-variabl.patch
-Patch0013: 0013-multipath-tools-Makefile.inc-fix-a-log-message.patch
-Patch0014: 0014-multipath-tools-Makefile.inc-set-systemd-specific-fl.patch
-Patch0015: 0015-multipathd-Makefile-fix-compilation-flags-for-libedi.patch
-Patch0016: 0016-multipath-tools-Makefiles-clean-up-executable-Makefi.patch
-Patch0017: 0017-multipath-tools-Makefiles-use-common-code-for-librar.patch
-Patch0018: 0018-multipath-tools-Makefiles-move-common-code-to-rules..patch
-Patch0019: 0019-multipath-tools-Makefiles-create-config.mk.patch
-Patch0020: 0020-multipath-tools-Makefiles-enable-quiet-build.patch
-Patch0021: 0021-multipath-tools-quiet-build-support-for-top-level-Ma.patch
-Patch0022: 0022-GitHub-workflows-use-make-j8-Orecurse.patch
-Patch0023: 0023-README.md-Move-section-about-libedit-and-libreadline.patch
-Patch0024: 0024-README.md-Fix-indentation-in-paragraph-about-device-.patch
-Patch0025: 0025-README.md-document-options-for-paths-and-optimizatio.patch
-Patch0026: 0026-README.md-document-how-to-customize-build.patch
-Patch0027: 0027-libmultipath-avoid-Warray-bounds-error-with-gcc-12-a.patch
-Patch0028: 0028-multipath-avoid-NULL-string-in-released_to_systemd.patch
-Patch0029: 0029-libmultipath-avoid-NULL-string-in-is_udev_ready.patch
-Patch0030: 0030-libmultipath-impove-add_feature-variable-names.patch
-Patch0031: 0031-multipathd-don-t-initialize-the-field-width-in-show_.patch
-Patch0032: 0032-libmultipath-improve-remove_feature-variable-names.patch
-Patch0033: 0033-RH-fixup-udev-rules-for-redhat.patch
-Patch0034: 0034-RH-Remove-the-property-blacklist-exception-builtin.patch
-Patch0035: 0035-RH-don-t-start-without-a-config-file.patch
-Patch0036: 0036-RH-Fix-nvme-function-missing-argument.patch
-Patch0037: 0037-RH-use-rpm-optflags-if-present.patch
-Patch0038: 0038-RH-add-mpathconf.patch
-Patch0039: 0039-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
-Patch0040: 0040-RH-reset-default-find_mutipaths-value-to-off.patch
-Patch0041: 0041-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
-Patch0042: 0042-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
-Patch0043: 0043-RH-add-scsi-device-handlers-to-modules-load.d.patch
-Patch0044: 0044-RH-compile-with-libreadline-support.patch
+Patch0001: 0001-multipathd-make-pr-registration-consistent.patch
+Patch0002: 0002-libmultipath-make-prflag-an-enum.patch
+Patch0003: 0003-multipathd-handle-no-active-paths-in-update_map_pr.patch
+Patch0004: 0004-multipathd-add-missing-newline-to-cli_del_map-reply.patch
+Patch0005: 0005-libmultipath-skip-extra-vector-work-in-remove_maps.patch
+Patch0006: 0006-libmultipath-orphan-paths-if-coalesce_paths-frees-ne.patch
+Patch0007: 0007-libmultipath-is_path_valid-check-if-device-is-in-use.patch
+Patch0008: 0008-libmpathpersist-use-conf-timeout-for-updating-persis.patch
+Patch0009: 0009-libmultipath-pathinfo-don-t-fail-for-devices-lacking.patch
+Patch0010: 0010-libmultipath-bump-ABI-version-to-18.0.0.patch
+Patch0011: 0011-RH-fixup-udev-rules-for-redhat.patch
+Patch0012: 0012-RH-Remove-the-property-blacklist-exception-builtin.patch
+Patch0013: 0013-RH-don-t-start-without-a-config-file.patch
+Patch0014: 0014-RH-Fix-nvme-function-missing-argument.patch
+Patch0015: 0015-RH-use-rpm-optflags-if-present.patch
+Patch0016: 0016-RH-add-mpathconf.patch
+Patch0017: 0017-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
+Patch0018: 0018-RH-reset-default-find_mutipaths-value-to-off.patch
+Patch0019: 0019-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
+Patch0020: 0020-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
+Patch0021: 0021-RH-add-scsi-device-handlers-to-modules-load.d.patch
+Patch0022: 0022-RH-compile-with-libreadline-support.patch
 
 # runtime
 Requires: %{name}-libs = %{version}-%{release}
@@ -61,6 +39,7 @@ Requires: kpartx = %{version}-%{release}
 Requires: device-mapper >= 1.02.96
 Requires: userspace-rcu
 Requires: readline
+Requires: libmount
 Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
@@ -82,6 +61,7 @@ BuildRequires: readline-devel, ncurses-devel
 BuildRequires: systemd-units, systemd-devel
 BuildRequires: json-c-devel, perl-interpreter, pkgconfig, gcc
 BuildRequires: userspace-rcu-devel
+BuildRequires: libmount-devel
 BuildRequires: make
 
 %description
@@ -138,7 +118,7 @@ This package contains the files needed to develop applications that use
 device-mapper-multipath's libdmmp C API library
 
 %prep
-%autosetup -n multipath-tools-0.9.3 -p1
+%autosetup -n multipath-tools-0.9.4 -p1
 cp %{SOURCE1} .
 
 %build
@@ -260,6 +240,14 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Thu Jan 26 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.4-1
+- Update to the head of the upstream staging branch
+  * Previous patches 0001-0032 are intlcude in the source tarball
+  * Patches 0001-0010 are from the upstream staging branch
+- Rename redhat patches
+  * Previous patches 0033-0044 are not patches 0011-0022
+- Add dependency on libmount
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

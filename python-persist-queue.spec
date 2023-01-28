@@ -6,8 +6,8 @@
 %global pypi_name persist-queue
 
 Name:           python-%{pypi_name}
-Version:        0.7.0
-Release:        4%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        A single process, persistent multi-producer, multi-consumer queue
 
 License:        BSD
@@ -100,6 +100,9 @@ nose2 persistqueue.tests.test_queue
 %endif
 
 %changelog
+* Thu Jan 26 2023 Eric Harney <eharney@redhat.com> - 0.8.0-1
+- Update to 0.8.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

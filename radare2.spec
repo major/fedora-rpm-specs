@@ -1,12 +1,12 @@
 Name:           radare2
 Summary:        The reverse engineering framework
-Version:        5.7.8
+Version:        5.8.2
 %global         rel             1
 URL:            https://radare.org/
 VCS:            https://github.com/radareorg/radare2
 #               https://github.com/radareorg/radare2/releases
 
-# %%if 0%%{?rhel} && 0i%%{?rhel} == 8
+# %%if 0%%{?rhel} && 0%%{?rhel} == 8
 # Radare2 fails to build on EPEL8+s390x
 # https://bugzilla.redhat.com/show_bug.cgi?id=1960046
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_architecture_build_failures
@@ -21,16 +21,16 @@ VCS:            https://github.com/radareorg/radare2
 %global         gituser         radareorg
 %global         gitname         radare2
 
-%global         gitdate         20220913
-%global         commit          8e965bef30457a12e07a32a9047a9620a944bc39
+%global         gitdate         20230123
+%global         commit          0b6793f37d9dae5b43fa96beae93008e197dc87a
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
 
 %if %{with releasetag}
-Release:        %{rel}%{?dist}.1
+Release:        %{rel}%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %else
-Release:        0.%{rel}.%{gitdate}git%{shortcommit}%{?dist}.1
+Release:        0.%{rel}.%{gitdate}git%{shortcommit}%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{commit}/%{name}-%{commit}.zip#/%{name}-%{version}-%{shortcommit}.zip
 %endif
 
@@ -88,7 +88,12 @@ BuildRequires:  ninja-build
 BuildRequires:  pkgconfig
 # xxhash-devel
 BuildRequires:  pkgconfig(libxxhash)
+
+# version of libzip on rhel7 is too old
+%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  pkgconfig(libzip)
+%endif
+
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(capstone) >= 3.0.4
@@ -132,7 +137,9 @@ Requires:       %{name}-common = %{version}-%{release}
 
 # ./libr/hash/{md4,md5,sha1,sha2}.{c,h}
 # ./libr/util/big.c
-# compiled with -D use_sys_openssl=true instead
+# could be compiled with -D use_sys_openssl=true instead,
+# but is currently not maintained so using embedded R2 implementations
+# for hashing
 
 # ./shlr/spp/README.md
 # SPP stands for Simple Pre-Processor, a templating language.
@@ -234,7 +241,11 @@ information
 sed -i -e "s|%{version}-git|%{version}|g;" configure configure.acr
 %endif
 # Removing zip/lzip files because we use system dependencies
+# version of libzip on rhel7 is too old, use the embedded one instead
+%if 0%{?fedora} || 0%{?rhel} >= 8
 rm -rf shlr/zip/{zip,zlib,include}
+%endif
+
 # Remove lx4 files because we use system dependencies
 rm -rf shlr/lz4/{deps.mk,LICENSE,lz4.*,Makefile,README.md}
 # Remove xxhash files because we use system dependencies
@@ -246,7 +257,7 @@ rm -rf libr/magic/*.c
 mv libr/magic/magic.c.stripped libr/magic/magic-libmagic.c
 mv libr/magic/ascmagic.c.stripped libr/magic/ascmagic-libmagic.c
 # Remove openssl files because we use system dependencies
-rm -f libr/hash/{md4,md5,sha1,sha2}.[ch]
+# rm -f libr/hash/{md4,md5,sha1,sha2}.[ch]
 
 # Webui contains pre-build and/or minimized versions of JS libraries without source code
 # Consider installing the web-interface from https://github.com/radare/radare2-webui
@@ -267,12 +278,15 @@ sed -i -e "s|meson_version : '>=......'|meson_version : '>=0.49.1'|;" meson.buil
 # Whereever possible use the system-wide libraries instead of bundles
 %meson \
     -Duse_sys_magic=true \
+%if 0%{?fedora} || 0%{?rhel} >= 8
     -Duse_sys_zip=true \
+%else
+    -Duse_sys_zip=false \
+%endif
     -Duse_sys_zlib=true \
     -Duse_sys_lz4=true \
     -Duse_sys_xxhash=true \
     -Duse_ssl=true \
-    -Duse_sys_openssl=true \
     -Duse_libuv=true \
 %ifarch s390x
     -Ddebugger=false \
@@ -310,7 +324,7 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/%{version}
 %files
 %license COPYING COPYING.LESSER
 %doc CONTRIBUTING.md DEVELOPERS.md README.md
-%doc doc/3D/ doc/node.js/ doc/pdb/ doc/sandbox/
+%doc doc/3D/ doc/pdb/ doc/sandbox/
 %doc doc/avr.md doc/brainfuck.md doc/calling-conventions.md doc/debug.md
 %doc doc/esil.md doc/gdb.md doc/gprobe.md doc/intro.md doc/io.md doc/rap.md
 %doc doc/siol.md doc/strings.md doc/windbg.md doc/yara.md
@@ -349,6 +363,9 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/%{version}
 
 
 %changelog
+* Wed Jan 25 2023 Michal Ambroz <rebus at, seznam.cz> 5.8.2-1
+- bump to 5.8.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.8-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

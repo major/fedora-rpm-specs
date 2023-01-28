@@ -1,24 +1,23 @@
-Summary:        Web server access log visualizer
-Name:           logstalgia
-Version:        1.1.3
-Release:        5%{?dist}
-License:        GPLv3+
-URL:            http://code.google.com/p/logstalgia/
-Source0:        https://github.com/acaudwell/Logstalgia/releases/download/logstalgia-%{version}/logstalgia-%{version}.tar.gz
-Patch0:         logstalgia-configure-c99.patch
-BuildRequires:  SDL2-devel
-BuildRequires:  SDL2_image-devel
-BuildRequires:  boost-devel
-BuildRequires:  ftgl-devel
-BuildRequires:  gcc-c++
-BuildRequires:  glew-devel
-BuildRequires:  glm-devel
-BuildRequires:  libjpeg-devel
-BuildRequires:  libpng-devel
-BuildRequires:  make
-BuildRequires:  pcre2-devel
-Requires:       gnu-free-mono-fonts
-Requires:       gnu-free-serif-fonts
+Summary:       Web server access log visualizer
+Name:          logstalgia
+Version:       1.1.4
+Release:       1%{?dist}
+License:       GPLv3+
+URL:           http://code.google.com/p/logstalgia/
+Source0:       https://github.com/acaudwell/Logstalgia/releases/download/logstalgia-%{version}/logstalgia-%{version}.tar.gz
+BuildRequires: SDL2-devel
+BuildRequires: SDL2_image-devel
+BuildRequires: boost-devel
+BuildRequires: ftgl-devel
+BuildRequires: gcc-c++
+BuildRequires: glew-devel
+BuildRequires: glm-devel
+BuildRequires: libjpeg-devel
+BuildRequires: libpng-devel
+BuildRequires: make
+BuildRequires: pcre2-devel
+Requires:      gnu-free-mono-fonts
+Requires:      gnu-free-serif-fonts
 
 %description
 Logstalgia (aka ApachePong) replays or streams a standard website
@@ -26,8 +25,6 @@ access log (eg access.log) as a retro arcade game-like simulation.
 
 %prep
 %autosetup -p1
-# Prevent re-running autotools.
-touch -r aclocal.m4 m4/* configure*
 
 %build
 %configure \
@@ -48,6 +45,10 @@ touch -r aclocal.m4 m4/* configure*
 %{_mandir}/man1/logstalgia.1*
 
 %changelog
+* Thu Jan 26 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.1.4-1
+- 1.1.4
+- C99 patch is now upstream
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

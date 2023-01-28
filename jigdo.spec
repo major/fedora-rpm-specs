@@ -12,6 +12,8 @@ Source2:       https://www.einval.com/~steve/pgp/587979573442684E.asc
 Source3:       jigdo.desktop
 # fix doc SGML sources e.g. for missing end tags
 Patch:         %{name}-0.8.1-fix-docs.patch
+# Fix header inclusions for compiling with GCC 13
+Patch:         %{name}-0.8.1-fix-gcc13.patch
 
 BuildRequires: bzip2-devel
 BuildRequires: curl-devel

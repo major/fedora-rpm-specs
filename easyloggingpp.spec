@@ -48,6 +48,11 @@ Patch:          %{url}/pull/817.patch
 # Convert words.txt from ISO-8859-1 to UTF-8
 # https://github.com/amrayn/easyloggingpp/pull/818
 Patch:          %{url}/pull/818.patch
+# Version 1.13.0 of gtest requires C++14
+# https://github.com/amrayn/easyloggingpp/issues/830
+#   Downstream-only patch switching *only the CMake build system* from C++11 to
+#   C++14:
+Patch:          0001-Switch-CMake-build-system-from-C-11-to-C-14.patch
 
 # No compiled code is installed, so there are no debugging symbols.
 %global debug_package %{nil}

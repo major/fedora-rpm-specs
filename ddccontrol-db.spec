@@ -1,7 +1,7 @@
 Name:             ddccontrol-db
 URL:              https://github.com/ddccontrol/ddccontrol-db
-Version:          20220829
-Release:          2%{?dist}
+Version:          20230124
+Release:          1%{?dist}
 # Agreed by usptream to be GPLv2+
 # http://sourceforge.net/mailarchive/message.php?msg_id=29762202
 License:          GPLv2+
@@ -34,6 +34,10 @@ make install DESTDIR=%{buildroot}
 %{_datadir}/%{name}
 
 %changelog
+* Thu Jan 26 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 20230124-1
+- New version
+  Resolves: rhbz#2124090
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220829-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

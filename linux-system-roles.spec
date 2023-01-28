@@ -29,8 +29,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.33.10
-Release: 1%{?dist}
+Version: 1.33.11
+Release: 2%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -136,7 +136,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 8 1.2.11
 
 %global rolename9 kernel_settings
-%deftag 9 1.1.11
+%deftag 9 1.1.12
 
 %global rolename10 logging
 %deftag 10 1.11.5
@@ -311,12 +311,6 @@ sed -r -i -e '/hosts: all/a\
   tags:\
     - tests::avc' tests_selinux_disabled.yml
 cd ../..
-%endif
-
-%if 0%{?rhel}
-cd %{rolename5}
-%patch51 -p1
-cd ..
 %endif
 
 cd %{rolename15}
@@ -748,6 +742,12 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Thu Jan 26 2023 Rich Megginson <rmeggins@redhat.com> - 1.33.11-2
+- remove network patch
+
+* Thu Jan 26 2023 Packit <hello@packit.dev> - 1.33.11-1
+- Update to upstream version 1.33.11
+
 * Wed Jan 25 2023 Packit <hello@packit.dev> - 1.33.10-1
 - Update to upstream version 1.33.10
 

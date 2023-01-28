@@ -19,8 +19,8 @@
 %global modname numpy
 
 Name:           numpy
-Version:        1.23.5
-Release:        2%{?dist}
+Version:        1.24.1
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
@@ -209,6 +209,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Thu Jan 26 2023 Pavel Simovec <psimovec@redhat.com> - 1:1.24.1-1
+- Update to 1.24.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.23.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,10 @@
-
 %global wpa_supplicant_version 1:1.1
 
 %global ppp_version %(sed -n 's/^#define\\s*VERSION\\s*"\\([^\\s]*\\)"$/\\1/p' %{_includedir}/pppd/patchlevel.h 2>/dev/null | grep . || echo bad)
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.41.90
+%global real_version 1.41.91
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -175,7 +174,7 @@ Name: NetworkManager
 Summary: Network connection manager and user applications
 Epoch: %{epoch_version}
 Version: %{rpm_version}
-Release: %{release_version}%{?snap}%{?dist}.1
+Release: %{release_version}%{?snap}%{?dist}
 Group: System Environment/Base
 License: GPLv2+ and LGPLv2+
 URL: https://networkmanager.dev/
@@ -1224,6 +1223,9 @@ fi
 
 
 %changelog
+* Thu Jan 26 2023 Lubomir Rintel <lkundrak@v3.sk> - - 1:1.41.91-1
+- Update to 1.41.91 release (release candidate)
+
 * Fri Jan 20 2023 Fernando Fernandez Mancera <ffmancera@riseup.net> - 1:1.41.90-1
 - Update to 1.42-rc1 (1.41.90) (release candidate)
 - Upstream sync specfile

@@ -1,6 +1,6 @@
 Name:          group-service
-Version:       1.3.0
-Release:       7%{?dist}
+Version:       1.4.0
+Release:       1%{?dist}
 Summary:       Dbus Group management CLI tool
 License:       GPLv3+ 
 URL:           https://github.com/zhuyaliang/%{name}
@@ -9,19 +9,15 @@ URL:           https://github.com/zhuyaliang/%{name}
 # spectool -g group-service.spec
 Source0:       %url/archive/%{version}/%{name}-%{version}.tar.gz
 
-# Upstream patch to fix building with meson 0.62.0
-# https://github.com/zhuyaliang/group-service/commit/951041f
-Patch0:        group-service-1.3.0-meson.patch
-
 BuildRequires: cmake
-BuildRequires: gcc
-BuildRequires: glib2-devel
-BuildRequires: gettext
-BuildRequires: pkgconfig(systemd)
 BuildRequires: dbus-devel
+BuildRequires: gcc
+BuildRequires: gettext
+BuildRequires: glib2-devel
 BuildRequires: libxcrypt-devel
 BuildRequires: meson >= 0.50.0
 BuildRequires: polkit-devel
+BuildRequires: pkgconfig(systemd)
 BuildRequires: systemd-rpm-macros
 
 %{?systemd_requires}
@@ -79,6 +75,9 @@ group-service back-ends development.
 
 
 %changelog
+* Thu Jan 26 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.4.0-1
+- update to 1.4.0
+
 * Tue Jan 24 2023 Robert Scheck <robert@fedoraproject.org> - 1.3.0-7
 - Depend on pkgconfig(systemd) to ensure systemd.pc availability
 

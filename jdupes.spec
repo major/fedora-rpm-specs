@@ -5,7 +5,7 @@ Version:        1.20.2
 %forgemeta
 
 Name:           jdupes
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Duplicate file finder and an enhanced fork of 'fdupes'
 
 License:        MIT
@@ -33,7 +33,7 @@ prompting the user."
 
 
 %build
-%make_build ENABLE_DEDUPE=1 HARDEN=1 CFLAGS="%{optflags}" PREFIX="%{_prefix}" MAN_BASE_DIR="%{_mandir}"
+%make_build CFLAGS="%{optflags} -DENABLE_DEDUPE -DHARDEN" PREFIX="%{_prefix}" MAN_BASE_DIR="%{_mandir}"
 
 
 %install
@@ -48,6 +48,9 @@ prompting the user."
 
 
 %changelog
+* Thu Jan 26 2023 David Cantrell <dcantrell@redhat.com> - 1.20.2-6
+- Pass -DENABLE_DEDUPE and -DHARDEN to CFLAGS (#2156509)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

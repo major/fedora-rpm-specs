@@ -2,13 +2,26 @@
 %global shortname pyopengl
 
 Name:           python-%{shortname}
-Version:        3.1.5
-Release:        11%{?dist}
+Version:        3.1.6
+Release:        1%{?dist}
 Summary:        Python bindings for OpenGL
 License:        BSD
 URL:            https://github.com/mcfletch/pyopengl
 Source0:        https://pypi.python.org/packages/source/P/%{srcname}/%{srcname}-%{version}.tar.gz
 Source1:        https://pypi.python.org/packages/source/P/%{srcname}-accelerate/%{srcname}-accelerate-%{version}.tar.gz
+
+BuildRequires:  gcc
+BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-numpy
+BuildRequires:  python3-Cython
+
+# For tests
+BuildRequires:  mesa-dri-drivers
+BuildRequires:  mesa-libGLU
+BuildRequires:  python3-pygame
+BuildRequires:  python3-pytest
+BuildRequires:  xorg-x11-server-Xvfb
 
 %description
 PyOpenGL is the cross platform Python binding to OpenGL and related APIs. It
@@ -22,11 +35,6 @@ for Python including (Tkinter, wxPython, FxPy, PyGame, and Qt).
 
 %package -n     python3-%{shortname}
 Summary:        Python 3 bindings for OpenGL
-BuildRequires:  gcc
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-numpy
-BuildRequires:  python3-Cython
 Requires:       freeglut
 Requires:       python3-numpy
 %{?python_provide:%python_provide python3-%{shortname}}
@@ -88,6 +96,15 @@ sed -i -e '/^#! \//, 1d' buffers.py _buffers.py
 popd
 
 
+%check
+%ifarch s390x
+export PYTEST_ADDOPTS="-k 'not test_buffer_api_basic'"
+%endif
+PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
+  xvfb-run -a -s "-screen 0 1024x768x24 -ac +extension GLX +render -noreset" \
+  pytest %{srcname}-%{version}/tests
+
+
 %files -n python3-%{shortname}
 %license %{srcname}-%{version}/license.txt
 %{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info
@@ -102,6 +119,10 @@ popd
 
 
 %changelog
+* Thu Jan 26 2023 Scott Talbert <swt@techie.net> - 3.1.6-1
+- Update to new upstream release 3.1.6 (#2056226)
+- Enable upstream tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

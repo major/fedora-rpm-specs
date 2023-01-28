@@ -4,7 +4,7 @@
 
 Name:       daala
 Version:    0
-Release:    23%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:    24%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 Summary:    Daala video compression
 License:    BSD
 URL:        http://xiph.org/daala/
@@ -22,7 +22,7 @@ BuildRequires:  pkgconfig(check) >= 0.9.8
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(ogg) >= 1.3
 BuildRequires:  pkgconfig(sdl2)
-BuildRequires:  wxGTK3-devel
+BuildRequires:  wxGTK-devel
 
 %description
 A new video compression technology. The goal of the project is to provide a
@@ -146,6 +146,9 @@ rm -f %{buildroot}/%{_mandir}/man3/_*_include_daala_.3
 %{_bindir}/*
 
 %changelog
+* Sat Jan 21 2022 Scott Talbert <swt@techie.net> - 0-24.20200724git694d4ce
+- Rebuild with wxWidgets 3.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-23.20200724git694d4ce
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

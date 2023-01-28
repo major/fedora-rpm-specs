@@ -36,7 +36,7 @@ MathML 2.0.
 %package        qt6
 Summary:        Qt6/OpenGL-based MML Widget
 BuildRequires:  pkgconfig(Qt6)
-BuildRequires:  pkgconfig(qwt)
+BuildRequires:  pkgconfig(Qt6Qwt6)
 Buildrequires:  qt6-rpm-macros
 Requires:       pkgconfig(Qt6)
 Provides:       libqtmmlwidget-qt6%{?_isa} = %{version}-%{release}
@@ -58,7 +58,7 @@ developing applications that use %{name}.
 %package        qt5
 Summary:        Qt5/OpenGL-based MML Widget
 BuildRequires:  pkgconfig(Qt5Core)
-BuildRequires:  pkgconfig(qwt)
+BuildRequires:  pkgconfig(Qt5Qwt6)
 Buildrequires:  qt5-rpm-macros, qt5-qtbase-devel
 Requires:       pkgconfig(Qt5Core)
 Provides:       libqtmmlwidget%{?_isa} = %{version}-%{release}

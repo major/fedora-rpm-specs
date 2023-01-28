@@ -3,7 +3,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 0.0.2
-Release: 39%{?dist}
+Release: 40%{?dist}
 Summary: Ruby Bindings for the GNU LibIDN library
 # ASL license for ext/idn.c, ext/idn.h, ext/punycode.c and ext/stringprep.c
 License: ASL 2.0 and LGPLv2+
@@ -13,6 +13,8 @@ Patch0: rubygem-idn-0.0.2-Fix-for-ruby-1.9.x.patch
 # Fixes failure due to change in default encoding in Ruby 2.0.
 # http://rubyforge.org/tracker/index.php?func=detail&aid=29724&group_id=924&atid=3635
 Patch1: rubygem-idn-0.0.2-ruby2-encoding-in-tests-fix.patch
+
+Patch2: rubygem-idn-c99.patch
 
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -41,6 +43,7 @@ Documentation for %{name}.
 
 %patch0 -p0
 %patch1 -p1
+%patch2 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -84,6 +87,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Thu Jan 26 2023 Florian Weimer <fweimer@redhat.com> - 0.0.2-40
+- Fix C99 compatibility issue (#2164862)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

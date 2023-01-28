@@ -1,15 +1,15 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 64
+%global microversion 65
 
 %global apiversion   0.3
 %global spaversion   0.2
 %global soversion    0
 %global libversion   %{soversion}.%(bash -c '((intversion = (%{minorversion} * 100) + %{microversion})); echo ${intversion}').0
-%global ms_version   0.4.1
+%global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 3
+%global baserelease 2
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -73,9 +73,7 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 %endif
 
 ## upstream patches
-Patch0001:	0001-spa-Fix-audioconvert-overflow-when-scaling.patch
-Patch0002:	0002-filter-chain-fix-AVX-dsp_sum-index-increment.patch
-Patch0003:	0003-keys-don-t-remove-deprecated-symbols-by-default.patch
+Patch0001:	0001-modules-also-install-module-combine-stream.patch
 
 ## upstreamable patches
 
@@ -467,7 +465,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 
 %files
 %license LICENSE COPYING
-%doc README.md
+%doc README.md NEWS
 %{_userunitdir}/pipewire.*
 %{_userunitdir}/filter-chain.*
 %{_bindir}/pipewire
@@ -512,6 +510,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-avb.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-client-device.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-client-node.so
+%{_libdir}/pipewire-%{apiversion}/libpipewire-module-combine-stream.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-echo-cancel.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-fallback-sink.so
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-filter-chain.so
@@ -574,6 +573,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pkgconfig/libspa-%{spaversion}.pc
 
 %files doc
+%doc README.md NEWS
 %{_datadir}/doc/pipewire/html
 
 %files utils
@@ -666,6 +666,12 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu Jan 26 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.65-2
+- Add NEWS file (rhbz#2032237)
+
+* Thu Jan 26 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.65-1
+- Update version to 0.3.65
+
 * Thu Jan 19 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.64-3
 - Add patch to avoid DSP mixing issues with AVX in filter-chain.
 - Add patch to revert API breakage with deprecated symbols.

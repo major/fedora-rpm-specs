@@ -1,12 +1,12 @@
 %global debug_package %{nil}
 
 Name:           doublecmd
-Version:        1.0.9
-Release:        2%{?dist}
+Version:        1.0.10
+Release:        1%{?dist}
 Summary:        Cross platform open source file manager with two panels
 
 # Full licenses description in licensecheck.txt file
-License:        GPLv2+ and LGPLv2+ and MIT and MPLv1.1 and MPLv2.0 and ASL 2.0 and BSD and zlib
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND MIT AND MPL-1.1 AND MPL-2.0 AND Apache-2.0 AND BSD-2-Clause AND Zlib
 URL:            http://doublecmd.sourceforge.net
 Source0:        https://sourceforge.net/projects/%{name}/files/Double%20Commander%20Source/%{name}-%{version}-src.tar.gz
 Source1:        %{name}-qt.desktop
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_datadir}/polkit-1/actions/org.doublecmd.root.policy
 
 %changelog
+* Mon Jan 23 2023 Vasiliy N. Glazov <vascom2@gmail.com> - 1.0.10-1
+- Update to 1.0.10
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

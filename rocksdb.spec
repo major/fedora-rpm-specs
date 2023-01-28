@@ -20,6 +20,9 @@ Patch1: shared-liburing.patch
 # and will use system libraries.
 Patch2: https://sources.debian.org/data/main/r/rocksdb/7.6.0-2/debian/patches/no_rpath.patch
 
+# https://gcc.gnu.org/gcc-13/porting_to.html
+Patch3: gcc13.patch
+
 BuildRequires: gcc-c++
 BuildRequires: cmake
 BuildRequires: gflags-devel
@@ -68,6 +71,7 @@ Development files for RocksDB.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 
 %build

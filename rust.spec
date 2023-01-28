@@ -8,9 +8,9 @@
 # To bootstrap from scratch, set the channel and date from src/stage0.json
 # e.g. 1.59.0 wants rustc: 1.58.0-2022-01-13
 # or nightly wants some beta-YYYY-MM-DD
-%global bootstrap_version 1.65.0
-%global bootstrap_channel 1.65.0
-%global bootstrap_date 2022-11-03
+%global bootstrap_version 1.66.0
+%global bootstrap_channel 1.66.0
+%global bootstrap_date 2022-12-15
 
 # Only the specified arches will use bootstrap binaries.
 # NOTE: Those binaries used to be uploaded with every new release, but that was
@@ -46,7 +46,7 @@
 # We can also choose to just use Rust's bundled LLVM, in case the system LLVM
 # is insufficient.  Rust currently requires LLVM 12.0+.
 %global min_llvm_version 13.0.0
-%global bundled_llvm_version 15.0.2
+%global bundled_llvm_version 15.0.6
 %bcond_with bundled_llvm
 
 # Requires stable libgit2 1.5, and not the next minor soname change.
@@ -83,8 +83,8 @@
 %endif
 
 Name:           rust
-Version:        1.66.1
-Release:        2%{?dist}
+Version:        1.67.0
+Release:        1%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -106,15 +106,6 @@ Patch1:         0001-Use-lld-provided-by-system-for-wasm.patch
 # Set a substitute-path in rust-gdb for standard library sources.
 Patch2:         rustc-1.61.0-rust-gdb-substitute-path.patch
 
-# https://github.com/rust-lang/rust/pull/103072
-Patch3:         0001-compiletest-set-the-dylib-path-when-gathering-target.patch
-
-# https://github.com/rust-lang/rust/pull/104001
-Patch4:         0001-Improve-generating-Custom-entry-function.patch
-
-# https://github.com/rust-lang/rust/pull/105468
-Patch5:         0001-Mangle-main-as-__main_void-on-wasm32-wasi.patch
-
 ### RHEL-specific patches below ###
 
 # Simple rpm macros for rust-toolset (as opposed to full rust-packaging)
@@ -125,7 +116,7 @@ Patch100:       rustc-1.65.0-disable-libssh2.patch
 
 # libcurl on RHEL7 doesn't have http2, but since cargo requests it, curl-sys
 # will try to build it statically -- instead we turn off the feature.
-Patch101:       rustc-1.65.0-disable-http2.patch
+Patch101:       rustc-1.67.0-disable-http2.patch
 
 # kernel rh1410097 causes too-small stacks for PIE.
 # (affects RHEL6 kernels when building for RHEL7)
@@ -589,9 +580,6 @@ test -f '%{local_rust_root}/bin/rustc'
 
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %if %with disabled_libssh2
 %patch100 -p1
@@ -991,16 +979,7 @@ end}
 %files doc
 %docdir %{_docdir}/%{name}
 %dir %{_docdir}/%{name}
-%dir %{_docdir}/%{name}/html
-%{_docdir}/%{name}/html/*/
-%{_docdir}/%{name}/html/*.html
-%{_docdir}/%{name}/html/*.css
-%{_docdir}/%{name}/html/*.js
-%{_docdir}/%{name}/html/*.png
-%{_docdir}/%{name}/html/*.svg
-%{_docdir}/%{name}/html/*.woff2
-%license %{_docdir}/%{name}/html/*.txt
-%license %{_docdir}/%{name}/html/*.md
+%{_docdir}/%{name}/html
 # former cargo-doc
 %docdir %{_docdir}/cargo
 %dir %{_docdir}/cargo
@@ -1056,6 +1035,9 @@ end}
 
 
 %changelog
+* Thu Jan 26 2023 Josh Stone <jistone@redhat.com> - 1.67.0-1
+- Update to 1.67.0.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.66.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

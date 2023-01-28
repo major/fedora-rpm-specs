@@ -6,8 +6,8 @@
 %define NINJA ninja-build
 
 Name:           knot-resolver
-Version:        5.5.3
-Release:        2%{?dist}
+Version:        5.6.0
+Release:        1%{?dist}
 Summary:        Caching full DNS Resolver
 
 License:        GPL-3.0-or-later
@@ -46,6 +46,7 @@ BuildRequires:  pkgconfig(libsystemd)
 BuildRequires:  pkgconfig(libcap-ng)
 BuildRequires:  pkgconfig(libuv)
 BuildRequires:  pkgconfig(luajit) >= 2.0
+BuildRequires:  pkgconfig(jemalloc)
 BuildRequires:  systemd-rpm-macros
 
 Requires:       systemd
@@ -181,6 +182,7 @@ CFLAGS="%{optflags}" LDFLAGS="%{?__global_ldflags}" meson build_rpm \
     -Dkeyfile_default="%{_sharedstatedir}/knot-resolver/root.keys" \
     -Dinstall_root_keys=enabled \
     -Dinstall_kresd_conf=enabled \
+    -Dmalloc=jemalloc \
     --buildtype=plain \
     --prefix="%{_prefix}" \
     --sbindir="%{_sbindir}" \
@@ -376,6 +378,9 @@ fi
 %endif
 
 %changelog
+* Thu Jan 26 2023 Jakub Ružička <jakub.ruzicka@nic.cz> - 5.6.0-1
+- update to upstream version 5.6.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

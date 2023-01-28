@@ -1,18 +1,15 @@
 %global project_version_major 5
 %global project_version_minor 0
-%global project_version_patch 4
+%global project_version_patch 5
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Command-line package manager
 License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/dnf5
 Source0:        %{url}/archive/%{version}/dnf5-%{version}.tar.gz
 Patch1:         0001-Disable-tutorial-unit-tests.patch
-Patch2:         0002-modules-Add-ModuleQuery-filter-latest.patch
-Patch3:         0003-dnf5-Fix-rawhide-build-error.patch
-Patch4:         0004-test-Fix-rawhide-build-errors.patch
 
 
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
@@ -314,6 +311,7 @@ Development files for libdnf5-cli.
 Summary:        Perl 5 bindings for the libdnf library
 License:        LGPL-2.1-or-later
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description -n perl-libdnf5
@@ -334,6 +332,7 @@ Perl 5 bindings for the libdnf library.
 Summary:        Perl 5 bindings for the libdnf5-cli library
 License:        LGPL-2.1-or-later
 Requires:       libdnf5-cli%{?_isa} = %{version}-%{release}
+Requires:       perl(:MODULE_COMPAT_%(eval "`%{__perl} -V:version`"; echo $version))
 
 
 %description -n perl-libdnf5-cli
@@ -595,6 +594,12 @@ Core DNF5 plugins that enhance dnf5 with builddep and changelog commands.
 
 
 %changelog
+* Thu Jan 26 2023 Nicola Sella <nsella@redhat.com> - 5.0.5-1
+- Fix build fail in rawhide
+- Fixes in the concerning filesystem
+- Fixes in the concerning modules
+- Fixes in the concerning api
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

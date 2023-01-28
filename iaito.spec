@@ -1,6 +1,6 @@
 Name:           iaito
 Summary:        GUI for radare2 reverse engineering framework
-Version:        5.7.8
+Version:        5.8.0
 %global         rel             1
 %global         upversion       %{version}-beta
 URL:            https://radare.org/n/iaito.html
@@ -16,16 +16,16 @@ VCS:            https://github.com/radareorg/iaito/
 %global         gituser         radareorg
 %global         gitname         iaito
 
-%global         gitdate         20221019
-%global         commit          269cbac239e6ed8126d424728e9209dde7c84e37
+%global         gitdate         20221223
+%global         commit          cbf1992d78224f7e2a8ae7bd5701b759908a723f
 %global         shortcommit     %(c=%{commit}; echo ${c:0:7})
 
-%global         iaito_translations_gitdate      20221014
-%global         iaito_translations_commit       ab923335409fa298c39f0014588d78d926c6f3a2
+%global         iaito_translations_gitdate      20221114
+%global         iaito_translations_commit       e66b3a962a7fc7dfd730764180011ecffbb206bf
 %global         iaito_translations__shortcommit %(c=%{iaito_translations_commit}; echo ${c:0:7})
 
 %if %{with releasetag}
-Release:        %{rel}%{?dist}.1
+Release:        %{rel}%{?dist}
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %else
 Release:        0.%{rel}.%{gitdate}git%{shortcommit}%{?dist}.1
@@ -167,8 +167,8 @@ export PATH=$(pwd)/TMPBINDIR:$PATH
 make install-translations DESTDIR=%{?buildroot}
 
 # Move files manually
-# mkdir -p %{buildroot}%{_mandir}/man1
-# cp -p ./src/iaito.1 %{buildroot}%{_mandir}/man1/
+# mkdir -p %%{buildroot}%%{_mandir}/man1
+# cp -p ./src/iaito.1 %%{buildroot}%%{_mandir}/man1/
 
 %find_lang %name --with-qt
 
@@ -190,6 +190,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Thu Jan 26 2023 Michal Ambroz <rebus _AT seznam.cz> - 5.8.0-1
+- bump to 5.8.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.8-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

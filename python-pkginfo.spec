@@ -9,16 +9,12 @@ checkout" (e.g, created by running setup.py develop).}
 
 Name:           python-%{pypi_name}
 Summary:        Query metadata from sdists / bdists / installed packages
-Version:        1.9.2
-Release:        2%{?dist}
+Version:        1.9.6
+Release:        1%{?dist}
 License:        MIT
 
 URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        %{pypi_source}
-
-# don't ship internal test subpackage
-Patch1:         0001-disable-test-sub-package.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -47,6 +43,9 @@ This package contains the documentation.
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
+
+# don't ship internal test subpackage
+sed -i "s/, 'pkginfo.tests'//g" setup.py
 
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
@@ -85,6 +84,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Wed Jan 25 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.9.6-4
+- Update to latest upstream release 1.9.6 (closes rhbz#2157943)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
