@@ -1,6 +1,6 @@
 Name:           freedroid
 Version:        1.0.2
-Release:        41%{?dist}
+Release:        42%{?dist}
 Summary:        Clone of the C64 game Paradroid
 
 License:        GPLv2+
@@ -11,6 +11,8 @@ Patch0:         %{name}-cleaninst.patch
 Patch1:         %{name}-1.0.2-printfs.patch
 Patch2:         %{name}-1.0.2-cpuhog.patch
 Patch3:         %{name}-1.0.2-vorbisfile.patch
+Patch4: freedroid-configure-c99.patch
+Patch5: freedroid-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  SDL_image-devel
@@ -51,6 +53,8 @@ This package contains game data files for Freedroid.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 chmod -c -x graphics/paraicon.ico
 convert graphics/paraicon.ico freedroid.png
@@ -87,6 +91,9 @@ install -Dpm 644 freedroid.png \
 
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 1.0.2-42
+- Fix C99 compatibility issues
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

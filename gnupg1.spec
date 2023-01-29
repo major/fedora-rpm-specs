@@ -4,7 +4,7 @@
 Summary: A GNU utility for secure communication and data storage
 Name: gnupg1
 Version: 1.4.23
-Release: 20%{?dist}
+Release: 21%{?dist}
 License: GPLv3+ with exceptions
 URL: http://www.gnupg.org/
 Source0: https://gnupg.org/ftp/gcrypt/gnupg/gnupg-%{version}.tar.bz2
@@ -14,6 +14,7 @@ Patch0000: gnupg-1.4.1-gcc.patch
 Patch0001: 0001-Rename-package-to-gnupg1-1656282.patch
 # Fix for  CVE-2022-34903 (rhbz#2108445)
 Patch0002: 0002-g10-status.c-Backport-fix-for-status-buffer-overrun.patch
+Patch3: gnupg1-configure-c99.patch
 
 BuildRequires: gcc
 # Requires autoconf >= 2.60 because earlier autoconf didn't define $localedir.
@@ -101,6 +102,9 @@ done
 %{_mandir}/man1/gpgv1.1.gz
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 1.4.23-21
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.23-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global crate pore
 
 Name:           rust-pore
-Version:        0.1.6
+Version:        0.1.8
 Release:        %autorelease
 Summary:        Performance oriented reimplementation of repo
 
@@ -12,14 +12,8 @@ License:        Apache-2.0
 URL:            https://crates.io/crates/pore
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# - replace copy_dir with fs_extra
-# - replace isatty with atty
-# - bump joinery to 3.0
+# * downgrade git2 from 0.16 to 0.14
 Patch:          pore-fix-metadata.diff
-# Based on merged https://github.com/jmgao/pore/pull/102
-Patch:          pore-replace-copy_dir.diff
-# Based on merged https://github.com/jmT142411827gao/pore/pull/98
-Patch:          pore-replace-isatty.diff
 
 BuildRequires:  rust-packaging >= 21
 

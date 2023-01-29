@@ -1,13 +1,14 @@
 Summary:       Sort files in sophisticated ways
 Name:          msort
 Version:       8.53
-Release:       47%{?dist}
+Release:       48%{?dist}
 License:       GPLv3
 URL:           http://billposer.org/Software/msort.html
 Source0:       http://billposer.org/Software/Downloads/msort-%{version}.tar.bz2
 Patch0:        msort-8.53-dso.patch
 Patch1:        msort-8.53-format.patch
 Patch2:        msort-8.53-mlimits.patch
+Patch3:        msort-configure-c99.patch
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: gcc
@@ -28,7 +29,7 @@ Unicode case-folding. The basic program has a somewhat complex command
 line interface, but may be driven by an optional GUI.
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 aclocal
@@ -56,6 +57,9 @@ rm hybrid-ips.txt
 %{_mandir}/man1/msort.1*
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 8.53-48
+- Port configure script to C99 (#2164988)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.53-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

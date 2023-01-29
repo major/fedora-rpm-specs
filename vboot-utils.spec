@@ -1,8 +1,8 @@
-%define gitshort 61971455
+%define gitshort 9b08a3c4
 
 Name:		vboot-utils
-Version:	20220621
-Release:	3.git%{gitshort}%{?dist}
+Version:	20230127
+Release:	1.git%{gitshort}%{?dist}
 Summary:	Verified Boot Utility from Chromium OS
 License:	BSD
 URL:		https://chromium.googlesource.com/chromiumos/platform/vboot_reference
@@ -13,11 +13,13 @@ ExclusiveArch:	%{arm} aarch64 %{ix86} x86_64
 # following commands to generate the tarball:
 #  git clone https://git.chromium.org/git/chromiumos/platform/vboot_reference.git
 #  cd vboot_reference/
-#  git archive --format=tar --prefix=vboot-utils-61971455/ 61971455 | xz > vboot-utils-61971455.tar.xz
+#  git archive --format=tar --prefix=vboot-utils-9b08a3c4/ 9b08a3c4 | xz > vboot-utils-9b08a3c4.tar.xz
 Source0:	%{name}-%{gitshort}.tar.xz
 
 # Fix VB2_DEBUG function usage
-Patch0:	vboot-utils-61971455.patch
+Patch0:	vboot-utils-9b08a3c4.patch
+# Fix linking error with USE_FLASHROM=0
+Patch1: flashrom-ensure-flashrom-symbols-are-not-loaded-if-U.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -28,7 +30,6 @@ BuildRequires:	trousers-devel
 BuildRequires:	libyaml-devel
 BuildRequires:	xz-devel
 BuildRequires:	libuuid-devel
-BuildRequires:	flashrom-devel
 
 %description
 Verified boot is a collection of utilities helpful for chromebook computer.
@@ -53,11 +54,11 @@ Pack and sign the kernel, manage gpt partitions.
 %endif
 
 
-make V=1 ARCH=%{ARCH} COMMON_FLAGS="$RPM_OPT_FLAGS"
+make V=1 ARCH=%{ARCH} COMMON_FLAGS="$RPM_OPT_FLAGS" USE_FLASHROM=0
 
 
 %install
-make install V=1 DESTDIR=%{buildroot} ARCH=%{ARCH} COMMON_FLAGS="$RPM_OPT_FLAGS"
+make install V=1 DESTDIR=%{buildroot} ARCH=%{ARCH} COMMON_FLAGS="$RPM_OPT_FLAGS" USE_FLASHROM=0
 mkdir -p %{buildroot}%{_datadir}/vboot/
 cp -rf tests/devkeys %{buildroot}%{_datadir}/vboot/
 
@@ -90,6 +91,10 @@ rm -f %{buildroot}/usr/lib/libvboot_host.a
 %{_datadir}/vboot/devkeys/
 
 %changelog
+* Fri Jan 27 2023 Javier Martinez Canillas <javierm@redhat.com> - 20230127-1.git9b08a3c4
+- Update to upstream snapshot 9b08a3c4
+- Drop `BuildRequires: flashrom-devel` since all tools depending on it are removed.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220621-3.git61971455
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

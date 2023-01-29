@@ -3,8 +3,8 @@
 
 Summary:        Utility to clone and restore a partition
 Name:           partclone
-Version:        0.3.22
-Release:        2%{?dist}
+Version:        0.3.23
+Release:        1%{?dist}
 # Partclone itself is GPL-2.0-or-later but uses other source codes, breakdown:
 # GPL-3.0-or-later: fail-mbr/fail-mbr.S
 # BSD-2-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-3.0-or-later: src/btrfs*
@@ -116,6 +116,10 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/
 sed -e 's/^\(am__append_[[:digit:]]* = nilfs2.test\)/#\1/' \
     -i tests/Makefile
 
+# Reiser4 tests require reiser4progs (which are not packaged)
+sed -e 's/^\(am__append_[[:digit:]]* = reiser4.test\)/#\1/' \
+    -i tests/Makefile
+
 # No btrfs-progs, f2fs-tools and hfsplus-tools in RHEL or EPEL
 %if 0%{?rhel}
 sed -e 's/^\(am__append_[[:digit:]]* = btrfs.test\)/#\1/' \
@@ -137,6 +141,9 @@ make check || (cat tests/test-suite.log; exit 1)
 %{_mandir}/man8/%{name}*.8*
 
 %changelog
+* Sat Jan 28 2023 Robert Scheck <robert@fedoraproject.org> 0.3.23-1
+- Upgrade to 0.3.23 (#2165166)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.22-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

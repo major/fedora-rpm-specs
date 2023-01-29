@@ -1,8 +1,8 @@
 %global pypi_name asteval
 
 Name:           python-%{pypi_name}
-Version:        0.9.27
-Release:        2%{?dist}
+Version:        0.9.28
+Release:        1%{?dist}
 Summary:        Evaluator of Python expression using ast module
 
 License:        MIT
@@ -69,6 +69,9 @@ rm -rf html/.{doctrees,buildinfo} html/_static/empty
 %license LICENSE
 
 %changelog
+* Fri Jan 27 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.28-1
+- Update to latest upstream release 0.9.28 (closes rhbz#2089878)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.27-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

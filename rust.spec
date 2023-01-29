@@ -84,7 +84,7 @@
 
 Name:           rust
 Version:        1.67.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -105,6 +105,16 @@ Patch1:         0001-Use-lld-provided-by-system-for-wasm.patch
 
 # Set a substitute-path in rust-gdb for standard library sources.
 Patch2:         rustc-1.61.0-rust-gdb-substitute-path.patch
+
+# Fix bootstrap failure
+# https://github.com/rust-lang/rust/commit/675fa0b3dd5fe14b43ad5b7862f4528df7322468
+Patch3:         675fa0b3dd5fe14b43ad5b7862f4528df7322468.patch
+
+# fix build of mesa, possibly other things; patch edited to only
+# include the one commit necessary on top of 1.67.0
+# https://github.com/rust-lang/rust/issues/107334
+# https://github.com/rust-lang/rust/pull/107360
+Patch4:         107360-modified.patch
 
 ### RHEL-specific patches below ###
 
@@ -580,6 +590,8 @@ test -f '%{local_rust_root}/bin/rustc'
 
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
+%patch4 -p1
 
 %if %with disabled_libssh2
 %patch100 -p1
@@ -1035,6 +1047,10 @@ end}
 
 
 %changelog
+* Fri Jan 27 2023 Adam Williamson <awilliam@redhat.com> - 1.67.0-2
+- Backport PR #107360 to fix build of mesa
+- Backport 675fa0b3 to fix bootstrapping failure
+
 * Thu Jan 26 2023 Josh Stone <jistone@redhat.com> - 1.67.0-1
 - Update to 1.67.0.
 

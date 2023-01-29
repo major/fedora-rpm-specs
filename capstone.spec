@@ -1,9 +1,9 @@
 Name:           capstone
 Version:        4.0.2
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A lightweight multi-platform, multi-architecture disassembly framework
 
-%global         gituser         aquynh
+%global         gituser         capstone-engine
 %global         gitname         capstone
 # 4.0.2 release
 %global         commit          1d230532840a37ac032c6ab80128238fc930c6c1
@@ -11,8 +11,8 @@ Summary:        A lightweight multi-platform, multi-architecture disassembly fra
 
 License:        BSD
 URL:            http://www.capstone-engine.org/
-VCS:            https://github.com/aquynh/capstone/
-#               https://github.com/aquynh/capstone/releases
+VCS:            https://github.com/capstone-engine/capstone/
+#               https://github.com/capstone-engine/capstone/releases
 # Source0:      https://github.com/%%{gituser}/%%{gitname}/archive/%%{commit}/%%{name}-%%{version}-%%{shortcommit}.tar.gz
 Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
@@ -24,7 +24,7 @@ Source0:        https://github.com/%{gituser}/%{gitname}/archive/%{version}.tar.
 # Patch0:         capstone-python.patch
 
 # Upstream patch which fixes libcapstone.pc.
-# See: https://github.com/aquynh/capstone/issues/1339
+# See: https://github.com/capstone-engine/capstone/issues/1339
 # Patch1:         0001-Fix-include-path-in-pkg-config-for-Makefile-too-1339.patch
 
 %global         common_desc %{expand:
@@ -239,6 +239,9 @@ make check LD_LIBRARY_PATH="`pwd`"
 %endif
 
 %changelog
+* Fri Jan 27 2023 Michal Ambroz <rebus AT_ seznam.cz> - 4.0.2-13
+- update the new github page
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

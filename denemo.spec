@@ -1,13 +1,15 @@
 Summary:	Graphical music notation program
 Name:		denemo
 Version:	2.6.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 License:	GPLv3+
 Source:		https://ftp.gnu.org/gnu/denemo/denemo-%{version}.tar.gz
 Source1:	%{name}-feta.metainfo.xml
 Source2:	%{name}-emmentaler.metainfo.xml
 Source3:	%{name}-music.metainfo.xml
 Patch1:		%{name}-%{version}-configure.patch
+# Upstream patch: https://savannah.gnu.org/bugs/index.php?63720
+Patch2:		%{name}-%{version}-c99.patch
 
 URL: http://www.denemo.org/
 
@@ -93,6 +95,7 @@ This contains the directory common to all Denemo fonts.
 %prep
 %setup -q
 %patch1 -p1
+%patch2 -p1
 
 %build
 autoupdate
@@ -152,6 +155,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Fri Jan 27 2023 Nikita Popov <npopov@redhat.com> - 2.6.0-6
+- Port sffile.c to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,12 @@
 Name:		sqliteodbc
 Version:	0.9996
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	SQLite ODBC Driver
 
 License:	BSD
 URL:		http://www.ch-werner.de/sqliteodbc
 Source:		http://www.ch-werner.de/sqliteodbc/%{name}-%{version}.tar.gz
+Patch0: sqliteodbc-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -28,7 +29,7 @@ unixODBC or iODBC driver managers. For more information refer to:
 
 
 %prep
-%setup -q
+%autosetup -p1
 # correct EOL
 for i in README; do
 	sed 's#\r##g' $i > $i.tmp && \
@@ -154,6 +155,9 @@ fi
 
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 0.9996-13
+- Port configure script to C99 (#2165021)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9996-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

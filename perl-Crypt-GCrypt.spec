@@ -3,7 +3,7 @@
 
 Name:           perl-Crypt-GCrypt
 Version:        1.26
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Perl interface to libgcrypt library
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Crypt-GCrypt
@@ -14,6 +14,7 @@ Patch0:         Crypt-GCrypt-1.26-libgcrypt_1_6_support.diff
 Patch1:         Crypt-GCrypt-1.26-Correct-some-warnings.patch
 # Adjust tests to libgcrypt >= 1.7, bug #1399193, CPAN RT#112504
 Patch2:         Crypt-GCrypt-1.26-Use-an-encryption-key-in-the-test-suite.patch
+Patch3:         perl-Crypt-GCrypt-c99.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -55,6 +56,7 @@ Twofish, Triple DES, Arcfour etc.
 %patch0 -p0
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 # Remove bundled modules
 rm -r inc
 perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
@@ -82,6 +84,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 1.26-26
+- Port Makefile.PL to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

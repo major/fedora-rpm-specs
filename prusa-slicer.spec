@@ -8,7 +8,7 @@
 
 Name:           prusa-slicer
 Version:        2.4.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -25,6 +25,10 @@ Source0:        https://github.com/prusa3d/PrusaSlicer/archive/version_%version.
 Source2:        %name.appdata.xml
 
 Patch1:         prusa-slicer-no-cereal-lib.patch
+
+# Add missing include, needed for GCC13
+# Proposed upstream: https://github.com/prusa3d/PrusaSlicer/pull/9434
+Patch2:         prusa-slicer-gcc13.patch
 
 # Beware!
 # Patches >= 340 are only applied on Fedora 34+
@@ -388,6 +392,9 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Fri Jan 27 2023 Scott Talbert <swt@techie.net> - 2.4.2-6
+- Fix FTBFS with GCC 13
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

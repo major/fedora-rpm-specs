@@ -1,12 +1,13 @@
 Name:           binwalk
 Version:        2.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Firmware analysis tool
 License:        MIT
 URL:            https://github.com/ReFirmLabs/binwalk
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         binwalk-2.3.3-tests.patch
 Patch1:         %{url}/pull/559/commits/6e7736869d998edb6384728c03a348cd9ab1f9ca.patch
+Patch2:         %{url}/pull/617/commits/696fe34ed680ffd951bfeca737feb4a0b98dde5c.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -46,6 +47,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %{python3_sitelib}/%{name}-%{version}*.egg-info
 
 %changelog
+* Fri Jan 27 2023 Scott Talbert <swt@techie.net> - 2.3.3-3
+- Fix path traversal in PFS extractor script (#2165006)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

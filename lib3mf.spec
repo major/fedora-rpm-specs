@@ -1,8 +1,8 @@
 Name:           lib3mf
 Version:        2.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Implementation of the 3D Manufacturing Format file standard
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://3mf.io
 
 Source0:        https://github.com/3MFConsortium/lib3mf/archive/v%{version}/lib3mf-%{version}.tar.gz
@@ -50,7 +50,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %prep
 %autosetup -p1
-%if 0%{?fedora} < 33 && 0%{?rhel} < 9
+%if 0%{?rhel} && 0%{?rhel} < 9
 # The tests FTBFS with old gtest
 # https://github.com/google/googletest/issues/2065
 sed -i 's/INSTANTIATE_TEST_SUITE_P/INSTANTIATE_TEST_CASE_P/' Tests/CPP_Bindings/Source/*.cpp
@@ -60,6 +60,9 @@ sed -i 's/INSTANTIATE_TEST_SUITE_P/INSTANTIATE_TEST_CASE_P/' Tests/CPP_Bindings/
 # https://github.com/3MFConsortium/lib3mf/issues/199
 rm AutomaticComponentToolkit/bin/act.linux
 ln -s /usr/bin/act AutomaticComponentToolkit/bin/act.linux
+
+# c++11 does not work with gtest 1.13+
+sed -i 's/ -std=c++11//' CMakeLists.txt
 
 
 %build
@@ -123,6 +126,10 @@ ln -s lib3mf.pc %{buildroot}%{_libdir}/pkgconfig/lib3MF.pc
 
 
 %changelog
+* Thu Jan 26 2023 Miro Hrončok <mhroncok@redhat.com> - 2.2.0-4
+- Don't force C++11 to fix FTBFS with gtest 1.13+
+- Convert the License tag to SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

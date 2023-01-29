@@ -1,5 +1,9 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=540328
 #
+%if ! ( 0%{?fedora} > 36 || 0%{?rhel} > 9 )
+%global with_nautilus_gtk3 1
+%endif
+
 Name:           gtkhash
 Version:        1.4
 Release:        7%{?dist}
@@ -18,7 +22,9 @@ BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  automake
 BuildRequires:  libtool
+%if 0%{?with_nautilus_gtk3}
 BuildRequires:  pkgconfig(libnautilus-extension)
+%endif
 BuildRequires:  pkgconfig(libcaja-extension)
 BuildRequires:  pkgconfig(libnemo-extension)
 BuildRequires:  pkgconfig(thunarx-3)
@@ -27,6 +33,9 @@ BuildRequires: make
 
 Provides:       gtkhash3 = %{version}-%{release}
 Obsoletes:      gtkhash3 < 1.1.1
+%if ! 0%{?with_nautilus_gtk3}
+Obsoletes:      %{name}-nautilus <= 1.4
+%endif
 
 %description
 GtkHash is a GTK+ utility for computing message digests or checksums. Currently
@@ -89,7 +98,9 @@ called "Checksums" to the file properties dialog.
   --enable-glib-checksums \
   --enable-mhash \
   --enable-thunar \
+%if 0%{?with_nautilus_gtk3}
   --enable-nautilus \
+%endif
   --enable-nemo \
   --enable-caja \
   --disable-schemas-compile \
@@ -119,9 +130,11 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.%{name}.%{name}.svg
 %{_metainfodir}/org.%{name}.%{name}.appdata.xml
 
+%if 0%{?with_nautilus_gtk3}
 %files nautilus
 %{_libdir}/nautilus/extensions-3.0/libgtkhash-properties-nautilus.so
 %{_metainfodir}/org.gtkhash.nautilus.metainfo.xml
+%endif
 
 %files thunar
 %{_libdir}/thunarx-3/libgtkhash-properties-thunar.so

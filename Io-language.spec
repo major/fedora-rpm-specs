@@ -6,7 +6,7 @@
  
 Name:           Io-language
 Version:        20170906
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Io is a small, prototype-based programming language
 License:        BSD
 URL:            https://iolanguage.org
@@ -16,6 +16,12 @@ Patch5:         io-disable-simd.patch
 Patch6:         Io-language-freeglut.patch
 Patch7:         io-nosysctl.patch
 Patch8:         pcre.patch
+# https://github.com/IoLanguage/io/commit/ad58e1c661874e779f3638bb19090d633badb715
+# https://github.com/IoLanguage/io/commit/05ca313f6cf1b5728631fe5ec923eb5078733684
+# https://github.com/IoLanguage/io/commit/e707943b623c9bf680ac6a5bd54646ce1b5a61bd
+# https://github.com/IoLanguage/io/commit/8cd5b5ad09a7707c859a7bdea342ae7ff2466e3c
+# https://github.com/IoLanguage/io/commit/92fe8304c55b84a17b0624613a7006e85a0128a2
+Patch9:         c99.patch
 BuildRequires:  make gcc gcc-c++
 BuildRequires:  e2fsprogs-devel freeglut-devel gmp-devel
 BuildRequires:  libedit-devel libevent-devel libjpeg-devel libpng-devel
@@ -91,6 +97,7 @@ Io mysql bindings
 %patch6 -p0
 %patch7 -p0
 %patch8 -p0
+%patch9 -p1
 sed -i 's|/lib/io/addons|/%{_lib}/io/addons|g' libs/iovm/io/AddonLoader.io
 # building Io while Io-language-devel is installed results in binaries getting
 # linked against the installed version, instead of the just build one <sigh>
@@ -266,6 +273,9 @@ done
 
 
 %changelog
+* Fri Jan 27 2023 Nikita Popov <npopov@redhat.com> - 20170906-10
+- Port to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20170906-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

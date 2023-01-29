@@ -118,6 +118,7 @@ Patch32: qtwebengine-skia-missing-includes.patch
 ## Cf. https://bugzilla.redhat.com/show_bug.cgi?id=2144200
 ## From: https://chromium-review.googlesource.com/c/chromium/src/+/3545665
 Patch33: qtwebengine-5.15-Backport-of-16k-page-support-on-aarch64.patch
+Patch34: qtwebengine-fix-build.patch
 
 ## Upstream patches:
 
@@ -448,6 +449,7 @@ popd
 %patch31 -p1 -b .TRUE
 %patch32 -p1 -b .skia-missing-includes
 %patch33 -p1 -b .aarch64-16kb-support
+%patch34 -p1 -b .fix-build
 
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we
 # never cross-compile in native Fedora RPMs, fixes ARM and aarch64 FTBFS

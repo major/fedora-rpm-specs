@@ -1,11 +1,11 @@
 Summary:	Extensible editor for structured binary data
 Name:		poke
-Version:	2.4
+Version:	3.0
 Release:	%autorelease
 
 # Documentation under GFDL
 License:	GPLv3 and GFDL
-URL:		http://www.jemarch.net/poke
+URL:		https://www.jemarch.net/poke
 Source0:	https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
 # the url also containes html -> manually stripped away
@@ -29,10 +29,10 @@ BuildRequires:	dejagnu
 Requires:	%{name}-data = %{version}-%{release}
 Requires:	%{name}-libs = %{version}-%{release}
 
-# bundles gnulib commit	2f52828cd17068135575bc2bd84e2afebae5e214
-Provides:	bundled(gnulib) = 20220113
+# bundles gnulib commit 738dcb549287cf29ed74a6d741d2a0723259b57e
+Provides:	bundled(gnulib) = 20230125
 # bundles jitter, should be packaged independently in the future
-Provides:	bundled(jitter) = 0.9.284
+Provides:	bundled(jitter) = 0.9.294
 
 %description
 GNU poke is an interactive, extensible editor for binary data. Not
@@ -93,16 +93,18 @@ rm -f %{buildroot}%{_libdir}/libpoke.la
 
 # Byte compile the Emacs files
 cd %{buildroot}%{_emacs_sitelispdir}
-%_emacs_bytecompile poke-map-mode.el poke-mode.el poke-ras-mode.el
+%_emacs_bytecompile poke-map-mode.el poke-ras-mode.el
 cd -
 
 %files
 %{_bindir}/%{name}
+%{_bindir}/poked
 %{_bindir}/pk-bin2poke
 %{_bindir}/pk-elfextractor
 %{_bindir}/pk-strings
 %{_infodir}/poke.info*.*
-%{_mandir}/man1/*
+%{_mandir}/man1/%{name}.1*
+%{_mandir}/man1/poked.1*
 %doc AUTHORS ChangeLog NEWS README TODO
 %license COPYING
 

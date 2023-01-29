@@ -1,12 +1,14 @@
 Name:           bpftrace
 Version:        0.16.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        High-level tracing language for Linux eBPF
 License:        ASL 2.0
 
 URL:            https://github.com/iovisor/bpftrace
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch1:         0001-Workaround-OpaquePointers-for-LLVM-15.patch
+# https://github.com/iovisor/bpftrace/pull/2484
+Patch2:         0001-Fix-compile-with-GCC-13.patch
 
 # Arches will be included as upstream support is added and dependencies are
 # satisfied in the respective arches
@@ -81,6 +83,9 @@ find %{buildroot}%{_datadir}/%{name}/tools -type f -exec \
 
 
 %changelog
+* Fri Jan 27 2023 Augusto Caringi <acaringi@redhat.com> - 0.16.0-6
+- Fix compile with GCC 13
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

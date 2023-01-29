@@ -5,27 +5,21 @@
 #%%define usescm 1
 %undefine	usescm
 
-%global	repoid		78000
+%global	repoid		78199
 
-%global	mainver	2.10.15
+%global	mainver	2.10.16
 %global	prever	2.10.10
 #%%define	betaver	-rc1
 %undefine	betaver
 %define	betarel	%(echo %betaver | sed -e 's|-|_|' | sed -e 's|^_||')
 
-%global	fedoraver	2
-
-%if 0%{?fedora} >= 13
-# Disable python3 support for now, how to handle NON-utf8 string
-# in python3 with skf...
-%global	enable_python3	1
-%endif
+%global	fedoraver	1
 
 %undefine        _changelog_trimtime
 
 Name:		skf
 Version:	%{mainver}
-Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}.2
+Release:	%{?betaver:0.}%{fedoraver}%{?betaver:.%betarel}%{?dist}
 Summary:	Utility binary files in Simple Kanji Filter
 
 License:	BSD and MIT and UCD
@@ -35,9 +29,6 @@ Source1:	skf-basic-test.sh
 Source2:	create-skf-tarball-from-scm.sh
 # https://osdn.net/projects/skf/ticket/39882
 Source11:	https://ymu.dl.osdn.jp/ticket/g/s/sk/skf/39882/5733/pythontest
-# https://osdn.net/projects/skf/ticket/46419
-# Support PEP623 (python 3.12)
-Patch0:	skf-2.10.15-python-pep623.patch
 
 # common BR
 BuildRequires:	gcc
@@ -52,9 +43,7 @@ BuildRequires:	rubygems-devel
 BuildRequires:	perl-devel
 BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::Embed)
-%if %enable_python3
 BuildRequires:	python3-devel
-%endif
 %if 0%{?usescm} >= 1
 BuildRequires:	autoconf
 %endif
@@ -79,11 +68,9 @@ Requires:	ruby(abi) = %{rubyabi}
 %endif
 Provides:	ruby(skf) = %{version}-%{release}
 
-%if %enable_python3
 %package	-n python3-skf
 Summary:	Python3 extension module for %{name}
 Requires:	%{name}-common = %{version}-%{release}
-%endif
 
 %package	perl
 Summary:	Perl extension module for %{name}
@@ -112,10 +99,8 @@ packages.
 %description	ruby
 This package contains Ruby extension module for skf.
 
-%if %enable_python3
 %description	-n python3-skf
 This package contains Python3 extension module for skf.
-%endif
 
 %description	perl
 This package contains Perl extension module for skf.
@@ -127,8 +112,6 @@ ln -sf %{name}-* main
 cp -p %SOURCE1 .
 
 pushd main
-%patch0 -p1 -b .pep639
-autoconf # patch0 needs this
 
 %if 0%{?usescm} >= 1
 autoconf
@@ -147,7 +130,9 @@ sed -i -e '/python_version=.*substr/s|)-2|)-3|' configure
 sed -i.ruby3 skf_convert.h \
 	-e 's@^#if defined.SKF_RUBY3.*$@#if 0@'
 sed -i configure.ac configure \
-	-e '\@^[ \t][ \t]*ruby_19_preferred="yes"@i ruby_21_preferred="yes";@'
+	-e '\@^[ \t][ \t]*ruby_19_preferred="yes"@i ruby_21_preferred="yes";@' \
+	-e '\@^RUBY=.*false@d' \
+	%{nil}
 
 ## configure option, etc
 # change optflags, don't strip
@@ -165,10 +150,8 @@ popd # from main
 
 # Okay, duplicate main directory
 for ext in \
-%if %enable_python3
 	python3 \
-%endif
-	ruby perl python
+	ruby perl
 do
 	mkdir -p $ext
 	cp -pr main/* $ext
@@ -187,11 +170,7 @@ OPTS="$OPTS --enable-debug"
 OPTS="$OPTS --disable-strip"
 
 OPTS="$OPTS --with-ruby_sitearch_dir=%{ruby_vendorarchdir}"
-
-PYTHONOPTS="$OPTS --enable-python2 --with-python_sitearch_dir=%{python2_sitearch}"
-%if %enable_python3
 PYTHON3OPTS="$OPTS --enable-python3 --with-python_sitearch_dir=%{python3_sitearch}"
-%endif
 
 # Workaround for ruby 3
 export RUBY=ruby
@@ -213,8 +192,7 @@ do
         export CFLAGS="%optflags $(pkg-config --cflags ruby)"
     fi
 
-	sed -i.py configure -e '\@enable_python3="yes"@d'
-	%configure $OPTS $PYTHONOPTS
+	%configure $OPTS
 	unset CFLAGS
 	make -j1 ${ext}ext
 
@@ -233,7 +211,6 @@ do
 done
 
 # python3
-%if %enable_python3
 pushd python3
 export PYTHON=python3
 %configure $OPTS $PYTHON3OPTS
@@ -242,7 +219,6 @@ unset CFLAGS
 make -j1 pythonext
 unset PYTHON
 popd
-%endif
 
 # tweak find-debuginfo.sh
 %global	debuginfo_subdir	%{name}-%{version}-%{release}.%{?_arch}
@@ -308,9 +284,7 @@ do
 	eval make -C $ext ${OPTS} ${ext}ext_install
 done
 ## python3
-%if %enable_python3
 ( eval make -C python3 ${OPTS} pythonext_install )
-%endif
 
 ## perl
 pushd perl
@@ -328,22 +302,17 @@ popd
 export PATH=%{buildroot}%{_bindir}:$PATH
 
 export PERL5LIB=%{buildroot}%{perl_vendorarch}
-export python2PATH=%{buildroot}%{python2_sitearch}
-%if %enable_python3
 export python3PATH=%{buildroot}%{python3_sitearch}
-%endif
 export RUBYLIB=%{buildroot}%{ruby_vendorarchdir}
 
 export CHECK_PYTHON2=no
 
 # SOURCE1
 sh %{SOURCE1}
-%if %enable_python3
 (
   export PYTHONPATH=${python3PATH}
   python3 %{SOURCE11}
 )
-%endif
 
 %files
 %defattr(-,root,root,-)
@@ -367,13 +336,11 @@ sh %{SOURCE1}
 %defattr(-,root,root,-)
 %{ruby_vendorarchdir}/skf.so
 
-%if %enable_python3
 %files	-n python3-skf
 %defattr(-,root,root,-)
 %{python3_sitearch}/_skf.so
 %{python3_sitearch}/skf.py*
 %{python3_sitearch}/__pycache__/skf.*
-%endif
 
 %files	perl
 %defattr(-,root,root,-)
@@ -381,6 +348,9 @@ sh %{SOURCE1}
 %{perl_vendorarch}/auto/skf/
 
 %changelog
+* Fri Jan 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.10.16-1
+- 2.10.16
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.15-2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

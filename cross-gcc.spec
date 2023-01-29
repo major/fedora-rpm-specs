@@ -18,6 +18,7 @@
 %global build_hppa		%{build_all}
 %global build_hppa64		%{build_all}
 %global build_ia64		%{build_all}
+%global build_loongarch64	%{build_all}
 %global build_m68k		%{build_all}
 %global build_microblaze	%{build_all}
 %global build_mips64		%{build_all}
@@ -72,8 +73,8 @@
 # The gcc versioning information.  In a sed command below, the specfile winds
 # pre-release version numbers in BASE-VER back to the last actually-released
 # number.
-%global DATE 20220819
-%global gitrev 12a206c28987ada47b447ebd200d1fd9639c8edd
+%global DATE 20221121
+%global gitrev b3f5a0d53b84ed27cf00cfa2b9c3e2c78935c07d
 %global gcc_version 12.2.1
 %global gcc_major 12
 
@@ -81,9 +82,9 @@
 # to %%{release}, append them after %%{cross_gcc_release} on Release:
 # line.  gcc_release is the Fedora gcc release that the patches were
 # taken from.
-%global gcc_release 1
-%global cross_gcc_release 2
-%global cross_binutils_version 2.37
+%global gcc_release 4
+%global cross_gcc_release 5
+%global cross_binutils_version 2.39-3
 %global isl_version 0.16.1
 %global isl_libmajor 15
 
@@ -94,7 +95,7 @@
 Summary: Cross C compiler
 Name: %{cross}-gcc
 Version: %{gcc_version}
-Release: %{cross_gcc_release}%{?dist}.1
+Release: %{cross_gcc_release}%{?dist}
 # libgcc, libgfortran, libmudflap, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -122,8 +123,7 @@ Patch8: gcc12-no-add-needed.patch
 Patch9: gcc12-Wno-format-security.patch
 Patch10: gcc12-rh1574936.patch
 Patch11: gcc12-d-shared-libphobos.patch
-Patch12: gcc12-p2327r1.patch
-Patch13: gcc12-pr106590.patch
+Patch12: gcc12-pr107468.patch
 
 Patch900: cross-intl-filename.patch
 Patch901: cross-gcc-format-config.patch
@@ -235,6 +235,7 @@ the number of packages. \
 %do_package hppa64-linux-gnu	%{build_hppa64}
 %do_package i386-linux-gnu	%{build_i386}
 %do_package ia64-linux-gnu	%{build_ia64}
+%do_package loongarch64-linux-gnu %{build_loongarch64}
 %do_package m32r-linux-gnu	%{build_m32r}
 %do_package m68k-linux-gnu	%{build_m68k}
 %do_package metag-linux-gnu	%{build_metag}
@@ -284,8 +285,7 @@ cd %{srcdir}
 %patch9 -p0 -b .foffload-default~
 %patch10 -p0 -b .Wno-format-security~
 %patch11 -p0 -b .libphobos
-%patch12 -p0 -b .p2327r1~
-%patch13 -p0 -b .pr106590~
+%patch12 -p0 -b .pr107468~
 
 #%patch900 -p0 -b .cross-intl~
 %patch901 -p0 -b .format-config~
@@ -330,6 +330,7 @@ cd ..
     prep_target hppa64-linux-gnu	%{build_hppa64}
     prep_target i386-linux-gnu		%{build_i386}
     prep_target ia64-linux-gnu		%{build_ia64}
+    prep_target loongarch64-linux-gnu	%{build_loongarch64}
     prep_target m32r-linux-gnu		%{build_m32r}
     prep_target m68k-linux-gnu		%{build_m68k}
     prep_target metag-linux-gnu		%{build_metag}
@@ -835,6 +836,7 @@ chmod +x %{__ar_no_strip}
 %do_files hppa64-linux-gnu	%{build_hppa64}
 %do_files i386-linux-gnu	%{build_i386}
 %do_files ia64-linux-gnu	%{build_ia64}
+%do_files loongarch64-linux-gnu	%{build_loongarch64}
 %do_files m32r-linux-gnu	%{build_m32r}
 %do_files m68k-linux-gnu	%{build_m68k}
 %do_files metag-linux-gnu	%{build_metag}
@@ -865,6 +867,15 @@ chmod +x %{__ar_no_strip}
 %do_files xtensa-linux-gnu	%{build_xtensa}
 
 %changelog
+* Tue Jan 24 2023 Michael Brown <mbrown@fensystems.co.uk> - 12.2.1-5
+- Enable support for LoongArch64
+
+* Sun Jan 22 2023 Michael Brown <mbrown@fensystems.co.uk> - 12.2.1-4
+- Update to match gcc package's 12.2.1-4 release
+
+* Sun Jan 22 2023 Michael Brown <mbrown@fensystems.co.uk> - 12.2.1-3
+- Update to match gcc package's 12.2.1-3 release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.2.1-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

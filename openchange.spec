@@ -23,7 +23,7 @@
 
 Name: openchange
 Version: 2.3
-Release: 43%{?dist}
+Release: 44%{?dist}
 Summary: Provides access to Microsoft Exchange servers using native protocols
 License: GPL-3.0-or-later AND LicenseRef-Fedora-Public-Domain
 URL: http://www.openchange.org/
@@ -102,6 +102,7 @@ Patch19: openchange-2.3-autoconf-2.71.patch
 Patch20: openchange-2.3-disable-server-reqs.patch
 %endif
 Patch21: openchange-2.3-samba-4.15.patch
+Patch22: openchange-configure-c99.patch
 
 %description
 OpenChange provides libraries to access Microsoft Exchange servers
@@ -182,6 +183,7 @@ This package provides the server elements for OpenChange.
 %patch20 -p1 -b .disable-server-reqs
 %endif
 %patch21 -p1 -b .samba-4.15
+%patch22 -p1
 
 %build
 # Backup manually-written Makefile
@@ -334,6 +336,9 @@ cp -r apidocs/html/libmapi++/* $RPM_BUILD_ROOT%{_datadir}/devhelp/books/openchan
 %endif
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 2.3-44
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

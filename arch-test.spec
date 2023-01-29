@@ -3,13 +3,15 @@
 %global _binaries_in_noarch_packages_terminate_build   0
 
 Name:           arch-test
-Version:        0.19
+Version:        0.20
 Release:        %autorelease
 Summary:        Tools to detect architectures runnable by your machine+kernel
 
 License:        MIT
 URL:            https://github.com/kilobyte/arch-test
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# applied in upstream gitb81ee530d05f6520318858eca858f25d780eb695
+Patch0:         0001-Fix-arc.s-build-on-Fedora.patch
 
 BuildRequires:  make
 # different variants of binutils ustilised by arch-test
@@ -25,6 +27,10 @@ BuildRequires:  %{_bindir}/i686-w64-mingw32-as
 BuildRequires:  %{_bindir}/i686-w64-mingw32-ld
 BuildRequires:  %{_bindir}/ia64-linux-gnu-as
 BuildRequires:  %{_bindir}/ia64-linux-gnu-ld
+BuildRequires:  %{_bindir}/loongarch64-linux-gnu-as
+BuildRequires:  %{_bindir}/loongarch64-linux-gnu-ld
+BuildRequires:  %{_bindir}/arc-linux-gnu-as
+BuildRequires:  %{_bindir}/arc-linux-gnu-ld
 BuildRequires:  %{_bindir}/m68k-linux-gnu-as
 BuildRequires:  %{_bindir}/m68k-linux-gnu-ld
 BuildRequires:  %{_bindir}/mips64-linux-gnu-as

@@ -3,12 +3,13 @@
 Name:           libzfcphbaapi
 Summary:        HBA API for the zFCP device driver
 Version:        2.2.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 License:        CPL
 URL:            http://www.ibm.com/developerworks/linux/linux390/zfcp-hbaapi.html
 # http://www.ibm.com/developerworks/linux/linux390/zfcp-hbaapi-%%{hbaapiver}.html
 Source0:        http://download.boulder.ibm.com/ibmdl/pub/software/dw/linux390/ht_src/%{srcname}-%{version}.tar.gz
 Patch1:         %{srcname}-2.1.1-fedora.patch
+Patch2: libzfcphbaapi-c99.patch
 
 ExclusiveArch:  s390 s390x
 
@@ -44,6 +45,7 @@ Documentation in HTML format for the zFCP HBA API Library.
 %setup -q -n %{srcname}-%{version}
 
 %patch1 -p1 -b .fedora
+%patch2 -p1
 
 
 %build
@@ -91,6 +93,9 @@ fi
 
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 2.2.0-18
+- Fix C99 compatibility issues (#2165019)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

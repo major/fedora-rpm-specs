@@ -3,13 +3,14 @@
 
 Name:		lv2-swh-plugins
 Version:	1.0.15
-Release:	16.20150723.%{gitver}git%{?dist}
+Release:	17.20150723.%{gitver}git%{?dist}
 Summary:	LV2 ports of LADSPA swh plugins
 License:	GPLv3
 URL:		http://lv2plug.in/
 # Get sources from upstream git
 # wget http://github.com/swh/lv2/tarball/master
 Source0:	%{pkgname}-%{gitver}.tar.gz
+Patch0: lv2-swh-plugins-c99.patch
 #Source0:	http://plugin.org.uk/lv2/%%{pkgname}-%%{version}.tar.gz
 
 BuildRequires: make
@@ -26,7 +27,7 @@ things should work as well or not as they did in LADSPA.
 
 
 %prep
-%setup -q -n %{pkgname}-%{gitver}
+%autosetup -p1 -n %{pkgname}-%{gitver}
 
 # We are using the system header:
 rm -f include/lv2.h
@@ -50,6 +51,9 @@ make install-system INSTALL_DIR="$RPM_BUILD_ROOT%{_libdir}/lv2"
 
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 1.0.15-17.20150723.5098e09git
+- Apply upstream patch for C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.15-16.20150723.5098e09git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

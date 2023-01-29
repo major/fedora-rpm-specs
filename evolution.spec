@@ -44,7 +44,7 @@
 
 Name: evolution
 Version: 3.47.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -572,6 +572,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Fri Jan 27 2023 Jens Petersen <petersen@redhat.com> - 3.47.1-3
+- rebuild f38 against newer cmark
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.47.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -2567,23 +2570,23 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 
 * Wed Jan 25 2006 David Malcolm <dmalcolm@redhat.com> - 2.5.5.1-1
 - 2.5.5.1
-- update patch 106 to track upstream, renaming from 
-  evolution-2.2.2-commit-enter-on-calendar.patch to 
+- update patch 106 to track upstream, renaming from
+  evolution-2.2.2-commit-enter-on-calendar.patch to
   evolution-2.5.5.1-commit-enter-on-calendar.patch
 - update patch 805 to track upstream
 - added patch to fix some newly missing declarations (patch 808)
-- replace evolution-2.5.4-port-to-new-libnotify-api.patch with 
-  evolution-2.5.5.1-notification-cleanups.patch, since much of this was 
-  duplicated by another patch that landed upstream; removing the actions code 
+- replace evolution-2.5.4-port-to-new-libnotify-api.patch with
+  evolution-2.5.5.1-notification-cleanups.patch, since much of this was
+  duplicated by another patch that landed upstream; removing the actions code
   as it was crashing deep inside DBus (patch 806, #177666)
 - explicitly list various files to reduce reliance on globbing; organized the
   files into logical groups; comment them
 - added -Wno-sign-compare to CFLAGS
 - enabled parallel make
-- introduced require_function_declarations macro to make 
+- introduced require_function_declarations macro to make
   -Werror-implicit-function-declaration flag optional; turn it off for now
 - include the new CalDAV and mail-attachments-import plugins in the file list;
-  add an XML UI file for the mail-to-task plugin. 
+  add an XML UI file for the mail-to-task plugin.
 - use "sed -i -e" rather than "sed -ie" to avoid getting severe bonobo files
 
 * Wed Jan 18 2006 Ray Strode <rstrode@redhat.com> - 2.5.4-10
@@ -2593,11 +2596,11 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 - fix multilib issue with shlib bonobo components (bug 156982)
 
 * Thu Jan 12 2006 David Malcolm <dmalcolm@redhat.com> - 2.5.4-8
-- avoid multiple initialization of NetworkManager connections (patch 807, 
+- avoid multiple initialization of NetworkManager connections (patch 807,
   gnome bug #326785)
 
 * Thu Jan 12 2006 David Malcolm <dmalcolm@redhat.com> - 2.5.4-7
-- updated alarm notification patch(patch 806, #177546, #177666, #177667, 
+- updated alarm notification patch(patch 806, #177546, #177666, #177667,
   #177670)
 
 * Thu Jan 12 2006 Christopher Aillon <caillon@redhat.com> - 2.5.4-6
@@ -2613,9 +2616,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 
 * Tue Jan 10 2006 David Malcolm <dmalcolm@redhat.com> - 2.5.4-3
 - updated patch 800 to include patch for memo conduit (untested at this stage);
-  renaming from evolution-2.5.2-fix-conduits.patch to 
-  evolution-2.5.4-fix-conduits.patch; extended patch 802 to handle the memo 
-  conduit; renaming from evolution-2.2.2-fix-conduit-dir.patch to 
+  renaming from evolution-2.5.2-fix-conduits.patch to
+  evolution-2.5.4-fix-conduits.patch; extended patch 802 to handle the memo
+  conduit; renaming from evolution-2.2.2-fix-conduit-dir.patch to
   evolution-2.5.4-fix-conduit-dir.patch; re-enable conduits in build (#175160)
 - switch the build-time dep for the audio-inline plugin from gstreamer-devel to
   gstreamer08-devel to better reflect the test in the tarball's configure.in
@@ -2651,20 +2654,20 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 - bump evo_major from 2.4 to 2.6
 - updated patch 107
 - updated patch 108
-- updated patch 800, replacing 
-  rh-161817-attach-116019-conduit_pilot_link_updates.diff with 
+- updated patch 800, replacing
+  rh-161817-attach-116019-conduit_pilot_link_updates.diff with
   evolution-2.5.2-fix-conduits.patch.  Not yet complete.
 - disable pilot support for now (see #175160)
 - added hula plugin to list of packaged plugins
 - generalize gconf schema packaging to support changing evo_major
 
 * Fri Dec  2 2005 David Malcolm <dmalcolm@redhat.com> - 2.4.2-2
-- force regeneration of the intltool files to prevent a problem where the 
+- force regeneration of the intltool files to prevent a problem where the
   tarball copy of intltool-merge.in was out of sync with the intltool.m4 in the
-  latest shipped copy of intltool, which resulted in a broken intltool-merge 
-  script when the tree was reautotooled.  (appears that the tarball was built 
+  latest shipped copy of intltool, which resulted in a broken intltool-merge
+  script when the tree was reautotooled.  (appears that the tarball was built
   with a CVS copy of intltool where @EXPANDED_LIBDIR@ had been renamed to
-  @INTLTOOL_LIBDIR@, but our aclocal/intltool.m4 doesn't yet reflect that 
+  @INTLTOOL_LIBDIR@, but our aclocal/intltool.m4 doesn't yet reflect that
   change)
 
 * Tue Nov 29 2005 David Malcolm <dmalcolm@redhat.com> - 2.4.2-1
@@ -2703,7 +2706,7 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 
 * Tue Oct  4 2005 David Malcolm <dmalcolm@redhat.com> - 2.4.1-1
 - 2.4.1
-- regenerate patch 101 to handle conflict in 
+- regenerate patch 101 to handle conflict in
   calendar/gui.print.c: print_week_day_event introduced by fix to upstream bug
   244981 (end date added while printing in the week view); bump patch name from
   version 5 to version 6
@@ -2714,7 +2717,7 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 
 * Wed Sep  7 2005 David Malcolm <dmalcolm@redhat.com> - 2.4.0-1
 - 2.4.0
-- Removed patch to fix implicit function declarations (patch 110, added in 
+- Removed patch to fix implicit function declarations (patch 110, added in
   2.3.8-1) as this is now upstream.
 
 * Thu Sep  1 2005 David Malcolm <dmalcolm@redhat.com> - 2.3.8-4
@@ -2730,7 +2733,7 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 
 * Tue Aug 23 2005 David Malcolm <dmalcolm@redhat.com> - 2.3.8-1
 - 2.3.8
-- add -Werror-implicit-function-declaration to CFLAGS and a patch to fix the 
+- add -Werror-implicit-function-declaration to CFLAGS and a patch to fix the
   problems arising (patch 110)
 
 * Tue Aug 16 2005 David Malcolm <dmalcolm@redhat.com> - 2.3.7-3
@@ -2750,14 +2753,14 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 - rebuild with new gnutls
 
 * Tue Aug  2 2005 David Malcolm <dmalcolm@redhat.com> - 2.3.6.1-4
-- Added patch to show correct mimetype for OpenOffice.org files when guessing 
+- Added patch to show correct mimetype for OpenOffice.org files when guessing
   type for attachments with mimetype "application/octet-stream" (#164957)
 
 * Mon Aug  1 2005 David Malcolm <dmalcolm@redhat.com> - 2.3.6.1-3
 - Improved version of evolution-2.3.5.1-fix-150458.patch (#150458)
 
 * Sat Jul 30 2005 David Malcolm <dmalcolm@redhat.com> 2.3.6.1-2
-- Fixed version numbers in GConf schema files (#164622); added 
+- Fixed version numbers in GConf schema files (#164622); added
   apps-evolution-mail-prompts-checkdefault-2.4.schemas
 
 * Fri Jul 29 2005 David Malcolm <dmalcolm@redhat.com> - 2.3.6.1-1
@@ -2765,9 +2768,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 
 * Thu Jul 28 2005 David Malcolm <dmalcolm@redhat.com> - 2.3.6-1
 - 2.3.6
-- Bump evolution-data-server requirement to 1.3.6 (needed for 
+- Bump evolution-data-server requirement to 1.3.6 (needed for
   CAL_STATIC_CAPABILITY_HAS_UNACCEPTED_MEETING)
-- Removed libgal2[-devel] dependencies; the code has been moved into the 
+- Removed libgal2[-devel] dependencies; the code has been moved into the
   evolution tarball
 
 * Thu Jul 28 2005 David Malcolm <dmalcolm@redhat.com> - 2.3.5.1-2
@@ -2810,13 +2813,13 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 - added evolution-2.2.2-fix-new-mail-notify.patch to CVS
 
 * Thu May  5 2005 David Malcolm <dmalcolm@redhat.com> - 2.2.2-4
-- Removed explicit mozilla_build_version; instead use pkg-config to determine 
+- Removed explicit mozilla_build_version; instead use pkg-config to determine
 the path to the NSS/NSPR headers.
-- Use a macro to express requirement on pilot-link (was 1:0.11.4, now 0.12; 
+- Use a macro to express requirement on pilot-link (was 1:0.11.4, now 0.12;
 patches depend on this)
-- Re-enabled the new-mail-notify plugin (my patch to handle differing DBus 
-versions is in the upstream tarball; but configure.in disables the plugin for 
-dbus versions > 0.23; patched configure.in to allow arbitrary DBus versions, 
+- Re-enabled the new-mail-notify plugin (my patch to handle differing DBus
+versions is in the upstream tarball; but configure.in disables the plugin for
+dbus versions > 0.23; patched configure.in to allow arbitrary DBus versions,
 and run autoconf at the start of the build) (#156328)
 
 * Sat Apr 30 2005 David Malcolm <dmalcolm@redhat.com> - 2.2.2-3
@@ -2874,7 +2877,7 @@ and run autoconf at the start of the build) (#156328)
   The libraries are always located in the libdir
   However, the headers are in /usr/include/mozilla-%%{mozilla_build_version}
   and so they move each time the mozilla version changes.
-  So we no longer have an explicit mozilla run-time requirement in the specfile; 
+  So we no longer have an explicit mozilla run-time requirement in the specfile;
   a requirement on the appropriate NSS and NSPR .so files is automagically generated on build.
   We have an explicit, exact build-time version, so that we can find the headers (without
   invoking an RPM query from the spec file; to do so is considered bad practice)
@@ -2948,7 +2951,7 @@ and run autoconf at the start of the build) (#156328)
    XB69079 - Data repeated after save with bad date format (Siva)
    XB66854 - Some strings are missed to translation (Rodney)
 
- * Calendar 	
+ * Calendar
    XB47529 - Date in reminder window appears in UTF-8 in non-UTF-8 locale (Rodney)
    XB68707 - Events ending at 12:00 AM show as ending at 12:00 pm (JP)
    XB67403 - wrong alarm time displayed (Rodrigo)
@@ -2962,9 +2965,9 @@ and run autoconf at the start of the build) (#156328)
    XB69776 - Signed Mail with attachments displays everything with multipart/boundaries stuff (Michael)
    XB69615 - delete certificate after viewing smime message (Michael)
    XB69109 - EHLO or HELO with ip addresses does not conform rfc 821  (Michael)
-   XB69982 - During Newsgroup list refresh, it crashes (Michael) 
-   XB69446 - Mail shown as attachment if some headers are upper case (S. Caglar Onur) 
-   XB68556 - NNTP with SSL won't work, even with stunnel (Michael) 
+   XB69982 - During Newsgroup list refresh, it crashes (Michael)
+   XB69446 - Mail shown as attachment if some headers are upper case (S. Caglar Onur)
+   XB68556 - NNTP with SSL won't work, even with stunnel (Michael)
    XB69145 - toplevel message/rfc822 parts are broken for IMAP (Michael)
    XB69241 - base64 attachement holding PGP block (Jeff)
    XB67895 - nntp support not asking for password (Michael)
@@ -3121,7 +3124,7 @@ and run autoconf at the start of the build) (#156328)
 * Wed Feb 18 2004 Jeremy Katz <katzj@redhat.com> - 1.5.4-1
 - 1.5.4
 
-* Tue Feb 17 2004 Jeremy Katz <katzj@redhat.com> 
+* Tue Feb 17 2004 Jeremy Katz <katzj@redhat.com>
 - buildrequire e-d-s-devel instead of e-d-s (#114712)
 - enable nntp support (#114802)
 
@@ -3151,13 +3154,13 @@ and run autoconf at the start of the build) (#156328)
 - fix title on composer save dialog (#108159)
 
 * Mon Oct 27 2003 Jeremy Katz <katzj@redhat.com> 1.4.5-6
-- Make imap command length shorter to avoid choking some imap servers 
+- Make imap command length shorter to avoid choking some imap servers
   (notably cyrus-imap).
 - Make wombat session managed so that we don't hit weird bonobo activation
   things.  This adds a dependency on $DISPLAY for wombat.  (#106826)
 
 * Sun Oct 19 2003 Jeremy Katz <katzj@redhat.com> 1.4.5-5
-- use AI_ADDRCONFIG to avoid returning IPv6 addresses on hosts without 
+- use AI_ADDRCONFIG to avoid returning IPv6 addresses on hosts without
   IPv6 support
 - add patch from upstream with reply-to-list shortcut (Ctrl-l)
 
@@ -3172,37 +3175,37 @@ and run autoconf at the start of the build) (#156328)
   * Use proper function for IPV6 reverse lookups (X#46006)
   * Allow timezone offset to be up to 14 hours (X#49357)
 
-* Mon Oct 13 2003 Jeremy Katz <katzj@redhat.com> 
-- add patch from upstream CVS to fix SMTP syntax problems (#106630) 
+* Mon Oct 13 2003 Jeremy Katz <katzj@redhat.com>
+- add patch from upstream CVS to fix SMTP syntax problems (#106630)
 - really remove duplicate menu entry (#103826)
 
-* Mon Oct  6 2003 Jeremy Katz <katzj@redhat.com> 
+* Mon Oct  6 2003 Jeremy Katz <katzj@redhat.com>
 - make redhat-email.desktop symlink relative (#104391)
 
-* Wed Sep 24 2003 Jeremy Katz <katzj@redhat.com> 
+* Wed Sep 24 2003 Jeremy Katz <katzj@redhat.com>
 - add ipv6 support per dwmw2's request
 
 * Tue Sep 23 2003 Jeremy Katz <katzj@redhat.com> 1.4.5-2
 - 1.4.5
 
-* Wed Sep 17 2003 Jeremy Katz <katzj@redhat.com> 
+* Wed Sep 17 2003 Jeremy Katz <katzj@redhat.com>
 - move static libs into -devel (#104399)
 
 * Tue Sep 16 2003 Jeremy Katz <katzj@redhat.com> 1.4.4-7
 - filter types are gtypes, not ints (#103934)
 
 * Wed Sep 10 2003 Jeremy Katz <katzj@redhat.com> 1.4.4-6
-- fix from upstream (will be in 1.4.5) to fix menu merging in the 
+- fix from upstream (will be in 1.4.5) to fix menu merging in the
   composer with new libbonobo
 
-* Fri Sep  5 2003 Jeremy Katz <katzj@redhat.com> 
+* Fri Sep  5 2003 Jeremy Katz <katzj@redhat.com>
 - remove the desktop file in Office (#103826)
 
 * Tue Sep  2 2003 Jeremy Katz <katzj@redhat.com> 1.4.4-5
-- patch from upstream to fix display of some mails in 
+- patch from upstream to fix display of some mails in
   different charsets (#102899)
 - add requires on newer version of ORBit2 (#103386)
-- add patch from upstream (extracted by George Karabin) to use gnome-vfs 
+- add patch from upstream (extracted by George Karabin) to use gnome-vfs
   mime icon lookup where available (#102553)
 
 * Fri Aug 22 2003 Jeremy Katz <katzj@redhat.com> 1.4.4-4
@@ -3214,7 +3217,7 @@ and run autoconf at the start of the build) (#156328)
 * Mon Aug  4 2003 Jeremy Katz <katzj@redhat.com> 1.4.4-1
 - 1.4.4
 
-* Wed Jul 30 2003 Jeremy Katz <katzj@redhat.com> 
+* Wed Jul 30 2003 Jeremy Katz <katzj@redhat.com>
 - buildrequires fixup from Ville Skytta (#101325)
 
 * Thu Jul 24 2003 Jeremy Katz <katzj@redhat.com> 1.4.3-6
@@ -3232,10 +3235,10 @@ and run autoconf at the start of the build) (#156328)
 * Thu Jul 10 2003 Jeremy Katz <katzj@redhat.com> 1.4.3-1
 - 1.4.3
 
-* Thu Jun 19 2003 Jeremy Katz <katzj@redhat.com> 
+* Thu Jun 19 2003 Jeremy Katz <katzj@redhat.com>
 - make gal version dep more explicit
 
-* Fri Jun 13 2003 Jeremy Katz <katzj@redhat.com> 
+* Fri Jun 13 2003 Jeremy Katz <katzj@redhat.com>
 - fix desktop file (#97162)
 
 * Tue Jun 10 2003 Jeremy Katz <katzj@redhat.com> 1.4.0-2
@@ -3251,7 +3254,7 @@ and run autoconf at the start of the build) (#156328)
 * Thu Jun  5 2003 Jeremy Katz <katzj@redhat.com> 1.3.92-2
 - rebuild
 
-* Wed Jun  4 2003 Jeremy Katz <katzj@redhat.com> 
+* Wed Jun  4 2003 Jeremy Katz <katzj@redhat.com>
 - buildrequires gettext (#92276)
 
 * Sun May 25 2003 Jeremy Katz <katzj@redhat.com> 1.3.92-1
@@ -3270,13 +3273,13 @@ and run autoconf at the start of the build) (#156328)
 * Tue Apr 22 2003 Jeremy Katz <katzj@redhat.com>
 - add a /usr/bin/evolution symlink
 
-* Mon Apr 21 2003 Jeremy Katz <katzj@redhat.com> 
+* Mon Apr 21 2003 Jeremy Katz <katzj@redhat.com>
 - fix gnome-spell version requirement
 
 * Wed Apr 16 2003 Jeremy Katz <katzj@redhat.com> 1.3.2-1
 - add trivial fix for evolution-mail schema key (ximian #41419)
 
-* Tue Apr 15 2003 Jeremy Katz <katzj@redhat.com> 
+* Tue Apr 15 2003 Jeremy Katz <katzj@redhat.com>
 - update to 1.3
 - don't build with pilot support for now
 - don't redhat-ify the summary prefs for now
@@ -3293,7 +3296,7 @@ and run autoconf at the start of the build) (#156328)
 * Thu Apr  3 2003 Jeremy Katz <katzj@redhat.com> 1.2.2-6
 - add a few cleanups for 64bit cleanliness (#86347)
 
-* Sun Mar 30 2003 Jeremy Katz <katzj@redhat.com> 
+* Sun Mar 30 2003 Jeremy Katz <katzj@redhat.com>
 - add some buildrequires (#87612)
 
 * Mon Mar 24 2003 Jeremy Katz <katzj@redhat.com> 1.2.3-1
@@ -3303,14 +3306,14 @@ and run autoconf at the start of the build) (#156328)
 - security patches from upstream
   - sanity check UUEncoding header before decoding (CAN-2003-0128)
   - don't decode doubly UUEncoded content (CAN-2003-0129)
-  - don't use a bonobo component to display things without registered 
+  - don't use a bonobo component to display things without registered
     handlers (CAN-2003-0130)
 
 * Mon Feb 24 2003 Elliot Lee <sopwith@redhat.com> 1.2.2-4
 - debuginfo rebuild
 
 * Thu Feb 20 2003 Jeremy Katz <katzj@redhat.com> 1.2.2-3
-- memleak patch had some bits that weren't supposed to be there.  update 
+- memleak patch had some bits that weren't supposed to be there.  update
   to newer from upstream.
 - fix directory checking in proxy patch
 
@@ -3321,7 +3324,7 @@ and run autoconf at the start of the build) (#156328)
 
 * Fri Feb  7 2003 Jeremy Katz <katzj@redhat.com> 1.2.2-1
 - 1.2.2
-- build on x86_64 
+- build on x86_64
 
 * Wed Jan 22 2003 Tim Powers <timp@redhat.com>
 - rebuilt
@@ -3343,7 +3346,7 @@ and run autoconf at the start of the build) (#156328)
 
 * Thu Dec 12 2002 Jeremy Katz <katzj@redhat.com> 1.2.0-6
 - require a newer soup, the old one Has Bugs (tm)
-- excludearch x86_64; getting a R_X86_64_32S relocation in libical 
+- excludearch x86_64; getting a R_X86_64_32S relocation in libical
   although everything appears to be built with -fPIC correctly
 
 * Tue Dec 10 2002 Jeremy Katz <katzj@redhat.com> 1.2.0-5
@@ -3353,7 +3356,7 @@ and run autoconf at the start of the build) (#156328)
 - add upstream patch to handle LDAPv3 better
 - add upstream patch to fix shell memory leaks
 - add upstream patch to fix ldap scope selection
-- build with openssl instead of mozilla-nss since it's available on 
+- build with openssl instead of mozilla-nss since it's available on
   more platforms
 - build on all arches
 
@@ -3364,7 +3367,7 @@ and run autoconf at the start of the build) (#156328)
 - disable pilot support for mainframe
 
 * Mon Nov 18 2002 Jeremy Katz <katzj@redhat.com> 1.2.0-2
-- macro-ify the mozilla version to make it easier to build against 
+- macro-ify the mozilla version to make it easier to build against
   newer mozillas with headers in new locations
 - buildrequire pilot-link-devel (#78077)
 - drop uneeded ldapv3 patch (toshok says 1.2 already handles this)
@@ -3417,18 +3420,18 @@ and run autoconf at the start of the build) (#156328)
 
 * Tue Jul  9 2002 Jeremy Katz <katzj@redhat.com> 1.0.8-3
 - remove static and libtool archives for importers and camel-providers (#68222)
-- do desktop-file-install magic 
+- do desktop-file-install magic
 - remove dead sites from summary list (#64522)
-- support openldap protocol version 3 based off of Nalin's autofs changes 
+- support openldap protocol version 3 based off of Nalin's autofs changes
 
 * Mon Jul  8 2002 Jeremy Katz <katzj@redhat.com> 1.0.8-2
 - fix openldap-devel buildrequire
 
 * Mon Jul  1 2002 Jeremy Katz <katzj@redhat.com> 1.0.8-1
-- 1.0.8 
+- 1.0.8
 
 * Thu Jun 27 2002 Jeremy Katz <katzj@redhat.com> 1.0.7-2
-- include patch to omf files from otaylor@redhat.com to fix 
+- include patch to omf files from otaylor@redhat.com to fix
   scrollkeeper validation errors
 
 * Sun Jun 23 2002 Jeremy Katz <katzj@redhat.com> 1.0.7-1
@@ -3443,19 +3446,19 @@ and run autoconf at the start of the build) (#156328)
 
 * Fri May  3 2002 Jeremy Katz <katzj@redhat.com> 1.0.3-6
 - add patch to fix spool unread counts (#64198)
-- build with the fix for the crasher mail sent to 
+- build with the fix for the crasher mail sent to
   evolution-list (ximian #24140)
 
 * Mon Apr 15 2002 Jeremy Katz <katzj@redhat.com> 1.0.3-4
-- include fejj(at)ximian.com's patch to fix the EINPROGRESS error with ssl 
+- include fejj(at)ximian.com's patch to fix the EINPROGRESS error with ssl
   since it's been committed to the branch and fixes the problem for me
-- include patch from tagoh(at)redhat.com to change the default charset 
+- include patch from tagoh(at)redhat.com to change the default charset
   for Japanese to ISO-2022-JP (#63214)
 
 * Wed Apr 10 2002 Jeremy Katz <katzj@redhat.com> 1.0.3-3
 - minor tweaks to the redhatify patch
 - make accepting appointments sent to mailing lists work
-- use the RFC specified LDAP attribs for freebusy and calendarURI 
+- use the RFC specified LDAP attribs for freebusy and calendarURI
   in addressbook
 - fix a crash in the startup wizard
 
@@ -3470,7 +3473,7 @@ and run autoconf at the start of the build) (#156328)
 - put correct path to nspr includes on configure command line
 
 * Mon Mar 11 2002 Jeremy Katz <katzj@redhat.com> 1.0.2-3
-- mozilla 0.9.9 has nspr and nss subpackages, hooray!  rip out the static 
+- mozilla 0.9.9 has nspr and nss subpackages, hooray!  rip out the static
   libnss linkage and just link against what is provided dynamically
 - kill the -devel subpackage since it's of questionable use
 - explicitly require mozilla-nss and mozilla-nspr packages to make it easier
@@ -3491,7 +3494,7 @@ and run autoconf at the start of the build) (#156328)
 - add pilot support
 
 * Sun Jan 13 2002 Jeremy Katz <katzj@redhat.com> 1.0.1-2
-- rebuild without mozilla-psm in the buildroot so libnss is linked 
+- rebuild without mozilla-psm in the buildroot so libnss is linked
   statically as intended
 
 * Sat Jan 12 2002 Jeremy Katz <katzj@redhat.com> 1.0.1-1
@@ -3502,7 +3505,7 @@ and run autoconf at the start of the build) (#156328)
 
 * Tue Dec 18 2001 Jeremy Katz <katzj@redhat.com> 1.0-2
 - really disable news
-- add patch from Jens Petersen <juhp@redhat.com> to hopefully get 
+- add patch from Jens Petersen <juhp@redhat.com> to hopefully get
   builds working with autoconf 2.52
 - conditionalize static libnss stuff so that it can go away when we
   have a mozilla with shared libnss
@@ -3529,8 +3532,8 @@ and run autoconf at the start of the build) (#156328)
 
 * Sat Nov 17 2001 Jeremy Katz <katzj@redhat.com>
 - we can build on ia64 since we're using openssl instead of nspr
-- disable non-functional nntp support 
-- 0.99.2 (rc2) 
+- disable non-functional nntp support
+- 0.99.2 (rc2)
 
 * Fri Nov  9 2001 Jeremy Katz <katzj@redhat.com>
 - add explicit requires on current bonobo, oaf, and GConf to help people
@@ -3538,7 +3541,7 @@ and run autoconf at the start of the build) (#156328)
 - s/Copyright/License/
 
 * Thu Nov  8 2001 Jeremy Katz <katzj@redhat.com>
-- add a patch to revert changes to camel-tcp-stream-openssl; appears to 
+- add a patch to revert changes to camel-tcp-stream-openssl; appears to
   fix the SSL hangs
 
 * Wed Nov  7 2001 Jeremy Katz <katzj@redhat.com>
@@ -3572,4 +3575,3 @@ and run autoconf at the start of the build) (#156328)
 
 * Mon Aug 06 2001 David Sainty <dsainty@redhat.com>
 - First spec file for evolution.
-

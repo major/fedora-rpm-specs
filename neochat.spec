@@ -1,6 +1,6 @@
 Name: neochat
 Version: 22.11
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -38,6 +38,7 @@ BuildRequires: cmake(Quotient)
 BuildRequires: pkgconfig(libcmark)
 
 BuildRequires: cmake
+BuildRequires: cmark
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
 BuildRequires: gcc
@@ -93,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
 
 %changelog
+* Fri Jan 27 2023 Jens Petersen <petersen@redhat.com> - 22.11-4
+- rebuild f38 against newer cmark
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

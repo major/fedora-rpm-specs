@@ -2,8 +2,8 @@
 %bcond_without perl_Function_Parameters_enables_optional_test
 
 Name:           perl-Function-Parameters
-%global cpan_version 2.001004
-Version:        2.1.4
+%global cpan_version 2.001005
+Version:        2.1.5
 Release:        1%{?dist}
 Summary:        Subroutine definitions with parameter lists
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -80,6 +80,11 @@ make test
 %{_mandir}/man3/Function::Parameters::Info.3*
 
 %changelog
+* Fri Jan 27 2023 Paul Howarth <paul@city-fan.org> - 2.1.5-1
+- Update to 2.001005 (rhbz#2164971)
+  - Fix failures with perl 5.37.5..5.37.6 caused by new internal opcode
+    structure for anonymous subs
+
 * Fri Jan 20 2023 Paul Howarth <paul@city-fan.org> - 2.1.4-1
 - Update to 2.001004 (rhbz#2162566)
   - Drop Dir::Self test dependency (use FindBin instead)

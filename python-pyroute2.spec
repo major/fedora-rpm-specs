@@ -8,21 +8,14 @@
 # EL>7 => python3 only
 
 Name: python-%{srcname}
-Version: 0.6.12
-Release: 4%{?dist}
+Version: 0.7.3
+Release: 1%{?dist}
 Summary: Pure Python netlink library
 License: GPLv2+
 URL: https://github.com/svinota/%{srcname}
 
 BuildArch: noarch
 Source0: %{pypi_source pyroute2}
-Source1: %{pypi_source pyroute2.core}
-Source2: %{pypi_source pyroute2.nslink}
-Source3: %{pypi_source pyroute2.nftables}
-Source4: %{pypi_source pyroute2.ethtool}
-Source5: %{pypi_source pyroute2.ipset}
-Source6: %{pypi_source pyroute2.ipdb}
-Source7: %{pypi_source pyroute2.ndb}
 
 %description
 PyRoute2 provides several levels of API to work with Netlink
@@ -44,57 +37,30 @@ IPQ.
 
 %prep
 %setup -q -n %{srcname}-%{version}
-cd ..
-tar xzvf %SOURCE1
-tar xzvf %SOURCE2
-tar xzvf %SOURCE3
-tar xzvf %SOURCE4
-tar xzvf %SOURCE5
-tar xzvf %SOURCE6
-tar xzvf %SOURCE7
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-cd ../pyroute2.core-%{version}
-%py3_build
-cd ../pyroute2.nslink-%{version}
-%py3_build
-cd ../pyroute2.nftables-%{version}
-%py3_build
-cd ../pyroute2.ethtool-%{version}
-%py3_build
-cd ../pyroute2.ipset-%{version}
-%py3_build
-cd ../pyroute2.ipdb-%{version}
-%py3_build
-cd ../pyroute2.ndb-%{version}
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-cd ../pyroute2.core-%{version}
-%py3_install
-cd ../pyroute2.nslink-%{version}
-%py3_install
-cd ../pyroute2.nftables-%{version}
-%py3_install
-cd ../pyroute2.ethtool-%{version}
-%py3_install
-cd ../pyroute2.ipset-%{version}
-%py3_install
-cd ../pyroute2.ipdb-%{version}
-%py3_install
-cd ../pyroute2.ndb-%{version}
-%py3_install
+%pyproject_install
+%pyproject_save_files pyroute2
 
-%files -n python%{python3_pkgversion}-%{srcname}
+%files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}
 %{_bindir}/ss2
 %{_bindir}/%{srcname}-cli
-%doc README* LICENSE.GPL.v2 LICENSE.Apache.v2
-%{python3_sitelib}/%{srcname}*
+%{_bindir}/%{srcname}-dhcp-client
+%{_bindir}/%{srcname}-test-platform
+%doc README*
+%license LICENSE.GPL-2.0-or-later LICENSE.Apache-2.0
 %{python3_sitelib}/pr2modules
 
 %changelog
+* Thu Jan 26 2023 Alfredo Moralejo <amoralej@redhat.com> - 0.7.3-1
+- Update to 0.7.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

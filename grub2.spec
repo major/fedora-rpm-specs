@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	76%{?dist}
+Release:	78%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,13 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Fri Jan 27 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-78
+- Fix grub2-probe issue with previous commit
+- Resolves: #2165136
+
+* Fri Jan 27 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-77
+- ppc64le: update signed media fixes
+
 * Fri Jan 13 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-76
 - ppc64le: fix issues using core.elf on boot media
 

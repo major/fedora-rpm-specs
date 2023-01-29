@@ -1,5 +1,5 @@
 Name:           cpu-x
-Version:        4.5.1
+Version:        4.5.2
 Release:        %autorelease
 Summary:        Gathers information on CPU, motherboard and more
 ExclusiveArch:  i686 x86_64
@@ -18,7 +18,7 @@ BuildRequires:  nasm
 BuildRequires:  pkgconfig(glfw3)
 BuildRequires:  pkgconfig(gtk+-3.0) >= 3.12.0
 BuildRequires:  pkgconfig(json-c)
-BuildRequires:  pkgconfig(libcpuid) >= 0.6.0
+BuildRequires:  pkgconfig(libcpuid) >= 0.6.2
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libpci)
 BuildRequires:  pkgconfig(libprocps)

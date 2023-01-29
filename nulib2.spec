@@ -1,10 +1,11 @@
 Name:		nulib2
 Version:	3.1.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Disk and file archive program for NuFX (.SDK, .BXY) archives
 License:	BSD
 URL:		http://nulib.com/
 Source0:	https://github.com/fadden/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0: nulib2-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -13,7 +14,7 @@ NuLib2 is a command-line file archiver for Apple II archives. It can operate
 on ShrinkIt and Binary II files (.shk, .sdk, .bxy, .bse, .bny, .bqy).
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 cd nufxlib
@@ -37,6 +38,9 @@ install -p -m0644 nulib2/nulib2.1 %{buildroot}%{_mandir}/man1
 %{_mandir}/man1/nulib2.1*
 
 %changelog
+* Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 3.1.0-12
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

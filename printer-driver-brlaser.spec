@@ -8,7 +8,7 @@ Version:        6.2
 Release:        %autorelease
 Summary:        Brother laser printer driver
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 

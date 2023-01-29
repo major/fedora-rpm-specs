@@ -64,8 +64,10 @@ Requires(pre):  shadow-utils
 
 # /etc/modprobe.d/
 Requires:       kmod
+
 # /etc/udev/rules.d/  and  /usr/lib/udev/rules.d/
-Requires:       systemd-udev
+%{?el7:Requires:  systemd}
+%{!?el7:Requires: systemd-udev}
 
 
 %description

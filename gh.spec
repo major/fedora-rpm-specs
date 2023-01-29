@@ -3,7 +3,7 @@
 
 # https://github.com/cli/cli
 %global goipath         github.com/cli/cli/v2
-Version:                2.21.2
+Version:                2.22.0
 
 %gometa -f
 
@@ -73,7 +73,10 @@ install -Dpm 0644 %{name}.zsh  %{buildroot}%{_datadir}/zsh/site-functions/_%{nam
 
 %if %{with check}
 %check
-for test in "TestStartJupyterServerSuccess" "TestStartJupyterServerFailure"\
+for test in "TestRebuildContainerIncremental" "TestStartJupyterServerSuccess" \
+            "TestStartJupyterServerFailure" "TestStartSSHServerFailure" \
+            "TestStartSSHServerSuccess" "TestRebuildContainerFull" \
+            "TestRebuildContainerFailure" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done

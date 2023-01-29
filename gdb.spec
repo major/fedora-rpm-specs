@@ -40,7 +40,7 @@ ExcludeArch: aarch64
 # Include support for Guile? This is enabled on RHEL 8 and
 # Fedora < 38.
 %if (0%{?fedora:1} && 0%{?fedora} < 38) || (0%{?rhel:1} && 0%{?rhel} == 8)
-%define use_guile
+%define use_guile 1
 %endif
 
 Name: %{?scl_prefix}gdb
@@ -54,7 +54,7 @@ Version: 12.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 15%{?dist}
+Release: 16%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -1190,6 +1190,10 @@ fi
 %endif
 
 %changelog
+* Fri Jan 27 2023 Kevin Buettner <kevinb@redhat.com> - 12.1-16
+- Tweak gdb-6.3-rh-testversion-20041202.patch so that $_gdb_major
+  and $_gdb_minor will be obtained correctly.
+
 * Thu Jan 26 2023 Bruno Larsen <blarsen@redhat.com>
 - Remove gdb-rhbz1398387-tab-crash-test.patch as that test didn't
   work anymore.

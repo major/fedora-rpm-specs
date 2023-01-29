@@ -1,17 +1,14 @@
-%global pypi_name pygments_pytest
-%global dash_name pygments-pytest
-
 # this is BRed by pytest, so we need to run without tests when bootstrapping
 # also pygments-ansi-color is not available in Fedora yet
 %bcond_with tests
 
-Name:           python-%{dash_name}
-Version:        2.2.0
-Release:        7%{?dist}
+Name:           python-pygments-pytest
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        A pygments lexer for pytest output
 License:        MIT
 URL:            https://github.com/asottile/pygments-pytest
-Source0:        %{url}/archive/v%{version}/%{dash_name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/pygments-pytest-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -21,16 +18,16 @@ BuildRequires:  pyproject-rpm-macros
 This library provides a pygments lexer called pytest.
 This library also provides a sphinx extension.
 
-%package -n     python3-%{dash_name}
+%package -n     python3-pygments-pytest
 Summary:        %{summary}
 
-%description -n python3-%{dash_name}
+%description -n python3-pygments-pytest
 This library provides a pygments lexer called pytest.
 This library also provides a sphinx extension.
 
 
 %prep
-%autosetup -n %{dash_name}-%{version}
+%autosetup -n pygments-pytest-%{version}
 
 %generate_buildrequires
 %pyproject_buildrequires %{?with_tests:-t}
@@ -40,18 +37,21 @@ This library also provides a sphinx extension.
 
 %install
 %pyproject_install
-%pyproject_save_files %{pypi_name}
+%pyproject_save_files pygments_pytest
 
 %if %{with tests}
 %check
 %pytest -v
 %endif
 
-%files -n python3-%{dash_name} -f %pyproject_files
-%license LICENSE
+%files -n python3-pygments-pytest -f %{pyproject_files}
 %doc README.md
 
 %changelog
+* Fri Jan 27 2023 Miro Hrončok <mhroncok@redhat.com> - 2.3.0-1
+- Update to 2.3.0
+- Fixes: rhbz#2137872
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

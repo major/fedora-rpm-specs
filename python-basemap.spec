@@ -2,7 +2,7 @@
 
 Name:           python-basemap
 Version:        1.3.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
 License:        LGPLv2+
 URL:            https://matplotlib.org/basemap/
@@ -93,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Thu Jan 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3.6-3
+- Fix numpy pin
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

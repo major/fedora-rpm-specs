@@ -1,7 +1,7 @@
 Summary:        A C++/Python build framework
 Name:           elements
 Version:        6.0.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 License:        LGPLv3+
 Source0:        https://github.com/astrorama/Elements/archive/%{version}/%{name}-%{version}.tar.gz
 # Elements use this file to link the documentation to cppreference.com
@@ -19,6 +19,9 @@ Patch4:         python-3.11.patch
 Patch5:         elements_tests.patch
 # Move from Py.Test to PyTest
 Patch6:         elements-pytest.patch
+# Add missing #include directive for GCC 13
+# Patch is downstream-only because upstream archived the project 2022-11-16.
+Patch7:         0001-Add-missing-include-directive-for-GCC-13.patch
 
 BuildRequires: CCfits-devel
 BuildRequires: boost-devel >= 1.53
@@ -172,6 +175,9 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 %{docdir}
 
 %changelog
+* Fri Jan 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 6.0.1-9
+- Add missing #include directive for GCC 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

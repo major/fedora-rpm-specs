@@ -1,6 +1,6 @@
 Name: elfutils
 Version: 0.188
-%global baserelease 4
+%global baserelease 5
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -80,6 +80,10 @@ Patch2: elfutils-0.188-static-extract_section.patch
 Patch3: elfutils-0.188-compile-warnings.patch
 # The debuginfod_client object lifetime needs more careful handling
 Patch4: elfutils-0.188-debuginfod-client-lifetime.patch
+# Various libcurl deprecated constants
+Patch5: elfutils-0.188-deprecated-CURLINFO.patch
+Patch6: elfutils-0.188-CURL_AT_LEAST_VERSION.patch
+Patch7: elfutils-0.188-CURLOPT_PROTOCOLS_STR.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -448,6 +452,11 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Jan 27 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.188-5
+- Add elfutils-0.188-deprecated-CURLINFO.patch,
+  elfutils-0.188-CURL_AT_LEAST_VERSION.patch and
+  elfutils-0.188-CURLOPT_PROTOCOLS_STR.patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.188-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -12,6 +12,8 @@ Summary:        TUI (Text User Interface) library focused on ease-of-use
 License:        MIT
 URL:            https://crates.io/crates/cursive
 Source:         %{crates_source}
+# License text linked in https://github.com/gyscos/cursive/pull/702
+Source1:        https://github.com/gyscos/cursive/raw/main/LICENSE
 
 BuildRequires:  rust-packaging >= 21
 
@@ -30,7 +32,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-# FIXME: no license files detected
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/Readme.md
 %{crate_instdir}/
 
@@ -44,18 +46,6 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+ansi-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+ansi-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "ansi" feature of the "%{crate}" crate.
-
-%files       -n %{name}+ansi-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+crossterm-devel
@@ -228,6 +218,8 @@ use the "unstable_scroll" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
+# copy in license text
+cp -p %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires

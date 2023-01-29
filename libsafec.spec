@@ -1,73 +1,65 @@
-Name:		libsafec
-Version:	3.3
-Release:	12%{?dist}
-Summary:	Safec fork with all C11 Annex K functions
+Name:			libsafec
+Version:		3.7.1
+Release:		1%{?dist}
+Summary:		Safec fork with all C11 Annex K functions
 
-License:	MIT
-URL:		https://github.com/rurban/safeclib
-Source0:	https://github.com/rurban/safeclib/releases/download/v03032018/libsafec-03032018.0-g570fa5.tar.gz
-# Fixes linker failer: https://github.com/rurban/safeclib/issues/55
-Patch0:		pic_flag.patch
-# Fixes pkgconfig include directory path
-Patch1:		pkgconfig_include.patch
+License:		MIT
+URL:			https://github.com/rurban/safeclib
+Source0:		%url/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:	gcc
 BuildRequires:	autoconf
 BuildRequires:	automake
+BuildRequires:	gcc
+BuildRequires:	make
 BuildRequires:	libtool
-BuildRequires: make
 
 %description
-Safec fork with all C11 Annex K functions
+This library implements the secure C11 Annex K1 functions on top of most
+libc implementations, which are missing from them.
 
 %package -n libsafec-devel
-Summary:	Development packages for libsafec
-Requires:	libsafec%{?_isa} = %{version}-%{release}
+Summary: Development packages for libsafec
+Requires:		libsafec%{?_isa} = %{version}-%{release}
 
 %description -n libsafec-devel
 Development files for libsafec
 
 %package -n libsafec-check
-Summary:	Finds unsafe APIs
+Summary: Finds unsafe APIs
+Requires:		perl-DirHandle
 
 %description -n libsafec-check
-Finds unsafe APIs
-
+Traverses specified directory trees and/or files (cwd by default)
+searching for C source files (*.c), rooting out unsafe API calls.
 
 %prep
-%setup -qn libsafec-03032018.0-g570fa5
-
-%patch0 -p1
-%patch1 -p1
+%autosetup -n safeclib-%{version}
 
 %build
 autoreconf -Wall --install
 %configure --disable-static --disable-doc --enable-strmax=0x8000
 %make_build
 
-
 %install
 %make_install
-find %{buildroot} -name '*.la' -delete
-
 
 %files -n libsafec
 %license COPYING
-%doc README
-%{_libdir}/libsafec-3.3.so.*
+%{_libdir}/libsafec.so.*
 
 %files -n libsafec-devel
-%{_libdir}/libsafec-3.3.so
-%{_libdir}/pkgconfig/safec-3.3.pc
-%{_includedir}/libsafec
+%{_includedir}/safeclib
+%{_libdir}/libsafec.so
+%{_libdir}/pkgconfig/*.pc
 
 %files -n libsafec-check
 %license COPYING
 %{_bindir}/check_for_unsafe_apis
-%{_mandir}/man1/check_for_unsafe_apis.1.*
-
 
 %changelog
+* Fri Jan 27 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.7.1-1
+- Update to 3.7.1 (RHBZ #2045831)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

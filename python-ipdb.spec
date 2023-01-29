@@ -5,11 +5,11 @@ better introspection) right in pdb.
 
 
 Name:           python-ipdb
-Version:        0.13.4
-Release:        8%{?dist}
+Version:        0.13.11
+Release:        1%{?dist}
 BuildArch:      noarch
 
-License:        BSD
+License:        BSD-3-Clause
 Summary:        IPython enabled Python debugger
 URL:            https://github.com/gotcha/%{srcname}/
 Source0:        https://github.com/gotcha/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
@@ -61,6 +61,10 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 
 
 %changelog
+* Thu Jan 26 2023 Troy Curtis, Jr <troy@troycurtisjr.com> - 0.13.11-1
+- Update to 0.13.11
+- Change license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

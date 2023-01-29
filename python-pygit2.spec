@@ -1,7 +1,7 @@
 %global pkgname pygit2
 
 Name:           python-%{pkgname}
-Version:        1.9.2
+Version:        1.11.1
 Release:        %autorelease
 Summary:        Python bindings for libgit2
 
@@ -11,7 +11,7 @@ Source0:        https://github.com/libgit2/pygit2/archive/v%{version}.tar.gz#/%{
 
 BuildRequires:  make
 BuildRequires:  gcc
-BuildRequires:  (libgit2-devel >= 1.4.0 with libgit2-devel < 1.5.0)
+BuildRequires:  (libgit2-devel >= 1.5.0 with libgit2-devel < 1.6.0)
 
 %description
 pygit2 is a set of Python bindings to the libgit2 library, which implements

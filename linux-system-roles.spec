@@ -29,8 +29,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.33.11
-Release: 2%{?dist}
+Version: 1.33.12
+Release: 1%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -115,7 +115,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 1 1.3.3
 
 %global rolename2 selinux
-%deftag 2 1.5.1
+%deftag 2 1.5.2
 
 %global rolename3 timesync
 %deftag 3 1.7.2
@@ -142,7 +142,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 10 1.11.5
 
 %global rolename11 nbde_server
-%deftag 11 1.3.1
+%deftag 11 1.3.2
 
 %global rolename12 nbde_client
 %deftag 12 1.2.10
@@ -174,7 +174,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 20 1.4.3
 
 %global rolename21 podman
-%deftag 21 1.1.1
+%deftag 21 1.1.2
 
 %global rolename22 ad_integration
 %deftag 22 1.0.1
@@ -742,6 +742,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Fri Jan 27 2023 Packit <hello@packit.dev> - 1.33.12-1
+- Update to upstream version 1.33.12
+
 * Thu Jan 26 2023 Rich Megginson <rmeggins@redhat.com> - 1.33.11-2
 - remove network patch
 

@@ -1,8 +1,8 @@
 Name:           pytest
-%global base_version 7.2.0
+%global base_version 7.2.1
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
@@ -96,6 +96,15 @@ complex functional testing for applications and libraries.
 %prep
 %autosetup -p1 -n %{name}-%{base_version}%{?prerelease}
 
+# Between 7.2.0 and 7.2.1 the tests were updated for pygments 2.14.
+# See https://github.com/pytest-dev/pytest/pull/10632 + 10637 (backport to 7.2).
+# To make the tests work with pygments 2.13, we set the added {endline}s to empty.
+# Once pygments 2.14+ is omnipresent, feel free to remove this hack,
+# but bump the minimal BuildRequired version of python3-pygments to 2.14.
+%if v"0%(%{python3} -c "import pygments; print(pygments.__version__)" 2>/dev/null)" < v"2.14~~"
+sed -i 's/"endline": "\\x1b\[90m\\x1b\[39;49;00m",/"endline": "",/' testing/conftest.py
+%endif
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -166,6 +175,10 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Jan 27 2023 Miro Hrončok <mhroncok@redhat.com> - 7.2.1-1
+- Update to 7.2.1
+- Fixes: rhbz#2160925
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -59,7 +59,7 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: ASL 2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
@@ -143,6 +143,7 @@ Subversion libraries.
 %{?python_provide:%python_provide python3-subversion}
 Summary: Python bindings for Subversion Version Control system
 BuildRequires: python3-devel py3c-devel
+BuildRequires: (python3-setuptools if python3-devel >= 3.12)
 Requires: subversion-libs%{?_isa} = %{version}-%{release}
 
 %description -n python3-subversion
@@ -584,6 +585,9 @@ make check-javahl
 %endif
 
 %changelog
+* Fri Jan 27 2023 Richard Lescak <rlescak@redhat.com> - 1.14.2-13
+- add requirement for python3-setuptools with new Python 3.12 (#2155420)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

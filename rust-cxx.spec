@@ -6,13 +6,17 @@
 %global crate cxx
 
 Name:           rust-cxx
-Version:        1.0.85
+Version:        1.0.88
 Release:        %autorelease
 Summary:        Safe interop between Rust and C++
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/cxx
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * exclude files that are only needed for integration in bazel or buck
+# * exclude unused docs sources
+Patch:          cxx-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -111,8 +115,6 @@ use the "std" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
-# Remove executable bit from CI tools
-find book/ tools/ -type f -executable -exec chmod a-x '{}' +
 
 %generate_buildrequires
 %cargo_generate_buildrequires

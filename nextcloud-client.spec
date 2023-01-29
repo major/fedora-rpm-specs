@@ -159,7 +159,8 @@ sed -i 's/-fPIE/-fPIC/g' src/cmd/CMakeLists.txt
 %build
 %cmake_kf5 \
   -DCMAKE_SHARED_LINKER_FLAGS="-Wl,--as-needed" \
-  -DNO_SHIBBOLETH=1
+  -DNO_SHIBBOLETH=1 \
+  -DBUILD_UPDATER=False
 
 %cmake_build
 

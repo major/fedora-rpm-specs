@@ -2,8 +2,8 @@
 %bcond_with tests
 
 Name:           cmark
-Version:        0.29.0
-Release:        8%{?dist}
+Version:        0.30.3
+Release:        1%{?dist}
 Summary:        CommonMark parsing and rendering
 
 License:        BSD and MIT
@@ -43,18 +43,16 @@ This package provides the cmark library.
 
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
-%cmake %{?_without_tests:-DCMARK_TESTS=OFF}
+%cmake -DCMARK_STATIC=OFF %{?_without_tests:-DCMARK_TESTS=OFF}
 %cmake_build
 
 
 %install
 %cmake_install
-
-rm %{buildroot}%{_libdir}/libcmark.a
 
 
 %check
@@ -85,10 +83,17 @@ rm %{buildroot}%{_libdir}/libcmark.a
 %{_libdir}/libcmark.so
 %{_libdir}/pkgconfig/libcmark.pc
 %{_mandir}/man3/cmark.3*
-%{_libdir}/cmake/cmark*.cmake
+%{_libdir}/cmake/cmark
 
 
 %changelog
+* Fri Jan 27 2023 Jens Petersen <petersen@redhat.com> - 0.30.3-1
+- https://github.com/commonmark/cmark/releases/tag/0.30.3
+
+* Fri Jan 20 2023 Jens Petersen <petersen@redhat.com> - 0.30.2-1
+- https://github.com/commonmark/cmark/releases/tag/0.30.2
+- disable static library via cmake (rhbz#2161688)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
