@@ -5,7 +5,7 @@
 %global crate io-uring
 
 Name:           rust-io-uring
-Version:        0.5.10
+Version:        0.5.12
 Release:        %autorelease
 Summary:        Low-level io_uring userspace interface for Rust
 
@@ -119,7 +119,7 @@ use the "unstable" feature of the "%{crate}" crate.
 %if %{with check}
 %check
 %ifnarch %{ix86}
-# * bindgen struct layout / alignment tests are broken on i686
+# * hardcoded struct layout / alignment tests from bindgen are broken on i686
 %cargo_test
 %endif
 %endif

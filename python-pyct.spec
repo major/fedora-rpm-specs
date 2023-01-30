@@ -22,6 +22,12 @@ Source0:        %{pypi_source pyct}
 Source10:       pyct.1
 Source11:       pyct-report.1
 
+# Fully support Python 3.11
+# https://github.com/pyviz-dev/pyct/pull/104
+# Rebased on 0.4.8 and hand-edited to omit changes to tox.ini, which is not
+# present in the PyPI sdist.
+Patch:          pyct-0.4.8-python3.11.patch
+
 BuildArch:      noarch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -104,12 +110,9 @@ install -t '%{buildroot}%{_mandir}/man1' -D -p -m 0644 \
 
 
 %check
-# Python 3.11: test_report_gives_package_version fails
-# https://github.com/pyviz-dev/pyct/issues/94
-k="${k-}${k+ and }not test_report_gives_package_version"
 # Based loosely on https://github.com/pyviz-dev/pyct/raw/v%%{version}/tox.ini
 # _cmd_examples
-%pytest -k "${k-}"
+%pytest
 (
   set -o errexit
   export PATH="%{buildroot}%{_bindir}:${PATH}"

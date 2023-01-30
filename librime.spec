@@ -1,13 +1,11 @@
 Name:           librime
-Version:        1.7.3
-Release:        6%{?dist}
+Version:        1.8.3
+Release:        1%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPLv3
 URL:            https://rime.im/
 Source0:        https://github.com/rime/librime/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
-# https://github.com/rime/librime/issues/462
-Patch0:         librime-boost176-exp.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake, opencc-devel
@@ -82,6 +80,10 @@ The %{name}-tools package contains tools for %{name}.
 
 
 %changelog
+* Sat Jan 28 2023 Peng Wu <pwu@redhat.com> - 1.8.3-1
+- Update to 1.8.3
+- Resolves: RHBZ#2164891
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,6 +11,7 @@ URL:			https://fcitx-im.org/wiki/Fcitx
 Source0:		http://download.fcitx-im.org/fcitx/%{name}-%{version}_dict.tar.xz
 Source1:		xinput-%{name}
 Patch0: fcitx-exports-for-fbterm.patch
+Patch1: fcitx-gcc13.patch
 BuildRequires:		gcc-c++
 BuildRequires:		pango-devel, dbus-devel, opencc-devel
 BuildRequires:		wget, intltool, chrpath, sysconftool, opencc

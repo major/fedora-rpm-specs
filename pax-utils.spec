@@ -2,15 +2,18 @@
 
 Summary: ELF utils that can check files for security relevant properties
 Name: pax-utils
-Version: 1.3.4
-Release: 3%{?dist}
+Version: 1.3.7
+Release: 1%{?dist}
 # http://packages.gentoo.org/package/app-misc/pax-utils
 URL: https://wiki.gentoo.org/wiki/Hardened/PaX_Utilities
 Source0: https://distfiles.gentoo.org/distfiles/%{name}-%{version}.tar.xz
+# fix python shebang in lddtree.py
+Patch0: %{name}-py3shebang.patch
 License: GPLv2
 BuildRequires:  gcc
-BuildRequires: make
+BuildRequires: meson
 BuildRequires: libcap-devel
+BuildRequires: xmlto
 %if %{with check}
 BuildRequires: python3-pyelftools
 BuildRequires: %{_bindir}/python
@@ -30,18 +33,25 @@ PaX helpers for people interested in that.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
-%configure --with-caps
-make %{?_smp_mflags} V=1
+%meson \
+    -Duse_libcap=enabled \
+    -Duse_seccomp=true \
+    -Dbuild_manpages=enabled \
+    -Dtests=true \
+    -Duse_fuzzing=false \
+
+%meson_build
 
 %install
-%make_install
+%meson_install
 
 %if %{with check}
 %check
 export LD_LIBRARY_PATH=%{_libdir}
-make check
+%meson_test
 %endif
 
 %files
@@ -59,6 +69,11 @@ make check
 %{_mandir}/man1/scanmacho.1*
 
 %changelog
+* Sat Jan 28 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.3.7-1
+- update to 1.3.7 (upstream switched to meson build system)
+- fix python shebang in lddtree.py
+- build manpages (using xmlto)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

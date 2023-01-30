@@ -1,6 +1,6 @@
 Name:           python3-lxc
-Version:        3.0.4
-Release:        14%{?dist}
+Version:        5.0.0
+Release:        1%{?dist}
 Summary:        Python binding for LXC
 License:        LGPLv2+
 URL:            https://linuxcontainers.org/lxc
@@ -61,6 +61,9 @@ sed -i -e '1 s@^#!.*@#!%{__python3}@' examples/*.py
 
 
 %changelog
+* Sat Jan 28 2023 Thomas Moschny <thomas.moschny@gmx.de> - 5.0.0-1
+- Update to 5.0.0.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.4-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

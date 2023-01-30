@@ -2,21 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate dissimilar
+%global crate inventory
 
-Name:           rust-dissimilar
-Version:        1.0.6
+Name:           rust-inventory0.2
+Version:        0.2.3
 Release:        %autorelease
-Summary:        Diff library with semantic cleanup, based on Google's diff-match-patch
+Summary:        Typed distributed plugin registration
 
-License:        Apache-2.0
-URL:            https://crates.io/crates/dissimilar
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/inventory
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Diff library with semantic cleanup, based on Google's diff-match-patch.}
+Typed distributed plugin registration.}
 
 %description %{_description}
 

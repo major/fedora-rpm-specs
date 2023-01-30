@@ -2,7 +2,7 @@
 
 Name:           kicad
 Version:        7.0.0
-Release:        0.3.%{candidate}%{?dist}
+Release:        0.4.%{candidate}%{?dist}
 Epoch:          1
 Summary:        EDA software suite for creation of schematic diagrams and PCBs
 
@@ -60,6 +60,7 @@ Provides:       bundled(potrace) = 1.15
 
 Requires:       electronics-menu
 Requires:       python3-wxpython4
+Requires:       redhat-lsb-core
 Requires:       unixODBC
 
 # ngspice contains the spice models.  Not strictly required, but recommended.
@@ -250,6 +251,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Sat Jan 28 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.0-0.4.rc2
+- Add a requirement for redhat-lsb-core to aid with bug reports.
+
 * Wed Jan 25 2023 Steven A. Falco <stevenfalco@gmail.com> - 1:7.0.0-0.3.rc2
 - Update to 7.0.0-0.3.rc2
 

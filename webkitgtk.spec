@@ -304,13 +304,6 @@ files for developing applications that use JavaScript engine from webkit2gtk-4.0
 %global _dwz_max_die_limit_x86_64 250000000
 %global _dwz_max_die_limit_aarch64 250000000
 
-# Disable dwz optimization on builders that have low amount of RAM, until we
-# get https://sourceware.org/pipermail/debugedit/2023-January/000173.html into
-# koji build roots.
-%ifarch ppc64le s390x
-%global _find_debuginfo_dwz_opts %{nil}
-%endif
-
 # Require 32 GB of RAM per vCPU for debuginfo processing. 16 GB is not enough.
 %global _find_debuginfo_opts %limit_build -m 32768
 

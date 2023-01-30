@@ -2,31 +2,32 @@
 # ----------------------------------------------------------------------------
 # Preamble
 # ----------------------------------------------------------------------------
-# yyyy is year, mm is month, dd is day, corresponding to this version.
-# The %%{version} macro includes a bug fix number at end that starts at zero.
-%define yyyymmdd 20220000
-#
 # fedora uses its own soversion number for cppad_lib
-# 3.0 corresponds to version 20220000 
-%define soversion 3.0
+# 4.0 corresponds to version 20230000 
+%define soversion 4.0
 
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
-Name: cppad
-Version: %{yyyymmdd}.4
-Release: 3%{?dist}
+Name:    cppad
+Version: 20230000.0
+Release: 1%{?dist}
 Summary: C++ Algorithmic Differentiation (AD), %{name}-devel and %{name}-doc
-
+#
 License: EPL-2.0 or GPLv2+
-URL: http://coin-or.github.io/CppAD
-Source0: https://github.com/coin-or/CppAD/archive/%{version}.tar.gz
-Source1: https://github.com/coin-or/CppAD/archive/%{yyyymmdd}.doc.tar.gz
+URL:     https://github.com/coin-or/CppAD
+Source:  %{url}/archive/%{version}/CppAD-%{version}.tar.gz
+#
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: cmake >= 3.0
 BuildRequires: make
+BuildRequires: python-xrst
+# python-xrst should auotmatically require python-toml
+BuildRequires: python-toml  
 
-# Starting with f33, need to define this macro to build in source directory
+# This is really an out of soruce build because the source is in the
+# CppAD-%%{version} sub-directory. The fedora macros are confused and need 
+# this defined true.
 %define __cmake_in_source_build 1
 
 %description
@@ -61,7 +62,7 @@ The %{name}-doc package installs the HTML documentation for this version
 of %{name}-devel in
      %{_docdir}/%{name}
 The documentation, for the most recent version of %{name}, can be found at
-     http://coin-or.github.io/CppAD
+     https://cppad.readthedocs.io
 
 # -----------------------------------------------------------------------------
 # prep
@@ -70,11 +71,29 @@ The documentation, for the most recent version of %{name}, can be found at
 #
 # Create an empty directory named cppad-%%{version}, 
 # changed into that directory and unpack Source0 and Source1.
-%setup -q -c -a 0 -a 1
+%setup -q -c
 #
-# move the documentaion to the build directory
-mv CppAD-%{yyyymmdd}.doc/doc CppAD-%{version}/doc
+# xrst.toml
+echo ''                   >> CppAD-%{version}/xrst.toml
+echo '[spell_package]'    >> CppAD-%{version}/xrst.toml
+echo 'data = "pyenchant"' >> CppAD-%{version}/xrst.toml
+echo ''                   >> CppAD-%{version}/xrst.toml
+echo '[input_files]'      >> CppAD-%{version}/xrst.toml
+echo 'data = [ ]'         >> CppAD-%{version}/xrst.toml
 #
+# CppAD-%%{version}/build/html
+mkdir CppAD-%{version}/build
+xrst --version
+xrst \
+   --config_file CppAD-%{version}/xrst.toml \
+   --local_toc \
+   --target html \
+   --html_theme sphinx_rtd_theme \
+   --index_page_name user_guide \
+   --group_list default app \
+   --suppress_spell_warnings
+#
+# COPYING, uw_copy_040507.html
 mv CppAD-%{version}/COPYING  COPYING
 mv CppAD-%{version}/uw_copy_040507.html uw_copy_040507.html
 # ----------------------------------------------------------------------------
@@ -137,11 +156,30 @@ fi
 # 3. The debug_all is overridden for cppad_lib by the edit of
 # cppad_lib/CMakeLists.txt above
 #
-# 4. The new c++ compiler seems to be generating an incorrect warning about
+# 4. The gnu c++ compiler seems to be generating an incorrect warning about
 # array bounds in thread_alloc.hpp. Use -Wno-array-bounds to suppress it.
-cppad_cxx_flags='-Wall -pedantic-errors -std=c++11 -Wshadow -Wconversion -Wno-array-bounds'
+#
+# cppad_cxx_flags
+# extra C++ compiler flags
+cppad_cxx_flags=\
+'-Wall -pedantic-errors -std=c++11 -Wshadow -Wconversion  -Wno-array-bounds'
+#
+# CMake Warning:
+# Manually-specified variables were not used by the project:
+#    CMAKE_C_FLAGS_RELEASE
+#    CMAKE_Fortran_FLAGS_RELEASE
+#    CMAKE_INSTALL_DO_STRIP
+#    INCLUDE_INSTALL_DIR
+#    LIB_INSTALL_DIR
+#    LIB_SUFFIX
+#    SHARE_INSTALL_PREFIX
+#    SYSCONF_INSTALL_DIR
+#
 %cmake --version
 %cmake \
+    -S CppAD-%{version} \
+    -B . \
+   \
     -D CMAKE_VERBOSE_MAKEFILE=0 \
     -G 'Unix Makefiles' \
     \
@@ -159,9 +197,9 @@ cppad_cxx_flags='-Wall -pedantic-errors -std=c++11 -Wshadow -Wconversion -Wno-ar
     -D include_ipopt=false \
     -D include_cppadcg=false \
     \
-    -D colpack_prefix='' \
-    -D fadbad_prefix='' \
-    -D sacado_prefix='' \
+    -D colpack_prefix='NOTFOUND' \
+    -D fadbad_prefix='NOTFOUND' \
+    -D sacado_prefix='NOTFOUND' \
     \
     -D cppad_cxx_flags="$cppad_cxx_flags" \
     -D cppad_profile_flag='' \
@@ -169,8 +207,7 @@ cppad_cxx_flags='-Wall -pedantic-errors -std=c++11 -Wshadow -Wconversion -Wno-ar
     -D cppad_max_num_threads=64 \
     -D cppad_tape_id_type=size_t \
     -D cppad_tape_addr_type=size_t \
-    -D cppad_debug_which='debug_all' \
-    CppAD-%{version}
+    -D cppad_debug_which='debug_all'
 #
 # see https://docs.fedoraproject.org/en-US/packaging-guidelines/
 #   parallel_make
@@ -210,6 +247,18 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
+%changelog
+* Sat Jan 28 2023 Brad Bell <bradbell at seanet dot com> - 20230000.0-1
+- Advance upstream source to 2023.
+- Add python-xrst to BuildRequires so can buile documentation.
+- Remove Source1, change Source0 -> Source, and make definition so tarball 
+  have the same name as the directory it creates.
+- Change URL from documentation to git repo so can use in Source definition.
+- Change some cmake definitions from empty string to NOTFOUND.
+- Explicity specify the source directory (-S) and binary (-B) in camke comamnd.
+- Add comments about __cmake_in_source_build confusion
+- Update comments about cmake settings and warnings
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220000.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

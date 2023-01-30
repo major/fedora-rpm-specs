@@ -4,8 +4,8 @@
 
 Name:          mingw-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       1.23.5
-Release:       2%{?dist}
+Version:       1.24.1
+Release:       1%{?dist}
 BuildArch:     noarch
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
@@ -100,6 +100,9 @@ ln -s %{mingw64_python3_sitearch}/numpy/core/include/numpy/ %{buildroot}%{mingw6
 
 
 %changelog
+* Sat Jan 28 2023 Sandro Mani <manisandro@gmail.com> - 1.24.1-1
+- Update to 1.24.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

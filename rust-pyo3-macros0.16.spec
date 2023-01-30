@@ -2,22 +2,21 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate proc-macro2
+%global crate pyo3-macros
 
-Name:           rust-proc-macro2
-Version:        1.0.50
+Name:           rust-pyo3-macros0.16
+Version:        0.16.6
 Release:        %autorelease
-Summary:        Substitute implementation of the Rust compiler's proc_macro API
+Summary:        Proc macros for PyO3 package
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/proc-macro2
+License:        Apache-2.0
+URL:            https://crates.io/crates/pyo3-macros
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Substitute implementation of the compiler's `proc_macro` API to decouple token-
-based libraries from the procedural macro use case.}
+Proc macros for PyO3 package.}
 
 %description %{_description}
 
@@ -31,9 +30,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -48,28 +45,40 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+proc-macro-devel
+%package     -n %{name}+abi3-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+proc-macro-devel %{_description}
+%description -n %{name}+abi3-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "proc-macro" feature of the "%{crate}" crate.
+use the "abi3" feature of the "%{crate}" crate.
 
-%files       -n %{name}+proc-macro-devel
+%files       -n %{name}+abi3-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+span-locations-devel
+%package     -n %{name}+multiple-pymethods-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+span-locations-devel %{_description}
+%description -n %{name}+multiple-pymethods-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "span-locations" feature of the "%{crate}" crate.
+use the "multiple-pymethods" feature of the "%{crate}" crate.
 
-%files       -n %{name}+span-locations-devel
+%files       -n %{name}+multiple-pymethods-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+pyproto-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+pyproto-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "pyproto" feature of the "%{crate}" crate.
+
+%files       -n %{name}+pyproto-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -87,8 +96,7 @@ use the "span-locations" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-# skip doctests that don't compile
-%cargo_test -- -- --skip "src/lib.rs"
+%cargo_test
 %endif
 
 %changelog

@@ -1,11 +1,10 @@
 # vim: syntax=spec
-%global gitcommit c50797b6aba095e08c7ec35bd2fde6c40c61805a
+%global gitcommit 560379ee67db48382ccc3ab3de866e239fd74ca8
 %global gitshortcommit %(c=%{gitcommit}; echo ${c:0:7})
-%global snapshotdate 20211209
 
 Name:           memstrack
-Version:        0.2.4
-Release:        4%{?dist}
+Version:        0.2.5
+Release:        1%{?dist}
 Summary:        A memory allocation tracer, like a hot spot analyzer for memory allocation
 License:        GPLv3
 URL:            https://github.com/ryncsn/memstrack
@@ -36,6 +35,11 @@ install -p -m 755 memstrack %{buildroot}/%{_bindir}
 %{_bindir}/memstrack
 
 %changelog
+* Sat Jan 28 2023 Kairui Song <ryncsn@gmail.com> - 0.2.5-1
+- Update to upstream latest release.
+- Fix crash when wrong reporter type is used.
+- Fix a few tracing error.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

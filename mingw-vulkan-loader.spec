@@ -24,12 +24,10 @@ BuildRequires: make
 BuildRequires: cmake
 
 BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw32-dlfcn
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-vulkan-headers >= %{baseversion}
 
 BuildRequires: mingw64-filesystem >= 95
-BuildRequires: mingw64-dlfcn
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-vulkan-headers >= %{baseversion}
 

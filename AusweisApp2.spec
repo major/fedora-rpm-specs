@@ -37,7 +37,7 @@ fi                                               \
 
 Name:             AusweisApp2
 Version:          1.26.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 Summary:          %{pkg_sum}
 
 License:          EUPL 1.2
@@ -111,10 +111,7 @@ Provides:         %{lc_name}%{?_isa} = %{version}-%{release}
 Requires:         %{name}-data       = %{version}-%{release}
 Requires:         (%{name}-doc       = %{version}-%{release} if %{name}-doc)
 
-%if 0%{?qt6_build}
-# We are linking against qt6-qtbase-private.
-%{?_qt6:Requires: %{_qt6}%{?_isa}    = %{_qt6_version}}
-%else
+%if !0%{?qt6_build}
 # RHBZ#1885310
 # Needed for the GUI to show up on startup.
 Requires:         qt5-qtquickcontrols2%{?_isa}
@@ -322,6 +319,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Jan 28 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.2-2
+- Drop Qt6 version lock, as this is already ensured by symbol versioning
+
 * Sun Jan 22 2023 Björn Esser <besser82@fedoraproject.org> - 1.26.2-1
 - New upstream release
 

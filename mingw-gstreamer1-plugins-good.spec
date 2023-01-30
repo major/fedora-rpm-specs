@@ -3,8 +3,8 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-good
-Version:        1.20.4
-Release:        2%{?dist}
+Version:        1.22.0
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins good
 
 License:        LGPLv2+
@@ -194,6 +194,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwavpack.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwavparse.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgsty4menc.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstadaptivedemux2.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstxingmux.dll
 
 # gstreamer1-plugins with external dependencies but in the main package
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstcairo.dll
@@ -262,6 +264,8 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwavpack.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwavparse.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgsty4menc.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstadaptivedemux2.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstxingmux.dll
 
 # gstreamer1-plugins with external dependencies but in the main package
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstcairo.dll
@@ -273,6 +277,9 @@ rm -rf %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 
 
 %changelog
+* Sat Jan 28 2023 Sandro Mani <manisandro@gmail.com> - 1.22.0-1
+- Update to 1.22.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

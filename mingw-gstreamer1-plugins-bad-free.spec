@@ -4,8 +4,8 @@
 %global         api_version     1.0
 
 Name:           mingw-gstreamer1-plugins-bad-free
-Version:        1.20.4
-Release:        2%{?dist}
+Version:        1.22.0
+Release:        1%{?dist}
 Summary:        Cross compiled GStreamer1 plug-ins "bad"
 
 # The freeze and nfs plugins are LGPLv2 (only)
@@ -195,6 +195,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_bindir}/libgsttranscoder-1.0-0.dll
 %{mingw32_bindir}/libgsturidownloader-1.0-0.dll
 %{mingw32_bindir}/libgstwebrtc-1.0-0.dll
+%{mingw32_bindir}/libgstcuda-1.0-0.dll
 
 # bad plugins
 %dir %{mingw32_libdir}/gstreamer-%{api_version}
@@ -286,6 +287,10 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwinks.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgstwinscreencap.dll
 %{mingw32_libdir}/gstreamer-%{api_version}/libgsty4mdec.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstamfcodec.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstcodectimestamper.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstqsv.dll
+%{mingw32_libdir}/gstreamer-%{api_version}/libgstwin32ipc.dll
 
 # plugin helper library headers
 %{mingw32_includedir}/gstreamer-%{api_version}/gst/audio/
@@ -301,7 +306,10 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_includedir}/gstreamer-%{api_version}/gst/transcoder/
 %{mingw32_includedir}/gstreamer-%{api_version}/gst/uridownloader/
 %{mingw32_includedir}/gstreamer-%{api_version}/gst/webrtc/
+%{mingw32_includedir}/gstreamer-%{api_version}/gst/cuda/
+%{mingw32_includedir}/gstreamer-%{api_version}/gst/d3d11/
 
+%{mingw32_libdir}/gstreamer-%{api_version}/include/
 %{mingw32_libdir}/libgstadaptivedemux-%{api_version}.dll.a
 %{mingw32_libdir}/libgstbadaudio-%{api_version}.dll.a
 %{mingw32_libdir}/libgstbasecamerabinsrc-%{api_version}.dll.a
@@ -318,6 +326,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/libgsttranscoder-%{api_version}.dll.a
 %{mingw32_libdir}/libgsturidownloader-%{api_version}.dll.a
 %{mingw32_libdir}/libgstwebrtc-%{api_version}.dll.a
+%{mingw32_libdir}/libgstcuda-%{api_version}.dll.a
 
 %{mingw32_libdir}/pkgconfig/gstreamer-bad-audio-%{api_version}.pc
 %{mingw32_libdir}/pkgconfig/gstreamer-codecparsers-%{api_version}.pc
@@ -330,6 +339,8 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw32_libdir}/pkgconfig/gstreamer-sctp-%{api_version}.pc
 %{mingw32_libdir}/pkgconfig/gstreamer-transcoder-%{api_version}.pc
 %{mingw32_libdir}/pkgconfig/gstreamer-webrtc-%{api_version}.pc
+%{mingw32_libdir}/pkgconfig/gstreamer-cuda-%{api_version}.pc
+%{mingw32_libdir}/pkgconfig/gstreamer-d3d11-%{api_version}.pc
 
 %{mingw32_datadir}/gstreamer-%{api_version}/presets/
 %{mingw32_datadir}/gstreamer-%{api_version}/encoding-profiles/
@@ -357,7 +368,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_bindir}/libgsttranscoder-1.0-0.dll
 %{mingw64_bindir}/libgsturidownloader-1.0-0.dll
 %{mingw64_bindir}/libgstwebrtc-1.0-0.dll
-
+%{mingw64_bindir}/libgstcuda-1.0-0.dll
 
 # bad plugins
 %dir %{mingw64_libdir}/gstreamer-%{api_version}
@@ -449,6 +460,10 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwinks.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgstwinscreencap.dll
 %{mingw64_libdir}/gstreamer-%{api_version}/libgsty4mdec.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstamfcodec.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstcodectimestamper.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstqsv.dll
+%{mingw64_libdir}/gstreamer-%{api_version}/libgstwin32ipc.dll
 
 # plugin helper library headers
 %{mingw64_includedir}/gstreamer-%{api_version}/gst/audio/
@@ -464,7 +479,10 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_includedir}/gstreamer-%{api_version}/gst/transcoder/
 %{mingw64_includedir}/gstreamer-%{api_version}/gst/uridownloader/
 %{mingw64_includedir}/gstreamer-%{api_version}/gst/webrtc/
+%{mingw64_includedir}/gstreamer-%{api_version}/gst/cuda/
+%{mingw64_includedir}/gstreamer-%{api_version}/gst/d3d11/
 
+%{mingw64_libdir}/gstreamer-%{api_version}/include/
 %{mingw64_libdir}/libgstadaptivedemux-%{api_version}.dll.a
 %{mingw64_libdir}/libgstbadaudio-%{api_version}.dll.a
 %{mingw64_libdir}/libgstbasecamerabinsrc-%{api_version}.dll.a
@@ -481,6 +499,7 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/libgsttranscoder-%{api_version}.dll.a
 %{mingw64_libdir}/libgsturidownloader-%{api_version}.dll.a
 %{mingw64_libdir}/libgstwebrtc-%{api_version}.dll.a
+%{mingw64_libdir}/libgstcuda-%{api_version}.dll.a
 
 %{mingw64_libdir}/pkgconfig/gstreamer-bad-audio-%{api_version}.pc
 %{mingw64_libdir}/pkgconfig/gstreamer-codecparsers-%{api_version}.pc
@@ -493,12 +512,17 @@ rm -f %{buildroot}%{mingw64_libdir}/gstreamer-%{api_version}/*.dll.a
 %{mingw64_libdir}/pkgconfig/gstreamer-sctp-%{api_version}.pc
 %{mingw64_libdir}/pkgconfig/gstreamer-transcoder-%{api_version}.pc
 %{mingw64_libdir}/pkgconfig/gstreamer-webrtc-%{api_version}.pc
+%{mingw64_libdir}/pkgconfig/gstreamer-cuda-%{api_version}.pc
+%{mingw64_libdir}/pkgconfig/gstreamer-d3d11-%{api_version}.pc
 
 %{mingw64_datadir}/gstreamer-%{api_version}/presets/
 %{mingw64_datadir}/gstreamer-%{api_version}/encoding-profiles/
 
 
 %changelog
+* Sat Jan 28 2023 Sandro Mani <manisandro@gmail.com> - 1.22.0-1
+- Update to 1.22.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

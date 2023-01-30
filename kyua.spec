@@ -52,6 +52,10 @@ Obsoletes:      kyua-testers-tests < 0.10
 %prep
 %autosetup
 
+# Disable problematic test
+# https://github.com/jmmv/kyua/issues/214
+sed -e 's/name="stacktrace_test"/&,required_configs="enable_stacktrace"/' -i utils/Kyuafile
+
 %build
 %configure \
   --with-doxygen=no   \
@@ -64,7 +68,7 @@ Obsoletes:      kyua-testers-tests < 0.10
 
 %check
 # Tests expect dumping core to file which is different from machine to machine
-HOME=$(pwd)/check %make_build check %{_make_args} || :
+HOME=$(pwd)/check %make_build check %{_make_args}
 
 %files
 %license LICENSE

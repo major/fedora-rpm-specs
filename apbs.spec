@@ -80,6 +80,7 @@ BuildRequires: texlive-etoc
 BuildRequires: texlive-tocloft
 BuildRequires: texlive-ulem
 BuildRequires: texlive-newunicodechar
+BuildRequires: texlive-wasysym
 BuildArch: noarch
 %description doc
 The apbs-doc package contains API reference inforemation for

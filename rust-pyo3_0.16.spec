@@ -4,8 +4,8 @@
 
 %global crate pyo3
 
-Name:           rust-pyo3
-Version:        0.17.3
+Name:           rust-pyo3_0.16
+Version:        0.16.6
 Release:        %autorelease
 Summary:        Bindings to Python interpreter
 
@@ -21,8 +21,6 @@ Source:         %{crates_source}
 Patch:          pyo3-fix-metadata.diff
 # * skip the single doctest that depends on send_wrapper
 Patch:          0001-ignore-doctest-with-missing-send_wrapper-dependency.patch
-# * skip a little-endian-specific test on big-endian arches
-Patch:          0002-Ensure-to-skip-tests-for-little-endian-things-on-big.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -47,7 +45,6 @@ use the "%{crate}" crate.
 %doc %{crate_instdir}/Code-of-Conduct.md
 %doc %{crate_instdir}/Contributing.md
 %doc %{crate_instdir}/README.md
-%doc %{crate_instdir}/Releasing.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
@@ -144,18 +141,6 @@ This package contains library source intended for building other packages which
 use the "auto-initialize" feature of the "%{crate}" crate.
 
 %files       -n %{name}+auto-initialize-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+chrono-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+chrono-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "chrono" feature of the "%{crate}" crate.
-
-%files       -n %{name}+chrono-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+extension-module-devel
@@ -352,8 +337,6 @@ use the "unindent" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# drop files that are not useful
-rm -r emscripten/ newsfragments/
 # drop broken trybuild ui tests
 rm tests/test_compile_error.rs
 # drop the tests for which dependencies were removed

@@ -4,7 +4,7 @@
 
 Name: crossguid2
 Version: 0.2.2
-Release: 13.%{date}git%{short_commit}%{?dist}
+Release: 14.%{date}git%{short_commit}%{?dist}
 Summary: Lightweight cross platform C++ GUID/UUID library
 License: MIT
 URL: https://github.com/graeme-hill/crossguid/
@@ -12,6 +12,7 @@ Source0: %{url}/archive/%{commit}/crossguid-%{commit}.tar.gz
 
 # Fix library and directory names
 Patch0: %{name}-fix_name.patch
+Patch1: %{name}-fix_GCC13.patch
 
 BuildRequires: gcc-c++, cmake
 BuildRequires: libuuid-devel
@@ -38,6 +39,7 @@ applications that use %{name}.
 %autosetup -n crossguid-%{commit} -N
 
 %patch0 -p0 -b .fix_name
+%patch1 -p1 -b .fix_name
 
 
 %build
@@ -66,6 +68,9 @@ pushd build
 
 
 %changelog
+* Sat Jan 28 2023 Antonio Trande <sagitter@fedoraproject.org> - 0.2.2-14.20190529gitca1bf4b
+- Fix build with GCC-13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-13.20190529gitca1bf4b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

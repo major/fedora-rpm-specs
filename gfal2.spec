@@ -6,7 +6,7 @@
 
 Name:               gfal2
 Version:            2.21.2
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Grid file access library 2.0
 License:            ASL 2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
@@ -16,6 +16,11 @@ URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
 # popd
 # tar czf gfal2-2.21.2.tar.gz --exclude-vcs gfal2-2.21.2
 Source0:            %{name}-%{version}.tar.gz
+
+# Don't downgrade the C++ version
+# https://github.com/cern-fts/gfal2/pull/14
+# (gtest requires C++14 or later beginning with 1.13.0)
+Patch:              https://github.com/cern-fts/gfal2/pull/14.patch
 
 #main lib dependencies
 BuildRequires:      gcc-c++
@@ -215,7 +220,7 @@ gfal2 tests
 %cmake3_build --target clean
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 # Make sure the version in the spec file and the version used
@@ -340,6 +345,9 @@ fi
 
 
 %changelog
+* Tue Jan 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.21.2-3
+- Rebuild for gtest 1.13.0 (close RHBZ#2163832)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.21.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

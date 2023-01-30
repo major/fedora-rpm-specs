@@ -23,14 +23,12 @@ BuildRequires: cmake
 
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
-BuildRequires: mingw32-python3
 BuildRequires: mingw32-spirv-headers
 BuildRequires: mingw32-winpthreads
 BuildRequires: mingw32-winpthreads-static
 
 BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc-c++
-BuildRequires: mingw64-python3
 BuildRequires: mingw64-spirv-headers
 BuildRequires: mingw64-winpthreads
 BuildRequires: mingw64-winpthreads-static

@@ -5,7 +5,7 @@
 %global crate sequoia-openpgp
 
 Name:           rust-sequoia-openpgp
-Version:        1.12.0
+Version:        1.13.0
 Release:        %autorelease
 Summary:        OpenPGP data types and associated machinery
 
@@ -19,6 +19,9 @@ Patch:          sequoia-openpgp-fix-metadata-auto.diff
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 # * drop example-only rpassword dev-dependency (currently too old in Fedora)
 Patch:          sequoia-openpgp-fix-metadata.diff
+# * upstream patch to improve detection of supported ECC algorithms in OpenSSL
+#   https://gitlab.com/sequoia-pgp/sequoia/-/commit/aacdf9b
+Patch:          aacdf9b.patch
 
 BuildRequires:  rust-packaging >= 21
 
@@ -51,6 +54,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+__implicit-crypto-backend-for-tests-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+__implicit-crypto-backend-for-tests-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "__implicit-crypto-backend-for-tests" feature of the "%{crate}" crate.
+
+%files       -n %{name}+__implicit-crypto-backend-for-tests-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+allow-experimental-crypto-devel
@@ -137,6 +152,18 @@ use the "crypto-nettle" feature of the "%{crate}" crate.
 %files       -n %{name}+crypto-nettle-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+crypto-openssl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+crypto-openssl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "crypto-openssl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+crypto-openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+flate2-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -147,6 +174,18 @@ This package contains library source intended for building other packages which
 use the "flate2" feature of the "%{crate}" crate.
 
 %files       -n %{name}+flate2-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+foreign-types-shared-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+foreign-types-shared-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "foreign-types-shared" feature of the "%{crate}" crate.
+
+%files       -n %{name}+foreign-types-shared-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+nettle-devel
@@ -161,6 +200,30 @@ use the "nettle" feature of the "%{crate}" crate.
 %files       -n %{name}+nettle-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+openssl-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+openssl-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "openssl" feature of the "%{crate}" crate.
+
+%files       -n %{name}+openssl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+openssl-sys-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+openssl-sys-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "openssl-sys" feature of the "%{crate}" crate.
+
+%files       -n %{name}+openssl-sys-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 # remove examples which depend on rpassword
@@ -168,7 +231,8 @@ rm examples/{notarize.rs,sign.rs,sign-detached.rs}
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+# * ensure all dependencies for tests are generated
+%cargo_generate_buildrequires -f crypto-openssl,crypto-nettle,compression
 
 %build
 %cargo_build
@@ -178,7 +242,10 @@ rm examples/{notarize.rs,sign.rs,sign-detached.rs}
 
 %if %{with check}
 %check
-%cargo_test
+# * run tests with nettle crypto backend (default)
+%cargo_test -n -f crypto-nettle,compression
+# * run tests with openssl crypto backend
+%cargo_test -n -f crypto-openssl,compression
 %endif
 
 %changelog

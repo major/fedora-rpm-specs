@@ -4,7 +4,7 @@
 
 # https://github.com/google/go-cmp
 %global goipath         github.com/google/go-cmp
-Version:                0.5.8
+Version:                0.5.9
 
 %gometa
 

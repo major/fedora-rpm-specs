@@ -5,7 +5,7 @@
 %global crate tokio
 
 Name:           rust-tokio
-Version:        1.23.0
+Version:        1.24.2
 Release:        %autorelease
 Summary:        Event-driven, non-blocking I/O platform
 
@@ -347,9 +347,7 @@ rm tests/macros_rename_test.rs
 
 %if %{with check}
 %check
-# * skip a test that fails depending on Rust compiler version:
-#   sizes of some structs and enums changed between Rust 1.62 and 1.63
-%cargo_test -a -- -- --skip join_size
+%cargo_test -a
 %endif
 
 %changelog

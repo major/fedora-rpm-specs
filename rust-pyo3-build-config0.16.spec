@@ -2,24 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate pyo3-ffi
+%global crate pyo3-build-config
 
-Name:           rust-pyo3-ffi
-Version:        0.17.3
+Name:           rust-pyo3-build-config0.16
+Version:        0.16.6
 Release:        %autorelease
-Summary:        Python-API bindings for the PyO3 ecosystem
+Summary:        Build configuration for the PyO3 ecosystem
 
 License:        Apache-2.0
-URL:            https://crates.io/crates/pyo3-ffi
+URL:            https://crates.io/crates/pyo3-build-config
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * drop MSVC- and MinGW-only features
-Patch:          pyo3-ffi-fix-metadata.diff
+# * drop MSVC- and MinGW-only "python3-dll-a" dependency
+Patch:          pyo3-build-config-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Python-API bindings for the PyO3 ecosystem.}
+Build configuration for the PyO3 ecosystem.}
 
 %description %{_description}
 
@@ -34,13 +34,11 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.7
 
 %description -n %{name}+default-devel %{_description}
 
@@ -65,7 +63,6 @@ use the "abi3" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py310-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.10
 
 %description -n %{name}+abi3-py310-devel %{_description}
 
@@ -78,7 +75,6 @@ use the "abi3-py310" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py37-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.7
 
 %description -n %{name}+abi3-py37-devel %{_description}
 
@@ -91,7 +87,6 @@ use the "abi3-py37" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py38-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.8
 
 %description -n %{name}+abi3-py38-devel %{_description}
 
@@ -104,7 +99,6 @@ use the "abi3-py38" feature of the "%{crate}" crate.
 %package     -n %{name}+abi3-py39-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       python3-devel >= 3.9
 
 %description -n %{name}+abi3-py39-devel %{_description}
 
@@ -126,13 +120,24 @@ use the "extension-module" feature of the "%{crate}" crate.
 %files       -n %{name}+extension-module-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+resolve-config-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+resolve-config-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "resolve-config" feature of the "%{crate}" crate.
+
+%files       -n %{name}+resolve-config-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-echo 'python3-devel >= 3.7'
 
 %build
 %cargo_build

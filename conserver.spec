@@ -7,10 +7,10 @@
 
 Name:           conserver
 Version:        8.2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Serial console server daemon/client
 
-License:        BSD and zlib
+License:        BSD-3-Clause AND Zlib
 URL:            https://www.%{name}.com
 
 Source0:        https://github.com/bstansell/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -55,16 +55,19 @@ This is the client package needed to interact with a Conserver daemon.
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
+# disable stripping of binaries
+find . -name Makefile.in -exec \
+       sed -i 's/@INSTALL_PROGRAM@ -s/@INSTALL_PROGRAM@/g' {} \;
+
 %build
-autoreconf -f -i
-%configure --with-freeipmi \
-           --with-gssapi \
+%configure --with-freeipmi   \
+           --with-gssapi     \
 %if %{with libwrap}
-           --with-libwrap \
+           --with-libwrap    \
 %endif
-           --with-openssl \
-           --with-pam \
-           --with-port=782 \
+           --with-openssl    \
+           --with-pam        \
+           --with-port=782   \
            --with-striprealm
 %make_build
 
@@ -82,7 +85,7 @@ done
 install -D -m 644 %{SOURCE3} %{buildroot}%{_unitdir}/conserver.service
 
 %check
-make test
+%make_build test
 
 %post
 %systemd_post conserver.service
@@ -100,17 +103,23 @@ make test
 %config(noreplace) %{_sysconfdir}/conserver.*
 %{_unitdir}/conserver.service
 %{_libdir}/conserver
-%{_mandir}/man5/conserver.cf.5.gz
-%{_mandir}/man5/conserver.passwd.5.gz
-%{_mandir}/man8/conserver.8.gz
+%{_mandir}/man5/conserver.cf.5*
+%{_mandir}/man5/conserver.passwd.5*
+%{_mandir}/man8/conserver.8*
 %{_sbindir}/conserver
 
 %files client
 %license LICENSE
 %{_bindir}/console
-%{_mandir}/man1/console.1.gz
+%{_mandir}/man1/console.1*
 
 %changelog
+* Sat Jan 28 2023 Lukáš Zaoral <lzaoral@redhat.com> - 8.2.7-4
+- Use %%{_mandir}/man1/foo.1* for manual pages as recommended by the packaging
+  guidelines.
+- Do not strip binaries during installation.
+- Convert license to SPDX format.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

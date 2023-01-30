@@ -3,8 +3,8 @@
 %global api_version 1.0
 
 Name:           mingw-gstreamer1
-Version:        1.20.4
-Release:        2%{?dist}
+Version:        1.22.0
+Release:        1%{?dist}
 Summary:        MinGW Windows Streaming-Media Framework Runtime
 
 License:        LGPLv2+
@@ -178,6 +178,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sat Jan 28 2023 Sandro Mani <manisandro@gmail.com> - 1.22.0-1
+- Update to 1.22.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

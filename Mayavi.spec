@@ -20,7 +20,6 @@ BuildRequires:  python%{python3_pkgversion}-vtk
 BuildRequires:  /usr/bin/sphinx-build-3
 Requires:       python%{python3_pkgversion}-mayavi
 BuildRequires:  desktop-file-utils 
-BuildRequires:  /usr/bin/pathfix.py
 BuildRequires:  xorg-x11-server-Xvfb
 
 %description
@@ -92,7 +91,7 @@ for file in mayavi/scripts/*.py; do
 done
 
 # fix shebang
-pathfix.py -i %{__python3} -p -n mayavi mayavi/tests/csv_files/csv_2_py
+%py3_shebang_fix mayavi/tests/{csv_files/csv_2_py,runtests.py}
 
 # remove exec permission
 find examples -type f -exec chmod 0644 {} ";"

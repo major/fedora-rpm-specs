@@ -5,8 +5,8 @@
 %endif
 
 Name:          leptonica
-Version:       1.83.0
-Release:       2%{?dist}
+Version:       1.83.1
+Release:       1%{?dist}
 Summary:       C library for efficient image processing and image analysis operations
 
 License:       Leptonica
@@ -177,6 +177,9 @@ ln -s %{mingw64_libdir}/libleptonica.dll.a %{buildroot}%{mingw64_libdir}/liblept
 
 
 %changelog
+* Sat Jan 28 2023 Sandro Mani <manisandro@gmail.com> - 1.83.1-1
+- Update to 1.83.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.83.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

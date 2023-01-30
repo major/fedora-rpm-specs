@@ -6,8 +6,8 @@
 %endif
 
 Name:           fedora-license-data
-Version:        1.11
-Release:        2%{?dist}
+Version:        1.12
+Release:        1%{?dist}
 Summary:        Fedora Linux license data
 
 License:        CC0-1.0
@@ -68,27 +68,32 @@ The Fedora Legal team is responsible for the content.
 
 %build
 %make_build spec-validate json %{?with_rpmlint:rpmlint}
-cp LICENSES/* ./
 
 %install
 make DESTDIR=%{buildroot} install-json %{?with_rpmlint:install-rpmlint}
 
 
 %files
-%license LICENSE BSD-3-Clause.txt CC0-1.0.txt
+%license LICENSES/*
 %doc AUTHORS README.md
 %{_datadir}/%{name}/
 
 
 %if %{with rpmlint}
 %files -n rpmlint-%{name}
-%license CC0-1.0.txt
+%license LICENSES/CC0-1.0.txt
 %doc AUTHORS README.md
 %config(noreplace) %{_sysconfdir}/xdg/rpmlint/*.toml
 %endif
 
 
 %changelog
+* Sat Jan 28 2023 Miroslav Suchý <msuchy@redhat.com> 1.12-1
+- address change in LICENSING structure in spec file
+- Make REUSE conformant
+- Use revised LicenseRef-Not-Copyrightable
+- Revise usage note for CC0-1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

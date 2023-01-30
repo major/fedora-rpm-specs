@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Your current git repository information inside a beautiful shell prompt
 
 # Upstream license specification: MIT
@@ -58,6 +58,9 @@ License:        MIT
 %endif
 
 %changelog
+* Sat Jan 28 2023 Fabio Valentini <decathorpe@gmail.com> - 0.2.1-15
+- Rebuild for CVE-2022-24765 and CVE-2022-29187 in libgit2.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

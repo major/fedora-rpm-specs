@@ -1,3 +1,6 @@
+# Disable test with --without=tests
+%bcond_without tests
+
 %global forgeurl https://github.com/pydicom/pynetdicom
 
 %global _description %{expand:
@@ -10,7 +13,7 @@ Version:        2.0.2
 
 %forgemeta
 
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python implementation of the DICOM networking protocol
 
 License:        MIT and (BSD or ASL 2.0)
@@ -59,24 +62,35 @@ ExcludeArch: %{ix86}
 
 %package -n python3-pynetdicom
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python-unversioned-command
-BuildRequires:  make
-BuildRequires:  %{py3_dist setuptools} %{py3_dist pytest}
-BuildRequires:  %{py3_dist sphinx} %{py3_dist sphinx-rtd-theme} %{py3_dist sphinx-issues}
-BuildRequires:  %{py3_dist pydicom} >= 2
-BuildRequires:  %{py3_dist sqlalchemy}
-BuildRequires:  %{py3_dist pyfakefs}
-BuildRequires:  %{py3_dist sphinx-copybutton}
+
+BuildRequires: python3-devel
+BuildRequires: python-unversioned-command
+BuildRequires: make
+BuildRequires: %{py3_dist setuptools}
+BuildRequires: %{py3_dist pydicom} >= 2
+BuildRequires: %{py3_dist sqlalchemy}
+
+%if 0%{?fedora}
+BuildRequires: %{py3_dist pytest}
+BuildRequires: %{py3_dist pyfakefs}
+BuildRequires: %{py3_dist sphinx}
+BuildRequires: %{py3_dist sphinx-rtd-theme}
+BuildRequires: %{py3_dist sphinx-copybutton}
+BuildRequires: %{py3_dist sphinx-issues}
+BuildRequires: %{py3_dist sqlalchemy}
+%endif
+
 %{?python_provide:%python_provide python3-pynetdicom}
 
 %description -n python3-pynetdicom %_description
-
+	
+%if 0%{?fedora}
 %package doc
 Summary:        %{summary}
 
 %description doc
 Documentation for %{name}.
+%endif
 
 %prep
 %forgeautosetup -p1
@@ -89,23 +103,24 @@ sed -i 's/add_stylesheet/add_css_file/' docs/conf.py
 %build
 %py3_build
 
+%if 0%{?fedora}
 export PYTHONPATH=../
 make -C docs SPHINXBUILD=sphinx-build-3 html 
 rm -rf docs/_build/html/{.doctrees,.buildinfo,.nojekyll} -vf
+%endif
 
 %install
 %py3_install
-
-#%check
-# test_tls_yes_server_yes_client and test_tls_transfer are disabled. Upstream is investigating.
-# https://github.com/pydicom/pynetdicom/issues/406 and https://github.com/pydicom/pynetdicom/issues/364
-# PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest -k "not test_tls_yes_server_yes_client and not test_tls_transfer"
 
 # tests in the apps/ part not reliable, upstream advice to disable them
 # https://github.com/pydicom/pynetdicom/issues/498
 # tls tests are still failing intermittently
 # PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pynetdicom/apps/tests -vvv -k "not test_tls_yes_server_yes_client and not test_tls_transfer and not test_typical"
+%if 0%{?fedora}
+%if %{with tests}
 PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pynetdicom/apps/tests -k "not test_tls_yes_server_yes_client and not test_tls_transfer and not test_typical and not test_scp_handler_dataset_path"
+%endif
+%endif
 
 %files -n python3-pynetdicom
 %license LICENCE.txt
@@ -113,11 +128,16 @@ PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m pytest --deselect=pyn
 %{python3_sitelib}/pynetdicom-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/pynetdicom
 
+%if 0%{?fedora}
 %files doc
 %license LICENCE.txt
 %doc docs/_build/html
+%endif
 
 %changelog
+* Sat Jan 28 2023 Alessio <alciregi AT fedoraproject DOT org> - 2.0.2-4
+- Fix spec file for EPEL9
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

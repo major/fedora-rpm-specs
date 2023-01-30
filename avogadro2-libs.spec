@@ -12,7 +12,7 @@
 
 Name:           avogadro2-libs
 Version:        1.97.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Avogadro2 libraries
 
 # BSD is main license
@@ -29,6 +29,7 @@ Source3: https://github.com/OpenChemistry/crystals/archive/1.0.1/crystals-1.0.1.
 # Set installation path of Python files
 Patch0: %{name}-set_pythonpath.patch
 Patch1: %{name}-1.94.0-do_not_download_external_files.patch
+Patch2: %{name}-bug1185.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -104,6 +105,7 @@ mv molecules/LICENSE molecules/LICENSE-molecules
 
 %patch0 -p0 -b .backup
 %patch1 -p0 -b .backup
+%patch2 -p1 -b .backup
 
 # Make avogadro generators source code available for CMake
 mv avogenerators-%{version} avogadrogenerators
@@ -190,6 +192,9 @@ rm -rf %{buildroot}%{_datadir}/doc
 %license LICENSE
 
 %changelog
+* Sat Jan 28 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.97.0-3
+- Fix upstream bug #1185
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.97.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

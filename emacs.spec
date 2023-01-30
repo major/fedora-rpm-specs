@@ -5,7 +5,7 @@ Summary:       GNU Emacs text editor
 Name:          emacs
 Epoch:         1
 Version:       28.2
-Release:       3%{?dist}
+Release:       4%{?dist}
 License:       GPLv3+ and CC0
 URL:           http://www.gnu.org/software/emacs/
 Source0:       https://ftp.gnu.org/gnu/emacs/emacs-%{version}.tar.xz
@@ -447,6 +447,10 @@ sed -i -e "s|\.%{native_lisp}|%{native_lisp}|" *-eln-filelist *-dirs
 # trying to extract debuginfo from them
 find %{buildroot}%{_libdir}/ -name '*eln' -type f | xargs chmod -x
 
+# ensure native files are newer than byte-code files
+# see: https://bugzilla.redhat.com/show_bug.cgi?id=2157979#c11
+find %{buildroot}%{_libdir}/ -name '*eln' -type f | xargs touch
+
 %check
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
@@ -540,6 +544,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/*.desktop
 %{_includedir}/emacs-module.h
 
 %changelog
+* Fri Jan 27 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1:28.2-4
+- Ensure that emacs-nox loads the correct eln files
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:28.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

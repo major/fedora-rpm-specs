@@ -2,19 +2,15 @@
 
 Summary:       Rugged is a Ruby binding to the libgit2 library
 Name:          rubygem-%{gem_name}
-Version:       1.2.0
-Release:       8%{?dist}
+Version:       1.5.1
+Release:       1%{?dist}
+
 License:       MIT
 URL:           https://github.com/libgit2/rugged
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# The test directory for this version is incomplete due to gemspec bug.
-# Upstream has removed test and Rakefile from gem in future versions.
-# https://github.com/libgit2/rugged/issues/262
-# https://github.com/libgit2/rugged/pull/263
-# This is how we are getting the tests (Source1)
-#  git clone https://github.com/libgit2/rugged
-#  git -C rugged archive --format=tar.gz -o $PWD/rugged-1.2.0-test.tgz v1.2.0 -- Rakefile test/
-Source1:       %{gem_name}-%{version}-test.tgz
+# https://github.com/libgit2/rugged/pull/939
+Patch0:        rugged-fix-regexp.patch
+
 Requires:      ruby(rubygems)
 Requires:      ruby
 BuildRequires:  gcc
@@ -31,7 +27,6 @@ Provides:      rubygem(%{gem_name}) = %{version}
 Rugged is a Ruby bindings to the libgit2W C Git library. This is
 for testing and using the libgit2 library in a language that is awesome.
 
-
 %package doc
 Summary:       Documentation for %{name}
 Requires:      %{name} = %{version}-%{release}
@@ -41,13 +36,13 @@ BuildArch:     noarch
 Documentation for %{name}.
 
 %prep
-%autosetup -n %{gem_name}-%{version} -a 1 -S git
+%autosetup -n %{gem_name}-%{version} -S git
 
 rm -vrf vendor
 # Remove the bundled libraries from gemspec
 sed -i -e 's\, "vendor[^,]*"\\g' ../%{gem_name}-%{version}.gemspec
 
-# The build system requres libgit2's version.h to be present, and defaults to
+# The build system requires libgit2's version.h to be present, and defaults to
 # using the vendor'd copy. Use the system copy instead.
 sed -i -e 's|LIBGIT2_DIR = .*|LIBGIT2_DIR = "%{_prefix}"|' ext/rugged/extconf.rb
 
@@ -61,19 +56,12 @@ gem build ../%{gem_name}-%{version}.gemspec
 mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
-
 # move C extensions to the extdir.
 mkdir -p %{buildroot}%{gem_extdir_mri}/
 cp -a .%{gem_extdir_mri}/{gem.build_complete,%{gem_name}/} %{buildroot}%{gem_extdir_mri}/
 
 # We don't need those files anymore.
 rm -rf %{buildroot}%{gem_instdir}/ext/
-
-%check
-#export LANG="C.UTF-8"
-#git config --global user.name John Doe
-# Comment out the test until we get the minitest/autorun figured out
-# testrb -Ilib test/*test.rb
 
 %files
 %license %{gem_instdir}/LICENSE
@@ -88,6 +76,9 @@ rm -rf %{buildroot}%{gem_instdir}/ext/
 %doc %{gem_docdir}
 
 %changelog
+* Sat Jan 28 2023 Pete Walter <pwalter@fedoraproject.org> - 1.5.1-1
+- Update to 1.5.1 (rhbz#1978563)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

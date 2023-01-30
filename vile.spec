@@ -1,6 +1,6 @@
 Name:		vile
-Version:	9.8x
-Release:	2%{?dist}
+Version:	9.8y
+Release:	1%{?dist}
 Summary:	VI Like Emacs
 License:	GPLv2
 URL:		https://invisible-island.net/vile/
@@ -114,8 +114,14 @@ popd
 
 
 %changelog
+* Sat Jan 28 2023 Thomas E. Dickey <dickey@invisible-island.net> - 9.8y-1
+- Update to 9.8y
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.8x-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Mon Jan 02 2023 Thomas E. Dickey <dickey@invisible-island.net> - 9.8x-1
+- Update to 9.8x
 
 * Sat Sep 10 2022 Thomas E. Dickey <dickey@invisible-island.net> - 9.8w-1
 - Update to 9.8w

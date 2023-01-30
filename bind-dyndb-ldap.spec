@@ -12,7 +12,7 @@
 
 Name:           bind-dyndb-ldap
 Version:        11.10
-Release:        10%{?dist}
+Release:        11.2%{?dist}
 Summary:        LDAP back-end plug-in for BIND
 
 License:        GPLv2+
@@ -27,12 +27,16 @@ Patch1:         bind-dyndb-ldap-bind-9.18.10-db-options.patch
 Patch2:         bind-dyndb-ldap-bind-9.18.10-logs.patch
 # https://pagure.io/bind-dyndb-ldap/c/5dd2fefa0bc7cd7689004cec64304c3a02be9eab
 Patch3:         bind-dyndb-ldap-bind-9.18.10-staleok.patch
+Patch4: bind-dyndb-ldap-11.10-bind-9.18.11.patch
 
 BuildRequires:  bind-devel >= %{bind_version}, bind-lite-devel >= %{bind_version}
 BuildRequires:  krb5-devel
 BuildRequires:  openldap-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  automake, autoconf, libtool
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2165256
+Conflicts: bind9-next
 
 %if %{with bind_pkcs11}
 BuildRequires:  bind-pkcs11-devel >= %{bind_version}
@@ -122,6 +126,12 @@ sed -i.bak -e "$SEDSCRIPT" /etc/named.conf
 
 
 %changelog
+* Sat Jan 28 2023 Adam Williamson <awilliam@redhat.com> - 11.10-11.2
+- Conflict with bind9-next (#2165256)
+
+* Sat Jan 28 2023 Petr Menšík <pemensik@redhat.com> - 11.10-11
+- Support for BIND 9.18.11 (#2164395)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.10-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

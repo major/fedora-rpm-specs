@@ -62,8 +62,8 @@ Conflicts: %1 \
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind
 License:  MPL-2.0
-Version:  9.18.10
-Release:  2%{?dist}
+Version:  9.18.11
+Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -951,6 +951,9 @@ fi;
 %endif
 
 %changelog
+* Fri Jan 27 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.11-1
+- Update to 9.18.11 (#2164395)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 32:9.18.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

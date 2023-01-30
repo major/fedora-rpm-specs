@@ -5,12 +5,15 @@ CC=%{__cc} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" ENABLE_MAN=1
 
 Name:           cc1541
 Version:        4.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for creating Commodore Floppy disk images in D64, G64, D71 or D81 format
 
 License:        MIT
 URL:            https://bitbucket.org/PTV_Claus/%{name}
 Source0:        %{url}/downloads/%{name}-%{version}.tar.gz
+
+Patch0001:      0001-Verbose-file-allocation-printout-showed-broken-filen.patch
+Patch0002:      0002-Another-fix-for-the-file-allocation-table-printing.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -25,10 +28,11 @@ using either SPEED DOS or DOLPHIN DOS BAM-formatting.
 
 %prep
 %autosetup -p 1
+sed -i -e '/.NOTPARALLEL:/d' Makefile
 
 
 %build
-%make_build %{make_flags}
+%make_build all test_cc1541 %{make_flags}
 
 
 %install
@@ -47,6 +51,11 @@ using either SPEED DOS or DOLPHIN DOS BAM-formatting.
 
 
 %changelog
+* Sat Jan 28 2023 Björn Esser <besser82@fedoraproject.org> - 4.0-3
+- Apply two upstream patches fixing verbose file allocation table printout
+- Tweak Makefile to build all targets in parallel
+- Compile and link test binary during %%build stage
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
