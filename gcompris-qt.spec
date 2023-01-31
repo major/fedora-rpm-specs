@@ -1,6 +1,6 @@
 Name:           gcompris-qt
-Version:        2.4
-Release:        3%{?dist}
+Version:        3.1
+Release:        1%{?dist}
 Summary:        Educational software suite for children aged 2 to 10
 
 License:        AGPLv3
@@ -19,6 +19,8 @@ BuildRequires:  cmake(Qt5Core)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5LinguistTools)
 BuildRequires:  cmake(Qt5Sensors)
+BuildRequires:  cmake(Qt5QuickControls2)
+BuildRequires:  cmake(Qt5Charts)
 BuildRequires:  openssl-devel
 BuildRequires:  kf5-kdoctools-devel
 BuildRequires:  gettext
@@ -29,6 +31,7 @@ Requires:       qt5-qtquickcontrols
 Requires:       qt5-qtquickcontrols2
 Requires:       qt5-qtgraphicaleffects
 Requires:       qt5-qtsvg
+Requires:       qt5-qtcharts
 Requires:       hicolor-icon-theme
 Requires:       %{name}-activities = %{version}-%{release}
 
@@ -84,8 +87,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.gc
 
 %files -f %{name}.lang
 %{_kf5_bindir}/%{name}
-%{_kf5_datadir}/%{name}
-%exclude %{_kf5_datadir}/%{name}/rcc
+%dir %{_kf5_datadir}/%{name}
 %{_kf5_metainfodir}/org.kde.gcompris.appdata.xml
 %{_kf5_datadir}/applications/org.kde.gcompris.desktop
 %{_kf5_datadir}/icons/hicolor/*/apps/%{name}.*
@@ -98,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.gc
 
 
 %changelog
+* Sun Jan 22 2023 Andrea Musuruane <musuruan@gmail.com> - 3.1-1
+- Updated to new upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

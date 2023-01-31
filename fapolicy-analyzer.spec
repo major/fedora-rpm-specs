@@ -98,6 +98,10 @@ Requires:      gtk3
 Requires:      gtksourceview3
 Requires:      gnome-icon-theme
 
+# rust-ring-devel does not support s390x and ppc64le:
+# https://bugzilla.redhat.com/show_bug.cgi?id=1869980
+ExcludeArch:   s390x %{power64}
+
 %global module fapolicy_analyzer
 
 %description
@@ -124,7 +128,7 @@ echo %{version} > VERSION
 %{python3} setup.py bdist_wheel
 
 %install
-%{py3_install_wheel %{module}-%{version}*.whl}
+%{py3_install_wheel %{module}-%{version}*%{_target_cpu}.whl}
 install -D bin/%{name} %{buildroot}/%{_sbindir}/%{name}
 install -D data/%{name}.8 -t %{buildroot}/%{_mandir}/man8/
 desktop-file-install data/%{name}.desktop

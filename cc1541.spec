@@ -5,13 +5,14 @@ CC=%{__cc} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" ENABLE_MAN=1
 
 Name:           cc1541
 Version:        4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool for creating Commodore Floppy disk images in D64, G64, D71 or D81 format
 
 License:        MIT
 URL:            https://bitbucket.org/PTV_Claus/%{name}
 Source0:        %{url}/downloads/%{name}-%{version}.tar.gz
 
+Patch0000:      %{name}-4.0-Makefile.patch
 Patch0001:      0001-Verbose-file-allocation-printout-showed-broken-filen.patch
 Patch0002:      0002-Another-fix-for-the-file-allocation-table-printing.patch
 
@@ -28,7 +29,7 @@ using either SPEED DOS or DOLPHIN DOS BAM-formatting.
 
 %prep
 %autosetup -p 1
-sed -i -e '/.NOTPARALLEL:/d' Makefile
+sed -i -e 's![ \t]*$!!g' *.c %{name}.1* LICENSE.txt README.md
 
 
 %build
@@ -51,6 +52,10 @@ sed -i -e '/.NOTPARALLEL:/d' Makefile
 
 
 %changelog
+* Sun Jan 29 2023 Björn Esser <besser82@fedoraproject.org> - 4.0-4
+- Patch Makefile to be thread-safe on all targets
+- Clean trailing white-space in some files during %%prep
+
 * Sat Jan 28 2023 Björn Esser <besser82@fedoraproject.org> - 4.0-3
 - Apply two upstream patches fixing verbose file allocation table printout
 - Tweak Makefile to build all targets in parallel

@@ -2,23 +2,25 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate crossbeam-epoch
+%global crate noisy_float
 
-Name:           rust-crossbeam-epoch
-Version:        0.9.13
+Name:           rust-%crate
+Version:        0.2.0
 Release:        %autorelease
-Summary:        Epoch-based garbage collection
-
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/crossbeam-epoch
+Summary:        Rust library containing floating point types
+License:        Apache-2.0
+URL:            https://crates.io/crates/%crate
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          crossbeam-epoch-fix-metadata-auto.diff
-
+# * Remove criterion dependency because it is only needed for benchmarking
+#   and benchmarking is not relevant for the packaging process
+# * Bump approx version
+#   Upstream PR: https://github.com/SergiusIW/noisy_float-rs/pull/42
+Patch:          fix-cargo-toml.patch
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Epoch-based garbage collection.}
+This crate contains floating point types that panic
+if they are set to an illegal value, such as NaN.}
 
 %description %{_description}
 
@@ -32,9 +34,7 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -50,40 +50,28 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+alloc-devel
+%package     -n %{name}+approx-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+alloc-devel %{_description}
+%description -n %{name}+approx-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "alloc" feature of the "%{crate}" crate.
+use the "approx" feature of the "%{crate}" crate.
 
-%files       -n %{name}+alloc-devel
+%files       -n %{name}+approx-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+nightly-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+nightly-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "nightly" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+nightly-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+std-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+std-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
-
-%files       -n %{name}+std-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

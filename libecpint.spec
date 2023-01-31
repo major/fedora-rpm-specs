@@ -1,6 +1,6 @@
 Name:           libecpint
 Version:        1.0.7
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Efficient evaluation of integrals over ab initio effective core potentials
 License:        MIT
 Url:            https://github.com/robashaw/libecpint
@@ -39,6 +39,9 @@ This package contains development headers and libraries for libecpint.
 
 %prep
 %setup -q
+# gtest 1.13.0 requires C++14 or later
+# https://github.com/robashaw/libecpint/issues/58
+sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\114/' CMakeLists.txt
 
 %build
 %cmake -DLIBECPINT_USE_CERF=ON
@@ -65,6 +68,9 @@ This package contains development headers and libraries for libecpint.
 %{_libdir}/lib*.so
 
 %changelog
+* Sun Jan 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.7-7
+- Compile as C++14 for gtest 1.13.0 compatibility
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

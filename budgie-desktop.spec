@@ -1,14 +1,14 @@
 %global glib2_version 2.64
-%global gnome_desktop_version 43~alpha
-%global gnome_settings_daemon_version 43~beta
-%global gsettings_desktop_schemas_version 43~alpha
+%global gnome_desktop_version 42.8
+%global gnome_settings_daemon_version 42.2
+%global gsettings_desktop_schemas_version 42.0
 %global gtk3_version 3.24
 %global polkit_version 0.105
 %global vala_version 0.52.5
 
 Name:           budgie-desktop
-Version:        10.6.4
-Release:        3%{?dist}
+Version:        10.7
+Release:        1%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -20,13 +20,16 @@ Source2:        https://joshuastrobl.com/pubkey.gpg
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
+BuildRequires:  pkgconfig(gee-0.8) >= 0.20.0
 BuildRequires:  pkgconfig(gio-unix-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gdk-x11-3.0) >= %{gtk3_version}
 BuildRequires:  pkgconfig(gnome-bluetooth-1.0) >= 3.34.0
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gnome-settings-daemon) >= %{gnome_settings_daemon_version}
+BuildRequires:  pkgconfig(gstreamer-1.0) >= 1.20.0
 BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= 1.5.10
+BuildRequires:  pkgconfig(libcanberra) >= 0.30
 BuildRequires:  pkgconfig(libnotify) >= 0.7
 BuildRequires:  pkgconfig(libpeas-1.0) >= 1.26.0
 BuildRequires:  pkgconfig(libpulse)
@@ -58,10 +61,12 @@ Requires:       gnome-session
 Requires:       gnome-settings-daemon
 Requires:       gsettings-desktop-schemas
 Requires:       gnome-keyring-pam
+Requires:       hicolor-icon-theme
 Requires:       network-manager-applet
 Requires:       xdotool
-Suggests:       materia-gtk-theme
-Suggests:       papirus-icon-theme
+Requires:       materia-gtk-theme
+Requires:       papirus-icon-theme
+Requires:       switcheroo-control
 Suggests:       slick-greeter
 
 Requires:       glib2%{?_isa} >= %{glib2_version}
@@ -99,7 +104,7 @@ Documentation for budgie-desktop
 %autosetup
 
 %build
-%meson
+%meson -Dwith-hibernate=false
 %meson_build
 
 %install
@@ -114,39 +119,41 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %license LICENSE
 %dir %{_datadir}/backgrounds/budgie
 %dir %{_datadir}/budgie
-%dir %{_datadir}/icons
-%dir %{_datadir}/icons/hicolor
-%dir %{_datadir}/icons/hicolor/scalable
-%dir %{_datadir}/icons/hicolor/scalable/actions
-%dir %{_datadir}/icons/hicolor/scalable/apps
-%dir %{_datadir}/icons/hicolor/scalable/status
 %dir %{_libdir}/%{name}
 %dir %{_libdir}/%{name}/plugins/
 %dir %{_libdir}/%{name}/plugins/*
 %{_bindir}/budgie-*
-%{_datadir}/applications/budgie-*
+%{_bindir}/org.buddiesofbudgie.BudgieScreenshot
+%{_datadir}/applications/org.buddiesofbudgie*.desktop
 %{_datadir}/backgrounds/budgie/default.jpg
 %{_datadir}/budgie/budgie-version.xml
+%{_datadir}/glib-2.0/schemas/20_buddiesofbudgie.%{name}.notifications.gschema.override
 %{_datadir}/glib-2.0/schemas/20_solus-project.budgie.wm.gschema.override
 %{_datadir}/glib-2.0/schemas/com.solus-project.*.gschema.xml
-%{_datadir}/gnome-session/sessions/%{name}.session
+%{_datadir}/glib-2.0/schemas/org.buddiesofbudgie.%{name}.raven.widget.*.gschema.xml
+%{_datadir}/glib-2.0/schemas/org.buddiesofbudgie.%{name}.screenshot.gschema.xml
+%{_datadir}/gnome-session/sessions/org.buddiesofbudgie.BudgieDesktop.session
 %{_datadir}/icons/hicolor/scalable/actions/*.svg
 %{_datadir}/icons/hicolor/scalable/apps/*.svg
 %{_datadir}/icons/hicolor/scalable/status/*.svg
 %{_datadir}/xsessions/%{name}.desktop
 %{_libdir}/girepository-1.0/Budgie-1.0.typelib
+%{_libdir}/girepository-1.0/BudgieRaven-1.0.typelib
 %{_libdir}/%{name}/libgvc.so
 %{_libdir}/%{name}/plugins/*/*.plugin
 %{_libdir}/%{name}/plugins/*/*.so*
-%{_libdir}/libbudgie-plugin.so.0
-%{_libdir}/libbudgie-plugin.so.0.0.0
-%{_libdir}/libbudgie-private.so.0
-%{_libdir}/libbudgie-private.so.0.0.0
-%{_libdir}/libbudgietheme.so.0
-%{_libdir}/libbudgietheme.so.0.0.0
-%{_libdir}/libraven.so.0
-%{_libdir}/libraven.so.0.0.0
+%{_libdir}/%{name}/raven-plugins/*/*.plugin
+%{_libdir}/%{name}/raven-plugins/*/*.so*
+%{_libexecdir}/%{name}/budgie-polkit-dialog
+%{_libexecdir}/%{name}/budgie-power-dialog
+%{_libdir}/libbudgie-appindexer.so.0{,.*}
+%{_libdir}/libbudgie-plugin.so.0{,.*}
+%{_libdir}/libbudgie-private.so.0{,.*}
+%{_libdir}/libbudgie-raven-plugin.so.0{,.*}
+%{_libdir}/libbudgietheme.so.0{,.*}
+%{_libdir}/libraven.so.0{,.*}
 %{_mandir}/man1/budgie-*.1*
+%{_mandir}/man1/org.buddiesofbudgie.BudgieScreenshot.1.*
 %{_sysconfdir}/xdg/autostart/*.desktop
 
 %files devel
@@ -155,14 +162,18 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %dir %{_datadir}/vala/vapi
 %dir %{_includedir}/%{name}
 %{_datadir}/gir-1.0/Budgie-1.0.gir
-%{_datadir}/vala/vapi/budgie-1.0.deps
-%{_datadir}/vala/vapi/budgie-1.0.vapi
+%{_datadir}/gir-1.0/BudgieRaven-1.0.gir
+%{_datadir}/vala/vapi/budgie-*.deps
+%{_datadir}/vala/vapi/budgie-*.vapi
 %{_includedir}/%{name}/*.h
+%{_libdir}/libbudgie-appindexer.so
 %{_libdir}/libbudgie-plugin.so
 %{_libdir}/libbudgie-private.so
+%{_libdir}/libbudgie-raven-plugin.so
 %{_libdir}/libbudgietheme.so
 %{_libdir}/libraven.so
 %{_libdir}/pkgconfig/budgie-1.0.pc
+%{_libdir}/pkgconfig/budgie-raven-plugin-1.0.pc
 %{_libdir}/pkgconfig/budgie-theme-1.0.pc
 
 %files docs
@@ -171,6 +182,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Sun Jan 29 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7-1
+- Update to 10.7 release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.6.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

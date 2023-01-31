@@ -1,5 +1,5 @@
-%global commit 8b5f1f37b5b75829fc72d38e7b5d4bcbf8a26d55
-%global snapdate 20220908
+%global commit 5736b15f7ea0ffb08dd38af21067c314d6a3aae9
+%global snapdate 20230129
 
 # We choose not to package the “stb_include” library (stb_include.h) because,
 # during the package review, it was observed that it follows coding practices
@@ -54,65 +54,14 @@ Patch:          %{url}/pull/1196.patch
 # https://github.com/nothings/stb/pull/1198
 Patch:          %{url}/pull/1198.patch
 
-# Candidate fix for:
-# https://nvd.nist.gov/vuln/detail/CVE-2021-42715
-#
-# In stb_image's HDR reader, loading a specially constructed invalid HDR file
-# can result in an infinite loop within the RLE decoder
-# https://github.com/nothings/stb/issues/1224
-#
-# ----
-#
-# Additionally, this is a candidate fix for:
-# https://nvd.nist.gov/vuln/detail/CVE-2021-42716
-#
-# stbi__pnm_load heap-buffer-overflow bug
-# https://github.com/nothings/stb/issues/1166
-#
-# In stb_image's PNM reader, loading a specially constructed valid 16-bit PGM
-# file with 4 channels can cause a crash due to an out-of-bounds read
-# https://github.com/nothings/stb/issues/1225
-#
-# ----
-#
-# Fixes a crash and an infinite loop in stb_image that could occur with
-# specially constructed PGM and HDR files
-# https://github.com/nothings/stb/pull/1223
-Patch:          %{url}/pull/1223.patch
-
 # Forward declare stbhw__process struct to fix warnings
-# https://github.com/nothings/stb/pull/1225
+# https://github.com/nothings/stb/pull/1236
 #
 # We don’t see these warnings in the “compile tests”, but we can reproduce them
 # by manually compiling tests/herringbone_map.c; a real user of the
 # stb_herringbone_wang_tile library would encounter them; and inspection of the
 # patch shows it to be correct.
 Patch:          %{url}/pull/1236.patch
-
-# Candidate fix for:
-# https://nvd.nist.gov/vuln/detail/CVE-2022-28041
-#
-# stb_image.h v2.27 was discovered to contain an integer overflow via the
-# function stbi__jpeg_decode_block_prog_dc. This vulnerability allows attackers
-# to cause a Denial of Service (DoS) via unspecified vectors.
-#
-# UBSAN: integer overflow
-# https://github.com/nothings/stb/issues/1292
-#
-# ----
-#
-# Additional stb_image fixes for bugs from ossfuzz and issues 1289, 1291, 1292,
-# and 1293
-# https://github.com/nothings/stb/pull/1297
-Patch:          %{url}/pull/1297.patch
-
-# stb_image PNG reader: Adds checks for invalid DEFLATE codes, fixing an
-# infinite loop found by ossfuzz.
-# https://github.com/nothings/stb/pull/1230
-#   Fixes:
-# Issue 24232: stb:stb_png_read_fuzzer: Timeout in stb_png_read_fuzzer
-# https://bugs.chromium.org/p/oss-fuzz/issues/detail?id=24232&q=proj%3Dstb
-Patch:          %{url}/pull/1230.patch
 
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96
@@ -122,7 +71,7 @@ Patch:          %{url}/pull/1230.patch
 %global stb_easy_font_version 1.1
 %global stb_herringbone_wang_tile_version 0.7
 %global stb_hexwave_version 0.5
-%global stb_image_version 2.27
+%global stb_image_version 2.28
 %global stb_image_resize_version 0.97
 %global stb_image_write_version 1.16
 %global stb_include_version 0.2

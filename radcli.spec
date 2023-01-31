@@ -1,7 +1,7 @@
 Summary: RADIUS protocol client library
 Name: radcli
-Version: 1.3.0
-Release: 7%{?dist}
+Version: 1.3.1
+Release: 1%{?dist}
 
 #Breakdown of licenses. Under MIT license:
 # lib/avpair.c, lib/buildreq.c, lib/clientid.c, lib/config.c, lib/dict.c,
@@ -18,7 +18,6 @@ URL: http://radcli.github.io/radcli/
   sed 's/\./_/g')}
 
 Source0: https://github.com/radcli/radcli/releases/download/%{name}_%{myversion}/%{name}-%{version}.tar.gz
-Patch0: radcli-autoconf.c99.patch
 
 BuildRequires: libtool, automake, autoconf
 #BuildRequires: gettext-devel
@@ -115,6 +114,9 @@ cp -p %{buildroot}%{_datadir}/%{name}/dictionary %{buildroot}%{_sysconfdir}/%{na
 %{_libdir}/libradiusclient-ng.so
 
 %changelog
+* Sun Jan 29 2023 Nikos Mavrogiannopoulos <n.mavrogiannopoulos@gmail.com> - 1.3.1-1
+- New upstream release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

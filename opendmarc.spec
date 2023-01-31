@@ -10,7 +10,7 @@
 Summary: A Domain-based Message Authentication, Reporting & Conformance (DMARC) milter and library
 Name: opendmarc
 Version: 1.4.2
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD and Sendmail
 URL: http://www.trusteddomain.org/%{name}.html
 Source0: https://github.com/trusteddomainproject/OpenDMARC/archive/refs/tags/rel-opendmarc-1-4-2.tar.gz
@@ -105,8 +105,8 @@ RuntimeDirectory=%{name}
 RuntimeDirectoryMode=0750
 %endif
 EnvironmentFile=-/etc/sysconfig/%{name}
-ExecStart=/usr/sbin/%{name} -f $OPTIONS
-ExecReload=/bin/kill -USR1 $MAINPID
+ExecStart=/usr/sbin/%{name} -f \$OPTIONS
+ExecReload=/bin/kill -USR1 \$MAINPID
 Restart=on-failure
 User=%{name}
 Group=%{name}
@@ -197,6 +197,9 @@ exit 0
 %{_libdir}/*.so
 
 %changelog
+* Sun Jan 29 2023 Matt Domsch <mdomsch@fedoraproject.org> - 1.4.2-10
+- escape systemd service file OPTIONS and MAINPID references so they exist at runtime
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

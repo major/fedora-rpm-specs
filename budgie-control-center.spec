@@ -8,8 +8,8 @@
 %global vala_version 0.52.5
 
 Name:          budgie-control-center
-Version:       1.1.1
-Release:       7%{?dist}
+Version:       1.2.0
+Release:       1%{?dist}
 Summary:       A fork of GNOME Control Center for the Budgie 10 Series
 
 License:       GPLv2+ and CC-BY-SA
@@ -108,6 +108,9 @@ Recommends: nm-connection-editor
 Requires: malcontent
 Requires: malcontent-control
 
+# Fingerprint support
+Requires: fprintd
+
 # For Show Details in the color panel
 Recommends: gnome-color-manager
 
@@ -124,6 +127,8 @@ A fork of GNOME Control Center for the Budgie 10 Series.
 License:        GPLv2+ and CC-BY-SA
 Summary: Common assets for %{name}
 BuildArch: noarch
+
+Requires: hicolor-icon-theme
 
 %description common
 This package contains architecture-agnostic common assets for ${name}
@@ -158,6 +163,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_libexecdir}/%{name}-print-renderer
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings-*.svg
+%{_datadir}/man/man1/%{name}.1*
 %{_datadir}/metainfo/%{name}.appdata.xml
 
 %files common -f %{name}.lang
@@ -169,15 +175,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %dir %{_datadir}/dbus-1/services
 %dir %{_datadir}/glib-2.0
 %dir %{_datadir}/glib-2.0/schemas
-%dir %{_datadir}/icons
-%dir %{_datadir}/icons/hicolor
-%dir %{_datadir}/icons/hicolor/scalable
-%dir %{_datadir}/icons/hicolor/scalable/apps
-%dir %{_datadir}/icons/hicolor/scalable/categories
-%dir %{_datadir}/icons/hicolor/scalable/emblems
-%dir %{_datadir}/icons/hicolor/scalable/status
-%dir %{_datadir}/icons/hicolor/symbolic
-%dir %{_datadir}/icons/hicolor/symbolic/apps
 %dir %{_datadir}/pixmaps
 %dir %{_datadir}/pixmaps/budgie-faces
 %dir %{_datadir}/pixmaps/budgie-faces/legacy
@@ -199,12 +196,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.a
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings.Devel.svg
 %{_datadir}/icons/hicolor/scalable/apps/org.buddiesofbudgie.Settings.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.buddiesofbudgie.Settings-symbolic.svg
-%{_datadir}/man/man1/%{name}.1*
 %{_datadir}/polkit-1/actions/org.buddiesofbudgie.controlcenter.*.policy
 %{_datadir}/polkit-1/rules.d/%{name}.rules
 %{_datadir}/sounds/budgie/default/alerts/*.ogg
 
 %changelog
+* Sun Jan 29 2023 Joshua Strobl <me@joshuastrobl.com> - 1.2.0-1
+- Update to 1.2.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

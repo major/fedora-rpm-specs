@@ -31,7 +31,7 @@
 %global jspspec 2.3
 %global major_version 9
 %global minor_version 0
-%global micro_version 70
+%global micro_version 71
 %global packdname apache-tomcat-%{version}-src
 %global servletspec 4.0
 %global elspec 3.0
@@ -56,7 +56,7 @@
 Name:          tomcat
 Epoch:         1
 Version:       %{major_version}.%{minor_version}.%{micro_version}
-Release:       2%{?dist}
+Release:       1%{?dist}
 Summary:       Apache Servlet/JSP Engine, RI for Servlet %{servletspec}/JSP %{jspspec} API
 
 License:       ASL 2.0
@@ -81,7 +81,7 @@ Patch2:        %{name}-build.patch
 Patch3:        %{name}-%{major_version}.%{minor_version}-catalina-policy.patch
 Patch4:        rhbz-1857043.patch
 Patch5:        %{name}-%{major_version}.%{minor_version}-JDTCompiler.patch
-Patch6:        %{name}-%{major_version}.%{minor_version}-osgi-annotations.patch
+Patch6:        %{name}-%{major_version}.%{minor_version}-bnd-annotation.patch
 
 BuildArch:     noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -93,12 +93,10 @@ BuildRequires: java-devel >= 1:1.8.0
 BuildRequires: javapackages-local
 BuildRequires: aqute-bnd
 BuildRequires: aqute-bndlib
-BuildRequires: wsdl4j
 BuildRequires: systemd
 
 Requires:      java-headless >= 1:1.8.0
 Requires:      javapackages-tools
-Requires:      procps
 Requires:      %{name}-lib = %{epoch}:%{version}-%{release}
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:    tomcat-native >= %{native_version}
@@ -224,14 +222,9 @@ touch HACK
   -Dcommons-daemon.native.win.mgr.exe="HACK" \
   -Dnsis.exe="HACK" \
   -Djaxrpc-lib.jar="HACK" \
-  -Dwsdl4j-lib.jar="$(build-classpath wsdl4j)" \
+  -Dwsdl4j-lib.jar="HACK" \
   -Dbnd.jar="$(build-classpath aqute-bnd/biz.aQute.bnd)" \
-  -Dbndlib.jar="$(build-classpath aqute-bnd/biz.aQute.bndlib)" \
-  -Dbndlibg.jar="$(build-classpath aqute-bnd/aQute.libg)" \
-  -Dbndannotation.jar="$(build-classpath aqute-bnd/biz.aQute.bnd.annotation)" \
-  -Dosgi-annotations.jar="$(build-classpath aqute-bnd/biz.aQute.bnd.annotation)" \
-  -Dslf4j-api.jar="$(build-classpath slf4j/slf4j-api)" \
-  -Dosgi-cmpn.jar="$(build-classpath osgi-compendium/osgi.cmpn)" \
+  -Dbnd-annotation.jar="$(build-classpath aqute-bnd/biz.aQute.bnd.annotation)" \
   -Dversion="%{version}" \
   -Dversion.build="%{micro_version}" \
   deploy
@@ -503,6 +496,11 @@ fi
 %{appdir}/ROOT
 
 %changelog
+* Sun Jan 29 2023 Hui Wang <huwang@redhat.com> - 1:9.0.71-1
+- Update to 9.0.71
+- Remove osgi-annotations patch
+- Add bnd-annotation dependency which is in bndlib package 
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:9.0.70-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

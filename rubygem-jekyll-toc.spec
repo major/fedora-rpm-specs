@@ -1,19 +1,17 @@
 %global gem_name jekyll-toc
 
 Name:           rubygem-%{gem_name}
-Version:        0.17.1
+Version:        0.18.0
 Release:        %autorelease
 Summary:        Jekyll Table of Contents plugin
 License:        MIT
 
 URL:            https://github.com/toshimaru/jekyll-toc
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
+Source1:        %{url}/archive/v%{version}/%{gem_name}-%{version}.tar.gz
 
 # Patch to disable coverage reporting
 Patch0:         00-disable-simplecov.patch
-# https://github.com/toshimaru/jekyll-toc/pull/165
-# ruby3.2 Struct constructor enables keyword_init: true by default
-Patch1:         01-pr165-ruby32-hash-for-Struct-initializer.patch
 
 BuildRequires:  git-core
 BuildRequires:  ruby(release)
@@ -43,8 +41,15 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -S git -n %{gem_name}-%{version} -p1
+%autosetup -N -n %{gem_name}-%{version}
 
+# extract test files not shipped with the gem
+mkdir upstream && pushd upstream
+tar -xzvf %{SOURCE1}
+mv %{gem_name}-%{version}/test ../test
+popd && rm -r upstream
+
+%autopatch -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec
@@ -58,9 +63,7 @@ cp -a .%{gem_dir}/* %{buildroot}%{gem_dir}/
 
 
 %check
-pushd .%{gem_instdir}
-rake test
-popd
+ruby -I"lib:test" -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 
 
 %files
@@ -76,9 +79,7 @@ popd
 %{gem_spec}
 
 %exclude %{gem_cache}
-%exclude %{gem_instdir}/.gitignore
 %exclude %{gem_instdir}/.rubocop.yml
-%exclude %{gem_instdir}/.github/
 
 
 %files doc
@@ -90,7 +91,6 @@ popd
 %{gem_instdir}/Gemfile
 %{gem_instdir}/Rakefile
 %{gem_instdir}/jekyll-toc.gemspec
-%{gem_instdir}/test
 
 
 %changelog

@@ -53,6 +53,13 @@ URL:            http://www.openusd.org/
 %global forgeurl https://github.com/PixarAnimationStudios/%{name}
 Source0:        %{forgeurl}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        org.open%{name}.%{name}view.desktop
+# Latest stb_image.patch that applies cleanly against 2.27:
+#   %%{forgeurl}/raw/8f9bb9563980b41e7695148b63bf09f7abd38a41/pxr/imaging/hio/stb/stb_image.patch
+# We treat this as a source file because it is applied separately during
+# unbundling. It has been hand-edited to apply to 2.28, where
+# stbi__unpremultiply_on_load_thread is already renamed to
+# stbi_set_unpremultiply_on_load_thread.
+Source2:        stb_image.patch
 
 # Upstream was asked about .so versioning and setting SONAME properly and
 # seemed unprepared to handle the request:
@@ -79,6 +86,9 @@ Source1:        org.open%{name}.%{name}view.desktop
 # because we do not want to package the built plugin anyway. (It should not be
 # built with -DPXR_BUILD_EXAMPLES=OFF, but it is.)
 Patch:          USD-22.05-soversion.patch
+# Add missing #include for GCC13
+# https://github.com/PixarAnimationStudios/USD/pull/2215
+Patch:          %{forgeurl}/pull/2215.patch
 
 # Support OpenEXR 3
 # https://github.com/PixarAnimationStudios/USD/issues/1591
@@ -154,11 +164,11 @@ BuildRequires:  hdf5-devel
 #
 # stb_image 2.27^20210910gitaf1a5bc-0.2 is the minimum EVR to contain fixes for
 # all of CVE-2021-28021, CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041.
-BuildRequires:  stb_image-devel >= 2.27^20210910gitaf1a5bc-0.2
+BuildRequires:  stb_image-devel >= 2.28
 BuildRequires:  stb_image-static
-BuildRequires:  stb_image_write-devel
+BuildRequires:  stb_image_write-devel >= 1.16
 BuildRequires:  stb_image_write-static
-BuildRequires:  stb_image_resize-devel
+BuildRequires:  stb_image_resize-devel >= 0.97
 BuildRequires:  stb_image_resize-static
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -282,9 +292,10 @@ ln -s %{_datadir}/fonts/google-roboto-mono \
 
 # Unbundle stb_image, stb_image_write, stb_image_resize:
 pushd pxr/imaging/hio/stb
-cp -p %{_includedir}/stb_image.h %{_includedir}/stb_image_write.h .
-cat stb_image.patch stb_image_write.patch | patch -p1
-ln -svf %{_includedir}/stb_image_resize.h ./
+cp -p %{_includedir}/stb_image.h .
+patch -p1 < '%{SOURCE2}'
+ln -svf %{_includedir}/stb_image_resize.h \
+    %{_includedir}/stb_image_write.h ./
 popd
 
 # Use c++17 standard otherwise build fails

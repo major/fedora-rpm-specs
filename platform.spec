@@ -1,6 +1,6 @@
 Name:           platform
 Version:        2.1.0.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        Platform support library used by libCEC and binary add-ons for Kodi
 
 License:        GPLv2+
@@ -8,6 +8,7 @@ URL:            https://github.com/Pulse-Eight/platform/
 Source0:        https://github.com/Pulse-Eight/%{name}/archive/p8-%{name}-%{version}.tar.gz
 # GPLv2 license file
 Source1:        http://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
+Patch0:         https://github.com/Pulse-Eight/platform/compare/p8-platform-2.1.0.1..a7cd0d5780ed80a4e70480d1650749f29e8a1fb2.diff
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -28,7 +29,7 @@ applications that use %{name}.
 
 
 %prep
-%setup -q -n %{name}-p8-%{name}-%{version}
+%autosetup -p1 -n %{name}-p8-%{name}-%{version}
 
 cp -p %{SOURCE1} .
 
@@ -59,6 +60,9 @@ cp -p %{SOURCE1} .
 
 
 %changelog
+* Sun Jan 29 2023 Sérgio Basto <sergio@serjux.com> - 2.1.0.1-16
+- Add minor fixes from upstream
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

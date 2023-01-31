@@ -16,9 +16,9 @@ Source:         %{crates_source}
 # * bump nix from 0.25 to 0.26
 Patch:          below-btrfs-fix-metadata.diff
 
-# bindgen code does not work on i686;
+# bindgen code does not work on 32-bit architectures;
 # multiple btrfs_api::open_source::btrfs_sys::bindgen_test_layout_btrfs_ioctl_* test failures
-ExcludeArch:    %{ix86}
+ExcludeArch:    %{arm32} %{ix86}
 
 BuildRequires:  rust-packaging >= 21
 

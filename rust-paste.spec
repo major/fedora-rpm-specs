@@ -6,7 +6,7 @@
 %global crate paste
 
 Name:           rust-paste
-Version:        1.0.10
+Version:        1.0.11
 Release:        %autorelease
 Summary:        Macros for all your token pasting needs
 

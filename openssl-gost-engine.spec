@@ -1,13 +1,13 @@
 Name: openssl-gost-engine
-Version: 3.0.0
-Release: 4%{?dist}
+Version: 3.0.1
+Release: 1%{?dist}
 
 URL: https://github.com/gost-engine/engine
 License: OpenSSL
 Summary: A reference implementation of the Russian GOST crypto algorithms for OpenSSL
 
-
 Source: https://github.com/gost-engine/engine/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch1: 01-engine-nowerror.patch
 
 BuildRequires: make
 BuildRequires: cmake-rpm-macros gcc perl-Test-Simple
@@ -26,8 +26,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 GOST file digesting utilities.
 
 %global _enginesdir %(pkg-config --variable=enginesdir libcrypto)
+%global _providersdir %(pkg-config --variable=modulesdir libcrypto)
 %prep
-%setup -n engine-%version -q
+%autosetup -n engine-%version
 
 %build
 %cmake -B "%{_vpath_builddir}"
@@ -38,7 +39,9 @@ GOST file digesting utilities.
 mkdir -p %buildroot%_bindir
 mkdir -p %buildroot%_mandir/man1
 mkdir -p %buildroot%_enginesdir
+mkdir -p %buildroot%_providersdir
 cp "%{_vpath_builddir}"/bin/gost.so README.gost %buildroot%_enginesdir/
+cp "%{_vpath_builddir}"/bin/gostprov.so %buildroot%_providersdir/
 cp "%{_vpath_builddir}"/bin/gost*sum %buildroot%_bindir/
 cp gost*sum.1 %buildroot%_mandir/man1/
 
@@ -54,6 +57,7 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 
 %files
 %_enginesdir/gost.so
+%_providersdir/gostprov.so
 %doc %_enginesdir/README.gost
 
 %files -n gostsum
@@ -61,6 +65,9 @@ OPENSSL_ENGINES="$PWD/%{_vpath_builddir}/bin" \
 %_mandir/man1/gost*sum*
 
 %changelog
+* Sun Jan 29 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 3.0.1-1
+- Update to version 3.0.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

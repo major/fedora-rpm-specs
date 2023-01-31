@@ -49,7 +49,7 @@
 %define upname_compat() \
 %if "%{name}" != "%{upname}" \
 %if 0%{?fedora} >= 37 \
-Provides: %1 = %{epoch}:%{version}-%{release} \
+Provides: %1 = %{version}-%{release} \
 %endif \
 Obsoletes: %1 < 32:9.17.0 \
 Conflicts: %1 \
@@ -59,7 +59,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPLv2.0
 Version:  9.19.9
-Release:  1%{?dist}
+Release:  2%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -106,6 +106,7 @@ Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Recommends:     %{name}-utils %{name}-dnssec-utils
 %upname_compat %{upname}
 Obsoletes:      %{name}-pkcs11 < 32:9.18.4-2
+Conflicts:      bind-dyndb-ldap
 
 BuildRequires:  gcc, make
 BuildRequires:  openssl-devel, libtool, autoconf, pkgconfig, libcap-devel
@@ -236,6 +237,7 @@ Obsoletes: %{name}-lite-devel < 32:9.16.6-3
 Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires: openssl-devel%{?_isa} libxml2-devel%{?_isa}
 Requires: libcap-devel%{?_isa}
+%upname_compat %{upname}-devel
 %if %{with GSSTSIG}
 Requires: krb5-devel%{?_isa}
 %endif
@@ -967,6 +969,9 @@ fi;
 %endif
 
 %changelog
+* Sun Jan 29 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.9-2
+- Attempt to not upgrade to bind9-next by default (#2165256)
+
 * Fri Jan 27 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.9-1
 - Update to 9.19.9
 

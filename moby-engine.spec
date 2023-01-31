@@ -6,15 +6,15 @@
 
 # moby
 %global goipath_moby github.com/docker/docker
-%global git_moby https://%{goipath_moby}
-%global commit_moby 9fdeb9c3de2f2d9f5799be373f27b2f9df44609d
-%global shortcommit_moby %(c=%{commit_moby}; echo ${c:0:7})
+%global git_moby https://%%{goipath_moby}
+#%%global commit_moby 9fdeb9c3de2f2d9f5799be373f27b2f9df44609d
+#%%global shortcommit_moby %%(c=%%{commit_moby}; echo ${c:0:7})
 
 # cli
 %global goipath_cli github.com/docker/cli
-%global git_cli https://%{goipath_cli}
-%global commit_cli baeda1f82a10204ec5708d5fbba130ad76cfee49
-%global shortcommit_cli %(c=%{commit_cli}; echo ${c:0:7})
+%global git_cli https://%%{goipath_cli}
+#%%global commit_cli baeda1f82a10204ec5708d5fbba130ad76cfee49
+#%%global shortcommit_cli %%(c=%%{commit_cli}; echo ${c:0:7})
 
 # tini
 %global git_tini https://github.com/krallin/tini
@@ -22,8 +22,8 @@
 %global shortcommit_tini %(c=%{commit_tini}; echo ${c:0:7})
 
 Name:           moby-engine
-Version:        20.10.22
-Release:        2%{?dist}
+Version:        20.10.23
+Release:        1%{?dist}
 Summary:        The open-source application container engine
 License:        Apache-2.0
 Source0:        %{git_moby}/archive/v%{version}/moby-%{version}.tar.gz
@@ -38,8 +38,6 @@ Source100:      provides.spec.inc
 # Specfile license
 Source200:      moby-engine.spec.license
 
-# Fix build for btrfs-progs-6.1
-Patch1:         44707.patch
 URL:            https://www.docker.com
 
 ExclusiveArch:  %{golang_arches}
@@ -131,7 +129,6 @@ This package installs %{summary}.
 
 %prep
 %setup -q -a 1 -a 2 -n moby-%{version}
-%patch1 -p1 
 
 # correct rpmlint errors for bash completion
 sed -i '/env bash/d' cli-%{version}/contrib/completion/bash/docker
@@ -283,6 +280,9 @@ done
 %{_datadir}/nano/Dockerfile.nanorc
 
 %changelog
+* Sun Jan 29 2023 Sérgio Basto <sergio@serjux.com>
+- Update moby-engine to 20.10.23
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

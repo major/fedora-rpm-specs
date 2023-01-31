@@ -1,6 +1,6 @@
 Name:           python-blosc
 Summary:        Python wrapper for the Blosc high performance compressor
-Version:        1.10.6
+Version:        1.11.0
 Release:        %autorelease
 License:        MIT
 URL:            https://github.com/Blosc/python-blosc
@@ -30,8 +30,6 @@ Requires:       blosc%{_isa} >= 1.16.0
 
 %prep
 %autosetup -p1
-# Remove bundled copy
-rm cpuinfo.py
 
 # Overwrite setup.py with the last version that does not use skbuild and cmake
 cp %{SOURCE1} .
@@ -51,7 +49,7 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %__python3 -c 'import sys, blosc; sys
 %files -n python%{python3_pkgversion}-blosc
 %{python3_sitearch}/blosc/
 %{python3_sitearch}/blosc-%{version}*-py*.egg-info
-%license LICENSES/BLOSC.txt
+%license LICENSE.txt
 %doc README.rst RELEASE_NOTES.rst
 
 %changelog

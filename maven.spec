@@ -7,7 +7,7 @@
 Name:           maven
 Epoch:          1
 Version:        3.8.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Java project management and project comprehension tool
 # maven itself is ASL 2.0
 # bundled slf4j is MIT
@@ -117,7 +117,8 @@ Summary:        OpenJDK 8 binding for Maven
 RemovePathPostfixes: -openjdk8
 Provides: maven-jdk-binding = %{epoch}:%{version}-%{release}
 Requires: maven = %{epoch}:%{version}-%{release}
-Requires: java-1.8.0-openjdk-devel
+Requires: java-1.8.0-openjdk-headless
+Recommends: java-1.8.0-openjdk-devel
 Conflicts: maven-jdk-binding
 
 %description openjdk8
@@ -128,7 +129,8 @@ Summary:        OpenJDK 11 binding for Maven
 RemovePathPostfixes: -openjdk11
 Provides: maven-jdk-binding = %{epoch}:%{version}-%{release}
 Requires: maven = %{epoch}:%{version}-%{release}
-Requires: java-11-openjdk-devel
+Requires: java-11-openjdk-headless
+Recommends: java-11-openjdk-devel
 Conflicts: maven-jdk-binding
 
 %description openjdk11
@@ -139,7 +141,8 @@ Summary:        OpenJDK 17 binding for Maven
 RemovePathPostfixes: -openjdk17
 Provides: maven-jdk-binding = %{epoch}:%{version}-%{release}
 Requires: maven = %{epoch}:%{version}-%{release}
-Requires: java-17-openjdk-devel
+Requires: java-17-openjdk-headless
+Recommends: java-17-openjdk-devel
 Conflicts: maven-jdk-binding
 
 %description openjdk17
@@ -257,9 +260,9 @@ ln -s %{homedir}/bin/mvnDebug.1.gz %{buildroot}%{_mandir}/man1/mvnDebug%{maven_v
 
 # JDK bindings
 install -d -m 755 %{buildroot}%{_javaconfdir}/
-echo JAVA_HOME=%{_jvmlibdir}/java-1.8.0-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk8
-echo JAVA_HOME=%{_jvmlibdir}/java-11-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk11
-echo JAVA_HOME=%{_jvmlibdir}/java-17-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk17
+echo JAVA_HOME=%{_jvmlibdir}/jre-1.8.0-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk8
+echo JAVA_HOME=%{_jvmlibdir}/jre-11-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk11
+echo JAVA_HOME=%{_jvmlibdir}/jre-17-openjdk >%{buildroot}%{_javaconfdir}/maven.conf-openjdk17
 
 
 %post
@@ -306,6 +309,9 @@ if [[ $1 -eq 0 ]]; then update-alternatives --remove mvn %{homedir}/bin/mvn; fi
 %config %{_javaconfdir}/maven.conf-openjdk17
 
 %changelog
+* Fri Jan 27 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:3.8.6-4
+- Turn hard dependency on java-devel into a weak dependencny
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.8.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

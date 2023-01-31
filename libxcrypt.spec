@@ -168,7 +168,7 @@ fi                                          \
 
 Name:           libxcrypt
 Version:        4.4.33
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Extended crypt library for descrypt, md5crypt, bcrypt, and others
 
 # For explicit license breakdown, see the
@@ -188,6 +188,8 @@ Patch0001:      %{url}/commit/59823543d095.patch#/%{name}-4.4.33-SHA512_Maj_opti
 
 # Patch 6000 - 9999: Downstream patches.
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  coreutils
 BuildRequires:  fipscheck
 BuildRequires:  gcc
@@ -197,6 +199,7 @@ BuildRequires:  gnupg2
 %if 0%{?trans_pkg}
 BuildRequires:  glibc-devel                  >= %{glibc_minver}
 %endif
+BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  perl(:VERSION)               >= %{perl_minver}
 BuildRequires:  perl(Class::Struct)
@@ -335,6 +338,9 @@ sha256sum -c %{SOURCE3}
 popd
 
 %autosetup -p 1
+
+# Regen Autotools.
+autoreconf -fiv -Wall,error
 
 %if %{with new_api}
 cat << EOF >> README%{distname}
@@ -580,6 +586,9 @@ done
 
 
 %changelog
+* Sat Jan 21 2023 Björn Esser <besser82@fedoraproject.org> - 4.4.33-7
+- Run autoreconf during %%prep
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.33-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

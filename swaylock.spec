@@ -1,17 +1,14 @@
 Name:       swaylock
-Version:    1.7
+Version:    1.7.2
 Release:    %{autorelease}
 Summary:    Screen locker for Wayland
 
 License:    MIT
 URL:        https://github.com/swaywm/swaylock
-Source0:    %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
-Source1:    %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.sig
+Source0:    %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source1:    %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz.sig
 # gpg2 --export --armor --export-options export-minimal 34FF9526CFEF0E97A340E2E40FDE7BE0E88F5E48 >gpgkey-E88F5E48.asc
 Source2:    gpgkey-E88F5E48.asc
-
-# Older versions were part of the sway package
-Conflicts:      sway < 1.0
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2

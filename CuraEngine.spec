@@ -1,7 +1,7 @@
 Name:           CuraEngine
 Epoch:          1
 Version:        4.13.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Engine for processing 3D models into G-code instructions for 3D printers
 License:        AGPLv3+
 URL:            https://github.com/Ultimaker/%{name}
@@ -22,7 +22,10 @@ BuildRequires:  git-core
 BuildRequires:  stb_image-devel >= 2.27^20210910gitaf1a5bc-0.2
 BuildRequires:  stb_image-static
 
-Patch0:         %{name}-static-libstdcpp.patch
+Patch:          %{name}-static-libstdcpp.patch
+# Add an #include needed for GCC 13
+# This is a (very) partial backport of upstream commit de60e86.
+Patch:          0001-Add-an-include-needed-for-GCC-13.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
@@ -72,6 +75,9 @@ sed -i 's/"DEV"/"%{version}"/' src/settings/Settings.h
 %{_bindir}/%{name}
 
 %changelog
+* Sun Jan 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:4.13.1-5
+- Add an #include needed for GCC 13
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.13.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

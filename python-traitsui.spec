@@ -1,7 +1,7 @@
 %global modname traitsui 
 Name:           python-%{modname}
 Version:        7.4.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        User interface tools designed to complement Traits
 
 # Images have different licenses. For image license breakdown check
@@ -11,6 +11,7 @@ Summary:        User interface tools designed to complement Traits
 License:        BSD and EPL and LGPLv2 and GPLv2+
 URL:            https://github.com/enthought/traitsui
 Source0:        https://github.com/enthought/traitsui/archive/%{version}/traitsui-%{version}.tar.gz
+Patch0:         python-traitsui-relative.patch
 
 Obsoletes:      %{name}-doc <= 5.0.0-2
 BuildArch:      noarch
@@ -36,7 +37,6 @@ BuildRequires:  python%{python3_pkgversion}-pillow
 BuildRequires:  python%{python3_pkgversion}-pyface >= 7.1.0
 BuildRequires:  python%{python3_pkgversion}-pyface-qt
 BuildRequires:  python%{python3_pkgversion}-pyside2
-BuildRequires:  python%{python3_pkgversion}-nose
 BuildRequires:  python%{python3_pkgversion}-packaging
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-Traits >= 6.0.0
@@ -73,11 +73,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitelib}
 export PYTHONUNBUFFERED=1
 pushd build/lib/traitsui/tests/
 
-# test_merge_undo_deprecated - https://github.com/enthought/traitsui/issues/1682
-# smoke_test gets run by accident due to name
-  PYTHONPATH=%{buildroot}%{python3_sitelib} xvfb-run nosetests-%{python3_version} -v -e smoke_test -e test_merge_undo_deprecated
+PYTHONPATH=%{buildroot}%{python3_sitelib} xvfb-run %{__python3} -X faulthandler -W default -m unittest discover -v
 
-# wx currently hangs on:
+# wx currently hang on:
 # test_set_text_out_of_range (traitsui.tests.editors.test_range_editor.TestRangeEditor) ... 
 #for toolkit in wx pyqt5 pyside2 # pyside6
 for toolkit in pyqt5 pyside2 # pyside6
@@ -101,6 +99,9 @@ popd
 %{python3_sitelib}/%{modname}*
 
 %changelog
+* Sat Jan 18 2023 Orion Poplawski <orion@nwra.com> - 7.4.3-3
+- Switch to unittest instead of nosetest
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -113,7 +114,7 @@ popd
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Thu Jun 30 2022 Orion Poplawski <orion@nwra.com> - 7.4.0-1
+* Fri Jul 01 2022 Orion Poplawski <orion@nwra.com> - 7.4.0-1
 - Update to 7.4.0
 
 * Fri Jul 01 2022 Python Maint <python-maint@redhat.com> - 7.3.1-2

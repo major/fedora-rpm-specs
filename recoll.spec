@@ -3,7 +3,7 @@
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
 Version:        1.34.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
 Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
@@ -134,7 +134,7 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{python3_sitearch}/recollchm
 %{python3_sitearch}/Recoll-*.egg-info
 %{python3_sitearch}/recollchm-*.egg-info
-%{python3_sitearch}/aspell.cpython-*-linux-gnu.so
+%{python3_sitearch}/aspell.cpython-*-linux-gnu*.so
 %{python3_sitearch}/aspell_python_py3-*.egg-info
 %{_mandir}/man1/recoll.1*
 %{_mandir}/man1/recollq.1*
@@ -163,6 +163,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sun Jan 29 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.34.2-2
+- Fix file pattern to cover arm32 platform
+
 * Thu Jan 26 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.34.2-1
 - 1.34.2
 

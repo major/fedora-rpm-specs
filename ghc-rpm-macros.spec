@@ -7,8 +7,8 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.4.4
-Release:        2%{?dist}
+Version:        2.5.0
+Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
 License:        GPLv3+
@@ -130,6 +130,10 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}%{macros_dir}/macros.ghc
 install -p -D -m 0644 %{SOURCE6} %{buildroot}%{macros_dir}/macros.ghc-extra
 install -p -D -m 0644 %{SOURCE9} %{buildroot}%{macros_dir}/macros.ghc-os
 
+%if 0%{?fedora} < 38
+echo -e "\n%%_ghcdynlibdir %%{_libdir}" >> %{buildroot}%{macros_dir}/macros.ghc-os
+%endif
+
 install -p -D -m 0755 %{SOURCE3} %{buildroot}%{_prefix}/lib/rpm/ghc-deps.sh
 
 %if 0%{?fedora} || 0%{?rhel} >= 7
@@ -146,13 +150,6 @@ install -p -D -m 0755 %{SOURCE8} %{buildroot}%{_prefix}/lib/rpm/ghc-pkg-wrapper
 
 %if 0%{?fedora} < 37
 mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
-%endif
-
-%if 0%{?rhel} && 0%{?rhel} < 7
-cat >> %{buildroot}%{_prefix}/lib/rpm/ghc-deps.sh <<EOF
-
-echo \$files | tr [:blank:] '\n' | %{_rpmconfigdir}/rpmdeps --requires
-EOF
 %endif
 
 
@@ -193,6 +190,20 @@ EOF
 
 
 %changelog
+* Sun Jan 29 2023 Jens Petersen <petersen@redhat.com> - 2.5.0-1
+- define ghc_smp_mflags to speed up package builds
+- ghc_configure and ghc_version now respect ghc_name for ghcX.Y (via rpmquery)
+- base ghc_version on compiler subpackage
+- ghc_gen_filelists: error if no .so file and not -m metapkg
+- use ghc upstream paths for libHS*.so unless using _ghcdynlibdir
+- F38: disable _ghcdynlibdir as default
+- ghc_bin_build -W to ignore ghc_name version in cabal_configure
+- ghc_lib_subpackage: with ghc_obsoletes_name obsolete ghc{ghc_major}-*
+- handle hadrian lib/ subdir consistently for packages
+- move with_ghc_prof to ghc-srpm-macros
+- cabal_configure: non-core shared libs go to ghcliblib
+- ghc_delete_rpaths: need to remove local RPATH for subpackaged libs
+
 * Sat Aug  6 2022 Jens Petersen <petersen@redhat.com> - 2.4.4-2
 - F36 obsoletes regex-applicative-text
 

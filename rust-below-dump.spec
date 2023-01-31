@@ -18,7 +18,7 @@ Source:         %{crates_source}
 Patch:          below-dump-fix-metadata.diff
 
 # below-btrfs and below-model are not available
-ExcludeArch:    %{ix86}
+ExcludeArch:    %{arm32} %{ix86}
 
 BuildRequires:  rust-packaging >= 21
 

@@ -2,9 +2,20 @@
 # ----------------------------------------------------------------------------
 # Preamble
 # ----------------------------------------------------------------------------
+# fedpkg lint: W: files-duplicate: 
+# the files user_guide.html index.html in directory /usr/share/doc/cppad 
+# are the same. This is because a redirect from index.hml to user_guide.html 
+# will not reload when user_guide.html changes.
+#
 # fedora uses its own soversion number for cppad_lib
 # 4.0 corresponds to version 20230000 
 %define soversion 4.0
+
+# This is really an out of soruce build because the source is in the
+# CppAD-%%{version} sub-directory. The fedora macros are confused and need 
+# this defined true.
+%define __cmake_in_source_build 1
+# ----------------------------------------------------------------------------
 
 # Fedora Release starts with 1; see
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Versioning/
@@ -25,13 +36,9 @@ BuildRequires: python-xrst
 # python-xrst should auotmatically require python-toml
 BuildRequires: python-toml  
 
-# This is really an out of soruce build because the source is in the
-# CppAD-%%{version} sub-directory. The fedora macros are confused and need 
-# this defined true.
-%define __cmake_in_source_build 1
-
 %description
-C++ Algorithmic Differentiation (AD), see %{name}-devel, %{name}-doc.
+C++ Algorithmic Differentiation (AD) library file libcppad_lib.so; 
+see %{name}-devel and %{name}-doc.
 
 # ---------------------------------------------------------------------------
 %package devel
@@ -92,6 +99,11 @@ xrst \
    --index_page_name user_guide \
    --group_list default app \
    --suppress_spell_warnings
+#
+# remove hidden files not needed for viewing documentation
+rm CppAD-%{version}/build/html/.buildinfo
+rm -r CppAD-%{version}/build/html/.doctrees
+
 #
 # COPYING, uw_copy_040507.html
 mv CppAD-%{version}/COPYING  COPYING
@@ -221,18 +233,20 @@ cppad_cxx_flags=\
 #   why_the_makeinstall_macro_should_not_be_used
 %make_install
 
+%files
+%{_libdir}/libcppad_lib.so.%{soversion}
+
 %files devel
 %{_includedir}/%{name}
 %{_datadir}/pkgconfig/%{name}.pc
 %{_libdir}/pkgconfig/%{name}.pc
 %{_libdir}/libcppad_lib.so
-%{_libdir}/libcppad_lib.so.%{soversion}
 
 # These documentation files come from the source code tarball
 %doc COPYING uw_copy_040507.html
 
 %files doc
-# These documentation files come from the docukentation tarball
+# These documentation files are build by the xrst command above
 %{_docdir}/%{name}
 
 # -----------------------------------------------------------------------------
@@ -247,12 +261,17 @@ make %{?_smp_mflags} check
 # This enables one to check that the necessary files are installed.
 # ----------------------------------------------------------------------------
 %changelog
-%changelog
+* Sun Jan 29 2023 Brad Bell <bradbell at seanet dot com> - 20230000.0-1
+- Move libcppad_lib.so to main package (fixes a fedpkg lint error).
+- Fix comment about where doc files come from.
+- Move %%define __cmake_in_source_build to top of spec file.
+- Add discussion of fedpkg lint files-duplicate warning.
+
 * Sat Jan 28 2023 Brad Bell <bradbell at seanet dot com> - 20230000.0-1
 - Advance upstream source to 2023.
 - Add python-xrst to BuildRequires so can buile documentation.
 - Remove Source1, change Source0 -> Source, and make definition so tarball 
-  have the same name as the directory it creates.
+  has the same name as the directory it creates.
 - Change URL from documentation to git repo so can use in Source definition.
 - Change some cmake definitions from empty string to NOTFOUND.
 - Explicity specify the source directory (-S) and binary (-B) in camke comamnd.

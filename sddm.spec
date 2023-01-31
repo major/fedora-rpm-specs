@@ -20,7 +20,7 @@
 
 Name:           sddm
 Version:        0.19.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2+
 Summary:        QML based desktop and login manager
 
@@ -45,6 +45,12 @@ Patch11:       0001-Delay-for-logind-and-fallback-to-seat0.patch
 # required for sway, weston, et al
 # Submitted: https://github.com/sddm/sddm/pull/1509
 Patch12:       sddm-0.20.0-support-non-default-wayland-socket-names.patch
+
+# Allow recovering from tty switching failures
+# https://bugzilla.redhat.com/show_bug.cgi?id=2110801
+# https://github.com/sddm/sddm/issues/1636
+# Submitted: https://github.com/sddm/sddm/pull/1641
+Patch13:       0001-Allow-recovering-from-tty-switching-failures.patch
 
 ## downstream patches
 Patch101:       sddm-0.20.0-fedora_config.patch
@@ -297,6 +303,9 @@ fi
 
 
 %changelog
+* Sun Jan 29 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20221123.3e48649-3
+- Add proposed patch to recover from tty switching failures (#2110801)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.0^git20221123.3e48649-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 %global gtk3_version 2.99.3
 
 Name:           budgie-screensaver
-Version:        5.0.1
-Release:        4%{?dist}
+Version:        5.1.0
+Release:        1%{?dist}
 Summary:        A fork of gnome-screensaver intended for use with Budgie Desktop
 
 License:        GPLv2
@@ -18,9 +18,11 @@ BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_stack}
 BuildRequires:  pkgconfig(gsettings-desktop-schemas) >= %{gnome_stack}
 BuildRequires:  pkgconfig(gthread-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gtk+-3.0) >= %{gtk3_version}
+BuildRequires:  pkgconfig(libgnomekbdui) >= 3.28.0
 BuildRequires:  pkgconfig(libsystemd) >= 209
 BuildRequires:  pkgconfig(pam)
 BuildRequires:  pkgconfig(x11) >= 1.0
+BuildRequires:  pkgconfig(xxf86vm) >= 1.0
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -56,6 +58,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/budgie-screensaver.de
 %{_sysconfdir}/pam.d/budgie-screensaver
 
 %changelog
+* Sun Jan 29 2023 Joshua Strobl <me@joshuastrobl.com> - 5.1.0-1
+- Update to 5.1.0 release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
