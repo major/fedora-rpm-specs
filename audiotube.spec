@@ -1,8 +1,8 @@
 %global kf5_min_version 5.86.0
 
 Name:           audiotube
-Version:        22.11
-Release:        2%{?dist}
+Version:        23.01.0
+Release:        1%{?dist}
 License:        GPLv2+
 Summary:        AudioTube can search YouTube Music, list albums and artists, play automatically generated playlists, albums and allows to put your own playlist together.
 Url:            https://apps.kde.org/audiotube/
@@ -17,29 +17,29 @@ BuildRequires:  kf5-rpm-macros      >= %{kf5_min_version}
 
 BuildRequires: pybind11-devel
 BuildRequires: python3-devel
-BuildRequires: yt-dlp
 BuildRequires: python3-ytmusicapi
+BuildRequires: yt-dlp
 
 BuildRequires: cmake(Qt5Core)
-BuildRequires: cmake(Qt5Qml)
-BuildRequires: cmake(Qt5QuickControls2)
-BuildRequires: cmake(Qt5Svg)
 BuildRequires: cmake(Qt5Network)
+BuildRequires: cmake(Qt5Qml)
 BuildRequires: cmake(Qt5QmlModels)
 BuildRequires: cmake(Qt5Quick)
 BuildRequires: cmake(Qt5QuickControls2)
+BuildRequires: cmake(Qt5QuickControls2)
+BuildRequires: cmake(Qt5Svg)
 BuildRequires: cmake(Qt5Widgets)
 
-BuildRequires: cmake(KF5CoreAddons) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Crash) >= %{kf5_min_version}
-BuildRequires: cmake(KF5I18n) >= %{kf5_min_version}
-BuildRequires: cmake(KF5Kirigami2) >= %{kf5_min_version}
-
+BuildRequires: cmake(KF5CoreAddons)   >= %{kf5_min_version}
+BuildRequires: cmake(KF5Crash)        >= %{kf5_min_version}
+BuildRequires: cmake(KF5I18n)         >= %{kf5_min_version}
+BuildRequires: cmake(KF5Kirigami2)    >= %{kf5_min_version}
+BuildRequires: cmake(KF5WindowSystem) >= %{kf5_min_version}
 
 Requires:   hicolor-icon-theme
-Requires:   yt-dlp
-Requires:   python3-ytmusicapi
 Requires:   kf5-kirigami2
+Requires:   python3-ytmusicapi
+Requires:   yt-dlp
 
 %description
 %{summary}.
@@ -69,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 
 
 %changelog
+* Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
+- Update to 23.01.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

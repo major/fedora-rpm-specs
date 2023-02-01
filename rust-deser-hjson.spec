@@ -5,7 +5,7 @@
 %global crate deser-hjson
 
 Name:           rust-deser-hjson
-Version:        1.0.2
+Version:        1.1.0
 Release:        %autorelease
 Summary:        Hjson deserializer for Serde
 
@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/deser-hjson
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only glassbench dev-dependency
-# * disable LTO to work around LLVM crashes on ppc64le
 Patch:          deser-hjson-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

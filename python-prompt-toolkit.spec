@@ -1,43 +1,33 @@
-# what it's called on pypi
-%global srcname prompt_toolkit
-# package name fragment
-%global pkgname prompt-toolkit
-
 %global common_description %{expand:
 prompt_toolkit is a library for building powerful interactive command line
 applications in Python.}
 
-%bcond_without tests
-
-
-Name:           python-%{pkgname}
-Version:        3.0.29
-Release:        4%{?dist}
+Name:           python-prompt-toolkit
+Version:        3.0.36
+Release:        2%{?dist}
 Summary:        Library for building powerful interactive command line applications in Python
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/prompt-toolkit/python-prompt-toolkit
-Source0:        %pypi_source
+Source:         %{pypi_source prompt_toolkit}
 BuildArch:      noarch
 
 
 %description %{common_description}
 
 
-%package -n python3-%{pkgname}
+%package -n python3-prompt-toolkit
 Summary:        %{summary}
 BuildRequires:  python3-devel
-%if %{with tests}
 BuildRequires:  python3-pytest
-%endif
 # https://github.com/jonathanslenders/python-prompt-toolkit/issues/94
 Recommends:     python3-pygments
 
 
-%description -n python3-%{pkgname} %{common_description}
+%description -n python3-prompt-toolkit %{common_description}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n prompt_toolkit-%{version}
 
 
 %generate_buildrequires
@@ -50,20 +40,24 @@ Recommends:     python3-pygments
 
 %install
 %pyproject_install
-%pyproject_save_files %{srcname}
+%pyproject_save_files prompt_toolkit
 
 
-%if %{with tests}
 %check
 %pytest
-%endif
 
 
-%files -n python3-%{pkgname} -f %{pyproject_files}
+%files -n python3-prompt-toolkit -f %{pyproject_files}
 %doc README.rst AUTHORS.rst CHANGELOG
 
 
 %changelog
+* Mon Jan 30 2023 Carl George <carl@george.computer> - 3.0.36-2
+- Switch to SPDX license identifier
+
+* Mon Jan 30 2023 Lumír Balhar <lbalhar@redhat.com> - 3.0.36-1
+- Update to 3.0.36 (rhbz#2101376)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.29-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

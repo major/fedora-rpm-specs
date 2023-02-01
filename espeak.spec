@@ -82,7 +82,7 @@ rm -f espeak-data/*_dict
 %build
 # Compile espeak
 cd src
-%make_build CXXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" AUDIO=%{backend}
+%make_build CXXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" DATADIR=%{_datadir}/espeak-data AUDIO=%{backend}
 
 # Compile the TTS voice dictionaries
 export ESPEAK_DATA_PATH=$RPM_BUILD_DIR/espeak-%{version}-source
@@ -98,7 +98,7 @@ done
 %install
 rm -rf $RPM_BUILD_ROOT
 cd $RPM_BUILD_DIR/espeak-%{version}-source/src
-%make_install BINDIR=%{_bindir} INCDIR=%{_includedir}/espeak LIBDIR=%{_libdir} AUDIO=%{backend}
+%make_install BINDIR=%{_bindir} INCDIR=%{_includedir}/espeak LIBDIR=%{_libdir} DATADIR=%{_datadir}/espeak-data AUDIO=%{backend}
 # Install manpage
 mkdir -p $RPM_BUILD_ROOT%{_mandir}/man1
 cp -pf %{SOURCE1} $RPM_BUILD_ROOT%{_mandir}/man1/
@@ -125,7 +125,7 @@ exit 0
 
 %files
 %doc $RPM_BUILD_DIR/espeak-%{version}-source/ReadMe $RPM_BUILD_DIR/espeak-%{version}-source/ChangeLog.txt $RPM_BUILD_DIR/espeak-%{version}-source/License.txt $RPM_BUILD_DIR/espeak-%{version}-source/html/
-%{_mandir}/man1/espeak.1.gz
+%{_mandir}/man1/espeak.1*
 %{_bindir}/espeak
 %{_datadir}/espeak-data
 %{_libdir}/libespeak.so.*

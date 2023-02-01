@@ -1,12 +1,15 @@
 # Enabled by default
 %bcond_without tests
 
-%if 0%{?fedora} < 33
-%undefine __cmake_in_source_build
-%endif
+# note ABI does not change in patch releases
+# https://sourceforge.net/p/gdcm/mailman/message/36768376/
+
+# Docs do not build on i686 because some LaTeX deps are unsatisfied. So skip
+# these docs entirely.
+%bcond_with texdocs
 
 Name:       gdcm
-Version:    3.0.12
+Version:    3.0.21
 Release:    %autorelease
 Summary:    Grassroots DiCoM is a C++ library to parse DICOM medical files
 License:    BSD
@@ -45,16 +48,17 @@ BuildRequires:  swig
 BuildRequires:  sqlite-devel
 BuildRequires:  json-c-devel
 BuildRequires:  libxml2-devel
-BuildRequires: make
+BuildRequires:  make
 
 # BuildRequires:  vtk-devel
 
-# Do not generate latex
-# BuildRequires:  /usr/bin/latex
-# BuildRequires:  /usr/bin/pdflatex
-# BuildRequires:  /usr/bin/dvips
-# BuildRequires:  /usr/bin/epstopdf
-#BuildRequires: texlive-ec
+# deps aren't available on i686, so we skip docs building entirely
+%if %{with texdocs}
+BuildRequires:  texlive-scheme-medium
+BuildRequires:  tex(hanging.sty)
+BuildRequires:  tex(tocloft.sty)
+BuildRequires:  tex(newunicodechar.sty)
+%endif
 
 
 %description
@@ -70,10 +74,14 @@ anonymize and de-identify DICOM datasets.
 %package    doc
 Summary:    Includes html documentation for gdcm
 BuildArch:  noarch
+Provides:   %{name}-examples = %{version}-%{release}
+Obsoletes:  %{name}-examples < %{version}-%{release}
 
 %description doc
 You should install the gdcm-doc package if you would like to
 access upstream documentation for gdcm.
+Includes CSharp, C++, Java, PHP and Python example programs for GDCM
+in html pages
 
 %package    applications
 Summary:    Includes command line programs for GDCM
@@ -93,13 +101,6 @@ Requires:   %{name}-applications%{?_isa} = %{version}-%{release}
 You should install the gdcm-devel package if you would like to
 compile applications based on gdcm
 
-%package    examples
-Summary:    CSharp, C++, Java, PHP and Python example programs for GDCM
-Requires:   %{name}%{?_isa} = %{version}-%{release}
-
-%description examples
-GDCM examples
-
 %package -n python3-gdcm
 Summary:    Python binding for GDCM
 %{?python_provide:%python_provide python3-gdcm}
@@ -114,14 +115,12 @@ used this library with python
 # Data source
 %setup -n GDCM-%{version} -q -T -D -a 1
 
-# Fix cmake command
-sed -i.backup 's/add_dependency/add_dependencies/' Utilities/doxygen/CMakeLists.txt
-
-# Stop doxygen from producing LaTeX output
+# deps not available
+%if %{with texdocs}
 sed -i.backup 's/^GENERATE_LATEX.*=.*YES/GENERATE_LATEX = NO/' Utilities/doxygen/doxyfile.in
+%endif
 
 # Remove bundled utilities (we use Fedora's ones)
-
 rm -rf Utilities/gdcmexpat
 rm -rf Utilities/gdcmopenjpeg-v1
 rm -rf Utilities/gdcmopenjpeg-v2
@@ -139,7 +138,7 @@ rm -rf Utilities/wxWidgets
 #rm -rf Utilities/gdcmmd5
 
 %build
-%cmake  .. \
+%cmake \
     -DCMAKE_VERBOSE_MAKEFILE=ON \
     -DGDCM_INSTALL_PACKAGE_DIR=%{_libdir}/cmake/%{name} \
     -DGDCM_INSTALL_INCLUDE_DIR=%{_includedir}/%{name} \
@@ -148,7 +147,7 @@ rm -rf Utilities/wxWidgets
     -DGDCM_INSTALL_LIB_DIR=%{_libdir} \
     -DGDCM_BUILD_TESTING:BOOL=ON \
     -DGDCM_DATA_ROOT=../gdcmData/ \
-    -DGDCM_BUILD_EXAMPLES:BOOL=OFF \
+    -DGDCM_BUILD_EXAMPLES:BOOL=ON \
     -DGDCM_DOCUMENTATION:BOOL=OFF \
     -DGDCM_WRAP_PYTHON:BOOL=ON \
     -DPYTHON_EXECUTABLE=%{python3} \
@@ -179,11 +178,6 @@ rm -rf Utilities/wxWidgets
 
 %install
 %cmake_install
-install -d $RPM_BUILD_ROOT%{python3_sitearch}
-
-# Install examples
-install -d $RPM_BUILD_ROOT/%{_datadir}/%{name}/Examples/
-cp -rv ./Examples/* $RPM_BUILD_ROOT/%{_datadir}/%{name}/Examples/
 
 %if %{with tests}
 %check
@@ -196,38 +190,36 @@ make test -C %{__cmake_builddir} || exit 0
 %doc AUTHORS README.md
 %license Copyright.txt README.Copyright.txt
 %{_libdir}/libgdcmCommon.so.3.0
-%{_libdir}/libgdcmCommon.so.3.0.12
+%{_libdir}/libgdcmCommon.so.3.0.21
 %{_libdir}/libgdcmDICT.so.3.0
-%{_libdir}/libgdcmDICT.so.3.0.12
+%{_libdir}/libgdcmDICT.so.3.0.21
 %{_libdir}/libgdcmDSED.so.3.0
-%{_libdir}/libgdcmDSED.so.3.0.12
+%{_libdir}/libgdcmDSED.so.3.0.21
 %{_libdir}/libgdcmIOD.so.3.0
-%{_libdir}/libgdcmIOD.so.3.0.12
+%{_libdir}/libgdcmIOD.so.3.0.21
 %{_libdir}/libgdcmMEXD.so.3.0
-%{_libdir}/libgdcmMEXD.so.3.0.12
+%{_libdir}/libgdcmMEXD.so.3.0.21
 %{_libdir}/libgdcmMSFF.so.3.0
-%{_libdir}/libgdcmMSFF.so.3.0.12
+%{_libdir}/libgdcmMSFF.so.3.0.21
 %{_libdir}/libgdcmjpeg12.so.3.0
-%{_libdir}/libgdcmjpeg12.so.3.0.12
+%{_libdir}/libgdcmjpeg12.so.3.0.21
 %{_libdir}/libgdcmjpeg16.so.3.0
-%{_libdir}/libgdcmjpeg16.so.3.0.12
+%{_libdir}/libgdcmjpeg16.so.3.0.21
 %{_libdir}/libgdcmjpeg8.so.3.0
-%{_libdir}/libgdcmjpeg8.so.3.0.12
+%{_libdir}/libgdcmjpeg8.so.3.0.21
 %{_libdir}/libgdcmmd5.so.3.0
-%{_libdir}/libgdcmmd5.so.3.0.12
+%{_libdir}/libgdcmmd5.so.3.0.21
 %{_libdir}/libsocketxx.so.1.2
 %{_libdir}/libsocketxx.so.1.2.0
-%dir %{_datadir}/%{name}
 %{_datadir}/%{name}-3.0/XML/
-%exclude %{_docdir}/%{name}/html/
-%exclude %{_docdir}/%{name}/Examples/
 
 %files doc
-#doc %{_docdir}/%{name}/html/
+%doc %{_docdir}/%{name}
 
 %files applications
 %{_bindir}/gdcmanon
 %{_bindir}/gdcmconv
+%{_bindir}/gdcmclean
 %{_bindir}/gdcmdiff
 %{_bindir}/gdcmdump
 %{_bindir}/gdcmgendir
@@ -256,9 +248,6 @@ make test -C %{__cmake_builddir} || exit 0
 %{_libdir}/libgdcmmd5.so
 %{_libdir}/libsocketxx.so
 %{_libdir}/cmake/%{name}/
-
-%files examples
-%{_datadir}/%{name}/Examples/
 
 %files -n python3-gdcm
 %{python3_sitearch}/%{name}*.py

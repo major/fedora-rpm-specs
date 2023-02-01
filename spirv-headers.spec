@@ -1,4 +1,4 @@
-%global sdkver 1.3.231.1
+%global sdkver 1.3.239.0
 
 Name:           spirv-headers
 Version:        1.5.5

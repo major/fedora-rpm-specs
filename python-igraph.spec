@@ -1,8 +1,8 @@
 %{!?python3_includedir: %global python3_includedir %(%{__python3} -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())")}
 Name:       python-igraph
-Version:    0.10.3
+Version:    0.10.4
 %global igraph_version 0.9
-Release:    2%{?dist}
+Release:    1%{?dist}
 Summary:    Python bindings for igraph
 
 License:    GPLv2+
@@ -68,6 +68,9 @@ documentation needed to develop application with %{name}.
 %{python3_includedir}/igraph
 
 %changelog
+* Mon Jan 30 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.4-1
+- 0.10.4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

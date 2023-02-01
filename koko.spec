@@ -1,6 +1,6 @@
 Name:           koko
-Version:        22.11
-Release:        2%{?dist}
+Version:        23.01.0
+Release:        1%{?dist}
 License:        GPLv2+ and GPLv3 and LGPLv2 and LGPLv2+ and CC0 and BSD
 Summary:        An Image gallery application
 Url:            https://apps.kde.org/koko/
@@ -80,6 +80,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 %{_kf5_libdir}/libkokocommon.so
 
 %changelog
+* Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
+- Update to 23.01.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

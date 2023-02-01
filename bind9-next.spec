@@ -10,7 +10,6 @@
 %bcond_without SUDO
 %bcond_without GSSTSIG
 %bcond_without JSON
-# FIXME: Not ready. Should it be worked on?
 %bcond_without DLZ
 # New MaxMind GeoLite support
 %bcond_without GEOIP2
@@ -48,10 +47,7 @@
 # Provide only bind-utils on f37+, it has better behaviour
 %define upname_compat() \
 %if "%{name}" != "%{upname}" \
-%if 0%{?fedora} >= 37 \
 Provides: %1 = %{version}-%{release} \
-%endif \
-Obsoletes: %1 < 32:9.17.0 \
 Conflicts: %1 \
 %endif
 
@@ -59,7 +55,7 @@ Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) serv
 Name:     bind9-next
 License:  MPLv2.0
 Version:  9.19.9
-Release:  2%{?dist}
+Release:  3%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -969,6 +965,10 @@ fi;
 %endif
 
 %changelog
+* Mon Jan 30 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.9-3
+- Stop obsoleting bind packages (#2165264)
+- Try providing bind-utils even on f36
+
 * Sun Jan 29 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.9-2
 - Attempt to not upgrade to bind9-next by default (#2165256)
 

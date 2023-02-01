@@ -1,6 +1,6 @@
 Name:               girara
-Version:            0.3.8
-Release:            3%{?dist}
+Version:            0.3.9
+Release:            1%{?dist}
 Summary:            Simple user interface library
 License:            Zlib
 URL:                https://pwmt.org/projects/%{name}/
@@ -65,6 +65,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Mon Jan 30 2023 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.3.9-1
+- Update to 0.3.9
+- https://pwmt.org/projects/girara/changelog/0.3.9/index.html
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           omniORBpy
 Version:        4.3.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        CORBA ORB for Python
 
 License:        LGPLv2+
@@ -9,6 +9,8 @@ Source0:        http://sourceforge.net/projects/omniorb/files/%{name}/%{name}-%{
 
 # Fix FTBFS with Python 3.7 (error: invalid conversion from 'const char*' to 'char*')
 Patch0:         omniORBpy_char.patch
+# Fix FTBFS with Python 3.12 (distutils removed)
+Patch1:         omniORBpy_py312.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -93,6 +95,9 @@ find %{buildroot}%{python3_sitelib} -type d -exec chmod 755 {} \;
 
 
 %changelog
+* Mon Jan 30 2023 Sandro Mani <manisandro@gmail.com> - 4.3.0-6
+- Fix FTBFS with Python 3.12 (distutils removed)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

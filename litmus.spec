@@ -1,16 +1,10 @@
 Name:		litmus
-Version:	0.13
-Release:	30%{?dist}
+Version:	0.14
+Release:	1%{?dist}
 Summary:	WebDAV server compliance test suite
 License:	GPLv2+
-URL:		http://www.webdav.org/neon/litmus/
-Source0:	http://www.webdav.org/neon/litmus/%{name}-%{version}.tar.gz
-# Fix build with neon < 0.26.x (EPEL5).
-# Upstream has applied this in neon svn repo (bundled in litmus build).
-# http://lists.manyfish.co.uk/pipermail/neon-commits/2011-December/000947.html
-Patch0:		litmus-i18n.patch
-# Fix build with neon 0.30
-Patch1:		litmus-neon30.patch
+URL:		https://notroj.github.io/litmus/
+Source0:	https://notroj.github.io/litmus/litmus-0.14.tar.gz
 BuildRequires:  gcc, automake, make
 BuildRequires:	neon-devel
 
@@ -20,14 +14,11 @@ compliant with the WebDAV protocol as specified in RFC2518.
 
 %prep
 %setup -q -n %{name}-%{version}
-%patch0 -p1
-%patch1 -p1
 
 # Making sure we use system libs, not bundled ones
-find ./lib -name '*.c' -o -name '*.h' | xargs rm -rf
+find neon/src -name '*.c' -o -name '*.h' | xargs rm -rf
 
 %build
-./autogen.sh
 %configure --with-neon=%{_prefix}
 
 make %{?_smp_mflags}
@@ -41,10 +32,12 @@ make install DESTDIR=%{buildroot}
 %{_bindir}/litmus
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/*
-%{_datadir}/%{name}/*
-%doc COPYING FAQ README THANKS TODO
+%doc COPYING FAQ README.md THANKS TODO
 
 %changelog
+* Mon Jan 30 2023 Joe Orton <jorton@redhat.com> - 0.14-1
+- update to 0.14
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

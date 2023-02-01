@@ -1,6 +1,6 @@
 %global __python %{__python3}
 Name:           vulkan-headers
-Version:        1.3.231.1
+Version:        1.3.239.0
 Release:        %autorelease
 Summary:        Vulkan Header files and API registry
 
@@ -9,6 +9,7 @@ URL:            https://github.com/KhronosGroup/Vulkan-Headers
 Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-Headers-sdk-%{version}.tar.gz
 
 BuildRequires:  cmake3
+BuildRequires:  gcc
 BuildArch:      noarch       
 
 %description
@@ -33,7 +34,9 @@ Vulkan Header files and API registry
 %{_includedir}/vulkan/
 %{_includedir}/vk_video/
 %dir %{_datadir}/vulkan/
+%dir %{_datadir}/cmake/VulkanHeaders/
 %{_datadir}/vulkan/registry/
+%{_datadir}/cmake/VulkanHeaders/*.cmake
 
 
 %changelog

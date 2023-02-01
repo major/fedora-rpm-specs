@@ -4,8 +4,8 @@
 %bcond_with doc
 
 Name:           python-pyproject-metadata
-Version:        0.7.0
-Release:        3%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        PEP 621 metadata parsing
 
 License:        MIT
@@ -64,9 +64,6 @@ Documentation for python3-pyproject-metadata.
 %prep
 %autosetup -p1
 
-# Allow usage of packaging 21 until we can update Feodra to >= 22
-sed -i 's/22\.0/21.0/' setup.cfg
-
 %build
 %pyproject_wheel
 rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
@@ -96,6 +93,10 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Mon Jan 30 2023 Jerry James <loganjerry@gmail.com> - 0.7.1-1
+- Version 0.7.1
+- Drop packaging workaround, resolved upstream
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

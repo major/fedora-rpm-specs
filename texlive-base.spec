@@ -18,9 +18,12 @@
 # We have a circular dep on latex due to xindy
 %bcond_with bootstrap
 
+# Upstream no longer supports poppler. We've been hacking it in, but... maybe we should stop?
+%bcond_with poppler
+
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 65%{?dist}
+Release: 66%{?dist}
 Epoch: 10
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -480,10 +483,8 @@ Patch30: texlive-base-20220321-out-of-memory.patch
 # Fix configure to properly detect poppler
 Patch31: texlive-base-20210325-configure-poppler-xpdf-fix.patch
 
-# Apply upstream fixes that fix the bug that makes mendekx and upmendex fail on aarch64, ppc64, s390x
-# http://tug.org/svn/texlive?view=revision&revision=59151
-# http://tug.org/svn/texlive?view=revision&revision=59169
-# Patch32: texlive-base-20210325-mendex-weird-arch-fixes.patch
+# Just remove obsolete decRefCnt check from configure, valid in either case.
+Patch32: texlive-base-20220321-xpdf-no-GfxFont-decRefCnt.patch
 
 # Remove deprecated setpdfwrite ghostscript call
 # Patch33: texlive-base-20210325-no-setpdfwrite.patch
@@ -502,6 +503,9 @@ Patch37: texlive-base-libpaperv2.patch
 # Use dvisvgm 3.0.1
 Patch38: texlive-base-2022-dvisvgm-3.0.1.patch
 
+# Fix issue with undefined vasprintf()
+Patch39: texlive-base-20220321-vasprintf-fix.patch
+
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
 BuildRequires: make
@@ -509,7 +513,13 @@ BuildRequires: gcc gcc-c++
 BuildRequires: xz libXaw-devel libXi-devel ncurses-devel bison flex file perl(Digest::MD5) texinfo gcc-c++
 BuildRequires: gd-devel
 BuildRequires: teckit-devel >= 2.5.7
-BuildRequires: freetype-devel libpng-devel t1lib-devel zlib-devel poppler-devel t1utils
+BuildRequires: freetype-devel libpng-devel t1lib-devel zlib-devel t1utils
+%if %{with poppler}
+BuildRequires: poppler-devel
+%else
+BuildRequires: xpdf-devel >= 4.03
+BuildRequires: glib2-devel fontconfig-devel
+%endif
 BuildRequires: zziplib-devel libicu-devel cairo-devel harfbuzz-devel perl-generators pixman-devel graphite2-devel
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires: libgs-devel
@@ -7389,35 +7399,38 @@ xz -dc %{SOURCE0} | tar x
 %patch1 -p0
 %patch2 -p1 -b .format
 %patch5 -p0
+%if %{with poppler}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %patch7 -p1 -b .newpoppler
+%endif
 %endif
 %patch8 -p1 -b .texinfo-fix
 %patch11 -p1 -b .dt
 %patch15 -p1 -b .disabletest
 %patch17 -p1 -b .annocheck
+%if %{with poppler}
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %patch18 -p1 -b .poppler-0.73
 %endif
-# %%patch20 -p1 -b .fix-libgs-detection
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %patch23 -p1 -b .poppler-0.84
 %endif
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %patch29 -p1 -b .poppler090
 %endif
+%endif
 %patch30 -p1 -b .out_of_memory
+%if %{with poppler}
 %patch31 -p1 -b .poppler-xpdf-fix
-# %%patch32 -p1 -b .archfix
-# %%patch33 -p1 -b .no-setpdfwrite
-
 %if 0%{?fedora} >= 36 || 0%{?rhel} > 9
 %patch34 -p1 -b .poppler22
 %patch35 -p1 -b .poppler-crash-fix
 %endif
-
 %if 0%{?fedora} >= 37 || 0%{?rhel} > 9
 %patch36 -p1 -b .poppler-22.08.0
+%endif
+%else
+%patch32 -p1 -b .configure-no-GfxFont-decRefCnt
 %endif
 
 %if 0%{?fedora} >= 38 || 0%{?rhel} > 10
@@ -7431,6 +7444,9 @@ done
 
 # Update dvisvgm to 3.0.1
 %patch38 -p1 -b .301
+
+# Fix issue with undefined vasprintf()
+%patch39 -p1 -b .vasprintf
 
 # Value here is "16" not "15" because we have a source0 at index 1.
 # Source15 at index 16 is our first "normal" noarch source file.
@@ -7490,14 +7506,26 @@ PREF=`pwd`/inst
 mkdir -p work
 %global _configure ../configure
 cd work
+%if %{without poppler}
+export GLIB_LIBS=`pkg-config --libs glib-2.0`
+export PAPER_LIBS="-lpaper"
+export FONTCONFIG_LIBS=`pkg-config --libs fontconfig`
+export XPDF_INCLUDES="-I/usr/include/xpdf -I/usr/include/xpdf/fofi -I/usr/include/xpdf/goo -I/usr/include/xpdf/splash"
+export XPDF_LIBS="-lxpdfcore -lfofi -lgoo -lsplash $GLIB_LIBS $PAPER_LIBS $FONTCONFIG_LIBS"
+%endif
 %configure \
 --prefix=$PREF --datadir=$PREF --libdir=$PREF/lib --includedir=$PREF/include --datarootdir=$PREF/share --mandir=$PREF/share/man \
---infodir=$PREF/share/info --exec_prefix=$PREF --bindir=$PREF/bin --with-system-zlib --with-system-libpng --with-system-xpdf \
---with-system-gd --with-system-t1lib --with-system-teckit --with-system-freetype2 --with-system-poppler --with-system-zziplib \
+--infodir=$PREF/share/info --exec_prefix=$PREF --bindir=$PREF/bin --with-system-zlib --with-system-libpng \
+--with-system-gd --with-system-t1lib --with-system-teckit --with-system-freetype2 --with-system-zziplib \
 --with-system-cairo --with-system-icu --with-system-harfbuzz --with-system-graphite2 --with-system-libgs --with-system-pixman \
 --with-system-libpaper --with-system-potrace --with-pic --with-xdvi-x-toolkit=xaw --with-system-mpfr --with-system-gmp \
 --enable-shared --enable-compiler-warnings=max --without-cxx-runtime-hack \
 --disable-native-texlive-build --disable-t1utils --enable-psutils --disable-biber --disable-ptexenc --disable-largefile \
+%if %{with poppler}
+--with-system-poppler --with-system-xpdf \
+%else
+--with-system-xpdf \
+%endif
 %ifarch %{power64} s390 s390x
 --disable-luajittex --disable-mfluajit --disable-luajithbtex --disable-mfluajit-nowin \
 %endif
@@ -10148,6 +10176,10 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Mon Jan 30 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-66
+- conditionalize use of poppler (and disable it by default)
+- fix issue where vasprintf() could be undefined in a build
+
 * Tue Jan 24 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-65
 - artificial bump to 65, I accidentally had ketcindy in both texlive and texlive-base.
   removed it from texlive, rebuilt at release=65, building here at 65 so we have it

@@ -1,13 +1,8 @@
 %global blender_api 3.4
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
-#/usr/bin/ld.gold: error: /builddir/build/BUILD/blender-3.0.0/.package_note-blender-3.0.0-3.fc36.x86_64.ld:42:8: syntax error, unexpected STRING
-#/usr/bin/ld.gold: fatal error: unable to parse script file /builddir/build/BUILD/blender-3.0.0/.package_note-blender-3.0.0-3.fc36.x86_64.ld
-#collect2: error: ld returned 1 exit status
-%undefine _package_note_flags
-
 %bcond_with     clang
-%bcond_without  ffmpeg
+%bcond_without  draco
 # Needed to enable osl support for cycles rendering
 %bcond_without  llvm
 %bcond_without  openshading
@@ -53,8 +48,13 @@ Source1:        macros.%{name}
 # Include missing pyconfig header for 3.10
 Patch:          %{name}-usd-pythonlibs-fix.diff
 
+# Include missing system error from GCC 13+
+# https://developer.blender.org/D17151
+Patch:		%{name}-include-system-error-library.diff
+
 # Development stuff
 BuildRequires:  boost-devel
+BuildRequires:  ccache
 %if %{with clang}
 BuildRequires:  clang
 %endif
@@ -68,7 +68,7 @@ BuildRequires:  gettext
 BuildRequires:  git-core
 BuildRequires:  libharu-devel
 BuildRequires:  libtool
-
+BuildRequires:  ninja-build
 BuildRequires:  pkgconfig(blosc)
 %if %{with system_eigen3}
 BuildRequires:  pkgconfig(eigen3)
@@ -93,10 +93,12 @@ BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(xkbcommon)
 %endif
 BuildRequires:  pkgconfig(xxf86vm)
+BuildRequires:  python3dist(cython)
 BuildRequires:  python3dist(idna)
 BuildRequires:  python3dist(numpy)
 BuildRequires:  python3dist(requests)
 BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3dist(zstandard)
 BuildRequires:  subversion-devel
 
 # Compression stuff
@@ -125,7 +127,6 @@ BuildRequires:  openpgl-devel
 BuildRequires:  openCOLLADA-devel >= svn825
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(ftgl)
-BuildRequires:  pkgconfig(glew)
 BuildRequires:  pkgconfig(glut)
 BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(glu)
@@ -142,20 +143,18 @@ BuildRequires:  pkgconfig(xproto)
 
 # Picture/Video stuff
 BuildRequires:  cmake(Alembic)
-%if %{with ffmpeg}
 BuildRequires:  ffmpeg-free-devel >= 5.1.2
-BuildRequires:  libavdevice-free-devel
-BuildRequires:	libavformat-free-devel
-%endif
 BuildRequires:  lame-devel
 BuildRequires:  libspnav-devel
 BuildRequires:  openvdb-devel
+BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:	pkgconfig(libavformat)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
-BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(libtiff-4)
-BuildRequires:  pkgconfig(vpx)
 BuildRequires:  pkgconfig(libwebp)
+BuildRequires:  pkgconfig(theora)
+BuildRequires:  pkgconfig(vpx)
 # OpenColorIO 2 and up required
 BuildRequires:  pkgconfig(OpenColorIO) > 1
 BuildRequires:  cmake(Imath)
@@ -186,8 +185,6 @@ BuildRequires:  libappstream-glib
 
 Requires:       google-droid-sans-fonts
 Requires:       hicolor-icon-theme
-Requires:       python3dist(requests)
-Requires:       python3dist(numpy)
 Requires:       shared-mime-info
 Provides:       blender(ABI) = %{blender_api}
 
@@ -199,7 +196,7 @@ Provides:       blenderplayer = 1:2.80-1
 Obsoletes:      blender-fonts <  1:2.91.0-5
 
 # Starting from 2.90, Blender support only 64-bits architectures
-ExclusiveArch:  x86_64 aarch64 ppc64le s390x
+ExcludeArch:	%{ix86} %{arm}
 
 %description
 Blender is the essential software solution you need for 3D, from modeling,
@@ -234,12 +231,8 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 
 %build
 %cmake \
-%if %{with ffmpeg}
-    -DWITH_CODEC_FFMPEG=ON \
+    -G Ninja \
     -D_ffmpeg_INCLUDE_DIR=%{_includedir}/ffmpeg \
-%else
-    -DWITH_CODEC_FFMPEG=OFF \
-%endif
 %if %{with openshading}
     -D_osl_LIBRARIES=%{_libdir} \
     -DOSL_INCLUDE_DIR=%{_includedir} \
@@ -252,19 +245,22 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
     -DCMAKE_CXX_STANDARD=17 \
     -DCMAKE_SKIP_RPATH=ON \
-    -DOpenGL_GL_PREFERENCE=GLVND \
     -DPYTHON_VERSION=%{python3_version} \
+    -DWITH_COMPILER_CCACHE=ON \
     -DWITH_CYCLES=%{cyclesflag} \
 %ifnarch x86_64
     -DWITH_CYCLES_EMBREE=OFF \
 %endif
     -DWITH_DOC_MANPAGE=ON \
+%if %{with draco}
+    -DWITH_DRACO=ON \
+%endif
 %if %{with wayland}
-    -DWITH_GL_EGL=ON \
     -DWITH_GHOST_WAYLAND_DBUS=ON \
 %endif
     -DWITH_INSTALL_PORTABLE=OFF \
     -DWITH_PYTHON_INSTALL=OFF \
+    -DWITH_PYTHON_INSTALL_NUMPY=OFF \
     -DWITH_PYTHON_INSTALL_REQUESTS=OFF \
 %if %{with sdl}
     -DWITH_GHOST_SDL=ON \
@@ -272,9 +268,7 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
 %if %{with system_eigen3}
     -DWITH_SYSTEM_EIGEN3=ON \
 %endif
-    -DWITH_SYSTEM_GLEW=ON \
 %if %{with usd}
-    -DWITH_USD=ON \
     -DUSD_LIBRARY=%{_libdir}/libusd_usd_ms.so \
 %else
     -DWITH_USD=OFF \

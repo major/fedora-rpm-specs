@@ -1,6 +1,6 @@
 Name: neochat
-Version: 22.11
-Release: 4%{?dist}
+Version: 23.01.0
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -94,6 +94,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
 
 %changelog
+* Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
+- Update to 23.01.0
+
 * Fri Jan 27 2023 Jens Petersen <petersen@redhat.com> - 22.11-4
 - rebuild f38 against newer cmark
 

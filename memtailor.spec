@@ -6,7 +6,7 @@
 
 Name:           memtailor
 Version:        1.0
-Release:        21.%{gitdate}.git%{shorttag}%{?dist}
+Release:        22.%{gitdate}.git%{shorttag}%{?dist}
 Summary:        C++ library of special-purpose memory allocators
 
 License:        BSD-3-Clause
@@ -17,6 +17,8 @@ Source0:        %{url}/tarball/%{gittag}/%{user}-%{name}-%{shorttag}.tar.gz
 Patch0:         %{name}-gtest.patch
 
 BuildRequires:  gcc-c++
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(gtest)
@@ -57,10 +59,15 @@ chmod a-x src/test/*.cpp
 # Fix the URL in the pkgconfig file
 sed -i 's/broune/Macaulay2/' build/autotools/memtailor.pc.in
 
-# Upstream doesn't generate the configure script
-autoreconf -fi
+# With gtest 1.13.0, C++14 or later is required. Since CMakeLists.txt already
+# asks for C++17, we might as well match that.
+sed -r -i 's/(-std=gnu\+\+)(0x|11)\b/\117/' Makefile.am
 
 %build
+# Upstream doesn't generate the configure script, and we have altered
+# Makefile.am anyway.
+autoreconf -fi
+
 export GTEST_PATH=%{_prefix}
 export GTEST_VERSION=$(gtest-config --version)
 %configure --disable-static --enable-shared --with-gtest=yes
@@ -95,6 +102,11 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Jan 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0-22.20220104.git95dbac7
+- Build with C++17 instead of C++11, since gtest 0.13.0 requires C++14 or later
+- Make BuildRequires on autoconf and automake explicit
+- Run autoreconf in build instead of prep
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-21.20220104.git95dbac7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

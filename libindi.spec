@@ -22,6 +22,10 @@ License:    LGPLv2+ and GPLv2+
 URL:        http://www.indilib.org
 Source0:    https://github.com/indilib/indi/archive/v%{version}/indi-%{version}.tar.gz
 
+# rawhideFix: add missing header complained about with Fedora38/rawhide
+# https://github.com/indilib/indi/pull/1817
+Patch:      https://github.com/indilib/indi/pull/1817.patch
+
 BuildRequires: cmake
 BuildRequires: libev-devel
 BuildRequires: libogg-devel

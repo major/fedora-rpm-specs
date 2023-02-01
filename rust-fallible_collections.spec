@@ -2,24 +2,24 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate simplelog
+%global crate fallible_collections
 
-Name:           rust-simplelog
-Version:        0.11.2
+Name:           rust-%{crate}
+Version:        0.4.6
 Release:        %autorelease
-Summary:        Simple and easy-to-use logging facility for Rust's log crate
+Summary:        Crate which adds fallible allocation api to std collections
 
+# Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/simplelog
+URL:            https://crates.io/crates/%{crate}
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * normalize dependencies to not be stricter than semver-compatibility
-Patch:          simplelog-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Simple and easy-to-use logging facility for Rust's log crate.}
+Implement Fallible collections on allocation errors, quite as describe in RFC 2116.
+This was used in the turbofish OS hobby project to mitigate
+the lack of faillible allocation in rust.}
 
 %description %{_description}
 
@@ -33,9 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE.APACHE2
-%license %{crate_instdir}/LICENSE.MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,52 +50,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+ansi_term-devel
+%package     -n %{name}+rust_1_57-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+ansi_term-devel %{_description}
+%description -n %{name}+rust_1_57-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "ansi_term" feature of the "%{crate}" crate.
+use the "rust_1_57" feature of the "%{crate}" crate.
 
-%files       -n %{name}+ansi_term-devel
+%files       -n %{name}+rust_1_57-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+paris-devel
+%package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+paris-devel %{_description}
+%description -n %{name}+std-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "paris" feature of the "%{crate}" crate.
+use the "std" feature of the "%{crate}" crate.
 
-%files       -n %{name}+paris-devel
+%files       -n %{name}+std-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+termcolor-devel
+%package     -n %{name}+std_io-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+termcolor-devel %{_description}
+%description -n %{name}+std_io-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "termcolor" feature of the "%{crate}" crate.
+use the "std_io" feature of the "%{crate}" crate.
 
-%files       -n %{name}+termcolor-devel
+%files       -n %{name}+std_io-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+test-devel
+%package     -n %{name}+unstable-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+test-devel %{_description}
+%description -n %{name}+unstable-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "test" feature of the "%{crate}" crate.
+use the "unstable" feature of the "%{crate}" crate.
 
-%files       -n %{name}+test-devel
+%files       -n %{name}+unstable-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

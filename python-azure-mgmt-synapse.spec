@@ -16,6 +16,10 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
+# NOTE(mhayden): Made an error with 2.1.0b2 and didn't use the tilde in the
+# version number. This broke the update to b5. BZ 2165622.
+Epoch:          1
+
 %if %{with tests}
 BuildRequires:  python3dist(azure-devtools)
 BuildRequires:  python3dist(azure-mgmt-keyvault)

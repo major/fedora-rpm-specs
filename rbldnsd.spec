@@ -11,13 +11,14 @@
 Summary:	Small, fast daemon to serve DNSBLs
 Name:		rbldnsd
 Version:	0.998b
-Release:	8%{?dist}
-License:	GPLv2+
+Release:	10%{?dist}
+License:	GPL-2.0-or-later
 URL:		https://rbldnsd.io/
 Source0:	https://rbldnsd.io/dwl/rbldnsd-%{version}.tgz
 Source2:	rbldnsd.conf
 Source3:	rbldnsctl
 Source4:	README.systemd
+Patch0:		rbldnsd-configure-c99.patch
 BuildRequires:	coreutils
 BuildRequires:	gawk
 BuildRequires:	gcc
@@ -35,6 +36,9 @@ blocklists.
 
 %prep
 %setup -q
+
+# Port non-autoconf configure script to C99
+%patch0 -p1
 
 sed -i	-e 's@/var/lib/rbldns\([/ ]\)@%{_localstatedir}/lib/rbldnsd\1@g' \
 	-e 's@\(-r/[a-z/]*\) -b@\1 -q -b@g' contrib/debian/rbldnsd.default
@@ -92,6 +96,12 @@ fi
 %{_sbindir}/rbldnsctl
 
 %changelog
+* Mon Jan 30 2023 Paul Howarth <paul@city-fan.org> - 0.998b-10
+- Use SPDX-format license tag
+
+* Mon Jan 30 2023 Florian Weimer <fweimer@redhat.com> - 0.998b-9
+- Port non-autoconf configure script to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.998b-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

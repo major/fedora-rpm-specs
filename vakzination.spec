@@ -1,6 +1,6 @@
 Name:           vakzination
-Version:        22.11
-Release:        2%{?dist}
+Version:        23.01.0
+Release:        1%{?dist}
 License:        Apache2.0 and BSD and CC-PDDC and CC0-1.0 and FSFAP and GPLv2+
 Summary:        Vakzination manages your health certificates like vaccination, test, and recovery certificates.
 Url:            https://invent.kde.org/plasma-mobile/vakzination
@@ -55,6 +55,9 @@ desktop-file-install --dir=%{buildroot}%{_kf5_datadir}/applications/ %{buildroot
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
+- Update to 23.01.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

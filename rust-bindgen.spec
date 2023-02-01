@@ -12,9 +12,6 @@ Summary:        Automatically generates Rust FFI bindings to C and C++ libraries
 License:        BSD-3-Clause
 URL:            https://crates.io/crates/bindgen
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * default to linking with libclang instead of using dlopen
-Patch:          bindgen-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

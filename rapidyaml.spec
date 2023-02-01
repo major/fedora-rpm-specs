@@ -1,6 +1,9 @@
 %bcond_without tests
 %bcond_without python
 
+# Upstream defaults to C++11, but gtest 1.13.0 requires C++14 or later.
+%global cxx_std 14
+
 Name:           rapidyaml
 Summary:        A library to parse and emit YAML, and do it fast
 Version:        0.5.0
@@ -149,6 +152,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 
 %cmake -GNinja \
+    -DRYML_CXX_STANDARD=%{cxx_std} \
     -DRYML_BUILD_TESTS:BOOL=%{?with_tests:ON}%{?!with_tests:OFF}
 %cmake_build
 
@@ -180,6 +184,7 @@ export SETUPTOOLS_SCM_PRETEND_VERSION='%{version}'
 CF="${CF-} -DCMAKE_CXX_FLAGS_RELEASE:STRING='-DNDEBUG'"
 CF="${CF-} %{?_cmake_shared_libs}"
 
+CF="${CF-} -DRYML_CXX_STANDARD=%{cxx_std}"
 CF="${CF-} -DRYML_BUILD_TESTS:BOOL=%{?with_tests:ON}%{?!with_tests:OFF}"
 export CMAKE_FLAGS="${CF}"
 # We can’t easily pass options to the CMake build invocation, but we can

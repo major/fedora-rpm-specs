@@ -1,16 +1,12 @@
 %bcond_without tests
 # /etc/xdg is recommended since v1.7
-%if 0%{?fedora} >= 36
 %global   dunst_confdir %{_sysconfdir}/xdg
-%else
-%global   dunst_confdir %{_sysconfdir}
-%endif
 
 Name:     dunst
 Version:  1.9.0
 Release:  %autorelease
 Summary:  Lightweight and customizable notification-daemon
-License:  BSD and MIT
+License:  BSD-3-Clause
 URL:      https://dunst-project.org
 Source0:  https://github.com/dunst-project/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 

@@ -1,6 +1,6 @@
 Name:           licensecheck
-Version:        3.3.6
-Release:        2%{?dist}
+Version:        3.3.8
+Release:        1%{?dist}
 Summary:        Simple license checker for source files
 
 License:        AGPL-3.0-or-later
@@ -11,57 +11,45 @@ Source0:        https://cpan.metacpan.org/authors/id/J/JO/JONASS/App-Licensechec
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 
-BuildRequires:  perl(Array::IntSpan)
 BuildRequires:  perl(autodie)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Encode::Locale)
-BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(Fcntl)
 BuildRequires:  perl(Feature::Compat::Class)
 BuildRequires:  perl(Feature::Compat::Try)
-BuildRequires:  perl(Fcntl)
-BuildRequires:  perl(File::BaseDir)
+BuildRequires:  perl(Getopt::Long)
+BuildRequires:  perl(if)
 BuildRequires:  perl(IO::Interactive)
-BuildRequires:  perl(List::SomeUtils)
+BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Log::Any)
-BuildRequires:  perl(Log::Any::Adapter::Screen)
+BuildRequires:  perl(Log::Any::Adapter)
 BuildRequires:  perl(Log::Any::Test)
 BuildRequires:  perl(namespace::clean)
-BuildRequires:  perl(Object::Pad)
 BuildRequires:  perl(open)
 BuildRequires:  perl(Path::Iterator::Rule)
 BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Pod::Constants)
-BuildRequires:  perl(re::engine::RE2)
-BuildRequires:  perl(Regexp::Pattern)
-BuildRequires:  perl(Regexp::Pattern::License)
-BuildRequires:  perl(Software::LicenseUtils)
-BuildRequires:  perl(String::Escape)
+BuildRequires:  perl(Pod::Usage)
+BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(String::Copyright)
+BuildRequires:  perl(String::Escape)
+BuildRequires:  perl(String::License)
+BuildRequires:  perl(String::License::Naming)
+BuildRequires:  perl(String::License::Naming::Custom)
+BuildRequires:  perl(String::License::Naming::SPDX)
 # BuildRequires:  perl(SVG::Box)
-BuildRequires:  perl(Test2::API)
-BuildRequires:  perl(Test2::Compare)
-BuildRequires:  perl(Test2::Require)
-BuildRequires:  perl(Test2::Require::Module)
-# BuildRequires:  perl(Test2::Todo)
+BuildRequires:  perl(Test2::Suite)
+BuildRequires:  perl(Test2::Tools::Command)
 BuildRequires:  perl(Test2::V0)
-BuildRequires:  perl(Test::Command::Simple)
-BuildRequires:  perl(Test::Without::Module)
-BuildRequires:  perl(Try::Tiny)
-BuildRequires:  perl(Unicode::GCString)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(warnings)
-BuildRequires:  perl(version)
-BuildRequires: make
+BuildRequires:  make
 
 Requires:       perl(Log::Any::Adapter::Screen)
 
-# The licensecheck script used to be provided by devscripts-minimal up to version 2.16.6
-Obsoletes:      devscripts-minimal < 2.16.6-1
-# Removed in F30
-Obsoletes:      devscripts-compat < 2.19.2-4
 
 %description
 Licensecheck attempts to determine the license that applies to each file passed
@@ -101,6 +89,9 @@ make test
 
 
 %changelog
+* Sun Jan 29 2023 Sandro Mani <manisandro@gmail.com> - 3.3.8-1
+- Update to 3.3.8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,19 +4,16 @@ Version:	3.0
 Release:	%autorelease
 
 # Documentation under GFDL
-License:	GPLv3 and GFDL
+License:	GPL-3.0-or-later AND GFDL-1.3-no-invariants-or-later
 URL:		https://www.jemarch.net/poke
 Source0:	https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz.sig
-# the url also containes html -> manually stripped away
+# the url also contains html -> manually stripped away
 Source2:	http://keys.gnupg.net/pks/lookup?op=get&search=0x3EF90523B304AF08#./jemarch-keyring.asc
 
-BuildRequires:	autoconf
-BuildRequires:	automake
 BuildRequires:	emacs
 BuildRequires:	gcc
 BuildRequires:	gc-devel
-BuildRequires:	json-c-devel
 BuildRequires:	libnbd-devel
 BuildRequires:	make
 BuildRequires:	readline-devel

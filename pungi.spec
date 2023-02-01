@@ -5,7 +5,7 @@ Version:        4.3.7
 Release:        2%{?dist}
 Summary:        Distribution compose tool
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://pagure.io/pungi
 Source0:        https://pagure.io/releases/%{name}/%{name}-%{version}.tar.bz2
 

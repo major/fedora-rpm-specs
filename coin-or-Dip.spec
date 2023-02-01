@@ -10,7 +10,7 @@
 Name:		coin-or-%{module}
 Summary:	Decomposition for Integer Programming
 Version:	0.95.0
-Release:	8%{?dist}
+Release:	9%{?dist}
 License:	EPL-1.0
 URL:		https://github.com/coin-or/%{module}/wiki
 Source0:	https://github.com/coin-or/%{module}/archive/releases/%{version}/%{module}-%{version}.tar.gz
@@ -49,6 +49,7 @@ Patch1:		%{name}-svnversion.patch
 
 # Fix a BibTeX commenting issue in the guide
 Patch2:		%{name}-bib.patch
+Patch3: coin-or-Dip-configure-c99.patch
 
 %description
 DIP (Decomposition for Integer Programming) is an open-source extensible
@@ -157,6 +158,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/dippy.pdf
 
 %changelog
+* Mon Jan 30 2023 Florian Weimer <fweimer@redhat.com> - 0.95.0-9
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.95.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

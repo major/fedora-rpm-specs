@@ -4,7 +4,7 @@
 
 Name:           litehtml
 Version:        0.6
-Release:        3%{?commit:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:        4%{?commit:.%{gitdate}git%{shortcommit}}%{?dist}
 Summary:        Fast and lightweight HTML/CSS rendering engine
 
 License:        BSD
@@ -56,6 +56,8 @@ developing applications that use %{name}.
 rm -rf src/gumbo
 rm -rf xxd
 
+# Since 1.13.0, gtest requires C++14 or later
+sed -r -i 's/(CXX_STANDARD[[:blank:]]+)11/\114/' CMakeLists.txt
 
 %build
 %cmake -DBUILD_TESTING=ON -DEXTERNAL_GUMBO=ON
@@ -82,6 +84,9 @@ rm -rf xxd
 
 
 %changelog
+* Mon Jan 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.6-4
+- Compile as C++14 instead of C++11 for gtest-0.13.0 compatibility
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

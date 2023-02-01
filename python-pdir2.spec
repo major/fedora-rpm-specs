@@ -1,6 +1,6 @@
 Name:           python-pdir2
 Version:        0.3.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Pretty dir() printing with joy
 
 License:        MIT
@@ -31,8 +31,9 @@ Summary: %{summary}
 %prep
 %autosetup -n pdir2-%{version} -p 1
 # We can’t respect preemptive upper bounds on dependency versions. At least
-# convert them into lower bounds.
-sed -r -i 's/=(=[[:digit:]])/>\1/' pyproject.toml
+# convert them into lower bounds. Also turn invalid version specifiers (.*)
+# into valid ones, see: https://fedoraproject.org/wiki/Changes/Update_python-packaging_to_version_22_plus
+sed -r -i 's/=(=[[:digit:]\.]+)\.\*/>\1/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -52,6 +53,9 @@ sed -r -i 's/=(=[[:digit:]])/>\1/' pyproject.toml
 %doc README.md
 
 %changelog
+* Mon Jan 30 2023 Simon de Vlieger <cmdr@supakeen.com> - 0.3.6-4
+- Update dependency version specifiers to be valid.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

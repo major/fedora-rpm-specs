@@ -11,6 +11,8 @@ Source0: https://github.com/Qucs/%{name}/archive/%{name}-%{version_no_tilde}/%{n
 
 # Desktop file categories must terminate with a semicolon, bug #1424234
 Patch0:  qucs-0.0.19-fix-desktop-file.patch
+# https://github.com/Qucs/qucs/pull/1069
+Patch1:  qucs-0.0.20-rc2-gcc13.patch.patch
 
 BuildRequires: make
 BuildRequires: autoconf

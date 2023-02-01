@@ -13,6 +13,8 @@ License:        GPLv2
 BuildArch:      noarch
 URL:            https://github.com/filbranden/dnf-plugins-perfmetrics
 Source0:        %{url}/archive/v%{version}/dnf-plugins-%{srcname}-%{version}.tar.gz
+# Don't use the deprecated Python distutils module in CMake
+Patch0:         %{url}/commit/9243a252c1d8bf64bc71afdf5de378eca4236ea5.patch
 
 BuildRequires:  cmake
 BuildRequires:  python3-devel
@@ -27,7 +29,7 @@ Requires:       python3-dnf >= %{dnf_lowest_compatible}
 %description -n python3-%{name} %{_description}
 
 %prep
-%setup -q -n dnf-plugins-%{srcname}-%{version}
+%autosetup -n dnf-plugins-%{srcname}-%{version} -p1
 
 %build
 %cmake

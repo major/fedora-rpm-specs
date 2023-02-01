@@ -31,11 +31,10 @@ Obsoletes:      bindgen < 0.61
 # Apache-2.0
 # Apache-2.0 OR MIT
 # BSD-3-Clause
-# ISC
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        BSD-3-Clause AND Apache-2.0 AND ISC and MIT AND Unicode-DFS-2016
+License:        BSD-3-Clause AND Apache-2.0 AND MIT AND Unicode-DFS-2016
 # LICENSE.dependencies contains a full license breakdown
 
 %description -n %{crate} %{_description}
@@ -51,7 +50,7 @@ License:        BSD-3-Clause AND Apache-2.0 AND ISC and MIT AND Unicode-DFS-2016
 %cargo_prep
 
 %generate_buildrequires
-%cargo_generate_buildrequires
+%cargo_generate_buildrequires -a
 
 %build
 %cargo_build

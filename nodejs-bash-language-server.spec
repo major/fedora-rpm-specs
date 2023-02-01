@@ -3,8 +3,8 @@
 %define pkg_name bash-language-server
 
 Name:           nodejs-bash-language-server
-Version:        3.2.0
-Release:        2%{?dist}
+Version:        4.6.1
+Release:        1%{?dist}
 Summary:        A language server for Bash
 License:        MIT
 Url:            https://github.com/bash-lsp/bash-language-server
@@ -79,10 +79,16 @@ find %{buildroot}%{nodejs_sitelib}/%{pkg_name} -type f -name "\.*" -delete
 %license LICENSE
 %doc README.md
 %{_bindir}/%{pkg_name}
-%dir %{nodejs_sitelib}
 %{nodejs_sitelib}/%{pkg_name}/
 
 %changelog
+* Mon Jan 30 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.1-1
+- Update to version 4.6.1
+  * https://github.com/bash-lsp/bash-language-server/blob/server-4.6.1/server/CHANGELOG.md
+
+* Sun Jan 29 2023 Jonathan Lebon <jonathan@jlebon.com> - 3.2.0-3
+- Don't own /usr/lib/node_modules
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

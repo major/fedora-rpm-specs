@@ -1,55 +1,62 @@
 Name:           python-markupsafe
-Version:        2.1.1
-Release:        4%{?dist}
+Version:        2.1.2
+Release:        1%{?dist}
 Summary:        Implements a XML/HTML/XHTML Markup safe string for Python
-License:        BSD
-URL:            https://pypi.org/project/MarkupSafe/
-Source0:        %pypi_source MarkupSafe
+License:        BSD-3-Clause
+URL:            https://palletsprojects.com/p/markupsafe/
+Source:         https://github.com/pallets/markupsafe/archive/%{version}/markupsafe-%{version}.tar.gz
 
 BuildRequires:  gcc
+BuildRequires:  python3-devel
 
-%description
-A library for safe markup escaping.
+%global _description %{expand:
+MarkupSafe implements a text object that escapes characters so it is
+safe to use in HTML and XML. Characters that have special meanings are
+replaced so that they display as the actual characters. This mitigates
+injection attacks, meaning untrusted user input can safely be displayed
+on a page.}
+
+%description %_description
 
 
 %package -n python3-markupsafe
-Summary:        Implements a XML/HTML/XHTML Markup safe string for Python 3
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-# Test dependencies
-BuildRequires:  python3dist(pytest)
-%{?python_provide:%python_provide python3-markupsafe}
+Summary:        %{summary}
 
-%description -n python3-markupsafe
-A library for safe markup escaping. Python 3 version.
+%description -n python3-markupsafe %_description
 
 
 %prep
-%autosetup -n MarkupSafe-%{version}
+%autosetup -n markupsafe-%{version}
+# Exclude C source from the package:
+echo 'global-exclude *.c' >> MANIFEST.in
+
+
+%generate_buildrequires
+%pyproject_buildrequires requirements/tests.in
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
-# C code errantly gets installed
-rm %{buildroot}%{python3_sitearch}/markupsafe/*.c
+%pyproject_install
+%pyproject_save_files markupsafe
 
 
 %check
 %pytest
 
 
-%files -n python3-markupsafe
-%license LICENSE.rst
+%files -n python3-markupsafe -f %{pyproject_files}
 %doc CHANGES.rst README.rst
-%{python3_sitearch}/MarkupSafe-%{version}-py%{python3_version}.egg-info/
-%{python3_sitearch}/markupsafe/
 
 
 %changelog
+* Fri Jan 27 2023 Miro Hrončok <mhroncok@redhat.com> - 2.1.2-1
+- Update to 2.1.2
+- Fixes: rhbz#2161767
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

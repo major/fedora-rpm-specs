@@ -1,6 +1,6 @@
 Name: libphonenumber
 Version: 8.12.57
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Library to handle international phone numbers
 # The project itself is ASL 2.0 but contains files from Chromium which are BSD and MIT.
 License: ASL 2.0 and BSD and MIT
@@ -37,19 +37,23 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -p1
+# Gtest 1.13.0 requires at least C++14; C++17 matches how abseil-cpp is built;
+# simply setting -DCMAKE_CXX_STANDARD=17 does not override this in practice.
+sed -r -i 's/\b(CMAKE_CXX_STANDARD[[:blank:]]+)11\b/\117/' \
+    cpp/CMakeLists.txt tools/cpp/CMakeLists.txt
 
 
 %build
 pushd cpp
-# CXX_STANDARD=17 fixes undefined reference to `absl::lts_20210324::StrReplaceAll(std::initializer_list<std::pair<absl::lts_20210324::string_view
 %ifarch %{java_arches}
-%cmake -DCMAKE_CXX_STANDARD=17
+%cmake
 %else
 touch src/phonenumbers/test_metadata.h
-%cmake -DCMAKE_CXX_STANDARD=17 -DREGENERATE_METADATA=OFF
+%cmake -DREGENERATE_METADATA=OFF
 %endif
 %cmake_build
 popd
+
 
 %install
 pushd cpp
@@ -73,6 +77,9 @@ popd
 
 
 %changelog
+* Mon Jan 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 8.12.57-6
+- Correctly build as C++17 instead of C++11 for gtest-1.13.0, which needs C++14
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.12.57-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

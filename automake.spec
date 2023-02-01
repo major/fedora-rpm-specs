@@ -23,7 +23,7 @@ Summary:    A GNU tool for automatically creating Makefiles
 Name:       automake
 # Any bump here requires libtool rebuild, rhbz#1813010
 Version:    %{api_version}.5
-Release:    10%{?dist}
+Release:    11%{?dist}
 
 # docs ~> GFDL, sources ~> GPLv2+, mkinstalldirs ~> PD and install-sh ~> MIT
 License:    GPLv2+ and GFDL and Public Domain and MIT
@@ -35,6 +35,9 @@ Source:     ftp://ftp.gnu.org/gnu/automake/automake-%{version}.tar.xz
 # which lead to .package_note-automake-1.16.5-3.fc36.x86_64.ld
 # being inserted in build logs, breaking the original grep instruction
 Patch0: fort2.patch
+
+# From upstream: ed1368e8803e8934a8bbab52a38753484dba2a37
+Patch1: 0001-test-avoid-apostrophe-in-test-document.patch
 
 URL:        http://www.gnu.org/software/automake/
 Requires:   autoconf >= 2.65
@@ -138,6 +141,9 @@ make -k %{?_smp_mflags} check %{?TESTS_FLAGS: TESTS="%{TESTS_FLAGS}"} \
 
 
 %changelog
+* Fri Jan 20 2023 Frederic Berat <fberat@redhat.com> - 1.16.5-11
+- Fix test failure due to texinfo 7.0 update
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

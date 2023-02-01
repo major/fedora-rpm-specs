@@ -21,7 +21,7 @@
 
 Name:           buildbot
 Version:        3.7.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Build/test automation system
 License:        GPLv2
@@ -40,6 +40,8 @@ Source8:        %{pypi_source buildbot-pkg}
 # Service template units for buildbot instances
 Source10:       buildbot-master@.service
 Source11:       buildbot-worker@.service
+# https://github.com/buildbot/buildbot/pull/6780
+Patch0:         buildbot-mock.patch
 
 BuildArch:      noarch
 
@@ -62,7 +64,6 @@ BuildRequires:  python3dist(pyyaml)
 
 BuildRequires:  python3dist(treq)
 BuildRequires:  python3dist(boto3)
-BuildRequires:  python3dist(mock) >= 2
 BuildRequires:  python3dist(lz4)
 
 %if %{with check}
@@ -320,6 +321,8 @@ Summary:        Buildbot documentation
 
 %prep
 %setup -q -b0 -b1 -b2 -b3 -b4 -b5 -b6 -b7 -b8
+cd ..
+%patch0 -p1 -b .mock
 
 
 %build
@@ -396,6 +399,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Mon Jan 30 2023 Orion Poplawski <orion@cora.nwra.com> - 3.7.0-3
+- Drop dependency on mock
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.5
-Release: 0.rc2.1%{?dist}.1
+Release: 0.rc2.2%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc2/selinux-3.5-rc2.tar.gz
@@ -36,6 +36,7 @@ Patch0002: 0002-Don-t-be-verbose-if-you-are-not-on-a-tty.patch
 Patch0003: 0003-sepolicy-generate-Handle-more-reserved-port-types.patch
 Patch0004: 0004-sandbox-Use-matchbox-window-manager-instead-of-openb.patch
 Patch0005: 0005-Use-SHA-2-instead-of-SHA-1.patch
+Patch0006: 0006-python-sepolicy-Cache-conditional-rule-queries.patch
 # Patch list end
 
 Obsoletes: policycoreutils < 2.0.61-2
@@ -443,6 +444,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Thu Jan 26 2023 Vit Mojzis <vmojzis@redhat.com> - 3.5-0.rc2.2
+- python/sepolicy: Cache conditional rule queries
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-0.rc2.1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

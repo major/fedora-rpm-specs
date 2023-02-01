@@ -6,7 +6,7 @@
 %global crate ansi_colours
 
 Name:           rust-ansi_colours
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
 Summary:        True-colour ↔ ANSI terminal palette converter
 

@@ -1,17 +1,16 @@
 Name: alevt
-Version: 1.6.2
-Release: 41%{?dist}
+Version: 1.8.1
+Release: 1%{?dist}
 Summary: Teletext decoder/browser
 License: GPLv2
-URL: http://goron.de/~froese
-Source: http://goron.de/~froese/%{name}/%{name}-%{version}.tar.gz
+URL: https://gitlab.com/alevt/alevt
+Source: https://gitlab.com/%{name}/%{name}/-/archive/v%{version}/alevt-v%{version}.tar.bz2
 Source1: alevt.desktop
 Patch0: alevt-1.6.2-pixmap.patch
 Patch1: alevt-1.6.2-manpath.patch
-Patch2: alevt-1.6.2-rus-greek.patch
-Patch3: alevt-1.6.2-doublefont.patch
-Patch4: alevt-1.6.2-zlib.patch
-BuildRequires:  gcc
+Patch2: alevt-1.8.1-doublefont.patch
+Patch3: alevt-1.6.2-zlib.patch
+BuildRequires: gcc
 BuildRequires: libX11-devel
 BuildRequires: libpng-devel
 BuildRequires: desktop-file-utils
@@ -27,14 +26,14 @@ one to capture teletext pages from scripts.
 
 
 %prep
-%setup -q
+%setup -q -n %{name}-v%{version}
 %patch0 -p1 -b .pixmap
 %patch1 -p1 -b .manpath
-%patch2 -p1 -b .rusgreek
-%patch3 -p1 -b .double
-%patch4 -p1 -b .zlib
+%patch2 -p1 -b .double
+%patch3 -p1 -b .zlib
 
 %build
+CC="$CC -DVERSION=\\\"%{version}\\\""
 # alevt does not have standard build system, so we populate OPT, 
 # which is internal build variable to accommodate Fedora opt flags
 # This will produce lot of garbage on output.
@@ -48,8 +47,7 @@ mkdir -p %{buildroot}%{_mandir}/man1
 
 make USR_X11R6=%{_prefix} MAN=%{_mandir} rpm-install
 desktop-file-install \
-	--dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
-
+        --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 
 %files
 %{_bindir}/alevt
@@ -58,9 +56,15 @@ desktop-file-install \
 %{_datadir}/applications/%{name}.desktop
 %{_mandir}/man?/%{name}*
 %{_datadir}/pixmaps/mini-alevt.xpm
-%doc README CHANGELOG COPYRIGHT
+%doc README.md CHANGELOG COPYRIGHT
 
 %changelog
+* Mon Jan 30 2023 Lucian Langa <lucilanga@gnome.eu.org> - 1.8.1-1
+- port doublefont patch to 1.8.1
+- drop rus/greek patch (updated upstream)
+- sync with latest upstream
+- update upstream data
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-41
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

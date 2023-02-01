@@ -1,7 +1,10 @@
+# https://savannah.nongnu.org/bugs/index.php?62519
+%define _fortify_level 2
+
 Summary: Access control list utilities
 Name: acl
 Version: 2.3.1
-Release: 5%{?dist}
+Release: 6%{?dist}
 BuildRequires: gawk
 BuildRequires: gcc
 BuildRequires: gettext
@@ -124,6 +127,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_libdir}/libacl.so.*
 
 %changelog
+* Thu Jan 26 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.3.1-6
+- acl is not yet compatible with -D_FORTIFY_SOURCE=3
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

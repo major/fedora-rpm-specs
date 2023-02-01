@@ -4,6 +4,14 @@
 
 %global crate libbpf-rs
 
+%if 0%{?fedora} == 38
+# Fedora 38's libbpf is new enough
+# currently: 1.1.0
+%bcond_without novendor
+%else
+%bcond_with novendor
+%endif
+
 Name:           rust-libbpf-rs
 Version:        0.19.1
 Release:        %autorelease
@@ -13,9 +21,10 @@ License:        LGPL-2.1 OR BSD-2-Clause
 URL:            https://crates.io/crates/libbpf-rs
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# - Turn on the novendor feature by default
 # - bump strum_macros dependency to 0.24
 Patch:          libbpf-rs-fix-metadata.diff
+# Conditional patch for defaulting to novendor
+Patch101:       libbpf-rs-default-to-novendor.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -52,6 +61,7 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%if %{with novendor}
 %package     -n %{name}+novendor-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -63,6 +73,7 @@ use the "novendor" feature of the "%{crate}" crate.
 
 %files       -n %{name}+novendor-devel
 %ghost %{crate_instdir}/Cargo.toml
+%endif
 
 %package     -n %{name}+static-devel
 Summary:        %{summary}
@@ -77,7 +88,12 @@ use the "static" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{version_no_tilde} -p1
+%autosetup -n %{crate}-%{version_no_tilde} -N
+%autopatch -p1 -M 100
+%if %{with novendor}
+%autopatch -p1 -m 101
+%endif
+
 %cargo_prep
 
 %generate_buildrequires

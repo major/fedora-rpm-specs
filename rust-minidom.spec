@@ -5,9 +5,9 @@
 %global crate minidom
 
 Name:           rust-minidom
-Version:        0.15.0
+Version:        0.15.1
 Release:        %autorelease
-Summary:        Small, simple DOM implementation on top of quick-xml, targeting the subset of XML useful for XMPP
+Summary:        Small, simple DOM implementation on top of rxml, targeting the subset of XML useful for XMPP
 
 License:        MPL-2.0
 URL:            https://crates.io/crates/minidom
@@ -16,8 +16,8 @@ Source:         %{crates_source}
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Small, simple DOM implementation on top of quick-xml, targeting the subset of
-XML useful for XMPP.}
+Small, simple DOM implementation on top of rxml, targeting the subset of XML
+useful for XMPP.}
 
 %description %{_description}
 

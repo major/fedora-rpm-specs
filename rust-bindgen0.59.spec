@@ -14,7 +14,6 @@ URL:            https://crates.io/crates/bindgen
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
 # * do not build bindgen binary from compat package
-# * default to linking with libclang instead of using dlopen
 Patch:          bindgen-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

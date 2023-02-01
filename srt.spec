@@ -1,6 +1,6 @@
 Name:           srt
 Version:        1.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPLv2.0
@@ -61,11 +61,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 # - tests can't be run in parallel because they reuse port numbers
 # - TestIPv6 are known broken due to v4_v6 mapping differnces between platforms
 #   https://github.com/Haivision/srt/issues/1972#
-# - Skip one more test (TestSocketOptions.InvalidVals) for now
-#   https://github.com/Haivision/srt/issues/2623
 %ifnarch s390x
 %define _smp_build_ncpus 1
-%ctest -E 'TestIPv6|TestSocketOptions.InvalidVals'
+%ctest -E TestIPv6
 %endif
 
 
@@ -92,6 +90,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Mon Jan 30 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.1-4
+- With gcc fixed re-enable TestSocketOptions.InvalidVals test
+
 * Sat Jan 21 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.1-3
 - Additional test tweaks
 

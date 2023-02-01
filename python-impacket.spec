@@ -3,7 +3,8 @@ Version:        0.10.0
 %global         baserelease     2
 
 License:        ASL 1.1 and zlib
-URL:            https://github.com/SecureAuthCorp/impacket
+URL:            https://github.com/fortra/impacket
+# was           https://github.com/SecureAuthCorp/impacket
 # was           https://github.com/CoreSecurity/impacket
 
 # During re-add of the python2-impacket we found about dependency to ldapdomaindump
@@ -22,7 +23,7 @@ can be constructed from scratch, as well as parsed from raw data. Furthermore,
 the object oriented API makes it simple to work with deep protocol hierarchies.}
 
 
-%global         gituser         SecureAuthCorp
+%global         gituser         fortra
 %global         gitname         impacket
 %global         commit          7a18ef5c8b06aac5e36334927789429777382928
 %global         gitdate         20220504
@@ -123,7 +124,7 @@ sed -i -e 's|#!/usr/bin/env python|#!/usr/bin/python3|' \
     impacket/examples/ntlmrelayx/servers/socksserver.py
 
 # Moving uncrc32
-# https://github.com/SecureAuthCorp/impacket/issues/403
+# https://github.com/fortra/impacket/issues/403
 sed -i -e 's|^import uncrc32|from impacket.examples import uncrc32|;' examples/nmapAnswerMachine.py
 
 
@@ -184,6 +185,12 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 
 
 %changelog
+* Mon Jan 30 2023 Michal Ambroz <rebus AT_ seznam.cz> - 0.10.0-3
+- update the git user / URL
+
+* Mon Jan 30 2023 Miro Hrončok <mhroncok@redhat.com> - 0.10.0-2
+- Rebuilt to change Python shebangs to /usr/bin/python3.6 on EPEL 8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -272,7 +279,7 @@ rm -f %{buildroot}%{_defaultdocdir}/%{name}/LICENSE
 - patch setup.py to remove python_version to meet RHEL7 setuptools version
 
 * Mon Feb 04 2019 Michal Ambroz <rebus _AT seznam.cz> - 0.9.18-1
-- bump to version 0.9.18 
+- bump to version 0.9.18
 
 * Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.17-0.4.20180308gite0af5bb
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild

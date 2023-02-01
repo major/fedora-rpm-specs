@@ -1,6 +1,6 @@
 Name:           slashem
 Version:        0.0.8
-Release:        0.35.E0F1%{?dist}
+Release:        0.36.E0F1%{?dist}
 Summary:        Super Lotsa Added Stuff Hack - Extended Magic
 
 License:        NGPL
@@ -16,6 +16,7 @@ Patch2:         slashem-format-security.patch
 # https://sourceforge.net/p/slashem/bugs/963/
 Patch3:         slashem-add-FDECLs-c99.patch
 Patch4:         slashem-configure-c99.patch
+Patch5:         slashem-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -164,6 +165,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.ap
 
 
 %changelog
+* Mon Jan 30 2023 Florian Weimer <fweimer@redhat.com> - 0.0.8-0.36.E0F1
+- Further C99 compatibility fixes
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.8-0.35.E0F1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

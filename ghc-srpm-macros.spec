@@ -4,7 +4,7 @@
 %global macros_dir %{_rpmconfigdir}/macros.d
 
 Name:           ghc-srpm-macros
-Version:        1.6.0
+Version:        1.6.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell source packages
 
@@ -35,6 +35,9 @@ install -p -D -m 0644 %{SOURCE0} %{buildroot}/%{macros_dir}/macros.ghc-srpm
 
 
 %changelog
+* Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 1.6.1-1
+- restore ghc_devel_prof for existing ghc spec files
+
 * Sat Jan 21 2023 Jens Petersen <petersen@redhat.com> - 1.6.0-1
 - drop long unused ghc_arches_with_ghci
 - update (unused) ghc_arches

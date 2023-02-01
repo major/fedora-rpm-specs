@@ -61,7 +61,7 @@
 Name:		root
 Version:	6.26.10
 %global libversion %(cut -d. -f 1-2 <<< %{version})
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Numerical data analysis framework
 
 License:	LGPLv2+
@@ -184,6 +184,10 @@ Patch37:	%{name}-avoid-race-condition-tutorial-roofit-rf512.patch
 Patch38:	%{name}-add-missing-include-cstdint.patch
 #		Backport from upstream
 Patch39:	%{name}-fix-compilation-with-gcc13.patch
+#		numpy.object obsolete since numpy 1.20 and removed since 1.24
+#		https://github.com/root-project/root/issues/12148
+#		https://github.com/root-project/root/pull/12159
+Patch40:	%{name}-avoid-deprecated-numpy.object.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	devtoolset-8-toolchain
@@ -291,12 +295,8 @@ BuildRequires:	protobuf-devel >= 3.0
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} == 8
 BuildRequires:	python%{python3_pkgversion}-pandas
 %endif
-%if %{?fedora}%{!?fedora:0}
 BuildRequires:	python3-rcssmin
-BuildRequires:	uglify-js
-%else
-BuildRequires:	yuicompressor
-%endif
+BuildRequires:	uglify-js3
 BuildRequires:	perl-generators
 BuildRequires:	gtest-devel
 BuildRequires:	gmock-devel
@@ -2052,6 +2052,7 @@ This package contains an ntuple extension for ROOT 7.
 %patch37 -p1
 %patch38 -p1
 %patch39 -p1
+%patch40 -p1
 
 # Remove bundled sources in order to be sure they are not used
 #  * afterimage
@@ -2122,18 +2123,10 @@ unset QTINC
 
 # Minify script and style files
 for s in etc/notebook/JsMVA/js/*.js ; do
-%if %{?fedora}%{!?fedora:0}
-    uglifyjs ${s} -c -m -o ${s%.js}.min.js
-%else
-    yuicompressor ${s} -o ${s%.js}.min.js
-%endif
+    uglifyjs-3 ${s} -c -m -o ${s%.js}.min.js
 done
 for s in etc/notebook/JsMVA/css/*.css ; do
-%if %{?fedora}%{!?fedora:0}
     python3 -m rcssmin < ${s} > ${s%.css}.min.css
-%else
-    yuicompressor ${s} -o ${s%.css}.min.css
-%endif
 done
 
 # Avoid overlinking (this used to be the default with the old configure script)
@@ -2779,6 +2772,12 @@ pyunittests-pyroot-roofit-roodataset-numpy"
 excluded="${excluded}|\
 pyunittests-dataframe-histograms|\
 tutorial-legacy-rootenv"
+
+%ifarch %{ix86}
+# Failures with Fedora 38 i686 (after numpy 1.24 update)
+excluded="${excluded}|\
+pyunittests-pyroot-roofit-roodataset-numpy"
+%endif
 %endif
 
 %ifarch %{arm}
@@ -3994,6 +3993,9 @@ fi
 %endif
 
 %changelog
+* Mon Jan 30 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.10-5
+- Adapt to numpy 1.24
+
 * Fri Jan 20 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.26.10-4
 - Add missing #include <cstdint>
 

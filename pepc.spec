@@ -1,5 +1,5 @@
 Name:		pepc
-Version:	1.3.42
+Version:	1.3.43
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
@@ -20,7 +20,6 @@ power management features.
 
 %package -n python3-%{name}
 Summary:	Pepc Python libraries
-Requires:	pepc = %{version}-%{release}
 
 %description -n python3-%{name}
 Pepc Python libraries

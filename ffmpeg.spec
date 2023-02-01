@@ -63,12 +63,10 @@
 %bcond_without rtmp
 %bcond_without x264
 %bcond_without x265
-%bcond_without xvid
 %else
 %bcond_with rtmp
 %bcond_with x264
 %bcond_with x265
-%bcond_with xvid
 %endif
 
 %if %{without lto}
@@ -93,7 +91,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        5.1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPLv3+
 URL:            https://ffmpeg.org/
@@ -110,6 +108,7 @@ Source21:       enable_encoders
 Source90:       ffmpeg_update_free_sources.sh
 Source91:       ffmpeg_gen_free_tarball.sh
 Source92:       ffmpeg_get_dlopen_headers.sh
+Source93:       ffmpeg_find_free_source_headers.sh
 
 # Fixes for reduced codec selection on free build
 Patch1:         ffmpeg-codec-choice.patch
@@ -194,6 +193,7 @@ BuildRequires:  pkgconfig(lilv-0)
 BuildRequires:  pkgconfig(netcdf)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(openal)
+BuildRequires:  pkgconfig(opencore-amrnb)
 BuildRequires:  pkgconfig(OpenCL)
 BuildRequires:  pkgconfig(opencv4)
 BuildRequires:  pkgconfig(opus)
@@ -214,6 +214,7 @@ BuildRequires:  pkgconfig(vapoursynth)
 BuildRequires:  pkgconfig(vdpau)
 BuildRequires:  pkgconfig(vidstab)
 BuildRequires:  pkgconfig(vorbis)
+BuildRequires:  pkgconfig(vo-amrwbenc)
 BuildRequires:  pkgconfig(vpx)
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(wavpack)
@@ -226,11 +227,8 @@ BuildRequires:  pkgconfig(zimg)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(zvbi-0.2)
 BuildRequires:  texinfo
+BuildRequires:  xvidcore-devel
 
-%if %{with amr}
-BuildRequires:  pkgconfig(opencore-amrnb)
-BuildRequires:  pkgconfig(vo-amrwbenc)
-%endif
 %if %{with dc1394}
 BuildRequires:  pkgconfig(libavc1394)
 BuildRequires:  pkgconfig(libdc1394-2)
@@ -253,9 +251,6 @@ BuildRequires:  pkgconfig(x265)
 %endif
 %if %{with vmaf}
 BuildRequires:  pkgconfig(libvmaf)
-%endif
-%if %{with xvid}
-BuildRequires:  xvidcore-devel
 %endif
 
 
@@ -639,11 +634,9 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
 %endif
     --enable-vaapi \
     --enable-vdpau \
-%if %{with amr}
     --enable-libopencore-amrnb \
     --enable-libopencore-amrwb \
     --enable-libvo-amrwbenc \
-%endif
 %if %{with x264}
     --enable-libx264 \
 %endif
@@ -653,9 +646,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
 %if %{with librtmp}
     --enable-librtmp \
 %endif
-%if %{with xvid}
     --enable-libxvid \
-%endif
     --enable-openal \
     --enable-opencl \
     --enable-opengl \
@@ -667,7 +658,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-hwaccels \
     --disable-encoders \
     --disable-decoders \
-    --disable-decoder="mpeg4,h263,h264,hevc,vc1" \
+    --disable-decoder="h264,hevc,vc1" \
     --enable-encoder="$(perl -pe 's{^(\w*).*}{$1,}gs' <enable_encoders)" \
     --enable-decoder="$(perl -pe 's{^(\w*).*}{$1,}gs' <enable_decoders)" \
 %endif
@@ -708,12 +699,12 @@ cat config_components.h
 # Paranoia check
 %if %{without all_codecs}
 # DECODER
-for i in MPEG4 H263 H264 HEVC HEVC_RKMPP VC1; do
+for i in H264 HEVC HEVC_RKMPP VC1; do
     grep -q "#define CONFIG_${i}_DECODER 0" config_components.h
 done
 
 # ENCODER
-for i in MPEG4 H263 H263P LIBX264 LIBX264RGB LIBX265 LIBXVID; do
+for i in LIBX264 LIBX264RGB LIBX265; do
     grep -q "#define CONFIG_${i}_ENCODER 0" config_components.h
 done
 for i in H264 HEVC; do
@@ -836,6 +827,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Mon Jan 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.1.2-6
+- Enable more approved codecs
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -85,6 +85,7 @@ chmod -x examples/scripts/*
 
 %build
 %meson \
+    -Dwerror=false \
     -Dbackend-wayland=%{bcond_feature backend-wayland} \
     -Dbackend-x11=%{bcond_feature backend-x11} \
     -Dplugin-xkb=%{bcond_feature backend-x11}
@@ -118,6 +119,9 @@ desktop-file-validate \
 %{_includedir}/%{name}
 
 %changelog
+* Sun Jan 29 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.9.0-2
+- Disable -Werror
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

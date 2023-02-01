@@ -2,11 +2,12 @@ Name: gnucash
 Summary: Finance management application
 Version: 4.13
 URL: https://gnucash.org/
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
 Patch0: rpath.patch
+Patch1: gcc13.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1563466
 ExcludeArch: ppc64 s390x
@@ -106,6 +107,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Mon Jan 30 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.13-5
+- Patch for gcc 13.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

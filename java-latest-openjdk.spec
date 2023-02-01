@@ -31,7 +31,7 @@
 %endif
 
 #palceholder - used in regexes, otherwise for no use in portables
-%global freetype_lib %{nil}
+%global freetype_lib |libfreetype[.]so.*
 
 # The -g flag says to use strip -g instead of full strip on DSOs or EXEs.
 # This fixes detailed NMT and other tools which need minimal debug info.
@@ -322,7 +322,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      2
+%global rpmrelease      3
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -824,6 +824,7 @@ exit 0
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libawt_headless.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libdt_socket.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libfontmanager.so
+%{_jvmdir}/%{sdkdir -- %{?1}}/lib/libfreetype.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libinstrument.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libj2gss.so
 %{_jvmdir}/%{sdkdir -- %{?1}}/lib/libj2pcsc.so
@@ -1332,7 +1333,7 @@ BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: zip
 BuildRequires: javapackages-filesystem
-BuildRequires: java-latest-openjdk-devel
+#BuildRequires: java-latest-openjdk-devel
 # ?
 BuildRequires: tzdata-java >= 2022g
 
@@ -2029,7 +2030,7 @@ rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/NEWS #is in commondocdir. Ok 
 if [ "x$suffix" = "x" ] ; then
   rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/javadocs.zip #is in subpackages, 1 renamed, 2nd unpacked
 fi
-rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/lib/libfreetype.so #bug in portables? bug in rpms?
+#rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/lib/libfreetype.so #bug in portables? bug in rpms?
 # end, dual install
 done
 
@@ -2356,6 +2357,10 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Mon Jan 30 2023 Petra Alice Mikova <pmikova@redhat.com> - 1:19.0.2.0.7-3.rolling
+- return libfreetype.so binary to resolve requires problems
+- remove BuildRequires: java-latest-openjdk
+
 * Thu Jan 26 2023 Jiri Vanek <jvanek@redhat.com> - 1:19.0.2.0.7-2.rolling
 - repacked portables
 - todo icons

@@ -517,8 +517,10 @@ echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %define merge_filelist()\
 cat %{name}-%1.files >> %{name}-%2.files\
 cat %{name}-%1-devel.files >> %{name}-%2-devel.files\
-%if %{defined ghc_devel_prof}\
+%if %{with haddock}\
 cat %{name}-%1-doc.files >> %{name}-%2-doc.files\
+%endif\
+%if %{with ghc_prof}\
 cat %{name}-%1-prof.files >> %{name}-%2-prof.files\
 %endif\
 cp -p libraries/%1/LICENSE libraries/LICENSE.%1\

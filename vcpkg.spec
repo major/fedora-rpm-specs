@@ -1,13 +1,13 @@
-%global version_year 2022
-%global version_month 12
-%global version_day 14
+%global version_year 2023
+%global version_month 01
+%global version_day 24
 
 %global repo_name vcpkg-tool
 %global repo_tag %{version_year}-%{version_month}-%{version_day}
 
 Name: vcpkg
 Version: %{version_year}.%{version_month}.%{version_day}
-Release: 2%{?dist}
+Release: 1%{?dist}
 
 License: MIT
 Summary: C++ Library Manager
@@ -79,6 +79,9 @@ install -D -m 0644 -p "%{SOURCE1}" "%{buildroot}%{_sysconfdir}/profile.d/%{name}
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.sh
 
 %changelog
+* Mon Jan 30 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2023.01.24-1
+- Updated to version 2023.01.24.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

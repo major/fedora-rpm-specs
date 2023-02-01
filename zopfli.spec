@@ -6,7 +6,7 @@ Version:        %{so_ver}
 Release:        8%{?dist}
 Summary:        Zlib compatible better compressor
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/google/%{name}
 Source0:        %{URL}/archive/%{name}-%{version}.tar.gz
 

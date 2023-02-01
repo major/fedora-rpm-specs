@@ -5,11 +5,11 @@
 %global crate chunked_transfer
 
 Name:           rust-chunked_transfer
-Version:        1.4.0
+Version:        1.4.1
 Release:        %autorelease
 Summary:        Encoder and decoder for HTTP chunked transfer coding (RFC 7230 § 4.1)
 
-License:        Apache-2.0
+License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/chunked_transfer
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
@@ -33,7 +33,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
+%license %{crate_instdir}/LICENSE-APACHE
+%license %{crate_instdir}/LICENSE-MIT
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

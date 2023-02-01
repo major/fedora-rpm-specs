@@ -1,0 +1,58 @@
+Name:           python-jupyter-ydoc
+Version:        0.3.1
+Release:        1%{?dist}
+Summary:        Document structures for collaborative editing using Ypy
+License:        BSD-3-Clause
+URL:            https://jupyter.org
+Source:         %{pypi_source jupyter_ydoc}
+# Drop the dependency on nodejs hatch plugin and
+# set a version placeholder which we then set by sed
+# to the actual version in %%prep.
+Patch:          drop-dynamic-version.patch
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+
+%global _description %{expand:
+jupyter_ydoc provides Ypy-based data structures for various
+documents used in the Jupyter ecosystem.}
+
+%description %_description
+
+%package -n     python3-jupyter-ydoc
+Summary:        %{summary}
+
+%description -n python3-jupyter-ydoc %_description
+
+
+%prep
+%autosetup -p1 -n jupyter_ydoc-%{version}
+sed -i "s/VERSION_PLACEHOLDER/%{version}/" pyproject.toml
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+
+%build
+%pyproject_wheel
+
+
+%install
+%pyproject_install
+%pyproject_save_files jupyter_ydoc
+
+
+%check
+# There are only two regular tests with these issues:
+# - required version of ypy-websocket is too old
+#   reported: https://github.com/jupyter-server/jupyter_ydoc/issues/130
+# - tests require installation of many JS packages
+%pyproject_check_import
+
+
+%files -n python3-jupyter-ydoc -f %{pyproject_files}
+
+
+%changelog
+* Thu Jan 05 2023 Lumír Balhar <lbalhar@redhat.com> - 0.2.2-1
+- Initial package

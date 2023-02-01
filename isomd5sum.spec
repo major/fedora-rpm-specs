@@ -1,9 +1,9 @@
 Summary: Utilities for working with md5sum implanted in ISO images
 Name:    isomd5sum
 Version: 1.2.3
-Release: 18%{?dist}
+Release: 19%{?dist}
 Epoch: 1
-License: GPLv2+
+License: GPL-2.0-or-later
 
 Url:     https://github.com/rhinstaller/isomd5sum
 Source0: https://github.com/rhinstaller/%{name}/archive/%{version}.tar.gz
@@ -63,6 +63,9 @@ PYTHON=%{__python3} make DESTDIR=$RPM_BUILD_ROOT install-bin install-devel insta
 %{python3_sitearch}/pyisomd5sum.so
 
 %changelog
+* Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 1.2.3-19
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.3-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

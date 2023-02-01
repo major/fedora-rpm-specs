@@ -1,26 +1,108 @@
 Name:        mdadm
 Version:     4.2
-Release:     3%{?dist}
+Release:     4%{?dist}
 Summary:     The mdadm program controls Linux md devices (software RAID arrays)
 URL:         http://www.kernel.org/pub/linux/utils/raid/mdadm/
 License:     GPLv2+
 
 Source:      http://www.kernel.org/pub/linux/utils/raid/mdadm/%{name}-%{version}%{?subversion:-%{subversion}}.tar.xz
 Source1:     raid-check
-Source2:     mdadm.rules
-Source3:     mdadm-raid-check-sysconfig
-Source4:     mdmonitor.service
-Source5:     mdadm.conf
-Source6:     mdadm_event.conf
-Source7:     raid-check.timer
-Source8:     raid-check.service
+Source2:     mdadm-raid-check-sysconfig
+Source3:     mdmonitor.service
+Source4:     mdadm.conf
+Source5:     mdadm_event.conf
+Source6:     raid-check.timer
+Source7:     raid-check.service
 
-# Build without -Werror.
-Patch00:     disable-Werror.patch
+Patch000:    0001-Unify-error-message.patch
+Patch001:    0002-mdadm-Fix-double-free.patch
+Patch002:    0003-Grow_reshape-Add-r0-grow-size-error-message-and-upda.patch
+Patch003:    0004-udev-adapt-rules-to-systemd-v247.patch
+Patch004:    0005-Replace-error-prone-signal-with-sigaction.patch
+Patch005:    0006-mdadm-Respect-config-file-location-in-man.patch
+Patch006:    0007-mdadm-Update-ReadMe.patch
+Patch007:    0008-mdadm-Update-config-man-regarding-default-files-and-.patch
+Patch008:    0009-mdadm-Update-config-manual.patch
+Patch009:    0010-Create-Build-use-default_layout.patch
+Patch010:    0011-mdadm-add-map_num_s.patch
+# patch0012 is deleted because of needing KillMode=none
+Patch011:    0013-mdmon-Stop-parsing-duplicate-options.patch
+Patch012:    0014-Grow-block-n-on-external-volumes.patch
+Patch013:    0015-Incremental-Fix-possible-memory-and-resource-leaks.patch
+Patch014:    0016-Mdmonitor-Fix-segfault.patch
+Patch015:    0017-Mdmonitor-Improve-logging-method.patch
+Patch016:    0018-Fix-possible-NULL-ptr-dereferences-and-memory-leaks.patch
+Patch017:    0019-imsm-Remove-possibility-for-get_imsm_dev-to-return-N.patch
+Patch018:    0020-Revert-mdadm-fix-coredump-of-mdadm-monitor-r.patch
+Patch019:    0021-util-replace-ioctl-use-with-function.patch
+Patch020:    0022-mdadm-super1-restore-commit-45a87c2f31335-to-fix-clu.patch
+Patch021:    0023-imsm-introduce-get_disk_slot_in_dev.patch
+Patch022:    0024-imsm-use-same-slot-across-container.patch
+Patch023:    0025-imsm-block-changing-slots-during-creation.patch
+Patch024:    0026-mdadm-block-update-ppl-for-non-raid456-levels.patch
+Patch025:    0027-mdadm-Fix-array-size-mismatch-after-grow.patch
+Patch026:    0028-mdadm-Remove-dead-code-in-imsm_fix_size_mismatch.patch
+Patch027:    0029-Monitor-use-devname-as-char-array-instead-of-pointer.patch
+Patch028:    0030-Monitor-use-snprintf-to-fill-device-name.patch
+Patch029:    0031-Makefile-Don-t-build-static-build-with-everything-an.patch
+Patch030:    0032-DDF-Cleanup-validate_geometry_ddf_container.patch
+Patch031:    0033-DDF-Fix-NULL-pointer-dereference-in-validate_geometr.patch
+Patch032:    0034-mdadm-Grow-Fix-use-after-close-bug-by-closing-after-.patch
+Patch033:    0035-monitor-Avoid-segfault-when-calling-NULL-get_bad_blo.patch
+Patch034:    0036-mdadm-Fix-mdadm-r-remove-option-regression.patch
+Patch035:    0037-mdadm-Fix-optional-write-behind-parameter.patch
+Patch036:    0038-tests-00raid0-add-a-test-that-validates-raid0-with-l.patch
+Patch037:    0039-tests-fix-raid0-tests-for-0.90-metadata.patch
+Patch038:    0040-tests-04update-metadata-avoid-passing-chunk-size-to-.patch
+Patch039:    0041-tests-02lineargrow-clear-the-superblock-at-every-ite.patch
+Patch040:    0042-mdadm-test-Add-a-mode-to-repeat-specified-tests.patch
+Patch041:    0043-mdadm-test-Mark-and-ignore-broken-test-failures.patch
+Patch042:    0044-tests-Add-broken-files-for-all-broken-tests.patch
+Patch043:    0045-mdadm-Replace-obsolete-usleep-with-nanosleep.patch
+Patch044:    0046-tests-00readonly-Run-udevadm-settle-before-setting-r.patch
+Patch045:    0047-tests-add-test-for-names.patch
+Patch046:    0048-mdadm-remove-symlink-option.patch
+Patch047:    0049-mdadm-move-data_offset-to-struct-shape.patch
+Patch048:    0050-mdadm-Don-t-open-md-device-for-CREATE-and-ASSEMBLE.patch
+Patch049:    0051-Grow-Split-Grow_reshape-into-helper-function.patch
+Patch050:    0052-Assemble-check-if-device-is-container-before-schedul.patch
+Patch051:    0053-super1-report-truncated-device.patch
+Patch052:    0054-mdadm-Correct-typos-punctuation-and-grammar-in-man.patch
+Patch053:    0055-Manage-Block-unsafe-member-failing.patch
+Patch054:    0056-Monitor-Fix-statelist-memory-leaks.patch
+Patch055:    0057-mdadm-added-support-for-Intel-Alderlake-RST-on-VMD-p.patch
+Patch056:    0058-mdadm-Add-Documentation-entries-to-systemd-services.patch
+Patch057:    0059-ReadMe-fix-command-line-help.patch
+Patch058:    0060-mdadm-replace-container-level-checking-with-inline.patch
+Patch059:    0061-Mdmonitor-Omit-non-md-devices.patch
+Patch060:    0062-Mdmonitor-Split-alert-into-separate-functions.patch
+Patch061:    0063-Monitor-block-if-monitor-modes-are-combined.patch
+Patch062:    0064-Update-mdadm-Monitor-manual.patch
+Patch063:    0065-Grow-fix-possible-memory-leak.patch
+Patch064:    0066-mdadm-create-ident_init.patch
+Patch065:    0067-mdadm-Add-option-validation-for-update-subarray.patch
+Patch066:    0068-Fix-update-subarray-on-active-volume.patch
+Patch067:    0069-Add-code-specific-update-options-to-enum.patch
+Patch068:    0070-super-ddf-Remove-update_super_ddf.patch
+Patch069:    0071-super0-refactor-the-code-for-enum.patch
+Patch070:    0072-super1-refactor-the-code-for-enum.patch
+Patch071:    0073-super-intel-refactor-the-code-for-enum.patch
+Patch072:    0074-Change-update-to-enum-in-update_super-and-update_sub.patch
+Patch073:    0075-Manage-Incremental-code-refactor-string-to-enum.patch
+Patch074:    0076-Change-char-to-enum-in-context-update-refactor-code.patch
+Patch075:    0077-mdmon-fix-segfault.patch
+Patch076:    0078-util-remove-obsolete-code-from-get_md_name.patch
+Patch077:    0079-mdadm-udev-Don-t-handle-change-event-on-raw-devices.patch
+Patch078:    0080-Manage-do-not-check-array-state-when-drive-is-remove.patch
+Patch079:    0081-incremental-manage-do-not-verify-if-remove-is-safe.patch
+Patch080:    0082-super-intel-make-freesize-not-required-for-chunk-siz.patch
+Patch081:    0083-manage-move-comment-with-function-description.patch
 
 # Fedora customization patches
-Patch97:     mdadm-3.3-udev.patch
+Patch97:     mdadm-udev.patch
 Patch98:     mdadm-2.5.2-static.patch
+# Build without -Werror.
+Patch99:     disable-Werror.patch
 
 BuildRequires: make
 BuildRequires: systemd-rpm-macros binutils-devel gcc systemd-devel
@@ -45,25 +127,24 @@ make %{?_smp_mflags} CXFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_LD_FLAGS" SYSCONFDIR
 %install
 make DESTDIR=%{buildroot} MANDIR=%{_mandir} BINDIR=%{_sbindir} SYSTEMD_DIR=%{_unitdir} UDEVDIR=/usr/lib/udev/ install install-systemd
 install -Dp -m 755 %{SOURCE1} %{buildroot}%{_sbindir}/raid-check
-install -Dp -m 644 %{SOURCE2} %{buildroot}%{_udevrulesdir}/65-md-incremental.rules
-install -Dp -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/sysconfig/raid-check
+install -Dp -m 644 %{SOURCE2} %{buildroot}%{_sysconfdir}/sysconfig/raid-check
 mkdir -p -m 710 %{buildroot}/run/mdadm
 
 # systemd
 mkdir -p %{buildroot}%{_unitdir}
-install -m644 %{SOURCE4} %{buildroot}%{_unitdir}
+install -m644 %{SOURCE3} %{buildroot}%{_unitdir}
+install -m644 %{SOURCE6} %{buildroot}%{_unitdir}
 install -m644 %{SOURCE7} %{buildroot}%{_unitdir}
-install -m644 %{SOURCE8} %{buildroot}%{_unitdir}
 
 # tmpfile
 mkdir -p %{buildroot}%{_tmpfilesdir}
-install -m 0644 %{SOURCE5} %{buildroot}%{_tmpfilesdir}/%{name}.conf
+install -m 0644 %{SOURCE4} %{buildroot}%{_tmpfilesdir}/%{name}.conf
 mkdir -p %{buildroot}%{_localstatedir}/run/
 install -d -m 0710 %{buildroot}/run/%{name}/
 
 # abrt
 mkdir -p %{buildroot}/etc/libreport/events.d
-install -m644 %{SOURCE6} %{buildroot}/etc/libreport/events.d
+install -m644 %{SOURCE5} %{buildroot}/etc/libreport/events.d
 
 %post
 %systemd_post mdmonitor.service raid-check.timer
@@ -89,6 +170,10 @@ install -m644 %{SOURCE6} %{buildroot}/etc/libreport/events.d
 /etc/libreport/events.d/*
 
 %changelog
+* Mon Jan 30 2023 Xiao Ni <xni@redhat.com> - 4.2-4
+- Update to latest upstream for f38
+- Resolves bz#2163711
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

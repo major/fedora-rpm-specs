@@ -1,9 +1,10 @@
 Summary: Collection of performance monitoring tools for Linux
 Name: sysstat
-Version: 12.7.1
-Release: 2%{?dist}
-License: GPLv2+
-URL: http://sebastien.godard.pagesperso-orange.fr/
+Version: 12.7.2
+Release: 1%{?dist}
+License: GPL-2.0-or-later
+
+URL: http://sebastien.godard.pagesperso-orange.fr
 Source: https://github.com/sysstat/sysstat/archive/v%{version}.tar.gz
 
 BuildRequires: gcc
@@ -39,7 +40,6 @@ The cifsiostat command reports I/O statistics for CIFS file systems.
 %autosetup -S git_am
 
 %build
-%set_build_flags
 %configure \
     --enable-install-cron \
     --enable-copy-only \
@@ -51,11 +51,14 @@ The cifsiostat command reports I/O statistics for CIFS file systems.
     sadc_options='-S DISK' \
     history=28 \
     compressafter=31
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
 %find_lang %{name}
+
+# Do not install the license as documentation
+rm %{buildroot}%{_docdir}/%{name}/COPYING
 
 %post
 %systemd_post sysstat.service sysstat-collect.timer sysstat-summary.timer
@@ -71,17 +74,39 @@ fi
 %systemd_postun sysstat.service sysstat-collect.timer sysstat-summary.timer
 
 %files -f %{name}.lang
-%doc CHANGES COPYING CREDITS FAQ.md README.md %{name}-%{version}.lsm
+%license COPYING
+%doc CHANGES CREDITS FAQ.md README.md %{name}-%{version}.lsm
 %config(noreplace) %{_sysconfdir}/sysconfig/sysstat
 %config(noreplace) %{_sysconfdir}/sysconfig/sysstat.ioconf
-%{_bindir}/*
+%{_bindir}/cifsiostat
+%{_bindir}/iostat
+%{_bindir}/mpstat
+%{_bindir}/pidstat
+%{_bindir}/sadf
+%{_bindir}/sar
+%{_bindir}/tapestat
 %{_libdir}/sa
 %{_unitdir}/sysstat*
 %{_systemd_util_dir}/system-sleep/sysstat*
-%{_mandir}/man*/*
+%{_mandir}/man1/cifsiostat.1*
+%{_mandir}/man1/iostat.1*
+%{_mandir}/man1/mpstat.1*
+%{_mandir}/man1/pidstat.1*
+%{_mandir}/man1/sadf.1*
+%{_mandir}/man1/sar.1*
+%{_mandir}/man1/tapestat.1*
+%{_mandir}/man5/sysstat.5*
+%{_mandir}/man8/sa1.8*
+%{_mandir}/man8/sa2.8*
+%{_mandir}/man8/sadc.8*
 %{_localstatedir}/log/sa
 
 %changelog
+* Mon Jan 30 2023 Lukáš Zaoral <lzaoral@redhat.com> - 12.7.2-1
+- Update to v12.7.2 (rhbz#2165400)
+- Use SPDX license format
+- Modernize the spec file according to the current packaging guidelines
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

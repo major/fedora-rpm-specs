@@ -1,6 +1,6 @@
 Name:           pyodbc
 Version:        4.0.30
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Python DB API 2.0 Module for ODBC
 License:        MIT
 URL:            https://github.com/mkleehammer/pyodbc
@@ -36,6 +36,14 @@ decimal.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# the setup.py script tries to determine the version of the package by
+#  - git describe (which does not work in github tarball)
+#  - parsing PKG-INFO (which is onyl included in sdist)
+# Let's help it:
+echo 'Version: %{version}' > PKG-INFO
+# (If the logic and/or parser in setup.py is changed, this might not work,
+# but the exact .egg-info filename in %%files works as a regression test.)
+
 %build
 %py3_build
 
@@ -45,9 +53,15 @@ decimal.
 %files -n python3-%{name}
 %license LICENSE.txt
 %doc README.md notes.txt
-%{python3_sitearch}/*
+%{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info/
+%{python3_sitearch}/%{name}%{python3_ext_suffix}
 
 %changelog
+* Wed Jan 25 2023 Miro Hrončok <mhroncok@redhat.com> - 4.0.30-10
+- Fix version in the Python package metadata
+- This makes the package provide python3dist(pyodbc) = 4.0.30 instead of python3dist(pyodbc) = 4.0.0-unsupported
+- This makes the package buildable with python-packaging 22+
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.30-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

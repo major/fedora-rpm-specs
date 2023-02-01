@@ -3,7 +3,7 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.04
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: (GPLv2 or GPLv3) and BSD
 Epoch: 1
 Url: http://www.xpdfreader.com/
@@ -53,6 +53,8 @@ Patch15: xpdf-3.04-nocmap.patch
 Patch25: xpdf-4.00-versionedlib.patch
 Patch26: xpdf-4.02-urw-base35-fonts.patch
 Patch27: xpdf-4.04-libpaper2.patch
+Patch28: xpdf-4.04-GlobalParams-null-fix.patch
+Patch29: xpdf-4.04-shared-xpdf-lib.patch
 
 # Security patches
 # Based on
@@ -74,6 +76,7 @@ Requires: qt5-qtsvg
 
 BuildRequires: qt5-qtbase-devel, cmake
 BuildRequires: freetype-devel >= 2.1.7
+BuildRequires: fontconfig-devel
 BuildRequires: desktop-file-utils
 BuildRequires: libpaper-devel
 BuildRequires: libpng-devel
@@ -97,6 +100,9 @@ standard X fonts.
 
 %package devel
 Requires: %{name}%{_isa} = %{epoch}:%{version}-%{release}
+Requires: libpaper-devel
+Requires: fontconfig-devel, freetype-devel
+Requires: libpng-devel
 Summary: Development files for xpdf libraries
 
 %description devel
@@ -111,6 +117,8 @@ Development files for xpdf libraries.
 %patch25 -p1 -b .versionedlib
 %patch26 -p1 -b .urw-font-fix
 %patch27 -p1 -b .libpaper2
+%patch28 -p1 -b .GlobalParams-null-fix
+%patch29 -p1 -b .shared-xpdf-lib
 
 # security patches
 %patch101 -p1 -b .CVE-2019-12360
@@ -163,6 +171,7 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}
 cp -a %{_vpath_builddir}/fofi/libfofi.so* $RPM_BUILD_ROOT%{_libdir}
 cp -a %{_vpath_builddir}/goo/libgoo.so* $RPM_BUILD_ROOT%{_libdir}
 cp -a %{_vpath_builddir}/splash/libsplash.so* $RPM_BUILD_ROOT%{_libdir}
+cp -a %{_vpath_builddir}/xpdf/libxpdfcore.so* $RPM_BUILD_ROOT%{_libdir}
 
 # headers
 mkdir -p $RPM_BUILD_ROOT%{_includedir}/xpdf/fofi
@@ -171,6 +180,9 @@ mkdir -p $RPM_BUILD_ROOT%{_includedir}/xpdf/splash
 cp -a fofi/*.h $RPM_BUILD_ROOT%{_includedir}/xpdf/fofi/
 cp -a goo/*.h $RPM_BUILD_ROOT%{_includedir}/xpdf/goo/
 cp -a splash/*.h $RPM_BUILD_ROOT%{_includedir}/xpdf/splash/
+cp -a xpdf/*.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
+cp -a %{__cmake_builddir}/aconf.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
+cp -a aconf2.h $RPM_BUILD_ROOT%{_includedir}/xpdf/
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications/
 %if 0%{?rhel} > 5 || 0%{?fedora}
@@ -288,6 +300,11 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so
 
 %changelog
+* Mon Jan 30 2023 Tom Callaway <spot@fedoraproject.org> - 1:4.04-5
+- pull in all the headers
+- apply null fix for default var in GlobalParams()
+- make a libxpdfcore for texlive-base to use
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.04-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

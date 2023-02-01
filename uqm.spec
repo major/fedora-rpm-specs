@@ -1,11 +1,11 @@
 Name:           uqm
-Version:        0.7.0
-Release:        27%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        The Ur-Quan Masters, a port of the classic game Star Control II
 
 License:        GPLv2+
 URL:            http://sc2.sourceforge.net/
-Source0:        http://download.sf.net/sc2/%{name}-%{version}-1-source.tgz
+Source0:        http://download.sf.net/sc2/%{name}-%{version}-src.tgz
 Source1:        %{name}.conf
 Source2:        %{name}.sh
 Source3:        %{name}.desktop
@@ -21,6 +21,7 @@ BuildRequires:  zlib-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libGLU-devel
 BuildRequires:  libmikmod-devel
+BuildRequires:  libpng-devel
 BuildRequires:  gcc
 Requires:       autodownloader
 Provides:       uqm-content = %{version}-%{release}
@@ -39,7 +40,7 @@ version of Star Control II, with their permission and encouragement.
 
 
 %prep
-%setup -qn uqm-0.7.0-1
+%setup -qn uqm-0.8.0
 find -type d -name CVS -exec rm -rf {} ';'
 %patch0 -p0
 
@@ -124,6 +125,9 @@ EOF
 
 
 %changelog
+* Sat Jan 28 2023 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 0.8.0-1
+- Update to 0.8.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

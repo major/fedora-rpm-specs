@@ -5,7 +5,7 @@
 Name: make
 Epoch: 1
 Version: 4.4
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv3+
 URL: http://www.gnu.org/software/make/
 Source: ftp://ftp.gnu.org/gnu/make/make-%{version}.tar.gz
@@ -43,6 +43,10 @@ Patch1: make-4.0-noclock_gettime.patch
 
 # BZs #142691, #17374
 Patch2: make-4.3-j8k.patch
+
+# Upstream commit 92ab2e642d2c04b3dcb5a736ae6193680bfd5f74
+# Remove for 4.4.1 or later
+Patch3: make-4.4-sigpipe.patch
 
 # autoreconf
 BuildRequires: make
@@ -134,6 +138,9 @@ echo ============END TESTING===========
 %{_includedir}/gnumake.h
 
 %changelog
+* Mon Jan 30 2023 DJ Delorie <dj@redhat.com> - 1:4.4-3
+- Handle SIGPIPE as a fatal signal
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

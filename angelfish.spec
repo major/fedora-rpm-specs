@@ -1,6 +1,6 @@
 Name:           angelfish
-Version:        22.11
-Release:        2%{?dist}
+Version:        23.01.0
+Release:        1%{?dist}
 Summary:        Plasma Mobile minimal web browser
 
 License:        MIT and GPLv2+ and LGPLv2 and LGPLv2+
@@ -11,39 +11,40 @@ Source0:        https://download.kde.org/stable/plasma-mobile/%{version}/%{name}
 
 %{?qt5_qtwebengine_arches:ExclusiveArch: %{qt5_qtwebengine_arches}}
 
+BuildRequires:  appstream
+BuildRequires:  cmake
+BuildRequires:  desktop-file-utils
+BuildRequires:  extra-cmake-modules
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  cmake
-BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-rpm-macros
-BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  appstream
  
-BuildRequires:  cmake(Qt5Widgets) 
-BuildRequires:  cmake(Qt5Core) 
-BuildRequires:  cmake(Qt5Quick) 
-BuildRequires:  cmake(Qt5Gui) 
-BuildRequires:  cmake(Qt5QuickControls2) 
-BuildRequires:  cmake(Qt5Multimedia) 
-BuildRequires:  cmake(Qt5Svg) 
-BuildRequires:  cmake(Qt5WebSockets)
-BuildRequires:  cmake(Qt5Keychain)
-BuildRequires:  cmake(KF5Kirigami2) 
-BuildRequires:  cmake(KF5I18n) 
-BuildRequires:  cmake(KF5Notifications) 
-BuildRequires:  cmake(KF5Config) 
+BuildRequires:  cmake(KF5Config)
 BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5DBusAddons)
-BuildRequires:  cmake(Qt5Feedback)
-BuildRequires:  cmake(KF5WindowSystem)
+BuildRequires:  cmake(KF5I18n)
+BuildRequires:  cmake(KF5Kirigami2)
+BuildRequires:  cmake(KF5KirigamiAddons)
+BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5Purpose)
+BuildRequires:  cmake(KF5WindowSystem)
+BuildRequires:  cmake(Qt5Core)
+BuildRequires:  cmake(Qt5Feedback)
+BuildRequires:  cmake(Qt5Gui)
+BuildRequires:  cmake(Qt5Keychain)
+BuildRequires:  cmake(Qt5Multimedia)
+BuildRequires:  cmake(Qt5Quick)
+BuildRequires:  cmake(Qt5QuickControls2)
+BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5WebEngine)
+BuildRequires:  cmake(Qt5WebSockets)
+BuildRequires:  cmake(Qt5Widgets)
 
-Requires:       kf5-kirigami2%{_isa} 
 Requires:       hicolor-icon-theme
-Requires:       qt5-qtwayland%{_isa} 
+Requires:       kf5-kirigami2%{_isa} 
 Requires:       qt5-qtfeedback%{_isa} 
+Requires:       qt5-qtwayland%{_isa} 
 
 %description
 Web browser for mobile devices with Plasma integration
@@ -79,6 +80,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{
 %{_kf5_metainfodir}/org.kde.%{name}.metainfo.xml
 
 %changelog
+* Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
+- Update to 23.01.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

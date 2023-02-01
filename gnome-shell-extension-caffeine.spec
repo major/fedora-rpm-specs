@@ -6,8 +6,8 @@
 %global gschemadir	%{_datadir}/glib-2.0/schemas
 
 Name:		gnome-shell-extension-caffeine
-Version:	42
-Release:	2%{?fgittag:.%{fgittag}}%{?dist}
+Version:	43
+Release:	1%{?fgittag:.%{fgittag}}%{?dist}
 Summary:	Disable the screen saver and auto suspend in gnome shell
 
 License:	GPLv2
@@ -59,6 +59,9 @@ fi
 %{_datadir}/gnome-shell/extensions/%{extdir}
 
 %changelog
+* Mon Jan 30 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 43-1
+- Update to v43
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

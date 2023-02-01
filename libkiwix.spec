@@ -1,6 +1,6 @@
 Name: libkiwix
 Version: 12.0.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPL-3.0-or-later
 Summary: Common code base for all Kiwix ports
@@ -41,7 +41,7 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %autosetup -p1
 
 %build
-%meson -Dwerror=false
+%meson -Dwerror=false -Dcpp_std=c++14
 %meson_build
 
 %install
@@ -60,6 +60,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/kiwix.pc
 
 %changelog
+* Sun Jan 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 12.0.0-4
+- Build with C++14 instead of C++11 for gtest-1.13.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

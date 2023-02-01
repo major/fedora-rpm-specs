@@ -5,6 +5,14 @@
 %global crate libbpf-sys
 %global upstream_version 1.0.4+v1.0.1
 
+%if 0%{?fedora} == 38
+# Fedora 38's libbpf is new enough
+# currently: 1.1.0
+%bcond_without novendor
+%else
+%bcond_with novendor
+%endif
+
 Name:           rust-libbpf-sys
 Version:        1.0.4
 Release:        %autorelease
@@ -15,11 +23,17 @@ URL:            https://crates.io/crates/libbpf-sys
 Source:         %{crates_source %{crate} %{upstream_version}}
 # Manually created patch for downstream crate metadata changes
 # * remove version suffix from crate version
-# * default to novendor
 # * bump bindgen to 0.63
 Patch:          libbpf-sys-fix-metadata.diff
+# Conditional patch for defaulting to novendor
+Patch101:       libbpf-sys-default-to-novendor.diff
 
 BuildRequires:  rust-packaging >= 21
+
+%if %{without novendor}
+# the system libbpf is too old, use the bundled copy
+Provides:       bundled(libbpf) = 1.0.1
+%endif
 
 %global _description %{expand:
 Rust bindings to libbpf from the Linux kernel.}
@@ -31,7 +45,9 @@ Summary:        %{summary}
 BuildArch:      noarch
 Requires:       elfutils-libelf-devel
 Requires:       kernel-headers
+%if %{with novendor}
 Requires:       libbpf-devel
+%endif
 Requires:       zlib-devel
 
 %description    devel %{_description}
@@ -68,6 +84,7 @@ use the "bindgen" feature of the "%{crate}" crate.
 %files       -n %{name}+bindgen-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%if %{with novendor}
 %package     -n %{name}+novendor-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -79,6 +96,7 @@ use the "novendor" feature of the "%{crate}" crate.
 
 %files       -n %{name}+novendor-devel
 %ghost %{crate_instdir}/Cargo.toml
+%endif
 
 %package     -n %{name}+static-devel
 Summary:        %{summary}
@@ -93,16 +111,21 @@ use the "static" feature of the "%{crate}" crate.
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
-%autosetup -n %{crate}-%{upstream_version} -p1
-# Remove bundled libbpf
-rm -r libbpf
+%autosetup -n %{crate}-%{upstream_version} -N
+%autopatch -p1 -M 100
+%if %{with novendor}
+%autopatch -p1 -m 101
+rm -rf libbpf
+%endif
 %cargo_prep
 
 %generate_buildrequires
 %cargo_generate_buildrequires
 echo 'elfutils-libelf-devel'
 echo 'kernel-headers'
+%if %{with novendor}
 echo 'libbpf-devel'
+%endif
 echo 'zlib-devel'
 
 %build

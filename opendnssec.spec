@@ -4,7 +4,7 @@
 Summary: DNSSEC key and zone management software
 Name: opendnssec
 Version: 2.1.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 Url: http://www.opendnssec.org/
 Source0: http://www.opendnssec.org/files/source/%{?prever:testing/}%{name}-%{version}%{?prever}.tar.gz
@@ -16,6 +16,7 @@ Source5: tmpfiles-opendnssec.conf
 Source6: opendnssec.cron
 Source7: opendnssec-2.1.sqlite_convert.sql
 Source8: opendnssec-2.1.sqlite_rpmversion.sql
+Patch1: 0001-Pass-right-remaining-buffer-size-in-hsm_hex_unparse-.patch
 
 Requires: opencryptoki, softhsm >= 2.5.0 , systemd-units
 Requires: libxml2, libxslt sqlite
@@ -45,6 +46,8 @@ name server. It requires a PKCS#11 crypto module library, such as softhsm
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever}
+%patch1 -p1
+
 # bump default policy ZSK keysize to 2048
 sed -i "s/1024/2048/" conf/kasp.xml.in
 
@@ -178,6 +181,10 @@ ods-enforcer update all >/dev/null 2>/dev/null ||:
 %systemd_postun_with_restart ods-signerd.service
 
 %changelog
+* Mon Jan 30 2023 Alexander Bokovoy <abokovoy@redhat.com> - 2.1.10-5
+- Fix fortification issues leading to crash in FreeIPA setup
+  Upstream PR: https://github.com/opendnssec/opendnssec/pull/842
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

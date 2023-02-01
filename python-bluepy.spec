@@ -3,17 +3,25 @@ Python interface to Bluetooth LE on Linux.
 This is a project to provide an API to allow
 access to Bluetooth Low Energy devices from Python.}
 
+%global forgeurl https://github.com/IanHarvey/bluepy
+%global  commit      7ad565231a97c304c0eff45f2649cd005e69db09
+%global  date        20210503
+%global  shortcommit %(c=%{commit}; echo ${c:0:8})
+
 Name:           python-bluepy
-Version:        1.3.0
-Release:        11%{?dist}
+Version:        1.3.0^%{date}git%{shortcommit}
+Release:        1%{dist}
 Summary:        Python interface to Bluetooth LE
 
 #bluepy uses code from the bluez project, which is made available under
 #Version 2 of the GNU Public License, bluepy itself is placed in the
 #public domain
 License:        Public Domain and GPLv2
-URL:            https://github.com/IanHarvey/bluepy
-Source0:        https://github.com/IanHarvey/bluepy/archive/v/%{version}/bluepy-%{version}.tar.gz
+URL:            %{forgeurl}
+Source0:        %{forgeurl}/archive/%{commit}/bluepy-%{version}.tar.gz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 
 %description %_description
 
@@ -34,7 +42,7 @@ Summary:        %{summary}
 Documentation for %{name}.
 
 %prep
-%autosetup -n bluepy-v-%{version}
+%autosetup -n bluepy-%{commit}
 rm -rf bluepy.egg-info
 find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
@@ -75,6 +83,9 @@ done
 %doc docs/_build/html
 
 %changelog
+* Mon Jan 30 2023 Alessio <alciregi AT fedoraproject DOT org> - 1.3.0^20210503git7ad56523-1
+- Update to 2021-05-03 git commit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

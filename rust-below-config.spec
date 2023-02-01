@@ -17,7 +17,7 @@ Source:         %{crates_source}
 Patch:          below-config-fix-metadata.diff
 
 # below-btrfs is not available
-ExcludeArch:    %{ix86}
+ExcludeArch:    %{arm32} %{ix86}
 
 BuildRequires:  rust-packaging >= 21
 

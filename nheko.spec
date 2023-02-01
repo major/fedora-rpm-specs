@@ -1,6 +1,6 @@
 Name: nheko
 Version: 0.11.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Main source - GPL-3.0-or-later.
 # cpp-httplib - bundled - MIT.
@@ -121,6 +121,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 0.11.1-4
+- rebuild
+
 * Fri Jan 27 2023 Jens Petersen <petersen@redhat.com> - 0.11.1-3
 - rebuild f38 against newer cmark
 

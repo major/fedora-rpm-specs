@@ -2,38 +2,23 @@
 
 Name:           rubygem-%{gem_name}
 Summary:        Simple, blog aware, static site generator
-Version:        4.3.1
+Version:        4.3.2
 Release:        %autorelease
 License:        MIT
 
 URL:            https://github.com/jekyll/jekyll
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
 Source1:        %{url}/archive/v%{version}/%{gem_name}-%{version}.tar.gz
-
-# Patch the "new" command to skip the "bundle install" step
-Patch0:         0000-jekyll-commands-remove-bundle-install-step-for-new.patch
-
-# Patch test helper to disable code coverage and minitest plugins
-Patch1:         0001-test-helper-disable-simplecov-and-minitest-plugins.patch
-
-# Patch to remove (failing) internet connectivity check
-Patch2:         0002-test-utils-remove-internet-connectivity-test.patch
-
-# Patch to disable broken tests using the "test-theme" theme
-Patch3:         0003-test-disable-tests-requiring-the-test-theme.patch
-
-# Patches to remove tests for optional functionality with missing dependencies:
-# classifier-reborn, jekyll-coffeescript, pygments.rb, tomlrb
-Patch4:         0004-tests-related_posts-disable-tests-requiring-classifi.patch
-Patch5:         0005-test-coffeescript-disable-tests-requiring-coffeescri.patch
-
-# Patch to disable tests reliant on the Gemfile and .gemspec file,
-# which are not shipped as part of the jekyll gem:
-Patch6:         0006-test-plugin_manager-disable-tests-requiring-gemspec-.patch
-
-# https://github.com/jekyll/jekyll/pull/9237
-# ruby3.2 Struct constructor enables keyword_init: true by default
-Patch7:         0007-pr9237-ruby32-hash-for-Struct-initializer.patch
+Patch:          0000-jekyll-commands-remove-bundle-install-step-for-new.patch
+Patch:          0001-test-helper-disable-simplecov-and-minitest-plugins.patch
+Patch:          0002-test-utils-remove-internet-connectivity-test.patch
+Patch:          0003-test-disable-tests-requiring-the-test-theme.patch
+Patch:          0004-tests-related_posts-disable-tests-requiring-classifi.patch
+Patch:          0005-test-coffeescript-disable-tests-requiring-coffeescri.patch
+Patch:          0006-test-plugin_manager-disable-tests-requiring-gemspec-.patch
+Patch:          0007-Revert-tests-to-expect-jekyll-sass-converter-2.patch
+# https://github.com/jekyll/jekyll/pull/9285
+Patch:          0008-test-use-hash-explicitly-for-Struct-initializer-for-.patch
 
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
@@ -101,7 +86,7 @@ Documentation for %{name}.
 
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%autosetup -N -n %{gem_name}-%{version}
 
 # extract test files not shipped with the gem
 mkdir upstream && pushd upstream
@@ -109,14 +94,7 @@ tar -xzvf %{SOURCE1}
 mv %{gem_name}-%{version}/test ../test
 popd && rm -r upstream
 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
+%autopatch -p1
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec

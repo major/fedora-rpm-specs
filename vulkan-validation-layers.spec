@@ -1,5 +1,5 @@
 Name:           vulkan-validation-layers
-Version:        1.3.231.1
+Version:        1.3.239.0
 Release:        %autorelease
 Summary:        Vulkan validation layers
 
@@ -7,9 +7,6 @@ License:        ASL 2.0
 URL:            https://github.com/KhronosGroup/Vulkan-ValidationLayers
 Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-ValidationLayers-sdk-%{version}.tar.gz
 Patch0:         fix_shared.patch
-
-# it appears there is a warning with rawhide gcc
-Patch1: 	disable-werror.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++

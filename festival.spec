@@ -56,6 +56,7 @@ Patch101: festival-2.5.0-use-system-speech-tools.patch
 Patch102: festival-2.5.0-use-system-libs.patch
 Patch103: festival-2.5.0-filesystem-standard.patch
 Patch104: festival-2.5.0-siteinit.patch
+Patch105: festival-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -298,6 +299,7 @@ you can also interface with Festival in via the shell or with BSD sockets.
 %patch102 -p1 -b .use-system-libs
 %patch103 -p1 -b .filesystem-standard
 %patch104 -p1 -b .siteinit
+%patch105 -p1
 
 %build
 

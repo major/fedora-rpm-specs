@@ -1,5 +1,5 @@
 Name:       labwc
-Version:    0.6.0
+Version:    0.6.1
 Release:    %autorelease
 Summary:    Openbox alternative for Wayland
 
@@ -65,15 +65,16 @@ It has the following aims:
 
 %install
 %meson_install
-install -Dpm0644 %{SOURCE1} -t %{buildroot}%{_datadir}/wayland-sessions/
+install -Dpm 0644 %{SOURCE1} -t %{buildroot}%{_datadir}/wayland-sessions/
 %find_lang %{name}
 
 
 %files -f %{name}.lang
 %license LICENSE
-%doc README.md NEWS.md
+%doc NEWS.md
 %{_bindir}/%{name}
 %{_datadir}/wayland-sessions/%{name}.desktop
+%{_docdir}/%{name}/*
 %{_mandir}/man1/*.1*
 %{_mandir}/man5/*.5*
 

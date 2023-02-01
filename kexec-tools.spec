@@ -5,7 +5,7 @@
 
 Name: kexec-tools
 Version: 2.0.26
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Summary: The kexec/kdump userspace component
 
@@ -105,6 +105,7 @@ Requires:       systemd-udev%{?_isa}
 #
 # Patches 601 onward are generic patches
 #
+Patch601: kexec-tools-2.0.26-makedumpfile-Fix-wrong-exclusion-of-slab-pages-on-Linux-6.2.patch
 
 %description
 kexec-tools provides /sbin/kexec binary that facilitates a new
@@ -120,6 +121,7 @@ mkdir -p -m755 kcp
 tar -z -x -v -f %{SOURCE9}
 tar -z -x -v -f %{SOURCE19}
 
+%patch601 -p1
 
 %ifarch ppc
 %define archdef ARCH=ppc
@@ -412,6 +414,22 @@ fi
 %endif
 
 %changelog
+* Jan 30 2023 Coiby <coxu@redhat.com> - 2.0.26-3
+- kdumpctl: make do_estimate more robust
+- kdumpctl: refractor check_rebuild
+- kdumpctl: cleanup 'stop'
+- kdumpctl: cleanup 'start'
+- kdump-lib: fix prepare_cmdline
+- kdumpctl: move aws workaround to kdump-lib
+- unit tests: add tests for prepare_cmdline
+- kdump-lib: always specify version in is_squash_available
+- mkfadumprd: drop unset globals from debug output
+- kdumpctl: merge check_current_{kdump,fadump}_status
+- dracut-early-kdump: explicitly use bash
+- dracut-early-kdump: fix shellcheck findings
+- kdumpctl: simplify check_failure_action_config
+- makedumpfile: Fix wrong exclusion of slab pages on Linux 6.2-rc1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.26-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

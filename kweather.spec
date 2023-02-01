@@ -1,6 +1,6 @@
 Name:           kweather 
-Version:        22.11
-Release:        3%{?dist}
+Version:        23.01.0
+Release:        1%{?dist}
 License:        GPLv2+
 Summary:        Convergent KDE weather application
 Url:            https://invent.kde.org/plasma-mobile/kweather
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_qtplugindir}/plasma/applets/plasma_applet_%{name}_1x4.so
 
 %changelog
+* Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
+- Update to 23.01.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

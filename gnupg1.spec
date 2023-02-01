@@ -4,8 +4,8 @@
 Summary: A GNU utility for secure communication and data storage
 Name: gnupg1
 Version: 1.4.23
-Release: 21%{?dist}
-License: GPLv3+ with exceptions
+Release: 22%{?dist}
+License: GPL-3.0-or-later WITH Classpath-exception-2.0
 URL: http://www.gnupg.org/
 Source0: https://gnupg.org/ftp/gcrypt/gnupg/gnupg-%{version}.tar.bz2
 Source1: https://gnupg.org/ftp/gcrypt/gnupg/gnupg-%{version}.tar.bz2.sig
@@ -14,7 +14,7 @@ Patch0000: gnupg-1.4.1-gcc.patch
 Patch0001: 0001-Rename-package-to-gnupg1-1656282.patch
 # Fix for  CVE-2022-34903 (rhbz#2108445)
 Patch0002: 0002-g10-status.c-Backport-fix-for-status-buffer-overrun.patch
-Patch3: gnupg1-configure-c99.patch
+Patch0003: gnupg1-configure-c99.patch
 
 BuildRequires: gcc
 # Requires autoconf >= 2.60 because earlier autoconf didn't define $localedir.
@@ -102,6 +102,9 @@ done
 %{_mandir}/man1/gpgv1.1.gz
 
 %changelog
+* Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 1.4.23-22
+- SPDX Migration
+
 * Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 1.4.23-21
 - Port configure script to C99
 

@@ -2,7 +2,7 @@
 
 Name:		rapidjson
 Version:	1.1.0
-Release:	21%{?dist}
+Release:	22%{?dist}
 Summary:	Fast JSON parser and generator for C++
 
 License:	MIT
@@ -85,7 +85,11 @@ find . -type f -name CMakeLists.txt -print0 | \
 
 
 %build
-%cmake -DDOC_INSTALL_DIR=%{_pkgdocdir} -DGTESTSRC_FOUND=TRUE -DGTEST_SOURCE_DIR=.
+%cmake \
+    -DDOC_INSTALL_DIR:PATH=%{_pkgdocdir} \
+    -DRAPIDJSON_BUILD_CXX11:BOOL=OFF \
+    -DGTESTSRC_FOUND:BOOL=ON \
+    -DGTEST_SOURCE_DIR:PATH=.
 %cmake_build
 
 
@@ -115,6 +119,9 @@ find %{buildroot} -type f -name 'CMake*.txt' -delete
 
 
 %changelog
+* Mon Jan 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.0-22
+- Do not force C++11: gtest 1.13.0 requires at least C++14
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,7 +10,7 @@
 #
 # baserelease is what we have standardized across Fedora and what
 # rpmdev-bumpspec knows how to handle.
-%global baserelease 7
+%global baserelease 8
 
 # This should be e.g. beta1 or %%nil
 %global pre_release %nil
@@ -74,6 +74,7 @@ Patch12: 0012-Add-and-use-ts_interval-helper.patch
 Patch13: 0013-downstream-Make-tests-compatible-with-sssd_krb5_loca.patch
 Patch14: 0014-downstream-Include-missing-OpenSSL-FIPS-header.patch
 Patch15: 0015-downstream-Do-not-set-root-as-ksu-file-owner.patch
+Patch16: 0016-downstream-Allow-KRB5KDF-MD5-and-MD4-in-FIPS-mode.patch
 
 License: MIT
 URL: https://web.mit.edu/kerberos/www/
@@ -710,6 +711,10 @@ exit 0
 %{_datarootdir}/%{name}-tests/
 
 %changelog
+* Mon Jan 30 2023 Julien Rische <jrische@redhat.com> - 1.20.1-8
+- Bypass FIPS restrictions to use KRB5KDF in case AES SHA-1 HMAC is enabled
+- Lazily load MD4/5 from OpenSSL if using RADIUS or RC4 enctype in FIPS mode
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

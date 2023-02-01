@@ -1,6 +1,6 @@
 Name:           borgmatic
-Version:        1.7.5
-Release:        2%{?dist}
+Version:        1.7.6
+Release:        1%{?dist}
 Summary:        Simple Python wrapper script for borgbackup
 
 License:        GPLv3
@@ -73,6 +73,9 @@ install -Dpm 0644 %{name}-bash-completion %{buildroot}%{_datadir}/bash-completio
 
 
 %changelog
+* Tue Jan 31 2023 Felix Kaechele <felix@kaechele.ca> - 1.7.6-1
+- update to 1.7.6
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

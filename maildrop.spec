@@ -2,10 +2,10 @@
 
 Summary: Mail delivery agent with filtering abilities
 Name: maildrop
-Version: 3.0.8
-Release: 3%{?dist}
+Version: 3.1.0
+Release: 1%{?dist}
 # Exception is explicit permission to link to OpenSSL
-License: GPLv2 with exceptions
+License: GPL-3.0-only WITH Classpath-exception-2.0
 URL: http://www.courier-mta.org/maildrop/
 Source0: https://downloads.sourceforge.net/project/courier/%{name}/%{version}/%{name}-%{version}.tar.bz2
 Source1: https://downloads.sourceforge.net/project/courier/%{name}/%{version}/%{name}-%{version}.tar.bz2.sig
@@ -16,7 +16,7 @@ BuildRequires: gcc-c++, gdbm-devel, libdb-devel, pcre2-devel
 BuildRequires: gawk
 BuildRequires: gnupg
 BuildRequires: courier-unicode-devel >= 2.1
-BuildRequires: libidn-devel
+BuildRequires: libidn2-devel
 BuildRequires: make
 #Once this is available uncomment and rebuild
 #BuildRequires: courier-authlib-devel
@@ -72,8 +72,8 @@ cp -pr README README.postfix ChangeLog UPGRADE %{buildroot}%{_defaultdocdir}/%{n
 
 %files
 %doc %{_defaultdocdir}/%{name}
-%attr(6755,root,mail) %{_bindir}/maildrop
-%attr(6755,root,mail) %{_bindir}/lockmail
+%attr(555,root,mail) %{_bindir}/maildrop
+%attr(555,root,mail) %{_bindir}/lockmail
 %{_bindir}/deliverquota
 %{_bindir}/mailbot
 %{_bindir}/maildirmake
@@ -90,6 +90,11 @@ cp -pr README README.postfix ChangeLog UPGRADE %{buildroot}%{_defaultdocdir}/%{n
 %{_mandir}/man8/*.8*
 
 %changelog
+* Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 3.1.0-1
+- New upstream v3.1.0
+- drop default suid/sgid bits on maildrop and lockmail
+- SPDX migration and license change
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

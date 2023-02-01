@@ -1,6 +1,6 @@
 Name:       virtualbox-guest-additions
-Version:    7.0.4
-Release:    2%{?dist}
+Version:    7.0.6
+Release:    1%{?dist}
 Summary:    VirtualBox Guest Additions
 License:    GPLv2 or (GPLv2 and CDDL)
 URL:        https://www.virtualbox.org/wiki/VirtualBox
@@ -184,6 +184,9 @@ getent passwd vboxadd >/dev/null || \
 
 
 %changelog
+* Mon Jan 30 2023 Sérgio Basto <sergio@serjux.com> - 7.0.6-1
+- Update virtualbox-guest-additions to 7.0.6 (#2161718)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

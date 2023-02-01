@@ -2,7 +2,7 @@
 
 Name: zimlib
 Version: 8.1.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: GPL-2.0-only AND Apache-2.0 AND BSD-3-Clause
 Summary: Reference implementation of the ZIM specification
@@ -37,7 +37,7 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %autosetup -n %{appname}-%{version} -p1
 
 %build
-%meson -Dwerror=false
+%meson -Dwerror=false -Dcpp_std=c++14
 %meson_build
 
 %install
@@ -54,6 +54,9 @@ Requires: %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 %{_libdir}/pkgconfig/%{appname}.pc
 
 %changelog
+* Mon Jan 30 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 8.1.0-4
+- Build with C++14 instead of C++11 for gtest-1.13.0.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

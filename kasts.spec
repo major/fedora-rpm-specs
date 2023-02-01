@@ -1,8 +1,8 @@
 %global kf5_min_version 5.88.0
 
 Name:           kasts
-Version:        22.11
-Release:        2%{?dist}
+Version:        23.01.0
+Release:        1%{?dist}
 License:        GPLv2 and GPLv2+ and GPLv3+ and BSD and LGPLv3+
 Summary:        A mobile podcast application
 Url:            https://apps.kde.org/%{name}
@@ -23,13 +23,14 @@ BuildRequires:  cmake(Qt5Quick)
 BuildRequires:  cmake(Qt5QuickControls2)
 BuildRequires:  cmake(Qt5Svg)
 
-BuildRequires:  kf5-rpm-macros          >= %{kf5_min_version}
-BuildRequires:  cmake(KF5CoreAddons)    >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Syndication)   >= %{kf5_min_version}
-BuildRequires:  cmake(KF5Config)        >= %{kf5_min_version}
-BuildRequires:  cmake(KF5I18n)          >= %{kf5_min_version}
-BuildRequires: cmake(KF5Kirigami2)      >= %{kf5_min_version}
-BuildRequires:  cmake(KF5ThreadWeaver)  >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Config)         >= %{kf5_min_version}
+BuildRequires:  cmake(KF5CoreAddons)     >= %{kf5_min_version}
+BuildRequires:  cmake(KF5I18n)           >= %{kf5_min_version}
+BuildRequires:  cmake(KF5Kirigami2)      >= %{kf5_min_version}
+BuildRequires:  cmake(KF5KirigamiAddons)
+BuildRequires:  cmake(KF5Syndication)    >= %{kf5_min_version}
+BuildRequires:  cmake(KF5ThreadWeaver)   >= %{kf5_min_version}
+BuildRequires:  kf5-rpm-macros           >= %{kf5_min_version}
 
 %description
 %{summary}.
@@ -50,16 +51,24 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %files -f %{name}.lang
-%license LICENSES/*
 %{_kf5_bindir}/%{name}
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
+%{_kf5_datadir}/icons/hicolor/scalable/actions/media-playback-start-cloud.svg
 %{_kf5_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_libdir}/libKastsSolidExtras.so
-%{_kf5_qmldir}/org/kde/%{name}/solidextras/qmldir
+%{_kf5_libdir}/libKMediaSession.so
+%{_kf5_libdir}/qt5/qml/org/kde/kmediasession/libkmediasession-qmlplugin.so
+%{_kf5_libdir}/qt5/qml/org/kde/kmediasession/qmldir
+%{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_qmldir}/org/kde/%{name}/solidextras/libkasts-solidextrasqmlplugin.so
+%{_kf5_qmldir}/org/kde/%{name}/solidextras/qmldir
+%license LICENSES/*
+
 
 %changelog
+* Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
+- Update to 23.01.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

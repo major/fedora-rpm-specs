@@ -20,6 +20,9 @@ Source2:        %{forgeurl}/raw/v%{version}/etc/logrotate.conf
 # * bump cursive from 0.19.0 to 0.20.0
 Patch:          below-fix-metadata.diff
 
+# below-config and below-model are not available
+ExcludeArch:    %{arm32} %{ix86}
+
 BuildRequires:  rust-packaging >= 21
 BuildRequires:  systemd-rpm-macros
 

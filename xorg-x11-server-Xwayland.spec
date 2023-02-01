@@ -9,7 +9,7 @@
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
 Version:   22.1.7
-Release:   3%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Release:   4%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -101,7 +101,7 @@ necessary for developing Wayland compositors using Xwayland.
 %prep
 %autosetup -N -S git_am -n %{pkgname}-%{?gitdate:%{commit}}%{!?gitdate:%{version}}
 
-%if 0%{fedora} >= 38
+%if 0%{?fedora} >= 38
 %autopatch
 %else
 %autopatch -M 3800
@@ -137,6 +137,9 @@ rm -Rf $RPM_BUILD_ROOT%{_localstatedir}/lib/xkb
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Sun Jan 29 2023 Stefan Bluhm <stefan.bluhm@clacee.eu> - 22.1.7-4
+- Updated conditional Fedora statement.
+
 * Thu Jan 19 2023 Olivier Fourdan <ofourdan@redhat.com> - 22.1.7-3
 - Use the recommended way to apply conditional patches without
   conditionalizing the sources (for byte-swapped clients).

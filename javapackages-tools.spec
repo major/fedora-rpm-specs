@@ -14,7 +14,7 @@
 
 Name:           javapackages-tools
 Version:        6.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD
 URL:            https://github.com/fedora-java/javapackages
@@ -226,6 +226,9 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 %license LICENSE
 
 %changelog
+* Wed Jan 25 2023 Marian Koncek <mkoncek@redhat.com> - 6.1.0-7
+- Add generated Requires on multiple versions of java-headless
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
