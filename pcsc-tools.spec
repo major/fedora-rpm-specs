@@ -1,6 +1,6 @@
 Name:           pcsc-tools
-Version:        1.6.1
-Release:        2%{?dist}
+Version:        1.6.2
+Release:        1%{?dist}
 Summary:        Tools to be used with smart cards and PC/SC
 
 License:        GPLv2+
@@ -70,6 +70,9 @@ desktop-file-install --mode=644 \
 
 
 %changelog
+* Tue Jan 31 2023 Jakub Jelen <jjelen@redhat.com> - 1.6.2-1
+- New upstream release (#2165783)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

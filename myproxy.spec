@@ -10,13 +10,14 @@
 
 Name:           myproxy
 Version:        6.2.14
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Manage X.509 Public Key Infrastructure (PKI) security credentials
 
 License:        NCSA and BSD and ASL 2.0
 URL:            http://grid.ncsa.illinois.edu/myproxy/
 Source:         https://repo.gridcf.org/gct6/sources/%{name}-%{version}.tar.gz
 Source8:        README
+Patch0: myproxy-configure-c99.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -162,7 +163,9 @@ trusted CA certificates and Certificate Revocation Lists (CRLs).
 Package %{name}-doc contains the MyProxy documentation.
 
 %prep
-%setup -q
+%autosetup -p1
+# Prevent autotools from running.
+touch -r aclocal.m4 configure*
 
 %build
 # Reduce overlinking
@@ -360,6 +363,9 @@ fi
 %license LICENSE*
 
 %changelog
+* Tue Jan 31 2023 Florian Weimer <fweimer@redhat.com> - 6.2.14-4
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

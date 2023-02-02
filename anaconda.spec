@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.18
+Version: 38.19
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -464,6 +464,20 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Jan 31 2023 Packit <hello@packit.dev> - 38.19-1
+- Remove mocking of modules for sphinx docs builds (vslavik)
+- docs: Update branching instructions (vslavik)
+- docs: Fix release badge URL (vslavik)
+- Remove leftovers after the isys module removal (vslavik)
+- Templatize kickstart version (vslavik)
+- Ignore jinja templates in RPM tests (vslavik)
+- Show only usable devices in custom partitioning (jstodola)
+- Add base for integration testing and default installation test (zveleba)
+- Add storage helper function for listing disks (zveleba)
+- Add helper for back button to WebUI tests (zveleba)
+- Fix missing tests in release archive (marmarek)
+- Update translations from Weblate
+
 * Tue Jan 24 2023 Packit <hello@packit.dev> - 38.18-1
 - Extend the DBus API of the DNF module (vponcova)
 - webui: Disable check for unexpected SELinux denials (martin)

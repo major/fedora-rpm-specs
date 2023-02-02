@@ -11,6 +11,11 @@ Source0:        %url/archive/sdk-%{sdkver}.tar.gz#/SPIRV-Headers-sdk-%{sdkver}.t
 
 BuildArch:      noarch
 
+BuildRequires:  cmake3
+BuildRequires:  ninja-build
+BuildRequires:  gcc
+BuildRequires:  gcc-c++
+
 %description
 %{summary}
 
@@ -40,16 +45,18 @@ chmod a-x include/spirv/1.2/spirv.py
 
 
 %build
-
+%cmake3 -DCMAKE_INSTALL_LIBDIR=%{_lib} -GNinja
+%cmake_build
 
 %install
-mkdir -p %buildroot%{_includedir}/
-mv include/* %buildroot%{_includedir}/
+%cmake_install
 
 %files devel
 %license LICENSE
 %doc README.md
 %{_includedir}/spirv/
+%{_datadir}/cmake/SPIRV-Headers/*.cmake
+%{_datadir}/pkgconfig/SPIRV-Headers.pc
 
 %changelog
 %autochangelog

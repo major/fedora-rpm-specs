@@ -1,7 +1,7 @@
 Name:           adwaita-qt
 Version:        1.4.2
-Release:        2%{?dist}
-License:        LGPLv2+ and GPLv2+
+Release:        3%{?dist}
+License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 Summary:        Adwaita theme for Qt-based applications
 
 Url:            https://github.com/FedoraQt/adwaita-qt
@@ -125,6 +125,9 @@ rm -rf %{buildroot}%{_libdir}/pkgconfig/adwaita-qt6.pc
 %{_libdir}/libadwaitaqt6priv.so
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 1.4.2-3
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,8 +9,8 @@
 
 Name:    akregator
 Summary: Feed Reader
-Version: 22.12.1
-Release: 2%{?dist}
+Version: 22.12.2
+Release: 1%{?dist}
 
 # code (generally) GPLv2, docs GFDL
 License: GPLv2 and GFDL
@@ -152,6 +152,9 @@ make test ARGS="--output-on-failure --timeout 20" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
+- 22.12.2
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

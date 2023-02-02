@@ -2,9 +2,9 @@
 
 Name:           megatools
 Version:        1.11.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Command line client for MEGA
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://megatools.megous.com/
 Source0:        http://megatools.megous.com/builds/builds/%{name}-%{version}.%{snapshot}.tar.gz
 Source1:        http://megatools.megous.com/builds/builds/%{name}-%{version}.%{snapshot}.tar.gz.asc
@@ -58,6 +58,9 @@ allow. Memory requirements and CPU utilization are kept at minimum.
 
 
 %changelog
+* Tue Jan 31 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.11.0-9
+- Rebuilt for SPDX
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,18 +1,15 @@
 %define pkg magit
 %define pkgname Magit
 
-%global commit 08449840608ab20c0361caf2174628fd188dba5a
-%global commitdate 20201015
-%global shortcommit %(c=%{commit}; echo ${c:0:9})
-
 Name:           emacs-%{pkg}
-Version:        2.90.1
-Release:        6.%{commitdate}git%{shortcommit}%{?dist}
+Version:        3.3.0
+Release:        1%{?dist}
 Summary:        Emacs interface to the most common Git operations
 License:        GPLv3+
 URL:            https://magit.vc
 
-Source0:        https://github.com/magit/magit/archive/%{commit}/%{pkg}-%{shortcommit}.tar.gz
+Source0:        https://github.com/magit/magit/releases/download/v%{version}/magit-%{version}.tar.gz
+Source1:        magit-init.el
 
 BuildArch:      noarch
 BuildRequires:  emacs emacs-async emacs-dash
@@ -30,7 +27,7 @@ the Git source-code management system that aims to make the most
 common operations convenient.
 
 %prep
-%autosetup -n %{pkg}-%{commit}
+%autosetup -n %{pkg}-%{version}
 
 %global MAKE_PARMS VERSION="%{version}-%{release}" LOAD_PATH="-L %{_emacs_sitelispdir}/dash -L %{_emacs_sitelispdir}/transient -L %{_emacs_sitelispdir}/with-editor -L $(pwd)/lisp"
 
@@ -52,14 +49,22 @@ make install \
 # clean up after magit's installer's assumptions
 rm ${RPM_BUILD_ROOT}/%{_docdir}/%{pkg}/AUTHORS.md
 
+mkdir -p %{buildroot}%{_emacs_sitestartdir}/
+cp -p %{SOURCE1} %{buildroot}%{_emacs_sitestartdir}/
+
 %files
 %license LICENSE
 %doc README.md
 %{_emacs_sitelispdir}/%{pkg}
+%{_emacs_sitestartdir}/magit-init.el
 %{_infodir}/%{pkg}*.info.*
 
 
 %changelog
+* Tue Jan 31 2023 Jens Petersen <petersen@redhat.com> - 3.3.0-1
+- update to 3.3.0 (#1964366)
+- restore magit-init.el to autoload magit-status
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.90.1-6.20201015git084498406
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

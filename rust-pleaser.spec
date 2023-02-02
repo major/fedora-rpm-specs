@@ -5,15 +5,17 @@
 
 Name:           rust-pleaser
 Version:        0.5.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Please, a polite regex-first sudo alternative
 
 License:        GPL-3.0-or-later
 URL:            https://crates.io/crates/pleaser
-Source0:        %{crates_source}
-Source1:        LICENSE.dependencies
+Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * restrict dependencies on nix and syslog crates to compatible versions
+Patch:          pleaser-fix-metadata.diff
 
-BuildRequires:  rust-packaging >= 21
+BuildRequires:  rust-packaging >= 23
 
 %global _description %{expand:
 Please, a polite regex-first sudo alternative.}
@@ -22,12 +24,13 @@ Please, a polite regex-first sudo alternative.}
 
 %package     -n %{crate}
 Summary:        %{summary}
+# (MIT OR Apache-2.0) AND Unicode-DFS-2016
 # Apache-2.0
 # GPL-3.0-or-later
 # MIT
 # MIT OR Apache-2.0
 # Unlicense OR MIT
-License:        GPL-3.0-or-later AND Apache-2.0 AND MIT
+License:        GPL-3.0-or-later AND Apache-2.0 AND MIT AND Unicode-DFS-2016
 
 %description -n %{crate} %{_description}
 
@@ -74,7 +77,6 @@ use the "default" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-cp %{SOURCE1} .
 %cargo_prep
 
 %generate_buildrequires
@@ -82,6 +84,7 @@ cp %{SOURCE1} .
 
 %build
 %cargo_build
+%{cargo_license} > LICENSE.dependencies
 
 %install
 %cargo_install
@@ -118,6 +121,9 @@ EOF
 %endif
 
 %changelog
+* Tue Jan 31 2023 Fabio Valentini <decathorpe@gmail.com> - 0.5.3-3
+- Restrict dependencies on nix and syslog crates to compatible versions.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

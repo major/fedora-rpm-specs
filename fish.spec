@@ -1,4 +1,4 @@
-%global version_base 3.5.1
+%global version_base 3.6.0
 #global gitnum 120
 #global githash 1a0b1ae238e1deb132a0ae4a8d0c589d583cc5b0
 #global githashshort %{lua:print(string.sub(rpm.expand('%{githash}'), 1, 11))}
@@ -74,7 +74,6 @@ nothing to learn or configure.
 %if %{defined gitnum}
 echo "%{version_base}-%{gitnum}g%{githashshort}" > version
 %endif
-rm -vr pcre2*
 
 # Change the bundled scripts to invoke the python binary directly.
 for f in $(find share/tools -type f -name '*.py'); do

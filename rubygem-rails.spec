@@ -3,8 +3,8 @@
 
 Name: rubygem-%{gem_name}
 Epoch: 1
-Version: 7.0.4
-Release: 2%{?dist}
+Version: 7.0.4.2
+Release: 1%{?dist}
 Summary: Full-stack web application framework
 License: MIT
 URL: http://rubyonrails.org
@@ -52,6 +52,10 @@ cp -a .%{gem_dir}/* \
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Jan 25 2023 Pavel Valena <pvalena@redhat.com> - 1:7.0.4.2-1
+- Update to rails 7.0.4.2.
+  Resolves: rhbz#2032639
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:7.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

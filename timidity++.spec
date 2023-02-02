@@ -7,7 +7,7 @@
 Summary: A software wavetable MIDI synthesizer
 Name: timidity++
 Version: 2.15.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: http://downloads.sourceforge.net/timidity/TiMidity++-2.15.0.tar.xz
 Source1: timidity.desktop
 Source2: timidity-xaw.desktop
@@ -23,6 +23,7 @@ Patch10: 0010-Pass-LDFLAGS-to-addon-linking.patch
 Patch13: 0013-readmidi-Fix-division-by-zero.patch
 Patch14: 0014-resample-Fix-out-of-bound-access-in-resamplers.patch
 Patch15: 0015-timidity-no_date.patch
+Patch16: timidity++-configure-c99.patch
 URL: http://timidity.sourceforge.net
 License: GPLv2
 BuildRequires: make gcc
@@ -101,6 +102,9 @@ install -p -m 644 interface/pixmaps/timidity.xpm \
 
 
 %changelog
+* Tue Jan 31 2023 Jonathan Wakely <jwakely@redhat.com> - 2.15.0-7
+- Patch configure for C99 porting effort
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

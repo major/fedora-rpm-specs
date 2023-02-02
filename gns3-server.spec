@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.34
-Release:        2%{?dist}
+Version:        2.2.37
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -14,8 +14,6 @@ URL:            http://gns3.com
 Source0:        https://github.com/GNS3/gns3-server/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        gns3.service
 Patch0:         0001-changing-busybox-udhcpc-script-path.patch
-#backport python3.11 fix
-Patch1:         https://github.com/GNS3/gns3-server/commit/2d74d1ad94fa3ae48651778a89918524c7910dfb.patch
 
 BuildArch:      noarch
 
@@ -58,14 +56,17 @@ Requires: %{name} = %{version}-%{release}
 
 # Relax requirements
 sed -i -r 's/==/>=/g' requirements.txt
-sed -i -r 's/3.7.4.*/3.7.4/' requirements.txt
 sed -i -r 's/distro>=1.7.*/distro>=1.6.0/' requirements.txt
-sed -i -r 's/psutil>=5.9.1/psutil>=5.8.0/' requirements.txt
-sed -i -r 's/aiofiles>=0.8/aiofiles>=0.7/' requirements.txt
-sed -i -r 's/jinja2>=3.0.3/jinja2>=3.0.1/' requirements.txt
+sed -i -r 's/psutil>=5.9.4/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/aiofiles>=22.1.0/aiofiles>=0.7/' requirements.txt
+sed -i -r 's/Jinja2>=3.1.2/jinja2>=3.0.1/' requirements.txt
+sed -i -r 's/jsonschema>=4.17.3/jsonschema>=3.2.0/' requirements.txt
+sed -i -r 's/py-cpuinfo>=9.0.0/py-cpuinfo>=8.0.0/' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r '/setuptools/d' requirements.txt
 
+# Don't bundle busybox with the package
+sed -i '/^copy_busybox/d' setup.py
 
 %build
 %py3_build
@@ -91,15 +92,12 @@ mkdir -p  %{buildroot}%{_sharedstatedir}/gns3
 ## Remove tests: they are outside the namespace
 rm -rf %{buildroot}/%{python3_sitelib}/tests/
 
-## Don't bundle busybox with the package.
-rm -f %{buildroot}/%{python3_sitelib}/gns3server/compute/docker/resources/bin/busybox
-
 %check
 
 
 %files
 %license LICENSE
-%doc README.rst AUTHORS CHANGELOG
+%doc README.md AUTHORS CHANGELOG
 %{python3_sitelib}/gns3_server*.egg-info/
 %ghost %{python3_sitelib}/gns3server/compute/docker/resources/bin/busybox
 %{python3_sitelib}/gns3server/
@@ -134,6 +132,9 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Jan 31 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.37-1
+- Update to 2.2.37
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.34-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

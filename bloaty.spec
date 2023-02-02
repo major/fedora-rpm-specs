@@ -1,6 +1,6 @@
 Name:           bloaty
 Version:        1.1
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A size profiler for binaries
 
 
@@ -11,6 +11,9 @@ Source0:        https://github.com/google/bloaty/archive/v%{version}/%{name}-%{v
 Patch0:         bloaty-1.1-absl.patch
 # Patch to fix size detection function to use 64 bit types on 32bit architectures
 Patch1:         bloaty-1.1-longlong.patch
+# Add missing #include needed on GCC13
+# https://github.com/google/bloaty/pull/332
+Patch2:         %{url}/pull/332.patch
 
 BuildRequires:  abseil-cpp-devel
 BuildRequires:  capstone-devel
@@ -32,7 +35,9 @@ libraries. Bloaty supports the ELF and Mach-O formats, and has experimental
 support for WebAssembly.
 
 %prep
-%autosetup -p0 -S gendiff
+%autosetup -S gendiff -N
+%autopatch -p0 -M 1
+%patch2 -p1
 
 
 %build
@@ -56,6 +61,9 @@ support for WebAssembly.
 
 
 %changelog
+* Thu Jan 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1-19
+- Patch for GCC 13
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

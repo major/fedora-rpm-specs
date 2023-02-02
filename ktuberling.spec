@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 Name:    ktuberling
 Summary: Picture game for children
-Version: 22.12.1
-Release: 2%{?dist}
+Version: 22.12.2
+Release: 1%{?dist}
 
 License: GPL-2.0-or-later AND GFDL-1.2-or-later
 URL:     https://invent.kde.org/games/%{name}/
@@ -87,6 +87,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
+- 22.12.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 Name:    ktp-send-file
 Summary: A File manager plugin to launch file transfer jobs
-Version: 22.12.1
-Release: 2%{?dist}
+Version: 22.12.2
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/network/%{name}
@@ -60,6 +60,9 @@ Provides:       telepathy-kde-send-file = %{version}-%{release}
 
 
 %changelog
+* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
+- 22.12.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

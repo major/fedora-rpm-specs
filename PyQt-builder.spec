@@ -2,8 +2,8 @@
 %global srcname PyQt-builder
 
 Name:           %{srcname}
-Version:        1.13.0
-Release:        3%{?dist}
+Version:        1.14.1
+Release:        1%{?dist}
 Summary:        The PEP 517 compliant PyQt build system
 
 License:        GPLv2 or GPLv3
@@ -12,7 +12,6 @@ Source0:        %{pypi_source}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description
 PyQt-builder is the PEP 517 compliant build system for PyQt and projects that
@@ -26,15 +25,21 @@ project.py.
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 # These dll files are from openssl and microsoft visiual studio
 # While we can redistribute them, we don't have source and it's 
 # unlikely anyone will want to bundle a windows executable from linux.
 rm -rf %{buildroot}/%{python3_sitelib}/pyqtbuild/bundle/dlls
+
+%check
+%py3_check_import pyqtbuild
 
 %files
 %license LICENSE-GPL2
@@ -42,9 +47,13 @@ rm -rf %{buildroot}/%{python3_sitelib}/pyqtbuild/bundle/dlls
 %{_bindir}/pyqt-bundle
 %{_bindir}/pyqt-qt-wheel
 %{python3_sitelib}/pyqtbuild
-%{python3_sitelib}/PyQt_builder-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/PyQt_builder-%{version}.dist-info
 
 %changelog
+* Tue Jan 31 2023 Scott Talbert <swt@techie.net> - 1.14.1-1
+- Update to new upstream release 1.14.1 (#2131649)
+- Modernize python packaging
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

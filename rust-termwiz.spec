@@ -19,6 +19,8 @@ Patch:          termwiz-fix-metadata-auto.diff
 Patch:          termwiz-fix-metadata.diff
 # Backport of 7b904f05eb4de9ed44d2068355a571b117eba0e1
 Patch:          termwiz-fixup-32-bit-systems.patch
+# Backport of 36519f0d90e1875fb4b3f11f6cbf94c7d716ef78
+Patch:          0001-fix-unsafe-cast-that-caused-calls-of-free-with-inval.patch
 
 BuildRequires:  rust-packaging >= 21
 

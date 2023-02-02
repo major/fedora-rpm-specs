@@ -9,10 +9,10 @@
 
 Name:       llvm-libunwind
 Version:    %{libunwind_version}%{?rc_ver:~rc%{rc_ver}}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    LLVM libunwind
 
-License:    ASL 2.0 or NCSA or MIT
+License:    Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
 URL:        http://llvm.org
 Source0:    https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{libunwind_srcdir}.tar.xz
 Source1:    https://github.com/llvm/llvm-project/releases/download/llvmorg-%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:-rc%{rc_ver}}/%{libunwind_srcdir}.tar.xz.sig
@@ -61,7 +61,7 @@ Summary: Static library for LLVM libunwind
 %package doc
 Summary:    libunwind documentation
 # jquery.js and langage_data.js are used in the HTML doc and under BSD License
-License:    BSD and (ASL 2.0 or NCSA or MIT)
+License:    BSD AND (Apache-2.0 WITH LLVM-exception OR NCSA OR MIT)
 
 %description doc
 Documentation for LLVM libunwind
@@ -137,6 +137,10 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-3
+- Update license to SPDX identifiers.
+- Include the Apache license adopted in 2019.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

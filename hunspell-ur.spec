@@ -7,7 +7,7 @@
 Name: hunspell-ur
 Summary: Urdu hunspell dictionaries
 Version: 0.64
-Release: 25%{?dist}
+Release: 26%{?dist}
 #http://urdudictionary.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=30004#DownloadId=74761
 #and click yes to agree to LGPLv2+, which stinks as a download-url :-(
 Source: UrduDictionary.xpi
@@ -26,8 +26,8 @@ Urdu hunspell dictionaries.
 %setup -q -c -n hunspell-ur
 
 %build
-rdfproc hunspell-ur parse install.rdf
-rdfproc hunspell-ur print | grep install-manifest | grep -v targetApplication | sed -e 's/.*#//' | sed -e 's/], "/: /'| sed -e 's/"}//' > CREDITS
+rdfproc -s file hunspell-ur parse install.rdf
+rdfproc -s file hunspell-ur print | grep install-manifest | grep -v targetApplication | sed -e 's/.*#//' | sed -e 's/], "/: /'| sed -e 's/"}//' > CREDITS
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
@@ -47,6 +47,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Tue Jan 31 2023 Caolan McNamara <caolanm@redhat.com> - 0.64-26
+- Related: rhbz#1788504 drop use of libdb from rdfproc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

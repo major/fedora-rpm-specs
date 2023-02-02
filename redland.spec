@@ -1,7 +1,7 @@
 
 Name:           redland
 Version:        1.0.17
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        RDF Application Framework
 
 License:        LGPLv2+ or ASL 2.0
@@ -16,18 +16,17 @@ BuildRequires:  make
 BuildRequires:  curl-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gtk-doc
-BuildRequires:  libdb-devel
 BuildRequires:  libtool
 BuildRequires:  libtool-ltdl-devel
 BuildRequires:  libxml2-devel >= 2.4.0
 BuildRequires:  perl-interpreter
 BuildRequires:  raptor2-devel 
 BuildRequires:  rasqal-devel >= 0.9.26
+BuildRequires:  sqlite-devel
 
 %if ! 0%{?rhel}
 BuildRequires:  libpq-devel
 BuildRequires:  mariadb-connector-c-devel
-BuildRequires:  sqlite-devel
 %endif
 
 %if 0%{?rhel}
@@ -83,13 +82,11 @@ sed -i -e 's|"/lib /usr/lib|"/%{_lib} %{_libdir}|' configure
 
 %build
 
-# rhbz#1952816 we need at last --with-bdb so rdfproc can work, e.g. rebuild of hunspell-ur
-
 %if 0%{?rhel}
-%define distrooptions --disable-digests --without-sqlite --without-mysql --without-postgresql
+%define distrooptions --disable-digests --without-mysql --without-postgresql
 %else
 # fedora
-%define distrooptions --with-sqlite --with-mysql --with-postgresql
+%define distrooptions --with-mysql --with-postgresql
 %endif
 
 export CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
@@ -97,7 +94,8 @@ export CXXFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 %configure \
   --enable-release \
   --disable-static \
-  --with-bdb \
+  --with-sqlite \
+  --without-bdb \
   --without-threestone \
   --without-virtuoso \
   %{distrooptions} \
@@ -158,6 +156,10 @@ make check
 %{_mandir}/man1/redland-config.1*
 
 %changelog
+* Tue Jan 31 2023 Caolán McNamara <caolanm@redhat.com> - 1.0.17-33
+- Resolves: rhbz#1788504 drop libdb dependency from redland
+  note: rdfproc -s file of -s sqlite are potentially options
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.17-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

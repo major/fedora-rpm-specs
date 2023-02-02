@@ -1,13 +1,10 @@
 %global pypi_name sip
 
 Name:           sip6
-Version:        6.7.5
-Release:        2%{?dist}
+Version:        6.7.6
+Release:        1%{?dist}
 Summary:        SIP - Python/C++ Bindings Generator
 %py_provides    python3-sip6
-# Remove when F34 is EOL
-Provides:       sip5%{?_isa} = %{version}-%{release}
-Obsoletes:      sip5 < 6.0.0
 
 # code_generator/parser.{c.h} is GPLv2+ with exceptions (bison)
 License:        (GPLv2 or GPLv3) and (GPLv2+ with exceptions)
@@ -16,7 +13,6 @@ Source0:        %{pypi_source}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist packaging ply setuptools toml}
 
 %global _description %{expand:
 SIP is a collection of tools that makes it very easy to create Python bindings
@@ -30,11 +26,14 @@ Python bindings for wxWidgets.}
 %prep
 %autosetup -n %{pypi_name}-%{version} -p 1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %py3_check_import sipbuild sipbuild.distinfo sipbuild.module sipbuild.tools
@@ -48,6 +47,10 @@ Python bindings for wxWidgets.}
 %{python3_sitearch}/sipbuild/
 
 %changelog
+* Tue Jan 31 2023 Scott Talbert <swt@techie.net> - 6.7.6-1
+- Update to new upstream release 6.7.6 (#2165207)
+- Modernize python packaging
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

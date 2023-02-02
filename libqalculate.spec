@@ -80,7 +80,6 @@ rm -f %{buildroot}/%{_libdir}/*.la
 %{_libdir}/libqalculate.so.%{libversion}
 %{_libdir}/libqalculate.so.%{libversion}.%{libsymlink}
 %{_datadir}/qalculate/
-%{_mandir}/man1/qalc.1.*
 
 %files devel
 %{_libdir}/libqalculate.so
@@ -89,6 +88,7 @@ rm -f %{buildroot}/%{_libdir}/*.la
 
 %files -n qalculate
 %{_bindir}/qalc
+%{_mandir}/man1/qalc.1*
 
 %changelog
 %autochangelog

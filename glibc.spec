@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.36.9000-453-g0d50f477f4
+%global glibcsrcdir glibc-2.36.9000-456-g2f39e44a84
 %global glibcversion 2.36.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 24
+%global baserelease 25
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,6 +230,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
+Patch24: glibc-dprintf-length.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2193,6 +2194,14 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Tue Jan 31 2023 Florian Weimer <fweimer@redhat.com> - 2.36.9000-25
+- Apply glibc-dprintf-length.patch to fix dprintf return value regression.
+- Auto-sync with upstream branch master,
+  commit 2f39e44a8417b4186a7f15bfeac5d0b557e63e03:
+- Account for octal marker in %#o format (rhbz#2165869)
+- Use binutils 2.40 branch in build-many-glibcs.py
+- Use MPFR 4.2.0, MPC 1.3.1 in build-many-glibcs.py
+
 * Wed Jan 25 2023 Florian Weimer <fweimer@redhat.com> - 2.36.9000-24
 - Auto-sync with upstream branch master,
   commit 0d50f477f47ba637b54fb03ac48d769ec4543e8d:

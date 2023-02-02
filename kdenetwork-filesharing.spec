@@ -1,7 +1,7 @@
 Name:    kdenetwork-filesharing
 Summary: Network filesharing
-Version: 22.12.1
-Release: 2%{?dist}
+Version: 22.12.2
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -14,6 +14,9 @@ URL:     https://invent.kde.org/network/%{name}
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/release-service/%{version}/src/%{name}-%{version}.tar.xz
+
+# Fix GCC 13 compilation
+Patch0: 5c2d4ff3092155d24164c24a2a9a610325ff7174.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: extra-cmake-modules
@@ -73,6 +76,9 @@ Conflicts: kde-l10n < 17.03
 
 
 %changelog
+* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
+- 22.12.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

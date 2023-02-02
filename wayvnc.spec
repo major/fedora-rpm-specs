@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:     wayvnc
-Version:  0.5.0
-Release:  3%{?dist}
+Version:  0.6.2
+Release:  2%{?dist}
 Summary:  A VNC server for wlroots based Wayland compositors
 License:  ISC
 URL:      https://github.com/any1/wayvnc
@@ -15,14 +15,18 @@ BuildRequires: pkgconfig(egl)
 BuildRequires: pkgconfig(glesv2)
 BuildRequires: pkgconfig(gnutls)
 BuildRequires: pkgconfig(libdrm)
-BuildRequires: pkgconfig(neatvnc) >= 0.5.1
+BuildRequires: pkgconfig(neatvnc) >= 0.6.0
 BuildRequires: pam-devel
 BuildRequires: pkgconfig(pixman-1)
 BuildRequires: pkgconfig(wayland-client)
 BuildRequires: pkgconfig(xkbcommon) >= 1.0.0
+BuildRequires: pkgconfig(jansson)
+BuildRequires: pkgconfig(aml) >= 0.3.0
 BuildRequires: scdoc
 
 Requires: (sway >= 1.6 if sway)
+Requires: aml >= 0.3.0
+Requires: neatvnc >= 0.6.0
 
 %description
 
@@ -45,13 +49,21 @@ physical display attached.
 
 %files
 %{_bindir}/%{name}
+%{_bindir}/%{name}ctl
 
 %doc README.md FAQ.md
 %{_mandir}/man1/%{name}.1.*
+%{_mandir}/man1/%{name}ctl.1.*
 
 %license COPYING
 
 %changelog
+* Tue Jan 31 2023 Bob Hepple <bob.hepple@gmail.com> - 0.6.2-2
+- add versioning for aml & neatvnc
+
+* Tue Jan 31 2023 Bob Hepple <bob.hepple@gmail.com> - 0.6.2-1
+- new version
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

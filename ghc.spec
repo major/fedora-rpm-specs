@@ -299,7 +299,8 @@ Summary: GHC library documentation indexing
 License: BSD
 Obsoletes: ghc-doc-cron < %{version}-%{release}
 Requires: %{name}-compiler = %{version}-%{release}
-BuildArch: noarch
+# due to disabled haddock archs
+#BuildArch: noarch
 %obsoletes_ghcXY doc-index
 
 %description doc-index
@@ -308,7 +309,8 @@ The package enables re-indexing of installed library documention.
 
 %package filesystem
 Summary: Shared directories for Haskell documentation
-BuildArch: noarch
+# due to disabled haddock archs
+#BuildArch: noarch
 Obsoletes: %{name}-filesystem < %{version}-%{release}
 %obsoletes_ghcXY filesystem
 
@@ -704,7 +706,7 @@ rm %{buildroot}%{_pkgdocdir}/archives/libraries.html.tar.xz
 %if %{with manual}
 rm %{buildroot}%{_pkgdocdir}/archives/Haddock.html.tar.xz
 rm %{buildroot}%{_pkgdocdir}/archives/users_guide.html.tar.xz
-mv %{buildroot}%{ghc_html_dir}/users_guide/build-man/ghc.1 %{buildroot}%{_mandir}/man1/
+mv %{buildroot}%{_ghc_doc_dir}/users_guide/build-man/ghc.1 %{buildroot}%{_mandir}/man1/
 %endif
 %endif
 

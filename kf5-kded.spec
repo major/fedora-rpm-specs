@@ -24,8 +24,7 @@ BuildRequires:  kf5-rpm-macros
 
 BuildRequires:  qt5-qtbase-devel
 
-BuildRequires:  systemd
-%{?systemd_requires}
+BuildRequires:  systemd-rpm-macros
 
 
 %description

@@ -4,12 +4,12 @@
 
 Name:           tigervnc
 Version:        1.12.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.tigervnc.com
 
 Source0:        https://github.com/TigerVNC/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -334,6 +334,9 @@ fi
 %ghost %verify(not md5 size mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 1.12.0-9
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

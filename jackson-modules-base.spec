@@ -1,8 +1,8 @@
 %bcond_with     jp_minimal
 
 Name:           jackson-modules-base
-Version:        2.14.1
-Release:        4%{?dist}
+Version:        2.14.2
+Release:        1%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
@@ -100,6 +100,9 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Tue Jan 31 2023 Chris Kelley <ckelley@redhat.com> - 2.14.2-1
+- Update to version 2.14.2
+
 * Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 2.14.1-4
 - Depend on compat versions of activation and XML bind
 

@@ -1,6 +1,6 @@
 Name:       mock-core-configs
-Version:    37.9
-Release:    2%{?dist}
+Version:    38.1
+Release:    1%{?dist}
 Summary:    Mock core config files basic chroots
 
 License:    GPL-2.0-or-later
@@ -18,7 +18,7 @@ BuildArch:  noarch
 Provides: mock-configs
 
 # distribution-gpg-keys contains GPG keys used by mock configs
-Requires:   distribution-gpg-keys >= 1.77
+Requires:   distribution-gpg-keys >= 1.82
 # specify minimal compatible version of mock
 Requires:   mock >= 2.5
 Requires:   mock-filesystem
@@ -140,8 +140,11 @@ fi
 %ghost %config(noreplace,missingok) %{_sysconfdir}/mock/default.cfg
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Jan 31 2023 Pavel Raiskup <praiskup@redhat.com> 38.1-1
+- update openEuler gpg key (pkwarcraft@gmail.com)
+- Branch Fedora 38 (miro@hroncok.cz)
+- disable fastestmirror on almalinux (jonathan@almalinux.org)
+- openEuler 22.03-SP1 released, use the latest repo url (pkwarcraft@gmail.com)
 
 * Thu Jan 05 2023 Pavel Raiskup <praiskup@redhat.com> 37.9-1
 - missmatching gpg key and rpms in openEuler 20.03 LTS (pkwarcraft@gmail.com)

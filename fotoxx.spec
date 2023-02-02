@@ -1,6 +1,6 @@
 Name:    fotoxx
-Version: 23.0
-Release: 2%{?dist}
+Version: 23.1
+Release: 1%{?dist}
 Summary: Photo editor
 
 License: GPLv3+
@@ -75,6 +75,9 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 %{_datadir}/metainfo/
 
 %changelog
+* Tue Jan 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.1-1
+- 23.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

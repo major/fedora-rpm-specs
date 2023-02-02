@@ -2,7 +2,7 @@
 
 Name: gtk-doc
 Version: 1.33.2
-Release: 7%{?dist}
+Release: 8%{?dist}
 Summary: API documentation generation tool for GTK+ and GNOME
 
 License: GPLv2+ and GFDL
@@ -35,6 +35,9 @@ BuildRequires: yelp-tools
 Requires: docbook-utils /usr/bin/xsltproc docbook-style-xsl
 Requires: python3-pygments
 Requires: python3-lxml
+
+# Required for cmake directory
+Requires: cmake-filesystem
 
 %description
 gtk-doc is a tool for generating API reference documentation.
@@ -69,9 +72,12 @@ mv doc/README doc/README.docs
 %{_datadir}/gtk-doc/
 %{_datadir}/pkgconfig/gtk-doc.pc
 %{_datadir}/help/*/gtk-doc-manual/
-%{_libdir}/cmake/
+%{_libdir}/cmake/GtkDoc/
 
 %changelog
+* Tue Jan 31 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.33.2-8
+- Fix ownership of cmake directory
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.33.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

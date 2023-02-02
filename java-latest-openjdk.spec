@@ -322,7 +322,7 @@
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
 %global buildver        7
-%global rpmrelease      3
+%global rpmrelease      4
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
 # Using 10 digits may overflow the int used for priority, so we combine the patch and build versions
@@ -1303,24 +1303,24 @@ Source16: CheckVendor.java
 Source18: TestTranslations.java
 
 %if %{include_normal_build}
-BuildRequires: %{portable_name}
-BuildRequires: %{portable_name}-devel
+BuildRequires: %{portable_name} >= %{version}
+BuildRequires: %{portable_name}-devel >= %{version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs
+BuildRequires: %{portable_name}-static-libs >= %{version}
 %endif
 %endif
 %if %{include_fastdebug_build}
-BuildRequires: %{portable_name}-fastdebug
-BuildRequires: %{portable_name}-devel-fastdebug
+BuildRequires: %{portable_name}-fastdebug >= %{version}
+BuildRequires: %{portable_name}-devel-fastdebug >= %{version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs-fastdebug
+BuildRequires: %{portable_name}-static-libs-fastdebug >= %{version}
 %endif
 %endif
 %if %{include_debug_build}
-BuildRequires: %{portable_name}-slowdebug
-BuildRequires: %{portable_name}-devel-slowdebug
+BuildRequires: %{portable_name}-slowdebug >= %{version}
+BuildRequires: %{portable_name}-devel-slowdebug >= %{version}
 %if %{include_staticlibs}
-BuildRequires: %{portable_name}-static-libs-slowdebug
+BuildRequires: %{portable_name}-static-libs-slowdebug >= %{version}
 %endif
 %endif
 BuildRequires: desktop-file-utils
@@ -1333,7 +1333,6 @@ BuildRequires: crypto-policies
 BuildRequires: pkgconfig
 BuildRequires: zip
 BuildRequires: javapackages-filesystem
-#BuildRequires: java-latest-openjdk-devel
 # ?
 BuildRequires: tzdata-java >= 2022g
 
@@ -2030,7 +2029,6 @@ rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/NEWS #is in commondocdir. Ok 
 if [ "x$suffix" = "x" ] ; then
   rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/javadocs.zip #is in subpackages, 1 renamed, 2nd unpacked
 fi
-#rm $RPM_BUILD_ROOT/%{_jvmdir}/%{sdkdir -- $suffix}/lib/libfreetype.so #bug in portables? bug in rpms?
 # end, dual install
 done
 
@@ -2357,6 +2355,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Mon Jan 30 2023 Jiri Vanek <jvanek@redhat.com> - 1:19.0.2.0.7-4.rolling
+- repacked bits are now requested in exact version
+
 * Mon Jan 30 2023 Petra Alice Mikova <pmikova@redhat.com> - 1:19.0.2.0.7-3.rolling
 - return libfreetype.so binary to resolve requires problems
 - remove BuildRequires: java-latest-openjdk

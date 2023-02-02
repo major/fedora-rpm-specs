@@ -5,8 +5,8 @@
 %global debug_package %{nil}
 
 Name:     ydotool
-Version:  1.0.3
-Release:  2%{?dist}
+Version:  1.0.4
+Release:  1%{?dist}
 Summary:  Generic command-line automation tool (no X!)
 License:  AGPLv3
 URL:      https://github.com/ReimuNotMoe/%{name}
@@ -68,6 +68,9 @@ scdoc < manpage/%{name}d.8.scd > %{buildroot}/%{_mandir}/man8/%{name}d.8
 %{_mandir}/man8/%{name}d.8.*
 
 %changelog
+* Tue Jan 31 2023 Bob Hepple <bob.hepple@gmail.com> - 1.0.4-1
+- new version
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

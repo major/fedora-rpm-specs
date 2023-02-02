@@ -20,6 +20,10 @@ Source0:        %url/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # Patch to unbundle 3rd party code
 Patch1:         0001-Drop-third-party-code-in-CMakeLists.txt.patch
 Patch2:         glslang_linker_flags.patch
+# https://github.com/google/shaderc/pull/1264
+# Included in 2022.3
+# Related to https://github.com/KhronosGroup/SPIRV-Tools/pull/4915 (SDK 1.3.231.1)
+Patch3:         shaderc-pr1264-GL_EXT_mesh_shader-support.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++

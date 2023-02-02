@@ -2,7 +2,7 @@
 
 %global shortname vbam
 #Upstream git tag/commit:
-%global upstreamtag 2.1.4
+%global upstreamtag 2.1.5
 #Sanitized RC name (for fedora)
 #global rctagfedora git78cd223
 #RC Version that appears in app
@@ -10,19 +10,17 @@
 
 Name:           visualboyadvance-m
 Version:        %{upstreamtag}
-Release:        4%{?rctagfedora:.%{rctagfedora}}%{?dist}.6
+Release:        1%{?rctagfedora:.%{rctagfedora}}%{?dist}
 Summary:        High compatibility Gameboy Advance Emulator combining VBA builds
 
 License:        GPLv2
 Url:            http://www.vba-m.com
 Source0:        https://github.com/%{name}/%{name}/archive/v%{upstreamtag}.tar.gz#/%{name}-%{version}%{?rctagfedora:-%{rctagfedora}}.tar.gz
-#Upstream patch:
-#https://github.com/visualboyadvance-m/visualboyadvance-m/commit/af0de1c4b308ef8d9a081ecf407805b75a99d877
-Patch0:         0001-xbrz-fix-inline-asm-check.patch
-#https://github.com/visualboyadvance-m/visualboyadvance-m/commit/410ede543c98c8c6dd89c25484da3bffb46f4187
-Patch1:         0001-Check-for-null-pointer-in-soundReset.patch
-#https://github.com/visualboyadvance-m/visualboyadvance-m/commit/619a5cce683ec4b1d03f08f316ba276d8f8cd824
-Patch2:         0001-SDL-Fix-build-with-SDL-2.0.14-after-KMOD_GUI-change-.patch
+#https://github.com/visualboyadvance-m/visualboyadvance-m/commit/8e4acfc91d17b24d5ab64b9defd04f85010add1d
+Patch0:         0001-Fix-build-w-wxUSE_GLCANVAS_EGL-0-on-Fedora.patch
+#https://github.com/visualboyadvance-m/visualboyadvance-m/pull/1065
+Patch1:         0001-Add-stdint-includes.patch
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cairo-devel
@@ -91,7 +89,7 @@ chmod -x src/wx/rpi.h
 
 %check
 desktop-file-validate \
-    %{buildroot}%{_datadir}/applications/wx%{shortname}.desktop
+    %{buildroot}%{_datadir}/applications/%{name}.desktop
 appstream-util validate-relax --nonet \
   %{buildroot}/%{_datadir}/appdata/*.appdata.xml
 
@@ -100,10 +98,10 @@ appstream-util validate-relax --nonet \
 %doc doc/ips.htm
 %{_mandir}/man6/%{name}.*
 %{_bindir}/%{name}
-%{_datadir}/applications/wx%{shortname}.desktop
-%{_datadir}/appdata/wx%{shortname}.appdata.xml
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/appdata/%{name}.appdata.xml
 %{_datadir}/%{shortname}
-%{_datadir}/icons/hicolor/*/apps/%{shortname}.*
+%{_datadir}/icons/hicolor/*/apps/%{name}.*
 
 %files sdl
 %doc doc/ReadMe.SDL.txt
@@ -113,6 +111,9 @@ appstream-util validate-relax --nonet \
 %{_bindir}/%{shortname}
 
 %changelog
+* Mon Jan 30 2024 Jeremy Newton <alexjnewt at hotmail dot com> - 2.1.5-1
+- Update to 2.1.5
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.4-4.6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

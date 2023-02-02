@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 2
+%global baserelease 3
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -121,6 +121,7 @@ BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  avahi-devel
 BuildRequires:  pkgconfig(webrtc-audio-processing) >= 0.2
 BuildRequires:  libusb1-devel
+BuildRequires:  libunwind-devel
 BuildRequires:  readline-devel
 BuildRequires:  lilv-devel
 BuildRequires:  openssl-devel
@@ -666,6 +667,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Sat Jan 28 2023 Stefan Bluhm <stefan.bluhm@clacee.eu> - 0.3.65-3
+- Added missing build dependency
+
 * Thu Jan 26 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.65-2
 - Add NEWS file (rhbz#2032237)
 

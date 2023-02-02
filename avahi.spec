@@ -519,8 +519,8 @@ mkdir -p %{buildroot}%{_localstatedir}/lib/avahi-autoipd
 rm -rfv %{buildroot}%{_datadir}/%{name}-%{version}
 
 # Make /etc/avahi/etc/localtime owned by avahi:
-mkdir -p %{buildroot}/etc/avahi/etc
-touch %{buildroot}/etc/avahi/etc/localtime
+mkdir -p %{buildroot}%{_sysconfdir}/avahi/etc
+touch %{buildroot}%{_sysconfdir}/avahi/etc/localtime
 
 # fix bug 197414 - add missing symlinks for avahi-compat-howl and avahi-compat-dns-sd
 %if %{WITH_COMPAT_HOWL}
@@ -575,7 +575,7 @@ exit 0
 %{?ldconfig}
 /usr/bin/dbus-send --system --type=method_call --dest=org.freedesktop.DBus / org.freedesktop.DBus.ReloadConfig >/dev/null 2>&1 || :
 if [ "$1" -eq 1 -a -s /etc/localtime ]; then
-        /usr/bin/cp -cfp /etc/localtime /etc/avahi/etc/localtime >/dev/null 2>&1 || :
+        /usr/bin/cp -cfp /etc/localtime %{_sysconfdir}/avahi/etc/localtime >/dev/null 2>&1 || :
 fi
 %systemd_post avahi-daemon.socket avahi-daemon.service
 

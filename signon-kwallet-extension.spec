@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:    signon-kwallet-extension
-Version: 22.12.1
-Release: 2%{?dist}
+Version: 22.12.2
+Release: 1%{?dist}
 Summary: KWallet integration for Sign-on framework
 
 License: GPLv2+
@@ -45,6 +45,9 @@ BuildRequires:  signon-devel
 
 
 %changelog
+* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
+- 22.12.2
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

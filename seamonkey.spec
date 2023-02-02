@@ -2,7 +2,7 @@
 %bcond_without	system_nss
 %bcond_without	system_libvpx
 %bcond_without	system_webp
-%bcond_with	system_icu
+%bcond_without	system_icu
 %bcond_without	system_ffi
 %bcond_with	system_hunspell
 %bcond_with	system_cairo

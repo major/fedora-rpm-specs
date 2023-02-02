@@ -1,7 +1,7 @@
 Summary: An easy to use, modeless text editor
 Name: joe
 Version: 4.6
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: GPLv2+
 URL: http://sourceforge.net/projects/joe-editor/
 Source: http://downloads.sourceforge.net/joe-editor/joe-%{version}.tar.gz
@@ -14,6 +14,8 @@ Patch2: joe-3.8-time.patch
 Patch4: joe-3.8-indent-ow.patch
 Patch5: joe-3.8-aarch64.patch
 Patch6: joe-3.8-format-security.patch
+# https://sourceforge.net/p/joe-editor/mercurial/merge-requests/3/
+Patch7: joe-4.6-c99.patch
 
 BuildRequires: gcc make
 BuildRequires: ncurses-devel libselinux-devel
@@ -31,6 +33,7 @@ environment.
 %patch4 -p1 -b .of
 %patch5 -p1 -b .aarch64
 %patch6 -p1 -b .format-security
+%patch7 -p1 -b .c99
 
 iconv -f koi8-r -t utf-8 ./man/ru/joe.1.in >./man/ru/joe.1.in.aux
 touch -r ./man/ru/joe.1.in ./man/ru/joe.1.in.aux
@@ -69,6 +72,9 @@ popd
 %exclude %{_datadir}/applications/j*desktop
 
 %changelog
+* Tue Jan 31 2023 Nikita Popov <npopov@redhat.com> - 4.6-16
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

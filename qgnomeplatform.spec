@@ -1,9 +1,9 @@
 Name:           qgnomeplatform
 Version:        0.9.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Qt Platform Theme aimed to accommodate Gnome settings
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://github.com/FedoraQt/QGnomePlatform
 Source0:        https://github.com/FedoraQt/QGnomePlatform/archive/%{version}/QGnomePlatform-%{version}.tar.gz
 
@@ -106,6 +106,9 @@ modifying them - making them fit into the environment as well as possible.
 %{_qt6_plugindir}/wayland-decoration-client/libqgnomeplatformdecoration.so
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 0.9.0-9
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

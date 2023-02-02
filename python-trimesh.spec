@@ -1,5 +1,5 @@
 Name:           python-trimesh
-Version:        3.18.1
+Version:        3.18.2
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -28,6 +28,20 @@ Source0:        https://github.com/mikedh/trimesh/archive/%{version}/trimesh-%{v
 %undefine __brp_python_bytecompile
 
 BuildRequires:  python3-devel
+
+# See the definition of requirements_test, which corresponds to the “test”
+# extra, in setup.py; however, we do not generate BuildRequires from the “test”
+# extra because most of the dependencies are for linting or coverage and would
+# need to be patched out:
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+#
+# run all unit tests
+BuildRequires:  python3dist(pytest)
+# use as a validator for exports
+BuildRequires:  python3dist(ezdxf)
+
+# Run tests in parallel:
+BuildRequires:  python3dist(pytest-xdist)
 
 # Meshlab Server Does Not Work With XVFB
 # https://github.com/cnr-isti-vclab/meshlab/issues/237
@@ -64,7 +78,7 @@ Recommends:     blender
 %description -n python3-trimesh %{_description}
 
 
-%if 0%{?fedora} && 0%{?fedora} > 38
+%if 0%{?fedora} > 38
 %pyproject_extras_subpkg -n python3-trimesh easy all
 %else
 # We base these extras metapackages
@@ -176,7 +190,7 @@ sed -r -i "/'pyinstrument',/d" setup.py
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x test,all
+%pyproject_buildrequires -x all
 
 
 %build
@@ -269,7 +283,7 @@ EOF
 )
 
 export PYTHONPATH="${PWD}/_stub:%{buildroot}%{python3_sitelib}"
-%pytest -v -k "${k-}"
+%pytest -v -k "${k-}" -n auto
 
 
 %files -n python3-trimesh

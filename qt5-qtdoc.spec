@@ -3,9 +3,9 @@
 Summary: Main Qt5 Reference Documentation
 Name:    qt5-%{qt_module}
 Version: 5.15.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 
-License: GFDL
+License: GFDL-1.3-no-invariants-or-later
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
@@ -50,6 +50,9 @@ make install_docs INSTALL_ROOT=%{buildroot}
 
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

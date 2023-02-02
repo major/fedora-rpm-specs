@@ -183,6 +183,9 @@ to be installed.
   -D dv=%{?with_extras:enabled}%{!?with_extras:disabled} \
   -D dv1394=%{?with_extras:enabled}%{!?with_extras:disabled} \
 %endif
+%if 0%{?_module_build} && "%{_module_name}" == "flatpak-runtime"
+  -D v4l2-gudev=disabled \
+%endif
   -D qt6=disabled
 
 %meson_build

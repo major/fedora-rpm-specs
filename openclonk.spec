@@ -11,15 +11,17 @@
 Name:           openclonk
 Summary:        Multiplayer action, tactics and skill game
 Version:        8.1
-Release:        20.%{date}git%{shortcommit}%{?dist}
+Release:        21.%{date}git%{shortcommit}%{?dist}
 URL:            http://www.openclonk.org/
 Source0:        https://github.com/openclonk/openclonk/archive/%{commit}/%{name}-%{commit}.tar.gz
 License:        ISC and CC-BY-SA
 
 Source1:        %{name}-html.desktop
 Source2:        %{name}-docs.png
-Patch0:         %{name}-gcc11.patch
-Patch1:         %{name}-bin-path.patch
+Patch:          %{name}-bin-path.patch
+# Add missing #include directives needed for recent GCC versions
+# https://github.com/openclonk/openclonk/pull/160
+Patch:          https://github.com/openclonk/openclonk/pull/160.patch
 
 BuildRequires: make
 BuildRequires:  boost-devel
@@ -205,6 +207,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %endif
 
 %changelog
+* Mon Jan 30 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 8.1-21.20210103git701bcf3
+- Patch for GCC 13 and offer upstream with the GCC 11 patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.1-20.20210103git701bcf3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

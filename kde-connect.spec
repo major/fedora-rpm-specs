@@ -4,8 +4,8 @@
 %global base_name kdeconnect-kde
 
 Name:    kde-connect
-Version: 22.12.1
-Release: 3%{?dist}
+Version: 22.12.2
+Release: 1%{?dist}
 License: GPLv2+
 Summary: KDE Connect client for communication with smartphones
 
@@ -17,10 +17,6 @@ Url:     https://community.kde.org/KDEConnect
 %global stable stable
 %endif
 Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{base_name}-%{version}.tar.xz
-
-# Fixes https://bugs.kde.org/show_bug.cgi?id=443155
-# https://invent.kde.org/network/kdeconnect-kde/-/commit/a7c17468
-Patch0:         a7c17468f0bf16e4ed87c093dac0b77749c61d50.diff
 
 ## upstream patches (lookaside cache)
 
@@ -195,6 +191,9 @@ done
 
 
 %changelog
+* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
+- 22.12.2
+
 * Tue Jan 24 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.1-3
 - Add upstream patch
 

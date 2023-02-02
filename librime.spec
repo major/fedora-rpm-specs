@@ -1,5 +1,5 @@
 Name:           librime
-Version:        1.8.3
+Version:        1.8.4
 Release:        1%{?dist}
 Summary:        Rime Input Method Engine Library
 
@@ -80,6 +80,10 @@ The %{name}-tools package contains tools for %{name}.
 
 
 %changelog
+* Tue Jan 31 2023 Peng Wu <pwu@redhat.com> - 1.8.4-1
+- Update to 1.8.4
+- Resolves: RHBZ#2165654
+
 * Sat Jan 28 2023 Peng Wu <pwu@redhat.com> - 1.8.3-1
 - Update to 1.8.3
 - Resolves: RHBZ#2164891

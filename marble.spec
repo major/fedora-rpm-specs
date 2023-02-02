@@ -2,8 +2,8 @@
 Name:    marble
 Summary: Virtual globe and world atlas 
 Epoch:   1
-Version: 22.12.1
-Release: 3%{?dist}
+Version: 22.12.2
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     http://edu.kde.org/marble/
@@ -258,6 +258,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.marble-qt.des
 
 
 %changelog
+* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 1:22.12.2-1
+- 22.12.2
+
 * Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 1:22.12.1-3
 - rebuild for new libgps
 

@@ -5,17 +5,22 @@
 
 Name:           guitarix
 Version:        0.44.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        A virtual guitar amplifier
 License:        GPLv2+
 URL:            http://guitarix.sourceforge.net/
 Source0:        http://sourceforge.net/projects/%{name}/files/%{name}/%{altname2}-%{version}.tar.xz
+# Patch merged upstream
 Patch0:         %{name}-mismatched-delete.patch
+# Patch merged upstream
+Patch1:         %{name}-python-3.11-ftbfs.patch
+# Patch sent upstream by Thomas Rodgers https://github.com/brummer10/guitarix/pull/120
+Patch2:         %{name}-cstdint-include.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3
+BuildRequires:  python3-devel
 BuildRequires:  %{_bindir}/find
-BuildRequires:  %{_bindir}/pathfix.py
 BuildRequires:  desktop-file-utils
 BuildRequires:  faust
 BuildRequires:  fftw-devel >= 3.3.8
@@ -124,7 +129,7 @@ guitarix, but can also be used by any other ladspa host.
 %autosetup -p1 -n %{name}-%{version}
 
 # Fix unversioned python shebangs
-pathfix.py -pni %{_bindir}/python3 \
+%py3_shebang_fix \
     $(find -name wscript) \
     waf \
     tools/make_jsonrpc_methods \
@@ -209,6 +214,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{
 %{_libdir}/lv2/*
 
 %changelog
+* Tue Jan 31 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.44.1-5
+- Use shebang fix macro
+
+* Tue Jan 31 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.44.1-4
+- Fix FTBFS with python 3.11 and gcc 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.44.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

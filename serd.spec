@@ -1,14 +1,15 @@
 %global maj 0
 
 Name:           serd
-Version:        0.30.12
-Release:        3%{?dist}
+Version:        0.30.16
+Release:        1%{?dist}
 Summary:        A lightweight C library for RDF syntax
 
 License:        ISC
 URL:            http://drobilla.net/software/serd/
-Source0:        http://download.drobilla.net/%{name}-%{version}.tar.bz2
+Source0:        http://download.drobilla.net/%{name}-%{version}.tar.xz
 
+BuildRequires:  meson
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  glib2-devel
@@ -37,30 +38,21 @@ This package contains the headers and development libraries for %{name}.
 
 %prep
 %autosetup -p1
-# Do not run ldconfig, see
-# https://fedoraproject.org/wiki/Changes/Removing_ldconfig_scriptlets
-sed -i -e 's|bld.add_post_fun(autowaf.run_ldconfig)||' wscript
 
 %build
-%set_build_flags
-%{python3} waf configure \
-    --prefix=%{_prefix} \
-    --libdir=%{_libdir} \
-    --mandir=%{_mandir} \
-    --datadir=%{_datadir} \
-    --docdir=%{_docdir} \
-    --test \
-    --docs 
-%{python3} waf build -v %{?_smp_mflags}
+%meson
+%meson_build
 
 %install
-DESTDIR=%{buildroot} %{python3} waf install
-chmod +x %{buildroot}%{_libdir}/lib%{name}-%{maj}.so.*
+%meson_install
 # Delete sphinx buildinfo
-rm %{buildroot}%{_docdir}/%{name}-%{maj}/c/{html,singlehtml}/.buildinfo
+rm %{buildroot}%{_docdir}/%{name}-%{maj}/{html,singlehtml}/.buildinfo
 # Move devel docs to the right directory
-install -d %{buildroot}%{_docdir}/%{name}/%{name}-%{maj}
-mv %{buildroot}%{_docdir}/%{name}-%{maj}/c %{buildroot}%{_docdir}/%{name}/%{name}-%{maj}/c
+install -d %{buildroot}%{_docdir}/%{name}
+mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
+
+%check
+%meson_test
 
 %files
 %license COPYING
@@ -76,6 +68,9 @@ mv %{buildroot}%{_docdir}/%{name}-%{maj}/c %{buildroot}%{_docdir}/%{name}/%{name
 %{_includedir}/%{name}-%{maj}/
 
 %changelog
+* Tue Jan 31 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.30.16-1
+- Update to 0.30.16
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

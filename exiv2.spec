@@ -3,11 +3,11 @@
 
 Summary: Exif and Iptc metadata manipulation library
 Name:    exiv2
-Version: 0.27.5
+Version: 0.27.6
 %global internal_ver %{version}
 Release: 4%{?dist}
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     http://www.exiv2.org/
 %if 0%{?beta:1}
 Source0: https://github.com/Exiv2/exiv2/archive/v%{version}-%{beta}/%{name}-%{version}-%{beta}.tar.gz
@@ -123,6 +123,10 @@ test -x %{buildroot}%{_libdir}/libexiv2.so
 
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 0.27.6-1
+- 0.27.6
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

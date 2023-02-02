@@ -13,20 +13,20 @@
 %global	userelease	1
 %endif
 
-%global	mainver	38
-%global	docver		38
+%global	mainver	39
+%global	docver		39
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
 %global	mainrel	1
 
 %if 0%{?usegitbare} >= 1
-%global	gitcommit	c8ac00e87a524b756f0548cfbb249bcf79c5ec79
-%global	gitdate	20221028
+%global	gitcommit	4bcd4daf559e70f268b5540bdf6afdf38e458e13
+%global	gitdate	20221227
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 
-%global	tarballdate	20221029
-%global	tarballtime	2236
+%global	tarballdate	20221231
+%global	tarballtime	2138
 %endif
 
 %if 0%{?userelease} >= 1
@@ -61,6 +61,7 @@ Source10:		create-ngspice-git-bare-tarball.sh
 # Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or
 # not (bug 1047056, debian bug 737279)
 Patch0:		ngspice-37-blt-linkage-workaround.patch
+Patch10:		0001-osdi-fix-wrong-usage-of-max_align_t.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -190,6 +191,7 @@ popd
 
 %patch0 -p2 -b .link
 git commit -m "Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or not" -a
+cat %PATCH10 | git am
 
 # make sure the examples are UTF-8...
 for nonUTF8 in \
@@ -275,6 +277,7 @@ export CPPFLAGS=-DUSE_INTERP_RESULT
 	--disable-silent-rules \
 	--enable-adms \
 	--enable-xspice \
+	--enable-osdi \
 	--enable-maintainer-mode \
 	--enable-dependency-tracking \
 	--enable-cider \
@@ -313,6 +316,7 @@ do
 	${SHARED_OPT} \
 	--enable-adms \
 	--enable-xspice \
+	--enable-osdi \
 	--enable-maintainer-mode \
 	--enable-dependency-tracking \
 	--enable-cider \
@@ -450,6 +454,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Wed Feb  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 39-1
+- Update to 39
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

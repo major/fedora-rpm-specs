@@ -69,7 +69,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	NCSA
@@ -88,6 +88,7 @@ Patch0:		0001-cmake-Allow-shared-libraries-to-customize-the-soname.patch
 %endif
 Patch1:		0001-XFAIL-missing-abstract-variable.ll-test-on-ppc64le.patch
 Patch2:		0001-Disable-CrashRecoveryTest.DumpStackCleanup-test-on-a.patch
+Patch3:                 gcc12.patch
 
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
@@ -544,6 +545,9 @@ fi
 %endif
 
 %changelog
+* Tue Jan 31 2023 Jens Petersen <petersen@redhat.com> - 13.0.1-4
+- Add gcc12 patch to add includes needed for GCC 12 (Jerry James)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 13.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

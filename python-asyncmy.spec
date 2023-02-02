@@ -5,7 +5,7 @@
 
 Name:           python-asyncmy
 Summary:        A fast asyncio MySQL/MariaDB driver
-Version:        0.2.5
+Version:        0.2.6
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -42,6 +42,8 @@ BuildRequires:  python3dist(cryptography)
 # pymysql = "0.8.1" ← benchmarks only
 # pytest = "*"
 BuildRequires:  python3dist(pytest)
+# rich = "*" ← benchmarks only
+# pyproject-flake8 = "*" ← linter/formatter
 # pytest-asyncio = "*"
 BuildRequires:  python3dist(pytest-asyncio)
 # pytest-mock = "*"

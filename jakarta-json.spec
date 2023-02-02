@@ -1,6 +1,6 @@
 Name:           jakarta-json
 Version:        2.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Jakarta JSON Processing
 
 License:        EPL-2.0 OR GPL-2.0-only WITH Classpath-exception-2.0
@@ -14,7 +14,6 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-jar-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:buildnumber-maven-plugin)
 BuildRequires:  mvn(org.glassfish.build:spec-version-maven-plugin)
 
 BuildArch:      noarch
@@ -49,6 +48,7 @@ transform, and query JSON documents.
 # Unnecessary plugins for an RPM build
 %pom_remove_plugin org.glassfish.copyright:glassfish-copyright-maven-plugin api
 %pom_remove_plugin org.apache.maven.plugins:maven-javadoc-plugin api
+%pom_remove_plugin org.codehaus.mojo:buildnumber-maven-plugin api
 
 # This plugin is not available in Fedora
 %pom_remove_plugin com.github.spotbugs:spotbugs-maven-plugin api
@@ -69,6 +69,9 @@ ln -s api/.mfiles-javadoc .
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Tue Jan 31 2023 Jerry James <loganjerry@gmail.com> - 2.1.1-3
+- Remove dependency on buildnumber-maven-plugin
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

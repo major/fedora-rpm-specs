@@ -115,8 +115,9 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/FFI
+%{perl_vendorlib}/FFI/CheckLib.pm
+%{_mandir}/man3/FFI::CheckLib.*
 
 %files tests
 %{_libexecdir}/%{name}

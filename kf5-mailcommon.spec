@@ -1,8 +1,8 @@
 %global framework mailcommon
 
 Name:    kf5-%{framework}
-Version: 22.12.1
-Release: 2%{?dist}
+Version: 22.12.2
+Release: 1%{?dist}
 Summary: Mail applications support library
 
 License: GPLv2
@@ -109,6 +109,9 @@ Requires:       cmake(KF5PimCommon)
 
 
 %changelog
+* Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
+- 22.12.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

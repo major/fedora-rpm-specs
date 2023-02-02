@@ -9,10 +9,9 @@
 Summary: Qt6 - VirtualKeyboard component
 Name:    qt6-%{qt_module}
 Version: 6.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
-# See LGPL_EXCEPTIONS.txt, LICENSE.GPL3, respectively, for exception details
-License: LGPLv2 with exceptions or GPLv3 with exceptions
+License: GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 %global  qt_version %(echo %{version} | cut -d~ -f1)
@@ -117,6 +116,9 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-4
+- migrated to SPDX license
+
 * Mon Jan 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 6.4.2-3
 - Enable the Hunspell input method
 

@@ -1,8 +1,8 @@
 %define target avr
 
 Name:           %{target}-binutils
-Version:        2.39
-Release:        3%{?dist}
+Version:        2.40
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU binutils targeted at %{target}
 License:        GPLv2+
@@ -12,7 +12,6 @@ Source1:        README.fedora
 #add widespread options to avr-size: --format=avr -mcu=XX
 Patch1: http://distribute.atmel.no/tools/opensource/avr-gcc/binutils-2.20.1/30-binutils-2.20.1-avr-size.patch
 Patch2: avr-binutils-config.patch
-Patch3: binutils-libiberty-configure-compile-warnings.patch
 
 BuildRequires:  gawk texinfo gcc
 #for autoreconf:
@@ -32,7 +31,6 @@ native %{_arch} platform.
 pushd binutils-%{version}
 %patch1 -p2 -b .avr-size
 %patch2 -p1 -b .config
-%patch3 -p1 -b .configure-c99
 
 # We call configure directly rather than via macros, thus if
 # we are using LTO, we have to manually fix the broken configure
@@ -86,6 +84,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Wed Feb 01 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.40-1
+- updated to 2.40
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.39-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

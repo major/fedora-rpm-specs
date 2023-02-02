@@ -4,8 +4,8 @@
 %global git_tag %{version}
 
 Name:           gns3-gui
-Version:        2.2.34
-Release:        2%{?dist}
+Version:        2.2.37
+Release:        1%{?dist}
 Summary:        GNS3 graphical user interface
 
 License:        GPLv3+
@@ -44,8 +44,9 @@ sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r '/setuptools/d' requirements.txt
 # Lower psutil>=5.8.0
-sed -i -r 's/psutil>=5.9.1/psutil>=5.8.0/' requirements.txt
+sed -i -r 's/psutil>=5.9.4/psutil>=5.8.0/' requirements.txt
 sed -i -r 's/distro>=1.7.*/distro>=1.6.0/' requirements.txt
+sed -i -r 's/jsonschema>=4.17.3/jsonschema>=3.2.0/' requirements.txt
 
 # Disable update alerts
 sed -i 's/"check_for_update": True,/"check_for_update": False,/' gns3/settings.py
@@ -84,7 +85,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 
 %files 
 %license LICENSE
-%doc README.rst AUTHORS CHANGELOG
+%doc README.md AUTHORS CHANGELOG
 %{python3_sitelib}/gns3/
 %{python3_sitelib}/gns3_gui*.egg-info/
 %{_bindir}/gns3
@@ -95,6 +96,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/gns3*.desktop
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Tue Jan 31 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.37-1
+- Update to 2.2.37
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.34-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

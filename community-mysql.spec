@@ -5,7 +5,7 @@
 # Regression tests may take a long time (many cores recommended), skip them by
 # passing --nocheck to rpmbuild or by setting runselftest to 0 if defining
 # --nocheck is not possible (e.g. in koji build)
-%{!?runselftest:%global runselftest 0}
+%{!?runselftest:%global runselftest 1}
 
 # Set this to 1 to see which tests fail, but 0 on production ready build
 %global ignore_testsuite_result 0
@@ -13,7 +13,7 @@
 # The last version on which the full testsuite has been run
 # In case of further rebuilds of that version, don't require full testsuite to be run
 # run only "main" suite
-%global last_tested_version 8.0.31
+%global last_tested_version 8.0.32
 # Set to 1 to force run the testsuite even if it was already tested in current version
 %global force_run_testsuite 0
 
@@ -642,7 +642,7 @@ export MTR_BUILD_THREAD=$(( $(date +%s) % 2200 ))
   set -ex
   cd %{buildroot}%{_datadir}/mysql-test
 
-  export common_testsuite_arguments=" %{?with_debug:--debug-server} --parallel=1 --force --retry=2 --suite-timeout=900 --testcase-timeout=30 --mysqld=--binlog-format=mixed --max-test-fail=5 --report-unstable-tests --clean-vardir "
+  export common_testsuite_arguments=" %{?with_debug:--debug-server} --parallel=4 --force --retry=2 --suite-timeout=900 --testcase-timeout=30 --mysqld=--binlog-format=mixed --max-test-fail=5 --report-unstable-tests --clean-vardir "
 
   # If full testsuite has already been run on this version and we don't explicitly want the full testsuite to be run
   if [[ "%{last_tested_version}" == "%{version}" ]] && [[ %{force_run_testsuite} -eq 0 ]]

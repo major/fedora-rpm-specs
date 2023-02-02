@@ -9,7 +9,7 @@
 
 Name:           purple-facebook
 Version:        0.9.6
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Facebook protocol plugin for purple2
 
 License:        GPLv2+
@@ -50,7 +50,7 @@ This project is not affiliated with Facebook, Inc.
 
 
 %build
-/bin/touch aclocal.m4 configure Makefile.am Makefile.in
+touch aclocal.m4 configure Makefile.am Makefile.in
 %configure               \
   --disable-silent-rules \
   --enable-warnings
@@ -59,7 +59,7 @@ This project is not affiliated with Facebook, Inc.
 
 %install
 %make_install
-%{_bindir}/find %{buildroot}%{_libdir} -name '*.*a' -print -delete
+find %{buildroot}%{_libdir} -name '*.*a' -print -delete
 
 
 %check
@@ -73,6 +73,9 @@ This project is not affiliated with Facebook, Inc.
 
 
 %changelog
+* Sun Jan 8 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.9.6-14
+- Fix flatpak build
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.6-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

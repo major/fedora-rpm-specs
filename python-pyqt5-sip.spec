@@ -5,8 +5,8 @@
 %global _sip_api %{_sip_api_major}.%{_sip_api_minor}
 
 Name:           python-%{pkg_name}
-Version:        12.11.0
-Release:        3%{?dist}
+Version:        12.11.1
+Release:        1%{?dist}
 Summary:        The sip module support for PyQt5
 
 License:        GPLv2 or GPLv3
@@ -15,8 +15,6 @@ Source0:        %{pypi_source}
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist setuptools} >= 30.3
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 The sip extension module provides support for the PyQt5 package.
@@ -35,11 +33,17 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %prep
 %autosetup -n %{pypi_name}-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+
+%check
+%py3_check_import PyQt5.sip
 
 %files -n python3-%{pkg_name}
 %doc README
@@ -47,6 +51,10 @@ Provides: python3-pyqt5-sip-api(%{_sip_api_major})%{?_isa} = %{_sip_api}
 %{python3_sitearch}/PyQt5/
 
 %changelog
+* Tue Jan 31 2023 Scott Talbert <swt@techie.net> - 12.11.1-1
+- Update to new upstream release 12.11.1 (#2165212)
+- Modernize python packaging
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

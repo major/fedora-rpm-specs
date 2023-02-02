@@ -1,8 +1,8 @@
 %global pypi_name zipp
 
 Name:           python-%{pypi_name}
-Version:        3.11.0
-Release:        2%{?dist}
+Version:        3.12.0
+Release:        1%{?dist}
 Summary:        Backport of pathlib-compatible object wrapper for zip files
 
 License:        MIT
@@ -54,6 +54,9 @@ sed -i "/func_timeout/d" tests/test_zipp.py
 %doc README.rst
 
 %changelog
+* Mon Jan 30 2023 Lumír Balhar <lbalhar@redhat.com> - 3.12.0-1
+- Update to 3.12.0 (rhbz#2165156)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

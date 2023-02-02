@@ -23,7 +23,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 66%{?dist}
+Release: 68%{?dist}
 Epoch: 10
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -505,6 +505,14 @@ Patch38: texlive-base-2022-dvisvgm-3.0.1.patch
 
 # Fix issue with undefined vasprintf()
 Patch39: texlive-base-20220321-vasprintf-fix.patch
+
+Patch40: texlive-base-c99-1.patch
+Patch41: texlive-base-c99-2.patch
+Patch42: texlive-base-c99-3.patch
+Patch43: texlive-base-c99-4.patch
+
+# Fix issue where off_t could be set incorrectly on i686 due to order of header load
+Patch44: texlive-base-20220321-pdf-header-order-fix.patch
 
 # Can't do this because it causes everything else to be noarch
 # BuildArch: noarch
@@ -7448,10 +7456,20 @@ done
 # Fix issue with undefined vasprintf()
 %patch39 -p1 -b .vasprintf
 
+%patch40 -p1 -b .c99-1
+%patch41 -p1 -b .c99-2
+%patch42 -p1 -b .c99-3
+%patch43 -p1 -b .c99-4
+
+%patch44 -p1 -b .pdf-header-order-fix
+
 # Value here is "16" not "15" because we have a source0 at index 1.
 # Source15 at index 16 is our first "normal" noarch source file.
 # Also, this macro has to be here, not at the top, or it will not evaluate properly. :P
 %global mysources %{lua: for index,value in ipairs(sources) do if index >= 16 then print(value.." ") end end}
+
+# Drop source/libs/xpdf dir, we use system ver (if at all)
+rm -rf source/libs/xpdf
 
 %build
 
@@ -10176,6 +10194,12 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Tue Jan 31 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-68
+- fix header order for xpdf dependent bits to ensure off_t is set properly on i686
+
+* Tue Jan 31 2023 Florian Weimer <fweimer@redhat.com> - 10:20220321-67
+- Various C99 compatibility fixes
+
 * Mon Jan 30 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-66
 - conditionalize use of poppler (and disable it by default)
 - fix issue where vasprintf() could be undefined in a build

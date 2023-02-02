@@ -6,9 +6,9 @@
 
 Name: qt5
 Version: 5.15.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Qt5 meta package
-License: GPLv3
+License: GPL-3.0-only
 URL: https://getfedora.org/
 Source0: macros.qt5
 Source1: macros.qt5-srpm
@@ -141,6 +141,9 @@ echo "- Qt5 devel meta package" > %{buildroot}%{_docdir}/qt5-devel/README
 
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

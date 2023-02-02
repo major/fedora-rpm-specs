@@ -17,7 +17,7 @@
 
 Name:       pl
 Version:    9.0.4
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    SWI-Prolog - Edinburgh compatible Prolog compiler
 #LICENSE:                               BSD-2-Clause
 #library/dialect/iso/iso_predicates.pl  BSD-2-Clause AND (GPL-2.0-or-later WITH
@@ -406,11 +406,7 @@ export DISABLE_PKGS="jpl"
 # Configure
 %cmake \
 %if 0%{?fedora}
-%ifnarch aarch64
   -DBUILD_PDF_DOCUMENTATION:BOOL=ON \
-%else
-  -DBUILD_PDF_DOCUMENTATION:BOOL=OFF \
-%endif
 %else
   -DBUILD_PDF_DOCUMENTATION:BOOL=OFF \
 %endif
@@ -589,9 +585,7 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 %files doc
 %{_libdir}/swipl-%{version}/doc/
 %if 0%{?fedora}
-%ifnarch aarch64
 %doc %{_vpath_builddir}/man/SWI-Prolog-%{version}.pdf
-%endif
 %endif
 %doc %{docdir}-xpce/*
 
@@ -612,6 +606,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Tue Jan 31 2023 Tom Callaway <spot@fedoraproject.org> - 9.0.4-2
+- enable docs on aarch64
+
 * Fri Jan 27 2023 Jerry James <loganjerry@gmail.com> - 9.0.4-1
 - Version 9.0.4
 - Drop upstreamed C99 patch

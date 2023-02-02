@@ -1,6 +1,6 @@
 Name:		perl-Data-Validate-IP
-Version:	0.30
-Release:	7%{?dist}
+Version:	0.31
+Release:	1%{?dist}
 Summary:	Perl IP address validation routines
 
 License:	GPL+ or Artistic
@@ -60,6 +60,9 @@ make test
 
 
 %changelog
+* Tue Jan 31 2023 Scott Talbert <swt@techie.net> - 0.31-1
+- Update to new upstream release 0.31 (#2149095)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.30-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

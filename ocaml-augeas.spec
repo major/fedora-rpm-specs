@@ -121,7 +121,7 @@ chrpath --delete $OCAMLFIND_DESTDIR/stublibs/dll*.so
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
 
-* Mon Mar  1 17:39:51 GMT 2021 Richard W.M. Jones <rjones@redhat.com> - 0.6-15
+* Mon Mar  1 2021 Richard W.M. Jones <rjones@redhat.com> - 0.6-15
 - OCaml 4.12.0 build
 
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-14

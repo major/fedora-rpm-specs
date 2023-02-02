@@ -48,7 +48,7 @@
 
 Name:		%{pkg_name}
 Version:	%{maj_ver}.%{min_ver}.%{patch_ver}%{?rc_ver:~rc%{rc_ver}}
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	The Low Level Virtual Machine
 
 License:	NCSA
@@ -63,6 +63,8 @@ Source4:	lit.fedora.cfg.py
 %endif
 
 Patch0:     0001-PATCH-llvm-Make-source-interleave-prefix-test-case-c.patch
+Patch1:     gcc12.patch
+Patch2:     typename.patch
 
 Patch101:	0001-Deactivate-markdown-doc.patch
 
@@ -514,6 +516,10 @@ fi
 %endif
 
 %changelog
+* Tue Jan 31 2023 Jens Petersen <petersen@redhat.com> - 12.0.1-8
+- Add gcc12 patch to add includes needed for GCC 12 (Jerry James)
+- Add typename patch to fix test failures (Jerry James)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.0.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,25 +1,19 @@
-%if ! 0%{?fedora}%{?rhel} || 0%{?fedora} > 28 || 0%{?rhel} > 7
-%global scons scons-3
-%global scons_pkg python3-scons
-%else
-%global scons scons-2
-%global scons_pkg python2-scons
-%endif
-
 Name:           libserf
 Version:        1.3.9
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        ASL 2.0
 URL:            http://serf.apache.org/
 Source0:        https://archive.apache.org/dist/serf/serf-%{version}.tar.bz2
-BuildRequires:  gcc, %{scons_pkg}, pkgconfig
+BuildRequires:  gcc, pkgconfig
 BuildRequires:  apr-devel, apr-util-devel, krb5-devel, openssl-devel
-BuildRequires:  zlib-devel
+BuildRequires:  zlib-devel, cmake
 Patch0:         %{name}-norpath.patch
 Patch1:         %{name}-python3.patch
 Patch2:		%{name}-1.3.9-bio-ctrl.patch
 Patch3:         %{name}-1.3.9-errgetfunc.patch
+Patch4:		%{name}-1.3.9-multihome.patch
+Patch5:		%{name}-1.3.9-cmake.patch
 
 %description
 The serf library is a C-based HTTP client library built upon the Apache 
@@ -39,29 +33,20 @@ developing applications that use %{name}.
 %prep
 %autosetup -n serf-%{version} -p1
 
-# Shared library versioning support in scons is worse than awful...
-# minimally, here fix the soname to match serf-1.2.x.  Minor version
-# handling should be fixed too; really requires better upstream support:
-# http://scons.tigris.org/issues/show_bug.cgi?id=2869
-sed -i '/SHLIBVERSION/s/MAJOR/0/' SConstruct
-
 %build
-%{scons} \
-      CFLAGS="%{optflags}" \
-      LINKFLAGS="%{__global_ldflags}" \
-      PREFIX=%{_prefix} \
-      LIBDIR=%{_libdir} \
-      GSSAPI=%{_prefix} \
-      %{?_smp_mflags}
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir}
+%cmake_build
 
 %install
-%{scons} install --install-sandbox=%{buildroot}
-
+%cmake_install
 find %{buildroot}%{_libdir} -type f -name '*.*a' -delete -print
 
+mkdir -p  %{buildroot}%{_libdir}/pkgconfig
+mv %{buildroot}%{_datadir}/pkgconfig/serf.pc %{buildroot}%{_libdir}/pkgconfig/serf.pc
+rm -rf %{buildroot}%{_datadir}
+
 %check
-export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
-%{scons} %{?_smp_mflags} check || true
+%ctest || true
 
 %ldconfig_scriptlets
 
@@ -76,6 +61,10 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Tue Jan 31 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.9-26
+- Fix multihome server handling and backport cmake support
+- Related: rhbz#1130328
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.9-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

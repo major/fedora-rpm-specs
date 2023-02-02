@@ -12,15 +12,12 @@
 %bcond_with doc_pdf
 
 Name:           flatbuffers
-Version:        23.1.4
-# The .so version is explicitly constructed from project version—search
-# CMakeLists.txt for FlatBuffers_Library_SONAME_MAJOR and
-# FlatBuffers_Library_SONAME_FULL—but we manually repeat the SOVERSION here,
-# and use the macro in the file lists, as a reminder to avoid undetected .so
-# version bumps. Be aware that upstream does not offer ABI stability
-# guarantees; they have been asked to use the full version number as the .so
-# version in https://github.com/google/flatbuffers/issues/7759.
-%global so_version 23
+Version:        23.1.21
+# The .so version is equal to the project version since upstream offers no ABI
+# stability guarantees. We manually repeat it here and and use the macro in the
+# file lists as a reminder to avoid undetected .so version bumps. See
+# https://github.com/google/flatbuffers/issues/7759.
+%global so_version 23.1.21
 Release:        %autorelease
 Summary:        FlatBuffers: Memory Efficient Serialization Library
 
@@ -33,22 +30,6 @@ URL:            https://google.github.io/flatbuffers
 Source0:        https://github.com/google/flatbuffers/archive/v%{version}/%{name}-%{version}.tar.gz
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
-
-# Fix some identity/equality confusion in Python tests
-# https://github.com/google/flatbuffers/pull/7768
-Patch:          https://github.com/google/flatbuffers/pull/7768.patch
-# Stop using deprecated imp package in Python tests
-# https://github.com/google/flatbuffers/pull/7769
-Patch:          https://github.com/google/flatbuffers/pull/7769.patch
-# Fix Python host-endianness dependencies
-# https://github.com/google/flatbuffers/pull/7769
-#   Fixes:
-# Python test failures on s390x (big-endian)
-# https://github.com/google/flatbuffers/issues/7772
-Patch:          https://github.com/google/flatbuffers/pull/7773.patch
-# Fix a typo in a Python test name
-# https://github.com/google/flatbuffers/pull/7774
-Patch:          https://github.com/google/flatbuffers/pull/7774.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -247,7 +228,6 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 %license LICENSE.txt
 
 %{_libdir}/libflatbuffers.so.%{so_version}
-%{_libdir}/libflatbuffers.so.%{version}
 
 
 %files devel

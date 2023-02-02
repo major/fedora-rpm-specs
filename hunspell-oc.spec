@@ -6,7 +6,7 @@
 Name: hunspell-oc
 Summary: Occitan hunspell dictionaries
 Version: 0.6.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/233710/correcteur_occitan_languedocien-%{version}-tb+sm+fx.xpi
 URL: https://addons.mozilla.org/en-US/firefox/addon/8235
 License: GPLv3+
@@ -23,8 +23,8 @@ Occitan hunspell dictionaries.
 %autosetup -c -n hunspell-oc
 
 %build
-rdfproc hunspell-oc parse install.rdf
-rdfproc hunspell-oc print | grep install-manifest | grep -v targetApplication | sed -e 's/.*#//' | sed -e 's/], "/: /'| sed -e 's/"}//' > CREDITS
+rdfproc -s file hunspell-oc parse install.rdf
+rdfproc -s file hunspell-oc print | grep install-manifest | grep -v targetApplication | sed -e 's/.*#//' | sed -e 's/], "/: /'| sed -e 's/"}//' > CREDITS
 
 %install
 mkdir -p $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
@@ -37,6 +37,9 @@ cp -p dictionaries/oc-FR.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/oc_FR.d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Tue Jan 31 2023 Caolan McNamara <caolanm@redhat.com> - 0.6.2-13
+- Related: rhbz#1788504 drop use of libdb from rdfproc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

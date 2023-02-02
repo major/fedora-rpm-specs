@@ -1,5 +1,8 @@
 %global srcname pytest-rerunfailures
 
+# Needed for Python bootstrap
+%bcond_without tests
+
 Name:           python-%{srcname}
 Version:        11.0
 Release:        2%{?dist}
@@ -30,7 +33,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_tests: -t}
 
 
 %build
@@ -42,8 +45,10 @@ BuildRequires:  python%{python3_pkgversion}-devel
 %pyproject_save_files pytest_rerunfailures
 
 
+%if %{with tests}
 %check
 %tox
+%endif
 
 
 %files -n python%{python3_pkgversion}-%{srcname} -f %{pyproject_files}

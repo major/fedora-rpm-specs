@@ -7,7 +7,7 @@
 Name: hunspell-ak
 Summary: Akan hunspell dictionaries
 Version: 0.9.1
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/376172/akan_spelling_dictionary-0.9.1-typefix-fx.xpi
 URL: http://kasahorow.org/content/akan-nsɛmfuaasekyerɛ
 #https://addons.mozilla.org/en-US/firefox/versions/license/73122
@@ -25,8 +25,8 @@ Akan hunspell dictionaries.
 %autosetup -c
 
 %build
-rdfproc hunspell-oc parse install.rdf
-rdfproc hunspell-oc print | grep install-manifest | grep -v targetApplication | sed -e 's/.*#//' | sed -e 's/], "/: /'| sed -e 's/"}//' > CREDITS
+rdfproc -s file hunspell-oc parse install.rdf
+rdfproc -s file hunspell-oc print | grep install-manifest | grep -v targetApplication | sed -e 's/.*#//' | sed -e 's/], "/: /'| sed -e 's/"}//' > CREDITS
 chmod -x dictionaries/ak-GH.*
 
 %install
@@ -40,6 +40,9 @@ cp -p dictionaries/ak-GH.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/ak_GH.d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Tue Jan 31 2023 Caolan McNamara <caolanm@redhat.com> - 0.9.1-13
+- Related: rhbz#1788504 drop use of libdb from rdfproc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

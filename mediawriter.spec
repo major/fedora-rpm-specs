@@ -1,9 +1,9 @@
 Name:           mediawriter
 Version:        5.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fedora Media Writer
 
-License:        GPLv2+
+License:        LGPL-2.0-or-later AND GPL-2.0-or-later
 URL:            https://github.com/FedoraQt/MediaWriter
 Source0:        https://github.com/FedoraQt/MediaWriter/archive/MediaWriter-%{version}.tar.gz
 
@@ -77,6 +77,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.fedo
 %{_qt6_qmldir}/org/fedoraproject/AdwaitaTheme/qmldir
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 5.0.4-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -163,8 +163,8 @@ chmod 0755 t/ffi/_build
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a corpus t %{buildroot}%{_libexecdir}/%{name}
@@ -186,6 +186,8 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
 unset FFI_PLATYPUS_DLERROR FFI_PLATYPUS_MEMORY_STRDUP_IMPL PERL5LIB V
+# Parallel tests randomly fail because of a known race in FFI::Temp
+# <https://github.com/PerlFFI/FFI-Platypus/issues/344>
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 

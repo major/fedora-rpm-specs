@@ -79,7 +79,7 @@ rm -f $RPM_BUILD_ROOT%{_mandir}/man1/arj-register.1*
 %config(noreplace) %{_sysconfdir}/rearj.cfg
 %{_bindir}/*arj*
 %{_libdir}/arj/
-%{_mandir}/man1/*arj*1.*
+%{_mandir}/man1/*arj*.1*
 
 %changelog
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.22-38

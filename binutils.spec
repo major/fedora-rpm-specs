@@ -1,68 +1,31 @@
 
-# Determine if this is a native build or a cross build.
-#
-# For a cross build add  --define "binutils_target <target>" to the command
-# line when building the rpms.
-#
-# For example:
-#  --define "binutils_target aarch64-linux-gnu"
-#
-# Cross builds will create a set of binutils executables that will run on the
-# host machine but which will create binaries suitable for running on the
-# target machine.  The cross tools will have the target name as a prefix,
-# but for compatibility with the kernel the rpms will use the target name
-# as an infix.  So for example building with the above define will create a
-# set of rpms like this:
-#
-#   binutils-aarch64-linux-gnu-2.35.1-14.fc34.x86_64.rpm
-#   binutils-aarch64-linux-gnu-debuginfo-2.35.1-14.fc34.x86_64.rpm
-#   [etc]
-#
-# and the rpms will contain files like:
-#
-#   /usr/bin/aarch64-linux-gnu-addr2line
-#   /usr/bin/aarch64-linux-gnu-ar
-#   /usr/bin/aarch64-linux-gnu-as
-#   [etc]
-
-%if 0%{!?binutils_target:1}
-%define binutils_target %{_target_platform}
-%define isnative 1
-%define enable_shared 1
-%else
-%define cross %{binutils_target}-
-%define name_cross -%{binutils_target}
-%define isnative 0
-%define enable_shared 0
-%endif
-
 Summary: A GNU collection of binary utilities
-Name: binutils%{?name_cross}%{?_with_debug:-debug}
+Name: binutils%{?_with_debug:-debug}
 Version: 2.39
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
-#----------------------------------------------------------------------------
+#---Start of Configure Options-----------------------------------------------
 
-# Binutils SPEC file.  Can be invoked with the following parameters to change
+# The binutils can be built with the following parameters to change
 #  the default behaviour:
 
-# --define "binutils_target arm-linux-gnu" to create arm-linux-gnu-binutils.
-#
-# --with bootstrap       Build with minimal dependencies.
-# --with debug           Build without optimizations and without splitting
-#                         the debuginfo into a separate file.
-# --without docs         Skip building documentation.
-#                         Default is with docs, except when building a cross binutils.
-# --without testsuite    Do not run the testsuite.  Default is to run it.
-# --without gold         Disable building of the GOLD linker.
-# --with clang           To force building with the CLANG.
+# --with    bootstrap    Build with minimal dependencies.
+# --with    clang        Force building with CLANG instead of GCC.
+# --with    crossbuilds  Build cross targeted versions of the binutils as well as natives.
+# --with    debug        Build without optimizations and without splitting the debuginfo into a separate file.
 # --without debuginfod   Disable support for debuginfod.
-# --without gprofng      Disable the gprofng sub-package.
+# --without docs         Skip building documentation.  Default is with docs, except when building a cross binutils.
+# --without gold         Disable building of the GOLD linker.
+# --without gprofng      Do not build the GprofNG profiler.
 # --without systemzlib   Use the binutils version of zlib.
+# --without testsuite    Do not run the testsuite.  Default is to run it.
 
-#---Start of Configure Options-----------------------------------------------
+# Other configuration options can be set by modifying the following defines.
+
+# Create shared libraries.
+%define enable_shared 1
 
 # Create deterministic archives (ie ones without timestamps).
 # Default is off because of BZ 1195883.
@@ -74,7 +37,12 @@ URL: https://sourceware.org/binutils
 
 # Enable support for generating new dtags in the linker
 # Disable if it is necessary to use RPATH instead.
+# Currently enabled for Fedora, disabled for RHEL.
+%if 0%{?fedora} != 0
 %define enable_new_dtags 1
+%else
+%define enable_new_dtags 0
+%endif
 
 # Enable the compression of debug sections as default behaviour of the
 # assembler and linker.  This option is disabled for now.  The assembler and
@@ -124,7 +92,6 @@ URL: https://sourceware.org/binutils
 %bcond_without debuginfod
 # Default: build binutils-gprofng package.
 %bcond_without gprofng
-
 # Use the system supplied version of the zlib compress library.
 # Change this to use the binutils builtin version instead.
 %bcond_without systemzlib
@@ -142,6 +109,10 @@ URL: https://sourceware.org/binutils
 %else
 %global toolchain gcc
 %endif
+
+# (Do not) create cross targeted versions of the binutils.
+%bcond_with crossbuilds
+# %%bcond_without crossbuilds
 
 %if %{with bootstrap}
 %undefine with_docs
@@ -168,9 +139,6 @@ URL: https://sourceware.org/binutils
 # required to link against the static version, ensure that it retains
 # its debug informnation.
 %undefine __brp_strip_static_archive
-
-# Define this to move the annobin profiling data into the separate debuginfo file.
-# %%define _find_debuginfo_opts --remove-section .gnu.build.attributes
 
 #----------------------------------------------------------------------------
 
@@ -322,20 +290,6 @@ Patch25: binutils-objcopy-note-merge-speedup.patch
 #----------------------------------------------------------------------------
 
 Provides: bundled(libiberty)
-BuildRequires: autoconf
-BuildRequires: automake
-
-# Can be dropped once binutils-ld-read-only-script.patch is removed
-BuildRequires: bison
-
-%if %{with gold}
-# For now we make the binutils package require the gold sub-package.
-# That way other packages that have a requirement on "binutils" but
-# actually want gold will not have to be changed.  In the future, if
-# we decide to deprecate gold, we can remove this requirement, and
-# then update other packages as necessary.
-Requires: binutils-gold >= %{version}
-%endif
 
 %if %{with debug}
 # Define this if you want to skip the strip step and preserve debug info.
@@ -345,13 +299,22 @@ Requires: binutils-gold >= %{version}
 %endif
 
 # Perl, sed and touch are all used in the %%prep section of this spec file.
-BuildRequires: perl, sed, coreutils
-BuildRequires: make
+BuildRequires: autoconf, automake, perl, sed, coreutils, make
 
 %if %{with clang}
 BuildRequires: clang compiler-rt
 %else
 BuildRequires: gcc
+%endif
+
+%if %{with gold}
+# Gold needs bison in order to build gold/yyscript.c.  The GOLD testsuite needs a static libc++
+BuildRequires: bison, m4, gcc-c++, libstdc++-static
+
+%if ! %{with clang}
+BuildRequires: gcc-c++
+Conflicts: gcc-c++ < 4.0.0
+%endif
 %endif
 
 %if %{without bootstrap}
@@ -370,7 +333,12 @@ BuildRequires: findutils
 # It should not be required for: ld-elf/elf.exp static {preinit,init,fini} array
 %if %{with testsuite}
 # relro_test.sh uses dc which is part of the bc rpm, hence its inclusion here.
+# sharutils is needed so that we can uuencode the testsuite results.
 BuildRequires: dejagnu, zlib-static, glibc-static, sharutils, bc, libstdc++
+%endif
+
+%if %{with debuginfod}
+BuildRequires: elfutils-debuginfod-client-devel
 %endif
 
 Requires(post): %{_sbindir}/alternatives
@@ -378,18 +346,20 @@ Requires(preun): %{_sbindir}/alternatives
 # We also need rm.
 Requires(post): coreutils
 
+%if %{with gold}
+# For now we make the binutils package require the gold sub-package.
+# That way other packages that have a requirement on "binutils" but
+# actually want gold will not have to be changed.  In the future, if
+# we decide to deprecate gold, we can remove this requirement, and
+# then update other packages as necessary.
+Requires: binutils-gold >= %{version}
+%endif
+
 # On ARM EABI systems, we do want -gnueabi to be part of the
 # target triple.
 %ifnarch %{arm}
 %define _gnu %{nil}
 %endif
-
-%if %{with debuginfod}
-BuildRequires: elfutils-debuginfod-client-devel
-%endif
-
-# The priority of the linker.  Important oif the gold linker is also being built.
-%{!?ld_bfd_priority: %global ld_bfd_priority    50}
 
 #----------------------------------------------------------------------------
 
@@ -416,14 +386,6 @@ Requires: binutils = %{version}-%{release}
 # BZ 1215242: We need touch...
 Requires: coreutils
 
-# BZ 1924068.  Since applications that use the BFD library are
-# required to link against the static version, ensure that it retains
-# its debug informnation.
-# FIXME: Yes - this is being done twice.  I have no idea why this
-# second invocation is necessary but if both are not present the
-# static archives will be stripped.
-%undefine __brp_strip_static_archive
-
 %description devel
 This package contains BFD and opcodes static and dynamic libraries.
 
@@ -438,6 +400,14 @@ dynamic libraries.
 Developers starting new projects are strongly encouraged to consider
 using libelf instead of BFD.
 
+# BZ 1924068.  Since applications that use the BFD library are
+# required to link against the static version, ensure that it retains
+# its debug informnation.
+# FIXME: Yes - this is being done twice.  I have no idea why this
+# second invocation is necessary but if both are not present the
+# static archives will be stripped.
+%undefine __brp_strip_static_archive
+
 #----------------------------------------------------------------------------
 
 %if %{with gold}
@@ -447,19 +417,6 @@ Summary: The GOLD linker, a faster alternative to the BFD linker
 Provides: gold = %{version}-%{release}
 Requires: binutils >= %{version}
 
-# Gold needs bison in order to build gold/yyscript.c.
-BuildRequires: bison, m4, gcc-c++
-# The GOLD testsuite needs a static libc++
-BuildRequires: libstdc++-static
-
-%if ! %{with clang}
-BuildRequires: gcc-c++
-Conflicts: gcc-c++ < 4.0.0
-%endif
-
-# If ld_gold_priority is higher than ld_bfd_priority then it will be the default linker.
-%{!?ld_gold_priority:%global ld_gold_priority   30}
-
 %description gold
 This package provides the GOLD linker, which can be used as an alternative to
 the default binutils linker (ld.bfd).  The GOLD is generally faster than the
@@ -467,7 +424,12 @@ BFD linker, and it supports features such as Identical Code Folding and
 Incremental linking.  Unfortunately it is not as well maintained as the BFD
 linker, and it may become deprecated in the future.
 
+# The higher of these two numbers determines the default linker.
+%{!?ld_gold_priority:%global ld_gold_priority   30}
+
 %endif
+
+%{!?ld_bfd_priority: %global ld_bfd_priority    50}
 
 #----------------------------------------------------------------------------
 
@@ -479,8 +441,70 @@ Provides: gprofng = %{version}-%{release}
 Requires: binutils >= %{version}
 
 %description gprofng
-Gprofng is the GNU Next Generation profiler for analyzing the performance 
-of Linux applications.  Gprofng allows you to:
+GprofNG is the GNU Next Generation Profiler for analyzing the performance 
+of Linux applications.
+
+%endif
+
+#----------------------------------------------------------------------------
+
+%if %{with crossbuilds}
+
+# Uncomment this when testing changes to the spec file, especially the cross building support.
+# Remember to comment it out again once the testing is complete.
+# %%undefine with_testsuite
+
+# The list of cross targets to build.
+%global system         redhat-linux
+%global cross_targets  aarch64-%{system} ppc64le-%{system} s390x-%{system} x86_64-%{system}
+
+%package -n cross-binutils-aarch64
+Summary: Cross targeted AArch64 binutils for developer use.  Not intended for production.
+Provides: cross-binutils-aarch64 = %{version}-%{release}
+Requires: zlib-devel coreutils
+BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
+ExcludeArch: aarch64-linux-gnu aarch64-redhat-linux
+
+%description -n cross-binutils-aarch64
+This package contains an AArch64 cross targeted version of the binutils for
+use by developers.  It is NOT INTENDED FOR PRODUCTION use.
+
+
+%package -n cross-binutils-ppc64le
+Summary: Cross targeted PPC64LE binutils for developer use.  Not intended for production.
+Provides: cross-binutils-ppc64le = %{version}-%{release}
+Requires: zlib-devel coreutils
+BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
+ExcludeArch: ppc64le-linux-gnu ppc64le-redhat-linux
+
+%description -n cross-binutils-ppc64le
+This package contains a PPC64LE cross targeted version of the binutils for
+use by developers.  It is NOT INTENDED FOR PRODUCTION use.
+
+
+%package -n cross-binutils-s390x
+Summary: Cross targeted S390X binutils for developer use.  Not intended for production.
+Provides: cross-binutils-s390x = %{version}-%{release}
+Requires: zlib-devel coreutils
+BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
+ExcludeArch: s390x-linux-gnu s390x-redhat-linux
+
+%description -n cross-binutils-s390x
+This package contains a S390X cross targeted version of the binutils for
+use by developers.  It is NOT INTENDED FOR PRODUCTION use.
+
+
+%package -n cross-binutils-x86_64
+Summary: Cross targeted X86_64 binutils for developer use.  Not intended for production.
+Provides: cross-binutils-x86_64 = %{version}-%{release}
+Requires: zlib-devel coreutils
+BuildRequires: autoconf automake perl sed coreutils make gcc findutils gcc-c++
+ExcludeArch: x86_64-linux-gnu x86_64-redhat-linux i686-linux-gnu i686-redhat-linux
+
+%description -n cross-binutils-x86_64
+This package contains a X86_64 cross targeted version of the binutils for
+use by developers.  It is NOT INTENDED FOR PRODUCTION use.
+
 %endif
 
 #----------------------------------------------------------------------------
@@ -493,32 +517,36 @@ sed -i -e '/#define.*ELF_COMMONPAGESIZE/s/0x1000$/0x10000/' bfd/elf*ppc.c
 sed -i -e '/#define.*ELF_COMMONPAGESIZE/s/0x1000$/0x10000/' bfd/elf*aarch64.c
 sed -i -e '/common_pagesize/s/4 /64 /' gold/powerpc.cc
 sed -i -e '/pagesize/s/0x1000,/0x10000,/' gold/aarch64.cc
+
 # LTP sucks
 perl -pi -e 's/i\[3-7\]86/i[34567]86/g' */conf*
 sed -i -e 's/%''{release}/%{release}/g' bfd/Makefile{.am,.in}
 sed -i -e '/^libopcodes_la_\(DEPENDENCIES\|LIBADD\)/s,$, ../bfd/libbfd.la,' opcodes/Makefile.{am,in}
+
 # Build libbfd.so and libopcodes.so with -Bsymbolic-functions if possible.
 if gcc %{optflags} -v --help 2>&1 | grep -q -- -Bsymbolic-functions; then
 sed -i -e 's/^libbfd_la_LDFLAGS = /&-Wl,-Bsymbolic-functions /' bfd/Makefile.{am,in}
 sed -i -e 's/^libopcodes_la_LDFLAGS = /&-Wl,-Bsymbolic-functions /' opcodes/Makefile.{am,in}
 fi
+
 # $PACKAGE is used for the gettext catalog name.
 sed -i -e 's/^ PACKAGE=/ PACKAGE=%{?cross}/' */configure
+
 # Undo the name change to run the testsuite.
 for tool in binutils gas ld
 do
   sed -i -e "2aDEJATOOL = $tool" $tool/Makefile.am
   sed -i -e "s/^DEJATOOL = .*/DEJATOOL = $tool/" $tool/Makefile.in
 done
+
 # Touch the .info files so that they are newer then the .texi files and
 # hence do not need to be rebuilt.  This eliminates the need for makeinfo.
 # The -print is there just to confirm that the command is working.
 %if %{without docs}
   find . -name *.info -print -exec touch {} \;
-%endif
+%esle
 # If we are creating the docs, touch the texi files so that the info and
 # man pages will be rebuilt.
-%if %{with docs}
   find . -name *.texi -print -exec touch {} \;
 %endif
 
@@ -529,13 +557,295 @@ done
 #----------------------------------------------------------------------------
 
 %build
-echo target is %{binutils_target}
+
+# Building is now handled by functions which allow for both native and cross
+# builds.  Builds are created in their own sub-directory of the sources, which
+# allows for both native and cross builds to be created at the same time.
+
+# compute_global_configuration()
+#   Build the CARGS variable which contains the global configuration arguments.
+compute_global_configuration()
+{
+    CARGS="--quiet \
+	--build=%{_target_platform} \
+	--host=%{_target_platform} \
+	--enable-ld \
+	--enable-plugins \
+	--enable-64-bit-bfd \
+	--with-bugurl=http://bugzilla.redhat.com/bugzilla/"
+
+%if %{without bootstrap}
+    CARGS="$CARGS --enable-jansson=yes"
+%endif
+
+%if %{with debuginfod}
+    CARGS="$CARGS --with-debuginfod"
+%endif
+
+%if %{with gprofng}
+    CARGS="$CARGS --enable-gprofng=yes"
+%else
+    CARGS="$CARGS --enable-gprofng=no"
+%endif
+
+%if %{with systemzlib}
+    CARGS="$CARGS --with-system-zlib"
+%endif
+
+%if %{default_compress_debug}
+    CARGS="$CARGS --enable-compressed-debug-sections=all"
+%else
+    CARGS="$CARGS --enable-compressed-debug-sections=none"
+%endif
+
+%if %{default_generate_notes}
+    CARGS="$CARGS --enable-generate-build-notes=yes"
+%else
+    CARGS="$CARGS --enable-generate-build-notes=no"
+%endif
+
+%if %{default_relro}
+    CARGS="$CARGS --enable-relro=yes"
+%else
+    CARGS="$CARGS --enable-relro=no"
+%endif
+
+%if %{enable_deterministic_archives}
+    CARGS="$CARGS --enable-deterministic-archives"
+%else
+    CARGS="$CARGS --enable-deterministic-archives=no"
+%endif
+
+%if %{enable_lto}
+    CARGS="$CARGS --enable-lto"
+%endif
+
+%if %{enable_new_dtags}
+    CARGS="$CARGS --enable-new-dtags --disable-rpath"
+%endif
+
+%if %{enable_separate_code}
+  CARGS="$CARGS --enable-separate-code=yes"
+%endif
+
+%if %{enable_threading}
+    CARGS="$CARGS --enable-threads=yes"
+%else
+    CARGS="$CARGS --enable-threads=no"
+%endif
+}
+
+# run_target_configuration()
+#    Create and configure the build tree.
+#        $1 is the target architecture
+#        $2 is 1 if this is a native build
+#        $3 is 1 if shared libraries should be built
+#
+run_target_configuration()
+{
+    local target="$1"
+    local native="$2"
+    local shared="$3"
+    local builddir=build-$target
+
+    # Create a build directory
+    rm -rf $builddir
+    mkdir $builddir
+    pushd $builddir
+
+    echo "BUILDING the Binutils for TARGET $target (native ? $native) (shared ? $shared)"
+
+    %set_build_flags
+
+%ifarch %{power64}
+    export CFLAGS="$RPM_OPT_FLAGS -Wno-error"
+%else
+    export CFLAGS="$RPM_OPT_FLAGS"
+%endif
+
+%if %{with debug}
+    export CFLAGS="$CFLAGS -O0 -ggdb2 -Wno-error -D_FORTIFY_SOURCE=0"
+    shared=0
+%endif
+
+    export CXXFLAGS="$CXXFLAGS $CFLAGS"
+
+    # BZ 1541027 - include the linker flags from redhat-rpm-config as well.
+    export LDFLAGS=$RPM_LD_FLAGS
+
+%if %{enable_new_dtags}
+    # Build the tools with new dtags, as well as supporting their generation by the linker.
+    export LDFLAGS="$LDFLAGS -Wl,--enable-new-dtags"
+%endif
+
+    if test x$native == x1 ; then
+        # Extra targets to build along with the native one.
+        #
+        # BZ 1920373: Enable PEP support for all targets as the PERF package's
+        # testsuite expects to be able to read PE format files ragrdless of
+        # the host's architecture.
+        #
+        # Also enable the BPF target so that strip will work on BPF files.
+        case $target in
+    	s390*)
+    	    # Note - The s390-linux target is there so that the GOLD linker will
+    	    # build.  By default, if configured for just s390x-linux, the GOLD
+    	    # configure system will only include support for 64-bit targets, but
+    	    # the s390x gold backend uses both 32-bit and 64-bit templates.
+    	    TARGS="--enable-targets=s390-linux,s390x-linux,x86_64-pep,bpf-unknown-none"
+    	    ;;
+    	ia64*)
+    	    TARGS="--enable-targets=ia64-linux,x86_64-pep,bpf-unknown-none"
+    	    ;;
+    	ppc64-*)
+    	    TARGS="--enable-targets=powerpc64le-linux,spu,x86_64-pep,bpf-unknown-none"
+    	    ;;
+    	ppc64le*)
+    	    TARGS="--enable-targets=powerpc-linux,spu,x86_64-pep,bpf-unknown-none"
+    	    ;;
+    	*)
+    	    TARGS="--enable-targets=x86_64-pep,bpf-unknown-none"
+    	    ;;
+        esac
+
+	# Set up the sysroot and paths.
+	SARGS="--with-sysroot=/ \
+               --prefix=%{_prefix} \
+               --libdir=%{_libdir}"
+%if %{with gold}
+        SARGS="$SARGS --enable-gold=default"
+%else
+        SARGS="$SARGS --disable-gold"
+%endif
+
+    else # Cross builds
+
+	# No extra targets are supported.
+	TARGS=""
+
+        # Disable the GOLD linker for cross builds because although it does
+        # support sysroots specified on the command line, it does not support
+        # them in linker scripts via the =/$SYSROOT prefix.
+	SARGS="--with-sysroot=yes \
+               --program-prefix=$target- \
+               --prefix=%{_prefix}/$target \
+               --libdir=%{_libdir} \
+               --exec-prefix=%{_usr} \
+	       --disable-gold"
+    fi
+
+    if test x$shared == x1 ; then
+	RARGS="--enable-shared"
+    else
+	RARGS="--disable-shared"
+    fi
+    
+    ../configure --target=$target $CARGS $SARGS $RARGS $TARGS  || cat config.log
+
+    popd
+}
+
+# build_target ()
+#   Builds a configured set of sources.
+#        $1 is the target architecture
+build_target()
+{
+    local target="$1"
+    local builddir=build-$target
+
+    pushd $builddir
+
+%if %{with docs}
+    # Because of parallel building, info has to be made after all.
+    %make_build %{_smp_mflags} tooldir=%{_prefix} all 
+    %make_build %{_smp_mflags} tooldir=%{_prefix} info
+%else
+    %make_build %{_smp_mflags} tooldir=%{_prefix} MAKEINFO=true all
+%endif
+    
+    popd
+}
+
+# run_tests()
+#	Test a built (but not installed) binutils.
+#        $1 is the target architecture
+#        $2 is 1 if this is a native build
+#
+run_tests()
+{
+    local target="$1"
+    local native="$2"
+
+    echo "TESTING the binutils FOR TARGET $target (native ? $native)"
+
+    # Do not use %%check as it is run after %%install where libbfd.so is rebuilt
+    # with -fvisibility=hidden no longer being usable in its shared form.
+%if %{without testsuite}
+    echo ================ $target == TESTSUITE DISABLED ====================
+    return
+%endif
+
+    pushd build-$target
+    
+    if test x$native == x1 ; then
+	make -k check < /dev/null || :
+    else
+	make -k check-gas check-binutils < /dev/null || :
+    fi
+    
+    echo ================ $target == TESTING BEGINS ========================
+
+    for f in {gas/testsuite/gas,ld/ld,binutils/binutils}.sum
+    do
+	if [ -f $f ]; then
+	    cat $f
+	fi
+    done
+
+%if %{with gold}
+    if [ -f gold/test-suite.log ]; then
+	cat gold/test-suite.log
+    fi
+    if [ -f gold/testsuite/test-suite.log ]; then
+	cat gold/testsuite/*.log
+    fi
+%endif
+
+    echo ================ $target == TESTING END ===========================
+
+    for file in {gas/testsuite/gas,ld/ld,binutils/binutils}.{sum,log}
+    do
+	if [ -f $file ]; then
+	    ln $file binutils-$target-$(basename $file) || :
+	fi
+    done
+
+    tar cjf binutils-$target.tar.xz  binutils-$target-*.{sum,log}
+    uuencode binutils-$target.tar.xz binutils-$target.tar.xz
+    rm -f binutils-$target.tar.xz    binutils-$target-*.{sum,log}
+
+%if %{with gold}
+    if [ -f gold/testsuite/test-suite.log ]; then
+	tar cjf  binutils-$target-gold.log.tar.xz gold/testsuite/*.log
+	uuencode binutils-$target-gold.log.tar.xz binutils-$target-gold.log.tar.xz
+	rm -f    binutils-$target-gold.log.tar.xz
+    fi
+%endif
+
+    popd
+}
+
+#----------------------------------------------------------------------------
 
 # There is a problem with the clang+libtool+lto combination.
 # The LDFLAGS containing -flto are not being passed when linking the
 # libbfd.so, so the build fails.  Solution: disable LTO.
 %if %{with clang}
 %define enable_lto 0
+%endif
+
+%if %{with clang}
+%define _with_cc_clang 1
 %endif
 
 # Disable LTO on arm due to:
@@ -548,265 +858,141 @@ echo target is %{binutils_target}
 %global _lto_cflags %{nil}
 %endif
 
-%set_build_flags
+compute_global_configuration
 
-%ifarch %{power64}
-export CFLAGS="$CFLAGS -Wno-error"
-%endif
+# Build the native configuration.
+run_target_configuration  %{_target_platform} 1 %{enable_shared}
+build_target              %{_target_platform}
+run_tests                 %{_target_platform} 1 
 
-%if %{with debug}
-export CFLAGS="$CFLAGS -O0 -ggdb2 -Wno-error -D_FORTIFY_SOURCE=0"
-%define enable_shared 0
-%endif
+%if %{with crossbuilds}
 
-%if %{enable_new_dtags}
-export LDFLAGS="$LDFLAGS -Wl,--enable-new-dtags"
-%endif
+# Build the cross configurations.
+for f in %{cross_targets}; do
 
-%if %{with clang}
-%define _with_cc_clang 1
-%endif
-
-CARGS=
-
-%if %{with debuginfod}
-CARGS="$CARGS --with-debuginfod"
-%endif
-
-%ifarch %{ix86} x86_64 ppc %{power64} s390 s390x sh3 sh4 sparc sparc64 arm aarch64 riscv64
-CARGS="$CARGS --enable-64-bit-bfd"
-%endif
-
-# Extra targets to build along with the default one.
-#
-# BZ 1920373: Enable PEP support for all targets as the PERF package's
-# testsuite expects to be able to read PE format files ragrdless of
-# the host's architecture.
-#
-# Also enable the BPF target so that strip will work on BPF files.
-case %{binutils_target} in
-    s390*)
-	# Note - The s390-linux target is there so that the GOLD linker will
-	# build.  By default, if configured for just s390x-linux, the GOLD
-	# configure system will only include support for 64-bit targets, but
-	# the s390x gold backend uses both 32-bit and 64-bit templates.
-	CARGS="$CARGS --enable-targets=s390-linux,s390x-linux,x86_64-pep,bpf-unknown-none"
-	;;
-    ia64*)
-	CARGS="$CARGS --enable-targets=ia64-linux,x86_64-pep,bpf-unknown-none"
-	;;
-    ppc64-*)
-	CARGS="$CARGS --enable-targets=powerpc64le-linux,spu,x86_64-pep,bpf-unknown-none"
-	;;
-    ppc64le*)
-	CARGS="$CARGS --enable-targets=powerpc-linux,spu,x86_64-pep,bpf-unknown-none"
-	;;
-    *)
-        CARGS="$CARGS --enable-targets=x86_64-pep,bpf-unknown-none"
-	;;
-esac
-
-%if %{default_relro}
-  CARGS="$CARGS --enable-relro=yes"
-%else
-  CARGS="$CARGS --enable-relro=no"
-%endif
-
-# We could improve the cross build's size by setting --enable-shared but
-# the produced binaries may be less convenient in the embedded environment.
-%configure \
-  --quiet \
-  --build=%{_target_platform} --host=%{_target_platform} \
-  --target=%{binutils_target} \
-%if %{with gold}
-  --enable-gold=default \
-%endif
-  --enable-ld \
-%if %{isnative}
-  --with-sysroot=/ \
-%else
-  --enable-targets=%{_host} \
-  --with-sysroot=%{_prefix}/%{binutils_target}/sys-root \
-  --program-prefix=%{cross} \
-%endif
-%if %{with systemzlib}
-  --with-system-zlib \
-%endif
-%if %{with gprofng}
-  --enable-gprofng=yes \
-%else
-  --enable-gprofng=no \
-%endif
-%if %{enable_shared}
-  --enable-shared \
-%else
-  --disable-shared \
-%endif
-%if %{enable_deterministic_archives}
-  --enable-deterministic-archives \
-%else
-  --enable-deterministic-archives=no \
-%endif
-%if %{enable_lto}
-  --enable-lto \
-%endif
-%if %{enable_new_dtags}
-  --enable-new-dtags \
-  --disable-rpath \
-%endif
-%if %{default_compress_debug}
-  --enable-compressed-debug-sections=all \
-%else
-  --enable-compressed-debug-sections=none \
-%endif
-%if %{default_generate_notes}
-  --enable-generate-build-notes=yes \
-%else
-  --enable-generate-build-notes=no \
-%endif
-%if %{enable_threading}
-  --enable-threads=yes \
-%else
-  --enable-threads=no \
-%endif
-%if %{enable_separate_code}
-  --enable-separate-code=yes \
-%endif
-%if %{without bootstrap}
-  --enable-jansson=yes \
-%endif
-  $CARGS \
-  --enable-plugins \
-  --with-bugurl=http://bugzilla.redhat.com/bugzilla/ \
-  || cat config.log
-
-%if %{with docs}
-%make_build tooldir=%{_prefix} all
-%make_build tooldir=%{_prefix} info
-%else
-%make_build tooldir=%{_prefix} MAKEINFO=true all
-%endif
-
-# Do not use %%check as it is run after %%install where libbfd.so is rebuilt
-# with -fvisibility=hidden no longer being usable in its shared form.
-%if %{without testsuite}
-echo ====================TESTSUITE DISABLED=========================
-%else
-# The GOLD testsuite has lots of problems...
-make -k check < /dev/null || :
-echo ====================TESTING=========================
-cat {gas/testsuite/gas,ld/ld,binutils/binutils}.sum
-%if %{with gold}
-if [ -f gold/test-suite.log ]; then
-    cat gold/test-suite.log
-fi
-if [ -f gold/testsuite/test-suite.log ]; then
-    cat gold/testsuite/*.log
-fi
-%endif
-echo ====================TESTING END=====================
-for file in {gas/testsuite/gas,ld/ld,binutils/binutils}.{sum,log}
-do
-  ln $file binutils-%{_target_platform}-$(basename $file) || :
+    # Skip the native build.
+    if test x$f != x%{_target_platform}; then
+	# We could improve the cross build's size by enabling shared libraries but
+	# the produced binaries may be less convenient in the embedded environment.
+        run_target_configuration  $f 0 0
+	build_target              $f 
+	run_tests                 $f 0
+    fi
 done
-tar cjf binutils-%{_target_platform}.tar.xz  binutils-%{_target_platform}-*.{sum,log}
-uuencode binutils-%{_target_platform}.tar.xz binutils-%{_target_platform}.tar.xz
-rm -f binutils-%{_target_platform}.tar.xz    binutils-%{_target_platform}-*.{sum,log}
-%if %{with gold}
-if [ -f gold/testsuite/test-suite.log ]; then
-  tar cjf  binutils-%{_target_platform}-gold.log.tar.xz gold/testsuite/*.log
-  uuencode binutils-%{_target_platform}-gold.log.tar.xz binutils-%{_target_platform}-gold.log.tar.xz
-  rm -f    binutils-%{_target_platform}-gold.log.tar.xz
-fi
-%endif
+
 %endif
 
 #----------------------------------------------------------------------------
 
 %install
 
+# install_binutils()
+#	Install the binutils.
+#        $1 is the target architecture
+#        $2 is 1 if this is a native build
+#        $3 is 1 if shared libraries should be built
+#
+install_binutils()
+{
+    local target="$1"
+    local native="$2"
+    local shared="$3"
+
+    local local_root=%{buildroot}/usr
+    local local_bindir=$local_root/bin
+    local local_libdir=%{buildroot}%{_libdir}
+    local local_mandir=$local_root/share/man/man1
+    local local_incdir=$local_root/include
+    local local_infodir=$local_root/share/info
+    local local_libdir
+    
+    mkdir -p $local_libdir
+    mkdir -p $local_incdir
+    mkdir -p $local_mandir
+    mkdir -p $local_infodir
+
+    echo "INSTALLING the binutils FOR TARGET $target (native ? $native) (shared ? $shared)"
+
+    pushd build-$target
+    
+    if test x$native == x1 ; then
+
 %if %{with docs}
-%make_install
+	%make_install DESTDIR=%{buildroot} 
+	make prefix=%{buildroot}%{_prefix} infodir=$local_infodir install-info
 %else
-%make_install MAKEINFO=true
+	%make_install DESTDIR=%{buildroot} MAKEINFO=true
 %endif
 
-%if %{isnative}
-%if %{with docs}
-make prefix=%{buildroot}%{_prefix} infodir=%{buildroot}%{_infodir} install-info
-%endif
+	# Rebuild libiberty.a with -fPIC.
+	# Future: Remove it together with its header file, projects should bundle it.
+	%make_build -s -C libiberty clean
+	%set_build_flags
+	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C libiberty
 
-# Rebuild libiberty.a with -fPIC.
-# Future: Remove it together with its header file, projects should bundle it.
-%make_build -C libiberty clean
-%set_build_flags
-%make_build CFLAGS="-g -fPIC $CFLAGS" -C libiberty
+	# Rebuild libbfd.a with -fPIC.
+	# Without the hidden visibility the 3rd party shared libraries would export
+	# the bfd non-stable ABI.
+	%make_build -s -C bfd clean
+	%set_build_flags
+	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS -fvisibility=hidden" -C bfd
 
-%if %{enable_new_dtags}
-export LDFLAGS="$LDFLAGS -Wl,--enable-new-dtags"
-%endif
+	# Rebuild libopcodes.a with -fPIC.
+	%make_build -s -C opcodes clean
+	%set_build_flags
+	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C opcodes
 
-# Rebuild libbfd.a with -fPIC.
-# Without the hidden visibility the 3rd party shared libraries would export
-# the bfd non-stable ABI.
-%make_build -C bfd clean
-%set_build_flags
-%make_build CFLAGS="-g -fPIC $CFLAGS -fvisibility=hidden" -C bfd
+	install -m 644 bfd/libbfd.a            $local_libdir
+	install -m 644 libiberty/libiberty.a   $local_libdir
+	install -m 644 ../include/libiberty.h  $local_incdir
+	install -m 644 opcodes/libopcodes.a    $local_libdir
 
-# Rebuild libopcodes.a with -fPIC.
-%make_build -C opcodes clean
-%set_build_flags
-%make_build CFLAGS="-g -fPIC $CFLAGS" -C opcodes
-
-install -m 644 bfd/libbfd.a %{buildroot}%{_libdir}
-install -m 644 libiberty/libiberty.a %{buildroot}%{_libdir}
-install -m 644 include/libiberty.h %{buildroot}%{_prefix}/include
-install -m 644 opcodes/libopcodes.a %{buildroot}%{_libdir}
-# Remove Windows/Novell only man pages
-rm -f %{buildroot}%{_mandir}/man1/{dlltool,nlmconv,windres,windmc}*
+	# Remove Windows/Novell only man pages
+	rm -f $local_mandir/{dlltool,nlmconv,windres,windmc}*
 %if %{without docs}
-rm -f %{buildroot}%{_mandir}/man1/{addr2line,ar,as,c++filt,elfedit,gprof,ld,nm,objcopy,objdump,ranlib,readelf,size,strings,strip}*
-rm -f %{buildroot}%{_infodir}/{as,bfd,binutils,gprof,ld}*
+	rm -f $local_mandir/{addr2line,ar,as,c++filt,elfedit,gprof,ld,nm,objcopy,objdump,ranlib,readelf,size,strings,strip}*
+	rm -f $local_infodir/{as,bfd,binutils,gprof,ld}*
 %endif
 
 %if %{enable_shared}
-chmod +x %{buildroot}%{_libdir}/lib*.so*
+	chmod +x $local_libdir/lib*.so*
 %endif
 
-# Prevent programs from linking against libbfd and libopcodes
-# dynamically, as they are changed far too often.
-rm -f %{buildroot}%{_libdir}/lib{bfd,opcodes}.so
+	# Prevent programs from linking against libbfd and libopcodes
+	# dynamically, as they are changed far too often.
+	rm -f $local_libdir/lib{bfd,opcodes}.so
 
-# Remove libtool files, which reference the .so libs
-rm -f %{buildroot}%{_libdir}/*.la
+	# Remove libtool files, which reference the .so libs
+	rm -f %local_libdir/lib{bfd,opcodes}.la
 
-# Fix multilib conflicts of generated values by __WORDSIZE-based expressions.
-%ifarch %{ix86} x86_64 ppc %{power64} s390 s390x sh3 sh4 sparc sparc64 arm aarch64 riscv64
-# Sanity check --enable-64-bit-bfd really works.
-grep '^#define BFD_ARCH_SIZE 64$' %{buildroot}%{_prefix}/include/bfd.h
-sed -i -e '/^#include "ansidecl.h"/{p;s~^.*$~#include <bits/wordsize.h>~;}' \
-    -e 's/^#define BFD_DEFAULT_TARGET_SIZE \(32\|64\) *$/#define BFD_DEFAULT_TARGET_SIZE __WORDSIZE/' \
-    -e 's/^#define BFD_HOST_64BIT_LONG [01] *$/#define BFD_HOST_64BIT_LONG (__WORDSIZE == 64)/' \
-    -e 's/^#define BFD_HOST_64_BIT \(long \)\?long *$/#if __WORDSIZE == 32\
+	# Sanity check --enable-64-bit-bfd really works.
+	grep '^#define BFD_ARCH_SIZE 64$' $local_incdir/bfd.h
+	# Fix multilib conflicts of generated values by __WORDSIZE-based expressions.
+%ifarch %{ix86} x86_64 ppc %{power64} s390 s390x sh3 sh4 sparc sparc64 arm
+	sed -i -e '/^#include "ansidecl.h"/{p;s~^.*$~#include <bits/wordsize.h>~;}' \
+	    -e 's/^#define BFD_DEFAULT_TARGET_SIZE \(32\|64\) *$/#define BFD_DEFAULT_TARGET_SIZE __WORDSIZE/' \
+	    -e 's/^#define BFD_HOST_64BIT_LONG [01] *$/#define BFD_HOST_64BIT_LONG (__WORDSIZE == 64)/' \
+	    -e 's/^#define BFD_HOST_64_BIT \(long \)\?long *$/#if __WORDSIZE == 32\
 #define BFD_HOST_64_BIT long long\
 #else\
 #define BFD_HOST_64_BIT long\
 #endif/' \
-    -e 's/^#define BFD_HOST_U_64_BIT unsigned \(long \)\?long *$/#define BFD_HOST_U_64_BIT unsigned BFD_HOST_64_BIT/' \
-    %{buildroot}%{_prefix}/include/bfd.h
+	    -e 's/^#define BFD_HOST_U_64_BIT unsigned \(long \)\?long *$/#define BFD_HOST_U_64_BIT unsigned BFD_HOST_64_BIT/' \
+	    $local_incdir/bfd.h
 %endif
-touch -r bfd/bfd-in2.h %{buildroot}%{_prefix}/include/bfd.h
 
-# Generate .so linker scripts for dependencies; imported from glibc/Makerules:
+	touch -r ../bfd/bfd-in2.h $local_incdir/bfd.h
 
-# This fragment of linker script gives the OUTPUT_FORMAT statement
-# for the configuration we are building.
-OUTPUT_FORMAT="\
+	# Generate .so linker scripts for dependencies; imported from glibc/Makerules:
+
+	# This fragment of linker script gives the OUTPUT_FORMAT statement
+	# for the configuration we are building.
+	OUTPUT_FORMAT="\
 /* Ensure this .so library will not be used by a link for a different format
    on a multi-architecture system.  */
 $(gcc $CFLAGS $LDFLAGS -shared -x c /dev/null -o /dev/null -Wl,--verbose -v 2>&1 | sed -n -f "%{SOURCE2}")"
 
-tee %{buildroot}%{_libdir}/libbfd.so <<EOH
+	tee $local_libdir/libbfd.so <<EOH
 /* GNU ld script */
 
 $OUTPUT_FORMAT
@@ -816,7 +1002,7 @@ $OUTPUT_FORMAT
 INPUT ( %{_libdir}/libbfd.a -liberty -lz -ldl )
 EOH
 
-tee %{buildroot}%{_libdir}/libopcodes.so <<EOH
+	tee $local_libdir/libopcodes.so <<EOH
 /* GNU ld script */
 
 $OUTPUT_FORMAT
@@ -824,59 +1010,75 @@ $OUTPUT_FORMAT
 INPUT ( %{_libdir}/libopcodes.a -lbfd )
 EOH
 
-%else
-# For cross-binutils we drop the documentation.
-rm -rf %{buildroot}%{_infodir}
-# We keep these as one can have native + cross binutils of different versions.
-#rm -rf {buildroot}{_prefix}/share/locale
-#rm -rf {buildroot}{_mandir}
-rm -rf %{buildroot}%{_libdir}/libiberty.a
-# Remove libtool files, which reference the .so libs
-rm -f %{buildroot}%{_libdir}/*.la
+	rm -fr $local_root/$target
+	
+    else # CROSS BUILDS
+
+	local target_root=$local_root/$target
+	
+	%make_install DESTDIR=%{buildroot} MAKEINFO=true
+    fi
+
+    # This one comes from gcc
+    rm -f $local_infodir/dir
+
+    %find_lang binutils
+    %find_lang opcodes
+    %find_lang bfd
+    %find_lang gas
+    %find_lang gprof
+    cat opcodes.lang >> binutils.lang
+    cat bfd.lang     >> binutils.lang
+    cat gas.lang     >> binutils.lang
+    cat gprof.lang   >> binutils.lang
+
+    if [ -x ld/ld-new ]; then
+	%find_lang ld
+	cat ld.lang >> binutils.lang
+    fi
+
+    if [ -x gold/ld-new ]; then
+	%find_lang gold
+	cat gold.lang >> binutils.lang
+    fi
+
+    popd
+}
+
+#----------------------------------------------------------------------------
+
+install_binutils %{_target_platform} 1 %{enable_shared}
+
+%if %{with crossbuilds}
+
+for f in %{cross_targets}; do
+    if test x$f != x%{_target_platform}; then
+	install_binutils $f 0 0
+    fi
+done
+
 %endif
 
-# This one comes from gcc
-rm -f %{buildroot}%{_infodir}/dir
-rm -rf %{buildroot}%{_prefix}/%{binutils_target}
-
-%find_lang %{?cross}binutils
-%find_lang %{?cross}opcodes
-%find_lang %{?cross}bfd
-%find_lang %{?cross}gas
-%find_lang %{?cross}gprof
-cat %{?cross}opcodes.lang >> %{?cross}binutils.lang
-cat %{?cross}bfd.lang >> %{?cross}binutils.lang
-cat %{?cross}gas.lang >> %{?cross}binutils.lang
-cat %{?cross}gprof.lang >> %{?cross}binutils.lang
-
-if [ -x ld/ld-new ]; then
-  %find_lang %{?cross}ld
-  cat %{?cross}ld.lang >> %{?cross}binutils.lang
-fi
-if [ -x gold/ld-new ]; then
-  %find_lang %{?cross}gold
-  cat %{?cross}gold.lang >> %{?cross}binutils.lang
-fi
+# Stop check-rpaths from complaining about standard runpaths.
+export QA_RPATHS=0x0003
 
 #----------------------------------------------------------------------------
 
 %post
 
-%__rm -f %{_bindir}/%{?cross}ld
-%{_sbindir}/alternatives --install %{_bindir}/%{?cross}ld %{?cross}ld \
-  %{_bindir}/%{?cross}ld.bfd %{ld_bfd_priority}
+%__rm -f %{_bindir}/ld
+%{_sbindir}/alternatives --install %{_bindir}/ld ld \
+  %{_bindir}/ld.bfd %{ld_bfd_priority}
 
 %if %{with gold}
-%{_sbindir}/alternatives --install %{_bindir}/%{?cross}ld %{?cross}ld \
-  %{_bindir}/%{?cross}ld.gold %{ld_gold_priority}
+%{_sbindir}/alternatives --install %{_bindir}/ld ld \
+  %{_bindir}/ld.gold %{ld_gold_priority}
 %endif
 
 # Do not run "alternatives --auto ld" here.  Leave the setting to
 # however the user previously had it set.  See BZ 1592069 for more details.
 
-%if %{isnative}
 %ldconfig_post
-%endif
 
 exit 0
 
@@ -884,11 +1086,11 @@ exit 0
 
 %preun
 if [ $1 = 0 ]; then
-  %{_sbindir}/alternatives --remove %{?cross}ld %{_bindir}/%{?cross}ld.bfd
+  %{_sbindir}/alternatives --remove ld %{_bindir}/ld.bfd
 fi
 %if %{with gold}
 if [ $1 = 0 ]; then
-  %{_sbindir}/alternatives --remove %{?cross}ld %{_bindir}/%{?cross}ld.gold
+  %{_sbindir}/alternatives --remove ld %{_bindir}/ld.gold
 fi
 %endif
 
@@ -896,61 +1098,75 @@ exit 0
 
 #----------------------------------------------------------------------------
 
-%if %{isnative}
 %postun
 %ldconfig_postun
-%endif
 
 #----------------------------------------------------------------------------
 
-%files -f %{?cross}binutils.lang
+%files -f build-%{_target_platform}/binutils.lang
+
+%if %{with crossbuilds}
+%if "%{_target_platform}" != "aarch64-%{system}"
+%exclude /usr/aarch64-%{system}/*
+%exclude /usr/bin/aarch64-%{system}-*
+%endif
+
+%if "%{_target_platform}" != "ppc64le-%{system}"
+%exclude /usr/ppc64le-%{system}/*
+%exclude /usr/bin/ppc64le-%{system}-*
+%endif
+
+%if "%{_target_platform}" != "s390x-%{system}"
+%exclude /usr/s390x-%{system}/*
+%exclude /usr/bin/s390x-%{system}-*
+%endif
+
+%if "%{_target_platform}" != "x86_64-%{system}"
+%exclude /usr/x86_64-%{system}/*
+%exclude /usr/bin/x86_64-%{system}-*
+%endif
+%endif
+
 %license COPYING COPYING3 COPYING3.LIB COPYING.LIB
 %doc README
-%{_bindir}/%{?cross}[!l]*
+%{_bindir}/[!l]*
 %exclude %{_bindir}/gp-*
 %exclude %{_bindir}/gprofng
 # %%verify(symlink) does not work for some reason, so using "owner" instead.
-%verify(owner) %{_bindir}/%{?cross}ld
-%{_bindir}/%{?cross}ld.bfd
-
-# # Do not export any Windows tools (if they were built)
-# %%exclude %%{_bindir}/%%{?cross}dll*
-# %%exclude %%{_bindir}/%%{?cross}wind*
+%verify(owner) %{_bindir}/ld
+%{_bindir}/ld.bfd
 
 %if %{with docs}
 %{_mandir}/man1/
 %exclude %{_mandir}/man1/gp-*
 %exclude %{_mandir}/man1/gprofng*
-%if %{isnative}
 %{_infodir}/as.info.*
 %{_infodir}/binutils.info.*
 %{_infodir}/gprof.info.*
 %{_infodir}/ld.info.*
 %{_infodir}/bfd.info.*
 %{_infodir}/ctf-spec.info.*
-%endif
+%exclude %{_infodir}/gprofng*
 %endif
 
 %if %{enable_shared}
 %{_libdir}/lib*.so
-%{_libdir}/libctf*
+%{_libdir}/lib*.so.*
 %exclude %{_libdir}/libbfd.so
 %exclude %{_libdir}/libopcodes.so
 %exclude %{_libdir}/libctf.a
 %exclude %{_libdir}/libctf-nobfd.a
+%dir %{_libdir}/bfd-plugins
+# %%{_libdir}/bfd-plugins/libdep.a
 %{_libdir}/bfd-plugins/libdep.so
 %exclude %{_exec_prefix}/lib/debug/%{_libdir}/bfd-plugins/libdep.so-*
 %endif
-
-%if %{isnative}
 
 %files devel
 %{_prefix}/include/*
 %{_libdir}/lib*.a
 %{_libdir}/libbfd.so
 %{_libdir}/libopcodes.so
-
-%endif
 
 %if %{with gold}
 %files gold
@@ -968,13 +1184,42 @@ exit 0
 %{_libdir}/gprofng/*
 %dir %{_exec_prefix}/lib/debug/%{_libdir}/gprofng
 %{_exec_prefix}/lib/debug/%{_libdir}/gprofng/libgp*
-%{_sysconfdir}/gprofng.rc
+%{_prefix}%{_sysconfdir}/gprofng.rc
 %endif
 
-# %%ghost %%{_bindir}/%%{?cross}ld
+%if %{with crossbuilds}
+
+%if "%{_target_platform}" != "aarch64-%{system}"
+%files -n cross-binutils-aarch64 
+/usr/aarch64-%{system}/
+/usr/bin/aarch64-%{system}-*
+%endif
+
+%if "%{_target_platform}" != "ppc64le-%{system}"
+%files -n cross-binutils-ppc64le
+/usr/ppc64le-%{system}/
+/usr/bin/ppc64le-%{system}-*
+%endif
+
+%if "%{_target_platform}" != "s390x-%{system}"
+%files -n cross-binutils-s390x
+/usr/s390x-%{system}/
+/usr/bin/s390x-%{system}-*
+%endif
+
+%if "%{_target_platform}" != "x86_64-%{system}"
+%files -n cross-binutils-x86_64
+/usr/x86_64-%{system}/
+/usr/bin/x86_64-%{system}-*
+%endif
+
+%endif
 
 #----------------------------------------------------------------------------
 %changelog
+* Tue Jan 31 2023 Nick Clifton  <nickc@redhat.com> - 2.39-10
+- Spec File: Add (disabled by default) support for cross-builds of the binutils.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 8b251cf41fa2f3d670f5f84e1298b7a0e549535a
+%global commit 98619aa5ab8e1adf058c1d17c562750d2e7a1e36
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,8 +23,8 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.5
-Release: 2%{?dist}
+Version: 38.6
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: modules-targeted-base.conf
@@ -813,6 +813,30 @@ exit 0
 %endif
 
 %changelog
+* Mon Jan 30 2023 Zdenek Pytela <zpytela@redhat.com> - 38.6-1
+- Boolean: allow qemu-ga read ssh home directory
+- Allow kernel_t to read/write all sockets
+- Allow kernel_t to UNIX-stream connect to all domains
+- Allow systemd-resolved send a datagram to journald
+- Allow kernel_t to manage and have "execute" access to all files
+- Fix the files_manage_all_files() interface
+- Allow rshim bpf cap2 and read sssd public files
+- Allow insights-client work with su and lpstat
+- Allow insights-client tcp connect to all ports
+- Allow nm-cloud-setup dispatcher plugin restart nm services
+- Allow unconfined user filetransition for sudo log files
+- Allow modemmanager create hardware state information files
+- Allow ModemManager all permissions for netlink route socket
+- Allow wg to send msg to kernel, write to syslog and dbus connections
+- Allow hostname_t to read network sysctls.
+- Dontaudit ftpd the execmem permission
+- Allow svirt request the kernel to load a module
+- Allow icecast rename its log files
+- Allow upsd to send signal to itself
+- Allow wireguard to create udp sockets and read net_conf
+- Use %autosetup instead of %setup
+- Pass -p 1 to %autosetup
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

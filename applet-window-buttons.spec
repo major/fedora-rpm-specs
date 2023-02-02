@@ -2,11 +2,12 @@
 
 Name:           applet-window-buttons
 Version:        0.11.1
-Release:        3%{?dist}
+Release:        5%{?dist}
 Summary:        Plasma 5 applet to show window buttons in panels
 License:        GPLv2+
 URL:            https://github.com/psifidotos/applet-window-buttons
 Source0:        https://github.com/psifidotos/applet-window-buttons/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         https://patch-diff.githubusercontent.com/raw/psifidotos/applet-window-buttons/pull/191.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -43,7 +44,7 @@ one's panels. This plasmoid is coming from Latte land, but it can also
 support Plasma panels.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -n %{name}-%{version} -p1
 
 %build
 %cmake
@@ -71,6 +72,12 @@ desktop-file-validate %{buildroot}%{_datadir}/plasma/plasmoids/%{orig_name}/meta
 
 
 %changelog
+* Tue Jan 31 2023 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 0.11.1-5
+- Rebuilt for kde 5.26.90 library changes
+
+* Tue Jan 31 2023 Onuralp Sezer <thunderbirdtr@fedoraproject.org> - 0.11.1-4
+- Rebuilt for libkdecorations2private.so
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

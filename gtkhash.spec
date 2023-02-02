@@ -1,8 +1,24 @@
 # Review at https://bugzilla.redhat.com/show_bug.cgi?id=540328
 #
-%if ! ( 0%{?fedora} > 36 || 0%{?rhel} > 9 )
-%global with_nautilus_gtk3 1
+
+# F37 nautilus is based on GTK4, incompatible with GTK3 nautilus extensions
+%if 0%{?fedora} > 36 || 0%{?rhel} > 9
+%bcond_with nautilus
+%else
+%bcond_without nautilus
 %endif
+
+# nemo is ExcludeArch ix86 since F34
+%ifarch %{ix86}
+%bcond_with nemo
+%else
+%bcond_without nemo
+%endif
+
+%bcond_without thunar
+
+%bcond_without caja
+
 
 Name:           gtkhash
 Version:        1.4
@@ -22,19 +38,28 @@ BuildRequires:  gettext
 BuildRequires:  intltool
 BuildRequires:  automake
 BuildRequires:  libtool
-%if 0%{?with_nautilus_gtk3}
+%if %{with nautilus}
 BuildRequires:  pkgconfig(libnautilus-extension)
 %endif
+%if %{with caja}
 BuildRequires:  pkgconfig(libcaja-extension)
+%endif
+%if %{with nemo}
 BuildRequires:  pkgconfig(libnemo-extension)
+%endif
+%if %{with thunar}
 BuildRequires:  pkgconfig(thunarx-3)
+%endif
 BuildRequires:  libappstream-glib
 BuildRequires: make
 
 Provides:       gtkhash3 = %{version}-%{release}
 Obsoletes:      gtkhash3 < 1.1.1
-%if ! 0%{?with_nautilus_gtk3}
+%if %{without nautilus}
 Obsoletes:      %{name}-nautilus <= 1.4
+%endif
+%if %{without nemo}
+Obsoletes:      %{name}-nemo <= 1.4
 %endif
 
 %description
@@ -97,12 +122,18 @@ called "Checksums" to the file properties dialog.
   --enable-gcrypt \
   --enable-glib-checksums \
   --enable-mhash \
+%if %{with thunar}
   --enable-thunar \
-%if 0%{?with_nautilus_gtk3}
+%endif
+%if %{with nautilus}
   --enable-nautilus \
 %endif
+%if %{with nemo}
   --enable-nemo \
+%endif
+%if %{with caja}
   --enable-caja \
+%endif
   --disable-schemas-compile \
 
 %make_build
@@ -116,7 +147,9 @@ called "Checksums" to the file properties dialog.
 # generic
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
+%if %{with nautilus} || %{with thunar} || %{with nemo} || %{with caja}
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.metainfo.xml
+%endif
 appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 
 %files -f %{name}.lang
@@ -125,29 +158,37 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/*.appdata.xml
 %{_bindir}/%{name}
 %{_datadir}/applications/org.%{name}.%{name}.desktop
 %{_datadir}/glib-2.0/schemas/org.%{name}.gschema.xml
+%if %{with nautilus} || %{with thunar} || %{with nemo} || %{with caja}
 %{_datadir}/glib-2.0/schemas/org.%{name}.plugin.gschema.xml
+%endif
 %{_datadir}/icons/hicolor/*/apps/org.%{name}.%{name}.png
 %{_datadir}/icons/hicolor/scalable/apps/org.%{name}.%{name}.svg
 %{_metainfodir}/org.%{name}.%{name}.appdata.xml
 
-%if 0%{?with_nautilus_gtk3}
+%if %{with nautilus}
 %files nautilus
 %{_libdir}/nautilus/extensions-3.0/libgtkhash-properties-nautilus.so
 %{_metainfodir}/org.gtkhash.nautilus.metainfo.xml
 %endif
 
+%if %{with thunar}
 %files thunar
 %{_libdir}/thunarx-3/libgtkhash-properties-thunar.so
 %{_metainfodir}/org.gtkhash.thunar.metainfo.xml
+%endif
 
+%if %{with nemo}
 %files nemo
 %{_libdir}/nemo/extensions-3.0/libgtkhash-properties-nemo.so
 %{_metainfodir}/org.gtkhash.nemo.metainfo.xml
+%endif
 
+%if %{with caja}
 %files caja
 %{_libdir}/caja/extensions-2.0/libgtkhash-properties-caja.so
 %{_datadir}/caja/extensions/libgtkhash-properties-caja.caja-extension
 %{_metainfodir}/org.gtkhash.caja.metainfo.xml
+%endif
 
 %changelog
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-7

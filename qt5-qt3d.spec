@@ -5,11 +5,11 @@
 Summary: Qt5 - Qt3D QML bindings and C++ APIs
 Name:    qt5-%{qt_module}
 Version: 5.15.8
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://doc.qt.io/qt-5/licensing.html
-License: LGPLv2 with exceptions or GPLv3 with exceptions
+License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
 %global majmin %(echo %{version} | cut -d. -f1-2)
 Source0: https://download.qt.io/official_releases/qt/%{majmin}/%{version}/submodules/%{qt_module}-everywhere-opensource-src-%{version}.tar.xz
@@ -19,11 +19,6 @@ BuildRequires: make
 BuildRequires: qt5-rpm-macros >= %{version}
 BuildRequires: qt5-qtbase-static >= %{version}
 BuildRequires: qt5-qtbase-private-devel
-#libQt53DRender.so.5(Qt_5_PRIVATE_API)(64bit)
-#libQt5Core.so.5(Qt_5_PRIVATE_API)(64bit)
-#libQt5Gui.so.5(Qt_5_PRIVATE_API)(64bit)
-#libQt5Qml.so.5(Qt_5_PRIVATE_API)(64bit)
-#libQt5Quick.so.5(Qt_5_PRIVATE_API)(64bit)
 %{?_qt5:Requires: %{_qt5}%{?_isa} = %{_qt5_version}}
 BuildRequires: qt5-qtdeclarative-devel
 BuildRequires: qt5-qtimageformats
@@ -184,6 +179,9 @@ popd
 
 
 %changelog
+* Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 5.15.8-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,12 @@
-%global commit 62467b86871aee3d70c7445f3cb79f0858ec566e
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gitdate 20190306
-%global fgittag %{gitdate}.git%{shortcommit}
+%global commit 6fa02400b87619fa77846882b9caafb55865096d
+%global shortcommit %(c=%{?commit}; echo ${c:0:7})
+%global gitdate 20200828
+%global fgittag %{?gitdate}.git%{?shortcommit}
 %undefine _hardened_build
+
 Name:           pcsxr
-Version:        1.9.94
-Release:        31%{?fgittag:.%{fgittag}}%{?dist}
+Version:        1.9.95
+Release:        1%{?fgittag:.%{fgittag}}%{?dist}
 Summary:        A plugin based PlayStation (PSX) emulator with high compatibility
 
 #All code is distributed as GPLv3+ except:
@@ -13,8 +14,8 @@ Summary:        A plugin based PlayStation (PSX) emulator with high compatibilit
 # SOURCE/libpcsxcore/sjisfont.h is Public Domain
 # SOURCE/libpcsxcore/psemu_plugin_defs.h is Public Domain
 License:        GPLv3+ and BSD and Public Domain
-Url:            https://github.com/iCatButler/pcsxr
-Source0:        https://github.com/iCatButler/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+Url:            https://github.com/frealgagu/PCSX-Reloaded
+Source0:        https://github.com/frealgagu/PCSX-Reloaded/archive/%{?commit}%{?!commit:%{version}}/%{name}-%{?shortcommit}%{?!commit:-%{version}}.tar.gz
 #Appdata:
 Source1:        %{name}.appdata.xml
 #This is a hack to get it to build
@@ -61,7 +62,7 @@ emulation support for game pads, videos, sound, memory cards, and other
 important PSX components, and is able to play many games without problems.
 
 %prep
-%autosetup -p1 -n %{name}-%{commit}
+%autosetup -p1 -n PCSX-Reloaded-%{?commit}%{?!commit:%{version}}
 #remove any unnecessary files:
 rm -f -r win32 macosx
 #Remove changes to c/cxx flags, upstream strips out debug symbols
@@ -70,6 +71,8 @@ sed -i '/CMAKE_C.*_FLAGS/d' CMakeLists.txt
 sed -i '/COPYING/d' doc/CMakeLists.txt
 #Add snapshot info into about dialog
 sed -i 's/"git"/"%{fgittag}"/' gui/AboutDlg.c
+#Fix version, latest tag is 1.9.95 but cmake is still old:
+sed -i 's/\(set(PCSXR_VERSION_PATCH "9\)4/\15/' CMakeLists.txt
 
 %build
 %cmake -DUSE_LIBCDIO:BOOL=ON -DUSE_LIBARCHIVE:BOOL=ON \
@@ -99,6 +102,9 @@ appstream-util validate-relax --nonet \
 %{_datadir}/icons/hicolor/*/apps/%{name}-icon.png
 
 %changelog
+* Tue Jan 31 2023 Jeremy Newton <alexjnewt AT hotmail DOT com> - 1.9.95-1.20200828.git6fa0240
+- Update to newer snapshot (based on 1.9.95 tag)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.94-31.20190306.git62467b8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

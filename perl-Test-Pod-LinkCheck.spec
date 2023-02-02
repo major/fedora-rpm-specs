@@ -98,8 +98,10 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %files
 %license LICENSE
 %doc AUTHOR_PLEDGE Changes CommitLog examples README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Test
+%dir %{perl_vendorlib}/Test/Pod
+%{perl_vendorlib}/Test/Pod/LinkCheck.pm
+%{_mandir}/man3/Test::Pod::LinkCheck.*
 
 %files tests
 %{_libexecdir}/%{name}

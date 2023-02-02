@@ -1,8 +1,8 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.07
-Release: 2%{?dist}
+Version: 11.08
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
 # Maintainer: nickc@redhat.com
@@ -522,6 +522,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Tue Jan 31 2023 Nick Clifton  <nickc@redhat.com> - 11.08-1
+- Annocheck: Fix atexit test.  Fix recording of version numbers.  (#2165528)
+
 * Wed Jan 25 2023 Nick Clifton  <nickc@redhat.com> - 11.07-2
 - LLVM & Clang Plugins: Build with branch protection on AArch64.  (#2164364)
 - Fix gating tests.

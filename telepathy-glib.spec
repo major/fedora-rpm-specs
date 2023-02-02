@@ -6,7 +6,7 @@
 
 Name:           telepathy-glib
 Version:        0.24.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        GLib bindings for Telepathy
 
 License:        LGPLv2+
@@ -18,14 +18,16 @@ BuildRequires:	gcc
 # Tests
 BuildRequires:	gcc-c++
 
-BuildRequires:	gtk-doc >= 1.17
 BuildRequires:	pkgconfig(dbus-1) >= %{dbus_ver}
 BuildRequires:	pkgconfig(dbus-glib-1) >= %{dbus_glib_ver}
 BuildRequires:	pkgconfig(glib-2.0) >= %{glib_ver}
 BuildRequires:	pkgconfig(gobject-2.0) >= %{glib_ver}
 BuildRequires:	pkgconfig(gio-2.0) >= %{glib_ver}
 BuildRequires:	pkgconfig(gobject-introspection-1.0) >= %{gobj_ver}
+
+BuildRequires:	gtk-doc >= 1.17
 BuildRequires:	%{_bindir}/valac
+BuildRequires:	%{_bindir}/vapigen
 BuildRequires:	%{_bindir}/xsltproc
 BuildRequires:	python3
 # For tests/dbus
@@ -36,7 +38,7 @@ Telepathy-glib is the glib bindings for the telepathy unified framework
 for all forms of real time conversations, including instant messaging, IRC, 
 voice calls and video calls.
 
-%package vala
+%package	vala
 Summary:	Vala bindings for %{name}
 Requires:	%{name} = %{version}-%{release}
 Requires:	vala
@@ -60,11 +62,19 @@ developing applications that use %{name}.
 %autosetup -p1
 
 # Explicitly switch to python3
-env LANG=C grep -rl python . | \
-	xargs sed -i \
+touch timestamp
+env LANG=C grep -rl python . | while read f
+do
+	sed -i $f \
 		-e 's|/usr/bin/python$|/usr/bin/python3|'  \
 		-e 's|/usr/bin/env[ \t]*python$|/usr/bin/python3|' \
 		%{nil}
+	# Explicitly set timestamp of the modified files to the same time
+	# so that autotool won't be called after configure
+	touch -r timestamp $f
+done
+# Also modify the following timestamp
+touch -r timestamp config.h.in
 
 %build
 %configure \
@@ -105,6 +115,9 @@ make check
 
 
 %changelog
+* Sun Jan 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.24.2-7
+- Avoid autotool automatic invocation due to autotool scripts timestamp issue
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

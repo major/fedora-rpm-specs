@@ -19,7 +19,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.39.5
+Version:        2.39.7
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -437,7 +437,6 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 # Finally, copy over and rename various files for %%license inclusion
 %add_to_license_files Source/JavaScriptCore/COPYING.LIB
 %add_to_license_files Source/ThirdParty/ANGLE/LICENSE
-%add_to_license_files Source/ThirdParty/ANGLE/src/common/third_party/smhasher/LICENSE
 %add_to_license_files Source/ThirdParty/ANGLE/src/third_party/libXNVCtrl/LICENSE
 %add_to_license_files Source/WebCore/LICENSE-APPLE
 %add_to_license_files Source/WebCore/LICENSE-LGPL-2
@@ -454,7 +453,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %license _license_files/*WebCore*
 %license _license_files/*WebInspectorUI*
 %license _license_files/*WTF*
-%{_libdir}/libwebkitgtk-6.0.so.1*
+%{_libdir}/libwebkitgtk-6.0.so.2*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/WebKit-6.0.typelib
 %{_libdir}/girepository-1.0/WebKitWebExtension-6.0.typelib

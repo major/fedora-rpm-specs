@@ -2,9 +2,9 @@
 
 Name:           perl-WebService-MusicBrainz
 Version:        1.0.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Perl interface to search the musicbrainz.org database
-License:        Artistic 2.0 or GPL+
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/WebService-MusicBrainz
 Source0:        https://cpan.metacpan.org/authors/id/B/BF/BFAIST/WebService-MusicBrainz-%{version}.tar.gz
 BuildArch:      noarch
@@ -46,6 +46,9 @@ chmod -R u+w $RPM_BUILD_ROOT/*
 %perl_vendorlib/WebService
 
 %changelog
+* Tue Jan 31 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.0.6-3
+- Rebuilt for SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
