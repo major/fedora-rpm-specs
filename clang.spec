@@ -41,10 +41,10 @@
 
 Name:		%pkg_name
 Version:	%{clang_version}%{?rc_ver:~rc%{rc_ver}}
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A C language family front-end for LLVM
 
-License:	NCSA
+License:	Apache-2.0 WITH LLVM-exception OR NCSA
 URL:		http://llvm.org
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_srcdir}.tar.xz
 Source3:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{clang_version}%{?rc_ver:-rc%{rc_ver}}/%{clang_srcdir}.tar.xz.sig
@@ -207,7 +207,7 @@ This package owns the clang resouce directory: $libdir/clang/$version/
 %if %{without compat_build}
 %package analyzer
 Summary:	A source code analysis framework
-License:	NCSA and MIT
+License:	Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
 BuildArch:	noarch
 Requires:	%{name} = %{version}-%{release}
 
@@ -612,6 +612,10 @@ false
 
 %endif
 %changelog
+* Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-3
+- Update license to SPDX identifiers.
+- Include the Apache license adopted in 2019.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

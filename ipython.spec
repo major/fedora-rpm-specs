@@ -13,8 +13,8 @@
 %endif
 
 Name:           ipython
-Version:        8.8.0
-Release:        2%{?dist}
+Version:        8.9.0
+Release:        1%{?dist}
 Summary:        An enhanced interactive Python shell
 
 # See bug #603178 for a quick overview for the choice of licenses
@@ -256,6 +256,9 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 
 
 %changelog
+* Mon Jan 30 2023 Lumír Balhar <lbalhar@redhat.com> - 8.9.0-1
+- Update to 8.9.0 (rhbz#2165147)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,18 +2,16 @@
 %global gem_name sprockets-rails
 
 Name: rubygem-%{gem_name}
-Version: 3.2.2
-Release: 7%{?dist}
+Version: 3.4.2
+Release: 1%{?dist}
 Summary: Sprockets Rails integration
 License: MIT
 URL: https://github.com/rails/sprockets-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # Get the tests
 # git clone --no-checkout https://github.com/rails/sprockets-rails.git
-# cd sprockets-rails && git archive -v -o sprockets-rails-3.2.2-tests.txz v3.2.2 test/
+# cd sprockets-rails && git archive -v -o sprockets-rails-3.4.2-tests.txz v3.4.2 test/
 Source1: sprockets-rails-%{version}-tests.txz
-# Extracted from https://github.com/rails/sprockets-rails/commit/5fb466da6421daef086f1720e7961e348f5ce7c1
-Patch0: rubygem-%{gem_name}-3.3.0-rails7-actionview.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -39,7 +37,6 @@ Documentation for %{name}.
 %setup -q -n %{gem_name}-%{version} -b 1
 
 pushd %{_builddir}
-%patch0 -p1
 popd
 
 %build
@@ -70,6 +67,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Feb 01 2023 Pavel Valena <pvalena@redhat.com> - 3.4.2-1
+- Update to sprockets-rails 3.4.2.
+  Resolves: rhbz#2022436
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

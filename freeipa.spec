@@ -66,12 +66,12 @@
 %if 0%{?rhel}
 %global package_name ipa
 %global alt_name freeipa
-%global krb5_version 1.18.2-2
-%global krb5_kdb_version 8.0
+%global krb5_version 1.20.1-1
+%global krb5_kdb_version 9.0
 # 0.7.16: https://github.com/drkjam/netaddr/issues/71
 %global python_netaddr_version 0.7.19
 # Require 4.14.5-11 which brings CVE-2020-25717 fixes
-%global samba_version 4.14.5-11
+%global samba_version 4.17.4-101
 %global slapi_nis_version 0.56.4
 %global python_ldap_version 3.1.0-1
 %if 0%{?rhel} < 9

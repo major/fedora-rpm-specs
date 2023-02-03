@@ -1,4 +1,9 @@
 %global toolchain clang
+
+# Opt out of https://fedoraproject.org/wiki/Changes/fno-omit-frame-pointer
+# https://bugzilla.redhat.com/show_bug.cgi?id=2158587
+%undefine _include_frame_pointers
+
 %global maj_ver 15
 %global min_ver 0
 %global patch_ver 7
@@ -9,7 +14,7 @@
 
 Name:       llvm-libunwind
 Version:    %{libunwind_version}%{?rc_ver:~rc%{rc_ver}}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    LLVM libunwind
 
 License:    Apache-2.0 WITH LLVM-exception OR NCSA OR MIT
@@ -137,6 +142,9 @@ rm %{buildroot}%{_pkgdocdir}/html/.buildinfo
 %doc %{_pkgdocdir}/html
 
 %changelog
+* Wed Feb 01 2023 Tom Stellard <tstellar@redhat.com> - 15.0.7-4
+- Omit frame pointers when building
+
 * Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-3
 - Update license to SPDX identifiers.
 - Include the Apache license adopted in 2019.

@@ -10,11 +10,11 @@ License:        GPL-3.0-or-later AND BSL-1.0 AND MPL-2.0 AND BSD-3-Clause AND Ap
 URL:            https://libsemigroups.readthedocs.io/
 Source0:        https://github.com/libsemigroups/libsemigroups/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
+BuildRequires:  catch-devel
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  libtool
 BuildRequires:  make
-BuildRequires:  pkgconfig(catch2)
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(fmt)
 BuildRequires:  %{py3_dist beautifulsoup4}
@@ -188,6 +188,9 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Wed Feb  1 2023 Jerry James <loganjerry@gmail.com> - 2.5.1-2
+- Explicitly depend on catch version 2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

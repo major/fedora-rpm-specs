@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	79%{?dist}
+Release:	81%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,13 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Wed Feb 01 2023 Javier Martinez Canillas <javierm@redhat.com> - 2.06-81
+- 20-grub-install: Explicitly check '+debug' suffix for debug kernels
+- Resolves: #2148351
+
+* Wed Feb 01 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-80
+- Bump to re-run signing
+
 * Tue Jan 31 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-79
 - Disable mdraid < 1.1 on ppc64le
 

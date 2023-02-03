@@ -18,10 +18,10 @@
 
 Name: libomp
 Version: %{libomp_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: OpenMP runtime for clang
 
-License: NCSA
+License: Apache-2.0 WITH LLVM-exception OR NCSA
 URL: http://openmp.llvm.org
 Source0: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{libomp_srcdir}.tar.xz
 Source1: https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libomp_version}%{?rc_ver:-rc%{rc_ver}}/%{libomp_srcdir}.tar.xz.sig
@@ -167,6 +167,9 @@ rm -rf %{buildroot}%{_libdir}/libarcher_static.a
 %{_libexecdir}/tests/libomp/
 
 %changelog
+* Tue Jan 31 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-5
+- Include the Apache license adopted in 2019.
+
 * Fri Jan 20 2023 Tom Stellard <tstellar@redhat.com> - 15.0.7-4
 - Omit frame pointers when building
 

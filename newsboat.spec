@@ -14,6 +14,9 @@ Source2: https://newsboat.org/newsboat.pgp
 
 Patch:  0001-make-do-not-require-Cargo.lock.patch
 Patch:  0002-libnewsboat-relax-requirements.patch
+# Following patches should be included in next release; prune when updating
+Patch:  https://github.com/newsboat/newsboat/commit/b8fb4ae0cd6d01fb8fa47f4efa30790beec33ba5.patch#/gcc-13-fix.patch
+Patch:  https://github.com/newsboat/newsboat/commit/feac1fd9574aff55eab954ce91b75a8d003c0fbb.patch#/deps-lexopt-0.3.patch
 
 # Source file verification
 BuildRequires: make

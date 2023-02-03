@@ -1,10 +1,10 @@
 %global gvc_commit ae1a34aafce7026b8c0f65a43c9192d756fe1057
 %global libcall_ui_commit 7e2f9e2db6515fb9c4650010c2a9ecb9796957e3
-%global libgmobile_commit 3035e22ff124ca7b80ac5a21fe114be442e4dde6
+%global libgmobile_commit 6504fa124438b79a2ad5687ac3ebef6d7a2c0823
 
 Name:		phosh
-Version:	0.23.0
-Release:	2%{?dist}
+Version:	0.24.0
+Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/World/Phosh/phosh
@@ -124,7 +124,7 @@ LC_ALL=C.UTF-8 xvfb-run sh <<'SH'
 SH
 
 %files -f %{name}.lang
-%{_bindir}/phosh
+%{_bindir}/phosh-session
 %{_libexecdir}/phosh
 %{_libexecdir}/phosh-calendar-server
 %{_datadir}/applications/sm.puri.Phosh.desktop
@@ -161,6 +161,8 @@ SH
 %license COPYING
 
 %changelog
+%autochangelog
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

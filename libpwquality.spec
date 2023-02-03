@@ -1,7 +1,7 @@
 Summary: A library for password generation and password quality checking
 Name: libpwquality
 Version: 1.4.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://github.com/libpwquality/libpwquality/
 Source0: https://github.com/libpwquality/libpwquality/releases/download/libpwquality-%{version}/libpwquality-%{version}.tar.bz2
 # The package is BSD licensed with option to relicense as GPLv2+
@@ -12,7 +12,9 @@ License: BSD or GPLv2+
 %global _secconfdir %{_sysconfdir}/security
 
 # This allows minimal installs to not drag in the big wordlist package
-Suggests: cracklib-dicts >= 2.8
+# but anyone doing this should be careful as it causes various
+# password set/change operations to fail
+Recommends: cracklib-dicts >= 2.8
 
 BuildRequires: gcc make
 BuildRequires: cracklib-devel
@@ -98,6 +100,9 @@ mkdir %{buildroot}%{_secconfdir}/pwquality.conf.d
 %{python3_sitearch}/*.egg-info
 
 %changelog
+* Wed Feb 01 2023 Adam Williamson <awilliam@redhat.com> - 1.4.5-3
+- Strengthen cracklib-dicts dependency to Recommends (#2158891)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

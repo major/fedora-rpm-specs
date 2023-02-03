@@ -4,7 +4,7 @@
 
 Name:           python-%{srcname}
 Version:        0.17.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Terminals served to term.js using Tornado websockets
 
 License:        BSD-2-Clause
@@ -33,6 +33,10 @@ emulator library.
 %prep
 %setup -q -n %{srcname}-%{version}
 
+%if 0%{?rhel} == 9
+sed -i 's/hatchling>=1.5/hatchling>=0.25/g' pyproject.toml
+%endif
+
 %generate_buildrequires
 %pyproject_buildrequires -w
 
@@ -59,6 +63,9 @@ export INPUTRC=$PWD/.inputrc
 
 
 %changelog
+* Wed Feb 01 2023 Jonathan Wright <jonathan@almalinux.org> - 0.17.1-4
+- Use older hatchling on el9
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

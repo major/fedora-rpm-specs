@@ -20,7 +20,7 @@ Obsoletes: python2-openms < 0:2.4.0-1
 Name:      openms
 Summary:   LC/MS data management and analyses
 Version:   2.8.0
-Release:   0.4%{?dist}
+Release:   0.5%{?dist}
 License:   BSD
 URL:       http://www.openms.de/
 Source0:   https://abibuilder.informatik.uni-tuebingen.de/archive/openms/OpenMSInstaller/release/%{version}/OpenMS-%{version}-src.tar.gz
@@ -78,6 +78,7 @@ Requires: R-core%{?_isa}
 Patch0: %{name}-remove_testflag.patch
 
 Patch1: %{name}-bug5864.patch
+Patch2: %{name}-fix_gcc13.patch
 
 %description
 OpenMS is a C++ library for LC-MS data management and analyses.
@@ -193,6 +194,10 @@ dos2unix share/OpenMS/SIMULATION/FASTAProteinAbundanceSampling.py
 
 %if 0%{?fedora} > 35
 %patch1 -p1 -b .backup
+%endif
+
+%if 0%{?fedora} > 37
+%patch2 -p1 -b .backup
 %endif
 
 # Remove invalid tags
@@ -623,6 +628,9 @@ popd
 %endif
 
 %changelog
+* Wed Feb 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.8.0-0.5
+- Fixed for GCC-13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-0.4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

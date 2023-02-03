@@ -2,22 +2,22 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           nvme-cli
-Version:        2.2.1
-Release:        2%{?dist}
+Version:        2.3
+Release:        1%{?dist}
 Summary:        NVMe management command line interface
 
 License:        GPLv2
 URL:            https://github.com/linux-nvme/nvme-cli
 Source0:        %{url}/archive/v%{version_no_tilde}/%{name}-%{version_no_tilde}.tar.gz
 
-BuildRequires:  meson >= 0.48.0
+BuildRequires:  meson >= 0.50.0
 BuildRequires:  gcc gcc-c++
 BuildRequires:  systemd-devel
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  zlib-devel
 BuildRequires:  openssl-devel
 
-BuildRequires:  libnvme-devel >= 1.2
+BuildRequires:  libnvme-devel >= 1.3
 BuildRequires:  json-c-devel >= 0.13
 
 %if (0%{?rhel} == 0)
@@ -83,6 +83,9 @@ rm -rf %{buildroot}%{_pkgdocdir}/nvme
 
 
 %changelog
+* Wed Feb 01 2023 Tomas Bzatek <tbzatek@redhat.com> - 2.3-1
+- Update to 2.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

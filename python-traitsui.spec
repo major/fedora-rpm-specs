@@ -75,7 +75,7 @@ pushd build/lib/traitsui/tests/
 
 PYTHONPATH=%{buildroot}%{python3_sitelib} xvfb-run %{__python3} -X faulthandler -W default -m unittest discover -v
 
-# wx currently hang on:
+# wx currently hangs on:
 # test_set_text_out_of_range (traitsui.tests.editors.test_range_editor.TestRangeEditor) ... 
 #for toolkit in wx pyqt5 pyside2 # pyside6
 for toolkit in pyqt5 pyside2 # pyside6
@@ -99,7 +99,7 @@ popd
 %{python3_sitelib}/%{modname}*
 
 %changelog
-* Sat Jan 18 2023 Orion Poplawski <orion@nwra.com> - 7.4.3-3
+* Sat Jan 28 2023 Orion Poplawski <orion@nwra.com> - 7.4.3-3
 - Switch to unittest instead of nosetest
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.4.3-2

@@ -1,7 +1,7 @@
 %global gem_name activemodel
 
 # Circular dependency with rubygem-railties.
-%bcond_without bootstrap
+%bcond_with bootstrap
 
 Name: rubygem-%{gem_name}
 Version: 7.0.4.2

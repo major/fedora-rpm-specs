@@ -4,7 +4,7 @@
 
 # https://github.com/hashicorp/consul
 %global goipath         github.com/hashicorp/consul
-Version:                1.14.3
+Version:                1.14.4
 
 %gometa -f
 

@@ -3,7 +3,7 @@
 
 Summary: A library of composable Python executors and futures
 Name: python-%{srcname}
-Version: 2.7.0
+Version: 2.11.4
 Release: %autorelease
 License: GPLv3+
 BuildArch: noarch
@@ -25,8 +25,8 @@ BuildRequires:	python3-setuptools
 # dependencies for test suite
 BuildRequires:	python3dist(pytest)
 BuildRequires:	python3dist(pyhamcrest)
-BuildRequires:	python3dist(monotonic)
 BuildRequires:	python3dist(six)
+BuildRequires:	python3dist(mypy)
 
 %{?python_provide:%python_provide python3-%{srcname}}
 

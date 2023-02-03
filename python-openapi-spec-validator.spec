@@ -2,7 +2,7 @@
 %global modname openapi_spec_validator
 
 Name:           python-%{srcname}
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Python library for OpenAPI specs validation
 
@@ -10,10 +10,6 @@ License:        Apache-2.0
 URL:            https://github.com/p1c2u/%{srcname}
 # The GitHub archive has the tests; the PyPI sdist does not.
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# Fix an errant string identity comparison in a test
-# https://github.com/p1c2u/openapi-spec-validator/pull/188
-Patch:          %{url}/pull/188.patch
 
 BuildArch:      noarch
 

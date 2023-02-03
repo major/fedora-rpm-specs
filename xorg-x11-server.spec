@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   16%{?gitdate:.%{gitdate}}%{?dist}
+Release:   17%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -325,7 +325,7 @@ cp %{SOURCE1} .gitignore
 # ick
 %global __scm git
 %{expand:%__scm_setup_git -q}
-%if 0%{fedora} >= 38
+%if 0%{?fedora} >= 38
 %autopatch
 %else
 %autopatch -M 3800
@@ -552,6 +552,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Wed Feb 01 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-17
+- Updated conditional fedora statement
+
 * Tue Jan 17 2023 Olivier Fourdan <ofourdan@redhat.com> - 1.20.14-16
 - Use the recommended way to apply conditional patches without
   conditionalizing the sources (for byte-swapped clients).

@@ -19,6 +19,9 @@ Patch0: epiphany-default-bookmarks.patch
 
 # https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1266
 Patch1: webkitgtk-2.39.5.patch
+# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1269
+# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1273
+Patch2: webkitgtk-2.39.6.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc

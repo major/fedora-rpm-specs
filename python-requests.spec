@@ -9,8 +9,8 @@
 
 
 Name:           python-requests
-Version:        2.28.1
-Release:        4%{?dist}
+Version:        2.28.2
+Release:        1%{?dist}
 Summary:        HTTP library, written in Python, for human beings
 
 License:        ASL 2.0
@@ -18,7 +18,7 @@ URL:            https://pypi.io/project/requests
 Source0:        https://github.com/requests/requests/archive/v%{version}/requests-v%{version}.tar.gz
 # Explicitly use the system certificates in ca-certificates.
 # https://bugzilla.redhat.com/show_bug.cgi?id=904614
-Patch0:         requests-2.28.1-system-certs.patch
+Patch0:         system-certs.patch
 
 BuildArch:      noarch
 
@@ -93,6 +93,9 @@ sed -i 's/ --doctest-modules//' pyproject.toml
 
 
 %changelog
+* Wed Feb 01 2023 Lumír Balhar <lbalhar@redhat.com> - 2.28.2-1
+- Update to 2.28.2 (rhbz#2160527)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

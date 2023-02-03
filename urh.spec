@@ -3,7 +3,7 @@
 
 Name:		urh
 Version:	2.9.4
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Universal Radio Hacker: investigate wireless protocols like a boss
 License:	ASL 2.0 and GPLv2
 URL:		https://github.com/jopohl/urh
@@ -81,6 +81,9 @@ desktop-file-install --add-category="Utility" \
 %{python3_sitearch}/urh-%{version}-*.egg-info
 
 %changelog
+* Wed Feb  1 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.4-2
+- Rebuilt for new uhd
+
 * Mon Jan 30 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.9.4-1
 - New version
   Resolves: rhbz#2165227

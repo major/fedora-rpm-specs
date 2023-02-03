@@ -1,9 +1,9 @@
 Name:           nq
 Version:        0.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Unix command line queue utility
 
-License:        CC0
+License:        CC0-1.0
 URL:            https://github.com/leahneukirchen/nq
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -40,6 +40,9 @@ setup, maintenance, supervision or any long-running processes.
 %{_mandir}/man1/tq.1*
 
 %changelog
+* Wed Feb 01 2023 Gustavo Costa <xfgusta@gmail.com> - 0.5-4
+- Use SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

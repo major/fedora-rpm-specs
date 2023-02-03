@@ -40,7 +40,8 @@ URL:            https://wiki.gnome.org/Apps/Builder
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
 
 # https://gitlab.gnome.org/GNOME/gnome-builder/-/merge_requests/679
-Patch0:         webkitgtk-2.39.5.patch
+# https://gitlab.gnome.org/GNOME/gnome-builder/-/merge_requests/686
+Patch0:         webkitgtk-2.39.6.patch
 
 BuildRequires:  clang-devel
 BuildRequires:  desktop-file-utils

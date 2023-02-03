@@ -4,12 +4,8 @@
 # Circular dependency with rubygem-{rails,jquery-rails,uglifier}.
 %bcond_with bootstrap
 
-# `webpacker` dependency is required for a lot of tests, however it is not
-# in Fedora yet
-%bcond_with webpacker
-
 Name: rubygem-%{gem_name}
-Version: 7.0.4
+Version: 7.0.4.2
 Release: 2%{?dist}
 Summary: Tools for creating, working with, and running Rails applications
 License: MIT
@@ -17,21 +13,34 @@ URL: http://rubyonrails.org
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # Get the test suite:
 # git clone http://github.com/rails/rails.git
-# cd rails/railties && git archive -v -o railties-7.0.4-tests.txz v7.0.4 test/
+# cd rails/railties && git archive -v -o railties-7.0.4.2-tests.txz v7.0.4.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.4-tools.txz v7.0.4 tools/
+# cd rails && git archive -v -o rails-7.0.4.2-tools.txz v7.0.4.2 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+
 # https://github.com/rails/rails/pull/45380
 Patch1: rubygem-railties-7.0.2.3-Remove-the-multi-call-form-of-assert_called_with.patch
+# Fix `ApplicationTests::TestRunnerTest#test_run_in_parallel_with_unmarshable_exception`
+# test case compabitility with Minitest 5.16.3.
+# https://github.com/rails/rails/pull/45370
+Patch2: rubygem-railties-7.1.0-Fix-tests-for-minitest-5.16.patch
+# https://github.com/rails/rails/pull/45848
+Patch3: rubygem-railties-7.1.0-Fix-unmarshalable-test-for-minitest-5.16.3.patch
+# Prevents `ApplicationTests::ServerTest#test_restart_rails_server_with_custom_pid_file_path`
+# test failures.
+# https://github.com/rails/rails/pull/46429
+Patch4: rubygem-railties-7.1.0-Fixes-flakey-race-condition-in-server_test.rb.patch
 
 # Needed by `rails console`.
 Recommends: rubygem(irb)
 # dbconsole requires the executable.
 Suggests: %{_bindir}/sqlite3
+# Required by generators, e.g.:
+# https://github.com/rails/rails/blob/7-0-stable/railties/lib/rails/generators/rails/app/app_generator.rb#L75
+Recommends: %{_bindir}/git
 # Let's keep Requires and BuildRequires sorted alphabeticaly
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
@@ -41,34 +50,32 @@ BuildRequires: rubygem(actioncable) = %{version}
 BuildRequires: rubygem(actionmailer) = %{version}
 BuildRequires: rubygem(actionpack) = %{version}
 BuildRequires: rubygem(activerecord) = %{version}
-BuildRequires: rubygem(activesupport) = %{version}
 BuildRequires: rubygem(activestorage) = %{version}
+BuildRequires: rubygem(activesupport) = %{version}
+BuildRequires: rubygem(bootsnap)
 BuildRequires: rubygem(bundler)
+BuildRequires: rubygem(capybara)
+BuildRequires: rubygem(dalli)
 BuildRequires: rubygem(importmap-rails)
 BuildRequires: rubygem(irb)
+BuildRequires: rubygem(listen)
 BuildRequires: rubygem(method_source)
-BuildRequires: rubygem(rake) >= 0.8.7
-BuildRequires: rubygem(rack-cache)
-BuildRequires: rubygem(sqlite3)
+BuildRequires: rubygem(mysql2)
+BuildRequires: rubygem(pg)
 BuildRequires: rubygem(puma)
-BuildRequires: rubygem(bootsnap)
-BuildRequires: rubygem(capybara)
-#BuildRequires: rubygem(pg)
-#BuildRequires: postgresql
-BuildRequires: %{_bindir}/sqlite3
-BuildRequires: rubygem(sprockets-rails)
-BuildRequires: rubygem(thor) >= 0.18.1
-# Needed `reline` for irb
-BuildRequires: ruby-default-gems
-BuildRequires: rubygem(turbolinks)
-BuildRequires: %{_bindir}/git
-BuildRequires: rubygem(jquery-rails)
-BuildRequires: rubygem(uglifier)
+BuildRequires: rubygem(rack-cache)
 BuildRequires: rubygem(rails)
-BuildRequires: %{_bindir}/node
-%if %{with webpacker}
-BuildRequires: %{_bindir}/webpacker
-%endif
+BuildRequires: rubygem(rake) >= 0.8.7
+BuildRequires: rubygem(selenium-webdriver)
+BuildRequires: rubygem(sprockets-rails)
+BuildRequires: rubygem(sqlite3)
+BuildRequires: rubygem(thor) >= 0.18.1
+BuildRequires: rubygem(zeitwerk)
+BuildRequires: rubygem(webrick)
+BuildRequires: %{_bindir}/git
+BuildRequires: %{_bindir}/memcached
+BuildRequires: %{_bindir}/postgres
+BuildRequires: %{_bindir}/sqlite3
 %endif
 BuildArch: noarch
 
@@ -92,6 +99,9 @@ Documentation for %{name}.
 
 pushd %{_builddir}
 %patch1 -p2
+%patch2 -p2
+%patch3 -p2
+%patch4 -p2
 popd
 
 %build
@@ -114,16 +124,9 @@ find %{buildroot}%{gem_instdir}/exe -type f | xargs chmod a+x
 %check
 # fake RAILS_FRAMEWORK_ROOT
 ln -s %{gem_dir}/specifications/rails-%{version}%{?prerelease}.gemspec .%{gem_dir}/gems/rails.gemspec
-ln -s %{gem_dir}/gems/activesupport-%{version}%{?prerelease}/ .%{gem_dir}/gems/activesupport
-ln -s %{gem_dir}/gems/activestorage-%{version}%{?prerelease}/ .%{gem_dir}/gems/activestorage
-ln -s %{gem_dir}/gems/actionmailer-%{version}%{?prerelease}/ .%{gem_dir}/gems/actionmailer
-ln -s %{gem_dir}/gems/activerecord-%{version}%{?prerelease}/ .%{gem_dir}/gems/activerecord
+# Needed to prevent YARN dependnecy.
 ln -s %{gem_dir}/gems/actionview-%{version}%{?prerelease}/ .%{gem_dir}/gems/actionview
-ln -s %{gem_dir}/gems/actioncable-%{version}%{?prerelease}/ .%{gem_dir}/gems/actioncable
 ln -s ${PWD}%{gem_instdir} .%{gem_dir}/gems/railties
-
-# tmp dir has to exist for tests
-mkdir -p .%{gem_dir}/gems/tmp/templates/app_template
 
 pushd .%{gem_dir}/gems/railties
 
@@ -138,139 +141,92 @@ echo 'gem "actioncable"' >> ../Gemfile
 echo 'gem "actionmailer"' >> ../Gemfile
 echo 'gem "actionpack"' >> ../Gemfile
 echo 'gem "activerecord"' >> ../Gemfile
-echo 'gem "activesupport"' >> ../Gemfile
 echo 'gem "activestorage"' >> ../Gemfile
-echo 'gem "method_source"' >> ../Gemfile
-echo 'gem "rack-test"' >> ../Gemfile
-echo 'gem "rack-cache"' >> ../Gemfile
-echo 'gem "rake"' >> ../Gemfile
-echo 'gem "rdoc"' >> ../Gemfile
-echo 'gem "sqlite3"' >> ../Gemfile
-echo 'gem "thor"' >> ../Gemfile
-echo 'gem "turbolinks"' >> ../Gemfile
-echo 'gem "sprockets-rails"' >> ../Gemfile
-echo 'gem "puma"' >> ../Gemfile
+echo 'gem "activesupport"' >> ../Gemfile
 echo 'gem "bootsnap"' >> ../Gemfile
 echo 'gem "capybara"' >> ../Gemfile
-echo 'gem "irb"' >> ../Gemfile
+echo 'gem "dalli"' >> ../Gemfile
 echo 'gem "importmap-rails"' >> ../Gemfile
-#echo 'gem "pg"' >> ../Gemfile
-echo 'gem "jquery-rails"' >> ../Gemfile
+echo 'gem "irb"' >> ../Gemfile
+echo 'gem "listen"' >> ../Gemfile
+echo 'gem "method_source"' >> ../Gemfile
+echo 'gem "mysql2"' >> ../Gemfile
+echo 'gem "pg"' >> ../Gemfile
+echo 'gem "puma"' >> ../Gemfile
+echo 'gem "rack-cache"' >> ../Gemfile
 echo 'gem "rails"' >> ../Gemfile
-echo 'gem "uglifier", require: false' >> ../Gemfile
-
-# TODO: autorequires 'capybara/dsl' fail, not sure how to fix this.
-sed -i '/def test_system_tests_are_run_through_rake_test_when_given_in_TEST$/,/^    end$/ s/^/#/' \
-  test/application/test_runner_test.rb
-sed -i '/def test_reset_sessions_before_rollback_on_system_tests$/,/^    end$/ s/^/#/' \
-  test/application/test_runner_test.rb
-
-# This works only when AR is not specified in Gemfile. Not sure how to
-# workaround this.
-sed -i '/test "database middleware doesn.t initialize when activerecord is not in frameworks" do$/,/^    end$/ s/^/#/' \
-  test/application/initializers/frameworks_test.rb
-
-# Requires running PostgreSQL server
-mv test/application/rake/dbs_test.rb{,.disable}
-
-# TODO: Mismatch in RAILS_FRAMEWORK_ROOT, not sure how to fix it.
-sed -i '/test "i18n files have lower priority than application ones" do$/,/^    end$/ s/^/#/' \
-  test/railties/engine_test.rb
-
-# Remove unneded dependency minitest/retry
-sed -i -e '/require..minitest.retry./ s/^/#/' \
-  test/isolation/abstract_unit.rb
+echo 'gem "rake"' >> ../Gemfile
+echo 'gem "rdoc"' >> ../Gemfile
+echo 'gem "selenium-webdriver"' >> ../Gemfile
+echo 'gem "sprockets-rails"' >> ../Gemfile
+echo 'gem "sqlite3"' >> ../Gemfile
+echo 'gem "thor"' >> ../Gemfile
+echo 'gem "webrick"' >> ../Gemfile
 
 export RUBYOPT="-I${PWD}/../railties/lib"
 export PATH="${PWD}/../railties/exe:$PATH"
 export BUNDLE_GEMFILE=${PWD}/../Gemfile
 
-# Uses Bundler.require(...)
-mv test/generators/test_runner_in_engine_test.rb{,.disable}
-mv test/generators/plugin_generator_test.rb{,.disable}
+# Start PostgreSQL server, required by e.g.
+# test/application/bin_setup_test
+PG_DIR=$(mktemp -d)
+PG_DATA_DIR=${PG_DIR}/data
+export PGHOST=localhost
+initdb -E UTF8 --no-locale -D ${PG_DATA_DIR}
+pg_ctl -o "-p 5432 -k ${PG_DIR}" -D ${PG_DATA_DIR} -l ${PG_DIR}/logfile start
 
-# Start PostgreSQL server
-#PG_DIR=$(mktemp -d)
-#export PGHOST=localhost
-#postgres -D $PG_DIR -p 5432 &>/dev/null &
-#mPID=$!
+# Get temporary PID file name and start memcached daemon required by
+# test/application/middleware/cache_test.rb
+MC_PID=%(mktemp)
+memcached -d -P "${MC_PID}"
 
-# yarn requires network access
-sed -i -e '/^\s*sh .yarn/ s/^/#/g' \
+# Remove unneded dependency minitest/retry
+sed -i -e '/require..minitest.retry./ s/^/#/' \
   test/isolation/abstract_unit.rb
 
-# All these tests bellow try to run `webpacker`
-%if %{without webpacker}
-sed -i -e '/^\s*sh .bin.rails webpacker/ s/^/#/g' \
-  test/isolation/abstract_unit.rb
+# Fake the directory to prevent YARN dependnecy.
+mkdir test/isolation/assets/node_modules
 
-mv -v test/app_loader_test.rb{,.disable}
-mv -v test/engine/test_test.rb{,.disable}
-mv -v test/secrets_test.rb{,.disable}
+# TODO: Mismatch in RAILS_FRAMEWORK_ROOT, not sure how to fix it.
+sed -i '/test "i18n files have lower priority than application ones" do$/,/^    end$/ s/^/#/' \
+  test/railties/engine_test.rb
 
-for tname in \
-  railtie \
-  engine \
-  mounted_engine \
-;do
-  mv -v test/railties/${tname}_test.rb{,.disable}
-done
+# It seems that the test either does not run in development mode, which would
+# display the exception or there is some issue.
+sed -i '/test "displays statement invalid template correctly" do/a\
+    skip' test/application/middleware/exceptions_test.rb
 
-for tname in \
-  credentials \
-  encrypted \
-  initializers \
-  notes \
-  routes \
-  secrets \
-  server \
-;do
-  mv -v test/commands/${tname}_test.rb{,.disable}
-done
-rm -rf test/application/
+# Needs network access to reach GitHub.
+sed -i '/test_template_from_url/a\
+    skip' test/generators/app_generator_test.rb
 
-sed -i -e '/^\s*def test_scaffold_tests_pass_by_default_inside_mountable_engine/ a \  skip' \
-       -e '/^\s*def test_scaffold_tests_pass_by_default_inside_namespaced_mountable_engine/ a \  skip' \
-       -e '/^\s*def test_scaffold_tests_pass_by_default_inside_full_engine/ a \  skip' \
-       -e '/^\s*def test_scaffold_tests_pass_by_default_inside_api_full_engine/ a \  skip' \
-       -e '/^\s*def test_scaffold_tests_pass_by_default_inside_api_mountable_engine/ a \  skip' \
-  test/generators/scaffold_generator_test.rb
+# We don't have {turbo,tailwindcss,cssbundling}-rails in Fedora.
+sed -r -i '/test_(hotwire|css_option_with_(asset_pipeline_tailwind|cssbundling_gem))/a\
+    skip' test/generators/app_generator_test.rb
 
-%endif
-
-# Tests does not seem to work with importmap-rails now
-# Error: Don't know how to build task 'turbo:install'
-mv test/generators/app_generator_test.rb{,.disable}
-
-# The reporting syntax seems to have changed. The test will be fixed in 6.0.4.
-# https://github.com/rails/rails/issues/40081
-sed -i -e '/^\s*test "outputs errors inline" do/ a \  skip' \
-       -e '/^\s*test "outputs colored failed results" do/ a \  skip' \
-  test/test_unit/reporter_test.rb
-
-# Not sure why this fails,
-# https://github.com/rails/rails/issues/40081
-sed -i -e '/^\s*test "outputs colored failed results" do/ a \  skip' \
-       -e '/^\s*test "outputs errors inline" do/ a \  skip' \
-  test/test_unit/reporter_test.rb
-
-# Remove tests that require network access
-sed -i '/^\s*def test_template_is_executed_when_supplied_an_https_path/ a \  skip' \
-  test/generators/shared_generator_tests.rb
-
-# Disable malfunctioning test
+# It seems that ActionMailbox does not work properly. Is it due to missing
+# `turbo-rails`?
 sed -i '/^\s*def test_create_migrations/ a \  skip' \
   test/generators/action_mailbox_install_generator_test.rb
+# Neither the ActiveMailbox routes are generated for some reason :/
+mv test/commands/routes_test.rb{,.disable}
 
 # Do not print the git hint message which clogs the test output
 git config --global init.defaultBranch master
 
-# Tests needs to be executed in isolation.
+# Tests needs to be executed in isolation. Also, use `bundle exec`, there
+# is nothing to loose here and some tests depends on the Bundler (e.g.
+# test/generators/app_generator_test.rb).
 find test -type f -name '*_test.rb' -print0 | \
   sort -z | \
-  xargs -0 -n1 -i sh -c "echo '* Test file: {}'; ruby -Itest -- '{}' || exit 255"
+  xargs -0 -n1 -i sh -c "echo '* Test file: {}'; bundle exec ruby -Itest -- '{}' || exit 255"
 
-#kill -9 $mPID
+# Kill memcached daemon.
+kill -TERM $(< "${MC_PID}")
+
+# Stop PostgreSQL server
+pg_ctl -D ${PG_DATA_DIR} stop
+rm -rf ${PG_DIR}
 popd
 %endif
 
@@ -290,6 +246,12 @@ popd
 %doc %{gem_instdir}/README.rdoc
 
 %changelog
+* Wed Feb 01 2023 Vít Ondruch <vondruch@redhat.com> - 7.0.4.2-2
+- Test revamp + build dependencies update.
+
+* Wed Jan 25 2023 Pavel Valena <pvalena@redhat.com> - 7.0.4.2-1
+- Update to railties 7.0.4.2.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

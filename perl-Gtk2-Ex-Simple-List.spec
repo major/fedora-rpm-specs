@@ -2,15 +2,16 @@ Name:           perl-Gtk2-Ex-Simple-List
 Version:        0.50
 Release:        44%{?dist}
 Summary:        Simple interface to Gtk2's complex MVC list widget
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk2-Ex-Simple-List
 Source0:        https://cpan.metacpan.org/authors/id/R/RM/RMCFARLA/Gtk2-Perl-Ex/Gtk2-Ex-Simple-List-%{version}.tar.gz
 BuildArch:      noarch
 
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(Glib::MakeHelper)
 BuildRequires:  perl(Gtk2)
 BuildRequires:  perl(strict)
@@ -32,11 +33,11 @@ list of lists structure.
 %setup -q -n Gtk2-Ex-Simple-List-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check

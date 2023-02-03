@@ -4,11 +4,11 @@
 Name:    choqok
 Version: 1.7.0
 Summary: KDE Micro-Blogging Client
-License: GPLv3
+License: GPL-3.0-only
 
 %{forgemeta}
 
-Release: 9%{?dist}
+Release: 10%{?dist}
 URL:     %{forgeurl}
 Source0: %{forgesource}
 Source1: %{name}.rpmlintrc
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.choqok.de
 %{_kf5_libdir}/libtwitterapihelper.so
 
 %changelog
+* Wed Feb 01 2023 Gerald Cox <gbcox@fedoraproject.org> - 1.7.0.10
+- Rebuild for SPDX
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

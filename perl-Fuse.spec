@@ -5,18 +5,18 @@ Name:           perl-Fuse
 Version:        0.16.1
 Release:        23%{?dist}
 Summary:        Write filesystems in Perl using FUSE
-# LGPLv2: Reference from metadata
-# (GPLv2+ or LGPLv2+): same license as fuse as mention in README
-License:        LGPLv2 and (GPLv2+ or LGPLv2+)
+# LGPL-2.1-only: Reference from metadata
+# (GPL-2.0-or-later OR LGPL-2.1-or-later): same license as fuse as mention in README
+License:        LGPL-2.1-only AND ( GPL-2.0-or-later OR LGPL-2.1-or-later )
 URL:            https://metacpan.org/release/Fuse
 Source0:        https://cpan.metacpan.org/authors/id/D/DP/DPATES/Fuse-%{version}.tar.gz
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(POSIX)
@@ -65,11 +65,11 @@ in USErspace) kernel/lib interface.
 find -type f -exec chmod -c a-x {} +
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_fixperms} $RPM_BUILD_ROOT/*
 

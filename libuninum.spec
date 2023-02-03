@@ -1,12 +1,13 @@
 Summary:       Library for converting unicode strings to numbers
 Name:          libuninum
 Version:       2.7
-Release:       32%{?dist}
+Release:       33%{?dist}
 # numconv is GPLv2, lib is LGPLv2
 License:       GPLv2 and LGPLv2
 URL:           http://billposer.org/Software/libuninum.html
 Source0:       http://billposer.org/Software/Downloads/libuninum-%{version}.tar.bz2
 Patch0:        libuninum-2.7-64bit-clean.patch
+Patch1:        libuninum-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires: gmp-devel
 BuildRequires: make
@@ -34,6 +35,7 @@ using %{name}, you will need to install %{name}-devel.
 %prep
 %setup -q
 %patch0 -p1 -b .64bit-clean
+%patch1 -p1
 
 %build
 %configure --disable-static --disable-rpath
@@ -61,6 +63,9 @@ rm -f %{buildroot}%{_libdir}/libuninum.la
 %{_libdir}/libuninum.so
 
 %changelog
+* Tue Jan 31 2023 Arjun Shankar <arjun@redhat.com> - 2.7-33
+- Port configure script to C99 (#2165921)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

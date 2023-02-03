@@ -2,10 +2,11 @@ Name:           perl-Gtk2-Ex-Dialogs
 Version:        0.11
 Release:        43%{?dist}
 Summary:        Useful tools for GNOME2/GTK2 Perl GUI design
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gtk2-Ex-Dialogs
 Source0:        https://cpan.metacpan.org/authors/id/K/KC/KCK/Gtk2-Ex-Dialogs-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter

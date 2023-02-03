@@ -23,6 +23,9 @@ URL:     https://invent.kde.org/frameworks/%{framework}
 %endif
 Source0:        http://download.kde.org/%{stable}/release-service/%{version}/src/%{framework}-%{version}.tar.xz
 
+# fix gcc 13 compilation
+Patch0:         0ef772c3e0ff8f049f299ad14b3c65327e4fe69e.patch
+
 # libical (and thus kcalendarcore) not on all arches for RHEL8.
 %if 0%{?rhel} == 8
 ExclusiveArch: x86_64 ppc64le aarch64 %{arm}

@@ -1,13 +1,8 @@
-%ifarch s390x
-# https://bugzilla.redhat.com/show_bug.cgi?id=1861276 -> Disable LTO for now
-%define _lto_cflags %{nil}
-%endif
-
 #global candidate RC0
 
 Name:		tpm2-pkcs11
-Version:	1.8.0
-Release:	3%{?candidate:.%{candidate}}%{?dist}
+Version:	1.9.0
+Release:	1%{?candidate:.%{candidate}}%{?dist}
 Summary:	PKCS#11 interface for TPM 2.0 hardware
 
 License:	BSD
@@ -103,6 +98,9 @@ cd tools
 
 
 %changelog
+* Wed Feb 01 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.9.0-1
+- Update to 1.9.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

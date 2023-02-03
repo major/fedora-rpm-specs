@@ -1,5 +1,5 @@
-%global commit 6b89e56e24d76f96a89cfd147768e2a3e24eb48a
-%global date 20230112
+%global commit a79b3c3f4f5b1fbb787bf256787c936a30cca463
+%global date 20230201
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           rpmdistro-repoquery
@@ -41,7 +41,7 @@ Currently, the tool supports the following distributions:
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-install -p rpmdistro-{gendnfconf,repoquery} %{buildroot}%{_bindir}
+install -p rpmdistro-repoquery %{buildroot}%{_bindir}
 mkdir -p %{buildroot}%{_datadir}/%{name}
 cp -pr distros %{buildroot}%{_datadir}/%{name}/
 
@@ -49,7 +49,6 @@ cp -pr distros %{buildroot}%{_datadir}/%{name}/
 %files
 %license LICENSE
 %doc README.md
-%{_bindir}/rpmdistro-gendnfconf
 %{_bindir}/rpmdistro-repoquery
 %{_datadir}/%{name}
 

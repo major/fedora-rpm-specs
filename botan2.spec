@@ -12,8 +12,8 @@ Source0:        https://botan.randombit.net/releases/Botan-%{version}.tar.xz
 BuildRequires:  gcc-c++
 BuildRequires:  python3
 BuildRequires:  python3-devel
-BuildRequires:  %{_bindir}/sphinx-build
-BuildRequires:  %{_bindir}/rst2man
+BuildRequires:  python3-docutils
+BuildRequires:  python3-sphinx
 BuildRequires:  bzip2-devel
 BuildRequires:  zlib-devel
 BuildRequires:  make
@@ -104,7 +104,7 @@ rm -r %{buildroot}%{_pkgdocdir}/handbook/{.doctrees,.buildinfo}
 %{_pkgdocdir}/*.txt
 %{_libdir}/libbotan-%{major_version}.so.19*
 %{_bindir}/botan
-%{_mandir}/man1/botan.1.gz
+%{_mandir}/man1/botan.1*
 
 
 %files devel

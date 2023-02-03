@@ -2,7 +2,7 @@ Name:           perl-Gnome2-VFS
 Version:        1.084
 Release:        8%{?dist}
 Summary:        Perl interface to the 2.x series of the GNOME VFS library (deprecated)
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Gnome2-VFS
 Source0:        https://cpan.metacpan.org/authors/id/X/XA/XAOC/Gnome2-VFS-%{version}.tar.gz
 BuildRequires:  coreutils

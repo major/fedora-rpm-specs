@@ -19,7 +19,7 @@
 
 Name:    gtk3
 Version: 3.24.36
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: GTK+ graphical user interface library
 
 License: LGPLv2+
@@ -112,7 +112,11 @@ applications, the overall memory consumption is reduced as well.
 Summary: Input methods for GTK+
 Requires: gtk3%{?_isa} = %{version}-%{release}
 # for im-cedilla.conf
+%if 0%{?fedora} >= 38 || 0%{?rhel} > 9
+Requires: gtk-immodules-imsettings
+%else
 Requires: gtk2-immodules%{?_isa}
+%endif
 
 %description immodules
 The gtk3-immodules package contains standalone input methods that
@@ -293,6 +297,9 @@ gtk-query-immodules-3.0-%{__isa_bits} --update-cache &>/dev/null || :
 %{_datadir}/installed-tests/
 
 %changelog
+* Wed Feb 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.24.36-3
+- Depend on gtk-immodules-imsettings where available
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

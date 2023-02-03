@@ -1,10 +1,11 @@
 Name:          opusfile
 Version:       0.12
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       A high-level API for decoding and seeking within .opus files
 License:       BSD
 URL:           https://www.opus-codec.org/
 Source0:       https://downloads.xiph.org/releases/opus/%{name}-%{version}.tar.gz
+Patch1:        CVE-2022-47021.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -33,7 +34,7 @@ Requires: pkgconfig
 Files for development with %{name}.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 %configure --disable-static
@@ -63,6 +64,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_libdir}/libopusurl.so
 
 %changelog
+* Wed Feb 01 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.12-9
+- Add upstream fix for CVE-2022-47021
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

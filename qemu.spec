@@ -163,6 +163,7 @@
 %global qemudocdir %{_docdir}/%{name}
 %define evr %{epoch}:%{version}-%{release}
 
+%define requires_block_blkio Requires: %{name}-block-blkio = %{evr}
 %define requires_block_curl Requires: %{name}-block-curl = %{evr}
 %define requires_block_dmg Requires: %{name}-block-dmg = %{evr}
 %if %{have_block_gluster}
@@ -252,6 +253,7 @@
 %endif
 
 %global requires_all_modules \
+%{requires_block_blkio} \
 %{requires_block_curl} \
 %{requires_block_dmg} \
 %{requires_block_gluster} \
@@ -310,7 +312,7 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 5
+%global baserelease 6
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -402,6 +404,7 @@ BuildRequires: pkgconfig(gbm)
 BuildRequires: perl-Test-Harness
 BuildRequires: libslirp-devel
 BuildRequires: libbpf-devel >= 1.0.0
+BuildRequires: libblkio-devel
 
 
 # Fedora specific
@@ -606,6 +609,16 @@ the functionality of the installed %{name} package
 
 Install this package if you want access to the avocado_qemu
 tests, or qemu-iotests.
+
+
+%package  block-blkio
+Summary: QEMU blkio block driver
+Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
+%description block-blkio
+This package provides the additional blkio block driver for QEMU.
+
+Install this package if you want to access disks over vhost-user-blk, vdpa-blk,
+and other transports using the libblkio library.
 
 
 %package  block-curl
@@ -1593,6 +1606,7 @@ run_configure \
 %ifarch %{ix86} x86_64
   --enable-avx2 \
 %endif
+  --enable-blkio \
   --enable-bpf \
   --enable-cap-ng \
   --enable-capstone \
@@ -2207,6 +2221,8 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{testsdir}
 %{_libdir}/%{name}/accel-qtest-*.so
 
+%files block-blkio
+%{_libdir}/%{name}/block-blkio.so
 %files block-curl
 %{_libdir}/%{name}/block-curl.so
 %files block-iscsi
@@ -2746,6 +2762,9 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Tue Jan 31 2023 Stefan Hajnoczi <stefanha@redhat.com> - 7.2.0-6
+- Enable libblkio
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:7.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

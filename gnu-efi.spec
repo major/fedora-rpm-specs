@@ -5,7 +5,7 @@ Name: gnu-efi
 Epoch: 1
 Version: 3.0.11
 %global tarball_version 3.0.9
-Release: 11%{?dist}%{?buildid}
+Release: 12%{?dist}%{?buildid}
 Summary: Development Libraries and headers for EFI
 License: BSD 
 URL: https://sourceforge.net/projects/gnu-efi/
@@ -101,6 +101,7 @@ git config --unset user.email
 git config --unset user.name
 
 %build
+%undefine _hardened_ldflags
 # Package cannot build with %%{?_smp_mflags}.
 make LIBDIR=%{_prefix}/lib
 make apps
@@ -181,6 +182,11 @@ find %{buildroot}/%{_prefix}/ -type l | sed 's,%{buildroot}/\+,/,' > compat.lst
 %endif
 
 %changelog
+* Wed Feb 01 2023 Peter Jones <pjones@redhat.com> - 3.0.11-8
+- Add .note.GNU-stack sections to all the .S files we build.
+- Don't use _hardened_ldflags since it's meant for GCC rather than ld and
+  doesn't do anything meaningful for us anyway.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

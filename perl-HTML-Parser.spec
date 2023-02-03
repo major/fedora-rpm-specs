@@ -1,7 +1,7 @@
 Name:           perl-HTML-Parser
 Summary:        Perl module for parsing HTML
-Version:        3.80
-Release:        2%{?dist}
+Version:        3.81
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTML-Parser-%{version}.tar.gz
 URL:            https://metacpan.org/release/HTML-Parser
@@ -29,7 +29,6 @@ BuildRequires:  perl(XSLoader)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(FileHandle)
 BuildRequires:  perl(SelectSaver)
-BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(threads)
 Requires:       perl(HTML::Tagset) >= 3
@@ -75,6 +74,7 @@ iconv -f iso-8859-1 -t utf-8 <"$file" > "${file}_" && \
     touch -r ${file} ${file}_ && \
     mv -f "${file}_" "$file"
 find %{buildroot} -type f -name '*.bs' -empty -delete
+%{_fixperms} %{buildroot}/*
 
 # Install tests
 mkdir -p %{buildroot}/%{_libexecdir}/%{name}
@@ -93,8 +93,6 @@ rm -rf "$DIR"
 EOF
 chmod +x %{buildroot}/%{_libexecdir}/%{name}/test
 
-%{_fixperms} %{buildroot}/*
-
 %check
 export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
@@ -110,6 +108,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.81-1
+- 3.81 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.80-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

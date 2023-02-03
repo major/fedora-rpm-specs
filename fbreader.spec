@@ -5,7 +5,7 @@ Version:        0.99.4
 Release:        11%{?dist}
 Summary:        E-book reader
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.fbreader.org/
 Source0:        http://www.fbreader.org/files/desktop/fbreader-sources-%{version}.tgz
 Patch0:         %{name}-0.99.4-optflags.patch

@@ -6,8 +6,8 @@ Release:        1%{?dist}
 Summary:        A lightweight C library for RDF syntax
 
 License:        ISC
-URL:            http://drobilla.net/software/serd/
-Source0:        http://download.drobilla.net/%{name}-%{version}.tar.xz
+URL:            https://drobilla.net/software/%{name}.html
+Source0:        https://download.drobilla.net/%{name}-%{version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  doxygen

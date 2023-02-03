@@ -13,8 +13,8 @@ Forerunner 610, Garmin Forerunner 910XT, Garmin FR70,
 Garmin Swim}
 
 Name:           python-%{pretty_name}
-Version:        0.4
-Release:        9%{?dist}
+Version:        1.2.1
+Release:        1%{?dist}
 Summary:        A python library to communicate with ANT-FS compliant devices
 
 License:        MIT
@@ -22,13 +22,7 @@ URL:            https://github.com/Tigge/openant
 Source0:        %{url}/archive/v%{version}/%{pretty_name}-%{version}.tar.gz
 Source2:        ant-usb-sticks.rules
 
-# We do not trigger udev installation from Python setup.py
-Patch0:         0001-Remove-udev-install.patch
-
 BuildArch:      noarch
-
-# For the patch
-BuildRequires:  git-core
 
 # For udev-rules	
 BuildRequires:  systemd
@@ -36,6 +30,7 @@ BuildRequires:  systemd
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  %{py3_dist pyusb}
+BuildRequires:  %{py3_dist pytest}
 
 %description %_description
 
@@ -58,7 +53,7 @@ mkdir -pm 755 %{buildroot}/%{_udevrulesdir}
 install -pm 644 %{SOURCE2} %{buildroot}/%{_udevrulesdir}
 
 %check
-%{python3} setup.py test
+%{pytest}
 
 %post
 %udev_rules_update
@@ -67,13 +62,18 @@ install -pm 644 %{SOURCE2} %{buildroot}/%{_udevrulesdir}
 %udev_rules_update
 
 %files -n python3-%{pretty_name}
-%license LICENCE
+%license LICENSE
 %doc README.md
 %{python3_sitelib}/%{pretty_name}-%{version}-py%{python3_version}.egg-info
 %{python3_sitelib}/%{extract_name}
+%{python3_sitelib}/%{pretty_name}
+%{_bindir}/openant
 %config(noreplace) %{_udevrulesdir}/*
 
 %changelog
+* Wed Feb 1 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 1.2.1-1
+- Update to 1.2.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

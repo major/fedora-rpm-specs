@@ -3,7 +3,7 @@
 
 Name:     python-%{libname}
 Version:  0.1.32
-Release:  7%{?dist}
+Release:  8%{?dist}
 Summary:  Python communication library for Ledger Hardware Wallet products
 
 License:  ASL 2.0
@@ -45,6 +45,11 @@ Summary: udev rules for Ledger devices
 rm -rf btchip_python.egg-info
 cp %{SOURCE2} .
 
+# Adjust version contstraint to comply with PEP-440
+# https://peps.python.org/pep-0440/
+# This makes package compatible with python-packaging>=22.0.0
+sed -i 's/1.6.12-4build1/1.6.12/' setup.py
+
 %build
 %py3_build
 
@@ -70,6 +75,9 @@ install -m644 %{SOURCE1} %{buildroot}%{_udevrulesdir}/20-ledger.rules
 
 
 %changelog
+* Wed Feb 01 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.1.32-8
+- Adjust version constraint to make it compatible with new packaging>=22.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.32-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

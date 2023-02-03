@@ -3,7 +3,7 @@ Version:        1.12
 Release:        12%{?dist}
 Summary:        Show status of logical drives attached to HP SmartArray controllers
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://cciss.sourceforge.net/#cciss_utils
 Source0:        http://downloads.sourceforge.net/cciss/%{name}-%{version}.tar.gz
 

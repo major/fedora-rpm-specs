@@ -13,8 +13,9 @@
 %global	userelease	1
 %endif
 
-%global	mainver	39
-%global	docver		39
+%global	majorver	39
+%global	minorver	2
+%global	docver	39
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
 
@@ -40,28 +41,27 @@
 %undefine       _changelog_trimtime
 
 Name:			ngspice
-Version:		%{mainver}
-Release:		%{fedorarel}%{?dist}.1
+Version:		%{majorver}%{?minorver:.%minorver}
+Release:		%{fedorarel}%{?dist}
 Summary:		A mixed level/signal circuit simulator
 
 License:		BSD
 URL:			http://ngspice.sourceforge.net
 
 %if 0%{?userelease} >= 1
-Source0:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{version}/ngspice-%{version}.tar.gz
+Source0:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{majorver}/ngspice-%{majorver}.tar.gz
 %endif
 %if 0%{?usegitbare} >= 1
 Source0:       	ngspice-%{tarballdate}T%{tarballtime}.tar.gz
 %endif
-Source1:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{version}/ngspice-%{docver}-manual.pdf
-Source2:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{version}/ngspice-adms-va.7z
+Source1:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{majorver}/ngspice-%{docver}-manual.pdf
+Source2:		https://downloads.sourceforge.net/project/ngspice/ng-spice-rework/%{majorver}/ngspice-adms-va.7z
 Source10:		create-ngspice-git-bare-tarball.sh
 
 
 # Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or
 # not (bug 1047056, debian bug 737279)
 Patch0:		ngspice-37-blt-linkage-workaround.patch
-Patch10:		0001-osdi-fix-wrong-usage-of-max_align_t.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -154,7 +154,7 @@ developing applications that use libngspice.
 
 %prep
 %if 0%{?userelease} >= 1
-%setup -q
+%setup -q -n %{name}-%{majorver}
 git init
 git config user.name "%{name} maintainer"
 git config user.email "%{name}-owner@fedoraproject.org"
@@ -191,7 +191,6 @@ popd
 
 %patch0 -p2 -b .link
 git commit -m "Link libspice.so with -lBLT or -lBLIlite, depending on whether in tk mode or not" -a
-cat %PATCH10 | git am
 
 # make sure the examples are UTF-8...
 for nonUTF8 in \
@@ -454,6 +453,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Wed Feb  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 39.2-1
+- Update to 39.2
+
 * Wed Feb  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 39-1
 - Update to 39
 

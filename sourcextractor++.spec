@@ -1,7 +1,7 @@
 Summary:        A program that extracts a catalog of sources from astronomical images, and the successor of SExtractor
 Name:           sourcextractor++
 Version:        0.19
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/sourcextractorplusplus
 Source0:        https://github.com/astrorama/sourcextractorplusplus/archive/%{version}/%{name}-%{version}.tar.gz
@@ -18,6 +18,7 @@ Patch2:         sourcex_remove_custom_flags.patch
 Patch3:         sourcex_precision_test.patch
 # Use Alexandria 2.27.0
 Patch4:         alexandria-2.27.0.patch
+Patch5:		cstdint.patch
 
 %global elements_version 6.0.1
 %global alexandria_version 2.27.0
@@ -203,6 +204,9 @@ make test -C "%{_vpath_builddir}"
 %{_docdir}/sourcextractor++
 
 %changelog
+* Wed Feb 01 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 0.19-5
+- Rebuild for gcc 13
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

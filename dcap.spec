@@ -1,5 +1,5 @@
 Name:		dcap
-Version:	2.47.13
+Version:	2.47.14
 Release:	1%{?dist}
 Summary:	Client Tools for dCache
 
@@ -138,6 +138,9 @@ rm -rf %{buildroot}/%{_docdir}
 %{_libdir}/%{name}/libtelnetTunnel.so
 
 %changelog
+* Wed Feb 01 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.47.14-1
+- New upstream release
+
 * Mon Jan 23 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.47.13-1
 - New upstream release
 - Drop patches accepted upstream

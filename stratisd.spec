@@ -5,7 +5,7 @@
 
 Name:           stratisd
 Version:        3.5.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 # ASL 2.0
@@ -155,6 +155,9 @@ a2x -f manpage docs/stratisd.txt
 %{_systemd_util_dir}/system-generators/stratis-setup-generator
 
 %changelog
+* Wed Feb 01 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.0-2
+- Update rpminspect.yaml
+
 * Tue Jan 24 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.0-1
 - Update to 3.5.0
 

@@ -2,7 +2,7 @@ Name:           perl-XML-Stream
 Version:        1.24
 Release:        24%{?dist}
 Summary:        XML::Stream - streaming XML library
-License:        (GPL+ or Artistic) or LGPLv2+
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) OR LGPL-2.1-or-later
 URL:            https://metacpan.org/release/XML-Stream
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAPATRICK/XML-Stream-%{version}.tar.gz
 Source1:        LICENSING.correspondance

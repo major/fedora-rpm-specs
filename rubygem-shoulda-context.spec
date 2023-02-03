@@ -2,7 +2,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 1.2.2
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: Context framework extracted from Shoulda
 License: MIT
 URL: https://github.com/thoughtbot/shoulda-context
@@ -15,7 +15,6 @@ BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
 BuildRequires: rubygem(bundler)
-BuildRequires: rubygem(jquery-rails)
 BuildRequires: rubygem(mocha)
 BuildRequires: rubygem(rails)
 BuildRequires: rubygem(sass-rails)
@@ -101,6 +100,9 @@ sed -i '/gem "rails"/ s/, :github=>"rails\/rails", :branch=>"4-1-stable"//' gemf
 # https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=743071
 sed -i "/require 'mocha'/ s/mocha/mocha\/setup/" test/test_helper.rb
 
+# jQuery is not needed by recent rails. Drop the dependency.
+sed -i "/jquery-rails/ s/^/#/" gemfiles/rails_4_1.gemfile
+
 BUNDLE_GEMFILE=gemfiles/test_unit.gemfile bundle exec ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 BUNDLE_GEMFILE=gemfiles/minitest_5_x.gemfile bundle exec ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 BUNDLE_GEMFILE=gemfiles/rails_4_1.gemfile bundle exec ruby -Itest -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
@@ -133,6 +135,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Wed Feb 01 2023 Vít Ondruch <vondruch@redhat.com> - 1.2.2-15
+- Drop jQuery dependency, which is not needed by RoR 5.1+.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -109,14 +109,31 @@ Summary: Static libraries for Cantera
 %build
 %set_build_flags
 
-%scons build prefix=%{_prefix} python_prefix=%{_prefix} libdirname=%{_lib} system_sundials=y f90_interface=y renamed_shared_libraries=n python_package=full system_eigen=y extra_inc_dirs=/usr/include/eigen3 system_fmt=y cxx_flags='-std=c++14'
+%scons build \
+    cxx_flags='-std=c++14' \
+    extra_inc_dirs=/usr/include/eigen3 \
+    f90_interface=y \
+    libdirname=%{_lib} \
+    prefix=%{_prefix} \
+    python_package=full \
+    python_prefix=%{_prefix} \
+    renamed_shared_libraries=n \
+    system_eigen=y \
+    system_fmt=y \
+    system_sundials=y \
+    %{?_smp_mflags}
 
 
 %install
-%scons install prefix=%{_prefix} python_prefix=%{_prefix} libdirname=%{_lib} stage_dir=%{buildroot}
+%scons install \
+    libdirname=%{_lib} \
+    prefix=%{_prefix} \
+    python_prefix=%{_prefix} \
+    stage_dir=%{buildroot} \
+    %{nil}
 
 %check
-%scons test
+%scons test %{?_smp_mflags}
 
 
 %files common

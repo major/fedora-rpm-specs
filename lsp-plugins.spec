@@ -1,6 +1,6 @@
 Name:           lsp-plugins
-Version:        1.2.4
-Release:        2%{?dist}
+Version:        1.2.5
+Release:        1%{?dist}
 Summary:        Linux Studio Plugins
 
 License:        LGPL-3.0-or-later and Zlib
@@ -79,6 +79,11 @@ Summary:        Linux Studio Plugins JACK format
 %description jack
 Linux Studio Plugins (LSP) standalone versions for JACK Audio connection Kit with UI
 
+%package clap
+Summary:        Linux Studio Plugins CLAP format
+
+%description clap
+Linux Studio Plugins (LSP) compatible with the CLAP format.
 
 %prep
 %autosetup -p1 -n %{name}
@@ -119,10 +124,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 %files -n liblsp-r3d-glx
 %license COPYING COPYING.LESSER
-%{_libdir}/liblsp-r3d-glx-lib-1.0.7.so
+%{_libdir}/liblsp-r3d-glx-lib-1.0.8.so
 
 %files -n liblsp-r3d-glx-devel
-%{_includedir}/lsp-plug.in/r3d/glx/*.h
 %{_libdir}/liblsp-r3d-glx-lib.so
 %{_libdir}/pkgconfig/lsp-r3d-glx-lib.pc
 
@@ -150,8 +154,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %doc CHANGELOG README.md
 %{_libdir}/%{name}
 
+%files clap
+%dir %{_libdir}/clap
+%{_libdir}/clap/%{name}-clap-%{version}.clap
 
 %changelog
+* Mon Jan 30 2023 Vasiliy Glazov <vascom2@gmail.com> - 1.2.5-1
+- Update to 1.2.5
+- Add CLAP plugin
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

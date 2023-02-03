@@ -1,7 +1,7 @@
 Summary: Simple pesign test target
 Name: pesign-test-app
 Version: 5
-Release: 27%{?dist}
+Release: 28%{?dist}
 License: GPLv2
 URL: https://github.com/vathpela/pesign-test-app
 BuildRequires: make
@@ -38,7 +38,7 @@ deployments of new pesign versions into build infrastructure have succeeded.
 %autosetup -S git
 
 %build
-make LIBDIR=%{_libdir} DATADIR=%{_datadir}
+make LIBDIR=%{_libdir} DATADIR=%{_datadir} CFLAGS="$RPM_OPT_FLAGS" LDFLAGS="$RPM_OPT_LDFLAGS"
 cp %{name}.efi %{name}-unsigned.efi
 id
 ls -ld /var/run/pesign || :
@@ -90,6 +90,9 @@ done
 %{_datadir}/%{name}-%{version}/%{name}-signed*.efi
 
 %changelog
+* Wed Feb 01 2023 Robbie Harwood <rharwood@redhat.com> - 5.28
+- Rise and sign
+
 * Tue Jul 12 2022 Robbie Harwood <rharwood@redhat.com> - 5.27
 - Test test app itself
 

@@ -44,36 +44,43 @@ Source3:        arpwatch.sysconfig
 Source4:        arp2ethers.8
 Source5:        massagevendor.8
 
-# Latest version of patches 1–9 sent upstream by email 2021-04-24.
+# The latest versions of all “arpwatch-3.1-*” patches were sent upstream by
+# email 2021-04-24.
 
 # Fix section numbers in man page cross-references. With minor changes, this
 # patch dates all the way back to arpwatch-2.1a4-man.patch, from RHBZ #15442.
-Patch1:         arpwatch-3.1-man-references.patch
+Patch:          arpwatch-3.1-man-references.patch
 # Add, and document, a -u argument to change to a specified unprivileged user
 # after establishing sockets. This combines and improves multiple previous
 # patches; see patch header and changelog for notes.
-Patch2:         arpwatch-3.2-change-user.patch
+Patch:          arpwatch-3.2-change-user.patch
 # Fix nonstandard sort flags in arp2ethers script.
-Patch3:         arpwatch-3.1-arp2ethers-sort-invocation.patch
+Patch:          arpwatch-3.1-arp2ethers-sort-invocation.patch
 # Fix stray rm (of an undefined variable) in example arpfetch script.
-Patch4:         arpwatch-3.1-arpfetch-stray-rm.patch
+Patch:          arpwatch-3.1-arpfetch-stray-rm.patch
 # Do not add /usr/local/bin or /usr/local/sbin to the PATH in any scripts
-Patch5:         arpwatch-3.2-no-usr-local-path.patch
+Patch:          arpwatch-3.2-no-usr-local-path.patch
 # Do not attempt to search for local libpcap libraries lying around in the
 # parent of the build directory, or anywhere else random. This is not expected
 # to succeed anyway, but it is better to be sure.
-Patch6:         arpwatch-3.1-configure-no-local-pcap.patch
+Patch:          arpwatch-3.1-configure-no-local-pcap.patch
 # RHBZ #244606: Correctly handle -n 0/32 to allow the user to disable reporting
 # bogons from 0.0.0.0.
-Patch7:         arpwatch-3.1-all-zero-bogon.patch
+Patch:          arpwatch-3.1-all-zero-bogon.patch
 # When arpwatch is terminated cleanly by a signal (INT/TERM/HUP) handler, the
 # exit code should be zero for success instead of nonzero for failure.
-Patch8:         arpwatch-3.1-exitcode.patch
+Patch:          arpwatch-3.1-exitcode.patch
 # When -i is not given, do not just try the first device found, but keep
 # checking devices until a usable one is found, if any is available.
 # Additionally, handle the case where a device provides both supported and
 # unsupported datalink types.
-Patch9:         arpwatch-3.1-devlookup.patch
+Patch:          arpwatch-3.1-devlookup.patch
+
+# Replace _getshort(), “a glibc function that hasn't been declared in the
+# installed headers for many, many years,” with ns_get16(). Fixes C99
+# compatibility (https://bugzilla.redhat.com/show_bug.cgi?id=2166336). Sent
+# upstream by email 2023-02-01.
+Patch:          arpwatch-3.3-c99.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}

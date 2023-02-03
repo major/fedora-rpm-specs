@@ -1,11 +1,13 @@
 Name: plug
 Version: 1.4.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Linux software for Fender Mustang amplifiers
 License: GPLv3+
 Url: https://github.com/offa/plug
 
 Source0: https://github.com/offa/plug/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0: fix_gcc_13_ftbfs.patch
 
 #BuildRequires: make
 BuildRequires: cmake make
@@ -22,7 +24,7 @@ BuildRequires: gmock-devel
 Linux replacement for Fender FUSE software for Mustang amps.
 
 %prep
-%autosetup
+%autosetup -p0 -n %{name}-%{version}
 
 # Fix udev rules.
 sed -e 's/GROUP="plugdev"/TAG+="uaccess"/g' -i cmake/50-mustang.rules
@@ -54,6 +56,9 @@ make unittest -C %__cmake_builddir
 %{_udevrulesdir}/50-mustang.rules
 
 %changelog
+* Wed Feb 01 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.3-3
+- Add patch: fix_gcc_13_ftbfs.patch
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

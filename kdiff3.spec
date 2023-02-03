@@ -1,15 +1,15 @@
 %undefine __cmake_in_source_build
-# %global gitcommit_full ad0d6a26ef59652247322971753bf142231a703a
-# %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
+# %%global gitcommit_full ad0d6a26ef59652247322971753bf142231a703a
+# %%global gitcommit %%(c=%%{gitcommit_full}; echo ${c:0:7})
 
 Name:           kdiff3
-Version:        1.9.6
-Release:        3%{?dist}
+Version:        1.10.0
+Release:        1%{?dist}
 Summary:        Compare + merge 2 or 3 files or directories
 
 License:        GPLv2
 URL:            https://github.com/KDE/kdiff3
-# Source0:        https://github.com/KDE/kdiff3/tarball/%{gitcommit_full}
+# Source0:        https://github.com/KDE/kdiff3/tarball/%%{gitcommit_full}
 Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake3
@@ -74,7 +74,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 %{_datadir}/applications/org.kde.%{name}.desktop
 %{_datadir}/icons/hicolor/*/apps/*.png
 %{_datadir}/icons/hicolor/scalable/apps/%{name}.svgz
-# %{_datadir}/kservices5/kdiff3part.desktop
+%{_datadir}/kservices5/kdiff3part.desktop
+# %%{_datadir}/kservices5/kdiff3part.desktop
 %{_datadir}/kxmlgui5/%{name}
 %{_datadir}/kxmlgui5/kdiff3part/kdiff3_part.rc
 %{_mandir}/man1/%{name}.1.gz
@@ -82,6 +83,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.%{name}.deskt
 
 
 %changelog
+* Thu Feb 02 2023 Justin Zobel <justin@1707.io> - 1.10.0-1
+- Update to 1.10.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		rejson
 Version:	1.0.2
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	JSON data type for Redis
 
 # Commit ID for latest goodform fix (not released)
@@ -11,6 +11,8 @@ Summary:	JSON data type for Redis
 License:	AGPLv3
 URL:		https://github.com/goodform
 Source0:	https://github.com/goodform/%{name}/archive/%{commit}/%{name}-%{version}-%{short_commit}.tar.gz
+
+Patch0:		0001-Fix-implicit-declaration-of-strncasecmp.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -28,6 +30,7 @@ storing, updating and fetching JSON values from Redis.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %set_build_flags
@@ -46,6 +49,9 @@ install -pDm755 src/%{name}.so %{buildroot}%{redis_modules_dir}/%{name}.so
 %{redis_modules_dir}/%{name}.so
 
 %changelog
+* Fri Jan 27 2023 Tom Stellard <tstellar@redhat.com> - 1.0.2-12
+- Fix implicit function definition warning
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

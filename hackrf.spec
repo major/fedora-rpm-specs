@@ -1,6 +1,6 @@
 Name:           hackrf
-Version:        2022.09.1
-Release:        7%{?dist}
+Version:        2023.01.1
+Release:        2%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0-or-later AND BSD-3-Clause
@@ -145,6 +145,12 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Wed Feb 01 2023 Steven A. Falco <stevenfalco@gmail.com> - 2023.01.1-2
+- Need new sources for 2023.01.1
+
+* Wed Feb 01 2023 Fedora Release Monitoring <release-monitoring@fedoraproject.org> - 2023.01.1-1
+- Update to 2023.01.1 (#2166397)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.09.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

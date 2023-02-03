@@ -1,6 +1,6 @@
 Name:           perl-experimental
-Version:        0.030
-Release:        2%{?dist}
+Version:        0.031
+Release:        1%{?dist}
 Summary:        Experimental features made easy
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/experimental
@@ -77,6 +77,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 01 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.031-1
+- 0.031 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.030-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

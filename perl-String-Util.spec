@@ -1,30 +1,29 @@
 Name:           perl-String-Util
-Version:        1.32
-Release:        8%{?dist}
+Version:        1.33
+Release:        1%{?dist}
 Summary:        String processing utilities
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Util
 Source0:        https://cpan.metacpan.org/modules/by-module/String/String-Util-%{version}.tar.gz
+Patch0:         https://github.com/scottchiefbaker/String-Util/commit/299e40d9.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.14
 BuildRequires:  perl(Module::Build::Tiny) >= 0.034
 # Runtime
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(overload)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More)
 # Dependencies
-Requires:       perl(Encode)
-Requires:       perl(overload)
+# (none)
 
 %description
 String::Util provides a collection of small, handy utilities for
@@ -32,6 +31,9 @@ processing strings.
 
 %prep
 %setup -q -n String-Util-%{version}
+
+# Upstream fix for wrong perl version requirement in Build.PL
+%patch0 -p1
 
 %build
 perl Build.PL
@@ -51,6 +53,13 @@ perl Build.PL
 %{_mandir}/man3/String::Util.3*
 
 %changelog
+* Wed Feb  1 2023 Paul Howarth <paul@city-fan.org> - 1.33-1
+- Update to 1.33 (rhbz#2166170)
+  - Remove a bunch of old deprecated functions: crunch, cellfill, define,
+    randword, fullchomp, randcrypt, equndef, neundef
+  - Update documentation
+- Use SPDX-format license tag
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.32-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

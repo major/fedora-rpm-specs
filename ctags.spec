@@ -1,12 +1,10 @@
-%define upstreamversion 20221120.0
-
 Summary: A C programming language indexing and/or cross-reference tool
 Name: ctags
-Version: 5.9
-Release: 10.%{upstreamversion}%{?dist}
+Version: 6.0.0
+Release: 1%{?dist}
 License: GPLv2+
 URL: https://ctags.io/
-Source0: https://github.com/universal-ctags/ctags/archive/%{name}-p%{version}.%{upstreamversion}.tar.gz
+Source0: https://github.com/universal-ctags/ctags/releases/download/v%{version}/universal-%{name}-%{version}.tar.gz
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -39,7 +37,7 @@ objects found in source files.
 Install ctags if you are going to use your system for C programming.
 
 %prep
-%autosetup -p1 -n %{name}-p%{version}.%{upstreamversion}
+%autosetup -p1 -n universal-%{name}-%{version}
 
 %build
 ./autogen.sh
@@ -64,6 +62,9 @@ Install ctags if you are going to use your system for C programming.
 %{_mandir}/man7/*
 
 %changelog
+* Wed Feb 01 2023 Than Ngo <than@redhat.com> - 6.0.0-1
+- update to 6.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.9-10.20221120.0
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

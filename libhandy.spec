@@ -1,6 +1,6 @@
 Name:           libhandy
-Version:        1.8.0
-Release:        2%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 Summary:        Building blocks for modern adaptive GNOME apps
 License:        LGPLv2+
 
@@ -91,6 +91,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Wed Feb 01 2023 David King <amigadave@amigadave.com> - 1.8.1-1
+- Update to 1.8.1 (#2166285)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

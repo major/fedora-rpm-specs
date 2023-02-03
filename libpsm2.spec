@@ -52,8 +52,8 @@
 #
 Summary: Intel PSM Libraries
 Name: libpsm2
-Version: 11.2.229
-Release: 2%{?dist}
+Version: 11.2.230
+Release: 1%{?dist}
 License: BSD or GPLv2
 URL: https://github.com/cornelisnetworks/opa-psm2/
 
@@ -136,6 +136,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 %endif
 
 %changelog
+* Wed Feb 01 2023 Kamal Heib <kheib@redhat.com> - 11.2.230
+- Rebase to upstream release PSM2_11.2.230
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.2.229-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

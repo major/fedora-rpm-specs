@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-Sereal
-Version:        5.001
-Release:        2%{?dist}
+Version:        5.002
+Release:        1%{?dist}
 Summary:        Fast, compact, powerful binary (de-)serialization
 # Makefile.PL defines LICENSE
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -32,8 +32,8 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Run-time:
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(Sereal::Decoder) >= 5.001
-BuildRequires:  perl(Sereal::Encoder) >= 5.001
+BuildRequires:  perl(Sereal::Decoder) >= %{version}
+BuildRequires:  perl(Sereal::Encoder) >= %{version}
 # Tests:
 # Benchmark not used
 BuildRequires:  perl(Carp)
@@ -99,6 +99,15 @@ make test
 %{_mandir}/man3/Sereal.3*
 
 %changelog
+* Wed Feb  1 2023 Paul Howarth <paul@city-fan.org> - 5.002-1
+- Update to 5.002 (rhbz#2166279)
+  - Fix up Decoder tests to run on perl 5.8, which has no defined-or
+  - Ensure that Encoder depends on the correct version of the Decoder
+  - Test compatibility fixes when no perl is already installed
+  - Add t/195_backcompat.t to check if the latest decoder will seamlessly
+    handle reading output from older versions
+  - Test compatibility fixes with version 3 and earlier
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.001-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

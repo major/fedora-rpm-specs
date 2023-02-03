@@ -11,15 +11,26 @@
 %bcond_with run_tests
 
 Name:           mir
-Version:        2.8.0
-Release:        6%{?dist}
+Version:        2.12.0
+Release:        1%{?dist}
 Summary:        Next generation display server
 
-# mircommon is LGPLv2/LGPLv3, everything else is GPLv2/GPLv3
-License:        (GPLv2 or GPLv3) and (LGPLv2 or LGPLv3)
+# mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
+License:        (GPL-2.0-only or GPL-3.0-only) and (LGPL-2.1-only or LGPL-3.0-only)
 URL:            https://mir-server.io/
-Source0:        https://github.com/MirServer/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/MirServer/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
+# Add missing #include statements
+# - <stdexcept> for std::logic_error
+# - <cstdint> for uint*_t
+#
+# Fixes failure to compile with GCC 13.
+Patch0:         0001-Add-missing-include-statements.patch
+Patch1:         0001-wayland-Add-missing-cstdint-includes.patch
+# Backport fix for docs generation
+Patch2:         0001-doc-better-removal-of-existing-docs.patch
+
+BuildRequires:  git-core
 BuildRequires:  gcc-c++
 BuildRequires:  cmake, ninja-build, doxygen, graphviz, lcov, gcovr
 BuildRequires:  /usr/bin/xsltproc
@@ -98,7 +109,7 @@ applications that can run on Mir.
 
 %package common-libs
 Summary:       Common libraries for Mir
-License:       LGPLv2 or LGPLv3
+License:       LGPL-2.1-only or LGPL-3.0-only
 # mirclient is gone...
 Obsoletes:     %{name}-client-libs < 2.6.0
 # debug extension for mirclient is gone...
@@ -114,7 +125,7 @@ by Mir clients or Mir servers.
 
 %package lomiri-libs
 Summary:       Lomiri compatibility libraries for Mir
-License:       GPLv2 or GPLv3
+License:       GPL-2.0-only or GPL-3.0-only
 Requires:      %{name}-common-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -124,7 +135,7 @@ as a Wayland compositor.
 
 %package server-libs
 Summary:       Server libraries for Mir
-License:       GPLv2 or GPLv3
+License:       GPL-2.0-only or GPL-3.0-only
 Requires:      %{name}-common-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description server-libs
@@ -133,7 +144,7 @@ that use the Mir server.
 
 %package test-tools
 Summary:       Testing tools for Mir
-License:       GPLv2 or GPLv3
+License:       GPL-2.0-only or GPL-3.0-only
 Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Recommends:    %{name}-demos
 Recommends:    glmark2
@@ -149,7 +160,7 @@ This package provides tools for testing Mir.
 
 %package demos
 Summary:       Demonstration applications using Mir
-License:       GPLv2 or GPLv3
+License:       GPL-2.0-only or GPL-3.0-only
 Requires:      %{name}-server-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:      hicolor-icon-theme
 Recommends:    xorg-x11-server-Xwayland
@@ -170,7 +181,7 @@ applications.
 
 %package test-libs-static
 Summary:       Testing framework library for Mir
-License:       GPLv2 or GPLv3
+License:       GPL-2.0-only or GPL-3.0-only
 Requires:      %{name}-devel%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
 %description test-libs-static
@@ -179,7 +190,7 @@ Mir unit and integration tests.
 
 
 %prep
-%autosetup -p1
+%autosetup -S git_am
 
 # Drop -Werror
 sed -e "s/-Werror//g" -i CMakeLists.txt
@@ -267,7 +278,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 %files demos
 %license COPYING.GPL*
 %doc README.md
-%{_bindir}/fake-mir-kiosk
 %{_bindir}/mir_demo_*
 %{_bindir}/miral-*
 %{_bindir}/mir-shell
@@ -282,6 +292,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Wed Feb 01 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.12.0-1
+- Update to 2.12.0
+- Convert license identifiers to SDPX notation
+
+* Tue Jan 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.8.0-7
+- Rebuilt for gtest 1.13.0 (close RHBZ#2163843)
+- Patch for GCC 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

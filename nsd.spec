@@ -2,13 +2,14 @@
 Summary: Fast and lean authoritative DNS Name Server
 Name: nsd
 Version: 4.3.9
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 Url: http://www.nlnetlabs.nl/nsd/
 Source0: http://www.nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?prever}.tar.gz
 Source1: nsd.conf
 Source2: nsd.service
 Source6: tmpfiles-nsd.conf
+Patch1: nsd-4.3.9-fedora-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires: flex
@@ -28,6 +29,8 @@ consult the REQUIREMENTS document which is a part of this distribution.
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever}
+
+%patch1 -p1
 
 %build
 CFLAGS="%{optflags} -fPIE -pie"
@@ -112,6 +115,9 @@ exit 0
 %systemd_postun_with_restart nsd.service
 
 %changelog
+* Wed Feb 01 2023 Florian Weimer <fweimer@redhat.com> - 4.3.9-5
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

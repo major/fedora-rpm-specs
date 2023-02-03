@@ -1,6 +1,6 @@
 Name:           python-zeroconf
-Version:        0.39.4
-Release:        2%{?dist}
+Version:        0.47.1
+Release:        1%{?dist}
 Summary:        Pure Python Multicast DNS Service Discovery Library
 
 License:        LGPL-2.1-or-later
@@ -53,6 +53,9 @@ supporting Bonjour/Avahi.
 
 
 %changelog
+* Wed Feb 01 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.47.1-1
+- Update to 0.47.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.39.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

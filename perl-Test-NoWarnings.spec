@@ -9,7 +9,7 @@ Name:           perl-Test-NoWarnings
 Version:        1.06
 Release:        5%{?dist}
 Summary:        Make sure you didn't emit any warnings while testing
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Test-NoWarnings
 Source0:        https://cpan.metacpan.org/authors/id/H/HA/HAARG/Test-NoWarnings-%{version}.tar.gz
 BuildArch:      noarch

@@ -1,6 +1,6 @@
 Name:           libgringotts
 Version:        1.2.1
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        A backend for managing encrypted data files on the disk
 Summary(pl):    Zaplecze do zarządzania zaszyfrowanymi plikami danych na dysku
 
@@ -82,7 +82,16 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 rm -rf $RPM_BUILD_ROOT%{_docdir}
 
 %check
-make check
+# Some tests e.g. 8) Password quality test (strings) reads /dev/random
+# so tests may fail randomly.
+# Repeat tests several times to rescue such failure.
+test_status=1
+for times in $(seq 1 3) ; do
+	make check || continue
+	test_status=0
+	break
+done
+if test $test_status != 0 ; then exit 1 ; fi
 
 %ldconfig_scriptlets
 
@@ -104,6 +113,9 @@ make check
 
 
 %changelog
+* Wed Feb  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-36
+- Repeat tests to rescue test failure due to internal randomness
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

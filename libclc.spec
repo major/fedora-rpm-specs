@@ -8,10 +8,10 @@
 
 Name:           libclc
 Version:	%{libclc_version}%{?rc_ver:~rc%{rc_ver}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An open source implementation of the OpenCL 1.1 library requirements
 
-License:        BSD
+License:        Apache-2.0 WITH LLVM-exception OR BSD OR MIT
 URL:            https://libclc.llvm.org
 Source0:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz
 Source1:	https://github.com/llvm/llvm-project/releases/download/llvmorg-%{libclc_version}%{?rc_ver:-rc%{rc_ver}}/%{libclc_srcdir}.tar.xz.sig
@@ -96,6 +96,10 @@ export CFLAGS="%{build_cflags} -D__extern_always_inline=inline"
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Jan 19 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 15.0.7-3
+- Update license to SPDX identifiers.
+- Include the Apache license adopted in 2019.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

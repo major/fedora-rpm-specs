@@ -2,8 +2,8 @@
 %global sover 2.4
 
 Name:           OpenImageIO
-Version:        2.4.7.1
-Release:        4%{?dist}
+Version:        2.4.8.0
+Release:        1%{?dist}
 Summary:        Library for reading and writing images
 
 License:        BSD and MIT
@@ -206,6 +206,9 @@ cp -a src/doc/*.1 %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Thu Feb 02 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.8.0-1
+- Update to 2.4.8.0.
+
 * Fri Jan 20 2023 Richard Shaw <hobbes1069@gmail.com> - 2.4.7.1-4
 - Rebuild for opencv (again).
 

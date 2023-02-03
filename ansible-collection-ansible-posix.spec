@@ -10,7 +10,7 @@ Release:        1%{?dist}
 Summary:        Ansible Collection targeting POSIX and POSIX-ish platforms
 
 # plugins/module_utils/mount.py: Python Software Foundation License version 2
-License:        GPL-3.0-or-later and PSF-2.0
+License:        GPL-3.0-or-later AND PSF-2.0
 URL:            %{ansible_collection_url ansible posix}
 Source:         https://github.com/ansible-collections/ansible.posix/archive/%{version}/%{name}-%{version}.tar.gz
 # Exclude unneceesary development files and duplicate docs from the built

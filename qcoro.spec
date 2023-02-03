@@ -14,8 +14,8 @@ coroutine is co_awaiting, the Qt event loop runs as usual, meaning that your
 application remains responsive.}
 
 Name: qcoro
-Version: 0.7.0
-Release: 2%{?dist}
+Version: 0.8.0
+Release: 1%{?dist}
 
 License: MIT
 Summary: C++ Coroutines for Qt
@@ -142,13 +142,13 @@ popd
 %check
 %if 0%{?use_qt5}
 pushd %{qt5_build_dir}
-%ctest --timeout 3600 --exclude-regex 'qcoroimageprovider'
+%ctest --timeout 3600
 popd
 %endif
 
 %if 0%{?use_qt6}
 pushd %{qt6_build_dir}
-%ctest --timeout 3600 --exclude-regex 'qcoroimageprovider'
+%ctest --timeout 3600
 popd
 %endif
 
@@ -179,6 +179,9 @@ popd
 %endif
 
 %changelog
+* Wed Feb 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.8.0-1
+- Updated to version 0.8.0.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

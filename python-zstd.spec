@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        %{zstd_version}.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Zstd Bindings for Python
 
 License:        BSD
@@ -21,6 +21,9 @@ Patch2:         python-zstd-1.4.5.1-py_ssize_t_clean.patch
 # Python 3.11 compatibility, merged upstream 
 # From https://github.com/sergey-dryabzhinsky/python-zstd/commit/4e9b8b0cbf
 Patch3:         0003-Port-to-Python-3.11-use-Py_SET_SIZE.patch
+
+# Part of https://github.com/sergey-dryabzhinsky/python-zstd/commit/b823bc087b2
+Patch4:         python-zstd-1.4.5.1-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  python3-devel
@@ -67,6 +70,9 @@ sed -i -e '/test_version/d' tests/__init__.py
 %{python3_sitearch}/%{pypi_name}*.so
 
 %changelog
+* Wed Feb 01 2023 Nikita Popov <npopov@redhat.com> - 1.4.5.1-10
+- Port to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.5.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

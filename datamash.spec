@@ -8,7 +8,7 @@ echo %_sysconfdir/bash_completion.d)
 
 Name:           datamash
 Version:        1.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A statistical, numerical and textual operations tool
 
 License:        GPLv3+
@@ -36,6 +36,7 @@ files.
 %ifarch armv7hl
 %patch1 -p1
 %endif
+rm lib/error.*
 
 %build
 %configure
@@ -74,6 +75,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Thu Feb 02 2023 Sérgio Basto <sergio@serjux.com> - 1.7-4
+- (#2056736) Fix FTBS on F37
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

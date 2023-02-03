@@ -53,7 +53,7 @@
 
 Name:           mesa
 Summary:        Mesa graphics libraries
-%global ver 23.0.0-rc3
+%global ver 23.0.0-rc4
 Version:        %{lua:ver = string.gsub(rpm.expand("%{ver}"), "-", "~"); print(ver)}
 Release:        %autorelease
 License:        MIT
@@ -66,14 +66,8 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
-# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/19778
-Patch11:        mesa-valgrind-build-fix.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2164667
-# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/20933
-Patch12:        20933.patch
-
-BuildRequires:  meson >= 0.61.4
+BuildRequires:  meson >= 1.0.0
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  gettext

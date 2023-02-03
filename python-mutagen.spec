@@ -4,10 +4,22 @@
 
 Name:           python-%{modname}
 Version:        1.46.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Mutagen is a Python module to handle audio meta-data
 
-License:        GPLv2+
+# licensecheck -r . | grep -vEe "UNKNOWN" -e "GNU General Public License v2.0" | sort
+#
+# ./mutagen/_senf/_argv.py: MIT License
+# ./mutagen/_senf/_compat.py: MIT License
+# ./mutagen/_senf/_environ.py: MIT License
+# ./mutagen/_senf/_fsnative.py: MIT License
+# ./mutagen/_senf/__init__.py: MIT License
+# ./mutagen/_senf/_print.py: MIT License
+# ./mutagen/_senf/_stdlib.py: MIT License
+# ./mutagen/_senf/_temp.py: MIT License
+# ./mutagen/_senf/_winansi.py: MIT License
+# ./mutagen/_senf/_winapi.py: MIT License
+License:        GPL-2.0-or-later AND MIT
 URL:            https://github.com/quodlibet/mutagen
 Source0:        %{url}/releases/download/release-%{version}/%{modname}-%{version}.tar.gz
 
@@ -25,7 +37,6 @@ includes a module to handle generic Ogg bit-streams.
 
 %package -n python3-%{modname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{modname}}
 BuildRequires:  python3-devel
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest
@@ -39,7 +50,7 @@ Python 3 version.
 
 %package doc
 Summary:        Documentation for python-mutagen
-BuildRequires:  %{_bindir}/sphinx-build
+BuildRequires:  /usr/bin/sphinx-build
 
 %description doc
 Contains the html documentation for python mutagen.
@@ -55,13 +66,13 @@ sphinx-build -b html -n docs docs/_build
 %install
 %py3_install
 
-%{__install} -D -p -m 0644 man/*.1 %{buildroot}%{_mandir}/man1
+install -D -p -m 0644 man/*.1 %{buildroot}%{_mandir}/man1
 
 # Remove hidden files
 rm -rf docs/_build/{.buildinfo,.doctrees}
 
 %check
-%{__python3} setup.py test
+%pytest
 
 
 %files -n python3-%{modname}
@@ -70,13 +81,28 @@ rm -rf docs/_build/{.buildinfo,.doctrees}
 %{python3_sitelib}/%{modname}-*.egg-info
 %{python3_sitelib}/%{modname}/
 
-%{_bindir}/*
-%{_mandir}/man1/*.1*
+%{_bindir}/mid3cp
+%{_bindir}/mid3iconv
+%{_bindir}/mid3v2
+%{_bindir}/moggsplit
+%{_bindir}/mutagen-inspect
+%{_bindir}/mutagen-pony
+
+%{_mandir}/man1/mid3cp.1*
+%{_mandir}/man1/mid3iconv.1*
+%{_mandir}/man1/mid3v2.1*
+%{_mandir}/man1/moggsplit.1*
+%{_mandir}/man1/mutagen-inspect.1*
+%{_mandir}/man1/mutagen-pony.1*
 
 %files doc
 %doc docs/_build/*
 
 %changelog
+* Wed Feb 01 2023 Maxwell G <gotmax@e.email> - 1.46.0-3
+- Adopt new licensing guidelines (SPDX)
+- Specfile cleanup
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.46.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

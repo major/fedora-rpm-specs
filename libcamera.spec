@@ -1,10 +1,13 @@
 Name:    libcamera
-Version: 0.0.3
-Release: 3%{?dist}
+Version: 0.0.4
+Release: 1%{?dist}
 Summary: A library to support complex camera ISPs
 # Library is LGPLv2.1+ and the cam tool is GPLv2
 License: LGPLv2+ and GPLv2
 URL:     http://libcamera.org/
+
+# libcamera is not expected to be used in these architectures
+ExcludeArch: s390x ppc64le
 
 # Upstream is still under development and does not release tarballs,
 # but they do tag releases (https://git.linuxtv.org/libcamera.git).
@@ -135,7 +138,7 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 
 %files
 %license COPYING.rst LICENSES/LGPL-2.1-or-later.txt
-%{_libdir}/libcamera*.so.0.0.3
+%{_libdir}/libcamera*.so.0.0.4
 
 %files devel
 %{_includedir}/%{name}/
@@ -165,6 +168,10 @@ rm -rf ${RPM_BUILD_ROOT}/%{_docdir}/%{name}-*/html/.doctrees
 %{_bindir}/lc-compliance
 
 %changelog
+* Wed Feb 01 2023 Javier Martinez Canillas <javierm@redhat.com> - 0.0.4-1
+- Update to version 0.0.4
+- Add ExcludeArch tag to avoid building libcamera for s390x and ppc64le.
+
 * Tue Jan 24 2023 Wim Taymans <wtaymans@redhat.com> - 0.0.3-3
 - Rebuild for gtest .so bump rhbz#2161870
 - Add patch for gcc13

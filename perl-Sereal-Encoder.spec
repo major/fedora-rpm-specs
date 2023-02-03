@@ -6,8 +6,8 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        5.001
-Release:        3%{?dist}
+Version:        5.002
+Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
 # qsort.h:                  LGPLv2+ (borrowed from glibc)
@@ -60,7 +60,7 @@ BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
-BuildRequires:  perl(Sereal::Decoder) >= 4.002
+BuildRequires:  perl(Sereal::Decoder) >= %{version}
 BuildRequires:  perl(Storable)
 BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More) >= 0.88
@@ -119,6 +119,15 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Wed Feb  1 2023 Paul Howarth <paul@city-fan.org> - 5.002-1
+- Update to 5.002 (rhbz#2166281)
+  - Fix up Decoder tests to run on perl 5.8, which has no defined-or
+  - Ensure that Encoder depends on the correct version of the Decoder
+  - Test compatibility fixes when no perl is already installed
+  - Add t/195_backcompat.t to check if the latest decoder will seamlessly
+    handle reading output from older versions
+  - Test compatibility fixes with version 3 and earlier
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.001-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

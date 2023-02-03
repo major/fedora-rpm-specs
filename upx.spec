@@ -1,13 +1,11 @@
 Name:           upx
-Version:        4.0.1
-Release:        3%{?dist}
+Version:        4.0.2
+Release:        1%{?dist}
 Summary:        Ultimate Packer for eXecutables
 
 License:        GPLv2+ and Public Domain
 URL:            https://github.com/upx/upx
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}-src.tar.xz
-Patch0:         779b648c5f6aa9b33f4728f79dd4d0efec0bf860.patch
-Patch1:         510505a85cbe45e51fbd470f1aa8b02157c429d4.patch
 
 BuildRequires:  make
 BuildRequires:  gcc-c++
@@ -26,8 +24,6 @@ executables suffer no memory overhead or other drawbacks.
 %prep
 %setup -qn %{name}-%{version}-src
 
-%patch0 -p1
-%patch1 -p1
 
 %build
 %cmake
@@ -47,6 +43,9 @@ rm -f %{buildroot}%{_datadir}/doc/upx/*
 
 
 %changelog
+* Wed Feb 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.2-1
+- 4.0.2
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

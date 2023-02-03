@@ -2,8 +2,8 @@
 %global sum Reproject astronomical images
 
 Name:           python-%{srcname}
-Version:        0.8
-Release:        5%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD and ASL 2.0 and Python
@@ -69,6 +69,9 @@ popd
 %{python3_sitearch}/*
 
 %changelog
+* Wed Feb 01 2023 Christian Dersch <lupinix@mailbox.org> - 0.10.0-1
+- new version
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

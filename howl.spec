@@ -1,20 +1,27 @@
+# LuaJIT git snapshot
+%global commit1 3f9389edc6cdf3f78a6896d550c236860aed62b2
+%global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
+
 Name:           howl
 Version:        0.6
-Release:        18%{?dist}
+Release:        20%{?dist}
 Summary:        Lightweight editor with a keyboard-centric minimalistic UI
 
 # For a breakdown of the licensing, see LICENSE.md
 License:        MIT and Public Domain and BSD
 URL:            https://howl.io
 Source0:        https://github.com/howl-editor/howl/releases/download/%{version}/%{name}-%{version}.tgz
+# newer git snapshot for LuaJIT for aarch64 support
+Source1:        https://github.com/LuaJIT/LuaJIT/archive/%{commit1}/LuaJIT-%{shortcommit1}.tar.gz
+
 # Bundled LuaJIT-2.1.0-beta3 failed to compile with this arches
-ExcludeArch:    aarch64 ppc64le s390x
+ExcludeArch:    ppc64le s390x
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  libappstream-glib
+BuildRequires:  make
 BuildRequires:  pkgconfig(gtk+-3.0)
-BuildRequires: make
 
 Requires:       %{name}-data
 Requires:       hicolor-icon-theme
@@ -45,39 +52,53 @@ Summary:        Data files for %{name}
 Data files for %{name}.
 
 %prep
-%autosetup
+%autosetup -a1
+%ifarch aarch64
+rm -rf src/deps/LuaJIT-2.1.0-beta3
+mv LuaJIT-%{commit1} src/deps/LuaJIT-2.1.0-beta3
+%endif
 
 %build
+export HOST_CFLAGS="%{build_cflags}"
+export HOST_LDFLAGS="%{build_ldflags}"
+export TARGET_CFLAGS="%{build_cflags}"
+export TARGET_LDFLAGS="%{build_ldflags}"
 %make_build -C src
 
 %install
 %make_install -C src PREFIX=%{_prefix}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/#_avoid_bundling_of_fonts_in_other_packages
 # We can install it in *Requires*
-rm -r       %{buildroot}%{_datadir}/%{name}/fonts
+rm -r       %{buildroot}%{_datadir}/howl/fonts
 # https://github.com/howl-editor/howl/pull/502
 mv          %{buildroot}%{_datadir}/appdata %{buildroot}%{_metainfodir}
 # https://github.com/howl-editor/howl/issues/501#issuecomment-484565885
-find        %{buildroot}%{_datadir}/%{name}/bundles/python/misc/ -type f -name "*.py" -exec sed -e 's@/usr/bin/env python@/usr/bin/python3@g' -i "{}" \;
-find        %{buildroot}%{_datadir}/%{name}/bundles/ruby/misc/ -type f -name "*.rb" -exec sed -e 's@/usr/bin/env ruby@/usr/bin/ruby@g' -i "{}" \;
+find        %{buildroot}%{_datadir}/howl/bundles/python/misc/ -type f -name "*.py" -exec sed -e 's@/usr/bin/env python@/usr/bin/python3@g' -i "{}" \;
+find        %{buildroot}%{_datadir}/howl/bundles/ruby/misc/ -type f -name "*.rb" -exec sed -e 's@/usr/bin/env ruby@/usr/bin/ruby@g' -i "{}" \;
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/howl.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/howl.desktop
 
 %files
 %doc README.md Changelog.md
 %license LICENSE.md
-%{_bindir}/%{name}
-%{_bindir}/%{name}-spec
-%{_datadir}/applications/%{name}.desktop
-%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
-%{_metainfodir}/%{name}.appdata.xml
+%{_bindir}/howl
+%{_bindir}/howl-spec
+%{_datadir}/applications/howl.desktop
+%{_datadir}/icons/hicolor/scalable/apps/howl.svg
+%{_metainfodir}/howl.appdata.xml
 
 %files data
-%{_datadir}/%{name}
+%{_datadir}/howl
 
 %changelog
+* Thu Feb 02 2023 Pete Walter <pwalter@fedoraproject.org> - 0.6-20
+- Update bundled LuaJIT for aarch64 support
+
+* Thu Feb 02 2023 Pete Walter <pwalter@fedoraproject.org> - 0.6-19
+- Fix FTBFS (rhbz#2045707)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

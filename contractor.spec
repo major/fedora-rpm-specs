@@ -23,7 +23,11 @@ BuildRequires:  pkgconfig(gio-unix-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
 
 # For %%{_datadir}/dbus-1/services/ directory:
+%if %{defined el7}
+Requires:       dbus
+%else
 Requires:       dbus-common
+%endif
 
 %description
 An extension service that allows apps to use the exposed functionality

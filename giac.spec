@@ -6,12 +6,12 @@
 
 %global _lto_cflags %{nil}
 
-%global subversion .35
+%global subversion .37
 
 Name:          giac
 Summary:       Computer Algebra System, Symbolic calculus, Geometry
 Version:       1.9.0%{subversion}
-Release:       2%{?dist}
+Release:       1%{?dist}
 # LGPLv3+: src/Fl_GDI_Printer.cxx, src/Flv_List.cc, src/Flv_Table.cc
 # BSD: src/tinymt32*
 # MIT: libmicropython.a
@@ -457,6 +457,9 @@ make -C check check
 %{_datadir}/giac/examples/
 
 %changelog
+* Wed Feb 01 2023 Antonio Trande <sagitter@fedoraproject.org> 1.9.0.37-1
+- Update to 1.9.0 sub-37
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0.35-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

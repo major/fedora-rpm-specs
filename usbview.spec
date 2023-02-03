@@ -2,7 +2,7 @@ Name:           usbview
 Version:        3.0
 Release:        3%{?dist}
 Summary:        USB topology and device viewer
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://www.kroah.com/linux-usb/
 Source0:        http://www.kroah.com/linux-usb/%{name}-%{version}.tar.gz
 

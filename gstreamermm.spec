@@ -5,7 +5,7 @@
 
 Name:           gstreamermm
 Version:        1.10.0
-Release:        17%{?dist}
+Release:        18%{?dist}
 
 Summary:        C++ wrapper for GStreamer library
 
@@ -17,6 +17,8 @@ Patch1:         %{name}-tests.patch
 # Fix mingw build issues, based on:
 # https://gstreamer.freedesktop.org/documentation/video/gstvideooverlay.html?gi-language=c#gstvideooverlay-and-gtk
 Patch2:         %{name}-mingw.patch
+# Don't hardcode -std=c++11 or -std=c++0x
+Patch3:         %{name}-nostdcxx.patch
 
 BuildRequires:  gcc-c++
 BuildRequires: glibmm24-devel >= 2.21.1
@@ -114,6 +116,7 @@ developing applications that use mingw64-%{name}.
 %patch0 -p1
 %patch1 -p1 -b .tests
 %patch2 -p1 -b .mingw
+%patch3 -p1 -b .nostdcxx
 
 
 %build
@@ -191,6 +194,9 @@ popd
 %endif
 
 %changelog
+* Wed Feb 01 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.10.0-18
+- fix FTBFS with gtest-1.13.0 (fixes rhbz#2165230)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

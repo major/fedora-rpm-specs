@@ -4,12 +4,13 @@ Name:           perl-Event-ExecFlow
 Version:        0.64
 Release:        39%{?dist}
 Summary:        High level API for event-based execution flow control
-License:        (GPL+ or Artistic) and LGPLv2+
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Event-ExecFlow
 Source0:        https://cpan.metacpan.org/authors/id/J/JR/JRED/%{pkgname}-%{version}.tar.gz
 BuildArch:      noarch
 # Build
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  findutils
 BuildRequires:  glibc-common
 BuildRequires:  perl-generators

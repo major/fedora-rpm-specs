@@ -11,7 +11,7 @@ Version:        0.7.1
 Release:        2%{?dist}
 Summary:        Doc to argparse driven by docopt
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://github.com/casperdcl/argopt
 Source0:        %{pypi_source}
 

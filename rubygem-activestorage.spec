@@ -8,8 +8,8 @@
 %bcond_with ffmpeg
 
 Name: rubygem-%{gem_name}
-Version: 7.0.4
-Release: 2%{?dist}
+Version: 7.0.4.2
+Release: 1%{?dist}
 Summary: Local and cloud file storage framework
 License: MIT
 URL: http://rubyonrails.org
@@ -17,12 +17,12 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}%{?prerelease}.gem
 # The gem doesn't ship with the test suite.
 # You may check it out like so
 # git clone https://github.com/rails/rails.git
-# cd rails/activestorage && git archive -v -o activestorage-7.0.4-tests.txz v7.0.4 test/
+# cd rails/activestorage && git archive -v -o activestorage-7.0.4.2-tests.txz v7.0.4.2 test/
 Source1: %{gem_name}-%{version}%{?prerelease}-tests.txz
 # The tools are needed for the test suite, are however unpackaged in gem file.
 # You may check it out like so
 # git clone http://github.com/rails/rails.git --no-checkout
-# cd rails && git archive -v -o rails-7.0.4-tools.txz v7.0.4 tools/
+# cd rails && git archive -v -o rails-7.0.4.2-tools.txz v7.0.4.2 tools/
 Source2: rails-%{version}%{?prerelease}-tools.txz
 # Fixes for Minitest 5.16+.
 # https://github.com/rails/rails/pull/45370
@@ -158,6 +158,9 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Wed Jan 25 2023 Pavel Valena <pvalena@redhat.com> - 7.0.4.2-1
+- Update to activestorage 7.0.4.2.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

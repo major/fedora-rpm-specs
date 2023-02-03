@@ -1,12 +1,17 @@
 Name:           openscap
 Version:        1.3.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Set of open source libraries enabling integration of the SCAP line of standards
 License:        LGPLv2+
 URL:            http://www.open-scap.org/
 VCS:            https://github.com/OpenSCAP/openscap
 Source0:        https://github.com/OpenSCAP/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
+
+# include <rpm/rpmcrypto.h> in rpm-helper.h
+# Reported upstream in https://github.com/OpenSCAP/openscap/pull/1922
+Patch0:         https://github.com/OpenSCAP/openscap/pull/1922.patch#/0001-Fix-compile-error-with-future-versions-of-gcc.patch
+
 BuildRequires:  make
 BuildRequires:  cmake >= 2.6
 BuildRequires:  gcc
@@ -214,6 +219,9 @@ ln -sf ../oscap-remediate.service %{buildroot}%{_unitdir}/system-update.target.w
 %{_mandir}/man8/oscap-podman.8*
 
 %changelog
+* Wed Feb 01 2023 Tom Stellard <tstellar@redhat.com> - 1:1.3.7-2
+- Fix implicit function definition warning
+
 * Thu Jan 26 2023 Jan Černý <jcerny@redhat.com> - 1:1.3.7-1
 - Upgrade to the latest upstream release
 

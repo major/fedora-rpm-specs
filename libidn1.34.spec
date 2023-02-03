@@ -1,7 +1,7 @@
 Summary: Internationalized Domain Name support library
 Name: libidn1.34
 Version: 1.34
-Release: 11%{?dist}
+Release: 12%{?dist}
 URL: http://www.gnu.org/software/libidn/
 License: LGPLv2+ and GPLv3+ and GFDL
 Source0: http://ftp.gnu.org/gnu/libidn/libidn-%{version}.tar.gz
@@ -9,6 +9,7 @@ Source0: http://ftp.gnu.org/gnu/libidn/libidn-%{version}.tar.gz
 Patch0: libidn-1.33-Allow-disabling-Emacs-support.patch
 # Fix ABI compatibility with libidn-1.33 and earlier
 Patch1: libidn-tablesize-revert.patch
+Patch2: libidn1.34-configure-c99.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -31,6 +32,7 @@ names.
 %setup -q -n libidn-%{version}
 %patch0 -p1
 %patch1 -p1 -b .tablesize-revert
+%patch2 -p1
 autoreconf -vif
 # Prevent from regenerating sources by gengetopt because it's broken.
 touch src/idn_cmd.c src/idn_cmd.h
@@ -73,6 +75,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la \
 %{_libdir}/libidn.so.11*
 
 %changelog
+* Wed Feb 01 2023 Arjun Shankar <arjun@redhat.com> - 1.34-12
+- Port configure script to C99 (#2166272)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.34-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

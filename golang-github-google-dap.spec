@@ -3,7 +3,7 @@
 
 # https://github.com/google/go-dap
 %global goipath         github.com/google/go-dap
-Version:                0.6.0
+Version:                0.7.0
 
 %gometa
 
@@ -14,13 +14,16 @@ Go implementation of the Debug Adapter Protocol.}
 %global godocs          docs README.md cmd/gentypes/README.md
 
 Name:           %{goname}
-Release:        8%{?dist}
+Release:        %autorelease
 Summary:        Go implementation of the Debug Adapter Protocol
 
 # Upstream license specification: Apache-2.0
 License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+
+# Disable TestServer because it mocks a server and it fails during the RPM generation
+Patch0001:      0001-Disable-TestServer.patch
 
 %description
 %{common_description}
@@ -29,6 +32,7 @@ Source0:        %{gosource}
 
 %prep
 %goprep
+%patch0001 -p1
 
 %build
 for cmd in cmd/* ; do
@@ -53,35 +57,4 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0.6.0-6
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Wed Jun 29 2022 Alejandro Sáez <asm@redhat.com> - 0.6.0-1
-- Update to 0.6.0
-- Removes patch
-- Resolves: rhbz#1963666
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0.4.0-4
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Thu Feb 11 2021 Alejandro Sáez <asm@redhat.com> - 0.4.0-1
-- Bump up to version 0.4.0
-- Add Patch0
-
-* Thu Sep 03 12:10:56 CEST 2020 Alejandro Sáez <asm@redhat.com> - 0.2.0-1
-- Initial package
-
+%autochangelog

@@ -131,18 +131,14 @@ Requires:       %{name}-control-center%{?_isa}
 Requires:       %{name}-translations >= %{cinnamon_translations_version}
 
 # needed for theme overrides
-%if 0%{?fedora}
 Requires:       desktop-backgrounds-basic
 Requires:       desktop-backgrounds-gnome
-%endif
 Requires:       gnome-backgrounds
 Requires:       system-logos
 
 # Theming
 Requires:       google-noto-sans-fonts
-%if 0%{?fedora}
 Requires:       %{name}-themes >= 1:1.7.4-0.2.20181112gitb94b890
-%endif
 
 # RequiredComponents in the session files
 Requires:       nemo%{?_isa}
@@ -153,9 +149,7 @@ Requires:       metacity%{?_isa}
 Requires:       tint2%{?_isa}
 
 # required for keyboard applet
-%if 0%{?fedora}
 Requires:       gucharmap%{?_isa}
-%endif
 Requires:       xapps%{?_isa}
 Requires:       python3-xapps-overrides%{?_isa}
 
@@ -236,7 +230,11 @@ chmod a-x files%{_datadir}/%{name}/%{name}-settings/bin/__init__.py
  --libexecdir=%{_libexecdir}/cinnamon/ \
  -Ddeprecated_warnings=false \
  -Dpy3modules_dir=%{python3_sitelib} \
+%if 0%{?fedora}
  -Ddocs=true
+%else
+ -Ddocs=false
+%endif
 
 %meson_build
 
