@@ -1,6 +1,6 @@
 Name: rdma-core
 Version: 44.0
-Release: 1%{?dist}
+Release: %autorelease
 Summary: RDMA core userspace libraries and daemons
 
 # Almost everything is licensed under the OFA dual GPLv2, 2 Clause BSD license
@@ -10,8 +10,12 @@ Summary: RDMA core userspace libraries and daemons
 License: GPLv2 or BSD
 Url: https://github.com/linux-rdma/rdma-core
 Source: https://github.com/linux-rdma/rdma-core/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Patch1: 0001-kernel-boot-Do-not-perform-device-rename-on-OPA-devi.patch
-Patch2: udev-keep-NAME_KERNEL-as-default-interface-naming-co.patch
+# 0001-0003: https://github.com/linux-rdma/rdma-core/pull/1308
+Patch1: 0001-util-fix-overflow-in-remap_node_name.patch
+Patch2: 0002-infiniband-diags-drop-unnecessary-nodedesc-local-cop.patch
+Patch3: 0003-libibnetdisc-fix-printing-a-possibly-non-NUL-termina.patch
+Patch9998: 9998-kernel-boot-Do-not-perform-device-rename-on-OPA-devi.patch
+Patch9999: 9999-udev-keep-NAME_KERNEL-as-default-interface-naming-co.patch
 # Do not build static libs by default.
 %define with_static %{?_with_static: 1} %{?!_with_static: 0}
 
@@ -273,11 +277,14 @@ easy, object-oriented access to IB verbs.
 
 %prep
 %setup -q
-%if 0%{?fedora}
 %patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%if 0%{?fedora}
+%patch9998 -p1
 %endif
 %if 0%{?rhel}
-%patch2 -p1
+%patch9999 -p1
 %endif
 
 %build
@@ -663,193 +670,4 @@ fi
 %endif
 
 %changelog
-* Tue Jan 31 2023 Michal Schmidt <mschmidt@redhat.com> - 44.0-1
-- Rebase to upstream v44.0.
-
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Tue Aug 02 2022 Michal Schmidt <mschmidt@redhat.com> - 41.0-1
-- Rebase to upstream release v41.0
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 39.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 39.0-2
-- Rebuilt for Python 3.11
-
-* Sat Feb 05 2022 Honggang Li <honli@redhat.com> - 39.0-1
-- Rebase to upstream release v39.0
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 38.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 10 2022 Honggang Li <honli@redhat.com> - 38.1-2
-- Update self obsolete tag
-- Resolves: bz1956631
-
-* Thu Jan 06 2022 Honggang Li <honli@redhat.com> - 38.1-1
-- Rebase to upstream release v38.1
-
-* Tue Nov 23 2021 Honggang Li <honli@redhat.com> - 38.0-1
-- Rebase to upstream release v38.0
-
-* Sun Sep 26 2021 Honggang Li <honli@redhat.com> - 37.0-2
-- Use systemd scriptlets
-
-* Wed Sep 22 2021 Honggang Li <honli@redhat.com> - 37.0-1
-- Rebase to upstream release v37.0
-
-* Mon Sep 06 2021 Honggang Li <honli@redhat.com> - 36.0-3
-- rdma-core-devel should not require ibacm
-- Resolves: bz2000123
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 36.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Wed Jul 14 2021 Honggang Li <honli@redhat.com> - 36.0-1
-- Rebase to upstream release v36.0
-
-* Fri Jun 04 2021 Python Maint <python-maint@redhat.com> - 35.0-2
-- Rebuilt for Python 3.10
-
-* Mon May 10 2021 Honggang Li <honli@redhat.com> - 35.0-1
-- Rebase to upstream release v35.0
-
-* Wed Mar 31 2021 Pete Walter <pwalter@fedoraproject.org> - 34.0-4
-- Fix libibverbs-core obsoletes when updating to F35 (#1943375)
-
-* Tue Mar 30 2021 Pete Walter <pwalter@fedoraproject.org> - 34.0-3
-- Add self obsoletes to remove i686 multilib package when updating to F34
-
-* Mon Mar 08 2021 Honggang Li <honli@redhat.com> - 34.0-2
-- RHEL9 will use prebuild doc
-
-* Wed Mar 03 2021 Honggang Li <honli@redhat.com> - 34.0-1
-- Rebase to upstream release v34.0
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 33.0-6
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Mon Feb 01 2021 Honggang Li <honli@redhat.com> - 33.0-5
-- Disable HCA rename for ELN
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 33.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Mon Jan 25 2021 Honggang Li <honli@redhat.com> - 33.0-3
-- Fix ELN build issue
-
-* Thu Jan 21 2021 Honggang Li <honli@redhat.com> - 33.0-2
-- libibverbs obsoletes libibverbs-core for fedora-34
-
-* Mon Jan 18 2021 Honggang Li <honli@redhat.com> - 33.0-1
-- Rebase to upstream release v33.0
-
-* Mon Jan 18 2021 Honggang Li <honli@redhat.com> - 32.0-2
-- Remove base package dependency from all sub-packages
-- Resolves: bz1901086
-
-* Thu Oct 29 2020 Honggang Li <honli@redhat.com> - 32.0-1
-- Rebase to upstream release v32.0
-
-* Mon Sep 14 2020 Peter Robinson <pbrobinson@fedoraproject.org> - 31.0-2
-- Split out libibverbs to sub package for libpcap
-
-* Wed Aug 19 2020 Honggang Li <honli@redhat.com> - 31.0-1
-- Rebase to upstream release v31.0
-
-* Thu Jul 30 2020 Honggang Li <honli@redhat.com> - 30.0-6
-- Update cmake options
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 30.0-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Thu Jul 02 2020 Stephen Gallagher <sgallagh@redhat.com> - 30.0-4
-- Don't throw script errors if udev is not installed
-
-* Wed Jul  1 2020 Jeff Law <law@redhat.com> - 30.0-3
-- Disable LTO
-
-* Thu Jun 25 2020 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 30.0-2
-- Drop dependencies on systemd (#1837812)
-
-* Mon Jun 15 2020 Honggang Li <honli@redhat.com> - 30.0-1
-- Rebase to upstream release v30.0
-
-* Tue May 26 2020 Miro Hrončok <mhroncok@redhat.com> - 29.0-2
-- Rebuilt for Python 3.9
-
-* Mon Apr 13 2020 Honggang Li <honli@redhat.com> - 29.0-1
-- Rebase to upstream release v29.0
-
-* Wed Feb 12 2020 Honggang Li <honli@redhat.com> - 28.0-1
-- Rebase to upstream release v28.0
-
-* Thu Jan 30 2020 Fedora Release Engineering <releng@fedoraproject.org> - 27.0-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Sun Jan 19 2020 Orion Poplawski <orion@nwra.com> - 27.0-3
-- Fix typo in requires
-
-* Sun Jan 19 2020 Honggang Li <honli@redhat.com> - 27.0-2
-- Backport some spec improvement from upstream
-
-* Thu Dec 12 2019 Honggang Li <honli@redhat.com> - 27.0-1
-- Rebase to upstream release v27.0
-
-* Thu Nov 28 2019 Honggang Li <honli@redhat.com> - 26.1-1
-- Rebase to upstream release v26.1
-
-* Fri Jul 26 2019 Fedora Release Engineering <releng@fedoraproject.org> - 20.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sat Feb 02 2019 Fedora Release Engineering <releng@fedoraproject.org> - 20.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Wed Jan 23 2019 Björn Esser <besser82@fedoraproject.org> - 20.1-2
-- Append curdir to CMake invokation. (#1668512)
-
-* Fri Oct 19 2018 Jarod Wilson <jarod@redhat.com> - 20.1-1
-- Long overdue update to upstream v20.1 stable release
-
-* Sat Jul 14 2018 Fedora Release Engineering <releng@fedoraproject.org> - 16.2-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Sun Mar 18 2018 Iryna Shcherbina <ishcherb@redhat.com> - 16.2-4
-- Update Python 2 dependency declarations to new packaging standards
-  (See https://fedoraproject.org/wiki/FinalizingFedoraSwitchtoPython3)
-
-* Tue Feb 06 2018 Orion Poplawski <orion@nwra.com> - 16.2-3
-- Build for s390/x
-
-* Tue Feb 06 2018 Patrick Uiterwijk <patrick@puiterwijk.org> - 16.2-2
-- Fix escaped macro
-
-* Sun Feb 04 2018 Doug Ledford <dledford@redhat.com> - 16.2-1
-- Update to rdma-core-16.2
-- Drop the old sysv initscript files
-
-* Wed Aug 09 2017 Jarod Wilson <jarod@redhat.com> - 14-4
-- Make use of systemd_requires, own srp_daemon dir
-
-* Tue Aug 01 2017 Jarod Wilson <jarod@redhat.com> - 14-3
-- Revert work-around for ppc64le library issues
-- Add Obsoletes/Provides for libusnic_verbs
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue Jul 25 2017 Jarod Wilson <jarod@redhat.com> - 14-1
-- Update to upstream v14 release
-- Sync packaging updates from RHEL and upstream
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Fri Jan 27 2017 Jarod Wilson <jarod@redhat.com> - 12-1
-- Update to upstream final v12 release
-
-* Wed Jan 25 2017 Jarod Wilson <jarod@redhat.com> - 12-0.1.rc3.1
-- Initial import to Fedora package database via post-v12-rc3 git snapshot
+%autochangelog

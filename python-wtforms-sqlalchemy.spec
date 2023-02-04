@@ -6,7 +6,7 @@ Version:        0.3.0
 Release:        2%{?dist}
 Summary:        WTForms integration for SQLAlchemy
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/wtforms/%{pkg_name}
 Source0:        %{url}/archive/%{version}/%{pkg_name}-%{version}.tar.gz
 

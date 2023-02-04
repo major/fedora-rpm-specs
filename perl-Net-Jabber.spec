@@ -1,10 +1,10 @@
 Name:           perl-Net-Jabber
 Version:        2.0
 Release:        50%{?dist}
-Summary:        Net::Jabber - Jabber Perl Library
-License:        (GPL+ or Artistic) or LGPLv2+
+Summary:        Jabber Perl Library
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) OR LGPL-2.0-or-later
 URL:            https://metacpan.org/release/Net-Jabber
-Source0: https://cpan.metacpan.org/authors/id/R/RE/REATMON/Net-Jabber-%{version}.tar.gz 
+Source0:        https://cpan.metacpan.org/authors/id/R/RE/REATMON/Net-Jabber-%{version}.tar.gz
 Source1:        LICENSING.correspondance
 Patch0:         Net-Jabber-2.0-timezone.patch
 BuildArch:      noarch
@@ -81,9 +81,10 @@ rm t/protocol_rpc.t
 make test
 
 %files
-%doc CHANGES README examples LICENSE.* LICENSING.*
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%license LICENSE.* LICENSING.*
+%doc CHANGES README examples
+%{perl_vendorlib}/Net/*
+%{_mandir}/man3/Net::Jabber*.3*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-50

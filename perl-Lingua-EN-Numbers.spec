@@ -2,21 +2,20 @@ Name:           perl-Lingua-EN-Numbers
 Version:        2.03
 Release:        22%{?dist}
 Summary:        Turn "407" into "four hundred and seven", etc
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://metacpan.org/release/Lingua-EN-Numbers
 Source0:        https://cpan.metacpan.org/authors/id/N/NE/NEILB/Lingua-EN-Numbers-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(vars)
+BuildRequires:  perl(Test::More) >= 0.88
 BuildRequires:  perl(warnings)
 
 %description
@@ -30,24 +29,20 @@ return undefined.
 %setup -q -n Lingua-EN-Numbers-%{version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -exec rm -f {} \;
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
 make test
 
 %files
-%doc Changes META.json README
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%doc Changes README
+%{perl_vendorlib}/Lingua
+%{_mandir}/man3/Lingua::EN::Numbers*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.03-22

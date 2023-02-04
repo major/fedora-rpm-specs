@@ -5,6 +5,7 @@ Summary:       Fast implementation of DEFLATE, gzip, and zlib
 License:       MIT
 URL:           https://github.com/ebiggers/libdeflate
 Source0:       https://github.com/ebiggers/%{name}/archive/v%{version}.tar.gz
+Patch0:        libdeflate-c99.patch
 
 BuildRequires: gcc
 BuildRequires: make
@@ -30,7 +31,7 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 Binaries from libdeflate.
 
 %prep
-%autosetup
+%autosetup -p1
 sed -r -i 's/-O2 -fomit-frame-pointer -std=c99/-std=c99/' Makefile
 
 %build

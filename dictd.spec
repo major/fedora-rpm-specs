@@ -15,7 +15,7 @@
 Summary:   DICT protocol (RFC 2229) server and command-line client
 Name:      dictd
 Version:   1.12.1
-Release:   32%{?dist}
+Release:   33%{?dist}
 License:   GPL+ and zlib and MIT
 Source0:   http://downloads.sourceforge.net/dict/%{name}-%{version}.tar.gz
 Source1:   dictd.service
@@ -24,6 +24,7 @@ Source3:   dictd2.te
 Source4:   dictd.init
 Patch0:    dictd-1.12.1-unused-return.patch
 Patch1:    dictd-1.12.1-maa-bufsize.patch
+Patch2:    dictd-c99.patch
 URL:       http://www.dict.org/
 
 BuildRequires:  flex bison libtool libtool-ltdl-devel byacc
@@ -69,6 +70,7 @@ tar xzf %{SOURCE2}
 mv libmaa-%{libmaaVersion} libmaa
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 mkdir SELinux
 cp -p %{SOURCE3} SELinux
 
@@ -191,6 +193,9 @@ exit 0
 %{_datadir}/selinux/*/dictd2.pp
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 1.12.1-33
+- Fix C99 compatibility issues in lexer/parser integration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.1-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,10 @@
 Name:           perl-String-Util
-Version:        1.33
+Version:        1.34
 Release:        1%{?dist}
 Summary:        String processing utilities
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/String-Util
 Source0:        https://cpan.metacpan.org/modules/by-module/String/String-Util-%{version}.tar.gz
-Patch0:         https://github.com/scottchiefbaker/String-Util/commit/299e40d9.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
@@ -32,9 +31,6 @@ processing strings.
 %prep
 %setup -q -n String-Util-%{version}
 
-# Upstream fix for wrong perl version requirement in Build.PL
-%patch0 -p1
-
 %build
 perl Build.PL
 ./Build
@@ -53,6 +49,10 @@ perl Build.PL
 %{_mandir}/man3/String::Util.3*
 
 %changelog
+* Thu Feb  2 2023 Paul Howarth <paul@city-fan.org> - 1.34-1
+- Update to 1.34 (rhbz#2166391)
+  - Re-release because the required Perl version was wrong
+
 * Wed Feb  1 2023 Paul Howarth <paul@city-fan.org> - 1.33-1
 - Update to 1.33 (rhbz#2166170)
   - Remove a bunch of old deprecated functions: crunch, cellfill, define,

@@ -12,7 +12,7 @@
 
 Name:          mutter
 Version:       43.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -36,7 +36,7 @@ Patch2:        mutter-42.alpha-disable-tegra.patch
 Patch3:        post-43.1-fixes.patch
 
 # Only on F38 and later
-%if 0%{fedora} >= 38
+%if 0%{?fedora} >= 38
 # Add Xwayland byte-swapped clients support
 # https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2785
 Patch4: 0001-settings-Add-Xwayland-byte-swapped-clients.patch
@@ -188,6 +188,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Sun Jan 29 2023 Stefan Bluhm <stefan.bluhm@clacee.eu> - 43.1-5
+- Fixed broken Fedora condition.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

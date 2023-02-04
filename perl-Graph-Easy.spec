@@ -1,38 +1,46 @@
 Name:           perl-Graph-Easy
 Version:        0.76
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Convert or render graphs as ASCII, HTML, SVG or via Graphviz
-License:        GPLv2+ and ASL 1.1
+License:        GPL-2.0-or-later AND Apache-1.1
 URL:            https://metacpan.org/release/Graph-Easy
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/Graph-Easy-%{version}.tar.gz
 Patch0:         graph-easy-undefined-lc.patch
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter >= 0:5.008002
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.8.2
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Run-time
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(lib)
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(Pod::Coverage)
 BuildRequires:  perl(Scalar::Util) >= 1.13
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::Differences)
-BuildRequires:  perl(Test::More)
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(utf8)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+# Tests
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(lib)
+BuildRequires:  perl(Test::Differences)
+BuildRequires:  perl(Test::More)
+# Optional tests
+BuildRequires:  perl(Test::Pod)
+BuildRequires:  perl(Test::Pod::Coverage)
+
 Requires:       perl(Carp)
 Requires:       perl(Data::Dumper)
+Requires:       perl(Getopt::Long)
+Requires:       perl(Pod::Usage)
 
 # avoid circular dependencies
 %bcond_without bootstrap
@@ -59,25 +67,29 @@ useful for flow charts, network diagrams, or hierarchy trees.
 chmod 0644 examples/*
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
 
 %files
-%doc CHANGES LICENSE README TODO examples
-%{_bindir}/*
-%{_mandir}/man1/*
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%license LICENSE
+%doc CHANGES README TODO examples
+%{_bindir}/graph-easy
+%{_mandir}/man1/graph-easy*
+%{perl_vendorlib}/Graph*
+%{_mandir}/man3/Graph::Easy*
 
 %changelog
+* Thu Feb 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.76-21
+- Update license to SPDX format
+- Modernize spec file
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.76-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

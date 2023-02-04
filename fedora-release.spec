@@ -616,12 +616,6 @@ Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 Requires:       fedora-release-ostree-desktop = %{version}-%{release}
 
-# Third-party repositories, disabled by default unless the user opts in through fedora-third-party
-# Requires(meta) to avoid ordering loops - does not need to be installed before the release package
-# Keep this in sync with workstation below
-Requires(meta):	fedora-flathub-remote
-Requires(meta):	fedora-workstation-repositories
-
 # fedora-release-common Requires: fedora-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
 # fedora-release-identity-silverblue if nothing else is already doing so.
@@ -784,12 +778,6 @@ Provides:       system-release(%{version})
 Provides:       base-module(platform:f%{version})
 Requires:       fedora-release-common = %{version}-%{release}
 Provides:       system-release-product
-
-# Third-party repositories, disabled by default unless the user opts in through fedora-third-party
-# Requires(meta) to avoid ordering loops - does not need to be installed before the release package
-# Keep this in sync with silverblue above
-Requires(meta):	fedora-flathub-remote
-Requires(meta):	fedora-workstation-repositories
 
 # fedora-release-common Requires: fedora-release-identity, so at least one
 # package must provide it. This Recommends: pulls in
@@ -1046,7 +1034,8 @@ itself as Fedora Sericea.
 
 
 %prep
-sed -i 's|@@VERSION@@|%{dist_version}|g' %{SOURCE2}
+mkdir -p licenses
+sed 's|@@VERSION@@|%{dist_version}|g' %{SOURCE2} >licenses/Fedora-Legal-README.txt
 
 %build
 
@@ -1357,7 +1346,7 @@ install -Dm0644 %{SOURCE17} -t %{buildroot}%{_datadir}/polkit-1/rules.d/
 %if %{with iot} || %{with ostree_desktop}
 # Statically enable rpm-ostree-countme timer
 install -dm0755 %{buildroot}%{_unitdir}/timers.target.wants/
-ln -snf %{_unitdir}/rpm-ostree-countme.timer %{buildroot}%{_unitdir}/timers.target.wants/
+ln -s ../rpm-ostree-countme.timer %{buildroot}%{_unitdir}/timers.target.wants/
 %endif
 
 %if %{with xfce}
@@ -1445,9 +1434,7 @@ cat >> %{buildroot}%{_rpmconfigdir}/macros.d/macros.dist << EOF
 EOF
 
 # Install licenses
-mkdir -p licenses
 install -pm 0644 %{SOURCE1} licenses/LICENSE
-install -pm 0644 %{SOURCE2} licenses/Fedora-Legal-README.txt
 
 # Default system wide
 install -Dm0644 %{SOURCE10} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
@@ -1461,7 +1448,7 @@ install -Dm0644 %{SOURCE13} -t %{buildroot}%{_prefix}/lib/systemd/user-preset/
 install -d %{buildroot}%{_swidtagdir}
 sed -e "s#\$version#%{bug_version}#g" -e 's/<!--.*-->//;/^$/d' %{SOURCE19} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-%{bug_version}.swidtag
 install -d %{buildroot}%{_sysconfdir}/swid/swidtags.d
-ln -s %{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.org
+ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swidtags.d/fedoraproject.org
 
 
 %files common

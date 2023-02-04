@@ -7,7 +7,7 @@
 
 Name: python-%{pypi_name}
 Version: 0.0.22
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Flexible pattern matching file verifier
 License: ASL 2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -19,6 +19,8 @@ Patch0: %{name}-tests-x86_64.patch
 # that is discouraged in the packaging guidelines
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch1: %{name}-no-coverage.patch
+# limit build dependency to poetry-core
+Patch2: https://github.com/mull-project/FileCheck.py/commit/0064ef8336651a9c7b0c484aee7123d83050bab0.patch
 BuildArch: noarch
 
 %description
@@ -29,7 +31,7 @@ Summary: %{summary}
 BuildRequires: pyproject-rpm-macros
 BuildRequires: python3-devel
 BuildRequires: python3-pip
-BuildRequires: python3-poetry
+BuildRequires: python3-poetry-core
 BuildRequires: sed
 %if %{with check}
 BuildRequires: %{_bindir}/invoke
@@ -72,6 +74,9 @@ fi
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Thu Feb 02 2023 Dominik Mierzejewski <dominik@greysector.net> 0.0.22-4
+- backport upstream patch to limit build dependencies to poetry-core
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.22-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

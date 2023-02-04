@@ -9,8 +9,8 @@
 
 Summary:	Ruby binding of ATK-1.0.x
 Name:		rubygem-%{gem_name}
-Version:	4.0.8
-Release:	2%{?dist}
+Version:	4.1.0
+Release:	1%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
@@ -132,6 +132,9 @@ popd
 %exclude %{gem_instdir}/test/
 
 %changelog
+* Fri Feb  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-1
+- 4.1.0
+
 * Sun Jan 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.8-2
 - 4.0.8
 

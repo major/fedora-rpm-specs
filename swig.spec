@@ -18,7 +18,12 @@
 %{!?tcl:%global tcl 1}
 %{!?lualang:%global lualang 1}
 %{!?perllang:%global perllang 1}
+# https://github.com/swig/swig/issues/2490
+%ifarch i686
+%{!?phplang:%global phplang 0}
+%else
 %{!?phplang:%global phplang 1}
+%endif
 %{!?rubylang:%global rubylang 1}
 %{!?python3lang:%global python3lang 1}
 
@@ -51,7 +56,7 @@
 Summary: Connects C/C++/Objective C to some high-level programming languages
 Name:    swig
 Version: 4.1.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPL-3.0-or-later AND BSD-3-Clause
 URL:     http://swig.sourceforge.net/
 Source0: http://downloads.sourceforge.net/project/swig/swig/swig-%{version}/swig-%{version}.tar.gz
@@ -341,6 +346,9 @@ install -pm 644 Tools/swig.gdb %{buildroot}%{_datadir}/%{name}/gdb
 %{_datadir}/%{name}/gdb
 
 %changelog
+* Thu Feb 02 2023 Jitka Plesnikova <jplesnik@redhat.com> - 4.1.1-4
+- Disable PHP test on i686
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

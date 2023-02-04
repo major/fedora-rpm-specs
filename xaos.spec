@@ -1,6 +1,6 @@
 Name:           xaos
 Version:        3.6
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        A fast, portable real-time interactive fractal zoomer
 
 License:        GPLv2+
@@ -9,6 +9,7 @@ Source0:        http://surfnet.dl.sourceforge.net/sourceforge/xaos/xaos-%{versio
 Source1:	xaos.png
 Patch0:	xaos-3.6-fix-conflicting-register-types.patch
 Patch1:	xaos-3.6-format-security.patch
+Patch2: xaos-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  slang-devel
@@ -44,6 +45,7 @@ on-the-fly plane switching.
 %setup0 -q 
 %patch0 -p1 -b .proto
 %patch1 -p1 -b .formatsec
+%patch2 -p1
 # disable stripping binaries when installing
 sed -i 's| -s | |' Makefile.in
 
@@ -122,6 +124,9 @@ find $RPM_BUILD_ROOT%{_prefix} -exec chmod u+rw '{}' ';'
 
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 3.6-20
+- Fix C99 compatibility issues
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

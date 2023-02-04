@@ -9,7 +9,7 @@ Name:           perl-CPAN-FindDependencies
 Version:        3.13
 Release:        6%{?dist}
 Summary:        Find dependencies for modules on CPAN
-License:        GPLv2+ or Artistic
+License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-FindDependencies
 Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCANTRELL/%{pkgname}-%{version}.tar.gz
 BuildArch:      noarch
@@ -143,9 +143,9 @@ make test
 %doc CHANGELOG README TODO
 %{_bindir}/cpandeps
 %{_bindir}/cpandeps-diff
-%{perl_vendorlib}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/CPAN*
+%{_mandir}/man1/cpandeps*
+%{_mandir}/man3/CPAN::FindDependencies*
 
 %files tests
 %{_libexecdir}/%{name}

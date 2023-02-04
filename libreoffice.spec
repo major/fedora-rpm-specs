@@ -54,8 +54,8 @@
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.2
-Release:        2%{?libo_prerelease}%{?dist}
+Version:        %{libo_version}.3
+Release:        1%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -265,11 +265,10 @@ Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
 Patch4: 0001-don-t-crash-with-disable-pdfium.patch
 Patch5: 0002-don-t-crash-with-disable-pdfium.patch
-Patch6: 0001-change-test-to-use-Calibri-instead-of-Cambria.patch
-Patch7: 0001-std-abort-during-CppunitTest_sw_layoutwriter.patch
+Patch6: 0001-std-abort-during-CppunitTest_sw_layoutwriter.patch
 # TODO investigate these
-Patch8: 0001-aarch64-failing-here.patch
-Patch9: 0001-include-filename-if-the-test-fails.patch
+Patch7: 0001-aarch64-failing-here.patch
+Patch8: 0001-include-filename-if-the-test-fails.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -2273,6 +2272,9 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
+* Thu Feb 02 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.0.3-1
+- 7.5.0 release
+
 * Fri Jan 20 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.0.2-1
 - 7.5.0 beta
 

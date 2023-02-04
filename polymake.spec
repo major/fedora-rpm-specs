@@ -17,12 +17,12 @@
 %global _lto_cflags %{nil}
 %endif
 
-%global upver   4.8
+%global upver   4.9
 %global majver  %(cut -dr -f1 <<< %{upver})
 
 Name:           polymake
 Version:        %(tr r . <<< %{upver})
-Release:        3%{?dist}
+Release:        1%{?dist}
 
 # GPL-2.0-or-later: the project as a whole
 # MIT: external/js/three.js
@@ -136,6 +136,7 @@ Recommends:     gfan
 Recommends:     latte-integrale
 Recommends:     normaliz
 Recommends:     ocaml-tplib-tools
+Recommends:     plantri
 Recommends:     qhull
 Recommends:     Singular
 Recommends:     TOPCOM
@@ -226,8 +227,8 @@ fixtimestamp bundled/sympol/apps/polytope/src/sympol_interface.cc
 sed -i.orig "/global variables/i\$ENV{'PATH'} = \"\$ENV{PATH}:%{_libdir}/4ti2/bin\";\n" perl/polymake
 fixtimestamp perl/polymake
 
-# Linking with libnormaliz requires linking with libeanticxx and libcocoa
-sed -i 's/-leantic/-leanticxx -lcocoa/' bundled/libnormaliz/support/configure.pl
+# The Fedora normaliz library is not linked with libsha256
+sed -i '/NMZ_HASHLIBRARY/,+2d' bundled/libnormaliz/support/configure.pl
 
 # Fix nauty detection
 sed -i 's,@@LIBDIR@@,%{_libdir},' bundled/nauty/support/configure.pl
@@ -311,13 +312,17 @@ sed -i 's@ -Wl,-dT,[^[:blank:]]*\.ld@@' %{buildroot}%{_libdir}/%{name}/config.ni
 %{_includedir}/%{name}/
 %{_libdir}/%{name}/
 %{_libdir}/lib%{name}*.so
-%{_libdir}/lib%{name}*.so.4.8
+%{_libdir}/lib%{name}*.so.4.9
 %{_mandir}/man1/%{name}.1*
 
 %files doc
 %doc doc/*
 
 %changelog
+* Wed Feb  1 2023 Jerry James <loganjerry@gmail.com> - 4.9-1
+- Version 4.9
+- Recommend plantri
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

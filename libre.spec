@@ -1,10 +1,11 @@
 Summary:        Generic library for real-time communications
 Name:           libre
 Version:        2.11.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/re
 Source0:        https://github.com/baresip/re/archive/v%{version}/re-%{version}.tar.gz
+Patch0: libre-c99.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
@@ -57,7 +58,7 @@ The libre-devel package includes header files and libraries necessary for
 developing programs which use the re C library.
 
 %prep
-%setup -q -n re-%{version}
+%autosetup -p1 -n re-%{version}
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -95,6 +96,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/%{name}.a
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 2.11.0-3
+- Fix C99 compatibility issues
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

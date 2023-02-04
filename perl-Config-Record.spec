@@ -3,7 +3,7 @@ Version:        1.1.2
 Release:        40%{?dist}
 Summary:        Perl module for Configuration file access
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Config-Record
 Source:         https://cpan.metacpan.org/authors/id/D/DA/DANBERR/Config-Record-%{version}.tar.gz
 Patch0:         Config-Record-1.1.2-Fix-building-on-Perl-without-dot-in-INC.patch
@@ -11,8 +11,8 @@ Patch0:         Config-Record-1.1.2-Fix-building-on-Perl-without-dot-in-INC.patc
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -40,12 +40,12 @@ to an arbitrary depth.
 %patch0 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
@@ -54,7 +54,7 @@ make test
 %license LICENSE
 %doc AUTHORS CHANGES README
 %{perl_vendorlib}/Config/
-%{_mandir}/man3/*.3pm*
+%{_mandir}/man3/Config::Record*.3pm*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-40

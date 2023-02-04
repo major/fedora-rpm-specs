@@ -2,7 +2,7 @@ Name:           perl-Marpa-XS
 Version:        1.008000
 Release:        37%{?dist}
 Summary:        Language grammar parser module for Perl
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://metacpan.org/release/Marpa-XS
 Source0:        https://cpan.metacpan.org/authors/id/J/JK/JKEGL/Marpa-XS-%{version}.tar.gz
 Patch1:         0001-Require-2.124-Data-Dumper.patch

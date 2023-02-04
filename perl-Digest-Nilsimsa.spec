@@ -2,11 +2,12 @@ Name:           perl-Digest-Nilsimsa
 Version:        0.06
 Release:        54%{?dist}
 Summary:        Perl interface to the Nilsima Algorithm
-License:        GPLv2+
-Source0:        https://cpan.metacpan.org/authors/id/V/VI/VIPUL/Digest-Nilsimsa-%{version}.tar.gz
-Patch0: perl-Digest-Nilsimsa-c99.patch
+License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Digest-Nilsimsa
+Source0:        https://cpan.metacpan.org/authors/id/V/VI/VIPUL/Digest-Nilsimsa-%{version}.tar.gz
+Patch0:         perl-Digest-Nilsimsa-c99.patch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -28,11 +29,11 @@ wrapper around nilsimsa implementation in C by cmeclax.
 %autosetup -p1 -n Digest-Nilsimsa-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
@@ -41,9 +42,9 @@ make test
 
 %files
 %doc COPYING README
-%{perl_vendorarch}/*
-%{perl_vendorarch}/auto/*
-%{_mandir}/man3/*.3*
+%{perl_vendorarch}/Digest*
+%{perl_vendorarch}/auto/Digest*
+%{_mandir}/man3/Digest*.3*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-54

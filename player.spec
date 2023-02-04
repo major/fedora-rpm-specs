@@ -4,7 +4,7 @@
 
 Name:           player
 Version:        3.1.0
-Release:        47%{?dist}
+Release:        48%{?dist}
 Summary:        Cross-platform robot device interface and server
 
 License:        GPLv2+ and LGPLv2+
@@ -61,10 +61,14 @@ BuildRequires:  mesa-libGL-devel, mesa-libGLU-devel
 BuildRequires:  opencv-devel
 BuildRequires:  openssl-devel
 BuildRequires:  perl-interpreter
-BuildRequires:  python3, python3-devel
+BuildRequires:  python3
 BuildRequires:  swig
 BuildRequires:  ruby, ruby-devel
 BuildRequires:  zlib-devel
+
+# There is no support for Python 3 yet, see:
+# https://github.com/playerproject/player/issues/17
+Obsoletes: python3-player < 3.1.0-48
 
 %description
 Player is a network server for robot control. Running on your robot, Player
@@ -96,18 +100,6 @@ BuildArch: noarch
 %description doc
 This package contains the development documentation for Player.
 
-%package -n python3-%{name}
-Summary: Player Python bindings
-Requires: %{name}%{?_isa} = %{version}-%{release}
-%{?python_provide:%python_provide python3-%{name}}
-Obsoletes: %{name}-python2 < 3.1.0-12
-
-%description -n python3-%{name}
-This package contains the Python bindings for %{name}.
-If you like to develop programs using %{name} in Python
-you will need to install this package. Includes bindings
-built against the C and C++ client libraries.
-
 %package examples
 Summary:  Examples and templates for Player
 Requires: %{name} = %{version}-%{release}
@@ -115,8 +107,7 @@ BuildArch: noarch
 
 %description examples
 This package contains example code for %{name} development.
-Included are sample plugin drivers, and examples made using
-the python, C, and C++ client libraries.
+Included are sample plugin drivers, and examples.
 
 %package -n ruby-%{name}
 Summary: Ruby bindings for %{name}
@@ -155,8 +146,6 @@ export LDFLAGS="%{?__global_ldflags} -lpthread"
   -DBUILD_PLAYERCC=ON \
   -DSWIG_EXECUTABLE=/usr/bin/swig \
   -DBUILD_PLAYERCC_BOOST=ON \
-  -DBUILD_PYTHONC_BINDINGS=ON \
-  -DBUILD_PYTHONCPP_BINDINGS=ON \
   -DBUILD_EXAMPLES=ON \
   -DBUILD_RUBYCPP_BINDINGS=ON \
   -DUNICAP_DIR=/usr \
@@ -223,9 +212,6 @@ desktop-file-install \
 %{_libdir}/pkgconfig/*
 %{_datadir}/cmake/Modules/*
 
-%files -n python3-%{name}
-%{python3_sitearch}/*
-
 %files examples
 %{_datadir}/player/examples
 
@@ -239,6 +225,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Thu Feb  2 2023 Florian Weimer <fweimer@redhat.com> - 3.1.0-48
+- Remove non-working Python 3 module (#2161923)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

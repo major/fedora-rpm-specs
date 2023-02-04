@@ -9,22 +9,23 @@
 
 Name:           libisds
 Version:        0.11.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for accessing the Czech Data Boxes
-# COPYING:      LGPLv3 text
-# README:       LGPLv3+
-# src/gettext.h:            GPLv3+
+# COPYING:      LGPL-3.0 text
+# README:       LGPL-3.0-or-later
+# src/gettext.h:            GPL-3.0-or-later
 ## Not delivered in any binary package
-# aclocal.m4:   GPLv2+ with exceptions and FSFULLR
+# aclocal.m4:   GPL-2.0-or-later WITH Libtool-exception AND FSFULLR
 # client/Makefile.in:       FSFULLR
-# config.guess: GPLv3+ with exceptions
+# config.guess: GPL-3.0-or-later WITH Libtool-exception
 # config.rpath: FSFULLR
-# config.sub:   GPLv3+ with exceptions
-# configure:    GPLv2+ with exceptions and FSFUL
-# depcomp:      GPLv2+ with exceptions  
+# config.sub:   GPL-3.0-or-later WITH Libtool-exception
+# configure:    GPL-2.0-or-later WITH Libtool-exception AND FSFUL
+# depcomp:      GPL-2.0-or-later WITH Libtool-exception
 # doc/Makefile.in:  FSFULLR
-# install-sh:       MIT and Public Domain
-# ltmain.sh:        GPLv2+ with exceptions and GPLv3+ and GPLv3+ with exceptions
+# install-sh:       X11 AND LicenseRef-Fedora-Public-Domain
+# ltmain.sh:        GPL-2.0-or-later WITH Libtool-exception AND
+#                   GPL-3.0-or-later AND GPL-3.0-or-later WITH Libtool-exception
 # m4/gettext.m4:    FSFULLR
 # m4/gpgme.m4:      FSFULLR
 # m4/iconv.m4:      FSFULLR
@@ -33,7 +34,7 @@ Summary:        Library for accessing the Czech Data Boxes
 # m4/lib-ld.m4:     FSFULLR
 # m4/lib-link.m4:   FSFULLR
 # m4/lib-prefix.m4: FSFULLR
-# m4/libtool.m4:    GPLv2+ with exceptions and FSFUL
+# m4/libtool.m4:    GPL-2.0-or-later WITH Libtool-exception AND FSFUL
 # m4/ltoptions.m4:  FSFULLR
 # m4/ltsugar.m4:    FSFULLR
 # m4/lt~obsolete.m4:    FSFULLR
@@ -42,15 +43,15 @@ Summary:        Library for accessing the Czech Data Boxes
 # m4/po.m4:         FSFULLR
 # m4/progtest.m4:   FSFULLR
 # Makefile.in:      FSFULLR
-# missing:          GPLv2+ with exceptions
+# missing:          GPL-2.0-or-later WITH Libtool-exception
 # po/Makefile.in.in:    (Something similar to FSFUL)
 # src/Makefile.in:          FSFULLR
 # test/Makefile.in:         FSFULLR
 # test/offline/Makefile.in: FSFULLR
 # test/online/Makefile.in:  FSFULLR
 # test/simline/Makefile.in: FSFULLR
-# test-driver:      GPLv2+ with exceptions
-License:        LGPLv3+ and GPLv3+
+# test-driver:      GPL-2.0-or-later WITH Libtool-exception
+License:        LGPL-3.0-or-later AND GPL-3.0-or-later
 URL:            http://xpisar.wz.cz/%{name}/
 Source0:        %{url}dist/%{name}-%{version}.tar.xz
 Source1:        %{url}dist/%{name}-%{version}.tar.xz.asc
@@ -59,6 +60,11 @@ Source2:        gpgkey-E3F42FCE156830A80358E6E94FD1AEC3365AF7BF.gpg
 # Adapt tests to changes in curl-7.83, in upstream after 0.11.2,
 # <https://github.com/curl/curl/issues/8844>
 Patch0:         libisds-0.11.2-tests-Do-not-send-multi-line-HTTP-headers-by-server.patch
+# Do not use deprecated CURLOPT_PROGRESSFUNCTION option,
+# in upstream after 0.11.2
+Patch1:         libisds-0.11.2-Use-CURLOPT_XFERINFOFUNCTION-curl-option-if-availabl.patch
+# Fix a use-after-free in an example code, in upstream after 0.11.2
+Patch2:         libisds-0.11.2-client-sendxmldoc-Fix-a-use-after-free-on-two-places.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  coreutils
@@ -103,7 +109,7 @@ Data Box Information System) SOAP services as defined in Czech ISDS Act
 
 %package        devel
 Summary:        Development files for %{name}
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       libxml2-devel%{?_isa}
 Requires:       pkgconfig%{?_isa}
@@ -149,7 +155,7 @@ make check %{?_smp_mflags}
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -name '*.la' -delete
+find %{buildroot} -name '*.la' -delete
 %find_lang %{name}
 # Remove multilib unsafe files
 rm -rf client/.deps client/Makefile{,.in}
@@ -164,10 +170,15 @@ rm -rf client/.deps client/Makefile{,.in}
 %{_includedir}/isds.h
 %{_libdir}/libisds.so
 %{_libdir}/pkgconfig/%{name}.pc
-%{_mandir}/man3/*
+%{_mandir}/man3/isds.h.*
+%{_mandir}/man3/libisds.*
 %doc client
 
 %changelog
+* Thu Feb 02 2023 Petr Pisar <ppisar@redhat.com> - 0.11.2-5
+- Do not use deprecated CURLOPT_PROGRESSFUNCTION option
+- Fix a use-after-free in an example code
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

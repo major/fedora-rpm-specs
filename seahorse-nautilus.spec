@@ -7,7 +7,7 @@ Version:        3.11.92
 %global         release_version %(echo %{version} | awk -F. '{print $1"."$2}')
 Release:        24%{?gitdate:.%{gitdate}git%{shortcommit0}}%{?dist}
 Summary:        PGP encryption and signing for nautilus
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Seahorse
 %if 0%{?gitdate}
 Source0:        https://gitlab.gnome.org/GNOME/%{name}/-/archive/%{commit0}/%{name}-%{shortcommit0}.tar.bz2

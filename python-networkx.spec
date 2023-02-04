@@ -25,6 +25,7 @@ BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist wheel}

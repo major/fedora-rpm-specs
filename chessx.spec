@@ -1,6 +1,6 @@
 Name:           chessx
-Version:        1.5.6
-Release:        9%{?dist}
+Version:        1.5.8
+Release:        %autorelease
 Summary:        Chess Database and PGN viewer
 
 # Various parts of code are annotated with different licenses:
@@ -14,23 +14,19 @@ Summary:        Chess Database and PGN viewer
 # - LGPL (v2.1 or v3) (src/gui/textedit.*)
 # In the License field below only the minimal effective license set is
 # documented.
-License:        GPLv2 and GPLv3
+License:        GPL-2.0-only AND GPL-3.0-only
 URL:            https://sourceforge.net/projects/chessx/
 Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tgz
 
-# https://github.com/Isarhamster/chessx/commit/975db069e4e6834a52cc75fbb402ca3c2c87f200
-Patch001:       001-qmake-install-support-for-linux-bsd.patch
-# https://github.com/Isarhamster/chessx/commit/c26ab900b525c5bce794734b2852bc445c2753d7
-Patch002:       002-add-metainfo-file.patch
-# https://github.com/Isarhamster/chessx/pull/61
-Patch003:       003-fix-icons-installation.patch
 # (downstream patch)
-Patch004:       004-wayland-workaround.patch
+Patch001:       0001-Work-around-Qt-Wayland-integration-issue.patch
+# https://github.com/Isarhamster/chessx/pull/61
+Patch002:       0002-Fix-install-path-of-icons-on-Linux.patch
 # https://github.com/Isarhamster/chessx/pull/63
-Patch005:       005-use-pkg-config.patch
+Patch003:       0003-Allow-linking-against-system-libraries-via-pkg-confi.patch
 
-# Requires Qt >= 5.7 as per INSTALL
-%global min_qt_version 5.7.0
+# Requires Qt >= 5.14.1 as per INSTALL.md
+%global min_qt_version 5.14.1
 
 BuildRequires:  gcc-c++
 BuildRequires:  qt5-qtbase-devel >= %{min_qt_version}
@@ -56,6 +52,9 @@ and Windows.
 # Ensure bundled quazip code is not used
 rm -rf src/quazip
 
+# Remove executable bit from regular files (the tarball is buggy)
+chmod -R -x+X .
+
 
 %build
 %qmake_qt5 -r CONFIG+=link_pkgconfig
@@ -73,42 +72,15 @@ appstream-util validate-relax --nonet \
 
 
 %files
-%license COPYING
+%license COPYING.md
+%doc README.md ChangeLog.md
 %{_bindir}/chessx
 %{_datadir}/applications/chessx.desktop
-%{_datadir}/icons/hicolor/128x128/apps/chessx.png
+%{_datadir}/icons/hicolor/256x256/apps/chessx.png
 %{_datadir}/icons/hicolor/64x64/apps/chessx.png
 %{_datadir}/icons/hicolor/32x32/apps/chessx.png
 %{_metainfodir}/io.sourceforge.ChessX.metainfo.xml
 
 
 %changelog
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Apr 18 2022 Miro Hrončok <mhroncok@redhat.com> - 1.5.6-7
-- Rebuilt for quazip 1.3
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.6-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jul 28 2021 Ondrej Mosnacek <omosnace@redhat.com> - 1.5.6-5
-- Unbundle the quazip library
-
-* Mon Jul 26 2021 Ondrej Mosnacek <omosnace@redhat.com> - 1.5.6-4
-- Work around Wayland issue
-
-* Wed Jul 07 2021 Ondrej Mosnacek <omosnace@redhat.com> - 1.5.6-3
-- Install metadata and icons from upstream
-
-* Sun Jun 13 2021 Ondrej Mosnacek <omosnace@redhat.com> - 1.5.6-2
-- Add a desktop file and icon
-
-* Sun Jun 06 2021 Ondrej Mosnacek <omosnace@redhat.com> - 1.5.6-1
-- Update to version 1.5.6
-
-* Sun Apr 19 2020 Ondrej Mosnacek <omosnace@redhat.com> - 1.5.0-1
-- Initial version
+%autochangelog

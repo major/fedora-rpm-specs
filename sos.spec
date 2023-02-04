@@ -1,22 +1,20 @@
-%{!?python_sitelib: %define python_sitelib %(%{__python} -c "from distutils.sysconfig import get_python_lib; print get_python_lib()")}
-
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.4
-Release: 4%{?dist}
+Version: 4.5.0
+Release: 1%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPLv2+
 BuildArch: noarch
 Url: https://github.com/sosreport/sos
 BuildRequires: python3-devel
 BuildRequires: gettext
-BuildRequires: (python3-setuptools if python3-devel >= 3.12)
+BuildRequires: python3-setuptools
 Requires: python3-rpm
 Requires: tar
 Requires: bzip2
 Requires: xz
 Requires: python3-pexpect
-Requires: python3-magic
+Recommends: python3-magic
 Requires: python3-requests
 Recommends: python3-pyyaml
 Obsoletes: sos-collector <= 1.9
@@ -47,7 +45,9 @@ rm -rf %{buildroot}/usr/config/
 
 %find_lang %{name} || echo 0
 
-%files -f %{name}.lang
+# internationalization is currently broken. Uncomment this line once fixed.
+# %%files -f %%{name}.lang
+%files
 %{_sbindir}/sos
 %{_sbindir}/sosreport
 %{_sbindir}/sos-collector
@@ -63,6 +63,10 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Wed Feb 01 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.0-1
+- Update to 4.5.0
+- Resolves: rhbz#2166617
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

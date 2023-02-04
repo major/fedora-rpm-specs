@@ -4,8 +4,8 @@
 
 Name:           mingw-python-qt5
 Summary:        MinGW Windows PyQt5
-Version:        5.15.6
-Release:        12%{?dist}
+Version:        5.15.8
+Release:        1%{?dist}
 BuildArch:      noarch
 
 # GPLv2 exceptions(see GPL_EXCEPTIONS*.txt)
@@ -103,6 +103,9 @@ mingw64-sip-build --build-dir=build_win64 --no-make --qt-shared --confirm-licens
 
 
 %changelog
+* Thu Feb 02 2023 Sandro Mani <manisandro@gmail.com> - 5.15.8-1
+- Update to 5.15.8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.15.6-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

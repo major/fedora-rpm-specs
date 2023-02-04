@@ -2,10 +2,11 @@ Name:           perl-Lingua-EN-Tagger
 Version:        0.31
 Release:        12%{?dist}
 Summary:        Part-of-speech tagger for English natural language processing
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://metacpan.org/release/Lingua-EN-Tagger
 Source0:        https://cpan.metacpan.org/authors/id/A/AC/ACOBURN/Lingua-EN-Tagger-%{version}.tar.gz
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -48,11 +49,11 @@ morphology or can be set to be treated as nouns or other parts of speech.
 %setup -q -n Lingua-EN-Tagger-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor INSTALLVENDORLIB=%{perl_vendorarch} NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor INSTALLVENDORLIB=%{perl_vendorarch} NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check

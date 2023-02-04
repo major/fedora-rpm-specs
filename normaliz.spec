@@ -1,6 +1,6 @@
 Name:           normaliz
-Version:        3.9.4
-Release:        2%{?dist}
+Version:        3.10.0
+Release:        1%{?dist}
 Summary:        A tool for discrete convex geometry
 
 # The content is GPL-3.0-or-later.  The remaining licenses cover the various
@@ -15,7 +15,7 @@ Summary:        A tool for discrete convex geometry
 # StandardSymL: GPL-1.0-or-later
 License:        GPL-3.0-or-later AND OFL-1.1-RFN AND Bistream-Vera AND Knuth-CTAN AND GPL-1.0-or-later AND LicenseRef-DoubleStroke AND AGPL-3.0-only AND LicenseRef-Rsfs
 URL:            https://www.normaliz.uni-osnabrueck.de/
-Source0:        https://github.com/Normaliz/Normaliz/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Normaliz/Normaliz/archive/%{version}/%{name}-%{version}.tar.gz
 # Use libcrypto from openssl instead of the (unpackaged) hash-library
 Patch0:         %{name}-hash-library.patch
 
@@ -140,6 +140,9 @@ LD_LIBRARY_PATH=$PWD/source/.libs make check
 %{_includedir}/libnormaliz/
 
 %changelog
+* Wed Feb  1 2023 Jerry James <loganjerry@gmail.com> - 3.10.0-1
+- Version 3.10.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

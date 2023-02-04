@@ -13,7 +13,7 @@ supporting more than 30 different data formats is also provided.}
 
 Name:       biosig4c++
 Version:    1.9.5
-Release:    9.git%{shortcommit}%{?dist}
+Release:    10.git%{shortcommit}%{?dist}
 Summary:    A software library for processing of biomedical signals
 
 License:    GPLv3+
@@ -28,6 +28,8 @@ URL:        https://sourceforge.net/projects/%{pretty_name}/
 # tar -cvzf biosig4c++-1.9.3-94296e0ee92c39636235d390c313ad1dfe644a88.tar.gz biosig4c++/
 
 Source0:    %{name}-%{version}-%{commit}.tar.gz
+Patch0: biosig++-c99-1.patch
+Patch1: biosig++-c99-2.patch
 
 BuildRequires:  suitesparse-devel
 BuildRequires:  tinyxml-devel
@@ -52,7 +54,7 @@ Requires:   %{name}%{?_isa} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{name}
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -105,6 +107,9 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man1/{mexSLOAD,sigviewer}.1
 
 
 %changelog
+* Thu Jan 26 2023 Florian Weimer <fweimer@redhat.com> - 1.9.5-10.gita2aae2b
+- Apply upstream patches to fix C99 compatibility issues
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.5-9.gita2aae2b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

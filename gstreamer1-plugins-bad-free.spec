@@ -385,7 +385,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgstva-%{majorminor}.so.*
 %endif
 %{_libdir}/libgstwebrtc-%{majorminor}.so.*
+%if %{with extras}
 %{_libdir}/libgstwebrtcnice-%{majorminor}.so.*
+%endif
 %if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/libgstwayland-%{majorminor}.so.*
 %endif
@@ -399,7 +401,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/girepository-1.0/GstPlay-1.0.typelib
 %{_libdir}/girepository-1.0/GstPlayer-1.0.typelib
 %{_libdir}/girepository-1.0/GstTranscoder-1.0.typelib
+%if %{with extras}
 %{_libdir}/girepository-1.0/GstVa-1.0.typelib
+%endif
 %{_libdir}/girepository-1.0/GstVulkan-1.0.typelib
 %{_libdir}/girepository-1.0/GstVulkanWayland-1.0.typelib
 %{_libdir}/girepository-1.0/GstWebRTC-1.0.typelib
@@ -580,7 +584,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_datadir}/gir-1.0/GstPlay-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstPlayer-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstTranscoder-%{majorminor}.gir
+%if %{with extras}
 %{_datadir}/gir-1.0/GstVa-%{majorminor}.gir
+%endif
 %{_datadir}/gir-1.0/GstVulkan-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstVulkanWayland-%{majorminor}.gir
 %{_datadir}/gir-1.0/GstWebRTC-%{majorminor}.gir
@@ -606,7 +612,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/libgstva-%{majorminor}.so
 %endif
 %{_libdir}/libgstwebrtc-%{majorminor}.so
+%if %{with extras}
 %{_libdir}/libgstwebrtcnice-%{majorminor}.so
+%endif
 %if 0%{?fedora} || 0%{?rhel} > 7
 %{_libdir}/libgstwayland-%{majorminor}.so
 %endif
@@ -625,7 +633,9 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_includedir}/gstreamer-%{majorminor}/gst/sctp
 %{_includedir}/gstreamer-%{majorminor}/gst/transcoder
 %{_includedir}/gstreamer-%{majorminor}/gst/uridownloader
+%if %{with extras}
 %{_includedir}/gstreamer-%{majorminor}/gst/va/
+%endif
 %{_includedir}/gstreamer-%{majorminor}/gst/vulkan/
 %{_includedir}/gstreamer-%{majorminor}/gst/wayland/
 %{_includedir}/gstreamer-%{majorminor}/gst/webrtc/
@@ -642,12 +652,16 @@ rm $RPM_BUILD_ROOT%{_bindir}/playout
 %{_libdir}/pkgconfig/gstreamer-plugins-bad-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-sctp-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-transcoder-%{majorminor}.pc
-%{_libdir}/pkgconfig/gstreamer-webrtc-%{majorminor}.pc
-%{_libdir}/pkgconfig/gstreamer-webrtc-nice-%{majorminor}.pc
+%if %{with extras}
 %{_libdir}/pkgconfig/gstreamer-va-%{majorminor}.pc
+%endif
 %{_libdir}/pkgconfig/gstreamer-vulkan-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-vulkan-wayland-%{majorminor}.pc
 %{_libdir}/pkgconfig/gstreamer-wayland-%{majorminor}.pc
+%{_libdir}/pkgconfig/gstreamer-webrtc-%{majorminor}.pc
+%if %{with extras}
+%{_libdir}/pkgconfig/gstreamer-webrtc-nice-%{majorminor}.pc
+%endif
 
 
 %changelog

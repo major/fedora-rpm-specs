@@ -229,7 +229,7 @@ sed -i '/Group=/s/; *//' systemd/lircd.service
 sed -i 's/; *user=/User=/' systemd/irexec.service
 sed -i 's/; *group=/Group=/' systemd/irexec.service
 
-sed -i -e 's|/usr/local/etc/|/etc/|' contrib/irman2lirc
+sed -i -e "s|/usr/local/etc/|%{_sysconfdir}/|" contrib/irman2lirc
 
 
 %build
@@ -328,10 +328,10 @@ systemd-tmpfiles --create %{_tmpfilesdir}/lirc.conf
 
 %files core
 %doc README AUTHORS NEWS README.fedora
-%dir  /etc/lirc
-/etc/lirc/lircd.conf.d
-%config(noreplace) /etc/lirc/lirc*.conf
-%config(noreplace) /etc/lirc/irexec.lircrc
+%dir  %{_sysconfdir}/lirc
+%{_sysconfdir}/lirc/lircd.conf.d
+%config(noreplace) %{_sysconfdir}/lirc/lirc*.conf
+%config(noreplace) %{_sysconfdir}/lirc/irexec.lircrc
 %{_tmpfilesdir}/lirc.conf
 %{_unitdir}/lirc*
 %{_unitdir}/irexec.service

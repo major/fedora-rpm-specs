@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-inputfilter
 #
 # Copyright (c) 2015-2023 Remi Collet
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    e97663a756370ba8105d07dc5f4fff53b650d151
+%global gh_commit    01c56c11904565b0f594c9cb745b5457a0e390eb
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-inputfilter
@@ -22,8 +22,8 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        2.23.0
-Release:        2%{?dist}
+Version:        2.24.0
+Release:        1%{?dist}
 Summary:        %{namespace} Framework %{library} component
 
 License:        BSD-3-Clause
@@ -174,6 +174,9 @@ exit $ret
 %{php_home}/%{namespace}/%{library}
 
 %changelog
+* Thu Feb  2 2023 Remi Collet <remi@remirepo.net> - 2.24.0-1
+- update to 2.24.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.23.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

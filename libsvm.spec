@@ -57,6 +57,7 @@ Install this package if you want to develop programs with libsvm.
 %package -n     python3-%{name}
 Summary:        Python3 tools and interfaces for libsvm
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist scipy}
 BuildRequires:  %{py3_dist setuptools}

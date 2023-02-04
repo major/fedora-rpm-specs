@@ -13,7 +13,7 @@
 %global wasm_opts --with-wasmedge
 %endif
 
-%global built_tag 1.7.2
+%global built_tag 1.8
 %global gen_version %(b=%{built_tag}; echo ${b/-/"~"})
 
 Summary: OCI runtime written in C

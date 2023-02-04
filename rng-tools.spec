@@ -11,8 +11,8 @@
 
 Summary:        Random number generator related utilities
 Name:           rng-tools
-Version:        6.15
-Release:        6%{?dist}
+Version:        6.16
+Release:        1%{?dist}
 License:        GPLv2+
 URL:            https://github.com/nhorman/rng-tools
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -33,6 +33,7 @@ BuildRequires: rtl-sdr-devel
 %endif
 %if %{with pkcs11}
 BuildRequires: libp11-devel
+Suggests: opensc
 %endif
 
 Requires(post): systemd
@@ -63,6 +64,12 @@ TPM, jitter) and supplies entropy from them to a kernel entropy pool.
 %endif
 
 ./autogen.sh
+# a dirty hack to force PIC for a PIC-aware assembly code for i686
+# /usr/lib/rpm/redhat/redhat-hardened-cc1 in Koji/Brew does not
+# force PIC for assembly sources as of now
+%ifarch i386 i686
+sed -i -e '/^#define RDRAND_RETRY_LIMIT\t10/a#define __PIC__ 1' rdrand_asm.S
+%endif
 # a dirty hack so libdarn_impl_a_CFLAGS overrides common CFLAGS
 sed -i -e 's/$(libdarn_impl_a_CFLAGS) $(CFLAGS)/$(CFLAGS) $(libdarn_impl_a_CFLAGS)/' Makefile.in
 %configure %{?_without_pkcs11} %{?_without_rtlsdr}
@@ -97,6 +104,11 @@ install -D %{SOURCE2} -m0644 %{buildroot}%{_sysconfdir}/sysconfig/rngd
 %config(noreplace) %attr(0644,root,root)    %{_sysconfdir}/sysconfig/rngd
 
 %changelog
+* Thu Feb 02 2023 Vladis Dronov <vdronov@redhat.com> - 6.16-1
+- Update to the upstream v6.16 + tip of origin/master @ 0e560296
+- Get rid of text relocations in -fPIE build
+- Add a hint for opensc package (bz 1845854)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.15-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

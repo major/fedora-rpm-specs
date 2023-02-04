@@ -8,9 +8,8 @@ Unicode supported scripts. Its design goal is to achieve visual harmonization\
 between multiple scripts. Noto family supports almost all scripts available\
 in Unicode.\
 %{nil}
-%global snapver 0c78c8329
 
-%global srcver	20201206-phase3
+%global srcver	23.2.1
 %global hprio	56
 %global	vmprio	57
 %global mprio	58
@@ -21,17 +20,15 @@ in Unicode.\
 %global	nlat_lprio	67
 
 Name:           %{fontname}-fonts
-Version:        20201206^1.git%{snapver}
-Release:        10%{?dist}
+Version:        20230201
+Release:        1%{?dist}
 Summary:        Hinted and Non Hinted OpenType fonts for Unicode scripts
 License:        OFL-1.1
-URL:            https://github.com/googlefonts/noto-fonts/
-#Source0:        https://github.com/googlefonts/noto-fonts/archive/v20201206-phase3.tar.gz#/noto-fonts-%%{srcver}.tar.gz
-Source0:        noto-fonts-%{snapver}.tar.xz
+URL:            https://notofonts.github.io/
+Source0:        https://github.com/notofonts/notofonts.github.io/archive/refs/tags/noto-monthly-release-%{srcver}.zip
 Source1:        google-noto-sans-math-vf.conf
 Source2:        google-noto-sans-math.conf
 Source3:        google-noto-naskh-arabic-ex.conf
-Source4:        NotoSansSinhala-v2.006.zip
 Source5:        google-noto-sans-symbols-ex.conf
 Source6:        google-noto-sans-symbols2-ex.conf
 Source7:        google-noto-sans-symbols-vf-ex.conf
@@ -58,9 +55,11 @@ group["serif"] = "Noto Serif"
 group["monospace"] = "Noto Sans Mono"
 
 local subpackages = {
-    { alias="cursive",    family="Kufi Arabic" },
     { alias="cursive",    family="Nastaliq Urdu", lang={ "ur" } },
     { alias="cursive",    family="Rashi Hebrew", lang={ "he" } },
+
+    { alias="fangsong",   family="Fangsong KSS Rotated" },
+    { alias="fangsong",   family="Fangsong KSS Vertical" },
 
     { alias="fantasy",    family="Music" },
     { alias="fantasy",    family="Sans Symbols",
@@ -70,17 +69,8 @@ local subpackages = {
       fcconfexfile=rpm.expand('%{SOURCE6}')
     },
 
-    { alias="sans-serif", family="Looped Lao", lang={ "lo" }, nogroup=1,
-      obsoletes={ "sans-lao-looped" }
-    },
-    { alias="sans-serif", family="Looped Lao UI", lang={ "lo" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="sans-serif", family="Looped Thai", lang={ "th" }, nogroup=1,
-      obsoletes={ "sans-thai-looped" }
-    },
-    { alias="sans-serif", family="Looped Thai UI", lang={ "th" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      obsoletes={ "looped-thai-ui", "looped-thai-vf", "looped-thai-ui-vf" }
     },
     { alias="sans-serif", family="Sans",
       obsoletes={ "sans-ui", "sans-display" }
@@ -90,9 +80,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Anatolian Hieroglyphs",
       obsoletes={ "sans-anatolian-hieroglyphs-vf" }
     },
-    { alias="sans-serif", family="Sans Arabic", lang={ "ar" } },
-    { alias="sans-serif", family="Sans Arabic UI", lang={ "ar" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", family="Sans Arabic", lang={ "ar" },
+      obsoletes={ "kufi-arabic", "sans-arabic-ui" }
     },
     { alias="sans-serif", family="Sans Armenian", lang={ "hy" } },
     { alias="sans-serif", family="Sans Avestan",
@@ -104,7 +93,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Batak", lang={ "bbc" } },
     { alias="sans-serif", family="Sans Bengali", lang= { "bn" } },
     { alias="sans-serif", family="Sans Bengali UI", lang= { "bn" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      obsoletes={ "sans-bengali-ui-vf" },
     },
     { alias="sans-serif", family="Sans Bhaiksuki" },
     { alias="sans-serif", family="Sans Brahmi" },
@@ -161,7 +151,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Gunjala Gondi" },
     { alias="sans-serif", family="Sans Gurmukhi", lang={ "pa" } },
     { alias="sans-serif", family="Sans Gurmukhi UI", lang={ "pa" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      obsoletes={ "sans-gurmukhi-ui-vf" },
     },
     { alias="sans-serif", family="Sans Hanifi Rohingya" },
     { alias="sans-serif", family="Sans Hanunoo", lang={ "hnn" },
@@ -170,9 +161,9 @@ local subpackages = {
     { alias="sans-serif", family="Sans Hatran",
       obsoletes={ "sans-hatran-vf" }
     },
-    { alias="sans-serif", family="Sans Hebrew", lang={ "he" } },
-    { alias="sans-serif", family="Sans Hebrew Droid", lang={ "he" } },
-    { alias="sans-serif", family="Sans Hebrew New", lang={ "he" } },
+    { alias="sans-serif", family="Sans Hebrew", lang={ "he" },
+      obsoletes={ "sans-hebrew-droid", "sans-hebrew-new" },
+    },
     { alias="sans-serif", family="Sans Imperial Aramaic",
       obsoletes={ "sans-imperial-aramaic-vf" }
     },
@@ -183,19 +174,21 @@ local subpackages = {
     { alias="sans-serif", family="Sans Kaithi" },
     { alias="sans-serif", family="Sans Kannada", lang={ "kn" } },
     { alias="sans-serif", family="Sans Kannada UI", lang={ "kn" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      obsoletes={ "sans-kannada-ui-vf" },
     },
     { alias="sans-serif", family="Sans Kayah Li" },
     { alias="sans-serif", family="Sans Kharoshthi" },
-    { alias="sans-serif", family="Sans Khmer", lang={ "km" } },
-    { alias="sans-serif", family="Sans Khmer UI", lang={ "km" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", family="Sans Khmer", lang={ "km" },
+      obsoletes={ "sans-khmer-ui" },
     },
     { alias="sans-serif", family="Sans Khojki" },
     { alias="sans-serif", family="Sans Khudawadi" },
-    { alias="sans-serif", family="Sans Lao", lang={ "lo" } },
-    { alias="sans-serif", family="Sans Lao UI", lang={ "lo" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", family="Sans Lao", lang={ "lo" },
+      obsoletes={ "sans-lao-ui" },
+    },
+    { alias="sans-serif", family="Sans Lao Looped", lang={ "lo" }, nogroup=1,
+      obsoletes={ "looped-lao", "looped-lao-ui" },
     },
     { alias="sans-serif", family="Sans Lepcha", lang={ "lep" } },
     { alias="sans-serif", family="Sans Limbu", lang={ "lif" } },
@@ -215,7 +208,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Mahajani" },
     { alias="sans-serif", family="Sans Malayalam", lang={ "ml" } },
     { alias="sans-serif", family="Sans Malayalam UI", lang={ "ml" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      obsoletes={ "sans-malayalam-ui-vf" },
     },
     { alias="sans-serif", family="Sans Mandaic",
       obsoletes={ "sans-mandaic-vf" }
@@ -250,9 +244,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Multani",
       obsoletes={ "sans-multani-vf" }
     },
-    { alias="sans-serif", family="Sans Myanmar", lang={ "my" } },
-    { alias="sans-serif", family="Sans Myanmar UI", lang={ "my" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", family="Sans Myanmar", lang={ "my" },
+      obsoletes={ "sans-myanmar-ui" },
     },
     { alias="sans-serif", family="Sans Nabataean",
       obsoletes={ "sans-nabataean-vf" }
@@ -274,9 +267,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans Old Sogdian" },
     { alias="sans-serif", family="Sans Old South Arabian" },
     { alias="sans-serif", family="Sans Old Turkic" },
-    { alias="sans-serif", family="Sans Oriya", lang={ "or" } },
-    { alias="sans-serif", family="Sans Oriya UI", lang={ "or" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", family="Sans Oriya", lang={ "or" },
+      obsoletes={ "sans-oriya-ui" },
     },
     { alias="sans-serif", family="Sans Osage" },
     { alias="sans-serif", family="Sans Osmanya",
@@ -285,13 +277,15 @@ local subpackages = {
     { alias="sans-serif", family="Sans Pahawh Hmong" },
     { alias="sans-serif", family="Sans Palmyrene" },
     { alias="sans-serif", family="Sans Pau Cin Hau" },
-    { alias="sans-serif", family="Sans Phags Pa" },
+    { alias="sans-serif", family="Sans Phags-Pa" },
     { alias="sans-serif", family="Sans Phoenician",
       obsoletes={ "sans-phenician-vf" }
     },
     { alias="sans-serif", family="Sans Psalter Pahlavi" },
     { alias="sans-serif", family="Sans Rejang", lang={ "rej" } },
-    { alias="sans-serif", family="Sans Runic", lang={ "gem" } },
+    { alias="sans-serif", family="Sans Runic", lang={ "gem" },
+      obsoletes={ "sans-runic-vf" },
+    },
     { alias="sans-serif", family="Sans Samaritan" },
     { alias="sans-serif", family="Sans Saurashtra", lang={ "saz" } },
     { alias="sans-serif", family="Sans Sharada" },
@@ -302,7 +296,8 @@ local subpackages = {
     { alias="sans-serif", family="Sans SignWriting" },
     { alias="sans-serif", family="Sans Sinhala", lang={ "si" } },
     { alias="sans-serif", family="Sans Sinhala UI", lang={ "si" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      obsoletes={ "sans-sinhala-ui-vf" },
     },
     { alias="sans-serif", family="Sans Sogdian" },
     { alias="sans-serif", family="Sans Sora Sompeng" },
@@ -312,8 +307,10 @@ local subpackages = {
     { alias="sans-serif", family="Sans Sundanese" },
     { alias="sans-serif", family="Sans Syloti Nagri" },
     { alias="sans-serif", family="Sans Syriac", lang={ "syr" },
-      obsoletes={ "sans-syriac-eastern", "sans-syriac-estrangela", "sans-syriac-western" }
+      obsoletes={ "sans-syriac-estrangela" }
     },
+    { alias="sans-serif", family="Sans Syriac Eastern", lang={ "syr" } },
+    { alias="sans-serif", family="Sans Syriac Western", lang={ "syr" } },
     { alias="sans-serif", family="Sans Tagalog" },
     { alias="sans-serif", family="Sans Tagbanwa", lang={ "twb" },
       obsoletes={ "sans-tagbanwa-vf" }
@@ -323,7 +320,9 @@ local subpackages = {
     },
     { alias="sans-serif", family="Sans Tai Le" },
     { alias="sans-serif", family="Sans Tai Tham" },
-    { alias="sans-serif", family="Sans Tai Viet" },
+    { alias="sans-serif", family="Sans Tai Viet",
+      obsoletes={ "sans-tai-viet-vf" },
+    },
     { alias="sans-serif", family="Sans Tamil", lang={ "ta" } },
     { alias="sans-serif", family="Sans Tamil Supplement", lang={ "ta" },
       excludeci=true, nogroup=1
@@ -334,12 +333,15 @@ local subpackages = {
     { alias="sans-serif", family="Sans Tangsa" },
     { alias="sans-serif", family="Sans Telugu", lang={ "te" } },
     { alias="sans-serif", family="Sans Telugu UI", lang={ "te" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      priority=rpm.expand('%{lprio}'), nogroup=1,
+      obsoletes={ "sans-telugu-ui-vf" },
     },
     { alias="sans-serif", family="Sans Thaana", lang={ "dv" } },
-    { alias="sans-serif", family="Sans Thai", lang={ "th" } },
-    { alias="sans-serif", family="Sans Thai UI", lang={ "th" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", family="Sans Thai", lang={ "th" },
+      obsoletes={ "sans-thai-ui" },
+    },
+    { alias="sans-serif", family="Sans Thai Looped", lang={ "th" },
+      obsoletes={ "sansthai-looped-vf", "sans-thai-looped-vf" },
     },
     { alias="sans-serif", family="Sans Tifinagh", lang={ "ber-ma" } },
     { alias="sans-serif", family="Sans Tifinagh APT", lang={ "ber-ma" } },
@@ -370,7 +372,9 @@ local subpackages = {
     { alias="sans-serif", family="Sans Yi",
       obsoletes={ "sans-yi-vf" }
     },
-    { alias="sans-serif", family="Sans Zanabazar Square" },
+    { alias="sans-serif", family="Sans Zanabazar Square",
+      obsoletes={ "sans-zanabazar-square-vf" },
+    },
 
     { alias="serif",      family="Naskh Arabic",
       fcconfexfile=rpm.expand('%{SOURCE3}') },
@@ -388,7 +392,9 @@ local subpackages = {
     { alias="serif",      family="Serif Bengali", lang={ "bn" } },
     { alias="serif",      family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
     { alias="serif",      family="Serif Dives Akuru" },
-    { alias="serif",      family="Serif Dogra" },
+    { alias="serif",      family="Serif Dogra",
+      obsoletes={ "serif-dogra-vf" },
+    },
     { alias="serif",      family="Serif Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" } },
     { alias="serif",      family="Serif Georgian", lang={ "ka" } },
     { alias="serif",      family="Serif Grantha" },
@@ -396,18 +402,22 @@ local subpackages = {
     { alias="serif",      family="Serif Gurmukhi", lang={ "pa" } },
     { alias="serif",      family="Serif Hebrew", lang={ "he" } },
     { alias="serif",      family="Serif Kannada", lang={ "kn" } },
+    { alias="serif",      family="Serif Khitan Small Script" },
     { alias="serif",      family="Serif Khmer", lang={ "km" } },
     { alias="serif",      family="Serif Khojki" },
     { alias="serif",      family="Serif Lao", lang={ "lo" } },
     { alias="serif",      family="Serif Makasar" },
     { alias="serif",      family="Serif Malayalam", lang={ "ml" } },
     { alias="serif",      family="Serif Myanmar", lang={ "my" } },
-    { alias="serif",      family="Serif Nyiakeng Puachue Hmong" },
+    { alias="serif",      family="Serif NP Hmong",
+      obsoletes={ "serif-nyiakeng-puachue-hmong" },
+    },
     { alias="serif",      family="Serif Old Uyghur" },
     { alias="serif",      family="Serif Oriya", lang={ "or" } },
     { alias="serif",      family="Serif Sinhala", lang={ "si" } },
-    { alias="serif",      family="Serif Tamil", lang={ "ta" } },
-    { alias="serif",      family="Serif Tamil Slanted", lang={ "ta" }, nogroup=1 },
+    { alias="serif",      family="Serif Tamil", lang={ "ta" },
+      obsoletes={ "serif-tamil-slanted" },
+    },
     { alias="serif",      family="Serif Tangut",
       obsoletes={ "serif-tangut-vf" }
     },
@@ -421,7 +431,6 @@ local subpackages = {
     { alias="serif",      family="Serif Yezidi" },
     { alias="serif",      family="Traditional Nushu" },
 
-    { alias="cursive",    variable=true, family="Kufi Arabic" },
     { alias="cursive",    variable=true, family="Nastaliq Urdu", lang={ "ur" } },
     { alias="cursive",    variable=true, family="Rashi Hebrew", lang={ "he" } },
 
@@ -429,36 +438,20 @@ local subpackages = {
       fcconfexfile=rpm.expand('%{SOURCE7}')
     },
 
-    { alias="sans-serif", variable=true, family="Looped Lao", lang={ "lo" }, nogroup=1,
-      obsoletes={ "sans-lao-looped-vf" }
-    },
-    { alias="sans-serif", variable=true, family="Looped Lao UI", lang={ "lo" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
-    { alias="sans-serif", variable=true, family="Looped Thai", lang={ "th" }, nogroup=1,
-      obsoletes={ "sansthai-looped-vf", "sans-thai-looped-vf" }
-    },
-    { alias="sans-serif", variable=true, family="Looped Thai UI", lang={ "th" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="sans-serif", variable=true, family="Sans",
       obsoletes={ "sans-display-vf" },
       priority=rpm.expand('%{hprio}')
     },
     { alias="sans-serif", variable=true, family="Sans Adlam" },
     { alias="sans-serif", variable=true, family="Sans Adlam Unjoined" },
-    { alias="sans-serif", variable=true, family="Sans Arabic", lang={ "ar" } },
-    { alias="sans-serif", variable=true, family="Sans Arabic UI", lang={ "ar" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", variable=true, family="Sans Arabic", lang={ "ar" },
+      obsoletes={ "kufi-arabic-vf", "sans-arabic-ui-vf" },
     },
     { alias="sans-serif", variable=true, family="Sans Armenian", lang={ "hy" } },
     { alias="sans-serif", variable=true, family="Sans Balinese", lang={ "ban" } },
     { alias="sans-serif", variable=true, family="Sans Bamum", lang={ "bax" } },
     { alias="sans-serif", variable=true, family="Sans Bassa Vah" },
     { alias="sans-serif", variable=true, family="Sans Bengali", lang={ "bn" } },
-    { alias="sans-serif", variable=true, family="Sans Bengali UI", lang={ "bn" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="sans-serif", variable=true, family="Sans Canadian Aboriginal", lang={ "iu" } },
     { alias="sans-serif", variable=true, family="Sans Cham", lang={ "cjm" } },
     { alias="sans-serif", variable=true, family="Sans Cherokee", lang={ "chr" } },
@@ -468,81 +461,61 @@ local subpackages = {
     { alias="sans-serif", variable=true, family="Sans Gujarati", lang={ "gu" } },
     { alias="sans-serif", variable=true, family="Sans Gunjala Gondi" },
     { alias="sans-serif", variable=true, family="Sans Gurmukhi", lang={ "pa" },
-      priority=rpm.expand('%{hprio}')
-    },
-    { alias="sans-serif", variable=true, family="Sans Gurmukhi UI", lang={ "pa" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      priority=rpm.expand('%{hprio}'),
+      obsoletes={ "sans-gurkukhi-ui-vf" },
     },
     { alias="sans-serif", variable=true, family="Sans Hanifi Rohingya" },
-    { alias="sans-serif", variable=true, family="Sans Hebrew", lang={ "he" } },
-    { alias="sans-serif", variable=true, family="Sans Hebrew Droid", lang={ "he" } },
-    { alias="sans-serif", variable=true, family="Sans Hebrew New", lang={ "he" } },
+    { alias="sans-serif", variable=true, family="Sans Hebrew", lang={ "he" },
+      obsoletes={ "sans-hebrew-droid-vf", "sans-hebrew-new-vf" },
+    },
     { alias="sans-serif", variable=true, family="Sans Javanese" },
     { alias="sans-serif", variable=true, family="Sans Kannada", lang={ "kn" } },
-    { alias="sans-serif", variable=true, family="Sans Kannada UI", lang={ "kn" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="sans-serif", variable=true, family="Sans Kayah Li" },
-    { alias="sans-serif", variable=true, family="Sans Khmer", lang={ "km" } },
-    { alias="sans-serif", variable=true, family="Sans Khmer UI", lang={ "km" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", variable=true, family="Sans Khmer", lang={ "km" },
+      priority=rpm.expand('%{hprio}'),
+      obsoletes={ "sans-khmer-ui-vf" },
     },
-    { alias="sans-serif", variable=true, family="Sans Lao", lang={ "lo" } },
-    { alias="sans-serif", variable=true, family="Sans Lao UI", lang={ "lo" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", variable=true, family="Sans Lao", lang={ "lo" },
+      obsoletes={ "sans-lao-ui-vf" },
+    },
+    { alias="sans-serif", variable=true, family="Sans Lao Looped", lang={ "lo" },
+      obsoletes={ "looped-lao-vf", "looped-lao-ui-vf" }, nogroup=1,
     },
     { alias="sans-serif", variable=true, family="Sans Lisu" },
     { alias="sans-serif", variable=true, family="Sans Malayalam", lang={ "ml" } },
-    { alias="sans-serif", variable=true, family="Sans Malayalam UI", lang={ "ml" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="sans-serif", variable=true, family="Sans Medefaidrin" },
     { alias="sans-serif", variable=true, family="Sans MeeteiMayek" },
     { alias="monospace", variable=true, family="Sans Mono",
       priority=rpm.expand('%{hprio}')
     },
     { alias="sans-serif", variable=true, family="Sans Myanmar", lang={ "my" },
-      obsoletes={ "serif-myanmar-vf" }
-    },
-    { alias="sans-serif", variable=true, family="Sans Myanmar UI", lang={ "my" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      obsoletes={ "serif-myanmar-vf", "sans-myanmar-ui-vf" }
     },
     { alias="sans-serif", variable=true, family="Sans New Tai Lue", lang={ "khb" } },
     { alias="sans-serif", variable=true, family="Sans Ol Chiki" },
-    { alias="sans-serif", variable=true, family="Sans Oriya", lang={ "or" } },
-    { alias="sans-serif", variable=true, family="Sans Oriya UI", lang={ "or" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", variable=true, family="Sans Oriya", lang={ "or" },
+      obsoletes={ "sans-oriya-ui-vf" },
     },
-    { alias="sans-serif", variable=true, family="Sans Runic", lang={ "gem" } },
     { alias="sans-serif", variable=true, family="Sans Sinhala", lang={ "si" },
-      priority=rpm.expand('%{hprio}')
-    },
-    { alias="sans-serif", variable=true, family="Sans Sinhala UI", lang={ "si" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+      priority=rpm.expand('%{hprio}'),
     },
     { alias="sans-serif", variable=true, family="Sans Sora Sompeng" },
     { alias="sans-serif", variable=true, family="Sans Sundanese" },
+    { alias="sans-serif", variable=true, family="Sans Syriac", lang={ "syr" } },
+    { alias="sans-serif", variable=true, family="Sans Syriac Eastern", lang={ "syr" } },
+    { alias="sans-serif", variable=true, family="Sans Syriac Western", lang={ "syr" } },
     { alias="sans-serif", variable=true, family="Sans Tai Tham" },
-    { alias="sans-serif", variable=true, family="Sans Tai Viet" },
-    { alias="sans-serif", variable=true, family="Sans Tamil", lang={ "ta" } },
-    { alias="sans-serif", variable=true, family="Sans Tamil Supplement", lang={ "ta" },
-      excludeci=true, nogroup=1
-    },
-    { alias="sans-serif", variable=true, family="Sans Tamil UI", lang={ "ta" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", variable=true, family="Sans Tamil", lang={ "ta" },
+      obsoletes={ "sans-tamil-supplement-vf", "sans-tamil-ui-vf" },
     },
     { alias="sans-serif", variable=true, family="Sans Tangsa" },
     { alias="sans-serif", variable=true, family="Sans Telugu", lang={ "te" } },
-    { alias="sans-serif", variable=true, family="Sans Telugu UI", lang={ "te" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
-    },
     { alias="sans-serif", variable=true, family="Sans Thaana", lang={ "dv" } },
-    { alias="sans-serif", variable=true, family="Sans Thai", lang={ "th" } },
-    { alias="sans-serif", variable=true, family="Sans Thai UI", lang={ "th" },
-      priority=rpm.expand('%{lprio}'), nogroup=1
+    { alias="sans-serif", variable=true, family="Sans Thai", lang={ "th" },
+      priority=rpm.expand('%{hprio}'),
+      obsoletes={ "sans-thai-ui-vf" },
     },
     { alias="sans-serif", variable=true, family="Sans Vithkuqi" },
-    { alias="sans-serif", variable=true, family="Sans Zanabazar Square" },
 
     { alias="serif",      variable=true, family="Naskh Arabic",
       fcconfexfile=rpm.expand('%{SOURCE3}') },
@@ -556,34 +529,43 @@ local subpackages = {
     { alias="serif",      variable=true, family="Serif Armenian", lang={ "hy" } },
     { alias="serif",      variable=true, family="Serif Bengali", lang={ "bn" } },
     { alias="serif",      variable=true, family="Serif Devanagari", lang={ "bh", "bho", "brx", "doi", "hi", "hne", "kok", "ks@devanagari", "mai", "mr", "ne", "sa", "sat", "sd@devanagari" } },
-    { alias="serif",      variable=true, family="Serif Dogra" },
     { alias="serif",      variable=true, family="Serif Ethiopic", lang={ "am", "byn", "gez", "sid", "ti-er", "ti-et", "tig", "wal" } },
     { alias="serif",      variable=true, family="Serif Georgian", lang={ "ka" } },
     { alias="serif",      variable=true, family="Serif Gujarati", lang={ "gu" } },
     { alias="serif",      variable=true, family="Serif Gurmukhi", lang={ "pa" } },
     { alias="serif",      variable=true, family="Serif Hebrew", lang={ "he" } },
     { alias="serif",      variable=true, family="Serif Kannada", lang={ "kn" } },
-    { alias="serif",      variable=true, family="Serif Khmer", lang={ "km" } },
+    { alias="serif",      variable=true, family="Serif Khmer", lang={ "km" },
+      priority=rpm.expand('%{hprio}')
+    },
     { alias="serif",      variable=true, family="Serif Khojki" },
     { alias="serif",      variable=true, family="Serif Lao", lang={ "lo" } },
     { alias="serif",      variable=true, family="Serif Malayalam", lang={ "ml" } },
-    { alias="serif",      variable=true, family="Serif Nyiakeng Puachue Hmong" },
+    { alias="serif",      variable=true, family="Serif Myanmar", lang={ "my" } },
+    { alias="serif",      variable=true, family="Serif NP Hmong",
+      obsoletes={ "serif-nyiakeng-puachue-hmong-vf" },
+    },
     { alias="serif",      variable=true, family="Serif Oriya", lang={ "or" } },
     { alias="serif",      variable=true, family="Serif Sinhala", lang={ "si" } },
-    { alias="serif",      variable=true, family="Serif Tamil", lang={ "ta" } },
-    { alias="serif",      variable=true, family="Serif Tamil Slanted", lang={ "ta" } },
+    { alias="serif",      variable=true, family="Serif Tamil", lang={ "ta" },
+      obsoletes={ "serif-tamil-slanted-vf" },
+    },
     { alias="serif",      variable=true, family="Serif Telugu", lang={ "te" } },
-    { alias="serif",      variable=true, family="Serif Thai", lang={ "th" } },
+    { alias="serif",      variable=true, family="Serif Thai", lang={ "th" },
+      priority=rpm.expand('%{hprio}')
+    },
     { alias="serif",      variable=true, family="Serif Tibetan", lang={ "bo", "dz" } },
     { alias="serif",      variable=true, family="Serif Toto" },
     { alias="serif",      variable=true, family="Serif Vithkuqi" },
-    { alias="serif",      variable=true, family="Serif Yezidi" }
+    { alias="serif",      variable=true, family="Serif Yezidi" },
+    { alias="serif",      variable=true, family="Traditional Nushu" },
 
 }
 local _fcconflist = ''
 local _metafilelist = ''
 local _fcconfbuild = ''
 local _metainfobuild = ''
+local _filelistbuild = ''
 
 local function is_nonlatin(table)
     nonlatin_langs = { "as", "bn", "brx", "doi", "gu", "hi", "ja", "kn", "ks@devanagari", "kok", "kr", "mai", "mr", "ne", "or", "sa", "sat", "sd@devanagari", "ta", "te", "th", "zh-cn", "zh-hk", "zh-mo", "zh-sg", "zh-tw" }
@@ -798,8 +780,8 @@ local function txt2xml(text)
 end
 
 local function genmetainfo(table)
-local xmlfontname = '$(cmd=$(for f in %{buildroot}' .. table.filename .. '; do fc-scan "$f" -f "echo \\\\\"    <font>%{fullname[0]}</font>\\\\\";"; sync; done); if test x"$cmd" != x; then echo "echo \\\\\"  <provides>\\\\\"; $cmd echo \\\\\"  </provides>\\\\\""|sh; fi|grep -v "font></font")'
-local xmlfontlang = '$(cmd=$(for f in %{buildroot}' .. table.filename .. '; do fc-scan "$f" -f "%{[]lang{echo \\\\\"    <lang>%{lang}</lang>\\\\\";}}"; sync; done); if test x"$cmd" != x; then echo "echo \\\\\"  <languages>\\\\\"; ($cmd)|sort -u; echo \\\\\"  </languages>\\\\\""|sh; fi)'
+local xmlfontname = '$(cmd=$(for f in $(cd %{buildroot}/' .. table.fontdir .. ' && find -regex \'./' .. table.filename .. '\' -print); do fc-scan "%{buildroot}' .. table.fontdir .. '$f" -f "echo \\\\\"    <font>%{fullname[0]}</font>\\\\\";"; sync; done); if test x"$cmd" != x; then echo "echo \\\\\"  <provides>\\\\\"; $cmd echo \\\\\"  </provides>\\\\\""|sh; fi|grep -v "font></font")'
+local xmlfontlang = '$(cmd=$(for f in $(cd %{buildroot}/' .. table.fontdir .. ' && find -regex \'./' .. table.filename .. '\' -print); do fc-scan "%{buildroot}' .. table.fontdir .. '$f" -f "%{[]lang{echo \\\\\"    <lang>%{lang}</lang>\\\\\";}}"; sync; done); if test x"$cmd" != x; then echo "echo \\\\\"  <languages>\\\\\"; ($cmd)|sort -u; echo \\\\\"  </languages>\\\\\""|sh; fi)'
 local xml = [[
 <?xml version=\"1.0\" encoding=\"UTF-8\"?>\
 <!-- $PDX-License-Identifier: MIT -->\
@@ -912,6 +894,11 @@ local function gentestyaml()
     end
 end
 
+local function genfilelist(table)
+    local flist = '$(for f in $(cd %{buildroot}/' .. table.fontdir .. ' && find -regex \'./' .. table.filename .. '\' -print); do echo "' .. table.fontdir .. '$f"; done)' .. '\\\n'
+    _filelistbuild = _filelistbuild .. "cat<<_EOL_>" .. table.pkgname .. ".list\\\n" .. flist .. "_EOL_\\\n"
+end
+
 local function notopkg(table)
     local _pname = string.lower(table.family):gsub(' ', '-')
     local pname = _pname .. (table.variable and '-vf' or '')
@@ -936,12 +923,13 @@ local function notopkg(table)
     prio = tostring(prio)
     local fcconf = prio .. '-' .. rpm.expand('%{fontconf}') .. '-' .. pname .. '.conf'
     local fontdir = rpm.expand('%{_fontbasedir}') .. '/google-noto' .. (table.variable and '-vf/' or '/')
-    local fontname = 'Noto' .. (table.fontname and table.fontname or string.gsub(table.family, ' ', '')) .. (table.variable and '-*VF*.*tf' or '-[^VF]*.*tf')
+    local fontname = 'Noto' .. (table.fontname and table.fontname or string.gsub(table.family, ' ', '')) .. (table.variable and '\\\\(-[A-Za-z]*\\\\)?\\\\[.*\\\\].*tf' or '-[^\\\\[\\\\]]*.*tf')
     local metaname = rpm.expand('%{fontorg}.') .. pkgname .. '.metainfo.xml'
 
     table.fcconf = fcconf
     table.pkgname = pkgname
-    table.filename = fontdir .. fontname
+    table.fontdir = fontdir
+    table.filename = fontname
     table.summary = 'Noto ' .. table.family .. (table.variable and ' variable' or '') .. ' font'
     table.description = rpm.expand('%{common_desc}') .. [[
 Noto ]] .. table.family .. (table.variable and ' variable' or '') .. " font."
@@ -966,11 +954,10 @@ Requires:   %{name}-common = %{version}-%{release}
 
 %description -n ]] .. table.pkgname .. "\n" .. table.description .. "\n" .. [[
 
-%files -n ]] .. pkgname .. "\n" .. [[
+%files -n ]] .. pkgname .. " -f " .. pkgname .. ".list\n" .. [[
 %dir ]] .. fontdir .. "\n" .. [[
 %config(noreplace) %{_fontconfig_confdir}/]] .. fcconf .. "\n" .. [[
 %{_fontconfig_templatedir}/]] .. fcconf .. "\n" .. [[
-]] .. fontdir .. fontname .."\n" ..  [[
 %{_metainfodir}/]] .. metaname .. "\n"))
 end
 
@@ -978,10 +965,12 @@ for i = 1, #subpackages do
     notopkg(subpackages[i])
     if rpm.expand("%{cionly}") ~= 0 then
         genfcconf(subpackages[i])
-	genmetainfo(subpackages[i])
+        genmetainfo(subpackages[i])
+        genfilelist(subpackages[i])
     else
         _fcconfbuild = "false"
-	_metainfobuild = "false"
+        _metainfobuild = "false"
+        _filelistbuild = "false"
     end
 end
 if tonumber(rpm.expand("%{cionly}")) == 1 then
@@ -1003,12 +992,11 @@ end
 
 rpm.define("notobuild_fcconf " .. _fcconfbuild .. "\n")
 rpm.define("notobuild_metainfo " .. _metainfobuild .. "\n")
+rpm.define("notobuild_filelist " .. _filelistbuild .. "\n")
 } ## end of lua
 
 %prep
 %setup -q -c -n noto-fonts-%{srcver}
-mkdir new-sinhala
-unzip %{SOURCE4} NotoSansSinhala/*
 
 
 %build
@@ -1020,27 +1008,24 @@ exit 1
 
 %install
 install -m 0755 -d %{buildroot}%{_fontbasedir}/google-noto
-for f in unhinted/ttf/*/Noto*.ttf hinted/ttf/*/Noto*.ttf; do
+for f in */fonts/*/unhinted/ttf/Noto*.ttf */fonts/*/hinted/ttf/Noto*.ttf; do
   install -m 0644 -p $f %{buildroot}%{_fontbasedir}/google-noto/
 done
 install -m 0755 -d %{buildroot}%{_fontbasedir}/google-noto-vf
-install -m 0644 -p unhinted/slim-variable-ttf/Noto*.ttf %{buildroot}%{_fontbasedir}/google-noto-vf/
-
-# override updated sinhala fonts
-for f in NotoSansSinhala/hinted/ttf/*; do
-  install -m 0644 -p $f %{buildroot}%{_fontbasedir}/google-noto/
-done
-install -m 0644 -p NotoSansSinhala/unhinted/slim-variable-ttf/NotoSansSinhala\[wght\].ttf %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSansSinhala-VF.ttf
+install -m 0644 -p */fonts/*/unhinted/slim-variable-ttf/Noto*.ttf %{buildroot}%{_fontbasedir}/google-noto-vf/
 
 # remove display fonts. this isn't shipped in upstream anymore.
 rm %{buildroot}%{_fontbasedir}/google-noto/NotoSansDisplay*.ttf \
    %{buildroot}%{_fontbasedir}/google-noto/NotoSans-Display*.ttf \
    %{buildroot}%{_fontbasedir}/google-noto/NotoSerifDisplay*.ttf \
    %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSansDisplay*.ttf \
-   %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSerifDisplay*.ttf
+   %{buildroot}%{_fontbasedir}/google-noto-vf/NotoSerifDisplay*.ttf || :
+rm %{buildroot}%{_fontbasedir}/google-noto/Noto*Test-*.ttf \
+   %{buildroot}%{_fontbasedir}/google-noto-vf/Noto*Test*.ttf || :
 
 # fc-scan in script expects fonts are already installed
 %{notobuild_metainfo}
+%{notobuild_filelist}
 
 install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
                    %{buildroot}%{_fontconfig_confdir} \
@@ -1067,11 +1052,16 @@ for f in $(echo %{noto_metafilelist}); do
 done
 
 %files common
-%license LICENSE
-%doc README.md FAQ.md
+%license */LICENSE
+%doc */README.md
 
 
 %changelog
+* Thu Feb  2 2023 Akira TAGOH <tagoh@redhat.com> - 20230201-1
+- Updates to monthly release of 23.2.1
+- Update priority for google-noto-{sans,serif}-{khmer,thai}-vf-fonts for
+  https://fedoraproject.org/wiki/Changes/NotoFontsForMoreLang
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-friendsofphp-proxy-manager-lts
 #
-# Copyright (c) 2021-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2021-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,8 +9,8 @@
 
 %global github_owner     FriendsOfPHP
 %global github_name      proxy-manager-lts
-%global github_version   1.0.13
-%global github_commit    88354616f4cf4f6620910fd035e282173ba453e8
+%global github_version   1.0.14
+%global github_commit    a527c9d9d5348e012bd24482d83a5cd643bcbc9e
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 %global major            %nil
 
@@ -26,7 +26,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       OOP proxy wrappers utilities
 
 License:       MIT
@@ -35,8 +35,8 @@ Source0:       %{name}-%{github_version}-%{github_short}.tgz
 Source1:       makesrc.sh
 
 BuildArch:     noarch
-# As we use phpunit9
-BuildRequires: php(language) >= 7.3
+# As we use laminas/code 4
+BuildRequires: php(language) >= 7.4
 %if %{with tests}
 BuildRequires: php-reflection
 BuildRequires: php-pcre
@@ -102,18 +102,8 @@ phpab --template fedora \
 
 cat <<'AUTOLOAD' | tee -a src/autoload.php
 
-if (PHP_VERSION_ID < 70400) {
-    $code = '%{phpdir}/Laminas/Code/autoload.php';
-} else if (PHP_VERSION_ID < 80000) {
-    $code = [
-        '%{phpdir}/Laminas/Code4/autoload.php',
-        '%{phpdir}/Laminas/Code/autoload.php',
-    ];
-} else {
-    $code = '%{phpdir}/Laminas/Code4/autoload.php';
-}
 \Fedora\Autoloader\Dependencies::required([
-    $code,
+    '%{phpdir}/Laminas/Code4/autoload.php',
     [
         '%{phpdir}/Symfony6/Component/Filesystem/autoload.php',
         '%{phpdir}/Symfony5/Component/Filesystem/autoload.php',
@@ -143,7 +133,7 @@ EOF
 
 : Upstream tests
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -166,6 +156,9 @@ exit $ret
 
 
 %changelog
+* Thu Feb  2 2023 Remi Collet <remi@remirepo.net> - 1.0.14-1
+- update to 1.0.14
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

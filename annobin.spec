@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.08
+Version: 11.09
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -522,6 +522,11 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Feb 02 2023 Nick Clifton  <nickc@redhat.com> - 11.09-1
+- Libannocheck: Fix thinko in debugging code.
+- Annocheck: Fix LTO test.
+- Notes: Display notes held in separate dbeuginfo files.
+
 * Tue Jan 31 2023 Nick Clifton  <nickc@redhat.com> - 11.08-1
 - Annocheck: Fix atexit test.  Fix recording of version numbers.  (#2165528)
 

@@ -1,5 +1,5 @@
 Name:           python-pyct
-Version:        0.4.8
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Python packaging Common Tasks
 
@@ -22,16 +22,10 @@ Source0:        %{pypi_source pyct}
 Source10:       pyct.1
 Source11:       pyct-report.1
 
-# Fully support Python 3.11
-# https://github.com/pyviz-dev/pyct/pull/104
-# Rebased on 0.4.8 and hand-edited to omit changes to tox.ini, which is not
-# present in the PyPI sdist.
-Patch:          pyct-0.4.8-python3.11.patch
-
 BuildArch:      noarch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch: %{ix86}
+ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 

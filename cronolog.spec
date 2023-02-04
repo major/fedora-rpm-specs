@@ -1,6 +1,6 @@
 Name:            cronolog
 Version:         1.6.2
-Release:         35%{?dist}
+Release:         36%{?dist}
 Summary:         Web log rotation program for Apache
 
 License:         ASL 1.0
@@ -8,6 +8,8 @@ URL:             http://cronolog.org/
 Source0:         http://cronolog.org/download/%{name}-%{version}.tar.gz
 BuildRequires:  gcc
 Patch1:          cronolog-largefile.patch
+Patch2:          cronolog-configure-c99.patch
+Patch3:          cronolog-c99.patch
 BuildRequires:          perl-generators
 BuildRequires: make
 
@@ -22,6 +24,8 @@ such as Apache, to split the access log into daily or monthly logs.
 %prep
 %setup -q
 %patch1
+%patch2 -p1
+%patch3 -p1
 
 %build
 %configure
@@ -42,6 +46,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_infodir}/*
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 1.6.2-36
+- Fix C99 compatibility issues (#2166555)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %bcond_without  qt5
 
 Name:           openshadinglanguage
-Version:        1.12.8.0
+Version:        1.12.9.0
 Release:        %autorelease
 Summary:        Advanced shading language for production GI renderers
 License:        BSD-3-Clause
@@ -22,6 +22,7 @@ BuildRequires:  cmake >= 3.12
 BuildRequires:  flex >= 2.5.35
 BuildRequires:  gcc-c++ >= 6.1
 BuildRequires:  llvm-devel >= 9
+BuildRequires:  ninja-build
 # Needed for OSL pointclound functions
 BuildRequires:  partio-devel
 BuildRequires:  pkgconfig(Imath) >= 2.3
@@ -33,7 +34,7 @@ BuildRequires:  pkgconfig(Qt5) >= 5.6
 BuildRequires:  pkgconfig(zlib)
 
 # 64 bit only
-ExclusiveArch:  x86_64 aarch64 ppc64le s390x
+ExcludeArch:  %{ix86} %{arm}
 
 %description
 Open Shading Language (OSL) is a small but rich language for programmable
@@ -127,6 +128,7 @@ sed -i -e "s/COMMAND python/COMMAND python3/" $(find . -iname CMakeLists.txt)
 
 %build
 %cmake \
+   -G Ninja \
    -DCMAKE_CXX_STANDARD=17 \
    -DCMAKE_INSTALL_DOCDIR:PATH=%{_docdir}/%{name} \
    -DCMAKE_SKIP_RPATH=TRUE \

@@ -104,14 +104,14 @@
 
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.20
-%global go_prerelease rc3
-#global go_patch 4
+#global go_prerelease rc3
+#global go_patch 1
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
  
 # For rpmdev-bumpspec and releng automation
-%global baserelease 3
+%global baserelease 1
  
 Name:           golang
 Version:        %{go_version}
@@ -152,7 +152,7 @@ Provides: bundled(golang(golang.org/x/sync)) = 0.1.0
 Provides: bundled(golang(golang.org/x/sys)) = 0.3.0
 Provides: bundled(golang(golang.org/x/term)) = 0.2.0
 Provides: bundled(golang(golang.org/x/text)) = 0.5.0
-Provides: bundled(golang(golang.org/x/tools)) = 0.3.1.0.20221121233702.060c049c4674
+Provides: bundled(golang(golang.org/x/tools)) = 0.3.1.0.20230118190848.070db2996ebe
 
 Requires:       %{name}-bin = %{version}-%{release}
 Requires:       %{name}-src = %{version}-%{release}
@@ -535,6 +535,10 @@ fi
 %endif
 
 %changelog
+* Thu Feb 02 2023 Alejandro Sáez <asm@redhat.com> - 1.20-1
+- Update to go1.20
+- Resolves: rhbz#2152070
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20~rc3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

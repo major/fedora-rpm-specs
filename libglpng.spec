@@ -1,6 +1,6 @@
 Name:           libglpng
 Version:        1.45
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Toolkit for loading PNG images as OpenGL textures
 License:        MIT
 URL:            https://admin.fedoraproject.org/pkgdb/packages/name/libglpng
@@ -12,6 +12,7 @@ Source1:        libglpng-1.45-makefile
 Patch0:         libglpng-1.45-debian.patch
 Patch1:         libglpng-1.45-CVE-2010-1519.patch
 Patch2:         libglpng-1.45-libpng15.patch
+Patch3: glpng-c99.patch
 BuildRequires:  gcc
 BuildRequires:  libpng-devel libGL-devel
 BuildRequires: make
@@ -35,6 +36,7 @@ developing applications that use %{name}.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 cp %{SOURCE1} Makefile
 
 
@@ -59,6 +61,9 @@ make install DESTDIR=$RPM_BUILD_ROOT%{_prefix} LIB=%{_lib}
 
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 1.45-29
+- Fix C99 compatibility issues (#2166551)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.45-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

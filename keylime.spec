@@ -8,7 +8,7 @@
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 6.4.3
+Version: 6.5.3
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 
@@ -18,7 +18,7 @@ Source1:        %{srcname}.sysusers
 # The selinux policy for keylime is distributed via this repo: https://github.com/RedHat-SP-Security/keylime-selinux
 Source2:        https://github.com/RedHat-SP-Security/%{name}-selinux/archive/v%{policy_version}/keylime-selinux-%{policy_version}.tar.gz
 
-Patch: 0001-Proper-exception-handling-in-tornado_requests.patch
+Patch: 01-duplicate-str-to-version.patch
 
 # Main program: BSD
 # Icons: MIT
@@ -29,6 +29,7 @@ BuildRequires: swig
 BuildRequires: openssl-devel
 BuildRequires: python3-devel
 BuildRequires: python3-dbus
+BuildRequires: python3-jinja2
 BuildRequires: python3-setuptools
 BuildRequires: systemd-rpm-macros
 
@@ -64,6 +65,7 @@ Conflicts: keylime < 6.3.0-3
 Requires(pre): shadow-utils
 Requires: procps-ng
 Requires: tpm2-tss
+Requires: python3-jinja2
 
 %if 0%{?with_selinux}
 # This ensures that the *-selinux package and all it’s dependencies are not pulled
@@ -215,21 +217,40 @@ bzip2 -9 %{srcname}.pp
 %py3_install
 mkdir -p %{buildroot}/%{_sharedstatedir}/%{srcname}
 mkdir -p --mode=0700 %{buildroot}/%{_rundir}/%{srcname}
-mkdir -p --mode=0700 %{buildroot}/%{_localstatedir}/log/%{srcname}
+
+mkdir -p --mode=0700 %{buildroot}/%{_sysconfdir}/%{srcname}/
+for comp in "agent" "verifier" "tenant" "registrar" "ca" "logging"; do
+    mkdir -p --mode=0700  %{buildroot}/%{_sysconfdir}/%{srcname}/${comp}.conf.d
+done
+
+# Ship some scripts.
+mkdir -p %{buildroot}/%{_datadir}/%{srcname}/scripts
+for s in create_allowlist.sh \
+         create_mb_refstate \
+         create_policy \
+         ek-openssl-verify; do
+    install -Dpm 755 scripts/${s} \
+        %{buildroot}/%{_datadir}/%{srcname}/scripts/${s}
+done
+
+# Ship configuration templates.
+cp -r ./templates %{buildroot}%{_datadir}/%{srcname}/templates/
 
 # Setting up the agent to use keylime user/group.
-sed -e 's/^run_as.*/run_as = %{srcname}:%{srcname}/g' -i %{srcname}.conf
+printf '[agent]\nrun_as = %s:%s\n' "%{srcname}" "%{srcname}" \
+    > %{buildroot}/%{_sysconfdir}/%{srcname}/agent.conf.d/run_as.conf
 
 # rhbz#2114485 - using sha256 for tpm_hash_alg.
-sed -e 's/^tpm_hash_alg[[:space:]]*=.*/tpm_hash_alg = sha256/g' -i %{srcname}.conf
+printf '[agent]\ntpm_hash_alg = sha256\n' \
+    > %{buildroot}/%{_sysconfdir}/%{srcname}/agent.conf.d/bz2114485.conf
+
+mkdir -p --mode=0755 %{buildroot}/%{_bindir}
+cp -a ./keylime/cmd/convert_config.py %{buildroot}/%{_bindir}/keylime_upgrade_config
 
 %if 0%{?with_selinux}
 install -D -m 0644 %{srcname}.pp.bz2 %{buildroot}%{_datadir}/selinux/packages/%{selinuxtype}/%{srcname}.pp.bz2
 install -D -p -m 0644 keylime-selinux-%{policy_version}/%{srcname}.if %{buildroot}%{_datadir}/selinux/devel/include/distributed/%{srcname}.if
 %endif
-
-install -Dpm 600 %{srcname}.conf \
-    %{buildroot}%{_sysconfdir}/%{srcname}.conf
 
 install -Dpm 644 ./services/%{srcname}_agent.service \
     %{buildroot}%{_unitdir}/%{srcname}_agent.service
@@ -243,7 +264,7 @@ install -Dpm 644 ./services/%{srcname}_verifier.service \
 install -Dpm 644 ./services/%{srcname}_registrar.service \
     %{buildroot}%{_unitdir}/%{srcname}_registrar.service
 
-cp -r ./tpm_cert_store %{buildroot}%{_sharedstatedir}/keylime/
+cp -r ./tpm_cert_store %{buildroot}%{_sharedstatedir}/%{srcname}/
 
 install -p -d %{buildroot}/%{_tmpfilesdir}
 cat > %{buildroot}/%{_tmpfilesdir}/%{srcname}.conf << EOF
@@ -256,12 +277,44 @@ install -p -D -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/%{srcname}.conf
 %sysusers_create_compat %{SOURCE1}
 exit 0
 
+%post base
+/usr/bin/keylime_upgrade_config
+exit 0
+
+%pre verifier
+/usr/bin/keylime_upgrade_config
+exit 0
+
+%pre registrar
+/usr/bin/keylime_upgrade_config
+exit 0
+
+%pre -n python3-%{srcname}-agent
+/usr/bin/keylime_upgrade_config
+exit 0
+
+%pre tenant
+/usr/bin/keylime_upgrade_config
+exit 0
+
 %posttrans base
-[ -f %{_sysconfdir}/%{srcname}.conf ] && \
-    chmod 600 %{_sysconfdir}/%{srcname}.conf && \
-    chown %{srcname} %{_sysconfdir}/%{srcname}.conf
+if [ -d %{_sysconfdir}/%{srcname} ]; then
+    chmod 500 %{_sysconfdir}/%{srcname}
+    chown -R %{srcname}:%{srcname} %{_sysconfdir}/%{srcname}
+
+    for comp in "agent" "verifier" "tenant" "registrar" "ca" "logging"; do
+        [ -d %{_sysconfdir}/%{srcname}/${comp}.conf.d ] && \
+            chmod 500 %{_sysconfdir}/%{srcname}/${comp}.conf.d
+    done
+fi
+
 [ -d %{_sharedstatedir}/%{srcname} ] && \
     chown -R %{srcname} %{_sharedstatedir}/%{srcname}/
+
+[ -d %{_sharedstatedir}/%{srcname}/tpm_cert_store ] && \
+    chmod 400 %{_sharedstatedir}/%{srcname}/tpm_cert_store/*.pem && \
+    chmod 500 %{_sharedstatedir}/%{srcname}/tpm_cert_store/
+
 [ -d %{_localstatedir}/log/%{srcname} ] && \
     chown -R %{srcname} %{_localstatedir}/log/%{srcname}/
 exit 0
@@ -312,6 +365,9 @@ fi
 %preun -n python3-%{srcname}-agent
 %systemd_preun %{srcname}_agent.service
 
+%preun tenant
+%systemd_preun %{srcname}_registrar.service
+
 %postun verifier
 %systemd_postun_with_restart %{srcname}_verifier.service
 
@@ -323,22 +379,26 @@ fi
 
 %files verifier
 %license LICENSE
+%attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/verifier.conf.d
 %{_bindir}/%{srcname}_verifier
 %{_bindir}/%{srcname}_ca
-%{_bindir}/%{srcname}_migrations_apply
 %{_unitdir}/keylime_verifier.service
 
 %files registrar
 %license LICENSE
+%attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/registrar.conf.d
 %{_bindir}/%{srcname}_registrar
 %{_unitdir}/keylime_registrar.service
 
 %files -n python3-%{srcname}-agent
 %license LICENSE
-%{_bindir}/%{srcname}_agent
+%attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/agent.conf.d
 %{_unitdir}/%{srcname}_agent.service
 %{_unitdir}/%{srcname}_agent_secure.mount
+%{_bindir}/%{srcname}_agent
 %{_bindir}/%{srcname}_ima_emulator
+%{_sysconfdir}/%{srcname}/agent.conf.d/bz2114485.conf
+%{_sysconfdir}/%{srcname}/agent.conf.d/run_as.conf
 
 %if 0%{?with_selinux}
 %files selinux
@@ -349,12 +409,17 @@ fi
 
 %files tenant
 %license LICENSE
+%attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/tenant.conf.d
 %{_bindir}/%{srcname}_tenant
 
 %files -n python3-%{srcname}
 %license LICENSE
 %{python3_sitelib}/%{srcname}-*.egg-info/
 %{python3_sitelib}/%{srcname}
+%{_datadir}/%{srcname}/scripts/create_mb_refstate
+%{_datadir}/%{srcname}/scripts/create_policy
+%{_bindir}/keylime_convert_ima_policy
+%{_bindir}/keylime_attest
 
 %files tools
 %license LICENSE
@@ -363,12 +428,17 @@ fi
 %files base
 %license LICENSE
 %doc README.md
-%config(noreplace) %attr(600,%{srcname},%{srcname}) %{_sysconfdir}/%{srcname}.conf
+%attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/{ca,logging}.conf.d
 %attr(700,%{srcname},%{srcname}) %dir %{_rundir}/%{srcname}
-%attr(700,%{srcname},%{srcname}) %dir %{_localstatedir}/log/%{srcname}
-%attr(700,%{srcname},%{srcname}) %{_sharedstatedir}/%{srcname}
+%attr(700,%{srcname},%{srcname}) %dir %{_sharedstatedir}/%{srcname}
+%attr(500,%{srcname},%{srcname}) %dir %{_sharedstatedir}/%{srcname}/tpm_cert_store
+%attr(400,%{srcname},%{srcname}) %{_sharedstatedir}/%{srcname}/tpm_cert_store/*.pem
 %{_tmpfilesdir}/%{srcname}.conf
 %{_sysusersdir}/%{srcname}.conf
+%{_datadir}/%{srcname}/scripts/create_allowlist.sh
+%{_datadir}/%{srcname}/scripts/ek-openssl-verify
+%{_datadir}/%{srcname}/templates
+%{_bindir}/keylime_upgrade_config
 
 %files
 %license LICENSE

@@ -38,6 +38,7 @@ Requires:         openssh-clients
 Requires:         python%{python3_pkgversion}-qt5-base
 Requires:         python%{python3_pkgversion}-keyring
 Requires:         python%{python3_pkgversion}-dbus
+Requires:         python%{python3_pkgversion}-packaging
 Requires:         fuse-sshfs
 Requires:         fuse-encfs
 Requires:         bindfs

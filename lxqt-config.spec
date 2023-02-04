@@ -3,10 +3,14 @@
 Name:    lxqt-config
 Summary: Config tools for LXQt desktop suite
 Version: 1.2.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: LGPLv2+
 URL:     https://lxqt-project.org/
 Source0: https://github.com/lxqt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+# https://github.com/lxqt/lxqt-config/pull/915
+# https://github.com/lxqt/lxqt-config/issues/903
+# With libkscreen-qt5 5.26.90, more explicit header inclusion is needed.
+Patch0:  lxqt-config-pr915-config-monitor-add-more-header-file-inclusion-f.patch
 
 BuildRequires: make
 BuildRequires: %{?fedora:cmake}%{!?fedora:cmake3} >= 3.0
@@ -42,13 +46,18 @@ This package provides translations for the lxqt-config package.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %if 0%{?el7}
 scl enable devtoolset-7 - <<\EOF
 %endif
 
-%{cmake_lxqt} -DUSE_QT5=TRUE -DPULL_TRANSLATIONS=NO ..
+# https://github.com/lxqt/lxqt-config/issues/903
+# https://github.com/lxqt/lxqt-build-tools/pull/83
+# libkscreen-qt5 5.26.90 config.h now includes <optional>, which needs
+# at least -std=c++17
+%{cmake_lxqt} -DUSE_QT5=TRUE -DPULL_TRANSLATIONS=NO -DCMAKE_CXX_STANDARD=17 ..
 
 make %{?_smp_mflags} -C %{_vpath_builddir}
 
@@ -138,6 +147,9 @@ desktop-file-edit \
 %{_datadir}/lxqt/translations/lxqt-config/lxqt-config_ast.qm
 
 %changelog
+* Thu Feb 2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.0-3
+- Pull upstream review pull request to build with libkscreen 5.26.90
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

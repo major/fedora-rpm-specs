@@ -28,7 +28,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    2%{?dist}
+Release:    3%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -44,6 +44,11 @@ Source0:    %{pypi_source %{upstream_name} %{upstream_version}}
 # Allow extra themes to exist. We pull in python3-sphinx-theme-alabaster
 # which causes that test to fail.
 Patch1:     sphinx-test_theming.diff
+
+# Backported upstream commit included in Sphinx 6+ ensures compatibility
+# with python-pygments 2.14+
+# https://github.com/sphinx-doc/sphinx/commit/965768bfda2a00ba6
+Patch2:     fix-tests-with-pygments-2.14.patch
 
 BuildArch:     noarch
 
@@ -359,6 +364,9 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Tue Jan 31 2023 Karolina Surma <ksurma@redhat.com> - 1:5.3.0-3
+- Fix tests with python-pygments 2.14+
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 Summary: Utility for modifying/upgrading files
 Name: patch
 Version: 2.7.6
-Release: 18%{?dist}
+Release: 19%{?dist}
 License: GPLv3+
 URL: https://savannah.gnu.org/projects/patch/
 Source: https://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz
@@ -32,6 +32,7 @@ Patch21: patch-2.7.6-avoid-invalid-memory-access-in-context-format-diffs.patch
 Patch22: patch-2.7.6-CVE-2018-17942.patch
 Patch23: patch-2.7.6-failed_assertion.patch
 Patch100: patch-selinux.patch
+Patch101: patch-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -84,6 +85,7 @@ applications.
 %patch23 -p1 -b .failed_assertion
 # SELinux support.
 %patch100 -p1 -b .selinux
+%patch101 -p1
 
 %build
 CFLAGS="$RPM_OPT_FLAGS -D_GNU_SOURCE"
@@ -107,6 +109,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 2.7.6-19
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.6-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

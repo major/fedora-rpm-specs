@@ -5,7 +5,7 @@
 
 Name:           sane-airscan
 Version:        0.99.27
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        SANE backend for AirScan (eSCL) and WSD document scanners
 # the exception is defined in LICENSE, meant for SANE project in most cases
 License:        GPLv2+ with exceptions
@@ -34,6 +34,10 @@ BuildRequires:  pkgconf-pkg-config
 # package is meant to be as one of SANE backends - it uses SANE API for handling
 # devices, strings, words (bytes) and backend itself
 BuildRequires:  sane-backends-devel
+
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 9
+Recommends: ipp-usb
+%endif
 
 # needs shared library implementing the backend
 Requires: libsane-airscan%{?_isa} = %{version}-%{release}
@@ -92,6 +96,9 @@ mkdir -p %{buildroot}/
 
 
 %changelog
+* Thu Feb 02 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.99.27-7
+- 2165612 - IPP-USB as a weak dependency of CUPS and sane-airscan
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.27-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

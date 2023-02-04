@@ -1,6 +1,6 @@
 Name:           ngircd
 Version:        26.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Next Generation IRC Daemon
 License:        GPLv2+
 URL:            http://ngircd.barton.de/
@@ -14,6 +14,7 @@ Patch1:         ngircd-cipher.patch
 # Patch for service file - no forking, no user/group for SSL key access, add doc,
 # add CAP_KILL to allow reload
 Patch2:         ngircd-service.patch
+Patch3: ngircd-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -49,6 +50,7 @@ scratch and is not based upon the original IRCd like many others.
 %patch1 -p1 -b .cipher
 %endif
 %patch2 -p1 -b .service
+%patch3 -p1
 
 %build
 %configure \
@@ -156,6 +158,9 @@ fi
 %endif
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 26.1-8
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

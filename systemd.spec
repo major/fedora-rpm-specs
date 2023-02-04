@@ -30,7 +30,7 @@
 Name:           systemd
 Url:            https://systemd.io
 %if %{without inplace}
-Version:        253~rc1
+Version:        253~rc2
 %else
 # determine the build information from local checkout
 Version:        %(tools/meson-vcs-tag.sh . error | sed -r 's/-([0-9])/.^\1/; s/-g/_g/')
@@ -156,6 +156,7 @@ BuildRequires:  python3dist(jinja2)
 BuildRequires:  python3dist(lxml)
 BuildRequires:  python3dist(pefile)
 BuildRequires:  python3dist(pillow)
+BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(zstd)
 # gzip and lzma are provided by the stdlib
 BuildRequires:  firewalld-filesystem
@@ -177,9 +178,11 @@ BuildRequires:  bpftool
 %global have_bpf 1
 %endif
 
+%if 0%{?fedora}
 %ifarch x86_64 aarch64
 # That package is only built for those two architectures
 BuildRequires:  xen-devel
+%endif
 %endif
 
 Requires(post): coreutils
@@ -599,6 +602,9 @@ CONFIGURE_OPTS=(
         -Ddefault-llmnr=resolve
         # https://bugzilla.redhat.com/show_bug.cgi?id=2028169
         -Dstatus-unit-format-default=combined
+        # https://fedoraproject.org/wiki/Changes/Shorter_Shutdown_Timer
+        -Ddefault-timeout-sec=45
+        -Ddefault-user-timeout-sec=45
         -Doomd=true
         -Dadm-gid=4
         -Daudio-gid=63

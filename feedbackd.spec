@@ -1,16 +1,14 @@
-%global gmobile_commit 1039e7808195d4de367ce2718481641ca8af2427
+%global gmobile_commit v0.0.1
 
 Name:           feedbackd
-Version:        0.0.2
-Release:        2%{?dist}
+Version:        0.0.3
+Release:        1%{?dist}
 Summary:        Feedback library for GNOME
 
 License:        GPLv3+
 URL:            https://source.puri.sm/Librem5/feedbackd
 Source0:        https://source.puri.sm/Librem5/feedbackd/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:		https://gitlab.gnome.org/guidog/gmobile/-/archive/%{gmobile_commit}/gmobile-%{gmobile_commit}.tar.gz
-
-Patch0:		0000-add-dbus-source-deps.patch
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -52,7 +50,6 @@ developing applications that use %{name}.
 
 %prep
 %setup -a1 -q -n %{name}-v%{version}
-%patch0 -p1
 
 rmdir subprojects/gmobile
 mv gmobile-%{gmobile_commit} subprojects/gmobile
@@ -94,6 +91,8 @@ install -D -m 644 debian/feedbackd.udev %{buildroot}%{_udevrulesdir}/90-feedback
 %{_libdir}/pkgconfig/libfeedback-0.0.pc
 
 %changelog
+%autochangelog
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

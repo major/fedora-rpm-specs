@@ -1,24 +1,44 @@
 Name:           perl-re-engine-RE2
 Summary:        RE2 regex engine
-Version:        0.14
-Release:        8%{?dist}
-# lib/re/engine/RE2.pm: GPL+ or Artistic
-# ppport.h:         GPL+ or Artistic
-# README:           GPL+ or Artistic
-## unbundled
-# re2/LICENSE:      BSD
-# re2/README:       BSD
-# re2/util/rune.cc: MIT
-# re2/util/sparse_array.h:  BSD
-# re2/util/strutil.cc:  BSD
-# re2/util/utf.h:   MIT
-# re2/util/valgrind.h:  BSD
-License:        GPL+ or Artistic
+Version:        0.17
+Release:        2%{?dist}
+# lib/re/engine/RE2.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
+# ppport.h:         GPL-1.0-or-later OR Artistic-1.0-Perl
+# README:           GPL-1.0-or-later OR Artistic-1.0-Perl
+## Pruned repackaged archive is missing these files:
+# re2/BUILD:        BSD-like, see LICENSE
+# re2/CMakeLists.txt:   BSD-like, see LICENSE
+# re2/doc/xkcd.png:     CC-BY-NC-2.5                !!!
+# re2/lib/git/commit-msg.hook:  Apache-2.0
+# re2/LICENSE:      BSD-3-Clause
+# re2/Makefile:     BSD-like, see LICENSE
+# re2/re2/bitmap256.h:  BSD-like, see LICENSE
+# re2/re2/fuzzing/compiler-rt/LICENSE:  Apache-2.0
+# re2/re2/fuzzing/re2_fuzzer.cc:    BSD-like, see LICENSE
+# re2/re2/prefilter_tree.cc:    BSD-like, see LICENSE
+# re2/re2/sparse_array.h:   BSD-like, see LICENSE
+# re2/re2/sparse_set.h:     BSD-like, see LICENSE
+# re2/re2/testing/dfa_test.cc:  BSD-like, see LICENSE
+# re2/README:       BSD-like, see LICENSE
+# re2/testinstall.cc:       BSD-like, see LICENSE
+# re2/util/rune.cc: ISC-like
+# re2/util/strutil.cc:  BSD-like, see LICENSE
+# re2/util/utf.h:   ISC-like
+# re2/WORKSPACE:    BSD-like, see LICENSE
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/re-engine-RE2
-Source0:        https://cpan.metacpan.org/authors/id/D/DG/DGL/re-engine-RE2-%{version}.tar.gz
+# Upstream tarball
+# <https://cpan.metacpan.org/authors/id/D/DG/DGL/re-engine-RE2-%%{version}.tar.gz>
+# contains re2/doc/xkcd.png file with a bad license (CC-BY-NC-2.5). Reported
+# to upstream <https://github.com/dgl/re-engine-RE2/issues/12>
+# The repackaged archive removed the whole bundled ./re2 directory.
+Source0:        repackaged_re-engine-RE2-0.17.tar.gz
 # Discussion started with upstream at
 # <https://rt.cpan.org/Public/Bug/Display.html?id=83467>
-Patch0:         re-engine-RE2-0.14-Unbundle-re2.patch
+Patch0:         re-engine-RE2-0.17-Unbundle-re2.patch
+# Fix a sign mismatch on compare, proposed to the upstream,
+# <https://github.com/dgl/re-engine-RE2/pull/13>
+Patch1:         re-engine-RE2-0.17-Fix-re-nparens-signess.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -27,7 +47,7 @@ BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
-BuildRequires:  perl(:VERSION) >= 5.12
+BuildRequires:  perl(:VERSION) >= 5.20
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::CppGuess)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
@@ -59,10 +79,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n re-engine-RE2-%{version}
-# Removed bundled RE2
-%patch0 -p1
-rm -fr re2
+%autosetup -p1 -n re-engine-RE2-%{version}
 # Remove incorrect executable bits
 chmod -x lib/re/engine/RE2.pm
 # Help generators to recognize Perl scripts
@@ -94,14 +111,24 @@ make test
 
 %files
 %doc Changes README TODO
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/re*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/re
+%dir %{perl_vendorarch}/auto/re/engine
+%{perl_vendorarch}/auto/re/engine/RE2
+%dir %{perl_vendorarch}/re
+%dir %{perl_vendorarch}/re/engine
+%{perl_vendorarch}/re/engine/RE2.pm
+%{_mandir}/man3/re::engine::RE2.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 02 2023 Petr Pisar <ppisar@redhat.com> - 0.17-2
+- Convert a License tag to an SPDX format
+
+* Fri Jan 27 2023 Petr Pisar <ppisar@redhat.com> - 0.17-1
+- 0.17 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

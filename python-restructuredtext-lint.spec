@@ -10,12 +10,13 @@ It reports errors and warning including:\
 
 Name:           python-%{pkg_name}
 Version:        1.4.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        reStructuredText linter
 
 License:        Unlicense
 URL:            https://pypi.python.org/pypi/restructuredtext_lint
 Source0:        https://files.pythonhosted.org/packages/48/9c/6d8035cafa2d2d314f34e6cd9313a299de095b26e96f1c7312878f988eec/restructuredtext_lint-1.4.0.tar.gz
+Source1:        pytest.ini
 
 BuildArch:      noarch
 
@@ -28,7 +29,7 @@ Summary:        %{summary}
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-BuildRequires:  python3-nose >= 1.3.0
+BuildRequires:  python3-pytest
 BuildRequires:  python3-PyYAML >= 3.11
 BuildRequires:  python3-docutils >= 0.11
 BuildRequires:  python3-docutils < 1.0
@@ -42,6 +43,7 @@ Requires:       python3-docutils < 1.0
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
+cp -a %{SOURCE1} .
 # Remove pyc files from source
 find -name '*.pyc' -delete
 
@@ -55,7 +57,7 @@ find -name '*.pyc' -delete
 
 
 %check
-PYTHONPATH="$(pwd)" nosetests-%{python3_version} -v .
+PYTHONPATH="$(pwd)" pytest-%{python3_version} -v
 
 
 %files -n python3-%{pkg_name}
@@ -68,6 +70,9 @@ PYTHONPATH="$(pwd)" nosetests-%{python3_version} -v .
 
 
 %changelog
+* Thu Feb 02 2023 Julien Enselme <jujens@jujens.eu> - 1.4.0-4
+- Update SPEC to build on EPEL9
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           cgnslib
 Version:        4.3.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Computational Fluid Dynamics General Notation System
 License:        Zlib
 URL:            http://www.cgns.org/
@@ -12,6 +12,7 @@ Source0:        https://github.com/CGNS/CGNS/archive/v%{version}/%{name}-%{versi
 Patch0:         cgnslib-cmake-install-dirs.patch
 # Fix invalid Icon and Exec paths in desktop files
 Patch1:         cgnslib_desktop.patch
+Patch2:         cgnslib-c99.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -397,6 +398,9 @@ ctest || :
 
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 4.3.0-7
+- Fix C99 compatibility issue around TkWmAddToColormapWindows
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

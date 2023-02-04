@@ -1,5 +1,5 @@
-#%%global svndate 20160721
-%global svnrev 10889
+%global svndate 20230124
+%global svnrev 13161
 %global snapshot 0%{?svndate}
 %if %{snapshot}
 %global svnrelease .%{svndate}svn%{svnrev}
@@ -7,7 +7,7 @@
 
 Name:		codeblocks
 Version:	20.03
-Release:	15%{?svnrelease}%{?dist}
+Release:	16%{?svnrelease}%{?dist}
 Summary:	An open source, cross platform, free C++ IDE
 License:	GPLv3+
 URL:		http://www.codeblocks.org/
@@ -18,13 +18,7 @@ Source0:	%{name}-svn%{svnrev}.tar.bz2
 Source0:	https://sourceforge.net/projects/%{name}/files/Sources/%{version}/%{name}-%{version}.tar.xz
 %endif
 Patch0:		codeblocks-autorev.patch
-# https://sourceforge.net/p/codeblocks/tickets/935/
-# https://sourceforge.net/p/codeblocks/code/12008/
-Patch1:		codeblocks-20.03-multi-arch.patch
-# https://sourceforge.net/p/codeblocks/tickets/936/
-# https://sourceforge.net/p/codeblocks/code/12012/
-Patch2:		codeblocks-20.03-pragma.patch
-Patch3:         codeblocks-gcc11.patch
+Patch1:		codeblocks-smartindent-notparallel.patch
 
 BuildRequires:	astyle-devel >= 3.1
 BuildRequires:	boost-devel
@@ -40,7 +34,7 @@ BuildRequires:	libtool >= 2.4.6-50
 BuildRequires:	make
 BuildRequires:	squirrel-devel
 BuildRequires:	tinyxml-devel
-BuildRequires:	wxGTK3-devel
+BuildRequires:	wxGTK-devel
 BuildRequires:	zip
 BuildRequires:	zlib-devel
 
@@ -112,9 +106,6 @@ Additional Code::Blocks plug-ins.
 %else
 %setup -q
 %endif
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
 
 %if %{snapshot}
@@ -140,8 +131,6 @@ find . -type f -and -not -name "*.cpp" -and -not -name "*.h" -and -not -name "*.
 
 # remove unbundled stuff
 rm -rf src/include/tinyxml src/base/tinyxml
-rm -rf src/include/scripting/{include,squirrel,sqstdlib}
-rm -rf src/sdk/scripting/{squirrel,sqstdlib}
 rm -rf src/plugins/astyle/astyle
 rm -rf src/plugins/contrib/SpellChecker/hunspell
 rm -rf src/plugins/contrib/devpak_plugin/bzip2
@@ -156,7 +145,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %install
 %make_install
 
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.{appdata,metainfo}.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.{appdata,metainfo}.xml
 desktop-file-validate	%{buildroot}/%{_datadir}/applications/codeblocks.desktop
 
 find %{buildroot} -type f -name "*.la" -delete
@@ -171,6 +160,8 @@ echo "%{_libdir}/%{name}/wxContribItems" > %{buildroot}/%{_sysconfdir}/ld.so.con
 %ldconfig_scriptlets libs
 
 %ldconfig_scriptlets contrib-libs
+
+rm -f %{buildroot}/%{pkgdatadir}/docs/index.ini
 
 
 %files
@@ -198,7 +189,7 @@ echo "%{_libdir}/%{name}/wxContribItems" > %{buildroot}/%{_sysconfdir}/ld.so.con
 %{plugindir}/libscriptedwizard.so
 %{plugindir}/libtodo.so
 
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_datadir}/metainfo/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/icons/hicolor/48x48/mimetypes/*.png
 %{_datadir}/mime/packages/%{name}.xml
@@ -276,6 +267,7 @@ echo "%{_libdir}/%{name}/wxContribItems" > %{buildroot}/%{_sysconfdir}/ld.so.con
 %{pkgdatadir}/Valgrind.zip
 %{pkgdatadir}/byogames.zip
 %{pkgdatadir}/cb_koders.zip
+%{pkgdatadir}/clangd_client.zip
 %{pkgdatadir}/codesnippets.zip
 %{pkgdatadir}/codestat.zip
 %{pkgdatadir}/copystrings.zip
@@ -294,7 +286,6 @@ echo "%{_libdir}/%{name}/wxContribItems" > %{buildroot}/%{_sysconfdir}/ld.so.con
 %{pkgdatadir}/wxsmith.zip
 %{pkgdatadir}/wxSmithAui.zip
 %{pkgdatadir}/wxsmithcontribitems.zip
-%{pkgdatadir}/images/codesnippets
 %{pkgdatadir}/images/wxsmith
 %{pkgdatadir}/lib_finder
 %{pkgdatadir}/NassiShneiderman.zip
@@ -319,6 +310,7 @@ echo "%{_libdir}/%{name}/wxContribItems" > %{buildroot}/%{_sysconfdir}/ld.so.con
 %{plugindir}/libValgrind.so
 %{plugindir}/libbyogames.so
 %{plugindir}/libcb_koders.so
+%{plugindir}/libclangd_client.so
 %{plugindir}/libcodesnippets.so
 %{plugindir}/libcodestat.so
 %{plugindir}/libcopystrings.so
@@ -341,10 +333,14 @@ echo "%{_libdir}/%{name}/wxContribItems" > %{buildroot}/%{_sysconfdir}/ld.so.con
 %{plugindir}/libSpellChecker.so
 %{plugindir}/libSmartIndent*.so
 %{plugindir}/librndgen.so
-%{_datadir}/appdata/%{name}-contrib.metainfo.xml
+%{_datadir}/metainfo/%{name}-contrib.metainfo.xml
 
 
 %changelog
+* Fri Jan 20 2023 Scott Talbert <swt@techie.net> - 20.03-16.20230124svn13161
+- Update to new upstream snapshot
+- Rebuild with wxWidgets 3.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.03-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

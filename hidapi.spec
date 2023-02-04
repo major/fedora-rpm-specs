@@ -1,6 +1,6 @@
 Name:           hidapi
-Version:        0.12.0
-Release:        3%{?dist}
+Version:        0.13.1
+Release:        1%{?dist}
 Summary:        Library for communicating with USB and Bluetooth HID devices
 
 License:        GPLv3 or BSD
@@ -13,11 +13,21 @@ BuildRequires: gcc
 BuildRequires: libudev-devel
 BuildRequires: libusb1-devel
 
-%description
+BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc
+BuildRequires: mingw32-binutils
+
+BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc
+BuildRequires: mingw64-binutils
+
+%global _description %{expand:
 HIDAPI is a multi-platform library which allows an application to interface
 with USB and Bluetooth HID-class devices on Windows, Linux, FreeBSD and Mac OS
 X.  On Linux, either the hidraw or the libusb back-end can be used. There are
-trade-offs and the functionality supported is slightly different.
+trade-offs and the functionality supported is slightly different.}
+
+%description %_description
 
 %package devel
 Summary: Development files for hidapi
@@ -27,17 +37,39 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 This package contains development files for hidapi which provides access to
 USB and Bluetooth HID-class devices.
 
+%package -n mingw32-hidapi
+Summary:        %{summary}
+Obsoletes:      mingw32-hidapi-static < 0.11.2-6
+
+%description -n mingw32-hidapi %_description
+
+%package -n mingw64-hidapi
+Summary:        %{summary}
+Obsoletes:      mingw64-hidapi-static < 0.11.2-6
+
+%description -n mingw64-hidapi %_description
+
+%{?mingw_debug_package}
+
+
 %prep
 %autosetup -n %{name}-%{name}-%{version}
+
 
 %build
 %cmake
 %cmake_build
 
+%mingw_cmake
+%mingw_make_build
+
+
 %install
 %cmake_install
 
-%ldconfig_scriptlets
+%mingw_make_install
+%mingw_debug_install_post
+
 
 %files
 %doc AUTHORS.txt README.md LICENSE*.txt
@@ -51,7 +83,29 @@ USB and Bluetooth HID-class devices.
 %{_libdir}/pkgconfig/hidapi-hidraw.pc
 %{_libdir}/pkgconfig/hidapi-libusb.pc
 
+%files -n mingw32-hidapi
+%doc AUTHORS.txt README.md LICENSE*.txt
+%{mingw32_libdir}/cmake/hidapi
+%{mingw32_bindir}/libhidapi.dll
+%{mingw32_libdir}/libhidapi.dll.a
+%{mingw32_libdir}/pkgconfig/hidapi.pc
+%{mingw32_includedir}/hidapi
+
+%files -n mingw64-hidapi
+%doc AUTHORS.txt README.md LICENSE*.txt
+%{mingw64_libdir}/cmake/hidapi
+%{mingw64_bindir}/libhidapi.dll
+%{mingw64_libdir}/libhidapi.dll.a
+%{mingw64_libdir}/pkgconfig/hidapi.pc
+%{mingw64_includedir}/hidapi
+
 %changelog
+* Thu Feb 02 2023 Scott Talbert <swt@techie.net> - 0.13.1-1
+- Update to new upstream release 0.13.1 (#2159139)
+
+* Wed Feb 01 2023 Scott Talbert <swt@techie.net> - 0.12.0-4
+- Add mingw subpackages
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

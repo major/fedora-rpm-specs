@@ -1,6 +1,6 @@
 Name:           perl-eperl
 Version:        2.2.14
-Release:        56%{?dist}
+Release:        57%{?dist}
 Summary:        Embedded Perl Language
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            http://www.ossp.org/pkg/tool/eperl/
@@ -9,6 +9,7 @@ Patch0:         http://ftp.debian.org/pool/main/e/eperl/eperl_2.2.14-15.1.diff.g
 Patch1:         perl-eperl-5.16compat.patch
 # Fix format-security compiler warnings, bug #1058664
 Patch2:         eperl-2.2.14-Fix-format-security-compiler-warnings.patch
+Patch3:         perl-eperl-c99.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gdbm-devel
@@ -49,6 +50,7 @@ which is designed for mod_perl 1.x.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 chmod u+x etc/shtool
 find contrib/utils -perm /0100 -type f -exec chmod 644 {} \;
 
@@ -87,6 +89,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 2.2.14-57
+- Fix C99 compatibility issue
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.14-56
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

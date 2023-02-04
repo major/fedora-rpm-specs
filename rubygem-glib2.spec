@@ -8,7 +8,7 @@
 
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.0.8
+Version:	4.1.0
 Release:	1%{?dist}
 # from README
 License:	LGPLv2
@@ -226,6 +226,9 @@ popd
 
 
 %changelog
+* Fri Feb  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-1
+- 4.1.0
+
 * Sun Jan 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.8-1
 - 4.0.8
 

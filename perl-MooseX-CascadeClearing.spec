@@ -2,7 +2,7 @@ Name:           perl-MooseX-CascadeClearing
 Version:        0.05
 Release:        29%{?dist}
 Summary:        Cascade clearer actions across attributes
-License:        LGPLv2+
+License:        LGPL-2.1-only
 URL:            https://metacpan.org/release/MooseX-CascadeClearing
 Source0:        https://cpan.metacpan.org/authors/id/R/RS/RSRCHBOY/MooseX-CascadeClearing-%{version}.tar.gz
 BuildArch:      noarch

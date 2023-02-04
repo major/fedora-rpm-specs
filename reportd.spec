@@ -5,7 +5,7 @@ Version:        0.7.4
 Release:        10%{?dist}
 Summary:        Service reporting org.freedesktop.Problems2 entries
 
-License:        GPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://github.com/abrt/%{name}
 Source0:        https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 

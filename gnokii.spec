@@ -3,7 +3,7 @@
 
 Name:           gnokii
 Version:        0.6.31
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Linux/Unix tool suite for various mobile phones
 
 License:        GPLv2+
@@ -22,6 +22,7 @@ Patch1:         %{name}-config.patch
 Patch2:         %{name}-0.6.31-sqlite3.patch
 Patch3:         %{name}-0.6.31-gcc5.patch
 Patch4:         %{name}-0.6.31-gcc7.patch
+Patch5: gnokii-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  flex
@@ -120,6 +121,7 @@ Requires:       pkgconfig
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 install -pm 644 %{SOURCE5} smsd2mail.sh
 install -pm 644 %{SOURCE6} README.smsd2mail
 
@@ -247,6 +249,9 @@ getent passwd %{name} > /dev/null || %{_sbindir}/useradd -r -M -d / \
 %{_libdir}/pkgconfig/xgnokii.pc
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 0.6.31-38
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.31-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

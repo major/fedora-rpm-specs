@@ -2,14 +2,15 @@ Name:           perl-CPAN-ParseDistribution
 Version:        1.54
 Release:        20%{?dist}
 Summary:        Index a file from the BackPAN
-License:        GPLv2 or Artistic
+License:        GPL-2.0-only OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-ParseDistribution
 Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCANTRELL/CPAN-ParseDistribution-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -45,11 +46,11 @@ what modules it contains, the distribution name and version.
 %setup -q -n CPAN-ParseDistribution-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
@@ -58,10 +59,10 @@ make test
 %files
 %license ARTISTIC.txt GPL2.txt
 %doc CHANGELOG README TODO
-%{perl_vendorlib}/*
+%{perl_vendorlib}/CPAN*
 %{_bindir}/dumpcpandist
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_mandir}/man1/dumpcpandist*
+%{_mandir}/man3/CPAN::ParseDistribution*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.54-20

@@ -1,7 +1,7 @@
 # Fedora spec file for librabbitmq
 #
-# Copyright (c) 2012-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2012-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,7 +9,7 @@
 
 %bcond_without      tests
 
-%global gh_commit   a64c08c68aff34d49a2ac152f04988cd921084f9
+%global gh_commit   675afc2c7c2f556c7fb7c1db7d3b05ce82adfb70
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    alanxz
 %global gh_project  rabbitmq-c
@@ -18,8 +18,8 @@
 
 Name:      %{libname}
 Summary:   Client library for AMQP
-Version:   0.11.0
-Release:   7%{?dist}
+Version:   0.12.0
+Release:   1%{?dist}
 License:   MIT
 URL:       https://github.com/alanxz/rabbitmq-c
 
@@ -27,12 +27,12 @@ Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{g
 
 # don't install static library
 Patch0:    %{gh_project}-static.patch
-# fix version for cmake module
-Patch1:    %{gh_project}-version.patch
+# fix version in pkgconfig file
+Patch1:    %{gh_project}-pkg.patch
 
 BuildRequires: gcc
-BuildRequires: cmake > 2.8
-BuildRequires: openssl-devel
+BuildRequires: cmake > 3.12
+BuildRequires: openssl-devel >= 1.1.1
 # For tools
 BuildRequires: popt-devel > 1.14
 # For man page
@@ -84,11 +84,12 @@ sed -e '/test_basic/d' -i tests/CMakeLists.txt
 %build
 # static lib required for tests
 %cmake \
+  -DBUILD_TOOLS:BOOL=ON \
   -DBUILD_TOOLS_DOCS:BOOL=ON \
 %if %{with tests}
   -DINSTALL_STATIC_LIBS:BOOL=OFF \
 %else
-  -DBUILD_TESTS:BOOL=OFF \
+  -DBUILD_TESTING:BOOL=OFF \
   -DBUILD_STATIC_LIBS:BOOL=OFF \
 %endif
   -S .
@@ -111,8 +112,10 @@ make install  DESTDIR="%{buildroot}"
 %check
 : check .pc is usable
 grep @ %{buildroot}%{_libdir}/pkgconfig/librabbitmq.pc && exit 1
+grep %{version} %{buildroot}%{_libdir}/pkgconfig/librabbitmq.pc || exit 1
 : check cmake files are usable
 grep static %{buildroot}%{_libdir}/cmake/rabbitmq-c/*.cmake && exit 1
+
 
 %if %{with tests}
 : upstream tests
@@ -127,8 +130,9 @@ make test
 
 
 %files
-%license LICENSE-MIT
-%{_libdir}/%{libname}.so.%{soname}*
+%license LICENSE
+%{_libdir}/%{libname}.so.%{soname}
+%{_libdir}/%{libname}.so.%{version}
 
 
 %files devel
@@ -136,6 +140,7 @@ make test
 %doc Examples
 %{_libdir}/%{libname}.so
 %{_includedir}/amqp*
+%{_includedir}/rabbitmq-c
 %{_libdir}/pkgconfig/%{libname}.pc
 %{_libdir}/cmake/rabbitmq-c
 
@@ -146,6 +151,13 @@ make test
 
 
 %changelog
+* Wed Feb  1 2023 Remi Collet <remi@remirepo.net> - 0.12.0-1
+- update to 0.12.0
+- add patch to not install the static library, from
+  https://github.com/alanxz/rabbitmq-c/pull/749
+- add patch to fix version in pkgconfig file, from
+  https://github.com/alanxz/rabbitmq-c/pull/751
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,14 +1,15 @@
 Name:           perl-Net-XMPP
 Version:        1.05
 Release:        24%{?dist}
-Summary:        Net::XMPP - perl XMPP library
-License:        LGPLv2+
+Summary:        XMPP Perl Library
+License:        LGPL-2.1-or-later
 URL:            https://metacpan.org/release/Net-XMPP
 Source0:        https://cpan.metacpan.org/modules/by-module/Net/Net-XMPP-%{version}.tar.gz
 BuildArch:      noarch
 # Build
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -63,8 +64,8 @@ perl Build.PL installdirs=vendor
 %files
 %license LICENSE
 %doc README CHANGES examples
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%{perl_vendorlib}/Net*
+%{_mandir}/man3/Net::XMPP*.3*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.05-24

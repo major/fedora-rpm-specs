@@ -5,8 +5,8 @@
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	4.0.2
-Release:	2%{?dist}
+Version:	4.0.3
+Release:	1%{?dist}
 Epoch:		1
 License:	GPL+
 Url:		http://www.wireshark.org/
@@ -275,6 +275,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Feb 02 2023 Michal Ruprich <mruprich@redhat.com> - 1:4.0.3-1
+- New version 4.0.3
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,14 +1,14 @@
 # the upstream name is io_lib, but it was deemed too generic, and
 # staden-io_lib will be more recognizable for users
 Name:           staden-io_lib
-Version:        1.12.4
-Release:        25%{?dist}
+Version:        1.14.8
+Release:        1%{?dist}
 Summary:        General purpose library to handle gene sequencing machine trace files
 
 License:        MIT
 URL:            http://staden.sourceforge.net
 Source0:        http://downloads.sourceforge.net/staden/io_lib-%{version}.tar.gz
-Patch:          staden-libs-config.patch
+Patch0:         staden-libs-config.patch
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -57,17 +57,21 @@ find %{buildroot} -name '*.la' -delete
 %ldconfig_scriptlets
 
 
-%global so_version 1
+%global so_version 11
 %files
 %doc README COPYRIGHT CHANGES docs/
 %{_libdir}/*.so.%{so_version}
 %{_libdir}/*.so.%{so_version}.*
 %{_bindir}/append_sff
 %{_bindir}/convert_trace
+%{_bindir}/cram_dump
+%{_bindir}/cram_index
+%{_bindir}/cram_size
 %{_bindir}/extract_fastq
 %{_bindir}/extract_qual
 %{_bindir}/extract_seq
 %{_bindir}/get_comment
+%{_bindir}/hash_exp
 %{_bindir}/hash_extract
 %{_bindir}/hash_list
 %{_bindir}/hash_sff
@@ -77,6 +81,11 @@ find %{buildroot} -name '*.la' -delete
 %{_bindir}/scf_dump
 %{_bindir}/scf_info
 %{_bindir}/scf_update
+%{_bindir}/scram_flagstat
+%{_bindir}/scram_merge
+%{_bindir}/scram_pileup
+%{_bindir}/scram_test
+%{_bindir}/scramble
 %{_bindir}/srf2fasta
 %{_bindir}/srf2fastq
 %{_bindir}/srf_dump_all
@@ -100,6 +109,13 @@ find %{buildroot} -name '*.la' -delete
 
 
 %changelog
+* Thu Feb  2 2023 Christian Iseli <christian.iseli@epfl.ch> 1.14.8-1
+- new upstream 1.14.8
+- so_version bumped to 11
+
+* Thu Feb 02 2023 Jonathan Wakely <jwakely@redhat.com> - 1.12.4-26
+- Patched for C99 compatibility
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

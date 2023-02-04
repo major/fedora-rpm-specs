@@ -3,13 +3,14 @@
 
 Name:           tetex-%{real_name}
 Version:        1.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        LaTeX post filter command to support change bars and overstrike mode
 
 License:        GPLv2+
 URL:            http://efeu.cybertec.at/
 Source0:        http://efeu.cybertec.at/%{real_name}.tar.gz
 Patch0:         %{name}-destdir.patch
+Patch1:         tetex-dvipost-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  tex(latex)
@@ -28,6 +29,7 @@ processor supports layout raster, change bars and overstrike mode.
 %prep
 %setup -q -n %{real_name}-%{version}
 %patch0 -p1
+%patch1 -p1
 
 
 %build
@@ -54,6 +56,9 @@ processor supports layout raster, change bars and overstrike mode.
 
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 1.1-38
+- Port configure script to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

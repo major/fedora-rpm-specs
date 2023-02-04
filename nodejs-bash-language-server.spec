@@ -4,7 +4,7 @@
 
 Name:           nodejs-bash-language-server
 Version:        4.6.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A language server for Bash
 License:        MIT
 Url:            https://github.com/bash-lsp/bash-language-server
@@ -61,7 +61,14 @@ for S in $(grep -l '#!.*node' \
 done
 
 install -d -m 0755 %{buildroot}%{_bindir}
-ln -s %{nodejs_sitelib}/%{pkg_name}/bin/main.js %{buildroot}%{_bindir}/%{pkg_name}
+
+cat << EOF > %{buildroot}%{_bindir}/%{pkg_name}
+#!/bin/sh
+export NODE_ENV=production
+
+exec /usr/bin/node %{nodejs_sitelib}/%{pkg_name}/out/cli.js "\$@"
+EOF
+chmod +x %{buildroot}%{_bindir}/%{pkg_name}
 
 install -d -m 0755 %{buildroot}%{nodejs_sitelib}/%{pkg_name}/
 rsync -av server/ %{buildroot}%{nodejs_sitelib}/%{pkg_name}/
@@ -73,6 +80,7 @@ chmod 0644 %{buildroot}%{nodejs_sitelib}/%{pkg_name}/tree-sitter-bash.wasm \
 find %{buildroot}%{nodejs_sitelib}/%{pkg_name} -name "*.bak" -delete
 find %{buildroot}%{nodejs_sitelib}/%{pkg_name} -type f -name "\.*" -delete
 
+
 %fdupes %{buildroot}%{nodejs_sitelib}/%{pkg_name}
 
 %files
@@ -82,6 +90,9 @@ find %{buildroot}%{nodejs_sitelib}/%{pkg_name} -type f -name "\.*" -delete
 %{nodejs_sitelib}/%{pkg_name}/
 
 %changelog
+* Thu Feb 02 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.1-2
+- Fix /usr/bin/bash-language-server
+
 * Mon Jan 30 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.6.1-1
 - Update to version 4.6.1
   * https://github.com/bash-lsp/bash-language-server/blob/server-4.6.1/server/CHANGELOG.md

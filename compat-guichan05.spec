@@ -1,11 +1,12 @@
 Name:           compat-guichan05
 Version:        0.5.0
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Compatibility libraries for older guichan versions
 
 License:        BSD
 URL:            http://guichan.sourceforge.net
 Source0:        http://downloads.sourceforge.net/guichan/guichan-%{version}-src.tar.gz
+Patch0:         compat-guichan05-configure-c99.patch
 Obsoletes:      guichan < 0.6.0
 
 BuildRequires:  allegro-devel, SDL-devel, SDL_image-devel, libGL-devel
@@ -29,7 +30,7 @@ guichan, a small and efficient C++ GUI library designed for games. This
 package is needed to build programs written using guichan.
 
 %prep
-%setup -q -n guichan-%{version}-src
+%autosetup -p1 -n guichan-%{version}-src
 
 %build
 %configure
@@ -78,6 +79,9 @@ done
 
 
 %changelog
+* Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 0.5.0-36
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %bcond_without tests
 
 Name:           python-openapi-schema-validator
-Version:        0.4.2
+Version:        0.4.3
 Release:        %autorelease
 Summary:        OpenAPI schema validator for Python
 
@@ -36,14 +36,13 @@ Openapi-schema-validator is a Python library that validates schema against:
 %package -n python3-openapi-schema-validator
 Summary:        %{summary}
 
+# This extra was removed upstream in 0.4.3.
+Obsoletes:      python3-openapi-schema-validator+rfc3339-validator < 0.4.3-0
 # These extras were removed upstream in 0.4.2.
 Obsoletes:      python3-openapi-schema-validator+strict-rfc3339 < 0.4.2-0
 Obsoletes:      python3-openapi-schema-validator+isodate < 0.4.2-0
 
 %description -n python3-openapi-schema-validator %{common_description}
-
-
-%pyproject_extras_subpkg -n python3-openapi-schema-validator rfc3339-validator
 
 
 %prep
@@ -54,7 +53,7 @@ sed -r -i '/^--cov\b/d' pyproject.toml
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x rfc3339-validator
+%pyproject_buildrequires
 
 
 %build

@@ -1,6 +1,6 @@
 Name:    device-mapper-multipath
 Version: 0.9.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Tools to manage multipath devices using device-mapper
 License: GPLv2
 URL:     http://christophe.varoqui.free.fr/
@@ -20,18 +20,23 @@ Patch0007: 0007-libmultipath-is_path_valid-check-if-device-is-in-use.patch
 Patch0008: 0008-libmpathpersist-use-conf-timeout-for-updating-persis.patch
 Patch0009: 0009-libmultipath-pathinfo-don-t-fail-for-devices-lacking.patch
 Patch0010: 0010-libmultipath-bump-ABI-version-to-18.0.0.patch
-Patch0011: 0011-RH-fixup-udev-rules-for-redhat.patch
-Patch0012: 0012-RH-Remove-the-property-blacklist-exception-builtin.patch
-Patch0013: 0013-RH-don-t-start-without-a-config-file.patch
-Patch0014: 0014-RH-Fix-nvme-function-missing-argument.patch
-Patch0015: 0015-RH-use-rpm-optflags-if-present.patch
-Patch0016: 0016-RH-add-mpathconf.patch
-Patch0017: 0017-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
-Patch0018: 0018-RH-reset-default-find_mutipaths-value-to-off.patch
-Patch0019: 0019-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
-Patch0020: 0020-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
-Patch0021: 0021-RH-add-scsi-device-handlers-to-modules-load.d.patch
-Patch0022: 0022-RH-compile-with-libreadline-support.patch
+Patch0011: 0011-libmultipath-use-select_reload_action-in-select_acti.patch
+Patch0012: 0012-libmultipath-select-resize-action-even-if-reload-is-.patch
+Patch0013: 0013-libmultipath-cleanup-ACT_CREATE-code-in-select_actio.patch
+Patch0014: 0014-libmultipath-keep-renames-from-stopping-other-multip.patch
+Patch0015: 0015-libmpathpersist-fix-resource-leak-in-update_map_pr.patch
+Patch0016: 0016-RH-fixup-udev-rules-for-redhat.patch
+Patch0017: 0017-RH-Remove-the-property-blacklist-exception-builtin.patch
+Patch0018: 0018-RH-don-t-start-without-a-config-file.patch
+Patch0019: 0019-RH-Fix-nvme-function-missing-argument.patch
+Patch0020: 0020-RH-use-rpm-optflags-if-present.patch
+Patch0021: 0021-RH-add-mpathconf.patch
+Patch0022: 0022-RH-add-wwids-from-kernel-cmdline-mpath.wwids-with-A.patch
+Patch0023: 0023-RH-reset-default-find_mutipaths-value-to-off.patch
+Patch0024: 0024-RH-attempt-to-get-ANA-info-via-sysfs-first.patch
+Patch0025: 0025-RH-make-parse_vpd_pg83-match-scsi_id-output.patch
+Patch0026: 0026-RH-add-scsi-device-handlers-to-modules-load.d.patch
+Patch0027: 0027-RH-compile-with-libreadline-support.patch
 
 # runtime
 Requires: %{name}-libs = %{version}-%{release}
@@ -240,12 +245,18 @@ fi
 %{_pkgconfdir}/libdmmp.pc
 
 %changelog
+* Thu Feb  2 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.4-2
+- Update to the head of the upstream staging branch
+  * Patches 0011-0015 are from the upstream staging branch
+- Rename redhat patches
+  * Previous patches 0011-0022 are now patches 0016-0027
+
 * Thu Jan 26 2023 Benjamin Marzinski <bmarzins@redhat.com> - 0.9.4-1
 - Update to the head of the upstream staging branch
-  * Previous patches 0001-0032 are intlcude in the source tarball
+  * Previous patches 0001-0032 are included in the source tarball
   * Patches 0001-0010 are from the upstream staging branch
 - Rename redhat patches
-  * Previous patches 0033-0044 are not patches 0011-0022
+  * Previous patches 0033-0044 are now patches 0011-0022
 - Add dependency on libmount
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2

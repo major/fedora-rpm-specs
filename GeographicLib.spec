@@ -66,7 +66,7 @@ the %{name} library.
 %package -n python3-%{name}
 Summary:        Python 3 implementation of %{name}
 Version:        %{pythonver}
-Release:        %{pythonrelease}
+Release:        %{pythonrelease}%{?dist}
 BuildArch:      noarch
 
 %description -n python3-%{name}
@@ -84,7 +84,7 @@ MinGW Windows %{name} library.
 %package -n mingw32-python3-%{name}
 Summary:        MinGW Windows %{name} python 3 bindings
 Version:        %{pythonver}
-Release:        %{pythonrelease}
+Release:        %{pythonrelease}%{?dist}
 BuildArch:      noarch
 
 %description -n mingw32-python3-%{name}
@@ -102,7 +102,7 @@ MinGW Windows %{name} library.
 %package -n mingw64-python3-%{name}
 Summary:        MinGW Windows %{name} python 3 bindings
 Version:        %{pythonver}
-Release:        %{pythonrelease}
+Release:        %{pythonrelease}%{?dist}
 BuildArch:      noarch
 
 %description -n mingw64-python3-%{name}

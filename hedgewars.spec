@@ -53,22 +53,19 @@ such as the "Rope" or "Parachute", to move to otherwise inaccessible areas.
 %package server
 Summary:        Standalone server for hedgewars
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-BuildRequires:  ghc-stm-devel
-BuildRequires:  ghc-network-devel
-BuildRequires:  ghc-network-bsd-devel
-BuildRequires:  ghc-utf8-string-devel
-BuildRequires:  ghc-hslogger-devel
-BuildRequires:  ghc-deepseq-devel
-BuildRequires:  ghc-vector-devel
 BuildRequires:  ghc-SHA-devel
-BuildRequires:  ghc-entropy-devel
-BuildRequires:  ghc-zlib-devel
-BuildRequires:  ghc-random-devel
-BuildRequires:  ghc-bytestring-show-devel
-BuildRequires:  ghc-sandi-devel
-BuildRequires:  ghc-regex-tdfa-devel
 BuildRequires:  ghc-containers-devel
+BuildRequires:  ghc-deepseq-devel
+BuildRequires:  ghc-entropy-devel
+BuildRequires:  ghc-hslogger-devel
+BuildRequires:  ghc-network-devel
 BuildRequires:  ghc-process-devel
+BuildRequires:  ghc-random-devel
+BuildRequires:  ghc-regex-tdfa-devel
+BuildRequires:  ghc-sandi-devel
+BuildRequires:  ghc-utf8-string-devel
+BuildRequires:  ghc-vector-devel
+BuildRequires:  ghc-zlib-devel
 BuildRequires:  compat-lua-devel
 BuildRequires:  systemd
 %{?systemd_requires}
@@ -108,10 +105,10 @@ done
 
 # -DMINIMAL_FLAGS=1 uses distro complie flags as much as possible
 
-# -DNOVIDEOREC=1 disables video recording which for now needs 
+# -DNOVIDEOREC=1 disables video recording which for now needs
 # things Fedora can't provide.
 
-# -DGHFLAGS=-dynamic uses dynamic linking for Haskell, but this isn't 
+# -DGHFLAGS=-dynamic uses dynamic linking for Haskell, but this isn't
 # available on arm.
 
 # -DFONTS_DIRS="`find %{_datadir}/fonts -type d -printf '%p;'`"
@@ -189,7 +186,7 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 # Note we want the build to fail if any fonts are included in the package
 # %%exclude won't trigger a build failure if excluded files are installed.
 # So the problem won't show up until runtime.
-# Also of note is that unpackaged directories also don't seem to cause 
+# Also of note is that unpackaged directories also don't seem to cause
 # a build failure. However we don't care in this case.
 %{_datadir}/%{name}/Data/Graphics
 %{_datadir}/%{name}/Data/Maps
@@ -354,7 +351,7 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 * Fri Nov 24 2017 Richard Shaw <hobbes1069@gmail.com> - 0.9.23-1
 - Update to latest upstream release.
 - Remove upstreamed or unneeded patches.
-- Add new build requirements: ghc-sandi-devel, ghc-regex-tdfa-devel, 
+- Add new build requirements: ghc-sandi-devel, ghc-regex-tdfa-devel,
   ghc-containers-devel.
 - Remove ghc-dataenc-devel from build requirements
   (no longer used, conflicts with sandi)
@@ -441,7 +438,7 @@ find %{buildroot} -type f -name '*.ttc' | xargs rm -f
 - Rebuild for ghc updates
 
 * Wed May 15 2013 Tom Callaway <spot@fedoraproject.org> - 0.9.18-7
-- rebuild for new lua 
+- rebuild for new lua
 
 * Sat Mar 23 2013 Bruno Wolff III <bruno@wolff.to> - 0.9.18-6
 - Rebuild for ghc-dataenc soname bump

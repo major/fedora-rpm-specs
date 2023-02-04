@@ -23,7 +23,7 @@ Version: 3.6.1
 
 #%%global prerelease .b2
 # prerelease, if defined, should be something like .a1, .b1, .b2.dev1, or .c2
-Release: 2%{?prerelease}%{?dist}
+Release: 3%{?prerelease}%{?dist}
 Epoch: 1
 License: LGPL-2.1-or-later
 %global realname blivet
@@ -34,6 +34,8 @@ Source1: http://github.com/storaged-project/blivet/archive/%{realname}-%{realver
 %if 0%{?rhel} >= 9
 Patch0: 0001-remove-btrfs-plugin.patch
 %endif
+
+Patch1: 0002-Fedora-dmraid-mdadm.patch
 
 # Versions of required components (done so we make sure the buildrequires
 # match the requires versions of things).
@@ -196,6 +198,9 @@ configuration.
 %endif
 
 %changelog
+* Thu Feb 02 2023 Vojtech Trefny <vtrefny@redhat.com> - 3.6.1-3
+- Use mdadm to support BIOS RAID devices (#2158574)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

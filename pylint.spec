@@ -12,6 +12,7 @@ Source0:        %{forgesource}
 Patch1:         astroid-pin.patch
 BuildArch:      noarch
 
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-wheel
