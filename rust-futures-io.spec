@@ -5,7 +5,7 @@
 %global crate futures-io
 
 Name:           rust-futures-io
-Version:        0.3.25
+Version:        0.3.26
 Release:        %autorelease
 Summary:        AsyncRead, AsyncWrite, AsyncSeek, and AsyncBufRead traits
 

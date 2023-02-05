@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-igbinary
 #
-# Copyright (c) 2010-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2010-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -14,15 +14,15 @@
 %global with_zts   0%{?__ztsphp:1}
 %global ini_name   40-%{pecl_name}.ini
 
-%global upstream_version 3.2.12
+%global upstream_version 3.2.13
 #global upstream_prever  RC1
 
 Summary:        Replacement for the standard PHP serializer
 Name:           php-pecl-igbinary
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
-License:        BSD
+License:        BSD-3-Clause
 
 URL:            https://pecl.php.net/package/igbinary
 
@@ -192,6 +192,9 @@ TEST_PHP_ARGS="-n $MOD -d extension=$PWD/modules/%{pecl_name}.so" \
 
 
 %changelog
+* Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 3.2.13-1
+- update to 3.2.13
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

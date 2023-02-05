@@ -2,7 +2,7 @@
 %global modname jsonschema_spec
 
 Name:           python-%{srcname}
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        JSONSchema Spec with object-oriented paths
 

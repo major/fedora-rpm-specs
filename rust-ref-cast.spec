@@ -6,7 +6,7 @@
 %global crate ref-cast
 
 Name:           rust-ref-cast
-Version:        1.0.13
+Version:        1.0.14
 Release:        %autorelease
 Summary:        Safely cast &T to &U where the struct U contains a single field of type T
 

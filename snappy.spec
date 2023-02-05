@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:           snappy
 Version:        1.1.9
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Fast compression and decompression library
 
 License:        BSD
@@ -48,7 +48,8 @@ developing applications that use %{name}.
 
 
 %build
-%cmake .
+# gtest 1.13.0 requires C++14 or later
+%cmake -DCMAKE_CXX_STANDARD=14 .
 %make_build
 
 # create pkgconfig file
@@ -95,6 +96,9 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Tue Jan 31 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.9-7
+- Build with C++14 instead of C++11; gtest 1.13.0 requires it
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

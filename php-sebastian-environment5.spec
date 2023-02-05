@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-environment5
 #
-# Copyright (c) 2014-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2014-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Sources
-%global gh_commit    1b5dff7bb151a4db11d49d90e5408e4e938270f7
+%global gh_commit    830c43a844f1f8d5b7a1f6d6076b784454d8b7ed
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   environment
@@ -24,11 +24,11 @@
 %global ns_project   Environment
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        5.1.4
-Release:        3%{?dist}
+Version:        5.1.5
+Release:        1%{?dist}
 Summary:        Handle HHVM/PHP environments, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -106,6 +106,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 5.1.5-1
+- update to 5.1.5
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

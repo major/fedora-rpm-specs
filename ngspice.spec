@@ -14,7 +14,7 @@
 %endif
 
 %global	majorver	39
-%global	minorver	2
+%global	minorver	3
 %global	docver	39
 %undefine	prever
 %global	prerpmver	%(echo "%{?prever}" | sed -e 's|-||g')
@@ -453,6 +453,9 @@ popd
 %{_includedir}/ngspice/
 
 %changelog
+* Fri Feb  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 39.3-1
+- Update to 39.3
+
 * Wed Feb  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 39.2-1
 - Update to 39.2
 

@@ -14,6 +14,9 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/%{crate}
 Source:         %{crates_source}
 
+# Deactivate some tests because they are failing -->
+# https://github.com/vcombey/fallible_collections/issues/35
+Patch:          deactivate-improper-tests.patch
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:

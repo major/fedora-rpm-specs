@@ -7,8 +7,8 @@
 %global crate afterburn
 
 Name:           rust-%{crate}
-Version:        5.3.0
-Release:        4%{?dist}
+Version:        5.4.0
+Release:        1%{?dist}
 Summary:        Simple cloud provider agent
 
 # Upstream license specification: Apache-2.0
@@ -17,8 +17,6 @@ URL:            https://crates.io/crates/afterburn
 Source0:        %{crates_source}
 # not used on Fedora
 Source1:        https://github.com/coreos/%{crate}/releases/download/v%{version}/%{crate}-%{version}-vendor.tar.gz
-# https://github.com/coreos/afterburn/pull/748
-Patch0:         0001-providers-aws-expose-instance-availability-zone-id-a.patch
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel} && !0%{?eln}
@@ -145,6 +143,9 @@ cp -a dracut/* %{buildroot}%{dracutmodulesdir}
 %endif
 
 %changelog
+* Fri Feb 03 2023 Benjamin Gilbert <bgilbert@redhat.com> - 5.4.0-1
+- Update to 5.4.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

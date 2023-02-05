@@ -2,16 +2,17 @@ Name:           perl-Net-DBus-GLib
 Version:        0.33.0
 Release:        42%{?dist}
 Summary:        Perl extension for the DBus GLib bindings
-License:        GPLv2+ or Artistic
+License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-DBus-GLib
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DANBERR/Net-DBus-GLib-%{version}.tar.gz
 # Build
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Runtime
 BuildRequires:  dbus-devel

@@ -5,7 +5,7 @@
 %global crate cargo_metadata
 
 Name:           rust-cargo_metadata
-Version:        0.15.2
+Version:        0.15.3
 Release:        %autorelease
 Summary:        Structured access to the output of `cargo metadata`
 

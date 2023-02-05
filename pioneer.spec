@@ -28,8 +28,8 @@ ExclusiveArch: %{ix86} x86_64
 
 Name: pioneer
 Summary: A game of lonely space adventure
-Version: 20220203
-Release: 5%{date}%{shortcommit}%{?dist}
+Version: 20230203
+Release: 1%{date}%{shortcommit}%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
@@ -59,14 +59,15 @@ BuildRequires: pkgconfig(vorbis)
 BuildRequires: pkgconfig(sigc++-2.0)
 BuildRequires: pkgconfig(libcurl)
 BuildRequires: pkgconfig(SDL2_image)
-#BuildRequires: pkgconfig(glew)
 BuildRequires: pkgconfig(freetype2)
 BuildRequires: pkgconfig(libpng)
+#BuildRequires: pkgconfig(glew)
+#BuildRequires: pkgconfig(lua)
 #BuildRequires: pkgconfig(fmt)
 #BuildRequires: pkgconfig(liblz4)
+#BuildRequires: miniz-devel
 BuildRequires: assimp-devel >= 3.2
 BuildRequires: mesa-libGLU-devel
-#BuildRequires: miniz-devel
 BuildRequires: NaturalDocs
 BuildRequires: desktop-file-utils
 BuildRequires: libappstream-glib
@@ -147,15 +148,11 @@ Requires:  fontpackages-filesystem
 
 %patch0 -p1 -b .manual
 
-## Pioneer does not work with Lua 5.3.*
+## Pioneer does not work with Lua 5.4.*
 ## We cannot unbundle internal Lua yet
 ## See https://github.com/pioneerspacesim/pioneer/issues/3712
 ## https://github.com/mpv-player/mpv/issues/5205
-#rm -f contrib/lua/lua.h
-#rm -f contrib/lua/lauxlib.h
-#rm -f contrib/lua/lua.hpp
-#rm -f contrib/lua/luaconf.h
-#rm -f contrib/lua/lualib.h
+#rm -rf contrib/lua
 
 #rm -rf contrib/fmt
 #rm -rf contrib/glew
@@ -173,8 +170,10 @@ Requires:  fontpackages-filesystem
 %else
 mkdir -p build
 %cmake -B build -DCMAKE_BUILD_TYPE:STRING=Release -DCMAKE_VERBOSE_MAKEFILE:BOOL=TRUE \
-       -DUSE_SYSTEM_LIBLUA:BOOL=OFF -DUSE_SYSTEM_LIBGLEW:BOOL=OFF \
-       -DPIONEER_DATA_DIR:PATH=%{_datadir}/%{name} -DFMT_INSTALL:BOOL=ON -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/%{name}
+       -DUSE_SYSTEM_LIBLUA:BOOL=OFF \
+       -DUSE_SYSTEM_LIBGLEW:BOOL=OFF \
+       -DPIONEER_DATA_DIR:PATH=%{_datadir}/%{name} -DFMT_INSTALL:BOOL=ON \
+       -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/%{name}
 %make_build -C build all build-data
 %endif
 
@@ -306,6 +305,9 @@ ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/fon
 %_font_pkg -n %{name}-pionilliumtext22l-medium PionilliumText22L-Medium.ttf
 
 %changelog
+* Fri Feb 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 20230203-1
+- Release 20230203
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220203-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

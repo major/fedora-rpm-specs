@@ -4,7 +4,7 @@
 
 Name:           howl
 Version:        0.6
-Release:        20%{?dist}
+Release:        22%{?dist}
 Summary:        Lightweight editor with a keyboard-centric minimalistic UI
 
 # For a breakdown of the licensing, see LICENSE.md
@@ -16,6 +16,8 @@ Source1:        https://github.com/LuaJIT/LuaJIT/archive/%{commit1}/LuaJIT-%{sho
 
 # Bundled LuaJIT-2.1.0-beta3 failed to compile with this arches
 ExcludeArch:    ppc64le s390x
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -23,12 +25,16 @@ BuildRequires:  libappstream-glib
 BuildRequires:  make
 BuildRequires:  pkgconfig(gtk+-3.0)
 
-Requires:       %{name}-data
+Obsoletes:      %{name}-data < 0.6-21
+
 Requires:       hicolor-icon-theme
 
 Recommends:     fontawesome-fonts
 
 Provides:       bundled(luajit) = 2.1.0~beta3
+
+# Filter out Python and Ruby requirements pulled in from examples
+%global __requires_exclude_from ^%{_datadir}/howl/.*$
 
 %global _description \
 Howl is a general purpose editor that aims to be both lightweight and fully\
@@ -37,19 +43,6 @@ its interface, and can be extended in either Lua or Moonscript. It's known to\
 work on Linux, but should work on at least the *BSD's as well.
 
 %description %{_description}
-
-%package        data
-BuildArch:      noarch
-
-Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
-# Python, Ruby not necessary for for Howl it only requires by example files so
-# disable auto requires
-AutoReq:        no
-Summary:        Data files for %{name}
-
-%description    data %{_description}
-
-Data files for %{name}.
 
 %prep
 %autosetup -a1
@@ -86,13 +79,17 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/howl.desktop
 %{_bindir}/howl
 %{_bindir}/howl-spec
 %{_datadir}/applications/howl.desktop
+%{_datadir}/howl/
 %{_datadir}/icons/hicolor/scalable/apps/howl.svg
 %{_metainfodir}/howl.appdata.xml
 
-%files data
-%{_datadir}/howl
-
 %changelog
+* Fri Feb 03 2023 Pete Walter <pwalter@fedoraproject.org> - 0.6-22
+- ExcludeArch i686 for https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
+* Fri Feb 03 2023 Pete Walter <pwalter@fedoraproject.org> - 0.6-21
+- Drop separate -data subpackage
+
 * Thu Feb 02 2023 Pete Walter <pwalter@fedoraproject.org> - 0.6-20
 - Update bundled LuaJIT for aarch64 support
 

@@ -5,7 +5,7 @@
 %global crate futures-sink
 
 Name:           rust-futures-sink
-Version:        0.3.25
+Version:        0.3.26
 Release:        %autorelease
 Summary:        Asynchronous Sink trait for the futures-rs library
 

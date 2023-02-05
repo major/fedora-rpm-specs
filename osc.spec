@@ -1,6 +1,6 @@
 # SUSE guys use OBS to automatically handle release numbers,
 # when rebasing check what they are using on
-# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_36/src/
+# https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_37/src/
 # update the obsrel to match the upstream release number
 # FIXME: stop doing this once osc 1.0 is properly released
 %dnl %global obsrel 332.4
@@ -13,14 +13,14 @@
 %global obs_srcsvc_dir %{obsroot}/service
 
 # Real release number
-%global baserelease 2
+%global baserelease 1
 
 # github fails to create a version including a ~
-%global gh_ver  1.0.0b3
+%global gh_ver  1.0.0b4
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.0.0~b3
+Version:        1.0.0~b4
 # Bump the release as necessary to ensure we're one level up from upstream
 Release:        %{baserelease}%{?dist}
 License:        GPL-2.0-or-later
@@ -131,6 +131,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Fri Feb  3 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b4-1
+- New upstream release 1.0.0~b4, fixes rhbz#2166895
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~b3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

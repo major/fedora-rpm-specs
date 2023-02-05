@@ -24,8 +24,8 @@ BuildRequires: ansible-core >= 2.11.0
 Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
-Version: 1.2.4
-Release: 5%{?dist}
+Version: 1.3.0
+Release: 1%{?dist}
 
 License: MIT
 
@@ -75,7 +75,7 @@ Requires: rhel-system-roles
 Requires: linux-system-roles
 %endif
 
-%global mainid cdc706f14614ef5e80bbce8db10beb369e889df9
+%global mainid 73800682a3293ef5ab5ed5880329ce792cd34bbf
 %global parenturl https://github.com/linux-system-roles
 Source: %{parenturl}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar.gz
 Source1: %{parenturl}/%{rolename}/archive/%{version}/%{rolename}-%{version}.tar.gz
@@ -113,7 +113,7 @@ Collection artifact for %{name}. This package contains
 %endif
 
 %pretrans -p <lua>
-path = "%{installbase}/%{legacy_rolename}"
+path = "%{ansible_roles_dir}/%{legacy_rolename}"
 st = posix.stat(path)
 if st and st.type == "link" then
   os.remove(path)
@@ -135,7 +135,7 @@ fi
 %build
 %if %{with html}
 # Convert README.md to README.html in the source roles
-sh md2html.sh %{rolename}/README.md
+sh md2html.sh -t %{rolename}/README.md
 %endif
 
 mkdir .collections
@@ -150,7 +150,7 @@ cp %{rolename}/.collection/galaxy.yml ./
                       "Ansible collection for Microsoft SQL Server management" \
                       "https://github.com/linux-system-roles/mssql" \
                       "https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/8/html/administration_and_configuration_tasks_using_system_roles_in_rhel/assembly_configuring-microsoft-sql-server-using-microsoft-sql-server-ansible-role_assembly_updating-packages-to-enable-automation-for-the-rhel-system-roles" \
-                      "https://github.com/linux-system-roles/mssql/blob/master/README.md" \
+                      "https://github.com/linux-system-roles/mssql/blob/main/README.md" \
                       "https://bugzilla.redhat.com/enter_bug.cgi?product=Red%20Hat%20Enterprise%20Linux%208&component=ansible-collection-microsoft-sql" \
                       > galaxy.yml.tmp
 %else
@@ -250,7 +250,7 @@ fi
 
 %if %{with html}
 # Convert README.md to README.html for collection in %%{buildroot}%%{_pkgdocdir}/collection
-sh md2html.sh %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}/README.md
+sh md2html.sh -t %{buildroot}%{_pkgdocdir}/collection/roles/%{collection_rolename}/README.md
 %endif
 
 %if %{with collection_artifact}
@@ -343,6 +343,20 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Fri Feb 3 2023 Sergei Petrosian <spetrosi@redhat.com> - 1.3.0-1
+- On SQL Server Enterprise Edition, support configuring asynchronous replication
+  Resolves: rhbz#2144820
+- Support configuring a read-scale SQL server availability group (without pacemaker
+  Resolves: rhbz#2144821
+- Use the certificate role to create the cert and the key
+  Resolves: rhbz#2144852
+- Support SQL Server version 2022
+  Resolves: rhbz#2153427
+- Support integrating with AD Server for authentication
+  Resolves: rhbz#2163696
+- md2html.sh - use -t to generate TOC
+- Replace installbase with ansible_roles_dir in pretrans scriplet
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,9 @@
 Summary:        SSL/TLS network protocol analyzer
 Name:           ssldump
-Version:        1.5
-Release:        3%{?dist}
-License:        BSD with advertising
+Version:        1.6
+Release:        1%{?dist}
+# pcap/{attrib.h,{logpkt,sys}.[ch]} are BSD-2-Clause, rest is BSD-4-Clause
+License:        BSD-4-Clause AND BSD-2-Clause
 URL:            https://github.com/adulau/ssldump
 Source0:        https://github.com/adulau/ssldump/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        HOWTO
@@ -52,6 +53,9 @@ export LDFLAGS="$RPM_LD_FLAGS $(pkg-config --libs-only-L openssl11)"
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Feb 04 2023 Robert Scheck <robert@fedoraproject.org> 1.6-1
+- Upgrade to 1.6 (#2166994)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

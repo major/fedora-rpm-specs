@@ -6,7 +6,7 @@
 %global crate futures-util
 
 Name:           rust-futures-util
-Version:        0.3.25
+Version:        0.3.26
 Release:        %autorelease
 Summary:        Common utilities and extension traits for the futures-rs library
 
@@ -226,6 +226,18 @@ This package contains library source intended for building other packages which
 use the "memchr" feature of the "%{crate}" crate.
 
 %files       -n %{name}+memchr-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+portable-atomic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+portable-atomic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "portable-atomic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+portable-atomic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+sink-devel

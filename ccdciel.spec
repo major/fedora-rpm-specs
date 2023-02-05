@@ -1,18 +1,18 @@
-%global gittag v0.9.80
+%global gittag v0.9.81
 #%%global commit b0f6c7ba092f2526481ce8340a349685e51db9a3
 #%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
 #%%global date 20220410
 
 Name:           ccdciel
 %if "%{?gittag}"
-Version:        0.9.80
+Version:        0.9.81
 %else
 Version:        0.9.79^%{date}%{shortcommit}
 %endif
 Release:        %autorelease
 Summary:        CCD capture software
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://www.ap-i.net/ccdciel/
 %if "%{?gittag}"
 Source0:        https://github.com/pchev/%{name}/archive/%{gittag}/%{name}-%{version}.tar.gz

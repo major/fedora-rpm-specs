@@ -6,7 +6,7 @@
 %global crate futures-core
 
 Name:           rust-futures-core
-Version:        0.3.25
+Version:        0.3.26
 Release:        %autorelease
 Summary:        Core traits and types in for the futures library
 
@@ -70,6 +70,18 @@ This package contains library source intended for building other packages which
 use the "cfg-target-has-atomic" feature of the "%{crate}" crate.
 
 %files       -n %{name}+cfg-target-has-atomic-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+portable-atomic-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+portable-atomic-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "portable-atomic" feature of the "%{crate}" crate.
+
+%files       -n %{name}+portable-atomic-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+std-devel

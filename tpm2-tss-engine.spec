@@ -1,13 +1,13 @@
 Name:           tpm2-tss-engine
-Version:        1.1.0
-Release:        7%{?dist}
-Summary:      OpenSSL Engine for TPM2 devices using the tpm2-tss software stack
+Version:        1.2.0
+Release:        1%{?dist}
+Summary:        OpenSSL Engine for TPM2 devices using the tpm2-tss software stack
 
-License:     BSD
+License:        BSD-3-Clause
 URL:            https://github.com/tpm2-software/tpm2-tss-engine
-Source0:        https://github.com/tpm2-software/tpm2-tss-engine/releases/download/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/tpm2-software/tpm2-tss-engine/releases/download/%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
@@ -33,22 +33,21 @@ as well as ECDSA signatures.
 
 
 %build
-%configure 
+%configure --disable-static
 %make_build
 
 
 %install
 %make_install
-find %{buildroot}%{_libdir}/engines-1.1 -type f -name \*.la  -exec rm {} +
-find %{buildroot}%{_libdir}/engines-1.1 -type f -name \*.a  -exec rm {} +
 
 
 
 %files
 %license LICENSE
 %doc README.md CHANGELOG.md
-%{_libdir}/engines-1.1/libtpm2tss.so
-%{_libdir}/engines-1.1/tpm2tss.so
+%{_libdir}/engines-3/libtpm2tss.so
+%{_libdir}/engines-3/tpm2tss.so
+
 
 
 %package devel
@@ -61,7 +60,7 @@ against tpm2-tss-engine
 
 %files devel
 %{_includedir}/tpm2-tss-engine.h
-%{_mandir}/man3/tpm2tss_*.3.*
+%{_mandir}/man3/tpm2tss_*.3{,.*}
 
 
 
@@ -76,12 +75,18 @@ uses the tpm2-tss software stack
 %files utilities
 %{_bindir}/tpm2tss-genkey
 %{_datadir}/bash-completion/completions/tpm2tss-genkey
-%{_mandir}/man1/tpm2tss-*.1.*
+%{_mandir}/man1/tpm2tss-genkey.1{,.*}
 
 
 
 
 %changelog
+* Tue Jan 31 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.2.0-1
+- Update to 1.2.0
+- Don't build static libraries
+- Minor glob changes to follow the spirit of recent packaging guidelines
+- SPDX License
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

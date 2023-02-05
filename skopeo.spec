@@ -77,6 +77,7 @@ Requires: %{name} = %{epoch}:%{version}-%{release}
 Requires: bats
 Requires: gnupg
 Requires: jq
+Requires: golang
 Requires: podman
 Requires: crun
 Requires: httpd-tools

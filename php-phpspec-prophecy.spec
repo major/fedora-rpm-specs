@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-phpspec-prophecy
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    be8cac52a0827776ff9ccda8c381ac5b71aeb359
+%global gh_commit    15873c65b207b07765dbc3c95d20fdf4a320cbe2
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phpspec
 %global gh_project   prophecy
@@ -14,7 +14,7 @@
 %bcond_without       tests
 
 Name:           php-phpspec-prophecy
-Version:        1.16.0
+Version:        1.17.0
 Release:        2%{?dist}
 Summary:        Highly opinionated mocking framework for PHP
 
@@ -29,9 +29,10 @@ BuildRequires:  php(language) >= 7.2
 BuildRequires:  (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
 BuildRequires:  (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 5)
 BuildRequires:  (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 5)
-BuildRequires:  (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 2)
+BuildRequires:  (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
 # from composer.json, "require-dev": {
 #        "phpspec/phpspec": "^6.0 | ^7.0"
+#        "phpstan/phpstan": "^1.9",
 #        "phpunit/phpunit": "^8.0 || ^9.0"
 BuildRequires:  php-composer(phpspec/phpspec) >= 6.0
 %global phpunit %{_bindir}/phpunit9
@@ -44,13 +45,13 @@ BuildRequires:  php-fedora-autoloader-devel
 #        "php":                               "^7.2 || 8.0.* || 8.1.* || 8.2.*",
 #        "phpdocumentor/reflection-docblock": "^5.2",
 #        "sebastian/comparator":              "^3.0|^4.0",
-#        "doctrine/instantiator":             "^1.2",
+#        "doctrine/instantiator":             "^1.2 || ^2.0",
 #        "sebastian/recursion-context":       "^3.0|^4.0"
 Requires:       php(language) >= 7.2
 Requires:       (php-composer(phpdocumentor/reflection-docblock) >= 5.2   with php-composer(phpdocumentor/reflection-docblock) < 6)
 Requires:       (php-composer(sebastian/comparator)              >= 3.0   with php-composer(sebastian/comparator)              < 5)
 Requires:       (php-composer(sebastian/recursion-context)       >= 3.0   with php-composer(sebastian/recursion-context)       < 5)
-Requires:       (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 2)
+Requires:       (php-composer(doctrine/instantiator)             >= 1.2   with php-composer(doctrine/instantiator)             < 3)
 # From phpcompatinfo report for version 1.11.0
 Requires:       php-pcre
 Requires:       php-reflection
@@ -77,8 +78,16 @@ to be used inside any testing framework out there with minimal effort.
 phpab --template fedora --output src/Prophecy/autoload.php src
 cat << 'EOF' | tee -a src/Prophecy/autoload.php
 
+if (PHP_VERSION_ID > 80100) {
+	$inst = [
+        '%{_datadir}/php/Doctrine/Instantiator2/autoload.php',
+        '%{_datadir}/php/Doctrine/Instantiator/autoload.php',
+    ];
+} else {
+	$inst = '%{_datadir}/php/Doctrine/Instantiator/autoload.php';
+}
 \Fedora\Autoloader\Dependencies::required([
-    '%{_datadir}/php/Doctrine/Instantiator/autoload.php',
+    $inst,
     '%{_datadir}/php/phpDocumentor/Reflection/DocBlock5/autoload.php',
 ]);
 if (!class_exists('SebastianBergmann\\Comparator\\Comparator')) { // v2 from phpunit, v1 from phpspec
@@ -109,7 +118,7 @@ cp -pr src/* %{buildroot}%{_datadir}/php
 %if %{with tests}
 : Dev autoloader
 mkdir vendor
-phpab --output vendor/autoload.php fixtures
+phpab --output vendor/autoload.php fixtures tests
 
 cat << 'EOF' | tee -a vendor/autoload.php
 require_once '%{buildroot}%{_datadir}/php/Prophecy/autoload.php';
@@ -149,6 +158,13 @@ exit $ret
 
 
 %changelog
+* Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 1.17.0-2
+- fix autoloader
+
+* Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 1.17.0-1
+- update to 1.17.0
+- allow doctrine/instantiator v2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

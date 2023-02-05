@@ -5,13 +5,15 @@
 %global crate tokio-uring
 
 Name:           rust-tokio-uring
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Io-uring support for the Tokio asynchronous runtime
 
 License:        MIT
 URL:            https://crates.io/crates/tokio-uring
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+Patch:          tokio-uring-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -32,6 +34,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE
 %doc %{crate_instdir}/CHANGELOG.md
+%doc %{crate_instdir}/DESIGN.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 

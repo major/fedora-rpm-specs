@@ -11,6 +11,11 @@ URL:            https://github.com/p1c2u/%{srcname}
 # The GitHub archive has the tests; the PyPI sdist does not.
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
+# openapi packages update tests fix
+# https://github.com/p1c2u/openapi-core/pull/498
+# Backported to 0.16.5 (without irrelevant poetry.lock changes)
+Patch:          0001-openapi-packages-update-tests-fix.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel

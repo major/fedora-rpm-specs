@@ -1,6 +1,6 @@
 Name: tmt
-Version: 1.20.0
-Release: 2%{?dist}
+Version: 1.21.0
+Release: 1%{?dist}
 
 Summary: Test Management Tool
 License: MIT
@@ -44,10 +44,11 @@ BuildRequires: python%{python3_pkgversion}-pytest
 BuildRequires: python%{python3_pkgversion}-click
 BuildRequires: python%{python3_pkgversion}-fmf >= 1.2.0
 BuildRequires: python%{python3_pkgversion}-requests
-BuildRequires: python%{python3_pkgversion}-testcloud >= 0.8.1
+BuildRequires: python%{python3_pkgversion}-testcloud >= 0.8.2
 BuildRequires: python%{python3_pkgversion}-markdown
 BuildRequires: python%{python3_pkgversion}-junit_xml
 BuildRequires: python%{python3_pkgversion}-ruamel-yaml
+BuildRequires: python%{python3_pkgversion}-jinja2
 # Only needed for rhel-8 (it has python3.6)
 %if 0%{?rhel} == 8
 BuildRequires: python%{python3_pkgversion}-typing-extensions
@@ -77,7 +78,7 @@ Dependencies required to run tests in a container environment.
 Summary: Virtual machine provisioner for the Test Management Tool
 Obsoletes: tmt-testcloud < 0.17
 Requires: tmt == %{version}-%{release}
-Requires: python%{python3_pkgversion}-testcloud >= 0.8.1
+Requires: python%{python3_pkgversion}-testcloud >= 0.8.2
 Requires: libvirt-daemon-config-network
 Requires: openssh-clients
 Requires: (ansible or ansible-core)
@@ -104,7 +105,6 @@ Additional dependencies needed for test metadata import and export.
 %package report-html
 Summary: Report plugin with support for generating web pages
 Requires: tmt == %{version}-%{release}
-Requires: python3-jinja2
 
 %description report-html
 Generate test results in the html format. Quickly review test
@@ -125,6 +125,14 @@ Requires: tmt-report-junit >= %{version}
 %description report-polarion
 Generate test results in xUnit format for exporting to Polarion.
 
+%package report-reportportal
+Summary: Report step plugin for ReportPortal
+Requires: tmt == %{version}-%{release}
+Requires: tmt-report-junit == %{version}
+
+%description report-reportportal
+Report test results to a ReportPortal instance.
+
 %package all
 Summary: Extra dependencies for the Test Management Tool
 Requires: tmt >= %{version}
@@ -134,6 +142,7 @@ Requires: tmt-test-convert >= %{version}
 Requires: tmt-report-html >= %{version}
 Requires: tmt-report-junit >= %{version}
 Requires: tmt-report-polarion >= %{version}
+Requires: tmt-report-reportportal >= %{version}
 
 %description all
 All extra dependencies of the Test Management Tool. Install this
@@ -181,6 +190,7 @@ chmod 1777 %{buildroot}%{workdir_root}
 %exclude %{python3_sitelib}/%{name}/steps/report/{,__pycache__/}html*
 %exclude %{python3_sitelib}/%{name}/steps/report/{,__pycache__/}junit.*
 %exclude %{python3_sitelib}/%{name}/steps/report/{,__pycache__/}polarion.*
+%exclude %{python3_sitelib}/%{name}/steps/report/{,__pycache__/}reportportal.*
 
 %files provision-container
 %{python3_sitelib}/%{name}/steps/provision/{,__pycache__/}podman.*
@@ -198,6 +208,9 @@ chmod 1777 %{buildroot}%{workdir_root}
 %files report-polarion
 %{python3_sitelib}/%{name}/steps/report/{,__pycache__/}polarion.*
 
+%files report-reportportal
+%{python3_sitelib}/%{name}/steps/report/{,__pycache__/}reportportal.*
+
 %files test-convert
 %license LICENSE
 
@@ -206,8 +219,58 @@ chmod 1777 %{buildroot}%{workdir_root}
 
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Fri Feb 03 2023 Lukáš Zachar <lzachar@redhat.com> - 1.21.0-1
+- Fix tmt-reboot without custom command
+- Fix test /discover/libraries
+- Add serialization callbacks to data class fields
+- Use own private key for `provision.virtual`
+- Adds a template-backed export plugin
+- Polarion export fix component upload bug and upload id first
+- Convert story ReST export to use a Jinja2 template
+- Convert export-related code to plugins per format
+- Do not clone the whole remote plan in dry mode
+- Hardcode tmt git URL so test won't fail for PRs
+- Add py.typed marker for 3rd party type annotations
+- Fixes isort 5.10.1 installation issue
+- Improve logging by `tmt.utils.wait()`
+- Check packages are installed via debuginfo-install
+- Always ignore failures for recommended packages
+- Merge report plugins options into step data fields
+- Dynamically find the current Fedora release
+- Suggest using a pull request checklist template
+- Include a simple Python code among the examples
+- Apply normalization callback when updating data with CLI input
+- Bump pre-commit linters - Flake8, Mypy, JSON schema, YAML lint & pygrep
+- Use base implementation of provision plugin requirements
+- Relay 'interactive' value for podman call
+- Update Fedora versions in `upgrade` tests
+- Apply `ShellScript` for the custom reboot command
+- Update the `shell` discover specification
+- Enable to sync git repo to SUT in `shell` discover
+- Increase the default `utils.format()` indent a bit
+- Define pull request Copr build job in Packit config
+- Decouple logging from objects and base classes
+- Enable `url` and `ref` as `shell` discover options
+- Export `TMT_TREE` in other steps as well
+- Add a new key `system` to the `hardware` spec
+- Remove default for the dynamic `ref` evaluation
+- Schema update and test for order in discover step
+- Merge report plugins options into step data fields
+- Add a test for hardware schema coverage
+- Better type annotations of prepare/install scripts
+- Move `jinja2` require to the main `tmt` package
+- Define the new context dimension `initiator`
+- Respect `TMT_WORKDIR_ROOT` variable in `testcloud`
+- Annotate commands, command line elements and shell scripts
+- Adjust the `reportportal` plugin implementation
+- Implement the `reportportal` report plugin
+- Require the latest `testcloud` package
+- Define `srpm_build_deps` in the packit config
+- Include the new web link in verbose `show` mode
+- Add a clickable web link to test to polarion export
+- Enhance `Links` to allow checking for any links at all
+- Drop various guest `wake()` methods in favor of parent class
+- Catch `SystemExit` during module discovery
 
 * Thu Dec 08 2022 Lukáš Zachar <lzachar@redhat.com> - 1.20.0-1
 - Do not prune `html` and `junit` reports

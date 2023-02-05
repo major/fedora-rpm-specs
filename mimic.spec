@@ -7,6 +7,8 @@ License:        BSD
 URL:            https://mimic.mycroft.ai/
 Source0:        https://github.com/MycroftAI/mimic/archive/%{version}.tar.gz
 Patch0:         mimic-fix-pulse.patch
+# upstream fix for GCC 12
+Patch1:         mimic-gcc12.patch
 
 BuildRequires: make
 BuildRequires:  automake autoconf libtool
@@ -61,7 +63,7 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_bindir}/mimic*
 %{_bindir}/compile_regexes
 %{_bindir}/t2p
-%{_datadir}/man/man1/mimic.1.gz
+%{_datadir}/man/man1/mimic.1*
 %{_datadir}/%{name}
 
 %files devel

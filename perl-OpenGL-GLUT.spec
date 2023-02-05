@@ -5,7 +5,7 @@ Summary:        Perl bindings to GLUT/FreeGLUT GUI toolkit
 # pgopogl.h is LGPLv2+
 # include/GL is MIT
 # lib/OpenGL/GLUT.pm is GPL+ or Artistic
-License:        GPLv2+ or Artistic
+License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/OpenGL-GLUT
 # <https://cpan.metacpan.org/authors/id/E/ET/ETJ/OpenGL-GLUT-%%{version}.tar.gz>
 # stripped from a non-free files using ./repackage.sh %%{version} command,
@@ -75,9 +75,9 @@ make test
 %files
 %license COPYRIGHT
 %doc demo.pl Changes menutest.pl README.md
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/OpenGL*
 %{perl_vendorarch}/OpenGL*
-%{_mandir}/man3/*
+%{_mandir}/man3/OpenGL::GLUT*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.72-4

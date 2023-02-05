@@ -1,6 +1,6 @@
 Name:		perl-Rose-DB
-Version:	0.783
-Release:	11%{?dist}
+Version:	0.784
+Release:	1%{?dist}
 Summary:	DBI wrapper and abstraction layer
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Rose-DB
@@ -23,6 +23,9 @@ BuildRequires:	perl(DateTime::Format::Oracle)
 BuildRequires:	perl(DateTime::Format::Pg) >= 0.11
 BuildRequires:	perl(DateTime::Infinite)
 BuildRequires:	perl(DBD::SQLite)
+BuildRequires:	perl(DBD::MariaDB)
+BuildRequires:	perl(DBD::mysql)
+BuildRequires:	perl(DBD::Pg)
 BuildRequires:	perl(DBI)
 BuildRequires:	perl(Exporter)
 BuildRequires:	perl(ExtUtils::MakeMaker)
@@ -72,6 +75,9 @@ make test
 %{_mandir}/man3/Rose::DB*.3pm*
 
 %changelog
+* Fri Feb  3 2023 Bill Pemberton <wfp5p@worldbroken.com> - 0.784-1
+- update to version 0.784
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.783-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

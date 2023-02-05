@@ -9,7 +9,7 @@
 
 Summary:	Ruby binding of librsvg-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.0.8
+Version:	4.1.0
 Release:	1%{?dist}
 # from README
 License:	LGPLv2
@@ -73,7 +73,7 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.0\.8|>= 4.0.8|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.0|>= 4.1.0|' %{gem_name}-%{version}.gemspec
 # pkgconfig dependency is actually not needed (when using rpm
 # dependency solver)
 sed -i dependency-check/Rakefile \
@@ -146,6 +146,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Fri Feb  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-1
+- 4.1.0
+
 * Sun Jan 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.8-1
 - 4.0.8
 

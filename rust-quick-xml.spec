@@ -5,7 +5,7 @@
 %global crate quick-xml
 
 Name:           rust-quick-xml
-Version:        0.25.0
+Version:        0.27.1
 Release:        %autorelease
 Summary:        High performance xml reader and writer
 
@@ -35,7 +35,6 @@ use the "%{crate}" crate.
 
 %files          devel
 %license %{crate_instdir}/LICENSE-MIT.md
-%doc %{crate_instdir}/Changelog.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -121,6 +120,18 @@ This package contains library source intended for building other packages which
 use the "serde" feature of the "%{crate}" crate.
 
 %files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+serde-types-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-types-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde-types" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-types-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+serialize-devel

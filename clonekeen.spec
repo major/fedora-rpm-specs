@@ -1,6 +1,6 @@
 Name:           clonekeen
 Version:        0.8.4
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        "Commander Keen: Invasion of the Vorticons" clone
 License:        GPLv3+
 URL:            http://clonekeen.sourceforge.net/
@@ -42,15 +42,16 @@ the shareware datafiles for you.
 %prep
 %autosetup -p1 -a 1 -n keen
 find -name "*.o" -delete
-sed -i 's|gcc -O2|gcc %{optflags}|g' src/Makefile
+sed -i 's|gcc -O2|gcc %{optflags} -std=gnu89|g' src/Makefile
 cp -a %{SOURCE2} %{SOURCE3} .
 sed -i 's/\r//g' README src/changelog.txt
 
 
 %build
-make %{?_smp_mflags} -C src -f Makefile CFLAGS="$RPM_OPT_FLAGS"
-gcc -o %{name}-extract $RPM_OPT_FLAGS extract.c -ldynamite
-gcc -o %{name}-extract-sounds $RPM_OPT_FLAGS %{name}-extract-sounds.c
+CFLAGS="$CFLAGS -std=gnu89"
+make %{?_smp_mflags} -C src -f Makefile
+gcc -o %{name}-extract $CFLAGS extract.c -ldynamite
+gcc -o %{name}-extract-sounds $CFLAGS %{name}-extract-sounds.c
 
 
 %install
@@ -86,6 +87,11 @@ install -p -m 644 %{SOURCE7} \
 %{_datadir}/icons/hicolor/24x24/apps/%{name}.png
 
 %changelog
+* Thu Feb 02 2023 Timm Bäder <tbaeder@redhat.com> - 0.8.4-26
+- Build in C89 mode
+- rhbz#2161553
+- https://fedoraproject.org/wiki/Toolchain/PortingToModernC
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.4-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

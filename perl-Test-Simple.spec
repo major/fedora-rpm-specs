@@ -12,8 +12,8 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302191
-Release:        3%{?dist}
+Version:        1.302192
+Release:        1%{?dist}
 # CC0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
 # GPL+ or Artistic: the rest of the distribution
@@ -60,6 +60,7 @@ BuildRequires:  perl(warnings)
 # Test Suite
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(File::Basename)
+BuildRequires:  perl(if)
 BuildRequires:  perl(IO::Pipe)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(threads)
@@ -200,6 +201,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::Trace.3*
 
 %changelog
+* Thu Feb  2 2023 Paul Howarth <paul@city-fan.org> - 3:1.302192-1
+- Update to 1.302192
+  - Silence deprecation warning when testing smartmatch
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3:1.302191-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

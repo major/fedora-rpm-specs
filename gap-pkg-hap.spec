@@ -11,8 +11,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.49
-Release:        3%{?dist}
+Version:        1.50
+Release:        1%{?dist}
 Summary:        Homological Algebra Programming for GAP
 
 License:        GPL-2.0-or-later
@@ -173,6 +173,9 @@ gap -l "%{buildroot}%{gap_libdir};" -o 3G tst/testquick.g
 %{gap_libdir}/pkg/%{pkgname}/tutorial/
 
 %changelog
+* Fri Feb  3 2023 Jerry James <loganjerry@gmail.com> - 1.50-1
+- Version 1.50
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.49-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

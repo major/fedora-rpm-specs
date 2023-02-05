@@ -6,7 +6,7 @@
 %global crate cairo-rs
 
 Name:           rust-cairo-rs
-Version:        0.16.3
+Version:        0.16.7
 Release:        %autorelease
 Summary:        Rust bindings for the Cairo library
 

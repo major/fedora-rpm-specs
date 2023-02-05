@@ -4,9 +4,9 @@
 
 Name:          rubygem-%{gem_name}
 Version:       1.0.4
-Release:       6%{?dist}
+Release:       7%{?dist}
 Summary:       Useful tools for working with Semantic Versions
-License:       ASL 2.0
+License:       Apache-2.0
 URL:           https://github.com/puppetlabs/semantic_puppet
 Source0:       https://rubygems.org/gems/%{gem_name}-%{version}.gem
 
@@ -70,6 +70,9 @@ popd
 %{gem_instdir}/spec
 
 %changelog
+* Thu Feb 02 2023 License update - 1.0.4-7
+- Rebuilt to update license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

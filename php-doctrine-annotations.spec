@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-doctrine-annotations
 #
-# Copyright (c) 2013-2022 Shawn Iwinski <shawn.iwinski@gmail.com>
+# Copyright (c) 2013-2023 Shawn Iwinski <shawn.iwinski@gmail.com>
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -14,8 +14,8 @@
 
 %global github_owner     doctrine
 %global github_name      annotations
-%global github_version   1.14.2
-%global github_commit    ad785217c1e9555a7d6c6c8c9f406395a5e2882b
+%global github_version   1.14.3
+%global github_commit    fb0d71a7393298a7b232cbf4c8b1f73f3ec3d5af
 
 %global composer_vendor  doctrine
 %global composer_project annotations
@@ -42,7 +42,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       PHP docblock annotations parser library
 
 License:       MIT
@@ -184,6 +184,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 1.14.3-1
+- update to 1.14.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

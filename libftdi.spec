@@ -1,6 +1,6 @@
 Name:		libftdi
 Version:	1.5
-Release:	6%{?dist}
+Release:	7%{?dist}
 Summary:	Library to program and control the FTDI USB controller
 
 License:	LGPLv2
@@ -9,6 +9,8 @@ Source0:	https://www.intra2net.com/en/developer/%{name}/download/%{name}1-%{vers
 
 # http://developer.intra2net.com/git/?p=libftdi;a=commitdiff;h=cdb28383402d248dbc6062f4391b038375c52385;hp=5c2c58e03ea999534e8cb64906c8ae8b15536c30
 Patch0:		libftdi-1.5-fix_pkgconfig_path.patch
+# http://developer.intra2net.com/mailarchive/html/libftdi/2023/msg00003.html
+Patch1:		libftdi-1.5-no-distutils.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc
@@ -73,28 +75,13 @@ sed -i -e 's/GROUP="plugdev"/TAG+="uaccess"/g' packages/99-libftdi.rules
 
 
 %build
-%cmake -DSTATICLIBS=off -DFTDIPP=on -DPYTHON_BINDINGS=on -DDOCUMENTATION=on
+%cmake -DSTATICLIBS=off -DFTDIPP=on -DPYTHON_BINDINGS=on -DDOCUMENTATION=on -DEXAMPLES=off
 %cmake_build
 
 %install
 %cmake_install
 
 install -D -pm 0644 packages/99-libftdi.rules %{buildroot}%{_udevrulesdir}/69-libftdi.rules
-
-mkdir -p %{buildroot}/usr/lib/udev/rules.d/
-install -pm 0644 packages/99-libftdi.rules %{buildroot}/usr/lib/udev/rules.d/69-libftdi.rules
-
-# Cleanup examples
-rm -f %{buildroot}%{_bindir}/simple
-rm -f %{buildroot}%{_bindir}/bitbang
-rm -f %{buildroot}%{_bindir}/bitbang2
-rm -f %{buildroot}%{_bindir}/bitbang_ft2232
-rm -f %{buildroot}%{_bindir}/bitbang_cbus
-rm -f %{buildroot}%{_bindir}/find_all
-rm -f %{buildroot}%{_bindir}/find_all_pp
-rm -f %{buildroot}%{_bindir}/baud_test
-rm -f %{buildroot}%{_bindir}/serial_read
-rm -f %{buildroot}%{_bindir}/serial_test
 
 rm -f %{buildroot}%{_datadir}/doc/libftdi1/example.conf
 rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
@@ -132,11 +119,11 @@ rm -f %{buildroot}%{_datadir}/doc/libftdipp1/example.conf
 %{_includedir}/libftdi1/*.hpp
 %{_libdir}/pkgconfig/libftdipp1.pc
 
-%ldconfig_scriptlets
-
-%ldconfig_scriptlets c++
 
 %changelog
+* Fri Feb 03 2023 Dan Horák <dan[at]danny.cz> - 1.5-7
+- Prepare for distutils removal (rhbz#2154854)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

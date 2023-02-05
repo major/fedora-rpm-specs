@@ -5,7 +5,7 @@
 %global crate arbitrary
 
 Name:           rust-arbitrary
-Version:        1.2.0
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Trait for generating structured data from unstructured data
 

@@ -2,10 +2,11 @@ Name:           perl-Net-DBus
 Version:        1.2.0
 Release:        11%{?dist}
 Summary:        Use and provide DBus services
-License:        GPLv2+ or Artistic
+License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-DBus
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DANBERR/Net-DBus-%{version}.tar.gz
 BuildRequires:  dbus-devel  >= 1.00, pkgconfig
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -60,9 +61,9 @@ make test
 %files
 %license LICENSE
 %doc AUTHORS Changes README examples/
-%{perl_vendorarch}/auto/*
+%{perl_vendorarch}/auto/Net*
 %{perl_vendorarch}/Net*
-%{_mandir}/man3/*
+%{_mandir}/man3/Net::DBus*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-11

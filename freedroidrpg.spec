@@ -1,13 +1,12 @@
 %global short_version 1.0
 Name:           freedroidrpg
-Version:        %{short_version}rc2
-Release:        0.3%{?dist}
+Version:        %{short_version}
+Release:        1%{?dist}
 Summary:        Role playing game with Freedroid theme and Tux as the hero
 
 License:        GPLv2+
 URL:            http://freedroid.sourceforge.net/
 Source0:        http://ftp.osuosl.org/pub/freedroid/freedroidRPG-%{version}/freedroidRPG-%{version}.tar.gz
-Source1:        %{name}.desktop
 
 BuildRequires:  gcc
 BuildRequires:  SDL_image-devel
@@ -40,7 +39,7 @@ Requires:       freedroidrpg = %{version}-%{release}
 Data files for the freedroidrpg game.
 
 %prep
-%setup -qn %{name}-%{short_version}RC2
+%setup -q
 rm -f lua/*.a
 rm -f lua/*.o
 
@@ -56,17 +55,11 @@ export CPPFLAGS="$CPPFLAGS -fcommon -fPIE"
 
 %install
 %make_install
-desktop-file-install \
-  --dir $RPM_BUILD_ROOT%{_datadir}/applications \
-  %{SOURCE1}
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps
 install -m 644 data/graphics/FreedroidRPG.png \
   $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/32x32/apps/freedroidrpg.png
 # Fix permissions, remove extra junk.
-#find $RPM_BUILD_ROOT%{_datadir}/%{name} -name "*.sh" | xargs rm
 find $RPM_BUILD_ROOT%{_datadir}/%{name} -type f -exec chmod -x "{}" \;
-
-rm -f $RPM_BUILD_ROOT%{_datadir}/applications/freedroidRPG.desktop
 
 
 %find_lang freedroidrpg
@@ -84,8 +77,8 @@ rm -f freedroidrpg-dialogs.lang
 %license COPYING
 %doc AUTHORS README* NEWS CONTRIBUTING.md
 %{_bindir}/*
-%{_datadir}/applications/%{name}.desktop
-%{_metainfodir}/freedroidrpg.appdata.xml
+%{_datadir}/applications/org.freedroid.freedroidRPG.desktop
+%{_metainfodir}/org.freedroid.freedroidRPG.appdata.xml
 %{_datadir}/icons/*
 %{_mandir}/man6/freedroidRPG.6.*
 
@@ -94,6 +87,9 @@ rm -f freedroidrpg-dialogs.lang
 
 
 %changelog
+* Fri Feb 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0-1
+- 1.0 final, move to Codeberg
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0rc2-0.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

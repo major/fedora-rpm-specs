@@ -1,8 +1,8 @@
 Name:           ugrep
-Version:        3.9.2
+Version:        3.9.7
 Release:        %autorelease
 Summary:        Faster, user-friendly, and compatible grep replacement
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/Genivia/ugrep
 Source:         %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -15,7 +15,8 @@ BuildRequires:  xz-devel
 BuildRequires:  lz4-devel
 BuildRequires:  libzstd-devel
 
-Provides:       bundled(libreflex) = 3.2.8
+# https://github.com/Genivia/ugrep/issues/215
+Provides:       bundled(libreflex) = 3.3.0
 
 
 %description

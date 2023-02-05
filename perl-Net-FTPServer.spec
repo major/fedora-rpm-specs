@@ -2,15 +2,16 @@ Name:           perl-Net-FTPServer
 Version:        1.125
 Release:        27%{?dist}
 Summary:        Secure, extensible and configurable Perl FTP server
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Net-FTPServer
 Source0:        https://cpan.metacpan.org/authors/id/R/RY/RYOCHIN/Net-FTPServer-%{version}.tar.gz
 # Increase default data segment size limit, bug #1381649
 Patch0:         Net-FTPServer-1.125-Increase-default-memory-limit.patch
 BuildArch:      noarch
-BuildRequires: make
-BuildRequires:  perl-interpreter
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Run-time:
 BuildRequires:  perl(Carp)
@@ -84,13 +85,11 @@ This package contains server executables.
 %patch0 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-rm -rf $RPM_BUILD_ROOT
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT
 
 # Daemon configuration file

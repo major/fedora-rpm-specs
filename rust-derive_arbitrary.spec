@@ -5,7 +5,7 @@
 %global crate derive_arbitrary
 
 Name:           rust-derive_arbitrary
-Version:        1.2.1
+Version:        1.2.3
 Release:        %autorelease
 Summary:        Derives arbitrary traits
 

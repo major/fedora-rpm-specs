@@ -2,8 +2,8 @@
 %global sum Python binding for the LMDB 'Lightning' Database (CPython & CFFI included)
 
 Name:           python-%{srcname}
-Version:        1.0.0
-Release:        7%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        OpenLDAP
@@ -11,11 +11,9 @@ URL:            https://github.com/dw/py-lmdb
 Source0:        %{pypi_source lmdb}
 
 BuildRequires:  gcc
-BuildRequires:  python3-cffi
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-nose
 BuildRequires:  lmdb-devel
+BuildRequires:  python3-pytest
 
 %description
 %{sum}
@@ -31,35 +29,43 @@ Summary:        %{sum}
 %prep
 %autosetup -n lmdb-%{version}
 
+%generate_buildrequires
+export LMDB_FORCE_SYSTEM=1
+unset LMDB_FORCE_CFFI
+%pyproject_buildrequires
+
+
 %build
 # do not use bundled LMDB library
 export LMDB_FORCE_SYSTEM=1
 unset LMDB_FORCE_CFFI
-%py3_build
+%pyproject_wheel
+
 
 %install
 export LMDB_FORCE_SYSTEM=1
 unset LMDB_FORCE_CFFI
-%py3_install
+%pyproject_install
+
+%pyproject_save_files lmdb
+
 
 %check
 export LMDB_FORCE_SYSTEM=1
 unset LMDB_FORCE_CFFI
+%pytest
 
-# The tests may jump between dirs!
-# As a result some tests cannot find the binding in current working directory.
-export PYTHONPATH=$(pwd)
-nosetests-%{python3_version} -v
-# % {__python2} setup.py test
-# % {__python3} setup.py test
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %doc ChangeLog
-%doc PKG-INFO
-%{python3_sitearch}/*
+
 
 %changelog
+* Fri Feb 03 2023 Jonathan Wright <jonathan@almalinux.org> - 1.4.0-1
+- Update to 1.4.0
+- modernize spec
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

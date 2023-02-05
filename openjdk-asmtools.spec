@@ -2,13 +2,13 @@
 %global major 8.0
 %global minor b02.ea
 #Using pre-release snapshot versioning from at8 branch
-%global commit 608867a0bea64c80281f02b0e6d273b18943eb97 
+%global commit c0e14f4fbe2efdbbb51cd2818880be8fdfdfc634 
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global commitdate 20221108
+%global commitdate 20230113
 
 Name:           openjdk-asmtools
 Version:        %{major}.%{minor}
-Release:        0.2.%{commitdate}.git%{shortcommit}%{?dist}
+Release:        0.3.%{commitdate}.git%{shortcommit}%{?dist}
 Summary:        To develop tools create proper & improper Java '.class' files
 
 License:        GPLv2+
@@ -29,6 +29,7 @@ BuildRequires:  java-17-openjdk-devel
 BuildRequires:  maven-local
 BuildRequires:  maven-compiler-plugin
 BuildRequires:  maven-jar-plugin
+BuildRequires:  junit5
 Requires:  (java-17-headless or java-latest-openjdk-headless)
 
 %description
@@ -67,7 +68,7 @@ cd maven
 export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
 xmvn -version
 # there are two test failures
-%mvn_build --xmvn-javadoc -f
+%mvn_build --xmvn-javadoc
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -92,9 +93,12 @@ install -m 644 %{SOURCE2} $RPM_BUILD_ROOT%{_mandir}/man1/
 %attr(755, root, -) %{_bindir}/*
 %{_mandir}/man1/openjdk-asmtools.1*
 
-%files javadoc -f maven/.mfiles-javadoc
-
 %changelog
+* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b02.ea-0.3.20230113.gitc0e14f4
+- bumped to next RC
+- enabled tests
+- javadoc disapeared
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.b02.ea-0.2.20221108.git608867a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

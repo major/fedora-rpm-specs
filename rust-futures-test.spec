@@ -6,7 +6,7 @@
 %global crate futures-test
 
 Name:           rust-futures-test
-Version:        0.3.25
+Version:        0.3.26
 Release:        %autorelease
 Summary:        Common utilities for testing components built off futures-rs
 

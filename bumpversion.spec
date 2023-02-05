@@ -1,6 +1,13 @@
+%if 0%{?rhel}
+# https://bugzilla.redhat.com/show_bug.cgi?id=2125297
+%bcond_with tests
+%else
+%bcond_without tests
+%endif
+
 Name:           bumpversion
 Version:        1.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Version-bump your software with a single command
 
 License:        MIT
@@ -10,9 +17,10 @@ Source0:        %{url}/archive/v%{version}/bump2version-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
-# for tests
+%if %{with tests}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-testfixtures
+%endif
 
 %description
 A small command line tool to simplify releasing software by updating all
@@ -33,8 +41,10 @@ commits and tags:
 %py3_build
 
 
+%if %{with tests}
 %check
 %pytest -k "not test_usage_string and not test_defaults_in_usage_with_config"
+%endif
 
 
 %install
@@ -50,6 +60,9 @@ commits and tags:
 
 
 %changelog
+* Fri Feb 03 2023 Davide Cavalca <dcavalca@centosproject.org> - 1.0.1-4
+- Gate tests out for EPEL builds due to missing dependency
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           perl-Perlilog
 Version:        1.0
 Release:        21%{?dist}
 Summary:        Verilog environment and IP core handling in Perl
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            https://metacpan.org/release/Perlilog
 Source0:        https://cpan.metacpan.org/authors/id/B/BI/BILLAUER/Perlilog-%{version}.tar.gz
 BuildArch:      noarch
@@ -11,7 +11,7 @@ BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(Exporter)
@@ -42,12 +42,11 @@ for i in license.txt $affected ; do
 done
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -60,7 +59,7 @@ make test
 %{perl_vendorlib}/Perlilog/*
 %{perl_vendorlib}/testclass.pl
 %{perl_vendorlib}/Perlilog.pm
-%{_mandir}/man3/*
+%{_mandir}/man3/Perlilog*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-21

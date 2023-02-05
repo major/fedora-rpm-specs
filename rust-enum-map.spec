@@ -5,17 +5,13 @@
 %global crate enum-map
 
 Name:           rust-enum-map
-Version:        2.4.1
+Version:        2.4.2
 Release:        %autorelease
 Summary:        Map with C-like enum keys represented internally as an array
 
 License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/enum-map
 Source:         %{crates_source}
-# PR for adding license texts:
-# https://github.com/xfix/enum-map/pull/33
-Source1:        https://raw.githubusercontent.com/xfix/enum-map/master/LICENSE-APACHE
-Source2:        https://raw.githubusercontent.com/xfix/enum-map/master/LICENSE-MIT
 
 BuildRequires:  rust-packaging >= 21
 
@@ -36,6 +32,7 @@ use the "%{crate}" crate.
 %files          devel
 %license %{crate_instdir}/LICENSE-APACHE
 %license %{crate_instdir}/LICENSE-MIT
+%doc %{crate_instdir}/CHANGELOG.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -77,9 +74,6 @@ use the "serde" feature of the "%{crate}" crate.
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
-# Copy in license texts
-cp -p %{SOURCE1} .
-cp -p %{SOURCE2} .
 %cargo_prep
 
 %generate_buildrequires

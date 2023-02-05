@@ -1,11 +1,11 @@
 Name: eth-tools
 Version: 11.4.0.0
-Release: 201%{?dist}
+Release: 203%{?dist}
 Summary: Intel Ethernet Fabric Suite basic tools and libraries for fabric management
 
 License: BSD
 Url: https://github.com/intel/eth-fast-fabric
-Source: %url/archive/%{version_no_tilde}/eth-fast-fabric-%{version_no_tilde}.tar.gz
+Source: %url/releases/download/v%{version_no_tilde}/eth-fast-fabric-%{version_no_tilde}.tar.gz
 ExclusiveArch: x86_64
 # The Intel(R) Ethernet Fabric Suite product line is only available on x86_64 platforms at this time.
 
@@ -91,6 +91,9 @@ BUILDDIR=%{_builddir} DESTDIR=%{buildroot} LIBDIR=%{_prefix}/lib DSAP_LIBDIR=%{_
 
 
 %changelog
+* Fri Feb 3 2023 Jijun Wang <jijun.wang@intel.com> - 11.4.0.0-203
+- Updated source URL in spec file
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:11.4.0.0-201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

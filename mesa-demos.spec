@@ -1,27 +1,25 @@
-%global gitdate 20210504
-%global gitcommit 0f9e7d995a14f15666600fc8598f941b619d82fe
-%global shortcommit %(c=%{gitcommit}; echo ${c:0:7})
 %global xdriinfo xdriinfo-1.0.4
 %global demodir %{_libdir}/mesa
 
 Summary: Mesa demos
 Name: mesa-demos
-Version: 8.4.0
-Release: 15.%{gitdate}git%{shortcommit}%{?dist}
+Version: 8.5.0
+Release: 1%{?dist}
 License: MIT
 URL: http://www.mesa3d.org
-#Source0: https://mesa.freedesktop.org/archive/demos/%{version}/%{name}-%{version}.tar.bz2
-Source0: mesa-demos-%{gitdate}.tar.bz2
+Source0: https://mesa.freedesktop.org/archive/demos/%{version}/%{name}-%{version}.tar.bz2
 Source1: http://www.x.org/pub/individual/app/%{xdriinfo}.tar.bz2
 Source2: mesad-git-snapshot.sh
-# Patch pointblast/spriteblast out of the Makefile for legal reasons
-Patch0: mesa-demos-8.0.1-legal.patch
-Patch1: mesa-demos-as-needed.patch
+# Patch pointblast/spriteblast/dinoshade out for legal reasons
+# (not in public domain)
+Patch0: mesa-demos-8.5.0-legal.patch
+Patch1: meson-Fix-DEMOS_DATA_DIR-when-with-system-data-files.patch
 # Fix xdriinfo not working with libglvnd
 Patch2: xdriinfo-1.0.4-glvnd.patch
-BuildRequires: make
+BuildRequires: meson
+BuildRequires: gcc
 BuildRequires: gcc-c++
-BuildRequires: pkgconfig autoconf automake libtool
+BuildRequires: pkgconfig
 BuildRequires: freeglut-devel
 BuildRequires: mesa-libGL-devel
 BuildRequires: mesa-libEGL-devel
@@ -30,7 +28,10 @@ BuildRequires: mesa-libgbm-devel
 BuildRequires: libGLU-devel
 BuildRequires: libXext-devel
 BuildRequires: wayland-devel
+BuildRequires: wayland-protocols-devel
 BuildRequires: freetype-devel
+# xdriinfo still uses autotools
+BuildRequires: make autoconf automake libtool
 
 %description
 This package provides some demo applications for testing Mesa.
@@ -50,9 +51,9 @@ Provides: eglinfo es2_info
 The egl-utils package provides the eglinfo and es2_info utilities.
 
 %prep
-%setup -q -n %{name}-%{gitdate} -b1
+%setup -q -n %{name}-%{version} -b1
 %patch0 -p1 -b .legal
-%patch1 -p1 -b .asneeded
+%patch1 -p1
 pushd ../%{xdriinfo}
 %patch2 -p1
 popd
@@ -62,18 +63,17 @@ rm -rf src/demos/pointblast.c
 rm -rf src/demos/spriteblast.c
 
 %build
-autoreconf -vfi
-%configure \
+%meson \
     --bindir=%{demodir} \
-    --with-system-data-files \
-    --enable-x11 \
-    --enable-wayland \
-    --enable-gbm \
-    --enable-egl \
-    --enable-gles2 \
-    --enable-libdrm \
-    --enable-freetype2
-%make_build
+    -Dwith-system-data-files=true \
+    -Dx11=enabled \
+    -Dwayland=enabled \
+    -Degl=enabled \
+    -Dgles2=enabled \
+    -Dlibdrm=enabled \
+    -Dosmesa=disabled
+
+%meson_build
 
 pushd ../%{xdriinfo}
 %configure
@@ -81,20 +81,20 @@ pushd ../%{xdriinfo}
 popd
 
 %install
-%make_install
+%meson_install
 
 pushd ../%{xdriinfo}
 %make_install %{?_smp_mflags}
 popd
 
-install -m 0755 src/xdemos/glxgears %{buildroot}%{_bindir}
-install -m 0755 src/xdemos/glxinfo %{buildroot}%{_bindir}
+install -m 0755 %{_vpath_builddir}/src/xdemos/glxgears %{buildroot}%{_bindir}
+install -m 0755 %{_vpath_builddir}/src/xdemos/glxinfo %{buildroot}%{_bindir}
 %if 0%{?__isa_bits} != 0
-install -m 0755 src/xdemos/glxinfo %{buildroot}%{_bindir}/glxinfo%{?__isa_bits}
+install -m 0755 %{_vpath_builddir}/src/xdemos/glxinfo %{buildroot}%{_bindir}/glxinfo%{?__isa_bits}
 %endif
 
-install -m 0755 src/egl/opengl/eglinfo %{buildroot}%{_bindir}
-install -m 0755 src/egl/opengles2/es2_info %{buildroot}%{_bindir}
+install -m 0755 %{_vpath_builddir}/src/egl/opengl/eglinfo %{buildroot}%{_bindir}
+install -m 0755 %{_vpath_builddir}/src/egl/opengles2/es2_info %{buildroot}%{_bindir}
 
 %check
 
@@ -113,6 +113,10 @@ install -m 0755 src/egl/opengles2/es2_info %{buildroot}%{_bindir}
 %{_bindir}/es2_info
 
 %changelog
+* Fri Feb 03 2023 Erico Nunes <ernunes@redhat.com> - 8.5.0-1
+- Update to 8.5.0
+- Change build system to meson
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.0-15.20210504git0f9e7d9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:           votca
-Version:        2022.1
-%global         uversion %{version}
-%global         sover 2022
-Release:        2%{?dist}
+Version:        2023~rc1
+%global         uversion 2023-rc.1
+%global         sover 2023
+Release:        1%{?dist}
 Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applications
 License:        ASL 2.0
 URL:            http://www.votca.org
@@ -205,8 +205,7 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %install
 %cmake_install
 # Install bash completion file
-mkdir -p %{buildroot}%{_datadir}/bash-completion/completions
-mv %{buildroot}%{_datadir}/votca/rc/csg-completion.bash %{buildroot}%{_datadir}/bash-completion/completions/votca
+%__install -D -m0644 %{__cmake_builddir}/csg/scripts/csg-completion.bash %{buildroot}%{_datadir}/bash-completion/completions/votca
 
 %fdupes %{buildroot}%{_prefix}
 
@@ -253,6 +252,9 @@ export PYTHONPATH="${MPI_PYTHON3_SITEARCH}${PYTHONPATH:+:}${PYTHONPATH}"
 %{_datadir}/bash-completion/completions/votca
 
 %changelog
+* Fri Feb 03 2023 Christoph Junghans <junghans@votca.org> - 2023-1
+- Version bump to v2023-rc.1 (bug #2166654)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -54,7 +54,7 @@
 %global min_libgit2_version 1.5.0
 %global next_libgit2_version 1.6.0~
 %global bundled_libgit2_version 1.5.0
-%if 0%{?fedora} >= 99
+%if 0%{?fedora} >= 38
 %bcond_with bundled_libgit2
 %else
 %bcond_without bundled_libgit2
@@ -84,7 +84,7 @@
 
 Name:           rust
 Version:        1.67.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The Rust Programming Language
 License:        (ASL 2.0 or MIT) and (BSD and MIT)
 # ^ written as: (rust itself) and (bundled libraries)
@@ -1047,6 +1047,9 @@ end}
 
 
 %changelog
+* Fri Feb 03 2023 Josh Stone <jistone@redhat.com> - 1.67.0-3
+- Unbundle libgit2 on Fedora 38.
+
 * Fri Jan 27 2023 Adam Williamson <awilliam@redhat.com> - 1.67.0-2
 - Backport PR #107360 to fix build of mesa
 - Backport 675fa0b3 to fix bootstrapping failure

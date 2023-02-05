@@ -3,13 +3,16 @@
 
 Name:           warzone2100
 Version:        4.3.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 License:        GPLv2+ and CC-BY-SA
 URL:            http://wz2100.net/
 Source0:        https://github.com/Warzone2100/warzone2100/releases/download/%{version}/warzone2100_src.tar.xz
 Source1:        https://github.com/Warzone2100/wz-sequences/releases/download/v3/high-quality-en-sequences.wz
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -89,6 +92,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Fri Feb 03 2023 Pete Walter <pwalter@fedoraproject.org> - 4.3.3-3
+- ExcludeArch i686 for https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

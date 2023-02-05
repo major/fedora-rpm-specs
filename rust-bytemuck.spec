@@ -5,7 +5,7 @@
 %global crate bytemuck
 
 Name:           rust-bytemuck
-Version:        1.12.3
+Version:        1.13.0
 Release:        %autorelease
 Summary:        Crate for mucking around with piles of bytes
 
@@ -125,6 +125,18 @@ use the "min_const_generics" feature of the "%{crate}" crate.
 %files       -n %{name}+min_const_generics-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+nightly_stdsimd-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+nightly_stdsimd-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "nightly_stdsimd" feature of the "%{crate}" crate.
+
+%files       -n %{name}+nightly_stdsimd-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %package     -n %{name}+unsound_ptr_pod_impl-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -135,6 +147,18 @@ This package contains library source intended for building other packages which
 use the "unsound_ptr_pod_impl" feature of the "%{crate}" crate.
 
 %files       -n %{name}+unsound_ptr_pod_impl-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+zeroable_atomics-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+zeroable_atomics-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "zeroable_atomics" feature of the "%{crate}" crate.
+
+%files       -n %{name}+zeroable_atomics-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+zeroable_maybe_uninit-devel

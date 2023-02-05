@@ -11,8 +11,8 @@
 
 Summary: Apache Portable Runtime library
 Name: apr
-Version: 1.7.0
-Release: 21%{?dist}
+Version: 1.7.2
+Release: 1%{?dist}
 # ASL 2.0: everything
 # ISC: network_io/apr-1.4.6/network_io/unix/inet_?to?.c
 # BSD with advertising: strings/apr_snprintf.c, strings/apr_fnmatch.c,
@@ -23,17 +23,11 @@ License: ASL 2.0 and BSD with advertising and ISC and BSD
 URL: https://apr.apache.org/
 Source0: https://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
 Source1: apr-wrapper.h
-Patch1: apr-1.2.2-libdir.patch
+Patch1: apr-1.7.2-libdir.patch
 Patch2: apr-1.2.7-pkgconf.patch
 Patch3: apr-1.7.0-deepbind.patch
-Patch4: apr-1.7.0-autoconf.patch
-Patch5: apr-1.7.0-r1891269+.patch
-Patch6: apr-configure-c99-1.patch
-Patch7: apr-configure-c99-2.patch
-Patch8: apr-configure-c99-3.patch
-Patch9: apr-configure-c99-4.patch
-Patch10: apr-configure-c99-5.patch
-Patch11: apr-configure-c99-6.patch
+Patch4: apr-1.7.2-autoconf.patch
+Patch5: apr-1.7.2-disable-atomic-read-test.patch
 BuildRequires: gcc, autoconf, libtool, libuuid-devel, python3
 BuildRequires: make
 
@@ -60,13 +54,7 @@ C data structures and routines.
 %patch2 -p1 -b .pkgconf
 %patch3 -p1 -b .deepbind
 %patch4 -p1 -b .autoconf-2-71
-%patch5 -p1 -b .r1891269+
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
+%patch5 -p1 -b .dis-atomic-rd-test
 
 %build
 # regenerate configure script etc.
@@ -156,6 +144,9 @@ popd
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Thu Feb 02 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.7.2-1
+- new version 1.7.2
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

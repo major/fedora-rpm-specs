@@ -4,11 +4,12 @@ Name:           perl-Net-Random
 Version:        2.32
 Release:        10%{?dist}
 Summary:        A module gets random data from online sources
-License:        GPLv2+ or Artistic
+License:        GPL-2.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-Random
 Source0:        https://cpan.metacpan.org/authors/id/D/DC/DCANTRELL/%{pkgname}-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -48,8 +49,8 @@ make test
 %files
 %license ARTISTIC.txt GPL2.txt
 %doc CHANGELOG README TODO
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Net*
+%{_mandir}/man3/Net::Random*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.32-10

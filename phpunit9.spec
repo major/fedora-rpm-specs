@@ -1,8 +1,8 @@
 # remirepo/fedora spec file for phpunit9
 #
-# Copyright (c) 2010-2022 Remi Collet
+# Copyright (c) 2010-2023 Remi Collet
 #
-# License: CC-BY-SA
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    954ca3113a03bf780d22f07bf055d883ee04b65e
+%global gh_commit    70fc8be1d0b9fad56a199a4df5f9cfabfc246f84
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -23,14 +23,14 @@
 %global ns_vendor    PHPUnit9
 %global php_home     %{_datadir}/php
 %global ver_major    9
-%global ver_minor    5
+%global ver_minor    6
 
-%global upstream_version 9.5.28
+%global upstream_version 9.6.0
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        The PHP Unit Testing framework version %{ver_major}
 
 License:        BSD-3-Clause
@@ -184,6 +184,7 @@ if (PHP_VERSION_ID > 80100) {
     '%{php_home}/SebastianBergmann/FileIterator3/autoload.php',
     '%{php_home}/SebastianBergmann/Template2/autoload.php',
     '%{php_home}/SebastianBergmann/Timer5/autoload.php',
+    $inst,
     '%{php_home}/Prophecy/autoload.php',
     '%{php_home}/SebastianBergmann/CliParser/autoload.php',
     '%{php_home}/SebastianBergmann/CodeUnit/autoload.php',
@@ -197,7 +198,6 @@ if (PHP_VERSION_ID > 80100) {
     '%{php_home}/SebastianBergmann/ResourceOperations3/autoload.php',
     '%{php_home}/SebastianBergmann/Type3/autoload.php',
     '%{php_home}/SebastianBergmann/Version3/autoload.php',
-    $inst,
     '%{php_home}/DeepCopy/autoload.php',
     '%{php_home}/PharIo/Manifest2/autoload.php',
     '%{php_home}/PharIo/Version3/autoload.php',
@@ -252,6 +252,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 9.6.0-1
+- update to 9.6.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.5.28-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

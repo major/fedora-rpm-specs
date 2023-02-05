@@ -17,17 +17,13 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        21.3
-Release:        8%{?dist}
+Version:        23.0
+Release:        1%{?dist}
 Summary:        Core utilities for Python packages
 
 License:        BSD or ASL 2.0
 URL:            https://github.com/pypa/packaging
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
-
-# Correctly parse ELF for musllinux on Big Endian
-# Merged upstream
-Patch:          https://github.com/pypa/packaging/pull/538.patch
 
 BuildArch:      noarch
 
@@ -61,7 +57,6 @@ Summary:        %{summary}
 %if %{with bootstrap}
 Provides:       python%{python3_pkgversion}dist(packaging) = %{version}
 Provides:       python%{python3_version}dist(packaging) = %{version}
-Requires:       python%{python3_version}dist(pyparsing)
 Requires:       python(abi) = %{python3_version}
 %endif
 
@@ -136,6 +131,11 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %changelog
+* Fri Feb 03 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 23.0-1
+- Update to 23.0.0
+- https://fedoraproject.org/wiki/Changes/Update_python-packaging_to_version_22_plus
+- Fixes: rhbz#2151743
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

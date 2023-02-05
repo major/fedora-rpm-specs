@@ -1,4 +1,4 @@
-%global buildid    268
+%global buildid    272
 %global octpkg  COPASI
 
 %global with_python  1
@@ -27,8 +27,8 @@
 
 Name:  COPASI
 Summary: Biochemical network simulator
-Version: 4.38.%{buildid}
-Release: 3%{?dist}
+Version: 4.39.%{buildid}
+Release: 1%{?dist}
 
 ## Artistic 2.0 is main license
 ## GPLv2+ is related to a Mixed Source Licensing Scenario
@@ -487,6 +487,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/copasi/doc/
 
 %changelog
+* Fri Feb 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.39.272-1
+- Release 4.39 build-272
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.38.268-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

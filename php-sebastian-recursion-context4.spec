@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-sebastian-recursion-context4
 #
-# Copyright (c) 2015-2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -9,7 +9,7 @@
 
 %bcond_without       tests
 
-%global gh_commit    cd9d8cf3c5804de4341c283ed787f099f5506172
+%global gh_commit    e75bd0f07204fec2a0af9b0f3cfe97d05f92efc1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
 %global gh_project   recursion-context
@@ -23,11 +23,11 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        4.0.4
-Release:        6%{?dist}
+Version:        4.0.5
+Release:        1%{?dist}
 Summary:        Recursively process PHP variables, version %{major}
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -77,7 +77,7 @@ touch vendor/autoload.php
 
 : Run upstream test suite
 ret=0
-for cmd in php php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}%{major}/autoload.php \
       %{_bindir}/phpunit9  --verbose || ret=1
@@ -97,6 +97,9 @@ exit $ret
 
 
 %changelog
+* Fri Feb  3 2023 Remi Collet <remi@remirepo.net> - 4.0.5-1
+- update to 4.0.5
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

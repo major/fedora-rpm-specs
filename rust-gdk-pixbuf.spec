@@ -5,7 +5,7 @@
 %global crate gdk-pixbuf
 
 Name:           rust-gdk-pixbuf
-Version:        0.16.4
+Version:        0.16.7
 Release:        %autorelease
 Summary:        Rust bindings for the GdkPixbuf library
 

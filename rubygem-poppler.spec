@@ -9,7 +9,7 @@
 
 Summary:	Ruby binding of poppler-glib
 Name:		rubygem-%{gem_name}
-Version:	4.0.8
+Version:	4.1.0
 Release:	1%{?dist}
 # from README
 License:	LGPLv2
@@ -73,7 +73,7 @@ grep -rl '#!.*/usr/bin' sample | \
 find sample/ -name \*.rb | xargs chmod 0644
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.0\.8|>= 4.0.8|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.0|>= 4.1.0|' %{gem_name}-%{version}.gemspec
 
 # pkgconfig dependency is actually not needed (when using rpm
 # dependency solver)
@@ -141,6 +141,9 @@ popd
 %{gem_instdir}/sample/
 
 %changelog
+* Fri Feb  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-1
+- 4.1.0
+
 * Sun Jan 22 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.8-1
 - 4.0.8
 

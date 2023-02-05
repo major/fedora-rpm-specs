@@ -6,7 +6,7 @@ Name: z88dk
 # what version it is supposed to be. (README.1st still claims to be from version
 # 1.9 when they already released 1.10 and 1.10.1.)
 Version: 1.10.1
-Release: 25%{?nightly:.%{nightly}cvs}%{?dist}
+Release: 26%{?nightly:.%{nightly}cvs}%{?dist}
 Summary: A Z80 cross compiler
 License: Artistic clarified
 URL: http://www.z88dk.org/
@@ -51,7 +51,7 @@ find doc examples src -type f -exec chmod 644 {} \;
 export Z80_OZFILES=%{_builddir}/z88dk/lib/
 export ZCCCFG=%{_builddir}/z88dk/lib/config/
 export PATH=%{_builddir}/z88dk/bin:$PATH
-export CC=gcc
+export CC="gcc -std=gnu89"
 export CFLAGS="%{optflags}"
 %{?__global_ldflags:export LDFLAGS="%{__global_ldflags}"}
 # Note: do not use %%{?_smp_mflags} with make because the Makefiles don't support parallel builds
@@ -89,6 +89,9 @@ cp -p netman/man3z/* %{buildroot}%{_mandir}/man3z
 %{_mandir}/man3z/
 
 %changelog
+* Fri Feb  3 2023 DJ Delorie <dj@redhat.com> - 1.10.1-26.20150709cvs
+- Build in C89 mode (#2166990)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.1-25.20150709cvs
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

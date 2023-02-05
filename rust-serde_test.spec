@@ -6,7 +6,7 @@
 %global crate serde_test
 
 Name:           rust-serde_test
-Version:        1.0.150
+Version:        1.0.152
 Release:        %autorelease
 Summary:        Token De/Serializer for testing De/Serialize implementations
 

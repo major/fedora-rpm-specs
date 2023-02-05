@@ -2,7 +2,7 @@ Name:           perl-Parse-RecDescent
 Version:        1.967015
 Release:        19%{?dist}
 Summary:        Generate Recursive-Descent Parsers
-License:        (GPL+ or Artistic) and (GPLv2+ or Artistic)
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) OR ( GPL-2.0-or-later OR Artistic-1.0-Perl )
 # demo/demo_another_Cgrammar.pl:    GPLv2+ or Artistic
 URL:            https://metacpan.org/release/Parse-RecDescent
 Source0:        https://cpan.metacpan.org/authors/id/J/JT/JTBRAUN/Parse-RecDescent-%{version}.tar.gz
@@ -12,9 +12,9 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.58
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(warnings)
 # Run-time
 BuildRequires:  perl(Carp)
@@ -60,12 +60,11 @@ chmod -c a-x demo/* tutorial/*
 perl -pi -e 's|^#!\s?/usr/local/bin/perl\b|#!/usr/bin/perl|' demo/*
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -delete
+%{make_install}
 %{_fixperms} -c %{buildroot}
 
 %check

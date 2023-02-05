@@ -5,7 +5,7 @@
 %global crate futures
 
 Name:           rust-futures
-Version:        0.3.25
+Version:        0.3.26
 Release:        %autorelease
 Summary:        Implementation of futures and streams
 

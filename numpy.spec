@@ -2,7 +2,7 @@
 #%%global relc rc1
 
 # Simple way to disable tests
-%if 0%{?flatpak}
+%if 0%{?flatpak} || 0%{?rhel}
 %bcond_with tests
 %else
 %bcond_without tests

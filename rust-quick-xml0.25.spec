@@ -2,30 +2,31 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate libpulse-sys
+%global crate quick-xml
 
-Name:           rust-libpulse-sys
-Version:        1.20.1
+Name:           rust-quick-xml0.25
+Version:        0.25.0
 Release:        %autorelease
-Summary:        FFI bindings for the PulseAudio libpulse system library
+Summary:        High performance xml reader and writer
 
-License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/libpulse-sys
+License:        MIT
+URL:            https://crates.io/crates/quick-xml
 Source:         %{crates_source}
-# Automatically generated patch to strip foreign dependencies
-Patch:          libpulse-sys-fix-metadata-auto.diff
+# Manually created patch for downstream crate metadata changes
+# * drop unused, benchmark-only criterion dev-dependency to speed up builds
+# * drop unused, optional document-features dependency
+Patch:          quick-xml-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-FFI bindings for the PulseAudio libpulse system library.}
+High performance xml reader and writer.}
 
 %description %{_description}
 
 %package        devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpulse) >= 4.0
 
 %description    devel %{_description}
 
@@ -33,9 +34,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE-APACHE
-%license %{crate_instdir}/LICENSE-MIT
-%doc %{crate_instdir}/CHANGELOG.md
+%license %{crate_instdir}/LICENSE-MIT.md
+%doc %{crate_instdir}/Changelog.md
 %doc %{crate_instdir}/README.md
 %{crate_instdir}/
 
@@ -51,95 +51,100 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pa_v12-devel
+%package     -n %{name}+async-tokio-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpulse) >= 12.0
 
-%description -n %{name}+pa_v12-devel %{_description}
+%description -n %{name}+async-tokio-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pa_v12" feature of the "%{crate}" crate.
+use the "async-tokio" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pa_v12-devel
+%files       -n %{name}+async-tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pa_v13-devel
+%package     -n %{name}+encoding-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpulse) >= 13.0
 
-%description -n %{name}+pa_v13-devel %{_description}
+%description -n %{name}+encoding-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pa_v13" feature of the "%{crate}" crate.
+use the "encoding" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pa_v13-devel
+%files       -n %{name}+encoding-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pa_v14-devel
+%package     -n %{name}+encoding_rs-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpulse) >= 14.0
 
-%description -n %{name}+pa_v14-devel %{_description}
+%description -n %{name}+encoding_rs-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pa_v14" feature of the "%{crate}" crate.
+use the "encoding_rs" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pa_v14-devel
+%files       -n %{name}+encoding_rs-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pa_v15-devel
+%package     -n %{name}+escape-html-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpulse) >= 15.0
 
-%description -n %{name}+pa_v15-devel %{_description}
+%description -n %{name}+escape-html-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pa_v15" feature of the "%{crate}" crate.
+use the "escape-html" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pa_v15-devel
+%files       -n %{name}+escape-html-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pa_v5-devel
+%package     -n %{name}+overlapped-lists-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpulse) >= 5.0
 
-%description -n %{name}+pa_v5-devel %{_description}
+%description -n %{name}+overlapped-lists-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pa_v5" feature of the "%{crate}" crate.
+use the "overlapped-lists" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pa_v5-devel
+%files       -n %{name}+overlapped-lists-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pa_v6-devel
+%package     -n %{name}+serde-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpulse) >= 6.0
 
-%description -n %{name}+pa_v6-devel %{_description}
+%description -n %{name}+serde-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pa_v6" feature of the "%{crate}" crate.
+use the "serde" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pa_v6-devel
+%files       -n %{name}+serde-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+pa_v8-devel
+%package     -n %{name}+serialize-devel
 Summary:        %{summary}
 BuildArch:      noarch
-Requires:       pkgconfig(libpulse) >= 8.0
 
-%description -n %{name}+pa_v8-devel %{_description}
+%description -n %{name}+serialize-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "pa_v8" feature of the "%{crate}" crate.
+use the "serialize" feature of the "%{crate}" crate.
 
-%files       -n %{name}+pa_v8-devel
+%files       -n %{name}+serialize-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+tokio-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+tokio-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "tokio" feature of the "%{crate}" crate.
+
+%files       -n %{name}+tokio-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep
@@ -148,7 +153,6 @@ use the "pa_v8" feature of the "%{crate}" crate.
 
 %generate_buildrequires
 %cargo_generate_buildrequires
-echo 'pkgconfig(libpulse) >= 4.0'
 
 %build
 %cargo_build

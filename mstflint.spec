@@ -49,6 +49,10 @@ rm -fr %{buildroot}%{_includedir}
 find %{buildroot} -type f -name '*.la' -delete
 find %{buildroot} -type f -name '*.a' -delete
 
+# Mark these shared libs executable for find-debuginfo.sh to find them.
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Debuginfo/
+chmod +x %{buildroot}/%{_libdir}/mstflint/python_tools/*.so
+
 %files
 %doc README
 %_bindir/*

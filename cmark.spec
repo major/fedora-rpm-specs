@@ -3,7 +3,7 @@
 
 Name:           cmark
 Version:        0.30.3
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        CommonMark parsing and rendering
 
 License:        BSD and MIT
@@ -27,7 +27,8 @@ documents.
 
 %package devel
 Summary:        Development files for cmark
-Requires:       cmark-lib = %{version}-%{release}
+Requires:       cmark-lib%{?_isa} = %{version}-%{release}
+Requires:       cmark%{?_isa} = %{version}-%{release}
 
 %description devel
 This package provides the development files for cmark.
@@ -87,6 +88,9 @@ This package provides the cmark library.
 
 
 %changelog
+* Fri Feb  3 2023 Jens Petersen <petersen@redhat.com> - 0.30.3-2
+- cmark-devel cmake requires cmark (rhbz#2166815)
+
 * Fri Jan 27 2023 Jens Petersen <petersen@redhat.com> - 0.30.3-1
 - https://github.com/commonmark/cmark/releases/tag/0.30.3
 

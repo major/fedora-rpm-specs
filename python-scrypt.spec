@@ -9,8 +9,8 @@ brute force search of several...
 
 
 Name:           python-%{pypi_name}
-Version:        0.8.0
-Release:        22%{?dist}
+Version:        0.8.20
+Release:        1%{?dist}
 Summary:        Bindings for the scrypt key derivation function library
 
 License:        BSD
@@ -41,6 +41,8 @@ Provides:       bundled(scrypt) = 1.2.0
 %autosetup -n %{pypi_name}-%{version}
 # Remove bundled egg-info
 rm -rf %{pypi_name}.egg-info
+# remove useless shebang
+sed -i '1d' scrypt/scrypt.py
 
 %build
 %py3_build
@@ -51,12 +53,14 @@ rm -rf %{pypi_name}.egg-info
 
 %files -n python3-%{pypi_name}
 %doc README.rst
-%{python3_sitearch}/__pycache__/%{pypi_name}*
-%{python3_sitearch}/%{pypi_name}.py*
+%{python3_sitearch}/%{pypi_name}
 %{python3_sitearch}/_%{pypi_name}*.so
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Thu Feb  2 2023 Haïkel Guémar <hguemar@fedoraproject.org> - 0.8.20-1
+- Upstream 0.8.20
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

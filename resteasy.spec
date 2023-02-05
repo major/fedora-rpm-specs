@@ -3,20 +3,21 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
 Source0:        https://github.com/resteasy/Resteasy/archive/%{namedversion}/%{name}-%{namedversion}.tar.gz
 Patch1:         0001-RESTEASY-2559-Improper-validation-of-response-header.patch
 Patch2:         0001-Remove-Log4jLogger.patch
+Patch3:         0001-Replace-javax.activation-imports-with-jakarta.activa.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
-BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.1.1)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api:2)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
@@ -143,8 +144,8 @@ find -name '*.jar' -print -delete
 %pom_remove_plugin :maven-javadoc-plugin
 
 # depend on jakarta-activation
-%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api:1.1.1 resteasy-jaxrs
-%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api:1.1.1 resteasy-spring
+%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api:2.1.1 resteasy-jaxrs
+%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api:2.1.1 resteasy-spring
 
 # depend on jakarta-annotations
 %pom_change_dep org.jboss.spec.javax.annotation:jboss-annotations-api_1.2_spec javax.annotation:javax.annotation-api jboss-modules
@@ -219,6 +220,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Fri Feb 03 2023 Chris Kelley <ckelley@redhat.com> - 3.0.26-22
+- Remove dependency on jakarta-activation1 compat package
+
 * Mon Jan 23 2023 Marian Koncek <mkoncek@redhat.com> - 3.0.26-21
 - Depend on compat jaxb-api version 2
 

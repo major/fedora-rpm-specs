@@ -2,13 +2,14 @@
 
 Name:           jackson-modules-base
 Version:        2.14.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Jackson modules: Base
 License:        Apache-2.0
 
 URL:            https://github.com/FasterXML/jackson-modules-base
 Source0:        %{url}/archive/%{name}-%{version}.tar.gz
 Patch1:         0001-Expose-javax.security.auth-from-JDK-internals.patch
+Patch2:         0001-Replace-javax.activation-imports-with-jakarta.activa.patch
 
 BuildRequires:  maven-local
 BuildRequires:  mvn(cglib:cglib)
@@ -17,7 +18,7 @@ BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind) >= %{version}
 BuildRequires:  mvn(com.fasterxml.jackson:jackson-base:pom:) >= %{version}
 BuildRequires:  mvn(com.google.code.maven-replacer-plugin:replacer)
-BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1.2.2)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api:2.3.3)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
@@ -43,6 +44,7 @@ framework to read and write XML.
 %prep
 %setup -q -n %{name}-%{name}-%{version}
 %patch1 -p1
+%patch2 -p1
 
 %pom_remove_dep -r org.glassfish.jaxb:jaxb-runtime
 %pom_remove_plugin "de.jjohannes:gradle-module-metadata-maven-plugin"
@@ -100,6 +102,9 @@ rm osgi/src/test/java/com/fasterxml/jackson/module/osgi/InjectOsgiServiceTest.ja
 %license LICENSE NOTICE
 
 %changelog
+* Fri Feb 03 2023 Chris Kelley <ckelley@redhat.com> - 2.14.2-2
+- Remove dependency on jakarta-activation1 compat package
+
 * Tue Jan 31 2023 Chris Kelley <ckelley@redhat.com> - 2.14.2-1
 - Update to version 2.14.2
 

@@ -14,8 +14,8 @@
 
 Summary: PDF rendering library
 Name:    poppler
-Version: 22.08.0
-Release: 5%{?dist}
+Version: 23.02.0
+Release: 1%{?dist}
 License: (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
 URL:     http://poppler.freedesktop.org/
 Source0: http://poppler.freedesktop.org/poppler-%{version}.tar.xz
@@ -25,12 +25,6 @@ Source1: %{name}-test-%{test_date}-%{test_sha}.tar.xz
 Patch1:  poppler-0.90.0-position-independent-code.patch
 
 Patch3:  poppler-21.01.0-glib-introspection.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2124527
-Patch4:  poppler-22.08.0-jbig-symbol-overflow.patch
-
-Patch5:  poppler-22.08.0-update-font-after-restore.patch
-Patch6:  poppler-22.08.0-provide-unicode-marker.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -223,7 +217,7 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %files
 %doc README.md
 %license COPYING
-%{_libdir}/libpoppler.so.123*
+%{_libdir}/libpoppler.so.126*
 
 %files devel
 %{_libdir}/pkgconfig/poppler.pc
@@ -282,6 +276,10 @@ test "$(pkg-config --modversion poppler-qt6)" = "%{version}"
 %{_mandir}/man1/*
 
 %changelog
+* Fri Feb  3 2023 Marek Kasik <mkasik@redhat.com> - 23.02.0-1
+- Update to 23.02.0
+- Resolves: #2123190
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.08.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@
 %global crate os_pipe
 
 Name:           rust-os_pipe
-Version:        1.1.2
+Version:        1.1.3
 Release:        %autorelease
 Summary:        Cross-platform library for opening OS pipes
 
