@@ -1,7 +1,7 @@
 Summary: Displays who is logged in to local network machines
 Name: rwho
 Version: 0.17
-Release: 73%{?dist}
+Release: 74%{?dist}
 # part of rwhod is under GPL+, other parts are under BSD
 License: BSD and GPL+
 Source: ftp://ftp.uk.linux.org/pub/linux/Networking/netkit/netkit-rwho-%{version}.tar.gz
@@ -19,6 +19,7 @@ Patch9: rwho-0.17-waitchild.patch
 Patch10: rwho-0.17-neighbours.patch
 Patch11: rwho-0.17-hostnamelen.patch
 Patch12: rwho-0.17-stderr.patch
+Patch13: rwho-c99.patch
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -49,6 +50,7 @@ are logged in to your local network.
 %patch10 -p1 -b .neighbours
 %patch11 -p1 -b .hostnamelen
 %patch12 -p1 -b .stderr
+%patch13 -p1
 
 %{__perl} -pi -e '
     s|^LDFLAGS=|LDFLAGS="-pie -Wl,-z,relro,-z,now"|;
@@ -99,6 +101,9 @@ install -m 644 %SOURCE1 ${RPM_BUILD_ROOT}%{_unitdir}/rwhod.service
 %{_unitdir}/*
 
 %changelog
+* Sat Feb 04 2023 Florian Weimer <fweimer@redhat.com> - 0.17-74
+- Fix C99 compatibility issue (#2167090)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-73
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

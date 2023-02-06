@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.36.9000-456-g2f39e44a84
-%global glibcversion 2.36.9000
+%global glibcsrcdir glibc-2.37
+%global glibcversion 2.37
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 25
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -230,7 +230,7 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-dprintf-length.patch
+Patch24: glibc-printf-grouping-swbz30068.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2194,6 +2194,22 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Sat Feb 04 2023 Carlos O'Donell <carlos@redhat.com> - 2.37-1
+- Drop already included glibc-dprintf-length.patch patch.
+- Apply glibc-printf-grouping-swbz30068.patch to fix swbz#30068.
+- Auto-sync with upstream branch release/2.37/master,
+  commit a704fd9a133bfb10510e18702f48a6a9c88dbbd5:
+- Create ChangeLog.old/ChangeLog.26. (tag: glibc-2.37)
+- Prepare for glibc 2.37 release.
+- x86: Fix strncat-avx2.S reading past length [BZ #30065]
+- Update install.texi, and regenerate INSTALL.
+- Update manual/contrib.texi.
+- Update NEWS file with bug fixes.
+- Regenerate configure.
+- Update all PO files in preparation for release.
+- doc: correct _FORTIFY_SOURCE doc in features.h
+- libio: Update number of written bytes in dprintf implementation
+
 * Tue Jan 31 2023 Florian Weimer <fweimer@redhat.com> - 2.36.9000-25
 - Apply glibc-dprintf-length.patch to fix dprintf return value regression.
 - Auto-sync with upstream branch master,

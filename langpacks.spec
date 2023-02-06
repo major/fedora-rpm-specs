@@ -4,7 +4,7 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   29%{?dist}
+Release:   30%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -151,7 +151,6 @@ Requires: %{name}-core-as
 Recommends: google-noto-sans-bengali-vf-fonts
 Recommends: google-noto-sans-bengali-ui-vf-fonts
 Recommends: google-noto-serif-bengali-vf-fonts
-Recommends: google-noto-serif-bengali-ui-vf-fonts
 %endif
 
 %description as
@@ -206,7 +205,6 @@ Requires: %{name}-core-bn
 Recommends: google-noto-sans-bengali-vf-fonts
 Recommends: google-noto-sans-bengali-ui-vf-fonts
 Recommends: google-noto-serif-bengali-vf-fonts
-Recommends: google-noto-serif-bengali-ui-vf-fonts
 %endif
 
 %description bn
@@ -508,7 +506,6 @@ Requires: %{name}-core-gu
 Recommends: google-noto-sans-gujarati-fonts
 Recommends: google-noto-sans-gujarati-ui-fonts
 Recommends: google-noto-serif-gujarati-fonts
-Recommends: google-noto-serif-gujarati-ui-fonts
 Recommends: samyak-gujarati-fonts
 %endif
 
@@ -555,7 +552,6 @@ Requires: %{name}-core-hi
 Recommends: google-noto-sans-devanagari-vf-fonts
 Recommends: google-noto-sans-devanagari-ui-vf-fonts
 Recommends: google-noto-serif-devanagari-vf-fonts
-Recommends: google-noto-serif-devanagari-ui-vf-fonts
 Recommends: samyak-devanagari-fonts
 %endif
 
@@ -715,10 +711,7 @@ This package provides Kazakh langpacks meta-package.
 %package km
 Summary: Khmer langpacks meta-package
 Requires: %{name}-core-km
-%if 0%{?fedora}
-Recommends: google-noto-sans-khmer-vf-fonts
-Recommends: google-noto-sans-khmer-ui-vf-fonts
-%endif
+Recommends: khmer-os-system-fonts
 Recommends: khmer-os-battambang-fonts
 Recommends: khmer-os-bokor-fonts
 Recommends: khmer-os-content-fonts
@@ -735,7 +728,7 @@ This package provides Khmer langpacks meta-package.
 %files km
 %{_datadir}/metainfo/org.fedoraproject.LangPack-km.metainfo.xml
 
-%langcore_pkg -l km -n Khmer -f khmer-os-system-fonts
+%langcore_pkg -l km -n Khmer -f google-noto-sans-khmer-vf-fonts
 
 %package kn
 Summary: Kannada langpacks meta-package
@@ -744,7 +737,6 @@ Requires: %{name}-core-kn
 Recommends: google-noto-sans-kannada-vf-fonts
 Recommends: google-noto-sans-kannada-ui-vf-fonts
 Recommends: google-noto-serif-kannada-vf-fonts
-Recommends: google-noto-serif-kannada-ui-vf-fonts
 %endif
 Recommends: gubbi-fonts
 Recommends: navilu-fonts
@@ -826,7 +818,6 @@ Requires: %{name}-core-mai
 Recommends: google-noto-sans-devanagari-vf-fonts
 Recommends: google-noto-sans-devanagari-ui-vf-fonts
 Recommends: google-noto-serif-devanagari-vf-fonts
-Recommends: google-noto-serif-devanagari-ui-vf-fonts
 %endif
 
 %description mai
@@ -857,7 +848,6 @@ Recommends: rit-rachana-fonts
 Recommends: google-noto-sans-malayalam-vf-fonts
 Recommends: google-noto-sans-malayalam-ui-vf-fonts
 Recommends: google-noto-serif-malayalam-vf-fonts
-Recommends: google-noto-serif-malayalam-ui-vf-fonts
 Recommends: lohit-malayalam-fonts
 Recommends: samyak-malayalam-fonts
 Recommends: smc-anjalioldlipi-fonts
@@ -886,7 +876,6 @@ Requires: %{name}-core-mr
 Recommends: google-noto-sans-devanagari-vf-fonts
 Recommends: google-noto-sans-devanagari-ui-vf-fonts
 Recommends: google-noto-serif-devanagari-vf-fonts
-Recommends: google-noto-serif-devanagari-ui-vf-fonts
 Recommends: samyak-devanagari-fonts
 %endif
 
@@ -941,7 +930,6 @@ Requires: %{name}-core-ne
 Recommends: google-noto-sans-devanagari-vf-fonts
 Recommends: google-noto-sans-devanagari-ui-vf-fonts
 Recommends: google-noto-serif-devanagari-vf-fonts
-Recommends: google-noto-serif-devanagari-ui-vf-fonts
 %endif
 
 %description ne
@@ -1189,7 +1177,6 @@ Requires: %{name}-core-ta
 Recommends: google-noto-sans-tamil-vf-fonts
 Recommends: google-noto-sans-tamil-ui-vf-fonts
 Recommends: google-noto-serif-tamil-vf-fonts
-Recommends: google-noto-serif-tamil-ui-vf-fonts
 Recommends: samyak-tamil-fonts
 Recommends: serafettin-cartoon-fonts
 %endif
@@ -1209,7 +1196,6 @@ Requires: %{name}-core-te
 Recommends: google-noto-sans-telugu-fonts
 Recommends: google-noto-sans-telugu-ui-fonts
 Recommends: google-noto-serif-telugu-fonts
-Recommends: google-noto-serif-telugu-ui-fonts
 Recommends: pothana2000-fonts
 Recommends: vemana2000-fonts
 %endif
@@ -1226,8 +1212,6 @@ This package provides Telugu langpacks meta-package.
 Summary: Thai langpacks meta-package
 Requires: %{name}-core-th
 %if 0%{?fedora}
-Recommends: google-noto-sans-thai-vf-fonts
-Recommends: google-noto-sans-thai-ui-vf-fonts
 Recommends: google-noto-serif-thai-vf-fonts
 Recommends: thai-scalable-garuda-fonts
 Recommends: thai-scalable-kinnari-fonts
@@ -1241,6 +1225,7 @@ Recommends: thai-scalable-tlwgtypewriter-fonts
 Recommends: thai-scalable-tlwgtypist-fonts
 Recommends: thai-scalable-tlwgtypo-fonts
 Recommends: thai-scalable-umpush-fonts
+Recommends: thai-scalable-waree-fonts
 %endif
 
 %description th
@@ -1249,7 +1234,7 @@ This package provides Thai langpacks meta-package.
 %files th
 %{_datadir}/metainfo/org.fedoraproject.LangPack-th.metainfo.xml
 
-%langcore_pkg -l th -n Thai -f thai-scalable-waree-fonts -i ibus-m17n
+%langcore_pkg -l th -n Thai -f google-noto-sans-thai-vf-fonts -i ibus-m17n
 
 %package tn
 Summary: Tswana langpacks meta-package
@@ -1454,6 +1439,10 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
+* Fri Feb 03 2023 Akira TAGOH <tagoh@redhat.com> - 3.0-30
+- Update for https://fedoraproject.org/wiki/Changes/NotoFontsForMoreLang
+- Drop outdated google-noto-fonts packages.
+
 * Thu Jan 19 2023 Parag Nemade <pnemade AT redhat DOT com> - 3.0-29
 - Add serif fonts to some langpacks packages
 

@@ -1,6 +1,6 @@
 Name:           texstudio
-Version:        4.4.1
-Release:        2%{?dist}
+Version:        4.5.1
+Release:        1%{?dist}
 
 Summary:        A feature-rich editor for LaTeX documents
 # texstudio binary: GPLv3 due to static linkage of bundled qcodeedit
@@ -114,6 +114,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %doc utilities/AUTHORS utilities/COPYING utilities/manual/CHANGELOG.txt
 
 %changelog
+* Sat Feb 04 2023 Johannes Lips <hannes@fedoraproject.org> 4.5.1-1
+- Update to latest upstream release 4.5.1
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

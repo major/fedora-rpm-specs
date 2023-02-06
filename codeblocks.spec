@@ -106,6 +106,7 @@ Additional Code::Blocks plug-ins.
 %else
 %setup -q
 %endif
+%patch1 -p1
 
 
 %if %{snapshot}

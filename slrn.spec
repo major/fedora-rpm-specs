@@ -1,7 +1,7 @@
 Summary: A threaded Internet news reader
 Name: slrn
 Version: 1.0.3a
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: GPLv2+
 URL: http://slrn.sourceforge.net/
 Source0: http://jedsoft.org/releases/%{name}/%{name}-%{version}.tar.bz2
@@ -19,6 +19,7 @@ Source6: %{name}-gpgkeys.gpg
 Patch1: slrn-1.0.2-Do-not-strip-binaries.patch
 Patch2: slrn-0.9.9pre108-sendmail.patch
 Patch3: fix-FSF-address.patch
+Patch4: slrn-configure-c99.patch
 # Patch4: slrn-dont-limit-signatures.patch
 BuildRequires: make
 BuildRequires: inews
@@ -54,6 +55,7 @@ gpgv2 --quiet --keyring %{SOURCE6} %{SOURCE5} %{SOURCE0}
 %patch1 -p1 -b .nostrip
 %patch2 -p1 -b .sendmail
 %patch3 -p1 -b .FSFaddress
+%patch4 -p1
 #%#patch4 -p1 -b .longsignatures
 
 for i in changes.txt; do
@@ -125,6 +127,9 @@ exit 0
 %{_mandir}/man1/slrnpull.1*
 
 %changelog
+* Sat Feb 04 2023 Florian Weimer <fweimer@redhat.com> - 1.0.3a-13
+- Port configure script to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3a-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

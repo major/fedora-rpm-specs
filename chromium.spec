@@ -29,12 +29,8 @@
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1
 
-# enable|disble bootstrap for gn
-%if 0%{?rhel} >= 8 || 0%{?fedora}
+# enable|disble bootstrap
 %global bootstrap 0
-%else
-%global bootstrap 1
-%endif
 
 # Fancy build status, so we at least know, where we are..
 # %1 where
@@ -520,7 +516,6 @@ BuildRequires:	minizip-compat-devel
 BuildRequires: nodejs
 %endif
 
-# use system gn on fedora and rhel >=8, el7 needs bundle gn
 %if ! %{bootstrap}
 BuildRequires: gn
 %endif

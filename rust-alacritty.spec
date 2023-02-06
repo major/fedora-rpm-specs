@@ -26,7 +26,6 @@ Source8:        https://github.com/alacritty/alacritty/releases/download/v%{vers
 Patch0:         alacritty-fix-metadata.diff
 
 ExclusiveArch:  %{rust_arches}
-ExcludeArch:    s390x
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  rust-packaging >= 21

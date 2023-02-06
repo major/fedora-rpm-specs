@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        1.1.1
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Command line argument parsing
 
 # Upstream license specification: Unlicense/MIT
@@ -90,6 +90,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/bash-completion/completions \
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 1.1.1-7
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

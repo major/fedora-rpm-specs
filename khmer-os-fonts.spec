@@ -3,7 +3,7 @@ BuildArch: noarch
 %global archivename All_KhmerOS_%{version}
 
 Version:        5.0
-Release:        38%{?dist}
+Release:        39%{?dist}
 License:        LGPL-2.1-or-later
 URL:            http://www.khmeros.info/en/fonts
 
@@ -18,16 +18,16 @@ They were created by Danh Hong of the Cambodian Open Institute.}
 %global fontlicenses      License.txt
 
 Source0:        http://downloads.sourceforge.net/khmer/%{archivename}.zip
-Source1:        65-0-%{fontpkgname1}.conf
-Source2:        65-0-%{fontpkgname2}.conf
-Source3:        65-0-%{fontpkgname3}.conf
-Source4:        65-0-%{fontpkgname4}.conf
-Source5:        65-0-%{fontpkgname5}.conf
-Source6:        65-0-%{fontpkgname6}.conf
-Source7:        65-0-%{fontpkgname7}.conf
-Source8:        65-0-%{fontpkgname8}.conf
-Source9:        65-0-%{fontpkgname9}.conf
-Source10:       65-0-%{fontpkgname10}.conf
+Source1:        68-%{fontpkgname1}.conf
+Source2:        68-%{fontpkgname2}.conf
+Source3:        68-%{fontpkgname3}.conf
+Source4:        68-%{fontpkgname4}.conf
+Source5:        68-%{fontpkgname5}.conf
+Source6:        68-%{fontpkgname6}.conf
+Source7:        68-%{fontpkgname7}.conf
+Source8:        68-%{fontpkgname8}.conf
+Source9:        68-%{fontpkgname9}.conf
+Source10:       68-%{fontpkgname10}.conf
 Source11:       License.txt
 
 Name:      khmer-os-fonts
@@ -213,6 +213,10 @@ install -p %{SOURCE9} %{SOURCE10} %{SOURCE11} .
 %fontfiles -a
 
 %changelog
+* Fri Feb  3 2023 Akira TAGOH <tagoh@redhat.com> - 5.0-39
+- Update fontconfig priority to 68 for
+  https://fedoraproject.org/wiki/Changes/NotoFontsForMoreLang
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:          tesseract
 Version:       5.3.0
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       Raw OCR Engine
 
 License:       Apache-2.0
@@ -20,6 +20,10 @@ Source0:       https://github.com/tesseract-ocr/tesseract/archive/%{version}%{?p
 # Honour TESSDATA_PREFIX
 # Build training libs statically
 Patch0:        tesseract_cmake.patch
+# Generate correct libdir path in /usr/lib64/pkgconfig/tesseract.pc
+# Already merged upstream, can be dropped at next release
+# https://github.com/tesseract-ocr/tesseract/commit/5e116fa5cad249b8a08d22af652cf52f44fbb8cd
+Patch1:	       tesseract_libdir.patch
 
 
 BuildRequires: cmake
@@ -242,6 +246,9 @@ cp -a doc/*.5 %{buildroot}%{_mandir}/man5/
 
 
 %changelog
+* Fri Feb 03 2023 FeRD (Frank Dana) <ferdnyc@gmail.com> - 5.3.0-5
+- Add patch from upstream to fix pkg-config libdir value
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

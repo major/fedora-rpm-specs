@@ -1,11 +1,10 @@
 Summary:	C++ Implementation of W3C security standards for XML
 Name:		xml-security-c
-Version:	2.0.2
-Release:	13%{?dist}
+Version:	2.0.4
+Release:	1%{?dist}
 License:	ASL 2.0
-URL:		http://santuario.apache.org/c/
+URL:		http://santuario.apache.org/cindex.html
 Source0:	https://www.apache.org/dist/santuario/c-library/%{name}-%{version}.tar.gz
-Patch1:		%{name}-ac_fixes.patch
 BuildRequires: make
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -36,11 +35,6 @@ XML Digital Signatures.
 
 %prep
 %autosetup -p1
-# Compatibility macro XALAN_USING_XALAN() was removed in xalan-c 1.12. This
-# workaround is harmless when using older xalan-c versions. See
-# https://issues.apache.org/jira/browse/SANTUARIO-560.
-find . -type f -execdir sed -r -i \
-    's/XALAN_USING_XALAN\(([^\(\)]+)\);*/using xalanc::\1;/g' '{}' '+'
 
 %build
 autoreconf -fiv
@@ -60,7 +54,7 @@ autoreconf -fiv
 ./xsec/xsec-xtest
 
 %files
-%{_libdir}/libxml-security-c.so.*
+%{_libdir}/libxml-security-c.so.20{,.*}
 
 %files devel
 %license LICENSE.txt
@@ -69,9 +63,11 @@ autoreconf -fiv
 %{_libdir}/libxml-security-c.so
 %{_libdir}/pkgconfig/xml-security-c.pc
 %exclude %{_bindir}/*
-%exclude %{_libdir}/libxml-security-c.la
 
 %changelog
+* Thu Jan 26 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.0.4-1
+- Update to 2.0.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

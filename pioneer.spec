@@ -83,6 +83,8 @@ Provides: bundled(fmt) = 6.2.1
 # I prefer to install binary files manually
 Patch0: %{name}-use_manual_installation.patch
 
+Patch1: %{name}-bug5527.patch
+
 %description
 A space adventure game set in the Milky Way galaxy at the turn of
 the 31st century.
@@ -146,7 +148,8 @@ Requires:  fontpackages-filesystem
 %prep
 %autosetup -n %{name}-%{version} -N
 
-%patch0 -p1 -b .manual
+%patch0 -p1 -b .backup
+%patch1 -p1 -b .backup
 
 ## Pioneer does not work with Lua 5.4.*
 ## We cannot unbundle internal Lua yet

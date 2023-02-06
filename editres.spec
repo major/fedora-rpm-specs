@@ -1,24 +1,19 @@
-Name:       editres
-Version:    1.0.7
-Release:    6%{?dist}
-Summary:    X11 utility to view and edit application resources
-
-License:    MIT
-URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
-
-Patch01:    editres-1.0.6-format-security.patch
-
-BuildRequires:  automake libtool
-BuildRequires:  gcc make
-BuildRequires:  pkgconfig(x11)
-BuildRequires:  pkgconfig(xt)
-BuildRequires:  pkgconfig(xmu)
-BuildRequires:  pkgconfig(xaw7)
-BuildRequires:  pkgconfig(xorg-macros) >= 1.8
-
-Obsoletes:  xorg-x11-resutils < 7.7-9
-
+Summary:       X11 utility to view and edit application resources
+Name:          editres
+Version:       1.0.8
+Release:       1%{?dist}
+License:       MIT
+URL:           https://www.x.org
+Source0:       https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
+Patch01:       editres-1.0.6-format-security.patch
+BuildRequires: gcc
+BuildRequires: make
+BuildRequires: pkgconfig(x11)
+BuildRequires: pkgconfig(xaw7)
+BuildRequires: pkgconfig(xmu)
+BuildRequires: pkgconfig(xorg-macros) >= 1.8
+BuildRequires: pkgconfig(xt)
+Obsoletes:     xorg-x11-resutils < 7.7-9
 %description
 editres is a tool that allows users and application developers to view
 the full widget hierarchy of any Xt Toolkit application that speaks the
@@ -30,7 +25,6 @@ the application and view the results dynamically.
 %autosetup
 
 %build
-autoreconf -v --install
 %configure --disable-silent-rules --disable-xprint
 %make_build
 
@@ -45,6 +39,10 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/Editres-color
 
 %changelog
+* Sat Feb 04 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.0.8-1
+- 1.0.8
+- No need for autoreconf any longer
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

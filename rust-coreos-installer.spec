@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.16.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -185,6 +185,9 @@ from the initramfs.
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 0.16.1-4
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

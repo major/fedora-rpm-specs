@@ -7,6 +7,7 @@ Summary:        Versatile Object-oriented Toolkit for Coarse-graining Applicatio
 License:        ASL 2.0
 URL:            http://www.votca.org
 Source0:        https://github.com/votca/votca/archive/v%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
+Patch0:         1039.patch
 
 %global with_xtp 1
 # libint2 used by xtp is broken on 32-bit archs
@@ -186,6 +187,7 @@ This package contains bash completion support for the VOTCA package.
 
 %prep
 %setup -q -n %{name}-%{uversion}
+%patch0 -p1
 
 # we don't have an espressopp package in Fedora yet
 rm -rf csg-tutorials/spce/ibi_espressopp

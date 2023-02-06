@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.3
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Manages BLS entries and kernel cmdline options
 
 # Upstream license specification: LGPL-2.1-or-later
@@ -82,6 +82,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 0.2.3-8
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

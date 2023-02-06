@@ -1,6 +1,6 @@
 Name:           python-configobj
-Version:        5.0.6
-Release:        30%{?dist}
+Version:        5.0.8
+Release:        1%{?dist}
 Summary:        Config file reading, writing, and validation
 License:        BSD
 URL:            http://configobj.readthedocs.org/
@@ -15,6 +15,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-six
 BuildRequires:  python%{python3_pkgversion}-pytest
+BuildRequires:  python%{python3_pkgversion}-pytest-cov
 %global _description \
 ConfigObj is a simple but powerful configuration file reader and writer: an ini\
 file round tripper. Its main feature is that it is very easy to use, with a\
@@ -37,21 +38,23 @@ Requires:       python%{python3_pkgversion}-six
 %py3_install
 
 %check
-# this needs to be set for tests.test_configobj.test_options_deprecation
-export PYTHONWARNINGS=always
-%{__python3} test_configobj.py
-py.test-%{python3_version} tests
+export PYTHONPATH=$(pwd)/build/lib
+%{__python3} src/tests/configobj_doctests.py
+%{__python3} -m configobj.validate
+py.test-%{python3_version} -c setup.cfg --color=yes --cov=configobj --cov-report=term --cov-report=html --cov-report=xml
 
 %files -n python%{python3_pkgversion}-configobj
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/_version.py
-%{python3_sitelib}/configobj.py
-%{python3_sitelib}/validate.py
-%{python3_sitelib}/__pycache__/*
+%{python3_sitelib}/configobj
+%{python3_sitelib}/validate
 %{python3_sitelib}/configobj-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sat Feb 04 2023 Terje Rosten <terje.rosten@ntnu.no> - 5.0.8-1
+- 5.0.8
+- Execute tests as upstream does
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

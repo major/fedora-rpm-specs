@@ -1,6 +1,12 @@
 %global truename CombBLAS
 
+%if 0%{?fedora} && 0%{?fedora} > 37
+%ifarch %{ix86}
+%bcond_with openmpi
+%else
 %bcond_without openmpi
+%endif
+%endif
 %bcond_without mpich
 %bcond_without check
 
@@ -14,7 +20,7 @@
 
 Name:          combblas
 Version:       1.6.2
-Release:       0.16.beta2%{?dist}
+Release:       0.18.beta2%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD.
@@ -257,6 +263,12 @@ popd
 %endif
 
 %changelog
+* Sat Feb 04 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.6.2-0.18.beta2
+- Drop OpenMPI support in Fedora 38+ i686 only
+
+* Sat Feb 04 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.6.2-0.17.beta2
+- Drop OpenMPI support on i686
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-0.16.beta2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

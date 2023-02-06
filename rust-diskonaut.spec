@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.11.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Terminal disk space visual navigator
 
 # Upstream license specification: MIT
@@ -63,6 +63,9 @@ License:        MIT and BSD
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 0.11.0-11
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

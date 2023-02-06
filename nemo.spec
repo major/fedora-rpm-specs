@@ -1,7 +1,7 @@
 Name:           nemo
 Summary:        File manager for Cinnamon
 Version:        5.6.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
 Source0:        %url/archive/%{version}/%{name}-%{version}.tar.gz
@@ -96,7 +96,7 @@ install -D -m 0644 %{SOURCE1} %{buildroot}/%{_datadir}/glib-2.0/schemas/nemo-fed
 
 desktop-file-install --delete-original \
   --dir %{buildroot}%{_datadir}/applications \
-  --add-only-show-in X-Cinnamon \
+  --add-only-show-in "X-Cinnamon;Budgie" \
   %{buildroot}%{_datadir}/applications/*
 
 # create extensions directoy
@@ -149,6 +149,9 @@ rm %{buildroot}%{_datadir}/nemo/search-helpers/pdf2txt.nemo_search_helper
 %{_datadir}/gir-1.0/*.gir
 
 %changelog
+* Sat Feb 04 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.2-3
+- Add Budgie to OnlyShowIn
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

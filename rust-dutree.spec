@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.2.18
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Command line tool to analyze disk usage
 
 # Upstream license specification: GPL-3.0
@@ -87,6 +87,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 0.2.18-7
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.18-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:             gnumeric
 Epoch:            1
-Version:          1.12.54
+Version:          1.12.55
 Release:          1%{?dist}
 Summary:          Spreadsheet program for GNOME
 #LGPLv2+:
@@ -146,6 +146,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sat Feb 04 2023 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.55-1
+- Update to 1.12.55
+
 * Sat Jan 21 2023 Julian Sikorski <belegdol@fedoraproject.org> - 1:1.12.54-1
 - Update to 1.12.54
 

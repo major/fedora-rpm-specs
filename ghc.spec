@@ -88,7 +88,7 @@ Version: 9.2.5
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 125%{?dist}
+Release: 126%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -269,6 +269,9 @@ Obsoletes: %{name}-xhtml < %{xhtml_ver}-%{release}
 Obsoletes: %{name}-xhtml-devel < %{xhtml_ver}-%{release}
 Obsoletes: %{name}-xhtml-doc < %{xhtml_ver}-%{release}
 Obsoletes: %{name}-xhtml-prof < %{xhtml_ver}-%{release}
+%endif
+%if %{without manual}
+Obsoletes: %{name}-manual < %{version}-%{release}
 %endif
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
@@ -586,13 +589,16 @@ sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_ghcdynl
 %if %{defined _ghcdynlibdir}
 %if "%_ghcdynlibdir" != "%_libdir"
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+echo "%{_ghcdynlibdir}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%endif
+%else
+# https://bugzilla.redhat.com/show_bug.cgi?id=2166028
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
 echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
 %endif
-# avoid 'E: binary-or-shlib-defines-rpath'
 for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
   chrpath -d $i
 done
-%endif
 
 # containers src moved to a subdir
 cp -p libraries/containers/containers/LICENSE libraries/containers/LICENSE
@@ -646,10 +652,8 @@ fi\
 %merge_filelist rts base
 %endif
 
-%if %{defined _ghcdynlibdir}
-%if "%_ghcdynlibdir" != "%_libdir"
+%if "%{?_ghcdynlibdir}" != "%_libdir"
 echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
-%endif
 %endif
 
 # add rts libs
@@ -984,6 +988,10 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sat Feb  4 2023 Jens Petersen <petersen@redhat.com> - 9.2.5-126
+- add back ld.so.conf.d file to workaround mock install issue (#2166028)
+- remove the RUNPATHs again since they are covered by the ld.so.conf.d file
+
 * Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 9.2.5-125
 - rebase to ghc-9.2.5 from ghc9.2
 - fully Obsoletes ghc9.2*

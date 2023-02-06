@@ -40,7 +40,7 @@
 %undefine _strict_symbol_defs_build
 
 #global prever rc4
-%global baserelease 3
+%global baserelease 4
 %global mod_vroot_version 0.9.11
 
 Summary:		Flexible, stable and highly-configurable FTP server
@@ -65,6 +65,7 @@ Patch1:			proftpd-1.3.8-shellbang.patch
 Patch3:			proftpd-1.3.4rc1-mod_vroot-test.patch
 Patch4:			proftpd-1.3.6-no-mod-wrap.patch
 Patch5:			proftpd-1.3.6-no-mod-geoip.patch
+Patch6:			https://patch-diff.githubusercontent.com/raw/proftpd/proftpd/pull/1592.patch
 
 BuildRequires:		coreutils
 BuildRequires:		gcc
@@ -260,6 +261,11 @@ mv contrib/README contrib/README.contrib
 %if 0%{!?geoip_support:1}
 %patch5 -b .nogeoip
 %endif
+
+# Hack to ensure that dynamic modules are linked against libidn2
+# https://bugzilla.redhat.com/show_bug.cgi?id=2166454
+# https://github.com/proftpd/proftpd/issues/1590
+%patch6 -p1 -b .libidn2
 
 # OpenSSL Cipher Profiles introduced in Fedora 21
 # Elsewhere, we use the default of DEFAULT:!ADH:!EXPORT:!DES
@@ -457,7 +463,9 @@ fi
 %{_libexecdir}/proftpd/mod_wrap2_file.so
 %{_libexecdir}/proftpd/mod_wrap2_sql.so
 %exclude %{_libexecdir}/proftpd/*.a
+%if 0%{?fedora} < 36 && 0%{?rhel} < 10
 %exclude %{_libexecdir}/proftpd/*.la
+%endif
 %attr(331, ftp, ftp) %dir %{_localstatedir}/ftp/uploads/
 %attr(750, root, root) %dir %{_localstatedir}/log/proftpd/
 
@@ -496,8 +504,13 @@ fi
 %{_mandir}/man1/ftpwho.1*
 
 %changelog
+* Fri Feb  3 2023 Paul Howarth <paul@city-fan.org> - 1.3.8-4
+- Ensure mod_rewrite is linked against libidn2 so that it loads properly
+  (rhbz#2166454, https://github.com/proftpd/proftpd/issues/1590)
+- No longer need to explicitly remove libtool archives from Fedora 36 onwards
+
 * Sat Jan 21 2023 Paul Howarth <paul@city-fan.org> - 1.3.8-3
-- Add PCRE2 support
+- Add PCRE2 support (rhbz#2158885)
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

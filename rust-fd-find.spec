@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        8.2.1
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Simple, fast and user-friendly alternative to find
 
 # Upstream license specification: MIT/Apache-2.0
@@ -81,6 +81,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/zsh/site-functions \
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 8.2.1-11
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Sat Jan 21 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 8.2.1-10
 - Bump lscolors from 0.10 to 0.13.
 

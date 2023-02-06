@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        3.2.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Cargo subcommand to generate README.md content from doc comments
 
 # Upstream license specification: MIT OR Apache-2.0
@@ -89,6 +89,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 3.2.0-11
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

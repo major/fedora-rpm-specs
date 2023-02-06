@@ -2,15 +2,18 @@
 
 Name:           openmsx
 Version:        18.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An emulator for the MSX home computer system
 License:        GPLv2
 URL:            https://openmsx.org/
 Source0:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/openMSX/openMSX/releases/download/RELEASE_%{pkgverdir}/%{name}-catapult-%{version}.tar.gz
+# Fix compiling with GCC 13
+# https://github.com/openMSX/openMSX/issues/1487
+Patch0:         %{name}-18.0-gcc13.patch
 # Fix XRC warnings in wxWidgets 3.2.0. Whilst keeping things working with 3.0.
 # https://github.com/openMSX/wxcatapult/pull/44
-Patch0:         %{name}-18.0-wx32.patch
+Patch10:        %{name}-18.0-wx32.patch
 BuildRequires:  alsa-lib-devel
 BuildRequires:  desktop-file-utils libappstream-glib
 BuildRequires:  docbook-utils
@@ -54,8 +57,9 @@ to read the documentation of openMSX.
 
 %prep
 %autosetup -N -a 1
+%autopatch -p1 -M 9
 pushd %{name}-catapult-%{version}
-  %autopatch -p1 -m 0
+  %autopatch -p1 -m 10
 popd
 
 
@@ -227,6 +231,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sat Feb 04 2023 Andrea Musuruane <musuruan@gmail.com> - 18.0-3
+- Fix compiling with GCC 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

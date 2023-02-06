@@ -1,36 +1,46 @@
 %global gem_name snmp
 
-Name: rubygem-%{gem_name}
-Version: 1.3.2
-Release: 6%{?dist}
-Summary: A Ruby implementation of SNMP (the Simple Network Management Protocol)
-License: MIT
-URL: https://github.com/hallidave/ruby-snmp
-Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-BuildRequires: ruby(release)
-BuildRequires: rubygems-devel
-BuildRequires: ruby
-BuildRequires: rubygem(minitest)
-BuildArch: noarch
+Name:           rubygem-%{gem_name}
+Version:        1.3.2
+Release:        7%{?dist}
+Summary:        A Ruby implementation of SNMP (the Simple Network Management Protocol)
+License:        MIT
+URL:            https://github.com/hallidave/ruby-snmp
+VCS:            https://github.com/hallidave/ruby-snmp
+# GEM           https://rubygems.org/gems/snmp/
+Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
+BuildRequires:  ruby(release)
+BuildRequires:  rubygems-devel
+BuildRequires:  ruby
+BuildRequires:  rubygem(minitest)
+BuildArch:      noarch
+
+%if 0%{?el7}
+Provides:       rubygem(%{gem_name}) = %{version}
+%endif
+
+
 
 %description
 A Ruby implementation of SNMP (the Simple Network Management Protocol).
 
 
-%package doc
-Summary: Documentation for %{name}
-Requires: %{name} = %{version}-%{release}
-BuildArch: noarch
+%package        doc
+Summary:        Documentation for %{name}
+Requires:       %{name} = %{version}-%{release}
+BuildArch:      noarch
 
 %description doc
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+gem unpack %{SOURCE0}
+%setup -q -D -T -n  %{gem_name}-%{version}
+gem spec %{SOURCE0} -l --ruby > %{gem_name}.gemspec
 
 %build
 # Create the gem as gem install only works on a gem file
-gem build ../%{gem_name}-%{version}.gemspec
+gem build %{gem_name}.gemspec
 
 # %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
 # by default, so that we can move it into the buildroot in %%install
@@ -44,9 +54,12 @@ cp -a .%{gem_dir}/* \
 
 
 %check
+# Do not run check on EPEL7, Minitest is lacking Test method there
+%if !0%{?el7}
 pushd .%{gem_instdir}
 ruby -Ilib -e 'Dir.glob "./test/**/test_*.rb", &method(:require)'
 popd
+%endif
 
 %files
 %dir %{gem_instdir}
@@ -64,6 +77,9 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Sun Feb 05 2023 Michal Ambroz <rebus _AT seznam.cz> - 1.3.2-7
+- fix EPEL7 build
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

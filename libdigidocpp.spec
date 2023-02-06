@@ -1,7 +1,7 @@
 Name:           libdigidocpp
 
 Version:        3.14.10
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 License:        LGPLv2+
@@ -125,6 +125,9 @@ rm -rf src/minizip
 
 
 %changelog
+* Sat Feb 04 2023 Sérgio Basto <sergio@serjux.com> - 3.14.10-4
+- Rebuild for xml-security-c with OPENSSL_3.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

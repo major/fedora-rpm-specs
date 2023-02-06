@@ -5,16 +5,14 @@ framework. It makes real-world web application development and deployment more\
 fun, more predictable, and more productive.
 
 Name:           python-%{modname}
-Version:        2.0
-Release:        2%{?dist}
+Version:        2.0.1
+Release:        1%{?dist}
 Summary:        %{sum}
 
 License:        BSD-4-Clause
 URL:            https://trypyramid.com/
 Source0:        %pypi_source %{modname}
-# Backport upstream patch to fix tests with Python 3.11
-# https://github.com/Pylons/pyramid/pull/3717
-Patch:          python311-upstream-tests-fix.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -87,7 +85,11 @@ done;
 %{_bindir}/pviews-3
 %{_bindir}/pviews
 
+
 %changelog
+* Sat Feb 04 2023 Mattia Verga <mattia.verga@proton.me> - 2.0.1-1
+- Update to 2.0.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

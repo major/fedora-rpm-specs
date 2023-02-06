@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.1.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Create microVMs from OCI images
 
 # Upstream license specification: Apache-2.0
@@ -93,6 +93,9 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 \
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 0.1.6-3
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

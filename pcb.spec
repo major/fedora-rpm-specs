@@ -4,7 +4,7 @@
 
 Name:           pcb
 Version:        %{pcbver}
-Release:        11%{?dist}
+Release:        12%{?dist}
 
 Summary:        An interactive printed circuit board editor
 License:        GPLv2+
@@ -30,6 +30,9 @@ Source0:        http://downloads.sourceforge.net/sourceforge/%{name}/%{name}-%{p
 
 # sent upstream
 #Patch0:         0001-Fix-the-AppData-and-update-to-the-latest-spec-versio.patch
+
+# Upstream http://git.geda-project.org/pcb/commit/?id=9dea9f5a3801d612f78c738fe7efccefa5745000
+Patch1:		pcb-fedora-c99.patch
 
 %description
 PCB is an interactive printed circuit board editor.
@@ -60,6 +63,8 @@ board editor.
    tutorial/Makefile.*
 
 #%%patch0 -p1 -b fix-appdata-file
+%patch1 -p1 -b fedora-c99
+touch aclocal.m4 Makefile.in
 
 %build
 export WISH=%{_bindir}/wish
@@ -171,6 +176,9 @@ mv %{buildroot}%{_pkgdocdir}/refcard.pdf %{buildroot}%{_pkgdocdir}/pcb-reference
 
 
 %changelog
+* Fri Feb  3 2023 DJ Delorie <dj@redhat.com> - 4.2.0-12
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

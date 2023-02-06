@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.5.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Binary crate to generate Rust code from XML introspection data
 
 # Upstream license specification: Apache-2.0/MIT
@@ -83,6 +83,9 @@ which use "default" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 0.5.0-9
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

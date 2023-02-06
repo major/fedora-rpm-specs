@@ -1,6 +1,6 @@
 Name:           lcms
 Version:        1.19
-Release:        35%{?dist}
+Release:        36%{?dist}
 
 Summary:        Color Management System
 License:        MIT
@@ -14,6 +14,7 @@ Patch0:         %{name}-1.19-rhbz675186.patch
 Patch1:         %{name}-1.19-rhbz991757.patch
 # bug 1003950
 Patch2:         %{name}-1.19-rhbz1003950.patch
+Patch3: lcms-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gcc
@@ -91,6 +92,9 @@ find %{buildroot} -type f -name '*.la' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sat Feb 04 2023 Florian Weimer <fweimer@redhat.com> - 1.19-36
+- Fix C99 compatibility issue (#2167083)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
