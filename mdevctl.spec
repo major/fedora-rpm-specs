@@ -1,18 +1,15 @@
 %bcond_without check
-%global __cargo_skip_build 0
 
 %global crate mdevctl
 
 Name:           mdevctl
 Version:        1.2.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A mediated device management utility for Linux
 
 License:        LGPLv2
 URL:            https://crates.io/crates/mdevctl
 Source:         %{crates_source}
-
-ExclusiveArch:  %{rust_arches}
 
 BuildRequires: make systemd rust-packaging python3-docutils
 Requires(post,postun): %{_sbindir}/udevadm
@@ -27,6 +24,7 @@ vfio-mdev for assignment to virtual machines.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+
 %generate_buildrequires
 %cargo_generate_buildrequires
 
@@ -56,6 +54,10 @@ vfio-mdev for assignment to virtual machines.
 %{_datadir}/bash-completion/completions/lsmdev
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.2.0-3
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+- Slightly modernize Rust packaging (drop ExclusiveArch, __cargo_skip_build).
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

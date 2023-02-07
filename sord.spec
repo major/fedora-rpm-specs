@@ -1,22 +1,19 @@
 %global maj 0
 
 Name:       sord
-Version:    0.16.10
-Release:    3%{?dist}
+Version:    0.16.14
+Release:    1%{?dist}
 Summary:    A lightweight Resource Description Framework (RDF) C library
 
 License:    ISC
-URL:        http://drobilla.net/software/sord/
-Source0:    http://download.drobilla.net/%{name}-%{version}.tar.bz2
+URL:        https://drobilla.net/software/%{name}.html
+Source0:    https://download.drobilla.net/%{name}-%{version}.tar.xz
 
-BuildRequires: boost-devel
 BuildRequires: doxygen
-BuildRequires: graphviz
-BuildRequires: glib2-devel
-BuildRequires: python3
-BuildRequires: serd-devel >= 0.30.0
+BuildRequires: serd-devel >= 0.30.10
 BuildRequires: gcc
-BuildRequires: gcc-c++
+BuildRequires: meson
+BuildRequires: pcre-devel
 
 %description
 %{name} is a lightweight C library for storing Resource Description
@@ -36,34 +33,26 @@ This package contains the headers and development libraries for %{name}.
 
 %prep
 %autosetup -p1
-# Do not run ldconfig, and add our optflags
-sed -i -e "s|bld.add_post_fun(autowaf.run_ldconfig)||" \
-       -e "s|cflags          = [ '-DSORD_INTERNAL' ]\
-|cflags          = [ '-DSORD_INTERNAL' ] + '%optflags'.split(' ') |" wscript
 
 %build
-%set_build_flags
-export LINKFLAGS="%{__global_ldflags}"
-%{python3} waf configure \
-    --prefix=%{_prefix} \
-    --libdir=%{_libdir} \
-    --mandir=%{_mandir} \
-    --datadir=%{_datadir} \
-    --docdir=%{_pkgdocdir} \
-    --test \
-    --docs 
-%{python3} waf build -v %{?_smp_mflags}
+%meson
+%meson_build
 
 %install
-DESTDIR=%{buildroot} %{python3} waf install
-chmod +x %{buildroot}%{_libdir}/lib%{name}-%{maj}.so.*
-install -pm 644 AUTHORS NEWS README.md %{buildroot}%{_pkgdocdir}
+%meson_install
+
+# Move devel docs to the right directory
+install -d %{buildroot}%{_docdir}/%{name}
+mv %{buildroot}%{_docdir}/%{name}-%{maj} %{buildroot}%{_docdir}/%{name}
+
+%check
+%meson_test
 
 %files
 %{_pkgdocdir}
 %exclude %{_pkgdocdir}/%{name}-%{maj}/
 %license COPYING
-%{_libdir}/lib%{name}-%{maj}.so.*
+%{_libdir}/lib%{name}-%{maj}.so.%{maj}*
 %{_bindir}/sordi
 %{_bindir}/sord_validate
 %{_mandir}/man1/%{name}*.1*
@@ -73,9 +62,12 @@ install -pm 644 AUTHORS NEWS README.md %{buildroot}%{_pkgdocdir}
 %{_libdir}/lib%{name}-%{maj}.so
 %{_libdir}/pkgconfig/%{name}-%{maj}.pc
 %{_includedir}/%{name}-%{maj}/
-%{_mandir}/man3/%{name}*.3*
 
 %changelog
+* Thu Feb 2 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.16.14-1
+- Update to 0.16.14
+- Switch to meson build
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

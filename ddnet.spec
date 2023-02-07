@@ -3,7 +3,7 @@
 
 Name:           ddnet
 Version:        16.7.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 # Disabled while can't fix build
@@ -127,6 +127,8 @@ rm -rf src/engine/external
 
 
 %build
+# ensure standard Rust compiler flags are set
+export RUSTFLAGS="%build_rustflags"
 # WebSockets disable because it freezes all GUI | https://github.com/ddnet/ddnet/issues/1900
 # VIDEORECORDER needs ffpemg more x264
 %cmake \
@@ -176,6 +178,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 16.7.2-2
+- Ensure standard Rust compiler flags are set.
+
 * Wed Jan 25 2023 Sérgio Basto <sergio@serjux.com> - 16.7.2-1
 - Update ddnet to 16.7.2 (#2136968)
 

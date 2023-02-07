@@ -5,7 +5,7 @@
 Summary:  Open Source SIP Server
 Name:     opensips
 Version:  3.3.3
-Release:  2%{?dist}
+Release:  3%{?dist}
 License:  GPLv2+
 Source0:  https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # Fedora-specific patches
@@ -18,6 +18,7 @@ Patch006: opensips-0006-tm-clone-message-in-async-mode-only-in-request-route.pat
 %if 0%{?fedora} >= 34
 Patch007: opensips-0007-libcouchbase-API-v3.patch
 %endif
+Patch008: opensips-c99.patch
 
 URL:      https://opensips.org
 
@@ -1492,6 +1493,9 @@ useradd -r -g %{name} -d %{_localstatedir}/run/%{name} -s /sbin/nologin \
 
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 3.3.3-3
+- Apply upstream patch to fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

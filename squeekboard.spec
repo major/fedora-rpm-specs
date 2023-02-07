@@ -1,6 +1,6 @@
 Name:		squeekboard
 Version:	1.20.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	a Wayland virtual keyboard
 
 License:	GPLv3+
@@ -51,6 +51,8 @@ rm -f Cargo.lock
 %cargo_generate_buildrequires -a
 
 %build
+# ensure standard Rust compiler flags are set
+export RUSTFLAGS="%build_rustflags"
 %meson -Dnewer=true
 %meson_build
 
@@ -66,6 +68,8 @@ chmod +x %{buildroot}%{_bindir}/squeekboard-restyled
 %find_lang %{name}
 
 %check
+# ensure standard Rust compiler flags are set
+export RUSTFLAGS="%build_rustflags"
 %meson_test
 desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.desktop
 
@@ -80,6 +84,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.
 %license COPYING
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.20.0-3
+- Ensure standard Rust compiler flags are set.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.20.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -37,6 +37,8 @@ License:        MIT and GPLv3+
 URL:            https://github.com/Neurosim-lab/netpyne/
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description %_description
 

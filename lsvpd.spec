@@ -1,11 +1,15 @@
 Name:		lsvpd
 Version:	1.7.14
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
 License:	GPLv2+
 URL:    https://github.com/power-ras/%{name}/releases
 Source: https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+Patch0: lsvpd-git1ca39c.patch
+Patch1: lsvpd-git6ff86f.patch
+
 BuildRequires: gcc-c++
 BuildRequires: libvpd-devel >= 2.2.5
 BuildRequires: sg3_utils-devel
@@ -68,6 +72,9 @@ exit 0
 %dir %{_sysconfdir}/lsvpd
 
 %changelog
+* Sun Feb 05 2023 Than Ngo <than@redhat.com> - 1.7.14-4
+- added updatream patches to fix nvme vpd data
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.14-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

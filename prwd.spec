@@ -1,10 +1,12 @@
 Name:         prwd
 Version:      1.9.1
-Release:      8%{?dist}
+Release:      9%{?dist}
 Summary:      A tool to print a reduced working directory
 License:      ISC
 URL:          http://tamentis.com/projects/prwd
 Source0:      http://tamentis.com/projects/%{name}/files/%{name}-%{version}.tar.gz
+Patch0: prwd-c99-1.patch
+Patch1: prwd-c99-2.patch
 
 BuildRequires:	gcc
 BuildRequires:	make
@@ -17,7 +19,7 @@ It also allows you to keep an eye on your current branch when you enter
 a project handled by git or mercurial.
 
 %prep
-%setup -q
+%autosetup -p1
 # Fix the typo here.
 sed -i 's|commadn|command|g' ChangeLog
 
@@ -39,6 +41,9 @@ make test
 %{_mandir}/man5/%{name}rc.5*
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 1.9.1-9
+- Fix C99 compatibility issues
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

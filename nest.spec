@@ -78,6 +78,9 @@ Patch5:         0005-Install-in-libdir.patch
 # Use online docs for helpdesk
 Patch6:         0006-Use-online-documentation.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  boost-devel
 BuildRequires:  cmake
 BuildRequires:  chrpath

@@ -5,10 +5,12 @@
 
 Name:           mingw-w64-tools
 Version:        10.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Supplementary tools which are part of the mingw-w64 toolchain
 # Fix build on s390x and ppc64le
 Patch0:         mingw-w64-tools-s390x-ppc66le.patch
+# Fix build on riscv64, this patch can only be applied after mingw-w64-tools-s390x-ppc66le.patch
+Patch1:         mingw-w64-tools-riscv64-on-s390x-ppc66le.patch
 
 # http://sourceforge.net/mailarchive/forum.php?thread_name=5157C0FC.1010309%40users.sourceforge.net&forum_name=mingw-w64-public
 # The tools gendef and genidl are GPLv3+, widl is LGPLv2+
@@ -106,6 +108,9 @@ popd
 
 
 %changelog
+* Sun Feb 05 2023 Nianqing Yao <imbearchild@outlook.com> - 10.0.0-4
+- Fix build on riscv64.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

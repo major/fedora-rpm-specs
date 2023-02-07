@@ -3,7 +3,7 @@
 
 Name:           python-%{pypi_name}
 Version:        2.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Django slugify application that guarantees uniqueness and handles Unicode
 
 License:        MIT
@@ -58,6 +58,9 @@ rm -rf django_uuslug.egg-info
 %{python3_sitelib}/django_uuslug-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Sun Feb 05 2023 Chenxiong Qi <qcxhome@gmail.com> - 2.0.0-4
+- Migrate to SPDX license, use MIT
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

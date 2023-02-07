@@ -1,6 +1,6 @@
 Name:           ternimal
 Version:        0.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Simulate a lifeform in the terminal
 
 License:        GPLv3+
@@ -29,6 +29,9 @@ BuildRequires:  rust-packaging
 %{_bindir}/ternimal
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.1.0-13
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

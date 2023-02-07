@@ -2,8 +2,8 @@
 %global framework kparts
 
 Name:    kf5-%{framework}
-Version: 5.102.0
-Release: 2%{?dist}
+Version: 5.103.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for KParts
 
 License: GPLv2+
@@ -84,6 +84,9 @@ mkdir -p %{buildroot}%{_kf5_plugindir}/parts/
 
 
 %changelog
+* Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
+- 5.103.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.102.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

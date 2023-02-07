@@ -28,8 +28,8 @@ Note: all modules are installed under the Cryptodome package to avoid conflicts
 with the PyCrypto library.}
 
 Name:           python-%{srcname}
-Version:        3.16.0
-Release:        3%{?dist}
+Version:        3.17.0
+Release:        1%{?dist}
 Summary:        A self-contained cryptographic library for Python
 
 # PyCrypto-based code is public domain, further PyCryptodome contributions are
@@ -41,6 +41,8 @@ Source0:        https://github.com/Legrandin/pycryptodome/archive/v%{version}/%{
 Patch0:         %{name}-3.15.0-use_external_libtomcrypt.patch
 # Fix deprecated unittest methods
 Patch1:         %{name}-3.16.0-unittest.patch
+# Fix version
+Patch2:         %{name}-3.17.0-version.patch
 
 BuildRequires:  gcc
 BuildRequires:  libtomcrypt-devel
@@ -114,7 +116,7 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} %{py_setup} test
 %doc AUTHORS.rst Changelog.rst README.rst
 %license LICENSE.rst
 %exclude %{python3_sitearch}/Cryptodome/SelfTest/
-%{_mandir}/man1/pycryptodome.1.*
+%{_mandir}/man1/pycryptodome.1*
 
 
 %files -n python3-%{srcname}-selftest
@@ -122,6 +124,11 @@ PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch}/ %{__python3} %{py_setup} test
 
 
 %changelog
+* Sun Feb 05 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 3.17.0-1
+- Update to 3.17.0
+- Fix Flatpak build (see
+  https://src.fedoraproject.org/rpms/python-pycryptodomex/pull-request/3)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

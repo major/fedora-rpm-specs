@@ -11,7 +11,7 @@
 
 Name:           rust-%{crate}
 Version:        0.0.25
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -387,6 +387,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.0.25-3
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

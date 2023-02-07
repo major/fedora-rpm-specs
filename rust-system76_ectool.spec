@@ -5,7 +5,7 @@
 
 Name:           rust-%{crate}
 Version:        0.3.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        System76 EC tool
 
 # Upstream license specification: MIT
@@ -128,6 +128,9 @@ which use "std" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.3.8-4
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Version:        1.4.1
 %forgemeta
 
 Name:           libpasastro
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Pascal interface for standard astronomy libraries
 
 License:        GPLv2+
@@ -44,7 +44,7 @@ sed -i 's/\$destdir\/lib/\$destdir\/%{_lib}/g' ./install.sh
 
 
 %build
-%make_build arch_flags="%{optflags}" FED_LDFLAGS="%{build_ldflags}"
+%make_build arch_flags="-std=gnu89 %{optflags}" FED_LDFLAGS="%{build_ldflags}"
 
 
 %install
@@ -58,6 +58,9 @@ make install PREFIX=%{buildroot}%{_prefix}
 
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 1.4.1-6
+- Build in C89 mode (#2167191)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:               zvbi
 Version:            0.2.35
-Release:            18%{?dist}
+Release:            19%{?dist}
 Summary:            Raw VBI, Teletext and Closed Caption decoding library
 # See NEWS for a full breakdown of licensing.
 License:            LGPLv2+ and GPLv2+ and BSD
@@ -22,10 +22,6 @@ BuildRequires:      libICE-devel
 BuildRequires:      bdftopcf
 BuildRequires:      mkfontdir
 BuildRequires:      systemd-units
-
-Requires(post):     systemd-units
-Requires(preun):    systemd-units
-Requires(postun):   systemd-units
 
 
 %description
@@ -162,6 +158,9 @@ ln -sf %{fontdir} %{buildroot}%{catalogue}/%{name}
 
 
 %changelog
+* Sun Feb 05 2023 Kalev Lember <klember@redhat.com> - 0.2.35-19
+- Avoid requiring systemd for systemd rpm scriptlets
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.35-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

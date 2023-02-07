@@ -72,6 +72,9 @@ Patch:          0007-template-matching-collections_hpp.patch
 # https://github.com/CNS-OIST/STEPS/pull/29
 Patch:          https://github.com/CNS-OIST/STEPS/pull/29.patch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  make
 BuildRequires:  cmake
 BuildRequires:  gcc-c++

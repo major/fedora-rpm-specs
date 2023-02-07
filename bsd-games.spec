@@ -6,7 +6,7 @@
 Summary: Collection of text-based games
 Name: bsd-games
 Version: 2.17
-Release: 70%{?dist}
+Release: 71%{?dist}
 License: BSD and BSD with advertising
 URL: ftp://metalab.unc.edu/pub/Linux/games/
 Source0: ftp://metalab.unc.edu/pub/Linux/games/bsd-games-%{version}.tar.gz
@@ -41,6 +41,7 @@ Patch21: bsd-games-2.17-huntversion.patch
 Patch22: bsd-games-2.17-getrandom.patch
 Patch23: bsd-games-2.17-printf.patch
 Patch24: bsd-games-2.17-printw.patch
+Patch25: bsd-games-c99.patch
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: make
@@ -91,6 +92,7 @@ popd
 %patch22 -p1 -b .getrandom
 %patch23 -p1 -b .printf
 %patch24 -p1 -b .printw
+%patch25 -p1 -b .c99
 
 %build
 # We include a templatized configuration settings file to set
@@ -218,6 +220,9 @@ exit 0
 %doc AUTHORS COPYING ChangeLog ChangeLog.0 THANKS YEAR2000 README.hunt trek/USD.doc/trek.me
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 2.17-71
+- Fix C99 compatibility issue in hunt (#2152550)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17-70
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

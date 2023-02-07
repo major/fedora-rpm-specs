@@ -7,7 +7,7 @@
 
 Name:           greetd
 Version:        0.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A generic greeter daemon
 
 # Apache-2.0
@@ -206,6 +206,9 @@ fi
 %endif
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.9.0-3
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

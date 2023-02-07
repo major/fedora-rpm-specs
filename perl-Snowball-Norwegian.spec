@@ -2,14 +2,14 @@ Name:           perl-Snowball-Norwegian
 Version:        1.2
 Release:        36%{?dist}
 Summary:        Porter's stemming algorithm for Norwegian
-License:        GPLv2 or Artistic
+License:        GPL-2.0-only OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Snowball-Norwegian
 Source0:        https://cpan.metacpan.org/authors/id/A/AS/ASKSH/Snowball-Norwegian-%{version}.tar.gz
 BuildArch:      noarch
 # Build
 BuildRequires:  coreutils
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)

@@ -9,7 +9,7 @@
 
 Name:          dbus-parsec
 Version:       0.4.0
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       DBus PARSEC interface
 
 License:       EUPL 1.2
@@ -69,6 +69,9 @@ mv %{buildroot}%{_bindir}/dbus-parsec %{buildroot}%{_libexecdir}/
 %{_unitdir}/dbus-parsec.service
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.4.0-3
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*$
 
 Name:		xreader
-Version:	3.6.0
-Release:	2%{?dist}
+Version:	3.6.3
+Release:	1%{?dist}
 Summary:	Simple document viewer
 
 License:	GPLv2+
@@ -167,6 +167,9 @@ This package adds configuration to use %{name} as a thumbnailer.
 %doc %{_datadir}/doc/%{name}*
 
 %changelog
+* Sun Feb 05 2023 Jonathan Wright <jonathan@almalinux.org> - 3.6.3-1
+- Update to 3.6.3 rhbz#2160519
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

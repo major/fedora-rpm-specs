@@ -5,7 +5,7 @@ Version:       1.2.2
 
 Summary:       Block device I/O library
 Name:          libblkio
-Release:       2%{?dist}
+Release:       3%{?dist}
 URL:           %{forgeurl}
 Source0:       %{forgesource}
 License:       Apache-2.0 OR MIT
@@ -97,6 +97,9 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.2.2-3
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

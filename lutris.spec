@@ -22,7 +22,6 @@ Requires:       mesa-dri-drivers(x86-32)
 Requires:       mesa-vulkan-drivers(x86-32)
 Requires:       vulkan-loader(x86-32)
 Requires:       mesa-libGL(x86-32)
-Recommends:     libFAudio(x86-32)
 Recommends:     pipewire(x86-32)
 Recommends:     wine-pulseaudio(x86-32)
 Recommends:     wine-core(x86-32)
@@ -40,12 +39,12 @@ Requires:       webkit2gtk3
 Requires:       python3-lxml
 Recommends: 	p7zip, curl
 Recommends:	fluid-soundfont-gs
-Recommends:	gamemode
-Recommends:     libFAudio
 Recommends:     wine-core
 Recommends:	p7zip-plugins
+Recommends:	gamemode
 BuildRequires:  fdupes
 BuildRequires:  libappstream-glib
+BuildRequires:  meson, gettext
 
 %description
 Lutris is a gaming platform for GNU/Linux. Its goal is to make
@@ -57,13 +56,13 @@ on Linux.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
-
 %build
-%py3_build
-
+%meson
+%meson_build
 
 %install
-%py3_install
+%meson_install
+
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/net.%{name}.Lutris.metainfo.xml
 
 %fdupes %{buildroot}%{python3_sitelib}
@@ -83,16 +82,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/man/man1/%{name}.1.gz
-%{python3_sitelib}/%{name}-*.egg-info
 %{python3_sitelib}/%{name}/
 %{_datadir}/metainfo/
+%{_datadir}/locale/
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.12-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Sun Feb 5 2023 Chris King <bunnyapocalypse@protonmail.com> 0.5.12-2
+- Fix locale support by switching to meson
 
-* Thu Dec 15 2022 Steve Cossette <farchord@gmail.com> - 0.5.12-1
-- Update to 0.5.12:
+* Wed Dec 21 2022 Steve Cossette <farchord@gmail.com> - 0.5.12-1
 - Add support for Xbox games with the xemu runner
 - Fix authentication issue with Origin
 - Fix authentication issue with EGS
@@ -120,26 +118,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 - Fix crash when Mangohud is used alongside Gamescope
 - Translation updates
 
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.10.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed Jun 29 2022 Steve Cossette <farchord@gmail.com> - 0.5.10.1-7
+* Wed Jun 29 2022 Steve Cossette <farchord@gmail.com> - 0.5.10.1-4
 - Added some missing GUI package recommended packages:
 - Recommendations: p7zip, curl, fluid-soundfont-gs (For MIDI playback -- other soundfonts can be substituted)
 
-* Mon Jun 20 2022 Python Maint <python-maint@redhat.com> - 0.5.10.1-5
-- Rebuilt for Python 3.11
+* Sun Jun 26 2022 Steve Cossette <farchord@gmail.com> - 0.5.10.1-3
+- Added recommends for gamemode
 
-* Sun Jun 19 2022 Steve Cossette <farchord@gmail.com> - 0.5.10.1-4
-- Added Recommended package 'p7zip-plugins' (For some game installers requiring it)
+* Sun Jun 19 2022 Steve Cossette <farchord@gmail.com> - 0.5.10.1-2
+- Added a Recommends for p7zip-plugins (Required by some game installers)
 
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.5.10.1-3
-- Rebuilt for Python 3.11
-
-* Sat May 14 2022 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.10.1-2
-- Add missing depend
-
-* Wed Apr 20 2022 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.10.1-1
+* Thu May 26 2022 Steve Cossette <farchord@gmail.com> - 0.5.10.1-1
 - small realease with QOL changes
 
 * Fri Apr 01 2022 Steve Cossette <farchord@gmail.com> - 0.5.10-1
@@ -164,17 +153,17 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 - Enable F-Sync by default
 
 * Thu Nov 04 2021 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.9.1-3
-- Add 32 bit wine pulseaudio support
+- Add 32 bit wine pulseaudio support 
 
 * Wed Oct 20 2021 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.9.1-2
 - Add 32 bit pipewire as requirement
-
+ 
 * Sun Oct 17 2021 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.9.1-1
 - New version
-
+ 
 * Fri Oct 15 2021 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.8.4-2
 - Revert 0.5.9 on advice of Lutris devs
-
+ 
 * Tue Oct 12 2021 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.9-1
 - New version
 
@@ -192,7 +181,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 
 * Thu Jan 28 2021 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.8.3-3
 - Adding python3-lmxl dependency
-
+ 
 * Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.8.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
 
@@ -201,7 +190,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 
 * Tue Jan 05 2021 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.8.2-1
 - New version
-
+ 
 * Sun Nov 29 2020 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.8.1-2
 - Patch to remove python-magic as a requirement to fix some issues
 
@@ -230,7 +219,7 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 - New Version
 
 * Sun Apr 05 2020 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.5-2
-- Removed unecessary comments
+- Removed unecessary comments 
 
 * Sun Apr 05 2020 Christopher King <bunnyapocalypse@protonmail.com> - 0.5.5-1
 - New Version

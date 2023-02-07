@@ -25,7 +25,8 @@ Summary: Bluebrain Python Optimisation Library (bluepyopt)
 %global debug_package %{nil}
 
 # pyedflib excludes s390x, so all deps also exclude it
-ExcludeArch:    s390x
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    s390x %{ix86}
 
 License: LGPLv3
 

@@ -1,8 +1,8 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.361
-Release:	2%{?dist}
+Version:	8.3.365
+Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
 License:	MIT
@@ -171,6 +171,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Sun Feb  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.365-1
+- 8.3.365
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.361-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

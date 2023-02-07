@@ -6,7 +6,7 @@
 Name:		coin-or-%{module}
 Summary:	Optimization Services
 Version:	2.10.3
-Release:	4%{?dist}
+Release:	5%{?dist}
 License:	EPL-1.0
 URL:		http://projects.coin-or.org/%{module}
 Source0:	https://github.com/coin-or/OS/archive/refs/tags/releases/%{version}/%{module}-releases-%{version}.tar.gz
@@ -60,6 +60,8 @@ Patch8:		%{name}-uninitialized.patch
 # Fix some mixed signed/unsigned operations
 Patch9:		%{name}-signed.patch
 
+Patch10:	coin-or-OS-configure-c99.patch
+
 %description
 The objective of Optimization Services (OS) is to provide a set of standards
 for representing optimization instances, results, solver options, and
@@ -100,6 +102,7 @@ dos2unix OS/src/OSParsers/OSParseosil.l
 %patch7 -p1 -b .backup
 %patch8 -p1 -b .backup
 %patch9 -p1 -b .backup
+%patch10 -p1
 
 # Fix a small typo
 sed -i 's/CyLP/DyLP/' configure
@@ -167,6 +170,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %doc doxydoc/* OS/doc/*
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 2.10.3-5
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

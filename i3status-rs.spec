@@ -3,7 +3,7 @@
 
 Name:           i3status-rs
 Version:        0.13.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Feature-rich and resource-friendly replacement for i3status, written in Rust
 
 # Upstream license specification: GPLv3
@@ -61,6 +61,9 @@ sed -i -e '/maildir/s/0.3/0.4/' -e '/nix/s/0.16.0/0.17/' Cargo.toml
 %{_bindir}/i3status-rs
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.13.1-10
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

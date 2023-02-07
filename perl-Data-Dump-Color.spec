@@ -1,38 +1,44 @@
 Name:           perl-Data-Dump-Color
-Version:        0.248
-Release:        6%{?dist}
+Version:        0.249
+Release:        1%{?dist}
 Summary:        Like Data::Dump, but with color
 License:        GPL+ or Artistic
 
 URL:            https://metacpan.org/release/Data-Dump-Color
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PERLANCAR/Data-Dump-Color-%{version}.tar.gz
 BuildArch:      noarch
+# build requirements
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.10.1
 BuildRequires:  perl(blib)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::ShareDir::Install)
+# runtime requirements
 BuildRequires:  perl(ColorThemeBase::Static::FromStructColors) >= 0.006
 BuildRequires:  perl(ColorThemeUtil::ANSI)
 BuildRequires:  perl(Data::Dump::FilterContext)
 BuildRequires:  perl(Data::Dump::Filtered)
-BuildRequires:  perl(Module::Load::Util) >= 0.004
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(File::ShareDir::Install)
-BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(IO::Handle)
-BuildRequires:  perl(IPC::Open3)
+BuildRequires:  perl(MIME::Base64)
+BuildRequires:  perl(Module::Load::Util) >= 0.004
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util::LooksLikeNumber)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(subs)
 BuildRequires:  perl(Term::ANSIColor)
-BuildRequires:  perl(Test::More) >= 0.98
-BuildRequires:  perl(Test::NoWarnings)
 BuildRequires:  perl(vars)
 BuildRequires:  perl(warnings)
+# test requirements
+BuildRequires:  perl(Capture::Tiny)
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(IPC::Open3)
+BuildRequires:  perl(Test::Exception)
+BuildRequires:  perl(Test::More) >= 0.98
+BuildRequires:  perl(Test::NoWarnings)
 Requires:       perl(Data::Dump::Filtered)
 Requires:       perl(Data::Dump::FilterContext)
 Requires:       perl(MIME::Base64)
@@ -69,6 +75,10 @@ what's different between this module and Data::Dump.
 %{_mandir}/man1/*
 
 %changelog
+* Sun Feb 05 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.249-1
+- Update to 0.249
+- Reorder build requirements
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.248-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

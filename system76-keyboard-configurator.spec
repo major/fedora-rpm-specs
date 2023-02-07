@@ -6,7 +6,7 @@ Version:         1.3.0
 %forgemeta
 
 Name:          system76-keyboard-configurator
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       System76 Keyboard Configurator
 
 License:       GPLv3
@@ -74,6 +74,9 @@ appstream-util validate-relax --nonet linux/com.system76.keyboardconfigurator.ap
 
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.3.0-3
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

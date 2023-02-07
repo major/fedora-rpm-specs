@@ -3,7 +3,7 @@
 
 Name:           nmstate
 Version:        2.2.5
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        Declarative network manager API
 License:        LGPLv2+
 URL:            https://github.com/%{srcname}/%{srcname}

@@ -1,6 +1,6 @@
 Name:           sdcc
 Version:        4.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Small Device C Compiler
 License:        GPLv2+
 URL:            http://sdcc.sourceforge.net/
@@ -59,6 +59,23 @@ echo '%{__os_install_post}'
 # Preset PDFOPT to /bin/cp
 OPTS='PDFOPT="/bin/cp"'
 
+# The following is to get configure.ac files to work with autoconf 2.71
+cd support/sdbinutils
+sed -i -e /2.64/s/2.64/2.71/ config/override.m4 
+autoconf
+cd libiberty
+# autoupdate does not properly convert configure.ac
+#this is a fudge as $libiberty_topdir not now defined when AC_CONFIG_AUX_DIR is used
+sed -i -e '/AC_CONFIG_AUX_DIR/s/$libiberty_topdir/"..\/"/' configure.ac
+autoconf
+cd ../bfd
+sed -i -e /cygnus/d doc/Makefile.am
+autoconf
+cd ../binutils
+autoconf
+cd ../../..
+
+
 %configure --enable-doc --disable-non-free  STRIP=: ${OPTS} PYTHON=python3
 mkdir -p ~/.lyx
 cp %SOURCE2  ~/.lyx/preferences
@@ -110,6 +127,9 @@ popd
 
 
 %changelog
+* Sun Feb 05 2023 Roy Rankin <rrankin@ihug.com.au> - 4.1.0-6
+- path to build with autoconf 2.71
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

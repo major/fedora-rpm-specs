@@ -3,7 +3,7 @@
 Name:		coin-or-%{module}
 Summary:	Branch-Cut-Price Framework
 Version:	1.4.4
-Release:	10%{?dist}
+Release:	11%{?dist}
 License:	CPL
 URL:		http://projects.coin-or.org/%{module}
 Source0:	http://www.coin-or.org/download/pkgsource/%{module}/%{module}-%{version}.tgz
@@ -18,6 +18,8 @@ BuildRequires:	make
 
 # Install documentation in standard rpm directory
 Patch0:		%{name}-docdir.patch
+
+Patch1:		coin-or-Bcp-configure-c99.patch
 
 %description
 BCP is a parallel framework for implementing branch, cut, and price algorithms
@@ -91,6 +93,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make test
 %{_pkgdocdir}/bcp_doxy.tag
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 1.4.4-11
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

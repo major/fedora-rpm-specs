@@ -2,8 +2,8 @@
 
 Name:    kf5-%{framework}
 Summary: KDE Frameworks 5 Tier 1 barcode library
-Version: 5.102.0
-Release: 3%{?dist}
+Version: 5.103.0
+Release: 1%{?dist}
 
 License: BSD 
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -70,6 +70,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
+- 5.103.0
+
 * Mon Jan 23 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.102.0-3
 - Enable PrisonScanner library
 

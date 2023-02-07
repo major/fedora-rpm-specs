@@ -3,11 +3,23 @@
 %if 0%{?fedora} && 0%{?fedora} > 37
 %ifarch %{ix86}
 %bcond_with openmpi
+%bcond_without mpich
 %else
 %bcond_without openmpi
-%endif
-%endif
 %bcond_without mpich
+%endif
+%endif
+
+%if 0%{?fedora} && 0%{?fedora} < 38
+%bcond_without openmpi
+%bcond_without mpich
+%endif
+
+%if 0%{?rhel}
+%bcond_without openmpi
+%bcond_without mpich
+%endif
+
 %bcond_without check
 
 # CTest flags for debugging only
@@ -19,8 +31,8 @@
 %endif
 
 Name:          combblas
-Version:       1.6.2
-Release:       0.18.beta2%{?dist}
+Version:       2.0.0
+Release:       1%{?dist}
 Summary:       The Combinatorial BLAS Library
 
 # Main license for CombBLAS is BSD.
@@ -32,8 +44,7 @@ Summary:       The Combinatorial BLAS Library
 # usort/ under MIT or Expat license.
 License:       BSD and MIT and Boost and GPLv2+
 URL:           https://people.eecs.berkeley.edu/~aydin/%{truename}/html/index.html
-# Public development repository: https://bitbucket.org/berkeleylab/combinatorial-blas-2.0
-Source0:       http://eecs.berkeley.edu/~aydin/%{truename}_FILES/%{truename}_beta_16_2.tgz
+Source0:       https://github.com/PASSIONLab/%{truename}/archive/refs/tags/v%{version}/%{truename}-%{version}.tar.gz
 Source1:       http://eecs.berkeley.edu/~aydin/%{truename}_FILES/testdata_%{name}1.6.1.tgz
 
 %if 0%{?rhel} == 7
@@ -49,6 +60,9 @@ Patch0: %{name}-libpaths.patch
 
 # Use a versioned soname for all libraries
 Patch1: %{name}-sublibs_soname.patch
+
+# https://github.com/PASSIONLab/CombBLAS/commit/ecf96214a0c666662954cf24b84df97f61d52dc9
+Patch2: %{name}-%{version}-removing_MPI_COMM_WORLD.patch
 
 %global desc \
 The Combinatorial BLAS (CombBLAS) is an extensible distributed-memory parallel \
@@ -103,7 +117,7 @@ Development files for %{name}-mpich
 %endif
 
 %prep
-%autosetup -a 1 -n %{truename}_beta_16_2 -p 0
+%autosetup -a 1 -n %{truename}-%{version} -p 1
 
 cp --no-preserve=mode,ownership usort/LICENSE usort/usort-LICENSE
 cp --no-preserve=mode,ownership graph500-1.2/COPYING graph500-1.2/graph500-1.2-COPYING
@@ -173,7 +187,6 @@ export LDFLAGS="%{__global_ldflags} -lm -lrt"
 mkdir -p %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM %{buildroot}$MPI_INCLUDE/%{truename}/Applications %{buildroot}$MPI_INCLUDE/%{truename}/BipartiteMatchings
 install -pm 644 3DSpGEMM/*.h %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM/
 install -pm 644 Applications/*.h %{buildroot}$MPI_INCLUDE/%{truename}/Applications/
-install -pm 644 BipartiteMatchings/*.h %{buildroot}$MPI_INCLUDE/%{truename}/BipartiteMatchings/
 
 chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 %{_openmpi_unload}
@@ -186,7 +199,6 @@ chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 mkdir -p %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM %{buildroot}$MPI_INCLUDE/%{truename}/Applications %{buildroot}$MPI_INCLUDE/%{truename}/BipartiteMatchings
 install -pm 644 3DSpGEMM/*.h %{buildroot}$MPI_INCLUDE/%{truename}/3DSpGEMM/
 install -pm 644 Applications/*.h %{buildroot}$MPI_INCLUDE/%{truename}/Applications/
-install -pm 644 BipartiteMatchings/*.h %{buildroot}$MPI_INCLUDE/%{truename}/BipartiteMatchings/
 
 chrpath -r $MPI_LIB %{buildroot}$MPI_LIB/libCombBLAS.so.*
 %{_mpich_unload}
@@ -206,7 +218,7 @@ find %{buildroot} -type f -name "._CombBLAS.h" -exec rm -f '{}' \;
 cp -a TESTDATA build/openmpi/
 pushd build/openmpi
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-ctest3 %{debug_flags} --force-new-ctest-process -j1 -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test'
+ctest3 %{debug_flags} --force-new-ctest-process -j1 -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
 popd
 %{_openmpi_unload}
 %endif
@@ -216,7 +228,7 @@ popd
 cp -a TESTDATA build/mpich/
 pushd build/mpich
 export LD_LIBRARY_PATH=%{buildroot}$MPI_LIB:$MPI_LIB
-ctest3 %{debug_flags} --force-new-ctest-process -j1 -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test'
+ctest3 %{debug_flags} --force-new-ctest-process -j1 -E 'Indexing_Test|SpAsgn_Test|FBFS_Test|FMIS_Test|BPMM_Test'
 popd
 %{_mpich_unload}
 %endif
@@ -226,9 +238,9 @@ popd
 %files openmpi
 %doc README_DEVELOPERS graph500-1.2/Graph500.html graph500-1.2/Graph500.org
 %license LICENSE usort/usort-LICENSE graph500-1.2/graph500-1.2-COPYING graph500-1.2/generator/graph500-1.2-generator-LICENSE_1_0.txt
-%{_libdir}/openmpi/lib/libCombBLAS.so.*
-%{_libdir}/openmpi/lib/libGraphGenlib.so.*
-%{_libdir}/openmpi/lib/libUsortlib.so.*
+%{_libdir}/openmpi/lib/libCombBLAS.so.2.0.0
+%{_libdir}/openmpi/lib/libGraphGenlib.so.1.2
+%{_libdir}/openmpi/lib/libUsortlib.so.2.0.0
 
 %files openmpi-devel
 %{_libdir}/openmpi/lib/libCombBLAS.so
@@ -246,9 +258,9 @@ popd
 %files mpich
 %doc README_DEVELOPERS graph500-1.2/Graph500.html graph500-1.2/Graph500.org
 %license LICENSE usort/usort-LICENSE graph500-1.2/graph500-1.2-COPYING graph500-1.2/generator/graph500-1.2-generator-LICENSE_1_0.txt
-%{_libdir}/mpich/lib/libCombBLAS.so.*
-%{_libdir}/mpich/lib/libGraphGenlib.so.*
-%{_libdir}/mpich/lib/libUsortlib.so.*
+%{_libdir}/mpich/lib/libCombBLAS.so.2.0.0
+%{_libdir}/mpich/lib/libGraphGenlib.so.1.2
+%{_libdir}/mpich/lib/libUsortlib.so.2.0.0
 
 %files mpich-devel
 %{_libdir}/mpich/lib/libCombBLAS.so
@@ -263,6 +275,9 @@ popd
 %endif
 
 %changelog
+* Sat Feb 04 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.0.0-1
+- Release 2.0.0
+
 * Sat Feb 04 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.6.2-0.18.beta2
 - Drop OpenMPI support in Fedora 38+ i686 only
 

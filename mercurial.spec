@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 6.3.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -273,6 +273,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 6.3.2-3
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

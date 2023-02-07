@@ -1,6 +1,6 @@
 Name:         liblo
 Version:      0.31
-Release:      7%{?dist}
+Release:      8%{?dist}
 Summary:      Open Sound Control library
 License:      LGPLv2+
 URL:          http://liblo.sourceforge.net
@@ -9,6 +9,8 @@ Source0:      http://download.sf.net/sourceforge/liblo/liblo-%{version}.tar.gz
 Patch0:       %{name}-maybe-uninitialized.patch
 # Patch sent upstream https://github.com/radarsat1/liblo/pull/120
 Patch1:       %{name}-one-more-maybe-uninitialized.patch
+# Patch sent upstream https://github.com/radarsat1/liblo/pull/136
+Patch2:       %{name}-ret-uninitialized.patch
 
 BuildRequires: gcc
 BuildRequires: doxygen
@@ -65,6 +67,9 @@ find %{buildroot} -type f -name "*.la" -delete
 %{_mandir}/man3/*
 
 %changelog
+* Sun Feb 05 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.31-8
+- Fix FTBFS in Fedora rawhide
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.31-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

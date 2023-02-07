@@ -22,6 +22,7 @@ Summary:        Spell checking and fuzzy search suggestion written in Go
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
+Patch:          fuzzy-tests-no-timeout.patch 
 
 %description %{common_description}
 
@@ -29,6 +30,8 @@ Source:         %{gosource}
 
 %prep
 %goprep
+
+%patch0 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires

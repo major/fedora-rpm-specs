@@ -5,7 +5,7 @@
 
 Name:           mirrorlist-server
 Version:        3.0.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Mirrorlist Server
 
 # Upstream license specification: MIT
@@ -78,6 +78,9 @@ than the Python version.}
 %endif
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 3.0.6-5
+- Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.6-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

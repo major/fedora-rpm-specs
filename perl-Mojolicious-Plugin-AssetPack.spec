@@ -1,6 +1,6 @@
 Name:           perl-Mojolicious-Plugin-AssetPack
-Version:        2.13
-Release:        7%{?dist}
+Version:        2.14
+Release:        1%{?dist}
 Summary:        Compress and convert CSS, Less, Sass, JavaScript and CoffeeScript files
 License:        Artistic 2.0
 
@@ -82,6 +82,9 @@ done
 %{_mandir}/man3/Mojolicious*
 
 %changelog
+* Sun Feb 05 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.14-1
+- Update to 2.14
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

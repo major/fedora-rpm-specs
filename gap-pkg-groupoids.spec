@@ -1,8 +1,8 @@
 %global pkgname groupoids
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.71
-Release:        3%{?dist}
+Version:        1.72
+Release:        1%{?dist}
 Summary:        Groupoids, group graphs, and groupoid graphs
 
 License:        GPL-2.0-or-later
@@ -94,6 +94,9 @@ done
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Sun Feb  5 2023 Jerry James <loganjerry@gmail.com> - 1.72-1
+- Version 1.72
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.71-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

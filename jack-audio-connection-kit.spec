@@ -13,8 +13,8 @@
 
 Summary:       The Jack Audio Connection Kit
 Name:          jack-audio-connection-kit
-Version:       1.9.21
-Release:       4%{?dist}
+Version:       1.9.22
+Release:       1%{?dist}
 # The entire source (~500 files) is a mixture of these three licenses
 License:       GPLv2 and GPLv2+ and LGPLv2+
 URL:           https://www.jackaudio.org
@@ -24,8 +24,6 @@ Source2:       %{name}-script.pa
 Source3:       %{name}-limits.conf
 # Adjust default priority. RHBZ#795094
 Patch1:        jack-realtime-compat.patch
-# read mode "U" is deprecated long before: python 3.11 removes the support
-Patch2:        jack-1.9.21-py311-readmode.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: dbus-devel
@@ -45,14 +43,11 @@ BuildRequires: ncurses-devel
 BuildRequires: opus-devel
 BuildRequires: pkgconfig
 BuildRequires: python3
-BuildRequires: readline-devel
-%if 0%{?fedora}
-BuildRequires: zita-alsa-pcmi-devel
-BuildRequires: zita-resampler-devel
-%endif
 
 Requires(pre): shadow-utils
 Requires:      pam
+
+Obsoletes:     %{name}-example-clients < 1.9.22
 
 %description
 JACK is a low-latency audio server, written primarily for the Linux operating
@@ -107,11 +102,7 @@ python3 ./waf configure \
 %endif
    --alsa \
    --clients 256 \
-   --ports-per-application=2048 \
-%if 0%{?fedora}
-   --zalsa=yes \
-%endif
-   --example-tools=yes
+   --ports-per-application=2048
 
 python3 ./waf build %{?_smp_mflags} -v
 
@@ -133,9 +124,6 @@ install -p -m644 %{SOURCE1} README.Fedora
 # install pulseaudio script for jack (as documentation part)
 install -p -m644 %{SOURCE2} jack.pa
 
-# For compatibility with jack1
-mv %{buildroot}%{_bindir}/jack_rec %{buildroot}%{_bindir}/jackrec
-
 # Fix permissions of the modules
 chmod 755 %{buildroot}%{_libdir}/jack/*.so %{buildroot}%{_libdir}/libjack*.so.*.*.*
 
@@ -149,14 +137,12 @@ exit 0
 %doc jack.pa
 %license COPYING
 %{_bindir}/jackd
-%{_bindir}/jackrec
 %{_libdir}/jack/
 %{_libdir}/libjack.so.0*
 %{_libdir}/libjacknet.so.0*
 %{_libdir}/libjackserver.so.0*
 %config(noreplace) %{_sysconfdir}/security/limits.d/*.conf
 
-%{_mandir}/man1/jackrec.1*
 %{_mandir}/man1/jackd*.1*
 
 %files dbus
@@ -172,74 +158,11 @@ exit 0
 %{_libdir}/libjackserver.so
 %{_libdir}/pkgconfig/jack.pc
 
-%files example-clients
-%license COPYING
-%{_bindir}/alsa_in
-%{_bindir}/alsa_out
-%{_bindir}/jack_alias
-%{_bindir}/jack_bufsize
-%{_bindir}/jack_connect
-%{_bindir}/jack_disconnect
-%{_bindir}/jack_cpu_load
-%{_bindir}/jack_evmon
-%{_bindir}/jack_freewheel
-# These are not ready yet
-#{_bindir}/jack_impulse_grabber
-%exclude %{_mandir}/man1/jack_impulse_grabber.1*
-%{_bindir}/jack_latent_client
-%{_bindir}/jack_load
-%{_bindir}/jack_unload
-%{_bindir}/jack_lsp
-%{_bindir}/jack_metro
-%{_bindir}/jack_midi_dump
-%{_bindir}/jack_midi_latency_test
-%{_bindir}/jack_midiseq
-%{_bindir}/jack_midisine
-%{_bindir}/jack_monitor_client
-%{_bindir}/jack_net_master
-%{_bindir}/jack_net_slave
-%{_bindir}/jack_netsource
-%{_bindir}/jack_property
-%{_bindir}/jack_samplerate
-%{_bindir}/jack_server_control
-%{_bindir}/jack_session_notify
-%{_bindir}/jack_showtime
-%{_bindir}/jack_simple_client
-%{_bindir}/jack_simple_session_client
-%{_bindir}/jack_thru
-%{_bindir}/jack_transport
-%{_bindir}/jack_wait
-%{_bindir}/jack_zombie
-
-%{_mandir}/man1/alsa_*.1*
-%{_mandir}/man1/jack_bufsize.1*
-%{_mandir}/man1/jack_connect.1*
-%{_mandir}/man1/jack_disconnect.1*
-%{_mandir}/man1/jack_freewheel*.1*
-%{_mandir}/man1/jack_load*.1*
-%{_mandir}/man1/jack_unload*.1*
-%{_mandir}/man1/jack_lsp.1*
-%{_mandir}/man1/jack_metro.1*
-%{_mandir}/man1/jack_monitor_client.1*
-%{_mandir}/man1/jack_netsource.1*
-%{_mandir}/man1/jack_property.1*
-%{_mandir}/man1/jack_samplerate.1*
-%{_mandir}/man1/jack_showtime.1*
-%{_mandir}/man1/jack_simple_client.1*
-%{_mandir}/man1/jack_transport.1*
-%{_mandir}/man1/jack_wait.1*
-
-# tests
-%{_bindir}/jack_cpu
-%{_bindir}/jack_iodelay
-%{_bindir}/jack_multiple_metro
-%{_bindir}/jack_simdtests
-%{_bindir}/jack_test
-
-%{_mandir}/man1/jack_iodelay.1*
-
-
 %changelog
+* Sun Feb 05 2023 Guido Aulisi <guido.aulisi@gmail.com> - 1.9.22-1
+- Update to 1.9.22
+- Obsolete example clients package
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.21-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,12 +3,13 @@
 Summary: Utility for creation bootable FAT disk
 Name: makebootfat
 Version: 1.4
-Release: 35%{?dist}
+Release: 36%{?dist}
 License: GPLv2+
 URL: http://advancemame.sourceforge.net/doc-makebootfat.html
 Source0: http://downloads.sourceforge.net/advancemame/%{name}-%{version}.tar.gz
 Source1: makebootfat-README.usbboot
 Patch0:  makebootfat-1.4-newioctl.patch
+Patch1: makebootfat-configure-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -42,6 +43,7 @@ can be successfully used separately for any purposes.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 install -p -m644 %{SOURCE1} README.usbboot
 
@@ -76,6 +78,9 @@ install -p -m644 test/ldlinux.sys $RPM_BUILD_ROOT%{_datadir}/%{name}/x86
 
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 1.4-36
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

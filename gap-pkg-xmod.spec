@@ -1,8 +1,8 @@
 %global pkgname XMod
 
 Name:           gap-pkg-xmod
-Version:        2.88
-Release:        5%{?dist}
+Version:        2.89
+Release:        1%{?dist}
 Summary:        Crossed Modules and Cat1-Groups for GAP
 
 License:        GPL-2.0-or-later
@@ -84,6 +84,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Sun Feb  5 2023 Jerry James <loganjerry@gmail.com> - 2.89-1
+- Version 2.89
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.88-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

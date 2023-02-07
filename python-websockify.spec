@@ -1,8 +1,8 @@
 %global pkgname websockify
 %global summary WSGI based adapter for the Websockets protocol
 Name:           python-%{pkgname}
-Version:        0.10.0
-Release:        4%{?dist}
+Version:        0.11.0
+Release:        1%{?dist}
 Summary:        %{summary}
 
 License:        LGPLv3
@@ -34,10 +34,6 @@ Python WSGI based adapter for the Websockets protocol - documentation
 %prep
 %autosetup -n %{pkgname}-%{version}
 
-# TODO: Have the following handle multi line entries
-# numpy is listed as install_requires in setup.py however it is optional
-sed -i '/setup_requires/d; /install_requires/d; /dependency_links/d' setup.py
-
 %build
 %py3_build
 
@@ -60,6 +56,9 @@ install -m 444 docs/websockify.1 %{buildroot}%{_mandir}/man1/
 %doc docs
 
 %changelog
+* Sun Feb 05 2023 Jonathan Wright <jonathan@almalinux.org> - 0.11.0-1
+- update to 0.11.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

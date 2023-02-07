@@ -14,7 +14,7 @@
 
 Name:           auryn
 Version:        0.8.2
-Release:        15%{?dist}
+Release:        %autorelease
 Summary:        Plastic Recurrent Network Simulator
 
 License:        GPLv3
@@ -23,6 +23,9 @@ Source0:        https://github.com/fzenke/%{name}/archive/v%{version}m/%{name}-%
 
 # Upstream added an m prefix to the directory structure for some reason
 %global _version %{version}m
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -293,58 +296,4 @@ export MPI_COMPILE_TYPE="-openmpi"
 # openmpi
 
 %changelog
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-15
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-14
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Wed May 04 2022 Thomas Rodgers <trodgers@redhat.com> - 0.8.2-13
-- Rebuilt for Boost 1.78
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Aug 17 2021 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.8.2-11
-- Bump spec, rebuild
-
-* Fri Aug 06 2021 Jonathan Wakely <jwakely@redhat.com> - 0.8.2-10
-- Rebuilt for Boost 1.76
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 22 2021 Jonathan Wakely <jwakely@redhat.com> - 0.8.2-7
-- Rebuilt for Boost 1.75
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Sat May 30 2020 Jonathan Wakely <jwakely@redhat.com> - 0.8.2-5
-- Rebuilt for Boost 1.73
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Tue Feb 19 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.8.2-2
-- Disable intrinsics on ppc also
-
-* Tue Feb 19 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.8.2-1
-- Update to latest upstream release that fixes build on all arches
-- Make required arch specific changes
-- Temporarily disable dev doc generation which crashes on aarch64
-
-* Sat Feb 16 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.8.1-3
-- Make doc package noarch
-
-* Thu Jan 31 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.8.1-2
-- Enable unit tests
-
-* Wed Jan 30 2019 Ankur Sinha <ankursinha AT fedoraproject DOT org> - 0.8.1-1
-- Initial build
+%autochangelog

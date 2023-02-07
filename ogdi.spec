@@ -2,7 +2,7 @@
 
 Name:		ogdi
 Version:	4.1.0
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Open Geographic Datastore Interface
 License:	BSD
 URL:		http://ogdi.sourceforge.net/
@@ -11,6 +11,7 @@ Source0:	https://github.com/libogdi/ogdi/archive/%{name}_%{gittag}.tar.gz
 Source1:	http://ogdi.sourceforge.net/ogdi.pdf
 # https://bugzilla.redhat.com/show_bug.cgi?id=1470896
 Patch0:		ogdi-%{version}-sailer.patch
+Patch1: ogdi-c99.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -173,6 +174,9 @@ touch -r ogdi-config.in %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 4.1.0-10
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

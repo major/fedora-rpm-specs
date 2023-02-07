@@ -12,7 +12,7 @@ ExcludeArch: ppc64 s390x
 
 Name: ProDy
 Summary: Application for protein structure, dynamics and sequence analysis
-Version: 2.3.1
+Version: 2.4.0
 Release: 2%{?dist}
 
 # MIT is the main license for ProDy
@@ -23,6 +23,8 @@ URL: http://www.csb.pitt.edu/ProDy
 Source0: https://github.com/prody/ProDy/archive/v%{version}/ProDy-%{version}.tar.gz
 
 BuildRequires: gcc, gcc-c++
+
+Patch0: ProDy-change_requires.patch
 
 %description
 ProDy is a free and open-source Python package for protein structure, dynamics,
@@ -66,25 +68,19 @@ visual analysis.
 - Visit http://www.csb.pitt.edu/ProDy/ -
 
 %prep
-%setup -qc
+%autosetup -p1
 
 # Fix permissions
-find %{name}-%{version}/prody/proteins/ccealign -name '*.h' -exec chmod 0644 '{}' \;
-find %{name}-%{version}/prody/proteins/ccealign -name '*.cpp' -exec chmod 0644 '{}' \;
-
-mv %{name}-%{version} python3
+find prody/proteins/ccealign -name '*.h' -exec chmod 0644 '{}' \;
+find prody/proteins/ccealign -name '*.cpp' -exec chmod 0644 '{}' \;
 
 %build
-pushd python3
 %py3_build
-popd
 
 %install
-pushd python3
 %py3_install
 
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-
 rm -f $RPM_BUILD_ROOT%{_bindir}/*
 
 cd scripts
@@ -116,15 +112,15 @@ cd ..
 
 %if 0%{?with_check}
 %check
-pushd python3/scripts
+pushd scripts
 PYTHONPATH=$RPM_BUILD_ROOT%{python3_sitearch} nosetests-%{python3_version} --verbosity=2 \
  -w $RPM_BUILD_ROOT%{python3_sitearch}/prody/tests --tests prody -a '!slow'
 popd
 %endif
 
 %files -n python3-%{name}
-%license python3/LICENSE.rst
-%doc python3/README.rst
+%license LICENSE.rst
+%doc README.rst
 %{_bindir}/prody
 %{_bindir}/prody-%{python3_version}
 %{_bindir}/python%{python3_version}-prody
@@ -135,6 +131,12 @@ popd
 %{python3_sitearch}/%{name}-*.egg-info
 
 %changelog
+* Sun Feb 05 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.4.0-2
+- Change required packages version
+
+* Sun Feb 05 2023 Antonio Trande <sagitter@fedoraproject.org> - 2.4.0-1
+- Release 2.4.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           perl-DateTime-Format-Natural
-Version:        1.15
-Release:        2%{?dist}
+Version:        1.16
+Release:        1%{?dist}
 Summary:        Create machine readable date/time with natural parsing logic
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-Natural
@@ -68,12 +68,6 @@ with "%{_libexecdir}/%{name}/test".
 for f in Changes README; do
         iconv -f iso8859-1 -t utf-8 $f >$f.conf && mv $f.conf $f
 done
-## Help generators to recognize Perl scripts
-#for F in t/*.t; do
-#    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
-#    chmod +x "$F"
-#done
-
 
 %build
 perl Build.PL installdirs=vendor
@@ -116,6 +110,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Feb 05 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.16-1
+- 1.16 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

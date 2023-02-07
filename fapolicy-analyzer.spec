@@ -1,7 +1,7 @@
 Summary:       File Access Policy Analyzer
 Name:          fapolicy-analyzer
 Version:       0.6.8
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPLv3+
 URL:           https://github.com/ctc-oss/fapolicy-analyzer
 Source0:       %{url}/releases/download/v%{version}/%{name}.tar.gz
@@ -108,13 +108,8 @@ ExcludeArch:   s390x %{power64}
 Tools to assist with the configuration and management of fapolicyd.
 
 %prep
-%cargo_prep
-
 %autosetup -n %{name}
-
-# throw out the checked-in lock
-# this build will use what is available from the local registry
-rm Cargo.lock
+%cargo_prep
 
 # disable dev-tools crate
 sed -i '/tools/d' Cargo.toml
@@ -124,6 +119,8 @@ sed -i '/tools/d' Cargo.toml
 echo %{version} > VERSION
 
 %build
+# ensure standard Rust compiler flags are set
+export RUSTFLAGS="%build_rustflags"
 %{python3} setup.py compile_catalog -f
 %{python3} setup.py bdist_wheel
 
@@ -148,6 +145,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %attr(755,root,root) %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.6.8-2
+- Ensure standard Rust compiler flags are set.
+
 * Wed Jan 11 2023 John Wass <jwass3@gmail.com> 0.6.8-1
 - New release
 

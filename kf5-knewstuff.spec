@@ -1,8 +1,8 @@
 %global framework knewstuff
 
 Name:    kf5-%{framework}
-Version: 5.102.0
-Release: 2%{?dist}
+Version: 5.103.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 module for downloading application assets
 
 License: LGPLv2+
@@ -81,6 +81,7 @@ developing applications that use %{name}.
 %{_kf5_libdir}/libKF5NewStuffCore.so.*
 %{_kf5_libdir}/libKF5NewStuffWidgets.so.*
 %{_kf5_datadir}/kf5/kmoretools/
+%{_kf5_datadir}/applications/org.kde.knewstuff-dialog.desktop
 %dir %{_kf5_qmldir}/org/
 %dir %{_kf5_qmldir}/org/kde
 %{_kf5_qmldir}/org/kde/newstuff/
@@ -100,6 +101,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
+- 5.103.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.102.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

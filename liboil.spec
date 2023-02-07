@@ -1,7 +1,7 @@
 Summary: Library of Optimized Inner Loops, CPU optimized functions
 Name: liboil
 Version: 0.3.16
-Release: 29%{?dist}
+Release: 30%{?dist}
 # See COPYING which details everything, various BSD licenses apply
 License: BSD
 URL: http://liboil.freedesktop.org/
@@ -9,6 +9,7 @@ Source: http://liboil.freedesktop.org/download/%{name}-%{version}.tar.gz
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=435771
 Patch4: liboil-0.3.13-disable-ppc64-opts.patch
+Patch5: liboil-configure-c99.patch
 
 BuildRequires:  gcc
 BuildRequires: glib2-devel, pkgconfig
@@ -39,6 +40,7 @@ extended instructions provided by modern CPUs (Altivec, MMX, SSE, etc.).
 %prep
 %setup -q
 %patch4 -p0 -b .disable-ppc64-opts
+%patch5 -p1
 
 %build
 # configure tests try to compile code containing ASMs to a .o file
@@ -78,6 +80,9 @@ rm -f %{buildroot}%{_libdir}/*.a
 
 
 %changelog
+* Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 0.3.16-30
+- Port configure script to C99 (#2167172)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.16-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -21,6 +21,9 @@ BuildRequires:  git-core
 BuildRequires:  python3-neuron
 BuildRequires:  neuron-devel
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %global _description %{expand:
 NEAT is a python library for the study,
 simulation and simplification of morphological neuron models.}

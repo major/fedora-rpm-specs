@@ -3,7 +3,7 @@
 
 Name:           nispor
 Version:        1.2.9
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Unified interface for Linux network state querying
 License:        ASL 2.0
 URL:            https://github.com/nispor/nispor
@@ -132,7 +132,4 @@ patchelf --set-soname libnispor.so.1 \
 %ghost %{cargo_registry}/%{name}-%{version_no_tilde}/Cargo.toml
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 %autochangelog

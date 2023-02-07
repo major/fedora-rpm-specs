@@ -245,7 +245,9 @@ rm examples/{notarize.rs,sign.rs,sign-detached.rs}
 # * run tests with nettle crypto backend (default)
 %cargo_test -n -f crypto-nettle,compression
 # * run tests with openssl crypto backend
-%cargo_test -n -f crypto-openssl,compression
+# * skip test that fails with OpenSSL < 3.0.7 due to missing RIPEMD160 algorithm:
+#   https://gitlab.com/sequoia-pgp/sequoia/-/issues/979
+%cargo_test -n -f crypto-openssl,compression -- -- --skip packet::one_pass_sig::tests::roundtrip
 %endif
 
 %changelog

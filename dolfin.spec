@@ -23,6 +23,9 @@ Patch:          0001-Add-missing-include-for-compatiblity-with-gcc-13.patch
 %global cmake_blas_flags -DBLAS_LIBRARIES=%{_libdir}/lib%{blaslib}%{blasvar}.so
 %endif
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  gnupg2
 BuildRequires:  cmake

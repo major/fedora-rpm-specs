@@ -25,6 +25,8 @@ License:        BSD
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 %description %_description
 

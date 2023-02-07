@@ -5,7 +5,7 @@
 %global crate anyhow
 
 Name:           rust-anyhow
-Version:        1.0.68
+Version:        1.0.69
 Release:        %autorelease
 Summary:        Flexible concrete Error type built on std::error::Error
 
