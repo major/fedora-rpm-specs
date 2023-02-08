@@ -1,6 +1,6 @@
 Name:           xdemorse
 Version:        3.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        GTK based application for decoding and displaying Morse code signals
 
 License:        GPLv2+
@@ -10,6 +10,7 @@ Source0:        http://www.qsl.net/5/5b4az//pkg/morse/%{name}/%{name}-%{version}
 Source3:        xdemorse.sh.in
 Patch0:         %{name}-3.5-desktopfile.patch
 Patch1:         %{name}-3.5-Makefile.patch
+Patch2: xdemorse-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -29,6 +30,7 @@ to the incoming signal, by clicking near its trace in the waterfall display.
 %setup -q
 %patch0 -p1 -b .desktop
 %patch1 -p1 -b .makefile
+%patch2 -p1
 
 %build
 
@@ -70,6 +72,9 @@ install -p -D -m 644 AUTHORS ChangeLog README doc/Morsecode.txt doc/%{name}.html
 %{_mandir}/man*/%{name}*
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 3.5-13
+- Fix bundled configure check for C99 compatibility (#2167315)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %global api_ver 5
 
 Name:           gtksourceview5
-Version:        5.6.1
-Release:        3%{?dist}
+Version:        5.7.0
+Release:        1%{?dist}
 Summary:        Source code editing widget
 
 License:        LGPLv2+
@@ -95,6 +95,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/installed-tests
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 5.7.0-1
+- Update to 5.7.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

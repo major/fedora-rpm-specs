@@ -1,14 +1,12 @@
 Name:           frogr
-Version:        1.6
+Version:        1.7
 Summary:        Flickr Remote Organizer for GNOME
 Summary(de):    Flickr-Verwaltung für GNOME
-Release:        8%{?dist}
+Release:        1%{?dist}
 
 License:        GPLv3
 URL:            https://wiki.gnome.org/Apps/Frogr
-Source0:        https://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
-# Avoid using werror for distro builds
-Patch0:         frogr-werror.patch
+Source0:        https://download.gnome.org/sources/%{name}/1.7/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -24,10 +22,6 @@ BuildRequires:  pkgconfig(libsoup-2.4)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  /usr/bin/appstream-util
 BuildRequires:  /usr/bin/desktop-file-validate
-#Explicitly Requires: gvfs since we need gtk_show_uri to be able to open a
-#web browser when associating frogr with a flickr account (this is how
-#application/flickr pairing works, through flickr.com)
-Requires:       gvfs
 
 %description
 Frogr is a small application for the GNOME desktop that allows users
@@ -75,6 +69,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 
 
 %changelog
+* Wed Feb 01 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1.7-1
+- Update to 1.7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

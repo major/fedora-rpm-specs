@@ -10,13 +10,14 @@
 
 Name:           links
 Version:        2.20.2
-Release:        10%{?dist}
+Release:        11%{?dist}
 Epoch:          1
 Summary:        Web browser running in both graphics and text mode
 License:        GPLv2+
 URL:            http://links.twibright.com/
 Source0:        http://links.twibright.com/download/%{name}-%{version}.tar.bz2
 Source1:        links.desktop
+Patch0:         links-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -55,7 +56,7 @@ scrolling.
 
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 %build
@@ -111,6 +112,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 1:2.20.2-11
+- Fix C99 compatibility issues in configure script (#2167366)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.20.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

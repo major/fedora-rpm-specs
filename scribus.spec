@@ -1,6 +1,6 @@
 Name:           scribus
 Version:        1.5.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Desktop Publishing application written in Qt
 # swatches bring in the fun licenses
 License:        GPLv2+ and OGL and CC0 and CC-BY and CC-BY-SA and Public Domain and ASL 2.0 and LGPLv2+ 
@@ -15,6 +15,7 @@ Source0:        %{name}-%{version}-free.tar.xz
 #Source1:        http://downloads.sourceforge.net/%%{name}/%%{name}-%%{version}.tar.xz.asc
 
 Patch0:         scribus-1.5.8-poppler-22.08.0.patch
+Patch1:         scribus-1.5.8-poppler-22.09.0.patch
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -139,6 +140,10 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Feb 06 2023 Marek Kasik <mkasik@redhat.com> - 1.5.8-9
+- Rebuild for poppler-23.02.0
+- Backported handling of new API of getLineDash()
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

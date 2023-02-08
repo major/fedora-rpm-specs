@@ -4,12 +4,12 @@
 
 %global crate noisy_float
 
-Name:           rust-%crate
+Name:           rust-noisy_float
 Version:        0.2.0
 Release:        %autorelease
 Summary:        Rust library containing floating point types
 License:        Apache-2.0
-URL:            https://crates.io/crates/%crate
+URL:            https://crates.io/crates/noisy_float
 Source:         %{crates_source}
 # * Remove criterion dependency because it is only needed for benchmarking
 #   and benchmarking is not relevant for the packaging process

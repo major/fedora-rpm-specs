@@ -1,6 +1,6 @@
 Name:             netgen
 Version:          1.3.7
-Release:          45%{?dist}
+Release:          46%{?dist}
 Summary:          LVS netlist comparison tool for VLSI
 
 License:          GPL+
@@ -57,6 +57,10 @@ cd %{name}-%{version}
 export WISH=/usr/bin/wish
 
 %build
+# This package contains many implicit function declarations.
+%set_build_flags
+CC="$CC -std=gnu89"
+
 cd %{name}-%{version}
 
 %configure --with-tcl=%{_libdir}      --with-tk=%{_libdir} \
@@ -106,6 +110,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/%{
 
 
 %Changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 1.3.7-46
+- Build in C89 mode (#2167380)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

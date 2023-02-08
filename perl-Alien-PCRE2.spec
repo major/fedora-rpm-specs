@@ -1,10 +1,13 @@
 Name:           perl-Alien-PCRE2
-Version:        0.016000
-Release:        5%{?dist}
+Version:        0.017000
+Release:        1%{?dist}
 Summary:        Install and locate PCRE2 library
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-PCRE2
 Source0:        https://cpan.metacpan.org/authors/id/W/WB/WBRASWELL/Alien-PCRE2-%{version}.tar.gz
+# Disable Alien share mode, we always use system-provided libraries,
+# not suitable for the upstream.
+Patch0:         Alien-PCRE2-0.017000-Disable-shared-mode.patch
 # This is an architecture-dependenant package because it stores data about
 # architecture-specific library, but it has no XS code, hence no debuginfo.
 %global debug_package %{nil}
@@ -14,11 +17,11 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Alien::Build::MM) >= 0.32
 # From ./alienfile
-BuildRequires:  perl(Alien::Build::Plugin::Build::Autoconf)
+# Alien::Build::Plugin::Build::Autoconf not used
 # From ./alienfile
-BuildRequires:  perl(Alien::Build::Plugin::Download::Negotiate)
+# Alien::Build::Plugin::Download::GitHub 1.30 not used
 # From ./alienfile
-BuildRequires:  perl(Alien::Build::Plugin::Extract::Negotiate)
+# Alien::Build::Plugin::Extract::Negotiate not used
 # From ./alienfile
 BuildRequires:  perl(Alien::Build::Plugin::PkgConfig::Negotiate)
 # From ./alienfile
@@ -93,6 +96,8 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Remove useless alienfile which would only pull unnwanted dependencies
+rm %{buildroot}/%{perl_vendorarch}/auto/share/dist/Alien-PCRE2/_alien/alienfile
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -115,13 +120,23 @@ make test
 
 %files
 %doc Changes README.md
-%{perl_vendorarch}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/Alien
+%{perl_vendorarch}/Alien/PCRE2
+%{perl_vendorarch}/Alien/PCRE2.pm
+%dir %{perl_vendorarch}/auto/Alien
+%{perl_vendorarch}/auto/Alien/PCRE2
+%dir %{perl_vendorarch}/auto/share
+%dir %{perl_vendorarch}/auto/share/dist
+%{perl_vendorarch}/auto/share/dist/Alien-PCRE2
+%{_mandir}/man3/Alien::PCRE2.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 06 2023 Petr Pisar <ppisar@redhat.com> - 0.017000-1
+- 0.017000 bump
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.016000-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

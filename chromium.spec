@@ -13,9 +13,10 @@
 %endif
 
 # set default numjobs for the koji build
-%global numjobs 16
+# we got the aarch64 builder with 224 cores and x86_64 builder with 46 cores
+%global numjobs 48
 %ifarch aarch64
-%global numjobs 8
+%global numjobs 64
 %endif
  
 # This flag is so I can build things very fast on a giant system.
@@ -227,8 +228,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 109.0.5414.119
-Release: 2%{?dist}
+Version: 110.0.5481.61
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
@@ -241,9 +242,6 @@ Patch1: chromium-91.0.4472.77-initial_prefs-etc-path.patch
 
 # Use gn system files
 Patch2: chromium-107.0.5304.110-gn-system.patch
-
-# Do not prefix libpng functions
-Patch3: chromium-60.0.3112.78-no-libpng-prefix.patch
 
 # Do not mangle zlib
 Patch5: chromium-77.0.3865.75-no-zlib-mangle.patch
@@ -279,9 +277,6 @@ Patch56: chromium-96.0.4664.45-missing-cstdint-header.patch
 # Missing <cstring> (thanks c++17)
 Patch57: chromium-96.0.4664.45-missing-cstring.patch
 
-# https://github.com/stha09/chromium-patches/blob/master/chromium-103-VirtualCursor-std-layout.patch
-Patch59: chromium-103-VirtualCursor-std-layout.patch
-
 # Fix headers to look for system paths when we are using system minizip
 Patch61: chromium-109-system-minizip-header-fix.patch
 
@@ -315,14 +310,8 @@ Patch90: chromium-109-disable-GlobalMediaControlsCastStartStop.patch
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
 
-# Fix extra qualification error
-Patch97: chromium-107.0.5304.110-remoting-extra-qualification.patch
-
 # From gentoo
 Patch98: chromium-94.0.4606.71-InkDropHost-crash.patch
-
-# Enable WebRTCPPipeWireCapturer by default
-Patch99: chromium-108-enable-WebRTCPipeWireCapturer-byDefault.patch
 
 # need to explicitly include a kernel header on EL7 to support MFD_CLOEXEC, F_SEAL_SHRINK, F_ADD_SEALS, F_SEAL_SEAL
 Patch100: chromium-108-el7-include-fcntl-memfd.patch
@@ -349,10 +338,6 @@ Patch106: chromium-98.0.4758.80-epel7-erase-fix.patch
 # Add additional operator== to make el7 happy.
 Patch107: chromium-99.0.4844.51-el7-extra-operator==.patch
 
-# Again, not sure how epel8 is the only one to hit this...
-# AARCH64 neon symbols need to be prefixed too to prevent multiple definition issue at linktime
-Patch110: chromium-90.0.4430.93-epel8-aarch64-libpng16-symbol-prefixes.patch
-
 # system ffmpeg
 Patch114: chromium-107-ffmpeg-duration.patch
 Patch115: chromium-107-proprietary-codecs.patch
@@ -371,11 +356,29 @@ Patch121: chromium-108-enable-allowqt.patch
 # gcc13
 Patch122: chromium-109-gcc13.patch
 
+# Patches by Stephan Hartmann, https://github.com/stha09/chromium-patches
+Patch130: chromium-103-VirtualCursor-std-layout.patch
+Patch131: chromium-110-CanvasResourceProvider-pragma.patch
+Patch132: chromium-110-CredentialUIEntry-const.patch
+Patch133: chromium-110-DarkModeLABColorSpace-pow.patch
+Patch134: chromium-110-dpf-arm64.patch
+Patch135: chromium-110-InProgressDownloadManager-include.patch
+Patch136: chromium-110-kCustomizeChromeColors-type.patch
+Patch137: chromium-110-NativeThemeBase-fabs.patch
+Patch138: chromium-110-Presenter-include.patch
+Patch139: chromium-110-raw_ptr-constexpr.patch
+Patch140: chromium-110-StorageQueue-decltype.patch
+Patch141: chromium-110-SyncIterator-template.patch
+Patch142: chromium-110-url_canon_internal-cast.patch
+Patch143: chromium-110-v8-gcc.patch
+Patch144: chromium-111-v8-std-layout1.patch
+Patch145: chromium-111-v8-std-layout2.patch
+
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
 Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
 Patch205: chromium-86.0.4240.75-fix-vaapi-on-intel.patch
-Patch206: chromium-109-ozone-wayland-vaapi-support.patch
+Patch206: chromium-110-ozone-wayland-vaapi-support.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
@@ -947,7 +950,6 @@ udev.
 %patch0 -p1 -b .sandboxpie
 %patch1 -p1 -b .etc
 %patch2 -p1 -b .gnsystem
-%patch3 -p1 -b .nolibpngprefix
 %patch5 -p1 -b .nozlibmangle
 %patch6 -p1 -b .nounrar
 %patch7 -p1 -b .widevine-hack
@@ -964,7 +966,6 @@ udev.
 
 %patch56 -p1 -b .missing-cstdint
 %patch57 -p1 -b .missing-cstring
-%patch59 -p1 -b .VirtualCursor-std-layout
 
 %if ! %{bundleminizip}
 %patch61 -p1 -b .system-minizip
@@ -986,9 +987,7 @@ udev.
 %patch91 -p1 -b .system-opus
 %endif
 
-%patch97 -p1 -b .remoting-extra-qualification
 %patch98 -p1 -b .InkDropHost-crash
-%patch99 -p1 -b .enable-WebRTCPipeWireCapturer-byDefault
 
 # Fedora branded user agent
 %if 0%{?fedora}
@@ -1015,13 +1014,26 @@ udev.
 %patch107 -p1 -b .el7-extra-operator-equalequal
 %endif
 
-%if 0%{?rhel} == 8
-%patch110 -p1 -b .el8-aarch64-libpng16-symbol-prefixes
-%endif
-
 %if 0%{?rhel} || 0%{?fedora} == 36
 %patch120 -p1 -b .link-error-clang14
 %endif
+
+%patch130 -p1 -b .VirtualCursor-std-layout
+%patch131 -p1 -b .CanvasResourceProvider-pragma
+%patch132 -p1 -b .CredentialUIEntry-const
+%patch133 -p1 -b .DarkModeLABColorSpace-pow
+%patch134 -p1 -b .dpf-arm64
+%patch135 -p1 -b .InProgressDownloadManager-include
+%patch136 -p1 -b .kCustomizeChromeColors-type
+%patch137 -p1 -b .NativeThemeBase-fabs
+%patch138 -p1 -b .Presenter-include
+%patch139 -p1 -b .raw_ptr-constexpr
+%patch140 -p1 -b .StorageQueue-decltype
+%patch141 -p1 -b .SyncIterator-template
+%patch142 -p1 -b .url_canon_internal-cast
+%patch143 -p1 -b .v8-gcc
+%patch144 -p1 -b .v8-std-layout1
+%patch145 -p1 -b .v8-std-layout2
 
 %if %{use_qt}
 %patch121 -p1 -b .enable-allowqt
@@ -1187,6 +1199,7 @@ CXXFLAGS="$CFLAGS"
 # override system build flags
 CFLAGS="$FLAGS"
 CXXFLAGS="$FLAGS"
+LDFLAGS=""
 %endif
 
 %if %{clang}
@@ -1198,6 +1211,7 @@ export CXX=g++
 %endif
 export CFLAGS
 export CXXFLAGS
+export LDFLAGS
 export AR=ar
 export NM=nm
 
@@ -1427,14 +1441,19 @@ mkdir -p %{builddir} && cp -a %{_bindir}/gn %{builddir}/
 %install
 rm -rf %{buildroot}
 
-mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{chromium_path}/locales
+mkdir -p %{buildroot}%{_bindir} \
+         %{buildroot}%{chromium_path}/locales \
+         %{buildroot}%{_sysconfdir}/%{name}
 
-%if %{use_vaapi}
+# install system wide chromium config
+cp -a %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 cp -a %{SOURCE3} %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
-%else
+
+%if ! %{use_vaapi}
+# remove vaapi flags
 grep -v features %{SOURCE3} > %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
 chmod 755 %{buildroot}%{chromium_path}/%{chromium_browser_channel}.sh
+echo "# system wide chromium flags" > %{buildroot}%{_sysconfdir}/%{name}/%{name}.conf
 %endif
 
 export BUILD_TARGET=`cat /etc/redhat-release`
@@ -1593,11 +1612,7 @@ mkdir -p %{buildroot}%{_datadir}/icons/hicolor/24x24/apps
 cp -a chrome/app/theme/chromium/product_logo_24.png %{buildroot}%{_datadir}/icons/hicolor/24x24/apps/%{chromium_browser_channel}.png
 
 # Install the master_preferences file
-mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 install -m 0644 %{SOURCE13} %{buildroot}%{_sysconfdir}/%{name}/
-
-# Install system wide chromium config
-install -m 0644 %{SOURCE2} %{buildroot}%{_sysconfdir}/%{name}/
 
 mkdir -p %{buildroot}%{_datadir}/applications/
 desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE4}
@@ -1788,6 +1803,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Sat Feb 04 2023 Than Ngo <than@redhat.com> - 110.0.5481.61-1
+- update to 110.0.5481.61
+
 * Thu Feb 02 2023 Jan Grulich <jgrulich@redhat.com> - 109.0.5414.119-2
 - Use ffmpeg decoders for h264 support
 

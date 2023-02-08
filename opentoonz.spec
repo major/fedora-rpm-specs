@@ -3,7 +3,7 @@
 
 Name:    opentoonz
 Version: 1.6.0
-Release: 10%{?dist}
+Release: 11%{?dist}
 Summary: 2D animation software
 
 License: BSD
@@ -17,6 +17,8 @@ Patch3: opentoonz-1.5.0-tiff-fix.patch
 # https://github.com/opentoonz/opentoonz/pull/4239
 Patch4: opentoonz-1.6.0-gethostbyname.patch
 Patch5: opentoonz-1.6.0-exr-fix.patch
+# https://github.com/opentoonz/opentoonz/pull/4739
+Patch6: opentoonz-1.6.0-size_t-fix.patch
 
 BuildRequires: flexiblas-devel
 BuildRequires: boost-devel
@@ -129,6 +131,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Mon Feb 6 2023 Diego Herrera <dherrera@redhat.com> 1.6.0-11
+- Fix size_t redefinition issue on tgc::hash class.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

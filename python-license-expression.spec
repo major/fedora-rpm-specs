@@ -3,7 +3,7 @@ Version:        30.1.0
 Release:        1%{?dist}
 Summary:        Library to parse, compare, simplify and normalize license expressions
 # `irc-notify.py` in the tarball is licensed under GPL, but not re-distributed
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/nexB/license-expression/
 Source0:        %{pypi_source license-expression}
 

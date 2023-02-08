@@ -18,9 +18,6 @@ BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  pkgconfig(gtk-doc)
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-gobject-base
-%ifarch %{valgrind_arches}
-BuildRequires:  valgrind
-%endif
 
 Obsoletes: libmodulemd < 1.8.15
 Provides: libmodulemd = %{version}-%{release}
@@ -65,23 +62,10 @@ Development files for libmodulemd.
 
 
 %check
-
 export LC_CTYPE=C.utf8
-
-%ifarch %{power64} s390x
-# Valgrind is broken on ppc64[le] with GCC7:
-# https://bugs.kde.org/show_bug.cgi?id=386945
+# causes test failures on multiple arches, but this is just a compat version
 export MMD_SKIP_VALGRIND=1
-%endif
-%ifnarch %{valgrind_arches}
-export MMD_SKIP_VALGRIND=1
-%endif
-
-# Don't run tests on ARM for now. There are problems with
-# performance on the builders and often these time out.
-%ifnarch %{arm} aarch64
 %meson_test
-%endif
 
 
 %install

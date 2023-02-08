@@ -2,8 +2,8 @@ Summary:	A library of handy utility functions
 Name:		glib
 Epoch:		1
 Version:	1.2.10
-Release:	66%{?dist}
-License:	LGPLv2+
+Release:	68%{?dist}
+License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/glib/1.2/glib-%{version}.tar.gz
 BuildRequires:	coreutils
@@ -77,6 +77,13 @@ cp -p %{SOURCE1} %{SOURCE2} .
 chmod -c +x config.{guess,sub}
 
 %build
+%if 0%{?set_build_flags:1}
+%set_build_flags
+# Note: on older distributions without %%set_build_flags, the compiler
+# will be old enough to accept the old-fashioned code without resorting to C89 mode
+export CFLAGS="-std=gnu89 $CFLAGS"
+%endif
+
 LIBTOOL=%{_bindir}/libtool \
 %configure --disable-static
 
@@ -108,11 +115,7 @@ make check LIBTOOL=%{_bindir}/libtool
 %endif
 
 %files
-%if 0%{?_licensedir:1}
 %license COPYING
-%else
-%doc COPYING
-%endif
 %doc AUTHORS ChangeLog NEWS README
 %{_libdir}/lib*.so.*
 
@@ -126,6 +129,15 @@ make check LIBTOOL=%{_bindir}/libtool
 %{_datadir}/aclocal/*
 
 %changelog
+* Mon Feb  6 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-68
+- Tweak C89 setting to work for older releases without %%set_build_flags, or
+  with %%set_build_flags that does not set $CC (e.g. EL-7)
+- Use %%license unconditionally
+- Use SPDX-format license tag
+
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 1:1.2.10-67
+- Build in C89 mode (#2167383)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-66
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

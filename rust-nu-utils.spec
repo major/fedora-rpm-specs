@@ -5,7 +5,7 @@
 %global crate nu-utils
 
 Name:           rust-nu-utils
-Version:        0.74.0
+Version:        0.75.0
 Release:        %autorelease
 Summary:        Nushell utility functions
 

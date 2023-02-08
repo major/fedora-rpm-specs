@@ -4,14 +4,14 @@
 
 %global crate fallible_collections
 
-Name:           rust-%{crate}
+Name:           rust-fallible_collections
 Version:        0.4.6
 Release:        %autorelease
 Summary:        Crate which adds fallible allocation api to std collections
 
 # Upstream license specification: MIT/Apache-2.0
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/%{crate}
+URL:            https://crates.io/crates/fallible_collections
 Source:         %{crates_source}
 
 # Deactivate some tests because they are failing -->

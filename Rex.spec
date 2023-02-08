@@ -1,6 +1,6 @@
 Name:			Rex
-Version:		1.13.4
-Release:		6%{?dist}
+Version:		1.14.0
+Release:		0%{?dist}
 Summary:		The friendly automation framework on basis of Perl
 
 License:		ASL 2.0
@@ -68,10 +68,12 @@ Buildrequires:	perl(Sort::Naturally)
 Buildrequires:	perl(Storable)
 Buildrequires:	perl(strict)
 Buildrequires:	perl(String::Escape)
+Buildrequires:	perl(Sub::Override)
 Buildrequires:	perl(Symbol)
 Buildrequires:	perl(Term::ReadKey)
 Buildrequires:	perl(Test::Builder::Module)
 BuildRequires:	perl(Test::Deep)
+BuildRequires:	perl(Test::Exception)
 BuildRequires:	perl(Test::More)
 BuildRequires:	perl(Test::Output)
 BuildRequires:	perl(Test::mysqld)
@@ -147,6 +149,9 @@ sed -i "s|/usr/bin/env perl|/usr/bin/perl|" $RPM_BUILD_ROOT/%{_bindir}/rex
 
 
 %changelog
+* Mon Feb 06 2023 Dominic Hopf <dmaphy@fedoraproject.org> - 1.14.0-1
+- Update to 1.14.0 (#2167207)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.4-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

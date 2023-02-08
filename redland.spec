@@ -8,9 +8,7 @@ License:        LGPLv2+ or ASL 2.0
 URL:            http://librdf.org/
 Source0:        http://download.librdf.org/source/%{name}-%{version}.tar.gz
 
-%if 0%{?rhel}
 Patch1:         0001-rhbz-1936659-stub-deprecated.patch
-%endif
 
 BuildRequires:  make
 BuildRequires:  curl-devel
@@ -128,9 +126,9 @@ make check
 %{_mandir}/man1/redland-db-upgrade.1*
 %{_mandir}/man1/rdfproc.1*
 %{_mandir}/man3/redland.3*
-%if ! 0%{?rhel}
 %dir %{_libdir}/redland
 %{_libdir}/redland/librdf_storage_sqlite.so
+%if ! 0%{?rhel}
 %{_datadir}/redland/mysql-v1.ttl
 %{_datadir}/redland/mysql-v2.ttl
 %endif

@@ -66,15 +66,15 @@ fi
 
 %files
 %license COPYING
-%{_libdir}/*.so.*
+%{_libdir}/libbinio.so.1{,.*}
 %doc AUTHORS README NEWS TODO
 
 %files devel
 %dir %{_includedir}/%{name}
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_libdir}/libbinio.so
+%{_libdir}/pkgconfig/libbinio.pc
 %{_includedir}/%{name}/*.h
-%{_infodir}/*.gz
+%{_infodir}/libbinio.info*
 
 %changelog
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3

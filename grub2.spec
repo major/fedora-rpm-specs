@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	81%{?dist}
+Release:	84%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,15 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Mon Feb 06 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-84
+- emu: support newer kexec syscall
+
+* Mon Feb 06 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-83
+- ppc64le: cas5, take 3
+
+* Mon Feb 06 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-82
+- Fix implicit function declaration warnings
+
 * Wed Feb 01 2023 Javier Martinez Canillas <javierm@redhat.com> - 2.06-81
 - 20-grub-install: Explicitly check '+debug' suffix for debug kernels
 - Resolves: #2148351

@@ -3,8 +3,8 @@
 %global __provides_exclude_from ^%{_libdir}/gtkhex-4.0/.*\\.so$
 
 Name:           ghex
-Version:        43.0
-Release:        2%{?dist}
+Version:        44.alpha
+Release:        1%{?dist}
 Summary:        Binary editor for GNOME
 
 # Source code is under GPLv2+, help is under GFDL and icon is under CC-BY-SA.
@@ -92,6 +92,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/org.gnome.G
 
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44.alpha-1
+- Update to 44.alpha
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

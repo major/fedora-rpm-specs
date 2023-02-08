@@ -8,7 +8,7 @@ URL:			https://cgdb.github.io/
 Source0:		https://cgdb.me/files/%{name}-%{version}.tar.gz
 Source1:		https://cgdb.github.io/images/screenshot_debugging.png
 
-BuildRequires:  gcc
+BuildRequires:  gcc-c++
 BuildRequires:	readline-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	autoconf

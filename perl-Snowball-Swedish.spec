@@ -2,7 +2,7 @@ Name:           perl-Snowball-Swedish
 Version:        1.2
 Release:        37%{?dist}
 Summary:        Porter's stemming algorithm for Swedish
-License:        GPLv2 or Artistic
+License:        GPL-2.0-only OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Snowball-Swedish
 Source0:        https://cpan.metacpan.org/authors/id/A/AS/ASKSH/Snowball-Swedish-%{version}.tar.gz
 BuildArch:      noarch

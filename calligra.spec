@@ -7,7 +7,8 @@
 %global visio 1
 %global wpd 1
 %if 0%{?fedora} > 25
-%global okular 1
+# Switch this back to 1 once the build issue is resolved
+%global okular 0
 %endif
 
 #global external_lilypond_fonts 1
@@ -17,7 +18,7 @@
 
 Name:    calligra 
 Version: 3.2.1
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: An integrated office suite
 
 License: GPLv2+ and LGPLv2+
@@ -785,6 +786,10 @@ fi
 
 
 %changelog
+* Mon Feb 06 2023 Marek Kasik <mkasik@redhat.com> - 3.2.1-22
+- Rebuild for poppler-23.02.0
+- Disable Okular support for now as it prevents to build Calligra currently
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,12 +11,10 @@
 
 Name: ags
 Summary: Engine for creating and running videogames of adventure (quest) genre
-Version: 3.6.0.41
+Version: 3.6.0.42
 URL:     http://www.adventuregamestudio.co.uk/site/ags/
 Release: 1%{?dist}
 Source0: https://github.com/adventuregamestudio/ags/archive/%{fver}/ags-%{fver}.tar.gz
-# fix build with GCC 13
-Patch0:  %{name}-gcc13.patch
 # unbundle freetype
 Patch2:  %{name}-use-system-freetype.patch
 # use openal-soft
@@ -69,7 +67,6 @@ since continued to be developed by contributors.
 
 %prep
 %setup -q -n %{name}-%{?commit:%{commit}}%{!?commit:%{fver}}
-%patch0 -p1 -b .gcc13
 %if %{with freetype}
 %patch2 -p1 -b .noft
 %endif
@@ -118,6 +115,10 @@ make V=1 -C Engine PREFIX=%{buildroot}%{_prefix} install
 %{_bindir}/ags
 
 %changelog
+* Mon Feb 06 2023 Dominik Mierzejewski <dominik@greysector.net> - 3.6.0.42-1
+- update to 3.6.0.42 (#2167149)
+- drop obsolete patch
+
 * Tue Jan 24 2023 Dominik Mierzejewski <dominik@greysector.net> - 3.6.0.41-1
 - update to 3.6.0.41 (#2161376)
 - fix build with GCC 13

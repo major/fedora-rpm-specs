@@ -9,7 +9,7 @@
 
 %bcond_without      tests
 
-%global gh_commit   675afc2c7c2f556c7fb7c1db7d3b05ce82adfb70
+%global gh_commit   974d71adceae6d742ae20a4c880d99c131f1460a
 %global gh_short    %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner    alanxz
 %global gh_project  rabbitmq-c
@@ -18,17 +18,12 @@
 
 Name:      %{libname}
 Summary:   Client library for AMQP
-Version:   0.12.0
+Version:   0.13.0
 Release:   1%{?dist}
 License:   MIT
 URL:       https://github.com/alanxz/rabbitmq-c
 
 Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
-
-# don't install static library
-Patch0:    %{gh_project}-static.patch
-# fix version in pkgconfig file
-Patch1:    %{gh_project}-pkg.patch
 
 BuildRequires: gcc
 BuildRequires: cmake > 3.12
@@ -71,8 +66,6 @@ amqp-publish        Publish a message on an AMQP server
 
 %prep
 %setup -q -n %{gh_project}-%{gh_commit}
-%patch0 -p1
-%patch1 -p1
 
 # Copy sources to be included in -devel docs.
 cp -pr examples Examples
@@ -136,7 +129,7 @@ make test
 
 
 %files devel
-%doc AUTHORS THANKS TODO *.md
+%doc AUTHORS THANKS *.md
 %doc Examples
 %{_libdir}/%{libname}.so
 %{_includedir}/amqp*
@@ -151,6 +144,10 @@ make test
 
 
 %changelog
+* Mon Feb  6 2023 Remi Collet <remi@remirepo.net> - 0.13.0-1
+- update to 0.13.0
+- drop patches merged upstream
+
 * Wed Feb  1 2023 Remi Collet <remi@remirepo.net> - 0.12.0-1
 - update to 0.12.0
 - add patch to not install the static library, from

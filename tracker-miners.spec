@@ -12,7 +12,7 @@
 %global with_rss 1
 %endif
 
-%global tracker_version 3.4.0
+%global tracker_version 3.5.0
 
 %global systemd_units tracker-extract-3.service tracker-miner-fs-3.service tracker-miner-fs-control-3.service tracker-miner-rss-3.service tracker-writeback-3.service
 
@@ -23,14 +23,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.4.2
-Release:        3%{?dist}
+Version:        3.5.0~alpha
+Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
 License:        GPLv2+ and LGPLv2+
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
-Source0:        https://download.gnome.org/sources/%{name}/3.4/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/3.5/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -157,6 +157,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 3.5.0~alpha-1
+- Update to 3.5.0.alpha
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

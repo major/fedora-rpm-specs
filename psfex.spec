@@ -1,6 +1,6 @@
 Name: psfex
 Version: 3.17.1
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: Model the Point Spread Function from FITS images
 
 License: GPLv3+
@@ -9,6 +9,7 @@ Source0: http://www.astromatic.net/download/%{name}/%{name}-%{version}.tar.gz
 # Change plwid to plwidth
 Patch0: psfex-plplot.patch
 Patch1: psfex-3.17.1-gcc10.patch
+Patch2: psfex-c99.patch
 BuildRequires: make
 BuildRequires: gcc
 BuildRequires: fftw-devel >= 3.1
@@ -25,6 +26,7 @@ morphological analyses.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 # New atlas libs
 sed -i -e '/LIBS*=.*atlas/s,=.*,="-L%{_libdir}/atlas -lsatlas",' configure
 # New plplot lib name
@@ -46,6 +48,9 @@ sed -i -e 's/plplotd/plplot/g' configure
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 3.17.1-28
+- Fix C99 compatibility issue
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.1-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

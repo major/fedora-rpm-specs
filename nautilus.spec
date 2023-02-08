@@ -1,13 +1,13 @@
 %global glib2_version 2.72.1
 %global gnome_autoar_version 0.4.0
-%global gtk4_version 4.7.2
-%global libadwaita_version 1.2~beta
+%global gtk4_version 4.9.1
+%global libadwaita_version 1.3~alpha
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        43.2
-Release:        2%{?dist}
+Version:        44~alpha
+Release:        1%{?dist}
 Summary:        File manager for GNOME
 
 License:        GPLv3+
@@ -139,6 +139,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44~alpha-1
+- Update to 44.alpha
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -27,9 +27,13 @@ URL:            https://pypi.python.org/pypi/nilearn
 # Use GitHub tar: pypi does not include all test data
 Source0:        https://github.com/nilearn/nilearn/archive/%{version}/%{name}-%{version}.tar.gz
 
+# Fix for nibabel 5.x
+Patch0:         https://patch-diff.githubusercontent.com/raw/nilearn/nilearn/pull/3458.patch
+
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  git-core
 
 Recommends:  %{py3_dist matplotlib}
 
@@ -44,7 +48,7 @@ BuildArch:      noarch
 %{desc}
 
 %prep
-%autosetup -n nilearn-%{version}
+%autosetup -n nilearn-%{version} -S git
 # Remove shebangs
 find . -name "*py" -exec sed -i '/#!\/usr\/bin\/env python/ d' '{}' \;
 # Remove pre-compiled files

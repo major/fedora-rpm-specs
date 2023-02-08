@@ -1,17 +1,14 @@
 %{?python_enable_dependency_generator}
 %global pypi_name python-json-logger
 
-# Missing license file and tests
-# https://github.com/madzak/python-json-logger/issues/50
-
 Name:           python-json-logger
-Version:        0.1.7
-Release:        21%{?dist}
+Version:        2.0.4
+Release:        1%{?dist}
 Summary:        A python library adding a json log formatter
 
 License:        BSD
 URL:            http://github.com/madzak/python-json-logger
-Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
  
 %description
@@ -41,15 +38,19 @@ rm -rf %{pypi_name}.egg-info
 %py3_install
 
 
-#%check
-#%{__python3} setup.py test
+%check
+PYTHONPATH=%{buildroot}/%{python3_sitelib} %{__python3} -m unittest discover
 
 
 %files -n python3-json-logger
+%license LICENSE
 %{python3_sitelib}/pythonjsonlogger
 %{python3_sitelib}/python_json_logger-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Mon Feb 06 2023 Lumír Balhar <lbalhar@redhat.com> - 2.0.4-1
+- Update to 2.0.4 (rhbz#1597299)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.7-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

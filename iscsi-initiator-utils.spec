@@ -9,7 +9,7 @@
 Summary: iSCSI daemon and utility programs
 Name: iscsi-initiator-utils
 Version: 6.%{open_iscsi_version}.%{open_iscsi_build}
-Release: 7.git%{shortcommit0}%{?dist}
+Release: 9.git%{shortcommit0}%{?dist}
 License: GPLv2+
 URL: https://github.com/open-iscsi/open-iscsi
 Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/open-iscsi-%{shortcommit0}.tar.gz
@@ -41,12 +41,14 @@ Patch0022: 0022-iscsi_if.h-replace-zero-length-array-with-flexible-a.patch
 Patch0023: 0023-stop-using-Werror-for-now.patch
 Patch0024: 0024-minor-service-file-updates.patch
 Patch0025: 0001-Remove-dependences-from-iscsi-init.service.patch
+Patch0026: 0026-try-not-to-require-network-online.patch
 
 BuildRequires: flex bison doxygen kmod-devel systemd-units
 BuildRequires: autoconf automake libtool libmount-devel openssl-devel
 BuildRequires: isns-utils-devel
 BuildRequires: systemd-devel
 Requires: %{name}-iscsiuio >= %{version}-%{release}
+Requires: (fedora-release >= 38-0.23 if fedora-release)
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -161,6 +163,7 @@ touch $RPM_BUILD_ROOT%{_rundir}/lock/iscsi/lock
 
 %{__install} -d $RPM_BUILD_ROOT%{_unitdir}
 %{__install} -pm 644 etc/systemd/iscsi.service $RPM_BUILD_ROOT%{_unitdir}
+%{__install} -pm 644 etc/systemd/iscsi-starter.service $RPM_BUILD_ROOT%{_unitdir}
 %{__install} -pm 644 etc/systemd/iscsi-init.service $RPM_BUILD_ROOT%{_unitdir}
 %{__install} -pm 644 etc/systemd/iscsi-onboot.service $RPM_BUILD_ROOT%{_unitdir}
 %{__install} -pm 644 etc/systemd/iscsi-shutdown.service $RPM_BUILD_ROOT%{_unitdir}
@@ -199,13 +202,13 @@ popd
 
 
 %post
-%systemd_post iscsi.service iscsid.service iscsid.socket iscsi-onboot.service iscsi-init.service iscsi-shutdown.service
+%systemd_post iscsi.service iscsi-starter.service iscsid.service iscsid.socket iscsi-onboot.service iscsi-init.service iscsi-shutdown.service
 
 %preun
-%systemd_preun iscsi.service iscsid.service iscsid.socket iscsi-onboot.service iscsi-init.service iscsi-shutdown.service
+%systemd_preun iscsi.service iscsi-starter.service iscsid.service iscsid.socket iscsi-onboot.service iscsi-init.service iscsi-shutdown.service
 
 %postun
-%systemd_postun iscsi.service iscsid.service iscsid.socket iscsi-onboot.service iscsi-init.service iscsi-shutdown.service
+%systemd_postun iscsi.service iscsi-starter.service iscsid.service iscsid.socket iscsi-onboot.service iscsi-init.service iscsi-shutdown.service
 
 %post iscsiuio
 %systemd_post iscsiuio.service iscsiuio.socket
@@ -216,31 +219,9 @@ popd
 %postun iscsiuio
 %systemd_postun iscsiuio.service iscsiuio.socket
 
-%triggerun -- iscsi-initiator-utils < 6.2.0.873-25
-# prior to 6.2.0.873-24 iscsi.service was missing a Wants=remote-fs-pre.target
-# this forces remote-fs-pre.target active if needed for a clean shutdown/reboot
-# after upgrading this package
-if [ $1 -gt 0 ]; then
-    /usr/bin/systemctl -q is-active iscsi.service
-    if [ $? -eq 0 ]; then
-        /usr/bin/systemctl -q is-active remote-fs-pre.target
-        if [ $? -ne 0 ]; then
-            SRC=`/usr/bin/systemctl show --property FragmentPath remote-fs-pre.target | cut -d= -f2`
-            DST=/run/systemd/system/remote-fs-pre.target
-            if [ $SRC != $DST ]; then
-                cp $SRC $DST
-            fi
-            sed -i 's/RefuseManualStart=yes/RefuseManualStart=no/' $DST
-            /usr/bin/systemctl daemon-reload >/dev/null 2>&1 || :
-            /usr/bin/systemctl start remote-fs-pre.target >/dev/null 2>&1 || :
-        fi
-    fi
-fi
-# added in 6.2.0.873-25
-if [ $1 -gt 0 ]; then
-    systemctl start iscsi-shutdown.service >/dev/null 2>&1 || :
-fi
-
+%triggerun -- %{name} < 6.2.1.4-8
+# This is for upgrades from previous versions before iscsi-starter.service was added.
+systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || :
 
 %files
 %doc README
@@ -254,6 +235,7 @@ fi
 %ghost %attr(0700, root, root) %{_rundir}/lock/iscsi
 %ghost %attr(0600, root, root) %{_rundir}/lock/iscsi/lock
 %{_unitdir}/iscsi.service
+%{_unitdir}/iscsi-starter.service
 %{_unitdir}/iscsi-onboot.service
 %{_unitdir}/iscsi-init.service
 %{_unitdir}/iscsi-shutdown.service
@@ -304,6 +286,12 @@ fi
 %{python3_sitearch}/*
 
 %changelog
+* Mon Feb 06 2023 Gordon Messmer <gordon.messmer@gmail.com> - 6.2.1.4-9.git2a8f9d8
+- Fix fedora-release requirement.
+
+* Sun Jan 22 2023 Gordon Messmer <gordon.messmer@gmail.com> - 6.2.1.4-8.git2a8f9d8
+- Avoid forcing remote-fs-pre after network-online if possible.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.1.4-7.git2a8f9d8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

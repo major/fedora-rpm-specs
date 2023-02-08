@@ -1,12 +1,11 @@
 Name:		photoqt
-Version:	2.8
-Release:	3%{?dist}
+Version:	3.0
+Release:	1%{?dist}
 Summary:	A fast Qt image viewer
 
 License:	GPLv2+
 URL:		http://photoqt.org/
 Source0:	http://photoqt.org/pkgs/%{name}-%{version}.tar.gz
-Patch0:         libraw.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	cmake
@@ -59,7 +58,7 @@ PhotoQt is a fast and highly configurable image viewer with a simple and
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.%{name}.PhotoQt.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.%{name}.PhotoQt.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.%{name}.PhotoQt.metainfo.xml
 
 %files
 %doc CHANGELOG README
@@ -69,9 +68,14 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/org.%{name
 %{_datadir}/icons/hicolor/*/apps/org.%{name}.PhotoQt.png
 
 #AppData
-%{_datadir}/appdata/org.%{name}.PhotoQt.appdata.xml
+%{_datadir}/metainfo/org.%{name}.PhotoQt.metainfo.xml
 
 %changelog
+* Mon Feb 06 2023 Jiri Eischmann <eischmann@redhat.com> - 3.0-1
+- Update to 3.0
+- Removed libraw patch
+- Changed the name and location of AppStream metadata file
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

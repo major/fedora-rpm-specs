@@ -3,13 +3,13 @@
 %global libhandy_version 1.5.0
 
 Name:           gnome-disk-utility
-Version:        43.0
-Release:        2%{?dist}
+Version:        44~alpha
+Release:        1%{?dist}
 Summary:        Disks
 
 License:        GPLv2+
 URL:            https://gitlab.gnome.org/GNOME/gnome-disk-utility
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  meson
@@ -71,12 +71,15 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/gnome-disks*
 %{_datadir}/icons/hicolor/*/apps/org.gnome.DiskUtility*
 %{_datadir}/metainfo/org.gnome.DiskUtility.appdata.xml
-%{_mandir}/man1/*
+%{_mandir}/man1/*.1*
 %{_sysconfdir}/xdg/autostart/org.gnome.SettingsDaemon.DiskUtilityNotify.desktop
 %{_libexecdir}/gsd-disk-utility-notify
 
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44~alpha-1
+- Update to 44.alpha
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

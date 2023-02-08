@@ -18,7 +18,8 @@ BuildRequires:	polkit-devel
 BuildRequires:	gtk-doc
 BuildRequires:	gettext
 BuildRequires:	perl-podlators
-BuildRequires:	systemd-devel
+BuildRequires:	pkgconfig(libsystemd)
+BuildRequires:	pkgconfig(systemd)
 BuildRequires:	python3-dbusmock
 BuildRequires:	python3-libpamtest
 

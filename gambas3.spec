@@ -17,7 +17,7 @@
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
 Version:	3.18.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -725,6 +725,7 @@ Requires:	%{name}-runtime = %{version}-%{release}
 %description gb-pcre
 %{summary}
 
+%if 0%{?fedora} <= 37
 %package gb-pdf
 Summary:  	Gambas3 component package for pdf
 Requires:	%{name}-runtime = %{version}-%{release}
@@ -732,6 +733,7 @@ Requires:	%{name}-gb-image = %{version}-%{release}
 
 %description gb-pdf
 %{summary}
+%endif
 
 %package gb-poppler
 Summary:	Gambas3 component package for poppler
@@ -1068,7 +1070,9 @@ MY_CFLAGS=`echo %{build_cflags} | sed -e 's/-Wp,-D_FORTIFY_SOURCE=2//g' | sed -e
 	--enable-sqlite3 \
 	--enable-sdl \
 	--enable-vb \
+%if 0%{?fedora} <= 37
 	--enable-pdf \
+%endif
 	--with-bzlib2-libraries=%{_libdir} \
 	--with-crypt-libraries=%{_libdir} \
 	--with-curl-libraries=%{_libdir} \
@@ -1581,12 +1585,14 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_libdir}/%{name}/gb.pcre.*
 %{_datadir}/%{name}/info/gb.pcre.*
 
+%if 0%{?fedora} <= 37
 %files gb-pdf
 %{_libdir}/%{name}/gb.pdf.component
 %{_libdir}/%{name}/gb.pdf.so*
 %{_libdir}/%{name}/gb.pdf.la
 %{_datadir}/%{name}/info/gb.pdf.info
 %{_datadir}/%{name}/info/gb.pdf.list
+%endif
 
 %files gb-poppler
 %{_libdir}/%{name}/gb.poppler.component
@@ -1789,6 +1795,11 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Mon Feb 06 2023 Marek Kasik <mkasik@redhat.com> - 3.18.0-2
+- Rebuild for poppler-23.02.0
+- Disable gb.pdf for Fedora 38 and higher since upstream
+  disabled it for poppler 23.0 and higher
+
 * Wed Jan 18 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.0-1
 - update to 3.18.0
 

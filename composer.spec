@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for composer
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    923278ad13e1621946eb76ab2882655d2cc396a4
+%global gh_commit    c76c013c555160410af47c03a0e173518e3f5796
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_branch    2.0-dev
 %global gh_owner     composer
@@ -18,7 +18,7 @@
 %global api_version  2.3.0
 %global run_version  2.2.2
 
-%global upstream_version 2.5.1
+%global upstream_version 2.5.2
 #global upstream_prever  RC1
 #global upstream_lower   rc1
 
@@ -29,7 +29,7 @@
 
 Name:           composer
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_lower}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Dependency Manager for PHP
 
 # SPDX: composer and all dependencies are MIT
@@ -80,7 +80,7 @@ Requires:       php-cli
 Requires:       ca-certificates
 # Bundled libraries
 # License MIT
-Provides:       bundled(php-composer-ca-bundle) = 1.3.4
+Provides:       bundled(php-composer-ca-bundle) = 1.3.5
 Provides:       bundled(php-composer-class-map-generator) = 1.0.0
 Provides:       bundled(php-composer-metadata-minifier) = 1.0.0
 Provides:       bundled(php-composer-pcre) = 2.1.0
@@ -94,10 +94,10 @@ Provides:       bundled(php-react-promise) = v2.9.0
 Provides:       bundled(php-seld-jsonlint) = 1.9.0
 Provides:       bundled(php-seld-phar-utils) = 1.2.1
 Provides:       bundled(php-seld-signal-handler) = 2.0.1
-Provides:       bundled(php-symfony-console) = v5.4.16
+Provides:       bundled(php-symfony-console) = v5.4.19
 Provides:       bundled(php-symfony-deprecation-contracts) = v2.5.2
-Provides:       bundled(php-symfony-filesystem) = v5.4.13
-Provides:       bundled(php-symfony-finder) = v5.4.11
+Provides:       bundled(php-symfony-filesystem) = v5.4.19
+Provides:       bundled(php-symfony-finder) = v5.4.19
 Provides:       bundled(php-symfony-polyfill-ctype) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-intl-grapheme) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-intl-normalizer) = v1.27.0
@@ -105,9 +105,9 @@ Provides:       bundled(php-symfony-polyfill-mbstring) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php73) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php80) = v1.27.0
 Provides:       bundled(php-symfony-polyfill-php81) = v1.27.0
-Provides:       bundled(php-symfony-process) = v5.4.11
+Provides:       bundled(php-symfony-process) = v5.4.19
 Provides:       bundled(php-symfony-service-contracts) = v2.5.2
-Provides:       bundled(php-symfony-string) = v5.4.15
+Provides:       bundled(php-symfony-string) = v5.4.19
 
 # From composer.json, suggest
 #        "ext-openssl": "Enabling the openssl extension allows you to access https URLs for repositories and packages",
@@ -249,6 +249,9 @@ install -Dpm 755 bin/%{name} %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Mon Feb  6 2023 Remi Collet <remi@remirepo.net> - 2.5.2-1
+- update to 2.5.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

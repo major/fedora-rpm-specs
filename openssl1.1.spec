@@ -26,7 +26,7 @@
 Summary: Compatibility version of the OpenSSL library
 Name: openssl1.1
 Version: 1.1.1q
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 1
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
@@ -74,6 +74,7 @@ Patch52: openssl-1.1.1-s390x-update.patch
 Patch53: openssl-1.1.1-fips-crng-test.patch
 Patch55: openssl-1.1.1-arm-update.patch
 Patch56: openssl-1.1.1-s390x-ecc.patch
+Patch57: openssl1.1-c99.patch
 
 License: OpenSSL and ASL 2.0
 URL: http://www.openssl.org/
@@ -151,6 +152,7 @@ cp %{SOURCE13} test/
 %patch53 -p1 -b .crng-test
 %patch55 -p1 -b .arm-update
 %patch56 -p1 -b .s390x-ecc
+%patch57 -p1
 %patch60 -p1 -b .krb5-kdf
 %patch61 -p1 -b .edk2-build
 %patch62 -p1 -b .fips-curves
@@ -375,6 +377,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 %ldconfig_scriptlets
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 1:1.1.1q-4
+- Backport upstream patch to fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1.1q-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

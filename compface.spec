@@ -1,6 +1,6 @@
 Name:           compface
 Version:        1.5.2
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Library and tools for handling X-Face data
 
 License:        MIT
@@ -15,6 +15,8 @@ Patch0:         libcompface_1.5.2-4.diff.gz
 Patch1:         compface-1.5.2-stack-smashing.patch
 #
 Patch2:         compface-1.5.2-build.patch
+Patch3: compface-configure-c99.patch
+Patch4: compface-c99.patch
 BuildRequires:  diffutils
 BuildRequires:  gcc
 BuildRequires: make
@@ -39,6 +41,8 @@ library.
 %patch0 -p1
 %patch1 -p1 -b .stack-smashing
 %patch2 -p0
+%patch3 -p1
+%patch4 -p1
 
 
 %build
@@ -74,6 +78,9 @@ cmp %{SOURCE1} __test.xbm
 
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 1.5.2-36
+- Fix C99 compatibility issues (#2167369)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

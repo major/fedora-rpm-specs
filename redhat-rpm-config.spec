@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 246
+%global baserelease 247
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -173,16 +173,46 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 
 # This trigger is used to decide which version of the annobin plugin for gcc
 # should be used.  See comments in the script for full details.
+#
+# Note - whilst "gcc-plugin-annobin" requires "gcc" and hence in theory we
+# do not need to trigger on "gcc", the redhat-annobin-plugin-select.sh
+# script invokes gcc to determine the version of the gcc plugin, and this
+# can be significant.
+#
+# For example, suppose that version N of gcc is installed and that annobin
+# version A (built by gcc version N) is also installed.  Then a new version
+# of gcc is released.  If the rpms are updated in this order:
+#   gcc-plugin-annobin
+#   gcc
+# then when the trigger for gcc-plugin-annobin is run, the script will see
+# (the not yet updated) gcc is currently version N, which matches the current
+# annobin plugin A, so no changes are necessary.  Then gcc is updated and,
+# if the trigger below did not include "gcc", the script would not run again
+# and so now you would have an out of date version of the annobin plugin.
+#
+# Alternatively imagine installing gcc and annobin for the first time.
+# If the installation order is:
+#    gcc
+#    annobin-plugin-gcc
+#    gcc-plugin-annobin
+# then the installation of gcc will not cause the gcc-plugin-annobin to be
+# selected, since it does not exist yet.  Then annobin-plugin-gcc is installed
+# and since it is the only plugin, it will be selected.  Then
+# gcc-plugin-annobin is installed, and if the trigger below was not set to
+# run on gcc-plugin-annobin, it would pass unnoticed.
+#
+# Hence it is necessary to trigger on both gcc and gcc-plugin-annobin.
 
-%triggerin -- annobin-plugin-gcc gcc
+%triggerin -- annobin-plugin-gcc gcc-plugin-annobin gcc
 %{rrcdir}/redhat-annobin-plugin-select.sh
 %end
 
-# We also trigger when annobin is uninstalled.  This allows us to switch
-# over to the gcc generated version of the plugin.  It does not matter if
-# gcc is uninstalled, since if that happens the plugin cannot be used.
+# We also trigger when an annobin plugin is uninstalled.  This allows us to
+# switch over to the other version of the plugin.  Note - we do not bother
+# triggering on the uninstallation of "gcc", since if that is removed, the
+# plugins are rendered useless.
 
-%triggerpostun -- annobin-plugin-gcc
+%triggerpostun -- annobin-plugin-gcc gcc-plugin-annobin
 %{rrcdir}/redhat-annobin-plugin-select.sh
 %end
 
@@ -222,6 +252,10 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Mon Feb 06 2023 Nick Clifton  <nickc@redhat.com> - 247-1
+- Fix triggers for the installation and removal of gcc-plugin-annobin.
+  Fixes: rhbz#2124562
+
 * Tue Jan 17 2023 Miro Hrončok <mhroncok@redhat.com> - 245-1
 - Add pyproject-srpm-macros to the default buildroot
 

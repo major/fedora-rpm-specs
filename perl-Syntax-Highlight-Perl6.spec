@@ -2,16 +2,17 @@ Name:           perl-Syntax-Highlight-Perl6
 Version:        0.88
 Release:        35%{?dist}
 Summary:        Perl 6 Syntax Highlighter
-License:        (GPL+ or Artistic) and Artistic 2.0 and (MIT or GPLv2) 
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND Artistic-2.0 AND ( MIT OR GPL-2.0-only )
 URL:            https://metacpan.org/release/Syntax-Highlight-Perl6
 Source0:        https://cpan.metacpan.org/authors/id/A/AZ/AZAWAWI/Syntax-Highlight-Perl6-%{version}.tar.gz
 BuildArch:      noarch
 
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.31
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::ShareDir::Install) >= 0.03
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -61,12 +62,12 @@ to build your next great idea.
 %setup -q -n Syntax-Highlight-Perl6-%{version}
 
 %build
-CFLAGS="$RPM_OPT_FLAGS" perl Makefile.PL INSTALLDIRS=perl
-make %{?_smp_mflags} OPTIMIZE="$RPM_OPT_FLAGS"
+CFLAGS="$RPM_OPT_FLAGS" perl Makefile.PL INSTALLDIRS=perl \
+    NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build} OPTIMIZE="$RPM_OPT_FLAGS"
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -75,10 +76,11 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_privlib}/*
-%{_bindir}/*
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{perl_privlib}/Syntax*
+%{perl_privlib}/auto/*
+%{_bindir}/hilitep6
+%{_mandir}/man1/hilitep6*
+%{_mandir}/man3/Syntax::Highlight::Perl*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.88-35

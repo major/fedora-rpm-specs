@@ -1,16 +1,13 @@
 %global pypi_name daiquiri
 
-# Tests require python-json-logger package
-# https://bugzilla.redhat.com/show_bug.cgi?id=1460757
-
 Name:           python-%{pypi_name}
-Version:        1.5.0
-Release:        16%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        Library to configure Python logging easily
 
 License:        ASL 2.0
 URL:            https://github.com/jd/daiquiri
-Source0:        https://files.pythonhosted.org/packages/source/d/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %pypi_source
 BuildArch:      noarch
  
  
@@ -18,20 +15,15 @@ BuildArch:      noarch
 The %{pypi_name} library provides an easy way to configure Python logging.
 It also provides some custom formatters and handlers.
 
-%package -n     python3-%{pypi_name}
+%package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        Library to configure Python logging easily
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-pbr
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-testrepository
-BuildRequires:  python3-testtools
-BuildRequires:  python3-six >= 1.9.0
-BuildRequires:  python3-json-logger
-Requires:       python3-json-logger
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
+BuildRequires:  python%{python3_pkgversion}-devel
+Requires:       python%{python3_pkgversion}-json-logger
+
+%description -n python%{python3_pkgversion}-%{pypi_name}
 The %{pypi_name} library provides an easy way to configure Python logging.
 It also provides some custom formatters and handlers.
 
@@ -39,11 +31,13 @@ It also provides some custom formatters and handlers.
 %package -n python-%{pypi_name}-doc
 Summary:        daiquiri documentation
 
-BuildRequires:  python3-sphinx
+BuildRequires:  python%{python3_pkgversion}-sphinx
 
 %description -n python-%{pypi_name}-doc
 Documentation for daiquiri
 
+%generate_buildrequires
+%pyproject_buildrequires -x test
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
@@ -51,28 +45,31 @@ Documentation for daiquiri
 rm -rf %{pypi_name}.egg-info
 
 %build
-%py3_build
+%pyproject_wheel
+
 # generate html docs 
 sphinx-build doc/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files daiquiri
 
 %check
-PYTHON=python3 %{__python3} setup.py test
+%pytest
 
-%files -n python3-%{pypi_name}
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %files -n python-%{pypi_name}-doc
 %doc html 
 
 %changelog
+* Tue Jan 31 2023 Joel Capitao <jcapitao@redhat.com> - 3.0.1-1
+- Update to latest upstream (#1482280)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate linux-raw-sys
 
 Name:           rust-linux-raw-sys
-Version:        0.1.3
+Version:        0.1.4
 Release:        %autorelease
 Summary:        Generated bindings for Linux's userspace API
 

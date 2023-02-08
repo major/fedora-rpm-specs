@@ -3,7 +3,7 @@
 
 Name:           resteasy
 Version:        3.0.26
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        Framework for RESTful Web services and Java applications
 License:        Apache-2.0
 URL:            http://resteasy.jboss.org/
@@ -11,6 +11,7 @@ Source0:        https://github.com/resteasy/Resteasy/archive/%{namedversion}/%{n
 Patch1:         0001-RESTEASY-2559-Improper-validation-of-response-header.patch
 Patch2:         0001-Remove-Log4jLogger.patch
 Patch3:         0001-Replace-javax.activation-imports-with-jakarta.activa.patch
+Patch4:         0001-Update-to-new-jakarta-xml-bind-namespace.patch
 
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -18,7 +19,7 @@ ExclusiveArch:  %{java_arches} noarch
 BuildRequires:  maven-local
 BuildRequires:  mvn(commons-io:commons-io)
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
-BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api:2)
+BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 BuildRequires:  mvn(org.apache.httpcomponents:httpclient)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.apache.tomcat:tomcat-servlet-api)
@@ -183,7 +184,7 @@ find -name '*.jar' -print -delete
 %pom_change_dep org.jboss.spec.javax.servlet: org.apache.tomcat:tomcat-servlet-api providers/jackson2
 
 # add dependencies for EE APIs that were removed in Java 11
-%pom_add_dep jakarta.xml.bind:jakarta.xml.bind-api:2 resteasy-jaxrs
+%pom_add_dep jakarta.xml.bind:jakarta.xml.bind-api resteasy-jaxrs
 
 %pom_remove_plugin :maven-clean-plugin
 
@@ -220,6 +221,9 @@ find -name '*.jar' -print -delete
 %license License.html
 
 %changelog
+* Fri Feb 03 2023 Chris Kelley <ckelley@redhat.com> - 3.0.26-23
+- Remove dependency on jaxb-api2 compat package
+
 * Fri Feb 03 2023 Chris Kelley <ckelley@redhat.com> - 3.0.26-22
 - Remove dependency on jakarta-activation1 compat package
 

@@ -1,16 +1,13 @@
-%global prerelease beta1
 %global with_qt6 0%{?fedora}
 %global with_fitz 0%{?fedora}
 
 Name:		qpdfview
 Version:	0.5.0
-#Release:	1%%{?dist}
-# Use the following format for beta
-Release:	0.3.%{?prerelease}%{?dist}
+Release:	1%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
-Source0:	%{url}/trunk/%{version}%{?prerelease}/+download/%{name}-%{version}%{prerelease}.tar.gz
+Source0:	%{url}/trunk/%{version}/+download/%{name}-0.5.tar.gz
 BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	desktop-file-utils
@@ -82,11 +79,13 @@ It provides a clear and simple graphical user interface using the Qt framework.
 
 
 %prep
-%setup -qc
+%setup -qc -n %{name}-0.5
+# unifying
+mv %{name}-0.5 %{name}-%{version}
 
 
 %build
-cp -a %{name}-%{version}%{?prerelease} build-qt5
+cp -a %{name}-%{version} build-qt5
 pushd build-qt5
 lrelease-qt5 qpdfview.pro
 # Some adjustments to avoid conflicts between packages
@@ -106,7 +105,7 @@ make %{?_smp_mflags}
 popd
 
 %if %{with_qt6}
-cp -a %{name}-%{version}%{?prerelease} build-qt6
+cp -a %{name}-%{version} build-qt6
 pushd build-qt6
 lrelease-qt6 qpdfview.pro
 # Some adjustments to avoid conflict between packages
@@ -140,7 +139,7 @@ popd
 
 %find_lang %{name} --with-qt --without-mo
 # Common files are equal for all QtX
-cd %{name}-%{version}%{?prerelease}
+cd %{name}-%{version}
 install -Dm 0644 icons/%{name}.svg %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt5.desktop
 %if %{with_qt6}
@@ -175,8 +174,8 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %endif
 
 %files common -f %{name}.lang
-%license %{name}-%{version}%{?prerelease}/COPYING
-%doc %{name}-%{version}%{?prerelease}/CHANGES %{name}-%{version}%{?prerelease}/CONTRIBUTORS %{name}-%{version}%{?prerelease}/README %{name}-%{version}%{?prerelease}/TODO
+%license %{name}-%{version}/COPYING
+%doc %{name}-%{version}/CHANGES %{name}-%{version}/CONTRIBUTORS %{name}-%{version}/README %{name}-%{version}/TODO
 %dir %{_datadir}/%{name}
 %{_datadir}/%{name}/help*.html
 %{_datadir}/metainfo/%{name}.appdata.xml
@@ -184,6 +183,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Mon Feb 06 2023 TI_Eugene <ti.eugene@gmail.com> - 0.5.0-1
+- Release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-0.3.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

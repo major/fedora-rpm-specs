@@ -1,3 +1,6 @@
+# Disable automatic .la file removal
+%global __brp_remove_la_files %nil
+
 %define svnver 926svn
 
 Name:		  kguitar

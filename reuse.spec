@@ -1,34 +1,26 @@
 Name:           reuse
-Version:        1.0.0
-Release:        4%{?dist}
+Version:        1.1.1
+Release:        2%{?dist}
 Summary:        A tool for compliance with the REUSE recommendations
-License:        GPLv3+ and CC-BY-SA and ASL 2.0
+# The CC0-1.0 licence applies to json data files, not code.
+# CC-BY-SA-4.0 is applied to documentation.
+License:        Apache-2.0 AND CC0-1.0 AND CC-BY-SA-4.0 AND GPL-3.0-or-later
 Url:            https://github.com/fsfe/reuse-tool
 Source0:        %pypi_source
-BuildRequires:  python3 >= 3.6
 # Build
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python3-devel
 BuildRequires:  gettext
-BuildRequires:  %{py3_dist setuptools-scm}
 # Test
 BuildRequires:  git
 BuildRequires:  mercurial
+# These are development dependencies in the Poetry config, not build
+# dependencies. They are build dependencies for Fedora packaging.
 BuildRequires:  %{py3_dist pytest}
-# Dependencies
-BuildRequires:  %{py3_dist Jinja2}
-BuildRequires:  %{py3_dist binaryornot}
-BuildRequires:  %{py3_dist boolean.py}
-BuildRequires:  %{py3_dist license-expression}
-BuildRequires:  %{py3_dist python-debian}
-BuildRequires:  %{py3_dist requests}
-# Documentation
 BuildRequires:  %{py3_dist Sphinx}
 BuildRequires:  %{py3_dist sphinx_rtd_theme}
 BuildRequires:  %{py3_dist sphinx-autodoc-typehints}
 BuildRequires:  %{py3_dist sphinxcontrib-apidoc}
 BuildRequires:  %{py3_dist recommonmark}
-Requires:       python3 >= 3.6
 Recommends:     git
 Recommends:     mercurial
 BuildArch:      noarch
@@ -40,30 +32,38 @@ generates a project's bill of materials.
 
 %prep
 %autosetup -n %{name}-%{version}
-# Remove this line when sphinx-autodoc-typehints is up-to-date.
-sed -i "/sphinx_autodoc_typehints/d" docs/conf.py
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 pushd docs
 PBR_VERSION=%{version} sphinx-build-%{python3_version} . html
 rm -rf html/.{doctrees,buildinfo}
 popd
 
 %install
-%py3_install
+%pyproject_install
+
+%pyproject_save_files reuse
 
 %check
 %pytest
 
-%files
+%files -n reuse -f %{pyproject_files}
 %license LICENSES/*.txt
 %doc README.md CHANGELOG.md docs/html/
-%{_bindir}/%{name}
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}*egg-info/
+%{_bindir}/reuse
 
 %changelog
+* Mon Feb 06 2023 Carmen Bianca BAKKER <carmenbianca@fedoraproject.org> - 1.1.1-2
+- Also package documentation files again.
+
+* Mon Feb 06 2023 Carmen Bianca BAKKER <carmenbianca@fedoraproject.org> - 1.1.1-1
+- New version.
+- Adapt package to poetry build system.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

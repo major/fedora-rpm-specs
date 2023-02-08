@@ -3,7 +3,7 @@
 %bcond_without tests
 
 Name:           python-simplejson
-Version:        3.18.1
+Version:        3.18.3
 Release:        %autorelease
 Summary:        Simple, fast, extensible JSON encoder/decoder for Python
 
@@ -13,81 +13,76 @@ License:        (MIT or AFL) and (MIT or GPLv2)
 URL:            https://github.com/simplejson/simplejson
 Source0:        %{pypi_source simplejson}
 
-%description
-simplejson is a simple, fast, complete, correct and extensible JSON
-<http://json.org> encoder and decoder for Python. It is pure Python code
-with no dependencies, but includes an optional C extension for a serious speed
-boost.
-
-The encoder may be subclassed to provide serialization in any kind of
-situation, without any special support by the objects to be serialized
-(somewhat like pickle).
-
-The decoder can handle incoming JSON strings of any specified encoding (UTF-8
-by default).
-
-simplejson is the externally maintained development version of the JSON library
-included with Python. It gets updated more regularly than the JSON module in
+%global _description \
+simplejson is a simple, fast, complete, correct and extensible JSON\
+<http://json.org> encoder and decoder for Python. It is pure Python code\
+with no dependencies, but includes an optional C extension for a serious speed\
+boost.\
+\
+The encoder may be subclassed to provide serialization in any kind of\
+situation, without any special support by the objects to be serialized\
+(somewhat like pickle).\
+\
+The decoder can handle incoming JSON strings of any specified encoding (UTF-8\
+by default).\
+\
+simplejson is the externally maintained development version of the JSON library\
+included with Python. It gets updated more regularly than the JSON module in\
 the Python stdlib.
 
-%package -n python3-simplejson
+%description %{_description}
+
+%package -n python%{python3_pkgversion}-simplejson
 Summary:        Simple, fast, extensible JSON encoder/decoder for Python 3
+%{?python_provide:%python_provide python%{python3_pkgversion}-simplejson}
 BuildRequires: gcc
-BuildRequires: python3-devel
-BuildRequires: python3-setuptools
+BuildRequires: python%{python3_pkgversion}-devel
 %if %{with tests}
-BuildRequires: python3-pytest
+BuildRequires: python%{python3_pkgversion}-pytest
 %endif
+
 %if %{with docs}
-BuildRequires: python3-sphinx
+%package -n python-simplejson-doc
+Summary:        simplejson documentation
+
+BuildRequires: python%{python3_pkgversion}-sphinx
+
+%description -n python-simplejson-doc
+Documentation for simplejson
 %endif
-%{?python_provide:%python_provide python3-simplejson}
 
-%description -n python3-simplejson
-simplejson is a simple, fast, complete, correct and extensible JSON
-<http://json.org> encoder and decoder for Python. It is pure Python code
-with no dependencies, but includes an optional C extension for a serious speed
-boost.
+%description -n python%{python3_pkgversion}-simplejson %{_description}
 
-The encoder may be subclassed to provide serialization in any kind of
-situation, without any special support by the objects to be serialized
-(somewhat like pickle).
-
-The decoder can handle incoming JSON strings of any specified encoding (UTF-8
-by default).
-
-simplejson is the externally maintained development version of the JSON library
-included with Python. It gets updated more regularly than the JSON module in
-the Python stdlib.
+%generate_buildrequires
+%pyproject_buildrequires
 
 %prep
 %setup -q -n simplejson-%{version}
 
 %build
-%py3_build
+%pyproject_wheel
 
 %if %{with docs}
-PATH=%{_libexecdir}/python3-sphinx:$PATH %{__python3} scripts/make_docs.py
-
-rm docs/.buildinfo
-rm docs/.nojekyll
+PYTHONPATH=%{pyproject_build_lib} %{__python3} scripts/make_docs.py
+rm -f docs/.{buildinfo,nojekyll}
 %endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files simplejson
 
 %if %{with tests}
 %check
 %pytest
 %endif
 
-%files -n python3-simplejson
+%files -n python%{python3_pkgversion}-simplejson -f %{pyproject_files}
 %license LICENSE.txt
+
 %if %{with docs}
+%files -n python-simplejson-doc
 %doc docs
 %endif
-%{python3_sitearch}/simplejson/
-%{python3_sitearch}/simplejson-*.egg-info/
 
 %changelog
 %autochangelog

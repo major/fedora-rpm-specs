@@ -1,6 +1,6 @@
 %global fontname thai-scalable
 %global fontconf1 90-%{fontname}-synthetic
-%global fontconf2 65-0-%{fontname}
+%global fontconf2 68-%{fontname}
 
 %global archivename fonts-tlwg
 
@@ -9,7 +9,7 @@
 
 Name:      %{fontname}-fonts
 Version:   0.7.3
-Release:   4%{?dist}
+Release:   5%{?dist}
 Summary:   Thai TrueType fonts
 License:   GPLv2+ and Bitstream Vera
 URL:       http://linux.thai.net/projects/thaifonts-scalable
@@ -308,6 +308,10 @@ install -Dm 0644 -p %{SOURCE23} \
 
 
 %changelog
+* Fri Feb  3 2023 Akira TAGOH <tagoh@redhat.com> - 0.7.3-5
+- Update fontconfig priority to 68 for
+  https://fedoraproject.org/wiki/Changes/NotoFontsForMoreLang
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

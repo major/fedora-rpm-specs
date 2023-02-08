@@ -6,8 +6,8 @@
 %bcond_with     privileged_tests
 
 Name:           ansible-bender
-Version:        0.9.0
-Release:        9%{?dist}
+Version:        0.10.1
+Release:        1%{?dist}
 Summary:        Build container images using Ansible playbooks
 
 License:        MIT
@@ -19,7 +19,6 @@ BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-setuptools_scm
-BuildRequires:  python%{python3_pkgversion}-setuptools_scm_git_archive
 %if %{with check}
 # These are required for tests:
 BuildRequires:  python%{python3_pkgversion}-pyyaml
@@ -84,6 +83,9 @@ tl;dr Ansible is the frontend, buildah is the backend.
 
 
 %changelog
+* Mon Feb 06 2023 Tomas Tomecek <ttomecek@redhat.com> - 0.10.1-1
+- 0.10.1 upstream release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

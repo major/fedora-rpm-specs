@@ -1,7 +1,7 @@
 
 Name:		srcpd
 Version:	2.1.5
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Simple Railroad Command Protocol (SRCP) server
 
 License:	GPLv2
@@ -10,6 +10,7 @@ Source0:	http://sourceforge.net/projects/srcpd/files/srcpd/%{version}/srcpd-%{ve
 Source1:	srcpd.service
 
 Patch0:		srcpd-2.1.4-io-conditional.patch
+Patch1:		srcpd-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:		gcc
@@ -31,6 +32,9 @@ support SRCP. IANA assigned TCP port 4303 to it.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+# Do not re-run autotools after patching configure.ac, configure.
+touch -r aclocal.m4 configure*
 
 
 %build
@@ -74,6 +78,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 2.1.5-9
+- Port configure script to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

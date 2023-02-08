@@ -15,7 +15,7 @@
 
 Name:           %{fontname}-fonts
 Version:        0.20080710
-Release:        35%{?dist}
+Release:        36%{?dist}
 License:        LicenseRef-Fedora-Public-Domain AND BSD-3-Clause AND mplus
 BuildArch:      noarch
 BuildRequires:  xorg-x11-font-utils mkfontdir gawk fontpackages-devel
@@ -85,7 +85,7 @@ Patch51:        k14-1990.patch
 Patch52:        fonts-ja-8.0-gcc-warnings.patch
 Patch53:        mplus_bitmap_fonts-install.patch
 Patch54:        fonttools-replace.patch
-
+Patch55:        japanese-bitmap-fonts-c99.patch
 
 Summary:        Free Japanese Bitmap fonts
 
@@ -113,6 +113,7 @@ pushd %{mplus}
 %patch53 -p1
 popd
 %patch54 -p1
+%patch55 -p1
 zcat %{SOURCE61} > jiskan24-2000-1.bdf
 zcat %{SOURCE62} > jiskan24-2000-2.bdf
 zcat %{SOURCE63} > jiskan24-2003-1.bdf
@@ -334,6 +335,9 @@ ln -sf %{_fontdir} $RPM_BUILD_ROOT%{cataloguedir}/%{fontname}
 %{cataloguedir}/*
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 0.20080710-36
+- Fix C99 compatibility issue (#2167285)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080710-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

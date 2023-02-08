@@ -1,6 +1,6 @@
 Name:           devscripts
-Version:        2.22.2
-Release:        4%{?dist}
+Version:        2.23.0
+Release:        1%{?dist}
 Summary:        Scripts for Debian Package maintainers
 
 License:        GPL-2.0-or-later
@@ -104,7 +104,7 @@ This package contains the devscripts checkbashisms script.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}
 
 
 %build
@@ -161,6 +161,9 @@ rm -f %{buildroot}%{_datadir}/bash-completion/completions/bts
 
 
 %changelog
+* Sun Feb 05 2023 Sandro Mani <manisandro@gmail.com> - 2.23.0-1
+- Update to 2.23.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.22.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

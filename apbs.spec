@@ -11,7 +11,7 @@
 Name: apbs
 Summary: Adaptive Poisson Boltzmann Solver
 Version: 3.0.0
-Release: 17%{datecommit}%{shortcommit}%{?dist}
+Release: 18%{datecommit}%{shortcommit}%{?dist}
 # iAPBS looks licensed with a LGPLv2+, APBS is released under BSD license.
 License: LGPLv2+ and BSD
 URL: https://www.poissonboltzmann.org/
@@ -25,6 +25,8 @@ Patch1: %{name}-exclude_tests.patch
 
 # Porting to Python-3.11
 Patch2: %{name}-python311.patch
+
+Patch3: apbs-c99.patch
 
 BuildRequires: gcc-c++
 BuildRequires: cmake3
@@ -80,6 +82,7 @@ BuildRequires: texlive-etoc
 BuildRequires: texlive-tocloft
 BuildRequires: texlive-ulem
 BuildRequires: texlive-newunicodechar
+BuildRequires: texlive-wasy
 BuildRequires: texlive-wasysym
 BuildArch: noarch
 %description doc
@@ -106,6 +109,8 @@ Python interface of APBS.
 %if 0%{?python3_version_nodots} >= 311
 %patch2 -p1 -b .python311
 %endif
+
+%patch3 -p1
 
 cp -p contrib/iapbs/COPYING contrib/iapbs/iapbs-COPYING
 cp -p %{SOURCE1} contrib/iapbs/iapbs-LGPLv2
@@ -208,6 +213,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %doc build/doc
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 3.0.0-18
+- Fix C99 compatibility issue
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

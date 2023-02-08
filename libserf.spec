@@ -1,6 +1,6 @@
 Name:           libserf
 Version:        1.3.9
-Release:        26%{?dist}
+Release:        27%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
 License:        ASL 2.0
 URL:            http://serf.apache.org/
@@ -8,12 +8,16 @@ Source0:        https://archive.apache.org/dist/serf/serf-%{version}.tar.bz2
 BuildRequires:  gcc, pkgconfig
 BuildRequires:  apr-devel, apr-util-devel, krb5-devel, openssl-devel
 BuildRequires:  zlib-devel, cmake
+%ifnarch %ix86
+BuildRequires: openssl, libfaketime
+%endif
 Patch0:         %{name}-norpath.patch
 Patch1:         %{name}-python3.patch
 Patch2:		%{name}-1.3.9-bio-ctrl.patch
 Patch3:         %{name}-1.3.9-errgetfunc.patch
 Patch4:		%{name}-1.3.9-multihome.patch
 Patch5:		%{name}-1.3.9-cmake.patch
+Patch6:		%{name}-1.3.9-testsuite.patch
 
 %description
 The serf library is a C-based HTTP client library built upon the Apache 
@@ -32,6 +36,17 @@ developing applications that use %{name}.
 
 %prep
 %autosetup -n serf-%{version} -p1
+%ifnarch %ix86
+pushd test/server
+openssl req -x509 -newkey rsa:2048 -keyout serfrootcacert.pem -out serfrootcacert.pem -sha256 -days 3650 -nodes -subj "/C=BE/ST=Antwerp/L=Mechelen/O=In Serf we trust, Inc./OU=Test Suite Root CA/CN=Serf Root CA/emailAddress=serfrootca@example.com"
+openssl req -x509 -newkey rsa:2048 -keyout serfcacert.pem -out serfcacert.pem -sha256 -days 3650 -nodes -subj "/C=BE/ST=Antwerp/L=Mechelen/O=In Serf we trust, Inc./OU=Test Suite CA/CN=Serf CA/emailAddress=serfca@example.com" -CA serfrootcacert.pem -CAkey serfrootcacert.pem
+openssl req -x509 -newkey rsa:2048 -keyout serfserverkey.pem -out serfservercert.pem -sha256 -days 3650 -subj "/C=BE/ST=Antwerp/L=Mechelen/O=In Serf we trust, Inc./OU=Test Suite Server/CN=localhost/emailAddress=serfserver@example.com" -CA serfcacert.pem -CAkey serfcacert.pem -passout pass:serftest
+faketime '2050-12-24 08:15:42' openssl req -x509 -out serfserver_future_cert.pem -subj "/C=BE/ST=Antwerp/L=Mechelen/O=In Serf we trust, Inc./OU=Test Suite Server/CN=localhost/emailAddress=serfserver@example.com" -CA serfcacert.pem -CAkey serfcacert.pem -key serfserverkey.pem -days 30 -passout pass:serftest -passin pass:serftest
+faketime '1990-12-24 08:15:42' openssl req -x509 -out serfserver_expired_cert.pem -subj "/C=BE/ST=Antwerp/L=Mechelen/O=In Serf we trust, Inc./OU=Test Suite Server/CN=localhost/emailAddress=serfserver@example.com" -CA serfcacert.pem -CAkey serfcacert.pem -key serfserverkey.pem -days 30 -passout pass:serftest -passin pass:serftest
+openssl req -x509 -newkey rsa:2048 -keyout serfclientkey.pem -out serfclientcert.pem -sha256 -days 3650 --CA serfcacert.pem --CAkey serfcacert.pem -subj "/C=BE/ST=Antwerp/L=Mechelen/O=In Serf we trust, Inc./OU=Test Suite Client/CN=Serf Client/emailAddress=serfclient@example.com" --nodes
+openssl pkcs12 -export -in serfclientcert.pem -inkey serfclientkey.pem -out serfclientcert.p12 -passout pass:serftest
+popd
+%endif
 
 %build
 %cmake -DCMAKE_INSTALL_LIBDIR=%{_libdir}
@@ -46,7 +61,11 @@ mv %{buildroot}%{_datadir}/pkgconfig/serf.pc %{buildroot}%{_libdir}/pkgconfig/se
 rm -rf %{buildroot}%{_datadir}
 
 %check
-%ctest || true
+%ifnarch %ix86
+%ctest 
+%else
+true
+%endif
 
 %ldconfig_scriptlets
 
@@ -61,6 +80,10 @@ rm -rf %{buildroot}%{_datadir}
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Mon Feb 06 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.9-27
+- Fix testsuite
+- Resolves: rhbz#2166252
+
 * Tue Jan 31 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.9-26
 - Fix multihome server handling and backport cmake support
 - Related: rhbz#1130328

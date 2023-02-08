@@ -1,6 +1,6 @@
 Name: fmf
 Version: 1.2.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 Summary: Flexible Metadata Format
 License: GPLv2+
@@ -77,6 +77,9 @@ install -pm 644 fmf.1* %{buildroot}%{_mandir}/man1
 
 
 %changelog
+* Mon Jan 30 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2.1-3
+- Rebuilt to change Python shebangs to /usr/bin/python3.6 on EPEL 8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

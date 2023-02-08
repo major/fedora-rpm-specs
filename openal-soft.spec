@@ -1,6 +1,6 @@
 Name:           openal-soft
-Version:        1.22.2
-Release:        7%{?dist}
+Version:        1.23.0
+Release:        1%{?dist}
 Summary:        Open Audio Library
 
 License:        LGPL-2.0-or-later AND BSD-3-Clause
@@ -120,6 +120,9 @@ sed -i 's/#allow-moves = false/allow-moves = true/' \
 %{_bindir}/alsoft-config
 
 %changelog
+* Mon Feb 06 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.23.0-1
+- Updated to version 1.23.0.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.22.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

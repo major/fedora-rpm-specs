@@ -3,13 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.4.2
-Release:        3%{?dist}
+Version:        3.5.0~alpha
+Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
 License:        GPLv2+
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
-Source0:        https://download.gnome.org/sources/tracker/3.4/tracker-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/tracker/3.5/tracker-%{tarball_version}.tar.xz
 
 BuildRequires:  asciidoc
 BuildRequires:  gettext
@@ -168,6 +168,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 3.5.0~alpha-1
+- Update to 3.5.0.alpha
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -43,11 +43,17 @@ BuildRequires:  python3dist(ezdxf)
 # Run tests in parallel:
 BuildRequires:  python3dist(pytest-xdist)
 
+# Command-line tools that are (optional) test dependencies:
+#
+# tests/test_export.py, tests/generic.py
 # Meshlab Server Does Not Work With XVFB
 # https://github.com/cnr-isti-vclab/meshlab/issues/237
 # Upstream closed as WONTFIX
 #BuildRequires:  /usr/bin/xvfb-run
 #BuildRequires:  /usr/bin/meshlabserver
+# tests/test_gltf.py
+# Not yet packaged: https://github.com/KhronosGroup/glTF-Validator
+#BuildRequires:  /usr/bin/gltf_validator
 
 %global _description %{expand:
 Trimesh is a pure Python library for loading and using triangular meshes with
@@ -65,9 +71,51 @@ BuildArch:      noarch
 Recommends:     python3-trimesh+easy = %{version}-%{release}
 Suggests:       python3-trimesh+all = %{version}-%{release}
 
-# for trimesh.boolean
-Recommends:     openscad
-Recommends:     blender
+# A number of external command-line executables provide optional functionality.
+# We choose to make these weak dependencies (Recommends). Hints (Suggests)
+# would also be justifiable—although it should be noted that dnf does not do
+# anything with hints. Any weak dependencies should also be BuildRequires so
+# that their satisfiability is verified at build time; some may also enable
+# additional tests.
+#
+# trimesh.exchange.binvox
+# Cannot be packaged (closed-source): https://www.patrickmin.com/binvox/
+#BuildRequires:  /usr/bin/binvox
+#Recommends:     /usr/bin/binvox
+# trimesh.interfaces.blender
+%ifnarch %{ix86}
+BuildRequires:  /usr/bin/blender
+Recommends:     /usr/bin/blender
+%endif
+# trimesh.exchange.ply
+%ifnarch s390x
+# ExportTest.test_export fails with:
+#   subprocess.CalledProcessError: Command '['/usr/bin/draco_encoder', '-qp',
+#   '28', '-i', '/tmp/tmpd1uz557y.ply', '-o', '/tmp/tmpkbowi3es.drc']' died
+#   with <Signals.SIGABRT: 6>.
+# and stderr is:
+#   terminate called after throwing an instance of 'std::bad_alloc'
+#     what():  std::bad_alloc
+# See also:
+#   gtest failure on s390x
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2165173
+# We conclude that draco is not necessarily usable on this platform.
+BuildRequires:  /usr/bin/draco_decoder
+Recommends:     /usr/bin/draco_decoder
+BuildRequires:  /usr/bin/draco_encoder
+Recommends:     /usr/bin/draco_encoder
+%endif
+# “openscad”: trimesh.interfaces.scad
+# Library would also recognize “OpenSCAD”
+%ifnarch %{ix86}
+BuildRequires:  /usr/bin/openscad
+Recommends:     /usr/bin/openscad
+%endif
+# trimesh.interfaces.vhacd
+# Not yet packaged: https://github.com/kmammou/v-hacd
+# Library would also recognize “vhacd” or “testVHACD”
+#BuildRequires:  /usr/bin/TestVHACD
+#Recommends:     /usr/bin/TestVHACD
 
 # This probably should be in [easy] extra but isn’t in the metadata at all; see
 # README.rst and trimesh/ray/. However, it cannot be packaged until it supports

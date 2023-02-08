@@ -6,8 +6,8 @@
 %global desc Python port of LLVM's FileCheck, flexible pattern matching file verifier.
 
 Name: python-%{pypi_name}
-Version: 0.0.22
-Release: 4%{?dist}
+Version: 0.0.23
+Release: 1%{?dist}
 Summary: Flexible pattern matching file verifier
 License: ASL 2.0
 URL: https://github.com/mull-project/FileCheck.py
@@ -19,8 +19,6 @@ Patch0: %{name}-tests-x86_64.patch
 # that is discouraged in the packaging guidelines
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 Patch1: %{name}-no-coverage.patch
-# limit build dependency to poetry-core
-Patch2: https://github.com/mull-project/FileCheck.py/commit/0064ef8336651a9c7b0c484aee7123d83050bab0.patch
 BuildArch: noarch
 
 %description
@@ -74,6 +72,10 @@ fi
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Mon Feb 06 2023 Dominik Mierzejewski <dominik@greysector.net> 0.0.23-1
+- update to 0.0.23 (resolves rhbz#2166793)
+- drop obsolete patch
+
 * Thu Feb 02 2023 Dominik Mierzejewski <dominik@greysector.net> 0.0.22-4
 - backport upstream patch to limit build dependencies to poetry-core
 

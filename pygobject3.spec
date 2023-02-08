@@ -1,17 +1,16 @@
 %define glib2_version                  2.56.0
 %define gobject_introspection_version  1.56.0
 %define pycairo_version                1.16.0
-%define python2_version                2.7
-%define python3_version                3.4
+%define python3_version                3.7
 
 Name:           pygobject3
-Version:        3.42.2
-Release:        3%{?dist}
+Version:        3.43.1
+Release:        1%{?dist}
 Summary:        Python bindings for GObject Introspection
 
 License:        LGPLv2+ and MIT
 URL:            https://wiki.gnome.org/Projects/PyGObject
-Source0:        https://download.gnome.org/sources/pygobject/3.42/pygobject-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/pygobject/3.43/pygobject-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(cairo-gobject)
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
@@ -25,8 +24,6 @@ BuildRequires:  python3-setuptools
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python_Appendix/#_byte_compilation_reproducibility
 %global py_reproducible_pyc_path %{buildroot}%{python3_sitelib}
 BuildRequires:  /usr/bin/marshalparser
-
-Patch10001:     0001-IntrospectionModule-handle-two-threads-loading-type-.patch
 
 %description
 The %{name} package provides a convenient wrapper for the GObject library
@@ -105,6 +102,9 @@ This package contains files required to embed PyGObject
 %{_libdir}/pkgconfig/pygobject-3.0.pc
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 3.43.1-1
+- Update to 3.43.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.42.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

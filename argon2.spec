@@ -94,11 +94,11 @@ sed -e '/^CFLAGS/s:^CFLAGS:LDFLAGS=%{build_ldflags}\nCFLAGS:' \
     -i Makefile
 
 # parallel build is not supported
-make -j1
+make -j1 PREFIX=%{_prefix}
 
 
 %install
-make install DESTDIR=%{buildroot} LIBRARY_REL=%{_lib}
+make install DESTDIR=%{buildroot} PREFIX=%{_prefix} LIBRARY_REL=%{_lib}
 
 # Drop static library
 rm %{buildroot}%{_libdir}/%{libname}.a

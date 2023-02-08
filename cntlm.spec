@@ -3,7 +3,7 @@
 Summary:          Fast NTLM authentication proxy with tunneling
 Name:             cntlm
 Version:          0.92.3
-Release:          24%{?dist}
+Release:          25%{?dist}
 License:          GPL-2.0-or-later
 
 URL:              http://cntlm.sourceforge.net/
@@ -12,6 +12,7 @@ Source1:          cntlm.tmpfiles
 Source2:          cntlm.service
 # Don't override global CFLAGS/LDFLAGS and don't strip installed binaries
 Patch0:           cntlm_makefile.patch
+Patch1: cntlm-c99.patch
 
 BuildRequires:    gcc
 BuildRequires:    make
@@ -80,6 +81,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 0.92.3-25
+- Fix C99 compatibility issues
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.92.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -46,7 +46,7 @@
 Summary:   X.Org X11 X server
 Name:      xorg-x11-server
 Version:   1.20.14
-Release:   17%{?gitdate:.%{gitdate}}%{?dist}
+Release:   18%{?gitdate:.%{gitdate}}%{?dist}
 URL:       http://www.x.org
 License:   MIT
 
@@ -133,6 +133,8 @@ Patch120: 0006-Xext-free-the-XvRTVideoNotify-when-turning-off-from-.patch
 Patch121: 0007-xkb-reset-the-radio_groups-pointer-to-NULL-after-fre.patch
 # Fix for buggy patch to CVE-2022-46340
 Patch122: 0008-Xext-fix-invalid-event-type-mask-in-XTestSwapFakeInp.patch
+# CVE-2023-0494
+Patch123: 0001-Xi-fix-potential-use-after-free-in-DeepCopyPointerCl.patch
 
 # Only on F38 and later (patch number starts at 3801, see autopatch below)
 # Upstream commits 73d6e88, f69280dd and 4127776, minus the xwayland.pc.in change
@@ -552,6 +554,9 @@ find %{inst_srcdir}/hw/xfree86 -name \*.c -delete
 
 
 %changelog
+* Thu Feb 02 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-18
+- CVE-2023-0494: potential use-after-free
+
 * Wed Feb 01 2023 Peter Hutterer <peter.hutterer@redhat.com> - 1.20.14-17
 - Updated conditional fedora statement
 

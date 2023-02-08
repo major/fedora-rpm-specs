@@ -4,14 +4,13 @@
 %bcond_with bootstrap
 
 Name:           python-%{pypi_name}
-Version:        3.0.0
-Release:        32%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        Fixtures, reusable state for writing clean tests and more
 
 License:        ASL 2.0 or BSD
 URL:            https://github.com/testing-cabal/fixtures
 Source:         %pypi_source
-Patch0001:      0001-Skip-tests-failing-in-Python-3.9.patch
 BuildArch:      noarch
 
 
@@ -25,11 +24,11 @@ compatible test cases easy and straight forward.}
 %description %{_description}
 
 
-%package -n python3-%{pypi_name}
+%package -n python%{python3_pkgversion}-%{pypi_name}
 Summary:        %{summary}
-BuildRequires:  python3-devel
+BuildRequires:  python%{python3_pkgversion}-devel
 
-%description -n python3-%{pypi_name} %{_description}
+%description -n python%{python3_pkgversion}-%{pypi_name} %{_description}
 
 
 %prep
@@ -45,7 +44,7 @@ sed -e '/testtools/d' -i requirements.txt
 %endif
 
 %generate_buildrequires
-%pyproject_buildrequires %{!?with_bootstrap:-x test}
+%pyproject_buildrequires %{!?with_bootstrap:-t}
 
 %build
 %pyproject_wheel
@@ -56,15 +55,18 @@ sed -e '/testtools/d' -i requirements.txt
 
 %check
 %if %{without bootstrap}
-PYTHONPATH=%{buildroot}%{python3_sitelib} %{python3} -m testtools.run fixtures.test_suite
+%tox
 %endif
 
 
-%files -n python3-%{pypi_name} -f %{pyproject_files}
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license Apache-2.0 BSD
-%doc README GOALS NEWS
+%doc README.rst GOALS NEWS
 
 %changelog
+* Mon Feb 06 2023 Joel Capitao <jcapitao@redhat.com> - 4.0.1-1
+- Update to latest upstream (#2078479)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
