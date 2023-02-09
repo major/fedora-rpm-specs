@@ -212,7 +212,7 @@ for large messages.
 
 %if %{with rdmacm}
 %package rdmacm
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-ib%{?_isa} = %{version}-%{release}
 Summary: UCX RDMA connection manager support
 
 %description rdmacm

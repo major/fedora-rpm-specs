@@ -1,6 +1,6 @@
 Name:           sdcc
 Version:        4.1.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Small Device C Compiler
 License:        GPLv2+
 URL:            http://sdcc.sourceforge.net/
@@ -8,6 +8,7 @@ Source0:        http://downloads.sourceforge.net/sdcc/sdcc-src-%{version}.tar.bz
 Source1:        README.fedora
 Source2:        sdcc-%{version}-lyx-preferences
 Patch1:         sdcc-%{version}-python3.patch
+Patch2:         sdcc-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  bison, gcc-c++, automake, libtool
@@ -47,6 +48,7 @@ if you want to modify the C library or as reference of how it works.
 %setup -q -n sdcc
 find -name '*.{c,h,cc}' -a -perm -a=x -exec chmod -a=x '{}' \;
 %patch1 -p1
+%patch2 -p1
 # Disable brp-strip-static-archive for now because it errors trying to
 # strip foreign binaries.
 echo '%{__os_install_post}'
@@ -60,7 +62,9 @@ echo '%{__os_install_post}'
 OPTS='PDFOPT="/bin/cp"'
 
 # The following is to get configure.ac files to work with autoconf 2.71
-cd support/sdbinutils
+cd support/cpp
+autoconf
+cd ../sdbinutils
 sed -i -e /2.64/s/2.64/2.71/ config/override.m4 
 autoconf
 cd libiberty
@@ -127,6 +131,9 @@ popd
 
 
 %changelog
+* Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 4.1.0-7
+- Fix C99 compatibility issues in configure scripts
+
 * Sun Feb 05 2023 Roy Rankin <rrankin@ihug.com.au> - 4.1.0-6
 - path to build with autoconf 2.71
 

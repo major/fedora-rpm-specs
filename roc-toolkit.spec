@@ -29,7 +29,6 @@ BuildRequires:	sox-devel
 BuildRequires:	pulseaudio-libs-devel
 BuildRequires:	openfec-devel
 BuildRequires:	cpputest-devel
-BuildRequires:	sphinx
 BuildRequires:	python3-sphinx
 BuildRequires:	python3-breathe
 BuildRequires:	speexdsp-devel

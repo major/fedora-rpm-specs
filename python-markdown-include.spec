@@ -1,5 +1,5 @@
 Name:           python-markdown-include
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        A Python-Markdown extension which provides an 'include' function
 
@@ -31,8 +31,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -n markdown-include-%{version}
-# Remove shebang line in non-script source
-sed -r -i '1{/^#!/d}' markdown_include/include.py
 
 
 %generate_buildrequires

@@ -5,7 +5,7 @@
 %global crate darling_core
 
 Name:           rust-darling_core
-Version:        0.14.2
+Version:        0.14.3
 Release:        %autorelease
 Summary:        Helper crate for proc-macro library for reading attributes into structs
 

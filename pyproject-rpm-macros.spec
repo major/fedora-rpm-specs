@@ -10,7 +10,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.6.0
+Version:        1.6.1
 Release:        1%{?dist}
 
 # Macro files
@@ -47,6 +47,7 @@ BuildArch:      noarch
 
 %if %{with tests}
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pyyaml)
 BuildRequires:  python3dist(packaging)
 BuildRequires:  python3dist(pip)
@@ -120,7 +121,7 @@ install -pm 644 pyproject_wheel.py %{buildroot}%{_rpmconfigdir}/redhat/
 %if %{with tests}
 %check
 export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856356
-%pytest -vv --doctest-modules
+%pytest -vv --doctest-modules -n auto
 
 # brp-compress is provided as an argument to get the right directory macro expansion
 %{python3} compare_mandata.py -f %{_rpmconfigdir}/brp-compress
@@ -146,6 +147,10 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Fri Feb 03 2023 Miro Hrončok <mhroncok@redhat.com> - 1.6.1-1
+- %%pyproject_buildrequires: Avoid leaking stdout from subprocesses
+- Fixes: rhbz#2166888
+
 * Fri Jan 20 2023 Miro Hrončok <miro@hroncok.cz> - 1.6.0-1
 - Add pyproject-srpm-macros with a minimal %%pyproject_buildrequires macro
 

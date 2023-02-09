@@ -14,15 +14,10 @@ License:        MIT OR Apache-2.0
 URL:            https://crates.io/crates/fallible_collections
 Source:         %{crates_source}
 
-# Deactivate some tests because they are failing -->
-# https://github.com/vcombey/fallible_collections/issues/35
-Patch:          deactivate-improper-tests.patch
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Implement Fallible collections on allocation errors, quite as describe in RFC 2116.
-This was used in the turbofish OS hobby project to mitigate
-the lack of faillible allocation in rust.}
+Crate which adds fallible allocation api to std collections.}
 
 %description %{_description}
 
@@ -116,7 +111,9 @@ use the "unstable" feature of the "%{crate}" crate.
 
 %if %{with check}
 %check
-%cargo_test
+# * skip two tests that rely on UB and crash with recent Rust versions:
+#   https://github.com/vcombey/fallible_collections/issues/35
+%cargo_test -- -- --skip try_clone_oom --skip tryvec_try_clone_oom
 %endif
 
 %changelog

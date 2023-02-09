@@ -11,6 +11,7 @@ License:        GPLv3 and MIT and BSD and (CC0 or ASL 2.0 or OpenSSL) and Public
 URL:            https://rmlint.rtfd.org
 Source0:        https://github.com/sahib/rmlint/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         0001-Add-RPM_BUILD_ROOT-to-env.patch
+Patch1: rmlint-scons-c99.patch
 
 BuildRequires:  scons
 BuildRequires:  gcc

@@ -3,8 +3,8 @@
 %global modulename vncsession
 
 Name:           tigervnc
-Version:        1.12.0
-Release:        9%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -24,10 +24,7 @@ Source5:        vncserver
 # Downstream patches
 
 # Upstream patches
-Patch50:        tigervnc-selinux-restore-context-in-case-of-different-policies.patch
-Patch51:        tigervnc-fix-typo-in-mirror-monitor-detection.patch
-Patch52:        tigervnc-root-user-selinux-context.patch
-Patch53:        tigervnc-vncsession-restore-script-systemd-service.patch
+Patch50:        tigervnc-vncsession-restore-script-systemd-service.patch
 
 # This is tigervnc-%%{version}/unix/xserver116.patch rebased on the latest xorg
 Patch100:       tigervnc-xserver120.patch
@@ -148,10 +145,7 @@ runs properly under an environment with SELinux enabled.
 %prep
 %setup -q
 
-%patch50 -p1 -b .selinux-restore-context-in-case-of-different-policies
-%patch51 -p1 -b .fix-typo-in-mirror-monitor-detection
-%patch52 -p1 -b .root-user-selinux-context
-%patch53 -p1 -b .vncsession-restore-script-systemd-service
+%patch50 -p1 -b .vncsession-restore-script-systemd-service
 
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
 pushd unix/xserver
@@ -291,6 +285,7 @@ fi
 %{_bindir}/vncviewer
 %{_datadir}/applications/*
 %{_mandir}/man1/vncviewer.1*
+%{_datadir}/metainfo/org.tigervnc.vncviewer.metainfo.xml
 
 %files server
 %config(noreplace) %{_sysconfdir}/pam.d/tigervnc
@@ -334,6 +329,10 @@ fi
 %ghost %verify(not md5 size mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Tue Feb 07 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.0-1
+- 1.13.0
+- CVE-2023-0494
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 1.12.0-9
 - migrated to SPDX license
 

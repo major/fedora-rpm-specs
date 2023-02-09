@@ -2,17 +2,16 @@
 
 %global pkgname glslang
 
-%global sdkver 1.3.231.1
-
 Name:          mingw-%{pkgname}
-Version:       11.9.0
-Release:       8%{?commit:.git%{shortcommit}}%{?dist}
+Epoch:         1
+Version:       1.3.239.0
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       BSD and GPLv3+ and ASL 2.0
 BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{pkgname}
-Source0:       %url/archive/sdk-%{sdkver}.tar.gz#/%{pkgname}-sdk-%{sdkver}.tar.gz
+Source0:       %url/archive/sdk-%{version}/%{pkgname}-sdk-%{version}.tar.gz
 # Remove debug suffix for mingw builds
 Patch0:        glslang_debug-suffix.patch
 
@@ -50,7 +49,7 @@ MinGW Windows %{pkgname} library.
 
 
 %prep
-%autosetup -p1 -n %{pkgname}-sdk-%{sdkver}
+%autosetup -p1 -n %{pkgname}-sdk-%{version}
 
 
 %build
@@ -62,8 +61,8 @@ MinGW Windows %{pkgname} library.
 %mingw_make_install
 
 # We don't want them in here
-rm -rf %{buildroot}%{mingw32_includedir}/SPIRV
-rm -rf %{buildroot}%{mingw64_includedir}/SPIRV
+#rm -rf %{buildroot}%{mingw32_includedir}/SPIRV
+#rm -rf %{buildroot}%{mingw64_includedir}/SPIRV
 
 
 %files -n mingw32-%{pkgname}
@@ -98,6 +97,9 @@ rm -rf %{buildroot}%{mingw64_includedir}/SPIRV
 
 
 %changelog
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.239.0-1
+- Update to sdk 1.3.239.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.9.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

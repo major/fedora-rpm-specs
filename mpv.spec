@@ -121,7 +121,7 @@ sed -e "s|c_preproc.standard_includes.append('/usr/local/include')|c_preproc.sta
 
 %build
 %set_build_flags
-%{_bindir}/waf configure \
+waf configure \
     --prefix=%{_prefix} \
     --bindir=%{_bindir} \
     --libdir=%{_libdir} \
@@ -138,10 +138,10 @@ sed -e "s|c_preproc.standard_includes.append('/usr/local/include')|c_preproc.sta
     --enable-dvbin \
     --enable-gl-x11 \
     --enable-wayland
-%{_bindir}/waf -v build %{?_smp_mflags}
+waf -v build %{?_smp_mflags}
 
 %install
-%{_bindir}/waf install --destdir=%{buildroot}
+waf install --destdir=%{buildroot}
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metainfo.xml

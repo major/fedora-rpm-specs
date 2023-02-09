@@ -363,7 +363,7 @@
 %global updatever       %(VERSION=%{whole_update}; echo ${VERSION##*u})
 # eg jdk8u60-b27 -> b27
 %global buildver        %(VERSION=%{version_tag}; echo ${VERSION##*-})
-%global rpmrelease      1
+%global rpmrelease      2
 # Define milestone (EA for pre-releases, GA ("fcs") for releases)
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
@@ -1542,6 +1542,9 @@ Patch111: jdk8218811-perfMemory_linux.patch
 # JDK-8281098, PR3836: Extra compiler flags not passed to adlc build
 Patch112: jdk8281098-pr3836-pass_compiler_flags_to_adlc.patch
 
+# Implicit declaration of free.
+Patch113: java-1.8.0-openjdk-c99.patch
+
 #############################################
 #
 # Arch-specific upstreamable patches
@@ -2037,6 +2040,7 @@ sh %{SOURCE12}
 %patch574
 %patch111
 %patch112
+%patch113 -p1
 %patch581
 %patch582
 
@@ -2876,6 +2880,9 @@ cjc.mainProgram(args)
 %endif
 
 %changelog
+* Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 1:1.8.0.362.b09-2
+- Fix C99 compatibility issue (#2152432)
+
 * Wed Jan 25 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:1.8.0.362.b09-1
 - Update to shenandoah-jdk8u362-b09 (GA)
 - Update release notes for shenandoah-8u362-b09.

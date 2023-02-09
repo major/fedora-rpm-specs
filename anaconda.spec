@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.19
+Version: 38.21
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -101,7 +101,6 @@ Requires: python3-pwquality
 Requires: python3-systemd
 Requires: python3-productmd
 Requires: python3-dasbus >= %{dasbusver}
-Requires: python3-packaging
 Requires: flatpak-libs
 %if %{defined rhel} && %{undefined centos}
 Requires: subscription-manager >= %{subscriptionmanagerver}
@@ -464,6 +463,18 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 07 2023 Packit <hello@packit.dev> - 38.21-1
+- Sort RPM versions via rpm.labelCompare() and not via
+  packaging.version.LegacyVersion() (miro)
+- Update translations from Weblate
+
+* Tue Feb 07 2023 Packit <hello@packit.dev> - 38.20-1
+- Add Sericea - ostree based Sway variant (jkonecny)
+- Fix the systemd generator for systemd 253 (#2165433) (awilliam)
+- WebUI: Updated wizard footer buttons (ozobal)
+- Remove the dmraid and nodmraid boot options (vtrefny)
+- Update translations from Weblate
+
 * Tue Jan 31 2023 Packit <hello@packit.dev> - 38.19-1
 - Remove mocking of modules for sphinx docs builds (vslavik)
 - docs: Update branching instructions (vslavik)

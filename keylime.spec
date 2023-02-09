@@ -8,7 +8,7 @@
 %global selinuxtype targeted
 
 Name:    keylime
-Version: 6.5.3
+Version: 6.6.0
 Release: %autorelease
 Summary: Open source TPM software for Bootstrapping and Maintaining Trust
 
@@ -225,7 +225,7 @@ done
 
 # Ship some scripts.
 mkdir -p %{buildroot}/%{_datadir}/%{srcname}/scripts
-for s in create_allowlist.sh \
+for s in create_runtime_policy.sh \
          create_mb_refstate \
          create_policy \
          ek-openssl-verify; do
@@ -255,8 +255,8 @@ install -D -p -m 0644 keylime-selinux-%{policy_version}/%{srcname}.if %{buildroo
 install -Dpm 644 ./services/%{srcname}_agent.service \
     %{buildroot}%{_unitdir}/%{srcname}_agent.service
 
-install -Dpm 644 ./services/%{srcname}_agent_secure.mount \
-    %{buildroot}%{_unitdir}/%{srcname}_agent_secure.mount
+install -Dpm 644 ./services/var-lib-%{srcname}-secure.mount \
+    %{buildroot}%{_unitdir}/var-lib-%{srcname}-secure.mount
 
 install -Dpm 644 ./services/%{srcname}_verifier.service \
     %{buildroot}%{_unitdir}/%{srcname}_verifier.service
@@ -394,7 +394,8 @@ fi
 %license LICENSE
 %attr(500,%{srcname},%{srcname}) %dir %{_sysconfdir}/%{srcname}/agent.conf.d
 %{_unitdir}/%{srcname}_agent.service
-%{_unitdir}/%{srcname}_agent_secure.mount
+%{_unitdir}/var-lib-%{srcname}-secure.mount
+%{_bindir}/%{srcname}_convert_runtime_policy
 %{_bindir}/%{srcname}_agent
 %{_bindir}/%{srcname}_ima_emulator
 %{_sysconfdir}/%{srcname}/agent.conf.d/bz2114485.conf
@@ -418,7 +419,6 @@ fi
 %{python3_sitelib}/%{srcname}
 %{_datadir}/%{srcname}/scripts/create_mb_refstate
 %{_datadir}/%{srcname}/scripts/create_policy
-%{_bindir}/keylime_convert_ima_policy
 %{_bindir}/keylime_attest
 
 %files tools
@@ -435,7 +435,7 @@ fi
 %attr(400,%{srcname},%{srcname}) %{_sharedstatedir}/%{srcname}/tpm_cert_store/*.pem
 %{_tmpfilesdir}/%{srcname}.conf
 %{_sysusersdir}/%{srcname}.conf
-%{_datadir}/%{srcname}/scripts/create_allowlist.sh
+%{_datadir}/%{srcname}/scripts/create_runtime_policy.sh
 %{_datadir}/%{srcname}/scripts/ek-openssl-verify
 %{_datadir}/%{srcname}/templates
 %{_bindir}/keylime_upgrade_config

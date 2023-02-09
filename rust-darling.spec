@@ -5,13 +5,15 @@
 %global crate darling
 
 Name:           rust-darling
-Version:        0.14.2
+Version:        0.14.3
 Release:        %autorelease
 Summary:        Proc-macro library for reading attributes into structs
 
 License:        MIT
 URL:            https://crates.io/crates/darling
 Source:         %{crates_source}
+# Automatically generated patch to strip foreign dependencies
+Patch:          darling-fix-metadata-auto.diff
 
 BuildRequires:  rust-packaging >= 21
 

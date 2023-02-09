@@ -24,14 +24,14 @@
 %global zf_min_ver  3.3
 %global zf_max_ver  4
 
-# Build using "--without tests" to disable tests
-%bcond_without tests
+# Build using "--with tests" to enable tests
+%bcond_with tests
 
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       7%{?github_release}%{?dist}
+Release:       8%{?github_release}%{?dist}
 Summary:       OOP proxy wrappers utilities
 
 License:       MIT
@@ -167,6 +167,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Feb 07 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 2.2.3-8
+- Disable tests by default
+- FTBFS (RHBZ #2046826)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

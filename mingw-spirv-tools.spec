@@ -3,17 +3,16 @@
 %global pkgname spirv-tools
 %global srcname SPIRV-Tools
 
-%global sdkver 1.3.231.1
-
 Name:          mingw-%{pkgname}
-Version:       2022.2
-Release:       7%{?dist}
+Epoch:         1
+Version:       1.3.239.0
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       Apache-2.0
 BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{srcname}
-Source0:       %url/archive/sdk-%{sdkver}.tar.gz#/%{srcname}-sdk-%{sdkver}.tar.gz
+Source0:       %url/archive/sdk-%{version}/%{srcname}-sdk-%{version}.tar.gz
 
 # Fix installation dir for cmake modules
 Patch0:        spirv-tool_cmake-install.patch
@@ -56,7 +55,7 @@ MinGW Windows %{pkgname}.
 
 
 %prep
-%autosetup -p1 -n %{srcname}-sdk-%{sdkver}
+%autosetup -p1 -n %{srcname}-sdk-%{version}
 
 
 %build
@@ -130,6 +129,9 @@ MINGW64_CMAKE_ARGS="-DSPIRV-Headers_SOURCE_DIR=%{mingw64_prefix}" \
 
 
 %changelog
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 1:1.3.239.0-1
+- Update to sdk 1.3.239.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

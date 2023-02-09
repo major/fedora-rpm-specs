@@ -2,7 +2,7 @@
 
 Name:           %{modname}
 Version:        0.34.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A CLI and TUI tool for interacting with Mastodon
 
 License:        GPLv3
@@ -41,7 +41,4 @@ find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/
 %license LICENSE
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.33.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 %autochangelog

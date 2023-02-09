@@ -11,7 +11,7 @@
 
 Name:          parsec
 Version:       1.1.0
-Release:       2%{?candidate:.%{candidate}}%{?dist}
+Release:       3%{?candidate:.%{candidate}}%{?dist}
 Summary:       The PARSEC daemon
 
 License:       ASL 2.0
@@ -101,6 +101,9 @@ exit 0
 %{_unitdir}/parsec.service
 
 %changelog
+* Tue Feb 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.1.0-3
+- Rebuild for tss-esapi 7.2.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

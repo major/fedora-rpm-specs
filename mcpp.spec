@@ -3,7 +3,7 @@
 Summary:    Alternative C/C++ preprocessor
 Name:       mcpp
 Version:    2.7.2
-Release:    32%{?dist}
+Release:    33%{?dist}
 License:    BSD
 Source:     http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 URL:        http://mcpp.sourceforge.net/
@@ -15,6 +15,7 @@ Patch1:     patch.mcpp.2.7.2
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=948860
 Patch2:     mcpp-man.patch
+Patch3: mcpp-c99.patch
 
 
 BuildRequires: make
@@ -38,6 +39,7 @@ shared library of mcpp and behaves independent from GCC.
 %patch0 -p0 -b -z.euc-jp
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %configure --enable-mcpplib --disable-static
@@ -97,6 +99,9 @@ This package provides an html manual for mcpp.
 %lang(ja) %doc  doc-jp/mcpp-manual-jp.html
 
 %changelog
+* Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 2.7.2-33
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

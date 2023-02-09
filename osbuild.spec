@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        77
+Version:        78
 
 %forgemeta
 
@@ -251,6 +251,17 @@ fi
 
 
 %changelog
+* Tue Feb 07 2023 Packit <hello@packit.dev> - 78-1
+Changes with 78
+----------------
+  * Add org.osbuild.chown stage  (#1228)
+  * mounts: accept a wider set of mount options (#1229)
+
+Contributions from: Thomas Lavocat, Tomáš Hozza
+
+— Somewhere on the Internet, 2023-02-07
+
+
 * Fri Jan 20 2023 Packit <hello@packit.dev> - 77-1
 Changes with 77
 ----------------

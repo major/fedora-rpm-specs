@@ -2,15 +2,13 @@
 %global addrlibsover 3
 
 Name:           libkdumpfile
-Version:        0.5.0
+Version:        0.5.1
 Release:        %autorelease
 Summary:        Kernel coredump file access
 
 License:        LGPLv3+ or GPLv2+
 URL:            https://github.com/ptesarik/libkdumpfile
 Source:         %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# https://github.com/ptesarik/libkdumpfile/pull/67
-Patch:          libkdumpfile-py312-fix-tests.diff
 
 BuildRequires:  gcc-c++
 BuildRequires:  doxygen

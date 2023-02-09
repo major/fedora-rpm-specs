@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-sure
-Version:        2.0.0
+Version:        2.0.1
 Release:        %autorelease
 Summary:        Idiomatic assertion toolkit with human-friendly failure messages
 

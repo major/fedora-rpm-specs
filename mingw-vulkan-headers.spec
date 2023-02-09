@@ -4,8 +4,8 @@
 %global srcname Vulkan-Headers
 
 Name:          mingw-%{pkgname}
-Version:       1.3.231.1
-Release:       2%{?dist}
+Version:       1.3.239.0
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname}
 
 License:       Apache-2.0
@@ -15,8 +15,12 @@ Source0:       https://github.com/KhronosGroup/%{srcname}/archive/sdk-%{version}
 
 BuildRequires: make
 BuildRequires: cmake
-BuildRequires: mingw32-filesystem >= 95
-BuildRequires: mingw64-filesystem >= 95
+
+BuildRequires: mingw32-filesystem
+BuildRequires: mingw32-gcc
+
+BuildRequires: mingw64-filesystem
+BuildRequires: mingw64-gcc
 
 
 %description
@@ -54,16 +58,21 @@ MinGW Windows %{pkgname}.
 %license LICENSE.txt
 %{mingw32_includedir}/vulkan/
 %{mingw32_includedir}/vk_video/
+%{mingw32_datadir}/cmake/VulkanHeaders/
 %{mingw32_datadir}/vulkan/
 
 %files -n mingw64-%{pkgname}
 %license LICENSE.txt
 %{mingw64_includedir}/vulkan/
 %{mingw64_includedir}/vk_video/
+%{mingw64_datadir}/cmake/VulkanHeaders/
 %{mingw64_datadir}/vulkan/
 
 
 %changelog
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 1.3.239.0-1
+- Update to sdk 1.3.239.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.231.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -27,7 +27,7 @@
 %global	git_version	D%{gitbaredate}git%{git_short}
 %endif
 
-%global	mainrel 3
+%global	mainrel 4
 
 %if 0%{?use_release} >= 1
 %global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
@@ -41,7 +41,7 @@
 
 Name:           lxpanel
 Version:        0.10.1
-Release:        %{fedorarel}%{?dist}.3
+Release:        %{fedorarel}%{?dist}
 Summary:        A lightweight X11 desktop panel
 
 License:        GPLv2+
@@ -77,6 +77,8 @@ Patch102:       lxpanel-0.8.2-battery-plugin-use-zenity.patch
 # volumealsa: poll alsa mixer several times at startup (for pipewire)
 # https://bugzilla.redhat.com/show_bug.cgi?id=1960829
 Patch103:       lxpanel-0.10.1-0003-volumealsa-poll-alsa-mixer-several-times-at-startup.patch
+# batt: make the status green on batt when the state is "not charging"
+Patch104:       lxpanel-0.10.1-batt-chaging-pending.patch
 
 
 #BuildRequires:  docbook-utils
@@ -174,6 +176,7 @@ cat %PATCH103 | git am
 %patch100 -p1 -b .default
 #%%patch101 -p1 -b .system-config-network
 %patch102 -p1 -b .zenity
+%patch104 -p1 -b .batt_pending
 
 # Fedora >= 19 doesn't use vendor prefixes for desktop files. Instead of
 # maintaining two patches we just strip the prefixes from the files we just
@@ -235,6 +238,9 @@ cd ..
 %{_libdir}/pkgconfig/lxpanel.pc
 
 %changelog
+* Tue Feb  7 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.1-4
+- batt: make the status green on batt when the state is "not charging"
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

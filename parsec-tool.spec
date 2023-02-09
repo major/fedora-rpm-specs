@@ -7,7 +7,7 @@
 
 Name:          parsec-tool
 Version:       0.3.1
-Release:       4%{?dist}
+Release:       5%{?dist}
 Summary:       A PARSEC cli
 
 # ASL 2.0
@@ -18,6 +18,7 @@ Summary:       A PARSEC cli
 License:       ASL 2.0 and BSD and MIT
 URL:           https://github.com/parallaxsecond/parsec-tool
 Source0:       %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Patch0:        parsec-tool-fixmetadata.diff
 
 ExclusiveArch: %{rust_arches}
 # rhbz 1869980
@@ -58,6 +59,9 @@ export PROTOC_INCLUDE=%{_includedir}
 %{_bindir}/parsec-tool
 
 %changelog
+* Tue Feb 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.1-5
+- Rebuild for tss-esapi 7.2.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

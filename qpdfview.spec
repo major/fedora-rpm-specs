@@ -3,11 +3,12 @@
 
 Name:		qpdfview
 Version:	0.5.0
-Release:	1%{?dist}
+Release:	2%{?dist}
 License:	GPLv2+
 Summary:	Tabbed PDF Viewer
 Url:		https://launchpad.net/qpdfview
 Source0:	%{url}/trunk/%{version}/+download/%{name}-0.5.tar.gz
+Patch1:		qpdfview-c99.patch
 BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	desktop-file-utils
@@ -82,7 +83,8 @@ It provides a clear and simple graphical user interface using the Qt framework.
 %setup -qc -n %{name}-0.5
 # unifying
 mv %{name}-0.5 %{name}-%{version}
-
+cd %{name}-%{version}
+%patch1 -p1
 
 %build
 cp -a %{name}-%{version} build-qt5
@@ -183,6 +185,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-qt6.desktop
 %{_mandir}/man?/*
 
 %changelog
+* Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 0.5.0-2
+- Fix C99 compatibility issue
+
 * Mon Feb 06 2023 TI_Eugene <ti.eugene@gmail.com> - 0.5.0-1
 - Release
 

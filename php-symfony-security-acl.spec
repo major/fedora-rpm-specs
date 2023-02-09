@@ -37,20 +37,14 @@
 %global psr_log_min_ver 1.0.1
 %global psr_log_max_ver 2.0
 
-%global bootstrap 0
-
-%if %{bootstrap}
-%global with_tests 0
-%else
-# Build using "--without tests" to disable tests
-%global with_tests 0%{!?_without_tests:1}
-%endif
+# Build using "--with tests" to enable tests
+%bcond_with tests
 
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Version:       %{github_version}
-Release:       16%{?github_release}%{?dist}
+Release:       17%{?github_release}%{?dist}
 Summary:       Symfony Security Component - ACL (Access Control List)
 
 License:       MIT
@@ -59,7 +53,7 @@ Source0:       %{url}/archive/%{github_commit}/%{name}-%{github_version}-%{githu
 
 BuildArch:     noarch
 # Tests
-%if %{with_tests}
+%if %{with tests}
 ## composer.json
 BuildRequires: php(language)                       >= %{php_min_ver}
 %if 0%{?fedora} >= 27 || 0%{?rhel} >= 8
@@ -159,7 +153,7 @@ cp -rp * %{buildroot}%{phpdir}/Symfony/Component/Security/Acl/
 
 
 %check
-%if %{with_tests}
+%if %{with tests}
 : Create tests bootstrap
 cat <<'BOOTSTRAP' | tee bootstrap.php
 <?php
@@ -199,6 +193,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Feb 07 2023 Shawn Iwinski <shawn@iwin.ski> - 2.8.0-17
+- Disable tests by default
+- FTBFS (RHBZ #2046835)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

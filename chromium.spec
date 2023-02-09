@@ -13,20 +13,20 @@
 %endif
 
 # set default numjobs for the koji build
-# we got the aarch64 builder with 224 cores and x86_64 builder with 46 cores
-%global numjobs 48
 %ifarch aarch64
-%global numjobs 64
-%endif
- 
-# This flag is so I can build things very fast on a giant system.
-# Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 0
- 
-%if %{use_all_cpus}
+%global numjobs 8
+%else
 %global numjobs %{_smp_build_ncpus}
 %endif
 
+# This flag is so I can build things very fast on a giant system.
+# Enabling this in koji causes aarch64 builds to timeout indefinitely.
+%global use_all_cpus 0
+
+%if %{use_all_cpus}
+%global numjobs %{_smp_build_ncpus}
+%endif
+ 
 # official builds have less debugging and go faster... but we have to shut some things off.
 %global official_build 1
 
@@ -1179,9 +1179,6 @@ sed -i 's|moc|moc-qt5|g' ui/qt/moc_wrapper.py
 # decode byte 0xe2 in position 474: ordinal not in range(128)
 export LANG=en_US.UTF-8
 
-# Turning the buildsystem up to 11.
-ulimit -n 4096
-
 # reduce warnings
 FLAGS=' -Wno-deprecated-declarations -Wno-unknown-warning-option -Wno-unused-command-line-argument'
 FLAGS+=' -Wno-unused-but-set-variable -Wno-unused-result -Wno-unused-function -Wno-unused-variable'
@@ -1199,7 +1196,6 @@ CXXFLAGS="$CFLAGS"
 # override system build flags
 CFLAGS="$FLAGS"
 CXXFLAGS="$FLAGS"
-LDFLAGS=""
 %endif
 
 %if %{clang}
@@ -1211,9 +1207,10 @@ export CXX=g++
 %endif
 export CFLAGS
 export CXXFLAGS
-export LDFLAGS
-export AR=ar
-export NM=nm
+export LDFLAGS="$LDFLAGS -Wl,--threads=4"
+export AR="llvm-ar"
+export NM="llvm-nm"
+export READELF="llvm-readelf"
 
 # enable toolset on el7
 %if 0%{?rhel} == 7

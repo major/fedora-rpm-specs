@@ -9,7 +9,7 @@
 Summary: iSCSI daemon and utility programs
 Name: iscsi-initiator-utils
 Version: 6.%{open_iscsi_version}.%{open_iscsi_build}
-Release: 9.git%{shortcommit0}%{?dist}
+Release: 10.git%{shortcommit0}%{?dist}
 License: GPLv2+
 URL: https://github.com/open-iscsi/open-iscsi
 Source0: https://github.com/open-iscsi/open-iscsi/archive/%{commit0}.tar.gz#/open-iscsi-%{shortcommit0}.tar.gz
@@ -48,7 +48,7 @@ BuildRequires: autoconf automake libtool libmount-devel openssl-devel
 BuildRequires: isns-utils-devel
 BuildRequires: systemd-devel
 Requires: %{name}-iscsiuio >= %{version}-%{release}
-Requires: (fedora-release >= 38-0.23 if fedora-release)
+Requires: (fedora-release-common >= 38-0.23 if fedora-release-common)
 Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
@@ -286,6 +286,9 @@ systemctl --no-reload preset iscsi.service iscsi-starter.service &>/dev/null || 
 %{python3_sitearch}/*
 
 %changelog
+* Mon Feb  6 2023 Zbigniew Jedrzejewski-Szmek <zbyszek@in.waw.pl> - 6.2.1.4-10.git2a8f9d8
+- Move fedora-release version requirement to the fedora-release-common subpackage
+
 * Mon Feb 06 2023 Gordon Messmer <gordon.messmer@gmail.com> - 6.2.1.4-9.git2a8f9d8
 - Fix fedora-release requirement.
 

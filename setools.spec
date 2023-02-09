@@ -2,8 +2,8 @@
 %global selinux_ver 3.4-1
 
 Name:           setools
-Version:        4.4.0
-Release:        10%{?dist}
+Version:        4.4.1
+Release:        1%{?dist}
 Summary:        Policy analysis tools for SELinux
 
 License:        GPL-2.0-only and LGPL-2.1-only
@@ -11,8 +11,7 @@ URL:            https://github.com/SELinuxProject/setools/wiki
 Source0:        https://github.com/SELinuxProject/setools/archive/%{version}.tar.gz
 Source1:        setools.pam
 Source2:        apol.desktop
-Patch0001:      0001-Make-seinfo-output-predictable.patch
-Patch1002:      1002-Do-not-export-use-setools.InfoFlowAnalysis-and-setoo.patch
+Patch0001:      0001-Make-NetworkX-optional.patch
 Patch1003:      1003-Require-networkx-on-package-level.patch
 Obsoletes:      setools < 4.0.0, setools-devel < 4.0.0
 BuildRequires:  flex,  bison
@@ -146,6 +145,9 @@ Python modules designed to facilitate SELinux policy analysis.
 %{_mandir}/ru/man1/apol*
 
 %changelog
+* Mon Feb  6 2023 Petr Lautrbach <lautrbach@redhat.com> - 4.4.1-1
+- SETools 4.4.1 release
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

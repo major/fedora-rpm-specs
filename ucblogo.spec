@@ -1,10 +1,11 @@
 Name:           ucblogo
 Version:        6.2.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An interpreter for the Logo programming language
 
 License:        GPLv3+
 Source:         https://github.com/jrincayc/ucblogo-code/releases/download/version_%{version}/ucblogo-%{version}.tar.gz
+Patch0: ucblogo-c99.patch
 URL:            https://people.eecs.berkeley.edu/~bh/logo.html
 BuildRequires: make
 BuildRequires:  gcc
@@ -53,7 +54,7 @@ Requires:       %{name} = %{version}-%{release}
 This package contains the x11 binary for ucblogo.
 
 %prep
-%setup -q
+%autosetup -p1
 
 
 # correct directories /usr/lib -> /usr/share and /usr/local ->  /usr
@@ -121,6 +122,9 @@ fi
 %{_bindir}/ucblogo-x11
 
 %changelog
+* Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 6.2.3-3
+- Fix some C99 compatibility issues
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

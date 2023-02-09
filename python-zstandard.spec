@@ -1,4 +1,9 @@
+%if 0%{?rhel}
+%bcond_with check
+%else
 %bcond_without check
+%endif
+
 %global pypi_name zstandard
 %if 0%{!?pytest:1}
 %global pytest %{expand:\\\

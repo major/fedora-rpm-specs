@@ -1,7 +1,7 @@
 Summary: The GNU disk partition manipulation program
 Name:    parted
 Version: 3.5
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPL-3.0-or-later
 URL:     http://www.gnu.org/software/parted
 
@@ -26,6 +26,8 @@ Patch0012: 0012-tests-Add-a-libparted-test-for-ped_partition_set_sys.patch
 Patch0013: 0013-show-GPT-UUIDs-in-JSON-output.patch
 Patch0014: 0014-gpt-Add-no_automount-partition-flag.patch
 Patch0015: 0015-tests-XFS-requires-a-minimum-size-of-300M.patch
+Patch0016: 0016-libparted-Fix-problem-with-creating-1s-partitions.patch
+Patch0017: 0017-tests-Fixing-libparted-test-framework-usage.patch    
 
 BuildRequires: gcc
 BuildRequires: e2fsprogs-devel
@@ -130,6 +132,10 @@ make check
 
 
 %changelog
+* Tue Feb 07 2023 Brian C. Lane <bcl@redhat.com> - 3.5-9.bcl.1
+- libparted: Fix problem with creating 1s partitions
+- tests: Fixing libparted test framework usage
+
 * Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 3.5-9
 - SPDX migration
 

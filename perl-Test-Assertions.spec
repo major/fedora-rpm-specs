@@ -2,7 +2,7 @@ Name:           perl-Test-Assertions
 Version:        1.054
 Release:        41%{?dist}
 Summary:        Simple set of building blocks for both unit and runtime testing
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://metacpan.org/release/Test-Assertions
 Source0:        https://cpan.metacpan.org/authors/id/B/BB/BBC/Test-Assertions-%{version}.tar.gz
 BuildArch:      noarch

@@ -4,8 +4,8 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:           stratisd
-Version:        3.5.0
-Release:        4%{?dist}
+Version:        3.5.1
+Release:        1%{?dist}
 Summary:        Daemon that manages block devices to create filesystems
 
 # ASL 2.0
@@ -155,6 +155,9 @@ a2x -f manpage docs/stratisd.txt
 %{_systemd_util_dir}/system-generators/stratis-setup-generator
 
 %changelog
+* Tue Feb 07 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.1-1
+- Update to 3.5.1
+
 * Fri Feb 03 2023 Bryan Gurney <bgurney@redhat.com> - 3.5.0-4
 - Remove debuginfo ignore from rpminspect.yaml
 

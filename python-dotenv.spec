@@ -1,6 +1,6 @@
 Name:           python-dotenv
 Version:        0.21.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Read key-value pairs from a .env file and set them as environment variables
 
 License:        BSD
@@ -25,10 +25,17 @@ Reads the key/value pair from .env file and adds them to environment variable.
 %prep
 %autosetup
 
-# Get rid of dependency on coverage, invoke pytest directly in tox.ini
+# Get rid of dependency on python-cov, drop --cov... options from pytest
 # Downstream-only change, based on Fedora's linters policy
-sed -i "/^  coverage$/d" tox.ini
-sed -i "s/coverage run --parallel -m pytest {posargs}/pytest {posargs}/" tox.ini
+sed -Ei -e "/^  pytest-cov$/d" \
+        -e "s/--cov //" \
+        -e "s/--cov-[[:alnum:]]+(=| +)[^ ]+ //g" \
+    tox.ini
+
+%if 0%{?rhel}
+# Avoid IPython dependency in tests only needed for optional integration
+sed -i -e '/ipython/d' requirements.txt tox.ini
+%endif
 
 
 %generate_buildrequires
@@ -56,6 +63,9 @@ sed -i "s/coverage run --parallel -m pytest {posargs}/pytest {posargs}/" tox.ini
 
 
 %changelog
+* Tue Feb 07 2023 Miro Hrončok <mhroncok@redhat.com> - 0.21.1-2
+- Drop unwanted build dependency on pytest-cov
+
 * Mon Jan 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.1-1
 - 0.21.1
 

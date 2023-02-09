@@ -1,12 +1,11 @@
 %global forgeurl https://github.com/ming1/ubdsrv
-%global commit 483d710ab8630304d13b59c2776f7386a566c467
-# Upstream has not tagged any versions so far.
-Version:       1.0
+%global commit 58401cf5614ec3ab2a69166e7f9b596f862de105
+Version:       1.1
 %forgemeta
 
 Summary:       Userspace block driver server and ublk tool
 Name:          ubdsrv
-Release:       3.rc6%{?dist}.1
+Release:       1.rc1%{?dist}
 URL:           %{forgeurl}
 Source:        %{forgesource}
 License:       LGPLv2+ or MIT
@@ -71,6 +70,9 @@ rm %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Tue Feb 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-1.rc1
+- Move to newer version 1.1-rc1 + some upstream commits.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-3.rc6.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:           perl-X11-Protocol-Other
 Version:        31
 Release:        13%{?dist}
 Summary:        Miscellaneous X11::Protocol helpers
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://metacpan.org/release/X11-Protocol-Other
 Source0:        https://cpan.metacpan.org/modules/by-module/X11/X11-Protocol-Other-%{version}.tar.gz
 BuildArch:      noarch

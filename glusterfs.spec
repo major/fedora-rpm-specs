@@ -56,13 +56,8 @@
 
 # linux-io_uring
 # If you wish to compile an rpm without linux-io_uring support...
-# rpmbuild -ta  @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz --disable-linux-io_uring
+# rpmbuild -ta  @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz --without-linux-io_uring
 %{?_without_linux_io_uring:%global _without_linux_io_uring --disable-linux-io_uring}
-
-# Disable linux-io_uring on unsupported distros.
-%if ( 0%{?fedora} && 0%{?fedora} <= 32 ) || ( 0%{?rhel} && 0%{?rhel} <= 7 )
-%global _without_linux_io_uring --disable-linux-io_uring
-%endif
 
 # libtirpc
 # if you wish to compile an rpm without TIRPC (i.e. use legacy glibc rpc)
@@ -78,7 +73,7 @@
 # libtcmalloc
 # if you wish to compile an rpm without tcmalloc (i.e. use gluster mempool)
 # rpmbuild -ta @PACKAGE_NAME@-@PACKAGE_VERSION@.tar.gz --without tcmalloc
-%{?_without_tcmalloc:%global _without_libtcmalloc --without-tcmalloc}
+%{?_without_tcmalloc:%global _without_tcmalloc --without-tcmalloc}
 
 %ifnarch x86_64
 %global _without_tcmalloc --without-tcmalloc
@@ -200,12 +195,12 @@
 Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
-Version:          10.3
-Release:          2%{?prereltag:%{prereltag}}%{?dist}
+Version:          11.0
+Release:          0%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
-Release:          0.@PACKAGE_RELEASE@%{?dist}.14
+Release:          0.@PACKAGE_RELEASE@%{?dist}.13
 %endif
 License:          GPL-2.0-only OR LGPL-3.0-or-later
 URL:              http://docs.gluster.org/
@@ -309,8 +304,14 @@ and client framework.
 
 %package cli
 Summary:          GlusterFS CLI
+%if ( ! (0%{?rhel} && 0%{?rhel} < 7) )
+BuildRequires:    pkgconfig(bash-completion)
+# bash-completion >= 1.90 satisfies this requirement.
+# If it is not available, the condition can be adapted
+# and the completion script will be installed in the backwards compatible
+# %{sysconfdir}/bash_completion.d
+%endif
 Requires:         libglusterfs0%{?_isa} = %{version}-%{release}
-Requires:         libglusterd0%{?_isa} = %{version}-%{release}
 
 %description cli
 GlusterFS is a distributed file-system capable of scaling to several
@@ -521,6 +522,8 @@ Requires:         libgfrpc0%{?_isa} = %{version}-%{release}
 Requires:         libgfxdr0%{?_isa} = %{version}-%{release}
 Obsoletes:        %{name}-libs <= %{version}-%{release}
 Provides:         %{name}-libs = %{version}-%{release}
+Obsoletes:        libglusterd0 = %{version}-%{release}
+Provides:         libglusterd0 = %{version}-%{release}
 
 %description -n libglusterfs0
 GlusterFS is a distributed file-system capable of scaling to several
@@ -672,21 +675,6 @@ It borrows a powerful concept called Translators from GNU Hurd kernel.
 Much of the code in GlusterFS is in user space and easily manageable.
 
 This package provides libgfxdr.so.
-
-%package -n libglusterd0
-Summary:          GlusterFS libglusterd library
-Requires:         libglusterfs0%{?_isa} = %{version}-%{release}
-Obsoletes:        %{name}-libs <= %{version}-%{release}
-
-%description -n libglusterd0
-GlusterFS is a distributed file-system capable of scaling to several
-petabytes. It aggregates various storage bricks over TCP/IP interconnect
-into one large parallel network filesystem. GlusterFS is one of the
-most sophisticated file systems in terms of features and extensibility.
-It borrows a powerful concept called Translators from GNU Hurd kernel.
-Much of the code in GlusterFS is in user space and easily manageable.
-
-This package provides the libglusterd library
 
 %package -n python%{_pythonver}-gluster
 Summary:          GlusterFS python library
@@ -983,9 +971,10 @@ touch %{buildroot}%{_sharedstatedir}/glusterd/nfs/run/nfs.pid
 find ./tests ./run-tests.sh -type f | cpio -pd %{buildroot}%{_prefix}/share/glusterfs
 %endif
 
-## Install bash completion for cli
-install -p -m 0644 -D extras/command-completion/gluster.bash \
-    %{buildroot}%{bash_completions_dir}/gluster
+%global bashcompdir %(pkg-config --variable=completionsdir bash-completion 2>/dev/null)
+%if "%{bashcompdir}" == ""
+%global bashcompdir ${sysconfdir}/bash_completion.d
+%endif
 
 ##-----------------------------------------------------------------------------
 ## All package definitions should be placed here in alphabetical order
@@ -1021,7 +1010,10 @@ exit 0
 %if ( 0%{!?_without_server:1} )
 %if ( 0%{?fedora} && 0%{?fedora} > 25 || ( 0%{?rhel} && 0%{?rhel} > 6 ) )
 %post ganesha
-semanage boolean -m ganesha_use_fusefs --on
+# first install
+if [ $1 -eq 1 ]; then
+  %selinux_set_booleans ganesha_use_fusefs=1
+fi
 exit 0
 %endif
 %endif
@@ -1029,7 +1021,9 @@ exit 0
 %if ( 0%{!?_without_georeplication:1} )
 %post geo-replication
 %if ( 0%{?rhel} && 0%{?rhel} >= 8 )
-%selinux_set_booleans %{selinuxbooleans}
+if [ $1 -eq 1 ]; then
+  %selinux_set_booleans %{selinuxbooleans}
+fi
 %endif
 if [ $1 -ge 1 ]; then
     %systemd_postun_with_restart glusterd
@@ -1189,29 +1183,32 @@ exit 0
 %if ( 0%{!?_without_server:1} )
 %if ( 0%{?fedora} && 0%{?fedora} > 25  || ( 0%{?rhel} && 0%{?rhel} > 6 ) )
 %postun ganesha
-semanage boolean -m ganesha_use_fusefs --off
+if [ $1 -eq 0 ]; then
+  # use the value of ganesha_use_fusefs from before glusterfs-ganesha was installed
+  %selinux_unset_booleans ganesha_use_fusefs=1
+fi
+exit 0
+%endif
+%endif
+
+%if ( 0%{!?_without_georeplication:1} )
+%postun geo-replication
+%if ( 0%{?rhel} && 0%{?rhel} >= 8 )
+if [ $1 -eq 0 ]; then
+  %selinux_unset_booleans %{selinuxbooleans}
+fi
 exit 0
 %endif
 %endif
 
 ##-----------------------------------------------------------------------------
-## All package definitions should be placed here in alphabetical order
+## All trriggerun should be placed here in alphabetical order
 ##
 %if ( 0%{!?_without_server:1} )
 %if ( 0%{?fedora} && 0%{?fedora} > 25  || ( 0%{?rhel} && 0%{?rhel} > 6 ) )
-%trigger ganesha -- selinux-policy-targeted
-semanage boolean -m ganesha_use_fusefs --on
-exit 0
-%endif
-%endif
-
-##-----------------------------------------------------------------------------
-## All package definitions should be placed here in alphabetical order
-##
-%if ( 0%{!?_without_server:1} )
-%if ( 0%{?fedora} && 0%{?fedora} > 25  || ( 0%{?rhel} && 0%{?rhel} > 6 ) )
+# ensure ganesha_use_fusefs is on in case of policy mode switch (eg. mls->targeted)
 %triggerun ganesha -- selinux-policy-targeted
-semanage boolean -m ganesha_use_fusefs --off
+semanage boolean -m ganesha_use_fusefs --on -S targeted
 exit 0
 %endif
 %endif
@@ -1278,7 +1275,7 @@ exit 0
      %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/system/posix-acl.so
 %dir %attr(0775,gluster,gluster) %{_rundir}/gluster
 %dir %attr(0775,gluster,gluster) %{_rundir}/gluster/metrics
-%if 0%{?_tmpfilesdir:1} && 0%{!?_without_server:1}
+%if 0%{?_tmpfilesdir:1}
 %{_tmpfilesdir}/gluster.conf
 %endif
 
@@ -1292,7 +1289,7 @@ exit 0
 %files cli
 %{_sbindir}/gluster
 %{_mandir}/man8/gluster.8*
-%{bash_completions_dir}/gluster
+%{bash_completions_dir}/gluster.bash
 
 %files client-xlators
 %dir %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/cluster
@@ -1443,10 +1440,6 @@ exit 0
 %files -n libgfxdr0
 %{_libdir}/libgfxdr.so.*
 
-%files -n libglusterd0
-%{_libdir}/libglusterd.so.*
-%exclude %{_libdir}/libglusterd.so
-
 %files -n python%{_pythonver}-gluster
 # introducing glusterfs module in site packages.
 # so that all other gluster submodules can reside in the same namespace.
@@ -1522,6 +1515,7 @@ exit 0
      %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/features/posix*
      %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/features/snapview-server.so
      %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/features/marker.so
+     %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/features/simple-quota.so
      %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/features/quota*
      %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/features/selinux.so
      %{_libdir}/glusterfs/%{version}%{?prereltag}/xlator/features/trash.so
@@ -1635,8 +1629,8 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Feb 7 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 11.0-1
+- glusterfs 11 GA
 
 * Fri Nov 11 2022  Kaleb S. KEITHLEY <kkeithle[at]redhat.com>
 - SPDX migration

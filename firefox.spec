@@ -173,7 +173,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        109.0.1
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -225,6 +225,7 @@ Patch55:        firefox-testing.patch
 Patch61:        firefox-glibc-dynstack.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
+Patch79:        firefox-gcc-13-build.patch
 
 # Test patches
 # Generate without context by
@@ -503,6 +504,7 @@ This package contains results of tests executed during build.
 %patch54 -p1 -b .1669639
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch78 -p1 -b .firefox-i686
+%patch79 -p1 -b .firefox-gcc-13-build
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -1080,6 +1082,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Feb 7 2023 Martin Stransky <stransky@redhat.com>- 109.0.1-2
+- Rawhide build fix
+
 * Wed Feb 1 2023 Martin Stransky <stransky@redhat.com>- 109.0.1-1
 - Updated to 109.0.1
 - Added fix for rhbz#2147344 / mzbz#1813500.

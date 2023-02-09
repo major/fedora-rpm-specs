@@ -49,15 +49,15 @@
 %global doctrine_pers_min_ver 1.3.3
 %global doctrine_pers_max_ver 2
 
-# Build using "--without tests" to disable tests
-%global with_tests 0%{!?_without_tests:1}
+# Build using "--with tests" to enable tests
+%bcond_with tests
 
 %{!?phpdir:  %global phpdir  %{_datadir}/php}
 
 Name:          php-%{composer_vendor}-%{composer_project}
 Epoch:         1
 Version:       %{github_version}
-Release:       8%{?dist}
+Release:       9%{?dist}
 Summary:       Common library for Doctrine projects
 
 License:       MIT
@@ -75,7 +75,7 @@ BuildArch:     noarch
 # Library version value check
 BuildRequires: php-cli
 # Tests
-%if %{with_tests}
+%if %{with tests}
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
 BuildRequires: (php-composer(doctrine/annotations) >= %{doctrine_annotations_min_ver} with php-composer(doctrine/annotations) < %{doctrine_annotations_max_ver})
@@ -176,7 +176,7 @@ cp -rp lib/* %{buildroot}%{phpdir}/
     exit(version_compare("%{version}", "$version", "=") ? 0 : 1);
 '
 
-%if %{with_tests}
+%if %{with tests}
 : Modify tests init
 sed "s#require.*autoload.*#require_once '%{buildroot}%{phpdir}/Doctrine/Common/autoload.php';#" \
      -i tests/Doctrine/Tests/TestInit.php
@@ -206,6 +206,10 @@ exit $RETURN_CODE
 
 
 %changelog
+* Tue Feb 07 2023 Shawn Iwinski <shawn.iwinski@gmail.com> - 1:2.13.3-9
+- Disable tests by default
+- FTBFS (RHBZ #2046813)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.13.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

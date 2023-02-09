@@ -1,5 +1,5 @@
 Name:    glib2
-Version: 2.74.1
+Version: 2.75.2
 Release: %autorelease
 Summary: A library of handy utility functions
 
@@ -11,9 +11,6 @@ Source0: https://download.gnome.org/sources/glib/2.72/glib-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
-
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3039
-Patch1: glib-2.74.1-revert-fd-handling.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

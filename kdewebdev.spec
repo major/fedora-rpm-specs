@@ -5,7 +5,7 @@ Name:    kdewebdev
 Summary: Web development applications 
 Epoch:   6
 Version: 3.5.10
-Release: 50%{?dist}
+Release: 51%{?dist}
 
 License: GPLv2
 Url:     http://kdewebdev.org/ 
@@ -42,6 +42,7 @@ Patch304: kde3-autoconf-version.patch
 # automake-1.16.5
 Patch305: kdewebdev-3.5.10-automake-1.16.5.patch
 Patch306: kdewebdev-3.5.10-libxml-ftbfs.patch
+Patch307: kdewebdev-configure-c99.patch
 
 BuildRequires: gcc gcc-c++
 BuildRequires: automake libtool
@@ -111,6 +112,7 @@ install -m644 -p %{SOURCE5} kxsldbg/
 %patch304 -p1 -b .autoconf-2.7x
 %patch305 -p1 -b .automake-1.16.5
 %patch306 -p1 -b .ftbfs
+%patch307 -p1 -b .configure-c99
 
 make -f admin/Makefile.common cvs
 
@@ -215,6 +217,9 @@ done
 
 
 %changelog
+* Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 6:3.5.10-51
+- Port configure script to C99 (#2167643)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6:3.5.10-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

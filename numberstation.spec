@@ -1,0 +1,61 @@
+Name:           numberstation
+Version:        1.2.0
+Release:        4%{?dist}
+Summary:        TOTP Authenticator application
+License:        GPL-3.0-or-later
+URL:            https://sr.ht/~martijnbraam/%{name}/
+Source0:        https://git.sr.ht/~martijnbraam/%{name}/archive/%{version}.tar.gz
+# https://lists.sr.ht/~martijnbraam/public-inbox/%3C167535253399.18032.14909706557758476766-0@git.sr.ht%3E#%3C167535253399.18032.14909706557758476766-1@git.sr.ht%3E
+Patch0:         0001-Remove-duplicate-version-from-appstream-data.patch
+Requires:       libhandy
+Requires:       python3-gobject
+Requires:       python3-keyring
+Requires:       python3-pyotp
+Requires:       hicolor-icon-theme
+BuildArch:      noarch
+BuildRequires:  meson
+BuildRequires:  git
+BuildRequires:  libhandy-devel
+BuildRequires:  python3-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+
+%description
+%{summary}
+
+%prep
+%autosetup -S git
+
+%build
+%meson
+%meson_build
+
+%install
+%meson_install
+
+%check
+%meson_test
+desktop-file-validate %{buildroot}/%{_datadir}/applications/org.postmarketos.Numberstation.desktop
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.postmarketos.Numberstation.appdata.xml
+
+%files
+%license LICENSE
+%doc README.md
+%{_bindir}/%{name}
+%{_metainfodir}/org.postmarketos.Numberstation.appdata.xml
+%{_datadir}/applications/org.postmarketos.Numberstation.desktop
+%{_datadir}/icons/hicolor/scalable/apps/org.postmarketos.Numberstation.svg
+%{_datadir}/%{name}
+
+%changelog
+* Thu Feb 02 2023 Tomi Lähteenmäki <lihis@lihis.net> - 1.2.0-4
+- Fix review comments (bugzilla #2151289)
+
+* Thu Jan 19 2023 Tomi Lähteenmäki <lihis@lihis.net> - 1.2.0-3
+- Fix directory ownership
+
+* Thu Jan 19 2023 Tomi Lähteenmäki <lihis@lihis.net> - 1.2.0-2
+- Fix review comments (see: https://bugzilla.redhat.com/show_bug.cgi?id=2151289#c3)
+
+* Mon Nov 28 2022 Tomi Lähteenmäki <lihis@lihis.net> - 1.2.0-1
+- Initial version of the package

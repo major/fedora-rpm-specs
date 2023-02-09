@@ -1,19 +1,21 @@
 Name:          zenity
-Version:       3.43.0
-Release:       4%{?dist}
+Version:       3.90.0
+Release:       1%{?dist}
 Summary:       Display dialog boxes from shell scripts
 
 License:       LGPLv2+
 URL:           https://wiki.gnome.org/Projects/Zenity
-Source:        https://download.gnome.org/sources/%{name}/3.43/%{name}-%{version}.tar.xz
+Source:        https://download.gnome.org/sources/%{name}/3.90/%{name}-%{version}.tar.xz
 
-BuildRequires: pkgconfig(gtk+-3.0) >= 3.16.0
-BuildRequires: pkgconfig(libnotify) >= 0.6.1
+BuildRequires: pkgconfig(libadwaita-1) >= 1.2
+BuildRequires: /usr/bin/help2man
+BuildRequires: desktop-file-utils
 BuildRequires: gcc
 BuildRequires: gettext
 BuildRequires: itstool
 BuildRequires: meson
 BuildRequires: which
+BuildRequires: xorg-x11-server-Xvfb
 
 %description
 Zenity lets you display Gtk+ dialog boxes from the command line and through
@@ -25,28 +27,36 @@ from the same family as dialog, Xdialog, and cdialog.
 
 
 %build
-%meson -Dlibnotify=true
-%meson_build
+%meson
+# Man page generation requires running the in-tree zenity command.
+%{shrink:xvfb-run -w 10 -d %meson_build}
 
 
 %install
 %meson_install
 
 # we don't want a perl dependency just for this
-rm -f $RPM_BUILD_ROOT%{_bindir}/gdialog
+rm -f %{buildroot}/%{_bindir}/gdialog
 
 %find_lang zenity --with-gnome
+
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Zenity.desktop
 
 
 %files -f zenity.lang
 %license COPYING
-%doc AUTHORS NEWS THANKS README.md
+%doc AUTHORS NEWS README.md
 %{_bindir}/zenity
-%{_datadir}/zenity/
+%{_datadir}/applications/org.gnome.Zenity.desktop
+%{_datadir}/icons/hicolor/48*48/apps/zenity.png
 %{_mandir}/man1/zenity.1*
 
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 3.90.0-1
+- Update to 3.90.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.43.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

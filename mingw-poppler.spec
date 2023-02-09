@@ -3,8 +3,8 @@
 %global pkgname poppler
 
 Name:          mingw-%{pkgname}
-Version:       22.08.0
-Release:       2%{?dist}
+Version:       23.02.0
+Release:       1%{?dist}
 Summary:       MinGW Windows Poppler library
 
 License:       (GPLv2 or GPLv3) and GPLv2+ and LGPLv2+ and MIT
@@ -175,7 +175,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw32-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw32_bindir}/libpoppler-123.dll
+%{mingw32_bindir}/libpoppler-126.dll
 %{mingw32_includedir}/poppler/
 %exclude %{mingw32_includedir}/poppler/cpp/
 %exclude %{mingw32_includedir}/poppler/glib/
@@ -210,7 +210,7 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 %files -n mingw64-%{pkgname}
 %license COPYING
 %doc README.md
-%{mingw64_bindir}/libpoppler-123.dll
+%{mingw64_bindir}/libpoppler-126.dll
 %{mingw64_includedir}/poppler/
 %exclude %{mingw64_includedir}/poppler/cpp/
 %exclude %{mingw64_includedir}/poppler/glib/
@@ -244,6 +244,9 @@ rm -f %{buildroot}%{mingw64_bindir}/*.exe
 
 
 %changelog
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 23.02.0-1
+- Update to 23.02.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.08.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Summary:        IB Performance Tests
 # Issue "Please avoid dashes in version":
 #   https://github.com/linux-rdma/perftest/issues/18
 %global upstream_ver 4.5-0.20
-Version:        %{lua: v=string.gsub(rpm.expand("%{upstream_ver}"),"-","."); print(v)}
+Version:        %{lua: print((string.gsub(rpm.expand("%{upstream_ver}"),"-",".")))}
 Release:        %autorelease
 License:        GPLv2 or BSD
 Source:         https://github.com/linux-rdma/perftest/releases/download/v4.5-0.20/perftest-4.5-0.20.gac7cca5.tar.gz
@@ -27,7 +27,7 @@ RDMA networks.
 
 %prep
 # The directory in the tarball has only the part before the dash.
-%global tarball_ver %{lua: uv=rpm.expand("%{upstream_ver}"); d=string.find(uv,"-"); print(string.sub(uv,1,d-1))}
+%global tarball_ver %{lua: _,_,v=string.find(rpm.expand("%{upstream_ver}"),"([^-]+)"); print(v)}
 
 %setup -q -n %{name}-%{tarball_ver}
 find src -type f -iname '*.[ch]' -exec chmod a-x '{}' ';'

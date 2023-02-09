@@ -6,7 +6,7 @@
 
 Name:           rust-%{crate}
 Version:        0.4.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        This library aims to provide a safe Rust implementation of COSE, with COSE Sign1 currently implemented
 
 # Upstream license specification: Apache-2.0
@@ -109,6 +109,9 @@ which use "tss-esapi" feature of "%{crate}" crate.
 %endif
 
 %changelog
+* Tue Feb 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.0-6
+- Rebuild for tss-esapi 7.2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

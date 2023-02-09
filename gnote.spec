@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnote
-Version:        43.0
-Release:        2%{?dist}
+Version:        43.1
+Release:        1%{?dist}
 Summary:        Note-taking application
 
 License:        GPLv3+
@@ -67,6 +67,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.gnome.Gnot
 %{_metainfodir}/org.gnome.Gnote.appdata.xml
 
 %changelog
+* Tue Feb 07 2023 David King <amigadave@amigadave.com> - 43.1-1
+- Update to 43.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

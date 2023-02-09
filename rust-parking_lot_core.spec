@@ -5,7 +5,7 @@
 %global crate parking_lot_core
 
 Name:           rust-parking_lot_core
-Version:        0.9.6
+Version:        0.9.7
 Release:        %autorelease
 Summary:        Advanced API for creating custom synchronization primitives
 

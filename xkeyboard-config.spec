@@ -6,8 +6,8 @@
 
 Summary:    X Keyboard Extension configuration data
 Name:       xkeyboard-config
-Version:    2.36
-Release:    4%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
+Version:    2.38
+Release:    1%{?gitdate:.%{gitdate}git%{gitversion}}%{?dist}
 License:    MIT
 URL:        http://www.freedesktop.org/wiki/Software/XKeyboardConfig
 
@@ -18,13 +18,6 @@ Source2:    commitid
 %else
 Source0:    http://xorg.freedesktop.org/archive/individual/data/%{name}/%{name}-%{version}.tar.xz
 %endif
-
-# Both upstream already
-Patch01:    0001-rules-use-backslashes-instead-of-slashes-for-line-co.patch
-Patch02:    0002-rules-remove-two-rules-that-reference-two-sections-t.patch
-
-# Add apple:jp_oadg109a and apple:jp_pc106 variants
-Patch03:    https://gitlab.freedesktop.org/xkeyboard-config/xkeyboard-config/-/merge_requests/447.patch
 
 BuildArch:  noarch
 
@@ -85,6 +78,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/X11/xkb/compiled
 %{_datadir}/pkgconfig/xkeyboard-config.pc
 
 %changelog
+* Tue Feb 07 2023 Peter Hutterer <peter.hutterer@redhat.com> - 2.38-1
+- xkeyboard-config 2.38
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.36-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

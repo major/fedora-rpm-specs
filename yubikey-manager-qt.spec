@@ -1,8 +1,8 @@
 %global bname ykman-gui
 Name: yubikey-manager-qt
 Summary: Application for configuring any YubiKey over all USB interfaces
-Version: 1.2.4
-Release: 7%{?dist}
+Version: 1.2.5
+Release: 1%{?dist}
 URL: https://developers.yubico.com/yubikey-manager-qt/
 Source0: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz
 Source1: https://developers.yubico.com/%{name}/Releases/%{name}-%{version}.tar.gz.sig
@@ -21,7 +21,6 @@ BuildRequires: qt5-qtquickcontrols qt5-qtgraphicaleffects pyotherside
 BuildRequires: desktop-file-utils
 Requires:      pyotherside 
 Requires:      qt5-qtquickcontrols
-Requires:      python3-yubikey-manager < 5
 
 %description
 Cross-platform application for configuring any YubiKey over all USB interfaces.
@@ -53,6 +52,10 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications resources/%{bnam
 %{_datadir}/pixmaps/ykman.png
 
 %changelog
+* Tue Feb 07 2023 Jakub Jelen <jjelen@redhat.com> - 1.2.5-1
+- New upstream release (#2167005)
+- Remove dependency on old version of python-yubikey-manager (#2148957)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

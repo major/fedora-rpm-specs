@@ -1,6 +1,6 @@
 Name:           python3-mypy
-Version:        0.991
-Release:        3%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
@@ -81,6 +81,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Tue Feb 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0-1
+- 1.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.991-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

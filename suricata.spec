@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
 Version: 6.0.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -29,6 +29,7 @@ Patch7: suricata-6.0.9-python.patch
 BuildRequires: make
 BuildRequires: gcc gcc-c++
 BuildRequires: cargo rust >= 1.33
+BuildRequires: rust-packaging
 BuildRequires: libyaml-devel python3-pyyaml
 BuildRequires: libnfnetlink-devel libnetfilter_queue-devel libnet-devel
 BuildRequires: zlib-devel pcre-devel libcap-ng-devel
@@ -92,6 +93,9 @@ sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
 autoreconf -fv --install
 
 %build
+#  ensure standard Rust compiler flags are set
+export RUSTFLAGS="%build_rustflags"
+
 %configure --enable-gccprotect --enable-pie --disable-gccmarch-native \
         --disable-coccinelle --enable-nfqueue --enable-af-packet \
         --with-libnspr-includes=/usr/include/nspr4 \
@@ -193,6 +197,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Mon Feb 06 2023 Fabio Valentini <decathorpe@gmail.com> - 6.0.9-3
+- Ensure standard Rust compiler flags are set.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

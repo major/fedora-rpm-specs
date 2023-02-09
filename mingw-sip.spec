@@ -3,7 +3,7 @@
 
 Name:           mingw-%{pypi_name}
 Summary:        MinGW Windows SIP6
-Version:        6.7.6
+Version:        6.7.7
 Release:        1%{?dist}
 
 # sipgen/parser.{c.h} is GPLv3+ with exceptions (bison)
@@ -120,6 +120,9 @@ done
 
 
 %changelog
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 6.7.7-1
+- Update to 6.7.7
+
 * Thu Feb 02 2023 Sandro Mani <manisandro@gmail.com> - 6.7.6-1
 - Update to 6.7.6
 

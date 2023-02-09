@@ -1,6 +1,6 @@
 Name:		fcode-utils
 Version:	1.0.2
-Release:	28.svn1354%{?dist}
+Release:	29.svn1354%{?dist}
 Summary:	Utilities for dealing with FCode
 # The entire source code is GPLv2 except localvalues/ and documentation/ which are CPL-licensed
 License:	GPLv2 and CPL
@@ -10,6 +10,7 @@ URL:		http://www.openfirmware.info/FCODE_suite
 Source0:	%{name}-%{version}.tar.xz
 # Fedora-specific patch
 Patch1:		fcode-utils-0001-Allow-overriding-some-more-Makefile-variables.patch
+Patch2: fcode-utils-c99.patch
 # For tests only
 BuildRequires:  gcc
 BuildRequires:	tcsh
@@ -24,6 +25,7 @@ compliant with ANS Forth.
 %prep
 %setup -q
 %patch1 -p1 -b .more_overrides
+%patch2 -p1
 install -p -m 0644 detok/README README.detok
 install -p -m 0644 toke/README README.toke
 
@@ -53,6 +55,9 @@ make tests
 
 
 %changelog
+* Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 1.0.2-29.svn1354
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-28.svn1354
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

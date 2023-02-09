@@ -8,19 +8,19 @@ Name:             dogtag-pki
 
 # Upstream version number:
 %global           major_version 11
-%global           minor_version 2
-%global           update_version 0
+%global           minor_version 3
+%global           update_version 1
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global           release_number 3
+%global           release_number 1
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%undefine         phase
+#global           phase
 
 %undefine         timestamp
 %undefine         commit_id
@@ -30,7 +30,7 @@ URL:              https://www.dogtagpki.org
 # The entire source code is GPLv2 except for 'pki-tps' which is LGPLv2
 License:          GPL-2.0-only and LGPL-2.0-only
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.1
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -39,14 +39,6 @@ Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timesta
 #     -o pki-<version>.tar.gz \
 #     <version tag>
 Source: https://github.com/dogtagpki/pki/archive/v%{version}%{?phase:-}%{?phase}/pki-%{version}%{?phase:-}%{?phase}.tar.gz
-# https://bugzilla.redhat.com/show_bug.cgi?id=2112243
-# https://github.com/dogtagpki/pki/issues/4081
-# https://github.com/dogtagpki/pki/pull/4082
-# Fix with python-ldap 3.4.2
-Patch0: 0001-Don-t-use-deprecated-python-ldap-options-4082.patch
-
-# https://bugzilla.redhat.com/show_bug.cgi?id=2158907
-Patch1: 0002-Resolve-jar-paths-using-xmvn.patch
 
 # To create a patch for all changes since a version tag:
 # $ git format-patch \
@@ -55,14 +47,17 @@ Patch1: 0002-Resolve-jar-paths-using-xmvn.patch
 #     > pki-VERSION-RELEASE.patch
 # Patch: pki-VERSION-RELEASE.patch
 
-# Java 17 and md2man are not available on i686
+%if 0%{?fedora} && 0%{?fedora} > 35
+ExclusiveArch: %{java_arches}
+%else
 ExcludeArch: i686
+%endif
 
 ################################################################################
-# NSS
+# PKCS #11 Kit Trust
 ################################################################################
 
-%global nss_default_db_type sql
+%global p11_kit_trust /usr/lib64/pkcs11/p11-kit-trust.so
 
 ################################################################################
 # Python
@@ -74,9 +69,15 @@ ExcludeArch: i686
 # Java
 ################################################################################
 
-%define java_devel java-17-openjdk-devel
-%define java_headless java-17-openjdk-headless
-%define java_home %{_jvmdir}/jre-17-openjdk
+%global java_devel java-17-openjdk-devel
+%global java_headless java-17-openjdk-headless
+%global java_home %{_jvmdir}/jre-17-openjdk
+
+################################################################################
+# Application Server
+################################################################################
+
+%global app_server tomcat-9.0
 
 ################################################################################
 # PKI
@@ -85,42 +86,25 @@ ExcludeArch: i686
 # Execute unit tests unless --without test is specified.
 %bcond_without test
 
+# Build the package unless --without <package> is specified.
+
+%bcond_without base
+%bcond_without server
+%bcond_without acme
+%bcond_without ca
+%bcond_without est
+%bcond_without kra
+%bcond_without ocsp
+%bcond_without tks
+%bcond_without tps
+%bcond_without javadoc
+%bcond_without theme
+%bcond_without meta
+%bcond_without tests
+%bcond_without debug
+
 # Don't build console unless --with console is specified.
 %bcond_with console
-
-# By default all packages will be built except the ones specified with
-# --without <package> option (exclusion method).
-
-# If --with pkgs option is specified, only packages specified with
-# --with <package> will be built (inclusion method).
-
-%bcond_with pkgs
-
-# Define package_option macro to wrap bcond_with or bcond_without macro
-# depending on package selection method.
-
-%if %{with pkgs}
-%define package_option() %bcond_with %1
-%else
-%define package_option() %bcond_without %1
-%endif
-
-# Define --with <package> or --without <package> options depending on
-# package selection method.
-
-%package_option base
-%package_option server
-%package_option acme
-%package_option ca
-%package_option kra
-%package_option ocsp
-%package_option tks
-%package_option tps
-%package_option javadoc
-%package_option theme
-%package_option meta
-%package_option tests
-%package_option debug
 
 %if ! %{with debug}
 %define debug_package %{nil}
@@ -168,8 +152,9 @@ BuildRequires:    cmake >= 3.0.2
 BuildRequires:    gcc-c++
 BuildRequires:    zip
 BuildRequires:    %{java_devel}
+BuildRequires:    maven-local
 BuildRequires:    javapackages-tools
-BuildRequires:    redhat-rpm-config
+
 BuildRequires:    apache-commons-cli
 BuildRequires:    apache-commons-codec
 BuildRequires:    apache-commons-io
@@ -202,9 +187,9 @@ BuildRequires:    python3-six
 
 BuildRequires:    junit
 BuildRequires:    jpackage-utils >= 0:1.7.5-10
-BuildRequires:    jss >= 5.2.0
-BuildRequires:    tomcatjss >= 8.2.0
-BuildRequires:    ldapjdk >= 5.2.0
+BuildRequires:    jss = 5.3
+BuildRequires:    tomcatjss = 8.3
+BuildRequires:    ldapjdk = 5.3
 
 BuildRequires:    systemd-units
 
@@ -220,7 +205,6 @@ BuildRequires:    apr-devel
 BuildRequires:    apr-util-devel
 BuildRequires:    cyrus-sasl-devel
 BuildRequires:    httpd-devel >= 2.4.2
-BuildRequires:    pcre-devel
 BuildRequires:    systemd
 BuildRequires:    zlib
 BuildRequires:    zlib-devel
@@ -238,7 +222,6 @@ BuildRequires:    freeipa-healthcheck-core
 # PKICertImport depends on certutil and openssl
 BuildRequires:    nss-tools
 BuildRequires:    openssl
-BuildRequires:    maven-local
 
 # description for top-level package (if there is a separate meta package)
 %if "%{name}" != "%{product_id}"
@@ -268,7 +251,7 @@ Summary:          %{product_name} Package
 %endif
 
 Obsoletes:        pki-symkey < %{version}
-Obsoletes:        %{product_id}-pki-symkey < %{version}
+Obsoletes:        %{product_id}-symkey < %{version}
 Obsoletes:        pki-console < %{version}
 Obsoletes:        pki-console-theme < %{version}
 Obsoletes:        idm-console-framework < 2.0
@@ -281,6 +264,7 @@ Requires:         %{product_id}-theme = %{version}-%{release}
 # of ALL PKI core packages
 Requires:         %{product_id}-acme = %{version}-%{release}
 Requires:         %{product_id}-ca = %{version}-%{release}
+Requires:         %{product_id}-est = %{version}-%{release}
 Requires:         %{product_id}-kra = %{version}-%{release}
 Requires:         %{product_id}-ocsp = %{version}-%{release}
 Requires:         %{product_id}-tks = %{version}-%{release}
@@ -389,8 +373,8 @@ Requires:         apache-commons-net
 Requires:         slf4j
 Requires:         slf4j-jdk14
 Requires:         jpackage-utils >= 0:1.7.5-10
-Requires:         jss >= 5.2.0
-Requires:         ldapjdk >= 5.2.0
+Requires:         jss = 5.3
+Requires:         ldapjdk = 5.3
 Requires:         %{product_id}-base = %{version}-%{release}
 Requires:         resteasy-client >= 3.0.17-1
 Requires:         resteasy-core >= 3.0.17-1
@@ -466,7 +450,7 @@ Requires:         systemd
 Requires(post):   systemd-units
 Requires(postun): systemd-units
 Requires(pre):    shadow-utils
-Requires:         tomcatjss >= 8.2.0
+Requires:         tomcatjss = 8.3
 
 # pki-healthcheck depends on the following library
 %if 0%{?rhel}
@@ -540,6 +524,26 @@ Authority, where it is the root CA, or it can act as a subordinate CA,
 where it obtains its own signing certificate from a public CA.
 
 # with ca
+%endif
+
+%if %{with est}
+################################################################################
+%package -n       %{product_id}-est
+################################################################################
+
+Summary:          %{product_name} EST Package
+BuildArch:        noarch
+
+Obsoletes:        pki-est < %{version}-%{release}
+Provides:         pki-est = %{version}-%{release}
+
+Requires:         %{product_id}-server = %{version}-%{release}
+
+%description -n   %{product_id}-est
+%{product_name} EST subsystem provides an Enrollment over
+Secure Transport (RFC 7030) service.
+
+# with est
 %endif
 
 %if %{with kra}
@@ -811,64 +815,57 @@ This package provides test suite for %{product_name}.
 %build
 ################################################################################
 
-# assume tomcat app_server
-app_server=tomcat-9.0
+# Set build flags for CMake
+# (see /usr/lib/rpm/macros.d/macros.cmake)
+%set_build_flags
 
-%cmake \
-    --no-warn-unused-cli \
-    -DPRODUCT_NAME="%{product_name}" \
-    -DVERSION=%{version}-%{release} \
-    -DVAR_INSTALL_DIR:PATH=/var \
-    -DP11_KIT_TRUST=/etc/alternatives/libnssckbi.so.%{_arch} \
-    -DJAVA_HOME=%{java_home} \
-    -DJAVA_LIB_INSTALL_DIR=%{_jnidir} \
-    -DSYSTEMD_LIB_INSTALL_DIR=%{_unitdir} \
-    -DAPP_SERVER=$app_server \
-    -DNSS_DEFAULT_DB_TYPE=%{nss_default_db_type} \
-    -DPYTHON_EXECUTABLE=%{python_executable} \
-    -DWITH_SERVER:BOOL=%{?with_server:ON}%{!?with_server:OFF} \
-    -DWITH_CA:BOOL=%{?with_ca:ON}%{!?with_ca:OFF} \
-    -DWITH_KRA:BOOL=%{?with_kra:ON}%{!?with_kra:OFF} \
-    -DWITH_OCSP:BOOL=%{?with_ocsp:ON}%{!?with_ocsp:OFF} \
-    -DWITH_TKS:BOOL=%{?with_tks:ON}%{!?with_tks:OFF} \
-    -DWITH_TPS:BOOL=%{?with_tps:ON}%{!?with_tps:OFF} \
-    -DWITH_ACME:BOOL=%{?with_acme:ON}%{!?with_acme:OFF} \
-    -DWITH_JAVADOC:BOOL=%{?with_javadoc:ON}%{!?with_javadoc:OFF} \
-    -DWITH_CONSOLE:BOOL=%{?with_console:ON}%{!?with_console:OFF} \
-    -DWITH_TESTS:BOOL=%{?with_tests:ON}%{!?with_tests:OFF} \
-    -DWITH_META:BOOL=%{?with_meta:ON}%{!?with_meta:OFF} \
-    -DTHEME=%{?with_theme:%{theme}} \
-    -DRUN_TESTS:BOOL=%{?with_test:ON}%{!?with_test:OFF} \
-    -B %{_vpath_builddir}
+pkgs=base\
+%{?with_server:,server}\
+%{?with_ca:,ca}\
+%{?with_est:,est}\
+%{?with_kra:,kra}\
+%{?with_ocsp:,ocsp}\
+%{?with_tks:,tks}\
+%{?with_tps:,tps}\
+%{?with_acme:,acme}\
+%{?with_javadoc:,javadoc}\
+%{?with_theme:,theme}\
+%{?with_meta:,meta}\
+%{?with_tests:,tests}\
+%{?with_debug:,debug}
 
-cd %{_vpath_builddir}
-
-# Do not use _smp_mflags to preserve build order
-%{__make} \
-    VERBOSE=%{?_verbose} \
-    CMAKE_NO_VERBOSE=1 \
-    DESTDIR=%{buildroot} \
-    INSTALL="install -p" \
-    --no-print-directory \
-    all
+./build.sh \
+    %{?_verbose:-v} \
+    --product-name="%{product_name}" \
+    --product-id=%{product_id} \
+%if %{with theme}
+    --theme=%{theme} \
+%endif
+    --work-dir=%{_vpath_builddir} \
+    --prefix-dir=%{_prefix} \
+    --include-dir=%{_includedir} \
+    --lib-dir=%{_libdir} \
+    --sysconf-dir=%{_sysconfdir} \
+    --share-dir=%{_datadir} \
+    --cmake=%{__cmake} \
+    --java-home=%{java_home} \
+    --jni-dir=%{_jnidir} \
+    --unit-dir=%{_unitdir} \
+    --python=%{python_executable} \
+    --with-pkgs=$pkgs \
+    %{?with_console:--with-console} \
+    %{!?with_test:--without-test} \
+    dist
 
 ################################################################################
 %install
 ################################################################################
 
-cd %{_vpath_builddir}
-
-%{__make} \
-    VERBOSE=%{?_verbose} \
-    CMAKE_NO_VERBOSE=1 \
-    DESTDIR=%{buildroot} \
-    INSTALL="install -p" \
-    --no-print-directory \
+./build.sh \
+    %{?_verbose:-v} \
+    --work-dir=%{_vpath_builddir} \
+    --install-dir=%{buildroot} \
     install
-
-%if %{with tests}
-ctest --output-on-failure
-%endif
 
 %if %{with server}
 
@@ -975,7 +972,6 @@ fi
 %{_datadir}/pki/examples/java/
 %{_datadir}/pki/lib/*.jar
 %dir %{_javadir}/pki
-%{_javadir}/pki/pki-cmsutil.jar
 %{_javadir}/pki/pki-certsrv.jar
 
 ################################################################################
@@ -1098,7 +1094,6 @@ fi
 %attr(644,-,-) %{_unitdir}/pki-tomcatd-nuxwdog@.service
 %attr(644,-,-) %{_unitdir}/pki-tomcatd-nuxwdog.target
 %{_javadir}/pki/pki-cms.jar
-%{_javadir}/pki/pki-cmsbundle.jar
 %{_javadir}/pki/pki-tomcat.jar
 %dir %{_sharedstatedir}/pki
 %{_mandir}/man1/pkidaemon.1.gz
@@ -1110,6 +1105,7 @@ fi
 %{_mandir}/man8/pkispawn.8.gz
 %{_mandir}/man8/pki-server.8.gz
 %{_mandir}/man8/pki-server-acme.8.gz
+%{_mandir}/man8/pki-server-est.8.gz
 %{_mandir}/man8/pki-server-instance.8.gz
 %{_mandir}/man8/pki-server-subsystem.8.gz
 %{_mandir}/man8/pki-server-nuxwdog.8.gz
@@ -1148,6 +1144,17 @@ fi
 %{_datadir}/pki/ca/
 
 # with ca
+%endif
+
+%if %{with est}
+################################################################################
+%files -n %{product_id}-est
+################################################################################
+
+%{_javadir}/pki/pki-est.jar
+%{_datadir}/pki/est/
+
+# with est
 %endif
 
 %if %{with kra}
@@ -1267,6 +1274,9 @@ fi
 
 ################################################################################
 %changelog
+* Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 11.3.1-1
+- Rebase to PKI 11.3.1
+
 * Fri Jan 20 2023 Marian Koncek <mkoncek@redhat.com> - 11.2.0-3
 - Resolve jar paths using xmvn
 

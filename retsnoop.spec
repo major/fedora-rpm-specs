@@ -12,74 +12,52 @@
 %global bpftool_version 7.0.0
 
 Name:           retsnoop
-Version:        0.9.3
+Version:        0.9.4
 Release:        %autorelease
 Summary:        A tool for investigating kernel error call stacks
 
 # retsnoop: BSD-2-Clause
 # bundled libbpf: LGPL-2.1-only OR BSD-2-Clause
 # statically linked rust crates
+# taken from LICENSE.dependencies on Fedora
 #
-## Apache-2.0 OR MIT
-# addr2line
-# backtrace
-# bitflags
-# cc
-# cfg-if
-# cfg-if 0.1
-# cpp_demangle
-# crc32fast
-# dirs-sys
-# dirs2
-# fallible-iterator
-# findshlibs
-# flate2
-# getopts
-# gimli
-# glob
-# libc
-# memmap
-# object
-# pest
-# proc-macro2
-# quote
-# rustc-demangle
-# rustc-serialize
-# rustc-test
-# rustc_version 0.3
-# semver-parser
-# semver
-# smallvec
-# stable_deref_trait
-# syn
-# term 0.6
-# thiserror
-# time 0.1
-# ucd-trie
-# unicode-width
-# vec_map
-#
-## MIT
-# ansi_term
-# atty
-# clap2
-# strsim
-# textwrap 0.11
-# typed-arena
-#
-## 0BSD OR Apache-2.0 OR MIT
-# adler
-#
-## MIT OR Unlicense
-# memchr
-#
-## Apache-2.0 OR MIT OR Zlib
-# miniz_oxide
-#
-## (MIT OR Apache-2.0) AND Unicode-DFS-2016
-# unicode-ident
-#
-License:        BSD-2-Clause AND (LGPL-2.1-only OR BSD-2-Clause) AND (Apache-2.0 OR MIT) AND MIT AND (0BSD OR Apache-2.0 OR MIT) AND (MIT OR Unlicense) AND (Apache-2.0 OR MIT OR Zlib) AND (MIT OR Apache-2.0) AND Unicode-DFS-2016
+# 0BSD OR MIT OR Apache-2.0: adler v1.0.2
+# Apache-2.0 OR MIT: addr2line v0.18.0
+# Apache-2.0 OR MIT: cpp_demangle v0.3.5
+# Apache-2.0 OR MIT: object v0.29.0
+# MIT OR Apache-2.0: backtrace v0.3.66
+# MIT OR Apache-2.0: bitflags v1.3.2
+# MIT OR Apache-2.0: cfg-if v0.1.10
+# MIT OR Apache-2.0: cfg-if v1.0.0
+# MIT OR Apache-2.0: crc32fast v1.3.2
+# MIT OR Apache-2.0: dirs v2.0.2
+# MIT OR Apache-2.0: dirs-sys v0.3.7
+# MIT OR Apache-2.0: fallible-iterator v0.2.0
+# MIT OR Apache-2.0: findshlibs v0.10.2
+# MIT OR Apache-2.0: flate2 v1.0.24
+# MIT OR Apache-2.0: getopts v0.2.21
+# MIT OR Apache-2.0: gimli v0.26.2
+# MIT OR Apache-2.0: glob v0.3.1
+# MIT OR Apache-2.0: libc v0.2.139
+# MIT OR Apache-2.0: memmap v0.7.0
+# MIT OR Apache-2.0: rustc-demangle v0.1.21
+# MIT OR Apache-2.0: rustc-serialize v0.3.24
+# MIT OR Apache-2.0: rustc-test v0.3.1
+# MIT OR Apache-2.0: smallvec v1.10.0
+# MIT OR Apache-2.0: stable_deref_trait v1.2.0
+# MIT OR Apache-2.0: term v0.6.1
+# MIT OR Apache-2.0: time v0.1.45
+# MIT OR Apache-2.0: unicode-width v0.1.10
+# MIT OR Apache-2.0: vec_map v0.8.2
+# MIT OR Zlib OR Apache-2.0: miniz_oxide v0.5.3
+# MIT: ansi_term v0.12.1
+# MIT: atty v0.2.14
+# MIT: clap v2.34.0
+# MIT: strsim v0.10.0
+# MIT: textwrap v0.11.0
+# MIT: typed-arena v2.0.2
+# Unlicense OR MIT: memchr v2.5.0
+License:        BSD-2-Clause AND (LGPL-2.1-only OR BSD-2-Clause) AND (Apache-2.0 OR MIT) AND MIT AND (0BSD OR Apache-2.0 OR MIT) AND (MIT OR Unlicense) AND (Apache-2.0 OR MIT OR Zlib) AND (MIT OR Apache-2.0)
 URL:            https://github.com/anakryiko/retsnoop
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        %{libbpf_url}/archive/v%{libbpf_version}/libbpf-%{libbpf_version}.tar.gz
@@ -99,6 +77,7 @@ BuildRequires:  rust-packaging >= 21
 BuildRequires:  elfutils-libelf-devel
 
 # upstream does not support dynamic linking
+Provides:       bundled(bpftool) = %{bpftool_version}
 Provides:       bundled(libbpf) = %{libbpf_version}
 
 %description
@@ -146,6 +125,9 @@ rm sidecar/Cargo.lock
 %endif
 cd sidecar
 %cargo_build
+%if 0%{?fedora}
+%{cargo_license} > ../LICENSE.dependencies
+%endif
 cd -
 %make_build -C src HOSTCC=clang
 
@@ -162,6 +144,9 @@ cd -
 
 %files
 %license LICENSE libbpf-LICENSE*
+%if 0%{?fedora}
+%license LICENSE.dependencies
+%endif
 %doc README.md TODO.md README.Fedora
 %{_bindir}/retsnoop
 %{_bindir}/simfail

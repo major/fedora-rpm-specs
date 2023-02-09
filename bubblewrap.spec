@@ -1,19 +1,18 @@
-Name: bubblewrap
-Version: 0.5.0
-Release: 4%{?dist}
+Name:    bubblewrap
+Version: 0.7.0
+Release: 1%{?dist}
 Summary: Core execution tool for unprivileged containers
 
-License: LGPLv2+
-URL: https://github.com/projectatomic/bubblewrap
-Source0: https://github.com/projectatomic/bubblewrap/releases/download/v%{version}/bubblewrap-%{version}.tar.xz
+License: LGPL-2.0-or-later
+URL:     https://github.com/containers/bubblewrap/
+Source0: https://github.com/containers/bubblewrap/releases/download/v%{version}/bubblewrap-%{version}.tar.xz
 
-BuildRequires: autoconf automake libtool
 BuildRequires: gcc
-BuildRequires: libcap-devel
-BuildRequires: pkgconfig(libselinux)
-BuildRequires: libxslt
 BuildRequires: docbook-style-xsl
-BuildRequires: make
+BuildRequires: meson
+BuildRequires: pkgconfig(libcap)
+BuildRequires: pkgconfig(libselinux)
+BuildRequires: /usr/bin/xsltproc
 
 %description
 Bubblewrap (/usr/bin/bwrap) is a core execution engine for unprivileged
@@ -24,16 +23,15 @@ user namespaces.
 %autosetup
 
 %build
-if ! test -x configure; then NOCONFIGURE=1 ./autogen.sh; fi
-%configure --disable-silent-rules --with-priv-mode=none
-%make_build
+%meson -Dman=enabled
+%meson_build
 
 %install
-%make_install
-find %{buildroot} -name '*.la' -delete -print
+%meson_install
 
 %files
 %license COPYING
+%doc README.md
 %dir %{_datadir}/bash-completion
 %dir %{_datadir}/bash-completion/completions
 %{_datadir}/bash-completion/completions/bwrap
@@ -45,9 +43,12 @@ find %{buildroot} -name '*.la' -delete -print
 %else
 %{_bindir}/bwrap
 %endif
-%{_mandir}/man1/*
+%{_mandir}/man1/bwrap.1*
 
 %changelog
+* Tue Feb 07 2023 David King <amigadave@amigadave.com> - 0.7.0-1
+- Update to 0.7.0 (#2058474)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

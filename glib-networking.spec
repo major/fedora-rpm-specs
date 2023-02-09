@@ -8,13 +8,13 @@
 %endif
 
 Name:           glib-networking
-Version:        2.74.0
+Version:        2.76~alpha
 Release:        %autorelease
 Summary:        Networking support for GLib
 
 License:        LGPLv2+
 URL:            https://gitlab.gnome.org/GNOME/glib-networking
-Source0:        https://download.gnome.org/sources/glib-networking/2.74/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/glib-networking/2.76/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  ca-certificates
 BuildRequires:  gcc
@@ -59,6 +59,7 @@ the functionality of the installed glib-networking package.
 %if !0%{?with_libproxy}
   -Dlibproxy=disabled \
 %endif
+  -Denvironment_proxy=enabled \
   -Dinstalled_tests=true \
   %nil
 %meson_build

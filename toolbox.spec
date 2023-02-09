@@ -6,7 +6,7 @@ Version:       0.0.99.3
 %global goipath github.com/containers/%{name}
 %gometa
 
-Release:       9%{?dist}
+Release:       10%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -23,7 +23,6 @@ Patch101:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
 Patch102:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild-for-PPC64.patch
 Patch103:      toolbox-cmd-root-Work-around-Cobra-1.1.2-s-handling-of-usage.patch
 
-BuildRequires: ShellCheck
 BuildRequires: go-md2man
 BuildRequires: golang >= 1.13
 %if ! 0%{?rhel}
@@ -40,6 +39,8 @@ BuildRequires: golang(github.com/spf13/cobra) >= 0.0.5
 BuildRequires: golang(github.com/spf13/viper) >= 1.3.2
 BuildRequires: golang(golang.org/x/crypto/ssh/terminal)
 BuildRequires: golang(golang.org/x/sys/unix)
+# for tests
+BuildRequires: ShellCheck
 %endif
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
@@ -54,6 +55,8 @@ Requires:      podman >= 1.4.0
 Toolbox is a tool for Linux operating systems, which allows the use of
 containerized command line environments. It is built on top of Podman and
 other standard container technologies from OCI.
+
+%if ! 0%{?rhel}
 
 # The list of requires packages for -support and -experience should be in sync with:
 # https://github.com/containers/toolbox/blob/master/images/fedora/f33/extra-packages
@@ -128,6 +131,7 @@ on the host.
 The %{name}-experience package should be typically installed from the
 Dockerfile if the image isn't based on the fedora-toolbox image.
 
+%endif
 
 %package       tests
 Summary:       Tests for %{name}
@@ -194,15 +198,22 @@ ln -s src/vendor vendor
 %{_sysconfdir}/profile.d/%{name}.sh
 %{_tmpfilesdir}/%{name}.conf
 
+%if ! 0%{?rhel}
+
 %files support
 
 %files experience
+
+%endif
 
 %files tests
 %{_datadir}/%{name}
 
 
 %changelog
+* Thu Feb 02 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.0.99.3-10
+- Sync packaging changes from CentOS Stream
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.99.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,19 +6,19 @@ Name:           jss
 
 # Upstream version number:
 %global         major_version 5
-%global         minor_version 2
+%global         minor_version 3
 %global         update_version 0
 
 # Downstream release number:
 # - development/stabilization (unsupported): 0.<n> where n >= 1
 # - GA/update (supported): <n> where n >= 1
-%global         release_number 1
+%global         release_number 2
 
 # Development phase:
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%undefine       phase
+#global         phase
 
 %undefine       timestamp
 %undefine       commit_id
@@ -27,7 +27,7 @@ Summary:        Java Security Services (JSS)
 URL:            https://github.com/dogtagpki/jss
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Version:        %{major_version}.%{minor_version}.%{update_version}
-Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.2
+Release:        %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/jss.git
@@ -45,8 +45,11 @@ Source:         https://github.com/dogtagpki/jss/archive/v%{version}%{?phase:-}%
 #     > jss-VERSION-RELEASE.patch
 # Patch: jss-VERSION-RELEASE.patch
 
-# Java 17 and md2man are not available on i686
+%if 0%{?fedora} && 0%{?fedora} > 35
+ExclusiveArch: %{java_arches}
+%else
 ExcludeArch: i686
+%endif
 
 ################################################################################
 # Java
@@ -110,6 +113,8 @@ Requires:       apache-commons-lang3
 
 Obsoletes:      jss < %{version}-%{release}
 Provides:       jss = %{version}-%{release}
+Provides:       jss = %{major_version}.%{minor_version}
+Provides:       %{product_id} = %{major_version}.%{minor_version}
 
 Conflicts:      ldapjdk < 4.20
 Conflicts:      idm-console-framework < 1.2
@@ -130,6 +135,8 @@ Summary:        Java Security Services (JSS) Javadocs
 
 Obsoletes:      jss-javadoc < %{version}-%{release}
 Provides:       jss-javadoc = %{version}-%{release}
+Provides:       jss-javadoc = %{major_version}.%{minor_version}
+Provides:       %{product_id}-javadoc = %{major_version}.%{minor_version}
 
 %description -n %{product_id}-javadoc
 This package contains the API documentation for JSS.
@@ -208,6 +215,12 @@ modutil -dbdir /etc/pki/nssdb -chkfips true | grep -q enabled && export FIPS_ENA
 
 ################################################################################
 %changelog
+* Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 5.3.0-2
+- Update version number in JSSConfig.cmake
+
+* Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 5.3.0-1
+- Rebase to JSS 5.3.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

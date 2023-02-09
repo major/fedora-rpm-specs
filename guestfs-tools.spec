@@ -18,14 +18,14 @@
 %global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.49-development
+%global source_directory 1.50-stable
 
 # Filter perl provides.
 %{?perl_default_filter}
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.49.10
+Version:       1.50.0
 Release:       1%{?dist}
 License:       GPLv2+
 
@@ -208,24 +208,6 @@ Virt-win-reg lets you look at and modify the Windows Registry of
 Windows virtual machines.
 
 
-%if !0%{?rhel}
-%package -n virt-dib
-Summary:       Safe and secure diskimage-builder replacement
-License:       GPLv2+
-# This subpackage (only) must have an Epoch of 1 because it
-# replaces a package in libguestfs which had an Epoch of 1.
-Epoch:         1
-
-Requires:      libguestfs-dib >= 1:1.45.2-1
-
-
-%description -n virt-dib
-Virt-dib is a safe and secure alternative to the OpenStack
-diskimage-builder command.  It is compatible with most
-diskimage-builder elements.
-%endif
-
-
 %package bash-completion
 Summary:       Bash tab-completion scripts for %{name}
 BuildArch:     noarch
@@ -329,12 +311,6 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 mv $RPM_BUILD_ROOT%{_docdir}/%{name} installed-docs
 gzip --best installed-docs/*.xml
 
-%if 0%{?rhel}
-# Remove virt-dib if it was built.
-rm -f $RPM_BUILD_ROOT%{_bindir}/virt-dib
-rm -f $RPM_BUILD_ROOT%{_mandir}/man1/virt-dib.1*
-%endif
-
 # Find locale files.
 %find_lang %{name}
 
@@ -410,15 +386,6 @@ end
 %{_mandir}/man1/virt-win-reg.1*
 
 
-%if !0%{?rhel}
-%files -n virt-dib
-%license COPYING
-%doc README
-%{_bindir}/virt-dib
-%{_mandir}/man1/virt-dib.1*
-%endif
-
-
 %files bash-completion
 %license COPYING
 %dir %{_datadir}/bash-completion/completions
@@ -434,6 +401,9 @@ end
 
 
 %changelog
+* Tue Feb 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1.50.0-1
+- New upstream stable version 1.50.0
+
 * Thu Jan 26 2023 Richard W.M. Jones <rjones@redhat.com> - 1.49.10-1
 - New upstream development version 1.49.10
 

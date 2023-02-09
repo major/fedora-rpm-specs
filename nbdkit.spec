@@ -52,8 +52,8 @@ ExclusiveArch:  x86_64
 %global source_directory 1.33-development
 
 Name:           nbdkit
-Version:        1.33.7
-Release:        3%{?dist}
+Version:        1.33.8
+Release:        1%{?dist}
 Summary:        NBD server
 
 License:        BSD
@@ -1243,6 +1243,9 @@ export LIBGUESTFS_TRACE=1
 
 
 %changelog
+* Tue Feb 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1.33.8-1
+- New upstream development version 1.33.8
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.33.7-3
 - Rebuild OCaml packages for F38
 

@@ -36,7 +36,7 @@
 %endif
 
 # The source directory.
-%global source_directory 1.49-development
+%global source_directory 1.50-stable
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -47,8 +47,8 @@
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.49.9
-Release:       2%{?dist}
+Version:       1.50.0
+Release:       1%{?dist}
 License:       LGPLv2+
 
 # Build only for architectures that have a kernel
@@ -204,10 +204,6 @@ BuildRequires: clevis-luks
 BuildRequires: coreutils
 BuildRequires: cpio
 BuildRequires: cryptsetup
-%if !0%{?rhel}
-BuildRequires: curl
-BuildRequires: debootstrap
-%endif
 BuildRequires: dhclient
 BuildRequires: diffutils
 BuildRequires: dosfstools
@@ -231,9 +227,6 @@ BuildRequires: iproute
 BuildRequires: iputils
 BuildRequires: kernel
 BuildRequires: kmod
-%if !0%{?rhel}
-BuildRequires: kpartx
-%endif
 BuildRequires: less
 BuildRequires: libcap
 %if !0%{?rhel}
@@ -256,7 +249,6 @@ BuildRequires: pcre2
 BuildRequires: policycoreutils
 BuildRequires: procps
 BuildRequires: psmisc
-BuildRequires: qemu-img
 BuildRequires: rpm-libs
 BuildRequires: rsync
 BuildRequires: scrub
@@ -274,9 +266,6 @@ BuildRequires: tar
 BuildRequires: udev
 BuildRequires: util-linux
 BuildRequires: vim-minimal
-%if !0%{?rhel}
-BuildRequires: which
-%endif
 BuildRequires: xfsprogs
 BuildRequires: xz
 BuildRequires: yajl
@@ -426,17 +415,6 @@ Requires:      pkgconfig
 %description devel
 %{name}-devel contains development tools and libraries
 for %{name}.
-
-
-%if !0%{?rhel}
-%package dib
-Summary:       Additional tools for virt-dib
-License:       LGPLv2+
-
-%description dib
-This adds extra packages needed by virt-dib to %{name}.  You should
-normally install the virt-dib package which depends on this one.
-%endif
 
 
 %if !0%{?rhel}
@@ -839,19 +817,6 @@ function move_to
 }
 
 %if !0%{?rhel}
-move_to curl            zz-packages-dib
-move_to debootstrap     zz-packages-dib
-move_to kpartx          zz-packages-dib
-move_to qemu-img        zz-packages-dib
-move_to which           zz-packages-dib
-%else
-remove curl
-remove debootstrap
-remove kpartx
-remove qemu-img
-remove which
-%endif
-%if !0%{?rhel}
 move_to sleuthkit       zz-packages-forensics
 move_to gfs2-utils      zz-packages-gfs2
 move_to hfsplus-tools   zz-packages-hfsplus
@@ -958,11 +923,6 @@ rm ocaml/html/.gitignore
 %{_includedir}/guestfs.h
 %{_libdir}/pkgconfig/libguestfs.pc
 
-
-%if !0%{?rhel}
-%files dib
-%{_libdir}/guestfs/supermin.d/zz-packages-dib
-%endif
 
 %if !0%{?rhel}
 %files forensics
@@ -1122,6 +1082,9 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Tue Feb 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.50.0-1
+- New upstream stable branch 1.50.0
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.49.9-2
 - Rebuild OCaml packages for F38
 

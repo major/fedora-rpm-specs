@@ -10,6 +10,9 @@ License:        MIT
 URL:            https://github.com/dcleblanc/SafeInt
 Source0:        https://github.com/dcleblanc/SafeInt/archive/%{version}/SafeInt-%{version}.tar.gz
 
+# https://github.com/dcleblanc/SafeInt/pull/48
+Patch0:         safeint-3.0.27-gcc13_fix.patch
+
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 
@@ -38,7 +41,7 @@ Provides: %{name}-static = %{version}-%{release}
 
 
 %prep
-%autosetup -n SafeInt-%{version}
+%autosetup -p1 -n SafeInt-%{version}
 
 %check
 %cmake

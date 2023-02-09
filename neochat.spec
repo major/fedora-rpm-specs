@@ -1,6 +1,6 @@
 Name: neochat
 Version: 23.01.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-only AND GPL-2.0-or-later AND GPL-3.0-only AND GPL-3.0-or-later AND BSD-3-Clause
 URL: https://invent.kde.org/network/%{name}
@@ -50,6 +50,7 @@ BuildRequires: ninja-build
 Requires: breeze-icon-theme
 Requires: hicolor-icon-theme
 Requires: kf5-kirigami2%{?_isa}
+Requires: kf5-kirigami2-addons%{?_isa}
 Requires: kf5-syntax-highlighting%{?_isa}
 Requires: kquickimageeditor%{?_isa}
 Requires: qqc2-breeze-style%{?_isa}
@@ -94,6 +95,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_kf5_datadir}/krunner/dbusplugins/*.desktop
 
 %changelog
+* Tue Feb 07 2023 Marc Deop <marcdeop@fedoraproject.org> - 23.01.0-2
+- Require kf5-kirigami2-addons
+
 * Mon Jan 30 2023 Justin Zobel <justin@1707.io> - 23.01.0-1
 - Update to 23.01.0
 

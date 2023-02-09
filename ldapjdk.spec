@@ -6,7 +6,7 @@ Name:             ldapjdk
 
 # Upstream version number:
 %global           major_version 5
-%global           minor_version 2
+%global           minor_version 3
 %global           update_version 0
 
 # Downstream release number:
@@ -18,7 +18,7 @@ Name:             ldapjdk
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%undefine         phase
+#global           phase
 
 %undefine         timestamp
 %undefine         commit_id
@@ -26,10 +26,8 @@ Name:             ldapjdk
 Summary:          LDAP SDK
 URL:              https://github.com/dogtagpki/ldap-sdk
 License:          MPLv1.1 or GPLv2+ or LGPLv2+
-BuildArch:        noarch
-ExclusiveArch:  %{java_arches} noarch
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To create a tarball from a version tag:
 # $ git archive \
@@ -45,6 +43,9 @@ Source: https://github.com/dogtagpki/ldap-sdk/archive/v%{version}%{?phase:-}%{?p
 #     <version tag> \
 #     > ldap-sdk-VERSION-RELEASE.patch
 # Patch: ldap-sdk-VERSION-RELEASE.patch
+
+BuildArch:        noarch
+ExclusiveArch:    %{java_arches} noarch
 
 ################################################################################
 # Java
@@ -63,7 +64,7 @@ BuildRequires:    %{java_devel}
 BuildRequires:    javapackages-local
 BuildRequires:    slf4j
 BuildRequires:    slf4j-jdk14
-BuildRequires:    jss >= 5.2.0
+BuildRequires:    jss = 5.3
 
 %description
 The Mozilla LDAP SDKs enable you to write applications which access,
@@ -79,10 +80,12 @@ Requires:         %{java_headless}
 Requires:         jpackage-utils >= 0:1.5
 Requires:         slf4j
 Requires:         slf4j-jdk14
-Requires:         jss >= 5.2.0
+Requires:         jss = 5.3
 
 Obsoletes:        ldapjdk < %{version}-%{release}
 Provides:         ldapjdk = %{version}-%{release}
+Provides:         ldapjdk = %{major_version}.%{minor_version}
+Provides:         %{product_id} = %{major_version}.%{minor_version}
 
 %description -n %{product_id}
 The Mozilla LDAP SDKs enable you to write applications which access,
@@ -98,6 +101,8 @@ Summary:          Javadoc for LDAP SDK
 
 Obsoletes:        ldapjdk-javadoc < %{version}-%{release}
 Provides:         ldapjdk-javadoc = %{version}-%{release}
+Provides:         ldapjdk-javadoc = %{major_version}.%{minor_version}
+Provides:         %{product_id}-javadoc = %{major_version}.%{minor_version}
 
 %description -n %{product_id}-javadoc
 Javadoc for LDAP SDK
@@ -139,10 +144,12 @@ export JAVA_HOME=%{java_home}
 %{_javadir}/ldapsp.jar
 %{_javadir}/ldapfilt.jar
 %{_javadir}/ldapbeans.jar
+%{_javadir}/ldaptools.jar
 %{_mavenpomdir}/JPP-ldapjdk.pom
 %{_mavenpomdir}/JPP-ldapsp.pom
 %{_mavenpomdir}/JPP-ldapfilter.pom
 %{_mavenpomdir}/JPP-ldapbeans.pom
+%{_mavenpomdir}/JPP-ldaptools.pom
 
 ################################################################################
 %files -n %{product_id}-javadoc
@@ -153,6 +160,9 @@ export JAVA_HOME=%{java_home}
 
 ################################################################################
 %changelog
+* Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 5.3.0-1
+- Rebase to LDAP SDK 5.3.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

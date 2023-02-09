@@ -16,7 +16,7 @@ Miscellaneous tools for data analysis and scientific computing.}
 
 Name:           python-%{pypi_name}
 Version:        0.1.4
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Miscellaneous tools for data analysis and scientific computing
 
 # MIT License applies to doc/theme/static/bootstrap-3.4.1
@@ -24,9 +24,6 @@ Summary:        Miscellaneous tools for data analysis and scientific computing
 License:        BSD-3-Clause AND MIT AND Python-2.0.1
 URL:            %{forgeurl}
 Source0:        %{forgesource}
-# %%pyproject_buildrequires uses contextlib.redirect_stdout, which
-# does not support stdout of subprocesses
-Patch:          have_subprocess_print_to_stderr.patch
 
 %description %_description
 
@@ -39,6 +36,8 @@ BuildRequires:  python3-Cython
 # For optimized performance
 BuildRequires:  flexiblas-devel
 BuildRequires:  gcc, gcc-gfortran
+# For a bugfix affecting this package (rhbz#2166888)
+BuildRequires:  pyproject-rpm-macros >= 1.6.1
 %if %{with tests}
 BuildRequires:  python3-pytest
 %endif
@@ -83,7 +82,4 @@ sed -i -e 's/--cov --cov-report=xml//' pytest.ini
 %license LICENSE
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 %autochangelog

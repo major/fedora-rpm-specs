@@ -6,7 +6,7 @@
 Name:          mingw-%{pkgname}
 Summary:       MinGW Windows %{pkgname} library
 Version:       2.13.0
-Release:       15%{?dist}
+Release:       16%{?dist}
 BuildArch:     noarch
 
 License:       GPL-3.0-only
@@ -146,6 +146,9 @@ mv %{buildroot}%{mingw64_libdir}/qscintilla2_qt5.dll %{buildroot}%{mingw64_bindi
 
 
 %changelog
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 2.13.0-16
+- Rebuild (sip)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

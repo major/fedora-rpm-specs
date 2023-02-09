@@ -1,6 +1,6 @@
 Name:           perl-Test-CheckManifest
-Version:        1.42
-Release:        14%{?dist}
+Version:        1.43
+Release:        1%{?dist}
 Summary:        Check if your Manifest matches your distro
 License:        Artistic-2.0
 URL:            https://metacpan.org/release/Test-CheckManifest
@@ -41,7 +41,7 @@ distribution.
 %setup -q -c -n %{name}-%{version}
 %setup -q -T -D -n %{name}-%{version} -a0
 
-%if "%{version}" == "1.42"
+%if ("%{version}" == "1.42") || ("%{version}" == "1.43")
 cd Test-CheckManifest-%{version}
 # Bogus deps
 sed -i -e '/Data::Dumper/d' META.json META.yml Makefile.PL
@@ -73,6 +73,9 @@ cd ..
 %{_mandir}/man3/*
 
 %changelog
+* Mon Feb 06 2023 Ralf Corsépius <corsepiu@fedoraproject.org> - 1.43-1
+- Update to 1.43.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.42-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,6 +9,20 @@
 %global release_date 2022-08-11
 %global cpp_std c++17
 
+%if %{defined rhel}
+%bcond_with java
+%bcond_with octave
+%bcond_with python
+%else
+%ifarch %{java_arches}
+%bcond_without java
+%else
+%bcond_with java
+%endif
+%bcond_without octave
+%bcond_without python
+%endif
+
 Name:           libsvm
 Version:        3.30
 Release:        2%{?dist}
@@ -35,7 +49,7 @@ Patch5:         %{name}.svm-toy-qt5.patch
 Patch6:         %{name}.matlab.patch
 
 # This can be removed when F40 reaches EOL
-%ifnarch %{java_arches}
+%if %{without java}
 Obsoletes:      libsvm-java < 3.25-7
 %endif
 
@@ -54,6 +68,7 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 Header and object files for libsvm in C, C++ and Java.
 Install this package if you want to develop programs with libsvm.
 
+%if %{with python}
 %package -n     python3-%{name}
 Summary:        Python3 tools and interfaces for libsvm
 BuildRequires:  python3-devel
@@ -68,8 +83,9 @@ Requires:       gnuplot
 %description -n python3-%{name}
 Python3 tools and interfaces for libsvm.  Install this package if you
 want to develop programs with libsvm in Python3.
+%endif
 
-%ifarch %{java_arches}
+%if %{with java}
 %package        java
 Summary:        Java tools and interfaces for libsvm
 BuildRequires:  java-devel
@@ -95,6 +111,7 @@ Requires:       %{name}-java = %{version}-%{release}
 Javadoc for libsvm
 %endif
 
+%if %{with octave}
 %package -n     octave-%{name}
 Summary:        Octave interface to libsvm
 BuildRequires:  octave-devel
@@ -103,6 +120,7 @@ Requires:       octave
 
 %description -n octave-%{name}
 Octave interface for libsvm.
+%endif
 
 %package        svm-toy-qt
 Summary:        QT version of svm-toy (libsvm demonstration program)
@@ -122,7 +140,7 @@ cp -p %{SOURCE1} ChangeLog
 cp -p %{SOURCE2} %{SOURCE3} .
 cp -p %{SOURCE4} %{name}-svm-toy-qt-48.png
 
-%ifarch %{java_arches}
+%if %{with java}
 cp -p %{SOURCE5} pom.xml
 
 # org.sonatype.oss.oss-parent is deprecated and slated for removal from Fedora
@@ -139,30 +157,36 @@ sed -i.orig 's/\r//' FAQ.html
 touch -r FAQ.html.orig FAQ.html
 rm FAQ.html.orig
 
+%if %{with python}
 # Fix shebangs
 %py3_shebang_fix python/libsvm tools
+%endif
 
 %build
 # Build the library
 make all RPM_CFLAGS='%{build_cflags}' LIBDIR='%{_libdir}' CPP_STD='%{cpp_std}'
 
-%ifarch %{java_arches}
+%if %{with java}
 # Build the Java interface
 %mvn_artifact pom.xml java/%{name}.jar
 make -C java all javadoc
 %endif
 
+%if %{with octave}
 # Build the octave interface
 cd matlab
 octave -H -q --no-window-system --no-site-file << EOF
 make
 EOF
 cd -
+%endif
 
+%if %{with python}
 # Build the python interface
 cd python
 %pyproject_wheel
 cd -
+%endif
 
 %install
 %make_install LIBDIR='%{_libdir}' LIBSVM_VER='%{version}' CPP_STD='%{cpp_std}'
@@ -173,6 +197,7 @@ cp -p %{name}-svm-toy-qt.desktop %{buildroot}%{_datadir}/applications
 
 ln -s %{name}.so.%{shver} %{buildroot}%{_libdir}/%{name}.so
 
+%if %{with python}
 # Python
 cd python
 %pyproject_install
@@ -184,8 +209,9 @@ for p in *.py; do
 done
 cd -
 chmod 0755 %{buildroot}%{python3_libsvm_dir}/{commonutil,svm,svmutil}.py
+%endif
 
-%ifarch %{java_arches}
+%if %{with java}
 # Java
 make -C java install JAVA_TARGET_DIR='%{buildroot}%{_javadir}'
 mkdir -p  %{buildroot}%{_javadocdir}/%{name}
@@ -194,6 +220,7 @@ cp -p -R java/docs/* %{buildroot}%{_javadocdir}/%{name}
 %mvn_install
 %endif
 
+%if %{with octave}
 # Octave
 # FIXME: the *.mex files are arch-specific, so they should go into octpkglibdir
 # like the *.oct files do.  But octave refuses to load them from there.  It will
@@ -210,6 +237,7 @@ function on_uninstall (desc)
   error ('Can not uninstall %%s installed by the redhat package manager', desc.name);
 endfunction
 EOF
+%endif
 
 # Desktop files
 desktop-file-install --delete-original \
@@ -221,6 +249,7 @@ mv python/README python/README-Python
 mv tools/README tools/README-Tools
 cp -p README java/README-Java
 
+%if %{with octave}
 %post -n octave-%{name}
 %octave_cmd pkg rebuild
 
@@ -229,6 +258,7 @@ cp -p README java/README-Java
 
 %postun -n octave-%{name}
 %octave_cmd pkg rebuild
+%endif
 
 %files
 %doc COPYRIGHT FAQ.html ChangeLog guide.pdf
@@ -244,16 +274,20 @@ cp -p README java/README-Java
 %{_includedir}/%{name}/
 %{_libdir}/%{name}.so
 
+%if %{with octave}
 %files -n octave-%{name}
 %{octpkgdir}/
+%endif
 
+%if %{with python}
 %files -n python3-%{name}
 %doc python/README-Python tools/README-Tools
 %{python3_libsvm_dir}/
 %{python3_sitearch}/libsvm*.dist-info/
 %{_bindir}/svm-*.py
+%endif
 
-%ifarch %{java_arches}
+%if %{with java}
 %files java -f .mfiles
 %doc java/README-Java java/test_applet.html
 %{_javadir}/%{name}.jar

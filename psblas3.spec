@@ -1,7 +1,12 @@
 %global with_mpich 1
-%global with_openmpi 1
 %global with_serial 1
 %global with_check 1
+
+%ifarch %{ix86}
+%global with_openmpi 0
+%else
+%global with_openmpi 1
+%endif
 
 # Use devtoolset-6
 # Warning: openblas on epel7 is compiled with gcc-gfortran-4.8.5 (libgfortran.so.3)
@@ -46,7 +51,7 @@
 Name: psblas3
 Summary: Parallel Sparse Basic Linear Algebra Subroutines
 Version: %{major_minor}.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 URL: https://github.com/sfilippone/psblas3
 Source0: https://github.com/sfilippone/psblas3/archive/v%{version}%{?postrelease_version}/psblas3-%{version}%{?postrelease_version}.tar.gz
@@ -619,6 +624,9 @@ popd
 ######################################################
 
 %changelog
+* Tue Feb 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.8.0-5
+- Drop OpenMPI support on i686
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

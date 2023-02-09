@@ -8,8 +8,8 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   22.1.7
-Release:   4%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
+Version:   22.1.8
+Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
 %if 0%{?gitdate}
@@ -137,6 +137,10 @@ rm -Rf $RPM_BUILD_ROOT%{_localstatedir}/lib/xkb
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Tue Feb  7 2023 Olivier Fourdan <ofourdan@redhat.com> - 22.1.8-1
+- xwayland 22.1.8
+  Fixes CVE-2023-0494 (#2165995, #2167566, #2167734)
+
 * Sun Jan 29 2023 Stefan Bluhm <stefan.bluhm@clacee.eu> - 22.1.7-4
 - Updated conditional Fedora statement.
 

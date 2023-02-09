@@ -40,11 +40,11 @@
 %endif
 
 Name:           wine
-Version:        8.0
+Version:        8.1
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://www.winehq.org/
 Source0:        https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz
 Source10:       https://dl.winehq.org/wine/source/8.0/wine-%{version}.tar.xz.sign
@@ -1475,6 +1475,7 @@ fi
 %{_libdir}/wine/%{winepedir}/msado15.dll
 %{_libdir}/wine/%{winepedir}/msadp32.acm
 %{_libdir}/wine/%{winepedir}/msasn1.dll
+%{_libdir}/wine/%{winepedir}/msauddecmft.dll
 %{_libdir}/wine/%{winepedir}/mscat32.dll
 %{_libdir}/wine/%{winepedir}/mscoree.dll
 %{_libdir}/wine/%{winepedir}/mscorwks.dll
@@ -1500,6 +1501,7 @@ fi
 %{_libdir}/wine/%{winepedir}/msisip.dll
 %{_libdir}/wine/%{winepedir}/msisys.ocx
 %{_libdir}/wine/%{winepedir}/msls31.dll
+%{_libdir}/wine/%{winepedir}/msmpeg2vdec.dll
 %{_libdir}/wine/%{winepedir}/msnet32.dll
 %{_libdir}/wine/%{winepedir}/mspatcha.dll
 %{_libdir}/wine/%{winepedir}/msports.dll
@@ -1734,6 +1736,7 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.media.devices.dll
 %{_libdir}/wine/%{winepedir}/windows.networking.connectivity
 %{_libdir}/wine/%{winepedir}/windows.networking.dll
+%{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
 %{_libdir}/wine/%{winepedir}/windowscodecs.dll
 %{_libdir}/wine/%{winepedir}/windowscodecsext.dll
 %{_libdir}/wine/%{winepedir}/winebus.sys
@@ -2242,6 +2245,7 @@ fi
 %{_libdir}/wine/%{winesodir}/msado15.dll.so
 %{_libdir}/wine/%{winesodir}/msadp32.acm.so
 %{_libdir}/wine/%{winesodir}/msasn1.dll.so
+%{_libdir}/wine/%{winesodir}/msauddecmft.dll.so
 %{_libdir}/wine/%{winesodir}/mscat32.dll.so
 %{_libdir}/wine/%{winesodir}/mscoree.dll.so
 %{_libdir}/wine/%{winesodir}/mscorwks.dll.so
@@ -2265,6 +2269,7 @@ fi
 %{_libdir}/wine/%{winesodir}/msisip.dll.so
 %{_libdir}/wine/%{winesodir}/msisys.ocx.so
 %{_libdir}/wine/%{winesodir}/msls31.dll.so
+%{_libdir}/wine/%{winesodir}/msmpeg2vdec.dll.so
 %{_libdir}/wine/%{winesodir}/msnet32.dll.so
 %{_libdir}/wine/%{winesodir}/mspatcha.dll.so
 %{_libdir}/wine/%{winesodir}/msports.dll.so
@@ -2487,6 +2492,7 @@ fi
 %{_libdir}/wine/%{winesodir}/windows.media.devices.dll.so
 %{_libdir}/wine/%{winesodir}/windows.networking.connectivity.so
 %{_libdir}/wine/%{winesodir}/windows.networking.dll.so
+%{_libdir}/wine/%{winesodir}/windows.system.profile.systemmanufacturers.dll.so
 %{_libdir}/wine/%{winesodir}/windowscodecs.dll.so
 %{_libdir}/wine/%{winesodir}/windowscodecsext.dll.so
 %{_libdir}/wine/%{winesodir}/winebus.sys.so
@@ -2820,6 +2826,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 06 2023 Michael Cronenworth <mike@cchtml.com> - 8.1-1
+- version update
+
 * Tue Jan 24 2023 Michael Cronenworth <mike@cchtml.com> - 8.0-1
 - version update
 

@@ -1,25 +1,22 @@
 %global gem_name redis
 
 Name: rubygem-%{gem_name}
-Version: 4.7.1
-Release: 2%{?dist}
+Version: 5.0.6
+Release: 1%{?dist}
 Summary: A Ruby client library for Redis
 License: MIT
 URL: https://github.com/redis/redis-rb
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/redis/redis-rb.git && cd redis-rb
-# git archive -v -o redis-rb-4.7.1-tests.txz v4.7.1 makefile test/ bin/
+# git archive -v -o redis-rb-5.0.6-tests.txz v5.0.6 makefile test/ bin/
 Source1: %{gem_name}-rb-%{version}-tests.txz
-# Fix Redis 7+ compatibility.
-# https://github.com/redis/redis-rb/pull/1114
-Patch0: rubygem-redis-4.7.1-Add-Redis-7.0-to-CI-matrix.patch
-BuildRequires: make
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
-BuildRequires: rubygem(hiredis)
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(mocha)
+BuildRequires: rubygem(redis-client)
+BuildRequires: %{_bindir}/make
 BuildRequires: %{_bindir}/redis-server
 BuildArch: noarch
 
@@ -39,10 +36,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-pushd %{_builddir}
-%patch0 -p1
-popd
-
 %build
 # Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
@@ -61,17 +54,6 @@ pushd .%{gem_instdir}
 
 cp -a %{_builddir}/{makefile,test} .
 
-# Do not use bundler & rake for tests execution
-sed -i "s/bundle exec rake test/ruby -Ilib:test -e \"Dir.glob('.\/test\/**\/*_test.rb').sort.each {|t| require t}\"/" \
-  makefile
-
-# The TestInternals#test_large_payload fails with Hiredis.
-# https://github.com/redis/redis-rb/issues/1117
-sed -i \
-  -e '/def test_large_payload/i\  driver(:ruby) do' \
-  -e '/def test_large_payload/,/end/ {/end/ s/end/&\n  end/;}' \
-  test/internals_test.rb
-
 # We are using packaged Redis, so provide just dummy Redis build script.
 mkdir bin
 echo '#!/usr/bin/sh' > bin/build
@@ -85,13 +67,28 @@ mv %{_builddir}/bin/cluster_creator bin/
 # https://github.com/redis/redis-rb/issues/345
 LANG=C.UTF-8
 
-# Test ruby and hiredis drivers
-for driver in ruby hiredis ; do
-export DRIVER=$driver
-make BINARY=$(which redis-server) REDIS_CLIENT=$(which redis-cli) BUILD_DIR='${TMP}'
+# The following steps correspond to GH workflow:
+# https://github.com/redis/redis-rb/blob/ce2c258297efc2991e509d57e593e76285d58b0b/.github/workflows/test.yaml#L60-L65
+# https://github.com/redis/redis-rb/blob/ce2c258297efc2991e509d57e593e76285d58b0b/.github/workflows/test.yaml#L136-L141
+# TODO: There is no hiredis-client in Fedora yet, skipt the `hiredis` for now.
+# for driver in ruby hiredis ; do
+for driver in ruby ; do
+  (
+    export DRIVER=${driver}
+    make BINARY=$(which redis-server) start
+    ruby -Itest -e 'Dir.glob "./test/redis/**/*_test.rb", &method(:require)'
+    ruby -Itest -e 'Dir.glob "./test/distributed/**/*_test.rb", &method(:require)'
+    make stop
+    # Give some time for Redis shutdown.
+    sleep 1
+  )
+done
+
+make BINARY=$(which redis-server) REDIS_CLIENT=$(which redis-cli) BUILD_DIR='${TMP}' start_sentinel wait_for_sentinel
+ruby -Itest -e 'Dir.glob "./test/sentinel/**/*_test.rb", &method(:require)'
+make stop_all
 # Give some time for Redis shutdown.
 sleep 1
-done
 popd
 
 %files
@@ -107,6 +104,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Feb 02 2023 Vít Ondruch <vondruch@redhat.com> - 5.0.6-1
+- Update to redis 5.0.6.
+  Resolves: rhbz#2120331
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

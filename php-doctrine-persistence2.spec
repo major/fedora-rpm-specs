@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-doctrine-persistence2
 #
-# Copyright (c) 2018-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2018-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 
 %global bootstrap    0
-%global gh_commit    7729fc2a7e5efc8bbfa408a3b8adeb8f5b84f5d1
+%global gh_commit    e36f22765f4d10a7748228babbf73da5edfeed3c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     doctrine
 %global gh_project   persistence
@@ -27,8 +27,8 @@
 %endif
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        2.5.6
-Release:        2%{?dist}
+Version:        2.5.7
+Release:        1%{?dist}
 Summary:        Doctrine Persistence abstractions, version %{major}
 
 License:        MIT
@@ -166,7 +166,7 @@ find tests -type f -exec grep -q PHPStan {} \; -delete -print
 
 : Run test suite
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81 php82; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
     $1 ${2:-%{_bindir}/phpunit9} \
@@ -189,6 +189,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb  7 2023 Remi Collet <remi@remirepo.net> - 2.5.7-1
+- update to 2.5.7
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

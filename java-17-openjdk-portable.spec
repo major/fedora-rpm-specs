@@ -384,14 +384,14 @@
 # Define IcedTea version used for SystemTap tapsets and desktop file
 %global icedteaver      6.0.0pre00-c848b93a8598
 # Define current Git revision for the FIPS support patches
-%global fipsver 0bd5ca9ccc5
+%global fipsver 257d544b594
 
 # Standard JPackage naming and versioning defines
 %global origin          openjdk
 %global origin_nice     OpenJDK
 %global top_level_dir_name   %{origin}
 %global top_level_dir_name_backup %{top_level_dir_name}-backup
-%global buildver        1
+%global buildver        10
 %global rpmrelease      1
 # Priority must be 8 digits in total; up to openjdk 1.8, we were using 18..... so when we moved to 11, we had to add another digit
 %if %is_system_jdk
@@ -418,7 +418,7 @@
 # Release will be (where N is usually a number starting at 1):
 # - 0.N%%{?extraver}%%{?dist} for EA releases,
 # - N%%{?extraver}{?dist} for GA releases
-%global is_ga           0
+%global is_ga           1
 %if %{is_ga}
 %global build_type GA
 %global ea_designator ""
@@ -554,7 +554,7 @@ ExcludeArch: %{ix86}
 
 Name:    java-%{javaver}-%{origin}-portable
 Version: %{newjavaver}.%{buildver}
-Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}.1
+Release: %{?eaprefix}%{rpmrelease}%{?extraver}%{?dist}
 # java-1.5.0-ibm from jpackage.org set Epoch to 1 for unknown reasons
 # and this change was brought into RHEL-4. java-1.5.0-ibm packages
 # also included the epoch in their virtual provides. This created a
@@ -625,9 +625,6 @@ Source15: TestSecurityProperties.java
 # Ensure vendor settings are correct
 Source16: CheckVendor.java
 
-# nss fips configuration file
-Source17: nss.fips.cfg.in
-
 # Ensure translations are available for new timezones
 Source18: TestTranslations.java
 
@@ -687,6 +684,10 @@ Patch6: rh1684077-openjdk_should_depend_on_pcsc-lite-libs_instead_of_pcsc-lite-d
 # Build the systemconf library on all platforms
 # RH2048582: Support PKCS#12 keystores
 # RH2020290: Support TLS 1.3 in FIPS mode
+# Add nss.fips.cfg support to OpenJDK tree
+# RH2117972: Extend the support for NSS DBs (PKCS11) in FIPS mode
+# Remove forgotten dead code from RH2020290 and RH2104724
+# OJ1357: Fix issue on FIPS with a SecurityManager in place
 Patch1001: fips-17u-%{fipsver}.patch
 
 #############################################
@@ -700,8 +701,6 @@ Patch1001: fips-17u-%{fipsver}.patch
 # OpenJDK patches targetted for 17.0.6
 #
 #############################################
-# JDK-8293834: Update CLDR data following tzdata 2022c update
-Patch2001: jdk8293834-kyiv_cldr_update.patch
 
 BuildRequires: autoconf
 BuildRequires: automake
@@ -758,8 +757,8 @@ BuildRequires: java-%{buildjdkver}-openjdk-devel
 %ifarch %{zero_arches}
 BuildRequires: libffi-devel
 %endif
-# 2022e required as of JDK-8295173
-BuildRequires: tzdata-java >= 2022e
+# 2022g required as of JDK-8297804
+BuildRequires: tzdata-java >= 2022g
 
 # cacerts build requirement in portable mode
 BuildRequires: ca-certificates
@@ -964,8 +963,6 @@ pushd %{top_level_dir_name}
 %patch1001 -p1
 # nss.cfg PKCS11 support; must come last as it also alters java.security
 %patch1000 -p1
-# tzdata updates targetted for 17.0.6
-%patch2001 -p1
 popd # openjdk
 
 %patch600
@@ -1024,9 +1021,6 @@ done
 
 # Setup nss.cfg
 sed -e "s:@NSS_LIBDIR@:%{NSS_LIBDIR}:g" %{SOURCE11} > nss.cfg
-
-# Setup nss.fips.cfg
-sed -e "s:@NSS_LIBDIR@:%{NSS_LIBDIR}:g" %{SOURCE17} > nss.fips.cfg
 
 %build
 %if (0%{?rhel} > 0 && 0%{?rhel} < 8)
@@ -1189,9 +1183,6 @@ function installjdk() {
 
         # Install nss.cfg right away as we will be using the JRE above
         install -m 644 nss.cfg ${imagepath}/conf/security/
-
-        # Install nss.fips.cfg: NSS configuration for global FIPS mode (crypto-policies)
-        install -m 644 nss.fips.cfg ${imagepath}/conf/security/
 
         # Create fake alt-java as a placeholder for future alt-java
 		if [ -d man/man1 ] ; then
@@ -1591,6 +1582,29 @@ done
 %endif
 
 %changelog
+* Thu Jan 26 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.6.0.10-1
+- Update to jdk-17.0.6.0+10
+- Update release notes to 17.0.6.0+10
+- Switch to GA mode for release
+
+* Thu Jan 19 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.6.0.9-0.2.ea
+- Update FIPS support to bring in latest changes
+- * OJ1357: Fix issue on FIPS with a SecurityManager in place
+
+* Thu Jan 19 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.6.0.9-0.1.ea
+- Update to jdk-17.0.6+9
+- Update release notes to 17.0.6+9
+- Drop local copy of JDK-8293834 now this is upstream
+- Require tzdata 2022g due to inclusion of JDK-8296108, JDK-8296715 & JDK-8297804
+- Update TestTranslations.java to test the new America/Ciudad_Juarez zone
+
+* Thu Jan 19 2023 Andrew Hughes <gnu.andrew@redhat.com> - 1:17.0.6.0.1-0.2.ea
+- Update FIPS support to bring in latest changes
+- * Add nss.fips.cfg support to OpenJDK tree
+- * RH2117972: Extend the support for NSS DBs (PKCS11) in FIPS mode
+- * Remove forgotten dead code from RH2020290 and RH2104724
+- Drop local nss.fips.cfg.in handling now this is handled in the patched OpenJDK build
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:17.0.6.0.1-0.1.ea.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

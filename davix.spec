@@ -2,27 +2,22 @@
 %undefine __cmake3_in_source_build
 
 Name:				davix
-Version:			0.8.3
-Release:			4%{?dist}
+Version:			0.8.4
+Release:			1%{?dist}
 Summary:			Toolkit for http based file management
 License:			LGPLv2+
 URL:				https://dmc-docs.web.cern.ch/dmc-docs/davix.html
-Source0:			https://github.com/cern-fts/davix/releases/download/R_0_8_3/davix-0.8.3.tar.gz
-#				Fix CVE 2022-32221 in the bundled curl library
-#				Only used for the EPEL 7 and 8 builds
-#				EPEL 9 and Fedora uses the system curl library
-#				Backported from curl upstream
-Patch0:				CVE-2022-32221.patch
-#				Don't downgrade the C++ version
-#				https://github.com/cern-fts/davix/pull/103
-Patch1:				0001-Don-t-downgrade-the-C-version.patch
+Source0:			https://github.com/cern-fts/davix/releases/download/R_0_8_4/davix-0.8.4.tar.gz
 
 BuildRequires:			gcc-c++
 BuildRequires:			cmake3
 # main lib dependencies
 %if %{?fedora}%{!?fedora:0} || %{?rhel}%{!?rhel:0} >= 9
-# use bundled curl version on EPEL
+# use bundled curl version on EPEL <= 8
 BuildRequires:			curl-devel
+%else
+# build uses "git apply" to apply a patch to the bundled curl source
+BuildRequires:			git-core
 %endif
 BuildRequires:			libxml2-devel
 BuildRequires:			openssl-devel
@@ -177,6 +172,10 @@ rm %{buildroot}%{_pkgdocdir}/LICENSE
 %license LICENSE
 
 %changelog
+* Tue Feb 07 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.4-1
+- New upstream release 0.8.4
+- Drop patches accepted upstream
+
 * Tue Jan 24 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 0.8.3-4
 - Rebuild for gtest 1.13.0
 - Don't downgrade the C++ version

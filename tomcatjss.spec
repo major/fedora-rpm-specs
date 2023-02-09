@@ -6,7 +6,7 @@ Name:             tomcatjss
 
 # Upstream version number:
 %global           major_version 8
-%global           minor_version 2
+%global           minor_version 3
 %global           update_version 0
 
 # Downstream release number:
@@ -18,7 +18,7 @@ Name:             tomcatjss
 # - development (unsupported): alpha<n> where n >= 1
 # - stabilization (unsupported): beta<n> where n >= 1
 # - GA/update (supported): <none>
-%undefine         phase
+#global           phase
 
 %undefine         timestamp
 %undefine         commit_id
@@ -26,10 +26,8 @@ Name:             tomcatjss
 Summary:          JSS Connector for Apache Tomcat
 URL:              https://github.com/dogtagpki/tomcatjss
 License:          LGPLv2+
-BuildArch:        noarch
-ExclusiveArch:  %{java_arches} noarch
 Version:          %{major_version}.%{minor_version}.%{update_version}
-Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}.3
+Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 
 # To generate the source tarball:
 # $ git clone https://github.com/dogtagpki/tomcatjss.git
@@ -47,6 +45,9 @@ Source:           https://github.com/dogtagpki/tomcatjss/archive/v%{version}%{?p
 #     <version tag> \
 #     > tomcatjss-VERSION-RELEASE.patch
 # Patch: tomcatjss-VERSION-RELEASE.patch
+
+BuildArch:        noarch
+ExclusiveArch:    %{java_arches} noarch
 
 ################################################################################
 # Java
@@ -75,7 +76,7 @@ BuildRequires:    slf4j
 BuildRequires:    slf4j-jdk14
 
 # JSS
-BuildRequires:    jss >= 5.2.0
+BuildRequires:    jss = 5.3
 
 # Tomcat
 %if 0%{?rhel} && ! 0%{?eln}
@@ -106,7 +107,7 @@ Requires:         slf4j
 Requires:         slf4j-jdk14
 
 # JSS
-Requires:         jss >= 5.2.0
+Requires:         jss = 5.3
 
 # Tomcat
 %if 0%{?rhel} && ! 0%{?eln}
@@ -117,6 +118,8 @@ Requires:         tomcat >= 1:9.0.7
 
 Obsoletes:        tomcatjss < %{version}-%{release}
 Provides:         tomcatjss = %{version}-%{release}
+Provides:         tomcatjss = %{major_version}.%{minor_version}
+Provides:         %{product_id} = %{major_version}.%{minor_version}
 
 # PKI
 Conflicts:        pki-base < 10.10.0
@@ -180,6 +183,9 @@ export JAVA_HOME=%{java_home}
 
 ################################################################################
 %changelog
+* Tue Feb 07 2023 Dogtag PKI Team <devel@lists.dogtagpki.org> - 8.3.0-1
+- Rebase to Tomcat JSS 8.3.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.2.0-1.3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

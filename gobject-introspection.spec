@@ -1,13 +1,13 @@
-%global glib2_version 2.74.0
+%global glib2_version 2.75.0
 
 Name:           gobject-introspection
-Version:        1.74.0
-Release:        3%{?dist}
+Version:        1.75.4
+Release:        1%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
 License:        GPLv2+ and LGPLv2+ and MIT
 URL:            https://wiki.gnome.org/Projects/GObjectIntrospection
-Source0:        https://download.gnome.org/sources/gobject-introspection/1.74/%{name}-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gobject-introspection/1.75/%{name}-%{version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  bison
@@ -90,6 +90,9 @@ Libraries and headers for gobject-introspection
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Mon Feb 06 2023 David King <amigadave@amigadave.com> - 1.75.4-1
+- Update to 1.75.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.74.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

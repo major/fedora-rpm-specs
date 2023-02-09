@@ -6,8 +6,8 @@
 %define baseversion %(echo %{version} | awk -F'.' '{print $1"."$2"."$3}')
 
 Name:          mingw-%{pkgname}
-Version:       1.3.231.1
-Release:       2%{?dist}
+Version:       1.3.239.0
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 License:       Apache-2.0
@@ -15,10 +15,8 @@ BuildArch:     noarch
 URL:           https://github.com/KhronosGroup/%{srcname}
 Source0:       https://github.com/KhronosGroup/%{srcname}/archive/sdk-%{version}/%{srcname}-%{version}.tar.gz
 
-# Build shared library
-Patch0:        fix_shared.patch
-# it appears there is a warning with rawhide gcc
-Patch1: 	disable-werror.patch
+# Don't do MSVC specific stuff on mingw
+Patch1:        vulkan-validation-layers-mingw.patch
 
 BuildRequires: make
 BuildRequires: cmake
@@ -74,37 +72,25 @@ MINGW64_CMAKE_ARGS="-DGLSLANG_INSTALL_DIR=%{mingw64_prefix} -DSPIRV_HEADERS_INST
 %install
 %mingw_make_install
 
-# Fix incorrectly installed library
-mkdir -p %{buildroot}%{mingw32_bindir}
-mkdir -p %{buildroot}%{mingw64_bindir}
-mv %{buildroot}%{mingw32_libdir}/libVkLayer_khronos_validation.dll %{buildroot}%{mingw32_bindir}/libVkLayer_khronos_validation.dll
-mv %{buildroot}%{mingw64_libdir}/libVkLayer_khronos_validation.dll %{buildroot}%{mingw64_bindir}/libVkLayer_khronos_validation.dll
-mv %{buildroot}%{mingw32_libdir}/libVkLayer_utils.dll %{buildroot}%{mingw32_bindir}/libVkLayer_utils.dll
-mv %{buildroot}%{mingw64_libdir}/libVkLayer_utils.dll %{buildroot}%{mingw64_bindir}/libVkLayer_utils.dll
-
-
 
 %files -n mingw32-%{pkgname}
 %doc README.md
 %license LICENSE.txt
 %{mingw32_bindir}/libVkLayer_khronos_validation.dll
-%{mingw32_bindir}/libVkLayer_utils.dll
-%{mingw32_libdir}/libVkLayer_khronos_validation.dll.a
-%{mingw32_libdir}/libVkLayer_utils.dll.a
-%{mingw32_libdir}/VkLayer_khronos_validation.json
+%{mingw32_bindir}/VkLayer_khronos_validation.json
 
 
 %files -n mingw64-%{pkgname}
 %doc README.md
 %license LICENSE.txt
 %{mingw64_bindir}/libVkLayer_khronos_validation.dll
-%{mingw64_bindir}/libVkLayer_utils.dll
-%{mingw64_libdir}/libVkLayer_khronos_validation.dll.a
-%{mingw64_libdir}/libVkLayer_utils.dll.a
-%{mingw64_libdir}/VkLayer_khronos_validation.json
+%{mingw64_bindir}/VkLayer_khronos_validation.json
 
 
 %changelog
+* Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 1.3.239.0-1
+- Update to 1.3.239.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.231.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,15 +1,16 @@
 Name:           paps
-Version:        0.7.1
-Release:        7%{?dist}
+Version:        0.7.9
+Release:        1%{?dist}
 
 License:        LGPL-2.0-or-later
-URL:            http://paps.sourceforge.net/
-Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+URL:            https://github.com/dov/paps
+Source0:        https://github.com/dov/paps/archive/v%{name}/%{name}-%{version}.tar.gz
 Source1:        paps.convs
-Source2:	29-paps.conf
+Source2:        29-paps.conf
 Source3:        http://downloads.sourceforge.net/%{name}/%{name}-0.6.8.tar.gz
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  pango-devel automake autoconf libtool doxygen cups-devel intltool
+BuildRequires:  fmt-devel gcc-c++
 ## https://sourceforge.net/tracker/index.php?func=detail&aid=1832897&group_id=153049&atid=786241
 Patch0:         paps-0.6.8-shared.patch
 ## https://sourceforge.net/tracker/index.php?func=detail&aid=1832924&group_id=153049&atid=786241
@@ -86,6 +87,7 @@ popd
 
 
 %build
+./autogen.sh
 %configure --disable-static
 make %{?_smp_mflags}
 
@@ -135,6 +137,10 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Tue Feb  7 2023 Akira TAGOH <tagoh@redhat.com> - 0.7.9-1
+- New upstream release.
+  Resolves: rhbz#2164212
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
