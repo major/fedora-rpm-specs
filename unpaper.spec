@@ -1,40 +1,40 @@
 Name:           unpaper
 Version:        7.0.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Post-processing of scanned and photocopied book pages
-# AUTHORS:      GPLv2
-# constants.h:  GPLv2
-# doc/basic-concepts.md:    GPLv2
-# doc/file-formats.md:      GPLv2
-# doc/image-processing.md:  GPLv2
-# doc/img/*.png.license:    GPLv2
-# doc/unpaper.1.rst:        GPLv2
-# file.c:           GPLv2
-# imageprocess.c:   GPLv2
-# imageprocess.h:   GPLv2
+# AUTHORS:      GPL-2.0-only
+# constants.h:  GPL-2.0-only
+# doc/basic-concepts.md:    GPL-2.0-only
+# doc/file-formats.md:      GPL-2.0-only
+# doc/image-processing.md:  GPL-2.0-only
+# doc/img/*.png.license:    GPL-2.0-only
+# doc/unpaper.1.rst:        GPL-2.0-only
+# file.c:           GPL-2.0-only
+# imageprocess.c:   GPL-2.0-only
+# imageprocess.h:   GPL-2.0-only
 # LICENSES/0BSD.txt:    0BSD text
-# LICENSES/GPL-2.0-only.txt:    GPLv2 text
-# other files:      GPLv2
-# README.md:        GPLv2
+# LICENSES/GPL-2.0-only.txt:    GPL-2.0 text
+# other files:      GPL-2.0-only
+# README.md:        GPL-2.0-only
 # version.h.in:     0BSD
 ## In tests subpackage
 # LICENSES/MIT.txt: MIT text
-# tests/golden_images/*.license     GPLv2
-# tests/source_images/*.license     GPLv2
-# tests/unpaper_tests.py:           GPLv2 and MIT
-## Not in the binary package
+# tests/golden_images/*.license     GPL-2.0-only
+# tests/source_images/*.license     GPL-2.0-only
+# tests/unpaper_tests.py:           GPL-2.0-only AND MIT
+## Not in any binary package
 # doc/conf.py:      MIT
-# LICENSES/Apache-2.0.txt:      ASL 2.0 text
+# LICENSES/Apache-2.0.txt:      Apache-2.0 text
 # meson.build:      MIT
 # .dir-locals.el:   MIT
 # .editorconfig:    0BSD
-# .github/workflows/meson-build-and-test.yml:   ASL 2.0
+# .github/workflows/meson-build-and-test.yml:   Apache-2.0
 # .github/workflows/pre-commit.yml: MIT
 # .gitignore:       MIT
 # .mailmap:         MIT
 # .mergify.yml:     MIT
 # .pre-commit-config.yaml:  MIT
-License:        GPLv2 and 0BSD
+License:        GPL-2.0-only AND 0BSD
 URL:            https://www.flameeyes.eu/projects/%{name}
 Source0:        https://www.flameeyes.eu/files/%{name}-%{version}.tar.xz
 # Missing a signature, requested by e-mail
@@ -80,7 +80,7 @@ angle. This process is called "deskewing".
 
 %package tests
 Summary:        Tests for %{name}
-License:        GPLv2 and MIT
+License:        GPL-2.0-only AND MIT
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 # python3-pillow for PIL Python module
@@ -130,6 +130,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 08 2023 Petr Pisar <ppisar@redhat.com> - 7.0.0-6
+- Convert license tags to an SPDX format
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

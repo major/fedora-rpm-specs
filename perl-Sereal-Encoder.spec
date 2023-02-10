@@ -6,7 +6,7 @@
 %endif
 
 Name:           perl-Sereal-Encoder
-Version:        5.002
+Version:        5.003
 Release:        1%{?dist}
 Summary:        Perl serialization into Sereal format
 # lib/Sereal/Encoder.pm:    GPL+ or Artistic
@@ -32,7 +32,7 @@ BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(Devel::CheckLib)
+BuildRequires:  perl(Devel::CheckLib) >= 1.16
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 7.0
 # File::Find not used
 # File::Path not used in inc/Sereal/BuildTools.pm
@@ -119,6 +119,13 @@ make test
 %{_mandir}/man3/Sereal::Encoder.3*
 
 %changelog
+* Wed Feb  8 2023 Paul Howarth <paul@city-fan.org> - 5.003-1
+- Update to 5.003 (rhbz#2168016)
+  - Update Miniz to 3.0.2, Zstd to 1.5.2 and Devel::CheckLib to 1.16
+    (note: this package uses the system versions of these)
+  - Assorted build fixes related to these updates
+  - OpenBSD build fixes
+
 * Wed Feb  1 2023 Paul Howarth <paul@city-fan.org> - 5.002-1
 - Update to 5.002 (rhbz#2166281)
   - Fix up Decoder tests to run on perl 5.8, which has no defined-or

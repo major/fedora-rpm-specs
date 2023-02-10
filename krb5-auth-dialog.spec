@@ -1,10 +1,15 @@
+%global tarball_version %%(echo %{version} | tr '~' '.')
+
+%global __provides_exclude_from ^%{_libdir}/krb5-auth-dialog/plugins/.*\\.so$
+
 Name:    krb5-auth-dialog
+Version: 44.0~alpha1
+Release: 1%{?dist}
 Summary: Kerberos 5 authentication dialog
-Version: 43.0
-Release: 2%{?dist}
-License: GPLv2+
-URL:     https://honk.sigxcpu.org/piki/projects/krb5-auth-dialog/
-Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{version}.tar.xz
+
+License: GPL-2.0-or-later
+URL:     https://gitlab.gnome.org/GNOME/krb5-auth-dialog/
+Source0: https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 # avoid annoying notifications
 Patch0: krb5-auth-dialog-autostart.patch
@@ -16,16 +21,16 @@ BuildRequires: intltool
 BuildRequires: itstool
 BuildRequires: meson
 BuildRequires: pam-devel
-BuildRequires: pkgconfig(gcr-3)
-BuildRequires: pkgconfig(gtk+-3.0)
+BuildRequires: pkgconfig(gtk4)
 BuildRequires: pkgconfig(krb5)
+BuildRequires: pkgconfig(libadwaita-1)
 
 %description
 This package contains a dialog that warns the user when their Kerberos
 tickets are about to expire and lets them renew them.
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 %build
 %meson
@@ -46,11 +51,14 @@ tickets are about to expire and lets them renew them.
 %{_datadir}/icons/hicolor/*/status/*
 %{_libdir}/krb5-auth-dialog
 %{_mandir}/man1/%{name}.1*
-%{_metainfodir}/krb5-auth-dialog.metainfo.xml
+%{_metainfodir}/org.gnome.KrbAuthDialog.metainfo.xml
 %{_sysconfdir}/xdg/autostart/krb5-auth-dialog.desktop
 
 
 %changelog
+* Wed Feb 08 2023 David King <amigadave@amigadave.com> - 44.0~alpha1-1
+- Update to 44.0.alpha1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

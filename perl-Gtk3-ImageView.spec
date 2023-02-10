@@ -1,8 +1,8 @@
 Name:           perl-Gtk3-ImageView
 Version:        10
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Image viewer widget for GTK 3
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Gtk3-ImageView
 Source0:        https://cpan.metacpan.org/authors/id/A/AS/ASOKOLOV/Gtk3-ImageView-%{version}.tar.gz
 BuildArch:      noarch
@@ -96,13 +96,18 @@ xvfb-run -d make test
 %files
 %license LICENSE
 %doc README.md
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Gtk3
+%{perl_vendorlib}/Gtk3/ImageView
+%{perl_vendorlib}/Gtk3/ImageView.pm
+%{_mandir}/man3/Gtk3::ImageView.*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 08 2023 Petr Pisar <ppisar@redhat.com> - 10-6
+- Convert a license tag to an SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

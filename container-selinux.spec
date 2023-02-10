@@ -3,7 +3,7 @@
 # container-selinux
 %global git0 https://github.com/containers/container-selinux
 
-%global built_tag v2.199.0
+%global built_tag v2.200.0
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
@@ -51,6 +51,10 @@ SELinux policy modules for use with container runtimes.
 
 %prep
 %autosetup -Sgit %{name}-%{built_tag_strip}
+# https://github.com/containers/container-selinux/issues/203
+%if 0%{?fedora} <= 37
+sed -i '/user_namespace/d' container.te
+%endif
 
 %build
 make

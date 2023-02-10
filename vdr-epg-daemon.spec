@@ -7,7 +7,7 @@
 %endif
 
 Name:           vdr-epg-daemon
-Version:        1.3.11
+Version:        1.3.12
 Release:        1%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 
@@ -133,6 +133,9 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Wed Feb 08 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.12-1
+- Update to 1.3.12
+
 * Tue Feb 07 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.11-1
 - Update to 1.3.11
 

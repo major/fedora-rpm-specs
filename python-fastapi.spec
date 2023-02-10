@@ -13,7 +13,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.89.1
+Version:        0.90.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -34,6 +34,9 @@ Patch:          %{url}/pull/4409.patch
 # Upgrade databases and SQLAlchemy
 # https://github.com/tiangolo/fastapi/pull/5799
 Patch:          %{url}/pull/5799.patch
+# Bump Starlette from 0.23.0 to 0.23.1
+# https://github.com/tiangolo/fastapi/pull/5975
+Patch:          %{url}/pull/5975.patch
 
 BuildRequires:  python3-devel
 

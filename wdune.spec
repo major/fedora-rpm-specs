@@ -1,7 +1,7 @@
 Summary:       A graphical X3D/VRML97 editor, simple 3D modeler and animation tool
 Name:          wdune
 Version:       1.958
-Release:       10%{?dist}
+Release:       11%{?dist}
 License:       GPLv2+ and GPLv3+ and LGPLv3+ and BSD and Public Domain and ASL 2.0
 URL:           http://wdune.ourproject.org/
 Source:        ftp://ftp.ourproject.org/pub/wdune/wdune-%{version}.tar.bz2
@@ -30,11 +30,11 @@ BuildRequires: libcurl-devel
 BuildRequires: libjpeg-devel
 BuildRequires: libpng-devel
 BuildRequires: libXi-devel
-BuildRequires: libusb-devel
+BuildRequires: libusb-compat-0.1-devel
 BuildRequires: mesa-libGLU-devel
 BuildRequires: opensubdiv-devel
 BuildRequires: pkgconfig(eigen3)
-BuildRequires: pkgconfig(vcglib)
+#BuildRequires: pkgconfig(vcglib)
 
 Requires:      aqsis-core
 Requires:      bash
@@ -44,7 +44,6 @@ Requires:      gedit
 Requires:      git
 Requires:      ImageMagick
 Requires:      kdialog
-Requires:      opensubdiv-libs
 Requires:      povray
 Requires:      xorg-x11-fonts-misc
 
@@ -219,6 +218,10 @@ desktop-file-install                                         \
 %doc README.txt docs
 
 %changelog
+* Wed Feb 08 2023 Sérgio Basto <sergio@serjux.com> - 1.958-11
+- Fix FTI, package already requires opensubdiv-libs by auto requires
+  libosdCPU.so.3.5.0()(64bit)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.958-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

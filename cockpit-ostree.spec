@@ -1,10 +1,10 @@
 Name: cockpit-ostree
 Epoch: 1
-Version: 191
-Release: 2%{?dist}
+Version: 192
+Release: 1%{?dist}
 BuildArch: noarch
 Summary: Cockpit user interface for rpm-ostree
-License: LGPLv2+
+License: LGPL-2.1-or-later
 BuildRequires: make
 Requires: cockpit-bridge >= 125
 Requires: cockpit-system >= 125
@@ -29,6 +29,9 @@ Cockpit component for managing software updates for ostree based systems.
 %{_datadir}/cockpit/*
 
 %changelog
+* Wed Feb 08 2023 Packit <hello@packit.dev> - 1:192-1
+- Stability and performance improvements
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:191-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

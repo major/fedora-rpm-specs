@@ -1,10 +1,10 @@
 %global packname webfakes
-%global packver  1.1.4
+%global packver  1.1.7
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Fake Web Apps for HTTP Testing
 
 License:          MIT
@@ -14,7 +14,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-stats, R-tools, R-utils
-# Suggests:  R-callr, R-curl, R-glue, R-jsonlite, R-httr, R-httpuv, R-testthat >= 3.0.0, R-withr, R-xml2
+# Suggests:  R-callr, R-covr, R-curl, R-glue, R-httpuv, R-httr, R-jsonlite, R-testthat >= 3.0.0, R-withr, R-xml2
 # LinkingTo:
 # Enhances:
 
@@ -24,11 +24,12 @@ BuildRequires:    R-stats
 BuildRequires:    R-tools
 BuildRequires:    R-utils
 BuildRequires:    R-callr
+BuildRequires:    R-covr
 BuildRequires:    R-curl
 BuildRequires:    R-glue
-BuildRequires:    R-jsonlite
-BuildRequires:    R-httr
 BuildRequires:    R-httpuv
+BuildRequires:    R-httr
+BuildRequires:    R-jsonlite
 BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-withr
 BuildRequires:    R-xml2
@@ -78,6 +79,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Wed Feb  8 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.7-1
+- update to 1.1.7
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

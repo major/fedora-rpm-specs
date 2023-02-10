@@ -1,0 +1,80 @@
+# -*- rpm-spec -*-
+
+%define metacpan https://cpan.metacpan.org/authors/id/K/KU/KURIHARA
+%define FullName Text-QRCode
+
+Name: perl-%{FullName}
+Summary: Perl module to generate text base QR Code
+License: GPL-1.0-or-later OR Artistic-1.0-Perl
+Version: 0.05
+Release: 4%{?dist}
+Source: %{metacpan}/%{FullName}-%{version}.tar.gz
+Url: https://metacpan.org/release/%{FullName}
+
+BuildRequires: coreutils
+BuildRequires: gcc
+BuildRequires: make
+BuildRequires: perl(Carp)
+BuildRequires: perl(Exporter)
+BuildRequires: perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires: perl(File::Copy)
+BuildRequires: perl(Module::Install::AutoInstall)
+BuildRequires: perl(Module::Install::Can)
+BuildRequires: perl(Module::Install::Compiler)
+BuildRequires: perl(Module::Install::Metadata)
+BuildRequires: perl(Module::Install::WriteAll)
+BuildRequires: perl(Test::More)
+BuildRequires: perl(XSLoader)
+BuildRequires: perl(base)
+BuildRequires: perl(inc::Module::Install)
+BuildRequires: perl(strict)
+BuildRequires: perl(vars)
+BuildRequires: perl(warnings)
+BuildRequires: perl-devel
+BuildRequires: perl-generators
+BuildRequires: perl-interpreter
+BuildRequires: pkgconf-pkg-config
+BuildRequires: pkgconfig(libqrencode)
+BuildRequires: qrencode-devel >= 2.0.0
+
+Requires: perl(XSLoader)
+
+%description
+This module allows you to generate QR Code using ' ' and '*'.
+
+%prep
+%setup -q -n %{FullName}-%{version}
+rm -fr inc
+
+%build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
+
+%check
+make test VERBOSE=1
+
+%install
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
+
+%files
+%doc Changes README
+%dir %{perl_vendorarch}/auto/Text
+%dir %{perl_vendorarch}/auto/Text/QRCode
+%{perl_vendorarch}/auto/Text/QRCode/QRCode.so
+%dir %{perl_vendorarch}/Text
+%{perl_vendorarch}/Text/QRCode.pm
+%{_mandir}/man3/Text::QRCode.3pm.gz
+
+%changelog
+* Wed Feb 08 2023 Johan Vromans <jvromans@squirrel.nl> - 0.05-4
+- Incorporate reviewer feedback.
+
+* Tue Feb 07 2023 Johan Vromans <jvromans@squirrel.nl> - 0.05-3
+- Incorporate reviewer feedback.
+
+* Fri Feb 03 2023 Johan Vromans <jvromans@squirrel.nl> - 0.05-2
+- Incorporate reviewer feedback.
+
+* Mon Dec 19 2022 Johan Vromans <jvromans@squirrel.nl> - 0.05-1
+- Initial Fedora package.

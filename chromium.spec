@@ -21,7 +21,7 @@
 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 0
+%global use_all_cpus 1
 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
@@ -228,7 +228,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 110.0.5481.61
+Version: 110.0.5481.77
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -265,8 +265,8 @@ Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
 # Add "Fedora" to the user agent string
 Patch12: chromium-101.0.4951.41-fedora-user-agent.patch
 
-# Needs to be submitted..
-Patch51: chromium-96.0.4664.45-gcc-remoting-constexpr.patch
+# debian patch, disable font-test 
+Patch20: chromium-disable-font-tests.patch
 
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/www-client/chromium/files/chromium-unbundle-zlib.patch
 Patch52: chromium-81.0.4044.92-unbundle-zlib.patch
@@ -293,10 +293,6 @@ Patch69: chromium-103.0.5060.53-update-rjsmin-to-1.2.0.patch
 # Update six to 1.16.0
 Patch70: chromium-105.0.5195.52-python-six-1.16.0.patch
 
-# Fix crashes with components/cast_*
-# Thanks to Gentoo
-Patch80: chromium-108-EnumTable-crash.patch
-
 # Disable tests on remoting build
 Patch82: chromium-98.0.4758.102-remoting-no-tests.patch
 
@@ -320,7 +316,7 @@ Patch100: chromium-108-el7-include-fcntl-memfd.patch
 Patch101: chromium-108-el7-wayland-strndup-error.patch
 
 # Work around old and missing headers on EPEL7
-Patch103: chromium-99.0.4844.51-epel7-old-headers-workarounds.patch
+Patch103: chromium-110-epel7-old-headers-workarounds.patch
 
 # Use old cups (chromium's code workaround breaks on gcc)
 # Revert: https://github.com/chromium/chromium/commit/c3213f8779ddc427e89d982514185ed5e4c94e91
@@ -410,13 +406,6 @@ Source13: master_preferences
 Source19: https://nodejs.org/dist/latest-v16.x/node-%{nodejs_version}-linux-x64.tar.xz
 Source21: https://nodejs.org/dist/latest-v16.x/node-%{nodejs_version}-linux-arm64.tar.xz
 %endif
-
-# Unpackaged fonts
-Source14: https://fontlibrary.org/assets/downloads/gelasio/4d610887ff4d445cbc639aae7828d139/gelasio.zip
-Source15: http://download.savannah.nongnu.org/releases/freebangfont/MuktiNarrow-0.94.tar.bz2
-Source16: https://github.com/web-platform-tests/wpt/raw/master/fonts/Ahem.ttf
-Source17: GardinerModBug.ttf
-Source18: GardinerModCat.ttf
 
 %if %{clang}
 %if 0%{?rhel} == 7
@@ -663,51 +652,6 @@ BuildRequires:	pkgconfig(gnome-keyring-1)
 # remote desktop needs this
 BuildRequires:	pam-devel
 BuildRequires:	systemd
-
-# fonts
-BuildRequires: dejavu-sans-fonts
-BuildRequires: thai-scalable-garuda-fonts
-BuildRequires: lohit-devanagari-fonts
-BuildRequires: lohit-tamil-fonts
-BuildRequires: google-noto-sans-khmer-fonts
-BuildRequires: google-noto-emoji-color-fonts
-
-%if 0%{?rhel} >= 7
-Source100: https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Bold.ttf
-Source101: https://github.com/google/fonts/blob/master/apache/arimo/Arimo-BoldItalic.ttf
-Source102: https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Italic.ttf
-Source103: https://github.com/google/fonts/blob/master/apache/arimo/Arimo-Regular.ttf
-Source104: https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Bold.ttf
-Source105: https://github.com/google/fonts/blob/master/apache/cousine/Cousine-BoldItalic.ttf
-Source106: https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Italic.ttf
-Source107: https://github.com/google/fonts/blob/master/apache/cousine/Cousine-Regular.ttf
-Source108: https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Bold.ttf
-Source109: https://github.com/google/fonts/blob/master/apache/tinos/Tinos-BoldItalic.ttf
-Source110: https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Italic.ttf
-Source111: https://github.com/google/fonts/blob/master/apache/tinos/Tinos-Regular.ttf
-%else
-BuildRequires: google-croscore-arimo-fonts
-BuildRequires: google-croscore-cousine-fonts
-BuildRequires: google-croscore-tinos-fonts
-%endif
-
-%if 0%{?rhel} == 7
-Source112: https://releases.pagure.org/lohit/lohit-gurmukhi-ttf-2.91.2.tar.gz
-Source113:https://noto-website-2.storage.googleapis.com/pkgs/NotoSansCJKjp-hinted.zip
-%else
-BuildRequires: google-noto-sans-cjk-jp-fonts
-BuildRequires: lohit-gurmukhi-fonts
-%endif
-
-%if 0%{?fedora} >= 30
-BuildRequires: google-noto-sans-symbols2-fonts
-%else
-Source114: https://github.com/googlefonts/noto-fonts/blob/master/unhinted/NotoSansSymbols2/NotoSansSymbols2-Regular.ttf
-%endif
-
-# There used to be a copy of this font file here, but it looks like NotoSansTibetan is no more.
-# And yet, the chromium code still wants it.
-Source115: https://github.com/googlefonts/noto-fonts/blob/master/hinted/NotoSansTibetan/NotoSansTibetan-Regular.ttf
 
 # using the built from source version on aarch64
 BuildRequires: ninja-build
@@ -957,8 +901,7 @@ udev.
 %patch9 -p1 -b .widevine-no-download
 %patch11 -p1 -b .py3
 
-# Short term fixes (usually gcc and backports)
-%patch51 -p1 -b .gcc-remoting-constexpr
+%patch20 -p1 -b .disable-font-test
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
 %patch52 -p1 -b .unbundle-zlib
@@ -974,7 +917,6 @@ udev.
 %patch65 -p1 -b .java-only-allowed
 %patch69 -p1 -b .update-rjsmin-to-1.2.0
 %patch70 -p1 -b .update-six-to-1.16.0
-%patch80 -p1 -b .EnumTable-crash
 %patch82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
@@ -1056,78 +998,6 @@ udev.
 # See `man find` for how the `-exec command {} +` syntax works
 find -type f \( -iname "*.py" \) -exec sed -i '1s=^#! */usr/bin/\(python\|env python\)[23]\?=#!%{__python3}=' {} +
 
-
-# Unpack fonts
-pushd third_party/test_fonts
-mkdir test_fonts
-cd test_fonts
-unzip %{SOURCE14}
-tar xf %{SOURCE15}
-mv MuktiNarrow0.94/MuktiNarrow.ttf .
-rm -rf MuktiNarrow0.94
-cp %{SOURCE16} .
-cp %{SOURCE17} .
-cp %{SOURCE18} .
-%if 0%{?rhel} >= 7
-cp %{SOURCE100} .
-cp %{SOURCE101} .
-cp %{SOURCE102} .
-cp %{SOURCE103} .
-cp %{SOURCE104} .
-cp %{SOURCE105} .
-cp %{SOURCE106} .
-cp %{SOURCE107} .
-cp %{SOURCE108} .
-cp %{SOURCE109} .
-cp %{SOURCE110} .
-cp %{SOURCE111} .
-%else
-%if 0%{?fedora} >= 33
-cp -a /usr/share/fonts/google-arimo-fonts/Arimo-*.ttf .
-cp -a /usr/share/fonts/google-cousine-fonts/Cousine-*.ttf .
-cp -a /usr/share/fonts/google-tinos-fonts/Tinos-*.ttf .
-%else
-cp -a /usr/share/fonts/google-croscore/Arimo-*.ttf .
-cp -a /usr/share/fonts/google-croscore/Cousine-*.ttf .
-cp -a /usr/share/fonts/google-croscore/Tinos-*.ttf .
-%endif
-%endif
-
-%if 0%{?rhel} == 7
-tar xf %{SOURCE112}
-mv lohit-gurmukhi-ttf-2.91.2/Lohit-Gurmukhi.ttf .
-rm -rf lohit-gurmukhi-ttf-2.91.2
-unzip %{SOURCE113}
-%else
-cp -a /usr/share/fonts/lohit-gurmukhi/Lohit-Gurmukhi.ttf .
-cp -a /usr/share/fonts/google-noto-cjk/NotoSansCJKjp-Regular.otf .
-%endif
-
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
-cp -a /usr/share/fonts/dejavu-sans-fonts/DejaVuSans.ttf /usr/share/fonts/dejavu-sans-fonts/DejaVuSans-Bold.ttf .
-%else
-cp -a /usr/share/fonts/dejavu/DejaVuSans.ttf /usr/share/fonts/dejavu/DejaVuSans-Bold.ttf .
-%endif
-
-%if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
-cp -a /usr/share/fonts/thai-scalable/Garuda.otf .
-sed -i 's|Garuda.ttf|Garuda.otf|g' ../BUILD.gn
-%else
-cp -a /usr/share/fonts/thai-scalable/Garuda.ttf .
-%endif
-
-cp -a /usr/share/fonts/lohit-devanagari/Lohit-Devanagari.ttf /usr/share/fonts/lohit-tamil/Lohit-Tamil.ttf .
-cp -a /usr/share/fonts/google-noto/NotoSansKhmer-Regular.ttf .
-cp -a /usr/share/fonts/google-noto-emoji/NotoColorEmoji.ttf .
-
-%if 0%{?fedora} >= 30
-cp -a /usr/share/fonts/google-noto/NotoSansSymbols2-Regular.ttf .
-%else
-cp -a %{SOURCE114} .
-%endif
-
-cp -a %{SOURCE115} .
-popd
 
 %if 0%{?rhel} == 8
   pushd third_party/node/linux
@@ -1800,6 +1670,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Feb 08 2023 Than Ngo <than@redhat.com> - 110.0.5481.77-1
+- update to 110.0.5481.77
+
 * Sat Feb 04 2023 Than Ngo <than@redhat.com> - 110.0.5481.61-1
 - update to 110.0.5481.61
 

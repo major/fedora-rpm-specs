@@ -332,6 +332,9 @@ The drivers with support for the Vulkan API.
 cp %{SOURCE1} docs/
 
 %build
+# ensure standard Rust compiler flags are set
+export RUSTFLAGS="%build_rustflags"
+
 # We've gotten a report that enabling LTO for mesa breaks some games. See
 # https://bugzilla.redhat.com/show_bug.cgi?id=1862771 for details.
 # Disable LTO for now

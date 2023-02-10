@@ -1,6 +1,6 @@
 %global upstreamname ROCm-OpenCL-Runtime
 %global rocm_release 5.4
-%global rocm_patch 1
+%global rocm_patch 3
 %global rocm_version %{rocm_release}.%{rocm_patch}
 
 #Set enable_ocltst to enable HW OCL test suite
@@ -11,13 +11,16 @@
 
 Name:           rocm-opencl
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        ROCm OpenCL Runtime
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-OpenCL-Runtime
 License:        MIT
 Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
 Source1:        https://github.com/ROCm-Developer-Tools/ROCclr/archive/refs/tags/rocm-%{version}.tar.gz#/ROCclr-%{version}.tar.gz
+
+Patch0:         0001-device-Add-missing-include.patch
+Patch100:       0001-cltrace-Add-missing-include.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel
@@ -168,6 +171,9 @@ mv %{buildroot}%{_bindir}/clinfo %{buildroot}%{_bindir}/rocm-clinfo
 %{_bindir}/rocm-clinfo
 
 %changelog
+* Wed Feb 08 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.3-1
+- Update to 5.4.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

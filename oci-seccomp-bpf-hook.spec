@@ -26,6 +26,7 @@ Name: %{repo}
 Version: %{gen_version}
 License: ASL 2.0 and BSD and ISC and MIT
 Release: %autorelease
+ExclusiveArch: %{golang_arches_future}
 Summary: OCI Hook to generate seccomp json files based on EBF syscalls used by container
 URL: %{git0}
 # Tarball fetched from upstream

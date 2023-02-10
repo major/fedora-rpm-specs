@@ -5,8 +5,8 @@
 %global crate vm-memory
 
 Name:           rust-vm-memory
-Version:        0.8.0
-Release:        4%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        Safe abstractions for accessing the VM physical memory
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -17,9 +17,6 @@ Patch:          vm-memory-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          vm-memory-fix-metadata.diff
-# Enable 64 bit atomics on ppc64le and s390x
-# https://github.com/rust-vmm/vm-memory/pull/198
-Patch:          vm-memory-fix-atomics.diff
 
 # vm-memory does not support 32 bit targets
 ExcludeArch:    i686
@@ -128,6 +125,10 @@ use the "backend-mmap" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.10.0-1
+- Update to version 0.10.0
+- Drop no longer needed vm-memory-fix-atomics.diff patch
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

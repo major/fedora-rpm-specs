@@ -12,8 +12,8 @@
 %global nscl_commit 0beed6c29832d8a8f4a543c635a2a872de09e3fe
 
 Name:           mozilla-noscript
-Version:        11.4.14
-Release:        2%{?dist}
+Version:        11.4.16
+Release:        1%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
 License:        GPLv3+
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.m
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Wed Feb 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.16-1
+- update to 11.4.16 (resolves rhbz#2164922)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.4.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

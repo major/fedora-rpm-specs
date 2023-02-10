@@ -19,11 +19,14 @@ Patch100: qoauth-2.0.0-qt5.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
+# RHEL does not provide Qt4
+%if 0%{?fedora}
 # Qt4
 BuildRequires:	pkgconfig(QtCore) pkgconfig(QtNetwork)
 BuildRequires:	pkgconfig(qca2)
 BuildRequires:	qca-ossl
 Requires:	qca-ossl%{?_isa}
+%endif
 
 %description
 QOAuth is a Qt-based C++ implementation of an interface to services using
@@ -77,12 +80,15 @@ export PATH=%{_qt5_bindir}:$PATH
 make %{?_smp_mflags}
 popd
 
+# RHEL does not provide Qt4
+%if 0%{?fedora}
 mkdir %{_target_platform}-qt4
 pushd %{_target_platform}-qt4
 export PATH=%{_qt4_bindir}:$PATH
 %{qmake_qt4} PREFIX="%{_prefix}" ..
 make %{?_smp_mflags}
 popd
+%endif
 
 %if 0%{?docs}
 doxygen Doxyfile
@@ -102,6 +108,8 @@ sed -i \
   -e "s|^libdir=.*|libdir=%{_qt5_libdir}|" \
   %{buildroot}%{_qt5_libdir}/pkgconfig/qoauth-qt5.pc
 
+# RHEL does not provide Qt4
+%if 0%{?fedora}
 make install INSTALL="install -p" INSTALL_ROOT=%{buildroot} -C %{_target_platform}-qt4
 
 ## FIXME
@@ -109,6 +117,7 @@ sed -i \
   -e "s|^includedir=.*|includedir=%{_qt4_headerdir}/QtOAuth|" \
   -e "s|^libdir=.*|libdir=%{_qt4_libdir}|" \
   %{buildroot}%{_qt4_libdir}/pkgconfig/qoauth.pc
+%endif
 
 ## unpackaged files
 rm -f %{buildroot}%{_qt5_libdir}/libqoauth-qt5.prl
@@ -117,11 +126,16 @@ rm -f %{buildroot}%{_qt4_libdir}/libqoauth.prl
 
 %check
 make check -C %{_target_platform}-qt5 || :
+# RHEL does not provide Qt4
+%if 0%{?fedora}
 make check -C %{_target_platform}-qt4 || :
+%endif
 
 
 %ldconfig_scriptlets
 
+# RHEL does not provide Qt4
+%if 0%{?fedora}
 %files
 %doc README CHANGELOG
 %license LICENSE
@@ -133,6 +147,7 @@ make check -C %{_target_platform}-qt4 || :
 %{_qt4_libdir}/pkgconfig/qoauth.pc
 %{_qt4_prefix}/mkspecs/features/oauth.prf
 %{_qt4_headerdir}/QtOAuth/
+%endif
 
 %ldconfig_scriptlets qt5
 

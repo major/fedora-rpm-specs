@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        282
+Version:        283
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -84,6 +84,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Feb 08 2023 Packit <hello@packit.dev> - 283-1
+- Stability and performance improvements
+
 * Wed Jan 25 2023 Packit <hello@packit.dev> - 282-1
 - Option to forcefully revert a snapshot
 - Fix tabular numbers font

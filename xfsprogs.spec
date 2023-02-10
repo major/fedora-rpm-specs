@@ -1,12 +1,13 @@
 Summary:	Utilities for managing the XFS filesystem
 Name:		xfsprogs
 Version:	6.1.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 License:	GPL+ and LGPLv2+
 URL:		https://xfs.wiki.kernel.org
 Source0:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.xz
 Source1:	http://kernel.org/pub/linux/utils/fs/xfs/xfsprogs/%{name}-%{version}.tar.sign
 Source2:	https://git.kernel.org/pub/scm/docs/kernel/pgpkeys.git/plain/keys/13F703E6C11CF6F0.asc
+Patch0:		xfsprogs-c99.patch
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	libtool, gettext, libattr-devel, libuuid-devel
@@ -57,7 +58,7 @@ interface could change at any time!
 
 %prep
 xzcat '%{SOURCE0}' | %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data=-
-%setup -q
+%autosetup -p1
 
 %build
 export tagname=CC
@@ -125,6 +126,9 @@ rm -rf $RPM_BUILD_ROOT/%{_datadir}/doc/xfsprogs/
 %{_libdir}/*.so
 
 %changelog
+* Wed Feb 08 2023 Arjun Shankar <arjun@redhat.com> - 6.1.0-3
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

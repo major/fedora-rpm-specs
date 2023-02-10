@@ -1,23 +1,24 @@
 %global smallversion 0.4
 
 Name:           libvisual
-Version:        0.4.0
-Release:        38%{?dist}
-Epoch:		1
+Version:        0.4.1
+Release:        1%{?dist}
+Epoch:          1
+
 Summary:        Abstraction library for audio visualisation plugins
-License:        LGPLv2+
-URL:            http://libvisual.sf.net
-Source0:        http://dl.sf.net/libvisual/libvisual-%{version}.tar.gz
+License:        LGPL-2.1-or-later
+URL:            https://libvisual.sf.net
+Source0:        https://sourceforge.net/projects/%{name}/files/%{name}/%{name}-%{version}/%{name}-%{version}.tar.bz2
+
+Patch0:         libvisual-0.4.0-better-altivec-detection.patch
+Patch1:         libvisual-0.4.0-respect-environment-ldflags.patch
+Patch2:         libvisual-c99.patch
+
+BuildRequires:  automake
 BuildRequires:  gcc-c++
 BuildRequires:  make
+BuildRequires:  sdl12-compat-devel
 BuildRequires:  xorg-x11-proto-devel
-# https://bugzilla.redhat.com/show_bug.cgi?id=435771
-Patch0:         libvisual-0.4.0-better-altivec-detection.patch
-Patch1:         libvisual-0.4.0-inlinedefineconflict.patch
-Patch2:		libvisual-0.4.0-format-security.patch
-Patch3:		libvisual-0.4.0-respect-environment-ldflags.patch
-Patch4:		libvisual-configure-c99.patch
-Patch5:		libvisual-c99.patch
 
 %description
 Libvisual is an abstraction library that comes between applications and
@@ -44,17 +45,11 @@ This package contains the files needed to build an application with libvisual.
 
 %prep
 %setup -q
-%patch0 -p1 -b .altivec-detection
-%patch1 -p1 -b .inlinedefineconflict
-%patch2 -p1 -b .format-security
-%patch3 -p1 -b .ldflags
-%patch4 -p1
-%patch5 -p1
-# Prevent re-building the autotools scripts.
-touch -r aclocal.m4 configure*
+%patch0 -p1 -b .better-altivec-detection
+%patch1 -p1 -b .respect-environment-ldflags
+%patch2 -p1 -b .c99
 
 %build
-%global optflags %{optflags} -fno-strict-aliasing
 %configure
 %make_build
 
@@ -115,6 +110,9 @@ find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
 
 
 %changelog
+* Wed Feb 08 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1:0.4.1-1
+- Updated to version 0.4.1.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.4.0-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

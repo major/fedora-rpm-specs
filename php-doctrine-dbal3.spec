@@ -12,8 +12,8 @@
 
 %global github_owner     doctrine
 %global github_name      dbal
-%global github_version   3.5.3
-%global github_commit    88fa7e5189fd5ec6682477044264dc0ed4e3aa1e
+%global github_version   3.6.0
+%global github_commit    85b98cb23c8af471a67abfe14485da696bcabc2e
 %global major            3
 
 %global composer_vendor  doctrine
@@ -58,7 +58,7 @@
 
 Name:          php-%{composer_vendor}-%{composer_project}%{major}
 Version:       %{github_version}
-Release:       2%{?github_release}%{?dist}
+Release:       1%{?github_release}%{?dist}
 Summary:       Doctrine Database Abstraction Layer (DBAL) version %{major}
 
 License:       MIT
@@ -76,7 +76,7 @@ Patch0:        %{name}-bin.patch
 BuildArch: noarch
 # Tests
 %if %{with tests}
-BuildRequires: phpunit9 >= 9.5.27
+BuildRequires: phpunit9 >= 9.6.3
 ## composer.json
 BuildRequires: php(language) >= %{php_min_ver}
 BuildRequires:(php-composer(doctrine/cache) >= %{doctrine_cache_min_ver} with php-composer(doctrine/cache) <  %{doctrine_cache_max_ver})
@@ -251,6 +251,9 @@ exit $RETURN_CODE
 
 
 %changelog
+* Wed Feb  8 2023 Remi Collet <remi@remirepo.net> - 3.6.0-1
+- update to 3.6.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

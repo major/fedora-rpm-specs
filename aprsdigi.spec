@@ -1,11 +1,12 @@
 Name:           aprsdigi
 Version:        3.5.1
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        AX.25 Automatic Position Reporting System
 
 License:        GPLv2
 URL:            https://github.com/n2ygk/aprsdigi/releases
 Source0:        https://github.com/n2ygk/%{name}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0: aprsdigi-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  libax25-devel
@@ -28,7 +29,7 @@ nodes using IPv4 or IPv6 UDP unicast or multicast.
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -79,6 +80,9 @@ EOL
 
 
 %changelog
+* Wed Feb 08 2023 Florian Weimer <fweimer@redhat.com> - 3.5.1-23
+- C99 compatibility fixes
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

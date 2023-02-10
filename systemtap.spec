@@ -122,7 +122,7 @@ m     stapdev  stapdev
 
 Name: systemtap
 Version: 4.8
-Release: 2%{?release_override}%{?dist}
+Release: 3%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -157,6 +157,14 @@ Summary: Programmable system-wide instrumentation system
 License: GPLv2+
 URL: http://sourceware.org/systemtap/
 Source: ftp://sourceware.org/pub/systemtap/releases/systemtap-%{version}.tar.gz
+
+Patch1: rhbz1997192.patch
+Patch2: rhbz2145242.patch
+Patch3: rhbz2149223.patch
+Patch4: rhbz2149666.patch
+Patch5: rhbz2154430.patch
+
+
 
 # Build*
 BuildRequires: make
@@ -574,6 +582,12 @@ systemtap-runtime-virthost machine to execute systemtap scripts.
 
 %prep
 %setup -q
+
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
+%patch4 -p1
+%patch5 -p1
 
 %build
 
@@ -1284,6 +1298,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Wed Feb 08 2023 Frank Ch. Eigler <fche@redhat.com> - 4.8-3
+- backport several RHEL/upstream patches
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

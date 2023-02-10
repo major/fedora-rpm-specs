@@ -1,4 +1,3 @@
-# Fedora spec file for phpMyAdmin
 #
 # License: MIT
 # http://opensource.org/licenses/MIT
@@ -12,26 +11,19 @@
 # httpd 2.4 with httpd-filesystem
 %global with_httpd     1
 
-%global upstream_version 5.2.0
+%global upstream_version 5.2.1
 #global upstream_prever  rc1
 
 Name: phpMyAdmin
 Version: %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 Summary: A web interface for MySQL and MariaDB
 
+# phpMyAdmin is GPL-2.0-or-later
 # MIT (js/jquery/, js/jqplot, js/codemirror/, js/tracekit/)
-# BSD (js/openlayers/)
-# GPLv2+ (the rest)
-# BSD:     bacon/bacon-qr-code, dasprid/enum, google/recaptcha, nikic/fast-route,
-#          code-lts/u2f-php-server, twig/twig
-# MIT:     paragonie/constant_time_encoding, phpmyadmin/twig-i18n-extension,
-#          phpseclib/phpseclib, pragmarx/google2fa, pragmarx/google2fa-qrcode,
-#          psr/*, symfony/*
-# GPLv2+:  phpmyadmin/motranslator, phpmyadmin/shapefile, phpmyadmin/sql-parser
-# LGPLv3:  tecnickcom/tcpdf
-# MPLv2.0: williamdes/mariadb-mysql-kbs
-License: GPLv2+ and MIT and BSD and LGPLv3 and MPLv2.0
+# BSD 2-Clause (js/openlayers/)
+# for PHP library see generated bundled list above
+License: GPL-2.0-or-later AND MIT AND BSD 2-Clause AND BSD 3-Clause AND LGPL-3.0-or-later AND MPL-2.0 AND ISC
 URL: https://www.phpmyadmin.net/
 Source0: https://files.phpmyadmin.net/%{name}/%{upstream_version}%{?upstream_prever:-%upstream_prever}/%{name}-%{upstream_version}%{?upstream_prever:-%upstream_prever}-all-languages.tar.xz
 Source1: https://files.phpmyadmin.net/%{name}/%{upstream_version}%{?upstream_prever:-%upstream_prever}/%{name}-%{upstream_version}%{?upstream_prever:-%upstream_prever}-all-languages.tar.xz.asc
@@ -93,47 +85,69 @@ Requires:  php-openssl
 Requires:  php-pcre
 Requires:  php-xml
 
-Provides:  bundled(php-bacon-bacon-qr-code) = 2.0.7
-Provides:  bundled(php-code-lts-u2f-php-server) = v1.2.0
-Provides:  bundled(php-composer-ca-bundle) = 1.3.1
+# License BSD-2-Clause
+Provides:  bundled(php-bacon-bacon-qr-code) = 2.0.8
+Provides:  bundled(php-beberlei-assert) = v3.3.2
+Provides:  bundled(php-code-lts-u2f-php-server) = v1.2.1
 Provides:  bundled(php-dasprid-enum) = 1.0.3
-Provides:  bundled(php-fig-http-message-util) = 1.1.5
+# License BSD-3-Clause
 Provides:  bundled(php-google-recaptcha) = 1.2.4
 Provides:  bundled(php-nikic-fast-route) = v1.3.0
-Provides:  bundled(php-paragonie-constant-time-encoding) = v2.5.0
-Provides:  bundled(php-paragonie-random-compat) = v9.99.100
-Provides:  bundled(php-paragonie-sodium-compat) = v1.17.1
+Provides:  bundled(php-twig-twig) = v3.5.0
+# License GPL-2.0-or-later
 Provides:  bundled(php-phpmyadmin-motranslator) = 5.3.0
 Provides:  bundled(php-phpmyadmin-shapefile) = 3.0.1
-Provides:  bundled(php-phpmyadmin-sql-parser) = 5.5.0
+Provides:  bundled(php-phpmyadmin-sql-parser) = 5.7.0
+# License ISC
+Provides:  bundled(php-paragonie-sodium-compat) = v1.19.0
+# License LGPL-3.0-only
+Provides:  bundled(php-tecnickcom-tcpdf) = 6.6.2
+# License MIT
+Provides:  bundled(php-brick-math) = 0.8.17
+Provides:  bundled(php-composer-ca-bundle) = 1.3.5
+Provides:  bundled(php-fgrosse-phpasn1) = v2.5.0
+Provides:  bundled(php-fig-http-message-util) = 1.1.5
+Provides:  bundled(php-league-uri) = 6.4.0
+Provides:  bundled(php-league-uri-interfaces) = 2.3.0
+Provides:  bundled(php-paragonie-constant-time-encoding) = v2.6.3
+Provides:  bundled(php-paragonie-random-compat) = v9.99.100
 Provides:  bundled(php-phpmyadmin-twig-i18n-extension) = v4.0.1
-Provides:  bundled(php-pragmarx-google2fa) = 8.0.0
+Provides:  bundled(php-pragmarx-google2fa) = v8.0.1
 Provides:  bundled(php-pragmarx-google2fa-qrcode) = v2.1.1
 Provides:  bundled(php-psr-cache) = 1.0.1
 Provides:  bundled(php-psr-container) = 1.1.1
+Provides:  bundled(php-psr-http-client) = 1.0.1
 Provides:  bundled(php-psr-http-factory) = 1.0.1
 Provides:  bundled(php-psr-http-message) = 1.0.1
 Provides:  bundled(php-psr-log) = 1.1.4
 Provides:  bundled(php-ralouphie-getallheaders) = 3.0.3
+Provides:  bundled(php-ramsey-collection) = 1.1.4
+Provides:  bundled(php-ramsey-uuid) = 4.2.3
 Provides:  bundled(php-slim-psr7) = 1.4
-Provides:  bundled(php-symfony-cache) = v5.4.8
-Provides:  bundled(php-symfony-cache-contracts) = v2.5.1
-Provides:  bundled(php-symfony-config) = v5.4.8
-Provides:  bundled(php-symfony-dependency-injection) = v5.4.8
-Provides:  bundled(php-symfony-deprecation-contracts) = v2.5.1
-Provides:  bundled(php-symfony-expression-language) = v5.4.8
-Provides:  bundled(php-symfony-filesystem) = v5.4.7
-Provides:  bundled(php-symfony-polyfill-ctype) = v1.25.0
-Provides:  bundled(php-symfony-polyfill-mbstring) = v1.25.0
-Provides:  bundled(php-symfony-polyfill-php73) = v1.25.0
-Provides:  bundled(php-symfony-polyfill-php80) = v1.25.0
-Provides:  bundled(php-symfony-polyfill-php81) = v1.25.0
-Provides:  bundled(php-symfony-service-contracts) = v2.5.1
-Provides:  bundled(php-symfony-var-exporter) = v5.4.8
-Provides:  bundled(php-tecnickcom-tcpdf) = 6.4.4
-Provides:  bundled(php-twig-twig) = v3.3.10
-Provides:  bundled(php-webmozart-assert) = 1.10.0
-Provides:  bundled(php-williamdes-mariadb-mysql-kbs) = v1.2.13
+Provides:  bundled(php-spomky-labs-base64url) = v2.0.4
+Provides:  bundled(php-spomky-labs-cbor-php) = v1.1.1
+Provides:  bundled(php-symfony-cache) = v5.4.19
+Provides:  bundled(php-symfony-cache-contracts) = v2.5.2
+Provides:  bundled(php-symfony-config) = v5.4.19
+Provides:  bundled(php-symfony-dependency-injection) = v5.4.20
+Provides:  bundled(php-symfony-deprecation-contracts) = v2.5.2
+Provides:  bundled(php-symfony-expression-language) = v5.4.19
+Provides:  bundled(php-symfony-filesystem) = v5.4.19
+Provides:  bundled(php-symfony-polyfill-ctype) = v1.27.0
+Provides:  bundled(php-symfony-polyfill-mbstring) = v1.27.0
+Provides:  bundled(php-symfony-polyfill-php73) = v1.27.0
+Provides:  bundled(php-symfony-polyfill-php80) = v1.27.0
+Provides:  bundled(php-symfony-polyfill-php81) = v1.27.0
+Provides:  bundled(php-symfony-process) = v5.4.19
+Provides:  bundled(php-symfony-service-contracts) = v2.5.2
+Provides:  bundled(php-symfony-var-exporter) = v5.4.19
+Provides:  bundled(php-thecodingmachine-safe) = v1.3.3
+Provides:  bundled(php-web-auth-cose-lib) = v3.3.12
+Provides:  bundled(php-web-auth-metadata-service) = v3.3.12
+Provides:  bundled(php-web-auth-webauthn-lib) = v3.3.12
+Provides:  bundled(php-webmozart-assert) = 1.11.0
+# License MPL-2.0
+Provides:  bundled(php-williamdes-mariadb-mysql-kbs) = v1.2.14
 
 Requires:  php-dom
 Requires:  php-intl
@@ -288,6 +302,9 @@ sed -e "/'blowfish_secret'/s/MUSTBECHANGEDONINSTALL/$SECRET/" \
 
 
 %changelog
+* Wed Feb  8 2023 Remi Collet <remi@remirepo.net> - 5.2.1-1
+- update to 5.2.1 (2023-02-08, security and bugfix release)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

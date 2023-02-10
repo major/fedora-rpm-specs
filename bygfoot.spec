@@ -1,10 +1,10 @@
 Name:           bygfoot
-Version:        2.3.4
-Release:        4%{?dist}
+Version:        2.3.5
+Release:        1%{?dist}
 Summary:        Football management game
 License:        GPLv2
 URL:            http://www.bygfoot.com
-Source0:        https://gitlab.com/bygfoot/bygfoot/-/archive/2.3.4/bygfoot-2.3.4.tar.bz2
+Source0:        https://gitlab.com/bygfoot/bygfoot/-/archive/%{version}/bygfoot-%{version}.tar.bz2
 Source1:        bygfoot.desktop
 Patch0:         bygfoot-c99-1.patch
 Patch1:         bygfoot-c99-2.patch
@@ -61,6 +61,9 @@ desktop-file-install --dir %{buildroot}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/bygfoot
 
 %changelog
+* Wed Feb 08 2023 Tom Stellard <tom@stellard.net> - 2.3.5-1
+- 2.3.5 Release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

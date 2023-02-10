@@ -1,6 +1,6 @@
 Name:           jaxb-dtd-parser
 Version:        1.5.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        SAX-like API for parsing XML DTDs
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/jaxb-dtd-parser
@@ -12,8 +12,6 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-
-Provides:       glassfish-dtd-parser = %{version}-%{release}
 
 %description
 SAX-like API for parsing XML DTDs.
@@ -54,6 +52,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Wed Feb 08 2023 Marian Koncek <mkoncek@redhat.com> - 1.5.0-6
+- Remove provision of glassfish artifact
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

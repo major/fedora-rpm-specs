@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	84%{?dist}
+Release:	85%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Wed Feb 08 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-85
+- ppc64le: sync cas/tpm patchset with upstream
+
 * Mon Feb 06 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-84
 - emu: support newer kexec syscall
 

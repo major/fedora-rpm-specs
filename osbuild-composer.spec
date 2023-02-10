@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        73
+Version:        74
 
 %gometa
 
@@ -77,7 +77,7 @@ Provides: bundled(golang(github.com/containers/image/v5)) = v5.22.0
 Provides: bundled(golang(github.com/containers/libtrust)) = v0.0.0_20200511145503_9c3a6c22cd9a
 Provides: bundled(golang(github.com/containers/ocicrypt)) = v1.1.5
 Provides: bundled(golang(github.com/containers/storage)) = v1.42.0
-Provides: bundled(golang(github.com/coreos/go_semver)) = v0.3.0
+Provides: bundled(golang(github.com/coreos/go_semver)) = v0.3.1
 Provides: bundled(golang(github.com/coreos/go_systemd)) = v0.0.0_20190719114852_fd7a80b32e1f
 Provides: bundled(golang(github.com/davecgh/go_spew)) = v1.1.1
 Provides: bundled(golang(github.com/deepmap/oapi_codegen)) = v1.8.2
@@ -129,13 +129,13 @@ Provides: bundled(golang(github.com/klauspost/compress)) = v1.15.9
 Provides: bundled(golang(github.com/klauspost/pgzip)) = v1.2.5
 Provides: bundled(golang(github.com/kolo/xmlrpc)) = v0.0.0_20201022064351_38db28db192b
 Provides: bundled(golang(github.com/kr/text)) = v0.2.0
-Provides: bundled(golang(github.com/labstack/echo/v4)) = v4.9.0
+Provides: bundled(golang(github.com/labstack/echo/v4)) = v4.10.0
 Provides: bundled(golang(github.com/labstack/gommon)) = v0.4.0
 Provides: bundled(golang(github.com/letsencrypt/boulder)) = v0.0.0_20220331220046_b23ab962616e
 Provides: bundled(golang(github.com/mailru/easyjson)) = v0.7.6
-Provides: bundled(golang(github.com/mattn/go_colorable)) = v0.1.12
+Provides: bundled(golang(github.com/mattn/go_colorable)) = v0.1.13
 Provides: bundled(golang(github.com/mattn/go_ieproxy)) = v0.0.1
-Provides: bundled(golang(github.com/mattn/go_isatty)) = v0.0.14
+Provides: bundled(golang(github.com/mattn/go_isatty)) = v0.0.16
 Provides: bundled(golang(github.com/mattn/go_runewidth)) = v0.0.13
 Provides: bundled(golang(github.com/matttproud/golang_protobuf_extensions)) = v1.0.2_0.20181231171920_c182affec369
 Provides: bundled(golang(github.com/microcosm_cc/bluemonday)) = v1.0.18
@@ -149,7 +149,7 @@ Provides: bundled(golang(github.com/opencontainers/go_digest)) = v1.0.0
 Provides: bundled(golang(github.com/opencontainers/image_spec)) = v1.0.3_0.20220114050600_8b9d41f48198
 Provides: bundled(golang(github.com/opencontainers/runc)) = v1.1.3
 Provides: bundled(golang(github.com/opencontainers/runtime_spec)) = v1.0.3_0.20210326190908_1c3f411f0417
-Provides: bundled(golang(github.com/openshift_online/ocm_sdk_go)) = v0.1.287
+Provides: bundled(golang(github.com/openshift_online/ocm_sdk_go)) = v0.1.315
 Provides: bundled(golang(github.com/oracle/oci_go_sdk/v54)) = v54.0.0
 Provides: bundled(golang(github.com/pkg/errors)) = v0.9.1
 Provides: bundled(golang(github.com/pmezard/go_difflib)) = v1.0.0
@@ -166,14 +166,14 @@ Provides: bundled(golang(github.com/sony/gobreaker)) = v0.4.2_0.20210216022020_d
 Provides: bundled(golang(github.com/spf13/cobra)) = v1.6.1
 Provides: bundled(golang(github.com/spf13/pflag)) = v1.0.5
 Provides: bundled(golang(github.com/stefanberger/go_pkcs11uri)) = v0.0.0_20201008174630_78d3cae3a980
-Provides: bundled(golang(github.com/stretchr/testify)) = v1.8.0
+Provides: bundled(golang(github.com/stretchr/testify)) = v1.8.1
 Provides: bundled(golang(github.com/syndtr/gocapability)) = v0.0.0_20200815063812_42c35b437635
 Provides: bundled(golang(github.com/theupdateframework/go_tuf)) = v0.3.2
 Provides: bundled(golang(github.com/titanous/rocacheck)) = v0.0.0_20171023193734_afe73141d399
 Provides: bundled(golang(github.com/ubccr/kerby)) = v0.0.0_20170626144437_201a958fc453
 Provides: bundled(golang(github.com/ulikunitz/xz)) = v0.5.10
 Provides: bundled(golang(github.com/valyala/bytebufferpool)) = v1.0.0
-Provides: bundled(golang(github.com/valyala/fasttemplate)) = v1.2.1
+Provides: bundled(golang(github.com/valyala/fasttemplate)) = v1.2.2
 Provides: bundled(golang(github.com/vbatts/tar_split)) = v0.11.2
 Provides: bundled(golang(github.com/vbauerster/mpb/v7)) = v7.4.2
 Provides: bundled(golang(github.com/VividCortex/ewma)) = v1.2.0
@@ -181,16 +181,16 @@ Provides: bundled(golang(github.com/vmware/govmomi)) = v0.29.0
 Provides: bundled(golang(go.etcd.io/bbolt)) = v1.3.6
 Provides: bundled(golang(go.mozilla.org/pkcs7)) = v0.0.0_20200128120323_432b2356ecb1
 Provides: bundled(golang(go.opencensus.io)) = v0.23.0
-Provides: bundled(golang(golang.org/x/crypto)) = v0.0.0_20220722155217_630584e8d5aa
-Provides: bundled(golang(golang.org/x/mod)) = v0.6.0_dev.0.20220106191415_9b9b3d81d5e3
-Provides: bundled(golang(golang.org/x/net)) = v0.0.0_20220909164309_bea034e7d591
+Provides: bundled(golang(golang.org/x/crypto)) = v0.2.0
+Provides: bundled(golang(golang.org/x/mod)) = v0.6.0_dev.0.20220419223038_86c51ed26bb4
+Provides: bundled(golang(golang.org/x/net)) = v0.4.0
 Provides: bundled(golang(golang.org/x/oauth2)) = v0.0.0_20220909003341_f21342109be1
-Provides: bundled(golang(golang.org/x/sync)) = v0.0.0_20220601150217_0de741cfad7f
-Provides: bundled(golang(golang.org/x/sys)) = v0.0.0_20220728004956_3c1f35247d10
-Provides: bundled(golang(golang.org/x/term)) = v0.0.0_20210927222741_03fcf44c2211
-Provides: bundled(golang(golang.org/x/text)) = v0.3.7
-Provides: bundled(golang(golang.org/x/time)) = v0.0.0_20211116232009_f0f3c7e86c11
-Provides: bundled(golang(golang.org/x/tools)) = v0.1.10
+Provides: bundled(golang(golang.org/x/sync)) = v0.0.0_20220722155255_886fb9371eb4
+Provides: bundled(golang(golang.org/x/sys)) = v0.3.0
+Provides: bundled(golang(golang.org/x/term)) = v0.3.0
+Provides: bundled(golang(golang.org/x/text)) = v0.5.0
+Provides: bundled(golang(golang.org/x/time)) = v0.2.0
+Provides: bundled(golang(golang.org/x/tools)) = v0.1.12
 Provides: bundled(golang(golang.org/x/xerrors)) = v0.0.0_20220609144429_65e65417b02f
 Provides: bundled(golang(google.golang.org/api)) = v0.98.0
 Provides: bundled(golang(google.golang.org/appengine)) = v1.6.7
@@ -571,6 +571,26 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Feb 08 2023 Packit <hello@packit.dev> - 74-1
+Changes with 74
+----------------
+  * Add repositories for test case generation for RHEL 9.1 (rhel-91) (#3247)
+  * Adding metadata signing check (#3230)
+  * Enable RHEL 8 Azure images for aarch64 (#3250)
+  * Fix dracut modules for Anaconda installers in RHEL 9 and CS9 (#3253)
+  * Rewrite RHEL 7 image definitions using the new framework (#3239)
+  * build(deps): bump github.com/openshift-online/ocm-sdk-go from 0.1.287 to 0.1.315 (#3269)
+  * cleanup leftovers, fix ignition in edge raw image and add tests (#3267)
+  * distro/rhel8: don't install missing MSFT key into azure-sap-rhui (#3270)
+  * internal/distro/rhel9+8/edge: add sos package (#3234)
+  * osbuild: unify implementations of files input 🧹 (#3248)
+  * repositories: fix rhel-90 repositories (#3263)
+
+Contributions from: Achilleas Koutsou, Antonio Murdaca, Brian C. Lane, Diaa Sami, Irene Diez, Ondřej Budai, Sanne Raymaekers, Sarita Mahajan, Simon de Vlieger, Tomáš Hozza, Xiaofeng Wang, dependabot[bot]
+
+— Somewhere on the Internet, 2023-02-08
+
+
 * Wed Jan 25 2023 Packit <hello@packit.dev> - 73-1
 Changes with 73
 ----------------

@@ -2,7 +2,14 @@
 # Latest upstream rtnetlink frequently required
 # sha2, zbus, zvariant are currently out of date
 
+%global with_debug 1
+
+%if 0%{?with_debug}
+%global _find_debuginfo_dwz_opts %{nil}
+%global _dwz_low_mem_die_limit 0
+%else
 %global debug_package %{nil}
+%endif
 
 %global built_tag v1.5.0
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
@@ -12,21 +19,22 @@ Name: netavark
 Version: %{gen_version}
 Release: %autorelease
 License: ASL 2.0 and BSD and MIT
-ExclusiveArch: %{rust_arches}
+ExclusiveArch: %{arm32} %{arm64} ppc64le s390x x86_64
 Summary: OCI network stack
 URL: https://github.com/containers/%{name}
 # Tarballs fetched from upstream's release page
 Source0: %{url}/archive/%{built_tag}.tar.gz
 Source1: %{url}/releases/download/%{built_tag}/%{name}-%{built_tag}-vendor.tar.gz
 BuildRequires: cargo
-%ifarch %{golang_arches}
 BuildRequires: go-md2man
-%endif
 # aardvark-dns and %%{name} are usually released in sync
 Recommends: aardvark-dns >= %{version}-1
 Requires: (aardvark-dns >= %{version}-1 if fedora-release-identity-server)
 Provides: container-network-stack = 2
 BuildRequires: make
+BuildRequires: protobuf-c
+BuildRequires: protobuf-compiler
+BuildRequires: rust-packaging
 BuildRequires: rust-srpm-macros
 BuildRequires: git-core
 # Generated using:
@@ -270,25 +278,24 @@ cat >.cargo/config << EOF
 [source.crates-io]
 replace-with = "vendored-sources"
 
+[source."https://github.com/containers/netavark-dhcp-proxy"]
+git = "https://github.com/containers/netavark-dhcp-proxy"
+replace-with = "vendored-sources"
+
 [source.vendored-sources]
 directory = "vendor"
 EOF
 
 %build
-%{__make} build
+%{__cargo} build --release
+mkdir -p bin
+cp target/release/%{name} bin/
 
-%ifarch %{golang_arches}
 cd docs
 go-md2man -in %{name}.1.md -out %{name}.1
-%endif
 
 %install
-%ifarch %{golang_arches}
 %{__make} DESTDIR=%{buildroot} PREFIX=%{_prefix} install
-%else
-# no manpage, install only the binary
-install -D -m0755 bin/netavark %{buildroot}%{_libexecdir}/podman/%{name}
-%endif
 
 %files
 %license LICENSE

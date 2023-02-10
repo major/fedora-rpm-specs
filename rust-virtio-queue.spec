@@ -5,8 +5,8 @@
 %global crate virtio-queue
 
 Name:           rust-virtio-queue
-Version:        0.4.0
-Release:        3%{?dist}
+Version:        0.7.0
+Release:        1%{?dist}
 Summary:        Virtio queue implementation
 
 License:        Apache-2.0 OR BSD-3-Clause
@@ -17,6 +17,9 @@ Source2:        https://raw.githubusercontent.com/rust-vmm/vm-virtio/main/LICENS
 # Manually created patch for downstream crate metadata changes
 # * drop unused, benchmark-only criterion dev-dependency to speed up builds
 Patch:          virtio-queue-fix-metadata.diff
+# Fix endianess issues on the mock queue
+# https://github.com/rust-vmm/vm-virtio/pull/223
+Patch:          virtio-queue-fix-endianess-issues-in-mock-queue.diff
 
 ExcludeArch:    i686
 
@@ -88,6 +91,10 @@ cp %{SOURCE2} .
 %endif
 
 %changelog
+* Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.7.0-1
+- Update to version 0.7.0
+- Add virtio-queue-fix-endianess-issues-in-mock-queue.diff patch
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

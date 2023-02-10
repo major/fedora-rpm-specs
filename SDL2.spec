@@ -9,7 +9,7 @@
 %global libdecor_majver 0
 
 Name:           SDL2
-Version:        2.26.2
+Version:        2.26.3
 Release:        1%{?dist}
 Summary:        Cross-platform multimedia library
 License:        zlib and MIT
@@ -169,6 +169,9 @@ install -p -m 644 %{SOURCE2} %{buildroot}%{_includedir}/SDL2/SDL_revision.h
 %{_libdir}/cmake/SDL2/SDL2staticTargets*.cmake
 
 %changelog
+* Wed Feb  8 2023 Tom Callaway <spot@fedoraproject.org> - 2.26.3-1
+- update to 2.26.3
+
 * Sat Jan 21 2023 Tom Callaway <spot@fedoraproject.org> - 2.26.2-1
 - update to 2.26.2
 

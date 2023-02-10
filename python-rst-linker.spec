@@ -6,8 +6,8 @@
 %bcond_with docs
 
 Name:           python-%{pkg_name}
-Version:        2.3.1
-Release:        2%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        Can add links and perform other custom replacements to rst
 
 License:        MIT
@@ -87,6 +87,9 @@ rm -rf html/.{doctrees,buildinfo}
 %endif
 
 %changelog
+* Wed Feb 08 2023 Dan Radez <dradez@redhat.com> - 2.4.0-1
+- update to 2.4.0 rhbz#2165203
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

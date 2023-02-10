@@ -1,4 +1,4 @@
-%global desc %{expand: \
+%global desc %{expand:
 The Virtual Brain Project (TVB Project) has the purpose of offering some modern
 tools to the Neurosciences community, for computing, simulating and analyzing
 functional and structural data of human brains.
@@ -19,50 +19,89 @@ We added a python wrapped and made small fixes to the original library, to make
 it compatible with cython.
 }
 
+# Test the C++ library, independent of the Python wrapper?
+%ifnarch x86_64 %{ix86}
+# Test failure with GCC/Linux on non-x86 architectures at -O2
+# https://github.com/the-virtual-brain/tvb-gdist/issues/76
+%bcond_with cxx_tests
+%else
+%bcond_without cxx_tests
+%endif
+
 Name:           python-tvb-gdist
 Version:        2.1.1
 Release:        %autorelease
 Summary:        Cython interface to geodesic
 
 License:        GPL-3.0-or-later
-URL:            https://pypi.python.org/pypi/tvb-gdist
-Source0:        %{pypi_source tvb-gdist}
+URL:            https://github.com/the-virtual-brain/tvb-gdist
+# GitHub archive has tests etc., which the PyPI sdist lacks.
+Source0:        %{url}/archive/%{version}/tvb-gdist-%{version}.tar.gz
 
-%description
-%{desc}
+BuildRequires:  python3-devel
+BuildRequires:  gcc-c++
+
+# Test dependencies (not well-documented):
+BuildRequires:  python3dist(pytest)
+%if %{with cxx_tests}
+BuildRequires:  pkgconfig(gtest)
+%endif
+
+%description %{desc}
 
 %package -n python3-tvb-gdist
 Summary:        %{summary}
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  gcc-c++
 
-%description -n python3-tvb-gdist
-%{desc}
+# The contents of geodesic_library/ are a header-only C++ library that can be
+# used on its own. It was originally published at
+# https://code.google.com/archive/p/geodesic/, but is no longer developed
+# independently of this package. It was never explicitly versioned; the bundled
+# code appears to be based on the final release of 2008-03-02. If there were a
+# need to package it separately, it would probably be best to do so as a
+# subpackage of this package, perhaps assigning it the same version as the
+# Python Package. At least this bundled copy is actively maintained.
+Provides:       bundled(geodesic) = 0
+
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_provides_for_importable_modules
+%py_provides python3-gdist
+
+%description -n python3-tvb-gdist %{desc}
 
 %prep
 %autosetup -n tvb-gdist-%{version}
-# They delete the build folder for some reason
-sed -i '/rmtree/ d' setup.py
-
-# Set cython language level
-sed -i '2 a # cython: language_level=3' gdist.pyx
 
 %generate_buildrequires
 %pyproject_buildrequires
 
 
 %build
+%set_build_flags
 %pyproject_wheel
+%if %{with cxx_tests}
+"${CXX}" ${CXXFLAGS} -I./tests $(pkgconf --cflags gtest) \
+     tests/test_geodesic_utils.cpp -o tests/test_geodesic_utils \
+     ${LDFLAGS} $(pkgconf --libs gtest)
+%endif
+
 
 %install
 %pyproject_install
 %pyproject_save_files gdist
 
+
 %check
-%pyproject_check_import
+%pytest -v
+%if %{with cxx_tests}
+# The program must be run from inside the tests/ directory.
+pushd tests >/dev/null
+./test_geodesic_utils
+popd >/dev/null
+%endif
+
 
 %files -n python3-tvb-gdist -f %{pyproject_files}
+%doc README.rst
+
 
 %changelog
 %autochangelog

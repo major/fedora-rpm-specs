@@ -1,8 +1,8 @@
 %bcond_without  tests
 
 Name:           moolticute
-Version:        1.00.1
-Release:        5%{?dist}
+Version:        1.01.0
+Release:        1%{?dist}
 Summary:        Companion GUI application for Mooltipass password manager devices
 
 # The entire source code is GPL-3.0-or-later except:
@@ -125,6 +125,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_unitdir}/moolticuted.service
 
 %changelog
+* Wed Feb 09 2023 Arthur Bols <arthur@bols.dev> - 1.01.0-1
+- Upstream release 1.01.0
+
 * Sun Jan 22 2023 Arthur Bols <arthur@bols.dev> - 1.00.1-5
 - Split off udev rules to mooltipass-udev
 - Rename patch

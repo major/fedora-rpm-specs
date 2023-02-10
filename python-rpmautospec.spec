@@ -4,7 +4,7 @@
 %global srcname rpmautospec
 
 Name:           python-rpmautospec
-Version:        0.3.2
+Version:        0.3.5
 Release:        %autorelease
 Summary:        Package and CLI tool to generate release fields and changelogs
 
@@ -123,6 +123,7 @@ mkdir -p %{buildroot}%{rpmmacrodir}
 install -m 644  rpm/macros.d/macros.rpmautospec %{buildroot}%{rpmmacrodir}/
 
 %check
+PYTHONPATH="%{buildroot}%{python3_sitelib}" \
 %{__python3} -m pytest \
 %if %{with xdist}
 --numprocesses=auto

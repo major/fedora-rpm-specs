@@ -5,14 +5,17 @@
 %global crate vhost-user-backend
 
 Name:           rust-%{crate}
-Version:        0.5.1
-Release:        2%{?dist}
+Version:        0.8.0
+Release:        1%{?dist}
 Summary:        Framework to build vhost-user backend service daemon
 
 # Upstream license specification: Apache-2.0
 License:        ASL 2.0
 URL:            https://crates.io/crates/vhost-user-backend
-Source:         %{crates_source}
+Source0:        %{crates_source}
+Source1:        https://raw.githubusercontent.com/rust-vmm/vhost/main/LICENSE
+# Temporarily downgrade nix dev-depencency
+Patch:          vhost-user-backend-downgrade-nix.diff
 
 ExclusiveArch:  %{rust_arches}
 
@@ -53,6 +56,7 @@ use the "default" feature of the "%{crate}" crate.
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
+cp %{SOURCE1} .
 
 %generate_buildrequires
 %cargo_generate_buildrequires
@@ -69,6 +73,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Wed Feb 08 2023 Sergio Lopez <slp@redhat.com> - 0.8.0-1
+- Update to version 0.8.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           go2rpm
-Version:        1.8.2
+Version:        1.9.0
 Release:        %autorelease
 Summary:        Convert Go packages to RPM
 

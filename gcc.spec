@@ -1,5 +1,5 @@
-%global DATE 20230127
-%global gitrev 4faac89a6b542c0d94019eeadc333ef789f37c9d
+%global DATE 20230208
+%global gitrev 88db57a1779f3c620653a2a791e54301645befbf
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.2%{?dist}
+Release: %{gcc_release}.3%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -286,7 +286,8 @@ Patch8: gcc13-no-add-needed.patch
 Patch9: gcc13-Wno-format-security.patch
 Patch10: gcc13-rh1574936.patch
 Patch11: gcc13-d-shared-libphobos.patch
-Patch12: gcc13-pr106746-revert.patch
+Patch12: gcc13-pr108692.patch
+Patch13: gcc13-pr108316.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -457,8 +458,10 @@ programs with the GNU Compiler Collection.
 %package -n libgfortran
 Summary: Fortran runtime
 Autoreq: true
+%if 0%{?fedora} < 28 && 0%{?rhel} < 8
 %if %{build_libquadmath}
 Requires: libquadmath = %{version}-%{release}
+%endif
 %endif
 
 %description -n libgfortran
@@ -861,7 +864,8 @@ so that there cannot be any synchronization problems.
 %patch10 -p0 -b .rh1574936~
 %endif
 %patch11 -p0 -b .d-shared-libphobos~
-%patch12 -p0 -b .pr106746-revert~
+%patch12 -p0 -b .pr108692~
+%patch13 -p0 -b .pr108316~
 
 %patch50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3458,6 +3462,31 @@ end
 %endif
 
 %changelog
+* Wed Feb  8 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.3
+- update from trunk
+  - PRs analyzer/108616, analyzer/108633, analyzer/108661, c++/101071,
+	c++/102870, c++/107461, c++/107593, c++/107755, c++/108158,
+	c++/108559, c++/108579, c++/108597, c++/108607, c++/96745, c/108150,
+	c/108192, debug/106746, debug/108573, driver/108572, fortran/103506,
+	fortran/108450, fortran/108451, fortran/108453, fortran/108527,
+	fortran/108592, fortran/108609, fortran/95107, ipa/107300, ipa/108384,
+	ipa/108509, ipa/108511, libstdc++/108636, libstdc++/108672,
+	middle-end/108435, middle-end/108500, middle-end/108625,
+	modula2/107234, modula2/108135, modula2/108462, modula2/108551,
+	modula2/108612, rtl-optimization/108086, rtl-optimization/108463,
+	rtl-optimization/108508, rtl-optimization/108596, sanitizer/108106,
+	target/104921, target/107674, target/108443, target/108484,
+	target/108589, target/108599, testsuite/108604, testsuite/108632,
+	tree-optimization/26854, tree-optimization/106433,
+	tree-optimization/106923, tree-optimization/107570,
+	tree-optimization/108356, tree-optimization/108359,
+	tree-optimization/108385, tree-optimization/108574,
+	tree-optimization/108582, tree-optimization/108601,
+	tree-optimization/108608, tree-optimization/108639,
+	tree-optimization/108647, tree-optimization/108655
+- drop libgfortran dependency on libquadmath for F28+ or RHEL8+, gcc-gfortran
+  still needs to depend on both libquadmath and libquadmath-devel though
+
 * Sat Jan 28 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.2
 - update from trunk
   - PRs analyzer/108455, analyzer/108507, analyzer/108524, bootstrap/90543,

@@ -39,7 +39,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -98,7 +98,7 @@ Patch58: qtbase-libglvnd.patch
 Patch90: qtbase-gcc11.patch
 
 ## upstream patches
-
+Patch100: CVE-2023-24607-qtbase-6.4.patch
 
 # Do not check any files in %%{_qt6_plugindir}/platformthemes/ for requires.
 # Those themes are there for platform integration. If the required libraries are
@@ -843,6 +843,10 @@ make check -k ||:
 
 
 %changelog
+* Wed Feb 08 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-4
+- Fix possible DOS involving the Qt SQL ODBC driver plugin
+  CVE-2023-24607
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-3
 - migrated to SPDX license
 

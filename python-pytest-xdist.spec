@@ -1,14 +1,13 @@
 %global pypi_name pytest-xdist
 
 Name:           python-%{pypi_name}
-Version:        3.1.0
-Release:        3%{?dist}
+Version:        3.2.0
+Release:        1%{?dist}
 Summary:        pytest plugin for distributed testing and loop-on-failing modes
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-xdist
 Source0:        %{pypi_source}
-Patch0:         %{url}/pull/870/commits/8fd1bfd182e87f46e2c2ff6dbb43c0cd43d0cc00.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -55,6 +54,9 @@ Summary:        %{summary}
 %{python3_sitelib}/xdist/
 
 %changelog
+* Thu Feb 09 2023 Scott Talbert <swt@techie.net> - 3.2.0-1
+- Update to new upstream release 3.2.0 (#2168367)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

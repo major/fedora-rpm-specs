@@ -107,7 +107,7 @@ grep -rIl package_note . | \
 %{_bindir}/*
 %{_libdir}/GNUstep/Makefiles
 %{_mandir}/man*/*
-%{_infodir}/*.info.*
+%{_infodir}/*.info*
 %{macrosdir}/macros.gnustep
 
 %files -n gnustep-filesystem

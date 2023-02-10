@@ -1,8 +1,8 @@
 %global pypi_name autobahn
 
 Name:           python-%{pypi_name}
-Version:        23.1.1
-Release:        2%{?dist}
+Version:        23.1.2
+Release:        1%{?dist}
 Summary:        Python networking library for WebSocket and WAMP
 
 License:        MIT
@@ -55,8 +55,11 @@ Documentation for %{name}.
 %{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/%{pypi_name}-%{version}*-py%{python3_version}.egg-info twisted}
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n %{pypi_name}-python-%{version}
 rm -rf %{pypi_name}.egg-info
+# There is a requirement for pytest 6.2+ in pytest.ini and we don't have that yet
+# it works with 6.0 just fine and the config file is not needed
+rm pytest.ini
 # Some packages are always outdated...
 sed -i -e "s/cryptography>=3.4.6/cryptography>=3.4.2/g" setup.py
 
@@ -75,7 +78,7 @@ USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_
 
 %files -n python3-%{pypi_name}
 %license LICENSE
-%doc README.rst
+%doc docs README.rst
 %{_bindir}/wamp
 %{_bindir}/xbrnetwork
 %{_bindir}/xbrnetwork-ui
@@ -91,6 +94,9 @@ USE_ASYNCIO=1 %pytest --pyargs autobahn -k 'not test_no_memory_arg and not test_
 %license LICENSE
 
 %changelog
+* Wed Feb 08 2023 Julien Enselme <jujens@jujens.eu> - 23.1.2-1
+- Update to 23.1.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

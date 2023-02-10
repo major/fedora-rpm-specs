@@ -1,10 +1,10 @@
-%global gitcommit_full a4246d28f8600f4bf5a77253c2a8f3f1e1ae2cb1
+%global gitcommit_full 9a0c44704573834cb076ff38a15b732081e0e667
 %global gitcommit %(c=%{gitcommit_full}; echo ${c:0:7})
-%global date 20230128
+%global date 20230208
 
 Name:           gitklient
 Version:        0
-Release:        2.%{date}git%{gitcommit}%{?dist}
+Release:        3.%{date}git%{gitcommit}%{?dist}
 Summary:        Git gui client for KDE
 
 License:        GPL-3.0-or-later AND GPL-2.0-or-later AND BSD-3-Clause
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.gi
 
 
 %changelog
+* Wed Feb 08 2023 Vasiliy Glazov <vascom2@gmail.com> - 0-1.20230208git9a0c447
+- Update to latest git
+
 * Sat Jan 28 2023 Vasiliy Glazov <vascom2@gmail.com> - 0-1.20230128gita4246d28
 - Update to latest git
 

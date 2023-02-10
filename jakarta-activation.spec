@@ -1,9 +1,11 @@
 Name:           jakarta-activation
 Version:        2.1.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Jakarta Activation API
-# spec is licensed under (EPL-2.0 and GPLv2 with exceptions) but is not shipped
-License:        BSD
+# the whole project is licensed under (EPL-2.0 or BSD)
+# the source code additionally can be licensed under GPLv2 with exceptions
+# we only ship built source code
+License:        EPL-2.0 or BSD or GPLv2 with exceptions
 URL:            https://jakartaee.github.io/jaf-api/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -11,10 +13,7 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/eclipse-ee4j/jaf/archive/%{version}/jaf-%{version}.tar.gz
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
-BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 
 %description
@@ -38,7 +37,8 @@ pushd api
 # remove custom doclet configuration
 %pom_remove_plugin :maven-javadoc-plugin
 
-%pom_remove_plugin :buildnumber-maven-plugin
+%pom_remove_plugin -r :buildnumber-maven-plugin
+%pom_remove_plugin -r :maven-enforcer-plugin
 popd
 
 %build
@@ -59,6 +59,9 @@ popd
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Wed Feb 08 2023 Marian Koncek <mkoncek@redhat.com> - 2.1.1-3
+- Change license, reduce dependencies
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

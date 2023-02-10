@@ -1,19 +1,18 @@
 %global forgeurl https://github.com/waydroid/waydroid
 %global selinuxtype targeted
 
-Version:        1.3.4
+Version:        1.4.0
 %global tag %{version}
 
 %forgemeta
 Name:           waydroid
-Release:        5%{?dist}
+Release:        1%{?dist}
 Summary:        Container-based approach to boot a full Android system on GNU/Linux
 License:        GPL-3.0-only
 URL:            %{forgeurl}
 Source:         %{forgesource}
 Source1:        waydroid.te
 Source2:        waydroid-gbinder.conf
-Source3:        waydroid-container.service
 Source4:        dev-binderfs.mount
 Source6:        waydroid.fc
 
@@ -75,17 +74,20 @@ cd SELinux
 %{__make} NAME=%{selinuxtype} -f /usr/share/selinux/devel/Makefile
 
 %install
-%make_install LIBDIR=%{_libdir} DESTDIR=%{buildroot} USE_SYSTEMD=0 USE_NFTABLES=1
+%make_install LIBDIR=%{_libdir} DESTDIR=%{buildroot} USE_SYSTEMD=1 USE_DBUS_ACTIVATION=1 USE_NFTABLES=1
 %py_byte_compile %{python3} %{buildroot}%{_prefix}/lib/waydroid
 %{__install} -d %{buildroot}%{_unitdir}
 %{__install} -d %{buildroot}%{_datadir}/selinux/%{selinuxtype}
-%{__install} -p -m 644 %{S:3} %{buildroot}%{_unitdir}/
 %{__install} -p -m 644 %{S:4} %{buildroot}%{_unitdir}/
 %{__install} -p -m 644 SELinux/%{name}.pp %{buildroot}%{_datadir}/selinux/%{selinuxtype}/%{name}.pp
+sed -i '/^\[Unit\]/a Wants=dev-binderfs.mount' %{buildroot}%{_unitdir}/waydroid-container.service
+sed -i '/^\[Service\]/a ExecStartPre=/usr/bin/ln -sf /dev/binderfs/binder /dev/binderfs/vndbinder /dev/binderfs/hwbinder /dev/' %{buildroot}%{_unitdir}/waydroid-container.service
 
 %check
 desktop-file-validate %{buildroot}/%{_datadir}/applications/Waydroid.desktop
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/id.waydro.waydroid.metainfo.xml
+desktop-file-validate %{buildroot}/%{_datadir}/applications/waydroid.market.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/waydroid.app.install.desktop
+appstream-util validate --nonet %{buildroot}%{_metainfodir}/id.waydro.waydroid.metainfo.xml
 
 %pre selinux
 %selinux_relabel_pre -s %{selinuxtype}
@@ -126,16 +128,24 @@ fi
 %{_prefix}/lib/waydroid
 %{_datadir}/applications/Waydroid.desktop
 %{_datadir}/applications/waydroid.market.desktop
+%{_datadir}/applications/waydroid.app.install.desktop
 %{_datadir}/metainfo/id.waydro.waydroid.metainfo.xml
+%{_datadir}/icons/hicolor/512x512/apps/waydroid.png
 %{_bindir}/waydroid
 %{_unitdir}/waydroid-container.service
 %{_unitdir}/dev-binderfs.mount
+%{_datadir}/dbus-1/system-services/id.waydro.Container.service
+%{_datadir}/dbus-1/system.d/id.waydro.Container.conf
+%{_datadir}/polkit-1/actions/id.waydro.Container.policy
 
 %files selinux
 %doc SELinux/%{name}.te
 %{_datadir}/selinux/%{selinuxtype}/%{name}.pp
 
 %changelog
+* Wed Feb 08 2023 Alessandro Astone <ales.astone@gmail.com> - 1.4.0-1
+- Update to 1.4.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

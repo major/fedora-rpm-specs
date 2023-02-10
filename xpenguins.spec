@@ -1,6 +1,6 @@
 Name: xpenguins
 Version: 2.2
-Release: 32%{?dist}
+Release: 33%{?dist}
 Summary: Cute little penguins that walk along the tops of your windows
 Summary(sv): Söta små pingviner som vandrar längs överkanterna på dina fönster
 
@@ -17,6 +17,8 @@ Patch0: xpenguins-2.2-format-security.patch
 # crash.  This patch causes it to exit more gracefully.  Sent
 # upstreams, in case there ever will be a new release.
 Patch1: xpenguins-2.2-no-SHAPE.patch
+Patch2: xpenguins-configure-c99.patch
+Patch3: xpenguins-c99.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -59,7 +61,7 @@ rotfönstret inte är synligt.
 
 
 %prep
-%autosetup -p 0
+%autosetup -p1
 
 %build
 %configure
@@ -111,6 +113,9 @@ appstream-util validate-relax --nonet \
 %_datadir/metainfo/%name.appdata.xml
 
 %changelog
+* Wed Feb 08 2023 Florian Weimer <fweimer@redhat.com> - 2.2-33
+- C99 compatibility fixes (#2168300)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

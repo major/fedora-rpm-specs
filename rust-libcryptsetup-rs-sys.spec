@@ -5,8 +5,8 @@
 %global crate libcryptsetup-rs-sys
 
 Name:           rust-libcryptsetup-rs-sys
-Version:        0.2.1
-Release:        3%{?dist}
+Version:        0.2.3
+Release:        1%{?dist}
 Summary:        Low level bindings for libcryptsetup
 
 License:        MPL-2.0
@@ -67,6 +67,9 @@ echo 'pkgconfig(libcryptsetup)'
 %endif
 
 %changelog
+* Wed Feb 08 2023 Bryan Gurney <bgurney@redhat.com> - 0.2.3-1
+- Upgrade to version 0.2.3
+
 * Fri Jan 27 2023 mulhern <amulhern@redhat.com> - 0.2.1-3
 - Remove rpmautospec usage
 

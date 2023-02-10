@@ -3,7 +3,7 @@
 
 Name:           corrida
 Version:        %{version_major}.%{version_minor}
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Application for archivation of meteor observations
 
 License:        GPLv2
@@ -13,6 +13,7 @@ Source1:        corrida.desktop
 Patch0:         corrida-0.96-11-count.patch
 # Sent by e-mail to jurmcc@gmail.com
 Patch1:         corrida-0.96-11-formatsec.patch
+Patch2: corrida-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gtk2-devel
@@ -29,6 +30,7 @@ archivation of meteor observations.
 %setup -q -n corrida-%{version_major}-%{version_minor}
 %patch0 -p1 -b .count
 %patch1 -p1 -b .formatsec
+%patch2 -p1
 
 
 %build
@@ -61,6 +63,9 @@ desktop-file-install %{SOURCE1} \
 
 
 %changelog
+* Wed Feb 08 2023 Florian Weimer <fweimer@redhat.com> - 0.96.11-32
+- C99 compatibility fixes (#2168162)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.96.11-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

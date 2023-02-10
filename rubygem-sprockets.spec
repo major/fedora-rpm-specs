@@ -2,25 +2,19 @@
 %global gem_name sprockets
 
 Name: rubygem-%{gem_name}
-Version: 4.0.2
-Release: 7%{?dist}
+Version: 4.2.0
+Release: 1%{?dist}
 Summary: Rack-based asset packaging system
 License: MIT
 URL: https://github.com/rails/sprockets
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# to get tests:
 # git clone https://github.com/rails/sprockets.git && cd sprockets/
-# git archive -v -o sprockets-4.0.2-tests.tar.gz v4.0.2 test/
+# git archive -v -o sprockets-4.2.0-tests.tar.gz v4.2.0 test/
 Source1: sprockets-%{version}-tests.tar.gz
-# https://github.com/rails/sprockets/commit/39490de3bdda3cb0b3aed16544b38b3771fbcca7
-# With ruby3.2 URI.split now returns empty string instead of nil
-Patch0: rubygem-sprockets-pr771-ruby32-URL_split-empty-string.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby >= 2.5.0
 BuildRequires: rubygem(concurrent-ruby)
-BuildRequires: rubygem(coffee-script)
-BuildRequires: rubygem(ejs)
 BuildRequires: rubygem(execjs)
 BuildRequires: rubygem(minitest)
 BuildRequires: rubygem(nokogiri)
@@ -29,7 +23,6 @@ BuildRequires: rubygem(rake)
 BuildRequires: rubygem(sass)
 BuildRequires: rubygem(sassc)
 BuildRequires: rubygem(timecop)
-BuildRequires: rubygem(uglifier)
 BuildRequires: %{_bindir}/help2man
 BuildRequires: %{_bindir}/node
 BuildArch: noarch
@@ -49,11 +42,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-(
-mv %{_builddir}/test .
-%patch0 -p1
-mv test %{_builddir}
-)
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -100,17 +88,82 @@ mv test/test_closure_compressor.rb{,.disabled}
 mv lib/sprockets/autoload/closure.rb{,.disabled}
 sed -i '/:Closure/ s/^/#/' lib/sprockets/autoload.rb
 
+# While we have rubygem(coffee-script) in Fedora ATM, it is not used by RoR
+# anymore and the old version prevents update to CoffeeScript 2.x+. Therefore
+# rather disable the CoffeeScript test cases.
+mv test/test_coffee_script_processor.rb{,.disabled}
+mv lib/sprockets/autoload/coffee_script.rb{,.disabled}
+sed -i '/:CoffeeScript/ s/^/#/' lib/sprockets/autoload.rb
+sed -i \
+  -e '/test "asset is stale if a file is added to its require tree" do/a\    skip' \
+  -e '/test "processing a source file with different content type extensions 1" do/a\    skip' \
+  -e '/test "require_tree requires all descendant files in alphabetical order" do/a\    skip' \
+  -e '/test "asset falls back to files default mime type" do/a\    skip' \
+  -e '/test "logical path" do/,/end/{ /coffee/ s/^/#/ }' \
+  -e '/test "content type" do/,/end/{ /coffee/ s/^/#/ }' \
+  test/test_asset.rb
+sed -i \
+  -e '/test "find bundled asset with implicit format" do/a\    skip' \
+  -e '/test "CoffeeScript files are compiled in a closure" do/a\    skip' \
+  -e '/test "find source for concatenated asset" do/a\    skip' \
+  -e '/test "processor returning a non-string data" do/a\    skip' \
+  -e '/test "processor returning a subclassed string data" do/a\    skip' \
+  -e '/test "processor returning a complex metadata type" do/a\    skip' \
+  -e '/test "bundled asset cached if theres an error building it" do/a\    skip' \
+  -e '/test "asset logical path for absolute path" do/,/end/{ /application\./ s/^/#/ }' \
+  -e '/test "find asset with accept type" do/,/end/{ /coffee\/foo/ s/^/#/ }' \
+  -e '/test "find bower main by format extension" do/,/end/{ /rails/ s/^/#/ }' \
+  -e '/test "find bower main by content type" do/,/end/{ /rails/ s/^/#/ }' \
+  test/test_environment.rb
+sed -i '/test .load uri with index alias. do/a\    skip' test/test_loader.rb
+sed -i '/def test_compose_coffee_and_uglifier/a\    skip' test/test_processor_utils.rb
+sed -i \
+  -e '/test "correct offsets" do/a\    skip' \
+  -e '/test "builds a source map with js dependency" do/a\    skip' \
+  -e '/test "builds a concatenated source map" do/a\    skip' \
+  -e '/test "compile coffeescript source map" do/a\    skip' \
+  -e '/test "source maps work with index alias" do/a\    skip' \
+  -e '/test "rebuilds a source map when related dependency has changed" do/a\    skip' \
+  test/test_source_maps.rb
+# The following has more failures then passing tests without CoffeeScript.
+mv test/test_exporting.rb{,.disabled}
+mv test/test_manifest.rb{,.disabled}
+mv test/test_rake_task.rb{,.disabled}
+
 # We don't have rubygem(eco) yet.
 mv test/test_eco_processor.rb{,.disabled}
 mv lib/sprockets/autoload/eco.rb{,.disabled}
 sed -i '/:Eco/ s/^/#/' lib/sprockets/autoload.rb
 sed -i '/test "eco templates" do/,/^  end/ s/^/#/' test/test_environment.rb
 
+# While we have rubygem(ejs) in Fedora ATM, the library is not maintained
+# upsteram, therefore it will be better to drop the dependency.
+mv test/test_ejs_processor.rb{,.disabled}
+mv lib/sprockets/autoload/ejs.rb{,.disabled}
+sed -i '/:EJS/ s/^/#/' lib/sprockets/autoload.rb
+sed -i \
+  -e '/test "logical path" do/,/end/{ /\.ejs/ s/^/#/ }' \
+  -e '/test "content type" do/,/end/{ /\.ejs/ s/^/#/ }' \
+  test/test_asset.rb
+sed -i \
+  -e '/test "ejs templates" do/a\    skip' \
+  -e '/test "find_asset! does not raise an exception when asset is found" do/,/end/ s/hello.js/gallery.css/' \
+  -e '/test "change jst template namespace" do/a\    skip' \
+  test/test_environment.rb
+
 # We don't have rubygem(jsminc) yet.
-# https://bugzilla.redhat.com/show_bug.cgi?id=725768
 mv test/test_jsminc_compressor.rb{,.disabled}
 mv lib/sprockets/autoload/jsminc.rb{,.disabled}
 sed -i '/:JSMinC/ s/^/#/' lib/sprockets/autoload.rb
+
+# While we have rubygem(uglifier), it bundles uglify-js, it is not well
+# maintained, while RoR does not depend on it anymore. It will be better
+# to avoid this dependency.
+mv test/test_uglifier_compressor.rb{,.disabled}
+mv lib/sprockets/autoload/uglifier.rb{,.disabled}
+sed -i '/:Uglifier/ s/^/#/' lib/sprockets/autoload.rb
+sed -i '/test "builds a minified source map" do/a\    skip' test/test_source_maps.rb
+sed -i '/test "minify js with uglify" do/a\    skip' test/test_sprocketize.rb
 
 # We don't have rubygem(yui-compressor) yet.
 # https://bugzilla.redhat.com/show_bug.cgi?id=725768
@@ -118,9 +171,10 @@ mv test/test_yui_compressor.rb{,.disabled}
 mv lib/sprockets/autoload/yui.rb{,.disabled}
 sed -i '/:YUI/ s/^/#/' lib/sprockets/autoload.rb
 
-# This test fails trying to require `zopfli` which we don't have yet, but
-# also trying to load `lib/sprockets/erb_processor.rb`, which is obvious.
-# However I really wonder what Bundler does that the test pass upstream.
+# This test tries to ensure, that all files are loadable. Nevertheless
+# 1) we don't have all dependencies, 2) this is more interesting for upstream
+# 3) there is logical bug in the test case, therefore it might fail without
+# Bundler: https://github.com/rails/sprockets/issues/780
 mv test/test_require.rb{,.disabled}
 
 # Required by TestPathUtils#test_find_upwards test.
@@ -136,6 +190,7 @@ popd
 %files
 %dir %{gem_instdir}
 %{_bindir}/sprockets
+%license %{gem_instdir}/MIT-LICENSE
 %{gem_instdir}/bin
 %{gem_libdir}
 %exclude %{gem_cache}
@@ -148,6 +203,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Jan 26 2023 Vít Ondruch <vondruch@redhat.com> - 4.2.0-1
+- Update to Sprockets 4.2.0.
+  Resolves: rhbz#2060161
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

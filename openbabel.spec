@@ -14,7 +14,7 @@
 
 Name: openbabel
 Version: 3.1.1
-Release: 17%{?dist}
+Release: 18%{?dist}
 Summary: Chemistry software file format converter
 License: GPLv2
 URL: https://openbabel.org/
@@ -256,13 +256,13 @@ install -Dpm644 babel.png %{buildroot}%{_datadir}/pixmaps/babel.png
 # Create profile files
 mkdir -p %{buildroot}%{_sysconfdir}/profile.d
 cat > %{buildroot}%{_sysconfdir}/profile.d/openbabel3.sh <<EOF
-BABEL_LIBDIR=%{_libdir}/%{name}
+BABEL_LIBDIR=%{_libdir}/%{name}3
 export BABEL_LIBDIR
 BABEL_DATADIR=%{_datadir}/%{name}
 export BABEL_DATADIR
 EOF
 cat > %{buildroot}%{_sysconfdir}/profile.d/openbabel3.csh <<EOF
-setenv BABEL_LIBDIR %{_libdir}/%{name}
+setenv BABEL_LIBDIR %{_libdir}/%{name}3
 setenv BABEL_DATADIR %{_datadir}/%{name}
 EOF
 
@@ -345,6 +345,9 @@ ctest3 -j1 --force-new-ctest-process
 %{ruby_vendorarchdir}/openbabel.so
 
 %changelog
+* Wed Feb 08 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.1.1-18
+- Fix config files (rhbz#2168290)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

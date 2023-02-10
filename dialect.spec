@@ -36,8 +36,8 @@ Requires:       gtk4
 Requires:       libadwaita >= %{adw_version}
 Requires:       libsoup3
 Requires:       python3-gobject
-Requires:       python3dist(dbus-python)
-Requires:       python3dist(gtts)
+Requires:       python3-dbus
+Requires:       python3-gtts
 
 %description
 A translation app for GNOME based on Google Translate.

@@ -18,7 +18,7 @@ Name: aardvark-dns
 Version: %{gen_version}
 License: ASL 2.0 and BSD and MIT
 Release: %autorelease
-ExclusiveArch: %{rust_arches}
+ExclusiveArch: %{arm32} %{arm64} ppc64le s390x x86_64
 Summary: Authoritative DNS server for A/AAAA container records
 URL: https://github.com/containers/%{name}
 # Tarballs fetched from upstream's release page

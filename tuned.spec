@@ -41,16 +41,16 @@
 %global archive_topdir %{name}-%{version}%{?prerel2}
 %endif
 
-#%%global prerelease rc
-#%%global prereleasenum 1
+%global prerelease rc
+%global prereleasenum 1
 
 %global prerel1 %{?prerelease:.%{prerelease}%{prereleasenum}}
 %global prerel2 %{?prerelease:-%{prerelease}.%{prereleasenum}}
 
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
-Version: 2.19.0
-Release: 3%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Version: 2.20.0
+Release: 0.1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPLv2+
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -115,9 +115,6 @@ Recommends: subscription-manager
 Requires: python3-syspurpose
 %endif
 %endif
-# https://bugzilla.redhat.com/show_bug.cgi?id=2154801
-# https://github.com/redhat-performance/tuned/pull/490
-Patch0: tuned-2.19.0-python312-fix.patch
 
 %description
 The tuned package contains a daemon that tunes system settings dynamically.
@@ -418,6 +415,7 @@ fi
 %exclude %{_sysconfdir}/tuned/realtime-virtual-guest-variables.conf
 %exclude %{_sysconfdir}/tuned/realtime-virtual-host-variables.conf
 %exclude %{_sysconfdir}/tuned/cpu-partitioning-variables.conf
+%exclude %{_sysconfdir}/tuned/cpu-partitioning-powersave-variables.conf
 %exclude %{_prefix}/lib/tuned/default
 %exclude %{_prefix}/lib/tuned/desktop-powersave
 %exclude %{_prefix}/lib/tuned/laptop-ac-powersave
@@ -435,6 +433,7 @@ fi
 %exclude %{_prefix}/lib/tuned/realtime-virtual-guest
 %exclude %{_prefix}/lib/tuned/realtime-virtual-host
 %exclude %{_prefix}/lib/tuned/cpu-partitioning
+%exclude %{_prefix}/lib/tuned/cpu-partitioning-powersave
 %exclude %{_prefix}/lib/tuned/spectrumscale-ece
 %exclude %{_prefix}/lib/tuned/postgresql
 %exclude %{_prefix}/lib/tuned/openshift
@@ -536,8 +535,11 @@ fi
 
 %files profiles-cpu-partitioning
 %config(noreplace) %{_sysconfdir}/tuned/cpu-partitioning-variables.conf
+%config(noreplace) %{_sysconfdir}/tuned/cpu-partitioning-powersave-variables.conf
 %{_prefix}/lib/tuned/cpu-partitioning
+%{_prefix}/lib/tuned/cpu-partitioning-powersave
 %{_mandir}/man7/tuned-profiles-cpu-partitioning.7*
+%{_mandir}/man7/tuned-profiles-cpu-partitioning-powersave.7*
 
 %files profiles-spectrumscale
 %{_prefix}/lib/tuned/spectrumscale-ece
@@ -564,6 +566,36 @@ fi
 %{_mandir}/man7/tuned-profiles-openshift.7*
 
 %changelog
+* Wed Feb  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.20.0-0.1.rc1
+- new release
+  - rebased tuned to latest upstream
+    resolves: rhbz#2133815
+  - systemd: relax polkit requirement
+    resolves: rhbz#2065591
+  - sysvinit: fixed path
+    resolves: rhbz#2118301
+  - plugin_cpu: added support for pm_qos_resume_latency_us
+    resolves: rhbz#2118786
+  - do not exit on duplicate config lines
+    resolves: rhbz#2071418
+  - profiles: new cpu-partitioning-powersave profile
+  - profiles: new profile for AWS EC2
+    resolves: rhbz#1935848
+  - API: add support for moving devices between instances
+    resolves: rhbz#2113925
+  - D-Bus: send tracebacks through D-Bus only in debug mode
+    resolves: rhbz#2159680
+  - Makefile: added fix for python-3.12
+    resolves: rhbz#2154801
+  - throughput-performance: set net.core.somaxconn to at least 2048
+    resolves: rhbz#1998310
+  - plugin_scheduler: do not leak FDs from the perf
+    resolves: rhbz#2080227
+  - plugin_cpu: added support for intel_pstate scaling driver
+    resolves: rhbz#2095829
+  - added support for the API access through the Unix Domain Socket
+    resolves: rhbz#2113900
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.19.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

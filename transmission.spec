@@ -1,26 +1,24 @@
 %global _hardened_build 1
 
 Name:           transmission
-Version:        3.00
-Release:        15%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPLv2
 URL:            http://www.transmissionbt.com
 
-Source0:        https://github.com/transmission/transmission-releases/raw/master/transmission-%{version}.tar.xz
+Source0:        https://github.com/transmission/transmission/releases/download/%{version}/transmission-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1221292
 Source1:        https://raw.githubusercontent.com/gnome-design-team/gnome-icons/master/apps-symbolic/Adwaita/scalable/apps/transmission-symbolic.svg
-Patch1:		transmission-fdlimits.patch
-# Fix the DBus name to match the app name for flatpak builds
-# https://github.com/transmission/transmission/pull/847
-Patch2:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
-Patch3:         openssl3-compat.patch
 
-BuildRequires: make
+BuildRequires:  make
+BuildRequires:  cmake
 BuildRequires:  openssl-devel
 BuildRequires:  glib2-devel >= 2.32.0
-BuildRequires:  gtk3-devel >= 3.2.0
+# gtk4 works on f37 but not on f38. Not sure why yet. -Gwyn
+BuildRequires:  gtk3-devel
+BuildRequires:  gtkmm3.0-devel
 BuildRequires:  libnotify-devel >= 0.4.3
 BuildRequires:  libcanberra-devel
 BuildRequires:  libcurl-devel >= 7.16.3
@@ -28,7 +26,9 @@ BuildRequires:  dbus-glib-devel >= 0.70
 BuildRequires:  libevent-devel >= 2.0.10
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext intltool
-BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt6-qtbase-devel
+BuildRequires:  qt6-qtsvg-devel
+BuildRequires:  qt6-qttools-devel
 BuildRequires:  systemd-devel
 BuildRequires:  libnatpmp-devel >= 20150609-1
 BuildRequires:  libappindicator-gtk3-devel
@@ -101,25 +101,19 @@ mv AUTHORS.new AUTHORS
 CXXFLAGS="%{optflags} -fPIC"
 CFLAGS="%{optflags} -fPIC"
 
-%configure --disable-static --enable-utp --enable-daemon --with-systemd-daemon \
-           --enable-nls --enable-cli --enable-daemon \
-           --enable-external-natpmp
-%make_build
-
-pushd qt
-	%{qmake_qt5}  qtr.pro
-	%make_build
-popd
+%cmake -DENABLE_CLI=ON -DENABLE_QT=ON -DUSE_GTK_VERSION=3
+%cmake_build
 
 %check
-%make_build check
+%ctest
 
 %install
 mkdir -p %{buildroot}%{_unitdir}
 install -m0644 daemon/transmission-daemon.service  %{buildroot}%{_unitdir}/
 mkdir -p %{buildroot}%{_sharedstatedir}/transmission
-%make_install
-%make_install INSTALL_ROOT=%{buildroot}%{_prefix} -C qt
+%cmake_install
+
+mv -f %{buildroot}/usr/share/doc/transmission %{buildroot}/usr/share/doc/transmission-common
 
 # Install the symbolic icon
 mkdir -p  %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
@@ -145,13 +139,12 @@ desktop-file-install \
 
 %files common
 %license COPYING
-%doc AUTHORS NEWS.md README.md
+%doc COPYING AUTHORS README.md news/ rpc-spec.md send-email-when-torrent-done.sh
 %{_bindir}/transmission-remote
 %{_bindir}/transmission-create
 %{_bindir}/transmission-edit
 %{_bindir}/transmission-show
 %{_datadir}/transmission/
-%{_datadir}/pixmaps/*
 %{_datadir}/icons/hicolor/*/apps/transmission.*
 %{_datadir}/icons/hicolor/symbolic/apps/transmission-symbolic.svg
 %{_datadir}/icons/hicolor/scalable/apps/transmission-devel.svg
@@ -172,7 +165,7 @@ desktop-file-install \
 
 %files gtk -f %{name}-gtk.lang
 %{_bindir}/transmission-gtk
-%{_datadir}/appdata/transmission-gtk.appdata.xml
+%{_datadir}/metainfo/transmission-gtk.metainfo.xml
 %{_datadir}/applications/transmission-gtk.desktop
 %doc %{_mandir}/man1/transmission-gtk.*
 
@@ -182,6 +175,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Wed Feb 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.0-1
+- 4.0.0, moved to qt6.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.00-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

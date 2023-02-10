@@ -6,8 +6,8 @@
 %global custom_cargo_test /usr/bin/env PROTOC=%{_bindir}/protoc PROTOC_INCLUDe=%{_includedir} CARGO_HOME=.cargo RUSTC_BOOTSTRAP=1 %{_bindir}/cargo test %{_smp_mflags} -Z avoid-dev-deps --release --no-fail-fast
 
 Name:          parsec-tool
-Version:       0.3.1
-Release:       5%{?dist}
+Version:       0.4.0
+Release:       1%{?dist}
 Summary:       A PARSEC cli
 
 # ASL 2.0
@@ -59,6 +59,9 @@ export PROTOC_INCLUDE=%{_includedir}
 %{_bindir}/parsec-tool
 
 %changelog
+* Wed Feb 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.4.0-1
+- Update to 0.4.0
+
 * Tue Feb 07 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.3.1-5
 - Rebuild for tss-esapi 7.2.0
 

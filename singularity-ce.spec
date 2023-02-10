@@ -4,7 +4,7 @@
 
 Name: singularity-ce
 Version: 3.10.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Application and environment virtualization
 
 # See LICENSE.md for first party code (BSD-3-Clause and BSD-3-Clause-LBNL)
@@ -175,6 +175,10 @@ Provides: bundled(golang(oras.land/oras_go)) = v1.2.2
 Provides: sif-runtime
 Conflicts: sif-runtime
 
+# User-choice upgrade path from singularity -> singularity-ce / apptainer.
+# https://pagure.io/fesco/issue/2934#comment-839598
+Provides: alternative-for(singularity)
+
 %description
 SingularityCE is the Community Edition of Singularity, an open source
 container platform designed to be simple, fast, and secure.
@@ -242,6 +246,9 @@ container platform designed to be simple, fast, and secure.
 %doc CONTRIBUTING.md
 
 %changelog
+* Wed Feb 8 2023 David Trudgian <dtrudg@sylabs.io> - 3.10.5-3
+- Add Provides: alternative-for(singularity)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

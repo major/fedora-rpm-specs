@@ -2,7 +2,7 @@
 %global sway_ver 1.7
 
 Name:           sway-config-fedora
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Fedora Sway Spin configuration for Sway
 
@@ -88,6 +88,7 @@ to use Sway for the greeter display server.
 %{_bindir}/start-sway
 %{_datadir}/sway/config.d
 %{_datadir}/sway/config.live.d
+%{_datadir}/sway/live
 %{_datadir}/wayland-sessions/sway.desktop
 %{_libexecdir}/sway
 

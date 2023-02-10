@@ -4,7 +4,7 @@
 Summary: Terminal emulator for the X Window System
 Name: xterm
 Version: 378
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT
 BuildRequires: make
@@ -59,7 +59,8 @@ done
 	--with-utempter \
 	--with-tty-group=tty \
 	--disable-full-tgetent \
-	--with-pcre2
+	--with-pcre2 \
+	--enable-readline-mouse
 
 %make_build
 
@@ -99,6 +100,10 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Wed Feb 08 2023 Tomas Korbar <tkorbar@redhat.com> - 378-3
+- Enable readline-mouse configuration option
+- Resolves: rhbz#2166860
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 378-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

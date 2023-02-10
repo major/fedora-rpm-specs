@@ -8,7 +8,7 @@
 # (such as ppc), so lets limit things to the known-good ones.
 ExclusiveArch: x86_64 aarch64
 
-# edk2-stable202205
+# edk2-stable202211
 %define GITDATE        20221117
 %define GITCOMMIT      fff6d81270b5
 %define TOOLCHAIN      GCC5
@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    11%{?dist}
+Release:    12%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -48,6 +48,8 @@ Source0: edk2-%{GITCOMMIT}.tar.xz
 Source1: ovmf-whitepaper-c770f8c.txt
 Source2: openssl-rhel-740e53ace8f6771c205bf84780e26bcd7a3275df.tar.xz
 Source3: softfloat-%{softfloat_version}.tar.xz
+Source4: edk2-platforms-b36fe8bc9b68.tar.xz
+Source5: jansson-2.13.1.tar.bz2
 
 # json description files
 Source10: 50-edk2-aarch64.json
@@ -69,7 +71,8 @@ Source45: 60-edk2-ovmf-x64-inteltdx.json
 # https://gitlab.com/kraxel/edk2-build-config
 Source80: edk2-build.py
 Source81: edk2-build.fedora
-Source82: edk2-build.rhel-9
+Source82: edk2-build.fedora.platforms
+Source83: edk2-build.rhel-9
 
 Source90: DBXUpdate-20200729.x64.bin
 
@@ -104,6 +107,8 @@ Patch0028: 0028-OvmfPkg-PlatformPei-remove-mFeatureControlValue.patch
 Patch0029: 0029-OvmfPkg-DebugLibIoPort-use-Rom-version-for-PEI.patch
 Patch0030: 0030-OvmfPkg-QemuFwCfgLib-rewrite-fw_cfg-probe.patch
 Patch0031: 0031-OvmfPkg-QemuFwCfgLib-remove-mQemuFwCfgSupported-mQem.patch
+Patch0032: 0032-OvmfPkg-VirtNorFlashDxe-map-flash-memory-as-uncachea.patch
+Patch0033: 0033-ArmVirtPkg-ArmVirtQemu-Avoid-early-ID-map-on-Thunder.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -113,6 +118,7 @@ BuildRequires:  python3-devel
 BuildRequires:  libuuid-devel
 BuildRequires:  /usr/bin/iasl
 BuildRequires:  binutils gcc git gcc-c++ make
+BuildRequires:  qemu-img
 
 %if %{build_ovmf}
 # Only OVMF includes 80x86 assembly files (*.nasm*).
@@ -228,6 +234,14 @@ License:        BSD-2-Clause-Patent and OpenSSL
 EFI Development Kit II
 ARMv7 UEFI Firmware
 
+%package ext4
+Summary:        Ext4 filesystem driver
+License:        BSD-2-Clause-Patent and OpenSSL
+BuildArch:      noarch
+%description ext4
+EFI Development Kit II
+Ext4 filesystem driver
+
 %package tools-python
 Summary:        EFI Development Kit II Tools
 Requires:       python3
@@ -257,6 +271,8 @@ cp -a -- %{SOURCE1} .
 tar -C CryptoPkg/Library/OpensslLib -a -f %{SOURCE2} -x
 # extract softfloat into place
 tar -xf %{SOURCE3} --strip-components=1 --directory ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3/
+tar -xf %{SOURCE4} --strip-components=1 "*/Drivers" "*/Features" "*/Platform" "*/Silicon"
+tar -xf %{SOURCE5} --strip-components=1 --directory RedfishPkg/Library/JsonLib/jansson
 
 # Done by %setup, but we do not use it for the auxiliary tarballs
 chmod -Rf a+rX,u+w,g-w,o-w .
@@ -266,7 +282,7 @@ cp -a -- \
    %{SOURCE20} \
    %{SOURCE30} %{SOURCE31} %{SOURCE32} \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} %{SOURCE45} \
-   %{SOURCE80} %{SOURCE81} %{SOURCE82} \
+   %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} \
    %{SOURCE90} \
    .
 
@@ -308,13 +324,14 @@ build_iso() {
 
 export EXTRA_OPTFLAGS="%{optflags}"
 export EXTRA_LDFLAGS="%{__global_ldflags}"
+export RELEASE_DATE="$(echo %{GITDATE} | sed -e 's|\(....\)\(..\)\(..\)|\2/\3/\1|')"
 
 touch OvmfPkg/AmdSev/Grub/grub.efi   # dummy
 
 %if %{build_ovmf}
 %if %{defined rhel}
 
-./edk2-build.py --config edk2-build.rhel-9 -m ovmf
+./edk2-build.py --config edk2-build.rhel-9 --silent --release-date "$RELEASE_DATE" -m ovmf
 virt-fw-vars --input   RHEL-9/ovmf/OVMF_VARS.fd \
              --output  RHEL-9/ovmf/OVMF_VARS.secboot.fd \
              --set-dbx DBXUpdate-20200729.x64.bin \
@@ -323,7 +340,8 @@ build_iso RHEL-9/ovmf
 
 %else
 
-./edk2-build.py --config edk2-build.fedora -m ovmf
+./edk2-build.py --config edk2-build.fedora --silent --release-date "$RELEASE_DATE" -m ovmf
+./edk2-build.py --config edk2-build.fedora.platforms --silent -m x64
 virt-fw-vars --input   Fedora/ovmf/OVMF_VARS.fd \
              --output  Fedora/ovmf/OVMF_VARS.secboot.fd \
              --set-dbx DBXUpdate-20200729.x64.bin \
@@ -350,10 +368,15 @@ virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
 
 %if %{build_aarch64}
 %if %{defined rhel}
-./edk2-build.py --config edk2-build.rhel-9 -m armvirt
+./edk2-build.py --config edk2-build.rhel-9 --silent --release-date "$RELEASE_DATE" -m armvirt
 %else
-./edk2-build.py --config edk2-build.fedora -m armvirt
+./edk2-build.py --config edk2-build.fedora --silent --release-date "$RELEASE_DATE" -m armvirt
+./edk2-build.py --config edk2-build.fedora.platforms --silent -m aa64
 %endif
+for raw in */aarch64/*.raw; do
+    qcow2="${raw%.raw}.qcow2"
+    qemu-img convert -f raw -O qcow2 -o cluster_size=4096 -S 4096 "$raw" "$qcow2"
+done
 %endif
 
 
@@ -525,9 +548,9 @@ done
 %{_datadir}/AAVMF/AAVMF_CODE.fd
 %{_datadir}/AAVMF/AAVMF_VARS.fd
 %dir %{_datadir}/%{name}/aarch64/
-%{_datadir}/%{name}/aarch64/QEMU_EFI-pflash.raw
-%{_datadir}/%{name}/aarch64/QEMU_EFI-silent-pflash.raw
-%{_datadir}/%{name}/aarch64/vars-template-pflash.raw
+%{_datadir}/%{name}/aarch64/QEMU_EFI-pflash.*
+%{_datadir}/%{name}/aarch64/QEMU_EFI-silent-pflash.*
+%{_datadir}/%{name}/aarch64/vars-template-pflash.*
 %{_datadir}/%{name}/aarch64/QEMU_EFI.fd
 %{_datadir}/%{name}/aarch64/QEMU_EFI.silent.fd
 %{_datadir}/%{name}/aarch64/QEMU_VARS.fd
@@ -594,6 +617,11 @@ done
 %{_datadir}/%{name}/arm/vars-template-pflash.raw
 %{_datadir}/qemu/firmware/50-edk2-arm-verbose.json
 
+%files ext4
+%common_files
+%dir %{_datadir}/%{name}/drivers
+%{_datadir}/%{name}/drivers/ext4*.efi
+
 
 %files tools-python
 %{_bindir}/build
@@ -614,6 +642,11 @@ done
 
 
 %changelog
+* Wed Feb 08 2023 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-12
+- cherry-pick aarch64 bugfixes.
+- set firmware build release date.
+- add ext4 sub-package.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221117gitfff6d81270b5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

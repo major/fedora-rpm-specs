@@ -1,13 +1,14 @@
 Name:           perl-Gtk3-SimpleList
 Version:        0.21
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Simple interface to Gtk3's complex MVC list widget
-# lib/Gtk3/SimpleList.pm:   LGPLv2+
-# README:                   LGPLv2+ or Artistic 2.0
-License:        LGPLv2+ and (LGPLv2+ or Artistic 2.0)
+# lib/Gtk3/SimpleList.pm:   LGPL-2.1-or-later
+# README:                   LGPL-2.1-or-later OR Artistic-2.0
+License:        LGPL-2.1-or-later AND (LGPL-2.1-or-later OR Artistic-2.0)
 URL:            https://metacpan.org/release/Gtk3-SimpleList
 Source0:        https://cpan.metacpan.org/authors/id/T/TV/TVIGNAUD/Gtk3-SimpleList-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -29,8 +30,18 @@ to implement list and tree widgets. Gtk3::SimpleList Perl module automates the
 complex setup work and allows you to treat the list model as a more natural
 list of lists structure.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n Gtk3-SimpleList-%{version}
+chmod +x t/*.t
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -38,9 +49,18 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
 
 %install
 %{make_install}
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -49,7 +69,14 @@ make test
 %{perl_vendorlib}/*
 %{_mandir}/man3/*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Wed Feb 08 2023 Petr Pisar <ppisar@redhat.com> - 0.21-11
+- Convert a license tag to an SPDX format
+- Package the tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

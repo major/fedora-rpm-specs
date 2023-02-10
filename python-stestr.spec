@@ -1,20 +1,7 @@
 %global pypi_name stestr
-
-# Note(hguemar): PyYAML provide is scheduled to be removed
-%{?el7: %global pyyaml_pkg PyYAML}
-%{!?el7: %global pyyaml_pkg python2-pyyaml}
-
-%if 0%{?fedora} || 0%{?rhel} > 7
-%bcond_with    python2
-%bcond_without python3
-%else
-%bcond_without python2
-%bcond_with    python3
-%endif
-
 # Enable bootstrap
 %bcond_without bootstrap
-%global with_doc 0
+%global with_doc 1
 
 %global common_desc \
 stestr is a fork of the testrepository that concentrates on being a \
@@ -22,128 +9,54 @@ dedicated test runner for python projects. The generic abstraction layers \
 which enabled testr to work with any subunit emitting runner are gone. \
 stestr hard codes python-subunit-isms into how it works.
 
-Name:   python-%{pypi_name}
-Version:    3.2.0
-Release:    7%{?dist}
+Name:       python-%{pypi_name}
+Version:    4.0.1
+Release:    1%{?dist}
 Summary:    A test runner runner similar to testrepository
 
 License:    ASL 2.0
-URL:    https://pypi.python.org/pypi/stestr
-Source0:    https://files.pythonhosted.org/packages/source/s/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+URL:        https://pypi.python.org/pypi/stestr
+Source0:    %pypi_source
 BuildArch:  noarch
 
-BuildRequires:    git
 
 %description
 %{common_desc}
 
-%if %{with python2}
-%package -n    python2-%{pypi_name}
-Summary:    A test runner runner similar to testrepository
-%{?python_provide:%python_provide python2-%{pypi_name}}
-
-BuildRequires:    python2-devel
-BuildRequires:    python2-setuptools
-BuildRequires:    python2-pbr
-
-# Test Requirements
-BuildRequires:   python2-mock
-BuildRequires:   python2-future
-BuildRequires:   python2-subunit
-BuildRequires:   python2-fixtures
-BuildRequires:   python2-six
-BuildRequires:   python2-testtools
-BuildRequires:   %{pyyaml_pkg}
-BuildRequires:   python2-ddt
-BuildRequires:   python2-cliff
-BuildRequires:   python2-voluptuous
-
-Requires:   python2-pbr
-Requires:   python2-future
-Requires:   python2-subunit
-Requires:   python2-fixtures
-Requires:   python2-six
-Requires:   python2-testtools
-Requires:   %{pyyaml_pkg}
-Requires:   python2-cliff
-Requires:   python2-voluptuous
-
-%description -n python2-%{pypi_name}
-%{common_desc}
-
-%package -n     python2-%{pypi_name}-sql
-Summary:    sql plugin for stestr
-
-Requires:       python2-%{pypi_name} = %{version}-%{release}
-Requires:       python2-subunit2sql
-
-%description    -n python2-%{pypi_name}-sql
-It contains the sql plugin for stestr.
-%endif
-
-%if %{with python3}
-%package -n     python3-%{pypi_name}
+%package -n     python%{python3_pkgversion}-%{pypi_name}
 Summary:        A test runner runner similar to testrepository
-Obsoletes:      python2-%{pypi_name} < %{version}-%{release}
-%{?python_provide:%python_provide python3-%{pypi_name}}
+%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-BuildRequires:    python3-devel
-BuildRequires:    python3-setuptools
-BuildRequires:    python3-pbr
+BuildRequires:    python%{python3_pkgversion}-devel
+BuildRequires:    git-core
 
-# Test Requirements
-BuildRequires:   python3-mock
-BuildRequires:   python3-future
-BuildRequires:   python3-subunit
-BuildRequires:   python3-fixtures
-BuildRequires:   python3-six
-BuildRequires:   python3-sqlalchemy
-BuildRequires:   python3-testtools
-BuildRequires:   python3-PyYAML
-BuildRequires:   python3-ddt
-BuildRequires:   python3-cliff
-BuildRequires:   python3-voluptuous
+Requires:   python%{python3_pkgversion}-pbr
+Requires:   python%{python3_pkgversion}-future
+Requires:   python%{python3_pkgversion}-subunit >= 1.4.0
+Requires:   python%{python3_pkgversion}-fixtures >= 3.0.0
+Requires:   python%{python3_pkgversion}-testtools >= 2.2.0
+Requires:   python%{python3_pkgversion}-PyYAML >= 3.10.0
+Requires:   python%{python3_pkgversion}-cliff >= 2.8.0
+Requires:   python%{python3_pkgversion}-voluptuous >= 0.8.9
 
-Requires:   python3-pbr
-Requires:   python3-future
-Requires:   python3-subunit
-Requires:   python3-fixtures
-Requires:   python3-six
-Requires:   python3-testtools
-Requires:   python3-PyYAML
-Requires:   python3-cliff
-Requires:   python3-voluptuous
-
-%description -n python3-%{pypi_name}
+%description -n python%{python3_pkgversion}-%{pypi_name}
 %{common_desc}
 
 %if %{without bootstrap}
-%package -n     python3-%{pypi_name}-sql
-Summary:    sql plugin for stestr
+%package -n     python%{python3_pkgversion}-%{pypi_name}-sql
+Summary:        sql plugin for stestr
 
-Requires:       python3-%{pypi_name} = %{version}-%{release}
-Requires:       python3-subunit2sql
+BuildRequires:  /usr/bin/subunit2sql-db-manage
+Requires:       python%{python3_pkgversion}-%{pypi_name} = %{version}-%{release}
+Requires:       python%{python3_pkgversion}-subunit2sql
 
-BuildRequires:   python3-subunit2sql
-BuildRequires:   /usr/bin/subunit2sql-db-manage
-
-%description    -n python3-%{pypi_name}-sql
+%description    -n python%{python3_pkgversion}-%{pypi_name}-sql
 It contains the sql plugin for stestr.
-%endif
 %endif
 
 %if 0%{?with_doc}
 %package -n python-%{pypi_name}-doc
 Summary:        stestr documentation
-
-%if %{with python2}
-BuildRequires:  python2-sphinx
-BuildRequires:  python2-subunit2sql
-%endif
-%if %{with python3}
-BuildRequires:  python3-sphinx
-BuildRequires:  python3-subunit2sql
-%endif
 
 %description -n python-%{pypi_name}-doc
 %{common_desc}
@@ -151,96 +64,54 @@ BuildRequires:  python3-subunit2sql
 It contains the documentation for stestr.
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires -t %{!?with_bootstrap:-x sql}
+
 %prep
 %autosetup -n %{pypi_name}-%{version} -S git
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-rm -f test-requirements.txt requirements.txt
-
-# Remove pbr>=2.0.0 version as it is required for pike
-sed -i 's/pbr>=2.0.0/pbr/g' setup.py
+sed -i '/doc8.*/d' test-requirements.txt
+sed -i '/hacking.*/d' test-requirements.txt
 
 %build
-%if %{with python2}
-%py2_build
-%endif
-
-%if %{with python3}
-%py3_build
-%endif
+%pyproject_wheel
 
 %if 0%{?with_doc}
 # generate html docs
-%if %{with python2}
-%{__python2} setup.py build_sphinx
-%endif
-%if %{with python3}
-%{__python3} setup.py build_sphinx
-%endif
+PYTHONPATH=%{pyproject_build_lib} sphinx-build doc/source doc/build/html
 # remove the sphinx-build leftovers
-rm -rf html/.{doctrees,buildinfo}
+rm -rf doc/build/html/.{doctrees,buildinfo}
 %endif
 
 %install
-%if %{with python3}
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 # compat symlinks
 ln -s stestr %{buildroot}/%{_bindir}/stestr-3
 ln -s stestr-3 %{buildroot}/%{_bindir}/stestr-%{python3_version}
-%endif
-
-%if %{with python2}
-%py2_install
-cp %{buildroot}/%{_bindir}/stestr %{buildroot}/%{_bindir}/stestr-2
-ln -sf %{_bindir}/stestr-2 %{buildroot}/%{_bindir}/stestr-%{python2_version}
-%endif
-
 
 %check
-export PATH=%{buildroot}/%{_bindir}:$PATH
-%if %{with python2}
-# currently, 3 test are failing
-%{__python2} setup.py test || :
-%endif
-%if %{with python3}
-rm -fr .stestr
-# currently, 4 test are failing
-PYTHON=%{__python3} %{__python3} setup.py test || :
-%endif
+%tox
 
-%if %{with python2}
-%files -n python2-%{pypi_name}
+%files -n python%{python3_pkgversion}-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
 %{_bindir}/stestr*
-%{python2_sitelib}/%{pypi_name}
-%{python2_sitelib}/%{pypi_name}-*.egg-info
-
-%files -n python2-%{pypi_name}-sql
-%{python2_sitelib}/%{pypi_name}/repository/sql.py
-%endif
-
-%if %{with python3}
-%files -n python3-%{pypi_name}
-%license LICENSE
-%doc README.rst
-%{_bindir}/stestr*
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-*.egg-info
 
 %if %{without bootstrap}
-%files -n python3-%{pypi_name}-sql
+%files -n python%{python3_pkgversion}-%{pypi_name}-sql
 %{python3_sitelib}/%{pypi_name}/repository/sql.py
-%endif
 %endif
 
 %if 0%{?with_doc}
 %files -n python-%{pypi_name}-doc
 %license LICENSE
+%doc README.rst
 %doc doc/build/html
 %endif
 
 %changelog
+* Wed Feb 08 2023 Joel Capitao <jcapitao@redhat.com> - 4.0.1-1
+- Update to latest upstream (#1482280)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

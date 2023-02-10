@@ -1,18 +1,25 @@
-%global prerel m1
-%global prerel_d dev-m1
+%global commit 494246728eb2e28683361238957d32ea0cf4a781
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global prerel 9
 
 Name:  phasex
-Version: 0.12.0
-Release: 21.12.%{prerel}%{?dist}
+Version: 0.14.97
+Release: %{prerel}.20150304git%{shortcommit}%{?dist}.1
 Summary: PHASEX -- Phase Harmonic Advanced Synthesis EXperiment
-License: GPLv2
-URL:  https://github.com/disabled/phasex-dev
+License: GPLv3+
+URL:     https://github.com/williamweston/phasex
 
-Source0: https://github.com/downloads/disabled/phasex-dev/%{name}-%{prerel_d}.tar.gz
-Patch0: %{name}-cflags.patch
-Patch1: %{name}-format.patch
+# The source for this package was pulled from upstream's vcs.
+# Use the following commands to generate the tarball:
+# git clone --branch v0.14.98-dev https://github.com/williamweston/phasex.git
+# cd phasex
+# autoreconf -v
+# ./configure
+# make dist-xz
+
+Source0: %{name}-%{version}-%{prerel}-g%{shortcommit}.tar.xz
 Patch2: %{name}-asoundlib.patch
-Patch3: %{name}-gcc10.patch
+Patch3: %{name}-32bit-ftbfs.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -25,6 +32,7 @@ BuildRequires: libsamplerate-devel >= 0.1.2
 BuildRequires: gtk2-devel >= 2.4.0
 BuildRequires: perl-interpreter
 BuildRequires: desktop-file-utils
+Requires:      hicolor-icon-theme
 
 %description
 PHASEX is an experimental JACK audio / ALSA MIDI softsynth for Linux
@@ -36,10 +44,10 @@ phaser, ADSR envelopes for amplifier and filter, realtime audio input
 processing capabilities, and more.
 
 %prep
-%autosetup -p1 -n %{name}-%{prerel_d}
+%autosetup -p1 -n %{name}-%{version}-%{prerel}-g%{shortcommit}
 
-# Fix DSO linking
-sed -i -e 's|\(-lpthread\)|\1 -lX11 -lgmodule-2.0|' configure
+# Fix DSO linking and CFLAGS
+sed -i -e 's|\(-lpthread\)|\1 -lX11 -lgmodule-2.0|' -e 's|^PHASEX_CFLAGS=".*"|PHASEX_CFLAGS=""|' configure
 
 %build
 %configure
@@ -49,11 +57,14 @@ sed -i -e 's|\(-lpthread\)|\1 -lX11 -lgmodule-2.0|' configure
 %install
 %make_install
 
-for s in 16 22 32 48 ; do
-    mkdir -p %{buildroot}%{_datadir}/icons/hicolor/${s}x${s}/apps
-    cp %{buildroot}%{_datadir}/phasex/pixmaps/phasex-icon-${s}x${s}.png \
-            %{buildroot}%{_datadir}/icons/hicolor/${s}x${s}/apps/phasex-icon.png
-done
+# Delete unneeded files
+rm %{buildroot}%{_datadir}/pixmaps/%{name}-icon*.{png,svg}
+rm -r %{buildroot}%{_datadir}/icons/hicolor/tiny
+rm %{buildroot}%{_datadir}/doc/%{name}/GPL-3.0.txt %{buildroot}%{_datadir}/doc/%{name}/LICENSE
+
+# Link sample file
+ln -s analog_sine.raw %{buildroot}%{_datadir}/%{name}/sys-samples/analog_sine_1.raw
+ln -s analog_sine.raw %{buildroot}%{_datadir}/%{name}/sys-samples/analog_sine_2.raw
 
 BASE="AudioVideo Audio"
 XTRA="X-MIDI X-Digital_Processing X-Jack X-Synthesis Midi"
@@ -62,25 +73,35 @@ mkdir -p %{buildroot}%{_datadir}/applications
 desktop-file-install \
   --dir %{buildroot}%{_datadir}/applications \
   `for c in ${BASE} ${XTRA} ; do echo "--add-category $c " ; done` \
-  %{buildroot}%{_datadir}/phasex/%{name}.desktop
+  %{buildroot}%{_datadir}/applications/%{name}.desktop
 
-rm %{buildroot}%{_datadir}/phasex/phasex.desktop
 
 %files
-%doc README
-%license COPYING
-%{_bindir}/phasex
-%{_datadir}/phasex/
+%doc README AUTHORS ChangeLog ROADMAP TODO release-checklist.txt signal-diagram.txt
+%license COPYING LICENSE GPL-3.0.txt
+%{_bindir}/%{name}
+%{_bindir}/%{name}-convert-patch
+%{_datadir}/%{name}/
 %{_datadir}/themes/*
-%{_datadir}/applications/phasex.desktop
-%{_datadir}/icons/hicolor/*/apps/phasex-icon.png
+%{_datadir}/applications/%{name}.desktop
+%{_datadir}/icons/hicolor/*/apps/%{name}-icon.png
+%{_datadir}/icons/hicolor/scalable/apps/%{name}-icon.svg
 
 %changelog
+* Wed Feb 08 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.14.97-9.20150304git4942467.1
+- Fix FTBFS on i686
+
+* Wed Feb 08 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.14.97-1.20150304git4942467
+- Update to 0.14.97
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-21.12.m1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-20.12.m1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Sun Jan 23 2022 Guido Aulisi <guido.aulisi@gmail.com> - 0.14.97-1.20150304git4942467
+- Update to 0.14.97
 
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-19.12.m1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

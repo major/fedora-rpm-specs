@@ -1,6 +1,6 @@
 Name:           jaxb-fi
 Version:        2.1.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Implementation of the Fast Infoset Standard for Binary XML
 # jaxb-fi is licensed ASL 2.0 and EDL-1.0 (BSD)
 # bundled org.apache.xerces.util.XMLChar.java is licensed ASL 1.1
@@ -14,14 +14,11 @@ Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch1:         0001-Port-to-jaxb-xsom-4.0.1.patch
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.sun.xml.stream.buffer:streambuffer)
-BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.glassfish.jaxb:xsom)
 
 %description
 Fast Infoset Project, an Open Source implementation of the Fast Infoset
@@ -31,59 +28,44 @@ The Fast Infoset specification (ITU-T Rec. X.891 | ISO/IEC 24824-1)
 describes an open, standards-based "binary XML" format that is based on
 the XML Information Set.
 
-%package -n FastInfoset
-Summary:        FastInfoset
-%description -n FastInfoset
-%{summary}.
-
-%package -n FastInfosetRoundTripTests
+%package tests
+License:        ASL 2.0 and BSD
 Summary:        FastInfoset Roundtrip Tests
-%description -n FastInfosetRoundTripTests
-%{summary}.
-
-%package -n FastInfosetSamples
-Summary:        FastInfoset Samples
-%description -n FastInfosetSamples
-%{summary}.
-
-%package -n FastInfosetUtilities
-Summary:        FastInfoset Utilities
-%description -n FastInfosetUtilities
+%description tests
 %{summary}.
 
 %prep
 %setup -q
-%patch1 -p1
 
 %pom_remove_parent
+
+%pom_disable_module samples
+%pom_disable_module utilities
 
 %pom_remove_plugin :buildnumber-maven-plugin
 %pom_remove_plugin :glassfish-copyright-maven-plugin
 %pom_remove_plugin :maven-enforcer-plugin
 
-%mvn_package :fastinfoset-project __noinstall
+%mvn_package :FastInfosetRoundTripTests tests
 
 %build
 # Javadoc fails: error: too many module declarations found
-%mvn_build -s -j
+%mvn_build -j
 
 %install
 %mvn_install
 
-%files -n FastInfoset -f .mfiles-FastInfoset
+%files -f .mfiles
 %license LICENSE NOTICE.md
 %doc README.md
 
-%files -n FastInfosetRoundTripTests -f .mfiles-FastInfosetRoundTripTests
-%license LICENSE NOTICE.md
-
-%files -n FastInfosetSamples -f .mfiles-FastInfosetSamples
-%license LICENSE NOTICE.md
-
-%files -n FastInfosetUtilities -f .mfiles-FastInfosetUtilities
+%files tests -f .mfiles-tests
 %license LICENSE NOTICE.md
 
 %changelog
+* Wed Feb 08 2023 Marian Koncek <mkoncek@redhat.com> - 2.1.0-3
+- Change licence, reorganize subpackages
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

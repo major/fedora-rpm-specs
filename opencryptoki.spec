@@ -6,7 +6,7 @@
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version:		3.19.0
-Release:		2%{?dist}
+Release:		3%{?dist}
 License:		CPL
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -18,6 +18,42 @@ Patch1:		opencryptoki-3.11.0-lockdir.patch
 # add missing config file
 Patch2:		opencryptoki-3.18.0-p11sak.patch
 # upstream patches
+# upstream patches
+Patch100: opencryptoki-3.19.0-fix-memory-leak.patch
+Patch101: 0001-EP11-Unify-key-pair-generation-functions.patch
+Patch102: 0002-EP11-Do-not-report-DSA-DH-parameter-generation-as-be.patch
+Patch103: 0003-EP11-Do-not-pass-empty-CKA_PUBLIC_KEY_INFO-to-EP11-h.patch
+Patch104: 0004-Mechtable-CKM_IBM_DILITHIUM-can-also-be-used-for-key.patch
+Patch105: 0005-EP11-Remove-DSA-DH-parameter-generation-mechanisms-f.patch
+Patch106: 0006-EP11-Pass-back-chain-code-for-CKM_IBM_BTC_DERIVE.patch
+Patch107: 0007-EP11-Supply-CKA_PUBLIC_KEY_INFO-with-CKM_IBM_BTC_DER.patch
+Patch108: 0008-EP11-Supply-CKA_PUBLIC_KEY_INFO-when-importing-priva.patch
+Patch109: 0009-EP11-Fix-memory-leak-introduced-with-recent-commit.patch
+Patch110: 0010-p11sak-Fix-segfault-when-dilithium-version-is-not-sp.patch
+Patch111: 0011-EP11-remove-dead-code-and-unused-variables.patch
+Patch112: 0012-EP11-Update-EP11-host-library-header-files.patch
+Patch113: 0013-EP11-Support-EP11-host-library-version-4.patch
+Patch114: 0014-EP11-Add-new-control-points.patch
+Patch115: 0015-EP11-Default-unknown-CPs-to-ON.patch
+Patch116: 0016-COMMON-Add-defines-for-Dilithium-round-2-and-3-varia.patch
+Patch117: 0017-COMMON-Add-defines-for-Kyber.patch
+Patch118: 0018-COMMON-Add-post-quantum-algorithm-OIDs.patch
+Patch119: 0019-COMMON-Dilithium-key-BER-encoding-decoding-allow-dif.patch
+Patch120: 0020-COMMON-EP11-Add-CKA_VALUE-holding-SPKI-PKCS-8-of-key.patch
+Patch121: 0021-COMMON-EP11-Allow-to-select-Dilithium-variant-via-mo.patch
+Patch122: 0022-EP11-Query-supported-PQC-variants-and-restrict-usage.patch
+Patch123: 0023-POLICY-Dilithium-strength-and-signature-size-depends.patch
+Patch124: 0024-TESTCASES-Test-Dilithium-variants.patch
+Patch125: 0025-COMMON-EP11-Add-Kyber-key-type-and-mechanism.patch
+Patch126: 0026-EP11-Add-support-for-generating-and-importing-Kyber-.patch
+Patch127: 0027-EP11-Add-support-for-encrypt-decrypt-and-KEM-operati.patch
+Patch128: 0028-POLICY-STATISTICS-Check-for-Kyber-KEM-KDFs-and-count.patch
+Patch129: 0029-TESTCASES-Add-tests-for-CKM_IBM_KYBER.patch
+Patch130: 0030-p11sak-Support-additional-Dilithium-variants.patch
+Patch131: 0031-p11sak-Add-support-for-IBM-Kyber-key-type.patch
+Patch132: 0032-testcase-Enhance-p11sak-testcase-to-generate-IBM-Kyb.patch
+Patch133: 0033-EP11-Supply-CKA_PUBLIC_KEY_INFO-with-CKM_IBM_BTC_DER.patch
+Patch134: 0034-EP11-Fix-setting-unknown-CPs-to-ON.patch
 
 Requires(pre):		coreutils
 Requires:		(selinux-policy >= 34.9-1 if selinux-policy-targeted)
@@ -358,6 +394,9 @@ fi
 
 
 %changelog
+* Wed Feb 08 2023 Than Ngo <than@redhat.com> - 3.19.0-3
+- Add support of ep11 token for new IBM Z Hardware (IBM z16)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.19.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

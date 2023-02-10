@@ -1,8 +1,8 @@
 #global candidate rc2
 
 Name:          libgpiod
-Version:       1.6.3
-Release:       8%{?candidate:.%{candidate}}%{?dist}
+Version:       1.6.4
+Release:       1%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPLv2+
@@ -98,6 +98,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/%{name}*.so
 
 %changelog
+* Wed Feb 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.6.4-1
+- Update to 1.6.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %bcond_without tests
 
 Name:    %{pkgname}
-Version: 2.2.7
+Version: 3.0.1
 Release: %autorelease
 Summary: Ansible python helper functions
 
@@ -66,13 +66,6 @@ rm -rf html/.{doctrees,buildinfo}
         not test_prepare_environment_with_collections
         and not test_prerun_reqs_v1
         and not test_prerun_reqs_v2
-        and not test_require_collection_wrong_version
-        and not test_require_collection
-        and not test_install_collection
-        and not test_install_collection_dest
-        and not test_upgrade_collection
-        and not test_require_collection_no_cache_dir
-        and not test_runtime_run
         '
     }
 %endif

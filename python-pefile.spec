@@ -1,6 +1,6 @@
 Name:           python-pefile
-Version:        2022.5.30
-Release:        3%{?dist}
+Version:        2023.2.7
+Release:        1%{?dist}
 Summary:        Python module for working with Portable Executable files
 License:        MIT
 URL:            https://github.com/erocarrera/pefile
@@ -69,6 +69,9 @@ sed -i -e '/^#!\//, 1d' pefile.py
 %{python3_sitelib}/*
 
 %changelog
+* Wed Feb 08 2023 Michal Ambroz <rebus _AT seznam.cz> - 2023.2.7-1
+- bump to version 2023.2.7
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.5.30-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

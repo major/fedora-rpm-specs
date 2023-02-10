@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname pdftools
-%global packver  3.3.0
+%global packver  3.3.3
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -16,7 +16,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-Rcpp >= 0.12.12, R-qpdf
-# Suggests:  R-jpeg, R-png, R-webp, R-tesseract, R-testthat
+# Suggests:  R-png, R-webp, R-tesseract, R-testthat
 # LinkingTo:
 # Enhances:
 
@@ -25,7 +25,6 @@ BuildRequires:    tex(latex)
 BuildRequires:    R-Rcpp-devel >= 0.12.12
 BuildRequires:    R-qpdf
 %if %{without bootstrap}
-BuildRequires:    R-jpeg
 BuildRequires:    R-png
 BuildRequires:    R-webp
 BuildRequires:    R-tesseract

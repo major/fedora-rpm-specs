@@ -2,11 +2,12 @@ Name:           perl-Devel-StringInfo
 Version:        0.04
 Release:        31%{?dist}
 Summary:        Gather information about strings
-License:        GPL+ or Artistic or MIT
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl OR MIT
 URL:            https://metacpan.org/release/Devel-StringInfo
 Source0:        https://cpan.metacpan.org/authors/id/N/NU/NUFFIN/Devel-StringInfo-%{version}.tar.gz
 BuildArch:      noarch
 # Build
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -49,8 +50,8 @@ make test
 
 %files
 %doc Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Devel*
+%{_mandir}/man3/Devel*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-31

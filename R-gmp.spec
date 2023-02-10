@@ -1,23 +1,23 @@
 %global packname gmp
-%global packver  0.6-6
+%global packver  0.7
+%global packrel  1
 %global rlibdir  %{_libdir}/R/library
 
 # Rmpfr requires this package.
 %global with_loop 0
 
 Name:             R-%{packname}
-Version:          0.6.6
-Release:          2%{?dist}
+Version:          %{packver}.%{packrel}
+Release:          1%{?dist}
 Summary:          Multiple Precision Arithmetic
-
-License:          GPLv2+
+License:          GPL-2.0-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
-Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
+Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrel}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-methods
-# Suggests:  R-Rmpfr
+# Suggests:  R-Rmpfr, R-MASS, R-round
 # LinkingTo:
 # Enhances:
 
@@ -74,6 +74,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Wed Feb  8 2023 Tom Callaway <spot@fedoraproject.org> - 0.7.1-1
+- update to 0.7-1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

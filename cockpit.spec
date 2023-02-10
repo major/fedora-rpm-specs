@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        284
+Version:        285
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -302,6 +302,7 @@ cat kdump.list sosreport.list networkmanager.list selinux.list >> system.list
 rm -f %{buildroot}%{_datadir}/metainfo/org.cockpit-project.cockpit-sosreport.metainfo.xml
 rm -f %{buildroot}%{_datadir}/metainfo/org.cockpit-project.cockpit-kdump.metainfo.xml
 rm -f %{buildroot}%{_datadir}/metainfo/org.cockpit-project.cockpit-selinux.metainfo.xml
+rm -f %{buildroot}%{_datadir}/metainfo/org.cockpit-project.cockpit-networkmanager.metainfo.xml
 rm -f %{buildroot}%{_datadir}/pixmaps/cockpit-sosreport.png
 %endif
 
@@ -565,6 +566,7 @@ BuildArch: noarch
 The Cockpit component for managing networking.  This package uses NetworkManager.
 
 %files networkmanager -f networkmanager.list
+%{_datadir}/metainfo/org.cockpit-project.cockpit-networkmanager.metainfo.xml
 
 %endif
 
@@ -675,6 +677,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Feb 08 2023 Packit <hello@packit.dev> - 285-1
+- Cryptographic subpolicies support
+- users: Group creation and filtering support
+
 * Wed Jan 25 2023 Packit <hello@packit.dev> - 284-1
 - Services: Show logs for user units
 - Storage: Set up a system to use NBDE

@@ -1,8 +1,8 @@
 %global pypi_name mbstrdecoder
 
 Name:           python-%{pypi_name}
-Version:        1.1.0
-Release:        3%{?dist}
+Version:        1.1.2
+Release:        1%{?dist}
 Summary:        multi-byte character string decoder
 
 License:        MIT
@@ -25,7 +25,7 @@ Requires:  python3-chardet
 
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
-sed -i 's/chardet>=3.0.4,<5/chardet>=3.0.4/g' requirements/requirements.txt
+sed -i 's/chardet>=3.0.4,<.*/chardet>=3.0.4/g' requirements/requirements.txt
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -45,9 +45,11 @@ sed -i 's/chardet>=3.0.4,<5/chardet>=3.0.4/g' requirements/requirements.txt
 %doc README.rst
 
 %changelog
+* Tue Feb 07 2023 Karolina Kula <kkula@redhat.com> - 1.1.2-1
+- Update to 1.1.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 
 * Thu Aug 04 2022 Karolina Kula <kkula@redhat.com> - 1.1.0-2
 - Remove chardet <5 requirement

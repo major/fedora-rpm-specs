@@ -12,7 +12,7 @@
 %endif
 
 Name:           vdr-scraper2vdr
-Version:        1.1.0
+Version:        1.1.1
 #Release:        15.%%{gitdate}git%%{shortcommit0}%%{?dist}
 Release:        1%{?dist}
 Summary:        A client plugin which provides scraped metadata from EPGD to other plugins
@@ -73,6 +73,9 @@ install -Dpm 644 %{SOURCE1} \
 %config(noreplace) %{vdr_configdir}/plugins/%{pname}/epg.dat
 
 %changelog
+* Wed Feb 08 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.1.1-1
+- Update to 1.1.1
+
 * Thu Jan 26 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.1.0-1
 - Update to 1.1.0
 
