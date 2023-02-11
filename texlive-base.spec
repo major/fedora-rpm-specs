@@ -7441,7 +7441,7 @@ xz -dc %{SOURCE0} | tar x
 %patch32 -p1 -b .configure-no-GfxFont-decRefCnt
 %endif
 
-%if 0%{?fedora} >= 38 || 0%{?rhel} > 10
+%if 0%{?fedora} >= 38 || 0%{?rhel} > 9
 %patch37 -p1 -b .libpaper2
 %endif
 

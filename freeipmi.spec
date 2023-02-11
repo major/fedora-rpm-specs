@@ -1,6 +1,6 @@
 Name:             freeipmi
 Version:          1.6.10
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          IPMI remote console and system management software
 License:          GPLv3+
 URL:              http://www.gnu.org/software/freeipmi/
@@ -12,6 +12,12 @@ BuildRequires:    libgcrypt-devel texinfo systemd
 %{?systemd_requires}
 BuildRequires:    gcc
 BuildRequires:    make
+BuildRequires:    automake
+BuildRequires:    autoconf
+BuildRequires:    libtool
+
+
+Patch0:           c99.patch
 
 %description
 The FreeIPMI project provides "Remote-Console" (out-of-band) and
@@ -49,6 +55,7 @@ IPMI SEL syslog logging daemon.
 
 %prep
 %autosetup -p1
+autoreconf -f -v -i
 
 %build
 export CFLAGS="-D_GNU_SOURCE $RPM_OPT_FLAGS"

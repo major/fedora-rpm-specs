@@ -1,7 +1,7 @@
 Summary:        Compact and feature-rich WordStar-compatible editor
 Name:           jupp
 Version:        41
-Release:        2%{?dist}
+Release:        3%{?dist}
 # jupp itself is GPL-1.0-only but uses other source codes, breakdown:
 # BSD-3-Clause: popen.inc
 # ISC: strlfun.inc
@@ -10,6 +10,7 @@ Release:        2%{?dist}
 License:        GPL-1.0-only AND BSD-3-Clause AND ISC AND MirOS AND Unicode-DFS-2016
 URL:            https://www.mirbsd.org/jupp.htm
 Source0:        https://www.mirbsd.org/MirOS/dist/%{name}/joe-3.1%{name}%{version}.tgz
+Patch0: jupp-configure-c99.patch
 BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  ncurses-devel
@@ -26,7 +27,7 @@ and beautified options menu, more CUA style key-bindings, an improved math
 functionality and a bracketed paste mode automatically used with Xterm.
 
 %prep
-%setup -q -n %{name}
+%autosetup -p1 -n %{name}
 
 %build
 chmod +x configure
@@ -55,6 +56,9 @@ mv -f $RPM_BUILD_ROOT%{_mandir}/man1/{joe,%{name}}.1
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Feb 09 2023 Florian Weimer <fweimer@redhat.com> - 41-3
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

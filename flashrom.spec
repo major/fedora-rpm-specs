@@ -1,18 +1,11 @@
 Name:		flashrom
-Version:	1.2
-Release:	10%{?dist}
+Version:	1.3.0
+Release:	1%{?dist}
 Summary:	Simple program for reading/writing flash chips content
 License:	GPLv2
 URL:		https://flashrom.org
 
 Source0:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.bz2
-Source1:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.bz2.asc
-Source2:	https://keys.openpgp.org/vks/v1/by-fingerprint/58A4868B25C7CFD662FB0132A3EB95B8D9780F68
-
-# upstream already: https://review.coreboot.org/c/flashrom/+/38939
-Patch0:    0001-Install-the-man-file-when-using-meson-as-a-buildsyst.patch
-# upstreamed: https://review.coreboot.org/c/flashrom/+/48478
-Patch1:    0002-meson-Add-missing-config-option-for-J-Link-SPI.patch
 
 BuildRequires:	gnupg2
 BuildRequires:	gcc
@@ -52,48 +45,19 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Files for development with %{name}.
 
 %prep
-%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1 -n %{name}-v%{version}
 # Replace GROUP="plugdev" specifiers with TAG+="uaccess"
-sed -e 's/MODE="[0-9]*", GROUP="plugdev"/TAG+="uaccess"/g' util/z60_flashrom.rules -i
+sed -e 's/MODE="[0-9]*", GROUP="plugdev"/TAG+="uaccess"/g' util/flashrom_udev.rules -i
 
 %build
-%meson \
-%ifarch %{ix86} x86_64
-  -Dconfig_jlink_spi=true \
-  -Dconfig_internal=true
-%else
-  -Dconfig_atahpt=false \
-  -Dconfig_atapromise=false \
-  -Dconfig_atavia=false \
-  -Dconfig_drkaiser=false \
-  -Dconfig_gfxnvidia=false \
-  -Dconfig_it8212=false \
-  -Dconfig_jlink_spi=false \
-  -Dconfig_nic3com=false \
-  -Dconfig_nicintel_eeprom=false \
-  -Dconfig_nicintel=false \
-  -Dconfig_nicintel_spi=false \
-  -Dconfig_nicnatsemi=false \
-  -Dconfig_nicrealtek=false \
-  -Dconfig_ogp_spi=false \
-  -Dconfig_rayer_spi=false \
-  -Dconfig_satamv=false \
-  -Dconfig_satasii=false \
-  -Dconfig_internal=false
-%endif
-
+%meson -Dtests=disabled
 %meson_build
-
-%if 0%{?enable_tests}
-%check
-%meson_test
-%endif
 
 %install
 %meson_install
 
-install -D -p -m 0644 util/z60_flashrom.rules %{buildroot}/%{_udevrulesdir}/60_flashrom.rules
+install -D -p -m 0644 util/flashrom_udev.rules %{buildroot}/%{_udevrulesdir}/60_flashrom.rules
+rm %{buildroot}/%{_libdir}/libflashrom.a
 
 %files
 %license COPYING
@@ -110,6 +74,9 @@ install -D -p -m 0644 util/z60_flashrom.rules %{buildroot}/%{_udevrulesdir}/60_f
 %{_libdir}/pkgconfig/flashrom.pc
 
 %changelog
+* Thu Feb 09 2023 Richard Hughes <richard@hughsie.com> - 1.3.0-1
+- Update to latest upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

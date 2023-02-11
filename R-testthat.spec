@@ -1,13 +1,13 @@
 %bcond_with check
 
 %global packname testthat
-%global packver 3.1.4
+%global packver 3.1.6
 
 %global __suggests_exclude ^R\\((devtools)\\)
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Source0:          ftp://cran.r-project.org/pub/R/contrib/main/%{packname}_%{packver}.tar.gz
 License:          MIT
 URL:              https://cran.r-project.org/package=testthat
@@ -15,8 +15,7 @@ Summary:          Unit Testing for R
 BuildRequires:    R-devel >= 3.4.0, tetex-latex
 BuildRequires:    R-brio
 BuildRequires:    R-callr >= 3.5.1
-BuildRequires:    R-cli >= 3.3.0
-BuildRequires:    R-crayon >= 1.3.4
+BuildRequires:    R-cli >= 3.4.0
 BuildRequires:    R-desc
 BuildRequires:    R-digest
 BuildRequires:    R-ellipsis >= 0.2.0
@@ -92,6 +91,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0 LANG=C.UTF-8
 %{_libdir}/R/library/%{packname}/include/
 
 %changelog
+* Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 3.1.6-1
+- update to 3.1.6
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

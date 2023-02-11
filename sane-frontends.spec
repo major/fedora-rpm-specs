@@ -1,9 +1,14 @@
 Name: sane-frontends
 Version: 1.0.14
-Release: 45%{?dist}
+Release: 46%{?dist}
 Summary: Graphical frontend to SANE
 URL: http://www.sane-project.org
-Source0: ftp://ftp.sane-project.org/pub/sane/%{name}-%{version}/%{name}-%{version}.tar.gz
+
+# Repacked the upstream source to remove bundled glibc functions
+# reported here https://gitlab.com/sane-project/frontends/-/merge_requests/11
+#Source0: ftp://ftp.sane-project.org/pub/sane/%%{name}-%%{version}/%%{name}-%%{version}.tar.gz
+Source0: %{name}-%{version}-repacked.tar.gz
+
 # Fix array subscript out of bounds errors (#133121).
 # Upstream commit 5113e3de39846a8226909088ad5c1aa4969f3030 and commit
 # 7336b064653026171a715dfaf803693b638c67a5 (partial)
@@ -15,17 +20,20 @@ Patch1: sane-frontends-1.0.14-sane-backends-1.0.20.patch
 # Describe correct option names in xcam man page.
 # Upstream commit 7e079e377174826453a1041719fb347d69d3ba5f
 Patch2: sane-frontends-1.0.14-xcam-man.patch
-# Update lib/snprintf.c to current version from LPRng to resolve license issue (#1102522)
-Patch3: sane-frontends-1.0.14-update-to-current-lprng-plp_snprintf.patch
 # 1837961 - [abrt] sane-frontends: operator delete(): scanadf killed by SIGSEGV
 # original PR https://gitlab.com/sane-project/frontends/-/merge_requests/1 (bz1837961)
 # updated PR https://gitlab.com/sane-project/frontends/-/merge_requests/7 (bz2133813)
-Patch4: frontends-scanadf-segv.patch
+Patch3: frontends-scanadf-segv.patch
 
-Patch5: sane-frontends-configure-c99.patch
-Patch6: sane-frontends-c99.patch
+Patch4: sane-frontends-configure-c99.patch
+Patch5: sane-frontends-c99.patch
 
-License: GPLv2+ and LGPLv2+ and GPLv2+ with exceptions
+# there are two other licenses with exceptions:
+# GPL-2.0-or-later WITH Autoconf-exception-2.0-like exception
+# GPL-2.0-or-later WITH gnu-javamail-exception-like exception
+# they are reported to legal list to get a SPDX identifier -
+# use plain GPLv2+ for now
+License: GPL-2.0-or-later
 # gcc is no longer in buildroot by default
 BuildRequires: gcc
 # use for autosetup
@@ -55,13 +63,19 @@ rm -f %{buildroot}%{_mandir}/man1/xscanimage*
 rm -f %{buildroot}%{_datadir}/sane/sane-style.rc
 
 %files
-%doc AUTHORS COPYING README
-%{_bindir}/*
-%{_mandir}/man1/*
+%doc AUTHORS README
+%license COPYING
+%{_bindir}/scanadf
+%{_bindir}/xcam
+%{_mandir}/man1/scanadf.1.gz
+%{_mandir}/man1/xcam.1.gz
 # there is no desktop file for xcam because while it is a GUI program it is
 # intended to be used from the command line
 
 %changelog
+* Thu Feb 09 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.0.14-46
+- update License tag to SPDX name and unbundle glibc funcs
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.14-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

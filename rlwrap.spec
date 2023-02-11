@@ -1,12 +1,11 @@
 Name:           rlwrap
-Version:        0.45.2
+Version:        0.46.1
 Release:        %autorelease
 Summary:        Wrapper for GNU readline
 
 License:        GPLv2+
 URL:            https://github.com/hanslub42/rlwrap
-Source:         %{url}/releases/download/v%{version}/%{name}-%{version}.tar.gz
-Patch:          %{url}/pull/165.patch#/fix-version-parsing.diff
+Source:         %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  make

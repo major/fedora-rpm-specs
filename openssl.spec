@@ -28,8 +28,8 @@ print(string.sub(hash, 0, 16))
 
 Summary: Utilities from the general purpose cryptography library with TLS implementation
 Name: openssl
-Version: 3.0.7
-Release: 4%{?dist}
+Version: 3.0.8
+Release: 1%{?dist}
 Epoch: 1
 # We have to remove certain patented algorithms from the openssl source
 # tarball with the hobble-openssl script which is included below.
@@ -71,12 +71,6 @@ Patch11: 0011-Remove-EC-curves.patch
 # Disable explicit EC curves
 # https://bugzilla.redhat.com/show_bug.cgi?id=2066412
 Patch12: 0012-Disable-explicit-ec.patch
-# https://github.com/openssl/openssl/pull/17981
-# Patch13: 0013-FIPS-provider-explicit-ec.patch
-# https://github.com/openssl/openssl/pull/17998
-# Patch14: 0014-FIPS-disable-explicit-ec.patch
-# https://github.com/openssl/openssl/pull/18609
-# Patch15: 0015-FIPS-decoded-from-explicit.patch
 # Instructions to load legacy provider in openssl.cnf
 Patch24: 0024-load-legacy-prov.patch
 # Tmp: test name change
@@ -93,12 +87,8 @@ Patch35: 0035-speed-skip-unavailable-dgst.patch
 Patch44: 0044-FIPS-140-3-keychecks.patch
 # Minimize fips services
 Patch45: 0045-FIPS-services-minimize.patch
-# Backport of s390x hardening, https://github.com/openssl/openssl/pull/17486
-# Patch46: 0046-FIPS-s390x-hardening.patch
 # Execute KATS before HMAC verification
 Patch47: 0047-FIPS-early-KATS.patch
-# Backport of correctly handle 2^14 byte long records #17538
-# Patch48: 0048-correctly-handle-records.patch
 %if 0%{?rhel}
 # Selectively disallow SHA1 signatures
 Patch49: 0049-Selectively-disallow-SHA1-signatures.patch
@@ -121,10 +111,6 @@ Patch52: 0052-Allow-SHA1-in-seclevel-1-if-rh-allow-sha1-signatures.patch
 # Instrument with USDT probes related to SHA-1 deprecation
 Patch53: 0053-Add-SHA1-probes.patch
 %endif
-# https://bugzilla.redhat.com/show_bug.cgi?id=2004915, backport of 2c0f7d46b8449423446cfe1e52fc1e1ecd506b62
-# Patch54: 0054-Replace-size-check-with-more-meaningful-pubkey-check.patch
-# https://github.com/openssl/openssl/pull/17324
-# Patch55: 0055-nonlegacy-fetch-null-deref.patch
 # https://github.com/openssl/openssl/pull/18103
 # The patch is incorporated in 3.0.3 but we provide this function since 3.0.1
 # so the patch should persist
@@ -138,25 +124,6 @@ Patch60: 0060-FIPS-KAT-signature-tests.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2087147
 Patch61: 0061-Deny-SHA-1-signature-verification-in-FIPS-provider.patch
 Patch62: 0062-fips-Expose-a-FIPS-indicator.patch
-# https://github.com/openssl/openssl/pull/18141
-# Patch63: 0063-CVE-2022-1473.patch
-# upstream commits 55c80c222293a972587004c185dc5653ae207a0e 2eda98790c5c2741d76d23cc1e74b0dc4f4b391a
-# Patch64: 0064-CVE-2022-1343.diff
-# upstream commit 1ad73b4d27bd8c1b369a3cd453681d3a4f1bb9b2
-# Patch65: 0065-CVE-2022-1292.patch
-# https://github.com/openssl/openssl/pull/18444
-# https://github.com/openssl/openssl/pull/18467
-# Patch66: 0066-replace-expired-certs.patch
-# https://github.com/openssl/openssl/pull/18512
-# Patch67: 0067-fix-ppc64-montgomery.patch
-#https://github.com/openssl/openssl/commit/2c9c35870601b4a44d86ddbf512b38df38285cfa
-#https://github.com/openssl/openssl/commit/8a3579a7b7067a983e69a4eda839ac408c120739
-# Patch68: 0068-CVE-2022-2068.patch
-# https://github.com/openssl/openssl/commit/a98f339ddd7e8f487d6e0088d4a9a42324885a93
-# https://github.com/openssl/openssl/commit/52d50d52c2f1f4b70d37696bfa74fe5e581e7ba8
-# Patch69: 0069-CVE-2022-2097.patch
-# https://github.com/openssl/openssl/commit/edceec7fe0c9a5534ae155c8398c63dd7dd95483
-# Patch70: 0070-EVP_PKEY_Q_keygen-Call-OPENSSL_init_crypto-to-init-s.patch
 # https://github.com/openssl/openssl/commit/44a563dde1584cd9284e80b6e45ee5019be8d36c
 # https://github.com/openssl/openssl/commit/345c99b6654b8313c792d54f829943068911ddbd
 # Regression on Power8, see rhbz2124845, https://github.com/openssl/openssl/issues/19163; fix in 0079-Fix-AES-GCM-on-Power-8-CPUs.patch
@@ -184,14 +151,6 @@ Patch77: 0077-FIPS-140-3-zeroization.patch
 Patch78: 0078-Add-FIPS-indicator-parameter-to-HKDF.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2124845, https://github.com/openssl/openssl/pull/19182
 Patch79: 0079-Fix-AES-GCM-on-Power-8-CPUs.patch
-# #CVE-2022-3602
-# Patch80: 0080-CVE-2022-3602.patch
-# #Provider interface fixes
-# Patch81: 0081-EVP_PKEY_eq-regain-compatibility-with-the-3.0.0-FIPS.patch
-Patch82: 0082-Propagate-selection-all-the-way-on-key-export.patch
-Patch83: 0083-Update-documentation-for-keymgmt-export-utils.patch
-Patch84: 0084-Add-test-for-EVP_PKEY_eq.patch
-Patch85: 0085-Drop-explicit-check-for-engines-in-opt_legacy_okay.patch
 # https://github.com/openssl/openssl/pull/13817
 Patch100: 0100-RSA-PKCS15-implicit-rejection.patch
 
@@ -532,6 +491,17 @@ install -m644 %{SOURCE9} \
 %ldconfig_scriptlets libs
 
 %changelog
+* Thu Feb 09 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 1:3.0.8-1
+- Rebase to upstream version 3.0.8
+  Resolves: CVE-2022-4203
+  Resolves: CVE-2022-4304
+  Resolves: CVE-2022-4450
+  Resolves: CVE-2023-0215
+  Resolves: CVE-2023-0216
+  Resolves: CVE-2023-0217
+  Resolves: CVE-2023-0286
+  Resolves: CVE-2023-0401
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

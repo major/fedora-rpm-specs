@@ -25,12 +25,13 @@
 Summary: Apache Portable Runtime Utility library
 Name: apr-util
 Version: 1.6.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: ASL 2.0
 URL: https://apr.apache.org/
 Source0: https://www.apache.org/dist/apr/%{name}-%{version}.tar.bz2
 Patch1: apr-util-1.2.7-pkgconf.patch
 Patch2: apr-util-1.4.1-private.patch
+Patch3: apr-util-1.6.3-allow-ipv6.patch
 BuildRequires: gcc
 BuildRequires: autoconf, apr-devel >= 1.3.0
 BuildRequires: %{dbdep}, expat-devel, libuuid-devel
@@ -133,6 +134,7 @@ This package provides the NSS crypto support for the apr-util.
 %setup -q
 %patch1 -p1 -b .pkgconf
 %patch2 -p1 -b .private
+%patch3 -p1 -b .r1907541
 
 : Configured for LDAP library: %{ldaplib}
 
@@ -230,6 +232,9 @@ export LD_LIBRARY_PATH=%{buildroot}/%{_libdir}/apr-util-%{apuver}
 %{_datadir}/aclocal/*.m4
 
 %changelog
+* Fri Feb 10 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-2
+- memcache/apr_memcache.c (conn_connect): Allow use of IPv6
+
 * Thu Feb 02 2023 Luboš Uhliarik <luhliari@redhat.com> - 1.6.3-1
 - new version 1.6.3
 

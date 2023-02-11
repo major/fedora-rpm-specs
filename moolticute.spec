@@ -125,7 +125,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_unitdir}/moolticuted.service
 
 %changelog
-* Wed Feb 09 2023 Arthur Bols <arthur@bols.dev> - 1.01.0-1
+* Thu Feb 09 2023 Arthur Bols <arthur@bols.dev> - 1.01.0-1
 - Upstream release 1.01.0
 
 * Sun Jan 22 2023 Arthur Bols <arthur@bols.dev> - 1.00.1-5

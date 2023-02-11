@@ -10,7 +10,7 @@ Summary: slirp for network namespaces
 URL: https://github.com/rootless-containers/%{name}
 # Tarball fetched from upstream
 Source0: %{url}/archive/%{built_tag}.tar.gz
-ExclusiveArch: %{golang_arches}
+ExclusiveArch: %{golang_arches_future}
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: go-md2man

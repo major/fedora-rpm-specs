@@ -16,13 +16,13 @@
 %global baserelease 1
 
 # github fails to create a version including a ~
-%global gh_ver  1.0.0b4
+%global gh_ver  1.0.0b5
 
 Name:           osc
 Summary:        Open Build Service Commander
-Version:        1.0.0~b4
+Version:        1.0.0~b5
 # Bump the release as necessary to ensure we're one level up from upstream
-Release:        %{baserelease}%{?dist}
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://github.com/openSUSE/%{name}
 Source:         %{URL}/archive/%{gh_ver}/%{name}-%{version}.tar.gz
@@ -131,6 +131,9 @@ python3 setup.py test
 %dir %{osc_plugin_dir}
 
 %changelog
+* Thu Feb 09 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0~b5-1
+- 1.0.0b5
+
 * Fri Feb  3 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 1.0.0~b4-1
 - New upstream release 1.0.0~b4, fixes rhbz#2166895
 

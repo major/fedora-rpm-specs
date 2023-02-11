@@ -4,7 +4,7 @@
 # https://gitlab.com/gitlab-org/cli
 %global goipath         gitlab.com/gitlab-org/cli
 %global forgeurl        https://gitlab.com/gitlab-org/cli
-Version:                1.24.1
+Version:                1.25.3
 
 %global repo            cli
 %global archivename     %{repo}-%{version}
@@ -30,8 +30,6 @@ Summary:        A GitLab CLI tool bringing GitLab to your command line
 License:        MIT
 URL:            %{gourl}
 Source:         %{gosource}
-# https://gitlab.com/gitlab-org/cli/-/merge_requests/1146
-Patch:          0001-build-deps-update-github.com-AlecAivazis-survey-v2-t.patch
 
 BuildRequires:  git-core
 BuildRequires:  sed
@@ -44,7 +42,6 @@ Requires:       git-core
 
 %prep
 %goprep
-%patch0 -p1
 
 %generate_buildrequires
 %go_generate_buildrequires
@@ -90,14 +87,27 @@ awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing
 done
 %gocheck -d gitlab.com/gitlab-org/cli/commands \
          -d gitlab.com/gitlab-org/cli/commands/api \
+         -d gitlab.com/gitlab-org/cli/commands/alias/set \
          -d gitlab.com/gitlab-org/cli/commands/auth/login \
+         -d gitlab.com/gitlab-org/cli/commands/ci/delete \
          -d gitlab.com/gitlab-org/cli/commands/ci/lint \
+         -d gitlab.com/gitlab-org/cli/commands/ci/list \
+         -d gitlab.com/gitlab-org/cli/commands/ci/retry \
          -d gitlab.com/gitlab-org/cli/commands/ci/trace \
+         -d gitlab.com/gitlab-org/cli/commands/flag \
+         -d gitlab.com/gitlab-org/cli/commands/incident/list \
+         -d gitlab.com/gitlab-org/cli/commands/incident/view \
          -d gitlab.com/gitlab-org/cli/commands/issue/board/create \
          -t gitlab.com/gitlab-org/cli/commands/issue \
+         -d gitlab.com/gitlab-org/cli/commands/label/list \
          -t gitlab.com/gitlab-org/cli/commands/mr \
          -t gitlab.com/gitlab-org/cli/commands/project \
-         -d gitlab.com/gitlab-org/cli/commands/release/list
+         -d gitlab.com/gitlab-org/cli/commands/release/create \
+         -d gitlab.com/gitlab-org/cli/commands/release/delete \
+         -d gitlab.com/gitlab-org/cli/commands/release/list \
+         -d gitlab.com/gitlab-org/cli/commands/release/upload \
+         -d gitlab.com/gitlab-org/cli/commands/release/view \
+         -d gitlab.com/gitlab-org/cli/commands/schedule/list
 %endif
 
 %files

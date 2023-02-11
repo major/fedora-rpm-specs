@@ -9,7 +9,7 @@
 
 Name:    plasma-desktop
 Summary: Plasma Desktop shell
-Version: 5.26.90
+Version: 5.27.0
 Release: 1%{?dist}
 
 License: GPLv2+ and (GPLv2 or GPLv3)
@@ -331,6 +331,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.kde.knetattach.d
 
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
 - 5.26.90
 

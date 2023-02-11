@@ -29,7 +29,7 @@
 %global git_gvproxy https://%{import_path_gvproxy}
 %global commit_gvproxy aab0ac9367fc5142f5857c36ac2352bcb3c60ab7
 
-%global built_tag v4.4.0
+%global built_tag v4.4.1
 %global built_tag_strip %(b=%{built_tag}; echo ${b:1})
 %global gen_version %(b=%{built_tag_strip}; echo ${b/-/"~"})
 
@@ -38,7 +38,7 @@ Epoch: 5
 Version: %{gen_version}
 License: ASL 2.0 and BSD and ISC and MIT and MPLv2.0
 Release: %autorelease
-ExclusiveArch: %{golang_arches}
+ExclusiveArch: %{golang_arches_future}
 Summary: Manage Pods, Containers and Container Images
 URL: https://%{name}.io/
 # All SourceN files fetched from upstream
@@ -78,6 +78,9 @@ Requires: containers-common-extra >= 4:1-66
 %endif
 %endif
 Recommends: %{name}-gvproxy = %{epoch}:%{version}-%{release}
+Provides: %{name}-quadlet
+Obsoletes: %{name}-quadlet <= 5:4.4.0-1
+Provides: %{name}-quadlet = %{epoch}:%{version}-%{release}
 # vendored libraries
 # awk '{print "Provides: bundled(golang("$1")) = "$2}' go.mod | sort | uniq | sed -e 's/-/_/g' -e '/bundled(golang())/d' -e '/bundled(golang(go\|module\|replace\|require))/d'
 Provides: bundled(golang(github.com/Azure/go_ansiterm)) = v0.0.0_20210617225240_d185dfc1b5a1
@@ -437,19 +440,13 @@ cp -pav test/system %{buildroot}/%{_datadir}/%{name}/test/
 #define license tag if not already defined
 %{!?_licensedir:%global license %doc}
 
-# PACKIT PACKIT PACKIT PACKIT PACKIT PACKIT PACKIT PACKIT PACKIT PACKIT
-# These files will be installed by unreleased versions of %%{name} and upstream is
-# not comfy with a patch using packit's fix-spec-files action so let's remove the file here.
-# The packager will need to revisit this section on every upstream release.
-# See: https://github.com/containers/podman/pull/15457#discussion_r955423853
-rm -f %{buildroot}%{_datadir}/user-tmpfiles.d/%{name}-docker.conf
-
 %files -f %{name}.file-list
 %license LICENSE
 %doc README.md CONTRIBUTING.md install.md transfer.md
 %{_bindir}/%{name}
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/rootlessport
+%{_libexecdir}/%{name}/quadlet
 %{_datadir}/bash-completion/completions/%{name}
 # By "owning" the site-functions dir, we don't need to Require zsh
 %dir %{_datadir}/zsh/site-functions
@@ -459,14 +456,15 @@ rm -f %{buildroot}%{_datadir}/user-tmpfiles.d/%{name}-docker.conf
 %{_unitdir}/%{name}*
 %{_userunitdir}/%{name}*
 %{_tmpfilesdir}/%{name}.conf
-%if 0%{?fedora} >= 36
+%{_systemdgeneratordir}/%{name}-system-generator
+%{_systemdusergeneratordir}/%{name}-user-generator
 %{_modulesloaddir}/%{name}-iptables.conf
-%endif
 
 %files docker
 %{_bindir}/docker
 %{_mandir}/man1/docker*.1*
 %{_tmpfilesdir}/%{name}-docker.conf
+%{_user_tmpfilesdir}/%{name}-docker.conf
 
 %files remote
 %license LICENSE
@@ -493,12 +491,6 @@ rm -f %{buildroot}%{_datadir}/user-tmpfiles.d/%{name}-docker.conf
 %doc %{repo_gvproxy}-%{commit_gvproxy}/README.md
 %dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/gvproxy
-
-%files quadlet
-%license LICENSE
-%{_libexecdir}/%{name}/quadlet
-%{_systemdgeneratordir}/%{name}-system-generator
-%{_systemdusergeneratordir}/%{name}-user-generator
 
 %changelog
 %autochangelog

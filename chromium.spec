@@ -21,7 +21,7 @@
 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 1
+%global use_all_cpus 0
 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
@@ -1365,7 +1365,6 @@ pushd %{builddir}
 
 	# V8 initial snapshots
 	# https://code.google.com/p/chromium/issues/detail?id=421063
-	cp -a snapshot_blob.bin %{buildroot}%{chromium_path}
 	cp -a v8_context_snapshot.bin %{buildroot}%{chromium_path}
 	cp -a xdg-mime xdg-settings %{buildroot}%{chromium_path}
 	cp -a MEIPreload %{buildroot}%{chromium_path}
@@ -1560,10 +1559,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{_datadir}/gnome-control-center/default-apps/chromium-browser.xml
 
 %files common
-%if %{build_headless}
-%{chromium_path}/headless_lib_data.pak
-%{chromium_path}/headless_lib_strings.pak
-%endif
 %if %{build_clear_key_cdm}
 %{chromium_path}/libclearkeycdm.so
 %endif
@@ -1643,6 +1638,8 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %if %{build_headless}
 %files headless
 %{chromium_path}/headless_shell
+%{chromium_path}/headless_lib_data.pak
+%{chromium_path}/headless_lib_strings.pak
 %endif
 
 %if %{build_remoting}

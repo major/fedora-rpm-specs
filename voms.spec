@@ -8,7 +8,7 @@
 
 Name:		voms
 Version:	2.1.0
-Release:	0.28.rc3%{?dist}
+Release:	0.29.rc3%{?dist}
 Summary:	Virtual Organization Membership Service
 
 License:	ASL 2.0
@@ -27,6 +27,7 @@ Patch3:		0004-Fix-warning-about-possible-string-truncation.patch
 #		https://github.com/italiangrid/voms/pull/104
 Patch4:		0005-config.h-must-not-be-included-in-public-header-file.patch
 Patch5:		0006-Include-config.h-before-other-header-files.patch
+Patch6: voms-c99.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -127,6 +128,7 @@ This package provides the VOMS service.
 %patch3 -p1
 %patch4 -p1
 %patch5 -p1
+%patch6 -p1
 
 ./autogen.sh
 
@@ -356,6 +358,9 @@ fi
 %doc README.Fedora
 
 %changelog
+* Thu Feb 09 2023 Florian Weimer <fweimer@redhat.com> - 2.1.0-0.29.rc3
+- Port lexer/parser integration to C99 (#2168585)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-0.28.rc3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

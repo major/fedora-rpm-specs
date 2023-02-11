@@ -2,11 +2,11 @@
 # the VM's memory, so no useful debug info can be generated from it.
 %global debug_package %{nil}
 
-%global kernel linux-6.0.6
+%global kernel linux-6.1.6
 
 Name:           libkrunfw
-Version:        3.8.1
-Release:        2%{?dist}
+Version:        3.9.0
+Release:        1%{?dist}
 Summary:        A dynamic library bundling the guest payload consumed by libkrun
 License:        LGPLv2 and GPLv2
 URL:            https://github.com/containers/libkrunfw
@@ -113,6 +113,9 @@ cp %{SOURCE1} tarballs/
 %endif
 
 %changelog
+* Thu Feb 09 2023 Sergio Lopez <slp@redhat.com> - 3.9.0-1
+- Update to 3.9.0 which bundles a 6.1.6 kernel
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

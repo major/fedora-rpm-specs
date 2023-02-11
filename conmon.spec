@@ -27,7 +27,7 @@ URL: https://github.com/containers/%{name}
 # Tarball fetched from upstream
 Source0: %{url}/archive/%{built_tag}.tar.gz
 %if %{with docs}
-ExclusiveArch: %{go_arches}
+ExclusiveArch: %{golang_arches_future}
 BuildRequires: go-md2man
 %endif
 BuildRequires: gcc

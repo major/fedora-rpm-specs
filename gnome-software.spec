@@ -21,7 +21,7 @@
 
 Name:      gnome-software
 Version:   44~alpha
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -50,7 +50,7 @@ BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires: pkgconfig(libadwaita-1) >= %{libadwaita_version}
 BuildRequires: pkgconfig(libdnf)
-BuildRequires: pkgconfig(libsoup-2.4)
+BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: pkgconfig(malcontent-0)
 BuildRequires: pkgconfig(ostree-1)
 BuildRequires: pkgconfig(packagekit-glib2) >= %{packagekit_version}
@@ -113,7 +113,7 @@ This package includes the rpm-ostree backend.
 
 %build
 %meson \
-    -Dsoup2=true \
+    -Dsoup2=false \
     -Dsnap=false \
     -Dmalcontent=true \
     -Dgudev=true \
@@ -228,6 +228,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Thu Feb 09 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 44~alpha-3
+- Switch to libsoup 3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44~alpha-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

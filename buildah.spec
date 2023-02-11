@@ -23,11 +23,11 @@ Name: %{repo}
 Version: %{gen_version}
 License: ASL 2.0 and BSD and MIT and MPLv2.0
 Release: %autorelease
+ExclusiveArch: %{golang_arches_future}
 Summary: A command line tool used for creating OCI Images
 URL: https://%{name}.io
 # Tarball fetched from upstream
 Source: %{git0}/archive/%{built_tag}.tar.gz
-ExclusiveArch: %{golang_arches}
 BuildRequires: go-md2man
 BuildRequires: device-mapper-devel
 BuildRequires: git-core

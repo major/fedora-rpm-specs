@@ -3,8 +3,8 @@
 %bcond_with check
 
 Name:           libkrun
-Version:        1.4.8
-Release:        2%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Dynamic library providing Virtualization-based process isolation capabilities
 
 # Upstream license specification: Apache-2.0 AND BSD-3-Clause
@@ -14,10 +14,10 @@ Source:         https://github.com/containers/libkrun/archive/refs/tags/v%{versi
 # Remove references to unused deps so we don't need to install them for
 # building this package
 Patch0:         libkrun-remove-unused-deps.diff
+# Update and relax vm-memory dependency
+Patch1:         libkrun-update-relax-vm-memory.diff
 # For aarch64, remove references to SEV deps which are only available on x86_64
-Patch1:         libkrun-remove-sev-deps.diff
-# Relax rust-sev dep
-Patch2:         libkrun-sev-relax.diff
+Patch2:         libkrun-remove-sev-deps.diff
 
 # libkrun only supports x86_64 and aarch64
 ExclusiveArch:  x86_64 aarch64
@@ -45,12 +45,12 @@ BuildRequires:  libfdt-devel
 %endif
 
 BuildRequires:  crate(libc/default) >= 0.2.39
-BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.8.0 with crate(vm-memory/backend-mmap) < 0.9.0~)
-BuildRequires:  (crate(vm-memory/default) >= 0.8.0 with crate(vm-memory/default) < 0.9.0~)
-BuildRequires:  crate(kvm-bindings/default) >= 0.2.0
-BuildRequires:  crate(kvm-bindings/fam-wrappers) >= 0.2.0
-BuildRequires:  crate(kvm-ioctls/default) >= 0.4.0
-BuildRequires:  crate(vmm-sys-util/default) >= 0.7.0
+BuildRequires:  (crate(vm-memory/backend-mmap) >= 0.10.0 with crate(vm-memory/backend-mmap) < 0.11.0~)
+BuildRequires:  (crate(vm-memory/default) >= 0.10.0 with crate(vm-memory/default) < 0.11.0~)
+BuildRequires:  crate(kvm-bindings/default) >= 0.6.0
+BuildRequires:  crate(kvm-bindings/fam-wrappers) >= 0.6.0
+BuildRequires:  crate(kvm-ioctls/default) >= 0.13.0
+BuildRequires:  crate(vmm-sys-util/default) >= 0.11.0
 BuildRequires:  (crate(bitflags/default) >= 1.2.0 with crate(bitflags/default) < 2.0.0~)
 BuildRequires:  (crate(env_logger/default) >= 0.9.0 with crate(env_logger/default) < 0.10.0~)
 BuildRequires:  (crate(log/default) >= 0.4.0 with crate(log/default) < 0.5.0~)
@@ -64,8 +64,8 @@ BuildRequires:  (crate(crossbeam-channel/default) >= 0.5.0 with crate(crossbeam-
 BuildRequires:  (crate(codicon/default) >= 3.0.0 with crate(codicon/default) < 4.0.0~)
 BuildRequires:  (crate(curl/default) >= 0.4.0 with crate(curl/default) < 0.5.0~)
 BuildRequires:  (crate(procfs/default) >= 0.12.0 with crate(procfs/default) < 0.13.0~)
-BuildRequires:  (crate(sev/default) >= 0.2.0 with crate(sev/default) < 1.0.0~)
-BuildRequires:  (crate(sev/openssl) >= 0.2.0 with crate(sev/openssl) < 1.0.0~)
+BuildRequires:  (crate(sev/default) >= 1.0.0 with crate(sev/default) < 2.0.0~)
+BuildRequires:  (crate(sev/openssl) >= 1.0.0 with crate(sev/openssl) < 2.0.0~)
 BuildRequires:  (crate(serde/default) >= 1.0.0 with crate(serde/default) < 2.0.0~)
 BuildRequires:  (crate(serde/derive) >= 1.0.0 with crate(serde/derive) < 2.0.0~)
 BuildRequires:  (crate(serde_json/default) >= 1.0.0 with crate(serde_json/default) < 2.0.0~)
@@ -109,9 +109,8 @@ capabilities.
 %prep
 %setup -q -n %{name}-%{version_no_tilde} 
 %patch0 -p1
-%ifnarch x86_64
 %patch1 -p1
-%else
+%ifnarch x86_64
 %patch2 -p1
 %endif
 %cargo_prep
@@ -161,6 +160,12 @@ patchelf --set-soname libkrun.so.1 --output target/release/libkrun.so.%{version}
 %endif
 
 %changelog
+* Thu Feb 09 2023 Sergio Lopez <slp@redhat.com> - 1.5.0-1
+- Update to version 1.5.0
+- Update vm-memory, kvm-bindings, kvm-ioctls, vmm-sys-utils and sev
+  dependencies
+- Add a patch to update and relax vm-memory dependency
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

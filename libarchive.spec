@@ -2,7 +2,7 @@
 
 Name:           libarchive
 Version:        3.6.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library for handling streaming archive formats
 
 License:        BSD
@@ -41,6 +41,10 @@ Patch0001: 0001-Drop-rmd160-from-OpenSSL.patch
 # Source: https://github.com/libarchive/libarchive/commit/fd180c36036df7181a64931264732a10ad8cd024
 Patch2:                %{name}-3.6.1-Fix-CVE-2022-36227.patch
 
+# For better pathname portability across OS, in particular Windows to Linux
+# archive_entry_pathname() tries UTF-8 if MBS returns EILSEQ
+# Source: https://github.com/libarchive/libarchive/commit/06a4b1018ee843cd491f6ff92813e67962fa0335
+Patch3:                %{name}-3.6.1-Better-pathname-portability.patch
 
 %description
 Libarchive is a programming library that can create and read several different
@@ -225,6 +229,10 @@ run_testsuite
 
 
 %changelog
+* Wed Feb 08 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 3.6.1-5
+- Backport upstream PR#1772 for better pathname portability across OS
+  Resolves: #2136961
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

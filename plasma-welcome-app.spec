@@ -2,8 +2,8 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome-app
-Version:        5.26.90
-Release:        2%{?dist}
+Version:        5.27.0
+Release:        1%{?dist}
 License:        GPLv2+ and BSD
 Summary:        Plasma Welcome App
 Url:            https://invent.kde.org/plasma/%{srcname}
@@ -29,6 +29,7 @@ BuildRequires:  cmake(KF5CoreAddons)
 BuildRequires:  cmake(KF5ConfigWidgets)
 BuildRequires:  cmake(KF5DBusAddons)
 BuildRequires:  cmake(KAccounts)
+BuildRequires:  cmake(KF5NewStuff)
 BuildRequires:  cmake(KF5Notifications)
 BuildRequires:  cmake(KF5WindowSystem)
 BuildRequires:  cmake(KF5Declarative)
@@ -73,6 +74,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

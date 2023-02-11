@@ -3,7 +3,7 @@
 Name:		lizardfs
 Summary:	Distributed, fault tolerant file system
 Version:	3.12.0
-Release:	21%{?dist}
+Release:	22%{?dist}
 # LizardFS is under GPLv3 while crcutil is under ASL 2.0 and there's one header,
 # src/common/coroutine.h, under the Boost license
 License:	GPLv3 and ASL 2.0 and Boost
@@ -11,27 +11,36 @@ URL:		http://www.lizardfs.org/
 Source:		https://github.com/lizardfs/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:	pam-lizardfs
 Source2:	95-lizardfs.conf
+
 # Use spdlog system library if available
 Patch0:		0001-Put-customized-spdlog-in-source-so-we-don-t-download.patch
+
 # Fix for building with GCC 8
 # See https://github.com/lizardfs/lizardfs/pull/677
 Patch1:		0001-Add-missing-header.patch
+
 # Use python 3 rather than python 2 for cgi server
 Patch2:     lizardfs-3.12-cgi-py3.patch
+
+# Fix building with GCC13
+Patch3:     0003-gcc-13-missing-includes.patch
+
+BuildRequires:	asciidoc
+BuildRequires:	cmake
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
-BuildRequires:	fuse-devel
-BuildRequires:	cmake
+BuildRequires:	make
 BuildRequires:	pkgconfig
-BuildRequires:	zlib-devel
-BuildRequires:	asciidoc
-BuildRequires:	Judy-devel
-BuildRequires:	systemd-devel
-BuildRequires:	libdb-devel
-BuildRequires:	boost-devel
-BuildRequires:	pam-devel
 BuildRequires:	systemd
-BuildRequires: make
+
+BuildRequires:	boost-devel
+BuildRequires:	fuse-devel
+BuildRequires:	Judy-devel
+BuildRequires:	libdb-devel
+BuildRequires:	pam-devel
+BuildRequires:	systemd-devel
+BuildRequires:	zlib-devel
+
 # libcrcutil is basically a copylib with a dead upstream
 # https://code.google.com/archive/p/crcutil/
 Provides:	bundled(libcrcutil) = 1.0
@@ -400,6 +409,9 @@ install -m644 %{SOURCE2} %{buildroot}%{_sysconfdir}/security/limits.d/95-lizardf
 
 
 %changelog
+* Thu Feb 09 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 3.12.0-22
+- Add a patch to fix build failures with GCC13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

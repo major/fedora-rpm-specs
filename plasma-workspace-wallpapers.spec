@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:    plasma-workspace-wallpapers
-Version: 5.26.90
-Release: 2%{?dist}
+Version: 5.27.0
+Release: 1%{?dist}
 Summary: Additional wallpapers for Plasma workspace
 License: LGPLv3
 URL:     https://cgit.kde.org/%{name}.git
@@ -65,6 +65,7 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/Grey/
 %{_datadir}/wallpapers/Honeywave/
 %{_datadir}/wallpapers/IceCold/
+%{_datadir}/wallpapers/Kay/
 %{_datadir}/wallpapers/Kite/
 %{_datadir}/wallpapers/Kokkini/
 %{_datadir}/wallpapers/MilkyWay/
@@ -79,6 +80,9 @@ Obsoletes:      plasma-workspace-wallpapers < 5.2.0-2
 %{_datadir}/wallpapers/Volna/
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

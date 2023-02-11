@@ -3,7 +3,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 2
+%global baserelease 3
 
 Name:           credentials-fetcher
 Version:        %{major_version}.%{minor_version}.%{patch_version}
@@ -16,12 +16,12 @@ Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/%{v
 
 BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel boost-devel 
 BuildRequires:  openssl-devel zlib-devel protobuf-devel re2-devel krb5-devel systemd-devel
-BuildRequires:  systemd-rpm-macros dotnet grpc-plugins
+BuildRequires:  systemd-rpm-macros dotnet-sdk-7.0 grpc-plugins
 
 Requires: bind-utils openldap openldap-clients awscli
 
 # No one likes you i686
-ExcludeArch:    i686 armv7hl ppc64le
+ExcludeArch:    i686 armv7hl
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/CMake/
 
@@ -62,6 +62,10 @@ ctest3
 %attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Thu Feb 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.0-3
+- Depend on dotnet-sdk-7.0; there is no longer an unversioned “dotnet” package
+- Restore ppc64le support
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

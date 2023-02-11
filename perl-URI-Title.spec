@@ -1,5 +1,5 @@
 Name:           perl-URI-Title
-Version:        1.903
+Version:        1.904
 Release:        1%{?dist}
 Summary:        Get the titles of things on the web in a sensible way
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -98,7 +98,7 @@ cp -a t %{buildroot}%{_libexecdir}/%{name}
 rm -rf %{buildroot}%{_libexecdir}/%{name}/t/author-*
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -116,6 +116,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.904-1
+- 1.904 bump
+
 * Wed Jan 25 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.903-1
 - 1.903 bump
 - Package tests

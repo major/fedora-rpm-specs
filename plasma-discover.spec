@@ -12,8 +12,8 @@
 
 Name:    plasma-discover
 Summary: KDE and Plasma resources management GUI
-Version: 5.26.90
-Release: 3%{?dist}
+Version: 5.27.0
+Release: 1%{?dist}
 
 # KDE e.V. may determine that future GPL versions are accepted
 License: GPLv2 or GPLv3
@@ -307,6 +307,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.di
 
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Tue Jan 24 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-3
 - -flatpak to install flatpak-kcm if plasma-systemsettings is installed
 

@@ -4,12 +4,11 @@
 %global srcname the_Foundation
 
 Name:           the_foundation
-Version:        1.5.0
+Version:        1.6.0
 Release:        %autorelease
 Summary:        Opinionated C11 library for low-level functionality
 
-# SPDX-3.0-License-Identifier: BSD-2-Clause
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://codeberg.org/skyjake/the_Foundation
 Source:         %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

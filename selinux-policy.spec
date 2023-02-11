@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit 98619aa5ab8e1adf058c1d17c562750d2e7a1e36
+%global commit fe62ff64ca224f40cffb1ebe12e282a6d101e2b9
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.6
+Version: 38.7
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,18 @@ exit 0
 %endif
 
 %changelog
+* Wed Feb 08 2023 Zdenek Pytela <zpytela@redhat.com> - 38.7-1
+- Allowing snapper to create snapshots of /home/ subvolume/partition
+- Add boolean qemu-ga to run unconfined script
+- Label systemd-journald feature LogNamespace
+- Add none file context for polyinstantiated tmp dirs
+- Allow certmonger read the contents of the sysfs filesystem
+- Add journalctl the sys_resource capability
+- Allow nm-dispatcher plugins read generic files in /proc
+- Add initial policy for the /usr/sbin/request-key helper
+- Additional support for rpmdb_migrate
+- Add the keyutils module
+
 * Mon Jan 30 2023 Zdenek Pytela <zpytela@redhat.com> - 38.6-1
 - Boolean: allow qemu-ga read ssh home directory
 - Allow kernel_t to read/write all sockets

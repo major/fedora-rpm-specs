@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1262
+%define patchlevel 1293
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -585,10 +585,12 @@ cat > $RPM_BUILD_ROOT%{_datadir}/metainfo/gvim.appdata.xml <<EOF
 EmailAddress: Bram@moolenaar.net>
 SentUpstream: 2014-05-22
 -->
-<application>
-  <id type="desktop">gvim.desktop</id>
+<component type="desktop-application">
+  <id>org.vim.Vim</id>
+  <name>GVim</name>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>Vim</project_license>
+  <summary>The VIM version of the vi editor for the X Window System</summary>
   <description>
     <p>
      Vim is an advanced text editor that seeks to provide the power of the
@@ -603,14 +605,23 @@ SentUpstream: 2014-05-22
      Vim is perfect for all kinds of text editing, from composing email to
      editing configuration files.
     </p>
+    <p>
+     We ship the current Vim stable release - %{baseversion} - with the upstream
+     patchlevel %{patchlevel} applied, which is combined into version %{version}
+     used during packaging.
+    </p>
   </description>
+  <releases>
+    <release version="%{version}" date="%(date +%F -r %{SOURCE0})" />
+  </releases>
   <screenshots>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/zdohnal/vim/zdohnal-screenshot/gvim16_9.png</image>
     </screenshot>
   </screenshots>
   <url type="homepage">http://www.vim.org/</url>
-</application>
+  <content_rating type="oars-1.1"/>
+</component>
 EOF
 
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
@@ -992,6 +1003,9 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %endif
 
 %changelog
+* Thu Feb 09 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1293-1
+- patchlevel 1293
+
 * Mon Jan 30 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1262-1
 - patchlevel 1262
 

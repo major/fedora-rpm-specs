@@ -2,7 +2,7 @@
 
 # https://github.com/rabbitmq/amqp091-go
 %global goipath         github.com/rabbitmq/amqp091-go
-Version:                1.6.1
+Version:                1.7.0
 
 %gometa
 

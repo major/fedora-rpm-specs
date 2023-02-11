@@ -1,6 +1,6 @@
 Name:    kwrited
 Summary: KDE Write Daemon
-Version: 5.26.90
+Version: 5.27.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -62,6 +62,9 @@ Conflicts:      kde-workspace < 5.0.0-1
 
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
 - 5.26.90
 

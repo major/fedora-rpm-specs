@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 247
+%global baserelease 248
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -252,6 +252,9 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Tue Feb 07 2023 Tom Stellard <tstellar@redhat.com> - 248-1
+- Add %%pkg_extra_* macros
+
 * Mon Feb 06 2023 Nick Clifton  <nickc@redhat.com> - 247-1
 - Fix triggers for the installation and removal of gcc-plugin-annobin.
   Fixes: rhbz#2124562

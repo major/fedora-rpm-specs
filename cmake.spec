@@ -61,11 +61,19 @@
 %{!?_vpath_builddir:%global _vpath_builddir %{_target_platform}}
 
 %global major_version 3
-%global minor_version 25
-# Set to RC version if building RC, else %%{nil}
-#global rcsuf rc1
-%{?rcsuf:%global relsuf .%{rcsuf}}
-%{?rcsuf:%global versuf -%{rcsuf}}
+%global minor_version 26
+%global patch_version 0
+
+# Set to RC version if building RC, else comment out.
+%global rcsuf rc2
+
+%if 0%{?rcsuf:1}
+%global pkg_version %{major_version}.%{minor_version}.%{patch_version}~%{rcsuf}
+%global tar_version %{major_version}.%{minor_version}.%{patch_version}-%{rcsuf}
+%else
+%global pkg_version %{major_version}.%{minor_version}.%{patch_version}
+%global tar_version %{major_version}.%{minor_version}.%{patch_version}
+%endif
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
 %global baserelease 1
@@ -75,8 +83,8 @@
 %global orig_name cmake
 
 Name:           %{orig_name}%{?name_suffix}
-Version:        %{major_version}.%{minor_version}.2
-Release:        %{baserelease}%{?relsuf}%{?dist}
+Version:        %{pkg_version}
+Release:        %{baserelease}%{?dist}
 Summary:        Cross-platform make system
 
 # most sources are BSD
@@ -86,7 +94,7 @@ Summary:        Cross-platform make system
 # exception granting redistribution under terms of your choice
 License:        BSD and MIT and zlib
 URL:            http://www.cmake.org
-Source0:        http://www.cmake.org/files/v%{major_version}.%{minor_version}/%{orig_name}-%{version}%{?versuf}.tar.gz
+Source0:        http://www.cmake.org/files/v%{major_version}.%{minor_version}/%{orig_name}-%{tar_version}.tar.gz
 Source1:        %{name}-init.el
 Source2:        macros.%{name}
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1202899
@@ -272,7 +280,7 @@ This package contains common RPM macros for %{name}.
 
 
 %prep
-%autosetup -n %{orig_name}-%{version}%{?versuf} -p 1
+%autosetup -n %{orig_name}-%{tar_version} -p 1
 
 %if %{with rpm}
 %if %{with python3}
@@ -521,6 +529,10 @@ popd
 
 
 %changelog
+* Thu Feb 09 2023 Björn Esser <besser82@fedoraproject.org> - 3.26.0~rc2-1
+- cmake-3.26.0-rc2
+  Fixes rhbz#2167064
+
 * Thu Jan 19 2023 Björn Esser <besser82@fedoraproject.org> - 3.25.2-1
 - cmake-3.25.2
   Fixes rhbz#2162459

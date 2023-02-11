@@ -7,8 +7,8 @@
 %global crate sev
 
 Name:           rust-sev
-Version:        1.0.1
-Release:        2%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Library for AMD SEV
 
 License:        Apache-2.0
@@ -83,6 +83,9 @@ use the "openssl" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Thu Feb 09 2023 Sergio Lopez <slp@redhat.com> - 1.1.0-1
+- Update to version 1.1.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

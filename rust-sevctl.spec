@@ -5,13 +5,15 @@
 
 Name:           rust-sevctl
 Version:        0.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Administrative utility for AMD SEV
 
 License:        Apache-2.0
 URL:            https://crates.io/crates/sevctl
 Source0:        %{crates_source}
 Source1:        LICENSE.dependencies
+# Temporal patch to update the sev dependency
+Patch:          sevctl-update-sev.diff
 
 # SEV is an AMD x86_64 CPU feature so doesn't make sense to
 # try to build on other arches
@@ -63,6 +65,9 @@ cp -pav %{SOURCE1} .
 %endif
 
 %changelog
+* Thu Feb 09 2023 Sergio Lopez <slp@redhat.com> - 0.3.2-3
+- Include a patch to update sev dependency
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

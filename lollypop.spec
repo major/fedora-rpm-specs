@@ -4,7 +4,7 @@
 
 Name:           lollypop
 Version:        1.4.37
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Music player for GNOME
 License:        GPLv3+
 URL:            https://gitlab.gnome.org/World/lollypop
@@ -26,7 +26,7 @@ Requires:       gdk-pixbuf2
 Requires:       gstreamer1-plugins-base
 Requires:       gobject-introspection
 Requires:       gtk3
-Requires:       kid3-common
+Recommends:     kid3-common
 Requires:       libnotify >= 0.7.6
 Requires:       python3-gobject
 Requires:       python3-cairo
@@ -81,9 +81,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_datadir}/dbus-1/services/%{provider}.SearchProvider.service
 %{_datadir}/gnome-shell/search-providers/%{provider}.SearchProvider.ini
 %{python3_sitelib}/%{name}
-%{_mandir}/man1/%{name}.1.gz
+%{_mandir}/man1/%{name}.1*
 
 %changelog
+* Thu Feb 09 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.37-3
+- Fix flatpak build
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

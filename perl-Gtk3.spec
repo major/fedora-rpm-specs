@@ -2,7 +2,7 @@
 
 Name:           perl-Gtk3
 Version:        0.038
-Release:        7%{?dist}
+Release:        7%{?dist}.1
 Summary:        Perl interface to the 3.x series of the GTK+ toolkit
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Gtk3
@@ -80,6 +80,9 @@ make pure_install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man3/*
 
 %changelog
+* Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 0.038-7.1
+- rebuild for new epel macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.038-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

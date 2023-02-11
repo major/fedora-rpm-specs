@@ -12,7 +12,6 @@ License:        GPL-3.0-only
 URL:            %{forgeurl}
 Source:         %{forgesource}
 Source1:        waydroid.te
-Source2:        waydroid-gbinder.conf
 Source4:        dev-binderfs.mount
 Source6:        waydroid.fc
 

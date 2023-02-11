@@ -32,6 +32,7 @@ BuildRequires:  javapackages-tools
 
 # Python dependencies
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pygments}
 BuildRequires:  %{py3_dist setuptools}

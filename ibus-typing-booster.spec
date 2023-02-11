@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.21.0
+Version:    2.21.1
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -248,7 +248,12 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
-* Mon Feb 06 2023 Mike FABIAN <mfabian@redhat.com> - 2.21.3-1
+* Thu Feb 09 2023 Mike FABIAN <mfabian@redhat.com> - 2.21.1-1
+- Update to 2.21.1
+- Small performance tweak in detecting terminals
+- Translation update from Weblate (nl 100%, pl 100%, sv 100%, tr 100%)
+
+* Mon Feb 06 2023 Mike FABIAN <mfabian@redhat.com> - 2.21.0-1
 - Update to 2.21.0
 - Add an option to disable Typing Booster in terminals
   (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/414)

@@ -1,11 +1,11 @@
 %global debugedit_version 5.0
-%global glib2_version 2.44
+%global glib2_version 2.66
 %global ostree_version 2017.14
 %global flatpak_version 0.99.1
 
 Name:           flatpak-builder
-Version:        1.2.3
-Release:        3%{?dist}
+Version:        1.3.1
+Release:        1%{?dist}
 Summary:        Tool to build flatpaks from source
 
 # src/builder-utils.c has portions derived from GPLv2+ code,
@@ -26,7 +26,7 @@ BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(libcurl)
 BuildRequires:  pkgconfig(libelf)
-BuildRequires:  pkgconfig(libsoup-2.4)
+BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(ostree-1) >= %{ostree_version}
 BuildRequires:  pkgconfig(yaml-0.1)
 BuildRequires:  /usr/bin/xmlto
@@ -86,6 +86,9 @@ See https://flatpak.org/ for more information.
 
 
 %changelog
+* Thu Feb 09 2023 David King <amigadave@amigadave.com> - 1.3.1-1
+- Update to 1.3.1 (#2159101)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

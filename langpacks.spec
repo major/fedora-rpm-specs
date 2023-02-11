@@ -4,7 +4,7 @@
 
 Name:      langpacks
 Version:   3.0
-Release:   30%{?dist}
+Release:   31%{?dist}
 Summary:   Langpacks meta-package
 
 License:   GPL-2.0-or-later
@@ -663,7 +663,7 @@ This package provides Inuktitut langpacks meta-package.
 %package ja
 Summary: Japanese langpacks meta-package
 Requires: %{name}-core-ja
-Recommends: google-noto-serif-cjk-ttc-fonts
+Recommends: google-noto-serif-cjk-vf-fonts
 %if 0%{?fedora}
 Recommends: (uim-anthy if uim)
 %endif
@@ -674,7 +674,7 @@ This package provides Japanese langpacks meta-package.
 %files ja
 %{_datadir}/metainfo/org.fedoraproject.LangPack-ja.metainfo.xml
 
-%langcore_pkg -l ja -n Japanese -f google-noto-sans-cjk-ttc-fonts -i ibus-anthy
+%langcore_pkg -l ja -n Japanese -f google-noto-sans-cjk-vf-fonts -i ibus-anthy
 
 %package ka
 Summary: Georgian langpacks meta-package
@@ -752,7 +752,7 @@ This package provides Kannada langpacks meta-package.
 %package ko
 Summary: Korean langpacks meta-package
 Requires: %{name}-core-ko
-Recommends: google-noto-serif-cjk-ttc-fonts
+Recommends: google-noto-serif-cjk-vf-fonts
 
 %description ko
 This package provides Korean langpacks meta-package.
@@ -760,7 +760,7 @@ This package provides Korean langpacks meta-package.
 %files ko
 %{_datadir}/metainfo/org.fedoraproject.LangPack-ko.metainfo.xml
 
-%langcore_pkg -l ko -n Korean -f google-noto-sans-cjk-ttc-fonts -i ibus-hangul
+%langcore_pkg -l ko -n Korean -f google-noto-sans-cjk-vf-fonts -i ibus-hangul
 
 %package ku
 Summary: Kurdish langpacks meta-package
@@ -1372,7 +1372,7 @@ This package provides Yiddish langpacks meta-package.
 %package zh_CN
 Summary: Simplified Chinese langpacks meta-package
 Requires: %{name}-core-zh_CN
-Recommends: google-noto-serif-cjk-ttc-fonts
+Recommends: google-noto-serif-cjk-vf-fonts
 
 %description zh_CN
 This package provides Simplified Chinese langpacks meta-package.
@@ -1380,12 +1380,12 @@ This package provides Simplified Chinese langpacks meta-package.
 %files zh_CN
 %{_datadir}/metainfo/org.fedoraproject.LangPack-zh_CN.metainfo.xml
 
-%langcore_pkg -l zh_CN -n %{quote:Simplified Chinese} -f google-noto-sans-cjk-ttc-fonts -i ibus-libpinyin
+%langcore_pkg -l zh_CN -n %{quote:Simplified Chinese} -f google-noto-sans-cjk-vf-fonts -i ibus-libpinyin
 
 %package zh_HK
 Summary: Hong Kong Traditional Chinese langpacks meta-package
 Requires: %{name}-core-zh_HK
-Recommends: google-noto-serif-cjk-ttc-fonts
+Recommends: google-noto-serif-cjk-vf-fonts
 Recommends: ibus-table-chinese-quick
 
 %description zh_HK
@@ -1394,12 +1394,12 @@ This package provides Hong Kong Traditional Chinese langpacks meta-package.
 %files zh_HK
 %{_datadir}/metainfo/org.fedoraproject.LangPack-zh_HK.metainfo.xml
 
-%langcore_pkg -l zh_HK -n %{quote:Hong Kong Traditional Chinese} -f google-noto-sans-cjk-ttc-fonts -i ibus-table-chinese-cangjie
+%langcore_pkg -l zh_HK -n %{quote:Hong Kong Traditional Chinese} -f google-noto-sans-cjk-vf-fonts -i ibus-table-chinese-cangjie
 
 %package zh_TW
 Summary: Taiwan langpacks meta-package
 Requires: %{name}-core-zh_TW
-Recommends: google-noto-serif-cjk-ttc-fonts
+Recommends: google-noto-serif-cjk-vf-fonts
 Recommends: ibus-table-chinese-cangjie
 Recommends: ibus-table-chinese-quick
 
@@ -1409,7 +1409,7 @@ This package provides Taiwan Traditional Chinese langpacks meta-package.
 %files zh_TW
 %{_datadir}/metainfo/org.fedoraproject.LangPack-zh_TW.metainfo.xml
 
-%langcore_pkg -l zh_TW -n %{quote:Taiwan Traditional Chinese} -f google-noto-sans-cjk-ttc-fonts -i ibus-libzhuyin
+%langcore_pkg -l zh_TW -n %{quote:Taiwan Traditional Chinese} -f google-noto-sans-cjk-vf-fonts -i ibus-libzhuyin
 
 %package zu
 Summary: Zulu langpacks meta-package
@@ -1439,6 +1439,10 @@ DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE1}
 DESTDIR=%{buildroot} appstream-util split-appstream %{SOURCE2}
 
 %changelog
+* Wed Feb  8 2023 Peng Wu <pwu@redhat.com> - 3.0-31
+- Update for Noto CJK Variable Fonts
+- https://fedoraproject.org/wiki/Changes/Noto_CJK_Variable_Fonts
+
 * Fri Feb 03 2023 Akira TAGOH <tagoh@redhat.com> - 3.0-30
 - Update for https://fedoraproject.org/wiki/Changes/NotoFontsForMoreLang
 - Drop outdated google-noto-fonts packages.

@@ -3,8 +3,8 @@
 %global majorver 4.2
 Summary: An X Window System based IBM 3278/3279 terminal emulator
 Name: x3270
-Version: 4.2ga7
-Release: 2%{?dist}
+Version: 4.2ga8
+Release: 1%{?dist}
 License: BSD
 URL: https://x3270.miraheze.org/wiki/Main_Page
 Source0: http://downloads.sourceforge.net/%{name}/suite3270-%{version}-src.tgz
@@ -112,6 +112,9 @@ desktop-file-install \
 
 
 %changelog
+* Thu Feb 09 2023 Jakub Čajka <jcajka@redhat.com> 4.2ga8-1
+- updated to 4.2ga8 (#2165415)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2ga7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

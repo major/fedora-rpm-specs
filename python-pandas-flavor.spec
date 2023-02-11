@@ -1,22 +1,12 @@
-# We must package from a GitHub archive to get the tests, but upstream does not
-# tag releases. We must therefore package from a snapshot corresponding to the
-# PyPI release.
-%global commit f9308140d559ef1cb80587dedf6a7e32ca1f0b67
-%global snapdate 20220417
-
 Name:           python-pandas-flavor
-Version:        0.3.0^%{snapdate}git%(echo '%{commit}' | cut -b -7)
+Version:        0.5.0
 Release:        %autorelease
 Summary:        The easy way to write your own flavor of Pandas
 
 # SPDX
 License:        MIT
 URL:            https://github.com/Zsailer/pandas_flavor
-Source0:        %{url}/archive/%{commit}/pandas_flavor-%{commit}.tar.gz
-
-# Update lazy-loader dependency to ≥0.1
-# https://github.com/Zsailer/pandas_flavor/pull/25
-Patch:          %{url}/pull/25.patch
+Source0:        %{url}/archive/v%{version}/pandas_flavor-%{version}.tar.gz
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -75,7 +65,7 @@ Obsoletes:      python3-pandas_flavor < 0.3.0^20220417gitf930814-7
 
 
 %prep
-%autosetup -n pandas_flavor-%{commit}
+%autosetup -n pandas_flavor-%{version}
 
 
 %generate_buildrequires
@@ -99,6 +89,7 @@ Obsoletes:      python3-pandas_flavor < 0.3.0^20220417gitf930814-7
 
 %files -n python3-pandas-flavor -f %{pyproject_files}
 # pyproject_files handles LICENSE; verify with “rpm -qL -p …”
+%doc CHANGELOG.md
 %doc README.md
 %doc docs/_images/example.png
 

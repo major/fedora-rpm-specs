@@ -2,11 +2,12 @@
 
 Name:           lterm
 Version:        1.5.1
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Terminal and multi protocol client
 License:        GPLv2
 URL:            http://%{name}.sourceforge.net/
 Source0:        https://sourceforge.net/projects/%{name}/files/1.5/%{name}-%{version}.tar.gz
+Patch0: lterm-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -21,7 +22,7 @@ BuildRequires: make
 It is mainly used as SSH/Telnet client
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %configure --with-gtk2
@@ -45,6 +46,9 @@ desktop-file-install                                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Thu Feb 09 2023 Florian Weimer <fweimer@redhat.com> - 1.5.1-13
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

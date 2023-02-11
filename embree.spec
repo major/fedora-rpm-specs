@@ -8,7 +8,7 @@
 %bcond_without	ispc
 
 Name:		embree
-Version:	3.13.5
+Version:	4.0.0
 Release:	%autorelease
 Summary:	Collection of high-performance ray tracing kernels
 
@@ -22,7 +22,7 @@ Source:		https://github.com/%{name}/%{name}/archive/v%{version}%{?prerelease:%{-
 
 #[PATCH] Fix Linux aarch64 support on GCC with lax vector conversions
 # https://github.com/embree/embree/pull/408/commits/ace05ce4e3bcee8ff4d6204f4dac835f86f17d4a
-Patch:		ace05ce4e3bcee8ff4d6204f4dac835f86f17d4a.patch
+Patch:		embree-restore-check-arm-cpp.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++
@@ -84,9 +84,7 @@ The %{name}-examples package contains sample binaries using %{name}.
 	-DEMBREE_IGNORE_CMAKE_CXX_FLAGS=OFF \
 %if %{with ispc}
         -DEMBREE_ISPC_SUPPORT=ON \
-%else
-        -DEMBREE_ISPC_SUPPORT=OFF \
-%endif
+%%endif
         -DEMBREE_MAX_ISA=DEFAULT \
 	-DEMBREE_TUTORIALS=OFF 
 %cmake_build
@@ -94,25 +92,27 @@ The %{name}-examples package contains sample binaries using %{name}.
 %install
 %cmake_install
 
+# Remove installers
+rm %{buildroot}%{_prefix}/%{name}-vars.{csh,sh}
+
 # Relocate doc files
-mv %{buildroot}%{_docdir}/%{name}3 %{buildroot}%{_docdir}/%{name}
+mv %{buildroot}%{_docdir}/%{name}4 %{buildroot}%{_docdir}/%{name}
 rm %{buildroot}%{_docdir}/%{name}/LICENSE.txt
 
 %files
 %license LICENSE.txt
-%doc README.md CHANGELOG.md readme.pdf third-party-programs-TBB.txt third-party-programs.txt
-%{_libdir}/lib%{name}3.so.3
-%{_libdir}/lib%{name}3.so.3.*
+%doc README.md CHANGELOG.md readme.pdf third-party-programs{,-TBB,-DPCPP,-OIDN,-oneAPI-DPCPP}.txt
+%{_libdir}/lib%{name}4.so.4
 %{_mandir}/man3/*
 
 %files devel
-%{_libdir}/lib%{name}3.so
-%{_includedir}/%{name}3/
+%{_libdir}/lib%{name}4.so
+%{_includedir}/%{name}4/
 %{_libdir}/cmake/%{name}-%{version}/
 
 %if %{with_examples}
 %files examples
-%{_bindir}/%{name}3/*
+%{_bindir}/%{name}4/*
 %endif
 
 %changelog

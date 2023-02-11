@@ -1,6 +1,6 @@
 Name:    kactivitymanagerd
 Summary: Plasma service to manage user's activities
-Version: 5.26.90
+Version: 5.27.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -82,6 +82,9 @@ rm -fv %{buildroot}%{_kf5_qmldir}/org/kde/activities/{libkactivitiesextensionplu
 
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
 - 5.26.90
 

@@ -5,7 +5,7 @@
 %global crate libdbus-sys
 
 Name:           rust-libdbus-sys
-Version:        0.2.3
+Version:        0.2.4
 Release:        %autorelease
 Summary:        FFI bindings to libdbus
 

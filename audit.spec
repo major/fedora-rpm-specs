@@ -1,8 +1,8 @@
 
 Summary: User space tools for kernel auditing
 Name: audit
-Version: 3.0.9
-Release: 3%{?dist}
+Version: 3.1
+Release: 2%{?dist}
 License: GPL-2.0-or-later AND LGPL-2.0-or-later
 URL: http://people.redhat.com/sgrubb/audit/
 Source0: http://people.redhat.com/sgrubb/audit/%{name}-%{version}.tar.gz
@@ -101,8 +101,8 @@ sed -i 's/ ids / /' audisp/plugins/Makefile.in
 %configure --with-python=no \
 	   --with-python3=yes \
 	   --enable-gssapi-krb5=yes --with-arm --with-aarch64 \
-	   --with-libcap-ng=yes --enable-zos-remote \
-	   --enable-systemd --enable-experimental
+	   --with-libcap-ng=yes --without-golang --enable-zos-remote \
+	   --enable-systemd --enable-experimental --with-io_uring
 
 make CFLAGS="%{optflags}" %{?_smp_mflags}
 
@@ -260,6 +260,9 @@ fi
 %attr(750,root,root) %{_sbindir}/audispd-zos-remote
 
 %changelog
+* Thu Feb 09 2023 Steve Grubb <sgrubb@redhat.com> 3.1-2
+- New upstream feature release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

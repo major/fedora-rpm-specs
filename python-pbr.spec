@@ -1,5 +1,5 @@
 %global pypi_name pbr
-
+# Disable bootstrap
 %bcond_with bootstrap
 
 %if 0%{?fedora}
@@ -10,8 +10,8 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        5.10.0
-Release:        2%{?dist}
+Version:        5.11.1
+Release:        1%{?dist}
 Summary:        Python Build Reasonableness
 
 License:        ASL 2.0
@@ -20,11 +20,11 @@ Source0:        https://pypi.io/packages/source/p/%{pypi_name}/%{pypi_name}-%{ve
 
 BuildArch:      noarch
 
+BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  git-core
-%if %{without bootstrap}
-BuildRequires: python%{python3_pkgversion}-sphinx >= 1.1.3
-BuildRequires: python%{python3_pkgversion}-openstackdocstheme
-BuildRequires: python%{python3_pkgversion}-sphinxcontrib-apidoc
+%if %{with tests}
+BuildRequires:  gcc
+BuildRequires:  gnupg2
 %endif
 
 
@@ -39,73 +39,64 @@ time to make that code into a proper re-usable library.
 Summary:        Python Build Reasonableness
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
 
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-%if %{with tests}
-BuildRequires:  gcc
-BuildRequires:  gnupg
-BuildRequires:  python%{python3_pkgversion}-fixtures
-BuildRequires:  python%{python3_pkgversion}-hacking
-BuildRequires:  python%{python3_pkgversion}-six
-BuildRequires:  python%{python3_pkgversion}-stestr
-BuildRequires:  python%{python3_pkgversion}-testrepository
-BuildRequires:  python%{python3_pkgversion}-testresources
-BuildRequires:  python%{python3_pkgversion}-testscenarios
-BuildRequires:  python%{python3_pkgversion}-virtualenv
-BuildRequires:  python%{python3_pkgversion}-wheel
-%endif
 Requires:       python%{python3_pkgversion}-setuptools
 Requires:       git-core
-
-# /usr/bin/pbr moved from:
-Conflicts:      python2-%{pypi_name} < 5.4.3-2
 
 %description -n python%{python3_pkgversion}-%{pypi_name}
 Manage dynamic plugins for Python applications
 
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests:-e %{default_toxenv}} %{!?with_bootstrap:-e docs}
+
+
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
-rm -rf {test-,}requirements.txt pbr.egg-info/requires.txt
+sed -i '/^six.*/d' test-requirements.txt
+sed -i 's/hacking.*/hacking/' test-requirements.txt
+sed -i '/^six.*/d' doc/requirements.txt
+sed -i '/^reno.*/d' doc/requirements.txt
+sed -i 's/^sphinx!=.*/sphinx/' doc/requirements.txt
+sed -i 's/^sphinxcontrib-apidoc.*/sphinxcontrib-apidoc/' doc/requirements.txt
+sed -i 's/^openstackdocstheme.*/openstackdocstheme/' doc/requirements.txt
 
 
 %build
-export SKIP_PIP_INSTALL=1
-%py3_build
+%pyproject_wheel
 
 %if %{without bootstrap}
 # generate html docs
-sphinx-build doc/source html
+PYTHONPATH=%{pyproject_build_lib} sphinx-build doc/source html
 # remove the sphinx-build leftovers
 rm -rf html/.{doctrees,buildinfo}
 %endif
 
 
 %install
-%py3_install
-rm -rf %{buildroot}%{python3_sitelib}/pbr/tests
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 mv %{buildroot}%{_bindir}/pbr %{buildroot}%{_bindir}/pbr-3
 ln -s ./pbr-3 %{buildroot}%{_bindir}/pbr
 
 
 %if %{with tests}
 %check
-export PYTHONPATH=%{buildroot}%{python3_sitelib}
 export PYTHONDONTWRITEBYTECODE=1
-export PATH="%{buildroot}%{_bindir}:${PATH}"
 # Exclude tests that require networking
-stestr run -E 'test_requirement_parsing|test_pep_517_support'
+%tox -e %{default_toxenv} -- -- -E 'test_requirement_parsing|test_pep_517_support'
 %endif
 
-%files -n python%{python3_pkgversion}-pbr
+%files -n python%{python3_pkgversion}-pbr -f %{pyproject_files}
 %license LICENSE
 %doc README.rst %{?without_bootstrap:html}
 %{_bindir}/pbr
 %{_bindir}/pbr-3
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
-%{python3_sitelib}/%{pypi_name}/
 
 %changelog
+* Thu Feb 09 2023 Joel Capitao <jcapitao@redhat.com> - 5.11.1-1
+- Update to latest upstream (#2136463)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

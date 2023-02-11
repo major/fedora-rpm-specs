@@ -3,7 +3,7 @@ Name:               onboard
 Version:            1.4.1
 %global             major_version       1.4
 
-Release:            29%{?dist}
+Release:            30%{?dist}
 Summary:            On-screen keyboard for TabletPC and mobility impaired users (Xorg only)
 
 # The entire source code is GPLv3 apart from translation strings and
@@ -65,6 +65,7 @@ rm %{buildroot}%{_datadir}/icons/ubuntu* -rf
 
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{_builddir}/%{name}-%{version}/build/share/applications/onboard.desktop
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{_builddir}/%{name}-%{version}/build/share/applications/onboard-settings.desktop
+desktop-file-install --dir=%{buildroot}%{_sysconfdir}/xdg/autostart/ %{_builddir}/%{name}-%{version}/build/share/autostart/onboard-autostart.desktop
 
 # Fix permissions for a couple of scripts so the user may execute them (not normal behaviour, but still)
 chmod +x %{buildroot}%{python3_sitearch}/Onboard/IconPalette.py %{buildroot}%{python3_sitearch}/Onboard/settings.py \
@@ -96,8 +97,12 @@ Requires:       onboard
 %{_datadir}/icons/hicolor/*/apps/onboard.*
 %{_datadir}/dbus-1/services/org.onboard.Onboard.service
 %{_datadir}/gnome-shell/extensions/Onboard_Indicator@onboard.org
+%{_sysconfdir}/xdg/autostart/onboard-autostart.desktop
 
 %changelog
+* Thu Feb 09 2023 Qiyu Yan <yanqiyu@fedoraproject.org> - 1.4.1-30
+- also install autostart(#2164344)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

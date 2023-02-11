@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-probeinterface
-Version:        0.2.15
+Version:        0.2.16
 Release:        %autorelease
 Summary:        Handles probe layout, geometry, and wiring to device
 

@@ -3,13 +3,14 @@
 Name:       perl-XML-LibXSLT
 # NOTE: also update perl-XML-LibXML to a compatible version.  See below why.
 Version:    %(echo '%{cpan_version}' | sed 's/\(\....\)\(.\)/\1.\2/')
-Release:    4%{?dist}
+Release:    5%{?dist}
 Summary:    Perl module for interfacing to GNOME's libxslt
 # lib/XML/LibXSLT.pm: GPL+ or Artistic
 # lib/XML/LibXSLT/Quick.pm: MIT
 License:    (GPL+ or Artistic) and MIT
 URL:        https://metacpan.org/release/XML-LibXSLT
 Source0:    https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/XML-LibXSLT-%{cpan_version}.tar.gz
+Patch0: perl-XML-LibXSLT-c99.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -69,7 +70,7 @@ with "%{_libexecdir}/%{name}/test".
 %{?perl_default_filter}
 
 %prep
-%setup -q -n XML-LibXSLT-%{cpan_version}
+%autosetup -p1 -n XML-LibXSLT-%{cpan_version}
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -122,6 +123,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 09 2023 Florian Weimer <fweimer@redhat.com> - 2.002.000-5
+- Port configure stage to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.002.000-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

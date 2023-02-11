@@ -3,7 +3,7 @@
 %global optflags %{optflags} -DGLM_ENABLE_EXPERIMENTAL
 
 Name:           asymptote
-Version:        2.84
+Version:        2.85
 Release:        1%{?dist}
 Summary:        Descriptive vector graphics language
 License:        LGPLv3+
@@ -21,8 +21,6 @@ Patch4:		asymptote-2.81-libtirpc.patch
 # only conflicts on s390x
 Patch5:		asymptote-2.52-const-memrchr.patch
 Patch6:         asymptote-2.63-freeglut.patch
-# https://sourceforge.net/p/asymptote/discussion/409349/thread/971a0e0c36/
-Patch7:		asymptote-2.83-xvfb.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  bison, flex
@@ -99,7 +97,6 @@ that LaTeX does for scientific text.
 %patch4 -p1 -b .libtirpc
 %patch5 -p1 -b .const-memrchr
 %patch6 -p1 -b .glut
-%patch7 -p1 -b .xvfb
 %{__sed} -i 's/\r//' doc/CAD1.asy
 
 # convert to UTF-8
@@ -190,6 +187,9 @@ texhash >/dev/null 2>&1 || :
 %endif
 
 %changelog
+* Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 2.85-1
+- update to 2.85
+
 * Fri Jan 27 2023 Tom Callaway <spot@fedoraproject.org> - 2.84-1
 - update to 2.84
 - add upstream patch to fix headless Xvfb use case

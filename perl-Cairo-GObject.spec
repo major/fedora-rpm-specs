@@ -1,6 +1,6 @@
 Name:           perl-Cairo-GObject
 Version:        1.005
-Release:        11%{?dist}
+Release:        11%{?dist}.1
 Summary:        Integrate Cairo into the Glib type system
 License:        LGPLv2+
 URL:            https://metacpan.org/release/Cairo-GObject
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 1.005-11.1
+- rebuild for new epel macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.005-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-mongodb
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -18,17 +18,22 @@
 # After 40-smbclient.ini, see https://jira.mongodb.org/browse/PHPC-658
 %global ini_name   50-%{pecl_name}.ini
 
-%global libmongo    1.23.1
-%global libcrypt    1.5.2
+# Bundled versions
+%global bundled_libmongo  1.23.2
+%global bundled_libcrypt  1.5.2
+
+# Build dependencies
+%global system_libmongo   1.23.1
+%global system_libcrypt   1.5.2
 
 Summary:        MongoDB driver for PHP
 Name:           php-pecl-%{pecl_name}
-%global upstream_version 1.15.0
+%global upstream_version 1.15.1
 #global upstream_prever  RC1
 #global upstream_lower   ~rc1
 Version:        %{upstream_version}%{?upstream_lower}
 Release:        1%{?dist}
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{upstream_version}%{?upstream_prever}.tgz
 
@@ -36,9 +41,9 @@ BuildRequires:  gcc
 BuildRequires:  php-devel >= 7.2
 BuildRequires:  php-pear
 BuildRequires:  php-json
-BuildRequires:  pkgconfig(libbson-1.0)    >= %{libmongo}
-BuildRequires:  pkgconfig(libmongoc-1.0)  >= %{libmongo}
-BuildRequires:  pkgconfig(libmongocrypt)  >= %{libcrypt}
+BuildRequires:  pkgconfig(libbson-1.0)    >= %{system_libmongo}
+BuildRequires:  pkgconfig(libmongoc-1.0)  >= %{system_libmongo}
+BuildRequires:  pkgconfig(libmongocrypt)  >= %{system_libcrypt}
 
 Requires:       php(zend-abi) = %{php_zend_api}
 Requires:       php(api) = %{php_core_api}
@@ -64,14 +69,24 @@ sed -e 's/role="test"/role="src"/' \
     -e '/LICENSE/s/role="doc"/role="src"/' \
     -i package.xml
 
-cd NTS
+pushd NTS
+
+# Check our macro values
+cat src/*_VERSION_CURRENT
+grep -q %{bundled_libmongo} src/LIBMONGOC_VERSION_CURRENT
+grep -q %{bundled_libcrypt} src/LIBMONGOCRYPT_VERSION_CURRENT
+
+# temporary: lower minimal required versions
+sed -e 's/%{bundled_libmongo}/%{system_libmongo}/;s/%{bundled_libcrypt}/%{system_libcrypt}/' -i config.m4
+
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_MONGODB_VERSION /{s/.* "//;s/".*$//;p}' phongo_version.h)
 if test "x${extver}" != "x%{upstream_version}%{?upstream_prever}"; then
    : Error: Upstream extension version is ${extver}, expecting %{upstream_version}%{?upstream_prever}.
    exit 1
 fi
-cd ..
+
+popd
 
 %if %{with_zts}
 # Duplicate source tree for NTS / ZTS build
@@ -171,6 +186,11 @@ cd ../ZTS
 
 
 %changelog
+* Thu Feb  9 2023 Remi Collet <remi@remirepo.net> - 1.15.1-1
+- update to 1.15.1
+- cleanup spec macros
+- use spdx license id
+
 * Wed Nov 23 2022 Remi Collet <remi@remirepo.net> - 1.15.0-1
 - update to 1.15.0
 - raise dependency on libbson and libmongoc 1.23.1

@@ -3,9 +3,9 @@
 
 Name:		ongres-%upstream_name
 Version:	%(echo %upstream_version | sed 's/-/~/g')
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Salted Challenge Response Authentication Mechanism (SCRAM) - Java Implementation
-License:	BSD
+License:	BSD and MIT and ASL 2.0
 URL:           https://github.com/ongres/%upstream_name
 Source0:       https://github.com/ongres/%upstream_name/archive/%upstream_version/%upstream_name-%upstream_version.tar.gz
 BuildRequires:	maven-local
@@ -22,6 +22,7 @@ mechanisms. It is described as part of RFC 5802 and RFC7677.
 
 %package client
 Summary:	Client for %{name}
+License:	BSD
 
 %description client
 This package contains the client for %{name}
@@ -34,6 +35,7 @@ This package contains javadoc for %{name}
 
 %package parent
 Summary:	Parent POM of %{name}
+License:	BSD
 
 %description parent
 This package contains the %{name} parent POM.
@@ -57,7 +59,7 @@ sed -i 's/.*SuppressFBWarnings.*//' common/src/main/java/com/ongres/scram/common
 %mvn_install
 
 %files -f .mfiles-common
-%license LICENSE
+%license LICENSE NOTICE thirdparty/bouncycastle-LICENSE thirdparty/saslprep-LICENSE thirdparty/passlib_lambda-LICENSE
 
 %files client -f .mfiles-client
 %license LICENSE
@@ -69,6 +71,9 @@ sed -i 's/.*SuppressFBWarnings.*//' common/src/main/java/com/ongres/scram/common
 %license LICENSE
 
 %changelog
+* Thu Jan 26 2023 Zuzana Miklankova <zmiklank@redhat.com> - 2.1-9
+- change of licences of ongres-scram and ongres-scram-javadoc to "BSD and MIT and ASL 2.0"
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

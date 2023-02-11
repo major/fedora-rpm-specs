@@ -1,6 +1,6 @@
 Name:    plasma-pa
-Version: 5.26.90
-Release: 2%{?dist}
+Version: 5.27.0
+Release: 1%{?dist}
 Summary: Plasma applet for audio volume management using PulseAudio
 
 License: LGPLv2+ and GPLv2+
@@ -91,6 +91,9 @@ rm -rfv %{buildroot}%{_kde4_appsdir}/kconf_update/
 
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.26.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 %global crate filetime
 
 Name:           rust-filetime
-Version:        0.2.19
+Version:        0.2.20
 Release:        %autorelease
 Summary:        Platform-agnostic accessors of timestamps in File metadata
 

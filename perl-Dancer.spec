@@ -1,10 +1,10 @@
 Name:           perl-Dancer
-Version:        1.3520
-Release:        2%{?dist}
+Version:        1.3521
+Release:        1%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Dancer
-Source0:        http://cpan.metacpan.org/authors/id/B/BI/BIGPRESH/Dancer-%{version}.tar.gz
+Source0:        http://cpan.metacpan.org/authors/id/Y/YA/YANICK/Dancer-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -196,6 +196,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.3521-1
+- 1.3521 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3520-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
-Version: 5.26.90
-Release: 3%{?dist}
+Version: 5.27.0
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -13,10 +13,6 @@ URL:     https://invent.kde.org/plasma/%{name}
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
-
-# Use VP8 on WebM instead of x264 on MP4 for screen recording by default
-# Adapted from: https://invent.kde.org/plasma/kpipewire/-/merge_requests/20
-Patch0:         0001-record-Use-vp8-instead-of-x264.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -103,6 +99,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Mon Jan 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.26.90-3
 - Add patch to use VP8 on WebM for screen recording by default
 

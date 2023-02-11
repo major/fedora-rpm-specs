@@ -42,7 +42,7 @@
 Summary: Application and environment virtualization formerly known as Singularity
 Name: apptainer
 Version: 1.1.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 # See LICENSE.md for first party code (BSD-3-Clause and LBNL BSD)
 # See LICENSE_THIRD_PARTY.md for incorporated code (ASL 2.0)
 # See LICENSE_DEPENDENCIES.md for dependencies
@@ -122,6 +122,8 @@ Requires: %{name} = %{version}-%{release}
 # on this subpackage for greater compatibility after an update from the
 # old singularity.
 Obsoletes: singularity <= %{last_singularity_version}
+# FESCo asked to have this form of Provides
+Provides: alternative-for(singularity)
 
 %description suid
 Provides the optional setuid-root portion of Apptainer.
@@ -280,6 +282,9 @@ fi
 %attr(4755, root, root) %{_libexecdir}/%{name}/bin/starter-suid
 
 %changelog
+* Thu Feb  9 2023 Dave Dykstra <dwd@fnal.gov> - 1.1.5-3
+- Add Provides: alternative-for(singularity) to apptainer-suid package.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

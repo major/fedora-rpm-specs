@@ -37,7 +37,7 @@
 Name:           octave
 Epoch:          6
 Version:        7.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A high-level language for numerical computations
 License:        GPLv3+
 URL:            http://www.octave.org
@@ -121,6 +121,7 @@ BuildRequires:  qscintilla-qt5-devel
 %endif
 BuildRequires:  qt5-linguist
 BuildRequires:  qt5-qttools-devel
+BuildRequires:  rapidjson-devel
 BuildRequires:  readline-devel
 %if %{with blas64}
 BuildRequires:  suitesparse64-devel
@@ -451,6 +452,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Wed Jan 11 2023 FeRD (Frank Dana> <ferdnyc@gmail.com> - 6:7.3.0-3
+- Build with rapidjson to enable built-in json{decode,encode}
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6:7.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:    libkscreen-qt5
 Summary: KDE display configuration library
-Version: 5.26.90
+Version: 5.27.0
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -105,6 +105,9 @@ developing applications that use %{name}.
 %{_kf5_archdatadir}/mkspecs/modules/qt_KScreen.pri
 
 %changelog
+* Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
+- 5.27.0
+
 * Thu Jan 19 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.26.90-1
 - 5.26.90
 

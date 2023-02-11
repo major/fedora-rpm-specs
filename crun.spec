@@ -24,7 +24,7 @@ URL: https://github.com/containers/%{name}
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
 License: GPLv2+
 Release: %autorelease
-ExclusiveArch: %{golang_arches}
+ExclusiveArch: %{golang_arches_future}
 BuildRequires: autoconf
 BuildRequires: automake
 BuildRequires: go-md2man

@@ -30,12 +30,12 @@ Epoch: %{conditional_epoch}
 Version: %{gen_version}
 License: ASL 2.0 and BSD and ISC and MIT
 Release: %autorelease
+ExclusiveArch: %{golang_arches_future}
 Summary: Inspect container images and repositories on registries
 URL: %{git0}
 # Tarball fetched from upstream
 Source0: %{url}/archive/%{built_tag}.tar.gz
 BuildRequires: go-md2man
-ExclusiveArch: %{go_arches}
 BuildRequires: btrfs-progs-devel
 BuildRequires: git-core
 BuildRequires: golang >= 1.16.6

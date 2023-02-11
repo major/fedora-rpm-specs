@@ -11,7 +11,7 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.5
-Release: 0.rc2.2%{?dist}
+Release: 0.rc2.3%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
 Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc2/selinux-3.5-rc2.tar.gz
@@ -444,6 +444,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Wed Feb  8 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc2.3
+- Attach tty to selinux-autorelabel.service when AUTORELABEL=0
+
 * Thu Jan 26 2023 Vit Mojzis <vmojzis@redhat.com> - 3.5-0.rc2.2
 - python/sepolicy: Cache conditional rule queries
 

@@ -30,8 +30,8 @@
 %bcond_without have_utf8proc
 
 Name:		libarrow
-Version:	10.0.1
-Release:	3%{?dist}
+Version:	11.0.0
+Release:	1%{?dist}
 Summary:	A toolbox for accelerated data interchange and in-memory processing
 License:	Apache-2.0
 URL:		https://arrow.apache.org/
@@ -150,7 +150,7 @@ Libraries and header files for Apache Arrow C++.
 %exclude %{_includedir}/arrow/flight/
 %exclude %{_includedir}/arrow-flight-glib
 %endif
-%exclude %{_libdir}/cmake/Arrow/FindBrotli.cmake
+%exclude %{_libdir}/cmake/Arrow/FindBrotliAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/Findlz4Alt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindORC.cmake
 %exclude %{_libdir}/cmake/Arrow/FindSnappyAlt.cmake
@@ -158,7 +158,7 @@ Libraries and header files for Apache Arrow C++.
 %exclude %{_libdir}/cmake/Arrow/Findre2Alt.cmake
 %exclude %{_libdir}/cmake/Arrow/Findutf8proc.cmake
 %exclude %{_libdir}/cmake/Arrow/FindzstdAlt.cmake
-%exclude %{_libdir}/cmake/Arrow/FindThrift.cmake
+%exclude %{_libdir}/cmake/Arrow/FindThriftAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindOpenSSLAlt.cmake
 %exclude %{_libdir}/cmake/Arrow/FindProtobufAlt.cmake
 %dir %{_libdir}/cmake/Arrow/
@@ -292,7 +292,7 @@ Requires:	python3-numpy
 This package contains the Python integration library for Apache Arrow.
 
 %files python-libs
-%{python3_sitearch}/pyarrow/libarrow_python.so.*
+%{python3_sitearch}/pyarrow/libarrow_python.so
 
 #--------------------------------------------------------------------
 
@@ -310,10 +310,6 @@ Libraries and header files for Python integration library for Apache Arrow.
 %dir %{python3_sitearch}/pyarrow/include/arrow/python
      %{python3_sitearch}/pyarrow/include/arrow/python/*
 %exclude %{python3_sitearch}/pyarrow/include/arrow/python/flight.h
-%dir %{_libdir}/cmake/ArrowPython
-     %{_libdir}/cmake/ArrowPython/ArrowPython*.cmake
-%{python3_sitearch}/pyarrow/libarrow_python.so
-%{_libdir}/pkgconfig/arrow-python.pc
 
 #--------------------------------------------------------------------
 
@@ -329,7 +325,7 @@ Requires:	%{name}-doc = %{version}-%{release}
 This package contains the Python integration library for Apache Arrow Flight.
 
 %files python-flight-libs
-%{python3_sitearch}/pyarrow/libarrow_python_flight.so.*
+%{python3_sitearch}/pyarrow/libarrow_python_flight.so
 
 #--------------------------------------------------------------------
 
@@ -346,10 +342,6 @@ Apache Arrow Flight.
 
 %files python-flight-devel
 %{python3_sitearch}/pyarrow/include/arrow/python/flight.h
-%dir %{_libdir}/cmake/ArrowPythonFlight
-     %{_libdir}/cmake/ArrowPythonFlight/ArrowPythonFlight*.cmake
-%{python3_sitearch}/pyarrow/libarrow_python_flight.so
-%{_libdir}/pkgconfig/arrow-python-flight.pc
 %endif
 
 %if %{with use_plasma}
@@ -813,21 +805,6 @@ pushd python
 export PYARROW_INSTALL_TESTS=0
 %pyproject_install
 %pyproject_save_files pyarrow
-# I'm not sure why the above failed to install the following
-# perhaps someone how knows python/cmake/rpm packaging can figure out why
-mkdir -p %{buildroot}%{_libdir}/cmake/ArrowPython
-install build/dist/lib/cmake/ArrowPython/ArrowPythonConfig.cmake %{buildroot}%{_libdir}/cmake/ArrowPython/
-install build/dist/lib/cmake/ArrowPython/ArrowPythonConfigVersion.cmake %{buildroot}%{_libdir}/cmake/ArrowPython/
-install build/dist/lib/cmake/ArrowPython/ArrowPythonTargets.cmake %{buildroot}%{_libdir}/cmake/ArrowPython/
-install build/dist/lib/cmake/ArrowPython/ArrowPythonTargets-release.cmake %{buildroot}%{_libdir}/cmake/ArrowPython/
-mkdir -p %{buildroot}%{_libdir}/cmake/ArrowPythonFlight
-install build/dist/lib/cmake/ArrowPythonFlight/ArrowPythonFlightConfig.cmake %{buildroot}%{_libdir}/cmake/ArrowPythonFlight/
-install build/dist/lib/cmake/ArrowPythonFlight/ArrowPythonFlightConfigVersion.cmake %{buildroot}%{_libdir}/cmake/ArrowPythonFlight/
-install build/dist/lib/cmake/ArrowPythonFlight/ArrowPythonFlightTargets.cmake %{buildroot}%{_libdir}/cmake/ArrowPythonFlight/
-install build/dist/lib/cmake/ArrowPythonFlight/ArrowPythonFlightTargets-release.cmake %{buildroot}%{_libdir}/cmake/ArrowPythonFlight/
-mkdir -p %{buildroot}%{_libdir}/pkgconfig
-install build/dist/lib/pkgconfig/arrow-python.pc %{buildroot}%{_libdir}/pkgconfig/
-install build/dist/lib/pkgconfig/arrow-python-flight.pc %{buildroot}%{_libdir}/pkgconfig/
 popd
 
 pushd c_glib
@@ -859,6 +836,9 @@ export LD_LIBRARY_PATH='%{buildroot}%{_libdir}'
 #--------------------------------------------------------------------
 
 %changelog
+* Thu Feb 9 2023  Kaleb S. KEITHLEY <kkeithle [at] redhat.com> - 11.0.0-1
+- Arrow 11.0.0 GA
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.0.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

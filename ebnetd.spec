@@ -7,7 +7,7 @@
 
 Name:		ebnetd
 Version:	1.0
-Release:	45%{?dist}
+Release:	46%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://www.sra.co.jp/people/m-kasahr/ebnetd/
 # For systemd.macros
@@ -32,6 +32,7 @@ Patch0:		ebnetd-1.0-info.patch
 Patch1:		%{name}-aarch64.patch
 Patch2:		%{name}-fix-conflict.patch
 Patch3:		%{name}-gcc10.patch
+Patch4:		%{name}-fedora-c99.patch
 
 
 Summary:	EBNET protocol server
@@ -198,6 +199,9 @@ exit 0
 
 
 %changelog
+* Wed Feb  8 2023 DJ Delorie <dj@redhat.com> - 1.0-46
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

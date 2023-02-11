@@ -1,16 +1,16 @@
 Name:           libgtop2
-Version:        2.40.0
-Release:        10%{?dist}
+Version:        2.41.1
+Release:        1%{?dist}
 Summary:        LibGTop library (version 2)
 
-License:        GPLv2+
-URL:            http://download.gnome.org/sources/libgtop
-Source0:        http://download.gnome.org/sources/libgtop/2.40/libgtop-%{version}.tar.xz
+License:        GPL-2.0-or-later
+URL:            https://download.gnome.org/sources/libgtop
+Source0:        https://download.gnome.org/sources/libgtop/2.41/libgtop-%{version}.tar.xz
 
 BuildRequires:  pkgconfig(gobject-2.0)
 BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  gettext
-BuildRequires: make
+BuildRequires:  make
 
 %description
 LibGTop is a library for portably obtaining information about processes,
@@ -25,11 +25,11 @@ This package provides the necessary development libraries and include
 files to allow you to develop with LibGTop.
 
 %prep
-%setup -q -n libgtop-%{version}
+%autosetup -p1 -n libgtop-%{version}
 
 %build
 %configure --disable-gtk-doc --disable-static
-make %{?_smp_mflags}
+%make_build
 
 %install
 %make_install
@@ -43,8 +43,8 @@ find %{buildroot} -name '*.la' -delete
 %files -f libgtop.lang
 %doc AUTHORS NEWS README
 %license COPYING
-%{_bindir}/libgtop_daemon2
-%{_bindir}/libgtop_server2
+%{_libexecdir}/libgtop_daemon2
+%{_libexecdir}/libgtop_server2
 %{_libdir}/libgtop-2.0.so.11*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/GTop-2.0.typelib
@@ -62,6 +62,9 @@ find %{buildroot} -name '*.la' -delete
 %exclude %{_datadir}/info
 
 %changelog
+* Wed Feb 08 2023 David King <amigadave@amigadave.com> - 2.41.1-1
+- Update to 2.41.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.40.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

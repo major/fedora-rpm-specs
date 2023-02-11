@@ -5,14 +5,11 @@
 # when rebasing check what they are using on
 # https://download.opensuse.org/repositories/openSUSE:/Tools/Fedora_37/src/
 # update the obsrel to match the upstream release number
-%global obsrel 407.1
-
-# Actual release
-%global baserelease 2
+%global obsrel 410.1
 
 Name:           obs-build
-Version:        20230105
-Release:        %{obsrel}.%{baserelease}%{?dist}
+Version:        20230208
+Release:        %{obsrel}.%{autorelease}
 Summary:        A generic package build script
 
 License:        (GPL-2.0-only OR GPL-3.0-only) AND GPL-2.0-or-later
@@ -142,99 +139,4 @@ sed -e "s|#!/usr/bin/python|#!%{__python3}|" \
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20230105-407.1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jan  6 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 20230105-407.1.1
-- New upstream release 20230105, fixes rhbz#2158110
-
-* Thu Nov 24 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20221118-405.2.1
-- New upstream release 20221118, fixes rhbz#2144039
-- Switch to SPDX license identifiers
-
-* Tue Sep 27 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20220927-398.1.1
-- New upstream release 20220927, fixes rhbz#2130176
-
-* Tue Aug 16 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20220812-393.9.1
-- New upstream release 20220812
-
-* Thu Aug 11 2022 Dan Čermák <dan.cermak@cgc-instruments.com> - 20220620-393.9.1
-- New upstream release 20220620
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20211125-376.1.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 20211125-376.1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Nov 26 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 20211125-376.1.1
-- New upstream release 20211125, fixes rhbz#2026807
-
-* Tue Oct 26 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 20211025-374.2.1
-- New upstream release 20211025, fixes rhbz#2017238
-
-* Tue Sep 28 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 20210902-373.7.1
-- New upstream release 20210902
-
-* Tue Aug 31 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 20210830-372.1.1
-- New upstream release 20210830
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 20210120-367.1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon Apr 19 2021 Dan Čermák <dan.cermak@cgc-instruments.com> - 20210120-367.1.1
-- New upstream release 20210120
-- Fixes rhbz#1787804
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 20191205-325.1.4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 20191205-325.1.3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 20191205-325.1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Fri Dec 27 2019 Neal Gompa <ngompa13@gmail.com> - 20191205-325.1.1
-- Update to new release
-
-* Mon Nov 18 2019 Neal Gompa <ngompa13@gmail.com> - 20191114-323.1.1
-- Update to new release
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 20190321-314.1.1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun Mar 24 2019 Neal Gompa <ngompa13@gmail.com> - 20190321-314.1.1
-- Update to new release
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 20180816-291.1.1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Thu Aug 23 2018 Neal Gompa <ngompa13@gmail.com> - 20180816-291.1.1
-- Update to new release
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 20171023-267.1.1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 20171023-267.1.1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sun Nov 05 2017 Neal Gompa <ngompa13@gmail.com> - 20171023-267.1.1
-- Update to new release
-
-* Thu Jul 27 2017 Fedora Release Engineering <releng@fedoraproject.org> - 20170317-237.1.1.2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Thu Jul 13 2017 Petr Pisar <ppisar@redhat.com> - 20170317-237.1.1.1
-- perl dependency renamed to perl-interpreter
-  <https://fedoraproject.org/wiki/Changes/perl_Package_to_Install_Core_Modules>
-
-* Sat Mar 18 2017 Neal Gompa <ngompa13@gmail.com> - 20170317-237.1.1
-- Update to new release
-
-* Sat Feb 11 2017 Fedora Release Engineering <releng@fedoraproject.org> - 20161025-231.1.1.1
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Wed Oct 26 2016 Neal Gompa <ngompa13@gmail.com> - 20161025-231.1.1
-- Initial import (#1381661)
-- Initial packaging based on SUSE and Josef Strzibny's packaging
+%autochangelog

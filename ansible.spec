@@ -3,18 +3,11 @@
 %bcond_with tests
 %global ansible_licensedir %{_defaultlicensedir}/ansible
 %global ansible_docdir %{_defaultdocdir}/ansible
-
-# This should be updated after each release to match upstream's metadata
-# We manually specify this in order to workaround RHEL 8's deficient
-# python-rpm-generators and lack of dynamic BR support.
-# https://github.com/ansible-community/community-topics/issues/84
-%global ansible_core_version 2.14.2
-%global ansible_core_next_version 2.15
-%global ansible_core_requires (%{py3_dist ansible-core} >= %{ansible_core_version} with %{py3_dist ansible-core} < %{ansible_core_next_version})
+%global min_ansible_core 2.14.2
 
 # Roles' files and templates should not be mangled.
 # These files are installed on remote systems which may or may not have the
-# same file system layout as Fedora.
+# same filesystem layout as Fedora.
 %global __brp_mangle_shebangs_exclude_from ^%{python3_sitelib}/ansible_collections/[^/]+/[^/]+/roles/[^/]+/(files|templates)/.*$
 %global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}%{__brp_mangle_shebangs_exclude_from}
 
@@ -22,9 +15,6 @@
 # RHEL 8's ansible-core package is built using Python 3.9, which is not the default version.
 %define python3_pkgversion 39
 BuildRequires:  python%{python3_pkgversion}-rpm-macros
-
-# RHEL 8's RPM Python dependency generator ignores the version constraints, so we manually specify the dependency.
-Requires:       %{ansible_core_requires}
 %endif
 
 Name:           ansible
@@ -60,7 +50,7 @@ BuildRequires:  findutils
 BuildRequires:  hardlink
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  %{ansible_core_requires}
+BuildRequires:  %{py3_dist ansible-core} >= %{min_ansible_core}
 
 %if %{with tests}
 # TODO build-requires
@@ -82,6 +72,22 @@ to ansible-core.
 
 %prep
 %autosetup -p1 -n %{name}-%{uversion}
+
+%if %{defined rhel}
+# Relax ansible-core dependency to avoid FTI bugs
+#
+# This is necessary, because the EPEL ansible maintainers don't have control
+# over ansible-core in RHEL, and it's difficult to time updates across
+# repositories. I have tried to stick to upstream's version constraints, but
+# that's apparently not working too well. This change gives us a grace period
+# to properly release and test new ansible major versions after RHEL rebases
+# ansible-core. The lower version constraints can stay in place.
+
+sed -i "s|'ansible-core ~= 2.13\..*',$|'ansible-core >= %{min_ansible_core}',|" setup.py
+# Verify
+set -o pipefail
+grep -B1 "'ansible-core >= %{min_ansible_core}'," setup.py | grep -F 'install_requires=['
+%endif
 
 # Fix wrong-script-end-of-line-encoding in azure.azcollection
 find ansible_collections/azure/azcollection -type f -print -exec dos2unix -k '{}' \;
@@ -169,6 +175,7 @@ xargs -a non_exec -d'\n' sed -i -e '1{\@^#!.*@d}'
     # This finds the license file for each collection, moves it to
     # `%%{ansible_licensedir}/collection_namespace/collection_name`, and then adds
     # `%%license /path/to/license` to the %%files list.
+    # `-printf '%%P\n'` removes the trailing `./`.
     for f in $(find . -mindepth 3 -type f \( -iname '*LICENSE*' -o -iname '*COPYING*' \) -not -name '*.py' -not -name '*.pyc' -printf '%%P\n' | grep -v '\.license$'); do
         dirname="$(dirname %{buildroot}%{ansible_licensedir}/${f})"
         mkdir -p "${dirname}"

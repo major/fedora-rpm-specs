@@ -1,11 +1,14 @@
 Name: gfs2-utils
-Version: 3.4.1
-Release: 6%{?dist}
-License: GPLv2+ and LGPLv2+
+Version: 3.5.0
+Release: 1%{?dist}
+# Refer to doc/README.licence in the upstream tarball
+License: GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary: Utilities for managing the global file system (GFS2)
 %ifnarch %{arm}
 %{?fedora:Recommends: kmod(gfs2.ko) kmod(dlm.ko)}
 %endif
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch: %{ix86}
 BuildRequires: ncurses-devel
 BuildRequires: kernel-headers
 BuildRequires: automake
@@ -21,8 +24,6 @@ BuildRequires: bzip2-devel
 BuildRequires: make
 Source: https://releases.pagure.org/gfs2-utils/gfs2-utils-%{version}.tar.gz
 URL: https://pagure.io/gfs2-utils
-Patch: 0-gfs2_edit_always_use_s_style_format_for_printf_style_functions.patch
-Patch: 1-fix-missed-printw.patch
 
 %prep
 %autosetup -p1
@@ -65,6 +66,12 @@ modifying, and correcting inconsistencies in GFS2 file systems.
 %{_prefix}/lib/udev/rules.d/82-gfs2-withdraw.rules
 
 %changelog
+* Thu Feb 09 2023 Andrew Price <anprice@redhat.com> - 3.5.0-1
+- New upstream release
+- Drop all patches
+- Exclude i686 for https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+- Migrate to SPDX license identifier
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

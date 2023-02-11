@@ -1,7 +1,7 @@
 %define __cmake_in_source_build 1
 Name:       ArpON
 Version:    3.0
-Release:    21%{?dist}
+Release:    22%{?dist}
 Summary:    ARP handler inspection
 
 License:    BSD
@@ -9,6 +9,8 @@ URL:        http://arpon.sourceforge.net/
 Source0:    http://downloads.sourceforge.net/project/arpon/arpon/ArpON-%{version}/ArpON-%{version}-ng.tar.gz
 Patch1:     ArpON-gcc-7-fixes.patch
 Patch2:     ArpON-gcc-8-fixes.patch
+# See RHBZ#2045151. Patch provided by atu@nmetau.edu.ua
+Patch3:     ArpON-atu1.patch
 
 BuildRequires:  gcc
 BuildRequires:  libpcap-devel
@@ -27,6 +29,7 @@ attack.
 %setup -q -n %{name}-%{version}-ng
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %cmake -DCMAKE_INSTALL_PREFIX="/" .
@@ -47,6 +50,9 @@ attack.
 %{_mandir}/man8/arpon.8*
 
 %changelog
+* Thu Feb 09 2023 Arun S A G <sagarun@gmail.com> - 3.0-22
+- Add patch to fix FTBS RHBZ#2045151
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,6 +7,7 @@ Version: %{gen_version}
 Summary: A signal-forwarding process manager for containers
 License: GPLv3+
 Release: %autorelease
+ExclusiveArch: %{golang_arches_future}
 URL: https://github.com/openSUSE/%{name}
 # Tarball fetched from upstream
 Source0: %{url}/archive/%{built_tag}.tar.gz

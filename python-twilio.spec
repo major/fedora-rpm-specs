@@ -1,6 +1,6 @@
 %global github_name twilio-python
 %global pypi_name twilio
-%global version 7.16.1
+%global version 7.16.3
 
 Name:           python-%{pypi_name}
 Version:        %{version}
@@ -10,12 +10,6 @@ Summary:        Twilio API client and TwiML generator
 License:        MIT
 URL:            https://github.com/twilio/%{github_name}/
 Source0:        %{url}/archive/%{version}/%{github_name}-%{version}.tar.gz
-# Relax testing requirements
-# Upstream report: https://github.com/twilio/twilio-python/issues/595
-Patch1:         0001-python-twilio-7.8.0-tests-requirements.patch
-# Nose is deprecated, use pytest instead.
-# Upstream report: https://github.com/twilio/twilio-python/issues/594
-Patch2:         0002-python-twilio-7.8.0-pytest-instead-nose.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -58,6 +52,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Thu Feb 09 2023 Paul Wouters <paul.wouters@aiven.io - 7.16.3-1
+- Resolves rhbz#2164705 python-twilio-7.16.3 is available
+
 * Tue Jan 24 2023 Paul Wouters <paul.wouters@aiven.io - 7.16.1-1
 - Resolves rhbz#2117470 python-twilio-7.16.1 is available
 

@@ -1,13 +1,15 @@
 %global forgeurl https://git.skyjake.fi/gemini/lagrange
 %global appid fi.skyjake.Lagrange
 
+# this seems buggy on Wayland: see https://github.com/skyjake/lagrange/issues/575
+%bcond_with x11_xlib
+
 Name:           lagrange
-Version:        1.14.2
+Version:        1.15.2
 Release:        %autorelease
 Summary:        A Beautiful Gemini Client
 
-# SPDX-3.0-License-Identifier: BSD-2-Clause
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://gmi.skyjake.fi/lagrange/
 Source0:        %{forgeurl}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
@@ -47,6 +49,9 @@ sed -i -e '/<url type="contact">/d' res/fi.skyjake.Lagrange.appdata.xml
 %build
 %cmake \
   -DENABLE_POPUP_MENUS:BOOL=NO \
+%if %{without x11_xlib}
+  -DENABLE_X11_XLIB:BOOL=NO \
+%endif
 
 %cmake_build
 
