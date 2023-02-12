@@ -12,7 +12,7 @@ BuildRequires:  nodejs
 BuildRequires:  nodejs-packaging
 # Obsoletes added in F38, can be removed in F40.
 Provides:       nodejs-typescript = %{version}-%{release}
-Obsoletes:      nodejs-typescript < 4.1.3-6
+Obsoletes:      nodejs-typescript < 4.1.3-7
 
 
 %description

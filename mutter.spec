@@ -11,8 +11,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       43.1
-Release:       5%{?dist}
+Version:       43.2
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -28,12 +28,8 @@ Patch1:        0001-Revert-build-Do-not-provide-built-sources-as-libmutt.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch2:        mutter-42.alpha-disable-tegra.patch
 
-# Revert Clutter optimization causing issues on X11
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2667
-# Will be replaced with a proper fix in 43.2
-# Backport edge resistance fix
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2687
-Patch3:        post-43.1-fixes.patch
+# Backports that will be part of 43.3
+Patch3:        post-43.2-backports.patch
 
 # Only on F38 and later
 %if 0%{?fedora} >= 38
@@ -74,6 +70,7 @@ BuildRequires: pkgconfig(libsystemd)
 BuildRequires: xorg-x11-server-Xorg
 BuildRequires: xorg-x11-server-Xvfb
 BuildRequires: pkgconfig(xkeyboard-config)
+# see src/tests/x11-test.sh
 BuildRequires: zenity
 BuildRequires: desktop-file-utils
 # Bootstrap requirements
@@ -106,7 +103,6 @@ Requires: libinput%{?_isa} >= %{libinput_version}
 Requires: pipewire%{_isa} >= %{pipewire_version}
 Requires: startup-notification
 Requires: dbus
-Requires: zenity
 
 Recommends: mesa-dri-drivers%{?_isa}
 
@@ -188,6 +184,15 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Fri Feb 10 2023 Jonas Ådahl <jadahl@redhat.com> - 43.2-2
+- Backport patches on the gnome-43 branch
+
+* Fri Feb 10 2023 Adam Williamson <awilliam@redhat.com> - 43.2-1
+- Update to 43.2
+
+* Fri Feb 10 2023 Adam Williamson <awilliam@redhat.com> - 43.1-6
+- Drop zenity requirement (upstream dropped it in 43-alpha)
+
 * Sun Jan 29 2023 Stefan Bluhm <stefan.bluhm@clacee.eu> - 43.1-5
 - Fixed broken Fedora condition.
 

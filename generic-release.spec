@@ -3,7 +3,7 @@
 %if 0%{?fedora}
 %global dist_version %{fedora}
 %else
-%global dist_version 38
+%global dist_version 39
 %endif
 
 Summary:	Generic release files
@@ -190,6 +190,9 @@ install -Dm0644 %{SOURCE9} -t $RPM_BUILD_ROOT%{_prefix}/lib/systemd/user-preset/
 
 
 %changelog
+* Fri Feb 10 2023 Adam Williamson <awilliam@redhat.com> - 39-0.1
+- bump to 39 for rawhide
+
 * Thu Sep  1 2022 Tom Callaway <spot@fedoraproject.org> - 38-0.1
 - bump to 38 for rawhide ... actually, be clever about it and use %%fedora
 

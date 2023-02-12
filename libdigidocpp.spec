@@ -1,7 +1,7 @@
 Name:           libdigidocpp
 
-Version:        3.14.10
-Release:        4%{?dist}
+Version:        3.14.12
+Release:        1%{?dist}
 
 Summary:        Library offers creating, signing and verification of digitally signed documents
 License:        LGPLv2+
@@ -72,7 +72,7 @@ rm -rf src/minizip
 # https://bugzilla.redhat.com/show_bug.cgi?id=2059201
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/CMake/
 %if 0%{?el7}
-%{cmake3} . \
+%{cmake3} .\
  -DCMAKE_INSTALL_SYSCONFDIR=/etc \
  -DSWIG_EXECUTABLE=SWIG_EXECUTABLE-NOTFOUND
 %else
@@ -95,7 +95,7 @@ rm -rf src/minizip
 %make_install
 %endif
 
-%if 0%{?fedora} <= 28 || 0%{?el7}
+%if 0%{?el7}
 %post -p /sbin/ldconfig
 %postun -p /sbin/ldconfig
 %endif
@@ -125,6 +125,9 @@ rm -rf src/minizip
 
 
 %changelog
+* Fri Feb 10 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 3.14.12-1
+- 3.14.12 release
+
 * Sat Feb 04 2023 Sérgio Basto <sergio@serjux.com> - 3.14.10-4
 - Rebuild for xml-security-c with OPENSSL_3.0.0
 

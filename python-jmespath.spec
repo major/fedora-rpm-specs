@@ -22,9 +22,10 @@ Summary:        JSON Matching Expressions
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 
-# The tests unfortunately still import from nose, but we use pytest as test runner:
 BuildRequires:  python3-pytest
+%if %{undefined rhel}
 BuildRequires:  python3-hypothesis
+%endif
 
 Obsoletes: python2-jmespath < 0.9.4-2
 
@@ -43,10 +44,9 @@ rm -rf %{pypi_name}.egg-info
 %py3_install
 
 %check
-# epel9 does not have python3-nose since nose is deprecated upstream. Only one file
-# in the upstream repo still depends on nose, so we can omit this dependency for epel9.
-# See upstream issue: https://github.com/jmespath/jmespath.py/issues/261%if 0%{?el9}
-%pytest --ignore=extra/test_hypothesis.py
+# RHEL does not have python3-hypothesis. Only one file in the upstream repo
+# depends on hypothesis, so we can omit this dependency for RHEL.
+%pytest %{?rhel:--ignore=extra/test_hypothesis.py}
 
 %files -n python3-%{pypi_name}
 %doc README.rst

@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-recoveryservices
 
 Name:           python-%{srcname}
-Version:        2.1.0
+Version:        2.2.0
 Release:        %autorelease
 Summary:        Microsoft Azure Recovery Services Client Library for Python
 License:        MIT

@@ -1,6 +1,6 @@
 Name:       odcs
-Version:    0.3.6
-Release:    4%{?dist}
+Version:    0.4.0
+Release:    2%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -8,12 +8,8 @@ License:    MIT
 URL:        https://pagure.io/odcs
 Source0:    https://files.pythonhosted.org/packages/source/o/%{name}/%{name}-%{version}.tar.gz
 Source1:    odcs-backend.service
-# In Fedora, "pyldap" is only for python3, not for python2. Therefore we
-# have to patch the requirements.txt to use python-ldap instead of pyldap.
-# Both ldap bindings are compatible on Python code level.
-Patch0:     odcs-pythonldap.patch
 # Fedora related configuration for ODCS.
-Patch1:     odcs-fedora-conf.patch
+Patch0:     odcs-fedora-conf.patch
 
 BuildArch:    noarch
 
@@ -22,7 +18,7 @@ BuildRequires:    python3-libmodulemd
 BuildRequires:    gobject-introspection
 BuildRequires:    systemd
 BuildRequires:    python3-devel
-BuildRequires:    python3-requests-kerberos
+BuildRequires:    python3-requests-gssapi
 BuildRequires:    python3-fedora
 BuildRequires:    python3-productmd
 BuildRequires:    python3-funcsigs
@@ -57,7 +53,7 @@ BuildRequires:    python3-prometheus_client
 Requires(pre): shadow-utils
 Requires:    systemd
 Requires:    pungi
-Requires:    python3-requests-kerberos
+Requires:    python3-requests-gssapi
 Requires:    python3-fedora
 Requires:    python3-funcsigs
 Requires:    python3-openidc-client
@@ -104,7 +100,7 @@ Summary:        ODCS client module
 
 Requires:       python3-six
 Requires:       python3-requests
-Requires:       python3-requests-kerberos
+Requires:       python3-requests-gssapi
 Requires:       python3-odcs-common = %{version}-%{release}
 
 %description -n python3-odcs-client
@@ -122,12 +118,7 @@ Command line client for sending requests to ODCS.
 %prep
 %setup -q
 
-sed -i '/futures/d' common/requirements.txt
-sed -i '/futures/d' client/requirements.txt
-sed -i '/futures/d' server/requirements.txt
-
-%patch0 -p1 -b .pyldap
-%patch1 -p1
+%patch0 -p1
 
 %build
 %py3_build
@@ -212,11 +203,71 @@ nosetests-%{python3_version} -v
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Fri Feb 10 2023 Lubomír Sedlář <lsedlar@redhat.com> - 0.4.0-2
+- Resolve conflict after branches diverging after mass rebuild for Fedora 38
+- Drop unused patches
+
+* Wed Dec 07 2022 Haibo Lin <hlin@redhat.com> - 0.4.0-1
+- backend: Drop python 2 support
+- backend: Remove non-latest symlink before creating
+- cleanup: Delete unneeded requirement
+- client: Add missing requirement openidc-client
+- client: Customize user-agent of odcs-client
+- client: Drop python 2 support
+- client: improve create-tag --help description
+- frontend: Allow `^` character in ODCS input.
+- frontend: Allow querying rover groups
+- frontend: Brand new API doc available at /api/1/
+- frontend: Drop python 2 support
+- frontend: Optimized metrics raw_config_types
+- promote: Stop checking symlinks before promoting
+
+* Fri Sep 30 2022 Haibo Lin <hlin@redhat.com> - 0.3.8-2
+- Revert "server: Add new metrics for raw_config source"
+
+* Thu Sep 29 2022 Haibo Lin <hlin@redhat.com> - 0.3.8-1
+- server: Mark compose as failed on scheduling error
+- server: Do not append newline to state_reason when no errors from pungi log
+- server: Fix escaping issue in Bad Request error message
+- server: Add new metrics for raw_config source
+- server: Update Dockerfile
+- server: Add compose id to scheduling error message
+- server: Fix routing rule checking
+- server: Fix hardcoded path
+- server: Added CSS to index.html
+- server: Fix python 2 compatibility in promote script
+- server: Convert ldap query result from bytes to str
+- server: Print mbs url when query failed
+- server: Check existence of target_dir in runtime
+- server: Use conf.target_dir_url in home page
+- client: Replace requests-kerberos with requests-gssapi
+- client: Improve help message of renew and delete commands
+- client: Return 1 if the generated compose is failed
+- tests: Generate html coverage report in CI job
+- tests: Update Dockerfile-test
+- tests: Add docs env to tox.ini
+- tests: Add Jenkinsfile for CI
+- tests: Fix tests for rhel 8 build
+- tests: Check pytest for TestConfiguration
+- cleanup: Add .env to gitignore
+- cleanup: Update author in setup.py
+- cleanup: Remove funcsigs and httplib2 from requirements.txt
+- cleanup: Remove python-fedora from requirements.txt
 
 * Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
+
+* Fri Apr 22 2022 Haibo Lin <hlin@redhat.com> - 0.3.7-1
+- server: Add compose_id attribute when the compose is re-used
+- server: Return empty value for results_repourl and results_repofile for raw_config composes
+- server: Fix Python 2 compatibility
+- server: Avoid koji tag cache being removed while in use
+- server: Update the error message when the brew connection is failed
+- client: Replace http request with https in order prevent false redirection
+- doc: Remove EPEL from README
+- cleanup: Delete Jenkinsfile
+- cleanup: Format code for black 22.1.0
+- cleanup: Fix create_sqlite_db script
 
 * Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild

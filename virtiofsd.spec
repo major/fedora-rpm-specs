@@ -1,12 +1,13 @@
 Name:           virtiofsd
-Version:        1.4.0
-Release:        3%{?dist}
+Version:        1.5.1
+Release:        1%{?dist}
 Summary:        Virtio-fs vhost-user device daemon (Rust version)
 
 # Upstream license specification: Apache-2.0 AND BSD-3-Clause
 License:        ASL 2.0 and BSD
 URL:            https://gitlab.com/virtio-fs/virtiofsd
 Source:         %{crates_source}
+Patch:          virtiofsd-relax-env_logger-dep.diff
 
 ExclusiveArch:  %{rust_arches}
 # Some of our deps (i.e. vm-memory) are not available on 32 bits targets.
@@ -44,6 +45,9 @@ install -D -p -m 0644 50-qemu-virtiofsd.json %{buildroot}%{_datadir}/qemu/vhost-
 %{_datadir}/qemu/vhost-user/50-qemu-virtiofsd.json
 
 %changelog
+* Thu Feb 09 2023 Sergio Lopez <slp@redhat.com> - 1.5.1-1
+- Update to version 1.5.1
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.4.0-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

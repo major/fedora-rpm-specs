@@ -66,6 +66,7 @@ BuildArch:      noarch
 # versions and use what is packaged.
 #
 # We do not need:
+#   - hypothesis, not included in RHEL
 #   - memory-profiler or psutil, since we are not running the memorytest*
 #     environment from tox.ini
 #   - pyperform, since we are not running the benchmarks from
@@ -75,6 +76,9 @@ BuildArch:      noarch
 sed -r \
     -e 's/==/>=/' \
     -e '/\b(memory-profiler|psutil|pyperform|tox|twine)\b/d' \
+%if %{defined rhel}
+    -e '/\bhypothesis\b/d' \
+%endif
     requirements.txt | tee requirements-filtered.txt
 
 
@@ -101,7 +105,7 @@ PYTHONPATH="${PWD}" %make_build -C docs latex SPHINXOPTS='-n %{?_smp_mflags}'
 
 %check
 # # See tox.ini:
-%pytest
+%pytest %{?rhel:--ignore=tests/hypothesis_vector_test.py}
 %pytest --doctest-modules pyrsistent
 
 

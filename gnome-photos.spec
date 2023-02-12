@@ -65,7 +65,7 @@ Requires:      gtk3%{?_isa} >= %{gtk3_version}
 Requires:      libdazzle%{?_isa} >= %{dazzle_version}
 Requires:      libgexiv2%{?_isa} >= %{gexiv2_version}
 Requires:      libhandy%{?_isa} >= %{handy_version}
-Requires:      tracker3-miners >= %{tracker_miners_version}
+Requires:      tracker-miners >= %{tracker_miners_version}
 
 %if 0%{?fedora} || 0%{?rhel} < 9
 Requires:      dleyna-renderer

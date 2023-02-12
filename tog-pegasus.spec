@@ -6,7 +6,7 @@
 
 Name:           tog-pegasus
 Version:        %{major_ver}.1
-Release:        69%{?dist}
+Release:        70%{?dist}
 Epoch:          2
 Summary:        OpenPegasus WBEM Services for Linux
 
@@ -134,7 +134,6 @@ sources.
 %package devel
 Summary:        The OpenPegasus Software Development Kit
 Requires:       tog-pegasus >= %{version}-%{release}
-Obsoletes:      tog-pegasus-sdk
 
 %description devel
 The OpenPegasus WBEM Services for Linux SDK is the developer's kit for the
@@ -569,6 +568,10 @@ fi
 
 
 %changelog
+* Fri Feb 10 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2:2.14.1-70
+- SPDX migration
+- Remove -devel Obsoletes
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.14.1-69
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

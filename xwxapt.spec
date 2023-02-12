@@ -1,6 +1,6 @@
 Name:           xwxapt
 Version:        3.4.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        GTK+ graphical application for decoding and saving weather images
 
 # Most files are GPLv2+ but some are GPLv3+ so combined work is GPLv3+
@@ -14,6 +14,8 @@ Source1:        %{name}.desktop
 Source2:        %{name}.png
 #Wrapper script for user config
 Source3:        %{name}.sh.in
+
+Patch1: xwxapt-3.4.1-fedora-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc gcc-c++
@@ -34,7 +36,7 @@ It also displays some status information (audio level, sync level,
 sync status etc) and text messages as it runs.
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -72,6 +74,9 @@ desktop-file-install  \
 
 
 %changelog
+* Thu Feb  9 2023 DJ Delorie <dj@redhat.com> - 3.4.1-10
+- Fix C99 compatibility issue
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

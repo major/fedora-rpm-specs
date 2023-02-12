@@ -1,74 +1,56 @@
 Name:           perl-WWW-Mechanize
 Version:        2.15
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Automates web page form & link interaction
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/WWW-Mechanize
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/WWW-Mechanize-%{version}.tar.gz
 BuildArch:      noarch
-# HTML::Status is not used anymore probably
-#Requires:       perl(HTTP::Status)
-# LWP is not run-time dependecy probably
-#Requires:       perl(LWP) >= 5.829
-BuildRequires: make
+# build requirements
+BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime requirements
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(Getopt::Long)
+BuildRequires:  perl(Compress::Zlib)
 BuildRequires:  perl(HTML::Form) >= 6.08
 BuildRequires:  perl(HTML::HeadParser)
-# HTML::Parser is not used anymore probably
-#BuildRequires:  perl(HTML::Parser) >= 3.33
+BuildRequires:  perl(HTML::TokeParser)
 BuildRequires:  perl(HTML::TreeBuilder)
-# HTML::Status is not used anymore probably
-#BuildRequires:  perl(HTTP::Status)
-# HTML::HeadParser optional
-BuildRequires:  perl(HTML::TokeParser) >= 2.28
-BuildRequires:  perl(HTTP::Daemon) >= 6.05
 BuildRequires:  perl(HTTP::Request) >= 1.3
-# HTTP::Response::Encoding is not used anymore probably
-BuildRequires:  perl(HTTP::Response::Encoding) >= 0.05
-BuildRequires:  perl(IO::Socket::SSL)
-BuildRequires:  perl(LWP) >= 6.45
-BuildRequires:  perl(LWP::UserAgent) >= 6.45
-BuildRequires:  perl(Pod::Usage)
+BuildRequires:  perl(HTTP::Request::Common)
+BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Tie::RefHash)
-BuildRequires:  perl(Test::More) >= 0.34
-BuildRequires:  perl(URI::file)
 BuildRequires:  perl(URI::URL)
 BuildRequires:  perl(warnings)
-# For %%check only:
+# test requirements
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(File::Temp)
 BuildRequires:  perl(FindBin)
-BuildRequires:  perl(HTTP::Request::Common)
-BuildRequires:  perl(HTTP::Response)
-# HTTP::Server::Simple is not used anymore probably
-BuildRequires:  perl(HTTP::Server::Simple) >= 0.35
+BuildRequires:  perl(HTTP::Daemon) >= 6.12
 BuildRequires:  perl(lib)
+BuildRequires:  perl(LWP)
 BuildRequires:  perl(LWP::Simple)
 BuildRequires:  perl(Path::Tiny)
 BuildRequires:  perl(Test::Deep)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::Fatal)
 BuildRequires:  perl(Test::Memory::Cycle)
-BuildRequires:  perl(Test::Needs)
-BuildRequires:  perl(Test::NoWarnings)
+BuildRequires:  perl(Test::More) >= 0.96
+BuildRequires:  perl(Test::NoWarnings) >= 1.04
 BuildRequires:  perl(Test::Output)
-BuildRequires:  perl(Test::Pod)
-BuildRequires:  perl(Test::Pod::Coverage)
-BuildRequires:  perl(Test::RequiresInternet)
-BuildRequires:  perl(Test::Taint)
-BuildRequires:  perl(Test::Warn) >= 0.11
+BuildRequires:  perl(Test::Taint) >= 1.08
+BuildRequires:  perl(Test::Warn)
 BuildRequires:  perl(Test::Warnings)
-BuildRequires:  perl(URI) >= 1.36
+BuildRequires:  perl(URI)
 BuildRequires:  perl(URI::Escape)
+BuildRequires:  perl(URI::file)
 # $mech->content( format => 'text' ) requires HTML::TreeBuilder to be installed
 # https://metacpan.org/pod/WWW::Mechanize#$mech-%3Econtent(...)
 Requires:       perl(HTML::TreeBuilder)
@@ -104,6 +86,9 @@ queried and revisited.
 %{_mandir}/man3/*.3pm*
 
 %changelog
+* Fri Feb 10 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 2.15-3
+- Rework Dependencies
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

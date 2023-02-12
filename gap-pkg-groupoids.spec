@@ -1,7 +1,7 @@
 %global pkgname groupoids
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.72
+Version:        1.73
 Release:        1%{?dist}
 Summary:        Groupoids, group graphs, and groupoid graphs
 
@@ -94,6 +94,9 @@ done
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Feb 10 2023 Jerry James <loganjerry@gmail.com> - 1.73-1
+- Version 1.73
+
 * Sun Feb  5 2023 Jerry James <loganjerry@gmail.com> - 1.72-1
 - Version 1.72
 

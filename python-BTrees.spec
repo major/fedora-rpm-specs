@@ -7,8 +7,8 @@
 %bcond_with bootstrap
 
 Name:           python-BTrees
-Version:        4.11.3
-Release:        2%{?dist}
+Version:        5.0
+Release:        1%{?dist}
 Summary:        Scalable persistent object containers
 
 License:        ZPL-2.1
@@ -93,7 +93,7 @@ sed -e "s|\('https://docs\.python\.org/3/': \)None|\1'%{_docdir}/python3-docs/ht
     -i docs/conf.py
 
 %if %{without bootstrap}
-sed -e 's|\("https://zodb\.readthedocs\.io/en/latest/": \)None|\1"%{_docdir}/python-ZODB-doc/html/objects.inv"|' \
+sed -e 's|\("https://zodb\.org/en/latest/": \)None|\1"%{_docdir}/python-ZODB-doc/html/objects.inv"|' \
     -i docs/conf.py
 %endif
 
@@ -125,6 +125,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Fri Feb 10 2023 Jerry James <loganjerry@gmail.com> - 5.0-1
+- Version 5.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

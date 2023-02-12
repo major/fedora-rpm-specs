@@ -196,7 +196,7 @@ Summary:          Distributed File System
 %if ( 0%{_for_fedora_koji_builds} )
 Name:             glusterfs
 Version:          11.0
-Release:          0%{?prereltag:%{prereltag}}%{?dist}
+Release:          1%{?prereltag:%{prereltag}}%{?dist}
 %else
 Name:             @PACKAGE_NAME@
 Version:          @PACKAGE_VERSION@
@@ -522,7 +522,7 @@ Requires:         libgfrpc0%{?_isa} = %{version}-%{release}
 Requires:         libgfxdr0%{?_isa} = %{version}-%{release}
 Obsoletes:        %{name}-libs <= %{version}-%{release}
 Provides:         %{name}-libs = %{version}-%{release}
-Obsoletes:        libglusterd0 = %{version}-%{release}
+Obsoletes:        libglusterd0 <= %{version}-%{release}
 Provides:         libglusterd0 = %{version}-%{release}
 
 %description -n libglusterfs0
@@ -1629,7 +1629,10 @@ exit 0
 %{_unitdir}/gluster-ta-volume.service
 
 %changelog
-* Tue Feb 7 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 11.0-1
+* Fri Feb 10 2023 Adam Williamson <awilliam@redhat.com> - 11.0-1
+- Fix a mistake in the libglusterd0 obsolete
+
+* Tue Feb 7 2023  Kaleb S. KEITHLEY <kkeithle[at]redhat.com> - 11.0-0
 - glusterfs 11 GA
 
 * Fri Nov 11 2022  Kaleb S. KEITHLEY <kkeithle[at]redhat.com>

@@ -172,13 +172,13 @@ ExcludeArch: i686
 
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
-Version:        109.0.1
-Release:        2%{?pre_tag}%{?dist}
+Version:        110.0
+Release:        1%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230201.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230210.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -226,6 +226,7 @@ Patch61:        firefox-glibc-dynstack.patch
 Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
+Patch80:        D167194.diff
 
 # Test patches
 # Generate without context by
@@ -250,7 +251,6 @@ Patch402:        mozilla-1196777.patch
 Patch407:        mozilla-1667096.patch
 Patch408:        mozilla-1663844.patch
 Patch415:        mozilla-1670333.patch
-Patch417:        D166324.diff
 Patch418:        mozilla-1813500.patch
 
 # PGO/LTO patches
@@ -505,6 +505,7 @@ This package contains results of tests executed during build.
 %patch71 -p1 -b .0001-GLIBCXX-fix-for-GCC-12
 %patch78 -p1 -b .firefox-i686
 %patch79 -p1 -b .firefox-gcc-13-build
+%patch80 -p1 -b .D167194
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -527,7 +528,6 @@ This package contains results of tests executed during build.
 %patch407 -p1 -b .1667096
 %patch408 -p1 -b .1663844
 %patch415 -p1 -b .1670333
-%patch417 -p1 -b .D166324
 %patch418 -p1 -b .1813500
 
 # PGO patches
@@ -1082,6 +1082,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Thu Feb 9 2023 Martin Stransky <stransky@redhat.com>- 110.0-1
+- Updated to 110.0
+
 * Tue Feb 7 2023 Martin Stransky <stransky@redhat.com>- 109.0.1-2
 - Rawhide build fix
 

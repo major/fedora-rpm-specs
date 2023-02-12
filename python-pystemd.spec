@@ -6,11 +6,11 @@
 
 Name:           python-%{pypi_name}
 Version:        0.11.0
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        A thin Cython-based wrapper on top of libsystemd
 
 License:        LGPL-2.1-or-later
-URL:            https://github.com/facebookincubator/pystemd
+URL:            https://github.com/systemd/pystemd
 Source0:        %{url}/releases/download/v.%{version}/%{pypi_name}-%{version}.tar.gz
 
 BuildRequires:  gcc
@@ -19,6 +19,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(cython)
 BuildRequires:  python3dist(lxml)
+BuildRequires:  python3dist(psutil)
 
 %description
 This library allows you to talk to systemd over D-Bus from Python,
@@ -60,6 +61,10 @@ find . -name \*.c -exec rm '{}' \;
 %check
 # This test fails in mock because systemd isn't running
 rm -f tests/test_daemon.py
+%if 0%{?el8}
+# This test doesn't work with Python 3.6
+rm -f tests/test_futures.py
+%endif
 
 export PYTHONPATH=%{buildroot}%{python3_sitearch}
 pushd tests
@@ -73,6 +78,13 @@ popd
 %{python3_sitearch}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Fri Feb 10 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 0.11.0-4
+- Gate out unsupported test on el8
+
+* Fri Feb 10 2023 Davide Cavalca <dcavalca@fedoraproject.org> - 0.11.0-3
+- Add psutil to BuildRequires for test_futures
+- Update project URL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

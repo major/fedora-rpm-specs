@@ -7,12 +7,12 @@
 
 Name:           nautilus
 Version:        44~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        File manager for GNOME
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/Nautilus
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -49,7 +49,7 @@ Requires:       libadwaita%{_isa} >= %{libadwaita_version}
 # don't depend on soname, rather on exact version
 Requires:       %{name}-extensions%{_isa} = %{version}-%{release}
 # For the org.freedesktop.Tracker3.Miner.Files GSettings schema.
-Requires:       tracker3-miners
+Requires:       tracker-miners
 
 Provides:       bundled(libgd)
 
@@ -62,14 +62,14 @@ It is also responsible for handling the icons on the GNOME desktop.
 
 %package extensions
 Summary:        Nautilus extensions library
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 
 %description extensions
 This package provides the libraries used by nautilus extensions.
 
 %package devel
 Summary:        Support for developing nautilus extensions
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Requires:       %{name}%{_isa} = %{version}-%{release}
 Requires:       %{name}-extensions%{_isa} = %{version}-%{release}
 
@@ -139,6 +139,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Fri Feb 10 2023 David King <amigadave@amigadave.com> - 44~alpha-2
+- Update tracker-miners dependency
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44~alpha-1
 - Update to 44.alpha
 

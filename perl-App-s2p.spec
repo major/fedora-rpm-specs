@@ -2,10 +2,11 @@ Name:           perl-App-s2p
 Version:        1.003
 Release:        10%{?dist}
 Summary:        Convert sed script to Perl program
-License:        CC-BY-SA
+License:        CC-BY-SA-3.0
 URL:            https://metacpan.org/release/App-s2p
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/App-s2p-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -39,7 +40,7 @@ This package delivers s2p tool which converts sed scripts to Perl programs.
 %setup -q -n App-s2p-%{version}
 %if %{defined perl_bootstrap}
 rm t/s2p.t
-sed -i -e '/^t\/s2p\.t/d' MANIFEST
+perl -i -ne 'print $_ unless m{^t/s2p.t}' MANIFEST
 %endif
 
 %build

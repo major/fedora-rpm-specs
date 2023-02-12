@@ -5,7 +5,7 @@
 
 %global         srcname     fabric
 %global         forgeurl    https://github.com/fabric/%{srcname}
-Version:        2.7.1
+Version:        3.0.0
 %global         tag         %{version}
 %forgemeta
 
@@ -16,7 +16,6 @@ Summary:        High level SSH command execution
 License:        BSD
 URL:            %forgeurl
 Source0:        %forgesource
-Patch0:         python-fabric-remove-pathlib2.patch
 
 BuildArch:      noarch
 
@@ -52,6 +51,8 @@ Summary:        %{summary}
 %prep
 %forgeautosetup -p1
 
+# Allow a slightly older invoke version.
+sed -i 's/invoke>=2.0/invoke>=1.7/' setup.py
 
 %generate_buildrequires
 %pyproject_buildrequires

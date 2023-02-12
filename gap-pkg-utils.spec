@@ -1,8 +1,8 @@
 %global pkgname utils
 
 Name:           gap-pkg-%{pkgname}
-Version:        0.81
-Release:        3%{?dist}
+Version:        0.82
+Release:        1%{?dist}
 Summary:        Utility functions for GAP
 
 License:        GPL-2.0-or-later
@@ -71,6 +71,9 @@ cp -p tst/download.tst %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Fri Feb 10 2023 Jerry James <loganjerry@gmail.com> - 0.82-1
+- Version 0.82
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.81-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

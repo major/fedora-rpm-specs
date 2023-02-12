@@ -50,7 +50,8 @@ rm tests/test_commands.py*
 
 %if %{with tests}
 %check
-%if 0%{?fedora} >= 37
+%if 0%{?fedora} >= 37 || 0%{?rhel} > 9
+# redis 7+
 redis-server --enable-debug-command yes &
 %else
 redis-server &

@@ -4,7 +4,7 @@
 
 Summary: Application Whitelisting Daemon
 Name: fapolicyd
-Version: 1.1.7
+Version: 1.2
 Release: 4%{?dist}
 License: GPLv3+
 URL: http://people.redhat.com/sgrubb/fapolicyd
@@ -30,7 +30,6 @@ Requires(post): systemd-units
 Requires(preun): systemd-units
 Requires(postun): systemd-units
 
-Patch2: fapolicyd-rpm-backend-c99.patch
 # RHEL-specific patches
 Patch100: fapolicyd-uthash-bundle.patch
 
@@ -59,7 +58,6 @@ The %{name}-selinux package contains selinux policy for the %{name} daemon.
 
 # selinux
 %setup -q -D -T -a 1
-%patch2 -p1 -b .c99
 
 %if 0%{?rhel} != 0
 # uthash
@@ -172,6 +170,7 @@ fi
 %ghost %{_sysconfdir}/%{name}/rules.d/*
 %ghost %{_sysconfdir}/%{name}/%{name}.rules
 %config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}.conf
+%config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/rpm-filter.conf
 %config(noreplace) %attr(644,root,%{name}) %{_sysconfdir}/%{name}/%{name}.trust
 %ghost %attr(644,root,%{name}) %{_sysconfdir}/%{name}/compiled.rules
 %attr(644,root,root) %{_unitdir}/%{name}.service
@@ -181,7 +180,6 @@ fi
 %attr(755,root,root) %{_sbindir}/fagenrules
 %attr(644,root,root) %{_mandir}/man8/*
 %attr(644,root,root) %{_mandir}/man5/*
-%attr(644,root,root) %{_mandir}/man1/*
 %ghost %attr(440,%{name},%{name}) %verify(not md5 size mtime) %{_localstatedir}/log/%{name}-access.log
 %attr(770,root,%{name}) %dir %{_localstatedir}/lib/%{name}
 %attr(770,root,%{name}) %dir /run/%{name}
@@ -207,6 +205,9 @@ fi
 %selinux_relabel_post -s %{selinuxtype}
 
 %changelog
+* Fri Feb 10 2023 Radovan Sroka <rsroka@redhat.com> - 1.2-1
+- rebase to v1.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

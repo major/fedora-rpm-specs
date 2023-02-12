@@ -23,7 +23,8 @@ Source:         %{pypi_source}
 Patch1:         %{url}/commit/2bdd63158b7f981fc6d70a869680451bdfd8d848.patch
 
 # when bootstrapping dateutil-freezegun, we cannot run tests
-%bcond_without tests
+# on RHEL, we do not have or want all test dependencies
+%bcond tests %{undefined rhel}
 
 BuildArch:      noarch
 BuildRequires: make
@@ -41,11 +42,12 @@ Summary:        %summary
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
+# Runtime deps
+BuildRequires:  python3-six
 %if %{with tests}
 BuildRequires:  python3-freezegun
 BuildRequires:  python3-hypothesis
 BuildRequires:  python3-pytest
-BuildRequires:  python3-six
 %endif
 Requires:       tzdata
 %{?python_provide:%python_provide python3-%{modname}}
@@ -74,9 +76,11 @@ make -C docs html
 %install
 %py3_install
 
-%if %{with tests}
 %check
+%if %{with tests}
 %{__python3} -m pytest -W ignore::pytest.PytestUnknownMarkWarning
+%else
+%py3_check_import dateutil dateutil.easter dateutil.parser dateutil.relativedelta dateutil.rrule dateutil.tz dateutil.utils dateutil.zoneinfo
 %endif
 
 %files -n python3-%{modname}

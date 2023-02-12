@@ -4,8 +4,8 @@
 %global sover 0
 
 Name:           wxGTK
-Version:        3.2.1
-Release:        5%{?dist}
+Version:        3.2.2
+Release:        1%{?dist}
 Summary:        GTK port of the wxWidgets GUI library
 License:        wxWidgets
 URL:            https://www.wxwidgets.org/
@@ -16,7 +16,6 @@ Source10:       wx-config
 # remove abort when ABI check fails
 # Backport from wxGTK
 Patch0:         %{name}-3.1.6-abicheck.patch
-Patch1:         wxGTK-configure-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++
@@ -315,6 +314,9 @@ fi
 %doc html
 
 %changelog
+* Fri Feb 10 2023 Scott Talbert <swt@techie.net> - 3.2.2-1
+- Update to new upstream release 3.2.2 (#2168466)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

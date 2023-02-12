@@ -3,7 +3,7 @@
 
 # https://github.com/GoogleCloudPlatform/osconfig
 %global goipath         github.com/GoogleCloudPlatform/osconfig
-Version:                20221214.00
+Version:                20230208.00
 %global tag             %{version}
 
 %gometa -f
@@ -58,7 +58,7 @@ install -m0644 -Dp %{name}.service      %{buildroot}%{_unitdir}/%{name}.service
 
 %if %{with check}
 %check
-%gocheck -d agentendpoint
+%gocheck -d agentendpoint -d config -d ospatch -d packages
 %endif
 
 %files

@@ -1,13 +1,12 @@
-%global modname alembic
-
 Name:             python-alembic
 Version:          1.8.1
-Release:          2%{?dist}
+Release:          3%{?dist}
 Summary:          Database migration tool for SQLAlchemy
 
+# SPDX
 License:          MIT
 URL:              https://pypi.io/project/alembic
-Source0:          %pypi_source alembic
+Source0:          %{pypi_source alembic}
 
 # Alembic fails with Python 3.10.0b2 due to DeprecationWarnings treated as an error.
 # Downstream report: https://bugzilla.redhat.com/show_bug.cgi?id=1958159
@@ -18,29 +17,20 @@ BuildArch:        noarch
 BuildRequires:    help2man
 
 BuildRequires:    python3-devel
-BuildRequires:    python3-sqlalchemy >= 1.1
-BuildRequires:    python3-mako
-BuildRequires:    python3-setuptools
-BuildRequires:    python3-dateutil
-BuildRequires:    python3-pytest
-%if 0%{?rhel} == 8
-BuildRequires:    python3-importlib-resources
-%endif
 
+%global _description %{expand:
+Alembic is a database migrations tool written by the author of SQLAlchemy. A
+migrations tool offers the following functionality:
 
-%global _description\
-Alembic is a new database migrations tool, written by the author of\
-SQLAlchemy.  A migrations tool offers the following functionality:\
-\
-* Can emit ALTER statements to a database in order to change the structure\
-  of tables and other constructs.\
-* Provides a system whereby "migration scripts" may be constructed; each script\
-  indicates a particular series of steps that can "upgrade" a target database\
-  to a new version, and optionally a series of steps that can "downgrade"\
-  similarly, doing the same steps in reverse.\
-* Allows the scripts to execute in some sequential manner.\
-\
-Documentation and status of Alembic is at http://readthedocs.org/docs/alembic/
+• Can emit ALTER statements to a database in order to change the structure of
+  tables and other constructs
+• Provides a system whereby "migration scripts" may be constructed; each script
+  indicates a particular series of steps that can "upgrade" a target database
+  to a new version, and optionally a series of steps that can "downgrade"
+  similarly, doing the same steps in reverse.
+• Allows the scripts to execute in some sequential manner.
+
+Documentation and status of Alembic is at https://alembic.sqlalchemy.org/}
 
 %description %_description
 
@@ -48,58 +38,75 @@ Documentation and status of Alembic is at http://readthedocs.org/docs/alembic/
 %package -n python3-alembic
 Summary:          %summary
 
-%if 0%{?rhel} == 8
-Requires:         python3-importlib-resources
-%endif
-%{?python_provide:%python_provide python3-alembic}
-
-
 %description -n python3-alembic %_description
 
+
+%pyproject_extras_subpkg -n python3-alembic tz
+
+
 %prep
-%autosetup -p1 -n %{modname}-%{version}
+%autosetup -p1 -n alembic-%{version}
+# HTML documentation has bundled and pre-compiled/pre-minified JavaScript; see
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/JavaScript/.
+rm -rvf docs/_static
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i 's/^([[:blank:]]*(black|zimports))\b/# &/' tox.ini
+
+
+%generate_buildrequires
+%pyproject_buildrequires -t -x tz
 
 
 %build
-%py3_build
+%pyproject_wheel
 
-%{__mkdir_p} bin
-echo 'python3 -c "import alembic.config; alembic.config.main()" $*' > bin/alembic
+mkdir -p bin
+echo '%{python3} -c "import alembic.config; alembic.config.main()" $*' > bin/alembic
 chmod 0755 bin/alembic
 help2man --version-string %{version} --no-info -s 1 bin/alembic > alembic.1
 
 
 %install
-
 install -d -m 0755 %{buildroot}%{_mandir}/man1
 
-%py3_install
-mv %{buildroot}/%{_bindir}/%{modname} %{buildroot}/%{_bindir}/%{modname}-3
-ln -s %{modname}-3 %{buildroot}/%{_bindir}/%{modname}-%{python3_version}
+%pyproject_install
+%pyproject_save_files alembic
+mv %{buildroot}/%{_bindir}/alembic %{buildroot}/%{_bindir}/alembic-3
+ln -s alembic-3 %{buildroot}/%{_bindir}/alembic-%{python3_version}
 install -m 0644 alembic.1 %{buildroot}%{_mandir}/man1/alembic-3.1
 ln -s alembic-3.1 %{buildroot}%{_mandir}/man1/alembic-%{python3_version}.1
 
-ln -s %{modname}-%{python3_version} %{buildroot}/%{_bindir}/%{modname}
+ln -s alembic-%{python3_version} %{buildroot}/%{_bindir}/alembic
 ln -s alembic-%{python3_version}.1 %{buildroot}%{_mandir}/man1/alembic.1
 
 
 %check
-py.test-3
+%tox
 
 
-%files -n python3-%{modname}
-%doc LICENSE README.rst CHANGES docs
-%{python3_sitelib}/%{modname}/
-%{python3_sitelib}/%{modname}-%{version}-*
-%{_bindir}/%{modname}
-%{_mandir}/man1/alembic.1*
-%{_bindir}/%{modname}-3
-%{_bindir}/%{modname}-%{python3_version}
-%{_mandir}/man1/alembic-3.1*
-%{_mandir}/man1/alembic-%{python3_version}.1*
+%files -n python3-alembic -f %{pyproject_files}
+# pyproject_files handles LICENSE; verify with rpm -qL -p ...
+%doc README.rst CHANGES
+%{_bindir}/alembic
+%{_mandir}/man1/alembic.1{,.*}
+%{_bindir}/alembic-3
+%{_mandir}/man1/alembic-3.1{,.*}
+%{_bindir}/alembic-%{python3_version}
+%{_mandir}/man1/alembic-%{python3_version}.1{,.*}
 
 
 %changelog
+* Sat Feb 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.8.1-3
+- Drop conditionals for EPEL8 (which has setuptools too old for this version
+  anyway)
+- Drop obsolete spec file macros, and use appropriate newer ones
+- Drop HTML documentation due to bundled/pre-minified JavaScript
+- Confirm License is SPDX MIT
+- Add metapackage for “tz” extra
+- Port to pyproject-rpm-macros
+- Stricter patterns to avoid listing man pages twice
+- Update description text from upstream
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

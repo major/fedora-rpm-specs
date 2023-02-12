@@ -1,23 +1,16 @@
-%global	commit		4ae59c05734443f5db46c60aeefd0842d71fbbeb
-%global shortcommit	%(c=%{commit}; echo ${c:0:7})
-
 Name:		jacop
-Version:	4.8
-Release:	10%{?dist}
-License:	AGPLv3 with exceptions 
+Version:	4.9.0
+Release:	1%{?dist}
+License:	AGPL-3.0-or-later
 Summary:	Java Constraint Programming solver
 URL:		http://jacop.osolpro.com/
-Source0:	https://github.com/radsz/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
-# maven-scala-plugin is not available in Fedora.  Use exec-maven-plugin instead.
-Patch0:         %{name}-scala-plugin.patch
+Source0:	https://github.com/radsz/jacop/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	maven-local
 BuildRequires:	mvn(junit:junit)
 BuildRequires:	mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:	mvn(org.codehaus.mojo:exec-maven-plugin)
 BuildRequires:	mvn(org.codehaus.mojo:javacc-maven-plugin)
 BuildRequires:	mvn(org.jacoco:jacoco-maven-plugin)
 BuildRequires:	mvn(org.mockito:mockito-all)
-BuildRequires:	mvn(org.scala-lang:scala-compiler)
 BuildArch:	noarch
 ExclusiveArch:  %{java_arches} noarch
 
@@ -35,7 +28,7 @@ Summary:	Javadocs for %{name}
 This package contains the API documentation for %{name}.
 
 %prep
-%autosetup -n %{name}-%{commit} -p1
+%autosetup -p1
 
 # maven-jdeps-plugin is not available in Fedora
 %pom_remove_plugin org.apache.maven.plugins:maven-jdeps-plugin
@@ -46,9 +39,15 @@ This package contains the API documentation for %{name}.
 # Remove unnecessary dependency on maven-javadoc-plugin
 %pom_remove_plugin :maven-javadoc-plugin
 
-# Remove unused slf4j dependencies.  Will be in upstream version 4.9.
+# Remove unused slf4j dependencies.
 # https://github.com/radsz/jacop/commit/e61795bdd161499173933bd90a7ecfc0804e76df
 %pom_remove_dep org.slf4j
+
+# Do not build the Scala interface
+%pom_remove_plugin org.scala-tools:maven-scala-plugin
+%pom_remove_dep org.scala-lang:scala-library
+%pom_remove_dep org.scala-lang:scala-compiler
+sed -i '\@src/main/scala@d' pom.xml
 
 %build
 %mvn_build
@@ -64,6 +63,11 @@ This package contains the API documentation for %{name}.
 %license LICENSE.md
 
 %changelog
+* Thu Feb  9 2023 Jerry James <loganjerry@gmail.com> - 4.9.0-1
+- Version 4.9.0
+- Convert License tag to SPDX
+- Drop dependency on scala
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
-Version: 3.2.4
-Release: 4%{?dist}
+Version: 3.3.4
+Release: 1%{?dist}
 License: ASL 2.0
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake >= 3.5.1
@@ -9,7 +9,9 @@ BuildRequires: pkgconfig(libevent) >= 2
 BuildRequires: pkgconfig(libuv) >= 1
 BuildRequires: libev-devel >= 3
 BuildRequires: openssl-devel
+%ifnarch aarch64
 BuildRequires: systemtap-sdt-devel, systemtap-devel
+%endif
 BuildRequires: make
 URL: https://docs.couchbase.com/c-sdk/current/project-docs/sdk-release-notes.html
 Source: https://packages.couchbase.com/clients/c/%{name}-%{version}.tar.gz
@@ -20,6 +22,7 @@ Suggests: %{name}-tools%{_isa} = %{version}-%{release}
 %endif
 
 Patch0: %{name}-0001-enforce-system-crypto-policies.patch
+Patch1: %{name}-0002-fix-build-for-gcc-13.patch
 
 # exclude from "Provides" private IO plugins
 %{?filter_provides_in: %filter_provides_in %{name}/%{name}.*\.so$}
@@ -107,6 +110,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Feb 10 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.4-1
+- Update to 3.3.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

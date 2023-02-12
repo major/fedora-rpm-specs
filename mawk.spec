@@ -1,15 +1,15 @@
-%global	pver	20200120
+%global	pver	20230203
 
 Name:		mawk
 Version:	1.3.4
-Release:	26.%{pver}%{?dist}
+Release:	1.%{pver}%{?dist}
 Epoch:		1
 Summary:	Interpreter for the AWK programming language
 License:	GPLv2
 BuildRequires: make
 BuildRequires:	gcc
-URL:		http://invisible-island.net/mawk/
-Source0:	ftp://invisible-island.net/mawk/%{name}-%{version}-%{pver}.tgz
+URL:		https://invisible-island.net/mawk/
+Source0:	https://invisible-island.net/archives/mawk/%{name}-%{version}-%{pver}.tgz
 
 %description
 mawk is an interpreter for the AWK programming language.  The AWK language is
@@ -37,6 +37,9 @@ make install DESTDIR=%{buildroot} INSTALL='install -p'
 %{_mandir}/man1/mawk.1*
 
 %changelog
+* Fri Feb 10 2023 Thomas Dickey <dickey@invisible-island.net> - 1:1.3.4-1.20230203
+- upgrade to 1.3.4-20230203 (RHBZ#2167291)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.3.4-26.20200120
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

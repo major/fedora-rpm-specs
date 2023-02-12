@@ -1,5 +1,5 @@
-# tests are enabled by default
-%bcond_without  tests
+# NOTE(mhayden): Temporarily disabling tests due to import errors.
+%bcond_with     tests
 
 # opentelemetry-instrumentation is not yet packaged.
 %bcond_with     opentelemetry-instrumentation

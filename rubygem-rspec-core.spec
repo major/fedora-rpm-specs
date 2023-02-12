@@ -1,9 +1,9 @@
-%global	majorver	3.12.0
+%global	majorver	3.12.1
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	2
+%global	fedorarel	1
 
 %global	gem_name	rspec-core
 
@@ -181,6 +181,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Fri Feb 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.1-1
+- 3.12.1
+
 * Thu Jan 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.0-2
 - Disable GC related test, with the advice from ruby upstream
 

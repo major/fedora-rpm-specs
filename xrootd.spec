@@ -13,8 +13,8 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.5.1
-Release:	3%{?dist}
+Version:	5.5.2
+Release:	1%{?dist}
 Summary:	Extended ROOT file server
 
 License:	LGPLv3+
@@ -22,19 +22,6 @@ URL:		https://xrootd.slac.stanford.edu/
 Source0:	https://xrootd.slac.stanford.edu/download/v%{version}/%{name}-%{version}.tar.gz
 #		Disable LTO for XrdPosix on 32 bit architectures
 Patch0:		0001-Disable-LTO-for-XrdPosix-on-32-bit-architectures.patch
-#		Check all sizes (8, 16, 32, 64) in <atomic> check
-#		Check operator++ in <atomic> check
-#		https://github.com/xrootd/xrootd/pull/1806
-Patch1:		0001-Check-all-sizes-8-16-32-64-in-atomic-check.patch
-#		Backported from upstream
-Patch2:		0001-feat-Use-setuptools-over-setuptools._distutils.core.patch
-Patch3:		0002-chore-Remove-check-for-setuptools-over-distutils.patch
-#		Add missing include - fixes build failure with gcc 13
-#		https://github.com/xrootd/xrootd/pull/1880
-Patch4:		0001-Add-missing-include-causing-build-failure-with-gcc-1.patch
-#		Fix build failure due to possible large memory allocation
-#		https://github.com/xrootd/xrootd/pull/1881
-Patch5:		0001-Fix-build-faildure-due-to-possible-large-memory-allo.patch
 
 %if %{?rhel}%{!?rhel:0} == 7
 BuildRequires:	cmake3 >= 3.6
@@ -190,6 +177,7 @@ Summary:	Private xrootd headers
 Requires:	%{name}-devel%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-client-devel%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-server-devel%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description private-devel
 This package contains some private xrootd headers. Backward and forward
@@ -233,6 +221,7 @@ The VOMS attribute extractor plugin for XRootD.
 %package scitokens
 Summary:	SciTokens authorization support for XRootD
 Requires:	%{name}-server%{?_isa} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description scitokens
 This ACC (authorization) plugin for the XRootD framework utilizes the
@@ -302,11 +291,6 @@ This package contains the API documentation of the xrootd libraries.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
 
 %build
 %if %{?rhel}%{!?rhel:0} == 7
@@ -316,9 +300,8 @@ This package contains the API documentation of the xrootd libraries.
 %if %{?fedora}%{!?fedora:0} >= 36
 # Mark some warnings from gcc 12 as not errors
 # These are likely bogus - hopefully they can be fixed in gcc updates
-%set_build_flags
-CXXFLAGS="${CXXFLAGS} -Wno-error=restrict"
 %ifarch %{arm}
+%set_build_flags
 CXXFLAGS="${CXXFLAGS} -Wno-error=stringop-overflow"
 %endif
 %endif
@@ -699,6 +682,10 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Thu Feb 09 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.2-1
+- Update to version 5.5.2
+- Drop patches accepted upstream or previously backported
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

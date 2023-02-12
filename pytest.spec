@@ -2,7 +2,7 @@ Name:           pytest
 %global base_version 7.2.1
 #global prerelease ...
 Version:        %{base_version}%{?prerelease:~%{prerelease}}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Simple powerful testing with Python
 License:        MIT
 URL:            https://pytest.org
@@ -18,23 +18,25 @@ Patch:          pytest-7.1.3-fix-xfails.patch
 # When building pytest for the first time with new Python version
 # we might not yet have all the BRs, those conditionals allow us to do that.
 
-# This can be used to disable all tests for faster bootstrapping
-%bcond_without tests
+# This can be used to disable all tests for faster bootstrapping.
+# The tests are enabled by default except when building on RHEL/ELN
+# (to avoid pulling in extra dependencies into next RHEL).
+%bcond tests %{undefined rhel}
 
 # Only disabling the optional tests is a more complex but careful approach
 # Pytest will skip the related tests, so we only conditionalize the BRs
-# This bcond is ignored when tests are disabled
-%bcond_without optional_tests
+%bcond optional_tests %{with tests}
 
 # To run the tests in %%check we use pytest-timeout
 # When building pytest for the first time with new Python version
 # that is not possible as it depends on pytest
-# The bcond is ignored when tests are disabled
-%bcond_without timeout
+%bcond timeout %{with tests}
 
 # When building pytest for the first time with new Python version
 # we also don't have sphinx yet and cannot build docs.
-%bcond_without docs
+# The docs are enabled by default except when building on RHEL/ELN
+# (to avoid pulling in extra dependencies into next RHEL).
+%bcond docs %{undefined rhel}
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros >= 0-51
@@ -151,11 +153,13 @@ find %{buildroot}%{python3_sitelib} \
      -exec sed -i -e '1{/^#!/d}' {} \;
 
 
-%if %{with tests}
 %check
+%if %{with tests}
 %global __pytest %{buildroot}%{_bindir}/pytest
 # optional_tests deps contain pytest-xdist, so we can use it to run tests faster
 %pytest testing %{?with_timeout:--timeout=30} %{?with_optional_tests:-n auto} -rs
+%else
+%pyproject_check_import
 %endif
 
 
@@ -175,6 +179,9 @@ find %{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Fri Feb 10 2023 Stephen Gallagher <sgallagh@redhat.com> - 7.2.1-2
+- Don't build tests and docs on RHEL to reduce dependencies
+
 * Fri Jan 27 2023 Miro Hrončok <mhroncok@redhat.com> - 7.2.1-1
 - Update to 7.2.1
 - Fixes: rhbz#2160925

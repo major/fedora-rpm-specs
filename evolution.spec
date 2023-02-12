@@ -43,8 +43,8 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.47.1
-Release: 4%{?dist}
+Version: 3.47.2
+Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -572,6 +572,9 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Fri Feb 10 2023 Milan Crha <mcrha@redhat.com> - 3.47.2-1
+- Update to 3.47.2
+
 * Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 3.47.1-4
 - rebuild
 

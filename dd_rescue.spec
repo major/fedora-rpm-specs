@@ -21,6 +21,16 @@ BuildRequires:  gnupg2
 BuildRequires:  lzo-devel
 BuildRequires:  make
 
+# Shell script dd_rhelp requires several other things to run
+Requires:       cat
+Requires:       grep
+Requires:       sed
+Requires:       coreutils
+Requires:       bc
+
+
+
+
 
 %description
 ddrescue is a utility similar to the system utility "dd" which copies

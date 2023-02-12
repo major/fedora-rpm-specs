@@ -2,10 +2,12 @@
 
 # Specify --with bootstrap to build in bootstrap mode
 # This mode is needed, because python3-rpm-generators need packaging
-# When bootstrapping, disable tests and docs as well.
 %bcond_with bootstrap
 
-%if %{without bootstrap}
+# When bootstrapping, the tests and docs are disabled because the dependencies are not yet available.
+# We don't want python-pretend in future RHEL, so we disable tests on RHEL as well.
+# No reason to ship the documentation in RHEL either, so it is also disabled by default.
+%if %{without bootstrap} && %{undefined rhel}
 # Specify --without docs to prevent the dependency loop on python-sphinx
 %bcond_without docs
 
@@ -112,8 +114,9 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 %endif
 
 
-%if %{with tests}
 %check
+%pyproject_check_import
+%if %{with tests}
 %pytest
 %endif
 

@@ -1,8 +1,8 @@
 %global pkgname fining
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.5.4
-Release:        3%{?dist}
+Version:        1.5.5
+Release:        1%{?dist}
 Summary:        Finite incidence geometry
 
 License:        GPL-2.0-or-later
@@ -90,6 +90,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Fri Feb 10 2023 Jerry James <loganjerry@gmail.com> - 1.5.5-1
+- Version 1.5.5
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

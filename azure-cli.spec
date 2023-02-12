@@ -14,7 +14,7 @@
 
 %global         srcname     azure-cli
 %global         forgeurl    https://github.com/Azure/azure-cli
-Version:        2.44.1
+Version:        2.45.0
 %global         tag         %{srcname}-%{version}
 %global         distprefix  %{nil}
 %forgemeta
@@ -133,6 +133,12 @@ sed -i 's/^azure-common==.*$/azure-common==1.1.28/' src/azure-cli/requirements.p
 
 # Temporarily allow newer -core versions in rawhide.
 sed -i 's/^azure-core==.*$/azure-core==1.25.1/' src/azure-cli/requirements.py3.Linux.txt
+
+# Allow slightly older PyOpenSSL.
+sed -i 's/^pyOpenSSL>=.*$/pyOpenSSL>=21.0.0/' src/azure-cli/requirements.py3.Linux.txt
+
+# Allow slightly older cryptography..
+sed -i 's/^cryptography>=.*$/cryptography>=37.0.0/' src/azure-cli/requirements.py3.Linux.txt
 
 # Allow for older EPEL 9 packages.
 %if 0%{?rhel}

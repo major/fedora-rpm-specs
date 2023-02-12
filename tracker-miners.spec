@@ -12,7 +12,7 @@
 %global with_rss 1
 %endif
 
-%global tracker_version 3.5.0
+%global tracker_version 3.5.0~alpha
 
 %global systemd_units tracker-extract-3.service tracker-miner-fs-3.service tracker-miner-fs-control-3.service tracker-miner-rss-3.service tracker-writeback-3.service
 
@@ -24,7 +24,7 @@
 
 Name:           tracker-miners
 Version:        3.5.0~alpha
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Tracker miners and metadata extractors
 
 # libtracker-extract and libtracker-miner libraries are LGPLv2+; the miners are a mix of GPLv2+ and LGPLv2+ code
@@ -157,6 +157,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Fri Feb 10 2023 David King <amigadave@amigadave.com> - 3.5.0~alpha-2
+- Fix depedency on tracker
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 3.5.0~alpha-1
 - Update to 3.5.0.alpha
 

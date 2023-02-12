@@ -36,7 +36,7 @@
 %endif
 
 # The source directory.
-%global source_directory 1.50-stable
+%global source_directory 1.51-development
 
 # Filter perl provides.
 %{?perl_default_filter}
@@ -47,7 +47,7 @@
 Summary:       Access and modify virtual machine disk images
 Name:          libguestfs
 Epoch:         1
-Version:       1.50.0
+Version:       1.51.1
 Release:       1%{?dist}
 License:       LGPLv2+
 
@@ -1082,6 +1082,10 @@ rm ocaml/html/.gitignore
 
 
 %changelog
+* Fri Feb 10 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.51.1-1
+- New upstream development version 1.51.1
+- Remove virt-dib
+
 * Tue Feb 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1:1.50.0-1
 - New upstream stable branch 1.50.0
 

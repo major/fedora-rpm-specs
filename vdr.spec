@@ -29,7 +29,7 @@
 
 Name:           vdr
 Version:        2.6.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPLv2+
@@ -548,6 +548,9 @@ systemctl daemon-reload
 
 
 %changelog
+* Fri Feb 10 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-3
+- Rebuilt for rawhide
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

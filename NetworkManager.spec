@@ -4,12 +4,13 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.41.91
+%global real_version 1.42.0
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
 %global git_sha %{nil}
 %global bcond_default_debug 0
+%global bcond_default_lto %{nil}
 %global bcond_default_test 0
 
 %global obsoletes_device_plugins     1:0.9.9.95-1
@@ -60,10 +61,18 @@
 %else
 %bcond_with    test
 %endif
+%if "%{?bcond_default_lto}" == ""
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %bcond_without lto
 %else
 %bcond_with    lto
+%endif
+%else
+%if %{bcond_default_lto}
+%bcond_without lto
+%else
+%bcond_with    lto
+%endif
 %endif
 %bcond_with    sanitizer
 %if 0%{?fedora}
@@ -188,6 +197,7 @@ Source6: 70-nm-connectivity.conf
 Source7: readme-ifcfg-rh.txt
 
 #Patch1: 0001-some.patch
+Patch1: 0001-libnm-docs-fix-gtk-doc-generation-for-settings.patch
 
 Requires(post): systemd
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -287,6 +297,10 @@ BuildRequires: python2
 BuildRequires: pygobject3-base
 BuildRequires: dbus-python
 BuildRequires: pexpect
+%if 0%{?rhel} >= 7 && %{with meson}
+BuildRequires: python36-dbus
+BuildRequires: python36-gobject
+%endif
 %endif
 BuildRequires: libselinux-devel
 BuildRequires: polkit-devel
@@ -670,6 +684,7 @@ Preferably use nmcli instead.
 %else
 	-Ddocs=false \
 %endif
+	-Dqt=false \
 %if %{with team}
 	-Dteamdctl=true \
 %else
@@ -705,8 +720,11 @@ Preferably use nmcli instead.
 	-Difcfg_rh=true \
 	-Difupdown=false \
 %if %{with ppp}
-	-Dpppd_plugin_dir=%{_libdir}/pppd/%{ppp_version} \
+	-Dpppd_plugin_dir="%{_libdir}/pppd/%{ppp_version}" \
+	-Dpppd="%{_sbindir}/pppd" \
 	-Dppp=true \
+%else
+	-Dppp=false \
 %endif
 %if %{with firewalld_zone}
 	-Dfirewalld_zone=true \
@@ -847,8 +865,11 @@ autoreconf --install --force
 	--enable-ifcfg-rh=yes \
 	--enable-ifupdown=no \
 %if %{with ppp}
-	--with-pppd-plugin-dir=%{_libdir}/pppd/%{ppp_version} \
 	--enable-ppp=yes \
+	--with-pppd="%{_sbindir}/pppd" \
+	--with-pppd-plugin-dir="%{_libdir}/pppd/%{ppp_version}" \
+%else
+	--enable-ppp=no \
 %endif
 %if %{with firewalld_zone}
 	--enable-firewalld-zone=yes \
@@ -1225,6 +1246,9 @@ fi
 
 
 %changelog
+* Fri Feb 10 2023 Thomas Haller <thaller@redhat.com> - 1:1.42.0-1
+- Upgrade to 1.42.0 release
+
 * Thu Jan 26 2023 Lubomir Rintel <lkundrak@v3.sk> - - 1:1.41.91-1
 - Update to 1.41.91 release (release candidate)
 

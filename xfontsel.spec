@@ -11,7 +11,7 @@ Summary:        Tool to list X11 core protocol fonts
 #   - FSFULLR: aclocal.m4
 #   - GPL-2.0-or-later: compile, depcomp, missing
 #   - GPL-3.0-or-later: config.guess, config,sub
-#   - FSFUL, or perhaps (X11 AND HPND-sell-variant): configure
+#   - FSFUL, or perhaps (FSFUL AND X11 AND HPND-sell-variant): configure
 License:        X11
 URL:            https://www.x.org
 Source0:        %{url}/pub/individual/app/%{name}-%{version}.tar.xz

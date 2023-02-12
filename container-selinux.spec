@@ -18,6 +18,10 @@
 # Format must contain '$x' somewhere to do anything useful
 %global _format() export %1=""; for x in %{modulenames}; do %1+=%2; %1+=" "; done;
 
+%if 0%{?centos} == 8
+%global _selinux_policy_version 3.14.3-111.el8
+%endif
+
 # Hooked up to autobuilder, please check with @lsm5 before updating
 Name: container-selinux
 Epoch: 2
@@ -52,9 +56,14 @@ SELinux policy modules for use with container runtimes.
 %prep
 %autosetup -Sgit %{name}-%{built_tag_strip}
 # https://github.com/containers/container-selinux/issues/203
-%if 0%{?fedora} <= 37
+%if 0%{?fedora} <= 37 || 0%{?centos}
 sed -i '/user_namespace/d' container.te
 %endif
+
+%if 0%{?centos} == 8
+sed -i '/systemd_chat_resolved/d' container.te
+%endif
+
 
 %build
 make
@@ -118,4 +127,9 @@ if %{_sbindir}/selinuxenabled ; then
 fi
 
 %changelog
+%if 0%{?centos} == 8
+* Fri Feb 10 2023 Lokesh Mandvekar <lsm5@fedoraproject.org>
+- Dummy changelog to make packit centos 8 copr builds happy
+%else
 %autochangelog
+%endif

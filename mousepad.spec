@@ -1,7 +1,7 @@
-%global minorversion 0.5
+%global minorversion 0.6
 
 Name:           mousepad
-Version:        0.5.10
+Version:        0.6.0
 Release:        %autorelease
 Summary:        Simple text editor for Xfce desktop environment
 

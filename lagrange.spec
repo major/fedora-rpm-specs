@@ -1,6 +1,9 @@
 %global forgeurl https://git.skyjake.fi/gemini/lagrange
 %global appid fi.skyjake.Lagrange
 
+# Ensure we are not built and installed with a too-old the_Foundation
+%global min_foundation_ver 1.6.0
+
 # this seems buggy on Wayland: see https://github.com/skyjake/lagrange/issues/575
 %bcond_with x11_xlib
 
@@ -20,10 +23,12 @@ BuildRequires:  pkgconfig(harfbuzz)
 BuildRequires:  pkgconfig(libmpg123)
 BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(sdl2)
-BuildRequires:  pkgconfig(the_Foundation)
+BuildRequires:  pkgconfig(the_Foundation) >= %{min_foundation_ver}
 # for checks
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
+
+Requires:       the_foundation%{_isa} >= %{min_foundation_ver}
 
 %description
 Lagrange is a desktop GUI client for browsing Geminispace. It offers modern

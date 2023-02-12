@@ -63,9 +63,11 @@ Gajim does not require GNOME to run, even though it exists with it nicely.
 
 %build
 %pyproject_wheel
+./pep517build/build_metadata.py --output-dir dist/metadata
 
 %install
 %pyproject_install
+./pep517build/install_metadata.py dist/metadata --prefix %{buildroot}/%{_prefix}
 %pyproject_save_files gajim
 
 # RHEL <= 9 doesn't support .desktop files with version 1.5,

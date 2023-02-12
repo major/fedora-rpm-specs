@@ -2,8 +2,8 @@
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.4.1
-Release:          2%{?dist}
+Version:          1.4.2
+Release:          1%{?dist}
 Summary:          Read Excel Files
 
 License:          MIT
@@ -13,7 +13,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-cellranger, R-tibble >= 2.0.1, R-utils
-# Suggests:  R-knitr, R-rmarkdown, R-testthat >= 3.0.0
+# Suggests:  R-knitr, R-rmarkdown, R-testthat >= 3.1.6, R-withr
 # LinkingTo: R-progress, R-cpp11 >= 0.4.0
 # Enhances:
 
@@ -22,13 +22,15 @@ BuildRequires:    tex(latex)
 BuildRequires:    libxls-devel >= 1.6.2
 #BuildRequires:    rapidxml-devel
 BuildRequires:    R-cellranger
+BuildRequires:    R-covr
 BuildRequires:    R-cpp11-devel >= 0.4.0
 BuildRequires:    R-tibble >= 2.0.1
 BuildRequires:    R-utils
 BuildRequires:    R-progress-devel
 BuildRequires:    R-knitr
 BuildRequires:    R-rmarkdown
-BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-testthat >= 3.1.6
+BuildRequires:    R-withr
 
 # Patched-in functionality, so not removeable.
 Provides: bundled(rapidxml-devel) = 1.13
@@ -89,6 +91,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.2-1
+- update to 1.4.2
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

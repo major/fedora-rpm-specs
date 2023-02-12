@@ -57,17 +57,12 @@
 ### Abstract ###
 
 Name: evolution-data-server
-Version: 3.47.1
-Release: 4%{?dist}
+Version: 3.47.2
+Release: 1%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
 Source: http://download.gnome.org/sources/%{name}/3.47/%{name}-%{version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/112
-Patch0: webkitgtk-2.39.5.patch
-# https://gitlab.gnome.org/GNOME/evolution-data-server/-/merge_requests/114
-Patch1: webkitgtk-2.39.6.patch
 
 Provides: evolution-webcal = %{version}
 Obsoletes: evolution-webcal < 2.24.0
@@ -493,6 +488,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Fri Feb 10 2023 Milan Crha <mcrha@redhat.com> - 3.47.2-1
+- Update to 3.47.2
+
 * Wed Feb 01 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 3.47.1-4
 - Build against WebKitGTK 2.39.6
 
