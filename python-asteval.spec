@@ -1,7 +1,7 @@
 %global pypi_name asteval
 
 Name:           python-%{pypi_name}
-Version:        0.9.28
+Version:        0.9.29
 Release:        1%{?dist}
 Summary:        Evaluator of Python expression using ast module
 
@@ -69,6 +69,9 @@ rm -rf html/.{doctrees,buildinfo} html/_static/empty
 %license LICENSE
 
 %changelog
+* Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.29-1
+- Update to latest upstream release 0.9.29 (closes rhbz#2169113)
+
 * Fri Jan 27 2023 Fabian Affolter <mail@fabian-affolter.ch> - 0.9.28-1
 - Update to latest upstream release 0.9.28 (closes rhbz#2089878)
 

@@ -1,8 +1,8 @@
 %global pkgname grpconst
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.6.3
-Release:        3%{?dist}
+Version:        2.6.4
+Release:        1%{?dist}
 Summary:        Constructing groups of a given order
 
 License:        GPL-2.0-or-later
@@ -15,10 +15,12 @@ BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
 BuildRequires:  gap-pkg-autpgrp
 BuildRequires:  gap-pkg-irredsol
+BuildRequires:  gap-pkg-smallgrp
 BuildRequires:  tth
 
 Requires:       gap-pkg-autpgrp
 Requires:       gap-pkg-irredsol
+Requires:       gap-pkg-smallgrp
 
 %description
 This package contains GAP implementations of three different approaches
@@ -95,6 +97,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Sat Feb 11 2023 Jerry James <loganjerry@gmail.com> - 2.6.4-1
+- Version 2.6.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

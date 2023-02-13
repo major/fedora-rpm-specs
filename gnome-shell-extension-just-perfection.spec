@@ -2,7 +2,7 @@
 %global uuid        %{extension}-desktop@%{extension}
 
 Name:           gnome-shell-extension-%{extension}
-Version:        22.0
+Version:        23.0
 Release:        %autorelease
 Summary:        Extension to Customize GNOME Shell and Disable UI Elements
 License:        GPL-3.0-only

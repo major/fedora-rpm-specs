@@ -1,10 +1,10 @@
 Name:           python-debian
 Version:        0.1.49
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Modules for Debian-related data formats
 # debfile.py, arfile.py, debtags.py are release under GPL v3 or above
 # everything else is GPLv2+
-License:        GPLv2+ and GPLv3+
+License:        GPL-2.0-or-later AND GPL-3.0-or-later
 Source0:        http://ftp.debian.org/debian/pool/main/p/python-debian/python-debian_%{version}.tar.xz
 URL:            https://salsa.debian.org/python-debian-team/python-debian
 BuildArch:      noarch
@@ -99,6 +99,9 @@ touch lib/debian/tests/test_debfile.py
 %doc README.rst HISTORY.deb822
 
 %changelog
+* Sat Feb 11 2023 msuchy <msuchy@redhat.com> - 0.1.49-3
+- migrate license to spdx
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.49-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

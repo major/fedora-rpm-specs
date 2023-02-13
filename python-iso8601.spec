@@ -3,7 +3,8 @@
 This module parses the most common forms of ISO 8601 date strings \
 (e.g. 2007-01-14T20:34:22+00:00) into datetime objects.
 
-%bcond_without  tests
+# avoid unavailable test dependencies in RHEL builds
+%bcond tests %{undefined rhel}
 
 Name:           python-%{srcname}
 Version:        1.1.0

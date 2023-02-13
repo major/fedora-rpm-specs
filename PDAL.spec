@@ -8,8 +8,8 @@
 Summary:	Point Data Abstraction Library
 Name:		PDAL
 # NOTE: Re-verifiy test exclusions in %%check when updating
-Version:	2.5.0
-Release:	3%{?dist}
+Version:	2.5.1
+Release:	1%{?dist}
 # The code is licensed BSD except for:
 # - filters/private/csf/* and plugins/i3s/lepcc/* are ASL 2.0
 # - vendor/arbiter/*, plugins/nitf/io/nitflib.h and plugins/oci/io/OciWrapper.* are Expat/MIT
@@ -42,10 +42,6 @@ Patch1:		PDAL_tests.patch
 
 # fix build with sphinxcontrib-bibtex 2.0 (RHBZ #1921498)
 Patch2:		PDAL_sphinxconf.patch
-
-# Guard against bad return numbers, https://github.com/PDAL/PDAL/pull/3966
-# to be removed with PDAL 2.5.1
-Patch3:		PDAL_bad_return_numbers.patch
 
 BuildRequires:	boost-devel
 BuildRequires:	cmake
@@ -250,6 +246,9 @@ sphinx-build -b html . build/html
 %license LICENSE.txt
 
 %changelog
+* Sat Feb 11 2023 Markus Neteler <neteler@mundialis.de> 2.5.1-1
+- Update to 2.5.1
+
 * Mon Feb 06 2023 Markus Neteler <neteler@mundialis.de> 2.5.0-3
 - patch to guard against bad return numbers (from upstream #3966), to be removed with PDAL 2.5.1
 

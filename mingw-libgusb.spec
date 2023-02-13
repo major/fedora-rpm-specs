@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-libgusb
-Version:        0.3.10
-Release:        5%{?dist}
+Version:        0.4.5
+Release:        %autorelease
 Summary:        GLib wrapper around libusb1 for MinGW
 
 License:        LGPLv2+
@@ -16,6 +16,8 @@ BuildRequires:  mingw32-filesystem >= 95
 BuildRequires:  mingw64-filesystem >= 95
 BuildRequires:  mingw32-gcc
 BuildRequires:  mingw64-gcc
+BuildRequires:  mingw32-json-glib
+BuildRequires:  mingw64-json-glib
 BuildRequires:  mingw32-libusbx >= 1.0.19
 BuildRequires:  mingw64-libusbx >= 1.0.19
 BuildRequires:  mingw32-glib2 >= 2.38.0
@@ -107,78 +109,4 @@ applications that use libgusb.
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Mar 25 2022 Sandro Mani <manisandro@gmail.com> - 0.3.10-3
-- Rebuild with mingw-gcc-12
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Jan 10 2022 Richard Hughes <richard@hughsie.com> 0.3.10-1
-- New upstream version
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon May 24 2021 Richard Hughes <richard@hughsie.com> 0.3.7-1
-- New upstream version
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Aug 12 13:42:38 GMT 2020 Sandro Mani <manisandro@gmail.com> - 0.2.11-8
-- Rebuild (mingw-gettext)
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Feb 01 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_30_Mass_Rebuild
-
-* Fri Jul 13 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_29_Mass_Rebuild
-
-* Thu Feb 08 2018 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.11-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_28_Mass_Rebuild
-
-* Sun Oct 15 2017 Kalev Lember <klember@redhat.com> - 0.2.11-1
-- Update to 0.2.11
-
-* Wed Jul 26 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_27_Mass_Rebuild
-
-* Tue Jun 20 2017 Kalev Lember <klember@redhat.com> - 0.2.10-1
-- Update to 0.2.10
-
-* Fri Feb 10 2017 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_26_Mass_Rebuild
-
-* Mon Oct 24 2016 Kalev Lember <klember@redhat.com> - 0.2.9-1
-- Update to 0.2.9
-- Use license macro for COPYING
-
-* Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
-
-* Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_23_Mass_Rebuild
-
-* Mon Jan 09 2015 Richard Hughes <richard@hughsie.com> 0.2.4-1
-- New upstream version
-- Add new API for various client programs
-- Don't filter out hub devices when getting the device list
-- Make the platform ID persistent across re-plug
-
-* Wed Nov 26 2014 Richard Hughes <richard@hughsie.com> - 0.2.3-1
-- Initial packaging
+%autochangelog

@@ -1,8 +1,8 @@
 %global pkgname smallgrp
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.5.1
-Release:        3%{?dist}
+Version:        1.5.2
+Release:        1%{?dist}
 Summary:        Small groups library
 
 License:        Artistic-2.0
@@ -70,6 +70,9 @@ gap -l "%{buildroot}%{gap_libdir};" --bare tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Sat Feb 11 2023 Jerry James <loganjerry@gmail.com> - 1.5.2-1
+- Version 1.5.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

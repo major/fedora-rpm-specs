@@ -245,9 +245,12 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
     -DCMAKE_CXX_STANDARD=17 \
     -DCMAKE_SKIP_RPATH=ON \
+    -DEMBREE_INCLUDE_DIR=%{_includedir}/embree4 \
+    -DEMBREE_LIBRARY=%{_lidir}/embree4.so \
     -DPYTHON_VERSION=%{python3_version} \
     -DWITH_COMPILER_CCACHE=ON \
     -DWITH_CYCLES=%{cyclesflag} \
+    -DWITH_CYCLES_HIP_BINARIES=ON \
 %ifnarch x86_64
     -DWITH_CYCLES_EMBREE=OFF \
 %endif

@@ -445,9 +445,8 @@ make clean
 %if %{with openmpi}
 %{_openmpi_load}
 pushd EXAMPLE
-# Do not perform on rhel8
-# rhbz#1744780
-%if 0%{?fedora}
+# Waiting for excluding OpenMPI support in i686
+%ifnarch %{ix86}
 export OMPI_MCA_rmaps_base_oversubscribe=1
 mpirun -n 4 -v ../build/openmpi/EXAMPLE/pddrive -r 2 -c 2 g20.rua
 %endif

@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.5.0
+Version:        2.5.1
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -190,6 +190,9 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Sat Feb 11 2023 Jens Petersen <petersen@redhat.com> - 2.5.1-1
+- add ghc_merge_filelist
+
 * Sun Jan 29 2023 Jens Petersen <petersen@redhat.com> - 2.5.0-1
 - define ghc_smp_mflags to speed up package builds
 - ghc_configure and ghc_version now respect ghc_name for ghcX.Y (via rpmquery)

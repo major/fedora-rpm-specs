@@ -2,10 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        1.8.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Linux Distribution - a Linux OS platform information API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/python-distro/distro
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -59,6 +59,9 @@ Suggests:       /usr/bin/lsb_release
 %tox
 
 %changelog
+* Sat Feb 11 2023 msuchy <msuchy@redhat.com> - 1.8.0-3
+- migrate license to SPDX
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

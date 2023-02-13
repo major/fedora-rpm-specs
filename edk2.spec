@@ -35,7 +35,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -46,7 +46,7 @@ URL:        http://www.tianocore.org
 # | xz -9ev >/tmp/edk2-$COMMIT.tar.xz
 Source0: edk2-%{GITCOMMIT}.tar.xz
 Source1: ovmf-whitepaper-c770f8c.txt
-Source2: openssl-rhel-740e53ace8f6771c205bf84780e26bcd7a3275df.tar.xz
+Source2: openssl-rhel-d00c3c5b8a9d6d3ea3dabfcafdf36afd61ba8bcc.tar.xz
 Source3: softfloat-%{softfloat_version}.tar.xz
 Source4: edk2-platforms-b36fe8bc9b68.tar.xz
 Source5: jansson-2.13.1.tar.bz2
@@ -109,6 +109,7 @@ Patch0030: 0030-OvmfPkg-QemuFwCfgLib-rewrite-fw_cfg-probe.patch
 Patch0031: 0031-OvmfPkg-QemuFwCfgLib-remove-mQemuFwCfgSupported-mQem.patch
 Patch0032: 0032-OvmfPkg-VirtNorFlashDxe-map-flash-memory-as-uncachea.patch
 Patch0033: 0033-ArmVirtPkg-ArmVirtQemu-Avoid-early-ID-map-on-Thunder.patch
+Patch0034: 0034-rh-openssl-add-crypto-bn-rsa_sup_mul.c-to-file-list.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -642,6 +643,9 @@ done
 
 
 %changelog
+* Sat Feb 11 2023 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-13
+- update openssl (CVE-2023-0286, CVE-2023-0215, CVE-2022-4450, CVE-2022-4304).
+
 * Wed Feb 08 2023 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-12
 - cherry-pick aarch64 bugfixes.
 - set firmware build release date.

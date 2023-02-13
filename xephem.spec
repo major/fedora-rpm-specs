@@ -1,7 +1,7 @@
 #%%global gittag 4.1.0
-%global commit b7bfc6eb31464287b5d65cb3f1e36d7dbf3dd381
+%global commit 0a1b50503bdf202fb6fa7ca62124b0242a004e69
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20221006
+%global date 20230114
 
 Name:           xephem
 %if "%{?gittag}"
@@ -21,14 +21,24 @@ Source0:        https://github.com/XEphem/XEphem/archive/%{commit}/XEphem-%{comm
 %endif
 # Desktop file is not provided by upstream
 Source1:        io.github.xephem.desktop
-Patch0: xephem-c99.patch
 
 # Patch to use system libraries and not override CFLAGS
+# Proposed upstream: https://github.com/XEphem/XEphem/pull/58
 Patch:          xephem_makefile.patch
+
+# Patch to use cmake to build and install
+# Proposed upstream: https://github.com/XEphem/XEphem/pull/60
+Patch:          xephem_with_cmake.patch
+
+# Define _GNU_SOURCE, so that <time.h> declares strptime, an X/Open
+# extension that is not available by default in the glibc headers.
+# Submitted upstream: <https://github.com/XEphem/XEphem/pull/73>
+Patch:          xephem-c99.patch
 
 ExcludeArch:    %{ix86}
 
 BuildRequires:  desktop-file-utils
+BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  groff-base
 BuildRequires:  make
@@ -83,35 +93,40 @@ cp liblilxml/LICENSE LICENSE.liblilxml
 %set_build_flags
 %endif
 
-pushd GUI/xephem
-%make_build
-popd
+%cmake
+%cmake_build
+
+# Old manual build method
+#pushd GUI/xephem
+#%%make_build
+#popd
 
 
 %install
-# There's no automated install
-mkdir -p %{buildroot}%{_bindir}
-mkdir -p %{buildroot}%{_sysconfdir}
-mkdir -p %{buildroot}%{_mandir}/man1/
-mkdir -p %{buildroot}%{_datadir}/%{name}
+%cmake_install
 
-pushd GUI/xephem
-install -p -m0755 %{name} %{buildroot}/%{_bindir}
-install -p -m0644 %{name}.1 %{buildroot}/%{_mandir}/man1/
-cp -pR auxil %{buildroot}%{_datadir}/%{name}
-cp -pR catalogs %{buildroot}%{_datadir}/%{name}
-cp -pR fifos %{buildroot}%{_datadir}/%{name}
-cp -pR fits %{buildroot}%{_datadir}/%{name}
-cp -pR gallery %{buildroot}%{_datadir}/%{name}
-cp -pR help %{buildroot}%{_datadir}/%{name}
-cp -pR lo %{buildroot}%{_datadir}/%{name}
+# Old manual install method
+# There's no automated install
+#mkdir -p %%{buildroot}%%{_bindir}
+#mkdir -p %%{buildroot}%%{_mandir}/man1/
+#mkdir -p %%{buildroot}%%{_datadir}/%%{name}
+#pushd GUI/xephem
+#install -p -m0755 %%{name} %%{buildroot}/%%{_bindir}
+#install -p -m0644 %%{name}.1 %%{buildroot}/%%{_mandir}/man1/
+#cp -pR auxil %%{buildroot}%%{_datadir}/%%{name}
+#cp -pR catalogs %%{buildroot}%%{_datadir}/%%{name}
+#cp -pR fifos %%{buildroot}%%{_datadir}/%%{name}
+#cp -pR fits %%{buildroot}%%{_datadir}/%%{name}
+#cp -pR gallery %%{buildroot}%%{_datadir}/%%{name}
+#cp -pR help %%{buildroot}%%{_datadir}/%%{name}
+#cp -pR lo %%{buildroot}%%{_datadir}/%%{name}
+#popd
 
 # Create file to tell xephem where to find resources
+mkdir -p %{buildroot}%{_sysconfdir}
 cat >%{buildroot}%{_sysconfdir}/XEphem <<EOF
 XEphem.ShareDir: %{_datadir}/%{name}
 EOF
-
-popd
 
 # Provide a desktop entry
 desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}

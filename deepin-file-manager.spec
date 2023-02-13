@@ -18,7 +18,9 @@ Patch0002: 0002-Include-dfsearch.pri-if-ANYTHING-is-disabled.patch
 Patch0003: 0003-fix-undefined-sleep_for.patch
 # Fix build on GCC 12
 Patch0004: 0004-fix-undefined-std-array.patch
-Patch5: deepin-file-manager-c99-fsearch.patch
+Patch0005: deepin-file-manager-c99-fsearch.patch
+# Drop unused pcre.h
+Patch0006: 0001-Drop-unused-pcre.h.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  desktop-file-utils
@@ -41,7 +43,6 @@ BuildRequires:  libxml2-devel
 BuildRequires:  htmlcxx-devel
 BuildRequires:  mimetic-devel
 BuildRequires:  boost-devel
-BuildRequires:  pcre-devel
 BuildRequires:  pkgconfig(libgsf-1)
 BuildRequires:  pkgconfig(libmediainfo)
 BuildRequires:  pkgconfig(gsettings-qt)
@@ -111,10 +112,9 @@ sed -i '/deepin-daemon/s|lib|libexec|' src/dde-zone/mainwindow.h
 sed -i 's|lib/gvfs|libexec|' src/%{repo}-lib/gvfs/networkmanager.cpp
 sed -i 's|systemd_service.path = .*|systemd_service.path = %{_unitdir}|' src/dde-file-manager-daemon/dde-file-manager-daemon.pro
 
-#sed -i 's:$$PWD/::' src/dde-file-manager-lib/search/dfsearch.pri
-
 %build
 export PATH=%{_qt5_bindir}:$PATH
+# disable ffmpeg since ffmpegthumbnailer is not available on Fedora
 %qmake_qt5 PREFIX=%{_prefix} QMAKE_CFLAGS_ISYSTEM= CONFIG+="DISABLE_FFMPEG DISABLE_ANYTHING" filemanager.pro
 %make_build
 

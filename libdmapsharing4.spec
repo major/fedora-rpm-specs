@@ -1,13 +1,13 @@
 Name: libdmapsharing4
-Version: 3.9.10
-Release: 7%{?dist}
+Version: 3.9.11
+Release: 1%{?dist}
 Summary: A DMAP client and server library
 
 License: LGPLv2+
 URL: https://www.flyn.org/projects/libdmapsharing/
 Source0: https://www.flyn.org/projects/libdmapsharing/libdmapsharing-%{version}.tar.gz
 
-BuildRequires: pkgconfig, glib2-devel, libsoup-devel >= 2.32
+BuildRequires: pkgconfig, glib2-devel, libsoup3-devel
 BuildRequires: gdk-pixbuf2-devel, gstreamer1-plugins-base-devel
 BuildRequires: pkgconfig(avahi-client) pkgconfig(avahi-glib)
 BuildRequires: vala libgee-devel
@@ -62,6 +62,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/libdmapsharing-4.0.la
 %{_datadir}/vala/vapi/libdmapsharing-4.0.vapi
 
 %changelog
+* Sat Feb 11 2023 W. Michael Petullo <mike@flyn.org> - 3.9.11-1
+- new upstream version
+- require libsoup3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.10-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

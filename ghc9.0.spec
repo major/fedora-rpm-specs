@@ -1,18 +1,22 @@
-# disable prof, docs, perf build, debuginfo
-# NB This must be disabled (bcond_with) for all koji production builds
+# disable prof, docs, perf build
+# bcond_with for production builds: disable quick build
 %bcond_with quickbuild
 
 # make sure ghc libraries' ABI hashes unchanged
 %bcond_with abicheck
 
-%global ghc_name ghc9.0
-
-# to handle RCs
-%global ghc_release %{version}
+%global ghc_major 9.0
+%global ghc_name ghc%{ghc_major}
 
 %global base_ver 4.15.1.0
+%global ghc_bignum_ver 1.1
 %global ghc_compact_ver 0.1.0.0
 %global hpc_ver 0.6.1.0
+%global xhtml_ver 3000.2.2.1
+
+# bootstrap needs 8.8+
+%global ghcboot_major 9.0
+%global ghcboot ghc%{ghcboot_major}
 
 # build profiling libraries
 # build haddock
@@ -21,7 +25,6 @@
 %undefine with_ghc_prof
 %undefine with_haddock
 %bcond_with perf_build
-%undefine _enable_debug_packages
 %else
 %bcond_without ghc_prof
 %bcond_without haddock
@@ -30,14 +33,14 @@
 
 # locked together since disabling haddock causes no manuals built
 # and disabling haddock still created index.html
-# https://ghc.haskell.org/trac/ghc/ticket/15190
+# https://gitlab.haskell.org/ghc/ghc/-/issues/15190
 %{?with_haddock:%bcond_without manual}
 
 # no longer build testsuite (takes time and not really being used)
 %bcond_with testsuite
 
 # 9.0.2 recommends llvm 9-12
-%global llvm_major 11
+%global llvm_major 12
 %global ghc_llvm_archs armv7hl aarch64
 
 %global ghc_unregisterized_arches s390 s390x %{mips} riscv64
@@ -48,14 +51,14 @@ Version: 9.0.2
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
 URL: https://haskell.org/ghc/
-Source0: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-src.tar.xz
+Source0: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-src.tar.xz
 %if %{with testsuite}
-Source1: https://downloads.haskell.org/ghc/%{ghc_release}/ghc-%{version}-testsuite.tar.xz
+Source1: https://downloads.haskell.org/ghc/%{version}/ghc-%{version}-testsuite.tar.xz
 %endif
 Source5: ghc-pkg.man
 Source6: haddock.man
@@ -69,19 +72,23 @@ Patch6: ghc-8.6.3-sphinx-1.8.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/7689 (from ghc-9.0)
 Patch7: 7689.patch
 
+# https://fedoraproject.org/wiki/Toolchain/PortingToModernC
+# https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9394
+Patch8: ghc-configure-c99.patch
+
 # Arch dependent patches
 # arm
 Patch12: ghc-armv7-VFPv3D16--NEON.patch
 
 # for unregisterized
-# https://ghc.haskell.org/trac/ghc/ticket/15689
+# https://gitlab.haskell.org/ghc/ghc/-/issues/15689
 Patch15: ghc-warnings.mk-CC-Wall.patch
 
 # bigendian (s390x and ppc64)
 # https://gitlab.haskell.org/ghc/ghc/issues/15411
 # https://gitlab.haskell.org/ghc/ghc/issues/16505
 # https://bugzilla.redhat.com/show_bug.cgi?id=1651448
-# https://ghc.haskell.org/trac/ghc/ticket/15914
+# https://gitlab.haskell.org/ghc/ghc/-/issues/15914
 # https://gitlab.haskell.org/ghc/ghc/issues/16973
 # https://bugzilla.redhat.com/show_bug.cgi?id=1733030
 # https://gitlab.haskell.org/ghc/ghc/-/issues/16998
@@ -89,9 +96,9 @@ Patch18: Disable-unboxed-arrays.patch
 
 # Debian patches:
 Patch24: buildpath-abi-stability.patch
+Patch25: buildpath-abi-stability-2.patch
 Patch26: no-missing-haddock-file-warning.patch
-
-Patch27: ghc-configure-c99.patch
+Patch27: haddock-remove-googleapis-fonts.patch
 
 # fedora ghc has been bootstrapped on
 # %%{ix86} x86_64 ppc ppc64 armv7hl s390 s390x ppc64le aarch64
@@ -99,21 +106,21 @@ Patch27: ghc-configure-c99.patch
 # see also deprecated ghc_arches defined in ghc-srpm-macros
 # /usr/lib/rpm/macros.d/macros.ghc-srpm
 
-BuildRequires: ghc-compiler > 8.8
+BuildRequires: %{ghcboot}-compiler
 # for ABI hash checking
 %if %{with abicheck}
 BuildRequires: %{name}
 %endif
-BuildRequires: ghc-rpm-macros-extra >= 2.3.11
-BuildRequires: ghc-binary-devel
-BuildRequires: ghc-bytestring-devel
-BuildRequires: ghc-containers-devel
-BuildRequires: ghc-directory-devel
-BuildRequires: ghc-pretty-devel
-BuildRequires: ghc-process-devel
-BuildRequires: ghc-stm-devel
-BuildRequires: ghc-template-haskell-devel
-BuildRequires: ghc-transformers-devel
+BuildRequires: ghc-rpm-macros-extra
+BuildRequires: %{ghcboot}-binary-devel
+BuildRequires: %{ghcboot}-bytestring-devel
+BuildRequires: %{ghcboot}-containers-devel
+BuildRequires: %{ghcboot}-directory-devel
+BuildRequires: %{ghcboot}-pretty-devel
+BuildRequires: %{ghcboot}-process-devel
+BuildRequires: %{ghcboot}-stm-devel
+BuildRequires: %{ghcboot}-template-haskell-devel
+BuildRequires: %{ghcboot}-transformers-devel
 BuildRequires: alex
 BuildRequires: gmp-devel
 BuildRequires: libffi-devel
@@ -130,10 +137,8 @@ BuildRequires: python3-sphinx
 %ifarch %{ghc_llvm_archs}
 BuildRequires: llvm%{llvm_major}
 %endif
-%ifarch armv7hl
-# patch12
-BuildRequires: autoconf, automake
-%endif
+# patch8 and patch12
+BuildRequires: autoconf automake
 Requires: %{name}-compiler = %{version}-%{release}
 Requires: %{name}-devel = %{version}-%{release}
 Requires: %{name}-ghc-devel = %{version}-%{release}
@@ -188,6 +193,10 @@ Requires: %{name}-filesystem = %{version}-%{release}
 %else
 Obsoletes: %{name}-doc-index < %{version}-%{release}
 Obsoletes: %{name}-filesystem < %{version}-%{release}
+Obsoletes: %{name}-xhtml < %{xhtml_ver}-%{release}
+Obsoletes: %{name}-xhtml-devel < %{xhtml_ver}-%{release}
+Obsoletes: %{name}-xhtml-doc < %{xhtml_ver}-%{release}
+Obsoletes: %{name}-xhtml-prof < %{xhtml_ver}-%{release}
 %endif
 %ifarch %{ghc_llvm_archs}
 Requires: llvm%{llvm_major}
@@ -271,7 +280,7 @@ This package provides the User Guide and Haddock manual.
 %ghc_lib_subpackage -d -l BSD filepath-1.4.2.1
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
-# see below for ghc-bignum
+%ghc_lib_subpackage -d -x -l BSD ghc-bignum-%{ghc_bignum_ver}
 %ghc_lib_subpackage -d -x -l BSD ghc-boot-%{ghc_version_override}
 %ghc_lib_subpackage -d -l BSD ghc-boot-th-%{ghc_version_override}
 %ghc_lib_subpackage -d -x -l BSD ghc-compact-%{ghc_compact_ver}
@@ -294,7 +303,7 @@ This package provides the User Guide and Haddock manual.
 %ghc_lib_subpackage -d -l BSD transformers-0.5.6.2
 %ghc_lib_subpackage -d -l BSD unix-2.7.2.2
 %if %{with haddock}
-%ghc_lib_subpackage -d -l BSD xhtml-3000.2.2.1
+%ghc_lib_subpackage -d -l BSD xhtml-%{xhtml_ver}
 %endif
 %endif
 
@@ -304,6 +313,7 @@ This package provides the User Guide and Haddock manual.
 Summary: GHC development libraries meta package
 License: BSD and HaskellReport
 Requires: %{name}-compiler = %{version}-%{release}
+Obsoletes: %{name}-libraries < %{version}-%{release}
 Provides: %{name}-libraries = %{version}-%{release}
 %{?ghc_packages_list:Requires: %(echo %{ghc_packages_list} | sed -e "s/\([^ ]*\)-\([^ ]*\)/%{name}-\1-devel = \2-%{release},/g")}
 
@@ -335,6 +345,7 @@ rm -r libraries/containers/containers/dist-install
 %patch2 -p1 -b .orig
 %patch6 -p1 -b .orig
 %patch7 -p1 -b .orig
+%patch8 -p1
 
 rm -r libffi-tarballs
 
@@ -342,7 +353,7 @@ rm -r libffi-tarballs
 %patch12 -p1 -b .orig12
 %endif
 
-# remove s390x after switching to llvm
+# remove s390x after complete switching to llvm
 %ifarch %{ghc_unregisterized_arches} s390x
 %patch15 -p1 -b .orig
 %endif
@@ -353,10 +364,10 @@ rm -r libffi-tarballs
 %endif
 
 #debian
-#%%patch24 -p1 -b .orig
+%patch24 -p1 -b .orig
+%patch25 -p1 -b .orig
 %patch26 -p1 -b .orig
-
-%patch27 -p1
+%patch27 -p1 -b .orig
 
 %if %{with haddock}
 %global gen_contents_index gen_contents_index.orig
@@ -366,7 +377,7 @@ if [ ! -f "libraries/%{gen_contents_index}" ]; then
 fi
 %endif
 
-# http://ghc.haskell.org/trac/ghc/wiki/Platforms
+# https://gitlab.haskell.org/ghc/ghc/-/wikis/platforms
 cat > mk/build.mk << EOF
 %if %{with perf_build}
 %ifarch %{ghc_llvm_archs}
@@ -399,10 +410,8 @@ BUILD_SPHINX_PDF = NO
 EOF
 
 %build
-# for patch12
-%ifarch armv7hl
+# for patch8 and patch12
 autoreconf
-%endif
 
 %ghc_set_gcc_flags
 export CC=%{_bindir}/gcc
@@ -418,6 +427,7 @@ export CC=%{_bindir}/gcc
 %ifarch %{ghc_unregisterized_arches}
   --enable-unregisterised \
 %endif
+  GHC=%{_bindir}/ghc-%{ghcboot_major}.2 \
 %{nil}
 
 # avoid "ghc: hGetContents: invalid argument (invalid byte sequence)"
@@ -427,19 +437,28 @@ make %{?_smp_mflags}
 
 %install
 make DESTDIR=%{buildroot} install
+
 %if %{defined _ghcdynlibdir}
 mv %{buildroot}%{ghclibdir}/*/libHS*ghc%{ghc_version}.so %{buildroot}%{_ghcdynlibdir}/
-for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
-  chrpath -d $i
-done
 for i in %{buildroot}%{ghclibdir}/package.conf.d/*.conf; do
   sed -i -e 's!^dynamic-library-dirs: .*!dynamic-library-dirs: %{_ghcdynlibdir}!' $i
 done
 sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_ghcdynlibdir}!' %{buildroot}%{ghclibdir}/package.conf.d/rts.conf
 %endif
 
+%if "%{?_ghcdynlibdir}" != "%_libdir"
+mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
+echo "%{?_ghcdynlibdir}%{!?_ghcdynlibdir:%{ghclibplatform}}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%else
+for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
+  chrpath -d $i
+done
+%endif
+
 # containers src moved to a subdir
 cp -p libraries/containers/containers/LICENSE libraries/containers/LICENSE
+
+rm -f %{name}-*.files
 
 # FIXME replace with ghc_subpackages_list
 for i in %{ghc_packages_list}; do
@@ -452,6 +471,7 @@ done
 echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 
 %ghc_gen_filelists ghc %{ghc_version_override}
+%ghc_gen_filelists ghc-bignum %{ghc_bignum_ver}
 %ghc_gen_filelists ghc-boot %{ghc_version_override}
 %ghc_gen_filelists ghc-compact %{ghc_compact_ver}
 %ghc_gen_filelists ghc-heap %{ghc_version_override}
@@ -459,24 +479,28 @@ echo "%%dir %{ghclibdir}" >> %{name}-base%{?_ghcdynlibdir:-devel}.files
 %ghc_gen_filelists hpc %{hpc_ver}
 %ghc_gen_filelists libiserv %{ghc_version_override}
 
-%ghc_gen_filelists ghc-bignum 1.1
 %ghc_gen_filelists ghc-prim 0.7.0
 %ghc_gen_filelists integer-gmp 1.1
 
 %define merge_filelist()\
 cat %{name}-%1.files >> %{name}-%2.files\
 cat %{name}-%1-devel.files >> %{name}-%2-devel.files\
-%if %{defined ghc_devel_prof}\
+%if %{with haddock}\
 cat %{name}-%1-doc.files >> %{name}-%2-doc.files\
+%endif\
+%if %{with ghc_prof}\
 cat %{name}-%1-prof.files >> %{name}-%2-prof.files\
 %endif\
 cp -p libraries/%1/LICENSE libraries/LICENSE.%1\
 echo "%%license libraries/LICENSE.%1" >> %{name}-%2.files\
 %{nil}
 
-%merge_filelist ghc-bignum base
 %merge_filelist ghc-prim base
 %merge_filelist integer-gmp base
+
+%if "%{?_ghcdynlibdir}" != "%_libdir"
+echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
+%endif
 
 # add rts libs
 %if %{defined _ghcdynlibdir}
@@ -489,7 +513,9 @@ ls %{buildroot}%{?_ghcdynlibdir}%{!?_ghcdynlibdir:%{ghclibdir}/rts}/libHSrts*.so
 %if %{defined _ghcdynlibdir}
 sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_libdir}!' %{buildroot}%{ghclibdir}/package.conf.d/rts.conf
 %endif
-ls -d %{buildroot}%{ghclibdir}/package.conf.d/rts.conf %{buildroot}%{ghclibdir}/include >> %{name}-base-devel.files
+ls -d %{buildroot}%{ghclibdir}/package.conf.d/rts.conf >> %{name}-base-devel.files
+
+ls -d %{buildroot}%{ghclibdir}/include >> %{name}-base-devel.files
 
 %if %{with ghc_prof}
 ls %{buildroot}%{ghclibdir}/bin/ghc-iserv-prof* >> %{name}-base-prof.files
@@ -524,6 +550,19 @@ for i in hp2ps hpc hsc2hs runhaskell; do
   ln -s $i-%{version} %{buildroot}%{_bindir}/$i
 done
 
+(
+cd %{buildroot}%{_bindir}
+for i in *; do
+    case $i in
+     *-%{version}) ;;
+     *)
+        if [ -f $i-%{version} ]; then
+           ln -s $i-%{version} $i-%{ghc_major}
+        fi
+    esac
+done
+)
+
 
 %check
 export LANG=C.utf8
@@ -549,10 +588,10 @@ $GHC --info
 
 # check the ABI hashes
 %if %{with abicheck}
-if [ "%{version}" = "$(ghc --numeric-version)" ]; then
+if [ "%{version}" = "$(ghc-%{version} --numeric-version)" ]; then
   echo "Checking package ABI hashes:"
   for i in %{ghc_packages_list}; do
-    old=$(ghc-pkg field $i id --simple-output || :)
+    old=$(ghc-pkg-%{ghc_version} field $i id --simple-output || :)
     if [ -n "$old" ]; then
       new=$(/usr/lib/rpm/ghc-pkg-wrapper %{buildroot}%{ghclibdir} field $i id --simple-output)
       if [ "$old" != "$new" ]; then
@@ -571,7 +610,7 @@ if [ "%{version}" = "$(ghc --numeric-version)" ]; then
      exit 1
   fi
 else
-  echo "ABI hash checks skipped: GHC changed from $(ghc --numeric-version) to %{version}"
+  echo "ABI hash checks skipped: GHC changed from $(ghc-%{ghc_version} --numeric-version) to %{version}"
 fi
 %endif
 
@@ -581,6 +620,11 @@ make test
 
 
 %if %{defined ghclibdir}
+%if "%{?_ghcdynlibdir}" != "%_libdir"
+%post base -p /sbin/ldconfig
+%postun base -p /sbin/ldconfig
+%endif
+
 %transfiletriggerin compiler -- %{ghclibdir}/package.conf.d
 %ghc_pkg_recache
 %end
@@ -615,6 +659,14 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{_bindir}/hsc2hs-%{version}
 %{_bindir}/runghc-%{version}
 %{_bindir}/runhaskell-%{version}
+%{_bindir}/ghc-%{ghc_major}
+%{_bindir}/ghc-pkg-%{ghc_major}
+%{_bindir}/ghci-%{ghc_major}
+%{_bindir}/runghc-%{ghc_major}
+%{_bindir}/runhaskell-%{ghc_major}
+%{_bindir}/hp2ps-%{ghc_major}
+%{_bindir}/hpc-%{ghc_major}
+%{_bindir}/hsc2hs-%{ghc_major}
 %dir %{ghclibdir}/bin
 %{ghclibdir}/bin/ghc
 %{ghclibdir}/bin/ghc-iserv
@@ -679,12 +731,12 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{ghc_html_libraries_dir}/gen_contents_index
 %verify(not size mtime) %{ghc_html_libraries_dir}/doc-index*.html
 %verify(not size mtime) %{ghc_html_libraries_dir}/index*.html
-%endif
 
 %files filesystem
 %dir %_ghc_doc_dir
 %dir %ghc_html_dir
 %dir %ghc_html_libraries_dir
+%endif
 
 %if %{with manual}
 %files manual
@@ -703,6 +755,12 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sat Feb 11 2023 Jens Petersen <petersen@redhat.com> - 9.0.2-12
+- self boot with ghc9.0
+- use llvm12 (for ARM)
+- sync changes from ghc8.10 and ghc 9.2
+- debian buildpath-abi-stability-2 & haddock-remove-googleapis-fonts patches
+
 * Sun Feb 05 2023 Florian Weimer <fweimer@redhat.com> - 9.0.2-11
 - Port configure script to C99
 

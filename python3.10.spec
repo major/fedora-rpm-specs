@@ -13,11 +13,11 @@ URL: https://www.python.org/
 
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
-%global general_version %{pybasever}.9
+%global general_version %{pybasever}.10
 #global prerel ...
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
-Release: 4%{?dist}
+Release: 1%{?dist}
 License: Python-2.0.1
 
 
@@ -1427,6 +1427,7 @@ CheckPython optimized
 %{dynload_dir}/_ctypes_test.%{SOABI_optimized}.so
 %{dynload_dir}/_testbuffer.%{SOABI_optimized}.so
 %{dynload_dir}/_testcapi.%{SOABI_optimized}.so
+%{dynload_dir}/_testclinic.%{SOABI_optimized}.so
 %{dynload_dir}/_testimportmultiple.%{SOABI_optimized}.so
 %{dynload_dir}/_testinternalcapi.%{SOABI_optimized}.so
 %{dynload_dir}/_testmultiphase.%{SOABI_optimized}.so
@@ -1554,6 +1555,7 @@ CheckPython optimized
 %{dynload_dir}/_ctypes_test.%{SOABI_debug}.so
 %{dynload_dir}/_testbuffer.%{SOABI_debug}.so
 %{dynload_dir}/_testcapi.%{SOABI_debug}.so
+%{dynload_dir}/_testclinic.%{SOABI_debug}.so
 %{dynload_dir}/_testimportmultiple.%{SOABI_debug}.so
 %{dynload_dir}/_testinternalcapi.%{SOABI_debug}.so
 %{dynload_dir}/_testmultiphase.%{SOABI_debug}.so
@@ -1584,6 +1586,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Feb 08 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.10.10-1
+- Update to 3.10.10
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.9-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -42,8 +42,8 @@ Patch9: gnuplot-config.patch
 
 Requires: %{name}-common = %{version}-%{release}
 Requires: dejavu-sans-fonts
-Requires(post): %{_sbindir}/alternatives
-Requires(preun): %{_sbindir}/alternatives
+Requires(post): /usr/sbin/alternatives
+Requires(preun): /usr/sbin/alternatives
 
 #libedit-devel can not handle utf8, readline-devel is not legal with gnuplot, stick to builtin
 BuildRequires: cairo-devel, emacs, gd-devel, giflib-devel, libotf, libpng-devel
@@ -94,8 +94,8 @@ This subpackage contains common parts needed for all versions of gnuplot.
 %package minimal
 Summary: Minimal version of program for plotting mathematical expressions and data
 Requires: %{name}-common = %{version}-%{release}
-Requires(post): %{_sbindir}/alternatives
-Requires(preun): %{_sbindir}/alternatives
+Requires(post): /usr/sbin/alternatives
+Requires(preun): /usr/sbin/alternatives
 
 %description minimal
 Gnuplot is a command-line driven, interactive function plotting
@@ -110,8 +110,8 @@ for scientific data representation.
 %package wx
 Summary: wxGTK interface for gnuplot
 Requires: %{name}-common = %{version}-%{release}
-Requires(post): %{_sbindir}/alternatives
-Requires(preun): %{_sbindir}/alternatives
+Requires(post): /usr/sbin/alternatives
+Requires(preun): /usr/sbin/alternatives
 Provides: gnuplot
 Obsoletes: gnuplot < 5.0.0-4
 
@@ -267,30 +267,30 @@ ln -s gnuplot.1 $RPM_BUILD_ROOT/%{_mandir}/man1/gnuplot-wx.1
 touch $RPM_BUILD_ROOT%{_bindir}/gnuplot 
 
 %posttrans
-%{_sbindir}/alternatives --install %{_bindir}/gnuplot gnuplot %{_bindir}/gnuplot-qt 61
+/usr/sbin/alternatives --install %{_bindir}/gnuplot gnuplot %{_bindir}/gnuplot-qt 61
 
 %posttrans minimal
-%{_sbindir}/alternatives --install %{_bindir}/gnuplot gnuplot %{_bindir}/gnuplot-minimal 40
+/usr/sbin/alternatives --install %{_bindir}/gnuplot gnuplot %{_bindir}/gnuplot-minimal 40
 
 %if %{with wx}
 %posttrans wx
-%{_sbindir}/alternatives --install %{_bindir}/gnuplot gnuplot %{_bindir}/gnuplot-wx 50
+/usr/sbin/alternatives --install %{_bindir}/gnuplot gnuplot %{_bindir}/gnuplot-wx 50
 %endif
 
 %preun
 if [ $1 = 0 ]; then
-    %{_sbindir}/alternatives --remove gnuplot %{_bindir}/gnuplot-qt || :
+    /usr/sbin/alternatives --remove gnuplot %{_bindir}/gnuplot-qt || :
 fi
 
 %preun minimal
 if [ $1 = 0 ]; then
-    %{_sbindir}/alternatives --remove gnuplot %{_bindir}/gnuplot-minimal || :
+    /usr/sbin/alternatives --remove gnuplot %{_bindir}/gnuplot-minimal || :
 fi
 
 %if %{with wx}
 %preun wx
 if [ $1 = 0 ]; then
-    %{_sbindir}/alternatives --remove gnuplot %{_bindir}/gnuplot-wx || :
+    /usr/sbin/alternatives --remove gnuplot %{_bindir}/gnuplot-wx || :
 fi
 %endif
 
@@ -311,8 +311,8 @@ fi
 
 %files common
 %doc BUGS Copyright FAQ.pdf NEWS README RELEASE_NOTES
-%{_mandir}/man1/gnuplot.1.gz
-%{_mandir}/man1/gnuplot-qt.1.gz
+%{_mandir}/man1/gnuplot.1*
+%{_mandir}/man1/gnuplot-qt.1*
 %dir %{_datadir}/gnuplot
 %dir %{_datadir}/gnuplot/%{major}.%{minor}
 %dir %{_datadir}/gnuplot/%{major}.%{minor}/PostScript
@@ -329,7 +329,7 @@ fi
 %dir %{_libexecdir}/gnuplot/%{major}.%{minor}
 %{_libexecdir}/gnuplot/%{major}.%{minor}/gnuplot_x11
 %{x11_app_defaults_dir}/Gnuplot
-%{_infodir}/gnuplot.info.*
+%{_infodir}/gnuplot.info*
 
 %files minimal
 %ghost %attr(0755,-,-) %{_bindir}/gnuplot
@@ -339,7 +339,7 @@ fi
 %if %{with wx}
 %files wx
 %ghost %attr(0755,-,-) %{_bindir}/gnuplot
-%{_mandir}/man1/gnuplot-wx.1.gz
+%{_mandir}/man1/gnuplot-wx.1*
 %doc Copyright
 %{_bindir}/gnuplot-wx
 %endif
@@ -358,7 +358,7 @@ fi
 
 %files latex
 %doc Copyright
-%{_datadir}/texlive/texmf-dist/tex/latex/gnuplot/
+%{_texmf_vendor}/tex/latex/gnuplot/
 
 %changelog
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.5-2

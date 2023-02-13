@@ -10,7 +10,7 @@ Version:        %{relnum}.0.0
 Release:        %autorelease
 Summary:        Fedora %{relnum} default desktop background
 
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 URL:            https://fedoraproject.org/wiki/_Artwork
 Source0:        https://github.com/fedoradesign/backgrounds/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
@@ -33,7 +33,7 @@ theme.  Pulls in themes for GNOME, KDE, Mate and Xfce desktops.
 
 %package        base
 Summary:        Base images for Fedora  %{relnum} default background
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 
 %description    base
 This package contains base images for Fedora  %{relnum} default background.
@@ -76,7 +76,7 @@ default theme.
 %if %{with_extras}
 %package        extras-base
 Summary:        Base images for  Extras Backgrounds
-License:        CC-BY and CC-BY-SA
+License:        CC-BY-4.0 and CC-BY-SA-4.0 and CC0-1.0 and copyleft-next-0.3.1
 
 %description    extras-base
 This package contains base images for  supplemental

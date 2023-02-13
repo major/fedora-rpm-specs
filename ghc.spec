@@ -83,12 +83,12 @@ Provides: %{ghc_obsoletes_name}%{?1:-%1} = %{version}-%{release}\
 %{nil}
 
 Name: ghc
-Version: 9.2.5
+Version: 9.2.6
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 126%{?dist}
+Release: 127%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -190,6 +190,7 @@ BuildRequires: elfutils-devel
 #BuildRequires: gnupg2
 %endif
 %if %{with hadrian}
+BuildRequires:  happy
 %if %{with build_hadrian}
 BuildRequires:  ghc-Cabal-static
 BuildRequires:  ghc-QuickCheck-static
@@ -206,9 +207,8 @@ BuildRequires:  ghc-stm-static
 BuildRequires:  ghc-transformers-static
 BuildRequires:  ghc-unordered-containers-static
 BuildRequires:  alex
-BuildRequires:  happy
 %else
-BuildRequires: %{name}-hadrian
+BuildRequires:  %{name}-hadrian
 %endif
 %endif
 Requires: %{name}-compiler = %{version}-%{release}
@@ -357,7 +357,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD binary-0.8.9.0
-%ghc_lib_subpackage -d -l BSD bytestring-0.11.3.1
+%ghc_lib_subpackage -d -l BSD bytestring-0.11.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.5.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.6.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.6.2
@@ -586,19 +586,15 @@ sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_ghcdynl
 %endif
 %endif
 
-%if %{defined _ghcdynlibdir}
-%if "%_ghcdynlibdir" != "%_libdir"
-mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{_ghcdynlibdir}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
-%endif
-%else
 # https://bugzilla.redhat.com/show_bug.cgi?id=2166028
+%if "%{?_ghcdynlibdir}" != "%_libdir"
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
-echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
-%endif
+echo "%{?_ghcdynlibdir}%{!?_ghcdynlibdir:%{ghclibplatform}}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
+%else
 for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
   chrpath -d $i
 done
+%endif
 
 # containers src moved to a subdir
 cp -p libraries/containers/containers/LICENSE libraries/containers/LICENSE
@@ -815,9 +811,10 @@ make test
 
 
 %if %{defined ghclibdir}
+%if "%{?_ghcdynlibdir}" != "%_libdir"
 %post base -p /sbin/ldconfig
 %postun base -p /sbin/ldconfig
-
+%endif
 
 %transfiletriggerin compiler -- %{ghcliblib}/package.conf.d
 %ghc_pkg_recache
@@ -988,12 +985,18 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Sat Feb 11 2023 Jens Petersen <petersen@redhat.com> - 9.2.6-127
+- https://downloads.haskell.org/~ghc/9.2.6/docs/html/users_guide/9.2.6-notes.html
+- restore RUNPATHs to help dependency generation
+
 * Sat Feb  4 2023 Jens Petersen <petersen@redhat.com> - 9.2.5-126
 - add back ld.so.conf.d file to workaround mock install issue (#2166028)
 - remove the RUNPATHs again since they are covered by the ld.so.conf.d file
 
 * Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 9.2.5-125
 - rebase to ghc-9.2.5 from ghc9.2
+- https://www.haskell.org/ghc/blog/20221107-ghc-9.2.5-released.html
+- https://downloads.haskell.org/~ghc/9.2.5/docs/html/users_guide/9.2.1-notes.html
 - fully Obsoletes ghc9.2*
 - install bash-completion file
 
