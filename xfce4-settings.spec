@@ -1,7 +1,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-settings
-Version:        4.18.1
+Version:        4.18.2
 Release:        %autorelease
 Summary:        Settings Manager for Xfce
 
@@ -10,7 +10,7 @@ URL:            http://www.xfce.org/
 #VCS git:git://git.xfce.org/xfce/xfce4-settings
 Source0:        http://archive.xfce.org/src/xfce/%{name}/%{xfceversion}/%{name}-%{version}.tar.bz2
 # Use Fedora theme and font settings
-Patch10:        xfce4-settings-4.14-fedora.patch
+Patch10:        xfce4-settings-%{xfceversion}-fedora.patch
 
 BuildRequires: make
 BuildRequires:  gcc-c++

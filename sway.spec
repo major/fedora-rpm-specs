@@ -1,8 +1,12 @@
-%global tag     1.8
+%global tag     1.8.1
+
+%if 0%{?fedora} >= 38
+%bcond_without  caps
+%endif
 
 Name:           sway
-Version:        1.8
-Release:        2%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 Summary:        i3-compatible window manager for Wayland
 License:        MIT
 URL:            https://github.com/swaywm/sway
@@ -14,6 +18,14 @@ Source2:        https://emersion.fr/.well-known/openpgpkey/hu/dj3498u4hyyarh35rk
 # Minimal configuration file for headless or buildroot use
 Source100:      config.minimal
 Source101:      README.md
+
+# Upstream patches
+
+# Fedora patches
+
+# Conditional patches
+# swaywm/sway#7326, requires libxkbcommon >= 1.5.0
+Patch20:        sway-1.8-input-enable-user-xkb-configs-with-cap_sys_nice.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gnupg2
@@ -39,7 +51,7 @@ BuildRequires:  pkgconfig(wayland-protocols) >= 1.24
 BuildRequires:  (pkgconfig(wlroots) >= 0.16.0 with pkgconfig(wlroots) < 0.17)
 BuildRequires:  pkgconfig(xcb)
 BuildRequires:  pkgconfig(xcb-icccm)
-BuildRequires:  pkgconfig(xkbcommon)
+BuildRequires:  pkgconfig(xkbcommon) %{?with_caps: >= 1.5.0}
 
 # Require any of the available configuration packages;
 # Prefer the -upstream one if none are directly specified in the package manager transaction
@@ -135,7 +147,13 @@ interface.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup -p1 -n %{name}-%{tag}
+%autosetup -N -n %{name}-%{tag}
+# apply unconditional patches
+%autopatch -p1 -M19
+# apply conditional patches
+%if %{with caps}
+%patch20 -p1
+%endif
 
 %build
 %meson \
@@ -168,7 +186,7 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_mandir}/man1/sway*
 %{_mandir}/man5/*
 %{_mandir}/man7/*
-%{_bindir}/sway
+%{?with_caps:%caps(cap_sys_nice=ep)} %{_bindir}/sway
 %{_bindir}/swaybar
 %{_bindir}/swaymsg
 %{_bindir}/swaynag
@@ -199,6 +217,10 @@ install -D -m755 -pv contrib/grimshot %{buildroot}%{_bindir}/grimshot
 %{_mandir}/man1/grimshot.1*
 
 %changelog
+* Sun Feb 12 2023 Aleksei Bavshin <alebastr@fedoraproject.org> - 1.8.1-1
+- Update to 1.8.1
+- Set CAP_SYS_NICE on f38+
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

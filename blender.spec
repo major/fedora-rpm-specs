@@ -245,6 +245,7 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
     -DCMAKE_CXX_STANDARD=17 \
     -DCMAKE_SKIP_RPATH=ON \
+    -D_embree_LIBRARIES=%{_prefix} \
     -DEMBREE_INCLUDE_DIR=%{_includedir}/embree4 \
     -DEMBREE_LIBRARY=%{_lidir}/embree4.so \
     -DPYTHON_VERSION=%{python3_version} \

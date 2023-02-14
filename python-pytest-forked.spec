@@ -1,18 +1,16 @@
 %global pypi_name pytest-forked
 
 Name:           python-%{pypi_name}
-Version:        1.4.0
-Release:        6%{?dist}
+Version:        1.6.0
+Release:        1%{?dist}
 Summary:        py.test plugin for running tests in isolated forked subprocesses
 
 License:        MIT
 URL:            https://github.com/pytest-dev/pytest-forked
 Source0:        %{pypi_source}
-Patch0:         de584eda15df6db7912ab6197cfb9ff23024ef23.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist py pytest setuptools setuptools_scm}
 
 %global _description %{expand:
 The pytest-forked plugin extends py.test by adding an option to run tests in
@@ -26,17 +24,19 @@ C++ libraries that might crash the process. To use the plugin, simply use the
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
-Requires:       %{py3_dist py}
 %description -n python3-%{pypi_name} %_description
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %check
 %pytest
@@ -48,6 +48,13 @@ Requires:       %{py3_dist py}
 %{python3_sitelib}/pytest_forked*
 
 %changelog
+* Mon Feb 13 2023 Scott Talbert <swt@techie.net> - 1.6.0-1
+- Update to new upstream release 1.6.0 (#2169236)
+- Modernize python packaging
+
+* Sun Feb 12 2023 Scott Talbert <swt@techie.net> - 1.5.0-1
+- Update to new upstream release 1.5.0 (#2169197)
+
 * Tue Jan 24 2023 Scott Talbert <swt@techie.net> - 1.4.0-6
 - Fix FTBFS with pytest 7.2.0+
 

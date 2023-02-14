@@ -1,8 +1,8 @@
 %global srcname getmac
 
 Name:           python-%{srcname}
-Version:        0.8.3
-Release:        5%{?dist}
+Version:        0.9.2
+Release:        2%{?dist}
 Summary:        Python module to get the MAC address of local network interfaces and LAN hosts
 
 License:        MIT
@@ -44,9 +44,14 @@ sed -i '1{/^#!\//d}' getmac/__main__.py
 %{python3_sitelib}/%{srcname}/
 %{python3_sitelib}/%{srcname}-*.egg-info/
 /usr/bin/getmac
-%{_mandir}/man1/*
 
 %changelog
+* Sun Feb 12 2023 Henrik Boeving <hargonix@gmail.com> - 0.9.2-2
+- Upstream no longer ships manpages
+
+* Sun Feb 12 2023 Henrik Boeving <hargonix@gmail.com> - 0.9.2-1
+- Update to 0.9.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

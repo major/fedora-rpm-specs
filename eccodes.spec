@@ -1,6 +1,6 @@
 Name:           eccodes
-Version:        2.27.1
-Release:        2%{?dist}
+Version:        2.28.0
+Release:        1%{?dist}
 Summary:        WMO data format decoding and encoding
 
 # force the shared libraries to have these so versions
@@ -8,7 +8,7 @@ Summary:        WMO data format decoding and encoding
 %global so_version_f90   0.1
 %global datapack_date    20220526
 
-# latest fedora-38/rawhide grib_api version is 1.27.0-16
+# latest fedora-38/rawhide grib_api version is 1.27.0-18
 # but this version number is to be updated as soon as we know
 # what the final release of grib_api by upstream will be.
 # latest upstream grib_api release is 1.28.0 (05-Dec-2018)
@@ -289,7 +289,7 @@ mkdir -p %{buildroot}%{_datadir}/man/man1
 cp %{_vpath_builddir}/man/*.1 %{buildroot}%{_datadir}/man/man1
 
 # Fix permissions
-chmod 644 AUTHORS
+chmod 644 AUTHORS LICENSE
 
 # also not needed for x86_64
 # maybe they fixed it for all archs?
@@ -358,6 +358,9 @@ ctest3 -V %{?_smp_mflags}
 %doc %{_datadir}/doc/%{name}/
 
 %changelog
+* Sun Feb 12 2023 Jos de Kloe <josdekloe@gmail.com> - 2.28.0-1
+- Upgrade to upstream version 2.28.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.27.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

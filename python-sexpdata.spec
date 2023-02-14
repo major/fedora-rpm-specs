@@ -5,18 +5,15 @@ functions like pickle, json or PyYAML module.}
 
 
 Name:           python-%{srcname}
-Version:        0.0.3
-Release:        8%{?dist}
+Version:        0.0.4
+Release:        1%{?dist}
 Summary:        S-expression parser for Python
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://sexpdata.readthedocs.io/
 Source0:        https://github.com/jd-boyd/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist nose}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
 BuildArch:      noarch
 
 %description
@@ -34,29 +31,35 @@ Summary:        %{summary}
 %prep
 %autosetup -n %{srcname}-%{version}
 
-# Remove bundled egg-info
-rm -rf *.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 
 %check
-pytest
+%tox
 
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc README.rst
-%pycached %{python3_sitelib}/%{srcname}.py
-%{python3_sitelib}/%{srcname}-*.egg-info
+%license LICENSE
 
 
 %changelog
+* Sun Feb 12 2023 Mohamed El Morabity <melmorabity@fedoraproject.org> - 0.0.4-1
+- Update to 0.0.4
+- Switch to latest Python guidelines
+- Switch to SPDX license identifiers
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

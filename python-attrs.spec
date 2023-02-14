@@ -1,7 +1,7 @@
 %global modname attrs
 
-%if 0%{?rhel} && 0%{?rhel} <= 7
-# Can't run tests on EPEL7 due to need for pytest >= 2.8
+%if 0%{?rhel}
+# Avoid unwanted/unavailable dependencies in RHEL builds
 %bcond_with tests
 %else
 # Turn the tests off when bootstrapping Python, because pytest requires attrs

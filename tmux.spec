@@ -2,7 +2,7 @@
 
 Name:           tmux
 Version:        3.3a
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A terminal multiplexer
 
 # Most of the source is ISC licensed; some of the files in compat/ are 2 and
@@ -13,13 +13,14 @@ Source0:        https://github.com/tmux/%{name}/releases/download/%{version}/%{n
 # Examples has been removed - so include the bash_completion here
 Source1:        bash_completion_tmux.sh
 
-BuildRequires: make
 BuildRequires:  gcc
+BuildRequires:  systemd-devel
+BuildRequires:  libutempter-devel
+BuildRequires:  make
 BuildRequires:  pkgconfig(libevent_core) >= 2
 BuildRequires:  pkgconfig(tinfo)
 BuildRequires:  pkgconfig(ncurses)
 BuildRequires:  pkgconfig(ncursesw)
-BuildRequires:  libutempter-devel
 
 %description
 tmux is a "terminal multiplexer."  It enables a number of terminals (or
@@ -31,7 +32,7 @@ as GNU Screen.
 %autosetup
 
 %build
-%configure
+%configure --enable-systemd
 %make_build
 
 
@@ -67,6 +68,9 @@ fi
 %{_datadir}/bash-completion/completions/tmux
 
 %changelog
+* Sun Feb 12 2023 Filipe Rosset <rosset.filipe@gmail.com> - 3.3a-3
+- Enable support for systemd socket activation fixes rhbz#2158980
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3a-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

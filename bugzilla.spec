@@ -5,7 +5,7 @@ Summary: Bug tracking system
 URL: https://www.bugzilla.org/
 Name: bugzilla
 Version: 5.0.6
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: MPLv1.1
 Source0: https://github.com/bugzilla/bugzilla/archive/release-%{version}.tar.gz
 Source1: bugzilla-httpd-conf
@@ -62,6 +62,7 @@ BuildRequires: texlive-collection-basic
 BuildRequires: tex(fncychap.sty)
 BuildRequires: tex(framed.sty)
 BuildRequires: tex(multirow.sty)
+BuildRequires: tex(tgtermes.sty)
 BuildRequires: tex(threeparttable.sty)
 BuildRequires: tex(titlesec.sty)
 BuildRequires: tex(wrapfig.sty)
@@ -289,6 +290,9 @@ popd > /dev/null)
 %{bzinstallprefix}/bugzilla/contrib/Bugzilla.pm
 
 %changelog
+* Sun Feb 12 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 5.0.6-17
+- Add missing buildrequirement on tgtermes.sty (#2160038)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:		converseen
-Version:	0.9.10.0
-Release:	2%{?dist}
+Version:	0.9.10.1
+Release:	1%{?dist}
 Summary:	A batch image conversion tool written in C++ with Qt5 and Magick++
 
 License:	GPLv3
@@ -46,6 +46,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/net.fasterland.%{nam
 
 
 %changelog
+* Sun Feb 12 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.10.1-1
+- Update to 0.9.10.1 fixes rhbz#2161445
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

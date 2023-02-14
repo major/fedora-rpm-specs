@@ -1,6 +1,6 @@
 Name:           perl-Dancer2
-Version:        0.400000
-Release:        4%{?dist}
+Version:        0.400001
+Release:        1%{?dist}
 Summary:        Lightweight yet powerful web application framework
 License:        GPL+ or Artistic
 
@@ -184,6 +184,9 @@ provides nice, easily-extendable CLI interface for it.
 %{_bindir}/*
 
 %changelog
+* Sun Feb 12 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 0.400001-1
+- Update to 0.400001
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.400000-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

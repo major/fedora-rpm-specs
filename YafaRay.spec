@@ -15,7 +15,7 @@ License:	LGPLv2+
 Summary:	A free open-source ray-tracing render engine
 Version:	3.5.1
 URL:		https://www.yafaray.org/
-Release:	21%{?prerelease}%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
+Release:	22%{?prerelease}%{?shortcommit0:.%{date}git%{shortcommit0}}%{?dist}
 
 %{?shortcommit0:
 Source0:	https://github.com/%{name}/lib%{name}/archive/%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz}
@@ -37,6 +37,8 @@ Patch0:         YafaRay-gcc11.patch
 # for porting details and encourage upstream to support it.
 # Minimal patch to port to OpenEXR 3.
 Patch1:         YafaRay-openexr3.patch
+# Add missing includes needed by gcc 13
+Patch2:         YafaRay-include.patch
 
 BuildRequires:	blender-rpm-macros
 BuildRequires:	boost-devel
@@ -212,6 +214,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{yname}-blend
 %{python3_sitearch}/*.{py,so}
 
 %changelog
+* Mon Feb 13 2023 Orion Poplawski <orion@nwra.com> - 3.5.1-22
+- Add patch to add needed include for gcc 13
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,16 +2,25 @@
 
 Name:           rubygem-%{gem_name}
 Version:        4.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pure-ruby colorizer based on pygments
 License:        MIT and BSD
 
 URL:            http://rouge.jneen.net/
 Source0:        https://rubygems.org/gems/%{gem_name}-%{version}.gem
-
+Source1:        %{gem_name}-%{version}-test-missing-files.tar.gz
+# SOURCE1 is created by $ bash %%SOURCE2 %%version
+Source2:        rouge-create-missing-test-files.sh
+Source10:       spec_helper_assert.rb
+Source11:       bundler.rb
+# https://github.com/rouge-ruby/rouge/pull/1912
+# Escape hash character in regex to avoid parsing issue in Ruby 3.2
+Patch0:		%{name}-pr1912-espace-hash-in-regex-ruby32.patch
 BuildRequires:  ruby(release)
 BuildRequires:  rubygems-devel
 BuildRequires:  help2man
+BuildRequires:  rubygem(minitest)
+BuildRequires:  rubygem(rake)
 
 BuildArch:      noarch
 
@@ -29,13 +38,19 @@ Documentation for %{name}.
 
 
 %prep
-%setup -q -n %{gem_name}-%{version}
+%setup -q -n %{gem_name}-%{version} -a 1
 mv ../%{gem_name}-%{version}.gemspec .
+
+cp -a %{gem_name}-%{version}/spec .
+mkdir FAKE
+cp -a %{SOURCE11} FAKE/
+cp -pa %{SOURCE10} spec/
+
+%patch0 -p1
 
 %build
 gem build %{gem_name}-%{version}.gemspec
 %gem_install
-
 
 %install
 mkdir -p %{buildroot}%{gem_dir}
@@ -61,6 +76,15 @@ rm -rf \
     %{nil}
 popd
 
+%check
+find spec -name \*_spec.rb -print0 | \
+	sort --zero-terminated |  \
+	xargs --null ruby -Ilib:FAKE \
+	-r./spec/spec_helper \
+	-r./spec/spec_helper_assert \
+	-r rake/rake_test_loader  \
+	%{nil}
+
 %files
 %dir %{gem_instdir}
 
@@ -80,6 +104,10 @@ popd
 %{gem_libdir}/%{gem_name}/demos
 
 %changelog
+* Sun Feb 12 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.0.1-3
+- Execute spec test provided by the upstream
+- Backport upstream patch for ruby32 regex issue with hash character
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

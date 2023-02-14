@@ -8,7 +8,7 @@ echo %_sysconfdir/bash_completion.d)
 
 Name:           datamash
 Version:        1.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A statistical, numerical and textual operations tool
 
 License:        GPLv3+
@@ -20,9 +20,7 @@ BuildRequires:  gcc
 BuildRequires:  gettext perl(Digest::MD5) perl(Digest::SHA) perl(Data::Dumper)
 BuildRequires:  perl(FileHandle) perl(File::Compare) perl(File::Find)
 BuildRequires:  pkgconfig bash-completion
-BuildRequires: make
-Requires(preun): info
-Requires(post): info
+BuildRequires:  make
 
 %description
 GNU datamash is a command-line program which performs basic
@@ -75,6 +73,9 @@ fi
 %{_mandir}/man1/*
 
 %changelog
+* Sun Feb 12 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.7-5
+- Remove obsolete requirements for %%post/%%preun scriptlets
+
 * Thu Feb 02 2023 Sérgio Basto <sergio@serjux.com> - 1.7-4
 - (#2056736) Fix FTBS on F37
 

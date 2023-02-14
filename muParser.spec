@@ -2,15 +2,15 @@
 %global owner beltoforion
 Name:           muParser
 Summary:        A fast math parser library
-Version:        2.3.3
-Release:        3%{?dist}
+Version:        2.3.4
+Release:        1%{?dist}
 BuildRequires:  cmake
 BuildRequires:  dos2unix
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
 License:        MIT
-URL:            https://beltoforion.de/en/muparser/index.php#idStart
+URL:            https://beltoforion.de/en/muparser/
 Source0:        https://github.com/%{owner}/%{lcname}/archive/v%{version}/%{lcname}-%{version}.tar.gz
 
 
@@ -29,7 +29,7 @@ and precalculating constant parts of it.
 Development files and the documentation
 
 %prep
-%autosetup -n %{lcname}-%{version}-1
+%autosetup -n %{lcname}-%{version}
 
 %build
 %cmake .. -DENABLE_SAMPLES=ON -DENABLE_OPENMP=ON -DBUILD_SHARED_LIBS=ON
@@ -52,6 +52,10 @@ Development files and the documentation
 %{_libdir}/cmake/muparser/*.cmake
 
 %changelog
+* Tue Feb 07 2023 Christoph Junghans <junghans@lanl.gov> - 2.3.4-1
+- Version bump to v2.3.4 (bug #2143538)
+- Fix url (bug #2138095)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

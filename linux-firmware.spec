@@ -1,11 +1,11 @@
 %global debug_package %{nil}
-%global firmware_release 146
+%global firmware_release 147
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20230117
+Version:	20230210
 Release:	%{firmware_release}%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -529,7 +529,31 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
-* Tue Dec 20 2022 Peter Robinson <pbrobinson@fedoraproject.org> - 20230117-146
+* Sun Feb 12 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230210-147
+- Update to upstream 20230210 release
+- Update AMD cpu microcode
+- brcm: revert firmware files for Cypress devices
+- brcm: restore previous firmware file for BCM4329 device
+- rtw88: 8822c: Update normal firmware to v9.9.14
+- i915: Add DMC v2.11 for MTL
+- Add firmware for Cirrus CS35L41 on UM3402 ASUS Laptop
+- Add missing tuning files for HP Laptops using Cirrus Amps
+- i915: Add DMC v2.18 for ADLP
+- amdgpu: Add VCN 4.0.2 firmware
+- amdgpu: Add PSP 13.0.4 firmware
+- amdgpu: Add SDMA 6.0.1 fimware
+- amdgpu: Add GC 11.0.1 firmware
+- amdgpu: Add DCN 3.1.4 firmware
+- iwlwifi: remove old intermediate 5.15+ firmwares
+- iwlwifi: remove 5.10 and 5.15 intermediate old firmwares
+- iwlwifi: remove 5.4 and 5.10 intermediate old firmwares
+- iwlwifi: remove 4.19 and 5.4 intermediate old firmwares
+- iwlwifi: remove old unsupported older than 4.14 LTS
+- update firmware for MT7921 WiFi device
+- update firmware for mediatek bluetooth chip (MT7921)
+- amdgpu: update vangogh firmware
+
+* Mon Jan 23 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230117-146
 - Update to upstream 20230117 release
 - Update for Intel Bluetooth AX200/201/210/211/9260/9560
 - brcm: add configuration files for CyberTan WC121

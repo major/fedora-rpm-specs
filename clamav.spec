@@ -25,7 +25,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.0.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -64,6 +64,9 @@ Source330:  clamav-milter.systemd
 #for scanner-systemd/server-systemd
 Source530:  clamd@.service
 
+# Accept RUSTFLAGS
+# https://github.com/Cisco-Talos/clamav/pull/835
+Patch0:     clamav-rustflags.patch
 # Change default config locations for Fedora
 Patch1:     clamav-default_confs.patch
 # Fix pkg-config flags for static linking, multilib
@@ -252,6 +255,7 @@ rm -r .cargo
 %cargo_prep
 cd ..
 
+%patch0 -p1 -b .rustflags
 %patch1 -p1 -b .default_confs
 %patch2 -p1 -b .private
 %patch3 -p1 -b .rpath
@@ -277,6 +281,7 @@ export LDFLAGS=$(echo %{?__global_ldflags} | sed '/-Wl,--as-needed/!s/$/ -Wl,--a
 export have_cv_ipv6=yes
 
 %cmake \
+    -DRUSTFLAGS="%build_rustflags" \
     -DAPP_CONFIG_DIRECTORY=%{_sysconfdir} \
     -DCMAKE_INSTALL_DOCDIR=%{_pkgdocdir} \
     -DCLAMAV_USER=%{updateuser} -DCLAMAV_GROUP=%{updateuser} \
@@ -549,6 +554,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 13 2023 Orion Poplawski <orion@nwra.com> - 1.0.0-3
+- Make sure RUSTFLAGS are passed to rustc (bz#2167194)
+
 * Mon Jan 23 2023 Orion Poplawski <orion@nwra.com> - 1.0.0-2
 - Fix multilib install
 

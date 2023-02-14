@@ -4,7 +4,7 @@
 %endif
 
 Name:           nextcloud-client
-Version:        3.6.6
+Version:        3.7.3
 Release:        %autorelease
 Summary:        The Nextcloud Client
 
@@ -52,6 +52,7 @@ BuildRequires:  inkscape
 # Plasma 5 Dolphin integration
 %if 0%{?fedora} >= 24 || 0%{?rhel} > 7
 BuildRequires:  kf5-kio-devel
+BuildRequires:  kf5-karchive-devel
 BuildRequires:  kf5-kcoreaddons-devel
 BuildRequires:  kf5-rpm-macros
 %endif
@@ -248,8 +249,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.nextc
 %files dolphin
 %{_libdir}/libnextclouddolphinpluginhelper.so
 %{_kf5_plugindir}/overlayicon/nextclouddolphinoverlayplugin.so
-%{_qt5_plugindir}/nextclouddolphinactionplugin.so
-%{_kf5_datadir}/kservices5/nextclouddolphinactionplugin.desktop
+%{_kf5_plugindir}/kfileitemaction/nextclouddolphinactionplugin.so
 %endif
 
 %changelog

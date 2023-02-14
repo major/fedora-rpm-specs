@@ -1,6 +1,6 @@
 Name:           perl-HTML-Mason
-Version:        1.59
-Release:        10%{?dist}
+Version:        1.60
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Powerful Perl-based web site development and delivery engine
 License:        GPL+ or Artistic
@@ -8,7 +8,7 @@ URL:            http://www.masonhq.com/
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/HTML-Mason-%{version}.tar.gz
 Source1:        perl-HTML-Mason.conf
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
 BuildRequires:  perl(ExtUtils::MakeMaker)
@@ -145,6 +145,9 @@ mkdir -p $RPM_BUILD_ROOT%{_localstatedir}/cache/mason
 %dir %{_localstatedir}/www/mason
 
 %changelog
+* Sun Feb 12 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1:1.60-1
+- Update to 1.60
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.59-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

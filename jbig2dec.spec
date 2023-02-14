@@ -1,8 +1,8 @@
 Name:		jbig2dec
 Version:	0.19
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	A decoder implementation of the JBIG2 image compression format 
-License:	AGPLv3+
+License:	AGPL-3.0-or-later
 URL:		http://jbig2dec.sourceforge.net/
 Source0:	https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs952/%{name}-%{version}.tar.gz
 Requires:	%{name}-libs = %{version}-%{release}
@@ -80,6 +80,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Sun Feb 12 2023 Michael J Gruber <mjg@fedoraproject.org> - 0.19-9
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

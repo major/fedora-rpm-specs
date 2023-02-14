@@ -1,17 +1,17 @@
 Summary: Interface statistics
 Name: ifstat
 Version: 1.1
-Release: 39%{?dist}
-License: GPLv2+
+Release: 40%{?dist}
+License: GPL-2.0-or-later
 URL: http://gael.roualland.free.fr/ifstat/
 Source0: http://gael.roualland.free.fr/ifstat/ifstat-%{version}.tar.gz
 Patch0: ifstat-destdir.patch
 Patch1: ifstat-UTF8.patch
-Patch2: ifstat-configure-c99.patch
-Patch3: ifstat-configure-snmp-c99.patch
-BuildRequires: net-snmp-devel
+Patch2: ifstat-configure-snmp-c99.patch
+BuildRequires: pkgconfig(netsnmp)
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: autoconf
 
 %description
 ifstat(1) is a little tool to report interface activity like vmstat/iostat do.
@@ -24,13 +24,10 @@ need to have snmpd running for this though).
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 %build
-%configure \
-	--enable-debug
-# debug is needed for generating debug_info rpm
-
+autoconf
+%configure --enable-debug
 %{__make} %{?_smp_mflags}
 
 %install
@@ -43,6 +40,9 @@ need to have snmpd running for this though).
 %{_bindir}/ifstat
 
 %changelog
+* Mon Feb 13 2023 Boian Bonev <bbonev@ipacct.com> - 1.1-40
+- Always regenerate configure
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-39
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

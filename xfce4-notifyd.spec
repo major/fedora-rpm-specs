@@ -1,10 +1,10 @@
 # Review: https://bugzilla.redhat.com/show_bug.cgi?id=499282
 
-%global minorversion 0.7
+%global minorversion 0.8
 %global xfceversion 4.18
 
 Name:           xfce4-notifyd
-Version:        0.7.3
+Version:        0.8.0
 Release:        %autorelease
 Summary:        Simple notification daemon for Xfce
 
@@ -22,6 +22,7 @@ BuildRequires:  xfconf-devel >= %{xfceversion}
 BuildRequires:  xfce4-panel-devel >= %{xfceversion}
 BuildRequires:  glib2-devel >= 2.42.0
 BuildRequires:  libnotify-devel >= 0.7.0
+BuildRequires:  sqlite-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  intltool
 BuildRequires:  systemd
