@@ -1,14 +1,16 @@
 Name:           perl-Carp-Assert-More
-Version:        2.0.1
-Release:        5%{?dist}
+Version:        2.2.0
+Release:        1%{?dist}
 Summary:        Convenience wrappers around Carp::Assert
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Carp-Assert-More
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PETDANCE/Carp-Assert-More-%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
+BuildRequires:  perl(:VERSION) >= 5.10.1
 BuildRequires:  perl(ExtUtils::MakeMaker)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
@@ -37,11 +39,11 @@ functions to make the habit of writing assertions even easier.
 %setup -q -n Carp-Assert-More-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -50,9 +52,13 @@ make test
 %files
 %doc Changes
 %{perl_vendorlib}/Carp/Assert/
-%{_mandir}/man3/*.3pm*
+%{_mandir}/man3/Carp*.3pm*
 
 %changelog
+* Mon Feb 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.2.0-1
+- 2.2.0 bump
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

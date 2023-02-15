@@ -8,9 +8,9 @@
 
 Name:          dtc
 Version:       1.6.1
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       Device Tree Compiler
-License:       GPLv2+
+License:       GPL-2.0-or-later
 URL:           https://devicetree.org/
 
 Source0:       https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
@@ -148,6 +148,9 @@ rm -f $RPM_BUILD_ROOT/%{_bindir}/ftdump
 %endif
 
 %changelog
+* Mon Feb 13 2023 Josh Boyer <jwboyer@fedoraproject.org> - 1.6.1-8
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

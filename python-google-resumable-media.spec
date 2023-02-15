@@ -3,7 +3,7 @@
 
 %global         srcname     google-resumable-media
 %global         forgeurl    https://github.com/googleapis/google-resumable-media-python
-Version:        2.4.0
+Version:        2.4.1
 %global         tag         v%{version}
 %forgemeta
 

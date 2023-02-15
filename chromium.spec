@@ -306,6 +306,9 @@ Patch90: chromium-109-disable-GlobalMediaControlsCastStartStop.patch
 # patch for using system opus
 Patch91: chromium-108-system-opus.patch
 
+# fix prefers-color-scheme
+Patch92: chromium-110-gtktheme.patch
+
 # From gentoo
 Patch98: chromium-94.0.4606.71-InkDropHost-crash.patch
 
@@ -929,6 +932,8 @@ udev.
 %patch91 -p1 -b .system-opus
 %endif
 
+%patch92 -p1 -b .gtk-prefers-color-scheme
+
 %patch98 -p1 -b .InkDropHost-crash
 
 # Fedora branded user agent
@@ -1366,8 +1371,6 @@ pushd %{builddir}
 	# V8 initial snapshots
 	# https://code.google.com/p/chromium/issues/detail?id=421063
 	cp -a v8_context_snapshot.bin %{buildroot}%{chromium_path}
-	cp -a xdg-mime xdg-settings %{buildroot}%{chromium_path}
-	cp -a MEIPreload %{buildroot}%{chromium_path}
 
 	# This is ANGLE, not to be confused with the similarly named files under swiftshader/
 	cp -a libEGL.so libGLESv2.so %{buildroot}%{chromium_path}
@@ -1545,10 +1548,7 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/%{chromium_browser_channel}.sh
 %{chromium_path}/libEGL.so*
 %{chromium_path}/libGLESv2.so*
-%{chromium_path}/MEIPreload/
 %attr(4755, root, root) %{chromium_path}/chrome-sandbox
-%{chromium_path}/xdg-mime
-%{chromium_path}/xdg-settings
 %if %{use_qt}
 %{chromium_path}/libqt5_shim.so
 %endif

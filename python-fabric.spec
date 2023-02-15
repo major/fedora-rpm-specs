@@ -21,6 +21,9 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
+# Needed here since invoke's vendored decorator is not used.
+# See RHBZ 2156956.
+Requires:       python3dist(decorator)
 
 %if %{with tests}
 # Extra pytest (a superset of extra testing)

@@ -1,7 +1,7 @@
 %global pkgname XMod
 
 Name:           gap-pkg-xmod
-Version:        2.89
+Version:        2.91
 Release:        1%{?dist}
 Summary:        Crossed Modules and Cat1-Groups for GAP
 
@@ -10,6 +10,9 @@ BuildArch:      noarch
 ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
 URL:            https://gap-packages.github.io/xmod/
 Source0:        https://github.com/gap-packages/xmod/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
+# Fix documentation errors
+# https://github.com/gap-packages/xmod/pull/136
+Patch0:         %{name}-double-doc.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  gap-pkg-autodoc
@@ -55,7 +58,7 @@ Requires:       GAPDoc-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version}
+%autosetup -n %{pkgname}-%{version} -p1
 
 %build
 export LC_ALL=C.UTF-8
@@ -84,6 +87,10 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/examples/
 
 %changelog
+* Mon Feb 13 2023 Jerry James <loganjerry@gmail.com> - 2.91-1
+- Version 2.91
+- Add -double-doc patch to fix LaTeX errors
+
 * Sun Feb  5 2023 Jerry James <loganjerry@gmail.com> - 2.89-1
 - Version 2.89
 

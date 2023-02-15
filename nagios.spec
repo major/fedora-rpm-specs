@@ -5,8 +5,8 @@
 %global selinuxtype targeted
 
 Name:           nagios
-Version:        4.4.9
-Release:        3%{?dist}
+Version:        4.4.10
+Release:        1%{?dist}
 
 Summary: Host/service/network monitoring program
 
@@ -45,7 +45,6 @@ Patch11: nagios-0011-remove-rpmbuild.patch
 Patch12: nagios-0012-fix-spool.patch
 Patch13: nagios-0013-fix-plugin.patch
 Patch14: nagios-0014-fix-uidgid.patch
-Patch15: nagios-configure-c99.patch
 
 BuildRequires:  make
 BuildRequires:  doxygen
@@ -296,7 +295,7 @@ chmod -x %{buildroot}%{_unitdir}/%{name}.service
 %endif
 
 # Fix permissions - FIXME remove this when unneeded
-chmod 755 %{buildroot}%{_sbindir}/nagios
+chmod 755 %{buildroot}%{_sbindir}/nagios %{buildroot}%{_bindir}/nagiostats
 
 # Install documentation
 install -d -m 0755 %{buildroot}%{_datadir}/nagios/html/docs
@@ -469,6 +468,10 @@ fi
 %{_libdir}/%{name}/cgi/
 
 %changelog
+* Mon Feb 13 2023 Guido Aulisi <guido.aulisi@gmail.com> - 4.4.10-1
+- Update to 4.4.10
+- Fix nagiostats permissions #2169033
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

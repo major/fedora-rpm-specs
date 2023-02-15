@@ -16,7 +16,11 @@ BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-linguist
 BuildRequires:  po4a
 BuildRequires:  libxslt
+
+# fop is java_arches exclusive
+ExclusiveArch:  %{java_arches}
 BuildRequires:  fop
+
 BuildRequires:  docbook-style-xsl
 %ifarch %{qt5_qtwebengine_arches}
 BuildRequires:  qt5-qtwebengine-devel
@@ -24,7 +28,7 @@ BuildRequires:  qt5-qtwebengine-devel
 BuildRequires:  qt5-qtwebkit-devel
 %endif
 BuildRequires:  qt5-qtsvg-devel
-BuildRequires: make
+BuildRequires:  make
 
 %description
 BibleTime is a free and easy to use cross-platform bible study tool. It
@@ -34,7 +38,7 @@ texts, write own notes, save, print etc.). BibleTime is a frontend for
 the SWORD Bible Framework.
 
 %prep
-%setup -q
+%autosetup
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release -B %{_target_platform}

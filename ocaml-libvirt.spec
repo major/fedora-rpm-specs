@@ -1,17 +1,18 @@
 %undefine _package_note_flags
+
 Name:           ocaml-libvirt
-Version:        0.6.1.6
-Release:        5%{?dist}
+Version:        0.6.1.7
+Release:        1%{?dist}
 Summary:        OCaml binding for libvirt
 License:        LGPLv2+
 
 URL:            http://libvirt.org/ocaml/
-#Source0:        http://libvirt.org/sources/ocaml/%{name}-%{version}.tar.gz
+#Source0:        http://libvirt.org/sources/ocaml/%%{name}-%%{version}.tar.gz
 # The tarball was not uploaded to the website at the time of packaging
 # so I built this using "make dist" in the source repo.
 Source0:        %{name}-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-ocamldoc
 BuildRequires:  ocaml-findlib-devel
@@ -41,11 +42,10 @@ developing applications that use %{name}.
 
 
 %build
+# Parallel builds do not work.
+unset MAKEFLAGS
 %configure
-make all doc
-%ifarch %{ocaml_native_compiler}
-make opt
-%endif
+make
 
 
 %install
@@ -54,15 +54,11 @@ export DESTDIR=$RPM_BUILD_ROOT
 export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
 mkdir -p $OCAMLFIND_DESTDIR $OCAMLFIND_DESTDIR/stublibs
 mkdir -p $RPM_BUILD_ROOT%{_bindir}
-%ifarch %{ocaml_native_compiler}
-make install-opt
-%else
-make install-byte
-%endif
+make install
 
 
 %files
-%doc COPYING.LIB README ChangeLog
+%doc COPYING.LIB README
 %{_libdir}/ocaml/libvirt
 %ifarch %{ocaml_native_compiler}
 %exclude %{_libdir}/ocaml/libvirt/*.a
@@ -75,7 +71,7 @@ make install-byte
 
 
 %files devel
-%doc COPYING.LIB README TODO.libvirt ChangeLog html/*
+%doc COPYING.LIB README TODO.libvirt
 %ifarch %{ocaml_native_compiler}
 %{_libdir}/ocaml/libvirt/*.a
 %{_libdir}/ocaml/libvirt/*.cmxa
@@ -85,6 +81,12 @@ make install-byte
 
 
 %changelog
+* Mon Feb 13 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.1.7-1
+- New upstream version 0.6.1.7
+- Do not try parallel builds.
+- Upstream now uses automake.
+- Remove ChangeLog file and HTML docs, dropped upstream.
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.1.6-5
 - Rebuild OCaml packages for F38
 

@@ -173,7 +173,7 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        110.0
-Release:        1%{?pre_tag}%{?dist}
+Release:        2%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
@@ -227,6 +227,7 @@ Patch71:        0001-GLIBCXX-fix-for-GCC-12.patch
 Patch78:        firefox-i686-build.patch
 Patch79:        firefox-gcc-13-build.patch
 Patch80:        D167194.diff
+Patch81:        D169197.diff
 
 # Test patches
 # Generate without context by
@@ -506,6 +507,7 @@ This package contains results of tests executed during build.
 %patch78 -p1 -b .firefox-i686
 %patch79 -p1 -b .firefox-gcc-13-build
 %patch80 -p1 -b .D167194
+%patch81 -p1 -b .D169197
 
 # Test patches
 #%patch100 -p1 -b .firefox-tests-xpcshell
@@ -1082,6 +1084,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Mon Feb 13 2023 Martin Stransky <stransky@redhat.com>- 110.0-2
+- Added fix for orca
+
 * Thu Feb 9 2023 Martin Stransky <stransky@redhat.com>- 110.0-1
 - Updated to 110.0
 

@@ -11,7 +11,7 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.50
+Version:        1.52
 Release:        1%{?dist}
 Summary:        Homological Algebra Programming for GAP
 
@@ -173,6 +173,9 @@ gap -l "%{buildroot}%{gap_libdir};" -o 3G tst/testquick.g
 %{gap_libdir}/pkg/%{pkgname}/tutorial/
 
 %changelog
+* Mon Feb 13 2023 Jerry James <loganjerry@gmail.com> - 1.52-1
+- Version 1.52
+
 * Fri Feb  3 2023 Jerry James <loganjerry@gmail.com> - 1.50-1
 - Version 1.50
 

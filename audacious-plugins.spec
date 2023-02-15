@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 %global tar_ver %{version}
 
@@ -29,6 +29,7 @@ Source3: README.licenses
 Source100: audacious-plugins-amidi.metainfo.xml
 Source101: audacious-plugins-exotic.metainfo.xml
 Source102: audacious-plugins-jack.metainfo.xml
+Source103: audacious-plugins-ffaudio.metainfo.xml
 
 # Fedora customization
 Patch0: audacious-plugins-3.7-alpha1-xmms-skindir.patch
@@ -69,6 +70,10 @@ BuildRequires: pkgconfig(libbinio)
 BuildRequires: pkgconfig(libopenmpt)
 BuildRequires: pkgconfig(libmpg123)
 BuildRequires: lame-devel
+# ffaudio / ffmpeg
+BuildRequires: pkgconfig(libavcodec) >= 56.60.100
+BuildRequires: pkgconfig(libavformat) >= 56.40.101
+BuildRequires: pkgconfig(libavutil) >= 54.31.100
 
 BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Gui)
@@ -138,6 +143,19 @@ This package provides AMIDI-Plug, a modular MIDI music player, as an
 input plugin for Audacious.
 
 
+%package ffaudio
+Summary: FFmpeg input plugin for Audacious
+License: GPLv2+
+
+%{?aud_plugin_dep}
+Requires: audacious-plugins%{?_isa} >= %{aud_ver}
+Obsoletes: audacious-plugins-freeworld-ffaudio < %{version}-%{release}
+Provides: audacious-plugins-freeworld-ffaudio = %{version}-%{release}
+
+%description ffaudio
+This package provides FFmpeg as an input plugin for Audacious.
+
+
 %prep
 %autosetup -n %{name}-%{tar_ver} -p1
 
@@ -180,7 +198,7 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
     --disable-sndio \
     --disable-aac  \
     --disable-mms  \
-    --disable-ffaudio  \
+    --enable-ffaudio \
     %{?with_gtk:--enable-gtk} \
     %{!?with_gtk:--disable-gtk} \
     --disable-rpath
@@ -195,6 +213,7 @@ mkdir -p ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE100} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE101} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
+install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %files -f %{name}.lang
@@ -306,8 +325,15 @@ install -p -m0644 %{SOURCE102} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 #%%{_libdir}/audacious/Input/amidi-plug/
 %{_datadir}/appdata/%{name}-amidi.metainfo.xml
 
+%files ffaudio
+%{_libdir}/audacious/Input/ffaudio.so
+%{_datadir}/appdata/%{name}-ffaudio.metainfo.xml
+
 
 %changelog
+* Mon Feb 13 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.2-5
+- Merge ffmpeg/ffaudio PR but prefer pkgconfig(foo) BR.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

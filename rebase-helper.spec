@@ -3,8 +3,8 @@
 %global pkgname rebasehelper
 
 Name:           rebase-helper
-Version:        0.27.0
-Release:        3%{?dist}
+Version:        0.28.0
+Release:        1%{?dist}
 Summary:        The tool that helps you to rebase your package to the latest version
 
 License:        GPLv2+
@@ -18,7 +18,9 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-setuptools_scm
 BuildRequires:  python3-setuptools_scm_git_archive
+BuildRequires:  python3-specfile
 BuildRequires:  python3-rpm
+BuildRequires:  python3-rpkg
 BuildRequires:  python3-koji
 BuildRequires:  python3-pyquery
 BuildRequires:  python3-copr
@@ -87,7 +89,7 @@ install -p -m 0644 build/rebase-helper.bash %{buildroot}%{_datadir}/bash-complet
 
 
 %check
-PYTHONPATH=$(pwd) py.test-3 -v %{pkgname}
+PYTHONPATH=$(pwd) py.test-3 -v tests
 
 
 %files
@@ -103,6 +105,17 @@ PYTHONPATH=$(pwd) py.test-3 -v %{pkgname}
 
 
 %changelog
+* Mon Feb 13 2023 Packit <hello@packit.dev> - 0.28.0-1
+News in version 0.28.0:
+
+- *debuginfo* packages are now skipped when running **sonamecheck**
+- Replaced our own implementation of lookaside cache client with *rpkg*
+- Switched from docker to podman in GitHub Actions
+- Added a 30 seconds time limit to bugzilla queries
+- Dropped support for Python < 3.9 and EPEL 8
+- Switched to [specfile](https://github.com/packit/specfile) library
+- Removed `--keep-comments` option
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.27.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

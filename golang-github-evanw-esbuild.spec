@@ -3,7 +3,7 @@
 
 # https://github.com/evanw/esbuild
 %global goipath         github.com/evanw/esbuild
-Version:                0.14.38
+Version:                0.17.7
 
 %gometa
 
@@ -15,7 +15,7 @@ TypeScript code for distribution on the web.}
 %global godocs          docs CHANGELOG.md README.md version.txt
 
 Name:           %{goname}
-Release:        5%{?dist}
+Release:        %autorelease
 Summary:        Fast JavaScript bundler and minifier
 
 License:        MIT
@@ -55,34 +55,4 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %gopkgfiles
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.38-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.14.38-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0.14.38-3
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0.14.38-2
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Tue Apr 26 2022 Onuralp SEZER <thunderbirdtr@fedoraproject.org> - 0.14.38-1
-- Update to 0.14.38
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.32-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.32-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.32-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Fri Jan 15 19:41:48 CET 2021 Robert-André Mauchin <zebob.m@gmail.com> - 0.8.32-1
-- Update to 0.8.32
-
-* Mon Aug 24 15:12:26 CEST 2020 Robert-André Mauchin <zebob.m@gmail.com> - 0.7.1-1
-- Initial package
+%autochangelog

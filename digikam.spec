@@ -6,7 +6,7 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 7.9.0
-Release: 4%{?beta}%{?dist}
+Release: 5%{?beta}%{?dist}
 
 License: GPLv2+
 URL:     http://www.digikam.org/
@@ -26,6 +26,7 @@ Source10: digikam-import.desktop
 ## upstream patches
 
 ## upstreamable patches
+Patch0: digikam-include.patch
 
 %if 0%{?ninja}
 BuildRequires: ninja-build
@@ -253,6 +254,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Mon Feb 13 2023 Orion Poplawski <orion@nwra.com> - 7.9.0-5
+- Add patch to add missing includes for gcc 13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.9.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

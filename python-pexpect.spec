@@ -5,12 +5,15 @@
 Name:           python-%{modname}
 Summary:        Unicode-aware Pure Python Expect-like module
 Version:        4.8.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 
 License:        ISC
 URL:            https://github.com/pexpect/pexpect
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
 Patch0:         %{url}/pull/715/commits/52af5b0ae0627139524448a3f2e83d9f40802bc2.patch
+Patch1:         %{url}/pull/737/commits/dae602d37493bae239e0e8db5b3dabafebfd59db.patch
+Patch2:         %{url}/pull/739/commits/31fab7b0edbe9b3401507b5dfa4db6aaf3fabca5.patch
+Patch3:         %{url}/pull/742/commits/373679020c6b1875293bf0e3a26d3116d605bff8.patch
 
 BuildRequires:  /usr/bin/man
 %if %{with check}
@@ -93,6 +96,9 @@ TRAVIS=true py.test-3 --verbose
 %{python3_sitelib}/%{modname}-*.egg-info
 
 %changelog
+* Sun Feb 12 2023 Scott Talbert <swt@techie.net> - 4.8.0-15
+- Fix FTBFS with Python 3.12 (#2155493)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

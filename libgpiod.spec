@@ -1,24 +1,26 @@
-#global candidate rc2
+%global candidate rc1
 
 Name:          libgpiod
-Version:       1.6.4
-Release:       1%{?candidate:.%{candidate}}%{?dist}
+Version:       2.0
+Release:       0.2%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPLv2+
 URL:           https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/
 Source0:       https://mirrors.edge.kernel.org/pub/software/libs/%{name}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.xz
+Patch0:        fix-python-install.patch
 
 BuildRequires: automake autoconf autoconf-archive libtool
 BuildRequires: doxygen
 BuildRequires: gcc gcc-c++
+BuildRequires: help2man
 BuildRequires: kernel-headers
 BuildRequires: kmod-devel
 BuildRequires: libstdc++-devel
+BuildRequires: make
 BuildRequires: python3-devel
 BuildRequires: python3-setuptools
 BuildRequires: systemd-devel
-BuildRequires: make
 
 %description
 libgpiod is a C library and tools for interacting with the linux GPIO character 
@@ -60,7 +62,7 @@ Requires: python3-%{name} = %{version}-%{release}
 Files for development with %{name}.
 
 %prep
-%setup -q -n %{name}-%{version}%{?candidate:-%{candidate}}
+%autosetup -p1
 
 %build
 autoreconf -vif
@@ -85,19 +87,27 @@ find %{buildroot} -name '*.la' -delete
 
 %files utils
 %{_bindir}/gpio*
+%{_mandir}/man*/gpio*
 
 %files c++
 %{_libdir}/libgpiodcxx.so.*
 
 %files -n python3-%{name}
-%{python3_sitearch}/gpiod.so
+%{python3_sitearch}/gpiod-*/
 
 %files devel
 %{_includedir}/gpiod.*
+%{_includedir}/gpiodcxx/
 %{_libdir}/pkgconfig/libgpiod*.pc
 %{_libdir}/%{name}*.so
 
 %changelog
+* Mon Feb 13 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0-0.2.rc1
+- Add deps for man pages build
+
+* Mon Feb 13 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0-0.1.rc1
+- Update to libgpiod 2.0 RC1
+
 * Wed Feb 08 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 1.6.4-1
 - Update to 1.6.4
 

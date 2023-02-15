@@ -1,17 +1,16 @@
 Name:           perl-Term-Cap
-Version:        1.17
-Release:        490%{?dist}
+Version:        1.18
+Release:        1%{?dist}
 Summary:        Perl termcap interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Term-Cap
 Source0:        https://cpan.metacpan.org/authors/id/J/JS/JSTOWE/Term-Cap-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 # Run-time:
 # ncurses for infocmp tool
 BuildRequires:  ncurses
@@ -33,12 +32,11 @@ capability (termcap) database.
 %setup -q -n Term-Cap-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -51,6 +49,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Feb 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.18-1
+- 1.18 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

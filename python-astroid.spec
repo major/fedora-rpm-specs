@@ -4,7 +4,7 @@
 %global srcname     astroid
 
 %global forgeurl https://github.com/PyCQA/astroid
-Version:        2.14.1
+Version:        2.14.2
 %forgemeta
 
 Name:           python-astroid

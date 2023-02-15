@@ -1,6 +1,6 @@
 Name:           harfbuzz
 Version:        7.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text shaping library
 
 License:        MIT
@@ -15,7 +15,7 @@ BuildRequires:  libicu-devel
 BuildRequires:  graphite2-devel
 BuildRequires:  gtk-doc
 BuildRequires:  gcc-c++
-BuildRequires: make
+BuildRequires:  make
 
 %description
 HarfBuzz is an implementation of the OpenType Layout engine.
@@ -60,6 +60,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %license COPYING
 %doc NEWS AUTHORS README
 %{_libdir}/libharfbuzz.so.0*
+%{_libdir}/libharfbuzz-cairo.so.*
 %{_libdir}/libharfbuzz-gobject.so.0*
 %{_libdir}/libharfbuzz-subset.so.0*
 %dir %{_libdir}/girepository-1.0
@@ -67,6 +68,7 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 
 %files devel
 %doc %{_datadir}/gtk-doc
+%{_bindir}/hb-info
 %{_bindir}/hb-view
 %{_bindir}/hb-ot-shape-closure
 %{_bindir}/hb-shape
@@ -74,9 +76,11 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/harfbuzz/
 %{_libdir}/libharfbuzz.so
 %{_libdir}/libharfbuzz-gobject.so
+%{_libdir}/libharfbuzz-cairo.so
 %{_libdir}/libharfbuzz-icu.so
 %{_libdir}/libharfbuzz-subset.so
 %{_libdir}/pkgconfig/harfbuzz.pc
+%{_libdir}/pkgconfig/harfbuzz-cairo.pc
 %{_libdir}/pkgconfig/harfbuzz-gobject.pc
 %{_libdir}/pkgconfig/harfbuzz-icu.pc
 %{_libdir}/pkgconfig/harfbuzz-subset.pc
@@ -88,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Mon Feb 13 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.0.0-2
+- Add hb-info, libharfbuzz-cairo library files
+
 * Mon Feb 13 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.0.0-1
 - Update to 7.0.0 version (#2169172)
 

@@ -3,23 +3,12 @@
 
 Summary: System and process monitoring utilities
 Name: procps-ng
-Version: 3.3.17
-Release: 9%{?dist}
+Version: 4.0.2
+Release: 1%{?dist}
 License: GPL+ and GPLv2 and GPLv2+ and GPLv3+ and LGPLv2+
 URL: https://sourceforge.net/projects/procps-ng/
 
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
-# README files are missing in latest tarball
-# wget https://gitlab.com/procps-ng/procps/raw/e0784ddaed30d095bb1d9a8ad6b5a23d10a212c4/README.md
-Source1: README.md
-# wget https://gitlab.com/procps-ng/procps/raw/e0784ddaed30d095bb1d9a8ad6b5a23d10a212c4/top/README.top
-Source2: README.top
-
-Patch1: pwait-to-pidwait.patch
-Patch2: covscan-findings.patch
-Patch3: sysctl-hyphen-param.patch
-Patch4: free-si-fix.patch
-Patch5: sysctl-print-dotted-keys-again.patch
 
 
 BuildRequires: make
@@ -38,7 +27,7 @@ BuildRequires: dejagnu
 %endif
 
 Provides: procps = %{version}-%{release}
-Obsoletes: procps < 3.2.9-1
+Obsoletes: procps < 4.0.1-1
 
 # usrmove hack - will be removed once initscripts are fixed
 Provides: /sbin/sysctl
@@ -72,7 +61,7 @@ waits for processes of specified names.
 Summary:  System and process monitoring utilities
 Requires: %{name}%{?_isa} = %{version}-%{release}
 Provides: procps-devel = %{version}-%{release}
-Obsoletes: procps-devel < 3.2.9-1
+Obsoletes: procps-devel < 3.3.17-8
 
 %description devel
 System and process monitoring utilities development headers
@@ -91,11 +80,7 @@ Conflicts: man-pages-pl < 0.7-5
 Internationalization pack for procps-ng
 
 %prep
-%setup -q -n procps-%{version}
-%autopatch -p1
-
-cp -p %{SOURCE1} .
-cp -p %{SOURCE2} top/
+%autosetup -S git
 
 %build
 # The following stuff is needed for git archives only
@@ -106,7 +91,6 @@ autoreconf --verbose --force --install
 
 %configure \
            --exec-prefix=/ \
-           --docdir=/unwanted \
            --disable-static \
            --disable-w-from \
            --disable-kill \
@@ -140,29 +124,30 @@ ln -s %{_bindir}/pidof %{buildroot}%{_sbindir}/pidof
 %ldconfig_scriptlets
 
 %files
-%doc AUTHORS Documentation/bugs.md Documentation/FAQ NEWS README.md top/README.top Documentation/TODO
+%doc AUTHORS bugs.md FAQ NEWS README.md
 %license COPYING COPYING.LIB
-%{_libdir}/libprocps.so.*
+%{_libdir}/libproc2.so.*
 %{_bindir}/*
 %{_sbindir}/*
 %{_mandir}/man1/*
 %{_mandir}/man8/*
 %{_mandir}/man5/*
 
-
-%exclude %{_libdir}/libprocps.la
-%exclude /unwanted/*
+%exclude %{_pkgdocdir}/libproc.supp
 
 %files devel
 %license COPYING COPYING.LIB
-%{_libdir}/libprocps.so
-%{_libdir}/pkgconfig/libprocps.pc
-%{_includedir}/proc
+%{_libdir}/libproc2.so
+%{_libdir}/pkgconfig/libproc2.pc
+%{_includedir}/libproc2
 %{_mandir}/man3/*
 
 %files i18n -f %{name}.lang
 
 %changelog
+* Mon Feb 13 2023 Jan Rybar <jrybar@redhat.com> - 4.0.2-1
+- rebase to 4.0.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.17-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

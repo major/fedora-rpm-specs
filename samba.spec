@@ -135,7 +135,7 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.0
-%global baserelease 4
+%global baserelease 5
 # This should be rc1 or %%nil
 %global pre_release rc2
 
@@ -511,7 +511,7 @@ SMB/CIFS clients.
 
 ### COMMON-TOOLS
 %package common-tools
-Summary: Tools for Samba servers and clients
+Summary: Tools for Samba clients
 Requires: samba-common-libs = %{samba_depver}
 Requires: samba-client-libs = %{samba_depver}
 Requires: samba-libs = %{samba_depver}
@@ -521,6 +521,14 @@ Requires: libnetapi = %{samba_depver}
 Requires: libwbclient = %{samba_depver}
 %endif
 
+Provides: bundled(libreplace)
+
+%description common-tools
+The samba-common-tools package contains tools for SMB/CIFS clients.
+
+### SAMBA-TOOLS
+%package tools
+Summary: Tools for Samba servers
 # samba-tool needs python3-samba
 Requires: python3-%{name} = %{samba_depver}
 # samba-tool needs tdbbackup
@@ -532,11 +540,9 @@ Requires: python3-%{name}-dc = %{samba_depver}
 Requires: lmdb
 %endif
 
-Provides: bundled(libreplace)
-
-%description common-tools
-The samba-common-tools package contains tools for Samba servers and
-SMB/CIFS clients.
+%description tools
+The samba-tools package contains tools for Samba servers
+and for GPO management on domain members.
 
 ### RPC
 %package dcerpc
@@ -978,6 +984,7 @@ Requires(post): %{name}-client-libs = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires(post): %{name}-libs = %{samba_depver}
 Requires: %{name}-winbind-modules = %{samba_depver}
+Recommends: %{name}-tools = %{samba_depver}
 
 %if %{with libwbclient}
 Requires(post): libwbclient = %{samba_depver}
@@ -2023,11 +2030,11 @@ fi
 %{_libdir}/samba/pdb/smbpasswd.so
 %{_libdir}/samba/pdb/tdbsam.so
 
+### COMMON-TOOLS
 %files common-tools
 %{_bindir}/net
 %{_bindir}/pdbedit
 %{_bindir}/profiles
-%{_bindir}/samba-tool
 %{_bindir}/smbcontrol
 %{_bindir}/smbpasswd
 %{_bindir}/testparm
@@ -2036,8 +2043,12 @@ fi
 %{_mandir}/man1/testparm.1*
 %{_mandir}/man8/net.8*
 %{_mandir}/man8/pdbedit.8*
-%{_mandir}/man8/samba-tool.8*
 %{_mandir}/man8/smbpasswd.8*
+
+### TOOLS
+%files tools
+%{_bindir}/samba-tool
+%{_mandir}/man8/samba-tool.8*
 
 ### RPC
 %files dcerpc
@@ -4322,6 +4333,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 13 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.18.0rc2-5
+- Create package samba-tools, move there samba-tool binary
+
 * Thu Feb 02 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.0rc2-3
 - resolves: #2166416 - Update to version 4.18.0rc2
 

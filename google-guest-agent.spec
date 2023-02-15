@@ -5,7 +5,7 @@
 
 # https://github.com/GoogleCloudPlatform/guest-agent
 %global goipath         github.com/GoogleCloudPlatform/guest-agent
-Version:                20221109.00
+Version:                20230207.00
 %global tag             %{version}
 
 %gometa -f

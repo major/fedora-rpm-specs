@@ -1,5 +1,5 @@
 %global packname igraph
-%global packver  1.3.5
+%global packver  1.4.0
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((graph|igraphdata|rgl)\\)
@@ -14,7 +14,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Network Analysis and Visualization
 
 # Main: GPLv2+; html_library.tcl: TCL
@@ -31,7 +31,7 @@ ExcludeArch: %{ix86}
 # Here's the R view of the dependencies world:
 # Depends:   R-methods
 # Imports:   R-graphics, R-grDevices, R-magrittr, R-Matrix, R-pkgconfig >= 2.0.0, R-rlang, R-stats, R-utils
-# Suggests:  R-ape, R-digest, R-graph, R-igraphdata, R-rgl, R-scales, R-stats4, R-tcltk, R-testthat, R-withr
+# Suggests:  R-ape, R-digest, R-graph, R-igraphdata, R-rgl, R-scales, R-stats4, R-tcltk, R-testthat, R-withr, R-vdiffr, R-knitr, R-rmarkdown
 # LinkingTo:
 # Enhances:
 
@@ -51,12 +51,16 @@ BuildRequires:    R-stats4
 BuildRequires:    R-tcltk
 BuildRequires:    R-testthat
 BuildRequires:    R-withr
+BuildRequires:    R-knitr
+BuildRequires:    R-rmarkdown
 %if %{with_suggests}
 BuildRequires:    R-ape
 BuildRequires:    R-graph
 BuildRequires:    R-igraphdata
 BuildRequires:    R-rgl
 BuildRequires:    R-scales
+# As of 1.4.0, we cannot run the tests without this...
+BuildRequires:    R-vdiffr
 %endif
 %if %{with sys_arpack}
 BuildRequires:    arpack-devel
@@ -111,7 +115,7 @@ ARGS=--no-examples
 %if %{with_suggests}
 %{_bindir}/R CMD check %{packname} $ARGS
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
+# _R_CHECK_FORCE_SUGGESTS_=0 %%{_bindir}/R CMD check %%{packname} $ARGS
 %endif
 
 
@@ -122,7 +126,7 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
 %doc %{rlibdir}/%{packname}/NEWS.md
 %doc %{rlibdir}/%{packname}/AUTHORS
 %doc %{rlibdir}/%{packname}/CITATION
-%doc %{rlibdir}/%{packname}/README.md
+%doc %{rlibdir}/%{packname}/doc
 %{rlibdir}/%{packname}/INDEX
 %{rlibdir}/%{packname}/NAMESPACE
 %{rlibdir}/%{packname}/Meta
@@ -141,6 +145,10 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
 
 
 %changelog
+* Mon Feb 13 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.0-1
+- update to 1.4.0
+- disable tests until R-vdiffr makes it into Fedora (if ever)
+
 * Sun Jan 22 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.3.5-3
 - Drop support for i686
 - Switch to SPDX licenses

@@ -3,10 +3,10 @@
 
 Name:           quilt
 Version:        0.67
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scripts for working with series of patches
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://savannah.nongnu.org/projects/%{name}
 Source:         https://download-mirror.savannah.gnu.org/releases/%{name}/%{name}-%{version}.tar.gz
 
@@ -77,6 +77,9 @@ rm -rf %{buildroot}%{_pkgdocdir}
 
 
 %changelog
+* Mon Feb 13 2023 Josh Boyer <jwboyer@fedoraproject.org> - 0.67-4
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.67-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

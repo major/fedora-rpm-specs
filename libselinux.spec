@@ -1,19 +1,19 @@
 %define ruby_inc %(pkg-config --cflags ruby)
-%define libsepolver 3.5-0.rc2
+%define libsepolver 3.5-0.rc3
 
 Summary: SELinux library and simple utilities
 Name: libselinux
 Version: 3.5
-Release: 0.rc2.1%{?dist}.1
+Release: 0.rc3.1%{?dist}
 License: LicenseRef-Fedora-Public-Domain
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc2/libselinux-3.5-rc2.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc3/libselinux-3.5-rc3.tar.gz
 Source1: selinuxconlist.8
 Source2: selinuxdefcon.8
 Url: https://github.com/SELinuxProject/selinux/wiki
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N 3.5-rc2 -- libselinux
+# $ git format-patch -N 3.5-rc3 -- libselinux
 # $ i=1; for j in 00*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 Patch0001: 0001-Use-SHA-2-instead-of-SHA-1.patch
@@ -87,7 +87,7 @@ The libselinux-static package contains the static libraries
 needed for developing SELinux applications. 
 
 %prep
-%autosetup -p 2 -n libselinux-%{version}-rc2
+%autosetup -p 2 -n libselinux-%{version}-rc3
 
 %build
 export DISABLE_RPM="y"
@@ -175,6 +175,7 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %files utils
 %{_sbindir}/avcstat
 %{_sbindir}/getenforce
+%{_sbindir}/getpidprevcon
 %{_sbindir}/getsebool
 %{_sbindir}/matchpathcon
 %{_sbindir}/sefcontext_compile
@@ -213,6 +214,9 @@ rm -f %{buildroot}%{_mandir}/man8/togglesebool*
 %{ruby_vendorarchdir}/selinux.so
 
 %changelog
+* Mon Feb 13 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc3.1
+- SELinux userspace 3.5-rc3 release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-0.rc2.1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

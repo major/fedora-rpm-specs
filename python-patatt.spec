@@ -1,7 +1,7 @@
 %global srcname patatt
 
 Name:           python-%{srcname}
-Version:        0.6.2
+Version:        0.6.3
 Release:        %autorelease
 Summary:        Add cryptographic attestation to patches sent via email
 License:        MIT-0

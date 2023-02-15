@@ -1,46 +1,39 @@
 %bcond_without docs
-%global pypi_name testpath
 
-Name:           python-%{pypi_name}
+Name:           python-testpath
 Version:        0.6.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Test utilities for code working with files and commands
 
 License:        MIT
 URL:            https://github.com/jupyter/testpath
 
-Source0:        %pypi_source
+Source0:        %{pypi_source testpath}
 
 BuildArch:      noarch
 
-BuildRequires:  python3-pip
 BuildRequires:  python3-devel
-
-BuildRequires:  python3-flit-core
 
 %if %{with docs}
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-sphinx_rtd_theme
 %endif
 
-# Tests:
-BuildRequires:  python3-pytest
+%global _description %{expand:
+Testpath is a collection of utilities for Python code working with files and
+commands.
 
-%global _description \
-Testpath is a collection of utilities for Python code working with files and \
-commands. \
-\
-It contains functions to check things on the filesystem, and tools for \
-mocking system commands and recording calls to those.
+It contains functions to check things on the filesystem, and tools for
+mocking system commands and recording calls to those.}
 
 %description %_description
 
-%package -n     python3-%{pypi_name}
+
+%package -n     python3-testpath
 Summary:        %summary
 
-%description -n python3-%{pypi_name}
+%description -n python3-testpath %_description
 
-%_description
 
 %if %{with docs}
 %package        doc
@@ -51,17 +44,18 @@ Documentation for %{name}.
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n testpath-%{version}
 
 # The exe files are only needed on Microsoft Windows
-rm -f %{pypi_name}/*.exe
+rm -f testpath/*.exe
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 
 %build
-# this package has no setup.py
-# and upstream does not want one
-# https://github.com/takluyver/flit/issues/74
-# we use flit to create a wheel from sources
-%{python3} -m flit_core.wheel
+%pyproject_wheel
 
 %if %{with docs}
 # generate html docs
@@ -72,27 +66,29 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %install
-# We install the wheel created at %%build
-%py3_install_wheel %{pypi_name}-%{version}-py3-none-any.whl
-
+%pyproject_install
+%pyproject_save_files testpath
 
 
 %check
 %pytest
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-testpath -f %{pyproject_files}
 %doc README.rst
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
-%{python3_sitelib}/%{pypi_name}/
 
 %if %{with docs}
 %files doc
 %doc html
 %endif
 
+
 %changelog
+* Mon Feb 13 2023 Miro Hrončok <mhroncok@redhat.com> - 0.6.0-5
+- Convert to pyproject-rpm-macros
+- The INSTALLER file now says "rpm" instead of "pip"
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

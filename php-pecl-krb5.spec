@@ -1,7 +1,7 @@
 # Fedora spec file for php-pecl-krb5
 #
-# Copyright (c) 2014-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2014-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/3.0/
 #
 # Please, preserve the changelog entries
@@ -16,9 +16,9 @@
 
 Summary:        Kerberos authentification extension
 Name:           php-pecl-%{pecl_name}
-Version:        1.1.4
-Release:        9%{?dist}
-License:        BSD
+Version:        1.1.5
+Release:        1%{?dist}
+License:        MIT
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}.tgz
 
@@ -26,7 +26,7 @@ BuildRequires:  make
 BuildRequires:  gcc
 BuildRequires:  krb5-devel >= 1.8
 BuildRequires:  pkgconfig(com_err)
-BuildRequires:  php-devel > 5.2
+BuildRequires:  php-devel
 BuildRequires:  php-pear
 
 Requires:       php(zend-abi) = %{php_zend_api}
@@ -169,6 +169,10 @@ cd ../ZTS
 
 
 %changelog
+* Mon Feb 13 2023 Remi Collet <remi@remirepo.net> - 1.1.5-1
+- update to 1.1.5
+- license is MIT
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 1.1.4-9
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 

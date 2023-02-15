@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-mock2
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    9a55bd8ba40e6da2e97a866121d2c69dedd4952b
+%global gh_commit    6f71999665d27fbdf684c1639981e96eff540b5f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-mock
 %global gh_project   php-mock
@@ -14,8 +14,8 @@
 %global major        2
 
 Name:           php-mock%{major}
-Version:        2.3.1
-Release:        3%{?dist}
+Version:        2.4.0
+Release:        1%{?dist}
 Summary:        PHP-Mock can mock built-in PHP functions
 
 License:        WTFPL
@@ -23,23 +23,24 @@ URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 5.6
+# 7.4 because of phpunit9
+BuildRequires:  php(language) >= 7.4
 %if %{with_tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.0 || ^9.0",
+#        "phpunit/phpunit": "^5.7 || ^6.5 || ^7.5 || ^8.0 || ^9.0 || ^10.0",
 #        "squizlabs/php_codesniffer": "^3.5"
-BuildRequires: (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 3)
+BuildRequires: phpunit8
 BuildRequires: phpunit9
-%global phpunit %{_bindir}/phpunit9
+# TODO phpunit10 but requires php 8.1
 %endif
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
 
 # from composer.json, "require": {
 #        "php": "^5.6 || ^7.0 || ^8.0",
-#        "phpunit/php-text-template": "^1"
+#        "phpunit/php-text-template": "^1 || ^2 || ^3")
 Requires:       php(language) >= 5.6
-Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 3)
+Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 4)
 # From phpcompatinfo report from version 2.0.0
 Requires:       php-date
 Requires:       php-reflection
@@ -80,6 +81,7 @@ require_once '%{_datadir}/php/Fedora/Autoloader/autoload.php';
 \Fedora\Autoloader\Autoload::addPsr4('phpmock\\', dirname(dirname(__DIR__)) . '/tests/phpmock%{major}');
 \Fedora\Autoloader\Dependencies::required([
     [
+        '%{_datadir}/php/SebastianBergmann/Template3/autoload.php',
         '%{_datadir}/php/SebastianBergmann/Template2/autoload.php',
         '%{_datadir}/php/Text/Template/Autoload.php',
     ]
@@ -111,14 +113,35 @@ cp -pr rpm/tests %{buildroot}%{_datadir}/tests
 ret=0
 # testDefiningAfterCallingUnqualified and testEnable may fail locally (ok in mock)
 
-for cmdarg in "php %{phpunit}" php74 php80 php81;do
-  if which $cmdarg; then
-    set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit9} \
-      --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
-      --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php --verbose rpm/tests || ret=1
-  fi
-done
+if [ -x %{_bindir}/phpunit8 ]; then
+	for cmd in php php80 php81 php82;do
+	  if which $cmd; then
+		$cmd %{_bindir}/phpunit8 \
+		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
+		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php --verbose rpm/tests || ret=1
+	  fi
+	done
+fi
+
+if [ -x %{_bindir}/phpunit9 ]; then
+	for cmd in php php80 php81 php82;do
+	  if which $cmd; then
+		$cmd %{_bindir}/phpunit9 \
+		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
+		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php --verbose rpm/tests || ret=1
+	  fi
+	done
+fi
+
+if [ -x %{_bindir}/phpunit10 ]; then
+	for cmd in php php81 php82;do
+	  if which $cmd; then
+		$cmd %{_bindir}/phpunit10 \
+		  --filter '^((?!(testDefiningAfterCallingUnqualified|testEnable)).)*$' \
+		  --bootstrap %{buildroot}%{_datadir}/tests/phpmock2/autoload.php rpm/tests || ret=1
+	  fi
+	done
+fi
 exit $ret
 %else
 : bootstrap build with test suite disabled
@@ -134,6 +157,10 @@ exit $ret
 
 
 %changelog
+* Mon Feb 13 2023 Remi Collet <remi@remirepo.net> - 2.4.0-1
+- update to 2.4.0
+- allow phpunit10
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,14 +3,15 @@
 #
 
 Name: rshim
-Version: 2.0.4
-Release: 9%{?dist}
+# Upstream uses a dash in the version. Not valid in the Version field, so we use a dot instead.
+#   https://github.com/Mellanox/rshim-user-space/issues/105
+%global upstream_ver 2.0.6-19
+Version: %{lua: print((string.gsub(rpm.expand("%{upstream_ver}"),"-",".")))}
+Release: %autorelease
 Summary: User-space driver for Mellanox BlueField SoC
-
 License: GPLv2
-
 URL: https://github.com/mellanox/rshim-user-space
-Source0: https://github.com/Mellanox/rshim-user-space/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source0: https://github.com/Mellanox/rshim-user-space/archive/refs/tags/%{name}-%{upstream_ver}.tar.gz
 
 BuildRequires: gcc, autoconf, automake, make
 BuildRequires: pkgconfig(libpci), pkgconfig(libusb-1.0), pkgconfig(fuse)
@@ -26,7 +27,7 @@ interface. It provides ways to push boot stream, debug the target or login
 via the virtual console or network interface.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n rshim-user-space-%{name}-%{upstream_ver}
 
 %build
 ./bootstrap.sh
@@ -48,66 +49,12 @@ via the virtual console or network interface.
 %files
 %license LICENSE
 %doc README.md
+%config(noreplace) %{_sysconfdir}/rshim.conf
 %{_sbindir}/rshim
+%{_sbindir}/bfb-install
 %{_unitdir}/rshim.service
 %{_mandir}/man8/rshim.8.gz
+%{_mandir}/man8/bfb-install.8.gz
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-9
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-7
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Mar 02 2021 Zbigniew Jędrzejewski-Szmek <zbyszek@in.waw.pl> - 2.0.4-5
-- Rebuilt for updated systemd-rpm-macros
-  See https://pagure.io/fesco/issue/2583.
-
-* Wed Jan 27 2021 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Sat Aug 01 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-3
-- Second attempt - Rebuilt for
-  https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jul 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.4-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Apr 21 2020 Liming Sun <lsun@mellanox.com> - 2.0.4-1
-- Update .spec file according to review comments
-- Fix the 'KillMode' in rshim.service
-- Support process termination by SIGTERM
-- Fix some compiling warnings and configure issue for FreeBSD
-- Fix a read()/write() issue in rshim_pcie.c caused by optimization
-
-* Tue Apr 14 2020 Liming Sun <lsun@mellanox.com> - 2.0.3-1
-- Enable pci device during probing
-- Map the pci resource0 file instead of /dev/mem
-- Add copyright header in bootstrap.sh
-- Add 'Requires' tag check in the rpm .spec for kernel-modules-extra
-- Fix the 'rshim --version' output
-
-* Thu Apr 09 2020 Liming Sun <lsun@mellanox.com> - 2.0.2-1
-- Remove unnecessary dependency in .spec and use make_build
-- Add package build for debian/ubuntu
-- Fix some format in the man page
-- Add check for syslog headers
-
-* Mon Mar 23 2020 Liming Sun <lsun@mellanox.com> - 2.0.1-1
-- Rename bfrshim to rshim
-- Remove rshim.spec since it's auto-generated from rshim.spec.in
-- Fix warnings reported by coverity
-- Add rhel/rshim.spec.in for fedora
-- Move rshim to sbin and move man page to man8
-
-* Fri Mar 13 2020 Liming Sun <lsun@mellanox.com> - 2.0-1
-- Update the spec file according to fedora packaging-guidelines
-
-* Mon Dec 16 2019 Liming Sun <lsun@mellanox.com>
-- Initial packaging
+%autochangelog

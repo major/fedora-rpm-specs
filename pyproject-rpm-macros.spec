@@ -10,7 +10,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.6.1
+Version:        1.6.2
 Release:        1%{?dist}
 
 # Macro files
@@ -147,6 +147,10 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Wed Feb 08 2023 Lumír Balhar <lbalhar@redhat.com> - 1.6.2-1
+- Improve detection of lang files
+- Fixes: rhbz#2166295
+
 * Fri Feb 03 2023 Miro Hrončok <mhroncok@redhat.com> - 1.6.1-1
 - %%pyproject_buildrequires: Avoid leaking stdout from subprocesses
 - Fixes: rhbz#2166888

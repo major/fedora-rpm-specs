@@ -27,7 +27,7 @@ Release:        %autorelease
 Summary:        A port of the parser from graphql-js into golang
 
 # All files are MIT except those in validator/imported
-License:        MIT and BSD-3-Clause
+License:        MIT AND BSD-3-Clause
 URL:            %{gourl}
 Source:         %{gosource}
 # This "//go:embed prelude.graphql" causes dependent packages to fail to build.

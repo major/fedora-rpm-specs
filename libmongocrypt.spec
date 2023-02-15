@@ -14,7 +14,7 @@
 
 Name:      %{libname}
 Summary:   The companion C library for client side encryption in drivers
-Version:   1.7.1
+Version:   1.7.2
 Release:   1%{?dist}
 
 # see kms-message/THIRD_PARTY_NOTICES
@@ -28,8 +28,6 @@ Source0:   https://github.com/%{gh_owner}/%{gh_project}/archive/%{version}.tar.g
 
 # drop all reference to static libraries
 Patch0:    %{libname}-static.patch
-# fix i686 build
-Patch1:    %{libname}-i686.patch
 
 BuildRequires: cmake >= 3.12
 BuildRequires: gcc
@@ -116,7 +114,10 @@ fi
 
 
 %changelog
-* Mon Feb  6 2023 Remi Collet <remi@remirepo.net> - 1.7.0-1
+* Mon Feb 13 2023 Remi Collet <remi@remirepo.net> - 1.7.2-1
+- update to 1.7.2
+
+* Mon Feb  6 2023 Remi Collet <remi@remirepo.net> - 1.7.1-1
 - update to 1.7.1
 - open https://jira.mongodb.org/browse/MONGOCRYPT-532 32-bit not supported
 - fix i686 build using patch from

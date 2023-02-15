@@ -1,9 +1,9 @@
 Name:           uacme
 Version:        1.7.3 
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Lightweight SSL certificate verification and issue client
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://github.com/ndilieto/uacme
 Source0:        %{url}/archive/upstream/%{version}/%{name}-%{version}.tar.gz
 
@@ -79,6 +79,9 @@ ${RPM_BUILD_ROOT}%{_bindir}/ualpn --version 2>&1 | grep 'ualpn: version %version
 %doc AUTHORS ChangeLog NEWS README THANKS
 
 %changelog
+* Mon Feb 13 2023 Benson Muite <benson_muite@emailplus.org> 1.7.3-3
+- Use SPDX license identifier
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

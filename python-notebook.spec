@@ -5,35 +5,28 @@
 Name:           python-notebook
 %global _docdir_fmt %{name}
 
-# Updating this package? Update the list of bundled things bellow
-Version:        6.4.12
-Release:        2%{?dist}
+Version:        6.5.2
+Release:        1%{?dist}
 Summary:        A web-based notebook environment for interactive computing
 License:        BSD
 URL:            https://jupyter.org
-Source0:        %{pypi_source notebook}
+Source:         %{pypi_source notebook}
 
-# Patch to use the TeX fonts from the MathJax package rather than STIXWeb
-# See BZ: 1581899, 1580129
-Patch0:         0001-Use-MathJax-TeX-fonts-rather-than-STIXWeb.patch
-
-# Fix CVE-2022-24785 and CVE-2022-31129 in bundled moment
-Patch:          0001-Fix-CVE-2022-24785-and-CVE-2022-31129.patch
+# Patch containing .mo and .json files for translations.
+# .mo binary files are regenerated in %%build
+# .json files need po2json (JS implementation) which is
+# not available in Fedora and therefore we use them from this patch.
+Patch0:          https://github.com/jupyter/notebook/pull/6728.patch
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-
+# For translations
+BuildRequires:  babel
+# For binary patch
 BuildRequires:  git-core
-
-# rebuilding js and css
-BuildRequires:  /usr/bin/node
-
-# for tests
-BuildRequires:  pandoc
-
-# for validating desktop entry
-BuildRequires: desktop-file-utils
+# For validating desktop entry
+BuildRequires:  desktop-file-utils
 
 %global _description \
 The Jupyter Notebook is a web application that allows you to create and \
@@ -50,49 +43,21 @@ Summary:        %{summary}
 %py_provides    notebook
 %py_provides    jupyter-notebook
 
-Requires:       fontawesome-fonts
-Requires:       fontawesome-fonts-web
-Requires:       mathjax >= 2.6
-Requires:       js-backbone >= 1.2
-Requires:       js-marked >= 0.7
-Requires:       js-underscore >= 1.8.3
-Requires:       hicolor-icon-theme
-
-# Versions from bower.json
-Provides:       bundled(bootstrap) = 3.4
-Provides:       bundled(bootstrap-tour) = 0.9.0
-Provides:       bundled(codemirror) = 5.56.0
-Provides:       bundled(create-react-class) = 15.6.3
-Provides:       bundled(es6-promise) = 1.0
-Provides:       bundled(google-caja) = 5669
-Provides:       bundled(jed) = 1.1.1
-Provides:       bundled(jquery) = 3.5.0
-Provides:       bundled(jquery-typeahead) = 2.10.6
-Provides:       bundled(jquery-ui) = 1.12
-Provides:       bundled(moment) = 2.19.3
-Provides:       bundled(react) = 16.0.0
-Provides:       bundled(requirejs) = 2.2
-Provides:       bundled(requirejs-text) = 2.0.15
-Provides:       bundled(requirejs-plugins) = 1.0.3
-Provides:       bundled(text-encoding) = 0.1
-Provides:       bundled(xterm.js) = 3.1.0
-Provides:       bundled(xterm.js-css) = 3.1.0
-Provides:       bundled(xterm.js-fit) = 3.1.0
-# See https://bugzilla.redhat.com/show_bug.cgi?id=1580129
-#Provides:       bundled(mathjax) = 2.7.4
-
 %description -n python3-notebook %_description
 
 
 %prep
-%autosetup -n notebook-%{version} -S git
+%setup -q -n notebook-%{version}
+
+# Apply binary patch
+git --git-dir=. apply --exclude .gitignore --apply %{PATCH0}
 
 # The nbval package is used for validation of notebooks.
 # It's sedded out because it isn't yet packaged in Fedora.
 #
-# Selenium tests are skipped.
+# Selenium tests are skipped because the version in Fedora is too old.
 # We don't test coverage.
-for pkg in nbval selenium coverage pytest-cov; do
+for pkg in nbval "selenium==.*" coverage pytest-cov; do
   sed -Ei "s/'$pkg',? ?//" setup.py
 done
 
@@ -102,90 +67,81 @@ done
 
 
 %build
+# Generate .mo files from .po files and remove .po files
+pushd notebook/i18n
+for lang in $(ls -d */ | tr -d "/")
+do
+  for file in nbui notebook
+  do
+    pybabel compile -D ${file} -f -l ${lang} -i ${lang}/LC_MESSAGES/${file}.po -o ${lang}/LC_MESSAGES/${file}.mo
+    rm -v ${lang}/LC_MESSAGES/${file}.po
+  done
+
+  # Unfortunately this neither works with po2json from translate-toolkit nor
+  # with the po2json package from PyPI and the JS implementation:
+  # https://www.npmjs.com/package/po2json
+  # is not availabe in Fedora. But the files should be available
+  # upstream. Issue: https://github.com/jupyter/notebook/issues/6717
+  # po2json -p -F -f jed1.x -d nbjs ${lang}/LC_MESSAGES/nbjs.po ${lang}/LC_MESSAGES/nbjs.json
+  rm -v ${lang}/LC_MESSAGES/nbjs.po
+
+done
+popd
+
 %pyproject_wheel
 
 
 %install
 %pyproject_install
+%pyproject_save_files notebook
 
-# Don't use %%pyproject_save_files, because we'll change a lot
-
-# unbundle stuff
-pushd %{buildroot}%{python3_sitelib}/notebook/static/components
-
-  rm -r font-awesome/fonts
-  ln -vfs %{_datadir}/fonts/fontawesome font-awesome/fonts
-
-  #temporarily kept bundled to workaround #1580129
-  rm -r MathJax
-  ln -vfs %{_datadir}/javascript/mathjax MathJax
-
-  rm -r backbone
-  ln -vfs %{_datadir}/javascript/backbone backbone
-
-  rm -r marked/lib
-  ln -vfs %{_datadir}/javascript/marked marked/lib
-
-  rm -r underscore
-  ln -vfs %{_datadir}/javascript/underscore underscore
-
-popd
-
-# Remove packaged tests
-rm -rv $(find %{buildroot}%{python3_sitelib}/notebook -type d -name tests)
-
-# Remove .po files
-rm -v $(find %{buildroot}%{python3_sitelib}/notebook/i18n -type f -name '*.po')
+# Remove nbjs.json files from pyproject_files
+# to add them manually later with %%lang
+sed -i "/LC_MESSAGES\/nbjs.json/d" %{pyproject_files}
 
 
 %check
-# Workaround: OSError: [Errno 18] Invalid cross-device link: b'/tmp/...' -> b'/builddir/.local/share/Trash/files/...'
-mkdir .tmp
-export TMPDIR=$(pwd)/.tmp
-
 %pytest --ignore notebook/tests/selenium
 
 desktop-file-validate %{buildroot}%{_datadir}/applications/jupyter-notebook.desktop
 
-# This was previously unbundled, but no more
-# See https://docs.fedoraproject.org/en-US/packaging-guidelines/Directory_Replacement/
-%pretrans -n python3-notebook -p <lua>
-path = "%{python3_sitelib}/notebook/static/components/moment"
-st = posix.stat(path)
-if st and st.type == "link" then
-  os.remove(path)
-end
 
-
-%files -n python3-notebook
+%files -n python3-notebook -f %{pyproject_files}
 %doc README.md
 %license LICENSE
 %{_bindir}/jupyter-bundlerextension
 %{_bindir}/jupyter-nbextension
 %{_bindir}/jupyter-serverextension
 %{_bindir}/jupyter-notebook
-%{python3_sitelib}/notebook-%{version}.dist-info/
-
-# Exclude i18n:
-%dir %{python3_sitelib}/notebook/
-%{python3_sitelib}/notebook/[_a-hj-z]*
-
-# Language files (could be scripted, but is short)
-%dir %{python3_sitelib}/notebook/i18n/
-%{python3_sitelib}/notebook/i18n/*.py
-%{python3_sitelib}/notebook/i18n/__pycache__/
-%lang(fr) %{python3_sitelib}/notebook/i18n/fr_FR/
-%lang(ja) %{python3_sitelib}/notebook/i18n/ja_JP/
-%lang(nl) %{python3_sitelib}/notebook/i18n/nl/
-%lang(ru) %{python3_sitelib}/notebook/i18n/ru_RU/
-%lang(zh) %{python3_sitelib}/notebook/i18n/zh_CN/
-
+# lang .json files not detected by save_files
+%lang(fr) %{python3_sitelib}/notebook/i18n/fr_FR/LC_MESSAGES/nbjs.json
+%lang(ja) %{python3_sitelib}/notebook/i18n/ja_JP/LC_MESSAGES/nbjs.json
+%lang(nl) %{python3_sitelib}/notebook/i18n/nl/LC_MESSAGES/nbjs.json
+%lang(ru) %{python3_sitelib}/notebook/i18n/ru_RU/LC_MESSAGES/nbjs.json
+%lang(zh) %{python3_sitelib}/notebook/i18n/zh_CN/LC_MESSAGES/nbjs.json
 # Desktop integration
 %{_datadir}/applications/jupyter-notebook.desktop
 %{_datadir}/icons/hicolor/scalable/apps/notebook.svg
+# Tests
+%exclude %{python3_sitelib}/notebook/auth/tests
+%exclude %{python3_sitelib}/notebook/bundler/tests
+%exclude %{python3_sitelib}/notebook/nbconvert/tests
+%exclude %{python3_sitelib}/notebook/services/api/tests
+%exclude %{python3_sitelib}/notebook/services/config/tests
+%exclude %{python3_sitelib}/notebook/services/contents/tests
+%exclude %{python3_sitelib}/notebook/services/kernels/tests
+%exclude %{python3_sitelib}/notebook/services/kernelspecs/tests
+%exclude %{python3_sitelib}/notebook/services/nbconvert/tests
+%exclude %{python3_sitelib}/notebook/services/sessions/tests
+%exclude %{python3_sitelib}/notebook/terminal/tests
+%exclude %{python3_sitelib}/notebook/tests
+%exclude %{python3_sitelib}/notebook/tree/tests
 
 
 %changelog
+* Wed Feb 01 2023 Lumír Balhar <lbalhar@redhat.com> - 6.5.2-1
+- Update to 6.5.2 (#2062405)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

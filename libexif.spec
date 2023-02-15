@@ -2,7 +2,7 @@ Summary:	Library for extracting extra information from image files
 Name:		libexif
 Version:	0.6.24
 Release:	4%{?dist}
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		https://libexif.github.io/
 Source0:	https://github.com/libexif/libexif/releases/download/v%{version}/libexif-%{version}.tar.bz2
 
@@ -22,6 +22,7 @@ allows you to parse an EXIF file and read the data from those tags.
 %package devel
 Summary:	Files needed for libexif application development
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+
 %description devel
 The libexif-devel package contains the libraries and header files
 for writing programs that use libexif.
@@ -29,40 +30,34 @@ for writing programs that use libexif.
 %package doc
 Summary:	The EXIF Library API documentation
 Requires:	%{name}%{?_isa} = %{version}-%{release}
+
 %description doc
 API Documentation for programmers wishing to use libexif in their programs.
 
 
 %prep
 %autosetup -p1
+autoreconf -fiv
+iconv -f latin1 -t utf-8 < COPYING > COPYING.utf8; cp COPYING.utf8 COPYING
+iconv -f latin1 -t utf-8 < README > README.utf8; cp README.utf8 README
 
 
 %build
-autoreconf -fiv
-
-%configure \
-  --disable-static
-
+%configure --disable-static
 %make_build
 
 
 %install
 %make_install
 
-rm -fv %{buildroot}%{_libdir}/lib*.la
-
 rm -rf %{buildroot}%{_datadir}/doc/libexif
-cp -R doc/doxygen-output/libexif-api.html .
-iconv -f latin1 -t utf-8 < COPYING > COPYING.utf8; cp COPYING.utf8 COPYING
-iconv -f latin1 -t utf-8 < README > README.utf8; cp README.utf8 README
+
 %find_lang libexif-12
 
 
 %check
 %make_build check
 
-
-%ldconfig_scriptlets
 
 %files -f libexif-12.lang
 %doc README NEWS
@@ -75,7 +70,7 @@ iconv -f latin1 -t utf-8 < README > README.utf8; cp README.utf8 README
 %{_libdir}/pkgconfig/libexif.pc
 
 %files doc
-%doc libexif-api.html
+%doc doc/doxygen-output/libexif-api.html
 
 
 %changelog

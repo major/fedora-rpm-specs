@@ -2,7 +2,7 @@
 
 Name:      azote
 Version:   1.9.7
-Release:   2%{?dist}
+Release:   3%{?dist}
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
 
@@ -49,9 +49,10 @@ window managers, on Arch Linux, Void Linux, Debian and Fedora.
 %py3_install
 # not sure why setup.py doesn't do this, but:
 install -p -D dist/%{name} %{buildroot}/%{_bindir}/%{name}
-desktop-file-edit --set-icon %{_datadir}/%{name}/%{name}.svg dist/%{name}.desktop
+#desktop-file-edit --set-icon %{_datadir}/pixmaps/%{name}.svg dist/%{name}.desktop
 install -p -D -m 0644 -t %{buildroot}/%{_datadir}/applications dist/%{name}.desktop
 install -p -D -m 0644 -t %{buildroot}/%{_datadir}/%{name} dist/*.png dist/*.svg
+install -p -D -m 0644 -t %{buildroot}/%{_datadir}/pixmaps dist/azote.svg
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 for lib in %{buildroot}%{python3_sitelib}/%{name}/*.py; do
  sed '1{\@^#!/usr/bin/env python@d}' $lib > $lib.new &&
@@ -64,6 +65,7 @@ done
 %{python3_sitelib}/%{name}-*.egg-info/
 %{_bindir}/%{name}
 %{_datadir}/%{name}/
+%{_datadir}/pixmaps/*
 %{_datadir}/applications/*
 
 %doc README.md
@@ -71,6 +73,9 @@ done
 %license LICENSE LICENSE-COLORTHIEF
 
 %changelog
+* Mon Feb 13 2023 Bob Hepple <bob.hepple@gmail.com> - 1.9.7-3
+- added azote.svg to /usr/share/pixmaps RHBZ#2169207
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

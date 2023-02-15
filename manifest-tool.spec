@@ -24,10 +24,10 @@
 
 Name:           manifest-tool
 Version:        2.0.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 #Release:        5.git{shortcommit}{?dist}
 Summary:        A command line tool used for creating manifest list objects
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://%{provider_prefix}
 #Source:         https://{provider_prefix}/archive/{commit}/{repo}-{shortcommit}.tar.gz
 Source:         https://%{provider_prefix}/%{repo}-%{version}.tar.gz
@@ -228,6 +228,9 @@ make DESTDIR=%{buildroot} install
 %{_bindir}/%{name}
 
 %changelog
+* Mon Feb 13 2023 Josh Boyer <jwboyer@fedoraproject.org> - 2.0.3-6
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,8 +2,7 @@ Name:           lame
 Version:        3.100
 Release:        14%{?dist}
 Summary:        Free MP3 audio compressor
-
-License:        GPLv2+
+License:        LGPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            http://lame.sourceforge.net/
 Source0:        https://downloads.sourceforge.net/sourceforge/lame/%{name}-%{version}.tar.gz
 Patch1:         %{name}-noexecstack.patch
@@ -16,9 +15,6 @@ BuildRequires:  ncurses-devel
 BuildRequires:  nasm
 %endif
 Requires:       %{name}-libs = %{version}-%{release}
-%if 0%{?fedora} >= 32 || 0%{?rhel} >= 8
-Obsoletes:      %{name}-mp3x < 3.100-7
-%endif
 
 %description
 LAME is an open source MP3 encoder whose quality and speed matches
@@ -38,16 +34,6 @@ Requires:       %{name}-libs = %{version}-%{release}
 %description    devel
 This package development files for %{name}.
 
-%if (0%{?fedora} && 0%{?fedora} < 32) || (0%{?rhel} && 0%{?rhel} < 8)
-%package        mp3x
-Summary:        MP3 frame analyzer
-Requires:       %{name} = %{version}-%{release}
-BuildRequires:  gtk+-devel
-
-%description    mp3x
-This package contains the mp3x frame analyzer.
-%endif
-
 
 %prep
 %autosetup -p1
@@ -66,9 +52,6 @@ export ac_cv_header_xmmintrin_h=no
 %ifarch %{ix86}
   --enable-nasm \
 %endif
-%if (0%{?fedora} && 0%{?fedora} < 32) || (0%{?rhel} && 0%{?rhel} < 8)
-  --enable-mp3x \
-%endif
   --enable-mp3rtp
 
 %make_build
@@ -86,9 +69,6 @@ rm -rf %{buildroot}%{_docdir}/%{name}
 make test
 
 
-%ldconfig_scriptlets libs
-
-
 %files
 %doc README TODO USAGE doc/html/*.html
 %{_bindir}/lame
@@ -98,7 +78,7 @@ make test
 %files libs
 %doc ChangeLog
 %license COPYING LICENSE
-%{_libdir}/libmp3lame.so.0*
+%{_libdir}/libmp3lame.so.0{,.*}
 
 %files devel
 %doc API HACKING STYLEGUIDE
@@ -106,10 +86,6 @@ make test
 %{_includedir}/lame
 %{_includedir}/lame.h
 
-%if (0%{?fedora} && 0%{?fedora} < 32) || (0%{?rhel} && 0%{?rhel} < 8)
-%files mp3x
-%{_bindir}/mp3x
-%endif
 
 %changelog
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.100-14

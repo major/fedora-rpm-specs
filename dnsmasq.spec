@@ -22,10 +22,11 @@
 %bcond_with sourcegit
 
 Name:           dnsmasq
-Version:        2.88
-Release:        3%{?extraversion:.%{extraversion}}%{?dist}
+Version:        2.89
+Release:        1%{?extraversion:.%{extraversion}}%{?dist}
 Summary:        A lightweight DHCP/caching DNS server
 
+# SPDX identifiers already
 License:        GPL-2.0-only or GPL-3.0-only
 URL:            http://www.thekelleys.org.uk/dnsmasq/
 Source0:        %{url}%{?extrapath}%{name}-%{version}%{?extraversion}.tar.xz
@@ -211,6 +212,9 @@ install -Dpm 644 %{SOURCE2} %{buildroot}%{_sysusersdir}/%{name}.conf
 %endif
 
 %changelog
+* Mon Feb 13 2023 Petr Menšík <pemensik@redhat.com> - 2.89-1
+- Update to 2.89 (#2167121)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.88-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

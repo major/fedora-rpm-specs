@@ -2,10 +2,8 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-# No libproxy in RHEL
-%if !0%{?rhel}
+# Not yet sure whether to have libproxy in el10, but assume yes for now.
 %global with_libproxy 1
-%endif
 
 Name:           glib-networking
 Version:        2.76~alpha
@@ -58,8 +56,8 @@ the functionality of the installed glib-networking package.
 %meson \
 %if !0%{?with_libproxy}
   -Dlibproxy=disabled \
-%endif
   -Denvironment_proxy=enabled \
+%endif
   -Dinstalled_tests=true \
   %nil
 %meson_build
@@ -72,7 +70,6 @@ the functionality of the installed glib-networking package.
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS README
-%{_libdir}/gio/modules/libgioenvironmentproxy.so
 %{_libdir}/gio/modules/libgiognomeproxy.so
 %{_libdir}/gio/modules/libgiognutls.so
 %if 0%{?with_libproxy}
@@ -80,6 +77,8 @@ the functionality of the installed glib-networking package.
 %{_libexecdir}/glib-pacrunner
 %{_datadir}/dbus-1/services/org.gtk.GLib.PACRunner.service
 %{_userunitdir}/glib-pacrunner.service
+%else
+%{_libdir}/gio/modules/libgioenvironmentproxy.so
 %endif
 
 %files tests

@@ -6,10 +6,12 @@
 %bcond_without python2
 %endif
 
+%global forgeurl0 https://github.com/DNS-OARC/dnsperf
+
 Summary: Benchmarking authorative and recursing DNS servers
 Name: dnsperf
-Version: 2.10.0
-Release: 3%{?dist}
+Version: 2.11.0
+Release: 1%{?dist}
 # New page was found, but on github is also project, that seems to be official.
 #
 # Github project has different license and so far is the only one with any
@@ -28,6 +30,7 @@ Release: 3%{?dist}
 
 License: ASL 2.0
 Url: https://www.dns-oarc.net/tools/dnsperf
+Vcs: git:%{forgeurl0}
 
 # Deactivate GitHub sources, make web server official. Should be the same, but GitHub does not match checksums.
 #Source: https://github.com/DNS-OARC/dnsperf/archive/v%%{version}/%%{name}-%%{version}.tar.gz
@@ -134,6 +137,9 @@ install -m 755 -p %{SOURCE2} %{buildroot}%{_bindir}/dnsperf-data
 %endif
 
 %changelog
+* Mon Feb 13 2023 Petr Menšík <pemensik@redhat.com> - 2.11.0-1
+- Update 2.11.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

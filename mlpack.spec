@@ -1,9 +1,12 @@
 Name:           mlpack
 Version:        4.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
-License:        BSD
+# The source in src/mlpack/core/std_backport/ is available under 
+# Apache-2.0 license
+# All other code is under BSD-3-Clause
+License:        BSD-3-Clause AND Apache-2.0
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
 
@@ -290,6 +293,10 @@ cd ..;
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Mon Feb 13 2023 Benson Muite <benson_muite@emailplus.org> - 4.0.1-3
+- Use SPDX identifiers
+- Update license information to include Apache-2.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

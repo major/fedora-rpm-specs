@@ -5,8 +5,8 @@
 %global crate devicemapper-sys
 
 Name:           rust-devicemapper-sys
-Version:        0.1.3
-Release:        5%{?dist}
+Version:        0.1.4
+Release:        1%{?dist}
 Summary:        Low level bindings for devicemapper
 
 License:        MPL-2.0
@@ -65,6 +65,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Mon Feb 13 2023 Bryan Gurney <bgurney@redhat.com> - 0.1.4-1
+- Update to version 0.1.4
+
 * Tue Jan 31 2023 mulhern <amulhern@redhat.com> - 0.1.3-5
 - Remove changelog file
 

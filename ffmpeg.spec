@@ -39,6 +39,17 @@
 %bcond_with omxil
 %else
 
+# Disable some features because RHEL 9 packages are too old
+%if 0%{?rhel} && 0%{?rhel} <= 9
+%bcond_with flite
+%bcond_with lcms2
+%bcond_with placebo
+%else
+%bcond_without flite
+%bcond_without lcms2
+%bcond_without placebo
+%endif
+
 # crystalhd isn't available on IBM Z
 %ifarch s390 s390x
 %bcond_with crystalhd
@@ -91,7 +102,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        5.1.2
-Release:        6%{?dist}
+Release:        9%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPLv3+
 URL:            https://ffmpeg.org/
@@ -117,6 +128,8 @@ Patch2:         ffmpeg-new-coder-errors.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
 Patch3:         ffmpeg-allow-fdk-aac-free.patch
+# Upstream fix for vulkan-headers 1.3.236.0+
+Patch4:         ffmpeg-vulkan-headers.patch
 
 # Set up dlopen for openh264
 Patch1001:      ffmpeg-dlopen-openh264.patch
@@ -132,7 +145,9 @@ Requires:       libswscale%{?pkg_suffix}%{_isa} = %{version}-%{release}
 
 BuildRequires:  AMF-devel
 BuildRequires:  fdk-aac-free-devel
-BuildRequires:  flite-devel
+%if %{with flite}
+BuildRequires:  flite-devel >= 2.2
+%endif
 BuildRequires:  game-music-emu-devel
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -144,6 +159,9 @@ BuildRequires:  libcrystalhd-devel
 %endif
 BuildRequires:  libgcrypt-devel
 BuildRequires:  libmysofa-devel
+BuildRequires:  libX11-devel
+BuildRequires:  libXext-devel
+BuildRequires:  libXv-devel
 BuildRequires:  make
 BuildRequires:  nasm
 BuildRequires:  perl(Pod::Man)
@@ -163,6 +181,9 @@ BuildRequires:  pkgconfig(gl)
 BuildRequires:  pkgconfig(gnutls)
 BuildRequires:  pkgconfig(libilbc)
 BuildRequires:  pkgconfig(jack)
+%if %{with lcms2}
+BuildRequires:  pkgconfig(lcms2) >= 2.13
+%endif
 BuildRequires:  pkgconfig(libass)
 BuildRequires:  pkgconfig(libbluray)
 BuildRequires:  pkgconfig(libbs2b)
@@ -179,7 +200,11 @@ BuildRequires:  pkgconfig(libomxil-bellagio)
 %endif
 BuildRequires:  pkgconfig(libopenjp2)
 BuildRequires:  pkgconfig(libopenmpt)
+%if %{with placebo}
+BuildRequires:  pkgconfig(libplacebo) >= 4.192.0
+%endif
 BuildRequires:  pkgconfig(libpulse)
+BuildRequires:  pkgconfig(librabbitmq)
 BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libssh)
 BuildRequires:  pkgconfig(libv4l2)
@@ -190,6 +215,7 @@ BuildRequires:  pkgconfig(libwebp)
 BuildRequires:  pkgconfig(libxml-2.0)
 BuildRequires:  pkgconfig(libzmq)
 BuildRequires:  pkgconfig(lilv-0)
+BuildRequires:  pkgconfig(lv2)
 BuildRequires:  pkgconfig(netcdf)
 BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(openal)
@@ -570,6 +596,9 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-gcrypt \
     --enable-gnutls \
     --enable-ladspa \
+%if %{with lcms2}
+    --enable-lcms2 \
+%endif
     --enable-libshaderc \
     --enable-vulkan \
     --disable-cuda-sdk \
@@ -577,6 +606,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libass \
     --enable-libbluray \
     --enable-libbs2b \
+    --enable-libcaca \
     --enable-libcdio \
     --enable-libcodec2 \
     --enable-libdav1d \
@@ -585,10 +615,17 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
 %endif
     --enable-libdrm \
     --enable-libfdk-aac \
+%if %{with flite}
+    --enable-libflite \
+%endif
     --enable-libfontconfig \
     --enable-libfreetype \
     --enable-libfribidi \
+    --enable-libgme \
     --enable-libgsm \
+%if %{with dc1394}
+    --enable-libiec61883 \
+%endif
     --enable-libilbc \
     --enable-libjack \
     --enable-libjxl \
@@ -599,7 +636,11 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libopenjpeg \
     --enable-libopenmpt \
     --enable-libopus \
+%if %{with placebo}
+    --enable-libplacebo \
+%endif
     --enable-libpulse \
+    --enable-librabbitmq \
     --enable-librav1e \
     --enable-librsvg \
     --enable-librubberband \
@@ -632,6 +673,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
 %if %{with mfx}
     --enable-libmfx \
 %endif
+    --enable-lv2 \
     --enable-vaapi \
     --enable-vdpau \
     --enable-libopencore-amrnb \
@@ -827,6 +869,15 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Mon Feb 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.2-9
+- Enable lcms2, lv2, placebo, rabbitmq, xv
+
+* Mon Feb 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.1.2-8
+- Disable flite for RHEL 9 as flite is too old
+
+* Fri Feb 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.2-7
+- Properly enable caca, flite, gme, iec61883
+
 * Mon Jan 30 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.1.2-6
 - Enable more approved codecs
 

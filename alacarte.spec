@@ -2,8 +2,7 @@ Name:           alacarte
 Version:        3.44.2
 Release:        3%{?dist}
 Summary:        Menu editor for the GNOME desktop
-
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/alacarte
 Source0:        https://download.gnome.org/sources/alacarte/3.44/%{name}-%{version}.tar.xz
 
@@ -14,12 +13,11 @@ BuildRequires:  automake
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl
 BuildRequires:  gettext
-BuildRequires:  gnome-menus-devel >= 3.5.3
 BuildRequires:  intltool
 BuildRequires:  libxslt
 BuildRequires:  make
-BuildRequires:  pygobject3-devel
-BuildRequires:  python3
+BuildRequires:  pkgconfig(libgnome-menu-3.0) >= 3.5.3
+BuildRequires:  pkgconfig(pygobject-3.0)
 BuildRequires:  python3-devel
 
 Requires:       gnome-menus >= 3.5.3
@@ -46,10 +44,11 @@ autoreconf -i -f
 %install
 %make_install
 
-# desktop-file-install can't manipulate NotShowIn
-sed -i -e 's/NotShowIn=KDE;/OnlyShowIn=GNOME;/' \
-  %{buildroot}%{_datadir}/applications/%{name}.desktop
-desktop-file-validate \
+desktop-file-install \
+  --delete-original \
+  --add-only-show-in=GNOME \
+  --remove-not-show-in=KDE \
+  --dir=%{buildroot}%{_datadir}/applications \
   %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %find_lang %{name}

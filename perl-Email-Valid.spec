@@ -2,23 +2,32 @@ Name:           perl-Email-Valid
 Version:        1.203
 Release:        1%{?dist}
 Summary:        Check validity of internet email address
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Email-Valid
 Source0:        https://cpan.metacpan.org/authors/id/R/RJ/RJBS/Email-Valid-%{version}.tar.gz
+# valid.t is failing in version 1.203 GH issue#53
+Patch0:         Email-Valid-1.203-Fix-skip-count-for-DNS-missing.patch
 BuildArch:      noarch
+BuildRequires:  bind-utils
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
-BuildRequires:  perl(Mail::Address), perl(Test::Pod), perl(Test::Pod::Coverage)
-BuildRequires:  bind-utils
-BuildRequires:  perl(ExtUtils::MakeMaker)
-BuildRequires:  perl(Net::Domain::TLD)
-BuildRequires:  perl(Net::DNS)
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(IO::CaptureOutput)
+BuildRequires:  perl(IO::File)
+BuildRequires:  perl(Mail::Address)
 BuildRequires:  perl(Scalar::Util)
+# Tests
 BuildRequires:  perl(Test::More)
-BuildRequires:	perl(Capture::Tiny)
-BuildRequires:	perl(IO::CaptureOutput)
-
-
+# Optional tests
+BuildRequires:  perl(Net::DNS)
+BuildRequires:  perl(Net::Domain::TLD)
 
 %description
 This module determines whether an email address is well-formed, and optionally,
@@ -27,17 +36,16 @@ the email address is valid.
 
 %prep
 %setup -q -n Email-Valid-%{version}
+%patch0 -p1
 
 %build
 sed -i '/LICENSE/ d' Makefile.PL
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} ';'
-find $RPM_BUILD_ROOT -type d -depth -exec rmdir {} 2>/dev/null ';'
-chmod -R u+w $RPM_BUILD_ROOT/*
+%{make_install}
+%{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
 make test
@@ -51,6 +59,9 @@ make test
 %changelog
 * Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 1.203-1
 - update to 1.203
+- Modernize spec file
+- Update license to SPDX format
+- Fix the failing test valid.t
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.202-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

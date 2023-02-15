@@ -4,8 +4,8 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 1
-%global baserelease 2
+%global released_kernel 0
+%global baserelease 1
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 0
+%global rcrev 8
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -291,6 +291,10 @@ popd
 pushd tools/gpio/
 %{tools_make}
 popd
+# build VM tools
+pushd tools/vm/
+%{tools_make} slabinfo page_owner_sort
+popd 
 pushd tools/tracing/rtla
 %{tools_make}
 popd
@@ -304,6 +308,9 @@ popd
 pushd tools/lib/perf
 make V=1
 popd
+
+# BPF samples
+%{make} %{?_smp_mflags} ARCH=$Arch V=1 M=samples/bpf/ VMLINUX_H="${RPM_VMLINUX_H}" || true
 
 # Build the docs
 pushd tools/kvm/kvm_stat/
@@ -407,6 +414,19 @@ pushd tools/lib/perf
 make DESTDIR=%{buildroot} prefix=%{_prefix} libdir=%{_libdir} V=1 install install_headers
 popd
 
+# install bpf samples
+pushd samples/bpf
+install -d %{buildroot}%{_libexecdir}/ksamples/bpf
+find -type f -executable -exec install -m755 {} %{buildroot}%{_libexecdir}/ksamples/bpf \;
+install -m755 *.sh %{buildroot}%{_libexecdir}/ksamples/bpf
+# test_lwt_bpf.sh compiles test_lwt_bpf.c when run; this works only from the
+# kernel tree. Just remove it.
+rm %{buildroot}%{_libexecdir}/ksamples/bpf/test_lwt_bpf.sh
+install -m644 *_kern.o %{buildroot}%{_libexecdir}/ksamples/bpf || true
+install -m644 tcp_bpf.readme %{buildroot}%{_libexecdir}/ksamples/bpf
+popd
+
+
 ###
 ### scripts
 ###
@@ -424,7 +444,6 @@ popd
 
 %files -n perf
 %{_bindir}/perf
-%exclude %{_libdir}/traceevent
 %{_libdir}/libperf-jvmti.so
 %{_libexecdir}/perf-core
 %{_datadir}/perf-core/
@@ -477,6 +496,7 @@ popd
 %{_libdir}/libcpupower.so
 %{_includedir}/cpufreq.h
 %{_includedir}/cpuidle.h
+%{_includedir}/powercap.h
 
 %files -n bpftool
 %{_sbindir}/bpftool
@@ -493,6 +513,7 @@ popd
 %{_mandir}/man8/bpftool-struct_ops.8.gz
 %{_mandir}/man8/bpftool-feature.8.gz
 %{_mandir}/man8/bpftool.8.gz
+%{_libexecdir}/ksamples
 %license linux-%{kversion}/COPYING
 
 %files -n libperf
@@ -504,6 +525,8 @@ popd
 %{_libdir}/libperf.a
 %{_libdir}/libperf.so
 %{_libdir}/pkgconfig/libperf.pc
+%{_includedir}/internal/*.h
+%{_includedir}/perf/bpf_perf.h
 %{_includedir}/perf/core.h
 %{_includedir}/perf/cpumap.h
 %{_includedir}/perf/perf_dlfilter.h
@@ -535,6 +558,9 @@ popd
 %{_mandir}/man1/rtla.1.gz
 
 %changelog
+* Mon Feb 13 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.2.0-0.rc8.git0.1
+- Linux v6.2-rc8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

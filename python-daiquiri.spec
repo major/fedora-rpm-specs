@@ -1,12 +1,12 @@
 %global pypi_name daiquiri
 
 Name:           python-%{pypi_name}
-Version:        3.0.1
+Version:        3.2.1
 Release:        1%{?dist}
 Summary:        Library to configure Python logging easily
 
 License:        ASL 2.0
-URL:            https://github.com/jd/daiquiri
+URL:            https://github.com/Mergifyio/daiquiri
 Source0:        %pypi_source
 BuildArch:      noarch
  
@@ -67,6 +67,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html 
 
 %changelog
+* Mon Feb 13 2023 Joel Capitao <jcapitao@redhat.com> - 3.2.1-1
+- Update to latest upstream
+
 * Tue Jan 31 2023 Joel Capitao <jcapitao@redhat.com> - 3.0.1-1
 - Update to latest upstream (#1482280)
 

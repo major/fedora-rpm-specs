@@ -1,7 +1,7 @@
 Summary: Produces a document with syntax highlighting
 Name: source-highlight
 Version: 3.1.9
-Release: 16%{?dist}
+Release: 17%{?dist}
 License: GPLv3+
 Source0: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz
 Source1: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz.sig
@@ -59,7 +59,11 @@ find $RPM_BUILD_ROOT -type f -name "*.a" -exec rm -f {} ';'
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/source-highlight
 chrpath --delete $RPM_BUILD_ROOT%{_bindir}/source-highlight-settings
 
-echo -e "\ncxx = cpp.lang" >> $RPM_BUILD_ROOT%{_datadir}/source-highlight/lang.map
+# Submitted and accepted upstream:
+# https://savannah.gnu.org/bugs/index.php?63225
+# This can be removed upon next release after 3.1.9
+echo -e >> $RPM_BUILD_ROOT%{_datadir}/source-highlight/lang.map \
+"\nrpm-spec = spec.lang\n"
 
 bashcompdir=$(pkg-config --variable=completionsdir bash-completion)
 mkdir -p $RPM_BUILD_ROOT$bashcompdir
@@ -90,6 +94,10 @@ rmdir $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 %{_includedir}/srchilite/*.h
 
 %changelog
+* Sat Oct 15 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.1.9-17
+- Stop adding 'cxx' language mapping (fixed upstream)
+- Add 'rpm-spec' (used in asciidoc) mapping
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.9-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

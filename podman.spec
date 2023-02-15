@@ -314,17 +314,6 @@ It is based on the network stack of gVisor. Compared to libslirp,
 gvisor-tap-vsock brings a configurable DNS server and
 dynamic port forwarding.
 
-%package quadlet
-Summary: Easily create systemd services using %{name}
-Requires: %{name} = %{epoch}:%{version}-%{release}
-Conflicts: quadlet
-
-%description quadlet
-This package installs a systemd generator for *.container files in
-/etc/containers/systemd. Such files are automatically converted into
-systemd service units, allowing easily written and maintained
-podman-based system services.
-
 %prep
 %autosetup -Sgit -n %{name}-%{built_tag_strip}
 sed -i 's;@@PODMAN@@\;$(BINDIR);@@PODMAN@@\;%{_bindir};' Makefile

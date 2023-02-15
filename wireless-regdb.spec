@@ -1,8 +1,8 @@
 %global         _firmwarepath    /usr/lib/firmware
 
 Name:           wireless-regdb
-Version:        2022.08.12
-Release:        2%{?dist}
+Version:        2023.02.13
+Release:        1%{?dist}
 Summary:        Regulatory database for 802.11 wireless networking
 
 License:        ISC
@@ -62,6 +62,9 @@ rm -rf %{buildroot}/usr/lib/crda
 
 
 %changelog
+* Mon Feb 13 2023 John W. Linville <linville@redhat.com> - 2023.02.13-1
+- Update to version 2023.02.13 from upstream
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.08.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

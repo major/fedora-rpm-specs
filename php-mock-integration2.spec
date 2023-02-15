@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-mock-integration2
 #
-# Copyright (c) 2016-2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    003d585841e435958a02e9b986953907b8b7609b
+%global gh_commit    04f4a8d5442ca457b102b5204673f77323e3edb5
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-mock
 %global gh_project   php-mock-integration
@@ -14,8 +14,8 @@
 %global major        2
 
 Name:           php-mock-integration%{major}
-Version:        2.1.0
-Release:        7%{?dist}
+Version:        2.2.1
+Release:        1%{?dist}
 Summary:        Integration package for PHP-Mock
 
 License:        WTFPL
@@ -23,25 +23,26 @@ URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{gh_project}-%{version}-%{gh_short}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  php(language) >= 5.6
+# 7.4 because of phpunit9
+BuildRequires:  php(language) >= 7.4
 %if %{with_tests}
 # from composer.json, "require-dev": {
-#        "phpunit/phpunit": "^5.7.27 || ^6 || ^7 || ^8 || ^9"
-BuildRequires: (php-composer(php-mock/php-mock)         >= 2.2 with php-composer(php-mock/php-mock)         < 3)
-BuildRequires: (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 3)
-%global phpunit %{_bindir}/phpunit8
-BuildRequires:  %{phpunit}
+#        "phpunit/phpunit": "^5.7.27 || ^6 || ^7 || ^8 || ^9 || ^10"
+BuildRequires: (php-composer(php-mock/php-mock)         >= 2.4 with php-composer(php-mock/php-mock)         < 3)
+BuildRequires: phpunit8
+BuildRequires: phpunit9
+# TODO phpunit10 but requires php 8.1
+%endif
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
-%endif
 
 # from composer.json, "require": {
 #        "php": ">=5.6",
-#        "php-mock/php-mock": "^2.2",
-#        "phpunit/php-text-template": "^1 || ^2"
+#        "php-mock/php-mock": "^2.4",
+#        "phpunit/php-text-template": "^1 || ^2|| ^3"
 Requires:       php(language) >= 5.6
-Requires:      (php-composer(php-mock/php-mock)         >= 2.2 with php-composer(php-mock/php-mock)         < 3)
-Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 3)
+Requires:      (php-composer(php-mock/php-mock)         >= 2.4 with php-composer(php-mock/php-mock)         < 3)
+Requires:      (php-composer(phpunit/php-text-template) >= 1   with php-composer(phpunit/php-text-template) < 4)
 # From phpcompatinfo report from version 2.0.0
 # only core and standard
 
@@ -81,12 +82,29 @@ require_once dirname(__DIR__) . '/tests/autoload.php';
 EOF
 
 ret=0
-for cmdarg in "php %{phpunit}" "php72 %{_bindir}/phpunit7" "php73 %{_bindir}/phpunit8" "php74 %{_bindir}/phpunit9"; do
-  if which $cmdarg; then
-    set $cmdarg
-    $1 $2 --verbose || ret=1
-  fi
-done
+if [ -x %{_bindir}/phpunit8 ]; then
+  for cmd in php php80 php81 php82;do
+    if which $cmd; then
+      $cmd %{_bindir}/phpunit8 --verbose || ret=1
+    fi
+  done
+fi
+
+if [ -x %{_bindir}/phpunit9 ]; then
+  for cmd in php php80 php81 php82;do
+    if which $cmd; then
+      $cmd %{_bindir}/phpunit9 --verbose || ret=1
+    fi
+  done
+fi
+
+if [ -x %{_bindir}/phpunit10 ]; then
+  for cmd in php php81 php82;do
+    if which $cmd; then
+      $cmd %{_bindir}/phpunit10 || ret=1
+    fi
+  done
+fi
 exit $ret
 %else
 : bootstrap build with test suite disabled
@@ -101,6 +119,10 @@ exit $ret
 
 
 %changelog
+* Mon Feb 13 2023 Remi Collet <remi@remirepo.net> - 2.2.1-1
+- update to 2.2.1
+- allow phpunit10
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

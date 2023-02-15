@@ -1,10 +1,11 @@
+%global app_id org.kde.kexi
+
 # koffice version to Obsolete
 %global koffice_ver 3:2.3.70
 
-# uncomment to enable bootstrap mode
-#global bootstrap 1
+%bcond_with bootstrap
 
-%if !0%{?bootstrap}
+%if %{without bootstrap}
 # some known failures, ping upstream
 %global tests 1
 %endif
@@ -13,9 +14,7 @@ Name:    kexi
 Summary: An integrated environment for managing data
 Version: 3.2.0
 Release: 7%{?dist}
-
-License: GPLv2+
-
+License: LGPL-2.0-or-later AND GFDL-1.2-or-later
 Url:     http://community.kde.org/Kexi
 
 %global revision %(echo %{version} | cut -d. -f3)
@@ -154,17 +153,17 @@ Requires: %{name} = %{version}-%{release}
 
 ## versioning silliness
 # compat symlink
-ln -s kexi-%{majmin} %{buildroot}%{_kf5_bindir}/kexi
+ln -s kexi-%{majmin} %{buildroot}%{_bindir}/kexi
 # rename appdata/.desktop
-mv %{buildroot}%{_kf5_metainfodir}/org.kde.kexi-%{majmin}.appdata.xml \
-   %{buildroot}%{_kf5_metainfodir}/org.kde.kexi.appdata.xml
-mv %{buildroot}%{_kf5_datadir}/applications/org.kde.kexi-%{majmin}.desktop \
-   %{buildroot}%{_kf5_datadir}/applications/org.kde.kexi.desktop
+mv %{buildroot}%{_metainfodir}/%{app_id}-%{majmin}.appdata.xml \
+   %{buildroot}%{_metainfodir}/%{app_id}.appdata.xml
+mv %{buildroot}%{_datadir}/applications/%{app_id}-%{majmin}.desktop \
+   %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.kexi.appdata.xml
-desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.kexi.desktop
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{app_id}.appdata.xml
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{app_id}.desktop
 ## tests have known failures, TODO: consult upstream
 %if 0%{?tests}
 export CTEST_OUTPUT_ON_FAILURE=1
@@ -174,19 +173,21 @@ export CTEST_OUTPUT_ON_FAILURE=1
 
 
 %files -f %{name}.lang
-%license COPYING*
-%{_kf5_bindir}/kexi
-%{_kf5_bindir}/kexi-%{majmin}
-%{_kf5_metainfodir}/org.kde.kexi.appdata.xml
-%{_kf5_datadir}/applications/org.kde.kexi.desktop
-%{_kf5_datadir}/kexi/
-%{_kf5_datadir}/icons/hicolor/*/*/*
+%license COPYING.LIB COPYING.DOC
+%doc AUTHORS README.md
+%{_bindir}/kexi
+%{_bindir}/kexi-%{majmin}
+%{_metainfodir}/%{app_id}.appdata.xml
+%{_datadir}/applications/%{app_id}.desktop
+%{_datadir}/kexi/
+%{_datadir}/icons/hicolor/*/*/kexi-%{majmin}.*
 
 %ldconfig_scriptlets libs
 
 %files libs
-%{_kf5_libdir}/libkexi*
-%{_kf5_libdir}/libkformdesigner*
+%license COPYING.LIB
+%{_libdir}/libkexi*
+%{_libdir}/libkformdesigner*
 %{_qt5_plugindir}/kexi/
 
 

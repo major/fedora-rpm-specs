@@ -2,6 +2,7 @@
 %undefine __cmake_in_source_build
 
 %bcond_without tests
+%bcond_with    online
 # Compiled version in shared library.
 # Does not have any so-version, therefore not default
 %bcond_with compile
@@ -12,14 +13,18 @@
 %endif
 
 Name:           cpp-httplib
-Version:        0.11.3
+Version:        0.12.0
 %forgemeta
 Release:        %autorelease
 
 Summary:        A C++11 single-file header-only cross platform HTTP/HTTPS library
 License:        MIT
 URL:            https://github.com/yhirose/cpp-httplib
+VCS:            git:%{forgeurl0}
 Source0:        %forgesource
+
+# https://github.com/yhirose/cpp-httplib/pull/1493
+Patch1:         cpp-httplib-0.12-gtest-reuse.patch
 
 BuildRequires:  redhat-rpm-config
 BuildRequires:  gcc-c++
@@ -28,7 +33,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  zlib-devel
 BuildRequires:  brotli-devel
 %if %{with tests}
-BuildRequires:  make openssl
+BuildRequires:  openssl
 BuildRequires:  gtest-devel
 %endif
 
@@ -65,6 +70,9 @@ Development files only.
 %if %{with compile}
     -DBUILD_SHARED_LIBS=ON -DHTTPLIB_COMPILE=ON \
 %endif
+%if %{with tests}
+    -DHTTPLIB_TEST=ON \
+%endif
 #
 %cmake_build
 
@@ -75,12 +83,12 @@ Development files only.
 
 %check
 %if %{with tests}
-pushd test
-  %make_build test CXX=g++ CXXFLAGS="-std=c++11 -I. -Wall -Wextra $CXXFLAGS"
-  # Mock does not provide internet connectivity.
-  # Skip online tests to avoid failures
-  ./test --gtest_filter='-*.*_Online'
-popd
+# multiple threads fails many tests
+%if %{with online}
+  %ctest -j1
+%else
+  %ctest -j1 -E '_Online$'
+%endif
 %endif
 
 

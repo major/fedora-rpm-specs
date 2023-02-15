@@ -1,13 +1,12 @@
 Name:    pcp
-Version: 6.0.1
-Release: 5%{?dist}
+Version: 6.0.2
+Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPLv2+ and LGPLv2+ and CC-BY
 URL:     https://pcp.io
 
 %global  artifactory https://performancecopilot.jfrog.io/artifactory
 Source0: %{artifactory}/pcp-source-release/pcp-%{version}.src.tar.gz
-Patch0: pcp-configure-c99.patch
 
 # The additional linker flags break out-of-tree PMDAs.
 # https://bugzilla.redhat.com/show_bug.cgi?id=2043092
@@ -3372,6 +3371,10 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Mon Feb 13 2023 Nathan Scott <nathans@redhat.com> - 6.0.2-1
+- Resolve a dstat swap plugin related failure (BZ 2168774)
+- Update to latest PCP sources.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -3380,10 +3383,6 @@ fi
 
 * Thu Nov 03 2022 Jiri Olsa <jolsa@kernel.org> - 6.0.1-3
 - rebuilt for libbpf 1.0
-
-* Fri Nov 11 2022 Nathan Scott <nathans@redhat.com> - 6.0.1-2
-- Resolve an issue with installing sysusers entries
-- Fix RPM spec file scriptlet relating to pmieconf (BZ 2139720)
 
 * Thu Oct 27 2022 Nathan Scott <nathans@redhat.com> - 6.0.1-1
 - Resolve a BPF module related build failure (BZ 2132998)

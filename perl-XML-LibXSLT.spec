@@ -1,16 +1,15 @@
-%global cpan_version 2.002000
+%global cpan_version 2.002001
 
 Name:       perl-XML-LibXSLT
 # NOTE: also update perl-XML-LibXML to a compatible version.  See below why.
 Version:    %(echo '%{cpan_version}' | sed 's/\(\....\)\(.\)/\1.\2/')
-Release:    5%{?dist}
+Release:    1%{?dist}
 Summary:    Perl module for interfacing to GNOME's libxslt
-# lib/XML/LibXSLT.pm: GPL+ or Artistic
+# lib/XML/LibXSLT.pm: GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/XML/LibXSLT/Quick.pm: MIT
-License:    (GPL+ or Artistic) and MIT
+License:    ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND MIT
 URL:        https://metacpan.org/release/XML-LibXSLT
 Source0:    https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/XML-LibXSLT-%{cpan_version}.tar.gz
-Patch0: perl-XML-LibXSLT-c99.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
@@ -21,6 +20,7 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(Cwd)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+BuildRequires:  perl(File::Path) >= 2.06
 BuildRequires:  perl(File::Spec)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(vars)
@@ -59,7 +59,7 @@ that you can find at http://www.xmlsoft.org/XSLT/
 
 %package tests
 Summary:        Tests for %{name}
-License:        (GPL+ or Artistic) and MIT
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND MIT
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
 
@@ -123,6 +123,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 13 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.002.001-1
+- 2.002001 bump
+- Update license to SPDX format
+
 * Thu Feb 09 2023 Florian Weimer <fweimer@redhat.com> - 2.002.000-5
 - Port configure stage to C99
 

@@ -13,7 +13,7 @@
 %endif
 
 Name:           ipython
-Version:        8.9.0
+Version:        8.10.0
 Release:        1%{?dist}
 Summary:        An enhanced interactive Python shell
 
@@ -256,6 +256,9 @@ rm -r %{buildroot}%{python3_sitelib}/IPython/*/tests
 
 
 %changelog
+* Mon Feb 13 2023 Lumír Balhar <lbalhar@redhat.com> - 8.10.0-1
+- Update to 8.10.0 (rhbz#2168934)
+
 * Mon Jan 30 2023 Lumír Balhar <lbalhar@redhat.com> - 8.9.0-1
 - Update to 8.9.0 (rhbz#2165147)
 

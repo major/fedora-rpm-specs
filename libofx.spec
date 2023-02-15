@@ -1,19 +1,17 @@
 Summary: A library for supporting Open Financial Exchange (OFX)
 Name: libofx
-Version: 0.10.8
-Release: 2%{?dist}
-URL: http://libofx.sourceforge.net/
+Version: 0.10.9
+Release: 1%{?dist}
+URL: https://github.com/libofx/libofx
 License: GPLv2+
-Source: http://downloads.sourceforge.net/libofx/%{name}-%{version}.tar.gz
+Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0: fix-ftbfs-gcc4.7.diff
-Patch1: downcast.patch
-Patch2: heap-buffer-overflow.patch
-Patch3: use-after-free.patch
 BuildRequires: gcc-c++
 BuildRequires: opensp-devel
 BuildRequires: curl-devel
 BuildRequires: libxml++-devel
 BuildRequires: make
+BuildRequires: cmake
 
 %description
 This is the LibOFX library.  It is a API designed to allow applications to
@@ -40,22 +38,15 @@ for building applications that use libofx.
 %prep
 %setup -q
 %patch0 -p1 -b .gcc47
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
 
-find . -name "*~" -delete
 chmod 644 ./doc/ofx_sample_files/*
 
 %build
-export CXXFLAGS="%{optflags}"
-%configure --with-opensp-libs=%{_libdir} --disable-static --disable-rpath
-sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
-sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-make %{?_smp_mflags} CXXFLAGS="%{optflags}"
+%cmake -DCMAKE_INSTALL_LIBDIR=%{_lib}
+%cmake_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT
+%cmake_install
 
 rm -rf $RPM_BUILD_ROOT%{_libdir}/lib*.la $RPM_BUILD_ROOT%{_datadir}/doc
 
@@ -68,15 +59,18 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/lib*.la $RPM_BUILD_ROOT%{_datadir}/doc
 
 %files -n ofx
 %{_bindir}/ofx*
-%{_mandir}/man1/ofx*
 
 %files devel
-%doc doc/html doc/ofx_sample_files
+%doc doc/ofx_sample_files
 %{_includedir}/libofx/
 %{_libdir}/pkgconfig/libofx.pc
 %{_libdir}/libofx.so
+%{_libdir}/cmake/%{name}/
 
 %changelog
+* Mon Feb 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.9-1
+- 0.10.9
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

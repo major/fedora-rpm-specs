@@ -1,19 +1,14 @@
 Name:           trac
-Version:        1.5.3
-Release:        9%{?dist}
+Version:        1.5.4
+Release:        1%{?dist}
 Summary:        Enhanced wiki and issue tracking system
 License:        BSD
 URL:            http://trac.edgewall.com/
 Source0:        http://ftp.edgewall.com/pub/trac/Trac-%{version}.tar.gz
-#Source1:        trac.conf
 Source2:        trac.ini
 Source3:        trac.ini-environment_sample
 Source4:        %{name}-README.fedora
 Source5:        trac.wsgi
-Patch0:         markupsafe.patch
-Patch1:         17541.diff
-Patch2:         changeset_17575.diff
-Patch3:         presentation.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -54,10 +49,6 @@ find contrib -type f -exec chmod -x '{}' \;
 rm -f contrib/trac-post-commit-hook.cmd
 cp -a %{SOURCE4} README.fedora
 
-%patch0 -p0 
-%patch1 -p2
-%patch2 -p1
-%patch3 -p1
 
 %build
 %py3_build
@@ -66,11 +57,7 @@ cp -a %{SOURCE4} README.fedora
 %py3_install
 
 install -dm 755 $RPM_BUILD_ROOT%{_var}/www/cgi-bin
-#mv cgi-bin/trac.*cgi $RPM_BUILD_ROOT%{_var}/www/cgi-bin
-#install -Dpm 755 %{SOURCE5} $RPM_BUILD_ROOT%{_var}/www/cgi-bin
-#install -Dpm 755 %{SOURCE5} contrib/cgi-bin/
 
-#install -Dpm 644 %{SOURCE1} $RPM_BUILD_ROOT/etc/httpd/conf.d/trac.conf
 install -Dpm 644 %{SOURCE2} $RPM_BUILD_ROOT/etc/trac/trac.ini
 install -Dpm 644 %{SOURCE3} $RPM_BUILD_ROOT/etc/trac/trac.ini-environment_sample
 install -dpm 755 $RPM_BUILD_ROOT/etc/trac/{plugin,template}s.d
@@ -91,14 +78,13 @@ mv $RPM_BUILD_ROOT{%{_bindir}/tracd,%{_sbindir}/tracd}
 %{_bindir}/trac-admin
 %{_sbindir}/tracd
 %{python3_sitelib}/[Tt]rac*/
-#%%config(noreplace) /etc/httpd/conf.d/trac.conf
 %dir /etc/trac
 %config(noreplace) /etc/trac/*
-#%%{_var}/www/cgi-bin/trac.cgi
-#%%{_var}/www/cgi-bin/trac.fcgi
-#%%{_var}/www/cgi-bin/trac.wsgi
 
 %changelog
+* Mon Feb 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.4-1
+- 1.5.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

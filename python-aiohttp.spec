@@ -1,8 +1,8 @@
 %bcond_without tests
 
 Name:           python-aiohttp
-Version:        3.8.3
-Release:        6%{?dist}
+Version:        3.8.4
+Release:        1%{?dist}
 Summary:        Python HTTP client/server for asyncio
 
 License:        Apache-2.0
@@ -140,6 +140,9 @@ k="${k-}${k+ and }not test_tcp_connector_fingerprint_fail[pyloop]"
 %doc README.rst
 
 %changelog
+* Mon Feb 13 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.4-1
+- Update to 3.8.4 (close RHBZ#2169212)
+
 * Fri Jan 20 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.8.3-6
 - Make three xfails non-strict (close RHBZ#2158175)
 
