@@ -3,13 +3,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          gnome-extensions-app
-Version:       43~beta
-Release:       2%{?dist}
+Version:       44~beta
+Release:       1%{?dist}
 Summary:       Manage GNOME Shell extensions
 
 License:       GPLv2+
 URL:           https://gitlab.gnome.org/GNOME/%{source_name}
-Source0:       https://download.gnome.org/sources/%{source_name}/43/%{source_name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{source_name}/44/%{source_name}-%{tarball_version}.tar.xz
 
 BuildRequires: gcc
 BuildRequires: gettext
@@ -70,6 +70,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/gir-1.0
 
 
 %changelog
+* Tue Feb 14 2023 Florian Müllner <fmuellner@redhat.com> - 44~beta-1
+- Update to 44.beta
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43~beta-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -6,7 +6,7 @@ Release:        2%{?dist}
 Summary:        Computing with error-correcting codes
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/guava/
 Source0:        https://github.com/gap-packages/guava/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 # Enable the optional Sonata code.  Upstream says to uncomment this code if
@@ -97,7 +97,7 @@ ln -s ../%{pkgname}-%{version} ../pkg/%{pkgname}
 gap -l "$PWD/..;" makedoc.g
 rm -fr ../../doc ../pkg
 pushd src/leon/doc
-pdftex -interaction=batchmode manual.tex
+pdftex manual.tex
 popd
 
 %install

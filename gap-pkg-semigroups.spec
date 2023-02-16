@@ -13,7 +13,7 @@ Release:        3%{?dist}
 Summary:        GAP methods for semigroups
 
 License:        GPL-3.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://semigroups.github.io/Semigroups/
 Source0:        https://github.com/semigroups/Semigroups/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

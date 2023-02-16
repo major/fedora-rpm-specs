@@ -29,7 +29,7 @@ Release:        1%{?dist}
 Summary:        GAP browser for 2-dimensional arrays of data
 
 License:        GPL-3.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://www.math.rwth-aachen.de/~Browse/
 Source0:        %{url}/%{upname}-%{version}.tar.bz2
 

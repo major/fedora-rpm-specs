@@ -7,7 +7,7 @@ Summary:        Minimal and canonical images in permutation groups
 
 License:        MPL-2.0
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/images/
 Source0:        https://github.com/gap-packages/images/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

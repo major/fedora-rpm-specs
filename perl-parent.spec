@@ -1,11 +1,12 @@
 Name:		perl-parent
 Epoch:		1
-Version:	0.239
-Release:	2%{?dist}
+Version:	0.240
+Release:	1%{?dist}
 Summary:	Establish an ISA relationship with base classes at compile time
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/parent
 Source0:	https://cpan.metacpan.org/authors/id/C/CO/CORION/parent-%{version}.tar.gz
+Patch0:		https://patch-diff.githubusercontent.com/raw/Corion/parent/pull/13.patch
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
@@ -37,6 +38,10 @@ from those modules at the same time. Mostly similar in effect to:
 %prep
 %setup -q -n parent-%{version}
 
+# Actually include the patch that should have been in 0.240
+# https://github.com/Corion/parent/pull/13
+%patch0 -p1
+
 %build
 perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
@@ -55,6 +60,12 @@ make test
 %{_mandir}/man3/parent.3*
 
 %changelog
+* Tue Feb 14 2023 Paul Howarth <paul@city-fan.org> - 1:0.240-1
+- Update to 0.240
+  - Use Test::More::isnt() instead of Test::More::isn't in tests, which is
+    deprecated, as ' isn't allowed as package separator in an upcoming version
+    of Perl (GH#13)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.239-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -11,8 +11,8 @@ priming sugar calculators, OG correction help, and a unique mash designing tool.
 It also can export and import recipes in BeerXML.}
 
 Name:           brewtarget
-Version:        3.0.5
-Release:        2%{?dist}
+Version:        3.0.6
+Release:        %{autorelease}
 Summary:        An open source beer recipe creation tool 🍺
 %forgemeta
 # BSD-2-Clause: cmake/modules/FindPhonon.cmake
@@ -66,7 +66,4 @@ desktop-file-validate %buildroot%{_datadir}/applications/%{name}.desktop
 %license COPYRIGHT COPYING.GPLv3 COPYING.WTFPL
 
 %changelog
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
 %autochangelog

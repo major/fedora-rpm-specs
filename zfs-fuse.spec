@@ -1,7 +1,7 @@
 %define _hardened_build 1
 Name:             zfs-fuse
 Version:          0.7.2.2
-Release:          24%{?dist}
+Release:          25%{?dist}
 Summary:          ZFS ported to Linux FUSE
 License:          CDDL
 URL:              https://github.com/gordan-bobic/zfs-fuse
@@ -18,6 +18,7 @@ Patch1:           zfs-fuse-0.7.2.2-python3.patch
 Patch2:           tirpc.patch
 Patch3:           common.patch
 Patch4:           gcc.patch
+Patch5:           zfs-fuse-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:    fuse-devel libaio-devel perl-generators scons gcc-c++
@@ -53,6 +54,7 @@ operating system.
 %patch2 -p1
 %patch3 -p0
 %patch4 -p1
+%patch5 -p1
 
 f=LICENSE
 mv $f $f.iso88591
@@ -140,6 +142,9 @@ rm -rf /var/lock/zfs
 %{_mandir}/man8/zstreamdump.8.gz
 
 %changelog
+* Tue Feb 14 2023 Arjun Shankar <arjun@redhat.com> - 0.7.2.2-25
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

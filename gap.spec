@@ -57,8 +57,7 @@ Patch0:         %{name}-help.patch
 # Avoid the popcount instruction on systems that do not support it
 Patch1:         %{name}-popcount.patch
 
-# See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
-ExcludeArch:    %{ix86}
+ExclusiveArch:  %{gap_arches}
 
 BuildRequires:  appstream
 BuildRequires:  desktop-file-utils
@@ -230,8 +229,8 @@ make manuals
 
 # Build gapmacrodoc.pdf
 cd doc
-pdftex -interaction=batchmode gapmacrodoc.tex
-pdftex -interaction=batchmode gapmacrodoc.tex
+pdftex gapmacrodoc.tex
+pdftex gapmacrodoc.tex
 cd -
 
 # Remove build paths

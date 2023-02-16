@@ -6,7 +6,7 @@ Name: dovecot
 Epoch: 1
 Version: 2.3.20
 %global prever %{nil}
-Release: 2%{?dist}
+Release: 3%{?dist}
 #dovecot itself is MIT, a few sources are PD, pigeonhole is LGPLv2
 License: MIT and LGPLv2
 
@@ -44,8 +44,11 @@ Patch16: dovecot-2.3.6-opensslhmac.patch
 Patch17: dovecot-2.3.15-fixvalcond.patch
 Patch18: dovecot-2.3.15-valbasherr.patch
 Patch20: dovecot-2.3.14-opensslv3.patch
-Patch21:	dovecot-2.3.19.1-7bad6a24.patch
+Patch21: dovecot-2.3.19.1-7bad6a24.patch
 Patch22: dovecot-configure-c99.patch
+
+# Fedora/RHEL specific, drop OTP which uses SHA1 so we dont use SHA1 for crypto purposes
+Patch23: dovecot-2.3.20-nolibotp.patch
 
 Source15: prestartscript
 
@@ -147,6 +150,7 @@ This package provides the development files for dovecot.
 %patch20 -p1 -b .opensslv3
 %patch21 -p1 -b .7bad6a24
 %patch22 -p1 -b .c99
+%patch23 -p1 -b .nolibotp
 cp run-test-valgrind.supp dovecot-2.3-pigeonhole-%{pigeonholever}/
 # valgrind would fail with shell wrapper
 echo "testsuite" >dovecot-2.3-pigeonhole-%{pigeonholever}/run-test-valgrind.exclude
@@ -154,6 +158,10 @@ echo "testsuite" >dovecot-2.3-pigeonhole-%{pigeonholever}/run-test-valgrind.excl
 #pushd dovecot-2*3-pigeonhole-%{pigeonholever}
 #popd
 sed -i '/DEFAULT_INCLUDES *=/s|$| '"$(pkg-config --cflags libclucene-core)|" src/plugins/fts-lucene/Makefile.in
+
+
+# drop OTP which uses SHA1 so we dont use SHA1 for crypto purposes
+rm -rf src/lib-otp
 
 %build
 #required for fdpass.c line 125,190: dereferencing type-punned pointer will break strict-aliasing rules
@@ -482,6 +490,9 @@ make check
 %{_libdir}/%{name}/dict/libdriver_pgsql.so
 
 %changelog
+* Tue Feb 14 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.3.20-3
+- drop SHA1 OTP
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3.20-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

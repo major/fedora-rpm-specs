@@ -11,6 +11,12 @@ Source0: https://download.gnome.org/sources/glib/2.75/glib-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
+# Fixes a problem with rpm-ostree always failing:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2169622
+# per mcatanzaro, reverting is OK for a short-term downstream
+# fix, correct fix will need to be something different either
+# upstream or in rpm-ostree
+Patch1: 0002-Revert-gio-gdbusserver-use-non-abstract-socket-for-u.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -45,7 +51,6 @@ Requires: libgnutls.so.30
 # Remove gamin dependency
 Obsoletes: glib2-fam < 2.67.1-3
 
-Provides: bundled(gnulib)
 Provides: bundled(gvdb)
 Provides: bundled(libcharset)
 Provides: bundled(xdgmime)

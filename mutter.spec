@@ -6,18 +6,18 @@
 %global pipewire_version 0.3.33
 %global lcms2_version 2.6
 %global colord_version 1.4.5
-%global mutter_api_version 11
+%global mutter_api_version 12
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       43.2
-Release:       2%{?dist}
+Version:       44~beta
+Release:       1%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
 URL:           http://www.gnome.org
-Source0:       http://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:       http://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 # Work-around for OpenJDK's compliance test
 Patch0:        0001-window-actor-Special-case-shaped-Java-windows.patch
@@ -27,17 +27,6 @@ Patch1:        0001-Revert-build-Do-not-provide-built-sources-as-libmutt.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch2:        mutter-42.alpha-disable-tegra.patch
-
-# Backports that will be part of 43.3
-Patch3:        post-43.2-backports.patch
-
-# Only on F38 and later
-%if 0%{?fedora} >= 38
-# Add Xwayland byte-swapped clients support
-# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2785
-Patch4: 0001-settings-Add-Xwayland-byte-swapped-clients.patch
-Patch5: 0002-xwayland-Add-support-for-byte-swapped-clients.patch
-%endif
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -155,17 +144,14 @@ the functionality of the installed %{name} package.
 
 %find_lang %{name}
 
-# Mutter contains a .desktop file so we just need to validate it
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
-
 %files -f %{name}.lang
 %license COPYING
 %doc NEWS
 %{_bindir}/mutter
-%{_datadir}/applications/*.desktop
 %{_libdir}/lib*.so.*
 %{_libdir}/mutter-%{mutter_api_version}/
 %{_libexecdir}/mutter-restart-helper
+%{_libexecdir}/mutter-x11-frames
 %{_datadir}/GConf/gsettings/mutter-schemas.convert
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.gschema.xml
 %{_datadir}/glib-2.0/schemas/org.gnome.mutter.wayland.gschema.xml
@@ -184,6 +170,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Tue Feb 14 2023 Florian Müllner <fmuellner@redhat.com> - 44~beta-1
+- Update to 44.beta
+
 * Fri Feb 10 2023 Jonas Ådahl <jadahl@redhat.com> - 43.2-2
 - Backport patches on the gnome-43 branch
 

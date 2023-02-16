@@ -7,7 +7,7 @@
 %endif
 
 Name:           vdr-epg-daemon
-Version:        1.3.12
+Version:        1.3.21
 Release:        1%{?dist}
 Summary:        A daemon to download EPG data from internet and manage it in a mysql database
 
@@ -62,7 +62,7 @@ iconv -f iso-8859-1 -t utf-8 README > README.utf8 ; mv README.utf8 README
 
 ## Optimization flags in 'Make.config' file
 sed -i \
-    -e 's|PREFIX       = /usr/local|PREFIX       =  %{_prefix}|' \
+    -e 's|PREFIX      ?= /usr/local|PREFIX       =  %{_prefix}|' \
     -e 's|PLGDEST      = $(PREFIX)/lib/epgd/plugins|PLGDEST      = %{_libdir}/epgd|' \
     -e 's|_PLGDEST     = $(DESTDIR)$(PREFIX)/lib/epgd/plugins|_PLGDEST     = $(DESTDIR)%{_libdir}/epgd|' \
     -e 's|HTTPDEST     = $(DESTDIR)/var/epgd/www|HTTPDEST     = $(DESTDIR)%{vdr_resdir}/epgd|' \
@@ -133,6 +133,12 @@ mkdir -p %{buildroot}%{_libdir}/mariadb/plugin
 %{vdr_resdir}/epgd/
 
 %changelog
+* Tue Feb 14 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.21-1
+- Update to 1.3.21
+
+* Sun Feb 12 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.19-1
+- Update to 1.3.19
+
 * Wed Feb 08 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.3.12-1
 - Update to 1.3.12
 

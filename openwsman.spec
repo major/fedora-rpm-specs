@@ -25,10 +25,10 @@
 
 Name:		openwsman
 Version:	2.7.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Open source Implementation of WS-Management
 
-License:	BSD
+License:	BSD-3-Clause AND MIT
 URL:		http://www.openwsman.org/
 Source0:	https://github.com/Openwsman/openwsman/archive/v%{version}.tar.gz
 # help2man generated manpage for openwsmand binary
@@ -415,6 +415,9 @@ fi
 %endif
 
 %changelog
+* Tue Feb 14 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.7.1-11
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

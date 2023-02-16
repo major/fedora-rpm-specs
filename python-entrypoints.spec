@@ -1,14 +1,12 @@
 %global srcname entrypoints
 %global sum Discover and load entry points from installed packages
 
-%global python3_wheelname %{srcname}-%{version}-py2.py3-none-any.whl
-
 Name:		python-%{srcname}
 
 # WARNING: Check if an update does not break flake8!
 Version:	0.3
 
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	%{sum}
 
 # license clarification issue opened upstream
@@ -22,8 +20,6 @@ Source0:	https://github.com/takluyver/%{srcname}/archive/%{version}/%{srcname}-%
 BuildArch:	noarch
 BuildRequires: make
 BuildRequires:	python3-devel
-BuildRequires:	python3-pip
-BuildRequires:	python3-flit
 BuildRequires:	python3-sphinx
 
 %description
@@ -35,7 +31,6 @@ The entrypoints module contains functions to find and load entry points.
 
 %package -n python3-%{srcname}
 Summary:	%{sum}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 Entry points are a way for Python packages to advertise objects with some
@@ -54,8 +49,12 @@ Documentation files for python-entrypoints
 %autosetup -n %{srcname}-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-XDG_CACHE_HOME=$PWD/.cache FLIT_NO_NETWORK=1 flit build --format wheel
+%pyproject_wheel
 
 pushd doc
 make html PYTHON="%{__python3}" SPHINXBUILD=sphinx-build-%{python3_version}
@@ -64,20 +63,29 @@ popd
 
 
 %install
-%py3_install_wheel %python3_wheelname
+%pyproject_install
+%pyproject_save_files %{srcname}
 
-%files -n python3-%{srcname}
+
+%check
+%pyproject_check_import
+
+
+%files -n python3-%{srcname} -f %{pyproject_files}
 %doc doc/_build/html
 %license LICENSE
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/*.py
-%{python3_sitelib}/%{srcname}-%{version}.dist-info
 
 %files -n python-%{srcname}-doc
 %doc doc/_build/html
 %license LICENSE
 
+
 %changelog
+* Mon Feb 13 2023 Miro Hrončok <mhroncok@redhat.com>
+- Convert to pyproject-rpm-macros
+- The INSTALLER file now says "rpm" instead of "pip"
+- Run basic import check during the build
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

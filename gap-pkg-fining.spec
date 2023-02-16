@@ -7,7 +7,7 @@ Summary:        Finite incidence geometry
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://www.fining.org/
 Source0:        https://github.com/gap-packages/FinInG/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 

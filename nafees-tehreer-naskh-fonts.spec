@@ -4,17 +4,16 @@
 
 Name:           %{fontname}-fonts
 Version:        1.0
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Nafees tehreer naskh font for writing Urdu in the Naskh script
 
 License:        Bitstream Vera
-URL:            http://www.crulp.org/index.htm
+URL:            https://www.cle.org.pk/software/localization/Fonts/nafeesTahreerNaskh.html
 
-Source0:        http://www.crulp.org/Downloads/localization/fonts/NafeesTahreerNaskh/%{archivename}.zip
+Source0:        https://www.cle.org.pk/Downloads/localization/fonts/NafeesTahreerNaskh/%{archivename}.zip
 
-Source1:        %{fontname}-update-preferred-family.pe
-Source2:        %{fontconf}
-Source3:       %{fontname}.metainfo.xml
+Source1:        %{fontconf}
+Source2:        %{fontname}.metainfo.xml
 
 BuildArch:      noarch
 Requires:       fontpackages-filesystem
@@ -32,9 +31,7 @@ on screen readability at small point sizes.
 %setup -q -c
 
 %build
-# Fix RHBZ#490830 while not fixed upstream
-%{_bindir}/fontforge %{SOURCE1} Nafees\ Tahreer\ Naskh\ v1.01.ttf
-rm  Nafees\ Tahreer\ Naskh\ v1.01.ttf
+#nothing
 
 %install
 
@@ -45,14 +42,14 @@ install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
 install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
                 %{buildroot}%{_fontconfig_confdir}
 
-install -m 0644 -p %{SOURCE2} \
+install -m 0644 -p %{SOURCE1} \
                 %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
 
 ln -s %{_fontconfig_templatedir}/%{fontconf} \
         %{buildroot}%{_fontconfig_confdir}/%{fontconf}
 
 # Add AppStream metadata
-install -Dm 0644 -p %{SOURCE3} \
+install -Dm 0644 -p %{SOURCE2} \
        %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
 
 
@@ -63,6 +60,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Mon Feb 13 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.0-24
+- Update to new upstream URL
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Summary:        Computing subgroups of finite soluble groups
 
 License:        BSD-2-Clause
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            http://www.icm.tu-bs.de/~bhoeflin/crisp/
 Source0:        %{url}%{pkgname}-%{version}.tar.bz2
 
@@ -58,10 +58,10 @@ export LC_ALL=C.UTF-8
 ln -s %{gap_libdir}/doc ../../doc
 
 pushd doc
-pdftex -interaction=batchmode manual
+pdftex manual
 makeindex -s manual.mst manual
-pdftex -interaction=batchmode manual
-pdftex -interaction=batchmode manual
+pdftex manual
+pdftex manual
 popd
 
 rm -fr htm

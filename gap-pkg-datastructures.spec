@@ -6,7 +6,7 @@ Release:        3%{?dist}
 Summary:        Standard data structures for GAP
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/datastructures/
 Source0:        https://github.com/gap-packages/datastructures/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

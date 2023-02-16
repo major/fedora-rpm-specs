@@ -3,28 +3,23 @@
 %global build_qt5_client 1
 
 # Define boolean to quickly set option and dependencies for
+# building with websocket support
+%global build_websocket 1
+
+# Define boolean to quickly set option and dependencies for
 # unit tests
-# s390x test fail https://github.com/indilib/indi/issues/1359
-%ifarch s390x
-%global build_tests 0
-%else
 %global build_tests 1
-%endif
 
 Name:       libindi
-Version:    1.9.9
+Version:    2.0.0
 Release:    %autorelease
 Summary:    Instrument Neutral Distributed Interface
 
-License:    LGPLv2+ and GPLv2+
+License:    GPL-2.0-or-later AND LGPL-2.1-or-later AND LGPL-2.0-or-later and BSD-3-Clause
 # See COPYRIGHT file for a description of the licenses and files covered
 
 URL:        http://www.indilib.org
 Source0:    https://github.com/indilib/indi/archive/v%{version}/indi-%{version}.tar.gz
-
-# rawhideFix: add missing header complained about with Fedora38/rawhide
-# https://github.com/indilib/indi/pull/1817
-Patch:      https://github.com/indilib/indi/pull/1817.patch
 
 BuildRequires: cmake
 BuildRequires: libev-devel
@@ -46,6 +41,14 @@ BuildRequires: pkgconfig(Qt5Network)
 %global qt5_client ON
 %else
 %global qt5_client OFF
+%endif
+
+%if 0%{?build_websocket}
+BuildRequires: boost-devel
+BuildRequires: websocketpp-devel
+%global websocket ON
+%else
+%global websocket OFF
 %endif
 
 %if 0%{?build_tests}
@@ -99,7 +102,8 @@ chmod -x drivers/telescope/pmc8driver.cpp
 %build
 %cmake \
     -DINDI_BUILD_QT5_CLIENT="%{qt5_client}" \
-    -DINDI_BUILD_UNITTESTS="%{tests}"
+    -DINDI_BUILD_UNITTESTS="%{tests}" \
+    -DINDI_BUILD_WEBSOCKET="%{websocket}"
 
 %cmake_build
 
@@ -109,29 +113,34 @@ chmod -x drivers/telescope/pmc8driver.cpp
 
 %check
 %if 0%{?build_tests}
-%ctest --test-dir test
+%ctest --test-dir %_vpath_builddir/test
 %endif
 
 
 %files
 %license COPYING.BSD COPYING.GPL COPYING.LGPL COPYRIGHT LICENSE
 %doc AUTHORS ChangeLog NEWS README
-%{_bindir}/*
+%{_bindir}/indi_*
+%{_bindir}/indiserver
+%{_bindir}/shelyak_usis
 %{_datadir}/indi
-%{_udevrulesdir}/*.rules
+%{_udevrulesdir}/80-dbk21-camera.rules
+%{_udevrulesdir}/99-indi_auxiliary.rules
 
 %files libs
 %license COPYING.BSD COPYING.GPL COPYING.LGPL COPYRIGHT LICENSE
-%{_libdir}/*.so.*
+%{_libdir}/%{name}*.so.2
+%{_libdir}/%{name}*.so.2.*
 %{_libdir}/indi/MathPlugins
 
 %files devel
-%{_includedir}/*
-%{_libdir}/*.so
-%{_libdir}/pkgconfig/*.pc
+%{_includedir}/%{name}
+%{_libdir}/%{name}*.so
+%{_libdir}/pkgconfig/%{name}.pc
 
 %files static
-%{_libdir}/*.a
+%{_libdir}/%{name}*.a
+
 
 %changelog
 %autochangelog

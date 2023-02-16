@@ -1,67 +1,65 @@
-%global pypi_name jsonref
-
-Name:           python-%{pypi_name}
-Version:        0.2
-Release:        9%{?dist}
-Summary:        An implementation of JSON Reference for Python
+Name:           python-jsonref
+Version:        1.1.0
+Release:        1%{?dist}
+Summary:        Python library for automatic dereferencing of JSON Reference objects
 
 License:        MIT
 URL:            https://github.com/gazpachoking/jsonref
-Source0:        %{pypi_source}
+# PyPI tarball doesn't have tests
+Source:         %{url}/archive/v%{version}/jsonref-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3-pytest
 
-%description
-jsonref is a library for automatic dereferencing of JSON Reference objects
-for Python (supporting Python 2.6+ and Python 3.3+).
+%global _description %{expand:
+jsonref is a library for automatic dereferencing of JSON Reference objects for
+Python (supporting Python 3.7+).  This library lets you use a data structure
+with JSON reference objects, as if the references had been replaced with the
+referent data.}
 
-This library lets you use a data structure with JSON reference objects, as if
-the references had been replaced with the referent data.
+
+%description %_description
 
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-jsonref
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-jsonref is a library for automatic dereferencing of JSON Reference objects
-for Python (supporting Python 2.6+ and Python 3.3+).
 
-This library lets you use a data structure with JSON reference objects, as if
-the references had been replaced with the referent data.
+%description -n python3-jsonref %_description
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
-# DOS line ending
-sed -i -e 's/\r$//' README.rst
+%autosetup -n jsonref-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files jsonref proxytypes
+
 
 %check
-%{__python3} -m pytest tests.py
+%pytest -v tests.py
 
 
-%files -n python3-%{pypi_name}
+%files -n python3-jsonref -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/proxytypes.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%doc README.md
 
 
 %changelog
+* Tue Feb 14 2023 Carl George <carl@george.computer> - 1.1.0-1
+- Update to version 1.1.0, resolves rhbz#2169606
+- Convert to pyproject macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

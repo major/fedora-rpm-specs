@@ -8,7 +8,7 @@ Summary:        GAP package for digraphs and multidigraphs
 # The project as a whole is GPL-3.0-or-later.
 # The bundled copy of bliss is LGPL-3.0-only.
 License:        GPL-3.0-or-later AND LGPL-3.0-only
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://digraphs.github.io/Digraphs/
 Source0:        https://github.com/digraphs/Digraphs/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

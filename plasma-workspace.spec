@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -785,6 +785,9 @@ fi
 
 
 %changelog
+* Tue Feb 14 2023 Marc Deop marcdeop@fedoraproject.org - 5.27.0-2
+- Rebuild against new sources
+
 * Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
 - 5.27.0
 

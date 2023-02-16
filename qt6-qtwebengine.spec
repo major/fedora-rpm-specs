@@ -5,12 +5,6 @@
 # package-notes causes FTBFS (#2043178)
 %undefine _package_note_file
 
-%if 0%{?fedora}
-# need libvpx >= 1.8.0 (need commit 297dfd869609d7c3c5cd5faa3ebc7b43a394434e)
-%global use_system_libvpx 1
-# For screen sharing on Wayland, currently Fedora only thing - no epel
-%global pipewire 1
-%endif
 %global use_system_libwebp 1
 %global use_system_jsoncpp 1
 %if 0%{?rhel} && 0%{?rhel} == 9
@@ -151,9 +145,7 @@ BuildRequires: pkgconfig(libcap)
 BuildRequires: pkgconfig(libdrm)
 BuildRequires: pkgconfig(libevent)
 BuildRequires: pkgconfig(libpci)
-%if 0%{?pipewire}
 BuildRequires: pkgconfig(libpipewire-0.3)
-%endif
 BuildRequires: pkgconfig(libpng)
 BuildRequires: pkgconfig(libpulse)
 BuildRequires: pkgconfig(libudev)
@@ -184,9 +176,7 @@ BuildRequires: pkgconfig(zlib)
 BuildRequires: perl-interpreter
 BuildRequires: %{__python3}
 BuildRequires: python3-html5lib
-%if 0%{?use_system_libvpx}
 BuildRequires: pkgconfig(vpx) >= 1.8.0
-%endif
 BuildRequires: pkgconfig(libavcodec)
 BuildRequires: pkgconfig(libavformat)
 BuildRequires: pkgconfig(libavutil)
@@ -246,12 +236,6 @@ Provides: bundled(leveldb) = 1.23
 Provides: bundled(libjingle)
 # see src/3rdparty/chromium/third_party/libsrtp/CHANGES for the version number
 Provides: bundled(libsrtp) = 2.4.0
-%if !0%{?use_system_libvpx}
-Provides: bundled(libvpx) = 1.10.0
-%endif
-%if !0%{?use_system_libwebp}
-Provides: bundled(libwebp) = 1.2.2
-%endif
 # bundled as "libxml"
 # see src/3rdparty/chromium/third_party/libxml/linux/include/libxml/xmlversion.h
 Provides: bundled(libxml2) = 2.9.13

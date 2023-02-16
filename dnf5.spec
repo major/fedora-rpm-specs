@@ -1,6 +1,6 @@
 %global project_version_major 5
 %global project_version_minor 0
-%global project_version_patch 5
+%global project_version_patch 6
 
 Name:           dnf5
 Version:        %{project_version_major}.%{project_version_minor}.%{project_version_patch}
@@ -15,6 +15,12 @@ Patch1:         0001-Disable-tutorial-unit-tests.patch
 Requires:       libdnf5%{?_isa} = %{version}-%{release}
 Requires:       dnf-data
 Recommends:     bash-completion
+
+# Remove if condition when Fedora 37 is EOL
+%if 0%{?fedora} > 37
+Provides:       microdnf = %{version}-%{release}
+Obsoletes:      microdnf < 4
+%endif
 
 # ========== build options ==========
 
@@ -172,16 +178,26 @@ It supports RPM packages, modulemd modules, and comps groups & environments.
 
 %files
 %{_bindir}/dnf5
-%{_prefix}/share/dnf5
+
+# Remove if condition when Fedora 37 is EOL
+%if 0%{?fedora} > 37
+%{_bindir}/microdnf
+%endif
+
 %dir %{_sysconfdir}/dnf/dnf5-aliases.d
 %doc %{_sysconfdir}/dnf/dnf5-aliases.d/README
-%dir %{_libdir}/dnf5/
-%dir %{_libdir}/dnf5/plugins/
+%dir %{_datadir}/dnf5
+%dir %{_datadir}/dnf5/aliases.d
+%config %{_datadir}/dnf5/aliases.d/compatibility.conf
+%dir %{_libdir}/dnf5
+%dir %{_libdir}/dnf5/plugins
 %doc %{_libdir}/dnf5/plugins/README
 %dir %{_libdir}/libdnf5/plugins
 %dir %{_datadir}/bash-completion/
 %dir %{_datadir}/bash-completion/completions/
 %{_datadir}/bash-completion/completions/dnf5
+%dir %{_prefix}/lib/sysimage/dnf
+%verify(not md5 size mtime) %ghost %{_prefix}/lib/sysimage/dnf/*
 %license COPYING.md
 %license gpl-2.0.txt
 %{_mandir}/man8/dnf5.8.*
@@ -585,13 +601,36 @@ Core DNF5 plugins that enhance dnf5 with builddep and changelog commands.
 %install
 %cmake_install
 
+# own dirs and files that dnf5 creates on runtime
+mkdir -p %{buildroot}%{_prefix}/lib/sysimage/dnf
+for files in \
+    groups.toml modules.toml nevras.toml packages.toml \
+    system.toml transaction_history.sqlite \
+    transaction_history.sqlite-shm \
+    transaction_history.sqlite-wal userinstalled.toml
+do
+    touch %{buildroot}%{_prefix}/lib/sysimage/dnf/$files
+done
+
 #find_lang {name}
 
+# Remove if condition when Fedora 37 is EOL
+%if 0%{?fedora} > 37
+ln -sr %{buildroot}%{_bindir}/dnf5 %{buildroot}%{_bindir}/microdnf
+%endif
 
 %ldconfig_scriptlets
 
 
 %changelog
+* Tue Feb 14 2023 Nicola Sella <nsella@redhat.com> - 5.0.6-1
+- Add obsoletes of microdnf
+- Many improvements related to internal logic and bugfixes
+- Improvements in specfile
+- Improved API, drop std::optional
+- Use Autoapi instead of Autodoc to generate Python docs
+- Improved documentation for modules
+
 * Thu Jan 26 2023 Nicola Sella <nsella@redhat.com> - 5.0.5-1
 - Fix build fail in rawhide
 - Fixes in the concerning filesystem

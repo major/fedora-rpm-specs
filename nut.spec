@@ -14,7 +14,7 @@
 Summary: Network UPS Tools
 Name: nut
 Version: 2.8.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: GPLv2+ and GPLv3+
 Url: https://www.networkupstools.org/
 Source: https://www.networkupstools.org/source/2.8/%{name}-%{version}.tar.gz
@@ -40,7 +40,7 @@ Requires(pre): shadow-utils
 Requires(post): coreutils systemd
 Requires(preun): systemd
 Requires(postun): coreutils systemd
-Obsoletes: nut-hal < 2.6.0-7
+Recommends: nut-xml
 
 BuildRequires: make
 BuildRequires: autoconf
@@ -481,6 +481,9 @@ fi
 %{_libdir}/pkgconfig/libnutscan.pc
 
 %changelog
+* Tue Feb 14 2023 Michal Hlavinka <mhlavink@redhat.com> - 2.8.0-10
+- add nut-xml to nut recommends (#2151810)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Summary:        Adjoint groups of finite rings
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/circle/
 Source0:        https://github.com/gap-packages/circle/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

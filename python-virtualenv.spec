@@ -1,6 +1,6 @@
 Name:           python-virtualenv
-Version:        20.17.1
-Release:        3%{?dist}
+Version:        20.19.0
+Release:        1%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -13,12 +13,6 @@ Patch1:         rpm-wheels.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-distlib
-BuildRequires:  python3-filelock
-BuildRequires:  python3-platformdirs
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-setuptools_scm
-BuildRequires:  python3-six
 
 %bcond_without tests
 %if %{with tests}
@@ -80,7 +74,6 @@ licensed under an MIT-style permissive license
 
 %prep
 %autosetup -p1 -n virtualenv-%{version}
-sed -i -e "1s|#!/usr/bin/env python||" tasks/update_embedded.py
 
 # Remove the wheels provided by RPM packages
 rm src/virtualenv/seed/wheels/embed/pip-*
@@ -93,19 +86,23 @@ test ! -f src/virtualenv/seed/embed/wheels/*.whl
 # On Fedora, this should change nothing, but when building for RHEL9+, it will
 sed -i "s|/usr/share/python-wheels|%{python_wheel_dir}|" src/virtualenv/util/path/_system_wheels.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
-# Build code
-%{py3_build}
+%pyproject_wheel
 
 %install
-%{py3_install}
+%pyproject_install
+%pyproject_save_files virtualenv
 
 %if %{with tests}
 %check
-mkdir tmp_path
-ln -s $(realpath %{__python3}) tmp_path/python
-export PATH="$(pwd)/tmp_path:$PATH"
-unset SOURCE_DATE_EPOCH
+# Existing dist-info folder confuses
+# importlib.metadata entry points and
+# that leads to failed tests where
+# virtualenv is run via subprocess.
+rm -rv *.dist-info
 
 # Skip tests which requires internet or some extra dependencies
 # Requires internet:
@@ -129,19 +126,16 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
                 not test_base_bootstrap_via_pip_invoke and \
                 not test_seed_link_via_app_data and \
                 not test_py_pyc_missing"
-
-rm -r tmp_path
 %endif
 
-%files -n python3-virtualenv
-%license LICENSE
-%doc docs/*rst README.md
+%files -n python3-virtualenv -f %{pyproject_files}
+%doc README.md
 %{_bindir}/virtualenv
-%{python3_sitelib}/virtualenv/
-%{python3_sitelib}/virtualenv-*.egg-info/
-
 
 %changelog
+* Thu Feb 09 2023 Lumír Balhar <lbalhar@redhat.com> - 20.19.0-1
+- Update to 20.19.0 (rhbz#2167499)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20.17.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,11 @@
+%global commit      ef0cb550ecc8bc4e918c2d8efc16cad5dc39c2c6
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Summary: Text mode Mail Client
 Name: neomutt
-Version: 20220629
-Release: 3%{?dist}
-Epoch: 5
+Version: 20220429^1.%{shortcommit}
+Release: 1%{?dist}
+Epoch: 6
 Url: https://neomutt.org/
 
 # Source, docs and contrib: GPLv2+, except for:
@@ -11,7 +14,7 @@ Url: https://neomutt.org/
 # Public Domain: pgpewrap.c, mbox.5, some themes
 License: GPLv2+ and BSD and MIT and Public Domain
 
-Source: https://github.com/neomutt/neomutt/archive/%{version}/%{name}-%{version}.tar.gz
+Source: https://github.com/neomutt/neomutt/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: fedora-colors.rc
 
 # Use system certificate bundle
@@ -38,7 +41,7 @@ searches and a powerful pattern matching language for selecting groups of
 messages.
 
 %prep
-%setup -q -n %{name}-%{version}
+%setup -q -n %{name}-%{commit}
 %patch1 -p1 -b .system_certs
 %patch2 -p1 -b .ssl_ciphers
 
@@ -77,6 +80,9 @@ cat %{SOURCE1} >> %{buildroot}%{_sysconfdir}/neomuttrc
 %{_datadir}/neomutt
 
 %changelog
+* Tue Feb 14 2023 Carl George <carl@george.computer> - 6:20220429^1.ef0cb55-1
+- Fix versioning
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5:20220629-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

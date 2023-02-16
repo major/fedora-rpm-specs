@@ -1,13 +1,11 @@
 Summary: Matroska container manipulation utilities
 Name: mkvtoolnix
-Version: 73.0.0
-Release: 2%{?dist}
+Version: 74.0.0
+Release: 1%{?dist}
 License: GPLv2+
 Source0: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz
 Source1: https://mkvtoolnix.download/sources/mkvtoolnix-%{version}.tar.xz.sig
 Source2: https://mkvtoolnix.download/gpg-pub-moritzbunkus.txt
-# fix compatibility with Ruby 3.2.0
-Patch0: https://gitlab.com/mbunkus/mkvtoolnix/-/commit/ab6455f68c597ede3d6959597a38f2ecbc198011.patch
 URL: https://mkvtoolnix.download/
 BuildRequires: boost-devel
 BuildRequires: cmake(Qt6Concurrent)
@@ -68,7 +66,6 @@ This package contains the QT graphical interface for these utilities.
 %prep
 %{gpgverify} --keyring='%{S:2}' --signature='%{S:1}' --data='%{S:0}'
 %setup -q
-%patch0 -p1
 rm -rf lib/{fmt,libebml,libmatroska,nlohmann-json,pugixml,utf8-cpp}
 rm -rf rake.d/vendor drake
 
@@ -125,6 +122,10 @@ drake tests:run_unit
 %{_datadir}/mkvtoolnix
 
 %changelog
+* Tue Feb 14 2023 Dominik Mierzejewski <dominik@greysector.net> - 74.0.0-1
+- update to 74.0.0 (#2169200)
+- drop obsolete patch
+
 * Tue Jan 31 2023 Dominik Mierzejewski <dominik@greysector.net> - 73.0.0-2
 - fix FTBFS with Ruby 3.2.0 (fixes rhbz#2161534)
 

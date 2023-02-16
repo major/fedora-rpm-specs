@@ -6,7 +6,7 @@ Release:        3%{?dist}
 Summary:        Cohomology groups of finite groups on finite modules
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/cohomolo/
 Source0:        https://github.com/gap-packages/cohomolo/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Add missing shebangs

@@ -7,7 +7,7 @@ Summary:        Almost Crystallographic groups library for GAP
 
 License:        Artistic-2.0
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/aclib/
 Source0:        https://github.com/gap-packages/aclib/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

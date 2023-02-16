@@ -9,7 +9,7 @@ Summary:        Backtracking search in permutation groups
 # YAPB++/source/library/fnv_hash.hpp is Public Domain
 # However, none of those files are part of the final binary.
 License:        MPL-2.0
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/ferret/
 Source0:        https://github.com/gap-packages/ferret/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

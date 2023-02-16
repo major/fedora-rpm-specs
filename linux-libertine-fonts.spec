@@ -1,113 +1,149 @@
-%global fontname            linux-libertine
-%global prio_libertine      60
-%global prio_biolinum       61
-%global fontconf_libertine  %{prio_libertine}-%{fontname}-libertine.conf
-%global fontconf_biolinum   %{prio_biolinum}-%{fontname}-biolinum.conf
-%global fontconf_metrics    29-%{fontname}-metrics-alias.conf
-%global archivename         LinLibertine
-%global posttag             2012_07_02
+# Packaging template: multi-family fonts packaging.
+#
+# SPDX-License-Identifier: MIT
+#
+# This template documents spec declarations, used when packaging multiple font
+# families, from a single dedicated source archive. The source rpm is named
+# after the first (main) font family). Look up “fonts-3-sub” when the source
+# rpm needs to be named some other way.
+#
+# It is part of the following set of packaging templates:
+# “fonts-0-simple”: basic single-family fonts packaging
+# “fonts-1-full”:   less common patterns for single-family fonts packaging
+# “fonts-2-multi”:  multi-family fonts packaging
+# “fonts-3-sub”:    packaging fonts, released as part of something else
+#
+%global posttag 2012_07_02
 
-%define common_desc                                                     \
-The Linux Libertine Open Fonts are a TrueType font family for practical \
-use in documents.  They were created to provide a free alternative to   \
-proprietary standard fonts.
+Version: 5.3.0
+Release: 25.%{posttag}%{?dist}
+URL:     http://linuxlibertine.sf.net
+BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
 
-Name:           %{fontname}-fonts
-Version:        5.3.0
-Release:        24.%{posttag}%{?dist}
-Summary:        Linux Libertine Open Fonts
 
-License:        GPL-2.0-or-later WITH Font-exception-2.0 OR OFL-1.1
-URL:            http://linuxlibertine.sf.net
-Source0:        http://download.sourceforge.net/sourceforge/linuxlibertine/LinLibertineOTF_%{version}_%{posttag}.tgz
-Source1:        %{name}-libertine-fontconfig.conf
-Source2:        %{name}-biolinum-fontconfig.conf
-Source3:        %{name}-libertine-metrics-alias-fontconfig.conf
-Source4:        libertine.metainfo.xml
-Source5:        biolinum.metainfo.xml
+# The following declarations will be aliased to [variable]0 and reused for all
+# generated *-fonts packages unless overriden by a specific [variable][number]
+# declaration.
+%global foundry           linux-libertine
+%global fontlicense       GPL-2.0-or-later WITH Font-exception-2.0 OR OFL-1.1
+%global fontlicenses      OFL-1.1.txt GPL.txt LICENCE.txt
+%global fontdocs          ToDo.txt Readme-TEX.txt README ChangeLog.txt Bugs.txt
+%global fontdocsex        %{fontlicenses}
 
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel libappstream-glib
-#BuildRequires:  fontforge
-Requires:       %{name}-common = %{version}-%{release}
+# A text block that can be reused as part of the description of each generated
+# subpackage.
+%global common_description %{expand:
+The Linux Libertine Open Fonts are a TrueType font family for practical use in documents.  They were created to provide a free alternative to proprietary standard fonts.
+}
 
-%description
-%common_desc
+# Declaration for the subpackage containing the first font family. Also used as
+# source rpm info. All the [variable]0 declarations are equivalent and aliased
+# to [variable].
 
+%global fontfamily0       Linux Libertine
+%global fontsummary0      Linux Libertine Open Fonts
+%global fontpkgheader0    %{expand:
+Obsoletes: linux-libertine-fonts-common < 5.3.0-24
+Provides: linux-libertine-fonts-common = %{version}-%{release}
+}
+%global fonts0            LinLibertine_RZ.otf LinLibertine_RZI.otf LinLibertine_R.otf LinLibertine_RI.otf LinLibertine_RB.otf LinLibertine_RBI.otf LinLibertine_DR.otf LinLibertine_I.otf
+%global fontsex0          %{nil}
+%global fontconfs0        %{SOURCE10} %{SOURCE13}
+%global fontconfsex0      %{nil}
+%global fontdescription0  %{expand:
+%{common_description}
 This package contains Serif fonts.
+}
 
-%package -n %{fontname}-biolinum-fonts
-Summary:        Sans-serif fonts from Linux Libertine Open Fonts
-Requires:       %{name}-common = %{version}-%{release}
-
-%description -n %{fontname}-biolinum-fonts
-%common_desc
-
+%global fontfamily1       Linux Biolinum
+%global fontsummary1      Sans-serif fonts from Linux Libertine Open Fonts
+%global fontpkgheader1    %{expand:
+Obsoletes: linux-libertine-fonts-common < 5.3.0-24
+Provides: linux-libertine-fonts-common = %{version}-%{release}
+}
+%global fonts1            LinBiolinum_R.otf LinBiolinum_RI.otf LinBiolinum_RB.otf LinBiolinum_K.otf
+%global fontsex1          %{nil}
+%global fontconfs1        %{SOURCE11}
+%global fontconfsex1      %{nil}
+%global fontdescription1  %{expand:
+%{common_description}
 This package contains Sans fonts.
+}
 
-%package common
-Summary:        Common files for Linux Libertine Open Fonts
-Requires:       fontpackages-filesystem
+%global fontfamily2       Linux Libertine Mono
+%global fontsummary2      Monospace font from Linux Libertine Open Fonts
+%global fontpkgheader2    %{expand:
+Obsoletes: linux-libertine-fonts < 5.3.0-24
+Obsoletes: linux-libertine-fonts-common < 5.3.0-24
+Provides: linux-libertine-fonts-common = %{version}-%{release}
+}
+%global fonts2            LinLibertine_M.otf
+%global fontsex2          %{nil}
+%global fontconfs2        %{SOURCE12}
+%global fontconfsex2      %{nil}
+%global fontdescription2  %{expand:
+%{common_description}
+This package contains Monospace font.
+}
 
-%description common
-%common_desc
+Source0:  http://download.sourceforge.net/sourceforge/linuxlibertine/LinLibertineOTF_%{version}_%{posttag}.tgz
+Source10: 60-linux-libertine-fonts.conf
+Source11: 61-linux-libertine-biolinum-fonts.conf
+Source12: 61-linux-libertine-mono-fonts.conf
+Source13: 29-linux-libertine-fonts-metrics-alias.conf
 
-This package consists of files used by other %{name} packages.
+# “fontpkg” will generate the font subpackage headers corresponding to the
+# elements declared above.
+# “fontpkg” accepts the following selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontpkg -a
+
+# “fontmetapkg” will generate a font meta(sub)package header for all the font
+# subpackages generated in this spec. Optional arguments:
+# – “-n [name]”      use [name] as metapackage name
+# – “-s [variable]”  use the content of [variable] as metapackage summary
+# – “-d [variable]”  use the content of [variable] as metapackage description
+# – “-z [numbers]”   restrict metapackaging to [numbers] comma-separated list
+#                    of font package suffixes
+%fontmetapkg
 
 %prep
 %setup -q -c
-sed -i -e 's/\r//' OFL-1.1.txt
 
 %build
-#for i in $(find -name '*.sfd'); do
-#  (cd scripts;
-#   ./bailly-2.sh "../$i" ttf
-#  )
-#done
-#mv scripts/*.ttf .
+# “fontbuild” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontbuild -a
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.otf %{buildroot}%{_fontdir}
-
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf_libertine}
-install -m 0644 -p %{SOURCE2} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf_biolinum}
-install -m 0644 -p %{SOURCE3} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf_metrics}
-
-for fconf in %{fontconf_libertine} %{fontconf_metrics} %{fontconf_biolinum}; do
-    ln -s %{_fontconfig_templatedir}/$fconf \
-          %{buildroot}%{_fontconfig_confdir}/$fconf
-done
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE4} \
-        %{buildroot}%{_metainfodir}/libertine.metainfo.xml
-install -Dm 0644 -p %{SOURCE5} \
-        %{buildroot}%{_metainfodir}/biolinum.metainfo.xml
+# “fontinstall” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontinstall -a
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+# “fontcheck” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontcheck -a
 
-%files common
-%license GPL.txt LICENCE.txt OFL-1.1.txt
-%doc Bugs.txt ChangeLog.txt Readme-TEX.txt README
-
-%_font_pkg -f %{fontconf_libertine} LinLibertine*.otf
-%{_metainfodir}/libertine.metainfo.xml
-
-%{_fontconfig_templatedir}/%{fontconf_metrics}
-%{_fontconfig_confdir}/%{fontconf_metrics}
-
-%_font_pkg -n biolinum -f %{fontconf_biolinum} LinBiolinum*.otf
-%{_metainfodir}/biolinum.metainfo.xml
+# “fontfiles” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block
+%fontfiles -a
 
 %changelog
+* Mon Feb 13 2023 Akira TAGOH <tagoh@redhat.com> - 5.3.0-24.2012_07_02
+- Revise the spec file for new packaging guidelines.
+- Add linux-libertine-mono-fonts sub-package.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-24.2012_07_02
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

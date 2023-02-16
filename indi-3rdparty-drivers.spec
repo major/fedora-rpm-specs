@@ -1,19 +1,45 @@
 %global aagcloudwatcher_ng_pkg indi-3rdparty-aagcloudwatcher-ng
 %global aok_pkg indi-3rdparty-aok
 %global apogee_pkg indi-3rdparty-apogee
+%global astrolink4_pkg indi-3rdparty-astrolink4
+%global astromechfoc_pkg indi-3rdparty-astromechfoc
+%global avalon_pkg indi-3rdparty-avalon
+%global beefocus_pkg indi-3rdparty-beefocus
+%global bresser_pkg indi-3rdparty-bresserexos2
+%global caux_pkg indi-3rdparty-celestronaux
+%global dreamfocuser_pkg indi-3rdparty-dreamfocuser
 %global eqmod_pkg indi-3rdparty-eqmod
 %global fli_pkg indi-3rdparty-fli
 %global gphoto_pkg indi-3rdparty-gphoto
+%global gpsd_pkg indi-3rdparty-gpsd
+%global gpsnmea_pkg indi-3rdparty-gpsnmea
+%global lunatico_pkg indi-3rdparty-armadillo-platypus
+%global maxdome_pkg indi-3rdparty-maxdome
+%global mgen_pkg indi-3rdparty-mgen
+%global nexdome_pkg indi-3rdparty-nexdome
+%global nightscape_pkg indi-3rdparty-nightscape
+%global orion_pkg indi-3rdparty-orionssg3
+%global rtklib_pkg indi-3rdparty-rtklib
+%global shelyak_pkg indi-3rdparty-shelyak
+%global spectracyber_pkg indi-3rdparty-spectracyber
+%global starbook_pkg indi-3rdparty-starbook
+%global starbookten_pkg indi-3rdparty-starbook-ten
 %global sx_pkg indi-3rdparty-sx
+%global talon6_pkg indi-3rdparty-talon6
 %global webcam_pkg indi-3rdparty-webcam
+%global weewx_pkg indi-3rdparty-weewx-json
 
-%global indi_version 1.9.9
+%global indi_version 2.0.0
+
+# Define boolean to quickly set option and dependencies for
+# unit tests
+%global build_tests 1
 
 Name:           indi-3rdparty-drivers
-Version:        1.9.9
+Version:        2.0.0
 Release:        %autorelease
 Summary:        INDI 3rdparty drivers
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://indilib.org
 
 # Tar is generated from the huge all-in-one tar from INDI
@@ -26,35 +52,69 @@ Source1:        generate-drivers-tarball.sh
 BuildRequires:  cmake
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
+BuildRequires:  boost-devel
 BuildRequires:  ffmpeg-free-devel
-# Weak dependencies are not pulled in
-# BuildRequires:  indi-3rdparty-libraries = %%{version}
 BuildRequires:  indi-3rdparty-libapogee-devel = %{version}
 BuildRequires:  indi-3rdparty-libfli-devel = %{version}
 BuildRequires:  libnova-devel
 BuildRequires:  libindi = %{indi_version}
+BuildRequires:  websocketpp-devel
 BuildRequires:  zlib-devel
 
 BuildRequires:  pkgconfig(cfitsio)
+BuildRequires:  pkgconfig(libgps)
 BuildRequires:  pkgconfig(gsl)
 BuildRequires:  pkgconfig(libavdevice)
+BuildRequires:  pkgconfig(libcurl)
+BuildRequires:  pkgconfig(libftdi1)
 BuildRequires:  pkgconfig(libgphoto2)
+BuildRequires:  pkgconfig(libgps)
 BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libindi) = %{version}
 BuildRequires:  pkgconfig(libraw)
 BuildRequires:  pkgconfig(libusb-1.0)
-BuildRequires:  gmock-devel
+
+%if 0%{?build_tests}
+BuildRequires: pkgconfig(gtest)
+BuildRequires: pkgconfig(gmock)
+%global tests ON
+%else
+%global tests OFF
+%endif
 
 # We want this metapackage to install all drivers at once.
 # Just use weak dependencies to avoid possible errors.
 Recommends:     %{aagcloudwatcher_ng_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{aok_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{apogee_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{astrolink4_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{astromechfoc_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{avalon_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{beefocus_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{bresser_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{caux_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{dreamfocuser_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{eqmod_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{fli_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{gphoto_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{gpsd_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{gpsnmea_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{lunatico_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{maxdome_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{mgen_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{nexdome_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{nightscape_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{orion_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{rtklib_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{shelyak_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{spectracyber_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{starbook_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{starbookten_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{sx_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{talon6_pkg}%{?_isa} = %{version}-%{release}
 Recommends:     %{webcam_pkg}%{?_isa} = %{version}-%{release}
+Recommends:     %{weewx_pkg}%{?_isa} = %{version}-%{release}
+
 
 %description
 This is a metapackage for installing all INDI 3rdparty drivers
@@ -65,20 +125,39 @@ We currently ship the following drivers:
 - %{aagcloudwatcher_ng_pkg}
 - %{aok_pkg}
 - %{apogee_pkg}
+- %{astrolink4_pkg}
+- %{astromechfoc_pkg}
+- %{avalon_pkg}
+- %{beefocus_pkg}
+- %{bresser_pkg}
+- %{caux_pkg}
+- %{dreamfocuser_pkg}
 - %{eqmod_pkg}
 - %{fli_pkg}
 - %{gphoto_pkg}
+- %{gpsd_pkg}
+- %{gpsnmea_pkg}
+- %{lunatico_pkg}
+- %{maxdome_pkg}
+- %{mgen_pkg}
+- %{nexdome_pkg}
+- %{nightscape_pkg}
+- %{orion_pkg}
+- %{rtklib_pkg}
+- %{shelyak_pkg}
+- %{spectracyber_pkg}
+- %{starbook_pkg}
+- %{starbookten_pkg}
 - %{sx_pkg}
+- %{talon6_pkg}
 - %{webcam_pkg}
+- %{weewx_pkg}
 
 
 %package -n %{aagcloudwatcher_ng_pkg}
-License:        GPLv3+
+License:        GPL-3.0-or-later
 Summary:        INDI driver for the AAG Cloud Watcher NG
 
-# We have to specify this requirement as the shared libraries are part of
-# libindi-libs (which is what the dependency generator will find), but the
-# driver also requires the binary indiserver, part of libindi package.
 Requires:       libindi = %{indi_version}
 
 Provides:       indi-aagcloudwatcher = %{version}-%{release}
@@ -97,13 +176,9 @@ Documentation files of the INDI driver for the AAG Cloud Watcher NG.
 
 
 %package -n %{aok_pkg}
-# No license in the drivers directory, assuming the same as main package
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Summary:        The INDI driver for AOK Skywalker mounts
 
-# We have to specify this requirement as the shared libraries are part of
-# libindi-libs (which is what the dependency generator will find), but the
-# driver also requires the binary indiserver, part of libindi package.
 Requires:       libindi = %{indi_version}
 
 %description -n %{aok_pkg}
@@ -111,12 +186,9 @@ The INDI driver to control the AOK Skywalker mounts.
 
 
 %package -n %{apogee_pkg}
-License:        GPLv3+
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
 Summary:        The INDI driver for Apogee Alta (U & E) line of CCDs
 
-# We have to specify this requirement as the shared libraries are part of
-# libindi-libs (which is what the dependency generator will find), but the
-# driver also requires the binary indiserver, part of libindi package.
 Requires:       libindi = %{indi_version}
 
 Provides:       indi-apogee = 1:%{version}-%{release}
@@ -127,13 +199,90 @@ The INDI (Instrument Neutral Distributed Interface) driver for Apogee
 Alta (U & E) line of CCDs.
 
 
+%package -n %{astrolink4_pkg}
+License:        GPL-3.0-or-later
+Summary:        The INDI driver for Astrolink 4.0 mini devices
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{astrolink4_pkg}
+The INDI (Instrument Neutral Distributed Interface) driver for Astrolink
+4.0 mini devices.
+
+
+%package -n %{astromechfoc_pkg}
+License:        GPL-3.0-or-later
+Summary:        The INDI driver for Astromechanics Lens Controller
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{astromechfoc_pkg}
+The INDI driver INDI driver for Astromechanics Lens Controller.
+
+
+%package -n %{avalon_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for Avalon Instruments mounts
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{avalon_pkg}
+INDI driver to control Avalon Instruments mounts with StarGO control.
+
+
+%package -n %{beefocus_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for Beefocus
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{beefocus_pkg}
+INDI driver for Beefocus.
+
+
+%package -n %{bresser_pkg}
+License:        GPL-2.0-or-later
+Summary:        INDI driver for Bresser Exos II GoTo
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{bresser_pkg}
+INDI driver for Bresser Exos II GoTo Telescope Mount.
+
+%package -n %{bresser_pkg}-doc
+Summary:        Documentation files for %{bresser_pkg}
+Requires:       %{bresser_pkg} = %{version}-%{release}
+BuildArch:      noarch
+
+%description -n %{bresser_pkg}-doc
+Documentation files of the INDI driver for Bresser Exos II GoTo
+Telescope Mount.
+
+
+%package -n %{caux_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for Celestron AUX
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{caux_pkg}
+INDI driver for Celestron AUX protocol.
+
+
+%package -n %{dreamfocuser_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for Dreamfocuser
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{dreamfocuser_pkg}
+INDI driver for Dreamfocuser.
+
+
 %package -n %{eqmod_pkg}
-License:        GPLv3+
+License:        GPL-3.0-or-later AND GPL-2.0-or-later
 Summary:        INDI driver providing support for SkyWatcher Protocol
 
-# We have to specify this requirement as the shared libraries are part of
-# libindi-libs (which is what the dependency generator will find), but the
-# driver also requires the binary indiserver, part of libindi package.
 Requires:       libindi = %{indi_version}
 
 Provides:       indi-eqmod = %{version}-%{release}
@@ -145,13 +294,9 @@ SkyWatcher protocol.
 
 
 %package -n %{fli_pkg}
-# No license in the drivers directory, assuming the same as main package
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Summary:        INDI driver for Finger Lakes Instruments CCDs and focusers
 
-# We have to specify this requirement as the shared libraries are part of
-# libindi-libs (which is what the dependency generator will find), but the
-# driver also requires the binary indiserver, part of libindi package.
 Requires:       libindi = %{indi_version}
 Requires:       udev
 
@@ -161,12 +306,9 @@ and focusers.
 
 
 %package -n %{gphoto_pkg}
-License:        GPLv3+
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        INDI driver providing support for gPhoto
 
-# We have to specify this requirement as the shared libraries are part of
-# libindi-libs (which is what the dependency generator will find), but the
-# driver also requires the binary indiserver, part of libindi package.
 Requires:       libindi = %{indi_version}
 Requires:       udev
 
@@ -178,13 +320,148 @@ INDI driver using gPhoto to add support for many cameras to INDI.
 This includes many DSLR, e.g. Canon or Nikon.
 
 
+%package -n %{gpsd_pkg}
+License:        GPL-2.0-or-later
+Summary:        INDI driver providing support for gpsd
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{gpsd_pkg}
+INDI driver providing support for gpsd.
+
+
+%package -n %{gpsnmea_pkg}
+License:        GPL-2.0-or-later
+Summary:        INDI driver providing support for gps NMEA
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{gpsnmea_pkg}
+INDI driver providing support for gps NMEA.
+
+
+%package -n %{lunatico_pkg}
+License:        LGPL-2.1-or-later
+Summary:        The INDI driver for Lunatico Astronomia controllers
+
+Requires:       libindi = %{indi_version}
+Requires:       udev
+
+%description -n %{lunatico_pkg}
+The INDI driver for Lunatico Astronomia Armadillo and
+Platypus controllers.
+
+
+%package -n %{maxdome_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for MaxDome II
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{maxdome_pkg}
+INDI driver for MaxDome II.
+
+
+%package -n %{mgen_pkg}
+License:        GPL-2.0-or-later
+Summary:        INDI driver for Lacerta MGen autoguider
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{mgen_pkg}
+INDI driver for Lacerta MGen autoguider.
+
+
+%package -n %{nexdome_pkg}
+License:        GPL-2.0-or-later
+Summary:        INDI driver for NexDome
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{nexdome_pkg}
+INDI driver for NexDome.
+
+
+%package -n %{nightscape_pkg}
+License:        GPL-2.0-or-later
+Summary:        INDI driver for Celestron Nightscape 8300 series
+
+Requires:       libindi = %{indi_version}
+Requires:       udev
+
+%description -n %{nightscape_pkg}
+INDI driver for for the Celestron Nightscape 8300 line of CCDs.
+
+
+%package -n %{orion_pkg}
+License:        GPL-3.0-or-later
+Summary:        INDI driver for Orion StarShoot G3 cameras
+
+Requires:       libindi = %{indi_version}
+Requires:       udev
+
+%description -n %{orion_pkg}
+INDI driver for for the Orion StarShoot G3 cameras.
+
+
+%package -n %{rtklib_pkg}
+License:        GPL-2.0-or-later
+Summary:        INDI driver providing support for RTKLIB
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{rtklib_pkg}
+INDI driver providing support for RTKLIB.
+
+
+%package -n %{shelyak_pkg}
+License:        GPL-2.0-or-later
+Summary:        INDI driver providing support for Shelyak spectrographs
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{shelyak_pkg}
+INDI driver providing support for Shelyak spectrographs.
+
+
+%package -n %{starbook_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for Vixen Starbook telescope controllers
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{starbook_pkg}
+INDI driver for Vixen Starbook telescope controllers. This driver aims
+for compatibility with first generation Starbook.
+Starbook TEN is working to some extent with this driver.
+Commands exclusive to Starbook TEN won't be available.
+
+
+%package -n %{starbookten_pkg}
+License:        LGPL-2.1-or-later AND GPL-2.0-or-later
+Summary:        INDI driver for Vixen Starbook Ten
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{starbookten_pkg}
+INDI driver for Vixen Starbook Ten telescope controllers.
+
+
+%package -n %{spectracyber_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for SpectraCyber spectrograph
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{spectracyber_pkg}
+INDI driver providing support for Radio Astronomy Supplies' SpectraCyber
+hydrogen line spectrometer.
+
+
 %package -n %{sx_pkg}
-License:        GPLv3+
+License:        GPL-2.0-or-later AND ICU
 Summary:        INDI driver providing support for Starlight Xpress devices
 
-# We have to specify this requirement as the shared libraries are part of
-# libindi-libs (which is what the dependency generator will find), but the
-# driver also requires the binary indiserver, part of libindi package.
 Requires:       libindi = %{indi_version}
 Requires:       udev
 
@@ -196,18 +473,34 @@ INDI driver providing support for devices from Starlight Xpress.
 This includes SX CCDs, SX wheel and SX Active Optics.
 
 
+%package -n %{talon6_pkg}
+License:        LGPL-2.1-or-later
+Summary:        INDI driver for TALON6 Roll Off Roof
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{talon6_pkg}
+INDI driver providing support for TALON6 Roll Off Roof.
+
+
 %package -n %{webcam_pkg}
-# No license in the drivers directory, assuming the same as main package
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Summary:        INDI driver for ffmpeg based webcams
 
-# We have to specify this requirement as the shared libraries are part of
-# libindi-libs (which is what the dependency generator will find), but the
-# driver also requires the binary indiserver, part of libindi package.
 Requires:       libindi = %{indi_version}
 
 %description -n %{webcam_pkg}
 INDI driver for ffmpeg based webcams.
+
+
+%package -n %{weewx_pkg}
+License:        GPL-2.0-or-later
+Summary:        Use Weewx to provide weather data to INDI
+
+Requires:       libindi = %{indi_version}
+
+%description -n %{weewx_pkg}
+This driver uses the WeeWX JSON plugin to provide weather data to INDI.
 
 
 %prep
@@ -223,62 +516,31 @@ find . -mindepth 2 -name CMakeLists.txt \
 
 
 %build
+# Options explanation:
+# -DNO_PRE_BUILT=ON         disable all pre-built drivers
+# -DINDI_BUILD_UNITTESTS=ON build and run tests
+# -DWITH_AHP_GT=OFF         needs libahp_gt to be packaged
+# -DWITH_FFMV=OFF           needs libdc1394 which is not available on s390x
+# -DWITH_LIMESDR=OFF        needs limesuite to be packaged
 %cmake -DBUILD_LIBS=OFF \
-    -DWITH_EQMOD=ON \
-    -DWITH_ASTROLINK4=OFF \
-    -DWITH_SKYWALKER=ON \
-    -DWITH_STARBOOK=OFF \
-    -DWITH_STARBOOK_TEN=OFF \
-    -DWITH_SX=ON \
-    -DWITH_MAXDOME=OFF \
-    -DWITH_NEXDOME=OFF \
-    -DWITH_TALON6=OFF \
-    -DWITH_SPECTRACYBER=OFF \
-    -DWITH_SHELYAK=OFF \
-    -DWITH_CLOUDWATCHER=ON \
-    -DWITH_CAUX=OFF \
-    -DWITH_GPHOTO=ON \
-    -DWITH_QSI=OFF \
-    -DWITH_SBIG=OFF \
-    -DWITH_ATIK=OFF \
-    -DWITH_TOUPBASE=OFF \
-    -DWITH_BEEFOCUS=OFF \
-    -DWITH_INOVAPLX=OFF \
-    -DWITH_FLI=ON \
-    -DWITH_APOGEE=ON \
+    -DNO_PRE_BUILT=ON \
+    -DINDI_BUILD_UNITTESTS=ON \
+    -DWITH_AHP_GT=OFF \
     -DWITH_FFMV=OFF \
-    -DWITH_MI=OFF \
-    -DWITH_DUINO=OFF \
-    -DWITH_FISHCAMP=OFF \
-    -DWITH_ASICAM=OFF \
-    -DWITH_DSI=OFF \
-    -DWITH_QHY=OFF \
-    -DWITH_GPSD=OFF \
-    -DWITH_GPSNMEA=OFF \
-    -DWITH_RTKLIB=OFF \
-    -DWITH_GIGE=OFF \
-    -DWITH_MGEN=OFF \
-    -DWITH_ASTROMECHFOC=OFF \
-    -DWITH_LIMESDR=OFF \
-    -DWITH_ARMADILLO=OFF \
-    -DWITH_WEBCAM=ON \
-    -DWITH_NIGHTSCAPE=OFF \
-    -DWITH_DREAMFOCUSER=OFF \
-    -DWITH_AVALON=OFF \
-    -DWITH_PENTAX=OFF \
-    -DWITH_AHP_XC=OFF \
-    -DWITH_SVBONY=OFF \
-    -DWITH_RPICAM=OFF \
-    -DWITH_BRESSEREXOS2=OFF \
-    -DWITH_ORION_SSG3=OFF \
-    -DWITH_PLAYERONE=OFF \
-    -DWITH_WEEWX_JSON=OFF
+    -DWITH_LIMESDR=OFF
 
 %cmake_build
 
 
 %install
 %cmake_install
+
+
+%check
+%if 0%{?build_tests}
+# Tests cannot be run because we split upstream sources
+#%%ctest
+%endif
 
 
 %files
@@ -313,11 +575,64 @@ find . -mindepth 2 -name CMakeLists.txt \
 %{_datadir}/indi/indi_apogee.xml
 
 
+%files -n %{astrolink4_pkg}
+%license indi-astrolink4/COPYING.LIB
+%doc indi-astrolink4/AUTHORS indi-astrolink4/README.md
+%{_bindir}/indi_astrolink4
+%{_datadir}/indi/indi_astrolink4.xml
+
+
+%files -n %{astromechfoc_pkg}
+%license indi-astromechfoc/LICENSE
+%doc indi-astromechfoc/README
+%{_bindir}/indi_astromechfoc
+%{_datadir}/indi/indi_astromechfoc.xml
+
+
+%files -n %{avalon_pkg}
+%license LICENSE
+%doc indi-avalon/README
+%{_bindir}/indi_lx200stargo
+%{_datadir}/indi/indi_avalon.xml
+
+
+%files -n %{beefocus_pkg}
+%license indi-beefocus/firmware/LICENSE
+%doc indi-beefocus/README.md
+%{_bindir}/indi_beefocus
+%{_datadir}/indi/indi_beefocus.xml
+
+
+%files -n %{bresser_pkg}
+%license LICENSE
+%doc indi-bresserexos2/README.md
+%{_bindir}/indi_bresserexos2
+%{_datadir}/indi/indi_bresserexos2.xml
+
+%files -n %{bresser_pkg}-doc
+%doc indi-bresserexos2/Documentation
+
+
+%files -n %{caux_pkg}
+%license LICENSE
+%doc indi-celestronaux/README.md
+%{_bindir}/indi_celestron_aux
+%{_datadir}/indi/indi_celestronaux.xml
+
+
+%files -n %{dreamfocuser_pkg}
+%license LICENSE
+%doc indi-dreamfocuser/AUTHORS indi-dreamfocuser/README
+%{_bindir}/indi_dreamfocuser_focus
+%{_datadir}/indi/indi_dreamfocuser_focus.xml
+
+
 %files -n %{eqmod_pkg}
 %license indi-eqmod/COPYING
 %doc indi-eqmod/AUTHORS indi-eqmod/README
 %{_bindir}/indi_eqmod_telescope
 %{_bindir}/indi_azgti_telescope
+%{_bindir}/indi_skyadventurergti_telescope
 %{_datadir}/indi/indi_align_sk.xml
 %{_datadir}/indi/indi_eqmod*.xml
 
@@ -344,6 +659,100 @@ find . -mindepth 2 -name CMakeLists.txt \
 %{_udevrulesdir}/85-disable-dslr-automout.rules
 
 
+%files -n %{gpsd_pkg}
+%license LICENSE
+%{_bindir}/indi_gpsd
+%{_datadir}/indi/indi_gpsd.xml
+
+
+%files -n %{gpsnmea_pkg}
+%license LICENSE
+%{_bindir}/indi_gpsnmea
+%{_datadir}/indi/indi_gpsnmea.xml
+
+
+%files -n %{lunatico_pkg}
+%license LICENSE
+%doc indi-armadillo-platypus/AUTHORS indi-armadillo-platypus/README
+%{_bindir}/indi_armadillo_focus
+%{_bindir}/indi_beaver_dome
+%{_bindir}/indi_dragonfly_dome
+%{_bindir}/indi_platypus_focus
+%{_bindir}/indi_seletek_rotator
+%{_datadir}/indi/indi_lunatico.xml
+%{_udevrulesdir}/99-armadilloplatypus.rules
+
+
+%files -n %{maxdome_pkg}
+%license LICENSE
+%{_bindir}/indi_maxdomeii
+%{_datadir}/indi/indi_maxdomeii.xml
+
+
+%files -n %{mgen_pkg}
+%license LICENSE
+%{_bindir}/indi_mgenautoguider
+%{_datadir}/indi/indi_mgenautoguider.xml
+
+
+%files -n %{nexdome_pkg}
+%license LICENSE
+%{_bindir}/indi_nexdome
+%{_datadir}/indi/indi_nexdome.xml
+
+
+%files -n %{nightscape_pkg}
+%license indi-nightscape/COPYING.LIB
+%doc indi-nightscape/AUTHORS indi-nightscape/README
+%{_bindir}/indi_nightscape_ccd
+%{_datadir}/indi/indi_nightscape.xml
+%{_udevrulesdir}/99-nightscape.rules
+
+
+%files -n %{orion_pkg}
+%license indi-orion-ssg3/LICENSE
+%doc indi-orion-ssg3/README.md
+%{_bindir}/indi_orion_ssg3_ccd
+%{_datadir}/indi/indi_orion_ssg3.xml
+%{_udevrulesdir}/99-orionssg3.rules
+
+
+%files -n %{rtklib_pkg}
+%license LICENSE
+%{_bindir}/indi_rtklib
+%{_datadir}/indi/indi_rtklib.xml
+
+
+%files -n %{shelyak_pkg}
+%license LICENSE
+%{_bindir}/indi_shelyakeshel_spectrograph
+%{_bindir}/indi_shelyakspox_spectrograph
+%{_datadir}/indi/indi_shelyak.xml
+
+
+%files -n %{spectracyber_pkg}
+%license LICENSE
+%doc indi-spectracyber/Authors indi-spectracyber/Readme
+%{_bindir}/indi_spectracyber
+%{_datadir}/indi/indi_spectracyber.xml
+%{_datadir}/indi/indi_spectracyber_sk.xml
+
+
+%files -n %{starbook_pkg}
+%license indi-starbook/COPYING.LGPL
+%doc indi-starbook/AUTHORS indi-starbook/README.rst
+%{_bindir}/indi_starbook_telescope
+%{_datadir}/indi/indi_starbook_telescope.xml
+
+
+%files -n %{starbookten_pkg}
+%license indi-starbook-ten/COPYING indi-starbook-ten/COPYING.LESSER
+%license indi-starbook-ten/COPYRIGHT
+%doc indi-starbook-ten/AUTHORS indi-starbook-ten/README
+%{_bindir}/indi_starbook_ten
+%{_datadir}/indi/indi_starbook_ten.xml
+
+
 %files -n %{sx_pkg}
 %license indi-sx/COPYING.LIB
 %doc indi-gphoto/AUTHORS indi-gphoto/README
@@ -355,10 +764,23 @@ find . -mindepth 2 -name CMakeLists.txt \
 %{_udevrulesdir}/99-sx.rules
 
 
+%files -n %{talon6_pkg}
+%license LICENSE
+%doc indi-talon6/AUTHORS indi-talon6/README
+%{_bindir}/indi_talon6
+%{_datadir}/indi/indi_talon6.xml
+
+
 %files -n %{webcam_pkg}
 %license LICENSE
 %{_bindir}/indi_webcam_ccd
 %{_datadir}/indi/indi_webcam.xml
+
+
+%files -n %{weewx_pkg}
+%license LICENSE
+%{_bindir}/indi_weewx_json
+%{_datadir}/indi/indi_weewx_json.xml
 
 
 %changelog

@@ -7,7 +7,7 @@ Summary:        Transitive groups library
 
 License:        GPL-2.0-only OR GPL-3.0-only
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://www.gap-system.org/Packages/transgrp.html
 Source0:        https://www.math.colostate.edu/~hulpke/transgrp/%{pkgname}%{version}.tar.gz
 Source1:        https://www.math.colostate.edu/~hulpke/transgrp/trans32.tgz

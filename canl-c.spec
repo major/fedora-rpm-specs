@@ -1,9 +1,9 @@
 Name:           canl-c
 Version:        3.0.0
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        EMI Common Authentication library - bindings for C
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://www.eu-emi.eu
 Source:         http://scientific.zcu.cz/emi/emi.canl.c/%{name}-%{version}.tar.gz
 
@@ -12,6 +12,7 @@ BuildRequires:  c-ares-devel
 BuildRequires:  flex
 BuildRequires:  krb5-devel
 BuildRequires:  libtool
+BuildRequires:  make
 BuildRequires:  openssl-devel >= 1.1
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(Getopt::Long)
@@ -20,12 +21,6 @@ BuildRequires:  pkgconfig
 BuildRequires:  tex(latex)
 BuildRequires:  tex(lastpage.sty)
 BuildRequires:  tex(multirow.sty)
-BuildRequires:  tex(ptmr7t.tfm)
-BuildRequires:  tex(phvr8t.tfm)
-BuildRequires:  tex(psyr.tfm)
-BuildRequires:  tex(pzcmi8r.tfm)
-BuildRequires:  tex(ucrr8a.pfb)
-BuildRequires: make
 
 %description
 This is the C part of the EMI caNl -- the Common Authentication Library.
@@ -96,6 +91,10 @@ rm -f %{buildroot}%{_libdir}/*.la
 
 
 %changelog
+* Tue Feb 14 2023 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-16
+- Update license field to SPDX identifier
+- Cleanup LaTeX dependencies
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

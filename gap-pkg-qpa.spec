@@ -7,7 +7,7 @@ Summary:        GAP package for quivers and path algebras
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://folk.ntnu.no/oyvinso/QPA/
 Source0:        https://github.com/gap-packages/qpa/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 
@@ -55,14 +55,14 @@ gap -l "$PWD/..;" makedoc.g
 rm -fr ../pkg
 
 cd doc/gap-days-lectures
-pdflatex -interaction=batchmode lecture1
-pdflatex -interaction=batchmode lecture1
-pdflatex -interaction=batchmode lecture2
-pdflatex -interaction=batchmode lecture2
-pdflatex -interaction=batchmode lecture3
-pdflatex -interaction=batchmode lecture3
-pdflatex -interaction=batchmode lecture4a
-pdflatex -interaction=batchmode lecture4a
+pdflatex lecture1
+pdflatex lecture1
+pdflatex lecture2
+pdflatex lecture2
+pdflatex lecture3
+pdflatex lecture3
+pdflatex lecture4a
+pdflatex lecture4a
 
 %install
 mkdir -p %{buildroot}%{gap_libdir}/pkg/%{pkgname}/doc

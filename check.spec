@@ -1,6 +1,12 @@
+%global with_mingw 0
+
+%if 0%{?fedora}
+%global with_mingw 1
+%endif
+
 Name:           check
 Version:        0.15.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A unit test framework for C
 Source0:        https://github.com/libcheck/check/archive/%{version}/%{name}-%{version}.tar.gz
 License:        LGPL-2.1-or-later
@@ -20,6 +26,14 @@ BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(libsubunit)
 %endif
 BuildRequires:  texinfo, texlive-tex, graphviz
+
+%if %{with_mingw}
+BuildRequires: mingw32-filesystem >= 95
+BuildRequires: mingw32-gcc-c++
+
+BuildRequires: mingw64-filesystem >= 95
+BuildRequires: mingw64-gcc-c++
+%endif
 
 %description
 Check is a unit test framework for C. It features a simple interface for 
@@ -50,6 +64,24 @@ Requires:       %{name} = %{version}-%{release}
 %description checkmk
 The checkmk binary translates concise versions of test suites into C
 programs suitable for use with the Check unit test framework.
+
+%if %{with_mingw}
+%package -n mingw32-check
+Summary:        Libraries and headers for developing programs with check
+BuildArch: noarch
+
+%description -n mingw32-check
+MinGW libraries and headers for developing programs with check
+
+%package -n mingw64-check
+Summary:        Libraries and headers for developing programs with check
+BuildArch: noarch
+
+%description -n mingw64-check
+MinGW libraries and headers for developing programs with check
+
+%{?mingw_debug_package}
+%endif
 
 %prep
 %setup -q
@@ -93,6 +125,11 @@ cd -
 %cmake -DCHECK_ENABLE_TIMEOUT_TESTS:BOOL=OFF
 %cmake_build
 
+%if %{with_mingw}
+%mingw_configure
+%mingw_make %{?_smp_mflags}
+%endif
+
 %install
 cd autotools_build
 %make_install
@@ -105,6 +142,19 @@ cd -
 
 # The library does not really depend on -pthread
 sed -i 's/ -pthread//' %{buildroot}%{_libdir}/pkgconfig/check.pc
+
+%if %{with_mingw}
+%mingw_make_install
+%mingw_debug_install_post
+
+rm -rf $RPM_BUILD_ROOT%{mingw32_bindir}/checkmk
+rm -rf $RPM_BUILD_ROOT%{mingw64_bindir}/checkmk
+rm -rf $RPM_BUILD_ROOT%{mingw32_infodir}/
+rm -rf $RPM_BUILD_ROOT%{mingw64_infodir}/
+rm -f $RPM_BUILD_ROOT%{mingw32_mandir}/man1/checkmk.1*
+rm -f $RPM_BUILD_ROOT%{mingw64_mandir}/man1/checkmk.1*
+
+%endif
 
 %check
 cd autotools_build
@@ -147,7 +197,34 @@ cd -
 %{_bindir}/checkmk
 %{_mandir}/man1/checkmk.1*
 
+%if %{with_mingw}
+%files -n mingw32-check
+%license COPYING.LESSER
+%{mingw32_bindir}/libcheck-0.dll
+%{mingw32_includedir}/check.h
+%{mingw32_includedir}/check_stdint.h
+%{mingw32_libdir}/libcheck.a
+%{mingw32_libdir}/libcheck.dll.a
+%{mingw32_libdir}/pkgconfig/check.pc
+%{mingw32_datadir}/aclocal/check.m4
+%{mingw32_docdir}
+
+%files -n mingw64-check
+%license COPYING.LESSER
+%{mingw64_bindir}/libcheck-0.dll
+%{mingw64_includedir}/check.h
+%{mingw64_includedir}/check_stdint.h
+%{mingw64_libdir}/libcheck.a
+%{mingw64_libdir}/libcheck.dll.a
+%{mingw64_libdir}/pkgconfig/check.pc
+%{mingw64_datadir}/aclocal/check.m4
+%{mingw64_docdir}
+%endif
+
 %changelog
+* Mon Feb 13 2023 Marc-André Lureau <marcandre.lureau@redhat.com> - 0.15.2-9
+- Add optional Fedora mingw packages.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

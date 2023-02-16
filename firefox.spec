@@ -173,12 +173,12 @@ ExcludeArch: i686
 Summary:        Mozilla Firefox Web browser
 Name:           firefox
 Version:        110.0
-Release:        2%{?pre_tag}%{?dist}
+Release:        3%{?pre_tag}%{?dist}
 URL:            https://www.mozilla.org/firefox/
 License:        MPLv1.1 or GPLv2+ or LGPLv2+
 Source0:        https://archive.mozilla.org/pub/firefox/releases/%{version}%{?pre_version}/source/firefox-%{version}%{?pre_version}.source.tar.xz
 %if %{with langpacks}
-Source1:        firefox-langpacks-%{version}%{?pre_version}-20230210.tar.xz
+Source1:        firefox-langpacks-%{version}%{?pre_version}-20230214.tar.xz
 %endif
 Source2:        cbindgen-vendor.tar.xz
 Source10:       firefox-mozconfig
@@ -1084,6 +1084,9 @@ fi
 #---------------------------------------------------------------------
 
 %changelog
+* Tue Feb 14 2023 Martin Stransky <stransky@redhat.com>- 110.0-3
+- Updated to 110.0 build 3
+
 * Mon Feb 13 2023 Martin Stransky <stransky@redhat.com>- 110.0-2
 - Added fix for orca
 

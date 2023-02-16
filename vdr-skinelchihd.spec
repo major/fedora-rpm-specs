@@ -6,8 +6,8 @@
 %endif
 
 Name:           vdr-skinelchihd
-Version:        1.1.0
-Release:        3%{?dist}
+Version:        1.1.1
+Release:        1%{?dist}
 Summary:        A Elchi based skin with True Color support for the Video Disc Recorder
 
 License:        GPLv2+
@@ -54,6 +54,9 @@ install -Dpm 644 %{SOURCE1} \
 %{vdr_vardir}/themes/ElchiHD-*.theme
 
 %changelog
+* Fri Feb 10 2023 Martin Gansser <martinkg@fedoraproject.org> - 1.1.1-1
+- Update to 1.1.1
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

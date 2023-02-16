@@ -17,6 +17,9 @@ BuildRequires: python
 BuildRequires: libtool
 BuildRequires: make
 BuildRequires: lm_sensors-devel
+BuildRequires: hwloc-devel
+BuildRequires: libcap-devel
+BuildRequires: libnl3-devel
 
 %description
 htop is an interactive text-mode process viewer for Linux, similar to
@@ -35,10 +38,11 @@ autoreconf -vfi
 %configure \
 	--enable-openvz \
 	--enable-vserver \
-	--enable-taskstats \
+	--enable-hwloc \
 	--enable-unicode \
-	--with-sensors \
-	--enable-cgroup
+	--enable-sensors \
+	--enable-delayacct \
+	--enable-capabilities
 
 %make_build
 

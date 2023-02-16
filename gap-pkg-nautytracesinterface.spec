@@ -19,7 +19,7 @@ Release:        28.%{gitdate}git%{shorttag}%{?dist}
 Summary:        GAP interface to nauty and Traces
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://github.com/gap-packages/NautyTracesInterface
 Source0:        %{url}/tarball/%{gittag}/%{user}-%{pkgname}-%{shorttag}.tar.gz
 # Fedora-only patch: use the system nauty library

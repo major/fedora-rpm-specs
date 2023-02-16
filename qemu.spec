@@ -114,6 +114,11 @@
 %global have_dbus_display 0
 %endif
 
+%global have_libblkio 0
+%if 0%{?fedora} >= 37
+%global have_libblkio 1
+%endif
+
 %global have_sdl_image %{defined fedora}
 %global have_fdt 1
 %global have_opengl 1
@@ -163,7 +168,11 @@
 %global qemudocdir %{_docdir}/%{name}
 %define evr %{epoch}:%{version}-%{release}
 
+%if %{have_libblkio}
 %define requires_block_blkio Requires: %{name}-block-blkio = %{evr}
+%else
+%define requires_block_blkio %{nil}
+%endif
 %define requires_block_curl Requires: %{name}-block-curl = %{evr}
 %define requires_block_dmg Requires: %{name}-block-dmg = %{evr}
 %if %{have_block_gluster}
@@ -404,7 +413,9 @@ BuildRequires: pkgconfig(gbm)
 BuildRequires: perl-Test-Harness
 BuildRequires: libslirp-devel
 BuildRequires: libbpf-devel >= 1.0.0
+%if %{have_libblkio}
 BuildRequires: libblkio-devel
+%endif
 
 
 # Fedora specific
@@ -611,6 +622,7 @@ Install this package if you want access to the avocado_qemu
 tests, or qemu-iotests.
 
 
+%if %{have_libblkio}
 %package  block-blkio
 Summary: QEMU blkio block driver
 Requires: %{name}-common%{?_isa} = %{epoch}:%{version}-%{release}
@@ -619,6 +631,7 @@ This package provides the additional blkio block driver for QEMU.
 
 Install this package if you want to access disks over vhost-user-blk, vdpa-blk,
 and other transports using the libblkio library.
+%endif
 
 
 %package  block-curl
@@ -1606,7 +1619,9 @@ run_configure \
 %ifarch %{ix86} x86_64
   --enable-avx2 \
 %endif
+%if %{have_libblkio}
   --enable-blkio \
+%endif
   --enable-bpf \
   --enable-cap-ng \
   --enable-capstone \
@@ -2221,8 +2236,10 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 %{testsdir}
 %{_libdir}/%{name}/accel-qtest-*.so
 
+%if %{have_libblkio}
 %files block-blkio
 %{_libdir}/%{name}/block-blkio.so
+%endif
 %files block-curl
 %{_libdir}/%{name}/block-curl.so
 %files block-iscsi

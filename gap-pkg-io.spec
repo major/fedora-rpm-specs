@@ -6,7 +6,7 @@ Release:        1%{?dist}
 Summary:        Unix I/O functionality for GAP
 
 License:        GPL-3.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            http://gap-packages.github.io/io/
 Source0:        https://github.com/gap-packages/io/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 

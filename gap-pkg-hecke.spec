@@ -7,7 +7,7 @@ Summary:        Calculating decomposition matrices of Hecke algebras
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/hecke/
 Source0:        https://github.com/gap-packages/hecke/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

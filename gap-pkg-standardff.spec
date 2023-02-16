@@ -7,7 +7,7 @@ Release:        3%{?dist}
 Summary:        Standardized generation of finite fields and cyclic subgroups
 
 License:        GPL-3.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://www.math.rwth-aachen.de/~Frank.Luebeck/gap/StandardFF/
 Source0:        https://github.com/frankluebeck/StandardFF/archive/v%{version}/%{upname}-%{version}.tar.gz
 

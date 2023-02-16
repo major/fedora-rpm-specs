@@ -14,7 +14,7 @@
 
 Name:           lua
 Version:        %{major_version}.4
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Powerful light-weight programming language
 License:        MIT
 URL:            https://www.lua.org/
@@ -51,6 +51,12 @@ Patch11:	https://github.com/lua/lua/commit/196bb94d66e727e0aec053a0276c3ad701500
 Patch12:	https://github.com/lua/lua/commit/a1f77a234a053da46b06d5d4be00ffb30d3eb45b.patch
 # 5.4.4		http://lua-users.org/lists/lua-l/2022-02/msg00112.html
 Patch13:	%{name}-5.4.4-luac-doublefree.patch
+# 5.4.4 Bug 8
+# https://github.com/lua/lua/commit/a1089b415a3f5c753aa1b40758ffdaf28d5701b0
+Patch14:	lua-5.4.4-bug8.patch
+# 5.4.4 Bug 9
+# https://github.com/lua/lua/commit/1e64c1391f9a14115b5cc82066dbf545ae73ee27
+Patch15:	lua-5.4.4-bug9.patch
 
 
 BuildRequires:  automake autoconf libtool readline-devel ncurses-devel
@@ -113,6 +119,8 @@ mv src/luaconf.h src/luaconf.h.template.in
 %patch11 -p1 -b .5.4.4-bug5
 %patch12 -p1 -b .5.4.4-bug7
 %patch13 -p1 -b .5.4.4-doublefree
+%patch14 -p1 -b .5.4.4-bug8
+%patch15 -p1 -b .5.4.4-bug9
 # Put proper version in configure.ac, patch0 hardcodes 5.3.0
 sed -i 's|5.3.0|%{version}|g' configure.ac
 autoreconf -ifv
@@ -229,6 +237,9 @@ popd
 %{_libdir}/*.a
 
 %changelog
+* Tue Feb 14 2023 Tom Callaway <spot@fedoraproject.org> - 5.4.4-9
+- add upstream fixes for Bugs 8 and 9
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.4-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

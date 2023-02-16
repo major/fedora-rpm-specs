@@ -15,7 +15,7 @@
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools %{nil}
+%global patches_touch_autotools 1
 
 # The source directory.
 %global source_directory 1.50-stable
@@ -26,7 +26,7 @@
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
 Version:       1.50.0
-Release:       1%{?dist}
+Release:       2%{?dist}
 License:       GPLv2+
 
 # Build only for architectures that have a kernel
@@ -51,6 +51,8 @@ Source2:       libguestfs.keyring
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
 %endif
+
+Patch:         0001-Remove-virt-dib.patch
 
 # Basic build requirements.
 BuildRequires: gcc, gcc-c++
@@ -401,6 +403,9 @@ end
 
 
 %changelog
+* Tue Feb 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.50.0-2
+- Remove virt-dib (RHBZ#2169550)
+
 * Tue Feb 07 2023 Richard W.M. Jones <rjones@redhat.com> - 1.50.0-1
 - New upstream stable version 1.50.0
 

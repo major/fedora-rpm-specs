@@ -6,7 +6,7 @@ Summary:        GUI for GAP
 # The project as a whole is GPL-2.0-or-later.
 # src.x11/selfile.{c,h} is HPND.
 License:        GPL-2.0-or-later AND HPND
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/xgap/
 Source0:        https://github.com/gap-packages/xgap/releases/download/v%{version}/%{name}-%{version}.tar.gz
 # Created by Jerry James <loganjerry@gmail.com>

@@ -6,7 +6,7 @@ Release:        3%{?dist}
 Summary:        Hashes and Crypto in GAP
 
 License:        BSD-3-Clause
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/crypting/
 Source0:        https://github.com/gap-packages/crypting/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

@@ -117,6 +117,10 @@ sed -i 's/PyNaCl>=1.5/PyNaCl>=1.4/' \
     src/azure-cli/requirements.py3.Linux.txt \
     src/azure-cli/setup.py
 
+# Allow a newer version of packaging.
+sed -i 's/packaging>=20.9,<22.0/packaging>=20.9/' src/azure-cli-core/setup.py
+sed -i 's/packaging>=20.9,<22.0/packaging>=20.9/' src/azure-cli/setup.py
+
 # Allow newer paramiko in rawhide.
 sed -i 's/^paramiko==.*$/paramiko/' src/azure-cli/requirements.py3.Linux.txt
 sed -i 's/paramiko>=2.0.8,<3.0.0/paramiko>=2.0.8/' src/azure-cli-core/setup.py

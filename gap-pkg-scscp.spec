@@ -9,7 +9,7 @@ Summary:        Symbolic Computation Software Composability Protocol in GAP
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/scscp/
 Source0:        https://github.com/gap-packages/scscp/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 Source1:        %{usrname}.sh

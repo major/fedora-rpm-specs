@@ -1,16 +1,13 @@
 %global dracutdir %(pkg-config --variable=dracutdir dracut)
 
 Name:          twincam
-Version:       0.5.4
-Release:       7%{?dist}
+Version:       0.6
+Release:       3%{?dist}
 Summary:       A lightweight camera application
 
 License:       GPLv2
 URL:           https://github.com/ericcurtin/twincam
 Source0:       %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-# Due to libcamera 0.0.3 API change:
-# https://git.libcamera.org/libcamera/libcamera.git/commit/?id=81e7689bb168a74c0822846729d992128da97322
-Patch0:        twincam-0.5.4-libcamera-003.patch
 
 BuildRequires: meson
 BuildRequires: gcc-c++
@@ -24,7 +21,8 @@ BuildRequires: systemd
 
 Conflicts: plymouth
 
-ExcludeArch: %ix86
+# twincam is not expected to be used in these architectures
+ExcludeArch: s390x ppc64le %ix86
 
 %description
 %{summary}.
@@ -65,6 +63,15 @@ dracut -f
 %{_unitdir}/multi-user.target.wants/twincam-quit.service
 
 %changelog
+* Tue Feb 14 2023 Eric Curtin <ecurtin@redhat.com> - 0.6-3
+- Exclude more CPU architectures
+
+* Tue Feb 14 2023 Eric Curtin <ecurtin@redhat.com> - 0.6-2
+- .spec file changes
+
+* Tue Feb 14 2023 Eric Curtin <ecurtin@redhat.com> - 0.6-1
+- Some libcamera and gcc compatibility fixes
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

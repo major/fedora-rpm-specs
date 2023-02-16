@@ -1,16 +1,16 @@
 %bcond_with bootstrap
 
 %global packname httpuv
-%global packver  1.6.6
+%global packver  1.6.9
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          HTTP and WebSocket Server Library
 
 # Main: GPLv2+; http-parser: MIT; sha1: Public Domain
-License:          GPLv2+ and MIT and Public Domain
+License:          GPL-2.0-or-later AND MIT AND LicenseRef-Fedora-Public-Domain
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 Patch0001:        0001-Use-unbundled-libuv-new.patch
@@ -94,6 +94,9 @@ export LANG=C.UTF-8
 
 
 %changelog
+* Tue Feb 14 2023 Tom Callaway <spot@fedoraproject.org> - 1.6.9-1
+- update to 1.6.9
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

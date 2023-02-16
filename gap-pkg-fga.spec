@@ -7,7 +7,7 @@ Summary:        Free group algorithms for GAP
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://github.com/chsievers/fga
 Source0:        %{url}/archive/v%{version}/%{pkgname}-%{version}.tar.gz
 

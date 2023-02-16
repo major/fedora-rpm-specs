@@ -7,7 +7,7 @@ Summary:        RFC 4122 UUIDs for GAP
 
 License:        BSD-3-Clause
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/uuid/
 Source0:        https://github.com/gap-packages/uuid/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

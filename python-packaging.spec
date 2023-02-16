@@ -31,9 +31,10 @@ BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  pyproject-rpm-macros
+BuildRequires:  unzip
 
 %if %{with bootstrap}
-BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-flit-core
 %endif
 
 # Upstream uses nox for testing, we specify the test deps manually as well.
@@ -89,7 +90,7 @@ sed -i '/html_theme = "furo"/d' docs/conf.py
 
 %build
 %if %{with bootstrap}
-%py3_build
+%{python3} -m flit_core.wheel
 %else
 %pyproject_wheel
 %endif
@@ -106,7 +107,8 @@ rm -rf html/_static/fonts/
 
 %install
 %if %{with bootstrap}
-%py3_install
+mkdir -p %{buildroot}%{python3_sitelib}
+unzip dist/packaging-%{version}-py3-none-any.whl -d %{buildroot}%{python3_sitelib} -x packaging-%{version}.dist-info/RECORD
 echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 %else
 %pyproject_install
@@ -115,7 +117,7 @@ echo '%{python3_sitelib}/packaging*' > %{pyproject_files}
 
 
 %check
-%pyproject_check_import
+%{!?with_bootstrap:%pyproject_check_import}
 %if %{with tests}
 %pytest
 %endif

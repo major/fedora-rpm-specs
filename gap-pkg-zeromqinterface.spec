@@ -7,7 +7,7 @@ Release:        4%{?dist}
 Summary:        ZeroMQ bindings for GAP
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/ZeroMQInterface/
 Source0:        https://github.com/gap-packages/ZeroMQInterface/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 

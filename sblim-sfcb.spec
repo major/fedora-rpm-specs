@@ -8,7 +8,7 @@ Name: sblim-sfcb
 Summary: Small Footprint CIM Broker
 URL: http://sblim.wiki.sourceforge.net/
 Version: 1.4.9
-Release: 28%{?dist}
+Release: 29%{?dist}
 License: EPL-1.0
 Source0: http://downloads.sourceforge.net/sblim/%{name}-%{version}.tar.bz2
 Source1: sfcb.service
@@ -140,6 +140,9 @@ fi;
 %files -f _pkg_list
 
 %changelog
+* Tue Feb 14 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.4.9-29
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.9-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

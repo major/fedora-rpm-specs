@@ -8,7 +8,7 @@
 %bcond_with libsodium_crypt
 %endif
 
-%define patchlevel 1293
+%define patchlevel 1307
 
 %if %{?WITH_SELINUX:0}%{!?WITH_SELINUX:1}
 %define WITH_SELINUX 1
@@ -90,6 +90,8 @@ Patch3003: vim-python3-tests.patch
 Patch3004: vim-crypto-warning.patch
 # don't ever set mouse (Fedora downstream patch)
 Patch3005: vim-8.0-copy-paste.patch
+# 2169641 - Syntax highlight for sh files broken
+Patch3006: vim-sh-syntax.patch
 
 
 # uses autoconf in spec file
@@ -386,6 +388,7 @@ perl -pi -e "s,bin/nawk,bin/awk,g" runtime/tools/mve.awk
 %patch3003 -p1 -b .python-tests
 %patch3004 -p1 -b .fips-warning
 %patch3005 -p1 -b .copypaste
+%patch3006 -p1 -b .sh-syntax
 
 %build
 cd src
@@ -1003,6 +1006,12 @@ touch %{buildroot}/%{_datadir}/%{name}/vimfiles/doc/tags
 %endif
 
 %changelog
+* Tue Feb 14 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1307-1
+- patchlevel 1307
+
+* Tue Feb 14 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1293-2
+- 2169641 - Syntax highlight for sh files broken
+
 * Thu Feb 09 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2:9.0.1293-1
 - patchlevel 1293
 

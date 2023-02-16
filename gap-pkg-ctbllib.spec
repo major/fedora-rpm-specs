@@ -15,7 +15,7 @@ Summary:        GAP Character Table Library
 
 License:        GPL-3.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/
 Source0:        %{url}%{pkgname}-%{version}.tar.gz
 # Predownloaded data from ATLAS needed for the tests

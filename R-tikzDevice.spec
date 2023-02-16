@@ -1,13 +1,13 @@
 %global packname tikzDevice
-%global packver  0.12.3.1
+%global packver  0.12.4
 %global rlibdir  %{_libdir}/R/library
 
 # Some dependency loops.
 %global with_suggests 0
 
 Name:             R-%{packname}
-Version:          0.12.3.1
-Release:          10%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          R Graphics Output in LaTeX Format
 
 License:          GPLv2+
@@ -17,7 +17,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-filehash >= 2.3, R-png
-# Suggests:  R-evaluate, R-formatR, R-ggplot2, R-knitr, R-lattice, R-maps, R-scales, R-stringr, R-testthat >= 0.8.1, R-withr
+# Suggests:  R-evaluate, R-formatR, R-ggplot2, R-knitr, R-lattice, R-maps, R-scales, R-stringr, R-testthat >= 0.8.1, R-withr, R-covr
 # LinkingTo:
 # Enhances:
 
@@ -34,6 +34,7 @@ BuildRequires:    R-lattice
 BuildRequires:    R-stringr
 BuildRequires:    R-testthat >= 0.8.1
 BuildRequires:    R-withr
+BuildRequires:    R-covr
 %if %{with_suggests}
 BuildRequires:    R-formatR
 BuildRequires:    R-ggplot2
@@ -91,6 +92,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --ignore-vignettes
 
 
 %changelog
+* Tue Feb 14 2023 Tom Callaway <spot@fedoraproject.org> - 0.12.4-1
+- update to 0.12.4
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.3.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

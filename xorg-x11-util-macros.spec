@@ -3,16 +3,16 @@
 
 Summary: X.Org X11 Autotools macros
 Name: xorg-x11-util-macros
-Version: 1.19.3
-Release: 6%{?dist}
+Version: 1.20.0
+Release: 1%{?dist}
 License: MIT
 URL: http://www.x.org
 BuildArch: noarch
-Source0:  https://www.x.org/pub/individual/util/util-macros-%{version}.tar.bz2
+Source0:  https://www.x.org/pub/individual/util/util-macros-%{version}.tar.xz
 
 BuildRequires: make
 
-Requires: autoconf automake libtool pkgconfig
+Requires: autoconf automake pkgconfig
 
 %description
 X.Org X11 autotools macros required for building the various packages that
@@ -35,6 +35,9 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
 %{_datadir}/util-macros
 
 %changelog
+* Tue Feb 14 2023 Dr. Tilmann Bubeck <bubeck@fedoraproject.org> - 1.20.0-1
+- update to util-macros 1.20.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

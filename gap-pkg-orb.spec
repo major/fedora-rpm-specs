@@ -8,7 +8,7 @@ Release:        3%{?dist}
 Summary:        Methods to enumerate orbits in GAP
 
 License:        GPL-3.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/orb/
 Source0:        https://github.com/gap-packages/orb/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Predownloaded data from ATLAS needed for the tests

@@ -1,7 +1,7 @@
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 37.0
-Release: 2%{?dist}
+Version: 38.0
+Release: 1%{?dist}
 
 License: MIT
 Url:     https://pagure.io/fedora-kde/kde-settings
@@ -196,6 +196,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Tue Feb 07 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 38.0-1
+- 38.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

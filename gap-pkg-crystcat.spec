@@ -7,7 +7,7 @@ Summary:        Crystallographic groups catalog
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://www.math.uni-bielefeld.de/~gaehler/gap/packages.php
 Source0:        https://www.math.uni-bielefeld.de/~gaehler/gap/CrystCat/%{pkgname}-%{version}.tar.gz
 

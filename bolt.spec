@@ -1,10 +1,11 @@
 Name:          bolt
-Version:       0.9.3
-Release:       2%{?dist}
+Version:       0.9.5
+Release:       1%{?dist}
 Summary:       Thunderbolt device manager
 License:       LGPLv2+
 URL:           https://gitlab.freedesktop.org/bolt/bolt
 Source0:       %{url}/-/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:        0001-test-test-unix-skip-unix-domain-socket-test.patch
 
 BuildRequires: gcc
 BuildRequires: asciidoc
@@ -76,6 +77,9 @@ mentioned tasks.
 %ghost %dir %{_localstatedir}/lib/boltd
 
 %changelog
+* Tue Feb 14 2023 Kate hsuan <hpa@redhat.com> - 0.9.5-1
+- Updated to upstream version
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

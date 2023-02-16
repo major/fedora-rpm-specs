@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.21
+Version: 38.22
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -463,6 +463,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 14 2023 Packit <hello@packit.dev> - 38.22-1
+- Web UI: Make Pre-release label look clickable (ozobal)
+- Web UI: Update help in Installation destination (ozobal)
+- Be more indulgent when reclaiming disk space (jstodola)
+- Update translations from Weblate
+
 * Tue Feb 07 2023 Packit <hello@packit.dev> - 38.21-1
 - Sort RPM versions via rpm.labelCompare() and not via
   packaging.version.LegacyVersion() (miro)

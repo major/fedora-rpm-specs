@@ -23,7 +23,7 @@ Summary:    A GNU tool for automatically creating Makefiles
 Name:       automake
 # Any bump here requires libtool rebuild, rhbz#1813010
 Version:    %{api_version}.5
-Release:    11%{?dist}
+Release:    12%{?dist}
 
 # docs ~> GFDL, sources ~> GPLv2+, mkinstalldirs ~> PD and install-sh ~> MIT
 License:    GPLv2+ and GFDL and Public Domain and MIT
@@ -38,6 +38,18 @@ Patch0: fort2.patch
 
 # From upstream: ed1368e8803e8934a8bbab52a38753484dba2a37
 Patch1: 0001-test-avoid-apostrophe-in-test-document.patch
+# From upstream: 2a9908da9dbc075ee6c4e853cf3be0365b15f202
+Patch2: 0001-tests-Fix-type-defaults-error-in-link_cond-due-to-ma.patch
+# Proposed upstream: https://debbugs.gnu.org/cgi/bugreport.cgi?bug=59993#23
+Patch3: v2-0002-tests-Fix-implicit-function-declaration-errors.patch
+# Proposed upstream: https://debbugs.gnu.org/cgi/bugreport.cgi?bug=60962#5
+Patch4: v3-0003-tests-Fix-implicit-function-declaration-in-ax-dep.patch
+# Proposed upstream: https://debbugs.gnu.org/cgi/bugreport.cgi?bug=59994#29
+Patch5: v2-0001-tests-Don-t-try-to-prevent-flex-to-include-unistd.patch
+
+# From upstream: 6d6fc91c472fd84bd71a1b012fa9ab77bd94efea
+# Reveals failures due to C99 porting that wouldn't be seen otherwise
+Patch6: 0001-tests-depcomp-ensure-make_ok-fails-when-run_make-fai.patch
 
 URL:        http://www.gnu.org/software/automake/
 Requires:   autoconf >= 2.65
@@ -141,6 +153,9 @@ make -k %{?_smp_mflags} check %{?TESTS_FLAGS: TESTS="%{TESTS_FLAGS}"} \
 
 
 %changelog
+* Tue Feb 14 2023 Frederic Berat <fberat@redhat.com> - 1.16.5-12
+- Port to modern C: various fixes
+
 * Fri Jan 20 2023 Frederic Berat <fberat@redhat.com> - 1.16.5-11
 - Fix test failure due to texinfo 7.0 update
 

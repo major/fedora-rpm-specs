@@ -7,7 +7,7 @@ extracellular potentials arising from activity in your model neuron. If you
 have a model...}
 
 Name:           python-lfpy
-Version:        2.2.6
+Version:        2.3
 Release:        %autorelease
 Summary:        Model extracellular potentials of multicompartment neuron models built on NEURON
 

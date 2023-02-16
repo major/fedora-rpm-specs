@@ -6,7 +6,7 @@ Release:        3%{?dist}
 Summary:        JSON reading and writing for GAP
 
 License:        BSD-2-Clause
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/json/
 Source0:        https://github.com/gap-packages/json/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

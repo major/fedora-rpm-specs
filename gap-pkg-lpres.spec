@@ -7,7 +7,7 @@ Summary:        Nilpotent quotients of L-presented groups
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/lpres/
 Source0:        https://github.com/gap-packages/lpres/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 
@@ -63,8 +63,8 @@ gap -l "$PWD/..;" makedoc.g
 # A second BiBTeX run is needed to resolve \cite within a reference
 cd doc
 bibtex lpres
-pdflatex -interaction=batchmode lpres
-pdflatex -interaction=batchmode lpres
+pdflatex lpres
+pdflatex lpres
 mv lpres.pdf manual.pdf
 cd -
 

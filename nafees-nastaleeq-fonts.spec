@@ -4,17 +4,16 @@
 
 Name:           %{fontname}-fonts
 Version:        1.02
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Nafees nastaleeq font for writing Urdu in the Nastaleeq script
 
 License:        Bitstream Vera
-URL:            http://www.crulp.org/index.htm
+URL:            https://www.cle.org.pk/software/localization/Fonts/nafeesNastaleeq.html
 
-Source0:        http://www.crulp.org/Downloads/localization/fonts/NafeesNastaleeq/%{archivename}.zip
+Source0:        https://www.cle.org.pk/Downloads/localization/fonts/NafeesNastaleeq/%{archivename}.zip
 
-Source1:        %{fontname}-update-preferred-family.pe
-Source2:        %{fontconf}
-Source3:        %{fontname}.metainfo.xml
+Source1:        %{fontconf}
+Source2:        %{fontname}.metainfo.xml
 
 
 BuildArch:      noarch
@@ -33,9 +32,7 @@ OTF contains approximately 1,000 glyphs, including about 26 ligatures.
 %setup -q -c
 
 %build
-#Fix RHBZ#490830 while not fixed upstream
-%{_bindir}/fontforge %{SOURCE1} Nafees\ Nastaleeq\ v1.02.ttf
-rm  Nafees\ Nastaleeq\ v1.02.ttf
+#nothing
 
 %install
 
@@ -46,14 +43,14 @@ install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
 install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
                 %{buildroot}%{_fontconfig_confdir}
 
-install -m 0644 -p %{SOURCE2} \
+install -m 0644 -p %{SOURCE1} \
                 %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
 
 ln -s %{_fontconfig_templatedir}/%{fontconf} \
         %{buildroot}%{_fontconfig_confdir}/%{fontconf}
 
 # Add AppStream metadata
-install -Dm 0644 -p %{SOURCE3} \
+install -Dm 0644 -p %{SOURCE2} \
        %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
 
 
@@ -64,6 +61,9 @@ install -Dm 0644 -p %{SOURCE3} \
 
 
 %changelog
+* Tue Feb 14 2023 Parag Nemade <pnemade AT redhat DOT com> - 1.02-24
+- Update to new upstream URL
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.02-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

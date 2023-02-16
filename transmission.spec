@@ -2,7 +2,7 @@
 
 Name:           transmission
 Version:        4.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPLv2
@@ -11,6 +11,9 @@ URL:            http://www.transmissionbt.com
 Source0:        https://github.com/transmission/transmission/releases/download/%{version}/transmission-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1221292
 Source1:        https://raw.githubusercontent.com/gnome-design-team/gnome-icons/master/apps-symbolic/Adwaita/scalable/apps/transmission-symbolic.svg
+Patch0:         f551b4adbff0d59557d61867d0b6518c50f5a73f.patch
+Patch1:         4890.patch
+
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -87,7 +90,7 @@ useradd -r -g transmission -d %{_sharedstatedir}/transmission -s /sbin/nologin \
 exit 0
 
 %prep
-%autosetup -p0
+%autosetup -p1
 
 # fix icon location for Transmission Qt
 sed -i 's|Icon=%{name}-qt|Icon=%{name}|g' qt/%{name}-qt.desktop
@@ -176,6 +179,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Tue Feb 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.0-2
+- Patches for crash.
+
 * Wed Feb 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.0-1
 - 4.0.0, moved to qt6.
 

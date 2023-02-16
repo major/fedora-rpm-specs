@@ -7,7 +7,7 @@ Summary:        GAP package for Brauer tables of spin-symmetric groups
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/spinsym/
 Source0:        https://github.com/gap-packages/spinsym/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

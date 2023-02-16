@@ -1,14 +1,14 @@
 Name:        iverilog
-Version:     11.0
-%define uver 11_0
-Release:     7%{?dist}
+Version:     12.0
+%define uver 12_0
+Release:     1%{?dist}
 Summary:     Icarus Verilog is a verilog compiler and simulator
 License:     GPLv2
 URL:         http://iverilog.icarus.com
 Source0:     https://github.com/steveicarus/iverilog/archive/%{name}-%{uver}.tar.gz
-# added upstream patch to fix FTBFS due autoconf-2.71 update
-# https://github.com/steveicarus/iverilog/commit/4b3e1099e5517333dd690ba948bce1236466a395?raw
-Patch0:      4b3e1099e5517333dd690ba948bce1236466a395.patch
+
+# [PATCH] Fix compilation with -Werror=format-security
+Patch1:      23e51ef7a8e8e4ba42208936e0a6a25901f58c65.patch
 
 BuildRequires: autoconf
 BuildRequires: bzip2-devel
@@ -58,7 +58,7 @@ make check
  
  
 %files
-%doc BUGS.txt README.txt QUICK_START.txt
+%doc BUGS.txt QUICK_START.txt
 %doc ieee1364-notes.txt mingw.txt swift.txt netlist.txt
 %doc t-dll.txt vpi.txt cadpli/cadpli.txt
 %doc xilinx-hint.txt examples/
@@ -74,6 +74,9 @@ make check
  
  
 %changelog
+* Tue Feb 14 2023 Filipe Rosset <rosset.filipe@gmail.com> - 12.0-1
+- Update to 12.0 fixes rhbz#2156629
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,17 +1,13 @@
-# This package depends on automagic byte compilation
-# https://fedoraproject.org/wiki/Changes/No_more_automagic_Python_bytecompilation_phase_2
-%global _python_bytecompile_extra 1
-
 Name:		sugar-yupana
-Version:	17
-Release:	15%{?dist}
+Version:	19
+Release:	1%{?dist}
 Summary:	Counting and calculating device used by the Incan
 
 License:	GPLv3+
 URL:		http://wiki.sugarlabs.org/go/Activities/Yupana
 Source0:	http://download.sugarlabs.org/sources/honey/Yupana/Yupana-%{version}.tar.bz2
 
-BuildRequires:	python2 sugar-toolkit-gtk3 gettext
+BuildRequires:	python3 sugar-toolkit-gtk3 gettext
 BuildArch:	noarch
 Requires:	sugar
 
@@ -19,14 +15,14 @@ Requires:	sugar
 Counting and calculating device used by the Incan
 
 %prep
-%setup -q -n Yupana-%{version}
-sed -i 's/python/python2/g' setup.py
+%autosetup -n Yupana-%{version}
+sed -i 's/python/python3/g' setup.py
 
 %build
-%{__python2} ./setup.py build
+python3 ./setup.py build
 
 %install
-%{__python2} ./setup.py install --prefix=%{buildroot}/%{_prefix}
+python3 ./setup.py install --prefix=%{buildroot}/%{_prefix}
 rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 %find_lang org.sugarlabs.YupanaActivity
@@ -39,6 +35,9 @@ rm %{buildroot}%{_prefix}/share/applications/*.desktop || true
 
 
 %changelog
+* Tue Feb 14 2023 Chihurumnaya Ibiam <ibiam@sugarlabs.org> - 19-1
+- Update to version 19 
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 17-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

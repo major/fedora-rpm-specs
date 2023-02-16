@@ -4,7 +4,7 @@
 Summary: An authorization framework
 Name: polkit
 Version: 122
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPLv2+
 URL: http://www.freedesktop.org/wiki/Software/polkit
 Source0: https://gitlab.freedesktop.org/polkit/polkit/-/archive/%{version}/%{name}-%{version}.tar.gz
@@ -101,8 +101,8 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %find_lang polkit-1
 
 %pre
-getent group polkitd >/dev/null || groupadd -r polkitd
-getent passwd polkitd >/dev/null || useradd -r -g polkitd -d / -s /sbin/nologin -c "User for polkitd" polkitd
+getent group polkitd >/dev/null || groupadd -r -g 114 polkitd
+getent passwd polkitd >/dev/null || useradd -r -u 114 -g polkitd -d / -s /sbin/nologin -c "User for polkitd" polkitd
 exit 0
 
 %post
@@ -161,6 +161,11 @@ exit 0
 %{_libdir}/girepository-1.0/*.typelib
 
 %changelog
+* Wed Feb 08 2023 Jan Rybar <jrybar@redhat.com> - 122-4
+- Switch 'polkitd' to static UID/GID (fpc#1189) (on behalf of lucab)
+- Resolves: https://bugzilla.redhat.com/show_bug.cgi?id=2104615
+
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 122-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

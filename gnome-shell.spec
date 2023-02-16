@@ -1,28 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell
-Version:        43.1
-Release:        5%{?dist}
+Version:        44~beta
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
 URL:            https://wiki.gnome.org/Projects/GnomeShell
-Source0:        https://download.gnome.org/sources/gnome-shell/43/%{name}-%{tarball_version}.tar.xz
-
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2534
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/6066
-# Fix layout switching in password entry boxes
-Patch1:     2534.patch
-
-# Backport broken screen cast fix if gstreamer1-vaapi was installed.
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2533
-Patch2:     post-43.1-fixes.patch
-
-# Backport fix for keyboard shortcut inhibit permissions
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/issues/6107
-# https://gitlab.gnome.org/GNOME/gnome-boxes/-/issues/872
-# https://gitlab.gnome.org/GNOME/gnome-shell/-/merge_requests/2548
-Patch3:     0001-inhibitShorcutsDialog-Fix-permission-check.patch
+Source0:        https://download.gnome.org/sources/gnome-shell/44/%{name}-%{tarball_version}.tar.xz
 
 # Replace Epiphany with Firefox in the default favourite apps list
 Patch10001: gnome-shell-favourite-apps-firefox.patch
@@ -30,9 +15,6 @@ Patch10001: gnome-shell-favourite-apps-firefox.patch
 # Some users might have a broken PAM config, so we really need this
 # downstream patch to stop trying on configuration errors.
 Patch40001: 0001-gdm-Work-around-failing-fingerprint-auth.patch
-
-# Work around crashy tear down
-Patch60003: 0001-main-Leak-the-GJS-context-and-ShellGlobal.patch
 
 %define eds_version 3.45.1
 %define gnome_desktop_version 3.35.91
@@ -42,7 +24,7 @@ Patch60003: 0001-main-Leak-the-GJS-context-and-ShellGlobal.patch
 %define gtk3_version 3.15.0
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 43.0
+%define mutter_version 44~beta
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 42~beta
 %define ibus_version 1.5.2
@@ -190,7 +172,8 @@ mkdir -p %{buildroot}%{_datadir}/gnome-shell/search-providers
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.desktop
-desktop-file-validate %{buildroot}%{_datadir}/applications/evolution-calendar.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Extensions.desktop
+desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.PortalHelper.desktop
 
 %files -f %{name}.lang
 %license COPYING
@@ -204,7 +187,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/evolution-calendar.de
 %{_datadir}/glib-2.0/schemas/00_org.gnome.shell.gschema.override
 %{_datadir}/applications/org.gnome.Shell.Extensions.desktop
 %{_datadir}/applications/org.gnome.Shell.desktop
-%{_datadir}/applications/evolution-calendar.desktop
 %{_datadir}/applications/org.gnome.Shell.PortalHelper.desktop
 %{_datadir}/bash-completion/completions/gnome-extensions
 %{_datadir}/gnome-control-center/keybindings/50-gnome-shell-launchers.xml
@@ -231,7 +213,6 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/evolution-calendar.de
 %{_userunitdir}/org.gnome.Shell.target
 %{_userunitdir}/org.gnome.Shell@wayland.service
 %{_userunitdir}/org.gnome.Shell@x11.service
-%{_sysconfdir}/xdg/autostart/gnome-shell-overrides-migration.desktop
 # Co own directory instead of pulling in xdg-desktop-portal - we
 # are providing a backend to the portal, not depending on it
 %dir %{_datadir}/xdg-desktop-portal/portals/
@@ -241,11 +222,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/evolution-calendar.de
 %{_libexecdir}/gnome-shell-perf-helper
 %{_libexecdir}/gnome-shell-hotplug-sniffer
 %{_libexecdir}/gnome-shell-portal-helper
-%{_libexecdir}/gnome-shell-overrides-migration.sh
 %{_mandir}/man1/gnome-extensions.1*
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Tue Feb 14 2023 Florian Müllner <fmuellner@redhat.com> - 44~beta-1
+- Update to 44.beta
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 %global major_version 3
 %global minor_version 2
-%global teeny_version 0
+%global teeny_version 1
 %global major_minor_version %{major_version}.%{minor_version}
 
 %global ruby_version %{major_minor_version}.%{teeny_version}
@@ -27,13 +27,13 @@
 %global rubygems_dir %{_datadir}/rubygems
 
 # Bundled libraries versions
-%global rubygems_version 3.4.1
+%global rubygems_version 3.4.6
 %global rubygems_molinillo_version 0.8.0
 %global rubygems_optparse_version 0.3.0
 %global rubygems_tsort_version 0.1.0
 
 # Default gems.
-%global bundler_version 2.4.1
+%global bundler_version 2.4.6
 %global bundler_connection_pool_version 2.3.0
 %global bundler_fileutils_version 1.7.0
 %global bundler_pub_grub_version 0.5.0
@@ -101,7 +101,7 @@
 Summary: An interpreter of object-oriented scripting language
 Name: ruby
 Version: %{ruby_version}%{?development_release}
-Release: 178%{?dist}
+Release: 179%{?dist}
 # BSD-3-Clause: missing/{crypt,mt19937,setproctitle}.c
 # ISC: missing/strl{cat,cpy}.c
 # Public Domain for example for: include/ruby/st.h, strftime.c, missing/*, ...
@@ -635,10 +635,6 @@ analysis result in RBS format, a standard type description format for Ruby
 %prep
 %setup -q -n %{ruby_archive}
 
-# Remove bundled libraries to be sure they are not used.
-rm -rf ext/psych/yaml
-rm -rf ext/fiddle/libffi*
-
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
@@ -1010,11 +1006,6 @@ DISABLE_TESTS="$DISABLE_TESTS -n !/Fiddle::TestFunction#test_argument_count/"
 # https://bugzilla.redhat.com/show_bug.cgi?id=2125026
 mv test/ruby/test_jit.rb{,.disable} || :
 %endif
-
-# Disable `TestGCCompact#test_moving_objects_between_size_pools` due to:
-# `NoMethodError: undefined method `>=' for nil:NilClass` error.
-# https://bugs.ruby-lang.org/issues/19248
-DISABLE_TESTS="$DISABLE_TESTS -n !/TestGCCompact#test_moving_objects_between_size_pools/"
 
 # Give an option to increase the timeout in tests.
 # https://bugs.ruby-lang.org/issues/16921
@@ -1576,6 +1567,10 @@ DISABLE_TESTS="$DISABLE_TESTS -n !/TestGCCompact#test_moving_objects_between_siz
 
 
 %changelog
+* Thu Feb 09 2023 Vít Ondruch <vondruch@redhat.com> - 3.2.1-179
+- Upgrade to Ruby 3.2.1.
+  Resolves: rhbz#2168292
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

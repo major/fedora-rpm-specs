@@ -18,9 +18,6 @@ BuildRequires:  git
 Requires:       gnome-shell >= %{shell_version}
 Requires:       system-logos
 
-# https://pagure.io/background-logo-extension/pull-request/32
-Patch0:         32.patch
-
 %description
 Show your pride! Display the Fedora logo (or any other graphic) in the corner of your desktop.
 

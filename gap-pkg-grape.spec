@@ -7,7 +7,7 @@ Summary:        GRaph Algorithms using PErmutation groups
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/grape/
 Source0:        https://github.com/gap-packages/grape/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Fedora-only patch: unbundle nauty

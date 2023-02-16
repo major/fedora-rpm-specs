@@ -33,8 +33,10 @@
 
 
 Name:           perl-Prima
-Version:        1.67
-Release:        3%{?dist}
+# I believe upstream will continue with 1.68.
+%global cpan_version 1.67001
+Version:        1.67.1
+Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
 # examples/tiger.eps:   AGPL-3.0-or-later (bundled from GhostScript? CPAN RT#122271)
@@ -54,24 +56,9 @@ Summary:        Perl graphic toolkit
 # unix/render.c:        HPND-sell-variant
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
-Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
-# Correct XRandr detection, in upstream after 1.67
-Patch0:         Prima-1.67-properly-detect-xrandr-version.patch
-# Prevent from desynchronizing Gtk and Perl locale, in upstream after 1.67
-Patch1:         Prima-1.67-always-call-gtk_disable_setlocale-as-it-is-same-as-P.patch
-# Fix an invalid memory access in handling Thai script, in upstream after 1.67,
-# <https://github.com/dk/Prima/issues/71>
-Patch2:         Prima-1.67-refs-71-memory-access-error.patch
-# Fix a crash in finding a font, in upstream after 1.67
-Patch3:         Prima-1.67-coredump-fix.patch
-# Make Prima compatible with multihreaded X11 applications,
-# in upstream after 1.67, <https://github.com/dk/Prima/issues/75>
-Patch4:         Prima-1.67-refs-75-fix-for-libX11-compiled-without-enable-threa.patch
-# Fix a crash when processing an event queue, in upstream after 1.67
-Patch5:         Prima-1.67-segfault-fix.patch
-# Fix un undefined behaviour triggering _FORTIFY_SOURCE=3 abort,
-# in upstream after 1.67, bug #2160077, <https://github.com/dk/Prima/issues/78>
-Patch6:         Prima-1.67-Avoid-invalidating-pointer.patch
+Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{cpan_version}.tar.gz
+# Normalize example shebangs, proposed to the upstream, CPAN RT#146472
+Patch0:         Prima-1.67001-Remove-a-shebang-from-examples-clock.pl.patch
 BuildRequires:  findutils
 BuildRequires:  giflib-devel
 BuildRequires:  gcc
@@ -140,12 +127,14 @@ BuildRequires:  pkgconfig(xrandr) >= 1.5
 BuildRequires:  pkgconfig(xrender)
 # Run-time:
 BuildRequires:  perl(base)
+BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Encode)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Fcntl)
 # Getopt::Long not used at tests
 BuildRequires:  perl(IO::Handle)
+BuildRequires:  perl(POSIX)
 BuildRequires:  perl(Scalar::Util)
 BuildRequires:  perl(Symbol)
 BuildRequires:  perl(Tie::Array)
@@ -221,7 +210,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%autosetup -p1 -n Prima-%{version}
+%autosetup -p1 -n Prima-%{cpan_version}
 %if !%{with perl_Prima_enables_optional_test}
 rm t/misc/pod.t
 perl -i -ne 'print $_ unless m{\A\Qt/misc/pod.t\E}' MANIFEST
@@ -238,7 +227,6 @@ done
 %build
 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
     OPTIMIZE="$RPM_OPT_FLAGS" \
-    CYGWIN_WINAPI=0 \
     DEBUG=0 \
     VERBOSE=1 \
     WITH_COCOA=0 \
@@ -254,9 +242,9 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 \
 
 %install
 %{make_install}
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
-find $RPM_BUILD_ROOT -type f -name '*.a' -size 0 -delete
-%{_fixperms} $RPM_BUILD_ROOT/*
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+find %{buildroot} -type f -name '*.a' -size 0 -delete
+%{_fixperms} %{buildroot}/*
 # Install tests
 mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
@@ -325,6 +313,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 14 2023 Petr Pisar <ppisar@redhat.com> - 1.67.1-1
+- 1.67001 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.67-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

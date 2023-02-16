@@ -7,7 +7,7 @@ Summary:        Primitive permutation groups library
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/primgrp/
 Source0:        https://github.com/gap-packages/primgrp/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

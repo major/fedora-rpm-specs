@@ -9,7 +9,7 @@ Summary:        Line by line profiling and code coverage for GAP
 # rapidjson, which is a header-only package, is also MIT.
 # src/md5.{cc,h} is Public Domain.
 License:        MIT AND LicenseRef-Fedora-Public-Domain
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/profiling/
 Source0:        https://github.com/gap-packages/profiling/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Adapt to rapidjson 1.1.0

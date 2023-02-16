@@ -6,7 +6,7 @@ Release:        6%{?dist}
 Summary:        GAP access to mpfr, mpfi, mpc, fplll and cxsc
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/float/
 Source0:        https://github.com/gap-packages/float/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Remove atexit hack, not needed for non-coverage builds

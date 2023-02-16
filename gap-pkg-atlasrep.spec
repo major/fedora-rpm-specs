@@ -16,7 +16,7 @@ Summary:        GAP interface to the Atlas of Group Representations
 
 License:        GPL-3.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/atlasrep/
 Source0:        %{url}/%{pkgname}-%{version}.tar.gz
 Source1:        %{url}/%{pkgname}data.tar.gz

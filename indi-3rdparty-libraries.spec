@@ -1,13 +1,13 @@
 %global libapogee_pkg indi-3rdparty-libapogee
 %global libfli_pkg indi-3rdparty-libfli
 
-%global indi_version 1.9.9
+%global indi_version 2.0.0
 
 Name:           indi-3rdparty-libraries
-Version:        1.9.9
+Version:        2.0.0
 Release:        %autorelease
 Summary:        INDI 3rdparty libraries
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://indilib.org
 
 # Tar is generated from the huge all-in-one tar from INDI
@@ -45,7 +45,7 @@ We currently ship the following libraries:
 
 
 %package -n %{libapogee_pkg}
-License:        GPLv2+ and MPLv2.0
+License:        GPL-2.0-or-later AND MPL-2.0
 Summary:        Library for Apogee CCD Cameras
 
 Provides:       libapogee = 1:%{version}-%{release}
@@ -67,7 +67,7 @@ These are the header files needed to develop a
 
 
 %package -n %{libfli_pkg}
-License:        BSD
+License:        BSD-2-Clause AND BSD-3-Clause
 Summary:        Library for FLI CCD Camera & Filter Wheels
 
 Provides:       libfli = 1:%{version}-%{release}
@@ -99,21 +99,7 @@ find . -mindepth 2 -name CMakeLists.txt \
 
 %build
 %cmake -DBUILD_LIBS=ON \
-    -DWITH_APOGEE=ON \
-    -DWITH_ASICAM=OFF \
-    -DWITH_ATIK=OFF \
-    -DWITH_FISHCAMP=OFF \
-    -DWITH_FLI=ON \
-    -DWITH_MI=OFF \
-    -DWITH_INOVAPLX=OFF \
-    -DWITH_QHY=OFF \
-    -DWITH_QSI=OFF \
-    -DWITH_SBIG=OFF \
-    -DWITH_PENTAX=OFF \
-    -DWITH_AHP_XC=OFF \
-    -DWITH_TOUPBASE=OFF \
-    -DWITH_SVBONY=OFF \
-    -DWITH_PLAYERONE=OFF \
+    -DNO_PRE_BUILT=ON
 
 %cmake_build
 

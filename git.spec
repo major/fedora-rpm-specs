@@ -80,8 +80,8 @@
 %global _package_note_file  %{_builddir}/%{name}-%{version}%{?rcrev}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
-Version:        2.39.1
-Release:        1%{?rcrev}%{?dist}.1
+Version:        2.39.2
+Release:        1%{?rcrev}%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -390,7 +390,10 @@ BuildArch:      noarch
 Requires:       git = %{version}-%{release}
 Requires:       perl(Authen::SASL)
 Requires:       perl(Cwd)
+%if ! 0%{?rhel}
+# RHEL lacks perl-Email-Valid (rhbz#2166718)
 Requires:       perl(Email::Valid)
+%endif
 Requires:       perl(File::Spec)
 Requires:       perl(File::Spec::Functions)
 Requires:       perl(File::Temp)
@@ -1032,6 +1035,12 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Tue Feb 14 2023 Todd Zullinger <tmz@pobox.com> - 2.39.2-1
+- update to 2.39.2 (CVE-2023-22490, CVE-2023-23946)
+
+* Fri Feb 03 2023 Todd Zullinger <tmz@pobox.com> - 2.39.1-2
+- drop perl Email::Valid dep on RHEL (#2166718)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.39.1-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

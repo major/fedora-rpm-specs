@@ -6,7 +6,7 @@ Release:        3%{?dist}
 Summary:        Advanced Coset Enumerator
 
 License:        MIT
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/ace/
 Source0:        https://github.com/gap-packages/ace/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 

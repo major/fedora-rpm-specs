@@ -7,7 +7,7 @@ Summary:        Irreducible soluble linear groups over finite fields
 
 License:        BSD-2-Clause
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            http://www.icm.tu-bs.de/~bhoeflin/irredsol/
 Source0:        https://github.com/bh11/irredsol/releases/download/IRREDSOL-%{version}/%{pkgname}-%{version}.tar.bz2
 
@@ -55,10 +55,10 @@ ln -s %{gap_libdir}/pkg ../../pkg
 ln -s %{gap_libdir}/pkg/crisp ..
 ln -s %{gap_libdir}/pkg/primgrp ..
 pushd doc
-pdftex -interaction=batchmode manual
+pdftex manual
 makeindex manual
-pdftex -interaction=batchmode manual
-pdftex -interaction=batchmode manual
+pdftex manual
+pdftex manual
 rm -f ../htm/*
 perl %{gap_libdir}/etc/convert.pl -t -c -n IRREDSOL . ../htm
 popd

@@ -20,7 +20,7 @@ Summary:        GAP documentation tool
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://www.math.rwth-aachen.de/~Frank.Luebeck/GAPDoc/
 Source0:        %{url}/%{name}-%{version}.tar.bz2
 

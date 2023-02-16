@@ -6,7 +6,7 @@ Release:        4%{?dist}
 Summary:        Compact vectors over finite fields
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/cvec/
 Source0:        https://github.com/gap-packages/cvec/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 # Predownloaded data from ATLAS needed for the tests

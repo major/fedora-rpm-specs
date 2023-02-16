@@ -69,6 +69,9 @@ sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 # Remove the upper bound on the version of packaging
 sed -r -i "s/(packaging\\b.*)(, [[:blank:]]*<[^'\"]*)/\1/" setup.py
 
+# Remove the upper bound on the version of pyarrow.
+sed -r -i "s/(pyarrow\\b.*)(, [[:blank:]]*<[^'\"]*)/\1/" setup.py
+
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \
     xargs sed -i -E 's/^([[:space:]]*)import mock/\1from unittest import mock/'

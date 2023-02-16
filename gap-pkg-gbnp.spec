@@ -7,7 +7,7 @@ Summary:        Computing Gröbner bases of noncommutative polynomials
 
 License:        LGPL-2.1-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/gbnp/
 Source0:        https://github.com/gap-packages/gbnp/archive/v%{version}/GBNP-%{version}.tar.gz
 

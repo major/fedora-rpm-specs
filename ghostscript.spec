@@ -45,9 +45,9 @@
 Name:             ghostscript
 Summary:          Interpreter for PostScript language & PDF
 Version:          10.0.0
-Release:          1%{?dist}
+Release:          3%{?dist}
 
-License:          AGPLv3+
+License:          AGPL-3.0-or-later
 
 URL:              https://ghostscript.com/
 Source:           https://github.com/ArtifexSoftware/ghostpdl-downloads/releases/download/gs%{version_short}/ghostscript-%{version}.tar.xz
@@ -106,6 +106,8 @@ BuildRequires:    make
 
 Patch001: ghostscript-10.0.0-Fix-color-info-juggling-with-x11-devices.patch
 Patch002: ghostscript-10.0.0-Deal-with-different-VM-modes-during-CIDFont-loading.patch
+# https://github.com/OpenPrinting/cups-filters/issues/484
+Patch003: ghostscript-10.0.0-CUPS-PWG-Apple-Raster-output-device-Do-not-match-cus.patch
 
 # Downstream patches -- these should be always included when doing rebase:
 # ------------------
@@ -436,6 +438,12 @@ done
 # =============================================================================
 
 %changelog
+* Tue Feb 14 2023 Richard Lescak <rlescak@redhat.com> - 10.0.0-3
+- fix gdevcups to not match custom size against PPD
+
+* Sun Feb 12 2023 Michael J Gruber <mjg@fedoraproject.org> - 10.0.0-2
+- SPDX migration
+
 * Mon Jan 23 2023 Richard Lescak <rlescak@redhat.com> - 10.0.0-1
 - rebase to new version 10.0.0 (#2128814)
 

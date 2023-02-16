@@ -4,14 +4,14 @@
 
 Summary: A text formatting package based on SGML
 Name: linuxdoc-tools
-Version: 0.9.72
-Release: 15%{?dist}
+Version: 0.9.82
+Release: 1%{?dist}
 License: MIT
 Source: http://http.us.debian.org/debian/pool/main/l/linuxdoc-tools/%{name}_%{version}.orig.tar.gz
-Patch0: linuxdoc-tools-0.9.13-letter.patch
-Patch1: linuxdoc-tools-0.9.20-lib64.patch
+Patch01: 0001-downstream-Changed-default-papersize-to-letter.patch
+Patch02: 0002-downstream-Added-fix-to-have-lib64-in-perl-path-on-6.patch
 Url: http://packages.qa.debian.org/l/linuxdoc-tools.html
-BuildRequires:  gcc
+BuildRequires: git gcc
 BuildRequires: flex flex-static sgml-common jade gawk groff autoconf automake texinfo
 #need actual perl directory structure
 BuildRequires: perl-interpreter >= 4:5.10.1
@@ -38,9 +38,7 @@ source.  Linuxdoc-tools is intended for writing technical software
 documentation.
 
 %prep
-%setup -q
-%patch0 -p1
-%patch1 -p1 -b .lib64
+%autosetup -S git
 
 %build
 #need to get config.{sub,guess} in, something is broken in the build
@@ -100,9 +98,13 @@ exit 0
 %dir %{_vendorperllibdir}/LinuxDocTools
 %{_vendorperllibdir}/LinuxDocTools.pm
 %{_vendorperllibdir}/LinuxDocTools/*.pm
+%{_vendorperllibdir}/LinuxDocTools/Data/*.pm
 %{_mandir}/*/*
 
 %changelog
+* Sun Feb 05 2023 Julien Rische <jrische@redhat.com> - 0.9.82-1
+- New version 0.9.82
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.72-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

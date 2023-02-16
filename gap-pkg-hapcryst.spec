@@ -7,7 +7,7 @@ Summary:        Integral cohomology computations of Bieberbach groups
 
 License:        GPL-2.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/hapcryst/
 Source0:        https://github.com/gap-packages/hapcryst/releases/download/v%{version}/%{pkgname}-%{version}.tar.gz
 # Fix documentation bugs

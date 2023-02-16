@@ -3,8 +3,8 @@
 %global module %{pypi_name}
 
 Name:             python-%{pypi_name}
-Version:          1.80
-Release:          4%{?dist}
+Version:          1.81
+Release:          1%{?dist}
 Summary:          Python tools for computational molecular biology
 Source0:          %{pypi_source}
 
@@ -22,7 +22,7 @@ biology.
 %package -n python3-%{module}
 Summary: Python3 tools for computational molecular biology
 
-%{?python_provide:%python_provide python3-%{module}}
+%py_provides python3-%{module}
 
 BuildRequires:    python3-devel
 BuildRequires:    python3dist(setuptools)
@@ -116,6 +116,9 @@ popd
 %license %{module}-%{version}/LICENSE.rst
 
 %changelog
+* Tue Feb 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 1.81-1
+- Release 1.81
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.80-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,7 +7,7 @@ Summary:        Randomized Schreier-Sims algorithm
 
 License:        GPL-3.0-or-later
 BuildArch:      noarch
-ExclusiveArch:  aarch64 ppc64le s390x x86_64 noarch
+ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/genss/
 Source0:        https://github.com/gap-packages/genss/releases/download/v%{version}/%{pkgname}-%{version}.tar.bz2
 

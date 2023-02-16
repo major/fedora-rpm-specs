@@ -1,8 +1,8 @@
 
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
-Version: 2.39
-Release: 10%{?dist}
+Version: 2.40
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -235,57 +235,33 @@ Patch12: binutils-gold-mismatched-section-flags.patch
 # Lifetime: Permanent.
 Patch13: binutils-gold-warn-unsupported.patch
 
-# Purpose:  Fix testsuite failures due to the patches applied here.
-# Lifetime: Permanent, but varying with each new rebase.
-Patch14: binutils-testsuite-fixes.patch
-
 # Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
 #            linker for x86 binaries.
-# Lifetime: Fixed in 2.38 maybe
-Patch15: binutils-gold-i386-gnu-property-notes.patch
+# Lifetime: Permanent.
+Patch14: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
 # Lifetime: Fixed in 2.39 (maybe ?)
-Patch16: binutils-autoconf-version.patch
+Patch15: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
 # Lifetime: Who knows.
-Patch17: binutils-libtool-no-rpath.patch
+Patch16: binutils-libtool-no-rpath.patch
 
 %if %{enable_new_dtags}
 # Purpose:  Change ld man page so that it says that --enable-new-dtags is the default.
 # Lifetime: Permanent
-Patch18: binutils-update-linker-manual.patch
+Patch17: binutils-update-linker-manual.patch
 %endif
-
-# Purpose:  Add a --package-metadata option to the linkers.
-# Lifetime: Fixed in 2.40
-Patch19: binutils-package-metadata.patch
-
-# Purpose:  Stop the assembler from generating DIE information for zero-sized functions.
-# Lifetime: Fixed in 2.40
-Patch20: binutils-gas-dwarf-skip-empty-functions.patch
-
-# Purpose:  Stop an infinite loop in the binutils DWARF decoder.  (CVE 2022-38128)
-# Lifetime: Fixed in 2.40
-Patch21: binutils-CVE-38128-dwarf-abbrev-parsing.patch
-
-# Purpose:  Stop readelf from incorrectly decoding ELF files with no sections.
-# Lifetime: Fixed in 2.40
-Patch22: binutils-readelf-no-sections.patch
-
-# Purpose:  Stop compile time warnings from configure test files in the libiberty directory.
-# Lifetime: Fixed in 2.40
-Patch23: binutils-libiberty-configure-compile-warnings.patch
-
-# Purpose:  Fix a potential reference of a NULL pointer.
-# Lifetime: Fixed in 2.40
-Patch24: binutils-CVE-2022-4285.patch
 
 # Purpose:  Speed up objcopy's note merging algorithm.
 # Lifetime: Fixed in 2.41
-Patch25: binutils-objcopy-note-merge-speedup.patch
+Patch18: binutils-objcopy-note-merge-speedup.patch
+
+# # Purpose:  Fix testsuite failures due to the patches applied here.
+# # Lifetime: Permanent, but varying with each new rebase.
+Patch19: binutils-testsuite-fixes.patch
 
 #----------------------------------------------------------------------------
 
@@ -788,8 +764,13 @@ run_tests()
     pushd build-$target
     
     if test x$native == x1 ; then
-	make -k check < /dev/null || :
+	make -k check-gas check-binutils check-ld < /dev/null
+%if %{with gold}
+	# The GOLD testsuite always returns an error code, even if no tests fail.
+	make -k check-gold < /dev/null || :
+%endif
     else
+	# Do not try running linking tests for the cross-binutils.
 	make -k check-gas check-binutils < /dev/null || :
     fi
     
@@ -1146,6 +1127,7 @@ exit 0
 %{_infodir}/ld.info.*
 %{_infodir}/bfd.info.*
 %{_infodir}/ctf-spec.info.*
+%{_infodir}/sframe-spec.info.*
 %exclude %{_infodir}/gprofng*
 %endif
 
@@ -1217,6 +1199,15 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Feb 13 2023 Nick Clifton  <nickc@redhat.com> - 2.40-1
+- Rebase to 2.40.
+- Retire: binutils-package-metadata.patch
+- Retire: binutils-gas-dwarf-skip-empty-functions.patch
+- Retire: binutils-CVE-38128-dwarf-abbrev-parsing.patch
+- Retire: binutils-readelf-no-sections.patch
+- Retire: binutils-libiberty-configure-compile-warnings.patch
+- Retire: binutils-CVE-2022-4285.patch
+
 * Tue Jan 31 2023 Nick Clifton  <nickc@redhat.com> - 2.39-10
 - Spec File: Add (disabled by default) support for cross-builds of the binutils.
 

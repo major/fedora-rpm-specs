@@ -13,7 +13,7 @@ Release:        3%{?dist}
 Summary:        Simple web access for GAP
 
 License:        GPL-2.0-or-later
-ExclusiveArch:  aarch64 ppc64le s390x x86_64
+ExclusiveArch:  %{gap_arches}
 URL:            https://gap-packages.github.io/curlInterface/
 Source0:        https://github.com/gap-packages/curlInterface/releases/download/v%{version}/%{upname}-%{version}.tar.gz
 

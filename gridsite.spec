@@ -1,12 +1,12 @@
 %global aprversion 1
 %{!?_httpd_mmn: %{expand: %%global _httpd_mmn %%(cat %{_includedir}/httpd/.mmn || echo 0-0)}}
 
-%global commit 2fdbc6f489dd984373e357fdaa6ab3dcc5fe7ec1
+%global commit ee811516f125f6d09ccf0b3022d2e8de504470e7
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gridsite
 Version:        3.0.0
-Release:        0.24.20180202git%{shortcommit}%{?dist}
+Release:        0.25.20230214git%{shortcommit}%{?dist}
 Summary:        Grid Security for the Web, Web platforms for Grids
 
 #  - src/gsexec.c ASL 2.0 (not used)
@@ -14,9 +14,9 @@ Summary:        Grid Security for the Web, Web platforms for Grids
 #  - src/mod_gridsite.c BSD but includes ASL 2.0 based code.
 #  - src/mod_ssl-private.h BSD but includes ASL 2.0 based code.
 # All other files are BSD
-License:        ASL 2.0 and BSD
+License:        Apache-2.0 AND BSD-2-Clause
 URL:            http://www.gridsite.org
-Source0:        https://github.com/CESNET/%{name}/archive/%{commit}.tar.gz#/%{name}-%{shortcommit}.tar.gz
+Source0:        https://github.com/CESNET/%{name}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1:        gridsite-httpd.conf
 Source2:        gridsitehead.txt
 Source3:        gridsitefoot.txt
@@ -246,6 +246,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/grid-security/vomsdir
 
 
 %changelog
+* Tue Feb 14 2023 František Dvořák <valtri@civ.zcu.cz> - 3.0.0-0.25.20230214gitee81151
+- Update license field to SPDX identifier
+- New upstream snapshot
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-0.24.20180202git2fdbc6f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -115,7 +115,7 @@ URL: http://www.gnutls.org/
 %define short_version %(echo %{version} | grep -m1 -o "[0-9]*\.[0-9]*" | head -1)
 Source0: https://www.gnupg.org/ftp/gcrypt/gnutls/v%{short_version}/%{name}-%{version}.tar.xz
 Source1: https://www.gnupg.org/ftp/gcrypt/gnutls/v%{short_version}/%{name}-%{version}.tar.xz.sig
-Source2: gnutls-release-keyring.gpg
+Source2: https://gnutls.org/gnutls-release-keyring.gpg
 
 # Wildcard bundling exception https://fedorahosted.org/fpc/ticket/174
 Provides: bundled(gnulib) = 20130424

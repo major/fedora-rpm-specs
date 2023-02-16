@@ -8,8 +8,8 @@
 
 
 Name:           qdigidoc
-Version:        4.2.12
-Release:        3%{?dist}
+Version:        4.2.14
+Release:        1%{?dist}
 Summary:        Estonian digital signature and encryption application
 License:        LGPLv2+
 URL:            https://github.com/open-eid/DigiDoc4-Client
@@ -26,18 +26,17 @@ Source4:        config.qrc
 Source5:        EE.xml
 # https://github.com/open-eid/DigiDoc4-Client/wiki/DeveloperTips
 Source6:        TSL.qrc
-# https://ec.europa.eu/tools/lotl/eu-lotl.xml
+# https://ec.europa.eu/tools/lotl/eu-lotl.xml`
 Source7:        eu-lotl.xml
 
 Patch0:         sandbox-qdigidoc4.patch
 # read https://github.com/open-eid/DigiDoc4-Client/issues/1119
-Patch1:         dword_cast.patch
 
 BuildRequires: make
 BuildRequires:  cmake3 >= 3.5
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
-BuildRequires:  libdigidocpp-devel >= 3.14.7
+BuildRequires:  libdigidocpp-devel >= 3.14.12
 BuildRequires:  openldap-devel
 BuildRequires:  pkgconfig(openssl)
 BuildRequires:  pkgconfig(Qt5Svg)
@@ -73,7 +72,6 @@ extension for the nautilus file manager.
 %setup -q -n %{upstream_name}-%{version}
 
 %patch0 -p1
-%patch1 -p1
 
 cp %{S:1} %{S:2} %{S:3} %{S:4} common/
 cp %{S:5} %{S:6} %{S:7} client/
@@ -151,6 +149,10 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/qdigidoc4.desktop
 %{_datadir}/nautilus-python/extensions/*
 
 %changelog
+* Fri Feb 10 2023 Dmitri Smirnov <dmitri@smirnov.ee> - 4.2.14-1
+- Upstream release 4.2.14
+- Removed dword_cast.patch - fixed in upstream
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

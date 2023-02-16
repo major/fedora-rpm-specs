@@ -9,7 +9,7 @@ Version:        38.0.0
 Release:        %autorelease
 Summary:        Desktop backgrounds
 
-License:        LGPLv2
+License:        LGPL-2.0-only
 Source0:        redhat-backgrounds-%{rh_backgrounds_version}.tar.bz2
 Source2:        Propaganda-1.0.0.tar.gz
 Source3:        README.Propaganda

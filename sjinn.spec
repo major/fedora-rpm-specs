@@ -1,6 +1,6 @@
 Name:           sjinn
 Version:        1.01
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        Simple tool for sending & receiving data from RS-232 devices
 
 License:        GPLv2+
@@ -25,6 +25,7 @@ Patch2:         sjinn-uncompress-man-pages.patch
 # Fix optstring for proper -r handling
 # https://sourceforge.net/tracker/?func=detail&aid=3324235&group_id=26187&atid=386394
 Patch3:         sjinn-optarg-r-fix.patch
+Patch4: sjinn-configure-c99.patch
 
 
 %description
@@ -82,6 +83,7 @@ gunzip rs232.1.gz
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 # Fix some file permissions
 chmod -x INSTALL COPYING README EXAMPLES FAQS ChangeLog Makefile \
@@ -112,6 +114,9 @@ make INSTALL="install -cDp" DESTDIR=%{buildroot} prefix=%{_prefix} \
 
 
 %changelog
+* Tue Feb 14 2023 Florian Weimer <fweimer@redhat.com> - 1.01-28
+- Port configure script to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

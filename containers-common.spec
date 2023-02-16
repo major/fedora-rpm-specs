@@ -17,7 +17,7 @@ Epoch: 4
 Name: containers-common
 Version: 1
 Release: %autorelease
-License: ASL 2.0
+License: Apache-2.0
 BuildArch: noarch
 Summary: Common configuration and documentation for containers
 BuildRequires: go-md2man

@@ -23,7 +23,7 @@ install the MPI specific sub-packages for MPICH and OpenMPI builds.
 %bcond_without openmpi
 
 Name:       neuron
-Version:    8.0.2
+Version:    8.2.2
 Release:    %autorelease
 Summary:    A flexible and powerful simulator of neurons and networks
 
@@ -32,11 +32,11 @@ URL:        http://www.neuron.yale.edu/neuron/
 Source0:    https://github.com/neuronsimulator/%{tarname}/archive/%{version}/%{name}-%{version}.tar.gz
 
 # they bundle HPC coding conventions as a git submodule
-%global conv_git_commit  c45cd96e8aa5d033f201347c11fb8889548d93cf
+%global conv_git_commit  5d4bcd2d410e67bdc1d23d3280c08ee5c9df943b
 %global conv_short_commit %(c=%{conv_git_commit}; echo ${c:0:7})
 Source1:    https://github.com/BlueBrain/hpc-coding-conventions/archive/%{conv_git_commit}/hpc-coding-conventions-%{conv_short_commit}.tar.gz
 
-%global rxd_tests_commit 3a6aca90a57554d46e3eb310ff5ad618c57dce49
+%global rxd_tests_commit 2a08564a45fac78f259d23203d737db924c224c8
 %global rxd_short_commit %(c=%{rxd_tests_commit}; echo ${c:0:7})
 Source2:    https://github.com/neuronsimulator/rxdtestdata/archive/%{rxd_tests_commit}/rxdtestdata-%{rxd_short_commit}.tar.gz
 
@@ -63,6 +63,10 @@ Patch6:     0007-Remove-rpaths.patch
 Patch7:     0008-Dont-download-testdata-submodule.patch
 # place help file in correct location
 Patch8:     0009-Add-help-file-as-package-data.patch
+# tries to create /usr/x86_64 etc dirs
+Patch9:     0010-Remove-unneeded-symlinks.patch
+# remove build time flags from the nrnmech makefile---it should not use these
+Patch10:    0011-Strip-build-flags-from-nrnmech_makefile.patch
 
 # Random123 does not build on these, so neither can NEURON
 # https://github.com/neuronsimulator/nrn/issues/114
@@ -110,6 +114,7 @@ Requires:  gcc-c++
 Requires:  libtool
 Requires:  libX11-devel
 Requires:  libXext-devel
+Requires:  iv-devel
 
 %description devel
 Headers and development shared libraries for the %{name} package
@@ -227,11 +232,6 @@ cat > src/nrnoc/nrnversion.h << EOF
 #define GIT_CHANGESET "f0ca745418e942ad4763bdc47459c409f0b11512"
 #define GIT_DESCRIBE "8.0.2 (Fedora %{fedora})"
 EOF
-
-# Use system libtool instead of a local copy that neuron tries to install
-for f in bin/*_makefile.in; do
-    sed -r -i 's|(LIBTOOL.*=.*)\$\(pkgdatadir\)(.*)|\1$(bindir)\2|' $f
-done
 
 # Stop system from using hard coded flags
 sed -i '/CompilerFlagsHelpers/ d' cmake/ReleaseDebugAutoFlags.cmake

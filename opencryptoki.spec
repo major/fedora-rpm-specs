@@ -6,8 +6,8 @@
 Name:			opencryptoki
 Summary:		Implementation of the PKCS#11 (Cryptoki) specification v3.0
 Version:		3.20.0
-Release:		1%{?dist}
-License:		CPL
+Release:		2%{?dist}
+License:		CPL-1.0
 URL:			https://github.com/opencryptoki/opencryptoki
 Source0:		https://github.com/opencryptoki/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:		opencryptoki.module
@@ -356,6 +356,9 @@ fi
 
 
 %changelog
+* Tue Feb 14 2023 Than Ngo <than@redhat.com> - 3.20.0-2
+- migrated to SPDX license
+
 * Mon Feb 13 2023 Than Ngo <than@redhat.com> - 3.20.0-1
 - update to 3.20.0
 - drop unnecessary opencryptoki-3.11.0-group.patch

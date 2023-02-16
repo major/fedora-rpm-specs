@@ -1,7 +1,7 @@
 %bcond_with tests
 
 Name:       protontricks
-Version:    1.10.1
+Version:    1.10.2
 Release:    %autorelease
 Summary:    Simple wrapper that does winetricks things for Proton enabled games
 BuildArch:  noarch

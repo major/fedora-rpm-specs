@@ -1,7 +1,7 @@
 %global bigname QXmlEdit
 Name:           qxmledit
-Version:        0.9.17
-Release:        3%{?dist}
+Version:        0.9.18
+Release:        1%{?dist}
 # QXmlEdit - LGPLv2, some icons (oxygen) - GPLv3, QwtPlot3D - zlib-like
 License:        LGPLv2+ and GPLv3 and zlib
 Summary:        Simple XML Editor and XSD Viewer
@@ -72,34 +72,38 @@ lrelease-qt5 {src/QXmlEdit.pro,src/QXmlEditWidget.pro,src/sessions/QXmlEditSessi
     QXMLEDIT_INST_INCLUDE_DIR=%{_includedir}/%{name} \
     QXMLEDIT_INST_ICON_DIR=%{_datadir}/pixmaps \
     QXMLEDIT_INST_DOC_DIR=%{_datadir}/doc/%{name} \
+    QXMLEDIT_INST_DESKTOPINFO_DIR=%{_datadir}/applications \
+    QXMLEDIT_INST_METAINFO_DIR=%{_metainfodir} \
     QXMLEDIT_INST_USE_C11=y
 %{make_build}
 
 
 %install
 %{make_install} INSTALL_ROOT=%{buildroot}
-# Install extras
-install -Dm 0644 install_scripts/environment/desktop/%{bigname}.desktop %{buildroot}%{_datadir}/applications/%{bigname}.desktop
-install -Dm 0644 install_scripts/environment/desktop/%{bigname}.appdata.xml %{buildroot}%{_datadir}/metainfo/%{bigname}.appdata.xml
+# extras
 install -Dm 0644 install_scripts/environment/man/%{name}.1 %{buildroot}%{_mandir}/man1/%{name}.1
 # i18n
-%find_lang %{bigname} --with-qt --without-mo
-%find_lang {%{bigname},QXmlEditWidget,SCXML,QXmlEditSessions} --with-qt --without-mo
+%find_lang QXmlEdit --with-qt --without-mo
+%find_lang QXmlEditSessions --with-qt --without-mo
+%find_lang QXmlEditWidget --with-qt --without-mo
+%find_lang SCXML --with-qt --without-mo
 
 
 %check
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{bigname}.desktop
 
 
-%files -f %{bigname}.lang
+%files -f QXmlEdit.lang -f QXmlEditSessions.lang -f QXmlEditWidget.lang -f SCXML.lang
 %license COPYING GPLV3.txt LGPLV3.txt
 %doc AUTHORS NEWS README
 %{_bindir}/%{name}
-%{_datadir}/%{name}/
 %{_datadir}/applications/%{bigname}.desktop
-%{_datadir}/metainfo/%{bigname}.appdata.xml
+%{_metainfodir}/%{bigname}.appdata.xml
 %{_datadir}/pixmaps/%{name}.png
 %{_mandir}/man1/%{name}.1.*
+%dir %{_datadir}/%{name}
+%{_datadir}/%{name}/sample.style
+%{_datadir}/%{name}/snippets/
 
 %files doc
 %license COPYING GPLV3.txt LGPLV3.txt
@@ -116,6 +120,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{bigname}.desktop
 
 
 %changelog
+* Tue Feb 14 2023 TI_Eugene <ti.eugene@gmail.com> - 0.9.18-1
+- Version bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
