@@ -39,7 +39,7 @@
 Name:           seamonkey
 Summary:        Web browser, e-mail, news, IRC client, HTML editor
 Version:        2.53.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 URL:            http://www.seamonkey-project.org
 License:        MPLv2.0
 
@@ -535,6 +535,9 @@ mkdir -p $RPM_BUILD_ROOT%{_libdir}/mozilla/extensions/%{seamonkey_app_id}
 
 
 %changelog
+* Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 2.53.15-2
+- rebuild for libvpx
+
 * Sat Jan 21 2023 Dmitry Butskoy <Dmitry@Butskoy.name> 2.53.15-1
 - update to 2.53.15
 - add fix for mozbz 1464782

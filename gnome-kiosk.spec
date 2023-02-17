@@ -5,19 +5,19 @@
 %global gnome_desktop_version                   40~rc
 %global glib2_version                           2.68.0
 %global gtk4_version                            3.24.27
-%global mutter_version                          43~alpha
+%global mutter_version                          44~beta
 %global gsettings_desktop_schemas_version       40~rc
 %global ibus_version                            1.5.24
 %global gnome_settings_daemon_version           40~rc
 
 Name:           gnome-kiosk
-Version:        43.0
-Release:        2%{?dist}
+Version:        44~beta
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
-Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 Provides:       firstboot(windowmanager) = %{name}
 
@@ -31,7 +31,7 @@ BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
-BuildRequires:  pkgconfig(libmutter-11) >= %{mutter_version}
+BuildRequires:  pkgconfig(libmutter-12) >= %{mutter_version}
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  meson
@@ -104,6 +104,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/xsessions/gnome-kiosk-script-xorg.desktop
 
 %changelog
+* Wed Feb 15 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-1
+- Update to 44-beta, rebuild against new libmutter
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

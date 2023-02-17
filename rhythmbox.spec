@@ -1,12 +1,12 @@
 %global gtk3_version 3.20.0
-%global libdmapsharing_version 3.9.4
+%global libdmapsharing_version 2.9.10
 %global libsecret_version 0.18
 
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins/.*/.*\\.so.*$
 
 Name:    rhythmbox
 Version: 3.4.6
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: Music Management Application
 
 License: GPLv2+ with exceptions and GFDL
@@ -21,7 +21,7 @@ BuildRequires: pkgconfig(gtk+-3.0) >= %{gtk3_version}
 BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(json-glib-1.0)
 BuildRequires: pkgconfig(libbrasero-media3)
-BuildRequires: pkgconfig(libdmapsharing-4.0) >= %{libdmapsharing_version}
+BuildRequires: pkgconfig(libdmapsharing-3.0) >= %{libdmapsharing_version}
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires: pkgconfig(libgpod-1.0)
 %endif
@@ -51,7 +51,7 @@ Requires: gtk3%{?_isa} >= %{gtk3_version}
 %if 0%{?fedora} || 0%{?rhel} >= 9
 Requires: gvfs-afc
 %endif
-Requires: libdmapsharing4%{?_isa} >= %{libdmapsharing_version}
+Requires: libdmapsharing%{?_isa} >= %{libdmapsharing_version}
 Requires: libpeas-loader-python3%{?_isa}
 Requires: libsecret%{?_isa} >= %{libsecret_version}
 Requires: media-player-info
@@ -172,6 +172,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Rhythmbox3
 %{_datadir}/vala/
 
 %changelog
+* Wed Feb 15 2023 David King <amigadave@amigadave.com> - 3.4.6-4
+- Use old libdmapsharing to keep working with soup2 (#2169171)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

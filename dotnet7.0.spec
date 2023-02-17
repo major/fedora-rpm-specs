@@ -8,10 +8,10 @@
 
 %global dotnetver 7.0
 
-%global host_version 7.0.2
-%global runtime_version 7.0.2
+%global host_version 7.0.3
+%global runtime_version 7.0.3
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 7.0.102
+%global sdk_version 7.0.103
 %global sdk_feature_band_version %(echo %{sdk_version} | cut -d '-' -f 1 | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -53,7 +53,7 @@
 
 Name:           dotnet%{dotnetver}
 Version:        %{sdk_rpm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        .NET Runtime and SDK
 License:        0BSD AND Apache-2.0 AND (Apache-2.0 WITH LLVM-Exception) AND APSL-2.0 AND BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND BSL-1.0 AND bzip2-1.0.6 AND CC0-1.0 AND CC-BY-3.0 AND CC-BY-4.0 AND CC-PDDC AND CNRI-Python AND EPL-1.0 AND GPL-2.0-only AND (GPL-2.0-only WITH GCC-exception-2.0) AND GPL-2.0-or-later AND GPL-3.0-only AND ICU AND ISC AND LGPL-2.1-only AND LGPL-2.1-or-later AND LicenseRef-Fedora-Public-Domain AND LicenseRef-ISO-8879 AND MIT AND MIT-Wu AND MS-PL AND MS-RL AND NCSA AND OFL-1.1 AND OpenSSL AND Unicode-DFS-2015 AND Unicode-DFS-2016 AND W3C-19980720 AND X11 AND Zlib
 
@@ -78,10 +78,8 @@ Source0:        dotnet-%{upstream_tag}.tar.gz
 Source10:       check-debug-symbols.py
 Source11:       dotnet.sh.in
 
-# https://github.com/dotnet/installer/pull/14792
-Patch1:         installer-14792-mono.patch
 # Disable apphost; there's no net6.0 apphost for ppc64le
-Patch2:        roslyn-analyzers-ppc64le-apphost.patch
+Patch1:        roslyn-analyzers-ppc64le-apphost.patch
 
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
@@ -627,6 +625,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Feb 15 2023 Omair Majid <omajid@redhat.com> - 7.0.103-1
+- Update to .NET SDK 7.0.103 and Runtime 7.0.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.102-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

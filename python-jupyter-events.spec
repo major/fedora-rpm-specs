@@ -1,6 +1,6 @@
 Name:           python-jupyter-events
-Version:        0.5.0
-Release:        2%{?dist}
+Version:        0.6.3
+Release:        %autorelease
 Summary:        Jupyter Event System library
 License:        BSD-3-Clause
 URL:            https://jupyter.org
@@ -53,8 +53,4 @@ Summary:        %{summary}
 %{_bindir}/jupyter-events
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Nov 28 2022 Lumír Balhar <lbalhar@redhat.com> - 0.5.0-1
-- Initial package
+%autochangelog

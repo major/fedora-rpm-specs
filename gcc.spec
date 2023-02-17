@@ -1,5 +1,5 @@
-%global DATE 20230208
-%global gitrev 88db57a1779f3c620653a2a791e54301645befbf
+%global DATE 20230215
+%global gitrev 76b508266ac7460db2e4fe9eba298520ae1eda70
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.3%{?dist}
+Release: %{gcc_release}.4%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -286,8 +286,6 @@ Patch8: gcc13-no-add-needed.patch
 Patch9: gcc13-Wno-format-security.patch
 Patch10: gcc13-rh1574936.patch
 Patch11: gcc13-d-shared-libphobos.patch
-Patch12: gcc13-pr108692.patch
-Patch13: gcc13-pr108316.patch
 
 Patch50: isl-rh2155127.patch
 
@@ -864,8 +862,6 @@ so that there cannot be any synchronization problems.
 %patch10 -p0 -b .rh1574936~
 %endif
 %patch11 -p0 -b .d-shared-libphobos~
-%patch12 -p0 -b .pr108692~
-%patch13 -p0 -b .pr108316~
 
 %patch50 -p0 -b .rh2155127~
 touch -r isl-0.24/m4/ax_prog_cxx_for_build.m4 isl-0.24/m4/ax_prog_cc_for_build.m4
@@ -3462,6 +3458,24 @@ end
 %endif
 
 %changelog
+* Wed Feb 15 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.4
+- update from trunk
+  - PRs analyzer/108704, analyzer/108733, analyzer/108745, c++/106675,
+	c++/107079, c++/108698, d/107469, fortran/69636, fortran/103259,
+	fortran/103475, fortran/103779, fortran/107424, fortran/108512,
+	ipa/108605, ipa/108679, libstdc++/103934, middle-end/26854,
+	middle-end/106080, rtl-optimization/108681, sanitizer/108777,
+	target/96373, target/100758, target/103109, target/108102,
+	target/108516, target/108723, target/108738, target/108787,
+	target/108790, testsuite/106120, tree-optimization/28614,
+	tree-optimization/96921, tree-optimization/106722,
+	tree-optimization/107561, tree-optimization/108316,
+	tree-optimization/108355, tree-optimization/108520,
+	tree-optimization/108571, tree-optimization/108684,
+	tree-optimization/108687, tree-optimization/108688,
+	tree-optimization/108691, tree-optimization/108692,
+	tree-optimization/108724, tree-optimization/108782
+
 * Wed Feb  8 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.3
 - update from trunk
   - PRs analyzer/108616, analyzer/108633, analyzer/108661, c++/101071,

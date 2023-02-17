@@ -1,63 +1,64 @@
-%global srcname swagger-spec-validator
-
-Name:           python-%{srcname}
-Version:        2.7.4
-Release:        3%{?dist}
+Name:           python-swagger-spec-validator
+Version:        3.0.3
+Release:        1%{?dist}
 Summary:        Validation of Swagger specifications
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/Yelp/swagger_spec_validator
-Source0:        %{pypi_source}
-Source1:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+Source:         %{url}/archive/v%{version}/swagger-spec-validator-%{version}.tar.gz
+# https://github.com/Yelp/swagger_spec_validator/pull/163
+Patch:          0001-Add-missing-setuptools-dependency.patch
 
 BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  python3-pytest
 
 %global _description %{expand:
-%{summary}.}
+Swagger Spec Validator is a Python library that validates Swagger Specs against
+the Swagger 1.2 or Swagger 2.0 specification. The validator aims to check for
+full compliance with the Specification.}
+
 
 %description %{_description}
 
-%package     -n python3-%{srcname}
+%package     -n python3-swagger-spec-validator
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  python3dist(jsonschema)
-BuildRequires:  python3dist(pyyaml)
-BuildRequires:  python3dist(six)
-BuildRequires:  python3dist(pytest) >= 3.1.0
-BuildRequires:  python3dist(httpretty)
-BuildRequires:  python3dist(mock)
 
-%description -n python3-%{srcname} %{_description}
 
-Python 3 version.
+%description -n python3-swagger-spec-validator %{_description}
+
 
 %prep
-%autosetup -n %{srcname}-%{version} -N
-rm -vr *.egg-info
-tar -xvf %{S:1} --strip-components=1 --wildcards \
-  'swagger_spec_validator-%{version}/LICENSE.txt' \
-  'swagger_spec_validator-%{version}/CHANGELOG.rst' \
-  'swagger_spec_validator-%{version}/tests/' \
-  %{nil}
+%autosetup -n swagger_spec_validator-%{version} -p 1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files swagger_spec_validator
+
 
 %check
-%python3 -m pytest tests
+%pytest -v tests
 
-%files -n python3-%{srcname}
-%license LICENSE.txt
+
+%files -n python3-swagger-spec-validator -f %{pyproject_files}
 %doc README.md CHANGELOG.rst
-%{python3_sitelib}/swagger_spec_validator/
-%{python3_sitelib}/swagger_spec_validator-*.egg-info/
+
 
 %changelog
+* Tue Feb 14 2023 Carl George <carl@george.computer> - 3.0.3-1
+- Update to version 3.0.3, resolves rhbz#2169878
+- Convert to pyproject macros
+- Add setuptools dependency
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -26,9 +26,9 @@ BuildRequires:	pkgconfig(gio-2.0) >= %{glib_ver}
 BuildRequires:	pkgconfig(gobject-introspection-1.0) >= %{gobj_ver}
 
 BuildRequires:	gtk-doc >= 1.17
-BuildRequires:	%{_bindir}/valac
-BuildRequires:	%{_bindir}/vapigen
-BuildRequires:	%{_bindir}/xsltproc
+BuildRequires:	/usr/bin/valac
+BuildRequires:	/usr/bin/vapigen
+BuildRequires:	/usr/bin/xsltproc
 BuildRequires:	python3
 # For tests/dbus
 BuildRequires:	dbus-daemon

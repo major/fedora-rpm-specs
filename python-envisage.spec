@@ -3,8 +3,8 @@
 #global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           python-%{srcname}
-Version:        6.1.0
-Release:        2%{?dist}
+Version:        6.1.1
+Release:        1%{?dist}
 Summary:        Extensible application framework
 
 # Images have different licenses. For image license breakdown check
@@ -20,7 +20,6 @@ BuildRequires:  python%{python3_pkgversion}-sphinx
 BuildRequires:  python%{python3_pkgversion}-sphinx-copybutton
 BuildRequires:  python%{python3_pkgversion}-enthought-sphinx-theme
 # For tests
-BuildRequires:  python%{python3_pkgversion}-nose
 BuildRequires:  /usr/bin/xvfb-run
 
 %description
@@ -110,19 +109,7 @@ find %{buildroot}%{python3_sitelib}/%{srcname} -name tests -type d -exec rm -r {
 
 
 %check
-# Prepare test eggs for Python 3.10+, the latest pre-generated eggs are for Python 3.9
-# See https://github.com/enthought/envisage/issues/396
-for dir in envisage/tests/*eggs/acme.*/; do
-  pushd $dir
-  %{python3} setup.py bdist_egg
-  mv -f dist/*.egg ..
-  popd
-done
-
-# This finds and runs more (broken) tests
-#xvfb-run %{__python3} setup.py test
-# Tests are failing due to new ipython - https://github.com/enthought/envisage/issues/448
-xvfb-run %{__python3} -m nose.core envisage || :
+xvfb-run %{__python3} -m unittest discover -v envisage
 
  
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -137,6 +124,12 @@ xvfb-run %{__python3} -m nose.core envisage || :
 
 
 %changelog
+* Thu Feb 16 2023 Orion Poplawski <orion@nwra.com> - 6.1.1-1
+- Update to 6.1.1
+
+* Sat Jan 21 2023 Scott Talbert <swt@techie.net> - 6.1.0-3
+- Cleanup and re-enable tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

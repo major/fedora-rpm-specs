@@ -1,6 +1,6 @@
 Name:           sblim-cmpi-base
 Version:        1.6.4
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        SBLIM CMPI Base Providers
 
 License:        EPL-1.0
@@ -120,6 +120,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/cmpi/*a
 %postun -p /sbin/ldconfig
 
 %changelog
+* Wed Feb 15 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 1.6.4-23
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.4-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

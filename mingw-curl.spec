@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-curl
-Version:        7.87.0
-Release:        2%{?dist}
+Version:        7.88.0
+Release:        1%{?dist}
 Summary:        MinGW Windows port of curl and libcurl
 
 License:        MIT
@@ -180,6 +180,9 @@ rm -rf %{buildroot}%{mingw64_datadir}/aclocal
 
 
 %changelog
+* Wed Feb 15 2023 Sandro Mani <manisandro@gmail.com> - 7.88.0-1
+- Update to 7.88.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.87.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

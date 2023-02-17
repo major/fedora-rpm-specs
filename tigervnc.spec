@@ -4,7 +4,7 @@
 
 Name:           tigervnc
 Version:        1.13.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -22,9 +22,10 @@ Source4:        HOWTO.md
 Source5:        vncserver
 
 # Downstream patches
+Patch1:        tigervnc-vncsession-restore-script-systemd-service.patch
 
 # Upstream patches
-Patch50:        tigervnc-vncsession-restore-script-systemd-service.patch
+Patch50:       tigervnc-sanity-check-when-cleaning-up-keymap-changes.patch
 
 # This is tigervnc-%%{version}/unix/xserver116.patch rebased on the latest xorg
 Patch100:       tigervnc-xserver120.patch
@@ -145,7 +146,8 @@ runs properly under an environment with SELinux enabled.
 %prep
 %setup -q
 
-%patch50 -p1 -b .vncsession-restore-script-systemd-service
+%patch1 -p1 -b .vncsession-restore-script-systemd-service
+%patch50 -p1 -b .sanity-check-when-cleaning-up-keymap-changes
 
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
 pushd unix/xserver
@@ -329,6 +331,9 @@ fi
 %ghost %verify(not md5 size mtime) %{_sharedstatedir}/selinux/%{selinuxtype}/active/modules/200/%{modulename}
 
 %changelog
+* Wed Feb 15 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.0-2
+- Backport: Sanity check when cleaning up keymap changes
+
 * Tue Feb 07 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.0-1
 - 1.13.0
 - CVE-2023-0494

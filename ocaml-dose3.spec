@@ -9,8 +9,7 @@ Summary:        Framework for managing distribution packages and dependencies
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
 
-# Linking exception, see included COPYING file.
-License:        LGPLv3+ with exceptions
+License:        LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
 URL:            http://www.mancoosi.org/software/
 
 Source0:        https://gitlab.com/irill/dose3/-/archive/%{version}/%{libname}-%{version}.tar.gz

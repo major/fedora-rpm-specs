@@ -1,6 +1,6 @@
 Name:           python-textual
-Version:        0.1.18
-Release:        2%{?dist}
+Version:        0.10.0
+Release:        1%{?dist}
 Summary:        TUI (Text User Interface) framework for Python
 License:        MIT
 URL:            https://github.com/Textualize/textual
@@ -11,6 +11,12 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 # Test dependencies:
 BuildRequires:  pytest
+BuildRequires:  python3-jinja2
+BuildRequires:  python3-syrupy
+BuildRequires:  python3-time-machine
+BuildRequires:  python3-pytest-asyncio
+BuildRequires:  python3-aiohttp
+BuildRequires:  python3-pytest-aiohttp
 
 %global _description %{expand:
 Textual is a TUI (Text User Interface) framework for Python inspired
@@ -33,9 +39,11 @@ Summary:        Docs and examples for python3-textual
 
 %prep
 %autosetup -n textual-%{version}
+sed -i \
+  -e 's/importlib-metadata = "^4.11.3"/importlib-metadata = ">4.11.3"/g' pyproject.toml
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -r -x dev
 
 
 %build
@@ -57,9 +65,13 @@ Summary:        Docs and examples for python3-textual
 %files -n python3-textual-doc
 %license LICENSE
 %doc README.md docs/ examples/
+%{_bindir}/textual
 
 
 %changelog
+* Wed Feb 15 2023 Jonathan Wright <jonathan@almalinux.org> - 0.10.0-1
+- Update to 0.10.0 rhbz#2162484
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

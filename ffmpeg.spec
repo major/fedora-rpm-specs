@@ -102,7 +102,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        5.1.2
-Release:        9%{?dist}
+Release:        11%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPLv3+
 URL:            https://ffmpeg.org/
@@ -221,7 +221,6 @@ BuildRequires:  pkgconfig(ogg)
 BuildRequires:  pkgconfig(openal)
 BuildRequires:  pkgconfig(opencore-amrnb)
 BuildRequires:  pkgconfig(OpenCL)
-BuildRequires:  pkgconfig(opencv4)
 BuildRequires:  pkgconfig(opus)
 BuildRequires:  pkgconfig(rav1e)
 BuildRequires:  pkgconfig(rubberband)
@@ -869,6 +868,12 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 5.1.2-11
+- bootstrap off
+
+* Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 5.1.2-10
+- rebuild for libvpx (bootstrap)
+
 * Mon Feb 13 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 5.1.2-9
 - Enable lcms2, lv2, placebo, rabbitmq, xv
 

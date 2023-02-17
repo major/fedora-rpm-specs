@@ -3,7 +3,7 @@
 
 Name: libcupsfilters
 Version: 2.0b3
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -65,8 +65,11 @@ BuildRequires: pkgconfig(libtiff-4)
 # for pdftoraster filter
 BuildRequires: pkgconfig(poppler-cpp)
 
+# comment out this until we have cups-filters-2.0b in repos
+# otherwise we can't install build packages which requires cups
+# and cups-filters/libcupsfilters (at the finish of the Fedora change)
 # remove once CentOS Stream 10 is released
-Obsoletes: cups-filters-libs < 2.0
+#Obsoletes: cups-filters-libs < 2.0
 
 # have a fallback for fonts in texttopdf filter function (bz#1070729)
 # but make it weak, so other monospace font can be used if requested
@@ -193,5 +196,8 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Feb 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-2
+- remove Obsoletes for now
+
 * Tue Jan 31 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-1
 - Initial import

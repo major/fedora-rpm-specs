@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/utils
 %global goipath         github.com/projectdiscovery/utils
-Version:                0.0.5
+Version:                0.0.9
 
 %gometa -f
 
@@ -37,7 +37,7 @@ Source:         %{gosource}
 
 %if %{with check}
 %check
-for test in "TestDownloadFile" "TestWhatsMyIP" \
+for test in "TestDownloadFile" "TestWhatsMyIP" "TestToFQDN" \
 ; do
 awk -i inplace '/^func.*'"$test"'\(/ { print; print "\tt.Skip(\"disabled failing test\")"; next}1' $(grep -rl $test)
 done

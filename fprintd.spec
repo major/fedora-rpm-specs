@@ -81,7 +81,7 @@ fi
 %{_datadir}/dbus-1/system-services/net.reactivated.Fprint.service
 %{_unitdir}/fprintd.service
 %{_datadir}/polkit-1/actions/net.reactivated.fprint.device.policy
-%{_localstatedir}/lib/fprint
+%attr(0700, -, -) %{_localstatedir}/lib/fprint
 %{_mandir}/man1/fprintd.1.gz
 
 %files pam

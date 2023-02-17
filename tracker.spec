@@ -3,11 +3,11 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.5.0~alpha
+Version:        3.5.0~beta
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gnome.pages.gitlab.gnome.org/tracker/
 Source0:        https://download.gnome.org/sources/tracker/3.5/tracker-%{tarball_version}.tar.xz
 
@@ -55,7 +55,7 @@ Metadata indexers are provided by the tracker-miners package.
 
 %package -n     libtracker-sparql
 Summary:        Tracker SPARQL library
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 Recommends:     %{name}%{?_isa} = %{version}-%{release}
 # renamed in F34
 Obsoletes:      libtracker-sparql3 < 3.1.0~rc-2
@@ -168,6 +168,9 @@ The %{name}-devel package contains the documentation for %{name}.
 
 
 %changelog
+* Wed Feb 15 2023 David King <amigadave@amigadave.com> - 3.5.0~beta-1
+- Update to 3.5.0.beta
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 3.5.0~alpha-1
 - Update to 3.5.0.alpha
 

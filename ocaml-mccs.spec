@@ -8,9 +8,9 @@ Summary:        Multi Criteria CUDF Solver with OCaml bindings
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
 
-# Original C/C++ code is BSD, OCaml bindings are LGPL.
-# Linking exception, see included COPYING file.
-License:        BSD and LGPLv3+ with exceptions
+# Original C/C++ code is BSD-3-Clause, OCaml bindings are LGPL.
+# The bundled glpk code is not used.
+License:        BSD-3-Clause AND LGPL-3.0-or-later WITH OCaml-LGPL-linking-exception
 
 URL:            https://github.com/AltGr/ocaml-mccs
 
@@ -89,6 +89,9 @@ rm -fr %{buildroot}%{_prefix}/doc
 %{_libdir}/ocaml/*/*.mli
 
 %changelog
+* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 1.1-40.14%{?dist}
+- Convert License tag to SPDX
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1-40.14
 - Rebuild OCaml packages for F38
 

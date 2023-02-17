@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-harfbuzz
-Version:        6.0.0
-Release:        3%{?dist}
+Version:        7.0.0
+Release:        1%{?dist}
 Summary:        MinGW Windows Harfbuzz library
 
 License:        MIT
@@ -98,6 +98,7 @@ find %{buildroot} -name "*.la" -delete
 # Win32
 %files -n mingw32-harfbuzz
 %license COPYING
+%{mingw32_bindir}/hb-info.exe
 %{mingw32_bindir}/hb-ot-shape-closure.exe
 %{mingw32_bindir}/hb-shape.exe
 %{mingw32_bindir}/hb-subset.exe
@@ -105,23 +106,28 @@ find %{buildroot} -name "*.la" -delete
 %{mingw32_bindir}/libharfbuzz-0.dll
 %{mingw32_bindir}/libharfbuzz-icu-0.dll
 %{mingw32_bindir}/libharfbuzz-subset-0.dll
+%{mingw32_bindir}/libharfbuzz-cairo-0.dll
 %{mingw32_includedir}/harfbuzz/
 %{mingw32_libdir}/libharfbuzz.dll.a
 %{mingw32_libdir}/libharfbuzz-icu.dll.a
 %{mingw32_libdir}/libharfbuzz-subset.dll.a
+%{mingw32_libdir}/libharfbuzz-cairo.dll.a
 %{mingw32_libdir}/pkgconfig/harfbuzz.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-icu.pc
 %{mingw32_libdir}/pkgconfig/harfbuzz-subset.pc
+%{mingw32_libdir}/pkgconfig/harfbuzz-cairo.pc
 %{mingw32_libdir}/cmake/harfbuzz/
 
 %files -n mingw32-harfbuzz-static
 %{mingw32_libdir}/libharfbuzz.a
+%{mingw32_libdir}/libharfbuzz-cairo.a
 %{mingw32_libdir}/libharfbuzz-icu.a
 %{mingw32_libdir}/libharfbuzz-subset.a
 
 # Win64
 %files -n mingw64-harfbuzz
 %license COPYING
+%{mingw64_bindir}/hb-info.exe
 %{mingw64_bindir}/hb-ot-shape-closure.exe
 %{mingw64_bindir}/hb-shape.exe
 %{mingw64_bindir}/hb-subset.exe
@@ -129,22 +135,29 @@ find %{buildroot} -name "*.la" -delete
 %{mingw64_bindir}/libharfbuzz-0.dll
 %{mingw64_bindir}/libharfbuzz-icu-0.dll
 %{mingw64_bindir}/libharfbuzz-subset-0.dll
+%{mingw64_bindir}/libharfbuzz-cairo-0.dll
 %{mingw64_includedir}/harfbuzz/
 %{mingw64_libdir}/libharfbuzz.dll.a
 %{mingw64_libdir}/libharfbuzz-icu.dll.a
 %{mingw64_libdir}/libharfbuzz-subset.dll.a
+%{mingw64_libdir}/libharfbuzz-cairo.dll.a
 %{mingw64_libdir}/pkgconfig/harfbuzz.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-icu.pc
 %{mingw64_libdir}/pkgconfig/harfbuzz-subset.pc
+%{mingw64_libdir}/pkgconfig/harfbuzz-cairo.pc
 %{mingw64_libdir}/cmake/harfbuzz/
 
 %files -n mingw64-harfbuzz-static
 %{mingw64_libdir}/libharfbuzz.a
+%{mingw64_libdir}/libharfbuzz-cairo.a
 %{mingw64_libdir}/libharfbuzz-icu.a
 %{mingw64_libdir}/libharfbuzz-subset.a
 
 
 %changelog
+* Wed Feb 15 2023 Sandro Mani <manisandro@gmail.com> - 7.0.0-1
+- Update to 7.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

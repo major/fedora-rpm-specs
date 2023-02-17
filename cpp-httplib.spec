@@ -45,6 +45,7 @@ It's extremely easy to setup. Just include the httplib.h file in your code!
 %package devel
 Summary:        A C++11 single-file header-only cross platform HTTP/HTTPS library
 Recommends:     cmake
+Requires:       openssl-devel zlib-devel brotli-devel
 %if %{with compile}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %else

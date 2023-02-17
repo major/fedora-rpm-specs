@@ -3,7 +3,7 @@
 %global libhandy_version 1.5.0
 
 Name:           gnome-disk-utility
-Version:        44~alpha
+Version:        44~beta
 Release:        1%{?dist}
 Summary:        Disks
 
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44~alpha-1
 - Update to 44.alpha
 

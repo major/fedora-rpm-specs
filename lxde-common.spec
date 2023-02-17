@@ -21,7 +21,7 @@
 
 Name:           lxde-common
 Version:        0.99.2
-Release:        21%{?git_version:.%{?git_version}}%{?dist}
+Release:        22%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Default configuration files for LXDE
 
 License:        GPLv2+
@@ -99,7 +99,9 @@ sed -i 's|id=fedora-|id=|' lxpanel/panel.in
 %endif
 
 # Fedora 37 changed default background file format
-%if 0%{?fedora} >= 37
+# This is reverted, even on F-38
+#%%if 0%{?fedora} >= 37
+%if 0
 sed -i.f37 pcmanfm/pcmanfm.conf.in \
 	-e '\@wallpaper=@s|default.png|default.webp|'
 %endif
@@ -166,6 +168,9 @@ install -cpm 0644 %{SOURCE11} %{buildroot}%{_sysconfdir}/xdg/lxsession/libfm/lib
 
 
 %changelog
+* Wed Feb 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.99.2-22
+- F-38 is using default.png, not .webp, reflect this
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

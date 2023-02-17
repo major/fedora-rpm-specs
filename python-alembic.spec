@@ -1,6 +1,6 @@
 Name:             python-alembic
-Version:          1.8.1
-Release:          3%{?dist}
+Version:          1.9.3
+Release:          1%{?dist}
 Summary:          Database migration tool for SQLAlchemy
 
 # SPDX
@@ -96,6 +96,9 @@ ln -s alembic-%{python3_version}.1 %{buildroot}%{_mandir}/man1/alembic.1
 
 
 %changelog
+* Fri Feb 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.9.3-1
+- Update to 1.9.3 (close RHBZ#2153880)
+
 * Sat Feb 04 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.8.1-3
 - Drop conditionals for EPEL8 (which has setuptools too old for this version
   anyway)

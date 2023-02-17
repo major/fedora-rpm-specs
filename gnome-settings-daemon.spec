@@ -17,19 +17,14 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        43.0
-Release:        3%{?dist}
+Version:        44~beta
+Release:        1%{?dist}
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
 License:        GPLv2+
 URL:            https://gitlab.gnome.org/GNOME/gnome-settings-daemon
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 Source1:        org.gnome.settings-daemon.plugins.power.gschema.override
-
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/gnome-settings-daemon/-/merge_requests/309
-# https://bugzilla.redhat.com/show_bug.cgi?id=2128423
-Patch0:         309.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext
@@ -206,6 +201,9 @@ install -p %{SOURCE1} $RPM_BUILD_ROOT%{_datadir}/glib-2.0/schemas
 %{_libdir}/pkgconfig/gnome-settings-daemon.pc
 
 %changelog
+* Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

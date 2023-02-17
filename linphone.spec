@@ -1,6 +1,6 @@
 Name:           linphone
 Version:        3.6.1
-Release:        50%{?dist}
+Release:        51%{?dist}
 Summary:        Phone anywhere in the whole world by using the Internet
 
 License:        GPLv2+
@@ -225,6 +225,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/doc/mediastreamer*/html doc/mediastreamer
 %{_libdir}/pkgconfig/mediastreamer.pc
 
 %changelog
+* Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 3.6.1-51
+- rebuild for libvpx
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.1-50
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

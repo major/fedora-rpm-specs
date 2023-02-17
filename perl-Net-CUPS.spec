@@ -1,16 +1,17 @@
 Name:           perl-Net-CUPS
 Version:        0.64
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Perl bindings to the CUPS C API Interface
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Net-CUPS
 Source0:        https://cpan.metacpan.org/authors/id/N/NI/NINE/Net-CUPS-%{version}.tar.gz
-BuildRequires: make
+Patch0:         perl-Net-CUPS-use-libcupsfilters.patch
 BuildRequires:  coreutils
 BuildRequires:  cups-devel
-BuildRequires:  cups-filters-devel
+BuildRequires:  libcupsfilters-devel
 BuildRequires:  findutils
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -35,14 +36,15 @@ an urge to control CUPS servers via Perl, this is a good way to do it :)
 
 %prep
 %setup -q -n Net-CUPS-%{version}
+%patch0 -p1 -b .libcupsfilters
 find . -type f -exec chmod -c -x {} +
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=%{buildroot}
+%{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
 %{_fixperms} %{buildroot}/*
 
@@ -56,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Wed Feb 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.64-22
+- migrate to libcupsfilters-devel
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.64-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

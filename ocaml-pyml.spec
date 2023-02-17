@@ -4,17 +4,20 @@
 %bcond_with toplevel
 
 Name:           ocaml-pyml
-Version:        20220615
-Release:        5%{?dist}
+Version:        20220905
+Release:        1%{?dist}
 Summary:        OCaml bindings for Python
 
-# The project is BSD except for pycaml.mli, which is LGPLv2+
-License:        BSD and LGPLv2+
+# The project is BSD-2-Clause except for pycaml.mli, which is LGPLv2+
+License:        BSD-2-Clause and LGPL-2.1-or-later
 URL:            https://github.com/thierry-martinez/pyml
 Source0:        %{url}/archive/%{version}/pyml-%{version}.tar.gz
 # Fix various incompatibilities with python 3.11.  See:
 # https://github.com/thierry-martinez/pyml/issues/84
 Patch0:         %{name}-python3.11.patch
+# Fix failure to release python objects before library unload
+# https://github.com/thierry-martinez/pyml/pull/86
+Patch1:         %{name}-library-unload.patch
 
 BuildRequires:  ocaml >= 3.12.1
 BuildRequires:  ocaml-dune >= 2.8
@@ -151,6 +154,11 @@ cp -p _build/default/dllnumpy_stubs.so %{buildroot}%{ocamldir}/stublibs
 %endif
 
 %changelog
+* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 20220905-1
+- Version 20220905
+- Add library-unload patch to fix test suite crashes
+- Convert License tag to SPDX
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 20220615-5
 - Rebuild OCaml packages for F38
 

@@ -1,49 +1,71 @@
-%global pypi_name bravado
-
-Name:           python-%{pypi_name}
-Version:        11.0.2
-Release:        8%{?dist}
+Name:           python-bravado
+Version:        11.0.3
+Release:        1%{?dist}
 Summary:        Library for accessing Swagger-enabled API's
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/Yelp/bravado
-Source0:        %{pypi_source}
+# PyPI tarball is missing tests
+Source:         %{url}/archive/v%{version}/bravado-%{version}.tar.gz
+# https://github.com/Yelp/bravado/pull/485
+Patch:          0001-Prefer-getfullargspec-instead-of-deprecated-getargspec.patch
+# https://github.com/Yelp/bravado/pull/484
+Patch:          0002-Use-standard-library-mock-when-possible.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3-httpretty
 
-%description
-Bravado is a Yelp maintained fork of digium/swagger-py for use with
-OpenAPI Specification version 2.0 (previously known as Swagger).
+%global _description %{expand:
+Bravado is a Yelp maintained fork of digium/swagger-py for use with OpenAPI
+Specification version 2.0 (previously known as Swagger).}
 
 
-%package -n     python3-%{pypi_name}
+%description %_description
+
+
+%package -n     python3-bravado
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-Bravado is a Yelp maintained fork of digium/swagger-py for use with
-OpenAPI Specification version 2.0 (previously known as Swagger).
+
+%description -n python3-bravado %_description
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -n bravado-%{version} -p 1
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x integration-tests
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files bravado
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+
+%check
+# Fido tests require fido, which is deprecated upstream and won't be packaged
+%pytest -v \
+    --ignore tests/fido_client \
+    --ignore tests/integration/fido_client_test.py \
+    tests
+
+
+%files -n python3-bravado -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+
 
 %changelog
+* Mon Feb 13 2023 Carl George <carl@george.computer> - 11.0.3-1
+- Update to version 11.0.3, resolves rhbz#2169596
+- Convert to pyproject macros
+- Run tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,22 +7,29 @@
 %endif
 
 Name:		ratpoints
-Version:	2.1.3
-Release:	28%{?dist}
+Version:	2.2.1
+Release:	1%{?dist}
 Summary:	Find rational points on hyperelliptic curves
-License:	GPLv2+
-URL:		http://www.mathe2.uni-bayreuth.de/stoll/programs/
-Source0:	http://www.mathe2.uni-bayreuth.de/stoll/programs/%{name}-%{version}.tar.gz
+License:	GPL-2.0-or-later
+URL:		https://www.mathe2.uni-bayreuth.de/stoll/programs/
+Source0:	https://www.mathe2.uni-bayreuth.de/stoll/programs/%{name}-%{version}.tar.gz
 # Initially generated with help2man as:
 # LD_LIBRARY_PATH=$PWD: help2man --section=1 --no-info \
 #    --version-string="%%{version}" \
 #    -o $RPM_BUILD_ROOT/%%{_mandir}/man1/ratpoints.1 ./ratpoints
 # but edited for better formatting.
 Source1:	%{name}.1
-BuildRequires: make
+# Build a shared library instead of a static library
+Patch0:		%{name}-shared.patch
+
 BuildRequires:	gcc
 BuildRequires:	gmp-devel
-Patch0:		%{name}-shared.patch
+BuildRequires:	make
+BuildRequires:	tex(latex)
+BuildRequires:	tex(comment.sty)
+BuildRequires:	tex(fullpage.sty)
+BuildRequires:	tex(ot2cmr.fd)
+BuildRequires:	tex(xy.sty)
 
 %description
 Ratpoints is a program that uses an optimized quadratic sieve algorithm
@@ -38,23 +45,22 @@ Header and library for development with %{name}.
 %prep
 %autosetup -p1
 
-sed -e "s|-Wall -O2 -fomit-frame-pointer|%{optflags} %{use_sse}|" \
-   -e "s|-shared|& $RPM_LD_FLAGS|" \
-   -i Makefile
-
 %build
-make %{?_smp_mflags}
+sed -e 's|-Wall -O2 -fomit-frame-pointer|%{build_cflags} %{use_sse}|' \
+    -e 's|@LDFLAGS@|%{build_ldflags}|' \
+    -i Makefile
+%make_build
 
 %install
-make install LIBDIR=%{_libdir} DESTDIR=$RPM_BUILD_ROOT
-install -p -D -m644 %{SOURCE1} $RPM_BUILD_ROOT/%{_mandir}/man1/%{name}.1
+%make_install LIBDIR=%{_libdir}
+install -p -D -m644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/%{name}.1
 
 %check
 LD_LIBRARY_PATH=$PWD: make test
 
 %files
-%doc gpl-2.0.txt
-%doc ratpoints-doc.pdf
+%license gpl-2.0.txt
+%doc ratpoints-doc-2.2.pdf
 %{_bindir}/ratpoints
 %{_libdir}/libratpoints.so.%{major}
 %{_mandir}/man1/ratpoints.1*
@@ -64,6 +70,11 @@ LD_LIBRARY_PATH=$PWD: make test
 %{_libdir}/libratpoints.so
 
 %changelog
+* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-1
+- Version 2.2.1
+- Convert License tag to SPDX
+- Use %%license macro
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.3-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

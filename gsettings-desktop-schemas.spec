@@ -3,14 +3,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gsettings-desktop-schemas
-Version:        43.0
+Version:        44~beta
 Release:        %autorelease
 Summary:        A collection of GSettings schemas
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 # no homepage exists for this component
 URL:            https://gitlab.gnome.org/GNOME/gsettings-desktop-schemas
-Source0:        https://download.gnome.org/sources/%{name}/43.alpha/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gettext
 BuildRequires:  glib2-devel >= 2.31.0

@@ -1,5 +1,5 @@
 Name:           python-asttokens
-Version:        2.1.0
+Version:        2.2.1
 Release:        %autorelease
 Summary:        Module to annotate Python abstract syntax trees with source code positions
 
@@ -12,7 +12,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(setuptools-scm)
 BuildRequires:  python3dist(wheel)
-BuildRequires:  python3dist(toml)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(astroid)
 BuildRequires:  python3dist(six)
@@ -43,12 +42,6 @@ Requires:       %{py3_dist six}
 %py3_install
 
 %check
-TEST_ARGS=(
-        # Temporarily disabled until version incompatibility is resolved upstream:
-        # https://github.com/gristlabs/asttokens/issues/79
-        --ignore=tests/test_astroid.py
-)
-
 pytest-3 tests/ -v "${TEST_ARGS[@]}"
 
 %files -n python3-asttokens

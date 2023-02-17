@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define fedora_rel    1
+%define fedora_rel    2
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -74,7 +74,7 @@
 Summary:         X screen saver and locker
 Name:            %{name}
 Version:         %{mainversion}
-Release:         %{?beta_ver:0.}%{fedora_rel}%{?beta_ver:.%beta_ver}%{?dist}%{flagrel}%{?extrarel}.1
+Release:         %{?beta_ver:0.}%{fedora_rel}%{?beta_ver:.%beta_ver}%{?dist}%{flagrel}%{?extrarel}
 Epoch:           1
 License:         MIT
 URL:             http://www.jwz.org/xscreensaver/
@@ -100,6 +100,8 @@ Patch1:          xscreensaver-5.45-0001-barcode-glsnake-sanitize-the-names-of-mo
 Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 # misc: kill gcc warn_unused_result warnings
 Patch3607:       xscreensaver-5.36-0007-misc-kill-gcc-warn_unused_result-warnings.patch
+# switch_page_cb: backport debian fix for DPMS settings issue (debian bug 1031076)
+Patch4601:       xscrensaver-6.06-0001-switch_page_cb-backport-debian-1031076-for-DPMS-settings.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
 Patch10001:     xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
@@ -218,6 +220,9 @@ Requires:        %{_bindir}/pidof
 # Obsoletes but not Provides
 Obsoletes:       xscreeensaver-tests < %{epoch}:%{version}-%{release}
 %endif
+# https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=1030659
+# XScreenSaver 6.06 xscreensaver-settings now needs xscreensaver-gl-visual
+Requires:        %{name}-gl-base = %{epoch}:%{version}-%{release}
 
 %package extras-base
 Summary:         A base package for screensavers
@@ -241,7 +246,6 @@ Requires:        %{name}-extras-base = %{epoch}:%{version}-%{release}
 
 %package gl-base
 Summary:         A base package for screensavers that require OpenGL
-Requires:        %{name}-base = %{epoch}:%{version}-%{release}
 
 %package gl-extras
 Summary:         An enhanced set of screensavers that require OpenGL
@@ -381,6 +385,7 @@ find . -name \*.c -exec chmod ugo-x {} \;
 %__cat %PATCH21 | %__git am
 
 #%%__cat %PATCH3607 | %__git am
+%__cat %PATCH4601 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -854,7 +859,7 @@ done
 echo "%%defattr(-,root,root,-)" >> $dd/gl-base.files
 
 grep xscreensaver-gl-visual $dd/gl-extras.files >> $dd/gl-base.files
-sed -i -e '/xscreensaver-gl-helper/d' $dd/gl-extras.files
+sed -i -e '/xscreensaver-gl-visual/d' $dd/gl-extras.files
 sed -i -e 's|^\(%{_mandir}.*\)$|\1*|' $dd/gl-base.files
 %endif
 
@@ -1157,6 +1162,10 @@ exit 0
 %endif
 
 %changelog
+* Wed Feb 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.06-2
+- Make -base subpackage require -gl-base (debian bug 1030659)
+- switch_page_cb: backport debian fix for DPMS settings issue
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.06-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

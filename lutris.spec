@@ -1,7 +1,7 @@
 %define debug_package %{nil}
 Name:           lutris
 Version:        0.5.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Install and play any video game easily
 
 License:        GPLv3
@@ -23,6 +23,7 @@ Requires:       mesa-vulkan-drivers(x86-32)
 Requires:       vulkan-loader(x86-32)
 Requires:       mesa-libGL(x86-32)
 Recommends:     pipewire(x86-32)
+Recommends:     libFAudio(x86-32)
 Recommends:     wine-pulseaudio(x86-32)
 Recommends:     wine-core(x86-32)
 %endif
@@ -37,11 +38,12 @@ Requires:       glx-utils
 Requires:       gvfs
 Requires:       webkit2gtk3
 Requires:       python3-lxml
-Recommends: 	p7zip, curl
-Recommends:	fluid-soundfont-gs
+Recommends: 	  p7zip, curl
+Recommends:	    fluid-soundfont-gs
 Recommends:     wine-core
-Recommends:	p7zip-plugins
-Recommends:	gamemode
+Recommends:	    p7zip-plugins
+Recommends:	    gamemode
+Recommends:     libFAudio
 BuildRequires:  fdupes
 BuildRequires:  libappstream-glib
 BuildRequires:  meson, gettext
@@ -57,10 +59,12 @@ on Linux.
 %autosetup -n %{name}-%{version} -p1
 
 %build
+%py3_build
 %meson
 %meson_build
 
 %install
+%py3_install
 %meson_install
 
 appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/net.%{name}.Lutris.metainfo.xml
@@ -82,11 +86,15 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications share/applicatio
 %{_datadir}/icons/hicolor/64x64/apps/%{name}.png
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 %{_datadir}/man/man1/%{name}.1.gz
+%{python3_sitelib}/%{name}-*.egg-info
 %{python3_sitelib}/%{name}/
 %{_datadir}/metainfo/
 %{_datadir}/locale/
 
 %changelog
+* Wed Feb 15 2023 Chris King <bunnyapocalypse@protonmail.com> 0.5.12-3
+- Fix missing depends by using both meson and py3 macros
+
 * Sun Feb 5 2023 Chris King <bunnyapocalypse@protonmail.com> 0.5.12-2
 - Fix locale support by switching to meson
 

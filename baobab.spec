@@ -4,13 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           baobab
-Version:        43.0
-Release:        2%{?dist}
+Version:        44~beta
+Release:        1%{?dist}
 Summary:        A graphical directory tree analyzer
 
-License:        GPLv2+ and GFDL
+License:        GPL-2.0-or-later AND GFDL-1.1
 URL:            https://wiki.gnome.org/Apps/Baobab
-Source0:        https://download.gnome.org/sources/baobab/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/baobab/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1) >= %{libadwaita_version}
@@ -46,7 +46,7 @@ any change made to your home folder as far as any mounted/unmounted device.
 
 
 %check
-appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.gnome.baobab.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.gnome.baobab.appdata.xml
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.desktop
 
 
@@ -56,14 +56,17 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.des
 %{_bindir}/baobab
 %{_datadir}/applications/org.gnome.baobab.desktop
 %{_datadir}/dbus-1/services/org.gnome.baobab.service
-%{_datadir}/icons/hicolor/*/apps/org.gnome.baobab*.svg
+%{_datadir}/icons/hicolor/scalable/apps/org.gnome.baobab*.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.baobab-symbolic.svg
 %{_datadir}/glib-2.0/schemas/org.gnome.baobab.gschema.xml
-%{_datadir}/metainfo/org.gnome.baobab.appdata.xml
+%{_metainfodir}/org.gnome.baobab.appdata.xml
 %{_mandir}/man1/baobab.1*
 
 
 %changelog
+* Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

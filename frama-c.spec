@@ -12,14 +12,14 @@
 %undefine _auto_set_build_flags
 
 Name:           frama-c
-Version:        26.0
-Release:        5%{?dist}
+Version:        26.1
+Release:        1%{?dist}
 Summary:        Framework for source code analysis of C software
 
 %global pkgversion %{version}-Iron
 
 # Licensing breakdown in source file frama-c.licensing
-License:        LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0 AND BSD-3-Clause AND QPL-1.0
+License:        LGPL-2.1-only AND LGPL-2.1-or-later AND LGPL-2.0-only WITH OCaml-LGPL-linking-exception AND GPL-2.0-or-later AND CC0-1.0 AND CC-BY-SA-4.0 AND BSD-3-Clause AND QPL-1.0-INRIA-2004 WITH QPL-1.0-INRIA-2004-exception
 URL:            https://frama-c.com/
 Source0:        https://frama-c.com/download/%{name}-%{pkgversion}.tar.gz
 Source1:        https://frama-c.com/download/%{name}-%{pkgversion}-api.tar.gz
@@ -160,10 +160,10 @@ done
 %install
 # Upstream's installation method leaves the buildroot path in many installed
 # files.  Substitute our preferred installation method.
-sed -i 's|\(dune install\) --prefix.*|\1 --destdir=%{buildroot} --verbose --release %{_smp_mflags}|' share/Makefile.installation
+sed -i 's|\(dune install\) --root.*|\1 --destdir=%{buildroot} --verbose --release %{_smp_mflags}|' share/Makefile.installation
 
 # Install
-%make_install PREFIX=%{buildroot}%{_prefix} RELEASE=yes DUNE_DISPLAY=verbose \
+%make_install PREFIX=%{_prefix} RELEASE=yes DUNE_DISPLAY=verbose \
   VERBOSEMAKE=yes
 
 # Move the doc directory to the right place
@@ -282,6 +282,9 @@ make default-tests PTESTS_OPTS=-error-code
 %{_emacs_sitestartdir}/acsl.el
 
 %changelog
+* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 26.1-1
+- Version 26.1
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 26.0-5
 - Bump release and rebuild
 

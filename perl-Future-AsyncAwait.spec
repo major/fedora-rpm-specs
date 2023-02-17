@@ -13,7 +13,7 @@
 %endif
 
 Name:           perl-Future-AsyncAwait
-Version:        0.63
+Version:        0.64
 Release:        1%{?dist}
 Summary:        Deferred subroutine syntax for futures
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -118,6 +118,7 @@ Requires:       %{perl_XS_Parse_Sublike_ABI}
 # The ABI range is defined with Future::AsyncAwait/ABIVERSION_MIN and
 # Future::AsyncAwait/ABIVERSION_MAX in Future/AsyncAwait.xs.
 Provides:       perl(:Future_AsyncAwait_ABI) = 1
+Provides:       perl(:Future_AsyncAwait_ABI) = 2
 
 # Remove under-specified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\((Future|Syntax::Keyword::Try|Test::More)\\)$
@@ -262,6 +263,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 15 2023 Petr Pisar <ppisar@redhat.com> - 0.64-1
+- 0.64 bump
+
 * Mon Feb 13 2023 Petr Pisar <ppisar@redhat.com> - 0.63-1
 - 0.63 bump
 

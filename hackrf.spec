@@ -1,6 +1,6 @@
 Name:           hackrf
 Version:        2023.01.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0-or-later AND BSD-3-Clause
@@ -60,6 +60,7 @@ Static libraries for libhackrf.
 %package firmware
 Summary:        Firmware for HackRF
 License:        GPL-2.0-or-later
+BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 
 %description firmware
@@ -69,6 +70,7 @@ Firmware for HackRF.
 %package hardware
 Summary:        Hardware schematics / pcb layout for HackRF.
 License:        CERN-OHL-P-2.0 AND GPL-2.0-only
+BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 
 %description hardware
@@ -145,6 +147,9 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Wed Feb 15 2023 Steven A. Falco <stevenfalco@gmail.com> - 2023.01.1-3
+- HW and FW should be noarch
+
 * Wed Feb 01 2023 Steven A. Falco <stevenfalco@gmail.com> - 2023.01.1-2
 - Need new sources for 2023.01.1
 

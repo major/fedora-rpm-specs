@@ -1,16 +1,16 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-# Release 2022.3
-%global commit          551f106dc64a1cacb298cc2f05613d142b53302f
+# Release 2023.1
+%global commit          d0b02222f33e1e5e1f521e4e4e1cbfa7fe2cf540
 %global shortcommit     %(c=%{commit}; echo ${c:0:7})
-%global snapshotdate    20221023
+%global snapshotdate    20230116
 
 # Glslang revision from packaged version
-%global glslang_version 73c9630da979017b2f7e19c6549e2bdb93d9b238
+%global glslang_version ca8d07d0bc1c6390b83915700439fa7719de6a2a
 
 Name:           shaderc
-Version:        2022.2
+Version:        2023.1
 Release:        %autorelease
 Summary:        A collection of tools, libraries, and tests for Vulkan shader compilation
 
@@ -20,10 +20,6 @@ Source0:        %url/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # Patch to unbundle 3rd party code
 Patch1:         0001-Drop-third-party-code-in-CMakeLists.txt.patch
 Patch2:         glslang_linker_flags.patch
-# https://github.com/google/shaderc/pull/1264
-# Included in 2022.3
-# Related to https://github.com/KhronosGroup/SPIRV-Tools/pull/4915 (SDK 1.3.231.1)
-Patch3:         shaderc-pr1264-GL_EXT_mesh_shader-support.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++
@@ -82,6 +78,7 @@ rm -rf third_party
 # Stolen from Gentoo
 # Create build-version.inc since we want to use our packaged
 # SPIRV-Tools and glslang
+sed -i -e '/build-version/d' glslc/CMakeLists.txt
 echo \"shaderc $(grep -m1 -o '^v[[:digit:]]\{4\}\.[[:digit:]]\(-dev\)\? [[:digit:]]\{4\}-[[:digit:]]\{2\}-[[:digit:]]\{2\}$' CHANGES)\" \
         > glslc/src/build-version.inc
 echo \"spirv-tools $(grep -m1 -o '^v[[:digit:]]\{4\}\.[[:digit:]]\(-dev\)\? [[:digit:]]\{4\}-[[:digit:]]\{2\}-[[:digit:]]\{2\}$' /usr/share/doc/spirv-tools/CHANGES)\" \

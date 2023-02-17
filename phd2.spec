@@ -1,23 +1,37 @@
+#%%global gittag v2.6.11
+%global commit a205f63238c8505cf641057d8d82734e51f9ab15
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+%global date 20230212
+
 Name:           phd2
+%if "%{?gittag}"
 Version:        2.6.11
+%else
+Version:        2.6.11^dev4^%{date}%{shortcommit}
+%endif
 Release:        %autorelease
 Summary:        Telescope guiding software
-# Main program files are BSD licensed
-# Some components have different licenses:
-# QHY camera headers are GPLv2+
-# SX camera headers are ICU
-# INDI GUI is LGPLv2+
-License:        BSD and (GPLv2+ and MIT and LGPLv2+)
+License:        BSD-3-Clause AND LGPL-2.1-or-later AND ICU
 URL:            http://openphdguiding.org/
+%if "%{?gittag}"
 # Download upstream tarball from
-# https://github.com/OpenPHDGuiding/%%{name}/archive/v%%{version}.tar.gz
+# https://github.com/OpenPHDGuiding/%%{name}/archive/%%{gittag}.tar.gz
 # and then run ./generate-tarball.sh %%{version}
 Source0:        %{name}-%{version}-purged.tar.xz
+%else
+# Download upstream tarball from
+# https://github.com/OpenPHDGuiding/%%{name}/archive/%%{commit}/%%{name}-%%{commit}.tar.gz
+# and then run ./generate-tarball.sh %%{commit}
+Source0:        %{name}-%{commit}-purged.tar.xz
+%endif
 # Script to purge binaries and unneeded files from downloaded sources
 Source1:        generate-tarball.sh
 
 # Do not force c++ std
 Patch99:        phd2_2.9.10_std_cflags.patch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils
@@ -47,7 +61,11 @@ or spectroscopy.
 
 
 %prep
+%if "%{?gittag}"
 %autosetup -p1
+%else
+%autosetup -n %{name}-%{commit} -p1
+%endif
 
 # Remove spurious executable bit set on icons and docs
 find icons -type f -print0 |xargs -0 chmod -x

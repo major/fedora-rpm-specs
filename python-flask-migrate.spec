@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:               python-flask-migrate
-Version:            3.1.0
+Version:            4.0.1
 Release:            %autorelease
 Summary:            SQLAlchemy database migrations for Flask applications using Alembic
 
@@ -47,7 +47,7 @@ Documentation for Flask-Migrate.
 %prep
 %autosetup -n Flask-Migrate-%{version}
 # Fix shebangs that use /bin/env and unversioned Python
-%py3_shebang_fix tests/app*.py
+%py3_shebang_fix tests/app.py tests/app_multidb.py
 
 
 %generate_buildrequires

@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        78
+Version:        79
 
 %forgemeta
 
@@ -251,6 +251,17 @@ fi
 
 
 %changelog
+* Wed Feb 15 2023 Packit <hello@packit.dev> - 79-1
+Changes with 79
+----------------
+  * New stage: org.osbuild.shell.init (#1234)
+  * mounts: add the norecovery option for xfs and ext4 (#1238)
+
+Contributions from: Achilleas Koutsou, Thomas Lavocat
+
+— Somewhere on the Internet, 2023-02-15
+
+
 * Tue Feb 07 2023 Packit <hello@packit.dev> - 78-1
 Changes with 78
 ----------------

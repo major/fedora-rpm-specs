@@ -1,10 +1,10 @@
-%global gitcommit cffa5fffe9acddf49565b4caeeb5e3355ff2ea44
-%global gitdate 20220508
+%global gitcommit 45da871dd2684227e93a2fc002b87dfc58bd5fd9
+%global gitdate 20230215
 %global gitrev .%{gitdate}git%(c=%{gitcommit}; echo ${c:0:7})
 
 Name:           igt-gpu-tools
-Version:        1.26
-Release:        4%{?gitrev}%{?dist}
+Version:        1.27
+Release:        1%{?gitrev}%{?dist}
 Summary:        Test suite and tools for DRM drivers
 
 License:        MIT
@@ -179,6 +179,7 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_bindir}/intel_stepping
 %{_bindir}/intel_vbt_decode
 %{_bindir}/intel_watermark
+%{_bindir}/intel_pm_rpm
 %{_bindir}/amd_hdmi_compliance
 %{_bindir}/msm_dp_compliance
 %{_bindir}/lsgpu
@@ -195,6 +196,9 @@ rm %{buildroot}/%{_libdir}/libigt.so
 %{_datadir}/gtk-doc/html/igt-gpu-tools/*
 
 %changelog
+* Wed Feb 15 2023 Lyude Paul <lyude@redhat.com> - 1.27-1.20230215git45da871
+- New git snapshot
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26-4.20220508gitcffa5ff
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

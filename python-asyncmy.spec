@@ -5,7 +5,7 @@
 
 Name:           python-asyncmy
 Summary:        A fast asyncio MySQL/MariaDB driver
-Version:        0.2.6
+Version:        0.2.7
 Release:        %autorelease
 
 License:        Apache-2.0

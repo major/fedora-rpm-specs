@@ -12,7 +12,7 @@ Summary:        Insight Toolkit library for medical image processing
 Version:        %{version_major_minor}.3
 %global version_doc_major_minor 4.13
 %global version_doc %{version_doc_major_minor}.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 License:        ASL 2.0
 Source0:        https://github.com/InsightSoftwareConsortium/ITK/releases/download/v%{version}/InsightToolkit-%{version}.tar.gz
 Source1:        https://downloads.sourceforge.net/project/itk/itk/%{version_doc_major_minor}/InsightSoftwareGuide-Book1-%{version_doc}.pdf
@@ -170,7 +170,7 @@ extra_cflags=(
        -DBUILD_EXAMPLES:BOOL=ON \
        -DCMAKE_BUILD_TYPE:STRING="RelWithDebInfo"\
        -DCMAKE_VERBOSE_MAKEFILE=ON\
-       -DCMAKE_CXX_FLAGS:STRING="-std=gnu++11 %{optflags} ${extra_cflags[*]}" \
+       -DCMAKE_CXX_FLAGS:STRING="-std=gnu++14 %{optflags} ${extra_cflags[*]}" \
        -DBUILD_TESTING=ON\
        %{?with_flexiblas:-DBLA_VENDOR=FlexiBLAS} \
        -DITK_USE_GOLD_LINKER:BOOL=OFF \
@@ -269,6 +269,9 @@ cp -ar Examples/* %{buildroot}%{_datadir}/%{name}/examples/
 %{_libdir}/cmake/%{name}/Modules/ITKVtkGlue.cmake
 
 %changelog
+* Tue Feb 14 2023 Orion Poplawski <orion@nwra.com> - 4.13.3-14
+- Bump to -std=gnu++14 for gtest compat
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

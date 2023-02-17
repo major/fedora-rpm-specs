@@ -90,7 +90,7 @@ make -C examples clean
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Tue Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.9.2-2
+* Thu Aug 18 2022 Jerry James <loganjerry@gmail.com> - 0.9.2-2
 - Bump and rebuild
 
 * Mon Aug  8 2022 Jerry James <loganjerry@gmail.com> - 0.9.2-1

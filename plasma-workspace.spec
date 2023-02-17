@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -135,6 +135,7 @@ BuildRequires:  kf5-rpm-macros >= %{kf5_version_min}
 BuildRequires:  systemd-rpm-macros
 BuildRequires:  extra-cmake-modules
 BuildRequires:  kf5-baloo-devel >= %{kf5_version_min}
+BuildRequires:  kf5-libkexiv2-devel >= %{kf5_version_min}
 BuildRequires:  kf5-kactivities-stats-devel >= %{kf5_version_min}
 BuildRequires:  kf5-karchive-devel >= %{kf5_version_min}
 BuildRequires:  kf5-kcmutils-devel >= %{kf5_version_min}
@@ -185,6 +186,7 @@ BuildRequires:  PackageKit-Qt5-devel
 BuildRequires:  qt5-qtbase-static
 
 BuildRequires:  kuserfeedback-devel
+BuildRequires:  wayland-protocols-devel
 BuildRequires:  plasma-wayland-protocols-devel
 # Commented out and hardcoded on the next line exclusively due to a re-spin
 # with an extra .1 in the version
@@ -785,6 +787,10 @@ fi
 
 
 %changelog
+* Wed Feb 15 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-3
+- Add wayland-protocols-devel BR
+- Add kf5-libkexiv2-devel BR
+
 * Tue Feb 14 2023 Marc Deop marcdeop@fedoraproject.org - 5.27.0-2
 - Rebuild against new sources
 

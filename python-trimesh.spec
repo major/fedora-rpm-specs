@@ -1,5 +1,5 @@
 Name:           python-trimesh
-Version:        3.19.3
+Version:        3.20.0
 Release:        %autorelease
 Summary:        Import, export, process, analyze and view triangular meshes
 
@@ -263,6 +263,10 @@ while read -r t
 do
   k="${k-}${k+ and }not ($(sed -r 's/::/ and /' <<<"${t}"))"
 done < <(sed -r '/^[[:blank:]]*($|#)/d' <<'EOF'
+# Flaky test_identifier in 3.20.0
+# https://github.com/mikedh/trimesh/issues/1843
+IdentifierTest::test_identifier
+
 %ifnarch x86_64
 # CacheTest.test_hash fails, or may fail, because xxhash is not faster than CRC
 # and/or MD5.

@@ -3,13 +3,17 @@
 # Server is template (optimized, no tools) binary to run multiplayer servers
 %bcond_without  server
 
+# With _package_note_file enabled, godot.x11.opt.tools fails to link with:
+# g++: fatal error: environment variable 'RPM_ARCH' not defined
+%undefine _package_note_file
+
 %define uversion %{version}-stable
 
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
 Version:        3.4.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -19,6 +23,9 @@ License:        MIT and CC-BY and ASL 2.0 and BSD and zlib and OFL and Bitstream
 URL:            https://godotengine.org
 Source0:        https://downloads.tuxfamily.org/godotengine/%{version}/%{name}-%{uversion}.tar.xz
 Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{name}-%{uversion}.tar.xz.sha256
+
+# Fix issue where uint32_t is undefined (add include <cstdint>)
+Patch0:         godot-3.4.5-cstdint.patch
 
 # Upstream does not support those arches (for now)
 ExcludeArch:    ppc64 ppc64le s390x
@@ -289,6 +296,11 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 3.4.5-3
+- rebuild for libvpx
+- fix issue where uint32_t was undefined (add #include <cstdint>)
+- undefine _package_note_file to fix "RPM_ARCH not defined" failure at linktime
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

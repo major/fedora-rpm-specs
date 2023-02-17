@@ -10,7 +10,7 @@ Name: wpa_supplicant
 Epoch: 1
 Version: 2.10
 Release: 6%{?dist}
-License: BSD
+License: BSD-3-Clause
 Source0: http://w1.fi/releases/%{name}-%{version}.tar.gz
 Source1: wpa_supplicant.conf
 Source2: wpa_supplicant.service

@@ -39,6 +39,10 @@
 # no longer build testsuite (takes time and not really being used)
 %bcond_with testsuite
 
+%if %{?fedora} >= 38
+%global _ghcdynlibdir %{ghclibdir}
+%endif
+
 # 9.0.2 recommends llvm 9-12
 %global llvm_major 12
 %global ghc_llvm_archs armv7hl aarch64
@@ -51,7 +55,7 @@ Version: 9.0.2
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -503,7 +507,7 @@ echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
 %endif
 
 # add rts libs
-%if %{defined _ghcdynlibdir}
+%if "%{?_ghcdynlibdir}" == "%_libdir"
 echo "%{ghclibdir}/rts" >> %{name}-base-devel.files
 %else
 echo "%%dir %{ghclibdir}/rts" >> %{name}-base.files
@@ -511,7 +515,7 @@ ls -d %{buildroot}%{ghclibdir}/rts/lib*.a >> %{name}-base-devel.files
 %endif
 ls %{buildroot}%{?_ghcdynlibdir}%{!?_ghcdynlibdir:%{ghclibdir}/rts}/libHSrts*.so >> %{name}-base.files
 %if %{defined _ghcdynlibdir}
-sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_libdir}!' %{buildroot}%{ghclibdir}/package.conf.d/rts.conf
+sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_ghcdynlibdir}!' %{buildroot}%{ghclibdir}/package.conf.d/rts.conf
 %endif
 ls -d %{buildroot}%{ghclibdir}/package.conf.d/rts.conf >> %{name}-base-devel.files
 
@@ -755,6 +759,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Wed Feb 15 2023 Jens Petersen <petersen@redhat.com> - 9.0.2-13
+- move shared libraries into ghc libdir
+
 * Sat Feb 11 2023 Jens Petersen <petersen@redhat.com> - 9.0.2-12
 - self boot with ghc9.0
 - use llvm12 (for ARM)

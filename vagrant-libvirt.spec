@@ -1,10 +1,10 @@
 %global vagrant_plugin_name vagrant-libvirt
 
-%global vagrant_spec_commit 03d88fe2467716b072951c2b55d78223130851a6
+%global vagrant_spec_commit 259c55e204674f2b006700c6d351d04250d13b04
 
 Name: %{vagrant_plugin_name}
-Version: 0.7.0
-Release: 5%{?dist}
+Version: 0.11.2
+Release: 1%{?dist}
 Summary: libvirt provider for Vagrant
 License: MIT
 URL: https://github.com/vagrant-libvirt/vagrant-libvirt
@@ -12,41 +12,43 @@ Source0: https://rubygems.org/gems/%{vagrant_plugin_name}-%{version}.gem
 # The library has no official release yet. But since it is just test
 # dependency, it should be fine to include the source right here.
 # wget https://github.com/mitchellh/vagrant-spec/archive/03d88fe2467716b072951c2b55d78223130851a6/vagrant-spec-03d88fe2467716b072951c2b55d78223130851a6.tar.gz
-Source2: https://github.com/mitchellh/vagrant-spec/archive/%{vagrant_spec_commit}/vagrant-spec-%{vagrant_spec_commit}.tar.gz
-# Allow the connection.client.libversion call
-# https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1416
-Patch0: vagrant-libvirt-0.7.0-Allow-the-connection.client.libversion-call.patch
-# Reduce patching for distro default session use
-# https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1424
-Patch1: vagrant-libvirt-0.7.0-Reduce-patching-for-distro-default-session-use.patch
+Source1: https://github.com/mitchellh/vagrant-spec/archive/%{vagrant_spec_commit}/vagrant-spec-%{vagrant_spec_commit}.tar.gz
 
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1709
 # ruby3.2 fix wrt File.exits? removal and URI.split host result change
 # A bit modified: spec/support/libvirt_acceptance_context.rb does not exist
 # with 0.7.0 yet
-Patch2: vagrant-libvirt-pr1709-ruby32-File_exists-URL-parse.patch
+Patch0: vagrant-libvirt-pr1709-ruby32-File_exists-URL-parse.patch
+# Allow a mock object to receive synced_folders in config validation spec.
+# We do not care about synced folder check when testing MAC configuration.
+# https://github.com/vagrant-libvirt/vagrant-libvirt/pull/1721
+Patch1: vagrant-libvirt-0.11.2-Allow-a-mock-object-to-receive-synced_folders.patch
 
 # Enable QEMU Session by default
 # https://github.com/vagrant-libvirt/vagrant-libvirt/pull/969
-Patch100: vagrant-libvirt-0.0.45-enable-qemu-session-by-default.patch
+Patch100: vagrant-libvirt-0.11.2-enable-qemu-session-by-default.patch
 
 Requires: ruby(release)
 Requires: ruby(rubygems)
-Requires: rubygem(fog-libvirt) >= 0.3.0
+Requires: rubygem(diffy)
+Requires: rubygem(fog-libvirt) >= 0.6.0
 Requires: rubygem(nokogiri) >= 1.6
 Requires: rubygem(rexml)
+Requires: rubygem(xml-simple)
 # Vagrant changed packaging scriptlets in version 1.9.1.
 Requires: vagrant >= 1.9.1
 # Required by "vagrant package" command (rhbz#1292217).
 Recommends: %{_bindir}/virt-sysprep
 BuildRequires: vagrant >= 1.9.1
 BuildRequires: rubygem(bundler)
-BuildRequires: rubygem(rdoc)
-BuildRequires: rubygem(rspec)
+BuildRequires: rubygem(diffy)
 BuildRequires: rubygem(fog-libvirt)
-BuildRequires: rubygem(thor)
-BuildRequires: rubygem(rexml)
 BuildRequires: rubygem(rake)
+BuildRequires: rubygem(rdoc)
+BuildRequires: rubygem(rexml)
+BuildRequires: rubygem(rspec)
+BuildRequires: rubygem(thor)
+BuildRequires: rubygem(xml-simple)
 BuildRequires: rubygems-devel
 BuildRequires: %{_bindir}/ps
 BuildArch: noarch
@@ -65,11 +67,10 @@ BuildArch: noarch
 Documentation for %{name}.
 
 %prep
-%setup -q -n %{vagrant_plugin_name}-%{version} -b 2
+%setup -q -n %{vagrant_plugin_name}-%{version} -b 1
 
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 %patch100 -p1
 
 %build
@@ -85,7 +86,7 @@ cp -a .%{vagrant_plugin_dir}/* \
 # Edit gemspec of vagrant-spec
 pushd ../vagrant-spec-%{vagrant_spec_commit}
 # Remove the git reference, which is useless in our case.
-sed -i '/git/ s/^/#/' vagrant-spec.gemspec
+sed -i '/git / s/^/#/' vagrant-spec.gemspec
 
 # Relax the dependencies, since Fedora ships with newer versions.
 sed -i '/thor/ s/~>/>=/' vagrant-spec.gemspec
@@ -104,22 +105,19 @@ gem 'rexml'
 gem 'vagrant-spec', :path => '%{_builddir}/vagrant-spec-%{vagrant_spec_commit}'
 gemspec
 EOG
-# We don't care about code coverage.
-sed -i '/require .simplecov./ s/^/#/' spec/spec_helper.rb
-sed -i '/SimpleCov/,/^end/ s/^/#/' spec/spec_helper.rb
-sed -i '/simplecov/ s/^/#/' %{vagrant_plugin_name}.gemspec
 
-# Relax developement rspec dependency
-sed -i '/rspec/ s/~>/>=/' %{vagrant_plugin_name}.gemspec
-
-# Disable test that needs libvirt socket:
-# > Failed to connect socket to '/var/run/libvirt/libvirt-sock-ro':
-# https://github.com/vagrant-libvirt/vagrant-libvirt/issues/1255
-#sed -i "/^\s*it 'should abort after hitting limit' do$/,/^\s*end$/ s/^/#/g" \
-#  ./spec/unit/action/wait_till_up_spec.rb
+# Unless rsync binary is present, vagrant-libvirt
+# decides to use other methods of folder sync in tests,
+# breaking set expectations for the test environment.
+# https://github.com/vagrant-libvirt/vagrant-libvirt/issues/1415#issuecomment-985272836
+# Luckily, it just needs `rsync` in $PATH for tests to pass.
+tmpdir=$(mktemp -d)
+touch "${tmpdir}/rsync"
+chmod +x "${tmpdir}/rsync"
 
 # Suppress deprecation warnings
 GEM_PATH=%{vagrant_plugin_dir}:`ruby -e "print Gem.path.join(':')"` \
+PATH="$PATH:${tmpdir}" \
 bundle exec rspec spec
 
 popd
@@ -139,6 +137,9 @@ popd
 %{vagrant_plugin_instdir}/spec
 
 %changelog
+* Sun Jan 29 2023 Bart Kus <me@bartk.us> - 0.11.2-1
+- Update to vagrant-libvirt 0.11.2.
+
 * Fri Jan 20 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.7.0-5
 - Backport upstream fix for ruby3.2 compatibility
   (File.exists? removal, URI#parse host name result change)

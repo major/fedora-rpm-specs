@@ -1,71 +1,68 @@
-%global srcname webcolors
-%global srcdesc \
-A library for working with color names and color value formats defined by the\
-HTML and CSS specifications for use in documents on the Web.\
-\
-Support is included for the following formats (RGB colorspace only; conversion\
-to/from HSL can be handled by the colorsys module in the Python standard\
-library):\
-* Specification-defined color names\
-* Six-digit hexadecimal\
-* Three-digit hexadecimal\
-* Integer rgb() triplet\
-* Percentage rgb() triplet
+%global _description %{expand:
+webcolors is a module for working with HTML/CSS color definitions.
 
-Name:           python-%{srcname}
+Support is included for normalizing and converting between the following
+formats (RGB colorspace only; conversion to/from HSL can be handled by the
+colorsys module in the Python standard library):
+* Specification-defined color names
+* Six-digit hexadecimal
+* Three-digit hexadecimal
+* Integer rgb() triplet
+* Percentage rgb() triplet}
+
+Name:           python-webcolors
 Version:        1.12
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A library for working with HTML and CSS color names and value formats
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/ubernostrum/webcolors
-Source:         %pypi_source
+Source:         %{pypi_source webcolors}
 
 BuildArch:      noarch
-BuildRequires: make
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist nose}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx_rtd_theme}
+BuildRequires:  python3-pytest
 
 
-%description %{srcdesc}
+%description %_description
 
 
-%package -n python3-%{srcname}
+%package -n python3-webcolors
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 
-%description -n python3-%{srcname} %{srcdesc}
+%description -n python3-webcolors %_description
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n webcolors-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 
 %build
-%py3_build
-make -C docs html
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files webcolors
 
 
 %check
-nosetests-%{python3_version}
+%pytest -v
 
 
-%files -n python3-%{srcname}
-%license LICENSE
-%doc PKG-INFO README.rst
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/%{srcname}*
+%files -n python3-webcolors -f %{pyproject_files}
+%doc README.rst
 
 
 %changelog
+* Wed Feb 15 2023 Carl George <carl@george.computer> - 1.12-4
+- Convert to pyproject macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -44,7 +44,7 @@
 
 Name:           xpra
 Version:        4.4.3
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
 URL:            https://www.xpra.org/
@@ -301,6 +301,9 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 4.4.3-5
+- rebuild for libvpx
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.3-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

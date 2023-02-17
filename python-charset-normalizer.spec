@@ -1,6 +1,6 @@
 Name:           python-charset-normalizer
-Version:        2.1.0
-Release:        3%{?dist}
+Version:        3.0.1
+Release:        %autorelease
 Summary:        The Real First Universal Charset Detector
 
 License:        MIT
@@ -52,53 +52,4 @@ sed -i "/addopts = --cov/d" setup.cfg
 %{_bindir}/normalizer
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Mon Jun 20 2022 Lumír Balhar <lbalhar@redhat.com> - 2.1.0-1
-- Update to 2.1.0
-Resolves: rhbz#2098481
-
-* Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 2.0.12-2
-- Rebuilt for Python 3.11
-
-* Mon Feb 14 2022 Lumír Balhar <lbalhar@redhat.com> - 2.0.12-1
-- Update to 2.0.12
-Resolves: rhbz#2053838
-
-* Mon Jan 31 2022 Lumír Balhar <lbalhar@redhat.com> - 2.0.11-1
-- Update to 2.0.11
-Resolves: rhbz#2048279
-
-* Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.10-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Wed Jan 05 2022 Lumír Balhar <lbalhar@redhat.com> - 2.0.10-1
-- Update to 2.0.10
-Resolves: rhbz#2037079
-
-* Fri Dec 17 2021 Lumír Balhar <lbalhar@redhat.com> - 2.0.9-1
-- Update to 2.0.9
-Resolves: rhbz#2028947
-
-* Mon Nov 29 2021 Lumír Balhar <lbalhar@redhat.com> - 2.0.8-1
-- Update to 2.0.8
-Resolves: rhbz#2026482
-
-* Thu Oct 14 2021 Lumír Balhar <lbalhar@redhat.com> - 2.0.7-1
-- Update to 2.0.7
-Resolves: rhbz#2013031
-
-* Mon Sep 20 2021 Lumír Balhar <lbalhar@redhat.com> - 2.0.6-1
-- Update to 2.0.6
-Resolves: rhbz#2004262
-
-* Mon Aug 02 2021 Lumír Balhar <lbalhar@redhat.com> - 2.0.4-1
-- Update to 2.0.4
-Resolves: rhbz#1988575
-
-* Wed Jul 21 2021 Lumír Balhar <lbalhar@redhat.com> - 2.0.3-1
-- Initial package
+%autochangelog

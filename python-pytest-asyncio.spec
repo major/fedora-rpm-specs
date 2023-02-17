@@ -7,8 +7,8 @@ asyncio code is usually written in the form of coroutines, which makes it
 slightly more difficult to test using normal testing tools. pytest-asyncio
 provides useful fixtures and markers to make testing easier.}
 
-%if %{undefined el9}
-# EL9 missing pytest-trio
+%if %{undefined rhel}
+# EL9+ missing pytest-trio
 %bcond_without  tests
 %endif
 

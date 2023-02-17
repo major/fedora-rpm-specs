@@ -66,6 +66,11 @@ Source0:        https://archive.mesa3d.org/mesa-%{ver}.tar.xz
 Source1:        Mesa-MLAA-License-Clarification-Email.txt
 
 Patch10:        gnome-shell-glthread-disable.patch
+# https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/21333
+# https://gitlab.freedesktop.org/mesa/mesa/-/issues/8232
+# https://bugzilla.redhat.com/show_bug.cgi?id=2164667
+# Fixes KDE on llvmpipe
+Patch11:        21333.patch
 
 BuildRequires:  meson >= 1.0.0
 BuildRequires:  gcc

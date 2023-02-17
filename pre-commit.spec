@@ -1,8 +1,8 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        2.21.0
-Release:        2%{?dist}
+Version:        3.0.4
+Release:        1%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
 # SPDX
@@ -35,8 +35,8 @@ BuildRequires:  cargo
 BuildRequires:  git-core
 BuildRequires:  lua-devel
 BuildRequires:  luarocks
-BuildRequires:  npm
 BuildRequires:  nodejs
+BuildRequires:  npm
 BuildRequires:  perl-CPAN
 BuildRequires:  ruby
 BuildRequires:  rubygems
@@ -87,13 +87,19 @@ k="${k-}${k+ and }not test_additional_node_dependencies_installed"
 k="${k-}${k+ and }not test_additional_ruby_dependencies_installed"
 k="${k-}${k+ and }not test_additional_rust_cli_dependencies_installed"
 k="${k-}${k+ and }not test_additional_rust_lib_dependencies_installed"
+k="${k-}${k+ and }not test_conda_additional_deps"
 k="${k-}${k+ and }not test_conda_hook"
+k="${k-}${k+ and }not test_conda_language"
 k="${k-}${k+ and }not test_conda_with_additional_dependencies_hook"
 k="${k-}${k+ and }not test_dotnet_hook"
 k="${k-}${k+ and }not test_golang_hook"
 k="${k-}${k+ and }not test_golang_hook_still_works_when_gobin_is_set"
+k="${k-}${k+ and }not test_golang_infer_go_version_default"
+k="${k-}${k+ and }not test_golang_system_hook"
+k="${k-}${k+ and }not test_golang_versioned_hook"
 k="${k-}${k+ and }not test_golang_with_recursive_submodule"
 k="${k-}${k+ and }not test_install_ruby_with_version"
+k="${k-}${k+ and }not test_installs_rust_missing_rustup"
 k="${k-}${k+ and }not test_installs_with_bootstrapped_rustup"
 k="${k-}${k+ and }not test_installs_with_existing_rustup"
 k="${k-}${k+ and }not test_installs_without_links_outside_env"
@@ -102,18 +108,43 @@ k="${k-}${k+ and }not test_local_golang_additional_dependencies"
 k="${k-}${k+ and }not test_local_lua_additional_dependencies"
 k="${k-}${k+ and }not test_local_perl_additional_dependencies"
 k="${k-}${k+ and }not test_local_rust_additional_dependencies"
+k="${k-}${k+ and }not test_lua_additional_dependencies"
+k="${k-}${k+ and }not test_node_additional_deps"
+k="${k-}${k+ and }not test_node_hook_versions"
+k="${k-}${k+ and }not test_perl_additional_dependencies"
 k="${k-}${k+ and }not test_r_hook"
+k="${k-}${k+ and }not test_r_inline"
 k="${k-}${k+ and }not test_r_inline_hook"
 k="${k-}${k+ and }not test_r_local_with_additional_dependencies_hook"
 k="${k-}${k+ and }not test_r_with_additional_dependencies_hook"
+k="${k-}${k+ and }not test_ruby_additional_deps"
+k="${k-}${k+ and }not test_ruby_hook_language_version"
+k="${k-}${k+ and }not test_ruby_with_bundle_disable_shared_gems"
 k="${k-}${k+ and }not test_run_a_node_hook_default_version"
+k="${k-}${k+ and }not test_run_lib_additional_dependencies"
 k="${k-}${k+ and }not test_run_ruby_hook_with_disable_shared_gems"
 k="${k-}${k+ and }not test_run_versioned_node_hook"
 k="${k-}${k+ and }not test_run_versioned_ruby_hook"
+k="${k-}${k+ and }not test_rust_cli_additional_dependencies"
+# Fails in koji but not in mock (Executable `ruby_hook` not found)
+k="${k-}${k+ and }not test_ruby_hook_system"
+# Requires rustup (not packaged), and would require network access even if
+# rustup were available:
+k="${k-}${k+ and }not test_language_version_with_rustup"
+# Requires coursier (not packaged):
+k="${k-}${k+ and }not test_coursier_hook"
+k="${k-}${k+ and }not test_coursier_hook_additional_dependencies"
+k="${k-}${k+ and }not test_error_if_no_deps_or_channel"
 # Requires dart (not packaged):
+k="${k-}${k+ and }not test_dart"
+k="${k-}${k+ and }not test_dart_additional_deps"
+k="${k-}${k+ and }not test_dart_additional_deps_versioned"
 k="${k-}${k+ and }not test_dart_hook"
 k="${k-}${k+ and }not test_local_dart_additional_dependencies"
 k="${k-}${k+ and }not test_local_dart_additional_dependencies_versioned"
+# Requires swift-lang, which we have chosen not to BuildRequire; see comments
+# earlier in the spec file:
+k="${k-}${k+ and }not test_swift_language"
 # Does not work under (i.e., respect) an “external” PYTHONPATH
 k="${k-}${k+ and }not test_installed_from_venv"
 # Fails in koji but not local mock (hook exits with code 1, no useful output)
@@ -125,11 +156,12 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 %files -f %{pyproject_files}
 %doc README.md CHANGELOG.md CONTRIBUTING.md
 %{_bindir}/pre-commit
-%{_bindir}/pre-commit-validate-config
-%{_bindir}/pre-commit-validate-manifest
 
 
 %changelog
+* Fri Feb 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.4-1
+- Update to 3.0.4 (close RHBZ#2163591)
+
 * Mon Jan 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.21.0-2
 - Use ruby, not rubypick
 

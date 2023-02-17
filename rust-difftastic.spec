@@ -4,7 +4,7 @@
 %global crate difftastic
 
 Name:           rust-difftastic
-Version:        0.42.0
+Version:        0.43.1
 Release:        %autorelease
 Summary:        Structural diff that understands syntax
 
@@ -12,6 +12,7 @@ License:        MIT
 URL:            https://crates.io/crates/difftastic
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
+# * unpin libmimalloc-sys
 Patch:          difftastic-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21

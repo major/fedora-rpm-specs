@@ -19,7 +19,7 @@ Version:        2.2.1
 Release:        11%{?dist}
 Summary:        Static Types for Json APIs
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{forgeurl}
 Source0:        %{url}/archive/%{version}/%{project_name}-%{version}.tar.gz
 # Testing requires an argonaut jar.  Upstream provides jars for scala 2.11 and
@@ -238,6 +238,9 @@ rm -rf %{buildroot}%{_libdir}/ocaml/atd{j,s}
 
 
 %changelog
+* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 2.2.1-11
+- Convert License tag to SPDX
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.2.1-11
 - Bump release and rebuild
 

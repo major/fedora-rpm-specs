@@ -2,7 +2,7 @@
 
 Name:           transmission
 Version:        4.0.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPLv2
@@ -13,6 +13,9 @@ Source0:        https://github.com/transmission/transmission/releases/download/%
 Source1:        https://raw.githubusercontent.com/gnome-design-team/gnome-icons/master/apps-symbolic/Adwaita/scalable/apps/transmission-symbolic.svg
 Patch0:         f551b4adbff0d59557d61867d0b6518c50f5a73f.patch
 Patch1:         4890.patch
+# Fix the DBus name to match the app name for flatpak builds
+# https://github.com/transmission/transmission/pull/847
+Patch2:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
 
 
 BuildRequires:  make
@@ -117,7 +120,7 @@ install -m0644 daemon/transmission-daemon.service  %{buildroot}%{_unitdir}/
 mkdir -p %{buildroot}%{_sharedstatedir}/transmission
 %cmake_install
 
-mv -f %{buildroot}/usr/share/doc/transmission %{buildroot}/usr/share/doc/transmission-common
+mv -f %{buildroot}%{_docdir}/transmission %{buildroot}%{_docdir}/transmission-common
 
 # Install the symbolic icon
 mkdir -p  %{buildroot}%{_datadir}/icons/hicolor/symbolic/apps
@@ -179,6 +182,10 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Wed Feb 15 2023 Kalev Lember <klember@redhat.com> - 4.0.0-3
+- Avoid hardcoding /usr prefix
+- Restore flatpak DBus name patch
+
 * Tue Feb 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.0-2
 - Patches for crash.
 

@@ -35,11 +35,11 @@ ExclusiveArch: x86_64
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	43.2
-Release:	3%{?dist}
+Version:	44~beta
+Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 URL:		https://wiki.gnome.org/Apps/Boxes
 Source0:	https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
@@ -155,6 +155,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Boxes.deskt
 %{_datadir}/metainfo/org.gnome.Boxes.appdata.xml
 
 %changelog
+* Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Sat Jan 21 2023 David King <amigadave@amigadave.com> - 43.2-3
 - Require virsh (#2162816)
 

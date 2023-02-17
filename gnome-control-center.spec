@@ -1,5 +1,5 @@
 %define gnome_online_accounts_version 3.25.3
-%define glib2_version 2.70.0
+%define glib2_version 2.75.0
 %define gnome_desktop_version 42~alpha
 %define gsd_version 41.0
 %define gsettings_desktop_schemas_version 42~alpha
@@ -12,7 +12,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-control-center
-Version:        44~alpha
+Version:        44~beta
 Release:        %autorelease
 Summary:        Utilities to configure the GNOME desktop
 

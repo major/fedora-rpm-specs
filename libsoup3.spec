@@ -1,7 +1,7 @@
 %global glib2_version 2.69.1
 
 Name:    libsoup3
-Version: 3.3.0
+Version: 3.3.1
 Release: %autorelease
 Summary: Soup, an HTTP library implementation
 

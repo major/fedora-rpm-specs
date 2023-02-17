@@ -1,5 +1,5 @@
 Name:		converseen
-Version:	0.9.10.1
+Version:	0.9.11.0
 Release:	1%{?dist}
 Summary:	A batch image conversion tool written in C++ with Qt5 and Magick++
 
@@ -46,6 +46,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/net.fasterland.%{nam
 
 
 %changelog
+* Wed Feb 15 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.11.0-1
+- Update to 0.9.11.0 fixes rhbz#2169785
+
 * Sun Feb 12 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.9.10.1-1
 - Update to 0.9.10.1 fixes rhbz#2161445
 

@@ -4,8 +4,8 @@
 %bcond_with runtests
 
 Name:      pykickstart
-Version:   3.43
-Release:   3%{?dist}
+Version:   3.44
+Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
 Url:       http://fedoraproject.org/wiki/pykickstart
@@ -77,6 +77,15 @@ make PYTHON=%{__python3} test
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Wed Feb 15 2023 Brian C. Lane <bcl@redhat.com> - 3.44-1
+- Add DNS handling options to the network command (vslavik)
+  Related: rhbz#1656662
+- Fix the coverage report (vponcova)
+- whitelist_externals has changed to allowlist_externals (bcl)
+- Update %post example for DNS problems (bcl)
+- deps: Move dependencies into requirements.txt (bcl)
+- Fix syntax of a code sample (ewoud)
+
 * Mon Jan 30 2023 Brian C. Lane <bcl@redhat.com> - 3.43-3
 - SPDX migration
 

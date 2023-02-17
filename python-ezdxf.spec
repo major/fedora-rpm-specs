@@ -9,7 +9,7 @@
 %bcond_with qt6
 
 Name:           python-ezdxf
-Version:        1.0.1
+Version:        1.0.2
 Release:        %autorelease
 Summary:        Create/manipulate DXF drawings
 

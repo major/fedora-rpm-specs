@@ -7,7 +7,7 @@
 %endif
 
 Name:           ghc-rpm-macros
-Version:        2.5.1
+Version:        2.5.2
 Release:        1%{?dist}
 Summary:        RPM macros for building Haskell packages for GHC
 
@@ -190,6 +190,10 @@ mkdir -p %{buildroot}%{_docdir}/ghc/html/libraries
 
 
 %changelog
+* Wed Feb 15 2023 Jens Petersen <petersen@redhat.com> - 2.5.2-1
+- ghc-dep.sh: check for *_p.a under Hadrian platform subdir as well
+- ghc.attr: include Hadrian lib/ subdir in .conf regex
+
 * Sat Feb 11 2023 Jens Petersen <petersen@redhat.com> - 2.5.1-1
 - add ghc_merge_filelist
 

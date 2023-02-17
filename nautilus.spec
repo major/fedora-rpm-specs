@@ -6,8 +6,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           nautilus
-Version:        44~alpha
-Release:        2%{?dist}
+Version:        44~beta
+Release:        1%{?dist}
 Summary:        File manager for GNOME
 
 License:        GPL-3.0-or-later
@@ -139,6 +139,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 %doc %{_datadir}/doc/nautilus/
 
 %changelog
+* Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Fri Feb 10 2023 David King <amigadave@amigadave.com> - 44~alpha-2
 - Update tracker-miners dependency
 

@@ -1,18 +1,17 @@
 %undefine _package_note_flags
+
 %ifnarch %{ocaml_native_compiler}
 %global debug_package %{nil}
 %endif
 
 Name:           ocaml-opam-file-format
-Version:        2.1.4
+Version:        2.1.5
 Release:        %autorelease
 Summary:        Parser and printer for the opam file syntax
 
 %global libname %(echo %{name} | sed -e 's/^ocaml-//')
 
-# This is apparently a standard "OCaml exception" and is detailed
-# in the license file.
-License:        LGPLv2 with exceptions
+License:        LGPL-2.1-only WITH OCaml-LGPL-linking-exception
 URL:            https://github.com/ocaml/opam-file-format/
 Source0:        https://github.com/ocaml/%{libname}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -44,29 +43,12 @@ files for developing applications that use %{name}.
 %install
 %{dune_install}
 
-%files
+%files -f .ofiles
 %doc README.md CHANGES
 %license LICENSE
-%{_libdir}/ocaml/%{libname}
-%exclude %{_libdir}/ocaml/%{libname}/dune-package
-%exclude %{_libdir}/ocaml/%{libname}/opam
-%ifarch %{ocaml_native_compiler}
-%exclude %{_libdir}/ocaml/%{libname}/*.a
-%exclude %{_libdir}/ocaml/%{libname}/*.cmxa
-%exclude %{_libdir}/ocaml/%{libname}/*.cmx
-%endif
-%exclude %{_libdir}/ocaml/%{libname}/*.mli
 
-%files devel
+%files devel -f .ofiles-devel
 %license LICENSE
-%{_libdir}/ocaml/%{libname}/dune-package
-%{_libdir}/ocaml/%{libname}/opam
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/%{libname}/*.a
-%{_libdir}/ocaml/%{libname}/*.cmxa
-%{_libdir}/ocaml/%{libname}/*.cmx
-%endif
-%{_libdir}/ocaml/*/*.mli
 
 %changelog
 %autochangelog

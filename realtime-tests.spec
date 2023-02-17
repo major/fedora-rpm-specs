@@ -1,7 +1,7 @@
 Name: realtime-tests
 Summary: Programs that test various rt-features
-Version: 2.4
-Release: 2%{?dist}
+Version: 2.5
+Release: 1%{?dist}
 License: GPLv2
 URL: https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git
 Source0: https://www.kernel.org/pub/linux/utils/rt-tests/rt-tests-%{version}.tar.xz
@@ -15,7 +15,9 @@ Requires: bash
 Requires: bc
 
 #Patches
-Patch1: cyclictest-Fix-threads-being-affined-even-when-a-not-set.patch
+Patch1: rt-tests-deadline_test-Fix-spelling-to-single-in-com.patch
+Patch2: rt-tests-hwlatdetect-Add-field-cpu-to-samples-output.patch
+Patch3: rt-tests-Makefile-Use-sysconfig-instead-of-distutils.patch
 
 %description
 realtime-tests is a set of programs that test and measure various components of
@@ -74,6 +76,10 @@ latency. It also tests the functioning of priority-inheritance mutexes.
 %{_mandir}/man8/determine_maximum_mpps.8.*
 
 %changelog
+* Tue Feb 14 2023 John Kacur <jkacur@redhat.com> - 2.5-1
+- Update to latest upstream
+- Remove patch included in the update, and add three more
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

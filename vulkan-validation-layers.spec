@@ -6,7 +6,6 @@ Summary:        Vulkan validation layers
 License:        ASL 2.0
 URL:            https://github.com/KhronosGroup/Vulkan-ValidationLayers
 Source0:        %url/archive/sdk-%{version}.tar.gz#/Vulkan-ValidationLayers-sdk-%{version}.tar.gz
-Patch0:         fix_shared.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -73,6 +72,7 @@ developing applications that use %{name}.
 
 %files devel
 %{_includedir}/vulkan/
+%{_libdir}/libVkLayer_utils.a
 
 %changelog
 %autochangelog

@@ -1,135 +1,84 @@
-############################################################################
-# Copyright 2019-2021 Intel Corporation
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     http://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-############################################################################
-
-%undefine __cmake_in_source_build
-%global _lto_cflags %{nil}
 %global debug_package %{nil}
+%global srctag ippcp_2021.7
+%global desc %{expand: \
+Crypto multi-buffer library provides optimized version of RSA, ECDSA, SM3 and
+x25519 multi-buffer algorithms based on Intel® Advanced Vector Extensions 512
+(Intel® AVX-512) integer fused multiply-add (IFMA) operations.}
 
-# Versions numbers
-%global release_version_major    1
-%global release_version_minor    0
-%global release_version_rev      4
+Name:				intel-ipp-crypto-mb
+Version:			1.0.6
+Release:			1%{?dist}
+Summary:			Intel(R) IPP Cryptography multi-buffer library
 
-%global interface_version_major  11
-%global interface_version_minor  3
-%global interface_version_full  %{interface_version_major}.%{interface_version_minor}
+License:			Apache-2.0
+URL:				https://github.com/intel/ipp-crypto
+Source0:			%{url}/archive/%{srctag}/%{name}-%{srctag}.tar.gz
 
-%global github_source_archive_name   ippcp_2021.5
-
-%global rpm_name         intel-ipp-crypto-mb
-%global product_name     Intel(R) IPP Cryptography multi-buffer library
-
-Summary:            %{product_name}
-Name:               %{rpm_name}
-Release:            5%{?dist}
-Version:            %{release_version_major}.%{release_version_minor}.%{release_version_rev}
-License:            ASL 2.0
 # Upstream exclusively uses x86_64-specific intrinsics
-ExclusiveArch:      x86_64
-URL:                https://github.com/intel/ipp-crypto
-Source0:            %{url}/archive/refs/tags/%{github_source_archive_name}.tar.gz#/%{rpm_name}-%{github_source_archive_name}.tar.gz
-# Remove explicit -O3 compiler optimization flag
-Patch0: 0001-remove-explicit-O3-flag.patch
-# Fix of -Wmaybe-uninitialized warning
-Patch1: 0002-fix-may-be-uninitialized-warning.patch
-# Fix of -Werror=uninitialized warning (EPEL8 build)
-Patch2: 0003-fix-uninitialized-warning.patch
-BuildRequires:      coreutils
-BuildRequires:      make
-BuildRequires:      tar
-BuildRequires:      cmake >= 3.10
-BuildRequires:      openssl-devel >= 1.1.0
-BuildRequires:      gcc-c++ >= 8.2
+ExclusiveArch:		x86_64
 
-%global github_crypto_mb_page %{url}/tree/%{github_source_archive_name}/sources/ippcp/crypto_mb
+BuildRequires:		cmake
+BuildRequires:		gcc
+BuildRequires:		gcc-c++
+BuildRequires:		openssl-devel >= 1.1.0
 
 %description
-A software crypto library optimized for Intel architecture for packet
-processing applications.
-
-It contains universal and OpenSSL compatible APIs for cryptography operations.
-
-For additional information please refer to:
-%{github_crypto_mb_page}
-
+%{desc}
 
 %package devel
-Summary:            %{product_name} (Development Files)
-License:            ASL 2.0
-Requires:           %{name}%{?_isa} = %{version}-%{release}
-ExclusiveArch:      x86_64
+Summary: Intel(R) IPP Cryptography multi-buffer library (Development Files)
+Requires:			%{name}%{?_isa} = %{version}-%{release}
 
-%description devel
-A software crypto library optimized for Intel architecture for packet
-processing applications.
+%description devel %{desc}
 
-It contains development libraries and header files.
+Development files.
 
-For additional information please refer to:
-%{github_crypto_mb_page}
+%package static
+Summary: Intel(R) IPP Cryptography multi-buffer library (Development Files)
+Requires:			%{name}%{?_isa} = %{version}-%{release}
 
+%description static %{desc}
+
+Static library package.
 
 %prep
-%autosetup -n ipp-crypto-%{github_source_archive_name} -p1
+%autosetup -n ipp-crypto-%{srctag}
+# library path fix
+sed -i 's/"lib\"/"lib64"/g' sources/ippcp/crypto_mb/src/CMakeLists.txt
 
 %build
-cd sources/ippcp/crypto_mb
-%cmake
+pushd sources/ippcp/crypto_mb
+%cmake \
+	-DARCH=intel64 \
+	-DMERGED_BLD:BOOL=off
 %cmake_build
-cd -
+popd
 
 %install
-cd sources/ippcp/crypto_mb
-install -d %{buildroot}/%{_includedir}/crypto_mb
-install -p -m 0644 -t %{buildroot}/%{_includedir}/crypto_mb include/crypto_mb/*.h
-install -d %{buildroot}/%{_libdir}
-install -p -s -m 0755 %{_vpath_builddir}/bin/libcrypto_mb.so.%{interface_version_full} %{buildroot}/%{_libdir}
-cd %{buildroot}/%{_libdir}
-ln -s libcrypto_mb.so.%{interface_version_full} libcrypto_mb.so.%{interface_version_major}
-ln -s libcrypto_mb.so.%{interface_version_full} libcrypto_mb.so
+pushd sources/ippcp/crypto_mb
+%cmake_install
+install -spm755 %{_vpath_builddir}/bin/libcrypto_mb.so.11.5 %{buildroot}/%{_libdir}
+popd
 
-%if 0%{?rhel} && 0%{?rhel} < 8
 %ldconfig_scriptlets
-%endif
 
 %files
 %license LICENSE
 %doc sources/ippcp/crypto_mb/Readme.md
-%{_libdir}/libcrypto_mb.so.%{interface_version_full}
-%{_libdir}/libcrypto_mb.so.%{interface_version_major}
+%{_libdir}/libcrypto_mb.so.*
 
 %files devel
-%dir %{_includedir}/crypto_mb
-%{_includedir}/crypto_mb/cpu_features.h
-%{_includedir}/crypto_mb/defs.h
-%{_includedir}/crypto_mb/ec_nistp256.h
-%{_includedir}/crypto_mb/ec_nistp384.h
-%{_includedir}/crypto_mb/ec_nistp521.h
-%{_includedir}/crypto_mb/ec_sm2.h
-%{_includedir}/crypto_mb/ed25519.h
-%{_includedir}/crypto_mb/exp.h
-%{_includedir}/crypto_mb/rsa.h
-%{_includedir}/crypto_mb/sm3.h
-%{_includedir}/crypto_mb/sm4.h
-%{_includedir}/crypto_mb/status.h
-%{_includedir}/crypto_mb/version.h
-%{_includedir}/crypto_mb/x25519.h
+%{_includedir}/crypto_mb
 %{_libdir}/libcrypto_mb.so
 
+%files static
+%license LICENSE
+%{_libdir}/libcrypto_mb.a
+
 %changelog
+* Wed Feb 15 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 1.0.6-1
+- Update to 1.0.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

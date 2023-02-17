@@ -13,10 +13,10 @@ Version:       1.1.1
 %endif
 
 Name:           coccinelle
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Semantic patching for Linux (spatch)
 
-License:        GPLv2
+License:        GPL-2.0-only
 
 URL:            https://coccinelle.gitlabpages.inria.fr/website/
 Source0:        %{forgesource}
@@ -114,6 +114,7 @@ for %{name}.
 %if %{with doc}
 %package doc
 Summary:        Documentation for %{name}
+License:        GFDL-1.3-no-invariants-only
 BuildArch:      noarch
 Requires:       %{name} = %{version}-%{release}
 
@@ -282,6 +283,10 @@ $spatch --sp-file %{SOURCE2} %{SOURCE1}
 
 
 %changelog
+* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 1.1.1-17
+- Rebuild for ocaml-pyml 20220905
+- Convert License tags to SPDX
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.1.1-16
 - Rebuild OCaml packages for F38
 

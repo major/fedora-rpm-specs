@@ -57,8 +57,12 @@ Summary:        Perl graphic toolkit
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{cpan_version}.tar.gz
-# Normalize example shebangs, proposed to the upstream, CPAN RT#146472
+# Normalize example shebangs, in upstream after 1.67001, CPAN RT#146472
 Patch0:         Prima-1.67001-Remove-a-shebang-from-examples-clock.pl.patch
+# Fix color ordering when creating a pixmap on big-endian systems,
+# in upstream after 1.67001, bug #2169177,
+# <https://github.com/dk/Prima/issues/81>
+Patch1:         Prima-1.67001-fix-81-and-add-some-more-tests-targeting-LSBit-arch-.patch
 BuildRequires:  findutils
 BuildRequires:  giflib-devel
 BuildRequires:  gcc

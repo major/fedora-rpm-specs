@@ -1,62 +1,66 @@
-%global pypi_name rfc3987
+Name:           python-rfc3987
+Version:        1.3.8
+Release:        1%{?dist}
+Summary:        Parsing and validation of URIs (RFC 3986) and IRIs (RFC 3987)
 
-Name:		python-%{pypi_name}
-Version:	1.3.7
-Release:	22%{?dist}
-Summary:	Parsing and validation of URIs (RFC 3986) and IRIs (RFC 3987)
+License:        GPL-3.0-or-later
+URL:            https://github.com/dgerber/rfc3987
+Source:         %{pypi_source rfc3987}
+BuildArch:      noarch
 
-License:	GPLv3+
-URL:		https://github.com/dgerber/rfc3987
-Source0:	https://files.pythonhosted.org/packages/source/r/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-BuildArch:	noarch
+BuildRequires:  python3-devel
 
-%global _description \
-This module provides regular expressions according to RFC 3986 "Uniform\
-Resource Identifier (URI): Generic Syntax" <http://tools.ietf.org/html/rfc3986>\
-and RFC 3987 "Internationalized Resource Identifiers (IRIs)"\
-<http://tools.ietf.org/html/rfc3987>, and utilities for composition and\
-relative resolution of references.
+%global _description %{expand:
+This module provides regular expressions according to RFC 3986 "Uniform
+Resource Identifier (URI): Generic Syntax" <http://tools.ietf.org/html/rfc3986>
+and RFC 3987 "Internationalized Resource Identifiers (IRIs)"
+<http://tools.ietf.org/html/rfc3987>, and utilities for composition and
+relative resolution of references.}
+
 
 %description %{_description}
 
-%package -n     python3-%{pypi_name}
-Summary:	Parsing and validation of URIs (RFC 3986) and IRIs (RFC 3987)
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-BuildRequires:	python3-setuptools
-BuildRequires:	python3-devel
+%package -n     python3-rfc3987
+Summary:        %{summary}
 
-%description -n python3-%{pypi_name} %{_description}
 
-This package includes the Python 3 version of the module.
+%description -n python3-rfc3987 %{_description}
+
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n rfc3987-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files rfc3987
 
 # Remove shebang
 sed -i -e '/^#!\//, 1d' %{buildroot}%{python3_sitelib}/rfc3987.py
 
+
 %check
-%{__python3} -m doctest -v %{pypi_name}.py
+%{python3} -m doctest -v rfc3987.py
 
 
-%files -n python3-%{pypi_name}
-%license COPYING.txt
+%files -n python3-rfc3987 -f %{pyproject_files}
 %doc README.txt
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
-%{python3_sitelib}/__pycache__/%{pypi_name}.*
 
 
 %changelog
+* Wed Feb 15 2023 Carl George <carl@george.computer> - 1.3.8-1
+- Update to version 1.3.8
+- Convert to pyproject macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

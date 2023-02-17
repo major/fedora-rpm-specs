@@ -1,10 +1,10 @@
 %global apiver  1
-%global gtk_version 4.9.2
+%global gtk_version 4.9.3
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           libadwaita
-Version:        1.3~alpha
+Version:        1.3~beta
 Release:        %autorelease
 Summary:        Building blocks for modern GNOME applications
 

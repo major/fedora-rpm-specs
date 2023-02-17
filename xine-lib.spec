@@ -30,7 +30,7 @@
 Summary:        A multimedia engine
 Name:           xine-lib
 Version:        1.2.12
-Release:        10%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Release:        11%{?snapshot:.%{date}hg%{revision}}%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -330,6 +330,9 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 1.2.12-11
+- rebuild for libvpx
+
 * Mon Jan 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.2.12-10
 - Adapt for Fedora
 

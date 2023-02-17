@@ -1,13 +1,13 @@
-%global commit0 45f5e5f3889afb07907bab439cf071478ee5a2a5
+%global commit0 8649e3e0bd0e09429898d2569ef65cc9fd3eafd7
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global snapdate 20230104
+%global snapdate 20230215
 
 %global __python %{__python3}
 
 Name:           icestorm
 Version:        0
-Release:        0.26.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        0.27.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Lattice iCE40 FPGA bitstream creation/analysis/programming tools
 License:        ISC
 URL:            http://bygone.clairexen.net/%{name}
@@ -60,6 +60,9 @@ install -pm644 icefuzz/timings_*.txt %{buildroot}%{_datarootdir}/%{name}
 %{_datarootdir}/%{name}
 
 %changelog
+* Wed Feb 15 2023 Gabriel Somlo <gsomlo@gmail.com> - 0-0.27.20230215git8649e3e
+- Update to newer snapshot
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26.20230104git45f5e5f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

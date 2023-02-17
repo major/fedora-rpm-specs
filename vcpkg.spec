@@ -1,6 +1,6 @@
 %global version_year 2023
-%global version_month 01
-%global version_day 24
+%global version_month 02
+%global version_day 15
 
 %global repo_name vcpkg-tool
 %global repo_tag %{version_year}-%{version_month}-%{version_day}
@@ -79,6 +79,9 @@ install -D -m 0644 -p "%{SOURCE1}" "%{buildroot}%{_sysconfdir}/profile.d/%{name}
 %config(noreplace) %{_sysconfdir}/profile.d/%{name}.sh
 
 %changelog
+* Wed Feb 15 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2023.02.15-1
+- Updated to version 2023.02.15.
+
 * Mon Jan 30 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2023.01.24-1
 - Updated to version 2023.01.24.
 

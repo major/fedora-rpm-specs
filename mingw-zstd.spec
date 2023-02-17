@@ -3,8 +3,8 @@
 %global pkgname zstd
 
 Name:          mingw-%{pkgname}
-Version:       1.5.2
-Release:       4%{?dist}
+Version:       1.5.4
+Release:       1%{?dist}
 Summary:       MinGW Windows %{pkgname} library
 
 BuildArch:     noarch
@@ -79,6 +79,9 @@ MINGW64_CMAKE_ARGS="-DCMAKE_INSTALL_INCLUDEDIR=%{mingw64_includedir}/%{pkgname}"
 
 
 %changelog
+* Wed Feb 15 2023 Sandro Mani <manisandro@gmail.com> - 1.5.4-1
+- Update to 1.5.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

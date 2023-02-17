@@ -13,7 +13,7 @@
 
 Name:           lxdm
 Version:        0.5.3
-Release:        24%{?git_version:.%{?git_version}}%{?dist}
+Release:        25%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 License:        GPLv2+ and LGPLv2+
@@ -90,7 +90,9 @@ KDM in LXDE distros. It's still in very early stage of development.
 sed -i.reset data/lxdm.conf.in \
 	-e '\@reset@s|^.*$|reset=1|' 
 # Fedora 37 changed default background file format
-%if 0%{?fedora} >= 37
+# This is reverted, even on F-38
+#%%if 0%{?fedora} >= 37
+%if 0
 sed -i.f37 data/lxdm.conf.in \
 	-e '\@bg=@s|default.png|default.webp|'
 %endif
@@ -180,6 +182,9 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 
 
 %changelog
+* Wed Feb 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3-25.D20220831git2d4ba970
+- F-38 is using default.png, not .webp, reflect this
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.3-24.D20220831git2d4ba970
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

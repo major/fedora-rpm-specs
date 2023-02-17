@@ -1,53 +1,64 @@
-%global pypi_name strict-rfc3339
-%global _description \
-Goals: \
-- Convert UNIX timestamps to and from RFC3339. \
-- Either produce RFC3339 strings with a UTC offset (Z) or with the offset that \
-  the C time module reports is the local timezone offset. \
-- Simple with minimal dependencies/libraries. \
-- Avoid timezones as much as possible. \
-- Be very strict and follow RFC3339.
+%global _description %{expand:
+Goals:
+- Convert UNIX timestamps to and from RFC3339.
+- Either produce RFC3339 strings with a UTC offset (Z) or with the offset that
+  the C time module reports is the local timezone offset.
+- Simple with minimal dependencies/libraries.
+- Avoid timezones as much as possible.
+- Be very strict and follow RFC3339.}
 
-Name:           python-%{pypi_name}
+Name:           python-strict-rfc3339
 Version:        0.7
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Strict, simple, lightweight RFC3339 functions
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://github.com/danielrichman/strict-rfc3339
-Source0:        %{pypi_source}
+Source:         %{pypi_source strict-rfc3339}
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
+
 
 %description %{_description}
 
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-strict-rfc3339
 Summary:        %{summary}
-%{?py_provides:%py_provides python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name} %{_description}
+
+%description -n python3-strict-rfc3339 %{_description}
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n strict-rfc3339-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files strict_rfc3339
 
-%files -n python3-%{pypi_name}
-%license LICENSE
-%doc README.md README.txt
-%{python3_sitelib}/__pycache__/*
-%{python3_sitelib}/strict_rfc3339.py
-%{python3_sitelib}/strict_rfc3339-%{version}-py%{python3_version}.egg-info
+
+%check
+%pyproject_check_import
+
+
+%files -n python3-strict-rfc3339 -f %{pyproject_files}
+%doc README.md
+
 
 %changelog
+* Wed Feb 15 2023 Carl George <carl@george.computer> - 0.7-9
+- Convert to pyproject macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           python-pytest-console-scripts
 Version:        1.3.1
-Release:        2%{?dist}
+Release:        %autorelease
 Summary:        Pytest plugin for testing console scripts
 License:        MIT
 URL:            https://github.com/kvas-it/pytest-console-scripts
@@ -19,6 +19,8 @@ scripts from within tests.}
 
 %package -n     python3-pytest-console-scripts
 Summary:        %{summary}
+# https://github.com/kvas-it/pytest-console-scripts/issues/56
+Requires:       python3-setuptools
 
 %description -n python3-pytest-console-scripts %_description
 
@@ -49,8 +51,4 @@ Summary:        %{summary}
 
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Nov 28 2022 Lumír Balhar <lbalhar@redhat.com> - 1.3.1-1
-- Initial package
+%autochangelog

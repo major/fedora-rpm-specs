@@ -7,17 +7,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-initial-setup
-Version:        44~alpha.2
+Version:        44~beta
 Release:        %autorelease
 Summary:        Bootstrapping your OS
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Design/OS/InitialSetup
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 Source1:        vendor.conf
-
-# https://gitlab.gnome.org/GNOME/gnome-initial-setup/-/merge_requests/177
-Patch0:         webkitgtk-2.39.5.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc

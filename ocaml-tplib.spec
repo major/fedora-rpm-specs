@@ -4,7 +4,7 @@ Version:        1.3
 Release:        72%{?dist}
 Summary:        Tropical Polyhedra Library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://gforge.inria.fr/projects/tplib
 Source0:        https://gforge.inria.fr/frs/download.php/32084/tplib-%{version}.tar.gz
 # Man pages written by Jerry James using text from the sources; i.e., I
@@ -119,6 +119,9 @@ _build/tests/test_tplib_rational
 %doc %{_mandir}/man1/*
 
 %changelog
+* Wed Feb 15 2023 Jerry James <loganjerry@gmail.com> - 1.3-72
+- Convert License tag to SPDX
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.3-72
 - Rebuild OCaml packages for F38
 

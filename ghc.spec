@@ -88,7 +88,7 @@ Version: 9.2.6
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 127%{?dist}
+Release: 128%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -985,6 +985,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Thu Feb 16 2023 Jens Petersen <petersen@redhat.com> - 9.2.6-128
+- rebuild to fix prof deps
+
 * Sat Feb 11 2023 Jens Petersen <petersen@redhat.com> - 9.2.6-127
 - https://downloads.haskell.org/~ghc/9.2.6/docs/html/users_guide/9.2.6-notes.html
 - restore RUNPATHs to help dependency generation

@@ -105,7 +105,7 @@
 # Comment out go_prerelease and go_patch as needed
 %global go_api 1.20
 #global go_prerelease rc3
-#global go_patch 1
+%global go_patch 1
 
 %global go_version %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease:~%{go_prerelease}}
 %global go_source %{go_api}%{?go_patch:.%{go_patch}}%{?go_prerelease}
@@ -535,6 +535,10 @@ fi
 %endif
 
 %changelog
+* Wed Feb 15 2023 Alejandro Sáez <asm@redhat.com> - 1.20.1
+- Update to go1.20.1
+- Resolves: rhbz#2169896
+
 * Thu Feb 02 2023 Alejandro Sáez <asm@redhat.com> - 1.20-1
 - Update to go1.20
 - Resolves: rhbz#2152070

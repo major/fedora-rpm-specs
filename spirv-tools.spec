@@ -12,6 +12,7 @@ URL:            https://github.com/KhronosGroup/SPIRV-Tools
 Source0:        %url/archive/sdk-%{sdkver}.tar.gz#/SPIRV-Tools-sdk-%{sdkver}.tar.gz
 
 Patch0: fix-gcc12-build.patch
+Patch1: 0001-opt-fix-spirv-ABI-on-Linux-again.patch
 
 BuildRequires:  cmake3
 BuildRequires:  gcc-c++

@@ -1,48 +1,69 @@
-%global pypi_name bravado-core
-
-Name:           python-%{pypi_name}
-Version:        5.17.0
-Release:        8%{?dist}
+Name:           python-bravado-core
+Version:        5.17.1
+Release:        1%{?dist}
 Summary:        Library for adding Swagger support to clients and servers
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/Yelp/bravado-core
-Source0:        %{pypi_source}
+# PyPI tarball is missing tests
+Source:         %{url}/archive/v%{version}/bravado-core-%{version}.tar.gz
+# https://github.com/Yelp/bravado-core/pull/393
+Patch:          0001-Use-standard-library-mock-when-possible.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
+BuildRequires:  python3-pytest
 
-%description
-bravado-core is a Python library that adds client-side and
-server-side support for the OpenAPI Specification v2.0.
+%global _description %{expand:
+bravado-core is a Python library that adds client-side and server-side support
+for the OpenAPI Specification v2.0.}
 
-%package -n     python3-%{pypi_name}
+
+%description %_description
+
+
+%package -n     python3-bravado-core
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-bravado-core is a Python library that adds client-side and
-server-side support for the OpenAPI Specification v2.0.
+
+%description -n python3-bravado-core %_description
 
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -n bravado-core-%{version} -p 1
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files bravado_core
 
-%files -n python3-%{pypi_name}
-%license LICENSE.txt
+
+%check
+# Recursive tests seem to hang forever, skip for now
+# Profiling tests require pytest-benchmark[histogram], skip for now
+%pytest -v \
+    -k 'not recursive' \
+    --ignore tests/profiling
+
+
+%files -n python3-bravado-core -f %{pyproject_files}
 %doc README.rst
-%{python3_sitelib}/bravado_core
-%{python3_sitelib}/bravado_core-%{version}-py%{python3_version}.egg-info
+
 
 %changelog
+* Mon Feb 13 2023 Carl George <carl@george.computer> - 5.17.1-1
+- Update to version 5.17.1, resolves rhbz#2169589
+- Convert to pyproject macros
+- Run tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
