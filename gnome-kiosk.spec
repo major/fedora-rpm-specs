@@ -35,6 +35,7 @@ BuildRequires:  pkgconfig(libmutter-12) >= %{mutter_version}
 BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  meson
+BuildRequires:  dconf
 
 Requires:       gnome-settings-daemon%{?_isa} >= %{gnome_settings_daemon_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
@@ -84,6 +85,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %doc README.md
 %{_bindir}/gnome-kiosk
 %{_datadir}/applications/org.gnome.Kiosk.desktop
+%{_datadir}/dconf/profile/gnome-kiosk
+%{_datadir}/gnome-kiosk/gnome-kiosk.dconf.compiled
 %{_userunitdir}/org.gnome.Kiosk.target
 %{_userunitdir}/org.gnome.Kiosk@wayland.service
 %{_userunitdir}/org.gnome.Kiosk@x11.service

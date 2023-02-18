@@ -8,15 +8,16 @@
 %endif
 
 Name:           python-%{srcname}
-Version:        0.10.1
+Version:        0.12.1
 Release:        %autorelease
 Summary:        A helper tool to work with public-inbox and patch series
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            https://git.kernel.org/pub/scm/utils/%{srcname}/%{srcname}.git
 Source0:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{srcname}-%{version}.tar.xz
 Source1:        https://mirrors.edge.kernel.org/pub/software/devel/%{srcname}/%{srcname}-%{version}.tar.sign
 # https://git.kernel.org/pub/scm/utils/b4/b4.git/plain/.keys/openpgp/linuxfoundation.org/konstantin/default
 Source2:        gpgkey-DE0E66E32F1FDD0902666B96E63EDCA9329DD07E.asc
+Patch0:         %{srcname}-tests_no_git.diff
 
 BuildArch:      noarch
 
@@ -25,7 +26,7 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python3dist(pytest)
 
 # Require manually until it provides python3dist(git-filter-repo)
-# https://src.fedoraproject.org/rpms/git-filter-repo/pull-request/1
+# https://src.fedoraproject.orae57d6eg/rpms/git-filter-repo/pull-request/1
 BuildRequires:  git-filter-repo > 2.30
 Requires:       git-filter-repo > 2.30
 

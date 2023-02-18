@@ -46,6 +46,14 @@ License:        MIT and CC0
 %doc CHANGELOG.md
 %doc README.md
 %{_bindir}/zoxide
+%{_mandir}/man1/%{crate}*.1*
+%{_datadir}/bash-completion/completions/%{crate}
+%dir %{_datadir}/zsh
+%dir %{_datadir}/zsh/site-functions
+%{_datadir}/zsh/site-functions/_%{crate}
+%dir %{_datadir}/fish
+%dir %{_datadir}/fish/vendor_completions.d
+%{_datadir}/fish/vendor_completions.d/%{crate}.fish
 
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
@@ -67,6 +75,12 @@ echo '/usr/bin/zsh'
 
 %install
 %cargo_install
+# Install manpages
+install -Dpm 644 man/man1/%{crate}*.1 -t %{buildroot}%{_mandir}/man1/
+# Install shell completions
+install -Dpm 644 contrib/completions/%{crate}.bash %{buildroot}%{_datadir}/bash-completion/completions/%{crate}
+install -Dpm 644 contrib/completions/_%{crate} -t %{buildroot}%{_datadir}/zsh/site-functions/
+install -Dpm 644 contrib/completions/%{crate}.fish -t %{buildroot}/%{_datadir}/fish/vendor_completions.d/
 
 %if %{with check}
 %check

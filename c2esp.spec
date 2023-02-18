@@ -2,7 +2,7 @@
 
 Name:           c2esp
 Version:        2.7
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        CUPS driver for Kodak AiO printers
 
 License:        GPLv2+
@@ -11,24 +11,29 @@ Source0:        http://downloads.sourceforge.net/cupsdriverkodak/c2esp-%{version
 
 Patch01: c2esp-ftbfs-gcc7.patch
 Patch02: c2esp-gcc10.patch
-Patch3: c2esp-c99.patch
+Patch03: c2esp-c99.patch
+Patch04: c2esp-use-libcupsfilters.patch
 
+
+# for autoreconf
+BuildRequires: autoconf
+BuildRequires: automake
 # _cups_serverbin macro
 BuildRequires: cups-devel
-
-# postscriptdriver tags
-BuildRequires: python3-cups cups
-
-# cupsfilters/image.h
-BuildRequires: cups-filters-devel
-
-# JBIG1 lossless image compression
-BuildRequires: jbigkit-devel
-
 # Needs gcc for compilation
 BuildRequires: gcc
+# for autosetup
+BuildRequires: git-core
+# JBIG1 lossless image compression
+BuildRequires: jbigkit-devel
+# cupsfilters/image.h
+BuildRequires: libcupsfilters-devel
+# for ppdCMYKLoad()
+BuildRequires: libppd-devel
 # uses make
 BuildRequires: make
+# postscriptdriver tags
+BuildRequires: python3-cups
 
 # directory structure
 Requires: cups-filesystem
@@ -37,12 +42,13 @@ Requires: cups-filesystem
 CUPS filters and drivers for Kodak ESP and Hero all in one printers.
 
 %prep
-%setup -q -n c2esp-%{version_no_dot}
-%patch01 -p1 -b .ftbfs-gcc7
-%patch02 -p1 -b .gcc10
-%patch3 -p1
+%autosetup -n c2esp-%{version_no_dot} -S git
+
 
 %build
+# c2esp-use-libcupsfilters.patch changes configure.ac, regenerate configure script
+autoreconf -vfi
+
 %configure
 make %{_smp_mflags} -C src/
 
@@ -59,6 +65,9 @@ make -C src/ install DESTDIR=%{buildroot}
 %{_datadir}/cups/drv/c2esp
 
 %changelog
+* Wed Feb 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.7-28
+- move to libcupsfilters-devel and libppd-devel
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

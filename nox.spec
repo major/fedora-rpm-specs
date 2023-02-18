@@ -1,13 +1,15 @@
 Name:           nox
 Version:        2022.11.21
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Flexible test automation
 
 License:        ASL 2.0
 URL:            https://github.com/wntrblm/nox
 # Using github source files since PyPI doesn't contain "tests" folder anymore
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
-Patch0:		%{url}/commit/53c8d7c2a06bd460bb0377b06c316431516d5744.patch
+Patch0:         %{url}/commit/53c8d7c2a06bd460bb0377b06c316431516d5744.patch
+# Slightly modified patch to apply here. Proposed upstream.
+Patch1:         %{url}/pull/687.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-flask
@@ -22,6 +24,12 @@ file for configuration.
 %prep
 %autosetup -p1 -n nox-%{version}
 
+# Backport from https://github.com/wntrblm/nox/commit/da3651953cb1016adf42f2e38a8a66835cdb1a73
+sed -i "/py._path.local.LocalPath/d" tests/test_virtualenv.py
+
+# Use current Python version instead of Python 2 in tests
+sed -i "s/2\.7/%python3_version/;s/27/%python3_version_nodots/" tests/test_tox_to_nox.py
+
 %generate_buildrequires
 %pyproject_buildrequires -r -x tox_to_nox
 
@@ -33,7 +41,8 @@ file for configuration.
 %pyproject_save_files nox
 
 %check
-%pytest
+# test__resolved_interpreter_not_found has broken fixture, see %%prep
+%pytest -k "not test__resolved_interpreter_not_found"
 
 %files -f %{pyproject_files}
 %{_bindir}/nox
@@ -47,6 +56,12 @@ file for configuration.
 %{_bindir}/tox-to-nox
 
 %changelog
+* Thu Feb 16 2023 Lumír Balhar <lbalhar@redhat.com> - 2022.11.21-4
+- Fix tox_to_nox for tox 4
+
+* Tue Jan 24 2023 Lumír Balhar <lbalhar@redhat.com> - 2022.11.21-3
+- Fix FTBFS
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.11.21-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

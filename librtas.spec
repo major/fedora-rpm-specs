@@ -1,9 +1,9 @@
 Summary: Libraries to provide access to RTAS calls and RTAS events
 Name:    librtas
 Version: 2.0.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL:     https://github.com/ibm-power-utilities/librtas
-License: LGPLv2+
+License: LGPL-2.0-or-later
 
 Source0: https://github.com/ibm-power-utilities/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ rm -f  %{buildroot}/%{_docdir}/librtas/*
 %{_includedir}/librtasevent_v6.h
 
 %changelog
+* Thu Feb 16 2023 Than Ngo <than@redhat.com> - 2.0.4-2
+- migrated to SPDX license
+
 * Wed Jan 25 2023 Than Ngo <than@redhat.com> - 2.0.4-1
 - 2.0.4
 

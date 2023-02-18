@@ -1,113 +1,60 @@
-%bcond_without check
-# https://pagure.io/koji/issue/659
-%global debug_package %{nil}
-
 Name:           rust-packaging
-Version:        23
+Version:        24
 Release:        %autorelease
-Summary:        RPM macros for building Rust packages
+Summary:        RPM macros and generators for building Rust packages
 License:        MIT
 
-URL:            https://pagure.io/fedora-rust/rust2rpm
-Source:         %{url}/archive/v%{version}/rust2rpm-v%{version}.tar.gz
+URL:            https://pagure.io/fedora-rust/rust-packaging
+Source:         %{url}/archive/%{version}/rust-packaging-%{version}.tar.gz
 
-# https://pagure.io/fedora-rust/rust2rpm/pull-request/221
-Patch:          0001-Adjust-build-flags-to-allow-the-new-implementation-u.patch
-
-# patches for backporting upstream bug fixes
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/09a496c.patch
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/1869f5a.patch
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/6a5931b.patch
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/3dec94d.patch
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/d9aa58b.patch
-Patch:          https://pagure.io/fedora-rust/rust2rpm/c/b5c64f5.patch
-
-# upstream patch to add support for building with frame pointers:
-# https://pagure.io/fedora-rust/rust2rpm/c/c2176f2
-# https://pagure.io/fedora-rust/rust2rpm/c/3443c98
-Patch:          0002-Add-support-for-conditionally-building-with-frame-po.patch
-
-ExclusiveArch:  %{rust_arches}
-
-BuildRequires:  python3-devel
-
-%if %{with check}
-BuildRequires:  cargo
-%endif
-
-Requires:       python3-rust2rpm-core = %{?epoch:%{epoch}:}%{version}-%{release}
-Requires:       rust-srpm-macros = %{version}
-
-Requires:       rust
-Requires:       cargo >= 1.41
-
-# gawk is needed for stripping dev-deps in macro
-Requires:       gawk
+BuildArch:      noarch
 
 %description
-The package provides RPM macros for building Rust projects.
+%{summary}.
 
-Note that rust-srpm-macros is a seperate arch-independent package that
-is also required to build Rust packages.
+%package -n rust-srpm-macros
+Summary:        RPM macros for building Rust projects
 
-%package     -n python3-rust2rpm
-Summary:        Generate RPM spec files for Rust packages
+%description -n rust-srpm-macros
+RPM macros for building source packages for Rust projects.
+
+%package -n cargo-rpm-macros
+Summary:        RPM macros for building projects with cargo
+
+# obsolete + provide rust-packaging (removed in Fedora 38)
+Obsoletes:      rust-packaging < 24
+Provides:       rust-packaging = %{version}-%{release}
+
 Requires:       cargo
-Requires:       python3-rust2rpm-core = %{?epoch:%{epoch}:}%{version}-%{release}
-Provides:       rust2rpm = %{version}-%{release}
+Requires:       cargo2rpm >= 0.1.0
+Requires:       gawk
 
-%description -n python3-rust2rpm
-rust2rpm is a tool that automates the generation of RPM spec files for
-Rust crates.
+Requires:       rust-srpm-macros = %{version}-%{release}
 
-%package     -n python3-rust2rpm-core
-Summary:        Generate RPM spec files for Rust packages (core functionality)
-Requires:       cargo
-Provides:       cargo-inspector = %{version}-%{release}
-
-%description -n python3-rust2rpm-core
-rust2rpm is a tool that automates the generation of RPM spec files for
-Rust crates.
-
-This package contains the core functionality which doesn't depend on
-any third-party python packages.
+%description -n cargo-rpm-macros
+RPM macros for building projects with cargo.
 
 %prep
-%autosetup -n rust2rpm-v%{version} -p1
-
-%generate_buildrequires
-%pyproject_buildrequires -t
+%autosetup -p1
 
 %build
-%pyproject_wheel
+# nothing to do
 
 %install
-%pyproject_install
+install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.cargo
+install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.rust
+install -D -p -m 0644 -t %{buildroot}/%{_rpmmacrodir} macros.d/macros.rust-srpm
+install -D -p -m 0644 -t %{buildroot}/%{_fileattrsdir} fileattrs/cargo.attr
 
-install -D -p -m 0644 -t %{buildroot}%{_rpmmacrodir} data/macros.rust data/macros.cargo
-install -D -p -m 0644 -t %{buildroot}%{_fileattrsdir} data/cargo.attr
-
-%if %{with check}
-%check
-%tox
-%endif
-
-%files
+%files -n rust-srpm-macros
+%license LICENSE
 %{_rpmmacrodir}/macros.rust
+%{_rpmmacrodir}/macros.rust-srpm
+
+%files -n cargo-rpm-macros
+%license LICENSE
 %{_rpmmacrodir}/macros.cargo
 %{_fileattrsdir}/cargo.attr
-
-%files -n python3-rust2rpm
-%{_bindir}/rust2rpm
-%{python3_sitelib}/rust2rpm-*.dist-info/
-%{python3_sitelib}/rust2rpm/
-%exclude %{python3_sitelib}/rust2rpm/core/
-
-%files -n python3-rust2rpm-core
-%license LICENSE
-%doc README.md NEWS
-%{_bindir}/cargo-inspector
-%{python3_sitelib}/rust2rpm/core/
 
 %changelog
 %autochangelog

@@ -46,7 +46,7 @@ Name: ovn
 Summary: Open Virtual Network support
 URL: http://www.openvswitch.org/
 Version: 22.12.0
-Release: 1%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
+Release: 25%{?commit0:.%{date}git%{shortcommit0}}%{?dist}
 Obsoletes: openvswitch-ovn-common < %{?epoch_ovs:%{epoch_ovs}:}2.11.0-8
 Provides: openvswitch-ovn-common = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -67,7 +67,7 @@ Source10: https://github.com/openvswitch/ovs/archive/%{ovscommit}.tar.gz#/openvs
 %define ovsdir ovs-%{ovscommit}
 
 # ovn-patches
-# Patch:     ovn.patch
+Patch:     ovn.patch
 
 # OpenvSwitch backports (400-) if required.
 # Address crpto policy for fedora
@@ -438,6 +438,73 @@ fi
 %{_unitdir}/ovn-controller-vtep.service
 
 %changelog
+* Thu Feb 16 2023 Numan Siddique <numans@ovn.org> - 22.12.0-25
+- Sync to upstream OVN branch-22.12. Below are the commits
+since last update (22.12.0-1)
+
+- lb: northd: Properly format IPv6 SB load balancer VIPs.
+[Upstream: 7053ae61267ebcb282d5ef18b5bd8f2f6c6c37e0]
+
+- system-test: Use OVS_WAIT_UNTIL for tcpdump start instead fo sleep
+[Upstream: d5273f929513458a569cdfb297bffd9922d44c01]
+
+- docs: fix the max number of ports per network for vxlan
+[Upstream: 4dfa4ba431ab634b6068f27e886a4d403d589c87]
+
+- ovn-nbctl: Fix documentation typo (#2168009)
+[Upstream: 0c44d7dbf4a013f08c79d5818e89a8f55ecd09e0]
+
+- northd: do not create flows for reserved multicast IPv6 groups (#2154930)
+[Upstream: 61e030ed59c2d2a1029866dce6769428e0abbc0c]
+
+- northd.c: Validate port type to avoid unexpected behavior.
+[Upstream: b67009fdb6312e95367183c65b439fd3b7a288bf]
+
+- Add the metalLB install flag for CI actions
+[Upstream: 65990b8398e8e7ff29c6d7e9903fd0cf7ef64965]
+
+- ovn-trace: Use the original ovnact for execute_load
+[Upstream: 4c78bef966927f4083b601a6a4f5fc76a839fd1a]
+
+- northd: Add logical flows to allow rpl/rel traffic in acl_after_lb stage. (#1947807)
+[Upstream: d6914efd53ac28a6e3da6e65f9e026674f05dc4c]
+
+- ovn-controller: Fix initial requested SNAT zone assignment. (#2160403)
+[Upstream: 17f1e9e0148e298b6ec525d5d6b149082a864dca]
+
+- northd: Drop packets destined to router owned NAT IP for DGP.
+[Upstream: 481f25b784896eec07fedc77631992a009bcdada]
+
+- northd: Add flag for CT related (#2126083)
+[Upstream: 2619f6a27aca2a5925e25297f75e6a925cf1eb6a]
+
+- tests: Fixed load balancing system-tests
+[Upstream: 1791a107debbaa474669a794b4d2a6dff4cb1dcb]
+
+- tests: Fixed flaky ACL fair Meters
+[Upstream: f9fb0bb4de4e7cb0a02fcb0794e226e6af8e8f5c]
+
+- northd: move hairpin stages before acl_after_lb (#2103086)
+[Upstream: 3723a6d6e39dcffc502e094ccc10a8d638fa5efa]
+
+- controller: Fix missing first ping from pod to external (#2129283)
+[Upstream: 7109f02b78f5087b5bae2885f153378e627d90f7]
+
+- controller: use packet proto for hairpin traffic learned action if not specified (#2157846)
+[Upstream: 588291528fc0568e7da402c05b596c6c855d2c5f]
+
+- .ci: ovn-kubernetes: Add a "prepare" stage to allow for custom actions.
+[Upstream: 29fb21e6ec0a1203e3f5b2bfff4c3ccea8df4d37]
+
+- build-aux/sodepends.py: Fix flake8 error.
+[Upstream: 1fd28ef34bef9b19ca350f15bd03e10265a911dc]
+
+- build-aux/sodepends.py: Fix broken build when manpage changes.
+[Upstream: 79edad8a1e547f4120ea3d20f08aafe1e40a6f65]
+
+- ovn-ic: Only monitor useful tables and columns.
+[Upstream: fdad33f2348f34b5fb886a5a3143d91f44021811]
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.0-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -59,8 +59,8 @@
 Summary: A Modern Concurrent Version Control System
 Name: subversion
 Version: 1.14.2
-Release: 13%{?dist}
-License: ASL 2.0
+Release: 14%{?dist}
+License: Apache-2.0
 URL: https://subversion.apache.org/
 Source0: https://downloads.apache.org/subversion/subversion-%{version}.tar.bz2
 Source1: subversion.conf
@@ -585,6 +585,9 @@ make check-javahl
 %endif
 
 %changelog
+* Thu Feb 16 2023 Richard Lescak <rlescak@redhat.com> - 1.14.2-14
+- SPDX migration
+
 * Fri Jan 27 2023 Richard Lescak <rlescak@redhat.com> - 1.14.2-13
 - add requirement for python3-setuptools with new Python 3.12 (#2155420)
 

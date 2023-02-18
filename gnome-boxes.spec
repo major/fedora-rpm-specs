@@ -35,7 +35,7 @@ ExclusiveArch: x86_64
 %global major_version %%(echo %%{tarball_version} | cut -d. -f1)
 
 Name:		gnome-boxes
-Version:	44~beta
+Version:	44~beta.1
 Release:	1%{?dist}
 Summary:	A simple GNOME 3 application to access remote or virtual systems
 
@@ -152,9 +152,12 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Boxes.deskt
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Boxes-symbolic.svg
 %{_datadir}/dbus-1/services/org.gnome.Boxes.SearchProvider.service
 %{_datadir}/dbus-1/services/org.gnome.Boxes.service
-%{_datadir}/metainfo/org.gnome.Boxes.appdata.xml
+%{_metainfodir}/org.gnome.Boxes.appdata.xml
 
 %changelog
+* Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta.1-1
+- Update to 44.beta.1
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

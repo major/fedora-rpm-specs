@@ -36,7 +36,10 @@ Patch:          rav1e-fix-metadata.diff
 Patch:          0001-remove-unused-hawktracer-usage.patch
 # * Backported patch to fix UB / crash in test code
 #   https://github.com/xiph/rav1e/commit/d56fe64:
-Patch:          0001-Fix-UB-in-pred_max-test.patch
+Patch:          0002-Fix-UB-in-pred_max-test.patch
+# * Disambiguate code which is ambiguous with Rust 1.67+ due to the
+#   stabilization of {integer}::ilog
+Patch:          0003-Disambiguate-ILog-ilog-calls-from-integer-ilog-from-.patch
 
 ExclusiveArch:  %{rust_arches}
 
@@ -542,7 +545,7 @@ echo "cargo-c"
 
 %build
 %cargo_build
-cargo cbuild --release \
+%__cargo cbuild --release \
     --destdir=%{buildroot} \
     --prefix=%{_prefix} \
     --libdir=%{_libdir} \
@@ -551,7 +554,7 @@ cargo cbuild --release \
 
 %install
 %cargo_install
-cargo cinstall --release \
+%__cargo cinstall --release \
     --destdir=%{buildroot} \
     --prefix=%{_prefix} \
     --libdir=%{_libdir} \

@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 65
+%global microversion 66
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -48,7 +48,7 @@
 %endif
 
 # Disabled for RHEL < 10 and Fedora < 36
-%if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?fedora} && 0%{?fedora} < 36)
+%if (0%{?rhel} && 0%{?rhel} < 10) || (0%{?fedora} && 0%{?fedora} < 36) || ("%{_arch}" == "s390x") || ("%{_arch}" == "ppc64le")
 %bcond_with libcamera_plugin
 %else
 %bcond_without libcamera_plugin
@@ -73,7 +73,6 @@ Source1:        https://gitlab.freedesktop.org/pipewire/media-session/-/archive/
 %endif
 
 ## upstream patches
-Patch0001:	0001-modules-also-install-module-combine-stream.patch
 
 ## upstreamable patches
 
@@ -131,6 +130,7 @@ BuildRequires:  openfec-devel
 BuildRequires:  libuv-devel
 BuildRequires:  speexdsp-devel
 BuildRequires:  sox-devel
+BuildRequires:  libmysofa-devel
 
 Requires(pre):  shadow-utils
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
@@ -471,6 +471,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_userunitdir}/filter-chain.*
 %{_bindir}/pipewire
 %{_bindir}/pipewire-avb
+%{_bindir}/pipewire-aes67
 %{_mandir}/man1/pipewire.1*
 %dir %{_datadir}/pipewire/
 %{_datadir}/pipewire/pipewire.conf
@@ -478,7 +479,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_datadir}/pipewire/filter-chain.conf
 %{_datadir}/pipewire/filter-chain/*.conf
 %{_datadir}/pipewire/pipewire-avb.conf
+%{_datadir}/pipewire/pipewire-aes67.conf
 %{_mandir}/man5/pipewire.conf.5*
+%config(noreplace) %{_sysconfdir}/security/limits.d/*.conf
 
 %if %{with media_session}
 %files media-session -f media-session.lang
@@ -667,6 +670,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu Feb 16 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.66-1
+- Update version to 0.3.66
+
 * Sat Jan 28 2023 Stefan Bluhm <stefan.bluhm@clacee.eu> - 0.3.65-3
 - Added missing build dependency
 

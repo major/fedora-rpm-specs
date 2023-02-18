@@ -5,7 +5,7 @@
 %global crate nu-parser
 
 Name:           rust-nu-parser
-Version:        0.74.0
+Version:        0.75.0
 Release:        %autorelease
 Summary:        Nushell's parser
 

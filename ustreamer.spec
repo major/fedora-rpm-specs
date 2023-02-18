@@ -1,6 +1,6 @@
 Name: ustreamer
-Version: 5.36
-Release: 2%{?dist}
+Version: 5.37
+Release: 1%{?dist}
 Summary: Lightweight and fast MJPG-HTTP streamer
 License: GPL-3.0-or-later
 URL: https://github.com/pikvm/ustreamer
@@ -61,6 +61,9 @@ Python 3 bindings for %{name}.
 %{python3_sitearch}/%{name}*
 
 %changelog
+* Thu Feb 16 2023 Tao Jin <tao-j@outlook.com> - 5.37-1
+- Update to 5.37
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.36-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

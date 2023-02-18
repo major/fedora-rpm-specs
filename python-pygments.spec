@@ -1,13 +1,14 @@
 # when bootstrapping, we cannot yet use sphinx and pytest
-%bcond_without docs
-%bcond_without tests
+# on RHEL, we don't need to build the documentation
+%bcond docs %{undefined rhel}
+%bcond tests 1
 
 Name:           python-pygments
-Version:        2.13.0
+Version:        2.14.0
 Release:        2%{?dist}
 Summary:        Syntax highlighting engine written in Python
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://pygments.org/
 Source0:        %{pypi_source Pygments}
 
@@ -18,13 +19,17 @@ BuildRequires:  pyproject-rpm-macros
 %if %{with tests}
 BuildRequires:  python%{python3_pkgversion}-pytest
 BuildRequires:  python%{python3_pkgversion}-lxml
+%if %{undefined rhel}
+# this is only used in tests.contrast.test_contrasts
+# to avoid pulling this package into RHEL, the test is ignored in %%check
+BuildRequires:  python%{python3_pkgversion}-wcag-contrast-ratio
+%endif
 %endif
 %if %{with docs}
-BuildRequires:  python%{python3_pkgversion}-sphinx
-%endif
-%if %{with docs} || %{with tests}
-BuildRequires:  python%{python3_pkgversion}-wcag-contrast-ratio
 BuildRequires:  make
+BuildRequires:  python%{python3_pkgversion}-sphinx
+# the sphinx config imports tests.contrast.test_contrasts:
+BuildRequires:  python%{python3_pkgversion}-wcag-contrast-ratio
 %endif
 
 
@@ -68,32 +73,38 @@ Provides:       pygmentize = %{?epoch:%{epoch}:}%{version}-%{release}
 %pyproject_install
 %pyproject_save_files pygments
 
+install doc/pygmentize.1 -Dt %{buildroot}%{_mandir}/man1/
+
 %if %{with docs}
 %make_build -C doc html
 rm doc/_build/html/.buildinfo
 rm -rf doc/_build/html/_sources
-install doc/pygmentize.1 -Dt %{buildroot}%{_mandir}/man1/
 chmod -x %{buildroot}%{_mandir}/man1/*.1
 %endif
 
 
 %if %{with tests}
 %check
-make test PYTHON=%{python3}
+%pytest %{?rhel:--ignore tests/contrast/test_contrasts.py}
 %endif
 
 
 %files -n python%{python3_pkgversion}-pygments -f %{pyproject_files}
 %doc AUTHORS CHANGES
+%{?with_docs:%doc doc/_build/html}
 %license LICENSE
 %{_bindir}/pygmentize
-%if %{with docs}
 %lang(en) %{_mandir}/man1/pygmentize.1*
-%doc doc/_build/html
-%endif
 
 
 %changelog
+* Thu Feb 16 2023 Miro Hrončok <mhroncok@redhat.com> - 2.14.0-2
+- Don't build the documentation (and drop undesired dependencies) in Fedora ELN
+
+* Mon Jan 30 2023 Parag Nemade <pnemade AT redhat DOT com> - 2.14.0-1
+- Update to 2.14.0 (#2157264)
+- Update license tag to SPDX expression
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

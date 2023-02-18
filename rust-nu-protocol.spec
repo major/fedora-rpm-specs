@@ -5,17 +5,13 @@
 %global crate nu-protocol
 
 Name:           rust-nu-protocol
-Version:        0.74.0
+Version:        0.75.0
 Release:        %autorelease
 Summary:        Nushell's internal protocols, including its abstract syntax tree
 
 License:        MIT
 URL:            https://crates.io/crates/nu-protocol
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump fancy-regex to 0.11.0
-# * bump lru to 0.9.0
-Patch:          nu-protocol-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

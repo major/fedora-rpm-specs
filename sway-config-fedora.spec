@@ -2,7 +2,7 @@
 %global sway_ver 1.7
 
 Name:           sway-config-fedora
-Version:        0.1.2
+Version:        0.1.3
 Release:        %autorelease
 Summary:        Fedora Sway Spin configuration for Sway
 

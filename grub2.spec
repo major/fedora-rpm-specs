@@ -17,7 +17,7 @@
 Name:		grub2
 Epoch:		1
 Version:	2.06
-Release:	86%{?dist}
+Release:	87%{?dist}
 Summary:	Bootloader with support for Linux, Multiboot and more
 License:	GPLv3+
 URL:		http://www.gnu.org/software/grub/
@@ -544,6 +544,9 @@ mv ${EFI_HOME}/grub.cfg.stb ${EFI_HOME}/grub.cfg
 %endif
 
 %changelog
+* Thu Feb 16 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-87
+- Fix disk sector size computation
+
 * Fri Feb 10 2023 Robbie Harwood <rharwood@redhat.com> - 2.06-86
 - Override the linker and force nonexecutable stacks
 

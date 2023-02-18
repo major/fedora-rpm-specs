@@ -8,7 +8,7 @@
 
 Name:           budgie-desktop
 Version:        10.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A feature-rich, modern desktop designed to keep out the way of the user
 
 License:        GPLv2 and LGPLv2
@@ -16,6 +16,9 @@ URL:            https://github.com/BuddiesOfBudgie/budgie-desktop
 Source0:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz
 Source1:        %{url}/releases/download/v%{version}/%{name}-v%{version}.tar.xz.asc
 Source2:        https://joshuastrobl.com/pubkey.gpg
+
+# Mutter 12 support until Budgie 10.7.1 is released
+Patch0:         0001-Introduce-mutter-12-support.patch
 
 BuildRequires:  pkgconfig(accountsservice) >= 0.6.55
 BuildRequires:  pkgconfig(alsa) >= 1.2.6
@@ -44,6 +47,7 @@ BuildRequires:  budgie-screensaver
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
+BuildRequires:  git
 BuildRequires:  gnome-menus-devel >= 3.36
 BuildRequires:  gnupg2
 BuildRequires:  gsettings-desktop-schemas >= %{gsettings_desktop_schemas_version}
@@ -101,7 +105,7 @@ Documentation for budgie-desktop
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -S git
 
 %build
 %meson -Dwith-hibernate=false
@@ -182,6 +186,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/%{name}/*
 
 %changelog
+* Thu Feb 16 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7-2
+- Add preliminary mutter 12 ABI support patch
+
 * Sun Jan 29 2023 Joshua Strobl <me@joshuastrobl.com> - 10.7-1
 - Update to 10.7 release
 

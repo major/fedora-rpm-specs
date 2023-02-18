@@ -7,8 +7,8 @@
 %global _hardened_build 1
 
 Name:           haproxy
-Version:        2.7.0
-Release:        2%{?dist}
+Version:        2.7.3
+Release:        1%{?dist}
 Summary:        HAProxy reverse proxy for high availability environments
 
 License:        GPLv2+
@@ -127,6 +127,11 @@ done
 %{_sysusersdir}/%{name}.conf
 
 %changelog
+* Wed Feb 15 2023 Ryan O'Hara <rohara@redhat.com> - 2.7.3-1
+- Update to 2.7.3 (#2154925)
+- Reject invalid response header (CVE-2023-0056, #2161138)
+- Fix request smuggling attack (CVE-2023-25725, #2169823)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -31,7 +31,8 @@ Patch3: tbb-2019-test-task-scheduler-init.patch
 # exported symbols
 Patch4: tbb-mark-empty_task-execute-with-gnu-used.patch
 
-# Fix "error: declaration of 'tbb::task& tbb::internal::task_prefix::task()' changes meaning of 'task' [-fpermissive]"
+# https://bugzilla.redhat.com/show_bug.cgi?id=2161412
+# https://github.com/oneapi-src/oneTBB/pull/833
 Patch5: tbb-2020-task-namespace.patch
 
 BuildRequires: cmake

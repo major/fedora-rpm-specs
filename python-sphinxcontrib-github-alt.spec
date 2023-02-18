@@ -1,68 +1,67 @@
 Name:           python-sphinxcontrib-github-alt
 Version:        1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Link to GitHub issues, pull requests, commits and users from Sphinx docs
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/jupyter/sphinxcontrib_github_alt
-Source0:        %pypi_source sphinxcontrib_github_alt
+Source:         %{pypi_source sphinxcontrib_github_alt}
 
 BuildArch:      noarch
 
-BuildRequires:  python3-pip
 BuildRequires:  python3-devel
-BuildRequires:  python3-flit
-# for flit to analyze the README:
-BuildRequires:  python3-pygments
 
-%global _description \
-Link to GitHub issues, pull requests, commits and users for a particular \
-project. \
-It's called 'alt' because sphinxcontrib-github already exists. IPython & \
-Jupyter projects have been using the syntax defined in this extension for \
-some time before we made it into its own package, so we didn't want to \
-switch to sphinxcontrib-github.
+%global _description %{expand:
+Link to GitHub issues, pull requests, commits and users for a particular
+project.
+It's called 'alt' because sphinxcontrib-github already exists. IPython &
+Jupyter projects have been using the syntax defined in this extension for
+some time before we made it into its own package, so we didn't want to
+switch to sphinxcontrib-github.}
 
 %description %_description
 
 
 %package -n     python3-sphinxcontrib-github-alt
-Summary:        %summary
-Provides:       python3-sphinxcontrib_github_alt = %{version}-%{release}
-%{?python_provide:%python_provide python3-sphinxcontrib-github-alt}
-%{?python_provide:%python_provide python3-sphinxcontrib_github_alt}
+Summary:        %{summary}
+%py_provides python3-sphinxcontrib_github_alt
 
-%description -n python3-sphinxcontrib-github-alt
-
-%_description
+%description -n python3-sphinxcontrib-github-alt %_description
 
 
 %prep
 %autosetup -n sphinxcontrib_github_alt-%{version}
 
 
+%generate_buildrequires
+%pyproject_buildrequires
+
+
 %build
-# this package has no setup.py, it uses flit
-export FLIT_NO_NETWORK=1
-flit build --format wheel
+%pyproject_wheel
 
 
 %install
-# We install the wheel created at %%build
-%py3_install_wheel sphinxcontrib_github_alt-%{version}-py2.py3-none-any.whl 
+%pyproject_install
+%pyproject_save_files sphinxcontrib_github_alt
 
 
-# no tests, no %%check
+%check
+# there are no tests upstream
+%pyproject_check_import
 
 
-%files -n python3-sphinxcontrib-github-alt
+%files -n python3-sphinxcontrib-github-alt -f %{pyproject_files}
 %doc README.rst
 %license COPYING.md
-%{python3_sitelib}/sphinxcontrib_github_alt-%{version}.dist-info/
-%{python3_sitelib}/sphinxcontrib_github_alt.py
-%{python3_sitelib}/__pycache__/sphinxcontrib_github_alt*
 
 
 %changelog
+* Mon Feb 13 2023 Miro Hrončok <mhroncok@redhat.com> - 1.2-10
+- Convert to pyproject-rpm-macros
+- The INSTALLER file now says "rpm" instead of "pip"
+- Run basic import check during the build
+- Use a SPDX license identifier in the License tag
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

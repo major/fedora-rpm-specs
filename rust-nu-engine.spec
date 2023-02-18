@@ -5,15 +5,13 @@
 %global crate nu-engine
 
 Name:           rust-nu-engine
-Version:        0.74.0
+Version:        0.75.0
 Release:        %autorelease
 Summary:        Nushell's evaluation engine
 
 License:        MIT
 URL:            https://crates.io/crates/nu-engine
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-Patch:          nu-engine-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

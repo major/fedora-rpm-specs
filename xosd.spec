@@ -18,28 +18,27 @@ Summary:        On-screen display library for X
 # src/xmms_plugin/dlg_font.c:   GPL-2.0-or-later
 # src/xmms_plugin/xmms_osd.c:   GPL-2.0-or-later
 ## Not in any binary package
-# aclocal.m4:   FSFULLR AND GPL-2.0-or-later WITH an exception
+# aclocal.m4:   FSFULLR AND GPL-2.0-or-later WITH Autoconf-exception-generic
 #               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 #               AND GPL-2.0-or-later
-# config.guess: GPL-2.0-or-later WITH an exception (under review
+# config.guess: GPL-2.0-or-later WITH Autoconf-exception-generic (under review
 #               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
-# config.sub:   GPL-2.0-or-later WITH an exception
+# config.sub:   GPL-2.0-or-later WITH Autoconf-exception-generic
 #               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
-# configure:    FSFUL AND GPL-2.0-or-later WITH an exception
+# configure:    FSFUL AND GPL-2.0-or-later WITH Autoconf-exception-generic
 #               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
-# depcomp:      GPL-2.0-or-laterWITH an exception
+# depcomp:      GPL-2.0-or-later WITH Autoconf-exception-generic
 #               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # INSTALL:      FSFUL
-# install-sh:   HPND-sell-variant-like (waiting on an identifier
-#               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/63>)
-# ltconfig:     GPL-2.0-or-later WITH an exception
+# install-sh:   HPND-sell-variant
+# ltconfig:     GPL-2.0-or-later WITH Autoconf-exception-generic
 #               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
-# ltmain.sh:    GPL-2.0-or-later WITH an exception
+# ltmain.sh:    GPL-2.0-or-later WITH Autoconf-exception-generic
 #               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # macros/Makefile.in:   FSFULLR
 # Makefile.in:  FSFULLR
 # man/Makefile.in:      FSFULLR
-# missing:      GPL-2.0-or-later WITH an exception
+# missing:      GPL-2.0-or-later WITH Autoconf-exception-generic
 #               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # pixmaps/Makefile.in:  FSFULLR
 # script/Makefile.in:   FSFULLR

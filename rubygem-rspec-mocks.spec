@@ -1,9 +1,9 @@
-%global	majorver	3.12.0
+%global	majorver	3.12.3
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	3
+%global	fedorarel	1
 
 %global	gem_name	rspec-mocks
 
@@ -14,7 +14,7 @@
 Summary:	RSpec's 'test double' framework (mocks and stubs)
 Name:		rubygem-%{gem_name}
 Version:	%{majorver}
-Release:	%{?preminorver:0.}%{fedorarel}%{?preminorver:%{rpmminorver}}%{?dist}.1
+Release:	%{?preminorver:0.}%{fedorarel}%{?preminorver:%{rpmminorver}}%{?dist}
 
 License:	MIT
 URL:		http://github.com/rspec/rspec-mocks
@@ -28,8 +28,6 @@ Patch1:    rubygem-rspec-mocks-3.12.0-display_keyword_hashes.patch
 # ... and related to the above, and commit 66250dc1819f9435e5f584064067e7f05a9afe72
 Patch2:    rubygem-rspec-mocks-3.12.0-display_keyword_hashes-additional.patch
 # https://github.com/rspec/rspec-mocks/pull/1502
-# Fixup argument forwarding on ruby-3.2
-Patch3:	rubygem-rspec-mocks-3.12.0-fixup-argument-forwarding-ruby32.patch
 
 #BuildRequires:	ruby(release)
 BuildRequires:	rubygems-devel
@@ -67,7 +65,6 @@ gem unpack %{SOURCE0}
 %patch1 -p1 -R
 %patch2 -p1 -R
 %endif
-%patch3 -p1
 
 # Cucumber 7 syntax change
 sed -i cucumber.yml -e "s|~@wip|not @wip|"
@@ -113,6 +110,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Thu Feb 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.3-1
+- 3.12.3
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.12.0-3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,11 +2,11 @@
 %global major_version %%(echo %%{tarball_version} | awk -F. '{print $1}')
 
 Name:           gnome-font-viewer
-Version:        43.0
-Release:        2%{?dist}
+Version:        44~beta
+Release:        1%{?dist}
 Summary:        Utility for previewing fonts for GNOME
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-font-viewer
 Source0:        https://download.gnome.org/sources/gnome-font-viewer/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
@@ -53,10 +53,13 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_datadir}/dbus-1/services/org.gnome.font-viewer.service
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.font-viewer.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.font-viewer-symbolic.svg
-%{_datadir}/metainfo/org.gnome.font-viewer.appdata.xml
 %{_datadir}/thumbnailers/%{name}.thumbnailer
+%{_metainfodir}/org.gnome.font-viewer.appdata.xml
 
 %changelog
+* Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

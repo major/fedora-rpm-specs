@@ -12,7 +12,6 @@ Source0:        https://github.com/cobbler/koan/archive/v%{version}/%{name}-%{ve
 
 BuildArch:      noarch
 
-BuildRequires:  /usr/bin/pathfix.py
 Requires:       python%{python3_pkgversion}-koan = %{version}-%{release}
 
 %description
@@ -40,7 +39,7 @@ koan python%{python3_pkgversion} module.
 
 %prep
 %autosetup -p1
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" bin
+%py3_shebang_fix bin
 
 %build
 %py3_build

@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -125,7 +125,7 @@ URL: https://sourceware.org/binutils
 %endif
 
 # GprofNG currenly onlly supports the x86 and AArch64 architectures.
-%ifnarch %{ix86} x86_64 aarch64
+%ifnarch x86_64 aarch64
 %undefine with_gprofng
 %endif
 
@@ -181,14 +181,16 @@ Patch03: binutils-export-demangle.h.patch
 #           order.
 Patch04: binutils-no-config-h-check.patch
 
-# Purpose:  Include the filename concerned in readelf error messages.  This
-#           makes readelf's output more helpful when it is run on multiple
-#           input files.
+# Purpose:  Include the filename concerned in readelf error and warning
+#           messages.  This helps when readelf is run with multiple
+#           input files or when multiple instances of readelf are
+#           running at the same time. 
 # Lifetime: Permanent.  This patch changes the format of readelf's output,
 #           making it better (IMHO) but also potentially breaking tools that
-#           depend upon readelf's current format.  Hence it remains a local
-#           patch.
-Patch05: binutils-filename-in-error-messages.patch
+#           depend upon readelf's current output format.  cf/ Patch07.
+#           It also tends to break parts of the binutils own
+#           testsuite.  Hence the patch remains local for now.
+Patch05: binutils-filename-in-readelf-messages.patch
 
 # Purpose:  Disable an x86/x86_64 optimization that moves functions from the
 #           PLT into the GOTPLT for faster access.  This optimization is
@@ -200,7 +202,7 @@ Patch06: binutils-revert-PLT-elision.patch
 
 # Purpose:  Changes readelf so that when it displays extra information about
 #           a symbol, this information is placed at the end of the line.
-# Lifetime: Permanent.
+# Lifetime: Permanent.  cf/ Patch05.
 # FIXME:    The proper fix would be to update the scripts that are expecting
 #           a fixed output from readelf.  But it seems that some of them are
 #           no longer being maintained.
@@ -1164,8 +1166,6 @@ exit 0
 %{_infodir}/gprofng.info.*
 %dir %{_libdir}/gprofng
 %{_libdir}/gprofng/*
-%dir %{_exec_prefix}/lib/debug/%{_libdir}/gprofng
-%{_exec_prefix}/lib/debug/%{_libdir}/gprofng/libgp*
 %{_prefix}%{_sysconfdir}/gprofng.rc
 %endif
 
@@ -1199,6 +1199,10 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Thu Feb 16 2023 Nick Clifton  <nickc@redhat.com> - 2.40-2
+- Spec file: Remove duplicate gprofng debug file entries.
+- Spec file: Fix testsuite failures for RiscV64.
+
 * Mon Feb 13 2023 Nick Clifton  <nickc@redhat.com> - 2.40-1
 - Rebase to 2.40.
 - Retire: binutils-package-metadata.patch

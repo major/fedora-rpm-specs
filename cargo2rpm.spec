@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           cargo2rpm
-Version:        0.1.1
+Version:        0.1.2
 Release:        %autorelease
 Summary:        Translation layer between cargo and RPM
 License:        MIT
@@ -21,29 +21,28 @@ provides a CLI interface (for implementing RPM macros and generators)
 and a Python API (which rust2rpm is built upon).
 
 %prep
-%autosetup -n cargo2rpm-%{version} -p1
+%autosetup -p1
 
 %generate_buildrequires
-%pyproject_buildrequires -t
+%pyproject_buildrequires %{?with_check:-t}
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
+%pyproject_save_files cargo2rpm
 
 %check
+%pyproject_check_import
 %if %{with check}
 %tox
 %endif
 
-%files
-%license LICENSE
+%files -f %{pyproject_files}
 %doc README.md
 %doc CHANGELOG.md
 %{_bindir}/cargo2rpm
-%{python3_sitelib}/cargo2rpm-*.dist-info/
-%{python3_sitelib}/cargo2rpm/
 
 %changelog
 %autochangelog

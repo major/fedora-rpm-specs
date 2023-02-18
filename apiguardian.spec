@@ -2,7 +2,7 @@
 
 Name:           apiguardian
 Version:        1.1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        API Guardian Java annotation
 License:        ASL 2.0
 URL:            https://github.com/apiguardian-team/apiguardian
@@ -37,6 +37,8 @@ API documentation for %{name}.
 find -name \*.jar -delete
 cp -p %{SOURCE100} pom.xml
 
+mv src/module/java/* src/main/java
+
 # Inject OSGi manifest required by Eclipse
 %pom_xpath_inject pom:project "
   <build>
@@ -47,7 +49,6 @@ cp -p %{SOURCE100} pom.xml
           <configuration>
             <archive>
               <manifestEntries>
-                <Automatic-Module-Name>org.apiguardian.api</Automatic-Module-Name>
                 <Implementation-Title>apiguardian-api</Implementation-Title>
                 <Implementation-Vendor>apiguardian.org</Implementation-Vendor>
                 <Implementation-Version>%{version}</Implementation-Version>
@@ -63,12 +64,42 @@ cp -p %{SOURCE100} pom.xml
             </archive>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <executions>
+            <execution>
+              <id>default-compile</id>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <configuration>
+                <release>8</release>
+                <excludes>
+                  <exclude>**/module-info.java</exclude>
+                </excludes>
+              </configuration>
+            </execution>
+            <execution>
+              <id>module-info</id>
+              <goals>
+                <goal>compile</goal>
+              </goals>
+              <configuration>
+                <release>9</release>
+                <includes>
+                  <include>**/module-info.java</include>
+                </includes>
+              </configuration>
+            </execution>
+          </executions>
+        </plugin>
       </plugins>
     </pluginManagement>
   </build>"
 
 %build
-%mvn_build -- -Dmaven.compiler.source=1.7 -Dmaven.compiler.target=1.7
+%mvn_build
 
 %install
 %mvn_install
@@ -80,6 +111,9 @@ cp -p %{SOURCE100} pom.xml
 %license LICENSE
 
 %changelog
+* Wed Feb 15 2023 Marian Koncek <mkoncek@redhat.com> - 1.1.2-6
+- Build with module-info
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

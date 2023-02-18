@@ -22,7 +22,9 @@ BuildRequires:  pkgconfig(gtk+-3.0)
 BuildRequires:  pkgconfig(gudev-1.0)
 BuildRequires:  pkgconfig(libhandy-1)
 BuildRequires:  pkgconfig(libwebpmux)
+%if ! 0%{?flatpak}
 BuildRequires:  pkgconfig(packagekit-glib2)
+%endif
 BuildRequires:  pkgconfig(zlib)
 
 Requires:       xdg-utils

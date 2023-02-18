@@ -12,21 +12,16 @@ sha256sum:close()
 print(string.sub(hash, 0, 16))
 }
 
+%global with_srp 0%{?fedora} < 38
+
 %global with_mingw 0
 %if 0%{?fedora}
 %global with_mingw 0%{!?_without_mingw:1}
 %endif 
 
-Version: 3.7.8
+Version: 3.8.0
 Release: %{?autorelease}%{!?autorelease:1%{?dist}}
-Patch: gnutls-3.7.8-gcc_analyzer-suppress_warnings.patch
 Patch: gnutls-3.2.7-rpath.patch
-Patch: gnutls-3.6.7-no-now-guile.patch
-
-Patch: gnutls-3.7.8-ktls_key_update.patch
-Patch: gnutls-3.7.8-ktls_add_ciphersuites.patch
-Patch: gnutls-3.7.8-ktls_minor_fixes.patch
-Patch: gnutls-3.7.8-ktls_invalidate_session.patch
 
 # Delete only after the kernel has been patched for thested systems
 Patch: gnutls-3.7.8-ktls_disable_keyupdate_test.patch
@@ -36,13 +31,7 @@ Patch: gnutls-3.7.8-ktls_skip_tls12_chachapoly_test.patch
 
 %bcond_without bootstrap
 %bcond_without dane
-%if 0%{?rhel}
-%bcond_with guile
 %bcond_without fips
-%else
-%bcond_without guile
-%bcond_without fips
-%endif
 %bcond_with tpm12
 %bcond_without tpm2
 %bcond_without gost
@@ -86,9 +75,6 @@ Recommends: trousers >= 0.3.11.2
 
 %if %{with dane}
 BuildRequires: unbound-devel unbound-libs
-%endif
-%if %{with guile}
-BuildRequires: guile22-devel
 %endif
 BuildRequires: make gtk-doc
 
@@ -147,13 +133,6 @@ Summary: A DANE protocol implementation for GnuTLS
 Requires: %{name}%{?_isa} = %{version}-%{release}
 %endif
 
-%if %{with guile}
-%package guile
-Summary: Guile bindings for the GNUTLS library
-Requires: %{name}%{?_isa} = %{version}-%{release}
-Requires: guile22
-%endif
-
 %description
 GnuTLS is a secure communications library implementing the SSL, TLS and DTLS 
 protocols and technologies around them. It provides a simple C language 
@@ -195,16 +174,6 @@ protocols as well as APIs to parse and write X.509, PKCS #12, OpenPGP and
 other required structures. 
 This package contains library that implements the DANE protocol for verifying
 TLS certificates through DNSSEC.
-%endif
-
-%if %{with guile}
-%description guile
-GnuTLS is a secure communications library implementing the SSL, TLS and DTLS 
-protocols and technologies around them. It provides a simple C language 
-application programming interface (API) to access the secure communications 
-protocols as well as APIs to parse and write X.509, PKCS #12, OpenPGP and 
-other required structures. 
-This package contains Guile bindings for the library.
 %endif
 
 %if %{with_mingw}
@@ -251,15 +220,6 @@ echo "SYSTEM=NORMAL" >> tests/system.prio
 CCASFLAGS="$CCASFLAGS -Wa,--generate-missing-build-notes=yes"
 export CCASFLAGS
 
-%if %{with guile}
-# These should be checked by m4/guile.m4 instead of configure.ac
-# taking into account of _guile_suffix
-guile_snarf=%{_bindir}/guile-snarf2.2
-export guile_snarf
-GUILD=%{_bindir}/guild2.2
-export GUILD
-%endif
-
 %if %{with fips}
 eval $(sed -n 's/^\(\(NAME\|VERSION_ID\)=.*\)/OS_\1/p' /etc/os-release)
 export FIPS_MODULE_NAME="$OS_NAME ${OS_VERSION_ID%%.*} %name"
@@ -279,6 +239,9 @@ pushd native_build
 %else
 	   --disable-gost \
 %endif
+%if %{with_srp}
+           --enable-srp-authentication \
+%endif
 	   --enable-sha1-support \
            --disable-static \
            --disable-openssl-compatibility \
@@ -297,12 +260,6 @@ pushd native_build
 %endif
            --enable-ktls \
            --htmldir=%{_docdir}/manual \
-%if %{with guile}
-           --enable-guile \
-           --with-guile-extension-dir=%{_libdir}/guile/2.2 \
-%else
-           --disable-guile \
-%endif
 %if %{with dane}
            --with-unbound-root-key-file=/var/lib/unbound/root.key \
            --enable-libdane \
@@ -324,11 +281,13 @@ popd
 # MinGW does not support CCASFLAGS
 export CCASFLAGS=""
 %mingw_configure \
+%if %{with_srp}
+    --enable-srp-authentication \
+%endif
     --enable-sha1-support \
     --disable-static \
     --disable-openssl-compatibility \
     --disable-non-suiteb-curves \
-    --disable-guile \
     --disable-libdane \
     --disable-rpath \
     --disable-nls \
@@ -348,8 +307,6 @@ pushd native_build
 make -C doc install-html DESTDIR=$RPM_BUILD_ROOT
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
-rm -f $RPM_BUILD_ROOT%{_libdir}/guile/2.2/guile-gnutls*.a
-rm -f $RPM_BUILD_ROOT%{_libdir}/guile/2.2/guile-gnutls*.la
 %if %{without dane}
 rm -f $RPM_BUILD_ROOT%{_libdir}/pkgconfig/gnutls-dane.pc
 %endif
@@ -358,8 +315,10 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/pkgconfig/gnutls-dane.pc
 # doing it twice should be a no-op the second time,
 # and this way we avoid redefining it and missing a future change
 %{__spec_install_post}
-./lib/fipshmac "$RPM_BUILD_ROOT%{_libdir}/libgnutls.so.30" > $RPM_BUILD_ROOT%{_libdir}/.gnutls.hmac
-sed -i "s^$RPM_BUILD_ROOT/usr^^" $RPM_BUILD_ROOT%{_libdir}/.gnutls.hmac
+fname=`basename $RPM_BUILD_ROOT%{_libdir}/libgnutls.so.30.*.*`
+./lib/fipshmac "$RPM_BUILD_ROOT%{_libdir}/libgnutls.so.30" > "$RPM_BUILD_ROOT%{_libdir}/.$fname.hmac"
+sed -i "s^$RPM_BUILD_ROOT/usr^^" "$RPM_BUILD_ROOT%{_libdir}/.$fname.hmac"
+ln -s ".$fname.hmac" "$RPM_BUILD_ROOT%{_libdir}/.libgnutls.so.30.hmac"
 %endif
 
 %if %{with fips}
@@ -412,7 +371,7 @@ popd
 %files -f native_build/gnutls.lang
 %{_libdir}/libgnutls.so.30*
 %if %{with fips}
-%{_libdir}/.gnutls.hmac
+%{_libdir}/.libgnutls.so.30*.hmac
 %endif
 %doc README.md AUTHORS NEWS THANKS
 %license LICENSE doc/COPYING doc/COPYING.LESSER
@@ -438,7 +397,9 @@ popd
 %{_bindir}/ocsptool
 %{_bindir}/psktool
 %{_bindir}/p11tool
+%if %{with_srp}
 %{_bindir}/srptool
+%endif
 %if %{with dane}
 %{_bindir}/danetool
 %endif
@@ -449,15 +410,6 @@ popd
 %if %{with dane}
 %files dane
 %{_libdir}/libgnutls-dane.so.*
-%endif
-
-%if %{with guile}
-%files guile
-%{_libdir}/guile/2.2/guile-gnutls*.so*
-%{_libdir}/guile/2.2/site-ccache/gnutls.go
-%{_libdir}/guile/2.2/site-ccache/gnutls/extra.go
-%{_datadir}/guile/site/2.2/gnutls.scm
-%{_datadir}/guile/site/2.2/gnutls/extra.scm
 %endif
 
 %if %{with_mingw}
@@ -471,7 +423,9 @@ popd
 %{mingw32_bindir}/ocsptool.exe
 %{mingw32_bindir}/p11tool.exe
 %{mingw32_bindir}/psktool.exe
+%if %{with_srp}
 %{mingw32_bindir}/srptool.exe
+%endif
 %{mingw32_libdir}/libgnutls.dll.a
 %{mingw32_libdir}/libgnutls-30.def
 %{mingw32_libdir}/pkgconfig/gnutls.pc
@@ -487,7 +441,9 @@ popd
 %{mingw64_bindir}/ocsptool.exe
 %{mingw64_bindir}/p11tool.exe
 %{mingw64_bindir}/psktool.exe
+%if %{with_srp}
 %{mingw64_bindir}/srptool.exe
+%endif
 %{mingw64_libdir}/libgnutls.dll.a
 %{mingw64_libdir}/libgnutls-30.def
 %{mingw64_libdir}/pkgconfig/gnutls.pc

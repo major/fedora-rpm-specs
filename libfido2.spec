@@ -1,7 +1,7 @@
 Name:           libfido2
 
 Version:        1.12.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -88,6 +88,9 @@ find %{buildroot} -type f -name "*.a" -delete -print
 
 
 %changelog
+* Fri Feb 10 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.12.0-4
+- Move keyring to SCM per packaging guidelines
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

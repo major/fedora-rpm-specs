@@ -1,9 +1,9 @@
 Name:           powerpc-utils
 Version:        1.3.11
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PERL-based scripts for maintaining and servicing PowerPC systems
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/ibm-power-utilities/powerpc-utils
 Source0:        https://github.com/ibm-power-utilities/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        nx-gzip.udev
@@ -199,6 +199,9 @@ systemctl enable hcn-init.service >/dev/null 2>&1 || :
 
 
 %changelog
+* Thu Feb 16 2023 Than Ngo <than@redhat.com> - 1.3.11-2
+- migrated to SPDX license
+
 * Tue Jan 24 2023 Than Ngo <than@redhat.com> - 1.3.11-1
 - update to 1.3.11
 

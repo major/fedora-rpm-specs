@@ -15,8 +15,8 @@
 %global __python %{__python3}
 
 Name:           cinnamon
-Version:        5.6.5
-Release:        2%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
+Version:        5.6.7
+Release:        1%{!?tag:.%{date}git%{shortcommit0}}%{?dist}
 Summary:        Window management and application launching for GNOME
 License:        GPLv2+ and LGPLv2+
 URL:            https://github.com/linuxmint/%{name}
@@ -329,6 +329,9 @@ EOF
 %endif
 
 %changelog
+* Thu Feb 16 2023 Leigh Scott <leigh123linux@gmail.com> - 5.6.7-1
+- Update to 5.6.7 release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

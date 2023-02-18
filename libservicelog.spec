@@ -1,10 +1,11 @@
 Name:          libservicelog
 Version:       1.1.19
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       Servicelog Database and Library
 
 #v29_notify_gram.c v29_notify_gram.h are GPLv2+
-License:       LGPLv2 and GPLv2+
+License:       LGPL-2.0-only AND GPL-2.0-or-later
+
 URL:           https://github.com/power-ras/%{name}/releases
 Source:        https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -77,6 +78,9 @@ getent group service >/dev/null || /usr/sbin/groupadd -r service
 
 
 %changelog
+* Thu Feb 16 2023 Than Ngo <than@redhat.com> - 1.1.19-6
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.19-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

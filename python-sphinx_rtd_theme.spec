@@ -25,10 +25,6 @@ BuildRequires:  font(lato)
 BuildRequires:  font(robotoslab)
 BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 %if %{without bootstrap}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist sphinx}
@@ -124,6 +120,9 @@ popd
 mkdir -p build/lib/%{srcname}/static/js
 cp -p sphinx_rtd_theme/static/js/badge_only.js build/lib/%{srcname}/static/js
 cp -p sphinx_rtd_theme/static/js/theme.js build/lib/%{srcname}/static/js
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

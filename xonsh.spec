@@ -1,6 +1,6 @@
 Name:           xonsh
 Version:        0.13.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A general purpose, Python-ish shell
 
 # xonsh is BSD-2-Clause.
@@ -11,6 +11,9 @@ Source0:        %pypi_source
 BuildArch:      noarch
 
 Patch1: 0001-Do-not-use-custom-xinstall.patch
+
+# Fix test failures with Pygments 2.14
+Patch2: https://github.com/xonsh/xonsh/commit/33b2ac052b5f67268da.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist setuptools}
@@ -64,7 +67,7 @@ xonsh (pronounced conch) is meant for the daily use of experts and novices
 alike.
 
 %prep
-%autosetup -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 # Unbundle ply
 sed --in-place '/xonsh\.ply/d' setup.py
@@ -121,6 +124,9 @@ fi
 %{python3_sitelib}/xonsh-%{version}*-py%{python3_version}.egg-info/
 
 %changelog
+* Thu Feb 02 2023 Karolina Surma <ksurma@redhat.com> - 0.13.3-3
+- Fix test failures with Pygments 2.14
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

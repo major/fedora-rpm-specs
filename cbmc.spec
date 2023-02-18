@@ -5,11 +5,11 @@
 
 Name:           cbmc
 Version:        5.50.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Bounded Model Checker for ANSI-C and C++ programs
 
-License:        BSD with advertising
-URL:            http://www.cprover.org/cbmc/
+License:        BSD-4-Clause
+URL:            https://www.cprover.org/cbmc
 
 Source0:        https://github.com/diffblue/%{name}/archive/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/aufover/%{name}-utils/archive/v%{utils_version}/%{name}-utils-%{utils_version}.tar.gz
@@ -33,6 +33,8 @@ Patch6:         %{name}-f35-enable_sse2.patch
 Patch7:         %{name}-add-cmd-line-arg.patch
 # Skip tests not compatible with gcc12
 Patch8:         %{name}-f36-fix-build-gcc12-incompatibility.patch
+# Fix compatibility with GCC 13
+Patch9:         %{name}-f38-gcc13.patch
 
 BuildRequires:  bison
 BuildRequires:  cmake
@@ -79,9 +81,7 @@ Output conversion utilities for CBMC (GCC like format).
 %patch0 -p0
 %patch1 -p0
 %patch2 -p0
-%if 0%{?fedora} > 33
 %patch3 -p0
-%endif
 %patch4 -p0
 %patch5 -p0
 %ifarch %{ix86}
@@ -89,6 +89,7 @@ Output conversion utilities for CBMC (GCC like format).
 %endif
 %patch7 -p0
 %patch8 -p0
+%patch9 -p0
 
 %build
 %cmake -GNinja -DWITH_JBMC:BOOL=OFF \
@@ -118,8 +119,13 @@ ln -s xml_y.tab.h src/xmllang/xml_y.tab.hpp
 %files
 %doc README.md
 %license LICENSE
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/cbmc
+%{_bindir}/crangler
+%{_bindir}/goto-*
+%{_bindir}/ls_parse.py
+%{_bindir}/symtab2gb
+%{_mandir}/man1/cbmc*.1.*
+%{_mandir}/man1/goto-*.1.*
 
 %files doc
 %doc %{__cmake_builddir}/doc/html
@@ -131,6 +137,11 @@ ln -s xml_y.tab.h src/xmllang/xml_y.tab.hpp
 %{_bindir}/csexec-%{name}
 
 %changelog
+* Sun Jan 29 2023 Lukáš Zaoral <lzaoral@redhat.com> - 5.50.0-4
+- Fix rawhide FTBFS
+- Use SPDX license format
+- Modernize the spec a bit
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.50.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

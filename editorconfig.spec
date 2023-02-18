@@ -12,10 +12,22 @@ editors.}
 
 Name:           editorconfig
 Summary:        Parser for EditorConfig files written in C
-Version:        0.12.5
-Release:        5%{?dist}
-License:        BSD
+Version:        0.12.6
+Release:        1%{?dist}
 
+# The entire source is BSD-2-Clause, except:
+#   BSD-3-Clause: src/lib/ini.h
+#                 src/lib/ini.c
+#   BSD-1-Clause: src/lib/utarray.h
+# Additionally, the following build-system files do not contribute to the
+# licenses of the binary RPMs:
+#   MIT: CMake_Modules/FindPCRE2.cmake
+# The file src/lib/utarray.h is unbundled in %%prep, as part of the uthash
+# header-only library; however, since packaging guidelines treat header-only
+# libraries as a kind of static library, and the entire contents are still
+# compiled into the binary RPMs, its license still contributes to the overall
+# license of the binary RPMs.
+License:        BSD-2-Clause AND BSD-3-Clause AND BSD-1-Clause
 URL:            https://github.com/editorconfig/editorconfig-core-c
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -23,6 +35,8 @@ BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc
 BuildRequires:  pcre2-devel
+# Header-only library; BR on -static required by guidelines
+BuildRequires:  uthash-static
 
 Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
@@ -31,6 +45,28 @@ Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 
 %package        libs
 Summary:        Parser library for EditorConfig files (shared library)
+
+# Files src/lib/ini.h and src/lib/ini.c are a forked copy of inih:
+#   https://src.fedoraproject.org/rpms/inih
+#   https://github.com/benhoyt/inih
+# Since it has different hard-coded limits, among other changes from upstream,
+# we expect that it will not be possible to unbundle it. Still, we have
+# contacted upstream as required in
+#   https://docs.fedoraproject.org/en-US/packaging-guidelines/#bundling
+# via a GitHub issue:
+#   Path to using a system copy of inih?
+#   https://github.com/editorconfig/editorconfig-core-c/issues/91
+# Upstream agreed that the bundled version has diverged too much.
+#
+# The files were added in commit 24cc68431848c6d53a877ff82a4ee4ce7ff67b7f on
+# 2011-10-23; their contents at that time were an exact match for the
+# then-latest commit in inih, 328c3d4f8ac3715fc7024af09372a479f028450f in
+# today’s git repository. Since inih did not carry a version number, and the
+# Google Code SVN hash at the time is lost to history, we use the git hash in
+# the current repository to indicate the snapshot from which the bundled
+# version was forked.
+Provides:       bundled(inih) = 0^20110627git328c3d4
+
 %description    libs %common_description
 
 This package contains the shared library.
@@ -49,6 +85,8 @@ This package contains the files needed for development.
 
 %prep
 %autosetup -n %{srcname}-%{version} -p1
+# Unbundle uthash
+rm -vf src/lib/utarray.h
 
 
 %build
@@ -90,6 +128,11 @@ rm %{buildroot}/%{_libdir}/libeditorconfig_static.a
 
 
 %changelog
+* Sun Jan 22 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.12.6-1
+- Update to 0.12.6 (close RHBZ#2162811)
+- Update License to SPDX
+- Document and/or unbundle all bundled libraries
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

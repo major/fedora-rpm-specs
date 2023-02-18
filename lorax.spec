@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        38.6
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,6 +14,15 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
+# Strip some stuff from gtk4, necessary for compose to work since
+# gtk4-launch requires libtiff which is stripped itself
+# https://github.com/weldr/lorax/pull/1309
+# https://pagure.io/releng/failed-composes/issue/4611
+Patch0:         0001-Strip-some-things-from-gtk4.patch
+# Disable default persistence, it's busted:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2170544
+# https://github.com/weldr/lorax/pull/1310
+Patch1:         0001-Revert-templates.d-99-generic-live-Enable-automatic-.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -126,7 +135,7 @@ Lorax templates for creating the boot.iso and live isos are placed in
 /usr/share/lorax/templates.d/99-generic
 
 %prep
-%setup -q -n %{name}-%{version}
+%autosetup -p1 -n %{name}-%{version}
 
 %build
 
@@ -168,6 +177,12 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Thu Feb 16 2023 Adam Williamson <awilliam@redhat.com> - 38.6-3
+- Backport PR #1310 to disable persistence again, it's busted (#2170544)
+
+* Wed Feb 15 2023 Adam Williamson <awilliam@redhat.com> - 38.6-2
+- Backport PR #1309 to strip stuff from gtk4, fix Rawhide compose
+
 * Tue Feb 14 2023 Brian C. Lane <bcl@redhat.com> 38.6-1
 - templates.d/99-generic/live: Enable automatic persistence for live media (ngompa@fedoraproject.org)
 - Update for Noto CJK Variable Fonts (pwu@redhat.com)

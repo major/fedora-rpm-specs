@@ -1,5 +1,5 @@
 %global nspr_version 4.35.0
-%global nss_version 3.87.0
+%global nss_version 3.88.1
 # NOTE: To avoid NVR clashes of nspr* packages:
 # - reset %%{nspr_release} to 1, when updating %%{nspr_version}
 # - increment %%{nspr_version}, when updating the NSS part only
@@ -7,7 +7,7 @@
 %global nss_release %baserelease
 # use "%%global nspr_release %%[%%baserelease+n]" to handle offsets when
 # release number between nss and nspr are different.
-%global nspr_release %[%baserelease+2]
+%global nspr_release %[%baserelease+3]
 # only need to update this as we added new
 # algorithms under nss policy control
 %global crypto_policies_version 20210118
@@ -1094,6 +1094,9 @@ update-crypto-policies &> /dev/null || :
 
 
 %changelog
+* Fri Feb 10 2023 Frantisek Krenzelok <krenzelok.frantisek@gmail.com> - 3.88.1-1
+- Update NSS to 3.88.1
+
 * Tue Jan 24 2023 Bob Relyea - 3.87.0-2
 - Fix rebuild errors
 

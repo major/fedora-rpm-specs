@@ -135,9 +135,9 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.0
-%global baserelease 5
+%global baserelease 6
 # This should be rc1 or %%nil
-%global pre_release rc2
+%global pre_release rc3
 
 %global samba_release %{baserelease}
 %if "x%{?pre_release}" != "x"
@@ -170,8 +170,8 @@
 
 %global talloc_version 2.4.0
 %global tdb_version 1.4.8
-%global tevent_version 0.14.0
-%global ldb_version 2.7.0
+%global tevent_version 0.14.1
+%global ldb_version 2.7.1
 
 %global required_mit_krb5 1.20.1
 
@@ -531,13 +531,12 @@ The samba-common-tools package contains tools for SMB/CIFS clients.
 Summary: Tools for Samba servers
 # samba-tool needs python3-samba
 Requires: python3-%{name} = %{samba_depver}
-# samba-tool needs tdbbackup
-Requires: tdb-tools
 # samba-tool needs python3-samba-dc also on non-dc build
 Requires: python3-%{name}-dc = %{samba_depver}
 %if %{with dc}
-# samba-tool needs mdb_copy for domain backup or upgrade provision
+# samba-tool needs mdb_copy and tdbackup for domain backup or upgrade provision
 Requires: lmdb
+Requires: tdb-tools
 %endif
 
 %description tools
@@ -566,6 +565,7 @@ Requires: %{name} = %{samba_depver}
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-common-libs = %{samba_depver}
 Requires: %{name}-common-tools = %{samba_depver}
+Requires: %{name}-tools = %{samba_depver}
 Requires: %{name}-libs = %{samba_depver}
 Requires: %{name}-dc-provision = %{samba_depver}
 Requires: %{name}-dc-libs = %{samba_depver}
@@ -4333,6 +4333,9 @@ fi
 %endif
 
 %changelog
+* Wed Feb 15 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.0rc3-6
+- resolves: #2166416 - Update to version 4.18.0rc3
+
 * Mon Feb 13 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.18.0rc2-5
 - Create package samba-tools, move there samba-tool binary
 

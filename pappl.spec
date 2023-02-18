@@ -10,8 +10,8 @@
 Summary: Printer Application Framework (PAPPL)
 Name: pappl
 Version: 1.3.1
-Release: 1%{?dist}
-License: ASL 2.0
+Release: 2%{?dist}
+License: Apache-2.0
 Source: https://github.com/michaelrsweet/pappl/releases/download/v%{version}/pappl-%{version}.tar.gz
 Url: https://www.msweet.org/pappl
 
@@ -88,6 +88,9 @@ rm -f %{buildroot}/%{_libdir}/libpappl.a
 %{_libdir}/pkgconfig/pappl.pc
 
 %changelog
+* Thu Feb 16 2023 Richard Lescak <rlescak@redhat.com> - 1.3.1-2
+- SPDX migration
+
 * Thu Jan 19 2023 Richard Lescak <rlescak@redhat.com> - 1.3.1-1
 - Rebase to version 1.3.1 (#2157744)
 

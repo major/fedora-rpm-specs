@@ -3,7 +3,7 @@
 Name:           junit
 Epoch:          1
 Version:        4.13.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Java regression test package
 License:        EPL-1.0
 URL:            http://www.junit.org/
@@ -20,7 +20,6 @@ Patch1:         0001-Port-to-hamcrest-2.2.patch
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
-BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.hamcrest:hamcrest-core)
 %endif
@@ -66,23 +65,6 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 # Removing hamcrest source jar references (not available and/or necessary)
 %pom_remove_plugin :maven-javadoc-plugin
 
-# Add proper Apache Felix Bundle Plugin instructions
-# so that we get a reasonable OSGi manifest.
-%pom_xpath_inject pom:project "<packaging>bundle</packaging>"
-%pom_xpath_inject pom:build/pom:plugins "
-    <plugin>
-      <groupId>org.apache.felix</groupId>
-      <artifactId>maven-bundle-plugin</artifactId>
-      <extensions>true</extensions>
-      <configuration>
-        <instructions>
-          <Bundle-SymbolicName>org.junit</Bundle-SymbolicName>
-          <Export-Package>{local-packages},!org.hamcrest*,*;x-internal:=true</Export-Package>
-          <_nouses>true</_nouses>
-        </instructions>
-      </configuration>
-    </plugin>"
-
 %mvn_file : %{name}
 
 %mvn_alias junit:junit junit:junit-dep
@@ -105,6 +87,9 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 %doc doc/*
 
 %changelog
+* Thu Feb 16 2023 Marian Koncek <mkoncek@redhat.com> - 1:4.13.1-11
+- Change packaging to jar instead of bundle
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.13.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -120,7 +105,7 @@ sed s/@version@/%{version}/ src/main/java/junit/runner/Version.java.template >sr
 * Tue Nov 02 2021 Mikolaj Izdebski <mizdebsk@redhat.com> - 1:4.13.1-5
 - Bump Java compiler source/target levels to 1.7
 
-* Tue Sep 15 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 1:4.13.1-4
+* Wed Sep 15 2021 Didik Supriadi <didiksupriadi41@gmail.com> - 1:4.13.1-4
 - Add alias for junit-dep
 
 * Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.13.1-3

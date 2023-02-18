@@ -2,10 +2,10 @@
 
 Name:		opal-prd
 Version:	7.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	OPAL Processor Recovery Diagnostics Daemon
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		http://github.com/open-power/skiboot
 
 # Presently opal-prd is supported on ppc64le architecture only.
@@ -114,6 +114,9 @@ install -m 644 -p %{SOURCE3} %{buildroot}%{_mandir}/man1/ffspart.1
 
 
 %changelog
+* Thu Feb 16 2023 Than Ngo <than@redhat.com> - 7.0-5
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

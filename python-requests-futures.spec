@@ -1,57 +1,71 @@
-%global pypi_name requests-futures
 %bcond_with network
 
-Name:           python-%{pypi_name}
+Name:           python-requests-futures
 Version:        1.0.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Asynchronous Python HTTP Requests
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/ross/requests-futures
-Source0:        %pypi_source
+Source:         %{pypi_source requests-futures}
 BuildArch:      noarch
 
-%description
+%global _description %{expand:
 Small add-on for the Python requests http library. Makes use of Python 3.2’s
-concurrent.futures or the back-port for prior versions of Python.
+concurrent.futures or the back-port for prior versions of Python.}
 
-%package -n python3-%{pypi_name}
+
+%description %_description
+
+
+%package -n python3-requests-futures
 Summary:        %{summary}
+Obsoletes:      python-requests-futures < 1.0.0-14
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-BuildRequires:  python3-requests
 BuildRequires:  python3-pytest
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%description -n python3-%{pypi_name}
-Small add-on for the Python requests http library. Makes use of Python 3.2’s
-concurrent.futures or the backport for prior versions of Python.
+
+%description -n python3-requests-futures %_description
+
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n requests-futures-%{version}
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files requests_futures
+
 
 %check
 %if %{with network}
-pytest-%{python3_version} -v test_requests_futures.py
+%pytest -v
 %else
-pytest-%{python3_version} test_requests_futures.py::RequestsTestCase::test_adapter_kwargs \
-  test_requests_futures.py::RequestsTestCase::test_max_workers
+%pytest -v \
+    test_requests_futures.py::RequestsTestCase::test_adapter_kwargs \
+    test_requests_futures.py::RequestsTestCase::test_max_workers
 %endif
 
-%files
+
+%files -n python3-requests-futures -f %{pyproject_files}
 %doc README.rst
-%license LICENSE
-%{python3_sitelib}/requests_futures/
-%{python3_sitelib}/requests_futures*.egg-info
+
 
 %changelog
+* Wed Feb 15 2023 Carl George <carl@george.computer> - 1.0.0-14
+- Convert to pyproject macros
+- Rename binary package to follow guidelines
+- Update license field to use SPDX identifier
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

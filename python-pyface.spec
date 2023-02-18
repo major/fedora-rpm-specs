@@ -69,21 +69,12 @@ Documentation and examples for pyface.
 Summary:        Qt backend placeholder for pyface
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}-qt}
 Requires:       python%{python3_pkgversion}-%{modname} = %{version}-%{release}
-%if 0%{?fedora} >= 32
 BuildRequires:  python%{python3_pkgversion}-PyQt5
 BuildRequires:  python%{python3_pkgversion}-qt5-webkit
 BuildRequires:  python%{python3_pkgversion}-pyqt5-sip
 Requires:       python%{python3_pkgversion}-PyQt5
 Requires:       python%{python3_pkgversion}-qt5-webkit
 %{?_sip_api:Requires: python3-pyqt5-sip-api(%{_sip_api_major}) >= %{_sip_api}}
-%else
-BuildRequires:  python%{python3_pkgversion}-PyQt4
-BuildRequires:  python%{python3_pkgversion}-PyQt4-webkit
-BuildRequires:  python%{python3_pkgversion}-pyqt4-sip
-Requires:       python%{python3_pkgversion}-PyQt4
-Requires:       python%{python3_pkgversion}-PyQt4-webkit
-%{?_sip_api:Requires: python3-pyqt4-sip-api(%{_sip_api_major}) >= %{_sip_api}}
-%endif
 Provides:       python%{python3_pkgversion}-%{modname}-backend
 
 %description -n python%{python3_pkgversion}-%{modname}-qt

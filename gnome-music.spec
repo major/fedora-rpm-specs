@@ -8,8 +8,8 @@
 
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
-Version:       42.1
-Release:       4%{?dist}
+Version:       44~beta
+Release:       1%{?dist}
 
 # The sources are under the GPLv2+ license, except for:
 # - the gnome-music icon which is CC-BY-SA
@@ -17,7 +17,7 @@ Release:       4%{?dist}
 # Also: https://bugzilla.gnome.org/show_bug.cgi?id=706457
 License:       (GPLv2+ with exceptions) and CC-BY-SA
 URL:           https://wiki.gnome.org/Apps/Music
-Source0:       https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
+Source0:       https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:     noarch
 BuildRequires: /usr/bin/appstream-util
@@ -33,7 +33,7 @@ BuildRequires: pkgconfig(grilo-plugins-0.3)
 BuildRequires: pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires: pkgconfig(libadwaita-1)
 BuildRequires: pkgconfig(libmediaart-2.0)
-BuildRequires: pkgconfig(libsoup-2.4)
+BuildRequires: pkgconfig(libsoup-3.0)
 BuildRequires: pkgconfig(py3cairo)
 BuildRequires: pkgconfig(pygobject-3.0) >= %{pygobject_version}
 BuildRequires: pkgconfig(tracker-sparql-3.0) >= %{tracker_sparql_version}
@@ -92,6 +92,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Music.deskt
 
 
 %changelog
+* Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 42.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

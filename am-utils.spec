@@ -2,7 +2,7 @@ Summary: Automount utilities including an updated version of Amd
 Name: am-utils
 Version: 6.2.0
 %define upstream_version 6.2
-Release: 52%{?dist}
+Release: 53%{?dist}
 License: BSD
 Epoch: 5
 URL: http://am-utils.org
@@ -101,6 +101,7 @@ Patch46: am-utils-6.2-fix-mountd-version-used-when-mount-is-nfs-v4.patch
 Patch47: am-utils-6.2-fix-linux-nfs-kernel-module-search.patch
 Patch48: am-utils-6.2-dont-include-linux_mount_h.patch
 Patch49: am-utils-6.2-fix-fedora-mock-build-fail.patch
+Patch50: am-utils-configure-c99.patch
 
 # Not needed since autoreconf/libtool appear to do this automatically
 # Leaving it set doesn't appear to be a problem so leave it set in
@@ -180,6 +181,7 @@ mounting and unmounting filesystems.
 %patch47 -p1
 %patch48 -p1
 %patch49 -p1
+%patch50 -p1
 
 ./bootstrap
 
@@ -283,6 +285,9 @@ fi
 %{_libdir}/libamu.so*
 
 %changelog
+* Thu Feb 16 2023 Florian Weimer <fweimer@redhat.com> - 5:6.2.0-53
+- Port configure script to C99 (#2170414)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5:6.2.0-52
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

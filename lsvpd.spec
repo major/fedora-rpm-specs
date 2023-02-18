@@ -1,9 +1,9 @@
 Name:		lsvpd
 Version:	1.7.14
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	VPD/hardware inventory utilities for Linux
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:    https://github.com/power-ras/%{name}/releases
 Source: https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -72,6 +72,9 @@ exit 0
 %dir %{_sysconfdir}/lsvpd
 
 %changelog
+* Thu Feb 16 2023 Than Ngo <than@redhat.com> - 1.7.14-5
+- migrated to SPDX license
+
 * Sun Feb 05 2023 Than Ngo <than@redhat.com> - 1.7.14-4
 - added updatream patches to fix nvme vpd data
 

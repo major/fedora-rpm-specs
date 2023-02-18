@@ -1,14 +1,13 @@
-%global candidate rc1
+%global candidate rc2
 
 Name:          libgpiod
 Version:       2.0
-Release:       0.2%{?candidate:.%{candidate}}%{?dist}
+Release:       0.3%{?candidate:.%{candidate}}%{?dist}
 Summary:       C library and tools for interacting with linux GPIO char device
 
 License:       LGPLv2+
 URL:           https://git.kernel.org/pub/scm/libs/libgpiod/libgpiod.git/
 Source0:       https://mirrors.edge.kernel.org/pub/software/libs/%{name}/%{name}-%{version}%{?candidate:-%{candidate}}.tar.xz
-Patch0:        fix-python-install.patch
 
 BuildRequires: automake autoconf autoconf-archive libtool
 BuildRequires: doxygen
@@ -102,6 +101,9 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/%{name}*.so
 
 %changelog
+* Thu Feb 16 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0-0.3.rc2
+- libgpiod 2.0 RC2
+
 * Mon Feb 13 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 2.0-0.2.rc1
 - Add deps for man pages build
 

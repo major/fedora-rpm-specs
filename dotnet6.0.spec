@@ -20,10 +20,10 @@
 # until that's done, disable LTO.  This has to happen before setting the flags below.
 %define _lto_cflags %{nil}
 
-%global host_version 6.0.13
-%global runtime_version 6.0.13
+%global host_version 6.0.14
+%global runtime_version 6.0.14
 %global aspnetcore_runtime_version %{runtime_version}
-%global sdk_version 6.0.113
+%global sdk_version 6.0.114
 %global sdk_feature_band_version %(echo %{sdk_version} | sed -e 's|[[:digit:]][[:digit:]]$|00|')
 %global templates_version %{runtime_version}
 #%%global templates_version %%(echo %%{runtime_version} | awk 'BEGIN { FS="."; OFS="." } {print $1, $2, $3+1 }')
@@ -60,7 +60,7 @@
 
 Name:           dotnet6.0
 Version:        %{sdk_rpm_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        .NET Runtime and SDK
 License:        MIT and ASL 2.0 and BSD and LGPLv2+ and CC-BY and CC0 and MS-PL and EPL-1.0 and GPL+ and GPLv2 and ISC and OFL and zlib
 URL:            https://github.com/dotnet/
@@ -86,6 +86,8 @@ Source11:       dotnet.sh.in
 Patch100:       runtime-arm64-lld-fix.patch
 # Mono still has a dependency on (now unbuildable) ILStrip which was removed from CoreCLR: https://github.com/dotnet/runtime/pull/60315
 Patch101:       runtime-mono-remove-ilstrip.patch
+# https://github.com/dotnet/runtime/pull/82210
+Patch102:       runtime-82210-rid-fedora-39.patch
 
 # Disable apphost, needed for s390x
 Patch500:       fsharp-no-apphost.patch
@@ -109,8 +111,6 @@ Patch1001:      msbuild-no-systemconfiguration.patch
 
 # Disable telemetry by default; make it opt-in
 Patch1500:      sdk-telemetry-optout.patch
-# https://github.com/dotnet/sdk/pull/22373
-Patch1501:      sdk-22373-portablerid.patch
 
 
 
@@ -394,6 +394,7 @@ sed -i 's|/usr/share/dotnet|%{_libdir}/dotnet|' src/runtime/src/native/corehost/
 pushd src/runtime
 %patch100 -p1
 %patch101 -p1
+%patch102 -p1
 popd
 
 pushd src/fsharp
@@ -426,7 +427,6 @@ popd
 
 pushd src/sdk
 %patch1500 -p1
-%patch1501 -p1
 popd
 
 pushd src/installer
@@ -639,6 +639,9 @@ export COMPlus_LTTng=0
 
 
 %changelog
+* Wed Feb 15 2023 Omair Majid <omajid@redhat.com> - 6.0.114-1
+- Update to .NET SDK 6.0.114 and Runtime 6.0.14
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.0.113-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

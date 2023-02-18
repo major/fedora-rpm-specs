@@ -3,7 +3,7 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.04
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: (GPLv2 or GPLv3) and BSD
 Epoch: 1
 Url: http://www.xpdfreader.com/
@@ -52,7 +52,6 @@ Patch12: xpdf-4.01-64bit.patch
 Patch15: xpdf-3.04-nocmap.patch
 Patch25: xpdf-4.00-versionedlib.patch
 Patch26: xpdf-4.02-urw-base35-fonts.patch
-Patch27: xpdf-4.04-libpaper2.patch
 Patch28: xpdf-4.04-GlobalParams-null-fix.patch
 Patch29: xpdf-4.04-shared-xpdf-lib.patch
 
@@ -116,7 +115,6 @@ Development files for xpdf libraries.
 %patch12 -p1 -b .alloc
 %patch25 -p1 -b .versionedlib
 %patch26 -p1 -b .urw-font-fix
-%patch27 -p1 -b .libpaper2
 %patch28 -p1 -b .GlobalParams-null-fix
 %patch29 -p1 -b .shared-xpdf-lib
 
@@ -300,6 +298,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so
 
 %changelog
+* Thu Feb 16 2023 Tom Callaway <spot@fedoraproject.org> - 1:4.04-6
+- drop now unnecessary libpaper2 patch
+
 * Mon Jan 30 2023 Tom Callaway <spot@fedoraproject.org> - 1:4.04-5
 - pull in all the headers
 - apply null fix for default var in GlobalParams()

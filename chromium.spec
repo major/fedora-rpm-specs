@@ -70,10 +70,17 @@
 
 # We'd like to always have this on...
 %global use_vaapi 1
+%global use_v4l2_codec 0
 
 # ... but the libva in EL7 (and EL8) is too old.
 %if 0%{?rhel} == 7 || 0%{?rhel} == 8
 %global use_vaapi 0
+%endif
+
+# enable v4l2 and disable vaapi for aarch64 platform
+%ifarch aarch64
+%global use_vaapi 0
+%global use_v4l2_codec 1
 %endif
 
 # Seems like we might need this sometimes
@@ -229,10 +236,10 @@
 
 Name:	chromium%{chromium_channel}
 Version: 110.0.5481.77
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
-License: BSD and LGPLv2+ and ASL 2.0 and IJG and MIT and GPLv2+ and ISC and OpenSSL and (MPLv1.1 or GPLv2 or LGPLv2)
+License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
 
 ### Chromium Fedora Patches ###
 Patch0: chromium-70.0.3538.67-sandbox-pie.patch
@@ -378,6 +385,10 @@ Patch145: chromium-111-v8-std-layout2.patch
 Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
 Patch205: chromium-86.0.4240.75-fix-vaapi-on-intel.patch
 Patch206: chromium-110-ozone-wayland-vaapi-support.patch
+
+# V4L2
+# Upstream
+Patch250: chromium-v4l2-fix.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
@@ -995,6 +1006,10 @@ udev.
 %patch206 -p1 -b .wayland-vaapi
 %endif
 
+%if %{use_v4l2_codec}
+%patch250 -p1 -b .v4l2-fix
+%endif
+
 %if 0%{?rhel} >= 8
 %patch300 -p1 -b .disblegnomekeyring
 %endif
@@ -1193,6 +1208,10 @@ CHROMIUM_BROWSER_GN_DEFINES+=' enable_widevine=true'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_vaapi=true'
 %else
 CHROMIUM_BROWSER_GN_DEFINES+=' use_vaapi=false'
+%endif
+
+%if %{use_v4l2_codec} 
+CHROMIUM_BROWSER_GN_DEFINES+=' use_v4l2_codec=true'
 %endif
 
 %if 0%{?fedora}
@@ -1667,6 +1686,12 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Thu Feb 16 2023 Than Ngo <than@redhat.com> - 110.0.5481.77-2
+- fix #2071126, enable support V4L2 stateless decoders for aarch64 plattform
+- fix prefers-color-scheme
+- drop snapshot_blob.bin, replace snapshot_blob.bin with v8_context_snapshot.bin
+- move headless_lib*.pak to headless subpackage
+
 * Wed Feb 08 2023 Than Ngo <than@redhat.com> - 110.0.5481.77-1
 - update to 110.0.5481.77
 

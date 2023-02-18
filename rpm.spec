@@ -32,7 +32,7 @@
 
 %global rpmver 4.18.0
 #global snapver rc1
-%global baserelease 10
+%global baserelease 11
 %global sover 9
 
 %global srcver %{rpmver}%{?snapver:-%{snapver}}
@@ -137,6 +137,8 @@ rpm-4.9.90-no-man-dirs.patch
 # ...
 0001-Fix-potential-uninitialized-variable-use-in-rpmtsImp.patch
 0001-Generate-Python-egg-info-from-automake-builds.patch
+0001-Exclude-kernel-modules-from-ELF-dependency-generatio.patch
+0002-Disable-debuginfod-server-lookups-in-build-and-depen.patch
 
 # These are not yet upstream
 rpm-4.7.1-geode-i686.patch
@@ -617,6 +619,10 @@ fi
 %doc docs/librpm/html/*
 
 %changelog
+* Thu Feb 16 2023 Panu Matilainen <pmatilai@redhat.com> - 4.18.0-11
+- Disable debuginfod lookups in rpmbuild scripts
+- Exclude kernel modules from ELF dependency generation
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.18.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

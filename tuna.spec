@@ -1,17 +1,20 @@
 Name: tuna
-Version: 0.18
-Release: 2%{?dist}
+Version: 0.19
+Release: 1%{?dist}
 License: GPLv2
 Summary: Application tuning GUI & command line utility
 Source: https://www.kernel.org/pub/software/utils/%{name}/%{name}-%{version}.tar.xz
 URL: https://rt.wiki.kernel.org/index.php/Tuna
 BuildArch: noarch
 BuildRequires: python3-devel, gettext
+BuildRequires: python3-setuptools
 Requires: python3-ethtool
 Requires: python3-linux-procfs >= 0.6
 Requires: python3-schedutils >= 0.6
 # This really should be a Suggests...
 # Requires: python-inet_diag
+
+# Patches
 
 %description
 Provides interface for changing scheduler and IRQ tunables, at whole CPU and at
@@ -88,6 +91,10 @@ done
 %doc docs/oscilloscope+tuna.pdf
 
 %changelog
+* Thu Feb 16 2023 John Kacur <jkacur@redhat.com> - 0.19-1
+- Use setuptools and sysconfig instead of distutils in setup.py
+- Update to 0.19 upstream
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

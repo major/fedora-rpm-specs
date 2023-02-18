@@ -4,13 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-system-monitor
-Version:        42.0
-Release:        4%{?dist}
+Version:        44~beta
+Release:        1%{?dist}
 Summary:        Process and resource monitor
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/SystemMonitor
-Source0:        https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 Patch0: gnome-system-monitor-c99.patch
 
 BuildRequires:  gcc
@@ -64,11 +64,14 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/gnome-system-monit
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.SystemMonitor*.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.SystemMonitor-symbolic.svg
 %{_datadir}/icons/hicolor/symbolic/apps/speedometer-symbolic.svg
-%{_datadir}/metainfo/gnome-system-monitor.appdata.xml
+%{_metainfodir}/gnome-system-monitor.appdata.xml
 %{_datadir}/polkit-1/actions/org.gnome.gnome-system-monitor.policy
 %{_libexecdir}/gnome-system-monitor/
 
 %changelog
+* Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Mon Feb 06 2023 Florian Weimer <fweimer@redhat.com> - 42.0-4
 - Fix C99 compatibility issue
 

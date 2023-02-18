@@ -1,6 +1,6 @@
 Name:           thonny
-Version:        4.0.1
-Release:        2%{?dist}
+Version:        4.0.2
+Release:        1%{?dist}
 Summary:        Python IDE for beginners
 
 # Code is MIT, toolbar icons are EPL-1.0
@@ -27,8 +27,8 @@ Requires:       python3-pip
 Requires:       hicolor-icon-theme
 
 # Vendor Libraries
-Provides:       bundled(python3dist(pipkin)) = 1.0~b4
-Provides:       bundled(python3dist(filelock)) = 3.6
+Provides:       bundled(python3dist(pipkin)) = 1.0~b7
+Provides:       bundled(python3dist(filelock)) = 3.9
 
 Recommends:     python3-asttokens
 Recommends:     python3-distro
@@ -47,6 +47,15 @@ and special mode for learning about references.
 
 # Remove localization helper scripts, we don't need them in the package
 rm thonny/locale/compile_mo.bat thonny/locale/update_pot.bat thonny/locale/thonny.pot
+
+# Add placeholder to language file, already fixed in upstream.
+# https://github.com/thonny/thonny/issues/2626
+sed -i 's/Muovi nel Cestino/Muovi %s nel Cestino/' thonny/locale/it_IT/LC_MESSAGES/thonny.po
+
+# Remove shebang from pipkin files(rpm-lint error).Already Reported Upstream.
+# https://github.com/thonny/thonny/issues/2645
+sed -i 's/#!\/usr\/bin\/env python3//' thonny/vendored_libs/pipkin/__main__.py
+sed -i 's/#!\/usr\/bin\/env python3//' thonny/vendored_libs/pipkin/proxy.py
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -92,6 +101,9 @@ xvfb-run py.test-3 --pyargs thonny
 
 
 %changelog
+* Wed Feb 01 2023 abrarwali <abrarwali@tutanota.com> - 4.0.2-1
+- New upstream version 4.0.2
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

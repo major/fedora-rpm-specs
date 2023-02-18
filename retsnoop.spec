@@ -12,7 +12,7 @@
 %global bpftool_version 7.0.0
 
 Name:           retsnoop
-Version:        0.9.4
+Version:        0.9.5
 Release:        %autorelease
 Summary:        A tool for investigating kernel error call stacks
 

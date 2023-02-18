@@ -16,7 +16,7 @@
 
 Name:           zabbix
 Epoch:          1
-Version:        6.0.12
+Version:        6.0.13
 Release:        1%{?dist}
 Summary:        Open-source monitoring solution for your IT infrastructure
 
@@ -798,6 +798,11 @@ fi
 %files web-pgsql
 
 %changelog
+* Thu Feb 16 2023 Orion Poplawski <orion@nwra.com> - 1:6.0.13-1
+- Update to 6.0.13
+- Add policy to allow zabbix scripts to run chronyc as chronyc_t (bz#2160180)
+- Add policy to allow zabbix agent to run rpm read-only
+
 * Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 1:6.0.12-1
 - Update to 6.0.12
 

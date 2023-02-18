@@ -4,12 +4,14 @@
 Summary: Hybrid image/package system
 Name: rpm-ostree
 Version: 2023.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: LGPLv2+
 URL: https://github.com/coreos/rpm-ostree
 # This tarball is generated via "cd packaging && make -f Makefile.dist-packaging dist-snapshot"
 # in the upstream git.  It also contains vendored Rust sources.
 Source0: https://github.com/coreos/rpm-ostree/releases/download/v%{version}/rpm-ostree-%{version}.tar.xz
+
+Patch0: 0001-daemon-Use-a-socket-in-run-require-non-abstract.patch
 
 ExclusiveArch: %{rust_arches}
 
@@ -241,6 +243,10 @@ $PYTHON autofiles.py > files.devel \
 %files devel -f files.devel
 
 %changelog
+* Thu Feb 16 2023 Colin Walters <walters@verbum.org> - 2023.1-4
+- Cherry pick
+  https://github.com/coreos/rpm-ostree/pull/4308/commits/476afb1d08513cb74cd1d28490c5e028c70f67c2
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 2023.1-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

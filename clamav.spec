@@ -24,8 +24,8 @@
 
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
-Version:    1.0.0
-Release:    3%{?dist}
+Version:    1.0.1
+Release:    1%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -49,7 +49,7 @@ Source5:    clamd-README
 #http://database.clamav.net/main.cvd
 Source10:   main-62.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-26722.cvd
+Source11:   daily-26813.cvd
 #http://database.clamav.net/bytecode.cvd
 Source12:   bytecode-333.cvd
 #for update
@@ -554,6 +554,9 @@ exit 0
 
 
 %changelog
+* Thu Feb 16 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-1
+- Update to 1.0.1
+
 * Mon Feb 13 2023 Orion Poplawski <orion@nwra.com> - 1.0.0-3
 - Make sure RUSTFLAGS are passed to rustc (bz#2167194)
 

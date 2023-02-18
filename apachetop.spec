@@ -1,7 +1,7 @@
 Summary:        Top-like display of Apache logs
 Name:           apachetop
-Version:        0.19.7
-Release:        9%{?dist}
+Version:        0.23.2
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/tessus/apachetop
 Source0:        https://github.com/tessus/apachetop/releases/download/%{version}/apachetop-%{version}.tar.gz
@@ -12,7 +12,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  ncurses-devel
 BuildRequires:  m4
 BuildRequires:  readline-devel
-BuildRequires:  pcre-devel
+BuildRequires:  pcre2-devel
 BuildRequires:  make
 
 %description
@@ -38,6 +38,10 @@ fields in combined) and generates human-parsable output in realtime.
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Feb 17 2023 Robert Scheck <robert@fedoraproject.org> - 0.23.2-1
+- Upgrade to 0.23.2
+- Switch from deprecated pcre to pcre2 (#2128271)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

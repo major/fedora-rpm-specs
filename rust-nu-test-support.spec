@@ -5,16 +5,13 @@
 %global crate nu-test-support
 
 Name:           rust-nu-test-support
-Version:        0.74.0
+Version:        0.75.0
 Release:        %autorelease
 Summary:        Support for writing Nushell tests
 
 License:        MIT
 URL:            https://crates.io/crates/nu-test-support
 Source:         %{crates_source}
-# fix for test code not gated identically to the implementation
-# https://github.com/nushell/nushell/pull/7824
-Patch:          nu-test-support-test-gating.diff
 
 BuildRequires:  rust-packaging >= 21
 

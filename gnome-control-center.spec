@@ -19,6 +19,7 @@ Summary:        Utilities to configure the GNOME desktop
 License:        GPLv2+ and CC-BY-SA
 URL:            https://gitlab.gnome.org/GNOME/gnome-control-center/
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Patch0:         0001-user-accounts-Don-t-access-user-before-it-s-loaded.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl libxslt

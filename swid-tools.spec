@@ -3,7 +3,7 @@
 
 Summary: Tools for producing SWID tags for rpm packages and inspecting the SWID tags
 Name: swid-tools
-Version: 0.8.17
+Version: 0.8.18
 Release: 2%{?dist}
 License: ASL 2.0
 URL: https://github.com/swidtags/rpm2swidtag
@@ -98,6 +98,9 @@ if rpm -q rpm2swidtag dnf-plugin-swidtags 2> /dev/null | grep -E -q '(rpm2swidta
 fi
 
 %changelog
+* Thu Feb 16 2023 Jan Pazdziora <jpazdziora@redhat.com> - 0.8.18-1
+- 2170111 - rebased to 0.8.18.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

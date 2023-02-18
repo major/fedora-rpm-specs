@@ -183,12 +183,12 @@ by (URW)++ company, and are mainly utilized by applications using Ghostscript.
 Name:             %{fontname}-fonts
 Summary:          Core Font Set containing 35 freely distributable fonts from (URW)++
 Version:          20200910
-Release:          16%{?dist}
+Release:          17%{?dist}
 
 # NOTE: (URW)++ holds the copyright, but Artifex Software has obtained rights to
 #       release these fonts under GNU Affero General Public License (version 3).
 #       Also contains subpackage legacy with older version of the fonts (with GPLv2.0+ license) still needed by a few applications.
-License:          AGPLv3 and GPLv2+
+License:          AGPL-3.0-only AND GPL-2.0-or-later
 
 URL:              https://www.urwpp.de/en/
 Source:           https://github.com/ArtifexSoftware/urw-base35-fonts/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
@@ -451,6 +451,9 @@ mkfontdir   %{legacydir}
 # =============================================================================
 
 %changelog
+* Thu Feb 16 2023 Richard Lescak <rlescak@redhat.com> - 20200910-17
+- SPDX migration
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20200910-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

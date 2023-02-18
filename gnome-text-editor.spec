@@ -6,11 +6,11 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	44~alpha
+Version:	44~beta
 Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://gitlab.gnome.org/GNOME/gnome-text-editor
 Source0:	https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44~alpha-1
 - Update to 44.alpha
 

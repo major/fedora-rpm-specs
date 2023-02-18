@@ -1,9 +1,9 @@
 Name:           servicelog
 Version:        1.1.16
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Servicelog Tools
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/power-ras/servicelog
 Source0:        https://github.com/power-ras/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -46,6 +46,9 @@ help2man -s 8 -N $RPM_BUILD_ROOT/%{_sbindir}/slog_common_event > $RPM_BUILD_ROOT
 %{_mandir}/man[18]/*.[18]*
 
 %changelog
+* Thu Feb 16 2023 Than Ngo <than@redhat.com> - 1.1.16-4
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.16-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

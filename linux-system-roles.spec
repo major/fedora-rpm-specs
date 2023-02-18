@@ -29,8 +29,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.34.5
-Release: 1%{?dist}
+Version: 1.35.0
+Release: 2%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -177,10 +177,10 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 21 1.1.2
 
 %global rolename22 ad_integration
-%deftag 22 1.0.1
+%deftag 22 1.0.2
 
 %global rolename23 rhc
-%deftag 23 1.0.0
+%deftag 23 1.1.0
 
 %global rolename24 journald
 %deftag 24 1.0.0
@@ -371,7 +371,9 @@ done
 #   - library:
 #     - Module seport, sefcontext and selogin for the selinux role rolename2
 #     - Module ini_file for role tlog
-module_map=( ["seport.py"]="selinux" ["sefcontext.py"]="selinux" ["selogin.py"]="selinux" ["ini_file.py"]="tlog" )
+#     - rhc modules
+module_map=( ["seport.py"]="selinux" ["sefcontext.py"]="selinux" ["selogin.py"]="selinux" ["ini_file.py"]="tlog"
+  ["redhat_subscription.py"]="rhc" ["rhsm_release.py"]="rhc" ["rhsm_repository.py"]="rhc" )
 for module in "${!module_map[@]}"; do
   role="${module_map[${module}]}"
   if [ ! -d $role/library ]; then
@@ -746,6 +748,12 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Thu Feb 16 2023 Rich Megginson <rmeggins@redhat.com> - 1.35.0-2
+- EL - vendor in Ansible modules needed for rhc role
+
+* Thu Feb 16 2023 Packit <hello@packit.dev> - 1.35.0-1
+- Update to upstream version 1.35.0
+
 * Fri Feb 10 2023 Packit <hello@packit.dev> - 1.34.5-1
 - Update to upstream version 1.34.5
 

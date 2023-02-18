@@ -1,6 +1,6 @@
 Name:           libitl
 Version:        0.7.0 
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Libraries for The Islamic Tools and Libraries Project
 
 License:        LGPLv2+
@@ -8,6 +8,7 @@ URL:            http://www.arabeyes.org/project.php?proj=ITL
 Source0:        http://switch.dl.sourceforge.net/sourceforge/arabeyes/%{name}-%{version}.tar.gz
 
 Patch0: %{name}-makefile-ld.patch
+Patch1: %{name}-fedora-c99.patch
 #BuildRequires:  autoconf
 
 BuildRequires:  gcc
@@ -33,6 +34,7 @@ developing applications that use %{name}.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure --disable-static
@@ -67,6 +69,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Wed Feb 15 2023 DJ Delorie <dj@redhat.com> - 0.7.0-26
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

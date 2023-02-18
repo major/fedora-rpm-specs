@@ -2,8 +2,8 @@
 %global pkgdatadir      %{_datadir}/dpkg
 
 Name:           dpkg
-Version:        1.21.9
-Release:        2%{?dist}
+Version:        1.21.20
+Release:        1%{?dist}
 Summary:        Package maintenance system for Debian Linux
 # The entire source code is GPLv2+ with exception of the following
 # lib/dpkg/md5.c, lib/dpkg/md5.h - Public domain
@@ -22,13 +22,23 @@ Patch1:         cputable_ppc64le.patch
 Patch2:         ostable_armv7hl.patch
 
 
+BuildRequires:  autoconf
+BuildRequires:  automake
 BuildRequires:  gcc-c++
+BuildRequires:  gettext
+BuildRequires:  gettext-devel
 BuildRequires:  make
-BuildRequires:  zlib-devel bzip2-devel libselinux-devel gettext ncurses-devel
-BuildRequires:  autoconf automake gettext-devel libtool
-BuildRequires:  doxygen xz-devel
-BuildRequires:  po4a >= 0.59
+BuildRequires:  libtool
+BuildRequires:  bzip2-devel
+BuildRequires:  doxygen
 BuildRequires:  dotconf-devel
+BuildRequires:  libmd-devel
+BuildRequires:  libselinux-devel
+BuildRequires:  libzstd-devel
+BuildRequires:  ncurses-devel
+BuildRequires:  po4a >= 0.59
+BuildRequires:  xz-devel
+BuildRequires:  zlib-devel
 # for /usr/bin/perl
 BuildRequires: perl-interpreter
 BuildRequires: perl-devel
@@ -37,8 +47,6 @@ BuildRequires: perl-Time-Piece
 BuildRequires: perl(Digest)
 # for /usr/bin/pod2man
 BuildRequires: perl-podlators
-# Needed for --clamp-mtime in dpkg-source -b.
-Requires:      tar >= 2:1.28
 # Need by make check
 BuildRequires: perl(Test::More)
 BuildRequires: perl(IPC::Cmd)
@@ -50,6 +58,8 @@ BuildRequires: perl(Tie::Handle)
 BuildRequires: fakeroot
 
 Requires(post): coreutils
+# Needed for --clamp-mtime in dpkg-source -b.
+Requires:      tar >= 2:1.28
 
 
 %description
@@ -90,6 +100,7 @@ Requires: binutils
 Requires: bzip2
 Requires: lzma
 Requires: xz
+Requires: zstd
 # dpkg-architecture -qDEB_HOST_GNU_TYPE relies on cc -dumpmachine
 Requires:  gcc
 Obsoletes: dpkg-devel < 1.16
@@ -183,9 +194,9 @@ autoreconf
         --with-admindir=%{_localstatedir}/lib/dpkg \
         --runstatedir=/run \
         --with-libselinux \
-        --without-libmd \
         --with-libz \
         --with-liblzma \
+        --with-libzstd \
         --with-libbz2
 
 # todo add this
@@ -474,6 +485,12 @@ make VERBOSE=1 TESTSUITEFLAGS=--verbose \
 
 
 %changelog
+* Wed Feb 15 2023 Dalton Miner <daltonminer@gmail.com> - 1.21.20-1
+- Update dpkg to 1.21.20 (#2150017)
+- Add zstd support (#2112807)
+- Fully switch to libmd for MD5 implementation
+  https://git.dpkg.org/cgit/dpkg/dpkg.git/commit/debian/?id=2767801430de3c6d4ec7394e286fc261a8180feb
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.21.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

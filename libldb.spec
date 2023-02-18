@@ -21,11 +21,11 @@
 
 %global talloc_version 2.4.0
 %global tdb_version 1.4.8
-%global tevent_version 0.14.0
+%global tevent_version 0.14.1
 
 Name: libldb
-Version: 2.7.0
-Release: 2%{?dist}
+Version: 2.7.1
+Release: 1%{?dist}
 Summary: A schema-less, ldap like, API and database
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
@@ -222,6 +222,9 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man3/_*
 %endif
 
 %changelog
+* Thu Feb 16 2023 Guenther Deschner <gdeschner@redhat.com> - 2.7.1-1
+- rhbz#2167440 - libldb-2.7.1 is available
+
 * Fri Jan 20 2023 Andreas Schneider <asn@redhat.com> - 2.7.0-1
 - Update to version 2.7.0
 - resolves: rhbz#1965818 - Fix ldb on systems with dotted language locale

@@ -7,19 +7,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calendar
-Version:        43.1
+Version:        44~beta
 Release:        %autorelease
 Summary:        Simple and beautiful calendar application designed to fit GNOME 3
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://wiki.gnome.org/Apps/Calendar
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
-
-# Backported from upstream
-# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/269
-Patch0:         269.patch
-# https://gitlab.gnome.org/GNOME/gnome-calendar/-/merge_requests/270
-Patch1:         270.patch
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext

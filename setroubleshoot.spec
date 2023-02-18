@@ -3,8 +3,8 @@
 
 Summary: Helps troubleshoot SELinux problems
 Name: setroubleshoot
-Version: 3.3.31
-Release: 2%{?dist}
+Version: 3.3.32
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://gitlab.com/setroubleshoot/setroubleshoot
 Source0: https://gitlab.com/setroubleshoot/setroubleshoot/-/archive/%{version}/setroubleshoot-%{version}.tar.gz
@@ -54,7 +54,7 @@ to user preference. The same tools can be run on existing log files.
 %config(noreplace) %{_sysconfdir}/xdg/autostart/*
 %{_datadir}/applications/*.desktop
 %{_metainfodir}/*.appdata.xml
-%{_datadir}/dbus-1/services/sealert.service
+%{_datadir}/dbus-1/services/org.fedoraproject.sealert.service
 %{_datadir}/icons/hicolor/*/*/*
 %dir %attr(0755,root,root) %{pkgpythondir}
 %{pkgpythondir}/browser.py
@@ -191,6 +191,12 @@ to user preference. The same tools can be run on existing log files.
 %doc AUTHORS COPYING ChangeLog DBUS.md NEWS README TODO
 
 %changelog
+* Wed Feb 15 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.3.32-1
+- Rename session bus name to org.fedoraproject.sealert
+- seapplet: wrap SEApplet() to try except
+- util.py: Add doctext test for build_module_type_cache()
+- Update translations
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.31-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

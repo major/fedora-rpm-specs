@@ -102,7 +102,7 @@ Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
 Version:        5.1.2
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
 License:        GPLv3+
 URL:            https://ffmpeg.org/
@@ -205,6 +205,7 @@ BuildRequires:  pkgconfig(libplacebo) >= 4.192.0
 %endif
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(librabbitmq)
+BuildRequires:  pkgconfig(librist)
 BuildRequires:  pkgconfig(librsvg-2.0)
 BuildRequires:  pkgconfig(libssh)
 BuildRequires:  pkgconfig(libv4l2)
@@ -641,6 +642,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-libpulse \
     --enable-librabbitmq \
     --enable-librav1e \
+    --enable-librist \
     --enable-librsvg \
     --enable-librubberband \
     --enable-libsnappy \
@@ -868,6 +870,9 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Wed Feb 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.1.2-12
+- Enable support for the RIST protocol through librist
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 5.1.2-11
 - bootstrap off
 
