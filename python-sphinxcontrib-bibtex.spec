@@ -15,6 +15,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python-sphinx-doc
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist numpydoc}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pybtex}

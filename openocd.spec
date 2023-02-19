@@ -1,18 +1,27 @@
 %global _legacy_common_support 1
-%global rcVer 1
+#global rcVer 1
+
 Name:       openocd
 Version:    0.12.0
-Release:    0%{?rcVer:.rc%{rcVer}}%{?dist}.2
+Release:    1%{?rcVer:.rc%{rcVer}}%{?dist}
 Summary:    Debugging, in-system programming and boundary-scan testing for embedded devices
 
 License:    GPLv2
 URL:        https://sourceforge.net/projects/openocd
 Source0:    https://downloads.sourceforge.net/project/openocd/openocd/%{version}%{?rcVer:-rc%{rcVer}}/%{name}-%{version}%{?rcVer:-rc%{rcVer}}.tar.bz2
 
-BuildRequires:  gcc
-BuildRequires:  make
-BuildRequires:  chrpath, libftdi-devel, libusbx-devel, jimtcl-devel, hidapi-devel, sdcc, texinfo, libgpiod-devel, capstone-devel
-BuildRequires:  libjaylink-devel >= 0.2
+BuildRequires: capstone-devel
+BuildRequires: chrpath
+BuildRequires: gcc
+BuildRequires: hidapi-devel
+BuildRequires: jimtcl-devel
+BuildRequires: libgpiod-devel
+BuildRequires: libjaylink-devel
+BuildRequires: libftdi-devel
+BuildRequires: libusbx-devel
+BuildRequires: make
+BuildRequires: sdcc
+BuildRequires: texinfo
 
 %description
 The Open On-Chip Debugger (OpenOCD) provides debugging, in-system programming 
@@ -92,7 +101,7 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 
 %files
 %license COPYING
-%doc AUTHORS ChangeLog NEWS* NEWTAPS README TODO
+%doc AUTHORS NEWS* NEWTAPS README TODO
 %{_datadir}/%{name}/scripts
 %{_datadir}/%{name}/OpenULINK/ulink_firmware.hex
 %{_bindir}/%{name}
@@ -102,6 +111,9 @@ chrpath --delete %{buildroot}/%{_bindir}/openocd
 %{_mandir}/man1/*
 
 %changelog
+* Fri Feb 17 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 0.12.0-1
+- Update to 0.12.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12.0-0.rc1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

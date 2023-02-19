@@ -56,19 +56,20 @@ BuildRequires: pkgconfig(libportal)
 BuildRequires: pkgconfig(libportal-gtk3)
 BuildRequires: pkgconfig(tracker-sparql-3.0)
 
-Requires:      baobab
 Requires:      gdk-pixbuf2%{?_isa} >= %{gdk_pixbuf_version}
 Requires:      gegl04%{?_isa} >= %{gegl_version}
 Requires:      glib2%{?_isa} >= %{glib2_version}
-Requires:      gnome-settings-daemon
 Requires:      gtk3%{?_isa} >= %{gtk3_version}
 Requires:      libdazzle%{?_isa} >= %{dazzle_version}
 Requires:      libgexiv2%{?_isa} >= %{gexiv2_version}
 Requires:      libhandy%{?_isa} >= %{handy_version}
 Requires:      tracker-miners >= %{tracker_miners_version}
 
+# These are started/contacted over D-Bus
+Recommends:    baobab
+Recommends:    gnome-settings-daemon
 %if 0%{?fedora} || 0%{?rhel} < 9
-Requires:      dleyna-renderer
+Recommends:    dleyna-renderer
 %endif
 
 # libgd is not meant to be installed as a system-wide shared library.
@@ -101,6 +102,8 @@ This package contains the installable tests for %{name}.
 
 
 %build
+# never enable -Dflatpak=true, the files it installs are meant to be provided
+# by a flatpak build of tracker-miners
 %meson \
   --buildtype=plain \
 %if 0%{?fedora} || 0%{?rhel} < 9
@@ -108,11 +111,7 @@ This package contains the installable tests for %{name}.
 %else
   -Ddogtail=false \
 %endif
-%if 0%{?flatpak}
-  -Dflatpak=true \
-%else
   -Dflatpak=false \
-%endif
   -Dinstalled_tests=true \
   -Dmanuals=true \
 
@@ -134,21 +133,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_bindir}/%{name}
 %{_datadir}/applications/org.gnome.Photos.desktop
 %{_datadir}/dbus-1/services/org.gnome.Photos.service
-
-%if 0%{?flatpak}
-%{_datadir}/dbus-1/services/org.gnome.Photos.Tracker3.Miner.Extract.service
-%{_datadir}/dbus-1/services/org.gnome.Photos.Tracker3.Miner.Files.service
-%endif
-
 %{_datadir}/glib-2.0/schemas/org.gnome.photos.gschema.xml
 %{_datadir}/gnome-shell/
 %{_datadir}/icons/hicolor/scalable/apps/org.gnome.Photos.svg
 %{_datadir}/icons/hicolor/symbolic/apps/org.gnome.Photos-symbolic.svg
-
-%if 0%{?flatpak}
-%{_datadir}/tracker3-miners/domain-ontologies/org.gnome.Photos.rule
-%endif
-
 %{_docdir}/%{name}
 
 %dir %{_libdir}/%{name}

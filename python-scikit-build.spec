@@ -1,5 +1,5 @@
 Name:           python-scikit-build
-Version:        0.16.6
+Version:        0.16.7
 Release:        1%{?dist}
 Summary:        Improved build system generator for Python C/C++/Fortran/Cython extensions
 
@@ -35,6 +35,7 @@ the setuptools Python module and CMake.
 %package -n python3-scikit-build
 Summary:        %{summary}
 Requires:       cmake
+Requires:       ninja-build
 
 # Files listed below are located in skbuild/resources/cmake.
 # Since they contain "Copyright 2011 Kitware, Inc." in them we list them as bundled,
@@ -68,6 +69,10 @@ Provides:       bundled(cmake(UsePythonExtensions))
 
 
 %check
+# Some tests have assumptions that don't work if the RPM build flags are set,
+# so we clean them.
+export CFLAGS=' '
+export CXXFLAGS=' '
 # pep518 tests are disabled because they require internet
 %pytest -k "not pep518" \
         -m "not deprecated and not nosetuptoolsscm"
@@ -78,5 +83,8 @@ Provides:       bundled(cmake(UsePythonExtensions))
 
 
 %changelog
+* Fri Feb 17 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.16.7-1
+- Update to 0.16.7
+
 * Thu Feb 09 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.16.6-1
 - Initial package

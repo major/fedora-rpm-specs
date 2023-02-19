@@ -9,6 +9,7 @@ Source0:        %{url}/archive/%{version}/bash_kernel-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist flit-core}
 BuildRequires:  %{py3_dist ipykernel}

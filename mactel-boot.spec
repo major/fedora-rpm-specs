@@ -1,12 +1,13 @@
 Name:		mactel-boot
 Version:	0.9
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Intel Mac boot files
 
 License:	GPLv2+
 URL:		http://www.codon.org.uk/~mjg59/mactel-boot/
 Source:		http://www.codon.org.uk/~mjg59/mactel-boot/%{name}-%{version}.tar.bz2
 Source1:	mactel-boot-setup
+Patch0: mactel-boot-c99.patch
 
 ExclusiveArch:	x86_64
 
@@ -18,7 +19,7 @@ BuildRequires:  gcc
 Files for booting Fedora on Intel-based Apple hardware using EFI.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 make PRODUCTVERSION="Fedora %{fedora}" %{?_smp_mflags}
@@ -49,6 +50,9 @@ install -D %{SOURCE1} $RPM_BUILD_ROOT/usr/libexec/mactel-boot-setup
 /usr/libexec/mactel-boot-setup
 
 %changelog
+* Fri Feb 17 2023 Florian Weimer <fweimer@redhat.com> - 0.9-29
+- Port to C99 (#2170958)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

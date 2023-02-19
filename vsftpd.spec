@@ -2,7 +2,7 @@
 
 Name:    vsftpd
 Version: 3.0.5
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Very Secure Ftp Daemon
 
 # OpenSSL link exception
@@ -63,7 +63,6 @@ Patch31: 0031-Fix-question-mark-wildcard-withing-a-file-name.patch
 Patch32: 0032-Propagate-errors-from-nfs-with-quota-to-client.patch
 #Patch33: 0033-Introduce-TLSv1.1-and-TLSv1.2-options.patch
 Patch34: 0034-Turn-off-seccomp-sandbox-because-it-is-too-strict.patch
-Patch35: 0035-Modify-DH-enablement-patch-to-build-with-OpenSSL-1.1.patch
 Patch36: 0036-Redefine-VSFTP_COMMAND_FD-to-1.patch
 Patch37: 0037-Document-the-relationship-of-text_userdb_names-and-c.patch
 Patch38: 0038-Document-allow_writeable_chroot-in-the-man-page.patch
@@ -98,7 +97,8 @@ Patch68: 0002-Drop-an-unused-global-variable.patch
 Patch69: 0001-Remove-a-hint-about-the-ftp_home_dir-SELinux-boolean.patch
 Patch70: fix-str_open.patch
 Patch71: vsftpd-3.0.5-enable_wc_logs-replace_unprintable_with_hex.patch
-# upstream commits 56402c0, 8b82e73
+Patch72: vsftpd-3.0.5-replace-old-network-addr-functions.patch
+Patch73: vsftpd-3.0.5-replace-deprecated-openssl-functions.patch
 
 %description
 vsftpd is a Very Secure FTP daemon. It was written completely from
@@ -109,13 +109,11 @@ scratch.
 cp %{SOURCE1} .
 
 %build
-# temporary ignore deprecated warnings to be able to build against OpenSSL 3.0
-%define ignore_deprecated -Wno-deprecated-declarations
 
 %ifarch s390x sparcv9 sparc64
-%make_build CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror %ignore_deprecated" \
+%make_build CFLAGS="$RPM_OPT_FLAGS -fPIE -pipe -Wextra -Werror" \
 %else
-%make_build CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror %ignore_deprecated" \
+%make_build CFLAGS="$RPM_OPT_FLAGS -fpie -pipe -Wextra -Werror" \
 %endif
         LINK="-pie -lssl $RPM_LD_FLAGS" %{?_smp_mflags}
 
@@ -170,6 +168,10 @@ mkdir -p $RPM_BUILD_ROOT/%{_var}/ftp/pub
 %{_var}/ftp
 
 %changelog
+* Fri Feb 17 2023 Richard Lescak <rlescak@redhat.com> - 3.0.5-3
+- make vsftpd compatible with Openssl 3.0+
+- replace old network functions
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

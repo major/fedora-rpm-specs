@@ -1,5 +1,5 @@
 Name:		rteval
-Version:	3.5
+Version:	3.6
 Release:	2%{?dist}
 Summary:	Utility to evaluate system suitability for RT Linux
 
@@ -10,23 +10,25 @@ Source0:	https://www.kernel.org/pub/linux/utils/%{name}/%{name}-%{version}.tar.x
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 
 BuildRequires:	python3-devel
-Requires:	python3-ethtool
+BuildRequires:  python3-setuptools
 Requires:	python3-lxml
+Requires:	python3-libxml2
 Requires:	python3-dmidecode >= 3.10
 Requires:	realtime-tests
-Requires:	stress-ng
-Requires:	rteval-loads >= 1.6-1
+Requires:	rteval-loads >= 1.6-3
 Requires:	sysstat
-Requires:	xz bzip2
+Requires:	xz bzip2 tar gzip m4 gawk
 Requires:	kernel-headers
 Requires:	sos
-Requires:	tar
 Requires:	numactl
-Requires:	gcc flex bison bc make
+Requires:	gcc binutils gcc-c++ flex bison bc make
 Requires:	elfutils elfutils-libelf-devel
 Requires:	openssl
 Requires:	openssl-devel
-Requires:	binutils
+Requires:	stress-ng
+Requires:	perl-interpreter, perl-devel, perl-generators
+Requires:	libmpc, libmpc-devel
+Requires:	dwarves
 BuildArch:	noarch
 
 # Patches
@@ -62,6 +64,14 @@ to the screen.
 %{_bindir}/rteval
 
 %changelog
+* Fri Feb 17 2023 John Kacur <jkacur@redhat.com> - 3.6-2
+- Update the BuildRequires for correct version of rteval-loads
+- Remove python3-ethtool as a Requires
+- Update the Requires
+
+* Fri Feb 17 2023 John Kacur <jkacur@redhat.com> - 3.6-1
+- Rebuild latest upstream release which removes use of distutils
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

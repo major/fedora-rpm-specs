@@ -19,6 +19,7 @@ BuildRequires:  help2man
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python-sphinx-doc
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist build}
 BuildRequires:  %{py3_dist click}
 BuildRequires:  %{py3_dist flit-core}

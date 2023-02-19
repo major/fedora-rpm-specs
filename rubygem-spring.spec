@@ -1,23 +1,20 @@
 %global gem_name spring
 
 Name: rubygem-%{gem_name}
-Version: 2.1.1
-Release: 7%{?dist}
+Version: 4.1.1
+Release: 1%{?dist}
 Summary: Rails application preloader
 License: MIT
 URL: https://github.com/rails/spring
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # git clone https://github.com/rails/spring.git && cd spring
-# git archive -v -o spring-2.1.1-tests.tar.gz v2.1.1 test/
+# git archive -v -o spring-4.1.1-tests.tar.gz v4.1.1 test/
 Source1: %{gem_name}-%{version}-tests.tar.gz
-# Fir Ruby 3.0 compatibility.
-# https://github.com/rails/spring/pull/632
-Patch0: spring-2.1.1-Use-keyword-argument-instead-of-Has-as-optional-argument.patch
 # Needed by `spring status`
 Requires: %{_bindir}/ps
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
-BuildRequires: ruby >= 2.4.0
+BuildRequires: ruby >= 2.7.0
 BuildRequires: rubygem(bundler)
 BuildRequires: rubygem(activesupport)
 BuildArch: noarch
@@ -40,10 +37,6 @@ Documentation for %{name}.
 
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
-
-pushd %{_builddir}
-%patch0 -p1
-popd
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -87,6 +80,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Thu Feb 16 2023 Vít Ondruch <vondruch@redhat.com> - 4.1.1-1
+- Update to Spring 4.1.1.
+  Resolves: rhbz#2002484
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

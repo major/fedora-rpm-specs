@@ -1,19 +1,25 @@
 ### Naming ###
 # Set to true if it's going to be submitted as update
-%global release_build 0
+%global release_build 1
 
 # Set new source-code build version
 # This tag indicates a new rebuild for Fedora
 %global redhat_ver rh1
 
-%global pre_tag .test
-#global pre_tag %%{nil}
+#%%global pre_tag .test
+%global pre_tag %{nil}
 
 # Exclude ARM for the following error:
 #  terminate called after throwing an instance of 'std::bad_alloc'
 #   what():  std::bad_alloc
 #   error: could not compile `gkrust`
 ExcludeArch: %{arm}
+
+# Build is failing because of
+# include/mozilla/FloatingPoint.h:212:31: error: inlining failed in call to ‘always_inline’ ‘bool mozilla::IsNegativeZero(T) [with T = double]’: indirect function call with a yet undetermined callee
+%if 0%{?fedora} > 37
+ExcludeArch: s390x
+%endif
 
 ####################
 
@@ -101,12 +107,12 @@ ExcludeArch: %{arm}
 
 Name: icecat
 Epoch:   1
-Version: 102.7.0
-Release: 3.%{redhat_ver}%{?pre_tag}%{?dist}
+Version: 102.8.0
+Release: 1.%{redhat_ver}%{?pre_tag}%{?dist}
 Summary: GNU version of Firefox browser
 
 # Tri-licensing scheme for Gnuzilla/IceCat in parentheses, and licenses for the extensions included
-License: (MPLv1.1 or GPLv2+ or LGPLv2+) and GPLv3+ and MIT and BSD and ISC and ASL 2.0 and MPLv2.0
+License: (MPL-1.1 or GPL-2.0-or-later or LGPL-2.1-or-later) and GPL-3.0-or-later and MIT and BSD and ISC and Apache-2.0 and MPL-2.0
 URL:   http://www.gnu.org/software/gnuzilla/
 
 ## Source archive created by scripts based on Gnuzilla files.
@@ -167,7 +173,7 @@ Patch220: firefox-nss-version.patch
 Patch221: firefox-nss-addon-hack.patch
 Patch223: %{name}-glibc-dynstack.patch
 Patch224: %{name}-GLIBCXX-fix-for-GCC-12.patch
-Patch225: %{name}-%{version}-fix_gcc13_build.patch
+Patch225: %{name}-102.7.0-fix_gcc13_build.patch
 
 # ARM run-time patch
 Patch226: rhbz-1354671.patch
@@ -379,10 +385,7 @@ tar -xf %{SOURCE5}
 %patch44  -p1 -b .build-arm-libopus
 %endif
 
-#patch401 -p1 -b .1742849
 %patch402 -p1 -b .1196777
-%patch403 -p1 -b .python311
-%patch404 -p1 -b .python311
 %ifarch %{power64}
 %patch423 -p1 -b .1512162
 %endif
@@ -827,6 +830,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/%{name}-wayland.desktop
 
 %changelog
+* Fri Feb 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.8.0-1.rh1
+- Release 102.8.0
+- Exclude s390x in Fedora 37+
+
 * Sat Jan 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.7.0-3.rh1.test
 - Fix GCC-13 build
 

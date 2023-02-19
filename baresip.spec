@@ -1,7 +1,7 @@
 Summary:        Modular SIP user-agent with audio and video support
 Name:           baresip
-Version:        2.11.0
-Release:        3%{?dist}
+Version:        2.12.0
+Release:        1%{?dist}
 License:        BSD-3-Clause
 URL:            https://github.com/baresip/baresip
 Source0:        https://github.com/baresip/baresip/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -11,15 +11,14 @@ Source11:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/1e1d6921
 Source12:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING#/COPYING.adwaita-icon-theme
 Source13:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_CCBYSA3#/COPYING_CCBYSA3.adwaita-icon-theme
 Source14:       https://gitlab.gnome.org/GNOME/adwaita-icon-theme/-/raw/master/COPYING_LGPL#/COPYING_LGPL.adwaita-icon-theme
-Patch0:         https://github.com/baresip/baresip/commit/dd9106090136304455e9e7a6295a50ed4406e481.patch#/baresip-2.11.0-no-pulse-simple.patch
 BuildRequires:  cmake
 %if 0%{?rhel} && 0%{?rhel} < 8
 BuildRequires:  cmake3
 %endif
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libre-devel >= 2.11.0
-BuildRequires:  librem-devel >= 2.11.0
+BuildRequires:  libre-devel >= 2.12.0
+BuildRequires:  librem-devel >= 2.12.0
 %if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:  openssl-devel >= 1.1.0
 %else
@@ -352,7 +351,6 @@ This module provides the X11 video output driver.
 
 %prep
 %setup -q
-%patch0 -p1 -b .no-pulse-simple
 
 %build
 %if 0%{?rhel} && 0%{?rhel} < 8
@@ -427,7 +425,7 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %license LICENSE
 %doc CHANGELOG.md docs/THANKS docs/examples
 %{_bindir}/%{name}
-%{_libdir}/lib%{name}.so.3*
+%{_libdir}/lib%{name}.so.4*
 %dir %{_libdir}/%{name}/
 %dir %{_libdir}/%{name}/modules/
 %{_libdir}/%{name}/modules/account.so
@@ -562,6 +560,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_libdir}/%{name}/modules/x11.so
 
 %changelog
+* Sat Feb 18 2023 Robert Scheck <robert@fedoraproject.org> 2.12.0-1
+- Upgrade to 2.12.0 (#2170292)
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 2.11.0-3
 - rebuild for libvpx
 

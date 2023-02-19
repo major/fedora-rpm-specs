@@ -6,7 +6,7 @@
 
 Name:           gns3-server
 Version:        2.2.37
-Release:        1%{?dist}
+Release:        3%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -58,15 +58,15 @@ Requires: %{name} = %{version}-%{release}
 sed -i -r 's/==/>=/g' requirements.txt
 sed -i -r 's/distro>=1.7.*/distro>=1.6.0/' requirements.txt
 sed -i -r 's/psutil>=5.9.4/psutil>=5.8.0/' requirements.txt
-sed -i -r 's/aiofiles>=22.1.0/aiofiles>=0.7/' requirements.txt
-sed -i -r 's/Jinja2>=3.1.2/jinja2>=3.0.1/' requirements.txt
-sed -i -r 's/jsonschema>=4.17.3/jsonschema>=3.2.0/' requirements.txt
-sed -i -r 's/py-cpuinfo>=9.0.0/py-cpuinfo>=8.0.0/' requirements.txt
+sed -i -r 's/aiofiles>=22.1.0,<22.2/aiofiles>=0.7/' requirements.txt
+sed -i -r 's/Jinja2>=3.1.2,<3.2/jinja2>=3.0.1/' requirements.txt
+sed -i -r 's/jsonschema>=4.17.3,<4.18/jsonschema>=3.2.0/' requirements.txt
+sed -i -r 's/py-cpuinfo>=9.0.0,<10.0/py-cpuinfo>=8.0.0/' requirements.txt
 sed -i -r 's/sentry-sdk.*//g' requirements.txt
 sed -i -r '/setuptools/d' requirements.txt
 
 # Don't bundle busybox with the package
-sed -i '/^copy_busybox/d' setup.py
+sed -i -r '/^copy_busybox/d' setup.py
 
 %build
 %py3_build
@@ -132,6 +132,12 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Fri Feb 17 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.37-3
+- Update relaxed requirements
+
+* Fri Feb 17 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.37-2
+- Update relaxed requirements
+
 * Tue Jan 31 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.37-1
 - Update to 2.2.37
 

@@ -5,11 +5,11 @@
 %global firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
-%global uAssets_commit 3dfee87c164d9db69162ee75e0d15e39701e8217
+%global uAssets_commit 64cacb4a496e2ae7f14554ec73287aadf1d34e57
 
 Name:           mozilla-ublock-origin
-Version:        1.46.0
-Release:        2%{?dist}
+Version:        1.47.0
+Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
 License:        GPLv3 and MIT and OFL and Unlicense
@@ -49,7 +49,7 @@ Provides:       bundled(js-codemirror) = 5.59.2
 # lib/lz4 https://github.com/gorhill/lz4-wasm BSD
 Provides:       bundled(lz4-wasm)
 # lib/regexanalyzer https://github.com/foo123/RegexAnalyzer Copyleft
-Provides:       bundled(js-regexanalyzer) = 1.1.0
+Provides:       bundled(js-regexanalyzer) = 1.2.0
 # lib/hsluv https://github.com/hsluv/hsluv/ MIT
 Provides:       bundled(js-hsluv) = 0.1.0
 # usually much newer than Fedora's publicsuffix-list package
@@ -106,6 +106,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Fri Feb 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.47.0-1
+- update to 1.47.0 (#2170209)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.46.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

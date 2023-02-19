@@ -21,6 +21,7 @@ BuildRequires:  make
 BuildRequires:  nodejs-devel
 BuildRequires:  npm
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist beautifulsoup4}
 BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist nodeenv}

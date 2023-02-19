@@ -21,6 +21,7 @@ BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(check)
 BuildRequires:  pkgconfig(cppunit)
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist extras}
 BuildRequires:  %{py3_dist fixtures}

@@ -1,7 +1,7 @@
 Summary:      Advanced drum machine for GNU/Linux
 Name:         hydrogen
 Version:      1.1.1
-Release:      4%{?dist}
+Release:      5%{?dist}
 URL:          http://www.hydrogen-music.org/
 Source0:      https://github.com/hydrogen-music/%{name}/releases/download/%{version}/%{name}-%{version}.tar.gz
 License:      GPLv2+
@@ -9,6 +9,7 @@ License:      GPLv2+
 # Workaround appdata validator version ordering bug
 # See https://github.com/hughsie/appstream-glib/issues/234
 Patch0:       %{name}-appdata-validation.patch
+Patch1: hydrogen-c99.patch
 
 BuildRequires: alsa-lib-devel
 BuildRequires: desktop-file-utils
@@ -99,6 +100,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_includedir}/hydrogen/
 
 %changelog
+* Fri Feb 17 2023 Florian Weimer <fweimer@redhat.com> - 1.1.1-5
+- Backport upstream patch to fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

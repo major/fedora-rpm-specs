@@ -1,16 +1,18 @@
-%global vc_commit 782fbf7301dc73acaa049a4324c976ad94f587f7
+%global vc_commit 907bc4a00be585a395abe17b97f357bfbc28b889
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
-%global toolchain clang
-%global optflags %{optflags} -Wno-everything -Qunused-arguments
+
+%global optflags %{optflags} -w
 
 %ifarch i686
 %global optflags %(echo %{optflags} | sed 's/-flto / /')
 %global _lto_cflags %{nil}
 %endif
 
+%global optflags %(echo %{optflags} | sed 's/-Wp,-D_GLIBCXX_ASSERTIONS / /')
+
 Name: intel-igc
-Version: 1.0.12812.4
-Release: 2%{?dist}
+Version: 1.0.13230.4
+Release: 1%{?dist}
 Summary: Intel Graphics Compiler for OpenCL
 
 License: MIT
@@ -18,10 +20,9 @@ URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/igc-%{version}/igc-%{version}.tar.gz
 Source1: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics-%{vc_shortcommit}.tar.gz
 
-# LLVM 15
-Patch01: e09e752949e7af0231884d1b11ea907e3e8b1611.patch
-Patch02: c707d1e2244aec988bdd5d2a7473ef3a32a5bac7.patch
-Patch03: 0001-BiF-Wno-int-conversion.patch
+Patch01: 0001-Build-Revert-custom_target-for-SPIRV-Tools.patch
+Patch02: 0001-SPIRVutil-Include-cstdint-to-fix-GCC-13-build.patch
+Patch03: 896d33ad9750cd7dace9bad42f027940ce33cf36.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -29,6 +30,8 @@ ExclusiveArch:  x86_64
 BuildRequires: cmake
 BuildRequires: make
 BuildRequires: git
+BuildRequires: gcc
+BuildRequires: gcc-c++
 BuildRequires: ninja-build
 BuildRequires: llvm-devel
 BuildRequires: lld-devel
@@ -84,14 +87,13 @@ tar -xf %{SOURCE1}
     -DIGC_OPTION__ARCHITECTURE_TARGET='Linux32' \
 %endif
     -DIGC_OPTION__LINK_KHRONOS_SPIRV_TRANSLATOR=ON \
-    -DIGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_VC=ON \
-    -DIGC_OPTION__USE_KHRONOS_SPIRV_TRANSLATOR_IN_SC=OFF \
+    -DIGC_BUILD__VC_ENABLED=ON \
     -DIGC_OPTION__SPIRV_TRANSLATOR_MODE=Prebuilds \
     -DIGC_OPTION__CLANG_MODE=Prebuilds \
     -DIGC_OPTION__LLD_MODE=Prebuilds \
     -DIGC_OPTION__LLVM_MODE=Prebuilds \
     -DIGC_OPTION__SPIRV_TOOLS_MODE=Prebuilds \
-    -DIGC_OPTION__USE_PREINSTALLED_SPRIV_HEADERS=ON \
+    -DIGC_OPTION__USE_PREINSTALLED_SPIRV_HEADERS=ON \
     -DIGC_OPTION__VC_INTRINSICS_MODE=Source \
     -DINSTALL_GENX_IR=ON \
     -Wno-dev \
@@ -123,6 +125,9 @@ tar -xf %{SOURCE1}
 %{_libdir}/pkgconfig/igc-opencl.pc
 
 %changelog
+* Fri Feb 17 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.13230.4-1
+- intel-igc-1.0.13230.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.12812.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

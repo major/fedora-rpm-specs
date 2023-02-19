@@ -16,7 +16,7 @@ Name: openbabel
 Version: 3.1.1
 Release: 18%{?dist}
 Summary: Chemistry software file format converter
-License: GPLv2
+License: GPL-2.0-only
 URL: https://openbabel.org/
 Source0: https://github.com/openbabel/openbabel/archive/openbabel-openbabel-%(echo %{version} | tr '.' '-').tar.gz
 Source1: obgui.desktop
@@ -120,7 +120,7 @@ This package contains the graphical interface.
 %package libs
 Summary: Chemistry software file format converter - libraries
 %if 0%{?rhel}
-License: GPLv2 and LGPLv2+
+License: GPL-2.0-only AND LGPL-2.1-or-later
 Provides: bundled(libinchi) = 1.0.4
 %endif
 

@@ -1,10 +1,13 @@
 %global rdnn de.danielnoethen.butt
 
 Name:           butt
-Version:        0.1.36
-Release:        2%{?dist}
+Version:        0.1.37
+Release:        %autorelease
 Summary:        Broadcast using this tool
-License:        GPLv2+
+# Entire source code is GPL-2.0-or-later except:
+# src/opus_encode.cpp: GPL-2.0-or-later AND BSD-2-Clause
+# src/cJSON.{cpp,h}: MIT
+License:        GPL-2.0-or-later AND BSD-2-Clause AND MIT
 URL:            https://danielnoethen.de/butt/
 Source:         https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 
@@ -28,7 +31,7 @@ BuildRequires:  openssl-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libcurl-devel
 
-# for desktop-file-install command
+# for desktop-file-validate command
 BuildRequires:  desktop-file-utils
 # for appstream-util command
 BuildRequires:  libappstream-glib
@@ -98,64 +101,4 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{rdnn}.metain
 
 
 %changelog
-* Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.36-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Oct 03 2022 Carl George <carl@george.computer> - 0.1.36-1
-- Latest upstream, resolves rhbz#2098461
-
-* Tue Sep 13 2022 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.1.34-3
-- Rebuilt for flac 1.4.0
-
-* Wed Jul 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.34-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Apr 21 2022 Carl George <carl@george.computer> - 0.1.34-1
-- Latest upstream (resolves: rhbz#2018071)
-
-* Wed Jan 19 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.31-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Tue Sep 14 2021 Sahana Prasad <sahana@redhat.com> - 0.1.31-2
-- Rebuilt with OpenSSL 3.0.0
-
-* Sat Jul 24 2021 Carl George <carl@george.computer> - 0.1.31-1
-- Latest upstream
-- Resolves: rhbz#1981020
-
-* Wed Jul 21 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.30-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Mon May 31 2021 Carl George <carl@george.computer> - 0.1.30-1
-- Latest upstream
-- Fixes: rhbz#1891773
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.24-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Wed Oct 21 2020 Carl George <carl@george.computer> - 0.1.24-1
-- Latest upstream rhbz#1826467
-
-* Mon Jul 27 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.19-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Tue Mar 17 2020 Carl George <carl@george.computer> - 0.1.19-1
-- Latest upstream
-
-* Tue Jan 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Wed Jul 24 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Sun May 12 2019 Carl George <carl@george.computer> - 0.1.18-1
-- Latest upstream
-
-* Tue Apr 09 2019 Carl George <carl@george.computer> - 0.1.17-3
-- Re-enable s390x via patch0
-
-* Sun Apr 07 2019 Carl George <carl@george.computer> - 0.1.17-2
-- Exclude s390x rhbz#1697142
-
-* Fri Apr 05 2019 Carl George <carl@george.computer> - 0.1.17-1
-- Initial package
+%autochangelog

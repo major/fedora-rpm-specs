@@ -1,6 +1,6 @@
 Name:           python-pylero
-Version:        0.0.5
-Release:        2%{?dist}
+Version:        0.0.6
+Release:        1%{?dist}
 Summary:        Python SDK for Polarion
 
 License:        MIT
@@ -82,6 +82,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Feb 17 2023 Wayne Sun <gsun@redhat.com> 0.0.6-1
+- Update to 0.0.6
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

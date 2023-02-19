@@ -3,16 +3,14 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-contacts
-Version:        43.0
+Version:        44~beta
 Release:        %autorelease
 Summary:        Contacts manager for GNOME
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Contacts
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
-Patch0:         213.patch
-Patch1:         214.patch
-Patch2:         216.patch
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+Patch0:         216.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-dtds
@@ -30,6 +28,7 @@ BuildRequires:  pkgconfig(gobject-introspection-1.0)
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libportal-gtk4)
+BuildRequires:  pkgconfig(libqrencode)
 
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       hicolor-icon-theme
@@ -54,7 +53,7 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/org.gnom
 desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Contacts.desktop
 
 %files -f %{name}.lang
-%doc NEWS
+%doc NEWS README.md
 %license COPYING
 %{_bindir}/gnome-contacts
 %{_libexecdir}/gnome-contacts/

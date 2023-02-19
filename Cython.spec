@@ -5,11 +5,11 @@
 %bcond_without cython_compile
 
 Name:           Cython
-Version:        0.29.32
-Release:        3%{?dist}
+Version:        0.29.33
+Release:        1%{?dist}
 Summary:        Language for writing Python extension modules
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://www.cython.org
 Source:         https://github.com/cython/cython/archive/%{version}/Cython-%{version}.tar.gz
 
@@ -133,6 +133,11 @@ cp -p cython-mode-init.el cython-mode-init.elc %{buildroot}%{_emacs_sitestartdir
 
 
 %changelog
+* Fri Feb 17 2023 Miro Hrončok <mhroncok@redhat.com> - 0.29.33-1
+- Update to 0.29.33
+- Fix test failures with NumPy 1.24
+- Update the RPM license tag to SPDX
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.29.32-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

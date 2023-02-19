@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-theseer-autoload
 #
-# Copyright (c) 2014-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2014-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,7 +10,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    27a3d7c39181461f05b5fc3df0a43e054b86b04e
+%global gh_commit    39eb04ee16634af2110c646a224c81b1f04bcf1f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     theseer
 %global gh_project   Autoload
@@ -25,11 +25,11 @@
 %endif
 
 Name:           php-theseer-autoload
-Version:        1.27.1
-Release:        3%{?dist}
+Version:        1.27.2
+Release:        1%{?dist}
 Summary:        A tool and library to generate autoload code
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
 
@@ -133,7 +133,7 @@ require '%{buildroot}%{_datadir}/php/TheSeer/Autoload/autoload.php';
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" php74 php80 php81; do
+for cmd in "php %{phpunit}" php80 php81 php82; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -159,6 +159,9 @@ fi
 
 
 %changelog
+* Fri Feb 17 2023 Remi Collet <remi@remirepo.net> - 1.27.2-1
+- update to 1.27.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.27.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

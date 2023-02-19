@@ -3,7 +3,7 @@
 Summary:       The quintessential all-purpose communications program
 Name:          ckermit
 Version:       9.0.%{patchlevel}
-Release:       29%{?dist}
+Release:       30%{?dist}
 License:       BSD with advertising and MIT
 # Most of the package is under a three-clause BSD license, but the file
 # ckaut2.h appears to be covered by three licenses:
@@ -20,6 +20,8 @@ Source6:       README.fedora
 # See: https://bugs.gentoo.org/669332
 Patch0:        ckermit-9.0.302-fix_build_with_glibc_2_28_and_earlier.patch
 Patch1:        ckermit-9.0.302-printw.patch
+# C99 fixes - unneeded for ckermit 10
+Patch2:        ckermit-9.0.302-fedora-c99.patch
 URL:           http://www.kermitproject.org/ck90.html
 BuildRequires:  gcc
 BuildRequires: pam-devel
@@ -48,10 +50,11 @@ communication tasks.
 cp %{SOURCE6} .
 %patch0 -p 1 -b .glibc2_28
 %patch1 -p 1 -b .printw
+%patch2 -p 1 -b .c99
 
 %build
 %make_build linux \
-        KFLAGS="-O0 $RPM_OPT_FLAGS -Wall -DOPENSSL_097 -Dsdata=s_data -DHAVE_OPENPTY -D'krb5_init_ets(__ctx)='" \
+        KFLAGS="-O0 $RPM_OPT_FLAGS -Wall -DOPENSSL_097 -Dsdata=s_data -DHAVE_OPENPTY -D'krb5_init_ets(__ctx)=' -DMAINTYPE=int" \
         LNKFLAGS="%{?optflags} %{?__global_ldflags}" \
         K4LIB= \
         K4INC= \
@@ -93,6 +96,9 @@ install -m 644 %{SOURCE5} %{buildroot}%{_sysconfdir}/kermit/ckermit.phone
 %doc README.fedora
 
 %changelog
+* Thu Feb 16 2023 DJ Delorie <dj@redhat.com> - 9.0.302-30
+- Fix C99 compatibility issue
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.302-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

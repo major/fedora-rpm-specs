@@ -13,6 +13,7 @@ BuildArch:      noarch
 
 BuildRequires:  help2man
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist colorama}
 BuildRequires:  %{py3_dist flit-core}
 BuildRequires:  %{py3_dist livereload}

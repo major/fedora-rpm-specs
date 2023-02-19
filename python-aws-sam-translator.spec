@@ -9,6 +9,11 @@ URL:            https://github.com/aws/serverless-application-model
 # and tests.
 Source0:        %{url}/archive/v%{version}/serverless-application-model-%{version}.tar.gz
 
+# chore: Loose typing_extensions version requirement
+# https://github.com/aws/serverless-application-model/pull/2916
+# Cherry-picked to 1.59.0.
+Patch:          0001-chore-Loose-typing_extensions-version-requirement-29.patch
+
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -51,7 +56,7 @@ Obsoletes:      python-aws-sam-translator-doc < 1.54.0-1
 
 
 %prep
-%autosetup -n serverless-application-model-%{version}
+%autosetup -n serverless-application-model-%{version} -p1
 
 # Comment out a few dev dependencies that we will not use. Then, loosen
 # selected semver-pinned dev dependencies, allowing newer versions.

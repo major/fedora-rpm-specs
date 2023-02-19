@@ -51,7 +51,6 @@ BuildRequires: sqlite-devel
 BuildRequires: swig
 BuildRequires: systemd-rpm-macros
 BuildRequires: make
-Requires: systemd
 
 %description
 Libgpod is a library to access the contents of an iPod. It supports playlists,

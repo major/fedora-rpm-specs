@@ -13,11 +13,11 @@ you to:
 
 
 Name:           python-fsleyes-props
-Version:        1.8.2
+Version:        1.8.3
 Release:        %autorelease
 Summary:        [wx]Python event programming framework
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/fsleyes-props
 Source0:        %{pypi_source fsleyes-props}
 
@@ -32,7 +32,7 @@ BuildRequires:  python3-devel
 %if %{with xvfb_tests}
 BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  pytest
-BuildRequires:  %{py3_dist pytest pytest-cov}
+BuildRequires:  %{py3_dist pytest}
 %endif
 
 %description -n python3-fsleyes-props
@@ -46,6 +46,9 @@ find . -name "*py" -exec sed -i '/#!\/usr\/bin\/env python/ d' '{}' \;
 
 # Fix requirements files, the auto-dep generator does not like "*".
 sed -i 's/fsleyes-widgets.*/fsleyes-widgets>=0.6/' requirements.txt
+
+# disable coverage
+sed -i 's/--cov=fsleyes_props//' setup.cfg
 
 %generate_buildrequires
 %pyproject_buildrequires

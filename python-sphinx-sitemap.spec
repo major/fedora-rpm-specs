@@ -10,6 +10,7 @@ Source0:        %{url}/archive/v%{version}/sphinx-sitemap-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist setuptools}

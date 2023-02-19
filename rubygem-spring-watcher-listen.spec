@@ -2,8 +2,8 @@
 %global gem_name spring-watcher-listen
 
 Name: rubygem-%{gem_name}
-Version: 2.0.1
-Release: 17%{?dist}
+Version: 2.1.0
+Release: 1%{?dist}
 Summary: Makes spring watch files using the listen gem
 License: MIT
 URL: https://github.com/jonleighton/spring-watcher-listen
@@ -12,14 +12,8 @@ Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
 # necessary bits as long as spring-watcher-listen is not fixed (which does not
 # look very likely ATM :/)
 # git clone https://github.com/rails/spring.git && cd spring
-# git archive -v -o spring-2.1.1-tests.tar.gz v2.1.1 test/
-Source1: spring-2.1.1-tests.tar.gz
-# Fix Ruby 2.5 compatibility.
-# https://github.com/jonleighton/spring-watcher-listen/pull/22
-Patch0: rubygem-spring-watcher-listen-2.0.1-Really-delete-the-directories.patch
-# Fir Ruby 3.0 compatibility.
-# https://github.com/rails/spring/pull/632
-Patch1: spring-2.1.1-Use-keyword-argument-instead-of-Has-as-optional-argument.patch
+# git archive -v -o spring-4.1.1-tests.tar.gz v4.1.1 test/
+Source1: spring-4.1.1-tests.tar.gz
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -48,12 +42,6 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version} -b 1
 
-%patch0 -p1
-
-pushd %{_builddir}
-%patch1 -p1
-popd
-
 %build
 # Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
@@ -73,17 +61,13 @@ pushd .%{gem_instdir}
 sed -i '/bundler\/setup/ s/^/#/' test/helper.rb
 
 # Use the Spring test suite bits.
-sed -i '/spring\/test/ s/spring/support/' test/helper.rb
+sed -i 's|File\.dirname\(.*spring.*\) + "/|"|' test/helper.rb
 sed -i '/spring\/test/ s/^/#/' test/unit_test.rb
-# spring-watcher-listen does not support #check_stale call, comparing to
-# Spring polling or even abstract adapter.
-sed -i '/watcher.check_stale/i\        skip' %{_builddir}/test/support/watcher_test.rb
 
 # Run only unit test now, acceptance test wants to compile gems extensions
 mv test/acceptance_test.rb{,.disable}
-# Asking about tests finish with a error "undefined method callback!".
-# https://github.com/jonleighton/spring-watcher-listen/issues/12
-ruby -Ilib:test:%{_builddir}/test/ -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
+
+ruby -Itest:%{_builddir} -e 'Dir.glob "./test/**/*_test.rb", &method(:require)'
 popd
 
 %files
@@ -103,6 +87,10 @@ popd
 %{gem_instdir}/test
 
 %changelog
+* Fri Feb 17 2023 Vít Ondruch <vondruch@redhat.com> - 2.1.0-1
+- Update to spring-watcher-listen 2.1.0.
+  Resolves: rhbz#2129449
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

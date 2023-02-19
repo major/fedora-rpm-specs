@@ -9,6 +9,7 @@ Source0:        https://github.com/wpilibsuite/sphinxext-rediraffe/archive/v%{ve
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist jinja2}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist setuptools}

@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:    gnome-backgrounds
-Version: 43.1
+Version: 44~beta
 Release: 1%{?dist}
 Summary: Desktop backgrounds packaged with the GNOME desktop
 
 License: CC-BY-SA-3.0
 URL:     https://gitlab.gnome.org/GNOME/gnome-backgrounds
-Source0: https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0: https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildArch: noarch
 BuildRequires: gettext
@@ -52,8 +52,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/gnome-background-properties/adwaita.xml
 %{_datadir}/gnome-background-properties/blobs.xml
 %{_datadir}/gnome-background-properties/drool.xml
-%{_datadir}/gnome-background-properties/grid.xml
-%{_datadir}/gnome-background-properties/licorice.xml
+%{_datadir}/gnome-background-properties/keys.xml
+%{_datadir}/gnome-background-properties/pills.xml
 %{_datadir}/gnome-background-properties/truchet.xml
 %{_datadir}/backgrounds/gnome/adwaita-d.webp
 %{_datadir}/backgrounds/gnome/adwaita-l.webp
@@ -61,25 +61,27 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/blobs-l.svg
 %{_datadir}/backgrounds/gnome/drool-d.svg
 %{_datadir}/backgrounds/gnome/drool-l.svg
-%{_datadir}/backgrounds/gnome/grid-d.webp
-%{_datadir}/backgrounds/gnome/grid-l.webp
-%{_datadir}/backgrounds/gnome/licorice-d.webp
-%{_datadir}/backgrounds/gnome/licorice-l.webp
+%{_datadir}/backgrounds/gnome/keys-d.webp
+%{_datadir}/backgrounds/gnome/keys-l.webp
+%{_datadir}/backgrounds/gnome/pills-d.webp
+%{_datadir}/backgrounds/gnome/pills-l.webp
 %{_datadir}/backgrounds/gnome/truchet-d.webp
 %{_datadir}/backgrounds/gnome/truchet-l.webp
 
 %files extras
+%{_datadir}/gnome-background-properties/design-is-rounded-rectangles.xml
 %{_datadir}/gnome-background-properties/dune.xml
-%{_datadir}/gnome-background-properties/field.xml
+%{_datadir}/gnome-background-properties/fold.xml
 %{_datadir}/gnome-background-properties/oceans.xml
 %{_datadir}/gnome-background-properties/pixels.xml
 %{_datadir}/gnome-background-properties/symbolic.xml
 %{_datadir}/gnome-background-properties/vnc.xml
-%{_datadir}/gnome-background-properties/wood.xml
+%{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-d.webp
+%{_datadir}/backgrounds/gnome/design-is-rounded-rectangles-l.webp
 %{_datadir}/backgrounds/gnome/dune-d.svg
 %{_datadir}/backgrounds/gnome/dune-l.svg
-%{_datadir}/backgrounds/gnome/field-d.svg
-%{_datadir}/backgrounds/gnome/field-l.svg
+%{_datadir}/backgrounds/gnome/fold-d.webp
+%{_datadir}/backgrounds/gnome/fold-l.webp
 %{_datadir}/backgrounds/gnome/oceans.svg
 %{_datadir}/backgrounds/gnome/pixels-d.webp
 %{_datadir}/backgrounds/gnome/pixels-l.webp
@@ -87,10 +89,11 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale
 %{_datadir}/backgrounds/gnome/symbolic-l.webp
 %{_datadir}/backgrounds/gnome/vnc-d.webp
 %{_datadir}/backgrounds/gnome/vnc-l.webp
-%{_datadir}/backgrounds/gnome/wood-d.webp
-%{_datadir}/backgrounds/gnome/wood-l.webp
 
 %changelog
+* Fri Feb 17 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 43.1-1
 - Update to 43.1
 

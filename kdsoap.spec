@@ -13,10 +13,13 @@ Summary:        A Qt-based client-side and server-side SOAP component
 License:        MIT
 URL:            https://github.com/KDAB/KDSoap
 Source0:        https://github.com/KDAB/KDSoap/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
+Source1:        https://github.com/KDAB/KDSoap/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz.asc
+Source2:        https://www.kdab.com/kdab-products.asc
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  pkgconfig(Qt5Core)
+BuildRequires: gnupg2
 
 %description
 KDSoap can be used to create client applications for web services
@@ -42,6 +45,7 @@ BuildArch:      noarch
 Documentation for %{name}
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
 
 

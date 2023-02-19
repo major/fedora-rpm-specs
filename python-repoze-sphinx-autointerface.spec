@@ -16,12 +16,6 @@ Patch0:         %{name}-sphinx4.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zope.interface}
 
 %global common_desc %{expand:
 This package defines an extension for the Sphinx documentation system.
@@ -37,6 +31,9 @@ Summary:        Auto-generate Sphinx API docs from Zope interfaces
 
 %prep
 %autosetup -n %{pkgname}-%{version} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel

@@ -41,8 +41,8 @@
 %global archive_topdir %{name}-%{version}%{?prerel2}
 %endif
 
-%global prerelease rc
-%global prereleasenum 1
+#%%global prerelease rc
+#%%global prereleasenum 1
 
 %global prerel1 %{?prerelease:.%{prerelease}%{prereleasenum}}
 %global prerel2 %{?prerelease:-%{prerelease}.%{prereleasenum}}
@@ -50,7 +50,7 @@
 Summary: A dynamic adaptive system tuning daemon
 Name: tuned
 Version: 2.20.0
-Release: 0.1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
+Release: 1%{?prerel1}%{?git_suffix:.%{git_suffix}}%{?dist}
 License: GPLv2+
 %if 0%{?git_commit:1}
 Source0: https://github.com/redhat-performance/%{name}/archive/%{git_commit}/%{name}-%{version}-%{git_suffix}.tar.gz
@@ -223,7 +223,6 @@ Summary: Additional tuned profile(s) targeted to Network Function Virtualization
 Requires: %{name} = %{version}
 Requires: %{name}-profiles-realtime = %{version}
 Requires: tuna
-Requires: nmap-ncat
 
 %description profiles-nfv-host
 Additional tuned profile(s) targeted to Network Function Virtualization (NFV) host.
@@ -539,7 +538,6 @@ fi
 %{_prefix}/lib/tuned/cpu-partitioning
 %{_prefix}/lib/tuned/cpu-partitioning-powersave
 %{_mandir}/man7/tuned-profiles-cpu-partitioning.7*
-%{_mandir}/man7/tuned-profiles-cpu-partitioning-powersave.7*
 
 %files profiles-spectrumscale
 %{_prefix}/lib/tuned/spectrumscale-ece
@@ -566,6 +564,16 @@ fi
 %{_mandir}/man7/tuned-profiles-openshift.7*
 
 %changelog
+* Fri Feb 17 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.20.0-1
+- new release
+  - rebased tuned to latest upstream
+    related: rhbz#2133815
+  - fixed possible traceback on SIGHUP
+    resolves: rhbz#2169712
+  - updated manual pages to be consistent
+  - tuned-adm: better error message for unauthorized switch_profile
+  - plugin_sysctl: report reapplied sysctls only on different values
+
 * Wed Feb  8 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 2.20.0-0.1.rc1
 - new release
   - rebased tuned to latest upstream

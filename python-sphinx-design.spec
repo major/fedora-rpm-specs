@@ -13,6 +13,7 @@ Source0:        %{url}/archive/v%{version}/sphinx-design-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist flit-core}
 BuildRequires:  %{py3_dist myst-parser}
 BuildRequires:  %{py3_dist pip}

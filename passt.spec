@@ -7,17 +7,16 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash ace074cf491013d3f5174e9cfea705db311a278b
+%global git_hash 4663ccc89a7fcbf9d901a80730ee925fc7f64c59
 
 Name:		passt
-Version:	0^20221116.gace074c
-Release:	3%{?dist}
+Version:	0^20230216.g4663ccc
+Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	AGPLv3+ and BSD
 Group:		System Environment/Daemons
 URL:		https://passt.top/
 Source:		https://passt.top/passt/snapshot/passt-%{git_hash}.tar.xz
-Patch0: passt-c99.patch
 
 BuildRequires:	gcc, make, checkpolicy, selinux-policy-devel
 
@@ -46,7 +45,7 @@ Requires(preun): policycoreutils
 This package adds SELinux enforcement to passt(1) and pasta(1).
 
 %prep
-%autosetup -p1 -n passt-%{git_hash}
+%setup -q -n passt-%{git_hash}
 
 %build
 %set_build_flags
@@ -97,8 +96,8 @@ semodule -r pasta 2>/dev/null || :
 %{_datadir}/selinux/packages/%{name}/pasta.pp
 
 %changelog
-* Fri Feb 03 2023 Florian Weimer <fweimer@redhat.com> - 0^20221116.gace074c-3
-- Fix C99 compatibility issue
+* Thu Feb 16 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230216.g4663ccc-1
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2022_11_16.ace074c..2023_02_16.4663ccc
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0^20221116.gace074c-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

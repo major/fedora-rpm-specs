@@ -18,8 +18,8 @@
 %endif
 
 Name:           mozjs%{major}
-Version:        102.7.0
-Release:        2%{?dist}
+Version:        102.8.0
+Release:        1%{?dist}
 Summary:        SpiderMonkey JavaScript library
 
 License:        MPL-2.0 AND Apache-2.0 AND BSD-3-Clause AND BSD-2-Clause AND MIT AND GPL-3.0-or-later
@@ -43,7 +43,6 @@ Patch13:        tests-Use-native-TemporaryDirectory.patch
 # Build fixes
 Patch14:        init_patch.patch
 Patch15:        remove-sloppy-m4-detection-from-bundled-autoconf.patch
-Patch16:        0001-Python-Build-Use-r-instead-of-rU-file-read-modes.patch
 
 # TODO: Check with mozilla for cause of these fails and re-enable spidermonkey compile time checks if needed
 Patch20:        spidermonkey_checks_disable.patch
@@ -226,6 +225,9 @@ ln -s libmozjs-%{major}.so.0 %{buildroot}%{_libdir}/libmozjs-%{major}.so
 %{_includedir}/mozjs-%{major}/
 
 %changelog
+* Fri Feb 17 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.8.0-1
+- mozjs102-102.8.0 (fixes RHBZ#2169721)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 102.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

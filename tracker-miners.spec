@@ -80,7 +80,9 @@ Conflicts:      tracker3-miners < 3.1.0~rc-2
 Provides:       tracker3-miners = %{version}-%{release}
 Provides:       tracker3-miners%{?_isa} = %{version}-%{release}
 
+%if !0%{?flatpak}
 Requires:       tracker%{?_isa} >= %{tracker_version}
+%endif
 
 %description
 Tracker is a powerful desktop-neutral first class object database,

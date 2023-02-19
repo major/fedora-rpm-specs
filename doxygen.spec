@@ -22,7 +22,7 @@ Name:    doxygen
 Epoch:   2
 Version: 1.9.6
 %if 0%{?stable}
-Release: 5%{?dist}
+Release: 6%{?dist}
 %else
 %global commit e18f715eb55121a4219d00bc4d824cebf1fb504b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -30,7 +30,7 @@ Release: 5%{?dist}
 Release: 0.%{date}git%{shortcommit}.1
 %endif
 # No version is specified.
-License: GPL+
+License: GPL-1.0-or-later
 Url: https://github.com/doxygen
 %if 0%{?stable}
 Source0: https://sourceforge.net/projects/doxygen/files/rel-%{version}/%{name}-%{version}.src.tar.gz
@@ -320,6 +320,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
 %changelog
+* Fri Feb 17 2023 Than Ngo <than@redhat.com> - 2:1.9.6-6
+- migrated to SPDX license
+
 * Wed Jan 25 2023 Than Ngo <than@redhat.com> - 2:1.9.6-5
 - rebuilt against new ghostscript-10 
 

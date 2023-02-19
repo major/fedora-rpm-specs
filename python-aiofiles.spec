@@ -1,9 +1,9 @@
 Name:           python-aiofiles
-Version:        22.1.0
+Version:        23.1.0
 Release:        %autorelease
 Summary:        File support for asyncio
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/Tinche/aiofiles
 Source0:        %{url}/archive/v%{version}/aiofiles-%{version}.tar.gz
 

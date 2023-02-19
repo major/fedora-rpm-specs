@@ -17,6 +17,7 @@ Patch0:         %{name}-test.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist packaging}
 BuildRequires:  %{py3_dist pip}

@@ -10,6 +10,7 @@ Source0:        https://github.com/ESSS/pytest-regressions/archive/%{version}/py
 
 BuildRequires:  make
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist pandas}

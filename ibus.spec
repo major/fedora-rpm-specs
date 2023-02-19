@@ -50,7 +50,7 @@
 
 Name:           ibus
 Version:        1.5.27
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -558,6 +558,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Fri Feb 17 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-15
+- Resolves: #2169205 Return error if D-Bus set/get property method is failed
+
 * Wed Jan 25 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-14
 - Add active-surrounding-text property to IBusEngine
 - Refactor surrounding text warning & free focus-id tables

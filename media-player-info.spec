@@ -11,7 +11,9 @@ BuildArch:      noarch
 BuildRequires: make
 BuildRequires:  pkgconfig(udev)
 BuildRequires:  python3
+%if %{undefined flatpak}
 Requires:       udev
+%endif
 
 %description
 media-player-info is a repository of data files describing media player
@@ -37,7 +39,7 @@ make %{?_smp_mflags}
 %files
 %license COPYING
 %doc README NEWS AUTHORS
-/usr/share/media-player-info
+%{_datadir}/media-player-info
 /usr/lib/udev/rules.d/*
 /usr/lib/udev/hwdb.d/20-usb-media-players.hwdb
 

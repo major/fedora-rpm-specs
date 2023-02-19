@@ -1,7 +1,7 @@
 Summary: A utility for getting files from remote servers (FTP, HTTP, and others)
 Name: curl
 Version: 7.88.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: MIT
 Source0: https://curl.se/download/%{name}-%{version}.tar.xz
 Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
@@ -9,6 +9,9 @@ Source1: https://curl.se/download/%{name}-%{version}.tar.xz.asc
 # to Daniel's address page https://daniel.haxx.se/address.html for the GPG Key,
 # which points to the GPG key as of April 7th 2016 of https://daniel.haxx.se/mykey.asc
 Source2: mykey.asc
+
+# http2: set drain on stream end
+Patch1:   0001-curl-7.88.0-http2-drain.patch
 
 # patch making libcurl multilib ready
 Patch101: 0101-curl-7.32.0-multilib.patch
@@ -203,6 +206,7 @@ be installed.
 %setup -q
 
 # upstream patches
+%patch1 -p1
 
 # Fedora patches
 %patch101 -p1
@@ -438,6 +442,9 @@ rm -f ${RPM_BUILD_ROOT}%{_libdir}/libcurl.la
 %{_libdir}/libcurl.so.4.[0-9].[0-9].minimal
 
 %changelog
+* Fri Feb 17 2023 Kamil Dudka <kdudka@redhat.com> - 7.88.0-2
+- http2: set drain on stream end
+
 * Wed Feb 15 2023 Kamil Dudka <kdudka@redhat.com> - 7.88.0-1
 - new upstream release, which fixes the following vulnerabilities
     CVE-2023-23916 - HTTP multi-header compression denial of service

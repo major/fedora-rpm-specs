@@ -1,4 +1,4 @@
-%if 0%{?rhel} >= 8
+%if %{defined el8}
 # Disable tests on epel8 - dependencies dont exist.
 %bcond_with tests
 %else
@@ -7,86 +7,69 @@
 
 Name:           python-requests-mock
 Version:        1.10.0
-Release:        2%{?dist}
-Summary:        A requests mocking tool for python
-
-License:        ASL 2.0
+Release:        3%{?dist}
+Summary:        Mock out responses from the requests package
+License:        Apache-2.0
 URL:            https://requests-mock.readthedocs.io/
-Source0:        https://pypi.io/packages/source/r/requests-mock/requests-mock-%{version}.tar.gz
-
-Patch0:         0002-Use-system-urllib3-package.patch
-Patch1:         0003-Allow-skipping-purl-tests-if-it-is-not-present.patch
-
+Source:         %{pypi_source requests-mock}
+Patch:          0002-Use-system-urllib3-package.patch
+Patch:          0003-Allow-skipping-purl-tests-if-it-is-not-present.patch
 BuildArch:      noarch
 
-%description
-requests-mock provides a simple way to do HTTP mocking at the
-python-requests layer.
-
-
-%package -n python%{python3_pkgversion}-requests-mock
-Summary:        A requests mocking tool for python
-
-Requires:       python%{python3_pkgversion}-requests
-Requires:       python%{python3_pkgversion}-six
-
-# standard requirements needed for testing
-BuildRequires:  python%{python3_pkgversion}-requests
-BuildRequires:  python%{python3_pkgversion}-six
-BuildRequires:  python%{python3_pkgversion}-urllib3
-
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-pbr
-BuildRequires:  python%{python3_pkgversion}-setuptools
-
-%{?python_provide:%python_provide python3-requests-mock}
-
+BuildRequires:  python3-devel
 %if %{with tests}
-BuildRequires:  python%{python3_pkgversion}-fixtures
-BuildRequires:  python%{python3_pkgversion}-mock
-BuildRequires:  python%{python3_pkgversion}-testtools
-BuildRequires:  python%{python3_pkgversion}-pytest
-BuildRequires:  python-requests-futures
+BuildRequires:  python3-pytest
+BuildRequires:  python3-requests-futures
 %endif
 
+%global _description %{expand:
+requests-mock provides a building block to stub out the HTTP requests portions
+of your testing code. You should checkout the docs for more information.}
 
-%description -n python%{python3_pkgversion}-requests-mock
-requests-mock provides a simple way to do HTTP mocking at the
-python-requests layer.
+
+%description %_description
+
+
+%package -n python3-requests-mock
+Summary:        %{summary}
+
+
+%description -n python3-requests-mock %_description
 
 
 %prep
-%setup -q -n requests-mock-%{version}
-%patch0 -p1
-%patch1 -p1
+%autosetup -n requests-mock-%{version} -p 1
 
-# Remove bundled egg-info
-rm -rf requests_mock.egg-info
+
+%generate_buildrequires
+%pyproject_buildrequires %{?with_tests:-x fixture}
 
 
 %build
-%py3_build
+%pyproject_wheel
 
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files requests_mock
 
 
 %check
 %if %{with tests}
-%{__python3} -m testtools.run discover
-%{__python3} -m pytest tests/pytest
+%pytest -v tests/pytest
+%else
+%pyproject_check_import -e requests_mock.contrib.fixture
 %endif
 
 
-%files -n python%{python3_pkgversion}-requests-mock
-%license LICENSE
+%files -n python3-requests-mock -f %{pyproject_files}
 %doc README.rst ChangeLog
-%{python3_sitelib}/requests_mock
-%{python3_sitelib}/requests_mock-%{version}-py%{python3_version}.egg-info
 
 
 %changelog
+* Wed Feb 15 2023 Carl George <carl@george.computer> - 1.10.0-3
+- Convert to pyproject macros
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,6 +9,7 @@ Source0:        %{url}/archive/%{version}/pytest-datadir-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pytest}

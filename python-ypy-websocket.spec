@@ -1,6 +1,6 @@
 Name:           python-ypy-websocket
 Version:        0.8.2
-Release:        1%{?dist}
+Release:        %autorelease
 Summary:        WebSocket connector for Ypy
 License:        MIT
 URL:            https://github.com/y-crdt/ypy-websocket
@@ -27,6 +27,8 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n ypy_websocket-%{version}
+# Remove upper version limit from aiofiles
+sed -i "s/,<23//" pyproject.toml
 
 
 %generate_buildrequires
@@ -51,5 +53,4 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
-* Thu Jan 05 2023 Lumír Balhar <lbalhar@redhat.com> - 0.8.2-1
-- Initial package
+%autochangelog

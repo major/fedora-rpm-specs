@@ -10,6 +10,7 @@ BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  python3-devel
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist bash-kernel}
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist ipywidgets}

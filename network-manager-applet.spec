@@ -20,13 +20,14 @@
 Name: network-manager-applet
 Summary: A network control and status applet for NetworkManager
 Version: 1.30.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 URL: http://www.gnome.org/projects/NetworkManager/
 Obsoletes: NetworkManager-gnome < %{obsoletes_ver}
 
 Source: https://download.gnome.org/sources/network-manager-applet/1.30/%{name}-%{version}.tar.xz
 Patch1: 0001-nm-applet-no-notifications.patch
+Patch2: https://gitlab.gnome.org/GNOME/network-manager-applet/-/commit/d0d73192.patch#/0002-appindicator-outside-X11.patch
 
 Requires: NetworkManager >= %{nm_version}
 Requires: libnotify >= 0.4.3
@@ -153,6 +154,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/nm-connection-edit
 
 
 %changelog
+* Fri Feb 17 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.30.0-3
+- applet: use appindicator if we can outside of X11
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.30.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

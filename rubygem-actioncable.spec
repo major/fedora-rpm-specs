@@ -3,11 +3,14 @@
 
 # Disabling JS recompilation might significantly reduce the amount of
 # build dependencies.
-%global recompile_js 1
+# TODO: Re-enable recompilation if possible. ATM, it does not do anything,
+# because the CoffeScript was replaced by ES2015 modules:
+# https://github.com/rails/rails/pull/34177
+%global recompile_js 0
 
 Name: rubygem-%{gem_name}
 Version: 7.0.4.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: WebSocket framework for Rails
 License: MIT
 URL: http://rubyonrails.org
@@ -74,6 +77,9 @@ Documentation for %{name}.
 cp -a %{SOURCE3} .
 
 # Remove folder to ensure JS is recompiled
+# The `test` was added just to demonstrate the missing directory, in case
+# anybody wonders.
+test -d lib/assets/compiled
 rm -rf lib/assets/compiled
 RUBYOPT=-Ilib ruby recompile_js.rb
 %endif
@@ -123,6 +129,10 @@ popd
 %doc %{gem_instdir}/README.md
 
 %changelog
+* Fri Feb 17 2023 Vít Ondruch <vondruch@redhat.com> - 7.0.4.2-2
+- Disable JS recompilation, because it does not do anything useful ATM apart
+  from unnecessarily pulling in CoffeeScript.
+
 * Wed Jan 25 2023 Pavel Valena <pvalena@redhat.com> - 7.0.4.2-1
 - Update to actioncable 7.0.4.2.
 

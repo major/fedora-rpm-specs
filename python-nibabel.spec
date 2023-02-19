@@ -13,19 +13,13 @@ information and access to the image data is made available via NumPy arrays.
 }
 
 Name:           python-nibabel
-Version:        5.0.0
+Version:        5.0.1
 Release:        %autorelease
 Summary:        Python package to access a cacophony of neuro-imaging file formats
 
 License:        MIT and PDDL-1.0
 URL:            http://nipy.org/nibabel/
 Source0:        https://github.com/nipy/nibabel/archive/%{version}/nibabel-%{version}.tar.gz
-
-# https://github.com/nipy/nibabel/pull/1194
-Patch0:         https://github.com/nipy/nibabel/commit/60e1ca2c6b8bbe87bbc26258e8c40cc62c4bf07d.patch
-Patch1:         https://github.com/nipy/nibabel/commit/870f106b9d13d7a6d00f71df0e997b5d4e048c66.patch
-
-BuildRequires:  git-core
 
 BuildArch:      noarch
 
@@ -48,7 +42,7 @@ Provides:       bundled(python%{python3_version}dist(netcdf))
 
 %prep
 # warning: don't use -S git/git_am here, or hatchling/hatch-vcs generates a wrong version
-%autosetup -n nibabel-%{version} -p1
+%autosetup -n nibabel-%{version}
 
 # delete shebangs from files that don't need it
 find nibabel/cmdline/  -name "*.py" -execdir sed -i '/^#!python/ d' '{}' \;

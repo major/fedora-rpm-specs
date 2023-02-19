@@ -3,7 +3,7 @@
 Summary:        SBLIM nfsv3 instrumentation
 Name:           sblim-cmpi-nfsv3
 Version:        1.1.1
-Release:        28%{?dist}
+Release:        29%{?dist}
 License:        EPL
 URL:            http://sourceforge.net/projects/sblim/
 Source0:        http://downloads.sourceforge.net/project/sblim/providers/%{name}/%{version}/%{name}-%{version}.tar.bz2
@@ -14,6 +14,7 @@ Patch0:         sblim-cmpi-nfsv3-1.1.1-docdir.patch
 Patch1:         sblim-cmpi-nfsv3-1.1.1-pegasus-interop.patch
 # Patch2: call systemctl in provider registration
 Patch2:         sblim-cmpi-nfsv3-1.1.1-prov-reg-sfcb-systemd.patch
+Patch3: sblim-cmpi-nfsv3-c99.patch
 
 BuildRequires: make
 BuildRequires:  sblim-cmpi-base-devel sblim-cmpi-devel
@@ -46,6 +47,13 @@ SBLIM Base Fsvol Testcase Files for SBLIM Testsuite
 %patch0 -p1 -b .docdir
 %patch1 -p1 -b .pegasus-interop
 %patch2 -p1 -b .prov-reg-sfcb-systemd
+%patch3 -p1 -b .c99
+
+# Prevent regenerating the lexers/parsers.
+touch -r util/parser/lexer.l \
+  util/parser/parser.y parser.c lexer.c
+touch -r util/xmlparser/xmllexer.l \
+  util/xmlparser/xmlparser.y xmllexer.c xmlparser.c
 
 %build
 %ifarch s390 s390x ppc ppc64
@@ -96,6 +104,9 @@ echo "%{_libdir}/cmpi" > $RPM_BUILD_ROOT/%{_sysconfdir}/ld.so.conf.d/%{name}-%{_
 %postun -p /sbin/ldconfig
 
 %changelog
+* Fri Feb 17 2023 Florian Weimer <fweimer@redhat.com> - 1.1.1-29
+- Port to C99
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

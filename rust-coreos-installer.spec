@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.16.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -26,6 +26,9 @@ Source2:        https://github.com/coreos/coreos-installer-dracut/archive/%{drac
 # Build with mbrman 0.5.x
 # https://github.com/coreos/coreos-installer/pull/1019
 Patch0:         mbrman-0.5.0.patch
+
+# https://github.com/coreos/coreos-installer/pull/1113
+Patch1:         0001-signing-keys-add-Fedora-39-key.patch
 
 ExclusiveArch:  %{rust_arches}
 %if 0%{?rhel} && !0%{?eln}
@@ -185,6 +188,9 @@ from the initramfs.
 %endif
 
 %changelog
+* Fri Feb 17 2023 Jonathan Lebon <jonathan@jlebon.com> - 0.16.1-5
+- Backport patch that adds F39 signing key
+
 * Sat Feb 04 2023 Fabio Valentini <decathorpe@gmail.com> - 0.16.1-4
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

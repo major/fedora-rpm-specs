@@ -1,135 +1,192 @@
-%global	priority	70
-%global	fontname	sazanami
-%global	fontconf	%{priority}-%{fontname}
-%global catalogue	%{_sysconfdir}/X11/fontpath.d
-%global	common_desc	\
-The Sazanami type faces are automatically generated from Wadalab font kit.\
+# Packaging template: multi-family fonts packaging.
+#
+# SPDX-License-Identifier: MIT
+#
+# This template documents spec declarations, used when packaging multiple font
+# families, from a single dedicated source archive. The source rpm is named
+# after the first (main) font family). Look up “fonts-3-sub” when the source
+# rpm needs to be named some other way.
+#
+# It is part of the following set of packaging templates:
+# “fonts-0-simple”: basic single-family fonts packaging
+# “fonts-1-full”:   less common patterns for single-family fonts packaging
+# “fonts-2-multi”:  multi-family fonts packaging
+# “fonts-3-sub”:    packaging fonts, released as part of something else
+#
+%global srcver 20040629
+%global catalogue %{_sysconfdir}/X11/fontpath.d
+
+Name: sazanami-fonts
+Version: 0.%{srcver}
+Release: 44%{?dist}
+URL:     http://efont.sourceforge.jp/
+BuildRequires: fonts-rpm-macros >= 1:2.0.5-9
+BuildRequires: fonttools
+BuildRequires: ttmkfdir >= 3.0.6
+BuildRequires: mkfontdir xorg-x11-fonts-misc >= 7.5-11
+
+
+# The following declarations will be aliased to [variable]0 and reused for all
+# generated *-fonts packages unless overriden by a specific [variable][number]
+# declaration.
+%global foundry           Sazanami
+%global fontlicense       BSD-3-Clause
+%global fontlicenses      LICENSE.shinonome LICENSE_J.mplus
+%global fontdocs          README.sazanami README.kappa README.ayu doc/misaki/misakib8.txt README.oradano
+%global fontdocsex        %{fontlicenses}
+
+# A text block that can be reused as part of the description of each generated
+# subpackage.
+%global common_description %{expand:The Sazanami type faces are automatically generated from Wadalab font kit.
 They also contains some embedded Japanese bitmap fonts.
+}
 
-Name:		%{fontname}-fonts
-Version:	0.20040629
-Release:	43%{?dist}
-BuildArch:	noarch
-BuildRequires:	ttmkfdir >= 3.0.6
-BuildRequires:	mkfontdir xorg-x11-fonts-misc >= 7.5-11
-BuildRequires:	fontpackages-devel
-BuildRequires:	fonttools
-URL:		http://efont.sourceforge.jp/
+# Declaration for the subpackage containing the first font family. Also used as
+# source rpm info. All the [variable]0 declarations are equivalent and aliased
+# to [variable].
 
-Source0:	http://globalbase.dl.sourceforge.jp/efont/10087/sazanami-20040629.tar.bz2
-Source1:	fonts.alias.sazanami-gothic
-Source2:	fonts.alias.sazanami-mincho
-Source3:	%{fontname}-gothic-fontconfig.conf
-Source4:	%{fontname}-mincho-fontconfig.conf
-Patch1:		uni7E6B-gothic.patch
-Patch2:		uni7E6B-mincho.patch
-Patch3:		uni8449-mincho.patch
+%global fontfamily0       Sazanami Gothic
+%global fontsummary0      Sazanami Gothic Japanese TrueType font
+%global fontpkgheader0    %{expand:
+Obsoletes: sazanami-fonts-common < %{version}-%{release}
+Provides: sazanami-fonts-common = %{version}-%{release}
+}
+%global fonts0            sazanami-gothic.ttf
+%global fontsex0          %{nil}
+%global fontconfs0        %{SOURCE10}
+%global fontconfsex0      %{nil}
+%global fontdescription0  %{expand:
+%{common_description}
+This package contains Japanese TrueType font for Gothic type face.
+}
 
-Summary:	Sazanami Japanese TrueType fonts
-License:	BSD-3-Clause
+%global fontfamily1       Sazanami Mincho
+%global fontsummary1      Sazanami Mincho Japanese TrueType font
+%global fontpkgheader1    %{expand:
+Obsoletes: sazanami-fonts-common < %{version}-%{release}
+Provides: sazanami-fonts-common = %{version}-%{release}
+}
+%global fonts1            sazanami-mincho.ttf
+%global fontsex1          %{nil}
+%global fontconfs1        %{SOURCE11}
+%global fontconfsex1      %{nil}
+%global fontdescription1  %{expand:
+%{common_description}
+This package contains Japanese TrueType font for Mincho type face.
+}
+
+
+Source0:  http://globalbase.dl.sourceforge.jp/efont/10087/sazanami-%{srcver}.tar.bz2
+Source1:  fonts.alias.sazanami-gothic
+Source2:  fonts.alias.sazanami-mincho
+Source10: 70-%{fontpkgname0}.conf
+Source11: 70-%{fontpkgname1}.conf
+Patch0:   uni7E6B-gothic.patch
+Patch1:   uni7E6B-mincho.patch
+Patch2:   uni8449-mincho.patch
+
+
+Summary: Sazanami Japanese TrueType fonts
+License: BSD-3-Clause
+BuildArch: noarch
 
 %description
-%common_desc
+%{common_description}
 
-%package	common
-Summary:	Common files for Sazanami Japanese TrueType fonts
-Requires:	fontpackages-filesystem
+# “fontpkg” will generate the font subpackage headers corresponding to the
+# elements declared above.
+# “fontpkg” accepts the following selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontpkg -z 0 -s
 
-%description	common
-%common_desc
+%fontpkg -z 1
 
-This package consists of files used by other %{name} packages.
-
-%package -n	%{fontname}-gothic-fonts
-Summary:	Sazanami Gothic Japanese TrueType font
-Requires:	%{name}-common = %{version}-%{release}
-
-%description -n	%{fontname}-gothic-fonts
-%common_desc
-
-This package contains Japanese TrueType font for Gothic type face.
-
-%package -n	%{fontname}-mincho-fonts
-Summary:	Sazanami Mincho Japanese TrueType font
-Requires:	%{name}-common = %{version}-%{release}
-
-%description -n	%{fontname}-mincho-fonts
-%common_desc
-
-This package contains Japanese TrueType font for Mincho type face.
+# “fontmetapkg” will generate a font meta(sub)package header for all the font
+# subpackages generated in this spec. Optional arguments:
+# – “-n [name]”      use [name] as metapackage name
+# – “-s [variable]”  use the content of [variable] as metapackage summary
+# – “-d [variable]”  use the content of [variable] as metapackage description
+# – “-z [numbers]”   restrict metapackaging to [numbers] comma-separated list
+#                    of font package suffixes
+%fontmetapkg
 
 %prep
-%setup -q -n sazanami-20040629
+%setup -q -n sazanami-%{srcver}
 
 %build
+# “fontbuild” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontbuild -a
+
 #rhbz#196433: modify the ttfs to change the glyph for 0x7E6B
 ttx -i -a -e sazanami-gothic.ttf
-patch -b -z .uni7E6B sazanami-gothic.ttx %{PATCH1}
+patch -b -z .uni7E6B sazanami-gothic.ttx %{PATCH0}
 touch -r sazanami-gothic.ttf sazanami-gothic.ttx
 rm sazanami-gothic.ttf
 ttx -b sazanami-gothic.ttx
 touch -r sazanami-gothic.ttx sazanami-gothic.ttf
 
 ttx -i -a -e sazanami-mincho.ttf
-patch -b -z .uni7E6B sazanami-mincho.ttx %{PATCH2}
-patch -b -z .uni8449 sazanami-mincho.ttx %{PATCH3}
+patch -b -z .uni7E6B sazanami-mincho.ttx %{PATCH1}
+patch -b -z .uni8449 sazanami-mincho.ttx %{PATCH2}
 touch -r sazanami-mincho.ttf sazanami-mincho.ttx
 rm sazanami-mincho.ttf
 ttx -b sazanami-mincho.ttx
 touch -r sazanami-mincho.ttx sazanami-mincho.ttf
 
+mv doc/shinonome/LICENSE LICENSE.shinonome
+mv doc/mplus/LICENSE_J LICENSE_J.mplus
+mv README README.sazanami
+mv doc/kappa/README README.kappa
+mv doc/ayu/README.txt README.ayu
+mv doc/oradano/README.txt README.oradano
+
 %install
-rm -rf $RPM_BUILD_ROOT
-
-install -dm 0755 $RPM_BUILD_ROOT%{_fontdir}/{gothic,mincho}
-install -pm 0644 sazanami-gothic.ttf $RPM_BUILD_ROOT%{_fontdir}/gothic
-install -pm 0644 sazanami-mincho.ttf $RPM_BUILD_ROOT%{_fontdir}/mincho
-
-install -dm 0755 $RPM_BUILD_ROOT%{_fontconfig_templatedir} \
-		 $RPM_BUILD_ROOT%{_fontconfig_confdir}
-install -pm 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_fontconfig_templatedir}/%{fontconf}-gothic.conf
-install -pm 0644 %{SOURCE4} $RPM_BUILD_ROOT%{_fontconfig_templatedir}/%{fontconf}-mincho.conf
-
-for fontconf in %{fontconf}-gothic.conf %{fontconf}-mincho.conf; do
-	ln -s %{_fontconfig_templatedir}/$fontconf $RPM_BUILD_ROOT%{_fontconfig_confdir}/$fontconf
-done
-
 install -dm 0755 $RPM_BUILD_ROOT%{catalogue}
-install -pm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_fontdir}/gothic/fonts.alias
-install -pm 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_fontdir}/mincho/fonts.alias
 
-# Create fonts.scale and fonts.dir
-ttmkfdir -d $RPM_BUILD_ROOT%{_fontdir}/gothic -o $RPM_BUILD_ROOT%{_fontdir}/gothic/fonts.scale
-mkfontdir $RPM_BUILD_ROOT%{_fontdir}/gothic
-ttmkfdir -d $RPM_BUILD_ROOT%{_fontdir}/mincho -o $RPM_BUILD_ROOT%{_fontdir}/mincho/fonts.scale
-mkfontdir $RPM_BUILD_ROOT%{_fontdir}/mincho
+%fontinstall -z 0
+install -pm 0644 %{SOURCE1} $RPM_BUILD_ROOT%{_fontbasedir}/%{fontpkgname0}/fonts.alias
+ttmkfdir -d $RPM_BUILD_ROOT%{_fontbasedir}/%{fontpkgname0} -o $RPM_BUILD_ROOT%{_fontbasedir}/%{fontpkgname0}/fonts.scale
+mkfontdir $RPM_BUILD_ROOT%{_fontbasedir}/%{fontpkgname0}
+ln -sf $(realpath --relative-to=$RPM_BUILD_ROOT%{catalogue} $RPM_BUILD_ROOT%{_fontbasedir})/%{fontpkgname0} $RPM_BUILD_ROOT%{catalogue}/%{fontpkgname0}
 
-# Install catalogue symlink
-ln -sf %{_fontdir}/gothic $RPM_BUILD_ROOT%{catalogue}/%{name}-gothic
-ln -sf %{_fontdir}/mincho $RPM_BUILD_ROOT%{catalogue}/%{name}-mincho
+%fontinstall -z 1
+install -pm 0644 %{SOURCE2} $RPM_BUILD_ROOT%{_fontbasedir}/%{fontpkgname1}/fonts.alias
+ttmkfdir -d $RPM_BUILD_ROOT%{_fontbasedir}/%{fontpkgname1} -o $RPM_BUILD_ROOT%{_fontbasedir}/%{fontpkgname1}/fonts.scale
+mkfontdir $RPM_BUILD_ROOT%{_fontbasedir}/%{fontpkgname1}
+ln -sf $(realpath --relative-to=$RPM_BUILD_ROOT%{catalogue} $RPM_BUILD_ROOT%{_fontbasedir})/%{fontpkgname1} $RPM_BUILD_ROOT%{catalogue}/%{fontpkgname1}
 
+%check
+# “fontcheck” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block.
+%fontcheck -a
 
-%_font_pkg -n gothic -f %{fontconf}-gothic.conf gothic/sazanami-gothic.ttf
+# “fontfiles” accepts the usual selection arguments:
+# – “-a”          process everything
+# – “-z [number]” process a specific declaration block
+# If no flag is specified it will only process the zero/nosuffix block
+%fontfiles -z 0
+%{catalogue}/%{fontpkgname0}
+%verify(not md5 size mtime) %{_fontbasedir}/%{fontpkgname0}/fonts.dir
+%verify(not md5 size mtime) %{_fontbasedir}/%{fontpkgname0}/fonts.scale
+%verify(not md5 size mtime) %{_fontbasedir}/%{fontpkgname0}/fonts.alias
 
-%dir %{_fontdir}/gothic
-%{catalogue}/%{name}-gothic
-%verify(not md5 size mtime) %{_fontdir}/gothic/fonts.dir
-%verify(not md5 size mtime) %{_fontdir}/gothic/fonts.scale
-%verify(not md5 size mtime) %{_fontdir}/gothic/fonts.alias
-
-%_font_pkg -n mincho -f %{fontconf}-mincho.conf mincho/sazanami-mincho.ttf
-
-%dir %{_fontdir}/mincho
-%{catalogue}/%{name}-mincho
-%verify(not md5 size mtime) %{_fontdir}/mincho/fonts.dir
-%verify(not md5 size mtime) %{_fontdir}/mincho/fonts.scale
-%verify(not md5 size mtime) %{_fontdir}/mincho/fonts.alias
-
-%files common
-%doc doc README
-%dir %{_fontdir}
+%fontfiles -z 1
+%{catalogue}/%{fontpkgname1}
+%verify(not md5 size mtime) %{_fontbasedir}/%{fontpkgname1}/fonts.dir
+%verify(not md5 size mtime) %{_fontbasedir}/%{fontpkgname1}/fonts.scale
+%verify(not md5 size mtime) %{_fontbasedir}/%{fontpkgname1}/fonts.alias
 
 %changelog
+* Fri Feb 17 2023 Akira TAGOH <tagoh@redhat.com> - 0.20040629-44
+- Revise the spec file for new packaging guidelines.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040629-43
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -236,7 +293,7 @@ ln -sf %{_fontdir}/mincho $RPM_BUILD_ROOT%{catalogue}/%{name}-mincho
 * Tue Oct  6 2009 Akira TAGOH <tagoh@redhat.com> - 0.20040629-9
 - keeps the original timestamps for TTFs.
 
-* Mon Oct 05 2009 Caolán McNamara <caolanm@redhat.com> 
+* Mon Oct 05 2009 Caolán McNamara <caolanm@redhat.com>
 - use ttx and rebuild the font by merging the original .ttfs with the
   custom replacement uni7E6B glyphs
 
@@ -261,4 +318,3 @@ ln -sf %{_fontdir}/mincho $RPM_BUILD_ROOT%{catalogue}/%{name}-mincho
 
 * Fri Aug 17 2007 Akira TAGOH <tagoh@redhat.com> - 0.20040629-1.20061016
 - Split sazanami*ttf up from fonts-japanese.
-

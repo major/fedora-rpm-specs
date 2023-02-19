@@ -14,6 +14,7 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist latexcodec}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pytest}

@@ -21,6 +21,7 @@ Source4:   hylafax+_hfaxd_systemd.service
 Source5:   hylafax+_faxq_systemd.service
 Source6:   hylafax+_faxgetty_systemd.service
 Source7:   hylafax+_sysconfig
+Patch0: hylafax+-configure-c99.patch
 
 
 Provides:    hylafax = %{version}-%{release}
@@ -91,7 +92,7 @@ Class 1 and 2 fax modems on UNIX systems. This package provides
 fax clients which may reside on machines different from the server.
 
 %prep
-%setup -q -n hylafax-%{version}
+%autosetup -p1 -n hylafax-%{version}
 
 %build
 # - Can't use the configure macro because HylaFAX configure script does

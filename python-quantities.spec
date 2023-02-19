@@ -1,5 +1,5 @@
 Name:       python-quantities
-Version:    0.14.0
+Version:    0.14.1
 Release:    %autorelease
 Summary:    Support for physical quantities with units, based on numpy
 

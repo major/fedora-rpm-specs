@@ -91,6 +91,7 @@ sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 desktop-file-install --delete-original                                  \
   --remove-category Science                                             \
+  --dir $RPM_BUILD_ROOT%{_datadir}/applications                         \
   $RPM_BUILD_ROOT%{_datadir}/applications/*.desktop
 
 appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/%{name}.appdata.xml

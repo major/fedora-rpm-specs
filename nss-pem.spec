@@ -1,5 +1,8 @@
+%undefine __cmake_in_source_build
+%undefine __cmake3_in_source_build
+
 Name:       nss-pem
-Version:    1.0.9
+Version:    1.1.0
 Release:    1%{?dist}
 Summary:    PEM file reader for Network Security Services (NSS)
 
@@ -12,7 +15,7 @@ Source1:    https://github.com/kdudka/nss-pem/releases/download/%{name}-%{versio
 # gpg --output kdudka.pgp --armor --export kdudka@redhat.com
 Source2:    kdudka.pgp
 
-BuildRequires: cmake
+BuildRequires: cmake3
 BuildRequires: gcc
 BuildRequires: gnupg2
 BuildRequires: make
@@ -30,20 +33,23 @@ module.
 %setup -q
 
 %build
-%cmake -S src
-%cmake_build
+%cmake3 -S src
+%cmake3_build
 
 %install
-%cmake_install
+%cmake3_install
 
 %check
-%ctest
+%ctest3
 
 %files
 %{_libdir}/libnsspem.so
 %license COPYING.{GPL,MPL}
 
 %changelog
+* Fri Feb 17 2023 Kamil Dudka <kdudka@redhat.com> 1.1.0-1
+- update to latest upstream release
+
 * Fri Feb 03 2023 Kamil Dudka <kdudka@redhat.com> 1.0.9-1
 - update to latest upstream bugfix release (#2121064)
 

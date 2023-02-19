@@ -1,7 +1,7 @@
 %global cpan_version 6.57
 Name:           perl-Coro
 Version:        6.570
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        The only real threads in perl
 # Coro/libcoro:    GPL-2.0-or-later OR BSD-2-Clause
 # Rest of package: GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -127,11 +127,6 @@ for F in t/*.t; do
 done
 
 %build
-# Disable FORTIFY_SOURCE on ARM as it breaks setjmp - RHBZ 750805
-%ifarch %{arm}
-%undefine _fortify_level
-%endif
-
 # Interactive configuration. Use default values.
 perl Makefile.PL INSTALLDIRS=perl NO_PACKLIST=1 NO_PERLLOCAL=1 \
     OPTIMIZE="$RPM_OPT_FLAGS" </dev/null
@@ -166,6 +161,10 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 17 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.570-12
+- Fedora don't support arm32, we could use fortify for all architectures RHBZ
+  2165855
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.570-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,18 +1,22 @@
 %global neo_major 22
-%global neo_minor 43
-%global neo_build 24558
+%global neo_minor 53
+%global neo_build 25242.13
 
 Name: intel-compute-runtime
 Version: %{neo_major}.%{neo_minor}.%{neo_build}
-Release: 2%{?dist}
+Release: 1%{?dist}
 Summary: Compute API support for Intel graphics
 
 %global _lto_cflags %{nil}
-%global optflags %{optflags} -Wno-error=odr -Wno-error=implicit-fallthrough= -Wno-error=mismatched-new-delete
 
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
+
+Patch01: 0001-Include-cstdint-to-fix-GCC-13-build.patch
+
+# https://github.com/intel/compute-runtime/commit/dce17d319f91b39806b2cd39b6eecd5c5cff2a68
+Patch02: dce17d319f91b39806b2cd39b6eecd5c5cff2a68.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -29,14 +33,15 @@ BuildRequires: ninja-build
 BuildRequires: libglvnd-devel
 BuildRequires: ocl-icd-devel
 BuildRequires: opencl-headers
-# level-zero to be added later on
+BuildRequires: oneapi-level-zero-devel
 
 # This doesn't get added automatically, so specify it explicitly
 Requires: intel-igc
 
-# Let compute-runtime be a meta package for intel-ocloc and intel-opencl
+# Let compute-runtime be a meta package for intel-ocloc, intel-opencl and intel-level-zero
 Requires: intel-ocloc = %{version}-%{release}
 Requires: intel-opencl = %{version}-%{release}
+Requires: intel-level-zero = %{version}-%{release}
 
 # prelim/drm
 Provides: bundled(drm-uapi-helper)
@@ -76,6 +81,19 @@ on Intel GPUs which basically defines and implements the OpenCL host functions
 required to initialize the device, create the command queues, the kernels and
 the programs and run them on the GPU.
 
+%package -n    intel-level-zero
+Summary:       oneAPI L0 support implementation for Intel GPUs
+Requires:      intel-igc-libs%{?_isa}
+Requires:      intel-gmmlib%{?_isa}
+# In some references, the package is named intel-level-zero-gpu, so provide that for convenience too
+Provides:      intel-level-zero-gpu%{?_isa}
+
+%description -n intel-level-zero
+Implementation for the Intel GPUs of the oneAPI L0 specification -  which provides direct-to-metal
+interfaces to offload accelerator devices. Its programming interface can be tailored to any device
+needs and can be adapted to support broader set of languages features such as function pointers,
+virtual functions, unified memory, and I/O capabilities..
+
 %prep
 %autosetup -p1 -n compute-runtime-%{version}
 
@@ -96,11 +114,9 @@ rm -rv third_party/sse2neon
 # -DNEO_DISABLE_LD_GOLD=1 for https://bugzilla.redhat.com/show_bug.cgi?id=2043178 and https://bugzilla.redhat.com/show_bug.cgi?id=2043758
 %cmake \
     -DCMAKE_BUILD_TYPE=Release \
-    -DBUILD_SHARED_LIBS:BOOL=OFF \
     -DNEO_OCL_VERSION_MAJOR=%{neo_major} \
     -DNEO_OCL_VERSION_MINOR=%{neo_minor} \
     -DNEO_VERSION_BUILD=%{neo_build} \
-    -DSUPPORT_DG1=ON \
     -DSKIP_UNIT_TESTS=1 \
     -DNEO_DISABLE_LD_GOLD=1 \
     -DKHRONOS_GL_HEADERS_DIR="/usr/include/GL/" \
@@ -118,9 +134,11 @@ rm -rv third_party/sse2neon
 %files -n intel-opencl
 %license LICENSE.md
 %{_libdir}/intel-opencl/libigdrcl.so
-# Uncomment once we get level-zero
-#%%{_libdir}/libze_intel_gpu.so*
 %{_sysconfdir}/OpenCL/vendors/intel.icd
+
+%files -n intel-level-zero
+%license LICENSE.md
+%{_libdir}/libze_intel_gpu.so.*
 
 %files -n intel-ocloc
 %license LICENSE.md
@@ -133,6 +151,10 @@ rm -rv third_party/sse2neon
 %doc
 
 %changelog
+* Fri Feb 17 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 22.53.25242.13-1
+- intel-compute-runtime-22.53.25242.13
+- level-zero enablement
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.43.24558-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

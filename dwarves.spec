@@ -3,11 +3,18 @@
 
 Name: dwarves
 Version: 1.24
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2
 Summary: Debugging Information Manipulation Tools (pahole & friends)
 URL: http://acmel.wordpress.com
 Source: http://fedorapeople.org/~acme/dwarves/%{name}-%{version}.tar.xz
+Patch0: 0001-pahole-Support-lang-lang_exclude-asm.patch
+Patch1: 0002-btf_encoder-Add-extra-debug-info-for-unsupported-DWA.patch
+Patch2: 0003-btf_encoder-Store-the-CU-being-processed-to-avoid-ch.patch
+Patch3: 0004-core-Add-DW_TAG_unspecified_type-to-tag__is_tag_type.patch
+Patch4: 0005-core-Record-if-a-CU-has-a-DW_TAG_unspecified_type.patch
+Patch5: 0006-btf_encoder-Encode-DW_TAG_unspecified_type-returning.patch
+Patch6: 0007-dwarves-Zero-initialize-struct-cu-in-cu__new-to-prev.patch
 Requires: %{libname}%{libver} = %{version}-%{release}
 BuildRequires: gcc
 BuildRequires: cmake >= 2.8.12
@@ -65,6 +72,13 @@ Debugging information processing library development files.
 
 %prep
 %setup -q
+%patch -P0 -p1
+%patch -P1 -p1
+%patch -P2 -p1
+%patch -P3 -p1
+%patch -P4 -p1
+%patch -P5 -p1
+%patch -P6 -p1
 
 %build
 %cmake -DCMAKE_BUILD_TYPE=Release .
@@ -131,6 +145,9 @@ rm -Rf %{buildroot}
 %{_libdir}/%{libname}_reorganize.so
 
 %changelog
+* Fri Feb 17 2023 Arnaldo Carvalho de Melo <acme@redhat.com> - 1.24-3
+- Backport the DW_TAG_unspecified_type support while 1.25 gets ready wrt optimized functions support
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

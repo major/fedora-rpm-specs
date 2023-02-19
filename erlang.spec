@@ -68,7 +68,7 @@
 
 
 Name:		erlang
-Version:	25.2.2
+Version:	25.2.3
 Release:	1%{?dist}
 Summary:	General-purpose programming language and runtime environment
 
@@ -1971,6 +1971,9 @@ useradd -r -g epmd -d /dev/null -s /sbin/nologin \
 
 
 %changelog
+* Fri Feb 17 2023 Peter Lemenkov <lemenkov@gmail.com> - 25.2.3-1
+- Ver. 25.2.3
+
 * Mon Jan 30 2023 Peter Lemenkov <lemenkov@gmail.com> - 25.2.2-1
 - Ver. 25.2.2
 

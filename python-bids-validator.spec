@@ -1,8 +1,9 @@
 Name:           python-bids-validator
-Version:        1.9.2
+Version:        1.10.0
 Release:        %autorelease
 Summary:        Validator for the Brain Imaging Data Structure
 
+# Already spdx
 License:        MIT
 URL:            https://github.com/bids-standard/bids-validator
 Source0:        %{pypi_source bids-validator}

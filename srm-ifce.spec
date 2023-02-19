@@ -2,16 +2,16 @@
 %undefine __cmake3_in_source_build
 
 Name:		srm-ifce
-Version:	1.24.5
-Release:	3%{?dist}
+Version:	1.24.6
+Release:	1%{?dist}
 Summary:	SRM client side library
 License:	ASL 2.0
 URL:		https://dmc-docs.web.cern.ch/dmc-docs/srm-ifce.html
-# git clone https://gitlab.cern.ch/dmc/srm-ifce.git srm-ifce-1.24.5
-# pushd srm-ifce-1.24.5
-# git checkout v1.24.5
+# git clone https://gitlab.cern.ch/dmc/srm-ifce.git srm-ifce-1.24.6
+# pushd srm-ifce-1.24.6
+# git checkout v1.24.6
 # popd
-# tar czf srm-ifce-1.24.5.tar.gz srm-ifce-1.24.5 --exclude-vcs
+# tar czf srm-ifce-1.24.6.tar.gz srm-ifce-1.24.6 --exclude-vcs
 Source0:	%{name}-%{version}.tar.gz
 
 BuildRequires:	gcc
@@ -72,6 +72,9 @@ the srm-ifce.
 %{_pkgdocdir}/RELEASE-NOTES
 
 %changelog
+* Fri Feb 17 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 1.24.6-1
+- Upstream release 1.24.6
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,13 +4,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           adwaita-icon-theme
-Version:        43
-Release:        2%{?dist}
+Version:        44~beta
+Release:        1%{?dist}
 Summary:        Adwaita icon theme
 
-License:        LGPLv3+ or CC-BY-SA
+License:        LGPL-3.0-only OR CC-BY-SA-3.0
 URL:            https://gitlab.gnome.org/GNOME/adwaita-icon-theme
-Source0:        https://download.gnome.org/sources/adwaita-icon-theme/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/adwaita-icon-theme/44/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -62,20 +62,11 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %files
 %license COPYING*
 %dir %{_datadir}/icons/Adwaita/
-%{_datadir}/icons/Adwaita/8x8/
 %{_datadir}/icons/Adwaita/16x16/
-%{_datadir}/icons/Adwaita/22x22/
-%{_datadir}/icons/Adwaita/24x24/
 %{_datadir}/icons/Adwaita/32x32/
-%{_datadir}/icons/Adwaita/48x48/
-%if ! 0%{bootstrap}
-%{_datadir}/icons/Adwaita/64x64/
-%{_datadir}/icons/Adwaita/96x96/
-%endif
-%{_datadir}/icons/Adwaita/256x256/
-%{_datadir}/icons/Adwaita/512x512/
 %{_datadir}/icons/Adwaita/scalable/
-%{_datadir}/icons/Adwaita/scalable-up-to-32/
+%{_datadir}/icons/Adwaita/symbolic/
+%{_datadir}/icons/Adwaita/symbolic-up-to-32/
 %{_datadir}/icons/Adwaita/index.theme
 %ghost %{_datadir}/icons/Adwaita/icon-theme.cache
 
@@ -88,6 +79,9 @@ gtk-update-icon-cache --force %{_datadir}/icons/Adwaita &>/dev/null || :
 %{_datadir}/pkgconfig/adwaita-icon-theme.pc
 
 %changelog
+* Fri Feb 17 2023 David King <amigadave@amigadave.com> - 44~beta-1
+- Update to 44.beta
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
