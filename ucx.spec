@@ -12,10 +12,10 @@
 
 Name: ucx
 Version: 1.13.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
-License: BSD
+License: BSD-3-Clause
 URL: http://www.openucx.org
 Source: https://github.com/openucx/%{name}/releases/download/v%{version}/ucx-%{version}.tar.gz
 
@@ -87,6 +87,14 @@ Provides header files and examples for developing with UCX.
 %setup -q
 
 %build
+# Remove these fixes when upgrading to version 1.14
+# Fix for improper declaration, upstream fix:
+# https://github.com/openucx/ucx/commit/8d6032ec864190c9f079d96e731c5004a975e153
+sed -i 's/unsigned advice)/uct_mem_advice_t advice)/g' src/uct/base/uct_md.c
+# Enable use of GCC 13, upstream fix:
+# https://github.com/openucx/ucx/commit/8f70e898b43d1bde1ff3fae56bf0ac5aac285997
+sed -i '/#include <vector>/ a #include <cstdint>' test/apps/sockaddr/sa_util.h
+
 %define _with_arg()   %{expand:%%{?with_%{1}:--with-%{2}}%%{!?with_%{1}:--without-%{2}}}
 %define _enable_arg() %{expand:%%{?with_%{1}:--enable-%{2}}%%{!?with_%{1}:--disable-%{2}}}
 %configure --disable-optimizations \
@@ -213,6 +221,7 @@ for large messages.
 %if %{with rdmacm}
 %package rdmacm
 Requires: %{name}-ib%{?_isa} = %{version}-%{release}
+Requires: ucx-ib = %{version}-%{release}
 Summary: UCX RDMA connection manager support
 
 %description rdmacm
@@ -289,10 +298,16 @@ library internals, protocol objects, transports status, and more.
 %endif
 
 %changelog
+* Sat Feb 18 2023 Benson Muite <benson_muite@emailplus.org> - 1.13.1-3
+- Fix type declaration error
+- Fix to enable use of GCC 13
+- Use SPDX license identifier
+- Fix build requires #RBZ2166925
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Sat Dec 24 2022 Benson Muite <mschmidt@redhat.com> - 1.13.1-1
+* Sat Dec 24 2022 Benson Muite <benson_muite@emailplus.org> - 1.13.1-1
 - Update to upstream release 1.13.0
 
 * Wed Aug 03 2022 Michal Schmidt <mschmidt@redhat.com> - 1.13.0-3
@@ -346,26 +361,37 @@ library internals, protocol objects, transports status, and more.
 
 * Wed Jul 1 2020 Yossi Itigin <yosefe@mellanox.com> 1.8.1-1
 - Bump version to 1.8.1
+
 * Sun Sep 22 2019 Yossi Itigin <yosefe@mellanox.com> 1.8.0-1
 - Bump version to 1.8.0
+
 * Sun Mar 24 2019 Yossi Itigin <yosefe@mellanox.com> 1.7.0-1
 - Bump version to 1.7.0
+
 * Thu Jan 24 2019 Yossi Itigin <yosefe@mellanox.com> 1.6.0-1
 - Add cma, knem, and xpmem sub-packages
+
 * Tue Nov 20 2018 Yossi Itigin <yosefe@mellanox.com> 1.6.0-1
 - Bump version to 1.6.0
+
 * Tue Nov 6 2018 Andrey Maslennikov <andreyma@mellanox.com> 1.5.0-1
 - Bump version to 1.5.0
 - See NEWS for details
+
 * Tue Oct 30 2018 Andrey Maslennikov <andreyma@mellanox.com> 1.4.0-1
 - See NEWS for details
+
 * Mon Aug 20 2018 Andrey Maslennikov <andreyma@mellanox.com> 1.3.1-1
 - See NEWS for details
+
 * Thu Aug 16 2018 Andrey Maslennikov <andreyma@mellanox.com> 1.3.0-1
 - Explicitly set gcc-c++ as requirements
+
 * Wed Mar 7 2018 Andrey Maslennikov <andreyma@mellanox.com> 1.3.0-1
 - See NEWS for details
+
 * Mon Aug 21 2017 Andrey Maslennikov <andreyma@mellanox.com> 1.2.1-1
 - Spec file now complies with Fedora guidelines
+
 * Mon Jul 3 2017 Andrey Maslennikov <andreyma@mellanox.com> 1.2.0-1
 - Fedora package created

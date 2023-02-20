@@ -1,15 +1,17 @@
 Name:           asciidoc
-Version:        9.1.0
-Release:        7%{?dist}
+Version:        10.2.0
+Release:        1%{?dist}
 Summary:        Text based document generation
 
 License:        GPL+ and GPLv2+
 URL:            http://asciidoc.org
-Source0:        https://github.com/%{name}-py/asciidoc-py/archive/%{version}/%{name}-py-%{version}.tar.gz
+Source0:        https://github.com/asciidoc-py/asciidoc-py/archive/%{version}/%{name}-py-%{version}.tar.gz
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-pip
+BuildRequires:  python3-setuptools
 BuildRequires:  dblatex
 BuildRequires:  docbook-style-xsl
 BuildRequires:  graphviz
@@ -53,19 +55,6 @@ Requires: texlive-dvipng-bin
 
 %prep
 %autosetup -n %{name}-py-%{version} -p1
-# Convert files to utf-8
-for file in README.asciidoc doc/*.dict website/*.dict; do
-    iconv -f ISO-8859-1 -t UTF-8 -o $file.new $file && \
-    touch -r $file $file.new && \
-    mv $file.new $file
-done
-
-# Remove music files
-rm -rf %{buildroot}{%{_sysconfdir}/asciidoc/filters/music,%{_sysconfdir}/asciidoc/filters/music/*.conf,%{_sysconfdir}/asciidoc/filters/music/*.py}
-
-# Fix python shebang
-grep -rl '#!/usr/bin/env python' | xargs -r \
-    sed -i -e '1s@#!/usr/bin/env python3\?$@#!%{__python3}@'
 
 %build
 autoreconf -v
@@ -73,40 +62,14 @@ autoreconf -v
 %make_build
 
 %install
-make install docs DESTDIR=%{buildroot}
-
-install -dm 755 %{buildroot}%{_datadir}/asciidoc/
-# Real conf data goes to sysconfdir, rest to datadir; symlinks so asciidoc works
-for d in dblatex docbook-xsl images javascripts stylesheets; do
-    mv -v %{buildroot}%{_sysconfdir}/asciidoc/$d \
-          %{buildroot}%{_datadir}/asciidoc/
-    # Absolute symlink into buildroot is intentional, see below
-    ln -s %{buildroot}%{_datadir}/%{name}/$d %{buildroot}%{_sysconfdir}/%{name}/
-
-    # Let's symlink stuff for documentation as well so we don't duplicate things
-    rm -rf %{buildroot}%{_docdir}/%{name}/$d
-    # Absolute symlink into buildroot is intentional, see below
-    ln -s %{buildroot}%{_datadir}/%{name}/$d %{buildroot}%{_docdir}/%{name}/
-done
-
-# Python API
-mkdir -p %{buildroot}%{python3_sitelib}/
-sed '1d' asciidocapi.py > %{buildroot}%{python3_sitelib}/asciidocapi.py
-chmod -x %{buildroot}%{python3_sitelib}/asciidocapi.py
-touch -r asciidocapi.py %{buildroot}%{python3_sitelib}/asciidocapi.py
-
-# Make it easier to %%exclude these with both rpm < and >= 4.7
-for file in %{buildroot}{%{_bindir},%{_sysconfdir}/asciidoc/filters/*}/*.py ; do
-    touch ${file}{c,o}
-done
-
-# Absolute symlinks were used above to be able to detect dangling ones. Make
-# them relative now (sane for being installed) and remove dangling symlinks.
-symlinks -cdr %{buildroot}
-
-# Clean up no needed doc files
-rm -f %{buildroot}/%{_pkgdocdir}/INSTALL.txt
-rm -f %{buildroot}/%{_mandir}/man1/testasciidoc.1*
+make install docs manpages DESTDIR=%{buildroot}
+mkdir -p %{buildroot}%{_mandir}/man1
+mv %{buildroot}/share/doc/doc/{asciidoc.1,a2x.1,testasciidoc.1} %{buildroot}%{_mandir}/man1/
+mkdir -p %{buildroot}/%{_pkgdocdir}/doc
+mv %{buildroot}/share/doc/doc/ %{buildroot}/%{_pkgdocdir}/doc
+mkdir -p %{buildroot}/%{_pkgdocdir}/doc/images
+mv %{buildroot}/share/doc/images/ %{buildroot}/%{_pkgdocdir}/doc/images
+rm  %{buildroot}/share/doc/{BUGS.adoc,CHANGELOG.adoc,INSTALL.adoc,README.md,dblatex/dblatex-readme.txt,docbook-xsl/asciidoc-docbook-xsl.txt}
 
 # Some tests are failing
 #%%check
@@ -116,37 +79,28 @@ rm -f %{buildroot}/%{_mandir}/man1/testasciidoc.1*
 #%%{__python3} testasciidoc.py run
 
 %files
-%doc BUGS.txt CHANGELOG.txt COPYRIGHT README.asciidoc
-%{_mandir}/man1/a2x.1*
-%{_mandir}/man1/asciidoc.1*
-%config(noreplace) %{_sysconfdir}/asciidoc/
+%doc BUGS.adoc CHANGELOG.adoc COPYRIGHT README.md
+%{_mandir}/man1/*.1*
 %{_bindir}/a2x
-%{_bindir}/a2x.py
 %{_bindir}/asciidoc
-%{_bindir}/asciidoc.py
-%{_datadir}/asciidoc/
-%{python3_sitelib}/asciidocapi.py*
-%{python3_sitelib}/__pycache__/asciidocapi*
-%exclude %{_bindir}/*.py[co]
-%exclude %{_sysconfdir}/asciidoc/filters/*/*.py[co]
-%exclude %{_sysconfdir}/asciidoc/filters/latex
-%exclude %{_sysconfdir}/asciidoc/filters/music
-%exclude %{_pkgdocdir}/website
+%{python3_sitelib}/asciidoc-%{version}-py*.egg-info/
+%{python3_sitelib}/asciidoc/
+%exclude %{python3_sitelib}/asciidoc/resources/filters/latex
+%exclude %{python3_sitelib}/asciidoc/resources/filters/music
 %exclude %{_pkgdocdir}/doc
-%exclude %{_pkgdocdir}/{dblatex,docbook-xsl,images,javascripts,stylesheets}
 
 %files doc
-%{_pkgdocdir}/website
-%{_pkgdocdir}/doc
-%{_pkgdocdir}/{dblatex,docbook-xsl,images,javascripts,stylesheets}
-%exclude %{_docdir}/%{name}/{COPYRIGHT,README.asciidoc}
+%doc COPYRIGHT
+%{_pkgdocdir}/doc/
 
 %files latex
-%dir %{_sysconfdir}/asciidoc/filters/latex
-%{_sysconfdir}/asciidoc/filters/latex/*.py
-%config(noreplace) %{_sysconfdir}/asciidoc/filters/latex/*.conf
+%doc COPYRIGHT
+%dir %{python3_sitelib}/asciidoc/resources/filters/latex
 
 %changelog
+* Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 10.2.0-1
+- Update to latest upstream release 10.2.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

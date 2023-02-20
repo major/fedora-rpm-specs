@@ -2,7 +2,7 @@
 %global pkg_name haversion
 
 Name:           python-%{pkg_name}
-Version:        22.8.0
+Version:        23.1.0
 Release:        %autorelease
 Summary:        Python module to get the version number of Home Assistant
 

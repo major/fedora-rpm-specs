@@ -2,8 +2,8 @@
 
 Name:    kstars
 Summary: Desktop Planetarium
-Version: 3.6.2
-Release: 3%{?dist}
+Version: 3.6.3
+Release: 1%{?dist}
 
 # We have to use epoch now, KStars is no longer part of KDE Applications and
 # uses its own (lower) version now
@@ -164,6 +164,9 @@ fi
 
 
 %changelog
+* Sat Feb 18 2023 Mattia Verga <mattia.verga@proton.me> - 1:3.6.3-1
+- Update to 3.6.3 for indilib 2.0 compatibility
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

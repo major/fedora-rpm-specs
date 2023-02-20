@@ -1,14 +1,17 @@
+%global commit      5eb6efd273530dc5517a7bc22bcce1df57a29f0e
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 %global common_description %{expand:
 prompt_toolkit is a library for building powerful interactive command line
 applications in Python.}
 
 Name:           python-prompt-toolkit
-Version:        3.0.36
-Release:        2%{?dist}
+Version:        3.0.36^1.%{shortcommit}
+Release:        1%{?dist}
 Summary:        Library for building powerful interactive command line applications in Python
 License:        BSD-3-Clause
 URL:            https://github.com/prompt-toolkit/python-prompt-toolkit
-Source:         %{pypi_source prompt_toolkit}
+Source:         %{url}/archive/%{commit}/prompt_toolkit-%{shortcommit}.tar.gz
 BuildArch:      noarch
 
 
@@ -27,7 +30,7 @@ Recommends:     python3-pygments
 
 
 %prep
-%autosetup -n prompt_toolkit-%{version}
+%autosetup -n python-prompt-toolkit-%{commit}
 
 
 %generate_buildrequires
@@ -52,6 +55,9 @@ Recommends:     python3-pygments
 
 
 %changelog
+* Sat Feb 18 2023 Carl George <carl@george.computer> - 3.0.36^1.5eb6efd-1
+- Update to upstream snapshot for Python 3.12 compatibility, resolves rhbz#2165570
+
 * Mon Jan 30 2023 Carl George <carl@george.computer> - 3.0.36-2
 - Switch to SPDX license identifier
 

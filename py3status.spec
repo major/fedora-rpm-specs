@@ -1,7 +1,7 @@
 %bcond_without test
 
 Name:           py3status
-Version:        3.48
+Version:        3.49
 Release:        %autorelease
 Summary:        An extensible i3status wrapper written in python
 

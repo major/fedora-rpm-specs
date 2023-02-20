@@ -9,6 +9,10 @@ Summary:        Library for rendering "readme" descriptions for Warehouse
 License:        ASL 2.0
 URL:            https://github.com/pypa/readme_renderer
 Source0:        %{pypi_source %{pypi_name}}
+
+# Fix tests with Pygments 2.14
+Patch:          https://github.com/pypa/readme_renderer/commit/db67d9698b0172.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python%{python3_pkgversion}-devel
@@ -28,7 +32,7 @@ Summary:        %{summary}
 %description -n python%{python3_pkgversion}-%{pkg_name} %{_description}
 
 %prep
-%autosetup -n %{pypi_name}-%{version} 
+%autosetup -p1 -n %{pypi_name}-%{version}
 %generate_buildrequires
 %pyproject_buildrequires -t
  

@@ -10,8 +10,8 @@
 %bcond_with lwt
 
 Name:           ocaml-dune
-Version:        3.6.1
-Release:        3%{?dist}
+Version:        3.7.0
+Release:        1%{?dist}
 Summary:        Composable build system for OCaml and Reason
 
 # Dune itself is MIT.  Some bundled libraries have a different license:
@@ -38,6 +38,7 @@ BuildRequires:  ocaml >= 4.08
 BuildRequires:  ocaml-csexp-devel >= 1.5.0
 BuildRequires:  ocaml-pp-devel >= 1.1.0
 BuildRequires:  %{py3_dist sphinx}
+BuildRequires:  %{py3_dist sphinx-copybutton}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
 
 %if %{with lwt}
@@ -47,7 +48,7 @@ BuildRequires:  ocaml-lwt-devel
 # Dune has vendored deps to avoid dependency cycles.  Upstream deliberately
 # does not support unbundling these dependencies.
 # See https://github.com/ocaml/dune/issues/220
-Provides:       bundled(ocaml-build-path-prefix-map) = 0.2
+Provides:       bundled(ocaml-build-path-prefix-map) = 0.3
 Provides:       bundled(ocaml-cmdliner) = 1.1.1
 Provides:       bundled(ocaml-incremental-cycles) = 1e2030a5d5183d84561cde142eecca40e03db2a3
 Provides:       bundled(ocaml-inotify) = 2.3
@@ -62,6 +63,12 @@ Requires:       python3
 
 # Both packages install a binary named dune and an associated man page
 Conflicts:      wdune
+
+# This can be removed when F42 reaches EOL
+Obsoletes:      ocaml-fiber < 3.7.0
+Obsoletes:      ocaml-fiber-devel < 3.7.0
+Provides:       ocaml-fiber = %{version}-%{release}
+Provides:       ocaml-fiber-devel = %{version}-%{release}
 
 # Install documentation in the main package doc directory
 %global _docdir_fmt %{name}
@@ -343,25 +350,6 @@ Requires:       ocaml-pp-devel%{?_isa}
 The ocaml-dyn-devel package contains libraries and signature files for
 developing applications that use ocaml-dyn.
 
-%package     -n ocaml-fiber
-Summary:        Structured concurrency library
-License:        MIT
-Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       ocaml-stdune%{?_isa} = %{version}-%{release}
-
-%description -n ocaml-fiber
-A structured concurrency library for OCaml.
-
-%package     -n ocaml-fiber-devel
-Summary:        Development files for ocaml-fiber
-License:        MIT
-Requires:       ocaml-fiber%{?_isa} = %{version}-%{release}
-Requires:       ocaml-stdune-devel%{?_isa} = %{version}-%{release}
-
-%description -n ocaml-fiber-devel
-The ocaml-fiber-devel package contains libraries and signature files for
-developing applications that use ocaml-fiber.
-
 %package     -n ocaml-ocamlc-loc
 Summary:        Parse OCaml compiler output into structured form
 License:        MIT
@@ -536,10 +524,6 @@ cd -
 
 %files -n ocaml-dyn-devel -f .ofiles-dyn-devel
 
-%files -n ocaml-fiber -f .ofiles-fiber
-
-%files -n ocaml-fiber-devel -f .ofiles-fiber-devel
-
 %files -n ocaml-ocamlc-loc -f .ofiles-ocamlc-loc
 
 %files -n ocaml-ocamlc-loc-devel -f .ofiles-ocamlc-loc-devel
@@ -557,6 +541,10 @@ cd -
 %files -n ocaml-xdg-devel -f .ofiles-xdg-devel
 
 %changelog
+* Sat Feb 18 2023 Jerry James <loganjerry@gmail.com> - 3.7.0-1
+- Version 3.7.0
+- The fiber subpackage has been removed
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 3.6.1-3
 - Rebuild OCaml packages for F38
 

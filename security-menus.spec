@@ -1,14 +1,14 @@
 Name:           security-menus
-Version:        1.3.0
-Release:        16%{?dist}
+Version:        38
+Release:        1%{?dist}
 Summary:        Menu Structure for the Fedora Security Lab
 
 License:        GPLv2
-URL:            https://fedorahosted.org/security-spin
-Source0:        https://fedorahosted.org/released/security-spin/%{name}-%{version}.tar.bz2
+URL:            https://pagure.io/security-lab
+Source0:        https://releases.pagure.org/security-lab/%{name}-%{version}.tar.xz
 BuildArch:      noarch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  desktop-file-utils
 
 Requires:       redhat-menus
@@ -21,14 +21,15 @@ GNOME and other desktop enviroments.
 %{name} is listed among Fedora Security Lab packages.
 
 %prep
-%setup -q
+%setup -n security-menu
+rm -rf security-{dc3dd,scanmem}*.desktop
 
 %build
 # nothing to build
 
 %install
 make install DESTDIR=%{buildroot}
-for file in %{buildroot}/%{_datadir}/applications/*; do 
+for file in %{buildroot}/%{_datadir}/applications/*.desktop; do 
     desktop-file-validate $file
 done
 
@@ -39,6 +40,10 @@ done
 %{_datadir}/applications/*.desktop
 
 %changelog
+* Sat Feb 18 2023 Fabian Affolter <mail@fabian-affolter.ch> - 38-1
+- Update meta information (closes rhbz#2169874)
+- Update to new upstream release 38
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

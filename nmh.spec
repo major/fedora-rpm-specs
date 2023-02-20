@@ -1,10 +1,10 @@
 Name:          nmh
-Version:       1.8RC3
+Version:       1.8
 Release:       1%{?dist}
 Summary:       A capable MIME-email-handling system with a command-line interface
 License:       BSD
 URL:           https://savannah.nongnu.org/projects/nmh
-Source0:       https://download-mirror.savannah.gnu.org/releases/%{name}/%{name}-1.8-RC3.tar.gz
+Source0:       https://download-mirror.savannah.gnu.org/releases/%{name}/%{name}-1.8.tar.gz
 Patch0:        nmh-use-smtp-port.patch
 BuildRequires: cyrus-sasl-devel
 BuildRequires: gcc
@@ -32,7 +32,7 @@ Optional GUI interfaces are provided by the external xmh and exmh
 projects.  nmh is a descendant of the RAND MH, Mail Handler, project.
 
 %prep
-%setup -q -n %{name}-1.8-RC3
+%setup -q -n %{name}-1.8
 %patch0 -p1
 
 # Avoid regenerating autotools machinery.
@@ -56,6 +56,9 @@ CFLAGS="$RPM_OPT_FLAGS"
 %doc %{_pkgdocdir}/*
 
 %changelog
+* Sat Feb 18 2023 David Levine  <par.packager@gmail.com> - 1.8-1
+- With upstream 1.8.
+
 * Sun Feb  5 2023 David Levine  <par.packager@gmail.com> - 1.8RC3-1
 - With upstream 1.8-RC3.
 

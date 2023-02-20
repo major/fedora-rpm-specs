@@ -1,5 +1,5 @@
 Name:			rasdaemon
-Version:		0.7.0
+Version:		0.8.0
 Release:		1%{?dist}
 Summary:		Utility to receive RAS error tracings
 Group:			Applications/System
@@ -15,9 +15,11 @@ BuildRequires:		gettext-devel
 BuildRequires:		perl-generators
 BuildRequires:		sqlite-devel
 BuildRequires:		systemd
+BuildRequires:		libtraceevent-devel
 Provides:		bundled(kernel-event-lib)
 Requires:		hwdata
 Requires:		perl-DBD-SQLite
+Requires:		libtraceevent
 %ifarch %{ix86} x86_64
 Requires:		dmidecode
 %endif
@@ -63,7 +65,7 @@ install -D -p -m 0655 misc/rasdaemon.env %{buildroot}%{_sysconfdir}/sysconfig/%{
 rm INSTALL %{buildroot}/usr/include/*.h
 
 %files
-%doc AUTHORS ChangeLog COPYING README TODO
+%doc AUTHORS ChangeLog COPYING README.md TODO
 %{_sbindir}/rasdaemon
 %{_sbindir}/ras-mc-ctl
 %{_mandir}/*/*
@@ -72,6 +74,10 @@ rm INSTALL %{buildroot}/usr/include/*.h
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
 
 %changelog
+
+* Sat Feb 18 2023 Mauro Carvalho Chehab <mchehab@kernel.org>  0.8.0
+- Bump to version 0.8.0 using libtraceevent.
+
 * Sat Jan 21 2023 Mauro Carvalho Chehab <mchehab@kernel.org>  0.7.0
 - Bump to version 0.7.0 with several fixes and additions
 

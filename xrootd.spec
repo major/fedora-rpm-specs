@@ -13,7 +13,7 @@
 
 Name:		xrootd
 Epoch:		1
-Version:	5.5.2
+Version:	5.5.3
 Release:	1%{?dist}
 Summary:	Extended ROOT file server
 
@@ -232,6 +232,7 @@ a subset of the namespace to an external issuer.
 
 %package -n xrdcl-http
 Summary:	HTTP client plugin for XRootD
+Requires:	%{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:	%{name}-client-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description -n xrdcl-http
@@ -682,6 +683,9 @@ fi
 %doc %{_pkgdocdir}
 
 %changelog
+* Sat Feb 18 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.3-1
+- Update to version 5.5.3
+
 * Thu Feb 09 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 1:5.5.2-1
 - Update to version 5.5.2
 - Drop patches accepted upstream or previously backported

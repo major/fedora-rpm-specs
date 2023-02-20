@@ -1,20 +1,28 @@
 %global srcname ducc0
+%global stable 1
+#%%global commit 4a007f4bacf4d8b7e8cc5523f4d7dd515d7dc19f
+#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
+#%%global date 20230208
 
 Name:           python-%{srcname}
-Version:        0.28.0
+%if "%{?stable}"
+Version:        0.29.0
+%else
+Version:        0.28.0^%{date}%{shortcommit}
+%endif
 Release:        %autorelease
 Summary:        Programming tools for numerical computation
 
 License:        GPL-2.0-or-later AND (GPL-2.0-or-later OR BSD-3-Clause)
 URL:            https://pypi.python.org/pypi/%{srcname}
+%if "%{?stable}"
 Source0:        %{pypi_source}
+%else
+Source0:        https://github.com/mreineck/ducc/archive/%{commit}/ducc-%{commit}.tar.gz
+%endif
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
-# Tests started to fail from 0.25
-# Waiting for upstream to look at that, meanwhile stick to 0.24 on these arches
-# https://github.com/mreineck/ducc/issues/3
-# Fedora#2138554
-ExcludeArch:    aarch64 s390x
 
 BuildRequires:  gcc-c++
 BuildRequires:  python3-devel
@@ -42,7 +50,13 @@ Summary:        %{summary}
 
 
 %prep
+%if "%{?stable}"
 %autosetup -p1 -n %{srcname}-%{version}
+# Remove egg files from source
+rm -r %{srcname}.egg-info
+%else
+%autosetup -p1 -n ducc-%{commit}
+%endif
 
 # there's no other way to disable ducc to inject custom C flags
 sed -i 's|extra_compile_args=extra_compile_args|extra_compile_args=\[\]|g' setup.py

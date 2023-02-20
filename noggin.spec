@@ -1,6 +1,6 @@
 Name:           noggin
-Version:        1.6.1
-Release:        5%{?dist}
+Version:        1.7.1
+Release:        1%{?dist}
 Summary:        Self-service user portal for FreeIPA for communities
 
 License:        MIT
@@ -8,10 +8,14 @@ URL:            https://noggin-aaa.readthedocs.io/
 Source0:        https://github.com/fedora-infra/noggin/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        noggin.service
 Source2:        noggin.sysconfig
+Source3:        noggin-nginx.conf
+
+Source10:       noggin-README.Fedora
 
 BuildArch:      noarch
 BuildRequires:  pyproject-rpm-macros >= 0-14
 BuildRequires:  systemd-rpm-macros
+Requires:       nginx-filesystem
 Requires:       (python3dist(gunicorn) with /usr/bin/gunicorn-3)
 
 %description
@@ -45,6 +49,8 @@ Provides a theme for Noggin used for openSUSE Accounts.
 %prep
 %autosetup -n %{name}-%{version} -p1
 
+# Install README.Fedora file
+install -pm 0644 %{SOURCE10} README.Fedora
 
 %generate_buildrequires
 %pyproject_buildrequires
@@ -72,16 +78,25 @@ install -pm 0644 %{S:2} %{buildroot}%{_sysconfdir}/sysconfig/%{name}
 touch %{buildroot}%{_sysconfdir}/%{name}/%{name}.cfg
 touch %{buildroot}%{_localstatedir}/log/noggin/access.log
 touch %{buildroot}%{_localstatedir}/log/noggin/error.log
+mkdir -p %{buildroot}%{_sysconfdir}/nginx/conf.d
+install -pm 0644 %{S:3} %{buildroot}%{_sysconfdir}/nginx/conf.d/noggin.conf
+mkdir -p %{buildroot}%{_localstatedir}/log/nginx
+touch %{buildroot}%{_localstatedir}/log/nginx/noggin.access.log
+touch %{buildroot}%{_localstatedir}/log/nginx/noggin.error.log
+
 
 %files -f %{pyproject_files}
 %license LICENSE
-%doc README.md noggin.cfg.example
+%doc README.md noggin.cfg.example README.Fedora
 %{_bindir}/noggin-sar
 %{_unitdir}/%{name}.service
 %ghost %{_sysconfdir}/%{name}/%{name}.cfg
 %config(noreplace) %{_sysconfdir}/sysconfig/%{name}
+%config(noreplace) %{_sysconfdir}/nginx/conf.d/noggin.conf
 %dir %{_localstatedir}/log/noggin
 %ghost %{_localstatedir}/log/noggin/*.log
+%dir %{_localstatedir}/log/nginx/
+%ghost %{_localstatedir}/log/nginx/*.log
 %exclude %{python3_sitelib}/%{name}/themes/fas
 %exclude %{python3_sitelib}/%{name}/themes/centos
 %exclude %{python3_sitelib}/%{name}/themes/openSUSE
@@ -100,6 +115,14 @@ touch %{buildroot}%{_localstatedir}/log/noggin/error.log
 
 
 %changelog
+* Sat Feb 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.7.1-1
+- Rebase to 1.7.1
+- Add quick start documentation as README.Fedora
+
+* Sat Feb 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.6.1-6
+- Add sample no-op nginx configuration
+- Fix noggin.service to use correct launch function call
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

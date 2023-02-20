@@ -3,8 +3,8 @@
 %global __requires_exclude (%{_privatelibs})
 
 Name:             pgmodeler
-Version:          0.9.4
-Release:          3%{?prever:.%{prever}}%{?GITrev:.git.%{GITrev}}%{?dist}
+Version:          1.0.1
+Release:          1%{?dist}
 Summary:          PostgreSQL Database Modeler
 
 License:          GPL-3.0-only
@@ -82,10 +82,8 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/%{name}.a
 # License installed separately
 rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 
-%find_lang %{name} --with-qt --all-name
 
-
-%files -f %{name}.lang
+%files
 %doc CHANGELOG.md README.md RELEASENOTES.md
 %license LICENSE
 %{_bindir}/%{name}
@@ -103,6 +101,12 @@ rm -f %{buildroot}/%{_docdir}/%{name}/LICENSE
 
 
 %changelog
+* Sat Feb 18 2023 Sandro Mani <manisandro@gmail.com> - 1.0.1-1
+- Update to 1.0.1
+
+* Thu Feb 02 2023 Sandro Mani <manisandro@gmail.com> - 1.0.0-1
+- Update to 1.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

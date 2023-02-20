@@ -1,5 +1,5 @@
 Name:     nng
-Version:  1.5.1
+Version:  1.5.2
 Release:  1%{?dist}
 Summary:  nanomsg next generation: light-weight brokerless messaging
 
@@ -71,6 +71,9 @@ rm -rf %{buildroot}/%{_mandir}/man[3-7]*
 %{_mandir}/man1/nngcat.1.gz
 
 %changelog
+* Sat Feb 18 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.2-1
+- Update to latest upstream release 1.5.2 (closes rhbz#1981004)
+
 * Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 1.5.1-1
 - Update to latest upstream release 1.5.1 (closes rhbz#2113550)
 

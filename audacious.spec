@@ -2,10 +2,10 @@
 %bcond_without gtk
 
 Name: audacious
-Version: 4.2
-Release: 3%{?dist}
+Version: 4.3
+Release: 0.2.beta1%{?dist}
 
-%global tar_ver %{version}
+%global tar_ver %{version}-beta1
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
 %global aud_ver 4.1
@@ -115,6 +115,7 @@ sed -i 's!MAKE} -s!MAKE} !' buildsys.mk.in
 %configure  \
     %{?with_gtk:--enable-gtk} \
     %{!?with_gtk:--disable-gtk} \
+    --disable-libarchive \
     --with-buildstamp="Fedora package"  \
     --disable-silent-rules \
     --disable-rpath \
@@ -189,6 +190,12 @@ fi
 
 
 %changelog
+* Sat Feb 18 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3-0.2.beta1
+- Explicitly --disable-libarchive to confirm default.
+
+* Mon Feb 13 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3-0.1.beta1
+- Upgrade to 4.3 beta1.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -55,7 +55,7 @@
 Summary: Xen is a virtual machine monitor
 Name:    xen
 Version: 4.17.0
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     http://xen.org/
 Source0: https://downloads.xenproject.org/release/xen/%{version}/xen-%{version}.tar.gz
@@ -178,9 +178,6 @@ BuildRequires: systemd-devel
 %ifarch armv7hl aarch64
 BuildRequires: libfdt-devel
 %endif
-%if %build_ovmf
-BuildRequires: edk2-ovmf
-%endif
 %if %build_hyp
 BuildRequires: bison flex
 %endif
@@ -215,6 +212,9 @@ Recommends: perl
 Recommends: qemu-system-x86-core
 # rom file for qemu-xen-traditional
 Recommends: ipxe-roms-qemu
+%endif
+%if %build_ovmf
+Recommends: edk2-ovmf-xen
 %endif
 
 %description runtime
@@ -377,7 +377,7 @@ CONFIG_EXTRA="--enable-qemu-traditional"
 CONFIG_EXTRA=""
 %endif
 %if %build_ovmf
-CONFIG_EXTRA="$CONFIG_EXTRA --with-system-ovmf=%{_libexecdir}/%{name}/boot/ovmf.bin"
+CONFIG_EXTRA="$CONFIG_EXTRA --with-system-ovmf=/usr/share/edk2/xen/OVMF.fd"
 %endif
 %ifnarch armv7hl aarch64
 CONFIG_EXTRA="$CONFIG_EXTRA --with-system-ipxe=/usr/share/ipxe/10ec8139.rom"
@@ -509,10 +509,6 @@ strip -s %{buildroot}/%{_libdir}/efi/xen-%{version}.efi
 
 %if ! %build_ocaml
 rm -rf %{buildroot}/%{_unitdir}/oxenstored.service
-%endif
-
-%if %build_ovmf
-cat /usr/share/OVMF/OVMF_{VARS,CODE}.fd >%{buildroot}%{_libexecdir}/%{name}/boot/ovmf.bin
 %endif
 
 ############ fixup files in /etc ############
@@ -794,9 +790,6 @@ fi
 %{_libexecdir}/%{name}/boot/xen-shim
 /usr/lib/debug%{_libexecdir}/xen/boot/xen-shim-syms
 %endif
-%if %build_ovmf
-%{_libexecdir}/xen/boot/ovmf.bin
-%endif
 %if %build_stubdom
 %if %build_qemutrad
 %{_libexecdir}/xen/boot/ioemu-stubdom.gz
@@ -940,6 +933,10 @@ fi
 %endif
 
 %changelog
+* Sat Feb 18 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-7
+- use OVMF.fd from new edk2-ovmf-xen package as ovmf.bin file
+	built from edk2-ovmf package no longer supports xen (#2170930)
+
 * Tue Feb 14 2023 Michael Young <m.a.young@durham.ac.uk> - 4.17.0-6
 - x86: Cross-Thread Return Address Predictions [XSA-426, CVE-2022-27672]
 

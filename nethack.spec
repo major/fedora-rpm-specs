@@ -4,13 +4,13 @@
 %global fontname nethack-bitmap
 
 Name:           nethack
-Version:        3.6.6
-Release:        11%{?dist}
+Version:        3.6.7
+Release:        1%{?dist}
 Summary:        A rogue-like single player dungeon exploration game
 
 License:        NGPL
 URL:            https://nethack.org
-Source0:        https://www.nethack.org/download/3.6.6/nethack-366-src.tgz
+Source0:        https://www.nethack.org/download/3.6.7/nethack-367-src.tgz
 Source1:        %{name}.desktop
 Patch0:         %{name}-%{version}-makefile.patch
 Patch1:         %{name}-%{version}-top.patch
@@ -71,11 +71,11 @@ X11 core fonts configuration for %{fontname}.
 
 
 %prep
-%setup -q -c -n nethack-3.6.6
-cd NetHack-NetHack-3.6.6_Released
+%setup -q -c -n nethack-3.6.7
+cd NetHack-3.6.7
 mv * ..
 cd ..
-rm -rf NetHack-NetHack-3.6.6_Released
+rm -rf NetHack-3.6.7
 %patch0 -b .makefile
 %patch1  
 %patch2 -b .config
@@ -183,6 +183,9 @@ fi;
 %files -n %{fontname}-fonts-core
 
 %changelog
+* Sat Feb 18 2023 Ron Olson <tachoknight@gmail.com> - 3.6.7-1
+- Update to NetHack 3.6.7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

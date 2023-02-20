@@ -1,8 +1,8 @@
 %global srcname simpleeval
 
 Name:           python-%{srcname}
-Version:        0.9.12
-Release:        5%{?dist}
+Version:        0.9.13
+Release:        1%{?dist}
 Summary:        An expression evaluator library for Python
 
 License:        MIT
@@ -56,6 +56,9 @@ eval() or other unsafe or needlessly complex linguistics.
 
 
 %changelog
+* Sat Feb 18 2023 Dan Horák <dan[at]danny.cz> - 0.9.13-1
+- updated to 0.9.13 (#2171144)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.12-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

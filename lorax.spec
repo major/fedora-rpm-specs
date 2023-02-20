@@ -4,7 +4,7 @@
 
 Name:           lorax
 Version:        38.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -15,14 +15,20 @@ URL:            https://github.com/weldr/lorax
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
 # Strip some stuff from gtk4, necessary for compose to work since
-# gtk4-launch requires libtiff which is stripped itself
+# gtk4-launch requires libtiff which is stripped itself...
 # https://github.com/weldr/lorax/pull/1309
 # https://pagure.io/releng/failed-composes/issue/4611
 Patch0:         0001-Strip-some-things-from-gtk4.patch
+# ...only it turns out we really need at least one of the binaries
+# or a window in anaconda doesn't open, so this puts them back
+# and stops stripping libtiff
+# https://github.com/weldr/lorax/pull/1312
+# https://bugzilla.redhat.com/show_bug.cgi?id=2170716
+Patch1:         0001-Don-t-strip-gtk4-binaries-or-libtiff-2170716.patch
 # Disable default persistence, it's busted:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2170544
 # https://github.com/weldr/lorax/pull/1310
-Patch1:         0001-Revert-templates.d-99-generic-live-Enable-automatic-.patch
+Patch2:         0001-Revert-templates.d-99-generic-live-Enable-automatic-.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -177,6 +183,9 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
+* Fri Feb 17 2023 Adam Williamson <awilliam@redhat.com> - 38.6-4
+- Backport PR #1312 to put gtk4 binaries and libtiff back in (#2170716)
+
 * Thu Feb 16 2023 Adam Williamson <awilliam@redhat.com> - 38.6-3
 - Backport PR #1310 to disable persistence again, it's busted (#2170544)
 

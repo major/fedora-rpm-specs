@@ -8,13 +8,13 @@
 %{?aud_plugin_dep}
 
 Name: audacious-plugins
-Version: 4.2
-Release: 5%{?dist}
+Version: 4.3
+Release: 0.1.beta1%{?dist}
 
-%global tar_ver %{version}
+%global tar_ver %{version}-beta1
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
-%global aud_ver 4.2
+%global aud_ver 4.3
 Requires: audacious%{?_isa} >= %{aud_ver}
 
 Summary: Plugins for the Audacious audio player
@@ -70,6 +70,8 @@ BuildRequires: pkgconfig(libbinio)
 BuildRequires: pkgconfig(libopenmpt)
 BuildRequires: pkgconfig(libmpg123)
 BuildRequires: lame-devel
+BuildRequires: pkgconfig(opus) pkgconfig(opusfile)
+BuildRequires: pkgconfig(libpipewire-0.3) pkgconfig(libspa-0.2)
 # ffaudio / ffmpeg
 BuildRequires: pkgconfig(libavcodec) >= 56.60.100
 BuildRequires: pkgconfig(libavformat) >= 56.40.101
@@ -266,6 +268,7 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %{_libdir}/audacious/Input/metronom.so
 %{_libdir}/audacious/Input/modplug.so
 %{_libdir}/audacious/Input/openmpt.so
+%{_libdir}/audacious/Input/opus.so
 %{_libdir}/audacious/Input/sndfile.so
 %{_libdir}/audacious/Input/tonegen.so
 %{_libdir}/audacious/Input/vorbis.so
@@ -274,6 +277,7 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 %{_libdir}/audacious/Output/alsa.so
 %{_libdir}/audacious/Output/filewriter.so
 %{_libdir}/audacious/Output/oss4.so
+%{_libdir}/audacious/Output/pipewire.so
 %{_libdir}/audacious/Output/pulse_audio.so
 %{_libdir}/audacious/Output/sdlout.so
 %dir %{_libdir}/audacious/Visualization/
@@ -287,7 +291,7 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 # optional Gtk+ plugins
 %if %{with gtk}
-%{_libdir}/audacious/General/alarm.so
+#{_libdir}/audacious/General/alarm.so
 %{_libdir}/audacious/General/albumart.so
 %{_libdir}/audacious/General/aosd.so
 %{_libdir}/audacious/General/gtkui.so
@@ -331,6 +335,12 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Mon Feb 13 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3-0.1.beta1
+- Upgrade to 4.3 beta1.
+- Opus input plugin is new.
+- Pipewire output plugin is new.
+- Alarm plugin is gone.
+
 * Mon Feb 13 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.2-5
 - Merge ffmpeg/ffaudio PR but prefer pkgconfig(foo) BR.
 

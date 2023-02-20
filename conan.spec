@@ -1,8 +1,8 @@
-%global beta beta9
+%global beta beta10
 
 Name: conan
 Version: 2.0.0
-Release: 0.9.%{beta}%{?dist}
+Release: 0.10.%{beta}%{?dist}
 
 License: MIT
 Summary: Open-source C/C++ package manager
@@ -10,7 +10,7 @@ URL: https://github.com/%{name}-io/%{name}
 Source0: %{url}/archive/%{version}-%{beta}/%{name}-%{version}-%{beta}.tar.gz
 BuildArch: noarch
 # I have no idea who thought this was a good idea to hardcode and then check against.
-Patch0: conan-2.0.0-beta9-gcc13.patch
+Patch0: conan-2.0.0-beta10-gcc13.patch
 
 BuildRequires: python3-devel
 
@@ -66,6 +66,9 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Sat Feb 18 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.10.beta10
+- Updated to version 2.0.0-beta10.
+
 * Tue Jan 31 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.9.beta9
 - Updated to version 2.0.0-beta9.
 

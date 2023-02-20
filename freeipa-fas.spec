@@ -10,13 +10,17 @@
 %endif
 
 Name:           freeipa-%{plugin_name}
-Version:        0.0.6
-Release:        7%{?dist}
+Version:        0.0.8
+Release:        1%{?dist}
 Summary:        Fedora Account System extension for FreeIPA
 
 License:        GPLv3+
 URL:            https://github.com/fedora-infra/freeipa-%{plugin_name}
 Source0:        %{url}/archive/v%{version}/freeipa-%{plugin_name}-%{version}.tar.gz
+
+# Backports from upstream
+Patch0001:      0001-create-agreement.py-fix-syntax-issue-and-blacken.patch
+Patch0002:      0002-Allow-IRC-channels-to-contain-Matrix-rooms-too.patch
 
 BuildArch:      noarch
 
@@ -45,7 +49,7 @@ A module for IdM with extensions for Fedora Account System.
 %endif
 
 %prep
-%autosetup -n freeipa-%{plugin_name}-%{version}
+%autosetup -n freeipa-%{plugin_name}-%{version} -p1
 
 %build
 # Nothing to build
@@ -103,6 +107,10 @@ fi
 %{_bindir}/ipa-create-agreement
 
 %changelog
+* Sat Feb 18 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.0.8-1
+- Rebase to version 0.0.8
+- Backport a couple of upstream fixes for the build
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

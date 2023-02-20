@@ -14,9 +14,6 @@ URL:            https://crates.io/crates/papergrid
 Source:         %{crates_source}
 # PR to symlink license text to each crate directories: https://github.com/zhiburt/tabled/pull/283
 Source1:        https://raw.githubusercontent.com/zhiburt/tabled/master/LICENSE
-# Manually created patch for downstream crate metadata changes
-# * bump ansi-str from 0.5.0 to 0.7.0
-Patch:          papergrid-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

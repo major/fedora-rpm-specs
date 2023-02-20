@@ -1,6 +1,6 @@
 Name:           teckit
 Version:        2.5.9
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Conversion library and mapping compiler
 # COPYING:                      links to license/LICENSING.txt
 # license/License_CPLv05.txt:   CPLv0.5 text
@@ -36,7 +36,7 @@ Summary:        Conversion library and mapping compiler
 # SFconv/expat/xmlparse/xmlparse.c:     MPLv1.1 of GPL+ (bundled expat)
 # zlib-1.2.3:           zlib (see nonexistent zlib.h, reported to
 #                       <https://github.com/silnrsi/teckit/issues/22>)
-License:        (LGPLv2+ or CPL) and (LGPLv2+ or GPLv2+ or MPLv2.0 or MPLv1.1)
+License:        (LGPL-2.0-or-later OR CPL-1.0) AND (LGPL-2.0-or-later OR GPL-2.0-or-later OR MPL-2.0 OR MPL-1.1)
 URL:            https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=teckit
 Source0:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz
 Source1:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz.asc
@@ -131,6 +131,9 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/teckit.pc
 
 %changelog
+* Sat Feb 18 2023 Than Ngo <than@redhat.com> - 2.5.9-11
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.9-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

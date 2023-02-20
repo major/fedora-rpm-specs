@@ -1,6 +1,6 @@
 Name:           python-nbclassic
-Version:        0.5.1
-Release:        1%{?dist}
+Version:        0.5.2
+Release:        %autorelease
 Summary:        Jupyter Notebook as a Jupyter Server Extension
 
 # Main package is BSD-3-Clause
@@ -157,5 +157,4 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/jupyter-nbclassic.des
 
 
 %changelog
-* Fri Jan 20 2023 Lumír Balhar <lbalhar@redhat.com> - 0.5.1-1
-- Initial package
+%autochangelog

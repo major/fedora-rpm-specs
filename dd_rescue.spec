@@ -1,17 +1,21 @@
-%define rhelp_version 0.3.0
-
 Name:           dd_rescue
 Version:        1.99.12
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Fault tolerant "dd" utility for rescuing data from bad media
 # No version specified
 License:        GPL+
 URL:            http://www.garloff.de/kurt/linux/ddrescue/
+
+%global         rhelp_version 0.3.0
+
 Source0:        http://www.garloff.de/kurt/linux/ddrescue/dd_rescue-%{version}.tar.bz2
 Source1:        http://www.kalysto.org/pkg/dd_rhelp-%{rhelp_version}.tar.gz
 Source2:        http://www.garloff.de/kurt/linux/ddrescue/dd_rescue-%{version}.tar.bz2.asc
 #               Public key obtained from http://www.garloff.de/kurt/garloff.pub.asc
 Source3:        gpgkey-6669F7340D31E95EC5565490DE4F1B3A2BFFC5BF.gpg
+
+# Fix the dd_rescue version detection in dd_help
+Patch0:         dd_rescue-rhelp_version.patch
 
 BuildRequires:  autoconf
 # We require aclocal which is shipped with automake
@@ -21,8 +25,12 @@ BuildRequires:  gnupg2
 BuildRequires:  lzo-devel
 BuildRequires:  make
 
+# Shell script dd_rhelp.test requires several other things to run
+BuildRequires:  bc
+BuildRequires:  grep
+BuildRequires:  coreutils
+
 # Shell script dd_rhelp requires several other things to run
-Requires:       cat
 Requires:       grep
 Requires:       sed
 Requires:       coreutils
@@ -33,18 +41,27 @@ Requires:       bc
 
 
 %description
-ddrescue is a utility similar to the system utility "dd" which copies
-data from a file or block device to another. ddrescue does however
+The dd_rescue is a utility similar to the system utility "dd" which copies
+data from a file or block device to another. The dd_rescue does however
 not abort on errors in the input file. This makes it suitable for
 rescuing data from media with errors, e.g. a disk with bad sectors.
 
-This package includes dd_rhelp, a wrapper script facilitating data
-recovery.
+This package includes dd_rhelp wrapper script facilitating data
+recovery. It is trying to make it so simple to recover as:
+dd_rhelp source target
+
+Please note Fedora ships also GNU ddrescue, which probably gives
+faster and more reliable results rescuing whole disks.
+But still there might be some niche pattern of bad sectors,
+which might get better covered by dd_rescue and both tools
+might be used with sub-sequent runs cooperatively on the same disk image.
+
 
 %prep
 gpgv2 --keyring %{SOURCE3} %{SOURCE2} %{SOURCE0}
 %setup -q -n %{name}-%{version}
 %setup -q -n %{name}-%{version} -a 1 -D -T
+%patch0 -p 0
 
 %build
 autoreconf -vif
@@ -63,6 +80,12 @@ rm -rf %{buildroot}
 make install DESTDIR=%{buildroot} INSTALLDIR=%{buildroot}/%{_bindir} INSTASROOT="" INSTALLFLAGS="" LIB=%{_lib}
 install -D -m 755 dd_rhelp-%{rhelp_version}/dd_rhelp %{buildroot}%{_bindir}/dd_rhelp
 
+%check
+pushd dd_rhelp-%{rhelp_version}
+PATH="../:$PATH" bash ./dd_rhelp.test &&
+popd
+
+
 %files
 %doc COPYING README README.dd_rhelp FAQ.dd_rhelp
 %{_bindir}/dd_rescue
@@ -78,6 +101,9 @@ install -D -m 755 dd_rhelp-%{rhelp_version}/dd_rhelp %{buildroot}%{_bindir}/dd_r
 
 
 %changelog
+* Sat Feb 18 2023 Michal Ambroz <rebus AT seznam dot cz> - 1.99.12-3
+- dd_rhelp - fix dependencies and dd_rescue detection
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.99.12-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

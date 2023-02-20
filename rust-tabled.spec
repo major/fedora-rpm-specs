@@ -12,9 +12,6 @@ Summary:        Easy to use library for pretty print tables of Rust `struct`s an
 License:        MIT
 URL:            https://crates.io/crates/tabled
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump ansi-str from 0.5.0 to 0.7.0
-Patch:          tabled-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 

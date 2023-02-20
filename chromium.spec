@@ -79,8 +79,10 @@
 
 # enable v4l2 and disable vaapi for aarch64 platform
 %ifarch aarch64
+%if 0%{?fedora} >= 36
 %global use_vaapi 0
 %global use_v4l2_codec 1
+%endif
 %endif
 
 # Seems like we might need this sometimes

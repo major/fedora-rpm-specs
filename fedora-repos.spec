@@ -4,7 +4,7 @@
 Summary:        Fedora package repositories
 Name:           fedora-repos
 Version:        39
-Release:        0.1%{?eln:.eln%{eln}}
+Release:        0.2%{?eln:.eln%{eln}}
 License:        MIT
 URL:            https://fedoraproject.org/
 
@@ -92,6 +92,14 @@ Source104:      RPM-GPG-KEY-fedora-modularity
 Source150:      RPM-GPG-KEY-fedora-iot-2019
 Source151:      fedora.conf
 Source152:      fedora-compose.conf
+
+# ima certs
+Source500:      fedora-38-ima.cert
+Source501:      fedora-38-ima.der
+Source502:      fedora-38-ima.pem
+Source503:      fedora-39-ima.cert
+Source504:      fedora-39-ima.der
+Source505:      fedora-39-ima.pem
 
 %description
 Fedora package repository files for yum and dnf along with gpg public keys.
@@ -191,6 +199,10 @@ done
 # and add symlink for compat generic location
 ln -s RPM-GPG-KEY-fedora-%{version}-primary RPM-GPG-KEY-%{version}-fedora
 popd
+
+# Install the ima keys
+install -d -m 755 $RPM_BUILD_ROOT/etc/pki/rpm-ima
+install -m 644 %{_sourcedir}/fedora*ima.* $RPM_BUILD_ROOT/etc/pki/rpm-ima/
 
 # Install repo files
 install -d -m 755 $RPM_BUILD_ROOT/etc/yum.repos.d
@@ -400,6 +412,7 @@ rm -f "$TMPRING"
 %files -n fedora-gpg-keys
 %dir /etc/pki/rpm-gpg
 /etc/pki/rpm-gpg/RPM-GPG-KEY-*
+/etc/pki/rpm-ima/fedora*ima*
 
 
 %files ostree
@@ -412,6 +425,9 @@ rm -f "$TMPRING"
 
 
 %changelog
+* Sat Feb 18 2023 Kevin Fenzi <kevin@scrye.com> - 39-0.2
+- Include IMA public certs.
+
 * Wed Feb 08 2023 Tomas Hrcka <thrcka@redhat.com> - 39-0.1
 - Setup for rawhide being F39
 

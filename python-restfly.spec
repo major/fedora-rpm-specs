@@ -1,7 +1,7 @@
 %global pypi_name restfly
 
 Name:           python-%{pypi_name}
-Version:        1.4.6
+Version:        1.4.7
 Release:        %autorelease
 Summary:        Library to make API wrappers creation easier
 

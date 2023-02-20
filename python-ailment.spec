@@ -1,14 +1,16 @@
 %global pypi_name ailment
 
 Name:           python-%{pypi_name}
-Version:        9.0.6885
-Release:        7%{?dist}
+Version:        9.2.38
+Release:        1%{?dist}
 Summary:        The angr intermediate language
 
 License:        BSD
 URL:            https://github.com/angr/ailment
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
  
 %description
 AIL is the angr intermediate language.
@@ -16,34 +18,32 @@ AIL is the angr intermediate language.
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
 AIL is the angr intermediate language.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
-# Circular dependency with angr
-#%%check
-#%%pytest -v tests
-
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.38-1
+- Update to latest upstream release 9.2.38 (closes rhbz#1999778)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.6885-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

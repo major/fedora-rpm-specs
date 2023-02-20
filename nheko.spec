@@ -1,15 +1,19 @@
 Name: nheko
 Version: 0.11.1
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 # Main source - GPL-3.0-or-later.
 # cpp-httplib - bundled - MIT.
-# blurhash - bundled - BSL-1.0.
 # qtsingleapplication-qt5 - bundled - MIT.
-License: GPL-3.0-or-later AND MIT AND BSL-1.0
+License: GPL-3.0-or-later AND MIT
 Summary: Desktop client for the Matrix protocol
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# https://github.com/Nheko-Reborn/nheko/pull/1371
+Patch100: %{name}-unbundle-cpp-httplib.patch
+# https://github.com/Nheko-Reborn/nheko/pull/1376
+Patch101: %{name}-unbundle-blurhash.patch
 
 BuildRequires: cmake(MatrixClient) >= 0.9.1
 BuildRequires: cmake(Olm) >= 3.2.12
@@ -26,10 +30,12 @@ BuildRequires: cmake(Qt5QuickControls2)
 BuildRequires: cmake(Qt5QuickWidgets)
 BuildRequires: cmake(Qt5Svg)
 BuildRequires: cmake(Qt5Widgets)
+BuildRequires: cmake(httplib) >= 0.5.12
 BuildRequires: cmake(mpark_variant)
 BuildRequires: cmake(nlohmann_json) >= 3.2.0
 BuildRequires: cmake(spdlog) >= 1.0.0
 
+BuildRequires: pkgconfig(blurhash) >= 0.2.0
 BuildRequires: pkgconfig(coeurl) >= 0.3.0
 BuildRequires: pkgconfig(gstreamer-1.0)
 BuildRequires: pkgconfig(gstreamer-app-1.0)
@@ -65,8 +71,6 @@ Recommends: google-noto-emoji-color-fonts
 Recommends: google-noto-emoji-fonts
 
 # https://github.com/Nheko-Reborn/nheko/issues/391
-Provides: bundled(blurhash) = 0.0.1
-Provides: bundled(cpp-httplib) = 0.5.12
 Provides: bundled(qtsingleapplication-qt5) = 3.3.2
 
 %description
@@ -88,8 +92,10 @@ for Matrix that feels more like a mainstream chat app.
     -DBUILD_DOCS:BOOL=OFF \
     -DVOIP:BOOL=ON \
     -DMAN:BOOL=ON \
+    -DUSE_BUNDLED_BLURHASH:BOOL=OFF \
     -DUSE_BUNDLED_CMARK:BOOL=OFF \
     -DUSE_BUNDLED_COEURL:BOOL=OFF \
+    -DUSE_BUNDLED_CPPHTTPLIB:BOOL=OFF \
     -DUSE_BUNDLED_GTEST:BOOL=OFF \
     -DUSE_BUNDLED_JSON:BOOL=OFF \
     -DUSE_BUNDLED_LIBEVENT:BOOL=OFF \
@@ -121,6 +127,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sat Feb 18 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.1-5
+- Unbundled cpp-httplib and blurhash-cpp. Fixes rhbz#2169587.
+
 * Mon Jan 30 2023 Jens Petersen <petersen@redhat.com> - 0.11.1-4
 - rebuild
 

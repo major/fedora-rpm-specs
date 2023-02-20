@@ -1,14 +1,16 @@
 %global pypi_name archinfo
 
 Name:           python-%{pypi_name}
-Version:        9.0.9572
-Release:        5%{?dist}
+Version:        9.2.38
+Release:        1%{?dist}
 Summary:        Collection of classes that contain architecture-specific information
 
 License:        BSD
 URL:            https://github.com/angr/archinfo
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
+
+BuildRequires:  python3-devel
 
 %description
 archinfo is a collection of classes that contain architecture-specific
@@ -17,8 +19,6 @@ information. It is useful for cross-architecture tools.
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{pypi_name}}
 
 %description -n python3-%{pypi_name}
@@ -26,22 +26,26 @@ archinfo is a collection of classes that contain architecture-specific
 information. It is useful for cross-architecture tools.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -p1 -n %{pypi_name}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
-%files -n python3-%{pypi_name}
-%license LICENSE
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
+%license LICENSE
 
 %changelog
+* Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.38-1
+- Update to latest upstream release 9.2.38 (closes rhbz#1999769)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.9572-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

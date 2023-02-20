@@ -1,6 +1,6 @@
 Name:       dino
-Version:    0.3.1
-Release:    3%{?dist}
+Version:    0.4.0
+Release:    1%{?dist}
 
 License:    GPLv3
 Summary:    Modern XMPP ("Jabber") Chat Client using GTK+/Vala
@@ -29,7 +29,8 @@ BuildRequires: gpgme-devel
 BuildRequires: gspell-devel
 BuildRequires: gstreamer1-devel
 BuildRequires: gstreamer1-plugins-base-devel
-BuildRequires: gtk3-devel
+BuildRequires: gtk4-devel
+BuildRequires: libadwaita-devel
 BuildRequires: libgcrypt-devel
 BuildRequires: libgee-devel
 BuildRequires: libnice-devel
@@ -99,7 +100,6 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/im.dino.Dino.desktop
 %{_datadir}/applications/im.dino.Dino.desktop
 %{_datadir}/dbus-1/services/im.dino.Dino.service
 %{_datadir}/icons/hicolor/scalable/apps/im.dino.Dino.svg
-%{_datadir}/icons/hicolor/scalable/status/*.svg
 %{_datadir}/icons/hicolor/symbolic/apps/im.dino.Dino-symbolic.svg
 %{_datadir}/metainfo/im.dino.Dino.appdata.xml
 %{_libdir}/dino
@@ -126,6 +126,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/im.dino.Dino.desktop
 
 
 %changelog
+* Sat Feb 18 2023 Randy Barlow <bowlofeggs@fedoraproject.org> - 0.4.0-1
+- Update to dino 0.4.0 (#2168027).
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
