@@ -2,7 +2,7 @@
 %global __provides_exclude_from ^(%{python3_sitearch}/.*\\.so)$
 
 Name:           python-%{srcname}
-Version:        0.21.2
+Version:        0.21.3
 Release:        %autorelease
 Summary:        Python implementation of the Git file formats and protocols
 

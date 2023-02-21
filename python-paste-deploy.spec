@@ -6,8 +6,8 @@ this configuration file.
 %global srcname PasteDeploy
 
 Name:           python-paste-deploy
-Version:        2.1.1
-Release:        9%{?dist}
+Version:        3.0.1
+Release:        1%{?dist}
 Summary:        %{sum}
 License:        MIT
 URL:            https://github.com/Pylons/pastedeploy
@@ -16,8 +16,8 @@ BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-cov
 BuildRequires:  python3-setuptools
-
 
 %description
 %{desc}
@@ -54,7 +54,7 @@ rm -rf %{buildroot}%{python3_sitelib}/test
 
 
 %check
-PYTHONPATH=. py.test-3
+%pytest
 
 
 %files -n python3-paste-deploy
@@ -64,6 +64,9 @@ PYTHONPATH=. py.test-3
 
 
 %changelog
+* Sun Feb 19 2023 Kevin Fenzi <kevin@scrye.com> - 3.0.1-1
+- Update to 3.0.1. Fixes rhbz#2135186
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

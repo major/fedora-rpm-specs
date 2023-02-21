@@ -5,6 +5,11 @@
 %define		projectname		mona
 %define		fontname		%{projectname}
 %define		family_ttf_s		sazanami
+%if 0%{?fedora} >= 38
+%define		family_ttf_s_dir	%{_fontbasedir}/%{family_ttf_s}-gothic-fonts
+%else
+%define		family_ttf_s_dir	%{_fontbasedir}/%{family_ttf_s}
+%endif
 %define		family_ttf_v		vlgothic
 %if 0%{?fedora} >= 37
 %define		family_ttf_vp		vl-pgothic
@@ -49,7 +54,7 @@ Japanese text arts correctly.
 
 Name:		%{archivename}
 Version:	2.90
-Release:	33%{?dist}
+Release:	34%{?dist}
 Summary:	Japanese font for text arts
 
 # monafont itself is under public domain
@@ -156,7 +161,7 @@ cp -p name.src name.src.orig
 sed -e 's|^Mona$|Mona-%{real_family_ttf_s}|' name.src.orig > name.src
 make clean
 make \
-	BASE_OUTLINE_TTF=$(find %{_fontbasedir}/%{family_ttf_s} -name sazanami-gothic.ttf) \
+	BASE_OUTLINE_TTF=$(find %{family_ttf_s_dir} -name sazanami-gothic.ttf) \
 	BASE_OUTLINE_VERSION=%{real_family_ttf_s}-%{sazanami_ver}
 mv mona.ttf mona-%{real_family_ttf_s}.ttf
 
@@ -253,6 +258,9 @@ fi
 %{_datadir}/appdata/%{fontname}-vlgothic.metainfo.xml
 
 %changelog
+* Sun Feb 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.90-34
+- Reflect sazanami-gothic-fonts packaging change
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.90-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

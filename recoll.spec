@@ -2,8 +2,8 @@
 
 Summary:        Desktop full text search tool with Qt GUI
 Name:           recoll
-Version:        1.34.2
-Release:        2%{?dist}
+Version:        1.34.3
+Release:        1%{?dist}
 License:        GPLv2+
 URL:            https://www.lesbonscomptes.com/recoll/
 Source0:        https://www.lesbonscomptes.com/recoll/recoll-%{version}.tar.gz
@@ -19,6 +19,12 @@ BuildRequires:  gcc-c++
 # kio
 BuildRequires:  kdelibs4-devel
 BuildRequires:  kf5-kio-devel
+# krunner
+BuildRequires:  kf5-ki18n-devel
+BuildRequires:  kf5-krunner-devel
+BuildRequires:  kf5-knotifications-devel
+BuildRequires:  kf5-kpackage-devel
+
 BuildRequires:  libxslt-devel
 BuildRequires:  make
 BuildRequires:  python-rpm-macros
@@ -44,6 +50,13 @@ Requires:      %{name} = %{version}-%{release}
 The recoll KIO slave allows performing a recoll search by entering an
 appropriate URL in a KDE open dialog, or with an HTML-based interface
 displayed in Konqueror.
+
+%package       krunner
+Summary:       KRunner support for recoll
+Requires:      %{name} = %{version}-%{release}
+
+%description   krunner
+The recoll KRunner plugin adds Recoll search results to KRunner output.
 
 %package       gssp
 Summary:       Recoll GNOME Shell search provider
@@ -104,6 +117,13 @@ pushd kde/kioslave/kio_recoll-kde4
 %cmake_install
 popd
 
+# krunner_recoll
+pushd kde/krunner
+%cmake
+%cmake_build
+%cmake_install
+popd
+
 # gssp
 pushd gssp
 make install DESTDIR=%{buildroot}
@@ -134,8 +154,8 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{python3_sitearch}/recollchm
 %{python3_sitearch}/Recoll-*.egg-info
 %{python3_sitearch}/recollchm-*.egg-info
-%{python3_sitearch}/aspell.cpython-*-linux-gnu*.so
-%{python3_sitearch}/aspell_python_py3-*.egg-info
+%{python3_sitearch}/recollaspell.cpython-*-linux-gnu*.so
+%{python3_sitearch}/recoll_aspell_python_py3-*.egg-info
 %{_mandir}/man1/recoll.1*
 %{_mandir}/man1/recollq.1*
 %{_mandir}/man1/recollindex.1*
@@ -155,6 +175,9 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/kio_recoll/help.html
 %{_datadir}/kio_recoll/welcome.html
 
+%files krunner
+%{_libdir}/qt5/plugins/kf5/krunner/runner_recoll.so
+
 %files gssp
 %license COPYING
 %{_bindir}/gssp-recoll.py
@@ -163,6 +186,12 @@ echo "%{_libdir}/recoll" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/recoll-%{_arc
 %{_datadir}/applications/org.recoll.Recoll.SearchProvider.desktop
 
 %changelog
+* Sun Feb 19 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.34.3-1
+- 1.34.3
+
+* Sun Feb 19 2023 bzs <me@bzs.rocks> - 1.34.2-3
+- Add krunner (rhbz#2170512)
+
 * Sun Jan 29 2023 Terje Rosten <terje.rosten@ntnu.no> - 1.34.2-2
 - Fix file pattern to cover arm32 platform
 

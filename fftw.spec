@@ -402,6 +402,8 @@ done
 export OMPI_MCA_btl="^vader"
 %endif
 %endif
+# Allow oversubscription with openmpi
+export OMPI_MCA_rmaps_base_oversubscribe=1
 for mpi in %{mpi_list} ; do
     module load mpi/${mpi}-%{_arch}
     for ver in single double long ; do

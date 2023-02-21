@@ -11,7 +11,12 @@ Source:         %{pypi_source}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
+
+%if 0%{?fedora}
 BuildRequires:  poetry
+%else
+BuildRequires:  python-poetry-core
+%endif
 
 %global _description %{expand:
 A python library which provides traverse resources like paths and

@@ -1,16 +1,16 @@
 %global srcname pikepdf
 
 Name:           python-%{srcname}
-Version:        6.2.7
+Version:        7.1.1
 Release:        %autorelease
 Summary:        Read and write PDFs with Python, powered by qpdf
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://github.com/pikepdf/pikepdf
 Source0:        %pypi_source
 
 BuildRequires:  gcc-c++
-BuildRequires:  qpdf-devel >= 11.1.0
+BuildRequires:  qpdf-devel >= 11.2.0
 BuildRequires:  python3-devel
 # Tests:
 BuildRequires:  poppler-utils
@@ -66,6 +66,8 @@ rm -rf html/.{doctrees,buildinfo}
 
 %install
 %pyproject_install
+# https://github.com/pikepdf/pikepdf/issues/447
+rm -r %{buildroot}%{python3_sitearch}/core
 %pyproject_save_files %{srcname}
 
 

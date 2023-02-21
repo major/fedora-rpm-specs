@@ -1,13 +1,10 @@
 Name: switchdesk
 Summary: A desktop environment switcher
-Version: 5.0.1
-Release: 15%{?dist}
-Url: http://than.fedorapeople.org/
-Source: http://than.fedorapeople.org/%{name}/%{name}-%{version}.tar.xz
-Patch1: switchdesk-5.0.1-loadicon.patch
-Patch2: switchdesk-5.0.1-plasma.patch
-Patch3: switchdesk-5.0.1-hostname.patch
-License: GPLv2+
+Version: 5.0.2
+Release: 1%{?dist}
+Url: https://github.com/ngothan/switchdesk
+Source: https://github.com/ngothan/switchdesk/archive/%{version}/%{name}-%{version}.tar.gz
+License: GPL-2.0-or-later
 BuildArch: noarch
 BuildRequires: make
 BuildRequires: intltool
@@ -68,6 +65,10 @@ install -p -m 644 %{name}.desktop %{buildroot}%{_datadir}/applications/
 %{_datadir}/pixmaps/*.png
 
 %changelog
+* Sun Feb 19 2023 Than Ngo <than@redhat.com> - 5.0.2-1
+- 5.0.2
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

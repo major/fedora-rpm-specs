@@ -1,13 +1,13 @@
 %global srcname visidata
 
 Name:           %{srcname}
-Version:        2.10.2
+Version:        2.11
 Release:        %autorelease
 Summary:        Terminal interface for exploring and arranging tabular data
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://visidata.org
-Source0:        %pypi_source
+Source0:        %pypi_source %{srcname}
 # https://github.com/saulpw/visidata/pull/269
 Patch0001:      0001-Remove-extra-copy-of-man-page.patch
 

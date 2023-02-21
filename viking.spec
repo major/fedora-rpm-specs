@@ -1,9 +1,9 @@
 Name:           viking
-Version:        1.8
-Release:        12%{?dist}
+Version:        1.10
+Release:        1%{?dist}
 Summary:        GPS data editor and analyzer
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://viking.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/viking/viking-%{version}.tar.bz2
 #Patch0:         path-to-manpages-docbook-xsl.patch
@@ -15,7 +15,7 @@ BuildRequires:  intltool
 BuildRequires:  expat-devel
 BuildRequires:  gdk-pixbuf2-devel
 BuildRequires:  gpsd-devel
-BuildRequires:  gtk2-devel
+BuildRequires:  gtk3-devel
 BuildRequires:  libcurl-devel
 BuildRequires:  gtk-doc
 BuildRequires:  gnome-doc-utils
@@ -34,16 +34,15 @@ BuildRequires:  nettle-devel
 BuildRequires:  libzip-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
+BuildRequires:  json-glib-devel
+BuildRequires:  itstool
 
 Requires:       hicolor-icon-theme
 Requires:       gpsbabel
 Requires:       expect
 
 %description
-Viking is a free/open source program to manage GPS data. You can import
-and plot tracks and waypoints, show OpenStreetMap and/or Terraserver maps
-under it, download geocaches for an area on the map, make new tracks and
-waypoints, see real-time GPS position, etc.
+Viking is a free/open source program to manage GPS data. You can import, plot and create tracks, routes and waypoints, show OSM, Bing Aerial and other maps, geotag images, create routes using OSRM, see real-time GPS position, make maps using Mapnik, control items, etc.
 
 %prep
 %autosetup
@@ -81,6 +80,11 @@ make test
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Sun Feb 19 2023 Troy Curtis, Jr. <troy@troycurtisjr.com> - 1.10-1
+- Update to 1.10
+- Update description to be more accurate to the latest version
+- Use SPDX for the license field
+
 * Tue Jan 24 2023 Adam Williamson <awilliam@redhat.com> - 1.8-12
 - rebuild for new libgps
 

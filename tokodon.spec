@@ -1,6 +1,6 @@
 Name:           tokodon 
-Version:        23.01.0
-Release:        3%{?dist}
+Version:        23.02.0
+Release:        1%{?dist}
 License:        GPLv3 and CC0 and BSD and LGPLv2+ and GPLv3+ and GPLv2
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 Summary:        Kirigami-based mastodon client
@@ -66,13 +66,15 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_bindir}/%{name}
 
 %{_kf5_datadir}/applications/org.kde.%{name}.desktop
-%{_kf5_datadir}/icons/hicolor/scalable/actions/%{name}-chat-reply.svg
 %{_kf5_datadir}/icons/hicolor/scalable/apps/org.kde.%{name}.svg
 %{_kf5_datadir}/knotifications5/tokodon.notifyrc
 %{_kf5_datadir}/qlogging-categories5/tokodon.categories
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 
 %changelog
+* Sun Feb 19 2023 Justin Zobel <justin@1707.io> - 23.02.0-1
+- Update to 23.02.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 23.01.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

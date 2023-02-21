@@ -3,7 +3,7 @@
 %undefine        _changelog_trimtime
 
 Name:		rubygem-%{gem_name}
-Version:	4.1.0
+Version:	4.1.1
 Release:	1%{?dist}
 
 Summary:	Ruby binding of WebKit2GTK+
@@ -50,7 +50,7 @@ Documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Adjust rubygems-gnome2 requirement to be more flexible
-sed -i -e 's|= 4\.1\.0|>= 4.1.0|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.1|>= 4.1.1|' %{gem_name}-%{version}.gemspec
 # pkgconfig dependency is actually not needed (when using rpm
 # dependency solver)
 sed -i dependency-check/Rakefile \
@@ -77,11 +77,6 @@ rm -rf \
 popd
 
 %check
-%if 0%{?fedora} >= 27
-## Disable test for now, due to broken webkitgtk4
-#true exit 0
-%endif
-
 pushd .%{gem_instdir}
 
 rm -rf tmp
@@ -127,6 +122,9 @@ popd
 %doc	%{gem_instdir}/sample
 
 %changelog
+* Sun Feb 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.1-1
+- 4.1.1
+
 * Fri Feb  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-1
 - 4.1.0
 

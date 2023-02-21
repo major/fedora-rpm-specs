@@ -3,7 +3,7 @@
 
 # https://github.com/avast/retry-go
 %global goipath         github.com/avast/retry-go
-Version:                4.0.3
+Version:                4.3.3
 
 %gometa
 

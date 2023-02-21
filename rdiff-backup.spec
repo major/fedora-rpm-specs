@@ -1,4 +1,4 @@
-%global gittag 2.2.2
+%global gittag 2.2.3
 
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Sun Feb 19 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.3-2
+- Fix release v2.2.3 - Fedora/EPEL Release
+
+* Sun Feb 12 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.3-1
+- Fix release v2.2.3 - COPR Release
+ 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

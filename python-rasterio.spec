@@ -1,19 +1,17 @@
 %global srcname rasterio
 
 Name:           python-%{srcname}
-Version:        1.3.4
+Version:        1.3.6
 Release:        %autorelease
 Summary:        Fast and direct raster I/O for use with Numpy and SciPy
 
 License:        BSD
-URL:            https://github.com/mapbox/rasterio
+URL:            https://github.com/rasterio/rasterio
 # PyPI tarball doesn't include test data.
-Source0:        https://github.com/mapbox/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
+Source0:        https://github.com/rasterio/rasterio/archive/%{version}/%{srcname}-%{version}.tar.gz
 Patch:          0001-Loosen-up-build-requirements.patch
 # Backport test fix for GDAL 3.6.1
 Patch:          https://github.com/rasterio/rasterio/pull/2680.patch
-# Backport test fix for affine 2.4.0
-Patch:          https://github.com/rasterio/rasterio/commit/2fb7802b42a1893a7a729f2a6f78deb35229935f.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  gdal >= 1.11

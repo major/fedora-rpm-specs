@@ -7,7 +7,7 @@ This module provides a plugin for flake8, the Python code checker. \
 
 
 Name:           python-%{srcname}
-Version:        0.13.2
+Version:        0.13.3
 Release:        %autorelease
 Summary:        Check PEP-8 naming conventions, a plugin for flake8
 

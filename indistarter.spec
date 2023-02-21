@@ -1,15 +1,24 @@
-%global commit 1abc907b93a1ba402ca28652de42c81b90c80250
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date 20230125
+%global gittag v0.9.82
+#%%global commit 1abc907b93a1ba402ca28652de42c81b90c80250
+#%%global shortcommit %%(c=%%{commit}; echo ${c:0:7})
+#%%global date 20230125
 
 Name:           indistarter
+%if "%{?gittag}"
+Version:        2.3.2
+%else
 Version:        2.3.1^%{date}%{shortcommit}
+%endif
 Release:        %autorelease
 Summary:        GUI to start, stop and control an INDI server
 
 License:        GPLv3+
 URL:            https://github.com/pchev/%{name}
+%if "%{?gittag}"
+Source0:        %{url}/archive/%{gittag}/%{name}-%{version}.tar.gz
+%else
 Source0:        %{url}/archive/%{commit}/%{name}-%{commit}.tar.gz
+%endif
 
 # This patch avoid stripping debuginfo from binary
 # Since this is Fedora specific we don't ask upstream to include
@@ -30,7 +39,11 @@ The INDI server can be launched locally or remotely on another computer.
 In this last case a ssh tunnel is established to allow local client connection.
 
 %prep
+%if "%{?gittag}"
+%autosetup -p1
+%else
 %autosetup -n %{name}-%{commit} -p1
+%endif
 
 
 %build

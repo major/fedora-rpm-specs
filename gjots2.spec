@@ -1,10 +1,10 @@
 # -*-Mode: rpm-spec -*-
 
 Name:    gjots2
-Version: 3.2.0
-Release: 3%{?dist}
+Version: 3.2.1
+Release: 1%{?dist}
 Summary: A hierarchical note jotter - organize your ideas, notes, facts in a tree
-License: GPLv2
+License: GPL-2.0-only
 URL:     http://bhepple.freeshell.org/gjots
 Source0: https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tgz
 
@@ -94,6 +94,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.metainf
 %{_mandir}/man1/docbook2gjots*
 
 %changelog
+* Mon Feb 20 2023 Bob Hepple <bob.hepple@gmail.com> - 3.2.1-1
+- new version
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

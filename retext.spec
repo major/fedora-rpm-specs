@@ -1,8 +1,8 @@
-%global with_tests 0
+%global modname ReText
 
 Name:           retext
-Version:        7.2.2
-Release:        5%{?dist}
+Version:        8.0.0
+Release:        1%{?dist}
 Summary:        Simple editor for Markdown and reStructuredText
 
 License:        GPLv3+
@@ -10,31 +10,15 @@ URL:            https://github.com/retext-project/retext
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # Man pages are taken from the Debian package.
 Source1:        %{name}.1
+
 BuildArch:      noarch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-BuildRequires:  librsvg2-tools
 BuildRequires:  ImageMagick
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(chardet)
-BuildRequires:  python3dist(docutils)
-BuildRequires:  python3dist(markdown)
-BuildRequires:  python3dist(markups)
-BuildRequires:  python3dist(pyenchant)
-BuildRequires:  python3dist(pygments)
-BuildRequires:  python3dist(setuptools)
-BuildRequires:  qt5-qttools-devel
-
-%if 0%{?with_tests}
-BuildRequires:  python3dist(pyqt5)
-BuildRequires:  qt5-qtbase-gui
-%endif
 
 Requires:       hicolor-icon-theme
-Requires:       python3-qt5-webkit
-Requires:       qt5-qtlocation
-Requires:       qt5-qtwebkit
 
 %description
 ReText is simple text editor that supports Markdown and reStructuredText markup
@@ -44,22 +28,25 @@ HTML.
 
 %prep
 %autosetup
-sed \
-  -i.python \
-  -e "s|^#!/usr/bin/env python3$|#!%{__python3}|g" \
-  retext.py ReText/__main__.py ReText/converterprocess.py
+
+
+%generate_buildrequires
+%pyproject_buildrequires
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{modname}
 
 mkdir -p %{buildroot}/%{_mandir}/man1
 install -p -m 0644 %SOURCE1 %{buildroot}/%{_mandir}/man1
 
 # Generate resized icons
-pushd icons
+pushd ReText/icons
 mkdir -p %{buildroot}/%{_datadir}/icons/hicolor/{16x16,22x22,24x24,32x32,48x48,64x64,72x72,96x96,128x128,scalable}/apps
 for s in 16x16 22x22 24x24 32x32 48x48 64x64 72x72 96x96 128x128
 do
@@ -69,30 +56,28 @@ install -p -m 0644 retext.svg %{buildroot}/%{_datadir}/icons/hicolor/scalable/ap
 popd
 
 desktop-file-install \
---dir=%{buildroot}%{_datadir}/applications \
-%{_builddir}/%{name}-%{version}/data/*.desktop
+  --dir=%{buildroot}%{_datadir}/applications \
+  %{_builddir}/%{name}-%{version}/data/*.desktop
+
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml || :
-
-%if 0%{?with_tests}
-%{__python3} setup.py test
-%endif
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata.xml
 
 
-%files
+%files -f %{pyproject_files}
 %doc changelog.md configuration.md README.md
-%license  LICENSE_GPL
+%license LICENSE_GPL
 %{_bindir}/%{name}
 %{_datadir}/metainfo/*.appdata.xml
 %{_datadir}/applications/*.desktop
 %{_datadir}/icons/hicolor/*/apps/%{name}.*
-%{_datadir}/%{name}/
 %{_mandir}/man1/*.1.*
-%{python3_sitelib}/ReText/
-%{python3_sitelib}/*egg-info
+
 
 %changelog
+* Sun Feb 19 2023 Mattia Verga <mattia.verga@protonmail.com> - 8.0.0-1
+- Update to 8.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

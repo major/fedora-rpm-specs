@@ -1,7 +1,19 @@
-%global fontname paratype-pt-mono
+# SPDX-License-Identifier: MIT
+Version:        20141121
+Release:        17%{?dist}
+URL:            http://www.paratype.com/public/
+
+%global foundry         paratype
+%global fontlicense     OFL
+%global fontlicenses    PTSSM_OFL.txt
+
+%global fontfamily      PT Mono
+%global fontsummary     A pan-Cyrillic monospace typeface
+%global fonts           *.ttf
+%global fontconfs       %{SOURCE10}
 %global fontconf 57-%{fontname}
 
-%global common_desc \
+%global fontdescription %{expand:\
 Font PT Mono™ is the last addition to the pan-Cyrillic font superfamily \
 including PT Sans and PT Serif developed for the project “Public Types \
 of Russian Federation”. \
@@ -14,62 +26,40 @@ of use is Web sites of “electronic governments” where visitors have to fill 
 different request forms. PT Mono consists of Regular and Bold styles. \
 \
 PT Mono was designed by Alexandra Korolkova with participation of \
-Isabella Chaeva and with financial support of Google.\
+Isabella Chaeva and with financial support of Google.
+}
 
 
-Name:           %{fontname}-fonts
-Version:        20141121
-Release:        16%{?dist}
-Summary:        A pan-Cyrillic monospace typeface
-
-License:        OFL
-URL:            http://www.paratype.com/public/
 Source0:        http://www.fontstock.com/public/PTMonoOFL.zip
-Source10:       %{name}-fontconfig.conf
-Source11:       %{fontname}.metainfo.xml
+Source10:       %{fontpkgname}.conf
+Source11:       %{fontpkgname}.metainfo.xml
 
-BuildArch:      noarch
-Requires:       fontpackages-filesystem
-BuildRequires:  fontpackages-devel
 
-%description
-%common_desc
-
-This package consists of Regular and Bold styles.
-
-%_font_pkg -f %{fontconf}.conf PTM*.ttf
-%doc *.txt
-%{_datadir}/appdata/%{fontname}.metainfo.xml
-
+%fontpkg
 
 %prep
 %setup -q -c
 sed -i "s|\r||g" *.txt
 
 %build
-echo "Nothing to build"
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
-
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE10} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}.conf
-
-for fconf in %{fontconf}.conf ; do
-  ln -s %{_fontconfig_templatedir}/$fconf \
-        %{buildroot}%{_fontconfig_confdir}/$fconf
-done
-
+%fontinstall
 # Add AppStream metadata
 install -Dm 0644 -p %{SOURCE11} \
-        %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
+        %{buildroot}%{_datadir}/appdata/%{fontpkgname}.metainfo.xml
 
+%check
+%fontcheck
+
+%fontfiles
+%{_datadir}/appdata/%{fontpkgname}.metainfo.xml
 
 %changelog
+* Sun Feb 19 2023 Rajeesh KV <rajeeshknambiar@fedoraproject.org> - 20141121-17
+- Adapted spec file to new template
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20141121-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

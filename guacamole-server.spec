@@ -1,14 +1,15 @@
 %global username guacd
 
-# Can be rebuilt with FFmpeg/H264 support enabled by passing "--with=ffmpeg" to
-# mock/rpmbuild; or by globally setting these variable:
-#global _with_ffmpeg 1
+# Manual FFmpeg support override by passing "--with(out)=ffmpeg" to mock/rpmbuild
+%if 0%{?fedora} || 0%{?rhel} >= 9
+%global _with_ffmpeg 1
+%endif
 
 Name:           guacamole-server
-Version:        1.4.0
-Release:        7%{?dist}
+Version:        1.5.0
+Release:        1%{?dist}
 Summary:        Server-side native components that form the Guacamole proxy
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://guacamole.apache.org/
 
 Source0:        https://github.com/apache/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -134,14 +135,9 @@ framework to translate between arbitrary protocols and the Guacamole protocol.
 %autosetup -p1
 
 %build
-# Guacamole 1.4.0 doesn't support OpenSSL 3.0
-%if 0%{?fedora} > 35 || 0%{?rhel} > 8
-export CFLAGS="%{optflags} -Wno-error=deprecated-declarations"
-%endif
-
-# Guacamole 1.4.0 doesn't build warning-free with ffmpeg
+# Guacamole 1.5.0 doesn't build warning-free with FFmpeg
 %{?_with_ffmpeg:
-export CFLAGS="$CFLAGS -Wno-error=discarded-qualifiers"
+export CFLAGS="%{optflags} -Wno-error=discarded-qualifiers"
 }
 
 autoreconf -vif
@@ -150,13 +146,22 @@ autoreconf -vif
   --disable-static
 
 %make_build
-cd doc/
-doxygen Doxyfile
+
+pushd doc/libguac/
+  doxygen Doxyfile
+popd
+
+pushd doc/libguac-terminal/
+  doxygen Doxyfile
+popd
 
 %install
 %make_install
 find %{buildroot} -type f -name "*.la" -delete
-cp -fr doc/doxygen-output/html .
+
+mkdir html
+cp -a doc/libguac/doxygen-output/html/ html/libguac/
+cp -a doc/libguac-terminal/doxygen-output/html/ html/libguac-terminal/
 
 mkdir -p %{buildroot}%{_sharedstatedir}/guacd
 
@@ -191,52 +196,58 @@ install -p -m 644 -D %{SOURCE2} %{buildroot}%{_sysusersdir}/guacd.conf
 %files -n libguac
 %license LICENSE
 %doc README CONTRIBUTING
-%{_libdir}/libguac.so.*
+%{_libdir}/libguac.so.21*
+%{_libdir}/libguac-terminal.so.0*
 
 %files -n libguac-devel
 %doc html
-%{_includedir}/guacamole
+%{_includedir}/guacamole/
 %{_libdir}/libguac.so
+%{_libdir}/libguac-terminal.so
 
 # The libguac source code dlopen's these plugins, and they are named without
 # the version in the shared object; i.e. "libguac-client-$(PROTOCOL).so".
 
 %files -n libguac-client-kubernetes
 %{_libdir}/libguac-client-kubernetes.so
-%{_libdir}/libguac-client-kubernetes.so.*
+%{_libdir}/libguac-client-kubernetes.so.0*
 
 %files -n libguac-client-rdp
 %{_libdir}/libguac-client-rdp.so
-%{_libdir}/libguac-client-rdp.so.*
-%{_libdir}/freerdp2/*.so
+%{_libdir}/libguac-client-rdp.so.0*
+%{_libdir}/freerdp2/libguac-common-svc-client.so
+%{_libdir}/freerdp2/libguacai-client.so
 
 %files -n libguac-client-ssh
 %{_libdir}/libguac-client-ssh.so
-%{_libdir}/libguac-client-ssh.so.*
+%{_libdir}/libguac-client-ssh.so.0*
 
 %files -n libguac-client-vnc
 %{_libdir}/libguac-client-vnc.so
-%{_libdir}/libguac-client-vnc.so.*
+%{_libdir}/libguac-client-vnc.so.0*
 
 %files -n libguac-client-telnet
 %{_libdir}/libguac-client-telnet.so
-%{_libdir}/libguac-client-telnet.so.*
+%{_libdir}/libguac-client-telnet.so.0*
 
 %files -n guacd
 %{_bindir}/guaclog
 %{?_with_ffmpeg:
 %{_bindir}/guacenc
-%{_mandir}/man1/guacenc.1.*
+%{_mandir}/man1/guacenc.1*
 }
-%{_mandir}/man1/guaclog.1.*
-%{_mandir}/man5/guacd.conf.5.*
-%{_mandir}/man8/guacd.8.*
+%{_mandir}/man1/guaclog.1*
+%{_mandir}/man5/guacd.conf.5*
+%{_mandir}/man8/guacd.8*
 %{_sbindir}/guacd
 %{_unitdir}/guacd.service
 %{_sysusersdir}/guacd.conf
-%attr(750,%{username},%{username}) %{_sharedstatedir}/guacd
+%attr(750,%{username},%{username}) %{_sharedstatedir}/guacd/
 
 %changelog
+* Sun Feb 19 2023 Robert Scheck <robert@fedoraproject.org> - 1.5.0-1
+- Update to 1.5.0 (#2169593)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

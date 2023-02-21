@@ -1,7 +1,7 @@
 %global sys_name nwg_panel
 
 Name:       nwg-panel
-Version:    0.7.16
+Version:    0.7.17
 Release:    %autorelease
 Summary:    GTK3-based panel for sway window manager
 BuildArch:  noarch
@@ -97,6 +97,7 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_bindir}/%{name}
 %{_bindir}/%{name}-config
 %{_bindir}/nwg-dwl-interface
+%{_bindir}/nwg-processes
 %{_datadir}/applications/*.desktop
 %{_datadir}/pixmaps/*.svg
 %{_userunitdir}/%{name}.service

@@ -12,10 +12,20 @@
 
 Name: ucx
 Version: 1.13.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: UCX is a communication library implementing high-performance messaging
 
-License: BSD-3-Clause
+License: BSD-3-Clause AND MIT AND CC-PDDC AND (BSD-3-Clause OR Apache-2.0)
+# CC-PDDC
+# src/ucm/ptmalloc286/malloc-2.8.6.h
+# src/ucm/ptmalloc286/malloc.c
+# MIT
+# src/ucs/datastruct/khash.h
+# BSD-3-Clause or Apache-2.0
+# src/ucs/arch/aarch64/memcpy_thunderx2.S
+# BSD-3-Clause
+# All other files
+
 URL: http://www.openucx.org
 Source: https://github.com/openucx/%{name}/releases/download/v%{version}/ucx-%{version}.tar.gz
 
@@ -70,7 +80,6 @@ addition, UCX provides efficient intra-node communication, by leveraging the
 following shared memory mechanisms: posix, sysv, cma, knem, and xpmem.
 The acronym UCX stands for "Unified Communication X".
 
-This package was built from '' branch, commit 8ab494b.
 
 %if "%{_vendor}" == "suse"
 %debug_package
@@ -140,11 +149,10 @@ rm -f %{buildroot}%{_libdir}/ucx/lib*.a
 %{_includedir}/uc*
 %{_libdir}/lib*.so
 %{_libdir}/pkgconfig/ucx*.pc
+%dir %{_libdir}/cmake/ucx
 %{_libdir}/cmake/ucx/*.cmake
 %{_datadir}/ucx/examples
 
-%post -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
 
 %if %{with cma}
 %package cma
@@ -157,6 +165,7 @@ system calls process_vm_readv/writev() for one-shot memory copy from another
 process.
 
 %files cma
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_cma.so.*
 %endif
 
@@ -171,6 +180,7 @@ to UCX communication routines, and transports taking advantage of GPU-Direct
 technology for direct data transfer between GPU and RDMA devices.
 
 %files cuda
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libucx_perftest_cuda.so.*
 %{_libdir}/ucx/libucm_cuda.so.*
 %{_libdir}/ucx/libuct_cuda.so.*
@@ -186,6 +196,7 @@ Provide GDRCopy support for UCX. GDRCopy is a low-latency GPU memory copy
 library, built on top of the NVIDIA GPUDirect RDMA technology.
 
 %files gdrcopy
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_cuda_gdrcopy.so.*
 %endif
 
@@ -201,6 +212,7 @@ Typically these transports provide RDMA support, which enables a fast and
 hardware-offloaded data transfer.
 
 %files ib
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_ib.so.*
 %endif
 
@@ -215,6 +227,7 @@ kernel module that enables high-performance intra-node MPI communication
 for large messages.
 
 %files knem
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_knem.so.*
 %endif
 
@@ -229,6 +242,7 @@ Provides RDMA connection-manager support to UCX, which enables client/server
 based connection establishment for RDMA-capable transports.
 
 %files rdmacm
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_rdmacm.so.*
 %endif
 
@@ -241,6 +255,7 @@ Summary: UCX ROCm GPU support
 Provides Radeon Open Compute (ROCm) Runtime support for UCX.
 
 %files rocm
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_rocm.so.*
 %{_libdir}/ucx/libucm_rocm.so.*
 
@@ -250,10 +265,12 @@ Requires: %{name}-rocm%{?_isa} = %{version}-%{release}
 Summary: UCX GDRCopy support for ROCM
 
 %description rocmgdr
-Provide GDRCopy support for UCX ROCM. GDRCopy is a low-latency GPU memory copy
-library, built on top of the NVIDIA GPUDirect RDMA technology.
+Provide GDRCopy support for UCX ROCM. GDRCopy is a low-latency GPU
+memory copy library, built on top of the NVIDIA GPUDirect RDMA
+technology.
 
 %files rocmgdr
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_rocm_gdr.so.*
 %endif
 %endif
@@ -267,6 +284,7 @@ Summary: UCX Gemini/Aries transport support.
 Provides Gemini/Aries transport for UCX.
 
 %files ugni
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_ugni.so.*
 %endif
 
@@ -280,6 +298,7 @@ Provides XPMEM transport for UCX. XPMEM is a Linux kernel module that enables a
 process to map the memory of another process into its virtual address space.
 
 %files xpmem
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libuct_xpmem.so.*
 %endif
 
@@ -289,15 +308,21 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 Summary: UCX Virtual Filesystem support.
 
 %description vfs
-Provides a virtual filesystem over FUSE which allows real-time monitoring of UCX
-library internals, protocol objects, transports status, and more.
+Provides a virtual filesystem over FUSE which allows real-time
+monitoring of UCX library internals, protocol objects, transports
+status, and more.
 
 %files vfs
+%dir %{_libdir}/ucx
 %{_libdir}/ucx/libucs_fuse.so.*
 %{_bindir}/ucx_vfs
 %endif
 
 %changelog
+* Sun Feb 19 2023 Benson Muite <benson_muite@emailplus.org> - 1.13.1-4
+- List additional licenses used
+- Remove unneeded ldconfig calls
+
 * Sat Feb 18 2023 Benson Muite <benson_muite@emailplus.org> - 1.13.1-3
 - Fix type declaration error
 - Fix to enable use of GCC 13

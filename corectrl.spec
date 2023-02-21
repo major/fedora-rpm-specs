@@ -5,18 +5,15 @@ ExcludeArch: %{ix86}
 %global uuid    org.%{name}.%{name}
 
 Name:           corectrl
-Version:        1.3.1
+Version:        1.3.2
 Release:        %autorelease
 Summary:        Friendly hardware control
 
 # The entire source code is GPLv3+ except bundled libs:
 # * Boost:          tests/3rdparty/catch
 #                   tests/3rdparty/trompeloeil
-# * BSD:            3rdparty/fmt
-# * MIT:            3rdparty/easyloggingpp
-#                   3rdparty/pugixml
-#                   3rdparty/units
-# * Public Domain   FindBotan.cmake
+# * MIT:            3rdparty/units
+# * Public Domain:  FindBotan.cmake
 License:        GPLv3+ and Boost and BSD and MIT and Public Domain
 URL:            https://gitlab.com/corectrl/corectrl
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
@@ -30,7 +27,9 @@ BuildRequires:  libappstream-glib
 BuildRequires:  libdrm-devel
 BuildRequires:  ninja-build
 
+BuildRequires:  cmake(fmt)
 BuildRequires:  cmake(KF5CoreAddons)
+BuildRequires:  cmake(pugixml)
 BuildRequires:  cmake(Qt5Charts)
 BuildRequires:  cmake(Qt5Concurrent)
 BuildRequires:  cmake(Qt5Core) >= 5.9
@@ -43,6 +42,7 @@ BuildRequires:  cmake(Qt5Widgets)
 
 BuildRequires:  pkgconfig(botan-2)
 BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(easyloggingpp)
 BuildRequires:  pkgconfig(polkit-gobject-1)
 BuildRequires:  pkgconfig(quazip1-qt5)
 BuildRequires:  pkgconfig(x11)
@@ -62,9 +62,6 @@ Recommends:     util-linux%{?_isa}
 Recommends:     vulkan-tools%{?_isa}
 
 # https://gitlab.com/corectrl/corectrl/issues/13
-Provides:       bundled(easyloggingpp) = 9.96.7
-Provides:       bundled(fmt) = 5.2.1
-Provides:       bundled(pugixml) = 1.11
 Provides:       bundled(units)
 
 %description
@@ -83,7 +80,14 @@ to be flexible, comfortable and accessible to regular users.
 
 %prep
 %autosetup -n %{name}-v%{version}
-
+# Unbundle 3rdparty
+pushd 3rdparty
+rm -rf \
+    easyloggingpp \
+    fmt \
+    pugixml \
+    %{nil}
+popd
 # lib soversion fix
 echo "set_property(TARGET corectrl_lib PROPERTY SOVERSION 0)" >> src/CMakeLists.txt
 

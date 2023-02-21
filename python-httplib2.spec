@@ -1,8 +1,8 @@
 %global srcname httplib2
 
 Name:           python-%{srcname}
-Version:        0.20.4
-Release:        8%{?dist}
+Version:        0.21.0
+Release:        1%{?dist}
 Summary:        Comprehensive HTTP client library
 License:        MIT
 URL:            https://pypi.python.org/pypi/httplib2
@@ -76,6 +76,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest -k "not test_unknown_server \
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Sun Feb 19 2023 Kevin Fenzi <kevin@scrye.com> - 0.21.0-1
+- Update to 0.21.0. rhbz#2138541
+
 * Wed Jan 25 2023 Miro Hrončok <mhroncok@redhat.com> - 0.20.4-8
 - Explicitly BuildRequire runtime dependencies for tests
 

@@ -1,27 +1,31 @@
 Name:           perl-REST-Client
 Version:        281
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Simple client for interacting with RESTful http/https resources
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/REST-Client
 Source0:        https://cpan.metacpan.org/authors/id/A/AK/AKHUETTEL/REST-Client-%{version}.tar.gz
 BuildArch:      noarch
+# build requirements
 BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# runtime requirements
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(constant)
-BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
-BuildRequires:  perl(HTTP::Server::Simple)
-BuildRequires:  perl(HTTP::Server::Simple::CGI)
 BuildRequires:  perl(LWP::UserAgent)
 BuildRequires:  perl(LWP::Protocol::https)
 BuildRequires:  perl(strict)
-BuildRequires:  perl(Test::More) >= 0.8
 BuildRequires:  perl(URI)
 BuildRequires:  perl(warnings)
 BuildRequires:  perl(XML::LibXML)
+# test requirements
+BuildRequires:  perl(File::Spec)
+BuildRequires:  perl(HTTP::Server::Simple)
+BuildRequires:  perl(HTTP::Server::Simple::CGI)
+BuildRequires:  perl(Test::More) >= 0.8
 Requires:       perl(XML::LibXML)
 
 %description
@@ -47,6 +51,9 @@ REST::Client provides a simple way to interact with HTTP RESTful resources.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Feb 19 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 281-6
+- Update and sort dependencies
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 281-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

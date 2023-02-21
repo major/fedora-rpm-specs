@@ -3,21 +3,24 @@
 %bcond_with check
 %global debug_package %{nil}
 
-%global crate zbus_macros
+%global crate time-core
 
-Name:           rust-zbus_macros
-Version:        3.10.0
+Name:           rust-time-core
+Version:        0.1.0
 Release:        %autorelease
-Summary:        Proc-macros for zbus
+Summary:        Internal implementation details of the 'time' crate
 
-License:        MIT
-URL:            https://crates.io/crates/zbus_macros
+License:        MIT OR Apache-2.0
+URL:            https://crates.io/crates/time-core
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * improve crate description
+Patch:          time-core-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Proc-macros for zbus.}
+Internal implementation details of the 'time' crate.}
 
 %description %{_description}
 
@@ -31,8 +34,8 @@ This package contains library source intended for building other packages which
 use the "%{crate}" crate.
 
 %files          devel
-%license %{crate_instdir}/LICENSE
-%doc %{crate_instdir}/README.md
+%license %{crate_instdir}/LICENSE-Apache
+%license %{crate_instdir}/LICENSE-MIT
 %{crate_instdir}/
 
 %package     -n %{name}+default-devel

@@ -1,12 +1,12 @@
 %bcond_without tests
 # Packaging unstable?
-%global prerel b1
+%global prerel b2
 %global general_version 5.3.0
 %global upstream_version %{general_version}%{?prerel}
 
 Name:           python-celery
 Version:        %{general_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 BuildArch:      noarch
 
 License:        BSD
@@ -82,9 +82,6 @@ BuildRequires:  python3-simplejson
 %prep
 %autosetup -p1 -n celery-%{upstream_version}
 
-# there is no reason to limit click in a such aggresive way
-sed -i 's/click>=8.0.3,<9.0/click/g' requirements/default.txt
-
 %build
 %py3_build
 
@@ -137,6 +134,9 @@ export TEST_BACKEND=rpc
 %{python3_sitelib}/celery
 
 %changelog
+* Sun Feb 19 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 5.3.0~b2-1
+- Celery 5.3.0b2 (closes RHBZ#2171242)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0~b1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

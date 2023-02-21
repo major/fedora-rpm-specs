@@ -1,37 +1,20 @@
 %global srcname mapclassify
 
 Name:           python-%{srcname}
-Version:        2.4.3
+Version:        2.5.0
 Release:        %autorelease
 Summary:        Classification Schemes for Choropleth Maps
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/pysal/mapclassify
-Source0:        %pypi_source
+Source0:        %pypi_source %{srcname}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
 
-BuildRequires:  python3dist(networkx)
-BuildRequires:  python3dist(numpy) >= 1.3
-BuildRequires:  python3dist(pandas) >= 1
-BuildRequires:  python3dist(scikit-learn)
-BuildRequires:  python3dist(scipy) >= 1
-BuildRequires:  python3dist(setuptools)
-
 # Tests
-BuildRequires:  python3dist(geopandas)
-BuildRequires:  python3dist(libpysal)
 BuildRequires:  python3dist(rtree)
-BuildRequires:  python3dist(pytest)
-
-# Docs
-#BuildRequires:  python3dist(numpydoc)
-#BuildRequires:  python3dist(sphinx) >= 1.4.3
-#BuildRequires:  python3dist(sphinx-bootstrap-theme)
-#BuildRequires:  python3dist(sphinx-gallery)
-#BuildRequires:  python3dist(sphinxcontrib-bibtex)
 
 %description
 mapclassify is an open-source python library for Choropleth map classification.
@@ -40,7 +23,6 @@ It is part of PySAL the Python Spatial Analysis Library.
 
 %package -n     python3-%{srcname}
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{srcname}}
 
 %description -n python3-%{srcname}
 mapclassify is an open-source python library for Choropleth map classification.
@@ -50,26 +32,24 @@ It is part of PySAL the Python Spatial Analysis Library.
 %prep
 %autosetup -n %{srcname}-%{version}
 
-# Remove bundled egg-info
-rm -rf %{srcname}.egg-info
-
+%generate_buildrequires
+%pyproject_buildrequires -x tests
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{srcname}
 
 %check
 # This test is flaky due to networkx:
 # https://github.com/pysal/mapclassify/pull/77
 %{pytest} -k 'not test_smallest_last'
 
-%files -n python3-%{srcname}
+%files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE.txt
 %doc README.md
-%{python3_sitelib}/%{srcname}/
-%{python3_sitelib}/%{srcname}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
 %autochangelog

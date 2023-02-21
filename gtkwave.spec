@@ -1,7 +1,7 @@
 Summary:	Waveform Viewer
 Name:		gtkwave
-Version:	3.3.113
-Release:	2%{?dist}
+Version:	3.3.114
+Release:	1%{?dist}
 License:	GPL-2.0-or-later
 URL:		http://gtkwave.sourceforge.net/
 Source0:	http://gtkwave.sourceforge.net/gtkwave-gtk3-%{version}.tar.gz
@@ -187,6 +187,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/gtkwave.ap
 %{_mandir}/man5/gtkwaverc.5*
 
 %changelog
+* Sun Feb 19 2023 Paul Howarth <paul@city-fan.org> - 3.3.114-1
+- Update to 3.3.114
+  - Buffer overflow fixes in FST reader
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.113-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

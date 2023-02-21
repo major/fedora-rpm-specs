@@ -1,17 +1,16 @@
 %global _hardened_build 1
 Summary: Fast and lean authoritative DNS Name Server
 Name: nsd
-Version: 4.3.9
-Release: 5%{?dist}
+Version: 4.6.1
+Release: 1%{?dist}
 License: BSD
 Url: http://www.nlnetlabs.nl/nsd/
 Source0: http://www.nlnetlabs.nl/downloads/%{name}/%{name}-%{version}%{?prever}.tar.gz
 Source1: nsd.conf
 Source2: nsd.service
-Source6: tmpfiles-nsd.conf
-Patch1: nsd-4.3.9-fedora-c99.patch
+Source3: tmpfiles-nsd.conf
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: flex
 BuildRequires: openssl-devel
 BuildRequires: libevent-devel
@@ -29,8 +28,6 @@ consult the REQUIREMENTS document which is a part of this distribution.
 
 %prep
 %setup -q -n %{name}-%{version}%{?prever}
-
-%patch1 -p1
 
 %build
 CFLAGS="%{optflags} -fPIE -pie"
@@ -62,7 +59,7 @@ make DESTDIR=%{buildroot} install
 mkdir -p %{buildroot}%{_unitdir}
 install -m 0644 %{SOURCE2} %{buildroot}%{_unitdir}
 mkdir -p %{buildroot}%{_tmpfilesdir}
-install -m 0644 %{SOURCE6} %{buildroot}%{_tmpfilesdir}/nsd.conf
+install -m 0644 %{SOURCE3} %{buildroot}%{_tmpfilesdir}/nsd.conf
 mkdir -p %{buildroot}%{_rundir}/nsd
 mkdir -p %{buildroot}%{_sharedstatedir}/nsd
 
@@ -115,6 +112,9 @@ exit 0
 %systemd_postun_with_restart nsd.service
 
 %changelog
+* Sun Feb 19 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 4.6.1-1
+- Update to 4.6.1
+
 * Wed Feb 01 2023 Florian Weimer <fweimer@redhat.com> - 4.3.9-5
 - Fix C99 compatibility issue
 
@@ -175,7 +175,7 @@ exit 0
 * Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
 
-* Mon Jun 29 2020 Fabio Alessandro Locati <me@fale.io> - 4.3.1-1
+* Mon Jun 29 2020 Fabio Alessandro Locati <fale@fedoraproject.org> - 4.3.1-1
 - Update to current version
 
 * Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.4-2

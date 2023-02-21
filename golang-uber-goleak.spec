@@ -5,7 +5,7 @@
 # https://github.com/uber-go/goleak
 %global goipath         go.uber.org/goleak
 %global forgeurl        https://github.com/uber-go/goleak
-Version:                1.2.0
+Version:                1.2.1
 
 %gometa
 

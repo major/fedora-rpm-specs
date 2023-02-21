@@ -3,7 +3,7 @@
 
 # https://github.com/casbin/casbin
 %global goipath         github.com/casbin/casbin/v2
-Version:                2.36.1
+Version:                2.63.0
 
 %gometa
 

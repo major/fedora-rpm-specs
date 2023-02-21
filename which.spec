@@ -3,8 +3,8 @@
 Summary: Displays where a particular program in your path is located
 Name: which
 Version: 2.21
-Release: 37%{?dist}
-License: GPLv3
+Release: 38%{?dist}
+License: GPL-3.0-only
 Source0: http://ftp.gnu.org/gnu/which/%{name}-%{version}.tar.gz
 Source1: which2.sh
 Source2: which2.csh
@@ -47,6 +47,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/which.1*
 
 %changelog
+* Sun Feb 19 2023 Than Ngo <than@redhat.com> - 2.21-38
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.21-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

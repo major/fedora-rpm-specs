@@ -9,6 +9,8 @@ Summary:        Animated GIF screen recorder with an easy to use interface
 License:        GPLv3+ and MIT
 URL:            https://github.com/phw/peek
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+# GNOME Flashback imitates Shell but does not support Screencast
+Patch0:         peek-1.5.1-gnome-flashback.patch
 
 BuildRequires:  cmake
 BuildRequires:  desktop-file-utils

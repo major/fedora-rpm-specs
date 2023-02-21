@@ -2,11 +2,11 @@
 %global srcname_ jupyter_kernel_test
 
 Name:           python-%{srcname}
-Version:        0.4.5
+Version:        0.5.0
 Release:        %autorelease
 Summary:        Machinery for testing Jupyter kernels via the messaging protocol
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        %pypi_source %{srcname_}
 

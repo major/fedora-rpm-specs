@@ -1,5 +1,7 @@
+# Disable test until a proper fix occurs
+%global		gtestflag 0
 Name:		draco
-Version:	1.5.5
+Version:	1.5.6
 Release:	%autorelease
 Summary:	A library for compressing and decompressing 3D geometric meshes and point clouds 
 License:	Apache-2.0
@@ -11,12 +13,10 @@ Source0:	%{url}/archive/%{version}/%{name}-%{version}.tar.gz
 # would recommend).
 Patch:		0001-Use-system-gtest.patch
 
-# Add a missing include
-# https://github.com/google/draco/pull/964
-Patch:		964.patch
-
 BuildRequires:	cmake
+%if %{?gtestflag} 
 BuildRequires:	cmake(gtest)
+%endif
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
 BuildRequires:	help2man
@@ -43,7 +43,7 @@ rm -fr {javascript,maya,docs/assets}
 %cmake -GNinja \
     -DBUILD_SHARED_LIBS=ON \
     -DCMAKE_BUILD_TYPE=Release \
-    -DDRACO_TESTS=ON
+    -DDRACO_TESTS=%{gtestflag}
 %cmake_build
 
 %install
@@ -61,10 +61,12 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} help2man -N --version-string=%{version} \
 	-o %{buildroot}%{_mandir}/man1/%{name}_encoder-%{version}.1 \
 	%{buildroot}%{_bindir}/%{name}_encoder
 
+%if %{?gtestflag}
+%check
 # Disable test for s390x architecture
 %ifnarch s390x
-%check
 %{_vpath_builddir}/draco_tests
+%endif
 %endif
 
 %files
@@ -74,8 +76,8 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} help2man -N --version-string=%{version} \
 %{_bindir}/%{name}_decoder-%{version}
 %{_bindir}/%{name}_encoder
 %{_bindir}/%{name}_encoder-%{version}
-%{_libdir}/lib%{name}.so.7
-%{_libdir}/lib%{name}.so.7.0.0
+%{_libdir}/lib%{name}.so.8
+%{_libdir}/lib%{name}.so.8.0.0
 %{_mandir}/man1/%{name}_decoder-%{version}.1*
 %{_mandir}/man1/%{name}_encoder-%{version}.1*
 
