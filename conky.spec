@@ -21,8 +21,8 @@
 %bcond_without xinerama
 
 Name:           conky
-Version:        1.15.0
-Release:        2%{?dist}
+Version:        1.18.0
+Release:        1%{?dist}
 Summary:        A system monitor for X
 
 License:        GPLv3+
@@ -121,6 +121,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Mon Feb 20 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1.18.0-1
+- update to 1.18.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

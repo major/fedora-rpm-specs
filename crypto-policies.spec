@@ -1,12 +1,12 @@
-%global git_date 20221215
-%global git_commit a4c31a34711325447363d87ba9fec5bb5535903a
+%global git_date 20230220
+%global git_commit 8c7de0471c1de088ff3c332590ea91a71d4273c0
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
 
 Name:           crypto-policies
 Version:        %{git_date}
-Release:        2.git%{git_commit_hash}%{?dist}
+Release:        1.git%{git_commit_hash}%{?dist}
 Summary:        System-wide crypto policies
 
 License:        LGPL-2.1-or-later
@@ -207,6 +207,9 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Mon Feb 20 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230220-1.git8c7de04
+- Makefile: support asciidoc 10
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221215-2.gita4c31a3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

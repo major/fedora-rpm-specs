@@ -1,7 +1,7 @@
 %global pypi_name aiolifx
 
 Name:           python-%{pypi_name}
-Version:        0.8.6
+Version:        0.8.9
 Release:        %autorelease
 Summary:        Python API for local communication with LIFX devices
 

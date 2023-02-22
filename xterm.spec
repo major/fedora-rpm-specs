@@ -3,8 +3,8 @@
 
 Summary: Terminal emulator for the X Window System
 Name: xterm
-Version: 378
-Release: 3%{?dist}
+Version: 379
+Release: 1%{?dist}
 URL: https://invisible-island.net/xterm
 License: MIT
 BuildRequires: make
@@ -100,6 +100,10 @@ install -m644 -p xterm.appdata.xml $RPM_BUILD_ROOT%{_datadir}/appdata
 %{_mandir}/man1/resize.1*
 
 %changelog
+* Sun Feb 19 2023 Tomas Korbar <tkorbar@redhat.com> - 379-1
+- Rebase to version 379
+- Resolves: rhbz#2170296
+
 * Wed Feb 08 2023 Tomas Korbar <tkorbar@redhat.com> - 378-3
 - Enable readline-mouse configuration option
 - Resolves: rhbz#2166860

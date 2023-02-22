@@ -1,6 +1,6 @@
 Name:           simspark
 Version:        0.3.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Spark physical simulation system
 
 License:        GPLv2
@@ -77,6 +77,9 @@ rm -rf %{buildroot}/%{_datadir}/doc
 %doc doc/devel/manual.pdf
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.3.3-7
+- Rebuilt for Boost 1.81
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

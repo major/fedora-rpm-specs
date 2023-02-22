@@ -2,9 +2,9 @@
 %global debug_package %{nil}
 
 Name:           xtl
-Version:        0.7.4
+Version:        0.7.5
 Release:        %autorelease
-License:        BSD
+License:        BSD-3-Clause
 Summary:        QuantStack tools library
 Url:            https://github.com/QuantStack/xtl
 Source0:        https://github.com/QuantStack/%{name}/archive/%{version}/%{name}-%{version}.tar.gz

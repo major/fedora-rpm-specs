@@ -3,19 +3,17 @@
 %define fontconfig_version 2.2.95
 
 Name:    cairo
-Version: 1.17.6
-Release: 3%{?dist}
+Version: 1.17.8
+Release: 1%{?dist}
 Summary: A 2D graphics library
 
-License: LGPLv2 or MPLv1.1
+License: LGPL-2.1-only OR MPL-1.1
 URL:     https://cairographics.org
-Source0: https://download.gnome.org/sources/%{name}/1.17/%{name}-%{version}.tar.xz
+Source0: https://cairographics.org/snapshots/%{name}-%{version}.tar.xz
 
 Patch0: cairo-multilib.patch
-# https://gitlab.freedesktop.org/cairo/cairo/merge_requests/1
-Patch1: 0001-Set-default-LCD-filter-to-FreeType-s-default.patch
-# https://gitlab.freedesktop.org/cairo/cairo/-/issues/547
-Patch2: cairo-1.17.6-meson-fixes.patch
+# https://gitlab.freedesktop.org/cairo/cairo/-/issues/634
+Patch1: cairo-1.17.8-fix-tee-compilation.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -108,12 +106,11 @@ This package contains tools for working with the cairo graphics library.
 
 %files
 %license COPYING COPYING-LGPL-2.1 COPYING-MPL-1.1
-%doc AUTHORS BIBLIOGRAPHY BUGS NEWS README
+%doc AUTHORS BUGS NEWS README.md
 %{_libdir}/libcairo.so.2*
 %{_libdir}/libcairo-script-interpreter.so.2*
 
 %files devel
-%doc ChangeLog PORTING_GUIDE
 %dir %{_includedir}/cairo/
 %{_includedir}/cairo/cairo-deprecated.h
 %{_includedir}/cairo/cairo-features.h
@@ -161,6 +158,9 @@ This package contains tools for working with the cairo graphics library.
 %{_libdir}/cairo/
 
 %changelog
+* Mon Feb 20 2023 David King <amigadave@amigadave.com> - 1.17.8-1
+- Update to 1.17.8 (#2166624)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

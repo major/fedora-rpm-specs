@@ -1,8 +1,8 @@
 %global srcname saaj-api
 
 Name:           jakarta-saaj
-Version:        1.4.2
-Release:        9%{?dist}
+Version:        3.0.0
+Release:        1%{?dist}
 Summary:        SOAP with Attachments API for Java
 License:        BSD
 URL:            https://github.com/eclipse-ee4j/saaj-api
@@ -11,13 +11,11 @@ ExclusiveArch:  %{java_arches} noarch
 
 Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 
-BuildRequires:  git
 BuildRequires:  maven-local
 BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:buildnumber-maven-plugin)
 BuildRequires:  mvn(org.glassfish.build:spec-version-maven-plugin)
 
 %description
@@ -31,7 +29,7 @@ Summary:        API documentation for %{name}
 API documentation for %{name}.
 
 %prep
-%autosetup -n %{srcname}-%{version} -p1 -S git
+%autosetup -n %{srcname}-%{version} -p1
 
 cd api
 # remove unnecessary dependency on parent POM
@@ -39,6 +37,7 @@ cd api
 # remove unnecessary maven plugins
 %pom_remove_plugin :glassfish-copyright-maven-plugin
 %pom_remove_plugin :spotbugs-maven-plugin
+%pom_remove_plugin :buildnumber-maven-plugin
 # add compatibility alias for old maven artifact coordinates
 %mvn_alias jakarta.xml.soap:jakarta.xml.soap-api javax.xml.soap:saaj-api
 # add compatibility symlink for old classpath
@@ -60,10 +59,14 @@ popd
 %files -f api/.mfiles
 %license LICENSE.md NOTICE.md
 %doc README.md
+
 %files javadoc -f api/.mfiles-javadoc
 %license LICENSE.md NOTICE.md
 
 %changelog
+* Mon Feb 20 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 3.0.0-1
+- New upstream release 3.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

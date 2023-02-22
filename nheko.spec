@@ -1,6 +1,6 @@
 Name: nheko
-Version: 0.11.1
-Release: 5%{?dist}
+Version: 0.11.2
+Release: 1%{?dist}
 
 # Main source - GPL-3.0-or-later.
 # cpp-httplib - bundled - MIT.
@@ -10,12 +10,7 @@ Summary: Desktop client for the Matrix protocol
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-# https://github.com/Nheko-Reborn/nheko/pull/1371
-Patch100: %{name}-unbundle-cpp-httplib.patch
-# https://github.com/Nheko-Reborn/nheko/pull/1376
-Patch101: %{name}-unbundle-blurhash.patch
-
-BuildRequires: cmake(MatrixClient) >= 0.9.1
+BuildRequires: cmake(MatrixClient) >= 0.9.2
 BuildRequires: cmake(Olm) >= 3.2.12
 BuildRequires: cmake(Qt5Concurrent)
 BuildRequires: cmake(Qt5Core)
@@ -79,6 +74,7 @@ for Matrix that feels more like a mainstream chat app.
 
 %prep
 %autosetup -p1
+rm -rf third_party/{blurhash,cpp-httplib*}
 
 %build
 %cmake -G Ninja \
@@ -127,6 +123,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Feb 20 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.2-1
+- Updated to version 0.11.2.
+
 * Sat Feb 18 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.11.1-5
 - Unbundled cpp-httplib and blurhash-cpp. Fixes rhbz#2169587.
 

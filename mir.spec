@@ -12,7 +12,7 @@
 
 Name:           mir
 Version:        2.12.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Next generation display server
 
 # mircommon is LGPL-2.1-only/LGPL-3.0-only, everything else is GPL-2.0-only/GPL-3.0-only
@@ -292,6 +292,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/miral-shell.desktop
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.12.0-2
+- Rebuilt for Boost 1.81
+
 * Wed Feb 01 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.12.0-1
 - Update to 2.12.0
 - Convert license identifiers to SDPX notation

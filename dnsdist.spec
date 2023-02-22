@@ -7,11 +7,12 @@
 
 Name: dnsdist
 Version: 1.7.3
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Highly DNS-, DoS- and abuse-aware loadbalancer
 License: GPLv2
 URL: https://dnsdist.org
 Source0: https://downloads.powerdns.com/releases/%{name}-%{version}.tar.bz2
+Patch0: dnsdist-1.7.3-includes.patch
 
 ExcludeArch: %{ix86} #1994125
 ExcludeArch: armv7hl #1994125
@@ -119,6 +120,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 20 2023 Sander Hoentjen <sander@hoentjen.eu> - 1.7.3-3
+- add patch for missing includes
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

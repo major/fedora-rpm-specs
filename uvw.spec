@@ -18,6 +18,8 @@ Source0:        %forgesource
 
 # https://github.com/skypjack/uvw/pull/253
 Patch1:         uvw-2.10-test-libuv-dynamic.patch
+# https://github.com/skypjack/uvw/pull/273
+Patch2:         uvw-2.12-stdint.patch
 
 BuildRequires:  gcc-c++, cmake
 BuildRequires:  libuv-devel >= %{libuv_ver}

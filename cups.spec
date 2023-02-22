@@ -15,7 +15,7 @@ Summary: CUPS printing system
 Name: cups
 Epoch: 1
 Version: 2.4.2
-Release: 8%{?dist}
+Release: 9%{?dist}
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
@@ -109,6 +109,10 @@ BuildRequires: libselinux-devel
 BuildRequires: audit-libs-devel
 %endif
 
+# /etc/cups was moved from main package to filesystem package
+# remove once CentOS Stream 10 is released
+Conflicts: %{name}-filesystem < 2.4.2-9
+
 # getaddrinfo from glibc needs nss-mdns or systemd-resolved for resolving
 # mdns .local addresses. Don't require a specific package for now and let
 # the user to decide what to use
@@ -167,6 +171,10 @@ License: LGPLv2 and zlib
 %package filesystem
 Summary: CUPS printing system - directory layout
 BuildArch: noarch
+# /etc/cups was moved from main package to filesystem package
+# remove once CentOS Stream 10 is released
+Conflicts: %{name} < 2.4.2-9
+
 
 %package lpd
 Summary: CUPS printing system - lpd emulation
@@ -603,7 +611,6 @@ rm -f %{cups_serverbin}/backend/smb
 %exclude %{_mandir}/man7/ippeveps.7.gz
 %dir %attr(0755,root,lp) %{_rundir}/cups
 %dir %attr(0511,lp,sys) %{_rundir}/cups/certs
-%dir %attr(0755,root,lp) %{_sysconfdir}/cups
 %attr(0640,root,lp) %{_sysconfdir}/cups/cupsd.conf.default
 %verify(not md5 size mtime) %config(noreplace) %attr(0640,root,lp) %{_sysconfdir}/cups/cupsd.conf
 %verify(not md5 size mtime) %config(noreplace) %attr(0640,root,lp) %{_sysconfdir}/cups/cups-files.conf
@@ -651,6 +658,7 @@ rm -f %{cups_serverbin}/backend/smb
 %dir %{_datadir}/cups/model
 %dir %{_datadir}/cups/ppdc
 %dir %{_datadir}/ppd
+%dir %attr(0755,root,lp) %{_sysconfdir}/cups
 
 %files devel
 %{_bindir}/cups-config
@@ -684,6 +692,9 @@ rm -f %{cups_serverbin}/backend/smb
 %{_mandir}/man7/ippeveps.7.gz
 
 %changelog
+* Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.2-9
+- move /etc/cups into cups-filesystem, since cups-browsed needs it
+
 * Thu Feb 02 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.4.2-8
 - 2165612 - IPP-USB as a weak dependency of CUPS and sane-airscan
 

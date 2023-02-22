@@ -10,7 +10,7 @@
 
 Name:          trellis
 Version:       1.2.1
-Release:       14.%{snapdate}git%{shortcommit0}%{?dist}
+Release:       15.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:       Lattice ECP5 FPGA bitstream creation/analysis/programming tools
 License:       ISC
 URL:           https://github.com/YosysHQ/prj%{name}
@@ -117,6 +117,9 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 man1/*
 %{_datadir}/%{name}/database
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.2.1-15.20230215git0c522ce
+- Rebuilt for Boost 1.81
+
 * Wed Feb 15 2023 Gabriel Somlo <gsomlo@gmail.com> - 1.2.1-14.20230215git0c522ce
 - Update to newer snapshot
 

@@ -1,6 +1,6 @@
 Name:           pulseview
 Version:        0.4.2
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Signal acquisition and analysis GUI for sigrok
 # Combined GPLv3+ (libsigrok and libsigrokdecode) and GPLv2+ (pulseview)
 License:        GPLv3+
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %{_datadir}/appdata/org.sigrok.PulseView.appdata.xml
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.4.2-14
+- Rebuilt for Boost 1.81
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.2-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

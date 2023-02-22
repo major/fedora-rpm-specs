@@ -1,7 +1,7 @@
 Summary:        Operating System AppStream Metadata for Fedora Linux
 Name:           fedora-appstream-metadata
 # Use the time of the last metadata update as version
-Version:        20221115
+Version:        20230220
 Release:        %autorelease
 License:        MIT
 URL:            https://fedoraproject.org/

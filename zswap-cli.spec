@@ -1,6 +1,6 @@
 Name: zswap-cli
 Version: 0.9.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 Summary: Command-line tool to control zswap options
@@ -64,6 +64,9 @@ a compressed cache is much faster than reading from a swap device.
 %config(noreplace) %{_sysconfdir}/%{name}/%{name}.conf
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.9.1-3
+- Rebuilt for Boost 1.81
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@
 
 Name:           prusa-slicer
 Version:        2.4.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -395,6 +395,9 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.4.2-8
+- Rebuilt for Boost 1.81
+
 * Fri Jan 27 2023 Scott Talbert <swt@techie.net> - 2.4.2-7
 - Rebuild with wxWidgets 3.2 (again) with additional fixes
 

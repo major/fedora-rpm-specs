@@ -1,6 +1,6 @@
 Name:           sway-systemd
-Version:        0.2.2
-Release:        3%{?dist}
+Version:        0.3.0
+Release:        %autorelease
 Summary:        Systemd integration for Sway session
 
 License:        MIT
@@ -39,7 +39,9 @@ This includes several areas of integration:
 
 %build
 %meson \
-    -Dcgroups=enabled
+    -Dautostart=true \
+    -Dcgroups=enabled \
+    -Dlocale1=true
 %meson_build
 
 
@@ -51,37 +53,15 @@ This includes several areas of integration:
 %license LICENSE
 %doc README.md
 %config(noreplace) %{_sysconfdir}/sway/config.d/10-systemd-session.conf
-%dir %{_libexecdir}/%{name}
-%{_libexecdir}/%{name}/session.sh
-%{_userunitdir}/sway-session.target
-
 %config(noreplace) %{_sysconfdir}/sway/config.d/10-systemd-cgroups.conf
+%dir %{_libexecdir}/%{name}
 %{_libexecdir}/%{name}/assign-cgroups.py
+%{_libexecdir}/%{name}/locale1-xkb-config
+%{_libexecdir}/%{name}/session.sh
+%{_libexecdir}/%{name}/wait-sni-ready
+%{_userunitdir}/sway-session.target
+%{_userunitdir}/sway-xdg-autostart.target
+
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Sat Feb 26 2022 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.2-1
-- Update to 0.2.2
-
-* Sat Jan 22 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Nov 28 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.1-1
-- Update to 0.2.1
-
-* Mon Aug 09 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.2.0-1
-- Update to 0.2.0
-
-* Fri Jul 23 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Fri Apr 30 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.1.2-1
-- Update to 0.1.2
-
-* Wed Mar 10 2021 Aleksei Bavshin <alebastr@fedoraproject.org> - 0.1.1-1
-- Initial import (#1932728)
+%autochangelog

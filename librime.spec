@@ -1,6 +1,6 @@
 Name:           librime
 Version:        1.8.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Rime Input Method Engine Library
 
 License:        GPLv3
@@ -80,6 +80,9 @@ The %{name}-tools package contains tools for %{name}.
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.8.4-2
+- Rebuilt for Boost 1.81
+
 * Tue Jan 31 2023 Peng Wu <pwu@redhat.com> - 1.8.4-1
 - Update to 1.8.4
 - Resolves: RHBZ#2165654

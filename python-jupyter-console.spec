@@ -6,13 +6,15 @@
 %global srcname_ jupyter_console
 
 Name:           python-%{srcname}
-Version:        6.4.4
+Version:        6.5.1
 Release:        %autorelease
 Summary:        Jupyter terminal console
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://jupyter.org
 Source0:        %pypi_source %{srcname_}
+# https://github.com/jupyter/jupyter_console/pull/276#issuecomment-1437436234
+Patch:          0001-Skip-flaky-tests.patch
 
 BuildArch:      noarch
 
@@ -26,8 +28,6 @@ An IPython-like terminal frontend for Jupyter kernels in any language.
 Summary:        %{summary}
 
 BuildRequires:  python3dist(pillow)
-BuildRequires:  python3dist(pytest)
-BuildRequires:  python3dist(pyzmq)
 
 %description -n python3-%{srcname}
 An IPython-like terminal frontend for Jupyter kernels in any language.
@@ -50,11 +50,8 @@ Documentation for jupyter-console
 %prep
 %autosetup -n %{srcname_}-%{version} -p1
 
-# setuptools is used, but only implicitly through pip, not explicitly.
-sed -i 's/distutils.core/setuptools/g' setup.py
-
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires -x test
 
 %build
 %pyproject_wheel

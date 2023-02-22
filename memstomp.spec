@@ -2,7 +2,7 @@
 
 Name:		memstomp
 Version:	0.1.4
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	Warns of memory argument overlaps to various functions
 # The entire source code is LGPLV3+ with the exception of backtrace-symbols.c which
 # is GPLv2+ by way of being a hacked up old version of binutils's addr2line.
@@ -29,6 +29,7 @@ Patch5: memstomp-rh1093173.patch
 Patch6: memstomp-rh1133815.patch
 Patch7: memstomp-implicit-int.patch
 Patch8: bfd-api-change.patch
+Patch9: memstomp-PTR.patch
 
 
 %description 
@@ -49,6 +50,7 @@ overlapping memory arguments to certain library calls.
 %patch6 -p1
 %patch7 -p1
 %patch8 -p1
+%patch9 -p1
 
 
 %build
@@ -73,6 +75,10 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/memstomp.1.gz
 
 %changelog
+* Mon Feb 20 2023 Jeff Law <law@redhat.com> - 0.1.4-36
+- Fix for libibery no longer providing PTR
+  (#2171607)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.4-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

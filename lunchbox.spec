@@ -2,7 +2,7 @@
 
 Name:          lunchbox
 Version:       1.17.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 Summary:       C++ library for multi-threaded programming
 # Boost license: lunchbox/atomic.h, lunchbox/any.h
 # LGPLv3 license: e.g. any.cpp and lfVector.h
@@ -99,6 +99,9 @@ make test
 %{_datadir}/Lunchbox
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.17.0-8
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

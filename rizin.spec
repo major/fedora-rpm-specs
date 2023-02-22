@@ -1,6 +1,6 @@
 Name:           rizin
 Summary:        UNIX-like reverse engineering framework and command-line tool-set
-Version:        0.4.1
+Version:        0.5.0
 URL:            https://rizin.re/
 VCS:            https://github.com/rizinorg/rizin
 
@@ -27,8 +27,10 @@ BuildRequires:  pkgconfig(libzip)
 BuildRequires:  pkgconfig(zlib)
 BuildRequires:  pkgconfig(liblz4)
 BuildRequires:  pkgconfig(capstone) >= 3.0.4
-BuildRequires:  pkgconfig(libuv)
 BuildRequires:  pkgconfig(openssl)
+BuildRequires:  pkgconfig(tree-sitter)
+BuildRequires:  pkgconfig(liblzma)
+BuildRequires:  pkgconfig(libmspack)
 
 Requires:       %{name}-common = %{version}-%{release}
 
@@ -43,11 +45,6 @@ Provides:       bundled(spp) = 1.2.0
 # sdb is a simple string key/value database based on djb's cdb
 # https://github.com/rizinorg/sdb
 Provides:       bundled(sdb) = db7edd4a96a89b6749b677a85d7fa4ee2c6fbbb9
-
-# ./shlr/sdb/src/json/README
-# https://github.com/quartzjer/js0n
-# JSON support for sdb
-Provides:       bundled(js0n)
 
 # librz/util/regex/README
 # Modified OpenBSD regex to be portable
@@ -66,6 +63,12 @@ Provides:       bundled(binutils) = 2.13
 # ./librz/asm/arch/avr/README
 # * This code has been ripped from vavrdisasm 1.6
 Provides:       bundled(vavrdisasm) = 1.6
+
+# rizin-v0.5.0/subprojects/blake3
+# url = https://github.com/BLAKE3-team/BLAKE3.git
+# revision = f84636e59ce575e5dd127399e0c7de0c1ea595da
+Provides:       bundled(blake3) = 1.3.1
+
 
 
 %description
@@ -100,7 +103,7 @@ information
 
 %prep
 # Build from git release version
-%setup -n %{gitname}-v%{version}
+%autosetup -n %{gitname}-v%{version}
 
 %build
 # Whereever possible use the system-wide libraries instead of bundles
@@ -111,8 +114,10 @@ information
     -Duse_sys_lz4=enabled \
     -Duse_sys_xxhash=enabled \
     -Duse_sys_openssl=enabled \
-    -Duse_sys_libuv=enabled \
     -Duse_sys_capstone=enabled \
+    -Duse_sys_tree_sitter=enabled \
+    -Duse_sys_lzma=enabled \
+    -Duse_sys_libmspack=enabled \
 %ifarch s390x
     -Ddebugger=false \
 %endif
@@ -170,6 +175,9 @@ information
 
 
 %changelog
+* Sun Feb 19 2023 Michal Ambroz <rebus _AT seznam.cz> - 0.5.0-1
+- Rebase to upstream version 0.5.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.1-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

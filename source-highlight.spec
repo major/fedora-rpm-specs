@@ -1,7 +1,7 @@
 Summary: Produces a document with syntax highlighting
 Name: source-highlight
 Version: 3.1.9
-Release: 17%{?dist}
+Release: 18%{?dist}
 License: GPLv3+
 Source0: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz
 Source1: ftp://ftp.gnu.org/gnu/src-highlite/%{name}-%{version}.tar.gz.sig
@@ -94,6 +94,9 @@ rmdir $RPM_BUILD_ROOT%{_sysconfdir}/bash_completion.d
 %{_includedir}/srchilite/*.h
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.1.9-18
+- Rebuilt for Boost 1.81
+
 * Sat Oct 15 2022 FeRD (Frank Dana) <ferdnyc@gmail.com> - 3.1.9-17
 - Stop adding 'cxx' language mapping (fixed upstream)
 - Add 'rpm-spec' (used in asciidoc) mapping

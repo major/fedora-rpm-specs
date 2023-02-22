@@ -112,8 +112,10 @@ BuildRequires:  /usr/bin/openscad
 Recommends:     /usr/bin/openscad
 %endif
 # trimesh.interfaces.vhacd
-# Not yet packaged: https://github.com/kmammou/v-hacd
 # Library would also recognize “vhacd” or “testVHACD”
+#
+# VHACD 4.0 not working through trimesh interface + dirty fix
+# https://github.com/mikedh/trimesh/issues/1788
 #BuildRequires:  /usr/bin/TestVHACD
 #Recommends:     /usr/bin/TestVHACD
 

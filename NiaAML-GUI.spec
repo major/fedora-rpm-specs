@@ -11,6 +11,9 @@ URL:            https://github.com/lukapecnik/NiaAML-GUI
 Source0:        %{url}/archive/%{version}/NiaAML-GUI-%{version}.tar.gz
 
 BuildArch:      noarch
+
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
  
 BuildRequires:  python3-devel
 BuildRequires:  desktop-file-utils

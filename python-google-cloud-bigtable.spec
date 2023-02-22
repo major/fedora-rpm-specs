@@ -1,7 +1,5 @@
-# F35: Do not update past 2.8.1 because protobuf is too old.
-
-# tests are enabled by default
-%bcond_without  tests
+# Upstream broke test imports
+%bcond_with     tests
 
 %global         srcname     google-cloud-bigtable
 %global         forgeurl    https://github.com/googleapis/python-bigtable
@@ -65,8 +63,10 @@ grep -rl "^[[:space:]]*import mock" tests | \
 rm -f %{buildroot}%{_bindir}/fixup_bigtable*.py
 
 
-%if %{with tests}
 %check
+%pyproject_check_import
+
+%if %{with tests}
 # Work around an unusual pytest/PEP 420 issue where pytest can't import the
 # installed module. Thanks to mhroncok for the help!
 mv google{,_}

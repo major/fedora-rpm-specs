@@ -1,8 +1,8 @@
 %global	module	tkrzw
 
 Name:		python-%{module}
-Version:	0.1.28
-Release:	9%{?dist}
+Version:	0.1.29
+Release:	1%{?dist}
 License:	ASL 2.0
 Summary:	TKRZW Python bindings
 URL:		https://dbmx.net/tkrzw/
@@ -19,10 +19,8 @@ BuildRequires:	tkrzw >= 1.0.21
 BuildRequires:	pkgconfig(tkrzw) >= 1.0.21
 # python3-sphinx
 BuildRequires:	python3dist(sphinx)
-%if 0%{?fedora} > 35
 # Temporary disabled: https://github.com/estraier/tkrzw-python/issues/4
 ExcludeArch:	i686
-%endif
 
 %description
 TKRZW is a library of routines for managing a key-value database.
@@ -65,7 +63,7 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 %files -n python3-%{module}
 %license COPYING
-%{python3_sitearch}/tkrzw-0.1-py%{python3_version}.egg-info
+%{python3_sitearch}/%{module}-%{version}-py%{python3_version}.egg-info
 %if 0%{?epel} && 0%{?epel} < 9
 %{python3_sitearch}/tkrzw.cpython-%{python3_version_nodots}m-*-linux-gnu*.so
 %else
@@ -78,6 +76,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Mon Feb 20 2023 TI_Eugene <ti.eugene@gmail.com> - 0.1.29-1
+- Version bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.28-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

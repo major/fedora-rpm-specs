@@ -14,7 +14,7 @@
 
 Name:       csdiff
 Version:    2.8.0
-Release:    2%{?dist}
+Release:    3%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPLv3+
@@ -124,6 +124,9 @@ make version.cc
 %endif
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.8.0-3
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

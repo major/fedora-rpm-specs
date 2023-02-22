@@ -41,8 +41,8 @@
 Name: boost
 %global real_name boost
 Summary: The free peer-reviewed portable C++ source libraries
-Version: 1.78.0
-Release: 11%{?dist}
+Version: 1.81.0
+Release: 0%{?dist}
 License: Boost and MIT and Python
 
 # Replace each . with _ in %%{version}
@@ -54,7 +54,7 @@ License: Boost and MIT and Python
 %global toplev_dirname %{real_name}_%{version_enc}
 URL: http://www.boost.org
 
-# https://boostorg.jfrog.io/artifactory/main/release/1.78.0/source/boost_1_78_0.tar.bz2
+# https://boostorg.jfrog.io/artifactory/main/release/1.81.0/source/boost_1_81_0.tar.bz2
 Source0: https://boostorg.jfrog.io/artifactory/main/release/%{version}/source/%{name}_%{version_enc}.tar.bz2
 Source1: libboost_thread.so
 # Add a manual page for b2, based on the online documentation:
@@ -127,16 +127,8 @@ BuildRequires: libquadmath-devel
 BuildRequires: bison
 BuildRequires: libzstd-devel
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=828856
-# https://bugzilla.redhat.com/show_bug.cgi?id=828857
-# https://svn.boost.org/trac/boost/ticket/6701
-Patch15: boost-1.58.0-pool.patch
-
-# https://svn.boost.org/trac/boost/ticket/9038
-Patch51: boost-1.58.0-pool-test_linking.patch
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=1541035
-Patch105: boost-1.78.0-build-optflags.patch
+Patch111: boost-1.81.0-build-optflags.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1318383
 Patch106: boost-1.78.0-no-rpath.patch
@@ -144,34 +136,16 @@ Patch106: boost-1.78.0-no-rpath.patch
 # https://lists.boost.org/Archives/boost/2020/04/248812.php
 Patch88: boost-1.73.0-cmakedir.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=1899888
-# https://github.com/boostorg/locale/issues/52
-Patch94: boost-1.73-locale-empty-vector.patch
-
 # https://bugzilla.redhat.com/show_bug.cgi?id=1541035
 Patch107: boost-1.78.0-b2-build-flags.patch
 
 # https://github.com/boostorg/random/issues/82
 Patch102: boost-1.76.0-random-test.patch
 
-# PR https://github.com/boostorg/multiprecision/pull/421
-# fixes ppc64le issue https://github.com/boostorg/multiprecision/issues/419
-Patch103: boost-1.76.0-fix_multiprecision_issue_419-ppc64le.patch
-
 # PR https://github.com/boostorg/interval/pull/30
 # Fixes narrowing conversions for ppc -
 #   https://github.com/boostorg/interval/issues/29
-Patch104: boost-1.76.0-fix-narrowing-conversions-for-ppc.patch 
-
-# https://github.com/boostorg/ptr_container/pull/27
-Patch108: boost-1.76.0-ptr_cont-xml.patch
-
-# Fixes missing libboost_fiber.so
-#  https://github.com/boostorg/boost/issues/632
-Patch109: boost-1.78.0-fix-b2-staging.patch
-
-# https://github.com/boostorg/python/pull/385
-Patch110: boost-1.76.0-enum_type_object-type-python-3.11.patch
+Patch104: boost-1.76.0-fix-narrowing-conversions-for-ppc.patch
 
 %bcond_with tests
 %bcond_with docs_generated
@@ -451,6 +425,14 @@ Requires: %{name}-system%{?_isa} = %{version}-%{release}
 The Boost.TypeErasure library provides runtime polymorphism in C++
 that is more flexible than that provided by the core language.
 
+%package url
+Summary: Runtime component of boost URL library
+
+%description url
+
+Run-time support for the Boost.URL library, a Standards conforming
+library for parsing Uniform Resource Locators.
+
 %package wave
 Summary: Run-time component of boost C99/C++ preprocessing library
 Requires: %{name}-chrono%{?_isa} = %{version}-%{release}
@@ -675,19 +657,12 @@ a number of significant features and is now developed independently.
 %setup -q -n %{toplev_dirname}
 find ./boost -name '*.hpp' -perm /111 | xargs --no-run-if-empty chmod a-x
 
-%patch15 -p0
-%patch51 -p1
-%patch105 -p1
+%patch111 -p1
 %patch106 -p1
 %patch107 -p1
 %patch88 -p1
-%patch94 -p1
 %patch102 -p1
-%patch103 -p2
 %patch104 -p2
-%patch108 -p1
-%patch109 -p1
-%patch110 -p1
 
 %build
 %set_build_flags
@@ -896,6 +871,11 @@ install -p -m 644 $(basename %{SOURCE1}) $RPM_BUILD_ROOT%{_libdir}/
 echo ============================= install Boost.Build ==================
 (cd tools/build
  ./b2 --prefix=$RPM_BUILD_ROOT%{_prefix} install
+
+ # Somewhere along the line the boost-build install directory became b2
+ # which seems not so great for our purposes, fix that up
+ mv $RPM_BUILD_ROOT%{_datadir}/b2 $RPM_BUILD_ROOT%{_datadir}/boost-build
+
  # Fix some permissions
  chmod +x $RPM_BUILD_ROOT%{_datadir}/boost-build/src/tools/doxproc.py
  # Fix shebang using unversioned python
@@ -1138,6 +1118,10 @@ fi
 %license LICENSE_1_0.txt
 %{_libdir}/libboost_type_erasure.so.%{sonamever}
 
+%files url
+%license LICENSE_1_0.txt
+%{_libdir}/libboost_url.so.%{sonamever}
+
 %files wave
 %license LICENSE_1_0.txt
 %{_libdir}/libboost_wave.so.%{sonamever}
@@ -1202,6 +1186,7 @@ fi
 %{_libdir}/libboost_thread.so
 %{_libdir}/libboost_timer.so
 %{_libdir}/libboost_type_erasure.so
+%{_libdir}/libboost_url.so
 %{_libdir}/libboost_wave.so
 
 %files static
@@ -1269,7 +1254,6 @@ fi
 %files mpich-python3-devel
 %license LICENSE_1_0.txt
 %{_libdir}/mpich/lib/libboost_mpi_python%{python3_version_nodots}.so
-
 %endif
 
 %files graph-mpich
@@ -1293,6 +1277,21 @@ fi
 %{_mandir}/man1/b2.1*
 
 %changelog
+* Mon Feb 20 2023 Thomas Rodgers <trodgers@redhat.com> - 1.81.0-0
+- Rebase to 1.81.0
+  See https://fedoraproject.org/wiki/Changes/F38Boost181
+- Drop patches:
+  deleted: boost-1.58.0-pool.patch
+  deleted: boost-1.58.0-pool-test_linking.patch
+  deleted: boost-1.78.0-build-optflags.patch
+  deleted: boost-1.73-locale-empty-vector.patch
+  deleted: boost-1.76.0-fix_multiprecision_issue_419-ppc64le.patch
+  deleted: boost-1.76.0-ptr_cont-xml.patch
+  deleted: boost-1.78.0-fix-b2-staging.patch
+  deleted: boost-1.76.0-enum_type_object-type-python-3.11.patch
+- New Boost.URL runtime component
+- boost_build directory is now b2 in upstream, renamte to boost_build on install
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.78.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -1330,7 +1329,7 @@ fi
 - Rebase to 1.78.0
   See https://fedoraproject.org/wiki/Changes/F37Boost178
 - Drop patches:
-    deleted: boost-1.75.0-build-optflags.patch 
+    deleted: boost-1.75.0-build-optflags.patch
     deleted: boost-1.75.0-no-rpath.patch
     deleted: boost-1.76.0-b2-build-flags.patch
     deleted: boost-1.76.0-fix-include-inside-boost-namespace.patch
@@ -2376,7 +2375,7 @@ fi
 - Drop obsolete Obsoletes: boost-python and boost-doc <= 1.30.2
 
 * Tue Jan 12 2010 Benjamin Kosnik <bkoz@redhat.com> - 1.41.0-1
-- Don't package generated debug libs, even with 
+- Don't package generated debug libs, even with
   (-DCMAKE_BUILD_TYPE=RelWithDebInfo | Release).
 - Update and include boost-cmake-soname.patch.
 - Uncomment ctest.

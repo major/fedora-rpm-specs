@@ -1,6 +1,6 @@
 Name: anyterm
 Version: 1.2.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 Summary: A web-based terminal emulator
 
 License: GPLv2+
@@ -113,6 +113,9 @@ exit 0
 %config(noreplace) %{_sysconfdir}/httpd/conf.d/anyterm.conf
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.2.3-15
+- Rebuilt for Boost 1.81
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

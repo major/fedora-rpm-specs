@@ -28,13 +28,13 @@
 %global apiver    2.6.3
 
 Name:           vdr
-Version:        2.6.3
-Release:        3%{?dist}
+Version:        2.6.4
+Release:        1%{?dist}
 Summary:        Video Disk Recorder
 
 License:        GPLv2+
 URL:            http://www.tvdr.de/
-# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.6.3;sf=tbz2
+# Get vdr source from http://git.tvdr.de/?p=vdr.git;a=snapshot;h=refs/tags/2.6.4;sf=tbz2
 Source0:        %{name}-%{version}.tar.bz2
 Source1:        %{name}.service
 Source2:        %{name}.sysconfig
@@ -70,8 +70,6 @@ Patch4:         %{name}-2.4.0-paths.patch
 Patch7:         12_osdbase-maxitems.patch
 # https://www.vdr-portal.de/index.php?attachment/46192-opt-42-x-mainmenuhooks-v1-0-3-patch/
 Patch11:        opt-42-x_MainMenuHooks-v1.0.3.patch
-# https://www.vdr-portal.de/index.php?attachment/46195-eit-patch-gz/
-Patch12:        vdr-2.6.0-eit.patch
 # Sent upstream 2016-06-17
 Patch15:        %{name}-1.7.37-fedora-pkgconfig.patch
 # https://www.vdr-portal.de/index.php?attachment/44831-vdr-2-4-6-clearobsoletechannels-diff/
@@ -170,17 +168,17 @@ window, using only plain text output.
 %prep
 %setup -q -a 18
 # dvbhddevice
-unzip -o %{SOURCE30} -d $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src
-mv $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src/powARman-dvbhddevice-2ea854ae8c7a $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src/dvbhddevice
+unzip -o %{SOURCE30} -d $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src
+mv $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/powARman-dvbhddevice-2ea854ae8c7a $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/dvbhddevice
 cd PLUGINS/src
 %patch0 -p3
 cd ../..
 # dvbsddevice
-tar -xzf %{SOURCE31} -C $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src
-mv $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src/dvbsddevice-2.2.0 $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src/dvbsddevice
+tar -xzf %{SOURCE31} -C $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src
+mv $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/dvbsddevice-2.2.0 $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/dvbsddevice
 # rcu
-tar -xzf %{SOURCE32} -C $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src
-mv $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src/rcu-2.2.0 $RPM_BUILD_DIR/vdr-%{apiver}/PLUGINS/src/rcu
+tar -xzf %{SOURCE32} -C $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src
+mv $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/rcu-2.2.0 $RPM_BUILD_DIR/vdr-%{version}/PLUGINS/src/rcu
 
 %patch1 -p1
 # sort_options would be nice, but it conflicts with channel+epg which is nicer
@@ -199,7 +197,6 @@ sed \
     %{PATCH4} | %{__patch} -p1
 %patch7 -p1
 %patch11 -p1
-%patch12 -p1
 %patch15 -p1
 %patch99 -p1
 
@@ -548,6 +545,9 @@ systemctl daemon-reload
 
 
 %changelog
+* Mon Feb 20 2023 Martin Gansser <martinkg@fedoraproject.org> - 2.6.4-1
+- Update to 2.6.4
+
 * Fri Feb 10 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-3
 - Rebuilt for rawhide
 

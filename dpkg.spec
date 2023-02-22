@@ -3,7 +3,7 @@
 
 Name:           dpkg
 Version:        1.21.20
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Package maintenance system for Debian Linux
 # The entire source code is GPLv2+ with exception of the following
 # lib/dpkg/md5.c, lib/dpkg/md5.h - Public domain
@@ -177,6 +177,9 @@ user interfaces.
 
 %prep
 %autosetup -p1
+
+#fix for https://bugzilla.redhat.com/show_bug.cgi?id=2171353
+sed -i 's/use at/at/' scripts/dpkg-source.pl
 
 # Filter unwanted Requires:
 cat << \EOF > %{name}-req
@@ -485,6 +488,9 @@ make VERBOSE=1 TESTSUITEFLAGS=--verbose \
 
 
 %changelog
+* Mon Feb 20 2023 Sérgio Basto <sergio@serjux.com> - 1.21.20-2
+- Fix FTI, bug https://bugzilla.redhat.com/show_bug.cgi?id=2171353
+
 * Wed Feb 15 2023 Dalton Miner <daltonminer@gmail.com> - 1.21.20-1
 - Update dpkg to 1.21.20 (#2150017)
 - Add zstd support (#2112807)
@@ -573,7 +579,7 @@ make VERBOSE=1 TESTSUITEFLAGS=--verbose \
 - More clean up of el6 builds
 
 * Thu Nov 14 2019 Sérgio Basto <sergio@serjux.com> - 1.19.7-1
-- Upgrade dpkg to 1.19.x 1.19.7
+- Upgrade dpkg to 1.19.x, 1.19.7
 - Won't be possible build on el7
 - Remove hacks for tar <= 1.28 on el7 (patch 3)
 - Remove hacks buil on el6 (patch 2)

@@ -7,7 +7,7 @@ ExcludeArch: %{ix86}
 
 # Git submodules
 #   * libcommuni
-%global commit2         a7b32cd6fa0640721b6114b31d37d79ebf832411
+%global commit2         030710ad53dda1541601ccabbad36a12a9e90c78
 %global shortcommit2    %(c=%{commit2}; echo ${c:0:7})
 
 #   * settings
@@ -23,20 +23,28 @@ ExcludeArch: %{ix86}
 %global shortcommit5    %(c=%{commit5}; echo ${c:0:7})
 
 #   * qtkeychain
-%global commit8         de954627363b0b4bff9a2616f1a409b7e14d5df9
+%global commit8         e5b070831cf1ea3cb98c95f97fcb7439f8d79bd6
 %global shortcommit8    %(c=%{commit8}; echo ${c:0:7})
 
 #   * magic_enum
-%global commit9         f4ebb4f185ce956bf50b93acbef1516030ecdb36
+%global commit9         e1a68e9dd3d2e9180b04c8aeacd4975db745e6b8
 %global shortcommit9    %(c=%{commit9}; echo ${c:0:7})
 
 #   * sanitizers-cmake
-%global commit10         99e159ec9bc8dd362b08d18436bd40ff0648417b
-%global shortcommit10    %(c=%{commit10}; echo ${c:0:7})
+%global commit10        c3dc841af4dbf44669e65b82cb68a575864326bd
+%global shortcommit10   %(c=%{commit10}; echo ${c:0:7})
+
+#   * miniaudio
+%global commit11        c153a947919808419b0bf3f56b6f2ee606d6c5f4
+%global shortcommit11   %(c=%{commit10}; echo ${c:0:7})
+
+#   * websocketpp
+%global commit12        b9aeec6eaf3d5610503439b4fae3581d9aff08e8
+%global shortcommit12   %(c=%{commit10}; echo ${c:0:7})
 
 
 Name:           chatterino2
-Version:        2.4.0
+Version:        2.4.1
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 
@@ -73,6 +81,8 @@ Source5:        https://github.com/pajlada/serialize/archive/%{commit5}/serializ
 Source8:        https://github.com/Chatterino/qtkeychain/archive/%{commit8}/qtkeychain-%{shortcommit8}.tar.gz
 Source9:        https://github.com/Neargye/magic_enum/archive/%{commit9}/magic_enum-%{shortcommit9}.tar.gz
 Source10:       https://github.com/arsenm/sanitizers-cmake/archive/%{commit10}/sanitizers-cmake-%{shortcommit10}.tar.gz
+Source11:       https://github.com/mackron/miniaudio/archive/%{commit11}/miniaudio-%{shortcommit11}.tar.gz
+Source12:       https://github.com/zaphoyd/websocketpp/archive/%{commit12}/websocketpp-%{shortcommit12}.tar.gz
 
 BuildRequires:  boost-devel
 BuildRequires:  cmake
@@ -91,7 +101,6 @@ BuildRequires:  cmake(Qt5Network)
 BuildRequires:  cmake(Qt5Svg)
 BuildRequires:  cmake(Qt5Widgets)
 BuildRequires:  cmake(RapidJSON)
-BuildRequires:  cmake(websocketpp)
 
 BuildRequires:  pkgconfig(libsecret-1)
 BuildRequires:  pkgconfig(openssl)
@@ -103,11 +112,13 @@ Requires:       qt5-qtsvg
 #   * https://github.com/Chatterino/chatterino2/issues/1444
 Provides:       bundled(libcommuni) = 3.6.0
 Provides:       bundled(magic_enum) = 0.8.1~git%{shortcommit9}
+Provides:       bundled(miniaudio) = 0~git%{shortcommit11}
 Provides:       bundled(qtkeychain) = 0.9.1~git%{shortcommit8}
 Provides:       bundled(sanitizers-cmake) = 0~git%{shortcommit10}
 Provides:       bundled(serialize) = 0~git%{shortcommit5}
 Provides:       bundled(settings) = 0~git%{shortcommit3}
 Provides:       bundled(signals) = 0~git%{shortcommit4}
+Provides:       bundled(websocketpp) = 0.8.2~git%{shortcommit12}
 
 %description
 Chatterino 2 is a chat client for Twitch.tv.
@@ -122,6 +133,8 @@ Chatterino 2 is a chat client for Twitch.tv.
 %setup -n %{name}-%{tarball_version} -q -D -T -a8
 %setup -n %{name}-%{tarball_version} -q -D -T -a9
 %setup -n %{name}-%{tarball_version} -q -D -T -a10
+%setup -n %{name}-%{tarball_version} -q -D -T -a11
+%setup -n %{name}-%{tarball_version} -q -D -T -a12
 
 mv libcommuni-%{commit2}/*  lib/libcommuni
 mv settings-%{commit3}/*    lib/settings
@@ -129,6 +142,8 @@ mv signals-%{commit4}/*     lib/signals
 mv serialize-%{commit5}/*   lib/serialize
 mv qtkeychain-%{commit8}/*  lib/qtkeychain
 mv magic_enum-%{commit9}/*  lib/magic_enum
+mv miniaudio-%{commit11}/*  lib/miniaudio
+mv websocketpp-%{commit12}/*  lib/websocketpp
 mv sanitizers-cmake-%{commit10}/* cmake/sanitizers-cmake
 
 
@@ -137,7 +152,8 @@ GIT_COMMIT=%{chatterino_git_commit}
 %cmake \
     -DCHATTERINO_GIT_COMMIT=%{chatterino_git_commit} \
     -DUSE_PRECOMPILED_HEADERS=0FF \
-    -DUSE_SYSTEM_QTKEYCHAIN=ON
+    -DUSE_SYSTEM_QTKEYCHAIN=ON \
+    %{nil}
 %cmake_build
 
 

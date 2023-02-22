@@ -1,8 +1,8 @@
 %global pypi_name cle
 
 Name:           python-%{pypi_name}
-Version:        9.2.32
-Release:        2%{?dist}
+Version:        9.2.38
+Release:        1%{?dist}
 Summary:        Python interface for analyzing binary formats
 
 License:        BSD
@@ -10,25 +10,22 @@ URL:            https://github.com/angr/cle
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
+BuildRequires:  python3-devel
+
 %description
 CLE loads binaries and their associated libraries, resolves imports
 and provides an abstraction of process memory the same way as if it was
 loader by the OS's loader.
 
-
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{pypi_name}}
-
 
 %description -n python3-%{pypi_name}
 CLE loads binaries and their associated libraries, resolves imports
 and provides an abstraction of process memory the same way as if it was
 loader by the OS's loader.
-
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
@@ -36,23 +33,22 @@ loader by the OS's loader.
 %generate_buildrequires
 %pyproject_buildrequires
 
-
 %build
 %pyproject_wheel
-
 
 %install
 %pyproject_install
 
 %pyproject_save_files cle
 
-
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.md
 %license LICENSE
 
-
 %changelog
+* Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.38-1
+- Update to latest upstream release 9.2.38
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.2.32-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

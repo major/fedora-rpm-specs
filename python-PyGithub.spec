@@ -6,10 +6,10 @@
 %global pkgname pygithub
 
 Name:           python-%{srcname}
-Version:        1.57
-Release:        2%{?dist}
+Version:        1.58.0
+Release:        1%{?dist}
 Summary:        Python library to work with the Github API
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/PyGithub/PyGithub
 # github tarball (unlike PyPI one) contains tests
 Source:         %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz
@@ -52,6 +52,9 @@ Obsoletes:      python3-PyGithub < 1.29-8
 %exclude %{python3_sitelib}/%{libname}/tests
 
 %changelog
+* Mon Feb 20 2023 Jiri Popelka <jpopelka@redhat.com> - 1.58-1
+- 1.58.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.57-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

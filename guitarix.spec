@@ -5,7 +5,7 @@
 
 Name:           guitarix
 Version:        0.44.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A virtual guitar amplifier
 License:        GPLv2+
 URL:            http://guitarix.sourceforge.net/
@@ -214,6 +214,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/org.%{name}.%{
 %{_libdir}/lv2/*
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.44.1-6
+- Rebuilt for Boost 1.81
+
 * Tue Jan 31 2023 Guido Aulisi <guido.aulisi@gmail.com> - 0.44.1-5
 - Use shebang fix macro
 

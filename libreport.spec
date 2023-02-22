@@ -12,14 +12,10 @@
 
 %define glib_ver 2.43.4
 
-%if "x%{?rhbz_product_version}" == "x"
-    %define rhbz_product_version %(source /etc/os-release; echo ${REDHAT_BUGZILLA_PRODUCT_VERSION})
-%endif
-
 Summary: Generic library for reporting various problems
 Name: libreport
-Version: 2.17.6
-Release: 2%{?dist}
+Version: 2.17.7
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 URL: https://abrt.readthedocs.org/
 Source: https://github.com/abrt/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -193,7 +189,7 @@ Summary: %{name}'s bugzilla plugin
 Requires: %{name} = %{version}-%{release}
 Requires: libreport-web = %{version}-%{release}
 Requires: python3-libreport = %{version}-%{release}
-%if "%{rhbz_product_version}" == "rawhide"
+%if 0%{?fedora} >= 38
 Requires: python3-satyr
 Suggests: python3-pytest
 Suggests: python3-vcrpy
@@ -370,6 +366,10 @@ rm -f %{buildroot}/%{_sysconfdir}/libreport/workflows.d/report_uReport.conf
 rm -f %{buildroot}/%{_sysconfdir}/libreport/workflows.d/report_rhel_bugzilla.conf
 rm -f %{buildroot}%{_mandir}/man5/report_uReport.conf.5
 rm -f %{buildroot}%{_mandir}/man5/report_rhel_bugzilla.conf.5
+%endif
+
+%if 0%{?fedora} >= 38
+    mv %{buildroot}/%{_bindir}/reporter-bugzilla-python %{buildroot}/%{_bindir}/reporter-bugzilla
 %endif
 
 %check
@@ -562,11 +562,8 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %{_mandir}/man5/bugzilla_formatdup_analyzer_libreport.conf.5.*
 %{_mandir}/man5/bugzilla_format_kernel.conf.5.*
 %{_bindir}/reporter-bugzilla
+%if 0%{?fedora} < 38
 %{_bindir}/reporter-bugzilla-python
-
-%post plugin-bugzilla
-%if "%{rhbz_product_version}" == "rawhide"
-    mv %{_bindir}/reporter-bugzilla-python %{_bindir}/reporter-bugzilla
 %endif
 
 %endif
@@ -670,6 +667,20 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &>/dev/null || :
 %endif
 
 %changelog
+* Mon Feb 20 2023 Packit <hello@packit.dev> - 2.17.7-1
+- Release version 2.17.7 (Michal Srb)
+- spec: Add disttag (Michal Srb)
+- Update changelog (Michal Srb)
+- Fix rpm -V issue with missing reporter-bugzilla-python in f38 (Michal Srb)
+- Fix TypeError (Michal Srb)
+- Update pot file (Matěj Grabovský)
+- readme: Add diagram of related projects (Matěj Grabovský)
+- Update translations (mgrabovsky)
+- Use SPDX format for license field (Matěj Grabovský)
+- ignored_words: Add KeyboardInterrupt (Michal Fabik)
+- packit: Add dependencies for SRPM build (Matěj Grabovský)
+- Update translations (mgrabovsky)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

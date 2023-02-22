@@ -3,7 +3,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 3
+%global baserelease 4
 
 Name:           credentials-fetcher
 Version:        %{major_version}.%{minor_version}.%{patch_version}
@@ -62,6 +62,9 @@ ctest3
 %attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.1.0-4
+- Rebuilt for Boost 1.81
+
 * Thu Feb 09 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.0-3
 - Depend on dotnet-sdk-7.0; there is no longer an unversioned “dotnet” package
 - Restore ppc64le support

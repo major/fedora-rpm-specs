@@ -1,17 +1,17 @@
 Name:		perl-Package-DeprecationManager
-Version:	0.17
-Release:	20%{?dist}
+Version:	0.18
+Release:	1%{?dist}
 Summary:	Manage deprecation warnings for your distribution
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Package-DeprecationManager
-Source0:	https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Package-DeprecationManager-%{version}.tar.gz
+Source0:	https://cpan.metacpan.org/modules/by-module/Package/Package-DeprecationManager-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:	perl(Carp)
@@ -20,7 +20,7 @@ BuildRequires:	perl(Package::Stash)
 BuildRequires:	perl(Params::Util)
 BuildRequires:	perl(strict)
 BuildRequires:	perl(Sub::Install)
-BuildRequires:	perl(Sub::Name)
+BuildRequires:	perl(Sub::Util)
 BuildRequires:	perl(warnings)
 # Test Suite
 BuildRequires:	perl(Exporter)
@@ -50,22 +50,28 @@ make %{?_smp_mflags}
 %install
 make pure_install DESTDIR=%{buildroot}
 find %{buildroot} -type f -name .packlist -delete
-%{_fixperms} %{buildroot}
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
-%doc Changes CONTRIBUTING.md README.md
+%doc Changes CODE_OF_CONDUCT.md CONTRIBUTING.md README.md
 %{perl_vendorlib}/Package/
 %{_mandir}/man3/Package::DeprecationManager.3*
 
 %changelog
+* Mon Feb 20 2023 Paul Howarth <paul@city-fan.org> - 0.18-1
+- Update to 0.18
+  - Use Sub::Util instead of Sub::Name, which is part of Scalar-List-Utils,
+    which itself is already a dependency (GH#3)
+- Use author-independent source URL
+- Use SPDX-format license tag
+- Use %%license unconditionally
+- Package CODE_OF_CONDUCT.md
+- Fix permissions verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.17-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 Summary: Software version control visualization
 Name: gource
 Version: 0.54
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: http://gource.io/
 Source: https://github.com/acaudwell/Gource/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 ExcludeArch: ppc64le
@@ -58,6 +58,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/fonts
 %{_datadir}/gource/*
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.54-2
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.54-1
 - 0.54
 

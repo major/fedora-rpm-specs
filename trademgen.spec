@@ -4,7 +4,7 @@
 #
 Name:           trademgen
 Version:        1.00.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        C++ Simulated Travel Demand Generation Library
 License:        LGPLv2+
@@ -147,6 +147,9 @@ rm -f %{_bindir}/py%{name}
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.8-4
+- Rebuilt for Boost 1.81
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

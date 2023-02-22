@@ -62,7 +62,7 @@ Conflicts: %1 \
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind
 License:  MPL-2.0
-Version:  9.18.11
+Version:  9.18.12
 Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
@@ -101,8 +101,6 @@ Patch16: bind-9.16-redhat_doc.patch
 Patch22: bind-9.11-fips-tests.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=2122010
 Patch26: bind-9.18-unittest-netmgr-unstable.patch
-# https://gitlab.isc.org/isc-projects/bind9/-/merge_requests/7376/
-Patch27: bind-9.18-zt-include-rwlock.patch
 
 %{?systemd_ordering}
 Requires:       coreutils
@@ -951,6 +949,9 @@ fi;
 %endif
 
 %changelog
+* Thu Feb 16 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.12-1
+- Update to 9.18.12 (#2170096)
+
 * Fri Jan 27 2023 Petr Menšík <pemensik@redhat.com> - 32:9.18.11-1
 - Update to 9.18.11 (#2164395)
 

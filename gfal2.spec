@@ -5,22 +5,17 @@
 %bcond_with tests
 
 Name:               gfal2
-Version:            2.21.2
-Release:            3%{?dist}
+Version:            2.21.3
+Release:            1%{?dist}
 Summary:            Grid file access library 2.0
 License:            ASL 2.0
 URL:                https://dmc-docs.web.cern.ch/dmc-docs/gfal2/gfal2.html
-# git clone --depth=1 --branch master https://gitlab.cern.ch/dmc/gfal2.git gfal2-2.21.2
-# pushd gfal2-2.21.2
-# git checkout v2.21.2
+# git clone --depth=1 --branch master https://gitlab.cern.ch/dmc/gfal2.git gfal2-2.21.3
+# pushd gfal2-2.21.3
+# git checkout v2.21.3
 # popd
-# tar czf gfal2-2.21.2.tar.gz --exclude-vcs gfal2-2.21.2
+# tar czf gfal2-2.21.3.tar.gz --exclude-vcs gfal2-2.21.3
 Source0:            %{name}-%{version}.tar.gz
-
-# Don't downgrade the C++ version
-# https://github.com/cern-fts/gfal2/pull/14
-# (gtest requires C++14 or later beginning with 1.13.0)
-Patch:              https://github.com/cern-fts/gfal2/pull/14.patch
 
 #main lib dependencies
 BuildRequires:      gcc-c++
@@ -220,7 +215,7 @@ gfal2 tests
 %cmake3_build --target clean
 
 %prep
-%autosetup -p1
+%autosetup
 
 %build
 # Make sure the version in the spec file and the version used
@@ -345,6 +340,10 @@ fi
 
 
 %changelog
+* Mon Feb 20 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 2.21.3-1
+- Upgrade to upstream release 2.21.3
+- Drop patches accepted upstream
+
 * Tue Jan 24 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.21.2-3
 - Rebuild for gtest 1.13.0 (close RHBZ#2163832)
 

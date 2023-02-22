@@ -9,7 +9,7 @@
 
 # https://github.com/chromedp/chromedp
 %global goipath         github.com/chromedp/chromedp
-Version:                0.8.5
+Version:                0.8.7
 
 %gometa
 

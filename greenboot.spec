@@ -1,8 +1,8 @@
 %global debug_package %{nil}
 
 Name:               greenboot
-Version:            0.15.3
-Release:            2%{?dist}
+Version:            0.15.4
+Release:            1%{?dist}
 Summary:            Generic Health Check Framework for systemd
 License:            LGPLv2+
 
@@ -166,6 +166,12 @@ install -DpZm 0644 etc/greenboot/greenboot.conf %{buildroot}%{_sysconfdir}/%{nam
 %{_prefix}/lib/%{name}/check/required.d/02_watchdog.sh
 
 %changelog
+* Mon Feb 20 2023 Packit <hello@packit.dev> - 0.15.4-1
+- Release v0.15.4 (Paul Whalen)
+- checks: update assignment of platform URLs var (Micah Abbott)
+- Revert "update_platforms_check: quote array for ShellCheck fix" (Micah Abbott)
+- Update README.md (alcir)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

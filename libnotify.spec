@@ -1,11 +1,11 @@
-%define glib2_version           2.26.0
+%define glib2_version 2.38.0
 
 Name:    libnotify
-Version: 0.8.1
-Release: 3%{?dist}
+Version: 0.8.2
+Release: 1%{?dist}
 Summary: Desktop notification library
 
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL:     https://gitlab.gnome.org/GNOME/libnotify
 Source0: https://download.gnome.org/sources/libnotify/0.8/%{name}-%{version}.tar.xz
 
@@ -13,7 +13,7 @@ BuildRequires: pkgconfig(gdk-pixbuf-2.0)
 BuildRequires: pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires: pkgconfig(gobject-introspection-1.0)
 BuildRequires: docbook-xsl-ns
-BuildRequires: gtk-doc
+BuildRequires: gi-docgen
 BuildRequires: meson
 BuildRequires: xmlto
 BuildRequires: /usr/bin/xsltproc
@@ -44,8 +44,6 @@ development of programs using %{name}.
 %install
 %meson_install
 
-%ldconfig_scriptlets
-
 %files
 %license COPYING
 %doc NEWS AUTHORS README.md
@@ -59,12 +57,14 @@ development of programs using %{name}.
 %{_includedir}/libnotify/*
 %{_libdir}/libnotify.so
 %{_libdir}/pkgconfig/libnotify.pc
-%dir %{_datadir}/gtk-doc/html/libnotify
-%{_datadir}/gtk-doc/html/libnotify/*
 %{_datadir}/gir-1.0/Notify-0.7.gir
+%{_docdir}/libnotify-0/
 %doc %{_docdir}/libnotify/spec/
 
 %changelog
+* Mon Feb 20 2023 David King <amigadave@amigadave.com> - 0.8.2-1
+- Update to 0.8.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

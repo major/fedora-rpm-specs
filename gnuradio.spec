@@ -26,7 +26,7 @@
 
 Name:		gnuradio
 Version:	3.10.4.0
-Release:	6%{?alphatag:.%{alphatag}}%{?dist}
+Release:	7%{?alphatag:.%{alphatag}}%{?dist}
 Summary:	Software defined radio framework
 
 License:	GPLv3
@@ -196,6 +196,9 @@ rm -r %{buildroot}%{_datadir}/%{name}/grc/freedesktop
 %{_datadir}/gnuradio/examples
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.10.4.0-7
+- Rebuilt for Boost 1.81
+
 * Wed Feb  1 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.10.4.0-6
 - Rebuilt for new uhd
 

@@ -4,7 +4,7 @@
 #
 Name:           rmol
 Version:        1.00.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        C++ library of Revenue Management and Optimisation classes and functions
 
@@ -146,6 +146,9 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.8-4
+- Rebuilt for Boost 1.81
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

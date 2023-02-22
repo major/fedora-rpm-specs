@@ -1,7 +1,5 @@
-# F35: Do not update past 3.14.0. F35's protobuf is too old.
-
-# tests are enabled by default
-%bcond_without  tests
+# Upstream broke test imports
+%bcond_with     tests
 
 %global         srcname     google-cloud-spanner
 %global         forgeurl    https://github.com/googleapis/python-spanner

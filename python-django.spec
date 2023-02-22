@@ -1,10 +1,10 @@
 Name:           python-django
 %global         pkgname Django
-%global         ver 4.0.2
+%global         ver 4.1.7
 #global         pre ...
 %global         real_version %{ver}%{?pre:%{pre}}
 Version:        %{ver}%{?pre:~%{pre}}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        A high-level Python Web framework
 
 License:        BSD
@@ -12,23 +12,7 @@ URL:            https://www.djangoproject.com/
 Source0:        %{pypi_source %{pkgname} %{real_version}}
 
 # skip tests requiring network connectivity
-Patch000:       Django-2.0-skip-net-tests.patch
-
-# Fix inspectdb.tests.InspectDBTestCase.test_custom_fields() on SQLite 3.37+
-# Backported from upstream
-Patch:          https://github.com/django/django/pull/15168.patch
-
-# Python 3.11 tests fixes from upstream, rebased (mostly due to black reformatting)
-# Added Python 3.11 version info util
-#   https://github.com/django/django/pull/15441
-# Fixed test_runner/test_utils tests on Python 3.11+
-#   https://github.com/django/django/pull/15565
-# Fixed test_dateparse tests on Python 3.11+
-#   https://github.com/django/django/pull/15674
-Patch:          python3.11.patch
-
-# Fix documentation build with Sphinx 5+
-Patch:          https://github.com/django/django/pull/15745.patch
+# Patch000:       Django-2.0-skip-net-tests.patch
 
 BuildArch:      noarch
 
@@ -67,6 +51,7 @@ Summary:        A high-level Python Web framework
 Recommends:     (%{name}-bash-completion = %{version}-%{release} if bash)
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-asgiref
 
 Provides: bundled(jquery) = 2.2.3
 Provides: bundled(xregexp) = 2.0.0
@@ -151,6 +136,9 @@ cd tests
 
 
 %changelog
+* Mon Feb 13 2023 Matthias Runge <mrunge@redhat.com> - 4.1.7-1
+- update to 4.1.7 (rhbz#2169312)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

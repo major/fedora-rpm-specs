@@ -15,18 +15,18 @@
 %global verify_tarball_signature 1
 
 # If there are patches which touch autotools files, set this to 1.
-%global patches_touch_autotools 1
+%global patches_touch_autotools %{nil}
 
 # The source directory.
-%global source_directory 1.50-stable
+%global source_directory 1.51-development
 
 # Filter perl provides.
 %{?perl_default_filter}
 
 Summary:       Tools to access and modify virtual machine disk images
 Name:          guestfs-tools
-Version:       1.50.0
-Release:       2%{?dist}
+Version:       1.51.1
+Release:       1%{?dist}
 License:       GPLv2+
 
 # Build only for architectures that have a kernel
@@ -51,8 +51,6 @@ Source2:       libguestfs.keyring
 %if 0%{patches_touch_autotools}
 BuildRequires: autoconf, automake, libtool, gettext-devel
 %endif
-
-Patch:         0001-Remove-virt-dib.patch
 
 # Basic build requirements.
 BuildRequires: gcc, gcc-c++
@@ -94,6 +92,7 @@ BuildRequires: perl(Expect)
 BuildRequires: bash-completion
 BuildRequires: /usr/bin/qemu-img
 BuildRequires: xorriso
+BuildRequires: hwdata
 BuildRequires: perl(Locale::TextDomain)
 BuildRequires: perl(Sys::Guestfs)
 BuildRequires: perl(Win::Hivex)
@@ -117,6 +116,9 @@ Requires:      xz
 
 # For virt-builder-repository:
 Suggests:      osinfo-db
+
+# For virt-drivers:
+Recommends:    hwdata
 
 # For virt-inspector, since Fedora and RHEL >= 7 use XFS:
 Recommends:    libguestfs-xfs
@@ -403,6 +405,10 @@ end
 
 
 %changelog
+* Mon Feb 20 2023 Richard W.M. Jones <rjones@redhat.com> - 1.51.1-1
+- New development version 1.51.1
+- virt-drivers: Add BuildRequires and runtime Recommends on hwdata.
+
 * Tue Feb 14 2023 Richard W.M. Jones <rjones@redhat.com> - 1.50.0-2
 - Remove virt-dib (RHBZ#2169550)
 

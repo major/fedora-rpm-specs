@@ -1,7 +1,7 @@
 Summary:       Library of functions for manipulating TIFF format image files
 Name:          libtiff
 Version:       4.4.0
-Release:       5%{?dist}
+Release:       6%{?dist}
 License:       libtiff
 URL:           http://www.simplesystems.org/libtiff/
 
@@ -11,6 +11,7 @@ Patch0:        libtiff-am-version.patch
 Patch1:        libtiff-make-check.patch
 Patch2:        libtiff-CVE-2022-2056_2057_2058.patch
 Patch3:        libtiff-CVE-2022-34526.patch
+Patch4:        libtiff-CVE-2023-0804.patch
 
 BuildRequires: gcc, gcc-c++
 BuildRequires: zlib-devel libjpeg-devel jbigkit-devel libzstd-devel libwebp-devel
@@ -58,12 +59,13 @@ This package contains command-line programs for manipulating TIFF format
 image files using the libtiff library.
 
 %prep
-%setup -q -n tiff-%{version}
+%autosetup -n tiff-%{version} -N
 
-%patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%patch0 -p1 -b .backup
+%patch1 -p1 -b .backup
+%patch2 -p1 -b .backup
+%patch3 -p1 -b .backup
+%patch4 -p1 -b .backup
 
 # Use build system's libtool.m4, not the one in the package.
 rm -f libtool.m4
@@ -168,6 +170,9 @@ find html -name 'Makefile*' | xargs rm
 %{_mandir}/man1/*
 
 %changelog
+* Sun Feb 19 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.4.0-6
+- Fix CVE-2023-0804 (#2170195)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

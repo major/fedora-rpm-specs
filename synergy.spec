@@ -1,15 +1,16 @@
 %define __cmake_in_source_build 1
 
-%global release_date 2022-02-21
+%global release_date 2022-07-19
 %global icon_path %{_datadir}/icons/hicolor/scalable/apps/synergy.svg
 Summary: Share mouse and keyboard between multiple computers over the network
 Name: synergy
 Epoch: 1
-Version: 1.14.3.5
-Release: 3%{?dist}
+Version: 1.14.5.17
+Release: 1%{?dist}
 License: GPLv2
 URL: https://symless.com/synergy
-Source0: https://github.com/symless/synergy-core/archive/refs/tags/%{version}-stable.tar.gz
+Source0: https://github.com/symless/synergy-core/archive/refs/tags/%{version}.tar.gz
+Patch0: synergy-1.14_fix-includes.patch
 
 # Last built version of synergy-plus was 1.3.4-12.fc20
 Provides: synergy-plus = %{version}-%{release}
@@ -41,7 +42,8 @@ Windows, Mac OS X and Linux. Redirecting the mouse and keyboard is as simple
 as moving the mouse off the edge of your screen.
 
 %prep
-%setup -q -n %{name}-core-%{version}-stable
+%setup -q -n %{name}-core-%{version}
+%patch0 -p1
 #Remove the submodule pugixml
 sed -i.remove-sub-pugixml -e '/pugixml/ s/^/#/' src/lib/synergy/CMakeLists.txt
 
@@ -126,6 +128,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/synergy.desktop
 %{_mandir}/man8/synergys.8.gz
 
 %changelog
+* Tue Feb 21 2023 David Kaufmann <astra@ionic.at> - 1:1.14.5.17-1
+- Update to v1.14.5.17
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.14.3.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

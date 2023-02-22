@@ -6,7 +6,7 @@
 
 Name:           libppd
 Version:        2.0b3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -55,10 +55,11 @@ BuildRequires: poppler-utils
 # libppd exports symbols for compiling PPD compilers, which needs charset
 # definitions and header files during runtime to generate a PPD file - those
 # are provided by cups right now - once cups drops them, require libppd-tools
-#Requires: cups
+Requires: cups
 %else
 Requires: %{name}-tools%{?_isa} = %{version}-%{release}
 %endif
+
 # needded for hybrid pdftops filter function - for all legacy printers
 # except for Brother and Minolta/Konica Minolta, which firmware bugs
 # doesn't work with pdftops from GS
@@ -188,6 +189,9 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-4
+- rebuilt with required cups
+
 * Thu Feb 16 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-3
 - don't use bootstrap for now - koji doesn't seem to see it...
 

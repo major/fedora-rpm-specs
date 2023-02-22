@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 38.23
+Version: 39.1
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -463,6 +463,10 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Thu Feb 16 2023 Packit <hello@packit.dev> - 39.1-1
+- Fix new pylint detections (vslavik)
+- Update translations from Weblate
+
 * Wed Feb 15 2023 Packit <hello@packit.dev> - 38.23-1
 - Templatize pykickstart version in dracut code (vslavik)
 - Apply --noverifyssl option for liveimg kickstart command (jstodola)

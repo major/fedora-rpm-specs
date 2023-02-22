@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.21.3
+Version:    2.21.4
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -154,7 +154,8 @@ export PYTHON=%{__python3}
 
 %check
 export LC_ALL=C.UTF-8
-%if 0%{?fedora}
+%if 0%{?fedora} <= 37
+  # broken on f38 and f39, see: https://bugzilla.redhat.com/show_bug.cgi?id=2171887
   appstreamcli validate --pedantic --no-net %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 %endif
 desktop-file-validate \
@@ -248,6 +249,11 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Mon Feb 20 2023 Mike FABIAN <mfabian@redhat.com> - 2.21.4-1
+- Update to 2.21.4
+- Memoize instances of the Dictionary class
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/425)
+
 * Sun Feb 12 2023 Mike FABIAN <mfabian@redhat.com> - 2.21.3-1
 - Update to 2.21.3
 - Update emoji annotations from CLDR

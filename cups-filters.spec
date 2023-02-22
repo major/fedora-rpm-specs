@@ -1,170 +1,78 @@
-# build braille subpackage on Fedora, don't do it on CentOS Stream 9 or older
-%if 0%{?fedora} || 0%{?rhel} > 9
+%if 0%{?fedora}
+%bcond_without mdns
 %bcond_without braille
 %else
+%bcond_with mdns
 %bcond_with braille
 %endif
 
 # we build CUPS also with relro
 %global _hardened_build 1
 
-Summary: OpenPrinting CUPS filters and backends
+
+Summary: OpenPrinting CUPS filters and backends for CUPS 2.X
 Name:    cups-filters
-Version: 1.28.16
-Release: 7%{?dist}
+Version: 2.0b3
+Release: 1%{?dist}
 
-# For a breakdown of the licensing, see COPYING file
-# GPLv2:   filters: commandto*, imagetoraster, pdftops, rasterto*,
-#                   imagetopdf, pstopdf, texttopdf
-#         backends: parallel, serial
-# GPLv2+:  filters: gstopxl, textonly, texttops, imagetops, foomatic-rip
-# GPLv3:   filters: bannertopdf
-# GPLv3+:  filters: urftopdf, rastertopdf
-# LGPLv2+:   utils: cups-browsed
-# MIT:     filters: gstoraster, pdftoijs, pdftoopvp, pdftopdf, pdftoraster
-License: GPLv2 and GPLv2+ and GPLv3 and GPLv3+ and LGPLv2+ and MIT and BSD with advertising
+# the CUPS exception text is the same as LLVM exception, so using that name with
+# agreement from legal team
+# https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
+License: Apache-2.0 WITH LLVM-exception
 
-Url:     http://www.linuxfoundation.org/collaborate/workgroups/openprinting/cups-filters
-Source0: http://www.openprinting.org/download/cups-filters/cups-filters-%{version}.tar.xz
+URL:     https://github.com/OpenPrinting/cups-filters
+Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 
-# backported from upstream
-Patch0001: browsed-updatenetif.patch
 
-%if %{with braille}
-# due moving texttobrf and textbrftoindexv3 to cups-filters-braille
-# remove after F38 goes EOL and CentOS Stream 10 is released
-Conflicts: cups-filters-braille < 1.28.16-3
-%endif
+# Patches
+# https://github.com/OpenPrinting/cups-filters/pull/504
+Patch0001: 0001-configure.ac-C-not-needed.patch
+# https://github.com/OpenPrinting/cups-filters/pull/510
+Patch0002: 0001-Coverity-fixes.patch
+
 
 # autogen.sh
 BuildRequires: autoconf
+# autogen.sh
 BuildRequires: automake
-BuildRequires: gettext-devel
-BuildRequires: libtool
-
-# build requirements for build system:
-# gcc for backends (implicitclass, parallel, serial, backend error handling)
-# cupsfilters (colord, color manager...), filter (banners, 
-# commandto*, braille, foomatic-rip, imagetoraster, imagetopdf, gstoraster e.g.),
-# fontembed, cups-browsed
+# filter binaries and backends are written in C
 BuildRequires: gcc
-# gcc-c++ for pdftoopvp, pdftopdf
-BuildRequires: gcc-c++
+# autogen.sh
+BuildRequires: gettext-devel
 # for autosetup
 BuildRequires: git-core
+# autogen.sh
+BuildRequires: libtool
 # uses make for compiling
 BuildRequires: make
 # we use pkgconfig to get a proper devel packages
 # proper CFLAGS and LDFLAGS
 BuildRequires: pkgconf-pkg-config
-
-# uses CUPS API functions - arrays, ipp functions
-BuildRequires: cups-devel
-
-# pdftopdf
-BuildRequires: pkgconfig(libqpdf)
-
-# pdftops
-BuildRequires: poppler-utils
-
-# pdftoraster, gstoraster
-BuildRequires: ghostscript
-BuildRequires: libjpeg-turbo-devel
-BuildRequires: libtiff-devel
-BuildRequires: pkgconfig(dbus-1)
-BuildRequires: pkgconfig(fontconfig)
-BuildRequires: pkgconfig(freetype2)
-BuildRequires: pkgconfig(lcms2)
-# used for getting image resolution from images - they have
-# EXIF data in them and library accesses it
-BuildRequires: pkgconfig(libexif)
-BuildRequires: pkgconfig(libpng)
-BuildRequires: pkgconfig(poppler-cpp)
-BuildRequires: pkgconfig(zlib)
-
-# cups-browsed
-BuildRequires: avahi-devel
-BuildRequires: pkgconfig(avahi-glib)
-BuildRequires: pkgconfig(glib-2.0)
-BuildRequires: systemd
-
+# uses CUPS API
+BuildRequires: pkgconfig(cups) >= 2.2.2
+# uses cupsfilters API
+BuildRequires: pkgconfig(libcupsfilters) >= 2.0b3
+# uses PPD API
+BuildRequires: pkgconfig(libppd) >= 2.0b3
 # Make sure we get postscriptdriver tags.
 BuildRequires: python3-cups
 
-# Testing font for test scripts.
-BuildRequires: dejavu-sans-fonts
-
-# needed for systemd rpm macros in scriptlets
-BuildRequires: systemd-rpm-macros
-
+%if %{with braille}
+Recommends: braille-printer-app
+%endif
+# ippfind is used in driverless backend, not needed classic PPD based print queue
+Recommends: cups-ipptool
 # cups-browsed needs systemd-resolved or nss-mdns for resolving .local addresses of remote print queues
 # let's not require a specific package and let the user decide what he wants to use.
 # just recommend nss-mdns for Fedora for now to have working default, but
 # don't hardwire it for resolved users
-%if 0%{?fedora}
+%if %{with mdns}
 Recommends: nss-mdns
 %endif
-# Avahi is needed for device discovery for newer (2012+) devices and its sharing - make it recommended
-Recommends: avahi
-# ippfind is used in driverless backend, not needed classic PPD based print queue
-Recommends: cups-ipptool
 
-%if %{with braille}
-# braille filters and backend
-Recommends: %{name}-braille%{?_isa} = %{version}-%{release}
-%endif
-
-# pstopdf
-Requires: bc grep sed which
-# for getting ICC profiles for filters (dbus must run)
-Requires: colord
+# needs cups dirs
 Requires: cups-filesystem
-# have the same libs for the package
-Requires: cups-filters-libs%{?_isa} = %{version}-%{release}
-# several filters calls 'gs' binary during filtering
-Requires: ghostscript
-# texttopdf
-Requires: liberation-mono-fonts
-# if --with-pdftops is set to hybrid, we use poppler filters for several printers
-# and for printing banners, for other printers we need gs - ghostscript
-Requires: poppler-utils
 
-# cups-browsed
-# cups-browsed needs to have cups.service to run
-Requires: cups
-Requires(post): systemd
-Requires(preun): systemd
-Requires(postun): systemd
-
-
-%package libs
-Summary: OpenPrinting CUPS filters and backends - cupsfilters and fontembed libraries
-# LGPLv2: libcupsfilters
-# MIT:    libfontembed
-License: LGPLv2 and MIT
-
-%package devel
-Summary: OpenPrinting CUPS filters and backends - development environment
-License: LGPLv2 and MIT
-Requires: cups-filters-libs%{?_isa} = %{version}-%{release}
-
-%if %{with braille}
-%package braille
-Summary: OpenPrinting CUPS filters and backends - braille filters and backend
-License: GPLv2+ and MIT
-BuildRequires: liblouis-devel
-# due moving texttobrf and textbrftoindexv3 to cups-filters-braille
-# remove after F38 goes EOL and CentOS Stream 10 is released
-Conflicts: cups-filters < 1.28.16-3
-# we need classic pdftopdf and other filters as well
-Requires: cups-filters%{?_isa} = %{version}-%{release}
-# one of lou_translate (from liblouis-utils package) and
-# file2brl (from liblouisutdml-utils package) is used for file conversions:
-# => prefer lou_translate from liblouis-utils because liblouis-utils are in
-# CentOS Stream
-# liblouis-utils for lou_translate
-Requires: liblouis-utils
-%endif
 
 %description
 Contains backends, filters, and other software that was
@@ -173,16 +81,6 @@ Apple Inc. In addition it contains additional filters developed
 independently of Apple, especially filters for the PDF-centric printing
 workflow introduced by OpenPrinting.
 
-%description libs
-This package provides cupsfilters and fontembed libraries.
-
-%description devel
-This is the development package for OpenPrinting CUPS filters and backends.
-
-%if %{with braille}
-%description braille
-The package provides filters and cups-brf backend needed for braille printing.
-%endif
 
 %prep
 %autosetup -S git
@@ -191,114 +89,51 @@ The package provides filters and cups-brf backend needed for braille printing.
 # work-around Rpath
 ./autogen.sh
 
-# --with-pdftops=hybrid - use Poppler's pdftops instead of Ghostscript for
-#                         Brother, Minolta, and Konica Minolta to work around
-#                         bugs in the printer's PS interpreters
-# --with-rcdir=no - don't install SysV init script
-# --enable-driverless - enable PPD generator for driverless printing in 
-#                       /usr/lib/cups/driver, it is for manual setup of 
-#                       driverless printers with printer setup tool
-# --disable-static - do not build static libraries (becuase of Fedora Packaging
-#                    Guidelines)
-# --enable-dbus - enable DBus Connection Manager's code
-# --disable-silent-rules - verbose build output
-# --disable-mutool - mupdf is retired in Fedora, use qpdf
-# --enable-pclm - support for pclm language
-# --with-remote-cups-local-queue-naming=RemoteName - name created local queues, which point to
-#                                                    remote CUPS queue, by its name from the server
-# --disable-frequent-netif-update - cups-browsed can update its network interface data after every found printer,
-#                                   which slows down the printer creation - this disables it and leave the network
-#                                   interface update only after notification from NetworkManager
-
-%configure --disable-static \
-           --disable-silent-rules \
-           --with-pdftops=hybrid \
-           --enable-dbus \
-           --with-rcdir=no \
+%configure --enable-driverless \
+           --enable-universal-cups-filter \
            --disable-mutool \
-           --enable-driverless \
-           --enable-pclm \
-           --with-apple-raster-filter=rastertopdf \
-           --with-remote-cups-local-queue-naming=RemoteName \
-%if %{with braille}
-           --enable-braille \
-%else
-           --disable-braille \
-%endif
-           --disable-frequent-netif-update
+           --disable-rpath \
+           --disable-silent-rules \
+           --disable-static
 
 %make_build
 
 %install
 %make_install
 
-# Don't ship libtool la files.
-rm -f %{buildroot}%{_libdir}/lib*.la
-
-# Not sure what is this good for.
-rm -f %{buildroot}%{_bindir}/ttfread
-
-rm -f %{buildroot}%{_pkgdocdir}/INSTALL
-mkdir -p %{buildroot}%{_pkgdocdir}/fontembed/
-cp -p fontembed/README %{buildroot}%{_pkgdocdir}/fontembed/
-
-# systemd unit file
-mkdir -p %{buildroot}%{_unitdir}
-install -p -m 644 utils/cups-browsed.service %{buildroot}%{_unitdir}
-
 # LSB3.2 requires /usr/bin/foomatic-rip,
 # create it temporarily as a relative symlink
-ln -sf %{_cups_serverbin}/filter/foomatic-rip %{buildroot}%{_bindir}/foomatic-rip
+# (2.0b3) try using universal filter, it should have foomatic-rip functionality
+#ln -sf %{_cups_serverbin}/filter/foomatic-rip %{buildroot}%{_bindir}/foomatic-rip
+ln -sf %{_cups_serverbin}/filter/universal %{buildroot}%{_bindir}/foomatic-rip
+
+# remove license files which are in %%pkgdocdir
+rm -f %{buildroot}%{_pkgdocdir}/{COPYING,NOTICE,LICENSE}
+
+# remove INSTALL since it is unnecessary
+rm -f %{buildroot}%{_pkgdocdir}/INSTALL
+
+# remove CHANGES-1.x.md, since it is carried by a dependency
+rm -f %{buildroot}%{_pkgdocdir}/CHANGES-1.x.md
+
+# escp.h is not needed for runtime and nothing 
 
 
 %check
 make check
 
-%post
-%systemd_post cups-browsed.service
-
-# put UpdateCUPSQueuesMaxPerCall and PauseBetweenCUPSQueueUpdates into cups-browsed.conf
-# for making cups-browsed work more stable for environments with many print queues
-# remove this after 1-2 releases
-for directive in "UpdateCUPSQueuesMaxPerCall" "PauseBetweenCUPSQueueUpdates"
-do
-    found=`%{_bindir}/grep "^[[:blank:]]*$directive" %{_sysconfdir}/cups/cups-browsed.conf`
-    if [ -z "$found" ]
-    then
-        if [ "x$directive" == "xUpdateCUPSQueuesMaxPerCall" ]
-        then
-            %{_bindir}/echo "UpdateCUPSQueuesMaxPerCall 20" >> %{_sysconfdir}/cups/cups-browsed.conf
-        else
-            %{_bindir}/echo "PauseBetweenCUPSQueueUpdates 5" >> %{_sysconfdir}/cups/cups-browsed.conf
-        fi
-    fi
-done
-
-%preun
-%systemd_preun cups-browsed.service
-
-%postun
-%systemd_postun_with_restart cups-browsed.service 
-
-%ldconfig_scriptlets libs
-
 
 %files
-%{_pkgdocdir}/README
-%{_pkgdocdir}/ABOUT-NLS
-%{_pkgdocdir}/AUTHORS
-%{_pkgdocdir}/NEWS
+%license COPYING LICENSE NOTICE
+%doc AUTHORS ABOUT-NLS CHANGES.md CONTRIBUTING.md DEVELOPING.md README.md
 %{_bindir}/foomatic-rip
 %{_bindir}/driverless
 %{_bindir}/driverless-fax
-%{_sbindir}/cups-browsed
-%attr(0700,root,root) %{_cups_serverbin}/backend/beh
-# implicitclass backend must be run as root
-%attr(0700,root,root) %{_cups_serverbin}/backend/implicitclass
+%attr(0744,root,root) %{_cups_serverbin}/backend/beh
 # all backends needs to be run only as root because of kerberos
-%attr(0700,root,root) %{_cups_serverbin}/backend/parallel
+%attr(0744,root,root) %{_cups_serverbin}/backend/parallel
 # Serial backend needs to run as root (bug #212577#c4).
-%attr(0700,root,root) %{_cups_serverbin}/backend/serial
+%attr(0744,root,root) %{_cups_serverbin}/backend/serial
 %{_cups_serverbin}/backend/driverless
 %{_cups_serverbin}/backend/driverless-fax
 %attr(0755,root,root) %{_cups_serverbin}/filter/bannertopdf
@@ -311,101 +146,41 @@ done
 %attr(0755,root,root) %{_cups_serverbin}/filter/imagetopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/imagetops
 %attr(0755,root,root) %{_cups_serverbin}/filter/imagetoraster
+%attr(0755,root,root) %{_cups_serverbin}/filter/pclmtoraster
 %attr(0755,root,root) %{_cups_serverbin}/filter/pdftopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/pdftops
 %attr(0755,root,root) %{_cups_serverbin}/filter/pdftoraster
+%attr(0755,root,root) %{_cups_serverbin}/filter/pwgtopclm
+%attr(0755,root,root) %{_cups_serverbin}/filter/pwgtopdf
+%attr(0755,root,root) %{_cups_serverbin}/filter/pwgtoraster
 %attr(0755,root,root) %{_cups_serverbin}/filter/rastertoescpx
-%attr(0755,root,root) %{_cups_serverbin}/filter/rastertopclm
 %attr(0755,root,root) %{_cups_serverbin}/filter/rastertopclx
-%attr(0755,root,root) %{_cups_serverbin}/filter/rastertopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/rastertops
-%attr(0755,root,root) %{_cups_serverbin}/filter/sys5ippprinter
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttopdf
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttops
 %attr(0755,root,root) %{_cups_serverbin}/filter/texttotext
+%attr(0755,root,root) %{_cups_serverbin}/filter/universal
 %{_cups_serverbin}/driver/driverless
 %{_cups_serverbin}/driver/driverless-fax
-%{_datadir}/cups/banners
-%{_datadir}/cups/charsets
-%{_datadir}/cups/data/*
 %{_datadir}/cups/drv/cupsfilters.drv
 %{_datadir}/cups/mime/cupsfilters.types
 %{_datadir}/cups/mime/cupsfilters.convs
-%{_datadir}/cups/mime/cupsfilters-ghostscript.convs
-%{_datadir}/cups/mime/cupsfilters-poppler.convs
+%{_datadir}/cups/mime/cupsfilters-universal-postscript.convs
+%{_datadir}/cups/mime/cupsfilters-universal.convs
 %{_datadir}/ppd/cupsfilters
-# this needs to be in the main package because of cupsfilters.drv
-%{_datadir}/cups/ppdc/pcl.h
+# escp.h and pcl.h are required during runtime, because
+# CUPS PPD compiler (ppdc) uses them for generating drivers
+# per request from cupsfilters.drv file
+%{_datadir}/ppdc/escp.h
+%{_datadir}/ppdc/pcl.h
 %{_mandir}/man1/foomatic-rip.1.gz
 %{_mandir}/man1/driverless.1.gz
-%{_mandir}/man5/cups-browsed.conf.5.gz
-%{_mandir}/man8/cups-browsed.8.gz
-# 2123809 - rpm -Va reports changes due %post scriptlet (remove the verify part once we remove
-# cups-browsed.conf update from %post) 
-%config(noreplace) %verify(not size filedigest mtime) %{_sysconfdir}/cups/cups-browsed.conf
-%{_unitdir}/cups-browsed.service
 
-%files libs
-%dir %{_pkgdocdir}/
-%{_pkgdocdir}/COPYING
-%dir %{_pkgdocdir}/fontembed
-%{_pkgdocdir}/fontembed/README
-%{_libdir}/libcupsfilters.so.1*
-%{_libdir}/libfontembed.so.1*
-
-%files devel
-%{_datadir}/cups/ppdc/escp.h
-%{_includedir}/cupsfilters
-%{_includedir}/fontembed
-%{_libdir}/libcupsfilters.so
-%{_libdir}/libfontembed.so
-%{_libdir}/pkgconfig/libcupsfilters.pc
-%{_libdir}/pkgconfig/libfontembed.pc
-
-%if %{with braille}
-%files braille
-# cups-brf needs to be run as root, otherwise it leaves error messages
-# in journal
-%attr(0700,root,root) %{_cups_serverbin}/backend/cups-brf
-%attr(0755,root,root) %{_cups_serverbin}/filter/brftoembosser
-%attr(0755,root,root) %{_cups_serverbin}/filter/brftopagedbrf
-%attr(0755,root,root) %{_cups_serverbin}/filter/imagetobrf
-%attr(0755,root,root) %{_cups_serverbin}/filter/imageubrltoindexv3
-%attr(0755,root,root) %{_cups_serverbin}/filter/imageubrltoindexv4
-%attr(0755,root,root) %{_cups_serverbin}/filter/musicxmltobrf
-%attr(0755,root,root) %{_cups_serverbin}/filter/textbrftoindexv3
-%attr(0755,root,root) %{_cups_serverbin}/filter/texttobrf
-%attr(0755,root,root) %{_cups_serverbin}/filter/vectortobrf
-%attr(0755,root,root) %{_cups_serverbin}/filter/vectortopdf
-%{_cups_serverbin}/filter/cgmtopdf
-%{_cups_serverbin}/filter/cmxtopdf
-%{_cups_serverbin}/filter/emftopdf
-%{_cups_serverbin}/filter/imagetoubrl
-%{_cups_serverbin}/filter/svgtopdf
-%{_cups_serverbin}/filter/textbrftoindexv4
-%{_cups_serverbin}/filter/vectortoubrl
-%{_cups_serverbin}/filter/xfigtopdf
-%{_cups_serverbin}/filter/wmftopdf
-%{_datadir}/cups/braille
-%{_datadir}/cups/drv/generic-brf.drv
-%{_datadir}/cups/drv/generic-ubrl.drv
-%{_datadir}/cups/drv/indexv3.drv
-%{_datadir}/cups/drv/indexv4.drv
-%{_datadir}/cups/ppdc/braille.defs
-%{_datadir}/cups/ppdc/fr-braille.po
-%{_datadir}/cups/ppdc/imagemagick.defs
-%{_datadir}/cups/ppdc/index.defs
-%{_datadir}/cups/ppdc/liblouis.defs
-%{_datadir}/cups/ppdc/liblouis1.defs
-%{_datadir}/cups/ppdc/liblouis2.defs
-%{_datadir}/cups/ppdc/liblouis3.defs
-%{_datadir}/cups/ppdc/liblouis4.defs
-%{_datadir}/cups/ppdc/media-braille.defs
-%{_datadir}/cups/mime/braille.convs
-%{_datadir}/cups/mime/braille.types
-%endif
 
 %changelog
+* Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-1
+- 2170538 - rebase to 2.0b3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.28.16-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

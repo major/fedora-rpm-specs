@@ -14,6 +14,7 @@ Summary:        Parsec interface library to communicate using the wire protocol
 License:        Apache-2.0
 URL:            https://crates.io/crates/parsec-interface
 Source:         %{crates_source}
+Patch0:         parsec-interface-fixmetadata.diff
 
 ExclusiveArch:  %{rust_arches}
 

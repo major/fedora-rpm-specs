@@ -2,7 +2,7 @@ Name: colobot
 %global orgname info.colobot.Colobot
 
 Version: 0.2.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: A video game that teaches programming in a fun way
 
 License: GPL-3.0-only
@@ -223,6 +223,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{orgname}.app
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.2.0-10
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 0.2.0-9
 - Add a patch to fix build failures with GCC13
 

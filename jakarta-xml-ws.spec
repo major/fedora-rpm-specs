@@ -1,8 +1,8 @@
 %global srcname jax-ws-api
 
 Name:           jakarta-xml-ws
-Version:        2.3.3
-Release:        2%{?dist}
+Version:        4.0.0
+Release:        1%{?dist}
 Summary:        Jakarta XML Web Services API
 License:        BSD
 
@@ -12,14 +12,12 @@ Source0:        %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 
-BuildRequires:  git
 BuildRequires:  maven-local
 BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api)
 BuildRequires:  mvn(jakarta.xml.soap:jakarta.xml.soap-api)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:buildnumber-maven-plugin)
-#BuildRequires:  mvn(org.glassfish.build:spec-version-maven-plugin)
+BuildRequires:  mvn(org.glassfish.build:spec-version-maven-plugin)
 
 %description
 Jakarta XML Web Services defines a means for implementing XML-Based Web
@@ -34,17 +32,18 @@ This package contains the API documentation for %{name}.
 
 
 %prep
-%autosetup -S git -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version}
 
 cd api
 # remove unnecessary dependency on parent POM
   %pom_remove_parent
 # remove unnecessary maven plugin
   %pom_remove_plugin :glassfish-copyright-maven-plugin
+  %pom_remove_plugin :buildnumber-maven-plugin
 # removed temporary due to naming requirements
-  %pom_remove_plugin :spec-version-maven-plugin
+  #%pom_remove_plugin :spec-version-maven-plugin
 # not used
-  %pom_remove_dep :jakarta.jws-api
+  #%pom_remove_dep :jakarta.jws-api
 cd -
 
 
@@ -67,6 +66,9 @@ cd -
 
 
 %changelog
+* Mon Feb 20 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 4.0.0-1
+- New upstream release 4.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

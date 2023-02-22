@@ -4,7 +4,7 @@
 #
 Name:           opentrep
 Version:        0.07.11
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        C++ library providing a clean API for parsing travel-focused requests
 
@@ -197,6 +197,9 @@ rm -f %{_bindir}/py%{name}
 %endif
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.07.11-6
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.07.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

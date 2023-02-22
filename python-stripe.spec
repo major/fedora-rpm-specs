@@ -1,6 +1,6 @@
 Name:           python-stripe
-Version:        5.0.0
-Release:        2%{?dist}
+Version:        5.2.0
+Release:        1%{?dist}
 Summary:        Python library for the Stripe API
 
 License:        MIT
@@ -48,15 +48,17 @@ Summary:        %{summary}
 #
 # To run tests manually, install:
 # 1. The package
-# 2. python3-pytest
-# 3. python3-pytest-mock
+# 2. go
+# 3. python3-pytest
+# 4. python3-pytest-mock
 #
 # Then execute:
 # In first shell:
 # $ go install github.com/stripe/stripe-mock@latest
 # $ stripe-mock
-# In second shell cd to directory with sources, then:
-# $ pytest --ignore stripe
+# In second shell (replace `~/stripe-python` with actual path with sources):
+# $ cd /  # So that pytest use installed stripe version, not sources
+# $ pytest --ignore ~/stripe-python/stripe/ ~/stripe-python/
 
 
 %files -n python3-stripe -f %{pyproject_files}
@@ -64,6 +66,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Feb 20 2023 Roman Inflianskas <rominf@aiven.io> - 5.2.0-1
+- Update to 5.2.0 (resolve rhbz#2152039)
+- Update testing instructions
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

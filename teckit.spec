@@ -1,52 +1,56 @@
 Name:           teckit
-Version:        2.5.9
-Release:        11%{?dist}
+Version:        2.5.11
+Release:        1%{?dist}
 Summary:        Conversion library and mapping compiler
 # COPYING:                      links to license/LICENSING.txt
-# license/License_CPLv05.txt:   CPLv0.5 text
-# license/License_LGPLv21.txt:  LGPLv2 text
+# license/License_CPLv05.txt:   CPL-0.5 text, waiting on an SPDX identifer
+#                               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>
+# license/License_LGPLv21.txt:  LGPL-2.1 text
 # license/LICENSING.txt:        license declarations
-# SFconv/UtfCodec.cpp:      LGPLv2+ or GPLv2+ or MPL(?version) (bundled Graphite2)
-# SFconv/UtfCodec.h:        LGPLv2+ or GPLv2+ or MPL(?version) (bundled Graphite2)
+# SFconv/UtfCodec.cpp:      LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL(?version) (bundled Graphite2)
+# SFconv/UtfCodec.h:        LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL(?version) (bundled Graphite2)
 #                           <https://github.com/silnrsi/graphite/issues/58>,
 #                           graphite2 package uses "MPL"
-# source/Engine.cpp:        LGPLv2+ or CPL
-# source/TECkit_Format.h:   LGPLv2+ or CPL
+# source/Engine.cpp:        LGPL-2.1-or-later OR CPL-0.5-or-later
+#                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>
+# source/TECkit_Format.h:   LGPL-2.1-or-later OR CPL-0.5-or-later
 ## Not in any binary package
 # aclocal.m4:           FSFULLR
-# compile:              GPLv2+ with exceptions
-# config.guess:         GPLv3+ with exceptions
-# config.sub:           GPLv3+ with exceptions
-# configure:            FSFUL and GPLv2+ with exceptions
-# depcomp:              GPLv2+ with exceptions
-# install-sh:           MIT
-# lib/Makefile.in:      FSFULLR
-# ltmain.sh:            GPLv2+ with exceptions and GPLv3+ with exceptions and GPLv3+
-# m4/libtool.m4:        FSFULL and FSFULLR and GPLv2+ with exceptions
+# compile:              GPL-2.0-or-later WITH Autoconf-exception-generic
+#                       <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>
+# config.guess:         GPL-3.0-or-later WITH Autoconf-exception-generic
+# config.sub:           GPL-3.0-or-later WITH Autoconf-exception-generic
+# configure:            FSFUL AND GPL-2.0-or-later WITH Libtool-exception
+# depcomp:              GPL-2.0-or-later WITH Autoconf-exception-generic
+# install-sh:           X11
+# lib/Makefile.in:      FSFULLRWD
+# ltmain.sh:            GPL-2.0-or-later WITH Libtool-exception AND
+#                       GPL-3.0-or-later WITH Libtool-exception AND GPL-3.0-or-later
+# m4/libtool.m4:        FSFULL AND FSFULLR AND GPL-2.0-or-later WITH Libtool-exception
 # m4/ltoptions.m4:      FSFULLR
 # m4/ltsugar.m4:        FSFULLR
 # m4/ltversion.m4:      FSFULLR
 # m4/lt~obsolete.m4:    FSFULLR
-# Makefile.in:          FSFULLR
-# missing:              GPLv2+ with exceptions
-# test-driver:          GPLv2+ with exceptions
-# test/Makefile.in:     FSFULLR
+# Makefile.in:          FSFULLRWD
+# missing:              GPL-2.0-or-later WITH Autoconf-exception-generic
+# test-driver:          GPL-2.0-or-later WITH Autoconf-exception-generic
+# test/Makefile.in:     FSFULLRWD
 ## Unbundled
-# SFconv/expat/xmlparse/hashtable.c:    MPLv1.1 of GPL+ (bundled expat)
-# SFconv/expat/xmlparse/xmlparse.c:     MPLv1.1 of GPL+ (bundled expat)
-# zlib-1.2.3:           zlib (see nonexistent zlib.h, reported to
-#                       <https://github.com/silnrsi/teckit/issues/22>)
-License:        (LGPL-2.0-or-later OR CPL-1.0) AND (LGPL-2.0-or-later OR GPL-2.0-or-later OR MPL-2.0 OR MPL-1.1)
+# SFconv/expat/xmlparse/hashtable.c:    MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# SFconv/expat/xmlparse/xmlparse.c:     MPL-1.1 OR GPL-1.0-or-later (bundled expat)
+# zlib-1.2.3:           "sse copyright notice in zlib.h"
+# zlib-1.2.3/zlib.h:    zlib-acknowledgement
+#
+# TODO: Augment CPL-1.0 to CPL-0.5-or-later after resolving
+# <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>.
+License:        (LGPL-2.1-or-later OR CPL-1.0) AND (LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0 OR MPL-1.1)
 URL:            https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=teckit
 Source0:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz
 Source1:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz.asc
 # Exported from ppisar's keyring
 Source2:        gpgkey-15D41BC02EB807D405EFFAF6C9183BEA0288CDEE.gpg
-# Fix a compiler warning about a misindentation,
-# <https://github.com/silnrsi/teckit/pull/23>
-Patch0:         teckit-2.5.9-Correct-indentation.patch
-BuildRequires:  autoconf
-BuildRequires:  automake
+BuildRequires:  autoconf >= 2.54
+BuildRequires:  automake >= 1.11
 BuildRequires:  coreutils
 BuildRequires:  expat-devel
 # gcc is not needed, the only source/NormalizationData.c is included into
@@ -73,7 +77,9 @@ a human-readable mapping description (a simple text file).
 
 %package devel
 Summary:        Developmental files for TECkit library
-License:        LGPLv2+ or CPL
+# TODO: Augment CPL-1.0 to CPL-0.5-or-later after resolving
+# <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>.
+License:        LGPL-2.1-or-later OR CPL-1.0
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 
 %description devel
@@ -82,14 +88,13 @@ that use TECkit, a character encoding and mapping, library.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
-%patch0 -p1
+%autosetup -p1
 # Remove bundled libraries
 rm -r zlib-*/*.c SFconv/expat
-# Regenerate build script
-autoreconf -fi
 
 %build
+# Regenerate a build script
+autoreconf -fi
 %configure \
     --disable-debug \
     --disable-final \
@@ -131,6 +136,13 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/teckit.pc
 
 %changelog
+* Mon Feb 20 2023 Petr Pisar <ppisar@redhat.com> - 2.5.11-1
+- 2.5.11 bump
+
+* Mon Feb 20 2023 Petr Pisar <ppisar@redhat.com> - 2.5.9-12
+- Correct a license tag to "(LGPL-2.1-or-later OR CPL-1.0) AND
+  (LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0 OR MPL-1.1)"
+
 * Sat Feb 18 2023 Than Ngo <than@redhat.com> - 2.5.9-11
 - migrated to SPDX license
 

@@ -1,5 +1,5 @@
 Name:           8088_bios
-Version:        0.9.8
+Version:        0.9.9
 Release:        %autorelease
 Summary:        BIOS for Intel 8088 based computers
 
@@ -26,7 +26,7 @@ dd if=%{_datadir}/xtideuniversalbios/ide_xt.bin of=ide_xt.bin bs=8k count=1 conv
 
 %build
 for machine in MACHINE_XI8088 MACHINE_FE2010A; do
-  %make_build MACHINE="$machine"
+  %make_build MACHINE="$machine" XTIDE=ide_xt.bin
   rm bios.bin bios.lst
 done
 
@@ -35,7 +35,7 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/%{name} bios*.bin
 
 %files
 %license copyright.tmpl
-%doc README.txt
+%doc README.md
 %{_datadir}/%{name}/
 
 %changelog

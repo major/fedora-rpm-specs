@@ -18,10 +18,10 @@
 
 Name:           qt5-%{qt_module}
 Version:        5.212.0
-Release:        0.73%{?prerel}%{?dist}
+Release:        0.74%{?prerel}%{?dist}
 Summary:        Qt5 - QtWebKit components
 
-License:        LGPLv2 and BSD
+License:        LGPL-2.0-only AND BSD-3-Clause
 URL:            https://github.com/qtwebkit/qtwebkit
 Source0:        https://github.com/qtwebkit/qtwebkit/releases/download/%{qt_module}-%{version}%{?prerel_tag}/%{qt_module}-%{version}%{?prerel_tag}.tar.xz
 
@@ -34,6 +34,7 @@ Patch6:         qtwebkit-icu68.patch
 # From https://github.com/WebKit/WebKit/commit/c7d19a492d97f9282a546831beb918e03315f6ef
 # Ruby 3.2 removes Object#=~ completely
 Patch7:         webkit-offlineasm-warnings-ruby27.patch
+Patch8:         qtwebkit-cstdint.patch
 
 BuildRequires: make
 BuildRequires:  bison
@@ -251,6 +252,10 @@ test -z "$(pkg-config --cflags Qt5WebKit | grep Qt5WebKit)"
 
 
 %changelog
+* Mon Feb 20 2023 Than Ngo <than@redhat.com> - 5.212.0-0.74alpha4
+- migrated to SPDX license
+- fixed FTBFS
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.212.0-0.73alpha4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

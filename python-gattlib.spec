@@ -2,7 +2,7 @@
 
 Name:               python-gattlib
 Version:            0.20210616
-Release:            3%{?dist}
+Release:            4%{?dist}
 Summary:            Library to access Bluetooth LE devices
 
 License:            ASL 2.0 and GPLv2+ and LGPLv2+
@@ -52,6 +52,9 @@ find . -type f | xargs chmod -x
 %{python3_sitearch}/%{modname}*.egg-info/
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.20210616-4
+- Rebuilt for Boost 1.81
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20210616-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

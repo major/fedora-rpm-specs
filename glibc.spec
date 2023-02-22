@@ -1,5 +1,5 @@
-%global glibcsrcdir glibc-2.37
-%global glibcversion 2.37
+%global glibcsrcdir glibc-2.37.9000-113-g8b014a1b1f
+%global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
 #
@@ -230,7 +230,6 @@ Patch9: glibc-rh827510.patch
 Patch13: glibc-fedora-localedata-rh61908.patch
 Patch17: glibc-cs-path.patch
 Patch23: glibc-python3.patch
-Patch24: glibc-printf-grouping-swbz30068.patch
 
 ##############################################################################
 # Continued list of core "glibc" package information:
@@ -2194,6 +2193,125 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Feb 20 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-1
+- Drop glibc-printf-grouping-swbz30068.patch; fix applied upstream, and
+- Auto-sync with upstream branch master,
+  commit 8b014a1b1f7aee1e3348db108aeea396359d481e:
+- s390: Fix build for -march=z13
+- arm: Support gcc older than 10 for find_zero_all
+- Linux: Remove generic Implies
+- Linux: Remove unused generic Makefile
+- Linux: Assume and consolidate getpeername wire-up syscall
+- Linux: Assume and consolidate getsockname wire-up syscall
+- Linux: Move wordsize-32 Version to default
+- __glob64_time64: Fix typo for stub_warning call (BZ #30146)
+- elf: Restore ldconfig libc6 implicit soname logic [BZ #30125]
+- stdlib: Undo post review change to 16adc58e73f3 [BZ #27749]
+- Define PC, SP and SYSRETURN for hurd x86_64
+- mach: Use PAGE_SIZE
+- hurd: Simplify init-first.c a bit
+- hurd: Make timer_t pointer-sized
+- hurd: Fix xattr function return type
+- hurd: Use proper integer types
+- hurd: Move thread state manipulation into _hurd_tls_new ()
+- glob64_time64: Fix typo for stub_warning call (BZ #30146)
+- Use uintptr_t instead of performing pointer subtraction with a null pointer
+- ARC:fpu: add extra capability check before use of sqrt and fma builtins
+- ARC: align child stack in clone
+- string: Remove string_private.h
+- iconv: Remove _STRING_ARCH_unaligned usage
+- iconv: Remove _STRING_ARCH_unaligned usage for get/set macros
+- resolv: Remove _STRING_ARCH_unaligned usage
+- nscd: Remove _STRING_ARCH_unaligned usage
+- stdlib: Simplify getenv
+- crypto: Remove _STRING_ARCH_unaligned usage
+- Fix ifunc-impl-list.c build for s390
+- [hurd] Fix i686 build breakage caused by 4fedebc91108
+- C2x strtol binary constant handling
+- [hurd] Add MTU_DISCOVER values
+- hurd: Fix unwinding over INTR_MSG_TRAP in shared too
+- mach: undef ENTRY2
+- hurd: i386 TLS tweaks
+- stdio: Do not ignore posix_spawn error on popen (BZ #29016)
+- update auto-libm-test-out-hypot
+- added pair of inputs for hypotf in binary32
+- Naming the parameter of dummy_sa_handler
+- hurd: Fix tcflag_t and speed_t types on 64-bit
+- htl: Remove ./sysdeps/htl/bits/types/struct___pthread_mutex.h
+- hurd, htl: Add some x86_64-specific code
+- Fix typos in comments
+- htl: Generalize i386 pt-machdep.h to x86
+- hurd: Set up the basic tree for x86_64-gnu
+- mach: Look for mach_i386.defs on x86_64 too
+- htl: Fix semaphore reference
+- hurd: Fix xattr error value
+- mach, hurd: Cast through uintptr_t
+- hurd: Use mach_msg_type_number_t where appropriate
+- hurd: Refactor readlinkat()
+- Use __builtin_FILE instead of __FILE__ in assert in C++.
+- hurd: Fix unwinding over INTR_MSG_TRAP
+- powerpc64: Add the clone3 wrapper
+- string: Disable stack protector in early static initialization
+- string: Add libc_hidden_proto for memrchr
+- string: Add libc_hidden_proto for strchrnul
+- elf: Smoke-test ldconfig -p against system /etc/ld.so.cache
+- NEWS: Document CVE-2023-25139.
+- Use 64-bit time_t interfaces in strftime and strptime (bug 30053)
+- C-SKY: Strip hard float abi from hard float feature.
+- S390: Influence hwcaps/stfle via GLIBC_TUNABLES.
+- string: Hook up the default implementation on test-strrchr
+- string: Hook up the default implementation on test-memrchr
+- string: Hook up the default implementation on test-memchr
+- string: Hook up the default implementation on test-strcpy
+- string: Hook up the default implementation on test-stpcpy
+- string: Hook up the default implementation on test-strncmp
+- string: Hook up the default implementation on test-strcmp
+- string: Hook up the default implementation on test-strchr
+- string: Hook up the default implementation on test-strnlen
+- string: Hook up the default implementation on test-strlen
+- riscv: Add string-fza.h and string-fzi.h
+- sh: Add string-fzb.h
+- powerpc: Add string-fza.h
+- arm: Add string-fza.h
+- alpha: Add string-fza, string-fzb.h, string-fzi.h, and string-shift.h
+- hppa: Add string-fza.h, string-fzc.h, and string-fzi.h
+- hppa: Add memcopy.h
+- string: Improve generic strrchr with memrchr and strlen
+- string: Improve generic memrchr
+- string: Improve generic strnlen with memchr
+- string: Improve generic memchr
+- string: Improve generic strcpy
+- string: Improve generic stpcpy
+- string: Improve generic strncmp
+- string: Improve generic strcmp
+- string: Improve generic strchr
+- string: Improve generic strchrnul
+- string: Improve generic strlen
+- Add string vectorized find and detection functions
+- Parameterize OP_T_THRES from memcopy.h
+- Parameterize op_t from memcopy.h
+- Replace rawmemchr (s, '\0') with strchr
+- AArch64: Improve SVE memcpy and memmove
+- Account for grouping in printf width (bug 30068)
+- Move RETURN_TO to x86/sysdep.h and implement x86_64 version.
+- Remove pthread-pi-defines.sym
+- stdlib: tests: don't double-define _FORTIFY_SOURCE
+- LoongArch: Add new relocation types.
+- Remove sysdeps/mach/i386/machine-sp.h
+- cdefs: Limit definition of fortification macros
+- hurd: Move some i386 bits to x86
+- Remove support setting custom demuxers during signal handling.
+- hurd: Implement SHM_ANON
+- hurd: Implement O_TMPFILE
+- hurd: Consolidate file_name_lookup implementation
+- Linux: optimize clone3 internal usage
+- aarch64: Add the clone3 wrapper
+- linux: Add clone3 CLONE_CLEAR_SIGHAND optimization to posix_spawn
+- Linux: Do not align the stack for __clone3
+- linux: Extend internal clone3 documentation
+- linux: Do not reset signal handler in posix_spawn if it is already SIG_DFL
+- Open master branch for glibc 2.38 development
+
 * Sat Feb 04 2023 Carlos O'Donell <carlos@redhat.com> - 2.37-1
 - Drop already included glibc-dprintf-length.patch patch.
 - Apply glibc-printf-grouping-swbz30068.patch to fix swbz#30068.

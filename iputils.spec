@@ -61,8 +61,8 @@ ln -sf ../bin/ping ${RPM_BUILD_ROOT}%{_sbindir}/ping6
 ln -sf ../bin/tracepath ${RPM_BUILD_ROOT}%{_sbindir}/tracepath
 ln -sf ../bin/tracepath ${RPM_BUILD_ROOT}%{_sbindir}/tracepath6
 ln -sf ../bin/arping ${RPM_BUILD_ROOT}%{_sbindir}/arping
-ln -sf ping.8.gz ${RPM_BUILD_ROOT}%{_mandir}/man8/ping6.8.gz
-ln -sf tracepath.8.gz ${RPM_BUILD_ROOT}%{_mandir}/man8/tracepath6.8.gz
+echo ".so man8/ping.8" > ${RPM_BUILD_ROOT}%{_mandir}/man8/ping6.8
+echo ".so man8/tracepath.8" > ${RPM_BUILD_ROOT}%{_mandir}/man8/tracepath6.8
 install -cp ifenslave ${RPM_BUILD_ROOT}%{_sbindir}/
 install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 
@@ -79,13 +79,13 @@ install -cp ifenslave.8 ${RPM_BUILD_ROOT}%{_mandir}/man8/
 %{_sbindir}/tracepath
 %{_sbindir}/tracepath6
 %{_sbindir}/arping
-%attr(644,root,root) %{_mandir}/man8/clockdiff.8.gz
-%attr(644,root,root) %{_mandir}/man8/arping.8.gz
-%attr(644,root,root) %{_mandir}/man8/ping.8.gz
-%{_mandir}/man8/ping6.8.gz
-%attr(644,root,root) %{_mandir}/man8/tracepath.8.gz
-%{_mandir}/man8/tracepath6.8.gz
-%attr(644,root,root) %{_mandir}/man8/ifenslave.8.gz
+%attr(644,root,root) %{_mandir}/man8/clockdiff.8*
+%attr(644,root,root) %{_mandir}/man8/arping.8*
+%attr(644,root,root) %{_mandir}/man8/ping.8*
+%{_mandir}/man8/ping6.8*
+%attr(644,root,root) %{_mandir}/man8/tracepath.8*
+%{_mandir}/man8/tracepath6.8*
+%attr(644,root,root) %{_mandir}/man8/ifenslave.8*
 
 %changelog
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221126-2

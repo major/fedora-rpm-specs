@@ -7,7 +7,7 @@
 
 Name:		codeblocks
 Version:	20.03
-Release:	16%{?svnrelease}%{?dist}
+Release:	17%{?svnrelease}%{?dist}
 Summary:	An open source, cross platform, free C++ IDE
 License:	GPLv3+
 URL:		http://www.codeblocks.org/
@@ -338,6 +338,9 @@ rm -f %{buildroot}/%{pkgdatadir}/docs/index.ini
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 20.03-17.20230124svn13161
+- Rebuilt for Boost 1.81
+
 * Fri Jan 20 2023 Scott Talbert <swt@techie.net> - 20.03-16.20230124svn13161
 - Update to new upstream snapshot
 - Rebuild with wxWidgets 3.2

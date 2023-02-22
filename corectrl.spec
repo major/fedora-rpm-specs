@@ -14,7 +14,7 @@ Summary:        Friendly hardware control
 #                   tests/3rdparty/trompeloeil
 # * MIT:            3rdparty/units
 # * Public Domain:  FindBotan.cmake
-License:        GPLv3+ and Boost and BSD and MIT and Public Domain
+License:        GPLv3+ and Boost and MIT and Public Domain
 URL:            https://gitlab.com/corectrl/corectrl
 Source0:        %{url}/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 Source1:        README.fedora.md

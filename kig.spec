@@ -4,7 +4,7 @@
 Name:    kig
 Summary: Interactive Geometry 
 Version: 22.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/education/%{name}
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 22.12.2-2
+- Rebuilt for Boost 1.81
+
 * Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
 - 22.12.2
 

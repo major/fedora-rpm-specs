@@ -1,7 +1,7 @@
 Summary: C++ wrapper library around CGAL for PostGIS
 Name: SFCGAL
 Version: 1.4.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: LGPLv2
 URL: https://gitlab.com/Oslandia/SFCGAL/
 Source: https://gitlab.com/Oslandia/SFCGAL/-/archive/v%{version}/SFCGAL-v%{version}.tar.bz2
@@ -57,6 +57,9 @@ Development headers and libraries for SFCGAL.
 %doc example/ doc/html
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.4.1-2
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Paul Wouters <paul.wouters@aiven.io - 1.4.1-1
 - Update to 1.4.1
 - Resolves: rhbz#2045184 SFCGAL: FTBFS in Fedora rawhide/f36

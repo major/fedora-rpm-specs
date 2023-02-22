@@ -1,5 +1,5 @@
 %global packname tidyr
-%global packver  1.2.1
+%global packver  1.3.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -13,30 +13,30 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-dplyr >= 1.0.0, R-ellipsis >= 0.1.0, R-glue, R-lifecycle, R-magrittr, R-purrr, R-rlang, R-tibble >= 2.1.1, R-tidyselect >= 1.1.0, R-utils, R-vctrs >= 0.3.7
-# Suggests:  R-covr, R-data.table, R-jsonlite, R-knitr, R-readr, R-repurrrsive >= 1.0.0, R-rmarkdown, R-testthat >= 3.0.0
+# Imports:   R-cli >= 3.4.1, R-dplyr >= 1.0.10, R-glue, R-lifecycle >= 1.0.3, R-magrittr, R-purrr >= 1.0.1, R-rlang >= 1.0.4, R-stringr >= 1.5.0, R-tibble >= 2.1.1, R-tidyselect >= 1.2.0, R-utils, R-vctrs >= 0.5.2
+# Suggests:  R-covr, R-data.table, R-knitr, R-readr, R-repurrrsive >= 1.1.0, R-rmarkdown, R-testthat >= 3.0.0
 # LinkingTo: R-cpp11 >= 0.4.0
 # Enhances:
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
-BuildRequires:    R-dplyr >= 1.0.0
-BuildRequires:    R-ellipsis >= 0.1.0
+BuildRequires:    R-cli >= 3.4.1
+BuildRequires:    R-dplyr >= 1.0.10
 BuildRequires:    R-glue
-BuildRequires:    R-lifecycle
+BuildRequires:    R-lifecycle >= 1.0.3
 BuildRequires:    R-magrittr
-BuildRequires:    R-purrr
-BuildRequires:    R-rlang
+BuildRequires:    R-purrr >= 1.0.1
+BuildRequires:    R-rlang >= 1.0.4
+BuildRequires:    R-stringr >= 1.5.0
 BuildRequires:    R-tibble >= 2.1.1
-BuildRequires:    R-tidyselect >= 1.1.0
+BuildRequires:    R-tidyselect >= 1.2.0
 BuildRequires:    R-utils
-BuildRequires:    R-vctrs >= 0.3.7
+BuildRequires:    R-vctrs >= 0.5.2
 BuildRequires:    R-cpp11-devel >= 0.4.0
 BuildRequires:    R-data.table
-BuildRequires:    R-jsonlite
 BuildRequires:    R-knitr
 BuildRequires:    R-readr
-BuildRequires:    R-repurrrsive >= 1.0.0
+BuildRequires:    R-repurrrsive >= 1.1.0
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-testthat >= 3.0.0
 

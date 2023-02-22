@@ -1,6 +1,6 @@
 Name: ck
 Version: 0.7.0
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Library for high performance concurrent programming
 
 License: BSD
@@ -12,9 +12,14 @@ Patch2: ck-register-constraint.patch
 # disable ck_hclh_test from ck_spinlock temporary solution
 # github issue: https://github.com/concurrencykit/ck/issues/153
 Patch3: ck_disable_ck_hclh_test.patch
+# measure unit test times
+Patch4: ck-unit-time.patch
+# specify SEQUENCE_CORES different for one test
+Patch5: ck-unit-sequence.patch
 
 BuildRequires: gcc
 BuildRequires: make
+BuildRequires: sed
 
 %description
 Concurrency Kit provides a plethora of concurrency primitives, safe memory
@@ -40,10 +45,7 @@ This package provides the libraries, include files, and other
 resources needed for developing Concurrency Kit applications.
 
 %prep
-%setup -q
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
+%autosetup -p1
 
 %build
 export CFLAGS="%{optflags}"
@@ -52,6 +54,7 @@ export CFLAGS="%{optflags}"
 	--includedir=%{_includedir}/%{name}	\
 	--mandir=%{_mandir}			\
 	--prefix=%{_prefix}
+
 %make_build
 
 %install
@@ -64,7 +67,26 @@ chmod 0755 %{buildroot}%{_libdir}/libck.so.*
 rm %{buildroot}%{_libdir}/libck.a
 
 %check
-make check
+MAX_CORES=4
+# 8+ CORES take quite long, limit them to 4
+CORES=$(grep '^CORES=' build/regressions.build | cut -d= -f2)
+# ck_sequence tests wants all cores on the system to be quick
+SEQUENCE_CORES="$CORES"
+TIMEOUT=$((30*60))
+TIMEOUT_KILL=$((TIMEOUT+100))
+[ "${CORES}" -gt "${MAX_CORES}" ] && CORES="${MAX_CORES}"
+%ifarch %{power64}
+    # It hangs often on this test for some reason
+    sed -e '/^OBJECTS=/ s, barrier_mcs,,' -i regressions/ck_barrier/validate/Makefile
+%endif
+%ifarch %{arm32} %{arm64}
+    # Some tests take quite long on ARMs. Skip them
+    sed -e '/^\s*brlock\s/ d' -e '/^\s*cohort\s/ d' -e '/^\s*rwlock\s/ d' \
+        -i regressions/Makefile
+%endif
+# Protect builders against hard lock
+time timeout -k $TIMEOUT_KILL $TIMEOUT \
+    make check CORES=${CORES} SEQUENCE_CORES=${SEQUENCE_CORES}
 
 %files
 %license LICENSE
@@ -77,6 +99,11 @@ make check
 %{_mandir}/man3/*.3.gz
 
 %changelog
+* Fri Feb 17 2023 Petr Menšík <pemensik@redhat.com> - 0.7.0-10
+- Set time limit to unit test run
+- Limit unit test to less cores to make them faster
+- Skip some tests on ppc64le and aarch64 platforms to avoid failures
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

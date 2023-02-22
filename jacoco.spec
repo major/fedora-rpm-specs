@@ -1,15 +1,15 @@
 Name:           jacoco
 Version:        0.8.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Java Code Coverage for Eclipse
 License:        EPL-2.0
 URL:            http://www.eclemma.org/jacoco/
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/jacoco/jacoco/archive/v%{version}/%{name}-%{version}.tar.gz
-Patch0:         0001-Upgrade-maven-reporting-api-to-3.1.0.patch
-BuildRequires:  git
+
 BuildRequires:  maven-local
+BuildRequires:  mvn(args4j:args4j)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
@@ -17,7 +17,6 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-shade-plugin)
 BuildRequires:  mvn(org.apache.maven.reporting:maven-reporting-api)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
-BuildRequires:  mvn(org.codehaus.mojo:buildnumber-maven-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:exec-maven-plugin)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-analysis)
@@ -43,7 +42,7 @@ A Jacoco plugin for maven.
 
 # -S: enable usage of git repo
 # -p1: strip one level dir in patch(es)
-%autosetup -S git -p1
+%autosetup -p1
 
 # delete precompiled jar and class files
 find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
@@ -71,6 +70,10 @@ find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
 # remove beanshell plugin
 # later, we need to redefine various properties defined by it
 %pom_remove_plugin :beanshell-maven-plugin \
+    org.jacoco.build
+
+# buildnumber plugin was removed from f38
+%pom_remove_plugin :buildnumber-maven-plugin \
     org.jacoco.build
 
 # Remove "requires osgi(org.apache.ant)"
@@ -121,6 +124,9 @@ echo %{name} %{name}/org.jacoco.ant objectweb-asm/asm > %{buildroot}%{_sysconfdi
 %files maven-plugin -f .mfiles-maven-plugin
 
 %changelog
+* Mon Feb 20 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 0.8.8-6
+- Reduce dependency
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

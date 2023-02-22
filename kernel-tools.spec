@@ -4,14 +4,14 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 0
+%global released_kernel 1
 %global baserelease 1
 %global fedora_build %{baserelease}
 
 # base_sublevel is the kernel version we're starting with and patching
 # on top of -- for example, 3.1-rc7-git1 starts with a 3.0 base,
 # which yields a base_sublevel of 0.
-%global base_sublevel 1
+%global base_sublevel 2
 
 %global base_major 6
 
@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 8
+%global rcrev 0
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -558,6 +558,9 @@ popd
 %{_mandir}/man1/rtla.1.gz
 
 %changelog
+* Mon Feb 20 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.2.0-1
+- Linux v6.2.0
+
 * Mon Feb 13 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.2.0-0.rc8.git0.1
 - Linux v6.2-rc8
 

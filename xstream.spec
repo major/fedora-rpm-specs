@@ -12,8 +12,8 @@
 %bcond_with xpp3
 
 Name:           xstream
-Version:        1.4.19
-Release:        5%{?dist}
+Version:        1.4.20
+Release:        2%{?dist}
 Summary:        Java XML serialization library
 License:        BSD
 URL:            https://x-stream.github.io
@@ -22,14 +22,14 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://repo1.maven.org/maven2/com/thoughtworks/%{name}/%{name}-distribution/%{version}/%{name}-distribution-%{version}-src.zip
 BuildRequires:  maven-local
 BuildRequires:  mvn(io.github.x-stream:mxparser)
-BuildRequires:  mvn(javax.xml.bind:jaxb-api)
+BuildRequires:  mvn(jakarta.xml.bind:jakarta.xml.bind-api:2)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-enforcer-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-source-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
 %if %{with activation}
-BuildRequires:  mvn(jakarta.activation:jakarta.activation-api)
+BuildRequires:  mvn(jakarta.activation:jakarta.activation-api:1)
 %endif
 %if %{with cglib}
 BuildRequires:  mvn(cglib:cglib-nodep)
@@ -100,7 +100,8 @@ Benchmark module for %{name}.
 find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
 # change javax to jakarta
 # https://jakarta.ee/about/faq#What_happened_with_javax.*_namespace?
-%pom_change_dep javax.activation:activation jakarta.activation:jakarta.activation-api %{name}
+%pom_change_dep -r javax.activation:activation jakarta.activation:jakarta.activation-api:1
+%pom_change_dep -r javax.xml.bind:jaxb-api jakarta.xml.bind:jakarta.xml.bind-api:2
 # remove dependency plugin
 %pom_remove_plugin -r :maven-dependency-plugin
 # optional dep: activation
@@ -168,6 +169,7 @@ rm xstream-benchmark/src/java/com/thoughtworks/xstream/tools/benchmark/products/
 # optional dep: woodstox
 %if %{without woodstox}
 %pom_remove_dep -r org.codehaus.woodstox:wstx-asl
+%pom_remove_dep -r com.fasterxml.woodstox:woodstox-core
 rm xstream/src/java/com/thoughtworks/xstream/io/xml/WstxDriver.java
 rm xstream-benchmark/src/java/com/thoughtworks/xstream/tools/benchmark/products/XStreamWoodstox.java
 %endif
@@ -211,6 +213,14 @@ rm xstream-benchmark/src/java/com/thoughtworks/xstream/tools/benchmark/products/
 %doc README.txt
 
 %changelog
+* Mon Feb 20 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.4.20-2
+- Depend on compat versions of activation and XML bind (by @mkoncek)
+- Re-enable activation
+
+* Mon Feb 20 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 1.4.20-1
+- New upstream release 1.4.20
+- Disable activation
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.19-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

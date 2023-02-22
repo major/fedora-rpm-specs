@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        79
+Version:        80
 
 %forgemeta
 
@@ -251,6 +251,17 @@ fi
 
 
 %changelog
+* Mon Feb 20 2023 Packit <hello@packit.dev> - 80-1
+Changes with 80
+----------------
+  * stages/copy: add option to remove destination before copying (#1241)
+  * stages/shell.init: add pattern for env var names (#1239)
+
+Contributions from: Achilleas Koutsou, Tomáš Hozza
+
+— Somewhere on the Internet, 2023-02-20
+
+
 * Wed Feb 15 2023 Packit <hello@packit.dev> - 79-1
 Changes with 79
 ----------------

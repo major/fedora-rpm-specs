@@ -1,8 +1,8 @@
 %global pypi_name aioambient
 
 Name:           python-%{pypi_name}
-Version:        1.3.0
-Release:        5%{?dist}
+Version:        2022.10.0 
+Release:        1%{?dist}
 Summary:        Python library for the Ambient Weather API
 
 License:        MIT
@@ -27,8 +27,6 @@ REST and Websocket APIs provided by Ambient Weather.
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# ALlow later websockets releases
-sed -i -e 's/10.0/11.0/g' setup.py
 
 %build
 %py3_build
@@ -43,6 +41,9 @@ sed -i -e 's/10.0/11.0/g' setup.py
 %{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Mon Feb 20 2023 Fabian Affolter <mail@fabian-affolter.ch> - 2022.10.0-1
+- Update to latest upstream release 2022.10.0 (closes rhbz#2010538)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

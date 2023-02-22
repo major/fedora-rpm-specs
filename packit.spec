@@ -2,7 +2,7 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.67.0
+Version:        0.68.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -31,7 +31,7 @@ BuildRequires:  python3-requests-kerberos
 BuildRequires:  python3dist(setuptools)
 BuildRequires:  python3dist(setuptools-scm)
 BuildRequires:  python3dist(setuptools-scm-git-archive)
-BuildRequires:  python3-bodhi-client
+BuildRequires:  python3-bodhi-client >= 7.0.0
 BuildRequires:  python3-cachetools
 BuildRequires:  python3-fedora
 %if 0%{?rhel}
@@ -102,6 +102,10 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Mon Feb 20 2023 Packit <hello@packit.dev> - 0.68.0-1
+- Packit now requires bodhi in version 7.0.0 at minimum. (#1844)
+- You can now use `--srpm` option with the `packit build locally` CLI command. (#1810)
+
 * Fri Feb 03 2023 Packit <hello@packit.dev> - 0.67.0-1
 - Packit now sanitizes changelog messages in order not to break spec file parsing. (#1841)
 

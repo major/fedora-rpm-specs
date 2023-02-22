@@ -1,7 +1,7 @@
 Name:    plasma-integration
 Summary: Qt Platform Theme integration plugin for Plasma
 Version: 5.27.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # KDE e.V. may determine that future LGPL versions are accepted
 License: LGPLv2 or LGPLv3
@@ -51,7 +51,7 @@ BuildRequires:  plasma-breeze-devel >= %{majmin_ver}
 Requires:       plasma-breeze >= %{majmin_ver}
 Requires:       breeze-cursor-theme >= %{majmin_ver}
 Requires:       breeze-icon-theme
-Requires:       plasma-workspace >= %{majmin_ver}
+Recommends:     plasma-workspace >= %{majmin_ver}
 
 %description
 %{summary}.
@@ -89,6 +89,9 @@ sed -i.breeze_version \
 
 
 %changelog
+* Mon Feb 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.0-2
+- Soften plasma-workspace dependency for Flatpak
+
 * Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
 - 5.27.0
 

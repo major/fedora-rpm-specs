@@ -14,13 +14,13 @@
 %bcond_without sddm_wayland_default
 %endif
 
-%global commit 3ee57e99836fe051c97e0f301962120466d220f7
-%global commitdate 20230201
+%global commit 8f1e3df4768bd521034e02602c4410b06aaef7d5
+%global commitdate 20230214
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           sddm
 Version:        0.19.0%{?commitdate:^git%{commitdate}.%{shortcommit}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        GPLv2+
 Summary:        QML based desktop and login manager
 
@@ -47,22 +47,21 @@ Patch101:       sddm-0.20.0-fedora_config.patch
 # sddm.service: +EnvironmentFile=-/etc/sysconfig/sddm
 Patch103:       sddm-0.18.0-environment_file.patch
 
+# Workaround for https://pagure.io/fedora-kde/SIG/issue/87
+Patch104:       sddm-rpmostree-tmpfiles-hack.patch
+
 # Shamelessly stolen from gdm
 Source11:       sddm.pam
 # Shamelessly stolen from gdm
 Source12:       sddm-autologin.pam
-# systemd tmpfiles support for /var/run/sddm
-Source13:       tmpfiles-sddm.conf
 # sample sddm.conf generated with sddm --example-config, and entries commented-out
-Source14: sddm.conf
+Source13: sddm.conf
 # README.scripts
-Source15: README.scripts
+Source14: README.scripts
 # sysconfig snippet
-Source16: sddm.sysconfig
-# systemd sysusers config
-Source18:  sddm-systemd-sysusers.conf
+Source15: sddm.sysconfig
 # sddm x11 override config
-Source19:  sddm-x11.conf
+Source16:  sddm-x11.conf
 
 
 Provides: service(graphical-login) = sddm
@@ -182,12 +181,10 @@ mkdir -p %{buildroot}%{_sysconfdir}/sddm.conf.d
 mkdir -p %{buildroot}%{_prefix}/lib/sddm/sddm.conf.d
 install -Dpm 644 %{SOURCE11} %{buildroot}%{_sysconfdir}/pam.d/sddm
 install -Dpm 644 %{SOURCE12} %{buildroot}%{_sysconfdir}/pam.d/sddm-autologin
-install -Dpm 644 %{SOURCE13} %{buildroot}%{_tmpfilesdir}/sddm.conf
-install -Dpm 644 %{SOURCE14} %{buildroot}%{_sysconfdir}/sddm.conf
-install -Dpm 644 %{SOURCE15} %{buildroot}%{_datadir}/sddm/scripts/README.scripts
-install -Dpm 644 %{SOURCE16} %{buildroot}%{_sysconfdir}/sysconfig/sddm
-install -Dpm 644 %{SOURCE18} %{buildroot}%{_sysusersdir}/sddm.conf
-install -Dpm 644 %{SOURCE19} %{buildroot}%{_prefix}/lib/sddm/sddm.conf.d/x11.conf
+install -Dpm 644 %{SOURCE13} %{buildroot}%{_sysconfdir}/sddm.conf
+install -Dpm 644 %{SOURCE14} %{buildroot}%{_datadir}/sddm/scripts/README.scripts
+install -Dpm 644 %{SOURCE15} %{buildroot}%{_sysconfdir}/sysconfig/sddm
+install -Dpm 644 %{SOURCE16} %{buildroot}%{_prefix}/lib/sddm/sddm.conf.d/x11.conf
 mkdir -p %{buildroot}/run/sddm
 mkdir -p %{buildroot}%{_localstatedir}/lib/sddm
 mkdir -p %{buildroot}%{_sysconfdir}/sddm/
@@ -292,6 +289,10 @@ fi
 
 
 %changelog
+* Mon Feb 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20230214.8f1e3df-1
+- Update to new snapshot
+- Drop our sysusers and tmpfiles configuration for upstream versions
+
 * Wed Feb 01 2023 Marc Deop <marcdeop@fedoraproject.org> - 0.19.0^git20230201.3ee57e9-2
 - Update to new snapshot
 

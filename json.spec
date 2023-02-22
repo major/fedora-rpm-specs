@@ -40,6 +40,11 @@ applications that use %{name}.
 %autosetup -p1
 %setup -q -D -T -a1
 
+# Some tests are broken under GCC 13: https://github.com/nlohmann/json/issues/3927
+%if 0%{?fedora} && 0%{?fedora} >= 38
+rm -f tests/src/unit-{allocator,iterators2,regression2}.cpp
+%endif
+
 # Unbundle doctest. Used only in tests.
 ln -svf %{_includedir}/doctest/doctest.h ./tests/thirdparty/doctest/doctest.h
 

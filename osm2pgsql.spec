@@ -1,6 +1,6 @@
 Name:           osm2pgsql
 Version:        1.6.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Import map data from OpenStreetMap to a PostgreSQL database
 
 License:        GPLv2+
@@ -57,6 +57,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_datadir}/%{name}/
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.6.0-6
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

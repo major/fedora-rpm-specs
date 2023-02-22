@@ -11,6 +11,10 @@ License:          MIT
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
+# Fix test with lifecycle 1.0.3+
+# https://github.com/tidyverse/reprex/pull/434
+Patch0:           R-reprex-fix-test-lifecycle-1.0.3.patch
+
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-callr >= 3.6.0, R-cli >= 3.2.0, R-clipr >= 0.4.0, R-fs, R-glue, R-knitr >= 1.23, R-lifecycle, R-rlang >= 1.0.0, R-rmarkdown, R-rstudioapi, R-utils, R-withr >= 2.3.0
@@ -29,7 +33,7 @@ BuildRequires:    R-clipr >= 0.4.0
 BuildRequires:    R-fs
 BuildRequires:    R-glue
 BuildRequires:    R-knitr >= 1.23
-BuildRequires:    R-lifecycle
+BuildRequires:    R-lifecycle >= 1.0.3
 BuildRequires:    R-rlang >= 1.0.0
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-rstudioapi
@@ -58,6 +62,7 @@ from an R session.
 
 %prep
 %setup -q -c -n %{packname}
+%patch0 -p1 -b .fixme
 
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' %{packname}/DESCRIPTION

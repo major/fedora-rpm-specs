@@ -1,7 +1,7 @@
 Summary: Turn based role-playing game builder and engine
 Name: btbuilder
 Version: 0.5.19
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 Url: http://www.identicalsoftware.com/btbuilder
 Source: http://www.identicalsoftware.com/btbuilder/%{name}-%{version}.tgz
@@ -61,6 +61,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/appdata/*.appdata
 %{_datadir}/btbuilder
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.5.19-5
+- Rebuilt for Boost 1.81
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.19-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

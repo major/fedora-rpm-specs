@@ -1,7 +1,7 @@
 ## START: Set by rpmautospec
 ## (rpmautospec version 0.2.6)
 %define autorelease(e:s:pb:) %{?-p:0.}%{lua:
-    release_number = 2;
+    release_number = 3;
     base_release_number = tonumber(rpm.expand("%{?-b*}%{!?-b:1}"));
     print(release_number + base_release_number - 1);
 }%{?-e:.%{-e*}}%{?-s:.%{-s*}}%{?dist}
@@ -10,8 +10,8 @@
 %global srcname azure-storage-blob
 
 Name:           python-%{srcname}
-Version:        12.13.1
-%global         pypi_version    12.13.1
+Version:        12.14.1
+%global         pypi_version    12.14.1
 Release:        %autorelease
 Summary:        Azure Storage Blobs client library for Python
 License:        MIT
@@ -62,6 +62,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Feb 20 2023 Rommel Layco <rj.layco@gmail.com> 12.14.1-3
+- Update to 12.14.1
+
+
 * Wed Sep 21 2022 Rommel Layco <rj.layco@gmail.com> 12.13.1-2
 - Initial import (fedora#2109341)
 - Fix changelog

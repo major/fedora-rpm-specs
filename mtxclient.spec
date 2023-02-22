@@ -1,14 +1,11 @@
 Name: mtxclient
-Version: 0.9.1
-Release: 2%{?dist}
+Version: 0.9.2
+Release: 1%{?dist}
 
 License: MIT
 Summary: Client API library for Matrix, built on top of Boost.Asio
 URL: https://github.com/Nheko-Reborn/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
-
-# https://github.com/Nheko-Reborn/mtxclient/pull/91
-Patch100: %{name}-gcc13-fixes.patch
 
 BuildRequires: cmake(mpark_variant)
 BuildRequires: cmake(nlohmann_json) >= 3.2.0
@@ -76,6 +73,9 @@ ln -s libmatrix_client.so.%{version} %{buildroot}%{_libdir}/libmatrix_client.so.
 %{_libdir}/*.so
 
 %changelog
+* Mon Feb 20 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.2-1
+- Updated to version 0.9.2.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

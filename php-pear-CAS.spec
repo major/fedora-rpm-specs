@@ -1,20 +1,20 @@
 # remirepo/fedora spec file for php-pear-CAS
 #
-# Copyright (c) 2010-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2010-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    f817c72a961484afef95ac64a9257c8e31f063b9
+%global gh_commit    c129708154852656aabb13d8606cd5b12dbbabac
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     apereo
 %global gh_project   phpCAS
 
 
 Name:           php-pear-CAS
-Version:        1.6.0
-Release:        2%{?dist}
+Version:        1.6.1
+Release:        1%{?dist}
 Summary:        Central Authentication Service client library in php
 
 License:        ASL 2.0
@@ -76,8 +76,10 @@ Autoloader: %{pear_phpdir}/CAS/Autoload.php
     --template fedora \
     --output source/CAS/Autoload.php  \
              source
+
 cat << 'EOF' | tee -a source/CAS/Autoload.php
 \Fedora\Autoloader\Dependencies::required([
+    dirname(__DIR__) . '/CAS.php',
     [
         '%{_datadir}/php/Psr/Log3/autoload.php',
         '%{_datadir}/php/Psr/Log2/autoload.php',
@@ -118,6 +120,9 @@ echo "Ok\n";
 
 
 %changelog
+* Mon Feb 20 2023 Remi Collet <remi@remirepo.net> - 1.6.1-1
+- update to 1.6.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

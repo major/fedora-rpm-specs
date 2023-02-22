@@ -1,6 +1,6 @@
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 38.0
+Version: 38.1
 Release: 1%{?dist}
 
 License: MIT
@@ -196,6 +196,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Mon Feb 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 38.1-1
+- Disable fast user switching again (#2171316)
+
 * Tue Feb 07 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 38.0-1
 - 38.0
 

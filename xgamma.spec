@@ -1,29 +1,62 @@
 Name:       xgamma
-Version:    1.0.6
-Release:    6%{?dist}
+Version:    1.0.7
+Release:    1%{?dist}
 Summary:    X utility to query and alter the gamma correction of a monitor
-
-License:    MIT
-URL:        https://www.x.org
-Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.bz2
-
-BuildRequires:  automake libtool
-BuildRequires:  gcc make
+# COPYING:      X11 AND HPND-sell-variant
+# man/xgamma.man:   X11 without the permision grant, probably a copy-and-paste
+#                   mistake
+#                   <https://gitlab.freedesktop.org/xorg/app/xgamma/-/issues/2>
+# xgamma.c:     X11
+## Not in any binary package
+# configure.ac: HPND-sell-variant
+# INSTALL:      FSFAP
+# Makefile.am:  HPND-sell-variant
+## Unbundled
+# aclocal.m4:   FSFULLRWD AND FSFULLR AND
+#               GPL-2.0-or-later WITH Autoconf-exception-generic AND
+#               GPL-3.0-or-later WITH an Autoconf Macro exception
+#               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/161>
+#               AND X11
+# compile:      GPL-2.0-ro-later WITH Autoconf-exception-generic
+# config.guess: GPL-3.0-or-later WITH Autoconf-exception-generic
+# config.sub:   GPL-3.0-or-later WITH Autoconf-exception-generic
+# configure:    FSFUL
+# depcomp:      GPL-2.0-or-later WITH Autoconf-exception-generic
+# install-sh:   X11 AND LicenseRef-Fedora-Public-Domain
+# Makefile.in:  FSFULLRWD AND HPND-sell-variant
+# man/Makefile.in:  FSFULLRWD
+# missing:      GPL-2.0-or-later WITH Autoconf-exception-generic
+License:    X11 AND HPND-sell-variant
+URL:        https://www.x.org/
+Source0:    %{url}releases/individual/app/%{name}-%{version}.tar.xz
+Source1:    %{url}releases/individual/app/%{name}-%{version}.tar.xz.sig
+# Key exported from Petr Pisar's keyring
+Source2:    gpgkey-4A193C06D35E7C670FA4EF0BA2FB9E081F2D130E.gpg
+BuildRequires:  autoconf >= 2.60
+BuildRequires:  automake
+BuildRequires:  coreutils
+BuildRequires:  gcc
+BuildRequires:  gnupg2
+BuildRequires:  make
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xxf86vm)
 BuildRequires:  pkgconfig(xorg-macros) >= 1.8
-
-Obsoletes:  xorg-x11-server-utils < 7.7-40
+BuildRequires:  pkgconfig(xproto) >= 7.0.17
+# xorg-x11-server-utils-7.7-39.fc35 splitted into many packages
+Obsoletes:      xorg-x11-server-utils < 7.7-40
 
 %description
 xgamma allows X users to query and alter the gamma correction of a
 monitor via the X video mode extension (XFree86-VidModeExtension).
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup
+rm aclocal.m4 compile config.guess config.sub configure depcomp install-sh \
+     Makefile.in man/Makefile.in missing
 
 %build
-autoreconf -v --install
+autoreconf -v --force --install
 %configure --disable-silent-rules
 %make_build
 
@@ -32,10 +65,14 @@ autoreconf -v --install
 
 %files
 %license COPYING
+%doc ChangeLog README.md
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Mon Feb 20 2023 Petr Pisar <ppisar@redhat.com> - 1.0.7-1
+- 1.0.7 bump
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

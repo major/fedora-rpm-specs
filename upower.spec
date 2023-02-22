@@ -22,24 +22,33 @@ BuildRequires:  gobject-introspection-devel
 BuildRequires:  gtk-doc
 BuildRequires:  systemd
 
+Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
 Requires:       udev
-Requires:       gobject-introspection
 
 
 %description
 UPower (formerly DeviceKit-power) provides a daemon, API and command
 line tools for managing power devices attached to the system.
 
+%package libs
+Summary: Client libraries for UPower
+Requires: gobject-introspection
+Recommends: %{name}%{?_isa} = %{version}-%{release}
+Conflicts: %{name} < 0.99.20-4
+
+%description libs
+Client libraries for UPower.
+
 %package devel
 Summary: Headers and libraries for UPower
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 
 %description devel
 Headers and libraries for UPower.
 
 %package devel-docs
 Summary: Developer documentation for for libupower-glib
-Requires: %{name} = %{version}-%{release}
+Requires: %{name}-libs = %{version}-%{release}
 BuildArch: noarch
 
 %description devel-docs
@@ -77,7 +86,6 @@ Developer documentation for for libupower-glib.
 %{!?_licensedir:%global license %%doc}
 %license COPYING
 %doc NEWS AUTHORS HACKING README
-%{_libdir}/libupower-glib.so.*
 %{_datadir}/dbus-1/system.d/*.conf
 %{_udevrulesdir}/*.rules
 %{_udevhwdbdir}/*.hwdb
@@ -86,12 +94,16 @@ Developer documentation for for libupower-glib.
 %config %{_sysconfdir}/UPower/UPower.conf
 %{_bindir}/*
 %{_libexecdir}/*
-%{_libdir}/girepository-1.0/*.typelib
 %{_mandir}/man1/*
 %{_mandir}/man7/*
 %{_mandir}/man8/*
 %{_datadir}/dbus-1/system-services/*.service
 %{_unitdir}/*.service
+
+%files libs
+%license COPYING
+%{_libdir}/libupower-glib.so.3{,.*}
+%{_libdir}/girepository-1.0/*.typelib
 
 %files devel
 %{_datadir}/dbus-1/interfaces/*.xml

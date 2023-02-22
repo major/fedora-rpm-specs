@@ -1,7 +1,8 @@
 Name:           autoconf-archive
-Version:        2022.09.03
-Release:        2%{?dist}
+Version:        2023.02.20
+Release:        1%{?dist}
 Summary:        The Autoconf Macro Archive
+
 License:        GPLv3+ with exceptions
 URL:            https://www.gnu.org/software/autoconf-archive/
 Source0:        https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz
@@ -41,6 +42,9 @@ rm -frv %{buildroot}%{_datadir}/doc/%{name}
 %{_infodir}/autoconf-archive.info*
 
 %changelog
+* Mon Feb 20 2023 David King <amigadave@amigadave.com> - 2023.02.20-1
+- Update to 2023.02.20 (#2171879)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.09.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

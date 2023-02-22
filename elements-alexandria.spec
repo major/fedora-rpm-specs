@@ -1,7 +1,7 @@
 Summary:        A lightweight C++ utility library
 Name:           elements-alexandria
 Version:        2.27.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/Alexandria
 Source0:        https://github.com/astrorama/Alexandria/archive/%{version}/%{name}-%{version}.tar.gz
@@ -192,6 +192,9 @@ make test -C "%{_vpath_builddir}"
 %{docdir}
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.27.0-5
+- Rebuilt for Boost 1.81
+
 * Tue Jan 31 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 2.27.0-4
 - Rebuild for gcc 13
 

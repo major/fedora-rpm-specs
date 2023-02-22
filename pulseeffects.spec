@@ -1,6 +1,6 @@
 Name:           pulseeffects
 Version:        5.0.4
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Audio equalizer, filters and effects for Pulseaudio applications
 
 License:        GPLv3+
@@ -89,6 +89,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/com.githu
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 5.0.4-8
+- Rebuilt for Boost 1.81
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,6 +1,6 @@
 Name:           radiotray-ng
 Version:        0.2.8
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Internet radio player
 
 License:        GPL-3.0-or-later
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/rtng-bookmark-editor.
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.2.8-9
+- Rebuilt for Boost 1.81
+
 * Tue Jan 24 2023 Vasiliy Glazov <vascom2@gmail.com> 0.2.8-8
 - Fix build with GCC 13
 

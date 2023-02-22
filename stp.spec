@@ -1,6 +1,6 @@
 Name:		stp
 Version:	2.3.3
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Constraint solver/decision procedure
 
 # MIT: the project as a whole
@@ -127,6 +127,9 @@ mv %{buildroot}%{_prefix}/man %{buildroot}%{_datadir}/man
 %{python3_sitelib}/%{name}/
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.3.3-25
+- Rebuilt for Boost 1.81
+
 * Sat Jan 21 2023 Jerry James <loganjerry@gmail.com> - 2.3.3-24
 - Add cstdint patch to fix FTBFS
 

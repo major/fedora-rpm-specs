@@ -1,7 +1,7 @@
 Name:      elinks
 Summary:   A text-mode Web browser
 Version:   0.16.0
-Release:   2%{?dist}
+Release:   3%{?dist}
 License:   GPLv2
 URL:       https://github.com/rkd77/elinks
 Source:    https://github.com/rkd77/elinks/releases/download/v%{version}/elinks-%{version}.tar.xz
@@ -83,7 +83,7 @@ CFLAGS="$CFLAGS -DLUA_COMPAT_5_3"
     --without-spidermonkey          \
     --without-x
 
-%make_build
+%make_build -j1
 
 %install
 %make_install
@@ -129,6 +129,10 @@ exit 0
 %{_mandir}/man5/*
 
 %changelog
+* Mon Feb 20 2023 Jan Rybar <jrybar@redhat.com> - 0.16.0-3
+- parallel builds cause FTBFS
+- Resolves: bz#2171476
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

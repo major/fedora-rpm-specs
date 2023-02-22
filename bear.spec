@@ -1,5 +1,5 @@
 Name:           bear
-Version:        3.0.21
+Version:        3.1.1
 Release:        %autorelease
 Summary:        Tool that generates a compilation database for clang tooling
 
@@ -71,12 +71,10 @@ mv %{buildroot}/%{_docdir}/Bear %{buildroot}/%{_docdir}/bear
 
 %files
 %{_bindir}/bear
-%{_bindir}/citnames
-%{_bindir}/intercept
 %{_libdir}/bear
 %{_mandir}/man1/bear.1*
-%{_mandir}/man1/citnames.1*
-%{_mandir}/man1/intercept.1*
+%{_mandir}/man1/bear-citnames.1*
+%{_mandir}/man1/bear-intercept.1*
 
 # rpmbuild on RHEL won't automatically pick up ChangeLog.md & README.md
 %if 0%{?rhel}

@@ -4,7 +4,7 @@
 #
 Name:           airtsp
 Version:        1.01.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        C++ Simulated Airline Travel Solution Provider Library
 
@@ -106,6 +106,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.01.9-4
+- Rebuilt for Boost 1.81
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.01.9-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

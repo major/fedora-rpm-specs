@@ -71,8 +71,10 @@ find %{buildroot} -type f -name "*.la" -delete
 
 
 %check
+%if %{undefined flatpak}
 PKG_CONFIG_PATH=%{buildroot}%{_libdir}/pkgconfig
 test "%{?mc_plugindir}" = "$(pkg-config --variable=plugindir mission-control-plugins 2>/dev/null)"
+%endif
 make check ||:
 
 

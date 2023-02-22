@@ -2,8 +2,8 @@
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          1.0.0
-Release:          11%{?dist}
+Version:          1.1.0
+Release:          1%{?dist}
 Summary:          Examples of Recursive Lists and Nested or Split Data Frames
 
 License:          CC0
@@ -13,7 +13,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-tibble, R-utils
-# Suggests:  R-gapminder, R-jsonlite, R-purrr, R-rprojroot, R-testthat >= 2.1.0, R-wesanderson, R-xml2
+# Suggests:  R-jsonlite, R-testthat >= 3.0.0, R-xml2
 # LinkingTo:
 # Enhances:
 
@@ -22,12 +22,8 @@ BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-tibble
 BuildRequires:    R-utils
-BuildRequires:    R-gapminder
 BuildRequires:    R-jsonlite
-BuildRequires:    R-purrr
-BuildRequires:    R-rprojroot
-BuildRequires:    R-testthat >= 2.1.0
-BuildRequires:    R-wesanderson
+BuildRequires:    R-testthat >= 3.0.0
 BuildRequires:    R-xml2
 
 %description
@@ -71,6 +67,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Mon Feb 20 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.0-1
+- update to 1.1.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

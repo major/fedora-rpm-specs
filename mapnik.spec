@@ -1,6 +1,6 @@
 Name:      mapnik
 Version:   3.1.0
-Release:   24%{?dist}
+Release:   25%{?dist}
 Summary:   Free Toolkit for developing mapping applications
 License:   LGPL-2.1-only
 URL:       http://mapnik.org/
@@ -259,6 +259,9 @@ LANG="C.UTF-8" make test
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.1.0-25
+- Rebuilt for Boost 1.81
+
 * Mon Jan 23 2023 Tom Hughes <tom@compton.nu> - 3.1.0-24
 - Add missing cstdint include
 

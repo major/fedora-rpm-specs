@@ -6,7 +6,7 @@
 
 Name:           kea
 Version:        2.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        DHCPv4, DHCPv6 and DDNS server from ISC
 
 License:        MPLv2.0 and Boost
@@ -225,6 +225,9 @@ EOF
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.2.0-4
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

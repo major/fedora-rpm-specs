@@ -1,7 +1,7 @@
 
 Name:    heaptrack
 Version: 1.2.0
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: A heap memory profiler for Linux
 
 License: GPLv2+
@@ -88,6 +88,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.2.0-12
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

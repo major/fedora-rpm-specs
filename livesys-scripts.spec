@@ -1,5 +1,5 @@
 Name:           livesys-scripts
-Version:        0.3.6
+Version:        0.3.7
 Release:        1%{?dist}
 Summary:        Scripts for auto-configuring live media during boot
 
@@ -57,6 +57,9 @@ touch %{buildroot}%{_sharedstatedir}/livesys/livesys-session-late-extra
 
 
 %changelog
+* Mon Feb 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.3.7-1
+- Update to 0.3.7
+
 * Mon Feb 13 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.3.6-1
 - Update to 0.3.6
 

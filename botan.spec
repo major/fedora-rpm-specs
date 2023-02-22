@@ -2,7 +2,7 @@
 
 Name:           botan
 Version:        %{major_version}.17
-Release:        35%{?dist}
+Release:        36%{?dist}
 Summary:        Crypto library written in C++
 
 License:        BSD
@@ -195,6 +195,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} ./check --validate
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.10.17-36
+- Rebuilt for Boost 1.81
+
 * Sun Jan 22 2023 Thomas Moschny <thomas.moschny@gmx.de> - 1.10.17-35
 - Add patch to fix FTBFS.
 

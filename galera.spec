@@ -1,6 +1,6 @@
 Name:           galera
 Version:        26.4.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Synchronous multi-master wsrep provider (replication engine)
 
 License:        GPLv2
@@ -152,6 +152,9 @@ sed -i 's/User=nobody/User=garb/g' %{buildroot}/usr/lib/systemd/system/garbd.ser
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 26.4.13-3
+- Rebuilt for Boost 1.81
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 26.4.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

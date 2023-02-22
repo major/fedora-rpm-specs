@@ -1,6 +1,6 @@
 Name:          lnav
 Version:       0.11.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Curses-based tool for viewing and analyzing log files
 License:       BSD
 
@@ -20,6 +20,9 @@ BuildRequires: readline-devel
 BuildRequires: sqlite-devel
 BuildRequires: zlib-devel
 
+# https://bugzilla.redhat.com/show_bug.cgi?id=2171598
+Patch1: bz-2171598-ftbfs-gcc-13.patch
+
 %description
 %{name} is an enhanced log file viewer that takes advantage of any semantic
 information that can be gleaned from the files being viewed, such as
@@ -32,6 +35,7 @@ quickly and efficiently zero in on problems.
 
 %prep
 %setup -q
+%patch1 -p1
 
 %build
 %configure --disable-static --disable-silent-rules
@@ -49,6 +53,10 @@ quickly and efficiently zero in on problems.
 
 
 %changelog
+* Mon Feb 20 2023 Peter Schiffer <peter+fedora@pschiffer.eu> - 0.11.1-3
+- resolves: #2171598
+  fix FTBFS on F38+
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

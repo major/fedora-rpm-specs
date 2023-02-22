@@ -25,7 +25,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.0.1
-Release:    1%{?dist}
+Release:    2%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -49,7 +49,7 @@ Source5:    clamd-README
 #http://database.clamav.net/main.cvd
 Source10:   main-62.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-26813.cvd
+Source11:   daily-26816.cvd
 #http://database.clamav.net/bytecode.cvd
 Source12:   bytecode-333.cvd
 #for update
@@ -554,6 +554,9 @@ exit 0
 
 
 %changelog
+* Mon Feb 20 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-2
+- Fix daily.cvd file (bz#2171869)
+
 * Thu Feb 16 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-1
 - Update to 1.0.1
 

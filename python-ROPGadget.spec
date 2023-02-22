@@ -1,8 +1,8 @@
 %global srcname ROPGadget
 
 Name:           python-%{srcname}
-Version:        6.7
-Release:        4%{?dist}
+Version:        7.2
+Release:        1%{?dist}
 Summary:        A tool to find ROP gadgets in program files
 
 License:        BSD
@@ -54,6 +54,9 @@ done
 %{_bindir}/*
 
 %changelog
+* Mon Feb 20 2023 W. Michael Petullo <mike@flyn.org> - 7.2-1
+- New upstream version
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

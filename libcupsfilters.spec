@@ -3,7 +3,7 @@
 
 Name: libcupsfilters
 Version: 2.0b3
-Release: 2%{?dist}
+Release: 4%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -16,6 +16,10 @@ Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 # Patches
 # https://github.com/OpenPrinting/libcupsfilters/pull/11
 Patch001: 0001-Coverity-fixes.patch
+# https://github.com/OpenPrinting/libcupsfilters/commit/381636a
+Patch002: 0001-Do-not-free-cf_image_t-data-structure-in-_cfImageZoo.patch
+# https://github.com/OpenPrinting/libcupsfilters/commit/6b87c6e8f4c87652a73841fbc4259ff63c25b0f6
+Patch003: 0001-cfImageOpenFP-Removed-leftover-HAVE_LIBZ-conditional.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -69,7 +73,7 @@ BuildRequires: pkgconfig(poppler-cpp)
 # otherwise we can't install build packages which requires cups
 # and cups-filters/libcupsfilters (at the finish of the Fedora change)
 # remove once CentOS Stream 10 is released
-#Obsoletes: cups-filters-libs < 2.0
+Obsoletes: cups-filters-libs < 2.0
 
 # have a fallback for fonts in texttopdf filter function (bz#1070729)
 # but make it weak, so other monospace font can be used if requested
@@ -196,6 +200,13 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-4
+- rebuilt with obsoletes
+- fix define in image-png.c to enable PNG support
+
+* Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-3
+- fix double free caused by coverity fix
+
 * Wed Feb 15 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-2
 - remove Obsoletes for now
 

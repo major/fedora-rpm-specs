@@ -2,7 +2,7 @@
  
 Name:		rb_libtorrent
 Version:	2.0.8
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	A C++ BitTorrent library aiming to be the best alternative
 
 License:	BSD
@@ -170,6 +170,9 @@ install -p -m 0644 %{SOURCE1} ./README-renames.Fedora
 %{python3_sitearch}/libtorrent.cpython-*.so
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.0.8-3
+- Rebuilt for Boost 1.81
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

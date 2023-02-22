@@ -122,7 +122,7 @@ m     stapdev  stapdev
 
 Name: systemtap
 Version: 4.8
-Release: 3%{?release_override}%{?dist}
+Release: 4%{?release_override}%{?dist}
 # for version, see also configure.ac
 
 
@@ -1298,6 +1298,9 @@ exit 0
 
 # PRERELEASE
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 4.8-4
+- Rebuilt for Boost 1.81
+
 * Wed Feb 08 2023 Frank Ch. Eigler <fche@redhat.com> - 4.8-3
 - backport several RHEL/upstream patches
 

@@ -2,7 +2,7 @@
 Name:           travelccm
 %global sfname  travel-ccm
 Version:        1.00.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        C++ Travel Customer Choice Model (CCM) Library
 
@@ -119,6 +119,9 @@ rm -f $RPM_BUILD_ROOT%{_docdir}/%{name}/{NEWS,README.md,AUTHORS}
 
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.00.7-4
+- Rebuilt for Boost 1.81
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.00.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

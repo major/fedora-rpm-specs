@@ -1,11 +1,13 @@
+%global rc -rc.1
+
 Name:           srt
-Version:        1.5.1
-Release:        4%{?dist}
+Version:        1.5.2
+Release:        0.rc1%{?dist}
 Summary:        Secure Reliable Transport protocol tools
 
 License:        MPLv2.0
 URL:            https://www.srtalliance.org
-Source0:        https://github.com/Haivision/srt/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Haivision/srt/archive/v%{version}%{rc}/%{name}-%{version}%{rc}.tar.gz
 
 BuildRequires: make
 BuildRequires:  cmake gcc-c++
@@ -36,7 +38,7 @@ Secure Reliable Transport protocol development libraries and header files
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{version}%{rc}
 
 
 %build
@@ -58,11 +60,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 %check
 # - test are broken on s390x for some slowness/timing reason
-# - tests can't be run in parallel because they reuse port numbers
 # - TestIPv6 are known broken due to v4_v6 mapping differnces between platforms
 #   https://github.com/Haivision/srt/issues/1972#
 %ifnarch s390x
-%define _smp_build_ncpus 1
 %ctest -E TestIPv6
 %endif
 
@@ -90,6 +90,9 @@ rm -f %{buildroot}/%{_libdir}/pkgconfig/haisrt.pc
 
 
 %changelog
+* Mon Feb 20 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.2-0.rc1
+- Update to 1.5.2-rc1
+
 * Mon Jan 30 2023 Yanko Kaneti <yaneti@declera.com> - 1.5.1-4
 - With gcc fixed re-enable TestSocketOptions.InvalidVals test
 

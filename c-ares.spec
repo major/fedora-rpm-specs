@@ -2,11 +2,11 @@
 
 Summary: A library that performs asynchronous DNS operations
 Name: c-ares
-Version: 1.17.2
-Release: 4%{?dist}
+Version: 1.19.0
+Release: 1%{?dist}
 License: MIT
-URL: http://c-ares.haxx.se/
-Source0: http://c-ares.haxx.se/download/%{name}-%{version}.tar.gz
+URL: http://c-ares.org/
+Source0: http://c-ares.org/download/%{name}-%{version}.tar.gz
 # The license can be obtained at http://c-ares.haxx.se/license.html
 Source1: LICENSE
 Patch0: 0001-Use-RPM-compiler-options.patch
@@ -21,8 +21,8 @@ BuildRequires: libtool
 BuildRequires: make
 
 %description
-c-ares is a C library that performs DNS requests and name resolves 
-asynchronously. c-ares is a fork of the library named 'ares', written 
+c-ares is a C library that performs DNS requests and name resolves
+asynchronously. c-ares is a fork of the library named 'ares', written
 by Greg Hudson at MIT.
 
 %package devel
@@ -72,6 +72,7 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libcares.la
 %{_includedir}/ares.h
 %{_includedir}/ares_build.h
 %{_includedir}/ares_dns.h
+%{_includedir}/ares_nameser.h
 %{_includedir}/ares_rules.h
 %{_includedir}/ares_version.h
 %{_libdir}/*.so
@@ -82,6 +83,10 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libcares.la
 %{_mandir}/man3/ares_*
 
 %changelog
+* Fri Feb 17 2023 Tom Callaway <spot@fedoraproject.org> - 1.19.0-1
+- update to 1.19.0
+- fixes CVE-2022-4904
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

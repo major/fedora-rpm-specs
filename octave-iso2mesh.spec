@@ -104,6 +104,10 @@ sed -e "s|^\(CXXFLAGS = \).*|\1%{optflags} $RPM_LD_FLAGS|" \
 
 %build
 %set_build_flags
+%if %{__isa_bits} == 32
+# Reduce the debuginfo level to avoid virtual memory exhaustion
+CXXFLAGS="${CXXFLAGS-} -g1"
+%endif
 pushd tools
 # can't use make_build macro below because parallel make with CGAL exhausts
 # vm's memory and crash the building process, use sequential make instead

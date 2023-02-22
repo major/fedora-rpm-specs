@@ -55,7 +55,7 @@ Summary: KDE Libraries
 # shipped with kde applications, version...
 %global apps_version 17.08.3
 Version: 4.14.38
-Release: 36%{?dist}
+Release: 37%{?dist}
 
 Name: kdelibs
 Epoch: 6
@@ -64,7 +64,7 @@ Provides:  kdelibs4 = %{version}-%{release}
 %{?_isa:Provides: kdelibs4%{?_isa} = %{version}-%{release}}
 
 # http://techbase.kde.org/Policies/Licensing_Policy
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL:     http://www.kde.org/
 %global revision %(echo %{version} | cut -d. -f3)
 %if %{revision} >= 50
@@ -227,6 +227,9 @@ Patch73: kdelibs-4.14.38-gcc11.patch
 # jasper3 changes jas_stream_ops_t struct definition slightly
 # also internal encoder symbol is now hidden, use global encoder entry point
 Patch74: kdelibs-4.14.38-jasper3.patch
+
+# error: 'uintmax_t' does not name a type
+Patch75: kdelibs-4.14.38-stdint.patch
 
 ## upstream
 ## security fixes from the 4.14 branch:
@@ -531,6 +534,7 @@ sed -i -e "s|@@VERSION_RELEASE@@|%{version}-%{release}|" kio/kio/kprotocolmanage
 %if 0%{?fedora} > 36
 %patch74 -p1 -b .jasper3
 %endif
+%patch75 -p1 -b .stdint
 
 # upstream patches
 %patch100 -p1 -b .CVE-2019-14744
@@ -893,6 +897,10 @@ time xvfb-run -a dbus-launch --exit-with-session make -C %{_target_platform}/ te
 
 
 %changelog
+* Mon Feb 20 2023 Than Ngo <than@redhat.com> - 6:4.14.38-37
+- migrated to SPDX license
+- fixed FTBFS
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6:4.14.38-36
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

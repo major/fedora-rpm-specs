@@ -4,8 +4,7 @@
 # https://github.com/golang/mod
 %global goipath         golang.org/x/mod
 %global forgeurl        https://github.com/golang/mod
-Version:                0.6.0~dev
-%global commit          9b9b3d81d5e39b22d65814a8daf6723f3035d813
+Version:                0.8.0
 
 %gometa
 
@@ -21,7 +20,7 @@ Release:        %autorelease
 Summary:        Go module mechanics libraries
 
 # Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 Source0:        %{gosource}
 
@@ -55,7 +54,7 @@ install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
 %files
 %license LICENSE PATENTS
 %doc README.md
-%{_bindir}/*
+%{_bindir}/gosumcheck
 
 %gopkgfiles
 

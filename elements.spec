@@ -1,7 +1,7 @@
 Summary:        A C++/Python build framework
 Name:           elements
 Version:        6.0.1
-Release:        9%{?dist}
+Release:        10%{?dist}
 License:        LGPLv3+
 Source0:        https://github.com/astrorama/Elements/archive/%{version}/%{name}-%{version}.tar.gz
 # Elements use this file to link the documentation to cppreference.com
@@ -175,6 +175,9 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 %{docdir}
 
 %changelog
+* Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 6.0.1-10
+- Rebuilt for Boost 1.81
+
 * Fri Jan 27 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 6.0.1-9
 - Add missing #include directive for GCC 13
 

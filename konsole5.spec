@@ -10,10 +10,10 @@
 Name:    konsole5
 Summary: KDE Terminal emulator
 Version: 22.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 # sources: MIT and LGPLv2 and LGPLv2+ and GPLv2+
-License: GPLv2 and GFDL
+License: GPL-2.0-only AND GFDL-1.1-or-later
 URL:     http://www.kde.org/applications/system/konsole/
 #URL:    http://konsole.kde.org/
 
@@ -165,6 +165,9 @@ make test -C %{_target_platform} ARGS="--output-on-failure --timeout 30" ||:
 
 
 %changelog
+* Mon Feb 20 2023 Than Ngo <than@redhat.com> - 22.12.2-2
+- migrated to SPDX license
+
 * Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
 - 22.12.2
 

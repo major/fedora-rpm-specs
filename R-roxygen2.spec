@@ -1,5 +1,5 @@
 %global packname roxygen2
-%global packver  7.2.1
+%global packver  7.2.3
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -13,8 +13,8 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-brew, R-cli >= 3.3.0, R-commonmark, R-desc >= 1.2.0, R-digest, R-knitr, R-methods, R-pkgload >= 1.0.2, R-purrr >= 0.3.3, R-R6 >= 2.1.2, R-rlang >= 1.0.0, R-stringi, R-stringr >= 1.0.0, R-utils, R-withr, R-xml2
-# Suggests:  R-covr, R-devtools, R-rmarkdown, R-testthat >= 3.1.2, R-R.methodsS3, R-R.oo, R-yaml
+# Imports:   R-brew, R-cli >= 3.3.0, R-commonmark, R-desc >= 1.2.0, R-knitr, R-methods, R-pkgload >= 1.0.2, R-purrr >= 0.3.3, R-R6 >= 2.1.2, R-rlang >= 1.0.6, R-stringi, R-stringr >= 1.0.0, R-utils, R-withr, R-xml2
+# Suggests:  R-covr, R-rmarkdown >= 2.16, R-testthat >= 3.1.2, R-R.methodsS3, R-R.oo, R-yaml
 # LinkingTo: cpp11
 # Enhances:
 
@@ -24,20 +24,19 @@ BuildRequires:    R-brew
 BuildRequires:    R-cli >= 3.3.0
 BuildRequires:    R-commonmark
 BuildRequires:    R-desc >= 1.2.0
-BuildRequires:    R-digest
 BuildRequires:    R-knitr
 BuildRequires:    R-methods
 BuildRequires:    R-pkgload >= 1.0.2
 BuildRequires:    R-purrr >= 0.3.3
 BuildRequires:    R-R6 >= 2.1.2
-BuildRequires:    R-rlang >= 1.0.0
+BuildRequires:    R-rlang >= 1.0.6
 BuildRequires:    R-stringi
 BuildRequires:    R-stringr >= 1.0.0
 BuildRequires:    R-utils
 BuildRequires:    R-withr
 BuildRequires:    R-xml2
 BuildRequires:    R-cpp11-devel
-BuildRequires:    R-rmarkdown
+BuildRequires:    R-rmarkdown >= 2.16
 BuildRequires:    R-testthat >= 3.1.2
 BuildRequires:    R-R.methodsS3
 BuildRequires:    R-R.oo

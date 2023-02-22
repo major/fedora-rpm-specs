@@ -5,7 +5,7 @@
 # https://github.com/golang/sync
 %global goipath         golang.org/x/sync
 %global forgeurl        https://github.com/golang/sync
-%global commit          886fb9371eb4b47af10bff9c8025a8c9e1554b92
+Version:        0.1.0
 
 %gometa
 
@@ -17,8 +17,7 @@ provided by the language and "sync" and "sync/atomic" packages.}
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Version:        0
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Go concurrency primitives
 
 License:        BSD-3-Clause

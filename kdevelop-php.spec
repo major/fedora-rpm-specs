@@ -3,10 +3,10 @@
 Name:           kdevelop-php
 Summary:        Php language and documentation plugins for KDevelop
 Version:        22.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 # Most files LGPLv2+/GPLv2+
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.kde.org/
 Source0:        https://download.kde.org/stable/release-service/%{version}/src/kdev-php-%{version}.tar.xz
 
@@ -63,6 +63,9 @@ BuildRequires:  qt5-qtwebkit-devel
 
 
 %changelog
+* Mon Feb 20 2023 Than Ngo <than@redhat.com> - 22.12.2-2
+- migrated to SPDX license
+
 * Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
 - 22.12.2
 

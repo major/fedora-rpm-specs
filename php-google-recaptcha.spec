@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-google-recaptcha
 #
-# Copyright (c) 2017-2020 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    614f25a9038be4f3f2da7cbfd778dc5b357d2419
+%global gh_commit    d59a801e98a4e9174814a6d71bbc268dff1202df
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     google
 %global gh_project   recaptcha
@@ -14,34 +14,37 @@
 %global psr0         ReCaptcha
 
 Name:           php-%{gh_owner}-%{gh_project}
-Version:        1.2.4
-Release:        7%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        reCAPTCHA PHP client library
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
-Source0:        %{url}/archive/%{gh_commit}/%{name}-%{version}-%{?gh_short}.tar.gz
+# git snapshot to retrieve test suite
+Source0:        %{name}-%{version}-%{?gh_short}.tgz
+Source1:        makesrc.sh
 
 BuildArch:      noarch
 %if %{with_tests}
-BuildRequires:  php(language) >= 5.5
+BuildRequires:  php(language) >= 8
 BuildRequires:  php-curl
 BuildRequires:  php-date
 BuildRequires:  php-json
 BuildRequires:  php-pcre
 BuildRequires:  php-spl
 # For tests, from composer.json "require-dev": {
-#        "phpunit/phpunit": "^4.8.36|^5.7.27|^6.59|^7.5.11",
-#        "friendsofphp/php-cs-fixer": "^2.2.20|^2.15",
-BuildRequires:  phpunit7 >= 7.5.11
-%global phpunit %{_bindir}/phpunit7
+#        "phpunit/phpunit": "^10",
+#        "friendsofphp/php-cs-fixer": "^3.14",
+#        "php-coveralls/php-coveralls": "^2.5"
+# Keep phpunit9 for PHP 8.0
+BuildRequires:  phpunit9
 %endif
 # For autoloader
 BuildRequires:  php-composer(fedora/autoloader)
 
 # From composer.json, "require": {
-#        "php": ">=5.5"
-Requires:       php(language) >= 5.5
+#        "php": ">=8"
+Requires:       php(language) >= 8
 # From phpcompatinfo report for 1.2.1
 Requires:       php-curl
 Requires:       php-date
@@ -94,10 +97,10 @@ cp -pr src/%{psr0} %{buildroot}%{_datadir}/php/%{psr0}
 BOOTSTRAP=%{buildroot}%{_datadir}/php/%{psr0}/autoload.php
 ret=0
 
-for cmdarg in "php %phpunit" php72 php73 php74; do
+for cmdarg in php php80 "php81 %{_bindir}/phpunit10" "php82 %{_bindir}/phpunit10"; do
   if which $cmdarg; then
     set $cmdarg
-    $1 ${2:-%{_bindir}/phpunit7}  --bootstrap=$BOOTSTRAP --verbose || ret=0
+    $1 ${2:-%{_bindir}/phpunit9}  --bootstrap=$BOOTSTRAP || ret=0
   fi
 done
 exit $ret
@@ -115,6 +118,10 @@ exit $ret
 
 
 %changelog
+* Mon Feb 20 2023 Remi Collet <remi@remirepo.net> - 1.3.0-1
+- update to 1.3.0
+- raise dependency on PHP 8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

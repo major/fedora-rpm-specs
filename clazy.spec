@@ -2,7 +2,7 @@
 Name:           clazy
 Summary:        Qt oriented code checker based on clang framework
 Version:        1.11
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        LGPL-2.0-or-later
 URL:            https://invent.kde.org/sdk/%{name}/
 Source0:        https://download.kde.org/stable/%{name}/%{version}/src/%{name}-%{version}.tar.xz
@@ -15,7 +15,7 @@ BuildRequires: gcc-c++
 BuildRequires: clang-devel llvm-devel
 BuildRequires: perl-podlators
 
-Requires: clang
+Requires: clang(major) = %{clang_major_version}
 
 %description
 clazy is a compiler plugin which allows clang to understand Qt semantics.
@@ -52,6 +52,9 @@ refactoring.
 
 
 %changelog
+* Mon Feb 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.11-4
+- Explicitly Require: specific major version of Clang
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 1.11-3
 - migrated to SPDX license
 
