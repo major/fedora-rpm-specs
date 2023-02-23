@@ -4,7 +4,7 @@
 # https://pagure.io/golist
 %global goipath         pagure.io/golist
 %global forgeurl        https://pagure.io/golist
-Version:                0.10.1
+Version:                0.10.2
 
 %gometa
 
@@ -15,91 +15,42 @@ A tool to analyse the properties of a Go (Golang) codebase.}
 %global golicenses      LICENSE
 
 Name:           golist
-Release:        12%{?dist}
+Release:        %autorelease
 Summary:        A tool to analyse the properties of a Go (Golang) codebase
 
 # Upstream license specification: BSD-3-Clause
-License:        BSD
+License:        BSD-3-Clause
 URL:            %{gourl}
 #Source0:        #{gosource}  # Not supported by current forge macros.
 Source0:        https://pagure.io/golist/archive/v%{version}/golist-%{version}.tar.gz
 
 BuildRequires:  golang(github.com/urfave/cli)
 
-# Before split of /usr/bin/golist.
-# Remove in Fedora 34.
-Conflicts: go-compilers-golang-compiler < 1-34
-
 %description
 %{common_description}
 
-
 %prep
 %goprep
-
+%autopatch -p1
 
 %build
 for cmd in cmd/* ; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
 done
 
-
 %install
 install -m 0755 -vd                     %{buildroot}%{_bindir}
 install -m 0755 -vp %{gobuilddir}/bin/* %{buildroot}%{_bindir}/
-
 
 %if %{with check}
 %check
 %gocheck
 %endif
 
-
 %files
 %doc README.md NEWS.md
 %license LICENSE
-%{_bindir}/*
-
+%{_bindir}/golist
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-12
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-11
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Tue Jul 19 2022 Maxwell G <gotmax@e.email> - 0.10.1-10
-- Rebuild for CVE-2022-{1705,32148,30631,30633,28131,30635,30632,30630,1962} in
-  golang
-
-* Sat Jun 18 2022 Robert-André Mauchin <zebob.m@gmail.com> - 0.10.1-9
-- Rebuilt for CVE-2022-1996, CVE-2022-24675, CVE-2022-28327, CVE-2022-27191,
-  CVE-2022-29526, CVE-2022-30629
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-8
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Mon Dec 20 2021 Maxwell G <gotmax@e.email> - 0.10.1-7
-- Rebuild for new go version. Related: rhbz#2033978
-
-* Thu Jul 22 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-6
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_35_Mass_Rebuild
-
-* Tue Jan 26 2021 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_34_Mass_Rebuild
-
-* Tue Jul 28 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_33_Mass_Rebuild
-
-* Wed Jan 29 2020 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_32_Mass_Rebuild
-
-* Thu Jul 25 2019 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_31_Mass_Rebuild
-
-* Fri Jun 14 16:03:20 EDT 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.10.1-1
-- Update to latest version
-- Rewrite for latest Go macros
-
-* Mon May 27 01:19:35 EDT 2019 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 0.10.0-1
-- Initial package
+%autochangelog

@@ -1,11 +1,9 @@
-# F35: Do not update past 2.8.0 because Fedora 35's protobuf is too old.
-
 # Enable tests by default.
 %bcond_without  tests
 
 %global         srcname         google-api-core
 %global         forgeurl        https://github.com/googleapis/python-api-core
-Version:        2.10.2
+Version:        2.11.0
 %global         tag             v%{version}
 %forgemeta
 
@@ -61,13 +59,17 @@ Requires:       python3dist(grpcio-status)
 # Allow a slightly older protobuf.
 sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
+# Allow a slightly older version of grpcio.
+# NOTE(mhayden): All of the tests pass fine with 1.48.3
+# which is in rawhide/f38 as of 2023-02-20.
+sed -i 's/1.49.1/1.48.3/g' setup.py
+
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \
     xargs sed -i -E 's/^([[:space:]]*)import mock/\1from unittest import mock/'
 
-
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x testing
 
 
 %build

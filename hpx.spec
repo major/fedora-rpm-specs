@@ -1,10 +1,11 @@
 Name:           hpx
 Version:        1.8.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        General Purpose C++ Runtime System
-License:        Boost
-URL:            http://stellar.cct.lsu.edu/tag/hpx/
-Source0:        http://stellar.cct.lsu.edu/files/%{name}_%{version}.tar.gz
+License:        BSL-1.0
+URL:            https://hpx.stellar-group.org/
+Source0:        https://github.com/STEllAR-GROUP/hpx/archive/%{version}/%{name}-%{version}.tar.gz
+Patch:          https://patch-diff.githubusercontent.com/raw/STEllAR-GROUP/hpx/pull/6166.patch
 
 BuildRequires:  gcc-c++ >= 4.9
 BuildRequires:  gperftools-devel
@@ -15,9 +16,6 @@ BuildRequires:  fdupes
 BuildRequires:  git
 BuildRequires:  libatomic
 BuildRequires:  asio-devel
-
-#Add libatomic since it is not installed with gcc on Fedora
-Requires: libatomic
 
 %global hpx_desc \
 HPX is a general purpose C++ runtime system for parallel and distributed \
@@ -52,11 +50,12 @@ This package contains the examples
 %package devel
 Summary:    Development headers and libraries for hpx
 Requires:   hpx = %{version}-%{release}
+Requires:   asio-devel
 Requires:   boost-devel
 Requires:   hwloc-devel
 Requires:   gperftools-devel
 Requires:   gcc-c++
-Requires:   asio-devel
+Requires:   libatomic-devel
 
 %description devel
 %{hpx_desc}
@@ -89,6 +88,7 @@ Summary:    Development headers and libraries for hpx
 Requires:   hpx-mpich = %{version}-%{release}
 Requires:   boost-devel
 Requires:   hwloc-devel
+Requires:   libatomic-devel
 Requires:   mpich-devel
 Requires:   gperftools-devel
 Requires:   asio-devel
@@ -128,6 +128,7 @@ Summary:    Development headers and libraries for hpx
 Requires:   hpx-openmpi = %{version}-%{release}
 Requires:   boost-devel
 Requires:   hwloc-devel
+Requires:   libatomic-devel
 Requires:   openmpi-devel
 Requires:   gperftools-devel
 Requires:   asio-devel
@@ -138,7 +139,7 @@ Requires:   asio-devel
 This package contains development headers and libraries
 
 %prep
-%setup -n %{name}-%{version} -q
+%autosetup -p1
 
 %build
 # This package uses -Wl,-wrap to wrap calls at link time.  This is incompatible
@@ -275,6 +276,12 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Mon Feb 20 2023 Orion Poplawski <orion@nwra.com> - 1.8.1-3
+- Update URL and Source (bz#2119214)
+- Move Requires on libatomic to -devel subpackages (bz#2119214)
+- Add upstream patch for gcc13 support (FTBFS bz#2171569)
+- Use SPDX License tag
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,8 +3,8 @@
 Summary: A PDF file viewer for the X Window System
 Name: xpdf
 Version: 4.04
-Release: 6%{?dist}
-License: (GPLv2 or GPLv3) and BSD
+Release: 7%{?dist}
+License: (GPL-2.0-only OR GPL-3.0-only) AND BSD-3-Clause
 Epoch: 1
 Url: http://www.xpdfreader.com/
 
@@ -298,6 +298,9 @@ sed -i -e 's:/usr/local/share/:%{_datadir}/:g' $RPM_BUILD_ROOT%{_sysconfdir}/xpd
 %{_libdir}/lib*.so
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 4.04-7
+- migrated to SPDX license
+
 * Thu Feb 16 2023 Tom Callaway <spot@fedoraproject.org> - 1:4.04-6
 - drop now unnecessary libpaper2 patch
 

@@ -40,7 +40,7 @@
 %endif
 
 Name:           wine
-Version:        8.1
+Version:        8.2
 Release:        1%{?dist}
 Summary:        A compatibility layer for windows applications
 
@@ -161,7 +161,6 @@ BuildRequires:  pulseaudio-libs-devel
 BuildRequires:  gsm-devel
 BuildRequires:  libv4l-devel
 BuildRequires:  fontpackages-devel
-BuildRequires:  libtiff-devel
 BuildRequires:  gettext-devel
 BuildRequires:  chrpath
 BuildRequires:  gstreamer1-devel
@@ -194,6 +193,8 @@ BuildRequires:  mingw32-lcms2
 BuildRequires:  mingw64-lcms2
 BuildRequires:  mingw32-libpng
 BuildRequires:  mingw64-libpng
+BuildRequires:  mingw32-libtiff
+BuildRequires:  mingw64-libtiff
 BuildRequires:  mingw32-libxml2
 BuildRequires:  mingw64-libxml2
 BuildRequires:  mingw32-libxslt
@@ -388,7 +389,6 @@ Requires:       libva
 
 Provides:       bundled(libjpeg) = 9e
 Provides:       bundled(mpg123-libs) = 1.29.3
-Provides:       bundled(libtiff) = 4.3.0
 
 # removed as of 7.21
 Obsoletes:      wine-openal < 7.21
@@ -706,7 +706,7 @@ This package adds the opencl driver for wine.
 # setup and apply wine-staging patches
 gzip -dc %{SOURCE900} | tar -xf - --strip-components=1
 
-patches/patchinstall.sh DESTDIR="`pwd`" --all
+staging/patchinstall.py DESTDIR="`pwd`" --all
 
 %endif
 # 0%%{?wine_staging}
@@ -1310,6 +1310,7 @@ fi
 %ghost %{_libdir}/wine/%{winepedir}/d3d11.dll
 %{_libdir}/wine/%{winepedir}/wine-d3d11.dll
 %{_libdir}/wine/%{winepedir}/d3d12.dll
+%{_libdir}/wine/%{winepedir}/d3d12core.dll
 %{_libdir}/wine/%{winepedir}/d3dcompiler_*.dll
 %{_libdir}/wine/%{winepedir}/d3dim.dll
 %{_libdir}/wine/%{winepedir}/d3dim700.dll
@@ -1421,6 +1422,7 @@ fi
 %{_libdir}/wine/%{winepedir}/iphlpapi.dll
 %{_libdir}/wine/%{winepedir}/iprop.dll
 %{_libdir}/wine/%{winepedir}/irprops.cpl
+%{_libdir}/wine/%{winepedir}/ir50_32.dll
 %{_libdir}/wine/%{winepedir}/itircl.dll
 %{_libdir}/wine/%{winepedir}/itss.dll
 %{_libdir}/wine/%{winepedir}/joy.cpl
@@ -1635,6 +1637,7 @@ fi
 %{_libdir}/wine/%{winepedir}/sas.dll
 %{_libdir}/wine/%{winepedir}/sc.exe
 %{_libdir}/wine/%{winepedir}/scarddlg.dll
+%{_libdir}/wine/%{winepedir}/scardsvr.dll
 %{_libdir}/wine/%{winepedir}/sccbase.dll
 %{_libdir}/wine/%{winepedir}/schannel.dll
 %{_libdir}/wine/%{winepedir}/scrobj.dll
@@ -1737,6 +1740,7 @@ fi
 %{_libdir}/wine/%{winepedir}/windows.networking.connectivity
 %{_libdir}/wine/%{winepedir}/windows.networking.dll
 %{_libdir}/wine/%{winepedir}/windows.system.profile.systemmanufacturers.dll
+%{_libdir}/wine/%{winepedir}/windows.ui.dll
 %{_libdir}/wine/%{winepedir}/windowscodecs.dll
 %{_libdir}/wine/%{winepedir}/windowscodecsext.dll
 %{_libdir}/wine/%{winepedir}/winebus.sys
@@ -2091,6 +2095,7 @@ fi
 %{_libdir}/wine/%{winesodir}/d3d10core.dll.so
 %{_libdir}/wine/%{winesodir}/d3d11.dll.so
 %{_libdir}/wine/%{winesodir}/d3d12.dll.so
+%{_libdir}/wine/%{winesodir}/d3d12core.dll.so
 %{_libdir}/wine/%{winesodir}/d3dcompiler_*.dll.so
 %{_libdir}/wine/%{winesodir}/d3dim.dll.so
 %{_libdir}/wine/%{winesodir}/d3dim700.dll.so
@@ -2199,6 +2204,7 @@ fi
 %{_libdir}/wine/%{winesodir}/iphlpapi.dll.so
 %{_libdir}/wine/%{winesodir}/iprop.dll.so
 %{_libdir}/wine/%{winesodir}/irprops.cpl.so
+%{_libdir}/wine/%{winesodir}/ir50_32.dll.so
 %{_libdir}/wine/%{winesodir}/itircl.dll.so
 %{_libdir}/wine/%{winesodir}/itss.dll.so
 %{_libdir}/wine/%{winesodir}/joy.cpl.so
@@ -2393,6 +2399,7 @@ fi
 %{_libdir}/wine/%{winesodir}/sas.dll.so
 %{_libdir}/wine/%{winesodir}/sc.exe.so
 %{_libdir}/wine/%{winesodir}/scarddlg.dll.so
+%{_libdir}/wine/%{winesodir}/scardsvr.dll.so
 %{_libdir}/wine/%{winesodir}/sccbase.dll.so
 %{_libdir}/wine/%{winesodir}/schannel.dll.so
 %{_libdir}/wine/%{winesodir}/scrobj.dll.so
@@ -2493,6 +2500,7 @@ fi
 %{_libdir}/wine/%{winesodir}/windows.networking.connectivity.so
 %{_libdir}/wine/%{winesodir}/windows.networking.dll.so
 %{_libdir}/wine/%{winesodir}/windows.system.profile.systemmanufacturers.dll.so
+%{_libdir}/wine/%{winesodir}/windows.ui.so
 %{_libdir}/wine/%{winesodir}/windowscodecs.dll.so
 %{_libdir}/wine/%{winesodir}/windowscodecsext.dll.so
 %{_libdir}/wine/%{winesodir}/winebus.sys.so
@@ -2826,6 +2834,9 @@ fi
 %endif
 
 %changelog
+* Mon Feb 20 2023 Michael Cronenworth <mike@cchtml.com> - 8.2-1
+- version update
+
 * Mon Feb 06 2023 Michael Cronenworth <mike@cchtml.com> - 8.1-1
 - version update
 

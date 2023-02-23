@@ -1,19 +1,17 @@
 Name: cdw
-Version: 0.7.1 
-Release: 29%{?dist}
+Version: 0.8.1
+Release: 1%{?dist}
 Summary: Front-end for tools used for burning data CD/DVD
-
 License: GPLv2+ 
 URL: http://cdw.sourceforge.net/
-
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Patch0: 0001-add-formatstring.patch
 
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: libcdio-devel, ncurses-devel, libburn-devel
 BuildRequires: make
 #It does not make sense install cdw without the packages below:
 Requires: dvd+rw-tools,wodim,genisoimage,xorriso 
-
 
 %description
 cdw is a ncurses based front-end for some command-line tools used for burning
@@ -25,31 +23,28 @@ is also provided. cdw can verify correctness of writing ISO9660 image to
 CD or DVD disc using md5sum or some of  programs that verifies SHA hashes.
 
 %prep
-%setup -q
+%autosetup -p1
 
 %build
 export CXXFLAGS="%{optflags}" LIBS="-lm"
 %configure
-make %{?_smp_mflags}
-
+%make_build
 
 %install
-make install DESTDIR=$RPM_BUILD_ROOT INSTALL="install -p"
+%make_install
 
 %check
 make check LIBS="-lm"
 
-
 %files
-
-%defattr(-,root,root,-)
 %{_bindir}/*
 %doc COPYING AUTHORS ChangeLog NEWS README THANKS
 %{_mandir}/man1/*
 
-
-
 %changelog
+* Tue Feb 21 2023 Filipe Rosset <rosset.filipe@gmail.com> - 0.8.1-1
+- Update to 0.8.1 fix FTBFS rhbz#2113143
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

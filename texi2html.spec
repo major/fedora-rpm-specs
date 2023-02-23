@@ -1,10 +1,10 @@
 Name: texi2html
 Version: 5.0
-Release: 19%{?dist}
+Release: 20%{?dist}
 # GPLv2+ is for the code
 # OFSFDL (Old FSF Documentation License) for the documentation
 # CC-BY-SA or GPLv2 for the images
-License: GPLv2+ and OFSFDL and (CC-BY-SA or GPLv2)
+License: GPL-2.0-or-later AND LicenseRef-OFSFDL AND (CC-BY-SA-3.0 OR GPL-2.0-only)
 Summary: A highly customizable texinfo to HTML and other formats translator
 Source0: http://download.savannah.nongnu.org/releases/%{name}/%{name}-%{version}.tar.bz2
 # Do not install bundled Unicode-EastAsianWidth, bug #1154436,
@@ -84,6 +84,9 @@ mkdir -p $RPM_BUILD_ROOT%{_datadir}/texinfo $RPM_BUILD_ROOT%{_sysconfdir}/texinf
 %dir %{_sysconfdir}/texinfo
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 5.0-20
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

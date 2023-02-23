@@ -13,7 +13,7 @@
 
 Name:           godot
 Version:        3.4.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -32,6 +32,7 @@ ExcludeArch:    ppc64 ppc64le s390x
 
 # See bundled section for explanations.
 %define system_bullet 0%{?mageia} || 0%{?fedora} >= 34
+%define system_embree 0%{?mageia} || (0%{?fedora} && 0%{?fedora} < 38)
 %define system_libwslay 0%{?mageia}
 
 BuildRequires:  gcc-c++
@@ -72,8 +73,10 @@ BuildRequires:  scons
 BuildRequires:  python3-scons
 %endif
 
+%if %{system_embree}
 %ifarch aarch64 x86_64
-BuildRequires:  embree-devel
+BuildRequires:  embree3-devel
+%endif
 %endif
 
 # For desktop and appdata files validation
@@ -98,6 +101,8 @@ Requires:       hicolor-icon-theme
 # https://github.com/bulletphysics/bullet3/pull/2748
 Provides:       bundled(bullet) = 3.17
 %endif
+# Godot requires Embree 3, and recent Fedora upgraded to Embree 4 which breaks the API.
+Provides:       bundled(embree) = 3.13.0
 # Has some modifications for IPv6 support, upstream enet is unresponsive.
 # Should not be unbundled.
 # Cf: https://github.com/godotengine/godot/issues/6992
@@ -216,10 +221,13 @@ by pointing to the location of the game's data package.
 %build
 # Needs to be in %%build so that system_libs stays in scope
 # We don't unbundle enet and minizip as they have necessary custom changes
-to_unbundle="embree freetype libogg libpng libtheora libvorbis libvpx libwebp mbedtls miniupnpc opus pcre2 zlib zstd"
+to_unbundle="freetype libogg libpng libtheora libvorbis libvpx libwebp mbedtls miniupnpc opus pcre2 zlib zstd"
 
 %if %{system_bullet}
 to_unbundle+=" bullet"
+%endif
+%if %{system_embree}
+to_unbundle+=" embree"
 %endif
 %if %{system_libwslay}
 to_unbundle+=" wslay"
@@ -296,6 +304,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Tue Feb 21 2023 Rémi Verschelde <akien@fedoraproject.org> - 3.4.5-4
+- Use bundled embree3 for F38 and later, not compatible with embree4 yet
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 3.4.5-3
 - rebuild for libvpx
 - fix issue where uint32_t was undefined (add #include <cstdint>)

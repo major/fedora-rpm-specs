@@ -1,3 +1,6 @@
+# Run optional tests
+%bcond_without perl_Lexical_SealRequireHints_enables_optional_test
+
 Name:           perl-Lexical-SealRequireHints
 Version:        0.011
 Release:        21%{?dist}
@@ -17,12 +20,14 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
 BuildRequires:  perl(Test::More) >= 0.41
+%if %{with perl_Lexical_SealRequireHints_enables_optional_test}
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
 BuildRequires:  perl(Thread::Semaphore)
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
+%endif
 # Dependencies
 Conflicts:      perl(B:Hooks::OP::Check) < 0.19
 

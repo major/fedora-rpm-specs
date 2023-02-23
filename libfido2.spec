@@ -1,7 +1,7 @@
 Name:           libfido2
 
-Version:        1.12.0
-Release:        4%{?dist}
+Version:        1.13.0
+Release:        1%{?dist}
 Summary:        FIDO2 library
 
 License:        BSD-2-Clause
@@ -77,17 +77,33 @@ find %{buildroot} -type f -name "*.a" -delete -print
 %{_libdir}/libfido2.so.1{,.*}
 
 %files devel
-%{_libdir}/pkgconfig/*
+%{_libdir}/pkgconfig/libfido2.pc
 %{_libdir}/libfido2.so
-%{_includedir}/*
-%{_mandir}/man3/*
+%{_includedir}/fido.h
+%{_includedir}/fido
+%{_mandir}/man3/fido_*.3{,.*}
+%{_mandir}/man3/eddsa_pk_*.3{,.*}
+%{_mandir}/man3/es256_pk_*.3{,.*}
+%{_mandir}/man3/es384_pk_*.3{,.*}
+%{_mandir}/man3/rs256_pk_*.3{,.*}
 
 %files -n fido2-tools
-%{_bindir}/*
-%{_mandir}/man1/*
+%{_bindir}/fido2-assert
+%{_bindir}/fido2-cred
+%{_bindir}/fido2-token
+%{_mandir}/man1/fido2-assert.1{,.*}
+%{_mandir}/man1/fido2-cred.1{,.*}
+%{_mandir}/man1/fido2-token.1{,.*}
 
 
 %changelog
+* Tue Feb 21 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.13.0-1
+- Update to 1.13.0 release ( resolves: rhbz#2172297 )
+- Perform some deglobing of files per packaging guidelines
+
+* Tue Feb 21 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.12.0-5
+- Fix sources file for keyring move
+
 * Fri Feb 10 2023 Gary Buhrmaster <gary.buhrmaster@gmail.com> - 1.12.0-4
 - Move keyring to SCM per packaging guidelines
 

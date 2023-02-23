@@ -3,7 +3,7 @@
 
 # https://github.com/acobaugh/osrelease
 %global goipath         github.com/acobaugh/osrelease
-%global commit          a93a0a55a24912e113e21f81971dc7248de7f6e2
+Version:                0.1.0
 
 %gometa
 
@@ -16,8 +16,7 @@ Golang package to read and parse /etc/os-release}
 Name:           %{goname}
 # Package was incorrectly versioned 0.0.1
 Epoch:          1
-Version:        0
-Release:        10%{?dist}
+Release:        1%{?dist}
 Summary:        Golang package to read and parse /etc/os-release
 
 # Upstream license specification: BSD-3-Clause
@@ -44,6 +43,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Tue Feb 21 2023 Debarshi Ray <rishi@fedoraproject.org> - 1:0.1.0-1
+- Update to 0.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

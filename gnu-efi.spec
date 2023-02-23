@@ -182,7 +182,9 @@ find %{buildroot}/%{_prefix}/ -type l | sed 's,%{buildroot}/\+,/,' > compat.lst
 %endif
 
 %changelog
-* Wed Feb 01 2023 Peter Jones <pjones@redhat.com> - 3.0.11-8
+* Tue Feb 21 2023 Peter Jones <pjones@redhat.com> - 3.0.11-12
+- Build with --no-warn-rwx-segment, since we don't wind up with segment maps
+  in the final bianries anyway.
 - Add .note.GNU-stack sections to all the .S files we build.
 - Don't use _hardened_ldflags since it's meant for GCC rather than ld and
   doesn't do anything meaningful for us anyway.

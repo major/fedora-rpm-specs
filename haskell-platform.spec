@@ -243,10 +243,12 @@ BuildRequires:  ghc-binary-prof
 # for missing dep 'hpack':
 BuildRequires:  ghc-Glob-devel
 BuildRequires:  ghc-bifunctors-devel
+BuildRequires:  ghc-infer-license-devel
 BuildRequires:  ghc-scientific-devel
 %if %{with ghc_prof}
 BuildRequires:  ghc-Glob-prof
 BuildRequires:  ghc-bifunctors-prof
+BuildRequires:  ghc-infer-license-prof
 BuildRequires:  ghc-scientific-prof
 %endif
 # for missing dep 'mustache':

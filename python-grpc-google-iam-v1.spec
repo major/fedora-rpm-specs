@@ -1,6 +1,9 @@
+# Upstream test directory is empty.
+%bcond_with     tests
+
 %global         srcname     grpc-google-iam-v1
 %global         forgeurl    https://github.com/googleapis/python-grpc-google-iam-v1
-Version:        0.12.4
+Version:        0.12.6
 %global         tag         v%{version}
 %forgemeta
 
@@ -15,6 +18,10 @@ Source0:        %forgesource
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+
+%if %{with tests}
+BuildRequires:  python3dist(pytest)
+%endif
 
 %global _description %{expand:
 The IDL-derived library for the google-iam (v1) service in Google Cloud.}
@@ -32,7 +39,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires
+%pyproject_buildrequires -x testing
 
 
 %build
@@ -46,6 +53,13 @@ Summary:        %{summary}
 
 %check
 %pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
+%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

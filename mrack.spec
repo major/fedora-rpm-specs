@@ -1,6 +1,6 @@
 Name:           mrack
-Version:        1.12.3
-Release:        5%{?dist}
+Version:        1.13.1
+Release:        4%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -61,7 +61,12 @@ Requires:       python3-botocore
 %package -n     python3-%{name}-beaker
 Summary:        Beaker provider plugin for mrack
 Requires:       python3-%{name}lib = %{version}-%{release}
+%if 0%{?rhel} == 8
+# c8s has missing beaker-client package
+Recommends:     beaker-client
+%else
 Requires:       beaker-client
+%endif
 
 %{?python_provide:%python_provide python3-%{name}-beaker}
 
@@ -177,8 +182,33 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.3-5
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Tue Feb 21 2023 Tibor Dudlák <tdudlak@redhat.com> - 1.13.1-1
+- 1421b37 fix(MrackConfig): Fix MrackConfig class properties (Tibor Dudlák)
+
+* Fri Feb 17 2023 Tibor Dudlák <tdudlak@redhat.com> - 1.13.0-1
+- 72cc2f3 test: add extra dnf options when dealing with rhel/epel 8 (Tibor Dudlák)
+- 32a754b chore: set packit to sync changelog as well (Tibor Dudlák)
+- b0512b4 chore: sync fedora spec to upstream to maintain changelog history for fedora (Tibor Dudlák)
+- be7b50a chore: Generate proper changelog from commit history when releasing (Tibor Dudlák)
+- 98f4035 chore: Bump python-semantic-release to latest (Tibor Dudlák)
+- a0e76dd test(OpenStack): Fixup the network spread tests (Tibor Dudlák)
+- 88b9332 test(OpenStack): rewrite network alloaction tests (Tibor Dudlák)
+- 777862f feat(OpenStack): Provide a way to disable network spreading (Tibor Dudlák)
+- ff7331d fix(OpenStack): fix condition for network to get in interval (Tibor Dudlák)
+- 943316d fix: fqdn in name is ignored and mrack guesses the name instead #237 (Tibor Dudlák)
+- 46141dc feat(AWS): Add utilization check method (Tibor Dudlák)
+- bb80060 feat(OpenStack): Add utilization check method (Tibor Dudlák)
+- 55f9c2c feat: Do not use same sleep for every mrack run (Tibor Dudlák)
+- 6ce3927 test(AnsibleInventory): global level output values override (Tibor Dudlák)
+- a7a896a feat(AnsibleInventory): Allow additional global level values (Tibor Dudlák)
+- 91c562c feat(AnsibleInventory): Allow additional domain level ansible inventory values (Tibor Dudlák)
+- 109b03c test(OpenStack): Update calls in openststack tests (Tibor Dudlák)
+- 4467cc2 refactor(OpenStack): make private openstack methods truly private (Tibor Dudlák)
+- 72b9b9c chore: use custom release_suffix for PR testing via packit (Petr Vobornik)
+- f3f734a chore: disable pylint pre-commit hook (Petr Vobornik)
+- 4aa9b0a chore(Packit): Add synchronization of tmt plans and tests (Tibor Dudlák)
+- 02c3e01 chore(Packit): Configure users on whose actions packit is allowed to be run (Tibor Dudlák)
+- cf14ed9 chore(Packit): Add missing ci.fmf to synced files (Tibor Dudlák)
 
 * Tue Dec 13 2022 Tibor Dudlák <tdudlak@redhat.com> - 1.12.3-4
 - chore: Add add tmt tests and plans and add them to sync (Tibor Dudlák)

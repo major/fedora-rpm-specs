@@ -1,6 +1,6 @@
 Name:           opendbx
 Version:        1.4.6
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Lightweight but extensible database access library written in C
 
 #License:        LGPLv2+
@@ -14,6 +14,7 @@ Patch0:         opendbx-1.4.6-freetds-fix.patch
 Patch1:         opendbx-1.4.6-doxygen-1.9.1.patch
 # Remove obsolete throws( std::exception ) from C++ API that fail to build with C++17.
 Patch2:         opendbx-1.4.6-dynamic-exceptions.patch
+Patch3: opendbx-c99.patch
 
 
 BuildRequires: make
@@ -25,6 +26,7 @@ BuildRequires:  sqlite2-devel
 BuildRequires:  mariadb-connector-c-devel, libpq-devel, sqlite-devel, firebird-devel, readline-devel
 BuildRequires:  freetds-devel, ncurses-devel
 BuildRequires:  doxygen, docbook2X, gettext
+BuildRequires:  autoconf, automake, gettext-devel, libtool
 
 %{?filter_setup:
 %filter_provides_in %{_libdir}/opendbx/lib.*backend\.so.*$
@@ -109,6 +111,7 @@ The %{name}-utils package provides the odbx-sql tool.
 %patch0 -p1 -b .freetds
 %patch1 -p1 -b .doxygen
 %patch2 -p1 -b .api
+%patch3 -p1
 
 # To fix Doxygen parsing issue
 ln -s api lib/%{name}/api.dox
@@ -116,6 +119,7 @@ ln -s api lib/%{name}/api.dox
 cp lib/%{name}/api lib/%{name}/api.hpp
 
 %build
+autoreconf -iv
 export CXXFLAGS="-std=c++14 $RPM_OPT_FLAGS"
 %if 0%{?fedora} ||  0%{?rhel} <= 7
 %configure --with-backends="mysql pgsql sqlite sqlite3 firebird mssql sybase" CPPFLAGS="-I%{_includedir}/mysql -I%{_includedir}/firebird" --disable-test --disable-static LDFLAGS="-L%{_libdir}/mysql"
@@ -184,6 +188,10 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man1/odbx-sql.1.gz
 
 %changelog
+* Tue Feb 21 2023 Florian Weimer <fweimer@redhat.com> - 1.4.6-33
+- Port to C99
+- Run autoreconf during build, due to configure.ac change.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.6-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

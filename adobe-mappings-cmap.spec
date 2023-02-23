@@ -1,8 +1,8 @@
 Name:             adobe-mappings-cmap
 Summary:          CMap resources for Adobe's character collections
 Version:          20230118
-Release:          1%{?dist}
-License:          BSD
+Release:          2%{?dist}
+License:          BSD-3-Clause
 
 URL:              https://www.adobe.com/
 Source:           https://github.com/adobe-type-tools/cmap-resources/archive/%{version}.tar.gz#/cmap-resources-%{version}.tar.gz
@@ -110,6 +110,9 @@ _EOF
 # =============================================================================
 
 %changelog
+* Mon Feb 21 2023 Richard Lescak <rlescak@redhat.com> - 20230118-2
+- SPDX migration
+
 * Thu Jan 19 2023 Richard Lescak <rlescak@redhat.com> - 20230118-1
 - Rebase to version 20230118 (#2162105)
 

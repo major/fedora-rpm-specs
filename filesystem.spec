@@ -1,8 +1,8 @@
 Summary: The basic directory layout for a Linux system
 Name: filesystem
 Version: 3.18
-Release: 3%{?dist}
-License: Public Domain
+Release: 4%{?dist}
+License: LicenseRef-Fedora-Public-Domain
 URL: https://pagure.io/filesystem
 Source1: https://pagure.io/filesystem/raw/master/f/lang-exceptions
 Source2: iso_639.sed
@@ -310,6 +310,9 @@ end
 /var/yp
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 3.18-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.18-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

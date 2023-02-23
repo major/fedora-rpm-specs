@@ -1,8 +1,8 @@
 %global soversion 1.9
 
 Name:           octomap
-Version:        1.9.7
-Release:        5%{?dist}
+Version:        1.9.8
+Release:        1%{?dist}
 Summary:        Efficient Probabilistic 3D Mapping Framework Based on Octrees
 
 # octovis is GPLv2, octomap and dynamic-edt-3d are BSD
@@ -13,7 +13,7 @@ Source0:        https://github.com/OctoMap/%{name}/archive/v%{version}/%{name}-%
 # This patch moves CMake configuration files from datadir to libdir.
 # It also disables -Werror to work around warnings described in #1862718
 # Not submitted upstream
-Patch0:         %{name}-1.9.7-libdir.patch
+Patch0:         %{name}-1.9.8-libdir.patch
 BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
@@ -158,6 +158,9 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}
 %{_libdir}/dynamicEDT3D
 
 %changelog
+* Tue Feb 21 2023 Rich Mattes <richmattes@gmail.com> - 1.9.8-1
+- Update to release 1.9.8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

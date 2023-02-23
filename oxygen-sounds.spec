@@ -1,7 +1,7 @@
 %global kf5_version_min 5.98.0
 
 Name:           oxygen-sounds
-Version:        5.27.0
+Version:        5.27.1
 Release:        1%{?dist}
 Summary:        The Oxygen Sound Theme
 
@@ -50,6 +50,9 @@ BuildArch:      noarch
 
 
 %changelog
+* Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
+- 5.27.1
+
 * Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
 - 5.27.0
 

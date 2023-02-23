@@ -1,4 +1,4 @@
-#define prerelease beta1
+%define prerelease beta1
 
 # We need avoid oython byte compiler to not crash over template .py file which
 # is not a valid python file, only for the IDE
@@ -7,13 +7,13 @@
 %global clangver 15.0.7
 
 Name:           qt-creator
-Version:        9.0.1
-Release:        5%{?dist}
+Version:        10.0.0
+Release:        0.1%{?dist}
 Summary:        Cross-platform IDE for Qt
 
 License:        GPLv3 with exceptions
 URL:            https://www.qt.io/ide/
-Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/9.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
+Source0:        https://download.qt.io/%{?prerelease:development}%{?!prerelease:official}_releases/qtcreator/10.0/%{version}%{?prerelease:-%prerelease}/qt-creator-opensource-src-%{version}%{?prerelease:-%prerelease}.tar.xz
 Source1:        qt-creator-Fedora-privlibs
 
 # Bundled clang for patched libClangFormat
@@ -25,13 +25,12 @@ Patch0:         qt-creator_ninja-build.patch
 Patch1:         qt-creator_desktop.patch
 # Limit qmake names to avoid the rpm macro wrapper qmake-qt5.sh getting picked up (#1644989)
 Patch2:         qt-creator_qmake-names.patch
+# Fix debuginfod detection
+Patch3:         qt-creator-debuginfod.patch
 # QtCreator specific patch for libClangFormat
 # https://code.qt.io/cgit/clang/llvm-project.git/commit/?h=release_130-based&id=42879d1f355fde391ef46b96a659afeb4ad7814a
-Patch3:         qt-creator-clangformat.patch
-Patch4:         clangFormat.patch
-# Backport patch for QTCREATORBUG-28505
-# https://bugreports.qt.io/browse/QTCREATORBUG-28505
-Patch5:         qt-creator-28505.patch
+Patch4:         qt-creator-clangformat.patch
+Patch5:         clangFormat.patch
 
 BuildRequires:  chrpath
 BuildRequires:  clang-devel
@@ -62,6 +61,7 @@ BuildRequires:  cmake(Qt6Xml)
 BuildRequires:  desktop-file-utils
 BuildRequires:  diffutils
 BuildRequires:  elfutils-devel
+BuildRequires:  elfutils-debuginfod-client-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  libffi-devel
 BuildRequires:  libxkbcommon-devel
@@ -215,6 +215,9 @@ diff -u %{SOURCE1} $outfile
 
 
 %changelog
+* Tue Feb 21 2023 Sandro Mani <manisandro@gmail.com> - 10.0.0-0.1-beta1
+- Update to 10.0.0-beta1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

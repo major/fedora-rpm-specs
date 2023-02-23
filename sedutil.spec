@@ -18,6 +18,8 @@ Source0:	https://github.com/Drive-Trust-Alliance/%{name}/archive/%{gittag0}/%{na
 Patch0:		sedutil-1.15.1-nvme_ioctl.patch
 # PR#408: Add securemode, verifySIDPassword
 Patch1:		https://github.com/Drive-Trust-Alliance/sedutil/pull/408.patch
+# PR#428: fix build with GCC 13
+Patch2:		https://github.com/Drive-Trust-Alliance/sedutil/pull/428.patch
 
 # sedutil does not work on big-endian architectures
 ExcludeArch:	ppc ppc64 s390 s390x
@@ -52,6 +54,7 @@ the PBA image itself.
 %setup -q -n sedutil-%{gittag0}
 %{?el7:%patch0 -p1 -b .nvme_ioctl}
 %patch1 -p1 -b .securemode
+%patch2 -p1 -b .gcc13
 # Adjust the GitVersion.sh script to just use the git tag from the
 # checkout so we don't need a full git tree or the git tool itself.
 cd linux

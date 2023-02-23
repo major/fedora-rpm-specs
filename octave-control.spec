@@ -1,8 +1,8 @@
 %global octpkg control
 
 Name:           octave-%{octpkg}
-Version:        3.4.0
-Release:        5%{?dist}
+Version:        3.5.0
+Release:        1%{?dist}
 Summary:        Computer-Aided Control System Design (CACSD) Tools for Octave
 License:        GPLv3+
 URL:            http://octave.sourceforge.net/control/
@@ -61,6 +61,9 @@ done;
 
 
 %changelog
+* Tue Feb 21 2023 Thomas Sailer <fedora@tsailer.ch> - 3.5.0-1
+- Update to 3.5.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,22 +3,16 @@
 
 %global         srcname     proto-plus
 %global         forgeurl    https://github.com/googleapis/proto-plus-python
-Version:        1.22.1
+Version:        1.22.2
 %forgemeta
 
 Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python wrapper around protocol buffers
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
-
-# Python 3.11.0b3 support
-# https://github.com/googleapis/proto-plus-python/issues/326
-# The underlying changes in Python's enum might be reverted,
-# but this patch is backwards compatible.
-Patch:          python3.11.patch
 
 BuildArch:      noarch
 
@@ -60,8 +54,10 @@ Summary:        %{summary}
 %pyproject_save_files proto
 
 
-%if %{with tests}
 %check
+%pyproject_check_import
+
+%if %{with tests}
 %pytest
 %endif
 

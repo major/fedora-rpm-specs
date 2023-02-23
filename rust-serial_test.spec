@@ -12,6 +12,9 @@ Summary:        Allows for the creation of serialised Rust tests
 License:        MIT
 URL:            https://crates.io/crates/serial_test
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop doc-specific dependencies (only used when building docs on docs.rs)
+Patch:          serial_test-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -56,30 +59,6 @@ This package contains library source intended for building other packages which
 use the "async" feature of the "%{crate}" crate.
 
 %files       -n %{name}+async-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+docsrs-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+docsrs-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "docsrs" feature of the "%{crate}" crate.
-
-%files       -n %{name}+docsrs-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+document-features-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+document-features-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "document-features" feature of the "%{crate}" crate.
-
-%files       -n %{name}+document-features-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %package     -n %{name}+file_locks-devel

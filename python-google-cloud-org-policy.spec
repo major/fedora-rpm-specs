@@ -1,11 +1,8 @@
-# F35: Do not update past 1.3.2. F35's protobuf is too old.
-
-# The package currently has an empty test directory.
-%bcond_with     tests
+%bcond_without  tests
 
 %global         srcname     google-cloud-org-policy
 %global         forgeurl    https://github.com/googleapis/python-org-policy
-Version:        1.4.1
+Version:        1.7.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Organization Policy API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -44,7 +41,7 @@ Summary:        %{summary}
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -59,13 +56,14 @@ Summary:        %{summary}
 rm -rf %{buildroot}%{python3_sitelib}/{docs,samples,scripts,tests}
 
 
-%if %{with tests}
 %check
-# Work around an unusual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest --disable-warnings tests/unit
-mv google{_,}
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

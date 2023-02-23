@@ -1,11 +1,8 @@
-# F35: Do not update past 1.3.1. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without tests
 
 %global         srcname     google-cloud-dms
 %global         forgeurl    https://github.com/googleapis/python-dms
-Version:        1.4.3
+Version:        1.6.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Database Migration Service
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -50,7 +47,7 @@ grep -rl "^[[:space:]]*import mock" tests | \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 
 %build
@@ -65,9 +62,14 @@ grep -rl "^[[:space:]]*import mock" tests | \
 rm -f %{buildroot}%{_bindir}/fixup*
 
 
-%if %{with tests}
 %check
-%pytest --disable-warnings tests/unit
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

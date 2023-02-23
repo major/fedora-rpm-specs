@@ -19,27 +19,19 @@ Summary:        On-screen display library for X
 # src/xmms_plugin/xmms_osd.c:   GPL-2.0-or-later
 ## Not in any binary package
 # aclocal.m4:   FSFULLR AND GPL-2.0-or-later WITH Autoconf-exception-generic
-#               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 #               AND GPL-2.0-or-later
-# config.guess: GPL-2.0-or-later WITH Autoconf-exception-generic (under review
-#               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
+# config.guess: GPL-2.0-or-later WITH Autoconf-exception-generic
 # config.sub:   GPL-2.0-or-later WITH Autoconf-exception-generic
-#               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # configure:    FSFUL AND GPL-2.0-or-later WITH Autoconf-exception-generic
-#               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # depcomp:      GPL-2.0-or-later WITH Autoconf-exception-generic
-#               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # INSTALL:      FSFUL
 # install-sh:   HPND-sell-variant
 # ltconfig:     GPL-2.0-or-later WITH Autoconf-exception-generic
-#               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # ltmain.sh:    GPL-2.0-or-later WITH Autoconf-exception-generic
-#               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # macros/Makefile.in:   FSFULLR
 # Makefile.in:  FSFULLR
 # man/Makefile.in:      FSFULLR
 # missing:      GPL-2.0-or-later WITH Autoconf-exception-generic
-#               (<https://gitlab.com/fedora/legal/fedora-license-data/-/issues/68>)
 # pixmaps/Makefile.in:  FSFULLR
 # script/Makefile.in:   FSFULLR
 # src/bmp_plugin/Makefile.in:   FSFULLR
@@ -120,7 +112,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}
 %license COPYING
 %doc AUTHORS ChangeLog README TODO
 %{_bindir}/osd_cat
-%{_libdir}/libxosd.so.*
+%{_libdir}/libxosd.so.2
+%{_libdir}/libxosd.so.2.*
 %{_mandir}/man1/osd_cat.1*
 
 %files devel

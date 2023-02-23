@@ -1,11 +1,8 @@
-# F35: Do not update past 2.8.0. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without tests
 
 %global         srcname     google-cloud-redis
 %global         forgeurl    https://github.com/googleapis/python-redis
-Version:        2.9.3
+Version:        2.11.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Memorystore for Redis API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -36,8 +33,6 @@ Redis instances on the Google Cloud Platform.}
 %package -n python3-%{srcname}
 Summary:        %{summary}
 %description -n python3-%{srcname} %{_description}
-
-%pyproject_extras_subpkg -n python3-%{srcname} libcst
 
 
 %prep
@@ -67,9 +62,14 @@ grep -rl "^[[:space:]]*import mock" tests | \
 rm -f %{buildroot}/%{_bindir}/fixup*
 
 
-%if %{with tests}
 %check
-%pytest --disable-warnings
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

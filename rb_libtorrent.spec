@@ -102,7 +102,7 @@ export PYTHON_LDFLAGS="$PYTHON_LDFLAGS $(python%{python3_version}-config --libs)
 	-Dbuild_tools=ON \
 	-Dpython-bindings=ON \
 	-Dpython-egg-info=ON \
-	-Dpython-install-system-dir=ON
+	-Dpython-install-system-dir=OFF
 %cmake_build
 
 %check

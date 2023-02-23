@@ -1,23 +1,18 @@
-%global fontname adobe-source-han-sans-cn
-%global fontconf 65-2-%{fontname}.conf
+# SPDX-License-Identifier: MIT
 
-%global archivename SourceHanSansCN
+Version: 2.004
+Release: 5%{?dist}
+URL:     https://github.com/adobe-fonts/source-han-sans/
 
-Name:           adobe-source-han-sans-cn-fonts
-Version:        2.004
-Release:        4%{?dist}
-Summary:        Adobe OpenType Pan-CJK font family for Simplified Chinese
+%global foundry           Adobe
+%global fontlicense       OFL-1.1-RFN
+%global fontlicenses      LICENSE.txt
 
-License:        OFL
-URL:            https://github.com/adobe-fonts/source-han-sans/
-Source0:        https://github.com/adobe-fonts/source-han-sans/releases/latest/download/%{archivename}.zip
-Source1:        %{name}-fontconfig.conf
-
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-
-%description
+%global fontfamily        Source Han Sans CN
+%global fontsummary       Adobe OpenType Pan-CJK font family for Simplified Chinese
+%global fonts             SubsetOTF/CN/SourceHanSansCN*.otf
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 Source Han Sans is a sans serif Pan-CJK font family 
 that is offered in seven weights—ExtraLight, Light, 
 Normal, Regular, Medium, Bold, and Heavy—and 
@@ -28,34 +23,32 @@ As the name suggests, Pan-CJK fonts are intended to
 support the characters necessary to render or
 display text in Simplified Chinese, Traditional Chinese,
 Japanese, and Korean.
+}
 
+Source0:  https://github.com/adobe-fonts/source-han-sans/releases/download/%{version}R/SourceHanSansCN.zip
+Source10: 65-2-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
 %autosetup -c
 
 %build
-
+%fontbuild
 
 %install
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p SubsetOTF/CN/*.otf %{buildroot}%{_fontdir}
+%check
+%fontcheck
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-
-%_font_pkg -f %{fontconf} *.otf
-
-%license LICENSE.txt
-
+%fontfiles
 
 %changelog
+* Tue Feb 14 2023 Peng Wu <pwu@redhat.com> - 2.004-5
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.004-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

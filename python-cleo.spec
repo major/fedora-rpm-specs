@@ -7,13 +7,13 @@ Cleo is mostly a higher level wrapper for CliKit, so a lot of the
 components and utilities comes from it. Refer to its documentation for
 more information.}
 
-%global prerel a5
-%global base_version 1.0.0
+#global prerel ...
+%global base_version 2.0.1
 
 Name:           python-%{pypi_name}
 Summary:        Create beautiful and testable command-line interfaces
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 License:        MIT
 
 URL:            https://github.com/sdispater/cleo
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Feb 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2.0.1-1
+- Update to 2.0.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0~a5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

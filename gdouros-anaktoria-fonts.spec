@@ -5,7 +5,7 @@ Name:           %{fontname}-fonts
 Version:        8.01
 Release:        12%{?dist}
 Summary:        A font based on "Grecs du roi" and the "First Folio Edition of Shakespeare"
-License:        Public Domain
+License:        LicenseRef-Fedora-UltraPermissive
 URL:            http://users.teilar.gr/~g1951d/
 Source0:        http://users.teilar.gr/~g1951d/Textfonts.zip
 Source1:        %{name}-fontconfig.conf

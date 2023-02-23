@@ -1,0 +1,55 @@
+# TODO adjust once this is implemented:
+# https://bugzilla.redhat.com/show_bug.cgi?id=1935266
+%global modname  jaraco
+%global projname %{modname}.logging
+%global pkgname  %{modname}-logging
+
+Name:           python-%{pkgname}
+Version:        3.1.2
+Release:        %autorelease
+Summary:        Support for Python logging facility
+
+License:        MIT
+URL:            https://github.com/jaraco/%{projname}
+Source0:        %{pypi_source %{projname}}
+
+BuildArch:      noarch
+
+BuildRequires:  python3-devel
+
+%global _description %{expand:
+Support for Python logging facility.}
+
+%description %_description
+
+%package     -n python3-%{pkgname}
+Summary:        %{summary}
+Requires:       python3-jaraco
+
+%description -n python3-%{pkgname} %_description
+
+%prep
+%autosetup -n %{projname}-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
+
+%build
+%pyproject_wheel
+
+%install
+%pyproject_install
+%pyproject_save_files %{modname}
+
+%check
+# This package has currently no tests other than linters, so only do
+# an import test.
+%pyproject_check_import
+
+%files -n python3-%{pkgname} -f %{pyproject_files}
+%doc README.rst CHANGES.rst
+# Owned by python3dist(jaraco)
+%exclude %dir %{python3_sitelib}/jaraco 
+
+%changelog
+%autochangelog

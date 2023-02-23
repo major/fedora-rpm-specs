@@ -1,5 +1,5 @@
 Name:           perl-Data-Dump-Streamer
-Version:        2.41
+Version:        2.42
 Release:        1%{?dist}
 Summary:        Accurately serialize a data structure as Perl code
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -89,6 +89,12 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/DDS.3*
 
 %changelog
+* Tue Feb 21 2023 Paul Howarth <paul@city-fan.org> - 2.42-1
+- Update to 2.42
+  - Perltidy source to preferred format
+  - Fixed issues serializing the global stash
+  - Added test to detect if serializing the global stash breaks anything
+
 * Fri Jan 27 2023 Paul Howarth <paul@city-fan.org> - 2.41-1
 - Update to 2.41
   - Switch from JSON::XS to Cpanel::JSON::XS as an optional test prereq

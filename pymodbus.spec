@@ -21,7 +21,7 @@ Server Features \
     * A number of backing contexts (database, redis, a slave device)
 
 Name: pymodbus
-Version: 3.1.2
+Version: 3.1.3
 Release: 1%{?dist}
 Summary: %{sum}
 
@@ -42,10 +42,14 @@ Summary: %{sum}
 BuildRequires: python3-setuptools python3-six
 Requires: python3-pyserial >= 2.6
 Requires: python3-pyserial-asyncio
+# weak requirements for pymodbus.server
+Recommends: python3-typer
 # weak requirements for pymodbus.console
 Recommends: python3-pyserial >= 3.4
 Recommends: python3-prompt-toolkit >= 2.0
 Recommends: python3-click
+# upstream bundled temporarily pyserial-asyncio with additional bugfixes
+Provides: bundled(python3-pyserial-asyncio)
 
 %description -n python3-%{name}
 %{desc}
@@ -60,6 +64,9 @@ Recommends: python3-click
 %install
 %py3_install
 
+# delete unnecessary shebang
+sed -i '/^#!\/usr\/bin\/env.*$/d' $RPM_BUILD_ROOT%{python3_sitelib}/pymodbus/client/serial_asyncio/__init__.py
+sed -i '/^#!\/usr\/bin\/env.*$/d' $RPM_BUILD_ROOT%{python3_sitelib}/pymodbus/server/simulator/main.py
 rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/test
 
 %files -n python3-%{name}
@@ -72,6 +79,13 @@ rm -rf $RPM_BUILD_ROOT%{python3_sitelib}/test
 %{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Tue Feb 21 2023 Christian Krause <chkr@fedoraproject.org> - 3.1.3-1
+- Update to 3.1.3 (#2168739)
+- Added requirement for pymodbus.sever as Recommends to allow
+  minimal installation
+- Documented bundled library
+- Removed unnecessary shebangs
+
 * Sun Jan 29 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 3.1.2-1
 - Update to 3.1.2
 

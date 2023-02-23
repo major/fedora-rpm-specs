@@ -122,7 +122,8 @@ pushd build_native
     --with-nuspell \
 %endif
     --without-hspell \
-    --disable-static
+    --disable-static \
+    --docdir=%{_defaultdocdir}/%{name}
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g;
         s|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build pkgdatadir=%{_datadir}/enchant-2
@@ -146,8 +147,8 @@ MINGW64_MAKE_ARGS="pkgdatadir=%{mingw64_datadir}/enchant-2" \
 MINGW32_MAKE_ARGS="pkgdatadir=%{mingw32_datadir}/enchant-2" \
 MINGW64_MAKE_ARGS="pkgdatadir=%{mingw64_datadir}/enchant-2" \
 %mingw_make_install
-rm -rf %{buildroot}%{mingw32_datadir}/man
-rm -rf %{buildroot}%{mingw64_datadir}/man
+rm -rf %{buildroot}%{mingw32_datadir}/{doc,man}
+rm -rf %{buildroot}%{mingw64_datadir}/{doc,man}
 
 find %{buildroot} -name '*.la' -delete
 
@@ -178,9 +179,14 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/enchant-2/enchant_voikko.so*
 
 %files devel
+%doc %{_defaultdocdir}/%{name}/enchant.html
+%doc %{_defaultdocdir}/%{name}/enchant-2.html
+%doc %{_defaultdocdir}/%{name}/enchant-lsmod-2.html
 %{_libdir}/libenchant-2.so
 %{_libdir}/pkgconfig/enchant-2.pc
 %{_includedir}/enchant-2
+%{_mandir}/man5/enchant.5*
+
 
 %files -n mingw32-%{name}
 %license COPYING.LIB

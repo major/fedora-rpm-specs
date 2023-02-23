@@ -12,7 +12,7 @@
 
 Name:          mutter
 Version:       44~beta
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -170,6 +170,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Mon Feb 20 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-2
+- Rebuild without changes for Bodhi reasons
+
 * Tue Feb 14 2023 Florian Müllner <fmuellner@redhat.com> - 44~beta-1
 - Update to 44.beta
 

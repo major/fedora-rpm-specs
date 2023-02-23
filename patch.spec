@@ -3,8 +3,8 @@
 Summary: Utility for modifying/upgrading files
 Name: patch
 Version: 2.7.6
-Release: 19%{?dist}
-License: GPLv3+
+Release: 20%{?dist}
+License: GPL-3.0-or-later
 URL: https://savannah.gnu.org/projects/patch/
 Source: https://ftp.gnu.org/gnu/patch/patch-%{version}.tar.xz
 Patch0: patch-2.7.6-avoid-set_file_attributes-sign-conversion-warnings.patch
@@ -109,6 +109,9 @@ make check
 %{_mandir}/*/*
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 2.7.6-20
+- migrated to SPDX license
+
 * Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 2.7.6-19
 - Port configure script to C99
 

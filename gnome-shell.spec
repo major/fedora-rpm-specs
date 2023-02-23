@@ -2,7 +2,7 @@
 
 Name:           gnome-shell
 Version:        44~beta
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
@@ -226,6 +226,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Mon Feb 20 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-2
+- Rebuild without changes for Bodhi reasons
+
 * Tue Feb 14 2023 Florian Müllner <fmuellner@redhat.com> - 44~beta-1
 - Update to 44.beta
 

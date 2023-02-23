@@ -2,11 +2,11 @@
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          1.4.0
-Release:          13%{?dist}
+Version:          1.5.0
+Release:          1%{?dist}
 Summary:          Tools for Units of Measurement
-
-License:          GPLv3
+# No copy of the license is present and upstream only indicates license in one place "GPL-3", so we have to assume only.
+License:          GPL-3.0-only
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{version}.tar.gz
 
@@ -58,6 +58,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Feb 21 2023 Tom Callaway <spot@fedoraproject.org> - 1.5.0-1
+- update to 1.5.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

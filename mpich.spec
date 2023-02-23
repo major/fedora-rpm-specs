@@ -7,7 +7,6 @@ URL:            https://www.mpich.org/
 
 Source0:        https://www.mpich.org/static/downloads/%{version}/%{name}-%{version}.tar.gz
 Source1:        mpich.macros
-Source2:        mpich.pth.py2
 Source3:        mpich.pth.py3
 
 Patch:          0001-pkgconf-remove-optimization-and-link-flags-from-pkgc.patch
@@ -15,6 +14,8 @@ Patch:          0002-pkgconf-also-drop-rpath-flags-from-pkgconf-file.patch
 Patch:          0003-Drop-build-flags-e.g.-specs.-and-lto-from-mpi-wrappe.patch
 Patch:          0004-Make-mpich.module-useful.patch
 # TODO: submit ^ upstream
+# https://github.com/pmodels/mpich/pull/6374
+Patch:          6374.patch
 
 Patch:          mpich-configure-max_align_t.patch
 Patch:          mpich-aclocal_cc-implicit-int.patch
@@ -187,8 +188,6 @@ cp -p %{buildroot}%{_sysconfdir}/profile.d/mpich-%{_arch}.{sh,csh}
 install -pDm0644 %{SOURCE1} %{buildroot}%{_rpmconfigdir}/macros.d/macros.%{name}
 
 # Install the .pth files
-mkdir -p %{buildroot}%{python2_sitearch}/%{name}
-install -pDm0644 %{SOURCE2} %{buildroot}%{python2_sitearch}/%{name}.pth
 mkdir -p %{buildroot}%{python3_sitearch}/%{name}
 install -pDm0644 %{SOURCE3} %{buildroot}%{python3_sitearch}/%{name}.pth
 

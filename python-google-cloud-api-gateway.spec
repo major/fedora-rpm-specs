@@ -1,11 +1,8 @@
-# F35: Do not update past 1.2.1. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without  tests
 
 %global         srcname     google-cloud-api-gateway
 %global         forgeurl    https://github.com/googleapis/python-api-gateway
-Version:        1.4.0
+Version:        1.6.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud API Gateway
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -65,13 +62,14 @@ grep -rl "^[[:space:]]*import mock" tests | \
 %pyproject_save_files google
 
 
-%if %{with tests}
 %check
-# Work around an usual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest --disable-warnings tests/unit
-mv google{_,}
+%pyproject_check_import -e google.cloud.apigateway_v1.types.apigateway_service
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

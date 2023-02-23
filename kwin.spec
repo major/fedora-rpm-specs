@@ -16,7 +16,7 @@
 %endif
 
 Name:    kwin
-Version: 5.27.0
+Version: 5.27.1
 Release: 1%{?dist}
 Summary: KDE Window manager
 
@@ -35,6 +35,12 @@ URL:     https://userbase.kde.org/KWin
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+# Allow VT switching even with global shortcuts disabled:
+# https://bugzilla.redhat.com/show_bug.cgi?id=2171332#c3
+# https://invent.kde.org/plasma/plasma-workspace/-/merge_requests/2650#note_625844
+# not submitted upstream yet as we may go with something else once
+# folks get a chance to look at it
+Patch0: kwin-5.27.0-allow-vt-switch.patch
 
 ## upstream patches
 
@@ -362,6 +368,12 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
+- 5.27.1
+
+* Mon Feb 20 2023 Adam Williamson <awilliam@redhat.com> - 5.27.0-2
+- Allow VT switching even if global shortcuts are disabled
+
 * Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
 - 5.27.0
 

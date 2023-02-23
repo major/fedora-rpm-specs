@@ -1,6 +1,6 @@
 Name:           python-blosc
 Summary:        Python wrapper for the Blosc high performance compressor
-Version:        1.11.0
+Version:        1.11.1
 Release:        %autorelease
 License:        MIT
 URL:            https://github.com/Blosc/python-blosc

@@ -1,6 +1,6 @@
 Name:           rpkg
-Version:        1.65
-Release:        3%{?dist}
+Version:        1.66
+Release:        2%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -37,9 +37,6 @@ Patch2:         0002-Remove-pytest-coverage-execution.patch
 %if 0%{?with_python2}
 Patch3:         0003-Remove-Environment-Markers-syntax.patch
 %endif
-Patch4:         0004-fedpkg-local-does-not-show-rpmbuild-output.patch
-Patch5:         0005-Fixes-for-exploded-SRPM-layouts.patch
-Patch6:         0006-mockbuild-escape-rpm-command-under-mock.patch
 
 %description
 Python library for interacting with rpm+git
@@ -54,6 +51,7 @@ BuildRequires:  python2-devel
 
 # We br these things for man page generation due to imports
 BuildRequires:  rpmlint
+BuildRequires:  rpmdevtools
 BuildRequires:  python2-koji >= 1.21
 BuildRequires:  python2-cccolutils
 BuildRequires:  PyYAML
@@ -71,6 +69,7 @@ Requires:       mock
 Requires:       redhat-rpm-config
 Requires:       rpm-build
 Requires:       rpmlint
+Requires:       rpmdevtools
 Requires:       python2-argcomplete
 Requires:       python2-cccolutils
 Requires:       python2-koji >= 1.21
@@ -127,11 +126,13 @@ BuildRequires:  python3-setuptools
 BuildRequires:  python3-pytest
 BuildRequires:  python3-PyYAML
 BuildRequires:  rpmlint
+BuildRequires:  rpmdevtools
 
 Requires:       mock
 Requires:       redhat-rpm-config
 Requires:       rpm-build
 Requires:       rpmlint
+Requires:       rpmdevtools
 
 Requires:       python3-argcomplete
 Requires:       python3-GitPython >= 0.2.0
@@ -252,6 +253,33 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Tue Feb 21 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-2
+- rebuild for unification of all branches
+
+* Mon Feb 20 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-1
+- container-build: document --compose-ids overrides any new composes (kdreyer)
+- Use srpm when scratch-building from dirty repo - #652 (otto.liljalaakso)
+- Code cleanup in tests/test_cli.py (otto.liljalaakso)
+- Reduce indentation in assert_build helper (otto.liljalaakso)
+- Allow empty commits - 494 (msuchy)
+- Allow forcing download of all sources - #650 (otto.liljalaakso)
+- Add test case for not downloading unused sources (otto.liljalaakso)
+- Support 'results_dir=subdir' when building from srpm - #648
+  (otto.liljalaakso)
+- Use local branch name as release when there is no remote (otto.liljalaakso)
+- Allow downstreams to define a default release (otto.liljalaakso)
+- Switch load_branch_merge to use multiple return (otto.liljalaakso)
+- Unittests for 'git push' hook script (onosek)
+- Checking a repo configuration before 'git push' with a git hook script - 491
+  (onosek)
+- Fix skipping NVR check with autorelease (nils)
+- pyrpkg.spec.SpecFile: More lenient parser for Source/Patch lines (fweimer)
+- Fix URL in CHANGELOG.rst (tmz)
+- Add Jenkinsfile for CI (onosek)
+- mockbuild: escape rpm command under mock - rhbz#2130349 (onosek)
+- Fixes for exploded SRPM layouts - #633 (tdawson)
+- `fedpkg local` does not show rpmbuild output - rhbz#2124809 (onosek)
+
 * Mon Oct 10 2022 Ondřej Nosek <onosek@redhat.com> - 1.65-3
 - Patch: Fixes for exploded SRPM layouts
 - Patch: mockbuild: escape rpm command under mock

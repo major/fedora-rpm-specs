@@ -3,7 +3,7 @@
 
 Name:		SuperLU
 Version:	5.3.0
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	Subroutines to solve sparse linear systems
 License:	BSD and GPLv2+
 URL:		https://portal.nersc.gov/project/sparse/superlu/
@@ -19,6 +19,7 @@ Patch1:		%{name}-set_soname.patch
 
 # Fix ldflags of example files
 Patch2:         %{name}-fix_example_builds.patch
+Patch3: SuperLU-c99.patch
 
 %if 0%{?fedora} >= 33
 BuildRequires: pkgconfig(flexiblas)
@@ -145,6 +146,9 @@ popd
 %doc DOC
 
 %changelog
+* Tue Feb 21 2023 Florian Weimer <fweimer@redhat.com> - 5.3.0-5
+- Port to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -18,7 +18,7 @@
 Summary: Scanner access software
 Name: sane-backends
 Version: 1.2.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 # lib/ is LGPLv2+, backends are GPLv2+ with exceptions
 # Tools are GPLv2+, docs are public domain
 # see LICENSE for details
@@ -43,6 +43,8 @@ Patch2: sane-backends-1.0.23-sane-config-multilib.patch
 # 2139882 - Plustek 8100 scanner not detected
 # sent upstream as https://gitlab.com/sane-project/backends/-/merge_requests/767
 Patch3: sane-genesys-plustek7600i-8100-support.patch
+# Fix for c99
+Patch4: sane-backends-1.2.1-fedora-c99.patch
 
 URL: http://www.sane-project.org
 
@@ -164,6 +166,8 @@ access image acquisition devices available on the local host.
 
 %prep
 %autosetup -S git
+# To avoid needing to run aclocal et al
+touch -r acinclude.m4 aclocal.m4 configure Makefile.in
 
 %build
 CFLAGS="%optflags -fno-strict-aliasing"
@@ -386,6 +390,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Tue Feb 21 2023 DJ Delorie <dj@redhat.com> - 1.2.1-2
+- Fix C99 compatibility issue
+
 * Fri Feb 17 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-1
 - 2167250 - sane-backends-1.2.1 is available
 

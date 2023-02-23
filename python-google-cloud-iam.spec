@@ -1,11 +1,8 @@
-# F35: Do not update past 2.6.1. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without  tests
 
 %global         srcname     google-cloud-iam
 %global         forgeurl    https://github.com/googleapis/python-iam
-Version:        2.9.0
+Version:        2.11.2
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google IAM API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -69,16 +66,13 @@ rm -f %{buildroot}/%{_bindir}/fixup_iam_credentials_v1_keywords.py
 
 
 %check
-# iamcredentials does an unusual import of protobuf and doesn't look like it
-# should be imported directly.
-%pyproject_check_import -e google.cloud.iam_credentials_v1.types.iamcredentials
+%pyproject_check_import -e 'google.cloud.iam_credentials_v1.types.iamcredentials*'
 
 %if %{with tests}
-# Work around an usual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest tests/unit
-mv google{_,}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

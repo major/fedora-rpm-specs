@@ -1,5 +1,5 @@
 Name:           python-pyrate-limiter
-Version:        2.8.5
+Version:        2.9.0
 Release:        1%{?dist}
 Summary:        The request rate limiter using Leaky-bucket algorithm 
 License:        MIT
@@ -10,12 +10,20 @@ URL:            https://github.com/vutran1710/PyrateLimiter
 # It is clear which commit corresponds to the PyPI release. We eschew the
 # snapinfo field that would normally be needed for packaging from a particular
 # commit, since this is equivalent to packaging from the missing tag.
-%global commit 103252ca8d5336dc19b69fda6b65798eac932fd2
+%global commit 257c17f14a2d9766136db077204212e3288bfd99
 Source0:        %{url}/archive/%{commit}/PyrateLimiter-%{commit}.tar.gz
 
 # Allow for sleep to be called more times than expected
 # https://github.com/vutran1710/PyrateLimiter/pull/93
 Patch:          %{url}/pull/93.patch
+
+# Fix LICENSE file not to be installed into site-packages
+# https://github.com/vutran1710/PyrateLimiter/commit/fb158d38532a0a249a5b6e6cb028679ca9007470
+Patch:		%{url}/commit/fb158d38532a0a249a5b6e6cb028679ca9007470.patch
+
+# Include docs and tests in sdist
+# https://github.com/vutran1710/PyrateLimiter/commit/f7dde22216b292bd7f383094604b36459ec4fcdc
+Patch:		%{url}/commit/f7dde22216b292bd7f383094604b36459ec4fcdc.patch
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -78,9 +86,6 @@ Summary:        %{summary}
 %install
 %pyproject_install
 %pyproject_save_files pyrate_limiter
-# LICENSE file is installed directly in site-packages
-# https://github.com/vutran1710/PyrateLimiter/issues/92
-rm '%{buildroot}%{python3_sitelib}/LICENSE'
 
 %check
 # Needs python3dist(fakeredis)
@@ -98,5 +103,8 @@ k="${k-}${k+ and }not test_concurrency[ProcessPoolExecutor-SQLiteBucket]"
 %license LICENSE
 
 %changelog
+* Tue Feb 21 2023 Steve Cossette <farchord@gmail.com> - 2.9.0-1
+- Update to 2.9.0
+
 * Thu Jan 26 2023 Steve Cossette <farchord@gmail.com> - 2.8.5-1
 - Initital release of pyratelimiter (2.8.5)

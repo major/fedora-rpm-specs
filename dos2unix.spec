@@ -1,8 +1,8 @@
 Summary: Text file format converters
 Name: dos2unix
 Version: 7.4.4
-Release: 1%{?dist}
-License: BSD
+Release: 2%{?dist}
+License: BSD-3-Clause
 URL: https://waterlan.home.xs4all.nl/dos2unix.html
 Source: https://waterlan.home.xs4all.nl/dos2unix/%{name}-%{version}.tar.gz
 BuildRequires: gcc
@@ -45,6 +45,9 @@ make test
 %{_mandir}/man1/*.1*
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 7.4.4-2
+- migrated to SPDX license
+
 * Mon Feb 13 2023 Tim Waugh <twaugh@redhat.com> - 7.4.4-1
 - Update to 7.4.4 (bug #2169078).
 

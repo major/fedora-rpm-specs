@@ -1,7 +1,7 @@
 %global modname uvloop
 
 Name:           python-%{modname}
-Version:        0.15.3
+Version:        0.17.0
 Release:        %autorelease
 Summary:        Ultra fast implementation of asyncio event loop on top of libuv
 
@@ -23,9 +23,9 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-Cython
-#BuildRequires:  python3-aiohttp
-#BuildRequires:  python3-psutil
-#BuildRequires:  python3-pyOpenSSL
+BuildRequires:  python3-aiohttp
+BuildRequires:  python3-psutil
+BuildRequires:  python3-pyOpenSSL
 
 %description -n python3-%{modname} %{_description}
 
@@ -48,7 +48,14 @@ rm -vf %{buildroot}%{python3_sitearch}/%{modname}/_testbase.py
 rm -vf %{buildroot}%{python3_sitearch}/%{modname}/__pycache__/_testbase.*
 
 %check
-#{__python3} setup.py test
+# fix path for test_libuv_api.py
+sed -i "s:import sys:import sys\nsys.path.append\(os.path.abspath\(os.path.dirname\(__file__\)\)\)\n:" tests/__main__.py
+
+# test_write_buffer_full (tests.test_pipes.Test_AIO_Pipes.test_write_buffer_full) ... FAIL
+# test_write_buffer_full (tests.test_pipes.Test_UV_Pipes.test_write_buffer_full) ... FAIL
+%ifnarch ppc64le
+%{__python3} setup.py test
+%endif
 
 %files -n python3-%{modname}
 %license LICENSE-APACHE LICENSE-MIT

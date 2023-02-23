@@ -1,3 +1,6 @@
+# Run optional tests
+%bcond_without perl_Lexical_Var_enables_optional_test
+
 Name:           perl-Lexical-Var
 Version:        0.009
 Release:        31%{?dist}
@@ -23,9 +26,11 @@ BuildRequires:  perl(Lexical::SealRequireHints) >= 0.006
 BuildRequires:  perl(XSLoader)
 # Tests
 BuildRequires:  perl(Test::More)
+%if %{with perl_Lexical_Var_enables_optional_test}
 # Optional Tests
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage)
+%endif
 # Dependencies
 Conflicts:      perl(B::Hooks::OP::Check) < 0.19
 

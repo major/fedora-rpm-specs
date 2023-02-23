@@ -1,8 +1,8 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        5.27.0
-Release:        2%{?dist}
+Version:        5.27.1
+Release:        1%{?dist}
 License:        GPLv2+ and BSD
 Summary:        Plasma Welcome
 Url:            https://invent.kde.org/plasma/%{name}
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
+- 5.27.1
+
 * Fri Feb 17 2023 Timothée Ravier <tim@siosm.fr> - 5.27.0-2
 - Rename to Plasma Welcome to follow upstream naming (fedora#2170929)
 

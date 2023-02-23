@@ -1,114 +1,89 @@
-%global pypi_name fasjson-client
-%global pypi_underscore_name %{lua:s = string.gsub(rpm.expand("%pypi_name"), "-", "_"); print(s)}
+%bcond_without tests
 
-# EL8 doesn't know the __default_python3_pkgversion macro
-%if ! 0%{?__default_python3_pkgversion:1}
-%global __default_python3_pkgversion %(%__python3 -c 'import sys; print(".".join(str(d) for d in sys.version_info[:2]))' || echo 3)
-%endif
-
-%define py3verdist() python%{__default_python3_pkgversion}dist(%1)
-
-# Disable tests for now
-%bcond_with tests
-
-Name:           python-%{pypi_name}
+Name:           python-fasjson-client
 Version:        1.0.7
 Release:        %autorelease
 Summary:        An OpenAPI client for FASJSON
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/fedora-infra/fasjson-client
-Source0:        %{pypi_source}
-Patch0:         fasjson-client-1.0.7-relax-pytest-cov-requirement.patch
+Source:         %{pypi_source fasjson-client}
+# https://github.com/fedora-infra/fasjson-client/pull/304
+Patch:          0001-Use-poetry-core-as-the-build-backend.patch
+# https://github.com/fedora-infra/fasjson-client/pull/305
+Patch:          0002-Restore-compatibility-with-requests-2.26.0.patch
 BuildArch:      noarch
 
-# Split off fasjson-client into subpackage
-Obsoletes:      python3-fasjson-client < 0.1.1
-
 BuildRequires:  python3-devel
-BuildRequires:  %{py3verdist setuptools}
-# runtime
-BuildRequires:  (%{py3verdist bravado} >= 10.6 with %{py3verdist bravado} < 12)
-BuildRequires:  (%{py3verdist click} >= 6.7 with %{py3verdist click} < 9)
-BuildRequires:  (%{py3verdist cryptography} >= 2.3)
-BuildRequires:  (%{py3verdist gssapi} >= 1.5.1 with %{py3verdist gssapi} < 2)
-BuildRequires:  (%{py3verdist requests} >= 2.20.0 with %{py3verdist requests} < 3)
-BuildRequires:  (%{py3verdist requests-gssapi} >= 1.2.1 with %{py3verdist requests-gssapi} < 2)
 %if %{with tests}
-BuildRequires:  (%{py3verdist toml} >= 0.10.1 with %{py3verdist toml} < 0.11)
-%else
-# EL <= 8
-BuildRequires:  (%{py3verdist toml} >= 0.10.0 with %{py3verdist toml} < 0.11)
-%endif
-# unit tests
-%if %{with tests}
-BuildRequires:  (%{py3verdist coverage} >= 5.0.3 with %{py3verdist coverage} < 7)
-BuildRequires:  (%{py3verdist pytest} >= 4.6.11 with %{py3verdist pytest} < 8)
-BuildRequires:  (%{py3verdist pytest-cov} >= 2.8.1)
-BuildRequires:  (%{py3verdist pytest-mock} >= 1.10.4 with %{py3verdist pytest-mock} < 4)
-BuildRequires:  (%{py3verdist requests-mock} >= 1.7 with %{py3verdist requests-mock} < 2)
+BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-mock
+BuildRequires:  python3-requests-mock
 %endif
 
-%description
-A python client library for the FASJSON API.
+%global _description %{expand:
+A python client library for the FASJSON API.}
 
-%package -n     python3-%{pypi_name}
+
+%description %_description
+
+
+%package -n     python3-fasjson-client
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
 
-%if 0%{?rhel} && 0%{?rhel} < 9
-# Undefined deps of deps in EL8
-# (-> bravado-core, -> swagger-spec-validator) -> jsonschema
-Requires:       %{py3verdist attrs}
-Requires:       %{py3verdist idna}
-Requires:       %{py3verdist jsonpointer}
-Requires:       %{py3verdist rfc3987}
-Requires:       %{py3verdist setuptools}
-Requires:       %{py3verdist six}
-Requires:       %{py3verdist strict-rfc3339}
-Requires:       %{py3verdist webcolors}
-%endif
 
-%description -n python3-%{pypi_name}
-A python client library for the FASJSON API.
+%description -n python3-fasjson-client %_description
 
-%{?python_extras_subpkg:%python_extras_subpkg -n python3-%{pypi_name} -i %{python3_sitelib}/%{pypi_underscore_name}*.egg-info cli}
+
+%pyproject_extras_subpkg -n python3-fasjson-client cli
+
 
 %package -n     fasjson-client
 Summary:        %{summary} - CLI
-Requires:       python3-%{pypi_name}%{?python_extras_subpkg:+cli} = %{version}-%{release}
-Obsoletes:      python3-fasjson-client < 0.1.1
+Requires:       python3-fasjson-client+cli = %{version}-%{release}
 
-%if 0%{?rhel} && 0%{?rhel} < 9
-Requires:       %{py3verdist click}
-Requires:       %{py3verdist cryptography}
-%endif
 
 %description -n fasjson-client
 A command line interface for the FASJSON API.
 
+
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -n fasjson-client-%{version} -p 1
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x cli
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files fasjson_client
 
-%if %{with tests}
+# extra files we don't want to package
+rm %{buildroot}%{python3_sitelib}/{config.toml.example,tox.ini}
+
+
 %check
-%{__python3} -m pytest -v
+%if %{with tests}
+# upstream runs pytest from within tox, but that includes lots of coverage
+# flags we don't want
+%pytest -v fasjson_client/tests/unit
+%else
+# even when tests are skipped, make sure the module imports correctly
+%pyproject_check_import -e 'fasjson_client.tests*'
 %endif
 
-%files -n python3-%{pypi_name}
+
+%files -n python3-fasjson-client -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/fasjson_client
-%{python3_sitelib}/fasjson_client-%{version}-py%{python3_version}.egg-info
+
 
 %files -n fasjson-client
-%license LICENSE
 %{_bindir}/fasjson-client
 
 

@@ -17,8 +17,6 @@ Url:            https://hackage.haskell.org/package/%{pkg_name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{pkgver}/%{pkgver}.tar.gz
 # End cabal-rpm sources
-# https://github.com/haskell/zlib/issues/46
-Patch0:         zlib-0.6.2.3-test-rawformat-s390x-z15.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -90,9 +88,7 @@ This package provides the Haskell %{pkg_name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -n %{pkgver}
 # End cabal-rpm setup
-%ifarch s390x
-%patch0 -p1 -b.orig
-%endif
+
 #remove the copy library
 rm -r cbits
 

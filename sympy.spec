@@ -7,7 +7,7 @@
 
 Name:           sympy
 Version:        1.11.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A Python library for symbolic mathematics
 
 # The project as a whole is BSD-3-Clause.
@@ -33,19 +33,13 @@ BuildRequires:  gcc-c++
 BuildRequires:  gcc-gfortran
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist cython}
-BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist gmpy2}
 BuildRequires:  %{py3_dist llvmlite}
 BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  %{py3_dist mpmath}
 BuildRequires:  %{py3_dist myst-parser}
 BuildRequires:  %{py3_dist numexpr}
-BuildRequires:  %{py3_dist numpy}
 BuildRequires:  python3-numpy-f2py
-BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist scipy}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 BuildRequires:  %{py3_dist wurlitzer}
 
 # Documentation
@@ -85,7 +79,7 @@ Recommends:     tex(euler.sty)
 Recommends:     tex(eulervm.sty)
 Recommends:     tex(standalone.cls)
 %ifarch %{java_arches}
-Recommends:     %{py3_dist antlr4-runtime}
+Recommends:     %{py3_dist antlr4-python3-runtime}
 %endif
 Recommends:     %{py3_dist cython}
 Recommends:     %{py3_dist gmpy2}
@@ -162,6 +156,9 @@ for fil in sympy/physics/mechanics/models.py \
   fixtimestamp $fil
 done
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %ifarch %{java_arches}
 # Regenerate the ANTLR files
@@ -233,6 +230,10 @@ fi
 %{_docdir}/%{name}-doc/html
 
 %changelog
+* Tue Feb 21 2023 Jerry James <loganjerry@gmail.com> - 1.11.1-4
+- Fix the antlr4 Recommends (bz 2172030)
+- Dynamically generate BuildRequires (to the extent possible)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

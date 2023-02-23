@@ -1,5 +1,10 @@
+%if 0%{?rhel}
+%bcond_with docs
+%bcond_with tests
+%else
 %bcond_without docs
 %bcond_without tests
+%endif
 
 # Created by pyp2rpm-3.3.5
 %global pypi_name libcst

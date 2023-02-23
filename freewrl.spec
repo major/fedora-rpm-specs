@@ -12,7 +12,7 @@
 
 Name:		freewrl
 Version:	%{majorrel}
-Release:	15.%{commitdate}git%{shortcommit}%{?dist}
+Release:	16.%{commitdate}git%{shortcommit}%{?dist}
 Summary:	X3D / VRML visualization program
 License:	LGPLv3+
 URL:		http://freewrl.sourceforge.net
@@ -37,6 +37,7 @@ Patch6:		freewrl-4.3.0-fix-indent-issues.patch
 # lots of signedness fixes like
 # io_files.c:627:17: warning: pointer targets in passing argument 1 of 'stlDTFT' differ in signedness [-Wpointer-sign]
 Patch7:		freewrl-4.3.0-sign-fixes.patch
+Patch8: freewrl-c99.patch
 BuildRequires:	gcc-c++
 BuildRequires:	zlib-devel, freetype-devel, fontconfig-devel
 BuildRequires:	imlib2-devel, nspr-devel
@@ -121,6 +122,7 @@ rm -rf appleOSX/
 %patch5 -p1 -b .missing-functions
 %patch6 -p1 -b .fixindent
 %patch7 -p1 -b .signfix
+%patch8 -p1
 autoreconf --force --install
 
 # hardcoding /usr/local/lib is a no-no
@@ -220,6 +222,9 @@ chrpath --delete %{buildroot}%{_libdir}/libFreeWRLEAI.so.*
 %endif
 
 %changelog
+* Tue Feb 21 2023 Florian Weimer <fweimer@redhat.com> - 4.3.0-16.20200221gite99ab4a
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.0-15.20200221gite99ab4a
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

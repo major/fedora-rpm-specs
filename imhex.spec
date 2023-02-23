@@ -1,6 +1,6 @@
 Name:           imhex
 Version:        1.27.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A hex editor for reverse engineers and programmers
 
 License:        GPL-2.0-only AND Zlib AND MIT AND Apache-2.0
@@ -45,7 +45,7 @@ Provides:       bundled(xdgpp)
 # is released upstream and we can build against it
 # [7:02 PM] WerWolv: We're not supporting 32 bit anyways soooo
 # [11:38 AM] WerWolv: Officially supported are x86_64 and aarch64
-ExclusiveArch:  x86_64 %{arm64} ppc64le
+ExclusiveArch:  x86_64 %{arm64}
 
 
 %description
@@ -126,6 +126,9 @@ cp -a lib/external/xdgpp/LICENSE                                  %{buildroot}%{
 
 
 %changelog
+* Thu Feb 16 2023 Jonathan Wright <jonathan@almalinux.org> - 1.27.1-2
+- stop building on ppc64le
+
 * Thu Feb 16 2023 Jonathan Wright <jonathan@almalinux.org> - 1.27.1-1
 - update to 1.27.1 rhbz#2170425
 

@@ -57,7 +57,7 @@
 # than any update to python-googleapis-common-protos could potentially require
 # python-xds-protos to be rebuilt. We therefore use an exact-version
 # dependency.
-%global googleapis_common_protos_version 1.56.4
+%global googleapis_common_protos_version 1.58
 
 Name:           python-xds-protos
 Version:        0.0.11%{?grpc_commit:^%{grpc_snapdate}git%{grpc_commit}}

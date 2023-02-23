@@ -1,11 +1,9 @@
-# F35: Do not update past 1.6.0. F35's protobuf is too old.
-
 # tests are enabled by default
 %bcond_without  tests
 
 %global         srcname     google-cloud-access-approval
 %global         forgeurl    https://github.com/googleapis/python-access-approval
-Version:        1.9.0
+Version:        1.10.1
 %global         tag         v%{version}
 %forgemeta
 

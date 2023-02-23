@@ -1,5 +1,4 @@
-# NOTE(mhayden): Temporarily disabling tests due to import errors.
-%bcond_with     tests
+%bcond_without  tests
 
 # opentelemetry-instrumentation is not yet packaged.
 %bcond_with     opentelemetry-instrumentation
@@ -8,7 +7,7 @@
 
 %global         srcname     google-cloud-bigquery
 %global         forgeurl    https://github.com/googleapis/python-bigquery
-Version:        3.4.0
+Version:        3.5.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -16,7 +15,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google BigQuery
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -66,15 +65,12 @@ Summary:        %{summary}
 # Allow a slightly older protobuf.
 sed -i 's/"protobuf.*",/"protobuf>=3.19.4",/' setup.py
 
-# Remove the upper bound on the version of packaging
-sed -r -i "s/(packaging\\b.*)(, [[:blank:]]*<[^'\"]*)/\1/" setup.py
-
-# Remove the upper bound on the version of pyarrow.
-sed -r -i "s/(pyarrow\\b.*)(, [[:blank:]]*<[^'\"]*)/\1/" setup.py
-
 # Replace mock imports with unittest.mock.
 grep -rl "^[[:space:]]*import mock" tests | \
     xargs sed -i -E 's/^([[:space:]]*)import mock/\1from unittest import mock/'
+
+# Allow a slightly older version of grpcio.
+sed -i 's/1.49.1/1.48.3/g' setup.py
 
 # Remove Python version limitation.
 sed -i '/python_requires/d' setup.py
@@ -97,13 +93,10 @@ sed -i '/python_requires/d' setup.py
 %pyproject_check_import
 
 %if %{with tests}
-# Work around an unusual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest tests/unit \
-    -k "not test_to_query_parameters_w_list \
-        and not test_consume_unexpected_eol"
-mv google{_,}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

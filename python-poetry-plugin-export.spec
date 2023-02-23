@@ -3,13 +3,13 @@
 %bcond bootstrap 0
 
 Name:           python-poetry-plugin-export
-Version:        1.1.2
+Version:        1.3.0
 Release:        2%{?dist}
 Summary:        Poetry plugin to export the dependencies to various formats
 
 License:        MIT
 URL:            https://python-poetry.org/
-Source:         %{pypi_source poetry-plugin-export}
+Source:         %{pypi_source poetry_plugin_export}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -21,6 +21,7 @@ BuildRequires:  python3-devel
 %if %{without bootstrap}
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
+BuildRequires:  python3-pytest-xdist
 %endif
 
 %global _description %{expand:
@@ -38,7 +39,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n poetry-plugin-export-%{version}
+%autosetup -p1 -n poetry_plugin_export-%{version}
 
 
 %generate_buildrequires
@@ -65,6 +66,12 @@ Summary:        %{summary}
 
 
 %changelog
+* Mon Feb 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.0-2
+- Update to 1.3.0 - without bootstrap
+
+* Mon Feb 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.0-1
+- Update to 1.3.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

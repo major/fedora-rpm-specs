@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.1
+Version: 39.2
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -39,7 +39,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.43-1
+%define pykickstartver 3.44-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.6.0-1
 %define rpmver 4.15.0
@@ -463,6 +463,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 21 2023 Packit <hello@packit.dev> - 39.2-1
+- Add DNS search and ignore options from kickstart (vslavik)
+- Adjust templates after F38 branching (mkolman)
+- webui: Fix missing space (vslavik)
+- Update translations from Weblate
+
 * Thu Feb 16 2023 Packit <hello@packit.dev> - 39.1-1
 - Fix new pylint detections (vslavik)
 - Update translations from Weblate

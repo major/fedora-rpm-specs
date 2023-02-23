@@ -5,7 +5,7 @@ Name:           %{fontname}-fonts
 Version:        9.81
 Release:        11%{?dist}
 Summary:        A font for ancient scripts in the greater Aegean vicinity
-License:        Public Domain
+License:        LicenseRef-Fedora-UltraPermissive
 URL:            http://users.teilar.gr/~g1951d/
 Source0:        http://users.teilar.gr/~g1951d/Aegean.zip
 Source1:        %{name}-fontconfig.conf

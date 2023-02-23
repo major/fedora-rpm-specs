@@ -1,8 +1,8 @@
 %global pypi_name claripy
 
 Name:           python-%{pypi_name}
-Version:        9.0.6885
-Release:        7%{?dist}
+Version:        9.2.39
+Release:        1%{?dist}
 Summary:        Abstraction layer for constraint solvers
 
 License:        BSD
@@ -10,14 +10,13 @@ URL:            https://github.com/angr/claripy
 Source0:        %{url}/archive/v%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
 
+BuildRequires:  python3-devel
+
 %description
 Claripy is an abstracted constraint-solving wrapper.
 
 %package -n     python3-%{pypi_name}
 Summary:        %{summary}
-
-BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 Requires:       python3-z3
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -26,26 +25,28 @@ Requires:       python3-z3
 Claripy is an abstracted constraint-solving wrapper.
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-rm -rf %{pypi_name}.egg-info
+%autosetup -p1 -n %{pypi_name}-%{version}
 # Remove installation requirement. Fedora is using a different name, see above
-sed -i -e '/z3-solver/d' setup.py
-# Remove shebangs
-sed -i -e '/^#!\//, 1d' claripy/{*.py,frontend_mixins/*.py,frontends/*.py}
+sed -i -e '/z3-solver/d' setup.cfg
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files %{pypi_name}
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-%{version}-py*.egg-info/
 
 %changelog
+* Tue Feb 21 2023 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.39-1
+- Update to latest upstream release 9.2.39
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0.6885-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

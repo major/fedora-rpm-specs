@@ -12,17 +12,28 @@
 %global with_mpich 1
 %global with_openmpi 1
 
-%if 0%{?fedora} || 0%{?rhel} == 7
+# Due to OpenMPI-5.0 dropping in i686
+%if 0%{?fedora} && 0%{?fedora} > 37
 %global with_mpicheck 1
-%global with_mpich_check 0
+%global with_mpich_check 1
+%ifarch %{ix86}
+%global with_openmpi_check 0
+%else
+%global with_openmpi_check 1
+%endif
+%endif
+
+%if 0%{?fedora} && 0%{?fedora} < 38
+%global with_mpicheck 1
+%global with_mpich_check 1
 %global with_openmpi_check 1
 %endif
 
 ## Due to rhbz#1744780
-%if 0%{?rhel} && 0%{?rhel} == 8
+%if 0%{?rhel}
 %global with_mpicheck 1
-%global with_mpich_check 0
-%global with_openmpi_check 0
+%global with_mpich_check 1
+%global with_openmpi_check 1
 %endif
 
 # Workarounf for GCC-10
@@ -33,7 +44,7 @@
 
 Name: MUMPS
 Version: %{soname_version}.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A MUltifrontal Massively Parallel sparse direct Solver
 License: CeCILL-C 
 URL: http://mumps.enseeiht.fr/
@@ -684,6 +695,9 @@ EOF
 %{_rpmmacrodir}/macros.MUMPS
 
 %changelog
+* Tue Feb 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.5.1-3
+- Disable OpenMPI tests in Fedora 38+ i686
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

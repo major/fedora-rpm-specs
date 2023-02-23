@@ -7,7 +7,7 @@ Summary:       Build/integrate software stacks
 License:       LGPLv2+
 URL:           https://buildstream.build/
 
-Version:       1.6.8
+Version:       1.6.9
 Release:       %autorelease
 Source0:       https://github.com/apache/buildstream/archive/%{version}/buildstream-%{version}.tar.gz
 
@@ -154,11 +154,13 @@ k="${k-}${k+ and }not test_push_already_cached"
 k="${k-}${k+ and }not test_project_error"
 # Ignored tests would require pyftpdlib, which is not packaged
 %pytest -vv -k "${k-}" \
-    --ignore=tests/testutils/file_server.py \
-    --ignore=tests/testutils/ftp_server.py \
+    --ignore=tests/frontend/mirror.py \
+    --ignore=tests/sources/git.py \
     --ignore=tests/sources/remote.py \
     --ignore=tests/sources/tar.py \
     --ignore=tests/sources/zip.py \
+    --ignore=tests/testutils/file_server.py \
+    --ignore=tests/testutils/ftp_server.py \
     %dnl # Some tests fail probably due new Python 3.11
     %if 0%{?fedora} >= 36
     --ignore=tests/frontend/compose_splits.py \

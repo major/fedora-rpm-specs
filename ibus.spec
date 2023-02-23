@@ -49,8 +49,8 @@
 %global dbus_python_version 0.83.0
 
 Name:           ibus
-Version:        1.5.27
-Release:        15%{?dist}
+Version:        1.5.28
+Release:        1%{?dist}
 Summary:        Intelligent Input Bus for Linux OS
 License:        LGPL-2.0-or-later
 URL:            https://github.com/ibus/%name/wiki
@@ -58,7 +58,6 @@ Source0:        https://github.com/ibus/%name/releases/download/%{version}/%{nam
 Source1:        %{name}-xinput
 Source2:        %{name}.conf.5
 # Patch0:         %%{name}-HEAD.patch
-Patch0:         %{name}-HEAD.patch
 # Under testing #1349148 #1385349 #1350291 #1406699 #1432252 #1601577
 Patch1:         %{name}-1385349-segv-bus-proxy.patch
 %if 0%{?fedora:0}%{?rhel:1}
@@ -319,7 +318,6 @@ fi
 #make -C ui/gtk3 maintainer-clean-generic
 #make -C tools maintainer-clean-generic
 #make -C src/compose maintainer-clean-generic
-autoreconf -f -i -v
 %configure \
     --disable-static \
 %if %{with gtk2}
@@ -346,7 +344,6 @@ autoreconf -f -i -v
     %{nil}
 
 make -C ui/gtk3 maintainer-clean-generic
-make -C src/compose maintainer-clean-generic
 %make_build
 
 %install
@@ -558,6 +555,9 @@ dconf update || :
 %{_datadir}/installed-tests/ibus
 
 %changelog
+* Tue Feb 21 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.28-1
+- Bump to 1.5.28
+
 * Fri Feb 17 2023 Takao Fujiwara <tfujiwar@redhat.com> - 1.5.27-15
 - Resolves: #2169205 Return error if D-Bus set/get property method is failed
 

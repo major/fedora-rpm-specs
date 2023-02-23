@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           wesnoth
-Version:        1.17.7
-Release:        3%{?dist}
+Version:        1.17.13
+Release:        1%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
 License:        GPLv2+
@@ -175,6 +175,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.13-1
+- 1.17.13
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.17.7-3
 - Rebuilt for Boost 1.81
 

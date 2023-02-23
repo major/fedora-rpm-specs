@@ -6,7 +6,7 @@ Version:       0.0.99.3
 %global goipath github.com/containers/%{name}
 %gometa
 
-Release:       10%{?dist}
+Release:       11%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -23,6 +23,13 @@ Patch101:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
 Patch102:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild-for-PPC64.patch
 Patch103:      toolbox-cmd-root-Work-around-Cobra-1.1.2-s-handling-of-usage.patch
 
+%if 0%{?rhel} == 9
+ExclusiveArch: %{golang_arches}
+%else
+ExclusiveArch: %{golang_arches_future}
+%endif
+
+BuildRequires: gcc
 BuildRequires: go-md2man
 BuildRequires: golang >= 1.13
 %if ! 0%{?rhel}
@@ -34,13 +41,13 @@ BuildRequires: golang(github.com/fsnotify/fsnotify) >= 1.4.7
 BuildRequires: golang(github.com/godbus/dbus) >= 5.0.3
 BuildRequires: golang(github.com/mattn/go-isatty) >= 0.0.12
 BuildRequires: golang(github.com/sirupsen/logrus) >= 1.4.2
-# BuildRequires: golang(github.com/stretchr/testify) >= 1.7.0
 BuildRequires: golang(github.com/spf13/cobra) >= 0.0.5
 BuildRequires: golang(github.com/spf13/viper) >= 1.3.2
 BuildRequires: golang(golang.org/x/crypto/ssh/terminal)
 BuildRequires: golang(golang.org/x/sys/unix)
 # for tests
-BuildRequires: ShellCheck
+# BuildRequires: golang(github.com/stretchr/testify) >= 1.7.0
+# BuildRequires: ShellCheck
 %endif
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
@@ -167,7 +174,7 @@ The %{name}-tests package contains system tests for %{name}.
 
 
 %build
-export GO111MODULE=off
+export %{gomodulesmode}
 export GOPATH=%{gobuilddir}:%{gopath}
 export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
 ln -s src/cmd cmd
@@ -175,7 +182,7 @@ ln -s src/pkg pkg
 %if 0%{?rhel}
 ln -s src/vendor vendor
 %endif
-%meson --buildtype=plain -Dprofile_dir=%{_sysconfdir}/profile.d -Dtmpfiles_dir=%{_tmpfilesdir}
+%meson -Dprofile_dir=%{_sysconfdir}/profile.d -Dtmpfiles_dir=%{_tmpfilesdir}
 %meson_build
 
 
@@ -211,6 +218,9 @@ ln -s src/vendor vendor
 
 
 %changelog
+* Tue Feb 21 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.3-11
+- Add ExclusiveArch to match Podman
+
 * Thu Feb 02 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.0.99.3-10
 - Sync packaging changes from CentOS Stream
 

@@ -1,6 +1,6 @@
 Name:           hackrf
 Version:        2023.01.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        HackRF Utilities
 
 License:        GPL-2.0-or-later AND BSD-3-Clause
@@ -8,6 +8,7 @@ URL:            https://greatscottgadgets.com/%{name}/
 Source0:        https://github.com/greatscottgadgets/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 
 Patch0:         shebang.patch
+Patch1:         static.patch
 
 BuildRequires:  cmake
 BuildRequires:  fftw3-devel
@@ -46,15 +47,6 @@ Requires:       %{name} = %{version}-%{release}
 %description doc
 Supplemental documentation for HackRF.  For more information, visit the project at
 https://greatscottgadgets.com/hackrf
-
-
-%package static
-Summary:        Static libraries for libhackrf
-License:        BSD-3-Clause
-Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
-
-%description static
-Static libraries for libhackrf.
 
 
 %package firmware
@@ -132,9 +124,6 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 %{_libdir}/pkgconfig/libhackrf.pc
 %{_libdir}/libhackrf.so
 
-%files static
-%{_libdir}/libhackrf.a
-
 %files firmware
 %{_datadir}/%{name}/README-Fedora
 %{_datadir}/%{name}/firmware-bin
@@ -147,6 +136,9 @@ cp -a hardware %{buildroot}%{_datadir}/%{name}
 
 
 %changelog
+* Tue Feb 21 2023 Steven A. Falco <stevenfalco@gmail.com> - 2023.01.1-4
+- Do not build static subpackage
+
 * Wed Feb 15 2023 Steven A. Falco <stevenfalco@gmail.com> - 2023.01.1-3
 - HW and FW should be noarch
 

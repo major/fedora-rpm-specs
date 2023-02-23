@@ -1,11 +1,8 @@
-# F35: Do not update past 2.11.1. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without tests
 
 %global         srcname     google-cloud-kms
 %global         forgeurl    https://github.com/googleapis/python-kms
-Version:        2.12.3
+Version:        2.14.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Key Management Service (KMS) API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -68,13 +65,14 @@ grep -rl "^[[:space:]]*import mock" tests | \
 rm -f %{buildroot}/%{_bindir}/fixup_kms_v1_keywords.py
 
 
-%if %{with tests}
 %check
-# Work around an usual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest --disable-warnings --ignore=samples tests/unit
-mv google{_,}
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

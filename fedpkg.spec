@@ -4,8 +4,8 @@
 %endif
 
 Name:           fedpkg
-Version:        1.43
-Release:        3%{?dist}
+Version:        1.44
+Release:        1%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 License:        GPLv2+
@@ -25,7 +25,6 @@ Patch2:         0002-Remove-pytest-coverage-execution.patch
 %if %{with python2}
 Patch3:         0003-Remove-Environment-Markers-syntax.patch
 %endif
-Patch4:         0004-Do-not-execute-unittests-for-old-bodhi-client.patch
 
 BuildRequires:  pkgconfig
 BuildRequires:  bash-completion
@@ -40,7 +39,7 @@ Requires:       redhat-rpm-config
 
 BuildRequires:  python2-devel
 # We br these things for man page generation due to imports
-BuildRequires:  python2-rpkg >= 1.65-2
+BuildRequires:  python2-rpkg >= 1.66-2
 BuildRequires:  python2-distro
 BuildRequires:  python2-fedora
 # For testing
@@ -54,7 +53,7 @@ BuildRequires:  python-bugzilla
 
 Requires:       bodhi-client >= 2.0
 Requires:       python-bugzilla
-Requires:       python2-rpkg >= 1.65-2
+Requires:       python2-rpkg >= 1.66-2
 Requires:       python2-distro
 Requires:       python2-fedora
 Requires:       python2-openidc-client >= 0.6.0
@@ -66,7 +65,7 @@ Requires:       fedora-packager
 %global __python %{__python3}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-rpkg >= 1.65-2
+BuildRequires:  python3-rpkg >= 1.66-2
 BuildRequires:  python3-distro
 BuildRequires:  python3-fedora
 # For testing
@@ -78,7 +77,7 @@ BuildRequires:  python3-bodhi-client
 
 
 Requires:       python3-bugzilla
-Requires:       python3-rpkg >= 1.65-2
+Requires:       python3-rpkg >= 1.66-2
 Requires:       python3-distro
 Requires:       python3-fedora
 Requires:       python3-openidc-client >= 0.6.0
@@ -148,6 +147,16 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Mon Feb 20 2023 Ondřej Nosek <onosek@redhat.com> - 1.44-1
+- Do not execute unittests for old bodhi-client (onosek)
+- New command `disable-monitoring` (onosek)
+- Set default_branch_merge to 'rawhide' (otto.liljalaakso)
+- `fedpkg update`: can handle $EDITOR with arguments - #492 (onosek)
+- Add Jenkinsfile for CI (onosek)
+
+* Mon Jan 30 2023 Miro Hrončok <mhroncok@redhat.com> - 1.43-3
+- Rebuilt to change Python shebangs to /usr/bin/python3.6 on EPEL 8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.43-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

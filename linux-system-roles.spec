@@ -29,8 +29,8 @@ Name: linux-system-roles
 %endif
 Url: https://github.com/linux-system-roles
 Summary: Set of interfaces for unified system management
-Version: 1.35.0
-Release: 2%{?dist}
+Version: 1.35.1
+Release: 1%{?dist}
 
 License: GPLv3+ and MIT and BSD and Python
 %global _pkglicensedir %{_licensedir}/%{name}
@@ -124,7 +124,7 @@ Source: %{url}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar
 %deftag 4 1.2.6
 
 %global rolename5 network
-%deftag 5 1.11.1
+%deftag 5 1.11.2
 
 %global rolename6 storage
 %deftag 6 1.9.6
@@ -748,6 +748,9 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Tue Feb 21 2023 Packit <hello@packit.dev> - 1.35.1-1
+- Update to upstream version 1.35.1
+
 * Thu Feb 16 2023 Rich Megginson <rmeggins@redhat.com> - 1.35.0-2
 - EL - vendor in Ansible modules needed for rhc role
 

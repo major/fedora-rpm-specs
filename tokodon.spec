@@ -7,6 +7,9 @@ Summary:        Kirigami-based mastodon client
 Url:            https://invent.kde.org/network/tokodon
 Source0:        https://download.kde.org/stable/%{name}/%{name}-%{version}.tar.xz
 
+# Doesn't build due to compiler segfault on PPC64le: https://bugzilla.redhat.com/show_bug.cgi?id=2171964
+ExcludeArch:    ppc64le
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  cmake

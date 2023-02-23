@@ -1,14 +1,18 @@
 Name:           gpodder
-Version:        3.11.0
-Release:        3%{?dist}
+Version:        3.11.1
+Release:        1%{?dist}
 Summary:        Podcast receiver/catcher written in Python
-
-License:        GPLv3+ and LGPLv2+
+# Mostly GPL-3.0-or-later, but some files use something different
+License:        GPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later AND LGPL-3.0-or-later AND ISC
 URL:            http://gpodder.org
 Source0:        https://github.com/gpodder/gpodder/archive/%{version}/gpodder-%{version}.tar.gz
+# https://github.com/gpodder/gpodder/commit/3cef7a3e1185ebbe83f22f50ca6410d21d62ec44
+Patch:          appdata-Fix-syntax-add-3.9-series-release-dates.patch
+# https://github.com/gpodder/gpodder/commit/530d026516aa6952bf5a5a01cb8df0f990e97fa5
+Patch:          appdata-Add-release-3.11.1.patch
 # Rename the appdata file to comply with Fedora Packaging Guidelines
-Patch0:         rename-appdata.patch
-Patch1:         disable-auto-update-check.patch
+Patch:          rename-appdata.patch
+Patch:          disable-auto-update-check.patch
 BuildArch:      noarch
 BuildRequires:  python3-devel, python3-feedparser, python3-setuptools
 BuildRequires:  desktop-file-utils
@@ -25,6 +29,7 @@ Requires:       python3-imaging
 Requires:       python3-mygpoclient
 Requires:       hicolor-icon-theme
 Requires:       yt-dlp
+Requires:       /usr/bin/xdg-open
 %description
 gPodder is a Podcast receiver/catcher written in Python, using GTK. 
 It manages podcast feeds for you and automatically downloads all 
@@ -33,6 +38,10 @@ It also optionally supports syncing with ipods.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
+
+# Drop unused tools that complicate licensing
+rm -rf tools/max-osx
+rm -rf tools/win_installer
 
 #drop examples for now
 rm -rf share/gpodder/examples
@@ -70,6 +79,10 @@ desktop-file-install --delete-original          \
 %{python3_sitelib}/%{name}*.egg-info
 
 %changelog
+* Mon Feb 20 2023 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 3.11.1-1
+- Update to 3.11.1 (rhbz#2171198)
+- Review licensing, use SPDX license identifiers
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

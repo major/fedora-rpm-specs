@@ -72,6 +72,8 @@ Recommends: netavark
 Requires: (netavark if fedora-release-identity-server)
 Recommends: slirp4netns
 Requires: (slirp4netns if fedora-release-identity-server)
+Recommends: passt
+Requires: (passt if fedora-release-identity-server)
 Requires: iptables
 Requires: nftables
 Suggests: containernetworking-plugins >= 0.9.1-1

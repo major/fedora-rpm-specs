@@ -3,13 +3,14 @@
 
 Name:           gammu
 Version:        1.42.0
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Command Line utility to work with mobile phones
 
 License:        GPLv2+
 URL:            http://wammu.eu/gammu/
 Source0:        https://github.com/gammu/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0:         gammu-1.3.7-udev.patch
+Patch1:         a37e5d8054f863fa71e38e244dd4da13eee6e251.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake3
@@ -89,6 +90,7 @@ developing applications that use %{name}
 %prep
 %setup -q
 %patch0 -p1 -b .udev
+%patch1 -p1
 
 %build
 %cmake3                  \
@@ -172,6 +174,9 @@ install -pm 0644 docs/config/smsdrc %{buildroot}%{_sysconfdir}/gammu-smsdrc
 
 
 %changelog
+* Tue Feb 21 2023 Filipe Rosset <rosset.filipe@gmail.com> - 1.42.0-9
+- Fix FTBFS rhbz#2145274 and rhbz#2171496
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.42.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

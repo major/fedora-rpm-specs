@@ -1,11 +1,8 @@
-# F35: Do not update past 1.4.0. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without tests
 
 %global         srcname     google-cloud-data-fusion
 %global         forgeurl    https://github.com/googleapis/python-data-fusion
-Version:        1.5.3
+Version:        1.7.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Data Fusion API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -63,9 +60,14 @@ grep -rl "^[[:space:]]*import mock" tests | \
 %pyproject_save_files google
 
 
-%if %{with tests}
 %check
-%pytest --disable-warnings tests/unit
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

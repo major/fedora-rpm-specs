@@ -1,51 +1,45 @@
-%global fontname adobe-source-han-serif-cn
-%global fontconf 65-2-%{fontname}.conf
+# SPDX-License-Identifier: MIT
 
-%global archivename SourceHanSerifCN
+Version: 2.001
+Release: 4%{?dist}
+URL:     https://github.com/adobe-fonts/source-han-serif/
 
-Name:           adobe-source-han-serif-cn-fonts
-Version:        2.001
-Release:        3%{?dist}
-Summary:        Adobe OpenType Pan-CJK font family for Simplified Chinese
+%global foundry           Adobe
+%global fontlicense       OFL-1.1
+%global fontlicenses      LICENSE.txt
 
-License:        OFL
-URL:            https://github.com/adobe-fonts/source-han-serif/
-Source0:        https://github.com/adobe-fonts/source-han-serif/raw/release/SubsetOTF/%{archivename}.zip
-Source1:        %{name}-fontconfig.conf
-
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-
-%description
+%global fontfamily        Source Han Serif CN
+%global fontsummary       Adobe OpenType Pan-CJK font family for Simplified Chinese
+%global fonts             SourceHanSerifCN*.otf
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 Source Han Serif is a set of OpenType/CFF Pan-CJK fonts.
+}
+
+Source0:  https://github.com/adobe-fonts/source-han-serif/raw/release/SubsetOTF/SourceHanSerifCN.zip
+Source10: 65-2-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
 %autosetup -c
 
 %build
-
+%fontbuild
 
 %install
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.otf %{buildroot}%{_fontdir}
+%check
+%fontcheck
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-
-%_font_pkg -f %{fontconf} *.otf
-
-%license LICENSE.txt
-
+%fontfiles
 
 %changelog
+* Wed Feb 15 2023 Peng Wu <pwu@redhat.com> - 2.001-4
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.001-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

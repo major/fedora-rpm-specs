@@ -1,12 +1,12 @@
 Name:		moe
-Version:	1.12
-Release:	3%{?dist}
+Version:	1.13
+Release:	1%{?dist}
 Summary:	A powerful clean text editor
 
 License:	GPLv3+
 URL:		http://www.gnu.org/software/moe/moe.html
 Source0:	http://ftp.gnu.org/gnu/moe/moe-%{version}.tar.lz
-Patch0:		moe-1.12-configure.patch
+Patch0:		moe-1.13-configure.patch
 
 BuildRequires: make
 BuildRequires:	ncurses-devel lzip gcc-c++
@@ -37,11 +37,14 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %doc AUTHORS README NEWS ChangeLog
 %license COPYING
 %{_datadir}/info/%{name}.info*
-%config(noreplace) %{_sysconfdir}/%{name}rc
+%config(noreplace) %{_sysconfdir}/%{name}.conf
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.13-1
+- 1.13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

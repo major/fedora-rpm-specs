@@ -5,7 +5,7 @@
 %global goipath         golang.org/x/tools
 %global forgeurl        https://github.com/golang/tools
 Epoch:                  1
-Version:                0.1.12
+Version:                0.6.0
 
 %gometa
 
@@ -25,7 +25,8 @@ Single Assignment form (SSA) representation for Go programs.}
 %global golicenses      LICENSE PATENTS
 %global godocs          CONTRIBUTING.md README.md
 
-%global commands benchcmp bundle callgraph compilebench cover digraph eg fiximports getgo go-contrib-init godex godoc goimports gomvpkg gorename gotype goyacc guru html2article present splitdwarf ssadump stress stringer toolstash
+%global auth_commands authtest cookieauth gitauth netrcauth
+%global commands benchcmp bundle callgraph compilebench digraph eg file2fuzz fiximports getgo go-contrib-init godex godoc goimports gomvpkg gorename gotype goyacc guru html2article present splitdwarf ssadump stress stringer toolstash
 
 Name:           %{goname}
 Release:        %autorelease
@@ -64,6 +65,12 @@ Summary:        Tool for creating articles from HTML files
 This program takes an HTML file and outputs a corresponding article file
 in present format. See: golang.org/x/tools/present
 
+%package        auth
+Summary:        Tools implementing the GOAUTH protocol
+
+%description    auth
+%{summary}.
+
 %package        callgraph
 Summary:        Tool for reporting the call graph of a Go program
 
@@ -77,14 +84,6 @@ Summary:        Benchmarks the speed of the Go compiler
 %{summary}.
 
 See https://godoc.org/golang.org/x/tools/cmd/compilebench for more information.
-
-%package        cover
-Summary:        Tool for analyzing Go coverage profiles
-
-%description    cover
-%{summary}.
-
-See https://godoc.org/golang.org/x/tools/cmd/cover for more information.
 
 %package        digraph
 Summary:        Tool for queries over unlabelled directed graphs in text form
@@ -139,6 +138,12 @@ Summary:        Example-based refactoring for the Go programming language
 %{summary}.
 
 See `eg -help` for more information.
+
+%package        file2fuzz
+Summary:        Convert binary files to the Go fuzzing corpus format
+
+%description    file2fuzz
+%{summary}.
 
 %package        fiximports
 Summary:        Fixes import declarations to use the canonical import path
@@ -253,6 +258,9 @@ find . -type f -name "*.go" -exec sed -i "s|mvdan.cc/xurls/v2|mvdan.cc/xurls|" "
 %go_generate_buildrequires
 
 %build
+for cmd in %auth_commands; do
+  %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/cmd/auth/$cmd
+done
 for cmd in %commands; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/cmd/$cmd
 done
@@ -291,6 +299,14 @@ mv %{buildroot}%{_bindir}/bundle %{buildroot}%{_bindir}/gobundle
 %license %{golicenses}
 %{_bindir}/godex
 
+%files    auth
+%doc %{godocs}
+%license %{golicenses}
+%{_bindir}/authtest
+%{_bindir}/cookieauth
+%{_bindir}/gitauth
+%{_bindir}/netrcauth
+
 %files    callgraph
 %doc %{godocs}
 %license %{golicenses}
@@ -300,11 +316,6 @@ mv %{buildroot}%{_bindir}/bundle %{buildroot}%{_bindir}/gobundle
 %doc %{godocs}
 %license %{golicenses}
 %{_bindir}/compilebench
-
-%files    cover
-%doc %{godocs}
-%license %{golicenses}
-%{_bindir}/cover
 
 %files    digraph
 %doc %{godocs}
@@ -325,6 +336,11 @@ mv %{buildroot}%{_bindir}/bundle %{buildroot}%{_bindir}/gobundle
 %doc %{godocs}
 %license %{golicenses}
 %{_bindir}/eg
+
+%files    file2fuzz
+%doc %{godocs}
+%license %{golicenses}
+%{_bindir}/file2fuzz
 
 %files    fiximports
 %doc %{godocs}

@@ -1,6 +1,6 @@
 Name:           ternimal
 Version:        0.1.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Simulate a lifeform in the terminal
 
 License:        GPLv3+
@@ -18,10 +18,10 @@ BuildRequires:  rust-packaging
 %autosetup -p1
 
 %build
-%{__rustc} %{__global_rustflags} ternimal.rs -o ternimal
+rustc %{build_rustflags} ternimal.rs -o ternimal
 
 %install
-%{__install} -Dpm0755 -t %{buildroot}%{_bindir} ternimal
+install -Dpm0755 -t %{buildroot}%{_bindir} ternimal
 
 %files
 %license LICENSE.txt
@@ -29,6 +29,9 @@ BuildRequires:  rust-packaging
 %{_bindir}/ternimal
 
 %changelog
+* Mon Feb 20 2023 Fabio Valentini <decathorpe@gmail.com> - 0.1.0-14
+- Stop using private RPM macros.
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.1.0-13
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

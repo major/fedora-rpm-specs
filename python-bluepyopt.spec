@@ -37,6 +37,11 @@ Source0: %forgesource
 # use _version file from pypi tar to trick versioneer
 Source1: _version.py
 
+# Deprecation of numpy.int and numpy.float
+# https://github.com/BlueBrain/BluePyOpt/commit/e5ed68ac609b24414038904801ddf8a20b69efe9
+# Backported to 1.13.3.
+Patch:          0001-Deprecation-of-numpy.int-and-numpy.float.patch
+
 # Not all requirements are listed, so we need to use explicit BRs also
 BuildRequires:  python3-devel
 # Required to compile neuron based models
@@ -75,7 +80,7 @@ Summary:        Documentation for bluepyopt
 %description -n python3-bluepyopt-doc %_description
 
 %prep
-%forgesetup
+%forgeautosetup -p1
 cp -v %{SOURCE1} "bluepyopt/_version.py"
 
 # Optional dependency, remove so that automatic dep generator does not pick it up

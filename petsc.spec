@@ -285,7 +285,7 @@
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
 Version: %{releasever}.4
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -790,8 +790,10 @@ sed -e 's|%{_builddir}/%{name}-%{version}/%{name}-%{version}|%{_prefix}|g' -i %{
 sed -e 's|%{_builddir}/%{name}-%{version}/%{name}-%{version}/%{_arch}/|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscvariables
 sed -e 's|-L%{_prefix}/%{_arch}/lib|-L%{_libdir}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscvariables
 sed -e 's|-I%{_prefix}/%{_arch}/include|-I%{_includedir}/%{name} -I%{_fmoddir}/%{name}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscvariables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|${PETSC_DIR}/%{_lib}|g' -i %{buildroot}%{_libdir}/%{name}/conf/variables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|${PETSC_DIR}/%{_lib}|g' -i %{buildroot}%{_libdir}/%{name}/conf/rules
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}|g' -i %{buildroot}%{_libdir}/%{name}/conf/variables
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}|g' -i %{buildroot}%{_libdir}/%{name}/conf/rules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscrules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscvariables
 popd
 
 %if %{with arch64}
@@ -823,8 +825,10 @@ sed -e 's|%{_builddir}/%{name}-%{version}/build64|%{_prefix}|g' -i %{buildroot}%
 sed -e 's|%{_builddir}/%{name}-%{version}/build64/%{_arch}/|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/petscvariables
 sed -e 's|-L%{_prefix}/%{_arch}/lib|-L%{_libdir}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/petscvariables
 sed -e 's|-I%{_prefix}/%{_arch}/include/|-I%{_includedir}/%{name}64 -I%{_fmoddir}/%{name}64|g' -i %{buildroot}%{_libdir}/%{name}64/conf/petscvariables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|${PETSC_DIR}/%{_lib}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/variables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|${PETSC_DIR}/%{_lib}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/rules
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/variables
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}|g' -i %{buildroot}%{_libdir}/%{name}64/conf/rules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscrules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}%{_libdir}/%{name}/conf/petscvariables
 popd
 %endif
 
@@ -860,8 +864,10 @@ sed -e 's|%{_builddir}/%{name}-%{version}/buildopenmpi_dir|%{_prefix}|g' -i %{bu
 sed -e 's|%{_builddir}/%{name}-%{version}/buildopenmpi_dir/%{_arch}/|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 sed -e 's|-L%{_prefix}/%{_arch}/lib|-L%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 sed -e 's|-I%{_prefix}/%{_arch}/include|-I%{_includedir}/openmpi-%{_arch}/%{name} -I%{_fmoddir}/openmpi/%{name}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|${PETSC_DIR}/%{_lib}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/variables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|${PETSC_DIR}/%{_lib}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/rules
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|$MPI_LIB|g' -i %{buildroot}$MPI_LIB/%{name}/conf/variables
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|$MPI_LIB|g' -i %{buildroot}$MPI_LIB/%{name}/conf/rules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscrules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 
 %if %{with python}
 export PETSC_ARCH=%{_arch}
@@ -917,8 +923,10 @@ sed -e 's|%{_builddir}/%{name}-%{version}/buildmpich_dir|%{_prefix}|g' -i %{buil
 sed -e 's|%{_builddir}/%{name}-%{version}/buildmpich_dir/%{_arch}/|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 sed -e 's|-L%{_prefix}/%{_arch}/lib|-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 sed -e 's|-I%{_prefix}/%{_arch}/include|-I%{_includedir}/mpich-%{_arch}/%{name} -I%{_fmoddir}/mpich/%{name}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|${PETSC_DIR}/%{_lib}/mpich/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/variables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|${PETSC_DIR}/%{_lib}/mpich/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/rules
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|$MPI_LIB|g' -i %{buildroot}$MPI_LIB/%{name}/conf/variables
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|$MPI_LIB|g' -i %{buildroot}$MPI_LIB/%{name}/conf/rules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscrules
+sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 
 %if %{with python}
 export PETSC_ARCH=%{_arch}
@@ -1159,6 +1167,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Tue Feb 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-8
+- Fix rhbz#2171312
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.17.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

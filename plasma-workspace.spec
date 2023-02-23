@@ -27,8 +27,8 @@
 
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
-Version: 5.27.0
-Release: 4%{?dist}
+Version: 5.27.1
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -65,9 +65,6 @@ Source41:       spice-vdagent.conf
 ## upstream Patches (master branch)
 
 ## upstreamable Patches
-# Ensure global shortcuts don't work in login sessions
-# From: https://invent.kde.org/plasma/plasma-workspace/-/merge_requests/2650
-Patch050:       sddm-wayland-session-Disable-global-shortcuts.patch
 
 ## downstream Patches
 # default to folderview (instead of desktop) containment, see also
@@ -208,6 +205,10 @@ BuildRequires:  cmake(AppStreamQt) >= 0.10.4
 
 # when kded_desktopnotifier.so moved here
 Conflicts:      kio-extras < 5.4.0
+
+%if 0%{?fedora} > 35
+Recommends:     plasma-welcome
+%endif
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 Recommends:     %{name}-geolocation = %{version}-%{release}
@@ -790,6 +791,10 @@ fi
 
 
 %changelog
+* Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
+- 5.27.1
+- Recommends plasma-welcome on Fedora
+
 * Mon Feb 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.0-4
 - Add patch to disable global shortcuts at login (#2171332)
 

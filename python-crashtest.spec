@@ -5,8 +5,8 @@ Crashtest is a Python library that makes exceptions handling and
 inspection easier.}
 
 Name:           python-%{pypi_name}
-Version:        0.3.1
-Release:        9%{?dist}
+Version:        0.4.1
+Release:        1%{?dist}
 Summary:        Manage Python errors with ease
 License:        MIT
 
@@ -55,6 +55,9 @@ Summary:        %{summary}
 
 
 %changelog
+* Tue Feb 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 0.4.1-1
+- Update to 0.4.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 Summary: GNU collection of diff utilities
 Name: diffutils
 Version: 3.9
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://www.gnu.org/software/diffutils/diffutils.html
 Source: https://ftp.gnu.org/gnu/diffutils/diffutils-%{version}.tar.xz
 Patch1: diffutils-cmp-s-empty.patch
 Patch2: diffutils-i18n.patch
-License: GPLv3+
+License: GPL-3.0-or-later
 Provides: bundled(gnulib)
 BuildRequires: gcc
 BuildRequires: help2man
@@ -59,6 +59,9 @@ make check
 %{_infodir}/diffutils.info*
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 3.9-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

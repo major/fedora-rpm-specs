@@ -3,7 +3,7 @@
 Name:           libgda
 Epoch:          1
 Version:        6.0.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for writing gnome database programs
 
 License:        LGPLv2+
@@ -17,7 +17,7 @@ BuildRequires:    gcc
 BuildRequires:    gcc-c++
 BuildRequires:    pkgconfig >= 0.8
 BuildRequires:    glade-devel
-BuildRequires:    glib2-devel >= 2.28.0
+BuildRequires:    glib2-devel >= 2.38.0
 BuildRequires:    gtk3-devel >= 3.0.0
 BuildRequires:    gtksourceview3-devel
 BuildRequires:    goocanvas2-devel
@@ -25,7 +25,7 @@ BuildRequires:    graphviz-devel >= 2.26.0
 BuildRequires:    iso-codes-devel
 BuildRequires:    itstool
 BuildRequires:    libxslt-devel >= 1.0.9
-BuildRequires:    sqlite-devel >= 3.10.2
+BuildRequires:    sqlite-devel >= 3.22.0
 BuildRequires:    libgcrypt-devel
 BuildRequires:    libgee-devel
 BuildRequires:    gobject-introspection-devel >= 0.6.5
@@ -103,7 +103,7 @@ This %{name}-tools package provides graphical tools for %{name}.
 %package sqlite
 Summary:        SQLite provider for %{name}
 Requires:       %{name}%{?isa} = %{epoch}:%{version}-%{release}
-Requires:       sqlite%{?isa} >= 3.10.2
+Requires:       sqlite-libs%{?isa} >= 3.22.0
 
 %description sqlite
 This %{name}-sqlite includes the %{name} SQLite provider.
@@ -233,6 +233,9 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %{_libdir}/libgda-%{apiver}/providers/libgda-sqlcipher-%{apiver}.so
 
 %changelog
+* Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> -1:6.0.0-4
+- Update glib and sqlite dependencies
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

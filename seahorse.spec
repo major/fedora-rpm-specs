@@ -10,6 +10,8 @@ Summary:        A GNOME application for managing encryption keys
 License:        GPLv2+ and LGPLv2+ and CC-BY-SA
 URL:            https://wiki.gnome.org/Apps/Seahorse
 Source:         https://download.gnome.org/sources/%{name}/42/%{name}-%{tarball_version}.tar.xz
+# PR#212: Allow building with GnuPG-2.4.x
+Patch0:         https://gitlab.gnome.org/GNOME/seahorse/-/merge_requests/212.patch
 
 BuildRequires:  pkgconfig(avahi-client)
 BuildRequires:  pkgconfig(avahi-glib)

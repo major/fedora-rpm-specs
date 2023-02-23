@@ -3,7 +3,7 @@
 
 %global         srcname     google-cloud-bigtable
 %global         forgeurl    https://github.com/googleapis/python-bigtable
-Version:        2.14.1
+Version:        2.15.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -11,7 +11,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Bigtable API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -67,11 +67,10 @@ rm -f %{buildroot}%{_bindir}/fixup_bigtable*.py
 %pyproject_check_import
 
 %if %{with tests}
-# Work around an unusual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest tests/unit
-mv google{_,}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

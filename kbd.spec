@@ -5,7 +5,7 @@
 
 Name:           kbd
 Version:        2.5.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Tools for configuring the console (keyboard, virtual terminals, etc.)
 License:        GPLv2+
 URL:            http://www.kbd-project.org/
@@ -189,6 +189,10 @@ make check
 %{kbd_datadir}/keymaps/legacy
 
 %changelog
+* Tue Feb 21 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.5.1-5
+- Update patch adding compose rules for converted cz layout
+  Resolves: #2171583
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global pypi_name cle
 
 Name:           python-%{pypi_name}
-Version:        9.2.38
+Version:        9.2.39
 Release:        1%{?dist}
 Summary:        Python interface for analyzing binary formats
 
@@ -46,6 +46,9 @@ loader by the OS's loader.
 %license LICENSE
 
 %changelog
+* Tue Feb 21 2023 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.39-1
+- Update to latest upstream release 9.2.39
+
 * Sat Feb 11 2023 Fabian Affolter <mail@fabian-affolter.ch> - 9.2.38-1
 - Update to latest upstream release 9.2.38
 

@@ -1,12 +1,9 @@
-# Fedora 35 special note:
-# grafeas 1.4.5 and higher require protobuf >= 3.19 and Fedora 35 has 3.14.
-
-# Tests disabled by default since they require network access.
-%bcond_with tests
+# Over 75% of the tests require upstream connectivity.
+%bcond_with     tests
 
 %global         srcname     grafeas
 %global         forgeurl    https://github.com/googleapis/python-grafeas
-Version:        1.6.1
+Version:        1.8.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -14,7 +11,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud Grafeas API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -68,9 +65,14 @@ grep -rl "^[[:space:]]*import mock" tests | \
 rm -f %{buildroot}%{_bindir}/fixup*
 
 
-%if %{with tests}
 %check
-%pytest --disable-warnings tests/unit
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

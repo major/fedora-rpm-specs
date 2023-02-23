@@ -19,7 +19,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.39.7
+Version:        2.39.90
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -31,6 +31,15 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --import aperez.key carlosgc.key
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
+
+# https://github.com/WebKit/WebKit/pull/10362
+Patch0:         fix-installed-headers.patch
+
+# https://bugs.webkit.org/show_bug.cgi?id=252617
+Patch1:         super-sampler.patch
+
+# https://bugs.webkit.org/show_bug.cgi?id=252679
+Patch2:         no-debug-fission.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
@@ -453,7 +462,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %license _license_files/*WebCore*
 %license _license_files/*WebInspectorUI*
 %license _license_files/*WTF*
-%{_libdir}/libwebkitgtk-6.0.so.2*
+%{_libdir}/libwebkitgtk-6.0.so.3*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/WebKit-6.0.typelib
 %{_libdir}/girepository-1.0/WebKitWebExtension-6.0.typelib
@@ -494,7 +503,6 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %files -n webkitgtk6.0-devel
 %{_libexecdir}/webkitgtk-6.0/MiniBrowser
 %{_includedir}/webkitgtk-6.0/
-%exclude %{_includedir}/webkitgtk-6.0/JavaScriptCore
 %exclude %{_includedir}/webkitgtk-6.0/jsc
 %{_libdir}/libwebkitgtk-6.0.so
 %{_libdir}/pkgconfig/webkitgtk-6.0.pc
@@ -529,7 +537,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 
 %files -n javascriptcoregtk6.0
 %license _license_files/*JavaScriptCore*
-%{_libdir}/libjavascriptcoregtk-6.0.so.0*
+%{_libdir}/libjavascriptcoregtk-6.0.so.1*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/JavaScriptCore-6.0.typelib
 
@@ -548,7 +556,6 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %files -n javascriptcoregtk6.0-devel
 %{_libexecdir}/webkitgtk-6.0/jsc
 %dir %{_includedir}/webkitgtk-6.0
-%{_includedir}/webkitgtk-6.0/JavaScriptCore/
 %{_includedir}/webkitgtk-6.0/jsc/
 %{_libdir}/libjavascriptcoregtk-6.0.so
 %{_libdir}/pkgconfig/javascriptcoregtk-6.0.pc

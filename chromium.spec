@@ -238,7 +238,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 110.0.5481.100
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -1567,8 +1567,6 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/resources.pak
 %{chromium_path}/%{chromium_browser_channel}
 %{chromium_path}/%{chromium_browser_channel}.sh
-%{chromium_path}/libEGL.so*
-%{chromium_path}/libGLESv2.so*
 %attr(4755, root, root) %{chromium_path}/chrome-sandbox
 %if %{use_qt}
 %{chromium_path}/libqt5_shim.so
@@ -1584,6 +1582,8 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/libclearkeycdm.so
 %endif
 %ifarch x86_64 aarch64
+%{chromium_path}/libEGL.so*
+%{chromium_path}/libGLESv2.so*
 %{chromium_path}/libvk_swiftshader.so*
 %{chromium_path}/libvulkan.so*
 %{chromium_path}/vk_swiftshader_icd.json
@@ -1688,6 +1688,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 110.0.5481.100-2
+- fixed bz#2036205, failed to load GLES library
+
 * Fri Feb 17 2023 Than Ngo <than@redhat.com> - 110.0.5481.100-1
 - update to 110.0.5481.100
 

@@ -4,7 +4,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-notifyd
-Version:        0.8.0
+Version:        0.8.1
 Release:        %autorelease
 Summary:        Simple notification daemon for Xfce
 
@@ -64,7 +64,7 @@ find %{buildroot} -name \*.la -exec rm {} \;
 
 %files -f %{name}.lang
 %license COPYING
-%doc AUTHORS ChangeLog NEWS README TODO
+%doc AUTHORS NEWS TODO
 %{_bindir}/xfce4-notifyd-config
 %{_libdir}/xfce4/notifyd/
 %{_libdir}/xfce4/panel/plugins/libnotification-plugin.so

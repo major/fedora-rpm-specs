@@ -6,7 +6,7 @@
 Name:           pgadmin4
 # NOTE: Also regenerate requires as indicated below when updating!
 # Verify Patch4 on next update
-Version:        6.19
+Version:        6.20
 Release:        1%{?dist}
 Summary:        Administration tool for PostgreSQL
 
@@ -74,7 +74,7 @@ Requires: python3dist(flask) >= 2.1
 Requires: (python3dist(flask-gravatar) >= 0 with python3dist(flask-gravatar) < 1)
 Requires: (python3dist(flask-login) >= 0 with python3dist(flask-login) < 1)
 Requires: (python3dist(flask-mail) >= 0 with python3dist(flask-mail) < 1)
-Requires: (python3dist(flask-migrate) >= 3 with python3dist(flask-migrate) < 5)
+Requires: (python3dist(flask-migrate) >= 4 with python3dist(flask-migrate) < 5)
 Requires: python3dist(dnspython) >= 2.2.1
 Requires: (python3dist(flask-sqlalchemy) >= 2.5 with python3dist(flask-sqlalchemy) < 2.6)
 Requires: python3dist(flask-wtf) >= 1.0.1
@@ -106,13 +106,14 @@ Requires: (python3dist(pyotp) >= 2 with python3dist(pyotp) < 3)
 Requires: (python3dist(qrcode) >= 7 with python3dist(qrcode) < 8)
 Requires: (python3dist(pillow) >= 9 with python3dist(pillow) < 10)
 Requires: python3dist(boto3) >= 1.20
-Requires: python3dist(botocore) >= 1.23
+Requires: (python3dist(botocore) >= 1.29 with python3dist(botocore) < 1.30)
 Requires: (python3dist(urllib3) >= 1.26 with python3dist(urllib3) < 1.27)
 Requires: python3dist(werkzeug) >= 2.1.2
 Requires: python3dist(azure-mgmt-rdbms) >= 10.1
 Requires: python3dist(azure-mgmt-resource) >= 21
 Requires: python3dist(azure-mgmt-subscription) >= 3
 Requires: python3dist(azure-identity) >= 1.9
+Requires: python3dist(ua-parser) >= 0.15
 
 Obsoletes: pgadmin3 < 1.23.0b-8
 Provides:  pgadmin3 = %{version}-%{release}
@@ -267,6 +268,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Tue Feb 14 2023 Sandro Mani <manisandro@gmail.com> - 6.20-1
+- Update to 6.20
+
 * Thu Jan 19 2023 Sandro Mani <manisandro@gmail.com> - 6.19-1
 - Update to 6.19
 

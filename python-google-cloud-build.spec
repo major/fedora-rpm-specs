@@ -1,11 +1,8 @@
-# F35: Do not update past 3.8.2. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without  tests
 
 %global         srcname     google-cloud-build
 %global         forgeurl    https://github.com/googleapis/python-cloudbuild
-Version:        3.9.3
+Version:        3.12.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Build API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -64,13 +61,14 @@ grep -rl "^[[:space:]]*import mock" tests | \
 rm -f %{buildroot}%{_bindir}/fixup_cloudbuild*.py
 
 
-%if %{with tests}
 %check
-# Work around an usual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest --disable-warnings tests/unit
-mv google{_,}
+%pyproject_check_import -e 'google.cloud.devtools.cloudbuild_v2*'
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

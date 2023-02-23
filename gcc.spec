@@ -1,5 +1,5 @@
-%global DATE 20230215
-%global gitrev 76b508266ac7460db2e4fe9eba298520ae1eda70
+%global DATE 20230221
+%global gitrev 467eb8130c9dab8ce72a4f6f39437c1ff382a90c
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.4%{?dist}
+Release: %{gcc_release}.5%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -993,7 +993,7 @@ sed -i 's|libisl\([^-]\)|libgcc13privateisl\1|g' \
 ../../isl-%{isl_version}/configure \
   CC=/usr/bin/gcc CXX=/usr/bin/g++ \
   CFLAGS="${CFLAGS:-%optflags} $ISL_FLAG_PIC" --prefix=`cd ..; pwd`/isl-install
-make %{?_smp_mflags}
+make %{?_smp_mflags} CFLAGS="${CFLAGS:-%optflags} $ISL_FLAG_PIC"
 make install
 cd ../isl-install/lib
 rm libgcc13privateisl.so{,.23}
@@ -3458,6 +3458,20 @@ end
 %endif
 
 %changelog
+* Tue Feb 21 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.5
+- update from trunk
+  - PRs analyzer/108664, analyzer/108666, analyzer/108725, analyzer/108806,
+	c++/52809, c++/53638, c++/87389, c++/89741, c++/92099, c++/97553,
+	c++/101073, c++/104041, c++/104691, c++/107773, c++/108243,
+	c++/108829, c/105660, c/108375, fortran/103608, fortran/104554,
+	libstdc++/108030, target/90458, target/108805, target/108831,
+	target/108832, target/108862, testsuite/108835,
+	tree-optimization/108657, tree-optimization/108783,
+	tree-optimization/108791, tree-optimization/108816,
+	tree-optimization/108819, tree-optimization/108821,
+	tree-optimization/108825, tree-optimization/108855,
+	tree-optimization/108868
+
 * Wed Feb 15 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.4
 - update from trunk
   - PRs analyzer/108704, analyzer/108733, analyzer/108745, c++/106675,

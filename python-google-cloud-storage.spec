@@ -1,5 +1,4 @@
-# Upstream broke test imports
-%bcond_with     tests
+%bcond_without  tests
 
 %global         srcname     google-cloud-storage
 %global         forgeurl    https://github.com/googleapis/python-storage
@@ -62,11 +61,13 @@ grep -rl "^[[:space:]]*import mock" tests | \
 %pyproject_check_import
 
 %if %{with tests}
-# Work around an usual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest --disable-warnings tests/unit --ignore tests/unit/test_client.py
-mv google{_,}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit \
+        -k "not test_create_bucket_w_custom_endpoint \
+            and not test_ctor_w_custom_endpoint_use_auth \
+            and not test_list_buckets_w_custom_endpoint"
 %endif
 
 

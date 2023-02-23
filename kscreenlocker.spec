@@ -1,5 +1,5 @@
 Name:    kscreenlocker
-Version: 5.27.0
+Version: 5.27.1
 Release: 1%{?dist}
 Summary: Library and components for secure lock screen architecture
 
@@ -92,6 +92,7 @@ developing applications that use %{name}.
 %{_kf5_datadir}/applications/kcm_screenlocker.desktop
 %{_kf5_qtplugindir}/plasma/kcms/systemsettings/kcm_screenlocker.so
 %{_kf5_datadir}/kpackage/kcms/kcm_screenlocker/*
+%{_kf5_datadir}/qlogging-categories5/kscreenlocker.categories
 
 %files devel
 %{_kf5_libdir}/libKScreenLocker.so
@@ -102,6 +103,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
+- 5.27.1
+
 * Thu Feb 09 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.27.0-1
 - 5.27.0
 

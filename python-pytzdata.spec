@@ -5,16 +5,21 @@ The Olson timezone database for Python.}
 
 Name: python-%{pypi_name}
 Version: 2020.1
-Release: 10%{?dist}
+Release: 11%{?dist}
 
 License: MIT
 Summary: Timezone database for Python
 URL: https://github.com/sdispater/%{pypi_name}
 Source0: %{pypi_source}
+BuildArch: noarch
+
 # Cleo was updated to 1.0.0a5 because the latest version of poetry needed it.
 # It changed the way how some modules are imported and this patch should fix it.
-Patch: 0001-Adapt-imports-to-the-latest-version-of-cleo.patch
-BuildArch: noarch
+Patch1: %{pypi_name}-cleo-imports-fix.patch
+
+# Set mandatory name attribute in Command class to make pytzdata
+# compatible with cleo 2.0.0+.
+Patch2: %{pypi_name}-cleo-2.0.0-compatibility.patch
 
 BuildRequires: python3-devel
 
@@ -46,6 +51,9 @@ Summary: %{summary}
 %doc README.rst
 
 %changelog
+* Tue Feb 21 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 2020.1-11
+- Backport upstream patch to add support for cleo 2.0.0+
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2020.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

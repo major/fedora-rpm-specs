@@ -1,11 +1,8 @@
-# F35: Do not update past 1.3.1. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without tests
 
 %global         srcname     google-cloud-private-ca
 %global         forgeurl    https://github.com/googleapis/python-security-private-ca
-Version:        1.4.3
+Version:        1.6.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Certificate Authority Service
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -66,13 +63,14 @@ rm -f %{buildroot}%{_bindir}/fixup_privateca_v1beta1_keywords.py
 rm -rf %{buildroot}%{python3_sitelib}/{docs,samples,scripts,tests}
 
 
-%if %{with tests}
 %check
-# Work around an unusual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest --disable-warnings tests/unit
-mv google{_,}
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

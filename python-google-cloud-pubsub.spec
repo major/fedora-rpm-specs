@@ -1,9 +1,8 @@
-# tests are enabled by default
-%bcond_without tests
+%bcond_without  tests
 
 %global         srcname     google-cloud-pubsub
 %global         forgeurl    https://github.com/googleapis/python-pubsub
-Version:        2.13.0
+Version:        2.14.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -11,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Google Cloud Pub/Sub API client library
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -63,13 +62,14 @@ grep -rl "^[[:space:]]*import mock" tests | \
 rm -f %{buildroot}%{_bindir}/fixup_pubsub_v1_keywords.py
 
 
-%if %{with tests}
 %check
-# Work around an unusual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest tests/unit
-mv google{_,}
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

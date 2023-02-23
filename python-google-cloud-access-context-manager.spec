@@ -1,11 +1,9 @@
-# F35: Do not update past 0.1.11. F35's protobuf is too old.
-
 # The package currently has an empty test directory.
-%bcond_with tests
+%bcond_with     tests
 
 %global         srcname     google-cloud-access-context-manager
 %global         forgeurl    https://github.com/googleapis/python-access-context-manager
-Version:        0.1.14
+Version:        0.1.15
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +11,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Google Cloud Client Libraries for google-cloud-access-context-manager
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -55,13 +53,14 @@ Summary:        %{summary}
 %pyproject_save_files google
 
 
-%if %{with tests}
 %check
-# Work around an unusual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest --disable-warnings tests/unit
-mv google{_,}
+%pyproject_check_import
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

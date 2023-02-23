@@ -2,10 +2,10 @@
 
 Name:           konversation
 Version: 22.12.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary:        A user friendly IRC client
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://konversation.kde.org/
 %if 0%{?snap}
 # use releaseme script
@@ -153,6 +153,9 @@ fi
 
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 22.12.2-2
+- migrated to SPDX license
+
 * Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
 - 22.12.2
 

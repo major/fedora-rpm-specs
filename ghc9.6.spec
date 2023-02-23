@@ -15,7 +15,7 @@
 %global ghc_name ghc%{ghc_major}
 
 # to handle RCs
-%global ghc_release 9.6.1-alpha2
+%global ghc_release 9.6.1-alpha3
 
 %global base_ver 4.18.0.0
 %global ghc_compact_ver 0.1.0.0
@@ -24,8 +24,13 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.2+
+%if 0%{?fedora} >= 38
+%global ghcboot_major 9.2
+%global ghcboot ghc
+%else
 %global ghcboot_major 9.2
 %global ghcboot ghc%{ghcboot_major}
+%endif
 
 # build profiling libraries
 # build haddock
@@ -87,12 +92,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.6.0.20230128
+Version: 9.6.0.20230210
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -353,7 +358,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD binary-0.8.9.1
 %ghc_lib_subpackage -d -l BSD bytestring-0.11.4.0
-%ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.6
+%ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
 %ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.7
@@ -381,7 +386,7 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -l BSD -c ncurses-devel%{?_isa} terminfo-0.4.1.5
 %ghc_lib_subpackage -d -l BSD text-2.0.1
 %ghc_lib_subpackage -d -l BSD time-1.12.2
-%ghc_lib_subpackage -d -l BSD transformers-0.6.0.4
+%ghc_lib_subpackage -d -l BSD transformers-0.6.1.0
 %ghc_lib_subpackage -d -l BSD unix-2.8.0.0
 %if %{with haddock} || %{with hadrian}
 %ghc_lib_subpackage -d -l BSD xhtml-%{xhtml_ver}
@@ -525,7 +530,11 @@ export LANG=C.utf8
 %global ghc_debuginfo 1
 (
 cd hadrian
+%if 0%{?fedora} >= 38
+%ghc_bin_build -W
+%else
 %ghc_bin_build
+%endif
 )
 %global hadrian hadrian/dist/build/hadrian/hadrian
 %else

@@ -6,9 +6,9 @@
 Name:    digikam
 Summary: A digital camera accessing & photo management application
 Version: 7.9.0
-Release: 5%{?beta}%{?dist}
+Release: 6%{?beta}%{?dist}
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL:     http://www.digikam.org/
 %if 0%{?beta:1}
 Source0: http://download.kde.org/unstable/digikam/digikam-%{version}-%{beta}.tar.xz
@@ -254,6 +254,9 @@ update-desktop-database -q &> /dev/null
 
 
 %changelog
+* Tue Feb 21 2023 Than Ngo <than@redhat.com> - 7.9.0-6
+- migrated to SPDX license
+
 * Mon Feb 13 2023 Orion Poplawski <orion@nwra.com> - 7.9.0-5
 - Add patch to add missing includes for gcc 13
 

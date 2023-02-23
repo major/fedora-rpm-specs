@@ -1,14 +1,8 @@
-# F35: Do not update past 2.13.1. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without tests
-
-# https://pypi.org/project/pyarrow not yet packaged
-%bcond_with pyarrow
 
 %global         srcname     google-cloud-bigquery-storage
 %global         forgeurl    https://github.com/googleapis/python-bigquery-storage
-Version:        2.16.2
+Version:        2.18.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -16,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud BigQuery Storage API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -26,6 +20,12 @@ Source0:        %forgesource
 %ifnarch %{arm32} %{ix86}
 %global fastavro_arch 1
 %endif
+
+# pyarrow is not packaged for i686.
+%ifnarch %{arm32} %{ix86}
+%global pyarrow_arch 1
+%endif
+
 # Of the binary RPMs, only the conditionally-enabled extras metapackage
 # python3-google-cloud-bigquery-storage+fastavro is arched.
 #
@@ -53,12 +53,18 @@ BuildArch:      noarch
 
 # We would have to write out the extras metapackage definitions manually if
 # we wanted them to be noarch, since the base package is arched.
-%pyproject_extras_subpkg -n python3-%{srcname} pandas %{?with_pyarrow:pyarrow}
+%pyproject_extras_subpkg -n python3-%{srcname} pandas
 
 %if 0%{?fastavro_arch}
 # Note that this metapackage is arched because it is not available on 32-bit
 # architectures.
 %pyproject_extras_subpkg -n python3-%{srcname} fastavro
+%endif
+
+%if 0%{?pyarrow_arch}
+# Note that this metapackage is arched because it is not available on 32-bit
+# architectures.
+%pyproject_extras_subpkg -n python3-%{srcname} pyarrow
 %endif
 
 
@@ -74,7 +80,7 @@ grep -rl "^[[:space:]]*import mock" tests | \
 
 
 %generate_buildrequires
-%pyproject_buildrequires -x pandas%{?with_pyarrow:,pyarrow}%{?fastavro_arch:,fastavro},tests
+%pyproject_buildrequires -x pandas,%{?pyarrow_arch:,pyarrow}%{?fastavro_arch:,fastavro},tests
 
 
 %build
@@ -93,8 +99,10 @@ rm -f %{buildroot}%{_bindir}/fixup*.py
 %pyproject_check_import -e google.cloud.bigquery_storage_v1.types.annotations
 
 %if %{with tests}
-%pytest %{?!fastavro_arch:--ignore=tests/unit/test_reader_v1.py} \
-    --disable-warnings tests/unit
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit %{?!fastavro_arch:--ignore=tests/unit/test_reader_v1.py}
 %endif
 
 

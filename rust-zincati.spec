@@ -11,7 +11,7 @@
 
 Name:           rust-%{crate}
 Version:        0.0.25
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Update agent for Fedora CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -334,7 +334,6 @@ cat >.cargo/config << EOF
 [build]
 rustc = "%{__rustc}"
 rustdoc = "%{__rustdoc}"
-rustflags = %{__global_rustflags_toml}
 
 [install]
 root = "%{buildroot}%{_prefix}"
@@ -387,6 +386,9 @@ install -Dpm0644 -t %{buildroot}%{_datadir}/dbus-1/system.d \
 %endif
 
 %changelog
+* Fri Feb 10 2023 Fabio Valentini <decathorpe@gmail.com> - 0.0.25-4
+- Stop using long-deprecated __global_rustflags_toml macro.
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.0.25-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

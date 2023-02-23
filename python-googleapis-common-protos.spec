@@ -1,3 +1,5 @@
+%bcond_without  tests
+
 # When bootstrapping, we do not include the “grpc” extra in the BR’s. That adds
 # a BR on python3dist(grpcio), but this package is required by
 # python3dist(grpcio-status), which creates a circular dependency with grpc.
@@ -17,7 +19,7 @@
 
 %global         srcname     googleapis-common-protos
 %global         forgeurl    https://github.com/googleapis/python-api-common-protos/
-Version:        1.56.4
+Version:        1.58.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -32,6 +34,10 @@ Source0:        %forgesource
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+
+%if %{with tests}
+BuildRequires:  python3dist(pytest)
+%endif
 
 %global common_description %{expand:
 %{summary}.}
@@ -70,6 +76,13 @@ Summary:        %{summary}
 #
 # Note that google and google.logging are namespace packages.
 %pyproject_check_import %{?with_bootstrap:-e 'google.longrunning.*grpc*'}
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
+%endif
 
 
 %files -n python3-%{srcname} -f %{pyproject_files}

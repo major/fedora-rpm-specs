@@ -1,11 +1,8 @@
-# F35: Do not update past 1.5.0. F35's protobuf is too old.
-
-# tests are enabled by default
-%bcond_without tests
+%bcond_without  tests
 
 %global         srcname     google-cloud-bigquery-connection
 %global         forgeurl    https://github.com/googleapis/python-bigquery-connection
-Version:        1.7.3
+Version:        1.9.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud BigQuery Connection API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -68,7 +65,10 @@ grep -rl "^[[:space:]]*import mock" tests | \
 %pyproject_check_import
 
 %if %{with tests}
-%pytest --disable-warnings tests/unit
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

@@ -10,11 +10,11 @@
 %global _docdir_fmt %{name}
 
 Name:           pacman
-Version:        6.0.1
+Version:        6.0.2
 Release:        %autorelease
 Source0:        https://gitlab.archlinux.org/pacman/pacman/-/archive/v%{version}/pacman-v%{version}.tar.gz
 Source1:        https://www.archlinux.org/mirrorlist/all
-Url:            https://www.archlinux.org/pacman
+URL:            https://gitlab.archlinux.org/pacman/pacman
 License:        GPLv2+
 Summary:        Package manager for the Arch distribution
 

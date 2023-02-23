@@ -5,15 +5,20 @@
 %bcond_with check
 %endif
 
+# https://github.com/festvox/flite/issues/86
+%global _smp_mflags -j1
+
 Name:           flite
 Version:        2.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Small, fast speech synthesis engine (text-to-speech)
 License:        MIT
 URL:            http://www.speech.cs.cmu.edu/flite/
 
 Source0:        https://github.com/festvox/flite/archive/v%{version}/flite-%{version}.tar.gz
 Patch0:         flite-2.2-lto.patch
+# fixes build with texinfo-7.0+, see https://lists.gnu.org/archive/html/bug-texinfo/2022-11/msg00036.html
+Patch1:         flite-2.2-texinfo-7.0.patch
 # texi2pdf
 # WARNING see explanation about PDF doc below.
 #BuildRequires:  texinfo-tex
@@ -43,6 +48,7 @@ Development files for Flite, a small, fast speech synthesis engine.
 %prep
 %setup -q
 %patch0 -p1 -b .lto
+%patch1 -p1 -b .ti7
 
 
 %build
@@ -85,6 +91,10 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir} make -C testsuite do_thread_test
 
 
 %changelog
+* Tue Feb 21 2023 Dominik 'Rathann' Mierzejewski <rpm@greysector.net> 2.2-5
+- work around FTBFS bug with make-4.4+ (resolves rhbz#2171492)
+- fix HTML doc build with texinfo 7.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

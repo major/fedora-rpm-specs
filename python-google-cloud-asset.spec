@@ -1,18 +1,16 @@
-# Upstream broke imports and tests are disabled for now.
-%bcond_with     tests
+%bcond_without  tests
 
 %global         srcname     google-cloud-asset
 %global         forgeurl    https://github.com/googleapis/python-asset
-Version:        3.14.2
-# 3.14.2 is an unusual release because GitHub tries to return two different commits.
-%global         commit      c576c10135f7ce6371daed98deba9227fe1cfada
+Version:        3.17.1
+%global         tag         v%{version}
 %forgemeta
 
 Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud App Engine Admin
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -68,11 +66,10 @@ rm -f %{buildroot}%{_bindir}/fixup_asset*.py
 %pyproject_check_import
 
 %if %{with tests}
-# Work around an unusual pytest/PEP 420 issue where pytest can't import the
-# installed module. Thanks to mhroncok for the help!
-mv google{,_}
-%pytest tests/unit
-mv google{_,}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

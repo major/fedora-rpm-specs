@@ -1,11 +1,8 @@
-# F35: Do not update past 3.6.1. F35's protobuf is too old.
-
-# tests are enabled by default
 %bcond_without tests
 
 %global         srcname     google-cloud-bigquery-datatransfer
 %global         forgeurl    https://github.com/googleapis/python-bigquery-datatransfer
-Version:        3.7.3
+Version:        3.10.1
 %global         tag         v%{version}
 %forgemeta
 
@@ -13,7 +10,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python SDK for Google Cloud BigQuery Data Transfer API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -22,6 +19,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 %if %{with tests}
+BuildRequires:  python3dist(googleapis-common-protos)
+BuildRequires:  python3dist(google-cloud-testutils)
 BuildRequires:  python3dist(grpcio-testing)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-asyncio)
@@ -38,8 +37,6 @@ applications to Google BigQuery on a scheduled, managed basis.}
 Summary:        %{summary}
 
 %description -n python3-%{srcname} %{_description}
-
-%pyproject_extras_subpkg -n python3-%{srcname} libcst
 
 
 %prep
@@ -68,9 +65,15 @@ grep -rl "^[[:space:]]*import mock" tests | \
 # Remove unnecessary scripts.
 rm -f %{buildroot}%{_bindir}/fixup_bigquery_datatransfer_v1_keywords.py
 
-%if %{with tests}
 %check
-%pytest --disable-warnings tests/unit
+# Skip import as these are not meant to be directly imported on their own
+#%%pyproject_check_import 
+
+%if %{with tests}
+# NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.
+# Thanks to churchyard for the fix.
+PYTHONUSERBASE=%{buildroot}%{_prefix} \
+    %pytest tests/unit
 %endif
 
 

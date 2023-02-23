@@ -2,7 +2,7 @@
 
 Name:           Agda-stdlib
 Version:        1.7.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Agda standard libraries
 
 License:        MIT
@@ -16,8 +16,8 @@ BuildRequires:  Agda
 BuildArch:      noarch
 Obsoletes:      ghc-agda-lib-ffi < 0.0.2-6, ghc-agda-lib-ffi-devel < 0.0.2-6
 Requires:       Agda = 2.6.2.2
-# Agda can't build on armv7hl currently for f35/ghc-8.10
-ExcludeArch:    armv7hl
+# Agda can't build on armv7hl/i686 currently
+ExcludeArch:    armv7hl %{ix86}
 
 %description
 Agda standard libraries
@@ -69,6 +69,9 @@ install -p -m 0644 standard-library.agda-lib %{buildroot}%{_datadir}/%{name}/
 %doc html
 
 %changelog
+* Mon Feb 20 2023 Jens Petersen <petersen@redhat.com> - 1.7.1-5
+- rebuild
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

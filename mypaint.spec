@@ -7,6 +7,10 @@ Summary:        A fast and easy graphics application for digital painters
 License:        GPLv2+ and LGPLv2+ and CC-BY
 URL:            http://mypaint.org
 Source0:        https://github.com/mypaint/mypaint/releases/download/v%{version}/%{name}-%{version}.tar.xz
+# Backport of https://github.com/mypaint/mypaint/pull/1183
+Patch0:         0001-setuptools-fixes.patch
+# https://github.com/mypaint/mypaint/pull/1193
+Patch1:         0002-python311.patch
 
 BuildRequires:  gcc, gcc-c++
 

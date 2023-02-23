@@ -1,5 +1,5 @@
 Name:           PyMca
-Version:        5.7.5
+Version:        5.8.1
 Release:        %autorelease
 Summary:        X-ray Fluorescence Toolkit
 License:        GPLv2+
@@ -22,7 +22,6 @@ Source5:        peakidentifier.desktop
 Source6:        pymcabatch.desktop
 Source7:        pymcapostbatch.desktop
 Source8:        pymcaroitool.desktop
-Patch0:         PyMca-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:  desktop-file-utils
