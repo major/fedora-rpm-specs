@@ -13,8 +13,8 @@
 %bcond_without python3
 
 Name:       csdiff
-Version:    2.8.0
-Release:    3%{?dist}
+Version:    2.9.0
+Release:    1%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPLv3+
@@ -124,6 +124,9 @@ make version.cc
 %endif
 
 %changelog
+* Wed Feb 22 2023 Kamil Dudka <kdudka@redhat.com> 2.9.0-1
+- update to latest upstream release
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.8.0-3
 - Rebuilt for Boost 1.81
 

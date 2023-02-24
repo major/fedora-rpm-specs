@@ -4,9 +4,14 @@ Name:          toolbox
 Version:       0.0.99.3
 
 %global goipath github.com/containers/%{name}
-%gometa
 
-Release:       11%{?dist}
+%if 0%{?rhel} == 9
+%gometa
+%else
+%gometa -f
+%endif
+
+Release:       12%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -23,15 +28,9 @@ Patch101:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
 Patch102:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild-for-PPC64.patch
 Patch103:      toolbox-cmd-root-Work-around-Cobra-1.1.2-s-handling-of-usage.patch
 
-%if 0%{?rhel} == 9
-ExclusiveArch: %{golang_arches}
-%else
-ExclusiveArch: %{golang_arches_future}
-%endif
-
 BuildRequires: gcc
 BuildRequires: go-md2man
-BuildRequires: golang >= 1.13
+BuildRequires: golang >= 1.19.4
 %if ! 0%{?rhel}
 BuildRequires: golang(github.com/HarryMichal/go-version)
 BuildRequires: golang(github.com/acobaugh/osrelease)
@@ -218,6 +217,9 @@ ln -s src/vendor vendor
 
 
 %changelog
+* Wed Feb 22 2023 Martin Jackson <mhjacks@swbell.net> - 0.0.99.3-12
+- Fix the ExclusiveArch
+
 * Tue Feb 21 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.3-11
 - Add ExclusiveArch to match Podman
 

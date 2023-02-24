@@ -10,7 +10,7 @@ License:        GPL-3.0-or-later AND BSL-1.0 AND MPL-2.0 AND BSD-3-Clause AND Ap
 URL:            https://libsemigroups.readthedocs.io/
 Source0:        https://github.com/libsemigroups/libsemigroups/releases/download/v%{version}/%{name}-%{version}.tar.gz
 
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  libtool

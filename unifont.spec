@@ -1,5 +1,5 @@
 Name:            unifont
-Version:         14.0.01
+Version:         15.0.01
 Release:         %autorelease
 License:         GPLv2+ and GFDL
 Url:             https://savannah.gnu.org/projects/unifont
@@ -54,8 +54,13 @@ make CFLAGS='%{optflags}'
 make -C doc unifont.info
 
 %install
-%make_install USRDIR=/usr COMPRESS=0 TTFDEST='$(DESTDIR)/usr/share/fonts/unifont'
+%make_install USRDIR=/usr COMPRESS=0 \
+  TTFDEST='$(DESTDIR)/usr/share/fonts/unifont' \
+  OTFDEST='$(DESTDIR)/usr/share/fonts/unifont'
 find %{buildroot}/usr/share/unifont/ -type f \! -name %{name}.hex -delete
+# We package the .otf variants instead
+rm %{buildroot}/usr/share/fonts/unifont/unifont.ttf
+rm %{buildroot}/usr/share/fonts/unifont/unifont_upper.ttf
 rm -rv %{buildroot}/usr/share/fonts/X11
 rm -v %{buildroot}%{_fontdir}/*sample*
 rm -v %{buildroot}%{_fontdir}/unifont_*csur*.ttf
@@ -74,7 +79,7 @@ rm %{buildroot}/usr/share/consolefonts/Unifont-APL8x16.psf.gz
 %{_infodir}/unifont.*
 %exclude %{_bindir}/unifont-viewer
 
-%_font_pkg *.ttf
+%_font_pkg *.otf
 %{_datadir}/appdata/
 %license COPYING
 

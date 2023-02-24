@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        37.0.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -18,6 +18,9 @@ Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcnam
                 # created by ./vendor_rust.py helper script
 Source1:        cryptography-%{version}-vendor.tar.bz2
 Source2:        conftest-skipper.py
+
+# https://github.com/pyca/cryptography/pull/8230
+Patch1:         CVE-2023-23931.patch
 
 ExclusiveArch:  %{rust_arches}
 
@@ -113,9 +116,10 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1761194 for deselected tests
 # see rhbz#2042413 for memleak. It's unstable under Python 3.11 and makes
 # not much sense for downstream testing.
+# see rhbz#2171661 for test_load_invalid_ec_key_from_pem: error:030000CD:digital envelope routines::keymgmt export failure
 PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
     %{__python3} -m pytest \
-    -k "not (test_buffer_protocol_alternate_modes or test_dh_parameters_supported or test_load_ecdsa_no_named_curve or test_openssl_memleak)"
+    -k "not (test_buffer_protocol_alternate_modes or test_dh_parameters_supported or test_load_ecdsa_no_named_curve or test_decrypt_invalid_decrypt or test_openssl_memleak or test_load_invalid_ec_key_from_pem)"
 %endif
 
 %files -n python%{python3_pkgversion}-%{srcname}
@@ -125,6 +129,10 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Wed Feb 22 2023 Christian Heimes <cheimes@redhat.com> - 37.0.2-8
+- Fix CVE-2023-23931: Don't allow update_into to mutate immutable objects, resolves rhbz#2171820
+- Fix FTBFS due to failing test_load_invalid_ec_key_from_pem and test_decrypt_invalid_decrypt, resolves rhbz#2171661
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 37.0.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

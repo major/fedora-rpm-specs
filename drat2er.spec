@@ -24,7 +24,7 @@ Patch3:         %{name}-arg-order.patch
 # bool is no longer needed.
 Patch4:		%{name}-cli11-2-compat.patch
 
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 BuildRequires:  cli11-static
 BuildRequires:  cmake
 BuildRequires:  drat-trim-devel

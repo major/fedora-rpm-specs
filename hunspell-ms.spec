@@ -8,12 +8,12 @@ Name: hunspell-ms
 Summary: Malay hunspell dictionaries
 %global upstreamid 20050117
 Version: 0.%{upstreamid}
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/ms_MY.zip
 URL: https://wiki.openoffice.org/wiki/Dictionaries
 # affix file is under GPL+
 # rest package under GFDL
-License: GFDL and GPL+
+License: GFDL-1.1-or-later AND GPL-1.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -45,6 +45,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20050117-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050117-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -125,8 +128,8 @@ done
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20050117-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Fri Aug 03 2007 Caolan McNamara <caolanm@redhat.com> - 0.20050117-2
+* Fri Aug 03 2007 Caolán McNamara <caolanm@redhat.com> - 0.20050117-2
 - clarify license, the .aff apparently is GPL+ while the wordlist is GFDL
 
-* Thu Dec 07 2006 Caolan McNamara <caolanm@redhat.com> - 0.20050117-1
+* Thu Dec 07 2006 Caolán McNamara <caolanm@redhat.com> - 0.20050117-1
 - initial version

@@ -14,7 +14,7 @@ Patch0:         %{name}-unpatch.patch
 BuildRequires:  antic-devel
 BuildRequires:  arb-devel
 BuildRequires:  boost-devel
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 BuildRequires:  cereal-devel
 BuildRequires:  gcc-c++
 BuildRequires:  libtool

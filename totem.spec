@@ -64,7 +64,9 @@ Requires: gstreamer1-plugins-base%{?_isa} >= %{gst_plugins_base_version}
 Requires: gstreamer1-plugins-good%{?_isa}
 Requires: gstreamer1-plugins-good-gtk%{?_isa}
 Requires: gstreamer1-plugins-ugly-free%{?_isa}
+%if ! 0%{?flatpak}
 Requires: gvfs-fuse%{?_isa}
+%endif
 # Disabled until ported to GStreamer 1.0
 # Requires: gnome-dvb-daemon
 Requires: grilo-plugins%{?_isa}

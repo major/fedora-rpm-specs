@@ -1,18 +1,12 @@
 
 Name: rarian
-Version: 0.8.1
+Version: 0.8.2
 Release: %{autorelease}
 License: LGPL-2.1-or-later AND Zlib
 Summary: Documentation meta-data library
 URL: http://rarian.freedesktop.org/
-Source: http://download.gnome.org/sources/rarian/0.8/rarian-%{version}.tar.bz2
+Source: https://gitlab.freedesktop.org/rarian/rarian/-/releases/%{version}/downloads/assets/rarian-%{version}.tar.bz2
 Source1: scrollkeeper-omf.dtd
-
-### Patch ###
-
-# RH bug #453342
-Patch1: rarian-0.8.1-categories.patch
-Patch2: rarian-c99.patch
 
 ### Dependencies ###
 
@@ -29,6 +23,11 @@ Requires: coreutils, util-linux, gawk
 
 BuildRequires: make
 BuildRequires: gcc-c++
+BuildRequires: check-devel
+# Used by the tests
+BuildRequires: man-db
+BuildRequires: info
+BuildRequires: man-pages
 
 %description
 Rarian is a documentation meta-data library that allows access to documents,
@@ -60,14 +59,15 @@ Rarian library ("librarian").
 
 %prep
 %setup -q
-%patch1 -p1 -b .categories
-%patch2 -p1
 
 %build
 %configure --disable-skdb-update
 sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
 sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
 %make_build
+
+%check
+make VERBOSE=1 check
 
 %install
 %make_install

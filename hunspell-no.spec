@@ -7,11 +7,11 @@ Name: hunspell-no
 Summary: Norwegian hunspell dictionaries
 Epoch: 1
 Version: 2.0.10
-Release: 18%{?dist}
+Release: 19%{?dist}
 
 Source: https://alioth-archive.debian.org/releases/spell-norwegian/spell-norwegian/%{version}/no_NO-pack2-%{version}.zip
 URL: https://alioth-archive.debian.org/releases/spell-norwegian/spell-norwegian/
-License: GPL+
+License: GPL-1.0-or-later
 BuildArch: noarch
 
 Patch1:  rhbz959989.badsfxrules.patch
@@ -124,6 +124,9 @@ cp -p th_nb_NO_v2.dat th_nb_NO_v2.idx th_nn_NO_v2.dat th_nn_NO_v2.idx $RPM_BUILD
 %{_datadir}/mythes/th_nn_NO_v2.*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 1:2.0.10-19
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.10-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

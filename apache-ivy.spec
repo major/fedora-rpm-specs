@@ -6,8 +6,8 @@
 %global jarname ivy
 
 Name:           apache-%{jarname}
-Version:        2.5.0
-Release:        13%{?dist}
+Version:        2.5.1
+Release:        1%{?dist}
 Summary:        Java-based dependency manager
 License:        ASL 2.0
 URL:            https://ant.apache.org/ivy
@@ -62,46 +62,52 @@ reporting and publication.
 %{?javadoc_package}
 
 %prep
-
+# verify keys
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-
+# -p1: strip one level directory in patch(es)
 %autosetup -p1
-
 # Don't hardcode sysconfdir path
 sed -i 's:/etc/ivy/:%{_sysconfdir}/ivy/:' src/java/org/apache/ivy/ant/IvyAntSettings.java
-
+# delete precompiled jar and class files
 find -type f '(' -iname '*.jar' -o -iname '*.class' ')' -print -delete
-
+# copy pom files to current directory
 cp %{SOURCE3} pom.xml
-
+# remove parent
 %pom_remove_parent
-
 # apparently this is not a dependency, reporting upstream
 %pom_remove_dep :jsch.agentproxy
-
+# optional dep: httpclient
 %if %{without httpclient}
+# remove all httpclient related dep(s)
 %pom_remove_dep :httpclient
+# remove file(s) related to httpclient
 rm src/java/org/apache/ivy/util/url/HttpClientHandler.java
 %endif
-
+# optional dep: oro
 %if %{without oro}
+# remove all oro related dep(s)
 %pom_remove_dep :oro
+# remove file(s) related to oro
 rm src/java/org/apache/ivy/plugins/matcher/GlobPatternMatcher.java
 %endif
-
+# optional dep: vfs
 %if %{without vfs}
+# remove all vfs related dep(s)
 %pom_remove_dep :commons-vfs2
+# remove file(s) related to vfs
 rm src/java/org/apache/ivy/plugins/repository/vfs/VfsRepository.java
 rm src/java/org/apache/ivy/plugins/repository/vfs/VfsResource.java
 rm src/java/org/apache/ivy/plugins/repository/vfs/ivy_vfs.xml
 rm src/java/org/apache/ivy/plugins/resolver/VfsResolver.java
 %endif
-
+# optional dep: sftp
 %if %{without sftp}
+# remove all sftp related dep(s)
 %pom_remove_dep :jsch
 %pom_remove_dep :jsch.agentproxy
 %pom_remove_dep :jsch.agentproxy.connector-factory
 %pom_remove_dep :jsch.agentproxy.jsch
+# remove file(s) related to sftp
 rm src/java/org/apache/ivy/plugins/repository/sftp/SFTPRepository.java
 rm src/java/org/apache/ivy/plugins/repository/sftp/SFTPResource.java
 rm src/java/org/apache/ivy/plugins/repository/ssh/AbstractSshBasedRepository.java
@@ -114,7 +120,9 @@ rm src/java/org/apache/ivy/plugins/resolver/AbstractSshBasedResolver.java
 rm src/java/org/apache/ivy/plugins/resolver/SFTPResolver.java
 rm src/java/org/apache/ivy/plugins/resolver/SshResolver.java
 %endif
-
+# inject:
+# - to define source dir
+# - to define resources
 %pom_xpath_inject pom:project '
 <build>
   <sourceDirectory>src/java</sourceDirectory>
@@ -137,7 +145,9 @@ rm src/java/org/apache/ivy/plugins/resolver/SshResolver.java
     </resource>
   </resources>
 </build>'
-
+# add antrun plugin:
+# - to copy file
+# - to define certain manifest
 %pom_add_plugin :maven-antrun-plugin '
 <executions>
   <execution>
@@ -168,10 +178,6 @@ rm src/java/org/apache/ivy/plugins/resolver/SshResolver.java
         <copy file="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivysettings.xml" 
           tofile="${project.build.outputDirectory}/org/apache/ivy/core/settings/ivyconf.xml"/> 
 
-        <!-- copy antlib for backward compatibility with fr.jayasoft.ivy package -->
-        <copy file="${project.build.outputDirectory}/org/apache/ivy/ant/antlib.xml"
-          todir="${project.build.outputDirectory}/fr/jayasoft/ivy/ant"/>
-
         <!--
           there is a default Bundle-Version attribute in the source MANIFEST, used to ease
           development in eclipse.
@@ -187,7 +193,8 @@ rm src/java/org/apache/ivy/plugins/resolver/SshResolver.java
     </configuration>
   </execution>
 </executions>'
-
+# add jar plugin:
+# - to define manifest entries
 %pom_add_plugin :maven-jar-plugin '
 <configuration>
   <archive>
@@ -205,20 +212,18 @@ rm src/java/org/apache/ivy/plugins/resolver/SshResolver.java
     <manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
   </archive>
 </configuration>'
-
-%mvn_alias : jayasoft:ivy
+# compatibility
 %mvn_file : %{name}/ivy ivy
-
-# Remove prebuilt documentation
+# remove prebuilt documentation
 rm -rf asciidoc
 
 %build
 export JAVA_HOME=%{_jvmdir}/java-11
-%mvn_build -f -- -Dmaven.compiler.source=1.8 -Dmaven.compiler.target=1.8
+%mvn_build -f -- -Dmaven.compiler.release=8
 
 %install
 %mvn_install
-
+# create ant deps
 mkdir -p %{buildroot}%{_sysconfdir}/ant.d
 echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 
@@ -228,6 +233,10 @@ echo "apache-ivy/ivy" > %{buildroot}%{_sysconfdir}/ant.d/%{name}
 %{_sysconfdir}/ant.d/%{name}
 
 %changelog
+* Wed Feb 22 2023 Didik Supriadi <didiksupriadi41@fedoraproject.org> - 2.5.1-1
+- Update to version 2.5.1
+- Remove alias for jayasoft:ivy
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

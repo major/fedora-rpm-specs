@@ -8,10 +8,10 @@ Name: hunspell-cy
 Summary: Welsh hunspell dictionaries
 %global upstreamid 20040425
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/cy_GB.zip
 URL: http://www.e-gymraeg.co.uk/
-License: GPL+
+License: GPL-1.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -46,6 +46,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 0.20040425-30
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040425-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,10 +8,10 @@ Name: hunspell-lb
 Summary: Luxembourgish hunspell dictionaries
 %global upstreamid 20121128
 Version: 0.%{upstreamid}
-Release: 20%{?dist}
+Release: 21%{?dist}
 Source: http://downloads.spellchecker.lu/packages/OOo3/SpellcheckerLu.oxt
 URL: http://spellchecker.lu
-License: EUPL 1.1
+License: EUPL-1.1
 BuildArch: noarch
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-lb)
@@ -48,6 +48,9 @@ cp -p th_lb_LU_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/th_lb_LU_v2.*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20110821-21
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20121128-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@ Name:           python-%{srcname}
 Version:        0.0.11
 Release:        %autorelease
 Summary:        Non-blocking Python methods using decorators
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.org/project/%{srcname}/
 Source0:        %pypi_source
 

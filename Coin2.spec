@@ -13,7 +13,7 @@
 Summary: High-level 3D visualization library
 Name: Coin2
 Version: 2.5.0
-Release: 44%{?dist}
+Release: 45%{?dist}
 
 # LICENSE.GPL says ".. or later" but source files tell "GPLv2"
 License: GPL-2.0-only
@@ -29,6 +29,7 @@ Patch4: Coin-2.5.0-gcc-4.7.0.diff
 Patch5: Coin-2.5.0-inttypes.patch
 Patch6: Coin-2.5.0-config.patch
 Patch7: Coin-2.5.0-Use-NULL-instead-of-0.patch
+Patch8: Coin2-configure-c99.patch
 
 BuildRequires: gcc-c++
 BuildRequires: libGLU-devel
@@ -72,6 +73,7 @@ Development package for Coin2
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
 
 # Update doxygen configuration
 doxygen -u docs/coin.doxygen.in
@@ -178,6 +180,9 @@ fi
 %ghost %{_libdir}/pkgconfig/Coin.pc
 
 %changelog
+* Wed Feb 22 2023 Florian Weimer <fweimer@redhat.com> - 2.5.0-45
+- Port configure script to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

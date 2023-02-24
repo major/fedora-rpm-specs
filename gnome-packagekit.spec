@@ -2,7 +2,7 @@ Name:      gnome-packagekit
 Version:   43.0
 Release:   2%{?dist}
 Summary:   Session applications to manage packages
-License:   GPLv2+
+License:   GPL-2.0-or-later
 URL:       https://www.freedesktop.org/software/PackageKit/
 Source0:   http://download.gnome.org/sources/gnome-packagekit/43/%{name}-%{version}.tar.xz
 

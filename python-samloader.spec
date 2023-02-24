@@ -1,18 +1,17 @@
-%global forgeurl https://github.com/nlscc/samloader
-%global commit 820375214f1b7b26109e5c3aea8d005fcc56eebf
-%forgemeta
+%global date 20221223
+%global commit 95d2ac8fb9027b7908d201e4ce807a5b338f923a
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %global pypi_name samloader
 
 Name:           python-%{pypi_name}
-Version:        0
+Version:        0.4~%{date}git%{shortcommit}
 Release:        %autorelease
 Summary:        Download Samsung firmware from official servers
 
-License:        GPLv3
-URL:            %{forgeurl}
-Source0:        %{forgesource}
-Patch0:         %{url}/pull/59.patch#/Use-tqdm-for-progress-bar.patch
+License:        GPL-3.0-or-later
+URL:            https://github.com/nlscc/samloader
+Source:         %{url}/archive/%{commit}/%{pypi_name}-%{commit}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -43,7 +42,6 @@ Summary:        %{summary}
 
 %check
 %pyproject_check_import %{pypi_name}
-
 
 %files -n %{pypi_name} -f %{pyproject_files}
 %license COPYING

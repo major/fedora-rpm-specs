@@ -2,6 +2,10 @@
 # Disabling this functionality
 %undefine _package_note_file
 
+# Disable LTO
+# undefined-non-weak-symbol libpetsc.so.3.17.4_glibcxx_assert_fail
+%undefine _ld_as_needed
+
 # Testing libpetsc ?
 %bcond_with check
 #
@@ -285,7 +289,7 @@
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
 Version: %{releasever}.4
-Release: 8%{?dist}
+Release: 10%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -864,8 +868,8 @@ sed -e 's|%{_builddir}/%{name}-%{version}/buildopenmpi_dir|%{_prefix}|g' -i %{bu
 sed -e 's|%{_builddir}/%{name}-%{version}/buildopenmpi_dir/%{_arch}/|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 sed -e 's|-L%{_prefix}/%{_arch}/lib|-L%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 sed -e 's|-I%{_prefix}/%{_arch}/include|-I%{_includedir}/openmpi-%{_arch}/%{name} -I%{_fmoddir}/openmpi/%{name}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|$MPI_LIB|g' -i %{buildroot}$MPI_LIB/%{name}/conf/variables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|$MPI_LIB|g' -i %{buildroot}$MPI_LIB/%{name}/conf/rules
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/variables
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}/openmpi/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/rules
 sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscrules
 sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 
@@ -923,8 +927,8 @@ sed -e 's|%{_builddir}/%{name}-%{version}/buildmpich_dir|%{_prefix}|g' -i %{buil
 sed -e 's|%{_builddir}/%{name}-%{version}/buildmpich_dir/%{_arch}/|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 sed -e 's|-L%{_prefix}/%{_arch}/lib|-L%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 sed -e 's|-I%{_prefix}/%{_arch}/include|-I%{_includedir}/mpich-%{_arch}/%{name} -I%{_fmoddir}/mpich/%{name}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|$MPI_LIB|g' -i %{buildroot}$MPI_LIB/%{name}/conf/variables
-sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|$MPI_LIB|g' -i %{buildroot}$MPI_LIB/%{name}/conf/rules
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/variables
+sed -e 's|${PETSC_DIR}/${PETSC_ARCH}/lib|%{_libdir}/mpich/lib|g' -i %{buildroot}$MPI_LIB/%{name}/conf/rules
 sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscrules
 sed -e 's|${PETSC_DIR}|%{_prefix}|g' -i %{buildroot}$MPI_LIB/%{name}/conf/petscvariables
 
@@ -1167,6 +1171,12 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Wed Feb 22 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-10
+- Undefine _ld_as_needed
+
+* Wed Feb 22 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-9
+- Fix rhbz#2171312 /2
+
 * Tue Feb 21 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-8
 - Fix rhbz#2171312
 

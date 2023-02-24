@@ -402,7 +402,7 @@ PODMAN_VERSION=%{version} %{__make} PREFIX=%{buildroot}%{_prefix} ETCDIR=%{build
        install.docker \
        install.docker-docs \
        install.remote \
-%if 0%{?fedora} >= 36
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 10
         install.modules-load
 %endif
 
@@ -448,7 +448,9 @@ cp -pav test/system %{buildroot}/%{_datadir}/%{name}/test/
 %{_tmpfilesdir}/%{name}.conf
 %{_systemdgeneratordir}/%{name}-system-generator
 %{_systemdusergeneratordir}/%{name}-user-generator
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 10
 %{_modulesloaddir}/%{name}-iptables.conf
+%endif
 
 %files docker
 %{_bindir}/docker

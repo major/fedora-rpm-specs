@@ -238,7 +238,7 @@
 
 Name:	chromium%{chromium_channel}
 Version: 110.0.5481.100
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -532,8 +532,8 @@ BuildRequires:	nss-devel >= 3.26
 BuildRequires:	pciutils-devel
 BuildRequires:	pulseaudio-libs-devel
 
-# For screen sharing on Wayland, currently Fedora only thing - no epel
-%if 0%{?fedora}
+# For screen sharing on Wayland
+%if 0%{?fedora} || 0%{?rhel} >= 8
 BuildRequires:	pkgconfig(libpipewire-0.3)
 %endif
 
@@ -1216,7 +1216,7 @@ CHROMIUM_BROWSER_GN_DEFINES+=' use_vaapi=false'
 CHROMIUM_BROWSER_GN_DEFINES+=' use_v4l2_codec=true'
 %endif
 
-%if 0%{?fedora}
+%if 0%{?fedora} || 0%{?rhel} >= 8
 CHROMIUM_BROWSER_GN_DEFINES+=' rtc_use_pipewire=true rtc_link_pipewire=true'
 %endif
 
@@ -1688,6 +1688,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Wed Feb 22 2023 Jan Grulich <jgrulich@redhat.com> - 110.0.5481.100-3
+- Enable PipeWire screen sharing on RHEL8+
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 110.0.5481.100-2
 - fixed bz#2036205, failed to load GLES library
 

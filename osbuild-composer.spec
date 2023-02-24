@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        74
+Version:        75
 
 %gometa
 
@@ -449,10 +449,10 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 70
-Requires:   osbuild-ostree >= 70
-Requires:   osbuild-lvm2 >= 70
-Requires:   osbuild-luks2 >= 70
+Requires:   osbuild >= 80
+Requires:   osbuild-ostree >= 80
+Requires:   osbuild-lvm2 >= 80
+Requires:   osbuild-luks2 >= 80
 Requires:   %{name}-dnf-json = %{version}-%{release}
 
 %description worker
@@ -571,6 +571,23 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Feb 22 2023 Packit <hello@packit.dev> - 75-1
+Changes with 75
+----------------
+  * Blueprint: add support for custom files and directories in `/etc` (#3281)
+  * Image info: Update from manifest-db (#3278)
+  * `edge-simplified-installer` allows User & Group customizations (#3285)
+  * cloudapi: Add subscription option for rhc  (#3240)
+  * internal/prometheus: add more buckets for job durations (#3273)
+  * osbuild-worker/koji: Add logging for koji requests/responses (#3252)
+  * rhel: fix conditionals for sysroot.readonly enablement (#3276)
+  * test/cases: move CIV options into a variable (#3279)
+
+Contributions from: Antonio Murdaca, Brian C. Lane, Diaa Sami, Irene Diez, Jakub Rusz, Juan Abia, Mario Cattamo, Sanne Raymaekers, Thomas Lavocat, Tomáš Hozza, Xiaofeng Wang
+
+— Somewhere on the Internet, 2023-02-22
+
+
 * Wed Feb 08 2023 Packit <hello@packit.dev> - 74-1
 Changes with 74
 ----------------

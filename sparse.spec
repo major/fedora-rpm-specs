@@ -79,7 +79,7 @@ make clean
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Fri Aug 29 2022 Jeff Layton <jlayton@redhat.com> - 0.6.4-3
+* Fri Aug 19 2022 Jeff Layton <jlayton@redhat.com> - 0.6.4-3
 - bump release to get around package version issue
 
 * Wed Aug 10 2022 Jeff Layton <jlayton@redhat.com> - 0.6.4-2

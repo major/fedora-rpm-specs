@@ -1,6 +1,6 @@
 Name:		ndctl
-Version:	75
-Release:	2%{?dist}
+Version:	76
+Release:	1%{?dist}
 Summary:	Manage "libnvdimm" subsystem devices (Non-volatile Memory)
 License:	GPLv2
 Url:		https://github.com/pmem/ndctl
@@ -31,6 +31,8 @@ BuildRequires:	keyutils-libs-devel
 BuildRequires:	systemd-rpm-macros
 BuildRequires:	iniparser-devel
 BuildRequires:	meson
+BuildRequires:	libtraceevent-devel
+BuildRequires:	libtracefs-devel
 
 %description
 Utility library for managing the "libnvdimm" subsystem.  The "libnvdimm"
@@ -197,6 +199,7 @@ fi
 %{_bindir}/cxl
 %{_mandir}/man1/cxl*
 %{bashcompdir}/cxl
+%{_unitdir}/cxl-monitor.service
 
 %files -n ndctl-libs
 %doc README.md
@@ -235,6 +238,9 @@ fi
 
 
 %changelog
+* Wed Feb 22 2023 Vishal Verma <vishal.l.verma@intel.com> - 76-1
+- release v76
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 75-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,12 +7,12 @@ Name: hunspell-om
 Summary: Oromo hunspell dictionaries
 Epoch: 1
 Version: 0.04
-Release: 26%{?dist}
+Release: 27%{?dist}
 # Following links are dead now
 # Please don't report any bugs for it
 Source: http://borel.slu.edu/obair/%{name}-%{version}.oxt
 URL: http://borel.slu.edu/crubadan/apps.html
-License: GPLv3+
+License: GPL-3.0-or-later
 BuildArch: noarch
 Requires: hunspell
 Supplements: (hunspell and langpacks-om)
@@ -43,6 +43,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 1:0.04-27
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.04-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -120,11 +123,11 @@ done
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1:0.04-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Tue Nov 17 2009 Caolan McNamara <caolanm@redhat.com> - 1:0.04-1
+* Tue Nov 17 2009 Caolán McNamara <caolanm@redhat.com> - 1:0.04-1
 - latest version
 
-* Sat Oct 17 2009 Caolan McNamara <caolanm@redhat.com> - 0.20091002-1
+* Sat Oct 17 2009 Caolán McNamara <caolanm@redhat.com> - 0.20091002-1
 - latest version
 
-* Thu Sep 10 2009 Caolan McNamara <caolanm@redhat.com> - 0.20090414-1
+* Thu Sep 10 2009 Caolán McNamara <caolanm@redhat.com> - 0.20090414-1
 - initial version

@@ -7,7 +7,7 @@
 Name: hunspell-es
 Summary: Spanish hunspell dictionaries
 Version: 2.3
-Release: 14%{?dist}
+Release: 15%{?dist}
 Epoch: 1
 Source0: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_AR.oxt
 Source1: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_BO.oxt
@@ -32,7 +32,7 @@ Source19: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_US.o
 Source20: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_VE.oxt
 
 URL: https://github.com/sbosio/rla-es/
-License: LGPLv3+ or GPLv3+ or MPLv1.1
+License: LGPL-3.0-or-later OR GPL-3.0-or-later OR MPL-1.1
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -357,6 +357,9 @@ done
 %{_datadir}/%{dict_dirname}/es_VE.*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 1:2.2-15
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

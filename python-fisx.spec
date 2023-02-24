@@ -1,7 +1,7 @@
 Name:           python-fisx
-Version:        1.2.0
+Version:        1.2.1
 Release:        %autorelease
-Summary:        Calculate x-ray fluorescence intensities
+Summary:        Calculate X-ray fluorescence intensities
 
 License:        MIT
 URL:            https://github.com/vasole/fisx

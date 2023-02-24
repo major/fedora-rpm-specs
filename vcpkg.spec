@@ -1,12 +1,8 @@
-%global version_year 2023
-%global version_month 02
-%global version_day 15
-
 %global repo_name vcpkg-tool
-%global repo_tag %{version_year}-%{version_month}-%{version_day}
+%global repo_tag 2023-02-15
 
 Name: vcpkg
-Version: %{version_year}.%{version_month}.%{version_day}
+Version: %(echo %{repo_tag} | sed 's/-/./g')
 Release: 1%{?dist}
 
 License: MIT

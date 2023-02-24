@@ -1,5 +1,5 @@
 Name:       recode
-Version:    3.7.13
+Version:    3.7.14
 Release:    1%{?dist}
 Summary:    Conversion between character sets and surfaces
 # COPYING:              GPLv3 text
@@ -54,7 +54,9 @@ License:    GPLv3+ and LGPLv3+ and BSD and OFSFDL
 URL:        https://github.com/rrthomas/recode
 Source:     %{url}/releases/download/v%{version}/recode-%{version}.tar.gz
 Patch:      recode-3.7.13-Rename-coliding-hash-functions.patch
-Patch:      0001-src-Makefile.am-allow-build-without-help2man.patch
+# https://github.com/rrthomas/recode/issues/48
+Patch:      0001-src-task.c-only-close-input-stream-when-we-opened-it.patch
+
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -69,8 +71,7 @@ BuildRequires:  texinfo
 # Tests:
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel >= 3.7.5
-# https://fedoraproject.org/wiki/Changes/Python3.12#The_Python_standard_library_distutils_module_will_be_removed
-BuildRequires:  (python3-setuptools if python3-devel >= 3.12)
+BuildRequires:  python3-setuptools
 
 %description
 The recode tool and library convert files between character sets and surfaces.
@@ -132,6 +133,12 @@ rm $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_includedir}/*
 
 %changelog
+* Wed Feb 22 2023 Ondrej Pohorelsky <opohorel@redhat.com> - 3.7.14-1
+- 3.7.14 bump
+- Adds upstream patch to prevent double free
+- Require python3-setuptools unconditionaly
+- Resolves: rhbz#2170818, rhbz#2166136
+
 * Tue Jan 17 2023 Ondrej Pohorelsky <opohorel@redhat.com> - 3.7.13-1
 - 3.7.13 bump
 - Resolves: rhbz#2158811

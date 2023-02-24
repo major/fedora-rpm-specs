@@ -5,7 +5,7 @@
 %global crate nu-protocol
 
 Name:           rust-nu-protocol
-Version:        0.75.0
+Version:        0.76.0
 Release:        %autorelease
 Summary:        Nushell's internal protocols, including its abstract syntax tree
 

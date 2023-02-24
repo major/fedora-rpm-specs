@@ -14,9 +14,7 @@ Summary:    X utility to query and alter the gamma correction of a monitor
 ## Unbundled
 # aclocal.m4:   FSFULLRWD AND FSFULLR AND
 #               GPL-2.0-or-later WITH Autoconf-exception-generic AND
-#               GPL-3.0-or-later WITH an Autoconf Macro exception
-#               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/161>
-#               AND X11
+#               GPL-3.0-or-later WITH Autoconf-exception-macro AND X11
 # compile:      GPL-2.0-ro-later WITH Autoconf-exception-generic
 # config.guess: GPL-3.0-or-later WITH Autoconf-exception-generic
 # config.sub:   GPL-3.0-or-later WITH Autoconf-exception-generic

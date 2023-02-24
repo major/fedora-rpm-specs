@@ -53,6 +53,7 @@ BuildRequires: pkgconfig(libswscale)
 
 Requires:      kde-filesystem
 Requires:      hicolor-icon-theme
+Requires:      kf5-kirigami2%{?_isa}
 Recommends:    yt-dlp
 
 %description

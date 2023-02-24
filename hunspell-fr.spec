@@ -7,10 +7,10 @@
 Name: hunspell-fr
 Summary: French hunspell dictionaries
 Version: 6.2
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source: http://www.dicollecte.org/download/fr/hunspell-french-dictionaries-v%{version}.zip
 URL: http://www.dicollecte.org/home.php?prj=fr
-License: MPLv2.0
+License: MPL-2.0
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -43,6 +43,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 6.0.2-13
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

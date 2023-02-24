@@ -1,14 +1,13 @@
 Summary:        Tools to manage network attached LXI compatible instruments
 Name:           lxi-tools
-Version:        2.4
-Release:        3%{?dist}
+Version:        2.5
+Release:        1%{?dist}
 # src/language-specs/lua-lxi-gui.lang is LGPL-2.1-or-later, rest is BSD-3-Clause
 License:        BSD-3-Clause AND LGPL-2.1-or-later
 URL:            https://lxi-tools.github.io/
 Source0:        https://github.com/lxi/lxi-tools/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/lxi/lxi-tools/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
 Source2:        https://keys.openpgp.org/vks/v1/by-fingerprint/101BAC1C15B216DBE07A3EEA2BDB4A0944FA00B1
-Patch0:         https://github.com/lxi-tools/lxi-tools/commit/3cdc15b85a45b12389bcbd0cd6a3a4f8e39d9918.patch#/lxi-tools-2.4-lua51.patch
 BuildRequires:  gnupg2
 BuildRequires:  gcc
 BuildRequires:  meson >= 0.53.2
@@ -38,7 +37,6 @@ SCPI message performance, and powerful scripting for test automation.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q
-%patch0 -p1 -b .lua51
 
 %build
 %meson \
@@ -75,6 +73,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/io.github.%
 %endif
 
 %changelog
+* Wed Feb 22 2023 Robert Scheck <robert@fedoraproject.org> 2.5-1
+- Upgrade to 2.5 (#2172316)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

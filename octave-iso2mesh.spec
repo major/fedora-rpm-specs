@@ -104,7 +104,7 @@ sed -e "s|^\(CXXFLAGS = \).*|\1%{optflags} $RPM_LD_FLAGS|" \
 
 %build
 %set_build_flags
-%if %{__isa_bits} == 32
+%if 0%{?__isa_bits} == 32
 # Reduce the debuginfo level to avoid virtual memory exhaustion
 CXXFLAGS="${CXXFLAGS-} -g1"
 %endif

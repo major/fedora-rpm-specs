@@ -19,7 +19,7 @@ Release:        7%{?dist}
 Summary:        Common logger used by GCP guest environment
 
 # Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 

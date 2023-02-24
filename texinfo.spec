@@ -3,7 +3,7 @@
 Summary: Tools needed to create Texinfo format documentation files
 Name: texinfo
 Version: 7.0.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv3+
 Url: http://www.gnu.org/software/texinfo/
 Source0: ftp://ftp.gnu.org/gnu/texinfo/texinfo-%{version}.tar.xz
@@ -17,6 +17,8 @@ Patch1: info-6.5-sync-fix-info-dir.patch
 Patch2: texinfo-6.5-fix-info-dir.patch
 # Patch3: fixes issues detected by static analysis
 Patch3: texinfo-6.5-covscan-fixes.patch
+# Patch4: fixes possible use of an undefined value as an ARRAY reference in ParserNonXS.pm
+Patch4: texinfo-7.0.2-undef-val-array-ref.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -150,6 +152,11 @@ export ALL_TESTS=yes
 %{_mandir}/man1/pdftexi2dvi.1*
 
 %changelog
+* Wed Feb 22 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0.2-2
+- Fix possible use of an undefined value as an ARRAY reference in ParserNonXS.pm
+  (causes FTBFS of a2ps)
+  Resolves: #2171433
+
 * Mon Jan 23 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 7.0.2-1
 - Update to texinfo-7.0.2
   Resolves: #2162979

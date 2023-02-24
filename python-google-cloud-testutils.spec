@@ -13,7 +13,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python test utilities for Google Cloud APIs
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 

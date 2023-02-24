@@ -8,10 +8,10 @@ Name: hunspell-fur
 Summary: Friulian hunspell dictionaries
 %global upstreamid 20050912
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: http://digilander.libero.it/paganf/coretors/myspell-fur-12092005.zip
 URL: http://digilander.libero.it/paganf/coretors/dizionaris.html
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -46,6 +46,9 @@ cp -p fur_IT.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 0.20050912-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050912-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

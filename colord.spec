@@ -11,7 +11,7 @@ Summary:   Color daemon
 Name:      colord
 Version:   1.4.6
 Release:   3%{?dist}
-License:   GPLv2+ and LGPLv2+
+License:   GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:       https://www.freedesktop.org/software/colord/
 Source0:   https://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
 

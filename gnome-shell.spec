@@ -124,6 +124,7 @@ Requires:       bolt%{?_isa}
 # Needed for launching flatpak apps etc
 # 1.8.0 is needed for source type support in the screencast portal.
 Requires:       xdg-desktop-portal-gtk >= 1.8.0
+Requires:       xdg-desktop-portal-gnome
 # needed by the welcome dialog
 Recommends:     gnome-tour
 

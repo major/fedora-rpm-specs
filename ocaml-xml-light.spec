@@ -3,24 +3,24 @@
 %global debug_package %{nil}
 %endif
 
+%global forgeurl https://github.com/ncannasse/xml-light
+Version: 2.5
+%forgemeta
+
 Name:           ocaml-xml-light
-Version:        2.4
-Release:        8%{?dist}
+Release:        1%{?dist}
 Summary:        Minimal XML parser and printer for OCaml
 
 License:        LGPLv2+ with exceptions
 URL:            http://tech.motion-twin.com/xmllight.html
-Source0:        https://github.com/ncannasse/xml-light/archive/%{version}/xml-light-%{version}.tar.gz
+Source0:        %{forgesource}
 Source1:        https://raw.githubusercontent.com/ocaml/opam-repository/master/packages/xml-light/xml-light.%{version}/opam
-# Fix parsing of hexadecimal entities
-# See https://github.com/ncannasse/xml-light/issues/1 for background
-# See https://github.com/ncannasse/xml-light/pull/6 for the patch
-Patch0:         %{name}-hex-entities.patch
 
 BuildRequires:  make
 BuildRequires:  ocaml >= 4.00.1
 BuildRequires:  ocaml-findlib-devel >= 1.3.3-3
 BuildRequires:  ocaml-ocamldoc
+BuildRequires:  ocaml-dune
 
 
 %description
@@ -42,72 +42,38 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -p1 -n xml-light-%{version}
-
-# Enable debuginfo
-sed -i 's/[CL]FLAGS=/&-g/' Makefile
+%forgesetup
 
 
 %build
-# Build breaks if parallelized.
-unset MAKEFLAGS
-make all
-make doc
-%ifarch %{ocaml_native_compiler}
-make opt
-%endif
-sed -e 's/@VERSION@/%{VERSION}/' < META.in > META
+%dune_build
 
 
 %check
-./test.exe <<EOF
-<abc><123/></abc>
-
-EOF
-
-%ifarch %{ocaml_native_compiler}
-./test_opt.exe <<EOF
-<abc><123/></abc>
-
-EOF
-%endif
+%dune_check
 
 
 %install
-export DESTDIR=$RPM_BUILD_ROOT
-export OCAMLFIND_DESTDIR=$RPM_BUILD_ROOT%{_libdir}/ocaml
-mkdir -p $OCAMLFIND_DESTDIR
-rm -f test.cmi
-ocamlfind install xml-light META *.mli *.cmi *.cma \
-%ifarch %{ocaml_native_compiler}
-*.a *.cmxa *.cmx *.cmxs
-%endif
-cp -p %{SOURCE1} $OCAMLFIND_DESTDIR/xml-light
+%dune_install -s
 
 
-%files
-%doc README
-%dir %{_libdir}/ocaml/xml-light
-%{_libdir}/ocaml/xml-light/META
-%{_libdir}/ocaml/xml-light/*.cma
-%{_libdir}/ocaml/xml-light/*.cmi
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/xml-light/*.cmxs
-%endif
+%files -f .ofiles-xml-light
+%license LICENSE
 
 
-%files devel
-%doc README doc/*
-%{_libdir}/ocaml/xml-light/opam
-%ifarch %{ocaml_native_compiler}
-%{_libdir}/ocaml/xml-light/*.a
-%{_libdir}/ocaml/xml-light/*.cmxa
-%{_libdir}/ocaml/xml-light/*.cmx
-%endif
-%{_libdir}/ocaml/xml-light/*.mli
+%files devel -f .ofiles-xml-light-devel
+%doc README.md
+%license LICENSE
 
 
 %changelog
+* Wed Feb 22 2023 Richard W.M. Jones <rjones@redhat.com> - 2.5-1
+- New upstream version 2.5
+- Use forge macros.
+- Use dune for building.
+- Rename README.
+- Include LICENSE file.
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 2.4-8
 - Bump release and rebuild.
 

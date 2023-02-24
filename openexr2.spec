@@ -1,10 +1,11 @@
 %global sover 25
+%global imfsover 26
 %global srcname openexr
 %global pkgname %{srcname}2
 
 Name:           %{pkgname}
-Version:        2.5.7
-Release:        3%{?dist}
+Version:        2.5.8
+Release:        1%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD
@@ -12,6 +13,7 @@ URL:            https://www.openexr.com/
 Source0:        https://github.com/AcademySoftwareFoundation/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
 Patch0:         openexr-gcc11.patch
+Patch1:         openexr2-cstdint.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc gcc-c++
@@ -111,6 +113,7 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 %doc CHANGES.md CONTRIBUTING.md GOVERNANCE.md SECURITY.md CODE_OF_CONDUCT.md CONTRIBUTORS.md README.md
 %license LICENSE.md
 %{_libdir}/*.so.%{sover}*
+%{_libdir}/*.so.%{imfsover}*
 
 %files devel
 %{_includedir}/OpenEXR/
@@ -122,6 +125,9 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 
 
 %changelog
+* Wed Feb 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.8-1
+- 2.5.8
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

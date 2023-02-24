@@ -7,10 +7,10 @@
 Name: hunspell-ht
 Summary: Haitian Creole hunspell dictionaries
 Version: 0.06
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: http://extensions.services.openoffice.org/files/3247/3/%{name}-%{version}.oxt
 URL: http://kok.logipam.org/
-License: GPLv3+
+License: GPL-3.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -34,6 +34,9 @@ cp -p dictionaries/ht_HT.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.06-25
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.06-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -105,14 +108,14 @@ cp -p dictionaries/ht_HT.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.06-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Wed Dec 16 2009 Caolan McNamara <caolanm@redhat.com> - 0.06-1
+* Wed Dec 16 2009 Caolán McNamara <caolanm@redhat.com> - 0.06-1
 - latest version
 
-* Thu Dec 10 2009 Caolan McNamara <caolanm@redhat.com> - 0.05-1
+* Thu Dec 10 2009 Caolán McNamara <caolanm@redhat.com> - 0.05-1
 - latest version
 
-* Thu Nov 19 2009 Caolan McNamara <caolanm@redhat.com> - 0.03.3-1
+* Thu Nov 19 2009 Caolán McNamara <caolanm@redhat.com> - 0.03.3-1
 - initial version
 
-* Mon Nov 16 2009 Caolan McNamara <caolanm@redhat.com> - 0.02-1
+* Mon Nov 16 2009 Caolán McNamara <caolanm@redhat.com> - 0.02-1
 - initial version

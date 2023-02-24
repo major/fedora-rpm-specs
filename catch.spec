@@ -1,7 +1,5 @@
-%global debug_package %{nil}
-
 Name:           catch
-Version:        2.13.10
+Version:        3.3.1
 Release:        1%{?dist}
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
@@ -20,7 +18,7 @@ is packaged up as a single header for extra convenience.
 
 %package        devel
 Summary:        Development files for %{name}
-Provides:       %{name}-static = %{version}-%{release}
+Requires:       %{name} = %{version}-%{release}
 
 %description    devel
 Catch stands for C++ Automated Test Cases in Headers and is a
@@ -38,7 +36,7 @@ is packaged up as a single header for extra convenience.
     -DCATCH_BUILD_EXTRA_TESTS=ON \
     -DCATCH_ENABLE_WERROR=OFF \
     -DCATCH_INSTALL_DOCS=OFF \
-    -DBUILD_SHARED_LIBS=OFF
+    -DBUILD_SHARED_LIBS=ON
 %cmake_build
 
 
@@ -50,16 +48,27 @@ is packaged up as a single header for extra convenience.
 %ctest
 
 
+%files
+%license LICENSE.txt
+%{_libdir}/libCatch2.so.%{version}
+%{_libdir}/libCatch2Main.so.%{version}
+
+
 %files devel
 %doc README.md CODE_OF_CONDUCT.md docs
-%license LICENSE.txt
 %{_includedir}/catch2/
+%{_libdir}/libCatch2.so
+%{_libdir}/libCatch2Main.so
+%{_libdir}/cmake/Catch2/
 %{_datadir}/Catch2/
 %{_datadir}/pkgconfig/catch2.pc
-%{_libdir}/cmake/Catch2/
+%{_datadir}/pkgconfig/catch2-with-main.pc
 
 
 %changelog
+* Tue Feb 21 2023 Tom Hughes <tom@compton.nu> - 3.3.1-1
+- Update to 3.3.1 upstream release
+
 * Thu Jan 19 2023 Tom Hughes <tom@compton.nu> - 2.13.10-1
 - Update to 2.13.10 upstream release
 

@@ -3,7 +3,7 @@ Name: hunspell-en
 Summary: English hunspell dictionaries
 %global upstreamid 20201207
 Version: 0.%{upstreamid}
-Release: 3%{?dist}
+Release: 4%{?dist}
 Source0: https://github.com/en-wl/wordlist/archive/rel-2020.12.07.tar.gz
 Source1: http://download.services.openoffice.org/contrib/dictionaries/en_GB.zip
 #See http://mxr.mozilla.org/mozilla/source/extensions/spellcheck/locales/en-US/hunspell/mozilla_words.diff?raw=1
@@ -31,7 +31,7 @@ URL: http://wordlist.sourceforge.net/
 # README_en_GB.txt has specified just LGPL which mean LGPLv2+
 # scowl/speller/aspell/en_affix.dat is BSD
 # scowl/speller/aspell/en_phonet.dat is LGPLv2
-License: LGPLv2+ and LGPLv2 and BSD
+License: LGPL-2.1-or-later AND LGPL-2.1-only AND BSD-3-Clause-Modification
 BuildArch: noarch
 BuildRequires: aspell, zip, dos2unix, perl-Getopt-Long, gcc-c++
 BuildRequires: make
@@ -140,6 +140,9 @@ popd
 %{_datadir}/%{dict_dirname}/en_GB.*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20201207-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20201207-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

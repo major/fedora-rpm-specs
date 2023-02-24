@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-machines
-Version:        283
+Version:        284
 Release:        1%{?dist}
 Summary:        Cockpit user interface for virtual machines
 License:        LGPL-2.1-or-later AND MIT
@@ -51,6 +51,10 @@ Recommends: qemu-block-curl
 Recommends: qemu-char-spice
 Recommends: qemu-device-usb-host
 Recommends: qemu-device-usb-redirect
+# HACK: https://bugzilla.redhat.com/show_bug.cgi?id=2170110
+%if 0%{?fedora} >= 38
+Requires: (qemu-audio-spice if qemu-char-spice)
+%endif
 %endif
 %endif
 Requires: libvirt-client
@@ -84,6 +88,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 # The changelog is automatically generated and merged
 %changelog
+* Wed Feb 22 2023 Packit <hello@packit.dev> - 284-1
+- Stability and performance improvements
+
 * Wed Feb 08 2023 Packit <hello@packit.dev> - 283-1
 - Stability and performance improvements
 

@@ -7,10 +7,10 @@
 Name: hunspell-cv
 Summary: Chuvash hunspell dictionaries
 Version: 1.06
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source: http://hunspell.chv.su/files/Chuvash_Spell-1.06.oxt
 URL: http://hunspell.chv.su/download.shtml
-License: GPLv3+ or LGPLv3+ or MPLv1.1
+License: GPL-3.0-or-later OR LGPL-3.0-or-later OR MPL-1.1
 BuildArch: noarch
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-cv)
@@ -39,6 +39,9 @@ cp -p cv_RU.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 1.02-13
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.06-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

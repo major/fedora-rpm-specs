@@ -8,10 +8,10 @@ Name: hunspell-mt
 Summary: Maltese hunspell dictionaries
 %global upstreamid 20110414
 Version: 0.%{upstreamid}
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/5039/0/dict-mt-2011-04-14.oxt
 URL: https://extensions.openoffice.org/en/project/maltese-spell-check-dictionary
-License: LGPLv2+
+License: LGPL-2.1-or-later
 BuildArch: noarch
 BuildRequires: hunspell-devel
 
@@ -38,6 +38,9 @@ cp -p mt.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/mt_MT.aff
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20020708-13
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20110414-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -115,11 +118,11 @@ cp -p mt.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/mt_MT.aff
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20020708-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Mon Apr 13 2009 Caolan McNamara <caolanm@redhat.com> - 0.20020708-3
+* Mon Apr 13 2009 Caolán McNamara <caolanm@redhat.com> - 0.20020708-3
 - spurious extra .aff file packaged
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20020708-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Mon Oct 13 2008 Caolan McNamara <caolanm@redhat.com> - 0.20020708-1
+* Mon Oct 13 2008 Caolán McNamara <caolanm@redhat.com> - 0.20020708-1
 - initial version

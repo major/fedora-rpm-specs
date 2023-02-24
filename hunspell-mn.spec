@@ -8,12 +8,12 @@ Name: hunspell-mn
 Summary: Mongolian hunspell dictionaries
 %global upstreamid 20080709
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 # Another Upstream https://extensions.openoffice.org/en/project/mongolian-spell-checking-dictionary
 # gives below Source URL
 Source: https://downloads.sourceforge.net/project/aoo-extensions/1408/0/dict-mn_0.06-5.oxt 
 URL: http://mnspell.openmn.org
-License: GPLv2
+License: GPL-2.0-only
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -37,6 +37,9 @@ cp -p mn_MN.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20080709-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080709-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -103,7 +106,7 @@ cp -p mn_MN.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20080709-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
-* Mon Nov 05 2012 Caolan McNamara <caolanm@redhat.com> - 0.20080709-6
+* Mon Nov 05 2012 Caolán McNamara <caolanm@redhat.com> - 0.20080709-6
 - uninstalled hyphenation patterns are under unversioned LGPLv2
 
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20080709-5
@@ -118,11 +121,11 @@ cp -p mn_MN.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20080709-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sun May 03 2009 Caolan McNamara <caolanm@redhat.com> - 0.20080709.1
+* Sun May 03 2009 Caolán McNamara <caolanm@redhat.com> - 0.20080709.1
 - latest version
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.60.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Tue Oct 28 2008 Caolan McNamara <caolanm@redhat.com> - 0.60.2-1
+* Tue Oct 28 2008 Caolán McNamara <caolanm@redhat.com> - 0.60.2-1
 - initial version

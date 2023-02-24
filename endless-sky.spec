@@ -1,6 +1,6 @@
 Name:		endless-sky
-Version:	0.9.16.1
-Release:	2%{?dist}
+Version:	0.10.0
+Release:	1%{?dist}
 Summary:	Space exploration, trading, and combat game
 
 License:	GPLv3
@@ -11,12 +11,12 @@ Source1:	endless-sky-wrapper
 # https://fedoraproject.org/wiki/SIGs/Games/Packaging.
 # Patch not submitted upstream. Upstream conforms to Debian packaging
 # standards where the use of /usr/games is acceptable.
-Patch0:		endless-sky-0.9.13-remove-games-path.patch
-# Unset CCFLAGS override inside SConstruct.
-Patch1:		endless-sky-0.9.14-remove-additional-ccflags.patch
+Patch0:		endless-sky-0.10.0-remove-games-path.patch
+Patch1:         cstdint.patch
 
 Requires:	%{name}-data = %{version}-%{release}
-BuildRequires:	scons
+BuildRequires:	cmake
+BuildRequires:  ninja-build
 BuildRequires:	gcc-c++
 BuildRequires:	SDL2-devel
 BuildRequires:	openal-soft-devel
@@ -27,6 +27,7 @@ BuildRequires:	libappstream-glib
 BuildRequires:	desktop-file-utils
 BuildRequires:	libmad-devel
 BuildRequires:	libuuid-devel
+BuildRequires:  mesa-libGL-devel
 
 %description
 Explore other star systems. Earn money by trading, carrying passengers, or
@@ -53,14 +54,8 @@ Images, sound, and game data for %{name}.
 
 
 %build
-%ifarch ppc64le
-sed -i 's/std=c++11/std=gnu++11/' SConstruct
-%endif
-CXXFLAGS="%{optflags}"		\
-LDFLAGS="%{?__global_ldflags}"	\
-/usr/bin/scons		\
-	%{?_smp_mflags}		\
-	PREFIX=%{_prefix}
+%cmake -DES_USE_VCPKG=OFF
+%cmake_build
 
 %check
 appstream-util validate-relax --nonet io.github.endless_sky.endless_sky.appdata.xml
@@ -68,20 +63,16 @@ desktop-file-validate %{name}.desktop
 
 
 %install
-CXXFLAGS="%{optflags}"		\
-LDFLAGS="%{?__global_ldflags}"	\
-/usr/bin/scons		\
-	%{?_smp_mflags}		\
-	PREFIX=%{_prefix}	\
-	DESTDIR=%{buildroot}	\
-	install
+%cmake_install
 install -m644 -D io.github.endless_sky.endless_sky.appdata.xml %{buildroot}%{_datadir}/appdata/io.github.endless_sky.endless_sky.appdata.xml
-mv %{buildroot}%{_bindir}/%{name}  %{buildroot}%{_bindir}/%{name}.bin
+mkdir -p %{buildroot}%{_bindir}
+install redhat-linux-build/%{name}  %{buildroot}%{_bindir}/%{name}.bin
 install -m755 %{SOURCE1} %{buildroot}%{_bindir}/%{name}
 sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
+rm -f %{buildroot}%{_datadir}/doc/endless-sky/license.txt
 
 %files
-%doc README.md
+%doc README.md changelog copyright
 %license license.txt
 %{_bindir}/%{name}*
 %{_datadir}/icons/hicolor/16x16/apps/%{name}.png
@@ -104,6 +95,9 @@ sed -i 's|/app|%{_prefix}|g' %{buildroot}%{_bindir}/%{name}
 
 
 %changelog
+* Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.0-1
+- 0.10.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.16.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

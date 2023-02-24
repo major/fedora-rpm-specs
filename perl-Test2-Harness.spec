@@ -2,8 +2,8 @@
 %bcond_without perl_Test2_Harness_enables_coverage
 
 Name:           perl-Test2-Harness
-%global cpan_version 1.000146
-Version:        1.0.146
+%global cpan_version 1.000147
+Version:        1.0.147
 Release:        1%{?dist}
 Summary:        Test2 Harness designed for the Test2 event system
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -233,7 +233,7 @@ unset AUTHOR_TESTING AUTOMATED_TESTING DBI_PROFILE FAIL_ALWAYS FAIL_ONCE \
     T2_HARNESS_MY_MAX_JOB_CONCURRENCY T2_HARNESS_STAGE \
     T2_HARNESS_JOB_CONCURRENCY TEST2_HARNESS_ACTIVE TEST2_HARNESS_LOG_FORMAT \
     TEST2_HARNESS_NO_WRITE_TEST_INFO \
-    YATH_LOG_FILE_FORMAT YATH_SELF_TEST
+    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SELF_TEST
 export AUTOMATED_TESTING=1
 T2_HARNESS_JOB_COUNT="$(getconf _NPROCESSORS_ONLN)" ./test.pl
 prove -I . -j "$(getconf _NPROCESSORS_ONLN)" -r ./t
@@ -251,7 +251,7 @@ unset AUTHOR_TESTING AUTOMATED_TESTING DBI_PROFILE FAIL_ALWAYS FAIL_ONCE \
     T2_HARNESS_MY_MAX_JOB_CONCURRENCY T2_HARNESS_STAGE \
     T2_HARNESS_JOB_CONCURRENCY TEST2_HARNESS_ACTIVE TEST2_HARNESS_LOG_FORMAT \
     TEST2_HARNESS_NO_WRITE_TEST_INFO \
-    YATH_LOG_FILE_FORMAT YATH_SELF_TEST
+    YATH_INTERACTIVE YATH_LOG_FILE_FORMAT YATH_SELF_TEST
 export AUTOMATED_TESTING=1
 export T2_HARNESS_JOB_COUNT=$(perl -e \
     'for (@ARGV) { $j=$1 if m/\A-j(\d+)\z/; }; $j=1 unless $j; print "$j"' -- \
@@ -286,6 +286,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Feb 22 2023 Petr Pisar <ppisar@redhat.com> - 1.0.147-1
+- 1.000147 bump
+
 * Tue Feb 21 2023 Petr Pisar <ppisar@redhat.com> - 1.0.146-1
 - 1.000146 bump
 

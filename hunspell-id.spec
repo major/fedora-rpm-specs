@@ -8,10 +8,10 @@ Name: hunspell-id
 Summary: Indonesian hunspell dictionaries
 %global upstreamid 20040812
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/id_ID.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries#Indonesian_.28Indonesia.29
-License: GPLv2
+License: GPL-2.0-only
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -36,6 +36,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20040812-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20040812-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -116,8 +119,8 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20040812-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Fri Oct 06 2006 Caolan McNamara <caolanm@redhat.com> - 0.20040812-1
+* Fri Oct 06 2006 Caolán McNamara <caolanm@redhat.com> - 0.20040812-1
 - latest version
 
-* Fri Sep 01 2006 Caolan McNamara <caolanm@redhat.com> - 0.20040410-1
+* Fri Sep 01 2006 Caolán McNamara <caolanm@redhat.com> - 0.20040410-1
 - initial version

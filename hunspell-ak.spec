@@ -7,11 +7,11 @@
 Name: hunspell-ak
 Summary: Akan hunspell dictionaries
 Version: 0.9.1
-Release: 13%{?dist}
+Release: 14%{?dist}
 Source: https://addons.mozilla.org/firefox/downloads/file/376172/akan_spelling_dictionary-0.9.1-typefix-fx.xpi
 URL: http://kasahorow.org/content/akan-nsɛmfuaasekyerɛ
 #https://addons.mozilla.org/en-US/firefox/versions/license/73122
-License: LGPLv3
+License: LGPL-3.0-only
 BuildArch: noarch
 BuildRequires: redland
 
@@ -40,6 +40,9 @@ cp -p dictionaries/ak-GH.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/ak_GH.d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 0.9.1-14
+- migrated to SPDX license
+
 * Tue Jan 31 2023 Caolan McNamara <caolanm@redhat.com> - 0.9.1-13
 - Related: rhbz#1788504 drop use of libdb from rdfproc
 

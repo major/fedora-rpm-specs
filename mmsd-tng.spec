@@ -1,6 +1,6 @@
 Name:       mmsd-tng
-Version:    1.9
-Release:    3%{?dist}
+Version:    2.2.0
+Release:    1%{?dist}
 Summary:    Multimedia Messaging Service
 
 License:    GPLv2
@@ -22,7 +22,7 @@ BuildRequires:      c-ares-devel
 BuildRequires:      pkgconfig(mm-glib)
 BuildRequires:      pkgconfig(gobject-2.0)
 BuildRequires:      pkgconfig(glib-2.0)
-BuildRequires:      pkgconfig(libsoup-2.4)
+BuildRequires:      pkgconfig(libsoup-3.0)
 BuildRequires:      systemd-devel
 BuildRequires:      systemd-rpm-macros
 
@@ -64,20 +64,4 @@ cp %{SOURCE1} %{buildroot}%{_userunitdir}
 %license COPYING
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.9-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Fri Feb 18 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 1.9-1
-- Update to 1.9
-
-* Thu Feb 03 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 1.8-1
-- Update to 1.8
-
-* Thu Jan 20 2022 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_36_Mass_Rebuild
-
-* Sun Jan 09 2022 Torrey Sorensen <torbuntu@fedoraproject.org> - 1.7-1
-- Initial packaging
+%autochangelog

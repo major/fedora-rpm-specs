@@ -5,7 +5,7 @@ Summary:   Package management service
 Name:      PackageKit
 Version:   1.2.6
 Release:   %autorelease
-License:   GPLv2+ and LGPLv2+
+License:   GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:       http://www.freedesktop.org/software/PackageKit/
 Source0:   http://www.freedesktop.org/software/PackageKit/releases/%{name}-%{version}.tar.xz
 

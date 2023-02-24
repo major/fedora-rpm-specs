@@ -12,7 +12,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python wrapper for CRC32C hashing algorithm
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl0
 Source0:        %forgesource
 

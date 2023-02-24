@@ -79,12 +79,11 @@ The libnetlink static library.
 %autosetup -p1 -n %{name}2-%{version}
 
 %build
-%configure
+%configure --libdir %{_libdir}
+echo -e "\nPREFIX=%{_prefix}\nCONFDIR:=%{_sysconfdir}/iproute2\nSBINDIR=%{_sbindir}" >> config.mk
 %make_build
 
 %install
-export SBINDIR='%{_sbindir}'
-export LIBDIR='%{_libdir}'
 %make_install
 
 echo '.so man8/tc-cbq.8' > %{buildroot}%{_mandir}/man8/cbq.8

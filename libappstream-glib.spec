@@ -6,7 +6,7 @@ Summary:   Library for AppStream metadata
 Name:      libappstream-glib
 Version:   0.8.2
 Release:   2%{?dist}
-License:   LGPLv2+
+License:   LGPL-2.1-or-later
 URL:       http://people.freedesktop.org/~hughsient/appstream-glib/
 Source0:   http://people.freedesktop.org/~hughsient/appstream-glib/releases/appstream-glib-%{version}.tar.xz
 

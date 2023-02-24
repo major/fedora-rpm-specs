@@ -16,9 +16,7 @@ BuildRequires: rubygems-devel
 BuildRequires: rubygem(rspec-core)
 BuildRequires: rubygem(rspec-expectations)
 BuildRequires: rubygem(aruba)
-%if 0%{?fedora} >= 36
 BuildRequires: rubygem(matrix)
-%endif
 BuildArch: noarch
 
 %description

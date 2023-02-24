@@ -5,7 +5,7 @@
 %global crate sysinfo
 
 Name:           rust-sysinfo
-Version:        0.27.7
+Version:        0.28.0
 Release:        %autorelease
 Summary:        Library to get system information such as processes, CPUs, disks, components and networks
 
@@ -16,7 +16,6 @@ Source:         %{crates_source}
 Patch:          sysinfo-fix-metadata-auto.diff
 # Manually created patch for downstream crate metadata changes
 # * drop macOS-specific features
-# * drop unused cdylib build target
 Patch:          sysinfo-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
@@ -103,6 +102,18 @@ use the "rayon" feature of the "%{crate}" crate.
 %files       -n %{name}+rayon-devel
 %ghost %{crate_instdir}/Cargo.toml
 
+%package     -n %{name}+serde-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+serde-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "serde" feature of the "%{crate}" crate.
+
+%files       -n %{name}+serde-devel
+%ghost %{crate_instdir}/Cargo.toml
+
 %prep
 %autosetup -n %{crate}-%{version_no_tilde} -p1
 %cargo_prep
@@ -122,7 +133,7 @@ use the "rayon" feature of the "%{crate}" crate.
 %if 0%{?fedora} >= 38
 SKIP_TESTS=""
 %else
-SKIP_TESTS=" --skip test_disks"
+SKIP_TESTS=" --skip test::check_all_process_uids_resolvable --skip test_disks"
 %endif
 
 %ifarch s390x

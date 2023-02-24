@@ -4,7 +4,7 @@
 # https://pagure.io/golist
 %global goipath         pagure.io/golist
 %global forgeurl        https://pagure.io/golist
-Version:                0.10.2
+Version:                0.10.3
 
 %gometa
 

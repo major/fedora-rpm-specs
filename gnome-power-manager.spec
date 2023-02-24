@@ -3,7 +3,7 @@ Version:        43.0
 Release:        2%{?dist}
 Summary:        GNOME power management service
 
-License:        GPLv2+ and GFDL
+License:        GPL-2.0-or-later
 URL:            https://projects.gnome.org/gnome-power-manager/
 Source0:        https://download.gnome.org/sources/gnome-power-manager/43/%{name}-%{version}.tar.xz
 

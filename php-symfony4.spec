@@ -1,7 +1,7 @@
 #
 # Fedora spec file for php-symfony4
 #
-# Copyright (c) 2016-2022 Shawn Iwinski <shawn@iwin.ski>
+# Copyright (c) 2016-2023 Shawn Iwinski <shawn@iwin.ski>
 #                         Remi Collet <remi@fedoraproject.org>
 #
 # License: MIT
@@ -12,8 +12,8 @@
 
 %global github_owner     symfony
 %global github_name      symfony
-%global github_version   4.4.48
-%global github_commit    a23b1f3be1c5a6818481f4fd10792e8400446f65
+%global github_version   4.4.50
+%global github_commit    6bc1c2e2506327daa9a2359ec45f7098ca947728
 %global github_short     %(c=%{github_commit}; echo ${c:0:7})
 
 %global composer_vendor  symfony
@@ -3314,8 +3314,14 @@ exit $RET
 # ##############################################################################
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.48-2
+* Thu Feb  2 2023 Remi Collet <remi@remirepo.net> - 4.4.50-1
+- update to 4.4.50
+
+* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.49-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+
+* Tue Nov 29 2022 Remi Collet <remi@remirepo.net> - 4.4.49-1
+- update to 4.4.49
 
 * Thu Nov  3 2022 Remi Collet <remi@remirepo.net> - 4.4.48-1
 - update to 4.4.48

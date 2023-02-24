@@ -9,6 +9,7 @@ Source0: https://github.com/viewizard/astromenace/archive/%{version}-1781/%{name
 Source1: astromenace.desktop
 Source2: astromenace.png
 Patch0: includes.patch
+Patch1: astromenace-gcc13.patch
 ExcludeArch: ppc64 s390x
 
 BuildRequires: gcc
@@ -38,6 +39,7 @@ Go ahead and make alien aggressors regret their insolence.
 %setup -qn %{name}-%{version}-1781
 
 %patch0 -p0
+%patch1 -p1
 
 %build
 %cmake %_vpath_srcdir -G Ninja -DDATADIR="%{_prefix}/share/astromenace"

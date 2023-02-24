@@ -17,7 +17,7 @@
 
 Name:    kwin
 Version: 5.27.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Window manager
 
 # all sources are effectively GPLv2+, except for:
@@ -43,6 +43,9 @@ Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.
 Patch0: kwin-5.27.0-allow-vt-switch.patch
 
 ## upstream patches
+# Fixes https://bugzilla.redhat.com/show_bug.cgi?id=2168034
+# Upstream PR: https://invent.kde.org/plasma/kwin/-/merge_requests/3667?view=parallel
+Patch1: guard-against-non-existing-workspace.patch
 
 ## proposed patches
 
@@ -368,6 +371,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Wed Feb 22 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-2
+- Add patch to fix BZ#2168034
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
 - 5.27.1
 

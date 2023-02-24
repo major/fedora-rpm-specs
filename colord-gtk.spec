@@ -2,7 +2,7 @@ Summary:   GTK+ 3 support library for colord
 Name:      colord-gtk
 Version:   0.3.0
 Release:   3%{?dist}
-License:   LGPLv2+
+License:   LGPL-2.1-or-later
 URL:       http://www.freedesktop.org/software/colord/
 Source0:   http://www.freedesktop.org/software/colord/releases/%{name}-%{version}.tar.xz
 

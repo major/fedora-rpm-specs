@@ -9,8 +9,8 @@
 %undefine __cmake_in_source_build
 
 Name:		fortune-mod
-Version:	3.14.1
-Release:	2%{?dist}
+Version:	3.16.0
+Release:	1%{?dist}
 Summary:	A program which will display a fortune
 
 License:	BSD
@@ -44,6 +44,7 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl-Test-Harness
 BuildRequires:	perl-interpreter
 BuildRequires:	perl-libs
+BuildRequires:	pkgconfig(librinutils)
 BuildRequires:	recode-devel
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -129,6 +130,9 @@ chrpath -d %{buildroot}%{_bindir}/fortune
 %{_mandir}/man*/*
 
 %changelog
+* Wed Feb 22 2023 Shlomi Fish <shlomif@shlomifish.org> 3.16.0-1
+- New upstream version
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.14.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

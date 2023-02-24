@@ -1,6 +1,6 @@
 Name:		zonefs-tools
-Version:	1.5.2
-Release:	5%{?dist}
+Version:	1.6.0
+Release:	1%{?dist}
 Summary:	Provides user utilities for the zonefs file system
 
 License:	GPLv2+
@@ -10,7 +10,6 @@ Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildRequires:	libblkid-devel
 BuildRequires:	libuuid-devel
 BuildRequires:	autoconf
-BuildRequires:	autoconf-archive
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	make
@@ -39,6 +38,9 @@ sh autogen.sh
 %doc README.md CONTRIBUTING
 
 %changelog
+* Wed Feb 22 2023 Damien Le Moal <damien.lemoal@wdc.com> 1.6.0-1
+- Version 1.6.0 initial package
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,11 +3,11 @@
 %undefine __cmake3_in_source_build
 
 Name:       csmock
-Version:    3.3.5
-Release:    2%{?dist}
+Version:    3.4.0
+Release:    1%{?dist}
 Summary:    A mock wrapper for Static Analysis tools
 
-License:    GPLv3+
+License:    GPL-3.0-or-later
 URL:        https://github.com/csutils/%{name}
 Source0:    https://github.com/csutils/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz
 Source1:    https://github.com/csutils/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.xz.asc
@@ -137,6 +137,14 @@ Requires: cswrap
 %description -n csmock-plugin-smatch
 This package contains the smatch plug-in for csmock.
 
+%package -n csmock-plugin-snyk
+Summary: csmock plug-in providing the support for snyk
+Requires: csdiff > 2.8.0
+Requires: csmock-common
+
+%description -n csmock-plugin-snyk
+This package contains the snyk plug-in for csmock.
+
 %package -n csmock-plugin-strace
 Summary: csmock plug-in providing the support for strace
 Requires: csexec
@@ -170,7 +178,7 @@ This package contains the unicontrol plug-in for csmock.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
+%autosetup
 
 %build
 %cmake3                                       \
@@ -185,12 +193,14 @@ This package contains the unicontrol plug-in for csmock.
 %files
 
 %files -n csbuild
+%license COPYING
 %{_bindir}/csbuild
 %{_mandir}/man1/csbuild.1*
 %{_datadir}/csbuild/scripts/run-scan.sh
-%doc COPYING
 
 %files -n csmock-common
+%license COPYING
+%doc README
 %dir %{_datadir}/csmock
 %dir %{_datadir}/csmock/scripts
 %dir %{python3_sitelib}/csmock
@@ -208,7 +218,6 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/__pycache__/__init__.*
 %{python3_sitelib}/csmock/plugins/__pycache__/__init__.*
 %{python3_sitelib}/csmock/plugins/__pycache__/gcc.*
-%doc COPYING README
 
 %files -n csmock-plugin-bandit
 %{_datadir}/csmock/scripts/run-bandit.sh
@@ -255,6 +264,10 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/smatch.py*
 %{python3_sitelib}/csmock/plugins/__pycache__/smatch.*
 
+%files -n csmock-plugin-snyk
+%{python3_sitelib}/csmock/plugins/snyk.py*
+%{python3_sitelib}/csmock/plugins/__pycache__/snyk.*
+
 %files -n csmock-plugin-strace
 %{python3_sitelib}/csmock/plugins/strace.py*
 %{python3_sitelib}/csmock/plugins/__pycache__/strace.*
@@ -273,6 +286,9 @@ This package contains the unicontrol plug-in for csmock.
 %{python3_sitelib}/csmock/plugins/__pycache__/unicontrol.*
 
 %changelog
+* Wed Feb 22 2023 Kamil Dudka <kdudka@redhat.com> 3.4.0-1
+- update to latest upstream release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

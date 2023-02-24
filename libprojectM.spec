@@ -188,14 +188,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/projectM-jack.desktop
 %license src/projectM-jack/COPYING
 %{_bindir}/projectM-jack
 %{_datadir}/applications/projectM-jack.desktop
-%{_mandir}/man1/projectM-jack.1.*
+%{_mandir}/man1/projectM-jack.1*
 
 %files -n projectM-pulseaudio
 %doc  src/projectM-pulseaudio/ChangeLog
 %license src/projectM-pulseaudio/COPYING
 %{_bindir}/projectM-pulseaudio
 %{_datadir}/applications/projectM-pulseaudio.desktop
-%{_mandir}/man1/projectM-pulseaudio.1.*
+%{_mandir}/man1/projectM-pulseaudio.1*
 
 %files -n projectM-SDL
 %{_bindir}/projectMSDL

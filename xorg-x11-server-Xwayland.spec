@@ -8,7 +8,7 @@
 
 Summary:   Xwayland
 Name:      xorg-x11-server-Xwayland
-Version:   22.1.8
+Version:   23.0.99.901
 Release:   1%{?gitdate:.%{gitdate}git%{shortcommit}}%{?dist}
 
 URL:       http://www.x.org
@@ -17,13 +17,6 @@ Source0:   https://gitlab.freedesktop.org/xorg/%{pkgname}/-/archive/%{commit}/%{
 %else
 Source0:   https://www.x.org/pub/individual/xserver/%{pkgname}-%{version}.tar.xz
 %endif
-
-# Only on F38 and later (patch number starts at 3801, see autopatch below)
-# Disallow byte-swapped clients by default
-# https://gitlab.freedesktop.org/xorg/xserver/-/merge_requests/1029
-Patch3801: 0001-Fix-some-indentation-issues.patch
-Patch3802: 0002-dix-localize-two-variables.patch
-Patch3803: 0003-Disallow-byte-swapped-clients-by-default.patch
 
 License:   MIT
 
@@ -36,13 +29,15 @@ BuildRequires: git-core
 BuildRequires: meson
 
 BuildRequires: wayland-devel
-BuildRequires: pkgconfig(wayland-client) >= 1.18.0
-BuildRequires: pkgconfig(wayland-protocols)
+BuildRequires: desktop-file-utils
+
+BuildRequires: pkgconfig(wayland-client) >= 1.21.0
+BuildRequires: pkgconfig(wayland-protocols) >= 1.28
 BuildRequires: pkgconfig(wayland-eglstream-protocols)
 
 BuildRequires: pkgconfig(epoxy) >= 1.5.5
 BuildRequires: pkgconfig(fontenc)
-BuildRequires: pkgconfig(libdrm) >= 2.4.0
+BuildRequires: pkgconfig(libdrm) >= 2.4.89
 BuildRequires: pkgconfig(libssl)
 BuildRequires: pkgconfig(libtirpc)
 BuildRequires: pkgconfig(pixman-1)
@@ -65,6 +60,7 @@ BuildRequires: pkgconfig(xtrans) >= 1.3.2
 BuildRequires: pkgconfig(xtst)
 BuildRequires: pkgconfig(xv)
 BuildRequires: pkgconfig(libxcvt)
+BuildRequires: pkgconfig(libdecor-0) >= 0.1.1
 BuildRequires: xorg-x11-proto-devel >= 7.7-10
 
 BuildRequires: mesa-libGL-devel >= 9.2
@@ -99,13 +95,7 @@ The development package provides the developmental files which are
 necessary for developing Wayland compositors using Xwayland.
 
 %prep
-%autosetup -N -S git_am -n %{pkgname}-%{?gitdate:%{commit}}%{!?gitdate:%{version}}
-
-%if 0%{?fedora} >= 38
-%autopatch
-%else
-%autopatch -M 3800
-%endif
+%autosetup -S git_am -n %{pkgname}-%{?gitdate:%{commit}}%{!?gitdate:%{version}}
 
 %build
 %meson \
@@ -129,14 +119,21 @@ rm -Rf $RPM_BUILD_ROOT%{_includedir}/xorg
 rm -Rf $RPM_BUILD_ROOT%{_datadir}/aclocal
 rm -Rf $RPM_BUILD_ROOT%{_localstatedir}/lib/xkb
 
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
+
 %files
 %{_bindir}/Xwayland
 %{_mandir}/man1/Xwayland.1*
+%{_datadir}/applications/org.freedesktop.Xwayland.desktop
 
 %files devel
 %{_libdir}/pkgconfig/xwayland.pc
 
 %changelog
+* Wed Feb 22 2023 Olivier Fourdan <ofourdan@redhat.com> - 23.0.99.901
+- xwayland 23.0.99.901 (xwayland 23.1.0 rc1) - (#2172415)
+
 * Tue Feb  7 2023 Olivier Fourdan <ofourdan@redhat.com> - 22.1.8-1
 - xwayland 22.1.8
   Fixes CVE-2023-0494 (#2165995, #2167566, #2167734)

@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        62
+Version:        63
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -58,6 +58,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Feb 22 2023 Packit <hello@packit.dev> - 63-1
+- Stability and performance improvements
+
 * Wed Feb 08 2023 Packit <hello@packit.dev> - 62-1
 - Stability and performance improvements
 

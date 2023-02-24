@@ -2,7 +2,7 @@ Name:      gnome-color-manager
 Version:   3.36.0
 Release:   9%{?dist}
 Summary:   Color management tools for GNOME
-License:   GPLv2+
+License:   GPL-2.0-or-later
 URL:       https://gitlab.gnome.org/GNOME/gnome-color-manager
 Source0:   http://download.gnome.org/sources/gnome-color-manager/3.36/%{name}-%{version}.tar.xz
 

@@ -7,10 +7,10 @@
 Name: hunspell-eu
 Summary: Basque hunspell dictionaries
 Version: 5.1
-Release: 7%{?dist}
+Release: 8%{?dist}
 Source0: http://xuxen.eus/static/hunspell/xuxen_%{version}_hunspell.zip
 URL: http://xuxen.eus
-License: LGPLv3+
+License: LGPL-3.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -35,6 +35,9 @@ cp -p eu_ES.aff %{buildroot}%{_datadir}/%{dict_dirname}/eu_ES.aff
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolan McNamara <caolanm@redhat.com> - 5.1-8
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

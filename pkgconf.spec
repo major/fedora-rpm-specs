@@ -23,8 +23,8 @@
 %global pkgconf_libdirs %{_libdir}/pkgconfig:%{_datadir}/pkgconfig
 
 Name:           pkgconf
-Version:        1.8.0
-Release:        5%{?dist}
+Version:        1.9.4
+Release:        1%{?dist}
 Summary:        Package compiler and linker metadata toolkit
 
 License:        ISC
@@ -52,7 +52,6 @@ BuildRequires:  atf-tests
 
 # pkgconf uses libpkgconf internally
 Requires:       lib%{name}%{?_isa} = %{version}-%{release}
-Requires:       system-rpm-config
 
 # This is defined within pkgconf code as a virtual pc (just like in pkgconfig)
 Provides:       pkgconfig(pkgconf) = %{version}
@@ -111,6 +110,14 @@ used in place of pkgconfig. This ensures that pkgconf is used as
 the system provider of pkg-config.
 
 %endif
+
+%package -n bomtool
+Summary:        Simple SBOM generator using pc(5) files
+Requires:       lib%{name}%{?_isa} = %{version}-%{release}
+
+%description -n bomtool
+bomtool is a program which helps generate a Software Bill of Materials
+manifest using data from installed .pc files.
 
 
 %prep
@@ -211,7 +218,17 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 %dir %{_datadir}/pkgconfig
 %endif
 
+%files -n bomtool
+%{_bindir}/bomtool
+
+
 %changelog
+* Wed Feb 22 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.9.4-1
+- Rebase to 1.9.4
+
+* Wed Feb 22 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.8.0-6
+- Drop dependency on system-rpm-config (#2172406)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

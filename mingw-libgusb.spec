@@ -5,7 +5,7 @@ Version:        0.4.5
 Release:        %autorelease
 Summary:        GLib wrapper around libusb1 for MinGW
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://gitorious.org/gusb/
 Source0:        http://people.freedesktop.org/~hughsient/releases/libgusb-%{version}.tar.xz
 

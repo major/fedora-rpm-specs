@@ -1,6 +1,6 @@
 Name:       ibus-table-others
-Version:    1.3.14
-Release:    2%{?dist}
+Version:    1.3.15
+Release:    1%{?dist}
 Summary:    Various tables for IBus-Table
 License:    LGPL-2.1-or-later AND GPL-3.0-or-later AND WTFPL
 URL:        http://github.com/moebiuscurve/ibus-table-others
@@ -279,6 +279,11 @@ EOF
 %{_datadir}/ibus-table/icons/mongol_bichig.svg
 
 %changelog
+* Wed Feb 22 2023 Mike FABIAN <mfabian@redhat.com> - 1.3.15-1
+- Update to latest upstream 1.3.15
+- Remove { and } from VALID_INPUT_CHARS in latex.txt
+- Add “Mongol bichig” to README
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

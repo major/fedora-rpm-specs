@@ -1,7 +1,7 @@
 # Spec file for php-pear-Cache-Lite
 #
-# Copyright (c) 2008-2019 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2008-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -13,10 +13,12 @@ Summary:        Fast and Safe little cache system for PHP
 Summary(fr):    Méthode de cache rapide et sécurisée pour PHP
 Name:           php-pear-Cache-Lite
 Version:        1.8.3
-Release:        8%{?dist}
-License:        PHP
+Release:        9%{?dist}
+License:        PHP-3.01
 URL:            http://pear.php.net/package/Cache_Lite
 Source:         http://pear.php.net/get/%{pear_name}-%{version}.tgz
+
+Patch0:         %{pear_name}-php82.patch
 
 BuildArch:      noarch
 BuildRequires:  php-pear(PEAR) >= 1.10.1
@@ -45,7 +47,9 @@ et/ou des tests anti-corruption).
 %prep
 %setup -c -q
 cd %{pear_name}-%{version}
-mv ../package.xml %{name}.xml
+
+%patch0 -p0
+sed -e '/role="test"/s/md5sum="[^"]*"//' ../package.xml >%{name}.xml
 
 
 %build
@@ -65,6 +69,7 @@ install -Dpm 644 %{name}.xml %{buildroot}%{pear_xmldir}/%{name}.xml
 
 %check
 cd %{pear_name}-%{version}
+
 %{__pear} \
    run-tests \
    -i "-d include_path=%{buildroot}%{pear_phpdir}:%{pear_phpdir}" \
@@ -90,6 +95,10 @@ fi
 
 
 %changelog
+* Mon Feb 20 2023 Remi Collet <remi@remirepo.net> - 1.8.3-9
+- fix PHP 8.2 deprecations in test suite
+- use SPDX license ID
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

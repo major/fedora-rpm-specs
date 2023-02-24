@@ -4,7 +4,7 @@ Summary:   Firmware update EFI binaries
 Name:      fwupd-efi
 Version:   1.4
 Release:   %autorelease
-License:   LGPLv2+
+License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd-efi
 Source0:   http://people.freedesktop.org/~hughsient/releases/%{name}-%{version}.tar.xz
 

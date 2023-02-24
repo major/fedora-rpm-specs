@@ -10,7 +10,7 @@ Version:       1.2
 Release:       33.%{alphatag}%{?dist}
 Url:           http://matchbox-project.org/
 # svn checkout http://svn.o-hand.com/repos/matchbox/trunk/matchbox-window-manager
-License:       GPLv2+
+License:       GPL-2.0-or-later
 Source0:       %{name}-%{version}-%{alphatag}.tar.gz
 
 Patch1: matchbox-window-manager-1.2-keysyms.patch

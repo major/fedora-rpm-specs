@@ -7,8 +7,8 @@ Painless. Then focus on what’s actually important - using the arguments\
 in the rest of your program.
 
 Name:           python-%{srcname}
-Version:        0.7.1
-Release:        2%{?dist}
+Version:        0.8.2
+Release:        1%{?dist}
 Summary:        Doc to argparse driven by docopt
 
 License:        MPL-2.0
@@ -47,6 +47,9 @@ Python 3 version.
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Wed Feb 22 2023 Vojtech Trefny <vtrefny@redhat.com> - 0.8.2-1
+- Update to 0.8.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

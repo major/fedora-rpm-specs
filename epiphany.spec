@@ -6,7 +6,7 @@
 
 Name:    epiphany
 Epoch:   1
-Version: 44~alpha
+Version: 44~beta
 Release: %autorelease
 Summary: Web browser for GNOME
 
@@ -17,11 +17,8 @@ Source0: https://download.gnome.org/sources/epiphany/44/%{name}-%{tarball_versio
 # Fedora bookmarks
 Patch0: epiphany-default-bookmarks.patch
 
-# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1266
-Patch1: webkitgtk-2.39.5.patch
-# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1269
-# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1273
-Patch2: webkitgtk-2.39.6.patch
+# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1281
+Patch1: webkitgtk-2.39.90.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc

@@ -4,8 +4,8 @@
 %global	_docdir_fmt %{name}
 
 Name:		python-cypari2
-Version:	2.1.2
-Release:	8%{?dist}
+Version:	2.1.3
+Release:	1%{?dist}
 Summary:	A Python interface to the number theory library pari
 License:	GPL-2.0-or-later
 URL:		https://github.com/sagemath/%{modname}
@@ -14,25 +14,15 @@ Source0:	%{pypi_source cypari2}
 Patch0:		%{name}-pari.patch
 # Fix building with cython language level 3
 Patch1:		%{name}-cython.patch
-# Adapt to python 3.10
-# https://github.com/sagemath/cypari2/pull/103
-Patch2:		%{name}-python310.patch
-# Update expected values for pari 2.15.0
-Patch3:		%{name}-test.patch
 
 BuildRequires:	gcc
 BuildRequires:	gmp-devel
 BuildRequires:	make
 BuildRequires:	pari-devel
 BuildRequires:	pari-gp
-BuildRequires:	python3-cysignals-devel >= 1.6.4
+BuildRequires:	python3-cysignals-devel >= 1.7
 BuildRequires:	python3-devel
-BuildRequires:	%{py3_dist cython}
-BuildRequires:	%{py3_dist pip}
-BuildRequires:	%{py3_dist setuptools}
-BuildRequires:	%{py3_dist six}
 BuildRequires:	%{py3_dist sphinx}
-BuildRequires:	%{py3_dist wheel}
 
 %global _description \
 A Python interface to the number theory library pari.
@@ -64,6 +54,9 @@ Documentation and examples for %{name}.
 # Build for python 3
 sed -i '/language_level/s/2/3/' setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 # Do not pass -pthread to the compiler or linker
 export CC=gcc
@@ -78,9 +71,6 @@ rst2html --no-datestamp README.rst README.html
 %install
 %pyproject_install
 rm docs/build/html/.buildinfo
-
-# Bug in version 1.3+ omits the automatically generated declarations
-cp -p cypari2/auto_paridecl.pxd %{buildroot}%{python3_sitearch}/%{modname}
 
 %pyproject_save_files %{modname}
 
@@ -103,6 +93,11 @@ export PATH PYTHONPATH
 %doc docs/build/html
 
 %changelog
+* Wed Feb 22 2023 Jerry James <loganjerry@gmail.com> - 2.1.3-1
+- Version 2.1.3
+- Drop upstreamed -python310 and -test patches
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

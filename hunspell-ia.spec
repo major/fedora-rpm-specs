@@ -8,10 +8,10 @@ Name: hunspell-ia
 Summary: Interlingua hunspell dictionaries
 %global upstreamid 20050226
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: http://download.savannah.gnu.org/releases/interlingua/ia_myspell.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries#Interlingua_.28x-register.29
-License: LGPLv2+
+License: LGPL-2.1-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -38,6 +38,9 @@ cp -p ia.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20050226-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050226-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

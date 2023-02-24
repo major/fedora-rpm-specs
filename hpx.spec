@@ -1,6 +1,6 @@
 Name:           hpx
 Version:        1.8.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        General Purpose C++ Runtime System
 License:        BSL-1.0
 URL:            https://hpx.stellar-group.org/
@@ -55,7 +55,6 @@ Requires:   boost-devel
 Requires:   hwloc-devel
 Requires:   gperftools-devel
 Requires:   gcc-c++
-Requires:   libatomic-devel
 
 %description devel
 %{hpx_desc}
@@ -88,7 +87,6 @@ Summary:    Development headers and libraries for hpx
 Requires:   hpx-mpich = %{version}-%{release}
 Requires:   boost-devel
 Requires:   hwloc-devel
-Requires:   libatomic-devel
 Requires:   mpich-devel
 Requires:   gperftools-devel
 Requires:   asio-devel
@@ -128,7 +126,6 @@ Summary:    Development headers and libraries for hpx
 Requires:   hpx-openmpi = %{version}-%{release}
 Requires:   boost-devel
 Requires:   hwloc-devel
-Requires:   libatomic-devel
 Requires:   openmpi-devel
 Requires:   gperftools-devel
 Requires:   asio-devel
@@ -276,6 +273,9 @@ done
 %{_libdir}/lib*.so*
 
 %changelog
+* Thu Feb 23 2023 Christoph Junghans <junghans@votca.org> - 1.8.1-4
+- Fix deps for devel packages
+
 * Mon Feb 20 2023 Orion Poplawski <orion@nwra.com> - 1.8.1-3
 - Update URL and Source (bz#2119214)
 - Move Requires on libatomic to -devel subpackages (bz#2119214)

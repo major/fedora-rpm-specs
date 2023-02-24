@@ -2,7 +2,7 @@ Summary:        Power Management Service
 Name:           upower
 Version:        0.99.20
 Release:        %autorelease
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://upower.freedesktop.org/
 Source0:        https://gitlab.freedesktop.org/upower/%{name}/-/archive/v%{version}/%{name}-v%{version}.tar.bz2
 

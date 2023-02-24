@@ -1,7 +1,7 @@
 Summary: Manipulate system time per process for testing purposes
 Name: libfaketime
 Version: 0.9.10
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv2+
 Url: https://github.com/wolfcw/libfaketime
 Source: libfaketime-0.9.10.tar.gz
@@ -33,7 +33,7 @@ time system- wide.
 %if 0%{?fedora} >= 32 || 0%{?rhel} >= 9
 %patch1 -p1
 %endif
-%if 0%{?fedora} >= 36
+%if 0%{?fedora} >= 36 || 0%{?rhel} >= 10
 %patch2 -p1
 %endif
 %if 0%{?rhel} == 8
@@ -116,6 +116,9 @@ chmod a+rx %{buildroot}/%{_libdir}/faketime/*.so.*
 %{_mandir}/man1/*
 
 %changelog
+* Wed Feb 22 2023 Pablo Greco <pgreco@centosproject.org> - 0.9.10-5
+- Fix tests in ELN builds (yselkowitz)
+
 * Tue Feb 21 2023 Pablo Greco <pgreco@centosproject.org> - 0.9.10-4
 - Also disable i686 in rhel>=10 (ELN failures)
 

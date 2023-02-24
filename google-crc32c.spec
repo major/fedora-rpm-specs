@@ -13,7 +13,7 @@ Version:        1.1.2
 
 Name:           %{srcname}
 Release:        %autorelease
-License:        BSD
+License:        BSD-3-Clause
 Summary:        CRC32C implementation with support for CPU-specific acceleration instructions
 Url:            %forgeurl
 Source0:        %forgesource

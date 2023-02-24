@@ -1,6 +1,6 @@
 Name:		dm-zoned-tools
-Version:	2.2.1
-Release:	4%{?dist}
+Version:	2.2.2
+Release:	1%{?dist}
 Summary:	Provides utilities to format, check and repair Linux dm-zoned devices
 
 License:	GPLv3+
@@ -13,7 +13,6 @@ BuildRequires:	pkgconfig(uuid)
 BuildRequires:	pkgconfig(blkid)
 BuildRequires:	pkgconfig(libudev)
 BuildRequires:	autoconf
-BuildRequires:	autoconf-archive
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	make
@@ -43,6 +42,9 @@ sh autogen.sh
 %doc README.md CONTRIBUTING
 
 %changelog
+* Tue Jan 31 2023 Damien Le Moal <damien.lemoal@wdc.com> 2.2.2-1
+- Version 2.2.2 package
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -54,11 +56,14 @@ sh autogen.sh
 
 * Tue Dec 21 2021 Damien Le Moal <damien.lemoal@wdc.com> 2.2.1-1
 - Version 2.2.1 package
+
 * Wed Sep 01 2021 Damien Le Moal <damien.lemoal@wdc.com> 2.2.0-1
 - Add "systemd-devel" as a build dependency
 - Version 2.2.0 package
+
 * Thu Jul 01 2021 Damien Le Moal <damien.lemoal@wdc.com> 2.1.3-1
 - Add "make" as a build dependency 
 - Version 2.1.3 package
+
 * Mon Jun 14 2021 Damien Le Moal <damien.lemoal@wdc.com> 2.1.2-1
 - Version 2.1.2 initial package

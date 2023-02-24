@@ -17,7 +17,7 @@ Patch0:         osmium-tool-bigendian.patch
 
 BuildRequires:  cmake make gcc-c++ pandoc man-db
 
-BuildRequires:  catch-devel >= %{catch_version}
+BuildRequires:  catch2-devel >= %{catch_version}
 BuildRequires:  libosmium-devel >= %{libosmium_version}
 BuildRequires:  libosmium-static >= %{libosmium_version}
 BuildRequires:  protozero-devel >= %{protozero_version}

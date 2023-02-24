@@ -6,7 +6,7 @@ Version:        43.2
 Release:        %autorelease
 Summary:        Install firmware on devices
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/hughsie/gnome-firmware
 Source0:        https://people.freedesktop.org/~hughsient/releases/%{name}-%{tarball_version}.tar.xz
 

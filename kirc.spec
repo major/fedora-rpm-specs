@@ -1,5 +1,5 @@
 Name:           kirc
-Version:        0.3.1
+Version:        0.3.2
 Release:        %autorelease
 Summary:        Tiny IRC client written in POSIX C99
 
@@ -26,7 +26,7 @@ designed with usability and cross-platform compatibility in mind.
 
 %files
 %license LICENSE
-%doc README
+%doc README.md
 %{_bindir}/kirc
 %{_mandir}/man1/kirc.1*
 

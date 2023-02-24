@@ -9,7 +9,7 @@ Name:           python-%{srcname}
 Version:        %{short_version}~git.4.%{shortcommit}
 Release:        4%{?dist}
 Summary:        Microsoft Azure Development Tools for SDK
-License:        MIT and ASL 2.0
+License:        MIT and Apache-2.0
 URL:            https://github.com/Azure/azure-sdk-for-python/
 # The azure-sdk-for-python repository is huge at > 160MB, but we only need ~
 # 100KB of source for this package. Use this script to generate a tarball of the

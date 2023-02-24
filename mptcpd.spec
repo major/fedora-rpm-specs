@@ -1,8 +1,8 @@
 Summary: Multipath TCP daemon
 Name: mptcpd
-Version: 0.11
-Release: 2%{?dist}
-License: BSD
+Version: 0.12
+Release: 1%{?dist}
+License: GPL-2.0-or-later AND BSD-3-Clause
 URL: https://multipath-tcp.org
 Requires(post): systemd
 Requires(preun): systemd
@@ -17,7 +17,7 @@ BuildRequires: libell-devel
 BuildRequires: systemd-units
 BuildRequires: systemd-rpm-macros
 
-Source0: https://github.com/intel/mptcpd/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0: https://github.com/multipath-tcp/mptcpd/archive/v%{version}/%{name}-%{version}.tar.gz
 
 %description
 The Multipath TCP Daemon is a daemon for Linux based operating systems that
@@ -31,7 +31,7 @@ Summary: MPTCP path manager header files
 Group: Development/Libraries
 Requires: pkgconfig
 Requires: %{name}%{?_isa} = %{version}-%{release}
-License: BSD
+License: BSD-3-Clause
 
 %description devel
 Header files for adding MPTCP path manager support to applications
@@ -85,6 +85,10 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/mptcpd.pc
 
 %changelog
+* Wed Feb 22 2023 Davide Caratti <dcaratti@redhat.com> - 0.12-1
+- SPDX migration
+- update to version 0.12
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

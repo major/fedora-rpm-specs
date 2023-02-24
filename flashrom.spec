@@ -2,7 +2,7 @@ Name:		flashrom
 Version:	1.3.0
 Release:	1%{?dist}
 Summary:	Simple program for reading/writing flash chips content
-License:	GPLv2
+License:	GPL-2.0-only
 URL:		https://flashrom.org
 
 Source0:	https://download.flashrom.org/releases/%{name}-v%{version}.tar.bz2

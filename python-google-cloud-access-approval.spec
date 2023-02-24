@@ -11,7 +11,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Python Client for Google Cloud Access Approval API
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 

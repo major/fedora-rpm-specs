@@ -16,7 +16,7 @@ Name:           vultr-cli
 Release:        %autorelease
 Summary:        Official command line tool for Vultr services
 # Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 

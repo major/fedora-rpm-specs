@@ -21,7 +21,7 @@ BuildRequires:  cmake make gcc-c++
 BuildRequires:  doxygen graphviz xmlstarlet
 BuildRequires:  ruby rubygems spatialite-tools
 
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 BuildRequires:  boost-devel
 BuildRequires:  protozero-devel >= %{protozero_version}
 BuildRequires:  gdalcpp-devel >= %{gdalcpp_version}
@@ -33,7 +33,7 @@ BuildRequires:  sparsehash-devel
 BuildRequires:  gdal-devel
 BuildRequires:  geos-devel
 
-BuildRequires:  catch-static
+BuildRequires:  catch2-static
 BuildRequires:  protozero-static
 BuildRequires:  gdalcpp-static
 

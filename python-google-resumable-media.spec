@@ -11,7 +11,7 @@ Name:           python-%{srcname}
 Release:        %autorelease
 Summary:        Utilities for Google media downloads and resumable uploads
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %forgeurl
 Source0:        %forgesource
 BuildArch:      noarch

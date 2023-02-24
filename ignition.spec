@@ -7,6 +7,9 @@
 %bcond_with check
 %endif
 
+%global ignedgecommit a3a8f0abb2a1c7fc1c9e5d0e7a3e8830b2e2d766
+%global ignedgeshortcommit %(c=%{ignedgecommit}; echo ${c:0:7})
+
 # https://github.com/coreos/ignition
 %global goipath         github.com/coreos/ignition
 %global gomodulesmode   GO111MODULE=on
@@ -19,13 +22,14 @@ Version:                2.15.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
 License:        ASL 2.0
 URL:            %{gourl}
 Source0:        %{gosource}
+Source1:        https://github.com/fedora-iot/ignition-edge/archive/%{ignedgecommit}/ignition-edge-%{ignedgeshortcommit}.tar.gz
 
 BuildRequires: libblkid-devel
 BuildRequires: systemd-rpm-macros
@@ -197,6 +201,17 @@ It is only used for building release binaries to be signed by Fedora release
 engineering and uploaded to the Ignition GitHub releases page.
 %endif
 
+############## ignition-edge subpackage ##############
+
+%package edge
+
+Summary:  Enablement glue for Ignition on IoT/Edge systems
+License:  ASL 2.0
+
+%description edge
+This package contains dracut modules, services and binaries needed to enable
+Ignition on IoT/Edge systems.
+
 %prep
 %if 0%{?fedora}
 %goprep -k
@@ -204,6 +219,8 @@ engineering and uploaded to the Ignition GitHub releases page.
 %else
 %forgeautosetup -p1
 %endif
+
+tar xvf %{SOURCE1}
 
 %build
 export LDFLAGS="-X github.com/coreos/ignition/v2/internal/version.Raw=%{version} -X github.com/coreos/ignition/v2/internal/distro.selinuxRelabel=true "
@@ -268,6 +285,8 @@ install -p -m 0644 ./ignition-validate-x86_64-unknown-linux-gnu-static %{buildro
 # the command line.  Install directly into the dracut module dir.
 install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 
+%make_install -C ignition-edge-%{ignedgecommit}
+
 %if %{with check}
 %check
 # Exclude the blackbox tests
@@ -300,7 +319,23 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_datadir}/ignition/ignition-validate-x86_64-unknown-linux-gnu-static
 %endif
 
+%files edge
+%license %{golicenses}
+%doc %{godocs}
+%{dracutlibdir}/modules.d/35ignition-edge/*
+%{dracutlibdir}/modules.d/10coreos-sysctl/*
+%{dracutlibdir}/modules.d/99emergency-shell-setup/*
+%{dracutlibdir}/modules.d/99journal-conf/*
+%{_unitdir}/coreos-check-ssh-keys.service
+%{_unitdir}/coreos-ignition-write-issues.service
+%{_unitdir}/ignition-firstboot-complete.service
+%{_libexecdir}/coreos-ignition-write-issues
+%{_libexecdir}/coreos-check-ssh-keys
+
 %changelog
+* Wed Feb 22 2023 Paul Whalen <pwhalen@fedoraproject.org> - 2.15.0-2
+- Enable ignition-edge in Fedora
+
 * Tue Feb 21 2023 Benjamin Gilbert <bgilbert@redhat.com> - 2.15.0-1
 - New release
 - Drop Conflicts/Obsoletes for ancient Ignition releases

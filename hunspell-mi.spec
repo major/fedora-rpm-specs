@@ -8,10 +8,10 @@ Name: hunspell-mi
 Summary: Maori hunspell dictionaries
 %global upstreamid 20080630
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/mi_NZ.zip
 URL: https://wiki.openoffice.org/wiki/Dictionaries
-License: GPLv3+
+License: GPL-3.0-or-later
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -42,6 +42,9 @@ cp -p mi_NZ.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/mi_NZ.dic
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20080630-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080630-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -122,5 +125,5 @@ cp -p mi_NZ.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/mi_NZ.dic
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20080630-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Mon Sep 29 2008 Caolan McNamara <caolanm@redhat.com> - 0.20080630-1
+* Mon Sep 29 2008 Caolán McNamara <caolanm@redhat.com> - 0.20080630-1
 - initial version

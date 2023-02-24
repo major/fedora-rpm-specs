@@ -12,7 +12,7 @@ Source0:        https://github.com/mapbox/%{name}/archive/v%{version}.tar.gz#/%{
 BuildRequires:  cmake make gcc-c++
 BuildRequires:  doxygen graphviz
 BuildRequires:  protobuf-devel protobuf-lite-devel protobuf-compiler
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 
 %description
 Minimalistic protocol buffer decoder and encoder in C++.

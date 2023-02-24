@@ -3,7 +3,8 @@ Version:        2.5.11
 Release:        1%{?dist}
 Summary:        Conversion library and mapping compiler
 # COPYING:                      links to license/LICENSING.txt
-# license/License_CPLv05.txt:   CPL-0.5 text, waiting on an SPDX identifer
+# license/License_CPLv05.txt:   CPL-1.0 text, "0.5" version in the license
+#                               title is irrelevant
 #                               <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>
 # license/License_LGPLv21.txt:  LGPL-2.1 text
 # license/LICENSING.txt:        license declarations
@@ -11,7 +12,8 @@ Summary:        Conversion library and mapping compiler
 # SFconv/UtfCodec.h:        LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL(?version) (bundled Graphite2)
 #                           <https://github.com/silnrsi/graphite/issues/58>,
 #                           graphite2 package uses "MPL"
-# source/Engine.cpp:        LGPL-2.1-or-later OR CPL-0.5-or-later
+# source/Engine.cpp:        LGPL-2.1-or-later OR CPL-1.0, CPL-1.0 identifier already
+#                           encompases "or later" choice
 #                           <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>
 # source/TECkit_Format.h:   LGPL-2.1-or-later OR CPL-0.5-or-later
 ## Not in any binary package
@@ -40,9 +42,6 @@ Summary:        Conversion library and mapping compiler
 # SFconv/expat/xmlparse/xmlparse.c:     MPL-1.1 OR GPL-1.0-or-later (bundled expat)
 # zlib-1.2.3:           "sse copyright notice in zlib.h"
 # zlib-1.2.3/zlib.h:    zlib-acknowledgement
-#
-# TODO: Augment CPL-1.0 to CPL-0.5-or-later after resolving
-# <https://gitlab.com/fedora/legal/fedora-license-data/-/issues/160>.
 License:        (LGPL-2.1-or-later OR CPL-1.0) AND (LGPL-2.1-or-later OR GPL-2.0-or-later OR MPL-2.0 OR MPL-1.1)
 URL:            https://scripts.sil.org/cms/scripts/page.php?site_id=nrsi&id=teckit
 Source0:        https://github.com/silnrsi/teckit/releases/download/v%{version}/teckit-%{version}.tar.gz

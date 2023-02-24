@@ -7,10 +7,10 @@
 Name: hunspell-ln
 Summary: Lingala hunspell dictionaries
 Version: 0.02
-Release: 25%{?dist}
+Release: 26%{?dist}
 Source: http://downloads.sourceforge.net/lingala/hunspell-ln-0.02.zip
 URL: http://lingala.sourceforge.net/
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 Requires: hunspell-filesystem
 Supplements: (hunspell and langpacks-ln)
@@ -33,6 +33,9 @@ cp -p ln_CD.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.02-26
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.02-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -107,5 +110,5 @@ cp -p ln_CD.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.02-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sun Apr 26 2009 Caolan McNamara <caolanm@redhat.com> - 0.02-1
+* Sun Apr 26 2009 Caolán McNamara <caolanm@redhat.com> - 0.02-1
 - initial version

@@ -10,7 +10,7 @@ Version:        %{upstream_version}
 Release:        4%{?dist}
 Summary:        Open Source implementation of the POSIX Ada Bindings
 
-License:        GPLv2+ with exceptions
+License:        GPL-2.0-or-later WITH GNAT-exception
 
 URL:            https://github.com/%{upstream_owner}/%{upstream_name}
 Source:         %{url}/archive/%{upstream_gittag}/%{upstream_name}-%{upstream_version}.tar.gz

@@ -8,10 +8,10 @@ Name: hunspell-el
 Summary: Greek hunspell dictionaries
 Epoch: 1
 Version: 0.9
-Release: 12%{?dist}
+Release: 13%{?dist}
 Source: http://ispell.math.upatras.gr/files/ooffice/el_GR-%{version}.zip
 URL: http://www.elspell.gr/
-License: GPLv2+ or LGPLv2+ or MPLv1.1
+License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -43,6 +43,9 @@ done
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2012 Caolán McNamara <caolanm@redhat.com> - 1:0.9-13
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

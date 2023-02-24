@@ -4,7 +4,7 @@
 # 2) When making changes, increment the version (in baserelease) by 1.
 #    rpmdev-bumpspec and other tools update the macro below, which is used
 #    in Version: to get the desired effect.
-%global baserelease 250
+%global baserelease 251
 
 Summary: Red Hat specific rpm configuration files
 Name: redhat-rpm-config
@@ -111,7 +111,6 @@ Requires: pyproject-srpm-macros
 %if ! 0%{?rhel}
 Requires: fpc-srpm-macros
 Requires: gnat-srpm-macros
-Requires: nim-srpm-macros
 Requires: ansible-srpm-macros
 %endif
 
@@ -253,6 +252,10 @@ install -p -m 644 -t %{buildroot}%{_rpmluadir}/fedora/srpm forge.lua
 %doc buildflags.md
 
 %changelog
+* Thu Feb 23 2023 Miro Hrončok <mhroncok@redhat.com> - 251-1
+- Drop the requirement of orphaned nim-srpm-macros
+- No Fedora package uses the %%nim_arches macro
+
 * Tue Feb 14 2023 Frederic Berat <fberat@redhat.com> - 250-1
 - update config.{guess,sub} to gnuconfig git HEAD
 

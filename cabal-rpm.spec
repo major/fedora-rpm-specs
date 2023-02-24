@@ -4,7 +4,7 @@
 %bcond_without manpage
 
 Name:           cabal-rpm
-Version:        2.0.11.1
+Version:        2.1.0
 Release:        1%{?dist}
 Summary:        RPM packaging tool for Haskell Cabal-based packages
 
@@ -12,14 +12,12 @@ License:        GPL-3.0-or-later
 Url:            https://hackage.haskell.org/package/%{name}
 # Begin cabal-rpm sources:
 Source0:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}-%{version}.tar.gz
-Source1:        https://hackage.haskell.org/package/%{name}-%{version}/%{name}.cabal#/%{name}-%{version}.cabal
 # End cabal-rpm sources
 Source2:        cblrpm.1
 # tweaked to add cblrpm
 Source3:        bash_completion
 
 # Begin cabal-rpm deps:
-BuildRequires:  dos2unix
 BuildRequires:  ghc-rpm-macros
 BuildRequires:  ghc-Cabal-devel
 BuildRequires:  ghc-base-devel
@@ -73,7 +71,6 @@ Standalone packages can also be made, built with cabal-install.
 %prep
 # Begin cabal-rpm setup:
 %setup -q
-dos2unix -k -n %{SOURCE1} %{name}.cabal
 # End cabal-rpm setup
 
 
@@ -117,6 +114,21 @@ ln -s %{name} %{buildroot}%{_bindir}/cblrpm
 
 
 %changelog
+* Wed Feb 22 2023 Jens Petersen <petersen@redhat.com> - 2.1.0-1
+- spec: list out ghc-*-prof BRs separately from ghc-*-devel
+- spec: output SPDX license tags
+- spec: for standalone f36+ cabal-install needs ghc_set_gcc_flags
+- spec: handle '.' paragraph separator lines in description
+- spec: initial support for --with-ghc version to build with ghcX.Y
+- spec: check if deps of missing deps available
+- Stackage: default to latest lts-20 stream
+- refresh: build cabal-rpm in tempdir
+- PackageUtils rpmbuild: no longer override _builddir, _rpmdir, _srcrpmdir
+- PackageUtils tryUnpack: now into _builddir
+- PackageUtils patchSpec: show .rej if patch fails
+- PackageUtils: handle tools like ghc-tags which are not a library
+- always assume revised .cabal is wanted/used
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 2.0.11.1-1
 - https://hackage.haskell.org/package/cabal-rpm-2.0.11.1/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

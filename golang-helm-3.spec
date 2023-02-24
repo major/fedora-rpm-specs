@@ -37,6 +37,11 @@ Patch:          revert-k8s-bump.patch
 # Drop tests that require network access
 Patch:          drop-network-tests.patch
 
+%if 0%{?fc36}
+# Build fails on these arches for Fedora 36
+ExcludeArch:    armv7hl aarch64
+%endif
+
 %description %{common_description}
 
 %package -n     helm

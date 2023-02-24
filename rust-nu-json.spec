@@ -5,7 +5,7 @@
 %global crate nu-json
 
 Name:           rust-nu-json
-Version:        0.75.0
+Version:        0.76.0
 Release:        %autorelease
 Summary:        Fork of serde-hjson
 

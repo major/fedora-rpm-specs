@@ -68,6 +68,10 @@ Patch30:        FixSharedArray.diff
 Patch31:        0002-D89554-autoconf1.diff
 Patch32:        0003-D94538-autoconf2.diff
 
+# Fix build on riscv64
+Patch40:        0001-feature-riscv64-support-from-Debian-and-clang.patch
+Patch41:        tests-skip-some-tests-on-rv64.patch
+
 BuildRequires:  cargo
 BuildRequires:  clang-devel
 BuildRequires:  gcc
@@ -135,6 +139,11 @@ pushd ../..
 
 %ifarch s390x
 %patch18 -p1
+%endif
+
+%ifarch riscv64
+%patch40 -p1
+%patch41 -p1
 %endif
 
 # Fixes for ppc64 and s390x, there is no need to keep it in ifarch here since mozilla tests support ifarch conditions
@@ -283,6 +292,9 @@ PYTHONPATH=tests/lib %{__python3} jit-test/jit_test.py -s -t 2400 --no-progress 
 %{_includedir}/mozjs-%{major}/
 
 %changelog
+* Tue Feb 21 2023 Nianqing Yao <imbearchild@outlook.com> - 78.15.0-11
+- Get riscv64 support from Arch linux RISC-V.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 78.15.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

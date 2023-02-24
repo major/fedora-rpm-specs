@@ -58,7 +58,7 @@
 
 Name: evolution-data-server
 Version: 3.47.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Backend data server for Evolution
 License: LGPL-2.0-or-later
 URL: https://wiki.gnome.org/Apps/Evolution
@@ -488,6 +488,9 @@ find $RPM_BUILD_ROOT -name '*.so.*' -exec chmod +x {} \;
 %{_datadir}/installed-tests
 
 %changelog
+* Wed Feb 22 2023 Michael Catanzaro <mcatanzaro@redhat.com> - 3.47.2-2
+- Build against WebKitGTK 2.39.90
+
 * Fri Feb 10 2023 Milan Crha <mcrha@redhat.com> - 3.47.2-1
 - Update to 3.47.2
 

@@ -8,10 +8,10 @@ Name: hunspell-gl
 Summary: Galician hunspell dictionaries
 %global upstreamid 20080515
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/800/2/corrector_ooo3.oxt
 URL: http://wiki.mancomun.org/index.php/Corrector_ortogr%C3%A1fico_para_OpenOffice.org#Descrici.C3.B3n
-License: GPLv2
+License: GPL-2.0-only
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -35,6 +35,9 @@ cp -p dictionaries/*.dic dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_d
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20080515-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20080515-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -115,21 +118,21 @@ cp -p dictionaries/*.dic dictionaries/*.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_d
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20080515-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Fri May 16 2008 Caolan McNamara <caolanm@redhat.com> - 0.20080515-1
+* Fri May 16 2008 Caolán McNamara <caolanm@redhat.com> - 0.20080515-1
 - latest dictionaries
 
-* Wed Apr 16 2008 Caolan McNamara <caolanm@redhat.com> - 0.20080410-1
+* Wed Apr 16 2008 Caolán McNamara <caolanm@redhat.com> - 0.20080410-1
 - latest dictionaries
 
-* Fri Nov 09 2007 Caolan McNamara <caolanm@redhat.com> - 0.20071107-1
+* Fri Nov 09 2007 Caolán McNamara <caolanm@redhat.com> - 0.20071107-1
 - latest dictionaries
 
-* Tue Aug 21 2007 Caolan McNamara <caolanm@redhat.com> - 0.20070802-1
+* Tue Aug 21 2007 Caolán McNamara <caolanm@redhat.com> - 0.20070802-1
 - latest dictionaries
 - clarify license
 
-* Sat May 05 2007 Caolan McNamara <caolanm@redhat.com> - 0.20070504-1
+* Sat May 05 2007 Caolán McNamara <caolanm@redhat.com> - 0.20070504-1
 - latest dictionaries
 
-* Thu Dec 07 2006 Caolan McNamara <caolanm@redhat.com> - 0.20061002-1
+* Thu Dec 07 2006 Caolán McNamara <caolanm@redhat.com> - 0.20061002-1
 - initial version

@@ -1,5 +1,5 @@
 Name:    pcp
-Version: 6.0.2
+Version: 6.0.3
 Release: 1%{?dist}
 Summary: System-level performance monitoring and performance management
 License: GPLv2+ and LGPLv2+ and CC-BY
@@ -93,7 +93,7 @@ Source0: %{artifactory}/pcp-source-release/pcp-%{version}.src.tar.gz
 %endif
 
 # support for pmdabpf, check bcc.spec for supported architectures of libbpf-tools
-%if 0%{?fedora} >= 33 || 0%{?rhel} > 8
+%if 0%{?fedora} >= 37 || 0%{?rhel} > 8
 %ifarch x86_64 ppc64 ppc64le aarch64
 %global disable_bpf 0
 %else
@@ -277,7 +277,7 @@ BuildRequires: perl-devel perl(strict)
 BuildRequires: perl(ExtUtils::MakeMaker) perl(LWP::UserAgent) perl(JSON)
 BuildRequires: perl(Time::HiRes) perl(Digest::MD5)
 BuildRequires: perl(XML::LibXML) perl(File::Slurp)
-BuildRequires: man %{_hostname_executable}
+BuildRequires: %{_hostname_executable}
 %if !%{disable_systemd}
 BuildRequires: systemd-devel
 %endif
@@ -3371,6 +3371,9 @@ fi
 %files zeroconf -f pcp-zeroconf-files.rpm
 
 %changelog
+* Thu Feb 23 2023 Nathan Scott <nathans@redhat.com> - 6.0.3-1
+- Update to latest PCP sources.
+
 * Mon Feb 13 2023 Nathan Scott <nathans@redhat.com> - 6.0.2-1
 - Resolve a dstat swap plugin related failure (BZ 2168774)
 - Update to latest PCP sources.

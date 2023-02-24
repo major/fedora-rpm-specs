@@ -8,10 +8,10 @@ Name: hunspell-mk
 Summary: Macedonian hunspell dictionaries
 %global upstreamid 20051126
 Version: 0.%{upstreamid}
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/mk_MK.zip
 URL: https://wiki.openoffice.org/wiki/Dictionaries
-License: GPL+
+License: GPL-1.0-or-later
 BuildArch: noarch
 #change encoding name to use the name that iconv knows this under
 Patch0: hunspell-mk-iconv.patch
@@ -37,6 +37,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20051126-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20051126-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -120,5 +123,5 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20051126-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Fri Oct 03 2008 Caolan McNamara <caolanm@redhat.com> - 0.20051126-1
+* Fri Oct 03 2008 Caolán McNamara <caolanm@redhat.com> - 0.20051126-1
 - initial version

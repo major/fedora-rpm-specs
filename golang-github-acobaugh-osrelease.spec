@@ -5,7 +5,7 @@
 %global goipath         github.com/acobaugh/osrelease
 Version:                0.1.0
 
-%gometa
+%gometa -f
 
 %global common_description %{expand:
 Golang package to read and parse /etc/os-release}
@@ -16,7 +16,7 @@ Golang package to read and parse /etc/os-release}
 Name:           %{goname}
 # Package was incorrectly versioned 0.0.1
 Epoch:          1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Golang package to read and parse /etc/os-release
 
 # Upstream license specification: BSD-3-Clause
@@ -43,6 +43,9 @@ Source0:        %{gosource}
 %gopkgfiles
 
 %changelog
+* Wed Feb 22 2023 Martin Jackson <mhjacks@swbell.net> - 1:0.1.0-2
+- Add -f to %%gometa to avoid %%ix86 builds
+
 * Tue Feb 21 2023 Debarshi Ray <rishi@fedoraproject.org> - 1:0.1.0-1
 - Update to 0.1.0
 

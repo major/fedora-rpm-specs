@@ -7,10 +7,10 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 4663ccc89a7fcbf9d901a80730ee925fc7f64c59
+%global git_hash 4ddbcb9c0c555838b123c018a9ebc9b7e14a87e5
 
 Name:		passt
-Version:	0^20230216.g4663ccc
+Version:	0^20230222.g4ddbcb9
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	AGPLv3+ and BSD
@@ -96,6 +96,9 @@ semodule -r pasta 2>/dev/null || :
 %{_datadir}/selinux/packages/%{name}/pasta.pp
 
 %changelog
+* Wed Feb 22 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230222.g4ddbcb9-1
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_02_16.4663ccc..2023_02_22.4ddbcb9
+
 * Thu Feb 16 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230216.g4663ccc-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2022_11_16.ace074c..2023_02_16.4663ccc
 

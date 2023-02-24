@@ -5,7 +5,7 @@ Version:	1.6.6
 Release:	4%{?dist}
 Summary:	Library for JavaScript Object Notation format
 
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		https://wiki.gnome.org/Projects/JsonGlib
 Source0:	https://download.gnome.org/sources/%{name}/1.6/%{name}-%{version}.tar.xz
 

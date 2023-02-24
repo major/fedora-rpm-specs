@@ -8,10 +8,10 @@ Name: hunspell-ky
 Summary: Kirghiz hunspell dictionaries
 %global upstreamid 20090415
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source: http://ftp.gnu.org/gnu/aspell/dict/ky/aspell6-ky-0.01-0.tar.bz2
 URL: http://borel.slu.edu/crubadan/
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 BuildRequires: aspell, hunspell-devel
 
@@ -41,6 +41,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 0.20090415-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20090415-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -119,11 +122,11 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20090415-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sat Jul 11 2009 Caolan McNamara <caolanm@redhat.com> - 0.20090414-2
+* Sat Jul 11 2009 Caolán McNamara <caolanm@redhat.com> - 0.20090414-2
 - preserve timestamp
 
-* Mon Jun 22 2009 Caolan McNamara <caolanm@redhat.com> - 0.20090415-1
+* Mon Jun 22 2009 Caolán McNamara <caolanm@redhat.com> - 0.20090415-1
 - out by one
 
-* Thu Jun 18 2009 Caolan McNamara <caolanm@redhat.com> - 0.20090414-1
+* Thu Jun 18 2009 Caolán McNamara <caolanm@redhat.com> - 0.20090414-1
 - initial version

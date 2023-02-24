@@ -11,6 +11,7 @@ Patch1:         pingus-0.7.6-gcc470-udl.patch
 Patch2:         pingus-0.7.6-missing-header.patch
 Patch3:         pingus-0.7.6-boost-169.patch
 Patch4:         pingus-0.7.6-python3.patch
+Patch5:         pingus-gcc13.patch
 BuildRequires: make
 BuildRequires:  SDL_mixer-devel SDL_image-devel boost-devel libpng-devel
 BuildRequires:  physfs-devel python3-scons desktop-file-utils gcc-c++
@@ -31,6 +32,7 @@ combination of commands are necessary. The game is presented in a 2D site view.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p0
+%patch5 -p1
 iconv -f ISO8859-2 -t UTF8 AUTHORS > AUTHORS.tmp
 mv AUTHORS.tmp AUTHORS
 

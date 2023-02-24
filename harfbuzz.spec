@@ -1,6 +1,6 @@
 Name:           harfbuzz
-Version:        7.0.0
-Release:        2%{?dist}
+Version:        7.0.1
+Release:        1%{?dist}
 Summary:        Text shaping library
 
 License:        MIT
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Wed Feb 22 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.0.1-1
+- Update to 7.0.1 version (#2169172)
+
 * Mon Feb 13 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.0.0-2
 - Add hb-info, libharfbuzz-cairo library files
 

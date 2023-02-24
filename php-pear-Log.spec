@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for php-pear-Log
 #
-# Copyright (c) 2006-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2006-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -13,10 +13,12 @@
 Summary:        Abstracted logging facility for PHP
 Name:           php-pear-Log
 Version:        1.13.3
-Release:        5%{?dist}
+Release:        6%{?dist}
 License:        MIT
 URL:            http://pear.php.net/package/Log
 Source:         http://pear.php.net/get/Log-%{version}.tgz
+
+Patch0:         %{pear_name}-php82.patch
 
 BuildArch:      noarch
 BuildRequires:  php-pear
@@ -45,8 +47,9 @@ and "php-pear-MDB2" (version >= 2.0.0RC1).
 %setup -c -q
 
 cd %{pear_name}-%{version}
-# package.xml is V2
-mv ../package.xml %{name}.xml
+
+%patch0 -p0
+sed -e '/role="test"/s/md5sum="[^"]*"//' ../package.xml >%{name}.xml
 
 
 %build
@@ -71,7 +74,7 @@ install -D -p -m 644 %{name}.xml %{buildroot}%{pear_xmldir}/%{name}.xml
 cd %{pear_name}-%{version}
 %{__pear} \
    run-tests \
-   -i "-d include_path=%{buildroot}%{pear_phpdir}:%{pear_phpdir}" \
+   -d -i "-d include_path=%{buildroot}%{pear_phpdir}:%{pear_phpdir}" \
    tests | tee ../tests.log
 grep "FAILED TESTS" ../tests.log && exit 1 || exit 0
 
@@ -97,6 +100,9 @@ fi
 
 
 %changelog
+* Wed Feb 22 2023 Remi Collet <remi@remirepo.net> - 1.13.3-6
+- fix for PHP 8.2 changes in test suite
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

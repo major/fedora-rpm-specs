@@ -3,7 +3,7 @@ Name:      appstream-data
 Version:   39
 Release:   %autorelease
 BuildArch: noarch
-License:   CC0 and CC-BY and CC-BY-SA and GFDL
+License:   CC0-1.0 AND CC-BY-1.0 AND CC-BY-SA-1.0 AND GFDL-1.1-or-later
 URL:       https://github.com/hughsie/appstream-glib
 Source1:   https://dl.fedoraproject.org/pub/alt/screenshots/f%{version}/fedora-%{version}.xml.gz
 Source2:   https://dl.fedoraproject.org/pub/alt/screenshots/f%{version}/fedora-%{version}-icons.tar.gz

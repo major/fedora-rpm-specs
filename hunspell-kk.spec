@@ -7,10 +7,10 @@
 Name: hunspell-kk
 Summary: Kazakh hunspell dictionaries
 Version: 1.1
-Release: 25%{?dist}
+Release: 26%{?dist}
 Source: https://downloads.sourceforge.net/project/aoo-extensions/1172/12/dict-kk.oxt
 URL: http://extensions.services.openoffice.org/project/dict-kk
-License: GPLv2+ or LGPLv2+ or MPLv1.1
+License: GPL-2.0-or-later OR LGPL-2.1-or-later OR MPL-1.1
 BuildArch: noarch
 
 Requires: hunspell-filesystem
@@ -39,6 +39,9 @@ cp -p kk_KZ.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Wed Feb 22 2023 Caolán McNamara <caolanm@redhat.com> - 1.1-26
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -113,14 +116,14 @@ cp -p kk_KZ.* $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Wed Aug 26 2009 Caolan McNamara <caolanm@redhat.com> - 1.1-1
+* Wed Aug 26 2009 Caolán McNamara <caolanm@redhat.com> - 1.1-1
 - latest version
 
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sat Jul 11 2009 Caolan McNamara <caolanm@redhat.com> - 1.0-2
+* Sat Jul 11 2009 Caolán McNamara <caolanm@redhat.com> - 1.0-2
 - tidy spec
 
-* Mon Apr 20 2009 Caolan McNamara <caolanm@redhat.com> - 1.0-1
+* Mon Apr 20 2009 Caolán McNamara <caolanm@redhat.com> - 1.0-1
 - initial version

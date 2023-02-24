@@ -5,7 +5,7 @@
 %global crate nu-engine
 
 Name:           rust-nu-engine
-Version:        0.75.0
+Version:        0.76.0
 Release:        %autorelease
 Summary:        Nushell's evaluation engine
 
@@ -43,6 +43,18 @@ This package contains library source intended for building other packages which
 use the "default" feature of the "%{crate}" crate.
 
 %files       -n %{name}+default-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+plugin-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+plugin-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "plugin" feature of the "%{crate}" crate.
+
+%files       -n %{name}+plugin-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

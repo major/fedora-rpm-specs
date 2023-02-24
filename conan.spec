@@ -1,16 +1,15 @@
-%global beta beta10
-
 Name: conan
 Version: 2.0.0
-Release: 0.10.%{beta}%{?dist}
+Release: 1%{?dist}
 
 License: MIT
 Summary: Open-source C/C++ package manager
 URL: https://github.com/%{name}-io/%{name}
-Source0: %{url}/archive/%{version}-%{beta}/%{name}-%{version}-%{beta}.tar.gz
+Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch: noarch
-# I have no idea who thought this was a good idea to hardcode and then check against.
-Patch0: conan-2.0.0-beta10-gcc13.patch
+
+# https://github.com/conan-io/conan/pull/13007
+Patch100: %{name}-2.0.0-gcc13.patch
 
 BuildRequires: python3-devel
 
@@ -46,7 +45,7 @@ also creates and maintains packages in ConanCenter and Bincrafters
 repositories in Bintray.
 
 %prep
-%autosetup -n %{name}-%{version}-%{beta} -p1
+%autosetup -p1
 sed -e 's/, .*//g' -i %{name}s/requirements.txt
 find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \; -exec sed -i '1d' {} \; \)
 
@@ -66,6 +65,9 @@ find -name '*.py' \( \! -perm /u+x,g+x,o+x -exec sed -e '/^#!/Q 0' -e 'Q 1' {} \
 %{_bindir}/%{name}
 
 %changelog
+* Wed Feb 22 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-1
+- Updated to version 2.0.0.
+
 * Sat Feb 18 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 2.0.0-0.10.beta10
 - Updated to version 2.0.0-beta10.
 

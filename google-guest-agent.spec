@@ -17,7 +17,7 @@ Name:           google-guest-agent
 Release:        %{autorelease} 
 Summary:        Google Compute Engine guest environment
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 

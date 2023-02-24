@@ -1,8 +1,8 @@
 %global pypi_name Scrapy
 %global pkg_name scrapy
 Name:		python-scrapy
-Version:	2.6.1
-Release:	4%{?dist}
+Version:	2.8.0
+Release:	1%{?dist}
 Summary:	A high-level Python Screen Scraping framework
 
 License:	BSD
@@ -46,6 +46,7 @@ Requires:	python3-parsel
 Requires:	python3-itemadapter
 Requires:	python3-protego
 Requires:	python3-itemloaders
+Requires:	python3-pydispatcher
 
 %{?python_provide:%python_provide python3-%{pkg_name}}
 
@@ -91,6 +92,9 @@ rm -f docs/build/html/.buildinfo
 %doc docs/build/html
 
 %changelog
+* Tue Feb 21 2023 Eduardo Echeverria <echevemaster@gmail.com> - 2.8.0-1
+- Update to 2.8.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

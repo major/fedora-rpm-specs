@@ -5,7 +5,7 @@
 %global crate nu-path
 
 Name:           rust-nu-path
-Version:        0.75.0
+Version:        0.76.0
 Release:        %autorelease
 Summary:        Path handling library for Nushell
 
