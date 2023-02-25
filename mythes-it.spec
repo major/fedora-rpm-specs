@@ -1,10 +1,10 @@
 Name: mythes-it
 Summary: Italian thesaurus
 Version: 2.0.9l
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: http://downloads.sourceforge.net/sourceforge/linguistico/thesaurus2_it_02_09_l_2008_11_29.zip
 URL: http://linguistico.sourceforge.net/pages/thesaurus_italiano.html
-License: AGPLv3+
+License: AGPL-3.0-or-later
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-it)
@@ -47,6 +47,9 @@ done
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 2.0.9l-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.9l-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -117,17 +120,17 @@ done
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.9l-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Sun Apr 04 2010 Caolan McNamara <caolanm@redhat.com> - 2.0.9l-5
+* Sun Apr 04 2010 Caolán McNamara <caolanm@redhat.com> - 2.0.9l-5
 - mythes now owns /usr/share/mythes
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.9l-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Fri Jul 10 2009 Caolan McNamara <caolanm@redhat.com> - 2.0.9l-3
+* Fri Jul 10 2009 Caolán McNamara <caolanm@redhat.com> - 2.0.9l-3
 - tidy spec
 
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.0.9l-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Fri Jan 16 2009 Caolan McNamara <caolanm@redhat.com> - 2.0.9l-1
+* Fri Jan 16 2009 Caolán McNamara <caolanm@redhat.com> - 2.0.9l-1
 - initial version

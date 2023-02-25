@@ -13,11 +13,7 @@ BuildRequires:  libmpc-devel
 BuildRequires:  make
 BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist cython}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global _docdir_fmt %{name}
 
@@ -62,6 +58,9 @@ This package contains API documentation for gmpy2.
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" docs/conf.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 # Do not pass -pthread to the compiler or linker
 export LDSHARED="gcc -shared"
@@ -82,6 +81,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} %{python3} test/runtests.py
 %doc docs/_build/html/*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.1.5-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

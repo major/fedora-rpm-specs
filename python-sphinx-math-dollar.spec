@@ -10,11 +10,7 @@ Source0:        https://github.com/sympy/sphinx-math-dollar/archive/%{version}/s
 BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pytest-doctestplus}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global _desc %{expand:
 sphinx-math-dollar is a Sphinx extension to let you write LaTeX math
@@ -54,6 +50,9 @@ Documentation for sphinx-math-dollar.
 %prep
 %autosetup -n sphinx-math-dollar-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -78,6 +77,9 @@ rm -f docs/_build/html/.{buildinfo,nojekyll}
 %license LICENSE
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.2.1-4
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,14 +1,15 @@
 Name:           socket_wrapper
 Version:        1.4.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 
-License:        BSD
+License:        BSD-3-Clause
 Summary:        A library passing all socket communications through Unix sockets
 Url:            http://cwrap.org/
 
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        socket_wrapper.keyring
+Patch0:         socket_wrapper-fix-cmocka-1.1.6+-support.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -48,7 +49,7 @@ Development headers for applications with the need to call
 socket_wrapper_enabled().
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -90,6 +91,9 @@ LD_PRELOAD=%{__cmake_builddir}/src/libsocket_wrapper.so bash -c '>/dev/null'
 %{_libdir}/pkgconfig/socket_wrapper_noop.pc
 
 %changelog
+* Thu Feb 23 2023 Andreas Schneider <asn@redhat.com> - 1.4.0-2
+- Fix building with cmocka >= 1.1.6
+
 * Thu Jan 19 2023 Andreas Schneider <asn@redhat.com> - 1.4.0-1
 - Update to version 1.4.0
   * https://gitlab.com/cwrap/socket_wrapper/-/blob/socket_wrapper-1.4.0/CHANGELOG

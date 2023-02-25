@@ -12,10 +12,7 @@ BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist ipykernel}
 BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist jupyter-client}
-BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pysingular}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 This package contains a Jupyter kernel for Singular, to enable using
@@ -27,13 +24,15 @@ Jupyter as the front end for Singular.}
 Summary:        Jupyter kernel for Singular
 Requires:       python-jupyter-filesystem
 Requires:       %{py3_dist ipykernel}
-Requires:       %{py3_dist jupyter-client}
 Requires:       %{py3_dist pysingular}
 
 %description -n python3-jupyter-kernel-singular %_description
 
 %prep
 %autosetup -n jupyter_kernel_singular-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -55,6 +54,9 @@ mv %{buildroot}%{_prefix}%{_sysconfdir} %{buildroot}%{_sysconfdir}
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/singular-mode.json
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.9.9-12
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 Summary:        Email filter with virus scanner and spamassassin support
 Name:           amavis
 Version:        2.13.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 # LDAP schema is GFDL, some helpers are BSD, core is GPLv2+
 License:        GPLv2+ and BSD and GFDL
 URL:            https://gitlab.com/amavis/amavis
@@ -28,6 +28,7 @@ BuildRequires:  perl-interpreter
 %if 0%{?rhel} > 7 || 0%{?fedora} > 24
 Suggests:       %{name}-doc
 Recommends:     clamav-server-systemd
+Recommends:     clamav
 Recommends:     binutils
 Recommends:     arj
 Recommends:     bzip2
@@ -235,6 +236,9 @@ install -p -D -m 0644 %{SOURCE11} %{buildroot}%{_sysusersdir}/amavis.conf
 %doc README_FILES conf/amavisd.conf-* conf/amavisd-custom.conf
 
 %changelog
+* Thu Feb 23 2023 Juan Orti Alcaine <jortialc@redhat.com> - 2.13.0-3
+- Update configuration to use clamdscan
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

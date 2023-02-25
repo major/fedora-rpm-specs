@@ -62,7 +62,7 @@
 Summary: Qt5 - QtWebEngine components
 Name:    qt5-qtwebengine
 Version: 5.15.12
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -119,6 +119,7 @@ Patch32: qtwebengine-skia-missing-includes.patch
 ## From: https://chromium-review.googlesource.com/c/chromium/src/+/3545665
 Patch33: qtwebengine-5.15-Backport-of-16k-page-support-on-aarch64.patch
 Patch34: qtwebengine-fix-build.patch
+Patch35: qt5-qtwebengine-c99.patch
 
 ## Upstream patches:
 
@@ -451,6 +452,8 @@ popd
 %patch33 -p1 -b .aarch64-16kb-support
 %patch34 -p1 -b .fix-build
 
+%patch35 -p1 -b .c99
+
 # delete all "toolprefix = " lines from build/toolchain/linux/BUILD.gn, as we
 # never cross-compile in native Fedora RPMs, fixes ARM and aarch64 FTBFS
 sed -i -e '/toolprefix = /d' -e 's/\${toolprefix}//g' \
@@ -675,6 +678,9 @@ done
 
 
 %changelog
+* Thu Feb 23 2023 Florian Weimer <fweimer@redhat.com> - 5.15.12-4
+- Port bundled libsync to C99 (#2155642)
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 5.15.12-3
 - rebuild for libvpx
 

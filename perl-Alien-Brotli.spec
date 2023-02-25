@@ -52,7 +52,7 @@ This distribution installs the brotli compressor, so that it can be used by
 other distributions, and provides a way to find the executable.
 
 %package tests
-Summary:        Tests for ${name}
+Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl(Test::Harness)

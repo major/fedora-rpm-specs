@@ -1,6 +1,6 @@
 Name:           python-pytest-regressions
 Version:        2.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Pytest fixtures for writing regression tests
 
 License:        MIT
@@ -10,22 +10,8 @@ Source0:        https://github.com/ESSS/pytest-regressions/archive/%{version}/py
 
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  %{py3_dist numpy}
-BuildRequires:  %{py3_dist pandas}
-BuildRequires:  %{py3_dist pillow}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-datadir}
-BuildRequires:  %{py3_dist pyyaml}
-BuildRequires:  %{py3_dist restructuredtext-lint}
-BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx_rtd_theme}
-BuildRequires:  %{py3_dist tox}
-BuildRequires:  %{py3_dist tox-current-env}
-BuildRequires:  %{py3_dist wheel}
 
 %global _desc %{expand:
 This pytest plugin makes it simple to test general data, images, files,
@@ -65,6 +51,8 @@ Summary:        Documentation for %{name}
 %description    doc
 Documentation for %{name}.
 
+%pyproject_extras_subpkg -n python3-pytest-regressions num,image,dataframe
+
 %prep
 %autosetup -n pytest-regressions-%{version}
 
@@ -73,6 +61,9 @@ sed -i "s/use_scm_version.*/version='%{version}',/;/setuptools_scm/d" setup.py
 sed -e 's/\(version = \).*/\1"%{version}"/' \
     -e 's/\(release = \).*/\1"%{version}"/' \
     -i doc/conf.py
+
+%generate_buildrequires
+%pyproject_buildrequires -t -x num,image,dataframe
 
 %build
 %pyproject_wheel
@@ -101,6 +92,10 @@ fi
 %doc doc/_build/html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.4.2-3
+- Generate extras subpackages
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

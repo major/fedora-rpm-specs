@@ -21,7 +21,7 @@
 
 Name:      gnome-software
 Version:   44~beta
-Release:   1%{?dist}
+Release:   2%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -29,6 +29,10 @@ URL:       https://wiki.gnome.org/Apps/Software
 Source0:   https://download.gnome.org/sources/gnome-software/44/%{name}-%{tarball_version}.tar.xz
 
 Patch01:   0001-crash-with-broken-theme.patch
+# https://gitlab.gnome.org/GNOME/gnome-software/-/merge_requests/1635
+# https://bugzilla.redhat.com/show_bug.cgi?id=2172662
+# Fix update notifications
+Patch02:   0001-gs-update-monitor-No-notification-of-prepared-update.patch
 
 BuildRequires: docbook-style-xsl
 BuildRequires: desktop-file-utils
@@ -228,6 +232,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Thu Feb 23 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-2
+- Backport MR #1635 to fix update notifications
+
 * Tue Feb 14 2023 Milan Crha <mcrha@redhat.com> - 44.beta-1
 - Update to 44.beta
 

@@ -21,6 +21,7 @@ Source1:        %{name}.6
 Source2:        supertuxkart-0.7.3-license-clarification.txt
 Patch0:         0c2b81ac1f9ff29f5012a98f530880b87f416337.patch
 Patch1:         8544f19b59208ae93fc3db0cf41bd386c6aefbcb.patch
+Patch2:         stk-gcc13.patch
 
 BuildRequires: make
 BuildRequires: gcc-c++

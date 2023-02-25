@@ -2,10 +2,10 @@ Name: mythes-da
 Summary: Danish thesaurus
 %global upstreamid 20100629.15.16
 Version: 0.%{upstreamid}
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: https://excellmedia.dl.sourceforge.net/project/aoo-extensions/1388/12/danskesynonymer.oxt
 URL: https://extensions.openoffice.org/fr/project/danske-synonymer
-License: GPLv2 or LGPLv2 or MPLv1.1
+License: GPL-2.0-only OR LGPL-2.1-only OR MPL-1.1
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-da)
@@ -34,6 +34,9 @@ cp -p th_da_DK.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_da_DK_v2.idx
 %{_datadir}/mythes/*
 
 %changelog
+* Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20100629.15.16-25
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20100629.15.16-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

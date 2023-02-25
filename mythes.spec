@@ -1,10 +1,10 @@
 Name:      mythes
 Summary:   A thesaurus library
 Version:   1.2.5
-Release:   2%{?dist}
+Release:   3%{?dist}
 Source:    https://github.com/hunspell/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.xz
 URL:       https://github.com/hunspell/mythes
-License:   BSD and MIT
+License:   BSD-3-Clause-Modification AND MIT
 BuildRequires: make
 BuildRequires: hunspell-devel, gcc-c++
 
@@ -54,6 +54,9 @@ mkdir -p $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_bindir}/th_gen_idx.pl
 
 %changelog
+* Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1.2.5-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

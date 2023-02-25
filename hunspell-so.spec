@@ -6,10 +6,10 @@
 Name: hunspell-so
 Summary: Somali hunspell dictionaries
 Version: 1.0.2
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: https://ayera.dl.sourceforge.net/project/aoo-extensions/2727/2/dict-so.oxt
 URL: http://www.opensourcesomalia.org/index.php?page=hingaad-saxe
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 Requires: hunspell
 Supplements: (hunspell and langpacks-so)
@@ -41,6 +41,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1.0.2-25
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

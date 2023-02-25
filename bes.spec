@@ -8,7 +8,7 @@
 
 Name:           bes
 Version:        3.20.13
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Back-end server software framework for OPeNDAP
 
 License:        LGPLv2+
@@ -21,6 +21,7 @@ Patch1:         bes-link.patch
 Patch2:         bes-int32.patch
 # Fix configure test compromised by LTO
 Patch3:		bes-config.patch
+Patch4: bes-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -109,6 +110,7 @@ Documentation of OPeNDAP BES.
 %patch1 -p1 -b .link
 %patch2 -p1 -b .int32
 %patch3 -p1 -b .config
+%patch4 -p1
 
 # Fixes rpaths
 autoreconf --install
@@ -231,6 +233,9 @@ exit 0
 %doc __distribution_docs/api-html/
 
 %changelog
+* Thu Feb 23 2023 Florian Weimer <fweimer@redhat.com> - 3.20.13-7
+- Port to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.20.13-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

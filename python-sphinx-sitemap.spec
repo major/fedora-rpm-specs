@@ -8,14 +8,7 @@ URL:            https://github.com/jdillard/sphinx-sitemap
 Source0:        %{url}/archive/v%{version}/sphinx-sitemap-%{version}.tar.gz
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 This package contains a Sphinx extension to generate multiversion and
@@ -32,6 +25,9 @@ Summary:        Sitemap generator for Sphinx
 %prep
 %autosetup -n sphinx-sitemap-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
 %pyproject_wheel
 rst2html --no-datestamp README.rst README.html
@@ -47,6 +43,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-1
+- Dynamically generate BuildRequires
+
 * Sat Jan 28 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-1
 - Version 2.5.0
 

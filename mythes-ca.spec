@@ -1,10 +1,10 @@
 Name: mythes-ca
 Summary: Catalan thesaurus
 Version: 1.5.0
-Release: 26%{?dist}
+Release: 27%{?dist}
 Source: http://www.softcatala.org/diccionaris/actualitzacions/sinonims/thesaurus-ca.oxt
 URL: http://www.softcatala.org/wiki/Projectes/Openthesaurus-ca
-License: GPL+
+License: GPL-1.0-or-later
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-ca)
@@ -40,6 +40,9 @@ popd
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1.5.0-27
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -107,7 +110,7 @@ popd
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Sat Apr 03 2010 Caolan McNamara <caolanm@redhat.com> - 1.5.0-4
+* Sat Apr 03 2010 Caolán McNamara <caolanm@redhat.com> - 1.5.0-4
 - mythes now owns /usr/share/mythes
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 1.5.0-3

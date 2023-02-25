@@ -18,6 +18,8 @@ BuildRequires: gcc-c++
 BuildRequires: doxygen
 BuildRequires: cmake
 BuildRequires: boost-devel
+# https://github.com/VMML/vmmlib/pull/101
+Patch0:        vmmlib-1.8.0-gcc-13-fix.patch
 
 %description
 vmmlib is a vector and matrix math library implemented using C++ templates.

@@ -2,7 +2,7 @@
 
 Name:           python-sphinx-theme-builder
 Version:        0.2.0
-Release:        0.6.%{prerel}%{?dist}
+Release:        0.7.%{prerel}%{?dist}
 Summary:        Streamline the Sphinx theme development workflow
 
 # Most of the code is MIT.  However,
@@ -19,23 +19,6 @@ BuildRequires:  help2man
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python-sphinx-doc
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist build}
-BuildRequires:  %{py3_dist click}
-BuildRequires:  %{py3_dist flit-core}
-BuildRequires:  %{py3_dist myst-parser}
-BuildRequires:  %{py3_dist nodeenv}
-BuildRequires:  %{py3_dist packaging}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pyproject-metadata}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist rich}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-autobuild}
-BuildRequires:  %{py3_dist sphinx-copybutton}
-BuildRequires:  %{py3_dist sphinx-inline-tabs}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 A tool for authoring Sphinx themes with a simple (opinionated) workflow.
@@ -46,6 +29,10 @@ Summary:        Streamline the Sphinx theme development workflow
 %description -n python3-sphinx-theme-builder
 A tool for authoring Sphinx themes with a simple (opinionated) workflow.
 
+%pyproject_extras_subpkg -n python3-sphinx-theme-builder cli
+%{_bindir}/stb
+%{_mandir}/man1/stb.1*
+
 %prep
 %autosetup -n sphinx-theme-builder-%{version}%{prerel} -p1
 
@@ -53,6 +40,12 @@ A tool for authoring Sphinx themes with a simple (opinionated) workflow.
 sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
     -i docs/conf.py
+
+# Skip test packages not available in Fedora
+sed -i '/pytest-clarity/d;/pytest-pspec/d' tests/requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires -x cli docs/requirements.txt tests/requirements.txt
 
 %build
 %pyproject_wheel
@@ -73,10 +66,12 @@ help2man -N --version-string=%{version}%{prerel} %{buildroot}%{_bindir}/stb > \
 %files -n python3-sphinx-theme-builder -f %{pyproject_files}
 %doc README.md
 %license LICENSE
-%{_bindir}/stb
-%{_mandir}/man1/stb.1*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.2.0-0.7.b1
+- Add cli extras subpackage containing the stb binary
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.0-0.6.b1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

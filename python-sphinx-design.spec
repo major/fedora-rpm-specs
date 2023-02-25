@@ -13,14 +13,7 @@ Source0:        %{url}/archive/v%{version}/sphinx-design-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist flit-core}
 BuildRequires:  %{py3_dist myst-parser}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pytest-regressions}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 # The Fedora package does not contain JSON glyphs
 Provides:       bundled(material-icons-fonts) = 4.0.0.c9e5528
@@ -69,6 +62,9 @@ Documentation for %{name}.
 %prep
 %autosetup -n sphinx-design-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t -x testing
+
 %build
 %pyproject_wheel
 
@@ -94,6 +90,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.3.0-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

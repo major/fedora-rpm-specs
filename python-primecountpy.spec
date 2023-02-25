@@ -15,13 +15,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(primecount)
 BuildRequires:  python3-cysignals-devel
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist cython}
-BuildRequires:  %{py3_dist myst-parser}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-rtd-theme}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 This package provides a Cython interface to the C++ library primecount.
@@ -70,6 +63,9 @@ This package contains API documentation for %{name}.
 # Remove as-you-type search capability from the docs due to missing dependency
 sed -i '/readthedocs-sphinx-search/d' docs/requirements.txt
 
+%generate_buildrequires
+%pyproject_buildrequires docs/requirements.txt
+
 %build
 # Do not pass -pthread to the compiler or linker
 export CC=gcc
@@ -97,6 +93,9 @@ rm docs/build/html/.buildinfo
 %license LICENSE
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.1.0-7
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

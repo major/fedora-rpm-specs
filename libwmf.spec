@@ -1,13 +1,13 @@
 Summary: Windows MetaFile Library
 Name: libwmf
 Version: 0.2.12
-Release: 10%{?dist}
+Release: 11%{?dist}
 #libwmf is under the LGPLv2+, however...
 #1. The tarball contains an old version of the urw-fonts under GPL+.
 #   Those fonts are not installed
 #2. The header of the command-line wmf2plot utility places it under the GPLv2+.
 #   wmf2plot is neither built or install
-License: LGPLv2+ and GPLv2+ and GPL+
+License: LGPL-2.1-or-later AND GPL-2.0-or-later AND GPL-1.0-or-later
 Source: https://github.com/caolanm/libwmf/archive/v%{version}.tar.gz
 URL: https://github.com/caolanm/libwmf
 
@@ -94,6 +94,9 @@ sed -i $RPM_BUILD_ROOT%{_datadir}/libwmf/fonts/fontmap -e 's#libwmf/fonts#fonts/
 
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.2.12-11
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.12-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

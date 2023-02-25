@@ -22,7 +22,7 @@ Version:                2.15.0
 %global dracutlibdir %{_prefix}/lib/dracut
 
 Name:           ignition
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        First boot installer and configuration tool
 
 # Upstream license specification: Apache-2.0
@@ -296,8 +296,8 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %files
 %license %{golicenses}
 %doc %{godocs}
-%{dracutlibdir}/modules.d/*
-%{_unitdir}/*.service
+%{dracutlibdir}/modules.d/30ignition/*
+%{_unitdir}/ignition-delete-config.service
 %{_libexecdir}/ignition-apply
 %{_libexecdir}/ignition-rmcfg
 
@@ -333,6 +333,9 @@ install -p -m 0755 ./ignition %{buildroot}/%{dracutlibdir}/modules.d/30ignition
 %{_libexecdir}/coreos-check-ssh-keys
 
 %changelog
+* Thu Feb 23 2023 Benjamin Gilbert <bgilbert@redhat.com> - 2.15.0-3
+- Remove ignition-edge files from base package
+
 * Wed Feb 22 2023 Paul Whalen <pwhalen@fedoraproject.org> - 2.15.0-2
 - Enable ignition-edge in Fedora
 

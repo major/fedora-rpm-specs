@@ -1,6 +1,6 @@
 Name:           python-async-lru
-Version:        1.0.3
-Release:        2%{?dist}
+Version:        2.0.1
+Release:        %autorelease
 Summary:        Simple lru_cache for asyncio
 License:        MIT
 URL:            https://github.com/aio-libs/async_lru
@@ -10,6 +10,7 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-asyncio
+BuildRequires:  python3-pytest-timeout
 
 
 %global _description %{expand:
@@ -44,9 +45,7 @@ sed -i "/addopts/d" setup.cfg
 
 
 %check
-# Ignore RuntimeWarnings about unawaited coroutines
-# see https://github.com/aio-libs/async-lru/issues/341
-%pytest -W ignore::RuntimeWarning
+%pytest
 
 
 %files -n python3-async-lru -f %{pyproject_files}
@@ -54,8 +53,4 @@ sed -i "/addopts/d" setup.cfg
 
 
 %changelog
-* Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Mon Dec 05 2022 Lumír Balhar <lbalhar@redhat.com> - 1.0.3-1
-- Initial package
+%autochangelog

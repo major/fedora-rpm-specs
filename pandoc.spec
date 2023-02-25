@@ -26,7 +26,7 @@
 Name:           %{pkg_name}
 Version:        2.19.2
 # can only be reset when all subpkgs bumped
-Release:        19%{?dist}
+Release:        20%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPL-2.0-or-later
@@ -492,6 +492,9 @@ touch %{buildroot}%{_datadir}/bash-completion/completions/%{name}
 
 
 %changelog
+* Thu Feb 23 2023 Jens Petersen <petersen@redhat.com> - 2.19.2-20
+- rebuild
+
 * Sun Jan 22 2023 Jens Petersen <petersen@redhat.com> - 2.19.2-19
 - https://hackage.haskell.org/package/pandoc-2.19.2/changelog
 - refresh to cabal-rpm-2.1.0 with SPDX migration

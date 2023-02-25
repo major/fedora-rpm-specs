@@ -1,6 +1,6 @@
 Name:		messiggy
 Version:	0.5.0
-Release:	28%{?dist}
+Release:	29%{?dist}
 Summary:	Messiggy is a database of celestial objects
 
 License:	GPLv2+
@@ -8,6 +8,8 @@ URL:		http://www.coyotegulch.com/products/messiggy/index.html
 Source0:	http://www.coyotegulch.com/distfiles/%{name}-%{version}.tar.gz
 Source1:	messiggy.desktop
 Patch0:		messiggy-format-string.patch
+Patch1: messiggy-configure-c99.patch
+Patch2: messiggy-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -22,6 +24,8 @@ astronomer Charles Messier in the mid-18th century.
 %setup -q
 
 %patch0 -p0
+%patch1 -p1
+%patch2 -p1
 
 %build
 %configure
@@ -47,6 +51,9 @@ ln -s %{_datadir}/messiggy/pixmaps/messiggy.png %{buildroot}%{_datadir}/icons/hi
 %{_datadir}/icons/hicolor/32x32/apps/messiggy.png
 
 %changelog
+* Thu Feb 23 2023 Florian Weimer <fweimer@redhat.com> - 0.5.0-29
+- Port to C99 (#2172804)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

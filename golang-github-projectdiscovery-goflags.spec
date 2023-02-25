@@ -14,6 +14,8 @@ A go flag wrapper with convenience helpers.}
 %global golicenses      LICENSE.md
 %global godocs          README.md
 
+%global gosupfiles      ports_data.json
+
 Name:           %{goname}
 Release:        %autorelease
 Summary:        A go flag wrapper with convenience helpers

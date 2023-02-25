@@ -161,9 +161,6 @@ Source102: wasi-sdk-11.0-linux.tar.gz
 Source111: undici-5.20.0-stripped.tar.gz
 Source112: wasi-sdk-14.0-linux.tar.gz
 
-# Disable running gyp on bundled deps we don't use
-Patch1: 0001-Disable-running-gyp-on-shared-deps.patch
-
 %if 0%{?nodejs_default}
 %global pkgname nodejs
 %package -n %{pkgname}

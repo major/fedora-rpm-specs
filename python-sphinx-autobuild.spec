@@ -13,15 +13,6 @@ BuildArch:      noarch
 
 BuildRequires:  help2man
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist colorama}
-BuildRequires:  %{py3_dist flit-core}
-BuildRequires:  %{py3_dist livereload}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 Rebuild Sphinx documentation on changes, with live-reload in the browser.
@@ -61,6 +52,9 @@ Documentation for sphinx-autobuild.
 %prep
 %autosetup -n sphinx-autobuild-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 %build
 %pyproject_wheel
 rst2html --no-datestamp NEWS.rst NEWS.html
@@ -93,6 +87,9 @@ help2man -N %{buildroot}%{_bindir}/sphinx-autobuild > \
 %doc html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2021.3.14-4
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2021.3.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

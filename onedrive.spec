@@ -3,7 +3,7 @@
 
 Name:           onedrive
 Version:        2.4.23
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        OneDrive Free Client written in D
 License:        GPLv3
 URL:            https://github.com/%{project}/%{repo}
@@ -48,13 +48,20 @@ chmod a-x %{buildroot}/%{_mandir}/man1/%{name}*
 %files
 %doc README.md LICENSE CHANGELOG.md
 %{_bindir}/%{name}
+%if 0%{?el8}
+%{_unitdir}/%{name}.service
+%else
 %{_userunitdir}/%{name}.service
+%endif
 %{_unitdir}/%{name}@.service
 %{_mandir}/man1/%{name}.1.gz
 %{_docdir}/%{name}
 %config %{_sysconfdir}/logrotate.d/onedrive
 
 %changelog
+* Thu Feb 23 2023 Zamir SUN <sztsian@gmail.com> - 2.4.23-2
+- Support EPEL8
+
 * Mon Feb 06 2023 Zamir SUN <sztsian@gmail.com> - 2.4.23-1
 - Update to 2.4.23
 

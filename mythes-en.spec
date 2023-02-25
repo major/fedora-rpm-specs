@@ -1,7 +1,7 @@
 Name: mythes-en
 Summary: English thesaurus
 Version: 3.0
-Release: 35%{?dist}
+Release: 36%{?dist}
 Source: http://www.danielnaber.de/wn2ooo/wn2ooo20050723.tgz
 URL: http://www.danielnaber.de/wn2ooo/
 BuildRequires: python3-devel
@@ -9,7 +9,7 @@ BuildRequires: perl-interpreter
 BuildRequires: wordnet = %{version}
 # License BSD is for the th_gen_idx.pl file
 # License Artistic Clarified is for python files
-License: BSD and Artistic clarified
+License: BSD-3-Clause-Modification AND ClArtistic
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-en)
@@ -47,6 +47,9 @@ popd
 %{_datadir}/mythes/*
 
 %changelog
+* Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 3.0-36
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

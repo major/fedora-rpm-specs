@@ -9,14 +9,7 @@ Source0:        %{url}/archive/%{version}/pytest-datadir-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist tox}
-BuildRequires:  %{py3_dist tox-current-env}
-BuildRequires:  %{py3_dist wheel}
 
 %global _desc %{expand:
 This package contains a pytest plugin for manipulating test data
@@ -38,6 +31,9 @@ cat > src/pytest_datadir/_version.py << EOF
 version='%{version}'
 EOF
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
 %pyproject_wheel
 rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
@@ -53,6 +49,9 @@ rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
 %doc AUTHORS CHANGELOG.html README.md
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.4.1-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

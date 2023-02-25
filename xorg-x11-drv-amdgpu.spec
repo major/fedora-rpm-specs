@@ -9,8 +9,8 @@
 %undefine _hardened_build
 
 Name:       xorg-x11-drv-amdgpu
-Version:    22.0.0
-Release:    3%{?dist}
+Version:    23.0.0
+Release:    1%{?dist}
 
 Summary:    AMD GPU video driver
 License:    MIT
@@ -58,6 +58,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 %{_mandir}/man4/amdgpu.4*
 
 %changelog
+* Thu Feb 23 2023 Christopher Atherton <atherchris@gmail.com> - 23.0.0-1
+- Update to 23.0.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.0.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

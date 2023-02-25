@@ -13,7 +13,7 @@
 %bcond_with check_integration
 
 Name:           apt
-Version:        2.5.5
+Version:        2.5.6
 Release:        1%{?dist}
 Summary:        Command-line package manager for Debian packages
 
@@ -310,6 +310,9 @@ exit 0
 %doc %{_docdir}/%{name}-utils
 
 %changelog
+* Thu Feb 23 2023 Sérgio Basto <sergio@serjux.com> - 2.5.6-1
+- Update apt to 2.5.6 (#2168285)
+
 * Wed Jan 25 2023 Sérgio Basto <sergio@serjux.com> - 2.5.5-1
 - Update apt to 2.5.5 (#2161700)
 - Fix build with gcc13

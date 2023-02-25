@@ -13,7 +13,7 @@ packaging.version.Version, which follows PEP-440. LooseVersion is better suited
 to interacting with heterogeneous version schemes that do not follow PEP-440.}
 
 Name:           python-looseversion
-Version:        1.1.1
+Version:        1.1.2
 Release:        %{autorelease}
 Summary:        Version numbering for anarchists and software realists
 
@@ -36,7 +36,6 @@ BuildRequires:  python3-devel
 
 %generate_buildrequires
 %pyproject_buildrequires -t
-
 
 %build
 %pyproject_wheel

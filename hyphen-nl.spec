@@ -2,10 +2,10 @@ Name: hyphen-nl
 Summary: Dutch hyphenation rules
 %global upstreamid 20050617
 Version: 0.%{upstreamid}
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_nl_NL.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
-License: GPLv2
+License: GPL-2.0-only
 BuildArch: noarch
 Requires: hyphen
 Supplements: (hyphen and langpacks-nl)
@@ -39,6 +39,9 @@ done
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20050617-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050617-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -112,14 +115,14 @@ done
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20050617-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sat Jul 11 2009 Caolan McNamara <caolanm@redhat.com> - 0.20050617-4
+* Sat Jul 11 2009 Caolán McNamara <caolanm@redhat.com> - 0.20050617-4
 - tidy spec
 
-* Fri Jun 12 2009 Caolan McNamara <caolanm@redhat.com> - 0.20050617-3
+* Fri Jun 12 2009 Caolán McNamara <caolanm@redhat.com> - 0.20050617-3
 - extend coverage
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20050617-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Fri Nov 23 2007 Caolan McNamara <caolanm@redhat.com> - 0.20050617-1
+* Fri Nov 23 2007 Caolán McNamara <caolanm@redhat.com> - 0.20050617-1
 - initial version

@@ -16,19 +16,10 @@ Source0:        https://github.com/pradyunsg/sphinx-basic-ng/archive/%{version}.
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %if %{without bootstrap}
 BuildRequires:  python-sphinx-doc
 BuildRequires:  python3-docs
-BuildRequires:  %{py3_dist furo}
-BuildRequires:  %{py3_dist ipython}
-BuildRequires:  %{py3_dist myst-parser}
-BuildRequires:  %{py3_dist sphinx-copybutton}
-BuildRequires:  %{py3_dist sphinx-inline-tabs}
 %endif
 
 %global _description A modernized skeleton for Sphinx themes.
@@ -85,6 +76,13 @@ sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/htm
     -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
     -i docs/conf.py
 
+%generate_buildrequires
+%if %{with bootstrap}
+%pyproject_buildrequires
+%else
+%pyproject_buildrequires -x docs
+%endif
+
 %build
 %pyproject_wheel
 
@@ -112,6 +110,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.0.0-0.2.beta1%{?dist}
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-0.2.beta1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

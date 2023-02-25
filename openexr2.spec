@@ -5,7 +5,7 @@
 
 Name:           %{pkgname}
 Version:        2.5.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD
@@ -112,12 +112,24 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 %files libs
 %doc CHANGES.md CONTRIBUTING.md GOVERNANCE.md SECURITY.md CODE_OF_CONDUCT.md CONTRIBUTORS.md README.md
 %license LICENSE.md
-%{_libdir}/*.so.%{sover}*
-%{_libdir}/*.so.%{imfsover}*
+%{_libdir}/libHalf-2_5.so.%{sover}{,.*}
+%{_libdir}/libIex-2_5.so.%{sover}{,.*}
+%{_libdir}/libIexMath-2_5.so.%{sover}{,.*}
+%{_libdir}/libIlmImf-2_5.so.%{imfsover}{,.*}
+%{_libdir}/libIlmImfUtil-2_5.so.%{imfsover}{,.*}
+%{_libdir}/libIlmThread-2_5.so.%{sover}{,.*}
+%{_libdir}/libImath-2_5.so.%{sover}{,.*}
+
 
 %files devel
 %{_includedir}/OpenEXR/
-%{_libdir}/*.so
+%{_libdir}/libHalf{,-2_5}.so
+%{_libdir}/libIex{,-2_5}.so
+%{_libdir}/libIexMath{,-2_5}.so
+%{_libdir}/libIlmImf{,-2_5}.so
+%{_libdir}/libIlmImfUtil{,-2_5}.so
+%{_libdir}/libIlmThread{,-2_5}.so
+%{_libdir}/libImath{,-2_5}.so
 %{_libdir}/cmake/IlmBase/
 %{_libdir}/pkgconfig/IlmBase.pc
 %{_libdir}/cmake/OpenEXR/
@@ -125,6 +137,10 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 
 
 %changelog
+* Thu Feb 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.5.8-2
+- Be more explicit about which libraries are packaged (and with which .so
+  versions)
+
 * Wed Feb 22 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.8-1
 - 2.5.8
 

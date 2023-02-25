@@ -28,10 +28,10 @@
 
 Name:		certmonger
 Version:	0.79.17
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Certificate status monitor and PKI enrollment client
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		http://pagure.io/certmonger/
 Source0:	http://releases.pagure.org/certmonger/certmonger-%{version}.tar.gz
 #Source1:	http://releases.pagure.org/certmonger/certmonger-%%{version}.tar.gz.sig
@@ -266,6 +266,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Feb 23 2023 Rob Crittenden <rcritten@redhat.com> - 0.79.17-4
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.79.17-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

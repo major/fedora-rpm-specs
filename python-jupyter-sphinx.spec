@@ -10,18 +10,6 @@ BuildArch:      noarch
 
 BuildRequires:  make
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist bash-kernel}
-BuildRequires:  %{py3_dist ipython}
-BuildRequires:  %{py3_dist ipywidgets}
-BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  %{py3_dist nbconvert}
-BuildRequires:  %{py3_dist nbformat}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global _desc %{expand:
 Jupyter-Sphinx enables running code embedded in Sphinx documentation and
@@ -65,6 +53,9 @@ Documentation for %{name}.
 %prep
 %autosetup -n jupyter-sphinx-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires -t requirements.txt
+
 %build
 %pyproject_wheel
 
@@ -86,6 +77,9 @@ rm doc/build/html/.buildinfo
 %doc doc/build/html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.4.0-3
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

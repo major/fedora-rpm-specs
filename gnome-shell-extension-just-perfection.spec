@@ -1,13 +1,22 @@
 %global extension   just-perfection
 %global uuid        %{extension}-desktop@%{extension}
+# Define a commit here to switch to snapshot versioning.  Note that just adding
+# a `#` to the beginning of this line is insufficient to disable snapshot
+# versioning, as RPM allows you to define macros anywhere, even in comments.
+%global commit      3f4d08d70aad022b231467b71dc495286a06b27b
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        23.0
+Version:        23.0%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
 Summary:        Extension to Customize GNOME Shell and Disable UI Elements
 License:        GPL-3.0-only
 URL:            https://gitlab.gnome.org/jrahmatzadeh/just-perfection
+%if %{defined commit}
+Source:         %{url}/-/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
+%else
 Source:         %{url}/-/archive/%{version}/%{extension}-%{version}.tar.gz
+%endif
 
 BuildArch:      noarch
 BuildRequires:  gettext
@@ -21,7 +30,7 @@ Provides:       %{extension} = %{version}-%{release}
 
 
 %prep
-%autosetup -n %{extension}-%{version}
+%autosetup -n %{extension}-%{?commit:%{commit}}%{!?commit:%{version}}
 
 # we will be putting the schema xml file into a different location
 mv src/schemas .

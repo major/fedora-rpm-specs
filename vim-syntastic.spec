@@ -6,7 +6,7 @@
 
 Name:           vim-%{upstream_name}
 Version:        3.10.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A vim plugins to check syntax for programming languages
 Summary(fr):    Une extension de vim vérifiant la syntaxe pour les langages de programmation
 
@@ -34,8 +34,6 @@ Obsoletes:      %name-d < %version-%release
 Obsoletes:      %name-lisp < %version-%release
 Obsoletes:      %name-rnc < %version-%release
 Obsoletes:      %name-go < %version-%release
-Obsoletes:      %name-perl6 < %version-%release
-
 
 %description
 Syntastic is a syntax checking plugin that runs files through external syntax
@@ -119,8 +117,7 @@ Permet de vérifier les fichiers sources écrit en %{-n*}.                      
 %add_subpackage -n objcpp gcc-objc++
 %add_subpackage -n ocaml ocaml
 %add_subpackage -n perl perl-interpreter %name-pod
-#rakudo and friends retired for f38
-#%%add_subpackage -n perl6 rakudo
+%add_subpackage -n perl6 rakudo
 %add_subpackage -n php php
 %add_subpackage -n po gettext
 %add_subpackage -n pod perl-interpreter
@@ -205,8 +202,6 @@ rm -r syntax_checkers/markdown
 rm -r syntax_checkers/mercury
 rm -r syntax_checkers/nix
 rm -r syntax_checkers/nroff
-# rakudo has been removed from f38
-rm -r syntax_checkers/perl6
 # mock -r fedora-rawhide-x86_64 --install '/*/pug*lint'
 rm -r syntax_checkers/pug
 rm -r syntax_checkers/r
@@ -288,6 +283,9 @@ appstream-util validate-relax --nonet %{buildroot}%{appdata_dir}/vim-syntastic.m
 
 
 %changelog
+* Thu Feb 23 2023 Martin Jackson <mhjacks@swbell.net> - 3.10.0-19
+- Perl6 has come back! Thanks topazus.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -13,11 +13,7 @@ Source0:        %{url}/archive/v%{version}/linkify-it-py-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist uc-micro-py}
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 This is a Python port of linkify-it [1], a link recognition library with
@@ -38,6 +34,9 @@ Summary:        Link recognition library with full Unicode support
 %prep
 %autosetup -n linkify-it-py-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -52,6 +51,9 @@ Summary:        Link recognition library with full Unicode support
 %doc CHANGELOG.md README.md
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

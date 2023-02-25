@@ -1,7 +1,7 @@
 %global srcname django-mailman3
 
 Name:           python-%{srcname}
-Version:        1.3.7
+Version:        1.3.8
 Release:        %autorelease
 Summary:        Django library to help interaction with Mailman
 License:        GPLv3+

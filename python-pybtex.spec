@@ -14,15 +14,7 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist latexcodec}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist pyyaml}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist six}
 BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global common_desc %{expand:
 Pybtex is a BibTeX-compatible bibliography processor written in Python.
@@ -89,12 +81,15 @@ done
 sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" \
     -i docs/source/conf.py
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
 %pyproject_wheel
 
 # Build documentation
 # Workaround for pygments 2.13.  See bz 2127371.
-cat >> pybtex.egg-info/entry_points.txt << EOF
+cat >> pybtex-%{version}.dist-info/entry_points.txt << EOF
 
 [pygments.styles]
 pybtex = pybtex_doctools.pygments:PybtexStyle
@@ -134,6 +129,10 @@ popd
 %doc CHANGES docs/build/html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.24.0-9
+- Dynamically generate BuildRequires
+- Update pygments workaround
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.24.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

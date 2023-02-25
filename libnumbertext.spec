@@ -1,12 +1,12 @@
 Name:      libnumbertext
 Version:   1.0.11
-Release:   2%{?dist}
+Release:   3%{?dist}
 Summary:   Number to number name and money text conversion library
 
 #The entire source code is dual license LGPLv3+ or BSD, except for
-#the data files hr.sor, sr.sor and sh.sor which are tri license
-#CC-BY-SA or LGPLv3+ or BSD
-License:   (LGPLv3+ or BSD) and (LGPLv3+ or BSD or CC-BY-SA)
+#the data files hr.sor, sr.sor and sh.sor which are dual license
+#CC-BY-SA or LGPLv3+
+License:   ( LGPL-3.0-or-later OR BSD 3-Clause ) AND ( LGPL-3.0-or-later OR CC-BY-SA-3.0 )
 URL:       https://github.com/Numbertext/libnumbertext
 Source:    https://github.com/Numbertext/libnumbertext/releases/download/%{version}/libnumbertext-%{version}.tar.xz
 
@@ -54,6 +54,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/*.la
 %{_libdir}/*.so
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1.0.11-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

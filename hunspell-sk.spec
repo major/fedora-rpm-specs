@@ -8,10 +8,10 @@ Summary: Slovak hunspell dictionaries
 Epoch: 1
 %global upstreamid 20110228
 Version: 0.%{upstreamid}
-Release: 23%{?dist}
+Release: 24%{?dist}
 Source: http://www.sk-spell.sk.cx/files/hunspell-sk-%{upstreamid}.zip
 URL: http://www.sk-spell.sk.cx/
-License: LGPLv2 or GPLv2 or MPLv1.1
+License: LGPL-2.1-only OR GPL-2.0-only OR MPL-1.1
 BuildArch: noarch
 
 Requires: hunspell
@@ -35,6 +35,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1:0.20110228-24
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.20110228-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

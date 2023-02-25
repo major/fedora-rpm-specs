@@ -1,15 +1,24 @@
 %global extension   vertical-workspaces
 %global uuid        %{extension}@G-dH.github.com
+# Define a commit here to switch to snapshot versioning.  Note that just adding
+# a `#` to the beginning of this line is insufficient to disable snapshot
+# versioning, as RPM allows you to define macros anywhere, even in comments.
+%global commit      0a0e31475ea3516cdf5a4e588ad6530383a01320
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        23
+Version:        23.5%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
 Summary:        Vertical orientation of workspaces for GNOME 40+
 License:        GPL-3.0-only
 URL:            https://github.com/G-dH/vertical-workspaces
 BuildArch:      noarch
 
+%if %{defined commit}
+Source:         %{url}/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
+%else
 Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
+%endif
 
 Requires:       gnome-shell >= 40
 Recommends:     gnome-extensions-app
@@ -22,13 +31,12 @@ layout and content for GNOME 40+.
 
 
 %prep
-%autosetup -n %{extension}-%{version}
+%autosetup -n %{extension}-%{?commit:%{commit}}%{!?commit:%{version}}
 
 
 %install
-install -d -m 0755 %{buildroot}%{_datadir}/gnome-shell/extensions/%{uuid}
-
 # install main extension files
+install -d -m 0755 %{buildroot}%{_datadir}/gnome-shell/extensions/%{uuid}
 cp -p *.js stylesheet.css metadata.json \
     %{buildroot}%{_datadir}/gnome-shell/extensions/%{uuid}/
 

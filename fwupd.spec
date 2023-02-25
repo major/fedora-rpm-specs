@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.8.10
+Version:   1.8.11
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -293,15 +293,10 @@ done
 %endif
 %{_libexecdir}/fwupd/fwupdoffline
 %if 0%{?have_uefi}
-%{_bindir}/fwupdate
-%endif
-%{_bindir}/dfu-tool
-%if 0%{?have_uefi}
 %{_bindir}/dbxtool
 %endif
 %{_bindir}/fwupdmgr
 %{_bindir}/fwupdtool
-%{_bindir}/fwupdagent
 %dir %{_sysconfdir}/fwupd
 %dir %{_sysconfdir}/fwupd/bios-settings.d
 %{_sysconfdir}/fwupd/bios-settings.d/README.md
@@ -319,7 +314,6 @@ done
 %{_datadir}/dbus-1/system.d/org.freedesktop.fwupd.conf
 %{_datadir}/bash-completion/completions/fwupdmgr
 %{_datadir}/bash-completion/completions/fwupdtool
-%{_datadir}/bash-completion/completions/fwupdagent
 %{_datadir}/fish/vendor_completions.d/fwupdmgr.fish
 %{_datadir}/fwupd/metainfo/org.freedesktop.fwupd*.metainfo.xml
 %{_datadir}/fwupd/remotes.d/vendor/firmware/README.md
@@ -328,15 +322,10 @@ done
 %{_datadir}/polkit-1/rules.d/org.freedesktop.fwupd.rules
 %{_datadir}/dbus-1/system-services/org.freedesktop.fwupd.service
 %{_mandir}/man1/fwupdtool.1*
-%{_mandir}/man1/fwupdagent.1*
-%{_mandir}/man1/dfu-tool.1*
 %if 0%{?have_uefi}
 %{_mandir}/man1/dbxtool.*
 %endif
 %{_mandir}/man1/fwupdmgr.1*
-%if 0%{?have_uefi}
-%{_mandir}/man1/fwupdate.1*
-%endif
 %{_datadir}/metainfo/org.freedesktop.fwupd.metainfo.xml
 %{_datadir}/icons/hicolor/scalable/apps/org.freedesktop.fwupd.svg
 %{_datadir}/fwupd/firmware_packager.py

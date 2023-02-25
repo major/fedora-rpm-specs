@@ -11,10 +11,6 @@ Source1:        COPYING
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 This sphinx extension provides a zconfigsectionkeys directive for
@@ -30,6 +26,9 @@ rendering documentation for ZConfig section key.
 %prep
 %autosetup -n j1m.sphinxautozconfig-%{version}
 cp -p %{SOURCE1} .
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -48,6 +47,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitelib}/j1m.sphinxautozconfig-%{version}-py%{python3_version}-nspkg.pth
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.1.0-18
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

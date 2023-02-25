@@ -8,29 +8,12 @@ URL:            https://matthew-brett.github.io/nb2plots/
 Source0:        https://github.com/matthew-brett/nb2plots/archive/%{version}/nb2plots-%{version}.tar.gz
 
 BuildArch:      noarch
-BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist ipykernel}
-BuildRequires:  %{py3_dist ipython}
-BuildRequires:  %{py3_dist jupyter-client}
-BuildRequires:  %{py3_dist matplotlib}
-BuildRequires:  %{py3_dist nbconvert}
-BuildRequires:  %{py3_dist netifaces}
-BuildRequires:  %{py3_dist numpy}
-BuildRequires:  %{py3_dist numpydoc}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist scripttester}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist six}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinxtesters}
-BuildRequires:  %{py3_dist texext}
-BuildRequires:  %{py3_dist wheel}
 
 BuildRequires:  help2man
 BuildRequires:  latexmk
 BuildRequires:  make
 BuildRequires:  pandoc
+BuildRequires:  python3-devel
 BuildRequires:  tex(latex)
 BuildRequires:  tex(capt-of.sty)
 BuildRequires:  tex(fncychap.sty)
@@ -66,9 +49,7 @@ ReST for Sphinx, and vice versa.
 License:        BSD-2-Clause AND BSD-3-Clause AND MIT
 Summary:        Convert between Jupyter notebooks and sphinx docs
 Requires:       pandoc
-Requires:       %{py3_dist ipykernel}
-Requires:       %{py3_dist jupyter-client}
-Requires:       %{py3_dist nbconvert}
+Recommends:     %{py3_dist nbconvert}
 
 %description -n python3-nb2plots
 This package contains tools for converting from Jupyter notebooks to
@@ -91,6 +72,9 @@ sed -i '/mock/d' test-requirements.txt
 # Fix shebangs
 %py3_shebang_fix scripts/* setup.py doc/conf.py
 sed -i '/#!python/d' nb2plots/from_notebook.py
+
+%generate_buildrequires
+%pyproject_buildrequires -x test doc-requirements.txt
 
 %build
 %pyproject_wheel
@@ -138,6 +122,9 @@ cp -a man1 %{buildroot}%{_mandir}
 %doc doc/_build/html/*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.6.1-5
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

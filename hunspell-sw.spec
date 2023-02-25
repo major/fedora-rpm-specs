@@ -8,12 +8,12 @@ Name: hunspell-sw
 Summary: Swahili hunspell dictionaries
 %global upstreamid 20050819
 Version: 0.%{upstreamid}
-Release: 28%{?dist}
+Release: 29%{?dist}
 # Following link is not working and is dead
 # do not report any bugs for this
 Source: http://www.it46.se/downloads/openoffice/dictionary/dictionary_myspell_sw_TZ_1.1.tar.gz
 URL: http://www.it46.se
-License: LGPLv2+
+License: LGPL-2.1-or-later
 BuildArch: noarch
 BuildRequires: hunspell-devel
 
@@ -55,6 +55,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20050819-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20050819-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -132,11 +135,11 @@ popd
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20050819-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sat Jul 11 2009 Caolan McNamara <caolanm@redhat.com> - 0.20050819-3
+* Sat Jul 11 2009 Caolán McNamara <caolanm@redhat.com> - 0.20050819-3
 - tidy spec
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20050819-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Sun Nov 02 2008 Caolan McNamara <caolanm@redhat.com> - 0.20050819-1
+* Sun Nov 02 2008 Caolán McNamara <caolanm@redhat.com> - 0.20050819-1
 - initial version

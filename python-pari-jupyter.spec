@@ -16,10 +16,7 @@ BuildRequires:  pkgconfig(readline)
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist cython}
 BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist ipykernel}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
+BuildRequires:  %{py3_dist jupyter_kernel_test}
 
 %description
 This package contains a Jupyter kernel for PARI/GP.
@@ -37,6 +34,9 @@ This package contains a Jupyter kernel for PARI/GP.
 %prep
 %autosetup -n pari-jupyter-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 rst2html --no-datestamp README.rst README.html
@@ -50,6 +50,17 @@ mv %{buildroot}%{_prefix}%{_sysconfdir}/jupyter/nbconfig/notebook.d \
    %{buildroot}%{_sysconfdir}/jupyter/nbconfig
 rm -fr %{buildroot}%{_prefix}%{_sysconfdir}
 
+%check
+export PYTHONPATH=%{buildroot}%{python3_sitearch}
+export IPYTHONDIR=$PWD/.ipython
+mkdir .ipython
+ln -s %{buildroot}%{_datadir}/jupyter/kernels .ipython
+ln -s %{buildroot}%{_datadir}/jupyter/nbextensions .ipython
+cd test
+python3 test_pari_jupyter_kernel.py
+cd -
+rm -fr .ipython
+
 %files -n python3-pari-jupyter
 %doc README.html
 %config(noreplace) %{_sysconfdir}/jupyter/nbconfig/notebook.d/gp-mode.json
@@ -59,6 +70,10 @@ rm -fr %{buildroot}%{_prefix}%{_sysconfdir}
 %{python3_sitearch}/pari_jupyter*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.4.1-5
+- Dynamically generate BuildRequires
+- Add %%check script
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

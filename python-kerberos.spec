@@ -3,10 +3,10 @@
 
 Name:           python-%{srcname}
 Version:        1.3.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        %{sum}
 
-License:        ASL 2.0
+License:        Apache-2.0
 # SVN browser is at https://trac.calendarserver.org/browser/PyKerberos
 URL:            https://pypi.python.org/pypi/kerberos
 Source0:        https://pypi.python.org/packages/source/k/%{srcname}/%{srcname}-%{version}.tar.gz
@@ -62,6 +62,9 @@ export PYTHONPATH=%{buildroot}%{python3_sitearch}
 
 
 %changelog
+* Thu Feb 23 2023 Rob Crittenden <rcritten@redhat.com> - 1.3.0-19
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

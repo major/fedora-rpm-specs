@@ -2,10 +2,10 @@ Name: hyphen-sk
 Summary: Slovak hyphenation rules
 %global upstreamid 20031227
 Version: 0.%{upstreamid}
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_sk_SK.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
-License: GPL+
+License: GPL-1.0-or-later
 BuildArch: noarch
 
 Requires: hyphen
@@ -40,6 +40,9 @@ cp -p *.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20031227-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20031227-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -113,14 +116,14 @@ cp -p *.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20031227-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sat Jul 11 2009 Caolan McNamara <caolanm@redhat.com> - 0.20031227-4
+* Sat Jul 11 2009 Caolán McNamara <caolanm@redhat.com> - 0.20031227-4
 - tidy spec
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20031227-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Wed Dec 31 2008 Caolan McNamara <caolanm@redhat.com> - 0.20031227-2
+* Wed Dec 31 2008 Caolán McNamara <caolanm@redhat.com> - 0.20031227-2
 - Slobak -> Slovak typo
 
-* Thu Dec 18 2008 Caolan McNamara <caolanm@redhat.com> - 0.20031227-1
+* Thu Dec 18 2008 Caolán McNamara <caolanm@redhat.com> - 0.20031227-1
 - initial version

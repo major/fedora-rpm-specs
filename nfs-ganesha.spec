@@ -114,7 +114,7 @@ Requires: openSUSE-release
 #%%global dev rc6
 
 Name:		nfs-ganesha
-Version:	4.3
+Version:	4.4
 Release:	1%{?dev:%{dev}}%{?dist}
 Summary:	NFS-Ganesha is a NFS Server running in user space
 License:	LGPL-3.0-or-later
@@ -276,6 +276,7 @@ BuildRequires:	python-devel
 %else
 Requires:	python3-gobject, python3-pyparsing
 BuildRequires:	python3-devel
+BuildRequires:	python3-setuptools
 %if ( 0%{?suse_version} )
 Requires:	dbus-1-python
 %else
@@ -439,7 +440,7 @@ be used with NFS-Ganesha to support KVSFS/libkvsns
 %package gluster
 Summary: The NFS-GANESHA GLUSTER FSAL
 Requires:	nfs-ganesha = %{version}-%{release}
-BuildRequires:	glusterfs-api-devel >= 7.0
+BuildRequires:	libgfapi-devel >= 7.0
 BuildRequires:	libattr-devel, libacl-devel
 
 %description gluster
@@ -629,14 +630,6 @@ install -m 644 config_samples/gpfs.ganesha.log.conf %{buildroot}%{_sysconfdir}/g
 install -m 644 config_samples/gpfs.ganesha.exports.conf	%{buildroot}%{_sysconfdir}/ganesha
 %endif
 
-# setuptools >= 60 changes the environment to use its bundled copy of distutils
-# by default, not the Python-bundled one. To run the Python's standard library
-# distutils, the environment variable must be set.
-# Although technically setuptools is not needed for the cmake scripts, if it's
-# pulled by another package, it changes the environment and consequently,
-# the build fails. This was reported in:
-# https://github.com/pypa/setuptools/issues/3143
-export SETUPTOOLS_USE_DISTUTILS=stdlib
 %cmake_install
 
 %if ( 0%{?fedora} >= 30 || 0%{?rhel} >= 8 )
@@ -869,8 +862,7 @@ exit 0
 %{python_sitelib}/Ganesha/*
 %{python_sitelib}/ganeshactl-*-info
 %else
-%{python3_sitelib}/Ganesha/*
-%{python3_sitelib}/ganeshactl-*-info
+%{python3_sitelib}/ganeshactl-*.egg
 %endif
 %if %{with gui_utils}
 %{_bindir}/ganesha-admin
@@ -897,6 +889,13 @@ exit 0
 %endif
 
 %changelog
+* Thu Feb 23 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.4-1
+- NFS-Ganesha 4.4 GA
+- including evert python3-setuptools in 4.0-5, rhbz#2165546
+
+* Mon Feb 20 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com>
+- glusterfs-api-devel -> libgfapi-devel
+
 * Fri Jan 20 2023 Kaleb S. KEITHLEY <kkeithle at redhat.com> - 4.3-1
 - NFS-Ganesha 4.3 GA
 

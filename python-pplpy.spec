@@ -16,14 +16,6 @@ BuildRequires:  pkgconfig(mpfr)
 BuildRequires:  ppl-devel
 BuildRequires:  python3-cysignals-devel
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist cython}
-BuildRequires:  %{py3_dist gmpy2}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist tox}
-BuildRequires:  %{py3_dist tox-current-env}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 This package provides a Python wrapper to the C++ Parma Polyhedra
@@ -68,6 +60,9 @@ Development files for the python 3 PPL wrapper.
 %prep
 %autosetup -p0 -n pplpy-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
 # Do not pass -pthread to the compiler or linker
 export CC=gcc
@@ -96,6 +91,9 @@ rst2html --no-datestamp README.rst README.html
 %{python3_sitearch}/ppl/*.pxd
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.8.7-9
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

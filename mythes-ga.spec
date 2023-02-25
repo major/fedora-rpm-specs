@@ -2,11 +2,11 @@ Name: mythes-ga
 Summary: Irish thesaurus
 %global upstreamid 20071001
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/thes_ga_IE_v2.zip
 URL: https://cadhan.com/lsg/index-en.html
 BuildRequires: unzip
-License: GFDL
+License: GFDL-1.2-or-later
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-ga)
@@ -39,6 +39,9 @@ cp -p th_ga_IE_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20071001-30
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20071001-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -109,20 +112,20 @@ cp -p th_ga_IE_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20071001-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Sun Apr 04 2010 Caolan McNamara <caolanm@redhat.com> - 0.20071001-6
+* Sun Apr 04 2010 Caolán McNamara <caolanm@redhat.com> - 0.20071001-6
 - mythes now owns /usr/share/mythes
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20071001-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sat Jul 11 2009 Caolan McNamara <caolanm@redhat.com> - 0.20071001-4
+* Sat Jul 11 2009 Caolán McNamara <caolanm@redhat.com> - 0.20071001-4
 - tidy spec
 
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20071001-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Wed Jan 21 2009 Caolan McNamara <caolanm@redhat.com> - 0.20071001-2
+* Wed Jan 21 2009 Caolán McNamara <caolanm@redhat.com> - 0.20071001-2
 - fix typos
 
-* Thu Dec 11 2008 Caolan McNamara <caolanm@redhat.com> - 0.20071001-1
+* Thu Dec 11 2008 Caolán McNamara <caolanm@redhat.com> - 0.20071001-1
 - initial version

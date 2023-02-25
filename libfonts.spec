@@ -1,12 +1,17 @@
 Name: libfonts
 Version: 1.1.3
-Release: 40%{?dist}
+Release: 41%{?dist}
 Summary: TrueType Font Layouting
-License: LGPLv2 and UCD
+License: LGPL-2.1-only AND Unicode-DFS-2016
 #Original source: http://downloads.sourceforge.net/jfreereport/%%{name}-%%{version}.zip
+#unzip
+#a) to simplify the licensing
 #unzip, find . -name "*.jar" -exec rm {} \;, rm -r patches
-#to simplify the licensing
-Source: %{name}-%{version}-jars-itextpatch-deleted.zip
+#b) to update data files to clearer license
+#cd encodings
+#wget -e robots=off --no-host-directories --recursive --no-parent --reject "index.html*" --cut-dirs=2 https://unicode.org/Public/MAPPINGS/
+#rm -rf OBSOLETE
+Source: %{name}-%{version}-jars-itextpatch_deleted-encodings_updated.zip
 URL: http://reporting.pentaho.org/
 BuildRequires: ant, java-devel, jpackage-utils, libloader >= 1.1.3
 Requires: java-headless, jpackage-utils, libloader >= 1.1.3
@@ -62,6 +67,9 @@ cp -rp bin/javadoc/docs/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 1.1.3-41
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

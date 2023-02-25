@@ -11,7 +11,7 @@
 Name: gdm
 Epoch: 1
 Version: 43.0
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: The GNOME Display Manager
 
 License: GPLv2+
@@ -23,6 +23,9 @@ Source1: org.gnome.login-screen.gschema.override
 Source5: default.pa-for-gdm
 
 Source6: gdm.sysusers
+
+# pam_console removal
+Patch10001: 0001-pam-redhat-Remove-pam_console-from-service-files.patch
 
 # Downstream patches
 Patch70001: 0001-udev-Stick-with-wayland-on-hybrid-nvidia-with-vendor.patch
@@ -301,6 +304,9 @@ fi
 %{_libdir}/pkgconfig/gdm-pam-extensions.pc
 
 %changelog
+* Thu Feb 09 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1:43.0-5
+- Remove pam_console from service file (#1822228)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:43.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

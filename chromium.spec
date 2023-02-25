@@ -21,7 +21,7 @@
 
 # This flag is so I can build things very fast on a giant system.
 # Enabling this in koji causes aarch64 builds to timeout indefinitely.
-%global use_all_cpus 0
+%global use_all_cpus 1
 
 %if %{use_all_cpus}
 %global numjobs %{_smp_build_ncpus}
@@ -160,8 +160,8 @@
 %global bundleminizip 1
 %endif
 
-# enable qt backend for el >= 9 and fedora >= 35
-%if 0%{?rhel} >= 9 || 0%{?fedora} >=35
+# enable qt backend for el >= 8 and fedora >= 35
+%if 0%{?rhel} >= 8 || 0%{?fedora} >=35
 %global use_qt 1
 %else
 %global use_qt 0
@@ -237,8 +237,8 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 110.0.5481.100
-Release: 3%{?dist}
+Version: 110.0.5481.177
+Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
 License: BSD-3-Clause AND LGPL-2.1-or-later AND Apache-2.0 AND IJG AND MIT AND GPL-2.0-or-later AND ISC AND OpenSSL AND (MPL-1.1 OR GPL-2.0-only OR LGPL-2.0-only)
@@ -273,6 +273,9 @@ Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
 
 # Add "Fedora" to the user agent string
 Patch12: chromium-101.0.4951.41-fedora-user-agent.patch
+
+# numeric_limits is not a member of std
+Patch13: chromium-110-limits.patch
 
 # debian patch, disable font-test 
 Patch20: chromium-disable-font-tests.patch
@@ -904,7 +907,14 @@ without support for alsa, cups, dbus, gconf, gio, kerberos, pulseaudio, or
 udev.
 
 %prep
+echo state: prep
+echo check the value of /sys/fs/cgroup/pids.max inside the container
+cat /sys/fs/cgroup/pids.max
+
 %setup -q -n chromium-%{version}
+echo state: setup
+echo check the value of /sys/fs/cgroup/pids.max inside the container
+cat /sys/fs/cgroup/pids.max
 
 ### Chromium Fedora Patches ###
 %patch0 -p1 -b .sandboxpie
@@ -916,6 +926,13 @@ udev.
 %patch8 -p1 -b .widevine-other-locations
 %patch9 -p1 -b .widevine-no-download
 %patch11 -p1 -b .py3
+
+# Fedora branded user agent
+%if 0%{?fedora}
+%patch12 -p1 -b .fedora-user-agent
+%endif
+
+%patch13 -p1 -b .limits
 
 %patch20 -p1 -b .disable-font-test
 
@@ -948,11 +965,6 @@ udev.
 %patch92 -p1 -b .gtk-prefers-color-scheme
 
 %patch98 -p1 -b .InkDropHost-crash
-
-# Fedora branded user agent
-%if 0%{?fedora}
-%patch12 -p1 -b .fedora-user-agent
-%endif
 
 %if ! %{bundleffmpegfree}
 %patch114 -p1 -b .system-ffmppeg
@@ -1055,7 +1067,7 @@ cp -a %{_includedir}/libusb-1.0/libusb.h third_party/libusb/src/libusb/libusb.h
 %endif
 
 # Hard code extra version
-sed -i.orig -e 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channel_info_posix.cc
+sed -i 's/getenv("CHROME_VERSION_EXTRA")/"Fedora Project"/' chrome/common/channel_info_posix.cc
 
 # Fix hardcoded path in remoting code
 sed -i 's|/opt/google/chrome-remote-desktop|%{crd_path}|g' remoting/host/setup/daemon_controller_delegate_linux.cc
@@ -1067,6 +1079,10 @@ sed -i 's|-g2|-g0|g' build/config/compiler/BUILD.gn
 sed -i 's|moc|moc-qt5|g' ui/qt/moc_wrapper.py
 
 %build
+echo state: build
+echo check the value of /sys/fs/cgroup/pids.max inside the container
+cat /sys/fs/cgroup/pids.max
+
 # utf8 issue on epel7, Internal parsing error 'ascii' codec can't
 # decode byte 0xe2 in position 474: ordinal not in range(128)
 export LANG=en_US.UTF-8
@@ -1234,6 +1250,12 @@ CHROMIUM_HEADLESS_GN_DEFINES+=' use_libpci=false use_pulseaudio=false use_udev=f
 CHROMIUM_HEADLESS_GN_DEFINES+=' v8_enable_lazy_source_positions=false use_glib=false use_gtk=false use_pangocairo=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' use_qt=false is_component_build=false enable_ffmpeg_video_decoders=false media_use_ffmpeg=false'
 CHROMIUM_HEADLESS_GN_DEFINES+=' media_use_libvpx=false proprietary_codecs=false'
+%ifarch aarch64
+%if 0%{?rhel} == 8
+# workaround 64K pagesize on el8
+CHROMIUM_HEADLESS_GN_DEFINES+=' use_partition_alloc_as_malloc=false enable_backup_ref_ptr_support=false'
+%endif
+%endif
 export CHROMIUM_HEADLESS_GN_DEFINES
 
 build/linux/unbundle/replace_gn_files.py --system-libraries \
@@ -1688,6 +1710,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Thu Feb 23 2023 Than Ngo <than@redhat.com> - 110.0.5481.177-1
+- update to 110.0.5481.177
+- workaround for crash on aarch64, rhel8
+
 * Wed Feb 22 2023 Jan Grulich <jgrulich@redhat.com> - 110.0.5481.100-3
 - Enable PipeWire screen sharing on RHEL8+
 

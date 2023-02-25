@@ -36,15 +36,9 @@ Patch0:         %{name}-test.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist docutils}
 BuildRequires:  %{py3_dist myst-parser}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist six}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-copybutton}
-BuildRequires:  %{py3_dist zope.testing}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 Manuel lets you mix and match traditional doctests with custom test
@@ -62,6 +56,9 @@ You can also create your own plug-ins.
 
 %prep
 %autosetup -n manuel-%{version} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires -x tests
 
 %build
 %pyproject_wheel
@@ -84,6 +81,9 @@ cp -p src/manuel/myst-markdown.md build/lib/manuel
 %license COPYRIGHT.rst
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.12.4-3
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.12.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

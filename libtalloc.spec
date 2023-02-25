@@ -8,7 +8,7 @@ Name: libtalloc
 Version: 2.4.0
 Release: 2%{?dist}
 Summary: The talloc library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: https://talloc.samba.org/
 
 Source0: https://www.samba.org/ftp/talloc/talloc-%{version}.tar.gz
@@ -114,6 +114,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %endif
 
 %changelog
+* Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.4.0-2
+- SPDX migration
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

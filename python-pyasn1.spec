@@ -3,9 +3,9 @@
 
 Name:           python-pyasn1
 Version:        0.4.8
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        ASN.1 tools for Python
-License:        BSD
+License:        BSD-2-Clause
 Source0:        https://github.com/etingof/pyasn1/archive/v%{version}.tar.gz
 Source1:        https://github.com/etingof/pyasn1-modules/archive/v%{modules_version}.tar.gz
 URL:            https://github.com/etingof/pyasn1
@@ -85,6 +85,10 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 %doc docs/build/html/*
 
 %changelog
+* Thu Feb 23 2023 Rob Crittenden <rcritten@redhat.com> - 0.4.8-13
+- migrated to SPDX license
+- correct bad date in changelog
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -94,7 +98,7 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} %{__python3} setup.py test
 * Mon Jun 13 2022 Python Maint <python-maint@redhat.com> - 0.4.8-10
 - Rebuilt for Python 3.11
 
-* Tue Mar  1 2021 Rob Crittenden <rcritten@redhat.com> - 0.4.8-9
+* Mon Mar  1 2021 Rob Crittenden <rcritten@redhat.com> - 0.4.8-9
 - Set URL to https://github.com/etingof/pyasn1 in the spec file (#2059715)
 
 * Fri Jan 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.8-8

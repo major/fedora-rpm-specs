@@ -4,7 +4,7 @@
 
 Name:           hamcrest
 Version:        2.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        Library of matchers for building test expressions
 License:        BSD
 URL:            https://github.com/hamcrest/JavaHamcrest
@@ -39,53 +39,63 @@ Javadoc for %{name}.
 %setup -q -n JavaHamcrest-%{upstream_version}
 %patch0 -p1
 
-rm -rf docs
-rm -rf *gradle*
-rm -rf */*.gradle
+sed -i 's/\r//' LICENSE.txt
 
-mv hamcrest/src .
-rm -rf hamcrest
-rm -rf hamcrest-core
-rm -rf hamcrest-integration
-rm -rf hamcrest-library
-
+pushd hamcrest
 cp -p %{SOURCE1} pom.xml
 %pom_add_dep junit:junit::test
 %pom_xpath_inject pom:project '
 <build>
-	<plugins>
-		<plugin>
-		<groupId>org.apache.maven.plugins</groupId>
-		<artifactId>maven-compiler-plugin</artifactId>
-		<version>3.8.1</version>
-		<configuration>
-			<source>1.8</source>
-			<target>1.8</target>
-		</configuration>
-		</plugin>
-	</plugins>
+  <plugins>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-compiler-plugin</artifactId>
+      <version>any</version>
+      <configuration>
+        <source>1.8</source>
+        <target>1.8</target>
+      </configuration>
+    </plugin>
+    <plugin>
+      <groupId>org.apache.maven.plugins</groupId>
+      <artifactId>maven-jar-plugin</artifactId>
+      <version>any</version>
+      <configuration>
+        <archive>
+          <manifestEntries>
+            <Automatic-Module-Name>org.hamcrest</Automatic-Module-Name>
+          </manifestEntries>
+        </archive>
+      </configuration>
+    </plugin>
+  </plugins>
 </build>'
 
 %mvn_alias org.hamcrest:hamcrest org.hamcrest:hamcrest-all
 %mvn_alias org.hamcrest:hamcrest org.hamcrest:hamcrest-core
 %mvn_alias org.hamcrest:hamcrest org.hamcrest:hamcrest-library
 
-sed -i 's/\r//' LICENSE.txt
-
 %build
+pushd hamcrest
 %mvn_build
+popd
 
 %install
+pushd hamcrest
 %mvn_install
+popd
 
-%files -f .mfiles
+%files -f hamcrest/.mfiles
 %doc README.md
 %license LICENSE.txt
 
-%files javadoc -f .mfiles-javadoc
+%files javadoc -f hamcrest/.mfiles-javadoc
 %license LICENSE.txt
 
 %changelog
+* Thu Feb 23 2023 Marian Koncek <mkoncek@redhat.com> - 2.2-10
+- Add Automatic-Module-Name manifest entry
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

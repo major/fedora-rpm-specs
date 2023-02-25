@@ -6,16 +6,14 @@
 ###
 
 Name: darktable
-Version: 4.2.0
-Release: 3%{?dist}
+Version: 4.2.1
+Release: 1%{?dist}
 
 Summary: Utility to organize and develop raw images
 License: GPLv3+
 URL: http://www.darktable.org/
 
 Source0: https://github.com/darktable-org/darktable/releases/download/release-%{version}/%{name}-%{version}.tar.xz
-
-Patch0: appdata.patch
 
 BuildRequires: cairo-devel
 BuildRequires: clang >= 3.9
@@ -53,7 +51,7 @@ BuildRequires: lensfun-devel
 BuildRequires: libappstream-glib
 # libavif is not available in EPEL 8
 %if (0%{?el} > 8) || (0%{?fedora} >= 33)
-BuildRequires: cmake(libavif) >= 0.9.1
+BuildRequires: cmake(libavif) >= 0.8.2
 %endif
 BuildRequires: libcurl-devel >= 7.18.0
 BuildRequires: libgphoto2-devel >= 2.4.5
@@ -215,7 +213,7 @@ popd
 
 %find_lang %{name}
 rm -rf %{buildroot}%{_datadir}/doc/darktable
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/darktable.appdata.xml
+appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darktable.darktable.appdata.xml
 
 %files -f %{name}.lang 
 %license LICENSE
@@ -231,7 +229,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/darktable
 %{_libdir}/darktable
 %{_datadir}/darktable
 %{_datadir}/applications/darktable.desktop
-%{_datadir}/metainfo/darktable.appdata.xml
+%{_datadir}/metainfo/org.darktable.darktable.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/darktable*
 %{_mandir}/man1/darktable*.1*
 %{_mandir}/*/man1/darktable*.1*
@@ -246,6 +244,11 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/darktable
 %{_libexecdir}/darktable/tools/subr.sh
 
 %changelog
+* Thu Feb 23 2023 Germano Massullo <germano.massullo@gmail.com> - 4.2.1-1
+- 4.2.1 release
+- removes appdata patch
+- renames darktable.appdata.xml to org.darktable.darktable.appdata.xml
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

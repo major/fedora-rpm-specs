@@ -6,7 +6,7 @@ Name: libtdb
 Version: 1.4.8
 Release: 1%{?dist}
 Summary: The tdb library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: http://tdb.samba.org/
 Source0: http://samba.org/ftp/tdb/tdb-%{version}.tar.gz
 Source1: http://samba.org/ftp/tdb/tdb-%{version}.tar.asc
@@ -101,6 +101,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %ldconfig_scriptlets
 
 %changelog
+* Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 1.4.8-1
+- SPDX migration
+
 * Thu Jan 19 2023 Andreas Schneider <asn@redhat.com> - 1.4.8-1
 - Update to version 1.4.8
 - resolves: rhbz#2155422 - Fixed waf with python 3.12

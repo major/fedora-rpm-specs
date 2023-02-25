@@ -22,7 +22,7 @@
 Name:    kdebase3
 Summary: KDE 3 core files
 Version: 3.5.10
-Release: 75%{?dist}
+Release: 76%{?dist}
 
 # programs: GPLv2, libs: LGPLv2
 License: GPL-2.0-only
@@ -762,6 +762,9 @@ fi
 
 
 %changelog
+* Thu Feb 23 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 3.5.10-76
+- Rebuild against openexr2 2.5.8
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 3.5.10-75
 - migrated to SPDX license
 

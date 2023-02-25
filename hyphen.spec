@@ -1,10 +1,10 @@
 Name:      hyphen
 Summary:   A text hyphenation library
 Version:   2.8.8
-Release:   19%{?dist}
+Release:   20%{?dist}
 Source:    http://downloads.sourceforge.net/hunspell/hyphen-%{version}.tar.gz
 URL:       http://hunspell.sf.net
-License:   GPLv2 or LGPLv2+ or MPLv1.1
+License:   GPL-2.0-only OR LGPL-2.1-or-later OR MPL-1.1
 BuildRequires: perl-interpreter, patch, autoconf, automake, libtool
 # s390 lacks valgrind support
 # no working valgrind built for MIPS yet
@@ -75,6 +75,9 @@ popd
 %{_bindir}/substrings.pl
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 2.8.8-20
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

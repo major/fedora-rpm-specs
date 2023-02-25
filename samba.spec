@@ -210,7 +210,7 @@ Epoch:          0
 %global samba_depver %{epoch}:%{version}-%{release}
 
 Summary:        Server and Client software to interoperate with Windows machines
-License:        GPLv3+ and LGPLv3+
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later
 URL:            https://www.samba.org
 
 # This is a xz recompressed file of https://ftp.samba.org/pub/samba/samba-%%{version}%%{pre_release}.tar.gz
@@ -1075,7 +1075,7 @@ necessary to communicate to the Winbind Daemon
 %if %{with winexe}
 %package winexe
 Summary: Samba Winexe Windows Binary
-License: GPLv3
+License: GPL-3.0-only
 Requires: %{name}-client-libs = %{samba_depver}
 Requires: %{name}-common-libs = %{samba_depver}
 
@@ -4333,6 +4333,9 @@ fi
 %endif
 
 %changelog
+* Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 4.18.0-0.6.rc3
+- SPDX migration
+
 * Wed Feb 15 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.0rc3-6
 - resolves: #2166416 - Update to version 4.18.0rc3
 

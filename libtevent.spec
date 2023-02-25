@@ -10,7 +10,7 @@ Name: libtevent
 Version: 0.14.1
 Release: 1%{?dist}
 Summary: The tevent library
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: http://tevent.samba.org/
 Source0: http://samba.org/ftp/tevent/tevent-%{version}.tar.gz
 Source1: http://samba.org/ftp/tevent/tevent-%{version}.tar.asc
@@ -107,6 +107,9 @@ cp -a doc/man/man3 %{buildroot}%{_mandir}
 %ldconfig_scriptlets
 
 %changelog
+* Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> -0.14.1-1
+- SPDX migration
+
 * Thu Feb 16 2023 Guenther Deschner <gdeschner@redhat.com> - 0.14.1-1
 - rhbz#2166867 - libtevent-0.14.1 is available
 

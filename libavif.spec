@@ -15,7 +15,7 @@ Version:        0.11.1
 Release:        %autorelease
 Summary:        Library for encoding and decoding .avif files
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/AOMediaCodec/libavif
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

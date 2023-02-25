@@ -1,8 +1,8 @@
 %global srcname ogr
 
 Name:           python-%{srcname}
-Version:        0.42.0
-Release:        2%{?dist}
+Version:        0.43.0
+Release:        1%{?dist}
 Summary:        One API for multiple git forges
 
 License:        MIT
@@ -52,6 +52,9 @@ rm -rf %{srcname}.egg-info
 
 
 %changelog
+* Thu Feb 23 2023 Packit <hello@packit.dev> - 0.43.0-1
+- Fixes an issue with project->service mapping where the service with an url not containing the service type wasn't matched. (#771)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.42.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

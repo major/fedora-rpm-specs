@@ -2,10 +2,10 @@ Name: hyphen-it
 Summary: Italian hyphenation rules
 %global upstreamid 20071127
 Version: 0.%{upstreamid}
-Release: 28%{?dist}
+Release: 29%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/hyph_it_IT.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
-License: LGPLv2+
+License: LGPL-2.1-or-later
 BuildArch: noarch
 Requires: hyphen
 Supplements: (hyphen and langpacks-it)
@@ -37,6 +37,9 @@ done
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20071127-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20071127-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -113,14 +116,14 @@ done
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20071127-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Sun Nov 02 2008 Caolan McNamara <caolanm@redhat.com> - 0.20071127-3
+* Sun Nov 02 2008 Caolán McNamara <caolanm@redhat.com> - 0.20071127-3
 - add Latin alias
 
-* Thu Nov 29 2007 Caolan McNamara <caolanm@redhat.com> - 0.20071127-2
+* Thu Nov 29 2007 Caolán McNamara <caolanm@redhat.com> - 0.20071127-2
 - add switz italian alias
 
-* Tue Nov 27 2007 Caolan McNamara <caolanm@redhat.com> - 0.20071127-1
+* Tue Nov 27 2007 Caolán McNamara <caolanm@redhat.com> - 0.20071127-1
 - latest version
 
-* Fri Nov 23 2007 Caolan McNamara <caolanm@redhat.com> - 0.20030809-1
+* Fri Nov 23 2007 Caolán McNamara <caolanm@redhat.com> - 0.20030809-1
 - initial version

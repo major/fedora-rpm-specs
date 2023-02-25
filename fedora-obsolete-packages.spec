@@ -145,6 +145,8 @@ Source0:    README
 # Remove in F38
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2126661
 %obsolete perl-Verilog-CodeGen 0.9.4-39
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2046787
+%obsolete opencolorio1 1.1.1-5
 
 # Remove in F39
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2126677
@@ -456,6 +458,10 @@ Source0:    README
 # Remove in F40
 %obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2160274
 %obsolete ocaml-stdint 0.7.2-2
+
+# Retired and blocks upgrades.
+%obsolete_ticket https://src.fedoraproject.org/rpms/msv/c/d64a3747a979f709029501929c8ffe97be3e4238?branch=rawhide
+%obsolete msv 2013.6.1-20
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

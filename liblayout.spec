@@ -1,8 +1,8 @@
 Name: liblayout
 Version: 0.2.10
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: CSS based layouting framework
-License: LGPLv2+ and UCD
+License: LGPL-2.1-or-later and Unicode-DFS-2016
 Source: http://downloads.sourceforge.net/jfreereport/liblayout-%{version}.zip
 URL: http://reporting.pentaho.org/
 BuildRequires: ant, java-devel, jpackage-utils, flute, libloader
@@ -60,6 +60,9 @@ cp -rp build/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 %{_javadocdir}/%{name}
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.2.10-31
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -133,8 +136,7 @@ cp -rp build/api $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
 * Sat Nov 03 2012 Caolán McNamara <caolanm@redhat.com> - 0.2.10-6
-- resource/GraphemeBreakProperty.txt and liblayout-0.2.10.zip/resource/Blocks.txt are
-  under UCD
+- resource/GraphemeBreakProperty.txt and resource/Blocks.txt are under UCD
 
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.2.10-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_18_Mass_Rebuild

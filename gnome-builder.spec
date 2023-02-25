@@ -15,7 +15,7 @@
 %global sysprof_version 3.46.0
 
 Name:           gnome-builder
-Version:        43.4
+Version:        44~beta
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -39,10 +39,6 @@ License:        GPLv3+ and GPLv2+ and LGPLv3+ and LGPLv2+ and MIT and CC-BY-SA a
 URL:            https://wiki.gnome.org/Apps/Builder
 Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
 
-# https://gitlab.gnome.org/GNOME/gnome-builder/-/merge_requests/679
-# https://gitlab.gnome.org/GNOME/gnome-builder/-/merge_requests/686
-Patch0:         webkitgtk-2.39.6.patch
-
 BuildRequires:  clang-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  gettext
@@ -63,6 +59,7 @@ BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires:  pkgconfig(jsonrpc-glib-1.0) >= %{jsonrpc_glib_version}
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libcmark)
+BuildRequires:  pkgconfig(libdex-1)
 BuildRequires:  pkgconfig(libgit2-glib-1.0) >= %{libgit2_glib_version}
 BuildRequires:  pkgconfig(libpanel-1)
 BuildRequires:  pkgconfig(libpeas-1.0) >= %{libpeas_version}

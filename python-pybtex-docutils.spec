@@ -23,20 +23,13 @@ Summary:        Docutils backend for pybtex
 License:        MIT AND BSD-2-Clause
 URL:            https://github.com/mcmtroffaes/pybtex-docutils
 Source0:        %pypi_source pybtex-docutils
-# The tests now expect docutils 0.18+.  Until we update the Fedora package,
-# revert the test changes so they work with docutils 0.17.
-Patch0:         %{name}-test.patch
-BuildArch:      noarch
 
+BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pybtex}
 BuildRequires:  %{py3_dist pytest}
 BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global common_desc %{expand:
 This package contains a docutils backend for pybtex, a BibTeX-compatible
@@ -54,17 +47,16 @@ Provides:       bundled(js-underscore)
 %description -n python3-pybtex-docutils %common_desc
 
 %prep
-%autosetup -n pybtex-docutils-%{version} -N
-docutils_version=$(python3 -Ic 'import docutils; print(docutils.__version__)')
-if [[ "$docutils_version" =~ ^0\.17 ]]; then
-    patch -p1 -T < %{PATCH0}
-fi
+%autosetup -n pybtex-docutils-%{version}
 
 # Update the sphinx theme name
 sed -i "s/'default'/'classic'/" doc/conf.py
 
 # Use local objects.inv for intersphinx
 sed -i "s|\('http://docs\.python\.org/', \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" doc/conf.py
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -82,6 +74,10 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html doc/_build/html/*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.0.2-4
+- Dynamically generate BuildRequires
+- Drop unneeded -test patch
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

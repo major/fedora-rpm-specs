@@ -11,15 +11,6 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
-BuildRequires:  %{py3_dist cffi}
-BuildRequires:  %{py3_dist manuel}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist repoze.sphinx.autointerface}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zope.interface}
-BuildRequires:  %{py3_dist zope.testrunner}
 
 %global common_desc %{expand:
 This package contains a generic persistence implementation for Python.  It
@@ -79,6 +70,9 @@ sed -i "s/'default'/'classic'/" docs/conf.py
 # Use local objects.inv for intersphinx
 sed -i "s|\('https://docs\.python\.org/3/': \)None|\1'%{_docdir}/python3-docs/html/objects.inv'|" docs/conf.py
 
+%generate_buildrequires
+%pyproject_buildrequires -x test,docs rtd.txt
+
 %build
 %pyproject_wheel
 
@@ -118,6 +112,9 @@ zope-testrunner --test-path=src -vc
 %doc docs/_build/html/*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.0-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

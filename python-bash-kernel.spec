@@ -9,14 +9,7 @@ Source0:        %{url}/archive/%{version}/bash_kernel-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist flit-core}
-BuildRequires:  %{py3_dist ipykernel}
-BuildRequires:  %{py3_dist pexpect}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 This package contains a Jupyter kernel for bash.
@@ -31,6 +24,9 @@ This package contains a Jupyter kernel for bash.
 
 %prep
 %autosetup -n bash_kernel-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -52,6 +48,9 @@ cd -
 %{_datadir}/jupyter/kernels/bash/
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.9.0-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

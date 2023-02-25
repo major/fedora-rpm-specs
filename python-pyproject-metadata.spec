@@ -17,19 +17,7 @@ Patch0:         %{name}-test.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist packaging}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
-
-%if %{with doc}
-BuildRequires:  %{py3_dist furo}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-autodoc-typehints}
-%endif
 
 %global _desc %{expand:
 Dataclass for PEP 621 metadata with support for core metadata generation.
@@ -65,6 +53,13 @@ Documentation for python3-pyproject-metadata.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+%if %{with doc}
+%pyproject_buildrequires -x test,docs
+%else
+%pyproject_buildrequires -x test
+%endif
+
 %build
 %pyproject_wheel
 rst2html --no-datestamp CHANGELOG.rst CHANGELOG.html
@@ -94,6 +89,9 @@ rm -rf html/{.buildinfo,.doctrees}
 %endif
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.7.1-1
+- Dynamically generate BuildRequires
+
 * Mon Jan 30 2023 Jerry James <loganjerry@gmail.com> - 0.7.1-1
 - Version 0.7.1
 - Drop packaging workaround, resolved upstream

@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.09
+Version: 11.10
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -139,16 +139,14 @@ Provides the documentation files and example shell scripts for use with annobin.
 %package tests
 Summary: Test scripts and binaries for checking the behaviour and output of the annobin plugin
 Requires: %{name}-docs = %{version}-%{release}
+BuildRequires: make sharutils
+%if %{with debuginfod}
+BuildRequires: elfutils-debuginfod-client-devel
+%endif
 
 %description tests
 Provides a means to test the generation of annotated binaries and the parsing
 of the resulting files.
-
-BuildRequires: make
-
-%if %{with debuginfod}
-BuildRequires: elfutils-debuginfod-client-devel
-%endif
 
 %endif
 
@@ -464,12 +462,16 @@ rm -f %{buildroot}%{_infodir}/dir
 
 %if %{with tests}
 %check
-# Change the following line to "make check || :" on RHEL7 or if you need to see the
-# test suite logs in order to diagnose a test failure.
-make check
+# The first "make check" is run with "|| :" so that we can capture any logs
+# from failed tests.  The second "make check" is there so that the build
+# will fail if any of the tests fail.
+make check || :
 if [ -f tests/test-suite.log ]; then
     cat tests/test-suite.log
 fi
+# If necessary use uuencode to preserve test binaries here.  For example:
+#   uuencode tests/tmp_atexit/atexit.strip atexit.strip
+make check
 %endif
 
 #---------------------------------------------------------------------------------
@@ -522,6 +524,9 @@ fi
 #---------------------------------------------------------------------------------
 
 %changelog
+* Thu Feb 23 2023 Nick Clifton  <nickc@redhat.com> - 11.10-1
+- Annocheck: Add code to handle glibc functions built without LTO.
+
 * Thu Feb 02 2023 Nick Clifton  <nickc@redhat.com> - 11.09-1
 - Libannocheck: Fix thinko in debugging code.
 - Annocheck: Fix LTO test.

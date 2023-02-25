@@ -2,7 +2,7 @@ Summary: An API for Run-time Code Generation
 License: LGPLv2+
 Name: dyninst
 Group: Development/Libraries
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: http://www.dyninst.org
 Version: 12.2.0
 ExclusiveArch: %{ix86} x86_64 ppc64le aarch64
@@ -13,6 +13,7 @@ Source1: https://github.com/dyninst/testsuite/archive/%{__testsuite_version}/tes
 
 Patch1: dwarf-error.patch
 Patch2: cmdline.patch
+Patch3: rhbz2173030.patch
 
 %global dyninst_base dyninst-%{version}
 %global testsuite_base testsuite-%{__testsuite_version}
@@ -86,6 +87,10 @@ popd
 
 pushd %{testsuite_base}
 %patch2 -p1 -b .cmdline
+popd
+
+pushd %{dyninst_base}
+%patch3 -p1
 popd
 
 # cotire seems to cause non-deterministic gcc errors
@@ -188,6 +193,9 @@ find %{buildroot}%{_libdir}/dyninst/testsuite/ \
 %attr(644,root,root) %{_libdir}/dyninst/testsuite/*.a
 
 %changelog
+* Thu Feb 23 2023 Frank Ch. Eigler <fche@redhat.com> - 12.2.0-4
+- rhbz2173030: ftbfs with gcc 13
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 12.2.0-3
 - Rebuilt for Boost 1.81
 

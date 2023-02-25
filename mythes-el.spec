@@ -2,13 +2,13 @@ Name: mythes-el
 Summary: Greek thesaurus
 %global upstreamid 20070412
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 # below links are dead and can't find any mirror for it
 # please don't report any FTBFS bugs
 #Source: http://www.ellak.gr/pub/oo_extras/th_el.zip
 Source: th_el.zip
 URL: wiki.services.openoffice.org/wiki/Dictionaries
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-el)
@@ -48,6 +48,9 @@ done
 %{_datadir}/mythes/*
 
 %changelog
+* Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20070412-30
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070412-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -118,20 +121,20 @@ done
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070412-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Sat Apr 03 2010 Caolan McNamara <caolanm@redhat.com> - 0.20070412-6
+* Sat Apr 03 2010 Caolán McNamara <caolanm@redhat.com> - 0.20070412-6
 - mythes now owns /usr/share/mythes
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070412-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Sat Jul 11 2009 Caolan McNamara <caolanm@redhat.com> - 0.20070412-4
+* Sat Jul 11 2009 Caolán McNamara <caolanm@redhat.com> - 0.20070412-4
 - tidy spec
 
-* Fri Jun 12 2009 Caolan McNamara <caolanm@redhat.com> - 0.20070412-3
+* Fri Jun 12 2009 Caolán McNamara <caolanm@redhat.com> - 0.20070412-3
 - extend coverage
 
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070412-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Thu Jan 15 2009 Caolan McNamara <caolanm@redhat.com> - 0.20070412-1
+* Thu Jan 15 2009 Caolán McNamara <caolanm@redhat.com> - 0.20070412-1
 - initial version

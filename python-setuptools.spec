@@ -1,24 +1,18 @@
 %global srcname setuptools
 
-# The original RHEL 9 content set is defined by (build)dependencies
-# of the packages in Fedora ELN. Hence we disable tests here
-# to prevent pulling many unwanted packages in.
-# Once the RHEL 9 content set is defined and/or RHEL 9 forks from ELN,
-# the conditional can be removed from the Fedora spec file.
-# We intentionally keep this enabled on EPEL.
-%if 0%{?rhel} >= 9 && !0%{?epel}
-%bcond_with tests
-%else
-%bcond_without tests
-%endif
+# used when bootstrapping new Python versions
+%bcond bootstrap 0
 
-#  WARNING  When bootstrapping, disable tests as well,
-#           because tests need pip.
-%bcond_with bootstrap
 # Similar to what we have in pythonX.Y.spec files.
 # If enabled, provides unversioned executables and other stuff.
 # Disable it if you build this package in an alternative stack.
-%bcond_without main_python
+%bcond main_python 1
+
+# The original RHEL N+1 content set is defined by (build)dependencies
+# of the packages in Fedora ELN. Hence we disable tests and documentation here
+# to prevent pulling many unwanted packages in.
+# We intentionally keep this enabled on EPEL.
+%bcond tests %[%{without bootstrap} && (%{defined fedora} || %{defined epel})]
 
 %global python_wheel_name %{srcname}-%{version}-py3-none-any.whl
 
@@ -176,20 +170,26 @@ install -p %{_pyproject_wheeldir}/%{python_wheel_name} -t %{buildroot}%{python_w
 %endif
 
 
-%if %{with tests}
 %check
-# Verify bundled provides are up to date
+# Verify bundled provides are up to date, pythonbundles.py uses pkg_resources from $PWD 
 cat pkg_resources/_vendor/vendored.txt setuptools/_vendor/vendored.txt > allvendor.txt
-%{_rpmconfigdir}/pythonbundles.py allvendor.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled}'
+PYTHONPATH=. %{_rpmconfigdir}/pythonbundles.py allvendor.txt --namespace 'python%{python3_pkgversion}dist' --compare-with '%{bundled}'
 
+%if %{without bootstrap}
 # Regression test, the wheel should not be larger than 900 kB
 # https://bugzilla.redhat.com/show_bug.cgi?id=1914481#c3
 test $(stat --format %%s %{_pyproject_wheeldir}/%{python_wheel_name}) -lt 900000
+%endif
 
 # Regression test, the tests are not supposed to be installed
 test ! -d %{buildroot}%{python3_sitelib}/pkg_resources/tests
 test ! -d %{buildroot}%{python3_sitelib}/setuptools/tests
 
+%if %{without bootstrap}
+%pyproject_check_import
+%endif
+
+%if %{with tests}
 # https://github.com/pypa/setuptools/discussions/2607
 rm pyproject.toml
 

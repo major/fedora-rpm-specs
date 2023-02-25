@@ -22,17 +22,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python3-persistent-devel
 BuildRequires:  python3-persistent-doc
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist repoze.sphinx.autointerface}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-rtd-theme}
-BuildRequires:  %{py3_dist tox}
-BuildRequires:  %{py3_dist tox-current-env}
-BuildRequires:  %{py3_dist transaction}
-BuildRequires:  %{py3_dist zope.interface}
-BuildRequires:  %{py3_dist zope.testrunner}
-BuildRequires:  %{py3_dist wheel}
 
 %if %{without bootstrap}
 BuildRequires:  python-ZODB-doc
@@ -97,6 +86,9 @@ sed -e 's|\("https://zodb\.org/en/latest/": \)None|\1"%{_docdir}/python-ZODB-doc
     -i docs/conf.py
 %endif
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
 %pyproject_wheel
 
@@ -125,6 +117,9 @@ sed -i '/\.c$/d;/\.h$/d' %{pyproject_files}
 %doc docs/_build/html/*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.0-1
+- Dynamically generate BuildRequires
+
 * Fri Feb 10 2023 Jerry James <loganjerry@gmail.com> - 5.0-1
 - Version 5.0
 

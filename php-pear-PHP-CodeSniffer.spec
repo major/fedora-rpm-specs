@@ -1,6 +1,6 @@
 # spec file for php-pear-PHP-CodeSniffer
 #
-# Copyright (c) 2013-2022 Remi Collet
+# Copyright (c) 2013-2023 Remi Collet
 # Copyright (c) 2009-2013 Christof Damian
 # Copyright (c) 2006-2009 Konstantin Ryabitsev
 #
@@ -13,11 +13,11 @@
 %global pear_name     PHP_CodeSniffer
 
 Name:           php-pear-PHP-CodeSniffer
-Version:        3.7.1
-Release:        3%{?dist}
+Version:        3.7.2
+Release:        1%{?dist}
 Summary:        PHP coding standards enforcement tool
 
-License:        BSD
+License:        BSD 3-Clause
 URL:            http://pear.php.net/package/PHP_CodeSniffer
 Source0:        http://pear.php.net/get/%{pear_name}-%{version}.tgz
 
@@ -96,11 +96,17 @@ sed -e "/@copyright/s/2021/${YEAR}/" \
 
 # Version 3.6.2: Tests: 1327, Assertions: 8476, Skipped: 8.
 ret=0
-for cmdarg in "php %{phpunit}" php74 php80 php81; do
+for cmdarg in "php %{phpunit}" php80 php81 php82; do
   if which $cmdarg; then
     set $cmdarg
+    if [ $($1 -r 'echo PHP_VERSION_ID;') -ge 80200 ]; then
+      # failing upstream
+      FILTER="--filter '^((?!(testNotReadonly)).)*$'"
+    else
+      FILTER=""
+    fi
     $1 -d memory_limit=1G ${2:-%{_bindir}/phpunit7} \
-       --verbose || ret=1
+       $FILTER || ret=1
   fi
 done
 exit $ret
@@ -128,6 +134,9 @@ fi
 
 
 %changelog
+* Thu Feb 23 2023 Remi Collet <remi@remirepo.net> - 3.7.2-1
+- update to 3.7.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

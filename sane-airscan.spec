@@ -5,7 +5,7 @@
 
 Name:           sane-airscan
 Version:        0.99.27
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        SANE backend for AirScan (eSCL) and WSD document scanners
 # the exception is defined in LICENSE, meant for SANE project in most cases
 License:        GPLv2+ with exceptions
@@ -19,6 +19,8 @@ Source:         %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires:  avahi-devel
 # project is written in C
 BuildRequires:  gcc
+# fuzzer for testing is written in C++
+BuildRequires:  gcc-c++
 # git is used during autosetup
 BuildRequires:  git-core
 # creating credentials and SHA256 for UUID
@@ -27,8 +29,8 @@ BuildRequires:  gnutls-devel
 BuildRequires:  libjpeg-turbo-devel, libpng-devel
 # XML data are carried on HTTP protocol, we need to create them and parse them
 BuildRequires:  libxml2-devel
-# uses make
-BuildRequires: make
+# uses meson
+BuildRequires: meson
 # used in Makefile to get the correct compile and link flags
 BuildRequires:  pkgconf-pkg-config
 # package is meant to be as one of SANE backends - it uses SANE API for handling
@@ -64,18 +66,16 @@ scanning protocol.
 %autosetup -S git
 
 %build
-# we need to set default CFLAGS, CPPFLAGS and LDFLAGS to get flags
-# from build system into the build, otherwise project's default
-# are used
-%set_build_flags
-%make_build
+%meson
+%meson_build
 
 %check
-make check
+%meson_test
 
 %install
-mkdir -p %{buildroot}/
-%make_install STRIP=''
+%meson_install
+
+rm -f %{buildroot}%{_libdir}/sane/libsane-airscan.so
 
 %files
 %license COPYING LICENSE
@@ -96,6 +96,9 @@ mkdir -p %{buildroot}/
 
 
 %changelog
+* Thu Feb 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.99.27-8
+- move to meson
+
 * Thu Feb 02 2023 Zdenek Dohnal <zdohnal@redhat.com> - 0.99.27-7
 - 2165612 - IPP-USB as a weak dependency of CUPS and sane-airscan
 

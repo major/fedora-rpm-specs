@@ -1,8 +1,8 @@
 %global _hardened_build 1
 
 Name:           transmission
-Version:        4.0.0
-Release:        3%{?dist}
+Version:        4.0.1
+Release:        1%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
 License:        MIT and GPLv2
@@ -11,11 +11,9 @@ URL:            http://www.transmissionbt.com
 Source0:        https://github.com/transmission/transmission/releases/download/%{version}/transmission-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1221292
 Source1:        https://raw.githubusercontent.com/gnome-design-team/gnome-icons/master/apps-symbolic/Adwaita/scalable/apps/transmission-symbolic.svg
-Patch0:         f551b4adbff0d59557d61867d0b6518c50f5a73f.patch
-Patch1:         4890.patch
 # Fix the DBus name to match the app name for flatpak builds
 # https://github.com/transmission/transmission/pull/847
-Patch2:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
+Patch0:         0001-gtk-use-com.transmissionbt.Transmission.-D-Bus-names.patch
 
 
 BuildRequires:  make
@@ -182,6 +180,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Thu Feb 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-1
+- 4.0.1
+
 * Wed Feb 15 2023 Kalev Lember <klember@redhat.com> - 4.0.0-3
 - Avoid hardcoding /usr prefix
 - Restore flatpak DBus name patch

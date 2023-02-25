@@ -1,6 +1,6 @@
 Name: libdatovka
-Version: 0.2.1
-Release: 5%{?dist}
+Version: 0.3.0
+Release: 1%{?dist}
 Summary: Client library for accessing SOAP services of ISDS (Czech Data Boxes)
 
 License: LGPLv3+ and GPLv3+
@@ -87,6 +87,10 @@ make check %{?_smp_mflags}
 %doc client
 
 %changelog
+* Thu Feb 23 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 0.3.0-1
+- New version
+  Resolves: rhbz#2170064
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

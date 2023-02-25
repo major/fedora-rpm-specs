@@ -13,7 +13,7 @@
 %endif
 
 %global srcname pip
-%global base_version 22.3.1
+%global base_version 23.0.1
 %global upstream_version %{base_version}%{?prerel}
 %global python_wheel_name %{srcname}-%{upstream_version}-py3-none-any.whl
 
@@ -21,7 +21,7 @@
 
 Name:           python-%{srcname}
 Version:        %{base_version}%{?prerel:~%{prerel}}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        A tool for installing and managing Python packages
 
 # We bundle a lot of libraries with pip, which itself is under MIT license.
@@ -39,10 +39,10 @@ Summary:        A tool for installing and managing Python packages
 # ipaddress: Python-2.0.1
 # msgpack: Apache-2.0
 # packaging: Apache-2.0 OR BSD-2-Clause
-# pep517: MIT
 # progress: ISC
 # pygments: BSD-2-Clause
 # pyparsing: MIT
+# pyproject-hooks: MIT
 # requests: Apache-2.0
 # resolvelib: ISC
 # rich: MIT
@@ -126,27 +126,27 @@ Packages" or "Pip Installs Python".
 # %%{_rpmconfigdir}/pythonbundles.py --namespace 'python%%{1}dist' src/pip/_vendor/vendor.txt
 %global bundled() %{expand:
 Provides: bundled(python%{1}dist(cachecontrol)) = 0.12.11
-Provides: bundled(python%{1}dist(certifi)) = 2022.9.24
-Provides: bundled(python%{1}dist(chardet)) = 5
-Provides: bundled(python%{1}dist(colorama)) = 0.4.5
+Provides: bundled(python%{1}dist(certifi)) = 2022.12.7
+Provides: bundled(python%{1}dist(chardet)) = 5.1
+Provides: bundled(python%{1}dist(colorama)) = 0.4.6
 Provides: bundled(python%{1}dist(distlib)) = 0.3.6
-Provides: bundled(python%{1}dist(distro)) = 1.7
+Provides: bundled(python%{1}dist(distro)) = 1.8
 Provides: bundled(python%{1}dist(idna)) = 3.4
 Provides: bundled(python%{1}dist(msgpack)) = 1.0.4
 Provides: bundled(python%{1}dist(packaging)) = 21.3
-Provides: bundled(python%{1}dist(pep517)) = 0.13
-Provides: bundled(python%{1}dist(platformdirs)) = 2.5.2
+Provides: bundled(python%{1}dist(platformdirs)) = 2.6.2
 Provides: bundled(python%{1}dist(pygments)) = 2.13
 Provides: bundled(python%{1}dist(pyparsing)) = 3.0.9
-Provides: bundled(python%{1}dist(requests)) = 2.28.1
+Provides: bundled(python%{1}dist(pyproject-hooks)) = 1
+Provides: bundled(python%{1}dist(requests)) = 2.28.2
 Provides: bundled(python%{1}dist(resolvelib)) = 0.8.1
-Provides: bundled(python%{1}dist(rich)) = 12.5.1
+Provides: bundled(python%{1}dist(rich)) = 12.6
 Provides: bundled(python%{1}dist(setuptools)) = 44
 Provides: bundled(python%{1}dist(six)) = 1.16
 Provides: bundled(python%{1}dist(tenacity)) = 8.1
 Provides: bundled(python%{1}dist(tomli)) = 2.0.1
 Provides: bundled(python%{1}dist(typing-extensions)) = 4.4
-Provides: bundled(python%{1}dist(urllib3)) = 1.26.12
+Provides: bundled(python%{1}dist(urllib3)) = 1.26.14
 Provides: bundled(python%{1}dist(webencodings)) = 0.5.1
 }
 
@@ -390,6 +390,10 @@ pytest_k='not completion'
 %{python_wheel_dir}/%{python_wheel_name}
 
 %changelog
+* Mon Feb 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 23.0.1-1
+- Update to 23.0.1
+Resolves: rhbz#2165760
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

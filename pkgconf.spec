@@ -22,6 +22,9 @@
 # Search path for pc files for pkgconf
 %global pkgconf_libdirs %{_libdir}/pkgconfig:%{_datadir}/pkgconfig
 
+# libpkgconf soversion major version
+%global libsomajor 4
+
 Name:           pkgconf
 Version:        1.9.4
 Release:        1%{?dist}
@@ -198,7 +201,7 @@ rm -rf %{buildroot}%{_datadir}/aclocal
 
 %files -n lib%{name}
 %license COPYING
-%{_libdir}/lib%{name}*.so.*
+%{_libdir}/lib%{name}*.so.%{libsomajor}{,.*}
 
 %files -n lib%{name}-devel
 %{_libdir}/lib%{name}*.so

@@ -2,7 +2,7 @@
 
 Name:           ncrack
 Version:        0.7
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        A high-speed network auth cracking tool
 
 License:        GPLv2 with exceptions
@@ -14,6 +14,8 @@ Patch0:         https://github.com/nmap/ncrack/commit/bdcd5d6a0c9ed0b21de33d7bfe
 Patch1:         https://github.com/nmap/ncrack/commit/9232958b35a6f5118049f252814a26bbe21783d6.patch
 # SSH module is not iterating on the credential list properly
 Patch2:         https://github.com/nmap/ncrack/pull/99.patch
+# Fedora C99 Fixes
+Patch3:		ncrack-0.7-fedora-c99.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -53,6 +55,9 @@ export CFLAGS="${RPM_OPT_FLAGS} -fcommon"
 %{_datadir}/%{name}/*
 
 %changelog
+* Tue Feb 21 2023 DJ Delorie <dj@redhat.com> - 0.7-10
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

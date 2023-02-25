@@ -1,12 +1,10 @@
 Name:           numberstation
-Version:        1.2.0
-Release:        4%{?dist}
+Version:        1.3.0
+Release:        1%{?dist}
 Summary:        TOTP Authenticator application
 License:        GPL-3.0-or-later
 URL:            https://sr.ht/~martijnbraam/%{name}/
 Source0:        https://git.sr.ht/~martijnbraam/%{name}/archive/%{version}.tar.gz
-# https://lists.sr.ht/~martijnbraam/public-inbox/%3C167535253399.18032.14909706557758476766-0@git.sr.ht%3E#%3C167535253399.18032.14909706557758476766-1@git.sr.ht%3E
-Patch0:         0001-Remove-duplicate-version-from-appstream-data.patch
 Requires:       libhandy
 Requires:       python3-gobject
 Requires:       python3-keyring
@@ -24,7 +22,7 @@ BuildRequires:  libappstream-glib
 %{summary}
 
 %prep
-%autosetup -S git
+%autosetup
 
 %build
 %meson
@@ -48,6 +46,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/org.postmarke
 %{_datadir}/%{name}
 
 %changelog
+* Thu Feb 23 2023 Tomi Lähteenmäki <lihis@lihis.net> - 1.3.0-1
+- Update to v1.3.0
+
 * Thu Feb 02 2023 Tomi Lähteenmäki <lihis@lihis.net> - 1.2.0-4
 - Fix review comments (bugzilla #2151289)
 

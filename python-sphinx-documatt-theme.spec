@@ -10,12 +10,7 @@ URL:            https://documatt.gitlab.io/sphinx-themes/themes/documatt.html
 Source0:        %{pypi_source sphinx_documatt_theme}
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 A mobile-friendly Sphinx theme designed to provide a great documentation
@@ -30,6 +25,9 @@ Summary:        Mobile-friendly Sphinx theme with beautiful typography
 
 %prep
 %autosetup -n sphinx_documatt_theme-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -46,6 +44,9 @@ rst2html --no-datestamp README.rst README.html
 %doc README.html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.0.5-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

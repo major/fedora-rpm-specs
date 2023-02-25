@@ -39,9 +39,6 @@ sed -i 's/\r//' RELEASE-NOTES*.txt LICENSE.txt NOTICE.txt
 %mvn_alias : commons-codec:commons-codec
 
 %build
-# Avoid running out of heap on s390x during test suite execution
-export MAVEN_OPTS="-Xmx1024m"
-
 %mvn_build -- -Dcommons.osgi.symbolicName=org.apache.commons.codec
 
 %install

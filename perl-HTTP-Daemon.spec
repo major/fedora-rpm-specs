@@ -2,8 +2,8 @@
 %{bcond_without perl_HTTP_Daemon_enables_optional_test}
 
 Name:           perl-HTTP-Daemon
-Version:        6.14
-Release:        9%{?dist}
+Version:        6.15
+Release:        1%{?dist}
 Summary:        Simple HTTP server class
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/HTTP-Daemon
@@ -30,9 +30,12 @@ BuildRequires:  perl(LWP::MediaTypes) >= 6
 BuildRequires:  perl(Socket)
 BuildRequires:  perl(warnings)
 # Tests only:
+BuildRequires:  perl(lib)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(HTTP::Tiny) >= 0.042
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(IO::Select)
+BuildRequires:  perl(MIME::Base64)
 BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More) >= 0.98
@@ -112,6 +115,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.15-1
+- 6.15 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.14-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

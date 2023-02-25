@@ -1,5 +1,5 @@
 Name:           python-ypy-websocket
-Version:        0.8.2
+Version:        0.8.4
 Release:        %autorelease
 Summary:        WebSocket connector for Ypy
 License:        MIT

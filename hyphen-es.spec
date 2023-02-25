@@ -1,10 +1,10 @@
 Name: hyphen-es
 Summary: Spanish hyphenation rules
 Version: 2.3
-Release: 13%{?dist}
+Release: 14%{?dist}
 Source: https://github.com/sbosio/rla-es/releases/download/v%{version}/es_ANY.oxt
 URL: https://github.com/sbosio/rla-es/tree/master/separacion
-License: LGPLv3+ or GPLv3+ or MPLv1.1
+License: LGPL-3.0-or-later OR GPL-3.0-or-later OR MPL-1.1
 BuildArch: noarch
 Requires: hyphen
 Supplements: (hyphen and langpacks-es)
@@ -35,6 +35,9 @@ popd
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 2.3-14
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

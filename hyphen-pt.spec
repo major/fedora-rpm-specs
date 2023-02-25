@@ -2,7 +2,7 @@ Name: hyphen-pt
 Summary: Portuguese hyphenation rules
 %global upstreamid 20140727
 Version: 0.%{upstreamid}
-Release: 4%{?dist}
+Release: 5%{?dist}
 # latest seen in Hifenizador section of https://pt-br.libreoffice.org/projetos/vero/
 Source0: https://pt-br.libreoffice.org/assets/Uploads/PT-BR-Documents/VERO/hyphptBR-213.zip
 # The contents of Source1 are the same rules that are currently (2022-05-16) in
@@ -10,7 +10,7 @@ Source0: https://pt-br.libreoffice.org/assets/Uploads/PT-BR-Documents/VERO/hyphp
 # so we continue to use those rules in the absence of a contrary opinion
 Source1: http://download.services.openoffice.org/contrib/dictionaries/hyph_pt_PT.zip
 URL: https://pt-br.libreoffice.org/projetos/vero/
-License: LGPLv3 and GPL+
+License: LGPL-3.0-only AND GPL-1.0-or-later
 BuildArch: noarch
 
 Requires: hyphen
@@ -53,6 +53,9 @@ done
 %{_datadir}/hyphen/hyph_pt_BR.dic
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20140727-5
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20140727-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

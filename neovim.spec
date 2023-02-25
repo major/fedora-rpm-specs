@@ -42,7 +42,7 @@ Name:           neovim
 Version:        0.8.3
 Release:        1%{?dist}
 
-License:        ASL 2.0
+License:        Apache-2.0 AND Vim
 Summary:        Vim-fork focused on extensibility and agility
 Url:            https://neovim.io
 

@@ -2,12 +2,12 @@ Name: hyphen-hu
 Summary: Hungarian hyphenation rules
 %global upstreamid 20090612
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 # Source URL is dead now
 # Source: http://download.github.com/nagybence-huhyphn-aa3fc85.tar.gz
 Source: nagybence-huhyphn-aa3fc85.tar.gz
 URL: http://www.tipogral.hu/
-License: GPLv2
+License: GPL-2.0-only
 BuildArch: noarch
 BuildRequires: make
 Requires: hyphen
@@ -36,6 +36,9 @@ cp -p hyph_hu.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_hu_HU.dic
 %{_datadir}/hyphen/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20090612-30
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20090612-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -85,7 +88,7 @@ cp -p hyph_hu.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_hu_HU.dic
 * Thu Feb 04 2016 Fedora Release Engineering <releng@fedoraproject.org> - 0.20090612-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_24_Mass_Rebuild
 
-* Tue Nov 03 2015 Caolan McNamara <caolanm@redhat.com> - 0.20090612-13
+* Tue Nov 03 2015 Caolán McNamara <caolanm@redhat.com> - 0.20090612-13
 - Resolves: rhbz#1275688 wrong country code for Hungary
 
 * Wed Jun 17 2015 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20090612-12
@@ -100,7 +103,7 @@ cp -p hyph_hu.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_hu_HU.dic
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20090612-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
-* Tue Nov 06 2012 Caolan McNamara <caolanm@redhat.com> - 0.20090612-8
+* Tue Nov 06 2012 Caolán McNamara <caolanm@redhat.com> - 0.20090612-8
 - clarify license
 
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20090612-7
@@ -112,23 +115,23 @@ cp -p hyph_hu.dic $RPM_BUILD_ROOT/%{_datadir}/hyphen/hyph_hu_HU.dic
 * Wed Feb 09 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20090612-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Thu Nov 05 2009 Caolan McNamara <caolanm@redhat.com> - 0.20090612-4
+* Thu Nov 05 2009 Caolán McNamara <caolanm@redhat.com> - 0.20090612-4
 - new source location
 
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20090612-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Wed Jun 24 2009 Caolan McNamara <caolanm@redhat.com> - 0.20090612-2
+* Wed Jun 24 2009 Caolán McNamara <caolanm@redhat.com> - 0.20090612-2
 - vanilla patgen's limit is too small
 
-* Mon Jun 15 2009 Caolan McNamara <caolanm@redhat.com> - 0.20090612-1
+* Mon Jun 15 2009 Caolán McNamara <caolanm@redhat.com> - 0.20090612-1
 - latest version
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20081106-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Sun Nov 09 2008 Caolan McNamara <caolanm@redhat.com> - 0.20081106-1
+* Sun Nov 09 2008 Caolán McNamara <caolanm@redhat.com> - 0.20081106-1
 - latest version
 
-* Fri Nov 23 2007 Caolan McNamara <caolanm@redhat.com> - 0.20070907-1
+* Fri Nov 23 2007 Caolán McNamara <caolanm@redhat.com> - 0.20070907-1
 - initial version

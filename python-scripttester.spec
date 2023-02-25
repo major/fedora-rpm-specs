@@ -33,11 +33,7 @@ BuildArch:      noarch
 BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global desc %{expand:
 Provides a class to be instantiated in tests that checks that scripts
@@ -62,6 +58,9 @@ Summary:        Utility for testing command line scripts
 %prep
 %autosetup -n scripttester-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 %build
 %pyproject_wheel
 rst2html --no-datestamp README.rst README.html
@@ -82,6 +81,9 @@ rm -f doc/_build/html/.{buildinfo,nojekyll}
 %doc README.html doc/_build/html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.1-17
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

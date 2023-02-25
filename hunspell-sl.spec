@@ -7,10 +7,10 @@ Name: hunspell-sl
 Summary: Slovenian hunspell dictionaries
 %global upstreamid 20070127
 Version: 0.%{upstreamid}
-Release: 29%{?dist}
+Release: 30%{?dist}
 Source: http://download.services.openoffice.org/contrib/dictionaries/sl_SI.zip
 URL: http://ftp.services.openoffice.org/pub/OpenOffice.org/contrib/dictionaries/
-License: GPL+ or LGPLv2+
+License: GPL-1.0-or-later OR LGPL-2.1-or-later
 BuildArch: noarch
 
 Requires: hunspell
@@ -35,6 +35,9 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20070127-30
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070127-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -100,7 +103,7 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070127-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
-* Tue Nov 06 2012 Caolan McNamara <caolanm@redhat.com> - 0.20070127-8
+* Tue Nov 06 2012 Caolán McNamara <caolanm@redhat.com> - 0.20070127-8
 - clarify license version
 
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070127-7
@@ -118,11 +121,11 @@ cp -p *.dic *.aff $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070127-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Thu Aug 09 2007 Caolan McNamara <caolanm@redhat.com> - 0.20070127-2
+* Thu Aug 09 2007 Caolán McNamara <caolanm@redhat.com> - 0.20070127-2
 - clarify license version
 
-* Wed Feb 14 2007 Caolan McNamara <caolanm@redhat.com> - 0.20070127-1
+* Wed Feb 14 2007 Caolán McNamara <caolanm@redhat.com> - 0.20070127-1
 - next version
 
-* Thu Dec 07 2006 Caolan McNamara <caolanm@redhat.com> - 0.20021008-1
+* Thu Dec 07 2006 Caolán McNamara <caolanm@redhat.com> - 0.20021008-1
 - initial version

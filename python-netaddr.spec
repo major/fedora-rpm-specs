@@ -1,29 +1,14 @@
-%if 0%{?fedora} || 0%{?rhel} > 7
-%global with_python3 1
-%endif
-
-%if 0%{?fedora} < 32 && 0%{?rhel} < 9
-%global with_python2 1
-%endif
-
 Name:           python-netaddr
 Version:        0.8.0
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        A pure Python network address representation and manipulation library
 
-License:        BSD
-URL:            http://github.com/drkjam/netaddr
+License:        BSD-3-Clause
+URL:            https://github.com/drkjam/netaddr
 Source0:        https://pypi.python.org/packages/source/n/netaddr/netaddr-%{version}.tar.gz
 
 BuildArch:      noarch
-# sphinx is python3-only f31 onward
-# https://fedoraproject.org/wiki/Changes/Sphinx2
 BuildRequires:  python3-sphinx
-%if 0%{?with_python2}
-BuildRequires:  python2-pytest
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-%endif
 
 %global desc A network address manipulation library for Python\
 \
@@ -53,22 +38,12 @@ Layer 2 addresses\
 
 %description %_description
 
-%if 0%{?with_python2}
-%package -n python2-netaddr
-Summary: %summary
-%{?python_provide:%python_provide python2-netaddr}
-
-%description -n python2-netaddr %_description
-%endif
-
-%if 0%{?with_python3}
 %package -n python3-netaddr
 Summary: A pure Python network address representation and manipulation library
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-pytest
-%{?python_provide:%python_provide python3-netaddr}
 
 %description -n python3-netaddr
 %{desc}
@@ -80,7 +55,6 @@ Requires:  python3-ipython
 
 %description -n python3-netaddr-shell
 An IPython-based shell environment for the netaddr library
-%endif
 
 %prep
 %setup -q -n netaddr-%{version}
@@ -94,52 +68,24 @@ find netaddr -name "*.py" | \
 chmod 0644 README.rst AUTHORS CHANGELOG COPYRIGHT LICENSE PKG-INFO
 
 %build
-%if 0%{?with_python2}
-%py2_build
-%endif
-
-%if 0%{?with_python3}
 %py3_build
-%endif
 
 #docs
 pushd docs
 PYTHONPATH='../' sphinx-build-%{python3_version} -b html -d build/doctrees source html
 rm -f html/.buildinfo
-%if 0%{?with_python3}
 PYTHONPATH='../' sphinx-build-%{python3_version} -b html -d build/doctrees source python3/html
 rm -f python3/html/.buildinfo
-%endif
 popd
 
 
 %install
-%if 0%{?with_python2}
-%py2_install
-%endif
-
-%if 0%{?with_python3}
 %py3_install
-%endif
 
 
 %check
-%if 0%{?with_python2}
-py.test-%{python2_version}
-%endif
-%if 0%{?with_python3}
 py.test-%{python3_version}
-%endif
 
-%if 0%{?with_python2}
-%files -n python2-netaddr
-%license COPYRIGHT LICENSE
-%doc AUTHORS CHANGELOG
-%doc README.rst docs/html
-%{python2_sitelib}/*
-%endif
-
-%if 0%{?with_python3}
 %files -n python3-netaddr
 %license COPYRIGHT
 %doc AUTHORS CHANGELOG
@@ -148,9 +94,12 @@ py.test-%{python3_version}
 
 %files -n python3-netaddr-shell
 %{_bindir}/netaddr
-%endif
 
 %changelog
+* Thu Feb 23 2023 Orion Poplawski <orion@nwra.com> - 0.8.0-12
+- Cleanup spec
+- Use SPDX License tag
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,8 +1,8 @@
 Name:		python-augeas
 Version:	1.1.0
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Python bindings to augeas
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		http://augeas.net/
 Source0:	https://github.com/hercules-team/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:		%{name}-test-package-installation.patch
@@ -50,6 +50,9 @@ pytest-3
 
 
 %changelog
+* Thu Feb 23 2023 Rafael Jeffman <rjeffman@redhat.com> - 1.1.0-8
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

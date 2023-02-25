@@ -18,18 +18,6 @@ BuildRequires:  npm
 BuildRequires:  python-sphinx-doc
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
-BuildRequires:  %{py3_dist beautifulsoup4}
-BuildRequires:  %{py3_dist myst-parser}
-BuildRequires:  %{py3_dist nodeenv}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pygments}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-basic-ng}
-BuildRequires:  %{py3_dist sphinx-copybutton}
-BuildRequires:  %{py3_dist sphinx-design}
-BuildRequires:  %{py3_dist sphinx-inline-tabs}
-BuildRequires:  %{py3_dist sphinx-theme-builder}
-BuildRequires:  %{py3_dist wheel}
 BuildRequires:  yarnpkg
 
 %global _description %{expand:
@@ -86,16 +74,13 @@ find . -name .gitignore -delete
 # Substitute the installed nodejs version for the requested version
 sed -i 's,^\(node-version = \)".*",\1"%{nodejs_version}",' pyproject.toml
 
-# Create a node header tarball so we don't try to download it
-mkdir -p node-v%{nodejs_version}/include
-cp -a %{_includedir}/node node-v%{nodejs_version}/include
-tar czf node-v%{nodejs_version}-headers.tar.gz node-v%{nodejs_version}
-npm config set tarball $PWD/node-v%{nodejs_version}-headers.tar.gz
-
 # Use local objects.inv for intersphinx
 sed -e 's|\("https://docs\.python\.org/3", \)None|\1"%{_docdir}/python3-docs/html/objects.inv"|' \
     -e 's|\("https://www\.sphinx-doc\.org/en/master", \)None|\1"%{_docdir}/python-sphinx-doc/html/objects.inv"|' \
     -i docs/conf.py
+
+%generate_buildrequires
+%pyproject_buildrequires docs/requirements.txt
 
 %build
 export PUPPETEER_SKIP_CHROMIUM_DOWNLOAD=1
@@ -127,6 +112,10 @@ rm -rf html/{.buildinfo,.doctrees}
 %license LICENSE
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2022.12.07-2
+- Dynamically generate BuildRequires
+- The node header tarball is no longer needed
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12.07-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

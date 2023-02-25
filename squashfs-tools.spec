@@ -1,13 +1,13 @@
 Name: squashfs-tools
-Version: 4.5.1
+Version: 4.6
 Summary: Utility for the creation of squashfs filesystems
 %global forgeurl https://github.com/plougher/%{name}
-%global date 20220318
-%global tag 4.5.1
-%forgemeta -i -v
+%global date 20230323
+%global commit 7cf6cee6acfa61a423d63168ad198a3bfafacda8
+%forgemeta
 URL:	 %{forgeurl}
 Source:  %{forgesource}
-Release: 3%{?dist}
+Release: 0.2%{dist}
 License: GPLv2+
 
 BuildRequires: make
@@ -50,13 +50,19 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Thu Feb 23 2023 Bruno Wolff III <bruno@wolff.to> - 4.6-0.2^20230323git7cf6cee
+- Remove the -i and -v forgemeta flags to get rid of the extra noise
+
+* Thu Feb 23 2023 Bruno Wolff III <bruno@wolff.to> - 4.6-0.1^20230323git7cf6cee
+- Prerelease snapshot of 4.6
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - Packaging variables read or set by %forgemeta
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
 
-* Sat Mar 18 2022 Bruno Wolff III <bruno@wolff.to> - 4.5-1
+* Sat Mar 19 2022 Bruno Wolff III <bruno@wolff.to> - 4.5-1
 - 4.5.1 release
 - Up to date man pages
 - Lots of little fixes

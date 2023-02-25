@@ -14,7 +14,7 @@
 
 Name:       csdiff
 Version:    2.9.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Non-interactive tools for processing code scan results in plain-text
 
 License:    GPLv3+
@@ -124,6 +124,9 @@ make version.cc
 %endif
 
 %changelog
+* Thu Feb 23 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.9.0-2
+- Rebuilt for Boost 1.81 (rhbz#2172687)
+
 * Wed Feb 22 2023 Kamil Dudka <kdudka@redhat.com> 2.9.0-1
 - update to latest upstream release
 

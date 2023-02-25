@@ -20,12 +20,9 @@ BuildRequires:  make
 BuildRequires:  pkgconfig(fftw3)
 BuildRequires:  pkgconfig(gsl)
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
-BuildRequires:  %{py3_dist wheel}
 BuildRequires:  suitesparse-devel
 BuildRequires:  tex-dvipng
 BuildRequires:  tex(anyfontsize.sty)
@@ -99,6 +96,9 @@ sed -i 's,bin/env python,bin/python3,' examples/filterdemo/filterdemo_{cli,gui}
 # Remove useless executable bits
 find examples -name \*.py -perm /0111 -exec chmod a-x {} +
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 export LDSHARED="gcc -shared %{build_ldflags}"
 %pyproject_wheel
@@ -125,6 +125,9 @@ rm -f doc/build/html/.buildinfo
 %doc examples/
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.3.0-6
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

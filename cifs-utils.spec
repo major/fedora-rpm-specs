@@ -6,7 +6,7 @@ Version:         7.0
 Release:         1%{pre_release}%{?dist}
 Summary:         Utilities for mounting and managing CIFS mounts
 
-License:         GPLv3
+License:         GPL-3.0-only
 URL:             http://linux-cifs.samba.org/cifs-utils/
 
 BuildRequires:  gcc
@@ -124,6 +124,9 @@ about CIFS mount.
 %{_mandir}/man1/smbinfo.*
 
 %changelog
+* Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 7.0-1
+- SPDX migration
+
 * Wed Feb 01 2023 Pavel Filipenský <pfilipen@redhat.com> - 7.0-1
 - Upstream release 7.0
 

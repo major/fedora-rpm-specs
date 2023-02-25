@@ -10,8 +10,8 @@
 Name:           qbs
 # qbs was previously packaged as part of qt-creator, using the qt-creator version, hence the epoch bump
 Epoch:          1
-Version:        1.24.0
-Release:        2%{?dist}
+Version:        1.24.1
+Release:        1%{?dist}
 Summary:        Cross platform build tool
 
 # See LGPL_EXCEPTION.txt
@@ -145,6 +145,9 @@ rm %{buildroot}%{_bindir}/tst_*
 
 
 %changelog
+* Thu Feb 23 2023 Sandro Mani <manisandro@gmail.com> - 1:1.24.1-1
+- Update to 1.24.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

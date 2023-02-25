@@ -4,7 +4,7 @@
 
 Name:           ocaml-xmlrpc-light
 Version:        0.6.1
-Release:        70%{?dist}
+Release:        71%{?dist}
 Summary:        OCaml library for writing XML-RPC clients and servers
 License:        LGPLv2 with exceptions
 
@@ -12,7 +12,7 @@ License:        LGPLv2 with exceptions
 URL:            http://code.google.com/p/xmlrpc-light/
 Source0:        http://xmlrpc-light.googlecode.com/files/xmlrpc-light-%{version}.tar.gz
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  ocaml >= 3.10.0
 BuildRequires:  ocaml-findlib-devel
 BuildRequires:  ocaml-ocamldoc
@@ -86,6 +86,9 @@ make install
 
 
 %changelog
+* Thu Feb 23 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.1-71
+- Rebuild for updated ocaml-xml-light
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 0.6.1-70
 - Rebuild OCaml packages for F38
 

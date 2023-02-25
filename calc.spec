@@ -1,30 +1,23 @@
-# Enabling this option invokes section 3 of the LGPL, applying the terms of
-# the ordinary GNU General Public License version 2 instead of the LGPL.
-# See the included "calc-converted-to-gpl.txt" source file for details.
 %define with_readline 1
 
-# This is disabled right now because it prevents correct linking. The issues
-# here are related to the issues with linking with readline, in that the 
-# split between libraries is poorly defined.
+# This is disabled right now because it prevents correct linking. 
 %define with_custom_interface 0
 
-%if %{with_readline}
-License:       GPLv2
-%else
 License:       LGPLv2
-%endif
 
 Name:          calc
-Version:       2.14.1.2
+Version:       2.14.1.3
 Release:       %autorelease
 Summary:       Arbitrary precision arithmetic system and calculator
 
 # Also, https://github.com/lcn2/calc
 URL:           http://isthe.com/chongo/tech/comp/calc/
 Source0:       https://github.com/lcn2/calc/releases/download/v%{version}/calc-%{version}.tar.bz2
-Source1:       calc-converted-to-gpl.txt
-Source2:       calc-COPYING-GPL
-Patch0: calc-c99.patch
+
+# Reported upstream
+# https://github.com/lcn2/calc/issues/63
+# and upstream plans to fix in 2.14.2.0
+ExcludeArch: s390x
 
 BuildRequires: gcc, sed, util-linux
 
@@ -46,11 +39,6 @@ Recommends:    %{name}-stdrc
 Calc is an arbitrary precision C-like arithmetic system that is a
 calculator, an algorithm-prototyper, and a mathematical research tool. Calc
 comes with a rich set of built-in mathematical and programmatic functions.
-%if %{with_readline}
-Note: this copy of Calc is linked against the GNU Readline library and has
-been converted to the ordinary GPL as per section 3 of the LGPL. See the
-included calc-converted-to-gpl.txt document for details.
-%endif
 
 
 %package libs
@@ -80,17 +68,8 @@ shell scripts. They serve as examples of the calc language and may also be
 useful in themselves.
 
 
-
 %prep
 %autosetup -p1
-
-%if %{with_readline}
-  for f in help.c version.c calc.man $( ls help/*|grep  '^help/credit$' ) ; do
-    sed -i -e's/version 2.1 \(.*GNU\)/version 2 \1/;s/COPYING\(.\)LGPL/COPYING\1GPL/;s/copying.lgpl/copying-gpl/;s/GNU LGPL/GNU GPL/;s/GNU Lesser General/GNU General/' $f
-  done
-  cp -p %{SOURCE1} COPYING
-  cp -p %{SOURCE2} COPYING-GPL
-%endif
 
 
 %build
@@ -132,18 +111,17 @@ make T=%{buildroot} \
      install
 
 %if %{with_readline} 
-  rm -f %{buildroot}/%{_datadir}/%{name}/help/COPYING-LGPL
-  # mode 444 to match the other files
-  install -p -m 444 COPYING-GPL %{buildroot}/%{_datadir}/%{name}/help/
+  # only used with internal line editor
   rm -f %{buildroot}/%{_datadir}/%{name}/bindings
 %endif
+
 
 %if ! %{with_custom_interface}
   # if we don't enable the custom interface, don't ship symlinks to it
   rm -f %{buildroot}/%{_libdir}/libcustcalc.so*
 %endif
 
-# Changing permissions of executables to 755 to shut up rpmlint.
+# Changing permissions of executables to 755 to please rpmlint.
 chmod 755 %{buildroot}%{_datadir}/%{name}/cscript/*
 chmod 755 %{buildroot}%{_bindir}/calc
 
@@ -164,13 +142,8 @@ make chk
 
 
 %files
-%if %{with_readline}
-%doc BUGS CHANGES README.FIRST README.md
-%license COPYING COPYING-GPL
-%else
 %doc BUGS CHANGES README.FIRST README.md
 %license COPYING-LGPL
-%endif
 %{_bindir}/calc
 %{_mandir}/man1/calc.1*
 %dir %{_datadir}/%{name}
@@ -185,13 +158,8 @@ make chk
 %endif
 
 %files libs
-%if %{with_readline}
-%doc BUGS CHANGES
-%license COPYING COPYING-GPL
-%else
 %doc BUGS CHANGES
 %license COPYING-LGPL
-%endif
 %{_libdir}/libcalc.so.*
 %if %{with_custom_interface}
 %{_libdir}/libcustcalc.so.*

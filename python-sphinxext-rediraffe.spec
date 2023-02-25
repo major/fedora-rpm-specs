@@ -7,14 +7,7 @@ URL:            https://wpilib.org/
 Source0:        https://github.com/wpilibsuite/sphinxext-rediraffe/archive/v%{version}/sphinxext-rediraffe-%{version}.tar.gz
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist jinja2}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global _desc %{expand:
 This sphinx extension redirects non-existent pages to working pages.
@@ -45,6 +38,9 @@ sed -i '/install_requires/s/\[/&"jinja2", /' setup.py
 # Retrieving the version with git fails
 sed -i 's/main/%{version}/' setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -60,6 +56,9 @@ sed -i 's/main/%{version}/' setup.py
 %doc README.md
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.2.7-4
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

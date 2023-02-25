@@ -7,12 +7,12 @@ Name: hunspell-sc
 Summary: Sardinian hunspell dictionaries
 %global upstreamid 20081101
 Version: 0.%{upstreamid}
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source: https://ayera.dl.sourceforge.net/project/aoo-extensions/1446/2/dict_sc_it03.oxt
 URL: http://extensions.services.openoffice.org/project/Dict_sc
 #The license included is AGPLv3 and pkg-desc/pkg-description.txt
 #says AGPLv3 or later, but the sc_IT.aff header states "GPLv2"
-License: AGPLv3+ and GPLv2
+License: AGPL-3.0-or-later AND GPL-2.0-only
 BuildArch: noarch
 BuildRequires: hunspell-devel
 
@@ -38,6 +38,9 @@ cp -p sc_it.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/sc_IT.dic
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20081101-31
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20081101-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -103,10 +106,10 @@ cp -p sc_it.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/sc_IT.dic
 * Thu Feb 14 2013 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20081101-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_19_Mass_Rebuild
 
-* Tue Dec 11 2012 Caolan McNamara <caolanm@redhat.com> - 0.20081101-9
+* Tue Dec 11 2012 Caolán McNamara <caolanm@redhat.com> - 0.20081101-9
 - liblangtag detected that the .dic here has an incorrect lowercase territory
 
-* Tue Nov 06 2012 Caolan McNamara <caolanm@redhat.com> - 0.20081101-8
+* Tue Nov 06 2012 Caolán McNamara <caolanm@redhat.com> - 0.20081101-8
 - clarify license
 
 * Thu Jul 19 2012 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20081101-7
@@ -121,14 +124,14 @@ cp -p sc_it.dic $RPM_BUILD_ROOT/%{_datadir}/%{dict_dirname}/sc_IT.dic
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20081101-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Thu Jul 09 2009 Caolan McNamara <caolanm@redhat.com> - 0.20081101-3
+* Thu Jul 09 2009 Caolán McNamara <caolanm@redhat.com> - 0.20081101-3
 - drop unneeded buildrequires
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20081101-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Fri Nov 28 2008 Caolan McNamara <caolanm@redhat.com> - 0.20081101-1
+* Fri Nov 28 2008 Caolán McNamara <caolanm@redhat.com> - 0.20081101-1
 - latest version
 
-* Wed Oct 29 2008 Caolan McNamara <caolanm@redhat.com> - 0.20081027-1
+* Wed Oct 29 2008 Caolán McNamara <caolanm@redhat.com> - 0.20081027-1
 - initial version

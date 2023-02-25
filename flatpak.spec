@@ -5,11 +5,11 @@
 %global ostree_version 2020.8
 
 Name:           flatpak
-Version:        1.15.1
-Release:        3%{?dist}
+Version:        1.15.3
+Release:        1%{?dist}
 Summary:        Application deployment framework for desktop apps
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://flatpak.org/
 Source0:        https://github.com/flatpak/flatpak/releases/download/%{version}/%{name}-%{version}.tar.xz
 
@@ -21,9 +21,6 @@ Source1:        flatpak-add-fedora-repos.service
 # systemd-sysusers config. Only used for the %%pre macro. Must be kept in sync
 # with the config from upstream sources.
 Source2:        flatpak.sysusers.conf
-
-# https://github.com/flatpak/flatpak/pull/5217
-Patch0:         flatpak-1.15.1-install-selinux.patch
 
 BuildRequires:  pkgconfig(appstream) >= %{appstream_version}
 BuildRequires:  pkgconfig(dconf)
@@ -89,7 +86,6 @@ more information.
 
 %package devel
 Summary:        Development files for %{name}
-License:        LGPLv2+
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 
@@ -98,7 +94,6 @@ This package contains the pkg-config file and development headers for %{name}.
 
 %package libs
 Summary:        Libraries for %{name}
-License:        LGPLv2+
 Requires:       bubblewrap >= %{bubblewrap_version}
 Requires:       ostree%{?_isa} >= %{ostree_version}
 
@@ -107,7 +102,6 @@ This package contains libflatpak.
 
 %package selinux
 Summary:        SELinux policy module for %{name}
-License:        LGPLv2+
 BuildRequires:  selinux-policy
 BuildRequires:  selinux-policy-devel
 BuildRequires:  make
@@ -119,7 +113,6 @@ This package contains the SELinux policy module for %{name}.
 
 %package session-helper
 Summary:        User D-Bus service used by %{name} and others
-License:        LGPLv2+
 Conflicts:      flatpak < 1.4.1-2
 Requires:       systemd
 
@@ -129,7 +122,6 @@ that's used by %{name} and other packages.
 
 %package tests
 Summary:        Tests for %{name}
-License:        LGPLv2+
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       %{name}-session-helper%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
@@ -158,7 +150,6 @@ install -pm 644 NEWS README.md %{buildroot}/%{_pkgdocdir}
 # The system repo is not installed by the flatpak build system.
 install -d %{buildroot}%{_localstatedir}/lib/flatpak
 install -d %{buildroot}%{_sysconfdir}/flatpak/remotes.d
-rm -f %{buildroot}%{_libdir}/libflatpak.la
 
 %if 0%{?fedora}
 install -D -t %{buildroot}%{_unitdir} %{SOURCE1}
@@ -273,6 +264,9 @@ fi
 
 
 %changelog
+* Thu Feb 23 2023 David King <amigadave@amigadave.com> - 1.15.3-1
+- Update to 1.15.3 (#2120890)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

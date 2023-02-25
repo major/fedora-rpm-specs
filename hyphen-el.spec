@@ -2,10 +2,10 @@ Name: hyphen-el
 Summary: Greek hyphenation rules
 %global upstreamid 20051018
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 Source:  http://download.services.openoffice.org/contrib/dictionaries/hyph_el_GR.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
-License: LGPLv2+
+License: LGPL-2.1-or-later
 BuildArch: noarch
 
 Requires: hyphen
@@ -35,6 +35,9 @@ done
 %{_datadir}/hyphen/*
 
 %changelog
+* Wed Feb 23 2023 Caolán McNamara <caolanm@redhat.com> - 0.20051018-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20051018-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -108,11 +111,11 @@ done
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20051018-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
-* Fri Jun 12 2009 Caolan McNamara <caolanm@redhat.com> - 0.20051018-3
+* Fri Jun 12 2009 Caolán McNamara <caolanm@redhat.com> - 0.20051018-3
 - extend coverage
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20051018-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Sat Jan 05 2008 Caolan McNamara <caolanm@redhat.com> - 0.20051018-1
+* Sat Jan 05 2008 Caolán McNamara <caolanm@redhat.com> - 0.20051018-1
 - initial version

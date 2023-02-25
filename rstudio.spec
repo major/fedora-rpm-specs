@@ -45,7 +45,7 @@
 
 Name:           rstudio
 Version:        %{rstudio_version}+%{rstudio_version_suffix}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        RStudio base package
 ExclusiveArch:  %{java_arches}
 
@@ -88,7 +88,7 @@ Patch6:         0006-do-not-disable-seccomp-filter-sandbox.patch
 # https://github.com/rstudio/rstudio/issues/12317
 Patch7:         0007-rstudio-yaml-cpp.patch
 # need to submit upstream
-Patch8:         0008-add-cstdint-header.patch
+Patch8:         0008-add-missing-headers.patch
 
 BuildRequires:  make, cmake, ant
 BuildRequires:  gcc-c++, java-11-openjdk-devel, R-core-devel
@@ -106,7 +106,7 @@ BuildRequires:  pkgconfig(openssl)
 BuildRequires:  cmake(yaml-cpp)
 BuildRequires:  cmake(websocketpp)
 BuildRequires:  cmake(fmt)
-BuildRequires:  cmake(Catch2)
+BuildRequires:  catch2-devel
 %ifarch %{qt5_qtwebengine_arches}
 BuildRequires:  cmake(Qt5WebKit)
 BuildRequires:  cmake(Qt5Location)
@@ -354,9 +354,13 @@ chown -R %{name}-server:%{name}-server %{_sharedstatedir}/%{name}-server
 %config(noreplace) %{_sysconfdir}/pam.d/%{name}
 
 %changelog
+* Thu Feb 23 2023 Kalev Lember <klember@redhat.com> - 2022.12.0+353-4
+- Rebuilt for Boost 1.81
+
 * Thu Feb 23 2023 Iñaki Úcar <iucar@fedoraproject.org> - 2022.12.0+353-3
 - Update license to meet SPDX specification
-- Add patch to fix missing cstdint header issue
+- Add patch to fix missing headers
+- Add dependency on new catch2 compatibility package
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.12.0+353-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

@@ -30,7 +30,7 @@ Summary: A schema-less, ldap like, API and database
 Requires: libtalloc%{?_isa} >= %{talloc_version}
 Requires: libtdb%{?_isa} >= %{tdb_version}
 Requires: libtevent%{?_isa} >= %{tevent_version}
-License: LGPLv3+
+License: LGPL-3.0-or-later
 URL: http://ldb.samba.org/
 Source0: https://www.samba.org/ftp/ldb/ldb-%{version}.tar.gz
 Source1: https://www.samba.org/ftp/ldb/ldb-%{version}.tar.asc
@@ -222,6 +222,9 @@ rm -f $RPM_BUILD_ROOT/%{_mandir}/man3/_*
 %endif
 
 %changelog
+* Thu Feb 23 2023 Pavel Filipenský <pfilipen@redhat.com> - 2.7.7-1
+- SPDX migration
+
 * Thu Feb 16 2023 Guenther Deschner <gdeschner@redhat.com> - 2.7.1-1
 - rhbz#2167440 - libldb-2.7.1 is available
 

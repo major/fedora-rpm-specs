@@ -1,6 +1,6 @@
 Name: datovka
-Version: 4.21.1
-Release: 2%{?dist}
+Version: 4.22.0
+Release: 1%{?dist}
 Summary: A free graphical interface for Czech Databox (Datové schránky)
 
 License: GPLv3+ with exceptions
@@ -33,18 +33,18 @@ popd
 %build
 lrelease-qt5 datovka.pro
 %{qmake_qt5} PREFIX=%{_prefix} DISABLE_VERSION_CHECK_BY_DEFAULT=1
-make %{?_smp_mflags}
+%make_build
 
 %install
 mkdir -p %{buildroot}%{_bindir}
-make install INSTALL_ROOT=%{buildroot}
+%make_install INSTALL_ROOT=%{buildroot}
 %find_lang %{name} --with-qt
 desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 
 %check
 cd tests
-%{qmake_qt5} tests.pro
-make %{?_smp_mflags}
+%{qmake_qt5} tests.pro PREFIX=%{_prefix}
+%make_build
 ./tests
 
 %files -f %{name}.lang
@@ -55,6 +55,10 @@ make %{?_smp_mflags}
 %{_datadir}/metainfo/datovka.metainfo.xml
 
 %changelog
+* Thu Feb 23 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.22.0-1
+- New version
+  Resolves: rhbz#2170063
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.21.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -15,15 +15,8 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python-sphinx-doc
-BuildRequires:  pyproject-rpm-macros
 BuildRequires:  %{py3_dist numpydoc}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pybtex}
-BuildRequires:  %{py3_dist pybtex-docutils}
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
 
 %global common_desc %{expand:
 This package contains a Sphinx extension for BibTeX style citations.
@@ -78,6 +71,9 @@ sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/ht
     -e "s|\('http://www\.sphinx-doc\.org/en/master/', \)None|\1'%{_docdir}/python-sphinx-doc/html/objects.inv'|" \
     -i doc/conf.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -118,6 +114,9 @@ rst2html --no-datestamp LICENSE.rst LICENSE.html
 %doc html/*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.5.0-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

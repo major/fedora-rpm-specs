@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.103.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 1 integration module for idle time detection
 
 License: GPLv2+ and LGPLv2+
@@ -17,8 +17,13 @@ Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{v
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-rpm-macros >= %{majmin}
+BuildRequires:  plasma-wayland-protocols-devel
 BuildRequires:  qt5-qtbase-devel
+BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  qt5-qtx11extras-devel
+BuildRequires:  qt5-qtwayland-devel
+BuildRequires:  wayland-devel
+BuildRequires:  wayland-protocols-devel
 
 BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(x11-xcb)
@@ -65,6 +70,7 @@ developing applications that use %{name}.
 %dir %{_kf5_plugindir}/org.kde.kidletime.platforms/
 %{_kf5_plugindir}/org.kde.kidletime.platforms/KF5IdleTimeXcbPlugin0.so
 %{_kf5_plugindir}/org.kde.kidletime.platforms/KF5IdleTimeXcbPlugin1.so
+%{_kf5_plugindir}/org.kde.kidletime.platforms/KF5IdleTimeWaylandPlugin.so
 
 %files devel
 %{_kf5_includedir}/KIdleTime/
@@ -74,6 +80,10 @@ developing applications that use %{name}.
 
 
 %changelog
+* Thu Feb 23 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires.
+- Add KF5IdleTimeWaylandPlugin.so file.
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

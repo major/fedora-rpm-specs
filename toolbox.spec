@@ -1,7 +1,7 @@
 %global __brp_check_rpaths %{nil}
 
 Name:          toolbox
-Version:       0.0.99.3
+Version:       0.0.99.4
 
 %global goipath github.com/containers/%{name}
 
@@ -11,45 +11,43 @@ Version:       0.0.99.3
 %gometa -f
 %endif
 
-Release:       12%{?dist}
+Release:       1%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
 URL:           https://containertoolbx.org/
-Source0:       https://github.com/containers/%{name}/releases/download/%{version}/%{name}-%{version}.tar.xz
-# RHEL package is built with vendored dependencies
-# created with gen-vendor-tarball.sh from SOURCE2
-Source1:       %{name}-%{version}-vendor.tar.xz
-Source2:       gen-vendor-tarball.sh
+Source0:       https://github.com/containers/%{name}/releases/download/%{version}/%{name}-%{version}-vendored.tar.xz
 
 # Fedora specific
-Patch100:      toolbox-Don-t-use-Go-s-semantic-import-versioning.patch
-Patch101:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
-Patch102:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild-for-PPC64.patch
-Patch103:      toolbox-cmd-root-Work-around-Cobra-1.1.2-s-handling-of-usage.patch
+Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
+Patch101:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild-for-PPC64.patch
 
 BuildRequires: gcc
 BuildRequires: go-md2man
 BuildRequires: golang >= 1.19.4
 %if ! 0%{?rhel}
-BuildRequires: golang(github.com/HarryMichal/go-version)
-BuildRequires: golang(github.com/acobaugh/osrelease)
-BuildRequires: golang(github.com/briandowns/spinner) >= 1.10.0
+BuildRequires: golang(github.com/HarryMichal/go-version) >= 1.0.1
+BuildRequires: golang(github.com/acobaugh/osrelease) >= 0.1.0
+BuildRequires: golang(github.com/briandowns/spinner) >= 1.17.0
 BuildRequires: golang(github.com/docker/go-units) >= 0.4.0
-BuildRequires: golang(github.com/fsnotify/fsnotify) >= 1.4.7
-BuildRequires: golang(github.com/godbus/dbus) >= 5.0.3
-BuildRequires: golang(github.com/mattn/go-isatty) >= 0.0.12
-BuildRequires: golang(github.com/sirupsen/logrus) >= 1.4.2
-BuildRequires: golang(github.com/spf13/cobra) >= 0.0.5
-BuildRequires: golang(github.com/spf13/viper) >= 1.3.2
-BuildRequires: golang(golang.org/x/crypto/ssh/terminal)
+BuildRequires: golang(github.com/fsnotify/fsnotify) >= 1.5.1
+BuildRequires: golang(github.com/godbus/dbus) >= 5.0.6
+BuildRequires: golang(github.com/sirupsen/logrus) >= 1.8.1
+BuildRequires: golang(github.com/spf13/cobra) >= 1.3.0
+BuildRequires: golang(github.com/spf13/viper) >= 1.10.1
 BuildRequires: golang(golang.org/x/sys/unix)
+BuildRequires: golang(golang.org/x/term)
 # for tests
+# BuildRequires: codespell
 # BuildRequires: golang(github.com/stretchr/testify) >= 1.7.0
 # BuildRequires: ShellCheck
 %endif
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
+BuildRequires: pkgconfig(fish)
+BuildRequires: podman
+BuildRequires: shadow-utils-subid-devel
+BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
 
 Requires:      containers-common
@@ -154,34 +152,26 @@ The %{name}-tests package contains system tests for %{name}.
 
 
 %prep
-%setup -q %{?rhel:-a 1}
-%if ! 0%{?rhel}
-%patch100 -p1
-%endif
+%setup -q
 
 %ifnarch ppc64
-%patch101 -p1
+%patch100 -p1
 %else
-%patch102 -p1
+%patch101 -p1
 %endif
 
-%if ! 0%{?rhel}
-%patch103 -p1
-%endif
-
-%gomkdir
+%gomkdir -s %{_builddir}/%{extractdir}/src %{?rhel:-k}
 
 
 %build
 export %{gomodulesmode}
 export GOPATH=%{gobuilddir}:%{gopath}
 export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
-ln -s src/cmd cmd
-ln -s src/pkg pkg
-%if 0%{?rhel}
-ln -s src/vendor vendor
-%endif
-%meson -Dprofile_dir=%{_sysconfdir}/profile.d -Dtmpfiles_dir=%{_tmpfilesdir}
+
+%meson \
+    -Dprofile_dir=%{_sysconfdir}/profile.d \
+    -Dtmpfiles_dir=%{_tmpfilesdir} \
+    -Dzsh_completions_dir=%{_datadir}/zsh/site-functions
 %meson_build
 
 
@@ -198,8 +188,11 @@ ln -s src/vendor vendor
 %license COPYING %{?rhel:src/vendor/modules.txt}
 %{_bindir}/%{name}
 %{_datadir}/bash-completion
+%{_datadir}/fish
+%{_datadir}/zsh
 %{_mandir}/man1/%{name}.1*
 %{_mandir}/man1/%{name}-*.1*
+%{_mandir}/man5/%{name}.conf.5*
 %config(noreplace) %{_sysconfdir}/containers/%{name}.conf
 %{_sysconfdir}/profile.d/%{name}.sh
 %{_tmpfilesdir}/%{name}.conf
@@ -217,6 +210,9 @@ ln -s src/vendor vendor
 
 
 %changelog
+* Wed Feb 22 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-1
+- Update to 0.0.99.4
+
 * Wed Feb 22 2023 Martin Jackson <mhjacks@swbell.net> - 0.0.99.3-12
 - Fix the ExclusiveArch
 

@@ -10,9 +10,6 @@ Source0:        %{url}/archive/v%{version}/PySingular-%{version}.tar.gz
 BuildRequires:  gcc-c++
 BuildRequires:  pkgconfig(Singular)
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 This package contains a basic interface to call Singular from python.
@@ -27,6 +24,9 @@ Summary:        Python 3 interface to Singular
 
 %prep
 %autosetup -n PySingular-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -43,6 +43,9 @@ Summary:        Python 3 interface to Singular
 %license GPLv2
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.9.7-14
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.7-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

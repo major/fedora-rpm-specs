@@ -25,9 +25,6 @@ BuildRequires:  %{py3_dist ipython}
 BuildRequires:  %{py3_dist jupymake}
 BuildRequires:  %{py3_dist jupyter-client}
 BuildRequires:  %{py3_dist pexpect}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 This package contains a Jupyter kernel for polymake.}
@@ -38,15 +35,18 @@ This package contains a Jupyter kernel for polymake.}
 Summary:        Jupyter kernel for polymake
 Requires:       python-jupyter-filesystem
 Requires:       %{py3_dist ipykernel}
-Requires:       %{py3_dist ipython}
 Requires:       %{py3_dist jupymake}
-Requires:       %{py3_dist jupyter-client}
 Requires:       %{py3_dist pexpect}
+
+Recommends:     %{py3_dist ipython}
 
 %description -n python3-jupyter-polymake %_description
 
 %prep
 %autosetup -n jupyter-polymake-%{commit}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -69,6 +69,9 @@ rmdir %{buildroot}%{python3_sitelib}/jupyter_kernel_polymake/resources
 %{python3_sitelib}/jupyter_kernel_polymake*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.16-22.20180129.7049940
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-22.20180129.7049940
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

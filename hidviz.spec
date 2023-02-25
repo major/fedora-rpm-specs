@@ -7,19 +7,24 @@ URL:		https://github.com/ondrejbudai/hidviz
 Source0:	https://hidviz.org/releases/%{name}-%{version}.tar.gz
 Source1:	hidviz.desktop
 Requires:	hicolor-icon-theme
-BuildRequires:	gcc-c++, cmake, qt5-qtbase-devel, protobuf-devel, libusbx-devel
-BuildRequires:	asio-devel, desktop-file-utils, ImageMagick
+BuildRequires:	gcc-c++
+BuildRequires:	cmake
+BuildRequires:	qt5-qtbase-devel
+BuildRequires:	protobuf-devel
+BuildRequires:	libusbx-devel
+BuildRequires:	asio-devel
+BuildRequires:	desktop-file-utils
+BuildRequires:	ImageMagick
 # https://github.com/ondrejbudai/hidviz/issues/27
+# https://github.com/ondrejbudai/libhidx/pull/18
 Patch0:		hidviz-0.1.5-build-fix.patch
-Patch1:         hidviz-gcc11.patch
+Patch1:		hidviz-gcc11.patch
 
 %description
 Hidviz is a GUI application for in-depth analysis of USB HID class devices.
 
 %prep
-%setup -q
-%patch0 -p1 -b .build-fix
-%patch1 -p1 -b .gcc11
+%autosetup -p1
 
 %build
 %cmake

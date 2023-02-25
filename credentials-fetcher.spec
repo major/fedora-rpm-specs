@@ -3,7 +3,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 4
+%global baserelease 5
 
 Name:           credentials-fetcher
 Version:        %{major_version}.%{minor_version}.%{patch_version}
@@ -13,6 +13,8 @@ Summary:        credentials-fetcher is a daemon that refreshes tickets or tokens
 License:        Apache-2.0
 URL:            https://github.com/aws/credentials-fetcher
 Source0:        https://github.com/aws/credentials-fetcher/archive/refs/tags/%{version}.tar.gz
+# https://github.com/aws/credentials-fetcher/pull/42
+Patch0:         credentials-fetcher-1.1.0-boost-use-std-fstream.patch
 
 BuildRequires:  cmake3 make chrpath openldap-clients grpc-devel gcc-c++ glib2-devel boost-devel 
 BuildRequires:  openssl-devel zlib-devel protobuf-devel re2-devel krb5-devel systemd-devel
@@ -36,6 +38,7 @@ This spec file is specific to Fedora, use this file to rpmbuild on Fedora.
 
 %prep
 %setup -q
+%patch0 -p1 -b .boost-fstream
 
 %build
 %cmake3
@@ -62,6 +65,9 @@ ctest3
 %attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Thu Feb 23 2023 Tom Callaway <spotaws@amazon.com> - 1.1.0-5
+- fix build against boost 1.81 (bz2172636)
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.1.0-4
 - Rebuilt for Boost 1.81
 

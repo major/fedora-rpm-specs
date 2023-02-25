@@ -17,9 +17,6 @@ BuildRequires:  gcc-c++
 BuildRequires:  libnormaliz-devel
 BuildRequires:  polymake
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 # Polymake is not available on 32-bit platforms.
 # See https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -40,6 +37,9 @@ Requires:       polymake%{?_isa}
 %prep
 %autosetup -n JuPyMake-%{commit}
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -54,6 +54,9 @@ Requires:       polymake%{?_isa}
 %doc README README.md example.py
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.9-23.20190509.031cc3a
+- Dynamically generate BuildRequires.
+
 * Wed Feb  1 2023 Jerry James <loganjerry@gmail.com> - 0.9-23.20190509.031cc3a
 - Rebuild for polymake 4.9
 

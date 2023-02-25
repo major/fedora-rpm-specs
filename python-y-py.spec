@@ -1,5 +1,5 @@
 Name:           python-y-py
-Version:        0.5.5
+Version:        0.6.0
 Release:        1%{?dist}
 Summary:        Python bindings for the Y-CRDT built from yrs (Rust)
 License:        MIT
@@ -119,5 +119,8 @@ export RUSTFLAGS="%build_rustflags"
 
 
 %changelog
+* Thu Feb 23 2023 Lumír Balhar <lbalhar@redhat.com> - 0.6.0-1
+- Update to 0.6.0 (rhbz#2171402)
+
 * Thu Dec 15 2022 Lumír Balhar <lbalhar@redhat.com> - 0.5.5-1
 - Initial package

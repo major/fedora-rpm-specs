@@ -7,12 +7,12 @@
 Name: hunspell-ur
 Summary: Urdu hunspell dictionaries
 Version: 0.64
-Release: 26%{?dist}
+Release: 27%{?dist}
 #http://urdudictionary.codeplex.com/Release/ProjectReleases.aspx?ReleaseId=30004#DownloadId=74761
 #and click yes to agree to LGPLv2+, which stinks as a download-url :-(
 Source: UrduDictionary.xpi
 URL: http://urdudictionary.codeplex.com
-License: LGPLv2+
+License: LGPL-2.1-or-later
 BuildArch: noarch
 BuildRequires: redland
 
@@ -47,6 +47,9 @@ popd
 %{_datadir}/%{dict_dirname}/*
 
 %changelog
+* Thu Feb 23 2023 Caolan McNamara <caolanm@redhat.com> - 0.64-27
+- migrated to SPDX license
+
 * Tue Jan 31 2023 Caolan McNamara <caolanm@redhat.com> - 0.64-26
 - Related: rhbz#1788504 drop use of libdb from rdfproc
 

@@ -28,14 +28,7 @@ Source0:        https://github.com/matthew-brett/sphinxtesters/archive/%{version
 Patch0:         %{name}-config-error.patch
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist numpydoc}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 This package contains utilities for testing Sphinx extensions.
@@ -49,6 +42,9 @@ This package contains utilities for testing Sphinx extensions.
 
 %prep
 %autosetup -n sphinxtesters-%{version} -p1
+
+%generate_buildrequires
+%pyproject_buildrequires -x test doc-requirements.txt
 
 %build
 %pyproject_wheel
@@ -67,6 +63,9 @@ rm -f build/sphinx/html/.{buildinfo,nojekyll}
 %doc README.html build/sphinx/html
 
 %changelog
+* Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 0.2.3-15
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.3-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

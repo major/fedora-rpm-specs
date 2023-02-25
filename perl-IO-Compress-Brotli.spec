@@ -1,6 +1,6 @@
 Name:           perl-IO-Compress-Brotli
 Version:        0.004001
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl bindings for Brotli compression
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/IO-Compress-Brotli/
@@ -38,6 +38,16 @@ streams. Despite its name, it is not a subclass of IO::Compress::Base
 and does not implement its interface. This will be rectified in a
 future release.
 
+%package tests
+Summary:        Tests for %{name}
+BuildArch:      noarch
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl(Test::Harness)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n IO-Compress-Brotli-%{version}
 %patch0 -p1
@@ -55,9 +65,20 @@ perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERL
 %install
 %{make_install}
 find %{buildroot} -type f -name '*.bs' -size 0 -delete
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/brotli/tests
+cp -a brotli/tests/testdata %{buildroot}%{_libexecdir}/%{name}/brotli/tests/
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/sh
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_fixperms} %{buildroot}/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -67,7 +88,13 @@ make test
 %{_mandir}/man3/*
 %{_bindir}/bro-perl
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Tue Feb 14 2023 Petr Salaba <psalaba@redhat.com> - 0.004001-8
+- Add tests subpackage
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004001-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

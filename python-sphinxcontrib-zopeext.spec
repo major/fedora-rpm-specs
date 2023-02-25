@@ -1,3 +1,5 @@
+# We cannot build docs for this package due to lack of sphinx-book-theme
+
 Name:           python-sphinxcontrib-zopeext
 Version:        0.3.3
 Release:        5%{?dist}
@@ -9,14 +11,6 @@ BuildArch:      noarch
 Source0:        %pypi_source sphinxcontrib-zopeext
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist importlib-metadata}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist poetry}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zope.interface}
 
 %description
 This sphinx extension provides an autointerface directive for Zope
@@ -38,6 +32,9 @@ interfaces.
 # Allow use of importlib_metadata > 4
 sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<7/' pyproject.toml
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -50,6 +47,9 @@ sed -i '/importlib-metadata/s/\^4\.8\.1/>=4.8.1,<7/' pyproject.toml
 %license LICENSE
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.3.3-5
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.3-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
