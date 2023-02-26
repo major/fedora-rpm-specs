@@ -1,10 +1,10 @@
 Name: mythes-ro
 Summary: Romanian thesaurus
 Version: 3.3
-Release: 24%{?dist}
+Release: 25%{?dist}
 Source: http://downloads.sourceforge.net/rospell/th_ro_RO.%{version}.zip
 URL: http://rospell.sourceforge.net/
-License: GPLv2+
+License: GPL-2.0-or-later
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-ro)
@@ -28,6 +28,9 @@ cp -p th_ro_RO.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_ro_RO_v2.idx
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 3.3-25
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -95,10 +98,10 @@ cp -p th_ro_RO.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_ro_RO_v2.idx
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Sun Apr 04 2010 Caolan McNamara <caolanm@redhat.com> - 3.3-2
+* Sun Apr 04 2010 Caolán McNamara <caolanm@redhat.com> - 3.3-2
 - mythes now owns /usr/share/mythes
 
-* Sun Jan 24 2010 Caolan McNamara <caolanm@redhat.com> - 3.3-1
+* Sun Jan 24 2010 Caolán McNamara <caolanm@redhat.com> - 3.3-1
 - Resolves: rhbz#558155 latest version
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.3-0.3.test3
@@ -107,5 +110,5 @@ cp -p th_ro_RO.idx $RPM_BUILD_ROOT/%{_datadir}/mythes/th_ro_RO_v2.idx
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 3.3-0.2.test3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Tue Jan 20 2009 Caolan McNamara <caolanm@redhat.com> - 3.3-0.1.test3
+* Tue Jan 20 2009 Caolán McNamara <caolanm@redhat.com> - 3.3-0.1.test3
 - initial version

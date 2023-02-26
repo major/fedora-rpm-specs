@@ -13,28 +13,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python3-persistent-doc
 BuildRequires:  %{py3_dist cython}
-BuildRequires:  %{py3_dist manuel}
-BuildRequires:  %{py3_dist msgpack}
-BuildRequires:  %{py3_dist persistent}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist repoze-sphinx-autointerface}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist six}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-rtd-theme}
-BuildRequires:  %{py3_dist tox}
-BuildRequires:  %{py3_dist tox-current-env}
-BuildRequires:  %{py3_dist transaction}
-BuildRequires:  %{py3_dist uvloop}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zc.lockfile}
-BuildRequires:  %{py3_dist zconfig}
-BuildRequires:  %{py3_dist zdaemon}
-BuildRequires:  %{py3_dist zodb}
-BuildRequires:  %{py3_dist zope.interface}
-BuildRequires:  %{py3_dist zope.testing}
-BuildRequires:  %{py3_dist zope.testrunner}
-BuildRequires:  %{py3_dist zopeundo}
 
 %global common_desc                                                   \
 ZEO is a client-server system for sharing a single storage among many \
@@ -71,7 +49,8 @@ sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/ht
     -e 's|\("https://zodb-docs\.readthedocs\.io/en/latest/", \)None|\1"%{_docdir}/python-ZODB-doc/html/objects.inv"|' \
     -i docs/conf.py
 
-# Fedora has only msgpack 1.x; this likely means the msgpack extra does not work
+# Fedora has only msgpack 1.x.  Upstream only put the version restriction on
+# to support Python 2, which we don't care about.
 sed -i 's/msgpack < 1/msgpack/' setup.py
 
 # Use mock from unittests
@@ -81,6 +60,9 @@ sed -i "/'mock'/d" setup.py
 
 # Fix shebangs
 %py3_shebang_fix src/ZEO
+
+%generate_buildrequires
+%pyproject_buildrequires -t -x msgpack,uvloop,docs
 
 %build
 cd src/ZEO/asyncio
@@ -125,6 +107,9 @@ rst2html --no-datestamp README.rst README.html
 %doc docs/_build/html
 
 %changelog
+* Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 5.4.0-1
+- Dynamically generate BuildRequires
+
 * Tue Jan 24 2023 Jerry James <loganjerry@gmail.com> - 5.4.0-1
 - Version 5.4.0
 

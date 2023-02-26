@@ -1,10 +1,10 @@
 
 Name:           redland
 Version:        1.0.17
-Release:        33%{?dist}
+Release:        34%{?dist}
 Summary:        RDF Application Framework
 
-License:        LGPLv2+ or ASL 2.0
+License:        LGPL-2.1-or-later OR Apache-2.0
 URL:            http://librdf.org/
 Source0:        http://download.librdf.org/source/%{name}-%{version}.tar.gz
 
@@ -154,6 +154,9 @@ make check
 %{_mandir}/man1/redland-config.1*
 
 %changelog
+* Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 1.0.17-34
+- migrated to SPDX license
+
 * Tue Jan 31 2023 Caolán McNamara <caolanm@redhat.com> - 1.0.17-33
 - Resolves: rhbz#1788504 drop libdb dependency from redland
   note: rdfproc -s file of -s sqlite are potentially options

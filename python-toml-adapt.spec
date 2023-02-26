@@ -14,8 +14,8 @@ very simple yet user-friendly command line interface was developed in
 order to make this process easier.}
 
 Name:           python-%{original_name}
-Version:        0.2.10
-Release:        2%{?dist}
+Version:        0.2.11
+Release:        1%{?dist}
 Summary:        A simple command-line interface for manipulating toml files
 
 License:        MIT
@@ -74,6 +74,9 @@ install -D -t '%{buildroot}%{_mandir}/man1' -m 0644 %{original_name}.1
 %{_mandir}/man1/%{original_name}.1*
  
 %changelog
+* Fri Feb 24 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.11-1
+- Update to the latest upstream's release
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

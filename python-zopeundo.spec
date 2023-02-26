@@ -7,13 +7,8 @@ URL:            https://github.com/zopefoundation/ZopeUndo
 Source0:        %{url}/archive/%{version}/ZopeUndo-%{version}.tar.gz
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zope.testrunner}
 
 %description
 This package is used to support the Prefix object that Zope 2 uses for
@@ -37,6 +32,9 @@ allow it to support Zope 2's undo log, without pulling in all of Zope 2.
 %prep
 %autosetup -n ZopeUndo-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -t
+
 %build
 %pyproject_wheel
 rst2html --no-datestamp CHANGES.rst CHANGES.html
@@ -55,5 +53,8 @@ zope-testrunner --test-path=src
 %license COPYRIGHT.txt LICENSE.txt
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.0-1
+- Dynamically generate BuildRequires
+
 * Mon Jan 23 2023 Jerry James <loganjerry@gmail.com> - 5.0-1
 - Initial RPM

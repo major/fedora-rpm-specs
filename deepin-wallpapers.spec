@@ -1,6 +1,6 @@
 %global md5() {$(echo -n %1 | md5sum | awk '{print$1}')}
-%if 0%{?fedora} >= 37
-%global fedora_release_name f37
+%if 0%{?fedora} >= 38
+%global fedora_release_name f38
 %else
 %global fedora_release_name f%{?fedora}
 %endif
@@ -9,7 +9,8 @@ Name:           deepin-wallpapers
 Version:        1.7.7
 Release:        %autorelease
 Summary:        Deepin Wallpapers provides wallpapers of DDE
-License:        GPLv3
+# SPDX migration
+License:        GPL-3.0-only
 URL:            https://github.com/linuxdeepin/deepin-wallpapers
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -18,7 +19,7 @@ BuildRequires:  deepin-api
 BuildRequires:  /usr/bin/convert
 # for the current default wallpaper
 BuildRequires:  %{fedora_release_name}-backgrounds-base
-BuildRequires: make
+BuildRequires:  make
 Requires(post): %{_sbindir}/alternatives
 Requires(postun): %{_sbindir}/alternatives
 

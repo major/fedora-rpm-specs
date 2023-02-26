@@ -9,7 +9,7 @@
 
 Summary:	Ruby binding of GdkPixbuf-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.1
+Version:	4.1.2
 Release:	1%{?dist}
 # from README
 License:	LGPLv2
@@ -56,7 +56,7 @@ This package contains documentation for %{name}.
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Allow ruby-gnome2 no less than ones
-sed -i -e 's|= 4\.1\.1|>= 4.1.1|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.2|>= 4.1.2|' %{gem_name}-%{version}.gemspec
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
 
 # Fix up Rakefile for "gnome2-raketask" requirement
@@ -127,6 +127,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
+- 4.1.2
+
 * Sun Feb 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.1-1
 - 4.1.1
 

@@ -14,23 +14,6 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  python3-persistent-devel
 BuildRequires:  python3-persistent-doc
-BuildRequires:  %{py3_dist btrees}
-BuildRequires:  %{py3_dist j1m-sphinxautozconfig}
-BuildRequires:  %{py3_dist manuel}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist six}
-BuildRequires:  %{py3_dist sphinx-rtd-theme}
-BuildRequires:  %{py3_dist sphinxcontrib-zopeext}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist transaction}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zc-lockfile}
-BuildRequires:  %{py3_dist zconfig}
-BuildRequires:  %{py3_dist zodbpickle}
-BuildRequires:  %{py3_dist zope-testing}
-BuildRequires:  %{py3_dist zope-testrunner}
 
 %global common_desc                                                \
 The ZODB package provides a set of tools for using the Zope Object \
@@ -81,6 +64,9 @@ sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/ht
 # Fix shebangs
 %py3_shebang_fix src/ZODB/scripts
 
+%generate_buildrequires
+%pyproject_buildrequires -t -x test,docs
+
 %build
 %pyproject_wheel
 
@@ -95,7 +81,8 @@ rst2html --no-datestamp CHANGES.rst CHANGES.html
 %pyproject_save_files ZODB
 
 %check
-%pytest
+export PYTHONPATH=$PWD/src
+%tox
 
 %files -n python3-ZODB -f %{pyproject_files}
 %doc CHANGES.html
@@ -109,6 +96,9 @@ rst2html --no-datestamp CHANGES.rst CHANGES.html
 %doc docs/build/html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.8.0-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

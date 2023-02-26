@@ -2,10 +2,11 @@ Name: mythes-nl
 Summary: Dutch thesaurus
 %global upstreamid 20130131
 Version: 0.%{upstreamid}
-Release: 19%{?dist}
+Release: 20%{?dist}
 Source: http://data.opentaal.org/opentaalbank/thesaurus/download/thes_nl.oxt
 URL: http://data.opentaal.org/opentaalbank/thesaurus
-License: BSD or CC-BY
+License: BSD-2-Clause OR CC-BY-3.0
+
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-nl)
@@ -46,6 +47,9 @@ done
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 0.20130131-20
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20130131-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

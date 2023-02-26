@@ -1,5 +1,5 @@
 Name:		ndctl
-Version:	76
+Version:	76.1
 Release:	1%{?dist}
 Summary:	Manage "libnvdimm" subsystem devices (Non-volatile Memory)
 License:	GPLv2
@@ -13,9 +13,13 @@ BuildRequires:	autoconf
 %if 0%{?rhel} < 9
 BuildRequires:	asciidoc
 %define asciidoctor -Dasciidoctor=disabled
+%define libtracefs -Dlibtracefs=disabled
 %else
 BuildRequires:	rubygem-asciidoctor
+BuildRequires:	libtraceevent-devel
+BuildRequires:	libtracefs-devel
 %define asciidoctor -Dasciidoctor=enabled
+%define libtracefs -Dlibtracefs=enabled
 %endif
 BuildRequires:	xmlto
 BuildRequires:	automake
@@ -31,8 +35,6 @@ BuildRequires:	keyutils-libs-devel
 BuildRequires:	systemd-rpm-macros
 BuildRequires:	iniparser-devel
 BuildRequires:	meson
-BuildRequires:	libtraceevent-devel
-BuildRequires:	libtracefs-devel
 
 %description
 Utility library for managing the "libnvdimm" subsystem.  The "libnvdimm"
@@ -124,7 +126,7 @@ libcxl is a library for enumerating and communicating with CXL devices.
 %setup -q ndctl-%{version}
 
 %build
-%meson %{?asciidoctor} -Dversion-tag=%{version}
+%meson %{?asciidoctor} %{?libtracefs} -Dversion-tag=%{version}
 %meson_build
 
 %install
@@ -238,6 +240,9 @@ fi
 
 
 %changelog
+* Fri Feb 24 2023 Vishal Verma <vishal.l.verma@intel.com> - 76.1-1
+- release v76.1
+
 * Wed Feb 22 2023 Vishal Verma <vishal.l.verma@intel.com> - 76-1
 - release v76
 

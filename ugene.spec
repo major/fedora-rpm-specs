@@ -2,10 +2,10 @@
 
 %if 0%{?use_release_branch} < 1
 # master
-%global	gitdate		20221231
-%global	gitcommit		43b637f4443fd5dcadb96165d5c95f8aa8303d27
+%global	gitdate		20230214
+%global	gitcommit		15acb35b017bfa4c4c90dc14079bd52d7252c398
 # New git commit with non-free part removed using "git filter-branch"
-%global	gitcommit_free		f190f98f666220017087930c79d39f081fba6783
+%global	gitcommit_free		16ffa2676c45f566400d78162c62fa56c5f1a15d
 %else
 # currently 41.0 branch
 %global	gitdate		20211117
@@ -18,8 +18,8 @@
 %global	shortcommit	%(c=%{gitcommit}; echo ${c:0:7})
 %global	git_version	D%{gitdate}git%{shortcommit}
 
-%global	tarballdate	20221231
-%global	tarballtime	1427
+%global	tarballdate	20230214
+%global	tarballtime	1421
 
 %global	use_release	1
 %global	use_gitbare	0
@@ -35,7 +35,7 @@
 %global	GIT	git
 %endif
 
-%global	mainrel		2
+%global	mainrel		1
 %undefine	prever
 
 %if		0%{?use_release} >= 1
@@ -49,8 +49,8 @@
 Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
-Version:	45.1
-Release:	%{fedorarel}%{?dist}.1
+Version:	46.0
+Release:	%{fedorarel}%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2
@@ -254,6 +254,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 46.0-1
+- 46.0
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 45.1-2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

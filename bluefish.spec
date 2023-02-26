@@ -1,6 +1,6 @@
-%global pkgver 2.2.12
+%global pkgver 2.2.13
 #global prerel rc1
-%global baserelease 9
+%global baserelease 1
 
 Name:		bluefish
 Version:	%{pkgver}
@@ -9,9 +9,8 @@ Summary:	Web development application for experienced users
 License:	GPL-3.0-or-later
 URL:		http://bluefish.openoffice.nl/
 Source0:	http://www.bennewitz.com/bluefish/stable/source/bluefish-%{version}%{?prerel:-%{prerel}}.tar.bz2
-Patch0:		bluefish-2.2.10-strict-aliasing.patch
+Patch0:		bluefish-2.2.13-strict-aliasing.patch
 Patch1:		bluefish-2.2.12-shellbang.patch
-Patch3:		bluefish-2.2.12-appdata.patch
 Patch4:		bluefish-2.2.12-python3.patch
 BuildRequires:	coreutils
 BuildRequires:	desktop-file-utils
@@ -81,9 +80,6 @@ Files common to every architecture version of %{name}.
 # Also change /usr/bin/python → /usr/bin/python3
 %patch1
 
-# Clean up appdata file so it passes validation
-%patch3
-
 # Fix some broken syntax in zencoding plugin
 %patch4
 
@@ -117,7 +113,7 @@ cat %{name}_plugin_{about,charmap,entities,htmlbar,infbrowser,snippets,zencoding
 
 %if 0%{?fedora} > 22 || 0%{?rhel} > 7
 appstream-util --nonet validate-relax \
-	%{buildroot}%{_datadir}/appdata/bluefish.appdata.xml
+	%{buildroot}%{_datadir}/metainfo/bluefish.appdata.xml
 %endif
 
 desktop-file-validate \
@@ -174,11 +170,11 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %files shared-data -f %{name}.lang
 %doc %{bluefish_docdir}/
 %{_datadir}/bluefish/
-# appdata directory owned by filesystem package from Fedora 20 onwards
-%if 0%{?fedora} < 20 && 0%{?rhel} < 8
-%{_datadir}/appdata/
+# metainfo directory owned by filesystem package from Fedora 27 onwards
+%if 0%{?fedora} < 27 && 0%{?rhel} < 8
+%{_datadir}/metainfo/
 %else
-%{_datadir}/appdata/bluefish.appdata.xml
+%{_datadir}/metainfo/bluefish.appdata.xml
 %endif
 %{_datadir}/applications/bluefish.desktop
 %{_datadir}/mime/packages/bluefish.xml
@@ -192,6 +188,15 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 %{_mandir}/man1/bluefish.1*
 
 %changelog
+* Fri Feb 24 2023 Paul Howarth <paul@city-fan.org> - 2.2.13-1
+- Update to 2.2.13 (rhbz#2173097)
+  - Bluefish 2.2.13 is a very minor maintenance release
+  - The biggest update is in the CSS syntax support
+  - Next to that it improves a few user interface parts, and fixes some very
+    minor bugs
+  - It also has some minor improvements for the syntax highlighting in a few
+    other languages, most notably python
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.12-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

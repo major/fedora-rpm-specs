@@ -1,10 +1,12 @@
 Name:           exaile
 Version:        4.1.2
-Release:        2%{?dist}
+Release:        4%{?dist}
 Summary:        Simple but powerful Amarok-style music player for GTK users
 License:        GPLv2+
 URL:            http://www.exaile.org
 Source0:        https://github.com/exaile/exaile/archive/%{version}/%{name}-%{version}.tar.gz
+# Install icons according to FreeDesktop specification (#845)
+Patch0:         83d111ba72fc4386a1073668099ccc7ad6e40b2a.patch
 BuildArch:      noarch
 
 BuildRequires:  python3-rpm-macros
@@ -77,8 +79,7 @@ Recommends:     streamripper
 #FTBFS on Fedora 30+, may be dropped soon
 #Recommends:     moodbar
 # BPM Counter plugin:
-#Not packaged for Fedora
-#* bpmdetect from gstreamer1-plugins-bad
+Recommends:     gstreamer1-plugins-bad-free
 
 
 %description
@@ -105,7 +106,7 @@ much more.
 sed -i "s|install -m|\$(INSTALL) -m|;s|all: compile |all: |" Makefile
 
 # Disable plugins that aren't packaged or don't work on Fedora
-sed -i "s|BAD = \[\]|BAD = ['cd', 'bpm', 'daapclient', 'daapserver', 'moodbar', 'winmmkeys']|" plugins/list.py
+sed -i "s|BAD = \[\]|BAD = ['cd', 'daapclient', 'daapserver', 'moodbar', 'winmmkeys']|" plugins/list.py
 
 %make_build
 
@@ -134,7 +135,7 @@ make test
 %{_datadir}/applications/exaile.desktop
 %{_datadir}/bash-completion/completions/exaile
 %{_datadir}/fish/vendor_completions.d/exaile.fish
-%{_datadir}/pixmaps/exaile.png
+%{_datadir}/icons/hicolor/*/apps/exaile.*
 %{_datadir}/exaile/
 %{_datadir}/dbus-1/services/org.exaile.Exaile.service
 %dir %{_sysconfdir}/xdg/exaile/
@@ -142,6 +143,13 @@ make test
 %{_mandir}/man1/exaile*.1*
 
 %changelog
+* Fri Feb 24 2023 Graham White <graham_alton@hotmail.com> - 4.1.2-4
+- Enable the BPM Counter plugin
+
+* Thu Jan 19 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 4.1.2-3
+- Install icons according to FreeDesktop specification
+- Add soft dependency needed for BPM Counter plugin
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

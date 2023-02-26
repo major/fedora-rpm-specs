@@ -8,14 +8,12 @@
 
 Summary:	Ruby binding of GLib-2.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.1
+Version:	4.1.2
 Release:	1%{?dist}
 # from README
 License:	LGPLv2
 URL:		http://ruby-gnome2.sourceforge.jp/
 Source0:	http://rubygems.org/gems/%{gem_name}-%{version}.gem
-# support glib2 2.75 for change G_TYPE_BOOKMARK_FILE
-Patch0:	rubygem-glib2-4.1.1-glib2_75-bookmark.patch
 # F-19 %%_bindir/ruby wrapper pollutes environ, which makes
 # g_spawn_async() test failure
 Patch100:	rubygem-glib2-3.5.1-rubywrapper-pollutes-env.patch
@@ -84,7 +82,6 @@ rubygem-%{gem_name}
 mv ../%{gem_name}-%{version}.gemspec .
 
 # Patches and etc
-%patch0 -p2
 %patch100 -p1
 
 # Make pkg-config devel dependency (not runtime)
@@ -229,6 +226,9 @@ popd
 
 
 %changelog
+* Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
+- 4.1.2
+
 * Sun Feb 19 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.1-1
 - 4.1.1
 - Backport upstream fix for support for GLib 2.75 wrt G_TYPE_BOOKMARK_FILE

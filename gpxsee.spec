@@ -1,12 +1,12 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        11.11
+Version:        12.1
 Release:        2%{?dist}
 Summary:        GPS log file viewer and analyzer
 
-License:        GPLv3
-URL:            http://www.gpxsee.org/
+License:        GPL-3.0-only
+URL:            https://www.gpxsee.org/
 
 Source0:        https://github.com/tumic0/%{appname}/archive/%{version}/%{appname}-%{version}.tar.gz
 Patch0:         gpxsee-gcc11.patch
@@ -17,6 +17,7 @@ BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  qt5-qtlocation-devel
 BuildRequires:  qt5-qtsvg-devel
+BuildRequires:  qt5-qtserialport-devel
 BuildRequires:  libappstream-glib
 BuildRequires:  desktop-file-utils
 BuildRequires:  make
@@ -40,17 +41,17 @@ lrelease-qt5 %{name}.pro
 
 
 %install
-make install INSTALL_ROOT=%{buildroot}
-
-# appdata
-install -p -m 644 -D pkg/appdata.xml %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
-appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/%{name}.appdata.xml
-
-# desktop file
-desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
+%make_install INSTALL_ROOT=%{buildroot}
 
 # localization
 %find_lang %{name} --with-qt
+
+%check
+# appdata
+appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdata.xml
+
+# desktop file
+desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %files -f %{name}.lang
@@ -63,12 +64,19 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 %{_datadir}/%{name}/symbols/
 %dir %{_datadir}/%{name}/translations
 %{_datadir}/icons/*/*/*/%{name}.*
-%{_datadir}/appdata/%{name}.appdata.xml
+%{_metainfodir}/%{name}.appdata.xml
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/mime/packages/%{name}.xml
 
 
 %changelog
+* Fri Feb 24 2023 Nikola Forró <nforro@redhat.com> - 12.1-2
+- Add missing changelog entry
+
+* Fri Feb 24 2023 Nikola Forró <nforro@redhat.com> - 12.1-1
+- Update to version 12.1
+  resolves: #2165119
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 11.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

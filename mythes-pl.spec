@@ -1,11 +1,11 @@
 Name: mythes-pl
 Summary: Polish thesaurus
 Version: 1.5
-Release: 30%{?dist}
+Release: 31%{?dist}
 Source: httip://downloads.sourceforge.net/synonimy/OOo2-Thesaurus-%{version}.zip
 # URL is dead now, please don't file bugs to fix it
 URL: http://synonimy.ux.pl/
-License: LGPLv2
+License: LGPL-2.1-only
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-pl)
@@ -38,6 +38,9 @@ cp -p th_pl_PL_v2.* $RPM_BUILD_ROOT/%{_datadir}/mythes
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 1.5-31
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

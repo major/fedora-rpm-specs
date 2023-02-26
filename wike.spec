@@ -1,17 +1,13 @@
 %global appid com.github.hugolabe.Wike
 
 Name:           wike
-Version:        1.8.1
-Release:        3%{?dist}
+Version:        1.8.2
+Release:        1%{?dist}
 Summary:        Wikipedia Reader for the GNOME Desktop
 
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            https://github.com/hugolabe/wike
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
-
-# Fix _fill_menu bug
-# https://github.com/hugolabe/Wike/issues/89
-Patch0:         %{url}/pull/90.patch
 
 BuildArch:      noarch
 
@@ -68,6 +64,11 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
 %{_datadir}/gnome-shell/search-providers/%{appid}.SearchProvider.ini
 
 %changelog
+* Fri Feb 24 2023 Gustavo Costa <xfgusta@gmail.com> - 1.8.2-1
+- Drop patch
+- Use SPDX license
+- Update to 1.8.2 (rhbz#2137400)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

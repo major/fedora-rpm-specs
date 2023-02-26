@@ -7,7 +7,7 @@
 # Planned for F-20+ only
 Summary:	Ruby binding of GDK-3.x
 Name:		rubygem-%{gem_name}
-Version:	4.1.1
+Version:	4.1.2
 Release:	1%{?dist}
 
 # Various files in gem
@@ -76,7 +76,7 @@ mv ../%{gem_name}-%{version}.gemspec .
 # Permission
 find . -name \*.rb -print0 | xargs --null chmod 0644
 
-sed -i -e 's|= 4\.1\.1|>= 4.1.1|' %{gem_name}-%{version}.gemspec
+sed -i -e 's|= 4\.1\.2|>= 4.1.2|' %{gem_name}-%{version}.gemspec
 sed -i -e '\@s\.extensions@d'  %{gem_name}-%{version}.gemspec
 
 %build
@@ -154,6 +154,9 @@ popd
 %exclude	%{gem_instdir}/test/
 
 %changelog
+* Fri Feb 24 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.2-1
+- 4.1.2
+
 * Fri Feb  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 4.1.0-1
 - 4.1.0
 

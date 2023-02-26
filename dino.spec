@@ -1,6 +1,6 @@
 Name:       dino
 Version:    0.4.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 
 License:    GPLv3
 Summary:    Modern XMPP ("Jabber") Chat Client using GTK+/Vala
@@ -75,6 +75,13 @@ rm -r plugins/signal-protocol/libsignal-protocol-c
 
 
 %build
+# Build in C89 mode due to Vala compiler problem:
+# C99 compatibility of internal setters
+# <https://discourse.gnome.org/t/c99-compatibility-of-internal-setters/13360>
+# valac does not respect internal header/vapi setting
+# <https://gitlab.gnome.org/GNOME/vala/-/issues/358>
+%set_build_flags
+CC="$CC -std=gnu89"
 # Use the system version of libsignal-protocol-c instead of the bundled one.
 export SHARED_SIGNAL_PROTOCOL=true
 %configure
@@ -126,6 +133,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/im.dino.Dino.desktop
 
 
 %changelog
+* Fri Feb 24 2023 Florian Weimer <fweimer@redhat.com> - 0.4.0-2
+- Build in C89 mode due to Vala limiation (#2173174)
+
 * Sat Feb 18 2023 Randy Barlow <bowlofeggs@fedoraproject.org> - 0.4.0-1
 - Update to dino 0.4.0 (#2168027).
 

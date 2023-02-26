@@ -33,14 +33,9 @@ BuildRequires:  pkgconfig(OpenCL)
 BuildRequires:  python3-devel
 BuildRequires:  %{py3_dist breathe}
 BuildRequires:  %{py3_dist cython}
-BuildRequires:  %{py3_dist mako}
 BuildRequires:  %{py3_dist numpy}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist six}
 BuildRequires:  %{py3_dist sphinx}
 BuildRequires:  %{py3_dist sphinx-rtd-theme}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 The goal of this project is to make a common GPU ndarray (n dimensional
@@ -123,6 +118,9 @@ sed -e "s|^\(include_dirs = \[\)|\1\"$PWD/src\",|" \
     -e "s|^\(library_dirs = \[\)|\1\"$PWD/lib\"|" \
     -i setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 # Build the library
 %cmake
@@ -175,6 +173,9 @@ make test
 %{python3_sitearch}/pygpu/*.h
 
 %changelog
+* Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 0.7.6-19
+- Dynamically generate python BuildRequires
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.6-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

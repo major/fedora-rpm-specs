@@ -1,11 +1,11 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
 
 Name:           texworks
-Version:        0.6.7
+Version:        0.6.8
 Release:        %autorelease
 Summary:        A simple IDE for authoring TeX documents
-
-License:        GPLv2+
+# SPDX migration
+License:        GPL-2.0-or-later
 URL:            http://tug.org/texworks/
 Source0:        https://github.com/TeXworks/texworks/archive/release-%{version}/texworks-release-%{version}.tar.gz
 

@@ -2,13 +2,13 @@ Name: mythes-ru
 Summary: Russian thesaurus
 %global upstreamid 20070613
 Version: 0.%{upstreamid}
-Release: 27%{?dist}
+Release: 28%{?dist}
 # Below source link is dead now
 # Source: http://download.i-rs.ru/pub/openoffice/dict/thes_ru_RU_v2.zip
 Source: thes_ru_RU_v2.zip
 URL: http://wiki.services.openoffice.org/wiki/Dictionaries
 BuildRequires: unzip
-License: LGPLv2+
+License: LGPL-2.1-or-later
 BuildArch: noarch
 Requires: mythes
 Supplements: (mythes and langpacks-ru)
@@ -37,6 +37,9 @@ done
 %{_datadir}/mythes/*
 
 %changelog
+* Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 0.20070613-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20070613-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -107,7 +110,7 @@ done
 * Tue Feb 08 2011 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070613-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_15_Mass_Rebuild
 
-* Sun Apr 04 2010 Caolan McNamara <caolanm@redhat.com> - 0.20070613-4
+* Sun Apr 04 2010 Caolán McNamara <caolanm@redhat.com> - 0.20070613-4
 - mythes now owns /usr/share/mythes
 
 * Sat Jul 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070613-3
@@ -116,5 +119,5 @@ done
 * Wed Feb 25 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 0.20070613-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
-* Wed Jan 21 2009 Caolan McNamara <caolanm@redhat.com> - 0.20070613-1
+* Wed Jan 21 2009 Caolán McNamara <caolanm@redhat.com> - 0.20070613-1
 - initial version

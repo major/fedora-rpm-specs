@@ -1,11 +1,27 @@
+%global commit 62ece4b929482702f5b2e716e3ee8998a29546cd
+%global commitdate 20230224
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
+%if %{defined commit}
+%if 0%{?rhel} && 0%{?rhel} <= 7
+%global snapshotversuffix +git%{commitdate}.%{shortcommit}
+%else
+%global snapshotversuffix ^git%{commitdate}.%{shortcommit}
+%endif
+%endif
+
 Name:		openssh-ldap-authkeys
-Version:	0.2.0
+Version:	0.2.0%{?commit:%{snapshotversuffix}}
 Release:	1%{?dist}
 Summary:	Python script to generate SSH authorized_keys files using an LDAP directory
 
 License:	MIT
 URL:		https://github.com/fuhry/%{name}
+%if %{defined commit}
+Source0:	%{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
+%else
 Source0:	%{url}/archive/v%{version}/%{name}-%{version}.tar.gz
+%endif
 
 BuildArch:	noarch
 
@@ -20,6 +36,12 @@ Requires:	python%{python3_pkgversion}-dns
 Requires:	python%{python3_pkgversion}-yaml
 %endif
 
+%if 0%{?rhel} && 0%{?rhel} < 8
+Requires:	%{name}-selinux = %{version}-%{release}
+%else
+Requires:	(%{name}-selinux = %{version}-%{release} if selinux-policy)
+%endif
+
 
 %description
 openssh-ldap-authkeys is an implementation of AuthorizedKeysCommand for
@@ -32,25 +54,6 @@ key is a quick and painless exercise for the user or IT department.
 
 openssh-ldap-authkeys allows shared accounts to be fully auditable as
 to who used them.
-
-
-%prep
-%autosetup -p1
-
-
-%build
-%py3_build
-
-
-%install
-%py3_install
-
-# Make ghost entries for config files
-touch %{buildroot}%{_sysconfdir}/%{name}/olak.yml
-touch %{buildroot}%{_sysconfdir}/%{name}/authmap
-
-# Delete example files, we'll docify them later
-rm %{buildroot}%{_sysconfdir}/%{name}/*.example
 
 
 %if 0%{?el7}
@@ -73,8 +76,87 @@ rm %{buildroot}%{_sysconfdir}/%{name}/*.example
 %{_tmpfilesdir}/openssh-ldap-authkeys.tmpfiles.conf
 %{_sysusersdir}/openssh-ldap-authkeys.sysusers.conf
 
+# -------------------------------------------------------------------
+
+%package selinux
+Summary:	SELinux module for %{name}
+BuildRequires:	selinux-policy
+BuildRequires:	selinux-policy-devel
+BuildRequires:	make
+%{?selinux_requires}
+
+%description selinux
+This package provides the SELinux policy module to ensure
+%{name} runs properly under an environment with
+SELinux enabled.
+
+%pre selinux
+%selinux_relabel_pre
+
+%post selinux
+%selinux_modules_install %{_datadir}/selinux/packages/olak.pp.bz2
+
+%posttrans selinux
+if [ $1 -eq 1 ] && /usr/sbin/selinuxenabled ; then
+	fixfiles -FR %{name} restore || :
+fi
+
+%postun selinux
+%selinux_modules_uninstall olak
+if [ $1 -eq 0 ]; then
+	%selinux_relabel_post
+fi
+
+%files selinux
+%license COPYING
+%attr(0600,-,-) %{_datadir}/selinux/packages/olak.pp.bz2
+%{_datadir}/selinux/devel/include/contrib/olak.if
+%{_mandir}/man8/olak_selinux.8*
+
+# -------------------------------------------------------------------
+
+%prep
+%if %{defined commit}
+%autosetup -p1 -n %{name}-%{commit}
+%else
+%autosetup -p1
+%endif
+
+
+%build
+%py3_build
+
+# Build SELinux policy module
+pushd selinux
+make SHARE="%{_datadir}" TARGETS="olak"
+popd
+
+
+%install
+%py3_install
+
+# Make ghost entries for config files
+touch %{buildroot}%{_sysconfdir}/%{name}/olak.yml
+touch %{buildroot}%{_sysconfdir}/%{name}/authmap
+
+# Delete example files, we'll docify them later
+rm %{buildroot}%{_sysconfdir}/%{name}/*.example
+
+# Install SELinux policy
+install -d %{buildroot}%{_datadir}/selinux/packages
+install -d %{buildroot}%{_datadir}/selinux/devel/include/contrib
+install -d %{buildroot}%{_mandir}/man8/
+
+install -m 644 selinux/olak.pp.bz2 %{buildroot}%{_datadir}/selinux/packages
+install -m 644 selinux/olak.if  %{buildroot}%{_datadir}/selinux/devel/include/contrib/
+install -m 644 selinux/olak_selinux.8 %{buildroot}%{_mandir}/man8/
+
 
 %changelog
+* Fri Feb 24 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0^git20230224.62ece4b-1
+- Update to post-release snapshot
+- Add SELinux subpackage
+
 * Sat Jan 21 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.2.0-1
 - Update to 0.2.0
 

@@ -6,7 +6,7 @@
 
 Name:           python-zope-testrunner
 Version:        5.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Zope testrunner script
 
 License:        ZPL-2.1
@@ -17,18 +17,6 @@ BuildArch:      noarch
 BuildRequires:  help2man
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
-BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist python-subunit}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist six}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinxcontrib-programoutput}
-BuildRequires:  %{py3_dist testtools}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zope.exceptions}
-BuildRequires:  %{py3_dist zope.interface}
-BuildRequires:  %{py3_dist zope.testing}
 
 %description
 This package provides a flexible test runner with layer support.
@@ -51,6 +39,8 @@ Summary:        Documentation for zope.testrunner
 %description    doc
 Documentation for zope.testrunner.
 
+%pyproject_extras_subpkg -n python3-zope-testrunner subunit
+
 %prep
 %autosetup -n zope.testrunner-%{version}
 
@@ -65,6 +55,9 @@ sed -i "s|\('https://docs\.python\.org/': \)None|\1'%{_docdir}/python3-docs/html
 
 # Replace a deprecated directive
 sed -i "s/autodoc_default_flags.*/autodoc_default_options = {'members': True, 'show-inheritance': True}/" docs/conf.py
+
+%generate_buildrequires
+%pyproject_buildrequires -t -x test,subunit,docs
 
 %build
 %pyproject_wheel
@@ -122,6 +115,10 @@ popd
 %doc docs/_build/html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 5.6-3
+- Create subunit extras subpackage
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

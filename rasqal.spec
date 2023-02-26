@@ -1,9 +1,9 @@
 Name:           rasqal
 Version:        0.9.33
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        RDF Query Library
 
-License:        LGPLv2+ or ASL 2.0
+License:        LGPL-2.1-or-later OR Apache-2.0
 URL:            http://librdf.org/rasqal/
 Source:         http://download.librdf.org/source/%{name}-%{version}.tar.gz
 
@@ -97,6 +97,9 @@ fi
 
 
 %changelog
+* Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 0.9.33-24
+- migrated to SPDX license
+
 * Tue Jan 24 2023 Timm Bäder <tbaeder@redhat.com> - 0.9.33-23
 - Fix undefined printf() in configure check.
 - https://fedoraproject.org/wiki/Changes/PortingToModernC

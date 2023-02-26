@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-OWSLib
-Version:        0.28.0
+Version:        0.28.1
 Release:        %autorelease
 Summary:        Client library for OGC web services
 

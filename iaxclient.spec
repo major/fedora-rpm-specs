@@ -7,7 +7,7 @@
 
 Name:		iaxclient
 Version:	%{mainver}
-Release:	0.44.%{betaver}%{?dist}
+Release:	0.45.%{betaver}%{?dist}
 Summary:	Library for creating telephony solutions that interoperate with Asterisk
 License:	LGPLv2+
 URL:		http://iaxclient.wiki.sourceforge.net/
@@ -39,6 +39,7 @@ Patch20:	iax-0.2.3_makefile.patch
 Patch21:	iax-0.2.3_format-security.patch
 # Add missing #include <sys/socket.h>
 Patch22:	iax-0.2.3_socket.patch
+Patch23:	iaxclient-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -150,6 +151,8 @@ sed -i 's|/usr/lib|%{_libdir}|g' iax-config.in
 autoreconf -vif
 )
 
+%patch23 -p1 -b .c99
+
 %build
 (
 cd lib/libiax2
@@ -249,6 +252,9 @@ ln -s iaxcli iaxcli-Linux-%{tkphonearch}
 %{_datadir}/pixmaps/wxiax.png
 
 %changelog
+* Fri Feb 24 2023 Florian Weimer <fweimer@redhat.com> - 2.1-0.45.beta3
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.44.beta3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

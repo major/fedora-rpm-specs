@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 
 %global with_doc 1
@@ -14,8 +14,8 @@ enhanced with functionality like add/delete/modification of http headers \
 and support for limiting size/connection etc.
 
 Name:           python-oslo-middleware
-Version:        5.0.0
-Release:        7%{?dist}
+Version:        5.1.1
+Release:        1%{?dist}
 Summary:        OpenStack Oslo Middleware library
 
 License:        ASL 2.0
@@ -163,6 +163,9 @@ python3 setup.py test
 %license LICENSE
 
 %changelog
+* Fri Feb 24 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com>  - 5.1.1-1
+- Update 5.1.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

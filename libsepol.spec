@@ -1,13 +1,13 @@
 Summary: SELinux binary policy manipulation library
 Name: libsepol
 Version: 3.5
-Release: 0.rc3.1%{?dist}
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc3/libsepol-3.5-rc3.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/libsepol-3.5.tar.gz
 URL: https://github.com/SELinuxProject/selinux/wiki
 # $ git clone https://github.com/fedora-selinux/selinux.git
 # $ cd selinux
-# $ git format-patch -N libsepol-3.5-rc3 -- libsepol
+# $ git format-patch -N libsepol-3.5 -- libsepol
 # $ i=1; for j in 0*patch; do printf "Patch%04d: %s\n" $i $j; i=$((i+1));done
 # Patch list start
 # Patch list end
@@ -56,7 +56,7 @@ Requires: %{name}%{?_isa} = %{version}-%{release}
 The libsepol-utils package contains the utilities
 
 %prep
-%autosetup -p 2 -n libsepol-%{version}-rc3
+%autosetup -p 2 -n libsepol-%{version}
 
 # sparc64 is an -fPIC arch, so we need to fix it here
 %ifarch sparc64
@@ -106,6 +106,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_mandir}/ru/man8
 %{_mandir}/man8/chkcon.8.gz
 
 %changelog
+* Fri Feb 24 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-1
+- SELinux userspace 3.5 release
+
 * Mon Feb 13 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc3.1
 - SELinux userspace 3.5-rc3 release
 

@@ -48,7 +48,7 @@
 
 Summary:   Firmware update daemon
 Name:      fwupd
-Version:   1.8.11
+Version:   1.8.12
 Release:   %autorelease
 License:   LGPL-2.1-or-later
 URL:       https://github.com/fwupd/fwupd
@@ -72,6 +72,7 @@ BuildRequires: libarchive-devel
 BuildRequires: libcbor-devel
 BuildRequires: gobject-introspection-devel
 BuildRequires: gcab
+BuildRequires: pandoc
 %ifarch %{valgrind_arches}
 BuildRequires: valgrind
 BuildRequires: valgrind-devel

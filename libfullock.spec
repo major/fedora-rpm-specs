@@ -29,7 +29,7 @@
 %global autosetup %setup -q
 %endif
 
-%global gittag v1.0.44
+%global gittag v1.0.48
 
 %if %{undefined make_check}
 %global make_check 1
@@ -40,8 +40,8 @@
 #
 Summary: Fast User Level LOCK (FULLOCK) library for C/C++
 Name: libfullock
-Version: 1.0.44
-Release: %{package_revision}%{?dist}.2
+Version: 1.0.48
+Release: %{package_revision}%{?dist}
 License: MIT
 
 URL: https://github.com/yahoojapan/fullock
@@ -126,6 +126,9 @@ This package has header files and symbols for it.
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Feb 24 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 1.0.48-1
+- Updates to libfullock-1.0.48
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.44-1.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

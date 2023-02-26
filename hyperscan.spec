@@ -1,8 +1,8 @@
 %global __cmake_in_source_build 1
 
 Name:    hyperscan
-Version: 5.4.0
-Release: 7%{?dist}
+Version: 5.4.1
+Release: 1%{?dist}
 Summary: High-performance regular expression matching library
 
 License: BSD
@@ -22,7 +22,7 @@ BuildRequires:  libpcap-devel
 ExclusiveArch: x86_64
 
 #patch to linking set up in build_wrapper
-Patch0: hyperscan-5.4.0-build_wrapper_fix.patch
+#Patch0: hyperscan-5.4.0-build_wrapper_fix.patch
 
 %description
 Hyperscan is a high-performance multiple regex matching library. It
@@ -57,7 +57,7 @@ needed for developing Hyperscan applications.
 
 %prep
 %setup
-%patch0 -p0 -b .build_wrapper_fix
+#%patch0 -p0 -b .build_wrapper_fix
 
 %build
 # LTO seems to be losing the target prefix on ifunc targets leading to
@@ -84,10 +84,13 @@ needed for developing Hyperscan applications.
 %{_includedir}/hs/
 
 %changelog
+* Fri Feb 24 2023 Jason Taylor <jtfas90@gmail.com> - 5.4.1-1
+- Upstream bugfix release
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Wed Sep 21 2022 Jason Taylor - 5.4.0-6
+* Wed Sep 21 2022 Jason Taylor <jtfas90@gmail.com> - 5.4.0-6
 - Rebuilt with pcre2 requires
 
 * Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.0-5

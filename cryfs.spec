@@ -2,16 +2,16 @@
 %global _cmake_shared_libs %{nil}
 
 Name:           cryfs
-Version:        0.11.2
-Release:        7%{?dist}
+Version:        0.11.3
+Release:        1%{?dist}
 Summary:        Cryptographic filesystem for the cloud
 License:        LGPLv3
 URL:            https://www.cryfs.org/
 Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-
-Patch0:         unversioned_python.patch
-# fmt-9 formatter change
-Patch1:         cryfs-0.11.2-fmt9-formatter.patch
+# Add a missing stdexcept include to fix build
+# https://github.com/cryfs/cryfs/pull/448
+# https://bugzilla.redhat.com/show_bug.cgi?id=2171464
+Patch0:         0001-Include-stdexcept-when-using-logic_error.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -67,6 +67,9 @@ base directory, which can then be synchronized to remote storage
 %{_mandir}/man1/%{name}.1.*
 
 %changelog
+* Fri Feb 24 2023 Adam Williamson <awilliam@redhat.com> - 0.11.3-1
+- Update to 0.11.3, rebuild for boost
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -49,6 +49,10 @@ Patch0:    weechat-1.0.1-plugins-fPIC.patch
 Patch1:    weechat-3.4-tests-fPIC.patch
 # this fails on too many tests, we want to let them finish anyway
 Patch2:    weechat-3.4-disable-memleak-detection.patch
+# https://github.com/weechat/weechat/issues/1883
+# https://github.com/weechat/weechat/commit/fb0248f5572f9f8c5727731c5d065459238c0eeb
+# Fix gui_chat_printf_y_date_tags with glibc 2.37
+Patch3:    weechat-3.8-fix-crash-on-null-msg-glibc-237.patch
 
 BuildRequires: gcc
 %if %{with check}

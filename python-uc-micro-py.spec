@@ -8,12 +8,7 @@ URL:            https://github.com/tsutsu3/uc.micro-py
 Source0:        %{url}/archive/v%{version}/uc.micro-py-%{version}.tar.gz
 
 BuildArch:      noarch
-
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %global _description %{expand:
 Micro subset of Unicode data files for linkify-it.py projects.  This is
@@ -29,6 +24,9 @@ Summary:        Micro subset of Unicode data files for linkify-it.py projects
 %prep
 %autosetup -n uc.micro-py-%{version}
 
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 %build
 %pyproject_wheel
 
@@ -43,6 +41,9 @@ Summary:        Micro subset of Unicode data files for linkify-it.py projects
 %doc CHANGELOG.md README.md
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 1.0.1-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

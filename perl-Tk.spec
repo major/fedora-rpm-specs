@@ -5,7 +5,7 @@
 
 Name:           perl-Tk
 Version:        804.036
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Perl Graphical User Interface ToolKit
 
 License:        (GPL+ or Artistic) and SWL
@@ -16,6 +16,7 @@ Patch0:         perl-Tk-widget.patch
 Patch1:         perl-Tk-debian.patch.gz
 # fix segfaults as in #235666 because of broken cashing code
 Patch2:         perl-Tk-seg.patch
+Patch3:         perl-Tk-c99.patch
 
 
 # Versions before this have Unicode issues
@@ -133,6 +134,7 @@ chmod -x pod/Popup.pod Tixish/lib/Tk/balArrow.xbm
 #%%patch1 -p1
 # patch to fix #235666 ... seems like caching code is broken
 %patch2 -p1 -b .seg
+%patch3 -p1 -b .c99
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor X11LIB=%{_libdir} XFT=1
@@ -180,6 +182,9 @@ find __demos/ -type f -exec chmod -x {} \;
 
 
 %changelog
+* Fri Feb 24 2023 Florian Weimer <fweimer@redhat.com> - 804.036-9
+- Port to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 804.036-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

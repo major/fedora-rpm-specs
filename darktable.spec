@@ -156,6 +156,11 @@ sed -i -e 's, \"external/CL/\*\.h\" , ,' src/CMakeLists.txt
 
 
 %build
+%ifarch aarch64
+# Disable LTO on aarch64 to work around https://bugzilla.redhat.com/show_bug.cgi?id=2172941
+%define _lto_cflags %{nil}
+%endif
+
 #
 # Germano Massullo: I wanted to use %%elseif but it is not yet active in
 # Fedora, etc., despite is supported upstream. I did not compare the Fedora RPM version
@@ -228,7 +233,7 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.darkt
 %{_bindir}/darktable-rs-identify
 %{_libdir}/darktable
 %{_datadir}/darktable
-%{_datadir}/applications/darktable.desktop
+%{_datadir}/applications/org.darktable.darktable.desktop
 %{_datadir}/metainfo/org.darktable.darktable.appdata.xml
 %{_datadir}/icons/hicolor/*/apps/darktable*
 %{_mandir}/man1/darktable*.1*

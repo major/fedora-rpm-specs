@@ -1,7 +1,7 @@
 %global libauditver     3.0
-%global libsepolver     3.5-0.rc3
-%global libsemanagever  3.5-0.rc3
-%global libselinuxver   3.5-0.rc3
+%global libsepolver     3.5-1
+%global libsemanagever  3.5-1
+%global libselinuxver   3.5-1
 
 %global generatorsdir %{_prefix}/lib/systemd/system-generators
 
@@ -11,10 +11,10 @@
 Summary: SELinux policy core utilities
 Name:    policycoreutils
 Version: 3.5
-Release: 0.rc3.1%{?dist}
+Release: 1%{?dist}
 License: GPL-2.0-or-later
 # https://github.com/SELinuxProject/selinux/wiki/Releases
-Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5-rc3/selinux-3.5-rc3.tar.gz
+Source0: https://github.com/SELinuxProject/selinux/releases/download/3.5/selinux-3.5.tar.gz
 URL:     https://github.com/SELinuxProject/selinux
 Source13: system-config-selinux.png
 Source14: sepolicy-icons.tgz
@@ -28,7 +28,7 @@ Source21: python-po.tgz
 Source22: gui-po.tgz
 Source23: sandbox-po.tgz
 # https://github.com/fedora-selinux/selinux
-# $ git format-patch -N 3.5-rc3 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
+# $ git format-patch -N 3.5 -- policycoreutils python gui sandbox dbus semodule-utils restorecond
 # $ for j in [0-9]*.patch; do printf "Patch%s: %s\n" ${j/-*/} $j; done
 # Patch list start
 Patch0001: 0001-sandbox-add-reset-to-Xephyr-as-it-works-better-with-.patch
@@ -71,7 +71,7 @@ load_policy to load policies, setfiles to label filesystems, newrole
 to switch roles.
 
 %prep -p /usr/bin/bash
-%autosetup -p 1 -n selinux-%{version}-rc3
+%autosetup -p 1 -n selinux-%{version}
 
 cp %{SOURCE13} gui/
 tar -xvf %{SOURCE14} -C python/sepolicy/
@@ -443,6 +443,9 @@ The policycoreutils-restorecond package contains the restorecond service.
 %systemd_postun_with_restart restorecond.service
 
 %changelog
+* Fri Feb 24 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-1
+- SELinux userspace 3.5 release
+
 * Mon Feb 13 2023 Petr Lautrbach <lautrbach@redhat.com> - 3.5-0.rc3.1
 - SELinux userspace 3.5-rc3 release
 

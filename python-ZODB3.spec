@@ -8,14 +8,6 @@ Source0:        %pypi_source ZODB3
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist btrees}
-BuildRequires:  %{py3_dist persistent}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist transaction}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zeo}
-BuildRequires:  %{py3_dist zodb}
 
 %global common_desc %{expand:
 The Zope Object Database provides an object-oriented database for Python
@@ -41,6 +33,9 @@ for fil in HISTORY.txt; do
   mv -f $fil.utf8 $fil
 done
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 %pyproject_wheel
 
@@ -52,6 +47,9 @@ done
 %{python3_sitelib}/ZODB3*
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 3.11.0-25
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.11.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

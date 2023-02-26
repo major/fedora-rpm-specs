@@ -10,7 +10,7 @@
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
 Version: 6.3.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -273,6 +273,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Thu Feb 23 2023 Fabio Valentini <decathorpe@gmail.com> - 6.3.2-4
+- Bump zstd crate dependency from 0.11 to 0.12.
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 6.3.2-3
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

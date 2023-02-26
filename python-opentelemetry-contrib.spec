@@ -1,12 +1,19 @@
+# See eachdist.ini. Note that this package must have the same version as the
+# ”prerel_version” (pre-release version) and “stable_version” in the
+# python-opentelemetry package, and the two packages must be updated together.
+%global stable_version 1.16.0
+%global prerel_version 0.37~b0
+# There are a few subpackages that have their *own* versioning scheme!
+%global aws_propagator_version 1.0.1
+%global aws_sdk_version 2.0.1
+
 # Older versions of subpackages that are disabled in these conditionals are
 # Obsoleted in python3-opentelemetry-contrib-instrumentations; if changing or
 # removing a conditional, be sure that those are updated as needed.
 
-# A subpackage needs aio_pika ~= 7.2.0; python-aio-pika is not packaged
+# A subpackage needs aio_pika >= 7.2.0, < 10.0.0; python-aio-pika is not
+# packaged
 %bcond_with aio_pika
-
-# A subpackage needs aiopg >=0.13.0,<1.3.0; F38 has 1.3.4
-%bcond_with aiopg
 
 # A subpackage needs confluent-kafka >= 1.8.2, < 2.0.0; F38 has 1.6.1
 %bcond_with confluent_kafka
@@ -54,16 +61,7 @@
 %bcond_without doc_pdf
 
 Name:           python-opentelemetry-contrib
-# See eachdist.ini. Note that this package must have the same version as the
-# ”prerel_version” (pre-release version) in the python-opentelemetry package,
-# and the two packages. Currently, nothing in this package follows the
-# OpenTelemetry “stable_version”, so the entire package is versioned with the
-# beta/pre-release version,
-%global prerel_version 0.36~b0
-# …except a few subpackages that have their OWN versioning scheme:
-%global aws_propagator_version 1.0.1
-%global aws_sdk_version 2.0.1
-Version:        %{prerel_version}
+Version:        %{stable_version}
 Release:        %autorelease
 Summary:        OpenTelemetry instrumentation for Python modules
 
@@ -75,8 +73,7 @@ Summary:        OpenTelemetry instrumentation for Python modules
 # LICENSE files.
 License:        Apache-2.0 AND BSD-3-Clause
 URL:            https://github.com/open-telemetry/opentelemetry-python-contrib
-%global srcversion %(echo '%{prerel_version}' | tr -d '~^')
-Source0:        %{url}/archive/v%{srcversion}/opentelemetry-python-contrib-%{srcversion}.tar.gz
+Source0:        %{url}/archive/v%{stable_version}/opentelemetry-python-contrib-%{stable_version}.tar.gz
 
 # Man pages hand-written for Fedora in groff_man(7) format based on --help
 Source10:       opentelemetry-bootstrap.1
@@ -90,8 +87,10 @@ ExcludeArch:    %{ix86}
 
 BuildRequires:  python3-devel
 
+%global stable_distinfo %(echo '%{stable_version}' | tr -d '~^').dist-info
 %global prerel_distinfo %(echo '%{prerel_version}' | tr -d '~^').dist-info
-%global pkgdirs %{shrink:
+# See eachdist.ini:
+%global prerel_pkgdirs %{shrink:
     %{?with_protobuf4:exporter/opentelemetry-exporter-prometheus-remote-write}
     exporter/opentelemetry-exporter-richconsole
     opentelemetry-instrumentation
@@ -101,7 +100,7 @@ BuildRequires:  python3-devel
     sdk-extension/opentelemetry-sdk-extension-aws
     util/opentelemetry-util-http
     instrumentation/opentelemetry-instrumentation-aiohttp-client
-    %{?with_aiopg:instrumentation/opentelemetry-instrumentation-aiopg}
+    instrumentation/opentelemetry-instrumentation-aiopg
     %{?with_aio_pika:instrumentation/opentelemetry-instrumentation-aio-pika}
     instrumentation/opentelemetry-instrumentation-asgi
     instrumentation/opentelemetry-instrumentation-asyncpg
@@ -151,7 +150,7 @@ OpenTelemetry instrumentation for Python modules.
 
 %package doc
 Summary:        Documentation for OpenTelemetry Python Contrib packages
-Version:        %{prerel_version}
+Version:        %{stable_version}
 
 %if %{with doc_pdf}
 BuildRequires:  make
@@ -272,7 +271,6 @@ This library allows tracing HTTP requests made by the aiohttp client library.
 %pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aiohttp-client -i %{python3_sitelib}/opentelemetry_instrumentation_aiohttp_client-%{prerel_distinfo} instruments
 
 
-%if %{with aiopg}
 %package -n python3-opentelemetry-instrumentation-aiopg
 Summary:        OpenTelemetry aiopg instrumentation
 Version:        %{prerel_version}
@@ -287,7 +285,6 @@ Requires:       python3-opentelemetry-instrumentation-dbapi = %{?epoch:%{epoch}:
 OpenTelemetry aiopg instrumentation.
 
 %pyproject_extras_subpkg -n python3-opentelemetry-instrumentation-aiopg -i %{python3_sitelib}/opentelemetry_instrumentation_aiopg-%{prerel_distinfo} instruments
-%endif
 
 
 %if %{with aio_pika}
@@ -966,12 +963,7 @@ Obsoletes:      python3-opentelemetry-instrumentation-aio-pika < 0.36~b0-1
 Obsoletes:      python3-opentelemetry-instrumentation-aio-pika+instruments < 0.36~b0-1
 %endif
 Requires:       python3-opentelemetry-instrumentation-aiohttp-client = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-%if %{with aiopg}
 Requires:       python3-opentelemetry-instrumentation-aiopg = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
-%else
-Obsoletes:      python3-opentelemetry-instrumentation-aiopg < 0.36~b0-1
-Obsoletes:      python3-opentelemetry-instrumentation-aiopg+instruments < 0.36~b0-1
-%endif
 Requires:       python3-opentelemetry-instrumentation-asgi = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-asyncpg = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
 Requires:       python3-opentelemetry-instrumentation-aws-lambda = %{?epoch:%{epoch}:}%{prerel_version}-%{release}
@@ -1049,7 +1041,7 @@ that could not be satisfied.
 
 
 %prep
-%autosetup -n opentelemetry-python-contrib-%{srcversion}
+%autosetup -n opentelemetry-python-contrib-%{stable_version}
 
 # Un-pin importlib-metadata test dependency; see:
 #   Pin importlib-metadata version for celery test
@@ -1085,6 +1077,18 @@ find . -type f \( -name '*.txt' -o -name '*.toml' \) -exec \
     gawk '/markupsafe[[:blank:]]*==/ { print FILENAME }' '{}' '+' |
   xargs -r -t sed -r -i 's/(markupsafe[[:blank:]]*)==/\1>=/'
 
+# FastAPI is pinned to <= 0.90.1 in commit
+# bb41b4600afd56abeb084af2adfc3d6628311f5b (PR#1664) in order to fix CI
+# failures (upstream bug #1663). We can’t respect this, of course, so we un-pin
+# it and deal with the consequences.
+#
+# The find-then-modify pattern keeps us from discarding mtimes on any sources
+# that do not need modification.
+find . -type f \( -name '*.txt' -o -name '*.toml' -o -name '*.py' \) -exec \
+    gawk '/fastapi[[:blank:]]*</ { print FILENAME }' '{}' '+' |
+  xargs -r -t sed -r -i \
+      's/(fastapi)[[:blank:]]*<=?[[:blank:]]*[[:digit:].]+/\1/'
+
 # Remove shebangs from non-script sources. The find-then-modify pattern
 # preserves mtimes on sources that did not need to be modified.
 find */src */*/src -type f -name '*.py' \
@@ -1095,7 +1099,6 @@ find */src */*/src -type f -name '*.py' \
 # *all* instrumentation subpackages; patch out the dependencies on those that
 # we were not able to build due to dependency issues.
 for omit in \
-    %{?!with_aiopg:aiopg} \
     %{?!with_aio_pika:aio-pika} \
     %{?!with_confluent_kafka:confluent-kafka} \
     %{?!with_falcon:falcon} \
@@ -1127,11 +1130,17 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
   # - we do not need any of the sphinx packages because we are not building the
   #   documentation
   # - grpcio-tools is not needed since we are not generating any proto bindings
+  #
+  # - if we are not making GitHub releases, we do not need requests or
+  #   ruamel.yaml; if we did need them, we would need to un-pin their versions;
+  #   so we do both, unpinning and then removing
   sed -r \
       -e '/\b(black|flake8|isort|mypy|mypy-protobuf|pylint|pytest-cov)\b/d' \
       -e '/\b(codespell|readme-renderer|bleach)\b/d' \
       -e '/\b(sphinx)/d' \
       -e '/\b(grpcio-tools)\b/d' \
+      -e 's/\b(requests|ruamel\.yaml)==.*/\1/' \
+      -e '/\b(requests|ruamel\.yaml)\b/d' \
       dev-requirements.txt | tee dev-requirements-prefiltered.txt
 
 %if %{with doc_pdf}
@@ -1187,6 +1196,9 @@ for dep in cfg.get("testenv", "deps").splitlines():
     excludes.update({"pymemcache135", "pymemcache200", "pymemcache300"})
     excludes.update({"pymemcache342"})
     excludes.update({"httpx18", "httpx21"})
+%if %{without aio_pika}
+    excludes.update({"aio-pika7", "aio-pika8", "aio-pika9"})
+%endif
     if any(what in command for what in excludes):
         continue
     print(dep)
@@ -1206,7 +1218,7 @@ for dep in cfg.get("testenv", "deps").splitlines():
   # %%pyproject_buildrequires call.
   reqs="${PWD}/all-requirements-filtered.txt"
 
-  for pkgdir in %{pkgdirs}
+  for pkgdir in %{prerel_pkgdirs}
   do
     pushd "${pkgdir}" >/dev/null
     extras='test'
@@ -1248,7 +1260,7 @@ for dep in cfg.get("testenv", "deps").splitlines():
 
 
 %build
-for pkgdir in %{pkgdirs}
+for pkgdir in %{prerel_pkgdirs}
 do
   pushd "${pkgdir}"
   %pyproject_wheel
@@ -1276,7 +1288,7 @@ cp -rvp %{python3_sitelib}/opentelemetry* "${OVERLAYDIR}/"
 # Actually installing the wheels would be more “proper,” but these packages
 # don’t have generated code or compiled extensions, so simply copying the
 # sources will work here.
-for pkgdir in %{pkgdirs}
+for pkgdir in %{prerel_pkgdirs}
 do
   cp -rvp "${pkgdir}/src/opentelemetry" "${OVERLAYDIR}/"
 done
@@ -1295,7 +1307,7 @@ install -t '%{buildroot}%{_mandir}/man1' -p -m 0644 -D \
 
 
 %check
-for pkgdir in %{pkgdirs}
+for pkgdir in %{prerel_pkgdirs}
 do
   unset k
   unset ignore
@@ -1311,6 +1323,15 @@ do
     # build environment. See also the similar test skips in
     # python-opentelemetry.
     k="${k-}${k+ and }not (TestLoadingAioHttpInstrumentor and test_loading_instrumentor)"
+    ;;
+  instrumentation/opentelemetry-instrumentation-fastapi)
+    # We cannot pin an old version of FastAPI, so these tests fail:
+    #   fix fastapi instrumentation tests for version 0.91
+    #   https://github.com/open-telemetry/opentelemetry-python-contrib/issues/1665
+    k="${k-}${k+ and }not (TestFastAPIManualInstrumentation and test_uninstrument_app)"
+    k="${k-}${k+ and }not (TestFastAPIManualInstrumentationHooks and test_uninstrument_app)"
+    k="${k-}${k+ and }not (TestAutoInstrumentation and test_uninstrument_app)"
+    k="${k-}${k+ and }not (TestAutoInstrumentationHooks and test_uninstrument_app)"
     ;;
 %if %{without moto}
   # Can’t run the tests; do an import-only “smoke test” instead.
@@ -1490,7 +1511,6 @@ done
 %{python3_sitelib}/opentelemetry_instrumentation_aiohttp_client-%{prerel_distinfo}/
 
 
-%if %{with aiopg}
 %files -n python3-opentelemetry-instrumentation-aiopg
 %license instrumentation/opentelemetry-instrumentation-aiopg/LICENSE
 %doc instrumentation/opentelemetry-instrumentation-aiopg/README.rst
@@ -1500,7 +1520,6 @@ done
 
 %{python3_sitelib}/opentelemetry/instrumentation/aiopg/
 %{python3_sitelib}/opentelemetry_instrumentation_aiopg-%{prerel_distinfo}/
-%endif
 
 
 %if %{with aio_pika}

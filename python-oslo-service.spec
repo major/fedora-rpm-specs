@@ -1,5 +1,5 @@
 %{!?sources_gpg: %{!?dlrn:%global sources_gpg 1} }
-%global sources_gpg_sign 0xa63ea142678138d1bb15f2e303bdfd64dd164087
+%global sources_gpg_sign 0xa7475c5f2122fec3f90343223fe3bf5aad1080e4
 %{!?upstream_version: %global upstream_version %{version}%{?milestone}}
 %global pypi_name oslo.service
 %global pkg_name oslo-service
@@ -10,7 +10,7 @@ oslo.service provides a framework for defining new long-running services \
 using the patterns established by other OpenStack applications.
 
 Name:           python-%{pkg_name}
-Version:        3.0.0
+Version:        3.1.1
 Release:        7%{?dist}
 Summary:        Oslo service library
 
@@ -22,9 +22,6 @@ Source0:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstr
 Source101:        https://tarballs.openstack.org/%{pypi_name}/%{pypi_name}-%{upstream_version}.tar.gz.asc
 Source102:        https://releases.openstack.org/_static/%{sources_gpg_sign}.txt
 %endif
-# This patch is temporary until upstream releases 3.0.1. See
-# https://bugs.launchpad.net/oslo.service/+bug/1988308
-Patch1:           test_loopingcall.py.patch
 BuildArch:      noarch
 
 # Required for tarball sources verification
@@ -152,6 +149,9 @@ rm -rf .testrepository
 %endif
 
 %changelog
+* Fri Feb 24 2023 Hirotaka Wakabayashi <hiwkby@yahoo.com> - 3.1.1-1
+- Update to 3.1.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

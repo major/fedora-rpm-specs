@@ -1,8 +1,10 @@
 %global __cmake_in_source_build 1
-# https://github.com/anonbeat/guayadeque/commit/a8b47a68664447fb33333c069225ec4dc701b3a3
-%global commit0 a8b47a68664447fb33333c069225ec4dc701b3a3
+%global usesnapshot 0
+%global commit0 4d70d0b6a3583f01ea096bd327f7eae4ee3f59a5
+%if 0%{?usesnapshot}
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global gitdate 20220801
+%endif
 
 # wx-config
 %if 0%{?fedora} >= 37
@@ -12,19 +14,29 @@
 %endif
 
 Name:           guayadeque
+%if 0%{?usesnapshot}
 Version:        0.4.7
 Release:        0.41.%{gitdate}git%{shortcommit0}%{?dist}
+%else
+Version:        0.4.7
+Release:        1%{?dist}
+%endif
 Summary:        Music player
-
 # The entire source code is GPLv3+ except hmac/ which is BSD
 # and ApeTag.* TagInfo.* which is LGPLv2+
 License:        GPLv3+ and BSD and LGPLv2+ and wxWidgets
 URL:            http://guayadeque.org/
+%if 0%{?usesnapshot}
 Source0:        https://github.com/anonbeat/guayadeque/archive/%{commit0}/%{name}-%{commit0}.tar.gz#/%{name}-%{shortcommit0}.tar.gz
+%else
+Source0:        https://github.com/anonbeat/guayadeque/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+%endif
 # For a breakdown of the licensing, see PACKAGE-LICENSING
 Source1:        PACKAGE-LICENSING
 # https://github.com/anonbeat/guayadeque/issues/144
 Patch0:         guayadeque-wxwidgets-3.2.patch
+# https://github.com/anonbeat/guayadeque/issues/155
+Patch1:         guayadeque-ambiguous-overload.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -93,10 +105,15 @@ Supplements:    (%{name} = %{version}-%{release} and langpacks-%{1})\
 %lang_subpkg uk Ukrainian
 
 %prep
+%if 0%{?usesnapshot}
 %setup -q -n %{name}-%{commit0}
+%else
+%setup -q -n %{name}-%{version}
+%endif
 cp -p %{SOURCE1} PACKAGE-LICENSING
 %if 0%{?fedora} >= 37
 %patch0 -p1
+%patch1 -p1
 %endif
 
 %build
@@ -133,6 +150,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/appdata/*.appdata.
 %{_datadir}/appdata/%{name}.appdata.xml
 
 %changelog
+* Fri Feb 24 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.4.7-1
+- Update to 0.4.7
+- Add guayadeque-ambiguous-overload.patch
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.7-0.41.20220801gita8b47a6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

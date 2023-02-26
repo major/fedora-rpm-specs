@@ -13,12 +13,6 @@ BuildRequires:  gcc
 BuildRequires:  python3-devel
 BuildRequires:  python3-test
 BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist tox}
-BuildRequires:  %{py3_dist tox-current-env}
-BuildRequires:  %{py3_dist wheel}
-BuildRequires:  %{py3_dist zope-testrunner}
 
 %global common_desc %{expand:
 This package presents a uniform pickling interface for ZODB:
@@ -41,6 +35,9 @@ Summary:        Fork of Python 3 pickle module for ZODB
 %prep
 %autosetup -n zodbpickle-%{version} -p1
 
+%generate_buildrequires
+%pyproject_buildrequires -t -x test
+
 %build
 %pyproject_wheel
 rst2html --no-datestamp CHANGES.rst CHANGES.html
@@ -58,18 +55,15 @@ rm -fr %{buildroot}%{python3_sitearch}/zodbpickle/tests/__pycache__/*_2*
 sed -ri '/pickle(tester|tools)?_2/d;/\.c$/d' %{pyproject_files}
 
 %check
-# See https://src.fedoraproject.org/rpms/python-zope-interface/pull-request/3
-# for why %%tox does not work on Fedora < 36
-%if 0%{?fedora} > 35
 %tox
-%else
-%{python3} setup.py test
-%endif
 
 %files -n python3-zodbpickle -f %{pyproject_files}
 %doc CHANGES.html README.html
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.6-2
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

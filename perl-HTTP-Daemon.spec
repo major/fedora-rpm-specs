@@ -2,7 +2,7 @@
 %{bcond_without perl_HTTP_Daemon_enables_optional_test}
 
 Name:           perl-HTTP-Daemon
-Version:        6.15
+Version:        6.16
 Release:        1%{?dist}
 Summary:        Simple HTTP server class
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -44,7 +44,7 @@ BuildRequires:  perl(URI)
 # Optional tests:
 %if %{with perl_HTTP_Daemon_enables_optional_test} && !%{defined %perl_bootstrap}
 BuildRequires:  perl(LWP::RobotUA)
-BuildRequires:  perl(LWP::UserAgent)
+BuildRequires:  perl(LWP::UserAgent) >= 6.37
 # CPAN::Meta not helpful
 # CPAN::Meta::Prereqs not helpful
 %endif
@@ -52,12 +52,15 @@ Requires:       perl(HTTP::Date) >= 6
 Requires:       perl(HTTP::Request) >= 6
 Requires:       perl(HTTP::Response) >= 6
 Requires:       perl(HTTP::Status) >= 6
-Requires:       perl(IO::Socket::IP) >= 0.25
+Requires:       perl(IO::Socket::IP) >= 0.32
 Requires:       perl(LWP::MediaTypes) >= 6
 Conflicts:      perl-libwww-perl < 6
 
 # Remove underspecified dependencies
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(HTTP::(Date|Request|Response|Status)|IO::Socket::IP|LWP::MediaTypes\\)$
+# Remove private test modules
+%global __requires_exclude %{?__requires_exclude:%__requires_exclude|}^perl\\(TestServer|TestServer::(BasicTests|Reflect)\\)$
+%global __provides_exclude %{?__provides_exclude:%__provides_exclude|}^perl\\(TestServer|TestServer::(BasicTests|Reflect)\\)$
 
 %description
 Instances of the HTTP::Daemon class are HTTP/1.1 servers that listen on a
@@ -71,7 +74,7 @@ Requires:       perl-Test-Harness
 # perl-generators doesn't detect 'use Test::Needs 'LWP::RobotUA';'
 Requires:       perl(LWP::RobotUA)
 # perl-generators doesn't detect 'use Test::Needs 'LWP::UserAgent';'
-Requires:       perl(LWP::UserAgent)
+Requires:       perl(LWP::UserAgent) >= 6.37
 
 %description tests
 Tests from %{name}. Execute them
@@ -115,6 +118,11 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Feb 24 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.16-1
+- 6.16 bump
+- Fix minimal version of IO::Socket::IP
+- Fix requires/provided modules in *tests package
+
 * Thu Feb 23 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.15-1
 - 6.15 bump
 

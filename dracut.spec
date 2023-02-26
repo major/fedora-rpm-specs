@@ -7,7 +7,7 @@
 %global __requires_exclude pkg-config
 
 # rpmdev-bumpspec and releng automation compatible variable
-%global baserelease 2
+%global baserelease 3
 
 Name: dracut
 Version: 059
@@ -43,6 +43,10 @@ Patch3: 2218-add-module-driver-support-for-macbook-keyboards.patch
 # Revert PR#1934
 # https://bugzilla.redhat.com/show_bug.cgi?id=2172269#c3
 Patch4: 1934-revert-add-overlayfs-module.patch
+
+# Fix: dracut --kmoddir fails on paths with traling /
+# https://bugzilla.redhat.com/show_bug.cgi?id=2173100
+Patch5: 2237-kmoddir-fix-trailing-forwardslash-handling.patch
 
 BuildRequires: bash
 BuildRequires: git-core
@@ -449,6 +453,9 @@ echo 'dracut_rescue_image="yes"' > $RPM_BUILD_ROOT%{dracutlibdir}/dracut.conf.d/
 %{_prefix}/lib/kernel/install.d/51-dracut-rescue.install
 
 %changelog
+* Fri Feb 24 2023 Pavel Valena <pvalena@redhat.com> - 059-3
+- fix(dracut.sh): handle --kmoddir with trailing /
+
 * Tue Feb 21 2023 Pavel Valena <pvalena@redhat.com> - 059-2
 - Revert: PR#1934 add overlayfs module
 

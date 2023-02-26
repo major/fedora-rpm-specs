@@ -810,7 +810,7 @@ pushd emacs-erlang
 popd
 %endif %{__with_emacs}
 
-make
+%make_build
 
 %if %{with doc}
 # should use FOP_OPTS after #832323 is resolved

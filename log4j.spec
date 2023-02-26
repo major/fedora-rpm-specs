@@ -2,7 +2,7 @@
 
 Name:           log4j
 Version:        2.17.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Java logging package
 BuildArch:      noarch
 ExclusiveArch:  %{java_arches} noarch
@@ -16,9 +16,6 @@ Source0:        %{name}-%{version}.tar.gz
 Patch2:         logging-log4j-Remove-unsupported-EventDataConverter.patch
 
 BuildRequires:  maven-local
-BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations)
-BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core)
-BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind)
 BuildRequires:  mvn(com.lmax:disruptor)
 BuildRequires:  mvn(com.sun.activation:jakarta.activation)
 BuildRequires:  mvn(com.sun.mail:javax.mail)
@@ -26,7 +23,6 @@ BuildRequires:  mvn(commons-logging:commons-logging)
 BuildRequires:  mvn(javax.servlet:javax.servlet-api)
 BuildRequires:  mvn(org.apache.commons:commons-compress)
 BuildRequires:  mvn(org.apache.felix:maven-bundle-plugin)
-BuildRequires:  mvn(org.apache:apache:pom:)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-assembly-plugin)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-dependency-plugin)
 BuildRequires:  mvn(org.codehaus.mojo:build-helper-maven-plugin)
@@ -34,10 +30,10 @@ BuildRequires:  mvn(org.fusesource.jansi:jansi)
 BuildRequires:  mvn(org.jctools:jctools-core)
 BuildRequires:  mvn(org.osgi:osgi.core)
 BuildRequires:  mvn(org.slf4j:slf4j-api)
-BuildRequires:  mvn(jakarta.servlet:jakarta.servlet-api)
 
 %if %{without jp_minimal}
 BuildRequires:  mvn(com.datastax.cassandra:cassandra-driver-core)
+BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-annotations)
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-core)
 BuildRequires:  mvn(com.fasterxml.jackson.core:jackson-databind)
 BuildRequires:  mvn(com.fasterxml.jackson.dataformat:jackson-dataformat-xml)
@@ -45,6 +41,7 @@ BuildRequires:  mvn(com.fasterxml.jackson.dataformat:jackson-dataformat-yaml)
 BuildRequires:  mvn(com.fasterxml.woodstox:woodstox-core)
 BuildRequires:  mvn(com.lmax:disruptor)
 BuildRequires:  mvn(com.sun.mail:javax.mail)
+BuildRequires:  mvn(jakarta.servlet:jakarta.servlet-api)
 BuildRequires:  mvn(javax.servlet.jsp:jsp-api)
 BuildRequires:  mvn(org.apache.commons:commons-csv)
 BuildRequires:  mvn(org.apache.logging:logging-parent:pom:)
@@ -207,6 +204,7 @@ rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/appender/mom/kafka
 %pom_disable_module %{name}-taglib
 %pom_disable_module %{name}-jmx-gui
 %pom_disable_module %{name}-bom
+%pom_disable_module %{name}-jakarta-web
 %pom_disable_module %{name}-iostreams
 %pom_disable_module %{name}-jul
 %pom_disable_module %{name}-core-its
@@ -216,9 +214,13 @@ rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/appender/mom/kafka
 %pom_disable_module %{name}-appserver
 %pom_disable_module %{name}-spring-cloud-config
 %pom_disable_module %{name}-spring-boot
+%pom_disable_module %{name}-docker
 %pom_disable_module %{name}-kubernetes
 %pom_disable_module %{name}-layout-template-json
 
+%pom_remove_dep -r :jackson-annotations
+%pom_remove_dep -r :jackson-core
+%pom_remove_dep -r :jackson-databind
 %pom_remove_dep -r :jackson-dataformat-yaml
 %pom_remove_dep -r :jackson-dataformat-xml
 %pom_remove_dep -r :woodstox-core
@@ -227,7 +229,7 @@ rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/appender/mom/kafka
 %pom_remove_dep -r :jeromq
 %pom_remove_dep -r :commons-csv
 
-rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/{jackson,config/yaml,parser}
+rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/{jackson,config/yaml,config/json,parser}
 rm -r log4j-core/src/main/java/org/apache/logging/log4j/core/appender/{db,mom,nosql}
 rm log4j-core/src/main/java/org/apache/logging/log4j/core/layout/*{Csv,Jackson,Xml,Yaml,Json,Gelf}*.java
 rm log4j-1.2-api/src/main/java/org/apache/log4j/builders/layout/*Xml*.java
@@ -284,6 +286,9 @@ rm -r log4j-1.2-api/src/main/java/org/apache/log4j/or/jms
 
 
 %changelog
+* Fri Feb 24 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 2.17.2-8
+- Remove dependency on jackson in jp_minimal mode
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.17.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

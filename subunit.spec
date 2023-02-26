@@ -21,16 +21,6 @@ BuildRequires:  pkgconfig
 BuildRequires:  pkgconfig(check)
 BuildRequires:  pkgconfig(cppunit)
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist docutils}
-BuildRequires:  %{py3_dist extras}
-BuildRequires:  %{py3_dist fixtures}
-BuildRequires:  %{py3_dist hypothesis}
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist testscenarios}
-BuildRequires:  %{py3_dist testtools} >= 0.9.34
-BuildRequires:  %{py3_dist wheel}
 
 %description
 Subunit C bindings.  See the python-subunit package for test processing
@@ -155,6 +145,9 @@ for fil in $(grep -Frl "%{_bindir}/env python"); do
   fixtimestamp $fil
 done
 
+%generate_buildrequires
+%pyproject_buildrequires -x docs,test
+
 %build
 export INSTALLDIRS=perl
 
@@ -267,6 +260,9 @@ make check
 %exclude %{_bindir}/%{name}-diff
 
 %changelog
+* Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 1.4.2-2
+- Dynamically generate python BuildRequires
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

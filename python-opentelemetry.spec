@@ -1,10 +1,10 @@
 # See eachdist.ini:
-%global stable_version 1.15.0
-%global prerel_version 0.36~b0
+%global stable_version 1.16.0
+%global prerel_version 0.37~b0
 # WARNING: Because python-opentelemetry-contrib has some exact-version
 # dependencies on subpackages of this package, it must be updated
 # simultaneously with this package, preferably using a side tag, such that its
-# version number always matches the prerel_version above.
+# stable_version and prerel_version always match those above.
 
 # Contents of python3-opentelemetry-proto are generated from proto files in a
 # separate repository with a separate version number. We treat these as
@@ -39,13 +39,6 @@ Source0:        %{url}/archive/v%{version}/opentelemetry-python-%{version}.tar.g
 %global proto_url https://github.com/open-telemetry/opentelemetry-proto
 Source1:        %{proto_url}/archive/v%{proto_version}/opentelemetry-proto-%{proto_version}.tar.gz
 
-# Fix tests with pre-2.0 backoff (fix #3087)
-# https://github.com/open-telemetry/opentelemetry-python/pull/3106
-#   Fixes:
-# Tests named test_handles_backoff_v2_api fail when backoff is <2.0
-# https://github.com/open-telemetry/opentelemetry-python/issues/3087
-Patch:          https://github.com/open-telemetry/opentelemetry-python/pull/3106.patch
-
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -56,8 +49,7 @@ BuildRequires:  python3-sphinx-latex
 BuildRequires:  latexmk
 %endif
 
-%global stable_distversion %(echo '%{stable_version}' | tr -d '~^')
-%global stable_distinfo %{stable_distversion}.dist-info
+%global stable_distinfo %(echo '%{stable_version}' | tr -d '~^').dist-info
 # See eachdist.ini:
 %global stable_pkgdirs %{shrink:
       opentelemetry-api
@@ -75,8 +67,7 @@ BuildRequires:  latexmk
       exporter/opentelemetry-exporter-jaeger-thrift
       exporter/opentelemetry-exporter-jaeger-proto-grpc
       exporter/opentelemetry-exporter-jaeger}
-%global prerel_distversion %(echo '%{prerel_version}' | tr -d '~^')
-%global prerel_distinfo %{prerel_distversion}.dist-info
+%global prerel_distinfo %(echo '%{prerel_version}' | tr -d '~^').dist-info
 # See eachdist.ini:
 %global prerel_pkgdirs %{shrink:
       tests/opentelemetry-test-utils
@@ -100,9 +91,15 @@ Version:        %{stable_version}
 Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
 Requires:       python3-opentelemetry-sdk = %{stable_version}-%{release}
 
+# All Jaeger exporters were deprecated upstream in 1.16.0/0.37b0.
+Provides:       deprecated()
+
 %description -n python3-opentelemetry-exporter-jaeger-proto-grpc
 This library allows to export tracing data to Jaeger
 (https://www.jaegertracing.io/).
+
+Warning: Since v1.35, the Jaeger supports OTLP natively. Please use the OTLP
+exporter instead. Upstream support for this exporter will end July 2023.
 
 
 %package -n python3-opentelemetry-exporter-jaeger-thrift
@@ -114,9 +111,15 @@ Version:        %{stable_version}
 Requires:       python3-opentelemetry-api = %{stable_version}-%{release}
 Requires:       python3-opentelemetry-sdk = %{stable_version}-%{release}
 
+# All Jaeger exporters were deprecated upstream in 1.16.0/0.37b0.
+Provides:       deprecated()
+
 %description -n python3-opentelemetry-exporter-jaeger-thrift
 This library allows to export tracing data to Jaeger
 (https://www.jaegertracing.io/) using Thrift.
+
+Warning: Since v1.35, the Jaeger supports OTLP natively. Please use the OTLP
+exporter instead. Upstream support for this exporter will end July 2023.
 
 
 %package -n python3-opentelemetry-exporter-jaeger
@@ -130,6 +133,9 @@ Obsoletes:      python3-opentelemetry-ext-jaeger < 1.0
 Requires:       python3-opentelemetry-exporter-jaeger-proto-grpc = %{stable_version}-%{release}
 Requires:       python3-opentelemetry-exporter-jaeger-thrift = %{stable_version}-%{release}
 
+# All Jaeger exporters were deprecated upstream in 1.16.0/0.37b0.
+Provides:       deprecated()
+
 %description -n python3-opentelemetry-exporter-jaeger
 This library is provided as a convenience to install all supported Jaeger
 Exporters. Currently it installs:
@@ -138,6 +144,10 @@ Exporters. Currently it installs:
 
 To avoid unnecessary dependencies, users should install the specific package
 once they’ve determined their preferred serialization method.
+
+Warning: Since v1.35, the Jaeger supports OTLP natively. Please use the OTLP
+exporter instead. Upstream support for this exporter will end July 2023.
+
 
 
 %if %{with prerelease}
@@ -452,7 +462,7 @@ This package provides documentation for python-opentelemetry.
 
 
 %prep
-%autosetup -p1 -n opentelemetry-python-%{stable_version}
+%autosetup -n opentelemetry-python-%{stable_version}
 
 # In “Pin googleapis-common-protos version”,
 # https://github.com/open-telemetry/opentelemetry-python/pull/2777, upstream
@@ -520,6 +530,10 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
   #     breaking change introduced in markupsafe causes jinja, flask to break
   #   but we have no such luxury
   # - we must allow pytest 7.2+ (upstream pins pytest==7.1.3)
+  # - if we are not running the script to update the contrib repo SHA from
+  #   branch, we do not need requests or ruamel.yaml; if we did need them, we
+  #   would need to un-pin their versions; so we do both, unpinning and then
+  #   removing
   #
   # - if we are not building the documentation, then we should ignore
   #   documentation dependencies duplicated in dev-requirements.txt
@@ -532,7 +546,8 @@ echo 'intersphinx_mapping.clear()' >> docs/conf.py
       -e 's/\b(flask~=)1\.[[:digit:]]\b/\12\.0/' \
       -e 's/\b(sphinx(-autodoc-typehints)?|opentracing)~=/\1>=/' \
       -e 's/\b(protobuf)[>~]=.*/\1/' \
-      -e 's/\b(markupsafe|pytest)==.*/\1/' \
+      -e 's/\b(markupsafe|pytest|requests|ruamel\.yaml)==.*/\1/' \
+      -e '/\b(requests|ruamel\.yaml)\b/d' \
       %{?!with_doc_pdf:-e '/\b(sphinx|django)\b/d'} \
       dev-requirements.txt %{?with_doc_pdf:docs-requirements.txt}
 
@@ -653,11 +668,12 @@ do
     ;;
   opentelemetry-sdk)
     # Still more entry point issues
-    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_disable_default)"
-    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_enable_env)"
-    k="${k-}${k+ and }not (TestImportExporters and test_console_exporters)"
     k="${k-}${k+ and }not (TestGlobals and test_sdk_log_emitter_provider)"
     k="${k-}${k+ and }not (TestGlobals and test_sdk_logger_provider)"
+    k="${k-}${k+ and }not (TestImportExporters and test_console_exporters)"
+    k="${k-}${k+ and }not (TestLoggingInit and test_initialize_components_resource)"
+    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_disable_default)"
+    k="${k-}${k+ and }not (TestLoggingInit and test_logging_init_enable_env)"
     ;;
   esac
 

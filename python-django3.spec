@@ -9,14 +9,14 @@
 
 Name:           python-django3
 %global         pkgname Django
-%global         ver 3.2.15
+%global         ver 3.2.18
 #global         pre ...
 %global         real_version %{ver}%{?pre:%{pre}}
 Version:        %{ver}%{?pre:~%{pre}}
 Release:        %autorelease
 Summary:        A high-level Python Web framework
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.djangoproject.com/
 Source0:        %{pypi_source %{pkgname} %{real_version}}
 

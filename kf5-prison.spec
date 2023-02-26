@@ -3,7 +3,7 @@
 Name:    kf5-%{framework}
 Summary: KDE Frameworks 5 Tier 1 barcode library
 Version: 5.103.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: BSD 
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -70,6 +70,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Fri Feb 24 2023 Adam Williamson <awilliam@redhat.com> - 5.103.0-2
+- Rebuild for new libzxing
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

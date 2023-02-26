@@ -25,10 +25,7 @@ BuildRequires:  pkgconfig(libjpeg)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  python3-devel
 BuildRequires:  python3-gobject
-BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist pytest}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 BuildRequires:  xorg-x11-fonts-Type1
 BuildRequires:  xorg-x11-server-Xvfb
 
@@ -60,6 +57,9 @@ sed -i 's/, "-O3"//' setup.py
 
 # Supply missing test file
 cp -p %{SOURCE2} testdata
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
@@ -114,6 +114,9 @@ mv ../test_main_window.py fract4dgui/tests
 %{_metainfodir}/com.github.fract4d.%{name}.metainfo.xml
 
 %changelog
+* Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 4.3-10
+- Dynamically generate python BuildRequires
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
