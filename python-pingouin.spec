@@ -10,6 +10,10 @@ URL:            https://pingouin-stats.org/
 # PyPI tar does not contain docs and tests
 Source0:        https://github.com/raphaelvallat/pingouin/archive/v%{version}/pingouin-%{version}.tar.gz
 
+# hotfix: CI crash in test_power_chi2
+# https://github.com/raphaelvallat/pingouin/pull/344
+Patch:          https://github.com/raphaelvallat/pingouin/pull/344.patch
+
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
 
@@ -70,7 +74,7 @@ BuildArch:      noarch
 %{summary}.
 
 %prep
-%autosetup -n pingouin-%{version}
+%autosetup -n pingouin-%{version} -p1
 # Version was upper-bounded in 2223ca5a89c28511dc54101ed0b9501425fcca47; this
 # is possibly a “Temp fix for bug in plot_paired.” Anyway, we cannot respect
 # the version bound.

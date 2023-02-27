@@ -44,7 +44,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.4.2
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -598,6 +598,9 @@ done
 
 
 %changelog
+* Sat Feb 25 2023 Marek Kasik <mkasik@redhat.com> - 6.4.2-3
+- Rebuild for freetype-2.13.0
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 6.4.2-2
 - rebuild for libvpx
 

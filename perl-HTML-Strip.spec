@@ -3,12 +3,13 @@
 
 Name:           perl-HTML-Strip
 Version:        2.10
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Perl extension for stripping HTML markup from text
 License:        GPL+ or Artistic
 
 URL:            https://metacpan.org/release/HTML-Strip
 Source0:        https://cpan.metacpan.org/authors/id/K/KI/KILINRAX/HTML-Strip-%{version}.tar.gz
+Patch0: perl-HTML-Strip-c99.patch
 
 BuildRequires:  coreutils
 BuildRequires:  findutils
@@ -48,7 +49,7 @@ as well; but removing HTML markup is a much more common problem, hence this
 module lives in the HTML:: namespace.
 
 %prep
-%setup -q -n HTML-Strip-%{version}
+%autosetup -p1 -n HTML-Strip-%{version}
 
 %build
 %{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
@@ -74,6 +75,9 @@ make test
 %{_mandir}/man3/HTML*
 
 %changelog
+* Sat Feb 25 2023 Florian Weimer <fweimer@redhat.com> - 2.10-25
+- Port to C99
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.10-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,13 +1,10 @@
 Name:           moarvm
-Version:        2022.12
+Version:        2023.02
 Release:        %autorelease
 Summary:        Metamodel On A Runtime Virtual Machine
 License:        Artistic-2.0
 URL:            https://moarvm.org/
 Source:         https://github.com/MoarVM/MoarVM/releases/download/%{version}/MoarVM-%{version}.tar.gz
-# Add --has-mimalloc option to use system mimalloc
-# https://github.com/MoarVM/MoarVM/pull/1742
-Patch0:         use-system-mimalloc.patch
 
 BuildRequires:  gcc
 BuildRequires:  make
@@ -57,10 +54,10 @@ rm -rf 3rdparty/mimalloc
   --has-libatomic_ops \
   --has-libtommath \
   --has-mimalloc
-%{make_build}
+%make_build
 
 %install
-%{make_install}
+%make_install
 
 chmod 755 %{buildroot}%{_libdir}/libmoar.so
 

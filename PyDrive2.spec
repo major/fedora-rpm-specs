@@ -11,13 +11,13 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
 
-Obsoletes:      python3-PyDrive <= 1.3.1-21
-
 %description
 Google Drive API Python wrapper library. Maintained fork of PyDrive.
 
 %package -n     python3-%{name}
 Summary:        %{summary}
+
+Obsoletes:      python3-PyDrive <= 1.3.1-21
 
 %description -n python3-%{name}
 Google Drive API Python wrapper library. Maintained fork of PyDrive.

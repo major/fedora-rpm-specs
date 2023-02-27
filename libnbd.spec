@@ -11,8 +11,8 @@
 %global source_directory 1.15-development
 
 Name:           libnbd
-Version:        1.15.9
-Release:        2%{?dist}
+Version:        1.15.10
+Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
 License:        LGPLv2+
@@ -346,6 +346,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Sat Feb 25 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.10-1
+- New upstream development version 1.15.10
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.9-2
 - Rebuild OCaml packages for F38
 

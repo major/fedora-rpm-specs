@@ -2,7 +2,7 @@
 Name:    libksysguard
 Summary: Library for managing processes running on the system
 Version: 5.27.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -51,6 +51,7 @@ BuildRequires:  cmake(Qt5WebEngineWidgets)
 
 BuildRequires:  pkgconfig(libpcap)
 BuildRequires:  pkgconfig(libnl-3.0) pkgconfig(libnl-route-3.0)
+BuildRequires:  libcap-devel
 BuildRequires:  libXres-devel
 BuildRequires:  lm_sensors-devel
 BuildRequires:  zlib-devel
@@ -153,6 +154,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Feb 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-2
+- Add missing BuildRequires
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
 - 5.27.1
 

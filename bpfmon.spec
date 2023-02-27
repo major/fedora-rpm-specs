@@ -54,7 +54,7 @@ install -TD -m 0644 bpfmon.8 $RPM_BUILD_ROOT/%{_mandir}/man8/bpfmon.8
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.51-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Tue Sep 21 2021 Boian Bonev <bbonev@ipacct.com> - 2.51-1
+* Tue Jan 3 2023 Boian Bonev <bbonev@ipacct.com> - 2.51-1
 - New version 2.51
 
 * Mon Jan 2 2023 Boian Bonev <bbonev@ipacct.com> - 2.50-4

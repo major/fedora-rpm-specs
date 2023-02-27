@@ -50,8 +50,8 @@
 # These minimum versions help keep track of what unbundled versions are needed.
 # Since we are able to completely unbundle the generated proto wrappers for
 # opencensus and opentelemetry, the version bounds are not extremely strict.
-%global opencensus_proto_min_version 0.3
-%global opentelemetry_proto_min_version 1.13
+%global opencensus_proto_min_version 0.4.1
+%global opentelemetry_proto_min_version 1.16
 # It is unfortunate but unavoidable that this package must stuff additional
 # files inside the unbundled googlapis-common-protos directories. This means
 # than any update to python-googleapis-common-protos could potentially require

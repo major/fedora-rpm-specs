@@ -6,7 +6,7 @@
 
 # https://github.com/tinygo-org/tinygo
 %global goipath         github.com/tinygo-org/tinygo
-Version:                0.26.0
+Version:                0.27.0
 
 %global CMSIS_commit        9fe411cef1cef5de58e5957b89760759de44e393
 %global avr_commit          6624554c02b237b23dc17d53e992bf54033fc228
@@ -18,10 +18,11 @@ Version:                0.26.0
 %global cmsis_svd_commit    df75ff974c76a911fc2815e29807f5ecaae06fc2
 %global compiler_rt_version %{clang_llvm_version}.0.0
 %global macos_minsdk_commit ebb736fda2bec7cea38dcda807518b835a539525
-%global musl_version        1.2.0
+%global musl_version        1.2.3
 %global nrfx_commit         d779b49fc59c7a165e7da1d7cd7d57b28a059f16
-%global picolibc_commit     f68b8204f797d6b3bfbc7c4da4d257961fbc8770
+%global picolibc_commit     b92edfda8ac6853772d87cadaeeeaa21b78609b6
 %global wasi_libc_commit    30094b6ed05f19cee102115215863d185f2db4f0
+%global mingw64_commit      8526cb618269440a94810b94b77f8bd48c5c3396
 
 # No longer matching regular Go's /usr/share/gocode because it also provides
 # pre-compiled binaries, and symlinks to arch-specific clang headers.
@@ -68,49 +69,21 @@ Source7:        https://github.com/aykevl/macos-minimal-sdk/archive/%{macos_mins
 Source8:        https://github.com/NordicSemiconductor/nrfx/archive/%{nrfx_commit}/nrfx-%{nrfx_commit}.tar.gz
 Source9:        https://github.com/keith-packard/picolibc/archive/%{picolibc_commit}/picolibc-%{picolibc_commit}.tar.gz
 Source10:       https://github.com/WebAssembly/wasi-libc/archive/%{wasi_libc_commit}/wasi-libc-%{wasi_libc_commit}.tar.gz
+Source11:       https://github.com/mingw-w64/mingw-w64/archive/%{mingw64_commit}/mingw64-%{mingw64_commit}.tar.gz
 # We don't have wasmtime to run these.
 Patch0001:      0001-Skip-WASI-tests.patch
 # Unbundling things
-Patch0002:      0002-Use-system-mingw64-headers-and-crt.patch
+# Patch0002:      0002-Use-system-mingw64-headers-and-crt.patch
 # Skip testing some things where qemu is broken:
 # https://gitlab.com/qemu-project/qemu/-/issues/447
 # https://gitlab.com/qemu-project/qemu/-/issues/690
-Patch0003:      0003-Skip-some-cross-Linux-tests-where-qemu-is-broken.patch
+Patch0002:      0002-Skip-some-cross-Linux-tests-where-qemu-is-broken.patch
 # Add Fedora specific dnf instructions
-Patch0004:      0004-Suggest-optional-packages-to-install-if-missing.patch
+Patch0003:      0003-Suggest-optional-packages-to-install-if-missing.patch
 
 # https://github.com/tinygo-org/tinygo/pull/2840
-Patch0005:      0005-Skip-TestDirFS-on-32-bit-systems.patch
-Patch0006:      0006-Skip-broken-tests-on-i686.patch
-
-# Backport patches for LLVM 15 support
-# https://github.com/tinygo-org/tinygo/pull/3230
-Patch0007:      0007-wasm-fix-GC-scanning-of-allocas.patch
-# https://github.com/tinygo-org/tinygo/pull/3189
-Patch0008:      0008-compiler-return-a-FunctionType-not-a-PointerType-in-.patch
-Patch0009:      0009-all-add-type-parameter-to-CreateCall.patch
-Patch0010:      0010-all-add-type-parameter-to-CreateLoad.patch
-Patch0011:      0011-all-add-type-parameter-to-GEP-calls.patch
-Patch0012:      0012-all-replace-llvm.Const-calls-with-builder.Create-cal.patch
-Patch0013:      0013-interp-change-object.llvmType-to-the-initializer-typ.patch
-Patch0014:      0014-all-remove-pointer-ElementType-calls.patch
-Patch0015:      0015-transform-fix-memory-corruption-issues.patch
-Patch0016:      0016-riscv-add-target-abi-metadata-flag.patch
-Patch0017:      0017-interp-add-support-for-constant-icmp-instructions.patch
-Patch0018:      0018-ci-add-support-for-LLVM-15.patch
-# Backport patches for Go 1.20 support
-# https://github.com/tinygo-org/tinygo/pull/3368
-Patch0019:      0019-src-runtime-add-xorshift-based-fastrand64.patch
-# https://github.com/tinygo-org/tinygo/pull/3387
-Patch0020:      0020-testing-implement-t.Setenv.patch
-# https://github.com/tinygo-org/tinygo/pull/3391
-Patch0021:      0021-compiler-add-support-for-new-unsafe-slice-string-fun.patch
-Patch0022:      0022-runtime-implement-math-rand.fastrand64-to-fix-linker.patch
-Patch0023:      0023-runtime-implement-internal-godebug.setUpdate-as-a-st.patch
-Patch0024:      0024-syscall-implement-setenv-unsetenv-in-the-runtime.patch
-Patch0025:      0025-builder-add-support-for-Go-1.20.patch
-# https://github.com/tinygo-org/tinygo/issues/3408
-Patch0026:      0026-Skip-archive-zip-tests.patch
+Patch0004:      0004-Skip-TestDirFS-on-32-bit-systems.patch
+Patch0005:      0005-Skip-broken-tests-on-i686.patch
 
 # Not supported upstream yet.
 ExcludeArch:    armv7hl ppc64le s390x
@@ -140,15 +113,13 @@ BuildRequires:  golang-tests
 BuildRequires:  llvm-devel(major) = %{clang_llvm_version}
 BuildRequires:  make
 
-BuildRequires:  avr-gcc
-BuildRequires:  avr-libc
 BuildRequires:  binaryen >= 102
 # We don't have glibc for arm, so skip these.
 #BuildRequires:  gcc-arm-linux-gnu
 #BuildRequires:  gcc-aarch64-linux-gnu
 BuildRequires:  lld
-BuildRequires:  mingw64-crt
-BuildRequires:  mingw64-headers
+# BuildRequires:  mingw64-crt
+# BuildRequires:  mingw64-headers
 BuildRequires:  nodejs
 BuildRequires:  qemu-system-arm-core
 BuildRequires:  qemu-system-riscv-core
@@ -160,12 +131,10 @@ BuildRequires:  gnupg2
 Requires:       clang
 Requires:       golang
 Requires:       lld
-Recommends:     avr-gcc
-Recommends:     avr-libc
 # Add this when LLVM supports ESP natively.
 # Recommends:     esptool
-Recommends:     mingw64-crt
-Recommends:     mingw64-headers
+# Recommends:     mingw64-crt
+# Recommends:     mingw64-headers
 Recommends:     qemu-system-arm-core
 Recommends:     qemu-system-riscv-core
 Recommends:     qemu-user
@@ -229,6 +198,10 @@ tar -C lib -xf %{SOURCE10}
 rmdir lib/wasi-libc
 mv lib/wasi-libc-%{wasi_libc_commit} lib/wasi-libc
 
+tar -C lib -xf %{SOURCE11}
+rmdir lib/mingw-w64
+mv lib/mingw-w64-%{mingw64_commit} lib/mingw-w64
+
 # This test is too slow and pretty much freezes.
 %ifarch %{ix86}
 sed -i -e 's!archive/zip!$(nil)!' Makefile
@@ -266,6 +239,13 @@ install -vpm 0644 lib/CMSIS/CMSIS/Include/* %{buildroot}%{tinygoroot}/lib/CMSIS/
 cp -rp lib/compiler-rt-builtins %{buildroot}%{tinygoroot}/lib
 install -vdm 0755 %{buildroot}%{tinygoroot}/lib/macos-minimal-sdk
 cp -rp lib/macos-minimal-sdk/* %{buildroot}%{tinygoroot}/lib/macos-minimal-sdk
+install -vdm 0755 %{buildroot}%{tinygoroot}/lib/mingw-w64/mingw-w64-crt/lib-common
+cp -rp lib/mingw-w64/mingw-w64-crt/def-include %{buildroot}%{tinygoroot}/lib/mingw-w64/mingw-w64-crt
+cp -rp lib/mingw-w64/mingw-w64-crt/lib-common/api-ms-win-crt-* %{buildroot}%{tinygoroot}/lib/mingw-w64/mingw-w64-crt/lib-common
+cp -rp lib/mingw-w64/mingw-w64-crt/lib-common/kernel32.def.in %{buildroot}%{tinygoroot}/lib/mingw-w64/mingw-w64-crt/lib-common
+install -vdm 0755 %{buildroot}%{tinygoroot}/lib/mingw-w64/mingw-w64-headers/defaults
+cp -rp lib/mingw-w64/mingw-w64-headers/crt/ %{buildroot}%{tinygoroot}/lib/mingw-w64/mingw-w64-headers
+cp -rp lib/mingw-w64/mingw-w64-headers/defaults/include %{buildroot}%{tinygoroot}/lib/mingw-w64/mingw-w64-headers/defaults
 install -vdm 0755 %{buildroot}%{tinygoroot}/lib/musl
 cp -rp lib/musl/COPYRIGHT %{buildroot}%{tinygoroot}/lib/musl
 cp -rp lib/musl/include %{buildroot}%{tinygoroot}/lib/musl

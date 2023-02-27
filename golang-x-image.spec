@@ -3,9 +3,9 @@
 %global debug_package %{nil}
 
 # https://github.com/golang/image
-%global goipath         golang.org/x/image
-%global forgeurl        https://github.com/golang/image
-%global commit          e7cb96979f695f92bdde7ac40937ef6865b33503
+%global goipath  golang.org/x/image
+%global forgeurl https://github.com/golang/image
+Version:         0.5.0
 
 %gometa
 
@@ -77,8 +77,7 @@ This package holds supplementary Go image libraries.}
 %global godocs          example AUTHORS CONTRIBUTING.md CONTRIBUTORS README.md
 
 Name:           %{goname}
-Version:        0
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Go supplementary image libraries
 
 License:        BSD-3-Clause

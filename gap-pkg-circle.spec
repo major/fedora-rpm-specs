@@ -1,8 +1,8 @@
 %global pkgname circle
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.6.5
-Release:        6%{?dist}
+Version:        1.6.6
+Release:        1%{?dist}
 Summary:        Adjoint groups of finite rings
 
 License:        GPL-2.0-or-later
@@ -92,6 +92,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Sat Feb 25 2023 Jerry James <loganjerry@gmail.com> - 1.6.6-1
+- Version 1.6.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.5-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

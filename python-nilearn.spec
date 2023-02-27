@@ -28,7 +28,10 @@ URL:            https://pypi.python.org/pypi/nilearn
 Source0:        https://github.com/nilearn/nilearn/archive/%{version}/%{name}-%{version}.tar.gz
 
 # Fix for nibabel 5.x
-Patch0:         https://patch-diff.githubusercontent.com/raw/nilearn/nilearn/pull/3458.patch
+Patch:          https://patch-diff.githubusercontent.com/raw/nilearn/nilearn/pull/3458.patch
+# [FIX] Fix failing test due to use of deprecated Nibabel method
+# https://github.com/nilearn/nilearn/pull/3508
+Patch:          https://github.com/nilearn/nilearn/pull/3508.patch
 
 
 BuildRequires:  python3-devel

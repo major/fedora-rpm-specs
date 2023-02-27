@@ -27,6 +27,8 @@ Source:         %{gosource}
 
 %prep
 %goprep
+# https://github.com/projectdiscovery/chaos-client/pull/148
+sed -e 's/int64(rlMax)/uint(rlMax)/' -i pkg/chaos/chaos.go
 
 %generate_buildrequires
 %go_generate_buildrequires

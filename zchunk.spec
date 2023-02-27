@@ -1,5 +1,5 @@
 Name:           zchunk
-Version:        1.2.4
+Version:        1.3.0
 Release:        1%{?dist}
 Summary:        Compressed file format that allows easy deltas
 License:        BSD and MIT
@@ -84,6 +84,10 @@ install contrib/gen_xml_dictionary %{buildroot}%{_libexecdir}/zck_gen_xml_dictio
 %{_includedir}/zck.h
 
 %changelog
+* Sat Feb 25 2023 Jonathan Dieter <jdieter@gmail.com> - 1.3.0-1
+- Add option to generate a zchunk header from an uncompressed file without
+  actually creating a zchunk file
+
 * Sat Feb 18 2023 Jonathan Dieter <jdieter@gmail.com> - 1.2.4-1
 - Fix test compatibility with zstd-1.5.4
 

@@ -10,12 +10,13 @@
 Summary:        FLV progressive download streaming for the Apache HTTP Server
 Name:           mod_flvx
 Version:        0
-Release:        0.26.20100525git%{?dist}
+Release:        0.27.20100525git%{?dist}
 License:        ASL 2.0
 URL:            https://tperspective.blogspot.com/2009/02/apache-flv-streaming-done-right.html
 # https://github.com/osantana/mod_flvx/tarball/48bb8781945dfa2e94b2814e9bae5e7d0cc8f29d
 Source0:        osantana-%{name}-%{gitver}.tar.gz
 Source1:        flvx.conf
+Patch0: mod_flvx-c99.patch
 BuildRequires:  gcc, httpd-devel >= 2.0.39
 Requires:       httpd-mmn = %{_httpd_mmn}
 
@@ -33,7 +34,7 @@ has embedded key-frame markers (meta-data), that can be injected by any
 supported tool, e.g. flvtool2.
 
 %prep
-%setup -q -n osantana-%{name}-%{gitver}
+%autosetup -p1 -n osantana-%{name}-%{gitver}
 
 %build
 %{_httpd_apxs} -Wc,-Wall -c %{name}.c
@@ -58,6 +59,9 @@ touch -c -r README.md README
 %config(noreplace) %{_httpd_modconfdir}/10-flvx.conf
 
 %changelog
+* Sat Feb 25 2023 Florian Weimer <fweimer@redhat.com> - 0-0.27.20100525git
+- Port to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.26.20100525git
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

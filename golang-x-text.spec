@@ -9,8 +9,7 @@
 # https://github.com/golang/text
 %global goipath         golang.org/x/text
 %global forgeurl        https://github.com/golang/text
-Version:                0.3.7
-%global commit          b0ca10ff35f1325c7d0ac7830fe3f036bd72d8f9
+Version:                0.7.0
 
 %gometa
 

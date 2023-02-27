@@ -35,17 +35,17 @@
 ###########
 
 ## SuperLUMT ##
-%global with_superlumt 0
+%global with_superlumt 1
 ###########
 
-## superlu_dist is not compiled with index_size64 enabled ##
+## superlu_dist ##
 %global with_superludist 0
 ###########
 
 %if 0%{?rhel} && 0%{?rhel} >= 9
 # KLU support
 %global with_klu   1
-%global with_klu64 0
+%global with_klu64 1
 ##########
 # Fortran
 %if 0%{?with_klu64}
@@ -75,7 +75,7 @@
 Summary:    Suite of nonlinear solvers
 Name:       sundials
 Version:    5.8.0
-Release:    11%{?dist}
+Release:    12%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
 License:    BSD
@@ -119,9 +119,6 @@ BuildRequires: suitesparse-devel
 %endif
 ##########
 
-%if 0%{?rhel} && 0%{?rhel} == 8
-BuildRequires: rsh
-%endif
 %if 0%{?with_fortran}
 Requires: gcc-gfortran%{?_isa}
 %endif
@@ -397,24 +394,27 @@ export CFLAGS="%{build_cflags}"
 export CFLAGS="%{build_fflags}"
 %cmake3 -B buildopenmpi_dir/build -S buildopenmpi_dir \
 %endif
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
- -DSUNDIALS_INDEX_SIZE:STRING=64 \
 %if 0%{?with_klu64}
+ -DSUNDIALS_INDEX_SIZE:STRING=64 \
  -DKLU_ENABLE=ON -DKLU_LIBRARY_DIR:PATH=%{_libdir} -DKLU_LIBRARY=%{_libdir}/libklu64.so \
  -DAMD_LIBRARY=%{_libdir}/libamd64.so -DAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DBTF_LIBRARY=%{_libdir}/libbtf64.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd64.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
+ -DPETSC_ENABLE:BOOL=OFF \
 %endif
-%endif
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 32
- -DSUNDIALS_INDEX_SIZE:STRING=32 \
 %if 0%{?with_klu}
+ -DSUNDIALS_INDEX_SIZE:STRING=32 \
  -DKLU_ENABLE=ON -DKLU_LIBRARY_DIR:PATH=%{_libdir} -DKLU_LIBRARY=%{_libdir}/libklu.so \
  -DAMD_LIBRARY=%{_libdir}/libamd.so -DAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DBTF_LIBRARY=%{_libdir}/libbtf.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
+%if 0%{?with_petsc}
+ -DPETSC_ENABLE:BOOL=ON \
+ -DPETSC_INCLUDES:PATH=$MPI_INCLUDE/petsc \
+ -DPETSC_LIBRARIES:PATH=$MPI_LIB/libpetsc.so \
+ -DPETSC_EXECUTABLE_RUNS:BOOL=ON \
 %endif
 %endif
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
@@ -425,12 +425,6 @@ export CFLAGS="%{build_fflags}"
  -DMPI_INCLUDE_PATH:PATH=$MPI_INCLUDE \
  -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE \
  -DLAPACK_ENABLE:BOOL=OFF \
-%if 0%{?with_petsc}
- -DPETSC_ENABLE:BOOL=ON \
- -DPETSC_INCLUDES:PATH=$MPI_INCLUDE/petsc \
- -DPETSC_LIBRARIES:PATH=$MPI_LIB/libpetsc.so \
- -DPETSC_EXECUTABLE_RUNS=YES \
-%endif
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/openmpi/lib \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
  -DEXAMPLES_ENABLE_CXX:BOOL=ON -DEXAMPLES_ENABLE_C:BOOL=ON \
@@ -534,24 +528,27 @@ export CFLAGS="%{build_cflags}"
 export CFLAGS="%{build_fflags}"
 %cmake3 -B buildmpich_dir/build -S buildmpich_dir \
 %endif
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 64
- -DSUNDIALS_INDEX_SIZE:STRING=64 \
 %if 0%{?with_klu64}
+ -DSUNDIALS_INDEX_SIZE:STRING=64 \
  -DKLU_ENABLE=ON -DKLU_LIBRARY_DIR:PATH=%{_libdir} -DKLU_LIBRARY=%{_libdir}/libklu64.so \
  -DAMD_LIBRARY=%{_libdir}/libamd64.so -DAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DBTF_LIBRARY=%{_libdir}/libbtf64.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd64.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
+ -DPETSC_ENABLE:BOOL=OFF \
 %endif
-%endif
-%if %{?__isa_bits:%{__isa_bits}}%{!?__isa_bits:32} == 32
- -DSUNDIALS_INDEX_SIZE:STRING=32 \
 %if 0%{?with_klu}
+ -DSUNDIALS_INDEX_SIZE:STRING=32 \
  -DKLU_ENABLE=ON -DKLU_LIBRARY_DIR:PATH=%{_libdir} -DKLU_LIBRARY=%{_libdir}/libklu.so \
  -DAMD_LIBRARY=%{_libdir}/libamd.so -DAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DBTF_LIBRARY=%{_libdir}/libbtf.so -DBTF_LIBRARY_DIR:PATH=%{_libdir} \
  -DCOLAMD_LIBRARY=%{_libdir}/libcolamd.so -DCOLAMD_LIBRARY_DIR:PATH=%{_libdir} \
  -DKLU_INCLUDE_DIR:PATH=%{_includedir}/suitesparse \
+%if 0%{?with_petsc}
+ -DPETSC_ENABLE:BOOL=ON \
+ -DPETSC_INCLUDES:PATH=$MPI_INCLUDE/petsc \
+ -DPETSC_LIBRARIES:PATH=$MPI_LIB/libpetsc.so \
+ -DPETSC_EXECUTABLE_RUNS:BOOL=ON \
 %endif
 %endif
  -DCMAKE_VERBOSE_MAKEFILE:BOOL=ON \
@@ -562,12 +559,6 @@ export CFLAGS="%{build_fflags}"
  -DLAPACK_ENABLE:BOOL=OFF \
  -DMPI_INCLUDE_PATH:PATH=$MPI_INCLUDE \
  -DCMAKE_INSTALL_INCLUDEDIR:PATH=$MPI_INCLUDE \
-%if 0%{?with_petsc}
- -DPETSC_ENABLE:BOOL=ON \
- -DPETSC_INCLUDES:PATH=$MPI_INCLUDE/petsc \
- -DPETSC_LIBRARIES:PATH=$MPI_LIB/libpetsc.so \
- -DPETSC_EXECUTABLE_RUNS=YES \
-%endif
  -DCMAKE_INSTALL_PREFIX:PATH=%{_prefix} -DCMAKE_INSTALL_LIBDIR:PATH=%{_lib}/mpich/lib \
  -DPYTHON_EXECUTABLE:FILEPATH=%{__python3} \
  -DEXAMPLES_ENABLE_CXX:BOOL=ON -DEXAMPLES_ENABLE_C:BOOL=ON \
@@ -805,11 +796,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/openmpi/lib/libsundials_generic.so.*
 %{_libdir}/openmpi/lib/libsundials_nvecparallel.so.*
 %{_libdir}/openmpi/lib/libsundials_nvecparhyp.so.*
+%ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/openmpi/lib/libsundials_nvecpetsc.so.*
 %{_libdir}/openmpi/lib/libsundials_sunnonlinsolpetscsnes.so.*
 %endif
-%{_libdir}/openmpi/lib/libsundials_nvecmpimanyvector.so.*
+%endif
 %if %{with pthread}
 %{_libdir}/openmpi/lib/libsundials_nvecmpipthreads.so.*
 %endif
@@ -824,6 +816,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/openmpi/lib/libsundials_sunlinsol*.so.*
 %{_libdir}/openmpi/lib/libsundials_sunnonlinsol*.so.*
 %{_libdir}/openmpi/lib/libsundials_nvecmanyvector.so.*
+%{_libdir}/openmpi/lib/libsundials_nvecmpimanyvector.so.*
 %if %{with pthread}
 %{_libdir}/openmpi/lib/libsundials_nvecpthreads.so.*
 %endif
@@ -853,11 +846,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/openmpi/lib/libsundials_generic.so
 %{_libdir}/openmpi/lib/libsundials_nvecparallel.so
 %{_libdir}/openmpi/lib/libsundials_nvecparhyp.so
+%ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/openmpi/lib/libsundials_nvecpetsc.so
 %{_libdir}/openmpi/lib/libsundials_sunnonlinsolpetscsnes.so
 %endif
-%{_libdir}/openmpi/lib/libsundials_nvecmpimanyvector.so
+%endif
 %if %{with pthread}
 %{_libdir}/openmpi/lib/libsundials_nvecmpipthreads.so
 %{_libdir}/openmpi/lib/libsundials_nvecpthreads.so
@@ -873,6 +867,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/openmpi/lib/libsundials_sunlinsol*.so
 %{_libdir}/openmpi/lib/libsundials_sunnonlinsol*.so
 %{_libdir}/openmpi/lib/libsundials_nvecmanyvector.so
+%{_libdir}/openmpi/lib/libsundials_nvecmpimanyvector.so
 %{_libdir}/openmpi/lib/cmake/sundials/
 %endif
 
@@ -890,11 +885,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/libsundials_generic.so.*
 %{_libdir}/mpich/lib/libsundials_nvecparallel.so.*
 %{_libdir}/mpich/lib/libsundials_nvecparhyp.so.*
+%ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/mpich/lib/libsundials_nvecpetsc.so.*
 %{_libdir}/mpich/lib/libsundials_sunnonlinsolpetscsnes.so.*
 %endif
-%{_libdir}/mpich/lib/libsundials_nvecmpimanyvector.so.*
+%endif
 %if %{with pthread}
 %{_libdir}/mpich/lib/libsundials_nvecmpipthreads.so.*
 %endif
@@ -909,6 +905,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/libsundials_sunlinsol*.so.*
 %{_libdir}/mpich/lib/libsundials_sunnonlinsol*.so.*
 %{_libdir}/mpich/lib/libsundials_nvecmanyvector.so.*
+%{_libdir}/mpich/lib/libsundials_nvecmpimanyvector.so.*
 %if %{with pthread}
 %{_libdir}/mpich/lib/libsundials_nvecpthreads.so.*
 %endif
@@ -939,11 +936,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/libsundials_generic.so
 %{_libdir}/mpich/lib/libsundials_nvecparallel.so
 %{_libdir}/mpich/lib/libsundials_nvecparhyp.so
+%ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/mpich/lib/libsundials_nvecpetsc.so
 %{_libdir}/mpich/lib/libsundials_sunnonlinsolpetscsnes.so
 %endif
-%{_libdir}/mpich/lib/libsundials_nvecmpimanyvector.so
+%endif
 %if %{with pthread}
 %{_libdir}/mpich/lib/libsundials_nvecmpipthreads.so
 %{_libdir}/mpich/lib/libsundials_nvecpthreads.so
@@ -959,6 +957,7 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/libsundials_sunlinsol*.so
 %{_libdir}/mpich/lib/libsundials_sunnonlinsol*.so
 %{_libdir}/mpich/lib/libsundials_nvecmanyvector.so
+%{_libdir}/mpich/lib/libsundials_nvecmpimanyvector.so
 %{_libdir}/mpich/lib/cmake/sundials/
 %endif
 
@@ -973,6 +972,11 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %doc sundials-%{version}/doc/arkode/*
 
 %changelog
+* Fri Feb 24 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-12
+- Rebuild (rhbz#2171312)
+- Enable KLU-64 in EPEL9 (rhbz#20673760)
+- Disable PETSc support in 64-bit architectures
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.8.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

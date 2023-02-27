@@ -1,17 +1,20 @@
 Name:           bwm-ng
-Version:        0.6.2
-Release:        8%{?dist}
+Version:        0.6.3
+Release:        1%{?dist}
 Summary:        Bandwidth Monitor NG
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/vgropp/bwm-ng
 Source0:        https://github.com/vgropp/%{name}/archive/v%{version}.tar.gz
 Source1:        bwm-ng.conf
-Patch0:         bwm-ng-configure-c99.patch
+Patch0:         0001-fix-format-not-a-string-literal.patch
+Patch1:         0002-fix-use-after-free-in-proc_diskstats-on-error.patch
+Patch2:         0003-fix-missing-device-number-in-fbsd-devstat-input.patch
+Patch3:         0004-fix-multiple-fflush-might-miss-some-branch-and-html-.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gcc
 BuildRequires:  ncurses-devel
-BuildRequires: make
+BuildRequires:  make
 Requires:       hostname
 Requires:       procps
 
@@ -31,6 +34,9 @@ Features:
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
+%patch2 -p1
+%patch3 -p1
 
 %build
 ./autogen.sh
@@ -59,6 +65,16 @@ install -pDm644 bwm-ng.1 %{buildroot}%{_mandir}/man1/bwm-ng.1
 %{_mandir}/man1/bwm-ng.1*
 
 %changelog
+* Fri Feb 24 2023 Tim Orling <ticotimo@gmail.com> - 0.6.3-1
+- Update to 0.6.3 (rhbz 2113135)
+- Drop C99 patch (was https://github.com/vgropp/bwm-ng/pull/25)
+- Add patch from 'fix-wsecurity' PR (https://github.com/vgropp/bwm-ng/pull/37)
+- Add patches from 'fix-freebsd' PR (https://github.com/vgropp/bwm-ng/pull/42)
+- Drop .rpmlint (filters not used)
+
+* Fri Feb 24 2023 Tim Orling <ticotimo@gmail.com> - 0.6.2-9
+- migrated to SPDX license
+
 * Thu Feb 02 2023 Jonathan Wakely <jwakely@redhat.com> - 0.6.2-8
 - Patched configure checks for C99 compatibility
 

@@ -44,6 +44,13 @@ find gen-python/opencensus/proto -type f ! -name '__init__.py' -print -delete
 sed -r -i 's|\bpython |%{__python3} |g' src/mkpygen.sh
 %endif
 
+sed -r -i 's/^__version__[[:blank:]]*=/# &/' gen-python/version.py
+cat >> gen-python/version.py <<EOF
+# Python version number is always “dev”
+# https://github.com/census-instrumentation/opencensus-proto/issues/234
+__version__ = '%{version}'  # Correct release version
+EOF
+
 
 %generate_buildrequires
 cd gen-python/

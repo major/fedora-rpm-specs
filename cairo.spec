@@ -4,7 +4,7 @@
 
 Name:    cairo
 Version: 1.17.8
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: A 2D graphics library
 
 License: LGPL-2.1-only OR MPL-1.1
@@ -158,6 +158,9 @@ This package contains tools for working with the cairo graphics library.
 %{_libdir}/cairo/
 
 %changelog
+* Sat Feb 25 2023 Marek Kasik <mkasik@redhat.com> - 1.17.8-2
+- Rebuild for new freetype-2.13.0
+
 * Mon Feb 20 2023 David King <amigadave@amigadave.com> - 1.17.8-1
 - Update to 1.17.8 (#2166624)
 

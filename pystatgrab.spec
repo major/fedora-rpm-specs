@@ -2,15 +2,16 @@
 
 Name:           pystatgrab
 Version:        0.7.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Python bindings for libstatgrab
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.i-scream.org/pystatgrab/
 Source0:        https://ftp.i-scream.org/pub/i-scream/pystatgrab/%{name}-%{version}.tar.gz
+Patch0:         0001-setup.py-refactor-deprecated-distutils.patch
 
 BuildRequires:  gcc
-BuildRequires:  libstatgrab-devel > 0.90
+BuildRequires:  libstatgrab-devel > 0.91
 
 %description
 Pystatgrab contains Python bindings for libstatgrab.
@@ -20,13 +21,14 @@ Summary:        %{summary}
 
 BuildRequires:  python3-Cython
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 %{?python_provide:%python_provide python3-%{name}}
 
 %description -n python3-%{name}
 Pystatgrab contains Python bindings for libstatgrab.
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{version} -p1
 
 %build
 rm -rf statgrab.c
@@ -44,6 +46,14 @@ PYTHONPATH=%{buildroot}/%{python3_sitearch} %{__python3} test.py
 %{python3_sitearch}/*
 
 %changelog
+* Sat Feb 25 2023 Tim Orling <ticotimo@gmail.com> - 0.7.1-9
+  - Add patch for deprecated distuls (rhbz 2154875)
+  - https://github.com/libstatgrab/pystatgrab/pull/7
+  - minimum libstatgrab is 0.91
+  - BR python3-setuptools
+  - drop .rpmlint (unused filters)
+  - migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,16 +5,13 @@
 %global crate gio
 
 Name:           rust-gio
-Version:        0.16.7
+Version:        0.17.2
 Release:        %autorelease
 Summary:        Rust bindings for the Gio library
 
 License:        MIT
 URL:            https://crates.io/crates/gio
 Source:         %{crates_source}
-# Manually created patch for downstream crate metadata changes
-# * bump serial_test dev-dependency from 0.9 to 1
-Patch:          gio-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -168,6 +165,18 @@ This package contains library source intended for building other packages which
 use the "v2_74" feature of the "%{crate}" crate.
 
 %files       -n %{name}+v2_74-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+v2_76-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+v2_76-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "v2_76" feature of the "%{crate}" crate.
+
+%files       -n %{name}+v2_76-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

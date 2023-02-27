@@ -1,7 +1,7 @@
 %global uuid com.github.maoschanz.%{name}
 
 Name: drawing
-Version: 1.0.1
+Version: 1.0.2
 Release: %autorelease
 Summary: Simple image editor for Linux
 BuildArch: noarch
@@ -63,7 +63,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/
 %{_datadir}/applications/*.desktop
 %{_datadir}/glib-2.0/schemas/*.gschema.xml
-%{_datadir}/icons/hicolor/*/*/*.{png,svg}
+%{_datadir}/icons/hicolor/*/*/*.png
+%{_datadir}/icons/hicolor/scalable/*/*.svg
 %{_metainfodir}/*.xml
 
 

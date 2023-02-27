@@ -1,6 +1,6 @@
 Name:		brial
-Version:	1.2.11
-Release:	2%{?dist}
+Version:	1.2.12
+Release:	1%{?dist}
 Summary:	Framework for Boolean Rings
 # The entire source code is GPLv2+ except the Cudd directory that is BSD
 License:	GPL-2.0-or-later AND BSD-3-Clause
@@ -18,9 +18,6 @@ BuildRequires:	make
 BuildRequires:	pkgconfig(gdlib)
 BuildRequires:	pkgconfig(m4ri)
 BuildRequires:	python3-devel
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %description
 The core of BRiAl is a C++ library, which provides high-level data
@@ -51,6 +48,10 @@ Python 3 interface to %{name}.
 %prep
 %autosetup -p1
 
+%generate_buildrequires
+cd sage-brial
+%pyproject_buildrequires
+
 %build
 export CPPFLAGS="-DPBORI_NDEBUG"
 %configure --enable-shared --disable-static
@@ -64,19 +65,19 @@ sed -e 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' \
 %make_build
 
 # Make the python interfaces
-pushd sage-brial
+cd sage-brial
 %pyproject_wheel
-popd
+cd -
 
 %install
 %make_install
 rm %{buildroot}%{_libdir}/*.la
 
 # Install the python interfaces
-pushd sage-brial
+cd sage-brial
 %pyproject_install
 %pyproject_save_files brial
-popd
+cd -
 
 %check
 export LD_LIBRARY_PATH=$PWD/.libs:$PWD/groebner/src/.libs
@@ -96,6 +97,10 @@ make check
 %doc sage-brial/README.md
 
 %changelog
+* Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 1.2.12-1
+- Version 1.2.12 (rhbz#2161024)
+- Dynamically generate python BuildRequires
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

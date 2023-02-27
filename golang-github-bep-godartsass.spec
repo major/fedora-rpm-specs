@@ -4,7 +4,7 @@
 
 # https://github.com/bep/godartsass
 %global goipath         github.com/bep/godartsass
-Version:                0.14.0
+Version:                0.16.0
 
 %gometa
 

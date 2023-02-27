@@ -1,6 +1,6 @@
 Name:           harfbuzz
 Version:        7.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Text shaping library
 
 License:        MIT
@@ -92,6 +92,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_libdir}/libharfbuzz-icu.so.*
 
 %changelog
+* Sat Feb 25 2023 Marek Kasik <mkasik@redhat.com> - 7.0.1-2
+- Rebuild for freetype-2.13.0
+
 * Wed Feb 22 2023 Parag Nemade <pnemade AT redhat DOT com> - 7.0.1-1
 - Update to 7.0.1 version (#2169172)
 

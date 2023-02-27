@@ -1,7 +1,7 @@
 Name:           CuraEngine
 Epoch:          1
 Version:        4.13.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Engine for processing 3D models into G-code instructions for 3D printers
 License:        AGPLv3+
 URL:            https://github.com/Ultimaker/%{name}
@@ -17,10 +17,9 @@ BuildRequires:  cmake
 BuildRequires:  git-core
 
 # Header-only package; -static version is for tracking per guidelines
-# stb_image 2.27^20210910gitaf1a5bc-0.2 is the minimum EVR to contain fixes for
-# all of CVE-2021-28021, CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041.
-BuildRequires:  stb_image-devel >= 2.27^20210910gitaf1a5bc-0.2
-BuildRequires:  stb_image-static
+# stb_image 2.28^20230129git5736b15-0.2 is the minimum EVR that fixes the null
+# pointer dereference reported in https://github.com/nothings/stb/issues/1452.
+BuildRequires:  stb_image-static >= 2.28^20230129git5736b15-0.2
 
 Patch:          %{name}-static-libstdcpp.patch
 # Add an #include needed for GCC 13
@@ -75,6 +74,9 @@ sed -i 's/"DEV"/"%{version}"/' src/settings/Settings.h
 %{_bindir}/%{name}
 
 %changelog
+* Sat Feb 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:4.13.1-6
+- Update minimum stb_image to fix a null deref. bug
+
 * Sun Jan 29 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:4.13.1-5
 - Add an #include needed for GCC 13
 

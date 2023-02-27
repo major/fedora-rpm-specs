@@ -10,7 +10,7 @@
 
 Name:           inkscape
 Version:        1.2.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
@@ -19,6 +19,8 @@ Summary:        Vector-based drawing program using SVG
 License:        GPLv2+ and CC-BY
 URL:            https://inkscape.org/
 Source0:        https://inkscape.org/gallery/item/37360/inkscape-1.2.2.tar.xz
+# https://gitlab.com/inkscape/inkscape/-/merge_requests/5108
+Patch:          0001-Fix-build-with-GCC13.patch
 
 # Fedora Color Palette, GIMP format, CC-BY 3.0
 Source2:	Fedora-Color-Palette.gpl
@@ -226,6 +228,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Fri Feb 24 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.2.2-7
+- Fix build with GCC 13
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.2.2-6
 - Rebuilt for Boost 1.81
 

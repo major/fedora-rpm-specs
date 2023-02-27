@@ -25,6 +25,9 @@ Source0:        %forgesource
 # It was not submitted to the upstream since this is optional
 # for the upstream to apply this.
 Patch:          0001-do-not-package-tests-examples.patch
+# Do not import numpy.int, which was deprecated and removed
+# https://github.com/thieu1995/opfunu/pull/12
+Patch:          %{url}/pull/12.patch
 
 BuildArch:      noarch
 

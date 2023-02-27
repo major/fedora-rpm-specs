@@ -9,13 +9,13 @@ https://semver.org/.
 A leading "=" or "v" character is stripped off and ignored.}
 
 Name: python-%{pypi_name}
-Version: 0.8.1
-Release: 5%{?dist}
+Version: 0.9.0
+Release: 1%{?dist}
 
 License: MIT
 Summary: Python version of node-semver
 URL: https://github.com/podhmo/%{name}
-Source0: %{pypi_source %{pypi_name}}
+Source0: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch: noarch
 
 BuildRequires: python3-devel
@@ -29,7 +29,7 @@ Summary: %{summary}
 %description -n python3-%{pypi_name} %_description
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
+%autosetup -p1
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -39,16 +39,19 @@ Summary: %{summary}
 
 %install
 %pyproject_install
-%pyproject_save_files semver
+%pyproject_save_files nodesemver
 
 %check
 %pytest
 
 %files -n python3-%{pypi_name} -f %{pyproject_files}
 %license LICENSE
-%doc README.rst
+%doc CHANGES.txt README.rst
 
 %changelog
+* Sat Feb 25 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.9.0-1
+- Updated to version 0.9.0.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

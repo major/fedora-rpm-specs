@@ -1,5 +1,5 @@
 Name:           atomic-queue
-Version:        1.0
+Version:        1.1
 Release:        %autorelease
 Summary:        C++ lockless queue
 
@@ -21,6 +21,9 @@ BuildRequires:  boost-devel
 %global common_description %{expand:
 C++14 multiple-producer-multiple-consumer lockless queues based on circular
 buffer with std::atomic.
+
+It has been developed, tested and benchmarked on Linux, but should support any
+C++14 platforms which implement std::atomic.
 
 The main design principle these queues follow is minimalism: the bare minimum
 of atomic operations, fixed size buffer, value semantics.
@@ -68,7 +71,11 @@ ordered mode has 0 cost, as of 2019.
 
 Single-producer-single-consumer mode is supported. In this mode, no
 read-modify-write instructions are necessary, only the atomic loads and stores.
-That improves queue throughput significantly.}
+That improves queue throughput significantly.
+
+Move-only queue element types are fully supported. For example, a queue of
+std::unique_ptr<T> elements would be AtomicQueue2B<std::unique_ptr<T>> or
+AtomicQueue2<std::unique_ptr<T>, CAPACITY>.}
 
 %description %{common_description}
 

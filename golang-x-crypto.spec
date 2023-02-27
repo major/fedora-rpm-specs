@@ -5,9 +5,9 @@
 %global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^golang\\(golang.org/x/sys/cpu\\)$
 
 # https://github.com/golang/crypto
-%global goipath         golang.org/x/crypto
-%global forgeurl        https://github.com/golang/crypto
-%global commit          c86fa9a7ed909e2f2a8ab8298254fca727aba16a
+%global goipath  golang.org/x/crypto
+%global forgeurl https://github.com/golang/crypto
+Version:         0.6.0
 
 %global godevelheader %{expand:
 Provides: golang(golang.org/x/crypto/ssh/testdata) =  %{version}-%{release}
@@ -24,8 +24,7 @@ Go supplementary cryptography libraries.}
 %global gosupfiles curve25519/const_amd64.h ssh/testdata/*
 
 Name:           %{goname}
-Version:        0
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Go supplementary cryptography libraries
 
 License:        BSD-3-Clause

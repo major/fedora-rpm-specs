@@ -1,6 +1,6 @@
 Name:    layer-shell-qt
 Version: 5.27.1
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Library to easily use clients based on wlr-layer-shell
 
 License: LGPLv3+
@@ -13,6 +13,9 @@ URL:     https://invent.kde.org/plasma/%{name}
 %global stable stable
 %endif
 Source0: http://download.kde.org/%{stable}/plasma/%{version}/%{name}-%{version}.tar.xz
+
+# Upstream PR: https://invent.kde.org/plasma/layer-shell-qt/-/merge_requests/26
+Patch0: fix-sddm-multi-screen.patch
 
 BuildRequires: extra-cmake-modules >= 5.82
 
@@ -43,7 +46,7 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 
 %prep
-%autosetup
+%autosetup -p1
 
 
 %build
@@ -68,6 +71,9 @@ Requires: cmake(Qt5Gui) >= 5.15.0
 
 
 %changelog
+* Fri Feb 24 2023 Alessandro Astone <ales.astone@gmail.com> - 5.27.1-2
+- Backport fix for multi-screen sddm
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
 - 5.27.1
 

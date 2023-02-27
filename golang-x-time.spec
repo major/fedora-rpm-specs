@@ -3,9 +3,9 @@
 %global debug_package %{nil}
 
 # https://github.com/golang/time
-%global goipath         golang.org/x/time
-%global forgeurl        https://github.com/golang/time
-%global commit          e5dcc9cfc0b9553953e355dde5bdf4ff9f82f742
+%global goipath  golang.org/x/time
+%global forgeurl https://github.com/golang/time
+Version:         0.3.0
 
 %gometa
 
@@ -16,8 +16,7 @@ This library provides supplementary Go time packages.}
 %global godocs          CONTRIBUTING.md README.md
 
 Name:           %{goname}
-Version:        0
-Release:        %autorelease -p
+Release:        %autorelease
 Summary:        Go supplementary time packages
 
 License:        BSD-3-Clause

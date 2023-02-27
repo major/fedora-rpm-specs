@@ -1,7 +1,7 @@
 %undefine   __brp_mangle_shebangs
 
 Name:		magic
-Version:	8.3.366
+Version:	8.3.370
 Release:	1%{?dist}
 Summary:	A very capable VLSI layout tool
 
@@ -12,6 +12,7 @@ Source:	http://opencircuitdesign.com/%{name}/archive/%{name}-%{version}.tgz
 Source1:	%{name}.desktop
 Source2:	%{name}.png
 Patch1:	%{name}-7.4.35-64bit.patch
+Patch10:	%{name}-8.3.370-format-security.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -80,6 +81,7 @@ sed -i "s|package require -exact|package require|" tcltk/tkcon.tcl
 %if "x%{?__isa_bits}" == "x64"
 %patch1 -p0 -b .64bit
 %endif
+%patch10 -p1 -b .format
 
 # Doesn't seem to need these.
 sed -i scripts/configure \
@@ -171,6 +173,9 @@ rm -f %{buildroot}%{_mandir}/man1/extcheck.1*
 %doc	scmos/
 
 %changelog
+* Sat Feb 25 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.370-1
+- 8.3.370
+
 * Fri Feb 17 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 8.3.366-1
 - 8.3.366
 

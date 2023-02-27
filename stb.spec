@@ -63,6 +63,10 @@ Patch:          %{url}/pull/1198.patch
 # patch shows it to be correct.
 Patch:          %{url}/pull/1236.patch
 
+# Fixes null pointer dereference in https://github.com/nothings/stb/issues/1452
+# https://github.com/nothings/stb/pull/1454
+Patch:          %{url}/pull/1454.patch
+
 %global stb_c_lexer_version 0.12
 %global stb_connected_components_version 0.96
 %global stb_divide_version 0.94

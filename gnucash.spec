@@ -8,7 +8,8 @@ Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}
 
 Patch0: rpath.patch
 Patch1: gcc13.patch
-
+Patch2: 184669f517744ac7be6e420e5e1f359384f676d5.patch
+Patch3: abcce5000ca72bf943ca8951867729942388848e.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1563466
 ExcludeArch: ppc64 s390x
 

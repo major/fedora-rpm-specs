@@ -1,6 +1,6 @@
 Name:           veusz
-Version:        3.5.3
-Release:        3%{?dist}
+Version:        3.6
+Release:        1%{?dist}
 Summary:        GUI scientific plotting package
 
 License:        GPL-2.0-or-later AND (LGPL-2.1-only OR GPL-3.0-only) AND PSF-2.0 AND CC0-1.0
@@ -46,9 +46,6 @@ find -name \*~ | xargs rm -f
 # (veusz allows these to be executed if app isn't installed properly)
 sed -i '/^#!/d' veusz/veusz_main.py
 sed -i '/^#!/d' veusz/veusz_listen.py
-
-# Temp patch to find .sip files in sip5+ location
-sed -i "s/os.path.join(sip_dir, 'PyQt5')/sip_dir/" pyqtdistutils.py
 
 %build
 %py3_build
@@ -125,6 +122,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Sat Feb 25 2023 Jeremy Sanders <jeremy@jeremysanders.net> - 3.6-1
+- Update to Veusz 3.6
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

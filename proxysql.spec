@@ -1,9 +1,9 @@
 Summary:       A high-performance MySQL proxy
 Name:          proxysql
-Version:       2.4.4
-Release:       2%{?dist}
+Version:       2.4.8
+Release:       1%{?dist}
 # Proxysql Google group for free community support: https://groups.google.com/g/proxysql
-URL:           http://www.proxysql.com/
+URL:           https://proxysql.com/
 # GPL-3.0-or-later
 # deps/jemalloc: BSD-2-Clause
 # deps/mariadb-connector-c: LGPL-2.1-or-later
@@ -55,7 +55,7 @@ Provides:      bundled(libhttpserver) = 0.18.1
 Provides:      bundled(libmicrohttpd) = 0.9.68
 
 # There is inconsistency between name and URL of file and main unpacked source folder
-Source0:       https://github.com/sysown/proxysql/archive/v%{version}/%{name}-%{version}.tar.gz
+Source0:       https://github.com/sysown/proxysql/archive/refs/tags/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Manpage for binary is missing. Instead we provide it manually.
 # Link for tracking current status in upstream:
 # https://github.com/sysown/proxysql/issues/3564
@@ -132,6 +132,9 @@ install -d -m 0755 %{buildroot}%{_sharedstatedir}/proxysql
 %attr(-,proxysql,root) %config(noreplace) %{_sysconfdir}/proxysql.cnf
 
 %changelog
+* Thu Feb 23 2023 Igor Raits <igor@gooddata.com> - 2.4.8-1
+- Update to 2.4.8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

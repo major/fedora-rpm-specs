@@ -12,9 +12,6 @@ BuildRequires:	gcc-c++
 BuildRequires:	make
 BuildRequires:	python3-devel
 BuildRequires:	%{py3_dist cython}
-BuildRequires:	%{py3_dist pip}
-BuildRequires:	%{py3_dist setuptools}
-BuildRequires:	%{py3_dist wheel}
 
 %description
 The "Littlewood-Richardson Calculator" is a package of C and Maple programs
@@ -35,7 +32,6 @@ developing applications that use %{name}.
 
 %package -n	python3-lrcalc
 Summary:	Python interface to lrcalc
-License:	GPLv3
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python3-lrcalc
@@ -43,6 +39,10 @@ Python interface to the Littlewood-Richardson Calculator.
 
 %prep
 %autosetup
+
+%generate_buildrequires
+cd python
+%pyproject_buildrequires
 
 %build
 %configure --bindir=%{_libdir}/%{name} --enable-shared --disable-static
@@ -92,6 +92,9 @@ LD_LIBRARY_PATH=%{buildroot}%{_libdir}: make check
 %files -n	python3-lrcalc -f %{pyproject_files}
 
 %changelog
+* Fri Feb 24 2023 Jerry James <loganjerry@gmail.com> - 2.1-4
+- Dynamically generate python BuildRequires
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

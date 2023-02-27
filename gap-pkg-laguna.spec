@@ -1,8 +1,8 @@
 %global pkgname  laguna
 
 Name:           gap-pkg-%{pkgname}
-Version:        3.9.5
-Release:        5%{?dist}
+Version:        3.9.6
+Release:        1%{?dist}
 Summary:        Lie AlGebras and UNits of group Algebras
 
 License:        GPL-2.0-or-later
@@ -74,6 +74,9 @@ gap -l "%{buildroot}%{gap_libdir};" tst/testall.g
 %{gap_libdir}/pkg/%{pkgname}/doc/
 
 %changelog
+* Sat Feb 25 2023 Jerry James <loganjerry@gmail.com> - 3.9.6-1
+- Version 3.9.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
