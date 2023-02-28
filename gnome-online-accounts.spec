@@ -5,19 +5,19 @@
 %global webkit2gtk_version 2.33.1
 
 Name:		gnome-online-accounts
-Version:	3.46.0
-Release:	6%{?dist}
+Version:	3.47.1
+Release:	1%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPLv2+
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
-Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.46/%{name}-%{version}.tar.xz
+Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.47/%{name}-%{version}.tar.xz
 
 # RHEL >=9 specific
 # https://gitlab.gnome.org/GNOME/gnome-online-accounts/-/issues/63
 # https://bugzilla.redhat.com/show_bug.cgi?id=1913641
 Patch0:		0001-google-Remove-Photos-support.patch
-Patch1:         kerberos-fixes.patch
+#Patch1:         kerberos-fixes.patch
 
 
 BuildRequires:	pkgconfig(gcr-3)
@@ -64,7 +64,7 @@ developing applications that use %{name}.
 %patch0 -p1
 %endif
 
-%patch1 -p1
+#%%patch1 -p1
 
 %build
 %meson \
@@ -123,6 +123,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Sun Feb 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.47.1-1
+- 3.47.1
+
 * Fri Jan 20 2023 Ray Strode <rstrode@redhat.com> - 3.46.0-6
 - Add more kerberos fixes from upstream
   Related: #2152695

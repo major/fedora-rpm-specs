@@ -17,7 +17,7 @@
 
 Name:    kwin
 Version: 5.27.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 Summary: KDE Window manager
 
 # all sources are effectively GPLv2+, except for:
@@ -55,6 +55,7 @@ BuildRequires:  kf5-rpm-macros
 BuildRequires:  systemd-rpm-macros
 
 # Qt
+BuildRequires:  qaccessibilityclient-devel
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtbase-static
 # KWinQpaPlugin (and others?)
@@ -73,8 +74,6 @@ BuildRequires:  mesa-libEGL-devel
 BuildRequires:  mesa-libgbm-devel
 BuildRequires:  libxkbcommon-devel
 BuildRequires:  libxkbcommon-x11-devel
-# Uncomment for > 5.27.0 release as it's a new dependency
-#BuildRequires:  libxkbcommon-x11-devel
 BuildRequires:  libX11-devel
 BuildRequires:  libXi-devel
 BuildRequires:  libxcb-devel
@@ -371,6 +370,10 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Sun Feb 26 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-3
+- Add missing BuildRequires
+- Clean up commented code
+
 * Wed Feb 22 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-2
 - Add patch to fix BZ#2168034
 

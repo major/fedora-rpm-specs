@@ -1,11 +1,11 @@
-%global commit 78dabb7b8f2279090b61447d1ebd04385061fc61
+%global commit 14050f991bc2e4ce2c6e7f431fe2acd4f0cf2a70
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20230215
+%global snapdate 20230226
 
 Name:		nextpnr
 Version:	1
-Release:	19.%{snapdate}git%{shortcommit}%{?dist}
+Release:	20.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -26,10 +26,10 @@ BuildRequires:	qt5-qtconfiguration-devel
 BuildRequires:	cmake(QtConfiguration)
 BuildRequires:	boost-python3-devel
 BuildRequires:	eigen3-devel
-BuildRequires:	pybind11-devel
+#BuildRequires:	pybind11-devel
 # NOTE: remember to update icestorm & trellis before rebuilding nextpnr!!!
-BuildRequires:	icestorm >= 0-0.27
-BuildRequires:	trellis-devel >= 1.2.1-14
+BuildRequires:	icestorm >= 0-0.28
+BuildRequires:	trellis-devel >= 1.2.1-16
 
 # License: ISC
 Provides:	bundled(qtimgui)
@@ -61,9 +61,9 @@ cp 3rdparty/python-console/LICENSE LICENSE-python-console.txt
 %cmake  -DARCH=all \
 	-DICEBOX_DATADIR=%{_datadir}/icestorm \
 	-DTRELLIS_LIBDIR=%{_libdir}/trellis \
-	-DPYBIND11_INCLUDE_DIR="/usr/include/pybind11/" \
 	-DBUILD_GUI=ON \
 	-DUSE_OPENMP=ON
+#	-DPYBIND11_INCLUDE_DIR="/usr/include/pybind11/" \
 %cmake_build
 # prepare examples doc. directory:
 mkdir -p examples/ice40
@@ -86,6 +86,10 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Sun Feb 26 2023 Gabriel Somlo <gsomlo@gmail.com> - 1-20.20230226git14050f9
+- Update to newer snapshot
+- Temp. use bundled pybind11 (https://github.com/pybind/pybind11/issues/4529)
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1-19.20230215git78dabb7
 - Rebuilt for Boost 1.81
 

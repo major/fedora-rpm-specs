@@ -1,0 +1,61 @@
+%global svn_release 475
+
+Name:           libcuefile
+Version:        0
+Release:        0.1.20110810svn%{svn_release}%{?dist}
+Summary:        CUE file library from Musepack
+
+License:        GPL-2.0-only WITH Bison-exception-2.2
+URL:            https://www.musepack.net/index.php
+Source0:        http://files.musepack.net/source/%{name}_r%{svn_release}.tar.gz
+
+BuildRequires:  cmake
+BuildRequires:  gcc
+BuildRequires:  sed
+
+%description
+CUE file library used by Musepack utilities and libraries
+
+
+%package        devel
+Summary:        Development files for %{name}
+Requires:       %{name}%{?_isa} = %{version}-%{release}
+
+%description    devel
+The %{name}-devel package contains libraries and header files for
+developing applications that use %{name}.
+
+
+%prep
+%setup -q -n %{name}_r%{svn_release}
+
+# Correct permissions and end of line
+find -type f -exec chmod 0644 '{}' +
+sed -ibackup 's/\r$//' CMakeLists.txt
+
+
+%build
+%cmake .
+%cmake_build
+
+
+%install
+%cmake_install
+# Remove static lib
+rm %{buildroot}%{_libdir}/%{name}.a
+
+install -D -t %{buildroot}%{_includedir}/cuetools/ include/cuetools/*.h
+
+
+%files
+%doc AUTHORS README
+%license COPYING
+%{_libdir}/libcuefile.so.0{,.*}
+
+%files devel
+%{_includedir}/cuetools/
+%{_libdir}/libcuefile.so
+
+
+%changelog
+%autochangelog

@@ -1,7 +1,7 @@
 Summary: A wiki engine
 Name: mediawiki
 Version: 1.39.1
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: GPLv2+
 URL: https://www.mediawiki.org/
 Source0: https://releases.wikimedia.org/mediawiki/1.39/%{name}-%{version}.tar.gz
@@ -259,6 +259,9 @@ cd tests/phpunit
 
 
 %changelog
+* Sun Feb 26 2023 Orion Poplawski <orion@nwra.com> - 1.39.1-3
+- Add <Directory> tags for skins in apache httpd config (bz#2171908)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.39.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

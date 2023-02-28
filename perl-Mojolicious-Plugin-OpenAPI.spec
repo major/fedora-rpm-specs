@@ -1,6 +1,6 @@
 Name:           perl-Mojolicious-Plugin-OpenAPI
-Version:        5.08
-Release:        2%{?dist}
+Version:        5.09
+Release:        1%{?dist}
 Summary:        OpenAPI / Swagger plugin for Mojolicious
 # MIT-licensed files: t/spec/v2-petstore.json, t/v3-basic.t, t/v3-nullable.t, t/v3-style-array.t
 # ASL 2.0-licensed files: t/spec/bundlecheck.json.
@@ -73,6 +73,9 @@ DUMMY_DB_ERROR= JSON_VALIDATOR_DEBUG= MOJO_OPENAPI_DEBUG= %{make_build} test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Feb 26 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 5.09-1
+- Update to 5.09
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.08-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

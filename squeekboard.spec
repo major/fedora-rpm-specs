@@ -1,6 +1,6 @@
 Name:		squeekboard
-Version:	1.20.0
-Release:	3%{?dist}
+Version:	1.21.0
+Release:	1%{?dist}
 Summary:	a Wayland virtual keyboard
 
 License:	GPLv3+
@@ -10,7 +10,7 @@ Source1:	squeekboard.desktop
 Source2:	Cargo.toml
 
 # temporary until upstreamed
-Patch0:	0001-use-latest-compatible-crates.patch
+Patch0: 0001-use-latest-compatible-crates.patch
 
 ExclusiveArch:	%{rust_arches}
 
@@ -34,6 +34,7 @@ BuildRequires:	pkgconfig(wayland-client) >= 1.14
 BuildRequires:	pkgconfig(xkbcommon)
 BuildRequires:	pkgconfig(wayland-protocols) >= 1.12
 BuildRequires:	pkgconfig(libfeedback-0.0)
+BuildRequires:	pkgconfig(libbsd)
 BuildRequires:	desktop-file-utils
 
 %description
@@ -84,6 +85,8 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sm.puri.Squeekboard.
 %license COPYING
 
 %changelog
+%autochangelog
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 1.20.0-3
 - Ensure standard Rust compiler flags are set.
 

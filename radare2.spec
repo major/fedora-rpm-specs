@@ -1,7 +1,7 @@
 Name:           radare2
 Summary:        The reverse engineering framework
 Version:        5.8.2
-%global         rel             1
+%global         rel             2
 URL:            https://radare.org/
 VCS:            https://github.com/radareorg/radare2
 #               https://github.com/radareorg/radare2/releases
@@ -39,9 +39,12 @@ Patch1:         radare2-5.6.6-use_openssl.patch
 Patch3:         radare2-5.7.6-use_magic.patch
 Patch4:         radare2-5.6.6-use_lz4.patch
 
-# Build with new libmagic which is missing EBCDIC transform functions
-# imported upstream
-# Patch5:         https://github.com/radareorg/radare2/commit/ddf483893e92f9edcd3d65f1098231b000bfe28a.patch#/radare2-5.7.6-ebcdic.patch
+# Fix issues wit the generation of SDB from the meson build
+# https://github.com/radareorg/radare2/issues/21375
+# https://bugzilla.redhat.com/show_bug.cgi?id=2170036
+# Patch5:         https://github.com/radareorg/radare2/commit/81d7a23df788ecd68aeae2921297cc0ca31902ed.patch#/%%{name}-%%{version}-meson-sdb.patch
+Patch5:         %{name}-%{version}-meson-sdb.patch
+
 
 
 License:        LGPLv3+ and GPLv2+ and BSD and MIT and ASL 2.0 and MPLv2.0 and zlib
@@ -363,8 +366,12 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/%{version}
 
 
 %changelog
+* Sun Feb 26 2023 Michal Ambroz <rebus at, seznam.cz> 5.8.2-2
+- cherrypick upstream patch for fixing the sdb generation from mesosn
+
 * Wed Jan 25 2023 Michal Ambroz <rebus at, seznam.cz> 5.8.2-1
 - bump to 5.8.2
+- fix CVE-2023-0302 , CVE-2023-0302
 
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.7.8-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
@@ -375,6 +382,7 @@ mkdir -p %{buildroot}%{_libdir}/%{name}/%{version}
 * Tue Aug 02 2022 Michal Ambroz <rebus at, seznam.cz> 5.7.6-1
 - bump to 5.7.6
 - cherrypicked patch for new libmagic from upstream
+- fix CVE-2022-34502
 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.8-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

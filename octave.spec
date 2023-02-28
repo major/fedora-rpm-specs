@@ -3,7 +3,13 @@
 
 %global macrosdir %(d=%{_rpmconfigdir}/macros.d; [ -d $d ] || d=%{_sysconfdir}/rpm; echo $d)
 
+%if 0%{?fedora} >= 38
+# Infinite loop with texinfo 7
+# https://savannah.gnu.org/bugs/index.php?63810
+%global builddocs 0
+%else
 %global builddocs 1
+%endif
 
 %if 0%{?fedora}
 %bcond_without flexiblas
@@ -47,6 +53,9 @@ Source0:        https://ftp.gnu.org/gnu/octave/octave-%{version}.tar.lz
 # RPM macros for helping to build Octave packages
 Source1:        macros.octave
 Source2:        xorg.conf
+%if !%{builddocs}
+Source3:        octave-%{version}-docs.tar.xz
+%endif
 # Add needed time.h header
 Patch2:         octave-time.patch
 
@@ -284,6 +293,9 @@ make install-data install-html install-info install-pdf DESTDIR=%{buildroot}
 mkdir -p %{buildroot}%{_pkgdocdir}
 cp -ar AUTHORS BUGS ChangeLog examples NEWS README %{buildroot}%{_pkgdocdir}/
 cp -a doc/refcard/*.pdf %{buildroot}%{_pkgdocdir}/
+%if !%{builddocs}
+tar xvf %SOURCE3 -C %{buildroot}
+%endif
 
 find %{buildroot}%{_libdir} -name \*.la -delete
 
@@ -452,6 +464,9 @@ make check
 %{_pkgdocdir}/refcard*.pdf
 
 %changelog
+* Sun Feb 26 2023 Orion Poplawski <orion@nwra.com> - 6:7.3.0-3
+- Disable building docs due to texinfo 7 incompatibility
+
 * Wed Jan 11 2023 FeRD (Frank Dana> <ferdnyc@gmail.com> - 6:7.3.0-3
 - Build with rapidjson to enable built-in json{decode,encode}
 

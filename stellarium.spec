@@ -2,7 +2,7 @@
 
 Name:           stellarium
 Version:        1.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPLv2+
@@ -90,6 +90,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Sun Feb 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-5
+- libindi rebuild.
+
 * Mon Jan 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-4
 - Fix mimetype icon.
 

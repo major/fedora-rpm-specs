@@ -3,15 +3,15 @@
 
 Summary:        A Python interface to the HDF5 library
 Name:           h5py
-Version:        3.7.0
-Release:        4%{?dist}
+Version:        3.8.0
+Release:        1%{?dist}
 License:        BSD
 URL:            http://www.h5py.org/
 Source0:        https://files.pythonhosted.org/packages/source/h/h5py/h5py-%{version}.tar.gz
 # drop the unnecessary workaround for float128 type after
 # https://fedoraproject.org/wiki/Changes/PPC64LE_Float128_Transition
 # in F-36
-Patch0:         h5py-3.7.0-ppc-float128.patch
+Patch0:         h5py-3.8.0-ppc-float128.patch
 BuildRequires:  gcc
 BuildRequires:  hdf5-devel
 BuildRequires:  liblzf-devel
@@ -79,8 +79,7 @@ Requires:       mpich
 
 
 %prep
-%setup -q -c -n %{name}-%{version}
-%patch0
+%autosetup -c -n %{name}-%{version} -p0
 mv %{name}-%{version} serial
 cd serial
 %{__python3} api_gen.py
@@ -202,6 +201,9 @@ mpirun %{__python3} -m pytest --pyargs h5py -rxXs --with-mpi ${PYTHONPATH} || ex
 
 
 %changelog
+* Sun Feb 26 2023 Orion Poplawski <orion@nwra.com> - 3.8.0-1
+- Update to 3.8.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

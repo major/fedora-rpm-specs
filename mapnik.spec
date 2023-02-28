@@ -23,6 +23,8 @@ Patch4:    mapnik-proj.patch
 Patch5:    mapnik-scons4.patch
 # https://github.com/mapnik/mapnik/pull/4378
 Patch6:    mapnik-stdint.patch
+# https://github.com/boostorg/phoenix/issues/115
+Patch7:    mapnik-boost181.patch
 
 # Exclude big endian architectures as mapnik does not support them
 # https://github.com/mapnik/mapnik/issues/2313

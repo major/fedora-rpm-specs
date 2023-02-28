@@ -1,5 +1,5 @@
 Name:           libsemigroups
-Version:        2.6.0
+Version:        2.6.1
 Release:        1%{?dist}
 Summary:        C++ library for semigroups and monoids
 
@@ -9,6 +9,9 @@ Summary:        C++ library for semigroups and monoids
 License:        GPL-3.0-or-later AND BSL-1.0 AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0
 URL:            https://libsemigroups.readthedocs.io/
 Source0:        https://github.com/libsemigroups/libsemigroups/releases/download/v%{version}/%{name}-%{version}.tar.gz
+# Remove a pessimizing move
+# https://github.com/libsemigroups/libsemigroups/pull/467
+Patch0:         %{name}-pessimizing-move.patch
 
 BuildRequires:  catch2-devel
 BuildRequires:  doxygen
@@ -17,14 +20,7 @@ BuildRequires:  libtool
 BuildRequires:  make
 BuildRequires:  pkgconfig(eigen3)
 BuildRequires:  pkgconfig(fmt)
-BuildRequires:  %{py3_dist beautifulsoup4}
-BuildRequires:  %{py3_dist breathe}
-BuildRequires:  %{py3_dist lxml}
-BuildRequires:  %{py3_dist pyyaml}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-copybutton}
-BuildRequires:  %{py3_dist sphinx-rtd-theme}
-BuildRequires:  %{py3_dist sphinxcontrib-bibtex}
+BuildRequires:  python3-devel
 
 %description
 Libsemigroups is a C++ library for semigroups and monoids; it is partly
@@ -132,6 +128,12 @@ sed -i 's/ -O3//' Makefile.am
 # Regenerate configure due to patch0
 autoreconf -fi .
 
+# Relax python version dependencies
+sed -i 's/==/>=/g' docs/requirements.txt
+
+%generate_buildrequires
+%pyproject_buildrequires -N docs/requirements.txt
+
 %build
 # Hpcombi is an x86-specific library that uses SSE and AVX instructions.
 # It is not currently available in Fedora, and we cannot assume the
@@ -188,6 +190,11 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Sat Feb 25 2023 Jerry James <loganjerry@gmail.com> - 2.6.1-1
+- Version 2.6.1
+- Dynamically generate python BuildRequires
+- Add -pessimizing-move patch
+
 * Tue Feb  7 2023 Jerry James <loganjerry@gmail.com> - 2.6.0-1
 - Version 2.6.0
 

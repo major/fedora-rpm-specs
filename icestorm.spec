@@ -1,13 +1,13 @@
-%global commit0 8649e3e0bd0e09429898d2569ef65cc9fd3eafd7
+%global commit0 d20a5e9001f46262bf0cef220f1a6943946e421d
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
-%global snapdate 20230215
+%global snapdate 20230220
 
 %global __python %{__python3}
 
 Name:           icestorm
 Version:        0
-Release:        0.27.%{snapdate}git%{shortcommit0}%{?dist}
+Release:        0.28.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:        Lattice iCE40 FPGA bitstream creation/analysis/programming tools
 License:        ISC
 URL:            http://bygone.clairexen.net/%{name}
@@ -60,6 +60,9 @@ install -pm644 icefuzz/timings_*.txt %{buildroot}%{_datarootdir}/%{name}
 %{_datarootdir}/%{name}
 
 %changelog
+* Mon Feb 20 2023 Gabriel Somlo <gsomlo@gmail.com> - 0-0.28.20230220gitd20a5e9
+- Update to newer snapshot
+
 * Wed Feb 15 2023 Gabriel Somlo <gsomlo@gmail.com> - 0-0.27.20230215git8649e3e
 - Update to newer snapshot
 

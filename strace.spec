@@ -1,7 +1,7 @@
 Summary: Tracks and displays system calls associated with a running process
 Name: strace
-Version: 6.1
-Release: 2%{?dist}
+Version: 6.2
+Release: 1%{?dist}
 # The test suite is GPLv2+, all the rest is LGPLv2.1+.
 %if 0%{?fedora} >= 35 || 0%{?centos} >= 9 || 0%{?rhel} >= 9
 # Some distros are special and have decided that they do not recognise
@@ -68,7 +68,7 @@ received by a process.
 %prep
 %setup -q
 echo -n %version-%release > .tarball-version
-echo -n 2022 > .year
+echo -n 2023 > .year
 echo -n 2022-10-16 > doc/.strace.1.in.date
 echo -n 2022-01-01 > doc/.strace-log-merge.1.in.date
 
@@ -122,8 +122,8 @@ fi
 %{_mandir}/man1/*
 
 %changelog
-* Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
+* Sun Feb 26 2023 Dmitry V. Levin <ldv@strace.io> - 6.2-1
+- v6.1 -> v6.2.
 
 * Mon Dec 12 2022 Dmitry V. Levin <ldv@strace.io> - 6.1-1
 - v6.0 -> v6.1.

@@ -3,8 +3,8 @@
 %global usrname gapd
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.4.0
-Release:        3%{?dist}
+Version:        2.4.1
+Release:        1%{?dist}
 Summary:        Symbolic Computation Software Composability Protocol in GAP
 
 License:        GPL-2.0-or-later
@@ -167,6 +167,9 @@ rm -fr ../pkg
 %{gap_libdir}/pkg/%{upname}/example/
 
 %changelog
+* Sun Feb 26 2023 Jerry James <loganjerry@gmail.com> - 2.4.1-1
+- Version 2.4.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

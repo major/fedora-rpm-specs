@@ -3,23 +3,18 @@
 %global srcname bitcoinlib
 
 Name:           python-%{srcname}
-Version:        0.11.0
-Release:        11%{?dist}
+Version:        0.12.0
+Release:        1%{?dist}
 Summary:        The Swiss Army Knife of the Bitcoin protocol
 
 License:        LGPLv3+
 URL:            https://github.com/petertodd/python-bitcoinlib
 Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
-Patch1:         python-bitcoinlib-c1eca007724dc12fa1abfbc6df06965c703ad748.patch
-Patch2:         opensslcrash.patch
-Patch3:         ripemd160.patch
-Patch4:         hack-disable-tests-failing-in-openssl3.patch
 BuildArch:      noarch
- 
+
 
 BuildRequires:  python3-devel
 BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3-pycryptodomex
 
 %description
 This Python 2/3 library provides an easy interface to the bitcoin data
@@ -56,10 +51,13 @@ a focus on providing tools to manipulate the internals of how Bitcoin works.
 %doc README.md
 
 %changelog
+* Sun Feb 26 2023 Pablo Greco <pgreco@centosproject.org> - 0.12.0-1
+- Update to 0.12.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.0-10
+* Sat Jul 23 2022 Pablo Greco <pgreco@centosproject.org> - 0.11.0-10
 - Fix crash with openssl3
 - Update to latest commit upstream
 - Resolve ripemd160 deprecation

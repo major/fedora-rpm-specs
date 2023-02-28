@@ -4,7 +4,7 @@
 
 # https://github.com/charmbracelet/bubbletea
 %global goipath         github.com/charmbracelet/bubbletea
-Version:                0.23.1
+Version:                0.23.2
 
 %gometa -f
 

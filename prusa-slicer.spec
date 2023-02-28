@@ -8,7 +8,7 @@
 
 Name:           prusa-slicer
 Version:        2.4.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        3D printing slicer optimized for Prusa printers
 
 # The main PrusaSlicer code and resources are AGPLv3, with small parts as
@@ -41,6 +41,14 @@ Patch4:         prusa-slicer-fix-uninitialized-imgui-segfault.patch
 
 # OpenEXR 3 fixes
 Patch351:       https://github.com/archlinux/svntogit-community/blob/1dea61c0b5/trunk/prusa-slicer-openexr3.patch
+
+# Boost 1.79 fixes
+# https://github.com/prusa3d/PrusaSlicer/pull/8304
+Patch391:       prusa-slicer-pr8304-boost-1_79-fix.patch
+# https://github.com/prusa3d/PrusaSlicer/commit/408e56f0390f20aaf793e0aa0c70c4d9544401d4
+Patch392:       prusa-slicer-boost_filesystem_ofstream-deprecation-1_79.patch
+# https://github.com/prusa3d/PrusaSlicer/commit/926ae0471800abd1e5335e251a5934570eb8f6ff
+Patch393:       prusa-slicer-boost_filesystem_ofstream-deprecation-1_79-followup.patch
 
 # Highly-parallel uild can run out of memory on PPC64le
 %ifarch ppc64le
@@ -395,6 +403,9 @@ desktop-file-validate %buildroot%_datadir/applications/PrusaGcodeviewer.desktop
 %endif
 
 %changelog
+* Mon Feb 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4.2-9
+- Backport upstream fix for build with Boost 1.79+
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.4.2-8
 - Rebuilt for Boost 1.81
 

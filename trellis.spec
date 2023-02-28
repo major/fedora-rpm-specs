@@ -1,16 +1,16 @@
-%global commit0 0c522ce818010f6597dd7001d3123ff38c365e50
+%global commit0 f767e56e06c94692df6cfcab56f2af222a7d85b9
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 
 %global commit1 35d900a94ff0db152679a67bf6e4fbf40ebc34aa
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
-%global snapdate 20230215
+%global snapdate 20230226
 
 %global __python %{__python3}
 
 Name:          trellis
 Version:       1.2.1
-Release:       15.%{snapdate}git%{shortcommit0}%{?dist}
+Release:       16.%{snapdate}git%{shortcommit0}%{?dist}
 Summary:       Lattice ECP5 FPGA bitstream creation/analysis/programming tools
 License:       ISC
 URL:           https://github.com/YosysHQ/prj%{name}
@@ -22,7 +22,7 @@ BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: python3-devel
 BuildRequires: boost-python3-devel
-BuildRequires: pybind11-devel
+#BuildRequires: pybind11-devel
 # for building docs:
 BuildRequires: python3-sphinx-latex
 BuildRequires: python3-recommonmark
@@ -73,8 +73,8 @@ find . -name \.gitignore -delete
 # disable LTO to allow building for f33 rawhide (BZ 1865586):
 %define _lto_cflags %{nil}
 %cmake libtrellis \
-	-DPYBIND11_INCLUDE_DIR="/usr/include/pybind11/" \
 	-DCURRENT_GIT_VERSION=%{version}-%{release}
+#	-DPYBIND11_INCLUDE_DIR="/usr/include/pybind11/" \
 %cmake_build
 %make_build -C docs latexpdf
 # build manpages:
@@ -117,6 +117,10 @@ install -Dpm644 -t %{buildroot}%{_mandir}/man1 man1/*
 %{_datadir}/%{name}/database
 
 %changelog
+* Sun Feb 26 2023 Gabriel Somlo <gsomlo@gmail.com> - 1.2.1-16.20230226gitf767e56
+- Update to newer snapshot
+- Temp. use bundled pybind11 (https://github.com/pybind/pybind11/issues/4529)
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.2.1-15.20230215git0c522ce
 - Rebuilt for Boost 1.81
 

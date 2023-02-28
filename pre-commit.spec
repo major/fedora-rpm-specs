@@ -1,7 +1,7 @@
 %bcond_without check
 
 Name:           pre-commit
-Version:        3.0.4
+Version:        3.1.0
 Release:        1%{?dist}
 Summary:        Framework for managing and maintaining multi-language pre-commit hooks
 
@@ -21,8 +21,8 @@ BuildRequires:  python3-devel
 # BuildRequires:  R-core
 # BuildRequires:  conda
 # BuildRequires:  dotnet-host
-# BuildRequires:  dotnet-hostfxr-6.0
-# BuildRequires:  dotnet-sdk-6.0
+# BuildRequires:  dotnet-hostfxr-7.0
+# BuildRequires:  dotnet-sdk-7.0
 # BuildRequires:  golang-bin
 
 # These BR’s would enable a few extra tests, but are inconveniently
@@ -91,11 +91,19 @@ k="${k-}${k+ and }not test_conda_additional_deps"
 k="${k-}${k+ and }not test_conda_hook"
 k="${k-}${k+ and }not test_conda_language"
 k="${k-}${k+ and }not test_conda_with_additional_dependencies_hook"
+k="${k-}${k+ and }not test_dotnet_combo_proj1"
+k="${k-}${k+ and }not test_dotnet_combo_proj2"
+k="${k-}${k+ and }not test_dotnet_csproj"
+k="${k-}${k+ and }not test_dotnet_csproj_prefix"
 k="${k-}${k+ and }not test_dotnet_hook"
+k="${k-}${k+ and }not test_dotnet_sln"
+k="${k-}${k+ and }not test_golang_default_version"
 k="${k-}${k+ and }not test_golang_hook"
 k="${k-}${k+ and }not test_golang_hook_still_works_when_gobin_is_set"
 k="${k-}${k+ and }not test_golang_infer_go_version_default"
+k="${k-}${k+ and }not test_golang_system"
 k="${k-}${k+ and }not test_golang_system_hook"
+k="${k-}${k+ and }not test_golang_versioned"
 k="${k-}${k+ and }not test_golang_versioned_hook"
 k="${k-}${k+ and }not test_golang_with_recursive_submodule"
 k="${k-}${k+ and }not test_install_ruby_with_version"
@@ -105,6 +113,7 @@ k="${k-}${k+ and }not test_installs_with_existing_rustup"
 k="${k-}${k+ and }not test_installs_without_links_outside_env"
 k="${k-}${k+ and }not test_local_conda_additional_dependencies"
 k="${k-}${k+ and }not test_local_golang_additional_dependencies"
+k="${k-}${k+ and }not test_local_golang_additional_deps"
 k="${k-}${k+ and }not test_local_lua_additional_dependencies"
 k="${k-}${k+ and }not test_local_perl_additional_dependencies"
 k="${k-}${k+ and }not test_local_rust_additional_dependencies"
@@ -145,6 +154,10 @@ k="${k-}${k+ and }not test_local_dart_additional_dependencies_versioned"
 # Requires swift-lang, which we have chosen not to BuildRequire; see comments
 # earlier in the spec file:
 k="${k-}${k+ and }not test_swift_language"
+# Requires docker (not packaged)
+k="${k-}${k+ and }not test_docker_hook"
+k="${k-}${k+ and }not test_docker_image_hook_via_args"
+k="${k-}${k+ and }not test_docker_image_hook_via_entrypoint"
 # Does not work under (i.e., respect) an “external” PYTHONPATH
 k="${k-}${k+ and }not test_installed_from_venv"
 # Fails in koji but not local mock (hook exits with code 1, no useful output)
@@ -159,6 +172,9 @@ k="${k-}${k+ and }not test_run_a_ruby_hook"
 
 
 %changelog
+* Thu Feb 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.0-1
+- Update to 3.1.0 (close RHBZ#2172751)
+
 * Fri Feb 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.0.4-1
 - Update to 3.0.4 (close RHBZ#2163591)
 

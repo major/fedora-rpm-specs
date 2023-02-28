@@ -9,8 +9,8 @@
 
 Name:           perl-Digest-SHA
 Epoch:          1
-Version:        6.03
-Release:        2%{?dist}
+Version:        6.04
+Release:        1%{?dist}
 Summary:        Perl extension for SHA-1/224/256/384/512
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Digest-SHA
@@ -130,6 +130,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Feb 26 2023 Paul Howarth <paul@city-fan.org> - 1:6.04-1
+- 6.04 bump (rhbz#2173329)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:6.03-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

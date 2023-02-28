@@ -2,7 +2,7 @@
 
 # https://github.com/git-lfs/git-lfs
 %global goipath         github.com/git-lfs/git-lfs/v3
-Version:                3.2.0
+Version:                3.3.0
 
 %gometa
 
@@ -24,14 +24,11 @@ Source1:        https://github.com/git-lfs/git-lfs/releases/download/v%{version}
 Source2:        https://api.github.com/repos/git-lfs/git-lfs/tarball/core-gpg-keys#/core-gpg-keys.tar.gz
 Source3:        README.Fedora
 
-# Silence git warning about default branch.
-Patch: https://github.com/git-lfs/git-lfs/commit/11fe8dc62ed2eb158eaec28af90d2f509e7fd91f.patch
-
 BuildRequires:  gnupg2
 
 BuildRequires:  golang(github.com/dpotapov/go-spnego)
-BuildRequires:  golang(github.com/git-lfs/gitobj/v2) >= 2.1.0
-BuildRequires:  golang(github.com/git-lfs/gitobj/v2/errors) >= 2.1.0
+BuildRequires:  golang(github.com/git-lfs/gitobj/v2) >= 2.1.1
+BuildRequires:  golang(github.com/git-lfs/gitobj/v2/errors) >= 2.1.1
 BuildRequires:  golang(github.com/git-lfs/go-netrc/netrc) >= 0-0.13.20220318gitf0c862d
 BuildRequires:  golang(github.com/git-lfs/pktline)
 BuildRequires:  golang(github.com/git-lfs/wildmatch/v2) >= 2.0.1
@@ -46,7 +43,7 @@ BuildRequires:  golang(golang.org/x/net/http2)
 BuildRequires:  golang(golang.org/x/sync/semaphore)
 
 # Generate man pages
-BuildRequires:  /usr/bin/ronn
+BuildRequires:  /usr/bin/asciidoctor
 
 %if %{with check}
 # Tests
@@ -128,8 +125,10 @@ sed -i -e 's!^BINPATH=.\+!BINPATH="%{gobuilddir}/bin"!g' t/testenv.sh
 
 %build
 # Build manpages first (some embedding in the executable is done.)
+# Note that the variables are set here simply to prevent the Makefile from
+# shelling out to git, but the actual value is unused.
+make man GIT_LFS_SHA=unused VERSION=unused PREFIX=unused
 pushd docs
-ronn --roff man/*.ronn
 %gobuild -o %{gobuilddir}/bin/mangen man/mangen.go
 %{gobuilddir}/bin/mangen
 popd
@@ -143,17 +142,17 @@ for cmd in t/cmd/*.go; do
 done
 %gobuild -o "%{gobuilddir}/bin/git-lfs-test-server-api" t/git-lfs-test-server-api/*.go
 
-# Move man pages out of docs so they don't get installed twice.
-mv docs/man .
+# Remove man pages from docs so they don't get installed twice.
+rm -r docs/man
 
 
 %install
 %gopkginstall
 install -Dpm0755 %{gobuilddir}/bin/git-lfs %{buildroot}%{_bindir}/%{name}
-install -d -p %{buildroot}%{_mandir}/man1/
-install -Dpm0644 man/*.1 %{buildroot}%{_mandir}/man1/
-install -d -p %{buildroot}%{_mandir}/man5/
-install -Dpm0644 man/*.5 %{buildroot}%{_mandir}/man5/
+for section in 1 5 7; do
+    install -d -p %{buildroot}%{_mandir}/man${section}/
+    install -Dpm0644 man/man${section}/*.${section} %{buildroot}%{_mandir}/man${section}/
+done
 
 
 %post
@@ -183,6 +182,7 @@ PATH=%{buildroot}%{_bindir}:%{gobuilddir}/bin:$PATH \
 %{_bindir}/%{name}
 %{_mandir}/man1/%{name}*.1*
 %{_mandir}/man5/%{name}*.5*
+%{_mandir}/man7/%{name}*.7*
 
 %gopkgfiles
 

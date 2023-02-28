@@ -3,7 +3,7 @@
 
 Name:           gazebo
 Version:        10.1.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        3D multi-robot simulator with dynamics
 
 # gazebo/gui/qgv is LGPLv3+
@@ -40,6 +40,8 @@ Patch14:        %{name}-10.1.0-boost173.patch
 Patch15:        %{name}-10.1.0-openal121.patch
 # Fix build against qwt-6.2
 Patch16:        %{name}-10.1.0-qwt.patch
+# https://github.com/gazebosim/gazebo-classic/pull/3290
+Patch17:        %{name}-pr3290-gcc13-array-include.patch
 
 
 BuildRequires:  python3-pyopengl
@@ -188,6 +190,7 @@ Development documentation for %{name}
 %patch14 -p1 -b .boost173
 %patch15 -p1 -b .openal121
 %patch16 -p1 -b .qwt
+%patch17 -p1 -b .gcc13
 
 # These are either unused, or replaced by system versions
 rm -rf deps/ann
@@ -323,6 +326,9 @@ export GAZEBO_IP=127.0.0.1
 %{_libdir}/cmake/*
 
 %changelog
+* Sun Feb 26 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 10.1.0-37
+- Backport upstream patch for additional include needed for g++13
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 10.1.0-36
 - Rebuilt for Boost 1.81
 

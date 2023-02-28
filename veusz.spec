@@ -1,5 +1,5 @@
 Name:           veusz
-Version:        3.6
+Version:        3.6.2
 Release:        1%{?dist}
 Summary:        GUI scientific plotting package
 
@@ -122,6 +122,12 @@ PYTHONPATH=%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/veusz
 
 %changelog
+* Sun Feb 26 2023 Jeremy Sanders <jeremy@jeremysanders.net> - 3.6.2-1
+- Update to Veusz 3.6.2 (fixes resource issue)
+
+* Sun Feb 26 2023 Jeremy Sanders <jeremy@jeremysanders.net> - 3.6.1-1
+- Update to Veusz 3.6.1 (fixes appdata issue)
+
 * Sat Feb 25 2023 Jeremy Sanders <jeremy@jeremysanders.net> - 3.6-1
 - Update to Veusz 3.6
 

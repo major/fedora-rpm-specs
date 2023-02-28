@@ -1,29 +1,10 @@
 Name:           python-pyrate-limiter
-Version:        2.9.0
+Version:        2.9.1
 Release:        1%{?dist}
 Summary:        The request rate limiter using Leaky-bucket algorithm 
 License:        MIT
 URL:            https://github.com/vutran1710/PyrateLimiter
-# Missing git tag:
-#   Build on pypi is not on github?
-#   https://github.com/vutran1710/PyrateLimiter/issues/91
-# It is clear which commit corresponds to the PyPI release. We eschew the
-# snapinfo field that would normally be needed for packaging from a particular
-# commit, since this is equivalent to packaging from the missing tag.
-%global commit 257c17f14a2d9766136db077204212e3288bfd99
-Source0:        %{url}/archive/%{commit}/PyrateLimiter-%{commit}.tar.gz
-
-# Allow for sleep to be called more times than expected
-# https://github.com/vutran1710/PyrateLimiter/pull/93
-Patch:          %{url}/pull/93.patch
-
-# Fix LICENSE file not to be installed into site-packages
-# https://github.com/vutran1710/PyrateLimiter/commit/fb158d38532a0a249a5b6e6cb028679ca9007470
-Patch:		%{url}/commit/fb158d38532a0a249a5b6e6cb028679ca9007470.patch
-
-# Include docs and tests in sdist
-# https://github.com/vutran1710/PyrateLimiter/commit/f7dde22216b292bd7f383094604b36459ec4fcdc
-Patch:		%{url}/commit/f7dde22216b292bd7f383094604b36459ec4fcdc.patch
+Source0:        %{pypi_source pyrate_limiter}
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -43,7 +24,7 @@ BuildRequires:  python3-devel
 # Django = "^3.2.8"
 BuildRequires:  %{py3_dist Django} >= 3.2.8
 # pytest-xdist = "^2.5.0"
-BuildRequires:  %{py3_dist pytest-xdist} >= 0.12
+BuildRequires:  %{py3_dist pytest-xdist} >= 2.5
 # django-redis = "^5.0.0"
 # Currently too old:
 # https://bugzilla.redhat.com/show_bug.cgi?id=1445556
@@ -72,7 +53,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -p1 -n PyrateLimiter-%{commit}
+%autosetup -n pyrate_limiter-%{version}
 
 
 %generate_buildrequires
@@ -92,17 +73,20 @@ Summary:        %{summary}
 ignore="${ignore-} --ignore=tests/test_02.py"
 # Needs python3dist(django-redis)
 ignore="${ignore-} --ignore=tests/test_with_django.py"
-# Flaky failures in test_concurrency
-# https://github.com/vutran1710/PyrateLimiter/issues/94
-k="${k-}${k+ and }not test_concurrency[ProcessPoolExecutor-SQLiteBucket]"
+# Flaky failures in
+# tests/test_context_decorator.py::test_ratelimit__delay_synchronous
+# https://github.com/vutran1710/PyrateLimiter/issues/101
+k="${k-}${k+ and }not test_ratelimit__delay_synchronous"
 %pytest -v -n auto ${ignore-} -k "${k-}"
 
 %files -n python3-pyrate-limiter -f %{pyproject_files}
 %doc README.md
-%doc CHANGELOG.md
 %license LICENSE
 
 %changelog
+* Sun Feb 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.9.1-1
+- Update to 2.9.1
+
 * Tue Feb 21 2023 Steve Cossette <farchord@gmail.com> - 2.9.0-1
 - Update to 2.9.0
 

@@ -1,12 +1,15 @@
 Name:           mlpack
 Version:        4.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Fast, header-only C++ machine learning library
 
 # The source in src/mlpack/core/std_backport/ is available under 
 # Apache-2.0 license
 # All other code is under BSD-3-Clause
-License:        BSD-3-Clause AND Apache-2.0
+# The stb_image and stb_image_write libraries are (MIT OR Unlicense); since
+# header-only libraries are treated as static libraries, they also contribute
+# to the license of the binary RPMs.
+License:        BSD-3-Clause AND Apache-2.0 AND (MIT OR Unlicense)
 URL:            http://www.mlpack.org
 Source0:        http://www.mlpack.org/files/%{name}-%{version}.tar.gz
 
@@ -27,11 +30,12 @@ BuildRequires:  pkg-config
 
 # Header-only libraries (-static is for tracking per guidelines)
 # Enforce the the minimum EVR to contain fixes for all of CVE-2021-28021,
-# CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041.
+# CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041, plus the null-pointer
+# dereference bug https://github.com/nothings/stb/issues/1452.
 %if 0%{?el7} || 0%{?el8}
-%global min_stb_image 0-0.8.20211022gitaf1a5bc
+%global min_stb_image 2.28-0.24.20230129git5736b15
 %else
-%global min_stb_image 2.27^20210910gitaf1a5bc-0.2
+%global min_stb_image 2.28^20230129git5736b15-0.2
 %endif
 BuildRequires:  stb_image-devel >= %{min_stb_image}
 BuildRequires:  stb_image-static
@@ -293,6 +297,10 @@ cd ..;
 %{python3_sitearch}/mlpack-*.egg-info
 
 %changelog
+* Sat Feb 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 4.0.1-4
+- Update min. stb_image versions for nullptr deref. bug
+- Add stb license to the License field
+
 * Mon Feb 13 2023 Benson Muite <benson_muite@emailplus.org> - 4.0.1-3
 - Use SPDX identifiers
 - Update license information to include Apache-2.0

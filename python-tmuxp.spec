@@ -1,7 +1,7 @@
 %global srcname tmuxp
 
 Name:           python-%{srcname}
-Version:        1.25.0
+Version:        1.27.0
 Release:        %autorelease
 Summary:        Tmux session manager
 

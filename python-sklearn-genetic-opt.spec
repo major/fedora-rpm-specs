@@ -39,6 +39,9 @@ Patch0:         0001-Remove-mlflow-test.patch
 
 BuildArch:      noarch
 
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 %description %_description
 
 %package -n python3-%{pypi_name}
