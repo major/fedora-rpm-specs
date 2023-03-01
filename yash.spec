@@ -2,8 +2,8 @@
 # Upstream is currently using SVN
 # SVN path: http://svn.sourceforge.jp/svnroot/yash/yash/trunk
 
-%global		repoid		77664
-%global		mainver	2.53
+%global		repoid		78345
+%global		mainver	2.54
 %global		docver		%{mainver}
 
 %if 0%{?fedora} >= 20
@@ -18,7 +18,7 @@
 
 Name:		yash
 Version:	%{mainver}
-Release:	%{?minorver:0.}%{mainrel}%{?minorver:.%{minorver}}%{?dist}.1
+Release:	%{?minorver:0.}%{mainrel}%{?minorver:.%{minorver}}%{?dist}
 Summary:	Yet Another SHell
 
 License:	GPLv2+
@@ -139,6 +139,9 @@ exit 0
 %lang(ja)	%{yashdocdir}/ja/
 
 %changelog
+* Mon Feb 27 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.54-1
+- 2.54
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.53-1.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

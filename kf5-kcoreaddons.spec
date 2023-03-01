@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.103.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 1 addon with various classes on top of QtCore
 
 License: LGPLv2+
@@ -22,11 +22,14 @@ Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{v
 
 ## upstream patches
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-rpm-macros >= %{majmin}
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qttools-devel
+BuildRequires:  shared-mime-info
+BuildRequires:  systemd-devel
+
 %if ! 0%{?bootstrap}
 ## Drop/omit FAM/gamin support: it is no longer supported upstream,
 ## e.g. https://bugzilla.gnome.org/show_bug.cgi?id=777997
@@ -117,6 +120,9 @@ update-mime-database %{_datadir}/mime &> /dev/null || :
 
 
 %changelog
+* Mon Feb 27 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

@@ -3,7 +3,7 @@
 
 # https://github.com/leonelquinteros/gotext
 %global goipath         github.com/leonelquinteros/gotext
-Version:                1.5.1
+Version:                1.5.2
 
 %gometa
 

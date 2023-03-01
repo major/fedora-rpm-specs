@@ -123,7 +123,7 @@ License:        LGPLv2 or LGPLv3
 %cmake_install
 
 %if 0%{?flatpak:1}
-rm -fv %{buildroot}%{_userunitdir}/kde-baloo.service
+find %{buildroot} -name kde-baloo.service -delete
 %endif
 
 # baloodb not installed unless BUILD_EXPERIMENTAL is enabled, so omit translations

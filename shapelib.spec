@@ -1,5 +1,11 @@
 #global pre RC1
 
+%if %{defined rhel} || %{defined flatpak}
+%bcond_with mingw
+%else
+%bcond_without mingw
+%endif
+
 Name:          shapelib
 Version:       1.5.0
 Release:       15%{?pre:.%pre}%{?dist}
@@ -28,6 +34,7 @@ BuildRequires: proj-devel >= 4.4.1
 # For man pages
 BuildRequires: rubygem-ronn
 
+%if %{with mingw}
 BuildRequires: mingw32-filesystem >= 95
 BuildRequires: mingw32-gcc-c++
 BuildRequires: mingw32-binutils
@@ -37,6 +44,7 @@ BuildRequires: mingw64-filesystem >= 95
 BuildRequires: mingw64-gcc-c++
 BuildRequires: mingw64-binutils
 BuildRequires: mingw64-proj
+%endif
 
 
 %description
@@ -62,6 +70,7 @@ Requires:      %{name}%{?_isa} = %{version}-%{release}
 This package contains various utility programs distributed with shapelib.
 
 
+%if %{with mingw}
 %package -n mingw32-%{name}
 Summary:       MinGW Windows %{name} library
 BuildArch:     noarch
@@ -112,6 +121,7 @@ BuildArch:     noarch
 
 %description -n mingw64-%{name}-tools
 %{summary}.
+%endif
 
 
 %{?mingw_debug_package}
@@ -133,14 +143,18 @@ pushd build_native
 %make_build
 popd
 
+%if %{with mingw}
 # MinGW build
 %mingw_configure
 %mingw_make_build
+%endif
 
 
 %install
 %make_install -C build_native
+%if %{with mingw}
 %mingw_make_install
+%endif
 
 # Remove static libraries
 find %{buildroot} -name '*.la' -exec rm -f {} ';'
@@ -151,7 +165,7 @@ mkdir -p %{buildroot}%{_mandir}/man1/
 install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 
-%mingw_debug_install_post
+%{?mingw_debug_install_post}
 
 
 %files
@@ -169,6 +183,7 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 %{_bindir}/*
 %{_mandir}/man1/*.1*
 
+%if %{with mingw}
 %files -n mingw32-%{name}
 %license COPYING
 %{mingw32_bindir}/libshp-2.dll
@@ -194,6 +209,7 @@ install -pm 0644 man/*.1 %{buildroot}%{_mandir}/man1/
 
 %files -n mingw64-%{name}-tools
 %{mingw64_bindir}/*.exe
+%endif
 
 
 %changelog

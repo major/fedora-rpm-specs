@@ -25,7 +25,7 @@ Name: ansible-collection-microsoft-sql
 Url: https://github.com/linux-system-roles/mssql
 Summary: The Ansible collection for Microsoft SQL Server management
 Version: 1.3.0
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: MIT
 
@@ -76,9 +76,12 @@ Requires: linux-system-roles
 %endif
 
 %global mainid 73800682a3293ef5ab5ed5880329ce792cd34bbf
+# Use either hash or tag for source1id
+# %%global source1id 50edba099ab2c8b25b225fe760cb5a459b320030
+%global source1id %{version}
 %global parenturl https://github.com/linux-system-roles
 Source: %{parenturl}/auto-maintenance/archive/%{mainid}/auto-maintenance-%{mainid}.tar.gz
-Source1: %{parenturl}/%{rolename}/archive/%{version}/%{rolename}-%{version}.tar.gz
+Source1: %{parenturl}/%{rolename}/archive/%{source1id}/%{rolename}-%{source1id}.tar.gz
 
 BuildArch: noarch
 
@@ -122,7 +125,7 @@ end
 %prep
 %setup -q -a1 -n auto-maintenance-%{mainid}
 
-mv %{rolename}-%{version} %{rolename}
+mv %{rolename}-%{source1id} %{rolename}
 
 # Remove symlinks in tests/roles
 if [ -d %{rolename}/tests/roles ]; then
@@ -161,13 +164,11 @@ cp %{rolename}/.collection/galaxy.yml ./
 mv galaxy.yml.tmp galaxy.yml
 
 %if 0%{?rhel}
-# Replace fedora.linux_system_roles with redhat.rhel_system_roles
-sed -i 's/fedora\.linux_system_roles/redhat.rhel_system_roles/g' \
-    %{rolename}/CHANGELOG.md \
-    %{rolename}/README.md \
-    %{rolename}/tasks/*.yml \
-    %{rolename}/tests/*.yml \
-    %{rolename}/meta/*.yml
+# Replace "fedora.linux_system_roles" with "redhat.rhel_system_roles"
+# This is for the "roles calling other roles" case
+find %{rolename} -type f -exec \
+     sed -e "s/fedora[.]linux_system_roles[.]/redhat.rhel_system_roles./g" \
+         -i {} \;
 %endif
 
 # Convert to the collection format
@@ -180,6 +181,11 @@ python3 lsr_role2collection.py --role "%{rolename}" \
     --collection %{collection_name} \
     --new-role "%{collection_rolename}" \
     --meta-runtime lsr_role2collection/runtime.yml
+
+# Replace remnants of "linux-system-roles.mssql" with collection FQDN
+find .collections/ansible_collections/%{collection_namespace}/%{collection_name}/ -type f -exec \
+     sed -e "s/linux-system-roles[.]%{rolename}\\>/%{collection_namespace}.%{collection_name}.%{collection_rolename}/g" \
+         -i {} \;
 
 # removing dot files/dirs
 rm -r .collections/ansible_collections/%{collection_namespace}/%{collection_name}/.[A-Za-z]*
@@ -202,8 +208,9 @@ mkdir -p %{buildroot}%{ansible_roles_dir}
 
 # Copy role in legacy format and rename rolename in tests
 cp -pR "%{rolename}" "%{buildroot}%{ansible_roles_dir}/%{legacy_rolename}"
-sed -i "s/linux-system-roles\.%{rolename}/microsoft\.%{legacy_rolename}/g" \
-    %{buildroot}%{ansible_roles_dir}/%{legacy_rolename}/tests/*.yml
+find %{buildroot}%{ansible_roles_dir}/%{legacy_rolename} -type f -exec \
+     sed -e "s/linux-system-roles\.%{rolename}/%{legacy_rolename}/g" \
+         -i {} \;
 
 # Copy README, COPYING, and LICENSE files to the corresponding directories
 mkdir -p %{buildroot}%{_pkglicensedir}
@@ -343,6 +350,11 @@ find %{buildroot}%{ansible_roles_dir} -mindepth 1 -maxdepth 1 | \
 %endif
 
 %changelog
+* Mon Feb 27 2023 Sergei Petrosian <spetrosi@redhat.com> - 1.3.0-3
+- Spec: add functionality to build from a commit hash
+- Use latest 1.3.0 to add flexibility to AD integration functionality
+  Resolves: rhbz#2163709
+
 * Fri Feb 3 2023 Sergei Petrosian <spetrosi@redhat.com> - 1.3.0-1
 - On SQL Server Enterprise Edition, support configuring asynchronous replication
   Resolves: rhbz#2144820

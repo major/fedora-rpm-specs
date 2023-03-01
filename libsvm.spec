@@ -72,11 +72,6 @@ Install this package if you want to develop programs with libsvm.
 %package -n     python3-%{name}
 Summary:        Python3 tools and interfaces for libsvm
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist scipy}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 #gnuplot is required by easy.py
 Requires:       gnuplot
 
@@ -160,6 +155,12 @@ rm FAQ.html.orig
 %if %{with python}
 # Fix shebangs
 %py3_shebang_fix python/libsvm tools
+%endif
+
+%if %{with python}
+%generate_buildrequires
+cd python
+%pyproject_buildrequires
 %endif
 
 %build
@@ -303,6 +304,9 @@ cp -p README java/README-Java
 %{_datadir}/applications/*%{name}-svm-toy-qt.desktop
 
 %changelog
+* Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 3.30-2
+- Dynamically generate python BuildRequires
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.30-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

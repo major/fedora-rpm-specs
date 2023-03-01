@@ -29,7 +29,7 @@ it compatible with cython.
 %endif
 
 Name:           python-tvb-gdist
-Version:        2.1.1
+Version:        2.2
 Release:        %autorelease
 Summary:        Cython interface to geodesic
 
@@ -69,6 +69,10 @@ Provides:       bundled(geodesic) = 0
 
 %prep
 %autosetup -n tvb-gdist-%{version}
+
+# we don't want to use "oldest-supported-numpy"
+# https://req.thevirtualbrain.org/browse/TVB-2890
+sed -i 's/oldest-supported-numpy/numpy/' pyproject.toml
 
 %generate_buildrequires
 %pyproject_buildrequires

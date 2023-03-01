@@ -1,5 +1,5 @@
 Name: libgbinder
-Version: 1.1.32
+Version: 1.1.33
 Release: 1%{?dist}
 Summary: Binder client library
 License: BSD
@@ -82,6 +82,9 @@ Binder command line utilities
 %{_bindir}/binder-call
 
 %changelog
+* Mon Feb 27 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.33-1
+- Update to 1.1.33
+
 * Mon Jan 23 2023 Alessandro Astone <ales.astone@gmail.com> - 1.1.32-1
 - Update to 1.1.32
 

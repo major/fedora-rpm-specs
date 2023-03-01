@@ -1,7 +1,6 @@
-# Disable tests by default because they fail to run inside mock builds
-# at the moment, but can run locally.  To build and run tests, do:
-#     rpmbuild -ba --with runtests pykickstart.spec
-%bcond_with runtests
+# Enable tests by default. To disable them use:
+#     rpmbuild -ba --without runtests pykickstart.spec
+%bcond_without runtests
 
 Name:      pykickstart
 Version:   3.44
@@ -53,7 +52,7 @@ make PYTHON=%{__python3} DESTDIR=%{buildroot} install
 
 %check
 %if %{with runtests}
-make PYTHON=%{__python3} test
+LC_ALL=C make PYTHON=%{__python3} test
 %endif
 
 %files

@@ -28,17 +28,19 @@ checks for dimensional consistency and automatic unit conversion.
 Read the documentation at http://neo.readthedocs.io/}
 
 Name:       python-neo
-Version:    0.11.1
+Version:    0.12.0
 Release:    %autorelease
 Summary:    Represent electrophysiology data in Python
 
-License:    BSD
+License:    BSD-3-Clause
 URL:        http://neuralensemble.org/neo/
-Source0:    https://github.com/neuralensemble/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:    https://github.com/neuralensemble/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+%if %{with tests}
 # datalad clone of data obtained with these commands:
 # datalad clone https://gin.g-node.org/NeuralEnsemble/ephy_testing_data
 # tar -cvzf ephy_testing_data.tar.gz ephy_testing_data
 Source1:    ephy_testing_data.tar.gz
+%endif
 
 
 BuildArch:  noarch
@@ -53,7 +55,7 @@ ExcludeArch:  s390x
 Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  datalad
-# Basic requires picked up by autogenerator
+BuildRequires:  python3-pillow
 
 # Extra requires:
 # Not in fedora yet, to be updated as these are added
@@ -68,14 +70,6 @@ Recommends:  %{py3_dist igor}
 
 %prep
 %autosetup
-# stray backup file?
-rm -fv neo/io/nwbio_BACKUP_4246.py
-rm -rf neo.egg-info
-
-# remove pinned version
-# remove unpacked sonpy
-# remove coverage bits
-sed -i -e 's/datalad==.*/datalad/' -e 's/nixio==.*/nixio/' -e '/sonpy/ d' -e '/cov/ d' requirements_testing.txt
 
 %if %{with tests}
 # datalad needs to know who we are later when it tries to download the data sets
@@ -88,7 +82,7 @@ pushd ~ && %{__tar} -xvf %{SOURCE1} && popd
 
 
 %generate_buildrequires
-%pyproject_buildrequires -r requirements_testing.txt
+%pyproject_buildrequires
 
 
 %build

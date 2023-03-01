@@ -6,7 +6,7 @@ The fslpy project is a FSL programming library written in Python. It is used by 
 FSLeyes.
 
 Name:           python-fslpy
-Version:        3.10.0
+Version:        3.11.1
 Release:        %autorelease
 Summary:        The FSL Python Library
 
@@ -14,14 +14,6 @@ Summary:        The FSL Python Library
 License:        ASL 2.0
 URL:            https://pypi.python.org/pypi/fslpy
 Source0:        %{pypi_source fslpy}
-
-# fix with nilabel 5.x
-# https://github.com/pauldmccarthy/fslpy/commit/a22b05e0d771e99ec25a22ff16c36da02067e698
-# backported to 3.10.0
-Patch0:         0001-TEST-use-int32-instead-of-int64.patch
-Patch1:         0002-TEST-nibabel.info-no-longer-has-version-components.patch
-# for numpy 1.23
-Patch2:         0003-MNT-np.object-has-been-deprecatad-for-a-long-time-an.patch
 
 BuildRequires:  git-core
 

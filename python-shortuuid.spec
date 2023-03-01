@@ -1,10 +1,10 @@
 %global srcname shortuuid
 
 Name:           python-%{srcname}
-Version:        1.0.9
+Version:        1.0.11
 Release:        %autorelease
 Summary:        A generator library for concise, unambiguous and URL-safe UUIDs
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/skorokithakis/shortuuid
 Source0:        %{pypi_source %{srcname}}
 

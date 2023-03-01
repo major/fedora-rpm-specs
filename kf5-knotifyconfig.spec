@@ -11,7 +11,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.103.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 module for KNotify configuration
 
 License: LGPLv2+
@@ -23,7 +23,7 @@ Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{v
 
 ## upstream patches
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-kcompletion-devel >= %{majmin}
 BuildRequires:  kf5-kconfig-devel >= %{majmin}
@@ -34,6 +34,7 @@ BuildRequires:  kf5-knotifications-devel >= %{majmin}
 BuildRequires:  kf5-kwidgetsaddons-devel >= %{majmin}
 BuildRequires:  kf5-kxmlgui-devel >= %{majmin}
 BuildRequires:  kf5-rpm-macros
+BuildRequires:  libcanberra-devel
 BuildRequires:  phonon-qt5-devel
 BuildRequires:  qt5-qtbase-devel
 
@@ -105,6 +106,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Mon Feb 27 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

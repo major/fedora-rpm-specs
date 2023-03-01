@@ -1,6 +1,8 @@
+%bcond_with bootstrap
+
 Name:           modulemaker-maven-plugin
 Version:        1.9
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A plugin for creating module-info.class files
 License:        Apache-2.0
 URL:            https://github.com/raphw/modulemaker-maven-plugin
@@ -10,6 +12,9 @@ ExclusiveArch:  %{java_arches} noarch
 Source0:        https://github.com/raphw/modulemaker-maven-plugin/archive/refs/tags/modulemaker-maven-plugin-%{version}.tar.gz
 Source1:        https://www.apache.org/licenses/LICENSE-2.0.txt
 
+%if %{with bootstrap}
+BuildRequires:  javapackages-bootstrap
+%else
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
@@ -18,6 +23,7 @@ BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.ow2.asm:asm)
 BuildRequires:  mvn(org.ow2.asm:asm-commons)
+%endif
 
 %description
 This plugin allows the creation of a module-info.class for projects on Java 6
@@ -50,5 +56,8 @@ cp -p %{SOURCE1} .
 %license LICENSE-2.0.txt
 
 %changelog
+* Thu Feb 23 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.9-2
+- Implement bootstrap mode
+
 * Thu Feb 16 2023 Marian Koncek <mkoncek@redhat.com> - 1.9-2
 - Initial build

@@ -3,10 +3,12 @@
 
 Name:           perl-SQL-Translator
 Summary:        Manipulate structured data definitions (SQL and more)
-Version:        1.62
-Release:        9%{?dist}
-License:        GPL-1.0-or-later OR Artistic-1.0-Perl
-Source0:        https://cpan.metacpan.org/authors/id/I/IL/ILMARI/SQL-Translator-%{version}.tar.gz
+Version:        1.63
+Release:        1%{?dist}
+# script/sqlt*: GPL-2.0-only
+# other files:  GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND GPL-2.0-only
+Source0:        https://cpan.metacpan.org/authors/id/V/VE/VEESH/SQL-Translator-%{version}.tar.gz
 URL:            https://metacpan.org/release/SQL-Translator
 BuildArch:      noarch
 BuildRequires:  coreutils
@@ -17,7 +19,6 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::ShareDir::Install)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-BuildRequires:  sed
 # Run-time:
 BuildRequires:  perl(base)
 BuildRequires:  perl(Carp)
@@ -85,6 +86,7 @@ BuildRequires:  perl(XML::Parser)
 #BuildRequires:  perl(Test::EOL) >= 1.1
 #BuildRequires:  perl(Test::NoTabs) >= 1.1
 #BuildRequires:  perl(Test::Pod) >= 1.14
+BuildRequires:  perl(DBD::SQLite)
 Requires:       perl(CGI)
 Requires:       perl(CGI::Pretty)
 Requires:       perl(DBI) >= 1.54
@@ -110,6 +112,8 @@ Requires:       perl(XML::Writer) >= 0.500
 # Remove badly detected requires (a grammar in the
 # lib/SQL/Translator/Parser/Sybase.pm)
 %global __requires_exclude %{__requires_exclude}|^perl\\(:\\)
+# Filter modules bundled for tests
+%global __provides_exclude_from %{?__provides_exclude_from:%__provides_exclude_from|}^%{_libexecdir}
 
 %description
 SQL::Translator is a group of Perl modules that converts vendor-specific
@@ -138,6 +142,7 @@ GraphViz diagram producer for SQL::Translator.
 
 %package -n sqlt-graph
 Summary:        sqlt-graph tool to create a graph from a database schema
+License:        GPL-2.0-only
 Obsoletes:      %{name} < 1.62-4
 
 %description -n sqlt-graph
@@ -145,17 +150,33 @@ The sqlt-graph tool from %{name} that can automatically create a graph
 from a database schema. Packaged separately to avoid the main package
 depending on Graphviz.
 
+%package tests
+Summary:        Tests for %{name}
+Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
+Requires:       perl-Test-Harness
+Requires:       perl(DBD::SQLite)
+Requires:       perl(XML::Parser)
+
+%description tests
+Tests from %{name}. Execute them
+with "%{_libexecdir}/%{name}/test".
+
 %prep
 %setup -q -n SQL-Translator-%{version}
 # Fix shell-bangs
-sed -i -e '1 s|^#!/usr/bin/env perl|#!%{__perl}|' script/*
+perl -MConfig -pi -e 's|^#!.*perl\b|$Config{startperl}|' script/*
 # Fix permission, CPAN RT#100532
 chmod -x lib/SQL/Translator/Parser/JSON.pm
 %if %{without perl_SQL_Translator_enables_excel}
 # Remove Excel support
 rm lib/SQL/Translator/Parser/Excel.pm
-sed -i -e '/^lib\/SQL\/Translator\/Parser\/Excel\.pm/d' MANIFEST
+perl -i -ne 'print $_ unless m{^lib/SQL/Translator/Parser/Excel\.pm}' MANIFEST
 %endif
+# Help generators to recognize Perl scripts
+for F in t/*.t; do
+    perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!.*perl\b}{$Config{startperl}}' "$F"
+    chmod +x "$F"
+done
 
 %build
 perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERLLOCAL=1
@@ -164,8 +185,29 @@ perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="%{optflags}" NO_PACKLIST=1 NO_PERL
 %install
 %{make_install}
 %{_fixperms} %{buildroot}/*
+# Install tests
+mkdir -p %{buildroot}%{_libexecdir}/%{name}
+cp -a t %{buildroot}%{_libexecdir}/%{name}
+mkdir -p %{buildroot}%{_libexecdir}/%{name}/script
+for F in sqlt sqlt.cgi sqlt-diagram sqlt-diff sqlt-diff-old sqlt-dumper sqlt-graph; do
+    ln -s %{_bindir}/$F %{buildroot}%{_libexecdir}/%{name}/script
+done
+cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
+#!/bin/bash
+set -e
+# Some tests write into temporary files/directories. The easiest solution
+# is to copy the tests into a writable directory and execute them from there.
+DIR=$(mktemp -d)
+pushd "$DIR"
+cp -a %{_libexecdir}/%{name}/* ./
+prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
+popd
+rm -rf "$DIR"
+EOF
+chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
@@ -192,7 +234,14 @@ make test
 %{_bindir}/sqlt-graph
 %{_mandir}/man1/sqlt-graph.*
 
+%files tests
+%{_libexecdir}/%{name}
+
 %changelog
+* Mon Feb 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 1.63-1
+- 1.63 bump
+- Package tests
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.62-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %global framework kimageformats
 
 Name:           kf5-%{framework}
-Version: 5.103.0
-Release: 1%{?dist}
+Version:        5.103.0
+Release:        2%{?dist}
 Summary:        KDE Frameworks 5 Tier 1 addon with additional image plugins for QtGui
 
 License:        LGPLv2+
@@ -20,6 +20,7 @@ Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framewo
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  jasper-devel
 BuildRequires:  kf5-rpm-macros >= %{majmin}
+BuildRequires:  LibRaw-devel
 
 %if 0%{?fedora} || 0%{?rhel} >= 9
 BuildRequires:  pkgconfig(libjxl)
@@ -72,6 +73,9 @@ image formats.
 
 
 %changelog
+* Mon Feb 27 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

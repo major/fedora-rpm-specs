@@ -1,8 +1,8 @@
 Summary: A wiki engine
 Name: mediawiki
-Version: 1.39.1
-Release: 3%{?dist}
-License: GPLv2+
+Version: 1.39.2
+Release: 1%{?dist}
+License: GPL-2.0-or-later
 URL: https://www.mediawiki.org/
 Source0: https://releases.wikimedia.org/mediawiki/1.39/%{name}-%{version}.tar.gz
 Source1: https://releases.wikimedia.org/mediawiki/1.39/%{name}-%{version}.tar.gz.sig
@@ -21,9 +21,9 @@ BuildRequires: php-intl
 BuildRequires: php-pdo
 #BuildRequires: php-phpunit-PHPUnit
 BuildRequires: php-theseer-autoload
-BuildRequires: php-composer(cssjanus/cssjanus) >= 2.1.0
+BuildRequires: php-composer(cssjanus/cssjanus) >= 2.1.1
 BuildRequires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-BuildRequires: php-composer(oojs/oojs-ui) >= 0.44.3
+BuildRequires: php-composer(oojs/oojs-ui) >= 0.44.5
 BuildRequires: php-composer(psr/log) >= 1.1.4
 BuildRequires: php-composer(wikimedia/assert) >= 0.5.1
 BuildRequires: php-composer(wikimedia/avro) >= 1.9.0
@@ -42,10 +42,11 @@ Requires: php(httpd)
 Requires: php(language) >= 7.4.3
 Requires: php-gd
 Requires: php-xml
-Requires: diffutils, ImageMagick
-Requires: php-composer(cssjanus/cssjanus) >= 2.1.0
+Requires: diffutils
+Recommends: ImageMagick
+Requires: php-composer(cssjanus/cssjanus) >= 2.1.1
 Requires: php-composer(liuggio/statsd-php-client) >= 1.0.18
-Requires: php-composer(oojs/oojs-ui) >= 0.44.3
+Requires: php-composer(oojs/oojs-ui) >= 0.44.5
 Requires: php-composer(psr/log) >= 1.1.4
 Requires: php-composer(wikimedia/assert) >= 0.5.1
 Requires: php-composer(wikimedia/avro) >= 1.9.0
@@ -90,7 +91,6 @@ Provides: bundled(php-wikimedia-common-passwords) = 0.4.0
 Provides: bundled(php-wikimedia-composer-merge-plugin) = 2.0.1
 Provides: bundled(php-wikimedia-css-sanitizer) = 3.0.2
 Provides: bundled(php-wikimedia-equivset) = 1.4.3
-Provides: bundled(php-wikimedia-remex-html) = 3.0.2
 Provides: bundled(php-wikimedia-timestamp) = 3.0.0
 Provides: bundled(php-wikimedia-base-convert) = 2.0.2
 Provides: bundled(php-wikimedia-cldr-plural-rule-parser) = 2.0.0
@@ -105,7 +105,7 @@ Provides: bundled(php-wikimedia-parsoid) = 0.16.1
 Provides: bundled(php-wikimedia-php-session-serializer) = 2.0.1
 Provides: bundled(php-wikimedia-purtle) = 1.0.8
 Provides: bundled(php-wikimedia-relpath) = 3.0.0
-Provides: bundled(php-wikimedia-remex-html) = 3.0.2
+Provides: bundled(php-wikimedia-remex-html) = 3.0.3
 Provides: bundled(php-wikimedia-request-timeout) = 1.2.0
 Provides: bundled(php-wikimedia-running-stat) = 2.1.0
 Provides: bundled(php-wikimedia-scoped-callback) = 4.0.0
@@ -130,7 +130,7 @@ Remember to remove the config dir after completing the configuration.
 
 
 %prep
-%setup -q
+%autosetup
 # Remove extension as it ships a bundled lua binary
 rm -rf extensions/Scribunto
 # Remove bundled PHP libraries in order to use system versions
@@ -259,6 +259,11 @@ cd tests/phpunit
 
 
 %changelog
+* Sun Feb 26 2023 Michael Cronenworth <mike@cchtml.com> - 1.39.2-1
+- Update to 1.39.2
+- https://www.mediawiki.org/wiki/Release_notes/1.39#MediaWiki_1.39.2
+- Change ImageMagick to a weak dependency
+
 * Sun Feb 26 2023 Orion Poplawski <orion@nwra.com> - 1.39.1-3
 - Add <Directory> tags for skins in apache httpd config (bz#2171908)
 

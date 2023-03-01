@@ -1,15 +1,15 @@
 %global gem_name sqlite3
 
 Name: rubygem-%{gem_name}
-Version: 1.4.2
-Release: 12%{?dist}
+Version: 1.6.1
+Release: 1%{?dist}
 Summary: Allows Ruby scripts to interface with a SQLite3 database
-License: BSD
+License: BSD-3-Clause
 URL: https://github.com/sparklemotion/sqlite3-ruby
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# Fix SQLite 3.37.0+ compatibility (however it breaks older SQLite).
-# https://github.com/sparklemotion/sqlite3-ruby/pull/304
-Patch0: rubygem-sqlite3-1.4.2-Fix-sqlite-3.37.0-compatibility.patch
+# Lazy load mini_portile2 to avoid the dependency.
+# https://github.com/sparklemotion/sqlite3-ruby/pull/381
+Patch0: rubygem-sqlite3-1.6.1-Load-mini_portile2-only-when-needed.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby-devel
@@ -33,11 +33,22 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
+# Remove bundled SQLite right away.
+rm -rf ports
+%gemspec_remove_file "ports/archives/sqlite-autoconf-3410000.tar.gz"
+
+# This is not really runtime dependency, neither it is needed by official
+# prebuild platform specific packages.
+%gemspec_remove_dep -g mini_portile2 "~> 2.8.0"
+
 %patch0 -p1
 
 %build
 # Create the gem as gem install only works on a gem file
 gem build ../%{gem_name}-%{version}.gemspec
+
+# Build against system SQLite3.
+CONFIGURE_ARGS="--enable-system-libraries"
 
 # %%gem_install compiles any C extensions and installs the gem into ./%%gem_dir
 # by default, so that we can move it into the buildroot in %%install
@@ -64,26 +75,30 @@ popd
 %{gem_extdir_mri}
 %exclude %{gem_instdir}/.*
 %license %{gem_instdir}/LICENSE
+# This does not apply to Fedora package, because it does not bundle the
+# SQLite3 library.
+%exclude %license %{gem_instdir}/LICENSE-DEPENDENCIES
 %{gem_libdir}
 %exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
-%doc %{gem_instdir}/API_CHANGES.rdoc
-%doc %{gem_instdir}/CHANGELOG.rdoc
+%doc %{gem_instdir}/API_CHANGES.md
+%doc %{gem_instdir}/CHANGELOG.md
+%doc %{gem_instdir}/CONTRIBUTING.md
 %doc %{gem_instdir}/ChangeLog.cvs
-%doc %{gem_instdir}/Manifest.txt
 %{gem_instdir}/Gemfile
-%doc %{gem_instdir}/README.rdoc
-%{gem_instdir}/Rakefile
-%{gem_instdir}/appveyor.yml
+%doc %{gem_instdir}/README.md
+%{gem_instdir}/dependencies.yml
 %doc %{gem_instdir}/faq
-%{gem_instdir}/rakelib
-%{gem_instdir}/setup.rb
 %{gem_instdir}/test
 
 %changelog
+* Tue Feb 21 2023 Vít Ondruch <vondruch@redhat.com> - 1.6.1-1
+- Update to sqlite 1.6.1.
+  Resolves: rhbz#2096351
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

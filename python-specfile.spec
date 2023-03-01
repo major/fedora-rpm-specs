@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.13.2
+Version:        0.14.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -41,8 +41,6 @@ Summary:        %{summary}
 
 %prep
 %autosetup -p1 -n specfile-%{version}
-# Use packaged RPM python bindings downstream
-sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %generate_buildrequires
@@ -69,6 +67,10 @@ sed -i 's/rpm-py-installer/rpm/' setup.cfg
 
 
 %changelog
+* Thu Feb 23 2023 Packit <hello@packit.dev> - 0.14.0-1
+- Fixed a bug that broke parsing in case spec file contained conditionalized macro definitions or similar constructs. (#209)
+- Specfile no longer depends on rpm-py-installer, it now depends directly on rpm. (#207)
+
 * Mon Jan 30 2023 Packit <hello@packit.dev> - 0.13.2-1
 - Fixed infinite loop that occured when section options were followed by whitespace. (#197)
 

@@ -23,6 +23,7 @@ BuildRequires:  gcc
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  %{py3_dist docutils}
+BuildRequires:  %{py3_dist pygments}
 
 # Java dependencies
 %ifarch %{java_arches}
@@ -32,11 +33,6 @@ BuildRequires:  javapackages-tools
 
 # Python dependencies
 BuildRequires:  python3-devel
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist pygments}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 
 %global desc %{expand:Snowball is a small string processing language for creating stemming
 algorithms for use in Information Retrieval, plus a collection of
@@ -145,10 +141,26 @@ Stemming algorithms written in Python 3.
 %langlist
 
 %prep
-%autosetup -p1 -b 1
+# Once https://bugzilla.redhat.com/show_bug.cgi?id=2173192 is fixed, we can
+# do this:
+#%%autosetup -p1 -b 1
+%autosetup -p1
 
 # Fix an RST error
 sed -i 's/\(libstemmer_c-\)\*/\1\\*/' doc/libstemmer_c_README
+
+# Once https://bugzilla.redhat.com/show_bug.cgi?id=2173192 is fixed, we can
+# remove this:
+cd ..
+unzip -o %{SOURCE1}
+
+%generate_buildrequires
+cd python
+ln -s ../libstemmer/modules.txt .
+ln -s ../README.rst .
+ln -s . src
+%pyproject_buildrequires
+rm modules.txt README.rst src
 
 %build
 # Build the compiler and C library
@@ -250,6 +262,9 @@ make check_python
 %license COPYING
 
 %changelog
+* Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 2.2.0-5
+- Dynamically generate python BuildRequires
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

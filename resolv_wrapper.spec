@@ -1,6 +1,6 @@
 Name:           resolv_wrapper
 Version:        1.1.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        A wrapper for dns name resolving or dns faking
 License:        BSD
@@ -9,6 +9,8 @@ Url:            http://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        resolv_wrapper.keyring
+
+Patch0:         resolv_wrapper-fix-cmocka-1.1.6+-support.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -65,6 +67,9 @@ LD_PRELOAD=%{__cmake_builddir}/src/libpam_wrapper.so bash -c '>/dev/null'
 %{_mandir}/man1/resolv_wrapper.1*
 
 %changelog
+* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.1.8-3
+- Fix building with cmocka >= 1.1.6
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 
 Name:           sdrpp
 Version:        1.0.4
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        SDRPlusPlus bloat-free SDR receiver software
 
 License:        GPLv3 and MIT and WTFPL and Public Domain
@@ -42,9 +42,10 @@ BuildRequires:  spdlog-devel fmt-devel
 # Need to BR -static packages for header-only libraries for tracking, per
 BuildRequires:  rapidjson-devel rapidjson-static
 BuildRequires:  json-devel json-static
-# stb_image 2.27-0.7 is the minimum EVR to contain fixes for all of
-# CVE-2021-28021, CVE-2021-42715, and CVE-2021-42716.
-BuildRequires:  stb_image-devel >= 2.27-0.7
+# Enforce the the minimum EVR to contain fixes for all of CVE-2021-28021,
+# CVE-2021-42715, CVE-2021-42716, and CVE-2022-28041, plus the null-pointer
+# dereference bug https://github.com/nothings/stb/issues/1452.
+BuildRequires:  stb_image-devel >= 2.28^20230129git5736b15-0.2
 BuildRequires:  stb_image-static
 BuildRequires:  stb_image_resize-devel stb_image_resize-static
 BuildRequires:  stb_truetype-devel stb_truetype-static
@@ -155,6 +156,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Feb 26 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.0.4-12
+- Update min. stb_image version for nullptr deref. bug
+
 * Fri Jan 20 2023 Richard Shaw <hobbes1069@gmail.com> - 1.0.4-11
 - Rebuild for volk.
 

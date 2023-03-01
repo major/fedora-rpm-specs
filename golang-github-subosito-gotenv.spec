@@ -3,7 +3,7 @@
 
 # https://github.com/subosito/gotenv
 %global goipath         github.com/subosito/gotenv
-Version:                1.4.1
+Version:                1.4.2
 
 %gometa
 

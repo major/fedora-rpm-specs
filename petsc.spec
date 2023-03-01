@@ -8,7 +8,7 @@
 %global _lto_cflags %{nil}
 
 # Testing libpetsc ?
-%bcond_with check
+%bcond_without check
 #
 
 # Python binding and its testing
@@ -290,7 +290,7 @@
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
 Version: %{releasever}.4
-Release: 13%{?dist}
+Release: 14%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -1168,6 +1168,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Mon Feb 27 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-14
+- Rebuild for openmpi-4.1.5
+
 * Fri Feb 24 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-13
 - Drop latest changes
 

@@ -34,8 +34,7 @@
 
 Name:           perl-Prima
 # I believe upstream will continue with 1.68.
-%global cpan_version 1.67001
-Version:        1.67.1
+Version:        1.68
 Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
@@ -56,13 +55,7 @@ Summary:        Perl graphic toolkit
 # unix/render.c:        HPND-sell-variant
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
-Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{cpan_version}.tar.gz
-# Normalize example shebangs, in upstream after 1.67001, CPAN RT#146472
-Patch0:         Prima-1.67001-Remove-a-shebang-from-examples-clock.pl.patch
-# Fix color ordering when creating a pixmap on big-endian systems,
-# in upstream after 1.67001, bug #2169177,
-# <https://github.com/dk/Prima/issues/81>
-Patch1:         Prima-1.67001-fix-81-and-add-some-more-tests-targeting-LSBit-arch-.patch
+Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
 BuildRequires:  findutils
 BuildRequires:  giflib-devel
 BuildRequires:  gcc
@@ -130,6 +123,7 @@ BuildRequires:  pkgconfig(xpm)
 BuildRequires:  pkgconfig(xrandr) >= 1.5
 BuildRequires:  pkgconfig(xrender)
 # Run-time:
+BuildRequires:  perl(AnyEvent)
 BuildRequires:  perl(base)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
@@ -185,6 +179,15 @@ Prima is a general purpose extensible graphical user interface toolkit with
 a rich set of standard widgets and an emphasis on 2D image processing tasks.
 A Perl program using PRIMA looks and behaves identically on X, Win32.
 
+%package AnyEvent
+Summary:        AnyEvent bridge for Prima Perl graphic toolkit
+License:        BSD-2-Clause
+Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+
+%description AnyEvent
+This is an experiment to bring in AnyEvent::Impl::Prima into the
+Prima toolkit's core.
+
 %package Test
 Summary:        Test tools for Prima Perl graphic toolkit
 License:        BSD-2-Clause
@@ -214,7 +217,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%autosetup -p1 -n Prima-%{cpan_version}
+%autosetup -p1 -n Prima-%{version}
 %if !%{with perl_Prima_enables_optional_test}
 rm t/misc/pod.t
 perl -i -ne 'print $_ unless m{\A\Qt/misc/pod.t\E}' MANIFEST
@@ -294,7 +297,10 @@ unset DISPLAY XDG_SESSION_TYPE
 %{perl_vendorarch}/prima-gencls.pod
 %{perl_vendorarch}/Prima.pm
 %{perl_vendorarch}/Prima
+%exclude %{perl_vendorarch}/Prima/examples/socket_anyevent1.pl
+%exclude %{perl_vendorarch}/Prima/examples/socket_anyevent2.pl
 %exclude %{perl_vendorarch}/Prima/Stress.*
+%exclude %{perl_vendorarch}/Prima/sys/AnyEvent.pm
 %exclude %{perl_vendorarch}/Prima/sys/Test.*
 %{perl_vendorarch}/vb-large.png
 %{_mandir}/man1/podview.*
@@ -305,7 +311,14 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_mandir}/man3/Prima.*
 %{_mandir}/man3/Prima::*
 %exclude %{_mandir}/man3/Prima::Stress.*
+%exclude %{_mandir}/man3/Prima::sys::AnyEvent.*
 %exclude %{_mandir}/man3/Prima::sys::Test.*
+
+%files AnyEvent
+%{perl_vendorarch}/Prima/examples/socket_anyevent1.pl
+%{perl_vendorarch}/Prima/examples/socket_anyevent2.pl
+%{perl_vendorarch}/Prima/sys/AnyEvent.pm
+%{_mandir}/man3/Prima::sys::AnyEvent.*
 
 %files Test
 %{perl_vendorarch}/Prima/Stress.*
@@ -317,6 +330,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 27 2023 Petr Pisar <ppisar@redhat.com> - 1.68-1
+- 1.68 bump
+
 * Tue Feb 14 2023 Petr Pisar <ppisar@redhat.com> - 1.67.1-1
 - 1.67001 bump
 

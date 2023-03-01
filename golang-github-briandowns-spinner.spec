@@ -3,7 +3,7 @@
 
 # https://github.com/briandowns/spinner
 %global goipath         github.com/briandowns/spinner
-Version:                1.18.0
+Version:                1.22.0
 
 %gometa
 
@@ -19,11 +19,13 @@ Release:        %autorelease
 Summary:        Go package providing a terminal spinner/progress indicator
 
 # Upstream license specification: Apache-2.0
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            %{gourl}
 Source0:        %{gosource}
 
-BuildRequires:  golang(github.com/fatih/color)
+BuildRequires:  golang(github.com/fatih/color) >= 1.7.0
+BuildRequires:  golang(github.com/mattn/go-isatty) >= 0.0.8
+BuildRequires:  golang(golang.org/x/term) >= 0.1.0
 
 %description
 %{common_description}

@@ -6,11 +6,11 @@ A collection of custom wx widgets and utilities used by FSLeyes.
 
 
 Name:           python-fsleyes-widgets
-Version:        0.12.3
+Version:        0.13.0
 Release:        %autorelease
 Summary:        A collection of custom wx widgets and utilities used by FSLeyes
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://pypi.python.org/pypi/fsleyes-widgets
 Source0:        %{pypi_source fsleyes-widgets}
 

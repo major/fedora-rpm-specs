@@ -321,7 +321,7 @@ Obsoletes: %{name}-system-unicore32-core <= %{epoch}:%{version}-%{release}
 %endif
 
 # To prevent rpmdev-bumpspec breakage
-%global baserelease 6
+%global baserelease 7
 
 Summary: QEMU is a FAST! processor emulator
 Name: qemu
@@ -346,10 +346,19 @@ Source36: README.tests
 
 # Fix SGX assert
 Patch: 0001-target-i386-the-sgx_epc_get_section-stub-is-reachabl.patch
-Patch: 0001-tests-Disable-pci_virtio_vga-for-ppc64.patch
+Patch: 0002-tests-Disable-pci_virtio_vga-for-ppc64.patch
 # Fix compat with kernel-headers >= 6.1
 Patch: 0003-Revert-linux-user-add-more-compat-ioctl-definitions.patch
 Patch: 0004-Revert-linux-user-fix-compat-with-glibc-2.36-sys-mou.patch
+# Fix virtio-blk-pci detect-zeroes=unmap (RHBZ#2173357)
+Patch: 0005-block-fix-detect-zeroes-with-BDRV_REQ_REGISTERED_BUF.patch
+# Fix build with glib2 2.75.3
+# https://bugzilla.redhat.com/show_bug.cgi?id=2173639
+# https://gitlab.com/qemu-project/qemu/-/issues/1518
+# Patch is NOT UPSTREAM.
+Patch: 0006-PATCH-test-vmstate-fix-bad-GTree-usage-use-after-fre.patch
+# Fix one of the tests.  Sent upstream 2023-02-27.
+Patch: 0007-tests-Ensure-TAP-version-is-printed-before-other-mes.patch
 
 BuildRequires: meson >= %{meson_version}
 BuildRequires: zlib-devel
@@ -2002,8 +2011,10 @@ rm -rf %{static_buildroot}
 
 pushd %{qemu_kvm_build}
 echo "Testing %{name}-build"
+# i686: we propose to drop qemu, for now just disable the tests, see:
+# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/C2U5RBADZB2ZUMR74PLNV73C3AIPSLWH/
 # 2022-06: ppc64le random qtest segfaults with no discernable pattern
-%ifnarch %{power64}
+%ifnarch %{ix86} %{power64}
 %make_build check
 %endif
 
@@ -2779,6 +2790,11 @@ useradd -r -u 107 -g qemu -G kvm -d / -s /sbin/nologin \
 
 
 %changelog
+* Mon Feb 27 2023 Richard W.M. Jones <rjones@redhat.com> - 7.2.0-7
+- Fix virtio-blk-pci detect-zeroes=unmap (RHBZ#2173357)
+- Fix build with glib2 2.75.3 (RHBZ#2173639)
+- Disable the tests on i686
+
 * Tue Jan 31 2023 Stefan Hajnoczi <stefanha@redhat.com> - 7.2.0-6
 - Enable libblkio
 

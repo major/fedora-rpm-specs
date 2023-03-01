@@ -5,7 +5,7 @@
 %global pypi_name elephant
 
 Name:       python-elephant
-Version:    0.11.1
+Version:    0.12.0
 Release:    %autorelease
 Summary:    Elephant is a package for analysis of electrophysiology data in Python
 License:    BSD
@@ -75,12 +75,17 @@ cat requirements/requirements-extras.txt >> requirements/requirements-tests.txt
 # fails on aarch64
 # reported upstream: https://github.com/NeuralEnsemble/elephant/issues/479
 %ifarch %{arm64}
-k="${k:-}${k:+ and }not test_welch_psd_multidim_input and not test_welch_cohere_multidim_input"
+k="${k:-}${k:+ and }not test_welch_psd_multidim_input and not test_welch_cohere_multidim_input and not test_multitaper_cohere_perfect_cohere"
+%endif
+
+# fails on ppc64le
+%ifarch %{power64}
+k="${k:-}${k:+ and} not test_multitaper_cohere_perfect_cohere"
 %endif
 
 %if %{without net_tests}
 # Disable tests that download bits
-k="${k:-}${k:+ and }not test_repr and not test__UE_surrogate and not test_spike_contrast_with_Izhikevich_network_auto and not test_Riehle_et_al_97_UE and not test_multitaper_psd_against_nitime"
+k="${k:-}${k:+ and }not test_repr and not test__UE_surrogate and not test_spike_contrast_with_Izhikevich_network_auto and not test_Riehle_et_al_97_UE and not test_multitaper_psd_against_nitime and not test_WPLI_ and not test_victor_purpura_matlab_comparison_"
 %endif
 
 # serial

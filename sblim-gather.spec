@@ -3,7 +3,7 @@
 
 Name:           sblim-gather
 Version:        2.2.9
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        SBLIM Gatherer
 
 License:        EPL-1.0
@@ -23,6 +23,7 @@ BuildRequires:  libsysfs-devel
 BuildRequires:  libvirt-devel
 BuildRequires:  xmlto
 BuildRequires:  gcc
+BuildRequires:  systemd-units
 # for missing providers
 BuildRequires:  cmake
 Patch1:         sblim-gather-2.2.7-missing_providers.patch
@@ -302,6 +303,10 @@ fi
 %ldconfig_postun provider
 
 %changelog
+* Mon Feb 27 2023 Vitezslav Crhonek <vcrhonek@redhat.com> - 2.2.9-28
+- Add systemd-units to BR (fixes FTBFS)
+  Resolves: #2171724
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.9-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

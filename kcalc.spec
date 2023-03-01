@@ -1,8 +1,3 @@
-# docbook-related build busted on flatpak, omit for now -- rdieter
-%if 0%{?flatpak}
-%global no_docbook 1
-%endif
-
 Name:    kcalc 
 Summary: Scientific Calculator 
 Version: 22.12.2
@@ -78,15 +73,9 @@ functions than meet the eye on a first glance.
 %prep
 %autosetup -p1
 
-%if 0%{?no_docbook}
-sed -i.nodoc -e 's|^add_subdirectory(doc)|#add_subdirectory(doc)|g' CMakeLists.txt && \
-mv doc doc.no_docbook
-rm -rfv po/*/docs
-%endif
-
 
 %build
-%cmake_kf5
+%cmake_kf5 %{?flatpak:-DINSTALL_ICONS=ON}
 
 %cmake_build
 
@@ -111,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_metainfodir}/org.kde.%{name}.appdata.xml
 %{_kf5_datadir}/kconf_update/%{name}*
 %{_kf5_datadir}/config.kcfg/%{name}.kcfg
+%if 0%{?flatpak}
+%{_kf5_datadir}/icons/hicolor/*/*/accessories-calculator.*
+%endif
 
 
 %changelog

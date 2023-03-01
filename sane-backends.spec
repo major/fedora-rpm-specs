@@ -16,9 +16,9 @@
 %global config_files_list abaton agfafocus apple artec artec_eplus48u avision bh canon canon630u canon_dr canon_lide70 canon_pp cardscan coolscan coolscan2 coolscan3 dell1600n_net dll epjitsu epson epson2 epsonds fujitsu genesys gt68xx hp hp3900 hp4200 hp5400 hpsj5s hs2p ibm kodak kodakaio kvs1025 leo lexmark ma1509 magicolor matsushita microtek microtek2 mustek mustek_pp mustek_usb nec net p5 pie pieusb pixma plustek plustek_pp ricoh rts8891 s9036 sceptre sharp sm3840 snapscan sp15c st400 tamarack teco1 teco2 teco3 test u12 umax umax1220u umax_pp xerox_mfp dc210 dc240 dc25 dmc gphoto2 qcam stv680 v4l
 
 %if 0%{?flatpak}
-%bcond_with systemd
+%bcond_with runtimedep-systemd
 %else
-%bcond_without systemd
+%bcond_without runtimedep-systemd
 %endif
 
 Summary: Scanner access software
@@ -79,17 +79,15 @@ BuildRequires: libv4l-devel
 BuildRequires: make
 # pixma backend generates header files during build via python script
 BuildRequires: python3
-%if %{with systemd}
 BuildRequires: systemd-devel
 BuildRequires: systemd
 # needed by macros in rpm scriptlets
 BuildRequires: systemd-rpm-macros
-%endif
 
 Requires: libpng
 Requires: sane-airscan
 Requires: sane-backends-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-%if %{with systemd}
+%if %{with runtimedep-systemd}
 Requires: systemd >= 196
 Requires: systemd-udev >= 196
 %endif
@@ -190,11 +188,7 @@ LDFLAGS="-pie"
 %configure \
     --with-gphoto2=%{_prefix} \
     --with-docdir=%{_maindocdir} \
-%if %{with systemd}
     --with-systemd \
-%else
-    --without-systemd \
-%endif
     --disable-locking --disable-rpath \
 %if %libusb1
     --with-usb \
@@ -251,14 +245,12 @@ popd
 
 install -m 644 %{SOURCE4} %{buildroot}%{_maindocdir}
 
-%if %{with systemd}
 install -m 755 -d %{buildroot}%{_unitdir}
 install -m 644 %{SOURCE2} %{buildroot}%{_unitdir}
 sed 's|@CONFIGDIR@|%{_sysconfdir}/sane.d|g' < %{SOURCE3} > saned@.service
 install -m 644 saned@.service %{buildroot}%{_unitdir}
 
 install -p -D -m 0644 %{SOURCE6} %{buildroot}%{_sysusersdir}/sane-backends.conf
-%endif
 
 %ifarch armv7hl
 rm -f %{buildroot}%{_libdir}/sane/libsane-qcam.so
@@ -308,7 +300,6 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 
 %ldconfig_scriptlets libs
 
-%if %{with systemd}
 %pre daemon
 %sysusers_create_compat %{SOURCE6}
 
@@ -320,7 +311,6 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 
 %postun daemon
 %systemd_postun_with_restart saned.socket
-%endif
 
 %files -f %{name}.lang -f config_list
 %dir %{_maindocdir}
@@ -403,13 +393,14 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_mandir}/man8/saned*
 %config(noreplace) %{_sysconfdir}/sane.d/saned.conf
 %{_udevrulesdir}/66-saned.rules
-%if %{with systemd}
 %{_sysusersdir}/sane-backends.conf
 %{_unitdir}/saned.socket
 %{_unitdir}/saned@.service
-%endif
 
 %changelog
+* Mon Feb 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-3
+- flatpak doesn't want systemd only in runtime
+
 * Thu Feb 23 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-3
 - add bcond for systemd - used in flatpak
 

@@ -1,6 +1,6 @@
 Name:           perl-Geo-ShapeFile
-Version:        3.01
-Release:        7%{?dist}
+Version:        3.03
+Release:        1%{?dist}
 Summary:        Perl extension for handling ESRI GIS Shapefiles
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Geo-ShapeFile
@@ -30,6 +30,7 @@ BuildRequires:  perl(strict)
 BuildRequires:  perl(Tree::R)
 BuildRequires:  perl(warnings)
 # Tests
+BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(FindBin)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test::Exception)
@@ -82,7 +83,7 @@ mkdir -p %{buildroot}%{_libexecdir}/%{name}
 cp -a t %{buildroot}%{_libexecdir}/%{name}
 cat > %{buildroot}%{_libexecdir}/%{name}/test << 'EOF'
 #!/bin/sh
-cd %{_libexecdir}/%{name} && exec prove -I . -r -j "$(getconf _NPROCESSORS_ONLN)"
+cd %{_libexecdir}/%{name} && exec prove -I . -j "$(getconf _NPROCESSORS_ONLN)"
 EOF
 chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 
@@ -99,6 +100,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Feb 27 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.03
+- 3.03 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.01-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

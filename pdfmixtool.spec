@@ -2,10 +2,10 @@
 
 Name:           pdfmixtool
 Version:        1.1.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        An application to split, merge, rotate and mix PDF files
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://scarpetta.eu/pdfmixtool
 Source0:        https://gitlab.com/scarpetta/pdfmixtool/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
@@ -48,6 +48,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{appid}.desktop
 %{_metainfodir}/%{appid}.appdata.xml
 
 %changelog
+* Mon Feb 27 2023 Gustavo Costa <xfgusta@gmail.com> - 1.1.1-5
+- Use SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

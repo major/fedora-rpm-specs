@@ -162,7 +162,8 @@ tar xvzpf %{SOURCE2} -C .
        -DCMAKE_SKIP_RPATH:BOOL=OFF \
        -DUSE_LIBWEBSOCKETS=ON \
        -DCONSOLE_INSTALL=OFF \
-      "-DCMAKE_CXX_FLAGS=$CXXFLAGS -Wno-error=use-after-free -Wno-error=array-bounds" \
+      "-DCMAKE_CXX_FLAGS=$CXXFLAGS -Wno-error=use-after-free -Wno-error=array-bounds " \
+      "-DCMAKE_C_FLAGS=$CFLAGS -Wno-error=maybe-uninitialized " \
        .
 make
 make doc

@@ -1,14 +1,14 @@
 %bcond_with bootstrap
 
 %global packname dplyr
-%global packver  1.0.10
+%global packver  1.1.0
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((Lahman|RMySQL|RPostgreSQL)\\)
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          A Grammar of Data Manipulation
 
 License:          MIT
@@ -17,41 +17,44 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-ellipsis, R-generics, R-glue >= 1.3.2, R-lifecycle >= 1.0.0, R-magrittr >= 1.5, R-methods, R-R6, R-rlang >= 0.4.10, R-tibble >= 2.1.3, R-tidyselect >= 1.1.0, R-utils, R-vctrs >= 0.3.5, R-pillar >= 1.5.1
-# Suggests:  R-bench, R-broom, R-callr, R-covr, R-DBI, R-dbplyr >= 1.4.3, R-knitr, R-Lahman, R-lobstr, R-microbenchmark, R-nycflights13, R-purrr, R-rmarkdown, R-RMySQL, R-RPostgreSQL, R-RSQLite, R-testthat >= 3.0.2, R-tidyr, R-withr
+# Imports:   R-cli >= 3.4.0, R-generics, R-glue >= 1.3.2, R-lifecycle >= 1.0.3, R-magrittr >= 1.5, R-methods, R-pillar >= 1.5.1, R-R6, R-rlang >= 1.0.6, R-tibble >= 2.1.3, R-tidyselect >= 1.2.0, R-utils, R-vctrs >= 0.5.2
+# Suggests:  R-bench, R-broom, R-callr, R-covr, R-DBI, R-dbplyr >= 2.2.1, R-ggplot2, R-knitr, R-Lahman, R-lobstr, R-microbenchmark, R-nycflights13, R-purrr, R-rmarkdown, R-RMySQL, R-RPostgreSQL, R-RSQLite, R-stringi >= 1.7.6, R-testthat >= 3.1.5, R-tidyr >= 1.3.0, R-withr
 # LinkingTo:
 # Enhances:
 
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    R-cli >= 3.4.0
 BuildRequires:    R-generics
 BuildRequires:    R-glue >= 1.3.2
-BuildRequires:    R-lifecycle >= 1.0.1
+BuildRequires:    R-lifecycle >= 1.0.3
 BuildRequires:    R-magrittr >= 1.5
 BuildRequires:    R-methods
-BuildRequires:    R-R6
-BuildRequires:    R-rlang >= 1.0.2
-BuildRequires:    R-tibble >= 2.1.3
-BuildRequires:    R-tidyselect >= 1.1.1
-BuildRequires:    R-utils
-BuildRequires:    R-vctrs >= 0.4.1
 BuildRequires:    R-pillar >= 1.5.1
+BuildRequires:    R-R6
+BuildRequires:    R-rlang >= 1.0.6
+BuildRequires:    R-tibble >= 2.1.3
+BuildRequires:    R-tidyselect >= 1.2.0
+BuildRequires:    R-utils
+BuildRequires:    R-vctrs >= 0.5.2
 BuildRequires:    R-callr
 BuildRequires:    R-DBI
+BuildRequires:    R-ggplot2
 BuildRequires:    R-knitr
 BuildRequires:    R-lobstr
 BuildRequires:    R-microbenchmark
 BuildRequires:    R-purrr
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-RSQLite
-BuildRequires:    R-testthat >= 3.1.1
+BuildRequires:    R-stringi >= 1.7.6
+BuildRequires:    R-testthat >= 3.1.5
 BuildRequires:    R-withr
 %if %{without bootstrap}
 BuildRequires:    R-bench
 BuildRequires:    R-broom
-BuildRequires:    R-dbplyr >= 1.4.3
+BuildRequires:    R-dbplyr >= 2.2.1
 BuildRequires:    R-nycflights13
-BuildRequires:    R-tidyr
+BuildRequires:    R-tidyr >= 1.3.0
 BuildRequires:    R-ggplot2
 %endif
 
@@ -88,7 +91,12 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %check
 export LANG=C.UTF-8
 %if %{without bootstrap}
+# yay weird ibm arches
+%ifarch ppc64le
+%{_bindir}/R CMD check %{packname} --no-vignettes
+%else
 %{_bindir}/R CMD check %{packname}
+%endif
 %else
 _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes
 %endif
@@ -112,6 +120,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-vignettes
 
 
 %changelog
+* Mon Feb 27 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.0-1
+- update to 1.1.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.10-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

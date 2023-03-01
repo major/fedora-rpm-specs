@@ -3,7 +3,7 @@
 
 # https://github.com/gobuffalo/flect
 %global goipath         github.com/gobuffalo/flect
-Version:                0.3.0
+Version:                1.0.2
 
 %gometa
 

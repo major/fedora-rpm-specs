@@ -45,7 +45,7 @@ Tree view Kirigami addon, which is useful for listing files.
 %autosetup -n %{orig_name}-v%{version}
 
 %build
-%cmake
+%cmake_kf5
 %cmake_build
 
 %install

@@ -45,6 +45,12 @@ fi
 # Clean up hidden files before they get installed
 find . -name .gitignore -delete
 
+%generate_buildrequires
+cd python
+sed 's/\${LIBPOLY_VERSION}/%{version}/' setup.py.in > setup.py
+%pyproject_buildrequires
+rm setup.py
+
 %build
 %cmake %{_cmake_skip_rpath} \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo \
@@ -52,12 +58,20 @@ find . -name .gitignore -delete
   -DLIBPOLY_BUILD_STATIC_PIC:BOOL=OFF
 %cmake_build
 
+# Build the python interface the Fedora way
+sed -i "s|library_dirs = \[|&'$PWD/%{_vpath_builddir}/src', |" python/setup.py
+cd python
+%pyproject_wheel
+cd -
+
 %install
 %cmake_install
 
-# Install the python interface by hand
-mkdir -p %{buildroot}%{python3_sitearch}
-cp -p %{_vpath_builddir}/python/polypy.so %{buildroot}%{python3_sitearch}
+# Install the python interface the Fedora way
+cd python
+%pyproject_install
+%pyproject_save_files polypy
+cd -
 
 %check
 export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
@@ -74,10 +88,13 @@ export LD_LIBRARY_PATH=$PWD/%{_vpath_builddir}/src
 %{_libdir}/libpoly.so
 %{_libdir}/libpolyxx.so
 
-%files -n python3-%{name}
-%{python3_sitearch}/polypy.so
+%files -n python3-%{name} -f %{pyproject_files}
 
 %changelog
+* Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 0.1.11-5
+- Dynamically generate python BuildRequires
+- Install python dist-info
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.11-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

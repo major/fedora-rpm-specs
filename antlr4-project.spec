@@ -57,9 +57,6 @@ BuildRequires:  mvn(org.twdata.maven:mojo-executor)
 BuildRequires:  nodejs-packaging
 BuildRequires:  pkgconfig(uuid)
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 BuildRequires:  utf8cpp-devel
 
 # https://fedoraproject.org/wiki/Changes/Drop_i686_JDKs
@@ -223,6 +220,10 @@ sed -i 's,\\>,>,g' tool/resources/org/antlr/v4/tool/templates/unicodedata.st
 # Use utf8cpp instead of the deprecated wstring_convert
 sed -i 's/# \(.*DUSE_UTF8_INSTEAD_OF_CODECVT.*\)/\1/' runtime/Cpp/CMakeLists.txt
 
+%generate_buildrequires
+cd runtime/Python3
+%pyproject_buildrequires
+
 %build
 export JAVA_HOME=%{_jvmdir}/java
 
@@ -381,6 +382,9 @@ rm -fr %{buildroot}%{_docdir}/libantlr4
 %endif
 
 %changelog
+* Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 4.10.1-7
+- Dynamically generate python BuildRequires
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.10.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

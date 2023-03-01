@@ -3,7 +3,7 @@
 
 # https://github.com/gdamore/tcell
 %global goipath         github.com/gdamore/tcell/v2
-Version:                2.5.4
+Version:                2.6.0
 
 %gometa
 
@@ -13,6 +13,7 @@ better in others.}
 
 %global golicenses      LICENSE
 %global godocs          CHANGESv2.md AUTHORS TUTORIAL.md README.md
+%global gosupfiles      webfiles/*
 
 Name:           %{goname}
 Release:        %autorelease
@@ -38,11 +39,12 @@ BuildRequires:  rxvt-unicode
 %goprep
 
 # Use existing sources for:
+# * alacritty-direct, as it's not provided by ncurses, nor packaged
 # * foot, as we have no source since it isn't packaged
 # * sun, which is hand-coded, not generated
 # * xterm-direct, which is hand-coded, not generated
 # * xterm-termite, as we have no source since it isn't packaged
-find terminfo/?/ \! -path '*foot/foot.go' -a \! -path '*sun/term.go' -a \! -path '*xterm/direct.go' -a \! -path '*xterm_termite/term.go' -type f -delete
+find terminfo/?/ \! -path '*alacritty/direct.go' -a \! -path '*foot/foot.go' -a \! -path '*sun/term.go' -a \! -path '*xterm/direct.go' -a \! -path '*xterm_termite/term.go' -type f -delete
 sed -i 's/go run mkinfo.go/$1/g' terminfo/gen.sh
 
 %generate_buildrequires

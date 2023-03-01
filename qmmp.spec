@@ -1,6 +1,6 @@
 Name:		qmmp
 Version:	2.1.2
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPLv2+ and CC-BY-SAv4+
@@ -11,6 +11,7 @@ BuildRequires:	alsa-lib-devel
 BuildRequires:	cmake
 BuildRequires:	desktop-file-utils
 BuildRequires:	enca-devel
+BuildRequires:	ffmpeg-free-devel
 BuildRequires:	flac-devel
 BuildRequires:	game-music-emu-devel
 BuildRequires:	jack-audio-connection-kit-devel
@@ -51,6 +52,8 @@ Recommends:	lame
 Recommends:	opus-tools
 Recommends:	wavpack
 Recommends:	flac
+
+Obsoletes:	qmmp-plugins-freeworld < 2.1.2-2
 
 # Do not check .so files in an application-specific library directory
 %global __provides_exclude_from ^%{_libdir}/%{name}/.*\\.so$
@@ -100,7 +103,6 @@ QMMP is Qt-based audio player. This package contains its development files.
 %build
 %cmake \
 	-D USE_AAC:BOOL=FALSE \
-	-D USE_FFMPEG:BOOL=FALSE \
 	-D USE_MMS:BOOL=FALSE \
 	-D USE_MPLAYER:BOOL=FALSE \
 	-D USE_LIBRCD:BOOL=TRUE \
@@ -113,19 +115,11 @@ QMMP is Qt-based audio player. This package contains its development files.
 %install
 %cmake_install
 # filter out unsupported formats from MimeType
-sed -i -e "s#audio/x-ffmpeg-shorten;##" \
-       -e "s#audio/x-ms-wma;##" \
-       -e "s#audio/aac;##" \
+sed -i -e "s#audio/aac;##" \
        -e "s#audio/x-aac;##" \
-       -e "s#audio/m4a;##" \
-       -e "s#audio/x-m4a;##" \
     %{buildroot}/%{_datadir}/applications/%{name}.desktop
-sed -i -e "s#audio/x-ffmpeg-shorten;##" \
-       -e "s#audio/x-ms-wma;##" \
-       -e "s#audio/aac;##" \
+sed -i -e "s#audio/aac;##" \
        -e "s#audio/x-aac;##" \
-       -e "s#audio/m4a;##" \
-       -e "s#audio/x-m4a;##" \
     %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-dir.desktop
@@ -155,6 +149,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Mon Feb 27 2023 Karel Volný <kvolny@redhat.com> 2.1.2-3
+- enable ffmpeg plugin using ffmpeg-free
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -76,7 +76,7 @@ Requires: gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_versi
 Requires: gtk4%{?_isa} >= %{gtk4_version}
 Requires: upower%{?_isa} >= %{upower_version}
 %ifnarch s390 s390x
-Requires: gnome-bluetooth%{?_isa} >= 1:%{gnome_bluetooth_version}
+Recommends: gnome-bluetooth%{?_isa} >= 1:%{gnome_bluetooth_version}
 %endif
 
 Requires: %{name}-filesystem = %{version}-%{release}

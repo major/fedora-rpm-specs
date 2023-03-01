@@ -1,6 +1,6 @@
 Name:           uid_wrapper
 Version:        1.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        A wrapper for privilege separation
 License:        GPLv3+
@@ -9,6 +9,8 @@ Url:            http://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        uid_wrapper.keyring
+
+Patch0:         uid_wrapper-fix-cmocka-1.1.6+-support.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -62,6 +64,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %{_mandir}/man1/uid_wrapper.1*
 
 %changelog
+* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.3.0-3
+- Fix building with cmocka >= 1.1.6
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

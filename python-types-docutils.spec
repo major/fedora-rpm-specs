@@ -10,7 +10,7 @@ This package was generated from typeshed commit
 ce4668a1328cfbdccc0137cdf9b9bd5c64120a6c.}
 
 Name:           python-types-docutils
-Version:        0.19.1.4
+Version:        0.19.1.6
 Release:        %{autorelease}
 Summary:        Typing stubs for docutils
 

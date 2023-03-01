@@ -6,7 +6,7 @@
 
 Name: rubygem-%{gem_name}
 Version: 2.1.2
-Release: 6%{?dist}
+Release: 7%{?dist}
 Summary: Integrate SassC-Ruby into Rails
 # SIL license found in
 # test/dummy/app/assets/stylesheets/erb_render_with_context.css.erb
@@ -14,6 +14,9 @@ Summary: Integrate SassC-Ruby into Rails
 License: MIT and OFL
 URL: https://github.com/sass/sassc-rails
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
+# Fix test suite compatibility with Rails 7+.
+# https://github.com/sass/sassc-rails/pull/178
+Patch0: rubygem-sassc-rails-2.1.2-Fix-test-suite-for-Rails-7.patch
 BuildRequires: ruby(release)
 BuildRequires: rubygems-devel
 BuildRequires: ruby
@@ -42,6 +45,8 @@ Documentation for %{name}.
 %prep
 %setup -q -n %{gem_name}-%{version}
 
+%patch0 -p1
+
 %build
 gem build ../%{gem_name}-%{version}.gemspec
 %gem_install
@@ -68,6 +73,10 @@ sed -i -e '/Bundler\.require/ s/^/#/' \
        -e '/require .bundler./ s/^/#/' \
     test/test_helper.rb
 
+# The test is unstalbe and passes just occasionally.
+sed -i '/def test_globbed_imports_work_when_globbed_file_is_added$/a \
+    skip' test/sassc_rails_test.rb
+
 ruby -Ilib:test -rsass-rails -rsprockets/railtie \
   -e 'Dir.glob "./test/**/*.rb", &method(:require)'
 popd
@@ -92,6 +101,10 @@ popd
 %doc %{gem_instdir}/CODE_OF_CONDUCT.md
 
 %changelog
+* Mon Feb 27 2023 Vít Ondruch <vondruch@redhat.com> - 2.1.2-7
+- Fix FTBFS caused by RoR 7+.
+  Resolves: rhbz#2113707
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

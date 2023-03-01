@@ -76,6 +76,7 @@ This package contains development files for qt6keychain.
 %define _vpath_builddir %{_target_platform}-qt5
 %cmake \
   -DBUILD_WITH_QT6:BOOL=OFF \
+  -DECM_MKSPECS_INSTALL_DIR=%{_qt5_archdatadir}/mkspecs/modules \
   -DCMAKE_BUILD_TYPE=RelWithDebInfo
 %cmake_build
 %endif
@@ -116,7 +117,7 @@ grep %{_datadir}/qt6keychain/translations %{name}.lang > %{name}-qt6.lang
 %{_includedir}/qt5keychain/
 %{_libdir}/cmake/Qt5Keychain/
 %{_libdir}/libqt5keychain.so
-%{_libdir}/qt5/mkspecs/modules/qt_Qt5Keychain.pri
+%{_qt5_archdatadir}/mkspecs/modules/qt_Qt5Keychain.pri
 %endif
 
 %if %{with qt6}

@@ -21,7 +21,7 @@
 %bcond_without xinerama
 
 Name:           conky
-Version:        1.18.0
+Version:        1.18.1
 Release:        1%{?dist}
 Summary:        A system monitor for X
 
@@ -121,6 +121,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/conky.desktop
 
 
 %changelog
+* Mon Feb 27 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1.18.1-1
+- update to 1.18.1
+
 * Mon Feb 20 2023 Miroslav Lichvar <mlichvar@redhat.com> - 1.18.0-1
 - update to 1.18.0
 

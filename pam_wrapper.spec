@@ -1,6 +1,6 @@
 Name:           pam_wrapper
 Version:        1.1.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 
 Summary:        A tool to test PAM applications and PAM modules
 License:        GPLv3+
@@ -9,6 +9,8 @@ Url:            http://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        pam_wrapper.keyring
+
+Patch0:         pam_wrapper-fix-cmocka-1.1.6+-support.patch
 
 BuildRequires:  gcc
 BuildRequires:  gnupg2
@@ -138,6 +140,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %{python3_sitearch}/pypamtest.so
 
 %changelog
+* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.1.4-3
+- Fix building with cmocka >= 1.1.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

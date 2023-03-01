@@ -16,7 +16,7 @@ Summary:  Text editor for the MATE desktop
 Name:     pluma
 Version:  %{branch}.0
 %if 0%{?rel_build}
-Release:  6%{?dist}
+Release:  7%{?dist}
 %else
 Release:  0.15%{?git_rel}%{?dist}
 %endif
@@ -32,6 +32,8 @@ URL:      http://mate-desktop.org
 # from upstream 1.26 branch
 Patch1:        pluma_0001-pluma-plugins-engine-fix-memory-leak.patch
 Patch2:        pluma_0002-Fix-double-activation-of-extensions.patch
+# https://github.com/mate-desktop/pluma/commit/8ca37be
+Patch3:        pluma_0001-Fix-out-of-bounds-write.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: enchant-devel
@@ -153,6 +155,10 @@ find %{buildroot} -name '*.a' -exec rm -f {} ';'
 
 
 %changelog
+* Mon Feb 27 2023 Wolfgang Ulbrich <fedora@raveit.de> - 1.26.0-7
+- Fix out-of-bounds write
+- https://github.com/mate-desktop/pluma/commit/8ca37be
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.26.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

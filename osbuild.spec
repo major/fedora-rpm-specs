@@ -1,7 +1,7 @@
 %global         forgeurl https://github.com/osbuild/osbuild
 %global         selinuxtype targeted
 
-Version:        80
+Version:        81
 
 %forgemeta
 
@@ -251,6 +251,16 @@ fi
 
 
 %changelog
+* Mon Feb 27 2023 Tomáš Hozza <thozza@redhat.com> - 81-1
+Changes with 81
+----------------
+  * stages/ignition: support multi kargs in network kcmdline (#1249)
+
+Contributions from: Antonio Murdaca, Thomas Lavocat
+
+— Somewhere on the Internet, 2023-02-27
+
+
 * Mon Feb 20 2023 Packit <hello@packit.dev> - 80-1
 Changes with 80
 ----------------

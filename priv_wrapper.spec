@@ -1,6 +1,6 @@
 Name:           priv_wrapper
 Version:        1.0.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        A library to disable resource limits and other privilege dropping
 License:        GPLv3+
@@ -9,6 +9,8 @@ Url:            http://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        priv_wrapper.keyring
+
+Patch0:         priv_wrapper-fix-cmocka-1.1.6+-support.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake
@@ -63,6 +65,9 @@ development/testing.
 %{_mandir}/man1/priv_wrapper.1*
 
 %changelog
+* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.0.1-3
+- Fix building with cmocka >= 1.1.6
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

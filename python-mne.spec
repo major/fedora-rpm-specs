@@ -5,7 +5,7 @@
 # in setup.py for install_requires.
 
 Name:           python-mne
-Version:        1.3.0
+Version:        1.3.1
 Release:        %autorelease
 Summary:        Magnetoencephalography (MEG) and Electroencephalography (EEG) data analysis
 

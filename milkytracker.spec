@@ -1,11 +1,12 @@
 Name:           milkytracker
 Version:        1.03.00
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Module tracker software for creating music
 
 License:        GPLv3+
 URL:            http://www.milkytracker.org/
 Source0:        https://github.com/milkytracker/MilkyTracker/archive/v%{version}.tar.gz
+Patch0:         milkytracker-1.03.00-c++11.patch
 
 BuildRequires: make
 BuildRequires:  SDL2-devel
@@ -24,6 +25,7 @@ Its goal is to be free replacement for the popular Fasttracker II software.
 
 %prep
 %setup -q -n MilkyTracker-%{version}
+%patch0 -p1
 
 find . -regex '.*\.\(cpp\|h\|inl\)' -print0 | xargs -0 chmod 644
 
@@ -64,6 +66,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/*.appdata
 %{_pkgdocdir}
 
 %changelog
+* Mon Feb 27 2023 Joonas Sarajärvi <muep@iki.fi> - 1.03.00-5
+- Rebuild with C++11, in order to be compatible with rtmidi-5.0.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03.00-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

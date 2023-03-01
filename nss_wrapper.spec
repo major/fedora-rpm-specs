@@ -1,6 +1,6 @@
 Name:           nss_wrapper
-Version:        1.1.13
-Release:        2%{?dist}
+Version:        1.1.15
+Release:        1%{?dist}
 
 License:        BSD
 Summary:        A wrapper for the user, group and hosts NSS API
@@ -9,6 +9,8 @@ Url:            https://cwrap.org/
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
 Source1:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz.asc
 Source2:        nss_wrapper.keyring
+
+Patch0:         nss_wrapper-fix-cmocka-1.1.6+-support.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -84,6 +86,11 @@ sed -i '1 s|/usr/bin/env\ perl|/usr/bin/perl|' %{buildroot}%{_bindir}/nss_wrappe
 %{_libdir}/libnss_wrapper.so*
 
 %changelog
+* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.1.13-3
+- Update to version 1.1.15
+  https://gitlab.com/cwrap/nss_wrapper/-/blob/nss_wrapper-1.1.15/CHANGELOG
+- Fix building with cmocka >= 1.1.6
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.13-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

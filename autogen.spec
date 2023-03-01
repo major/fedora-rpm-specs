@@ -1,7 +1,11 @@
+%define _fortify_level 2
+# untill this https://bugzilla.redhat.com/show_bug.cgi?id=2173623 is
+# resolved, we will keep fortification on level 2
+
 Summary:	Automated text file generator
 Name:		autogen
 Version:	5.18.16
-Release:	13%{?dist}
+Release:	14%{?dist}
 # Some files are licensed under GPLv2+.
 # We redistribute them under GPLv3+.
 License:	GPLv3+
@@ -146,6 +150,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_includedir}/autoopts/usage-txt.h
 
 %changelog
+* Mon Feb 27 2023 Tomas Korbar <tkorbar@redhat.com> - 5.18.16-14
+- Lower fortification level to 2
+- Resolves: rhbz#2171445
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.18.16-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

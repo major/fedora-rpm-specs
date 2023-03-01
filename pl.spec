@@ -201,9 +201,6 @@ BuildRequires:  pkgconfig(xrender)
 BuildRequires:  libdb-devel
 # mqi / swiplserver
 BuildRequires:  python3-devel
-BuildRequires:  %{py3_dist pip}
-BuildRequires:  %{py3_dist setuptools}
-BuildRequires:  %{py3_dist wheel}
 # ODBC
 BuildRequires:  pkgconfig(odbc)
 # SSL
@@ -390,6 +387,9 @@ rm -fr packages/nlp/libstemmer_c
 # Avoid a clash on doc names
 cp -p customize/README.md README-customize.md
 
+%generate_buildrequires
+cd packages/mqi/python
+%pyproject_buildrequires
 
 %build
 export LC_ALL=C.UTF-8
@@ -606,6 +606,9 @@ cp -p packages/jpl/jpl.pl.install packages/jpl/jpl.pl
 
 
 %changelog
+* Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 9.0.4-2
+- Dynamically generate python BuildRequires
+
 * Tue Jan 31 2023 Tom Callaway <spot@fedoraproject.org> - 9.0.4-2
 - enable docs on aarch64
 
