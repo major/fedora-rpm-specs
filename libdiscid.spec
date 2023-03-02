@@ -1,14 +1,15 @@
 Name:           libdiscid
-Version:        0.6.2
-Release:        15%{?dist}
+Version:        0.6.3
+Release:        1%{?dist}
 Summary:        C Library for creating MusicBrainz DiscIDs
-License:        LGPLv2+
+
+License:        LGPL-2.1-or-later
 URL:            https://musicbrainz.org/doc/libdiscid
 Source0:        http://ftp.musicbrainz.org/pub/musicbrainz/%{name}/%{name}-%{version}.tar.gz
 
-BuildRequires:  gcc
 BuildRequires:  doxygen
-BuildRequires: make
+BuildRequires:  gcc
+BuildRequires:  make
 
 %description
 This C library %{name} creates MusicBrainz DiscIDs from audio CDs. It
@@ -24,28 +25,20 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 This package contains libraries, header files and documentation for
 developing applications that use %{name}.
 
-
 %prep
-%setup -q
-
+%autosetup -p1
 
 %build
 %configure --disable-static
-make %{?_smp_mflags}
-make docs
-
+%make_build
+%make_build docs
 
 %check
-make check
-
+%make_build check
 
 %install
-%make_install INSTALL="install -p"
+%make_install
 find %{buildroot} -name '*.la' -delete -print
-
-
-%ldconfig_scriptlets
-
 
 %files
 %doc AUTHORS ChangeLog README
@@ -58,8 +51,10 @@ find %{buildroot} -name '*.la' -delete -print
 %{_libdir}/%{name}.so
 %{_libdir}/pkgconfig/%{name}.pc
 
-
 %changelog
+* Tue Feb 28 2023 David King <amigadave@amigadave.com> - 0.6.3-1
+- Update to 0.6.3 (#2174154)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

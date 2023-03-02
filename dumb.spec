@@ -1,6 +1,6 @@
 Name:           dumb
 Version:        0.9.3
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        IT, XM, S3M and MOD player library
 License:        zlib
 URL:            http://dumb.sourceforge.net/
@@ -10,6 +10,7 @@ Source2:        license-clarification.eml
 Patch0:         dumb-0.9.3-CVE-2006-3668.patch
 Patch1:         dumb-0.9.3-license-clarification.patch
 Patch2:         dumb-0.9.3-weak-symbols.patch
+Patch3:         dumb-configure-c99.patch
 BuildRequires:  make gcc gcc-c++
 BuildRequires:  allegro-devel
 
@@ -34,6 +35,7 @@ applications which use dumb.
 %patch0 -p1 -z .cve-2006-3668
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 cp %{SOURCE2} .
 
 
@@ -68,6 +70,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.a $RPM_BUILD_ROOT%{_libdir}/*.la
 
 
 %changelog
+* Tue Feb 28 2023 Florian Weimer <fweimer@redhat.com> - 0.9.3-39
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

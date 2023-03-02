@@ -18,6 +18,9 @@ License:       ASL 2.0
 URL:           https://containertoolbx.org/
 Source0:       https://github.com/containers/%{name}/releases/download/%{version}/%{name}-%{version}-vendored.tar.xz
 
+# Upstream
+Patch0:        toolbox-Don-t-use-podman-1-when-generating-the-comp.patch
+
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
 Patch101:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild-for-PPC64.patch
@@ -45,7 +48,6 @@ BuildRequires: golang(golang.org/x/term)
 BuildRequires: meson >= 0.58.0
 BuildRequires: pkgconfig(bash-completion)
 BuildRequires: pkgconfig(fish)
-BuildRequires: podman
 BuildRequires: shadow-utils-subid-devel
 BuildRequires: systemd
 BuildRequires: systemd-rpm-macros
@@ -153,6 +155,7 @@ The %{name}-tests package contains system tests for %{name}.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %ifnarch ppc64
 %patch100 -p1

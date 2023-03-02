@@ -22,6 +22,8 @@ Patch0002:      0002-Use-pkg-config-to-find-GEOS-instead-of-geos-config.patch
 Patch0003:      0003-Remove-extraneous-insertion-of-default-compiler-path.patch
 # We don't need to worry about the bugs with setuptools-scm < 7.
 Patch0004:      0004-Allow-older-setuptools-scm.patch
+# Fix build with Matplotlib 3.7
+Patch0005:      https://github.com/SciTools/cartopy/commit/6b4572ba1a8a877f28e25dfe9559c14b7a565958.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  geos-devel >= 3.7.2

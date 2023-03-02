@@ -1,8 +1,8 @@
 %global cardsets_minimal_ver 2.1.0
 
 Name:           PySolFC
-Version:        2.18.0
-Release:        2%{?dist}
+Version:        2.20.0
+Release:        1%{?dist}
 Summary:        A collection of solitaire card games
 License:        GPLv2+
 URL:            https://pysolfc.sourceforge.io
@@ -89,6 +89,9 @@ find "$RPM_BUILD_ROOT%{python3_sitelib}/pysollib" -name '*.py' | xargs -L1 perl 
 
 
 %changelog
+* Tue Feb 28 2023 Shlomi Fish <shlomif@shlomifish.org> 2.20.0-1
+- Update PySolFC to 2.20.0.
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -12,14 +12,16 @@ URL:            https://github.com/ResidentMario/geoplot
 # PyPI tarball does not include tests.
 Source0:        https://github.com/ResidentMario/%{srcname}/archive/%{version}/%{srcname}-%{version}.tar.gz
 # Fedora specific
-Patch0001:      0001-Remove-some-unavailable-test-dependencies.patch
+Patch:          0001-Remove-some-unavailable-test-dependencies.patch
+# https://github.com/ResidentMario/geoplot/pull/286
+Patch:          0002-Fix-tests-with-Matplotlib-3.7.patch
 # Accommodate UserWarning not in geopandas 0.11
 # https://github.com/ResidentMario/geoplot/pull/285
 #   Fixes:
 # Tests fail with geopandas 0.11
 # https://github.com/ResidentMario/geoplot/issues/283
 # https://bugzilla.redhat.com/show_bug.cgi?id=2148633
-Patch0002:      https://github.com/ResidentMario/%{srcname}/pull/285.patch
+Patch:          https://github.com/ResidentMario/%{srcname}/pull/285.patch
 
 BuildArch:      noarch
  

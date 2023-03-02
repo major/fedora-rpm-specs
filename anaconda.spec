@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.2
+Version: 39.3
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -463,6 +463,12 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Feb 28 2023 Packit <hello@packit.dev> - 39.3-1
+- Add config for Fedora Designsuite (luya)
+- docs: Update contrib guide for current branching (vslavik)
+- efi: deal with verbose by default output from efibootmgr (marmarek)
+- Update translations from Weblate
+
 * Tue Feb 21 2023 Packit <hello@packit.dev> - 39.2-1
 - Add DNS search and ignore options from kickstart (vslavik)
 - Adjust templates after F38 branching (mkolman)

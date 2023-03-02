@@ -1,5 +1,5 @@
 Name:    khotkeys
-Version: 5.27.1
+Version: 5.27.2
 Release: 1%{?dist}
 Summary: Application to configure hotkeys in KDE
 
@@ -97,6 +97,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
+- 5.27.2
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
 - 5.27.1
 

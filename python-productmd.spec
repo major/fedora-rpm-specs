@@ -12,7 +12,7 @@ Version:        1.33
 Release:        7%{?dist}
 Summary:        Library providing parsers for metadata related to OS installation
 
-License:        LGPLv2+
+License:        LGPL-2.1-only
 URL:            https://github.com/release-engineering/productmd
 Source0:        https://files.pythonhosted.org/packages/source/p/%{srcname}/%{srcname}-%{version}.tar.gz
 

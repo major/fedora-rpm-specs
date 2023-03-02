@@ -2,8 +2,8 @@
 
 Name:           mingw-freetype
 # NOTE See comment for Patch2 below
-Version:        2.12.1
-Release:        3%{?dist}
+Version:        2.13.0
+Release:        1%{?dist}
 Summary:        Free and portable font rendering engine
 
 License:        FTL OR GPL-2.0-or-later
@@ -133,6 +133,9 @@ rm -rf %{buildroot}%{mingw32_mandir} %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Tue Feb 28 2023 Sandro Mani <manisandro@gmail.com> - 2.13.0-1
+- Update to 2.13.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

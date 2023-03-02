@@ -7,10 +7,10 @@
 
 Name:           moodle
 Version:        4.1.1
-Release:       	2%{?dist}
+Release:       	3%{?dist}
 Summary:        A Course Management System
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://moodle.org/
 Source0:        https://download.moodle.org/stable401/%{name}-%{version}.tgz
 Source1:        moodle.conf
@@ -178,6 +178,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.1.1-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

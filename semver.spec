@@ -2,7 +2,7 @@
 
 Name: semver
 Version: 0.3.0
-Release: 5%{?dist}
+Release: 7%{?dist}
 
 License: MIT
 Summary: Semantic Versioning for modern C++
@@ -15,10 +15,16 @@ Patch100: %{name}-fix-installation.patch
 # https://github.com/Neargye/semver/pull/30
 Patch101: %{name}-added-missing-slash.patch
 
-BuildRequires: catch-devel
 BuildRequires: cmake
 BuildRequires: gcc-c++
 BuildRequires: ninja-build
+
+# semver currently support only catch v2
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+BuildRequires: catch2-devel
+%else
+BuildRequires: catch-devel
+%endif
 
 %description
 C++ library compare and manipulate versions are available as extensions to the
@@ -64,6 +70,12 @@ ln -svf %{_includedir}/catch2 test/3rdparty/Catch2
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Tue Feb 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.0-7
+- Fixed FTBFS in EPEL/ELN due to catch v3 update.
+
+* Tue Feb 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.3.0-6
+- Fixed FTBFS due to catch v3 update.
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

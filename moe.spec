@@ -1,9 +1,9 @@
 Name:		moe
 Version:	1.13
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A powerful clean text editor
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/moe/moe.html
 Source0:	http://ftp.gnu.org/gnu/moe/moe-%{version}.tar.lz
 Patch0:		moe-1.13-configure.patch
@@ -42,6 +42,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/%{name}*
 
 %changelog
+* Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.13-2
+- migrated to SPDX license
+
 * Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.13-1
 - 1.13
 

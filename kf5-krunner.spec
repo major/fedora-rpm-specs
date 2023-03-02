@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.103.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution with parallelized query system
 
 License: LGPLv2+ and BSD
@@ -20,6 +20,7 @@ Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{v
 BuildRequires:  extra-cmake-modules >= %{majmin}
 BuildRequires:  kf5-rpm-macros
 
+BuildRequires:  kf5-kactivities-devel >= %{majmin}
 BuildRequires:  kf5-kconfig-devel >= %{majmin}
 BuildRequires:  kf5-kcoreaddons-devel >= %{majmin}
 BuildRequires:  kf5-ki18n-devel >= %{majmin}
@@ -81,6 +82,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

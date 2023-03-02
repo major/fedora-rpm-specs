@@ -1,7 +1,7 @@
 Name:    kdeplasma-addons
 Summary: Additional Plasmoids for Plasma 5
-Version: 5.27.1
-Release: 2%{?dist}
+Version: 5.27.2
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -139,6 +139,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
+- 5.27.2
+
 * Sat Feb 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-2
 - Add BuildRequires kf5-networkmanager-qt-devel
 

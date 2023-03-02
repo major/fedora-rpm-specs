@@ -7,7 +7,7 @@ its vertices such that for every directed edge uv from vertex u to vertex v, u
 comes before v in the ordering.}
 
 Name:           python-toposort
-Version:        1.9
+Version:        1.10
 Release:        %autorelease
 Summary:        Implements a topological sort algorithm
 

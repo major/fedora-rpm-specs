@@ -1,12 +1,12 @@
 Name:          speech-dispatcher
 Version:       0.11.4
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       To provide a high-level device independent layer for speech synthesis
 
-# Almost all files are under GPLv2+, however 
+# Almost all files are under GPL-2.0-or-later, however
 # src/c/clients/spdsend/spdsend.h is licensed under GPLv2,
 # which makes %%_bindir/spdsend GPLv2.
-License:       GPLv2+ and LGPLv2
+License:       GPL-2.0-or-later and LGPL-2.1-only or LGPL-2.0-only
 URL:           http://devel.freebsoft.org/speechd
 Source0:       https://github.com/brailcom/speechd/releases/download/%{version}/speech-dispatcher-%{version}.tar.gz
 Source1:       http://www.freebsoft.org/pub/projects/sound-icons/sound-icons-0.1.tar.gz
@@ -58,7 +58,7 @@ Obsoletes:     speech-dispatcher-kali < 0.9.1
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{_isa} = %{version}-%{release}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -66,7 +66,7 @@ developing applications that use %{name}.
 
 %package doc
 Summary:        Documentation for speech-dispatcher
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       %{name} = %{version}-%{release}
 BuildArch: noarch
 
@@ -75,7 +75,7 @@ speechd documentation
 
 %package utils
 Summary:        Various utilities for speech-dispatcher
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       %{name}%{_isa} = %{version}-%{release}
 Requires:       python3-speechd = %{version}-%{release}
 
@@ -107,7 +107,7 @@ This package contains the flite output module for Speech Dispatcher.
 
 %package -n python3-speechd
 Summary:        Python 3 Client API for speech-dispatcher
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       %{name}%{_isa} = %{version}-%{release}
 
 %description -n python3-speechd
@@ -225,6 +225,9 @@ sed 's/# AudioOutputMethod "pulse,alsa"/AudioOutputMethod "pulse,alsa"/' %{build
 %{python3_sitearch}/speechd*
 
 %changelog
+* Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.4-3
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

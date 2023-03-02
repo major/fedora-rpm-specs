@@ -1,11 +1,7 @@
-%define _fortify_level 2
-# untill this https://bugzilla.redhat.com/show_bug.cgi?id=2173623 is
-# resolved, we will keep fortification on level 2
-
 Summary:	Automated text file generator
 Name:		autogen
 Version:	5.18.16
-Release:	14%{?dist}
+Release:	15%{?dist}
 # Some files are licensed under GPLv2+.
 # We redistribute them under GPLv3+.
 License:	GPLv3+
@@ -17,6 +13,8 @@ Patch0:		autogen-multilib.patch
 # Fix gcc error on overlapping strings
 Patch1:		autogen-overlap.patch
 Patch2:		autogen-configure-c99.patch
+# https://sourceforge.net/p/autogen/bugs/212/
+Patch3:		autogen-fortify.patch
 
 Requires:	%{name}-libopts%{?_isa} = %{version}-%{release}
 
@@ -74,6 +72,7 @@ This package contains development files for libopts.
 %patch0 -p1 -b .multilib
 %patch1 -p1 -b .overlap
 %patch2 -p1
+%patch3 -p1 -b .fortify
 
 # Disable failing test
 sed -i 's|errors.test||' autoopts/test/Makefile.in
@@ -150,6 +149,10 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_includedir}/autoopts/usage-txt.h
 
 %changelog
+* Tue Feb 28 2023 Tomas Korbar <tkorbar@redhat.com> - 5.18.16-15
+- Raise fortification level to 3
+- Fix bad way of reallocation when reading from stdin
+
 * Mon Feb 27 2023 Tomas Korbar <tkorbar@redhat.com> - 5.18.16-14
 - Lower fortification level to 2
 - Resolves: rhbz#2171445

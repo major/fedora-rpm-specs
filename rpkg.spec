@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -37,6 +37,8 @@ Patch2:         0002-Remove-pytest-coverage-execution.patch
 %if 0%{?with_python2}
 Patch3:         0003-Remove-Environment-Markers-syntax.patch
 %endif
+Patch4:         0004-Process-source-URLs-with-fragment-in-pre-push-hook.patch
+Patch5:         0005-container-build-update-signing-intent-help-for-OSBS-.patch
 
 %description
 Python library for interacting with rpm+git
@@ -253,6 +255,10 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Wed Mar 1 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-3
+- Patch: Process source URLs with fragment in pre-push hook
+- Patch: container-build: update --signing-intent help for OSBS 2
+
 * Tue Feb 21 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-2
 - rebuild for unification of all branches
 

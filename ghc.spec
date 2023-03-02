@@ -450,11 +450,6 @@ rm libffi-tarballs/libffi-*.tar.gz
 %patch15 -p1 -b .orig
 %patch16 -p1 -b .orig
 %endif
-# workaround before 5725 hadrian fix
-# https://gitlab.haskell.org/ghc/ghc/-/issues/19825
-%ifarch ppc64le
-%patch16 -p1 -b .orig
-%endif
 
 # bigendian
 %ifarch s390x

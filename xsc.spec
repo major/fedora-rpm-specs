@@ -1,9 +1,9 @@
 Name: xsc
 Version:  1.6
-Release:  16%{?dist}
+Release:  17%{?dist}
 Summary: A clone of the old vector graphics video game Star Castle
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://www.panix.com/~mbh/projects.html
 Source0: http://www.panix.com/~mbh/xsc/xsc-%{version}.tar.gz
 Source1: xsc.desktop
@@ -48,6 +48,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/icons/hicolor/32x32/apps/xsc.png
 
 %changelog
+* Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6-17
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

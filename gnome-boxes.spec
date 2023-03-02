@@ -52,11 +52,9 @@ BuildRequires:	pkgconfig(gobject-introspection-1.0)
 BuildRequires:	pkgconfig(gtk+-3.0) >= 3.22.20
 BuildRequires:	pkgconfig(gtksourceview-4)
 BuildRequires:	pkgconfig(gtk-vnc-2.0)
-BuildRequires:	pkgconfig(gvncpulse-1.0)
 BuildRequires:	pkgconfig(libarchive)
 BuildRequires:	pkgconfig(json-glib-1.0)
 BuildRequires:	pkgconfig(libhandy-1)
-BuildRequires:	pkgconfig(libsecret-1)
 BuildRequires:	pkgconfig(libvirt-gobject-1.0)
 BuildRequires:	pkgconfig(libvirt-gconfig-1.0)
 BuildRequires:	pkgconfig(libxml-2.0)
@@ -64,7 +62,6 @@ BuildRequires:	pkgconfig(gudev-1.0)
 BuildRequires:	pkgconfig(libosinfo-1.0) >= 1.4.0
 BuildRequires:	pkgconfig(libsoup-3.0)
 BuildRequires:	pkgconfig(libusb-1.0)
-BuildRequires:	pkgconfig(tracker-sparql-3.0)
 BuildRequires:	pkgconfig(webkit2gtk-4.1)
 BuildRequires:	spice-gtk3-vala
 BuildRequires:	libosinfo-vala

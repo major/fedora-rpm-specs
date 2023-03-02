@@ -6,7 +6,7 @@
 %global forgeurl https://github.com/datalad/datalad
 
 Name:           python-datalad
-Version:        0.18.1
+Version:        0.18.2
 %global tag     %{version}
 %forgemeta
 Release:        %autorelease
@@ -56,19 +56,29 @@ Summary:        %{summary}
 BuildRequires:  python3-devel
 BuildRequires:  python3-pytest
 BuildRequires:  git-core
-%if %{with tests}
 BuildRequires:  git-annex
 # for 7za
 BuildRequires:  p7zip
-%endif
+BuildRequires:  p7zip-plugins
 # Not added automatically
 Requires:       git-annex
+Requires:       p7zip p7zip-plugins
 Provides:       datalad = %{version}-%{release}
 
 %description -n python3-datalad %_description
 
 %prep
 %forgesetup
+
+# tweak test requirements
+# - remove type packages
+# - remove mypy
+# - remove pytest-fail-slow
+sed -i -e '/types-python-dateutil/ d' \
+    -e '/types-requests/ d' \
+    -e '/mypy/ d' \
+    -e '/pytest-fail-slow/ d' \
+    setup.py
 
 # Do not read deps from tox.ini, just use setup.py
 # tox.ini calls requirements.txt which doesn't work
@@ -120,8 +130,11 @@ install -m 0644 -p -Dt $RPM_BUILD_ROOT/%{_mandir}/man1/  build/man/*.1
 %check
 %if %{with tests}
 export PATH="${PATH}:%{buildroot}/%{_bindir}"
-export PYTHONPATH="$PYTHONPATH:%{buildroot}/%{python3_sitelib}:%{python3_sitearch}" pytest
+%pytest
 %endif
+# check import
+# exclude imports that require a dataset
+%pyproject_check_import -e *test* -e *cfg_text2git* -e *cfg_yoda*
 
 %files -n python3-datalad -f %{pyproject_files}
 %doc README.md CONTRIBUTORS CONTRIBUTING.md CHANGELOG.md CODE_OF_CONDUCT.md

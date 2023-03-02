@@ -19,7 +19,7 @@ Name:		blis
 Version:	0.7.0
 Release:	11%{?dist}
 Summary:	BLAS-like Library Instantiation Software Framework
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://github.com/flame/blis
 %if 0%{?commit}
 Source0:	https://github.com/flame/blis/archive/%commit/%name-%shortcommit.tar.gz
@@ -380,6 +380,9 @@ export LD_LIBRARY_PATH=`pwd`/serial/lib
 %{macrosdir}/macros.blis-srpm
 
 %changelog
+* Tue Feb 28 2023  <vagrant@rhel8.localdomain> - 0.7.0-11
+- Use SPDX licence tag
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

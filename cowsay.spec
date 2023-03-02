@@ -6,9 +6,9 @@
 
 Name:           cowsay
 Version:        3.7.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Configurable speaking/thinking cow
-License:        GPLv3+
+License: GPL-2.0-or-later
 URL:            https://github.com/cowsay-org/cowsay
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        cowsay.bashcomp
@@ -81,6 +81,9 @@ install -p -m 0644 %{SOURCE1} $RPM_BUILD_ROOT%{compdir}/%{name}
 %{compdir}/%{name}
 
 %changelog
+* Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.7.0-8
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

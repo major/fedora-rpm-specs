@@ -4,8 +4,8 @@
 
 Name:          mingw-python-%{pypi_name}
 Summary:       MinGW Windows Python %{pypi_name} library
-Version:       22.3.1
-Release:       2%{?dist}
+Version:       23.0.1
+Release:       1%{?dist}
 BuildArch:     noarch
 
 
@@ -125,6 +125,9 @@ sed -i '1d' %{buildroot}%{mingw64_python3_sitearch}/pip/_vendor/requests/certs.p
 
 
 %changelog
+* Tue Feb 28 2023 Sandro Mani <manisandro@gmail.com> - 23.0.1-1
+- Update to 23.0.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

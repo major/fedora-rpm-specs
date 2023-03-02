@@ -25,7 +25,7 @@
 Summary:    End-user tools for the Clam Antivirus scanner
 Name:       clamav
 Version:    1.0.1
-Release:    2%{?dist}
+Release:    4%{?dist}
 License:    %{?with_unrar:proprietary}%{!?with_unrar:GPLv2}
 URL:        https://www.clamav.net/
 %if %{with unrar}
@@ -49,9 +49,9 @@ Source5:    clamd-README
 #http://database.clamav.net/main.cvd
 Source10:   main-62.cvd
 #http://database.clamav.net/daily.cvd
-Source11:   daily-26816.cvd
+Source11:   daily-26825.cvd
 #http://database.clamav.net/bytecode.cvd
-Source12:   bytecode-333.cvd
+Source12:   bytecode-334.cvd
 #for update
 Source200:  freshclam-sleep
 Source201:  freshclam.sysconfig
@@ -194,21 +194,22 @@ BuildArch:  noarch
 This package contains the documentation for clamav.
 
 
-%package update
+%package freshclam
 Summary:    Auto-updater for the Clam Antivirus scanner data-files
 Requires:   clamav-filesystem = %{version}-%{release}
 Requires:   clamav-lib        = %{version}-%{release}
+Supplements:clamd
 Provides:   data(clamav) = empty
 Provides:   clamav-data-empty = %{version}-%{release}
 Obsoletes:  clamav-data-empty < %{version}-%{release}
+Provides:   clamav-update = %{version}-%{release}
+Obsoletes:  clamav-update < %{version}-%{release}
 
-%description update
-This package contains programs which can be used to update the clamav
-anti-virus database automatically. It uses the freshclam(1) utility for
-this task. To activate it use, uncomment the entry in /etc/cron.d/clamav-update.
-Use this package when you go updating the virus database regulary and
-do not want to download a >160MB sized rpm-package with outdated virus
-definitions.
+%description freshclam
+This package contains the freshclam(1) program and clamav-freshclam
+service which can be used to update the clamav anti-virus database
+automatically. Most users should install this package in order to
+keep their definitions up to date.
 
 
 %package -n clamd
@@ -399,6 +400,15 @@ rm %{buildroot}%{_unitdir}/clamav-daemon.*
 %systemd_postun_with_restart clamav-clamonacc.service
 
 
+%post data
+# Let newer .cld files take precedence over the shipped .cvd files
+for f in %{homedir}/*.cld
+do
+    cvd=${f/.cld/.cvd}
+    [ -f $f -a $f -nt $cvd ] && rm -f $cvd || :
+done
+
+
 %pre filesystem
 getent group %{updateuser} >/dev/null || groupadd -r %{updateuser}
 getent passwd %{updateuser} >/dev/null || \
@@ -452,13 +462,13 @@ exit 0
 %postun milter
 %systemd_postun_with_restart clamav-milter.service
 
-%post update
+%post freshclam
 %systemd_post clamav-freshclam.service
 
-%preun update
+%preun freshclam
 %systemd_preun clamav-freshclam.service
 
-%postun update
+%postun freshclam
 %systemd_postun_with_restart clamav-freshclam.service
 
 %ldconfig_scriptlets   lib
@@ -522,16 +532,19 @@ exit 0
 %doc docs/html
 
 
-%files update
+%files freshclam
 %{_bindir}/freshclam
 %{_libdir}/libfreshclam.so.2*
 %{_mandir}/*/freshclam*
 %{_unitdir}/clamav-freshclam.service
 %config(noreplace) %verify(not mtime)    %{_sysconfdir}/freshclam.conf
-%ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/main.cvd
+%ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/bytecode.cld
+%ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/bytecode.cvd
 %ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/freshclam.dat
 %ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/daily.cld
-%ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/bytecode.cld
+%ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/daily.cvd
+%ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/main.cld
+%ghost %attr(0644,%{updateuser},%{updateuser}) %{homedir}/main.cvd
 
 
 %files -n clamd
@@ -554,6 +567,15 @@ exit 0
 
 
 %changelog
+* Mon Feb 27 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-4
+- Mark cvd files is clamav-data as %%config(noreplace) (bz#2170876)
+- Rename clamav-update to clamav-freshclam
+- Make clamav-freshclam supplement clamd
+- Have clamav-freshclam ghost all of the .cld and .cvd files
+
+* Fri Feb 24 2023 Sérgio Basto <sergio@serjux.com> - 1.0.1-3
+- Update data files with help of Cisco-Talos/cvdupdate
+
 * Mon Feb 20 2023 Orion Poplawski <orion@nwra.com> - 1.0.1-2
 - Fix daily.cvd file (bz#2171869)
 

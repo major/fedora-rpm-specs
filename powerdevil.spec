@@ -2,8 +2,8 @@
 %global kf5_version 5.82.0
 
 Name:    powerdevil
-Version: 5.27.1
-Release: 2%{?dist}
+Version: 5.27.2
+Release: 1%{?dist}
 Summary: Manages the power consumption settings of a Plasma Shell
 
 License: GPLv2+
@@ -128,6 +128,9 @@ rm -fv %{buildroot}/%{_libdir}/libpowerdevil{configcommonprivate,core,ui}.so
 %{_kf5_qtplugindir}/powerdevil/action/powerdevil_*.so
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
+- 5.27.2
+
 * Sat Feb 25 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-2
 - Add missing buildrequires libcap-devel
 

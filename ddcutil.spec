@@ -1,26 +1,28 @@
-%global _hardened_build 1
 %bcond_without build_lib
 
 Name:       ddcutil
-Version:    0.9.9
+Version:    1.4.1
 Release:    %autorelease
 Summary:    Query and update monitor settings
 License:    GPLv2+
 URL:        http://www.ddcutil.com
-Source0:    http://www.ddcutil.com/tarballs/%{name}-%{version}.tar.gz
+Source0:    https://github.com/rockowitz/ddcutil/archive/v%{version}/%{name}-%{version}.tar.gz
 
 # Excluding arch s390/s390x due to i2c-tools does so
 ExcludeArch:    s390 s390x
 
 BuildRequires:      automake
+BuildRequires:      autoconf
+BuildRequires:      libtool
 BuildRequires:      gcc
 BuildRequires:      make
-BuildRequires:      pkgconfig(glib-2.0)   >= 2.32
+BuildRequires:      pkgconfig(glib-2.0)   >= 2.40
 BuildRequires:      pkgconfig(libusb-1.0) >= 1.0.15
 BuildRequires:      pkgconfig(systemd)
 BuildRequires:      pkgconfig(libudev)
 BuildRequires:      pkgconfig(xrandr)
-BuildRequires:      pkgconfig(libdrm) >= 2.4.16
+BuildRequires:      pkgconfig(libdrm) >= 2.4.67
+BuildRequires:      pkgconfig(libkmod)
 
 Requires:   hwdata
 Requires:   i2c-tools
@@ -63,9 +65,9 @@ Development files for libddcutil
 
 %prep
 %setup -q
-chmod -x ChangeLog NEWS.md
 
 %build
+NOCONFIGURE=1 ./autogen.sh
 %configure \
 %if %{with build_lib}
     --enable-lib=yes
@@ -78,18 +80,19 @@ chmod -x ChangeLog NEWS.md
 %make_install
 
 %files
-%doc NEWS.md README.md AUTHORS ChangeLog
+%doc AUTHORS NEWS.md README.md CHANGELOG.md
 %license COPYING
 %{_bindir}/%{name}
 %{_datadir}/%{name}
 %{_mandir}/man1/%{name}.1.*
+%{_udevrulesdir}/60-ddcutil.rules
 
 
 %if %{with build_lib}
 %files -n libddcutil
-%doc NEWS.md README.md AUTHORS ChangeLog
+%doc AUTHORS NEWS.md README.md CHANGELOG.md
 %license COPYING
-%{_libdir}/lib%{name}.so.3*
+%{_libdir}/lib%{name}.so.4*
 
 %files -n libddcutil-devel
 %{_libdir}/lib%{name}.so

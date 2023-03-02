@@ -1,11 +1,11 @@
-%global tag_version release-42
+%global tag_version release-43-alpha2
 #%%global is_official 0%%(echo %%{tag_version} | egrep -q 'alpha|beta|final'; echo $?)
 #%%global is_official 0
 %global is_official 0
 
 Name:       cldr-emoji-annotation
-Version:    42
-Release:    2%{?dist}
+Version:    43~alpha2
+Release:    1%{?dist}
 %if 0%{?fedora:1}%{?rhel:0}
 Epoch:      1
 %endif
@@ -126,6 +126,9 @@ done
 %{_datadir}/pkgconfig/*.pc
 
 %changelog
+* Tue Feb 28 2023 Takao Fujiwara <tfujiwar@gmail.com> - 1:43~alpha2-1
+- Bump to release-43-alpha2
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:42-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

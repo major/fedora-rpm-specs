@@ -1,8 +1,8 @@
 %define __perl_requires %{SOURCE98}
 
 Name:     squid
-Version:  5.7
-Release:  4%{?dist}
+Version:  5.8
+Release:  1%{?dist}
 Summary:  The Squid proxy caching server
 Epoch:    7
 # See CREDITS for breakdown of non GPLv2+ code
@@ -333,6 +333,9 @@ fi
 
 
 %changelog
+* Tue Feb 28 2023 Luboš Uhliarik <luhliari@redhat.com> - 7:5.8-1
+- new version 5.8
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7:5.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

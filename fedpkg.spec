@@ -5,7 +5,7 @@
 
 Name:           fedpkg
 Version:        1.44
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fedora utility for working with dist-git
 
 License:        GPLv2+
@@ -39,7 +39,7 @@ Requires:       redhat-rpm-config
 
 BuildRequires:  python2-devel
 # We br these things for man page generation due to imports
-BuildRequires:  python2-rpkg >= 1.66-2
+BuildRequires:  python2-rpkg >= 1.66-3
 BuildRequires:  python2-distro
 BuildRequires:  python2-fedora
 # For testing
@@ -53,7 +53,7 @@ BuildRequires:  python-bugzilla
 
 Requires:       bodhi-client >= 2.0
 Requires:       python-bugzilla
-Requires:       python2-rpkg >= 1.66-2
+Requires:       python2-rpkg >= 1.66-3
 Requires:       python2-distro
 Requires:       python2-fedora
 Requires:       python2-openidc-client >= 0.6.0
@@ -65,7 +65,7 @@ Requires:       fedora-packager
 %global __python %{__python3}
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-rpkg >= 1.66-2
+BuildRequires:  python3-rpkg >= 1.66-3
 BuildRequires:  python3-distro
 BuildRequires:  python3-fedora
 # For testing
@@ -77,7 +77,7 @@ BuildRequires:  python3-bodhi-client
 
 
 Requires:       python3-bugzilla
-Requires:       python3-rpkg >= 1.66-2
+Requires:       python3-rpkg >= 1.66-3
 Requires:       python3-distro
 Requires:       python3-fedora
 Requires:       python3-openidc-client >= 0.6.0
@@ -147,6 +147,9 @@ mv %{buildroot}%{compdir}/fedpkg.bash %{buildroot}%{compdir}/fedpkg
 
 
 %changelog
+* Wed Mar 1 2023 Ondřej Nosek <onosek@redhat.com> - 1.44-2
+- Require a bumped rpkg version
+
 * Mon Feb 20 2023 Ondřej Nosek <onosek@redhat.com> - 1.44-1
 - Do not execute unittests for old bodhi-client (onosek)
 - New command `disable-monitoring` (onosek)

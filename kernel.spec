@@ -147,13 +147,13 @@ Summary: The Linux kernel
 # define buildid .local
 %define specversion 6.3.0
 %define patchversion 6.3
-%define pkgrelease 0.rc0.20230227gitf3a2439f20d9.9
+%define pkgrelease 0.rc0.20230228gitae3419fbac84.9
 %define kversion 6
-%define tarfile_release 6.2-12485-gf3a2439f20d9
+%define tarfile_release 6.2-12913-gae3419fbac84
 # This is needed to do merge window version magic
 %define patchlevel 3
 # This allows pkg_release to have configurable %%{?dist} tag
-%define specrelease 0.rc0.20230227gitf3a2439f20d9.9%{?buildid}%{?dist}
+%define specrelease 0.rc0.20230228gitae3419fbac84.9%{?buildid}%{?dist}
 # This defines the kabi tarball version
 %define kabiversion 6.3.0
 
@@ -2460,7 +2460,7 @@ pushd tools/gpio/
 %{tools_make}
 popd
 # build VM tools
-pushd tools/vm/
+pushd tools/mm/
 %{tools_make} slabinfo page_owner_sort
 popd
 pushd tools/tracing/rtla
@@ -2744,7 +2744,7 @@ pushd tools/kvm/kvm_stat
 install -m644 -D kvm_stat.service %{buildroot}%{_unitdir}/kvm_stat.service
 popd
 # install VM tools
-pushd tools/vm/
+pushd tools/mm/
 install -m755 slabinfo %{buildroot}%{_bindir}/slabinfo
 install -m755 page_owner_sort %{buildroot}%{_bindir}/page_owner_sort
 popd
@@ -3348,8 +3348,12 @@ fi
 #
 #
 %changelog
-* Mon Feb 27 2023 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.3.0-0.rc0.f3a2439f20d9.9]
+* Tue Feb 28 2023 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.3.0-0.rc0.ae3419fbac84.9]
+- redhat/kernel.spec.template: Fix RHEL systemd-boot-unsigned dependency (Prarit Bhargava)
+- Add hashtable_test to mod-internal.list (Justin M. Forbes)
 - Add more kunit tests to mod-internal.list for 6.3 (Justin M. Forbes)
+- Flip CONFIG_I2C_ALGOBIT to m (Justin M. Forbes)
+- Linux v6.3.0-0.rc0.ae3419fbac84
 
 * Mon Feb 27 2023 Fedora Kernel Team <kernel-team@fedoraproject.org> [6.3.0-0.rc0.f3a2439f20d9.8]
 - Linux v6.3.0-0.rc0.f3a2439f20d9

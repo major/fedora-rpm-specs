@@ -1,9 +1,9 @@
 %global _lto_cflags %{nil}
-%global _lib_min_ver 67
+%global _lib_min_ver 68
 
 Name:		tkrzw
-Version:	1.0.24
-Release:	3%{?dist}
+Version:	1.0.25
+Release:	1%{?dist}
 Summary:	A straightforward implementation of DBM
 License:	ASL 2.0
 URL:		https://dbmx.net/%{name}/
@@ -100,6 +100,9 @@ install -t %{buildroot}%{_mandir}/man1 -m 0644 -p tkrzw_*.1
 
 
 %changelog
+* Tue Feb 28 2023 TI_Eugene <ti.eugene@gmail.com> - 1.0.25-1
+- Version bump
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.24-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

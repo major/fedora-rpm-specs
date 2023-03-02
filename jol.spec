@@ -1,6 +1,6 @@
 Name:           jol
-Version:        0.16
-Release:        7%{?dist}
+Version:        0.17
+Release:        1%{?dist}
 Summary:        Java Object Layout
 
 # GPL-2.0-only: the project as a whole
@@ -30,9 +30,7 @@ specification assumptions, etc.}
 
 %description %_desc
 
-# Uncomment this once javadocs can be generated again
-# See https://github.com/fedora-java/xmvn/issues/58
-#%%{?javadoc_package}
+%{?javadoc_package}
 
 %package        parent
 Summary:        Java Object Layout parent POM
@@ -69,15 +67,8 @@ This package contains a command line interface to JOL.
 %pom_disable_module jol-benchmarks
 %pom_disable_module jol-samples
 
-# Workaround for https://bugzilla.redhat.com/show_bug.cgi?id=1981486
-%pom_add_dep org.apache.commons:commons-lang3:3.12.0:test
-
-# Build for JDK 1.8
-sed -i 's/1\.7/1.8/' pom.xml
-
 %build
-# Skip javadoc build due to https://github.com/fedora-java/xmvn/issues/58
-%mvn_build -s -j
+%mvn_build -s
 
 %install
 %mvn_install
@@ -92,6 +83,10 @@ sed -i 's/1\.7/1.8/' pom.xml
 %files cli -f .mfiles-jol-cli
 
 %changelog
+* Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 0.17-1
+- Version 0.17
+- Generate javadocs
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.16-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

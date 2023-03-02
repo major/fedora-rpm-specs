@@ -1,5 +1,5 @@
 Name:    ksshaskpass
-Version: 5.27.1
+Version: 5.27.2
 Release: 1%{?dist}
 Summary: A ssh-add helper that uses kwallet and kpassworddialog
 
@@ -60,6 +60,9 @@ EOF
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
+- 5.27.2
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
 - 5.27.1
 

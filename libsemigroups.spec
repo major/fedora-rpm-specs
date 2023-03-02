@@ -1,5 +1,5 @@
 Name:           libsemigroups
-Version:        2.6.1
+Version:        2.6.2
 Release:        1%{?dist}
 Summary:        C++ library for semigroups and monoids
 
@@ -9,9 +9,6 @@ Summary:        C++ library for semigroups and monoids
 License:        GPL-3.0-or-later AND BSL-1.0 AND MPL-2.0 AND BSD-3-Clause AND Apache-2.0
 URL:            https://libsemigroups.readthedocs.io/
 Source0:        https://github.com/libsemigroups/libsemigroups/releases/download/v%{version}/%{name}-%{version}.tar.gz
-# Remove a pessimizing move
-# https://github.com/libsemigroups/libsemigroups/pull/467
-Patch0:         %{name}-pessimizing-move.patch
 
 BuildRequires:  catch2-devel
 BuildRequires:  doxygen
@@ -112,6 +109,9 @@ Requires:       font(fontawesome)
 Requires:       font(lato)
 Requires:       font(robotoslab)
 
+Provides:       bundled(js-jquery)
+Provides:       bundled(js-underscore)
+
 %description doc
 Documentation for %{name}.
 
@@ -190,6 +190,10 @@ LD_LIBRARY_PATH=$PWD/.libs make check
 %license LICENSE
 
 %changelog
+* Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 2.6.2-1
+- Version 2.6.2
+- Drop upstreamed -pessimizing-move patch
+
 * Sat Feb 25 2023 Jerry James <loganjerry@gmail.com> - 2.6.1-1
 - Version 2.6.1
 - Dynamically generate python BuildRequires

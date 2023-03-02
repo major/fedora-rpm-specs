@@ -5,12 +5,18 @@
 
 Name:           capnproto
 Version:        0.10.3
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A data interchange format and capability-based RPC system
 
 License:        MIT
 URL:            https://capnproto.org
 Source0:        https://capnproto.org/%{modulename}-%{version}.tar.gz
+# https://github.com/capnproto/capnproto/pull/1613
+# g++13 missing header inclusion
+Patch0:         %{name}-pr1613-g++13-header.patch
+# https://github.com/capnproto/capnproto/pull/1618
+# Remove operator!= for c++20 header user
+Patch1:         %{name}-pr1618-remove-operator-notequal-c++20.patch
 
 # We need C++
 BuildRequires:  gcc-c++
@@ -45,7 +51,7 @@ developing applications that use %{name}.
 
 
 %prep
-%autosetup -n %{modulename}-%{version} -p1
+%autosetup -n %{modulename}-%{version} -p2
 
 # Disable broken test
 ## Cf. https://github.com/capnproto/capnproto/issues/1349
@@ -88,6 +94,10 @@ find %{buildroot} -name '*.la' -delete
 %{_libdir}/cmake/CapnProto/
 
 %changelog
+* Tue Feb 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.10.3-3
+- Backport upstream fix for missing headers for g++13
+- Backport upstream fix for operator!= removal for C++20
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

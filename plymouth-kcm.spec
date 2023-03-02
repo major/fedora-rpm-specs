@@ -2,7 +2,7 @@
 
 Name:    plymouth-kcm
 Summary: Plymouth configuration module for systemsettings
-Version: 5.27.1
+Version: 5.27.2
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -76,6 +76,9 @@ plymouth splash screen.
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
+- 5.27.2
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
 - 5.27.1
 

@@ -1,12 +1,12 @@
 Summary: Software version control visualization
 Name: gource
 Version: 0.54
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: http://gource.io/
 Source: https://github.com/acaudwell/Gource/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 ExcludeArch: ppc64le
 
-License: GPLv3+
+License: GPL-3.0-or-later
 
 BuildRequires: gcc-c++
 BuildRequires: SDL2_image-devel
@@ -58,6 +58,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/fonts
 %{_datadir}/gource/*
 
 %changelog
+* Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.54-3
+- migrated to SPDX license
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.54-2
 - Rebuilt for Boost 1.81
 

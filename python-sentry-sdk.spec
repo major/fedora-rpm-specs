@@ -1,9 +1,9 @@
 Name:           python-sentry-sdk
-Version:        1.14.0
+Version:        1.16.0
 Release:        1%{?dist}
 Summary:        The new Python SDK for Sentry.io
 
-License:        BSD
+License:        MIT
 URL:            https://sentry.io/for/python/
 Source0:        https://github.com/getsentry/sentry-python/archive/%{version}/sentry-python-%{version}.tar.gz
 
@@ -28,7 +28,6 @@ BuildRequires:  python3dist(gevent)
 BuildRequires:  python3dist(httpx)
 BuildRequires:  python3dist(jsonschema)
 BuildRequires:  python3dist(mock)
-BuildRequires:  python3dist(python-multipart)
 BuildRequires:  python3dist(opentelemetry-distro)
 BuildRequires:  python3dist(psycopg2)
 BuildRequires:  python3dist(pure-eval)
@@ -41,7 +40,9 @@ BuildRequires:  python3dist(pytest-asyncio)
 BuildRequires:  python3dist(pytest-cov)
 BuildRequires:  python3dist(pytest-forked)
 BuildRequires:  python3dist(pytest-localserver)
+BuildRequires:  python3dist(python-multipart)
 BuildRequires:  python3dist(requests)
+BuildRequires:  python3dist(responses)
 BuildRequires:  python3dist(rq)
 BuildRequires:  python3dist(sqlalchemy)
 BuildRequires:  python3dist(starlette)
@@ -63,7 +64,7 @@ Summary:        %{summary}
 %description -n python3-sentry-sdk %_description
 
 
-# Dependencies for quart, sanic, beam, pyspark, chalice, and starlite extras are not yet in Fedora
+# Dependencies for quart, sanic, beam, pyspark, chalice, starlite, huey, arq extras are not yet in Fedora
 # falcon version >= 3.0 is not yet supported => skipping this extra as well
 %global _extras %{expand:
   flask
@@ -87,9 +88,6 @@ Summary:        %{summary}
 %prep
 %autosetup -p1 -n sentry-python-%{version}
 
-# Typo, see https://github.com/getsentry/sentry-python/pull/1796
-sed -i 's/opentelemetry-distro>=0.350b0/opentelemetry-distro>=0.35b0/' setup.py
-
 
 %generate_buildrequires
 %pyproject_buildrequires -r
@@ -106,8 +104,10 @@ sed -i 's/opentelemetry-distro>=0.350b0/opentelemetry-distro>=0.35b0/' setup.py
 
 %check
 %global _check_import_options %{expand:
+  -e sentry_sdk.integrations.arq
   -e sentry_sdk.integrations.chalice
   -e sentry_sdk.integrations.falcon
+  -e sentry_sdk.integrations.huey
   -e sentry_sdk.integrations.quart
   -e sentry_sdk.integrations.sanic
   -e sentry_sdk.integrations.starlite
@@ -119,6 +119,10 @@ sed -i 's/opentelemetry-distro>=0.350b0/opentelemetry-distro>=0.35b0/' setup.py
 sed -i '/def test_auto_enabling_integrations_catches_import_error/i@pytest.mark.xfail' tests/test_basics.py
 sed -i '/def test_extract_stack_with_max_depth/i@pytest.mark.xfail' tests/test_profiler.py
 sed -i '/def test_active_thread_id/i@pytest.mark.xfail' tests/integrations/fastapi/test_fastapi.py
+# Remove old content_type argument from starlette test (not supported in current version of starlette).
+sed -i '/content_type=/D' tests/integrations/starlette/test_starlette.py
+# Fix aiohttp tests.
+sed -i 's/loop/event_loop/g' tests/integrations/aiohttp/test_aiohttp.py
 
 # Deselect/ignore:
 # 1. Network-dependent tests
@@ -129,16 +133,19 @@ sed -i '/def test_active_thread_id/i@pytest.mark.xfail' tests/integrations/fasta
 # 4. pymongo integration tests (mockupdb is unpackaged because it appears unmaintained)
 # 5. redis and rq integration tests (fakeredis is unpackaged yet)
 # 6. bottle, django, and flask integration tests (werkzeug in Fedora 38 is too new, see: https://github.com/getsentry/sentry-python/issues/1398)
-%pytest --durations=5 \
+# 7. starlette test which uses old content_type argument (not supported in current version of starlette).
+%pytest --asyncio-mode=auto --durations=5 \
   --deselect tests/integrations/celery/test_celery.py::test_newrelic_interference \
   --deselect tests/integrations/celery/test_celery.py::test_retry \
   --deselect tests/integrations/requests/test_requests.py::test_crumb_capture \
+  --deselect tests/integrations/starlette/test_starlette::test_starlettrequestextractor_form \
   --deselect tests/integrations/stdlib/test_httplib.py::test_crumb_capture \
   --deselect tests/integrations/stdlib/test_httplib.py::test_crumb_capture_hint \
   --deselect tests/integrations/stdlib/test_httplib.py::test_httplib_misuse \
   --deselect tests/integrations/threading/test_threading.py \
   --deselect tests/test_transport.py::test_transport_works \
   --deselect tests/utils/test_contextvars.py \
+  --ignore tests/integrations/arq \
   --ignore tests/integrations/bottle \
   --ignore tests/integrations/django \
   --ignore tests/integrations/flask \
@@ -156,6 +163,10 @@ sed -i '/def test_active_thread_id/i@pytest.mark.xfail' tests/integrations/fasta
 
 
 %changelog
+* Tue Feb 28 2023 Roman Inflianskas <rominf@aiven.io> - 1.16.0-1
+- Update to 1.16.0 (resolve rhbz#2167733)
+- Switch to MIT license
+
 * Mon Jan 23 2023 Roman Inflianskas <rominf@aiven.io> - 1.14.0-1
 - Update to 1.14.0 (resolve rhbz#2163387)
 

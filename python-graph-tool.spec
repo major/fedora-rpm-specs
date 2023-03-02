@@ -14,7 +14,7 @@ Please refer to https://graph-tool.skewed.de/static/doc/index.html for
 documentation.}
 
 Name:           python-graph-tool
-Version:        2.45
+Version:        2.46
 Release:        %autorelease
 Summary:        Efficient network analysis tool written in Python
 
@@ -22,8 +22,9 @@ Summary:        Efficient network analysis tool written in Python
 #   - BSL-1.0: src/boost-workaround/
 #              src/graph/graphml.cpp
 #              src/graph/read_graphviz_new.cpp
+#   - LGPL-3.0-or-later AND BSD-3-Clause: src/graph_tool/collection/small.py
 # Additionally, the following libraries are header-only and are therefore
-# treated as static libraries; their licenses to contribute to that of the
+# treated as static libraries; their licenses do contribute to that of the
 # binary RPMs:
 #   - CGAL is: LGPL-3.0-or-later AND GPL-3.0-or-later AND BSL-1.0 AND MIT
 #   - pcg-cpp is: MIT OR Apache-2.0
@@ -53,7 +54,7 @@ Summary:        Efficient network analysis tool written in Python
 #            m4/ax_cxx_compile_stdcxx_17.m4
 #            m4/ax_lib_cgal_core.m4
 #            m4/ax_python_module.m4
-License:        LGPL-3.0-or-later AND BSL-1.0 AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0)
+License:        LGPL-3.0-or-later AND BSL-1.0 AND BSD-3-Clause AND GPL-3.0-or-later AND MIT AND (MIT OR Apache-2.0)
 URL:            https://graph-tool.skewed.de/
 Source0:        https://downloads.skewed.de/graph-tool/graph-tool-%{version}.tar.bz2
 # Remove upstream compiler flags
@@ -86,7 +87,7 @@ BuildRequires:  CGAL-devel
 # CGAL is header-only since version 5.4.0, so we must BR the virtual -static
 # subpackage for tracking, per Fedora guidelines
 BuildRequires:  CGAL-static
-BuildRequires:  pkgconfig(cairomm-1.0)
+BuildRequires:  pkgconfig(cairomm-1.16)
 BuildRequires:  expat-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gmp-devel
@@ -108,6 +109,13 @@ Provides:       graph-tool%{?_isa} = %{version}-%{release}
 
 %package -n python3-graph-tool-devel
 Summary:        %{summary}
+
+# This package does not contain compiled binaries, so its license does not
+# include the licenses of header-only “static” dependencies. The headers of
+# pcg-cpp are “re-exposed” in this package, but it uses symbolic links rather
+# than installing additional copies. Additionally, no .py source files are
+# included.
+License:        LGPL-3.0-or-later AND BSL-1.0
 
 Requires:       python3-graph-tool%{?_isa} = %{version}-%{release}
 # Since this header-only package is re-exposed as part of the extension API,

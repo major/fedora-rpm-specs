@@ -5,12 +5,16 @@
 
 Name:           rocm-compilersupport
 Version:        %{rocm_version}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Various AMD ROCm LLVM related services
 
 Url:            https://github.com/RadeonOpenCompute/ROCm-CompilerSupport
 License:        NCSA
 Source0:        https://github.com/RadeonOpenCompute/%{upstreamname}/archive/refs/tags/rocm-%{version}.tar.gz#/%{upstreamname}-%{version}.tar.gz
+
+# Patch adopted from Gentoo:
+#https://gitweb.gentoo.org/repo/gentoo.git/commit/?id=ff5673d31363d797f1e40afa8038b9a9fa4c56c1
+Patch0:         rocm-comgr-5.3.3-fix-tests.patch
 
 BuildRequires:  cmake
 BuildRequires:  clang-devel >= 15.0.0
@@ -45,13 +49,6 @@ The API is documented in the header file:
 
 %prep
 %autosetup -p1 -n %{upstreamname}-rocm-%{version}
-
-#These tests rely on features not present in upstream llvm:
-sed -i -e "/compile_test/d" \
-    -e "/compile_minimal_test/d" \
-    -e "/compile_device_libs_test/d" \
-    -e "/compile_source_with_device_libs_to_bc_test/d" \
-    lib/comgr/test/CMakeLists.txt
 
 ##Fix issue wit HIP, where compilation flags are incorrect, see issue:
 #https://github.com/RadeonOpenCompute/ROCm-CompilerSupport/issues/49
@@ -88,6 +85,9 @@ sed -i 's/lib\(\/clang\)/%{_lib}\1/' lib/comgr/src/comgr-compiler.cpp
 %{_includedir}/amd_comgr.h
 
 %changelog
+* Mon Feb 27 2023 Jeremy Newton <alexjnewt at hotmail dot com> - 5.4.1-3
+- Use patch from Gentoo to improve test failures
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

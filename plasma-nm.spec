@@ -4,7 +4,7 @@
 
 Name:    plasma-nm
 Summary: Plasma for managing network connections
-Version: 5.27.1
+Version: 5.27.2
 Release: 1%{?dist}
 
 License: LGPLv2+ and GPLv2+
@@ -327,6 +327,9 @@ rm -f %{buildroot}/usr/share/locale/*/LC_MESSAGES/plasmanetworkmanagement_vpncui
 %endif
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
+- 5.27.2
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
 - 5.27.1
 

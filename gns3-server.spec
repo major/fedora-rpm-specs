@@ -5,8 +5,8 @@
 %global __requires_exclude_from ^%{python3_sitelib}/gns3server/compute/docker/resources/.*$
 
 Name:           gns3-server
-Version:        2.2.37
-Release:        4%{?dist}
+Version:        2.2.38
+Release:        1%{?dist}
 Summary:        Graphical Network Simulator 3
 
 License:        GPLv3
@@ -14,8 +14,6 @@ URL:            http://gns3.com
 Source0:        https://github.com/GNS3/gns3-server/archive/v%{git_tag}/%{name}-%{git_tag}.tar.gz
 Source1:        gns3.service
 Patch0:         0001-changing-busybox-udhcpc-script-path.patch
-# web console fix https://github.com/GNS3/gns3-server/commit/3040e87a7d3d81454d30b37f775e1156e2072988.patch
-Patch1:         3040e87a7d3d81454d30b37f775e1156e2072988.patch
 
 BuildArch:      noarch
 
@@ -134,6 +132,9 @@ cp -f %{_sbindir}/busybox %{python3_sitelib}/gns3server/compute/docker/resources
 %systemd_postun_with_restart gns3.service
 
 %changelog
+* Tue Feb 28 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.38-1
+- Update to 2.2.38
+
 * Sat Feb 18 2023 Alexey Kurov <nucleo@fedoraproject.org> - 2.2.37-4
 - backport python3.11 fix
 

@@ -2,7 +2,7 @@
 %global framework kfilemetadata
 
 # Define to 1 to enable ffmpeg extractor
-#global         ffmpeg 1
+%global         ffmpeg 1
 
 %if 0%{?fedora}
 %global         catdoc 1
@@ -18,8 +18,8 @@
 
 Name:           kf5-%{framework}
 Summary:        A Tier 2 KDE Framework for extracting file metadata
-Version: 5.103.0
-Release: 1%{?dist}
+Version:        5.103.0
+Release:        2%{?dist}
 
 # # KDE e.V. may determine that future LGPL versions are accepted
 License:        LGPLv2 or LGPLv3
@@ -33,6 +33,7 @@ Source0:        http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framewo
 %global __provides_exclude_from ^(%{_kf5_plugindir}/.*\\.so)$
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
+BuildRequires:  kdegraphics-mobipocket-devel
 BuildRequires:  kf5-karchive-devel >= %{majmin}
 BuildRequires:  kf5-kcoreaddons-devel >= %{majmin}
 BuildRequires:  kf5-ki18n-devel >= %{majmin}
@@ -55,7 +56,7 @@ Recommends:     catdoc
 BuildRequires:  ebook-tools-devel
 %endif
 %if 0%{?ffmpeg}
-BuildRequires:  ffmpeg-devel
+BuildRequires:  ffmpeg-free-devel
 %endif
 %if 0%{?poppler}
 BuildRequires:  pkgconfig(poppler-qt5)
@@ -115,6 +116,9 @@ mkdir -p %{buildroot}%{_kf5_plugindir}/kfilemetadata/writers/
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

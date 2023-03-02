@@ -4,7 +4,7 @@
 Name:           kokkos
 Version:        3.7.01
 %global         sover 3.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Kokkos C++ Performance Portability Programming
 # no support for 32-bit archs https://github.com/kokkos/kokkos/issues/2312
 ExcludeArch: i686 armv7hl
@@ -12,6 +12,7 @@ ExcludeArch: i686 armv7hl
 License:        BSD
 URL:            https://github.com/kokkos/kokkos
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
+Patch0:         %{url}/commit/619ed2d26aaaf856495788b4ec113e59cab2ac82.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake >= 3.16
@@ -79,6 +80,9 @@ This package contains the development files of %{name}.
 %{_bindir}/kokkos_launch_compiler
 
 %changelog
+* Tue Feb 28 2023 Cezary Skrzyński <cezary.skrzynski@ng-analytics.com> - 3.7.01-3
+- Fix missing include
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.7.01-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

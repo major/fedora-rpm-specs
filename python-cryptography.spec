@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        37.0.2
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -37,8 +37,6 @@ BuildRequires:  python%{python3_pkgversion}-cffi >= 1.7
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-setuptools-rust >= 0.11.3
-# Cargo.toml requires asn1 0.6, but package FTBFS with 0.6.1
-BuildRequires:  rust-asn1-devel >= 0.6.4
 
 %if %{with tests}
 %if 0%{?fedora}
@@ -73,22 +71,24 @@ recipes to Python developers.
 
 %prep
 %autosetup -p1 -n %{srcname}-%{version}
-
-%generate_buildrequires
-
 %if 0%{?fedora}
-# Fedora: use cargo macros to make use of RPMified crates
 %cargo_prep
-cd src/rust
-rm -f Cargo.lock
-%cargo_generate_buildrequires
-cd ../..
+rm src/rust/Cargo.lock
 %else
 # RHEL: use vendored Rust crates
 %cargo_prep -V 1
 %endif
 
+%if 0%{?fedora}
+%generate_buildrequires
+# Fedora: use RPMified crates
+cd src/rust
+%cargo_generate_buildrequires
+cd ../..
+%endif
+
 %build
+export RUSTFLAGS="%build_rustflags"
 %py3_build
 
 %install
@@ -129,6 +129,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Tue Feb 28 2023 Fabio Valentini <decathorpe@gmail.com> - 37.0.2-9
+- Ensure correct compiler flags are used for Rust code.
+
 * Wed Feb 22 2023 Christian Heimes <cheimes@redhat.com> - 37.0.2-8
 - Fix CVE-2023-23931: Don't allow update_into to mutate immutable objects, resolves rhbz#2171820
 - Fix FTBFS due to failing test_load_invalid_ec_key_from_pem and test_decrypt_invalid_decrypt, resolves rhbz#2171661

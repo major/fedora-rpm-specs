@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    2cf940ebc6355a9d430462811b5aaa308b174bed
+%global gh_commit    0e2b40518197a8c0d4b08bc34dfff1c99c508954
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
@@ -25,9 +25,9 @@
 %global ver_major    9
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        9.2.24
+Version:        9.2.25
 Release:        1%{?dist}
-Summary:        PHP code coverage information
+Summary:        PHP code coverage information, version %{ver_major}
 
 # SPDX: Main license is BSD-3-Clause
 # BSD-3-Clause: D3
@@ -42,7 +42,7 @@ BuildArch:      noarch
 BuildRequires:  php-fedora-autoloader-devel >= 1.0.0
 %if %{with tests}
 BuildRequires:  php(language) >= 7.3
-BuildRequires:  (php-composer(nikic/php-parser)                   >= 4.14   with php-composer(nikic/php-parser)                   < 5)
+BuildRequires:  (php-composer(nikic/php-parser)                   >= 4.15   with php-composer(nikic/php-parser)                   < 5)
 BuildRequires:  (php-composer(phpunit/php-file-iterator)          >= 3.0.3  with php-composer(phpunit/php-file-iterator)          < 4)
 BuildRequires:  (php-composer(phpunit/php-text-template)          >= 2.0.2  with php-composer(phpunit/php-text-template)          < 3)
 BuildRequires:  (php-composer(sebastian/code-unit-reverse-lookup) >= 2.0.2  with php-composer(sebastian/code-unit-reverse-lookup) < 3)
@@ -62,7 +62,7 @@ BuildRequires:  php-xdebug
 #        "ext-dom": "*",
 #        "ext-libxml": "*",
 #        "ext-xmlwriter": "*",
-#        "nikic/php-parser": "^4.14",
+#        "nikic/php-parser": "^4.15",
 #        "phpunit/php-file-iterator": "^3.0.3",
 #        "phpunit/php-text-template": "^2.0.2",
 #        "sebastian/code-unit-reverse-lookup": "^2.0.2",
@@ -75,7 +75,7 @@ Requires:       php(language) >= 7.3
 Requires:       php-dom
 Requires:       php-libxml
 Requires:       php-xmlwriter
-Requires:       (php-composer(nikic/php-parser)                   >= 4.14   with php-composer(nikic/php-parser)                   < 5)
+Requires:       (php-composer(nikic/php-parser)                   >= 4.15   with php-composer(nikic/php-parser)                   < 5)
 Requires:       (php-composer(phpunit/php-file-iterator)          >= 3.0.3  with php-composer(phpunit/php-file-iterator)          < 4)
 Requires:       (php-composer(phpunit/php-text-template)          >= 2.0.2  with php-composer(phpunit/php-text-template)          < 3)
 Requires:       (php-composer(sebastian/code-unit-reverse-lookup) >= 2.0.2  with php-composer(sebastian/code-unit-reverse-lookup) < 3)
@@ -112,6 +112,8 @@ Provides:       bundled(js-popper)
 %description
 Library that provides collection, processing, and rendering functionality
 for PHP code coverage information.
+
+This package provides the version %{ver_major} of the library.
 
 Autoloader: %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}/autoload.php
 
@@ -183,6 +185,10 @@ exit $ret
 
 
 %changelog
+* Tue Feb 28 2023 Remi Collet <remi@remirepo.net> - 9.2.25-1
+- update to 9.2.25
+- raise dependency on nikic/php-parser 4.14
+
 * Thu Jan 26 2023 Remi Collet <remi@remirepo.net> - 9.2.24-1
 - update to 9.2.24
 

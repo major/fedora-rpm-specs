@@ -1,5 +1,5 @@
 Name:       ibus-typing-booster
-Version:    2.22.0
+Version:    2.22.1
 Release:    1%{?dist}
 Summary:    A completion input method
 License:    GPL-3.0-or-later AND Apache-2.0
@@ -154,8 +154,8 @@ export PYTHON=%{__python3}
 
 %check
 export LC_ALL=C.UTF-8
-%if 0%{?fedora} <= 37
-  # broken on f38 and f39, see: https://bugzilla.redhat.com/show_bug.cgi?id=2171887
+%if 0%{?fedora} <= 35
+  # now broken on f36, f37, f38 and f39, see: https://bugzilla.redhat.com/show_bug.cgi?id=2171887
   appstreamcli validate --pedantic --no-net %{buildroot}/%{_datadir}/metainfo/*.appdata.xml
 %endif
 desktop-file-validate \
@@ -249,6 +249,13 @@ fi
 %{_datadir}/applications/emoji-picker.desktop
 
 %changelog
+* Tue Feb 28 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.1-1
+- Update to 2.22.1
+- Translation update from Weblate (sv 100%)
+- Fix input of '_' and emoji lookup using '_' for the French BÉPO layout
+  and the German neo2 layout
+  (Resolves: https://github.com/mike-fabian/ibus-typing-booster/issues/432)
+
 * Mon Feb 27 2023 Mike FABIAN <mfabian@redhat.com> - 2.22.0-1
 - Update to 2.22.0
 - Translation update from Weblate (de 100%, ja 37.8%, nl 100%, pl 100%, tr 100%, uk 100%)

@@ -16,7 +16,7 @@
 
 Name:           strongswan
 Version:        5.9.9
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        An OpenSource IPsec-based VPN and TNC solution
 License:        GPLv2+
 URL:            https://www.strongswan.org/
@@ -31,6 +31,7 @@ Patch1:         strongswan-5.9.7-error-no-format.patch
 # https://github.com/strongswan/strongswan/pull/1511
 # https://github.com/strongswan/strongswan/commit/e99de2aee9f26e3ab97d88902308107d9f048acd
 Patch2:         strongswan-5.9.9-man-paths.patch
+Patch3:         strongswan-5.9.8-5.9.9_tls_auth_bypass_exp_pointer.patch
 
 BuildRequires:  autoconf
 BuildRequires:  automake
@@ -419,6 +420,9 @@ install -D -m 0644 %{SOURCE3} %{buildroot}/%{_tmpfilesdir}/strongswan-starter.co
 %endif
 
 %changelog
+* Tue Feb 28 2023 Paul Wouters <paul.wouters@aiven.io - 5.9.9-3
+- Resolves: CVE-2023-26463 authorization bypass in TLS-based EAP methods
+
 * Mon Jan 16 2023 Petr Menšík <pemensik@redhat.com> - 5.9.9-2
 - Use configure paths in manual pages (#2106120)
 

@@ -2,7 +2,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.103.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 module for downloading application assets
 
 License: LGPLv2+
@@ -33,6 +33,7 @@ BuildRequires:  kf5-ktextwidgets-devel >= %{majmin}
 BuildRequires:  kf5-kwidgetsaddons-devel >= %{majmin}
 BuildRequires:  kf5-kwindowsystem-devel >= %{majmin}
 BuildRequires:  kf5-kxmlgui-devel >= %{majmin}
+BuildRequires:  kf5-syndication-devel >= %{majmin}
 BuildRequires:  kf5-rpm-macros
 BuildRequires:  qt5-qtbase-devel
 BuildRequires:  qt5-qtdeclarative-devel
@@ -101,6 +102,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

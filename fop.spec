@@ -1,18 +1,18 @@
 Name:           fop
 Summary:        XSL-driven print formatter
 Version:        2.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 # ASL 1.1:
 # several files in fop-core/src/main/resources/org/apache/fop/render/awt/viewer/resources
 # rest is ASL 2.0
-License:        ASL 2.0 and ASL 1.1
+License:        Apache-2.0 AND Apache-1.1
 URL:            https://xmlgraphics.apache.org/fop
 Source0:        https://www.apache.org/dist/xmlgraphics/%{name}/source/%{name}-%{version}-src.tar.gz
 Source1:        %{name}.script
 Source2:        batik-pdf-MANIFEST.MF
 Source4:        https://www.apache.org/licenses/LICENSE-1.1.txt
-Patch1:		0001-Main.patch
-Patch2:		0002-Use-sRGB.icc-color-profile-from-colord-package.patch
+Patch1:         0001-Main.patch
+Patch2:         0002-Use-sRGB.icc-color-profile-from-colord-package.patch
 Patch3:         0003-Port-to-QDox-2.0.patch
 
 BuildArch:      noarch
@@ -118,6 +118,9 @@ cp -rp target/xmvn-apidocs/* %{buildroot}%{_javadocdir}/%{name}
 
 
 %changelog
+* Mon Feb 27 2023 Tim Orling <ticotimo@gmail.com> - 2.8-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

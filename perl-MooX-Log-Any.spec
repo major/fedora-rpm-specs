@@ -1,8 +1,8 @@
 Name:           perl-MooX-Log-Any
 Version:        0.004004
-Release:        22%{?dist}
+Release:        23%{?dist}
 Summary:        A Moose role to add support for logging via Log::Any
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-Log-Any
 Source0:        https://cpan.metacpan.org/authors/id/C/CA/CAZADOR/MooX-Log-Any-%{version}.tar.gz
 BuildArch:      noarch
@@ -60,6 +60,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Feb 27 2023 Tim Orling <ticotimo@gmail.com> - 0.004004-23
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004004-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

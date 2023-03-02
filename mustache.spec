@@ -2,7 +2,7 @@
 
 Name: mustache
 Version: 4.1
-Release: 7%{?dist}
+Release: 9%{?dist}
 
 License: BSL-1.0
 Summary: Mustache text templates for modern C++
@@ -13,11 +13,17 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://github.com/kainjow/Mustache/pull/42
 Patch100: %{name}-4.1-catch-fixes.patch
 
-BuildRequires: catch-devel
 BuildRequires: cmake
 BuildRequires: gcc
 BuildRequires: gcc-c++
 BuildRequires: ninja-build
+
+# mustache currently support only catch v2
+%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
+BuildRequires: catch2-devel
+%else
+BuildRequires: catch-devel
+%endif
 
 BuildArch: noarch
 
@@ -56,6 +62,12 @@ install -m 0644 -p %{name}.hpp %{buildroot}%{_includedir}
 %{_includedir}/%{name}.hpp
 
 %changelog
+* Tue Feb 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 4.1-9
+- Fixed FTBFS in EPEL/ELN due to catch v3 update.
+
+* Tue Feb 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 4.1-8
+- Fixed FTBFS due to catch v3 update.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

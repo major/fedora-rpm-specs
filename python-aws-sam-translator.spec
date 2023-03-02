@@ -1,6 +1,6 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.59.0
+Version:        1.60.0
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -11,8 +11,10 @@ Source0:        %{url}/archive/v%{version}/serverless-application-model-%{versio
 
 # chore: Loose typing_extensions version requirement
 # https://github.com/aws/serverless-application-model/pull/2916
-# Cherry-picked to 1.59.0.
-Patch:          0001-chore-Loose-typing_extensions-version-requirement-29.patch
+Patch:          %{url}/pull/2916.patch
+# Do not install “schema_source” to site-packages
+# https://github.com/aws/serverless-application-model/pull/2973
+Patch:          %{url}/pull/2973.patch
 
 BuildArch:      noarch
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -61,12 +63,13 @@ Obsoletes:      python-aws-sam-translator-doc < 1.54.0-1
 # Comment out a few dev dependencies that we will not use. Then, loosen
 # selected semver-pinned dev dependencies, allowing newer versions.
 sed -r -i \
-    -e 's/^(black|coverage|flake8|pylint|pytest-cov|tox)\b/#\1/' \
+    -e 's/^(black|flake8|pylint|ruff)\b/#\1/' \
+    -e 's/^(coverage|pytest-cov|tox)\b/#\1/' \
     -e 's/^(mypy|boto3-stubs|types-.*)\b/#\1/' \
     -e 's/^(click|parameterized|pytest(-(rerunfailures|xdist))?)~=/\1>=/' \
     -e 's/^(pyyaml|requests|tenacity)~=/\1>=/' \
     requirements/dev.txt
-# Patch out coverage
+# Finish patching out coverage
 sed -r -i '/^addopts[[:blank:]]*=/d' pytest.ini
 
 

@@ -1,6 +1,6 @@
 %global pypi_name patiencediff
 Name:           python-patiencediff
-Version:        0.2.12
+Version:        0.2.13
 Release:        1%{?dist}
 Summary:        Python implementation of the patiencediff algorithm
 
@@ -49,6 +49,10 @@ Summary:        %{summary}
 %{_bindir}/patiencediff
 
 %changelog
+* Tue Feb 28 2023 Ondřej Pohořelský <opohorel@redhat.com> - 0.2.13-1
+- Update to 0.2.13
+- Resolves: rhbz#2167981
+
 * Mon Jan 16 2023 Ondřej Pohořelský <opohorel@redhat.com> - 0.2.12-1
 - Update to 0.2.12
 - Migrate to the newest python macros

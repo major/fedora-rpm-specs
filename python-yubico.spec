@@ -6,7 +6,7 @@ Version:        1.3.3
 Release:        11%{?dist}
 Summary:        Pure-python library for interacting with Yubikeys
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/Yubico/%{name}
 Source0:        https://github.com/Yubico/%{name}/archive/%{name}-%{version}.tar.gz
 Patch0001:      0001-literal-comparison.patch

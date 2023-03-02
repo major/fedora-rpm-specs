@@ -2,7 +2,7 @@
 
 Name:               python-%{modname}
 Version:            3.20.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Slack Developer Kit for Python
 
 License:            MIT
@@ -27,6 +27,9 @@ BuildRequires:      python3-aiohttp
 Requires:           python3-websocket-client
 Requires:           python3-six
 Requires:           python3-requests
+
+%py_provides python3-slack
+%py_provides python3-slack-sdk
 
 %description -n python%{python3_pkgversion}-%{modname}
 %{summary}.
@@ -54,6 +57,9 @@ Python %{python3_pkgversion} version.
 %{python3_sitelib}/slack_sdk-*.egg-info/
 
 %changelog
+* Tue Feb 28 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.20.0-2
+- Add Provides for importable modules
+
 * Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.20.0-1
 - 3.20.0
 

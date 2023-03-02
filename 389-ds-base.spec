@@ -46,7 +46,7 @@ ExcludeArch: i686
 Summary:          389 Directory Server (base)
 Name:             389-ds-base
 Version:          2.3.2
-Release:          1%{?dist}
+Release:          2%{?dist}
 License:          GPLv3+ and (ASL 2.0 or MIT)
 URL:              https://www.port389.org
 Conflicts:        selinux-policy-base < 3.9.8
@@ -181,6 +181,8 @@ BuildRequires:    openssl-devel
 BuildRequires:    pam-devel
 BuildRequires:    systemd-units
 BuildRequires:    systemd-devel
+BuildRequires:    systemd-rpm-macros
+%{?sysusers_requires_compat}
 %if %{use_asan}
 BuildRequires:    libasan
 %endif
@@ -274,6 +276,7 @@ Source2:          %{name}-devel.README
 %if %{bundle_jemalloc}
 Source3:          https://github.com/jemalloc/%{jemalloc_name}/releases/download/%{jemalloc_ver}/%{jemalloc_name}-%{jemalloc_ver}.tar.bz2
 %endif
+Source4:          389-ds-base.sysusers
 
 %description
 389 Directory Server is an LDAPv3 compliant server.  The base package includes
@@ -492,6 +495,7 @@ mkdir -p $RPM_BUILD_ROOT/var/lock/%{pkgname}
 
 # for systemd
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/systemd/system/%{groupname}.wants
+install -p -D -m 0644 %{SOURCE4} %{buildroot}%{_sysusersdir}/389-ds-base.conf
 
 # remove libtool archives and static libs
 rm -f $RPM_BUILD_ROOT%{_libdir}/%{pkgname}/*.a
@@ -526,20 +530,8 @@ fi
 
 # https://fedoraproject.org/wiki/Packaging:UsersAndGroups#Soft_static_allocation
 # Soft static allocation for UID and GID
-USERNAME="dirsrv"
-ALLOCATED_UID=389
-GROUPNAME="dirsrv"
-ALLOCATED_GID=389
-HOMEDIR="/usr/share/dirsrv"
-
-getent group $GROUPNAME >/dev/null || /usr/sbin/groupadd -f -g $ALLOCATED_GID -r $GROUPNAME
-if ! getent passwd $USERNAME >/dev/null ; then
-    if ! getent passwd $ALLOCATED_UID >/dev/null ; then
-      /usr/sbin/useradd -r -u $ALLOCATED_UID -g $GROUPNAME -d $HOMEDIR -s /sbin/nologin -c "user for 389-ds-base" $USERNAME
-    else
-      /usr/sbin/useradd -r -g $GROUPNAME -d $HOMEDIR -s /sbin/nologin -c "user for 389-ds-base" $USERNAME
-    fi
-fi
+# sysusers.d format https://fedoraproject.org/wiki/Changes/Adopting_sysusers.d_format
+%sysusers_create_compat %{SOURCE4}
 
 # Reload our sysctl before we restart (if we can)
 sysctl --system &> $output; true
@@ -613,6 +605,7 @@ exit 0
 %config(noreplace)%{_sysconfdir}/%{pkgname}/schema/*.ldif
 %dir %{_sysconfdir}/%{pkgname}/config
 %dir %{_sysconfdir}/systemd/system/%{groupname}.wants
+%{_sysusersdir}/389-ds-base.conf
 %config(noreplace)%{_sysconfdir}/%{pkgname}/config/slapd-collations.conf
 %config(noreplace)%{_sysconfdir}/%{pkgname}/config/certmap.conf
 %{_datadir}/%{pkgname}
@@ -716,6 +709,9 @@ exit 0
 %endif
 
 %changelog
+* Tue Feb 28 2023 Simon Pichugin <spichugi@redhat.com> - 2.3.2-2
+- Use systemd-sysusers for dirsrv user and group (#2173834)
+
 * Mon Jan 23 2023 Mark Reynolds <mreynolds@redhat.com> - 2.3.2-1
 - Bump version to 2.3.2
 - Issue 5547 - automember plugin improvements

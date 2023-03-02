@@ -1,8 +1,8 @@
 Name:           perl-Log-Any
 Version:        1.713
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bringing loggers and listeners together
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Log-Any
 Source0:        https://cpan.metacpan.org/authors/id/P/PR/PREACTION/Log-Any-%{version}.tar.gz
 BuildArch:      noarch
@@ -74,6 +74,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Mon Feb 27 2023 Tim Orling <ticotimo@gmail.com> - 1.713-2
+- migrated to SPDX license
+
 * Fri Feb 24 2023 Tim Orling <ticotimo@gmail.com> - 1.713-1
 - Update to 1.713 (rhbz 2144909)
 

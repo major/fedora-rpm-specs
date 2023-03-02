@@ -13,8 +13,8 @@
 %global __brp_remove_la_files %nil
 
 Name: openldap
-Version: 2.6.3
-Release: 2%{?dist}
+Version: 2.6.4
+Release: 1%{?dist}
 Summary: LDAP support libraries
 License: OpenLDAP
 URL: http://www.openldap.org/
@@ -504,6 +504,10 @@ exit 0
 %{_libdir}/libslapi-2.4*.so.*
 
 %changelog
+* Mon Feb 27 2023 Simon Pichugin <spichugi@redhat.com> - 2.6.4-1
+- Rebase to version 2.6.4
+  Related: rhbz#2168351
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

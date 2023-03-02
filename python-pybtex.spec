@@ -1,6 +1,6 @@
 Name:           python-pybtex
 Version:        0.24.0
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        BibTeX-compatible bibliography processor written in Python
 
 License:        MIT
@@ -34,6 +34,10 @@ Pybtex also includes a Python API for managing bibliographies from Python.}
 
 %package -n python3-pybtex
 Summary:        BibTeX-compatible bibliography processor written in Python
+# Needed until this issue is resolved:
+# https://bitbucket.org/pybtex-devs/pybtex/issues/169/replace-pkg_resources-with
+# See https://src.fedoraproject.org/rpms/babel/pull-request/11
+Requires:       %{py3_dist setuptools}
 Provides:       bundled(js-jquery)
 Provides:       bundled(js-underscore)
 
@@ -129,6 +133,9 @@ popd
 %doc CHANGES docs/build/html
 
 %changelog
+* Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 0.24.0-10
+- Depend on setuptools at runtime
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 0.24.0-9
 - Dynamically generate BuildRequires
 - Update pygments workaround

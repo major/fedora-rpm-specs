@@ -11,7 +11,7 @@
 %global source_directory 1.15-development
 
 Name:           libnbd
-Version:        1.15.10
+Version:        1.15.11
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -346,6 +346,9 @@ make %{?_smp_mflags} check || {
 
 
 %changelog
+* Tue Feb 28 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.11-1
+- New upstream development version 1.15.11
+
 * Sat Feb 25 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.10-1
 - New upstream development version 1.15.10
 

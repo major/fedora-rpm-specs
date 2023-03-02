@@ -54,8 +54,8 @@ occur automatically.
 The clevis package provides basic encryption/decryption policy support.
 Users can use this directly; but most commonly, it will be used as a
 building block for other packages. For example, see the clevis-luks
-and clevis-dracut packages for automatic root volume unlocking of LUKSv1
-volumes during early boot.
+and clevis-dracut packages for automatic root volume unlocking of
+LUKSv1/LUKSv2 volumes during early boot.
 
 %package luks
 Summary:        LUKS integration for clevis

@@ -1,6 +1,6 @@
 %global github_name twilio-python
 %global pypi_name twilio
-%global version 7.16.3
+%global version 7.16.4
 
 Name:           python-%{pypi_name}
 Version:        %{version}
@@ -52,6 +52,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Tue Feb 28 2023 Roman Inflianskas <rominf@aiven.io> - 7.16.4-1
+- Resolves rhbz#2172974 python-twilio-7.16.4 is available
+
 * Thu Feb 09 2023 Paul Wouters <paul.wouters@aiven.io - 7.16.3-1
 - Resolves rhbz#2164705 python-twilio-7.16.3 is available
 

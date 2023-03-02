@@ -25,7 +25,7 @@ Name:             tomcatjss
 
 Summary:          JSS Connector for Apache Tomcat
 URL:              https://github.com/dogtagpki/tomcatjss
-License:          LGPLv2+
+License:          LGPL-2.1-or-later
 Version:          %{major_version}.%{minor_version}.%{update_version}
 Release:          %{release_number}%{?phase:.}%{?phase}%{?timestamp:.}%{?timestamp}%{?commit_id:.}%{?commit_id}%{?dist}
 

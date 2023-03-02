@@ -5,7 +5,7 @@
 
 Name: remmina
 Version: 1.4.29
-Release: 4%{?dist}
+Release: 5%{?dist}
 Summary: Remote Desktop Client
 License: GPLv2+ and MIT
 URL: https://remmina.org
@@ -20,6 +20,7 @@ Source1: pluginBuild-CMakeLists.txt
 
 Patch01: 0001_add_mime_text_formats_for_rdp_clibpoard.patch
 Patch02: 0002_fix_unlock_crash.patch
+Patch03: 0003_remmina_rdp_monitor_get_fix_maxw_maxh_and_monitorids_calculation.patch
 
 BuildRequires: cmake
 BuildRequires: cups-devel
@@ -345,6 +346,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.appdat
 %{_mandir}/man1/remmina-gnome.1*
 
 %changelog
+* Tue Feb 28 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.29-5
+- Add patch: 0003_remmina_rdp_monitor_get_fix_maxw_maxh_and_monitorids_calculation.patch
+
 * Mon Jan 23 2023 Phil Wyett <philip.wyett@kathenas.org> - 1.4.29-4
 - Fix flatpak build - Yaakov Selkowitz <yselkowi@redhat.com>.
 - Make Fedora greater than or equal to 37 use libsoup3 and webkit2gtk-4.1.

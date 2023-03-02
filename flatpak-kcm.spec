@@ -1,5 +1,5 @@
 Name:          flatpak-kcm
-Version:       5.27.1
+Version:       5.27.2
 Release:       1%{?dist}
 License:       BSD-2-Clause and BSD-3-Clause and CC0-1.0 and GPL-2.0-or-later
 Summary:       Flatpak Permissions Management KCM
@@ -37,11 +37,15 @@ BuildRequires: pkgconfig(flatpak)
 
 %{_kf5_datadir}/kpackage/kcms/kcm_flatpak/contents/ui/main.qml
 %{_kf5_datadir}/kpackage/kcms/kcm_flatpak/contents/ui/permissions.qml
+%{_kf5_datadir}/kpackage/kcms/kcm_flatpak/contents/ui/KcmPopupModal.qml
 
 %{_kf5_libdir}/qt5/plugins/plasma/kcms/systemsettings/kcm_flatpak.so
 %{_kf5_datadir}/applications/kcm_flatpak.desktop
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
+- 5.27.2
+
 * Tue Feb 21 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.1-1
 - 5.27.1
 

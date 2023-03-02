@@ -10,7 +10,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.103.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution for password management
 
 License: LGPLv2+
@@ -27,6 +27,7 @@ Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{v
 BuildRequires:  cmake(Qca-qt5)
 
 BuildRequires:  extra-cmake-modules >= %{majmin}
+BuildRequires:  qgpgme-devel
 BuildRequires:  libgcrypt-devel
 BuildRequires:  make
 BuildRequires:  qt5-qtbase-devel
@@ -129,6 +130,9 @@ make test ARGS="--output-on-failure --timeout 30" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

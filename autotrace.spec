@@ -4,10 +4,15 @@ Release:        %autorelease
 Summary:        Utility for converting bitmaps to vector graphics
 License:        GPLv2+ and LGPLv2+
 URL:            http://autotrace.sourceforge.net/
-Source0:	https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        https://github.com/%{name}/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 # https://github.com/autotrace/autotrace/pull/105
 Patch0:	autotrace-0.31.9-pr105-ImageMagick7.patch
+# https://github.com/autotrace/autotrace/pull/108
+Patch1:	autotrace-0.31.9-expected-test-failure-no-imagemagick.patch
+# No ImageMagick in RHEL 8 and future releases
+%if 0%{?rhel} < 8
 BuildRequires:	ImageMagick-devel
+%endif
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	gcc
@@ -36,7 +41,9 @@ Postscript, SVG, xfig, SWF, and others.
 Summary:        Header files for autotrace
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 Requires:       pkgconfig
+%if 0%{?rhel} < 8
 Requires:       ImageMagick-devel
+%endif
 Requires:       pstoedit-devel
 
 
@@ -50,8 +57,12 @@ This package contains header files and development libraries for autotrace.
 
 %build
 autoreconf -ivf
+%if 0%{?rhel} < 8
 %configure --enable-magick-readers --disable-static
-make %{?_smp_mflags}
+%else
+%configure --without-magick --disable-static
+%endif
+%make_build
 
 
 %install

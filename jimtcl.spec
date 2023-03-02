@@ -1,25 +1,25 @@
 %bcond_without tests
 
 Name:           jimtcl
-Version:        0.81
+Version:        0.82
 Release:        %autorelease
 Summary:        A small embeddable Tcl interpreter
 
-License:        BSD
+License:        BSD-2-Clause-Views
 URL:            http://jim.tcl.tk
 Source0:        https://github.com/msteveb/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-# support using lib64 instead of lib
-Patch0:         %{name}-lib64.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  asciidoc
 BuildRequires:  make
 # Extension dependencies
+BuildRequires:  pkgconfig(hiredis)
+BuildRequires:  pkgconfig(readline)
 BuildRequires:  pkgconfig(openssl)
-%ifnarch s390x
-# zlib test fails on s390x
+BuildRequires:  pkgconfig(SDL2_gfx)
+BuildRequires:  pkgconfig(SDL2_ttf)
+BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(zlib)
-%endif
 %if %{with tests}
 BuildRequires:  hostname
 %endif
@@ -61,17 +61,16 @@ export STRIP=strip
 # see ./configure --extinfo for list
 %configure --shared --disable-option-checking \
   --allextmod \
-  --docdir=%{_datadir}/doc/%{name} \
-# make %{?_smp_mflags}
+%ifarch s390x # zlib test fails on s390x
+  --without-ext=zlib \
+%endif
+  --docdir=%{_datadir}/doc/%{name}
 %make_build
 
 
 %install
 %make_install INSTALL_DOCS=nodocs
 rm %{buildroot}/%{_libdir}/jim/README.extensions
-pushd %{buildroot}/%{_libdir}/
-ln -s libjim.so.* libjim.so
-popd
 
 
 %if %{with tests}
@@ -84,7 +83,8 @@ make test
 
 %files
 %license LICENSE
-%doc AUTHORS README
+%doc AUTHORS README README.ensemble README.extensions README.namespaces
+%doc README.oo README.redis README.sqlite README.utf-8
 %doc %{_datadir}/doc/%{name}/Tcl.html
 %{_bindir}/jimdb
 %{_bindir}/jimsh
@@ -95,7 +95,7 @@ make test
 
 
 %files devel
-%doc DEVELOPING README.extensions README.metakit README.namespaces README.oo README.utf-8 STYLE
+%doc DEVELOPING STYLE
 %{_includedir}/*
 %{_bindir}/build-jim-ext
 %{_libdir}/libjim.so

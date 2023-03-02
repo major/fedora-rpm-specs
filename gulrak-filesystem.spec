@@ -12,7 +12,9 @@ BuildRequires:  gcc-c++
 BuildRequires:  cmake
 BuildRequires:  make
 
-BuildRequires:  pkgconfig(catch2)
+# Consider migrating to Catch2 v3
+# https://github.com/gulrak/filesystem/issues/165
+BuildRequires:  pkgconfig(catch2) < 3
 
 # No compiled binaries are installed, so this would be empty.
 %global debug_package %{nil}

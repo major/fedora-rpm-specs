@@ -1,7 +1,7 @@
 %global srcname guest-configs
 
 Name: google-compute-engine-guest-configs
-Version: 20230202.00
+Version: 20230217.01
 Release: %autorelease
 Summary: Google Compute Engine guest environment tools
 License: ASL 2.0

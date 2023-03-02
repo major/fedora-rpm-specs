@@ -2,11 +2,11 @@
 
 Name:           deutex
 Version:        5.2.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        DOOM wad file manipulator
 
 # All files LGPLv2+ or GPLv2+ except ./src/lzw.c which is MIT
-License:        GPLv2+ and MIT
+License:        GPL-2.0-or-later and MIT
 URL:            https://github.com/Doom-Utils/deutex
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         deutex-5.2.0-waddir.patch
@@ -47,6 +47,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.2.2-8
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

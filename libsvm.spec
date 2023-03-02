@@ -1,12 +1,8 @@
 %global shver 3
-%global tarballver 3.3
-%global libdir_libsvm %{_libdir}/libsvm
-%global python3_libsvm_dir %{python3_sitearch}/libsvm
 %global maven_group_id tw.edu.ntu.csie
-%global pom_file_version 3.25
-%global pom_file_name JPP.%{maven_group_id}-%{name}.pom
+%global pom_file_version 3.30
 %global octpkg %{name}
-%global release_date 2022-08-11
+%global release_date 2023-02-28
 %global cpp_std c++17
 
 %if %{defined rhel}
@@ -24,13 +20,15 @@
 %endif
 
 Name:           libsvm
-Version:        3.30
-Release:        2%{?dist}
+Version:        3.31
+Release:        1%{?dist}
 Summary:        A Library for Support Vector Machines
+
+%global upver   %(tr -d . <<< %{version})
 
 License:        BSD-3-Clause
 URL:            https://www.csie.ntu.edu.tw/~cjlin/libsvm/
-Source0:        https://www.csie.ntu.edu.tw/~cjlin/libsvm/%{name}-%{tarballver}.tar.gz
+Source0:        https://github.com/cjlin1/libsvm/archive/v%{upver}/%{name}-%{upver}.tar.gz
 Source1:        https://www.csie.ntu.edu.tw/~cjlin/libsvm/log
 Source2:        https://www.csie.ntu.edu.tw/~cjlin/papers/guide/guide.pdf
 Source3:        libsvm-svm-toy-qt.desktop
@@ -42,11 +40,12 @@ Source6:        libsvm.INDEX
 Source7:        libsvm.CITATION
 Source8:        libsvm.DESCRIPTION
 Patch0:         %{name}.packageMain.patch
-Patch2:         %{name}.javaDir.patch
-Patch4:         %{name}.toolsDir.patch
-Patch5:         %{name}.svm-toy-qt5.patch
+Patch1:         %{name}.javaDir.patch
+Patch2:         %{name}.toolsDir.patch
+Patch3:         %{name}.svm-toy-qt5.patch
 # Fix a broken attempt to detect an empty string
-Patch6:         %{name}.matlab.patch
+# https://github.com/cjlin1/libsvm/pull/194
+Patch4:         %{name}.matlab.patch
 
 # This can be removed when F40 reaches EOL
 %if %{without java}
@@ -130,7 +129,7 @@ svm-toy is a libsvm demonstration program which has a qt-GUI to
 display the derived separating hyperplane.
 
 %prep
-%autosetup -p0 -n %{name}-%{tarballver}
+%autosetup -p0 -n %{name}-%{upver}
 cp -p %{SOURCE1} ChangeLog
 cp -p %{SOURCE2} %{SOURCE3} .
 cp -p %{SOURCE4} %{name}-svm-toy-qt-48.png
@@ -141,7 +140,7 @@ cp -p %{SOURCE5} pom.xml
 # org.sonatype.oss.oss-parent is deprecated and slated for removal from Fedora
 %pom_remove_parent
 
-# Update the POM file, which is stuck on version 3.25
+# Update the POM file, which is stuck on version 3.30
 %pom_xpath_set '/pom:project/pom:version' %{version}
 
 %mvn_file %{maven_group_id}:%{name} %{maven_group_id}/%{name}
@@ -154,7 +153,13 @@ rm FAQ.html.orig
 
 %if %{with python}
 # Fix shebangs
-%py3_shebang_fix python/libsvm tools
+%py3_shebang_fix tools
+# Remove useless shebangs
+for p in python/libsvm/{commonutil,svm,svmutil}.py; do
+    sed -i.orig '1,+1d' $p
+    touch -r $p.orig $p
+    rm $p.orig
+done
 %endif
 
 %if %{with python}
@@ -202,14 +207,13 @@ ln -s %{name}.so.%{shver} %{buildroot}%{_libdir}/%{name}.so
 # Python
 cd python
 %pyproject_install
+%pyproject_save_files libsvm
 cd -
 cd tools
 for p in *.py; do
-    install -p -m 755 *.py %{buildroot}%{python3_libsvm_dir}
-    ln -s %{python3_libsvm_dir}/$p %{buildroot}%{_bindir}/svm-$p
+    install -p -m 755 $p %{buildroot}%{_bindir}/svm-$p
 done
 cd -
-chmod 0755 %{buildroot}%{python3_libsvm_dir}/{commonutil,svm,svmutil}.py
 %endif
 
 %if %{with java}
@@ -281,16 +285,14 @@ cp -p README java/README-Java
 %endif
 
 %if %{with python}
-%files -n python3-%{name}
+%files -n python3-%{name} -f %{pyproject_files}
 %doc python/README-Python tools/README-Tools
-%{python3_libsvm_dir}/
-%{python3_sitearch}/libsvm*.dist-info/
 %{_bindir}/svm-*.py
 %endif
 
 %if %{with java}
 %files java -f .mfiles
-%doc java/README-Java java/test_applet.html
+%doc java/README-Java
 %{_javadir}/%{name}.jar
 
 %files javadoc
@@ -304,6 +306,9 @@ cp -p README java/README-Java
 %{_datadir}/applications/*%{name}-svm-toy-qt.desktop
 
 %changelog
+* Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 3.31-1
+- Version 3.31
+
 * Mon Feb 27 2023 Jerry James <loganjerry@gmail.com> - 3.30-2
 - Dynamically generate python BuildRequires
 

@@ -4,7 +4,7 @@
 %global xfceversion 4.18
 
 Name:           xfce4-notifyd
-Version:        0.8.1
+Version:        0.8.2
 Release:        %autorelease
 Summary:        Simple notification daemon for Xfce
 

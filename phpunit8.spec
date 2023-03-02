@@ -11,7 +11,7 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    375686930d05c9fd7d20f6e5fc38121e8d7a9d55
+%global gh_commit    7d1ff0e8c6b35db78ff13e3e05517d7cbf7aa32e
 #global gh_date      20150927
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    8
 %global ver_minor    5
 
-%global upstream_version 8.5.32
+%global upstream_version 8.5.33
 #global upstream_prever  dev
 
 Name:           %{pk_project}%{ver_major}
@@ -129,6 +129,9 @@ Requires:       (php-composer(sebastian/version) >= 2.0.1             with php-c
 Requires:       (php-composer(phpunit/php-invoker) >= 2.0.0           with php-composer(phpunit/php-invoker) <  3)
 Suggests:       php-soap
 Suggests:       php-xdebug
+# recommends latest versions
+Recommends:     phpunit9
+Recommends:     phpunit10
 # Autoloader
 Requires:       php-composer(fedora/autoloader)
 # From phpcompatinfo report for version 8.0.0
@@ -232,6 +235,9 @@ exit $ret
 
 
 %changelog
+* Tue Feb 28 2023 Remi Collet <remi@remirepo.net> - 8.5.33-1
+- update to 8.5.33
+
 * Thu Jan 26 2023 Remi Collet <remi@remirepo.net> - 8.5.32-1
 - update to 8.5.32
 

@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:           chipmunk
 Version:        7.0.3
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Physics engine for 2D games
 
 License:        MIT
@@ -67,6 +67,9 @@ chipmunk library functions.  You'll also need to install the chipmunk package.
 
 
 %changelog
+* Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 7.0.3-11
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.3-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

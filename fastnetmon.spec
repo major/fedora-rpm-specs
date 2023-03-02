@@ -11,7 +11,7 @@
 
 Name:              fastnetmon
 Version:           1.2.1
-Release:           6.%{date}git%{shortcommit0}%{?dist}
+Release:           7.%{date}git%{shortcommit0}%{?dist}
 
 Summary:           DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support
 License:           GPLv2
@@ -19,6 +19,9 @@ URL:               https://fastnetmon.com
 
 Source0:           https://github.com/pavel-odintsov/fastnetmon/archive/%{commit0}.tar.gz
 Source1:           fastnetmon.sysusers
+# https://github.com/pavel-odintsov/fastnetmon/pull/968
+# Adding missing header for g++13
+Patch0:            fastnetmon-pr968-g++13-header.patch
 
 BuildRequires:     make
 BuildRequires:     gcc
@@ -50,7 +53,7 @@ Requires(pre):     shadow-utils
 DDoS detection tool with sFlow, Netflow, IPFIX and port mirror support.
 
 %prep
-%autosetup -n %{name}-%{commit0}
+%autosetup -n %{name}-%{commit0} -p1
 
 %build
 
@@ -110,6 +113,9 @@ install -D -p -m 0644 %{SOURCE1} %{buildroot}%{_sysusersdir}/fastnetmon.conf
 %doc README.md SECURITY.md THANKS.md
 
 %changelog
+* Tue Feb 28 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2.1-7.20220528git420e7b8
+- Add missing header for g++13
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-6.20220528git420e7b8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

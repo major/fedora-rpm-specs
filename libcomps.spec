@@ -1,11 +1,11 @@
 %define __cmake_in_source_build 1
 
 Name:           libcomps
-Version:        0.1.18
-Release:        5%{?dist}
+Version:        0.1.19
+Release:        1%{?dist}
 Summary:        Comps XML file manipulation library
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/rpm-software-management/libcomps
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -50,6 +50,7 @@ Documentation files for python bindings libcomps library.
 %package -n python3-%{name}
 Summary:        Python 3 bindings for libcomps library
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires: make
 %{?python_provide:%python_provide python3-%{name}}
 Requires:       %{name}%{?_isa} = %{version}-%{release}
@@ -115,6 +116,13 @@ popd
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Feb 28 2023 Sérgio Basto <sergio@serjux.com> - 0.1.19-1
+- Update libcomps to 0.1.19
+- Migrated to SPDX license
+
+* Tue Feb 28 2023 Miro Hrončok <mhroncok@redhat.com> - 0.1.18-6
+- BuildRequire python3-setuptools explicitly, don't assume they are pulled transitively
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

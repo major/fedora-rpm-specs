@@ -9,7 +9,7 @@
 
 Name:    kf5-%{framework}
 Version: 5.103.0
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: KDE Frameworks 5 Tier 1 solution for spell checking
 
 License: LGPLv2+
@@ -22,6 +22,9 @@ Source0: http://download.kde.org/%{stable}/frameworks/%{majmin}/%{framework}-%{v
 # filter plugin provides
 %global __provides_exclude_from ^(%{_kf5_plugindir}/.*\\.so)$
 
+BuildRequires:  aspell-devel
+BuildRequires:  hspell-devel
+BuildRequires:  libvoikko-devel
 BuildRequires:  extra-cmake-modules >= %{majmin}
 %if ! 0%{?bootstrap}
 BuildRequires:  hunspell-devel
@@ -99,6 +102,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_kf5_bindir}/parsetrigrams
 %{_kf5_bindir}/gentrigrams
 %{_kf5_qmldir}/org/kde/sonnet/
+%{_kf5_plugindir}/sonnet/sonnet_aspell.so
+%{_kf5_plugindir}/sonnet/sonnet_hspell.so
+%{_kf5_plugindir}/sonnet/sonnet_voikko.so
 
 %ldconfig_scriptlets ui
 
@@ -118,6 +124,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
+- Add missing BuildRequires
+
 * Sun Feb 05 2023 Marc Deop <marcdeop@fedoraproject.org> - 5.103.0-1
 - 5.103.0
 

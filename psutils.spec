@@ -2,7 +2,7 @@
 %bcond_without psutils_enables_unbundling_gnulib
 
 Name:       psutils
-Version:    2.09
+Version:    2.10
 Release:    1%{?dist}
 Summary:    PostScript utilities
 # COPYING:          GPLv3 text
@@ -177,6 +177,10 @@ make check %{?_smp_mflags}
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Feb 28 2023 Ondřej Pohořelský <opohorel@redhat.com> - 2.10-1
+- 2.10 bump
+- resolves: rhbz#2173614
+
 * Fri Jan 20 2023 Ondřej Pohořelský <opohorel@redhat.com> - 2.09-1
 - 2.09 bump
 - resolves: rhbz#2035916

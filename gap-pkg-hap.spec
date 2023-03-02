@@ -11,7 +11,7 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.52
+Version:        1.53
 Release:        1%{?dist}
 Summary:        Homological Algebra Programming for GAP
 
@@ -129,9 +129,6 @@ chmod a-x lib/Kelvin/{*.xml,kelvin.gd,*.gi,init.g,tutex/*.txt} \
           lib/Perturbations/Gcomplexes/*.gz \
           www/SideLinks/About/*.g
 
-# Fix a bad entity, again (https://github.com/gap-packages/hap/pull/102)
-sed -i 's/gr;/gt;/' tutorial/tutex/14.20.txt
-
 %build
 # Build the documentation
 export LC_ALL=C.UTF-8
@@ -173,6 +170,9 @@ gap -l "%{buildroot}%{gap_libdir};" -o 3G tst/testquick.g
 %{gap_libdir}/pkg/%{pkgname}/tutorial/
 
 %changelog
+* Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 1.53-1
+- Version 1.53
+
 * Mon Feb 13 2023 Jerry James <loganjerry@gmail.com> - 1.52-1
 - Version 1.52
 
