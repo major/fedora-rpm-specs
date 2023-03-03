@@ -2,10 +2,10 @@
 
 Name:           stellarium
 Version:        1.2
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.stellarium.org
 Source0:        https://github.com/Stellarium/stellarium/archive/v%{version}/stellarium-%{version}.tar.gz
 
@@ -90,6 +90,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-6
+- migrated to SPDX license
+
 * Sun Feb 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-5
 - libindi rebuild.
 

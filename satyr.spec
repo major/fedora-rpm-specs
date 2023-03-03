@@ -16,7 +16,7 @@
 %define glib_ver 2.43.4
 
 Name: satyr
-Version: 0.41
+Version: 0.42
 Release: 1%{?dist}
 Summary: Tools to create anonymous, machine-friendly problem reports
 License: GPL-2.0-or-later
@@ -129,6 +129,10 @@ make check|| {
 %endif
 
 %changelog
+* Wed Mar 01 2023 Michal Srb <michal@redhat.com> - 0.42-1
+- Update to 0.42
+- Resolves: rhbz#2168223
+
 * Mon Feb 20 2023 Michal Srb <michal@redhat.com> - 0.41-1
 - Update to 0.41
 - Resolves: rhbz#2168223

@@ -1,9 +1,9 @@
 Name: solarwolf
 Version:  1.6.0
-Release:  14%{?dist}.a4
+Release:  15%{?dist}.a4
 Summary: A Python port of SolarFox
 
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL: http://pygame.org/shredwheat/solarwolf
 #Source0: http://pygame.org/shredwheat/solarwolf/solarwolf-%{version}.tar.gz
 Source0: solarwolf-d19d830.tar.gz
@@ -69,6 +69,9 @@ install -p -m 644 dist/solarwolf.png \
 %{_datadir}/icons/hicolor/64x64/apps/solarwolf.png
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-15.a4
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-14.a4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

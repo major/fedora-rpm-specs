@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-dlp
 %global         forgeurl    https://github.com/googleapis/python-dlp
-Version:        3.11.1
+Version:        3.12.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -65,7 +65,7 @@ rm -f %{buildroot}%{_bindir}/fixup*
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e google.cloud.dlp*
 
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.

@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        75
+Version:        76
 
 %gometa
 
@@ -449,10 +449,10 @@ The core osbuild-composer binary. This is suitable both for spawning in containe
 Summary:    The worker for osbuild-composer
 Requires:   systemd
 Requires:   qemu-img
-Requires:   osbuild >= 80
-Requires:   osbuild-ostree >= 80
-Requires:   osbuild-lvm2 >= 80
-Requires:   osbuild-luks2 >= 80
+Requires:   osbuild >= 81
+Requires:   osbuild-ostree >= 81
+Requires:   osbuild-lvm2 >= 81
+Requires:   osbuild-luks2 >= 81
 Requires:   %{name}-dnf-json = %{version}-%{release}
 
 %description worker
@@ -571,6 +571,19 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Mar 01 2023 Packit <hello@packit.dev> - 76-1
+Changes with 76
+----------------
+  * Fix CIV_OPTIONS bug (#3297)
+  * Update test suite after rebase to weldr-client-35.9 (#3296)
+  * distro: assign pipeline-specific repos to package sets (#3291)
+  * ignition: enable systemd firstboot condition through kargs (#3308)
+
+Contributions from: Achilleas Koutsou, Alexander Todorov, Antonio Murdaca, Juan Abia
+
+— Somewhere on the Internet, 2023-03-01
+
+
 * Wed Feb 22 2023 Packit <hello@packit.dev> - 75-1
 Changes with 75
 ----------------

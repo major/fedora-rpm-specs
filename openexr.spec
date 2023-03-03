@@ -3,7 +3,7 @@
 
 Name:           openexr
 Version:        3.1.5
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
 License:        BSD
@@ -112,22 +112,41 @@ Summary:        Development files for %{name}
 
 
 %files
-%{_bindir}/*
+%{_bindir}/exr2aces
+%{_bindir}/exrenvmap
+%{_bindir}/exrheader
+%{_bindir}/exrinfo
+%{_bindir}/exrmakepreview
+%{_bindir}/exrmaketiled
+%{_bindir}/exrmultipart
+%{_bindir}/exrmultiview
+%{_bindir}/exrstdattr
 
 %files libs
 %doc CHANGES.md CONTRIBUTING.md GOVERNANCE.md SECURITY.md CODE_OF_CONDUCT.md CONTRIBUTORS.md README.md
 %license LICENSE.md
-%{_libdir}/*.so.%{sover}*
+%{_libdir}/libIex-3_1.so.%{sover}{,.*}
+%{_libdir}/libIlmThread-3_1.so.%{sover}{,.*}
+%{_libdir}/libOpenEXR-3_1.so.%{sover}{,.*}
+%{_libdir}/libOpenEXRCore-3_1.so.%{sover}{,.*}
+%{_libdir}/libOpenEXRUtil-3_1.so.%{sover}{,.*}
 
 %files devel
 %{_docdir}/OpenEXR/
 %{_includedir}/OpenEXR/
-%{_libdir}/*.so
+%{_libdir}/libIex{,-3_1}.so
+%{_libdir}/libIlmThread{,-3_1}.so
+%{_libdir}/libOpenEXR{,-3_1}.so
+%{_libdir}/libOpenEXRCore{,-3_1}.so
+%{_libdir}/libOpenEXRUtil{,-3_1}.so
 %{_libdir}/cmake/OpenEXR/
 %{_libdir}/pkgconfig/OpenEXR.pc
 
 
 %changelog
+* Thu Feb 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.1.5-4
+- Do not use broad globs in shared directories
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.5-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

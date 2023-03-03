@@ -1,21 +1,3 @@
-# The following macros control the usage of dependencies bundled from upstream.
-#
-# When to use what:
-# - Regular (presumably non-modular) build: use neither (the default in Fedora)
-# - Early bootstrapping build that is not intended to be shipped:
-#     use --with=bootstrap; this will bundle deps and add `~bootstrap` release suffix
-# - Build with some dependencies not avalaible in necessary versions (i.e. module build):
-#     use --with=bundled; will bundle deps, but do not add the suffix
-#
-# create bootstrapping build with bundled deps and extra release suffix
-%bcond_with bootstrap
-# bundle dependencies that are not available in Fedora modules
-%if %{with bootstrap}
-%bcond_without bundled
-%else
-%bcond_with bundled
-%endif
-
 %if 0%{?rhel} && 0%{?rhel} < 8
 %bcond_without bundled_zlib
 %else
@@ -46,9 +28,9 @@
 %global nodejs_major 19
 %global nodejs_minor 7
 %global nodejs_patch 0
-%global nodejs_abi %{nodejs_major}.%{nodejs_minor}
 # nodejs_soversion - from NODE_MODULE_VERSION in src/node_version.h
 %global nodejs_soversion 111
+%global nodejs_abi %{nodejs_soversion}
 %global nodejs_version %{nodejs_major}.%{nodejs_minor}.%{nodejs_patch}
 %global nodejs_release %{baserelease}
 %global nodejs_envr %{nodejs_epoch}:%{nodejs_version}-%{nodejs_release}
@@ -57,9 +39,10 @@
 
 # Determine if this should be the default version for this Fedora release
 # The default version will own /usr/bin/node and friends
-%if 0%{?fedora} == 39 || 0%{?fedora} == 40
+%if 0%{?fedora} == 39 || 0%{?fedora} == 40 || 0%{?rhel} == 10
 %global nodejs_default %{nodejs_major}
 %endif
+
 %global nodejs_private_sitelib %{nodejs_sitelib}_%{nodejs_major}
 
 
@@ -121,8 +104,6 @@
 
 %global npm_envr %{npm_epoch}:%{npm_version}-%{npm_release}
 
-%global npm_obsoletes 1:8.19.2-1.18.12.1.3
-
 # uvwasi - from deps/uvwasi/include/uvwasi.h
 %global uvwasi_version 0.0.15
 
@@ -160,6 +141,8 @@ Source101: cjs-module-lexer-1.2.2-stripped.tar.gz
 Source102: wasi-sdk-11.0-linux.tar.gz
 Source111: undici-5.20.0-stripped.tar.gz
 Source112: wasi-sdk-14.0-linux.tar.gz
+
+Patch: 0001-Remove-unused-OpenSSL-config.patch
 
 %if 0%{?nodejs_default}
 %global pkgname nodejs
@@ -202,6 +185,8 @@ BuildRequires: libatomic
 BuildRequires: ninja-build
 BuildRequires: unzip
 
+
+
 Provides: nodejs = %{nodejs_envr}
 
 %if %{with bundled}
@@ -238,6 +223,11 @@ BuildRequires: openssl-devel >= %{openssl11_minimum}
 
 %global ssl_configure --shared-openssl %{openssl_fips_configure}
 %endif
+
+
+# dtrace is not supported on Node.js 19+
+%global dtrace_configure %{nil}
+
 
 # we need the system certificate store
 Requires: ca-certificates
@@ -297,6 +287,10 @@ Provides: bundled(icu) = %{icu_version}
 # or there's no option to built it as a shared dependency, so we bundle them
 Provides: bundled(uvwasi) = %{uvwasi_version}
 Provides: bundled(histogram) = %{histogram_version}
+
+# Upstream has added a new URL parser that has no option to build as a shared
+# library (19.7.0+)
+Provides: bundled(ada) = 1.0.1
 
 
 %description
@@ -413,8 +407,10 @@ Provides: npm(npm) = %{npm_version}
 # Satisfy dependency requests for "npm"
 Provides: npm = %{npm_envr}
 
+%if 0%{?nodejs_default}
 # Obsolete the old 'npm' package
-Obsoletes: npm < %{npm_obsoletes}
+Obsoletes: npm < 1:9
+%endif
 
 
 %description -n %{pkgname}-npm
@@ -520,9 +516,10 @@ export PATH="${cwd}/.bin:$PATH"
            --shared \
            --libdir=%{_lib} \
            %{ssl_configure} \
+           %{dtrace_configure} \
            %{!?with_bundled_zlib:--shared-zlib} \
            --shared-brotli \
-           %{!?with_bundled:--shared-libuv} \
+           --shared-libuv \
            --with-intl=small-icu \
            --with-icu-default-data-dir=%{icudatadir} \
            --without-corepack \
@@ -546,6 +543,8 @@ mv %{buildroot}%{nodejs_sitelib} \
 %if 0%{?nodejs_default}
 ln -srf %{buildroot}%{nodejs_private_sitelib} \
         %{buildroot}%{nodejs_sitelib}
+%else
+rm -f %{buildroot}%{_datadir}/systemtap/tapset/node.stp
 %endif
 
 
@@ -745,6 +744,8 @@ end
 %{_bindir}/node
 %doc %{_mandir}/man1/node.1*
 %{nodejs_sitelib}
+
+
 %endif
 
 %{_bindir}/node-%{nodejs_major}

@@ -3,11 +3,11 @@
 
 Name:      %{fontname}-fonts
 Version:   20120503
-Release:   28%{?dist}
+Release:   29%{?dist}
 Summary:   Free UCS Outline Fonts
 
 # Standard font exception
-License:   GPLv3+ with exceptions
+License:   GPL-3.0-or-later with exceptions
 URL:       http://www.gnu.org/software/freefont/ 
 Source0:   http://ftp.gnu.org/gnu/freefont/freefont-src-%{version}.tar.gz
 Source2:   %{fontconf}-mono.conf
@@ -152,6 +152,9 @@ install -Dm 0644 -p %{SOURCE8} \
 %{_datadir}/appdata/%{fontname}.metainfo.xml
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 20120503-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20120503-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

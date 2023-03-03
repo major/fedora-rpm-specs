@@ -1,6 +1,6 @@
 Name:           perl-Text-CSV_XS
-Version:        1.49
-Release:        2%{?dist}
+Version:        1.50
+Release:        1%{?dist}
 Summary:        Comma-separated values manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-CSV_XS
@@ -80,6 +80,11 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 %{_mandir}/man3/Text::CSV_XS.3*
 
 %changelog
+* Wed Mar  1 2023 Paul Howarth <paul@city-fan.org> - 1.50-1
+- Update to 1.50 (rhbz#2174402)
+  - Promote sep to sep_set in csv() with auto-headers
+  - Fix bug in set_diag surfaced by PERL_RC_STACK
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.49-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

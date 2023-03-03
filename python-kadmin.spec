@@ -5,7 +5,7 @@
 
 Name:               python-kadmin
 Version:            0.1.2
-Release:            17.%{snapshotdate}git%{shortcommit}%{?dist}
+Release:            18.%{snapshotdate}git%{shortcommit}%{?dist}
 Summary:            Python module for kerberos admin (kadm5)
 
 License:            MIT
@@ -47,6 +47,9 @@ export CFLAGS="$CFLAGS -fcommon"
 %{python3_sitearch}/python_%{modname}*.egg-info
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1.2-18.20181207git94e50ed
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.2-17.20181207git94e50ed
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

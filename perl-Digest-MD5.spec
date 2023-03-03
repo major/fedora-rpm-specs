@@ -2,12 +2,13 @@ Name:           perl-Digest-MD5
 Version:        2.58
 Release:        490%{?dist}
 Summary:        Perl interface to the MD5 algorithm
-# MD5.pm:       (GPL+ or Artistic) and RSA
-# MD5.xs:       (GPL+ or Artistic) and RSA
-# README:       (GPL+ or Artistic)
+# MD5.pm:       (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
+# MD5.xs:       (GPL-1.0-or-later OR Artistic-1.0-Perl) AND RSA-MD
+# README:       (GPL-1.0-or-later OR Artistic-1.0-Perl)
 ## Not in any binary package
-# rfc1321.txt:  RSA
-License:        (GPL+ or Artistic) and RSA
+# rfc1321.txt:  RSA-MD
+# RSA-MD does not have to be recorded in the License
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Digest-MD5
 Source0:        https://cpan.metacpan.org/authors/id/T/TO/TODDR/Digest-MD5-%{version}.tar.gz
 BuildRequires:  coreutils

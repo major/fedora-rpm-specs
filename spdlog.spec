@@ -1,25 +1,22 @@
 Name:           spdlog
 Version:        1.11.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 
 License:        MIT
 Summary:        Super fast C++ logging library
 URL:            https://github.com/gabime/%{name}
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
+# https://github.com/gabime/spdlog/pull/2661
+Patch100:       spdlog-catchv3-compatibility.patch
+
+BuildRequires:  catch-devel >= 3.0.0
 BuildRequires:  cmake
 BuildRequires:  fmt-devel >= 8.1.1
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  google-benchmark-devel
 BuildRequires:  ninja-build
-
-# spdlog currently support only catch v2
-%if 0%{?fedora} >= 38 || 0%{?rhel} >= 10
-BuildRequires:  catch2-devel >= 2.8.0
-%else
-BuildRequires:  catch-devel >= 2.8.0
-%endif
 
 %description
 This is a packaged version of the gabime/spdlog C++ logging
@@ -39,7 +36,7 @@ applications that use %{name}.
 %autosetup -p1
 find . -name '.gitignore' -delete
 sed -e "s,\r,," -i README.md
-ln -svf %{_includedir}/catch2/catch.hpp ./tests/catch.hpp
+rm -f tests/catch.hpp
 
 %build
 %cmake -G Ninja \
@@ -72,6 +69,9 @@ ln -svf %{_includedir}/catch2/catch.hpp ./tests/catch.hpp
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Mar 01 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.11.0-5
+- Ported to catch v3. Fixed FTBFS in ELN.
+
 * Tue Feb 28 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 1.11.0-4
 - Fixed FTBFS in EPEL/ELN due to catch v3 update.
 

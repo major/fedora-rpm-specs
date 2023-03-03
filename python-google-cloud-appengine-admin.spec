@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-appengine-admin
 %global         forgeurl    https://github.com/googleapis/python-appengine-admin
-Version:        1.8.1
+Version:        1.9.0
 %global         tag         v%{version}
 %forgemeta
 

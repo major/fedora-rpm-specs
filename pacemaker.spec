@@ -32,7 +32,7 @@
 ## can be incremented to build packages reliably considered "newer"
 ## than previously built packages with the same pcmkversion)
 %global pcmkversion 2.1.5
-%global specversion 4
+%global specversion 5
 
 ## Upstream commit (full commit ID, abbreviated commit ID, or tag) to build
 %global commit a3f44794f94e1571c6ba0042915ade369b4ce4b1
@@ -191,7 +191,7 @@
 Name:          pacemaker
 Summary:       Scalable High-Availability cluster resource manager
 Version:       %{pcmkversion}
-Release:       %{pcmk_release}%{?dist}.1
+Release:       %{pcmk_release}%{?dist}
 License:       GPLv2+ and LGPLv2+
 Url:           https://www.clusterlabs.org/
 
@@ -208,6 +208,7 @@ Source1:       https://codeload.github.com/%{github_owner}/%{nagios_name}/tar.gz
 
 # upstream commits
 Patch0:        0001-Fix-fenced-use-enum-fenced_target_by-consistently.patch
+Patch1:        0002-Low-libcrmcommon-Fix-problems-with-pcmk__output_and_.patch
 
 Requires:      resource-agents
 Requires:      %{pkgname_pcmk_libs}%{?_isa} = %{version}-%{release}
@@ -799,6 +800,9 @@ exit 0
 %license %{nagios_name}-%{nagios_hash}/COPYING
 
 %changelog
+* Wed Mar 1 2023 Klaus Wenninger <kwenning@redhat.com> - 2.1.5-5
+- fix pcmk__output_and_clear_error
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-4.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

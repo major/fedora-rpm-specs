@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-bigquery-connection
 %global         forgeurl    https://github.com/googleapis/python-bigquery-connection
-Version:        1.9.1
+Version:        1.10.0
 %global         tag         v%{version}
 %forgemeta
 

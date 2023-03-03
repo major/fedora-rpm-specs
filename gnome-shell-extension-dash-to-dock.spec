@@ -7,8 +7,8 @@
 #%%global commit_date 20220428
 
 Name:           gnome-shell-extension-dash-to-dock
-Version:        74
-Release:        2%{?dist}
+Version:        78
+Release:        1%{?dist}
 #Release:        5.%%{commit_date}git%%{commit_short}%%{?dist}
 Summary:        Dock for the Gnome Shell by micxgx@gmail.com
 
@@ -20,12 +20,7 @@ Source0:        %{giturl}/archive/%{commit}.tar.gz
 Source0:        %{giturl}/archive/extensions.gnome.org-v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
 
-# https://github.com/micheleg/dash-to-dock/pull/1835
-Patch01:         1835.patch
-# Update show apps icon for GNOME 42 changes
-# https://github.com/micheleg/dash-to-dock/pull/1759
-# Reverted due to issues for now...
-#Patch02:        1759.patch
+Patch01:         0001-windowPreview-Honor-button-layout-settings-for-the-w.patch
 
 BuildArch:      noarch
 
@@ -90,6 +85,12 @@ fi
 
 
 %changelog
+* Tue Feb 28 2023 Pablo Greco <pgreco@centosproject.org> - 78-1
+- dash-to-dock 78
+
+* Sat Feb 25 2023 Pablo Greco <pgreco@centosproject.org> - 76-1
+- dash-to-dock 76 (support for gnome 44)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 74-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

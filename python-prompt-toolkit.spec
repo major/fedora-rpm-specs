@@ -3,7 +3,7 @@ prompt_toolkit is a library for building powerful interactive command line
 applications in Python.}
 
 Name:           python-prompt-toolkit
-Version:        3.0.37
+Version:        3.0.38
 Release:        %autorelease
 Summary:        Library for building powerful interactive command line applications in Python
 License:        BSD-3-Clause

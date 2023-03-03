@@ -13,13 +13,14 @@
 
 Name:           braille-printer-app
 
+Epoch:          1
 # upstream hasn't released a specific version yet, but the project
 # should be from series 2.x to make a difference from cups-filters 1.x
 # and other projects have already the third beta (b3), I've used the version 0
 # for beta number
 # Upstream issue https://github.com/OpenPrinting/braille-printer-app/issues/2
-Version:        2.0b0^386eea385f
-Release:        2%{?dist}
+Version:        2.0~b0^386eea385f
+Release:        3%{?dist}
 Summary:        Braille printer application
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -192,6 +193,9 @@ rm -f %{buildroot}%{_pkgdocdir}/{INSTALL,CHANGES-1.x.md,DEVELOPING.md,ABOUT-NLS}
 
 
 %changelog
+* Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b0^386eea385f-3
+- use Epoch to ensure clean upgrade path because I didn't read FPG carefully
+
 * Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b0^386eea385f-2
 - use a weak dependency on CUPS to support CUPS containers
 

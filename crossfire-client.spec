@@ -1,9 +1,9 @@
 %global __cmake_in_source_build 1
 Name: crossfire-client
 Version: 1.75.2
-Release: 5%{?dist}
+Release: 6%{?dist}
 Summary: Client for connecting to crossfire servers
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://crossfire.real-time.com
 Source0: http://downloads.sourceforge.net/crossfire/%{name}-%{version}.tar.gz
 
@@ -127,6 +127,9 @@ cp common/libcfclient.so $RPM_BUILD_ROOT%{_libdir}/
 %{_libdir}/libcfclient.so
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.75.2-6
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.75.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

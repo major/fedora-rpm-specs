@@ -6,7 +6,7 @@ Summary:        High-performance library for noncontiguous data
 %global forgeurl https://github.com/pmodels/yaksa/
 %forgemeta
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            %forgeurl
 Source0:        %forgesource
 

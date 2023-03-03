@@ -5,8 +5,8 @@
 %bcond_without server
 
 Name:           tigervnc
-Version:        1.13.0
-Release:        4%{?dist}
+Version:        1.13.1
+Release:        1%{?dist}
 Summary:        A TigerVNC remote display system
 
 %global _hardened_build 1
@@ -24,11 +24,9 @@ Source4:        HOWTO.md
 Source5:        vncserver
 
 # Downstream patches
-Patch1:        tigervnc-vncsession-restore-script-systemd-service.patch
+Patch1:         tigervnc-vncsession-restore-script-systemd-service.patch
 
 # Upstream patches
-Patch50:       tigervnc-sanity-check-when-cleaning-up-keymap-changes.patch
-Patch51:       tigervnc-selinux-allow-vncsession-create-vnc-directory.patch
 
 # This is tigervnc-%%{version}/unix/xserver116.patch rebased on the latest xorg
 Patch100:       tigervnc-xserver120.patch
@@ -36,33 +34,56 @@ Patch100:       tigervnc-xserver120.patch
 BuildRequires:  make
 BuildRequires:  gcc-c++
 BuildRequires:  gettext
-BuildRequires:  cmake, desktop-file-utils, libappstream-glib
-BuildRequires:  ImageMagick
-BuildRequires:  libxkbfile-devel, openssl-devel, libpciaccess-devel
-BuildRequires:  freetype-devel, libjpeg-turbo-devel, gnutls-devel, pam-devel
-BuildRequires: libXext-devel, libX11-devel, libXi-devel, libXrandr-devel
-%if %{with server}
-# X11/graphics dependencies
-BuildRequires:  automake, autoconf, libtool, gettext-autopoint
-BuildRequires: xorg-x11-server-source
-BuildRequires: libXdamage-devel, libXrandr-devel, libXt-devel, libXdmcp-devel
-BuildRequires: libXinerama-devel, mesa-libGL-devel, libxshmfence-devel
-BuildRequires: pixman-devel, libdrm-devel,
-BuildRequires: xorg-x11-util-macros, xorg-x11-xtrans-devel, libXtst-devel
-BuildRequires: xorg-x11-font-utils
-%if 0%{?fedora} > 24 || 0%{?rhel} >= 7
-BuildRequires:  libXfont2-devel
-%else
-BuildRequires:  libXfont-devel
-%endif
-# SELinux
-BuildRequires:  libselinux-devel, selinux-policy-devel, systemd
-%endif
+BuildRequires:  cmake
+
+BuildRequires:  gnutls-devel
+BuildRequires:  desktop-file-utils
+BuildRequires:  libappstream-glib
+BuildRequires:  libjpeg-turbo-devel
+BuildRequires:  openssl-devel
+BuildRequires:  pam-devel
 
 # TigerVNC 1.4.x requires fltk 1.3.3 for keyboard handling support
 # See https://github.com/TigerVNC/tigervnc/issues/8, also bug #1208814
 BuildRequires:  fltk-devel >= 1.3.3
 BuildRequires:  xorg-x11-server-devel
+
+%if 0%{?fedora}
+# Icons
+BuildRequires:  ImageMagick
+%endif
+
+
+%if %{with server}
+# X11/graphics dependencies
+BuildRequires:  autoconf
+BuildRequires:  automake
+BuildRequires:  gettext-autopoint
+BuildRequires:  libX11-devel
+BuildRequires:  libXdamage-devel
+BuildRequires:  libXdmcp-devel
+BuildRequires:  libXext-devel
+BuildRequires:  libXfixes-devel
+BuildRequires:  libXfont2-devel
+BuildRequires:  libXi-devel
+BuildRequires:  libXinerama-devel
+BuildRequires:  libXrandr-devel
+BuildRequires:  libXt-devel
+BuildRequires:  libXtst-devel
+BuildRequires:  libdrm-devel
+BuildRequires:  libtool
+BuildRequires:  libxkbfile-devel
+BuildRequires:  libxshmfence-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  pixman-devel
+BuildRequires:  xorg-x11-font-utils
+BuildRequires:  xorg-x11-server-source
+BuildRequires:  xorg-x11-util-macros
+BuildRequires:  xorg-x11-xtrans-devel
+
+# SELinux
+BuildRequires:  libselinux-devel, selinux-policy-devel, systemd
+%endif
 
 Requires(post): coreutils
 Requires(postun):coreutils
@@ -105,8 +126,11 @@ Requires(preun): systemd
 Requires(postun): systemd
 Requires(post): systemd
 
-Requires:       mesa-dri-drivers, xkeyboard-config, xkbcomp
-Requires:       tigervnc-license, dbus-x11
+Requires:       dbus-x11
+Requires:       mesa-dri-drivers
+Requires:       tigervnc-license
+Requires:       xkbcomp
+Requires:       xkeyboard-config
 
 %description server-minimal
 The VNC system allows you to access the same desktop from a wide
@@ -154,8 +178,6 @@ runs properly under an environment with SELinux enabled.
 %setup -q
 
 %patch1 -p1 -b .vncsession-restore-script-systemd-service
-%patch50 -p1 -b .sanity-check-when-cleaning-up-keymap-changes
-%patch51 -p1 -b .selinux-allow-vncsession-create-vnc-directory
 
 %if %{with server}
 cp -r /usr/share/xorg-x11-server-source/* unix/xserver
@@ -221,7 +243,20 @@ popd
 pushd unix/vncserver/selinux
 make
 popd
+
 %endif
+
+%if 0%{?rhel}
+# Build icons
+%if 0%{?rhel} >= 9
+pushd %{_target_platform}/media
+%else
+pushd media
+%endif
+make
+popd
+%endif
+
 
 %install
 %cmake_install
@@ -344,6 +379,9 @@ fi
 %{_datadir}/icons/hicolor/*/apps/*
 
 %changelog
+* Wed Mar 01 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.1-1
+- 1.13.1
+
 * Tue Feb 21 2023 Jan Grulich <jgrulich@redhat.com> - 1.13.0-3
 - vncsession: allow to create .vnc directory
 

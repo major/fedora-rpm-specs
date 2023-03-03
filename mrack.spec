@@ -1,6 +1,6 @@
 Name:           mrack
-Version:        1.13.1
-Release:        4%{?dist}
+Version:        1.13.3
+Release:        1%{?dist}
 Summary:        Multicloud use-case based multihost async provisioner
 
 License:        Apache-2.0
@@ -182,6 +182,16 @@ rm -r src/%{name}.egg-info
 %{python3_sitelib}/%{name}/providers/utils/{,__pycache__/}testcloud.*
 
 %changelog
+* Wed Mar 01 2023 Tibor Dudlák <tdudlak@redhat.com> - 1.13.3-1
+- 0f62237 fix(OpenStack): await loading limits to not break provisioning (Tibor Dudlák)
+
+* Wed Mar 01 2023 Tibor Dudlák <tdudlak@redhat.com> - 1.13.2-1
+- 06f18d1 fix: Use get method when host error object is a dictionary (Tibor Dudlák)
+- fd33d68 fix(Beaker): rerurn common dictionary when validation fails (Tibor Dudlák)
+- b6c5ef4 fix(OpenStack): Add exception parameter when validation fails (Tibor Dudlák)
+- fa2c779 fix(OpenStack): load limits properly by one method (Tibor Dudlák)
+- 61e515f chore: change back mrack dist release to 1 (Tibor Dudlák)
+
 * Tue Feb 21 2023 Tibor Dudlák <tdudlak@redhat.com> - 1.13.1-1
 - 1421b37 fix(MrackConfig): Fix MrackConfig class properties (Tibor Dudlák)
 

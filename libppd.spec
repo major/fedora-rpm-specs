@@ -1,12 +1,14 @@
 %global _hardened_build 1
 
+%global upstream_version 2.0b4
+
 # don't build libppd-tools until CUPS 3.x drops them
 %bcond_with tools
-#%%bcond_without bootstrap
 
 Name:           libppd
-Version:        2.0b3
-Release:        4%{?dist}
+Epoch:          1
+Version:        2.0~b4
+Release:        1%{?dist}
 Summary:        Library for retro-fitting legacy printer drivers
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
@@ -14,12 +16,10 @@ Summary:        Library for retro-fitting legacy printer drivers
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
 License:        Apache-2.0 WITH LLVM-exception
 URL:            https://github.com/OpenPrinting/libppd
-Source0:        %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0:        %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
 
 # Patches
-# https://github.com/OpenPrinting/libppd/pull/9
-Patch0001: 0001-Coverity-fixes.patch
 
 
 # for autogen.sh
@@ -57,7 +57,7 @@ BuildRequires: poppler-utils
 # are provided by cups right now - once cups drops them, require libppd-tools
 Requires: cups
 %else
-Requires: %{name}-tools%{?_isa} = %{version}-%{release}
+Requires: %{name}-tools%{?_isa} = %{epoch}:%{version}-%{release}
 %endif
 
 # needded for hybrid pdftops filter function - for all legacy printers
@@ -78,7 +78,7 @@ native printer application without libppd.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}%{?_isa} = %{version}-%{release}
+Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 Requires:       cups-devel
 Requires:       libcupsfilters-devel
 
@@ -89,7 +89,7 @@ developing retro-fitting printer applications.
 %if %{with tools}
 %package tools
 Summary: PPD compiler tools and definition files
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description tools
 The package contains PPD compiler and definition files needed for generating
@@ -97,7 +97,7 @@ PPD files from *.drv files.
 %endif
 
 %prep
-%autosetup -S git
+%autosetup -n %{name}-%{upstream_version} -S git
 
 
 %build
@@ -189,6 +189,10 @@ rm -rf %{buildroot}%{_datadir}/ppdc
 %endif
 
 %changelog
+* Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b4-1
+- 2.0b4
+- introduce Epoch because I didn't read FPG carefully...
+
 * Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-4
 - rebuilt with required cups
 

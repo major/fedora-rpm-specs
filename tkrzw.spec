@@ -1,8 +1,8 @@
 %global _lto_cflags %{nil}
-%global _lib_min_ver 68
+%global _lib_min_ver 69
 
 Name:		tkrzw
-Version:	1.0.25
+Version:	1.0.26
 Release:	1%{?dist}
 Summary:	A straightforward implementation of DBM
 License:	ASL 2.0
@@ -46,6 +46,8 @@ applications that use Tkrzw.
 
 %prep
 %autosetup
+# https://github.com/estraier/tkrzw/issues/41
+sed -i 's/MYLIBREV=66/MYLIBREV=69/g' configure.in
 
 
 %build
@@ -100,6 +102,9 @@ install -t %{buildroot}%{_mandir}/man1 -m 0644 -p tkrzw_*.1
 
 
 %changelog
+* Wed Mar 01 2023 TI_Eugene <ti.eugene@gmail.com> - 1.0.26-1
+- Version bump
+
 * Tue Feb 28 2023 TI_Eugene <ti.eugene@gmail.com> - 1.0.25-1
 - Version bump
 

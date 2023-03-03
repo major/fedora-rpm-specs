@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-data-fusion
 %global         forgeurl    https://github.com/googleapis/python-data-fusion
-Version:        1.7.1
+Version:        1.8.0
 %global         tag         v%{version}
 %forgemeta
 

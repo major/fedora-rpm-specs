@@ -2,8 +2,8 @@ Name: gnucash
 Summary: Finance management application
 Version: 4.13
 URL: https://gnucash.org/
-Release: 6%{?dist}
-License: GPLv2+
+Release: 7%{?dist}
+License: GPL-2.0-or-later
 Source: https://downloads.sourceforge.net/sourceforge/gnucash/gnucash-%{version}.tar.bz2
 
 Patch0: rpath.patch
@@ -108,6 +108,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_datadir}/metainfo/gnucas
 %config(noreplace) %{_sysconfdir}/gnucash/*
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.13-7
+- migrated to SPDX license
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 4.13-6
 - Rebuilt for Boost 1.81
 

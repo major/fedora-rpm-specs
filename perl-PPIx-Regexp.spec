@@ -2,7 +2,7 @@
 %bcond_with perl_PPIx_Regexp_enables_optional_test
 
 Name:           perl-PPIx-Regexp
-Version:        0.087
+Version:        0.088
 Release:        1%{?dist}
 Summary:        Represent a regular expression of some sort
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
@@ -121,6 +121,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.088-1
+- 0.088 bump
+
 * Mon Jan 30 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.087-1
 - 0.087 bump
 

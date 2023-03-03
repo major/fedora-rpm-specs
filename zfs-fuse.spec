@@ -1,9 +1,9 @@
 %define _hardened_build 1
 Name:             zfs-fuse
 Version:          0.7.2.2
-Release:          25%{?dist}
+Release:          26%{?dist}
 Summary:          ZFS ported to Linux FUSE
-License:          CDDL
+License:          CDDL-1.0
 URL:              https://github.com/gordan-bobic/zfs-fuse
 Source00:         http://github.com/gordan-bobic/zfs-fuse/archive/%{name}-%{version}.tar.gz
 Source01:         zfs-fuse.service
@@ -142,6 +142,9 @@ rm -rf /var/lock/zfs
 %{_mandir}/man8/zstreamdump.8.gz
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.2.2-26
+- migrated to SPDX license
+
 * Tue Feb 14 2023 Arjun Shankar <arjun@redhat.com> - 0.7.2.2-25
 - Port to C99
 

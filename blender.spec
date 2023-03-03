@@ -109,8 +109,9 @@ BuildRequires:  pkgconfig(libzstd)
 
 # 3D modeling stuff
 BuildRequires:  cmake(ceres)
+# Switch to embree3 for compatibility reason
 %if %{with embree}
-BuildRequires:  cmake(embree)
+BuildRequires:  embree3-devel
 %endif
 BuildRequires:  opensubdiv-devel >= 3.4.4
 %if %{with openshading}
@@ -245,9 +246,8 @@ sed -i "s/date_time/date_time python%{python3_version_nodots}/" \
     -DCMAKE_CXX_FLAGS="%{optflags} -Wl,--as-needed" \
     -DCMAKE_CXX_STANDARD=17 \
     -DCMAKE_SKIP_RPATH=ON \
-    -D_embree_LIBRARIES=%{_prefix} \
-    -DEMBREE_INCLUDE_DIR=%{_includedir}/embree4 \
-    -DEMBREE_LIBRARY=%{_lidir}/embree4.so \
+    -DEMBREE_INCLUDE_DIR=%{_includedir}/embree3 \
+    -DEMBREE_LIBRARY=%{_lidir}/embree3.so \
     -DPYTHON_VERSION=%{python3_version} \
     -DWITH_COMPILER_CCACHE=ON \
     -DWITH_CYCLES=%{cyclesflag} \

@@ -1,9 +1,9 @@
 Name:           libmodelfile
 Version:        0.1.92
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Library for accessing various model file formats
 
-License:        zlib
+License:        Zlib
 URL:            http://www.worldforge.org
 Source0:        http://downloads.sourceforge.net/worldforge/%{name}-%{version}.tar.gz
 Patch0:         libmodelfile-configure-c99.patch
@@ -57,6 +57,9 @@ make %{?_smp_mflags} check
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1.92-33
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.92-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

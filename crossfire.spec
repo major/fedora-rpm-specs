@@ -9,10 +9,10 @@
 
 Name: crossfire
 Version: 1.71.0
-Release: 24%{?dist}
+Release: 25%{?dist}
 Summary: Server for hosting crossfire games
 # All files GPLv2+ except server/daemon.c which also has MIT attributions
-License: GPLv2+ and MIT
+License: GPL-2.0-or-later and MIT
 URL: http://crossfire.real-time.com
 
 Source0: http://downloads.sourceforge.net/crossfire/%{name}-%{version}.tar.bz2
@@ -338,6 +338,9 @@ fi
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> = 1.71.0-25
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.0-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

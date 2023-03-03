@@ -1,12 +1,12 @@
 Summary: Disk based hash library
 Name: dbh
 Version: 5.0.16
-Release: 17%{?dist}
+Release: 18%{?dist}
 URL: http://dbh.sourceforge.net/
 Source0: http://downloads.sourceforge.net/%{name}/lib%{name}2-%{version}.tar.gz
 Patch0: %{name}-5.0.13-bigendian.patch
 Epoch: 1
-License: GPLv3+
+License: GPL-3.0-or-later
 BuildRequires:  gcc
 BuildRequires: glib2-devel
 BuildRequires: make
@@ -63,6 +63,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %{_mandir}/man3/dbh*
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:5.0.16-18
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.0.16-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,8 +4,8 @@
 %bcond_with perl_libwww_perl_enables_internet_test
 
 Name:           perl-libwww-perl
-Version:        6.67
-Release:        4%{?dist}
+Version:        6.68
+Release:        1%{?dist}
 Summary:        A Perl interface to the World-Wide Web
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/libwww-perl
@@ -19,11 +19,9 @@ BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.8.1
-BuildRequires:  perl(CPAN::Meta::Requirements) >= 2.120620
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(Module::Metadata)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 
@@ -41,18 +39,16 @@ BuildRequires:  perl(File::Temp)
 # File::Listing 6 not used at tests
 # File::Spec not used at tests
 BuildRequires:  perl(HTML::Entities)
-BuildRequires:  perl(HTML::HeadParser)
+BuildRequires:  perl(HTML::HeadParser) => 3.71
 BuildRequires:  perl(HTTP::Config)
 BuildRequires:  perl(HTTP::Cookies) >= 6
 BuildRequires:  perl(HTTP::Date) >= 6
 BuildRequires:  perl(HTTP::Headers::Util)
 # HTTP::Negotiate 6 not used at tests
-BuildRequires:  perl(HTTP::Request) >= 6
-BuildRequires:  perl(HTTP::Request::Common) >= 6
-BuildRequires:  perl(HTTP::Response) >= 6
-BuildRequires:  perl(HTTP::Status) >= 6.07
-# Tests fail with buggy HTTP::Status 6.17
-BuildConflicts: perl(HTTP::Status) = 6.17
+BuildRequires:  perl(HTTP::Request) >= 6.18
+BuildRequires:  perl(HTTP::Request::Common) >= 6.18
+BuildRequires:  perl(HTTP::Response) >= 6.18
+BuildRequires:  perl(HTTP::Status) >= 6.18
 # integer not used at tests
 BuildRequires:  perl(IO::Select)
 BuildRequires:  perl(IO::Socket)
@@ -111,10 +107,10 @@ Requires:       perl(HTTP::Cookies) >= 6
 Requires:       perl(HTTP::Date) >= 6
 Requires:       perl(HTTP::Headers::Util)
 Requires:       perl(HTTP::Negotiate) >= 6
-Requires:       perl(HTTP::Request) >= 6
-Requires:       perl(HTTP::Request::Common) >= 6
-Requires:       perl(HTTP::Response) >= 6
-Requires:       perl(HTTP::Status) >= 6.07
+Requires:       perl(HTTP::Request) >= 6.18
+Requires:       perl(HTTP::Request::Common) >= 6.18
+Requires:       perl(HTTP::Response) >= 6.18
+Requires:       perl(HTTP::Status) >= 6.18
 Requires:       perl(LWP::MediaTypes) >= 6
 Suggests:       perl(LWP::Protocol::https) >= 6.02
 Requires:       perl(MIME::Base64) >= 2.1
@@ -144,14 +140,15 @@ Requires:       coreutils
 Requires:       perl-Test-Harness
 Requires:       perl(HTTP::Cookies) >= 6
 Requires:       perl(HTTP::Daemon) >= 6.01
-Requires:       perl(HTTP::Request) >= 6
-Requires:       perl(HTTP::Response) >= 6
+Requires:       perl(HTTP::Request) >= 6.18
+Requires:       perl(HTTP::Response) >= 6.18
 Requires:       perl(Net::HTTP) >= 6.18
 Requires:       perl(Test::More) >= 0.96
 %if %{with perl_libwww_perl_enables_internet_test} && %{with perl_libwww_perl_enables_optional_test}
 Requires:       perl(Test::LeakTrace)
 %endif
 Requires:       perl(URI) >= 1.10
+Suggests:       perl(JSON::PP) => 2.27300
 
 %description tests
 Tests from %{name}. Execute them
@@ -211,6 +208,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 01 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.68-1
+- 6.68 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.67-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

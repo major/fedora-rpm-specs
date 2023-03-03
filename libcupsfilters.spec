@@ -1,25 +1,22 @@
 %global _hardened_build 1
 
+%global upstream_version 2.0b4
+
 
 Name: libcupsfilters
-Version: 2.0b3
-Release: 4%{?dist}
+Epoch: 1
+Version: 2.0~b4
+Release: 1%{?dist}
 Summary: Library for developing printing filters
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
 License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/libcupsfilters
-Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
 
 # Patches
-# https://github.com/OpenPrinting/libcupsfilters/pull/11
-Patch001: 0001-Coverity-fixes.patch
-# https://github.com/OpenPrinting/libcupsfilters/commit/381636a
-Patch002: 0001-Do-not-free-cf_image_t-data-structure-in-_cfImageZoo.patch
-# https://github.com/OpenPrinting/libcupsfilters/commit/6b87c6e8f4c87652a73841fbc4259ff63c25b0f6
-Patch003: 0001-cfImageOpenFP-Removed-leftover-HAVE_LIBZ-conditional.patch
 
 
 # for generating configure and Makefile scripts in autogen.h
@@ -104,16 +101,16 @@ Conflicts: cups-filters-devel{?_isa} < 2.0
 Obsoletes: cups-filters-devel < 2.0
 # c2esp and perl-Net-CUPS requires cups-filters-devel
 # remove once CentOS Stream 10 is released
-Provides: cups-filters-devel = %{version}-%{release}
+Provides: cups-filters-devel = %{epoch}:%{version}-%{release}
 
-Requires: %{name}%{?_isa} = %{version}-%{release}
+Requires: %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description devel
 Development files for OpenPrinting cupsfilters library.
 
 
 %prep
-%autosetup -S git
+%autosetup -n %{name}-%{upstream_version} -S git
 
 
 %build
@@ -150,7 +147,7 @@ install -p -m 0644 cupsfilters/fontembed/README %{buildroot}%{_pkgdocdir}/fontem
 # remove .odt files (we have their .pdf versions)
 rm -f %{buildroot}%{_datadir}/cups/data/*.odt
 
-# remove redundat files
+# remove redundant files
 rm -f %{buildroot}%{_pkgdocdir}/{INSTALL,ABOUT-NLS}
 
 # license related files are already under /usr/share/licenses
@@ -200,6 +197,10 @@ rm -f %{buildroot}%{_pkgdocdir}/{LICENSE,COPYING,NOTICE}
 
 
 %changelog
+* Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b4-1
+- (fedora#2173137) - libcupsfilters-2.0b4 is available
+- introduce Epoch because I'm not careful reader of FPG...
+
 * Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-4
 - rebuilt with obsoletes
 - fix define in image-png.c to enable PNG support

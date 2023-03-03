@@ -1,6 +1,6 @@
 Name:		libzdnn
-Version:	0.4.0
-Release:	4%{?dist}
+Version:	1.0.1
+Release:	1%{?dist}
 Summary:	Driver library for the IBM Z Neural Network Processing Assist Facility
 
 License:	ASL 2.0
@@ -76,6 +76,9 @@ ln -s -r $RPM_BUILD_ROOT%{_libdir}/libzdnn.so.%{version} $RPM_BUILD_ROOT%{_libdi
 %{_libdir}/libzdnn.a
 
 %changelog
+* Wed Mar 1 2023 Andreas Krebbel <krebbel@linux.ibm.com> - 1.0.1-1
+- New release.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

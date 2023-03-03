@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-kms
 %global         forgeurl    https://github.com/googleapis/python-kms
-Version:        2.14.1
+Version:        2.15.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -66,7 +66,7 @@ rm -f %{buildroot}/%{_bindir}/fixup_kms_v1_keywords.py
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e google.cloud.kms*
 
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.

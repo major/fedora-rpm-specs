@@ -1,9 +1,9 @@
 %define _hardened_build 1
 Name:           liquidwar
 Version:        5.6.5
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Multiplayer wargame with liquid armies
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.ufoot.org/liquidwar/v5
 Source0:        http://download.savannah.nongnu.org/releases/%{name}/%{name}-%{version}.tar.gz
 Source2:        liquidwar.sysconfig
@@ -148,6 +148,9 @@ fi
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.6.5-13
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.6.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

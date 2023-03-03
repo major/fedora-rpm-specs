@@ -19,6 +19,7 @@ Source0:        https://github.com/GrahamDumpleton/%{sname}/archive/%{version}.t
 BuildRequires:  gcc
 
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 
 %global _description %{expand:
 The aim of the wrapt module is to provide a transparent object proxy

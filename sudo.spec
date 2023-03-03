@@ -3,7 +3,7 @@
 
 Summary: Allows restricted root access for specified users
 Name: sudo
-Version: 1.9.12
+Version: 1.9.13
 # remove -b 3 after rebase !!!
 # use "-p -e % {?extraver}" when beta
 # use "-e % {?extraver}"" when patch version

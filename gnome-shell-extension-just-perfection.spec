@@ -3,11 +3,11 @@
 # Define a commit here to switch to snapshot versioning.  Note that just adding
 # a `#` to the beginning of this line is insufficient to disable snapshot
 # versioning, as RPM allows you to define macros anywhere, even in comments.
-%global commit      3f4d08d70aad022b231467b71dc495286a06b27b
+#global commit      3f4d08d70aad022b231467b71dc495286a06b27b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        23.0%{?commit:^1.%{shortcommit}}
+Version:        24.0%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
 Summary:        Extension to Customize GNOME Shell and Disable UI Elements
 License:        GPL-3.0-only

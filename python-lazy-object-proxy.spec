@@ -3,10 +3,10 @@
 
 Name:           python-%{srcname}
 Version:        1.9.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
-License:        BSD
+License:        BSD-2-Clause
 Url:            https://github.com/ionelmc/python-%{srcname}
 Source0:        https://github.com/ionelmc/python-%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -47,6 +47,9 @@ A fast and thorough lazy object proxy.
 %exclude %{python3_sitearch}/lazy_object_proxy/cext.c
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.9.0-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

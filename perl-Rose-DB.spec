@@ -1,6 +1,6 @@
 Name:		perl-Rose-DB
-Version:	0.784
-Release:	1%{?dist}
+Version:	0.785
+Release:	2%{?dist}
 Summary:	DBI wrapper and abstraction layer
 License:	GPL+ or Artistic
 URL:		https://metacpan.org/release/Rose-DB
@@ -54,14 +54,11 @@ A Rose::DB object "has a" DBI object; it is not a subclass of DBI.
 %build
 find . -type f -executable -exec chmod -x {} \;
 
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -delete
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
+%{make_install}
 
 %{_fixperms} $RPM_BUILD_ROOT/*
 
@@ -75,6 +72,12 @@ make test
 %{_mandir}/man3/Rose::DB*.3pm*
 
 %changelog
+* Wed Mar  1 2023 Bill Pemberton <wfp5p@worldbroken.com> - 0.785-2
+- modernize the spec file
+
+* Wed Mar  1 2023 Bill Pemberton <wfp5p@worldbroken.com> - 0.785-1
+- update to version 0.785
+
 * Fri Feb  3 2023 Bill Pemberton <wfp5p@worldbroken.com> - 0.784-1
 - update to version 0.784
 

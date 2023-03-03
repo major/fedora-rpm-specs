@@ -6,10 +6,10 @@
 
 Name:		zbar
 Version:	0.23.90
-Release:	7%{?dist}
+Release:	8%{?dist}
 Summary:	Bar code reader
 
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		http://zbar.sourceforge.net/
 Source0:	https://linuxtv.org/downloads/%{name}/%{name}-%{version}.tar.bz2
 Patch0:		use_python3_on_python_script.patch
@@ -215,6 +215,9 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/zbar-%{version}/
 %{_docdir}/test_python.py
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.23.90-8
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23.90-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

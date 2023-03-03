@@ -51,7 +51,7 @@ BuildRequires:  gcc-c++
 BuildRequires:  libappstream-glib
 BuildRequires:  bcd-devel
 BuildRequires:  boost-devel
-BuildRequires:  embree-devel
+BuildRequires:  embree3-devel
 BuildRequires:  freeimage-devel
 BuildRequires:  json-devel
 BuildRequires:  oidn-devel

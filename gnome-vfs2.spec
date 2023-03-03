@@ -13,8 +13,8 @@
 Summary: The GNOME virtual file-system libraries
 Name: gnome-vfs2
 Version: 2.24.4
-Release: 40%{?dist}
-License: LGPLv2+ and GPLv2+
+Release: 41%{?dist}
+License: LGPL-2.0-or-later and GPL-2.0-or-later
 # the daemon and the library are LGPLv2+
 # the modules are LGPLv2+ and GPLv2+
 #VCS: git:git://git.gnome.org/gnome-vfs
@@ -258,6 +258,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 %config %{_sysconfdir}/gnome-vfs-2.0/modules/smb-module.conf
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.24.4-41
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.4-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 Name:           paps
-Version:        0.7.9
+Version:        0.8.0
 Release:        1%{?dist}
 
 License:        LGPL-2.0-or-later
@@ -43,6 +43,9 @@ Patch59:        %{name}-ft-header.patch
 Patch60:        %{name}-a3.patch
 ## rhbz#1214939
 Patch61:	%{name}-fix-paper-size-truncate.patch
+### For paps
+Patch100:	%{name}-fix-src-to-paps.patch
+Patch101:	%{name}-fix-build.patch
 
 Summary:        Plain Text to PostScript converter
 %description
@@ -62,6 +65,8 @@ This package contains a CUPS filter based on paps.
 
 %prep
 %setup -q -a 3
+%patch100 -p1 -b .src-to-paps
+%patch101 -p1 -b .build
 pushd %{name}-0.6.8
 %patch0 -p1 -b .shared
 %patch1 -p1 -b .wordwrap
@@ -125,6 +130,8 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 %files
 %doc AUTHORS COPYING.LIB README
 %{_bindir}/paps
+%{_bindir}/src-to-paps
+%{_datadir}/paps/pango_markup.outlang
 %{_mandir}/man1/paps.1*
 
 %files -n texttopaps
@@ -137,6 +144,10 @@ make install DESTDIR=$RPM_BUILD_ROOT INSTALL="/usr/bin/install -p"
 
 
 %changelog
+* Wed Mar  1 2023 Akira TAGOH <tagoh@redhat.com> - 0.8.0-1
+- New upstream release.
+  Resolves: rhbz#2168726
+
 * Tue Feb  7 2023 Akira TAGOH <tagoh@redhat.com> - 0.7.9-1
 - New upstream release.
   Resolves: rhbz#2164212

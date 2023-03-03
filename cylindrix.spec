@@ -1,9 +1,9 @@
 Name: cylindrix
 Version:  1.0
-Release: 40%{?dist}
+Release: 41%{?dist}
 Summary: A 3 degrees of freedom combat game
 
-License: LGPLv2        
+License: LGPL-2.0-only        
 URL: http://www.hardgeus.com/cylindrix/
 Source0: http://www.hardgeus.com/cylindrix/cylindrix-1.0.tar.bz2
 Source1: cylindrix.desktop
@@ -90,6 +90,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0-41
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0-40
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

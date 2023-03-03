@@ -1,8 +1,8 @@
 %global srcname jenkins-job-builder
 
 Name:           python-%{srcname}
-Version:        4.1.0
-Release:        5%{dist}
+Version:        4.3.0
+Release:        1%{dist}
 # Someone thought that 2.0.0.0b3 < 2.0.0
 Epoch:          1
 Summary:        Manage Jenkins jobs with YAML
@@ -24,10 +24,9 @@ Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{srcname}}
 BuildRequires:  python3-devel
 # test-requirements.txt
-BuildRequires:  python3dist(fixtures) >= 3
-BuildRequires:  python3dist(testscenarios) >= 0.4
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-mock)
 BuildRequires:  python3dist(testtools) >= 1.4
-BuildRequires:  python3dist(stestr)
 
 %description -n python3-%{srcname}
 Jenkins Job Builder takes simple descriptions of Jenkins jobs in YAML format
@@ -52,13 +51,16 @@ export PBR_VERSION=%{version}
 %pyproject_save_files jenkins_jobs
 
 %check
-stestr run
+%pytest
 
 %files -n python3-%{srcname} -f %{pyproject_files}
 %license LICENSE
 %{_bindir}/jenkins-jobs
 
 %changelog
+* Wed Mar 01 2023 Christoph Erhardt <fedora@sicherha.de> - 1:4.3.0-1
+- Update to 4.3.0 (rhbz#2173887)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

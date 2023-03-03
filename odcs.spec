@@ -1,6 +1,6 @@
 Name:       odcs
-Version:    0.4.0
-Release:    2%{?dist}
+Version:    0.5.0
+Release:    1%{?dist}
 Summary:    The On Demand Compose Service
 
 
@@ -130,7 +130,8 @@ Command line client for sending requests to ODCS.
 export PYTHONPATH=%{buildroot}%{python3_sitelib}
 mkdir -p %{buildroot}%{_mandir}/man1
 for command in odcs-manager odcs-frontend odcs-gencert ; do
-export ODCS_CONFIG_FILE=server/conf/config.py
+export ODCS_CONFIG_DIR=server/conf/
+export ODCS_DEVELOPER_ENV=1
 help2man -N \
     --version-string=%{version} %{buildroot}%{_bindir}/$command  > \
     %{buildroot}%{_mandir}/man1/$command.1 || \
@@ -166,12 +167,10 @@ nosetests-%{python3_version} -v
 
 %files -n odcs-client
 %doc README.md
-%license LICENSE
 %{_bindir}/odcs
 
 %files -n python3-odcs-common
 %doc README.md
-%license LICENSE
 %dir %{python3_sitelib}/odcs/
 %{python3_sitelib}/odcs/__init__.py*
 %{python3_sitelib}/odcs/common/
@@ -180,14 +179,12 @@ nosetests-%{python3_version} -v
 
 %files -n python3-odcs-client
 %doc README.md
-%license LICENSE
 %dir %{python3_sitelib}/odcs/
 %{python3_sitelib}/odcs/client/
 %exclude %{python3_sitelib}/odcs/__pycache__
 
 %files
 %doc README.md
-%license LICENSE
 %{_unitdir}/odcs-backend.service
 %{python3_sitelib}/odcs/server
 %{_bindir}/odcs-*
@@ -196,6 +193,7 @@ nosetests-%{python3_version} -v
 %dir %{_sysconfdir}/odcs
 %config(noreplace) %{_sysconfdir}/odcs/config.py
 %config(noreplace) %{_sysconfdir}/odcs/pungi.conf
+%config(noreplace) %{_sysconfdir}/odcs/raw_config_urls.conf
 %config(noreplace) %{_sysconfdir}/odcs/raw_config_wrapper.conf
 %exclude %{_sysconfdir}/odcs/*.py[co]
 %exclude %{_sysconfdir}/odcs/__pycache__
@@ -203,6 +201,17 @@ nosetests-%{python3_version} -v
 
 
 %changelog
+* Wed Mar 01 2023 Haibo Lin <hlin@redhat.com> - 0.5.0-1
+- backend: Handle raw config file in subdirectory implicitly
+- backend: pulp: Always include explicitly mentioned repos
+- client: switch to HTTPSPNEGOAuth and drop mutual_authentication
+- docs: Improve documentation for pulp composes
+- server: Load raw_config_urls config without reboot
+- server: Refine server config initializing
+- Add missing comma in setup.py
+- Update formatting to satisfy latest black
+- Update license info
+
 * Fri Feb 10 2023 Lubomír Sedlář <lsedlar@redhat.com> - 0.4.0-2
 - Resolve conflict after branches diverging after mass rebuild for Fedora 38
 - Drop unused patches

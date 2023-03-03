@@ -2,10 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        PyJUnitXML, a pyunit extension to output JUnit compatible XML
 
-License:        LGPLv3
+License:        LGPL-3.0-only
 URL:            https://launchpad.net/pyjunitxml
 Source0:        https://pypi.python.org/packages/source/j/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -57,6 +57,9 @@ ln -s ./pyjunitxml-%{python3_version} %{buildroot}%{_bindir}/pyjunitxml-3
 %{python3_sitelib}/*
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7-32
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

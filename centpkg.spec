@@ -12,8 +12,8 @@
 
 
 Name:           centpkg
-Version:        0.6.9
-Release:        2%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
 URL:            https://git.centos.org/centos/centpkg
@@ -92,6 +92,12 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Wed Mar 01 2023 Troy Dawson <tdawson@redhat.com> - 0.7.1-1
+- Latest upstream
+
+* Tue Feb 28 2023 Troy Dawson <tdawson@redhat.com> - 0.7.0-1
+- Latest upstream - adds --rhel-target feature
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.9-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

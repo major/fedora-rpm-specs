@@ -1,9 +1,9 @@
 Name: t4k_common
 Version: 0.1.1
-Release: 32%{?dist}
+Release: 33%{?dist}
 URL: https://github.com/tux4kids/t4kcommon/
 Summary: Library for Tux4Kids applications
-License: GPLv3+
+License: GPL-3.0-or-later
 Source0: https://github.com/tux4kids/t4kcommon/archive/debian/0.1.1-1.1/t4k_common-0.1.1.tar.gz
 Patch0: t4k_common-0.1.1.patch
 Patch1: t4k_common-c99.patch
@@ -64,6 +64,9 @@ chmod 755 $RPM_BUILD_ROOT%{_libdir}/lib%{name}.so
 %{_libdir}/pkgconfig/t4k_common.pc
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1.1-33
+- migrated to SPDX license
+
 * Tue Feb 07 2023 Florian Weimer <fweimer@redhat.com> - 0.1.1-32
 - Fix C99 compatibility issue
 

@@ -1,11 +1,11 @@
 Name:           teeworlds
 Version:        0.7.5
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Online multi-player platform 2D shooter
 
 # zlib: src/engine/externals/md5/*
 # BSD:  src/engine/externals/json-parser/*
-License:        Teeworlds and zlib and BSD
+License:        Teeworlds and Zlib and BSD-2-Clause BSD-3-Clause
 URL:            https://www.teeworlds.com/
 Source0:        https://github.com/teeworlds/teeworlds/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/teeworlds/teeworlds-maps/archive/1d3401a37a3334e311faf18a22aeff0e0ac9ee65/%{name}-%{version}-maps.tar.gz
@@ -45,7 +45,7 @@ The controls are heavily inspired by the FPS genre of computer games.
 
 %package        server
 Summary:        Server for %{name}
-License:        Teeworlds and zlib
+License:        Teeworlds and Zlib and BSD-2-Clause and BSD-3-Clause and Zlib
 Requires:       %{name}-data = %{version}
 Provides:       bundled(md5)
 Requires(pre):  shadow-utils
@@ -57,7 +57,7 @@ Server for %{name}, an online multi-player platform 2D shooter.
 
 %package        data
 Summary:        Data-files for %{name}
-License:        CC-BY-SA
+License:        CC-BY-SA-4.0
 Requires:       font(dejavusans)
 BuildArch:      noarch
 
@@ -140,6 +140,9 @@ exit 0
 %attr(-,teeworlds,teeworlds)%{_sysconfdir}/%{name}/
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.5-12
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.5-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

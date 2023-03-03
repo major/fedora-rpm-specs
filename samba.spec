@@ -135,9 +135,9 @@
 %define samba_requires_eq()  %(LC_ALL="C" echo '%*' | xargs -r rpm -q --qf 'Requires: %%{name} = %%{epoch}:%%{version}\\n' | sed -e 's/ (none):/ /' -e 's/ 0:/ /' | grep -v "is not")
 
 %global samba_version 4.18.0
-%global baserelease 7
+%global baserelease 8
 # This should be rc1 or %%nil
-%global pre_release rc3
+%global pre_release rc4
 
 %global samba_release %{baserelease}
 %if "x%{?pre_release}" != "x"
@@ -4336,6 +4336,9 @@ fi
 %endif
 
 %changelog
+* Wed Mar 01 2023 Guenther Deschner <gdeschner@redhat.com> - 4.18.0rc4-8
+- resolves: #2174415 - Update to version 4.18.0rc4
+
 * Tue Feb 28 2023 Andreas Schneider <asn@redhat.com> - 4.18.0-0.7.rc3
 - resolves: #2173619 - Add missing Requires for glibc-gconv-extra
 

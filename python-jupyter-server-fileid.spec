@@ -1,5 +1,5 @@
 Name:           python-jupyter-server-fileid
-Version:        0.7.0
+Version:        0.8.0
 Release:        1%{?dist}
 Summary:        A Jupyter Server extension for the File ID service
 License:        BSD-3-Clause
@@ -59,6 +59,9 @@ mv -v %{buildroot}{%{_prefix},}%{_sysconfdir}/jupyter/jupyter_server_config.d/ju
 %config(noreplace) %{_sysconfdir}/jupyter/jupyter_server_config.d/jupyter_server_fileid.json
 
 %changelog
+* Wed Mar 01 2023 Lumír Balhar <lbalhar@redhat.com> - 0.8.0-1
+- Update to 0.8.0 (rhbz#2173025)
+
 * Fri Feb 17 2023 Lumír Balhar <lbalhar@redhat.com> - 0.7.0-1
 - Update to 0.7.0 (rhbz#2170695)
 

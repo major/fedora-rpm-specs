@@ -106,6 +106,7 @@ Source24:       80-iot-user.preset
 Source25:       plasma-desktop.conf
 Source26:       80-kde.preset
 Source27:       81-desktop.preset
+Source28:       default-timeout.conf
 
 BuildArch:      noarch
 
@@ -1190,6 +1191,8 @@ sed -i -e 's|PRETTY_NAME=.*|PRETTY_NAME="Fedora CoreOS %{dist_version}"|' %{buil
 sed -e "s#\$version#%{bug_version}#g" -e 's/$edition/CoreOS/;s/<!--.*-->//;/^$/d' %{SOURCE20} > %{buildroot}%{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.coreos
 sed -i -e "/^DEFAULT_HOSTNAME=/d" %{buildroot}%{_prefix}/lib/os-release.coreos
 install -Dm0644 %{SOURCE22} -t %{buildroot}%{_prefix}/lib/systemd/system-preset/
+install -Dm0644 %{SOURCE28} -t %{buildroot}%{_prefix}/lib/systemd/system.conf.d/
+install -Dm0644 %{SOURCE28} -t %{buildroot}%{_prefix}/lib/systemd/user.conf.d/
 %endif
 
 
@@ -1522,6 +1525,8 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %files coreos
 %files identity-coreos
 %{_prefix}/lib/systemd/system-preset/80-coreos.preset
+%{_prefix}/lib/systemd/system.conf.d/default-timeout.conf
+%{_prefix}/lib/systemd/user.conf.d/default-timeout.conf
 %{_prefix}/lib/os-release.coreos
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.coreos
 %endif

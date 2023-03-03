@@ -1,9 +1,9 @@
 Name: slingshot
 Version:  0.9
-Release:  19%{?dist}
+Release:  20%{?dist}
 Summary: A Newtonian strategy game
 
-License: GPLv2+        
+License: GPL-2.0-or-later        
 URL: https://github.com/ryanakca/slingshot
 Source0: https://github.com/ryanakca/slingshot/archive/%{version}/slingshot-%{version}.tar.gz
 Source1: slingshot.desktop
@@ -72,6 +72,9 @@ ln -s %{_datadir}/fonts/gnu-free/FreeSansBold.ttf $RPM_BUILD_ROOT%{python3_sitel
 %{_metainfodir}/slingshot.appdata.xml
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9-20
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

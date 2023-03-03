@@ -1,11 +1,11 @@
 Name:    fotoxx
-Version: 23.1
+Version: 23.2
 Release: 1%{?dist}
 Summary: Photo editor
 
 License: GPLv3+
 URL:     http://www.kornelix.com/fotoxx/fotoxx.html
-Source0: http://www.kornelix.net/downloads/downloads/fotoxx-%{version}.tar.gz
+Source0: http://www.kornelix.net/downloads/downloads/fotoxx-%{version}-source.tar.gz
 Source1: %{name}.desktop
 
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -75,6 +75,9 @@ ln -s %{_bindir}/fotoxx %{buildroot}%{_bindir}/fotoxx-snap
 %{_datadir}/metainfo/
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.2-1
+- 23.2
+
 * Tue Jan 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 23.1-1
 - 23.1
 

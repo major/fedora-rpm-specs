@@ -1,9 +1,9 @@
 Name:           deja-dup
 Version:        44.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple backup tool and frontend for duplicity
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.gnome.org/World/deja-dup
 Source0:        https://gitlab.gnome.org/World/deja-dup/-/archive/%{version}/deja-dup-%{version}.tar.bz2
 BuildRequires:  meson
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*.metain
 %{_datadir}/help/*
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 44.0-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 44.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

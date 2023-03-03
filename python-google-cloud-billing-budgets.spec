@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-billing-budgets
 %global         forgeurl    https://github.com/googleapis/python-billingbudgets
-Version:        1.9.1
+Version:        1.10.0
 %global         tag         v%{version}
 %forgemeta
 

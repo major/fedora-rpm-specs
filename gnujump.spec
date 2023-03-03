@@ -1,9 +1,9 @@
 Name:		gnujump
 Version:	1.0.8
-Release:	22%{?dist}
+Release:	23%{?dist}
 Summary:	A jumping game which is a clone of xjump
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		http://gnu.org/software/%{name}
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
@@ -52,6 +52,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.8-23
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.8-22
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

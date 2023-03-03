@@ -1,8 +1,8 @@
 Summary: An easy to use, modeless text editor
 Name: joe
 Version: 4.6
-Release: 16%{?dist}
-License: GPLv2+
+Release: 17%{?dist}
+License: GPL-2.0-or-later
 URL: http://sourceforge.net/projects/joe-editor/
 Source: http://downloads.sourceforge.net/joe-editor/joe-%{version}.tar.gz
 
@@ -72,6 +72,9 @@ popd
 %exclude %{_datadir}/applications/j*desktop
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.6-17
+- migrated to SPDX license
+
 * Tue Jan 31 2023 Nikita Popov <npopov@redhat.com> - 4.6-16
 - Port to C99
 

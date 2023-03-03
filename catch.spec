@@ -1,6 +1,6 @@
 Name:           catch
 Version:        3.3.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Modern, C++-native, header-only, framework for unit-tests, TDD and BDD
 
 License:        BSL-1.0
@@ -33,6 +33,7 @@ is packaged up as a single header for extra convenience.
 
 %build
 %cmake \
+    -DCMAKE_BUILD_TYPE=Release \
     -DCATCH_BUILD_EXTRA_TESTS=ON \
     -DCATCH_ENABLE_WERROR=OFF \
     -DCATCH_INSTALL_DOCS=OFF \
@@ -66,6 +67,9 @@ is packaged up as a single header for extra convenience.
 
 
 %changelog
+* Wed Mar  1 2023 Tom Hughes <tom@compton.nu> - 3.3.2-2
+- Build in release mode
+
 * Tue Feb 28 2023 Tom Hughes <tom@compton.nu> - 3.3.2-1
 - Update to 3.3.2 upstream release
 

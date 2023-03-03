@@ -3,7 +3,7 @@
 
 Name:               python-%{modname}
 Version:            5.12.0
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python utility / library to sort Python imports
 
 License:            MIT
@@ -57,6 +57,9 @@ ln -s %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.12.0-2
+- migrated to SPDX license
+
 * Mon Jan 30 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.12.0-1
 - 5.12.0
 

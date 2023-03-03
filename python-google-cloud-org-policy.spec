@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-org-policy
 %global         forgeurl    https://github.com/googleapis/python-org-policy
-Version:        1.7.1
+Version:        1.8.0
 %global         tag         v%{version}
 %forgemeta
 

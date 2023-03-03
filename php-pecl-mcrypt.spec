@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-mcrypt
 #
-# Copyright (c) 2017-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -19,9 +19,9 @@
 
 Summary:      Bindings for the libmcrypt library
 Name:         php-pecl-mcrypt
-Version:      1.0.5
-Release:      4%{?dist}
-License:      PHP
+Version:      1.0.6
+Release:      1%{?dist}
+License:      PHP-3.01
 URL:          https://pecl.php.net/package/mcrypt
 Source0:      https://pecl.php.net/get/%{pecl_name}-%{version}%{?prever}.tgz
 
@@ -157,6 +157,9 @@ make test
 
 
 %changelog
+* Wed Mar  1 2023 Remi Collet <remi@remirepo.net> - 1.0.6-1
+- update to 1.0.6
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

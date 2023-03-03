@@ -1,4 +1,6 @@
-%global _cup_serverbin %{_prefix}/lib/cups
+%global _cups_serverbin %{_prefix}/lib/cups
+
+%global upstream_version 2.0b3
 
 %if 0%{?fedora}
 %bcond_without mdns
@@ -8,15 +10,16 @@
 
 
 Name: cups-browsed
-Version: 2.0b3
-Release: 1%{?dist}
+Epoch: 1
+Version: 2.0~b3
+Release: 2%{?dist}
 Summary: Daemon for local auto-installation of remote printers
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/message/A7GFSD6M3GYGSI32L2FC5KB22DUAEQI3/
 License: Apache-2.0 WITH LLVM-exception
 URL: https://github.com/OpenPrinting/cups-browsed
-Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
 
 # Patches
@@ -89,7 +92,7 @@ broadcast, or by polling a remote print server.
 
 
 %prep
-%autosetup -S git
+%autosetup -n %{name}-%{upstream_version} -S git
 
 
 %build
@@ -181,5 +184,8 @@ done
 
 
 %changelog
+* Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b3-2
+- use Epoch to ensure upgrade path because I didn't read FPG carefully
+
 * Thu Feb 02 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-1
 - Initial import (fedora#2170547)

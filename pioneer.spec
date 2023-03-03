@@ -7,11 +7,11 @@ ExclusiveArch: %{ix86} x86_64
 #
 
 %global use_autotools 0
-%global use_intermediate 0
+%global use_intermediate 1
 
 %if 0%{?use_intermediate}
-%global commit e85a0cf4ca8e710d926f6c1581c3d9db242f361f
-%global date .20190924git
+%global commit cd91559f6e6ab1bf42a6270c0826e4ea5f2d3f29
+%global date .20230301git
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 %else
 %global commit %{nil}
@@ -29,14 +29,14 @@ ExclusiveArch: %{ix86} x86_64
 Name: pioneer
 Summary: A game of lonely space adventure
 Version: 20230203
-Release: 1%{date}%{shortcommit}%{?dist}
+Release: 2%{date}%{shortcommit}%{?dist}
 
 ## Main license: GPLv3
 ## Dejavu font license: Bitstream Vera and Public Domain
 ## Pioneer's art, music and other assets (including Lua model scripts): CC-BY-SA
 License: GPLv3 and CC-BY-SA and Bitstream Vera and Public Domain
 URL: http://pioneerspacesim.net/
-Source0: https://github.com/pioneerspacesim/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0: https://github.com/pioneerspacesim/%{name}/archive/%{commit}/%{name}-%{commit}.tar.gz
 Source1: %{name}.desktop
 Source2: %{name}.appdata.xml
 
@@ -146,7 +146,7 @@ Requires:  fontpackages-filesystem
 %{fontsummary}
 
 %prep
-%autosetup -n %{name}-%{version} -N
+%autosetup -n %{name}-%{commit} -N
 
 %patch0 -p1 -b .backup
 %patch1 -p1 -b .backup
@@ -308,6 +308,9 @@ ln -sf $(fc-match -f "%{file}" "dejavusans") %{buildroot}%{_datadir}/%{name}/fon
 %_font_pkg -n %{name}-pionilliumtext22l-medium PionilliumText22L-Medium.ttf
 
 %changelog
+* Wed Mar 01 2023 Antonio Trande <sagitter@fedoraproject.org> - 20230203-2.20230301gitcd91559
+- Bugfix release (rhbz#2174394)
+
 * Fri Feb 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 20230203-1
 - Release 20230203
 

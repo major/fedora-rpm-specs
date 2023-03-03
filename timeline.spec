@@ -1,9 +1,9 @@
 Name:		timeline
 Version:	2.8.0
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Displays and navigates events on a timeline
 
-License:	GPLv3 and CC-BY-SA
+License:	GPL-3.0-only
 URL:		http://thetimelineproj.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/thetimelineproj/%{name}-%{version}.zip
 Source1:	timeline.desktop
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/timeline/dependencies
 %{python3_sitelib}/timelinelib*
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.8.0-3
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

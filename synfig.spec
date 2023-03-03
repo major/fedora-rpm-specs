@@ -1,9 +1,9 @@
 Name:           synfig
 Version:        1.5.1
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Vector-based 2D animation rendering backend
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://synfig.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         synfig-1.1.10-optflags.patch
@@ -125,6 +125,9 @@ touch -r README $RPM_BUILD_ROOT%{_bindir}/synfig-config
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.1-8
+- migrated to SPDX license
+
 * Thu Feb 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.1-7
 - OpenEXR rebuild.
 

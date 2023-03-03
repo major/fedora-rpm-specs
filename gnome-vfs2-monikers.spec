@@ -7,8 +7,8 @@
 Summary: Monikers for the GNOME virtual file-system
 Name: gnome-vfs2-monikers
 Version: 2.15.3
-Release: 32%{?dist}
-License: LGPLv2+
+Release: 33%{?dist}
+License: LGPL-2.0-or-later
 Source0: http://ftp.gnome.org/pub/gnome/sources/gnome-vfs-monikers/2.15/gnome-vfs-monikers-%{version}.tar.bz2
 URL: http://www.gnome.org/
 Requires:      gnome-vfs2 >= %{gnome_vfs_version}
@@ -52,6 +52,9 @@ done
 %{_libdir}/bonobo
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.15.3-33
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.15.3-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

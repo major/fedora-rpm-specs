@@ -1,9 +1,9 @@
 Name:		php-IDNA_Convert
 Version:	0.8.0
-Release:	19%{?dist}
+Release:	20%{?dist}
 Summary:	Provides conversion of internationalized strings to UTF8
 
-License:	LGPLv2+
+License:	LGPL-2.1-or-later
 URL:		http://idnaconv.phlymail.de/
 Source0:	http://phlymail.com/download/Goodies/idna_convert_080.zip
 
@@ -45,6 +45,9 @@ cp -a uctc.php %{buildroot}/%{_datadir}/php/IDNA_Convert
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.0-20
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

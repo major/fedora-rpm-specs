@@ -1,7 +1,7 @@
 %global pkgname francy
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        Framework for interactive discrete mathematics
 
@@ -10,9 +10,6 @@ BuildArch:      noarch
 ExclusiveArch:  %{gap_arches} noarch
 URL:            https://gap-packages.github.io/francy/
 Source0:        https://github.com/gap-packages/francy/archive/v%{version}/%{pkgname}-%{version}.tar.gz
-# Fix unknown entity warnings
-# https://github.com/gap-packages/francy/pull/90
-Patch0:         0001-Fix-unknown-entity-warnings.patch
 
 BuildRequires:  elinks
 BuildRequires:  gap-devel
@@ -93,6 +90,10 @@ cp -p tst/{canvas,graph}.tst %{buildroot}%{gap_libdir}/pkg/francy/tst
 %{gap_libdir}/pkg/%{pkgname}/notebooks/
 
 %changelog
+* Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 2.0.1-1
+- Version 2.0.1
+- Drop upstreamed entity patch
+
 * Thu Feb 23 2023 Jerry James <loganjerry@gmail.com> - 2.0.0-1
 - Version 2.0.0
 - Add patch to fix unknown entity warnings

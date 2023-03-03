@@ -13,7 +13,7 @@
 
 
 Name:           CGAL
-Version:        5.5.1
+Version:        5.5.2
 Release:        2%{?dist}
 Summary:        Computational Geometry Algorithms Library
 
@@ -76,6 +76,7 @@ may need to develop applications using the CGAL_Qt5 component of CGAL.
 
 
 %package demos-source
+BuildArch:      noarch
 Summary:        Examples and demos of CGAL algorithms
 Requires:       %{name}-devel = %{version}-%{release}
 %description demos-source
@@ -158,6 +159,10 @@ ldd ./constrained_plus
 %exclude %{_datadir}/CGAL/*/*/skip_vcproj_auto_generation
 
 %changelog
+* Tue Feb 28 2023 Laurent Rineau <laurent.rineau@cgal.org> - 5.5.2-2
+- Update to 5.5.2 (#2174148)
+- CGAL-demos-source is now noarch
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

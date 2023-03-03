@@ -1,4 +1,4 @@
-%global with_snapshot 1
+%global with_snapshot 0
 %global commit ec62d6cbef2fab4c49003c0206716d3d6248b59e
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
@@ -24,7 +24,9 @@ BuildRequires:	clang-devel
 BuildRequires:	doxygen
 BuildRequires:	flex 
 BuildRequires:	gcc-c++
+BuildRequires:	libomp-devel
 BuildRequires:	llvm-devel
+BuildRequires:	pkgconfig(libffi)
 BuildRequires:	pkgconfig(ncurses)
 BuildRequires:	pkgconfig(python3)
 # Hardcoded path from 32-bit glibc-devel needed to build
@@ -37,9 +39,11 @@ BuildRequires:	pkgconfig(zlib)
 # Upstream only supports these architectures
 ExclusiveArch:	x86_64 aarch64
 
-# https://fedoraproject.org/wiki/Changes/Stop-Shipping-Individual-Component-Libraries-In-clang-lib-Package
-# 
-Patch0:	0001-Link-against-libclang-cpp.so.patch
+# Include missing #include <cstdint> from gcc 13
+# https://github.com/EttusResearch/uhd/pull/652
+%if 0%{?fedora} > 37
+Patch:		0001-ipsc-include-cstdint.patch 
+%endif
 
 %description
 A compiler for a variant of the C programming language, with extensions for
@@ -80,7 +84,6 @@ sed -i 's| -Werror ||g' CMakeLists.txt
 	-DCMAKE_EXE_LINKER_FLAGS="%{optflags} -fPIE" \
 	-DISPC_INCLUDE_EXAMPLES=OFF \
 	-DISPC_INCLUDE_TESTS=OFF \
-	-DISPC_NO_DUMPS=ON \
 	-DLEVEL_ZERO_INCLUDE_DIR=%{_includedir} \
 	-DLEVEL_ZERO_LIB_LOADER=%{_libddir} \
 	-DLLVM_ENABLE_ASSERTIONS=OFF 
@@ -106,3 +109,4 @@ rm %{buildroot}%{_libdir}/lib%{name}rt_static.a
 
 %changelog
 %autochangelog
+

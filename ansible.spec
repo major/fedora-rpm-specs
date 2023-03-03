@@ -11,15 +11,16 @@
 %global __brp_mangle_shebangs_exclude_from ^%{python3_sitelib}/ansible_collections/[^/]+/[^/]+/roles/[^/]+/(files|templates)/.*$
 %global __requires_exclude_from %{?__requires_exclude_from:%__requires_exclude_from|}%{__brp_mangle_shebangs_exclude_from}
 
-%if 0%{?rhel} == 8
-# RHEL 8's ansible-core package is built using Python 3.9, which is not the default version.
-%define python3_pkgversion 39
+%if 0%{?rhel} >= 8
+# ansible-core package is built against Python 3.11 in RHEL 8 and RHEL 9 which
+# is not the default version.
+%global python3_pkgversion 3.11
 BuildRequires:  python%{python3_pkgversion}-rpm-macros
 %endif
 
 Name:           ansible
 Summary:        Curated set of Ansible collections included in addition to ansible-core
-Version:        7.2.0
+Version:        7.3.0
 %global uversion %(tr -d '~' <<< %{version})
 Release:        1%{?dist}
 
@@ -83,7 +84,7 @@ to ansible-core.
 # to properly release and test new ansible major versions after RHEL rebases
 # ansible-core. The lower version constraints can stay in place.
 
-sed -i "s|'ansible-core ~= 2.13\..*',$|'ansible-core >= %{min_ansible_core}',|" setup.py
+sed -i "s|'ansible-core ~= 2.14\..*',$|'ansible-core >= %{min_ansible_core}',|" setup.py
 # Verify
 set -o pipefail
 grep -B1 "'ansible-core >= %{min_ansible_core}'," setup.py | grep -F 'install_requires=['
@@ -216,10 +217,13 @@ hardlink -v %{buildroot}%{ansible_licensedir}
 # This allows users to install individual collections manually with ansible-galaxy (~/.ansible/collections/ansible_collections)
 # or via standalone distribution packages to datadir (/usr/share).
 # Both will have precedence over the collections installed in the python sitelib.
-%{python3_sitelib}/ansible_collections
-%{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info
+%{python3_sitelib}/ansible_collections/
+%{python3_sitelib}/ansible-%{uversion}-py%{python3_version}.egg-info/
 
 %changelog
+* Wed Mar 01 2023 Maxwell G <maxwell@gtmx.me> - 7.3.0-1
+- Update to 7.3.0.
+
 * Tue Jan 31 2023 David Moreau-Simard <moi@dmsimard.com> - 7.2.0-1
 - Update to 7.2.0.
 

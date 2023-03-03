@@ -7,7 +7,7 @@
 
 %global         srcname     google-cloud-bigquery
 %global         forgeurl    https://github.com/googleapis/python-bigquery
-Version:        3.5.0
+Version:        3.6.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -74,6 +74,9 @@ sed -i 's/1.49.1/1.48.3/g' setup.py
 
 # Remove Python version limitation.
 sed -i '/python_requires/d' setup.py
+
+# Remove upper bound on Shapely.
+sed -i 's/Shapely>=1.8.4, <2.0dev/Shapely>=1.8.4/' setup.py
 
 
 %generate_buildrequires

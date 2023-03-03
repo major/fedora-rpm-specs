@@ -2,9 +2,9 @@
 %define _hardened_build 1
 Name: ettercap
 Version: 0.8.3.1
-Release: 9%{?dist}
+Release: 10%{?dist}
 Summary: Network traffic sniffer/analyser, NCURSES interface version
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://ettercap.sourceforge.net
 Source0: https://github.com/Ettercap/ettercap/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1: ettercap.desktop
@@ -119,6 +119,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 %{_metainfodir}/ettercap.metainfo.xml
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3.1-10
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3.1-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

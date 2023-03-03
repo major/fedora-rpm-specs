@@ -9,11 +9,13 @@
 # we build CUPS also with relro
 %global _hardened_build 1
 
+%global upstream_version 2.0b3
 
 Summary: OpenPrinting CUPS filters and backends for CUPS 2.X
 Name:    cups-filters
-Version: 2.0b3
-Release: 1%{?dist}
+Epoch:   1
+Version: 2.0~b3
+Release: 2%{?dist}
 
 # the CUPS exception text is the same as LLVM exception, so using that name with
 # agreement from legal team
@@ -21,7 +23,7 @@ Release: 1%{?dist}
 License: Apache-2.0 WITH LLVM-exception
 
 URL:     https://github.com/OpenPrinting/cups-filters
-Source0: %{URL}/archive/%{version}/%{name}-%{version}.tar.gz
+Source0: %{URL}/releases/download/%{upstream_version}/%{name}-%{upstream_version}.tar.gz
 
 
 # Patches
@@ -83,7 +85,7 @@ workflow introduced by OpenPrinting.
 
 
 %prep
-%autosetup -S git
+%autosetup -n %{name}-%{upstream_version} -S git
 
 %build
 # work-around Rpath
@@ -178,6 +180,9 @@ make check
 
 
 %changelog
+* Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1:2.0~b3-2
+- use epoch to ensure clean upgrade path, because I didn't read FPG carefully
+
 * Mon Feb 20 2023 Zdenek Dohnal <zdohnal@redhat.com> - 2.0b3-1
 - 2170538 - rebase to 2.0b3
 

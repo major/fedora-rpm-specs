@@ -3,10 +3,10 @@
 
 Name:           seeker
 Version:        3.0
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Random access disk benchmark utility
 
-License:        GPLv2 and CC-BY-SA
+License:        GPL-2.0-only and CC-BY-SA-4.0
 URL:            http://www.linuxinsight.com/how_fast_is_your_disk.html
 # http://www.linuxinsight.com/how_fast_is_your_disk.html#comment-1583
 Source0:        http://smp.if.uj.edu.pl/~baryluk/seeker_baryluk.c
@@ -51,6 +51,9 @@ install -Dpm 755 seeker $RPM_BUILD_ROOT%{_sbindir}/seeker
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0-29
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

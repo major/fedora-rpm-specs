@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-os-config
 %global         forgeurl    https://github.com/googleapis/python-os-config
-Version:        1.14.1
+Version:        1.15.0
 %global         tag         v%{version}
 %forgemeta
 

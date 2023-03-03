@@ -16,9 +16,9 @@
 %global config_files_list abaton agfafocus apple artec artec_eplus48u avision bh canon canon630u canon_dr canon_lide70 canon_pp cardscan coolscan coolscan2 coolscan3 dell1600n_net dll epjitsu epson epson2 epsonds fujitsu genesys gt68xx hp hp3900 hp4200 hp5400 hpsj5s hs2p ibm kodak kodakaio kvs1025 leo lexmark ma1509 magicolor matsushita microtek microtek2 mustek mustek_pp mustek_usb nec net p5 pie pieusb pixma plustek plustek_pp ricoh rts8891 s9036 sceptre sharp sm3840 snapscan sp15c st400 tamarack teco1 teco2 teco3 test u12 umax umax1220u umax_pp xerox_mfp dc210 dc240 dc25 dmc gphoto2 qcam stv680 v4l
 
 %if 0%{?flatpak}
-%bcond_with runtimedep-systemd
+%bcond_with runtimedep_systemd
 %else
-%bcond_without runtimedep-systemd
+%bcond_without runtimedep_systemd
 %endif
 
 Summary: Scanner access software
@@ -87,7 +87,7 @@ BuildRequires: systemd-rpm-macros
 Requires: libpng
 Requires: sane-airscan
 Requires: sane-backends-libs%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
-%if %{with runtimedep-systemd}
+%if %{with runtimedep_systemd}
 Requires: systemd >= 196
 Requires: systemd-udev >= 196
 %endif
@@ -398,6 +398,9 @@ udevadm hwdb --update >/dev/null 2>&1 || :
 %{_unitdir}/saned@.service
 
 %changelog
+* Wed Mar 01 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-3
+- hyphen is not allowed in RPM, use underscore
+
 * Mon Feb 27 2023 Zdenek Dohnal <zdohnal@redhat.com> - 1.2.1-3
 - flatpak doesn't want systemd only in runtime
 

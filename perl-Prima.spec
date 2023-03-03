@@ -33,8 +33,9 @@
 
 
 Name:           perl-Prima
-# I believe upstream will continue with 1.68.
-Version:        1.68
+# I believe upstream will continue with 1.69.
+%global upstream_version 1.68001
+Version:        1.68.1
 Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
@@ -55,7 +56,7 @@ Summary:        Perl graphic toolkit
 # unix/render.c:        HPND-sell-variant
 License:        BSD-2-Clause AND BSD-3-Clause AND BSD-4-Clause AND MIT-open-group AND HPND AND HPND-sell-variant AND TCL AND ImageMagick AND LGPL-2.0-or-later AND AGPL-3.0-or-later
 URL:            https://metacpan.org/dist/Prima
-Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{version}.tar.gz
+Source0:        https://cpan.metacpan.org/authors/id/K/KA/KARASIK/Prima-%{upstream_version}.tar.gz
 BuildRequires:  findutils
 BuildRequires:  giflib-devel
 BuildRequires:  gcc
@@ -217,7 +218,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%autosetup -p1 -n Prima-%{version}
+%autosetup -p1 -n Prima-%{upstream_version}
 %if !%{with perl_Prima_enables_optional_test}
 rm t/misc/pod.t
 perl -i -ne 'print $_ unless m{\A\Qt/misc/pod.t\E}' MANIFEST
@@ -330,6 +331,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Wed Mar 01 2023 Petr Pisar <ppisar@redhat.com> - 1.68.1-1
+- 1.68001 bump
+
 * Mon Feb 27 2023 Petr Pisar <ppisar@redhat.com> - 1.68-1
 - 1.68 bump
 

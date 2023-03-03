@@ -1,9 +1,9 @@
 Name: curblaster
 Version:  1.14
-Release:  2%{?dist}
+Release:  3%{?dist}
 Summary: Sidescrolling shooter, carry the pods through the gate
 
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: https://codeberg.org/gwync/curblaster
 Source0: https://codeberg.org/gwync/curblaster/archive/%{version}.tar.gz
 BuildRequires:  gcc-c++
@@ -52,6 +52,9 @@ make check
 %{_datadir}/appdata/curblaster.appdata.xml
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.14-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -8,7 +8,7 @@ Summary:        Modern, beautiful IRC client written in GTK+ 3
 # The entire source code is GPLv3+ except:
 # * keypair/        which is BSD
 # * sui_side_bar/   which is GPLv2+
-License:        GPLv3+ and BSD and GPLv2+
+License:        GPL-3.0-or-later and BSD-2-Clause and GPL-2.0-or-later
 URL:            https://github.com/SrainApp/srain
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 

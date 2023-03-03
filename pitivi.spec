@@ -3,10 +3,10 @@
 
 Name:           pitivi
 Version:        2022.06.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Non-linear video editor
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.pitivi.org/
 Source0:        https://gitlab.gnome.org/GNOME/pitivi/-/archive/%{version}/pitivi-%{version}.tar.gz
 
@@ -102,6 +102,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.pitivi.Pitivi.des
 %{python3_sitearch}/pitivi/
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 2022.06.0-5
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.06.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

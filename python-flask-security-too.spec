@@ -3,7 +3,7 @@
 
 Name:           python-%{pkg_name}
 Version:        4.1.5
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Simple security for Flask apps
 License:        MIT
 
@@ -21,6 +21,10 @@ Flask-Security quickly adds security features to your Flask application.
 
 %package -n python3-%{pkg_name}
 Summary:        Simple security for Flask apps
+
+# flask_security/utils.py imports pkg_resources
+# Upstream PR: https://github.com/Flask-Middleware/flask-security/pull/763
+Requires:       python%{python3_version}dist(setuptools)
 
 %description -n python3-%{pkg_name}
 Flask-Security quickly adds security features to your Flask application.
@@ -70,6 +74,9 @@ sed -r -i 's@/locale/@/translations/@' flask_security.lang
 
 
 %changelog
+* Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 4.1.5-3
+- Declare a runtime dependency on setuptools (for pkg_resources)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.1.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

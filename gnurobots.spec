@@ -1,9 +1,9 @@
 Name:		gnurobots
 Version:	1.2.0
-Release:	34%{?dist}
+Release:	35%{?dist}
 Summary:	A robot programming game
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		http://www.gnu.org/software/%{name}/
 Source0:	http://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.gz
 Source1:	%{name}.desktop
@@ -54,6 +54,9 @@ desktop-file-install --dir=${RPM_BUILD_ROOT}%{_datadir}/applications %{SOURCE1}
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.0-35
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

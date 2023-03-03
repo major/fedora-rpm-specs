@@ -28,6 +28,9 @@ BuildRequires:  python3-devel
 # Required for: tests/feature/test_report.py::test_complex_types
 BuildRequires:  python3dist(pytest-xdist)
 
+# Required for: tests/feature/test_tags.py (top-level pkg_resources import)
+BuildRequires:  python3dist(setuptools)
+
 # Documentation
 %if %{with doc_pdf}
 BuildRequires:  make

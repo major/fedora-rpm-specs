@@ -3,10 +3,10 @@
 
 Name:           tennix
 Version:        1.2.1
-Release:        8.20190802gitfb013a1%{?dist}
+Release:        9.20190802gitfb013a1%{?dist}
 Summary:        A simple tennis game
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://icculus.org/tennix/
 #Source0:        http://icculus.org/tennix/releases/%{name}-%{version}.tar.gz
 Source0:        tennix-fb013a1.tar.gz
@@ -88,6 +88,9 @@ EOF
 %attr(0664,root,games) /usr/share/tennix/tennix.tnx
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.1-9.20190802gitfb013a1
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.1-8.20190802gitfb013a1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

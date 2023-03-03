@@ -4,10 +4,10 @@
 Name:           numptyphysics
 # Last known version number
 Version:        0.4
-Release:        0.26.20151231git%{shortcommit}%{?dist}
+Release:        0.27.20151231git%{shortcommit}%{?dist}
 Summary:        A crayon-drawing based physics puzzle game 
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://thp.io/2015/numptyphysics/
 Source0:        https://github.com/thp/numptyphysics/archive/%{commit}/%{name}-%{commit}.tar.gz
 Patch0:         https://patch-diff.githubusercontent.com/raw/thp/numptyphysics/pull/17.patch#/%{name}-qsort.patch
@@ -53,6 +53,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/numptyphysics.desktop
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.4-0.27.20151231gitc0abd47
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4-0.26.20151231gitc0abd47
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

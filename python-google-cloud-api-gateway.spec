@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-api-gateway
 %global         forgeurl    https://github.com/googleapis/python-api-gateway
-Version:        1.6.1
+Version:        1.7.0
 %global         tag         v%{version}
 %forgemeta
 

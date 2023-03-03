@@ -5,10 +5,10 @@
 
 Name:		python-logbook
 Version:	1.5.3
-Release:	12%{?dist}
+Release:	13%{?dist}
 Summary:	A logging replacement for Python
 
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://logbook.readthedocs.io
 Source0:	https://github.com/getlogbook/logbook/archive/%{version}.tar.gz#/Logbook-%{version}.tar.gz
 BuildArch:  noarch
@@ -59,6 +59,9 @@ Logbook can do that.
 %{python3_sitearch}/logbook/
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.3-13
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.3-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

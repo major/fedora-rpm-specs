@@ -1,9 +1,9 @@
 Name:           sage
 Version:        0.2.0
-Release:        29%{?dist}
+Release:        30%{?dist}
 Summary:        OpenGL extensions library using SDL
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://worldforge.org/dev/eng/libraries/sage
 Source0:        http://downloads.sourceforge.net/worldforge/%{name}-%{version}.tar.gz
 Patch0:         sage-0.1.2-noopt.patch
@@ -72,6 +72,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/lib%{name}.la
 
 
 %changelog
+* Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.0-30
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Florian Weimer <fweimer@redhat.com> - 0.2.0-29
 - Port configure script to C99
 
