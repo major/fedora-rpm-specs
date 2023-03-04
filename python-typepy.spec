@@ -2,7 +2,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.3.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python library for variable type checker/validator/converter at a run time
 
 License:        MIT
@@ -28,6 +28,8 @@ Requires:  python3-mbstrdecoder >= 1.0.0
 %description -n python3-%{pypi_name}
 Python library for variable type checker/validator/converter at a run time.
 
+%pyproject_extras_subpkg -n python3-%{pypi_name} datetime
+
 %prep
 %autosetup -p1 -n %{pypi_name}-%{version}
 
@@ -49,7 +51,9 @@ Python library for variable type checker/validator/converter at a run time.
 %doc README.rst
 
 %changelog
-* Fri Oct 13 2022 Karolina Kula <kkula@redhat.com> - 1.3.0-1
+* Thu Mar 02 2023 Karolina Kula <kkula@redhat.com> - 1.3.0-2
+- Add datetime subpackage
+* Thu Oct 13 2022 Karolina Kula <kkula@redhat.com> - 1.3.0-1
 - Update to 1.3.0
 * Fri Sep 23 2022 Karolina Kula <kkula@redhat.com> - 1.2.0-2
 - fix rpmlint issues

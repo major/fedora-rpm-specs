@@ -1,18 +1,21 @@
-%global __cmake_in_source_build 1
-
 Name:            polkit-qt-1
 Version:         0.114.0
-Release:         5%{?dist}
+Release:         6%{?dist}
 Summary:         Qt bindings for PolicyKit
 
 License:         GPLv2+
 URL:             https://api.kde.org/kdesupport-api/polkit-qt-1-apidocs/
 Source0:         http://download.kde.org/stable/%{name}/polkit-qt-1-%{version}.tar.xz
 
+Patch0:          polkit-qt-1-change-installec-cmake-and-pc-files-to-contain-relatives.patch
+Patch1:          polkit-qt-1-unexport-nested-private-classes.patch
+Patch2:          polkit-qt-1-change-cmake-code-to-enable-buildint-against-qt6.patch
+Patch3:          polkit-qt-1-fix-memory-leak.patch
+
 BuildRequires:   cmake
 BuildRequires:   gcc-c++
-BuildRequires:   pkgconfig(polkit-agent-1) pkgconfig(polkit-gobject-1)
-BuildRequires:   pkgconfig(Qt5DBus) pkgconfig(Qt5Gui) pkgconfig(Qt5Widgets)
+BuildRequires:   pkgconfig(polkit-agent-1)
+BuildRequires:   pkgconfig(polkit-gobject-1)
 
 %description
 Polkit-qt is a library that lets developers use the PolicyKit API
@@ -20,6 +23,9 @@ through a nice Qt-styled API.
 
 %package -n polkit-qt5-1
 Summary: PolicyKit Qt5 bindings
+BuildRequires:  pkgconfig(Qt5DBus)
+BuildRequires:  pkgconfig(Qt5Gui)
+BuildRequires:  pkgconfig(Qt5Widgets)
 Obsoletes: polkit-qt5 < 0.112.0-3
 Provides:  polkit-qt5 = %{version}-%{release}
 %description -n polkit-qt5-1
@@ -34,23 +40,40 @@ Requires: polkit-qt5-1%{?_isa} = %{version}-%{release}
 %description -n polkit-qt5-1-devel
 %{summary}.
 
+%package -n polkit-qt6-1
+Summary: PolicyKit Qt6 bindings
+BuildRequires:  pkgconfig(Qt6DBus)
+BuildRequires:  pkgconfig(Qt6Gui)
+BuildRequires:  pkgconfig(Qt6Widgets)
+%description -n polkit-qt6-1
+Polkit-qt is a library that lets developers use the PolicyKit API
+through a nice Qt-styled API.
+
+%package -n polkit-qt6-1-devel
+Summary: Development files for PolicyKit Qt5 bindings
+Requires: polkit-qt6-1%{?_isa} = %{version}-%{release}
+%description -n polkit-qt6-1-devel
+%{summary}.
 
 %prep
 %autosetup -n %{name}-%{version} -p1
 
 
 %build
-%cmake \
-  -DBUILD_EXAMPLES:BOOL=OFF
-
+%global _vpath_builddir %{_target_platform}-qt5
+%cmake -DBUILD_EXAMPLES:BOOL=OFF -DQT_MAJOR_VERSION=5
 %cmake_build
 
+%global _vpath_builddir %{_target_platform}-qt6
+%cmake -DBUILD_EXAMPLES:BOOL=OFF -DQT_MAJOR_VERSION=6
+%cmake_build
 
 %install
+%global _vpath_builddir %{_target_platform}-qt5
 %cmake_install
 
-
-%ldconfig_scriptlets -n polkit-qt5-1
+%global _vpath_builddir %{_target_platform}-qt6
+%cmake_install
 
 %files -n polkit-qt5-1
 %doc AUTHORS README
@@ -70,8 +93,28 @@ Requires: polkit-qt5-1%{?_isa} = %{version}-%{release}
 %{_libdir}/pkgconfig/polkit-qt5-agent-1.pc
 %{_libdir}/cmake/PolkitQt5-1/
 
+%files -n polkit-qt6-1
+%doc AUTHORS README
+%license LICENSES/*
+%{_libdir}/libpolkit-qt6-core-1.so.1*
+%{_libdir}/libpolkit-qt6-gui-1.so.1*
+%{_libdir}/libpolkit-qt6-agent-1.so.1*
+
+%files -n polkit-qt6-1-devel
+%{_includedir}/polkit-qt6-1/
+%{_libdir}/libpolkit-qt6-core-1.so
+%{_libdir}/libpolkit-qt6-gui-1.so
+%{_libdir}/libpolkit-qt6-agent-1.so
+%{_libdir}/pkgconfig/polkit-qt6-1.pc
+%{_libdir}/pkgconfig/polkit-qt6-core-1.pc
+%{_libdir}/pkgconfig/polkit-qt6-gui-1.pc
+%{_libdir}/pkgconfig/polkit-qt6-agent-1.pc
+%{_libdir}/cmake/PolkitQt6-1/
 
 %changelog
+* Thu Mar 02 2023 Jan Grulich <jgrulich@redhat.com> - 0.114.0-6
+- Add Qt6 support
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.114.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

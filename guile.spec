@@ -2,7 +2,7 @@ Summary: A GNU implementation of Scheme for application extensibility
 Name: guile
 %define mver 2.0
 Version: 2.0.14
-Release: 31%{?dist}
+Release: 32%{?dist}
 Epoch: 5
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.xz
 URL: http://www.gnu.org/software/guile/
@@ -64,7 +64,7 @@ autoreconf -fiv
 
 # The -O2 option in CFLAGS seems to cause the build to fail on
 # some archs (bug #1675089)
-%ifarch armv7hl ppc64le
+%ifarch armv7hl ppc64le s390x
 export CFLAGS="$(echo $RPM_OPT_FLAGS | sed 's/-O2/-Os/')"
 %endif
 
@@ -173,6 +173,10 @@ fi
 %{_includedir}/guile
 
 %changelog
+* Thu Mar 02 2023 Tomas Korbar <tkorbar@redhat.com> - 2.0.14-32
+- Change optimization to -Os on s390x architecture
+- Resolves: rhbz#2171564
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5:2.0.14-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

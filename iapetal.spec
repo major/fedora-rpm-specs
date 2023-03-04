@@ -1,9 +1,9 @@
 Name:           iapetal
 Version:        1.4
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        A 2D space rescue game
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://iapetal.sourceforge.net
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        iapetal.desktop
@@ -50,6 +50,9 @@ desktop-file-install \
 %{_datadir}/appdata/iapetal.appdata.xml
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.4-19
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

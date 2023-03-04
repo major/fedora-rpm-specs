@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.2
-Release: 2%{?dist}
+Version: 22.12.3
+Release: 1%{?dist}
 Summary: A library containing itinerary data model and itinerary extraction code
 
 License: LGPLv2+
@@ -125,6 +125,9 @@ make test/fast ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Mon Feb 06 2023 Marek Kasik <mkasik@redhat.com> - 22.12.2-2
 - Rebuild for poppler-23.02.0
 

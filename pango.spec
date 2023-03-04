@@ -8,11 +8,11 @@
 %global freetype_version 2.1.5
 
 Name:    pango
-Version: 1.50.13
+Version: 1.50.14
 Release: 1%{?dist}
 Summary: System for layout and rendering of internationalized text
 
-License: LGPLv2+
+License: LGPL-2.0-or-later
 URL:     https://pango.gnome.org/
 Source0: https://download.gnome.org/sources/%{name}/1.50/%{name}-%{version}.tar.xz
 
@@ -146,6 +146,9 @@ fi
 
 
 %changelog
+* Thu Mar 02 2023 David King <amigadave@amigadave.com> - 1.50.14-1
+- Update to 1.50.14
+
 * Mon Feb 20 2023 David King <amigadave@amigadave.com> - 1.50.13-1
 - Update to 1.50.13
 

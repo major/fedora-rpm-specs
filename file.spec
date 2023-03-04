@@ -19,7 +19,9 @@ Release: 2%{?dist}
 License: BSD
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
 Source1: http://ftp.astron.com/pub/file/file-%{version}.tar.gz.asc
-# Key is from: https://github.com/file/file/commit/4cf8a0864a7fa654ee53ebc042e9a4ee8ccacd22
+
+# gpg --keyserver hkp://keys.gnupg.net --recv-keys BE04995BA8F90ED0C0C176C471112AB16CB33B3A
+# gpg --output christoskey.asc --armor --export christos@zoulas.com
 Source2: christoskey.asc
 
 # Upstream says it's up to distributions to add a way to support local-magic.

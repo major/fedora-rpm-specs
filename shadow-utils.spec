@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.13
-Release: 4%{?dist}
+Release: 5%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -25,13 +25,19 @@ Patch1: shadow-4.13-default-range.patch
 Patch2: shadow-4.9-manfix.patch
 # Date parsing improvement - could be upstreamed
 Patch3: shadow-4.2.1-date-parsing.patch
-# Audit message changes - upstreamability unknown
+# Audit message changes - partially upstreamed
+# https://github.com/shadow-maint/shadow/commit/37412f505ed0bc5c9e3f04b2266b40f8f6fc310f
 Patch4: shadow-4.11.1-audit-update.patch
 # Changes related to password unlocking - could be upstreamed
 Patch5: shadow-4.5-usermod-unlock.patch
 # Additional SElinux related changes - upstreamability unknown
 Patch6: shadow-4.12.3-selinux-perms.patch
+# https://github.com/shadow-maint/shadow/commit/a281f241b592aec636d1b93a99e764499d68c7ef
 Patch7: shadow-utils-configure-gshadow.patch
+# https://github.com/shadow-maint/shadow/commit/6974df39a708abf8bafbdfa2b7827e0f70f874cb
+# https://github.com/shadow-maint/shadow/commit/7ff33fae6f9cd79c0e012671c37a172e9a681d0b
+# https://github.com/shadow-maint/shadow/commit/05e2adf509ba0e3779dae66a276b86927a8e1e0e
+Patch8: shadow-4.13-newidmap-support-passing-pid-as-fd.patch
 
 ### Dependencies ###
 Requires: audit-libs >= 1.6.5
@@ -100,6 +106,7 @@ Development files for shadow-utils-subid.
 %patch5 -p1 -b .unlock
 %patch6 -p1 -b .selinux-perms
 %patch7 -p1
+%patch8 -p1 -b .newidmap-pid-fd
 
 iconv -f ISO88591 -t utf-8  doc/HOWTO > doc/HOWTO.utf8
 cp -f doc/HOWTO.utf8 doc/HOWTO
@@ -273,6 +280,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Thu Mar  2 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.13-5
+- newuidmap and newgidmap: support passing pid as fd. Resolves: #2174752
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:4.13-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

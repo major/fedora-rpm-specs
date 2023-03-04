@@ -106,7 +106,7 @@ Source24:       80-iot-user.preset
 Source25:       plasma-desktop.conf
 Source26:       80-kde.preset
 Source27:       81-desktop.preset
-Source28:       default-timeout.conf
+Source28:       longer-default-shutdown-timeout.conf
 
 BuildArch:      noarch
 
@@ -1525,8 +1525,8 @@ ln -s --relative %{buildroot}%{_swidtagdir} %{buildroot}%{_sysconfdir}/swid/swid
 %files coreos
 %files identity-coreos
 %{_prefix}/lib/systemd/system-preset/80-coreos.preset
-%{_prefix}/lib/systemd/system.conf.d/default-timeout.conf
-%{_prefix}/lib/systemd/user.conf.d/default-timeout.conf
+%{_prefix}/lib/systemd/system.conf.d/longer-default-shutdown-timeout.conf
+%{_prefix}/lib/systemd/user.conf.d/longer-default-shutdown-timeout.conf
 %{_prefix}/lib/os-release.coreos
 %attr(0644,root,root) %{_swidtagdir}/org.fedoraproject.Fedora-edition.swidtag.coreos
 %endif

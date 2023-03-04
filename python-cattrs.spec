@@ -65,6 +65,9 @@ BuildRequires:  python3dist(sphinx) >= 4.3.2
 BuildRequires:  (python3dist(pendulum) >= 2.1.2 with python3dist(pendulum) < 3~~)
 # We won’t build HTML documentation, so we don’t need the HTML theme.
 # furo = "^2022.6.21"
+# docs/conf.py imports from pkg_resources
+# usage removed upstream in https://github.com/python-attrs/cattrs/commit/4bfc32c5e172
+BuildRequires:  python3dist(setuptools)
 %endif
 
 # Unused test dependencies; we don’t run tests via tox, and we don’t want coverage or benchmarks. See also:

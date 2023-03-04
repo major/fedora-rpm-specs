@@ -9,8 +9,8 @@ imbalanced-learn packages. It is based on the NiaPy library for the
 implementation of nature-inspired algorithms.}
 
 Name:           python-%{pypi_name}
-Version:        0.4.6
-Release:        7%{?dist}
+Version:        0.5.0
+Release:        1%{?dist}
 Summary:        A Python Toolkit for Data Preprocessing
 License:        GPLv3
 URL:            https://github.com/karakatic/%{pypi_name}
@@ -50,6 +50,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Thu Mar 2 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.5.0-1
+- Update to 0.5.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.6-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

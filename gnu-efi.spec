@@ -5,7 +5,7 @@ Name: gnu-efi
 Epoch: 1
 Version: 3.0.11
 %global tarball_version 3.0.9
-Release: 12%{?dist}%{?buildid}
+Release: 13%{?dist}%{?buildid}
 Summary: Development Libraries and headers for EFI
 License: BSD 
 URL: https://sourceforge.net/projects/gnu-efi/
@@ -30,6 +30,9 @@ BuildRequires: git-core
 BuildRequires: /usr/include/gnu/stubs-32.h
 %endif
 BuildRequires: make
+
+# added 2020-01-24, so time is up...
+Obsoletes: %{name}-compat < 3.0.11-12
 
 # dammit, rpmlint, shut up.
 %define lib %{nil}lib%{nil}
@@ -66,21 +69,10 @@ Summary: Development Libraries and headers for EFI
 Obsoletes: gnu-efi < 1:3.0.2-1
 Requires: gnu-efi = %{epoch}:%{version}-%{release}
 BuildArch: noarch
-# temporarily, put this backwards
-Requires: gnu-efi-compat = %{epoch}:%{version}-%{release}
 
 %description devel
 This package contains development headers and libraries for developing
 applications that run under EFI (Extensible Firmware Interface).
-
-%package compat
-Summary: Development Libraries and headers for EFI
-# temporarily, put this backwards
-# Requires: gnu-efi-devel = %%{epoch}:%%{version}-%%{release}
-
-%description compat
-This package provides compatibility for building software utilizing gnu-efi
-which expects the directory layout from older versions of Fedora.
 
 %package utils
 Summary: Utilities for EFI systems
@@ -116,62 +108,21 @@ make PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib INSTALLROOT=%{buildroot} install
 mkdir -p %{buildroot}/%{efi_esp_dir}/%{efi_arch}
 mv %{efi_arch}/apps/{route80h.efi,modelist.efi} %{buildroot}%{efi_esp_dir}/%{efi_arch}/
 
-# for compatibility with our older packages
-make PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib INSTALLROOT=%{buildroot} install_compat
-mkdir -p %{buildroot}/%{_libdir}/gnuefi/
-if [[ -d %{buildroot}/%{_prefix}/lib/gnuefi/x64 ]] ; then
-  ln -s ../../lib/gnuefi/%{efi_arch} %{buildroot}/%{_libdir}/gnuefi/%{efi_arch}
-  ln -s %{efi_arch}/crt0.o %{buildroot}/%{_libdir}/gnuefi/crt0-efi-x64.o
-  ln -s %{efi_arch}/efi.lds %{buildroot}/%{_libdir}/gnuefi/elf_x64_efi.lds
-  ln -s %{efi_arch}/crt0.o %{buildroot}/%{_libdir}/gnuefi/crt0-efi-x86_64.o
-  ln -s %{efi_arch}/efi.lds %{buildroot}/%{_libdir}/gnuefi/elf_x86_64_efi.lds
-  ln -s %{efi_arch}/libefi.a %{buildroot}/%{_libdir}/gnuefi/libefi.a
-  ln -s %{efi_arch}/libgnuefi.a %{buildroot}/%{_libdir}/gnuefi/libgnuefi.a
-  # because we don't want /usr/lib64/gnuefi/crt0.o etc, we don't want to do
-  # this with 'make LIBDIR=%%{_libdir} install_compat ...'
-  ln -s gnuefi/%{efi_arch}/libefi.a %{buildroot}/%{_libdir}/libefi.a
-  ln -s gnuefi/%{efi_arch}/libgnuefi.a %{buildroot}/%{_libdir}/libgnuefi.a
-elif [[ -d %{buildroot}/%{_prefix}/lib/gnuefi/aa64 ]] ; then
-  ln -s ../../lib/gnuefi/%{efi_arch} %{buildroot}/%{_libdir}/gnuefi/%{efi_arch}
-  ln -s %{efi_arch}/crt0.o %{buildroot}/%{_libdir}/gnuefi/crt0-efi-aa64.o
-  ln -s %{efi_arch}/efi.lds %{buildroot}/%{_libdir}/gnuefi/elf_aa64_efi.lds
-  ln -s %{efi_arch}/crt0.o %{buildroot}/%{_libdir}/gnuefi/crt0-efi-aarch64.o
-  ln -s %{efi_arch}/efi.lds %{buildroot}/%{_libdir}/gnuefi/elf_aarch64_efi.lds
-  ln -s %{efi_arch}/libefi.a %{buildroot}/%{_libdir}/gnuefi/libefi.a
-  ln -s %{efi_arch}/libgnuefi.a %{buildroot}/%{_libdir}/gnuefi/libgnuefi.a
-fi
-
 %if %{efi_has_alt_arch}
   setarch linux32 -B make PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib INSTALLROOT=%{buildroot} ARCH=%{efi_alt_arch} install
   mkdir -p %{buildroot}%{efi_esp_dir}/%{efi_alt_arch}
   mv %{efi_alt_arch}/apps/{route80h.efi,modelist.efi} %{buildroot}%{efi_esp_dir}/%{efi_alt_arch}/
-
-  # for compatibility with our older packages
-  setarch linux32 -B make PREFIX=%{_prefix} LIBDIR=%{_prefix}/lib INSTALLROOT=%{buildroot} ARCH=%{efi_alt_arch} BFD_ARCH=%{efi_alt_arch} install_compat
-  mkdir -p %{buildroot}/%{_prefix}/lib/gnuefi/
-  ln -s %{efi_alt_arch}/crt0.o %{buildroot}/%{_prefix}/lib/gnuefi/crt0-efi-%{efi_alt_arch}.o
-  ln -s %{efi_alt_arch}/efi.lds %{buildroot}/%{_prefix}/lib/gnuefi/elf_%{efi_alt_arch}_efi.lds
-  ln -s %{efi_alt_arch}/libefi.a %{buildroot}/%{_prefix}/lib/gnuefi/libefi.a
-  ln -s %{efi_alt_arch}/libgnuefi.a %{buildroot}/%{_prefix}/lib/gnuefi/libgnuefi.a
 %endif
-
-find %{buildroot}/%{_prefix}/ -type l | sed 's,%{buildroot}/\+,/,' > compat.lst
 
 %files
 %dir %{_prefix}/lib/gnuefi/
 %{_prefix}/lib/gnuefi/*/
-%exclude %{_prefix}/lib*/gnuefi/crt0-efi-*
-%exclude %{_prefix}/lib*/gnuefi/elf_*
 
 %files devel
 %doc README.*
 %{_mandir}/man3/*
 %{_includedir}/efi
 %{_includedir}/*.mk
-%exclude %{_includedir}/efi/x86_64
-%exclude %{_includedir}/efi/aarch64
-
-%files compat -f compat.lst
 
 %files utils
 %dir %attr(0700,root,root) %{efi_esp_dir}/%{efi_arch}/
@@ -182,6 +133,9 @@ find %{buildroot}/%{_prefix}/ -type l | sed 's,%{buildroot}/\+,/,' > compat.lst
 %endif
 
 %changelog
+* Thu Mar 02 2023 Robbie Harwood <rharwood@redhat.com> - 3.0.11-13
+- Richard's patch to drop -compat
+
 * Tue Feb 21 2023 Peter Jones <pjones@redhat.com> - 3.0.11-12
 - Build with --no-warn-rwx-segment, since we don't wind up with segment maps
   in the final bianries anyway.

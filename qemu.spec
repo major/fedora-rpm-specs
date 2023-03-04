@@ -2011,10 +2011,8 @@ rm -rf %{static_buildroot}
 
 pushd %{qemu_kvm_build}
 echo "Testing %{name}-build"
-# i686: we propose to drop qemu, for now just disable the tests, see:
-# https://lists.fedoraproject.org/archives/list/devel@lists.fedoraproject.org/thread/C2U5RBADZB2ZUMR74PLNV73C3AIPSLWH/
 # 2022-06: ppc64le random qtest segfaults with no discernable pattern
-%ifnarch %{ix86} %{power64}
+%ifnarch %{power64}
 %make_build check
 %endif
 

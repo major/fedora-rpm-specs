@@ -42,11 +42,17 @@ BuildRequires:  libappstream-glib
 BuildRequires:  libjpeg-turbo-devel
 BuildRequires:  openssl-devel
 BuildRequires:  pam-devel
+BuildRequires:  zlib-devel
 
 # TigerVNC 1.4.x requires fltk 1.3.3 for keyboard handling support
 # See https://github.com/TigerVNC/tigervnc/issues/8, also bug #1208814
 BuildRequires:  fltk-devel >= 1.3.3
-BuildRequires:  xorg-x11-server-devel
+BuildRequires:  libX11-devel
+BuildRequires:  libXext-devel
+BuildRequires:  libXi-devel
+BuildRequires:  libXrandr-devel
+BuildRequires:  libXrender-devel
+BuildRequires:  pixman-devel
 
 %if 0%{?fedora}
 # Icons
@@ -59,15 +65,11 @@ BuildRequires:  ImageMagick
 BuildRequires:  autoconf
 BuildRequires:  automake
 BuildRequires:  gettext-autopoint
-BuildRequires:  libX11-devel
 BuildRequires:  libXdamage-devel
 BuildRequires:  libXdmcp-devel
-BuildRequires:  libXext-devel
 BuildRequires:  libXfixes-devel
 BuildRequires:  libXfont2-devel
-BuildRequires:  libXi-devel
 BuildRequires:  libXinerama-devel
-BuildRequires:  libXrandr-devel
 BuildRequires:  libXt-devel
 BuildRequires:  libXtst-devel
 BuildRequires:  libdrm-devel
@@ -75,8 +77,8 @@ BuildRequires:  libtool
 BuildRequires:  libxkbfile-devel
 BuildRequires:  libxshmfence-devel
 BuildRequires:  mesa-libGL-devel
-BuildRequires:  pixman-devel
 BuildRequires:  xorg-x11-font-utils
+BuildRequires:  xorg-x11-server-devel
 BuildRequires:  xorg-x11-server-source
 BuildRequires:  xorg-x11-util-macros
 BuildRequires:  xorg-x11-xtrans-devel

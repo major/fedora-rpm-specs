@@ -242,6 +242,9 @@ pushd native_build
 %if %{with_srp}
            --enable-srp-authentication \
 %endif
+%ifarch %{ix86}
+           --disable-year2038 \
+%endif
 	   --enable-sha1-support \
            --disable-static \
            --disable-openssl-compatibility \

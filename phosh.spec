@@ -3,8 +3,8 @@
 %global libgmobile_commit v0.0.1
 
 Name:		phosh
-Version:	0.24.0
-Release:	2%{?dist}
+Version:	0.25.1
+Release:	1%{?dist}
 Summary:	Graphical shell for mobile devices
 License:	GPLv3+
 URL:		https://gitlab.gnome.org/World/Phosh/phosh
@@ -154,8 +154,8 @@ SH
 %{_libdir}/phosh/plugins/emergency-info.plugin
 %{_libdir}/phosh/plugins/libphosh-plugin-emergency-info.so
 %{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-ticket-box.so
+%{_libdir}/phosh/plugins/prefs/libphosh-plugin-prefs-emergency-info.so
 %{_libdir}/pkgconfig/phosh-plugins.pc
-
 
 %doc README.md
 %license COPYING

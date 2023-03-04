@@ -13,8 +13,8 @@
 
 Name:    okular
 Summary: A document viewer
-Version: 22.12.2
-Release: 2%{?dist}
+Version: 22.12.3
+Release: 1%{?dist}
 
 License: GPL-2.0-only
 URL:     https://www.kde.org/applications/graphics/okular/
@@ -227,6 +227,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_kf5_metainfodir}/org.kde.ok
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Thu Feb 16 2023 Than Ngo <than@redhat.com> - 22.12.2-2
 - migrated to SPDX license
 

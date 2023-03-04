@@ -2,8 +2,8 @@
 %global base_name kdesdk-kio
 Name:    kdesdk-kioslaves
 Summary: KDESDK KIOslaves
-Version: 22.12.1
-Release: 2%{?dist}
+Version: 22.12.3
+Release: 1%{?dist}
 
 License: GPLv2 and GPLv2+
 URL:     https://cgit.kde.org/%{name}.git
@@ -57,6 +57,9 @@ KDE SDK kioslaves:
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.12.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

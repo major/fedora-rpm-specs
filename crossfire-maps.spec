@@ -1,10 +1,10 @@
 Name:           crossfire-maps
 Version:        1.71.0
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Map files for the crossfire server
 
 # All files GPL+ except python/misc/CFInsulter.py which is BSD
-License:        GPL+ and BSD
+License:        GPL-2.0-or-later
 URL:            http://crossfire.real-time.com
 Source0:        http://downloads.sourceforge.net/crossfire/crossfire-%{version}.maps.tar.bz2
 Patch0:		crossfire-maps-1.60.0-python.patch
@@ -66,6 +66,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/crossfire/maps/COPYING
 %{_datadir}/crossfire/maps
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.71.0-15
+- SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.71.0-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

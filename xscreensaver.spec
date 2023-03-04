@@ -12,7 +12,7 @@
 %define split_getimage   1
 %endif
 
-%define fedora_rel    2
+%define fedora_rel    3
 
 %global use_clang_as_cc 0
 %global use_clang_analyze 0
@@ -101,12 +101,14 @@ Patch21:         xscreensaver-6.06-webcollage-default-nonet.patch
 # misc: kill gcc warn_unused_result warnings
 Patch3607:       xscreensaver-5.36-0007-misc-kill-gcc-warn_unused_result-warnings.patch
 # switch_page_cb: backport debian fix for DPMS settings issue (debian bug 1031076)
-Patch4601:       xscrensaver-6.06-0001-switch_page_cb-backport-debian-1031076-for-DPMS-settings.patch
+Patch4601:       xscreensaver-6.06-0001-switch_page_cb-backport-debian-1031076-for-DPMS-settings.patch
+# distort_reset: restrict radius by xgwa correctly (bug 2174626)
+Patch4602:       xscreensaver-6.06-0002-distort_reset-restrict-radius-by-xgwa-correctly.patch
 # Fedora specific
 # window_init: search parenthesis first for searching year
-Patch10001:     xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
+Patch10001:      xscreensaver-6.00-0001-screensaver_id-search-parenthesis-first-for-searchin.patch
 # dialog.c: window_init: show more version string
-Patch10003:     xscreensaver-6.00-0003-dialog.c-window_init-show-more-version-string.patch
+Patch10003:      xscreensaver-6.00-0003-dialog.c-window_init-show-more-version-string.patch
 #
 # gcc warning cleanup
 # Some cppcheck cleanup
@@ -386,6 +388,7 @@ find . -name \*.c -exec chmod ugo-x {} \;
 
 #%%__cat %PATCH3607 | %__git am
 %__cat %PATCH4601 | %__git am
+%__cat %PATCH4602 | %__git am
 %__cat %PATCH10001 | %__git am
 %__cat %PATCH10003 | %__git am
 
@@ -1162,6 +1165,9 @@ exit 0
 %endif
 
 %changelog
+* Thu Mar  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.06-3
+- distort_reset: restrict radius by xgwa correctly (bug 2174626)
+
 * Wed Feb 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:6.06-2
 - Make -base subpackage require -gl-base (debian bug 1030659)
 - switch_page_cb: backport debian fix for DPMS settings issue

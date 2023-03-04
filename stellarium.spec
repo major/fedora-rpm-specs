@@ -2,7 +2,7 @@
 
 Name:           stellarium
 Version:        1.2
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -34,7 +34,9 @@ BuildRequires:	glib2-devel
 BuildRequires:	perl-podlators
 BuildRequires:  libappstream-glib
 BuildRequires:  CalcMySky-devel >= 0.2.1
+%if 0%{?fedora} < 39
 BuildRequires:  libindi-devel
+%endif
 BuildRequires:  QXlsx-devel
 BuildRequires:  libnova-devel
 BuildRequires:  libxkbcommon-devel
@@ -51,7 +53,11 @@ constellations, planets, major satellites and nebulas.
 %build
 export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 export CXXFLAGS="$RPM_OPT_FLAGS -fPIC"
-%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT6_LIBS=%{_libdir}/qt6 -DCPM_USE_LOCAL_PACKAGES=yes -DENABLE_SHOWMYSKY=yes
+# Kill USE_PLUGIN_TELESCOPECONTROL support due to libindi 2 incompatibility
+%{cmake} -DCMAKE_BUILD_TYPE=Release -DQT6_LIBS=%{_libdir}/qt6 -DCPM_USE_LOCAL_PACKAGES=yes -DENABLE_SHOWMYSKY=yes \
+%if 0%{?fedora} >= 39
+   -DUSE_PLUGIN_TELESCOPECONTROL=no
+%endif
 make VERBOSE=1 %{?_smp_mflags}
 
 %install
@@ -90,6 +96,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Thu Mar  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2-7
+- F-39: kill USE_PLUGIN_TELESCOPECONTROL support due to libindi 2 incompatibility
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-6
 - migrated to SPDX license
 

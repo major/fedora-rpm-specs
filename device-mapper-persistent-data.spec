@@ -1,37 +1,26 @@
 #
 # Copyright (C) 2011-2017 Red Hat, Inc
 #
+%bcond_without check
+%global debug_package %{nil}
 
 #%%global version_suffix -rc2
 #%%global release_suffix .test3
 
 Summary: Device-mapper Persistent Data Tools
 Name: device-mapper-persistent-data
-Version: 0.9.0
-Release: 10%{?dist}%{?release_suffix}
+Version: 1.0.2
+Release: 1%{?dist}%{?release_suffix}
 License: GPLv3+
 URL: https://github.com/jthornber/thin-provisioning-tools
 #Source0: https://github.com/jthornber/thin-provisioning-tools/archive/thin-provisioning-tools-%%{version}.tar.gz
 Source0: https://github.com/jthornber/thin-provisioning-tools/archive/v%{version}%{?version_suffix}.tar.gz
-Source1: dmpd090-vendor3.tar.gz
-Patch0: device-mapper-persistent-data-avoid-strip.patch
-Patch1: 0001-Update-dependencies.patch
-Patch2: 0001-all-Fix-resource-leaks.patch
-Patch3: 0002-thin_show_metadata-Fix-out-of-bounds-access.patch
-Patch4: 0003-build-Fix-customized-emitter-linkage.patch
-Patch5: 0004-thin_dump-Fix-leaked-shared-object-handle.patch
-Patch6: 0005-thin_show_duplicates-Fix-potential-errors.patch
-Patch7: 0006-thin_metadata_size-Fix-potential-string-overflow.patch
-Patch8: 0007-all-Fix-uninitialized-class-members.patch
-Patch9: 0008-thin_dump-Fix-warnings-on-potential-NULL-pointer.patch
-Patch10: 0009-build-Remove-unused-sources-from-the-regular-build.patch
-Patch11: 0010-all-Remove-unreachable-code.patch
-Patch12: 0011-file_utils-Fix-resource-leak.patch
-Patch13: 0012-thin_delta-Clean-up-duplicated-code.patch
-Patch14: 0013-build-Remove-lboost_iostreams-linker-flag.patch
-Patch15: 0014-cargo-update.patch
+Source1: dmpd102-vendor.tar.gz
+#Patch0: device-mapper-persistent-data-avoid-strip.patch
+Patch1: 0001-Tweak-cargo.toml-to-work-with-vendor-directory.patch
+Patch2: 0002-Fix-paths.patch
 
-BuildRequires: autoconf, expat-devel, libaio-devel, libstdc++-devel, boost-devel, gcc-c++
+BuildRequires: expat-devel, libaio-devel, libstdc++-devel, boost-devel, gcc-c++
 Requires: expat
 %ifarch %{rust_arches}
 BuildRequires: rust-packaging
@@ -52,7 +41,6 @@ snapshot eras
 %setup -q -n thin-provisioning-tools-%{version}%{?version_suffix}
 %ifarch %{rust_arches}
 %patch1 -p1 -b .toml_update
-%patch15 -p1 -b .backup15
 #%%cargo_prep
 #%%cargo_generate_buildrequires
 tar xf %{SOURCE1}
@@ -66,40 +54,24 @@ directory = "vendor"
 
 END
 %endif
-%patch0 -p1 -b .avoid_strip
+#%%patch0 -p1 -b .avoid_strip
 %patch2 -p1 -b .backup2
-%patch3 -p1 -b .backup3
-%patch4 -p1 -b .backup4
-%patch5 -p1 -b .backup5
-%patch6 -p1 -b .backup6
-%patch7 -p1 -b .backup7
-%patch8 -p1 -b .backup8
-%patch9 -p1 -b .backup9
-%patch10 -p1 -b .backup10
-%patch11 -p1 -b .backup11
-%patch12 -p1 -b .backup12
-%patch13 -p1 -b .backup13
-%patch14 -p1 -b .backup14
 # NOTE: patch 15 is above at the rust setup
 echo %{version}-%{release} > VERSION
 
 %generate_buildrequires
 
 %build
-autoconf
-%configure --with-optimisation=
-make %{?_smp_mflags} V=
-%ifarch %{rust_arches}
+#make %{?_smp_mflags} V=
 %cargo_build
+
+%if %{with check}
+%check
+%cargo_test
 %endif
 
 %install
 make DESTDIR=%{buildroot} MANDIR=%{_mandir} install
-%ifarch %{rust_arches}
-make DESTDIR=%{buildroot} MANDIR=%{_mandir} install-rust-tools
-# cargo_install installs into /usr/bin
-#%%cargo_install
-%endif
 
 %files
 %doc COPYING README.md
@@ -153,6 +125,10 @@ make DESTDIR=%{buildroot} MANDIR=%{_mandir} install-rust-tools
 #% {_sbindir}/thin_show_duplicates
 
 %changelog
+* Wed Feb 22 2023 Marian Csontos <mcsontos@redhat.com> - 1.0.2-1
+- Update to latest upstream release 1.0.2.
+- Complete rewrite in rust.
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 0.9.0-10
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

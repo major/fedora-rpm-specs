@@ -1,8 +1,8 @@
 Summary:    C++ wrapper for the MySQL C API
 Name:       mysql++
 Version:    3.3.0
-Release:    4%{?dist}
-License:    LGPLv2+
+Release:    5%{?dist}
+License:    LGPL-2.1-or-later
 URL:        https://tangentsoft.com/mysqlpp/home
 
 Source0:    https://tangentsoft.com/mysqlpp/releases/mysql++-%{version}.tar.gz
@@ -42,7 +42,8 @@ to install this package.
 
 %package manuals
 Summary:   MySQL++ user and reference manuals
-License:   LGPLv2+ and LDPL
+License:   LGPL-2.1-or-later AND LicenseRef-LDPL
+BuildArch: noarch
 Requires:  devhelp
 
 %description manuals
@@ -133,6 +134,9 @@ cp --preserve=timestamps doc/userman/LICENSE.txt %{buildroot}%{_licensedir}/%{na
 
 
 %changelog
+* Thu Mar 02 2023 Jonathan Wakely <jwakely@redhat.com> - 3.3.0-5
+- Migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

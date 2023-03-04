@@ -17,7 +17,7 @@ Name:           %{goname}
 Release:        %autorelease
 Summary:        Go implementation of Unicode Text Segmentation
 
-License:        MIT and ASL 2.0
+License:        MIT and Apache-2.0 
 URL:            %{gourl}
 Source0:        %{gosource}
 

@@ -2,8 +2,8 @@
 %global srcname Flask
 
 Name:           python-%{modname}
-Version:        2.2.2
-Release:        2%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 Epoch:          1
 Summary:        A micro-framework for Python based on Werkzeug, Jinja 2 and good intentions
 
@@ -79,6 +79,9 @@ ln -sf %{modname}-3 %{buildroot}%{_bindir}/%{modname}
 %doc examples
 
 %changelog
+* Mon Feb 20 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.2.3-1
+- Update to 2.2.3 (fixes RHBZ#2170230)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

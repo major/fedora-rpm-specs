@@ -1,6 +1,6 @@
 Name:           perl-Net-OpenSSH
-Version:        0.82
-Release:        4%{?dist}
+Version:        0.83
+Release:        1%{?dist}
 Summary:        Perl SSH client package implemented on top of OpenSSH
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Net-OpenSSH
@@ -66,6 +66,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Thu Mar 2 2023 Steve Traylen <steve.traylen@cern.ch> - 0.83-1
+- 0.83 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.82-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

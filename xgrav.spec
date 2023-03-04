@@ -1,9 +1,9 @@
 Name: xgrav
 Version:  1.2.0
-Release:  32%{?dist}
+Release:  33%{?dist}
 Summary: A simple physics simulation for a large number of particles
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://aass.oru.se/~mbl/xgrav/
 Source0: http://www.aass.oru.se/~mbl/xgrav/xgrav-%{version}.tgz
 Source1: xgrav.desktop
@@ -57,6 +57,9 @@ install -p -m 644 %{SOURCE2} \
 %{_datadir}/icons/hicolor/32x32/apps/xgrav.png
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.0-33
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

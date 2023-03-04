@@ -1,5 +1,5 @@
 # download path contains version without the last (fourth) digit
-%global libo_version 7.5.0
+%global libo_version 7.5.1
 # Should contain .alphaX / .betaX, if this is pre-release (actually
 # pre-RC) version. The pre-release string is part of tarball file names,
 # so we need a way to define it easily at one place.
@@ -54,8 +54,8 @@
 Summary:        Free Software Productivity Suite
 Name:           libreoffice
 Epoch:          1
-Version:        %{libo_version}.3
-Release:        4%{?libo_prerelease}%{?dist}
+Version:        %{libo_version}.2
+Release:        1%{?libo_prerelease}%{?dist}
 # default new files are: MPLv2
 # older files are typically: MPLv2 incorporating work under ASLv2
 # nlpsolver is: LGPLv3
@@ -265,12 +265,9 @@ Patch1: 0001-disble-tip-of-the-day-dialog-by-default.patch
 Patch2: 0001-Resolves-rhbz-1432468-disable-opencl-by-default.patch
 # backported
 Patch3: 0001-Revert-tdf-101630-gdrive-support-w-oAuth-and-Drive-A.patch
-Patch4: 0001-don-t-crash-with-disable-pdfium.patch
-Patch5: 0002-don-t-crash-with-disable-pdfium.patch
-Patch6: 0001-std-abort-during-CppunitTest_sw_layoutwriter.patch
 # TODO investigate these
-Patch7: 0001-aarch64-failing-here.patch
-Patch8: 0001-include-filename-if-the-test-fails.patch
+Patch4: 0001-aarch64-failing-here.patch
+Patch5: 0001-include-filename-if-the-test-fails.patch
 # not upstreamed
 Patch500: 0001-disable-libe-book-support.patch
 
@@ -2274,7 +2271,10 @@ gtk-update-icon-cache -q %{_datadir}/icons/hicolor &>/dev/null || :
 %{_includedir}/LibreOfficeKit
 
 %changelog
-* Fri Feb 242 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.0.3-4
+* Thu Mar 02 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.1.2-1
+- latest version
+
+* Fri Feb 24 2023 Caolán McNamara <caolanm@redhat.com> - 1:7.5.0.3-4
 - Rebuild for zxing-cpp 2.0.0
 
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1:7.5.0.3-3

@@ -34,8 +34,8 @@ Summary: Python module for GNU parted
 Name:    pyparted
 Epoch:   1
 Version: 3.12.0
-Release: 7%{?dist}
-License: GPLv2+
+Release: 8%{?dist}
+License: GPL-2.0-or-later
 URL:     https://github.com/dcantrell/pyparted
 
 Source0: https://github.com/dcantrell/pyparted/releases/download/v%{version}/%{name}-%{version}.tar.gz
@@ -47,6 +47,8 @@ Source3: trustdb.gpg
 # https://bugzilla.redhat.com/show_bug.cgi?id=2098792
 # https://github.com/dcantrell/pyparted/issues/91
 Patch0:  pyparted-3.12.0-partition-types.patch
+
+Patch1:  pyparted-3.12.0-gpt-disktype-test.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -99,6 +101,7 @@ gpg --no-default-keyring --keyring %{SOURCE2} --trustdb-name %{SOURCE3} --verify
 
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %if %{with python3}
 everything=$(ls)
@@ -156,6 +159,10 @@ popd
 %endif
 
 %changelog
+* Thu Mar 02 2023 David Cantrell <dcantrell@redhat.com> - 1:3.12.0-8
+- Fix FTBFS with _ped.disktype test case for gpt (#2171656)
+- Update License tag to SPDX expression
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.12.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

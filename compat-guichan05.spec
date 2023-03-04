@@ -1,9 +1,9 @@
 Name:           compat-guichan05
 Version:        0.5.0
-Release:        36%{?dist}
+Release:        37%{?dist}
 Summary:        Compatibility libraries for older guichan versions
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://guichan.sourceforge.net
 Source0:        http://downloads.sourceforge.net/guichan/guichan-%{version}-src.tar.gz
 Patch0:         compat-guichan05-configure-c99.patch
@@ -79,6 +79,9 @@ done
 
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.5.0-37
+- migrated to SPDX license
+
 * Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 0.5.0-36
 - Port configure script to C99
 

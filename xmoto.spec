@@ -1,10 +1,10 @@
 %global __cmake_in_source_build 1
 Name:		xmoto
 Version:	0.6.1
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Challenging 2D Motocross Platform Game
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://xmoto.sourceforge.net/
 Source0:	https://github.com/xmoto/xmoto/archive/%{version}/%{version}.tar.gz
 Source1:	xmoto.desktop
@@ -132,6 +132,9 @@ ln -s ../../../fonts/dejavu-sans-fonts/DejaVuSans.ttf $RPM_BUILD_ROOT%{_datadir}
 %{_datadir}/pixmaps/xmoto.xpm
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.1-11
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

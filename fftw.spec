@@ -13,7 +13,7 @@
 
 Name:           fftw
 Version:        3.3.10
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Fast Fourier Transform library
 License:        GPLv2+
 URL:            http://www.fftw.org
@@ -323,7 +323,7 @@ for ((iprec=0; iprec<3; iprec++)) ; do
     %{configure} ${BASEFLAGS} ${prec_flags[iprec]}
     sed -i 's|^hardcode_libdir_flag_spec=.*|hardcode_libdir_flag_spec=""|g' libtool
     sed -i 's|^runpath_var=LD_RUN_PATH|runpath_var=DIE_RPATH_DIE|g' libtool
-    make %{?_smp_mflags}
+    %make_build
     cd ..
 done
 
@@ -345,7 +345,7 @@ for mpi in %{mpi_list} ; do
             --sbindir=%{_libdir}/$mpi/sbin \
             --includedir=%{_includedir}/$mpi-%{_arch} \
             --mandir=%{_libdir}/$mpi/share/man
-        make %{?_smp_mflags}
+        %make_build
         cd ..
     done
     module unload mpi/${mpi}-%{_arch}
@@ -361,14 +361,14 @@ for ver in single double long quad ; do
 %else
 for ver in single double long ; do
 %endif
-    make -C $ver install DESTDIR=%{buildroot}
+    %make_install -C $ver
 done
 
 # MPI
 for mpi in %{mpi_list} ; do
     module load mpi/${mpi}-%{_arch}
     for ver in single double long ; do
-        make -C ${mpi}-${ver} install DESTDIR=%{buildroot}
+        %make_install -C ${mpi}-${ver}
         # Remove duplicated non-mpi libraries, binaries, and data
         find %{buildroot}%{_libdir}/${mpi}/lib -name libfftw\* -a \! -name \*_mpi.\* -delete
         rm -r %{buildroot}%{_libdir}/${mpi}/{bin,share}
@@ -391,24 +391,17 @@ for ver in single double long quad ; do
 for ver in single double long ; do
 %endif
     export LD_LIBRARY_PATH=$bdir/$ver/.libs:$bdir/$ver/threads/.libs
-    make %{?_smp_mflags} -C $ver check
+    %make_build -C $ver check
 done
 
 # MPI
-%if %{with openmpi}
-%ifarch %{ix86}
-# disable Open MPI's vader byte transfer layer while running tests on 32-bit x86 platforms
-# as it is known to be troublesome <https://github.com/open-mpi/ompi/issues/4260>
-export OMPI_MCA_btl="^vader"
-%endif
-%endif
 # Allow oversubscription with openmpi
 export OMPI_MCA_rmaps_base_oversubscribe=1
 for mpi in %{mpi_list} ; do
     module load mpi/${mpi}-%{_arch}
     for ver in single double long ; do
         export LD_LIBRARY_PATH=$bdir/$ver/.libs:$bdir/$ver/threads/.libs
-        make %{?_smp_mflags} -C ${mpi}-${ver}/mpi check
+        %make_build -C ${mpi}-${ver}/mpi check
     done
     module unload mpi/${mpi}-%{_arch}
 done
@@ -532,6 +525,10 @@ done
 %endif
 
 %changelog
+* Thu Mar 02 2023 Orion Poplawski <orion@nwra.com> - 3.3.10-5
+- Use make macros
+- Drop openmpi vader workaround
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.10-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

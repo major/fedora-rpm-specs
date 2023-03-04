@@ -11,7 +11,7 @@
 Name: gdm
 Epoch: 1
 Version: 43.0
-Release: 5%{?dist}
+Release: 7%{?dist}
 Summary: The GNOME Display Manager
 
 License: GPLv2+
@@ -29,6 +29,16 @@ Patch10001: 0001-pam-redhat-Remove-pam_console-from-service-files.patch
 
 # Downstream patches
 Patch70001: 0001-udev-Stick-with-wayland-on-hybrid-nvidia-with-vendor.patch
+# This is an upstream patch, but it is rediffed on the above downstream
+# patch and must be applied after it
+# Fix things so we get Wayland on UEFI VMs
+# https://bugzilla.redhat.com/show_bug.cgi?id=2172291
+# https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/198
+Patch70002: 0002-udev-Try-to-detect-virtual-graphics-and-EFI-better.patch
+# https://gitlab.gnome.org/GNOME/gdm/-/merge_requests/199
+# Follow-up to the above to fix an erroneously-added line
+Patch70003: 0001-udev-Drop-duplicated-line.patch
+
 Patch80001: 0001-Honor-initial-setup-being-disabled-by-distro-install.patch
 Patch90001: 0001-data-add-system-dconf-databases-to-gdm-profile.patch
 
@@ -304,6 +314,13 @@ fi
 %{_libdir}/pkgconfig/gdm-pam-extensions.pc
 
 %changelog
+* Thu Mar 02 2023 Adam Williamson <awilliam@redhat.com> - 43.0-7
+- Backport MR #199 to fix up a mistake in the virt efi patch
+
+* Wed Mar 01 2023 Ray Strode <rstrode@redhat.com> - 1:43.0-6
+- Fix wayland on virt efi setups
+  Resolves: #2172291
+
 * Thu Feb 09 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1:43.0-5
 - Remove pam_console from service file (#1822228)
 

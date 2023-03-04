@@ -123,7 +123,7 @@
 # documentation. Instead, we have just dropped all documentation.
 
 Name:           grpc
-Version:        1.48.3
+Version:        1.48.4
 Release:        %autorelease
 Summary:        RPC library and framework
 

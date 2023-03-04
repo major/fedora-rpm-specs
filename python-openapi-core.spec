@@ -2,19 +2,14 @@
 %global modname openapi_core
 
 Name:           python-%{srcname}
-Version:        0.16.5
+Version:        0.16.6
 Release:        %autorelease
 Summary:        OpenAPI client-side and server-side support
 
 License:        BSD-3-Clause
-URL:            https://github.com/p1c2u/%{srcname}
+URL:            https://github.com/python-openapi/%{srcname}
 # The GitHub archive has the tests; the PyPI sdist does not.
 Source:         %{url}/archive/%{version}/%{srcname}-%{version}.tar.gz
-
-# openapi packages update tests fix
-# https://github.com/p1c2u/openapi-core/pull/498
-# Backported to 0.16.5 (without irrelevant poetry.lock changes)
-Patch:          0001-openapi-packages-update-tests-fix.patch
 
 BuildArch:      noarch
 

@@ -290,7 +290,7 @@
 Name:    petsc
 Summary: Portable Extensible Toolkit for Scientific Computation
 Version: %{releasever}.4
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: BSD
 URL:     https://petsc.org/
 Source0: https://ftp.mcs.anl.gov/pub/petsc/release-snapshots/petsc-with-docs-%{version}.tar.gz
@@ -1168,6 +1168,9 @@ xvfb-run -a make MAKE_NP=$RPM_BUILD_NCPUS all test -C build64 V=1 MPIEXEC='%{_bu
 %endif
 
 %changelog
+* Fri Mar 03 2023 Orion Poplawski <orion@nwra.com> - 3.17.4-15
+- Rebuild for mpich 4.0.3
+
 * Mon Feb 27 2023 Antonio Trande <sagitter@fedoraproject.org> - 3.17.4-14
 - Rebuild for openmpi-4.1.5
 

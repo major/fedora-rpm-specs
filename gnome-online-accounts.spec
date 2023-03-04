@@ -6,10 +6,10 @@
 
 Name:		gnome-online-accounts
 Version:	3.47.1
-Release:	1%{?dist}
+Release:	3%{?dist}
 Summary:	Single sign-on framework for GNOME
 
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 URL:		https://wiki.gnome.org/Projects/GnomeOnlineAccounts
 Source0:	https://download.gnome.org/sources/gnome-online-accounts/3.47/%{name}-%{version}.tar.xz
 
@@ -42,6 +42,7 @@ Requires:	glib2%{?_isa} >= %{glib2_version}
 Requires:	gtk3%{?_isa} >= %{gtk3_version}
 Requires:	libsoup3%{?_isa} >= %{libsoup_version}
 Requires:	webkit2gtk4.1%{?_isa} >= %{webkit2gtk_version}
+Requires:	gvfs-goa
 
 %description
 GNOME Online Accounts provides interfaces so that applications and libraries
@@ -123,6 +124,12 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.47.1-3
+- Require gvfs-goa
+
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.47.1-2
+- migrated to SPDX license
+
 * Sun Feb 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.47.1-1
 - 3.47.1
 

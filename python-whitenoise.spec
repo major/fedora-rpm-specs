@@ -1,12 +1,18 @@
 %global with_docs 1
 %global with_check 1
+%global with_django 1
 
 %global srcname whitenoise
 %global owner evansd
 
+%if 0%{?rhel} == 9
+%undefine with_check
+%undefine with_django
+%endif
+
 Name:           python-%{srcname}
 Version:        6.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Static file serving for Python web apps
 
 License:        MIT
@@ -29,17 +35,17 @@ Heroku, OpenShift and other PaaS providers.)
 Summary:        Static file serving for Python web apps
 License:        MIT
 
-# python3-brotli is missing in RHEL at the moment
-# See: https://bugzilla.redhat.com/show_bug.cgi?id=1845954
-%if ! 0%{?el8}
 BuildRequires:  python3-brotli
-%endif
 BuildRequires:  python3-devel
+%if 0%{?with_django}
 BuildRequires:  python3-django
+%endif
 BuildRequires:  python3-pytest
 BuildRequires:  python3-requests
 BuildRequires:  python3-setuptools
+%if 0%{?with_django}
 Requires:       python3-django
+%endif
 %{?python_provide:%python_provide python3-%{srcname}}
 
 
@@ -87,7 +93,7 @@ popd
 %py3_install
 
 
-%if %{?with_check}
+%if 0%{?with_check}
 %check
 export DJANGO_SETTINGS_MODULE=tests.django_settings
 %pytest
@@ -109,6 +115,10 @@ export DJANGO_SETTINGS_MODULE=tests.django_settings
 
 
 %changelog
+* Thu Mar 02 2023 Jonathan Wright <jonathan@almalinux.org > - 6.1.0-5
+- Skip tests on EL9 due to missing python3-django package
+- Remove unnecessary python3-brotli exclusion for el8
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

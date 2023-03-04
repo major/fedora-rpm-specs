@@ -1,10 +1,10 @@
 Name:           xmlgraphics-commons
 Version:        2.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          0
 Summary:        XML Graphics Commons
 
-License:        ASL 2.0
+License:        Apache-2.0 
 URL:            http://xmlgraphics.apache.org/
 Source0:        http://archive.apache.org/dist/xmlgraphics/commons/source/xmlgraphics-commons-%{version}-src.tar.gz
 Patch0:         test.patch
@@ -71,6 +71,9 @@ find -name "*.jar" -delete
 %license LICENSE NOTICE
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0:2.8-3
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0:2.8-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

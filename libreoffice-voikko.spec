@@ -11,10 +11,10 @@
 
 Name:           libreoffice-voikko
 Version:        5.0
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Finnish spellchecker and hyphenator extension for LibreOffice
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://voikko.puimula.org/
 # The usual format of stable release URLs
 Source0:        http://www.puimula.org/voikko-sources/%{name}/%{name}-%{version}.tar.gz
@@ -52,6 +52,9 @@ make install-unpacked DESTDIR=$RPM_BUILD_ROOT%{voikkoext}
 %doc ChangeLog COPYING README
 
 %changelog
+* Thu Mar 02 2023 Stephan Bergmann <sbergman@redhat.cm> - 5.0-14
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

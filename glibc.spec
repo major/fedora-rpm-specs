@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-113-g8b014a1b1f
+%global glibcsrcdir glibc-2.37.9000-143-g59a6d5e947
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 1
+%global baserelease 2
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,40 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Wed Mar 01 2023 Carlos O'Donell <carlos@redhat.com> - 2.37.9000-2
+- Auto-sync with upstream branch master,
+  commit 59a6d5e9477695c41d6feef7ef8636f8f744f3c5:
+- Add AArch64 HWCAP2 values from Linux 6.2 to bits/hwcap.h
+- crypt: Remove invalid end of page test badsalttest
+- S390: Fix _FPU_SETCW/GETCW when compiling with Clang [BZ #30130]
+- s390x: Regenerate ULPs.
+- Add Arm HWCAP values from Linux 6.2 to bits/hwcap.h
+- htl: Add pthreadtypes-arch.h for x86_64
+- hurd: Implement TLS for x86_64
+- htl: Make pthread_mutex_t pointer-aligned
+- x86_64: Update libm test ulps
+- localedata: de_DE should not use Fräulein
+- LoongArch: Add math-barriers.h
+- cdefs.h: fix "__clang_major" typo
+- hppa: Drop old parisc-specific MADV_* constants
+- hurd: Generalize init-first.c to support x86_64
+- hurd: Simplify init-first.c further
+- hurd: Mark some audit tests as unsupported
+- htl: Mark select loop test as unsupported
+- hurd: Mark RLIMIT_AS tests as unsupported
+- aarch64: update libm test ulps
+- powerpc:Regenerate ulps for hypot
+- Update syscall lists for Linux 6.2
+- tunables.texi: Change \code{1} to @code{1}
+- x86-64: Add glibc.cpu.prefer_map_32bit_exec [BZ #28656]
+- gmon: fix memory corruption issues [BZ# 30101]
+- gmon: improve mcount overflow handling [BZ# 27576]
+- gmon: Fix allocated buffer overflow (bug 29444)
+- malloc: remove redundant check of unsorted bin corruption
+- Use Linux 6.2 in build-many-glibcs.py
+- Ignore MAP_VARIABLE in tst-mman-consts.py
+- AArch64: Fix HP_TIMING_DIFF computation [BZ# 29329]
+
 * Mon Feb 20 2023 Arjun Shankar <arjun@redhat.com> - 2.37.9000-1
 - Drop glibc-printf-grouping-swbz30068.patch; fix applied upstream, and
 - Auto-sync with upstream branch master,

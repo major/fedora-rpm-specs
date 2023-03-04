@@ -1,6 +1,6 @@
 Name:           profanity
 Version:        0.13.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        A console based XMPP client
 
 License:        GPLv3
@@ -32,6 +32,8 @@ BuildRequires:  libsignal-protocol-c-devel
 BuildRequires:  libgcrypt-devel
 # Python plugin support
 BuildRequires:  python3-devel
+# Support for display OMEMO QR code
+BuildRequires:  qrencode-devel
 # For tests:
 BuildRequires:  libcmocka-devel
 # For docs:
@@ -143,6 +145,9 @@ make check
 
 
 %changelog
+* Thu Mar 2 2023 Matthieu Saulnier <fantom@fedoraproject.org> - 0.13.1-3
+- Enable displaying OMEMO QRcode support
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.13.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,15 +1,13 @@
 Name:           fts-rest-client
-Version:        3.12.1
+Version:        3.12.2
 Release:        1%{?dist}
 Summary:        File Transfer Service (FTS) -- Python3 Client and CLI
 
 License:        ASL 2.0
 URL:            https://fts.web.cern.ch/
-# git clone --depth=1 --branch v3.12.1-client https://gitlab.cern.ch/fts/fts-rest-flask.git fts-rest-client-3.12.1
-# tar -C fts-rest-client-3.12.1/ -czf fts-rest-client-3.12.1.tar.gz src/cli src/fts3 LICENSE setup.py setup.cfg --transform "s|^|fts-rest-client-3.12.1/|" --show-transformed-names
+# git clone --depth=1 --branch v3.12.2 https://gitlab.cern.ch/fts/fts-rest-flask.git fts-rest-client-3.12.2
+# tar -C fts-rest-client-3.12.2/ -czf fts-rest-client-3.12.2.tar.gz src/cli src/fts3 LICENSE setup.py setup.cfg --transform "s|^|fts-rest-client-3.12.2/|" --show-transformed-names
 Source0:        %{name}-%{version}.tar.gz
-# Addresses Bugzilla#2164054, which prevents installing the package on EPEL8 platform
-Patch0:         0001-Bugzilla-2164054-Reduce-required-python3-setuptools.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -30,7 +28,6 @@ File Transfer Service (FTS) -- Python3 Client and CLI
 
 %prep
 %setup -q
-%patch0 -p1
 
 %build
 %py3_build
@@ -49,6 +46,10 @@ cp src/cli/fts3client.cfg %{buildroot}%{_sysconfdir}/fts3
 %config(noreplace) %{_sysconfdir}/fts3/fts3client.cfg
 
 %changelog
+* Thu Mar 02 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 3.12.2-1
+- New upstream release 3.12.2
+- Remove patch for bugzilla#2164054 as it has been addressed upstream
+
 * Tue Jan 31 2023 Mihai Patrascoiu <mihai.patrascoiu@cern.ch> - 3.12.1-1
 - New upstream release 3.12.1
 - Apply patch for bugzilla#2164054

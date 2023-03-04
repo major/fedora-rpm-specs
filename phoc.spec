@@ -1,5 +1,7 @@
+%global libgmobile_commit f4d4e5740c3e4b2de40864ab8a9e7b7f957d6aec
+
 Name:		phoc
-Version:	0.24.0
+Version:	0.25.0
 Release:	1%{?dist}
 Summary:	Display compositor designed for phones
 
@@ -7,12 +9,16 @@ License:	GPLv3+
 URL:		https://gitlab.gnome.org/World/Phosh/phoc
 Source0:	https://gitlab.gnome.org/World/Phosh/phoc/-/archive/v%{version}/%{name}-v%{version}.tar.gz
 
+Source1:	https://gitlab.gnome.org/guidog/gmobile/-/archive/%{libgmobile_commit}/gmobile-%{libgmobile_commit}.tar.gz
+
 BuildRequires:	gcc
 BuildRequires:	meson
+BuildRequires:	cmake
 
 BuildRequires:	pkgconfig(gio-2.0) >= 2.50.0
 BuildRequires:	pkgconfig(glib-2.0) >= 2.50.0
 BuildRequires:	pkgconfig(gobject-2.0) >= 2.50.0
+BuildRequires:  pkgconfig(json-glib-1.0)
 BuildRequires:  pkgconfig(gsettings-desktop-schemas)
 BuildRequires:	pkgconfig(libinput)
 BuildRequires:	pkgconfig(pixman-1)
@@ -30,7 +36,10 @@ pronounced like the English word fog.
 
 
 %prep
-%setup -q -n %{name}-v%{version}
+%setup -a1 -q -n %{name}-v%{version}
+
+rmdir subprojects/gmobile
+mv gmobile-%{libgmobile_commit} subprojects/gmobile
 
 %build
 %meson -Dembed-wlroots=disabled

@@ -4,11 +4,11 @@
 
 Name:               python-boxsdk
 Version:            3.6.2
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Python wrapper for the Box API
 
 
-License:            ASL 2.0
+License:            Apache-2.0 
 URL:                https://github.com/box/box-python-sdk
 Source0:            %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 BuildArch:          noarch
@@ -66,6 +66,9 @@ pytest-3
 %{python3_sitelib}/%{modname}-*.egg-info/
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.6.2-2
+- migrated to SPDX license
+
 * Tue Feb 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.6.2-1
 - 3.6.2
 

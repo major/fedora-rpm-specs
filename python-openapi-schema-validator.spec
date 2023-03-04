@@ -6,7 +6,7 @@ Release:        %autorelease
 Summary:        OpenAPI schema validator for Python
 
 License:        BSD-3-Clause
-URL:            https://github.com/p1c2u/openapi-schema-validator
+URL:            https://github.com/python-openapi/openapi-schema-validator
 # The GitHub tarball contains tests; the PyPI sdist does not.
 Source0:        %{url}/archive/%{version}/openapi-schema-validator-%{version}.tar.gz
 

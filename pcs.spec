@@ -1,19 +1,19 @@
 Name: pcs
-Version: 0.11.4
-Release: 3%{?dist}
+Version: 0.11.5
+Release: 1%{?dist}
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/LicensingGuidelines/
 # https://fedoraproject.org/wiki/Licensing:Main?rd=Licensing#Good_Licenses
 # GPL-2.0-only: pcs
-# MIT: dacite, ember, handlebars, jquery, jquery-ui
-# (GPL-2.0-only or Ruby) and BSD-2-Clause: thin
-
-License: GPL-2.0-only AND MIT AND (GPL-2.0-only OR Ruby) AND BSD-2-Clause
+# MIT: dacite
+License: GPL-2.0-only AND MIT
 URL: https://github.com/ClusterLabs/pcs
 Group: System Environment/Base
-Summary: Pacemaker Configuration System
+Summary: Pacemaker/Corosync Configuration System
+BuildArch: noarch
 
-# %%global version_or_commit %%{version}
-%global version_or_commit %{version}.15-f7301
+# When specifying a commit, use its long hash
+%global version_or_commit %{version}
+# %%global version_or_commit 10069ca47e5c9f4ac1abd8bc4cd99281ead047b7
 %global pcs_source_name %{name}-%{version_or_commit}
 
 # ui_commit can be determined by hash, tag or branch
@@ -24,25 +24,23 @@ Summary: Pacemaker Configuration System
 %global pcs_snmp_pkg_name  pcs-snmp
 
 %global pyagentx_version  0.4.pcs.2
-%global dacite_version 1.6.0
-
-%global version_rubygem_thin  1.8.1
+%global dacite_version 1.8.0
 
 %global required_pacemaker_version 2.1.0
 
 %global pcs_bundled_dir pcs_bundled
 %global pcsd_public_dir pcsd/public
-%global rubygem_bundle_dir pcsd/vendor/bundle
-%global rubygem_cache_dir %{rubygem_bundle_dir}/cache
 
-#part after last slash is recognized as filename in look-aside repository
-#desired name is achived by trick with hash anchor
-Source0: %{url}/archive/%{version_or_commit}/%{pcs_source_name}.tar.gz
+# prepend v for folder in GitHub link when using tagged tarball
+%if "%{version}" == "%{version_or_commit}"
+  %global v_prefix v
+%endif
+
+# part after the last slash is recognized as filename in look-aside cache
+Source0: %{url}/archive/%{?v_prefix}%{version_or_commit}/%{pcs_source_name}.tar.gz
 
 Source41: https://github.com/ondrejmular/pyagentx/archive/v%{pyagentx_version}/pyagentx-%{pyagentx_version}.tar.gz
 Source42: https://github.com/konradhalas/dacite/archive/v%{dacite_version}/dacite-%{dacite_version}.tar.gz
-
-Source88: https://rubygems.org/downloads/thin-%{version_rubygem_thin}.gem
 
 Source100: https://github.com/ClusterLabs/pcs-web-ui/archive/%{ui_commit}/%{ui_src_name}.tar.gz
 Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_commit}/pcs-web-ui-node-modules-%{ui_modules_version}.tar.xz
@@ -51,12 +49,12 @@ Source101: https://github.com/ClusterLabs/pcs-web-ui/releases/download/%{ui_comm
 # Patch0: name.patch
 
 # ui patches: >200
-# Patch201: name.patch
+Patch201: fix-broken-typeahead-component.patch
 
 # git for patches
 BuildRequires: git-core
 BuildRequires: make
-#printf from coreutils is used in makefile
+# printf from coreutils is used in makefile, head is used in spec
 BuildRequires: coreutils
 # python for pcs
 BuildRequires: python3 >= 3.9
@@ -79,39 +77,41 @@ BuildRequires: ruby >= 2.5.0
 BuildRequires: ruby-devel
 BuildRequires: rubygem-backports
 BuildRequires: rubygem-childprocess
-BuildRequires: rubygem-daemons
 BuildRequires: rubygem-ethon
 BuildRequires: rubygem-eventmachine
 BuildRequires: rubygem-ffi
 BuildRequires: rubygem-io-console
 BuildRequires: rubygem-json
 BuildRequires: rubygem-mustermann
+BuildRequires: rubygem-puma
 BuildRequires: rubygem-rack
 BuildRequires: rubygem-rack-protection
 BuildRequires: rubygem-rack-test
 BuildRequires: rubygem-sinatra
 BuildRequires: rubygem-tilt
-%if 0%{?fedora} >= 34 || 0%{?eln} || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?eln} || 0%{?rhel} >= 9
 BuildRequires: rubygem(rexml)
-BuildRequires: rubygem(webrick)
 %endif
 # ruby libraries for tests
 BuildRequires: rubygem-test-unit
-# for bundled rubygems
-BuildRequires: rubygems
-BuildRequires: rubygem-bundler
-BuildRequires: gcc
-BuildRequires: gcc-c++
 # for touching patch files (sanitization function)
 BuildRequires: diffstat
 # for post, preun and postun macros
 BuildRequires: systemd
+# pam is used for authentication inside daemon (python ctypes)
+# needed for tier0 tests during build
+BuildRequires: pam
+# for working with qdevice certificates (certutil) - used in configure.ac
+BuildRequires: nss-tools
 
+# for creating the web ui favicon symlink to the Fedora logo
+BuildRequires: fedora-logos
 # for building web ui
-# Explicitly require binary path to workaround dnf dependency resolution
-# confusion between nodejs16 <-> nodejs
-BuildRequires: %{_bindir}/npx
+%if 0%{?fedora} < 38
 BuildRequires: npm
+%else
+BuildRequires: nodejs-npm
+%endif
 
 # cluster stack packages for pkg-config
 BuildRequires: booth
@@ -135,22 +135,20 @@ Requires: python3-tornado
 Requires: ruby >= 2.5.0
 Requires: rubygem-backports
 Requires: rubygem-childprocess
-Requires: rubygem-daemons
 Requires: rubygem-ethon
 Requires: rubygem-eventmachine
 Requires: rubygem-ffi
 Requires: rubygem-json
 Requires: rubygem-mustermann
+Requires: rubygem-puma
 Requires: rubygem-rack
 Requires: rubygem-rack-protection
 Requires: rubygem-rack-test
 Requires: rubygem-sinatra
 Requires: rubygem-tilt
-%if 0%{?fedora} >= 34 || 0%{?eln} || 0%{?rhel} >= 9
+%if 0%{?fedora} || 0%{?eln} || 0%{?rhel} >= 9
 Requires: rubygem(rexml)
-Requires: rubygem(webrick)
 %endif
-# ruby and gems for pcsd-ruby
 # for killall
 Requires: psmisc
 # cluster stack and related packages
@@ -169,10 +167,14 @@ Requires(postun): systemd
 Requires: pam
 # needs logrotate for /etc/logrotate.d/pcsd
 Requires: logrotate
+# for working with qdevice certificates (certutil)
+Requires: nss-tools
+# for web ui favicon - symlink to the Fedora logo
+Requires: fedora-logos
+
 
 Provides: bundled(dacite) = %{dacite_version}
-# bundled rubygems
-Provides: bundled(thin) = %{version_rubygem_thin}
+
 %description
 pcs is a corosync and pacemaker configuration tool.  It permits users to
 easily view, modify and create pacemaker based clusters.
@@ -186,8 +188,9 @@ Summary: Pacemaker cluster SNMP agent
 # BSD-2-Clause: pyagentx
 License: GPL-2.0-only AND BSD-2-Clause
 URL: https://github.com/ClusterLabs/pcs
+BuildArch: noarch
 
-# tar for unpacking pyagetx source tar ball
+# tar for unpacking pyagentx source tarball
 BuildRequires: tar
 
 Requires: pcs = %{version}-%{release}
@@ -246,36 +249,39 @@ update_times_patch(){
 # patch web-ui sources
 %autosetup -D -T -b 100 -a 101 -S git -n %{ui_src_name} -N
 %autopatch -p1 -m 201
-# update_times_patch %%{PATCH201}
+update_times_patch %%{PATCH201}
 
 # patch pcs sources
 %autosetup -S git -n %{pcs_source_name} -N
 %autopatch -p1 -M 200
 # update_times_patch %%{PATCH0}
 
-# prepare dirs/files necessary for building all bundles
-# -----------------------------------------------------
-# 1) rubygems sources
+# generate .tarball-version if building from an untagged commit, not a released version
+# autogen uses git-version-gen which uses .tarball-version for generating version number
+%if "%{version}" != "%{version_or_commit}"
+  echo "%version+$(echo "%{version_or_commit}" | head -c 8)" > %{_builddir}/%{pcs_source_name}/.tarball-version
+%endif
 
-mkdir -p %{rubygem_cache_dir}
-cp -f %SOURCE88 %{rubygem_cache_dir}
-
-# 2) prepare python bundles
+# prepare dirs/files necessary for building python bundles
 mkdir -p %{pcs_bundled_dir}/src
 cp -f %SOURCE41 rpm/
 cp -f %SOURCE42 rpm/
 
 %build
 %define debug_package %{nil}
+
 # Booth authfile fix support
-%if 0%{?fedora} >= 37
-  %define booth_build_options --enable-booth-enable-authfile-unset
-%elif 0%{?fedora} >= 35
+# Fedora 35, 36: set and unset
+# Fedora 37, 38, ELN = RHEL10: unset only
+# Fedora 39+: no booth build options
+%if 0%{?fedora} <= 36
   %define booth_build_options --enable-booth-enable-authfile-set --enable-booth-enable-authfile-unset
+%elif 0%{?fedora} <= 38 || 0%{?eln}
+  %define booth_build_options --enable-booth-enable-authfile-unset
 %endif
 
 ./autogen.sh
-%{configure} --enable-local-build --enable-use-local-cache-only --enable-individual-bundling %{booth_build_options} PYTHON=%{__python3} ruby_CFLAGS="%{optflags}" ruby_LIBS="%{build_ldflags}"
+%{configure} --enable-local-build --enable-use-local-cache-only --enable-individual-bundling %{?booth_build_options} --with-pcs-lib-dir="%{_prefix}/lib" PYTHON=%{__python3}
 make all
 
 # build pcs-web-ui
@@ -288,40 +294,20 @@ pwd
 %make_install
 
 # install pcs-web-ui
-# cp -r %%{_builddir}/%%{ui_src_name}/build  ${RPM_BUILD_ROOT}%%{_libdir}/%%{pcsd_public_dir}/ui
-make -C %{_builddir}/%{ui_src_name} _install PCSD_DIR=${RPM_BUILD_ROOT}%{_libdir}/pcsd
+# cp -r %%{_builddir}/%%{ui_src_name}/build  ${RPM_BUILD_ROOT}%%{_prefix}/lib/%%{pcsd_public_dir}/ui
+make -C %{_builddir}/%{ui_src_name} _install PCSD_DIR=${RPM_BUILD_ROOT}%{_prefix}/lib/pcsd
 
 # symlink favicon into pcsd directories
-mkdir -p ${RPM_BUILD_ROOT}%{_libdir}/%{pcsd_public_dir}/images/
-ln -fs /etc/favicon.png ${RPM_BUILD_ROOT}%{_libdir}/%{pcsd_public_dir}/images/favicon.png
+mkdir -p ${RPM_BUILD_ROOT}%{_prefix}/lib/%{pcsd_public_dir}/images/
+ln -fs /etc/favicon.png ${RPM_BUILD_ROOT}%{_prefix}/lib/%{pcsd_public_dir}/images/favicon.png
 
 # prepare license files
-# some rubygems do not have a license file (thin)
 cp %{pcs_bundled_dir}/src/pyagentx-*/LICENSE.txt pyagentx_LICENSE.txt
 cp %{pcs_bundled_dir}/src/pyagentx-*/CONTRIBUTORS.txt pyagentx_CONTRIBUTORS.txt
 cp %{pcs_bundled_dir}/src/pyagentx-*/README.md pyagentx_README.md
 
 cp %{pcs_bundled_dir}/src/dacite-*/LICENSE dacite_LICENSE
 cp %{pcs_bundled_dir}/src/dacite-*/README.md dacite_README.md
-
-# We are not building debug package for pcs but we need to add MiniDebuginfo
-# to the bundled shared libraries from rubygem extensions in order to satisfy
-# rpmdiff's binary stripping checker.
-# Therefore we call find-debuginfo.sh script manually in order to strip
-# binaries and add MiniDebugInfo with .gnu_debugdata section
-
-# With ruby3.2 (F38), gem install cleans up ext directory after installation.
-# With this change, now only one thin_parser.so is installed and it seems
-# the below find-debuginfo.sh exists with 127, ignore the failure
-bash -x /usr/lib/rpm/find-debuginfo.sh -j2 -m -i -S debugsourcefiles.list || :
-# find-debuginfo.sh generated some files into /usr/lib/debug  and
-# /usr/src/debug/ that we don't want in the package
-rm -rf $RPM_BUILD_ROOT%{_libdir}/debug
-rm -rf $RPM_BUILD_ROOT/usr/lib/debug
-rm -rf $RPM_BUILD_ROOT%{_prefix}/src/debug
-
-# We can remove files required for gem compilation
-rm -rf $RPM_BUILD_ROOT%{_libdir}/%{rubygem_bundle_dir}/gems/thin-%{version_rubygem_thin}/ext
 
 %check
 # In the building environment LC_CTYPE is set to C which causes tests to fail
@@ -346,8 +332,8 @@ run_all_tests(){
   test_result_python=$?
 
   #run pcsd tests and remove them
-  GEM_HOME=$RPM_BUILD_ROOT%{_libdir}/%{rubygem_bundle_dir} ruby \
-    -I$RPM_BUILD_ROOT%{_libdir}/pcsd \
+  ruby \
+    -I$RPM_BUILD_ROOT%{_prefix}/lib/pcsd \
     -Ipcsd/test \
     pcsd/test/test_all_suite.rb
   test_result_ruby=$?
@@ -361,7 +347,7 @@ run_all_tests(){
 run_all_tests
 
 %posttrans
-# Make sure the new version of the daemon is runnning.
+# Make sure the new version of the daemon is running.
 # Also, make sure to start pcsd-ruby if it hasn't been started or even
 # installed before. This is done by restarting pcsd.service.
 %{_bindir}/systemctl daemon-reload
@@ -398,8 +384,8 @@ run_all_tests
 %{python3_sitelib}/*
 %{_sbindir}/pcs
 %{_sbindir}/pcsd
-%{_libdir}/pcs/*
-%{_libdir}/pcsd/*
+%{_prefix}/lib/pcs/*
+%{_prefix}/lib/pcsd/*
 %{_unitdir}/pcsd.service
 %{_unitdir}/pcsd-ruby.service
 %{_datadir}/bash-completion/completions/pcs
@@ -417,13 +403,13 @@ run_all_tests
 %ghost %config(noreplace) %attr(0644,root,root) %{_sharedstatedir}/pcsd/pcs_users.conf
 %{_mandir}/man8/pcs.*
 %{_mandir}/man8/pcsd.*
-%exclude %{_libdir}/pcs/pcs_snmp_agent
-%exclude %{_libdir}/pcs/%{pcs_bundled_dir}/packages/pyagentx*
+%exclude %{_prefix}/lib/pcs/pcs_snmp_agent
+%exclude %{_prefix}/lib/pcs/%{pcs_bundled_dir}/packages/pyagentx*
 
 
 %files -n %{pcs_snmp_pkg_name}
-%{_libdir}/pcs/pcs_snmp_agent
-%{_libdir}/pcs/%{pcs_bundled_dir}/packages/pyagentx*
+%{_prefix}/lib/pcs/pcs_snmp_agent
+%{_prefix}/lib/pcs/%{pcs_bundled_dir}/packages/pyagentx*
 %{_unitdir}/pcs_snmp_agent.service
 %{_datadir}/snmp/mibs/PCMK-PCS*-MIB.txt
 %{_mandir}/man8/pcs_snmp_agent.*
@@ -435,6 +421,21 @@ run_all_tests
 %license pyagentx_LICENSE.txt
 
 %changelog
+* Thu Feb 16 2023 Michal Pospisil <mpospisi@redhat.com> - 0.11.5-1
+- Rebased to the latest upstream sources (see CHANGELOG.md)
+- Fixed broken filtering in create resource/fence device wizards in the web interface
+- Converted package to noarch
+- Added creation of .tarball-version file needed by autotools when building from untagged commits and fixed Source0 link to the tarball on GitHub
+- Modified build options of pcs for booth authfile fix for all Fedora versions
+- Added BuildRequires: pam for tier0 tests during build
+- Added BuildRequires: nodejs-npm for NodeJS packaging change since Fedora 38
+- Removed bundled rubygem thin and its associated BuildRequires: rubygems, rubygem-bundler, rubygem-daemons, gcc, gcc-c++
+- Added dependency rubygem-puma - replacement for rubygem thin
+- Added dependency nss-tools - for working with qdevice certificates
+- Added dependency fedora-logos - for the web interface favicon
+- Removed dependencies: rubygem-daemons, rubygem(webrick)
+- Resolves: rhbz#2166266
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

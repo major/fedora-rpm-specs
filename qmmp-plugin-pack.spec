@@ -1,6 +1,6 @@
 Name:           qmmp-plugin-pack
 Version:        2.1.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 License:        GPLv2+
@@ -9,6 +9,7 @@ Source0:        http://qmmp.ylsoftware.com/files/plugins/%{name}-%{version}.tar.
 
 BuildRequires:  qmmp-devel >= 2.0.0
 BuildRequires:  cmake
+BuildRequires:  ffmpeg-free-devel
 BuildRequires:  libmodplug-devel
 BuildRequires:  libsamplerate-devel
 BuildRequires:  qt6-qttools-devel
@@ -16,6 +17,8 @@ BuildRequires:  taglib-devel
 BuildRequires:  yasm
 
 Recommends:     yt-dlp
+
+Obsoletes:	qmmp-plugin-pack-freeworld < %{version}-%{release}
 
 # Do not check .so files in an application-specific library directory
 %global __provides_exclude_from ^%{_libdir}/qmmp/.*\\.so$
@@ -25,6 +28,7 @@ Plugin pack is a set of extra plugins for Qmmp.
 
  * FFap - enhanced Monkey's Audio (APE) decoder
    (24-bit samples and embedded cue support)
+ * FFVideo - video playback engine based on FFmpeg library
  * ModPlug - module player with use of the libmodplug library
  * SRC - sample rate converter
  * Goom - audio visualization based on goom project
@@ -37,7 +41,6 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 %build
 %cmake \
-        -D USE_FFVIDEO:BOOL=FALSE \
         -D PLUGIN_DIR=%{_lib}/qmmp
 %cmake_build
 
@@ -50,6 +53,7 @@ Plugin pack is a set of extra plugins for Qmmp.
 %doc AUTHORS ChangeLog.rus README README.RUS
 %license COPYING
 %{_libdir}/qmmp/Effect/*.so
+%{_libdir}/qmmp/Engines/*.so
 %{_libdir}/qmmp/Input/*.so
 %{_libdir}/qmmp/Transports/*.so
 %{_libdir}/qmmp/Visual/*.so
@@ -57,6 +61,9 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Wed Feb 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.0-4
+- Enable ffvideo plugin
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

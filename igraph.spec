@@ -9,10 +9,10 @@
 
 Name:               igraph
 Version:            0.10.4
-Release:            1%{?dist}
+Release:            2%{?dist}
 Summary:            Library for creating and manipulating graphs
 
-License:             GPLv2+
+License:             GPL-2.0-or-later
 URL:                http://igraph.sourceforge.net/
 Source0:            https://github.com/igraph/igraph/releases/download/%{version}/igraph-%{version}.tar.gz
 
@@ -82,6 +82,9 @@ export FLEXIBLAS=netlib
 %exclude %{_mandir}/man3/igraph.3*
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.4-2
+- migrated to SPDX license
+
 * Thu Jan 26 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.4-1
 - 0.10.4
 

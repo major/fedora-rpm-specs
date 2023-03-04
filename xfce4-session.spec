@@ -44,6 +44,7 @@ Requires:       exo
 # Need this to pull in the right imsettings in groupinstalls
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1349743
 Suggests:       imsettings-xfce
+Suggests:       xfce4-screensaver
 
 Obsoletes:      xfce-utils < 4.8.3-7.fc18
 

@@ -1,14 +1,14 @@
 # remirepo/fedora spec file for php-dasprid-enum
 #
-# Copyright (c) 2019 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2019-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %bcond_without       tests
 
-%global gh_commit    5abf82f213618696dda8e3bf6f64dd042d8542b2
+%global gh_commit    8e6b6ea76eabbf19ea2bf5b67b98e1860474012f
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     DASPRiD
 %global gh_project   Enum
@@ -22,11 +22,11 @@
 %global major        %nil
 
 Name:           php-%{pk_vendor}-%{pk_project}%{major}
-Version:        1.0.3
-Release:        6%{?dist}
+Version:        1.0.4
+Release:        1%{?dist}
 Summary:        PHP enum implementation
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit}/%{name}-%{version}-%{gh_short}.tar.gz
 
@@ -98,7 +98,7 @@ require '%{buildroot}%{php_home}/%{ns_vendor}/%{ns_project}/autoload.php';
 EOF
 
 ret=0
-for cmd in "php %{phpunit}" "php72 %{_bindir}/phpunit8" php73 php74 php80; do
+for cmd in "php %{phpunit}" php80 php81 php82; do
   if which $cmd; then
     set $cmd
     $1 ${2:-%{_bindir}/phpunit9} --verbose || ret=1
@@ -120,6 +120,9 @@ exit $ret
 
 
 %changelog
+* Thu Mar  2 2023 Remi Collet <remi@remirepo.net> - 1.0.4-1
+- update to 1.0.4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

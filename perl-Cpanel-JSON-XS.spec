@@ -7,7 +7,7 @@
 
 Name:		perl-Cpanel-JSON-XS
 Summary:	JSON::XS for Cpanel, fast and correct serializing
-Version:	4.35
+Version:	4.36
 Release:	1%{?dist}
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Cpanel-JSON-XS
@@ -180,6 +180,12 @@ make test
 %{_mandir}/man3/Cpanel::JSON::XS::Type.3*
 
 %changelog
+* Thu Mar  2 2023 Paul Howarth <paul@city-fan.org> - 4.36-1
+- Update to 4.36
+  - Remove the SAVESTACK_POS noop, merged from JSON-XS-3.02, removed there
+    with 4.0
+  - Request to remove: https://github.com/Perl/perl5/pull/20858
+
 * Wed Feb 22 2023 Paul Howarth <paul@city-fan.org> - 4.35-1
 - Update to 4.35
   - Fix utf8 object stringification (GH#212)

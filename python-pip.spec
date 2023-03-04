@@ -1,16 +1,9 @@
-# The original RHEL 9 content set is defined by (build)dependencies
+# The original RHEL N+1 content set is defined by (build)dependencies
 # of the packages in Fedora ELN. Hence we disable tests and documentation here
 # to prevent pulling many unwanted packages in.
-# Once the RHEL 9 content set is defined and/or RHEL 9 forks from ELN,
-# the conditional can be removed from the Fedora spec file.
 # We intentionally keep this enabled on EPEL.
-%if 0%{?rhel} >= 9 && !0%{?epel}
-%bcond_with tests
-%bcond_with doc
-%else
-%bcond_without tests
-%bcond_without doc
-%endif
+%bcond tests %[%{defined fedora} || %{defined epel}]
+%bcond doc %[%{defined fedora} || %{defined epel}]
 
 %global srcname pip
 %global base_version 23.0.1

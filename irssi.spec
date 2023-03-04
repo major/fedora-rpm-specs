@@ -1,9 +1,15 @@
+%if 0%{?rhel} < 10
+%bcond_without	otr
+%else
+%bcond_with	otr
+%endif
+
 %define		perl_vendorarch	%(eval "`perl -V:installvendorarch`"; echo $installvendorarch)
 
 Summary:	Modular text mode IRC client with Perl scripting
 Name:		irssi
 Version:	1.4.3
-Release:	2%{?dist}
+Release:	3%{?dist}
 
 License:	GPLv2+
 URL:		http://irssi.org/
@@ -23,7 +29,9 @@ BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libtool
 BuildRequires:	utf8proc-devel
+%if %{with otr}
 BuildRequires:	libotr-devel
+%endif
 
 Requires:	perl(lib)
 Requires:	perl(Symbol)
@@ -61,7 +69,8 @@ autoreconf -fi
 	--with-perl=module		\
 	--with-perl-lib=vendor		\
 	--enable-true-color		\
-	--with-otr=yes
+	%{?with_otr:--with-otr=yes}	\
+	%{!?with_otr:--with-otr=no}
 
 %make_build CFLAGS="$RPM_OPT_FLAGS -fno-strict-aliasing"
 mv irssi-config.h irssi-config-$(getconf LONG_BIT).h
@@ -98,6 +107,9 @@ chmod -R u+w $RPM_BUILD_ROOT%{perl_vendorarch}
 
 
 %changelog
+* Thu Mar  2 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1.4.3-3
+- Added libotr conditionals for RHEL
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

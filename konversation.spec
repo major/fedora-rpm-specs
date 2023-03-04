@@ -1,8 +1,8 @@
 %undefine __cmake_in_source_build
 
 Name:           konversation
-Version: 22.12.2
-Release: 2%{?dist}
+Version: 22.12.3
+Release: 1%{?dist}
 Summary:        A user friendly IRC client
 
 License:        GPL-2.0-or-later
@@ -153,6 +153,9 @@ fi
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 22.12.2-2
 - migrated to SPDX license
 

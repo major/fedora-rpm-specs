@@ -6,8 +6,8 @@
 
 Name:    kajongg
 Summary: Classical Mah Jongg game for four players
-Version: 22.12.2
-Release: 2%{?dist}
+Version: 22.12.3
+Release: 1%{?dist}
 
 License: GPL-2.0-only AND GFDL-1.1-or-later
 URL:     https://invent.kde.org/games/%{name}
@@ -100,6 +100,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Tue Feb 21 2023 Than Ngo <than@redhat.com> - 22.12.2-2
 - migrated to SPDX license
 

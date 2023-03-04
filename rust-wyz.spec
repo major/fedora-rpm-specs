@@ -12,6 +12,9 @@ Summary:        Myrrlyn’s utility collection
 License:        MIT
 URL:            https://crates.io/crates/wyz
 Source:         %{crates_source}
+# Manually created patch for downstream crate metadata changes
+# * drop unused "garbage" feature with missing dependencies
+Patch:          wyz-fix-metadata.diff
 
 BuildRequires:  rust-packaging >= 21
 
@@ -58,30 +61,6 @@ use the "alloc" feature of the "%{crate}" crate.
 %files       -n %{name}+alloc-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+garbage-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+garbage-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "garbage" feature of the "%{crate}" crate.
-
-%files       -n %{name}+garbage-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+once_cell-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+once_cell-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "once_cell" feature of the "%{crate}" crate.
-
-%files       -n %{name}+once_cell-devel
-%ghost %{crate_instdir}/Cargo.toml
-
 %package     -n %{name}+std-devel
 Summary:        %{summary}
 BuildArch:      noarch
@@ -92,18 +71,6 @@ This package contains library source intended for building other packages which
 use the "std" feature of the "%{crate}" crate.
 
 %files       -n %{name}+std-devel
-%ghost %{crate_instdir}/Cargo.toml
-
-%package     -n %{name}+typemap-devel
-Summary:        %{summary}
-BuildArch:      noarch
-
-%description -n %{name}+typemap-devel %{_description}
-
-This package contains library source intended for building other packages which
-use the "typemap" feature of the "%{crate}" crate.
-
-%files       -n %{name}+typemap-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

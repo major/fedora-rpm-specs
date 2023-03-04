@@ -13,10 +13,10 @@ any length.}
 
 Name:           python-%{srcname}
 Version:        6.2.9
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python 3 bindings for Berkeley DB
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://pypi.org/project/bsddb3
 Source0:        %{pypi_source}
 
@@ -121,6 +121,9 @@ rm -f %{buildroot}%{_includedir}/python3.*/%{srcname}/bsddb.h
 %endif
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.2.9-11
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.9-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

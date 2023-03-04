@@ -1,16 +1,20 @@
 %global pkg_name	flask-babel
 %global mod_name	Flask-Babel
+%bcond_without docs
+
+%if 0%{?rhel}
+%undefine with_docs
+%endif
 
 Name:		python-%{pkg_name}
 Version:	2.0.0
-Release:	5%{?dist}
+Release:	6%{?dist}
 Summary:	Adds i18n/l10n support to Flask applications
 License:	BSD
 URL:		http://github.com/mitsuhiko/%{pkg_name}/
 Source0:	https://pypi.python.org/packages/source/F/%{mod_name}/%{mod_name}-%{version}.tar.gz
 BuildArch:	noarch
 
-BuildRequires: make
 BuildRequires:	python%{python3_pkgversion}-babel
 BuildRequires:	python%{python3_pkgversion}-devel
 BuildRequires:	python%{python3_pkgversion}-flask
@@ -23,9 +27,12 @@ BuildRequires:  python3-pytest
 BuildRequires:  python3-pytest-mock
 
 # For documentation
+%if %{with docs}
+BuildRequires:  make
 BuildRequires:  python3-docs
 BuildRequires:  python3-sphinx
 BuildRequires:  python3-Pallets-Sphinx-Themes
+%endif
 
 %global _description\
 Adds i18n/l10n support to Flask applications with the help of the Babel library.
@@ -53,11 +60,13 @@ sed -i 's/\(numbers\.format_\)number/\1decimal/' flask_babel/__init__.py
 %build
 %py3_build
 
+%if %{with docs}
 # Build the documentation
 make -C docs html
 
 # We do not want the sphinx marker
 rm -f docs/_build/html/.buildinfo
+%endif
 
 %install
 %py3_install
@@ -66,12 +75,19 @@ rm -f docs/_build/html/.buildinfo
 PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}:%{python3_sitelib} pytest -v
 
 %files -n python%{python3_pkgversion}-%{pkg_name}
+%if %{with docs}
 %doc docs/_build/html README.md
+%else
+%doc README.md
+%endif
 %license LICENSE
 %{python3_sitelib}/*.egg-info/
 %{python3_sitelib}/flask_babel
 
 %changelog
+* Thu Mar 02 2023 Jonathan Wright <jonathan@almalinux.org> - 2.0.0-6
+- don't build docs on RHEL
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

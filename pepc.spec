@@ -1,5 +1,5 @@
 Name:		pepc
-Version:	1.3.43
+Version:	1.4.0
 Release:	%autorelease
 Summary:	Power, Energy, and Performance Configurator
 
@@ -43,7 +43,7 @@ install -pDm644 docs/man1/pepc.1 %{buildroot}/%{_mandir}/man1/pepc.1
 
 %files
 %license LICENSE.md
-%doc README.md
+%doc README.md CHANGELOG.md
 %{_bindir}/pepc
 %{_mandir}/man1/pepc.1*
 

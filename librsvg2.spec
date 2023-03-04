@@ -14,20 +14,16 @@
 
 Name:           librsvg2
 Summary:        An SVG library based on cairo
-Version:        2.55.1
-Release:        5%{?dist}
+Version:        2.55.90
+Release:        1%{?dist}
 
 License:        LGPLv2+
 URL:            https://wiki.gnome.org/Projects/LibRsvg
-Source0:        https://download.gnome.org/sources/librsvg/2.54/librsvg-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/librsvg/2.55/librsvg-%{version}.tar.xz
 
 %if ! 0%{?bundled_rust_deps}
 # Patches to build with Fedora-packaged rust crates
-Patch:          0001-Update-the-nalgebra-crate.patch
-Patch:          0002-Fedora-Drop-dependencies-required-for-benchmarking.patch
-Patch:          0003-Update-the-lopdf-crate.patch
-Patch:          0004-Update-the-yeslogic-fontconfig-sys-crate-to-4.0.1.patch
-Patch:          0005-Update-the-lopdf-crate-to-0.29.0.patch
+Patch:          0001-Fedora-Drop-dependencies-required-for-benchmarking.patch
 %endif
 
 BuildRequires:  chrpath
@@ -141,6 +137,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COMPILING.md
 %{_mandir}/man1/rsvg-convert.1*
 
 %changelog
+* Thu Mar 02 2023 Kalev Lember <klember@redhat.com> - 2.55.90-1
+- Update to 2.55.90
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 2.55.1-5
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

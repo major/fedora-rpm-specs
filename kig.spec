@@ -1,10 +1,10 @@
 %global _python3_include %(%{__python3} -Ic "from distutils.sysconfig import get_python_inc; print(get_python_inc())")
-%global _python3_lib %{_libdir}/lib%(basename %{_python3_include}).so
+%global _python3_lib /usr/%{_lib}/lib%(basename %{_python3_include}).so
 
 Name:    kig
 Summary: Interactive Geometry 
-Version: 22.12.2
-Release: 2%{?dist}
+Version: 22.12.3
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/education/%{name}
@@ -114,6 +114,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 22.12.2-2
 - Rebuilt for Boost 1.81
 

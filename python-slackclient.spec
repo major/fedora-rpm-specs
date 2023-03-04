@@ -1,62 +1,83 @@
-%global modname slackclient
-
-Name:               python-%{modname}
+Name:               python-slackclient
 Version:            3.20.0
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            Slack Developer Kit for Python
 
+# SPDX
 License:            MIT
-URL:                https://github.com/slackapi/python-%{modname}
-Source0:            %{url}/archive/v%{version}/python-%{modname}-%{version}.tar.gz
+URL:                https://github.com/slackapi/python-slack-sdk
+Source0:            %{url}/archive/v%{version}/python-slack-sdk-%{version}.tar.gz
 BuildArch:          noarch
+
+BuildRequires:      python3-devel
 
 %description
 %{summary}.
 
-%package -n python%{python3_pkgversion}-%{modname}
+%package -n python3-slackclient
 Summary:            %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{modname}}
-BuildRequires:      python%{python3_pkgversion}-devel
-BuildRequires:      python%{python3_pkgversion}-setuptools
-BuildRequires:      python3-websocket-client
-BuildRequires:      python3-six
-BuildRequires:      python3-requests
-BuildRequires:      python3-pytest-runner
-BuildRequires:      python3-aiodns
-BuildRequires:      python3-aiohttp
-Requires:           python3-websocket-client
-Requires:           python3-six
-Requires:           python3-requests
 
 %py_provides python3-slack
 %py_provides python3-slack-sdk
 
-%description -n python%{python3_pkgversion}-%{modname}
+%description -n python3-slackclient
 %{summary}.
 
-Python %{python3_pkgversion} version.
+%pyproject_extras_subpkg -n python3-slackclient optional
 
 %prep
 %autosetup -n python-slack-sdk-%{version}
+# Remove prebuilt HTML documentation with bundled and precompiled JavaScript
+rm -rf docs docs-v*
+# https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
+sed -r -i \
+    's/^([[:blank:]]*)("(pytest-cov|codecov|flake8|black)[<>=";])/\1# \2/' \
+    setup.py
+# Not yet packaged; we will just skip the tests that require them:
+sed -r -i 's/^([[:blank:]]*)("(moto|Flask-Sockets)[<>=";])/\1# \2/' setup.py
+# Direct dependencies on these are only to pin versions to work around issues
+# in dependencies we have already removed above for various reasons. We cannot
+# respect the upper bounds on these versions; remove the direct dependencies
+# entirely.
+sed -r -i \
+    's/^([[:blank:]])*("(click|Flask|Werkzeug|itsdangerous)[<>=";])/\1# \2/' \
+    setup.py
+# Remove preemptive version upper-bounds that we cannot respect.
+sed -r -i 's/^([[:blank:]]*"(pytest).*),<.*"/\1"/' setup.py
+
+%generate_buildrequires
+%pyproject_buildrequires -x testing,optional
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files slack slack_sdk
 
-# re-enable once we have python3-codecov
-#%check
-#%{__python3} setup.py test
+%check
+# These require network access:
+k="${k-}${k+ and }not test_start_raises_an_error_if_rtm_ws_url_is_not_returned"
+# Integration tests require network access and secret tokens for API access.
+# Amazon S3 tests require python3dist(moto), which is not packaged. Socket
+# mode interaction tests require python3dist(moto), which is not packaged.
+%pytest -k "${k-}" \
+    --ignore-glob='integration_tests/*' \
+    --ignore-glob='*/test_amazon_s3.py' \
+    --ignore-glob='*/socket_mode/test_interactions_*'
 
-%files -n python%{python3_pkgversion}-%{modname}
-%doc README.md docs/
-%license LICENSE
-%{python3_sitelib}/slack/
-%{python3_sitelib}/slack_sdk/
-%{python3_sitelib}/slack_sdk-*.egg-info/
+%files -n python3-slackclient -f %{pyproject_files}
+%doc README.md
 
 %changelog
+* Thu Mar 02 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.20.0-3
+- Confirm License is SPDX MIT
+- Drop prebuilt HTML documentation due to bundled/precompiled JavaScript
+- Update URLs
+- Port to pyproject-rpm-macros
+- Add a metapackage for the “optional” extra
+- Run the tests
+
 * Tue Feb 28 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 3.20.0-2
 - Add Provides for importable modules
 

@@ -2,8 +2,8 @@
 %global modname werkzeug
 
 Name:           python-%{modname}
-Version:        2.2.2
-Release:        2%{?dist}
+Version:        2.2.3
+Release:        1%{?dist}
 Summary:        Comprehensive WSGI web application library
 
 License:        BSD
@@ -97,6 +97,9 @@ popd
 %doc docs/_build/html examples
 
 %changelog
+* Mon Feb 20 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 2.2.3-1
+- Update to 2.2.3 (fixes RHBZ#2169828)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

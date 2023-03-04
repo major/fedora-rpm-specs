@@ -1,11 +1,11 @@
 %global pypi_name boto3
 
 Name:           python-%{pypi_name}
-Version:        1.26.82
+Version:        1.26.83
 Release:        1%{?dist}
 Summary:        The AWS SDK for Python
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/boto/boto3
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -47,6 +47,12 @@ rm -rf tests/integration
 %{python3_sitelib}/%{pypi_name}-%{version}-*.egg-info/
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.26.83-1
+- 1.26.83
+
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.26.82-2
+- migrate to SPDX license
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.26.82-1
 - 1.26.82
 

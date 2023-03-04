@@ -2,11 +2,11 @@
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.29.82
+Version:        1.29.83
 Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/boto/botocore
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -62,6 +62,12 @@ rm -vr tests/functional/leak
 %{python3_sitelib}/%{pypi_name}-*.dist-info/
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.83-1
+- 1.29.83
+
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.82-2
+- migrate to SPDX license
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.82-1
 - 1.29.82
 

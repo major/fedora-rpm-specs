@@ -12,8 +12,8 @@
 
 Name:    dolphin
 Summary: KDE File Manager
-Version: 22.12.2
-Release: 2%{?dist}
+Version: 22.12.3
+Release: 1%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/system/dolphin
@@ -174,6 +174,9 @@ make test ARGS="--output-on-failure --timeout 10" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Sun Feb 12 2023 Justin Zobel <justin@1707.io> - 22.12.2-2
 - Fix FTBFS on Fedora 38
 

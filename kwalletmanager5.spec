@@ -5,7 +5,7 @@
 
 Name:    kwalletmanager5
 Summary: Manage KDE passwords
-Version: 22.12.2
+Version: 22.12.3
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -39,7 +39,9 @@ BuildRequires:  kf5-kxmlgui-devel
 BuildRequires:  kf5-rpm-macros
 
 BuildRequires: cmake(KF5Archive)
+%if ! 0%{?flatpak}
 BuildRequires: cmake(KF5Auth)
+%endif
 BuildRequires: cmake(KF5Config)
 BuildRequires: cmake(KF5ConfigWidgets)
 BuildRequires: cmake(KF5CoreAddons)
@@ -78,7 +80,7 @@ KDE Wallet Manager is a tool to manage the passwords on your KDE system.
 
 
 %build
-%cmake_kf5
+%cmake_kf5 %{?flatpak:-DENABLE_KAUTH=OFF}
 
 %cmake_build
 
@@ -96,9 +98,6 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %files -f %{name}.lang
 %license LICENSES/*
 %{_datadir}/dbus-1/services/org.kde.kwalletmanager5.service
-%{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmkwallet5.service
-%{_datadir}/dbus-1/system.d/org.kde.kcontrol.kcmkwallet5.conf
-%{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmkwallet5.policy
 %{_kf5_bindir}/kwalletmanager5
 %{_kf5_datadir}/applications/kwalletmanager5-kwalletd.desktop
 %{_kf5_datadir}/applications/org.kde.kwalletmanager5.desktop
@@ -106,12 +105,20 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.%{name}.d
 %{_kf5_datadir}/icons/hicolor/*/apps/kwalletmanager*.*
 %{_kf5_datadir}/kservices5/*.desktop
 %{_kf5_datadir}/qlogging-categories5/kwalletmanager*
-%{_kf5_libexecdir}/kauth/kcm_kwallet_helper5
 %{_kf5_metainfodir}/org.kde.kwalletmanager5.appdata.xml
+%if ! 0%{?flatpak}
+%{_datadir}/dbus-1/system-services/org.kde.kcontrol.kcmkwallet5.service
+%{_datadir}/dbus-1/system.d/org.kde.kcontrol.kcmkwallet5.conf
+%{_datadir}/polkit-1/actions/org.kde.kcontrol.kcmkwallet5.policy
+%{_kf5_libexecdir}/kauth/kcm_kwallet_helper5
 %{_kf5_qtplugindir}/kcm_kwallet5.so
+%endif
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
 - 22.12.2
 

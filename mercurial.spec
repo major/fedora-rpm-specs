@@ -9,8 +9,8 @@
 
 Summary: A fast, lightweight Source Control Management system
 Name: mercurial
-Version: 6.3.2
-Release: 4%{?dist}
+Version: 6.3.3
+Release: 1%{?dist}
 
 # Release: 1.rc1%%{?dist}
 
@@ -273,6 +273,9 @@ rm -rf %{buildroot}%{python3_sitearch}/mercurial/locale
 
 
 %changelog
+* Thu Mar 02 2023 Mads Kiilerich <mads@kiilerich.com> - 6.3.3-1
+- mercurial 6.3.3
+
 * Thu Feb 23 2023 Fabio Valentini <decathorpe@gmail.com> - 6.3.2-4
 - Bump zstd crate dependency from 0.11 to 0.12.
 

@@ -13,7 +13,7 @@
 
 Name:           lxdm
 Version:        0.5.3
-Release:        25%{?git_version:.%{?git_version}}%{?dist}
+Release:        26%{?git_version:.%{?git_version}}%{?dist}
 Summary:        Lightweight X11 Display Manager
 
 License:        GPLv2+ and LGPLv2+
@@ -33,7 +33,9 @@ Source2:        lxdm.preset
 Source5:        lxdm_conf_login
 
 # Fedora pam setting
+# F-39: remove pam_console.so (bug 1822227, bug 2166692)
 Source10:		pam.lxdm
+Source11:		pam.lxdm.f38
 
 # Shell script to create tarball from git scm
 Source100:      create-tarball-from-git.sh
@@ -97,7 +99,13 @@ sed -i.f37 data/lxdm.conf.in \
 	-e '\@bg=@s|default.png|default.webp|'
 %endif
 
-install -cpm 644  %{SOURCE10} pam/lxdm
+install -cpm 644 \
+%if 0%{?fedora} >= 39
+	%{SOURCE10} \
+%else
+	%{SOURCE11} \
+%endif
+	pam/lxdm
 
 cat << EOF > tempfiles.lxdm.conf
 d /run/%{name} 0755 root root
@@ -182,6 +190,9 @@ install -m644 -p -D %{SOURCE2} %{buildroot}%{_unitdir}-preset/83-fedora-lxdm.pre
 
 
 %changelog
+* Thu Mar  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3-26.D20220831git2d4ba970
+- F-39 (and above): remove pam_console.so (bug 1822227, bug 2166692)
+
 * Wed Feb 15 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 0.5.3-25.D20220831git2d4ba970
 - F-38 is using default.png, not .webp, reflect this
 

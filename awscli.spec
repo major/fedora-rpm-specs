@@ -4,7 +4,7 @@
 # NOTE(mhayden): The package is awscli, but the source is aws-cli.
 %global         source_name     aws-cli
 %global         forgeurl        https://github.com/aws/aws-cli/
-Version:        1.27.82
+Version:        1.27.83
 %global         tag             %{version}
 %forgemeta
 
@@ -13,7 +13,7 @@ Release:        1%{?dist}
 
 Summary:        Universal Command Line Environment for AWS
 
-License:        ASL 2.0 and MIT
+License:        Apache-2.0 and MIT
 URL:            %forgeurl
 Source0:        %forgesource
 
@@ -98,6 +98,12 @@ install -Dpm0644 bin/aws_zsh_completer.sh \
 %{_datadir}/zsh/site-functions/_awscli
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.27.83-1
+- 1.27.83
+
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.27.82-2
+- migrate to SPX license
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.27.82-1
 - 1.27.82
 

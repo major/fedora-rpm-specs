@@ -9,7 +9,7 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 22.12.2
+Version: 22.12.3
 Release: 1%{?dist}
 Summary: The KMbox Library
 
@@ -88,6 +88,9 @@ make test ARGS="--output-on-failure --timeout 120" -C %{_target_platform} ||:
 
 
 %changelog
+* Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
+- 22.12.3
+
 * Tue Jan 31 2023 Marc Deop <marcdeop@fedoraproject.org> - 22.12.2-1
 - 22.12.2
 

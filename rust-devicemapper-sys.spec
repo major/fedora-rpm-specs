@@ -5,7 +5,7 @@
 %global crate devicemapper-sys
 
 Name:           rust-devicemapper-sys
-Version:        0.1.4
+Version:        0.1.5
 Release:        1%{?dist}
 Summary:        Low level bindings for devicemapper
 
@@ -14,6 +14,7 @@ URL:            https://crates.io/crates/devicemapper-sys
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
+BuildRequires:  device-mapper-devel
 
 %global _description %{expand:
 Low level bindings for devicemapper.}
@@ -65,6 +66,9 @@ use the "default" feature of the "%{crate}" crate.
 %endif
 
 %changelog
+* Thu Mar 02 2023 Bryan Gurney <bgurney@redhat.com> - 0.1.5-1
+- Update to version 0.1.5
+
 * Mon Feb 13 2023 Bryan Gurney <bgurney@redhat.com> - 0.1.4-1
 - Update to version 0.1.4
 

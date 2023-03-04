@@ -1,23 +1,22 @@
 Summary: A set of tools to gather troubleshooting information from a system
 Name: sos
-Version: 4.5.0
+Version: 4.5.1
 Release: 1%{?dist}
 Source0: https://github.com/sosreport/sos/archive/%{version}.tar.gz
 License: GPLv2+
 BuildArch: noarch
 Url: https://github.com/sosreport/sos
 BuildRequires: python3-devel
-BuildRequires: gettext
 BuildRequires: python3-setuptools
 Requires: python3-rpm
 Requires: tar
-Requires: bzip2
 Requires: xz
 Requires: python3-pexpect
 Recommends: python3-magic
 Requires: python3-requests
 Recommends: python3-pyyaml
 Obsoletes: sos-collector <= 1.9
+Requires: python3-setuptools
 
 %description
 Sos is a set of tools that gathers information about system
@@ -63,6 +62,13 @@ rm -rf %{buildroot}/usr/config/
 %config(noreplace) %{_sysconfdir}/sos/sos.conf
 
 %changelog
+* Wed Mar 01 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.1-1
+- Update to 4.5.1
+- Resolves: rhbz#2174576
+- Drpped build dependency on gettext after upstream ac17ca4f460b67f438f3bef7b4eacc2c133a7643
+- Dropped dependency on bzip after upstream 6150afbbc7db76743553b7284d382f4ce8b99d94
+- Added dependency on python3-setuptools after upstream 58118340be133ced5374fdd2004f21a05224d128
+
 * Wed Feb 01 2023 Sandro Bonazzola <sbonazzo@redhat.com> - 4.5.0-1
 - Update to 4.5.0
 - Resolves: rhbz#2166617

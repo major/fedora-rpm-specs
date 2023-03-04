@@ -1,11 +1,11 @@
 Name:		hitori
 Version:	3.38.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Logic puzzle game for GNOME
 Summary(de):	Logikpuzzle für GNOME
 
 # The executable is licensed under GPLv3+, while the user manual is CC-BY-SA.
-License:	GPLv3+ and CC-BY-SA
+License:	GPL-3.0-or-later and CC-BY-SA-3.0
 URL:		https://wiki.gnome.org/Apps/Hitori
 Source0:	https://download.gnome.org/sources/hitori/3.38/hitori-%{version}.tar.xz
 
@@ -68,6 +68,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Hitori.desk
 
 
 %changelog
+* Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.38.4-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.38.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

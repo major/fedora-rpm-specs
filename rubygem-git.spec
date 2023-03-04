@@ -2,15 +2,12 @@
 %global gem_name git
 
 Name: rubygem-%{gem_name}
-Version: 1.13.0
-Release: 2%{?dist}
+Version: 1.15.0
+Release: 1%{?dist}
 Summary: Ruby/Git is a Ruby library that can be used to create, read and manipulate Git repositories by wrapping system calls to the git binary
 License: MIT
 URL: http://github.com/schacon/ruby-git
 Source0: https://rubygems.org/gems/%{gem_name}-%{version}.gem
-# One tes fails inside mock but not otherwise
-# ToDo understand why...
-Patch0: disable-one-test.patch
 
 # SOURCE1 contains the upstream tag of the project from github
 # in particular this includes the spec directory which was not
@@ -43,9 +40,6 @@ Documentation for %{name}.
 
 # unpack only the spec files from SOURCE1.
 tar zxf %{SOURCE1} ruby-git-%{version}/tests --strip-components 1
-
-%patch0 -p1
-
 
 %build
 # Create the gem as gem install only works on a gem file
@@ -96,6 +90,9 @@ cp -a .%{gem_dir}/* \
 %doc %{gem_instdir}/CONTRIBUTING.md
 
 %changelog
+* Thu Mar 2 2023 Steve Traylen <steve.traylen@cern.ch> - 1.15.0-1
+- Up to 1.15.0.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.13.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

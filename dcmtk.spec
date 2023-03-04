@@ -18,35 +18,40 @@ Version: 3.6.7
 # https://github.com/DCMTK/dcmtk/blob/master/CMake/dcmtkPrepare.cmake#L78
 %global soname_version %{abi_version}.%{version}
 
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD
-Source0: https://dicom.offis.de/download/dcmtk/dcmtk367/dcmtk-3.6.7.tar.gz
+Source: https://dicom.offis.de/download/dcmtk/dcmtk367/dcmtk-3.6.7.tar.gz
 URL: http://dicom.offis.de/dcmtk.php.en
 
+# Downstream fixes
 # Use bundled charls version and wait until upstream ports to new charls version
 # charls version 2 includes a regression: https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=923433
 %if %{with charls2}
 # not merged upstream yet: https://github.com/DCMTK/dcmtk/pull/18
-Patch0:     0001-3.6.4-Use-system-CharLS-include.patch
-Patch1:     0002-3.6.4-Add-FindCharLS.patch
-Patch2:     0003-3.6.6-Find-and-include-CharLS.patch
-Patch3:     0004-3.6.6-Use-cmake-suggested-locations-for-CharLS.patch
-Patch4:     0005-3.6.4-Correct-CharLS-API-call.patch
-Patch5:     0006-3.6.4-Remove-reference-to-bundled-CharLS.patch
-Patch6:     0007-3.6.4-Update-JLS_ERROR-to-jpegls_error-in-CharLS-usa.patch
-Patch7:     0008-3.6.4-correct-JpegLsReadHeader-arguments.patch
-Patch8:     0009-3.6.6-update-JlsParameters-for-new-CharLS.patch
-Patch9:     0010-3.6.4-correct-JpegLsDecode-arguments-for-CharLS-2.patch
-Patch10:    0011-3.6.6-update-ilv-for-new-CharLS.patch
-Patch11:    0012-3.6.4-Correct-extra-include-for-CharLS.patch
-Patch12:    0013-3.6.4-Update-errors-to-use-enum-class-in-CharLS-2.patch
-Patch13:    0014-3.6.4-define-BYTE-for-CharLS.patch
-Patch14:    0015-3.6.6-Update-colorTransformation-for-CharLS-2.patch
-Patch15:    0016-3.6.4-Update-JpegLsEncode-for-CharLS-2.patch
+Patch:      0001-Use-system-CharLS-include.patch
+Patch:      0002-Add-FindCharLS.patch
+Patch:      0003-Find-and-include-CharLS.patch
+Patch:      0004-Use-cmake-suggested-locations-for-CharLS.patch
+Patch:      0005-Correct-CharLS-API-call.patch
+Patch:      0006-Remove-reference-to-bundled-CharLS.patch
+Patch:      0007-Update-JLS_ERROR-to-jpegls_error-in-CharLS-usage.patch
+Patch:      0008-Correct-JpegLsReadHeader-arguments.patch
+Patch:      0009-Update-JlsParameters-for-new-CharLS.patch
+Patch:      0010-Correct-JpegLsDecode-arguments-for-CharLS-2.patch
+Patch:      0011-Update-ilv-for-new-CharLS.patch
+Patch:      0012-Correct-extra-include-for-CharLS.patch
+Patch:      0013-Update-errors-to-use-enum-class-in-CharLS-2.patch
+Patch:      0014-Define-BYTE-for-CharLS.patch
+Patch:      0015-Update-colorTransformation-for-CharLS-2.patch
+Patch:      0016-Update-JpegLsEncode-for-CharLS-2.patch
 %endif
 # https://github.com/sanjayankur31/dcmtk/tree/fedora-3.6.7
 # https://forum.dcmtk.org/viewtopic.php?t=5084
-Patch16:    0001-3.6.7-Increase-sleep-for-tests.patch
+Patch:      0017-Increase-sleep-for-tests.patch
+
+# Upstream fixes
+# https://github.com/DCMTK/dcmtk/commit/c34f4e46e672ad21accf04da0dc085e43be6f5e1
+Patch:      0018-CVE-2022-43272-Fixed-memory-leak-in-single-process-mode.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -244,6 +249,9 @@ rm -rf %{_vpath_builddir}/dcmtls/tests/
 %{_libdir}/libofstd.so
 
 %changelog
+* Thu Mar 02 2023 Carl George <carl@george.computer> - 3.6.7-3
+- Backport fix for CVE-2022-43272, resolves rhbz#2150930
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

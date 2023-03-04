@@ -4,14 +4,13 @@
 Summary: Opportunistically encrypt TCP connections
 Name: tcpcrypt
 Version: 0.5
-Release: 10%{?dist}
+Release: 12%{?dist}
 License: BSD
 Url: http://tcpcrypt.org/
 Source0: http://tcpcrypt.org//%{name}-%{version}.tar.gz
 SOURCE1: tmpfiles-tcpcrypt.conf
 SOURCE2: tcpcryptd.service
 SOURCE3: tcpcryptd-firewall
-SOURCE4: tcpcrypt-firewalld.xml
 Requires: %{name}-libs%{?_isa} = %{version}-%{release}
 BuildRequires: make
 BuildRequires:  gcc
@@ -23,8 +22,6 @@ Requires(post): systemd
 Requires(preun): systemd
 Requires(postun): systemd
 Requires(pre): shadow-utils
-# we need to require it to install our file
-Requires: firewalld
 
 %description
 Provides a protocol that attempts to encrypt (almost) all of your
@@ -62,8 +59,6 @@ mkdir -p %{buildroot}%{_sysconfdir}/tmpfiles.d/ %{buildroot}/run/tcpcryptd
 install -D -m 0644 %{SOURCE1} %{buildroot}%{_tmpfilesdir}/tcpcrypt.conf
 mkdir -p %{buildroot}%{_unitdir}
 install -m 0755 %{SOURCE2} %{buildroot}/%{_unitdir}/tcpcryptd.service
-# install firewalld policy needed for tracking and marking packets
-install -D -m 0644 %{SOURCE4} %{buildroot}/%{_prefix}/lib/firewalld/services/tcpcryptd.xml
 
 %files libs
 %doc README.markdown
@@ -80,7 +75,6 @@ install -D -m 0644 %{SOURCE4} %{buildroot}/%{_prefix}/lib/firewalld/services/tcp
 %{_mandir}/man8/*
 %attr(0644,root,root) %{_tmpfilesdir}/tcpcrypt.conf
 %attr(0644,root,root) %{_unitdir}/tcpcryptd.service
-%attr(0644,root,root) %{_prefix}/lib/firewalld/services/tcpcryptd.xml
 %attr(0755,tcpcryptd,tcpcryptd) %dir /run/tcpcryptd
 
 %files devel
@@ -106,6 +100,12 @@ useradd -r -g tcpcryptd -d /var/run/tcpcryptd -s /sbin/nologin \
 %systemd_postun_with_restart tcpcryptd.service
 
 %changelog
+* Thu Feb 23 2023 Eric Garver <eric@garver.life> - 0.5-12
+- remove bash-isms from tcpcryptd-firewall
+
+* Thu Feb 23 2023 Eric Garver <eric@garver.life> - 0.5-11
+- remove broken firewalld service definition
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
