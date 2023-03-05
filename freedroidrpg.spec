@@ -1,10 +1,10 @@
 %global short_version 1.0
 Name:           freedroidrpg
 Version:        %{short_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Role playing game with Freedroid theme and Tux as the hero
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://freedroid.sourceforge.net/
 Source0:        http://ftp.osuosl.org/pub/freedroid/freedroidRPG-%{version}/freedroidRPG-%{version}.tar.gz
 
@@ -87,6 +87,9 @@ rm -f freedroidrpg-dialogs.lang
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0-2
+- migrated to SPDX license
+
 * Fri Feb 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0-1
 - 1.0 final, move to Codeberg
 

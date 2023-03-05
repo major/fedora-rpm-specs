@@ -43,7 +43,7 @@
 ### Abstract ###
 
 Name: evolution
-Version: 3.47.2
+Version: 3.47.3
 Release: 1%{?dist}
 Summary: Mail and calendar client for GNOME
 License: GPL-2.0-or-later AND GFDL-1.3-or-later
@@ -287,7 +287,14 @@ fi
 %global tnef_flags -DENABLE_YTNEF=OFF
 %endif
 
-CFLAGS="$RPM_OPT_FLAGS -fPIC -DLDAP_DEPRECATED -Wno-sign-compare -Wno-deprecated-declarations"; export CFLAGS
+%if 0%{?flatpak}
+%global temp_home "-DTEMP_HOME=1"
+%else
+%global temp_home ""
+%endif
+
+CFLAGS="$RPM_OPT_FLAGS -fPIC -DLDAP_DEPRECATED -Wno-sign-compare -Wno-deprecated-declarations %temp_home"
+export CFLAGS
 
 %cmake -G "Unix Makefiles" \
 	-DENABLE_MAINTAINER_MODE=OFF \
@@ -296,7 +303,6 @@ CFLAGS="$RPM_OPT_FLAGS -fPIC -DLDAP_DEPRECATED -Wno-sign-compare -Wno-deprecated
 	-DENABLE_PLUGINS=all \
 	%if 0%{?flatpak}
 	"-DWITH_WMCLASS_OVERRIDE=evolution.bin" \
-	"-DTEMP_HOME=1" \
 	%endif
 	%{nil}
 
@@ -572,6 +578,10 @@ grep -v "%{_datadir}/locale" evolution.lang > help.lang
 %endif
 
 %changelog
+* Fri Mar 03 2023 Milan Crha <mcrha@redhat.com> - 3.47.3-1
+- Update to 3.47.3
+- Resolves: #2142385 (Properly apply TEMP_HOME compile time option for Flatpak)
+
 * Fri Feb 10 2023 Milan Crha <mcrha@redhat.com> - 3.47.2-1
 - Update to 3.47.2
 

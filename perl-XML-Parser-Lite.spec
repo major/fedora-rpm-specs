@@ -4,7 +4,7 @@ Name:           perl-XML-Parser-Lite
 Version:        %{cpan_version}
 Release:        15%{?dist}
 Summary:        Lightweight regexp-based XML parser
-License:        (GPL+ or Artistic) and REX
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND LicenseRef-REX
 URL:            https://metacpan.org/release/XML-Parser-Lite
 Source0:        https://cpan.metacpan.org/authors/id/P/PH/PHRED/XML-Parser-Lite-%{cpan_version}.tar.gz
 BuildArch:      noarch

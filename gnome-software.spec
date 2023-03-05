@@ -4,7 +4,7 @@
 %global glib2_version 2.61.1
 %global gtk4_version 4.9.2
 %global json_glib_version 1.2.0
-%global libadwaita_version 1.3~alpha
+%global libadwaita_version 1.3.alpha
 %global libsoup_version 2.52.0
 %global libxmlb_version 0.1.7
 %global packagekit_version 1.1.1
@@ -20,8 +20,8 @@
 %global __provides_exclude_from ^%{_libdir}/%{name}/plugins-%{gs_plugin_version}/.*\\.so.*$
 
 Name:      gnome-software
-Version:   44~beta
-Release:   2%{?dist}
+Version:   44~rc
+Release:   1%{?dist}
 Summary:   A software center for GNOME
 
 License:   GPL-2.0-or-later
@@ -29,10 +29,6 @@ URL:       https://wiki.gnome.org/Apps/Software
 Source0:   https://download.gnome.org/sources/gnome-software/44/%{name}-%{tarball_version}.tar.xz
 
 Patch01:   0001-crash-with-broken-theme.patch
-# https://gitlab.gnome.org/GNOME/gnome-software/-/merge_requests/1635
-# https://bugzilla.redhat.com/show_bug.cgi?id=2172662
-# Fix update notifications
-Patch02:   0001-gs-update-monitor-No-notification-of-prepared-update.patch
 
 BuildRequires: docbook-style-xsl
 BuildRequires: desktop-file-utils
@@ -232,6 +228,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/gtk-doc/html/gnome-software/
 
 %changelog
+* Fri Mar 03 2023 Milan Crha <mcrha@redhat.com> - 44~rc-1
+- Update to 44.rc
+
 * Thu Feb 23 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-2
 - Backport MR #1635 to fix update notifications
 

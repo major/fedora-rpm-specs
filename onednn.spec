@@ -1,11 +1,14 @@
 Name:           onednn
-Version:        2.7
-Release:        2%{?dist}
-Summary:        Deep Neural Network Library
+Version:        3.0
+Release:        1%{?dist}
+Summary:        oneAPI Deep Neural Network Library
 
-License:        ASL 2.0 and BSD and Boost and MIT
+License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause and BSL-1.0 and MIT
 URL:            https://github.com/oneapi-src/oneDNN/
 Source0:        %{url}/archive/v%{version}/onednn-%{version}.tar.gz
+
+# https://github.com/oneapi-src/oneDNN/pull/1554
+Patch0:			aarch64-gcc13.patch
 
 # This package only work in 64bit arches for now
 ExclusiveArch:  x86_64 aarch64 ppc64le s390x
@@ -28,15 +31,15 @@ Provides: oneDNN = %{version}-%{release}
 
 
 %description
-one-API Deep Neural Network Library (oneDNN) is an open-source performance
-library for deep learning applications. The library includes basic
-building blocks for neural networks optimized for Intel Architecture
-Processors and Intel Processor Graphics.
+oneAPI Deep Neural Network Library (oneDNN) is an open-source cross-platform
+performance library of basic building blocks for deep learning applications.
+oneDNN is part of oneAPI. The library is optimized for Intel(R) Architecture
+Processors, Intel Graphics, and Arm* 64-bit Architecture (AArch64)-based
+processors. oneDNN has experimental support for the following architectures:
+NVIDIA* GPU, OpenPOWER* Power ISA (PPC64), IBMz* (s390x), and RISC-V.
 
 oneDNN is intended for deep learning applications and framework developers
-interested in improving application performance on Intel CPUs and
-GPUs. Deep learning practitioners should use one of the applications
-enabled with oneDNN:
+interested in improving application performance on Intel CPUs and GPUs.
 
 %package        devel
 Summary:        Development files for %{name}
@@ -53,7 +56,6 @@ developing applications that use %{name}.
 
 %build
 %cmake
-
 %cmake_build
 
 
@@ -62,7 +64,6 @@ developing applications that use %{name}.
 
 # Remove docs
 rm -rf %{buildroot}%{_docdir}/dnnl
-
 
 %ldconfig_scriptlets
 
@@ -77,8 +78,9 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 %files
 %license LICENSE THIRD-PARTY-PROGRAMS
 %doc README.md CONTRIBUTING.md CODE_OF_CONDUCT.md
-%{_libdir}/libdnnl.so.2
-%{_libdir}/libdnnl.so.2.*
+%{_libdir}/libdnnl.so.3
+%{_libdir}/libdnnl.so.3.*
+
 
 %files devel
 %dir %{_includedir}/oneapi
@@ -90,6 +92,9 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 
 
 %changelog
+* Sat Feb 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.0-1
+- Update to 3.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 %global debug_package %{nil}
 
 Name:           facter
-Version:        4.2.14
+Version:        4.3.0
 Release:        %autorelease
 Summary:        Command and ruby library for gathering system information
 
@@ -20,6 +20,7 @@ Requires:       ruby(rubygems)
 # Add runtime deps for testing
 BuildRequires:  (rubygem(hocon) >= 1.3 with rubygem(hocon) < 2)
 BuildRequires:  (rubygem(thor) >= 1.0.1 with rubygem(thor) < 2)
+BuildRequires:  rubygem(sys-filesystem)
 
 # Binaries that Facter can call for complete facts
 %ifarch %ix86 x86_64 ia64
@@ -59,6 +60,7 @@ Documentation for %{name}.
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %setup -q -n %{gem_name}-%{version}
+%gemspec_add_dep -g sys-filesystem
 
 %build
 gem build ../%{gem_name}-%{version}.gemspec

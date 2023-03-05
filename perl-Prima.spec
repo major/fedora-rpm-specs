@@ -34,8 +34,8 @@
 
 Name:           perl-Prima
 # I believe upstream will continue with 1.69.
-%global upstream_version 1.68001
-Version:        1.68.1
+%global upstream_version 1.68002
+Version:        1.68.2
 Release:        1%{?dist}
 Summary:        Perl graphic toolkit
 # Copying:              BSD-2-Clause text
@@ -124,7 +124,7 @@ BuildRequires:  pkgconfig(xpm)
 BuildRequires:  pkgconfig(xrandr) >= 1.5
 BuildRequires:  pkgconfig(xrender)
 # Run-time:
-BuildRequires:  perl(AnyEvent)
+# AnyEvent not used, t/misc/syntax.t fakes it.
 BuildRequires:  perl(base)
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Carp)
@@ -331,6 +331,9 @@ unset DISPLAY XDG_SESSION_TYPE
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 03 2023 Petr Pisar <ppisar@redhat.com> - 1.68.2-1
+- 1.68002 bump
+
 * Wed Mar 01 2023 Petr Pisar <ppisar@redhat.com> - 1.68.1-1
 - 1.68001 bump
 

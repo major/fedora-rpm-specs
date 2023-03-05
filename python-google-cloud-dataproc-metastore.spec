@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-dataproc-metastore
 %global         forgeurl    https://github.com/googleapis/python-dataproc-metastore
-Version:        1.9.1
+Version:        1.10.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -66,7 +66,7 @@ rm -f %{buildroot}%{_bindir}/fixup*
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e google.cloud.metastore*
 
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.

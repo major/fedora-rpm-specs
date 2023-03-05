@@ -3,9 +3,10 @@
 
 Name:		GeoIP
 Version:	1.6.12
-Release:	13%{?dist}
+Release:	14%{?dist}
 Summary:	Library for country/city/organization to IP address or hostname mapping
-License:	LGPLv2+
+# Note: bundled GeoIP.dat data is CC-BY-SA-3.0 but we don't use or package it
+License:	LGPL-2.1-or-later
 URL:		http://www.maxmind.com/app/c
 Source0:	https://github.com/maxmind/geoip-api-c/releases/download/v%{version}/GeoIP-%{version}.tar.gz
 BuildRequires:	coreutils
@@ -66,11 +67,7 @@ rm -f %{buildroot}%{_libdir}/*.la
 %ldconfig_scriptlets
 
 %files
-%if 0%{?_licensedir:1}
-%license COPYING
-%else
-%doc COPYING
-%endif
+%license COPYING LICENSE
 %doc AUTHORS ChangeLog NEWS.md README.md
 %{_bindir}/geoiplookup
 %{_bindir}/geoiplookup6
@@ -86,6 +83,10 @@ rm -f %{buildroot}%{_libdir}/*.la
 %{_libdir}/pkgconfig/geoip.pc
 
 %changelog
+* Fri Mar  3 2023 Paul Howarth <paul@city-fan.org> - 1.6.12-14
+- Use SPDX-format license tag
+- Package LICENSE file
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.12-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

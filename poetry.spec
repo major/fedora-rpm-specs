@@ -9,7 +9,7 @@ projects, ensuring you have the right stack everywhere.}
 Name:           poetry
 Summary:        Python dependency management and packaging made easy
 Version:        1.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        MIT
 
@@ -48,6 +48,8 @@ Requires:       python3-poetry = %{version}-%{release}
 
 %package -n     python3-poetry
 Summary:        %{summary}
+# Our patch only works with recent version of the virtualenv patch
+Conflicts:      python3-virtualenv < 20.19.0-2
 %description -n python3-poetry %{common_description}
 
 
@@ -127,6 +129,9 @@ not editable_builder" \
 
 
 %changelog
+* Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 1.3.2-3
+- Update our wheel patch to match the virtualenv patch
+
 * Mon Feb 20 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 1.3.2-2
 - Update to 1.3.2 - disable bootstrap
 

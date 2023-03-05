@@ -1,9 +1,9 @@
 Name:		SDL_mixer
 Version:	1.2.12
-Release: 	27%{?dist}
+Release: 	28%{?dist}
 Summary:	Simple DirectMedia Layer - Sample Mixer Library
 
-License:	LGPLv2
+License:	LGPL-2.0-only
 URL:		http://www.libsdl.org/projects/SDL_mixer/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
 
@@ -81,6 +81,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/SDL
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.12-28
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

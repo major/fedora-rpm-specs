@@ -3,10 +3,10 @@
 
 Name:		SDL_image
 Version:	1.2.12
-Release:	32%{?dist}
+Release:	33%{?dist}
 Summary:	Image loading library for SDL
 
-License:	LGPLv2+
+License:	Zlib
 URL:		http://www.libsdl.org/projects/SDL_image/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
 Patch0:         SDL_image-1.2.12-interlaced-png-warning-fix.patch
@@ -81,6 +81,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.12-33
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.12-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

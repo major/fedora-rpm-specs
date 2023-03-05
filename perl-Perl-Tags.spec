@@ -1,44 +1,49 @@
 Name:           perl-Perl-Tags
 Version:        0.32
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Generate Ctags style tags for Perl source code
-License:        (GPL+ or Artistic) or Vim
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) OR Vim
 URL:            https://metacpan.org/release/Perl-Tags
 Source0:        https://cpan.metacpan.org/authors/id/O/OS/OSFAMERON/Perl-Tags-%{version}.tar.gz
 # Remove /usr/bin/env from shebang
 Patch0:         Perl-Tags-0.32-Remove-usr-bin-perl-from-shebang.patch
 BuildArch:      noarch
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  make
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(inc::Module::Install)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(warnings)
+# Run-time
 BuildRequires:  perl(base)
-BuildRequires:  perl(Capture::Tiny)
-BuildRequires:  perl(Config)
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(Config)
 BuildRequires:  perl(Data::Dumper)
-BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Find::Rule)
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(File::Spec::Functions)
-BuildRequires:  perl(File::Temp)
-BuildRequires:  perl(FindBin)
 BuildRequires:  perl(Getopt::Long)
-BuildRequires:  perl(inc::Module::Install)
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Module::Locate)
-BuildRequires:  perl(Moose)
-BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(parent)
 BuildRequires:  perl(Path::Tiny)
+BuildRequires:  perl(Pod::Usage)
 BuildRequires:  perl(PPI)
-BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::Builder::Module)
+BuildRequires:  vim-enhanced
+# Tests
+BuildRequires:  perl(Capture::Tiny)
+BuildRequires:  perl(File::Copy)
+BuildRequires:  perl(File::Spec::Functions)
+BuildRequires:  perl(File::Temp)
+BuildRequires:  perl(FindBin)
+BuildRequires:  perl(Moose)
+BuildRequires:  perl(Moose::Role)
 BuildRequires:  perl(Test::Exception)
 BuildRequires:  perl(Test::LongString)
 BuildRequires:  perl(Test::More) >= 0.42
 BuildRequires:  perl(Test::Strict)
-BuildRequires:  perl(warnings)
-BuildRequires:  vim-enhanced
 
 %{?perl_default_filter}
 
@@ -57,17 +62,15 @@ aware that this is alpha software and the internals are subject to change.
 %patch0 -p1
 # Remove bundled modules
 rm -r inc
-sed -i -e '/^inc\// d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 find -type f -exec chmod -x {} +
 
-
 %build
-PERL5_CPANPLUS_IS_RUNNING=1 perl Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
+PERL5_CPANPLUS_IS_RUNNING=1 perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -75,14 +78,20 @@ make test
 
 %files
 %doc Changes README TODO
-%{perl_vendorlib}/*
+%{perl_vendorlib}/App*
+%{perl_vendorlib}/Perl*
+%{perl_vendorlib}/Test*
 %{_bindir}/perl-tags
 %{_bindir}/require-perl-tags
 %{_bindir}/require-perl-tags-packed
-%{_mandir}/man1/*
-%{_mandir}/man3/*
+%{_mandir}/man1/perl-tags*
+%{_mandir}/man3/*Perl::Tags*
 
 %changelog
+* Fri Mar 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.32-26
+- Update license to SPDX format
+- Use macros make_*
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.32-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

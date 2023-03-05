@@ -1,9 +1,9 @@
 Name:       xclipboard
 Version:    1.1.4
-Release:    3%{?dist}
+Release:    4%{?dist}
 Summary:    Utility to collect and display text selections
 
-License:    MIT
+License:    MIT-open-group
 URL:        https://www.x.org
 Source0:    https://www.x.org/pub/individual/app/%{name}-%{version}.tar.xz
 
@@ -45,6 +45,9 @@ autoreconf -v --install
 %{_datadir}/X11/app-defaults/XClipboard
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.4-4
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

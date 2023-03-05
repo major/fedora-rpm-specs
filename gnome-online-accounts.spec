@@ -6,7 +6,7 @@
 
 Name:		gnome-online-accounts
 Version:	3.47.1
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Single sign-on framework for GNOME
 
 License:	LGPL-2.0-or-later
@@ -42,7 +42,9 @@ Requires:	glib2%{?_isa} >= %{glib2_version}
 Requires:	gtk3%{?_isa} >= %{gtk3_version}
 Requires:	libsoup3%{?_isa} >= %{libsoup_version}
 Requires:	webkit2gtk4.1%{?_isa} >= %{webkit2gtk_version}
+%if !0%{?flatpak}
 Requires:	gvfs-goa
+%endif
 
 %description
 GNOME Online Accounts provides interfaces so that applications and libraries
@@ -124,6 +126,9 @@ developing applications that use %{name}.
 %{_datadir}/vala/
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.47.1-4
+- ...but not for flatpaks.
+
 * Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.47.1-3
 - Require gvfs-goa
 

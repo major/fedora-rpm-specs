@@ -5,7 +5,7 @@
 %global sysname     bst_external
 
 Name:           bst-external
-Version:        0.29.0
+Version:        0.30.0
 Release:        %autorelease
 Summary:        Additional BuildStream plugins
 BuildArch:      noarch

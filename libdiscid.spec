@@ -1,5 +1,5 @@
 Name:           libdiscid
-Version:        0.6.3
+Version:        0.6.4
 Release:        1%{?dist}
 Summary:        C Library for creating MusicBrainz DiscIDs
 
@@ -52,6 +52,9 @@ find %{buildroot} -name '*.la' -delete -print
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Mar 03 2023 David King <amigadave@amigadave.com> - 0.6.3-1
+- Update to 0.6.4 (#2174947)
+
 * Tue Feb 28 2023 David King <amigadave@amigadave.com> - 0.6.3-1
 - Update to 0.6.3 (#2174154)
 

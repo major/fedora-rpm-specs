@@ -3,7 +3,7 @@
 
 %global         srcname     google-cloud-access-context-manager
 %global         forgeurl    https://github.com/googleapis/python-access-context-manager
-Version:        0.1.15
+Version:        0.1.16
 %global         tag         v%{version}
 %forgemeta
 

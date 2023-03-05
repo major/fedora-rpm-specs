@@ -1,9 +1,9 @@
 Name:           python3-poppler-qt5
 Version:        21.3.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python bindings for the Poppler PDF rendering library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://github.com/frescobaldi/python-poppler-qt5
 Source0:        %{url}/archive/v%{version}.tar.gz#/python-poppler-qt5-%{version}.tar.gz
 Patch0:         binpaths.patch
@@ -52,6 +52,9 @@ chmod +x %{buildroot}/%{python3_sitearch}/*.so
 %{python3_sitearch}/PyQt5/bindings/popplerqt5
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 21.3.0-5
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 21.3.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

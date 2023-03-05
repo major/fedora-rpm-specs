@@ -10,7 +10,7 @@ License:        MIT
 #   Increment Y and reset Z when new macros or features are added
 #   Increment Z when this is a bugfix or a cosmetic change
 # Dropping support for EOL Fedoras is *not* considered a breaking change
-Version:        1.6.2
+Version:        1.6.3
 Release:        1%{?dist}
 
 # Macro files
@@ -147,6 +147,10 @@ export HOSTNAME="rpmbuild"  # to speedup tox in network-less mock, see rhbz#1856
 
 
 %changelog
+* Mon Feb 13 2023 Lumír Balhar <lbalhar@redhat.com> - 1.6.3-1
+- Remove .dist-info directory at the end of %%pyproject_buildrequires
+- An incomplete .dist-info directory in $PWD can confuse tests in %%check
+
 * Wed Feb 08 2023 Lumír Balhar <lbalhar@redhat.com> - 1.6.2-1
 - Improve detection of lang files
 - Fixes: rhbz#2166295

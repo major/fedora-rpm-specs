@@ -1,12 +1,12 @@
-%bcond_with check
+%bcond_without check
 
 %global packname fastmap
-%global packver  1.1.0
+%global packver  1.1.1
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
-Version:          1.1.0
-Release:          7%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Fast Data Structures
 
 License:          MIT
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.1-1
+- update to 1.1.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

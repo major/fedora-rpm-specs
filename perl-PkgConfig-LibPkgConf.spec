@@ -7,11 +7,14 @@
 
 Name:           perl-PkgConfig-LibPkgConf
 Version:        0.11
-Release:        11%{?dist}
+Release:        12%{?dist}
 Summary:        Interface to pkg-config files via libpkgconf
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PkgConfig-LibPkgConf
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/PkgConfig-LibPkgConf-%{version}.tar.gz
+# Adapt to pkgconf-1.9.4, proposed to an upstream, bug #2172714,
+# <https://github.com/PerlAlien/PkgConfig-LibPkgConf/issues/15>
+Patch0:         PkgConfig-LibPkgConf-0.11-adapt_to_pkgconf_1.9.4.patch
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -78,7 +81,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n PkgConfig-LibPkgConf-%{version}
+%autosetup -p1 -n PkgConfig-LibPkgConf-%{version}
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1' "$F"
@@ -126,6 +129,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Fri Mar 03 2023 Petr Pisar <ppisar@redhat.com> - 0.11-12
+- Adapt to pkgconf-1.9.4 (bug #2172714)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

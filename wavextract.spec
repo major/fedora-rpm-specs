@@ -1,9 +1,9 @@
 Name:           wavextract
 Version:        1.0.0
-Release:        30%{?dist}
+Release:        31%{?dist}
 Summary:        Program for extracting embedded audio data from JPEG images
 Summary(pl):    Program do wyciągania zagnieżdżonych danych audio z plików JPEG
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://developer.berlios.de/projects/wavextract
 Source0:        http://download.berlios.de/wavextract/%name-%version.tar.gz
 Patch0:         wavextract-1.0.0-pillow.patch
@@ -36,6 +36,9 @@ cp %{name} $RPM_BUILD_ROOT%{_bindir}/%{name}
 %{_bindir}/%{name}
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0-31
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

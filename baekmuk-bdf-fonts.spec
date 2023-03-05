@@ -1,41 +1,43 @@
-%global fontname   baekmuk-bdf
+# SPDX-License-Identifier: MIT
 
-%global fontdir      %{_datadir}/fonts/%{fontname}
+%global fontname   baekmuk-bdf
 %global catalogue    %{_sysconfdir}/X11/fontpath.d
 
-Name:           %{fontname}-fonts
-Version:        2.2
-Release:        34%{?dist}
-Summary:        Korean bitmap fonts
+Version: 2.2
+Release: 35%{?dist}
+URL:     http://kldp.net/projects/baekmuk/
 
-License:        Baekmuk
-URL:            http://kldp.net/projects/baekmuk/
-Source:  http://kldp.net/frs/download.php/1428/%{fontname}-%{version}.tar.gz
-Patch0:	 baekmuk-bdf-fonts-fix-fonts-alias.patch
-BuildArch:      noarch
+%global foundry           Baekmuk
+%global fontlicense       Baekmuk
+%global fontlicenses      COPYRIGHT COPYRIGHT.ko
+%global fontdocs          README
+%global fontdocsex        %{fontlicenses}
+
+%global fontfamily        Baekmuk BDF
+%global fontsummary       Korean bitmap fonts
+%global fonts             bdf/*.pcf.gz
+%global fontdescription   %{expand:
+This package provides the Korean Baekmuk bitmap fonts.
+}
+
+Source0:  http://kldp.net/frs/download.php/1428/%{fontname}-%{version}.tar.gz
+Patch0:   baekmuk-bdf-fonts-fix-fonts-alias.patch
 BuildRequires:  mkfontdir bdftopcf
 
-%description
-This package provides the Korean Baekmuk bitmap fonts.
-
+%fontpkg
 
 %prep
-%setup -q -n %{fontname}-%{version}
-%patch0 -p1 -b .fix-fonts-alias
+%autosetup -p1 -n %{fontname}-%{version}
 
 %build
 for file in bdf/*.bdf; do
     bdftopcf $file | gzip -9 > ${file%.bdf}.pcf.gz
 done
 
+%fontbuild
+
 %install
-rm -rf $RPM_BUILD_ROOT
-
-install -d $RPM_BUILD_ROOT%{fontdir}
-
-# for bmp font
-install -m 0644 bdf/*.pcf.gz $RPM_BUILD_ROOT%{fontdir}/
-install -m 0444 bdf/fonts.alias $RPM_BUILD_ROOT%{fontdir}/
+%fontinstall
 
 # for catalogue
 install -d $RPM_BUILD_ROOT%{catalogue}
@@ -46,27 +48,21 @@ mkfontdir $RPM_BUILD_ROOT%{fontdir}
 # convert Korean copyright file to utf8
 iconv -f EUC-KR -t UTF-8 COPYRIGHT.ks > COPYRIGHT.ko
 
-%post
-if [ -x %{_bindir}/fc-cache ]; then
-  %{_bindir}/fc-cache %{fontdir}
-fi
+install -m 0444 bdf/fonts.alias $RPM_BUILD_ROOT%{fontdir}/
 
-%postun
-if [ "$1" = "0" ]; then
-  if [ -x %{_bindir}/fc-cache ]; then
-    %{_bindir}/fc-cache %{fontdir}
-  fi
-fi
+%check
+%fontcheck
 
-%files
-%doc COPYRIGHT COPYRIGHT.ko README
-%dir %{fontdir}
-%{fontdir}/*.gz
-%{fontdir}/fonts.alias
+%fontfiles
 %verify(not md5 size mtime) %{fontdir}/fonts.dir
+%{fontdir}/fonts.alias
 %{catalogue}/%{name}
 
 %changelog
+* Thu Feb 23 2023 Peng Wu <pwu@redhat.com> - 2.2-35
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

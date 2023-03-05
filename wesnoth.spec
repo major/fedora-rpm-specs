@@ -2,10 +2,10 @@
 
 Name:           wesnoth
 Version:        1.17.13
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Turn-based strategy game with a fantasy theme
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.wesnoth.org
 Source0:        http://www.%{name}.org/files/%{name}-%{version}.tar.bz2
 Source1:        wesnothd.service
@@ -175,6 +175,9 @@ done
 %{_mandir}/*/man6/wesnoth*.6*
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.17.13-3
+- migrated to SPDX license
+
 * Thu Feb 23 2023 Kalev Lember <klember@redhat.com> - 1.17.13-2
 - Rebuilt for Boost 1.81
 

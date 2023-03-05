@@ -1,9 +1,9 @@
 Name:		SDL_net
 Version:	1.2.8
-Release:	23%{?dist}
+Release:	24%{?dist}
 Summary:	SDL portable network library
 
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 URL:		http://www.libsdl.org/projects/SDL_net/
 Source0:	http://www.libsdl.org/projects/%{name}/release/%{name}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.8-24
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.8-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

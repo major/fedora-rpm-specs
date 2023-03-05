@@ -2,8 +2,8 @@ Summary:	The GIMP ToolKit
 Name:		gtk+
 Epoch:		1
 Version:	1.2.10
-Release:	100%{?dist}
-License:	LGPLv2+
+Release:	101%{?dist}
+License:	LGPL-2.0-or-later
 URL:		http://www.gtk.org/
 Source0:	https://ftp.gnome.org/pub/gnome/sources/gtk+/1.2/gtk+-%{version}.tar.gz
 
@@ -227,11 +227,7 @@ make check LIBTOOL=/usr/bin/libtool
 %endif
 
 %files -f %{name}.lang
-%if 0%{?_licensedir:1}
 %license COPYING
-%else
-%doc COPYING
-%endif
 %doc AUTHORS ChangeLog NEWS README TODO
 %{_libdir}/libgdk-1.2.so.*
 %{_libdir}/libgtk-1.2.so.*
@@ -252,6 +248,9 @@ make check LIBTOOL=/usr/bin/libtool
 %{_mandir}/man1/gtk-config.1*
 
 %changelog
+* Fri Mar  3 2023 Paul Howarth <paul@city-fan.org> - 1:1.2.10-101
+- Use SPDX-format license tag
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-100
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

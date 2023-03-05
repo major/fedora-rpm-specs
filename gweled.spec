@@ -1,10 +1,10 @@
 Name:           gweled
 Version:        0.9.1
-Release:        29.20130730git819bed%{?dist}
+Release:        30.20130730git819bed%{?dist}
 
 Summary:        Swapping gem game
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://launchpad.net/gweled
 #Source0:        http://launchpad.net/gweled/trunk/0.9/+download/gweled-%%{version}.tar.gz
 #Fork using sdl_mixer rather than libcanberra or mikmod
@@ -102,6 +102,9 @@ EOF
 %{_datadir}/sounds/%{name}/
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.1-30.20130730git819bed
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.1-29.20130730git819bed
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

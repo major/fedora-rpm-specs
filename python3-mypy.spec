@@ -1,13 +1,13 @@
 Name:           python3-mypy
 Version:        1.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A static type checker for Python
 %{?python_provide:%python_provide python3-mypy}
 
 # The files under lib-python and lib-typing/3.2 are Python-licensed, but this
 # package does not include those files
 # mypy/typeshed is ASL 2.0
-License:        MIT and ASL 2.0
+License:        MIT and Apache-2.0 
 URL:            https://github.com/python/mypy
 Source0:        https://github.com/python/mypy/archive/v%{version}/mypy-%{version}.tar.gz
 
@@ -81,6 +81,9 @@ end
 %{_mandir}/man1/stubgen.1*
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.1-2
+- migrated to SPDX license
+
 * Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.1-1
 - 1.0.1
 

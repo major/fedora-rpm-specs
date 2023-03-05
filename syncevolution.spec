@@ -2,7 +2,7 @@ Summary:       SyncML client for evolution
 Name:          syncevolution
 Epoch:         1
 Version:       2.0.0
-Release:       7%{?dist}
+Release:       8%{?dist}
 License:       LGPLv2+
 URL:           http://syncevolution.org/
 Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{version}.tar.gz
@@ -10,6 +10,7 @@ Source:        http://downloads.syncevolution.org/%{name}/sources/%{name}-%{vers
 Patch1:        syncevolution-1.5.1-libical2.patch
 Patch2:        syncevolution-1.5.3-autoconf-2.71.patch
 Patch3:        003-pcre2.patch
+Patch4:        004-cpp-curl.patch
 
 BuildRequires: pkgconfig(dbus-glib-1)
 
@@ -197,6 +198,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/sync.desktop
 %{_datadir}/syncevolution/xml/*.pl
 
 %changelog
+* Fri Mar 03 2023 Milan Crha <mcrha@redhat.com> - 1:2.0.0-8
+- Resolves: #2172377 (Crash under Curl_fillreadbuffer())
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:2.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,14 +1,11 @@
 Name:    libdex
-Version: 0.1.0
+Version: 0.1.1
 Release: %autorelease
 Summary: a library supporting "Deferred Execution" for GNOME and GTK
 
 License: LGPL-2.1-or-later
-URL:     https://gitlab.gnome.org/chergert/libdex
-Source0: https://gitlab.gnome.org/chergert/libdex/uploads/8894d387768d3b8375b5d1121988c35a/%{name}-%{version}.tar.xz
-Patch0:  libdex-0.1.0-doc-dir.patch 
-# https://gitlab.gnome.org/chergert/libdex/-/issues/3
-Patch1:  libdex-0.1.0-soversion.patch
+URL:     https://gitlab.gnome.org/GNOME/libdex
+Source0: https://download.gnome.org/sources/libdex/0.1/%{name}-%{version}.tar.xz
 
 BuildRequires: /usr/bin/vapigen
 BuildRequires: gcc

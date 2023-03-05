@@ -1,7 +1,7 @@
 Name: pygobject2
 Version: 2.28.7
-Release: 17%{?dist}
-License: LGPLv2+
+Release: 18%{?dist}
+License: LGPL-2.1-or-later
 Summary: Python 2 bindings for GObject 
 URL: http://www.pygtk.org/
 #VCS: git:git://git.gnome.org/pygobject
@@ -98,6 +98,9 @@ sed -r -i 's|#! ?/usr/bin/env python|#!%{__python2}|' %{buildroot}%{_datadir}/py
 %{_datadir}/pygobject/xsl
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.28.7-18
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.28.7-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

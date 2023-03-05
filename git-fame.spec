@@ -1,6 +1,6 @@
 Name:           git-fame
-Version:        1.15.2
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Pretty-print git repository collaborators sorted by contributions
 
 License:        MPLv2.0
@@ -48,6 +48,10 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 gitfame/git-fame.1
 %{python3_sitelib}/gitfame/
 
 %changelog
+* Fri Feb 03 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 2.0.0-1
+- Update to 2.0.0
+- Fixes rhbz#2175056
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.15.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,11 +1,12 @@
 Name:           perl-Graphics-ColorNames-HTML
 Version:        3.3.1
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        HTML color names and equivalent RGB values
-License:        CC0
+License:        CC0-1.0
 URL:            https://metacpan.org/release/Graphics-ColorNames-HTML/
 Source0:        https://cpan.metacpan.org/authors/id/R/RR/RRWO/Graphics-ColorNames-HTML-v%{version}.tar.gz
 BuildArch:      noarch
+BuildRequires:  coreutils
 BuildRequires:  make
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
@@ -31,11 +32,11 @@ HTML 4.0 Specification.
 %setup -q -n Graphics-ColorNames-HTML-v%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 %{_fixperms} $RPM_BUILD_ROOT/*
 
 %check
@@ -48,6 +49,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Mar 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.3.1-15
+- Update license to SPDX format
+- Use macros make*
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.1-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

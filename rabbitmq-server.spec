@@ -1,4 +1,4 @@
-%global erlang_minver 23
+%global erlang_minver 25
 # We want to install into /usr/lib, even on 64-bit platforms
 %global _rabbit_libdir %{_exec_prefix}/lib/rabbitmq
 # Technically, we're noarch; but Elixir we're using is not.
@@ -6,7 +6,7 @@
 
 
 Name: rabbitmq-server
-Version: 3.11.9
+Version: 3.11.10
 Release: 1%{?dist}
 License: MPLv1.1
 Source0: https://github.com/rabbitmq/rabbitmq-server/releases/download/v%{version}/%{name}_%{version}.orig.tar.xz
@@ -183,6 +183,9 @@ done
 
 
 %changelog
+* Fri Mar  3 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.11.10-1
+- Ver. 3.11.10
+
 * Sun Feb 12 2023 Peter Lemenkov <lemenkov@gmail.com> - 3.11.9-1
 - Ver. 3.11.9
 

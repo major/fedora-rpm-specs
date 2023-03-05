@@ -10,7 +10,7 @@ Version:        %{basever}.%{micro}%{?pre:~%{pre}}
 # by Python version as well.
 # This potentially allows tags like Obsoletes: pypy3 < %%{version}-%%{release}.
 # https://bugzilla.redhat.com/2053880
-%global baserelease 2
+%global baserelease 3
 Release:        %{baserelease}.%{pyversion}%{?dist}
 Summary:        Python %{pyversion} implementation with a Just-In-Time compiler
 
@@ -202,6 +202,9 @@ Conflicts: pypy3 < %{version}-%{release}
 %if 0%{?fedora} >= 37
 Obsoletes: pypy3.7 < 7.3.9-20
 %endif
+%if 0%{?fedora} >= 38
+Obsoletes: pypy3.8 < 7.3.11-20
+%endif
 %endif
 
 # This prevents ALL subpackages built from this spec to require
@@ -240,6 +243,9 @@ Provides: pypy3-libs%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3-libs < 7.3.4-4
 %if 0%{?fedora} >= 37
 Obsoletes: pypy3.7-libs < 7.3.9-20
+%endif
+%if 0%{?fedora} >= 38
+Obsoletes: pypy3.8-libs < 7.3.11-20
 %endif
 %endif
 
@@ -287,6 +293,9 @@ Provides: pypy3-test%{?_isa} = %{version}-%{release}
 %if 0%{?fedora} >= 37
 Obsoletes: pypy3.7-test < 7.3.9-20
 %endif
+%if 0%{?fedora} >= 38
+Obsoletes: pypy3.8-test < 7.3.11-20
+%endif
 %endif
 
 %description test
@@ -305,6 +314,9 @@ Provides: pypy3-devel%{?_isa} = %{version}-%{release}
 Obsoletes: pypy3-devel < 7.3.4-4
 %if 0%{?fedora} >= 37
 Obsoletes: pypy3.7-devel < 7.3.9-20
+%endif
+%if 0%{?fedora} >= 38
+Obsoletes: pypy3.8-devel < 7.3.11-20
 %endif
 %endif
 
@@ -838,6 +850,9 @@ CheckPyPy pypy%{pyversion}-c
 
 
 %changelog
+* Fri Feb 17 2023 Miro Hrončok <mhroncok@redhat.com> - 7.3.11-3.3.9
+- On Fedora 38+, obsolete the pypy3.8 package which is no longer available
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.3.11-2.3.9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,80 +1,62 @@
-%global fontname cjkuni-ukai
-#%global fontconf2 25-ttf-arphic-ukai-render.conf
-%global fontconf3 90-ttf-arphic-ukai-embolden.conf
+# SPDX-License-Identifier: MIT
 
 %define catalogue        %{_sysconfdir}/X11/fontpath.d
 
-%define common_desc \
+Version: 0.2.20080216.1
+Release: 68%{?dist}
+URL:     http://www.freedesktop.org/wiki/Software/CJKUnifonts
+
+%global foundry           CJKUni
+%global fontlicense       Arphic-1999
+
+%global fontlicenses      license
+%global fontdocs          CONTRIBUTERS FONTLOG KNOWN_ISSUES NEWS README TODO
+
+%global fontfamily        UKai
+%global fontsummary       Chinese Unicode TrueType font in Kai face
+
+%global fonts             ukai.ttc
+%global fontconfs         %{SOURCE10} %{SOURCE11}
+
+%global fontdescription   %{expand:
 CJK Unifonts are Unicode TrueType fonts derived from original fonts made \
 available by Arphic Technology under "Arphic Public License" and extended by \
 the CJK Unifonts project.
 
-%define ukaibuilddir %{name}-%{version}
+CJK Unifonts in Kai face.}
 
-Name:           %{fontname}-fonts
-Version:        0.2.20080216.1
-Release:        67%{?dist}
-Summary:        Chinese Unicode TrueType font in Kai face
+Source0:  http://ftp.debian.org/debian/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_%{version}.orig.tar.gz
+Source10: 65-%{fontpkgname}.conf
+Source11: 90-%{fontpkgname}-embolden.conf
 
-License:        Arphic
-URL:            http://www.freedesktop.org/wiki/Software/CJKUnifonts
-Source0:        http://ftp.debian.org/debian/pool/main/t/ttf-arphic-ukai/ttf-arphic-ukai_%{version}.orig.tar.gz
-#Source2:        %{fontconf2}
-Source3:        %{fontconf3}
-
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-Obsoletes:      cjkuni-fonts-common < 0.2.20080216.1-42
-
-%description
-%common_desc
-
-CJK Unifonts in Kai face.
+%fontpkg
 
 %prep
-%setup -q -c -n %{name}-%{version}
-
+%autosetup -c
 
 %build
-%{nil}
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttc %{buildroot}%{_fontdir}
-
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-#install -m 0644 -p %{SOURCE2} \
-#        %{buildroot}%{_fontconfig_templatedir}/%{fontconf2}
-#ln -s %{_fontconfig_templatedir}/%{fontconf2} \
-#      %{buildroot}%{_fontconfig_confdir}/%{fontconf2}
-
-install -m 0644 -p %{SOURCE3} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf3}
-ln -s %{_fontconfig_templatedir}/%{fontconf3} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf3}
+%fontinstall
 
 # catalogue
 install -m 0755 -d %{buildroot}%{catalogue}
-ln -s %{_fontdir}/ %{buildroot}%{catalogue}/%{name}
+ln -s %{fontdir}/ %{buildroot}%{catalogue}/%{name}
 
 
-%_font_pkg -f *.conf *.ttc
+%check
+%fontcheck
 
-%defattr(-,root,root,-)
-%doc ../%{ukaibuilddir}/license
-%doc ../%{ukaibuilddir}/CONTRIBUTERS
-%doc ../%{ukaibuilddir}/FONTLOG
-%doc ../%{ukaibuilddir}/KNOWN_ISSUES
-%doc ../%{ukaibuilddir}/NEWS
-%doc ../%{ukaibuilddir}/README
-%doc ../%{ukaibuilddir}/TODO
+%fontfiles
 %{catalogue}/%{name}
 
 
 %changelog
+* Tue Feb 28 2023 Peng Wu <pwu@redhat.com> - 0.2.20080216.1-68
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20080216.1-67
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

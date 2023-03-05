@@ -3,10 +3,10 @@
 
 Name:           python-%{pypi_name}
 Version:        0.2.7
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Python 3 Bindings for the NVIDIA Management Library
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/fbcotter/py3nvml
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -74,6 +74,9 @@ rm -rf html/.{doctrees,buildinfo}
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.7-5
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

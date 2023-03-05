@@ -3,10 +3,10 @@
 
 Name:		libextractor
 Version:	1.10
-Release:	8%{?dist}
+Release:	9%{?dist}
 Summary:	Simple library for keyword extraction
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://www.gnu.org/software/libextractor
 Source0:	https://ftp.gnu.org/gnu/libextractor/%{name}-%{version}.tar.gz
 Source1:	https://ftp.gnu.org/gnu/libextractor/%{name}-%{version}.tar.gz.sig
@@ -238,6 +238,9 @@ fi
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.10-9
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.10-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

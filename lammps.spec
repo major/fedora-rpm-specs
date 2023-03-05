@@ -1,7 +1,6 @@
 %global git 0
-%global commit 7d5fc356fefa1dd31d64b1cc856134b165febb8a
+%global commit 83ba1c9d20a7370b629bbebe88238a2c3c8194b3
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global gtest_commit 8d51dc50eb7e7698427fed81b85edad0e032112e
 
 %if 0%{?fedora} >= 33 || 0%{?rhel} >= 9
 %global blaslib flexiblas
@@ -14,9 +13,9 @@
 
 Name:           lammps
 %if %{git}
-Version:        20220623^%{shortcommit}
+Version:        20220623.3^%{shortcommit}
 %else
-Version:        20220623
+Version:        20220623.3
 %endif
 %global         uversion %(v=%{version}; \
                   patch=${v##*.}; [[ $v = $patch ]] && patch= \
@@ -26,7 +25,7 @@ Version:        20220623
                   m=${v:4:2};
                   y=${v:0:4};
                   echo $([[ -z $patch ]] && echo patch || echo stable)_${d#0}${months[${m#0}]}${y}$([[ -n $patch ]] && echo _update${patch}))
-Release:        4%{?dist}
+Release:        1%{?dist}
 Summary:        Molecular Dynamics Simulator
 License:        GPLv2
 Url:            https://www.lammps.org/
@@ -35,11 +34,10 @@ Source0:        https://github.com/lammps/lammps/archive/%{commit}/lammps-%{comm
 %else
 Source0:        https://github.com/lammps/lammps/archive/%{uversion}.tar.gz#/%{name}-%{uversion}.tar.gz
 %endif
-Source1:        https://github.com/google/googletest/archive/%{gtest_commit}.tar.gz#/googletest-%{gtest_commit}.tar.gz
+Source1:        https://github.com/google/googletest/archive/release-1.12.1.tar.gz#/googletest-1.12.1.tar.gz
 Source2:        https://pyyaml.org/download/libyaml/yaml-0.2.5.tar.gz
 Source3:        https://download.lammps.org/thirdparty/opencl-loader-2022.01.04.tar.gz
-Patch0:         https://github.com/lammps/lammps/commit/cf942e7d5f7af16b308a9e652cda8ccc78e2d19e.patch
-Patch1:         https://github.com/lammps/lammps/commit/a00201c899b054923ffe9c21874aa207bc791a1a.patch
+Patch0:         remove-python-package-install-from-cmake-install.patch
 BuildRequires:  fftw-devel
 BuildRequires:  gcc-c++
 BuildRequires:  gcc-fortran
@@ -50,7 +48,7 @@ BuildRequires:  python%{python3_pkgversion}-mpi4py-openmpi
 BuildRequires:  mpich-devel
 BuildRequires:  python%{python3_pkgversion}-mpi4py-mpich
 BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
+BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  fftw3-devel
 BuildRequires:  zlib-devel
 BuildRequires:  gsl-devel
@@ -87,6 +85,7 @@ LAMMPS runs on single processors or in parallel using message-passing \
 techniques and a spatial-decomposition of the simulation domain. The code is \
 designed to be easy to modify or extend with new functionality.
 
+
 %description
 %{lammps_desc}
 
@@ -94,6 +93,7 @@ designed to be easy to modify or extend with new functionality.
 Summary:        LAMMPS Open MPI binaries and libraries
 Requires:       openmpi
 Requires:       %{name}-data
+ExcludeArch:    i686
 
 %description openmpi
 %{lammps_desc}
@@ -113,6 +113,7 @@ This package contains LAMMPS MPICH binaries and libraries
 %package -n python%{python3_pkgversion}-%{name}
 Summary:        LAMMPS Python interface
 Requires:       python%{python3_pkgversion}
+Requires:       python%{python3_pkgversion}-numpy
 Requires:       %{name}%{?_isa} = %{version}-%{release}
 %{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
 
@@ -153,6 +154,7 @@ This package contains development headers and libraries for MPICH LAMMPS.
 Summary:        Development libraries for Open MPI LAMMPS
 Requires:       %{name}-openmpi%{?_isa} = %{version}-%{release}
 Requires:       %{name}-headers%{?_isa} = %{version}-%{release}
+ExcludeArch:    i686
 
 %description openmpi-devel
 %{lammps_desc}
@@ -191,6 +193,10 @@ BuildArch:      noarch
 
 This package contains data files for LAMMPS.
 
+%generate_buildrequires
+cd python
+%pyproject_buildrequires
+
 %prep
 %if %{git}
 %setup -q -n %{name}-%{commit}
@@ -198,12 +204,13 @@ This package contains data files for LAMMPS.
 %setup -q -n %{name}-%{uversion}
 %endif
 %patch0 -p1
-%patch1 -p1
 
 %build
 %global _vpath_srcdir cmake
 %global _vpath_builddir ${mpi:-serial}
 . /etc/profile.d/modules.sh
+
+
 for mpi in '' mpich openmpi %{?el7:openmpi3} ; do
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch}
   #python wrapper isn't mpi specific
@@ -238,26 +245,37 @@ for mpi in '' mpich openmpi %{?el7:openmpi3} ; do
   test -n "${mpi}" && module unload mpi/${mpi}-%{_arch}
 done
 
+cd python
+%pyproject_wheel
+
 %install
 . /etc/profile.d/modules.sh
+
 for mpi in '' mpich openmpi %{?el7:openmpi3} ; do
   %cmake_install
 done
 
+cd python
+%pyproject_install
+%pyproject_save_files lammps
+
 %check
 
-%global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|FixTimestep:rigid_nvt\)'
+%global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|FixTimestep:rigid_nvt\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:addtorque_const\|FixTimestep:spring_rg\|FixTimestep:wall_harmonic_const\|MolPairStyle:lj_table_tip4p_long\|MolPairStyle:lj_cut_tip4p_long\)'
 %ifarch ppc64le
-%global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|MolPairStyle:tip4p_cut\|MolPairStyle:lj_cut_tip4p_cut\|MolPairStyle:lj_cut_tip4p_long_soft\|FixTimestep:rigid_nvt\)'
+%global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|MolPairStyle:tip4p_cut\|MolPairStyle:lj_cut_tip4p_cut\|MolPairStyle:lj_cut_tip4p_long_soft\|FixTimestep:rigid_nvt\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:addtorque_const\|FixTimestep:spring_rg\|FixTimestep:wall_harmonic_const\)'
 %endif
 
 . /etc/profile.d/modules.sh
+
 for mpi in '' mpich openmpi %{?el7:openmpi3} ; do
   old_PYTHONPATH="${PYTHONPATH}"
   test -n "${mpi}" && module load mpi/${mpi}-%{_arch} && export PYTHONPATH="${MPI_PYTHON3_SITEARCH}:${PYTHONPATH}"
   %ctest --output-on-failure %{?testargs}
   test -n "${mpi}" && module unload mpi/${mpi}-%{_arch} && export PYTHONPATH="${old_PYTHONPATH}"
 done
+
+%pyproject_check_import -t
 
 %ldconfig_scriptlets
 
@@ -290,9 +308,7 @@ done
 %{_libdir}/mpich*/lib/pkgconfig/liblammps_mpich.pc
 %{_libdir}/mpich*/lib/cmake/LAMMPS
 
-%files -n python%{python3_pkgversion}-%{name}
-%{python3_sitelib}/%{name}/
-%{python3_sitelib}/%{name}-*.egg-info
+%files -n python%{python3_pkgversion}-%{name} -f %{pyproject_files}
 
 %files headers
 %license LICENSE
@@ -331,6 +347,9 @@ done
 %config %{_sysconfdir}/profile.d/lammps.*
 
 %changelog
+* Mon Feb 20 2023 Richard Berger <richard.berger@outlook.com> - 20220623.3-1`
+- Version bump to 20220623.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20220623-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

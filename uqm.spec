@@ -1,9 +1,12 @@
 Name:           uqm
 Version:        0.8.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The Ur-Quan Masters, a port of the classic game Star Control II
 
-License:        GPLv2+
+# Upstream claims everything to be under GPL-2.0-or-later.
+# In reality, the source contains many files copied from other projects,
+# with a variety of open source licenses.
+License:        GPL-2.0-or-later AND GPL-2.0-only AND LGPL-2.1-or-later AND Zlib
 URL:            http://sc2.sourceforge.net/
 Source0:        http://download.sf.net/sc2/%{name}-%{version}-src.tgz
 Source1:        %{name}.conf
@@ -125,6 +128,9 @@ EOF
 
 
 %changelog
+* Fri Mar 03 2023 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 0.8.0-2
+- License review, migrate to SPDX license ids
+
 * Sat Jan 28 2023 Otto Liljalaakso <otto.liljalaakso@iki.fi> - 0.8.0-1
 - Update to 0.8.0
 

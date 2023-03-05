@@ -2,12 +2,12 @@
 
 Name:           frescobaldi
 Version:        3.2
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
 # The rest, including the core of the program, is GPLv2+
-License:        GPLv2+ and LGPLv2+
+License:        GPLv2+ and LGPL-2.0-or-later
 URL:            http://www.frescobaldi.org/
 Source0:        https://github.com/wbsoft/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         frescobaldi-3.1.2-setup.patch
@@ -99,6 +99,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.2-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,12 +1,12 @@
 %global packname dtplyr
-%global packver  1.2.2
+%global packver  1.3.0
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((Lahman)\\)
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Data Table Back-End for 'dplyr'
 
 License:          MIT
@@ -15,29 +15,30 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-crayon, R-data.table >= 1.13.0, R-dplyr >= 1.0.3, R-ellipsis, R-glue, R-lifecycle, R-rlang, R-tibble, R-tidyselect, R-vctrs
-# Suggests:  R-bench, R-covr, R-knitr, R-rmarkdown, R-testthat >= 3.0.0, R-tidyr >= 1.1.0
+# Imports:   R-cli >= 3.4.0, R-crayon, R-data.table >= 1.13.0, R-dplyr >= 1.1.0, R-glue, R-lifecycle, R-rlang >= 1.0.4, R-tibble, R-tidyselect >= 1.2.0, R-vctrs >= 0.4.1
+# Suggests:  R-bench, R-covr, R-knitr, R-rmarkdown, R-testthat >= 3.1.2, R-tidyr >= 1.1.0, R-waldo >= 0.3.1
 # LinkingTo:
 # Enhances:
 
 BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
+BuildRequires:    R-cli >= 3.4.0
 BuildRequires:    R-crayon
 BuildRequires:    R-data.table >= 1.13.0
-BuildRequires:    R-dplyr >= 1.0.3
-BuildRequires:    R-ellipsis
+BuildRequires:    R-dplyr >= 1.1.0
 BuildRequires:    R-glue
 BuildRequires:    R-lifecycle
-BuildRequires:    R-rlang
+BuildRequires:    R-rlang >= 1.0.4
 BuildRequires:    R-tibble
-BuildRequires:    R-tidyselect
-BuildRequires:    R-vctrs
+BuildRequires:    R-tidyselect >= 1.2.0
+BuildRequires:    R-vctrs >= 0.4.1
 BuildRequires:    R-bench
 BuildRequires:    R-knitr
 BuildRequires:    R-rmarkdown
-BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-testthat >= 3.1.2
 BuildRequires:    R-tidyr >= 1.1.0
+BuildRequires:    R-waldo >= 0.3.1
 
 %description
 Provides a data.table backend for 'dplyr'. The goal of 'dtplyr' is to allow you
@@ -81,6 +82,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.3.0-1
+- update to 1.3.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -30,10 +30,6 @@
 ###########
 %global with_sercheck 1
 
-## PETSc ##
-%global with_petsc 1
-###########
-
 ## SuperLUMT ##
 %global with_superlumt 1
 ###########
@@ -44,8 +40,11 @@
 
 %if 0%{?rhel} && 0%{?rhel} >= 9
 # KLU support
-%global with_klu   1
+%global with_klu   0
 %global with_klu64 1
+## PETSc ##
+%global with_petsc 0
+###########
 ##########
 # Fortran
 %if 0%{?with_klu64}
@@ -66,16 +65,22 @@
 %global with_fortran 0
 %endif
 %endif
+## PETSc ##
+%global with_petsc 1
+###########
 %if 0%{?rhel} && 0%{?rhel} == 8
 %global with_klu 1
 %global with_fortran 0
+## PETSc ##
+%global with_petsc 1
+###########
 %endif
 ##########
 
 Summary:    Suite of nonlinear solvers
 Name:       sundials
 Version:    5.8.0
-Release:    12%{?dist}
+Release:    15%{?dist}
 # SUNDIALS is licensed under BSD with some additional (but unrestrictive) clauses.
 # Check the file 'LICENSE' for details.
 License:    BSD
@@ -89,6 +94,7 @@ Patch0:     %{name}-5.5.0-set_superlumt_name.patch
 Patch1:     %{name}-5.5.0-set_superlumt64_name.patch
 
 Patch2:     %{name}-change_petsc_variable.patch
+Patch3:     %{name}-klu64.patch
 
 BuildRequires: make
 %if 0%{?with_fortran}
@@ -236,6 +242,10 @@ pushd %{name}-%{version}
 %patch0 -p0 -b .set_superlumt_name
 %endif
 
+%if 0%{?with_klu64}
+%patch3 -p1 -b .klu64
+%endif
+
 mv src/arkode/README.md src/README-arkode.md
 mv src/cvode/README.md src/README-cvode.md
 mv src/cvodes/README.md src/README-cvodes.md
@@ -265,6 +275,7 @@ export LIBSUPERLUMTLINK=-lsuperlumt64_d
 export LIBSUPERLUMTLINK=-lsuperlumt_d
 %endif
 %endif
+
 
 %if %{with debug}
 %undefine _hardened_build
@@ -796,10 +807,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/openmpi/lib/libsundials_generic.so.*
 %{_libdir}/openmpi/lib/libsundials_nvecparallel.so.*
 %{_libdir}/openmpi/lib/libsundials_nvecparhyp.so.*
+%if 0%{?fedora}
 %ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/openmpi/lib/libsundials_nvecpetsc.so.*
 %{_libdir}/openmpi/lib/libsundials_sunnonlinsolpetscsnes.so.*
+%endif
 %endif
 %endif
 %if %{with pthread}
@@ -846,10 +859,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/openmpi/lib/libsundials_generic.so
 %{_libdir}/openmpi/lib/libsundials_nvecparallel.so
 %{_libdir}/openmpi/lib/libsundials_nvecparhyp.so
+%if 0%{?fedora}
 %ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/openmpi/lib/libsundials_nvecpetsc.so
 %{_libdir}/openmpi/lib/libsundials_sunnonlinsolpetscsnes.so
+%endif
 %endif
 %endif
 %if %{with pthread}
@@ -885,10 +900,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/libsundials_generic.so.*
 %{_libdir}/mpich/lib/libsundials_nvecparallel.so.*
 %{_libdir}/mpich/lib/libsundials_nvecparhyp.so.*
+%if 0%{?fedora}
 %ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/mpich/lib/libsundials_nvecpetsc.so.*
 %{_libdir}/mpich/lib/libsundials_sunnonlinsolpetscsnes.so.*
+%endif
 %endif
 %endif
 %if %{with pthread}
@@ -936,10 +953,12 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %{_libdir}/mpich/lib/libsundials_generic.so
 %{_libdir}/mpich/lib/libsundials_nvecparallel.so
 %{_libdir}/mpich/lib/libsundials_nvecparhyp.so
+%if 0%{?fedora}
 %ifarch %{arm} %{ix86}
 %if 0%{?with_petsc}
 %{_libdir}/mpich/lib/libsundials_nvecpetsc.so
 %{_libdir}/mpich/lib/libsundials_sunnonlinsolpetscsnes.so
+%endif
 %endif
 %endif
 %if %{with pthread}
@@ -972,6 +991,15 @@ export LD_LIBRARY_PATH=%{buildroot}%{_libdir}:%{_libdir}
 %doc sundials-%{version}/doc/arkode/*
 
 %changelog
+* Fri Mar 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-15
+- Fix installed files in EPEL9
+
+* Fri Mar 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-14
+- Enable only KLU64 in EPEL9
+
+* Fri Mar 03 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-13
+- Fix PETSc support in EPEL9
+
 * Fri Feb 24 2023 Antonio Trande <sagitter@fedoraproject.org> - 5.8.0-12
 - Rebuild (rhbz#2171312)
 - Enable KLU-64 in EPEL9 (rhbz#20673760)

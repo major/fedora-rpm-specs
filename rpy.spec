@@ -16,8 +16,8 @@
 }
 
 Name:          rpy
-Version:       3.5.3
-Release:       3%{?dist}
+Version:       3.5.9
+Release:       1%{?dist}
 Summary:       %{sum}
 License:       GPLv2+
 Url:           https://pypi.python.org/pypi/rpy2
@@ -83,6 +83,9 @@ cd %{srcname}2
 %{python3_sitearch}/__pycache__/*
 
 %changelog
+* Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.5.9-1
+- update to 3.5.9
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.5.3-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

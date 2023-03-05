@@ -1,6 +1,6 @@
 Name: elfutils
-Version: 0.188
-%global baserelease 5
+Version: 0.189
+%global baserelease 1
 Release: %{baserelease}%{?dist}
 URL: http://elfutils.org/
 %global source_url ftp://sourceware.org/pub/elfutils/%{version}/
@@ -74,16 +74,6 @@ BuildRequires: gettext-devel
 
 # For s390x... FDO package notes are bogus.
 Patch1: elfutils-0.186-fdo-swap.patch
-# Don't export internal function.
-Patch2: elfutils-0.188-static-extract_section.patch
-# Silence some compiler warnings
-Patch3: elfutils-0.188-compile-warnings.patch
-# The debuginfod_client object lifetime needs more careful handling
-Patch4: elfutils-0.188-debuginfod-client-lifetime.patch
-# Various libcurl deprecated constants
-Patch5: elfutils-0.188-deprecated-CURLINFO.patch
-Patch6: elfutils-0.188-CURL_AT_LEAST_VERSION.patch
-Patch7: elfutils-0.188-CURLOPT_PROTOCOLS_STR.patch
 
 %description
 Elfutils is a collection of utilities, including stack (to show
@@ -452,6 +442,9 @@ exit 0
 %systemd_postun_with_restart debuginfod.service
 
 %changelog
+* Fri Mar 3 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.189-1
+- Upgrade to upsteam elfutils 0.189.
+
 * Fri Jan 27 2023 Mark Wielaard <mjw@fedoraproject.org> - 0.188-5
 - Add elfutils-0.188-deprecated-CURLINFO.patch,
   elfutils-0.188-CURL_AT_LEAST_VERSION.patch and

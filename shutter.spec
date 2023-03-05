@@ -1,16 +1,17 @@
 # For git snapshots, set to 0 to use release instead:
-%global usesnapshot 0
+%global usesnapshot 1
 %if 0%{?usesnapshot}
-%global commit0 01d8563a9b7453fa069da2c448e53b5eeff8592e
+%global commit0 b089b93221f4d36b6b3001cd6d9c88ca33a39515
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
 %global snapshottag .git%{shortcommit0}
 %endif
 
 Name:       shutter
-Version:    0.99.2
 %if 0%{?usesnapshot}
-Release:    0.4%{?snapshottag}%{?dist}
+Version:    0.99.3
+Release:    0.1%{?snapshottag}%{?dist}
 %else
+Version:    0.99.2
 Release:    5%{?dist}
 %endif
 Summary:    GTK+3-based screenshot application written in Perl
@@ -28,8 +29,6 @@ Source0:    https://github.com/shutter-project/shutter/archive/%{commit0}/%{name
 %else
 Source0:    https://github.com/shutter-project/%{name}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
-
-Patch0:     %{name}-appdata.patch
 
 # https://bugs.launchpad.net/shutter/+bug/1469840
 BuildArch:  noarch
@@ -72,7 +71,6 @@ window. Shutter is free, open-source, and licensed under GPL v3.
 %endif
 # Remove the bundled perl(X11::Protocol::Ext::XFIXES)
 rm -vr share/%{name}/resources/modules/X11
-rm -vr share/%{name}/resources/modules/WebService
 
 %build
 ./po2mo.sh
@@ -142,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Fri Mar 03 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.99.3-0.1.gitb089b93
+- Update to 0.99.3-0.1.gitb089b93
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.2-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

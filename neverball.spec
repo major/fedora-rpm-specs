@@ -1,10 +1,10 @@
 Name:           neverball
 Version:        1.6.0
-Release:        27%{?dist}
+Release:        28%{?dist}
 
 Summary:        Common files for neverball and neverputt
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://neverball.org
 Source0:        http://neverball.org/neverball-%{version}.tar.gz
 Source1:        neverball.desktop
@@ -177,6 +177,9 @@ EOF
 %{_datadir}/icons/hicolor/*/apps/neverball.png
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6.0-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

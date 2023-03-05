@@ -1,6 +1,6 @@
 # github repo with selinux-policy sources
 %global giturl https://github.com/fedora-selinux/selinux-policy
-%global commit fe62ff64ca224f40cffb1ebe12e282a6d101e2b9
+%global commit bc228bd0c249a9e4aa3dcf238c2b1bb138943b07
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 %define distro redhat
@@ -23,7 +23,7 @@
 %define CHECKPOLICYVER 3.2
 Summary: SELinux policy configuration
 Name: selinux-policy
-Version: 38.7
+Version: 38.8
 Release: 1%{?dist}
 License: GPL-2.0-or-later
 Source: %{giturl}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
@@ -813,6 +813,23 @@ exit 0
 %endif
 
 %changelog
+* Fri Mar 03 2023 Zdenek Pytela <zpytela@redhat.com> - 38.8-1
+- Confine gnome-initial-setup
+- Allow qemu-guest-agent create and use vsock socket
+- Allow login_pgm setcap permission
+- Allow chronyc read network sysctls
+- Enhancement of the /usr/sbin/request-key helper policy
+- Fix opencryptoki file names in /dev/shm
+- Allow system_cronjob_t transition to rpm_script_t
+- Revert "Allow system_cronjob_t domtrans to rpm_script_t"
+- Add tunable to allow squid bind snmp port
+- Allow staff_t getattr init pid chr & blk files and read krb5
+- Allow firewalld to rw z90crypt device
+- Allow httpd work with tokens in /dev/shm
+- Allow svirt to map svirt_image_t char files
+- Allow sysadm_t run initrc_t script and sysadm_r role access
+- Allow insights-client manage fsadm pid files
+
 * Wed Feb 08 2023 Zdenek Pytela <zpytela@redhat.com> - 38.7-1
 - Allowing snapper to create snapshots of /home/ subvolume/partition
 - Add boolean qemu-ga to run unconfined script
@@ -846,8 +863,8 @@ exit 0
 - Allow icecast rename its log files
 - Allow upsd to send signal to itself
 - Allow wireguard to create udp sockets and read net_conf
-- Use %autosetup instead of %setup
-- Pass -p 1 to %autosetup
+- Use '%autosetup' instead of '%setup'
+- Pass -p 1 to '%autosetup'
 
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 38.5-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild

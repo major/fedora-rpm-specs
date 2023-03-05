@@ -5,10 +5,10 @@
 
 Name:               python-blowfish
 Version:            0.6.1
-Release:            21%{?dist}
+Release:            22%{?dist}
 Summary:            %{sum}
 
-License:            GPLv3+
+License:            GPL-3.0-or-later
 URL:                http://pypi.python.org/pypi/blowfish
 Source0:            https://files.pythonhosted.org/packages/source/b/%{modname}/%{modname}-%{version}.tar.bz2
 
@@ -46,6 +46,9 @@ Summary:            %{sum}
 %{python3_sitelib}/__pycache__/*
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.1-22
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.1-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,8 +2,8 @@ Summary:        A C++ JIT assembler for x86
 Name:           xbyak
 License:        BSD-3-Clause
 
-Version:        6.63
-Release:        4%{?dist}
+Version:        6.69
+Release:        1%{?dist}
 
 URL:            https://github.com/herumi/xbyak
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
@@ -79,6 +79,9 @@ make test
 %{_includedir}/xbyak/*.h
 
 %changelog
+* Fri Mar 3 2023 Tom Rix <trix@redhat.com> - 6.69-1
+- Update source
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.63-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

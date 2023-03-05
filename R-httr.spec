@@ -1,5 +1,5 @@
 %global packname httr
-%global packver  1.4.4
+%global packver  1.4.5
 %global rlibdir  %{_datadir}/R/library
 
 # Not yet available.
@@ -9,7 +9,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Tools for Working with URLs and HTTP
 
 License:          MIT
@@ -92,6 +92,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} $ARGS
 
 
 %changelog
+* Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.5-1
+- update to 1.4.5
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -7,6 +7,7 @@ URL:            https://metacpan.org/release/Unix-Mknod
 Source0:        https://cpan.metacpan.org/authors/id/P/PI/PIRZYK/Unix-Mknod-%{version}.tar.gz
 # Adapt to changes in glibc-2.27.9000, bug #1551656, CPAN RT#124687
 Patch0:         Unix-Mknod-0.04-Include-sys-sysmacros.h-on-glibc.patch
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -34,11 +35,11 @@ that may or may not be macros in .h files.
 %patch0 -p1
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_fixperms} $RPM_BUILD_ROOT/*
 

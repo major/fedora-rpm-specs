@@ -1,6 +1,6 @@
 Name:       dino
-Version:    0.4.0
-Release:    2%{?dist}
+Version:    0.4.1
+Release:    1%{?dist}
 
 License:    GPLv3
 Summary:    Modern XMPP ("Jabber") Chat Client using GTK+/Vala
@@ -133,6 +133,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/im.dino.Dino.desktop
 
 
 %changelog
+* Thu Mar 02 2023 Randy Barlow <bowlofeggs@fedoraproject.org> - 0.4.1-1
+- Update to dino 0.4.1.
+
 * Fri Feb 24 2023 Florian Weimer <fweimer@redhat.com> - 0.4.0-2
 - Build in C89 mode due to Vala limiation (#2173174)
 

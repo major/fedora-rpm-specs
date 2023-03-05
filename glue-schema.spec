@@ -1,10 +1,10 @@
 Name:		glue-schema
-Version:	2.0.11
-Release:	17%{?dist}
+Version:	2.1.0
+Release:	1%{?dist}
 Summary:	LDAP schema files for the GLUE 1.3 and GLUE 2.0 Schema
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/EGI-Foundation/%{name}
-Source:		https://github.com/EGI-Foundation/%{name}/archive/R_2_0_11/%{name}-%{version}.tar.gz
+Source:		https://github.com/EGI-Foundation/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:	noarch
 BuildRequires:	make
 
@@ -18,21 +18,31 @@ several concrete data models such as XML Schema, LDAP Schema or SQL.
 This package provides LDAP schema files for the GLUE 1.3 and GLUE 2.0 Schema.
 
 %prep
-%setup -q -n %{name}-R_2_0_11
+%setup -q
 
 %build 
 # Nothing to build
 
 %install
-make prefix=%{buildroot} install
+make install prefix=%{buildroot}
+
+rm -rf %{buildroot}%{_docdir}
+rm -rf %{buildroot}%{_licensedir}
 
 %files
 %dir %{_sysconfdir}/ldap
 %dir %{_sysconfdir}/ldap/schema
 %config(noreplace) %{_sysconfdir}/ldap/schema/*
-%license debian/copyright
+%doc AUTHORS.md
+%doc README.md
+%license COPYRIGHT
+%license LICENSE.txt
 
 %changelog
+* Fri Mar 03 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 2.1.0-1
+- Update to release 2.1.0
+- Update License tag to SPDX standard
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.11-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,13 +1,15 @@
 Name:           perl-Alien-pkgconf
 Version:        0.19
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Discover pkgconf and libpkgconf
 # Other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used
-# pkgconf-1.3.9/aclocal.m4: GPL-3.0-or-later WITH Autoconf-exception-2.0 (?)
+# pkgconf-1.3.9/aclocal.m4: GPL-3.0-or-later WITH Autoconf-exception-macro
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Alien-pkgconf
 Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/Alien-pkgconf-%{version}.tar.gz
+# Accept pkgconf-1.9, we have patched perl-PkgConfig-LibPkgConf, bug #2172713
+Patch0:         Alien-pkgconf-0.19-Accept-pkgconf-1.9.patch
 # This is a full-arch package because it stores data about arch-specific
 # libpkgconf.so library and it stores them into arch-specific directory.
 # But it does not install any ELF, therefore disable debuginfo generation.
@@ -21,6 +23,7 @@ BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.98
 # FFI::CheckLib is optional but provides additional data to bake into a binary
 # package
 BuildRequires:  perl(FFI::CheckLib)
+# script/system.pl is executed at build time
 BuildRequires:  perl(File::Copy)
 BuildRequires:  perl(File::Path)
 BuildRequires:  perl(File::Spec)
@@ -28,11 +31,11 @@ BuildRequires:  perl(JSON::PP) >= 2.27400
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 BuildRequires:  pkgconf
+# Upstream precludes pkgconfig(libpkgconf) >= 1.9.0 because
+# PkgConfig-LibPkgConf-0.11 does not support it.
+# But we have added the support in downstream.
+# <https://github.com/PerlAlien/PkgConfig-LibPkgConf/issues/15>.
 BuildRequires:  pkgconfig(libpkgconf) >= 1.5.2
-# Upstream precludes >= 1.9.0 because perl-PkgConfig-LibPkgConf does not
-# support it, <https://github.com/PerlAlien/PkgConfig-LibPkgConf/issues/15>
-BuildRequires:  pkgconfig(libpkgconf) <= 1.8.0
-# script/system.pl is executed at build time
 # Run-time:
 BuildRequires:  perl(File::ShareDir) >= 1.102
 # Tests:
@@ -71,7 +74,7 @@ Tests from %{name}. Execute them
 with "%{_libexecdir}/%{name}/test".
 
 %prep
-%setup -q -n Alien-pkgconf-%{version}
+%autosetup -p1 -n Alien-pkgconf-%{version}
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
     perl -i -MConfig -ple 'print $Config{startperl} if $. == 1 && !s{\A#!\s*perl}{$Config{startperl}}' "$F"
@@ -110,14 +113,22 @@ make test
 %files
 %license LICENSE
 %doc Changes README
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Alien
+%dir %{perl_vendorarch}/auto/Alien
+%{perl_vendorarch}/auto/Alien/pkgconf
+%dir %{perl_vendorarch}/auto/share
+%dir %{perl_vendorarch}/auto/share/dist
+%{perl_vendorarch}/auto/share/dist/Alien-pkgconf
+%dir %{perl_vendorarch}/Alien
+%{perl_vendorarch}/Alien/pkgconf.pm
 %{_mandir}/man3/*
 
 %files tests
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Feb 23 2023 Petr Pisar <ppisar@redhat.com> - 0.19-3
+- Rebuild against pkgconf 1.9.4 (bug #2172713)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

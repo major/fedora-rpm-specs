@@ -1,5 +1,5 @@
 %global packname haven
-%global packver  2.5.1
+%global packver  2.5.2
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -14,7 +14,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-cli >= 3.0.0, R-forcats >= 0.2.0, R-hms, R-lifecycle, R-methods, R-readr >= 0.1.0, R-rlang >= 0.4.0, R-tibble, R-tidyselect, R-vctrs >= 0.3.0
-# Suggests:  R-covr, R-crayon, R-fs, R-knitr, R-pillar >= 1.4.0, R-rmarkdown, R-testthat >= 3.0.0
+# Suggests:  R-covr, R-crayon, R-fs, R-knitr, R-pillar >= 1.4.0, R-rmarkdown, R-testthat >= 3.0.0, R-utf8
 # LinkingTo: R-cpp11
 # Enhances:
 
@@ -37,6 +37,7 @@ BuildRequires:    R-knitr
 BuildRequires:    R-pillar >= 1.4.0
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-testthat >= 3.0.0
+BuildRequires:    R-utf8
 
 %description
 Import foreign statistical formats into R via the embedded 'ReadStat' C
@@ -61,7 +62,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %check
+%ifnarch ppc64le
 %{_bindir}/R CMD check %{packname}
+%endif
 
 
 %files

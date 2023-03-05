@@ -3,7 +3,7 @@
 
 Name:           libproxy
 Version:        0.4.18
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library handling all the details of proxy configuration
 
 License:        LGPLv2+
@@ -69,7 +69,7 @@ The %{name}-gnome package contains the %{name} plugin for gnome.
 %package        kde
 Summary:        Plugin for %{name} and kde
 Requires:       %{name}%{?_isa} = %{version}-%{release}
-Requires:       /usr/bin/kreadconfig5
+Recommends:     /usr/bin/kreadconfig5
 
 %description    kde
 The %{name}-kde package contains the %{name} plugin for kde.
@@ -208,6 +208,9 @@ install -Dpm 0644 %{SOURCE1} %{buildroot}/%{_mandir}/man1/proxy.1
 
 
 %changelog
+* Wed Feb 08 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 0.4.18-6
+- Soften KDE dependency
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.18-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

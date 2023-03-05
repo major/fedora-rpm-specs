@@ -1,9 +1,9 @@
 Name:           calcurse
 Version:        4.8.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Text-based personal organizer
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://calcurse.org
 Source0:        https://calcurse.org/files/%{name}-%{version}.tar.gz
 
@@ -41,6 +41,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/%{name}
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.8.0-4
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.8.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name: inksmoto
 Version: 0.7.0
-Release: 30%{?dist}
+Release: 31%{?dist}
 Summary: The new xmoto level editor for Inkscape
 
-License: GPLv2
+License: GPL-2.0-only
 URL: http://xmoto.sourceforge.net/
 Source0: http://download.tuxfamily.org/xmoto/svg2lvl/%{version}~rc1/inksmoto-%{version}.tar.gz       
 BuildRequires: python3-devel
@@ -45,6 +45,9 @@ cp -pr inksmoto %{buildroot}%{_datadir}/inkscape/extensions/
 %doc AUTHORS INSTALL README
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.7.0-31
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.0-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,13 +1,15 @@
 Summary:       System performance benchmark
 Name:          sysbench
 Version:       1.0.20
-Release:       10%{?dist}
+Release:       11%{?dist}
 License:       GPLv2+
 Source0:       https://github.com/akopytov/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 URL:           https://github.com/akopytov/sysbench/
 
 # https://github.com/akopytov/sysbench/pull/379
 Patch0:        sysbench-1.0.20-python3.patch
+# egrep is deprecated, use grep -E instead in order to fix build on F38+
+Patch1:        sysbench-1.0.20-fix_deprecated_egrep_call.patch
 
 BuildRequires: make
 BuildRequires: automake
@@ -17,9 +19,6 @@ BuildRequires: libaio-devel
 BuildRequires: libtool
 BuildRequires: libxslt
 BuildRequires: luajit-devel
-%if 0%{?el6}
-BuildRequires: mysql-devel
-%endif
 %if 0%{?el7}
 BuildRequires: mariadb-devel
 %endif
@@ -32,7 +31,6 @@ BuildRequires: libpq-devel
 BuildRequires: postgresql-devel
 %endif
 # Tests
-%{!?el6:BuildRequires: /usr/bin/cram}
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: python3
 %else
@@ -42,11 +40,11 @@ BuildRequires: python
 # luajit is needed and is not available for ppc64le and s390x
 # Use the same arches as luajit.
 # luajit 2.0.4, which is in EL6 and EL7, doesn't have support for aarch64
-%if 0%{?el6} || 0%{?el7}
+%if 0%{?el7}
 ExclusiveArch:  %{arm} %{ix86} x86_64 %{mips}
 %else
-%if 0%{?fedora} >= 35
-# On Fedora 35 and newer, luajit doesn't support s390x and ppc64le anymore
+%if 0%{?fedora} >= 35 || 0%{?rhel} >= 9
+# On F35+ and EL9+, luajit doesn't support s390x and ppc64le anymore
 ExclusiveArch:  %{arm} %{ix86} x86_64 %{mips} aarch64
 %else
 ExclusiveArch:  %{arm} %{ix86} x86_64 %{mips} aarch64 ppc64le s390x
@@ -77,6 +75,7 @@ benchmarks and third-party plug-in modules.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 rm -r third_party/luajit/luajit/
 rm -r third_party/concurrency_kit/ck/
 %{!?el6:rm -r third_party/cram/}
@@ -119,6 +118,11 @@ rm t/opt_report_interval.t
 
 
 %changelog
+* Fri Mar 03 2023 Xavier Bachelot <xavier@bachelot.org> 1.0.20-11
+- Fix build on EL9
+- egrep is deprecated, use grep -E instead in order to fix build on F38+
+- Drop conditionals for EL6
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.20-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

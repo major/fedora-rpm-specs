@@ -1,13 +1,13 @@
 Name:		calf
 Version:	0.90.3
-Release:	14%{?dist}
+Release:	15%{?dist}
 Summary:	Audio plugins pack
 # The jackhost code is GPLv2+ 
 # The GUI code is LGPLv2+
 # ladspa plugin is LGPLv2+
 # lv2 plugin is GPLv2+ and LGPLv2+ and Public Domain
 # dssi plugin is LGPLv2+
-License:	GPLv2+ and LGPLv2+
+License:	GPL-2.0-or-later and LGPL-2.0-or-later
 URL:		http://calf-studio-gear.org/
 Source0:	http://calf-studio-gear.org/files/calf-%{version}.tar.gz
 Source1:	%{name}-dssi.desktop
@@ -45,7 +45,7 @@ This package contains the common files and the Standalone JACK plugin.
 
 %package -n lv2-%{name}-plugins
 Summary:	Calf plugins in LV2 format
-License:	GPLv2+ and LGPLv2+ and Public Domain
+License:	GPL-2.0-or-later and LGPL-2.0-or-later and Public Domain 
 Requires:	%{name} = %{version}-%{release}
 Requires:	lv2core
 
@@ -56,7 +56,7 @@ This package contains LV2 synthesizers and effects, MIDI I/O extension.
 
 %package -n lv2-%{name}-plugins-gui
 Summary:	Calf plugins in LV2 format
-License:	GPLv2+ and LGPLv2+ and Public Domain
+License:	GPL-2.0-or-later and LGPL-2.0-or-later and Public Domain
 Requires:	%{name} = %{version}-%{release}
 Requires:	lv2-%{name}-plugins
 Requires:	lv2core
@@ -68,7 +68,7 @@ This package contains LV2 plugins GUI extension.
 
 %package -n dssi-%{name}-plugins
 Summary:	Calf plugins in DSSI format
-License:	LGPLv2+
+License:	LGPL-2.0-or-later
 Requires:	%{name} = %{version}-%{release}
 Requires:	dssi
 
@@ -150,6 +150,9 @@ ln -s %{_libdir}/calf/calf.so $RPM_BUILD_ROOT/%{_libdir}/dssi/calf.so
 %{_libdir}/dssi/%{name}.so
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.90.3-15
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.90.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

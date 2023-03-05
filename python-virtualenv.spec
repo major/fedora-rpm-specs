@@ -1,5 +1,5 @@
 Name:           python-virtualenv
-Version:        20.19.0
+Version:        20.20.0
 Release:        1%{?dist}
 Summary:        Tool to create isolated Python environments
 
@@ -133,6 +133,9 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
 %{_bindir}/virtualenv
 
 %changelog
+* Wed Mar 01 2023 Lumír Balhar <lbalhar@redhat.com> - 20.20.0-1
+- Update to 20.20.0 (rhbz#2174221)
+
 * Thu Feb 09 2023 Lumír Balhar <lbalhar@redhat.com> - 20.19.0-1
 - Update to 20.19.0 (rhbz#2167499)
 

@@ -21,10 +21,10 @@
 
 Name:           buildbot
 Version:        3.7.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Build/test automation system
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://buildbot.net
 Source0:        %{pypi_source buildbot}
 Source1:        %{pypi_source buildbot-worker}
@@ -399,6 +399,9 @@ trial buildbot.test
 %endif
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.7.0-4
+- migrated to SPDX license
+
 * Mon Jan 30 2023 Orion Poplawski <orion@cora.nwra.com> - 3.7.0-3
 - Drop dependency on mock
 

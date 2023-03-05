@@ -1,9 +1,9 @@
 Name: libfilezilla
 Version: 0.40.0
-Release: 3%{?dist}
+Release: 4%{?dist}
 URL: https://lib.filezilla-project.org/
 Summary: C++ Library for FileZilla
-License: GPLv2+
+License: GPL-2.0-or-later
 
 Source0: https://download.filezilla-project.org/%{name}/%{name}-%{version}.tar.bz2
 Patch0: gcc13.patch
@@ -59,6 +59,9 @@ This package contains files needed to compile code using libfilezilla.
 %{_libdir}/pkgconfig/libfilezilla.pc
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.40.0-4
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Scott Talbert <swt@techie.net> - 0.40.0-3
 - Fix FTBFS with GCC 13
 

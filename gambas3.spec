@@ -16,8 +16,8 @@
 
 Name:		gambas3
 Summary:	IDE based on a basic interpreter with object extensions
-Version:	3.18.0
-Release:	2%{?dist}
+Version:	3.18.1
+Release:	1%{?dist}
 License:	GPL+
 URL:		http://gambas.sourceforge.net/
 Source0:	https://gitlab.com/gambas/gambas/-/archive/%{version}/gambas-%{version}.tar.bz2
@@ -1795,6 +1795,9 @@ install -m 0644 -p main/mime/application-x-gambas3.xml %{buildroot}%{_datadir}/m
 %{_datadir}/%{name}/info/gb.xml.xslt.*
 
 %changelog
+* Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.18.1-1
+- update to 3.18.1
+
 * Mon Feb 06 2023 Marek Kasik <mkasik@redhat.com> - 3.18.0-2
 - Rebuild for poppler-23.02.0
 - Disable gb.pdf for Fedora 38 and higher since upstream

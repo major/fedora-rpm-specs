@@ -9,8 +9,8 @@
 
 Name:           s390utils
 Summary:        Utilities and daemons for IBM z Systems
-Version:        2.25.0
-Release:        4%{?dist}
+Version:        2.26.0
+Release:        1%{?dist}
 Epoch:          2
 License:        MIT
 ExclusiveArch:  s390 s390x
@@ -68,9 +68,6 @@ be used together with the zSeries (s390) Linux kernel and device drivers.
 
 # upstream fixes/updates
 %patch100 -p1
-
-# drop -Werror from genprotimg to allow building with GCC 12
-sed -i.bak -e 's/-Werror//g' genprotimg/src/Makefile genprotimg/boot/Makefile
 
 # remove --strip from install
 find . -name Makefile | xargs sed -i 's/$(INSTALL) -s/$(INSTALL)/g'
@@ -340,11 +337,6 @@ s390 base tools. This collection provides the following utilities:
    * tunedasd:
      Adjust tunable parameters on DASD devices.
 
-   * vmconvert:
-     Convert system dumps created by the z/VM VMDUMP command into dumps with
-     LKCD format. These LKCD dumps can then be analyzed with the dump analysis
-     tool lcrash.
-
    * vmcp:
      Allows Linux users to send commands to the z/VM control program (CP).
      The normal usage is to invoke vmcp with the command you want to
@@ -478,7 +470,6 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_bindir}/mk-s390image
 %{_bindir}/pvattest
 %{_bindir}/pvextract-hdr
-%{_bindir}/vmconvert
 %{_bindir}/zkey
 %{_bindir}/zkey-cryptsetup
 %{_unitdir}/dumpconf.service
@@ -507,7 +498,6 @@ getent group zkeyadm > /dev/null || groupadd -r zkeyadm
 %{_mandir}/man1/pvattest-create.1*
 %{_mandir}/man1/pvattest-perform.1*
 %{_mandir}/man1/pvattest-verify.1*
-%{_mandir}/man1/vmconvert.1*
 %{_mandir}/man1/zkey.1*
 %{_mandir}/man1/zkey-cryptsetup.1*
 %{_mandir}/man1/zkey-ekmfweb.1*
@@ -907,6 +897,9 @@ User-space development files for the s390/s390x architecture.
 
 
 %changelog
+* Fri Mar 03 2023 Dan Horák <dan[at]danny.cz> - 2:2.26.0-1
+- rebased to 2.26.0
+
 * Tue Jan 31 2023 Dan Horák <dan[at]danny.cz> - 2:2.25.0-4
 - add post GA fixes
 

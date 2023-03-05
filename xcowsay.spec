@@ -1,9 +1,9 @@
 Name:           xcowsay
 Version:        1.6
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Displays a cute cow and message on your desktop
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://www.doof.me.uk/xcowsay
 Source0:        http://www.nickg.me.uk/files/%{name}-%{version}.tar.gz
 Source1:        xcowfortune.desktop
@@ -62,6 +62,9 @@ desktop-file-install --vendor=""     \
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6-4
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

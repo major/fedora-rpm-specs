@@ -5,7 +5,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.0.2
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{desc}
 
 License:        MIT
@@ -53,6 +53,9 @@ rm -rf *.egg-info
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.2-16
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

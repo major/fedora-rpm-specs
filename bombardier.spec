@@ -1,9 +1,9 @@
 Name: bombardier
 Version: 0.8.3
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: The GNU Bombing utility
 
-License: GPLv2+        
+License: GPL-2.0-or-later        
 URL: http://packages.debian.org/stable/source/bombardier
 Source0: http://http.debian.net/debian/pool/main/b/bombardier/bombardier_0.8.3+nmu3.tar.xz
 Source1: bombardier.desktop
@@ -56,6 +56,9 @@ install -p -m 644 %{SOURCE2} \
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.3-22
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
 %global packname igraph
-%global packver  1.4.0
+%global packver  1.4.1
 %global rlibdir  %{_libdir}/R/library
 
 %global __suggests_exclude ^R\\((graph|igraphdata|rgl)\\)
@@ -145,6 +145,9 @@ ARGS=--no-examples
 
 
 %changelog
+* Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.1-1
+- update to 1.4.1
+
 * Mon Feb 13 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.0-1
 - update to 1.4.0
 - disable tests until R-vdiffr makes it into Fedora (if ever)

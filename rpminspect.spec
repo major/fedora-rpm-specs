@@ -1,6 +1,6 @@
 Name:           rpminspect
-Version:        1.10
-Release:        4%{?dist}
+Version:        1.11
+Release:        1%{?dist}
 Summary:        Build deviation compliance tool
 Group:          Development/Tools
 # librpminspect is licensed under the LGPLv3+, but 5 source files in
@@ -8,7 +8,24 @@ Group:          Development/Tools
 # rpminspect(1) command line tool is licensed under the GPLv3+.  And
 # the rpminspect-data-generic package is licensed under the CC-BY-4.0
 # license.
-License:        GPLv3+ and LGPLv3+ and ASL 2.0 and MIT and CC-BY
+
+# librpminspect is licensed under the LGPL-3.0-or-later, and:
+# * 5 source files in the library are from an Apache-2.0 licensed
+#   project
+# * Some code in inspect_unicode.c was taken from a blog post about
+#   using icu4c and Unicode, it is under the MIT license.
+#
+# The rpminspect(1) command line tool is licensed under the
+# GPL-3.0-or-later.
+#
+# The rpminspect-data-generic package is licensed under the
+# CC-BY-4.0 license.
+#
+# Not packaged, but in the source:
+# * include/uthash.h is BSD-1-Clause
+# * include/compat/queue.h is BSD-3-Clause
+# * libxdiff/ is LGPL-2.1-or-later
+License:        GPL-3.0-or-later AND LGPL-3.0-or-later AND LGPL-2.1-or-later AND Apache-2.0 AND MIT AND AND BSD-1-Clause AND BSD-2-Clause AND BSD-3-Clause AND CC-BY-4.0
 URL:            https://github.com/rpminspect/rpminspect
 Source0:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz
 Source1:        https://github.com/rpminspect/rpminspect/releases/download/v%{version}/%{name}-%{version}.tar.xz.asc
@@ -37,6 +54,7 @@ BuildRequires:  clamav-devel
 BuildRequires:  libmandoc-devel >= 1.14.5
 BuildRequires:  gnupg2
 BuildRequires:  libicu-devel
+BuildRequires:  libcdson-devel
 
 
 %description
@@ -51,7 +69,20 @@ Summary:        Library providing RPM test API and functionality
 Group:          Development/Tools
 Requires:       desktop-file-utils
 Requires:       gettext
+
+%if 0%{?rhel} >= 8 || 0%{?epel} >= 8 || 0%{?fedora}
+Recommends:     /usr/bin/annocheck
+%else
+Requires:       /usr/bin/annocheck
+%endif
+
+# The clamav data is required for the virus inspection.  Either
+# install the clamav-data or download the data files directly.
+%if 0%{?rhel} >= 8 || 0%{?epel} >= 8 || 0%{?fedora}
+Recommends:     clamav-data
+%else
 Requires:       clamav-data
+%endif
 
 # If these are present, the xml inspection can try DTD validation.
 %if 0%{?rhel} >= 8 || 0%{?fedora}
@@ -95,9 +126,9 @@ Requires:       /usr/bin/annocheck
 # the same name, as provided by libabigail.  If it is not present on
 # the system, you can disable the relevant inspections.
 %if 0%{?rhel} >= 8 || 0%{?epel} >= 8 || 0%{?fedora}
-Recommends:     libabigail >= 1.8.2
+Recommends:     libabigail >= 2.1
 %else
-Requires:       libabigail >= 1.8.2
+Requires:       libabigail >= 2.1
 %endif
 
 %description -n librpminspect
@@ -166,6 +197,9 @@ control files.
 
 
 %changelog
+* Fri Mar 03 2023 David Cantrell <dcantrell@redhat.com> - 1.11-1
+- Upgrade to rpminspect-1.11
+
 * Sun Jan 22 2023 Orion Poplawski <orion@nwra.com> - 1.10-4
 - Rebuild for clamav 1.0.0
 

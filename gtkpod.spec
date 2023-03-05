@@ -1,10 +1,9 @@
 Name:           gtkpod
 Version:        2.1.5
-Release:        23%{?dist}
+Release:        24%{?dist}
 Summary:        Graphical song management program for Apple's iPod
 
-# The help documentation is under GFDL, the rest of the code is GPLv2+
-License:        GPLv2+ and GFDL
+License:        GPL-2.0-or-later
 URL:            http://www.gtkpod.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch4:		gtkpod-m4a-copy.patch
@@ -98,6 +97,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} \;
 %{_libdir}/pkgconfig/*.pc
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.1.5-24
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.5-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

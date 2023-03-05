@@ -1,10 +1,11 @@
 Name:           perl-List-SomeUtils-XS
 Version:        0.58
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        XS implementation for List::SomeUtils
-License:        Artistic 2.0 and (GPL+ or Artistic)
+License:        Artistic-2.0 AND ( GPL-1.0-or-later OR Artistic-1.0-Perl )
 URL:            https://metacpan.org/release/List-SomeUtils-XS
 Source0:        https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/List-SomeUtils-XS-%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -46,11 +47,11 @@ XS implementation is faster than List::SomeUtils.
 %setup -q -n List-SomeUtils-XS-%{version}
 
 %build
-perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS" NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 
 %install
-make pure_install DESTDIR=$RPM_BUILD_ROOT
+%{make_install}
 find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 %{_fixperms} $RPM_BUILD_ROOT/*
 
@@ -65,6 +66,10 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Mar 03 2023 Jitka Plesnikova <jplesnik@redhat.com> - 0.58-17
+- Update license to SPDX format
+- Use macros make*
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.58-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

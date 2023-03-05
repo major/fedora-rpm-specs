@@ -1,8 +1,8 @@
 Name:           perl-Date-Manip
 Version:        6.90
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Date manipulation routines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Manip
 Source0:        https://cpan.metacpan.org/authors/id/S/SB/SBECK/Date-Manip-%{version}.tar.gz
 BuildArch:      noarch
@@ -80,6 +80,9 @@ make test
 %{_bindir}/dm_*
 
 %changelog
+* Fri Mar 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.90-3
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.90-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

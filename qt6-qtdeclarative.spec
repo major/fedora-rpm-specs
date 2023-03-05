@@ -16,7 +16,7 @@
 Summary: Qt6 - QtDeclarative component
 Name:    qt6-%{qt_module}
 Version: 6.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -193,13 +193,14 @@ make check -k -C tests ||:
 %{_qt6_archdatadir}/qml/
 
 %files devel
-%dir %{_qt6_libdir}/cmake/Qt6PacketProtocolPrivate/
-%dir %{_qt6_libdir}/cmake/Qt6Qml/
-%dir %{_qt6_libdir}/cmake/Qt6QmlCompilerPrivate/
+%dir %{_qt6_libdir}/cmake/Qt6PacketProtocolPrivate
+%dir %{_qt6_libdir}/cmake/Qt6Qml
+%dir %{_qt6_libdir}/cmake/Qt6Qml/QmlPlugins
+%dir %{_qt6_libdir}/cmake/Qt6QmlCompilerPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlCore
-%dir %{_qt6_libdir}/cmake/Qt6QmlDebugPrivate/
-%dir %{_qt6_libdir}/cmake/Qt6QmlIntegration/
-%dir %{_qt6_libdir}/cmake/Qt6QmlImportScanner/
+%dir %{_qt6_libdir}/cmake/Qt6QmlDebugPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QmlIntegration
+%dir %{_qt6_libdir}/cmake/Qt6QmlImportScanner
 %dir %{_qt6_libdir}/cmake/Qt6LabsAnimation
 %dir %{_qt6_libdir}/cmake/Qt6LabsFolderListModel
 %dir %{_qt6_libdir}/cmake/Qt6LabsQmlModels
@@ -208,10 +209,10 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6LabsWavefrontMesh
 %dir %{_qt6_libdir}/cmake/Qt6QmlDomPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QmlLocalStorage
-%dir %{_qt6_libdir}/cmake/Qt6QmlModels/
-%dir %{_qt6_libdir}/cmake/Qt6QmlTools/
-%dir %{_qt6_libdir}/cmake/Qt6QmlWorkerScript/
-%dir %{_qt6_libdir}/cmake/Qt6Quick/
+%dir %{_qt6_libdir}/cmake/Qt6QmlModels
+%dir %{_qt6_libdir}/cmake/Qt6QmlTools
+%dir %{_qt6_libdir}/cmake/Qt6QmlWorkerScript
+%dir %{_qt6_libdir}/cmake/Qt6Quick
 %dir %{_qt6_libdir}/cmake/Qt6QuickControls2
 %dir %{_qt6_libdir}/cmake/Qt6QuickControls2Impl
 %dir %{_qt6_libdir}/cmake/Qt6QuickControlsTestUtilsPrivate
@@ -219,9 +220,9 @@ make check -k -C tests ||:
 %dir %{_qt6_libdir}/cmake/Qt6QuickDialogs2QuickImpl
 %dir %{_qt6_libdir}/cmake/Qt6QuickDialogs2Utils
 %dir %{_qt6_libdir}/cmake/Qt6QuickLayouts
-%dir %{_qt6_libdir}/cmake/Qt6QuickParticlesPrivate/
-%dir %{_qt6_libdir}/cmake/Qt6QuickShapesPrivate/
-%dir %{_qt6_libdir}/cmake/Qt6QuickTest/
+%dir %{_qt6_libdir}/cmake/Qt6QuickParticlesPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickShapesPrivate
+%dir %{_qt6_libdir}/cmake/Qt6QuickTest
 %dir %{_qt6_libdir}/cmake/Qt6QuickTestUtilsPrivate
 %dir %{_qt6_libdir}/cmake/Qt6QuickTemplates2
 %dir %{_qt6_libdir}/cmake/Qt6QmlXmlListModel
@@ -318,6 +319,9 @@ make check -k -C tests ||:
 %endif
 
 %changelog
+* Fri Mar 03 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-4
+- Fix directory ownership
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-3
 - migrated to SPDX license
 

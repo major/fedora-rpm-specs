@@ -4,7 +4,7 @@
 Summary: Base libraries for GGZ gaming zone
 Name:    ggz-base-libs
 Version: 0.99.5
-Release: 33%{?dist}
+Release: 34%{?dist}
 
 License: LGPLv2+ and GPLv2+
 URL: http://www.ggzgamingzone.org/
@@ -14,6 +14,8 @@ Source0: http://mirrors.ibiblio.org/pub/mirrors/ggzgamingzone/ggz/snapshots/ggz-
 # upstreamable patches, fix --with-tls=NSS
 # https://bugs.ggzgamingzone.org/mantis/view.php?id=114
 Patch50: ggz-base-libs-snapshot-0.99.5-tls_nss3.patch
+
+Patch99: ggz-base-libs-0.99.5-fedora-c99.patch
 
 Obsoletes: libggz < 1:0.99.5
 Provides:  libggz = 1:%{version}-%{release}
@@ -57,6 +59,7 @@ Requires: rpm
 %setup -q -n %{name}-snapshot-%{version}
 
 %patch50 -p1 -b .tls_nss3
+%patch99 -p1
 
 %if 0 
 # some auto*/libtool love to quash rpaths
@@ -148,6 +151,9 @@ make check ||:
 
 
 %changelog
+* Thu Mar  2 2023 DJ Delorie <dj@redhat.com> - 0.99.5-34
+- Port configure script to C99 (#2175046)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.99.5-33
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

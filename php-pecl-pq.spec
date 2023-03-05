@@ -3,8 +3,8 @@
 #
 # remirepo spec file for php-pecl-pq
 #
-# Copyright (c) 2014-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2014-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -22,13 +22,11 @@
 
 Summary:        PostgreSQL client library (libpq) binding
 Name:           php-pecl-%{pecl_name}
-Version:        2.2.0
-Release:        5%{?dist}
-License:        BSD
+Version:        2.2.1
+Release:        1%{?dist}
+License:        BSD-2-Clause
 URL:            https://pecl.php.net/package/%{pecl_name}
 Source0:        https://pecl.php.net/get/%{pecl_name}-%{version}%{?rcver}.tgz
-
-Patch0:         %{pecl_name}-upstream.patch
 
 BuildRequires:  libpq-devel > 9
 BuildRequires:  make
@@ -75,8 +73,6 @@ sed -e '/role="test"/d' \
     -i package.xml
 
 cd NTS
-%patch0 -p1
-
 # Sanity check, really often broken
 extver=$(sed -n '/#define PHP_PQ_VERSION/{s/.* "//;s/".*$//;p}' php_pq.h)
 if test "x${extver}" != "x%{version}%{?rcver}"; then
@@ -225,6 +221,9 @@ exit $RET
 
 
 %changelog
+* Fri Mar  3 2023 Remi Collet <remi@remirepo.net> - 2.2.1-1
+- update to 2.2.1
+
 * Wed Oct 05 2022 Remi Collet <remi@remirepo.net> - 2.2.0-5
 - rebuild for https://fedoraproject.org/wiki/Changes/php82
 - add upstream patch for 8.2 and from

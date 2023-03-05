@@ -1,9 +1,9 @@
 Name:           garden
 Version:        1.0.9
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        An innovative old-school 2D vertical shoot-em-up
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://garden.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 #Patch0:         garden-dso.patch
@@ -96,6 +96,9 @@ desktop-file-validate \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.9-18
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.9-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

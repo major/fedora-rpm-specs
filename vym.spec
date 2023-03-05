@@ -2,10 +2,10 @@
 
 Name:           vym
 Version:        2.8.8
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        View your mind
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/insilmaril/vym/
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
@@ -98,6 +98,9 @@ install -p -m a+r,u+w %{SOURCE2} %{buildroot}%{_datadir}/mime/packages/vym.xml
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.8.8-6
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.8.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

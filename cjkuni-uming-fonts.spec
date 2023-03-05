@@ -1,80 +1,60 @@
-%global fontname cjkuni-uming
-%global fontconf 65-ttf-arphic-uming.conf
-%global fontconf3 90-ttf-arphic-uming-embolden.conf
+# SPDX-License-Identifier: MIT
 
 %global catalogue        %{_sysconfdir}/X11/fontpath.d
 
-%global common_desc \
+Version: 0.2.20080216.1
+Release: 71%{?dist}
+URL:     http://www.freedesktop.org/wiki/Software/CJKUnifonts
+
+%global foundry           CJKUni
+%global fontlicense       Arphic-1999
+%global fontlicenses      license
+%global fontdocs          CONTRIBUTERS FONTLOG KNOWN_ISSUES NEWS README
+
+%global fontfamily        UMing
+%global fontsummary       Chinese Unicode TrueType font in Ming face
+%global fonts             uming.ttc
+
+%global fontconfs         %{SOURCE10} %{SOURCE11}
+%global fontdescription   %{expand:
 CJK Unifonts are Unicode TrueType fonts derived from original fonts made \
 available by Arphic Technology under "Arphic Public License" and extended by \
 the CJK Unifonts project.
 
-%global umingbuilddir %{name}-%{version}
+CJK Unifonts in Ming face.}
 
-Name:           %{fontname}-fonts
-Version:        0.2.20080216.1
-Release:        70%{?dist}
-Summary:        Chinese Unicode TrueType font in Ming face
+Source0:  http://ftp.debian.org/debian/pool/main/t/ttf-arphic-uming/ttf-arphic-uming_%{version}.orig.tar.gz
+Source10: 65-%{fontpkgname}.conf
+Source11: 90-%{fontpkgname}-embolden.conf
 
-License:        Arphic
-URL:            http://www.freedesktop.org/wiki/Software/CJKUnifonts
-Source0:        http://ftp.debian.org/debian/pool/main/t/ttf-arphic-uming/ttf-arphic-uming_%{version}.orig.tar.gz
-Source1:        %{name}-fontconfig.conf
-Source3:        %{fontconf3}
-
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-Obsoletes:      cjkuni-fonts-common < 0.2.20080216.1-42
-Provides:       cjkuni-fonts-common = 0.2.20080216.1-42
-
-%description
-%common_desc
-
-CJK Unifonts in Ming face.
+%fontpkg
 
 %prep
-%setup -q -c -n %{name}-%{version}
-
+%autosetup -c
 
 %build
-%{nil}
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttc %{buildroot}%{_fontdir}
-
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-
-install -m 0644 -p %{SOURCE3} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf3}
-ln -s %{_fontconfig_templatedir}/%{fontconf3} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf3}
+%fontinstall
 
 # catalogue
 install -m 0755 -d %{buildroot}%{catalogue}
-ln -s %{_fontdir}/ %{buildroot}%{catalogue}/%{name}
+ln -s %{fontdir}/ %{buildroot}%{catalogue}/%{name}
 
 
-%_font_pkg -f *.conf *.ttc
+%check
+%fontcheck
 
-%defattr(-,root,root,-)
-%doc ../%{umingbuilddir}/license
-%doc ../%{umingbuilddir}/CONTRIBUTERS
-%doc ../%{umingbuilddir}/FONTLOG
-%doc ../%{umingbuilddir}/KNOWN_ISSUES
-%doc ../%{umingbuilddir}/NEWS
-%doc ../%{umingbuilddir}/README
+%fontfiles
 %{catalogue}/%{name}
 
 %changelog
+* Tue Feb 28 2023 Peng Wu <pwu@redhat.com> - 0.2.20080216.1-71
+- Drop Obsoletes and Provides for cjkuni-fonts-common
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.20080216.1-70
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,11 +2,12 @@ Name:           perl-Syntax-Feature-Loop
 Version:        1.8.0
 Release:        18%{?dist}
 Summary:        Provides the loop BLOCK syntax for unconditional loops
-# lib/Syntax/Feature/ppport.h:  GPL+ or Artistic
-# other files:                  CC0
-License:        CC0 and (GPL+ or Artistic)
+# lib/Syntax/Feature/ppport.h:  GPL-1.0-or-later OR Artistic-1.0-Perl
+# other files:                  CC0-1.0
+License:        CC0-1.0 AND ( GPL-1.0-or-later OR Artistic-1.0-Perl )
 URL:            https://metacpan.org/release/Syntax-Feature-Loop
 Source0:        https://cpan.metacpan.org/authors/id/I/IK/IKEGAMI/Syntax-Feature-Loop-v%{version}.tar.gz
+BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  perl-devel
@@ -38,7 +39,7 @@ BLOCK syntax for unconditional loops.
 %setup -q -n Syntax-Feature-Loop-v%{version}
 
 %build
-%{__perl} Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
+perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
 ./Build
 
 %install

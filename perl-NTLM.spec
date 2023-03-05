@@ -3,9 +3,9 @@
 
 Name:           perl-NTLM
 Version:        1.09
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        NTLM Perl module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/NTLM
 Source0:        https://cpan.metacpan.org/authors/id/N/NB/NBEBOUT/NTLM-%{version}.tar.gz
 # Remove useless shebangs from the module files, CPAN RT#132167,
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Fri Mar 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.09-35
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

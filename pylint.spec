@@ -1,11 +1,11 @@
 %global forgeurl https://github.com/PyCQA/pylint
-Version:        2.16.2
+Version:        2.16.3
 %forgemeta
 
 Name:           pylint
 Release:        %autorelease
 Summary:        Analyzes Python code looking for bugs and signs of poor quality
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.pylint.org/
 Source0:        %{forgesource}
 #Patch0:         7829.patch apply when rebased then re-enable tests

@@ -1,6 +1,6 @@
 Name:           libconfuse
 Version:        3.3
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A configuration file parser library
 
 License:        ISC
@@ -86,6 +86,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/doc/confuse
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3-9
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

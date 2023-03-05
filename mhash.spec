@@ -4,9 +4,9 @@
 Summary: Thread-safe hash algorithms library
 Name: mhash
 Version: 0.9.9.9
-Release: 27%{?dist}
+Release: 28%{?dist}
 URL: http://mhash.sourceforge.net/
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Source: http://downloads.sourceforge.net/mhash/mhash-%{version}.tar.bz2
 Patch2: mhash-0.9.9.9-align.patch
 Patch3: mhash-0.9.9.9-force64bit-tiger.patch
@@ -119,6 +119,9 @@ make check
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.9.9-28
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.9.9-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

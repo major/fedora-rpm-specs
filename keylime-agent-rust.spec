@@ -61,6 +61,8 @@ Patch2:         rust-keylime-config-separator.patch
 ## Patches for building from bundled Rust libraries (RHEL)
 # Build tss-esapi extension from source (upstream commit)
 Patch100:       rust-keylime-metadata-bundled.patch
+# fix tss-esapi build with tpm2-tss v4
+Patch101:       rust-keylime-vendor-tpm-tss-v4.patch
 
 ExclusiveArch:  %{rust_arches}
 
@@ -94,9 +96,9 @@ Rust agent for Keylime
 %prep
 %autosetup -n rust-keylime-%{version} -N
 %if 0%{?bundled_rust_deps}
-%autopatch -m 100 -p1
 # Source1 is vendored dependencies
 %cargo_prep -V 1
+%autopatch -m 100 -p1
 %else
 %autopatch -M 99 -p1
 %cargo_prep

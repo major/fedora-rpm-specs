@@ -1,17 +1,3 @@
-# Use systemd from F-15 / EL-7, else sysvinit
-%if 0%{?fedora} > 14 || 0%{?rhel} > 6
-%global use_systemd 1
-%global rundir /run
-%else
-%global use_systemd 0
-%global rundir %{_localstatedir}/run
-%endif
-
-# rundir (/var/run or /run) is on tmpfs from F-15 / EL-7
-%if 0%{?fedora} > 14 || 0%{?rhel} > 6
-%global rundir_tmpfs 1
-%endif
-
 # Milter header files package name
 %if 0%{?fedora} > 25 || 0%{?rhel} > 7
 %global milter_devel_package sendmail-milter-devel
@@ -32,7 +18,10 @@
 Summary:		Milter for greylisting, the next step in the spam control war
 Name:			milter-greylist
 Version:		4.6.4
-Release:		7%{?dist}
+Release:		8%{?dist}
+# License is like BSD-4-Clause but without the 4th clause
+# We use spamd.c but not queue.h
+# See READNE for details
 License:		BSD with advertising
 URL:			http://hcpnet.free.fr/milter-greylist/
 Source0:		ftp://ftp.espci.fr/pub/milter-greylist/milter-greylist-%{version}.tgz
@@ -44,12 +33,9 @@ Patch2:			milter-greylist-4.5.11-warning.patch
 Patch4:			ai_addrconfig.patch
 BuildRequires:		bison
 BuildRequires:		coreutils
+BuildRequires:		curl-devel
 BuildRequires:		flex
 BuildRequires:		gcc
-BuildRequires:		make
-BuildRequires:		m4
-BuildRequires:		sed
-BuildRequires:		curl-devel
 %if %{geoip_support}
 BuildRequires:		GeoIP-devel
 %endif
@@ -57,30 +43,20 @@ BuildRequires:		GeoIP-devel
 BuildRequires:		libmaxminddb-devel
 %endif
 BuildRequires:		libspf2-devel
+BuildRequires:		m4
+BuildRequires:		make
 BuildRequires:		%milter_devel_package
 BuildRequires:		perl-interpreter
-Requires(pre):		shadow-utils
-%if %{use_systemd}
+BuildRequires:		sed
+
+# Scriptlet dependencies
 BuildRequires:		systemd
-Requires(post):		/bin/systemctl
-Requires(preun):	/bin/systemctl
-Requires(postun):	/bin/systemctl
-Obsoletes:		milter-greylist-systemd < %{version}-%{release}
-Provides:		milter-greylist-systemd = %{version}-%{release}
-%else
-Requires(post):		/sbin/chkconfig
-Requires(preun):	/sbin/chkconfig
-Requires(preun):	initscripts
-Requires(postun):	initscripts
-Obsoletes:		milter-greylist-sysv < %{version}-%{release}
-Provides:		milter-greylist-sysv = %{version}-%{release}
-%endif
+Requires(pre):		shadow-utils
+%{?systemd_requires}
+
 %if %{maxminddb_support}
 Recommends:		geolite2-country
 %endif
-
-# Fix EL-6 compatibility (%%make_build only defined from EL-7, F-21 onwards)
-%{!?make_build:%global make_build make %{_smp_mflags}}
 
 %description
 Greylisting is a new method of blocking significant amounts of spam at
@@ -131,9 +107,9 @@ sed -i -e 's!/libresolv.a!/../../../no-such-lib.a!g' configure
 
 # Set socket/db/pidfile to be in FHS-compliant places
 for i in `find -type f`; do
-    sed -e 's|/var/milter-greylist/milter-greylist.sock|%{rundir}/milter-greylist/milter-greylist.sock|g;
+    sed -e 's|/var/milter-greylist/milter-greylist.sock|/run/milter-greylist/milter-greylist.sock|g;
 	    s|/var/milter-greylist/greylist.db|%{_localstatedir}/lib/milter-greylist/db/greylist.db|g;
-	    s|/var/milter-greylist/milter-greylist.pid|%{rundir}/milter-greylist.pid|g;
+	    s|/var/milter-greylist/milter-greylist.pid|/run/milter-greylist.pid|g;
 	   ' "$i" >"$i.tmp"
     cmp -s "$i" "$i.tmp" || cat "$i.tmp" >"$i"
     rm -f "$i".tmp
@@ -142,15 +118,9 @@ done
 
 %build
 # Harden the build if supported
-%if 0%{?fedora} > 15 || 0%{?rhel} > 6
 %global _hardened_build 1
-export CFLAGS="%{__global_cflags} -fno-strict-aliasing"
+export CFLAGS="%{__global_cflags} -fno-strict-aliasing -D_GNU_SOURCE"
 export LDFLAGS="-Wl,-z,now -Wl,-z,relro %{__global_ldflags} -Wl,--as-needed $LDLIBS"
-%else
-export CFLAGS="%{optflags} -fno-strict-aliasing"
-export LDFLAGS="-Wl,--as-needed $LDLIBS"
-%endif
-CFLAGS="$CFLAGS -D_GNU_SOURCE"
 %configure \
 	--disable-drac				\
 	--disable-rpath				\
@@ -171,30 +141,23 @@ CFLAGS="$CFLAGS -D_GNU_SOURCE"
 %{make_build} BINDIR=%{_sbindir}
 
 %install
-install -d -m 755 %{buildroot}{%{rundir}/milter-greylist,%{_localstatedir}/lib/milter-greylist/db}
+install -d -m 755 %{buildroot}{/run/milter-greylist,%{_localstatedir}/lib/milter-greylist/db}
 %{make_install} \
 	BINDIR=%{_sbindir} \
 	TEST=false \
 	USER="$(id -u)"
 
 # Create a dummy socket so we can %%ghost it and remove it on uninstall
-touch %{buildroot}%{rundir}/milter-greylist/milter-greylist.sock
+touch %{buildroot}/run/milter-greylist/milter-greylist.sock
 
 # Initscript
-%if %{use_systemd}
 install -D -p -m 0644 %{SOURCE20} %{buildroot}%{_unitdir}/milter-greylist.service
-%else
-install -D -p -m 755 rc-redhat.sh %{buildroot}%{_initddir}/milter-greylist
-touch %{buildroot}%{rundir}/milter-greylist.pid
-%endif
 
 # Make sure /run/milter-greylist is re-created at boot time if /run is on tmpfs
-%if 0%{?rundir_tmpfs}
 install -d -m 755 %{buildroot}%{_prefix}/lib/tmpfiles.d
 cat << EOF > %{buildroot}%{_prefix}/lib/tmpfiles.d/milter-greylist.conf
-d %{rundir}/milter-greylist 0710 root mail
+d /run/milter-greylist 0710 root mail
 EOF
-%endif
 
 %pre
 # Create account for milter-greylist to run as
@@ -205,72 +168,36 @@ getent passwd grmilter >/dev/null || \
 exit 0
 
 %post
-%if %{use_systemd}
-systemctl daemon-reload >/dev/null || 2>&1 :
-%endif
-if [ $1 -eq 1 ]; then
-	# Initial installation
-%if ! %{use_systemd}
-	chkconfig --add milter-greylist || :
-%endif
-%if 0%{?fedora} >= 18 || 0%{?rhel} >= 7
-	systemctl preset milter-greylist.service >/dev/null 2>&1 || :
-%endif
-fi
+%systemd_post milter-greylist.service
 
 %preun
-if [ $1 -eq 0 ]; then
-	# Package removal, not upgrade
-%if %{use_systemd}
-	systemctl --no-reload disable milter-greylist.service >/dev/null 2>&1 || :
-	systemctl stop milter-greylist.service >/dev/null 2>&1 || :
-%else
-	%{_initddir}/milter-greylist stop >/dev/null || :
-	chkconfig --del milter-greylist || :
-%endif
-fi
+%systemd_preun milter-greylist.service
 
 %postun
-%if %{use_systemd}
-systemctl daemon-reload >/dev/null || 2>&1 :
-%endif
-if [ $1 -ge 1 ]; then
-	# Package upgrade, not uninstall
-%if %{use_systemd}
-	systemctl try-restart milter-greylist.service >/dev/null || :
-%else
-	%{_initddir}/milter-greylist condrestart >/dev/null || :
-%endif
-fi
+%systemd_postun_with_restart milter-greylist.service
 
 %files
-%if 0%{?_licensedir:1}
 %license README
-%else
-%doc README
-%endif
 %doc ChangeLog README.fedora milter-greylist.m4
 %{_sbindir}/milter-greylist
 %attr(0640,root,grmilter) %verify(not mtime) %config(noreplace) %{_sysconfdir}/mail/greylist.conf
 %dir %attr(0751,grmilter,grmilter) %{_localstatedir}/lib/milter-greylist/
 %dir %attr(0770,root,grmilter) %{_localstatedir}/lib/milter-greylist/db/
-%dir %attr(0710,root,mail) %{rundir}/milter-greylist/
+%dir %attr(0710,root,mail) /run/milter-greylist/
 %{_mandir}/man5/greylist.conf.5*
 %{_mandir}/man8/milter-greylist.8*
-%ghost %{rundir}/milter-greylist/milter-greylist.sock
-
-%if 0%{?rundir_tmpfs}
+%ghost /run/milter-greylist/milter-greylist.sock
 %{_prefix}/lib/tmpfiles.d/milter-greylist.conf
-%endif
-
-%if %{use_systemd}
 %{_unitdir}/milter-greylist.service
-%else
-%{_initddir}/milter-greylist
-%ghost %{rundir}/milter-greylist.pid
-%endif
 
 %changelog
+* Fri Mar  3 2023 Paul Howarth <paul@city-fan.org> - 4.6.4-8
+- Use %%license unconditionally
+- Drop legacy SysV init support
+- Drop decade-old obsoletes/provides for milter-greylist-systemd
+- Unconditionally used hardened build
+- Use systemd scriptlet macros
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.6.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

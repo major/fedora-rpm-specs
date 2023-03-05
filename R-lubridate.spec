@@ -1,42 +1,38 @@
 %global packname lubridate
-%global packver  1.8.0
+%global packver  1.9.2
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Make dealing with dates a little easier
-
-License:          GPLv2+ and ASL 2.0
+License:          GPL-2.0-or-later-version
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:   R-methods
-# Imports:   R-generics, R-Rcpp >= 0.12.13
-# Suggests:  R-covr, R-knitr, R-testthat >= 2.1.0, R-vctrs >= 0.3.0, R-rmarkdown
+# Imports:   R-generics, R-timechange >= 0.1.1
+# Suggests:  R-covr, R-knitr, R-rmarkdown, R-testthat >= 2.1.0, R-vctrs >= 0.5.0
 # LinkingTo:
 # Enhances:
 
-BuildRequires:    cctz-devel
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-methods
 BuildRequires:    R-generics
-BuildRequires:    R-cpp11-devel >= 0.2.7
+BuildRequires:    R-timechange >= 0.1.1
 BuildRequires:    R-knitr
-BuildRequires:    R-testthat >= 2.1.0
-BuildRequires:    R-vctrs >= 0.3.0
 BuildRequires:    R-rmarkdown
+BuildRequires:    R-testthat >= 2.1.0
+BuildRequires:    R-vctrs >= 0.5.0
 
 %description
 Functions to work with date-times and time-spans: fast and user friendly
 parsing of date-time data, extraction and updating of components of a date-time
 (years, months, days, hours, minutes, and seconds), algebraic manipulation on
 date-time and time-span objects. The 'lubridate' package has a consistent and
-memorable syntax that makes working with dates easy and fun. Parts of the
-'CCTZ' source code, released under the Apache 2.0 License, are included in this
-package. See <https://github.com/google/cctz> for more details.
+memorable syntax that makes working with dates easy and fun.
 
 
 %prep
@@ -44,15 +40,6 @@ package. See <https://github.com/google/cctz> for more details.
 
 # Don't need coverage; it's not packaged either.
 sed -i 's/covr, //g' %{packname}/DESCRIPTION
-
-# Delete bundled cctz.
-rm -r %{packname}/src/cctz
-cat > %{packname}/src/Makevars << EOF
-CXX_STD = CXX11
-PKG_CPPFLAGS= -I. -I/usr/include/cctz
-PKG_LIBS= -lcctz
-EOF
-sed -i '/time_zone_if/d' %{packname}/src/update.cpp
 
 
 %build
@@ -91,6 +78,9 @@ rm %{buildroot}%{rlibdir}/%{packname}/cctz.sh
 
 
 %changelog
+* Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1.9.2-1
+- update to 1.9.2
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

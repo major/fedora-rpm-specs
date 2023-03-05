@@ -3,7 +3,7 @@
 Summary:	OpenGL Extension to GTK
 Name:		gtkglext
 Version:	1.2.0
-Release:	44%{?dist}
+Release:	45%{?dist}
 
 License:	GPL-2.0-or-later OR LGPL-2.0-or-later
 URL:		http://gtkglext.sourceforge.net/
@@ -13,6 +13,7 @@ Patch0:		0001-gtkglext-1.2.0-bz677457.patch
 Patch1:		0002-GCC-8-fixes.patch
 # HACK: Disable pangox features
 Patch2:		gtkglext-1.2.0-no-pangox.patch
+Patch3:		gtkglext-1.2.0-fedora-c99.patch
 
 BuildRequires:  gcc
 BuildRequires:	gtk2-devel
@@ -61,6 +62,7 @@ and developer docs for GtkGLExt.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1 -b .nopangox
+%patch3 -p1
 
 %build
 %configure --disable-gtk-doc --disable-static
@@ -88,6 +90,9 @@ rm -f $RPM_BUILD_ROOT%{_libdir}/*.la
 %doc %{_datadir}/gtk-doc/html/*
 
 %changelog
+* Thu Mar  2 2023 DJ Delorie <dj@redhat.com> - 1.2.0-45
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.0-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

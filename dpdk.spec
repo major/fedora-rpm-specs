@@ -9,8 +9,8 @@
 %global _vpath_builddir %{_vendor}-%{_target_os}-build
 
 Name: dpdk
-Version: 21.11.2
-Release: 3%{?dist}
+Version: 22.11.1
+Release: 1%{?dist}
 Epoch: 2
 URL: http://dpdk.org
 Source: https://fast.dpdk.org/rel/dpdk-%{version}.tar.xz
@@ -191,6 +191,9 @@ CFLAGS="$(echo %{optflags} -fcommon)" \
 %endif
 
 %changelog
+* Fri Mar 03 2023 Timothy Redaelli <tredaelli@redhat.com> - 2:22.11.1-1
+- Update to 22.11.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:21.11.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

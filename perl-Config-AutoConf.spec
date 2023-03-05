@@ -5,9 +5,9 @@
 
 Name:           perl-Config-AutoConf
 Version:        0.320
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        A module to implement some of AutoConf macros in pure Perl
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-AutoConf
 Source0:        https://cpan.metacpan.org/authors/id/A/AM/AMBS/Config-AutoConf-%{version}.tar.gz
 BuildArch:      noarch
@@ -72,6 +72,9 @@ a command, a library and similar.
 %{_mandir}/man3/*
 
 %changelog
+* Fri Mar 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.320-7
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.320-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,9 @@
 Name:       kst
 Version:    2.0.8
-Release:    42%{?dist}
+Release:    43%{?dist}
 Summary:    A data viewing program
 
-License:    GPLv3
+License:    GPL-3.0-only
 URL:        http://kst-plot.kde.org/
 Source0:    http://downloads.sourceforge.net/%{name}/Kst-%{version}.tar.gz
 # Fix calls to set_target_properties in KstMacros.cmake
@@ -173,6 +173,9 @@ rm -frv %{buildroot}%{_datadir}/{applnk,mimelink}/
 #%{_datadir}/services/kst/kstdata_dirfilesource.desktop
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.0.8-43
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -60,6 +60,7 @@ Requires: hwdata
 
 # External runtime checkers
 Recommends: aha
+Recommends: clinfo
 Recommends: egl-utils
 Recommends: fwupd
 Recommends: smartmontools

@@ -1,7 +1,7 @@
 Summary: Calm Window Manager by OpenBSD project
 Name: cwm
 Version: 7.1
-Release: 3%{?dist}
+Release: 4%{?dist}
 # The entire source code is licensed under ISC license,
 # except queue.h which is BSD
 License: ISC and BSD
@@ -32,9 +32,15 @@ provided by the original OpenBSD's project.
 cp -a %{SOURCE2} .
 
 %build
+# The Makefile provides a default CFLAGS but RPM overrides it, without
+# the -D_GNU_SOURCE
+%{set_build_flags}
+CFLAGS="$CFLAGS -D_GNU_SOURCE"
 make %{?_smp_mflags}
 
 %install
+%{set_build_flags}
+CFLAGS="$CFLAGS -D_GNU_SOURCE"
 make PREFIX=%{_prefix} DESTDIR=%{buildroot} install
 install -d %{buildroot}/%{_datadir}/xsessions
 install -m 644 %{SOURCE1} %{buildroot}/%{_datadir}/xsessions
@@ -48,6 +54,9 @@ install -m 644 %{SOURCE1} %{buildroot}/%{_datadir}/xsessions
 %{_mandir}/man5/*
 
 %changelog
+* Mon Feb 27 2023 DJ Delorie <dj@redhat.com> - 7.1-4
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

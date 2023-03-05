@@ -3,7 +3,7 @@
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name: vkBasalt
-Version: 0.3.2.8
+Version: 0.3.2.9
 Release: %autorelease
 Summary: Vulkan post processing layer
 

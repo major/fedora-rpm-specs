@@ -36,6 +36,10 @@ Patch2005:      0005-qt-tests-Make-sure-expiration-time-is-interpreted-as-unsign
 Patch2006:      0006-qt-tests-Make-test-pass-on-32-bit-systems.patch
 Patch2007:      0007-cpp-Fix-handling-of-no-key-or-invalid-time-situation.patch
 
+## temporary downstream fixes
+# Skip lang/qt/tests/t-remarks on gnupg 2.4+
+Patch3001:      1001-qt-skip-test-remarks-for-gnupg2-2.4.patch
+
 #BuildRequires:  autoconf
 #BuildRequires:  automake
 BuildRequires:  make

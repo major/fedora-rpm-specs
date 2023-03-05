@@ -1,9 +1,9 @@
 Name:           xbae
 Version:        4.60.4
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Motif matrix, caption and text input widgets
 # all the files are covered by the MIT license, except DebugUtil.c LGPLv2+
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://xbae.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/xbae/xbae-%{version}.tar.gz
 # this fixes the link of the example using Wcl, it shouldn't be of use
@@ -163,6 +163,9 @@ mv __dist_examples __dist_code_examples/code_examples
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.60.4-38
+- migrated to SPDX license
+
 * Thu Feb 16 2023 Florian Weimer <fweimer@redhat.com> - 4.60.4-37
 - Port configure script to C99
 

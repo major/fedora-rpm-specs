@@ -1,5 +1,5 @@
 Name:		libpaper
-Version:	2.0.9
+Version:	2.0.10
 Release:	1%{?dist}
 # Needed to replace separate paper package
 Epoch:		1
@@ -9,9 +9,6 @@ URL:		https://github.com/rrthomas/libpaper/
 Source0:	https://github.com/rrthomas/libpaper/archive/v%{version}/%{name}-%{version}.tar.gz
 # Pulled from paper
 Source1:	localepaper.c
-# Fix perl detection and arg quoting so that x-to-1 invokes properly
-# https://github.com/rrthomas/libpaper/pull/41
-Patch0:		libpaper-2.0.9-x-to-1-fix.patch
 
 # gcc is no longer in buildroot by default
 BuildRequires:  gcc
@@ -51,10 +48,12 @@ default paper size and give information about known sizes.
 %autosetup -S git
 cp %{SOURCE1} src/
 
+%if 0
 sed -i 's|gnulib_tool=$gnulib_path/gnulib-tool|gnulib_tool=%{_bindir}/gnulib-tool|g' bootstrap
 sed -i 's|./gnulib/gnulib-tool|%{_bindir}/gnulib-tool|g' bootstrap.conf
 sed -i '/doc\/INSTALL/d' bootstrap
 ./bootstrap --gnulib-srcdir=%{_datadir}/gnulib/ --skip-git
+%endif
 
 %build
 %configure --disable-static
@@ -108,6 +107,9 @@ install -m0755 src/localepaper %{buildroot}%{_libexecdir}
 %{_mandir}/man5/*
 
 %changelog
+* Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 1:2.0.10-1
+- update to 2.0.10
+
 * Thu Feb 23 2023 Tom Callaway <spot@fedoraproject.org> - 1:2.0.9-1
 - update to 2.0.9
 

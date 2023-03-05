@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:           libebur128
 Version:        1.2.6
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        A library that implements the EBU R 128 standard for loudness normalization
 License:        MIT
 URL:            https://github.com/jiixyj/%{name}
@@ -57,6 +57,9 @@ find %{buildroot} -name '*.a' -delete
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.6-6
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.6-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

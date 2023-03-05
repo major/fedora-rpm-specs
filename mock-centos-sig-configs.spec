@@ -1,6 +1,6 @@
 Name:           mock-centos-sig-configs
-Version:        0.5.1
-Release:        2%{?dist}
+Version:        0.5.2
+Release:        1%{?dist}
 Summary:        Mock configs for CentOS SIGs
 
 License:        MIT
@@ -38,6 +38,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/mock/templates
 %config(noreplace) %{_sysconfdir}/mock/templates/*.tpl
 
 %changelog
+* Fri Mar 03 2023 Michel Alexandre Salim <salimma@fedoraproject.org> - 0.5.2-1
+- Update to 0.5.2; fixes centos-stream-hyperscale-spin-9.tpl
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

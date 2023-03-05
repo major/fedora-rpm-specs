@@ -57,6 +57,12 @@
 %global LASI   0
 %endif
 
+%if %{GTS} && %{with gtk2}
+%global SMYRNA 1
+%else
+%global SMYRNA 0
+%endif
+
 %if %{with php}
 %global PHP 1
 %else
@@ -181,8 +187,10 @@ BuildRequires:		libgs-devel
 BuildRequires:		make
 BuildRequires:		poppler-glib-devel
 BuildRequires:		freeglut-devel
+%if %{SMYRNA}
 BuildRequires:		libglade2-devel
 BuildRequires:		gtkglext-devel
+%endif
 %if %{without bootstrap}
 BuildRequires:		doxygen
 %endif
@@ -234,7 +242,7 @@ Summary:		PDF and HTML documents for graphviz
 %description doc
 Provides some additional PDF and HTML documentation for graphviz.
 
-%if %{GTS}
+%if %{SMYRNA}
 %package smyrna
 Summary:		Graphviz interactive graph viewer
 
@@ -427,8 +435,17 @@ export CPPFLAGS=-I`ruby -e "puts File.join(RbConfig::CONFIG['includedir'], RbCon
 %if ! %{LASI}
 	--without-lasi \
 %endif
+%if %{without gtk2}
+	--without-gtk \
+	--without-gtkgl \
+	--without-gtkglext \
+	--without-glade \
+%endif
 %if ! %{GTS}
 	--without-gts \
+%endif
+%if ! %{SMYRNA}
+	--without-smyrna \
 %endif
 %if ! %{SHARP}
 	--disable-sharp \
@@ -599,7 +616,7 @@ php --no-php-ini \
 
 %files
 %doc %{_docdir}/%{name}
-%if %{GTS}
+%if %{SMYRNA}
 %exclude %{_bindir}/smyrna
 %exclude %{_mandir}/man1/smyrna.1*
 %endif
@@ -623,8 +640,10 @@ php --no-php-ini \
 
 %exclude %{_libdir}/graphviz/*/*
 %exclude %{_libdir}/graphviz/libgvplugin_gd.*
+%if %{with gtk2}
 %exclude %{_libdir}/graphviz/libgvplugin_gtk.*
 %exclude %{_libdir}/graphviz/libgvplugin_gdk.*
+%endif
 %if %{DEVIL}
 %exclude %{_libdir}/graphviz/libgvplugin_devil.*
 %endif
@@ -650,7 +669,7 @@ php --no-php-ini \
 %doc %{_docdir}/%{name}/*.pdf
 %doc %{_docdir}/%{name}/demo
 
-%if %{GTS}
+%if %{SMYRNA}
 %files smyrna
 %{_bindir}/smyrna
 %{_datadir}/%{name}/smyrna

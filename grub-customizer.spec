@@ -1,6 +1,6 @@
 Name:           grub-customizer
 Version:        5.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Graphical GRUB2 settings manager
 
 License:        GPL-3.0-or-later
@@ -38,7 +38,7 @@ configuration, this application will only edit the script order and generate
 proxies (script output filter), if required.
 
 %prep
-%setup -q
+%autosetup
 
 
 %build
@@ -49,17 +49,14 @@ proxies (script output filter), if required.
 %install
 %cmake_install
 
-desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
-
 mkdir -p %{buildroot}%{_sysconfdir}/%{name}
 install -m 0644 %{SOURCE1} %{buildroot}%{_sysconfdir}/%{name}/grub.cfg
 
 %find_lang %{name}
 
-%post
-if [ -e /sys/firmware/efi ] ; then
-    sed -i 's|/boot/grub2|/boot/efi/EFI/fedora|g' %{_sysconfdir}/%{name}/grub.cfg
-fi
+%check
+desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
+
 
 %files -f %{name}.lang
 %doc README changelog
@@ -74,6 +71,9 @@ fi
 
 
 %changelog
+* Fri Mar 03 2023 Vasiliy N. Glazov <vascom2@gmail.com> 5.2.2-3
+- Fix #2174582
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

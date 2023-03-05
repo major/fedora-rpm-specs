@@ -1,8 +1,8 @@
 Name:             gawk-json
 Summary:          JSON encoder/decoder for gawk
 Version:          1.0.2
-Release:          12%{?dist}
-License:          GPLv3+
+Release:          13%{?dist}
+License:          GPL-3.0-or-later
 
 URL:              https://sourceforge.net/projects/gawkextlib
 Source:           %{url}/files/%{name}-%{version}.tar.gz
@@ -58,6 +58,9 @@ make check
 # =============================================================================
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.2-13
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

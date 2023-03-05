@@ -1,9 +1,9 @@
 Name: cfdg
 Version:  3.3
-Release:  13%{?dist}
+Release:  14%{?dist}
 Summary: Context Free Design Grammar
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://www.contextfreeart.org/
 
 Source0: http://www.contextfreeart.org/download/ContextFreeSource%{version}.tgz
@@ -40,6 +40,9 @@ install -D -m 755 cfdg %{buildroot}%{_bindir}/cfdg
 %doc input/* README
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3-14
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 10
+%global openssh_rel 11
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -74,6 +74,8 @@ Source15: sshd-keygen.target
 Source16: ssh-agent.service
 Source17: ssh-agent.socket
 Source19: openssh-server-systemd-sysusers.conf
+Source20: ssh-host-keys-migration.sh
+Source21: ssh-host-keys-migration.service
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
 Patch100: openssh-6.7p1-coverity.patch
@@ -582,6 +584,10 @@ install -m755 contrib/ssh-copy-id $RPM_BUILD_ROOT%{_bindir}/
 install contrib/ssh-copy-id.1 $RPM_BUILD_ROOT%{_mandir}/man1/
 install -d -m711 ${RPM_BUILD_ROOT}/%{_datadir}/empty.sshd
 install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/openssh-server.conf
+# Migration service/script for Fedora 38 change to remove group ownership for standard host keys
+# See https://fedoraproject.org/wiki/Changes/SSHKeySignSuidBit
+install -m744 %{SOURCE20} $RPM_BUILD_ROOT/%{_libexecdir}/openssh/ssh-host-keys-migration.sh
+install -m644 %{SOURCE21} $RPM_BUILD_ROOT/%{_unitdir}/ssh-host-keys-migration.service # enabled in 90-default.preset
 
 %if ! %{no_gnome_askpass}
 install contrib/gnome-ssh-askpass $RPM_BUILD_ROOT%{_libexecdir}/openssh/gnome-ssh-askpass
@@ -608,13 +614,16 @@ popd
 
 %pre server
 %sysusers_create_compat %{SOURCE19}
-# Migration scriptlet for Fedora 38/39
-# We want to remove group ownership for standard host keys if they exist
-test -f /etc/ssh/ssh_host_rsa_key     && /usr/bin/chmod g-r /etc/ssh/ssh_host_rsa_key     || :
-test -f /etc/ssh/ssh_host_ecdsa_key   && /usr/bin/chmod g-r /etc/ssh/ssh_host_ecdsa_key   || :
-test -f /etc/ssh/ssh_host_ed25519_key && /usr/bin/chmod g-r /etc/ssh/ssh_host_ed25519_key || :
 
 %post server
+if [ $1 -gt 1 ]; then
+    # In the case of an upgrade (never true on OSTree systems) run the migration
+    # script for Fedora 38 to remove group ownership for host keys.
+    %{_libexecdir}/openssh/ssh-host-keys-migration.sh
+    # Prevent the systemd unit that performs the same service (useful for
+    # OSTree systems) from running.
+    touch /var/lib/.ssh-host-keys-migration
+fi
 %systemd_post sshd.service sshd.socket
 # Migration scriptlet for Fedora 31 and 32 installations to sshd_config
 # drop-in directory (in F32+).
@@ -699,6 +708,8 @@ test -f %{sysconfig_anaconda} && \
 %attr(0644,root,root) %{_unitdir}/sshd-keygen@.service
 %attr(0644,root,root) %{_unitdir}/sshd-keygen.target
 %attr(0644,root,root) %{_sysusersdir}/openssh-server.conf
+%attr(0644,root,root) %{_unitdir}/ssh-host-keys-migration.service
+%attr(0744,root,root) %{_libexecdir}/openssh/ssh-host-keys-migration.sh
 
 %files keycat
 %doc HOWTO.ssh-keycat
@@ -720,7 +731,11 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
-* Fri Dec 02 2022 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-10
+* Wed Mar 01 2023 Dusty Mabe <dusty@dustymabe.com> - 9.0p1-11
+- Provide a systemd unit for restoring default host key permissions (rhbz#2172956)
+- Co-Authored by Timothée Ravier <tim@siosm.fr>
+
+* Mon Jan 23 2023 Dmitry Belyavskiy <dbelyavs@redhat.com> - 9.0p1-10
 - Restore upstream behaviour and default host key permissions (rhbz#2141272)
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0p1-9.1

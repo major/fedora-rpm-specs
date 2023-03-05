@@ -1,10 +1,10 @@
 %define _hardened_build 1
 Name:           funionfs
 Version:        0.4.3
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Union filesystem in userspace
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://funionfs.apiou.org
 Source0:	http://funionfs.apiou.org/file/%{name}-%{version}.tar.gz
 
@@ -38,6 +38,9 @@ make DESTDIR=%{buildroot} install
 
 
 %changelog
+* Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.4.3-32
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

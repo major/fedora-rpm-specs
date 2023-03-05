@@ -2,7 +2,7 @@ Name:           perl-Text-Aligner
 Version:        0.16
 Release:        10%{?dist}
 Summary:        Text::Aligner Perl module
-License:        ICS
+License:        ISC
 URL:            https://metacpan.org/release/Text-Aligner
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/Text-Aligner-%{version}.tar.gz
 BuildArch:      noarch
@@ -14,7 +14,6 @@ BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
-BuildRequires:  sed
 # Run-time
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Term::ANSIColor) >= 2.02
@@ -39,7 +38,7 @@ alignment.
 %prep
 %setup -q -n Text-Aligner-%{version}
 rm -r inc
-sed -i -e '/^inc\// d' MANIFEST
+perl -i -ne 'print $_ unless m{^inc/}' MANIFEST
 find -type f -exec chmod -x {} +
 
 %build
