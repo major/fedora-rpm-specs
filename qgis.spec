@@ -1,7 +1,7 @@
 #TODO: Run test suite (see debian/rules)
 
 Name:           qgis
-Version:        3.28.3
+Version:        3.30.0
 Release:        1%{?dist}
 Summary:        A user friendly Open Source Geographic Information System
 
@@ -70,6 +70,7 @@ BuildRequires:  qt5-qt3d-devel
 BuildRequires:  qt5-qtbase-private-devel
 BuildRequires:  qt5-qtdeclarative-devel
 BuildRequires:  qt5-qtlocation-devel
+BuildRequires:  qt5-qtmultimedia-devel
 BuildRequires:  qt5-qtserialport-devel
 BuildRequires:  qt5-qttools-static
 BuildRequires:  qt5-qtwebkit-devel
@@ -304,6 +305,9 @@ rm -f %{buildroot}%{_prefix}/lib/liboauth2authmethod_static.a
 
 
 %changelog
+* Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 3.30.0-1
+- Update to 3.30.0
+
 * Fri Jan 27 2023 Sandro Mani <manisandro@gmail.com> - 3.28.3-1
 - Update to 3.28.3
 

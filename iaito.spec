@@ -8,6 +8,12 @@ VCS:            https://github.com/radareorg/iaito/
 #               https://github.com/radareorg/iaito/releases
 #               https://github.com/radareorg/iaito-translations/
 
+%if 0%{?fedora} && 0%{?fedora} == 36
+# there is issue on F36 with the missing note file
+# https://bugzilla.redhat.com/show_bug.cgi?id=2043178
+%undefine _package_note_file
+%endif
+
 
 # by default it builds from the released version of radare2
 # to build from git use rpmbuild --without=releasetag

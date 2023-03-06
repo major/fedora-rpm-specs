@@ -2,7 +2,7 @@
 
 Name:           babeld
 Version:        1.12.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ad-hoc network routing daemon
 
 License:        MIT
@@ -58,6 +58,9 @@ install -Dp -m 0644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/logrotate.d/babeld
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.2-2
+- migrated to SPDX license
+
 * Tue Feb 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.2-1
 - 1.12.2
 

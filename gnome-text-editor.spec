@@ -6,7 +6,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-text-editor
-Version:	44~beta
+Version:	44~rc
 Release:	1%{?dist}
 Summary:	A simple text editor for the GNOME desktop
 
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.TextEditor.
 
 
 %changelog
+* Sat Mar 04 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

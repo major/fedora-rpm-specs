@@ -6,7 +6,7 @@
 
 Name:           python-%{modname}
 Version:        0.1
-Release:        25%{?dist}
+Release:        26%{?dist}
 Summary:        Lightweight library to build and train neural networks in Theano
 
 License:        MIT
@@ -77,6 +77,9 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' examples/*.py
 %{python3_sitelib}/%{srcname}-%{version}-*.egg-info/
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1-26
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

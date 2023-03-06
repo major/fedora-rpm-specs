@@ -1,6 +1,6 @@
 Name:		freedink
 Version:	109.6
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Humorous top-down adventure and role-playing game
 
 BuildRequires:	gcc-c++
@@ -13,7 +13,7 @@ BuildRequires:	desktop-file-utils
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/AppData/
 BuildRequires:	libappstream-glib
 BuildRequires: make
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://www.gnu.org/software/freedink/
 Source0:	https://ftp.gnu.org/gnu/freedink/freedink-%{version}.tar.gz
 Patch0:         sdl-android.patch
@@ -110,6 +110,9 @@ rm $RPM_BUILD_ROOT%{_datadir}/%{name}/LiberationSans-Regular.ttf
 
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 109.6-12
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 109.6-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

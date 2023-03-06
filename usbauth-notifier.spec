@@ -1,6 +1,8 @@
 #
 # spec file for package usbauth-notifier
 #
+# Copyright (c) 2020 SUSE LLC
+# Copyright (c) 2019 SUSE LLC
 # Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
 # Copyright (c) 2017-2018 Stefan Koch <stefan.koch10@gmail.com>
 # Copyright (c) 2015 SUSE LLC. All Rights Reserved.
@@ -15,72 +17,69 @@
 # license that conforms to the Open Source Definition (Version 1.9)
 # published by the Open Source Initiative.
 
-# Please submit bugfixes or comments via http://bugs.opensuse.org/
+# Please submit bugfixes or comments via https://bugs.opensuse.org/
 #
 
 
 Name:           usbauth-notifier
-Version:        1.0.2
+Version:        1.0.4
 Summary:        Notifier for USB Firewall to use with desktop environments
-Url:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth-notifier
+URL:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth-notifier
+Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        8%{?dist}
+Release:        1%{?dist}
 License:        GPLv2
 
-# Generate a source tarball:
-# git clone https://github.com/kochstefan/usbauth-all.git
-# cd usbauth-all
-# git checkout vVERSION
-# tar cvfj usbauth-notifier-VERSION.tar.bz2 usbauth-notifier
-Source0:        %{name}-%{version}.tar.bz2
-
+Requires(pre):  shadow-utils
 Requires:       usbauth
-BuildRequires: make
-BuildRequires:  gcc
 BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(libudev)
+BuildRequires:  libusbauth-configparser-devel
+BuildRequires:  gcc
 BuildRequires:  libnotify-devel
 BuildRequires:  libtool
-BuildRequires:  libudev-devel
-BuildRequires:  libusbauth-configparser-devel
-
-Requires(pre):  shadow-utils
 BuildRequires:  gettext-devel
 BuildRequires:  pkgconfig
 
 %description
-A notifier for the usbauth firewall against BadUSB attacks.
-The user could manually allow or deny USB devices.
+A notifier for the usbauth firewall against BadUSB attacks. The user could manually allow or deny USB devices.
 
 %prep
-%setup -q -n %{name}
+%autosetup -n usbauth-all-%{version} -p1
 
 %build
+pushd %{name}/
 autoreconf -f -i
 %configure
 %make_build
+popd
 
 %pre
-getent group usbauth >/dev/null || groupadd -r usbauth
-getent group usbauth-notifier >/dev/null || groupadd -r usbauth-notifier
-exit 0
+if ! getent group usbauth>/dev/null; then groupadd -r usbauth; fi
+if ! getent group usbauth-notifier>/dev/null; then groupadd -r usbauth-notifier; fi
 
 %install
+pushd %{name}/
 %make_install
 %find_lang %name
+popd
 
 %files -f %name.lang
-%license COPYING
-%doc README
+%license %{name}/COPYING
+%doc %{name}/README
+doc %_mandir/man1/usbauth-notifier.1*
+doc %_mandir/man1/usbauth-npriv.1*
 %dir %_sysconfdir/xdg/autostart
 %_sysconfdir/xdg/autostart/usbauth-notifier.desktop
 %attr(04750,root,usbauth) %_libexecdir/usbauth-npriv
 %dir %attr(00750,root,usbauth-notifier) %_libexecdir/usbauth-notifier
 %attr(02755,root,usbauth) %_libexecdir/usbauth-notifier/usbauth-notifier
-%_mandir/man1/usbauth-notifier.1*
-%_mandir/man1/usbauth-npriv.1*
 
 
 %changelog
+* Sat Mar 04 2023 stefan.koch10@gmail.com - 1.0.5-1
+- update to v1.0.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.2-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

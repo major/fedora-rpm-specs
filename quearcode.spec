@@ -1,9 +1,9 @@
 Name:           quearcode
 Version:        0.2.7
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A tool for creating QR Codes
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://codeberg.org/gwync/quearcode
 Source0:        https://codeberg.org/gwync/quearcode/archive/%{version}.tar.gz
 Source1:        quearcode.desktop
@@ -49,6 +49,9 @@ desktop-file-install \
 %{python3_sitelib}/quearcode-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.7-4
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

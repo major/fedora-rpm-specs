@@ -1,9 +1,9 @@
 Name:           python-dotenv
 Version:        0.21.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Read key-value pairs from a .env file and set them as environment variables
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/theskumar/python-dotenv
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -63,6 +63,9 @@ sed -i -e '/ipython/d' requirements.txt tox.ini
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.1-3
+- migrated to SPDX license
+
 * Tue Feb 07 2023 Miro Hrončok <mhroncok@redhat.com> - 0.21.1-2
 - Drop unwanted build dependency on pytest-cov
 

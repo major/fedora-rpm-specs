@@ -1,9 +1,9 @@
 Name: gnome-doc-utils
 Version: 0.20.10
-Release: 31%{?dist}
+Release: 32%{?dist}
 Summary: Documentation utilities for GNOME
 
-License: GPLv2+ and LGPLv2+ and GFDL
+License: LGPL-2.1-or-later AND GPL-2.0-or-later AND GFDL-1.1-or-later
 URL:     https://wiki.gnome.org/Projects/GnomeDocUtils
 Source:  https://download.gnome.org/sources/%{name}/0.20/%{name}-%{version}.tar.xz
 #VCS: git:git://git.gnome.org/gnome-doc-utils
@@ -43,7 +43,7 @@ all auxiliary files in your source tree.
 # note that this is an "inverse dependency" subpackage
 %package stylesheets
 Summary: XSL stylesheets used by gnome-doc-utils
-License: LGPLv2+
+License: LGPL-2.0-or-later
 # for the validation with xsltproc to use local dtds
 Requires: docbook-dtds
 # for /usr/share/pkgconfig
@@ -90,6 +90,9 @@ sed -i -e '/^Requires:/d' %{buildroot}%{_datadir}/pkgconfig/xml2po.pc
 %{_datadir}/xml/mallard
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.20.10-32
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.20.10-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

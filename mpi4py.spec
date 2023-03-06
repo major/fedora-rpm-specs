@@ -20,10 +20,10 @@
 
 Name:           mpi4py
 Version:        3.1.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Python bindings of the Message Passing Interface (MPI)
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://mpi4py.readthedocs.io/en/stable/
 Source0:        https://github.com/mpi4py/mpi4py/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -229,6 +229,9 @@ mv build mpich
 
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.4-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

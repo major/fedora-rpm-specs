@@ -1,10 +1,10 @@
 %define beta_version 4
 Name:           vbindiff
 Version:        3.0 
-Release:        0.29.beta%{beta_version}%{?dist}
+Release:        0.30.beta%{beta_version}%{?dist}
 Summary:        Visual binary diff
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.cjmweb.net/%{name}/
 Source0:        http://www.cjmweb.net/%{name}/%{name}-%{version}_beta%{beta_version}.tar.gz
 # 2013-10-25: Submitted upstream: https://github.com/madsen/vbindiff/pull/3
@@ -51,6 +51,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0-0.30.beta4
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0-0.29.beta4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

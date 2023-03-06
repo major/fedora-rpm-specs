@@ -1,5 +1,5 @@
 %global proj_version 9.0.0
-%global data_version 1.12
+%global data_version 1.13
 
 # The name is special so that rpmdev-bumpspec will bump this rather than adding .1 to the end
 %global baserelease 4
@@ -12,7 +12,7 @@
 
 Name:           proj
 # Also check whether there is a new proj-data release when upgrading!
-Version:        9.1.1
+Version:        9.2.0
 Release:        1%{?dist}
 Summary:        Cartographic projection software (PROJ)
 
@@ -89,6 +89,7 @@ Requires:       proj-data-nl
 Requires:       proj-data-pl
 Requires:       proj-data-pt
 Requires:       proj-data-se
+Requires:       proj-data-si
 Requires:       proj-data-sk
 Requires:       proj-data-uk
 
@@ -192,6 +193,7 @@ Supplements:  proj\
 %data_subpkg -c pt -n Portugal
 %data_subpkg -c se -n Sweden
 %data_subpkg -c sk -n Slovakia
+%data_subpkg -c si -n Slovenia
 %data_subpkg -c uk -n %{quote:United Kingdom}
 %data_subpkg -c us -n %{quote:United States}
 %data_subpkg -c za -n %{quote:South Africa}
@@ -306,7 +308,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 %files -n mingw32-%{name}
 %license COPYING
-%{mingw32_bindir}/libproj_9_1.dll
+%{mingw32_bindir}/libproj_9_2.dll
 %{mingw32_bindir}/*.exe
 %{mingw32_libdir}/libproj.dll.a
 %{mingw32_libdir}/cmake/proj/
@@ -318,7 +320,7 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 %files -n mingw64-%{name}
 %license COPYING
-%{mingw64_bindir}/libproj_9_1.dll
+%{mingw64_bindir}/libproj_9_2.dll
 %{mingw64_bindir}/*.exe
 %{mingw64_libdir}/libproj.dll.a
 %{mingw64_libdir}/cmake/proj/
@@ -330,6 +332,9 @@ rm -rf %{buildroot}%{mingw64_mandir}
 
 
 %changelog
+* Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 9.2.0-1
+- Update to 9.2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.1.1-1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

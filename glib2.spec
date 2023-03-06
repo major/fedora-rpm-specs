@@ -1,9 +1,9 @@
 Name:    glib2
-Version: 2.75.3
+Version: 2.75.4
 Release: %autorelease
 Summary: A library of handy utility functions
 
-License: LGPLv2+
+License: LGPL-2.1-or-later
 URL:     https://www.gtk.org
 Source0: https://download.gnome.org/sources/glib/2.75/glib-%{version}.tar.xz
 

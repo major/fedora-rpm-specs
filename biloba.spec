@@ -1,9 +1,9 @@
 Name:           biloba
 Version:        0.9.3
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        A tactical board game
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://biloba.sourceforge.net
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        biloba.desktop
@@ -91,6 +91,9 @@ desktop-file-install                    \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.3-28
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.3-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

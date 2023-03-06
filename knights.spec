@@ -2,11 +2,11 @@
 
 Name:		knights
 Version:	22.12.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A chess board for KDE
 
 # KDE e.V. may determine that future GPL versions are accepted
-License: GPLv2 or GPLv3
+License: GPL-2.0-only OR GPL-3.0-only
 URL:     https://invent.kde.org/games/knights
 
 %global stable %stable_kf5
@@ -67,6 +67,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.knights.d
 %{_datadir}/knsrcfiles/knights.knsrc
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 22.12.3-2
+- migrated to SPDX license
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 22.12.3-1
 - 22.12.3
 

@@ -57,6 +57,8 @@ Documentation for nbconvert
 %autosetup -p1 -n %{pypi_name}-%{version}
 rm -rf %{pypi_name}.egg-info
 echo "nbsphinx_allow_errors = True" >> docs/source/conf.py
+# Remove coverage testing
+sed -i '/"pytest-cov",/d' pyproject.toml
 # Packages not available in Fedora
 sed -i '/"pytest-dependency",/d' pyproject.toml
 sed -i '/pyppeteer/d' pyproject.toml

@@ -1,9 +1,9 @@
 Name:       bristol
 Version:    0.60.11
-Release:    23%{dist}
+Release:    24%{dist}
 Summary:    Synthesizer emulator
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        http://bristol.sourceforge.net
 Source0:    http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:    %{name}.desktop
@@ -82,6 +82,9 @@ desktop-file-install \
 %{_libdir}/lib*.so
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.60.11-24
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.60.11-23
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

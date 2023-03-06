@@ -3,10 +3,10 @@
 
 Name: vdrift
 Version:  20141020
-Release:  28.git%{shortcommit}%{?dist}
+Release:  29.git%{shortcommit}%{?dist}
 Summary: Driving/drift racing simulation
 
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: http://vdrift.net
 Source0: https://github.com/VDrift/vdrift/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Source1: vdrift.desktop
@@ -144,6 +144,9 @@ EOF
 %{_datadir}/vdrift
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 20141020-29.git5ae309f
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20141020-28.git5ae309f
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

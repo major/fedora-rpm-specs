@@ -1,9 +1,9 @@
 Name:		freedink-data
 Version:	1.08.20190120
-Release:	10%{?dist}
+Release:	11%{?dist}
 Summary:	Adventure and role-playing game (assets)
 
-License:	zlib and CC-BY-SA and (GPLv3+ or Free Art or CC-BY-SA) and OAL and Public Domain and CC-BY and GPLv2+
+License:	Zlib AND CC-BY-SA-3.0 AND GPL-2.0-or-later
 URL:		https://www.gnu.org/software/freedink/
 Source0:	https://ftp.gnu.org/gnu/freedink/%{name}-%{version}.tar.gz
 BuildArch:	noarch
@@ -42,6 +42,9 @@ make install PREFIX=%{_prefix} DESTDIR=%{buildroot}
 
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.08.20190120-11
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.08.20190120-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

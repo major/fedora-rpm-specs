@@ -72,8 +72,9 @@ rm -f  %{buildroot}/%{_libdir}/libscalpel*.la
 %{_bindir}/%{name}
 %{_bindir}/libscalpel_test
 %{_mandir}/man1/%{name}.1*
+%ifarch %{java_arches}
 %{_libdir}/libscalpel*.so*
-
+%endif
 
 %changelog
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-0.rc2.35e1367.1

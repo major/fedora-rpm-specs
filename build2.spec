@@ -27,11 +27,12 @@ Source100:      https://pkg.cppget.org/1/beta/odb/libodb-%{libodb_bundle_version
 Source101:      https://pkg.cppget.org/1/beta/odb/libodb-sqlite-%{libodb_bundle_version}.tar.gz
 %endif
 
-# Disable some C++ modules tests for PPC64LE because GCC has issues linking C++
-# modules on PPC64LE:
-# driver.cxx:(.text+0x88): unresolvable R_PPC64_REL24 against `_ZGIW3foo4coreEv'
-# /usr/bin/ld: final link failed: bad value
-Patch0100:      build2-disable-test-cc-modules-ppc64le.patch
+# Upstream https://git.build2.org/cgit/build2/commit/?id=343d6e69e412166cfc21f268a51b692cb0201653
+Patch0000:      libbuild2-libpkgconf-error_handler-non-const-data.patch
+# Upstream https://git.build2.org/cgit/build2/commit/?id=417be15231cb34a2e858d26b63406d1fb5535cb9
+Patch0001:      libbuild2-cxx23-aligned_storage-deprecation.patch
+# Upstream https://git.build2.org/cgit/bpkg/commit/?id=a97b12a027546b37f66d3e08064f92f5539cf79e
+Patch3000:      bpkg-git-v2.38.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  libpkgconf-devel
@@ -131,13 +132,14 @@ Summary:        %{name} utility library
 # BSD-2-Clause:
 #   libbutl/lz4.{c,h}
 #   libbutl/lz4hc.{c,h}
+#   libbutl/mingw-*.hxx
 #   libbutl/sha256c.c
 #   libbutl/strptime.c
 #   libbutl/timelocal.{c,h}
 #   libbutl/xxhash.{c,h}
 # BSD-3-Clause:
 #   libbutl/sha1.c
-License:        MIT and BSD
+License:        MIT AND BSD-2-Clause AND BSD-3-Clause
 Requires:       curl
 Requires:       openssl
 
@@ -146,7 +148,7 @@ This package contains the %{name} utility library.
 
 %package -n     libbutl-devel
 Summary:        Development files for %{name} utility library
-License:        MIT and BSD
+License:        MIT AND BSD-2-Clause AND BSD-3-Clause
 Requires:       libbutl%{?_isa} = %{version}-%{release}
 Requires:       pkgconfig
 
@@ -157,7 +159,7 @@ developing applications that use libbutl.
 %if %{with static}
 %package -n     libbutl-static
 Summary:        Static libraries for %{name} utility library
-License:        MIT and BSD
+License:        MIT AND BSD-2-Clause AND BSD-3-Clause
 Requires:       libbutl-devel%{?_isa} = %{version}-%{release}
 
 %description -n libbutl-static
@@ -262,11 +264,13 @@ This package contains the %{name} RPM macros.
 %else
 %setup -q -c -n %{name}-toolchain-%{version} -a 1 -a 2 -a 3 -a 4 -a 100 -a 101
 %endif
-%ifarch ppc64le
 pushd %{name}-%{version}
-%patch -p 1 -P 0100
+%patch -p 1 -P 0000
+%patch -p 1 -P 0001
 popd
-%endif
+pushd bpkg-%{version}
+%patch -p 1 -P 3000
+popd
 mv libbutl-%{version} %{name}-%{version}
 
 %build
@@ -636,6 +640,10 @@ b test:                                                                         
 %{_rpmmacrodir}/macros.%{name}
 
 %changelog
+* Sat Mar  4 2023 Matthew Krupcale <mkrupcale@matthewkrupcale.com> - 0.15.0-2
+- Add and remove required patches for Fedora 38
+- Use SPDX license expressions
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

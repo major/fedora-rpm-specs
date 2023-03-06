@@ -1,5 +1,5 @@
-%global DATE 20230221
-%global gitrev 467eb8130c9dab8ce72a4f6f39437c1ff382a90c
+%global DATE 20230304
+%global gitrev 1ae5227bd538f0ad8e5dbda14bde96d1c1db6f55
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.5%{?dist}
+Release: %{gcc_release}.6%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -3458,6 +3458,33 @@ end
 %endif
 
 %changelog
+* Sat Mar  4 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.6
+- update from trunk
+  - PRs ada/108909, analyzer/107565, analyzer/108830, analyzer/108935,
+	analyzer/108968, analyzer/109016, c++/100127, c++/105224, c++/105839,
+	c++/106259, c++/107574, c++/107938, c++/108218, c++/108219,
+	c++/108550, c++/108606, c++/108702, c++/108848, c++/108934,
+	c++/108998, c/107465, c/107846, c/108880, c/108986, d/108167,
+	d/108763, d/108877, d/108945, d/108946, debug/108716, debug/108772,
+	debug/108967, fortran/96024, fortran/96025, fortran/108621,
+	fortran/108923, fortran/108924, fortran/108937, jit/107999,
+	libquadmath/87204, libquadmath/94756, libstdc++/52590,
+	libstdc++/95989, libstdc++/104852, libstdc++/108846, libstdc++/108856,
+	libstdc++/108952, middle-end/97956, middle-end/106258,
+	middle-end/107411, middle-end/108545, middle-end/108546,
+	middle-end/108854, middle-end/109006, modula2/108261, modula2/108944,
+	modula2/108956, pch/14940, sanitizer/108834, sanitizer/108894,
+	target/51534, target/104882, target/108240, target/108876,
+	target/108881, target/108883, target/108910, target/108919,
+	target/108922, testsuite/79356, testsuite/91419, testsuite/108899,
+	testsuite/108942, testsuite/108973, testsuite/108985,
+	testsuite/108991, translation/108890, tree-optimization/108430,
+	tree-optimization/108603, tree-optimization/108793,
+	tree-optimization/108828, tree-optimization/108888,
+	tree-optimization/108950, tree-optimization/108970,
+	tree-optimization/108979, tree-optimization/108988,
+	tree-optimization/109002
+
 * Tue Feb 21 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.5
 - update from trunk
   - PRs analyzer/108664, analyzer/108666, analyzer/108725, analyzer/108806,

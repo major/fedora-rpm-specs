@@ -1,8 +1,8 @@
 %global framework kdelibs4support
 
 Name:    kf5-%{framework}
-Version: 5.103.0
-Release: 2%{?dist}
+Version: 5.104.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 4 module with porting aid from KDELibs 4
 License: GPLv2+ and LGPLv2+ and BSD
 URL:     https://invent.kde.org/frameworks/%{framework}
@@ -190,6 +190,9 @@ rm -fv %{buildroot}%{_kf5_sysconfdir}/xdg/kdebugrc
 
 
 %changelog
+* Sat Mar 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.104.0-1
+- 5.104.0
+
 * Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
 - Add missing BuildRequires
 

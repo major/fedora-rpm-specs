@@ -83,6 +83,8 @@ Summary:        %{summary}
 # Zlib OR Apache-2.0 OR MIT
 License:        Apache-2.0 AND GPL-3.0-or-later AND MIT
 # LICENSE.dependencies contains a full license breakdown
+Obsoletes:     libimagequant < 4.0.0
+Provides:      libimagequant%{_isa} = %{version}-%{release}
 
 %description -n %{lib} %{_description}
 
@@ -95,6 +97,8 @@ License:        Apache-2.0 AND GPL-3.0-or-later AND MIT
 %package     -n %{lib}-devel
 Summary:        Development files for %{lib}
 Requires:       %{lib}%{?_isa} = %{version}-%{release}
+Obsoletes:     libimagequant-devel < 4.0.0
+Provides:      libimagequant-devel%{_isa} = %{version}-%{release}
 
 %description -n %{lib}-devel %{_description}
 

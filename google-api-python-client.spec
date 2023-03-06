@@ -7,7 +7,7 @@ Epoch:          2
 Version:        2.80.0
 Release:        %autorelease
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/googleapis/google-api-python-client
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 

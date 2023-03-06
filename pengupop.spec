@@ -1,9 +1,9 @@
 Name:           pengupop
 Version:        2.2.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Networked Game in the vein of Move/Puzzle Bobble
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.junoplay.com/pengupop
 Source0:        http://www.junoplay.com/files/%{name}-%{version}.tar.gz
 Patch0: pengupop-c99.patch
@@ -49,6 +49,9 @@ desktop-file-install \
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.2.2-32
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

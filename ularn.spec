@@ -1,9 +1,9 @@
 Name:           ularn
 Version:        1.5p4
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Simple roguelike game
 
-License:        GPL+
+License:        GPL-1.0-or-later
 URL:            http://www.ularn.org
 Source0:        http://downloads.sourceforge.net/ularn/Ularn-1.5ishPL4.tar.gz
 Source1:        config.sh.in
@@ -73,6 +73,9 @@ install -p -m 644 %{SOURCE3} $RPM_BUILD_ROOT/%{_datadir}/icons/hicolor/32x32/app
 %license GPL
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5p4-43
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5p4-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@
 
 Name:           pngquant
 Version:        2.18.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PNG quantization tool for reducing image file size
 
 License:        GPL-3.0-or-later
@@ -62,6 +62,9 @@ export CFLAGS="%{optflags} -fno-math-errno -funroll-loops -fomit-frame-pointer -
 
 
 %changelog
+* Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 2.18.0-2
+- Rebuild (libimagequant)
+
 * Sat Jan 28 2023 Sandro Mani <manisandro@gmail.com> - 2.18.0-1
 - Update to 2.18.0
 

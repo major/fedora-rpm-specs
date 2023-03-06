@@ -4,11 +4,11 @@
 
 Name:           python-%{pypi_name}
 Version:        %{pypi_version}
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Python bindings for Oracle Berkeley DB
 
 # For a breakdown of the licensing, see licenses.txt
-License:        BSD and ZPLv2.0
+License:        BSD-3-Clause AND ZPL-2.0
 URL:            https://www.jcea.es/programacion/pybsddb.htm
 Source0:        %{pypi_source}
 
@@ -76,6 +76,9 @@ sed -i /env\ python/d $RPM_BUILD_ROOT%{python3_sitearch}/berkeleydb/dbshelve.py
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 18.1.4-8
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 18.1.4-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

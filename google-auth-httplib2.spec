@@ -4,9 +4,9 @@
 Name:           google-auth-httplib2
 Summary:        %{sum}
 Version:        0.1.0
-Release:        5%{?dist}
+Release:        6%{?dist}
 
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            https://github.com/googleapis/google-auth-library-python-httplib2
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -44,6 +44,9 @@ Python 3 client library for accessing Google APIs.
 %doc README.rst
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1.0-6
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

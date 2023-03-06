@@ -2,10 +2,10 @@
 
 Name:           uread
 Version:        0
-Release:        0.29.%{stamp}%{?dist}
+Release:        0.30.%{stamp}%{?dist}
 Summary:        Utilities for unformatted fortran files
 
-License:        GPL+
+License:        GPL-1.0-or-later
 URL:            http://www.engineers.auckland.ac.nz/~snor007/software.html#uread
 Source0:        uread-%{stamp}.tar.gz
 # unversioned upstream source, downloaded with wget -N
@@ -56,6 +56,9 @@ install -m0755 uread ustrip uswap $RPM_BUILD_ROOT%{_bindir}/
 %{_mandir}/man1/u*.1*
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0-0.30.20081006
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-0.29.20081006
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

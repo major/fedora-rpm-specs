@@ -51,7 +51,7 @@
 
 Name:          gdal
 Version:       3.6.2
-Release:       5%{?dist}
+Release:       6%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -573,6 +573,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 3.6.2-6
+- Rebuild (proj)
+
 * Tue Feb 07 2023 Sandro Mani <manisandro@gmail.com> - 3.6.2-5
 - Rebuild (mingw-poppler)
 

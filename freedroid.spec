@@ -1,9 +1,9 @@
 Name:           freedroid
 Version:        1.0.2
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Clone of the C64 game Paradroid
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://freedroid.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/freedroid/%{name}-%{version}.tar.gz
 Source1:        %{name}.desktop
@@ -91,6 +91,9 @@ install -Dpm 644 freedroid.png \
 
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.2-43
+- migrated to SPDX license
+
 * Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 1.0.2-42
 - Fix C99 compatibility issues
 

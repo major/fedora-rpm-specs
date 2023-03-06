@@ -3,7 +3,7 @@ Version:        0.13.0
 Release:        %autorelease
 Summary:        A linter for English prose
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://proselint.com/
 Source0:        %pypi_source
 BuildArch:      noarch

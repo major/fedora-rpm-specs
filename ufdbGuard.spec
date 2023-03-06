@@ -1,9 +1,9 @@
 Name:		ufdbGuard
 Version:	1.35.5
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A URL filter for squid
 URL:		https://www.urlfilterdb.com/
-License:	GPLv2
+License:	GPL-2.0-only
 
 Source0:	https://www.urlfilterdb.com/files/downloads/%{name}-%{version}.tar.gz
 Source1:	ufdbGuard.service
@@ -133,6 +133,9 @@ exit 0
 %endif
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.35.5-2
+- migrated to SPDX license
+
 * Tue Feb 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.35.5-1
 - 1.35.5
 

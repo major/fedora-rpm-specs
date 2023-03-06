@@ -12,10 +12,10 @@
 
 Name:           pcapy
 Version:        0.11.5
-Release:        17%{?dist}
+Release:        18%{?dist}
 Summary:        %{sum}
 
-License:        ASL 1.1
+License:        Apache-1.1
 URL:            https://www.coresecurity.com/corelabs-research/open-source-tools/pcapy
 #               http://oss.coresecurity.com/projects/pcapy.html
 #               https://github.com/CoreSecurity/pcapy/releases
@@ -87,6 +87,9 @@ rm -rf %{buildroot}/usr/share/doc/pcapy
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.11.5-18
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11.5-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

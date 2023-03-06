@@ -1,9 +1,9 @@
 Name:           upx
 Version:        4.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Ultimate Packer for eXecutables
 
-License:        GPLv2+ and Public Domain
+License:        GPL-2.0-or-later AND Public Domain
 URL:            https://github.com/upx/upx
 Source0:        %{url}/releases/download/v%{version}/%{name}-%{version}-src.tar.xz
 
@@ -43,6 +43,9 @@ rm -f %{buildroot}%{_datadir}/doc/upx/*
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.2-2
+- migrated to SPDX license
+
 * Wed Feb 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.2-1
 - 4.0.2
 

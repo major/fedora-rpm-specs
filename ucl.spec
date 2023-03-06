@@ -1,9 +1,9 @@
 Name:           ucl
 Version:        1.03
-Release:        34%{?dist}
+Release:        35%{?dist}
 Summary:        Portable lossless data compression library
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.oberhumer.com/opensource/ucl/
 Source0:        http://www.oberhumer.com/opensource/ucl/download/%{name}-%{version}.tar.gz
 
@@ -56,6 +56,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/libucl.la
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.03-35
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.03-34
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

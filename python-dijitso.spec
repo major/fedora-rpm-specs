@@ -1,9 +1,9 @@
 Name:           python-dijitso
 Version:        2019.1.0
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Distributed just-in-time building of shared libraries
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://fenics-dijitso.readthedocs.org/
 Source0:        https://bitbucket.org/fenics-project/dijitso/downloads/dijitso-%{version}.tar.gz
 Source1:        https://bitbucket.org/fenics-project/dijitso/downloads/dijitso-%{version}.tar.gz.asc
@@ -74,6 +74,9 @@ BuildArch:      noarch
 %{_mandir}/man1/dijitso.1*
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2019.1.0-13
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2019.1.0-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

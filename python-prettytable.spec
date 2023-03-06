@@ -1,36 +1,26 @@
-%global modname prettytable
+%global pypi_name prettytable
 
+Name:           python-%{pypi_name}
+Version:        3.6.0
+Release:        %autorelease
+Summary:        Python library to display tabular data in tables
 
-Name:		python-%{modname}
-Version:	0.7.2
-Release:	31%{?dist}
-Summary:	Python library to display tabular data in tables
+License:        BSD
+URL:            https://github.com/jazzband/prettytable
+Source0:        %{pypi_source}
 
-License:	BSD
-Source0:    http://pypi.python.org/packages/source/P/PrettyTable/%{modname}-%{version}.tar.gz
-URL:		http://pypi.python.org/pypi/PrettyTable
-
-BuildArch:	noarch
+BuildArch:      noarch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
+BuildRequires:  python3-setuptools_scm
+BuildRequires:  sed
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-lazy-fixture)
+BuildRequires:  python3dist(wcwidth)
 
 
-%global _description\
-PrettyTable is a simple Python library designed to make it quick and easy to\
-represent tabular data in visually appealing ASCII tables. It was inspired by\
-the ASCII tables used in the PostgreSQL shell psql. PrettyTable allows for\
-selection of which columns are to be printed, independent alignment of columns\
-(left or right justified or centred) and printing of "sub-tables" by specifying\
-a row range.
-
-%description %_description
-
-%package -n python3-%{modname}
-Summary:	Python library to display tabular data in tables
-%{?python_provide:%python_provide python3-%{modname}}
-
-%description -n python3-%{modname}
+%description
 PrettyTable is a simple Python library designed to make it quick and easy to
 represent tabular data in visually appealing ASCII tables. It was inspired by
 the ASCII tables used in the PostgreSQL shell psql. PrettyTable allows for
@@ -38,32 +28,41 @@ selection of which columns are to be printed, independent alignment of columns
 (left or right justified or centred) and printing of "sub-tables" by specifying
 a row range.
 
+%package -n python3-%{pypi_name}
+Summary:	Python library to display tabular data in tables
+
+%description -n python3-%{pypi_name}
+PrettyTable is a simple Python library designed to make it quick and easy to
+represent tabular data in visually appealing ASCII tables. It was inspired by
+the ASCII tables used in the PostgreSQL shell psql. PrettyTable allows for
+selection of which columns are to be printed, independent alignment of columns
+(left or right justified or centred) and printing of "sub-tables" by specifying
+a row range.
 
 %prep
-%setup -q -n %{modname}-%{version}
+%autosetup -n %{pypi_name}-%{version}
+sed -i -e '/^*!\//, 1d' src/prettytable/*.py
 
+%generate_buildrequires
+%pyproject_buildrequires -r
 
 %build
-%py3_build
-
-%check
-%{__python3} %{modname}_test.py
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files prettytable
 
+%check
+%pytest
 
-%files -n python3-%{modname}
-%{!?_licensedir:%global license %%doc}
-%license COPYING
-%doc README CHANGELOG
-%{python3_sitelib}/%{modname}.py*
-%{python3_sitelib}/__pycache__/%{modname}*
-%{python3_sitelib}/%{modname}-%{version}*
-
+%files -n python3-%{pypi_name} -f %{pyproject_files}
+%doc README.md CHANGELOG.md
 
 %changelog
+* Sat Mar 04 2023 Mikel Olasagasti Uranga <mikel@olasagasti.info> - 3.6.0-1
+- Update to upstream 3.6.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

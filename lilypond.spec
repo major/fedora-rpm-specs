@@ -4,10 +4,10 @@
 
 Name:		lilypond
 Version:	2.25.2
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	A typesetting system for music notation
 
-License:	GPLv3
+License:	GPL-3.0-only
 URL:		https://lilypond.org
 Source0:	https://lilypond.org/download/sources/v2.25/lilypond-%{version}.tar.gz
 Source1:        century-schoolbook-l.metainfo.xml
@@ -118,6 +118,9 @@ ln -s %{_fontdir} $RPM_BUILD_ROOT%{_datadir}/lilypond/%{version}/fonts/otf
 %doc COPYING
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.2-2
+- migrated to SPDX license
+
 * Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.2-1
 - 2.25.2
 

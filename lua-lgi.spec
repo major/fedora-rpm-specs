@@ -10,7 +10,7 @@
 
 Name:		lua-lgi
 Version:	0.9.2
-Release:	15%{?dist}
+Release:	16%{?dist}
 Summary:	Lua bindings to GObject libraries
 License:	MIT
 URL:		https://github.com/pavouk/lgi
@@ -37,8 +37,6 @@ BuildRequires:	make
 BuildRequires:	which
 BuildRequires:	Xvfb xauth
 BuildRequires:	dbus-x11 at-spi2-core
-
-Requires:	lua >= %{luaver}
 
 %global __requires_exclude_from %{_docdir}
 %{!?_pkgdocdir: %global _pkgdocdir %{_docdir}/%{name}-%{version}}
@@ -155,6 +153,9 @@ popd
 
 
 %changelog
+* Sat Mar  4 2023 Thomas Moschny <thomas.moschny@gmx.de> - 0.9.2-16
+- Apply patch by yselkowi@redhat.com: Drop unneeded Requires: lua.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

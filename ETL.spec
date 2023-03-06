@@ -3,10 +3,10 @@
 Name:           ETL
 Epoch:          1
 Version:        1.5.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extended Template Library
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://synfig.org
 Source0:        http://downloads.sourceforge.net/synfig/ETL-%{version}.tar.gz
 Buildrequires:  doxygen
@@ -49,6 +49,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.5.1-4
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.5.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

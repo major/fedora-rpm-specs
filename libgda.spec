@@ -3,10 +3,10 @@
 Name:           libgda
 Epoch:          1
 Version:        6.0.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Library for writing gnome database programs
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.gnome-db.org/
 Source:         http://ftp.gnome.org/pub/GNOME/sources/%{name}/6.0/%{name}-%{version}.tar.xz
 
@@ -233,6 +233,9 @@ install libgda-ui/data/import_encodings.xml %{buildroot}%{_datadir}/%{name}-%{ap
 %{_libdir}/libgda-%{apiver}/providers/libgda-sqlcipher-%{apiver}.so
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:6.0.0-5
+- migrated to SPDX license
+
 * Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> -1:6.0.0-4
 - Update glib and sqlite dependencies
 

@@ -1,5 +1,5 @@
 Name:           micropipenv
-Version:        1.4.6
+Version:        1.5.0
 Release:        %autorelease
 Summary:        A simple wrapper around pip to support Pipenv and Poetry files
 

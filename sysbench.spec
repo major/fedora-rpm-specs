@@ -31,6 +31,7 @@ BuildRequires: libpq-devel
 BuildRequires: postgresql-devel
 %endif
 # Tests
+BuildRequires: /usr/bin/cram
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires: python3
 %else
@@ -78,7 +79,7 @@ benchmarks and third-party plug-in modules.
 %patch1 -p1
 rm -r third_party/luajit/luajit/
 rm -r third_party/concurrency_kit/ck/
-%{!?el6:rm -r third_party/cram/}
+rm -r third_party/cram/
 
 
 %build

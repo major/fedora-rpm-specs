@@ -1,10 +1,10 @@
 Name:           exif
 Version:        0.6.22
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Utility to show EXIF information hidden in JPEG files
 Summary(fr):    Outil pour afficher les informations EXIF masquées dans les fichiers JPEG
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://libexif.sourceforge.net/
 Source0:        https://github.com/libexif/exif/archive/exif-0_6_22-release/%{name}-%{version}.tar.gz
 Patch0:         f6334d9d32437ef13dc902f0a88a2be0063d9d1c.patch
@@ -58,6 +58,9 @@ make check
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.22-6
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.22-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

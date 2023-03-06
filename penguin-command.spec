@@ -1,9 +1,9 @@
 Name:           penguin-command
 Version:        1.6.11
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Open source arcade game
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.linux-games.com/penguin-command/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1:        %{name}.xpm
@@ -55,6 +55,9 @@ desktop-file-install \
 %{_datadir}/applications/%{name}.desktop
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.6.11-32
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.11-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

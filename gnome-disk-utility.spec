@@ -3,11 +3,11 @@
 %global libhandy_version 1.5.0
 
 Name:           gnome-disk-utility
-Version:        44~beta
+Version:        44~rc
 Release:        1%{?dist}
 Summary:        Disks
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-disk-utility
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
@@ -77,6 +77,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 
 
 %changelog
+* Sat Mar 04 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

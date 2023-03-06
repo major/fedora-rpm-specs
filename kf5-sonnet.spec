@@ -8,8 +8,8 @@
 %endif
 
 Name:    kf5-%{framework}
-Version: 5.103.0
-Release: 2%{?dist}
+Version: 5.104.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 1 solution for spell checking
 
 License: LGPLv2+
@@ -124,6 +124,9 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 
 
 %changelog
+* Sat Mar 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.104.0-1
+- 5.104.0
+
 * Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
 - Add missing BuildRequires
 

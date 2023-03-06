@@ -21,6 +21,12 @@ Summary:        Python library for the NETCONF protocol
 #     Note that versioneer is relicensed to Unlicense in a later version.
 #     Upstream for ncclient cannot update the vendored versioneer until
 #     ncclient drops support for end-of-life Python versions 2.7, 3.5, and 3.6.
+#
+#     We now remove and replace/update both of these files in %%prep in order
+#     to support Python 3.12. For now, they are still CC0-1.0; once
+#     https://src.fedoraproject.org/rpms/python-versioneer/pull-request/2 is
+#     merged, they will be Unlicense and the license of this package will
+#     need to change accordingly.
 License:        Apache-2.0 AND CC0-1.0
 URL:            https://github.com/ncclient/ncclient
 Source0:        %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
@@ -28,6 +34,23 @@ Source0:        %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
+
+# Update vendored versioneer.py for Python 3.12 compatibility
+#
+# python-ncclient fails to build with Python 3.12: AttributeError: module
+# 'configparser' has no attribute 'SafeConfigParser'.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2175185
+#
+# Note that SafeConfigParser was renamed to ConfigParser in Python 3.2:
+# https://docs.python.org/3/whatsnew/3.2.html#configparser
+#
+# The version bound is to remind us to update the License when
+# python-versioneer is updated to a version that is Unlicense rather than
+# CC0-1.0.
+BuildRequires:  python3dist(versioneer) < 0.24
+# The updated versioneer doesn’t pick up the version from the directory name
+# for some reason, so we must create a git repository.
+BuildRequires:  git-core
 
 %global common_description %{expand:
 ncclient is a Python library that facilitates client-side scripting and
@@ -81,12 +104,24 @@ sed -r -i 's/==/>=/' docs/requirements.txt
 # documentation packages.
 echo 'intersphinx_mapping.clear()' >> docs/conf.py
 
+rm -vf versioneer.py ncclient/_version.py
+versioneer install
+
 
 %generate_buildrequires
 %pyproject_buildrequires -t %{?with_doc_pdf:docs/requirements.txt}
 
 
 %build
+# The updated versioneer doesn’t pick up the version from the directory name
+# for some reason, so we must create a git repository.
+git config --global user.name 'Nobody'
+git config --global user.email 'nobody@example.com'
+git init
+git add .
+git commit -m 'Version %{version}'
+git tag 'v%{version}'
+
 %pyproject_wheel
 
 %if %{with doc_pdf}

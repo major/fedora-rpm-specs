@@ -98,7 +98,7 @@ built without KDE dependencies.
 install -dm 755 $RPM_BUILD_ROOT%{_pkgdocdir}
 install -pm 644 AUTHORS ChangeLog README $RPM_BUILD_ROOT%{_pkgdocdir}
 
-%find_lang %{name} --with-kde --with-man
+%find_lang %{name} --with-html --with-man
 mv %{name}.lang %{name}-kde.lang
 %find_lang %{name}-qt --with-man
 %find_lang %{name}-cli --with-man

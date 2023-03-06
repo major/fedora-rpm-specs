@@ -1,9 +1,9 @@
 Name:		biniax
 Version:	1.2
-Release:	35%{?dist}
+Release:	36%{?dist}
 Summary:	A unique arcade logic game
 
-License:	zlib
+License:	Zlib
 URL:		http://www.biniax.com/
 Source0:	http://mordred.dir.bg/%{name}/%{name}-src.zip
 Source1:	%{name}.desktop
@@ -78,6 +78,9 @@ install -p -m 0644 %{SOURCE2} \
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-36
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

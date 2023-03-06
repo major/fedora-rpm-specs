@@ -3,10 +3,10 @@
 
 Name:           python-%{pypi_name}
 Version:        0.18
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Parse OPML, FOAF, and iGoogle subscription lists
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/kurtmckee/listparser
 Source0:        %pypi_source
 BuildArch:      noarch
@@ -70,6 +70,9 @@ rm -rf html/.{doctrees,buildinfo}
 %doc html
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.18-17
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.18-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

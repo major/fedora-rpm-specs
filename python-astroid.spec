@@ -11,7 +11,7 @@ Name:           python-astroid
 # Note: please check that this doesn't break pylint before committing and building! -GC
 Release:        %autorelease
 Summary:        Common base representation of python source code for pylint and other projects
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://pypi.org/project/astroid/
 Source0:        %{forgesource}
 

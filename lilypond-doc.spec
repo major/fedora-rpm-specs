@@ -1,9 +1,9 @@
 Name:           lilypond-doc
 Version:        2.25.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        HTML documentation for LilyPond
 
-License:        GPLv3
+License:        GPL-3.0-only
 URL:            https://lilypond.org
 Source0:        https://gitlab.com/lilypond/lilypond/-/releases/v%{version}/downloads/lilypond-%{version}-documentation.tar.xz
 BuildArch:      noarch
@@ -34,6 +34,9 @@ mkdir -p $RPM_BUILD_ROOT
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.2-2
+- migrated to SPDX license
+
 * Tue Feb 21 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.25.2-1
 - 2.25.2
 

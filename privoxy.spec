@@ -7,9 +7,9 @@
 
 Name: privoxy
 Version: 3.0.34
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: Privacy enhancing proxy
-License: GPLv2+
+License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/ijbswa/%{name}-%{version}-%{beta_or_stable}-src.tar.gz
 Source1: privoxy.service
 Source2: privoxy.logrotate
@@ -103,6 +103,9 @@ fi
 %doc doc
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.34-2
+- migrated to SPDX license
+
 * Mon Feb 06 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.34-1
 - 3.0.34
 

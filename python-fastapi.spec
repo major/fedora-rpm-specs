@@ -34,6 +34,10 @@ Patch:          %{url}/pull/4409.patch
 # Upgrade databases and SQLAlchemy
 # https://github.com/tiangolo/fastapi/pull/5799
 Patch:          %{url}/pull/5799.patch
+# Allow python-multipart 0.0.6
+# https://github.com/tiangolo/fastapi/pull/9212
+# Rebased on top of upstream PR#5799.
+Patch:          0001-Allow-python-multipart-0.0.6.patch
 
 BuildRequires:  python3-devel
 
@@ -352,6 +356,7 @@ sed -r -i 's/("types-(u|or)json\b.*",)/# \1/' pyproject.toml
 # Remove bundled js-termynal 0.0.1; since we are not building documentation, we
 # do this very bluntly:
 rm -rvf docs/*/docs/js docs/*/docs/css
+sed -r -i 's/(multipart.*)<[^"]+/\1/' pyproject.toml
 
 
 %generate_buildrequires

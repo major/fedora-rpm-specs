@@ -3,10 +3,10 @@
 
 Name:               python-scour
 Version:            0.38.2
-Release:            2%{?dist}
+Release:            3%{?dist}
 Summary:            %{sum}
 
-License:            ASL 2.0
+License:            Apache-2.0 AND BSD-3-Clause
 URL:                https://github.com/scour-project/scour
 Source0:            %{url}/archive/v%{version}/%{modname}-%{version}.tar.gz
 
@@ -58,6 +58,9 @@ find . -type f -name '*.py' -exec sed -i /env\ python/d {} ';'
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.38.2-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.38.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

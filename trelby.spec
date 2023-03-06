@@ -1,9 +1,9 @@
 Name:           trelby
 Version:        2.4.8
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        The free, multiplatform, feature-rich screenwriting program
 
-License:        GPLv2 and GPLv3+
+License:        GPL-2.0-only AND GPL-3.0-or-later
 URL:            https://github.com/limburgher/trelby
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 BuildArch:      noarch
@@ -58,6 +58,9 @@ make test
 %{_mandir}/man1/trelby.1.gz
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.4.8-2
+- migrated to SPDX license
+
 * Tue Jan 31 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.4.8-1
 - 2.4.8
 

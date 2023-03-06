@@ -1,9 +1,9 @@
 Name:		ricochet
 Version:	1.1.4
-Release:	31%{?dist}
+Release:	32%{?dist}
 Summary:	Anonymous peer-to-peer instant messaging
 
-License:	BSD
+License:	BSD-3-Clause
 URL:		https://ricochet.im/
 Source0:	https://ricochet.im/releases/%{version}/ricochet-%{version}-src.tar.bz2
 #Source0:	https://github.com/ricochet-im/%{name}/archive/1.1.3.tar.gz#/%{name}-1.1.3.tar.gz
@@ -66,6 +66,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications src/ricochet.des
 
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.4-32
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

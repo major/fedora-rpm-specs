@@ -1,9 +1,9 @@
 Name:           tuxmath
 Version:        2.0.3
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Educational math tutor for children
 
-License:        GPLv3+ and CC-BY and OFL
+License:        GPL-3.0-or-later AND CC-BY-1.0 AND OFL-1.1
 URL:            http://tux4kids.alioth.debian.org/
 Source0:        https://alioth.debian.org/frs/download.php/3271/%{name}_w_fonts-%{version}.tar.gz
 Source1:        %{name}.appdata.xml
@@ -76,6 +76,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.0.3-15
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.3-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

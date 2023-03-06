@@ -3,10 +3,10 @@
 
 Name:           gnokii
 Version:        0.6.31
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Linux/Unix tool suite for various mobile phones
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://www.gnokii.org/
 Source0:        https://www.gnokii.org/download/gnokii/%{name}-%{version}.tar.bz2
 Source2:        %{name}-smsd.service
@@ -249,6 +249,9 @@ getent passwd %{name} > /dev/null || %{_sbindir}/useradd -r -M -d / \
 %{_libdir}/pkgconfig/xgnokii.pc
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.31-39
+- migrated to SPDX license
+
 * Thu Feb 02 2023 Florian Weimer <fweimer@redhat.com> - 0.6.31-38
 - Port configure script to C99
 

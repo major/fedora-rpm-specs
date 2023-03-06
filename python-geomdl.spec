@@ -26,12 +26,14 @@ URL:            https://onurraufbingol.com/NURBS-Python/
 %global forgeurl https://github.com/orbingol/NURBS-Python
 Source0:        %{forgeurl}/archive/v%{version}/NURBS-Python-%{version}.tar.gz
 
-Patch:          geomdl-5.3.1-unconditional-Cython.patch
-
 # Upstream uses something like “setup.py bdist_wheel --use-cython” to turn on
 # the optional Cython-generated extensions. This doesn’t fit well with the
 # pyproject-rpm-macros approach (which uses “pip wheel …”), so we just patch
 # setup.py to unconditionally enable Cython.
+Patch:          geomdl-5.3.1-unconditional-Cython.patch
+# Stop using deprecated/removed np.float/np.int
+# https://github.com/orbingol/NURBS-Python/pull/163
+Patch:          %{forgeurl}/pull/163.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gcc

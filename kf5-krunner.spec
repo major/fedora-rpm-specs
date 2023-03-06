@@ -1,8 +1,8 @@
 %global framework krunner
 
 Name:    kf5-%{framework}
-Version: 5.103.0
-Release: 2%{?dist}
+Version: 5.104.0
+Release: 1%{?dist}
 Summary: KDE Frameworks 5 Tier 3 solution with parallelized query system
 
 License: LGPLv2+ and BSD
@@ -82,6 +82,9 @@ developing applications that use %{name}.
 
 
 %changelog
+* Sat Mar 04 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.104.0-1
+- 5.104.0
+
 * Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.103.0-2
 - Add missing BuildRequires
 

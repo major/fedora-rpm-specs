@@ -1,9 +1,9 @@
 %define _hardened_build 1
 Name:           bochs
 Version:        2.7
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Portable x86 PC emulator
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://bochs.sourceforge.net/
 Source0:	http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0: %{name}-0001_bx-qemu.patch
@@ -207,6 +207,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/bochs/SeaVGABIOS-README
 %{_prefix}/include/bochs/
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.7-6
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

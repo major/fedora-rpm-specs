@@ -1,8 +1,8 @@
 %global appid com.github.hugolabe.Wike
 
 Name:           wike
-Version:        1.8.2
-Release:        1%{?dist}
+Version:        1.8.3
+Release:        2%{?dist}
 Summary:        Wikipedia Reader for the GNOME Desktop
 
 License:        GPL-3.0-or-later
@@ -22,7 +22,7 @@ Requires:       hicolor-icon-theme
 Requires:       python3-gobject
 Requires:       gtk3
 Requires:       libhandy1
-Requires:       webkit2gtk3
+Requires:       webkit2gtk4.1
 Requires:       python3dist(dbus-python)
 Requires:       python3dist(requests)
 
@@ -64,6 +64,12 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{appid}.desktop
 %{_datadir}/gnome-shell/search-providers/%{appid}.SearchProvider.ini
 
 %changelog
+* Sat Mar 04 2023 Gustavo Costa <xfgusta@gmail.com> - 1.8.3-2
+- Use webkit2gtk4.1
+
+* Sat Mar 04 2023 Gustavo Costa <xfgusta@gmail.com> - 1.8.3-1
+- Update to 1.8.3 (rhbz#2175378)
+
 * Fri Feb 24 2023 Gustavo Costa <xfgusta@gmail.com> - 1.8.2-1
 - Drop patch
 - Use SPDX license

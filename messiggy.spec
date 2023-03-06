@@ -1,9 +1,9 @@
 Name:		messiggy
 Version:	0.5.0
-Release:	29%{?dist}
+Release:	30%{?dist}
 Summary:	Messiggy is a database of celestial objects
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		http://www.coyotegulch.com/products/messiggy/index.html
 Source0:	http://www.coyotegulch.com/distfiles/%{name}-%{version}.tar.gz
 Source1:	messiggy.desktop
@@ -51,6 +51,9 @@ ln -s %{_datadir}/messiggy/pixmaps/messiggy.png %{buildroot}%{_datadir}/icons/hi
 %{_datadir}/icons/hicolor/32x32/apps/messiggy.png
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.5.0-30
+- migrated to SPDX license
+
 * Thu Feb 23 2023 Florian Weimer <fweimer@redhat.com> - 0.5.0-29
 - Port to C99 (#2172804)
 

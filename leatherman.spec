@@ -1,11 +1,11 @@
 Name:           leatherman
 Version:        1.12.9
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Collection of C++ and CMake utility libraries
 
 # leatherman is ASL 2.0
 # bundled rapidjson is MIT
-License:        ASL 2.0 and MIT
+License:        Apache-2.0 AND MIT
 URL:            https://github.com/puppetlabs/leatherman
 Source:         %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -74,6 +74,9 @@ sed -i -e "s/\s*-Werror\s*//g" cmake/cflags.cmake
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.12.9-4
+- migrated to SPDX license
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.12.9-3
 - Rebuilt for Boost 1.81
 

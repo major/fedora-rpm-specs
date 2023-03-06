@@ -2,10 +2,10 @@
 
 Name:           freeciv
 Version:        3.0.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A multi-player strategy game
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://sourceforge.net/projects/freeciv/
 Source0:        http://download.sourceforge.net/%{name}/%{name}-%{version}.tar.xz
 
@@ -110,6 +110,9 @@ find $RPM_BUILD_ROOT -name '*.a' -delete
 %{_bindir}/freeciv-qt
 
 %changelog
+* Sat Mar 04 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.6-2
+- migrated to SPDX license
+
 * Fri Feb 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.6-1
 - 3.0.6
 
