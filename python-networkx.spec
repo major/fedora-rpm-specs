@@ -30,12 +30,12 @@ BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist pip}
 BuildRequires:  %{py3_dist wheel}
 %if %{without bootstrap}
+%if 0%{?rhel} == 0
 BuildRequires:  %{py3_dist matplotlib}
 BuildRequires:  %{py3_dist numpy}
 BuildRequires:  %{py3_dist pandas}
 BuildRequires:  %{py3_dist scipy}
 
-%if 0%{?rhel} == 0
 # Extras
 BuildRequires:  %{py3_dist lxml}
 BuildRequires:  %{py3_dist pygraphviz}
@@ -75,11 +75,13 @@ study of the structure, dynamics, and functions of complex networks.
 
 %package -n python3-networkx
 Summary:        Creates and Manipulates Graphs and Networks
-%if 0%{?rhel} == 0
 Recommends:     %{py3_dist lxml}
+Recommends:     %{py3_dist matplotlib}
+Recommends:     %{py3_dist numpy}
+Recommends:     %{py3_dist pandas}
 Recommends:     %{py3_dist pydot}
 Recommends:     %{py3_dist pygraphviz}
-%endif
+Recommends:     %{py3_dist scipy}
 Recommends:     xdg-utils
 
 %description -n python3-networkx

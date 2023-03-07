@@ -1,15 +1,14 @@
 %global gitexecdir %{_libexecdir}/git-core
 
 Name:           git-filter-repo
-Version:        2.34.0
-Release:        6%{?dist}
+Version:        2.38.0
+Release:        1%{?dist}
 Summary:        Quickly rewrite git repository history (git-filter-branch replacement)
-License:        MIT
+License:        GPL-2.0-only OR MIT
 Group:          Development/Tools/Version Control
 Url:            https://github.com/newren/git-filter-repo
 #
 Source0:        https://github.com/newren/git-filter-repo/releases/download/v%{version}/%{name}-%{version}.tar.xz
-Patch0:         https://github.com/newren/git-filter-repo/commit/838bdd1.patch#/0001-Update-expected-test-data-for-git-2.35.patch
 #
 BuildArch:      noarch
 #
@@ -31,10 +30,7 @@ performance, with far more capabilities, and with a design that scales
 usability-wise beyond trivial rewriting cases.
 
 %prep
-%setup -q
-%if 0%{?fedora}
-%patch0 -p1
-%endif
+%autosetup -p1
 
 # Remove shebang from the python module to avoid rpmlint warnings
 # (this is a symlink, but sed -i will break it, conveniently for us)
@@ -80,6 +76,9 @@ t/run_tests
 %{_mandir}/man1/git-filter-repo.1*
 
 %changelog
+* Sun Mar 05 2023 Andreas Schneider <asn@redhat.com> - 2.38.0-1
+- Update to version 2.38.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.34.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

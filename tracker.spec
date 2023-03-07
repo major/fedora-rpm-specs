@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker
-Version:        3.5.0~beta
+Version:        3.5.0~rc
 Release:        1%{?dist}
 Summary:        Desktop-neutral metadata database and search tool
 
@@ -13,6 +13,7 @@ Source0:        https://download.gnome.org/sources/tracker/3.5/tracker-%{tarball
 
 BuildRequires:  asciidoc
 BuildRequires:  gettext
+BuildRequires:  gi-docgen
 BuildRequires:  libstemmer-devel
 BuildRequires:  meson
 BuildRequires:  python3-gobject
@@ -162,12 +163,13 @@ The %{name}-devel package contains the documentation for %{name}.
 
 %files doc
 %license docs/reference/COPYING
-%dir %{_datadir}/devhelp
-%dir %{_datadir}/devhelp/books
-%{_datadir}/devhelp/books/Tracker/
+%{_docdir}/Tracker-3.0/
 
 
 %changelog
+* Sun Mar 05 2023 David King <amigadave@amigadave.com> - 3.5.0~rc-1
+- Update to 3.5.0.rc (#2160249)
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 3.5.0~beta-1
 - Update to 3.5.0.beta
 

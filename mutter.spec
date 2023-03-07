@@ -12,7 +12,7 @@
 
 Name:          mutter
 Version:       44~beta
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -27,6 +27,12 @@ Patch1:        0001-Revert-build-Do-not-provide-built-sources-as-libmutt.patch
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch2:        mutter-42.alpha-disable-tegra.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2173985
+Patch30001:    0001-x11-Avoid-updating-focus-on-wayland-compositor.patch
+Patch30002:    0002-x11-Ignore-_NET_ACTIVE_WINDOW-client-messages-while-.patch
+Patch30003:    0003-core-Avoid-focusing-windows-on-map-during-grabs.patch
+
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -170,6 +176,10 @@ the functionality of the installed %{name} package.
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Sat Mar 04 2023 Ray Strode <rstrode@redhat.com> - 44~beta-3
+- Add some backports of Carlos's focus fixes
+  Related: #2173985
+
 * Mon Feb 20 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-2
 - Rebuild without changes for Bodhi reasons
 

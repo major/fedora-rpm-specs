@@ -1,15 +1,11 @@
 Name:           python-pytest-relaxed
-# Build from a fork for now for pytest 5+ support
-# https://github.com/bitprophet/pytest-relaxed/pull/22
-%global date    20220502
-%global commit  000bba0e55ffc726c398485a1cefad63e28c9d2b
-%global short   000bba0e
-Version:        1.1.5^%{date}git%{short}
-Release:        2%{?dist}
+Version:        2.0.0
+Release:        1%{?dist}
 Summary:        Relaxed test discovery/organization for pytest
+
 License:        BSD-2-Clause
 URL:            https://github.com/bitprophet/pytest-relaxed
-Source:         %{url}/archive/%{commit}/pytest-relaxed-%{short}.tar.gz
+Source:         %{url}/archive/%{version}/pytest-relaxed-%{version}.tar.gz
 
 BuildArch:      noarch
 BuildRequires:  python3-devel
@@ -23,16 +19,14 @@ ability to opt-in to various behaviors).}
 
 %description %_description
 
-
-%package -n     python3-pytest-relaxed
+%package -n python3-pytest-relaxed
 Summary:        %{summary}
 
 %description -n python3-pytest-relaxed %_description
 
 
 %prep
-%autosetup -p1 -n pytest-relaxed-%{commit}
-sed -i 's/decorator>=4,<5/decorator>=4,<6/' setup.py
+%autosetup -p1 -n pytest-relaxed-%{version}
 
 
 %generate_buildrequires
@@ -54,9 +48,15 @@ sed -i 's/decorator>=4,<5/decorator>=4,<6/' setup.py
 
 
 %files -n python3-pytest-relaxed -f %{pyproject_files}
+%license LICENSE
+%doc README.rst
 
 
 %changelog
+* Sat Mar 04 2023 Jiří Kučera <jkucera@redhat.com> - 2.0.0-1
+- Update to 2.0.0
+  Resolves: #2157782
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5^20220502git000bba0e-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

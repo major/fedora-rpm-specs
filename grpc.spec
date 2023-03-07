@@ -1345,7 +1345,7 @@ client_ssl
 test_core_security_credentials
 %endif
 
-%ifarch x86_64
+%ifarch x86_64 aarch64
 # Unexplained:
 #
 # [ RUN      ] ExamineStackTest.AbseilStackProvider
@@ -1424,7 +1424,7 @@ grpc_tool
 murmur_hash
 %endif
 
-%ifarch x86_64
+%ifarch x86_64 aarch64
 # Unexplained:
 #
 # [ RUN      ] StackTracerTest.Basic

@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-calculator
-Version:        44~beta
+Version:        44~rc
 Release:        1%{?dist}
 Summary:        A desktop calculator
 
@@ -105,6 +105,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.Calculator
 
 
 %changelog
+* Sun Mar 05 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~alpha-1
 - Update to 44.beta
 

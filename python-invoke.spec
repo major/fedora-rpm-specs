@@ -1,97 +1,78 @@
-%bcond_without tests
+%global __pytest %{expand:expect <(echo '
+    spawn /usr/bin/pytest {*}$argv
+    expect default
+    catch wait result
+    exit [lindex $result 3]
+') --}
 
-Name:		python-invoke
-Version:	1.7.0
-Release:	6%{?dist}
-Summary:	A Python task execution tool and library
-License:	BSD-2-Clause
-URL:		http://pyinvoke.org/
-Source0:	https://github.com/pyinvoke/invoke/archive/%{version}/%{name}-%{version}.tar.gz
-Patch0:		0001-Fallback-to-system-lib-if-vendorized-one-does-not-ex.patch
-Patch1:		invoke-1.7.0-python3.patch
-BuildArch:	noarch
-BuildRequires:	python3-devel
-BuildRequires:	%{py3_dist setuptools}
-BuildRequires:	%{py3_dist fluidity-sm}
-BuildRequires:	%{py3_dist lexicon}
-BuildRequires:	%{py3_dist PyYAML}
-BuildRequires:	%{py3_dist six}
+Name:           python-invoke
+Version:        2.0.0
+Release:        1%{?dist}
+Summary:        A Python task execution tool and library
 
-%if %{with tests}
-# For test suite
-BuildRequires:	expect
-BuildRequires:	%{py3_dist mock}
-BuildRequires:	%{py3_dist pytest}
-BuildRequires:	%{py3_dist pytest-relaxed}
-%endif
+License:        BSD-2-Clause
+URL:            https://www.pyinvoke.org/
+Source:         https://github.com/pyinvoke/invoke/archive/%{version}/invoke-%{version}.tar.gz
 
-%description
+Patch1:         0001-Fix-requirements.patch
+
+BuildArch:      noarch
+BuildRequires:  python3-devel
+BuildRequires:  expect
+
+%global _description %{expand:
 Invoke is a Python task execution tool and library, drawing inspiration from
-various sources to arrive at a powerful and clean feature set.
+various sources to arrive at a powerful and clean feature set.}
+
+%description %_description
 
 %package -n python3-invoke
-Summary:	A Python task execution tool and library
-%{?python_provide:%python_provide python3-invoke}
-Obsoletes:	python2-invoke < 1.2.0-5
-Requires:	%{py3_dist fluidity-sm}
-Requires:	%{py3_dist lexicon}
-Requires:	%{py3_dist PyYAML}
-Requires:	%{py3_dist six}
+Summary:        %{summary}
 
-%description -n python3-invoke
-Invoke is a Python task execution tool and library, drawing inspiration from
-various sources to arrive at a powerful and clean feature set.
+%description -n python3-invoke %_description
+
 
 %prep
-%setup -q -n invoke-%{version}
-
-# Avoid need for bundled libs in test suite
-%patch0 -p1
-%patch1 -p1
-
-# Remove bundled egg-info
-rm -fr invoke.egg-info/
-
+%autosetup -p1 -n invoke-%{version}
 # Remove bundled libs, import will fallback to system provided libs
-rm -rvf invoke/vendor/*
+rm -rfv invoke/vendor
+
+
+%generate_buildrequires
+%pyproject_buildrequires -x test
+
 
 %build
-%py3_build
+%pyproject_wheel
+
 
 %install
-%py3_install
-
+%pyproject_install
+%pyproject_save_files invoke
 # Backwards compatible links
 ln -s inv %{buildroot}%{_bindir}/inv3
 ln -s invoke %{buildroot}%{_bindir}/invoke3
 
-%if %{with tests}
-%check
-# Everything looks good on a terminal, but tests are failing on building
-# machines. Even when mocked, some tests are mysteriously fall back to use real
-# ioctl calls causing `OSError: [Errno 25] Inappropriate ioctl for device`, so
-# lets make pytest think we are running in a terminal.
-PYTHONDONTWRITEBYTECODE=1 \
-PYTHONPATH=%{buildroot}%{python3_sitelib} \
-expect -c '
-    spawn pytest-3 -s
-    expect default
-    catch wait result
-    exit [lindex $result 3]
-'
-%endif
 
-%files -n python3-invoke
+%check
+%pyproject_check_import
+%pytest -s
+
+
+%files -n python3-invoke -f %{pyproject_files}
 %license LICENSE
 %doc README.rst
 %{_bindir}/inv
 %{_bindir}/inv3
 %{_bindir}/invoke
 %{_bindir}/invoke3
-%{python3_sitelib}/invoke/
-%{python3_sitelib}/invoke-%{version}-*.egg-info/
+
 
 %changelog
+* Sat Mar 04 2023 Jiří Kučera <jkucera@redhat.com> - 2.0.0-1
+- Update to 2.0.0
+  Resolves: #2065900
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

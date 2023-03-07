@@ -1,9 +1,9 @@
 Name:           atanks
 Version:        6.6
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Remake of a classic DOS game "Scorched Earth"
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://atanks.sourceforge.net/
 Source0:        http://download.sourceforge.net/atanks/atanks-%{version}.tar.gz
 
@@ -103,6 +103,9 @@ EOF
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.6-2
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.6-1
 - 6.6
 

@@ -28,9 +28,23 @@ Provides: %{reponame} = %{version}-%{release}
 Provides: bundled(blake3) = 1.2.0
 Provides: bundled(wasi-cpp-header) = 0.0.1
 Provides: wasm-library
+Conflicts: %{name}-rt
 
 %description
 High performance WebAssembly Virtual Machine
+
+%package rt
+Summary: %{reponame} Runtime
+Requires: spdlog
+Provides: %{reponame}-rt = %{version}-%{release}
+Provides: bundled(blake3) = 1.2.0
+Provides: bundled(wasi-cpp-header) = 0.0.1
+Provides: wasm-library
+Conflicts: %{name}
+RemovePathPostfixes: .rt
+
+%description rt
+This package contains only %{reponame} runtime without LLVM dependency.
 
 %package devel
 Summary: %{reponame} development files
@@ -47,8 +61,22 @@ This package contains necessary header files for %{reponame} development.
 %build
 %cmake -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=OFF -DWASMEDGE_BUILD_TESTS=OFF
 %cmake_build
+mkdir rt
+cd rt
+%cmake -S .. -GNinja -DCMAKE_BUILD_TYPE=RelWithDebInfo -DBUILD_SHARED_LIBS=OFF -DWASMEDGE_BUILD_TESTS=OFF -DWASMEDGE_BUILD_AOT_RUNTIME=OFF
+%cmake_build
 
 %install
+cd rt
+%cmake_install
+mv %{buildroot}%{_bindir}/wasmedge{,.rt}
+mv %{buildroot}%{_libdir}/lib%{name}.so.%{capi_version}{,.rt}
+mv %{buildroot}%{_libdir}/lib%{name}.so.%{capi_soname}{,.rt}
+mv %{buildroot}%{_libdir}/lib%{name}.so{,.rt}
+mv %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.%{version}.rt
+ln -s lib%{name}Plugin%{reponame}Process.so.%{version} %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.rt
+rm -rf %{buildroot}%{_includedir}
+cd ..
 %cmake_install
 mv %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.%{version}
 ln -s lib%{name}Plugin%{reponame}Process.so.%{version} %{buildroot}%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so
@@ -62,6 +90,17 @@ ln -s lib%{name}Plugin%{reponame}Process.so.%{version} %{buildroot}%{_libdir}/%{
 %{_libdir}/lib%{name}.so.%{capi_soname}
 %dir %{_libdir}/%{name}
 %{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.%{version}
+
+%files rt
+%license LICENSE LICENSE.spdx
+%doc Changelog.md README.md SECURITY.md
+%{_bindir}/wasmedge.rt
+%{_libdir}/lib%{name}.so.%{capi_version}.rt
+%{_libdir}/lib%{name}.so.%{capi_soname}.rt
+%{_libdir}/lib%{name}.so.rt
+%dir %{_libdir}/%{name}
+%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.rt
+%{_libdir}/%{name}/lib%{name}Plugin%{reponame}Process.so.%{version}.rt
 
 %files devel
 %dir %{_includedir}/%{name}

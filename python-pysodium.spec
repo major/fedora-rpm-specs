@@ -2,10 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        0.7.12
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A Python libsodium wrapper
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/stef/pysodium
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -47,6 +47,9 @@ Requires:       libsodium
 %{python3_sitelib}/%{pypi_name}
 
 %changelog
+* Sun Mar 05 2023 Andreas Schneider <asn@redhat.com> - 0.7.12-5
+- Update License to SPDX expression
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.12-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

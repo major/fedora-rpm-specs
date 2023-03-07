@@ -46,7 +46,7 @@ Name:           lua-luv
 Version:        %{real_version}.%{extra_version}
 Release:        2%{?dist}
 
-License:        ASL 2.0
+License:        Apache-2.0
 Summary:        Bare libuv bindings for lua
 Url:            https://github.com/luvit/luv
 

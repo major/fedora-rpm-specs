@@ -1,13 +1,13 @@
 %undefine __cmake_in_source_build
 
 Name:       kbibtex
-Version:    0.9.2
-Release:    11%{?dist}
+Version:    0.9.3.2
+Release:    1%{?dist}
 Summary:    A BibTeX editor for KDE
 
 License:    GPLv2+
 URL:        https://userbase.kde.org/KBibTeX
-Source0:    http://download.kde.org/stable/KBibTeX/%{version}/%{name}-%{version}.tar.xz
+Source0:    http://download.kde.org/stable/KBibTeX/0.9.3/%{name}-%{version}.tar.xz
 
 BuildRequires:  cmake qt5-qtbase-devel desktop-file-utils gettext-devel
 %ifarch %qt5_qtwebengine_arches
@@ -102,6 +102,9 @@ desktop-file-validate  $RPM_BUILD_ROOT%{_kf5_datadir}/applications/*.desktop
 
 
 %changelog
+* Sun Mar 05 2023 Orion Poplawski <orion@nwra.com> - 0.9.3.2-1
+- Update to 0.9.3.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

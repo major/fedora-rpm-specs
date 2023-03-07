@@ -3,10 +3,10 @@ Name:           opae
 Vendor:         Intel Corporation
 License:        BSD
 
-Version:        2.1.0
-%define opae_release 2
-%define patch_level 2
-Release:        %{opae_release}.%{patch_level}%{?dist}.1
+Version:        2.2.0
+%define opae_release 1
+%define patch_level 1
+Release:        %{opae_release}.%{patch_level}%{?dist}
 
 URL:            https://github.com/OPAE/%{name}-sdk
 Source0:        https://github.com/OPAE/opae-sdk/releases/download/%{version}-%{opae_release}/%{name}-%{version}-%{opae_release}.tar.gz
@@ -97,28 +97,8 @@ cp LICENSE %{buildroot}%{_datadir}/opae/LICENSE
 cp COPYING %{buildroot}%{_datadir}/opae/COPYING
 
 mkdir -p %{buildroot}%{_usr}/src/opae/cmake/modules
-for s in \
-    FindCLI11.cmake \
-    FindCap.cmake \
-    FindHwloc.cmake \
-    FindSphinx.cmake \
-    FindTbb.cmake \
-    FindUUID.cmake \
-    FindUdev.cmake \
-    Findedit.cmake \
-    Findjson-c.cmake \
-    Findspdlog.cmake \
-    OFS.cmake \
-    OPAE.cmake \
-    OPAECompiler.cmake \
-    OPAEExternal.cmake \
-    OPAEGit.cmake \
-    OPAEPackaging.cmake \
-    OPAETest.cmake
-do
-  cp "cmake/modules/${s}" %{buildroot}%{_usr}/src/opae/cmake/modules
-  chmod a+x %{buildroot}%{_usr}/src/opae/cmake/modules/$s
-done
+cp cmake/modules/*.cmake %{buildroot}%{_usr}/src/opae/cmake/modules
+chmod a+x %{buildroot}%{_usr}/src/opae/cmake/modules/*.cmake
 
 mkdir -p %{buildroot}%{_usr}/src/opae/samples
 mkdir -p %{buildroot}%{_usr}/src/opae/samples/hello_fpga/
@@ -133,7 +113,6 @@ cp samples/n5010-test/n5010-test.c %{buildroot}%{_usr}/src/opae/samples/n5010-te
 
 
 %cmake_install
-
 
 prev=$PWD
 pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/binaries/opae.io
@@ -152,7 +131,7 @@ pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/%__cmake_builddir/libr
 %{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
 popd
 
-pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/libraries/pyopaeuio
+pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/%__cmake_builddir/libraries/pyopaeuio/stage
 %{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
 popd
 
@@ -165,6 +144,10 @@ pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/python/pacsign
 popd
 
 pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/python/packager
+%{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
+popd
+
+pushd %{_topdir}/BUILD/%{name}-%{version}-%{opae_release}/binaries/ofs.uio
 %{__python3} setup.py install --single-version-externally-managed --root=%{buildroot}
 popd
 
@@ -187,53 +170,52 @@ for file in %{buildroot}%{python3_sitelib}/packager/tools/{afu_json_mgr,packager
    chmod a+x $file
 done
 
-
 %files
 %dir %{_datadir}/opae
 %doc %{_datadir}/opae/RELEASE_NOTES.md
 %license %{_datadir}/opae/LICENSE
 %license %{_datadir}/opae/COPYING
 
-%{_libdir}/libopae-c.so.*
+%{_datadir}/doc/opae.admin/LICENSE
+
+%config(noreplace) %{_sysconfdir}/opae/opae.cfg*
+%config(noreplace) %{_sysconfdir}/sysconfig/fpgad.conf*
+
+%{_bindir}/fpgaconf
+%{_bindir}/fpgad
+%{_bindir}/fpgainfo
+%{_bindir}/fpgasupdate
+%{_bindir}/pci_device
+%{_bindir}/rsu
+
 %{_libdir}/libbitstream.so.*
-%{_libdir}/libopae-c++-nlb.so.*
-%{_libdir}/libopae-cxx-core.so.*
-%{_libdir}/libopae-c++-utils.so.*
 %{_libdir}/libfpgad-api.so.*
 %{_libdir}/libmml-srv.so.*
 %{_libdir}/libmml-stream.so.*
+%{_libdir}/libofs_cpeng.so.*
 %{_libdir}/libofs.so.*
+%{_libdir}/libopae-c++-nlb.so.*
+%{_libdir}/libopae-c.so.*
+%{_libdir}/libopae-c++-utils.so.*
+%{_libdir}/libopae-cxx-core.so.*
 %{_libdir}/libopaemem.so.*
 %{_libdir}/libopaeuio.so.*
 %{_libdir}/libopaevfio.so.*
-%{_libdir}/libofs_cpeng.so.*
-
-%{_libdir}/opae/libxfpga.so
-%{_libdir}/opae/libopae-v.so
-%{_libdir}/opae/libmodbmc.so
-%{_libdir}/opae/libfpgad-xfpga.so
-%{_libdir}/opae/libfpgad-vc.so
 %{_libdir}/opae/libboard_a10gx.so
-%{_libdir}/opae/libboard_n3000.so
+%{_libdir}/opae/libboard_c6100.so
 %{_libdir}/opae/libboard_d5005.so
+%{_libdir}/opae/libboard_n3000.so
 %{_libdir}/opae/libboard_n5010.so
 %{_libdir}/opae/libboard_n6000.so
-
-%{_bindir}/fpgad
-%{_bindir}/fpgaconf
-%{_bindir}/fpgainfo
-%{_bindir}/fpgasupdate
-%{_bindir}/rsu
-%{_bindir}/pci_device
+%{_libdir}/opae/libfpgad-vc.so
+%{_libdir}/opae/libfpgad-xfpga.so
+%{_libdir}/opae/libmodbmc.so
+%{_libdir}/opae/libopae-v.so
+%{_libdir}/opae/libxfpga.so
+%{_unitdir}/fpgad.service
 
 %{python3_sitelib}/opae.admin*
 %{python3_sitelib}/opae/admin*
-
-%config(noreplace) %{_sysconfdir}/opae/fpgad.cfg*
-%config(noreplace) %{_sysconfdir}/sysconfig/fpgad.conf*
-
-%{_datadir}/doc/opae.admin/LICENSE
-%{_unitdir}/fpgad.service
 
 %post
 %systemd_post fpgad.service
@@ -242,117 +224,123 @@ done
 %preun
 %systemd_preun fpgad.service
 
-
 %files devel
 %dir %{_includedir}/opae
-%{_includedir}/opae/*.h
-%{_includedir}/opae/cxx/core.h
-%{_includedir}/opae/cxx/core/*.h
 %dir %{_usr}/src/opae
-%{_usr}/src/opae/samples/hello_fpga/hello_fpga.c
-%{_usr}/src/opae/samples/hello_events/hello_events.c
-%{_usr}/src/opae/samples/object_api/object_api.c
-%{_usr}/src/opae/samples/n5010-test/n5010-test.c
-%{_usr}/src/opae/samples/n5010-ctl/n5010-ctl.c
-%{_usr}/src/opae/cmake/modules/*
-%{_usr}/src/opae/argsfilter/argsfilter.c
-%{_usr}/src/opae/argsfilter/argsfilter.h
 
-%{_libdir}/libfpgad-api.so
-%{_libdir}/libopae-c++-nlb.so
-%{_libdir}/libopae-cxx-core.so
-%{_libdir}/libopae-c++-utils.so
-%{_libdir}/libopae-c.so
-%{_libdir}/libbitstream.so
-%{_libdir}/libmml-stream.so
-%{_libdir}/libmml-srv.so
-%{_libdir}/libofs.so
-%{_libdir}/libofs_cpeng.so
-%{_libdir}/libopaemem.so
-%{_libdir}/libopaeuio.so
-%{_libdir}/libopaevfio.so
-
-%{_bindir}/bitstreaminfo
-%{_bindir}/fpgaflash
-%{_bindir}/fpgaotsu
-%{_bindir}/fpgaport
-%{_bindir}/super-rsu
-%{_bindir}/mmlink
-%{_bindir}/userclk
-%{_bindir}/hello_fpga
-%{_bindir}/object_api
-%{_bindir}/hello_events
-%{_bindir}/hello_cxxcore
 %{_bindir}/afu_json_mgr
-%{_bindir}/packager
-%{_bindir}/fpgametrics
-%{_bindir}/n5010-test
-%{_bindir}/n5010-ctl
-%{_bindir}/PACSign
-%{_bindir}/opaevfio
-%{_bindir}/opaevfiotest
-%{_bindir}/regmap-debugfs
-%{_bindir}/fpgareg
 %{_bindir}/afu_platform_config
 %{_bindir}/afu_platform_info
 %{_bindir}/afu_synth_setup
+%{_bindir}/bitstreaminfo
+%{_bindir}/fpgaflash
+%{_bindir}/fpgametrics
+%{_bindir}/fpgaotsu
+%{_bindir}/fpgaport
+%{_bindir}/fpgareg
+%{_bindir}/hello_cxxcore
+%{_bindir}/hello_events
+%{_bindir}/hello_fpga
 %{_bindir}/hssiloopback
 %{_bindir}/hssimac
 %{_bindir}/hssistats
-%{_bindir}/opaeuiotest
-%{_bindir}/pac_hssi_config.py
-%{_bindir}/rtl_src_config
+%{_bindir}/mmlink
+%{_bindir}/n5010-ctl
+%{_bindir}/n5010-test
 %{_bindir}/nlb0
 %{_bindir}/nlb3
 %{_bindir}/nlb7
+%{_bindir}/object_api
+%{_bindir}/opaeuiotest
+%{_bindir}/opaevfio
+%{_bindir}/opaevfiotest
+%{_bindir}/pac_hssi_config.py
+%{_bindir}/packager
+%{_bindir}/PACSign
+%{_bindir}/regmap-debugfs
+%{_bindir}/rtl_src_config
+%{_bindir}/super-rsu
+%{_bindir}/userclk
 %{_bindir}/vabtool
-
-
+%{_includedir}/mock/opae_std.h
+%{_includedir}/opae/cxx/core.h
+%{_includedir}/opae/cxx/core/*.h
+%{_includedir}/opae/*.h
+%{_includedir}/opae/plugin/*.h
+%{_libdir}/libbitstream.so
+%{_libdir}/libfpgad-api.so
+%{_libdir}/libmml-srv.so
+%{_libdir}/libmml-stream.so
+%{_libdir}/libofs_cpeng.so
+%{_libdir}/libofs.so
+%{_libdir}/libopae-c++-nlb.so
+%{_libdir}/libopae-c.so
+%{_libdir}/libopae-c++-utils.so
+%{_libdir}/libopae-cxx-core.so
+%{_libdir}/libopaemem.so
+%{_libdir}/libopaeuio.so
+%{_libdir}/libopaevfio.so
+%{_prefix}/lib/opae-%{version}
 %{_usr}/share/opae/*
-%{python3_sitelib}/ethernet*
-%{python3_sitelib}/hssi_ethernet*
-%{python3_sitelib}/pacsign*
-%{python3_sitelib}/packager*
-%{python3_sitearch}/libvfio*
+%{_usr}/src/opae/argsfilter/argsfilter.c
+%{_usr}/src/opae/argsfilter/argsfilter.h
+%{_usr}/src/opae/cmake/modules/*
+%{_usr}/src/opae/samples/hello_events/hello_events.c
+%{_usr}/src/opae/samples/hello_fpga/hello_fpga.c
+%{_usr}/src/opae/samples/n5010-ctl/n5010-ctl.c
+%{_usr}/src/opae/samples/n5010-test/n5010-test.c
+%{_usr}/src/opae/samples/object_api/object_api.c
 
+%{python3_sitearch}/libvfio*
 %{python3_sitearch}/opae.fpga*
 %{python3_sitearch}/opae/fpga*
-%{python3_sitearch}/opae*
+%{python3_sitelib}/ethernet*
+%{python3_sitelib}/hssi_ethernet*
+%{python3_sitelib}/packager*
+%{python3_sitelib}/pacsign*
 
 %files extra-tools
+
+%{_bindir}/bist
 %{_bindir}/bist_app
-%{_bindir}/dummy_afu
 %{_bindir}/bist_app.py
 %{_bindir}/bist_common.py
-%{_bindir}/bist_dma.py
 %{_bindir}/bist_def.py
-%{_bindir}/bist_nlb3.py
+%{_bindir}/bist_dma.py
 %{_bindir}/bist_nlb0.py
-%{_bindir}/fpgabist
+%{_bindir}/bist_nlb3.py
+%{_bindir}/dummy_afu
 %{_bindir}/fecmode
-%{_bindir}/fpgamac
-%{_bindir}/fvlbypass
-%{_bindir}/mactest
+%{_bindir}/fpgabist
 %{_bindir}/fpgadiag
-%{_bindir}/fpgalpbk
-%{_bindir}/fpgastats
 %{_bindir}/fpga_dma_N3000_test
 %{_bindir}/fpga_dma_test
+%{_bindir}/fpgalpbk
+%{_bindir}/fpgamac
+%{_bindir}/fpgastats
+%{_bindir}/fvlbypass
 %{_bindir}/host_exerciser
-%{_bindir}/bist
 %{_bindir}/hps
 %{_bindir}/hssi
-%{_bindir}/opae.io
+%{_bindir}/mactest
 %{_bindir}/mem_tg
+%{_bindir}/ofs.uio
+%{_bindir}/opae.io
 
 %{python3_sitearch}/opae.diag*
 %{python3_sitearch}/opae/diag*
 %{python3_sitearch}/opae.io*
 %{python3_sitearch}/opae/io*
 %{python3_sitearch}/pyopaeuio*
-
+%{python3_sitelib}/ofs.uio*
+%{python3_sitelib}/uio*
 
 %changelog
+* Fri Mar 3 2023 Tom Rix <trix@redhat.com> - 2.2.0-1.1
+- Update tarball to 2.2.0-1
+- glob the cmake files to install
+- disable a broken python module
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.0-2.2.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

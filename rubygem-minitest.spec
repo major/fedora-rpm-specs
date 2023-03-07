@@ -2,8 +2,8 @@
 %global gem_name minitest
 
 Name: rubygem-%{gem_name}
-Version: 5.17.0
-Release: 201%{?dist}
+Version: 5.18.0
+Release: 200%{?dist}
 Summary: minitest provides a complete suite of testing facilities
 License: MIT
 URL: https://github.com/seattlerb/minitest
@@ -67,6 +67,16 @@ mkdir -p %{buildroot}%{gem_dir}
 cp -a .%{gem_dir}/* \
         %{buildroot}%{gem_dir}/
 
+rm -f %{buildroot}%{gem_cache}
+pushd %{buildroot}%{gem_instdir}
+rm -rf \
+	.autotest \
+	Manifest.txt \
+	Rakefile \
+	test/ \
+	%{nil}
+popd
+
 %check
 LANG=C.UTF-8
 LC_ALL=C.utf8
@@ -77,22 +87,20 @@ ruby -Ilib:test -e 'Dir.glob "./test/minitest/test_*.rb", &method(:require)'
 popd
 
 %files
-%doc %{gem_instdir}/README.rdoc
+%license %{gem_instdir}/README.rdoc
 %dir %{gem_instdir}
-%exclude %{gem_instdir}/.*
 %{gem_libdir}
-%exclude %{gem_cache}
 %{gem_spec}
 
 %files doc
 %doc %{gem_docdir}
 %doc %{gem_instdir}/History.rdoc
-%doc %{gem_instdir}/Manifest.txt
-%exclude %{gem_instdir}/Rakefile
-%exclude %{gem_instdir}/test
 %{gem_instdir}/design_rationale.rb
 
 %changelog
+* Sun Mar  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.18.0-200
+- 5.18.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.17.0-201
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

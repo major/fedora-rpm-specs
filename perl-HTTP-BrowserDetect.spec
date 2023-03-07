@@ -1,7 +1,7 @@
 Name:           perl-HTTP-BrowserDetect
 Summary:        Determine the Web browser, version, and platform from an HTTP user agent string
-Version:        3.37
-Release:        2%{?dist}
+Version:        3.38
+Release:        1%{?dist}
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/HTTP-BrowserDetect
 Source0:        https://cpan.metacpan.org/authors/id/O/OA/OALDERS/HTTP-BrowserDetect-%{version}.tar.gz 
@@ -58,6 +58,9 @@ at http://www.mozilla.org/docs/web-developer/sniffer/browser_type.html.
 %{_mandir}/man3/*
 
 %changelog
+* Sun Mar 05 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 3.38-1
+- Update to 3.38
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.37-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

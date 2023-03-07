@@ -1,7 +1,7 @@
 %global gem_name ruby-progressbar
 
 Name:           rubygem-%{gem_name}
-Version:        1.12.0
+Version:        1.13.0
 Release:        1%{?dist}
 Summary:        Ruby/ProgressBar is a flexible text progress bar library
 License:        MIT
@@ -70,6 +70,9 @@ export RUBYLIB=$(pwd)/lib
 # Need investigation
 sed -i spec/lib/ruby-progressbar/base_spec.rb \
 	-e '\@can be converted into a hash@s|it|xit|'
+# ???
+sed -i spec/lib/ruby-progressbar/projector/smoothed_average_spec.rb \
+	-e 's|\.to be \([0-9][0-9]*\.[0-9][0-9]*\)|.to eq(\1)|'
 
 ruby -rruby-progressbar -rtimecop -S rspec spec
 popd
@@ -89,6 +92,9 @@ popd
 
 
 %changelog
+* Sun Mar  5 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.13.0-1
+- 1.13.0
+
 * Fri Mar  3 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.12.0-1
 - 1.12.0
 

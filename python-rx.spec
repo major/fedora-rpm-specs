@@ -18,7 +18,7 @@ Name:           python-%{pkgname}
 Version:        3.2.0
 Release:        %autorelease
 Summary:        Reactive Extensions (Rx) for Python
-License:        ASL 2.0
+License:        MIT
 URL:            https://github.com/ReactiveX/RxPY
 # PyPI tarball doesn't have tests
 Source0:        %{url}/archive/v%{version}/%{srcname}-%{version}.tar.gz

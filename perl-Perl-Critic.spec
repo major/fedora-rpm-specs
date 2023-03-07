@@ -6,8 +6,8 @@
 %endif
 
 Name:		perl-Perl-Critic
-Version:	1.148
-Release:	2%{?dist}
+Version:	1.150
+Release:	1%{?dist}
 Summary:	Critique Perl source code for best-practices
 License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Perl-Critic
@@ -55,8 +55,7 @@ BuildRequires:	perl(PPI) >= 1.271
 BuildRequires:	perl(PPIx::QuoteLike)
 BuildRequires:	perl(PPIx::Regexp) >= 0.010
 BuildRequires:	perl(PPIx::Regexp::Util) >= 0.068
-BuildRequires:	perl(PPIx::Utilities::Node)
-BuildRequires:	perl(PPIx::Utilities::Statement) >= 1.001
+BuildRequires:	perl(PPIx::Utils::Traversal) >= 0.003
 BuildRequires:	perl(Readonly) >= 2
 BuildRequires:	perl(Scalar::Util)
 BuildRequires:	perl(strict)
@@ -159,6 +158,15 @@ LC_ALL=en_US ./Build test
 %{_mandir}/man3/Test::Perl::Critic::Policy.3*
 
 %changelog
+* Sun Mar  5 2023 Paul Howarth <paul@city-fan.org> - 1.150-1
+- Update to 1.150 (rhnz#2175475)
+  Enhancements
+  - Added Test::Builder and Text::Wrap to the list of default exceptions in
+    Variables::ProhibitPackageVars (GH#1025)
+  Internals
+  - We now use PPIx::Utils instead of PPIx::Utilities, which is more recently
+    maintained
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.148-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
@@ -172,7 +180,7 @@ LC_ALL=en_US ./Build test
   Internals
   - We no longer require Test::Deep for testing
   - Test::Kwalitee is now only recommended, not required
-  - Random microoptimizations, like using hashes for array contents checking,
+  - Random micro-optimizations, like using hashes for array contents checking,
     and using any() instead of calling grep as a boolean
 
 * Thu Dec 22 2022 Paul Howarth <paul@city-fan.org> - 1.146-1
@@ -232,7 +240,7 @@ LC_ALL=en_US ./Build test
     next release will require Perl 5.10.1
   New Features
   - Add new policy InputOutput::ProhibitBarewordDirHandles, comparable to
-    ProhibitBarewordFilehanles (GH#912)
+    ProhibitBarewordFilehandles (GH#912)
   - References::ProhibitDoubleSigils policy now allows for Perl's postfix
     dereference syntax and does not report a policy violation (GH#578)
   - Added Test::Class::Moose and MooseX::MethodAttributes::Role to the list of

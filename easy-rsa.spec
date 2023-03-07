@@ -1,9 +1,9 @@
 Name:      easy-rsa
 Version:   3.1.2
-Release:   2%{?dist}
+Release:   3%{?dist}
 
 Summary:   Simple shell based CA utility
-License:   GPLv2
+License:   GPL-2.0-only
 
 URL:       https://github.com/OpenVPN/easy-rsa
 Source0:   %{url}/releases/download/v%{version}/EasyRSA-%{version}.tgz
@@ -47,6 +47,9 @@ cp -rp x509-types %{buildroot}%{_datadir}/easy-rsa/%{version}/
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.2-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

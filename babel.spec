@@ -1,39 +1,47 @@
-%global srcname Babel
-%global sum Library for internationalizing Python applications
-
 # There is some bootstrapping involved when upgrading Python 3
 # First of all we need babel (this package) to use sphinx
 # And pytest is at this point not yet ready
-%bcond_with bootstrap
+%bcond bootstrap 0
+
+# Since babel 2.12, the pytz dependency is optional.
+# However, pytz is preferred when installed.
+# Running tests with pytz is optional as well.
+# We don't want to pull pytz into ELN/RHEL just to test integration with it,
+# but we don't want to ship babel in Fedora with an untested default,
+# so we make the dependency conditional.
+# Ideally, the dependency would be conditional on pytz availability in the repo,
+# but that's not possible in 2023 yet.
+%bcond pytz_tests %{undefined rhel}
 
 Name:           babel
-Version:        2.11.0
-Release:        2%{?dist}
+Version:        2.12.1
+Release:        1%{?dist}
 Summary:        Tools for internationalizing Python applications
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://babel.pocoo.org/
-Source0:        %{pypi_source}
+Source:         %{pypi_source Babel}
 
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
-%if !%{with bootstrap}
+
+%if %{without bootstrap}
 BuildRequires:  coreutils
-BuildRequires:  python3-pytz
+# The Python test dependencies are not generated from tox.ini,
+# because it would require complex patching to be usable
+# and becasue we want to avoid the tox dependency in ELN/RHEL.
 BuildRequires:  python3-pytest
 BuildRequires:  python3-freezegun
+%if %{with pytz_tests}
+# The pytz tests are skipped when pytz is missing
+BuildRequires:  python3-pytz
 %endif
-
 # build the documentation
 BuildRequires:  make
-
-%if !%{with bootstrap}
 BuildRequires:  python3-sphinx
 %endif
-Requires:       python3-babel
-Requires:       python3-setuptools
+Requires:       python3-babel = %{?epoch:%{epoch}:}%{version}-%{release}
 
 
 %description
@@ -47,12 +55,7 @@ Babel is composed of two major parts:
 
 
 %package -n python3-babel
-Summary:        %sum
-
-Requires:       python3-setuptools
-Requires:       python3-pytz
-
-%{?python_provide:%python_provide python3-babel}
+Summary:        Library for internationalizing Python applications
 
 %description -n python3-babel
 Babel is composed of two major parts:
@@ -63,26 +66,28 @@ Babel is composed of two major parts:
   providing access to various locale display names, localized number
   and date formatting, etc.
 
-%if !%{with bootstrap}
+%if %{without bootstrap}
 %package doc
 Summary:        Documentation for Babel
-Provides:       python-babel-doc = %{version}-%{release}
-Provides:       python3-babel-doc = %{version}-%{release}
+%py_provides    python3-babel-doc
 
 %description doc
 Documentation for Babel
 %endif
 
 %prep
-%autosetup -p1 -n %{srcname}-%{version}
+%autosetup -p1 -n Babel-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 BUILDDIR="$PWD/built-docs"
 rm -rf "$BUILDDIR"
 
-%if !%{with bootstrap}
+%if %{without bootstrap}
 pushd docs
 make \
     SPHINXBUILD=sphinx-build-3 \
@@ -93,37 +98,46 @@ rm -f "$BUILDDIR/html/.buildinfo"
 %endif
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files babel
 
-%if !%{with bootstrap}
+%if %{without bootstrap}
 install -D -m 0644 built-docs/man/babel.1 %{buildroot}%{_mandir}/man1/pybabel.1
 %endif
 
 %check
 export TZ=UTC
-%if !%{with bootstrap}
+%pyproject_check_import
+%if %{without bootstrap}
 %pytest
 %endif
 
 %files
 %doc CHANGES.rst AUTHORS
-%license LICENSE
 %{_bindir}/pybabel
 
-%if !%{with bootstrap}
+%if %{without bootstrap}
 %{_mandir}/man1/pybabel.1*
 %endif
 
-%files -n python3-babel
-%{python3_sitelib}/Babel-%{version}-py*.egg-info/
-%{python3_sitelib}/babel/
+%files -n python3-babel -f %{pyproject_files}
 
-%if !%{with bootstrap}
+%if %{without bootstrap}
 %files doc
+%license LICENSE
 %doc built-docs/html/*
 %endif
 
 %changelog
+* Wed Mar 01 2023 Miro Hrončok <mhroncok@redhat.com> - 2.12.1-1
+- Update to 2.12.1
+
+* Tue Feb 28 2023 Miro Hrončok <mhroncok@redhat.com> - 2.12.0-1
+- Update to 2.12.0
+- No longer depends on pytz
+- No longer depends on setuptools
+- Update the License tag to SPDX
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.11.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

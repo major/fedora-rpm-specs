@@ -261,7 +261,7 @@ cd python
 
 %check
 
-%global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|FixTimestep:rigid_nvt\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:addtorque_const\|FixTimestep:spring_rg\|FixTimestep:wall_harmonic_const\|MolPairStyle:lj_table_tip4p_long\|MolPairStyle:lj_cut_tip4p_long\)'
+%global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|FixTimestep:rigid_nvt\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:addtorque_const\|FixTimestep:spring_rg\|FixTimestep:wall_harmonic_const\|MolPairStyle:lj_table_tip4p_long\|MolPairStyle:lj_cut_tip4p_long\|MolPairStyle:lj_cut_tip4p_cut\)'
 %ifarch ppc64le
 %global testargs --label-exclude unstable --exclude-regex '\(Variables\|ComputeGlobal\|MolPairStyle:tip4p_long\|MolPairStyle:tip4p_table\|MolPairStyle:lj_cut_tip4p_table\|MolPairStyle:tip4p_cut\|MolPairStyle:lj_cut_tip4p_cut\|MolPairStyle:lj_cut_tip4p_long_soft\|FixTimestep:rigid_nvt\|MolPairStyle:coul_slater_long\|AtomicPairStyle:meam_spline\|FixTimestep:addtorque_const\|FixTimestep:spring_rg\|FixTimestep:wall_harmonic_const\)'
 %endif

@@ -19,7 +19,7 @@
 
 Name:          mathgl
 Version:       8.0.1
-Release:       2%{?dist}
+Release:       3%{?dist}
 Summary:       Cross-platform library for making high-quality scientific graphics
 Summary(de):   Plattformübergreifende Bibliothek für hochwertige wissenschaftliche Graphiken
 Summary(ru):   Библиотека для осуществления высококачественной визуализации данных
@@ -270,6 +270,7 @@ Obsoletes:     %{name}-qt4 < 8.0
 %package qt5-devel
 Summary:       Devel files for qt5 widgets of %{name} library
 Requires:      %{name}-devel = %{version}-%{release}
+Requires:      %{name}-qt5 = %{version}-%{release}
 Obsoletes:     %{name}-qt-devel < 2.4
 Provides:      %{name}-qt-devel = %{version}-%{release}
 Obsoletes:     %{name}-qt4-devel < 8.0
@@ -289,6 +290,7 @@ Requires:      fltk-fluid
 %package fltk-devel
 Summary:       Devel files for fltk widgets of %{name} library
 Requires:      %{name}-devel = %{version}-%{release}
+Requires:      %{name}-fltk = %{version}-%{release}
 Requires:      fltk-devel
 
 %description fltk-devel
@@ -304,6 +306,7 @@ Requires:      %{name} = %{version}-%{release}
 %package wx-devel
 Summary:       Devel files for wxWidgets widgets of %{name} library
 Requires:      %{name}-devel = %{version}-%{release}
+Requires:      %{name}-wx = %{version}-%{release}
 Requires:      wxGTK-devel
 
 %description wx-devel
@@ -620,6 +623,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/mgllab.desktop
 %endif
 
 %changelog
+* Sun Mar 05 2023 Dmitrij S. Kryzhevich <kryzhev@ispms.ru> - 8.0.1-3
+- Fix -[wx,fltk,qt5]-devel dependencies.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

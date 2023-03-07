@@ -5,7 +5,7 @@ Version:	2019.1.0.post0
 Release:        %autorelease
 Summary:        FEniCS computational backend and problem solving environment
 
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://fenicsproject.org/
 Source0:        https://bitbucket.org/fenics-project/dolfin/downloads/dolfin-%{version}.tar.gz
 Source1:        https://bitbucket.org/fenics-project/dolfin/downloads/dolfin-%{version}.tar.gz.asc

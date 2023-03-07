@@ -2,8 +2,8 @@
 %bcond_without ninja_build
 
 Name:           ddnet
-Version:        16.7.2
-Release:        2%{?dist}
+Version:        16.8
+Release:        1%{?dist}
 Summary:        DDraceNetwork, a cooperative racing mod of Teeworlds
 
 # Disabled while can't fix build
@@ -178,6 +178,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.appdata.xml
 
 
 %changelog
+* Mon Mar 06 2023 Sérgio Basto <sergio@serjux.com> - 16.8-1
+- Update ddnet to 16.8 (#2173319)
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 16.7.2-2
 - Ensure standard Rust compiler flags are set.
 

@@ -39,7 +39,7 @@ BuildRequires: pkgconfig(libsystemd)
 Name:    qt6-qtbase
 Summary: Qt6 - QtBase components
 Version: 6.4.2
-Release: 4%{?dist}
+Release: 5%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://qt-project.org/
@@ -71,6 +71,7 @@ Source10: macros.qt6-qtbase
 # downside: binaries produced with these differently-versioned symbols are no longer
 # compatible with qt-project.org's Qt binary releases.
 Patch1: qtbase-tell-truth-about-private-api.patch
+Patch2: qtbase-use-qgnomeplatform-as-default-platform-theme-on-gnome.patch
 
 # upstreamable patches
 # namespace QT_VERSION_CHECK to workaround major/minor being pre-defined (#1396755)
@@ -843,6 +844,10 @@ make check -k ||:
 
 
 %changelog
+* Sun Mar 05 2023 Jan grulich <jgrulich@redhat.com> - 6.4.2-5
+- Use QGnomePlatform as default platform theme on GNOME
+  Resolves: bz#2174905
+
 * Wed Feb 08 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-4
 - Fix possible DOS involving the Qt SQL ODBC driver plugin
   CVE-2023-24607

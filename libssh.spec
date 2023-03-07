@@ -1,8 +1,8 @@
 Name:           libssh
 Version:        0.10.4
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        A library implementing the SSH protocol
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://www.libssh.org
 
 Source0:        https://www.libssh.org/files/0.10/%{name}-%{version}.tar.xz
@@ -133,6 +133,9 @@ popd
 %attr(0644,root,root) %config(noreplace) %{_sysconfdir}/libssh/libssh_server.config
 
 %changelog
+* Sun Mar 05 2023 Andreas Schneider <asn@redhat.com> - 0.10.4-4
+- Update License to SPDX expression
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

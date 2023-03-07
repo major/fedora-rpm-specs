@@ -23,7 +23,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           tracker-miners
-Version:        3.5.0~beta
+Version:        3.5.0~rc
 Release:        1%{?dist}
 Summary:        Tracker miners and metadata extractors
 
@@ -159,6 +159,9 @@ This package contains various miners and metadata extractors for tracker.
 
 
 %changelog
+* Sun Mar 05 2023 David King <amigadave@amigadave.com> - 3.5.0~rc-1
+- Update to 3.5.0.rc (#2160269)
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 3.5.0~beta-1
 - Update to 3.5.0.beta
 

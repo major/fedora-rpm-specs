@@ -1,9 +1,9 @@
 Name:           barrage
 Version:        1.0.6
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Kill and destroy as many targets as possible within 3 minutes
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://lgames.sourceforge.net/index.php?project=Barrage
 Source0:        http://downloads.sourceforge.net/lgames/%{name}-%{version}.tar.gz
 Source1:        %{name}.png
@@ -103,6 +103,9 @@ rm -f $RPM_BUILD_ROOT%{_datadir}/icons/barrage48.png
 
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.6-3
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           geany-plugins
 Version:        1.38
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Plugins for Geany
 
 License:        GPLv3+
@@ -937,6 +937,9 @@ find $RPM_BUILD_ROOT -type f -empty -delete
 
 
 %changelog
+* Sun Mar 05 2023 Pete Walter <pwalter@fedoraproject.org> - 1.38-9
+- Rebuild for libgit2 1.6.x
+
 * Fri Jan 27 2023 Pete Walter <pwalter@fedoraproject.org> - 1.38-8
 - Rebuild for libgit2 1.5.x
 

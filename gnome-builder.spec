@@ -9,13 +9,14 @@
 %global gtk4_version 4.7.1
 %global json_glib_version 1.2.0
 %global jsonrpc_glib_version 3.42.0
+%global libdex_version 0.1.1
 %global libpeas_version 1.34.0
-%global template_glib_version 3.36.0
 %global libgit2_glib_version 1.1.0
 %global sysprof_version 3.46.0
+%global template_glib_version 3.36.1
 
 Name:           gnome-builder
-Version:        44~beta
+Version:        44~rc
 Release:        %autorelease
 Summary:        IDE for writing GNOME-based software
 
@@ -59,7 +60,7 @@ BuildRequires:  pkgconfig(json-glib-1.0) >= %{json_glib_version}
 BuildRequires:  pkgconfig(jsonrpc-glib-1.0) >= %{jsonrpc_glib_version}
 BuildRequires:  pkgconfig(libadwaita-1)
 BuildRequires:  pkgconfig(libcmark)
-BuildRequires:  pkgconfig(libdex-1)
+BuildRequires:  pkgconfig(libdex-1) >= %{libdex_version}
 BuildRequires:  pkgconfig(libgit2-glib-1.0) >= %{libgit2_glib_version}
 BuildRequires:  pkgconfig(libpanel-1)
 BuildRequires:  pkgconfig(libpeas-1.0) >= %{libpeas_version}
@@ -84,6 +85,7 @@ Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       json-glib%{?_isa} >= %{json_glib_version}
 Requires:       jsonrpc-glib%{?_isa} >= %{jsonrpc_glib_version}
+Requires:       libdex%{?_isa} >= %{libdex_version}
 Requires:       libgit2-glib%{?_isa} >= %{libgit2_glib_version}
 Requires:       libpeas%{?_isa} >= %{libpeas_version}
 Requires:       libpeas-loader-python3%{?_isa} >= %{libpeas_version}

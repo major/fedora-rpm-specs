@@ -2,7 +2,7 @@
 %global forgeurl https://github.com/MichMich/MagicMirror
 
 Name:           magicmirror
-Version:        2.20.0
+Version:        2.22.0
 Release:        %autorelease
 Summary:        Modular smart mirror platform
 
@@ -10,11 +10,8 @@ License:        0BSD and ASL 2.0 and BSD and CC-BY and ISC and MIT and OFL and P
 URL:            http://magicmirror.builders
 # Use the GitHub tarball due to https://github.com/MichMich/MagicMirror/issues/2876
 Source0:        %{forgeurl}/archive/v%{version}/%{srcname}-%{version}.tar.gz
-# Created with:
-#   nodejs-packaging-bundler MagicMirror 2.20.0 MagicMirror-2.20.0.tar.gz
-# with these PRs applied:
-#   https://src.fedoraproject.org/rpms/nodejs-packaging/pull-request/9
-#   https://src.fedoraproject.org/rpms/nodejs-packaging/pull-request/10
+# Created with nodejs-packaging >= 2021.06-7 running:
+#   nodejs-packaging-bundler MagicMirror 2.22.0 MagicMirror-2.22.0.tar.gz
 Source1:        %{srcname}-%{version}-nm-prod.tgz
 Source2:        %{srcname}-%{version}-nm-dev.tgz
 Source3:        %{srcname}-%{version}-bundled-licenses.txt

@@ -16,13 +16,13 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.9.4
+Version:        4.10.0
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
 License:        LGPLv2+
 URL:            https://www.gtk.org
-Source0:        https://download.gnome.org/sources/gtk/4.9/gtk-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/gtk/4.10/gtk-%{version}.tar.xz
 Source1:        settings.ini
 # Temporarily revert this until we figure out how to best restore
 # private requires that are needed for rpm automatic dep extraction.

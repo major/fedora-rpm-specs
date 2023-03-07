@@ -4,22 +4,13 @@ CC=%{__cc} CFLAGS="%{build_cflags}" LDFLAGS="%{build_ldflags}" ENABLE_MAN=1
 
 
 Name:           cc1541
-Version:        4.0
-Release:        5%{?dist}
+Version:        4.1
+Release:        1%{?dist}
 Summary:        Tool for creating Commodore Floppy disk images in D64, G64, D71 or D81 format
 
 License:        MIT
 URL:            https://bitbucket.org/PTV_Claus/%{name}
 Source0:        %{url}/downloads/%{name}-%{version}.tar.gz
-
-Patch0001:      0001-Verbose-file-allocation-printout-showed-broken-filen.patch
-Patch0002:      0002-Another-fix-for-the-file-allocation-table-printing.patch
-Patch0018:      0018-track-was-not-reset-after-writing-transwarp-files-re.patch
-Patch0019:      0019-Makefile-Increase-automatic-line-wraps-to-76-charact.patch
-Patch0020:      0020-Makefile-Improve-all-targets-to-be-thread-safe.patch
-Patch0021:      0021-Makefile-Pass-environment-to-sub-make-invokation.patch
-Patch0022:      0022-README-Clean-trailing-white-space.patch
-Patch0023:      0023-Adding-tests-for-the-bugfix-related-to-allocation-fo.patch
 
 BuildRequires:  asciidoc
 BuildRequires:  gcc
@@ -56,6 +47,9 @@ using either SPEED DOS or DOLPHIN DOS BAM-formatting.
 
 
 %changelog
+* Sun Mar 05 2023 Björn Esser <besser82@fedoraproject.org> - 4.1-1
+- New upstream release
+
 * Sat Feb 11 2023 Björn Esser <besser82@fedoraproject.org> - 4.0-5
 - Update patches from upstream git
 

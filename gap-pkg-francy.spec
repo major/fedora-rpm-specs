@@ -1,7 +1,7 @@
 %global pkgname francy
 
 Name:           gap-pkg-%{pkgname}
-Version:        2.0.1
+Version:        2.0.2
 Release:        1%{?dist}
 Summary:        Framework for interactive discrete mathematics
 
@@ -90,6 +90,9 @@ cp -p tst/{canvas,graph}.tst %{buildroot}%{gap_libdir}/pkg/francy/tst
 %{gap_libdir}/pkg/%{pkgname}/notebooks/
 
 %changelog
+* Sat Mar  4 2023 Jerry James <loganjerry@gmail.com> - 2.0.2-1
+- Version 2.0.2
+
 * Tue Feb 28 2023 Jerry James <loganjerry@gmail.com> - 2.0.1-1
 - Version 2.0.1
 - Drop upstreamed entity patch

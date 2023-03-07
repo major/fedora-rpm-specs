@@ -1,8 +1,8 @@
 %global __remake_config 0
 
 Name:           libfabric
-Version:        1.17.0
-Release:        3%{?dist}
+Version:        1.17.1
+Release:        1%{?dist}
 Summary:        Open Fabric Interfaces
 
 License:        BSD or GPLv2
@@ -94,6 +94,9 @@ find %{buildroot} -name '*.la' -exec rm -f {} ';'
 
 
 %changelog
+* Sun Mar 05 2023 Orion Poplawski <orion@nwra.com> - 1.17.1-1
+- Update to 1.17.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.17.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

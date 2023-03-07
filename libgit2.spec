@@ -6,15 +6,12 @@
 %endif
 
 Name:           libgit2
-Version:        1.5.2
+Version:        1.6.2
 Release:        %autorelease
 Summary:        C implementation of the Git core methods as a library with a solid API
 License:        GPLv2 with exceptions
 URL:            https://libgit2.org/
 Source0:        https://github.com/libgit2/libgit2/archive/refs/tags/v%{version}.tar.gz#/libgit2-%{version}.tar.gz
-
-# https://github.com/libgit2/libgit2/pull/6357
-Patch0:         libgit2-remove-ftruncate-test.patch
 
 BuildRequires:  gcc
 BuildRequires:  cmake >= 3.5.1
@@ -82,7 +79,7 @@ rm -vr deps
 
 %files
 %license COPYING
-%{_libdir}/libgit2.so.1.5*
+%{_libdir}/libgit2.so.1.6*
 
 %files devel
 %doc AUTHORS docs examples README.md

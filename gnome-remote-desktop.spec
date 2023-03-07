@@ -10,13 +10,13 @@
 %endif
 
 Name:           gnome-remote-desktop
-Version:        44~alpha
+Version:        44~rc
 Release:        1%{?dist}
 Summary:        GNOME Remote Desktop screen share service
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-remote-desktop
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 # Adds encryption support (requires patched LibVNCServer)
 Patch0:         gnutls-anontls.patch
@@ -111,6 +111,9 @@ GNOME desktop environment.
 
 
 %changelog
+* Sun Mar 05 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 44~alpha-1
 - Update to 44.alpha
 

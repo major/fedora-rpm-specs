@@ -1,62 +1,70 @@
-# Created by pyp2rpm-3.3.2
-%global pypi_name versioneer
-
 %global _description %{expand:
 Versioneer is a tool to automatically update version strings (in setup.py and
 the conventional 'from PROJECT import _version' pattern) by asking your
 version-control system about the current tree.}
 
-
-Name:           python-%{pypi_name}
-Version:        0.21
-Release:        5%{?dist}
+Name:           python-versioneer
+Version:        0.28
+Release:        1%{?dist}
 Summary:        Easy VCS-based management of project version strings
 
-License:        Public Domain
+License:        Unlicense
 URL:            https://github.com/warner/python-versioneer
-Source0:        https://files.pythonhosted.org/packages/source/v/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source versioneer}
+
 BuildArch:      noarch
  
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
 
 %description %_description
 
-%package -n     python3-%{pypi_name}
+%package -n     python3-versioneer
 Summary:        %{summary}
-%{?python_provide:%python_provide python3-%{pypi_name}}
- 
-Requires:       python3dist(setuptools)
 
-%description -n python3-%{pypi_name} %_description
+%description -n python3-versioneer %_description
 
+%pyproject_extras_subpkg -n python3-versioneer toml
 
 %prep
-%autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+%autosetup -n versioneer-%{version}
+
+%generate_buildrequires
+%pyproject_buildrequires -x toml
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+# Remove the unwanted shebang from the amalgamated versioneer.py file:
+sed -r -i '1{/^#!/d}' %{buildroot}%{python3_sitelib}/versioneer.py
+%pyproject_save_files versioneer
 
 %check
-%{__python3} setup.py test
+# Based on tox.ini; but we do not use tox, because tox.ini has too many linting
+# tests and other unwanted dependencies.
+%{python3} setup.py make_versioneer
+%{python3} -m unittest discover test
+# Some of these do not work; it is not clear that this indicates a real
+# problem. We would need at least “BuildRequires: git-core” if they did work.
+#{python3} test/git/test_git.py -v
+# These generally require python3dist(virtualenv) and network access.
+#{python3} test/git/test_invocations.py -v
 
-%posttrans -n python3-%{pypi_name}
-# Cleanup previous version egg-info
-rm -rf %{python3_sitelib}/%{pypi_name}-0.18-py%{python3_version}.egg-info
-
-%files -n python3-%{pypi_name}
+%files -n python3-versioneer -f %{pyproject_files}
 %doc README.md
+%doc details.md
 %{_bindir}/versioneer
-%{python3_sitelib}/__pycache__/%{pypi_name}*
-%{python3_sitelib}/%{pypi_name}.py
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info/
 
 %changelog
+* Fri Mar 03 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 0.28-1
+- Update to 0.28
+- Port to pyproject-rpm-macros
+- Add metapackage for “toml” extra
+- License has changed from CC0-1.0 (spec file had Public Domain) to Unlicense
+- Remove obsolete posttrans scriptlet
+- Add details.md to documentation
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.21-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

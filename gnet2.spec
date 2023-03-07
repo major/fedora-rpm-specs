@@ -1,9 +1,9 @@
 Name:           gnet2
 Version:        2.0.8
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        A simple network library built upon glib
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            http://www.gnetlibrary.org/
 Source0:        http://ftp.gnome.org/pub/GNOME/sources/gnet/2.0/gnet-%{version}.tar.bz2
 Patch1:         gnet2-2.0.8-build.patch
@@ -53,6 +53,9 @@ find $RPM_BUILD_ROOT -name \*.la -exec rm {} \;
 %{_libdir}/pkgconfig/*
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.0.8-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.8-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

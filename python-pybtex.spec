@@ -93,7 +93,7 @@ sed -e "s|\('https://docs\.python\.org/3/', \)None|\1'%{_docdir}/python3-docs/ht
 
 # Build documentation
 # Workaround for pygments 2.13.  See bz 2127371.
-cat >> pybtex-%{version}.dist-info/entry_points.txt << EOF
+cat >> pybtex.egg-info/entry_points.txt << EOF
 
 [pygments.styles]
 pybtex = pybtex_doctools.pygments:PybtexStyle

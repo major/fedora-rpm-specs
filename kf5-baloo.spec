@@ -139,7 +139,8 @@ install -p -m755 -D %{SOURCE2} %{buildroot}%{_sysconfdir}/xdg/plasma-workspace/s
 %find_lang balooengine5
 %find_lang baloosearch5
 %find_lang balooshow5
-#find_lang baloo_file5
+%find_lang baloo_file5
+%find_lang baloo_file_extractor5
 #find_lang baloomonitorplugin
 
 cat kio5_tags.lang kio5_baloosearch.lang kio5_timeline.lang \
@@ -147,8 +148,8 @@ cat kio5_tags.lang kio5_baloosearch.lang kio5_timeline.lang \
     balooshow5.lang \
     > %{name}.lang
 
-#cat baloo_file5.lang \
-#    > %{name}-file.lang
+cat baloo_file5.lang baloo_file_extractor5.lang \
+    > %{name}-file.lang
 
 
 %check
@@ -169,7 +170,7 @@ make test ARGS="--output-on-failure --timeout 300" -C %{_target_platform} ||:
 %{_kf5_bindir}/balooctl
 %{_kf5_datadir}/qlogging-categories5/%{framework}*
 
-%files file
+%files file -f %{name}-file.lang
 %{_prefix}/lib/sysctl.d/97-kde-baloo-filewatch-inotify.conf
 %config(noreplace) %{_sysconfdir}/xdg/plasma-workspace/shutdown/baloo_file.sh
 %{_kf5_bindir}/baloo_file

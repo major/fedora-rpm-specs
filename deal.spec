@@ -1,8 +1,8 @@
-# Copyright (c) 2022 Garry T. Williams
+# Copyright (c) 2022, 2023 Garry T. Williams
 
 Name: deal
 Version: 3.1.11
-Release: 8%{?dist}
+Release: 9%{?dist}
 Summary: Bridge Hand Generator
 URL: https://github.com/gtwilliams/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
@@ -14,10 +14,11 @@ Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # compiler errors.  It was also modified to find certain files in the
 # installation directory instead of looking in the current directory.
 
-License: GPLv2+ and GPL+ and BSD
-# GPL+ applies only to ansidecl.h.  BSD applies only to random.c.
-# GPLv2+ applies to all other files.  Some are marked explicitly but
-# others fall under the blanket statement in the file LICENSE.
+License: GPL-2.0-or-later and GPL-1.0-or-later and BSD-3-Clause-Attribution
+# GPL-1.0-or-later applies only to ansidecl.h.
+# BSD-3-Clause-Attribution applies only to random.c.  GPL-2.0-or-later
+# applies to all other files.  Some are marked explicitly but others
+# fall under the blanket statement in the file LICENSE.
 
 BuildRequires: gcc
 BuildRequires: gcc-c++
@@ -86,6 +87,9 @@ done
 %license GPL LICENSE
 
 %changelog
+* Sun Mar 05 2023 Garry T. Williams <gtwilliams@gmail.com> 3.1.11-9
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.11-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

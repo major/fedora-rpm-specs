@@ -2,10 +2,10 @@
 
 Name:           transmission
 Version:        4.0.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A lightweight GTK+ BitTorrent client
 # See COPYING. This licensing situation is... special.
-License:        MIT and GPLv2
+License:        MIT MIT GPL-2.0-only
 URL:            http://www.transmissionbt.com
 
 Source0:        https://github.com/transmission/transmission/releases/download/%{version}/transmission-%{version}.tar.xz
@@ -180,6 +180,9 @@ desktop-file-install \
 %doc %{_mandir}/man1/transmission-qt.*
 
 %changelog
+* Sun Mar 05 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-2
+- migrated to SPDX license
+
 * Thu Feb 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.0.1-1
 - 4.0.1
 
