@@ -1,5 +1,5 @@
 %global packname styler
-%global packver  1.7.0
+%global packver  1.9.1
 %global rlibdir  %{_datadir}/R/library
 
 %global __suggests_exclude ^R\\((data\\.tree)\\)
@@ -8,7 +8,7 @@
 
 Name:             R-%{packname}
 Version:          %{packver}
-Release:          2%{?dist}
+Release:          1%{?dist}
 Summary:          Non-Invasive Pretty Printing of R Code
 
 License:          GPLv3
@@ -17,8 +17,8 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-cli >= 3.1.1, R-magrittr >= 2.0.0, R-purrr >= 0.2.3, R-R.cache >= 0.15.0, R-rematch2 >= 2.0.1, R-rlang >= 0.1.1, R-rprojroot >= 1.1, R-tibble >= 1.4.2, R-tools, R-withr >= 1.0.0
-# Suggests:  R-data.tree >= 0.1.6, R-digest, R-dplyr, R-here, R-knitr, R-prettycode, R-rmarkdown, R-roxygen2, R-rstudioapi >= 0.7, R-testthat >= 2.1.0
+# Imports:   R-cli >= 3.1.1, R-magrittr >= 2.0.0, R-purrr >= 0.2.3, R-R.cache >= 0.15.0, R-rlang >= 0.1.1, R-rprojroot >= 1.1, R-tools, R-vctrs >= 0.4.1, R-withr >= 2.3.0
+# Suggests:  R-data.tree >= 0.1.6, R-digest, R-dplyr, R-here, R-knitr, R-prettycode, R-rmarkdown, R-roxygen2, R-rstudioapi >= 0.7, R-tibble >= 1.4.2, R-testthat >= 3.0.0
 # LinkingTo:
 # Enhances:
 
@@ -29,12 +29,11 @@ BuildRequires:    R-cli >= 1.1.0
 BuildRequires:    R-magrittr >= 2.0.0
 BuildRequires:    R-purrr >= 0.2.3
 BuildRequires:    R-R.cache >= 0.15.0
-BuildRequires:    R-rematch2 >= 2.0.1
 BuildRequires:    R-rlang >= 0.1.1
 BuildRequires:    R-rprojroot >= 1.1
-BuildRequires:    R-tibble >= 1.4.2
 BuildRequires:    R-tools
-BuildRequires:    R-withr >= 1.0.0
+BuildRequires:    R-vctrs >= 0.4.1
+BuildRequires:    R-withr >= 2.3.0
 %if %{with_suggests}
 BuildRequires:    R-data.tree >= 0.1.6
 %endif
@@ -46,7 +45,8 @@ BuildRequires:    R-prettycode
 BuildRequires:    R-rmarkdown
 BuildRequires:    R-roxygen2
 BuildRequires:    R-rstudioapi >= 0.7
-BuildRequires:    R-testthat >= 2.1.0
+BuildRequires:    R-tibble >= 1.4.2
+BuildRequires:    R-testthat >= 3.0.0
 
 %description
 Pretty-prints R code without changing the user's formatting intent.
@@ -91,6 +91,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Mon Mar  6 2023 Tom Callaway <spot@fedoraproject.org> - 1.9.1-1
+- update to 1.9.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

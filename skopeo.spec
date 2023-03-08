@@ -28,7 +28,7 @@
 Name: %{repo}
 Epoch: %{conditional_epoch}
 Version: %{gen_version}
-License: ASL 2.0 and BSD and ISC and MIT
+License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and ISC and MIT and MPL-2.0
 Release: %autorelease
 ExclusiveArch: %{golang_arches_future}
 Summary: Inspect container images and repositories on registries

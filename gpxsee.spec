@@ -1,8 +1,8 @@
 %global appname GPXSee
 
 Name:           gpxsee
-Version:        12.1
-Release:        2%{?dist}
+Version:        12.2
+Release:        1%{?dist}
 Summary:        GPS log file viewer and analyzer
 
 License:        GPL-3.0-only
@@ -70,6 +70,35 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}.desktop
 
 
 %changelog
+* Sun Mar 05 2023 Packit <hello@packit.dev> - 12.2-1
+- Translated using Weblate (Catalan) (raf)
+- Translated using Weblate (Hungarian) (99 efi)
+- Translated using Weblate (Turkish) (Oğuz Ersen)
+- Translated using Weblate (Swedish) (Åke Engelbrektson)
+- Fixed DEM cache size configuration (Martin Tůma)
+- Translation update (Martin Tůma)
+- Localization update (Martin Tůma)
+- Removed unnecessary metadata from icons (Martin Tůma)
+- Add outlines to some more marine icons (Martin Tůma)
+- Make the DEM cache configurable (Martin Tůma)
+- Some more missing outlines (Martin Tůma)
+- Decreased the oversize church icon (Martin Tůma)
+- Redesigned marine icons (Martin Tůma)
+- Fixed build with older Qt versions (Martin Tůma)
+- Added support for 0.5" (7201x7201) DEM tiles (Martin Tůma)
+- Marine maps draw order fix (Martin Tůma)
+- Fixed broken handling of IMG "multi-maps" (maps with overviews) (Martin Tůma)
+- Fix multiple MSVC warnings (Martin Tůma)
+- Do not compile empty files (Martin Tůma)
+- Added "brew update" (Martin Tůma)
+- Fixed marine charts rendering (Martin Tůma)
+- Do not unnecessary convert the image tiles to pixmaps (Martin Tůma)
+- Make the MSVC2019 Debug builds compile (Martin Tůma)
+- Version++ (Martin Tůma)
+- Remove the qpainter/qimage draw workaround (Martin Tůma)
+- Allow arbitrary large images (Martin Tůma)
+- Fixed centroid computation (Martin Tůma)
+
 * Fri Feb 24 2023 Nikola Forró <nforro@redhat.com> - 12.1-2
 - Add missing changelog entry
 

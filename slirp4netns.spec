@@ -5,7 +5,7 @@
 Name: slirp4netns
 Version: %{gen_version}
 Release: %autorelease
-License: GPLv2
+License: GPL-2.0-only
 Summary: slirp for network namespaces
 URL: https://github.com/rootless-containers/%{name}
 # Tarball fetched from upstream

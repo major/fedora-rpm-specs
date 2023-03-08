@@ -24,7 +24,7 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.8.20
+Version:        1.8.21
 Release:        1%{?dist}
 Summary:        GAP browser for 2-dimensional arrays of data
 
@@ -54,6 +54,7 @@ Requires:       gap-core%{?_isa}
 
 Recommends:     gap-pkg-atlasrep
 Recommends:     gap-pkg-io%{?_isa}
+Recommends:     gap-pkg-tomlib
 
 # Don't Provide the ncurses glue
 %global __provides_exclude_from ncurses\\.so
@@ -145,6 +146,9 @@ cp -a app bibl bin lib tst version *.g %{buildroot}%{gap_archdir}/pkg/%{upname}
 %{gap_archdir}/pkg/%{upname}/doc/
 
 %changelog
+* Mon Mar  6 2023 Jerry James <loganjerry@gmail.com> - 1.8.21-1
+- Version 1.8.21
+
 * Thu Jan 19 2023 Jerry James <loganjerry@gmail.com> - 1.8.20-1
 - Version 1.8.20
 

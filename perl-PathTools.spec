@@ -4,9 +4,9 @@ Name:           perl-PathTools
 Version:        3.84
 Release:        490%{?dist}
 Summary:        PathTools Perl module (Cwd, File::Spec)
-# Cwd.xs:                   BSD
-# other files:              GPL+ or Artistic
-License:        (GPL+ or Artistic) and BSD
+# Cwd.xs:                   BSD-3-Clause
+# other files:              GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND BSD-3-Clause
 URL:            https://metacpan.org/release/PathTools
 Source0:        https://cpan.metacpan.org/authors/id/X/XS/XSAWYERX/PathTools-%{base_version}.tar.gz
 # Disable VMS tests (bug #973713)

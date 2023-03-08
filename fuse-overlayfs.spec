@@ -10,7 +10,7 @@ Name: fuse-overlayfs
 Version: %{gen_version}
 Release: %autorelease
 ExclusiveArch: %{arm64} ppc64le s390x x86_64
-License: GPLv3+
+License: GPL-3.0-or-later
 Summary: FUSE overlay+shiftfs implementation for rootless containers
 URL: https://github.com/containers/%{name}
 # Tarball fetched from upstream

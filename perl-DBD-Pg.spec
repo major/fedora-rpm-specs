@@ -3,8 +3,8 @@
 
 Name:           perl-DBD-Pg
 Summary:        A PostgreSQL interface for Perl
-Version:        3.16.0
-Release:        3%{?dist}
+Version:        3.16.1
+Release:        1%{?dist}
 # Pg.pm, README:    Points to directory which contains GPL-2.0-or-later and Artistic-1.0-Perl
 # other files:      Same as Perl (GPL-1.0-or-later OR Artistic-1.0-Perl)
 License:        GPL-2.0-or-later OR Artistic-1.0-Perl
@@ -96,9 +96,12 @@ make test
 %{perl_vendorarch}/DBD/
 %{perl_vendorarch}/auto/DBD/
 %{perl_vendorarch}/Bundle/DBD/Pg.pm
-%{_mandir}/man3/*.3*
+%{_mandir}/man3/*DBD*.3*
 
 %changelog
+* Mon Mar 06 2023 Jitka Plesnikova <jplesnik@redhat.com> - 3.16.1-1
+- 3.16.1 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.16.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

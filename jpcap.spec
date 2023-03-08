@@ -7,7 +7,7 @@
 
 Name: jpcap
 Version: 0.7
-Release: 35%{?dist}
+Release: 36%{?dist}
 Summary: A Java library for capturing and sending network packets
 
 License: LGPLv2+ and BSD with advertising
@@ -18,6 +18,8 @@ BuildRequires: jpackage-utils, java-devel >= 1:1.6, libpcap-devel >= 0.9, ant, d
 BuildRequires: make
 Requires: jpackage-utils, java-headless >= 1:1.6
 ExclusiveArch: %java_arches
+
+Patch99: jpcap-0.7-fedora-c99.patch
 
 %description 
 Jpcap is a Java library for capturing and
@@ -42,6 +44,8 @@ dos2unix ChangeLog
 dos2unix README
 dos2unix doc/javadoc/package-list
 dos2unix doc/javadoc/stylesheet.css
+
+%patch99 -p1
 
 %build
 export JAVA_HOME=%{java_home}
@@ -72,6 +76,9 @@ cp -rp doc/javadoc/ $RPM_BUILD_ROOT%{_javadocdir}/%{name}
 
 
 %changelog
+* Fri Mar  3 2023 DJ Delorie <dj@redhat.com> - 0.7-36
+- Fix C99 compatibility issue (#2175350)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-35
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

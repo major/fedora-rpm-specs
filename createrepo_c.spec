@@ -31,7 +31,7 @@
 Summary:        Creates a common metadata repository
 Name:           createrepo_c
 Version:        0.20.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 License:        GPLv2+
 URL:            https://github.com/rpm-software-management/createrepo_c
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
@@ -97,6 +97,7 @@ These development files are for easy manipulation with a repodata.
 Summary:        Python 3 bindings for the createrepo_c library
 %{?python_provide:%python_provide python3-%{name}}
 BuildRequires:  python3-devel
+BuildRequires:  python3-setuptools
 BuildRequires:  python3-sphinx
 Requires:       %{name}-libs = %{version}-%{release}
 
@@ -183,6 +184,9 @@ ln -sr %{buildroot}%{_bindir}/modifyrepo_c %{buildroot}%{_bindir}/modifyrepo
 %{python3_sitearch}/%{name}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Tue Feb 28 2023 Miro Hrončok <mhroncok@redhat.com> - 0.20.1-4
+- BuildRequire python3-setuptools explicitly, don't assume they are pulled transitively
+
 * Sat Feb 25 2023 Florian Weimer <fweimer@redhat.com> - 0.20.1-3
 - Apply upstream patch to fix C99 compatibility issue
 

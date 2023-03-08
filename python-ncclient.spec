@@ -18,16 +18,16 @@ Summary:        Python library for the NETCONF protocol
 #     to be allowed. We encourage Fedora package maintainers to ask upstreams
 #     to relicense such files.”
 #     (https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383)
-#     Note that versioneer is relicensed to Unlicense in a later version.
-#     Upstream for ncclient cannot update the vendored versioneer until
-#     ncclient drops support for end-of-life Python versions 2.7, 3.5, and 3.6.
 #
-#     We now remove and replace/update both of these files in %%prep in order
-#     to support Python 3.12. For now, they are still CC0-1.0; once
-#     https://src.fedoraproject.org/rpms/python-versioneer/pull-request/2 is
-#     merged, they will be Unlicense and the license of this package will
-#     need to change accordingly.
-License:        Apache-2.0 AND CC0-1.0
+#     Upstream for ncclient cannot update the vendored versioneer to a version
+#     that has been relicensed to Unlicense until ncclient drops support for
+#     end-of-life Python versions 2.7, 3.5, and 3.6.
+#
+#     However, in this package, we now remove and replace/update both of these
+#     files in %%prep in order to support Python 3.12; since we use a
+#     sufficiently recent version of versioneer, the replacement files are
+#     Unlicense instead of CC0-1.0.
+License:        Apache-2.0 AND Unlicense
 URL:            https://github.com/ncclient/ncclient
 Source0:        %{url}/archive/v%{version}/ncclient-%{version}.tar.gz
 
@@ -44,10 +44,9 @@ BuildRequires:  python3-devel
 # Note that SafeConfigParser was renamed to ConfigParser in Python 3.2:
 # https://docs.python.org/3/whatsnew/3.2.html#configparser
 #
-# The version bound is to remind us to update the License when
-# python-versioneer is updated to a version that is Unlicense rather than
-# CC0-1.0.
-BuildRequires:  python3dist(versioneer) < 0.24
+# The minimum version ensures that we have correctly incorporated the license
+# of the generated _version.py as Unlicense rather than CC0-1.0.
+BuildRequires:  python3dist(versioneer) >= 0.24
 # The updated versioneer doesn’t pick up the version from the directory name
 # for some reason, so we must create a git repository.
 BuildRequires:  git-core

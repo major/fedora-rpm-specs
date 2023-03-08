@@ -7,8 +7,8 @@
 
 Name:           perl-Class-Method-Modifiers
 Summary:        Provides Moose-like method modifiers
-Version:        2.14
-Release:        2%{?dist}
+Version:        2.15
+Release:        1%{?dist}
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Method-Modifiers
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Method-Modifiers-%{version}.tar.gz
@@ -80,6 +80,10 @@ make test
 %{_mandir}/man3/Class::Method::Modifiers.3*
 
 %changelog
+* Mon Mar  6 2023 Paul Howarth <paul@city-fan.org> - 2.15-1
+- Update to 2.15 (rhbz#2175585)
+  - Localize $SIG{__DIE__} before calling eval (CPAN RT#146848)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

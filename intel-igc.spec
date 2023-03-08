@@ -1,4 +1,4 @@
-%global vc_commit 907bc4a00be585a395abe17b97f357bfbc28b889
+%global vc_commit f5a087ee4db10e303fbc32e7e1ee09d04925c9cd
 %global vc_shortcommit %(c=%{vc_commit}; echo ${c:0:7})
 
 %global optflags %{optflags} -w
@@ -8,10 +8,8 @@
 %global _lto_cflags %{nil}
 %endif
 
-%global optflags %(echo %{optflags} | sed 's/-Wp,-D_GLIBCXX_ASSERTIONS / /')
-
 Name: intel-igc
-Version: 1.0.13230.4
+Version: 1.0.13463.1
 Release: 1%{?dist}
 Summary: Intel Graphics Compiler for OpenCL
 
@@ -20,9 +18,12 @@ URL: https://github.com/intel/intel-graphics-compiler
 Source0: %{url}/archive/igc-%{version}/igc-%{version}.tar.gz
 Source1: https://github.com/intel/vc-intrinsics/archive/%{vc_commit}/vc-intrinsics-%{vc_shortcommit}.tar.gz
 
-Patch01: 0001-Build-Revert-custom_target-for-SPIRV-Tools.patch
-Patch02: 0001-SPIRVutil-Include-cstdint-to-fix-GCC-13-build.patch
-Patch03: 896d33ad9750cd7dace9bad42f027940ce33cf36.patch
+# https://github.com/intel/intel-graphics-compiler/issues/282
+# https://github.com/intel/intel-graphics-compiler/commit/e98d39974436de32408aefaafbd040ef07f29cf4
+Patch01: e98d39974436de32408aefaafbd040ef07f29cf4.patch
+
+# https://github.com/intel/intel-graphics-compiler/commit/f40b939f5f5db8209a8bc2f8940ce47eb7b5defd
+Patch02: f40b939f5f5db8209a8bc2f8940ce47eb7b5defd.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -125,6 +126,9 @@ tar -xf %{SOURCE1}
 %{_libdir}/pkgconfig/igc-opencl.pc
 
 %changelog
+* Mon Mar 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.13463.1-1
+- intel-igc-1.0.13463.1 (fixes RHBZ#2175129 )
+
 * Fri Feb 17 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 1.0.13230.4-1
 - intel-igc-1.0.13230.4
 

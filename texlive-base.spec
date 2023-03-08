@@ -23,7 +23,7 @@
 
 Name: %{shortname}-base
 Version: %{source_date}
-Release: 68%{?dist}
+Release: 69%{?dist}
 Epoch: 10
 Summary: TeX formatting system
 # The only files in the base package are directories, cache, and license texts
@@ -5165,6 +5165,7 @@ License: LPPL-1.3c
 Summary: Crop PDF graphics
 Requires: texlive-base
 Requires: texlive-kpathsea
+Requires: texlive-pdftex
 # perl
 BuildArch: noarch
 
@@ -10194,6 +10195,9 @@ yes | %{_bindir}/updmap-sys --quiet --syncwithtrees >/dev/null 2>&1 || :
 %doc %{_texdir}/texmf-dist/doc/latex/yplan/
 
 %changelog
+* Mon Mar  6 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-69
+- fix texlive-pdfcrop to have an explicit Requires: texlive-pdftex (bz2175666)
+
 * Tue Jan 31 2023 Tom Callaway <spot@fedoraproject.org> - 10:20220321-68
 - fix header order for xpdf dependent bits to ensure off_t is set properly on i686
 

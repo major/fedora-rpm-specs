@@ -1,8 +1,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-shell
-Version:        44~beta
-Release:        2%{?dist}
+Version:        44~rc
+Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 
 License:        GPLv2+
@@ -17,14 +17,14 @@ Patch10001: gnome-shell-favourite-apps-firefox.patch
 Patch40001: 0001-gdm-Work-around-failing-fingerprint-auth.patch
 
 %define eds_version 3.45.1
-%define gnome_desktop_version 3.35.91
+%define gnome_desktop_version 40
 %define glib2_version 2.56.0
 %define gobject_introspection_version 1.49.1
 %define gjs_version 1.73.1
 %define gtk3_version 3.15.0
 %define gtk4_version 4.0.0
 %define adwaita_version 1.0.0
-%define mutter_version 44~beta
+%define mutter_version 44~rc
 %define polkit_version 0.100
 %define gsettings_desktop_schemas_version 42~beta
 %define ibus_version 1.5.2
@@ -44,7 +44,7 @@ BuildRequires:  pkgconfig(gcr-4)
 BuildRequires:  pkgconfig(gjs-1.0) >= %{gjs_version}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gnome-autoar-0)
-BuildRequires:  pkgconfig(gnome-desktop-3.0)
+BuildRequires:  pkgconfig(gnome-desktop-4)
 BuildRequires:  pkgconfig(gobject-introspection-1.0) >= %{gobject_introspection_version}
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  mesa-libEGL-devel
@@ -85,14 +85,13 @@ Requires:       gjs%{?_isa} >= %{gjs_version}
 Requires:       gtk3%{?_isa} >= %{gtk3_version}
 Requires:       gtk4%{?_isa} >= %{gtk4_version}
 Requires:       libadwaita%{_isa} >= %{adwaita_version}
-Requires:       highcontrast-icon-theme
 Requires:       libnma%{?_isa}
 # needed for loading SVG's via gdk-pixbuf
 Requires:       librsvg2%{?_isa}
 Requires:       mutter%{?_isa} >= %{mutter_version}
 Requires:       upower%{?_isa}
 Requires:       polkit%{?_isa} >= %{polkit_version}
-Requires:       gnome-desktop3%{?_isa} >= %{gnome_desktop_version}
+Requires:       gnome-desktop4%{?_isa} >= %{gnome_desktop_version}
 Requires:       glib2%{?_isa} >= %{glib2_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
 Requires:       gnome-settings-daemon%{?_isa} >= %{gnome_settings_daemon_version}
@@ -227,6 +226,13 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Shell.Porta
 %{_mandir}/man1/gnome-shell.1*
 
 %changelog
+* Mon Mar 06 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-1
+- Update to 44.rc
+
+* Sun Mar 05 2023 Ray Strode <rstrode@redhat.com> - 44~beta-3
+- Fix slowdown in at shutdown
+  Resolves: #2174753
+
 * Mon Feb 20 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-2
 - Rebuild without changes for Bodhi reasons
 

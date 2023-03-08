@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-phpmailer6
 #
-# Copyright (c) 2017-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2017-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please preserve changelog entries
 #
 # Github
-%global gh_commit    49cd7ea3d2563f028d7811f06864a53b1f15ff55
+%global gh_commit    df16b615e371d81fb79e506277faea67a1be18f1
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     PHPMailer
 %global gh_project   PHPMailer
@@ -23,11 +23,11 @@
 %global php_home     %{_datadir}/php
 
 Name:           php-%{pk_project}%{major}
-Version:        6.7.1
-Release:        2%{?dist}
+Version:        6.8.0
+Release:        1%{?dist}
 Summary:        Full-featured email creation and transfer class for PHP
 
-License:        LGPLv2
+License:        LGPL-2.1-only
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 # git snapshot to get upstream test suite
 Source0:        %{name}-%{version}-%{gh_short}.tgz
@@ -208,6 +208,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 6.8.0-1
+- update to 6.8.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

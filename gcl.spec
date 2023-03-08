@@ -18,7 +18,7 @@
 
 Name:           gcl
 Version:        2.6.14
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GNU Common Lisp
 
 # LGPL-2.0-or-later:
@@ -53,8 +53,9 @@ Source3:        gcl.el
 # Upstream builds point releases for Debian, and uploads the patches directly
 # to the Debian Patch Tracker, but does not spin new tarballs.  These are the
 # upstream patches from https://sources.debian.org/patches/gcl/.
-
-# Currently no upstream patches
+Patch0:         https://sources.debian.org/data/main/g/gcl/2.6.14-4/debian/patches/Version_2_6_15pre1
+Patch1:         https://sources.debian.org/data/main/g/gcl/2.6.14-4/debian/patches/Version_2_6_15pre2
+Patch2:         https://sources.debian.org/data/main/g/gcl/2.6.14-4/debian/patches/Version_2_6_15pre3
 
 ### Fedora patches
 
@@ -91,11 +92,6 @@ Patch507:       %{name}-2.6.12-infrastructure.patch
 # handling of system extensions.  For example, on glibc-based systems, some
 # functionality is available only when _GNU_SOURCE is defined.
 Patch508:       %{name}-2.6.12-extension.patch
-# Move #include directives out of function definitions.  This no longer works
-# with glibc 2.36.9000, which has inline definitions of some functions when
-# FORTIFY_SOURCE is in use.  The unpatched unrandomize.h header then declares
-# them as nested functions, leading to compilation errors.
-Patch509:       %{name}-2.6.14-unrandomize.patch
 
 # Disable s390x build until a bug can be tracked down and fixed.
 # See https://bugzilla.redhat.com/show_bug.cgi?id=2162910
@@ -252,6 +248,10 @@ rm -f /tmp/gazonk_* /tmp/gcl_*
 
 
 %changelog
+* Mon Mar  6 2023 Jerry James <loganjerry@gmail.com> - 2.6.14-2
+- Update to 2.6.15pre3
+- Drop upstreamed -unrandomize patch
+
 * Sat Jan 21 2023 Jerry James <loganjerry@gmail.com> - 2.6.14-1
 - Update to 2.6.14
 - Verify the tarball

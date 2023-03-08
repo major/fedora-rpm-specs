@@ -3,13 +3,13 @@
 
 %global github_owner            phpseclib
 %global github_name             phpseclib
-%global github_commit           7e763c6f97ec1fcb37c46aa8ecfc20a2c71d9c1b
+%global github_commit           665d289f59e646a259ebf13f29be7f6f54cab24b
 %global github_short            %(c=%{github_commit}; echo ${c:0:7})
 %bcond_without                  tests
 
 Name:       php-%{composer_vendor}
-Version:    2.0.41
-Release:    2%{?dist}
+Version:    2.0.42
+Release:    1%{?dist}
 Summary:    PHP Secure Communications Library
 License:    MIT
 URL:        https://github.com/%{github_owner}/%{github_name}
@@ -131,6 +131,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 2.0.42-1
+- update to 2.0.42
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.41-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

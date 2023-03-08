@@ -7,7 +7,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-characters
-Version:	44~beta
+Version:	44~rc
 Release:	1%{?dist}
 Summary:	Character map application for GNOME
 # Files from gtk-js-app are licensed under 3-clause BSD.
@@ -70,6 +70,9 @@ desktop-file-validate $RPM_BUILD_ROOT/%{_datadir}/applications/%{appname}.deskto
 
 
 %changelog
+* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc (#2150952)
+
 * Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

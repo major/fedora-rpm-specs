@@ -1,13 +1,15 @@
 
 Name:    heaptrack
 Version: 1.2.0
-Release: 12%{?dist}
+Release: 13%{?dist}
 Summary: A heap memory profiler for Linux
 
 License: GPLv2+
 URL:     https://cgit.kde.org/heaptrack.git/
 
 Source0: http://download.kde.org/stable/heaptrack/%{version}/src/%{name}-%{version}.tar.xz
+
+Patch0:  heaptrack-gcc13.patch
 
 BuildRequires:  desktop-file-utils
 
@@ -88,6 +90,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.kde.heaptrack.des
 
 
 %changelog
+* Mon Mar 06 2023 Jan Grulich <jgrulich@redhat.com> - 1.2.0-13
+- Fix build failure against GCC13
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 1.2.0-12
 - Rebuilt for Boost 1.81
 

@@ -1,5 +1,6 @@
-%global glib_version 2.69.0
+%global glib_version 2.75.1
 %global gtk3_version 3.19.8
+%global gtk4_version 4.0.0
 %global gsettings_desktop_schemas_version 40~alpha
 %global json_glib_version 0.12.0
 %global libinput_version 1.19.0
@@ -11,8 +12,8 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          mutter
-Version:       44~beta
-Release:       3%{?dist}
+Version:       44~rc
+Release:       2%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -28,11 +29,8 @@ Patch1:        0001-Revert-build-Do-not-provide-built-sources-as-libmutt.patch
 # https://bugzilla.redhat.com/show_bug.cgi?id=1936991
 Patch2:        mutter-42.alpha-disable-tegra.patch
 
-# https://bugzilla.redhat.com/show_bug.cgi?id=2173985
-Patch30001:    0001-x11-Avoid-updating-focus-on-wayland-compositor.patch
-Patch30002:    0002-x11-Ignore-_NET_ACTIVE_WINDOW-client-messages-while-.patch
-Patch30003:    0003-core-Avoid-focusing-windows-on-map-during-grabs.patch
-
+# https://pagure.io/fedora-workstation/issue/79
+Patch3:       0001-place-Always-center-initial-setup-fedora-welcome.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -75,7 +73,7 @@ BuildRequires: pkgconfig(gsettings-desktop-schemas) >= %{gsettings_desktop_schem
 BuildRequires: pkgconfig(gnome-settings-daemon)
 BuildRequires: meson
 BuildRequires: pkgconfig(gbm)
-BuildRequires: pkgconfig(gnome-desktop-3.0)
+BuildRequires: pkgconfig(gnome-desktop-4)
 BuildRequires: pkgconfig(gudev-1.0)
 BuildRequires: pkgconfig(libdrm)
 BuildRequires: pkgconfig(libstartup-notification-1.0)
@@ -93,6 +91,7 @@ Requires: control-center-filesystem
 Requires: gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
 Requires: gnome-settings-daemon
 Requires: gtk3%{?_isa} >= %{gtk3_version}
+Requires: gtk4%{?_isa} >= %{gtk4_version}
 Requires: json-glib%{?_isa} >= %{json_glib_version}
 Requires: libinput%{?_isa} >= %{libinput_version}
 Requires: pipewire%{_isa} >= %{pipewire_version}
@@ -176,6 +175,9 @@ the functionality of the installed %{name} package.
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Mon Mar 06 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-1
+- Update to 44.rc
+
 * Sat Mar 04 2023 Ray Strode <rstrode@redhat.com> - 44~beta-3
 - Add some backports of Carlos's focus fixes
   Related: #2173985

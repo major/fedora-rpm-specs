@@ -1,9 +1,9 @@
 Name:           priv_wrapper
 Version:        1.0.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        A library to disable resource limits and other privilege dropping
-License:        GPLv3+
+License:        GPL-3.0-or-later
 Url:            http://cwrap.org/
 
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
@@ -65,6 +65,9 @@ development/testing.
 %{_mandir}/man1/priv_wrapper.1*
 
 %changelog
+* Mon Mar 06 2023 Andreas Schneider <asn@redhat.com> - 1.0.1-4
+- Update License to SPDX expression
+
 * Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.0.1-3
 - Fix building with cmocka >= 1.1.6
 

@@ -8,7 +8,7 @@
 Summary: Utility for secure communication and data storage
 Name:    gnupg2
 Version: 2.4.0
-Release: 2%{?dist}
+Release: 3%{?dist}
 
 License: GPLv3+
 Source0: https://gnupg.org/ftp/gcrypt/%{?pre:alpha/}gnupg/gnupg-%{version}%{?pre}.tar.bz2
@@ -32,6 +32,8 @@ Patch30: gnupg-2.2.21-coverity.patch
 # fix gpgme tests fail for in-source-tree builds (https://dev.gnupg.org/T6313)
 # (edited to patch Makefile.in instead of Makefile.am to avoid autoreconf)
 Patch31: gnupg-2.4.0-tests-Fix-tests-gpgme-for-in-source-tree-builds.patch
+# Revert the introduction of the RFC4880bis draft into defaults
+Patch32: gnupg2-revert-rfc4880bis.patch
 
 
 URL:     https://www.gnupg.org/
@@ -124,6 +126,7 @@ to the base GnuPG package
 
 %patch30 -p1 -b .coverity
 %patch31 -p1 -b .tests_gpgme
+%patch32 -p1 -b .revert-rfc4880bis
 
 # pcsc-lite library major: 0 in 1.2.0, 1 in 1.2.9+ (dlopen()'d in pcsc-wrapper)
 # Note: this is just the name of the default shared lib to load in scdaemon,
@@ -225,6 +228,9 @@ make -k check
 
 
 %changelog
+* Fri Mar 03 2023 Jakub Jelen <jjelen@redhat.com> - 2.4.0-3
+- Revert introduction of the RFC4880bis draft into defaults
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

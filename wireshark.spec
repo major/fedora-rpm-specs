@@ -106,7 +106,10 @@ Wireshark.
 
 %package devel
 Summary:	Development headers and libraries for wireshark
-Requires:	%{name} = %{epoch}:%{version}-%{release} glibc-devel glib2-devel
+Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
+Requires:	glibc-devel
+Requires:	glib2-devel
 
 %description devel
 The wireshark-devel package contains the header files, developer

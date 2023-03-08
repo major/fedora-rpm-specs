@@ -1,8 +1,8 @@
 Name:           perl-Devel-REPL
 Version:        1.003029
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Modern perl interactive shell
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Devel-REPL
 Source0:        https://cpan.metacpan.org/authors/id/E/ET/ETHER/Devel-REPL-%{version}.tar.gz
 BuildArch:      noarch
@@ -223,9 +223,12 @@ make test
 %files
 %license LICENCE
 %doc Changes CONTRIBUTING README examples
-%{_bindir}/*
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{_bindir}/re.pl
+%dir %{perl_vendorlib}/Devel
+%{perl_vendorlib}/Devel/REPL
+%{perl_vendorlib}/Devel/REPL.pm
+%{_mandir}/man3/Devel::REPL.*
+%{_mandir}/man3/Devel::REPL::*
 
 # Plugin-Completion
 %exclude %{perl_vendorlib}/Devel/REPL/Plugin/Completion.pm
@@ -319,6 +322,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 06 2023 Petr Pisar <ppisar@redhat.com> - 1.003029-5
+- Convert a license tag an SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.003029-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

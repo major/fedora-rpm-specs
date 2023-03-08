@@ -6,7 +6,7 @@
 %global crate gtk4-macros
 
 Name:           rust-gtk4-macros0.4
-Version:        0.4.8
+Version:        0.4.9
 Release:        %autorelease
 Summary:        Macros helpers for GTK 4 bindings
 

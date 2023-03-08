@@ -9,8 +9,8 @@
 
 Summary: A TLS-encrypting socket wrapper
 Name: stunnel
-Version: 5.66
-Release: 2%{?dist}
+Version: 5.69
+Release: 1%{?dist}
 License: GPLv2
 URL: https://www.stunnel.org/
 Source0: https://www.stunnel.org/downloads/stunnel-%{version}.tar.gz
@@ -27,16 +27,19 @@ Source99: https://www.stunnel.org/pgp.asc
 Patch0:   stunnel-5.50-authpriv.patch
 # Apply patch stunnel-5.61-systemd-service.patch
 Patch1:   stunnel-5.61-systemd-service.patch
-# Apply patch stunnel-5.56-system-ciphers.patch
-Patch3:   stunnel-5.56-system-ciphers.patch
+# Use cipher configuration from crypto-policies
+# 
+# On Fedora, CentOS and RHEL, the system's crypto policies are the best
+# source to determine which cipher suites to accept in TLS. On these
+# platforms, OpenSSL supports the PROFILE=SYSTEM setting to use those
+# policies. Change stunnel to default to this setting.
+Patch3:   stunnel-5.69-system-ciphers.patch
 # Apply patch stunnel-5.56-coverity.patch
 Patch4:   stunnel-5.56-coverity.patch
-# Apply patch stunnel-5.61-default-tls-version.patch
-Patch5:   stunnel-5.61-default-tls-version.patch
+# Apply patch stunnel-5.69-default-tls-version.patch
+Patch5:   stunnel-5.69-default-tls-version.patch
 # Apply patch stunnel-5.56-curves-doc-update.patch
 Patch6:   stunnel-5.56-curves-doc-update.patch
-# Skip FIPS tests if FIPS is unconfigured
-Patch7:   stunnel-5.61-fips-test.patch
 # Limit curves defaults in FIPS mode
 Patch8:   stunnel-5.62-disabled-curves.patch
 # util-linux is needed for rename
@@ -143,6 +146,10 @@ fi
 %systemd_postun_with_restart %{name}.service
 
 %changelog
+* Mon Mar 06 2023 Clemens Lang <cllang@redhat.com> - 5.69-1
+- New upstream release 5.69
+  Resolves: rhbz#2139207
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.66-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

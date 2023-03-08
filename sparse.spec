@@ -3,7 +3,7 @@ Name: sparse
 Version: 0.6.4
 
 # either a rc? or %\{nil\}
-%define rcver %{nil}
+%define rcver gce1a6720f69e
 
 %if "x%{?rcver}" != "x"
 %define build_ver       %{version}-%{rcver}
@@ -13,7 +13,7 @@ Version: 0.6.4
 %define dotrc           %{nil}
 %endif
 
-Release: 3%{dotrc}%{?dist}.1
+Release: 4%{dotrc}%{?dist}
 Summary:    A semantic parser of source files
 License:    MIT
 URL:        https://sparse.wiki.kernel.org
@@ -23,8 +23,7 @@ BuildRequires: libxml2-devel gtk2-devel
 BuildRequires: sqlite-devel
 
 Source0:    https://www.kernel.org/pub/software/devel/sparse/dist/sparse-%{build_ver}.tar.xz
-
-Patch0:	    0001-fix-unreplaced-warnings-caused-by-using-typeof-on-in.patch
+Patch0:	    0001-linearize.c-fix-buffer-overrun-warning-from-fortify.patch
 
 %description
 Sparse is a semantic parser of source files: it's neither a compiler
@@ -76,6 +75,10 @@ make clean
 %{_mandir}/man1/*
 
 %changelog
+* Wed Feb 22 2023 Jeff Layton <jlayton@redhat.com> - 0.6.4-4.gce1a6720f69e
+- Update to latest sparse git (commit ce1a6720f69e)
+- Fix bogus snprintf length argument in linearize.c (bz2171731)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.6.4-3.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

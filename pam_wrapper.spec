@@ -1,9 +1,9 @@
 Name:           pam_wrapper
 Version:        1.1.4
-Release:        6%{?dist}
+Release:        7%{?dist}
 
 Summary:        A tool to test PAM applications and PAM modules
-License:        GPLv3+
+License:        GPL-3.0-or-later
 Url:            http://cwrap.org/
 
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
@@ -81,8 +81,8 @@ the header files for libpamtest
 
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
-%autosetup -S git
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
+%autosetup -p1
 
 
 %build
@@ -140,7 +140,10 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %{python3_sitearch}/pypamtest.so
 
 %changelog
-* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.1.4-3
+* Mon Mar 06 2023 Andreas Schneider <asn@redhat.com> - 1.1.4-7
+- Update License to SPDX expression
+
+* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.1.4-6
 - Fix building with cmocka >= 1.1.6
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.4-5

@@ -1,11 +1,11 @@
 Name:           dc3dd
-Version:        7.2.646
-Release:        17%{?dist}
+Version:        7.3.0
+Release:        1%{?dist}
 Summary:        Patched version of GNU dd for use in computer forensics
 
 License:        GPLv3+
 URL:            http://sourceforge.net/projects/dc3dd/
-Source0:        http://downloads.sourceforge.net/dc3dd/%{name}-%{version}.7z
+Source0:        http://downloads.sourceforge.net/dc3dd/%{name}-%{version}.zip
 
 #Fixing build error: automatic de-ANSI-fication support has been removed
 #Removing the check for AM_C_PROTOTYPES
@@ -13,7 +13,8 @@ Patch1:         dc3dd-01_automake.patch
 
 # Original Archlinux patch to fix build with recent libtools version
 # Author: mschlenker
-Patch2:         dc3dd-02_fix-FTBFS-with-glibc-2.28.patch
+# included upstream in version 7.3.0
+# Patch2:         dc3dd-02_fix-FTBFS-with-glibc-2.28.patch
 
 
 BuildRequires:  gcc
@@ -77,6 +78,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/%{name}.*
 
 %changelog
+* Mon Mar 06 2023 Michal Ambroz <rebus [AT] seznam.cz> - 7.3.0-1
+- bump to new upstream release 7.3.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.2.646-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

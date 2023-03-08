@@ -21,7 +21,7 @@
 Name: %{project}-%{repo}
 Version: 1.1.1
 Release: %autorelease
-License: ASL 2.0 and BSD and MIT
+License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and MIT and MPL-2.0
 Summary: Libraries for writing CNI plugin
 URL: %{git0}
 # Tarball fetched from upstream

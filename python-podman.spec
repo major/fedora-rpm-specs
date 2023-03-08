@@ -9,7 +9,7 @@
 Name: python-%{pypi_name}
 Epoch: 3
 Version: %{gen_version}
-License: ASL 2.0
+License: Apache-2.0
 Release: %autorelease
 Summary: RESTful API for Podman
 URL: https://github.com/containers/%{pypi_name}-py

@@ -8,6 +8,9 @@ URL:            https://aajanki.github.io/yle-dl/index-en.html
 Source:         https://github.com/aajanki/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
 BuildArch:      noarch
+# Depends on archful python3-xattr which excludes i686
+ExcludeArch:    %{ix86}
+
 BuildRequires:  python3-devel
 Requires:       /usr/bin/ffmpeg
 # According to README, needed "optionally for few rare streams".

@@ -4,7 +4,7 @@
 # For a stable, released kernel, released_kernel should be 1. For rawhide
 # and/or a kernel built from an rc or git snapshot, released_kernel should
 # be 0.
-%global released_kernel 1
+%global released_kernel 0
 %global baserelease 1
 %global fedora_build %{baserelease}
 
@@ -34,7 +34,7 @@
 %global upstream_major 6
 
 # The rc snapshot level
-%global rcrev 0
+%global rcrev 1
 # Set rpm version accordingly
 %global rpmversion %{upstream_major}.%{upstream_sublevel}.0
 %endif
@@ -292,7 +292,7 @@ pushd tools/gpio/
 %{tools_make}
 popd
 # build VM tools
-pushd tools/vm/
+pushd tools/mm/
 %{tools_make} slabinfo page_owner_sort
 popd 
 pushd tools/tracing/rtla
@@ -394,12 +394,19 @@ popd
 pushd tools/gpio
 %{tools_make} DESTDIR=%{buildroot} install
 popd
+# install VM tools
+pushd tools/mm/
+install -m755 slabinfo %{buildroot}%{_bindir}/slabinfo
+install -m755 page_owner_sort %{buildroot}%{_bindir}/page_owner_sort
+popd
 pushd tools/tracing/rtla/
 %{tools_make} DESTDIR=%{buildroot} install
+rm -f %{buildroot}%{_bindir}/hwnoise
 rm -f %{buildroot}%{_bindir}/osnoise
 rm -f %{buildroot}%{_bindir}/timerlat
 (cd %{buildroot}
 
+        ln -sf rtla ./%{_bindir}/hwnoise
         ln -sf rtla ./%{_bindir}/osnoise
         ln -sf rtla ./%{_bindir}/timerlat
 )
@@ -485,6 +492,9 @@ popd
 %{_bindir}/gpio-watch
 %{_mandir}/man1/kvm_stat*
 %{_bindir}/kvm_stat
+%{_bindir}/page_owner_sort
+%{_bindir}/slabinfo
+
 %license linux-%{kversion}/COPYING
 
 %files -n kernel-tools-libs
@@ -547,8 +557,10 @@ popd
 
 %files -n rtla
 %{_bindir}/rtla
+%{_bindir}/hwnoise
 %{_bindir}/osnoise
 %{_bindir}/timerlat
+%{_mandir}/man1/rtla-hwnoise.1.gz
 %{_mandir}/man1/rtla-osnoise-hist.1.gz
 %{_mandir}/man1/rtla-osnoise-top.1.gz
 %{_mandir}/man1/rtla-osnoise.1.gz
@@ -558,6 +570,9 @@ popd
 %{_mandir}/man1/rtla.1.gz
 
 %changelog
+* Mon Mar 06 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.3.0-0.rc1.git0.1
+- Linux v6.3-rc1
+
 * Mon Feb 20 2023 Justin M. Forbes <jforbes@fedoraproject.org> - 6.2.0-1
 - Linux v6.2.0
 

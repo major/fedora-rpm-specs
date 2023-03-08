@@ -1,5 +1,5 @@
 # For git snapshots, set to 0 to use release instead:
-%global usesnapshot 1
+%global usesnapshot 0
 %if 0%{?usesnapshot}
 %global commit0 b089b93221f4d36b6b3001cd6d9c88ca33a39515
 %global shortcommit0 %(c=%{commit0}; echo ${c:0:7})
@@ -11,8 +11,8 @@ Name:       shutter
 Version:    0.99.3
 Release:    0.1%{?snapshottag}%{?dist}
 %else
-Version:    0.99.2
-Release:    5%{?dist}
+Version:    0.99.3
+Release:    1%{?dist}
 %endif
 Summary:    GTK+3-based screenshot application written in Perl
 
@@ -140,6 +140,9 @@ appstream-util validate-relax --nonet %{buildroot}/%{_metainfodir}/%{name}.appda
 %{_datadir}/icons/HighContrast/
 
 %changelog
+* Mon Mar 06 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.99.3-1
+- Update to 0.99.3-1
+
 * Fri Mar 03 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.99.3-0.1.gitb089b93
 - Update to 0.99.3-0.1.gitb089b93
 

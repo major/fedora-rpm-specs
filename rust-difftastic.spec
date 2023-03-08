@@ -12,7 +12,7 @@ License:        MIT
 URL:            https://crates.io/crates/difftastic
 Source:         %{crates_source}
 # Manually created patch for downstream crate metadata changes
-# * unpin assert_cmd
+# * unpin assert_cmd and downgrade to 2.0.4 that is in EPEL 9
 # * unpin libmimalloc-sys
 # * unpin predicates
 Patch:          difftastic-fix-metadata.diff

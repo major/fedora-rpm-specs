@@ -103,7 +103,7 @@ Provides:  kdenetwork-krdc-devel = 7:%{version}-%{release}
 
 # workaround https://bugs.kde.org/show_bug.cgi?id=365986
 mkdir -p %{buildroot}%{_datadir}/icons/hicolor
-pushd %{_datadir}/icons/oxygen/
+pushd /usr/share/icons/oxygen/
 for icon in $(find */apps -name krdc.*) $(find base/*/apps -name krdc.*); do
 cp -v --parents -n ${icon} %{buildroot}%{_datadir}/icons/hicolor/
 done

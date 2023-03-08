@@ -79,14 +79,9 @@ This package provides files common to all GUIs for %{name}.
 Summary:        QT interface for %{name}
 Requires:       %{name}-common%{?_isa} = %{version}-%{release}
 
-%if %{defined flatpak}
-BuildRequires:  qt5-qtbase-devel
-BuildRequires:  qt5-qtbase-private-devel
-%else
 BuildRequires:  qt6-qtbase-devel
 BuildRequires:  qt6-qt5compat-devel
 BuildRequires:  qt6-qtbase-private-devel
-%endif
 BuildRequires:  pkgconfig(wayland-protocols)
 BuildRequires:  pkgconfig(wayland-scanner)
 

@@ -1,7 +1,7 @@
 # remirepo/fedora spec file for phan
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -10,19 +10,19 @@
 # For compatibility with SCL
 %undefine __brp_mangle_shebangs
 
-%global gh_commit    fef40178a952bcfcc3f69b76989dd613c3d5c759
+%global gh_commit    4f2870ed6fea320f62f3c3c63f3274d357a7980e
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     phan
 #global gh_date      20150820
 %global gh_project   phan
 %global psr0         Phan
 %bcond_without       tests
-%global upstream_version 5.4.1
+%global upstream_version 5.4.2
 #global upstream_prever  a4
 
 Name:           %{gh_project}
 Version:        %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:        2%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
+Release:        1%{?gh_date?%{gh_date}git%{gh_short}}%{?dist}
 Summary:        A static analyzer for PHP
 
 License:        MIT
@@ -41,7 +41,7 @@ BuildRequires:  php-var_representation
 BuildRequires:  (php-composer(composer/semver)                >= 1.4    with php-composer(composer/semver)                < 4)
 BuildRequires:  (php-composer(composer/xdebug-handler)        >= 2.0    with php-composer(composer/xdebug-handler)        < 4)
 BuildRequires:  (php-composer(felixfbecker/advanced-json-rpc) >= 3.0.4  with php-composer(felixfbecker/advanced-json-rpc) < 4)
-BuildRequires:  (php-composer(microsoft/tolerant-php-parser)  >= 0.1.1  with php-composer(microsoft/tolerant-php-parser)  < 0.2)
+BuildRequires:  (php-composer(microsoft/tolerant-php-parser)  >= 0.1.2  with php-composer(microsoft/tolerant-php-parser)  < 0.2)
 BuildRequires:  (php-composer(netresearch/jsonmapper)         >= 1.6    with php-composer(netresearch/jsonmapper)         < 5)
 BuildRequires:  (php-composer(sabre/event)                    >= 5.1.3  with php-composer(sabre/event)                    < 6)
 BuildRequires:  (php-composer(symfony/console)                >= 4.0    with php-composer(symfony/console)                < 7)
@@ -76,7 +76,7 @@ BuildRequires:  php-composer(fedora/autoloader)
 #        "composer/semver": "^1.4|^2.0|^3.0",
 #        "composer/xdebug-handler": "^2.0|^3.0",
 #        "felixfbecker/advanced-json-rpc": "^3.0.4",
-#        "microsoft/tolerant-php-parser": "^0.1.1",
+#        "microsoft/tolerant-php-parser": "^0.1.2",
 #        "netresearch/jsonmapper": "^1.6.0|^2.0|^3.0|^4.0",
 #        "sabre/event": "^5.1.3",
 #        "symfony/console": "^3.2|^4.0|^5.0|^6.0",
@@ -102,7 +102,7 @@ Requires:       (php-composer(composer/semver)                >= 1.4    with php
 Requires:       (php-composer(composer/xdebug-handler)        >= 2.0    with php-composer(composer/xdebug-handler)        < 4)
 Requires:       (php-composer(felixfbecker/advanced-json-rpc) >= 3.0.4  with php-composer(felixfbecker/advanced-json-rpc) < 4)
 Requires:       (php-composer(nikic/php-parser)               >= 3.1.1  with php-composer(nikic/php-parser)               < 4)
-Requires:       (php-composer(microsoft/tolerant-php-parser)  >= 0.1.1  with php-composer(microsoft/tolerant-php-parser)  < 0.2)
+Requires:       (php-composer(microsoft/tolerant-php-parser)  >= 0.1.2  with php-composer(microsoft/tolerant-php-parser)  < 0.2)
 Requires:       (php-composer(netresearch/jsonmapper)         >= 1.6    with php-composer(netresearch/jsonmapper)         < 5)
 Requires:       (php-composer(sabre/event)                    >= 5.1.3  with php-composer(sabre/event)                    < 6)
 Requires:       (php-composer(symfony/console)                >= 4.0    with php-composer(symfony/console)                < 7)
@@ -219,6 +219,10 @@ EOF
 
 
 %changelog
+* Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 5.4.2-1
+- update to 5.4.2
+- raise dependency on microsoft/tolerant-php-parser 0.1.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.4.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

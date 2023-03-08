@@ -2,7 +2,7 @@
 %global real_name packit
 
 Name:           %{real_name}
-Version:        0.68.0
+Version:        0.69.0
 Release:        1%{?dist}
 Summary:        A tool for integrating upstream projects with Fedora operating system
 
@@ -102,6 +102,14 @@ cp files/bash-completion/packit %{buildroot}%{_datadir}/bash-completion/completi
 %{python3_sitelib}/*
 
 %changelog
+* Sun Mar 05 2023 Packit <hello@packit.dev> - 0.69.0-1
+- `packit validate-config` now correctly checks glob-patterns in `files_to_sync`. (#1865)
+- Aliases logic was updated to account for the upcoming Fedora release (Bodhi now marks such release as `frozen`). (#1863)
+- Command `packit validate-config` now provides details about errors when it cannot parse the config file. (#1861)
+- Packit does fewer API calls when searching for the package configuration file in remote repositories. (#1846)
+- `--update-release`/`--no-update-release` now affects only `Release`, not `Version`. (#1857)
+- Packit now provides `PACKIT_PROJECT_VERSION` environment variable when running `changelog-entry` action. (#1853)
+
 * Mon Feb 20 2023 Packit <hello@packit.dev> - 0.68.0-1
 - Packit now requires bodhi in version 7.0.0 at minimum. (#1844)
 - You can now use `--srpm` option with the `packit build locally` CLI command. (#1810)

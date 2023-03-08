@@ -12,6 +12,7 @@ BuildRequires:  make
 BuildRequires:  python3-devel
 BuildRequires:  python3-docs
 BuildRequires:  %{py3_dist pytest}
+BuildRequires:  %{py3_dist setuptools}
 BuildRequires:  %{py3_dist sphinx}
 
 %description

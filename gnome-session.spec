@@ -1,4 +1,4 @@
-%define po_package gnome-session-43
+%define po_package gnome-session-44
 
 %if 0%{?fedora}
 %else
@@ -7,13 +7,13 @@
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
-Name: gnome-session
-Version: 43.0
-Release: 2%{?dist}
+Name:    gnome-session
+Version: 44~rc
+Release: 1%{?dist}
 Summary: GNOME session manager
 
-License: GPLv2+
-URL: https://gitlab.gnome.org/GNOME/gnome-session
+License: GPL-2.0-or-later
+URL:     https://gitlab.gnome.org/GNOME/gnome-session
 Source0: https://download.gnome.org/sources/gnome-session/43/%{name}-%{tarball_version}.tar.xz
 
 # Blacklist NV30: https://bugzilla.redhat.com/show_bug.cgi?id=745202
@@ -131,6 +131,9 @@ Desktop file to add GNOME on wayland to display manager session menu.
 %{_userunitdir}/gnome-launched-.scope.d/
 
 %changelog
+* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

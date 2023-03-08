@@ -22,7 +22,7 @@ Version: %{gen_version}
 URL: https://github.com/containers/%{name}
 # Fetched from upstream
 Source0: %{url}/releases/download/%{version}/%{name}-%{version}.tar.xz
-License: GPLv2+
+License: GPL-2.0-only
 Release: %autorelease
 ExclusiveArch: %{golang_arches_future}
 BuildRequires: autoconf

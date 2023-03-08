@@ -1,9 +1,9 @@
 Name:           resolv_wrapper
 Version:        1.1.8
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        A wrapper for dns name resolving or dns faking
-License:        BSD
+License:        BSD-3-Clause
 Url:            http://cwrap.org/
 
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
@@ -67,6 +67,9 @@ LD_PRELOAD=%{__cmake_builddir}/src/libpam_wrapper.so bash -c '>/dev/null'
 %{_mandir}/man1/resolv_wrapper.1*
 
 %changelog
+* Mon Mar 06 2023 Andreas Schneider <asn@redhat.com> - 1.1.8-4
+- Update License to SPDX expression
+
 * Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.1.8-3
 - Fix building with cmocka >= 1.1.6
 

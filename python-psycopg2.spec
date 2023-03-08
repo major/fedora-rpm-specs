@@ -52,7 +52,7 @@ Name:		python-%{srcname}
 Version:	2.9.3
 Release:	7%{?dist}
 # The exceptions allow linking to OpenSSL and PostgreSQL's libpq
-License:	LGPLv3+ with exceptions
+License:	LGPL-3.0-or-later AND (GPL-2.0-or-later WITH Classpath-exception-2.0)
 Url:		http://initd.org/psycopg/
 
 Source0:	http://initd.org/psycopg/tarballs/PSYCOPG-2-8/psycopg2-%{version}.tar.gz

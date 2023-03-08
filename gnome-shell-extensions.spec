@@ -6,7 +6,7 @@
 %global major_version %%(cut -d "." -f 1 <<<%{tarball_version})
 
 Name:           gnome-shell-extensions
-Version:        44~beta
+Version:        44~rc
 Release:        1%{?dist}
 Summary:        Modify and extend GNOME Shell functionality and behavior
 
@@ -256,6 +256,9 @@ workspaces.
 
 
 %changelog
+* Mon Mar 06 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-1
+- Update to 44.rc
+
 * Tue Feb 14 2023 Florian Müllner <fmuellner@redhat.com> - 44~beta-1
 - Update to 44.beta
 

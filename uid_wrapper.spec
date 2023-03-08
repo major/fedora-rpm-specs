@@ -1,9 +1,9 @@
 Name:           uid_wrapper
 Version:        1.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        A wrapper for privilege separation
-License:        GPLv3+
+License:        GPL-3.0-or-later
 Url:            http://cwrap.org/
 
 Source0:        https://ftp.samba.org/pub/cwrap/%{name}-%{version}.tar.gz
@@ -35,7 +35,7 @@ This package doesn't have a devel package cause this project is for
 development/testing.
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -64,6 +64,9 @@ gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
 %{_mandir}/man1/uid_wrapper.1*
 
 %changelog
+* Mon Mar 06 2023 Andreas Schneider <asn@redhat.com> - 1.3.0-4
+- Update License to SPDX expression
+
 * Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.3.0-3
 - Fix building with cmocka >= 1.1.6
 

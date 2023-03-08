@@ -1,13 +1,13 @@
 # remirepo/fedora spec file for php-microsoft-tolerant-php-parser
 #
-# Copyright (c) 2018-2021 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2018-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 # Github
-%global gh_commit    6a965617cf484355048ac6d2d3de7b6ec93abb16
+%global gh_commit    3eccfd273323aaf69513e2f1c888393f5947804b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     Microsoft
 %global gh_project   tolerant-php-parser
@@ -22,8 +22,8 @@
 
 
 Name:           php-%{pk_vendor}-%{pk_name}
-Version:        0.1.1
-Release:        4%{?dist}
+Version:        0.1.2
+Release:        1%{?dist}
 Summary:        Tolerant PHP-to-AST parser
 
 License:        MIT
@@ -94,7 +94,7 @@ rm tests/ParserGrammarTest.php
 
 : Run the test suite
 ret=0
-for cmd in php php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 \
       --testsuite invariants \
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 0.1.2-1
+- update to 0.1.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

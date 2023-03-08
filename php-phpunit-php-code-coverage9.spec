@@ -10,7 +10,7 @@
 %bcond_without       tests
 
 # Github
-%global gh_commit    0e2b40518197a8c0d4b08bc34dfff1c99c508954
+%global gh_commit    443bc6912c9bd5b409254a40f4b0f4ced7c80ea1
 #global gh_date      20150924
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_vendor    sebastianbergmann
@@ -25,7 +25,7 @@
 %global ver_major    9
 
 Name:           php-%{pk_vendor}-%{pk_project}%{ver_major}
-Version:        9.2.25
+Version:        9.2.26
 Release:        1%{?dist}
 Summary:        PHP code coverage information, version %{ver_major}
 
@@ -179,12 +179,15 @@ exit $ret
 %files
 %license LICENSE
 %doc README.md
-%doc ChangeLog.md
+%doc ChangeLog-9.2.md
 %doc composer.json
 %{php_home}/%{ns_vendor}/%{ns_project}%{ver_major}
 
 
 %changelog
+* Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 9.2.26-1
+- update to 9.2.26
+
 * Tue Feb 28 2023 Remi Collet <remi@remirepo.net> - 9.2.25-1
 - update to 9.2.25
 - raise dependency on nikic/php-parser 4.14

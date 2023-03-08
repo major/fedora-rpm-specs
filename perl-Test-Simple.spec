@@ -12,7 +12,7 @@
 Name:           perl-Test-Simple
 Summary:        Basic utilities for writing tests
 Epoch:          3
-Version:        1.302192
+Version:        1.302193
 Release:        1%{?dist}
 # CC0: lib/ok.pm
 # Public Domain: lib/Test/Tutorial.pod
@@ -201,6 +201,10 @@ make test %{!?perl_bootstrap:AUTHOR_TESTING=1}
 %{_mandir}/man3/Test2::Util::Trace.3*
 
 %changelog
+* Mon Mar  6 2023 Paul Howarth <paul@city-fan.org> - 3:1.302193-1
+- Update to 1.302193
+  - Deprecate isn't()
+
 * Thu Feb  2 2023 Paul Howarth <paul@city-fan.org> - 3:1.302192-1
 - Update to 1.302192
   - Silence deprecation warning when testing smartmatch

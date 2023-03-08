@@ -1,5 +1,5 @@
 Name:           gulrak-filesystem
-Version:        1.5.12
+Version:        1.5.14
 Release:        %autorelease
 Summary:        Implementation of C++17 std::filesystem for C++11/14/17/20
 

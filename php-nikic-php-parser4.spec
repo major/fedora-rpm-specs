@@ -17,7 +17,7 @@
 %bcond_with    tests
 %endif
 
-%global gh_commit    570e980a201d8ed0236b0a62ddf2c9cbb2034039
+%global gh_commit    6bb5176bc4af8bcb7d926f88718db9b96a2d4290
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     nikic
 %global gh_project   PHP-Parser
@@ -27,8 +27,8 @@
 %global major        4
 
 Name:           php-%{gh_owner}-%{pk_project}%{major}
-Version:        4.15.3
-Release:        2%{?dist}
+Version:        4.15.4
+Release:        1%{?dist}
 Summary:        A PHP parser written in PHP - version %{major}
 
 License:        BSD-3-Clause
@@ -151,6 +151,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 4.15.4-1
+- update to 4.15.4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.15.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

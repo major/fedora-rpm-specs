@@ -190,8 +190,6 @@
 %global bundlelibwebp 0
 %global bundlelibpng 0
 %global bundlelibjpeg 0
-# Needs FT_ClipBox which was implemented after 2.11.0. Should be able to set this back to 0 later.
-%global bundlefreetype 1
 %global bundlelibdrm 0
 %global bundlefontconfig 0
 %global bundleffmpegfree 0
@@ -200,6 +198,12 @@
 %global bundlelibaom 1
 %else
 %global bundlelibaom 0
+%endif
+# system freetype on fedora > 36
+%if 0%{?fedora} > 36
+%global bundlefreetype 0
+%else
+%global bundlefreetype 1
 %endif
 %endif
 
@@ -237,7 +241,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 110.0.5481.177
+Version: 111.0.5563.50
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -274,9 +278,6 @@ Patch11: chromium-93.0.4577.63-py3-bootstrap.patch
 # Add "Fedora" to the user agent string
 Patch12: chromium-101.0.4951.41-fedora-user-agent.patch
 
-# numeric_limits is not a member of std
-Patch13: chromium-110-limits.patch
-
 # debian patch, disable font-test 
 Patch20: chromium-disable-font-tests.patch
 
@@ -291,9 +292,6 @@ Patch57: chromium-96.0.4664.45-missing-cstring.patch
 
 # Fix headers to look for system paths when we are using system minizip
 Patch61: chromium-109-system-minizip-header-fix.patch
-
-# Update bundled copy of wayland-client-core.h
-Patch62: chromium-105.0.5195.52-update-wayland-client-core.patch
 
 # Fix issue where closure_compiler thinks java is only allowed in android builds
 # https://bugs.chromium.org/p/chromium/issues/detail?id=1192875
@@ -320,9 +318,6 @@ Patch91: chromium-108-system-opus.patch
 
 # fix prefers-color-scheme
 Patch92: chromium-110-gtktheme.patch
-
-# From gentoo
-Patch98: chromium-94.0.4606.71-InkDropHost-crash.patch
 
 # need to explicitly include a kernel header on EL7 to support MFD_CLOEXEC, F_SEAL_SHRINK, F_ADD_SEALS, F_SEAL_SEAL
 Patch100: chromium-108-el7-include-fcntl-memfd.patch
@@ -369,31 +364,12 @@ Patch122: chromium-109-gcc13.patch
 
 # Patches by Stephan Hartmann, https://github.com/stha09/chromium-patches
 Patch130: chromium-103-VirtualCursor-std-layout.patch
-Patch131: chromium-110-CanvasResourceProvider-pragma.patch
-Patch132: chromium-110-CredentialUIEntry-const.patch
-Patch133: chromium-110-DarkModeLABColorSpace-pow.patch
-Patch134: chromium-110-dpf-arm64.patch
-Patch135: chromium-110-InProgressDownloadManager-include.patch
-Patch136: chromium-110-kCustomizeChromeColors-type.patch
-Patch137: chromium-110-NativeThemeBase-fabs.patch
-Patch138: chromium-110-Presenter-include.patch
-Patch139: chromium-110-raw_ptr-constexpr.patch
-Patch140: chromium-110-StorageQueue-decltype.patch
-Patch141: chromium-110-SyncIterator-template.patch
-Patch142: chromium-110-url_canon_internal-cast.patch
-Patch143: chromium-110-v8-gcc.patch
-Patch144: chromium-111-v8-std-layout1.patch
-Patch145: chromium-111-v8-std-layout2.patch
 
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
 Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
 Patch205: chromium-86.0.4240.75-fix-vaapi-on-intel.patch
 Patch206: chromium-110-ozone-wayland-vaapi-support.patch
-
-# V4L2
-# Upstream
-Patch250: chromium-v4l2-fix.patch
 
 # Apply these patches to work around EPEL8 issues
 Patch300: chromium-99.0.4844.51-rhel8-force-disable-use_gnome_keyring.patch
@@ -907,8 +883,8 @@ without support for alsa, cups, dbus, gconf, gio, kerberos, pulseaudio, or
 udev.
 
 %prep
-
 %setup -q -n chromium-%{version}
+
 ### Chromium Fedora Patches ###
 %patch0 -p1 -b .sandboxpie
 %patch1 -p1 -b .etc
@@ -919,13 +895,6 @@ udev.
 %patch8 -p1 -b .widevine-other-locations
 %patch9 -p1 -b .widevine-no-download
 %patch11 -p1 -b .py3
-
-# Fedora branded user agent
-%if 0%{?fedora}
-%patch12 -p1 -b .fedora-user-agent
-%endif
-
-%patch13 -p1 -b .limits
 
 %patch20 -p1 -b .disable-font-test
 
@@ -957,7 +926,10 @@ udev.
 
 %patch92 -p1 -b .gtk-prefers-color-scheme
 
-%patch98 -p1 -b .InkDropHost-crash
+# Fedora branded user agent
+%if 0%{?fedora}
+%patch12 -p1 -b .fedora-user-agent
+%endif
 
 %if ! %{bundleffmpegfree}
 %patch114 -p1 -b .system-ffmppeg
@@ -984,21 +956,6 @@ udev.
 %endif
 
 %patch130 -p1 -b .VirtualCursor-std-layout
-%patch131 -p1 -b .CanvasResourceProvider-pragma
-%patch132 -p1 -b .CredentialUIEntry-const
-%patch133 -p1 -b .DarkModeLABColorSpace-pow
-%patch134 -p1 -b .dpf-arm64
-%patch135 -p1 -b .InProgressDownloadManager-include
-%patch136 -p1 -b .kCustomizeChromeColors-type
-%patch137 -p1 -b .NativeThemeBase-fabs
-%patch138 -p1 -b .Presenter-include
-%patch139 -p1 -b .raw_ptr-constexpr
-%patch140 -p1 -b .StorageQueue-decltype
-%patch141 -p1 -b .SyncIterator-template
-%patch142 -p1 -b .url_canon_internal-cast
-%patch143 -p1 -b .v8-gcc
-%patch144 -p1 -b .v8-std-layout1
-%patch145 -p1 -b .v8-std-layout2
 
 %if %{use_qt}
 %patch121 -p1 -b .enable-allowqt
@@ -1011,10 +968,6 @@ udev.
 %patch202 -p1 -b .accel-mjpeg
 %patch205 -p1 -b .vaapi-intel-fix
 %patch206 -p1 -b .wayland-vaapi
-%endif
-
-%if %{use_v4l2_codec}
-%patch250 -p1 -b .v4l2-fix
 %endif
 
 %if 0%{?rhel} >= 8
@@ -1180,12 +1133,6 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
 CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=0 symbol_level=0 v8_symbol_level=0'
-%ifarch aarch64
-%if 0%{?rhel} == 8
-# workaround crash on el8
-CHROMIUM_CORE_GN_DEFINES+=' use_partition_alloc_as_malloc=false enable_backup_ref_ptr_support=false'
-%endif
-%endif
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -1593,11 +1540,11 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/libclearkeycdm.so
 %endif
 %ifarch x86_64 aarch64
-%{chromium_path}/libEGL.so*
-%{chromium_path}/libGLESv2.so*
 %{chromium_path}/libvk_swiftshader.so*
 %{chromium_path}/libvulkan.so*
 %{chromium_path}/vk_swiftshader_icd.json
+%{chromium_path}/libEGL.so*
+%{chromium_path}/libGLESv2.so*
 %endif
 %{chromium_path}/icudtl.dat
 %dir %{chromium_path}/
@@ -1699,6 +1646,10 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Mon Mar 06 2023 Than Ngo <than@redhat.com> - 111.0.5563.50-1
+- update to 111.0.5563.50
+- system freetype on fedora > 36
+
 * Thu Feb 23 2023 Than Ngo <than@redhat.com> - 110.0.5481.177-1
 - update to 110.0.5481.177
 - workaround for crash on aarch64, rhel8

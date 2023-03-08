@@ -11,6 +11,8 @@ Source0: https://download.gnome.org/sources/glib/2.75/glib-%{version}.tar.xz
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
+# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3312.patch
+Patch1: glib2-2.75.4-fix-etag-gjs.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

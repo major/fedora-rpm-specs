@@ -30,14 +30,14 @@
 %global _docdir_fmt %{name}
 
 # Updated test images for new FreeType.
-%global mpl_images_version 3.7.0
+%global mpl_images_version 3.7.1
 
 # The version of FreeType in this Fedora branch.
 %global ftver 2.12.1
 
 Name:           python-matplotlib
-Version:        3.7.0
-%global Version 3.7.0
+Version:        3.7.1
+%global Version 3.7.1
 Release:        %autorelease
 Summary:        Python 2D plotting library
 # qt_editor backend is MIT
@@ -62,10 +62,6 @@ Patch0001:      0004-Use-old-stride_windows-implementation-on-32-bit-x86.patch
 # https://github.com/matplotlib/matplotlib/pull/25068
 Source2000:     pgf_pdflatex.pdf
 Source2001:     pgf_rcupdate2.pdf
-# https://github.com/matplotlib/matplotlib/pull/25280
-Patch0002:      0006-Fix-setting-CSS-with-latest-GTK4.patch
-# https://github.com/matplotlib/matplotlib/pull/25341
-Patch0003:      0007-TST-Increase-test_set_line_coll_dash_image-tolerance.patch
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -316,10 +312,6 @@ cp -p %{SOURCE1} mplsetup.cfg
 %patch0001 -p1
 # https://github.com/matplotlib/matplotlib/pull/25068
 cp -a %SOURCE2000 %SOURCE2001 lib/matplotlib/tests/baseline_images/test_backend_pgf/
-# https://github.com/matplotlib/matplotlib/pull/25280
-%patch0002 -p1
-# https://github.com/matplotlib/matplotlib/pull/25341
-%patch0003 -p1
 
 
 %generate_buildrequires

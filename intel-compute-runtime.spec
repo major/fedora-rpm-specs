@@ -1,6 +1,6 @@
-%global neo_major 22
-%global neo_minor 53
-%global neo_build 25242.13
+%global neo_major 23
+%global neo_minor 05
+%global neo_build 25593.9
 
 Name: intel-compute-runtime
 Version: %{neo_major}.%{neo_minor}.%{neo_build}
@@ -8,15 +8,14 @@ Release: 1%{?dist}
 Summary: Compute API support for Intel graphics
 
 %global _lto_cflags %{nil}
+%global optflags %{optflags} -Wno-error=maybe-uninitialized
 
 License: MIT
 URL: https://github.com/intel/compute-runtime
 Source0: %{url}/archive/%{version}/compute-runtime-%{version}.tar.gz
 
 Patch01: 0001-Include-cstdint-to-fix-GCC-13-build.patch
-
-# https://github.com/intel/compute-runtime/commit/dce17d319f91b39806b2cd39b6eecd5c5cff2a68
-Patch02: dce17d319f91b39806b2cd39b6eecd5c5cff2a68.patch
+Patch02: 0001-GCC-13-Fixup-elf.h.patch
 
 # This is just for Intel GPUs
 ExclusiveArch:  x86_64
@@ -151,6 +150,9 @@ rm -rv third_party/sse2neon
 %doc
 
 %changelog
+* Mon Mar 06 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 23.05.25593.9-1
+- intel-compute-runtime-23.05.25593.9
+
 * Fri Feb 17 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 22.53.25242.13-1
 - intel-compute-runtime-22.53.25242.13
 - level-zero enablement

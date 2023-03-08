@@ -5,7 +5,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:		gnome-weather
-Version:	44~beta
+Version:	44~rc
 Release:	1%{?dist}
 Summary:	A weather application for GNOME
 
@@ -73,6 +73,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Weather.des
 %{_datadir}/org.gnome.Weather/
 
 %changelog
+* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

@@ -2,7 +2,7 @@
 %global major_version %%(echo %%{tarball_version} | awk -F. '{print $1}')
 
 Name:           gnome-font-viewer
-Version:        44~beta
+Version:        44~rc
 Release:        1%{?dist}
 Summary:        Utility for previewing fonts for GNOME
 
@@ -57,6 +57,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/org.gnome
 %{_metainfodir}/org.gnome.font-viewer.appdata.xml
 
 %changelog
+* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Thu Feb 16 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

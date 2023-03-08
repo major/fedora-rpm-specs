@@ -14,22 +14,15 @@
 %endif
 
 %if 0%{?el8}
-%global python3_sitelib %{_prefix}/lib/python3.8/site-packages
+%global python3_sitelib %{_prefix}/lib/python3.9/site-packages
 %endif
 
 # Install prebuilt documentation
-%if 0%{?el9} || 0%{?fedora} < 38
 %bcond_without prebuilt_doc
-%else
-%bcond_with prebuilt_doc
-%endif
-
-# Additional EPEL builds
-%bcond_with python3_other
 
 Name:      scons
-Version:   4.4.0
-Release:   3%{?dist}
+Version:   4.5.0
+Release:   1%{?dist}
 Summary:   An Open Source software construction tool
 License:   MIT
 URL:       http://www.scons.org
@@ -78,15 +71,14 @@ BuildRequires: python3-psutil
 BuildRequires: python3-psutil-tests
 BuildRequires: lynx
 %else
-BuildRequires: python38-devel
-BuildRequires: python38-lxml
-BuildRequires: python38-wheel
-BuildRequires: python38-setuptools
-BuildRequires: python38-psutil
-BuildRequires: python38-psutil-tests
+BuildRequires: python39-devel
+BuildRequires: python39-lxml
+BuildRequires: python39-wheel
+BuildRequires: python39-setuptools
+BuildRequires: python39-psutil
 BuildRequires: lynx
-Provides:      scons-python38 = 0:%{version}-%{release}
-Provides:      python38-scons = 0:%{version}-%{release}
+Provides:      scons-python39 = 0:%{version}-%{release}
+Provides:      python39-scons = 0:%{version}-%{release}
 %endif
 Provides:      scons = 0:%{version}-%{release}
 Provides:      scons-python3 = 0:%{version}-%{release}
@@ -96,7 +88,7 @@ Obsoletes:     python34-%{name} < 0:%{version}-%{release}
 Obsoletes:     python2-%{name} < 0:%{version}-%{release}
 Obsoletes:     python-%{name} < 0:%{version}-%{release}
 %endif
-%{?python_provide:%python_provide python3-%{name}}
+%py_provides python3-%{name}
 
 %description -n python3-%{name}
 SCons is an Open Source software construction tool--that is, a build
@@ -112,32 +104,6 @@ uses MD5 signatures to rebuild only when the contents of a file have
 really changed, not just when the timestamp has been touched. SCons
 supports side-by-side variant builds, and is easily extended with user-
 defined Builder and/or Scanner objects.
-
-%if %{with python3_other}
-%package -n python%{python3_other_pkgversion}-%{name}
-Summary: An Open Source software construction tool
-
-BuildRequires: python%{python3_other_pkgversion}-devel
-BuildRequires: python%{python3_other_pkgversion}-lxml
-BuildRequires: python%{python3_other_pkgversion}-setuptools
-Provides:      scons-%{__python3_other} = %{version}-%{release}
-%{?python_provide:%python_provide python%{python3_other_pkgversion}-%{name}}
-
-%description -n python%{python3_other_pkgversion}-%{name}
-SCons is an Open Source software construction tool--that is, a build
-tool; an improved substitute for the classic Make utility; a better way
-to build software. SCons is based on the design which won the Software
-Carpentry build tool design competition in August 2000.
-
-SCons "configuration files" are Python scripts, eliminating the need
-to learn a new build tool syntax. SCons maintains a global view of
-all dependencies in a tree, and can scan source (or other) files for
-implicit dependencies, such as files specified on #include lines. SCons
-uses MD5 signatures to rebuild only when the contents of a file have
-really changed, not just when the timestamp has been touched. SCons
-supports side-by-side variant builds, and is easily extended with user-
-defined Builder and/or Scanner objects.
-%endif
 
 %prep
 %if 0%{with prebuilt_doc}
@@ -156,45 +122,30 @@ for file in %{name}-%{version}/src/*.txt; do
     mv $file.new $file
 done
 
-%if 0%{?el7} || 0%{?el9} || 0%{?fedora} || 0%{?eln}
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
+%if 0%{?fedora} || 0%{?eln}
+%py3_shebang_fix %{name}-%{version}/scripts/scons.py
 %else
-pathfix3.8.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
+pathfix%{python3_version}.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
+%endif
+%if 0%{?el8}
+pathfix3.9.py -i %{__python3} -pn %{name}-%{version}/scripts/scons.py
 %endif
 
 # PREVENT MANPAGES REMOVING
 # See https://github.com/SCons/scons/issues/3989#issuecomment-890582380
 sed -i -e 's!env.AddPostAction(tgz_file, Delete(man_pages))! !g' %{name}-%{version}/SConstruct
 
-%if %{with python3_other}
-cp -a %{name}-%{version} %{name}-%{version}-py%{python3_other_pkgversion}
-%{__python3} %{_rpmconfigdir}/redhat/pathfix.py -i %{__python3_other} -pn %{name}-%{version}-py%{python3_other_pkgversion}/scripts/scons.py
-%endif
-
 %build
 %if 0%{?el7} || 0%{?el9} || 0%{?fedora} || 0%{?eln}
 %{__python3} scripts/scons.py \
 %else
-%{_bindir}/python3.8 scripts/scons.py \
+%{_bindir}/python3.9 scripts/scons.py \
 %endif
 %if %{with debug}
  --debug=explain \
 %endif
 %if %{without doc}
  SKIP_DOC=True
-%endif
-
-%if %{with python3_other}
-pushd %{name}-%{version}-py%{python3_other_pkgversion}
-%{__python3_other} scripts/scons.py \
-%if %{with debug}
- --debug=explain \
-%endif
-%if %{without doc}
- SKIP_DOC=True
-%endif
-
-popd
 %endif
 
 %install
@@ -217,18 +168,18 @@ popd
 
 %else
 
-%{_bindir}/python3.8 setup.py install -O1 --skip-build --root %{buildroot} \
+%{_bindir}/python3.9 setup.py install -O1 --skip-build --root %{buildroot} \
  --install-scripts=%{_bindir} \
  --install-data=%{_datadir}
 
 pushd %{buildroot}%{_bindir} 
-for i in %{name}-3 %{name}-v%{version}-3.8 %{name}-3.8; do
+for i in %{name}-3 %{name}-v%{version}-3.9 %{name}-3.9; do
   ln -fs %{name} %{buildroot}%{_bindir}/$i
 done
-for i in %{name}ign-3 %{name}ign-v%{version}-3.8 %{name}ign-3.8; do
+for i in %{name}ign-3 %{name}ign-v%{version}-3.9 %{name}ign-3.9; do
   ln -fs %{name}ign %{buildroot}%{_bindir}/$i
 done
-for i in %{name}-configure-cache-3 %{name}-configure-cache-v%{version}-3.8 %{name}-configure-cache-3.8; do
+for i in %{name}-configure-cache-3 %{name}-configure-cache-v%{version}-3.9 %{name}-configure-cache-3.9; do
   ln -fs %{name}-configure-cache %{buildroot}%{_bindir}/$i
 done
 popd
@@ -241,39 +192,8 @@ mkdir -p %{buildroot}%{_mandir}/man1
 install -pm 644 build/doc/man/*.1 %{buildroot}%{_mandir}/man1/
 rm -f %{buildroot}%{_datadir}/*.1
 
-
-%if %{with python3_other}
-pushd %{name}-%{version}-py%{python3_other_pkgversion}/build/scons
-%py3_other_install \
- --install-scripts=%{_bindir} \
- --install-data=%{_datadir}
-
-# Install manpages
-mkdir -p %{buildroot}%{_mandir}/man1
-install -pm 644 ../build/doc/man/*.1 %{buildroot}%{_mandir}/man1/
-popd
-
-pushd %{buildroot}%{_bindir} 
-for i in %{name}-v%{version}-%{__python3_other} %{name}-%{__python3_other}; do
-  ln -fs %{name}-%{__python3_other} %{buildroot}%{_bindir}/$i
-done
-for i in %{name}ign-v%{version}-%{__python3_other} %{name}ign-%{__python3_other}; do
-  ln -fs %{name}ign-%{__python3_other} %{buildroot}%{_bindir}/$i
-done
-for i in %{name}-configure-cache-v%{version}-%{__python3_other} %{name}-configure-cache-%{__python3_other}; do
-  ln -fs %{name}-configure-cache-%{__python3_other} %{buildroot}%{_bindir}/$i
-done
-popd
-%endif
-
 %check
 %{__python3} runtest.py -P %{__python3} --passed --quit-on-failure SCons/BuilderTests.py
-
-%if %{with python3_other}
-pushd %{name}-%{version}-py%{python3_other_pkgversion}
-%{__python3_other} runtest.py -P %{__python3_other} --passed --quit-on-failure SCons/BuilderTests.py
-popd
-%endif
 
 %files -n python3-%{name}
 %doc CHANGES.txt RELEASE.*
@@ -286,20 +206,6 @@ popd
 %{python3_sitelib}/*.egg-info/
 %{_mandir}/man1/*
 
-%if %{with python3_other}
-%files -n python%{python3_other_pkgversion}-%{name}
-%doc CHANGES.txt RELEASE.*
-%license LICENSE*
-%{_bindir}/%{name}
-%{_bindir}/%{name}ign
-%{_bindir}/%{name}-configure-cache
-%{_bindir}/%{name}*-%{__python3_other}
-%{_bindir}/%{name}*-%{python3_other_pkgversion}
-%{python3_other_sitelib}/SCons/
-%{python3_other_sitelib}/scons-%{version}*.egg-info/
-%{_mandir}/man1/*
-%endif
-
 %if %{with doc}
 %files doc
 %if 0%{without prebuilt_doc}
@@ -311,6 +217,10 @@ popd
 %endif
 
 %changelog
+* Mon Mar 06 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.5.0-1
+- Release 4.5.0
+- Use Python-3.9 in EPEL8
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

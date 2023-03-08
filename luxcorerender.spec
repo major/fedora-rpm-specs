@@ -175,7 +175,7 @@ sed -i -e '\@set.*Boost_USE_STATIC_LIBS@s|ON|OFF|' cmake/Dependencies.cmake
 	-DOpenGL_GL_PREFERENCE=GLVND \
 	-DPYTHON_V=%{python3_version_nodots} \
 	-DEMBREE_INCLUDE_PATH=%{_includedir}/libembree3 \
-        -DEMBREE_LIBRARY=%{_libdir}/embree3.so \
+        -DEMBREE_LIBRARY=%{_libdir}/libembree3.so \
 	-DOIDN_INCLUDE_PATH=%{_includedir}/OpenImageDenoise
 %cmake_build
 

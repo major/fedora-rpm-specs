@@ -10,7 +10,7 @@
 
 Name:           gnome-tour
 Version:        43.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        GNOME Tour and Greeter
 
 # * gnome-tour source code is GPLv3+
@@ -202,6 +202,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Tour.des
 
 
 %changelog
+* Mon Mar 06 2023 Kalev Lember <klember@redhat.com> - 43.0-5
+- Rebuilt for rust-gtk4 0.4.9
+
 * Sun Feb 05 2023 Fabio Valentini <decathorpe@gmail.com> - 43.0-4
 - Rebuild for fixed frame pointer compiler flags in Rust RPM macros.
 

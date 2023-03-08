@@ -7,9 +7,9 @@
 
 Name:		milter-regex
 Version:	2.7
-Release:	9%{?dist}
+Release:	10%{?dist}
 Summary:	Milter plug-in for regular expression filtering
-License:	BSD
+License:	BSD-2-Clause
 URL:		http://www.benzedrine.ch/milter-regex.html
 Source0:	http://www.benzedrine.ch/milter-regex-%{version}.tar.gz
 # Note: signature made with ancient PGP key, needs gpg1 to verify
@@ -43,7 +43,9 @@ sed -i -e	's|/etc/milter-regex\.conf|%{_sysconfdir}/mail/milter-regex.conf|;
 head -n +31 milter-regex.c > LICENSE
 
 %build
-make %{?_smp_mflags} -f Makefile.linux CFLAGS="%{optflags} -Wextra -Wwrite-strings -DYYMAXDEPTH=8192"
+make %{?_smp_mflags} -f Makefile.linux \
+	CFLAGS="%{optflags} -Wextra -Wwrite-strings -DYYMAXDEPTH=8192" \
+	LDFLAGS="-Wl,-z,now -Wl,-z,relro %{?__global_ldflags} -Wl,--as-needed -L/usr/lib/libmilter -lmilter -lpthread"
 
 %install
 mkdir -p \
@@ -88,6 +90,9 @@ exit 0
 %{_mandir}/man8/milter-regex.8*
 
 %changelog
+* Mon Mar  6 2023 Paul Howarth <paul@city-fan.org> - 2.7-10
+- Use distribution linker flags
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.7-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,23 +1,23 @@
 Name:           perl-Sys-SigAction
 Version:        0.23
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Perl extension for Consistent Signal Handling
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Sys-SigAction
 Source0:        https://cpan.metacpan.org/modules/by-module/Sys/Sys-SigAction-%{version}.tar.gz
 BuildArch:      noarch
 BuildRequires:  %{_bindir}/pod2man
 BuildRequires:  coreutils
-BuildRequires:  findutils
 BuildRequires:  make
 BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl(:VERSION) >=  5.5
 BuildRequires:  perl(Carp)
 BuildRequires:  perl(Config)
 BuildRequires:  perl(constant)
 BuildRequires:  perl(Data::Dumper)
 BuildRequires:  perl(Exporter)
-BuildRequires:  perl(ExtUtils::MakeMaker)
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
 BuildRequires:  perl(POSIX)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(Test::More)
@@ -28,7 +28,7 @@ Requires:       perl(Time::HiRes)
 
 
 %description
-Sys::SigAction provides EASY access to POSIX::sigaction() for signal 
+Sys::SigAction provides EASY access to POSIX::sigaction() for signal
 handling on systems that support sigaction().
 It is hoped that with the use of this module, your signal handling 
 behavior can be coded in a way that does not change from one perl 
@@ -36,29 +36,32 @@ version to the next, and that sigaction() will be easier for you to use.
 
 %prep
 %setup -q -n Sys-SigAction-%{version}
+
+%build
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1
+%{make_build}
 pod2man --name=dbd-oracle-timeout < dbd-oracle-timeout.POD \
     > dbd-oracle-timeout.man
 
-%build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
-make %{?_smp_mflags}
-
 %install
-make pure_install DESTDIR=%{buildroot}
-
-find %{buildroot} -type f -name .packlist -delete
-
+%{make_install}
 %{_fixperms} %{buildroot}/*
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 make test
 
 %files
 %doc Changes README dbd-oracle-timeout.man
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%dir %{perl_vendorlib}/Sys
+%{perl_vendorlib}/Sys/SigAction
+%{perl_vendorlib}/Sys/SigAction.pm
+%{_mandir}/man3/Sys::SigAction.*
 
 %changelog
+* Mon Mar 06 2023 Petr Pisar <ppisar@redhat.com> - 0.23-21
+- Convert a license tag to an SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

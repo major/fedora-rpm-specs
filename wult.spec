@@ -1,5 +1,5 @@
 Name:		wult
-Version:	1.10.54
+Version:	1.11.3
 Release:	%autorelease
 Summary:	A tool for measuring C-state latency in Linux
 
@@ -80,6 +80,7 @@ install -pDm644 docs/man1/wult.1 %{buildroot}/%{_mandir}/man1/wult.1
 %{_bindir}/wult-hrt-helper
 %{_bindir}/wult-tdt-helper
 %{_datadir}/wult
+%{_datadir}/stats-collect
 %{_mandir}/man1/exercise-sut.1*
 %{_mandir}/man1/ndl.1*
 %{_mandir}/man1/wult.1*

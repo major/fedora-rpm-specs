@@ -11,20 +11,24 @@
 %global gnome_settings_daemon_version           40~rc
 
 Name:           gnome-kiosk
-Version:        44~beta
+Version:        44~rc
 Release:        1%{?dist}
 Summary:        Window management and application launching for GNOME
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-kiosk
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 Provides:       firstboot(windowmanager) = %{name}
 
+BuildRequires:  dconf
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext >= %{gettext_version}
 BuildRequires:  git
+BuildRequires:  mesa-libEGL-devel
+BuildRequires:  mesa-libGL-devel
+BuildRequires:  meson
 BuildRequires:  pkgconfig(glib-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gobject-2.0) >= %{glib2_version}
 BuildRequires:  pkgconfig(gio-2.0) >= %{glib2_version}
@@ -32,10 +36,6 @@ BuildRequires:  pkgconfig(gnome-desktop-3.0) >= %{gnome_desktop_version}
 BuildRequires:  pkgconfig(gtk4) >= %{gtk4_version}
 BuildRequires:  pkgconfig(ibus-1.0) >= %{ibus_version}
 BuildRequires:  pkgconfig(libmutter-12) >= %{mutter_version}
-BuildRequires:  mesa-libEGL-devel
-BuildRequires:  mesa-libGL-devel
-BuildRequires:  meson
-BuildRequires:  dconf
 
 Requires:       gnome-settings-daemon%{?_isa} >= %{gnome_settings_daemon_version}
 Requires:       gsettings-desktop-schemas%{?_isa} >= %{gsettings_desktop_schemas_version}
@@ -85,8 +85,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %doc README.md
 %{_bindir}/gnome-kiosk
 %{_datadir}/applications/org.gnome.Kiosk.desktop
-%{_datadir}/dconf/profile/gnome-kiosk
-%{_datadir}/gnome-kiosk/gnome-kiosk.dconf.compiled
+%{_datadir}/dconf/profile/gnomekiosk
+%{_datadir}/gnome-kiosk/gnomekiosk.dconf.compiled
 %{_userunitdir}/org.gnome.Kiosk.target
 %{_userunitdir}/org.gnome.Kiosk@wayland.service
 %{_userunitdir}/org.gnome.Kiosk@x11.service
@@ -107,6 +107,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Kiosk.Searc
 %{_datadir}/xsessions/gnome-kiosk-script-xorg.desktop
 
 %changelog
+* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Wed Feb 15 2023 Adam Williamson <awilliam@redhat.com> - 44~beta-1
 - Update to 44-beta, rebuild against new libmutter
 

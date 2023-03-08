@@ -27,7 +27,7 @@ Name: container-selinux
 Epoch: 2
 Version: %{gen_version}
 Release: %autorelease
-License: GPLv2
+License: GPL-2.0-only
 URL: %{git0}
 Summary: SELinux policies for container runtimes
 Source0: %{git0}/archive/v%{built_tag_strip}.tar.gz

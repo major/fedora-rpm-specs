@@ -3,7 +3,7 @@ Version:        1.4.8
 Release:        3%{?dist}
 Summary:        Reorganize tables in PostgreSQL databases without any locks
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://reorg.github.io/%{name}/
 Source0:        https://github.com/reorg/%{name}/archive/ver_%{version}.tar.gz
 

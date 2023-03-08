@@ -1,8 +1,8 @@
 Name:           cmocka
-Version:        1.1.5
-Release:        13%{?dist}
+Version:        1.1.7
+Release:        1%{?dist}
 
-License:        ASL 2.0
+License:        Apache-2.0
 Summary:        An elegant unit testing framework for C with support for mock objects
 URL:            https://cmocka.org
 
@@ -15,6 +15,8 @@ BuildRequires:  cmake
 BuildRequires:  doxygen
 BuildRequires:  glibc-devel
 BuildRequires:  gnupg2
+
+Obsoletes:      libcmocka-static < %{version}
 
 %description
 There are a variety of C unit testing frameworks available however many of them
@@ -65,12 +67,6 @@ preferable.
 
 This is the successor of Google's Cmockery.
 
-%package -n libcmocka-static
-Summary:        Lightweight library to simplify and generalize unit tests for C
-
-%description -n libcmocka-static
-Static version of the cmocka library.
-
 %package -n libcmocka-devel
 Summary:        Development headers for the cmocka library
 Requires:       libcmocka = %{version}-%{release}
@@ -119,9 +115,6 @@ ln -s libcmocka.so %{buildroot}%{_libdir}/libcmockery.so
 %license COPYING
 %{_libdir}/libcmocka.so.*
 
-%files -n libcmocka-static
-%{_libdir}/libcmocka-static.a
-
 %files -n libcmocka-devel
 %{_includedir}/cmocka.h
 %{_includedir}/cmocka_pbc.h
@@ -130,13 +123,24 @@ ln -s libcmocka.so %{buildroot}%{_libdir}/libcmockery.so
 %{_libdir}/libcmocka.so
 %{_libdir}/libcmockery.so
 %{_libdir}/pkgconfig/cmocka.pc
-%{_libdir}/cmake/cmocka/cmocka-config-version.cmake
-%{_libdir}/cmake/cmocka/cmocka-config.cmake
+%{_libdir}/cmake/cmocka/cmocka-config*.cmake
 
 %files -n cmocka-doc
 %doc %{__cmake_builddir}/doc/html
 
 %changelog
+* Tue Feb 28 2023 Andreas Schneider <asn@redhat.com> - 1.1.7-1
+- Update to version 1.1.7
+  * Update ignore list for source tarball generation
+  * Added new assert macros to compare 2 double given an epsilon
+  * Added meson build system
+  * Added header with version to TAP13 output
+  * Fixed issues with MSVC
+  * Fixed TAP output for skipped tests
+  * Fixed issue with fail_msg
+  * CMake generated configs for find_package(cmocka)
+  * Documentation improvements
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.5-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -4,7 +4,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           baobab
-Version:        44~beta
+Version:        44~rc
 Release:        1%{?dist}
 Summary:        A graphical directory tree analyzer
 
@@ -64,6 +64,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/org.gnome.baobab.des
 
 
 %changelog
+* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 44~beta-1
 - Update to 44.beta
 

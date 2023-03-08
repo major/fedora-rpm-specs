@@ -1,6 +1,6 @@
 Name:           global
 Version:        6.6.5
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Source code tag system
 # The entire source code is GPLv3+ except
 #   libglibc/ which is LGPLv2+
@@ -30,6 +30,8 @@ Obsoletes:      emacs-global-el <= 6.5.1-1
 Provides:       emacs-global = %{version}-%{release}
 Provides:       emacs-global-el = %{version}-%{release}
 
+Patch99:	global-6.6.5-fedora-c99.patch
+
 %description
 GNU GLOBAL is a source code tag system that works the same way across
 diverse environments. It supports C, C++, Yacc, Java, PHP and
@@ -47,6 +49,7 @@ through Pygments and Exuberant Ctags.
 %prep
 %autosetup -p1
 pathfix.py -pni "%{__python3} %{py3_shbang_opts}" plugin-factory/pygments_parser.py.in
+touch -r configure.ac configure aclocal.m4 Makefile.in
 
 %build
 export PYTHON=%{__python3}
@@ -107,6 +110,9 @@ chmod -x %{buildroot}/%{_sysconfdir}/gtags.conf
 %{_libdir}/gtags/*
 
 %changelog
+* Fri Mar  3 2023 DJ Delorie <dj@redhat.com> - 6.6.5-9
+- Port configure script to C99
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.6.5-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

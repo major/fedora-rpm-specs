@@ -5,7 +5,7 @@
 Name: catatonit
 Version: %{gen_version}
 Summary: A signal-forwarding process manager for containers
-License: GPLv3+
+License: GPL-3.0-or-later
 Release: %autorelease
 ExclusiveArch: %{golang_arches_future}
 URL: https://github.com/openSUSE/%{name}

@@ -5,7 +5,7 @@ Version:        3.10.3
 %if "%{?enable_native_atlas}" != "0"
 %define dist .native
 %endif
-Release:        21%{?dist}
+Release:        22%{?dist}
 Summary:        Automatically Tuned Linear Algebra Software
 
 License:        BSD
@@ -53,6 +53,9 @@ Patch12: 0006-Add-IBM-z14-support.patch
 Patch13: 0007-Enable-cross-compile.patch
 Patch14: 0008-Add-IBM-z15-support.patch
 
+
+
+Patch15:		atlas-fgrep.patch
 #Covscan
 Patch101:		atlas-getri.patch
 
@@ -353,6 +356,7 @@ CPUs. The base ATLAS builds for the ppc64 architecture are made for the Power 5 
 %patch14 -p1
 %endif
 
+%patch15 -p1
 %patch101 -p1
 
 cp %{SOURCE1} CONFIG/ARCHS/
@@ -478,7 +482,7 @@ for type in %{types}; do
 	fi
 	mkdir -p %{_arch}_${type}
 	pushd %{_arch}_${type}
-	../configure  %{mode} $thread_options $arg_options -D c -DWALL -F xc ' '  -Fa alg '%{flags} -D_FORTIFY_SOURCE=2 -g -Wa,--noexecstack,--generate-missing-build-notes=yes -fstack-protector-strong -fstack-clash-protection -fPIC -fplugin=annobin -Wl,-z,now'\
+	../configure  %{mode} $thread_options $arg_options -v 2 -D c -DWALL -F xc ' '  -Fa alg '%{flags} -D_FORTIFY_SOURCE=2 -g -Wa,--noexecstack,--generate-missing-build-notes=yes -fstack-protector-strong -fstack-clash-protection -fPIC -fplugin=annobin -Wl,-z,now' \
 	--prefix=%{buildroot}%{_prefix}			\
 	--incdir=%{buildroot}%{_includedir}		\
 	--libdir=%{buildroot}%{_libdir}/${libname}
@@ -766,6 +770,10 @@ fi
 %endif
 
 %changelog
+* Mon Mar 06 2023 Jakub Martisko <jamartis@redhat.com> - 3.10.3-22
+- During the compilation, use grep -F instead of fgrep
+Resolves: rhbz#2171443
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.10.3-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

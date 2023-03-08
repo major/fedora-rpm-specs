@@ -33,7 +33,7 @@ Epoch: 2
 Version: %{gen_version}
 Release: 2%{?dist}
 Summary: CLI for running Open Containers
-License: ASL 2.0 and BSD and MIT
+License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and MIT
 URL: %{git0}
 Source0: %{git0}/archive/%{built_tag}/%{name}-%{version}.tar.gz
 

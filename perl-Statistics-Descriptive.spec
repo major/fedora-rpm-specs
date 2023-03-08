@@ -2,13 +2,13 @@ Name:           perl-Statistics-Descriptive
 Version:        3.0800
 Release:        8%{?dist}
 Summary:        Perl module of basic descriptive statistical functions
-# lib/Statistics/Descriptive.pm:            GPL+ or Artistic
-# lib/Statistics/Descriptive/Full.pm:       GPL+ or Artistic
-# lib/Statistics/Descriptive/Sparse.pm:     GPL+ or Artistic
+# lib/Statistics/Descriptive.pm:            GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Statistics/Descriptive/Full.pm:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/Statistics/Descriptive/Sparse.pm:     GPL-1.0-or-later OR Artistic-1.0-Perl
 # lib/Statistics/Descriptive/Smoother*:     MIT
 # t/lib/Utils.pm:                           MIT
 # examples/statistical-analysis.pl:         MIT
-License:        (GPL+ or Artistic) and MIT
+License:        ( GPL-1.0-or-later OR Artistic-1.0-Perl ) AND MIT
 URL:            https://metacpan.org/release/Statistics-Descriptive
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHLOMIF/Statistics-Descriptive-%{version}.tar.gz
 BuildArch:      noarch
@@ -63,8 +63,8 @@ perl Build.PL installdirs=vendor
 %files
 %license LICENSE
 %doc Changes examples README UserSurvey.txt
-%{perl_vendorlib}/*
-%{_mandir}/man3/*
+%{perl_vendorlib}/Statistics*
+%{_mandir}/man3/Statistics::Descriptive*
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0800-8

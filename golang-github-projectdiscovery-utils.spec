@@ -4,7 +4,7 @@
 
 # https://github.com/projectdiscovery/utils
 %global goipath         github.com/projectdiscovery/utils
-Version:                0.0.13
+Version:                0.0.14
 
 %gometa -f
 

@@ -4,8 +4,8 @@
 %bcond_without perl_Syntax_Keyword_Dynamically_enables_optional_test
 
 Name:           perl-Syntax-Keyword-Dynamically
-Version:        0.11
-Release:        2%{?dist}
+Version:        0.12
+Release:        1%{?dist}
 Summary:        Dynamically change the value of a variable
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Syntax-Keyword-Dynamically
@@ -35,14 +35,14 @@ BuildRequires:  perl(Carp)
 BuildRequires:  perl(XS::Parse::Keyword) >= 0.13
 BuildRequires:  perl(XSLoader)
 # Tests:
-BuildRequires:  perl(Test::More) >= 0.88
+BuildRequires:  perl(Test2::V0)
 %if %{with perl_Syntax_Keyword_Dynamically_enables_optional_test} && !%{defined perl_bootstrap}
 # A cycle: perl-Future-AsyncAwait → perl-Syntax-Keyword-Dynamically
 # Optional tests:
 BuildRequires:  perl(Future)
 # Higher version from boot_future_asyncawait()
 BuildRequires:  perl(Future::AsyncAwait) >= %{Future_AsyncAwait_minver}
-BuildRequires:  perl(Object::Pad) >= 0.15
+BuildRequires:  perl(Object::Pad) >= 0.73
 BuildRequires:  perl(Sentinel)
 BuildRequires:  perl(Test::Pod) >= 1
 %endif
@@ -64,9 +64,6 @@ Requires:       perl(XS::Parse::Keyword) >= 0.13
 Requires:       %{perl_XS_Parse_Keyword_ABI}
 %endif
 
-# Remove under-specified dependencies
-%global __requires_exclude %{?__requires_exclude:%{__requires_exclude}|}^perl\\(Test::More\\)$
-
 %description
 This Perl module provides a syntax plugin that implements a single keyword,
 dynamically, which alters the behavior of a scalar assignment operation.
@@ -80,12 +77,11 @@ Summary:        Tests for %{name}
 BuildArch:      noarch
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl-Test-Harness
-Requires:       perl(Test::More) >= 0.88
 %if %{with perl_Syntax_Keyword_Dynamically_enables_optional_test} && !%{defined perl_bootstrap}
 # A cycle: perl-Future-AsyncAwait → perl-Syntax-Keyword-Dynamically
 Requires:       perl(Future)
 Requires:       perl(Future::AsyncAwait) >= 0.31
-Requires:       perl(Object::Pad) >= 0.15
+Requires:       perl(Object::Pad) >= 0.73
 Requires:       perl(Sentinel)
 %endif
 
@@ -144,6 +140,9 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 06 2023 Petr Pisar <ppisar@redhat.com> - 0.12-1
+- 0.12 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.11-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
-%global git_date 20230220
-%global git_commit 8c7de0471c1de088ff3c332590ea91a71d4273c0
+%global git_date 20230301
+%global git_commit a12f7b20638be8f872ad1995c7d2edce41c227b5
 %{?git_commit:%global git_commit_hash %(c=%{git_commit}; echo ${c:0:7})}
 
 %global _python_bytecompile_extra 0
@@ -175,6 +175,7 @@ end
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/libreswan.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/libssh.config
 %ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/sequoia.config
+%ghost %config(missingok,noreplace) %verify(not mode) %{_sysconfdir}/crypto-policies/back-ends/rpm-sequoia.config
 # %verify(not mode) comes from the fact
 # these turn into symlinks and back to regular files at will, see bz1898986
 
@@ -207,6 +208,10 @@ end
 %{_mandir}/man8/fips-finish-install.8*
 
 %changelog
+* Wed Mar 01 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230301-1.git2ea6d2a
+- rpm-sequoia: add separate rpm-sequoia backend
+- DEFAULT: allow SHA-1 and 1024 bit DSA in RPM (https://pagure.io/fesco/issue/2960)
+
 * Mon Feb 20 2023 Alexander Sosedkin <asosedkin@redhat.com> - 20230220-1.git8c7de04
 - Makefile: support asciidoc 10
 

@@ -8,7 +8,7 @@
 
 Name:          gnome-music
 Summary:       Music player and management application for GNOME
-Version:       44~beta
+Version:       44~rc
 Release:       %autorelease
 
 # The sources are under the GPLv2+ license, except for:

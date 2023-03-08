@@ -18,8 +18,8 @@
 Name: netavark
 Version: %{gen_version}
 Release: %autorelease
-License: ASL 2.0 and BSD and MIT
-ExclusiveArch: %{arm32} %{arm64} ppc64le s390x x86_64
+License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and MIT
+ExclusiveArch: %{golang_arches_future}
 Summary: OCI network stack
 URL: https://github.com/containers/%{name}
 # Tarballs fetched from upstream's release page
@@ -300,7 +300,7 @@ go-md2man -in %{name}.1.md -out %{name}.1
 %files
 %license LICENSE
 %dir %{_libexecdir}/podman
-%{_libexecdir}/podman/%{name}
+%{_libexecdir}/podman/%{name}*
 %ifarch %{golang_arches}
 %{_mandir}/man1/%{name}.1*
 %endif

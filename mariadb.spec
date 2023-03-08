@@ -209,6 +209,9 @@ Patch7:           %{pkgnamepatch}-scripts.patch
 Patch9:           %{pkgnamepatch}-ownsetup.patch
 #   Patch10: Fix cipher name in the SSL Cipher name test
 Patch10:          %{pkgnamepatch}-ssl-cipher-tests.patch
+#   https://gcc.gnu.org/gcc-13/porting_to.html
+Patch11:          mariadb-10.5-gcc13.patch
+Patch12:          rocksdb-6.8-gcc13.patch
 
 BuildRequires:    make
 BuildRequires:    cmake gcc-c++
@@ -740,6 +743,10 @@ rm -r storage/rocksdb/
 # Keeping the patch commented out, need to revisit
 #  once the test is re-enabled by upstream  in some future release
 #%patch10 -p1
+%patch11 -p1
+%if %{with rocksdb}
+%patch12 -p1 -d storage/rocksdb/rocksdb/
+%endif
 
 # generate a list of tests that fail, but are not disabled by upstream
 cat %{SOURCE50} | tee -a mysql-test/unstable-tests

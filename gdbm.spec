@@ -5,7 +5,7 @@ Name: gdbm
 Version: 1.23
 Release: 3%{?dist}
 Epoch: 1
-License: GPLv3+
+License: GPL-3.0-or-later
 URL: http://www.gnu.org/software/gdbm/
 
 Source: http://ftp.gnu.org/gnu/gdbm/gdbm-%{version}.tar.gz

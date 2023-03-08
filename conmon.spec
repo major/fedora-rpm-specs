@@ -20,7 +20,7 @@
 Name: conmon
 Epoch: 2
 Version: %{gen_version}
-License: ASL 2.0
+License: Apache-2.0
 Release: %autorelease
 Summary: OCI container runtime monitor
 URL: https://github.com/containers/%{name}

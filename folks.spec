@@ -2,11 +2,11 @@
 
 Name:           folks
 Epoch:          1
-Version:        0.15.5
-Release:        5%{?dist}
+Version:        0.15.6
+Release:        1%{?dist}
 Summary:        GObject contact aggregation library
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Folks
 Source0:        https://download.gnome.org/sources/folks/0.15/folks-%{version}.tar.xz
 
@@ -115,6 +115,9 @@ CC="$CC -std=gnu89"
 %{_datadir}/vala/vapi/%{name}*
 
 %changelog
+* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 1:0.15.6-1
+- Update to 0.15.6
+
 * Fri Feb 24 2023 Florian Weimer <fweimer@redhat.com> - 1:0.15.5-5
 - Build in C89 mode due to Vala limiation (#2159284)
 

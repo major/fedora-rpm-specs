@@ -1,13 +1,13 @@
 %global so_ver 0
-%global pam_redhat_version 1.1.5
+%global pam_redhat_version 1.2.0
 
 Summary: An extensible library which provides authentication for applications
 Name: pam
 Version: 1.5.2
-Release: 16%{?dist}
+Release: 17%{?dist}
 # The library is BSD licensed with option to relicense as GPLv2+
 # - this option is redundant as the BSD license allows that anyway.
-# pam_timestamp, pam_loginuid, and pam_console modules are GPLv2+.
+# pam_timestamp and pam_loginuid modules are GPLv2+.
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: http://www.linux-pam.org/
 Source0: https://github.com/linux-pam/linux-pam/releases/download/v%{version}/Linux-PAM-%{version}.tar.xz
@@ -22,7 +22,7 @@ Source13: config-util.5
 Source15: pamtmp.conf
 Source17: postlogin.5
 Source18: https://www.gnu.org/licenses/old-licenses/gpl-2.0.txt
-Patch1:  pam-1.5.0-redhat-modules.patch
+Patch1:  pam-1.5.2-redhat-modules.patch
 Patch2:  pam-1.5.0-noflex.patch
 Patch3:  pam-1.3.0-unix-nomsg.patch
 Patch4:  pam-1.5.2-pwhistory-config.patch
@@ -250,7 +250,6 @@ done
 %config(noreplace) %{_pam_confdir}/other
 %config(noreplace) %{_pam_confdir}/config-util
 %{_rpmconfigdir}/macros.d/macros.%{name}
-%{_sbindir}/pam_console_apply
 %{_sbindir}/pam_namespace_helper
 %{_sbindir}/faillock
 %attr(4755,root,root) %{_sbindir}/pam_timestamp_check
@@ -261,7 +260,6 @@ done
 %dir %{_pam_moduledir}
 %{_pam_moduledir}/pam_access.so
 %{_pam_moduledir}/pam_chroot.so
-%{_pam_moduledir}/pam_console.so
 %{_pam_moduledir}/pam_debug.so
 %{_pam_moduledir}/pam_deny.so
 %{_pam_moduledir}/pam_echo.so
@@ -316,8 +314,6 @@ done
 %dir %{_pam_secconfdir}
 %config(noreplace) %{_pam_secconfdir}/access.conf
 %config(noreplace) %{_pam_secconfdir}/chroot.conf
-%config %{_pam_secconfdir}/console.perms
-%config(noreplace) %{_pam_secconfdir}/console.handlers
 %config(noreplace) %{_pam_secconfdir}/faillock.conf
 %config(noreplace) %{_pam_secconfdir}/group.conf
 %config(noreplace) %{_pam_secconfdir}/limits.conf
@@ -329,9 +325,6 @@ done
 %config(noreplace) %{_pam_secconfdir}/pwhistory.conf
 %config(noreplace) %{_pam_secconfdir}/time.conf
 %config(noreplace) %{_pam_secconfdir}/opasswd
-%dir %{_pam_secconfdir}/console.apps
-%dir %{_pam_secconfdir}/console.perms.d
-%dir /var/run/console
 %config(noreplace) %{_pam_secconfdir}/sepermit.conf
 %dir /var/run/sepermit
 %dir /var/run/faillock
@@ -362,6 +355,10 @@ done
 %{_pam_libdir}/libpam_misc.so.%{so_ver}*
 
 %changelog
+* Thu Feb  9 2023 Iker Pedrosa <ipedrosa@redhat.com> - 1.5.2-17
+- Remove pam_console (#2166692)
+- Rebase to pam-redhat-1.2.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org>
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

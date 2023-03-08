@@ -1,6 +1,6 @@
 Name:           onednn
-Version:        3.0
-Release:        1%{?dist}
+Version:        3.0.1
+Release:        2%{?dist}
 Summary:        oneAPI Deep Neural Network Library
 
 License:        Apache-2.0 and BSD-2-Clause and BSD-3-Clause and BSL-1.0 and MIT
@@ -8,6 +8,7 @@ URL:            https://github.com/oneapi-src/oneDNN/
 Source0:        %{url}/archive/v%{version}/onednn-%{version}.tar.gz
 
 # https://github.com/oneapi-src/oneDNN/pull/1554
+# https://github.com/fujitsu/xbyak_aarch64/pull/81
 Patch0:			aarch64-gcc13.patch
 
 # This package only work in 64bit arches for now
@@ -92,6 +93,12 @@ rm -rf %{buildroot}%{_docdir}/dnnl
 
 
 %changelog
+* Mon Mar 06 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.0.1-2
+- oneDNN did not migrate the latest fujitsu/xbyak_aarch64 yet
+
+* Mon Mar 06 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.0.1-1
+- Update to 3.0.1
+
 * Sat Feb 11 2023 Ali Erdinc Koroglu <aekoroglu@fedoraproject.org> - 3.0-1
 - Update to 3.0
 

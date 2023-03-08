@@ -14,8 +14,8 @@
 %bcond_without sddm_wayland_default
 %endif
 
-%global commit 8f1e3df4768bd521034e02602c4410b06aaef7d5
-%global commitdate 20230214
+%global commit 572b128c92c5bce366f5db136423b0b296448429
+%global commitdate 20230306
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           sddm
@@ -39,7 +39,7 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 # https://bugzilla.redhat.com/show_bug.cgi?id=2011991
 # https://bugzilla.redhat.com/show_bug.cgi?id=2016310
 # Submmited: https://github.com/sddm/sddm/pull/1494
-Patch11:       0001-Delay-for-logind-and-fallback-to-seat0.patch
+Patch11:        0001-Delay-for-logind-and-fallback-to-seat0.patch
 
 ## downstream patches
 Patch101:       sddm-0.20.0-fedora_config.patch
@@ -289,6 +289,10 @@ fi
 
 
 %changelog
+* Mon Mar 06 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 0.19.0^git20230306.7bd10de-1
+- Update to new snapshot
+- Fixes #2175947
+
 * Mon Feb 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.19.0^git20230214.8f1e3df-1
 - Update to new snapshot
 - Drop our sysusers and tmpfiles configuration for upstream versions

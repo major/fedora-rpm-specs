@@ -16,7 +16,7 @@
 }
 
 Name:          rpy
-Version:       3.5.9
+Version:       3.5.10
 Release:       1%{?dist}
 Summary:       %{sum}
 License:       GPLv2+
@@ -83,6 +83,9 @@ cd %{srcname}2
 %{python3_sitearch}/__pycache__/*
 
 %changelog
+* Mon Mar  6 2023 Tom Callaway <spot@fedoraproject.org> - 3.5.10-1
+- update to 3.5.10
+
 * Fri Mar  3 2023 Tom Callaway <spot@fedoraproject.org> - 3.5.9-1
 - update to 3.5.9
 

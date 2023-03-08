@@ -8,9 +8,9 @@
 # (such as ppc), so lets limit things to the known-good ones.
 ExclusiveArch: x86_64 aarch64
 
-# edk2-stable202211
-%define GITDATE        20221117
-%define GITCOMMIT      fff6d81270b5
+# edk2-stable202302
+%define GITDATE        20230301
+%define GITCOMMIT      f80f052277c8
 %define TOOLCHAIN      GCC5
 %define OPENSSL_VER    1.1.1k
 
@@ -23,9 +23,11 @@ ExclusiveArch: x86_64 aarch64
 %ifarch aarch64
   %define build_aarch64 1
 %endif
+%define build_riscv64 0
 %else
 %define build_ovmf 1
 %define build_aarch64 1
+%define build_riscv64 1
 %endif
 
 %global softfloat_version 20180726-gitb64af41
@@ -35,7 +37,7 @@ ExclusiveArch: x86_64 aarch64
 
 Name:       edk2
 Version:    %{GITDATE}git%{GITCOMMIT}
-Release:    14%{?dist}
+Release:    1%{?dist}
 Summary:    UEFI firmware for 64-bit virtual machines
 License:    BSD-2-Clause-Patent and OpenSSL and MIT
 URL:        http://www.tianocore.org
@@ -48,7 +50,7 @@ Source0: edk2-%{GITCOMMIT}.tar.xz
 Source1: ovmf-whitepaper-c770f8c.txt
 Source2: openssl-rhel-d00c3c5b8a9d6d3ea3dabfcafdf36afd61ba8bcc.tar.xz
 Source3: softfloat-%{softfloat_version}.tar.xz
-Source4: edk2-platforms-b36fe8bc9b68.tar.xz
+Source4: edk2-platforms-54306d023e7d.tar.xz
 Source5: jansson-2.13.1.tar.bz2
 
 # json description files
@@ -74,42 +76,22 @@ Source81: edk2-build.fedora
 Source82: edk2-build.fedora.platforms
 Source83: edk2-build.rhel-9
 
-Source90: DBXUpdate-20200729.x64.bin
+Source90: DBXUpdate-20220812.x64.bin
+Source91: DBXUpdate-20220812.ia32.bin
 
 Patch0001: 0001-BaseTools-do-not-build-BrotliCompress-RH-only.patch
 Patch0002: 0002-MdeModulePkg-remove-package-private-Brotli-include-p.patch
-#Patch0003: 0003-MdeModulePkg-TerminalDxe-add-other-text-resolutions-.patch
-Patch0004: 0004-MdeModulePkg-TerminalDxe-set-xterm-resolution-on-mod.patch
-Patch0005: 0005-OvmfPkg-take-PcdResizeXterm-from-the-QEMU-command-li.patch
-Patch0006: 0006-ArmVirtPkg-take-PcdResizeXterm-from-the-QEMU-command.patch
-Patch0007: 0007-OvmfPkg-enable-DEBUG_VERBOSE-RHEL-only.patch
-Patch0008: 0008-OvmfPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuVide.patch
-Patch0009: 0009-ArmVirtPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuR.patch
-Patch0010: 0010-OvmfPkg-QemuRamfbDxe-Do-not-report-DXE-failure-on-Aa.patch
-Patch0011: 0011-OvmfPkg-silence-EFI_D_VERBOSE-0x00400000-in-NvmExpre.patch
-Patch0012: 0012-CryptoPkg-OpensslLib-list-RHEL8-specific-OpenSSL-fil.patch
-Patch0013: 0013-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
-Patch0014: 0014-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
-Patch0015: 0015-Tweak-the-tools_def-to-support-cross-compiling.patch
-Patch0016: 0016-tools_def-add-fno-omit-frame-pointer-to-GCC48_-IA32-.patch
-Patch0017: 0017-Revert-ArmVirtPkg-make-EFI_LOADER_DATA-non-executabl.patch
-Patch0018: 0018-Revert-OvmfPkg-PlatformDxe-Handle-all-requests-in-Ex.patch
-Patch0019: 0019-OvmfPkg-SmbiosPlatformDxe-use-PcdFirmware.patch
-Patch0020: 0020-OvmfPkg-PlatformPei-AmdSev-stop-using-mPlatformInfoH.patch
-Patch0021: 0021-OvmfPkg-PlatformPei-PeiFv-stop-using-mPlatformInfoHo.patch
-Patch0022: 0022-OvmfPkg-PlatformPei-Q35-SMM-helpers-stop-using-mPlat.patch
-Patch0023: 0023-OvmfPkg-PlatformPei-PeiMemory-stop-using-mPlatformIn.patch
-Patch0024: 0024-OvmfPkg-PlatformPei-MemTypeInfo-stop-using-mPlatform.patch
-Patch0025: 0025-OvmfPkg-PlatformPei-NoExec-stop-using-mPlatformInfoH.patch
-Patch0026: 0026-OvmfPkg-PlatformPei-Verification-stop-using-mPlatfor.patch
-Patch0027: 0027-OvmfPkg-PlatformPei-remove-mPlatformInfoHob.patch
-Patch0028: 0028-OvmfPkg-PlatformPei-remove-mFeatureControlValue.patch
-Patch0029: 0029-OvmfPkg-DebugLibIoPort-use-Rom-version-for-PEI.patch
-Patch0030: 0030-OvmfPkg-QemuFwCfgLib-rewrite-fw_cfg-probe.patch
-Patch0031: 0031-OvmfPkg-QemuFwCfgLib-remove-mQemuFwCfgSupported-mQem.patch
-Patch0032: 0032-OvmfPkg-VirtNorFlashDxe-map-flash-memory-as-uncachea.patch
-Patch0033: 0033-ArmVirtPkg-ArmVirtQemu-Avoid-early-ID-map-on-Thunder.patch
-Patch0034: 0034-rh-openssl-add-crypto-bn-rsa_sup_mul.c-to-file-list.patch
+Patch0003: 0003-MdeModulePkg-TerminalDxe-set-xterm-resolution-on-mod.patch
+Patch0004: 0004-OvmfPkg-take-PcdResizeXterm-from-the-QEMU-command-li.patch
+Patch0005: 0005-ArmVirtPkg-take-PcdResizeXterm-from-the-QEMU-command.patch
+Patch0006: 0006-OvmfPkg-enable-DEBUG_VERBOSE-RHEL-only.patch
+Patch0007: 0007-OvmfPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuVide.patch
+Patch0008: 0008-ArmVirtPkg-silence-DEBUG_VERBOSE-0x00400000-in-QemuR.patch
+Patch0009: 0009-OvmfPkg-QemuRamfbDxe-Do-not-report-DXE-failure-on-Aa.patch
+Patch0010: 0010-OvmfPkg-silence-EFI_D_VERBOSE-0x00400000-in-NvmExpre.patch
+Patch0011: 0011-CryptoPkg-OpensslLib-list-RHEL8-specific-OpenSSL-fil.patch
+Patch0012: 0012-OvmfPkg-QemuKernelLoaderFsDxe-suppress-error-on-no-k.patch
+Patch0013: 0013-SecurityPkg-Tcg2Dxe-suppress-error-on-no-swtpm-in-si.patch
 
 
 # python3-devel and libuuid-devel are required for building tools.
@@ -142,6 +124,7 @@ BuildRequires:  python3-virt-firmware >= 1.7
 BuildRequires:  gcc-aarch64-linux-gnu
 BuildRequires:  gcc-arm-linux-gnu
 BuildRequires:  gcc-x86_64-linux-gnu
+BuildRequires:  gcc-riscv64-linux-gnu
 %endif
 
 
@@ -244,6 +227,14 @@ License:        BSD-2-Clause-Patent and OpenSSL
 EFI Development Kit II
 ARMv7 UEFI Firmware
 
+%package riscv64
+Summary:        RISC-V Virtual Machine Firmware
+BuildArch:      noarch
+License:        BSD-2-Clause-Patent and OpenSSL
+%description riscv64
+EFI Development Kit II
+RISC-V UEFI Firmware
+
 %package ext4
 Summary:        Ext4 filesystem driver
 License:        BSD-2-Clause-Patent and OpenSSL
@@ -293,7 +284,7 @@ cp -a -- \
    %{SOURCE30} %{SOURCE31} %{SOURCE32} \
    %{SOURCE40} %{SOURCE41} %{SOURCE42} %{SOURCE43} %{SOURCE44} %{SOURCE45} \
    %{SOURCE80} %{SOURCE81} %{SOURCE82} %{SOURCE83} \
-   %{SOURCE90} \
+   %{SOURCE90} %{SOURCE91} \
    .
 
 %build
@@ -344,7 +335,7 @@ touch OvmfPkg/AmdSev/Grub/grub.efi   # dummy
 ./edk2-build.py --config edk2-build.rhel-9 --silent --release-date "$RELEASE_DATE" -m ovmf
 virt-fw-vars --input   RHEL-9/ovmf/OVMF_VARS.fd \
              --output  RHEL-9/ovmf/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-20200729.x64.bin \
+             --set-dbx DBXUpdate-20220812.x64.bin \
              --enroll-redhat --secure-boot
 build_iso RHEL-9/ovmf
 
@@ -354,15 +345,15 @@ build_iso RHEL-9/ovmf
 ./edk2-build.py --config edk2-build.fedora.platforms --silent -m x64
 virt-fw-vars --input   Fedora/ovmf/OVMF_VARS.fd \
              --output  Fedora/ovmf/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-20200729.x64.bin \
+             --set-dbx DBXUpdate-20220812.x64.bin \
              --enroll-redhat --secure-boot
 virt-fw-vars --input   Fedora/ovmf-4m/OVMF_VARS.fd \
              --output  Fedora/ovmf-4m/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-20200729.x64.bin \
+             --set-dbx DBXUpdate-20220812.x64.bin \
              --enroll-redhat --secure-boot
 virt-fw-vars --input   Fedora/ovmf-ia32/OVMF_VARS.fd \
              --output  Fedora/ovmf-ia32/OVMF_VARS.secboot.fd \
-             --set-dbx DBXUpdate-20200729.x64.bin \
+             --set-dbx DBXUpdate-20220812.ia32.bin \
              --enroll-redhat --secure-boot
 build_iso Fedora/ovmf
 build_iso Fedora/ovmf-ia32
@@ -370,8 +361,21 @@ build_iso Fedora/ovmf-ia32
 # experimental stateless builds
 virt-fw-vars --input   Fedora/experimental/OVMF.stateless.fd \
              --output  Fedora/experimental/OVMF.stateless.secboot.fd \
-             --set-dbx DBXUpdate-20200729.x64.bin \
+             --set-dbx DBXUpdate-20220812.x64.bin \
              --enroll-redhat --secure-boot
+
+for image in \
+	Fedora/ovmf/OVMF_CODE.secboot.fd \
+	Fedora/ovmf-4m/OVMF_CODE.secboot.fd \
+	Fedora/experimental/OVMF.stateless.secboot.fd \
+; do
+	pcr="${image%.fd}.pcr"
+	python3 /usr/share/doc/python3-virt-firmware/experimental/measure.py \
+		--image "$image" \
+		--version "%{name}-%{version}-%{release}" \
+                --no-shim \
+		> "$pcr"
+done
 
 %endif
 %endif
@@ -389,6 +393,10 @@ for raw in */aarch64/*.raw; do
 done
 %endif
 
+%if %{build_riscv64}
+./edk2-build.py --config edk2-build.fedora --silent --release-date "$RELEASE_DATE" -m riscv
+./edk2-build.py --config edk2-build.fedora.platforms --silent -m riscv
+%endif
 
 %install
 
@@ -500,7 +508,7 @@ done
 %endif
 
 %check
-for file in %{buildroot}%{_datadir}/%{name}/*/*VARS.secboot*; do
+for file in %{buildroot}%{_datadir}/%{name}/*/*VARS.secboot.fd; do
     test -f "$file" || continue
     virt-fw-vars --input $file --print | grep "SecureBootEnable.*ON" || exit 1
 done
@@ -546,6 +554,8 @@ done
 %{_datadir}/%{name}/ovmf-4m/OVMF_CODE.secboot.fd
 %{_datadir}/%{name}/ovmf-4m/OVMF_VARS.fd
 %{_datadir}/%{name}/ovmf-4m/OVMF_VARS.secboot.fd
+%{_datadir}/%{name}/ovmf/*.pcr
+%{_datadir}/%{name}/ovmf-4m/*.pcr
 %endif
 # endif build_ovmf
 %endif
@@ -614,6 +624,7 @@ done
 %dir %{_datadir}/%{name}/experimental
 %{_datadir}/%{name}/experimental/*.fd
 %{_datadir}/%{name}/experimental/*.raw
+%{_datadir}/%{name}/experimental/*.pcr
 
 %files ovmf-xen
 %common_files
@@ -631,6 +642,11 @@ done
 %{_datadir}/%{name}/arm/QEMU_VARS.fd
 %{_datadir}/%{name}/arm/vars-template-pflash.raw
 %{_datadir}/qemu/firmware/50-edk2-arm-verbose.json
+
+%files riscv64
+%common_files
+%{_datadir}/%{name}/riscv/*.fd
+%{_datadir}/%{name}/riscv/*.raw
 
 %files ext4
 %common_files
@@ -657,7 +673,12 @@ done
 
 
 %changelog
-* Fri Feb 17 2023 Gerd Hoffmann <kraxel@redhat.com>
+* Mon Mar 06 2023 Gerd Hoffmann <kraxel@redhat.com> - 20230301gitf80f052277c8-1
+- update to edk2-stable202302
+- update dbx database to 20220812
+- add riscv64 sub-rpm
+
+* Fri Feb 17 2023 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-14
 - add sub-package with xen build (resolves: rhbz#2170730)
 
 * Sat Feb 11 2023 Gerd Hoffmann <kraxel@redhat.com> - 20221117gitfff6d81270b5-13

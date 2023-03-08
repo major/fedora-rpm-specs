@@ -1,11 +1,14 @@
+%global commit 0a06fcb4a3e4fdc6a844247fe2344e3b296e2c4d
+%global shortcommit %(c=%{commit}; echo ${c:0:7})
+
 Name: dlt-daemon
 Version: 2.18.8
-Release: 5%{?dist}
+Release: 6.20230306git%{shortcommit}%{?dist}
 Summary: DLT - Diagnostic Log and Trace
 Group: System Environment/Base
-License: MPLv2.0
+License: MPL-2.0
 URL: https://github.com/COVESA/dlt-daemon
-Source0: https://github.com/COVESA/dlt-daemon/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
+Source0: %{url}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 Patch0: dlt-daemon-config.patch
 
 BuildRequires: cmake
@@ -50,8 +53,7 @@ Requires:       %{name} = %{version}-%{release}
 %{summary}.
 
 %prep
-%setup -q
-%patch0 -p1
+%autosetup -n %{name}-%{commit} -p1
 
 %build
 mkdir -p build
@@ -135,9 +137,9 @@ exit 0
 %{_bindir}/dlt-sortbytimestamp
 %{_bindir}/dlt-system
 %config(noreplace) %{_sysconfdir}/dlt-system.conf
-%{_unitdir}/dlt-adaptor-udp.service
 %{_unitdir}/dlt-receive.service
 %{_unitdir}/dlt-system.service
+%{_unitdir}/dlt-adaptor-udp.service
 %{_mandir}/man1/dlt-adaptor-stdin.1*
 %{_mandir}/man1/dlt-adaptor-udp.1*
 %{_mandir}/man1/dlt-control.1*
@@ -159,6 +161,11 @@ exit 0
 %{_libdir}/cmake/automotive-dlt/*.cmake
 
 %changelog
+* Mon Mar  6 2023 Stephen Smoogen <smooge@fedoraproject.org> - 2.18.8-6.20230306git0a06fcb
+- Update code to latest upstream git commit
+- migrated to SPDX license
+- Update patchset for fat finger problem in upstream on udp package.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18.8-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

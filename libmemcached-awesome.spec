@@ -2,8 +2,8 @@
 #
 # remirepo spec file for libmemcached-awesome
 #
-# Copyright (c) 2009-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2009-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # https://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
@@ -13,18 +13,18 @@
 
 %global libname              libmemcached
 
-%global gh_commit            6e713c39031ff312164cc3ff12f943f8e8e01885
+%global gh_commit            92d18858b417309f6bdee6bce464a4f3d6a375fd
 %global gh_short             %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner             awesomized
 %global gh_project           libmemcached
 
-%global upstream_version     1.1.3
+%global upstream_version     1.1.4
 #global upstream_prever      beta3
 
 Name:      %{libname}-awesome
 Summary:   Client library and command line tools for memcached server
 Version:   %{upstream_version}%{?upstream_prever:~%{upstream_prever}}
-Release:   2%{?dist}
+Release:   1%{?dist}
 # SPDX:
 License:   BSD-3-Clause
 URL:       https://github.com/%{gh_owner}/%{gh_project}
@@ -158,6 +158,7 @@ rm -r %{buildroot}%{_datadir}/doc/%{name}/
 %{_libdir}/libmemcached.so.11*
 %{_libdir}/libmemcachedprotocol.so.0*
 %{_libdir}/libmemcachedutil.so.2*
+%exclude %{_libdir}/libp9y.a
 
 %files devel
 %doc example
@@ -175,15 +176,20 @@ rm -r %{buildroot}%{_datadir}/doc/%{name}/
 %{_libdir}/libmemcachedprotocol.so
 %{_libdir}/libmemcachedutil.so
 %{_libdir}/pkgconfig/libmemcached.pc
-%{_libdir}/cmake/%{name}
 %{_datadir}/aclocal/ax_libmemcached.m4
 %{_mandir}/man3/libmemcached*
 %{_mandir}/man3/libhashkit*
 %{_mandir}/man3/memcached*
 %{_mandir}/man3/hashkit*
+%dir     %{_libdir}/cmake/%{name}
+         %{_libdir}/cmake/%{name}/lib*
+%exclude %{_libdir}/cmake/%{name}/p9y*
 
 
 %changelog
+* Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 1.1.4-1
+- update to 1.1.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

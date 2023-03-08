@@ -3,7 +3,7 @@
 %global mozjs102_version 102.8.0
 
 Name:           gjs
-Version:        1.75.2
+Version:        1.75.90
 Release:        1%{?dist}
 Summary:        Javascript Bindings for GNOME
 
@@ -14,8 +14,6 @@ Summary:        Javascript Bindings for GNOME
 License:        MIT and (MPLv1.1 or GPLv2+ or LGPLv2+)
 URL:            https://wiki.gnome.org/Projects/Gjs
 Source0:        https://download.gnome.org/sources/%{name}/1.75/%{name}-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/gjs/-/merge_requests/825
-Patch0:         gjs-1.75.2-signed-char.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -96,6 +94,9 @@ the functionality of the installed gjs package.
 %{_datadir}/installed-tests/
 
 %changelog
+* Mon Mar 06 2023 David King <amigadave@amigadave.com> - 1.75.90-1
+- Update to 1.75.90
+
 * Thu Feb 23 2023 David King <amigadave@amigadave.com> - 1.75.2-1
 - Update to 1.75.2
 

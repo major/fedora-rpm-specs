@@ -2,7 +2,7 @@
 
 Name:		memstomp
 Version:	0.1.4
-Release:	36%{?dist}
+Release:	37%{?dist}
 Summary:	Warns of memory argument overlaps to various functions
 # The entire source code is LGPLV3+ with the exception of backtrace-symbols.c which
 # is GPLv2+ by way of being a hacked up old version of binutils's addr2line.
@@ -30,6 +30,7 @@ Patch6: memstomp-rh1133815.patch
 Patch7: memstomp-implicit-int.patch
 Patch8: bfd-api-change.patch
 Patch9: memstomp-PTR.patch
+Patch10: memstomp-sframe.patch
 
 
 %description 
@@ -51,6 +52,7 @@ overlapping memory arguments to certain library calls.
 %patch7 -p1
 %patch8 -p1
 %patch9 -p1
+%patch10 -p1
 
 
 %build
@@ -75,6 +77,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 %{_mandir}/man1/memstomp.1.gz
 
 %changelog
+* Mon Mar 6 2023 William Cohen <wcohen@redhat.com> - 0.1.4-37
+- Link in binutils sframe library when available to fix FTBFS. (rhbz#2171607)
+
 * Mon Feb 20 2023 Jeff Law <law@redhat.com> - 0.1.4-36
 - Fix for libibery no longer providing PTR
   (#2171607)

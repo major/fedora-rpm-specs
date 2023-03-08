@@ -1,7 +1,7 @@
 Summary: Utilities for managing accounts and shadow password files
 Name: shadow-utils
 Version: 4.13
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 2
 License: BSD-3-Clause AND GPL-2.0-or-later
 URL: https://github.com/shadow-maint/shadow
@@ -57,6 +57,8 @@ BuildRequires: gettext-devel
 BuildRequires: itstool
 BuildRequires: libacl-devel
 BuildRequires: libattr-devel
+BuildRequires: libbsd-devel
+BuildRequires: libeconf-devel
 BuildRequires: libselinux-devel >= 1.25.2-1
 BuildRequires: libsemanage-devel
 BuildRequires: libtool
@@ -280,6 +282,9 @@ rm -f $RPM_BUILD_ROOT/%{_libdir}/libsubid.a
 %{_libdir}/libsubid.so
 
 %changelog
+* Mon Mar  6 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.13-6
+- Add libbsd-devel and libeconf-devel as build dependencies
+
 * Thu Mar  2 2023 Iker Pedrosa <ipedrosa@redhat.com> - 2:4.13-5
 - newuidmap and newgidmap: support passing pid as fd. Resolves: #2174752
 

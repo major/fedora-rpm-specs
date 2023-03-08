@@ -19,7 +19,7 @@ Summary:       A graphics library for quick creation of PNG or JPEG images
 Name:          gd
 Version:       2.3.3
 Release:       11%{?prever}%{?short}%{?dist}
-License:       MIT
+License:       GD
 URL:           http://libgd.github.io/
 %if 0%{?commit:1}
 # git clone https://github.com/libgd/libgd.git; cd gd-libgd

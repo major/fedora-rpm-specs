@@ -4,9 +4,9 @@
 
 Name:		perl-Sub-Name
 Version:	0.26
-Release:	11%{?dist}
+Release:	12%{?dist}
 Summary:	Name - or rename - a sub
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Sub-Name
 Source0:	https://cpan.metacpan.org/modules/by-module/Sub/Sub-Name-%{version}.tar.gz
 # Module Build
@@ -76,6 +76,9 @@ make test
 %{_mandir}/man3/Sub::Name.3*
 
 %changelog
+* Mon Mar 06 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.26-12
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.26-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

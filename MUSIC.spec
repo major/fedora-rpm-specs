@@ -61,6 +61,10 @@ BuildRequires:  patch
 BuildRequires:  hwloc-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-Cython
+# For distutils in Python 3.12+:
+# See: “In Python 3.12, the distutils package is removed”
+#      https://github.com/INCF/MUSIC/issues/74
+BuildRequires:  python3-setuptools
 # Currently bundles a modified version of rudeconfig which cannot be unbundled
 # until MUSIC upstream sends their changes upstream to rudeconfig.
 # https://github.com/INCF/MUSIC/issues/56

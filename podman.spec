@@ -36,7 +36,7 @@
 Name: podman
 Epoch: 5
 Version: %{gen_version}
-License: ASL 2.0 and BSD and ISC and MIT and MPLv2.0
+License: Apache-2.0 and BSD-2-Clause and BSD-3-Clause and ISC and MIT and MPL-2.0
 Release: %autorelease
 ExclusiveArch: %{golang_arches_future}
 Summary: Manage Pods, Containers and Container Images

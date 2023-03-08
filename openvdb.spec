@@ -135,7 +135,6 @@ export CXXFLAGS="%{build_cxxflags} -Wl,--as-needed"
 %endif
     -DOPENVDB_BUILD_UNITTESTS=OFF \
     -DOPENVDB_ENABLE_RPATH=OFF \
-    -DOPENVDB_INSTALL_CMAKE_MODULES=OFF \
     -DPYOPENVDB_INSTALL_DIRECTORY=%{python3_sitearch} \
 %if 0%{?with_ax}
     -DHAVE_FFI_CALL=ON \
@@ -182,6 +181,7 @@ find %{buildroot} -name '*.a' -delete
 %doc html
 %{_includedir}/*
 %{_libdir}/lib%{name}.so
+%{_libdir}/cmake/OpenVDB/
 
 %changelog
 %autochangelog

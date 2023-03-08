@@ -54,8 +54,8 @@ Conflicts: %1 \
 Summary:  The Berkeley Internet Name Domain (BIND) DNS (Domain Name System) server
 Name:     bind9-next
 License:  MPLv2.0
-Version:  9.19.9
-Release:  3%{?dist}
+Version:  9.19.10
+Release:  1%{?dist}
 Epoch:    32
 Url:      https://www.isc.org/downloads/bind/
 #
@@ -965,6 +965,9 @@ fi;
 %endif
 
 %changelog
+* Mon Mar 06 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.10-1
+- Update to 9.19.10 (#2170097)
+
 * Mon Jan 30 2023 Petr Menšík <pemensik@redhat.com> - 32:9.19.9-3
 - Stop obsoleting bind packages (#2165264)
 - Try providing bind-utils even on f36

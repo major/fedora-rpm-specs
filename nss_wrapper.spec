@@ -1,8 +1,8 @@
 Name:           nss_wrapper
 Version:        1.1.15
-Release:        1%{?dist}
+Release:        2%{?dist}
 
-License:        BSD
+License:        BSD-3-Clause
 Summary:        A wrapper for the user, group and hosts NSS API
 Url:            https://cwrap.org/
 
@@ -53,7 +53,7 @@ The %{name}-libs package provides only the shared library.
 For a minimal footprint, install just this package.
 
 %prep
-gpgv2 --quiet --keyring %{SOURCE2} %{SOURCE1} %{SOURCE0}
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -86,7 +86,10 @@ sed -i '1 s|/usr/bin/env\ perl|/usr/bin/perl|' %{buildroot}%{_bindir}/nss_wrappe
 %{_libdir}/libnss_wrapper.so*
 
 %changelog
-* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.1.13-3
+* Mon Mar 06 2023 Andreas Schneider <asn@redhat.com> - 1.1.15-2
+- Update License to SPDX expression
+
+* Mon Feb 27 2023 Andreas Schneider <asn@redhat.com> - 1.1.15-1
 - Update to version 1.1.15
   https://gitlab.com/cwrap/nss_wrapper/-/blob/nss_wrapper-1.1.15/CHANGELOG
 - Fix building with cmocka >= 1.1.6

@@ -1,13 +1,13 @@
 # remirepo/Fedora spec file for php-laminas-crypt
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
 %global bootstrap    0
-%global gh_commit    56ab1b195dad5456753601ff2e8e3d3fd9392d1a
+%global gh_commit    588375caf4d505fee90d1449e9714c912ceb5051
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     laminas
 %global gh_project   laminas-crypt
@@ -22,11 +22,11 @@
 %endif
 
 Name:           php-%{gh_project}
-Version:        3.9.0
-Release:        2%{?dist}
+Version:        3.10.0
+Release:        1%{?dist}
 Summary:        Laminas Framework %{library} component
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/%{gh_owner}/%{gh_project}
 Source0:        %{gh_commit}/%{name}-%{version}-%{gh_short}.tgz
 Source1:        makesrc.sh
@@ -191,6 +191,9 @@ exit $ret
 
 
 %changelog
+* Mon Mar  6 2023 Remi Collet <remi@remirepo.net> - 3.10.0-1
+- update to 3.10.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

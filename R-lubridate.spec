@@ -56,8 +56,11 @@ rm %{buildroot}%{rlibdir}/%{packname}/cctz.sh
 
 
 %check
+%ifarch ppc64le
+%{_bindir}/R CMD check %{packname} --no-vignettes
+%else
 %{_bindir}/R CMD check %{packname}
-
+%endif
 
 %files
 %dir %{rlibdir}/%{packname}

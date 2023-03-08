@@ -8,15 +8,15 @@
 
 
 Name:           python-scss
-Version:        1.3.7
-Release:        10%{?dist}
+Version:        1.4.0
+Release:        1%{?dist}
 Summary:        A Scss compiler for Python
 
 License:        MIT
 URL:            https://github.com/Kronuz/pyScss
 #Source0:        https://github.com/Kronuz/pyScss/archive/%{commit}/%{name}-%{version}-%{shortcommit}.tar.gz
 # get source file with spectool -g python-scss.spec
-Source0:        https://github.com/Kronuz/pyScss/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Kronuz/pyScss/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires: make
 BuildRequires:  pcre-devel
@@ -44,7 +44,7 @@ A Scss compiler for Python
 # Change shebang according to Python version
 
 # Fix shebangs
-pathfix.py -pni "%{__python3} %{py3_shbang_opts}" .
+%py3_shebang_fix .
 
 %build
 %py3_build
@@ -71,6 +71,9 @@ cp -ar docs/_build/man/pyscss.1 %{buildroot}%{_mandir}/man1/pyscss.1
 
 
 %changelog
+* Mon Mar 06 2023 Alfredo Moralejo <amoralej@redhat.com> - 1.4.0-1
+- Update to 1.4.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.7-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

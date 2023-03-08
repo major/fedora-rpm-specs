@@ -17,11 +17,11 @@
 %global major_version %%(echo %{version} | cut -f 1 -d '~' | cut -f 1 -d '.')
 
 Name:           gnome-settings-daemon
-Version:        44~beta
+Version:        44~rc
 Release:        %autorelease
 Summary:        The daemon sharing settings from GNOME to GTK+/KDE applications
 
-License:        GPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            https://gitlab.gnome.org/GNOME/gnome-settings-daemon
 Source0:        https://download.gnome.org/sources/%{name}/%{major_version}/%{name}-%{tarball_version}.tar.xz
 
