@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 2%{?dist}
+Release: 4%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -982,7 +982,7 @@ $OUTPUT_FORMAT
 
 /* The libz dependency is unexpected by legacy build scripts.  */
 /* The libdl dependency is for plugin support.  (BZ 889134)  */
-INPUT ( %{_libdir}/libbfd.a -liberty -lz -ldl )
+INPUT ( %{_libdir}/libbfd.a %{_libdir}/libsframe.a -liberty -lz -ldl )
 EOH
 
 	tee $local_libdir/libopcodes.so <<EOH
@@ -1199,6 +1199,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Mon Mar 06 2023 Nick Clifton  <nickc@redhat.com> - 2.40-4
+- Spec file: Add libsframe.a to the (fake) libbfd.so.  (#2174841)
+
 * Thu Feb 16 2023 Nick Clifton  <nickc@redhat.com> - 2.40-2
 - Spec file: Remove duplicate gprofng debug file entries.
 - Spec file: Fix testsuite failures for RiscV64.

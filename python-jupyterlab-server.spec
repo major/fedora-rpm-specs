@@ -1,6 +1,6 @@
 Name:           python-jupyterlab-server
-Version:        2.19.0
-Release:        2%{?dist}
+Version:        2.20.0
+Release:        1%{?dist}
 Summary:        A set of server components for JupyterLab and JupyterLab like applications
 License:        BSD-3-Clause
 URL:            https://jupyterlab-server.readthedocs.io
@@ -67,6 +67,9 @@ sed -i '/"codecov/d' pyproject.toml
 %pyproject_extras_subpkg -n python3-jupyterlab-server test
 
 %changelog
+* Mon Mar 06 2023 Lumír Balhar <lbalhar@redhat.com> - 2.20.0-1
+- Update to 2.20.0 (rhbz#2175863)
+
 * Wed Jan 25 2023 Lumír Balhar <lbalhar@redhat.com> - 2.19.0-2
 - Add extras subpackage [test]
 

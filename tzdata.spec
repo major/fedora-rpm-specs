@@ -10,9 +10,7 @@ Source0: ftp://ftp.iana.org/tz/releases/tzdata%{tzdata_version}.tar.gz
 Source1: ftp://ftp.iana.org/tz/releases/tzcode%{tzcode_version}.tar.gz
 
 Patch002: 0002-Fix-have-snprintf-error.patch
-%if 0%{?rhel} || 0%{?eln}
 Patch003: 0003-continue-to-ship-posixrules.patch
-%endif
 
 BuildRequires: make
 BuildRequires: gawk, glibc, perl-interpreter
@@ -44,7 +42,7 @@ This package contains timezone information for use by Java runtimes.
 %setup -q -c -a 1
 
 %patch002 -p1
-%if 0%{?rhel} || 0%{?eln}
+%if 0%{?rhel}
 %patch003 -p1
 %endif
 
@@ -57,7 +55,7 @@ pushd rearguard
 tar zxf tzdata%{version}-rearguard.tar.gz
 popd
 
-%if 0%{?rhel} || 0%{?eln}
+%if 0%{?rhel}
 # Use rearguard for rhel (overwrite default vangaurd data)
 tar zxf rearguard/tzdata%{version}-rearguard.tar.gz
 %endif
@@ -90,7 +88,7 @@ echo "%{name}%{tzdata_version}" >> VERSION
 %build
 # Run make to create the tzdata.zi file
 rm tzdata.zi
-%if 0%{?rhel} || 0%{?eln}
+%if 0%{?rhel}
 make VERSION=%{version} DATAFORM=rearguard tzdata.zi
 %else
 make tzdata.zi

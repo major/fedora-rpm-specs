@@ -24,7 +24,7 @@
 Summary: Apache HTTP Server
 Name: httpd
 Version: 2.4.55
-Release: 2%{?dist}
+Release: 3%{?dist}
 URL: https://httpd.apache.org/
 Source0: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2
 Source1: https://www.apache.org/dist/httpd/httpd-%{version}.tar.bz2.asc
@@ -379,7 +379,7 @@ export ac_cv_func_epoll_create=yes
         --enable-cache \
         --enable-disk-cache \
         --enable-ldap --enable-authnz-ldap \
-        --enable-cgid --enable-cgi \
+        --enable-cgid --enable-cgi --enable-authnz-fcgi \
         --enable-cgid-fdpassing \
         --enable-authn-anon --enable-authn-alias \
         --enable-systemd \
@@ -850,6 +850,9 @@ exit $rv
 %{_rpmconfigdir}/macros.d/macros.httpd
 
 %changelog
+* Tue Mar  7 2023 Joe Orton <jorton@redhat.com> - 2.4.55-3
+- build and load mod_authnz_fcgi
+
 * Fri Feb 03 2023 Luboš Uhliarik <luhliari@redhat.com> - 2.4.55-2
 - rebuilt with new apr/apr-util
 

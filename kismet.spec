@@ -12,8 +12,8 @@
 Summary:        WLAN detector, sniffer and IDS
 Name:           kismet
 Version:        %_rpmversion
-Release:        2%{?dist}
-License:        GPLv2+
+Release:        3%{?dist}
+License:        GPL-2.0-or-later
 URL:            http://www.kismetwireless.net/
 Source0:        http://www.kismetwireless.net/code/%{name}-%_version.tar.xz
 
@@ -107,6 +107,9 @@ getent group kismet >/dev/null || groupadd -f -r kismet
 %{_libdir}/pkgconfig/kismet.pc
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.0.2022.08.R1-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.0.2022.08.R1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

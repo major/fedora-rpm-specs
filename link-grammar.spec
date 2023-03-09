@@ -6,9 +6,9 @@
 
 Summary: A full-service natural language dependency parser
 Name: link-grammar
-Version: 5.11.0
-Release: 3%{?dist}
-License: LGPLv2+
+Version: 5.12.1
+Release: 2%{?dist}
+License: LGPL-2.1-or-later
 Source: http://www.abisource.com/downloads/link-grammar/%{version}/link-grammar-%{version}.tar.gz
 URL: http://abisource.com/projects/link-grammar/
 BuildRequires: hunspell-devel, libedit-devel, perl-devel, python3-devel, python3-setuptools
@@ -125,6 +125,12 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.12.1-2
+- migrated to SPDX license
+
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.12.1-1
+- 5.12.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

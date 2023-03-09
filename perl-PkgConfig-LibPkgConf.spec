@@ -7,7 +7,7 @@
 
 Name:           perl-PkgConfig-LibPkgConf
 Version:        0.11
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Interface to pkg-config files via libpkgconf
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/PkgConfig-LibPkgConf
@@ -15,6 +15,10 @@ Source0:        https://cpan.metacpan.org/authors/id/P/PL/PLICEASE/PkgConfig-Lib
 # Adapt to pkgconf-1.9.4, proposed to an upstream, bug #2172714,
 # <https://github.com/PerlAlien/PkgConfig-LibPkgConf/issues/15>
 Patch0:         PkgConfig-LibPkgConf-0.11-adapt_to_pkgconf_1.9.4.patch
+# Fix retrieving flags from package files whose Name value differs from its
+# file name, proposed to an upstream, bug #2172714,
+# <https://github.com/PerlAlien/PkgConfig-LibPkgConf/issues/15>
+Patch1:         PkgConfig-LibPkgConf-0.11-Fix-resolving-flags-for-packages-with-a-name-differe.patch
 BuildRequires:  findutils
 BuildRequires:  gcc
 BuildRequires:  make
@@ -129,6 +133,10 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 07 2023 Petr Pisar <ppisar@redhat.com> - 0.11-13
+- Fix retrieving flags from package files whose Name value differs from its
+  file name (bug #2172714)
+
 * Fri Mar 03 2023 Petr Pisar <ppisar@redhat.com> - 0.11-12
 - Adapt to pkgconf-1.9.4 (bug #2172714)
 

@@ -2,7 +2,7 @@ Name:		perl-Apache-Session-LDAP
 Version:	0.5
 Release:	8%{?dist}
 Summary:	LDAP implementation of Apache::Session
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Apache-Session-LDAP
 Source0:	https://cpan.metacpan.org/modules/by-module/Apache/Apache-Session-LDAP-%{version}.tar.gz
 Patch0:		Apache-Session-LDAP-0.5-synopsis-cafile.patch
@@ -50,11 +50,7 @@ find %{buildroot} -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes COPYRIGHT README.md
 %{perl_vendorlib}/Apache/
 %{_mandir}/man3/Apache::Session::LDAP.3*

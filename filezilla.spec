@@ -6,9 +6,9 @@
 
 Name: filezilla
 Version: 3.62.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 Summary: FTP, FTPS and SFTP client
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://filezilla-project.org/
 
 Source0: https://download.filezilla-project.org/FileZilla_%{version}_src.tar.bz2
@@ -149,6 +149,9 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/%{name}/docs
 %{_libdir}/libfzclient-commonui*
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.62.2-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Scott Talbert <swt@techie.net> - 3.62.2-3
 - Rebuild with wxWidgets 3.2
 

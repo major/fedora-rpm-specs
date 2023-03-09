@@ -15,10 +15,10 @@
 
 Name:		mod_auth_openidc
 Version:	2.4.12.3
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	OpenID Connect auth module for Apache HTTP Server
 
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/zmartzone/mod_auth_openidc
 Source0:	https://github.com/zmartzone/mod_auth_openidc/archive/v%{version}.tar.gz
 
@@ -96,8 +96,11 @@ install -m 700 -d $RPM_BUILD_ROOT%{httpd_pkg_cache_dir}/cache
 %dir %attr(0700, apache, apache) %{httpd_pkg_cache_dir}/cache
 
 %changelog
-* Tue 28 2023 Tomas Halman <thalman@redhat.com> - 2.4.12.3-1
-* Rebase to 2.4.12.3 version
+* Tue Mar 7 2023 Tomas Halman <thalman@redhat.com> - 2.4.12.3-2
+  migrated to SPDX license
+
+* Tue Feb 28 2023 Tomas Halman <thalman@redhat.com> - 2.4.12.3-1
+  Rebase to 2.4.12.3 version
 - Resolves: rhbz#2164064 - mod_auth_openidc-2.4.12.3 is available
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4.12.2-2

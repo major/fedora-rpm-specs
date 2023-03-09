@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
 Version: 3.3.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: ASL 2.0
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake >= 3.5.1
@@ -88,7 +88,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %doc README.markdown RELEASE_NOTES.markdown
 %license LICENSE
 %dir %{_libdir}/%{name}
+%ifnarch aarch64
 %{_datadir}/systemtap/tapset/libcouchbase.so*
+%endif
 
 %files libevent
 %{_libdir}/%{name}/%{name}_libevent.so
@@ -110,6 +112,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Mar 07 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.4-2
+- Disable systemtap support for AArch64
+
 * Fri Feb 10 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.4-1
 - Update to 3.3.4
 

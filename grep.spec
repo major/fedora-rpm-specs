@@ -1,18 +1,20 @@
 Summary: Pattern matching utilities
 Name: grep
-Version: 3.8
-Release: 3%{?dist}
+Version: 3.9
+Release: 1%{?dist}
 License: GPLv3+
 URL: https://www.gnu.org/software/grep/
 
-Source: https://ftp.gnu.org/pub/gnu/grep/grep-%{version}.tar.xz
-Source1: colorgrep.sh
-Source2: colorgrep.csh
-Source3: GREP_COLORS
-Source4: grepconf.sh
+Source0: https://ftp.gnu.org/pub/gnu/%{name}/%{name}-%{version}.tar.xz
+Source1: https://ftp.gnu.org/gnu/%{name}/%{name}-%{version}.tar.xz.sig
+Source2: https://savannah.gnu.org/project/release-gpgkeys.php?group=grep&download=1'#/grep-keyring.gpg
+Source3: colorgrep.sh
+Source4: colorgrep.csh
+Source5: GREP_COLORS
+Source6: grepconf.sh
+
 # upstream ticket 39445
 Patch0: grep-3.5-help-align.patch
-Patch1: grep-configure-c99.patch
 
 BuildRequires: gcc
 BuildRequires: pcre2-devel
@@ -24,6 +26,7 @@ Buildrequires: glibc-all-langpacks
 BuildRequires: perl(FileHandle)
 BuildRequires: make
 BuildRequires: libsigsegv-devel
+BuildRequires: gnupg2
 # https://fedorahosted.org/fpc/ticket/174
 Provides: bundled(gnulib)
 # for backward compatibility (rhbz#1540485)
@@ -39,6 +42,7 @@ prints the matching lines. GNU's grep utilities include grep, egrep and fgrep.
 GNU grep is needed by many scripts, so it shall be installed on every system.
 
 %prep
+%{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
 %autosetup -p1
 
 %build
@@ -63,9 +67,9 @@ GNU grep is needed by many scripts, so it shall be installed on every system.
 gzip $RPM_BUILD_ROOT%{_infodir}/grep*
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 mkdir -p $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
-install -pm 644 %{SOURCE1} %{SOURCE2} $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
-install -pm 644 %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}
-install -Dpm 755 %{SOURCE4} $RPM_BUILD_ROOT%{_libexecdir}/grepconf.sh
+install -pm 644 %{SOURCE3} %{SOURCE4} $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
+install -pm 644 %{SOURCE5} $RPM_BUILD_ROOT%{_sysconfdir}
+install -Dpm 755 %{SOURCE6} $RPM_BUILD_ROOT%{_libexecdir}/grepconf.sh
 
 %find_lang %name
 
@@ -84,6 +88,11 @@ make check
 %{_libexecdir}/grepconf.sh
 
 %changelog
+* Tue Mar  7 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 3.9-1
+- New version
+  Resolves: rhbz#2175526
+- Added sources verification
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.8-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

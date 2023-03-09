@@ -1,28 +1,15 @@
 Name:           netcdf4-python
-Version:        1.6.2
-Release:        2%{?dist}
+Version:        1.6.3
+Release:        1%{?dist}
 Summary:        Python/numpy interface to netCDF
 
 License:        MIT
 URL:            https://github.com/Unidata/netcdf4-python
-Source0:        https://github.com/Unidata/netcdf4-python/archive/v%{version}rel/%{name}-%{version}.tar.gz
+Source0:        https://github.com/Unidata/netcdf4-python/archive/refs/tags/v%{version}rel/%{name}-%{version}.tar.gz
 # No rpath for library
 # http://code.google.com/p/netcdf4-python/issues/detail?id=138
 Patch0:         netcdf4-python-norpath.patch
 
-%if ! ( 0%{?fedora} >= 30 || 0%{?rhel} >= 8 )
-BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools >= 18.0
-# Added in 1.4.0
-#BuildRequires:  python2-cftime
-BuildRequires:  python2-Cython
-BuildRequires:  python2-dateutil
-# EL6 has python 2.6 and needs ordereddict
-%if 0%{?rhel} && 0%{?rhel} <= 6
-BuildRequires:  python-ordereddict
-%endif
-BuildRequires:  python2-numpy
-%endif
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools >= 18
 BuildRequires:  python%{python3_pkgversion}-cftime
@@ -30,42 +17,9 @@ BuildRequires:  python%{python3_pkgversion}-Cython
 BuildRequires:  python%{python3_pkgversion}-dateutil
 BuildRequires:  python%{python3_pkgversion}-numpy
 BuildRequires:  netcdf-devel
-# python3 is default in fedora, but not EPEL
-%if 0%{?fedora} || 0%{?rhel} >= 8
 Requires:       python%{python3_pkgversion}-netcdf4 = %{version}-%{release}
-%else
-Requires:       python2-netcdf4 = %{version}-%{release}
-%endif
 
 %description
-netCDF version 4 has many features not found in earlier versions of the
-library and is implemented on top of HDF5. This module can read and write
-files in both the new netCDF 4 and the old netCDF 3 format, and can create
-files that are readable by HDF5 clients. The API modeled after
-Scientific.IO.NetCDF, and should be familiar to users of that module.
-
-Most new features of netCDF 4 are implemented, such as multiple unlimited
-dimensions, groups and zlib data compression. All the new numeric data types
-(such as 64 bit and unsigned integer types) are implemented. Compound and
-variable length (vlen) data types are supported, but the enum and opaque data
-types are not. Mixtures of compound and vlen data types (compound types
-containing vlens, and vlens containing compound types) are not supported.
-
-
-%package -n python2-netcdf4
-Summary:        Python/numpy interface to netCDF
-# EL6 has python 2.6 and needs ordereddict
-%if 0%{?rhel} && 0%{?rhel} <= 6
-Requires:       python-ordereddict
-%endif
-# Added in 1.4.0
-#Requires:       python2-cftime
-Requires:       python2-Cython
-Requires:       python2-numpy
-%{?python_provide:%python_provide python2-netcdf4}
-Provides:       netcdf4-python2 = %{version}-%{release}
-
-%description -n python2-netcdf4
 netCDF version 4 has many features not found in earlier versions of the
 library and is implemented on top of HDF5. This module can read and write
 files in both the new netCDF 4 and the old netCDF 3 format, and can create
@@ -112,34 +66,19 @@ containing vlens, and vlens containing compound types) are not supported.
 %build
 # Set to get libs from ncconfig to avoid directly linking to -lhdf5
 export USE_NCCONFIG=1
-%if ! ( 0%{?fedora} >= 30 || 0%{?rhel} >= 8 )
-%py2_build
-%endif
-
 %py3_build
 
 
 %install
-# python3 is default in fedora, but not EPEL7
-%if 0%{?fedora} || 0%{?rhel} >= 8
-%if ! ( 0%{?fedora} >= 30 || 0%{?rhel} >= 8 )
-%py2_install
-%endif
 %py3_install
-%else
-%py3_install
-%py2_install
-%endif
 
  
 %check
 cd test
 export NO_NET=1
-%if ! ( 0%{?fedora} >= 30 || 0%{?rhel} >= 8 )
-PYTHONPATH=$(echo ../build/lib.*%{python2_version}) %{__python2} run_all.py
-%endif
 %ifarch s390x
 # FAIL: runTest (tst_compoundvar.VariablesTestCase) -> assert (cmptype4 == dtype4a) # data type should be aligned
+# https://github.com/Unidata/netcdf4-python/issues/1124
 PYTHONPATH=$(echo ../build/lib.linux-*) %{__python3} run_all.py || :
 %else
 PYTHONPATH=$(echo ../build/lib.linux-*) %{__python3} run_all.py
@@ -152,12 +91,6 @@ PYTHONPATH=$(echo ../build/lib.linux-*) %{__python3} run_all.py
 %{_bindir}/nc4tonc3
 %{_bindir}/ncinfo
 
-%if ! ( 0%{?fedora} >= 30 || 0%{?rhel} >= 8 )
-%files -n python2-netcdf4
-%license LICENSE
-%doc Changelog docs examples README.md
-%{python2_sitearch}/*
-%endif
 
 %files -n python%{python3_pkgversion}-netcdf4
 %license LICENSE
@@ -166,6 +99,9 @@ PYTHONPATH=$(echo ../build/lib.linux-*) %{__python3} run_all.py
 
 
 %changelog
+* Sun Mar 05 2023 Orion Poplawski <orion@nwra.com> - 1.6.3-1
+- Update to 1.6.3
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

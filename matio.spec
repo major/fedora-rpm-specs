@@ -1,9 +1,9 @@
 Name:           matio
 Version:        1.5.23
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Library for reading/writing Matlab MAT files
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://sourceforge.net/projects/matio
 Source0:        http://downloads.sourceforge.net/matio/matio-%{version}.tar.gz
 
@@ -90,6 +90,9 @@ make check || ( cat test/testsuite.log && exit $fail )
 
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.23-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

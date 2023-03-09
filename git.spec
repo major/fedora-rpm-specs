@@ -74,14 +74,14 @@
 %{?!bash_completions_dir:%global bash_completions_dir %{_datadir}/bash-completion/completions}
 
 # Define for release candidates
-%global rcrev   .rc1
+%global rcrev   .rc2
 
 # Set path to the package-notes linker script
 %global _package_note_file  %{_builddir}/%{name}-%{version}%{?rcrev}/.package_note-%{name}-%{version}-%{release}.%{_arch}.ld
 
 Name:           git
 Version:        2.40.0
-Release:        0.1%{?rcrev}%{?dist}
+Release:        0.2%{?rcrev}%{?dist}
 Summary:        Fast Version Control System
 License:        BSD-3-Clause AND GPL-2.0-only AND GPL-2.0-or-later AND LGPL-2.1-or-later AND MIT
 URL:            https://git-scm.com/
@@ -122,11 +122,6 @@ Patch1:         0001-t-lib-httpd-try-harder-to-find-a-port-for-apache.patch
 Patch2:         0002-t-lib-git-daemon-try-harder-to-find-a-port.patch
 # https://github.com/tmzullinger/git/commit/aa5105dc11
 Patch3:         0003-t-lib-git-svn-try-harder-to-find-a-port.patch
-
-# Avoid range-diff issues on non-x86 arches
-# https://github.com/git/git/commit/d9165bef58
-# https://lore.kernel.org/git/Y%2F+paI8WGSmEbv%2Fw@pobox.com/
-Patch4:         0001-range-diff-avoid-compiler-warning-when-char-is-unsig.patch
 
 %if %{with docs}
 # pod2man is needed to build Git.3pm
@@ -1040,6 +1035,9 @@ rmdir --ignore-fail-on-non-empty "$testdir"
 %{?with_docs:%{_pkgdocdir}/git-svn.html}
 
 %changelog
+* Tue Mar 07 2023 Todd Zullinger <tmz@pobox.com> - 2.40.0-0.2.rc2
+- update to 2.40.0-rc2
+
 * Wed Mar 01 2023 Todd Zullinger <tmz@pobox.com> - 2.40.0-0.1.rc1
 - update to 2.40.0-rc1
 

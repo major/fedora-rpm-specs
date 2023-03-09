@@ -1,12 +1,12 @@
 %global __cmake_in_source_build 1
 Name:		xmoto
-Version:	0.6.1
-Release:	11%{?dist}
+Version:	0.6.2
+Release:	1%{?dist}
 Summary:	Challenging 2D Motocross Platform Game
 
 License:	GPL-2.0-or-later
 URL:		http://xmoto.sourceforge.net/
-Source0:	https://github.com/xmoto/xmoto/archive/%{version}/%{version}.tar.gz
+Source0:	https://github.com/xmoto/xmoto/archive/v%{version}/%{version}.tar.gz
 Source1:	xmoto.desktop
 Source2:	xmoto.png
 Patch0:		xmoto-0.5.0-helpers-text-includes.patch
@@ -15,8 +15,8 @@ Patch1:		xmoto-0.5.0-helpers-log-include.patch
 BuildRequires: make
 BuildRequires:  gcc-c++
 BuildRequires:	desktop-file-utils
-BuildRequires:	SDL_mixer-devel
-BuildRequires:	SDL_ttf-devel
+BuildRequires:	SDL2_mixer-devel
+BuildRequires:	SDL2_ttf-devel
 BuildRequires:	curl-devel
 BuildRequires:	ode-devel
 BuildRequires:	lua-devel
@@ -26,7 +26,7 @@ BuildRequires:	libjpeg-devel
 BuildRequires:	libpng-devel
 BuildRequires:	bzip2-devel
 BuildRequires:	sqlite-devel
-BuildRequires:	SDL_net-devel
+BuildRequires:	SDL2_net-devel
 BuildRequires:	libxdg-basedir-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	pkgconfig
@@ -129,9 +129,12 @@ ln -s ../../../fonts/dejavu-sans-fonts/DejaVuSans.ttf $RPM_BUILD_ROOT%{_datadir}
 %{_datadir}/applications/xmoto.desktop
 %{_datadir}/icons/hicolor/48x48/apps/xmoto.png
 %{_mandir}/man6/xmoto.6.gz
-%{_datadir}/pixmaps/xmoto.xpm
+%{_datadir}/pixmaps/xmoto.png
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.2-1
+- 0.6.2
+
 * Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.6.1-11
 - migrated to SPDX license
 

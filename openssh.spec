@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 11
+%global openssh_rel 12
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -588,6 +588,8 @@ install -p -D -m 0644 %{SOURCE19} %{buildroot}%{_sysusersdir}/openssh-server.con
 # See https://fedoraproject.org/wiki/Changes/SSHKeySignSuidBit
 install -m744 %{SOURCE20} $RPM_BUILD_ROOT/%{_libexecdir}/openssh/ssh-host-keys-migration.sh
 install -m644 %{SOURCE21} $RPM_BUILD_ROOT/%{_unitdir}/ssh-host-keys-migration.service # enabled in 90-default.preset
+install -d $RPM_BUILD_ROOT/%{_localstatedir}/lib
+touch $RPM_BUILD_ROOT/%{_localstatedir}/lib/.ssh-host-keys-migration
 
 %if ! %{no_gnome_askpass}
 install contrib/gnome-ssh-askpass $RPM_BUILD_ROOT%{_libexecdir}/openssh/gnome-ssh-askpass
@@ -710,6 +712,7 @@ test -f %{sysconfig_anaconda} && \
 %attr(0644,root,root) %{_sysusersdir}/openssh-server.conf
 %attr(0644,root,root) %{_unitdir}/ssh-host-keys-migration.service
 %attr(0744,root,root) %{_libexecdir}/openssh/ssh-host-keys-migration.sh
+%ghost %attr(0644,root,root) %{_localstatedir}/lib/.ssh-host-keys-migration
 
 %files keycat
 %doc HOWTO.ssh-keycat
@@ -731,6 +734,10 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Mon Mar 06 2023 Dusty Mabe <dusty@dustymabe.com> - 9.0p1-12
+- Mark /var/lib/.ssh-host-keys-migration as %ghost file
+- Make ssh-host key migration less conditional
+
 * Wed Mar 01 2023 Dusty Mabe <dusty@dustymabe.com> - 9.0p1-11
 - Provide a systemd unit for restoring default host key permissions (rhbz#2172956)
 - Co-Authored by Timothée Ravier <tim@siosm.fr>

@@ -1,11 +1,11 @@
 Name:          zenity
-Version:       3.90.0
+Version:       3.91.0
 Release:       1%{?dist}
 Summary:       Display dialog boxes from shell scripts
 
-License:       LGPLv2+
+License:       LGPL-2.1-or-later
 URL:           https://wiki.gnome.org/Projects/Zenity
-Source:        https://download.gnome.org/sources/%{name}/3.90/%{name}-%{version}.tar.xz
+Source:        https://download.gnome.org/sources/%{name}/3.91/%{name}-%{version}.tar.xz
 
 BuildRequires: pkgconfig(libadwaita-1) >= 1.2
 BuildRequires: /usr/bin/help2man
@@ -54,6 +54,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/org.gnome.Zenity.desk
 
 
 %changelog
+* Tue Mar 07 2023 David King <amigadave@amigadave.com> - 3.91.0-1
+- Update to 3.91.0
+
 * Mon Feb 06 2023 David King <amigadave@amigadave.com> - 3.90.0-1
 - Update to 3.90.0
 

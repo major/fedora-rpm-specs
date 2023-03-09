@@ -36,9 +36,9 @@
 
 Name:           perl-AnyEvent
 Version:        7.17
-Release:        14%{?dist}
+Release:        15%{?dist}
 Summary:        Framework for multiple event loops
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/AnyEvent
 Source0:        https://cpan.metacpan.org/modules/by-module/AnyEvent/AnyEvent-%{version}%{?subver}.tar.gz
 
@@ -300,6 +300,9 @@ make test
 
 
 %changelog
+* Tue Mar  7 2023 Paul Howarth <paul@city-fan.org> - 7.17-15
+- Use SPDX-format license tag
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.17-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

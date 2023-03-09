@@ -1,5 +1,5 @@
 %global packname parallelly
-%global packver  1.32.1
+%global packver  1.34.0
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}

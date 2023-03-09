@@ -1,9 +1,9 @@
 Name:           pmars
 Version:        0.9.2
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Portable corewar system with ICWS'94 extensions
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.koth.org/pmars/
 Source0:        http://downloads.sourceforge.net/corewar/%{name}-%{version}.tar.gz
 # Patch to disable stripping of binary in spec file
@@ -59,6 +59,9 @@ install -D -p -m 644 doc/pmars.6 %{buildroot}%{_mandir}/man6/pmars.6
 %{_mandir}/man6/pmars.6.*
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.2-29
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.2-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

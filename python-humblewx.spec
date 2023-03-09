@@ -3,10 +3,10 @@
 
 Name:           python-%{srcname}
 Version:        0.2.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://pypi.python.org/pypi/%{srcname}
 Source0:        https://pypi.python.org/packages/source/h/%{srcname}/%{srcname}-%{version}.tar.gz
 
@@ -40,6 +40,9 @@ Library that simplifies creating user interfaces with wxPython.
 %{python3_sitelib}/%{srcname}*/
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.2-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

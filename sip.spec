@@ -47,7 +47,7 @@
 Summary: SIP - Python/C++ Bindings Generator
 Name: sip
 Version: 4.19.25
-Release: 6%{?dist}
+Release: 7%{?dist}
 
 # sipgen/parser.{c.h} is GPLv3+ with exceptions (bison)
 License: GPLv2 or GPLv3 and (GPLv3+ with exceptions)
@@ -84,6 +84,8 @@ BuildRequires: gcc-c++
 BuildRequires: sed
 BuildRequires: bison
 BuildRequires: flex
+
+BuildRequires: python-setuptools
 
 Obsoletes: sip-macros < %{version}-%{release}
 Provides:  sip-macros = %{version}-%{release}
@@ -478,6 +480,9 @@ popd
 
 
 %changelog
+* Tue Mar 07 2023 Than Ngo <than@redhat.com> - 4.19.25-7
+- fixed bz#2154988, fails to build with Python 3.12: ModuleNotFoundError: No module named 'distutils'  
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.19.25-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

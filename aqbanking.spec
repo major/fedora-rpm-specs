@@ -2,15 +2,15 @@
 Name: aqbanking
 Summary: A library for online banking functions and financial data import/export
 Version: 6.5.4
-Release: 1%{?dist}
+Release: 2%{?dist}
 # Download is PHP form at http://www.aquamaniac.de/sites/download/packages.php
 Source0: https://www.aquamaniac.de/rdm/attachments/download/499/aqbanking-%{version}.tar.gz
-License: GPLv2 or GPLv3
+License: GPL-2.0-only GPL-3.0-only
 URL: https://www.aquamaniac.de/rdm/projects/aqbanking
 
 %global majmin %(echo %{version} | cut -d. -f1-2)
 
-BuildRequires:  gcc-c++
+BuildRequires: gcc-c++
 BuildRequires: gwenhywfar-devel >= 5.0.0
 BuildRequires: gmp-devel, gettext, libtool
 BuildRequires: xmlsec1-gnutls-devel, xmlsec1-devel, libtool-ltdl-devel, libxslt-devel, libxml2-devel
@@ -119,6 +119,9 @@ make check ||:
 
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.5.4-2
+- migrated to SPDX license
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.5.4-1
 - 6.5.4
 

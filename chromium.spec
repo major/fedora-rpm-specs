@@ -365,6 +365,8 @@ Patch122: chromium-109-gcc13.patch
 # Patches by Stephan Hartmann, https://github.com/stha09/chromium-patches
 Patch130: chromium-103-VirtualCursor-std-layout.patch
 
+Patch146: chromium-110-LargerThan4k.patch
+
 # VAAPI
 # Upstream turned VAAPI on in Linux in 86
 Patch202: chromium-104.0.5112.101-enable-hardware-accelerated-mjpeg.patch
@@ -956,6 +958,8 @@ udev.
 %endif
 
 %patch130 -p1 -b .VirtualCursor-std-layout
+
+%patch146 -p1 -b .LargerThan4k
 
 %if %{use_qt}
 %patch121 -p1 -b .enable-allowqt

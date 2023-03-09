@@ -1,9 +1,9 @@
 Summary: A multi-threaded FTP client for the X Window System
 Name: gftp
 Version: 2.9.1b
-Release: 3%{?dist}
+Release: 4%{?dist}
 Epoch: 2
-License: GPLv2+
+License: GPL-2.0-or-later
 Url: https://github.com/masneyb/gftp/tags
 Source0: https://github.com/masneyb/gftp/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: gcc
@@ -62,6 +62,9 @@ desktop-file-install --vendor net --delete-original         \
 %{_mandir}/man1/gftp.1.gz
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 2:2.9.1b-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:2.9.1b-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

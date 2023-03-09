@@ -2,7 +2,7 @@ Name:		perl-Archive-Any
 Version:	0.0946
 Release:	13%{?dist}
 Summary:	Single interface to deal with file archives
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Archive-Any
 Source0:	https://cpan.metacpan.org/modules/by-module/Archive/Archive-Any-%{version}.tar.gz
 BuildArch:	noarch
@@ -50,11 +50,7 @@ perl Makefile.PL INSTALLDIRS=vendor NO_PERLLOCAL=1 NO_PACKLIST=1
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes CONTRIBUTORS README.md
 %{perl_vendorlib}/Archive/
 %{_mandir}/man3/Archive::Any.3*

@@ -1,9 +1,9 @@
 Name:           tuxtype2
 Version:        1.8.1
-Release:        30%{?dist}
+Release:        31%{?dist}
 
 Summary:        Tux Typing, an educational typing tutor for children
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://github.com/tux4kids/tuxtype/
 Source0:        https://github.com/tux4kids/tuxtype/archive/1.8.1-7/tuxtype_w_fonts-%{version}.tar.gz
 Patch0:         tuxtype2-1.8.1-chown.patch
@@ -115,6 +115,9 @@ EOF
 
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.8.1-31
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

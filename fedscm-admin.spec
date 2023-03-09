@@ -2,9 +2,9 @@
 
 Name:           fedscm-admin
 Version:        1.1.7
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        CLI tool to process Fedora SCM requests
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://pagure.io/fedscm-admin
 Source0:        https://releases.pagure.org/fedscm-admin/fedscm_admin-%{version}.tar.gz
 BuildArch:      noarch
@@ -71,6 +71,9 @@ unset FEDSCM_ADMIN_CONFIG
 %{_mandir}/man1/fedscm-admin.1*
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1.7-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

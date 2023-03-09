@@ -1,6 +1,6 @@
 Name:		tucnak
-Version:	4.40
-Release:	3%{?dist}
+Version:	4.41
+Release:	1%{?dist}
 Summary:	VHF contest logging program
 License:	GPLv2
 URL:		http://tucnak.nagano.cz/
@@ -25,7 +25,8 @@ Obsoletes:	tucnak2 < 2.31-21
 # tucnak-soundwrapper, it can avoid name conflicts with other
 # soundwrappers possibly shipped by other packages in the future.
 Patch0:		tucnak-4.18-soundwrapper.patch
-Patch1: tucnak-configure-c99.patch
+# Sent upstream
+Patch1:		tucnak-configure-c99.patch
 
 %description
 Tucnak is VHF/UHF/SHF log for hamradio contests. It supports multi
@@ -42,7 +43,13 @@ recode ISO-8859-2..UTF-8 AUTHORS ChangeLog
 autoreconf -fi
 %configure
 
-%make_build
+# temporal LIBS workaround for rhbz#2174841
+%if 0%{fedora} > 38
+  LIBS="-lsframe"
+%else
+  LIBS=""
+%endif
+%make_build LIBS="$LIBS"
 
 %install
 %make_install
@@ -72,6 +79,10 @@ rmdir %{buildroot}%{_prefix}/lib/tucnak
 %{_datadir}/%{name}
 
 %changelog
+* Tue Mar  7 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 4.41-1
+- New version
+  Resolves: rhbz#2175029
+
 * Sat Feb 04 2023 Florian Weimer <fweimer@redhat.com> - 4.40-3
 - Port configure script to C99 (#2167084)
 

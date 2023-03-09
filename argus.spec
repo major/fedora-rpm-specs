@@ -2,9 +2,9 @@
 %global clientversion 3.0.8.2
 Name: argus
 Version: 3.0.8.2
-Release: 21%{?dist}
+Release: 22%{?dist}
 Summary: Network transaction audit tool
-License: GPLv2+
+License: GPL-2.0-or-later
 Url: http://qosient.com/argus
 Source0: http://qosient.com/argus/src/%{name}-%{version}.tar.gz
 Source1: http://qosient.com/argus/src/%{name}-clients-%{clientversion}.tar.gz
@@ -129,6 +129,9 @@ mkdir -p %{buildroot}%{_sysconfdir}/logrotate.d
 %{_includedir}/argus/
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0.8.2-22
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.8.2-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,8 +2,8 @@
 %global __os_install_post %(echo '%{__os_install_post}' | sed -e 's!/usr/lib[^[:space:]]*/brp-python-bytecompile[[:space:]].*$!!g')
 
 Name:           liblouis
-Version:        3.24.0
-Release:        2%{?dist}
+Version:        3.25.0
+Release:        1%{?dist}
 Summary:        Braille translation and back-translation library
 
 License:        LGPLv3+
@@ -148,6 +148,9 @@ done
 
 
 %changelog
+* Tue Mar 07 2023 Martin Gieseking <martin.gieseking@uos.de> - 3.25.0-1
+- Update to 3.25.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.24.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:           mingw-binutils
 Version:        2.39
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPLv2+ and LGPLv2+ and GPLv3+ and LGPLv3+
@@ -134,6 +134,9 @@ Patch21: CVE-2022-38533.patch
 
 # Backport patch for CVE-2022-4285
 Patch22: CVE-2022-4285.patch
+
+# Backport patch for CVE-2023-25587
+Patch23: CVE-2023-25587.patch
 
 
 BuildRequires:  make
@@ -467,6 +470,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Tue Mar 07 2023 Sandro Mani <manisandro@gmail.com> - 2.39-5
+- Backport patch for CVE-2023-25587
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.39-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

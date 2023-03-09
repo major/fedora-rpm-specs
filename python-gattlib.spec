@@ -2,10 +2,10 @@
 
 Name:               python-gattlib
 Version:            0.20210616
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            Library to access Bluetooth LE devices
 
-License:            ASL 2.0 and GPLv2+ and LGPLv2+
+License:            Apache-2.0 AND GPL-2.0-or-later AND LGPL-2.0-or-later
 # main package under ASL 2.0
 # src/bluez under GPLv2+ and LGPLv2+
 URL:                https://github.com/oscaracena/pygattlib
@@ -52,6 +52,9 @@ find . -type f | xargs chmod -x
 %{python3_sitearch}/%{modname}*.egg-info/
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.20210616-5
+- migrated to SPDX license
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.20210616-4
 - Rebuilt for Boost 1.81
 

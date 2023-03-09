@@ -1,10 +1,10 @@
 Name:		faust
 Version:	0.9.46
-Release:	24%{?dist}
+Release:	25%{?dist}
 Summary:	Compiled language for real-time audio signal processing
 # Examples are BSD
 # The rest is GPLv2+
-License:	GPLv2+ and BSD
+License:	GPL-2.0-or-later AND MIT
 URL:		http://faust.grame.fr/
 Source0:	http://downloads.sourceforge.net/project/faudiostream/%{name}-%{version}.tar.gz
 # Build osclib as a shared library
@@ -35,7 +35,7 @@ according to its input signals (and maybe some user interface parameters)
 
 %package doc
 Summary:	Documentation for %{name}
-License:	GPLv2+
+License:	GPL-2.0-or-later
 BuildArch:	noarch
 Requires:	%{name} = %{version}-%{release}
 
@@ -46,7 +46,7 @@ writing programs with faust.
 
 %package osclib
 Summary:	OSCLib Library
-License:	GPLv2+ and MIT
+License:	GPL-2.0-or-later AND MIT
 Requires:	%{name} = %{version}-%{release}
 
 %description osclib
@@ -55,7 +55,7 @@ signal processing. This package provides osclib.
 
 %package osclib-devel
 Summary:	Headers for the OSCLib Library
-License:	GPLv2+ and MIT
+License:	GPL-2.0-or-later AND MIT
 Requires:	%{name}-osclib = %{version}-%{release}
 
 %description osclib-devel
@@ -65,7 +65,7 @@ signal processing. This package provides the development files for osclib.
 
 %package tools
 Summary:	3rd party tools written for %{name}
-License:	GPLv2+
+License:	GPL-2.0-or-later
 BuildArch:	noarch
 Requires:	%{name}-osclib-devel = %{version}-%{release}
 
@@ -76,7 +76,7 @@ to help the building process of applications and plugins with Faust.
 
 %package kate
 Summary:	Kate/Kwrite plugin for %{name}
-License:	GPLv2+
+License:	GPL-2.0-or-later
 BuildArch:	noarch
 Requires:	%{name} = %{version}-%{release}
 
@@ -182,6 +182,9 @@ cp -a syntax-highlighting/%{name}.xml \
 %{_datadir}/kde4/apps/katepart/syntax/%{name}.xml
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.9.46-25
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.9.46-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

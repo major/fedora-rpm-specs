@@ -1,11 +1,11 @@
 %global packname lokern
 %global packver  1.1
-%global packrel  9
+%global packrel  10
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrel}
-Release:          7%{?dist}
+Release:          1%{?dist}
 Summary:          Kernel Regression Smoothing with Local or Global Plug-in Bandwidth
 
 License:          GPLv2+
@@ -66,6 +66,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Mar  7 2023 Tom Callaway <spot@fedoraproject.org> - 1.1.10-1
+- update to 1.1-10
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1.9-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

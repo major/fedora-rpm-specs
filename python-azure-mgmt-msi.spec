@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-msi
 
 Name:           python-%{srcname}
-Version:        6.1.0
+Version:        7.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure MSI Management Client Library for Python
 License:        MIT

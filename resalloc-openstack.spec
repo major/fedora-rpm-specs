@@ -15,8 +15,8 @@
 
 Name:       %srcname
 Summary:    Resource allocator scripts for OpenStack
-Version:    9.4
-Release:    2%{?dist}
+Version:    9.5
+Release:    1%{?dist}
 License:    GPLv2+
 URL:        https://github.com/praiskup/resalloc-openstack
 BuildArch:  noarch
@@ -78,6 +78,9 @@ general might be used separately.
 
 
 %changelog
+* Tue Mar 07 2023 Pavel Raiskup <praiskup@redhat.com> - 9.5-1
+- new upstream release, the -new script has --security-group option
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

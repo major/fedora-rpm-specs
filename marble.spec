@@ -35,7 +35,7 @@ BuildRequires: kf5-krunner-devel
 BuildRequires: kf5-kservice-devel
 BuildRequires: kf5-kwallet-devel
 BuildRequires: kf5-rpm-macros
-%if 0%{?fedora}
+%if 0%{?fedora} && ! 0%{?flatpak}
 BuildRequires: pkgconfig(libgps)
 %endif
 BuildRequires: pkgconfig(phonon4qt5)
@@ -161,7 +161,7 @@ mv src/3rdparty/zlib src/3rdparty/zlib.UNUSED ||:
   -Wno-dev \
   -DBUILD_MARBLE_TESTS:BOOL=OFF \
   -DMARBLE_DATA_PATH:PATH="%{_datadir}/marble/data" \
-  -DMARBLE_PRI_INSTALL_USE_QT_SYS_PATHS:BOOL=TRUE \
+  -DMARBLE_PRI_INSTALL_DIR:PATH="%{_qt5_archdatadir}/mkspecs/modules" \
   -DWITH_DESIGNER_PLUGIN:BOOL=OFF
 
 %cmake_build

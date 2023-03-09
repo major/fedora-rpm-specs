@@ -2,11 +2,11 @@
 
 Name:           python-easygui
 Version:        0.96
-Release:        38%{?dist}
+Release:        39%{?dist}
 Summary:        Very simple, very easy GUI programming in Python
 
 #License file, says CC 2.0 upstream website says with this version they moved to BSD.
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://easygui.sourceforge.net/
 # Source doesn't follow the normal SF convention since upstream isn't using the SF Files system.
 Source0:        http://easygui.sourceforge.net/download/version%{version}/easygui_v%{version}_docs.tar.gz
@@ -82,6 +82,9 @@ install -m 644 %{SOURCE1} .
 %{python3_sitelib}/__pycache__/easygui.cpython-3*.py*
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.96-39
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.96-38
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

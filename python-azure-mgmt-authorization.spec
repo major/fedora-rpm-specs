@@ -1,14 +1,10 @@
-# EPEL9 does not have python-aiohttp packaged yet.
-%if 0%{?fedora}
-%bcond_without  tests
-%else
+# Upstream tests now require docker. :(
 %bcond_with     tests
-%endif
 
 %global         srcname     azure-mgmt-authorization
 
 Name:           python-%{srcname}
-Version:        0.61.0
+Version:        3.0.0
 Release:        %autorelease
 Summary:        Microsoft Azure Authorization Management Client Library for Python
 License:        MIT

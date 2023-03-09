@@ -16,7 +16,7 @@ License:        MIT or ASL 2.0
 URL:            https://crates.io/crates/diesel
 Source:         %{crates_source}
 # Initial patched metadata
-# * Bump libsqlite3-sys to 0.23.0
+# * Bump libsqlite3-sys to 0.25.0
 Patch0:         diesel-fix-metadata.diff
 
 ExclusiveArch:  %{rust_arches}

@@ -1,9 +1,9 @@
 Name:    vsomeip3
 Version: 3.1.20.3
-Release: 11%{?dist}
+Release: 12%{?dist}
 Summary: COVESA implementation of SOME/IP protocol
 
-License: MPLv2.0 and Boost
+License: MPL-2.0 AND BSL-1.0
 URL:     https://github.com/COVESA/vsomeip
 Source0: %{URL}/archive/3.1.20.4/vsomeip-3.1.20.3.tar.gz
 Source1: routingmanagerd.service
@@ -238,6 +238,9 @@ exit 0
 %{_libdir}/pkgconfig/vsomeip3.pc
 
 %changelog
+* Tue Mar  7 2023 Stephen Smoogen <smooge@fedoraproject.org> - 3.1.20.3-12
+- migrated to SPDX license
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 3.1.20.3-11
 - Rebuilt for Boost 1.81
 

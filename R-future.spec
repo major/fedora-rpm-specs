@@ -1,5 +1,5 @@
 %global packname future
-%global packver  1.28.0
+%global packver  1.32.0
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -7,14 +7,14 @@ Version:          %{packver}
 Release:          %autorelease
 Summary:          Unified Parallel and Distributed Processing in R for Everyone
 
-License:          LGPLv2+
+License:          LGPL-2.1-or-later
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-digest, R-globals >= 0.14.0, R-listenv >= 0.8.0, R-parallel, R-parallelly >= 1.30.0, R-tools, R-utils
-# Suggests:  R-RhpcBLASctl, R-R.rsp, R-markdown
+# Imports:   R-digest, R-globals >= 0.16.1, R-listenv >= 0.8.0, R-parallel, R-parallelly >= 1.34.0, R-utils
+# Suggests:  R-methods, R-RhpcBLASctl, R-R.rsp, R-markdown
 # LinkingTo:
 # Enhances:
 
@@ -22,11 +22,10 @@ BuildArch:        noarch
 BuildRequires:    R-devel
 BuildRequires:    tex(latex)
 BuildRequires:    R-digest
-BuildRequires:    R-globals >= 0.16.0
+BuildRequires:    R-globals >= 0.16.1
 BuildRequires:    R-listenv >= 0.8.0
 BuildRequires:    R-parallel
-BuildRequires:    R-parallelly >= 1.32.1
-BuildRequires:    R-tools
+BuildRequires:    R-parallelly >= 1.34.0
 BuildRequires:    R-utils
 BuildRequires:    R-methods
 BuildRequires:    R-RhpcBLASctl

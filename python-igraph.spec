@@ -2,10 +2,10 @@
 Name:       python-igraph
 Version:    0.10.4
 %global igraph_version 0.9
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    Python bindings for igraph
 
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/igraph/python-igraph
 Source0:    https://github.com/igraph/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
 
@@ -68,6 +68,9 @@ documentation needed to develop application with %{name}.
 %{python3_includedir}/igraph
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.4-2
+- migrated to SPDX license
+
 * Mon Jan 30 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.4-1
 - 0.10.4
 

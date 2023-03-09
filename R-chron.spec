@@ -1,13 +1,13 @@
 %global packname chron
-%global packver  2.3-57
+%global packver  2.3-60
 %global rlibdir  %{_libdir}/R/library
 
 # Dependency loops.
 %bcond_with bootstrap
 
 Name:             R-%{packname}
-Version:          2.3.57
-Release:          2%{?dist}
+Version:          2.3.60
+Release:          1%{?dist}
 Summary:          Chronological Objects which can Handle Dates and Times
 
 License:          GPLv2
@@ -61,7 +61,6 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 %doc %{rlibdir}/%{packname}/html
 %{rlibdir}/%{packname}/DESCRIPTION
 %{rlibdir}/%{packname}/INDEX
-%doc %{rlibdir}/%{packname}/CITATION
 %{rlibdir}/%{packname}/NAMESPACE
 %{rlibdir}/%{packname}/Meta
 %{rlibdir}/%{packname}/R
@@ -71,6 +70,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname}
 
 
 %changelog
+* Tue Mar  7 2023 Tom Callaway <spot@fedoraproject.org> - 2.3.60-1
+- update to 2.3-60
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.57-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

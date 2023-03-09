@@ -1,6 +1,6 @@
 # Test data is stored in a separate git repository. We should always use the
 # latest commit at the time of the release we are packaging.
-%global stf_commit 97a0b2e638feb479387554cf253e346500541e7e
+%global stf_commit 7cc512a7c60361ebe1baf54991d7905efdc62aa0
 %global stf_url https://github.com/fastfloat/supplemental_test_files
 
 # Build and run exhaustive tests?
@@ -14,13 +14,15 @@
 
 Name:           fast_float
 Summary:        Fast & exact implementation of C++ from_chars for float/double
-Version:        3.10.0
+Version:        3.10.1
 Release:        %autorelease
 
 URL:            https://github.com/fastfloat/fast_float
 # README.md:
 #   Licensed under either of Apache License, Version 2.0 or MIT license at your
 #   option.
+# Supplemental test files (Source1) are Apache-2.0 only (no MIT option); they
+# do not contribute to the binary RPMs.
 License:        Apache-2.0 OR MIT
 
 Source0:        %{url}/archive/v%{version}/fast_float-%{version}.tar.gz

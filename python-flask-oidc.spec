@@ -4,10 +4,10 @@
 
 Name:           python-%{tar_name}
 Version:        1.5.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        %{sum}
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/fedora-infra/flask-oidc
 Source0:        %{url}/archive/refs/tags/%{version}.tar.gz
 
@@ -67,6 +67,9 @@ identity providers, for example, Microsoft’s Azure Active Directory
 %{_bindir}/oidc-register
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.0-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

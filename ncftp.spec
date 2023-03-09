@@ -1,9 +1,9 @@
 Summary: Improved console FTP client
 Name: ncftp
 Version: 3.2.5
-Release: 26%{?dist}
+Release: 27%{?dist}
 Epoch: 2
-License: Artistic clarified
+License: BSD-3-Clause
 URL: http://www.ncftp.com/ncftp/
 Source: ftp://ftp.ncftp.com/ncftp/ncftp-%{version}-src.tar.bz2
 Patch0: ftp://ftp.openbsd.com/ports/distfiles/ncftp-325-v6.diff.gz
@@ -63,6 +63,9 @@ make install DESTDIR=%{buildroot}
 
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 2:3.2.5-27
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2:3.2.5-26
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

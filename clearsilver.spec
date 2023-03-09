@@ -2,11 +2,11 @@
 
 Name:           clearsilver
 Version:        0.10.5
-Release:        72%{?dist}
+Release:        73%{?dist}
 Summary:        Fast and powerful HTML templating system
 # Technically, the license is "Neotonic ClearSilver", but it is a copy of 
 # ASL 1.1 with the trademarks as the only difference.
-License:        ASL 1.1
+License:        Apache-1.1
 URL:            http://www.clearsilver.net/
 Source0:        http://www.clearsilver.net/downloads/%{name}-%{version}.tar.gz
 Patch0:         clearsilver-0.10.5-fedora.patch
@@ -158,6 +158,9 @@ ln -s clearsilver-%{version}.jar $RPM_BUILD_ROOT%{_libdir}/java/clearsilver.jar
 
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.5-73
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.10.5-72
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

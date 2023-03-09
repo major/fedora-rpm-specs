@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-mock-phpunit2
 #
-# Copyright (c) 2016-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2016-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    b9ba2db21e7e1c7deba98bc86dcfc6425fb4647d
+%global gh_commit    97b3278e65863e53066f31adb85d92334c0ea07b
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     php-mock
 %global gh_project   php-mock-phpunit
@@ -14,8 +14,8 @@
 %global major        2
 
 Name:           php-mock-phpunit%{major}
-Version:        2.6.1
-Release:        2%{?dist}
+Version:        2.7.0
+Release:        1%{?dist}
 Summary:        Mock built-in PHP functions with PHPUnit.
 
 License:        WTFPL
@@ -25,27 +25,26 @@ Source0:        https://github.com/%{gh_owner}/%{gh_project}/archive/%{gh_commit
 BuildArch:      noarch
 BuildRequires:  php(language) >= 7
 %if %{with_tests}
-BuildRequires: (php-composer(php-mock/php-mock-integration) >= 2.1    with php-composer(php-mock/php-mock-integration) < 3)
+BuildRequires: (php-composer(php-mock/php-mock-integration) >= 2.2.1  with php-composer(php-mock/php-mock-integration) < 3)
 BuildRequires: (php-composer(php-mock/php-mock)             >= 2.2    with php-composer(php-mock/php-mock)             < 3)
 # From composer.json "require-dev": {
-#        "phpspec/prophecy": "^1.10.3"
-BuildRequires: (php-composer(phpspec/prophecy)              >= 1.10.3 with php-composer(phpspec/prophecy)             <  2)
-%if 0%{?fedora} >= 29 || 0%{?rhel} >= 8
+#        "mockery/mockery": "^1.3.6"
+BuildRequires: (php-composer(mockery/mockery)               >= 1.3.6  with php-composer(mockery/mockery)               < 2)
 BuildRequires:  phpunit8
-%endif
+BuildRequires:  phpunit9
 # For autoloader
 BuildRequires: php-composer(fedora/autoloader)
 %endif
 
 # from composer.json, "require": {
 #        "php": ">=7",
-#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9",
-#        "php-mock/php-mock-integration": "^2.1"
+#        "phpunit/phpunit": "^6 || ^7 || ^8 || ^9 || ^10",
+#        "php-mock/php-mock-integration": "^2.2.1"
 #    "conflict": {
 #        "phpunit/phpunit-mock-objects": "3.2.0"
 Requires:       php(language) >= 7
-Requires:      (phpunit8 or phpunit9)
-Requires:      (php-composer(php-mock/php-mock-integration) >= 2.1   with php-composer(php-mock/php-mock-integration) < 3)
+Recommends:    (phpunit8 or phpunit9 or phpunit10)
+Requires:      (php-composer(php-mock/php-mock-integration) >= 2.2.1 with php-composer(php-mock/php-mock-integration) < 3)
 Requires:      (php-composer(php-mock/php-mock)             >= 2.2   with php-composer(php-mock/php-mock)             < 3)
 # From phpcompatinfo report from version 2.1.0
 # only Core
@@ -96,22 +95,14 @@ cat << 'EOF' | tee vendor/autoload.php
 <?php
 require_once '%{buildroot}%{_datadir}/php/phpmock%{major}/phpunit/autoload.php';
 require_once '%{_datadir}/php/phpmock%{major}/autoload.php';
-require_once '%{_datadir}/php/Prophecy/autoload.php';
+require_once '%{_datadir}/php/Mockery1/autoload.php';
 EOF
 
 ret=0
-: Run upstream test suite with phpunit6
-if [ -x %{_bindir}/phpunit6 ]; then
-for cmd in php php72 php73; do
-  if which $cmd; then
-    $cmd %{_bindir}/phpunit6 --verbose || ret=1
-  fi
-done
-fi
 
 if [ -x %{_bindir}/phpunit7 ]; then
 : Run upstream test suite with phpunit7
-for cmd in php php73 php74; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit7 --verbose || ret=1
   fi
@@ -120,7 +111,7 @@ fi
 
 if [ -x %{_bindir}/phpunit8 ]; then
 : Run upstream test suite with phpunit8
-for cmd in php php73 php74 php80; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit8 --verbose || ret=1
   fi
@@ -129,9 +120,18 @@ fi
 
 if [ -x %{_bindir}/phpunit9 ]; then
 : Run upstream test suite with phpunit9
-for cmd in php php73 php74 php80 php81 php82; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd %{_bindir}/phpunit9 --verbose || ret=1
+  fi
+done
+fi
+
+if [ -x %{_bindir}/phpunit10 ]; then
+: Run upstream test suite with phpunit10
+for cmd in php php81 php82; do
+  if which $cmd; then
+    $cmd %{_bindir}/phpunit10 || ret=1
   fi
 done
 fi
@@ -149,6 +149,13 @@ exit $ret
 
 
 %changelog
+* Tue Mar  7 2023 Remi Collet <remi@remirepo.net> - 2.7.0-1
+- update to 2.7.0
+- raise dependency on php-mock-integration2 2.2.1
+- allow phpunit10
+- drop build dependency on phpspec/prophecy
+- add build dependency on mockery/mockery
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.6.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

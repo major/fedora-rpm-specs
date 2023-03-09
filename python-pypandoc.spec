@@ -1,7 +1,7 @@
 # Created by pyp2rpm-2.0.0
 
 Name:           python-pypandoc
-Version:        1.8.1
+Version:        1.11
 Release:        %autorelease
 Summary:        Thin wrapper for pandoc
 
@@ -9,6 +9,8 @@ License:        MIT
 URL:            https://github.com/bebraw/pypandoc
 Source0:        https://files.pythonhosted.org/packages/source/p/pypandoc/pypandoc-%{version}.tar.gz
 BuildArch:      noarch
+
+Patch:          0001-tests-fix-invocation-with-sys.executable.patch
 
 # for tests
 BuildRequires:  pandoc
@@ -20,11 +22,11 @@ BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
 BuildRequires:  python%{python3_pkgversion}-pip
 BuildRequires:  python%{python3_pkgversion}-wheel
+BuildRequires:  python%{python3_pkgversion}-pandocfilters
 
 %global _description %{expand:
-pypandoc provides a thin Python wrapper for pandoc, a universal
-document converter, allowing parsing and conversion of
-pandoc-formatted text.}
+pypandoc provides a thin Python wrapper for pandoc, a universal document
+converter, allowing parsing and conversion of pandoc-formatted text.}
 
 %description %_description
 
@@ -40,7 +42,7 @@ Recommends:     texlive-collection-fontsrecommended
 %description -n python%{python3_pkgversion}-pypandoc  %_description
 
 %prep
-%autosetup -n pypandoc-%{version}
+%autosetup -p1 -n pypandoc-%{version}
 
 # Upstream pins pip and wheel in install_requires, but they're not needed at runtime
 # https://github.com/bebraw/pypandoc/commit/c91c6d6fd23fb133a3676bce7af2a710ae7990d8
@@ -63,6 +65,9 @@ sed -i -r 's/test_basic_conversion_from_http_url/_disabled_\0/' tests.py
 
 # https://github.com/NicklasTegner/pypandoc/issues/277
 sed -i -r 's/test_basic_conversion_from_file_pattern/_disabled_\0/' tests.py
+
+# https://github.com/jgm/pandoc/issues/8128
+sed -i -r 's/test_conversion_with_data_files/_disabled_\0/' tests.py
 
 %python3 tests.py
 

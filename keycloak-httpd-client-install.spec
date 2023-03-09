@@ -13,12 +13,12 @@
 
 Name:           %{srcname}
 Version:        1.1
-Release:        15%{?dist}
+Release:        16%{?dist}
 Summary:        %{summary}
 
 %global git_tag RELEASE_%(r=%{version}; echo $r | tr '.' '_')
 
-License:        GPLv3
+License:        GPL-3.0-or-later
 URL:            https://github.com/jdennis/keycloak-httpd-client-install
 Source0:        https://github.com/jdennis/keycloak-httpd-client-install/archive/%{git_tag}.tar.gz
 
@@ -145,6 +145,9 @@ install -c -m 644 doc/keycloak-httpd-client-install.8 %{buildroot}/%{_mandir}/ma
 %endif
 
 %changelog
+* Thu Mar 7 2023 Tomas Halman <thalman@redhat.com> - 1.1-16
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-15
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

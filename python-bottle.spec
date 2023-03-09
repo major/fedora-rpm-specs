@@ -1,7 +1,7 @@
 %global srcname bottle
 
 Name:           python-%{srcname}
-Version:        0.12.24
+Version:        0.12.25
 Release:        1%{?dist}
 Summary:        Fast and simple WSGI-framework for small web-applications
 
@@ -10,7 +10,6 @@ URL:            http://bottlepy.org
 Source0:        https://github.com/bottlepy/%{srcname}/archive/%{version}.tar.gz#/%{srcname}-%{version}.tar.gz
 # Fix deprecation for tests that breaks 3.12. Already upstream, only in master:
 # https://github.com/bottlepy/bottle/commit/f1d668b4c5a2657fa4786fe170d24829f511cad9
-Patch0:         0001-Replace-deprecated-assertEquals-with-equivalent-asse.patch
 
 BuildArch:      noarch
 
@@ -58,6 +57,10 @@ rm %{buildroot}%{_bindir}/bottle.py
 %{python3_sitelib}/*.py
 
 %changelog
+* Tue Mar 07 2023 Federico Pellegrin <fede@evolware.org> - 0.12.25-1
+- Update to 0.12.25
+- Drop now upstreamed patch for deprecation in tests
+
 * Tue Feb 28 2023 Federico Pellegrin <fede@evolware.org> - 0.12.24-1
 - Update to 0.12.24
 

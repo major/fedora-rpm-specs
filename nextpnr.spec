@@ -1,11 +1,11 @@
-%global commit 14050f991bc2e4ce2c6e7f431fe2acd4f0cf2a70
+%global commit 132a98a91db2771efd8cba40399950bcb0fb5f07
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
-%global snapdate 20230226
+%global snapdate 20230307
 
 Name:		nextpnr
 Version:	1
-Release:	20.%{snapdate}git%{shortcommit}%{?dist}
+Release:	21.%{snapdate}git%{shortcommit}%{?dist}
 Summary:	FPGA place and route tool
 
 License:	ISC and BSD and MIT and (MIT or Public Domain)
@@ -86,6 +86,9 @@ cp -r ice40/examples/* examples/ice40
 
 
 %changelog
+* Tue Mar 07 2023 Gabriel Somlo <gsomlo@gmail.com> - 1-21.20230307git132a98a
+- Update to newer snapshot
+
 * Sun Feb 26 2023 Gabriel Somlo <gsomlo@gmail.com> - 1-20.20230226git14050f9
 - Update to newer snapshot
 - Temp. use bundled pybind11 (https://github.com/pybind/pybind11/issues/4529)

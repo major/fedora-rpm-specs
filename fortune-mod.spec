@@ -9,7 +9,7 @@
 %undefine __cmake_in_source_build
 
 Name:		fortune-mod
-Version:	3.16.0
+Version:	3.18.0
 Release:	1%{?dist}
 Summary:	A program which will display a fortune
 
@@ -130,6 +130,9 @@ chrpath -d %{buildroot}%{_bindir}/fortune
 %{_mandir}/man*/*
 
 %changelog
+* Tue Mar 07 2023 Shlomi Fish <shlomif@shlomifish.org> 3.18.0-1
+- New upstream version
+
 * Wed Feb 22 2023 Shlomi Fish <shlomif@shlomifish.org> 3.16.0-1
 - New upstream version
 

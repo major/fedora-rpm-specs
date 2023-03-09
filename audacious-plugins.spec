@@ -9,9 +9,9 @@
 
 Name: audacious-plugins
 Version: 4.3
-Release: 0.1.beta1%{?dist}
+Release: 1%{?dist}
 
-%global tar_ver %{version}-beta1
+%global tar_ver %{version}
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
 %global aud_ver 4.3
@@ -335,6 +335,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Tue Mar  7 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3-1
+- Update to 4.3 release.
+
 * Mon Feb 13 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3-0.1.beta1
 - Upgrade to 4.3 beta1.
 - Opus input plugin is new.

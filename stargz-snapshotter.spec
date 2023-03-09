@@ -65,17 +65,13 @@ Provides: bundled(golang(k8s.io/cri_api)) = v0.24.0_alpha.3
 %autosetup -Sgit -n %{name}-%{built_tag_strip}
 
 %build
-# FIXME: It would be ideal to set CGO_CFLAGS this way as it's much easier to maintain
-# but it breaks the build for whatever reason. Hence the explicit specification
-# below.
-#%%set_build_flags
-#export CGO_CFLAGS=$CFLAGS
+%set_build_flags
+export CGO_CFLAGS=$CFLAGS
 # These extra flags present in $CFLAGS have been skipped for now as they break the build
-#CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-flto=auto//g')
-#CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-Wp,D_GLIBCXX_ASSERTIONS//g')
-#CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//g')
-
-export CGO_CFLAGS="-O2 -g -grecord-gcc-switches -pipe -Wall -Werror=format-security -Wp,-D_FORTIFY_SOURCE=2 -specs=/usr/lib/rpm/redhat/redhat-hardened-cc1 -ffat-lto-objects -fexceptions -fasynchronous-unwind-tables -fstack-protector-strong -fstack-clash-protection -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_SOURCE -D_FILE_OFFSET_BITS=64"
+CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-flto=auto//g')
+CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-Wp,D_GLIBCXX_ASSERTIONS//g')
+CGO_CFLAGS=$(echo $CGO_CFLAGS | sed 's/-specs=\/usr\/lib\/rpm\/redhat\/redhat-annobin-cc1//g')
+export LDFLAGS=''
 
 %ifarch x86_64
 export CGO_CFLAGS+=" -m64 -mtune=generic -fcf-protection=full"

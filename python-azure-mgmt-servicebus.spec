@@ -4,7 +4,7 @@
 %global         srcname     azure-mgmt-servicebus
 
 Name:           python-%{srcname}
-Version:        8.1.0
+Version:        8.2.0
 Release:        %autorelease
 Summary:        Microsoft Azure Service Bus Management Client Library for Python
 License:        MIT

@@ -3,10 +3,10 @@
 %define apricotsdir %{_datadir}/apricots
 Name: apricots
 Version:  0.2.7
-Release:  5%{?dist}
+Release:  6%{?dist}
 Summary: 2D air combat game
 
-License: GPLv2
+License: GPL-2.0-only
 URL: https://github.com/moggers87/apricots
 Source0: %{url}/archive/v%{version}/apricots-%{version}.tar.gz       
 Source1: apricots.png
@@ -73,6 +73,9 @@ install -p -m 644 %{SOURCE1} \
 
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.7-6
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.7-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,9 +3,9 @@
 
 Name: audacious
 Version: 4.3
-Release: 0.2.beta1%{?dist}
+Release: 1%{?dist}
 
-%global tar_ver %{version}-beta1
+%global tar_ver %{version}
 
 # Minimum audacious/audacious-plugins version in inter-package dependencies.
 %global aud_ver 4.1
@@ -190,6 +190,9 @@ fi
 
 
 %changelog
+* Tue Mar  7 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3-1
+- Update to 4.3 release.
+
 * Sat Feb 18 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3-0.2.beta1
 - Explicitly --disable-libarchive to confirm default.
 

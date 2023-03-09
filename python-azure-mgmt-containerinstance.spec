@@ -1,19 +1,16 @@
-# Enable tests everywhere except EPEL 9, where python-pytest-aiohttp is not backported.
-%if 0%{?el9} || 0%{?centos} >= 9
-%bcond_with    tests
-%else
-%bcond_without tests
-%endif
+# Upstream no longer includes tests.
+%bcond_with     tests
 
 %global         srcname     azure-mgmt-containerinstance
 
 Name:           python-%{srcname}
-Version:        9.1.0
+Version:        10.1.0~b1
+%global         pypi_version 10.1.0b1
 Release:        %autorelease
 Summary:        Microsoft Azure Container Instance Client Library for Python
 License:        MIT
 URL:            https://pypi.org/project/%{srcname}/
-Source0:        %{pypi_source %{srcname} %{version} zip}
+Source0:        %{pypi_source %{srcname} %{pypi_version} zip}
 
 BuildArch:      noarch
 
@@ -48,7 +45,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n %{srcname}-%{version}
+%autosetup -n %{srcname}-%{pypi_version}
 
 
 %generate_buildrequires

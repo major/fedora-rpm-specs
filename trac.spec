@@ -1,8 +1,8 @@
 Name:           trac
 Version:        1.5.4
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Enhanced wiki and issue tracking system
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://trac.edgewall.com/
 Source0:        http://ftp.edgewall.com/pub/trac/Trac-%{version}.tar.gz
 Source2:        trac.ini
@@ -82,6 +82,9 @@ mv $RPM_BUILD_ROOT{%{_bindir}/tracd,%{_sbindir}/tracd}
 %config(noreplace) /etc/trac/*
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.4-2
+- migrated to SPDX license
+
 * Mon Feb 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.4-1
 - 1.5.4
 

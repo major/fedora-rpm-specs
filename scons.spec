@@ -21,7 +21,7 @@
 %bcond_without prebuilt_doc
 
 Name:      scons
-Version:   4.5.0
+Version:   4.5.1
 Release:   1%{?dist}
 Summary:   An Open Source software construction tool
 License:   MIT
@@ -217,6 +217,9 @@ rm -f %{buildroot}%{_datadir}/*.1
 %endif
 
 %changelog
+* Tue Mar 07 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.5.1-1
+- Release 4.5.1
+
 * Mon Mar 06 2023 Antonio Trande <sagitter@fedoraproject.org> - 4.5.0-1
 - Release 4.5.0
 - Use Python-3.9 in EPEL8

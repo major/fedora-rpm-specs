@@ -2,7 +2,7 @@ Name:           perl-Apache-Session
 Version:        1.94
 Release:        9%{?dist}
 Summary:        Persistence framework for session data
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Apache-Session
 Source0:        https://cpan.metacpan.org/modules/by-module/Apache/Apache-Session-%{version}.tar.gz
 # https://bugzilla.redhat.com/bugzilla/attachment.cgi?id=118577, from Chris Grau

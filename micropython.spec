@@ -10,7 +10,7 @@
 
 Name:           micropython
 Version:        1.19.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Implementation of Python 3 with very low memory footprint
 
 # micorpython itself is MIT
@@ -26,6 +26,10 @@ Source1:       https://github.com/micropython/axtls/archive/%{axtls_commit}/axtl
 %global berkley_commit 35aaec4418ad78628a3b935885dd189d41ce779b
 Source2:       https://github.com/pfalcon/berkeley-db-1.xx/archive/%{berkley_commit}/berkeley-db-1.xx-%{berkley_commit}.tar.gz
 Patch0:        micropython-c99.patch
+
+# Fix compilation with GCC 13
+# Resolved upstream: https://github.com/micropython/micropython/commit/32572439984e5640c6af46fbe7c27400c30112ce
+Patch1:        micropython-gcc13.patch
 
 # Other arches need active porting
 %if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
@@ -109,6 +113,10 @@ install -pm 755 ports/unix/micropython %{buildroot}%{_bindir}
 %{_bindir}/micropython
 
 %changelog
+* Tue Mar 07 2023 Charalampos Stratakis <cstratak@redhat.com> - 1.19.1-5
+- Fix FTBFS with GCC 13
+- Fixes: rhbz#2171608
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.19.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

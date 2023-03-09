@@ -1,11 +1,14 @@
 Name:           mpv
 Version:        0.35.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
 URL:            https://%{name}.io/
 Source0:        https://github.com/%{name}-player/%{name}/archive/v%{version}/%{name}-%{version}.tar.gz
+
+# https://github.com/mpv-player/mpv/pull/11398
+Patch100:       %{name}-0.35.1-yt-dlp-hook-fix.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
@@ -175,6 +178,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Mar 07 2023 Maxwell G <maxwell@gtmx.me> - 0.35.1-2
+- Backport upstream patch to fix yt-dlp hook
+
 * Mon Jan 30 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.35.1-1
 - Updated to version 0.35.1.
 

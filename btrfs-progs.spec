@@ -2,7 +2,7 @@
 %{!?version_no_tilde: %define version_no_tilde %{shrink:%(echo '%{version}' | tr '~' '-')}}
 
 Name:           btrfs-progs
-Version:        6.1.3
+Version:        6.2.1
 Release:        1%{?dist}
 Summary:        Userspace programs for btrfs
 
@@ -147,6 +147,9 @@ popd
 %{python3_sitearch}/btrfsutil-*.egg-info/
 
 %changelog
+* Mon Mar 06 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.2.1-1
+- Update to 6.2.1
+
 * Wed Jan 25 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.1.3-1
 - Update to 6.1.3
 - Switch to SPDX license identifiers

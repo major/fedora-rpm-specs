@@ -2,10 +2,10 @@
 
 Name:           rabbitvcs
 Version:        0.18
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        %{sum}
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://rabbitvcs.org
 Source0:        https://github.com/rabbitvcs/rabbitvcs/archive/v%{version}/rabbitvcs-%{version}.tar.gz
 
@@ -128,6 +128,9 @@ install -p -m0644 clients/nemo/RabbitVCS.py -D %{buildroot}%{_datadir}/nemo-pyth
 %{_datadir}/nemo-python/extensions/*.py*
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.18-11
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Pete Walter <pwalter@fedoraproject.org> - 0.18-10
 - Remove and obsolete rabbitvcs-thunar (rhbz#2159994)
 

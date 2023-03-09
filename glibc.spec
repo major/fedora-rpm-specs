@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-143-g59a6d5e947
+%global glibcsrcdir glibc-2.37.9000-156-g8390014c23
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 2
+%global baserelease 3
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,23 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Mar 06 2023 DJ Delorie <dj@redhat.com> - 2.37.9000-3
+- Auto-sync with upstream branch master,
+  commit 8390014c2320f94ffd8a8f6088c10c1f64567954.
+- Update kernel version to 6.2 in header constant tests
+- arm: Remove __builtin_arm_uqsub8 usage on string-fza.h
+- alpha: Remove strncmp optimization
+- powerpc: Remove powerpc64 strncmp variants
+- powerpc: Remove strncmp variants
+- C2x scanf binary constant handling
+- Fix stringop-overflow warning in test-strncat.
+- nis: Fix stringop-truncation warning with -O3 in nis_local_host.
+- support: use 64-bit time_t (bug 30111)
+- LoongArch: Update libm-test-ulps.
+- LoongArch: Further refine the condition to enable static PIE
+- hurd: Fix some broken indentation
+- hurd: Remove the ecx kludge
+
 * Wed Mar 01 2023 Carlos O'Donell <carlos@redhat.com> - 2.37.9000-2
 - Auto-sync with upstream branch master,
   commit 59a6d5e9477695c41d6feef7ef8636f8f744f3c5:

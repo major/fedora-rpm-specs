@@ -1,11 +1,11 @@
 Name:           tuxpaint
 Version:        0.9.28
-Release:        7%{?dist}
+Release:        8%{?dist}
 
 Epoch:          1
 Summary:        Drawing program designed for young children
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.tuxpaint.org/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}-sdl2.tar.gz
 Patch1:         tuxpaint-0.9.21-fix-desktop-file.patch
@@ -156,6 +156,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}
 %{_includedir}/tuxpaint/
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:0.9.28-8
+- migrated to SPDX license
+
 * Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 1:0.9.28-7
 - Rebuild (libimagequant)
 

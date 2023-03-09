@@ -25,7 +25,7 @@
 
 Name:           pipenv
 Version:        %{base_version}%{?prerelease_version:~%{prerelease_version}}
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        The higher level Python packaging tool
 
 # Pipenv source code is MIT, there are bundled packages having different licenses
@@ -68,6 +68,7 @@ BuildRequires:  python3dist(mock)
 BuildRequires:  python3dist(parver)
 BuildRequires:  python3dist(pytest)
 BuildRequires:  python3dist(pytest-xdist)
+BuildRequires:  python3dist(pytz)
 BuildRequires:  python3dist(sphinx)
 BuildRequires:  python3dist(sphinx-click)
 BuildRequires:  python3dist(sphinxcontrib-spelling)
@@ -342,6 +343,9 @@ rm -rf check_path
 %license LICENSE
 
 %changelog
+* Tue Mar 07 2023 Miro Hrončok <mhroncok@redhat.com> - 2022.10.25-3
+- Explicitly BuildRequire pytz for tests, it has been brought transitively before
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.10.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,13 +1,13 @@
 %global packname tinytest
-%global packver  1.3.1
+%global packver  1.4.1
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
-Version:          1.3.1
-Release:          2%{?dist}
+Version:          %{packver}
+Release:          1%{?dist}
 Summary:          Lightweight and Feature Complete Unit Testing Framework
 
-License:          GPLv3
+License:          GPL-3.0-only
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.tar.gz
 
@@ -71,6 +71,9 @@ rm -f %{buildroot}%{rlibdir}/R.css
 
 
 %changelog
+* Tue Mar  7 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.1-1
+- update to 1.4.1
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

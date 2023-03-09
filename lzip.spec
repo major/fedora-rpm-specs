@@ -1,9 +1,9 @@
 Name:           lzip
 Version:        1.23
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        LZMA compressor with integrity checking
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://www.nongnu.org/lzip/lzip.html
 Source0:        http://download.savannah.gnu.org/releases/lzip/lzip-%{version}.tar.gz
 Source1:        http://download.savannah.gnu.org/releases/lzip/lzip-%{version}.tar.gz.sig
@@ -49,6 +49,9 @@ make check
 
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.23-4
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.23-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

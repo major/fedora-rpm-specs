@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname bookdown
-%global packver  0.29
+%global packver  0.33
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -15,8 +15,8 @@ Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-htmltools >= 0.3.6, R-knitr >= 1.31, R-rmarkdown >= 2.9, R-jquerylib, R-xfun >= 0.22, R-tinytex >= 0.12, R-yaml >= 2.1.19
-# Suggests:  R-bslib >= 0.2.4, R-downlit >= 0.2.1, R-htmlwidgets, R-jsonlite, R-rstudioapi, R-miniUI, R-rsconnect >= 0.4.3, R-servr >= 0.13, R-shiny, R-tibble, R-testit >= 0.9, R-tufte, R-xml2, R-webshot, R-testthat >= 3.0.0, R-withr >= 2.3.0
+# Imports:   R-htmltools >= 0.3.6, R-knitr >= 1.38, R-rmarkdown >= 2.14, R-jquerylib, R-xfun >= 0.29, R-tinytex >= 0.12, R-yaml >= 2.1.19
+# Suggests:  R-bslib >= 0.2.4, R-downlit >= 0.4.0, R-htmlwidgets, R-jsonlite, R-rstudioapi, R-miniUI, R-rsconnect >= 0.4.3, R-servr >= 0.13, R-shiny, R-tibble, R-testit >= 0.9, R-tufte, R-xml2, R-webshot, R-testthat >= 3.1.0, R-withr >= 2.3.0
 # LinkingTo:
 # Enhances:
 

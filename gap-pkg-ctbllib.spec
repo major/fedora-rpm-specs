@@ -9,8 +9,8 @@
 %bcond_with bootstrap
 
 Name:           gap-pkg-%{pkgname}
-Version:        1.3.4
-Release:        5%{?dist}
+Version:        1.3.5
+Release:        1%{?dist}
 Summary:        GAP Character Table Library
 
 License:        GPL-3.0-or-later
@@ -20,6 +20,10 @@ URL:            https://www.math.rwth-aachen.de/~Thomas.Breuer/ctbllib/
 Source0:        %{url}%{pkgname}-%{version}.tar.gz
 # Predownloaded data from ATLAS needed for the tests
 Source1:        %{name}-testdata.tar.xz
+
+# The makedocrel script determines that the package being built is outside of
+# the normal GAP install directories and refuses to do anything with it.
+Patch0:         %{name}-makedocrel.patch
 
 BuildRequires:  gap-devel
 BuildRequires:  GAPDoc-latex
@@ -70,23 +74,22 @@ Requires:       gap-pkg-tomlib-doc
 This package contains documentation for gap-pkg-%{pkgname}.
 
 %prep
-%autosetup -n %{pkgname}-%{version} -b 1
+%autosetup -n %{pkgname}-%{version} -b1 -p1
 
 # Remove spurious executable bit
 chmod a-x doc/utils.xml
 
 %build
 export LC_ALL=C.UTF-8
+gap < makedocrel.g
 
-# Link to main GAP documentation
-cp -a %{gap_libdir}/doc ../../doc
-ln -s %{gap_libdir}/pkg/smallgrp ..
-mkdir -p ../pkg
-ln -s ../%{pkgname}-%{version} ../pkg
-gap -l "$PWD/..;" < makedocrel.g
 # The ctbltoc material requires a GAP package named "genus" to build.  We do
-# not have that package in Fedora, and I can find no trace of it online.  If
-# we do manage to locate and package it, uncomment the following:
+# not have that package in Fedora.  It appears to be for older versions of GAP.
+# See:
+# https://www.math.rwth-aachen.de/~Thomas.Breuer/genus/genus.html
+# http://www.math.rwth-aachen.de/~Greg.Gamble/gap4r3/pkg/genus/doc/manual.pdf
+# If a version that works with modern GAP versions is located, uncomment the
+# following:
 # mkdir -p ctbltoc/data ctbltoc/views
 # gap -l "$PWD/..;" << EOF
 # ReadPackage( "ctbllib", "ctbltoc/init.g" );
@@ -97,11 +100,6 @@ gap -l "$PWD/..;" < makedocrel.g
 #   HTMLCreateView.( name )();
 # od;
 # EOF
-rm -fr ../smallgrp ../../doc ../pkg
-
-# Remove the build directory from the documentation
-sed -i "s,$PWD/doc/\.\./\.\./pkg,../..,g" doc/*.html
-sed -i "s,$PWD/doc2/\.\./\.\./pkg,../..,g" doc2/*.html
 
 # Compress large tables
 parallel %{?_smp_mflags} --no-notice gzip --best ::: data/*.tbl
@@ -131,13 +129,10 @@ EOF
 # Do not run testall.g.  It takes several days to run.
 mkdir -p ../pkg
 ln -s ../%{pkgname}-%{version} ../pkg
-sed -i '/BrowseCTblLibInfo();/d' gap4/ctbltocb.g tst/docxpl.tst{,~}
+sed -i '/BrowseCTblLibInfo();/d' gap4/ctbltocb.g tst/docxpl.tst
 gap -l "$PWD/..;" tst/testauto.g
 rm -fr ../pkg
 %endif
-
-# Cleanup
-rm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst/*~
 
 %files
 %doc README.md
@@ -155,6 +150,9 @@ rm %{buildroot}%{gap_libdir}/pkg/%{pkgname}/tst/*~
 %{gap_libdir}/pkg/%{pkgname}/htm/
 
 %changelog
+* Tue Mar  7 2023 Jerry James <loganjerry@gmail.com> - 1.3.5-1
+- Version 1.3.5
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

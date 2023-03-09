@@ -9,10 +9,10 @@
 %global pypi_name HyperKitty
 
 Name:           python-%{srcname}
-Version:        1.3.5
+Version:        1.3.7
 Release:        %autorelease
 Summary:        A web interface to access GNU Mailman v3 archives
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://gitlab.com/mailman/hyperkitty
 Source0:        %{pypi_source %{pypi_name}}
 # don't check out modules from git
@@ -23,6 +23,7 @@ BuildArch:      noarch
 BuildRequires:  python%{python3_pkgversion}-devel
 
 %if %{with doc}
+BuildRequires:  make
 BuildRequires:  python%{python3_pkgversion}-sphinx
 %endif
 

@@ -1,12 +1,12 @@
 Name:           munin
-Version:        2.0.69
-Release:        6%{?dist}
+Version:        2.0.72
+Release:        1%{?dist}
 Summary:        Network-wide resource monitoring tool
 License:        GPLv2
 URL:            http://munin-monitoring.org/
 
-Source0:        http://downloads.munin-monitoring.org/munin/stable/%{version}/%{name}-%{version}.tar.gz
-Source1:        http://downloads.munin-monitoring.org/munin/stable/%{version}/%{name}-%{version}.tar.gz.asc
+Source0:        https://sourceforge.net/projects/munin/files/stable/%{version}/%{name}-%{version}.tar.gz
+Source1:        https://sourceforge.net/projects/munin/files/stable/%{version}/%{name}-%{version}.tar.gz.asc
 # fpr=910846ADEE4C5D67C19B3E6F0A24C05998BA4133
 # gpg --recv-keys $fpr
 # gpg -a --export-options export-minimal --export $fpr > gpgkey-$fpr.asc
@@ -124,13 +124,13 @@ Requires:       bc
 Requires:       conntrack-tools
 Requires:       firewalld-filesystem
 Requires:       hdparm
+Requires:       jo
 Requires:       perl(Cache::Cache)
 Requires:       perl(IO::Socket::INET6)
 Requires:       perl(Net::CIDR)
 Requires:       perl(Net::SSLeay)
 Requires:       perl(Net::Server)
-Requires:       procps
-Requires:       sysstat
+Requires:       procps-ng
 Requires(pre):  shadow-utils
 Requires(pre):  %{_sbindir}/semanage
 Requires(pre):  %{_sbindir}/restorecon
@@ -192,6 +192,7 @@ Requires:       %{name} = %{version}
 Requires:       munin-cgi
 Requires:       nginx-filesystem
 Provides:       munin-web-support = %{version}-%{release}
+Conflicts:      munin-apache
 BuildArch:      noarch
 
 
@@ -205,6 +206,7 @@ Requires:       %{name} = %{version}
 Requires:       httpd
 Requires:       mod_fcgid
 Provides:       munin-web-support = %{version}-%{release}
+Conflicts:      munin-nginx
 BuildArch:      noarch
 
 
@@ -259,6 +261,8 @@ sed -i -e '
   s,^JC         := \(.*\),JC         := /bin/false,;
   ' Makefile.config
 
+sed -i -e 's,@@DBDIR@@,%{_sharedstatedir}/munin-node,g' node/_bin/munin-get.in
+
 %patch101 -p1
 %patch102 -p1
 %patch103 -p1
@@ -309,6 +313,9 @@ cp %{SOURCE301} %{buildroot}%{_sysconfdir}/munin/plugin-conf.d/
 # Create plugin state dirs
 mkdir -p %{buildroot}%{_sharedstatedir}/munin-node/plugin-state/munin
 mkdir -p %{buildroot}%{_sharedstatedir}/munin-node/plugin-state/root
+
+# munin-get plugin directory
+mkdir -p %{buildroot}%{_sharedstatedir}/munin-node/munin-get-plugins
 
 # firewalld config
 mkdir -p %{buildroot}/%{_prefix}/lib/firewalld/services
@@ -461,9 +468,10 @@ exit 0
 # Create log file
 [ -f %{_localstatedir}/log/munin-node/munin-node.log ] || \
     /usr/bin/install -m 0640 -o root -g adm /dev/null %{_localstatedir}/log/munin-node/munin-node.log
-# Fix plugin-state SELinux
-%{_sbindir}/semanage fcontext -a -e %{_sharedstatedir}/munin %{_sharedstatedir}/munin-node 2> /dev/null || :
-%{_sbindir}/semanage fcontext -a -e %{_sharedstatedir}/munin/plugin-state %{_sharedstatedir}/munin-node/plugin-state 2> /dev/null || :
+# Fix munin-node/plugin-state and munin-node/munin-get-plugins SELinux
+%{_sbindir}/semanage fcontext --delete --equal %{_sharedstatedir}/munin %{_sharedstatedir}/munin-node 2> /dev/null || :
+%{_sbindir}/semanage fcontext --add --type munin_plugin_state_t "%{_sharedstatedir}/munin-node/plugin-state(/.*)?" 2> /dev/null || :
+%{_sbindir}/semanage fcontext --add --type unconfined_munin_plugin_exec_t "%{_sharedstatedir}/munin-node/munin-get-plugins(/.*)?" 2> /dev/null || :
 %{_sbindir}/restorecon -R %{_sharedstatedir}/munin-node || :
 # Is this new install, not upgrade?
 if [ "$1" = "1" ]; then
@@ -490,8 +498,8 @@ fi
 %postun node
 # Is this uninstall, not upgrade?
 if [ "$1" = "0" ]; then
-    %{_sbindir}/semanage fcontext -a -d %{_sharedstatedir}/munin-node/plugin-state 2> /dev/null || :
-    %{_sbindir}/semanage fcontext -a -d %{_sharedstatedir}/munin-node 2> /dev/null || :
+    %{_sbindir}/semanage fcontext --delete --type munin_plugin_state_t "%{_sharedstatedir}/munin-node/plugin-state(/.*)?" 2> /dev/null || :
+    %{_sbindir}/semanage fcontext --delete --type unconfined_munin_plugin_exec_t "%{_sharedstatedir}/munin-node/munin-get-plugins(/.*)?" 2> /dev/null || :
 fi
 %systemd_postun_with_restart munin-node.service munin-asyncd.service
 
@@ -607,6 +615,7 @@ exit 0
 %{_prefix}/lib/firewalld/services/munin-node.xml
 %attr(-, munin, munin) %dir %{_sharedstatedir}/munin
 %attr(-, root, root) %dir %{_sharedstatedir}/munin-node
+%attr(-, root, root) %dir %{_sharedstatedir}/munin-node/munin-get-plugins
 %attr(-, root, root) %dir %{_sharedstatedir}/munin-node/plugin-state
 %attr(-, munin, root) %dir %{_sharedstatedir}/munin-node/plugin-state/munin
 %attr(-, root, root) %dir %{_sharedstatedir}/munin-node/plugin-state/root
@@ -652,6 +661,12 @@ exit 0
 
 
 %changelog
+* Tue Mar  7 2023 Kim B. Heino <b@bbbs.net> - 2.0.72-1
+- Upgrade to 2.0.72
+- Add munin-get plugin directory
+- Mangle /var/lib/munin-node SELinux
+- Fix service startup order
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.69-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

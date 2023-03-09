@@ -1,6 +1,6 @@
 Name:		megaglest
 Version:	3.13.0
-Release:	17%{?dist}
+Release:	18%{?dist}
 Summary:	Open Source 3d real time strategy game
 License:	GPLv3+ and GPL+
 Url:		http://megaglest.org/
@@ -23,7 +23,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	lua-devel
 BuildRequires:	openssl-devel
 BuildRequires:	xerces-c-devel
-BuildRequires:	wxGTK3-devel
+BuildRequires:	wxGTK-devel
 BuildRequires:	zlib-devel
 BuildRequires:  pkgconfig(dri)
 BuildRequires:  pkgconfig(glew)
@@ -55,6 +55,11 @@ Patch5:		%{name}-feathery_ftp.patch
 Patch6:		%{name}-fix-lua-version-ordering.patch
 # Ignore GLEW_ERROR_NO_GLX_DISPLAY (we can continue with this on Wayland)
 Patch7:		%{name}-ignore-GLEW_ERROR_NO_GLX_DISPLAY.patch
+# Support wxWidgets 3.2 (next 4 patches from upstream)
+Patch8:         e09ba53c436279588f769d6ce8852e74d58f8391.patch
+Patch9:         fbd0cfb17ed759d24aeb577a602b0d97f7895cc2.patch
+Patch10:        5801b1fafff8ad9618248d4d5d5c751fdf52be2f.patch
+Patch11:        789e1cdf371137b729e832e28a5feb6e97a3a243.patch
 
 
 %description
@@ -78,6 +83,10 @@ game at no cost.
 %patch5 -p1
 %patch6 -p1
 %patch7 -p1
+%patch8 -p1
+%patch9 -p1
+%patch10 -p1
+%patch11 -p1
 
 %build
 mkdir -p %{_vpath_builddir}
@@ -103,6 +112,9 @@ install -d %{buildroot}/%{_datadir}/%{name}
 %{_datadir}/%{name}/
 
 %changelog
+* Sat Jan 21 2023 Scott Talbert <swt@techie.net> - 3.13.0-18
+- Rebuild with wxWidgets 3.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.13.0-17
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -5,7 +5,7 @@
 
 Summary:	Network traffic analyzer
 Name:		wireshark
-Version:	4.0.3
+Version:	4.0.4
 Release:	1%{?dist}
 Epoch:		1
 License:	GPL+
@@ -27,6 +27,7 @@ Patch5:		wireshark-0005-Fix-paths-in-a-wireshark.desktop-file.patch
 # Fedora-specific
 Patch6:		wireshark-0006-Move-tmp-to-var-tmp.patch
 Patch7:		wireshark-0007-cmakelists.patch
+Patch8:		wireshark-0008-glib2-g_strdup-build.patch
 
 #install tshark together with wireshark GUI
 Requires:	%{name}-cli = %{epoch}:%{version}-%{release}
@@ -278,6 +279,9 @@ fi
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Mar 07 2023 Michal Ruprich <mruprich@redhat.com> - 1:4.0.4-1
+- New version 4.0.4
+
 * Thu Feb 02 2023 Michal Ruprich <mruprich@redhat.com> - 1:4.0.3-1
 - New version 4.0.3
 

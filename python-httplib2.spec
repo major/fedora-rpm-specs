@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        0.21.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Comprehensive HTTP client library
 License:        MIT
 URL:            https://pypi.python.org/pypi/httplib2
@@ -76,6 +76,9 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest -k "not test_unknown_server \
 %{python3_sitelib}/%{srcname}/
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.21.0-2
+- migrated to SPDX license
+
 * Sun Feb 19 2023 Kevin Fenzi <kevin@scrye.com> - 0.21.0-1
 - Update to 0.21.0. rhbz#2138541
 

@@ -1,21 +1,22 @@
 Name:           skyviewer
-Version:        1.0.1
-Release:        29%{?dist}
+Version:        1.1.0
+Release:        1%{?dist}
 Summary:        Program to display HEALPix-based skymaps in FITS files
 
 License:        Public Domain
 URL:            http://lambda.gsfc.nasa.gov/toolbox/tb_skyviewer_ov.cfm
 Source0:        http://lambda.gsfc.nasa.gov/toolbox/skyviewer/%{name}-%{version}.tar.gz
 Source1:        skyviewer.desktop
-Patch0:         skyviewer-1.0.1-libGLU.patch
-Patch1:         skyviewer-1.0.1-qglqt4.patch
 
-BuildRequires: make
+BuildRequires:  make
 BuildRequires:  cfitsio-devel
 BuildRequires:  chealpix-devel
 BuildRequires:  desktop-file-utils
-BuildRequires:  libQGLViewer-devel
-BuildRequires:  qt4-devel
+BuildRequires:  libQGLViewer-qt5-devel
+BuildRequires:  cmake(qt5widgets)
+BuildRequires:  cmake(qt5gui)
+BuildRequires:  cmake(qt5xml)
+BuildRequires:  cmake(qt5opengl)
 BuildRequires:  mesa-libGLU-devel
 
 %description
@@ -28,11 +29,9 @@ assuming you have a strong enough graphics card.
 
 %prep
 %setup -q
-%patch0 -p1 -b .GLU
-%patch1 -p0 -b .qglqt4
 
 %build
-%{qmake_qt4} INCLUDE_DIR=%{_includedir} \
+%{qmake_qt5} INCLUDE_DIR=%{_includedir} \
         LIB_DIR=%{_libdir} \
         INCPATH=%{_includedir}/cfitsio
 make %{?_smp_mflags}
@@ -62,6 +61,10 @@ desktop-file-install --vendor='' %{SOURCE1} \
 
 
 %changelog
+* Wed Mar  1 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.1.0-1
+- Update to 1.1.0
+- Use Qt5, libQGLViewer-qt5
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-29
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

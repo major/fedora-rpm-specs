@@ -2,9 +2,9 @@
 
 Name:       distcc
 Version:    3.3.5
-Release:    12%{?dist}
+Release:    13%{?dist}
 Summary:    Distributed C/C++ compilation
-License:    GPLv2+
+License:    GPL-2.0-or-later
 URL:        https://github.com/distcc/distcc
 Source0:    https://github.com/distcc/distcc/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:    hosts.sample
@@ -44,7 +44,7 @@ This package contains the Gnome frontend of the distcc monitoring tool.
 
 %package     server
 Summary:    Server for distributed C/C++ compilation
-License:    GPLv2+
+License:    GPL-2.0-or-later
 
 Requires:   %{name}%{?_isa} = %{version}-%{release}
 %{?systemd_requires}
@@ -139,6 +139,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/*
 %dir /usr/lib/gcc-cross
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.3.5-13
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.5-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

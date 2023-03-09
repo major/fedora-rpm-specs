@@ -24,8 +24,13 @@ issues is located at
 https://github.com/uqfoundation/multiprocess/issues, with a legacy list
 maintained at https://uqfoundation.github.io/project/pathos/query.}
 
+# Package a pre-release snapshot for Python 3.12 support.
+# https://bugzilla.redhat.com/show_bug.cgi?id=2175136
+%global commit 3daf4ba7031fa9ce0536bbbb8388d15ac7935c8f
+%global snapdate 20230220
+
 Name:           python-multiprocess
-Version:        0.70.14
+Version:        0.70.15~dev0^%{?commit:%{snapdate}git%(echo '%{commit}' | cut -b -7)}
 Release:        %autorelease
 Summary:        Better multiprocessing and multithreading in python
 
@@ -34,8 +39,10 @@ Summary:        Better multiprocessing and multithreading in python
 #
 #   :Copyright: This stylesheet has been placed in the public domain.
 License:        BSD-3-Clause AND LicenseRef-Fedora-Public-Domain
-URL:            https://pypi.org/pypi/multiprocess
-Source0:        %{pypi_source multiprocess}
+URL:            https://github.com/uqfoundation/multiprocess
+%{?!commit:%global srcurl %{pypi_source multiprocess}}
+%{?commit:%global srcurl %{url}/archive/%{commit}/multiprocess-%{commit}.tar.gz}
+Source0:        %{srcurl}
 BuildArch:      noarch
 
 BuildRequires:  dos2unix
@@ -61,7 +68,7 @@ Summary:        Documentation for %{name}
 This package provides documentation for %{name}.
 
 %prep
-%autosetup -n multiprocess-%{version}
+%autosetup -n multiprocess-%{?!commit:%{version}}%{?commit}
 
 # Convert line endings
 find py%{python3_version}/{doc,examples}/ -type f -exec dos2unix '{}' '+'

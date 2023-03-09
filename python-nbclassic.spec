@@ -1,5 +1,5 @@
 Name:           python-nbclassic
-Version:        0.5.2
+Version:        0.5.3
 Release:        %autorelease
 Summary:        Jupyter Notebook as a Jupyter Server Extension
 

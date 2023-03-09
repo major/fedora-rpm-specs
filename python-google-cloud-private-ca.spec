@@ -2,7 +2,7 @@
 
 %global         srcname     google-cloud-private-ca
 %global         forgeurl    https://github.com/googleapis/python-security-private-ca
-Version:        1.6.1
+Version:        1.7.0
 %global         tag         v%{version}
 %forgemeta
 
@@ -64,7 +64,7 @@ rm -rf %{buildroot}%{python3_sitelib}/{docs,samples,scripts,tests}
 
 
 %check
-%pyproject_check_import
+%pyproject_check_import -e google.cloud.security.privateca*
 
 %if %{with tests}
 # NOTE(mhayden): Setting PYTHONUSERBASE as a hack for PEP 420 namespaces.

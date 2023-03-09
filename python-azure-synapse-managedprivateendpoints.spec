@@ -4,7 +4,7 @@
 %global         srcname     azure-synapse-managedprivateendpoints
 
 Name:           python-%{srcname}
-Version:        0.3.0
+Version:        0.4.0
 Release:        %autorelease
 Summary:        Microsoft Azure Synapse Managed Private Endpoints Client Library for Python
 License:        MIT

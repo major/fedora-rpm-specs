@@ -1,9 +1,9 @@
 Name:           python-svg
 Version:        0.2.2b
-Release:        32%{?dist}
+Release:        33%{?dist}
 Summary:        Python wrapper for svg
 
-License:        BSD
+License:        BSD-2-Clause-Views
 URL:            http://code.google.com/p/pysvg/
 Source0:        http://pysvg.googlecode.com/files/pysvg-0.2.2b.zip
 Patch0:         pysvg-python3.patch
@@ -80,6 +80,9 @@ find $RPM_BUILD_ROOT -name '*.egg-info' | xargs rm -rf
 
 
 %changelog
+* Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.2.2b-33
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.2b-32
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -3,7 +3,7 @@
 
 Name:		tkimg
 Version:	1.4.14
-Release:	2%{?dist}
+Release:	3%{?dist}
 Summary:	Image support library for Tk
 # This has some bundled "fun" in it.
 # The fork of libjpeg is licensed IJG
@@ -12,6 +12,10 @@ Summary:	Image support library for Tk
 License:	BSD AND IJG AND zlib AND libtiff
 URL:		http://sourceforge.net/projects/tkimg
 Source0:	https://downloads.sourceforge.net/project/tkimg/tkimg/1.4/Img-%{version}-Source.tar.gz
+# Apply upstream libtiff fix for CVE-2022-4645
+# I do not think it impacts tkimg, but better safe than sorry.
+# https://gitlab.com/libtiff/libtiff/-/commit/e813112545942107551433d61afd16ac094ff246
+Patch0:		tkimg-libtiff-CVE-2022-4645.patch
 BuildRequires:	make
 BuildRequires:	gcc
 BuildRequires:	tcl-devel tk-devel tcllib
@@ -48,6 +52,7 @@ These are the header files needed to develop a %{name} application
 
 %prep
 %setup -q -n Img-%{version}-Source
+%patch0 -p1 -b .CVE-2022-4645
 
 %build
 %configure --with-tcl=%{tcl_sitearch} --with-tk=%{_libdir} --libdir=%{tcl_sitearch} --disable-threads --enable-64bit
@@ -70,6 +75,9 @@ make %{?_smp_mflags} INSTALL_ROOT=%{buildroot} install
 %{tcl_sitearch}/Img%{version}/*.a
 
 %changelog
+* Tue Mar  7 2023 Tom Callaway <spot@fedoraproject.org> - 1.4.14-3
+- apply upstream libtiff fix for CVE-2022-4645
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.4.14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
