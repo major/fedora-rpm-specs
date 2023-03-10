@@ -10,13 +10,13 @@
 
 Name:           inkscape
 Version:        1.2.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Vector-based drawing program using SVG
 
 # Inkscape tags their releases with underscores and in ALLCAPS
 %global repotag %(echo %{name}_%{version} |tr "." "_" |tr "[:lower:]" "[:upper:]")
 
-License:        GPLv2+ and CC-BY
+License:        GPL-2.0-or-later AND CC-BY-3.0
 URL:            https://inkscape.org/
 Source0:        https://inkscape.org/gallery/item/37360/inkscape-1.2.2.tar.xz
 # https://gitlab.com/inkscape/inkscape/-/merge_requests/5108
@@ -228,6 +228,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.inkscape.Inksc
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.2-8
+- migrated to SPDX license
+
 * Fri Feb 24 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 1.2.2-7
 - Fix build with GCC 13
 

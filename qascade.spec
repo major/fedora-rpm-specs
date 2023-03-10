@@ -1,9 +1,9 @@
 Name:           qascade
 Version:        0.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Classic puzzle game
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.bitsnpieces.org.uk/qascade/
 Source0:        http://www.bitsnpieces.org.uk/qascade/%{name}-%{version}.tar.bz2
 Source1:        %{name}.desktop
@@ -54,6 +54,9 @@ install -D -p -m 644 blue.png \
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1-38
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

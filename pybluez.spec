@@ -1,9 +1,9 @@
 Name:           pybluez
 Version:        0.23
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Python API for the BlueZ bluetooth stack 
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            https://github.com/pybluez/pybluez/wiki
 Source0:        https://github.com/pybluez/pybluez/archive/%{version}.tar.gz
 Patch0:         pybluez-py310.patch
@@ -48,6 +48,9 @@ chmod a-x examples/bluezchat/bluezchat.py
 %{python3_sitearch}/*
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.23-11
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.23-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

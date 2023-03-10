@@ -9,7 +9,7 @@
 
 %global goipath         github.com/osbuild/osbuild-composer
 
-Version:        76
+Version:        77
 
 %gometa
 
@@ -339,6 +339,7 @@ install -m 0755 -vp _bin/osbuild-service-maintenance-tests         %{buildroot}%
 install -m 0755 -vp _bin/osbuild-mock-openid-provider              %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/define-compose-url.sh                    %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/provision.sh                             %{buildroot}%{_libexecdir}/osbuild-composer-test/
+install -m 0755 -vp tools/ansible-blocking-io.py                   %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/gen-certs.sh                             %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/gen-ssh.sh                               %{buildroot}%{_libexecdir}/osbuild-composer-test/
 install -m 0755 -vp tools/image-info                               %{buildroot}%{_libexecdir}/osbuild-composer-test/
@@ -571,6 +572,24 @@ Integration tests to be run on a pristine-dedicated system to test the osbuild-c
 %endif
 
 %changelog
+* Wed Mar 08 2023 Packit <hello@packit.dev> - 77-1
+Changes with 77
+----------------
+  * Add open-vm-tools to Fedora VMDK image default package set (#3300)
+  * Update deprecated io/ioutil functions and go:build tags (#3323)
+  * Update rpmrepo snapshots to 20230223 (including necessary fixes and workarounds) (#3311)
+  * Use CDN repos when making the worker rpms and images (#3320)
+  * koji: log unsuccessful requests only once (#3314)
+  * manifest/os: fix SUPPRESSED_ERROR issue reported by Coverity (#3304)
+  * packer ansible: fix unregister and aarch64 cdn repos (#3322)
+  * tools/appsre-ansible: don't subscribe machines used for rpmbuild (#3315)
+  * worker: allow configuring number of upload threads for Azure (#3321)
+
+Contributions from: Brian C. Lane, Diaa Sami, Sanne Raymaekers, Tomáš Hozza, schutzbot, yih
+
+— Somewhere on the Internet, 2023-03-08
+
+
 * Wed Mar 01 2023 Packit <hello@packit.dev> - 76-1
 Changes with 76
 ----------------

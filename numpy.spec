@@ -20,12 +20,12 @@
 
 Name:           numpy
 Version:        1.24.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        A fast multidimensional array facility for Python
 
 # Everything is BSD except for class SafeEval in numpy/lib/utils.py which is Python
-License:        BSD and Python and ASL 2.0
+License:        BSD-3-Clause AND Apache-2.0 
 URL:            http://www.numpy.org/
 Source0:        https://github.com/%{name}/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://numpy.org/doc/%(echo %{version} | cut -d. -f1-2)/numpy-html.zip
@@ -46,7 +46,7 @@ this package is a version of f2py that works properly with NumPy.
 %package -n python3-numpy
 Summary:        A fast multidimensional array facility for Python
 
-License:        BSD
+License:        BSD-3-Clause
 %{?python_provide:%python_provide python3-numpy}
 Provides:       libnpymath-static = %{epoch}:%{version}-%{release}
 Provides:       libnpymath-static%{?_isa} = %{epoch}:%{version}-%{release}
@@ -209,6 +209,9 @@ python3 runtests.py --no-build -- -ra -k 'not test_ppc64_ibm_double_double128 %{
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:1.24.1-3
+- migrated to SPDX license
+
 * Fri Jan 27 2023 Pavel Simovec <psimovec@redhat.com> - 1:1.24.1-2
 - Generalize documentation Source link
 - Add forgotten documentation file

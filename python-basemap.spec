@@ -2,9 +2,9 @@
 
 Name:           python-basemap
 Version:        1.3.6
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Plots data on map projections (with continental and political boundaries) 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://matplotlib.org/basemap/
 Source0:        https://github.com/matplotlib/basemap/archive/v%{version}/basemap-%{version}.tar.gz
 Patch0:         requirements.patch
@@ -19,7 +19,7 @@ projections (with continental and political boundaries).
 
 %package -n     python-basemap-examples
 Summary:        Example programs and data for python3-basemap
-License:        Copyright only
+License:        Copyright only 
 Requires:       python3-basemap
 
 %description -n python-basemap-examples
@@ -27,7 +27,7 @@ Requires:       python3-basemap
 
 %package -n python3-basemap
 Summary:        Plots data on map projections (with continental and political boundaries)
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 BuildRequires:  python3-devel, proj-devel, shapelib-devel, python3-numpy-f2py, geos-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  chrpath
@@ -93,6 +93,9 @@ PYTHONPATH=%{buildroot}%{python3_sitearch}:%{buildroot}%{python3_sitelib} \
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com>
+- migrated to SPDX license
+
 * Thu Mar 02 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3.6-4
 - Patch out matplotlib ceiling.
 

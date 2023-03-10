@@ -11,6 +11,12 @@ License:        BSD-3-Clause-Modification AND ZPL-2.1
 URL:            https://github.com/Pylons/venusian
 Source0:        %{pypi_source venusian}
 
+# Fixup new deprecations coming soon in Python 3.12
+# https://github.com/Pylons/venusian/issues/78
+# https://github.com/Pylons/venusian/pull/82
+# Rebased on 3.0.0.
+Patch:          venusian-3.0.0-pr-82.patch
+
 BuildArch:      noarch
 
 BuildRequires:  python3-devel
@@ -37,7 +43,7 @@ Summary:        %{summary}
 
 
 %prep
-%autosetup -n venusian-%{version}
+%autosetup -n venusian-%{version} -p1
 
 # https://docs.fedoraproject.org/en-US/packaging-guidelines/Python/#_linters
 sed -r -i 's/ --cov[^[:blank:]]*//g' setup.cfg

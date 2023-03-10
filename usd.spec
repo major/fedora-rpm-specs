@@ -115,6 +115,16 @@ Patch:          %{forgeurl}/pull/1928.patch
 # https://github.com/PixarAnimationStudios/USD/pull/2266
 Patch:          %{forgeurl}/pull/2266.patch
 
+# Prefer TfHash to boost::hash
+# Part of https://github.com/PixarAnimationStudios/USD/issues/2172
+# Part of https://github.com/PixarAnimationStudios/USD/pull/2176/ (currently under review)
+# Needed for boost 1.81
+Patch:          USD-pr2176-pxr_vt_hash-use-tfhash.patch
+
+# Add missing header for g++13
+# https://github.com/PixarAnimationStudios/USD/commit/c1c1c1de039451afaba9a0e04b50f4607df67886
+Patch:          USD-c1c1c1de-g++13-header-include.patch
+
 # Base
 BuildRequires:  boost-devel
 BuildRequires:  boost-program-options

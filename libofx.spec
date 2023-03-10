@@ -1,9 +1,9 @@
 Summary: A library for supporting Open Financial Exchange (OFX)
 Name: libofx
 Version: 0.10.9
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/libofx/libofx
-License: GPLv2+
+License: GPL-2.0-or-later
 Source: %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Patch0: fix-ftbfs-gcc4.7.diff
 BuildRequires: gcc-c++
@@ -68,6 +68,9 @@ rm -rf $RPM_BUILD_ROOT%{_libdir}/lib*.la $RPM_BUILD_ROOT%{_datadir}/doc
 %{_libdir}/cmake/%{name}/
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.9-2
+- migrated to SPDX license
+
 * Mon Feb 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.10.9-1
 - 0.10.9
 

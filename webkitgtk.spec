@@ -19,7 +19,7 @@
 %bcond_without docs
 
 Name:           webkitgtk
-Version:        2.39.90
+Version:        2.39.91
 Release:        %autorelease
 Summary:        GTK web content engine library
 
@@ -32,14 +32,9 @@ Source1:        https://webkitgtk.org/releases/webkitgtk-%{version}.tar.xz.asc
 # $ gpg --export --export-options export-minimal D7FCF61CF9A2DEAB31D81BD3F3D322D0EC4582C3 5AA3BC334FD7E3369E7C77B291C559DBE4C9123B > webkitgtk-keys.gpg
 Source2:        webkitgtk-keys.gpg
 
-# https://github.com/WebKit/WebKit/pull/10362
+# https://github.com/WebKit/WebKit/pull/11221
+# https://github.com/WebKit/WebKit/pull/11222
 Patch0:         fix-installed-headers.patch
-
-# https://bugs.webkit.org/show_bug.cgi?id=252617
-Patch1:         super-sampler.patch
-
-# https://bugs.webkit.org/show_bug.cgi?id=252679
-Patch2:         no-debug-fission.patch
 
 BuildRequires:  bison
 BuildRequires:  bubblewrap
@@ -434,10 +429,10 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %license _license_files/*WebCore*
 %license _license_files/*WebInspectorUI*
 %license _license_files/*WTF*
-%{_libdir}/libwebkitgtk-6.0.so.3*
+%{_libdir}/libwebkitgtk-6.0.so.4*
 %dir %{_libdir}/girepository-1.0
 %{_libdir}/girepository-1.0/WebKit-6.0.typelib
-%{_libdir}/girepository-1.0/WebKitWebExtension-6.0.typelib
+%{_libdir}/girepository-1.0/WebKitWebProcessExtension-6.0.typelib
 %{_libdir}/webkitgtk-6.0/
 %{_libexecdir}/webkitgtk-6.0/
 %exclude %{_libexecdir}/webkitgtk-6.0/MiniBrowser
@@ -478,10 +473,10 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %exclude %{_includedir}/webkitgtk-6.0/jsc
 %{_libdir}/libwebkitgtk-6.0.so
 %{_libdir}/pkgconfig/webkitgtk-6.0.pc
-%{_libdir}/pkgconfig/webkitgtk-web-extension-6.0.pc
+%{_libdir}/pkgconfig/webkitgtk-web-process-extension-6.0.pc
 %dir %{_datadir}/gir-1.0
 %{_datadir}/gir-1.0/WebKit-6.0.gir
-%{_datadir}/gir-1.0/WebKitWebExtension-6.0.gir
+%{_datadir}/gir-1.0/WebKitWebProcessExtension-6.0.gir
 
 %files -n webkit2gtk4.1-devel
 %{_libexecdir}/webkit2gtk-4.1/MiniBrowser
@@ -560,7 +555,7 @@ export NINJA_STATUS="[3/3][%f/%t %es] "
 %dir %{_datadir}/gtk-doc/html
 %{_datadir}/gtk-doc/html/javascriptcoregtk-6.0/
 %{_datadir}/gtk-doc/html/webkitgtk-6.0/
-%{_datadir}/gtk-doc/html/webkitgtk-web-extension-6.0/
+%{_datadir}/gtk-doc/html/webkitgtk-web-process-extension-6.0/
 
 %files -n webkit2gtk4.1-doc
 %dir %{_datadir}/gtk-doc

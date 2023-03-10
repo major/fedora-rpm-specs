@@ -4,7 +4,7 @@
 %global glib2_version %(pkg-config --modversion glib-2.0 2>/dev/null || echo bad)
 
 %global epoch_version 1
-%global real_version 1.42.0
+%global real_version 1.43.3
 %global rpm_version %{real_version}
 %global release_version 1
 %global snapshot %{nil}
@@ -720,9 +720,9 @@ Preferably use nmcli instead.
 	-Difcfg_rh=true \
 	-Difupdown=false \
 %if %{with ppp}
-	-Dpppd_plugin_dir="%{_libdir}/pppd/%{ppp_version}" \
-	-Dpppd="%{_sbindir}/pppd" \
 	-Dppp=true \
+	-Dpppd="%{_sbindir}/pppd" \
+	-Dpppd_plugin_dir="%{_libdir}/pppd/%{ppp_version}" \
 %else
 	-Dppp=false \
 %endif
@@ -1246,6 +1246,9 @@ fi
 
 
 %changelog
+* Thu Jan 26 2023 Lubomir Rintel <lkundrak@v3.sk> - - 1:1.43.3-1
+- Update to an early 1.44 snapshot
+
 * Fri Feb 10 2023 Thomas Haller <thaller@redhat.com> - 1:1.42.0-1
 - Upgrade to 1.42.0 release
 

@@ -6,9 +6,9 @@
  
 Name:           Io-language
 Version:        20170906
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        Io is a small, prototype-based programming language
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://iolanguage.org
 Source0:        https://github.com/stevedekorte/io/archive/%{_version}/%{name}-%{version}.tar.gz
 Patch1:         Io-2007-10-10-gcc43.patch
@@ -273,6 +273,9 @@ done
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 20170906-11
+- migrated to SPDX license
+
 * Fri Jan 27 2023 Nikita Popov <npopov@redhat.com> - 20170906-10
 - Port to C99
 

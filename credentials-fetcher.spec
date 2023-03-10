@@ -3,7 +3,7 @@
 %global patch_version 0
 
 # For handling bump release by rpmdev-bumpspec and mass rebuild
-%global baserelease 5
+%global baserelease 6
 
 Name:           credentials-fetcher
 Version:        %{major_version}.%{minor_version}.%{patch_version}
@@ -39,6 +39,8 @@ This spec file is specific to Fedora, use this file to rpmbuild on Fedora.
 %prep
 %setup -q
 %patch0 -p1 -b .boost-fstream
+# abseil-cpp LTS 20230125 requires at least C++14; string_view requires C++17:
+sed -r -i 's/(std=c\+\+)11/\117/' CMakeLists.txt
 
 %build
 %cmake3
@@ -65,6 +67,9 @@ ctest3
 %attr(0700, -, -) %{_sbindir}/credentials_fetcher_utf16_private.runtimeconfig.json
 
 %changelog
+* Tue Mar 07 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.0-6
+- Build as C++14, required by abseil-cpp 20230125
+
 * Thu Feb 23 2023 Tom Callaway <spotaws@amazon.com> - 1.1.0-5
 - fix build against boost 1.81 (bz2172636)
 

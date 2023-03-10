@@ -241,7 +241,7 @@
 %endif
 
 Name:	chromium%{chromium_channel}
-Version: 111.0.5563.50
+Version: 111.0.5563.64
 Release: 1%{?dist}
 Summary: A WebKit (Blink) powered web browser that Google doesn't want you to use
 Url: http://www.chromium.org/Home
@@ -283,6 +283,9 @@ Patch20: chromium-disable-font-tests.patch
 
 # https://gitweb.gentoo.org/repo/gentoo.git/tree/www-client/chromium/files/chromium-unbundle-zlib.patch
 Patch52: chromium-81.0.4044.92-unbundle-zlib.patch
+
+# missing limits.h, error: no member named 'numeric_limits' in namespace 'std'
+Patch53: chromium-110-limits.patch
 
 # ../../third_party/perfetto/include/perfetto/base/task_runner.h:48:55: error: 'uint32_t' has not been declared
 Patch56: chromium-96.0.4664.45-missing-cstdint-header.patch
@@ -352,10 +355,6 @@ Patch116: chromium-108-ffmpeg-first_dts.patch
 # revert new-channel-layout-api on f36, old ffmpeg-free
 Patch117: chromium-108-ffmpeg-revert-new-channel-layout-api.patch
 
-# clang =< 14 and C++20, linker errors std::u16string
-# build failure on rhel and fedora 36
-Patch120: chromium-109-clang14-c++20-link-error.patch
-
 # enable Qt
 Patch121: chromium-108-enable-allowqt.patch
 
@@ -365,6 +364,7 @@ Patch122: chromium-109-gcc13.patch
 # Patches by Stephan Hartmann, https://github.com/stha09/chromium-patches
 Patch130: chromium-103-VirtualCursor-std-layout.patch
 
+# Pagesize > 4kb
 Patch146: chromium-110-LargerThan4k.patch
 
 # VAAPI
@@ -904,6 +904,7 @@ udev.
 %patch52 -p1 -b .unbundle-zlib
 %endif
 
+%patch53 -p1 -b .limits-header
 %patch56 -p1 -b .missing-cstdint
 %patch57 -p1 -b .missing-cstring
 
@@ -951,10 +952,6 @@ udev.
 %patch105 -p1 -b .el7-old-libdrm
 %patch106 -p1 -b .el7-erase-fix
 %patch107 -p1 -b .el7-extra-operator-equalequal
-%endif
-
-%if 0%{?rhel} || 0%{?fedora} == 36
-%patch120 -p1 -b .link-error-clang14
 %endif
 
 %patch130 -p1 -b .VirtualCursor-std-layout
@@ -1137,6 +1134,11 @@ CHROMIUM_CORE_GN_DEFINES+=' enable_vr=false'
 CHROMIUM_CORE_GN_DEFINES+=' build_dawn_tests=false enable_perfetto_unittests=false'
 CHROMIUM_CORE_GN_DEFINES+=' disable_fieldtrial_testing_config=true'
 CHROMIUM_CORE_GN_DEFINES+=' blink_symbol_level=0 symbol_level=0 v8_symbol_level=0'
+# clang =< 14 and C++20, linker errors std::u16string
+# build failure on rhel and fedora 36
+%if 0%{?rhel} || 0%{?fedora} == 36
+CHROMIUM_CORE_GN_DEFINES+=' use_cxx17=true'
+%endif
 export CHROMIUM_CORE_GN_DEFINES
 
 # browser gn defines
@@ -1650,6 +1652,9 @@ getent group chrome-remote-desktop >/dev/null || groupadd -r chrome-remote-deskt
 %{chromium_path}/chromedriver
 
 %changelog
+* Tue Mar 07 2023 Than Ngo <than@redhat.com> - 111.0.5563.64-1
+- update to 111.0.5563.64
+
 * Mon Mar 06 2023 Than Ngo <than@redhat.com> - 111.0.5563.50-1
 - update to 111.0.5563.50
 - system freetype on fedora > 36

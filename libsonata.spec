@@ -26,7 +26,7 @@ Patch5:         0006-fix-assertion-error.patch
 
 BuildRequires:  cmake
 BuildRequires:  boost-devel
-BuildRequires:  catch-devel
+BuildRequires:  cmake(Catch2) < 3
 BuildRequires:  fmt-devel
 BuildRequires:  json-devel
 BuildRequires:  gcc-c++
@@ -64,6 +64,8 @@ BuildRequires:  python3-h5py
 %autosetup -n libsonata-%{version} -S git
 rm -rf libsonata.egg-info
 rm -rf extlib/{Catch2,Highfive,fmt,nlohmann}
+# Work around np.int removal; it was only an alias anyway
+sed -r -i 's/\bnp\.(int)/\1/' python/tests/test.py
 
 # Comment out to remove /usr/bin/env shebangs
 # Can use something similar to correct/remove /usr/bin/python shebangs also

@@ -3,20 +3,18 @@
 %global __requires_exclude ^(%%(find %{buildroot}%{_libdir}/evince/ -name '*.so' | xargs -n1 basename | sort -u | paste -s -d '|' -))
 
 %global libarchive_version 3.6.0
-%global poppler_version 22.01.0
+%global poppler_version 22.02.0
 
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           evince
-Version:        43.1
-Release:        3%{?dist}
+Version:        44~rc
+Release:        1%{?dist}
 Summary:        Document viewer
 
 License:        GPLv2+ and GPLv3+ and LGPLv2+ and MIT and Afmparse
 URL:            https://wiki.gnome.org/Apps/Evince
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
-
-Patch0:         evince-42-poppler-requirement-decrease.patch
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
@@ -281,6 +279,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Wed Mar 08 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

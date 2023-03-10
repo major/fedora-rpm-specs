@@ -1,12 +1,12 @@
 #global snapshot 0
-%global commit 30b272a5086730ab7f124302ec137ab1fb614e77
-%global commitdate 20221223
-%global gittag v0.2.101
+%global commit 2e88e84eea52c409cfcb746562302d8668967820
+%global commitdate 20230218
+%global gittag v0.2.103
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:		ocp
-Version:	0.2.101%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	2%{?dist}
+Version:	0.2.103%{?snapshot:^%{commitdate}git%{shortcommit}}
+Release:	1%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # 2010/08/08: Verified that upstream has removed GPLv3+ gnulib and added
@@ -26,8 +26,8 @@ Source1:	ftp://ftp.cubic.org/pub/player/gfx/opencp25image1.zip
 Source2:	ftp://ftp.cubic.org/pub/player/gfx/opencp25ani1.zip
 Source3:	ocp-git-snapshot.sh
 Source4:	ocp-bundled-versions.sh
-Patch0:		ocp-0.2.95-ini-optimize.patch
-Patch1:		ocp-0.2.98-ini-rompaths.patch
+Patch0:		ocp-0.2.103-ini-optimize.patch
+Patch1:		ocp-0.2.103-ini-rompaths.patch
 
 BuildRequires:	alsa-lib-devel
 BuildRequires:	bzip2-devel
@@ -37,6 +37,7 @@ BuildRequires:	flac-devel
 BuildRequires:	freetype-devel
 BuildRequires:	gcc
 BuildRequires:	gcc-c++
+BuildRequires:	ancient-devel
 BuildRequires:	libdiscid-devel
 BuildRequires:	libjpeg-devel
 BuildRequires:	libmad-devel
@@ -102,9 +103,12 @@ mv license.txt license-videos.txt
 	   --with-mad \
 	   --with-libiconv=auto \
 	   --with-timidity-default-path=/etc \
-	   --with-unifontdir-ttf=/usr/share/fonts/unifont \
-	   --without-unifont-csur-ttf \
+	   --with-unifont-otf=/usr/share/fonts/unifont/unifont.otf \
+	   --with-unifont-csur-otf=/usr/share/fonts/unifont/unifont_csur.otf \
+	   --with-unifont-upper-otf=/usr/share/fonts/unifont/unifont_upper.otf \
 	   --with-dumptools \
+	   --without-update-mime-database \
+	   --without-update-desktop-database \
 	   --docdir=%{_pkgdocdir} \
 #	   --with-debug
 # Makefiles are not SMP-clean
@@ -126,9 +130,7 @@ rm -f %{buildroot}/%{_infodir}/dir
 # rename desktop file to name.desktop to match packaging guidelines
 mv %{buildroot}%{_datadir}/applications/*opencubicplayer.desktop \
    %{buildroot}%{_datadir}/applications/ocp.desktop
-desktop-file-install --add-category="Audio" \
-		     --add-category="Midi" \
-		     --add-category="Player" \
+desktop-file-install --add-category="Midi" \
 		     --dir=%{buildroot}%{_datadir}/applications \
 		     --delete-original \
 		     %{buildroot}%{_datadir}/applications/ocp.desktop
@@ -163,10 +165,21 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 %{_datadir}/icons/hicolor/128x128/apps/*
 %{_datadir}/icons/hicolor/scalable/apps/*
 %{_datadir}/applications/*ocp.desktop
+%{_datadir}/mime/packages/opencubicplayer.xml
 %config(noreplace) /etc/ocp.ini
 
 
 %changelog
+* Wed Mar 08 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.103-1
+- update to 0.2.103
+
+* Wed Mar 08 2023 Charles R. Anderson <cra@alum.wpi.edu>
+- unifont-fonts switched from .ttf to .otf, specify paths in configure
+
+* Mon Jan 23 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.102-1
+- update to 0.2.102
+- add BR: ancient-devel
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.101-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

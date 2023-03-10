@@ -4,10 +4,10 @@
 Summary: A high-performance CORBA Object Request Broker
 Name: ORBit2
 Version: 2.14.19
-Release: 30%{?dist}
+Release: 31%{?dist}
 #VCS: git:git://git.gnome.org/ORBit2
 Source: http://download.gnome.org/sources/ORBit2/2.14/%{name}-%{version}.tar.bz2
-License: LGPLv2+ and GPLv2+
+License: LGPL-2.0-or-later AND GPL-2.0-or-later
 URL: http://www.gnome.org/projects/ORBit2
 BuildRequires: make
 BuildRequires: libIDL-devel >= %{libidl_version}
@@ -129,6 +129,9 @@ chrpath --delete $RPM_BUILD_ROOT%{_bindir}/typelib-dump
 %{_datadir}/gtk-doc
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.14.19-31
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.14.19-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

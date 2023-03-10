@@ -2,7 +2,7 @@
 Summary: A GNU collection of binary utilities
 Name: binutils%{?_with_debug:-debug}
 Version: 2.40
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/binutils
 
@@ -925,10 +925,16 @@ install_binutils()
 	%set_build_flags
 	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C opcodes
 
+	# Rebuild libsframe.a with -fPIC.
+	%make_build -s -C libsframe clean
+	%set_build_flags
+	%make_build -s CFLAGS="-g -fPIC $RPM_OPT_FLAGS" -C libsframe
+
 	install -m 644 bfd/libbfd.a            $local_libdir
 	install -m 644 libiberty/libiberty.a   $local_libdir
 	install -m 644 ../include/libiberty.h  $local_incdir
 	install -m 644 opcodes/libopcodes.a    $local_libdir
+	install -m 644 libsframe/.libs/libsframe.a   $local_libdir
 
 	# Remove Windows/Novell only man pages
 	rm -f $local_mandir/{dlltool,nlmconv,windres,windmc}*
@@ -980,7 +986,7 @@ $(gcc $CFLAGS $LDFLAGS -shared -x c /dev/null -o /dev/null -Wl,--verbose -v 2>&1
 
 $OUTPUT_FORMAT
 
-/* The libz dependency is unexpected by legacy build scripts.  */
+/* The libz & libsframe dependencies are unexpected by legacy build scripts.  */
 /* The libdl dependency is for plugin support.  (BZ 889134)  */
 INPUT ( %{_libdir}/libbfd.a %{_libdir}/libsframe.a -liberty -lz -ldl )
 EOH
@@ -994,7 +1000,7 @@ INPUT ( %{_libdir}/libopcodes.a -lbfd )
 EOH
 
 	rm -fr $local_root/$target
-	
+
     else # CROSS BUILDS
 
 	local target_root=$local_root/$target
@@ -1199,6 +1205,9 @@ exit 0
 
 #----------------------------------------------------------------------------
 %changelog
+* Wed Mar 08 2023 Nick Clifton  <nickc@redhat.com> - 2.40-5
+- Spec file: Rebuild libsframe.a with -fPIC enabled.  (#2174841)
+
 * Mon Mar 06 2023 Nick Clifton  <nickc@redhat.com> - 2.40-4
 - Spec file: Add libsframe.a to the (fake) libbfd.so.  (#2174841)
 

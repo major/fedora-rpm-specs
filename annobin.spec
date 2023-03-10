@@ -1,7 +1,7 @@
 
 Name:    annobin
 Summary: Annotate and examine compiled binary files
-Version: 11.12
+Version: 11.13
 Release: 1%{?dist}
 License: GPLv3+
 URL: https://sourceware.org/annobin/
@@ -524,6 +524,9 @@ make check
 #---------------------------------------------------------------------------------
 
 %changelog
+* Wed Mar 08 2023 Nick Clifton  <nickc@redhat.com> - 11.13-1
+- Annocheck: Add even more code to handle another glibc function built without LTO.
+
 * Fri Mar 03 2023 Nick Clifton  <nickc@redhat.com> - 11.12-1
 - Annocheck: Add code to handle another glibc function built without LTO.
 

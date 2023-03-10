@@ -1,9 +1,9 @@
 Name:           python-icalendar
 Version:        5.0.4
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Parser/generator of iCalendar files following the RFC 2445
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://pypi.python.org/pypi/icalendar
 Source0:        https://github.com/collective/icalendar/archive/v%{version}/%{version}.tar.gz
 
@@ -72,6 +72,9 @@ popd
 %{_bindir}/icalendar
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.0.4-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.0.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

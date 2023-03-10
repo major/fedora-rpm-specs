@@ -1,10 +1,10 @@
 Name:           foobillard
 Version:        3.0a
-Release:        44%{?dist}
+Release:        45%{?dist}
 
 Summary:        OpenGL billard game
 
-License:        GPLv2
+License:        GPL-2.0-only
 URL:            http://foobillard.sunsite.dk/
 # Based on http://foobillard.sunsite.dk/dnl/foobillard-3.0a.tar.gz
 Source0:        foobillard-3.0a-hobbled.tar.bz2
@@ -76,6 +76,9 @@ install -p -m 644 foobillard-256x256.png \
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.0a-45
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0a-44
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,10 +2,10 @@
 
 Name:           python-%{pypi_name}
 Version:        0.3.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Measure the readability of a given text using surface characteristics
 
-License:        ASL 2.0
+License:        Apache-2.0 
 URL:            https://github.com/andreasvc/readability/
 Source0:        %{pypi_source}
 BuildArch:      noarch
@@ -50,6 +50,9 @@ number of words, syllables, and sentences.
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.3.1-9
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

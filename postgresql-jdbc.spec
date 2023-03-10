@@ -50,7 +50,7 @@ Summary:	JDBC driver for PostgreSQL
 Name:		postgresql-jdbc
 Version:	42.5.2
 Release:	1%{?dist}
-License:	BSD
+License:	BSD-2-Clause
 URL:		http://jdbc.postgresql.org/
 
 Source0:	https://repo1.maven.org/maven2/org/postgresql/postgresql/%{version}/postgresql-%{version}-jdbc-src.tar.gz

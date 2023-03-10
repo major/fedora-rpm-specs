@@ -1,8 +1,8 @@
 Name:		perl-File-Copy-Recursive-Reduced
 Version:	0.006
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Recursive copying of files and directories within Perl 5 toolchain
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later AND Artistic-1.0
 URL:		https://metacpan.org/release/File-Copy-Recursive-Reduced
 Source0:	https://cpan.metacpan.org/modules/by-module/File/File-Copy-Recursive-Reduced-%{version}.tar.gz
 BuildArch:	noarch
@@ -59,6 +59,9 @@ make test
 %{_mandir}/man3/File::Copy::Recursive::Reduced.3*
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.006-17
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.006-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

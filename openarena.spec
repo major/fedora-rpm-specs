@@ -1,8 +1,8 @@
 Name:           openarena
 Version:        0.8.8
-Release:        28%{?dist}
+Release:        29%{?dist}
 Summary:        Open source first person shooter
-License:        GPLv2 and CC0
+License:        GPL-2.0-only AND CC0-1.0
 URL:            http://openarena.ws/
 Source0:        http://download.tuxfamily.org/openarena/rel/081/oa081.zip
 Source10:       http://download.tuxfamily.org/openarena/rel/085/oa085p.zip
@@ -71,6 +71,9 @@ appstream-util validate-relax --nonet $RPM_BUILD_ROOT%{_metainfodir}/*.appdata.x
 %{_datadir}/icons/hicolor/128x128/apps/%{name}.png
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.8.8-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.8-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

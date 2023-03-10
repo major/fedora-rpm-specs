@@ -1,9 +1,9 @@
 Name:           diction
 Version:        1.14
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Identifies diction and style errors
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            http://www.gnu.org/software/diction/diction.html
 Source0:        http://www.moria.de/~michael/diction/diction-%{version}.tar.gz
 
@@ -50,6 +50,9 @@ make install DESTDIR=$RPM_BUILD_ROOT
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.14-5
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

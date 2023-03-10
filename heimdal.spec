@@ -1,18 +1,13 @@
 %global _hardened_build 1
-%global libdir %{_libdir}/heimdal
-%global bindir %{_exec_prefix}/lib/heimdal
-
-# Use systemd unit files on RHEL 7 and above.
-%if ! (0%{?rhel} && 0%{?rhel} < 7)
-  %global _with_systemd 1
-%endif
+%global prefix %{_libdir}/%{name}
+%global exec_prefix %{_exec_prefix}/lib/%{name}
 
 Name: heimdal
 Version: 7.8.0
-Release: 2%{?dist}
+Release: 5%{?dist}
 Summary: A Kerberos 5 implementation without export restrictions
 License: BSD and MIT
-URL: http://www.heimdal.software/
+URL: http://www.heimdal.software/heimdal
 Source0:  https://github.com/%{name}/%{name}/releases/download/%{name}-%{version}/%{name}-%{version}.tar.gz
 Source3:  %{name}.sysconfig
 Source4:  %{name}.sh
@@ -20,11 +15,6 @@ Source5:  %{name}.csh
 Source9:  krb5.conf.sample
 Source10: %{name}.logrotate
 Source11: %{name}-bashrc
-Source20: %{name}-kdc.init
-Source21: %{name}-ipropd-master.init
-Source22: %{name}-ipropd-slave.init
-Source23: %{name}-kadmind.init
-Source24: %{name}-kpasswdd.init
 Source25: %{name}-kdc.conf
 Source26: %{name}-kdc.service
 Source27: %{name}-ipropd-master.service
@@ -58,22 +48,12 @@ BuildRequires:  sqlite-devel
 BuildRequires:  texinfo
 BuildRequires:  libcom_err-devel
 BuildRequires:  libcap-ng-devel
-%if (0%{?rhel} && 0%{?rhel} < 7)
-BuildRequires:  db4-devel
-%else
 BuildRequires:  libdb-devel
-%endif
 BuildRequires:  doxygen
 BuildRequires:  graphviz
 BuildRequires:  python3
-%if (0%{?rhel} && 0%{?rhel} < 7)
-BuildRequires:  groff
-%else
 BuildRequires:  groff-base
-%endif
-%if 0%{?_with_systemd}
 BuildRequires: systemd-units
-%endif
 BuildRequires: make
 
 # Bundled libtommath (https://bugzilla.redhat.com/1118462)
@@ -104,16 +84,9 @@ use on workstations (kinit, klist, kdestroy, kpasswd)
 %package server
 Summary:  Heimdal kerberos server
 Requires: logrotate
-%if 0%{?_with_systemd}
 Requires(preun): systemd
 Requires(postun): systemd
 Requires(post): systemd
-%else
-Requires(post): chkconfig
-Requires(preun): chkconfig
-Requires(preun): initscripts
-Requires(postun): initscripts
-%endif
 Provides: heimdal-kdc = %{version}-%{release}
 Obsoletes: heimdal-kdc < 1.5
 
@@ -172,7 +145,7 @@ autoreconf -ivf
 %configure \
         --prefix=%{_prefix} \
         --includedir=%{_includedir}/%{name} \
-        --libdir=%{libdir} \
+        --libdir=%{prefix}/lib \
         --enable-static \
         --enable-shared \
         --enable-pthread-support \
@@ -202,28 +175,16 @@ timeout 20m %make_build check || :
 %install
 %make_install
 # install the init files
-%if 0%{?_with_systemd}
-  # install systemd service files
-  mkdir -p %{buildroot}%{_unitdir}
-  pushd %{buildroot}%{_unitdir}
-    install -p -D -m 644 %{SOURCE26} heimdal-kdc.service
-    install -p -D -m 644 %{SOURCE27} heimdal-ipropd-master.service
-    install -p -D -m 644 %{SOURCE28} heimdal-ipropd-slave.service
-    install -p -D -m 644 %{SOURCE29} heimdal-kadmind.service
-    install -p -D -m 644 %{SOURCE30} heimdal-kpasswdd.service
-  popd
-  install -p -D -m 755 %{SOURCE31} %{buildroot}%{_libexecdir}/ipropd-slave-wrapper
-%else
-  # install legacy SysV init scripts
-  mkdir -p %{buildroot}%{_sysconfdir}/rc.d/init.d
-  pushd %{buildroot}%{_sysconfdir}/rc.d/init.d
-    install -p -D -m 755 %{SOURCE20} heimdal-kdc
-    install -p -D -m 755 %{SOURCE21} heimdal-ipropd-master
-    install -p -D -m 755 %{SOURCE22} heimdal-ipropd-slave
-    install -p -D -m 755 %{SOURCE23} heimdal-kadmind
-    install -p -D -m 755 %{SOURCE24} heimdal-kpasswdd
-  popd
-%endif
+# install systemd service files
+mkdir -p %{buildroot}%{_unitdir}
+pushd %{buildroot}%{_unitdir}
+  install -p -D -m 644 %{SOURCE26} heimdal-kdc.service
+  install -p -D -m 644 %{SOURCE27} heimdal-ipropd-master.service
+  install -p -D -m 644 %{SOURCE28} heimdal-ipropd-slave.service
+  install -p -D -m 644 %{SOURCE29} heimdal-kadmind.service
+  install -p -D -m 644 %{SOURCE30} heimdal-kpasswdd.service
+popd
+install -p -D -m 755 %{SOURCE31} %{buildroot}%{_libexecdir}/ipropd-slave-wrapper
 install -p -D -m 644 %{SOURCE3}  %{buildroot}%{_sysconfdir}/sysconfig/heimdal
 install -p -D -m 644 %{SOURCE4}  %{buildroot}%{_sysconfdir}/profile.d/heimdal.sh
 install -p -D -m 644 %{SOURCE5}  %{buildroot}%{_sysconfdir}/profile.d/heimdal.csh
@@ -240,8 +201,6 @@ install -d -m 755 %{buildroot}/%{_pkgdocdir}
 install -p -D -m 644 LICENSE    %{buildroot}/%{_pkgdocdir}/LICENSE
 install -p -D -m 644 %{SOURCE9} %{buildroot}/%{_pkgdocdir}/krb5.conf.sample
 install -p -D -m 644 %{SOURCE11} %{buildroot}/%{_pkgdocdir}/bashrc
-# we don't need pkgconfig file and info/dir
-rm -rf %{buildroot}%{libdir}/pkgconfig
 rm -rf %{buildroot}%{_infodir}/dir
 # NOTICE: no support for X11
 rm -f %{buildroot}%{_mandir}/man1/kx.1*
@@ -257,10 +216,10 @@ find %{buildroot} -type f -name '*.la' -exec rm -f {} ';'
 
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d/
 cat >> %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf << EOF
-%{_libdir}/%{name}
+%{prefix}/lib
 EOF
 
-mkdir -p %{buildroot}%{bindir}/bin
+mkdir -p %{buildroot}%{exec_prefix}/bin
 mkdir -p %{buildroot}%{_mandir}/%{name}/man{1,5,8}
 
 # rename clashes with other pkgs from <app> to heimdal-<app>
@@ -268,10 +227,10 @@ for prog in kadmin kadmind kdestroy kinit klist kpasswd krb5-config ktutil su pa
 do
    if [ -e %{buildroot}%{_bindir}/${prog} ]; then
      mv %{buildroot}%{_bindir}/{,%{name}-}${prog}
-     ln -s %{_bindir}/%{name}-${prog} %{buildroot}%{bindir}/bin/${prog}
+     ln -s %{_bindir}/%{name}-${prog} %{buildroot}%{exec_prefix}/bin/${prog}
    elif [ -e %{buildroot}%{_sbindir}/${prog} ]; then
      mv %{buildroot}%{_sbindir}/{,%{name}-}${prog}
-     ln -s %{_sbindir}/%{name}-${prog} %{buildroot}%{bindir}/bin/${prog}
+     ln -s %{_sbindir}/%{name}-${prog} %{buildroot}%{exec_prefix}/bin/${prog}
    elif [ -e %{buildroot}%{_libexecdir}/${prog} ]; then
      mv %{buildroot}%{_libexecdir}/{,%{name}-}${prog}
    fi
@@ -285,7 +244,7 @@ done
 
 # If we have the prefixed name in one pkg we want it in all.
 mv %{buildroot}%{_bindir}/{,%{name}-}kswitch
-ln -s %{_bindir}/%{name}-kswitch %{buildroot}%{bindir}/bin/kswitch
+ln -s %{_bindir}/%{name}-kswitch %{buildroot}%{exec_prefix}/bin/kswitch
 mv %{buildroot}%{_mandir}/man1/{,%{name}-}kswitch.1
 
 ln -s %{name}-kinit %{buildroot}%{_bindir}/kauth
@@ -298,58 +257,25 @@ ln -s mech.5.gz %{buildroot}%{_mandir}/man5/qop.5.gz
 %find_lang %{name} --all-name
 
 %post server
-%if 0%{?_with_systemd}
-  %systemd_post heimdal-kdc.service
-  %systemd_post heimdal-ipropd-master.service
-  %systemd_post heimdal-ipropd-slave.service
-  %systemd_post heimdal-kadmind.service
-  %systemd_post heimdal-kpasswdd.service
-%else
-  /sbin/chkconfig --add heimdal-kdc
-  /sbin/chkconfig --add heimdal-ipropd-master
-  /sbin/chkconfig --add heimdal-ipropd-slave
-  /sbin/chkconfig --add heimdal-kadmind
-  /sbin/chkconfig --add heimdal-kpasswdd
-%endif
+%systemd_post heimdal-kdc.service
+%systemd_post heimdal-ipropd-master.service
+%systemd_post heimdal-ipropd-slave.service
+%systemd_post heimdal-kadmind.service
+%systemd_post heimdal-kpasswdd.service
 
 %preun server
-%if 0%{?_with_systemd}
-  %systemd_preun heimdal-kdc.service
-  %systemd_preun heimdal-ipropd-master.service
-  %systemd_preun heimdal-ipropd-slave.service
-  %systemd_preun heimdal-kadmind.service
-  %systemd_preun heimdal-kpasswdd.service
-%else
-  if [ $1 -eq 0 ] ; then
-     /sbin/service heimdal-kdc stop >/dev/null 2>&1 || :
-     /sbin/chkconfig --del heimdal-kdc
-     /sbin/service heimdal-ipropd-master stop >/dev/null 2>&1 || :
-     /sbin/chkconfig --del heimdal-ipropd-master
-     /sbin/service heimdal-ipropd-slave stop >/dev/null 2>&1 || :
-     /sbin/chkconfig --del heimdal-ipropd-slave
-     /sbin/service heimdal-kadmind stop >/dev/null 2>&1 || :
-     /sbin/chkconfig --del heimdal-kadmind
-     /sbin/service heimdal-kpasswdd stop >/dev/null 2>&1 || :
-     /sbin/chkconfig --del >/dev/null
-  fi
-%endif
+%systemd_preun heimdal-kdc.service
+%systemd_preun heimdal-ipropd-master.service
+%systemd_preun heimdal-ipropd-slave.service
+%systemd_preun heimdal-kadmind.service
+%systemd_preun heimdal-kpasswdd.service
 
 %postun server
-%if 0%{?_with_systemd}
-  %systemd_postun_with_restart heimdal-kdc.service
-  %systemd_postun_with_restart heimdal-ipropd-master.service
-  %systemd_postun_with_restart heimdal-ipropd-slave.service
-  %systemd_postun_with_restart heimdal-kadmind.service
-  %systemd_postun_with_restart heimdal-kpasswdd.service
-%else
-  if [ $1 -eq 1 ] ; then
-     /sbin/service heimdal-kdc condrestart >/dev/null 2>&1 || :
-     /sbin/service heimdal-ipropd-master condrestart >/dev/null 2>&1 || :
-     /sbin/service heimdal-ipropd-slave condrestart >/dev/null 2>&1 || :
-     /sbin/service heimdal-kadmind condrestart >/dev/null 2>&1 || :
-     /sbin/service heimdal-kpasswdd condrestart >/dev/null 2>&1 || :
-  fi
-%endif
+%systemd_postun_with_restart heimdal-kdc.service
+%systemd_postun_with_restart heimdal-ipropd-master.service
+%systemd_postun_with_restart heimdal-ipropd-slave.service
+%systemd_postun_with_restart heimdal-kadmind.service
+%systemd_postun_with_restart heimdal-kpasswdd.service
 
 %if (0%{?rhel} && 0%{?rhel} < 8)
 %post libs
@@ -366,12 +292,13 @@ fi
 %endif
 
 %files libs -f %{name}.lang
-%dir %{bindir}
-%dir %{bindir}/bin
-%dir %{libdir}
+%dir %{exec_prefix}
+%dir %{exec_prefix}/bin
+%dir %{prefix}
+%dir %{prefix}/lib
 %config(noreplace) %{_sysconfdir}/ld.so.conf.d/%{name}-%{_arch}.conf
-%{libdir}/lib*.so*
-%{libdir}/windc.so*
+%{prefix}/lib/lib*.so.*
+%{prefix}/lib/windc.so.*
 %{_infodir}/heimdal.info*
 %{_infodir}/hx509.info*
 %{_mandir}/man5/%{name}-krb5.conf.5*
@@ -389,11 +316,7 @@ fi
 %license LICENSE
 
 %files server
-%if 0%{?_with_systemd}
 %{_unitdir}/*.service
-%else
-%{_initrddir}/*
-%endif
 %{_sysconfdir}/logrotate.d/heimdal
 %config(noreplace) %{_sysconfdir}/sysconfig/heimdal
 %dir %attr(700,root,root) %{_localstatedir}/heimdal
@@ -415,9 +338,7 @@ fi
 %{_mandir}/man8/ipropd-master.8*
 %{_libexecdir}/ipropd-slave
 %{_mandir}/man8/ipropd-slave.8*
-%if 0%{?_with_systemd}
 %{_libexecdir}/ipropd-slave-wrapper
-%endif
 %{_libexecdir}/%{name}-kadmind
 %{_mandir}/man8/%{name}-kadmind.8*
 %{_libexecdir}/kdc
@@ -433,14 +354,14 @@ fi
 %{_prefix}/bin/bsearch
 %{_mandir}/man1/bsearch.1*
 %{_prefix}/bin/%{name}-pagsh
-%{bindir}/bin/pagsh
+%{exec_prefix}/bin/pagsh
 %{_mandir}/man1/%{name}-pagsh.1*
 %{_prefix}/bin/gsstool
 %{_prefix}/bin/heimtools
 %{_prefix}/bin/hxtool
 %{_prefix}/bin/idn-lookup
 %{_prefix}/bin/%{name}-kdestroy
-%{bindir}/bin/kdestroy
+%{exec_prefix}/bin/kdestroy
 %{_mandir}/man1/%{name}-kdestroy.1*
 %{_prefix}/bin/kf
 %{_mandir}/man1/kf.1*
@@ -449,59 +370,73 @@ fi
 %{_libexecdir}/kimpersonate
 %{_mandir}/man8/kimpersonate.8*
 %{_prefix}/bin/%{name}-kinit
-%{bindir}/bin/kinit
+%{exec_prefix}/bin/kinit
 %{_prefix}/bin/kauth
 %{_mandir}/man1/%{name}-kinit.1*
 %{_prefix}/bin/%{name}-klist
-%{bindir}/bin/klist
+%{exec_prefix}/bin/klist
 %{_mandir}/man1/%{name}-klist.1*
 %{_prefix}/bin/%{name}-kpasswd
-%{bindir}/bin/kpasswd
+%{exec_prefix}/bin/kpasswd
 %{_mandir}/man1/%{name}-kpasswd.1*
 %{_prefix}/bin/heimdal-kswitch
-%{bindir}/bin/kswitch
+%{exec_prefix}/bin/kswitch
 %{_mandir}/man1/heimdal-kswitch.1*
 %{_prefix}/bin/otp
 %{_mandir}/man1/otp.1*
 %{_prefix}/bin/otpprint
 %{_mandir}/man1/otpprint.1*
 %{_bindir}/%{name}-kadmin
-%{bindir}/bin/kadmin
+%{exec_prefix}/bin/kadmin
 %{_mandir}/man1/%{name}-kadmin.1*
 %{_libexecdir}/kcm
 %{_mandir}/man8/kcm.8*
 %{_libexecdir}/kfd
 %{_mandir}/man8/kfd.8*
 %{_bindir}/%{name}-ktutil
-%{bindir}/bin/ktutil
+%{exec_prefix}/bin/ktutil
 %{_mandir}/man1/%{name}-ktutil.1*
 # NOTICE: no support for X11
 #%%{_libexecdir}/kxd
 #%%{_mandir}/man8/kxd.8*
 #%%{_mandir}/cat8/kxd.8*
 %attr(04550,root,root) %{_prefix}/bin/%{name}-su
-%{bindir}/bin/su
+%{exec_prefix}/bin/su
 %{_mandir}/man1/%{name}-su.1*
 
 %files devel
 %dir %{_libexecdir}/%{name}
 %{_bindir}/%{name}-krb5-config
-%{bindir}/bin/krb5-config
+%{exec_prefix}/bin/krb5-config
 %{_mandir}/man1/%{name}-krb5-config.1*
 %{_includedir}/*
-%{libdir}/lib*.a
-%{libdir}/windc.a
+%{prefix}/lib/lib*.a
+%{prefix}/lib/lib*.so
+%{prefix}/lib/windc.a
+%{prefix}/lib/windc.so
 %{_mandir}/man3/*
 %{_mandir}/man7/*
 %{_libexecdir}/%{name}/asn1_compile
 %{_libexecdir}/%{name}/asn1_print
 %{_libexecdir}/%{name}/slc
+%{prefix}/lib/pkgconfig/*.pc
 
 %files path
 %{_sysconfdir}/profile.d/%{name}.sh
 %{_sysconfdir}/profile.d/%{name}.csh
 
 %changelog
+* Wed Mar 08 2023 Alexander Boström <abo@root.snowtree.se> - 7.8.0-5
+- Remove conditionals prior to RHEL7
+
+* Wed Mar 08 2023 Alexander Boström <abo@root.snowtree.se> - 7.8.0-4
+- remove _with_systemd conditional
+- remove unused source files
+
+* Wed Mar 08 2023 Alexander Boström <abo@root.snowtree.se> - 7.8.0-3
+- Move libraries to a lib subdirectory
+- Include pkgconfig files (#1525462) (#1565954) (#1931072)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.8.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

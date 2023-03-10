@@ -2,10 +2,10 @@
 
 Name:               python3-%{modname}
 Version:            1.5.4
-Release:            4%{?dist}
+Release:            5%{?dist}
 Summary:            A fork of the ast module with type annotations
 
-License:            ASL 2.0
+License:            Apache-2.0 
 URL:                https://github.com/python/typed_ast
 Source0:            %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
 
@@ -41,6 +41,9 @@ as supported in Python 3.6.
 %{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.4-5
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.4-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

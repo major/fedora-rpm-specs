@@ -3,10 +3,10 @@
 
 Name:           sirikali
 Version:        1.5.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        GUI front end to encfs,cryfs,gocryptfs and securefs
 # generally GPLv2+, BSD for tasks and NetworkAccessManager folders
-License:        GPLv2+ and BSD
+License:        GPL-2.0-or-later AND BSD-2-Clause
 URL:            http://mhogomchungu.github.io/%{name}
 
 Source0:        %{srcurl}/releases/download/%{version}/%{srcname}-%{version}.tar.xz
@@ -79,6 +79,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/io.github.mhogomchung
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.5.0-4
+- migrated to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

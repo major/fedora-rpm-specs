@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
-Name:           maven-plugin-build-helper
+Name:           build-helper-maven-plugin
 Version:        3.3.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Build Helper Maven Plugin
 License:        MIT
 URL:            https://www.mojohaus.org/build-helper-maven-plugin/
@@ -19,7 +19,6 @@ BuildRequires:  mvn(junit:junit)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.shared:file-management)
-BuildRequires:  mvn(org.apache.maven:maven-compat)
 BuildRequires:  mvn(org.apache.maven:maven-core)
 BuildRequires:  mvn(org.apache.maven:maven-plugin-api)
 BuildRequires:  mvn(org.assertj:assertj-core)
@@ -28,6 +27,10 @@ BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
 BuildRequires:  mvn(org.testng:testng)
 %endif
 
+# TODO remove Provides / Obsoletes on maven-plugin-build-helper in Fedora 41
+Provides:       maven-plugin-build-helper = %{version}-%{release}
+Obsoletes:      maven-plugin-build-helper < 3.3.0-4
+
 %description
 This plugin contains various small independent goals to assist with
 Maven build lifecycle.
@@ -35,11 +38,15 @@ Maven build lifecycle.
 %package javadoc
 Summary:        API documentation for %{name}
 
+# TODO remove Provides / Obsoletes on maven-plugin-build-helper-javadoc in Fedora 41
+Provides:       maven-plugin-build-helper-javadoc = %{version}-%{release}
+Obsoletes:      maven-plugin-build-helper-javadoc < 3.3.0-4
+
 %description javadoc
 This package provides %{summary}.
 
 %prep
-%setup -q -n build-helper-maven-plugin-%{version}
+%setup -q
 
 %pom_add_dep junit:junit::test
 
@@ -62,6 +69,9 @@ find -name BeanshellPropertyMojo.java -delete
 %license LICENSE.txt
 
 %changelog
+* Tue Feb 21 2023 Marian Koncek <mkoncek@redhat.com> - 3.3.0-4
+- Rename package from maven-plugin-build-helper
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

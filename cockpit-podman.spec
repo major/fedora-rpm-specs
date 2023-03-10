@@ -16,7 +16,7 @@
 #
 
 Name:           cockpit-podman
-Version:        63
+Version:        64
 Release:        1%{?dist}
 Summary:        Cockpit component for Podman containers
 License:        LGPL-2.1-or-later
@@ -53,11 +53,15 @@ appstream-util validate-relax --nonet %{buildroot}/%{_datadir}/metainfo/*
 
 %files
 %doc README.md
-%license LICENSE dist/index.js.LICENSE.txt.gz
+%license LICENSE dist/index.js.LEGAL.txt dist/index.css.LEGAL.txt
 %{_datadir}/cockpit/*
 %{_datadir}/metainfo/*
 
 %changelog
+* Wed Mar 08 2023 Packit <hello@packit.dev> - 64-1
+- Supports the esbuild bundler
+- Stability and performance improvements
+
 * Wed Feb 22 2023 Packit <hello@packit.dev> - 63-1
 - Stability and performance improvements
 

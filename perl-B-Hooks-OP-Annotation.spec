@@ -2,7 +2,7 @@ Name:           perl-B-Hooks-OP-Annotation
 Version:        0.44
 Release:        35%{?dist}
 Summary:        Annotate and delegate hooked OPs
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Hooks-OP-Annotation
 Source0:        https://cpan.metacpan.org/modules/by-module/B/B-Hooks-OP-Annotation-%{version}.tar.gz
 # Module Build
@@ -25,6 +25,7 @@ BuildRequires:  perl(warnings)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod)
 # Dependencies
+# (none)
 
 # Avoid provides from perl shared objects
 %{?perl_default_filter}

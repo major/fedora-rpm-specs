@@ -4,7 +4,7 @@ Name:       ongres-%upstream_name
 Version:    1.1
 Release:    6%{?dist}
 Summary:    RFC 3454 Preparation of Internationalized Strings in pure Java
-License:    BSD
+License:    BSD-2-Clause AND Apache-2.0
 URL:            https://github.com/ongres/%upstream_name
 Source0:        https://github.com/ongres/%upstream_name/archive/%{version}/%upstream_name-%{version}.tar.gz
 BuildRequires:  maven-local

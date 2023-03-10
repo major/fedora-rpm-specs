@@ -5,10 +5,10 @@
 
 Name:           %{pkgname}
 Version:        2.5.8
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Provides the specification and reference implementation of the EXR file format
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://www.openexr.com/
 Source0:        https://github.com/AcademySoftwareFoundation/%{srcname}/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -137,6 +137,9 @@ rm -rf %{buildroot}%{_docdir}/OpenEXR/
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.8-3
+- migrated to SPDX license
+
 * Thu Feb 23 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 2.5.8-2
 - Be more explicit about which libraries are packaged (and with which .so
   versions)

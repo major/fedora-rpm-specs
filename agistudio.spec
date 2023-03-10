@@ -1,8 +1,8 @@
 Name: agistudio
 Version: 1.3.0
-Release: 27%{?dist}
+Release: 28%{?dist}
 Summary: AGI integrated development environment
-License: GPLv2+
+License: GPL-2.0-or-later
 Source0: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Source1: %{name}.desktop
 Patch0: agistudio-1.3.0-format.patch
@@ -58,6 +58,9 @@ desktop-file-install  \
 %{_datadir}/icons/hicolor/32x32/apps/agistudio.xpm
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.3.0-28
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.3.0-27
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,9 @@
-%global has_which2_alias 0
+%global has_which2_alias 1
 
 Summary: Displays where a particular program in your path is located
 Name: which
 Version: 2.21
-Release: 38%{?dist}
+Release: 39%{?dist}
 License: GPL-3.0-only
 Source0: http://ftp.gnu.org/gnu/which/%{name}-%{version}.tar.gz
 Source1: which2.sh
@@ -13,7 +13,7 @@ Patch1: which-2.21-path_max.patch
 Url: https://savannah.gnu.org/projects/which/
 Requires: coreutils
 BuildRequires: make
-BuildRequires:  gcc
+BuildRequires: gcc
 BuildRequires: readline-devel
 
 %description
@@ -47,6 +47,9 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %{_mandir}/man1/which.1*
 
 %changelog
+* Wed Mar 08 2023 Than Ngo <than@redhat.com> - 2.21-39
+- fixed #2175953, enable which2 alias 
+
 * Sun Feb 19 2023 Than Ngo <than@redhat.com> - 2.21-38
 - migrated to SPDX license
 

@@ -1,6 +1,6 @@
 Name:           js-jquery
-Version:        3.6.3
-Release:        2%{?dist}
+Version:        3.6.4
+Release:        1%{?dist}
 Summary:        JavaScript DOM manipulation, event handling, and AJAX library
 BuildArch:      noarch
 
@@ -81,6 +81,9 @@ ln -s %{version} %{installdir}/%{ver_x}.%{ver_y}
 
 
 %changelog
+* Thu Mar 09 2023 Orion Poplawski <orion@nwra.com> - 3.6.4-1
+- Update to 3.6.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

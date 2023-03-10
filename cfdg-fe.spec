@@ -1,9 +1,9 @@
 Name: cfdg-fe
 Version:  0.1
-Release:  30%{?dist}
+Release:  31%{?dist}
 Summary: A front end to cfdg
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://impulzus.com/~tchibo/ 
 Source0: http://impulzus.com/~tchibo/cfdg-fe.tgz_
 Source1: cfdg-fe.desktop
@@ -54,6 +54,9 @@ install -p -m 644 pixmaps/icon.png \
 %{_datadir}/cfdg-fe/logo.png
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.1-31
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1-30
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

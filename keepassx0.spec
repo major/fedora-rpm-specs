@@ -1,12 +1,12 @@
 Name:           keepassx0
 Version:        0.4.4
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Cross-platform password manager
 
 # apg/ and crypto/ directory contains BSD files
 # only crypto/arcfour* files are GPLv2+ 
 # all other source is GPLv2 licensed files
-License:        GPLv2 and BSD
+License:        GPL-2.0-only AND BSD-3-Clause
 URL:            http://keepassx.sourceforge.net
 Source0:        https://www.keepassx.org/releases/%{version}/keepassx-%{version}.tar.gz
 Patch1:         keepassx-0.3.3-gcc43.patch
@@ -98,6 +98,9 @@ install -D -m 644 -p x-keepassx0.desktop \
 %{_datadir}/icons/hicolor/*/apps/keepassx0.png
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.4.4-21
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.4-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

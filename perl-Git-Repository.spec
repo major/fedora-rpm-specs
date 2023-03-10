@@ -1,11 +1,12 @@
 Name:           perl-Git-Repository
 Version:        1.325
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Perl interface to Git repositories
 License:        GPL+ or Artistic
 URL:            https://metacpan.org/release/Git-Repository
 Source0:        https://cpan.metacpan.org/authors/id/B/BO/BOOK/Git-Repository-%{version}.tar.gz
 Patch1:         git-2.38.1-compatibility.patch
+Patch2:         git-var-GIT_EDITOR.patch
 BuildArch:      noarch
 # Build
 BuildRequires:  make
@@ -79,6 +80,9 @@ make test
 %{perl_vendorlib}/Test
 
 %changelog
+* Wed Mar 08 2023 Pazdziora <jpazdziora@redhat.com> - 1.325-8
+- 2175807 - address git var GIT_EDITOR related build fail with git 2.39.1.
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.325-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

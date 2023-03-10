@@ -3,12 +3,12 @@
 
 Name:           pinball
 Version:        0.3.4
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        Emilia 3D Pinball Game
 # core license is GPLv2+
 # gnu table licenses are (GFDL or Free Art or CC-BY-SA) and GPLv3 and CC-BY-SA
 # hurd table license is GPLv2+
-License: GPLv2+ and (GFDL or Free Art or CC-BY-SA) and GPLv3 and CC-BY-SA
+License: GPL-2.0-or-later AND FSFAP AND LGPL-2.0-or-later AND GPL-3.0-or-later AND CC-BY-SA
 URL:            http://pinball.sourceforge.net
 Source0:        https://github.com/sergiomb2/pinball/archive/%{version}/%{name}-%{version}.tar.gz
 BuildRequires: make
@@ -97,6 +97,9 @@ appstream-util validate-relax --nonet \
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.3.4-13
+- migrate to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.4-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

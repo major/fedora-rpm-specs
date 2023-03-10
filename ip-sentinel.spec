@@ -5,8 +5,8 @@
 Summary:	Tool to prevent unauthorized usage of IP addresses
 Name:		ip-sentinel
 Version:	0.12
-Release:	1925%{?dist}
-License:	GPLv2
+Release:	1926%{?dist}
+License:	GPL-2.0-only
 URL:		http://www.nongnu.org/ip-sentinel/
 Source0:	http://savannah.nongnu.org/download/ip-sentinel/%{name}-%{version}.tar.bz2
 Source1:	http://savannah.nongnu.org/download/ip-sentinel/%{name}-%{version}.tar.bz2.sig
@@ -103,6 +103,9 @@ exit 0
 %attr(-,root,%username) %homedir
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.12-1926
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.12-1925
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -10,10 +10,10 @@
 Name:           anjuta
 Epoch:          1
 Version:        3.34.0
-Release:        18%{?dist}
+Release:        19%{?dist}
 Summary:        GNOME IDE for various programming languages (including C/C++, Python, Vala and JavaScript)
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.anjuta.org/
 Source0:        http://download.gnome.org/sources/anjuta/3.34/%{name}-%{version}.tar.xz
 Patch0:         cpp-java.patch
@@ -187,6 +187,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/anjuta.desktop
 %{_libdir}/libanjuta-3.so.*
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:3.34.0-19
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.34.0-18
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

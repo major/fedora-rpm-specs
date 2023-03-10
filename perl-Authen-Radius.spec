@@ -2,7 +2,7 @@ Name:           perl-Authen-Radius
 Version:        0.32
 Release:        8%{?dist}
 Summary:        Provide simple Radius client facilities
-License:        Artistic 2.0
+License:        Artistic-2.0
 URL:            https://metacpan.org/release/Authen-Radius
 Source0:        https://cpan.metacpan.org/modules/by-module/Authen/Authen-Radius-%{version}.tar.gz
 BuildArch:      noarch

@@ -12,7 +12,7 @@
 
 Name:           rust-%{crate}
 Version:        0.16.1
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Installer for Fedora CoreOS and RHEL CoreOS
 
 # Upstream license specification: Apache-2.0
@@ -119,8 +119,6 @@ sed -i 's/"-Ccodegen-units=1",//' .cargo/config
 %install
 %if 0%{?rhel} && !0%{?eln}
 %make_install RELEASE=1
-# 51coreos-installer for coreos-installer-dracut
-%make_install -C coreos-installer-dracut-%{dracutcommit}
 %else
 %cargo_install -f rdcore
 # Install binaries, dracut modules, units, targets, generators for running via systemd
@@ -131,6 +129,9 @@ make install-man DESTDIR=%{buildroot}
 make install-data DESTDIR=%{buildroot}
 mv %{buildroot}%{_bindir}/rdcore %{buildroot}%{dracutlibdir}/modules.d/50rdcore/
 %endif
+
+# 51coreos-installer for coreos-installer-dracut
+%make_install -C coreos-installer-dracut-%{dracutcommit}
 
 %package     -n %{crate}-bootinfra
 Summary:     %{crate} boot-time infrastructure for use on Fedora/RHEL CoreOS
@@ -157,18 +158,16 @@ RHEL CoreOS.  It is not needed on other platforms.
 %{_unitdir}/*
 %{_systemdgeneratordir}/*
 
-%if 0%{?rhel} && !0%{?eln}
 %package     -n %{crate}-dracut
-Summary:     Dracut module for running coreos-installer in the initrd
+Summary:     Dracut module for running coreos-installer in the initrd in IoT/Edge
 Requires:    %{crate} = %{version}-%{release}
 
 %description -n %{crate}-dracut
 This subpackage contains files and configuration to run coreos-installer
-from the initramfs.
+from the initramfs in IoT/Edge and is supported by the community.
 
 %files       -n %{crate}-dracut
 %{dracutlibdir}/modules.d/51coreos-installer
-%endif
 
 %files       -n %{crate}
 %license LICENSE
@@ -188,6 +187,9 @@ from the initramfs.
 %endif
 
 %changelog
+* Tue Feb 21 2023 Paul Whalen <pwhalen@fedoraproject.org> - 0.16.1-6
+- Enable coreos-installer-dracut in Fedora
+
 * Fri Feb 17 2023 Jonathan Lebon <jonathan@jlebon.com> - 0.16.1-5
 - Backport patch that adds F39 signing key
 

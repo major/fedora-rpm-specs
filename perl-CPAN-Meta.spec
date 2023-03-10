@@ -2,7 +2,7 @@ Name:           perl-CPAN-Meta
 Summary:        Distribution metadata for a CPAN dist
 Version:        2.150010
 Release:        490%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-%{version}.tar.gz
 BuildArch:      noarch
@@ -10,8 +10,8 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Config)
 BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.17
 # Module

@@ -1,19 +1,21 @@
+# There are no ELF objects in this package, so turn off debuginfo generation.
+%global debug_package %{nil}
+
 # Install documentation with the devel package documentation
 %global _docdir_fmt %{name}-devel
 
 Name:           cli11
 Version:        2.3.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Command line parser for C++11
 
 License:        BSD-3-Clause
 URL:            https://github.com/CLIUtils/CLI11
 Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 
-BuildArch:      noarch
 BuildRequires:  boost-devel
+BuildRequires:  catch2-devel
 BuildRequires:  cmake
-BuildRequires:  cmake(catch2)
 BuildRequires:  doxygen
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -25,6 +27,7 @@ rich feature set with a simple and intuitive interface.
 
 %package devel
 Summary:        Command line parser for C++11
+BuildArch:      noarch
 Provides:       %{name}-static = %{version}-%{release}
 
 %description devel
@@ -40,6 +43,7 @@ rich feature set with a simple and intuitive interface.
 # MIT: dynsections.js, jquery.js, menu.js, menudata.js, search/search.js
 License:        BSD-3-Clause AND GPL-1.0-or-later AND MIT
 Summary:        Documentation for CLI11
+BuildArch:      noarch
 
 %description    docs
 Documentation for CLI11.
@@ -81,6 +85,10 @@ CXXFLAGS='%{build_cxxflags} -DCLI11_OPTIONAL -DCLI11_STD_OPTIONAL=1'
 %doc docs/CLI11.svg docs/CLI11_100.png
 
 %changelog
+* Wed Mar  8 2023 Jerry James <loganjerry@gmail.com> - 2.3.2-3
+- Header-only parent packages must not be noarch
+- Update the catch2-devel dependency
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

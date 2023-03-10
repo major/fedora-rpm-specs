@@ -1,10 +1,10 @@
-%global commit      f522a091e2838812d2669c331d7e9c283db6d54d
+%global commit      e1fe727127a813095854a5b063c15e955a77eafb
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
-%global date        20191024
+%global date        20210818
 
 Name:           vim-nerdtree-git-plugin
 Version:        0
-Release:        8.%{date}git%{shortcommit}%{?dist}
+Release:        9.%{date}git%{shortcommit}%{?dist}
 Summary:        Plugin of NERDTree showing git status
 
 License:        WTFPL
@@ -45,6 +45,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 
 
 %changelog
+* Wed Mar 08 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 0-9.20210818gite1fe727
+- chore: Update to latest version
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0-8.20191024gitf522a09
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

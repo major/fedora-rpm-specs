@@ -1,9 +1,9 @@
 Name:           abe
 Version:        1.1
-Release:        46%{?dist}
+Release:        47%{?dist}
 
 Summary:        Scrolling, platform-jumping, ancient pyramid exploring game
-License:        GPL+
+License:        GPL-1.0-or-later
 URL:            http://abe.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/abe/%{name}-%{version}.tar.gz
 Source1:        %{name}-icons.tar.xz
@@ -92,6 +92,9 @@ desktop-file-install --dir $RPM_BUILD_ROOT/%{_datadir}/applications/ %{name}.des
 %{_datadir}/icons/hicolor/*/apps/%{name}.png
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1-47
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-46
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

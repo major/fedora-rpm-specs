@@ -1,3 +1,5 @@
+%bcond_with xmvn_generator
+
 %if 0%{?fedora}
 %bcond_without ivy
 %else
@@ -14,7 +16,7 @@
 
 Name:           javapackages-tools
 Version:        6.1.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Macros and scripts for Java packaging support
 License:        BSD
 URL:            https://github.com/fedora-java/javapackages
@@ -27,12 +29,13 @@ Source8:        toolchains-openjdk8.xml
 Source11:       toolchains-openjdk11.xml
 Source17:       toolchains-openjdk17.xml
 
+Patch0:         0001-Remove-annotation-removal-scripts.patch
+
 BuildRequires:  coreutils
 BuildRequires:  which
 BuildRequires:  make
 BuildRequires:  asciidoc
 BuildRequires:  xmlto
-BuildRequires:  lua
 BuildRequires:  %{python_prefix}-devel
 BuildRequires:  %{python_prefix}-lxml
 BuildRequires:  %{python_prefix}-setuptools
@@ -101,6 +104,9 @@ Requires:       javapackages-common = %{version}-%{release}
 # Java build systems don't have hard requirement on java-devel, so it should be there
 Requires:       java-17-openjdk-devel
 Requires:       xmvn-tools
+%if %{with xmvn_generator}
+Requires:       xmvn-generator
+%endif
 
 %description -n javapackages-local
 This package provides non-essential macros and scripts to support Java packaging.
@@ -124,8 +130,8 @@ scripts to support Java packaging.
 
 %package -n javapackages-extra
 Summary:        Rarely-used macros and scripts for Java packaging support
-Requires:       javapackages-generators = %{version}-%{release}
-Requires:       lua
+Requires:       javapackages-common = %{version}-%{release}
+Requires:       jurand
 
 %description -n javapackages-extra
 This package provides rarely-used and obsolete macros and scripts to
@@ -160,6 +166,7 @@ OpenJDK 17 toolchain for XMvn
 
 %prep
 %setup -q -n javapackages-%{version}
+%patch0 -p1
 
 sed -i /javapackages-metadata.xml/d install
 
@@ -200,7 +207,7 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 
 %files -n javapackages-common -f files-common
 
-%files -n javapackages-extra -f files-extra
+%files -n javapackages-extra
 
 %files -n javapackages-local
 
@@ -226,6 +233,9 @@ install -p -m 644 %{SOURCE3} %{buildroot}%{_sysconfdir}/java/javapackages-config
 %license LICENSE
 
 %changelog
+* Wed Mar 08 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 6.1.0-8
+- Make javapackages-extra depend on jurand
+
 * Wed Jan 25 2023 Marian Koncek <mkoncek@redhat.com> - 6.1.0-7
 - Add generated Requires on multiple versions of java-headless
 

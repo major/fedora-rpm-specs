@@ -2,7 +2,7 @@ Summary:	SASL DIGEST-MD5 authentication (RFC2831)
 Name:		perl-Authen-DigestMD5
 Version:	0.04
 Release:	44%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Authen-DigestMD5
 Source0:	https://cpan.metacpan.org/modules/by-module/Authen/Authen-DigestMD5-%{version}.tar.gz
 Patch0:		Authen-DigestMD5-0.04-UTF8.patch

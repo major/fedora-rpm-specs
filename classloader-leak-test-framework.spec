@@ -5,7 +5,7 @@ Name:		classloader-leak-test-framework
 Version:	2.7.0
 Release:	4%{?dist}
 Summary:	Detection and verification of Java ClassLoader leaks
-License:	ASL 2.0
+License:	Apache-2.0
 URL:		https://github.com/mjiderhamn/classloader-leak-prevention/tree/master/%{name}
 Source0:	https://github.com/mjiderhamn/classloader-leak-prevention/archive/%{nwname}-%{version}.tar.gz
 

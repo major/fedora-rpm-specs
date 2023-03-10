@@ -1,12 +1,13 @@
 Name:			cgdb
 Version:		0.8.0
-Release:		4%{?dist}
+Release:		5%{?dist}
 Summary:		CGDB is a curses-based interface to the GNU Debugger (GDB)
 
 License:		GPLv2
 URL:			https://cgdb.github.io/
 Source0:		https://cgdb.me/files/%{name}-%{version}.tar.gz
 Source1:		https://cgdb.github.io/images/screenshot_debugging.png
+Patch0: cgdb-configure-c99.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:	readline-devel
@@ -30,8 +31,9 @@ Those familiar with vi should feel right at home using CGDB.
 
 
 %prep
-%setup -q
-
+%autosetup -p1
+# Avoid re-running configure.
+touch -r aclocal.m4 config/*.m4 configure
 
 %build
 autoconf
@@ -53,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT/%{_infodir}/dir
 %{_infodir}/cgdb.info.*
 
 %changelog
+* Wed Mar 08 2023 Florian Weimer <fweimer@redhat.com> - 0.8.0-5
+- Port configure script to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.8.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

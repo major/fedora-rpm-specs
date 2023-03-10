@@ -1,8 +1,8 @@
 %global orig_name kirigami-addons
 
 Name:           kf5-kirigami2-addons
-Version:        0.6
-Release:        2%{?dist}
+Version:        0.7.2
+Release:        1%{?dist}
 Epoch:          1
 License:        LGPLv3
 Summary:        Convergent visual components ("widgets") for Kirigami-based applications
@@ -68,6 +68,9 @@ Tree view Kirigami addon, which is useful for listing files.
 %{_kf5_qmldir}/org/kde/kirigamiaddons/treeview/
 
 %changelog
+* Wed Mar 08 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:0.7.2-1
+- Update to 0.7.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.6-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

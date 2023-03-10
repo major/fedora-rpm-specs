@@ -1,8 +1,8 @@
 Name:           AGReader
 Version:        1.2
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        Console reader for viewing AmigaGuide files
-License:        GPL+
+License:        GPL-1.0-or-later
 URL:            http://main.aminet.net/misc/unix/
 Source0:        http://main.aminet.net/misc/unix/%{name}.tar.bz2
 Source1:        agr.1
@@ -39,6 +39,9 @@ install -m0755 Sources/agr %{buildroot}%{_bindir}
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2-32
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

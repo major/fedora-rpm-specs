@@ -2,7 +2,7 @@
 
 Name:           guava
 Version:        31.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Google Core Libraries for Java
 # Most of the code is under ASL 2.0
 # Few classes are under CC0, grep for creativecommons
@@ -72,12 +72,10 @@ find . -name '*.jar' -delete
 %pom_remove_dep -r org.checkerframework:
 %pom_remove_dep -r :listenablefuture
 
-%java_remove_annotations guava guava-testlib -p \
-org[.]checkerframework[.] \
-com[.]google[.]common[.]annotations[.] \
-com[.]google[.]errorprone[.]annotation[.] \
-com[.]google[.]errorprone[.]annotations[.] \
-com[.]google[.]j2objc[.]annotations[.] \
+%java_remove_annotations guava guava-testlib -p org[.]checkerframework[.]
+%java_remove_annotations guava guava-testlib -p com[.]google[.]common[.]annotations[.]
+%java_remove_annotations guava guava-testlib -p com[.]google[.]errorprone[.]annotations[.]
+%java_remove_annotations guava guava-testlib -p com[.]google[.]j2objc[.]annotations[.]
 
 %mvn_package "com.google.guava:failureaccess" guava
 
@@ -98,6 +96,9 @@ com[.]google[.]j2objc[.]annotations[.] \
 %files testlib -f .mfiles-guava-testlib
 
 %changelog
+* Wed Mar 08 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 31.1-3
+- Port to Jurand 1.1.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 31.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

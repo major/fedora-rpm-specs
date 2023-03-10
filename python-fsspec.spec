@@ -7,8 +7,8 @@
 %global srcname fsspec
 
 Name:           python-%{srcname}
-Version:        2023.1.0
-%global tag     2023.1.0
+Version:        2023.3.0
+%global tag     2023.3.0
 Release:        %autorelease
 Summary:        Specification for Pythonic file system interfaces
 
@@ -17,8 +17,6 @@ URL:            https://github.com/fsspec/filesystem_spec
 Source0:        %{url}/archive/%{tag}/%{srcname}-%{tag}.tar.gz
 # https://github.com/fsspec/filesystem_spec/issues/1161
 Patch:          0001-Fix-path-test-in-git-archive-paths.patch
-# https://github.com/fsspec/filesystem_spec/pull/1190
-Patch:          0002-Mark-tests-that-use-s3fs.patch
 
 BuildArch:      noarch
 

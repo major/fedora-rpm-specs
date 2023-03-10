@@ -45,11 +45,12 @@ Name: lvm2
 Epoch: %{rhel}
 %endif
 Version: 2.03.19
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: GPLv2
 URL: https://sourceware.org/lvm2/
 Source0: https://sourceware.org/pub/lvm2/releases/LVM2.%{version}.tgz
-#Patch1: 0001-make-generate.patch
+Patch1: 0001-lvresize-fix-check-for-mounted-and-renamed-LV-to-han.patch
+Patch2: 0002-toollib-fix-segfault-if-using-S-select-with-log-repo.patch
 
 BuildRequires: make
 BuildRequires: gcc
@@ -103,7 +104,8 @@ or more physical volumes and creating one or more logical volumes
 
 %prep
 %setup -q -n LVM2.%{version}
-#%%patch1 -p1 -b .backup1
+%patch1 -p1 -b .backup1
+%patch2 -p1 -b .backup2
 
 %build
 %global _default_pid_dir /run
@@ -656,6 +658,10 @@ An extensive functional testsuite for LVM2.
 %endif
 
 %changelog
+* Wed Mar 08 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.19-2
+- Fix lvresize's check for mounted and renamed LVs to handle spaces.
+- Fix segfault when using -S|--select with log/report_command_log=1.
+
 * Tue Feb 21 2023 Marian Csontos <mcsontos@redhat.com> - 2.03.19-1
 - Update to upstream version 2.03.19.
 

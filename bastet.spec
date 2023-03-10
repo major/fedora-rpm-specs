@@ -1,9 +1,9 @@
 Name:		bastet
 Version:	0.43.2
-Release:	4%{?dist}
+Release:	5%{?dist}
 Summary:	An evil falling bricks game
 
-License:	GPLv3+
+License:	GPL-3.0-or-later
 URL:		https://github.com/fph/bastet
 Source0:	https://github.com/fph/bastet/archive/%{version}.zip
 Source1:	%{name}.desktop
@@ -83,6 +83,9 @@ mkdir -p %{buildroot}%{_mandir}/man6/
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 0.43.2-5
+- migrated to SPDX license
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 0.43.2-4
 - Rebuilt for Boost 1.81
 

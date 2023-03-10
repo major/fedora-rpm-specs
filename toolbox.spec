@@ -11,7 +11,7 @@ Version:       0.0.99.4
 %gometa -f
 %endif
 
-Release:       1%{?dist}
+Release:       2%{?dist}
 Summary:       Tool for containerized command line environments on Linux
 
 License:       ASL 2.0
@@ -20,6 +20,7 @@ Source0:       https://github.com/containers/%{name}/releases/download/%{version
 
 # Upstream
 Patch0:        toolbox-Don-t-use-podman-1-when-generating-the-comp.patch
+Patch1:        toolbox-Sprinkle-a-debug-log.patch 
 
 # Fedora specific
 Patch100:      toolbox-Make-the-build-flags-match-Fedora-s-gobuild.patch
@@ -156,6 +157,7 @@ The %{name}-tests package contains system tests for %{name}.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %ifnarch ppc64
 %patch100 -p1
@@ -213,6 +215,9 @@ export CGO_CFLAGS="%{optflags} -D_GNU_SOURCE -D_LARGEFILE_SOURCE -D_LARGEFILE64_
 
 
 %changelog
+* Wed Mar 8 2023 Nieves Montero <nmontero@redhat.com> - 0.0.99.4-2
+- Sprinkle a debug log
+
 * Wed Feb 22 2023 Debarshi Ray <rishi@fedoraproject.org> - 0.0.99.4-1
 - Update to 0.0.99.4
 

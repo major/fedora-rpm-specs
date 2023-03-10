@@ -9,10 +9,10 @@
 Name:           gitolite3
 Epoch:          1
 Version:        3.6.12
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Highly flexible server for git directory version tracker
 
-License:        GPLv2 and CC-BY-SA
+License:        GPL-2.0-only AND CC-BY-SA-1.0
 URL:            http://github.com/sitaramc/gitolite
 Source0:        https://github.com/sitaramc/gitolite/archive/v%{version}.tar.gz
 Source1:        gitolite3-README-fedora
@@ -92,6 +92,9 @@ exit 0
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:3.6.12-9
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.6.12-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

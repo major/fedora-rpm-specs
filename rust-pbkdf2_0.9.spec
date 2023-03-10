@@ -4,8 +4,8 @@
 
 %global crate pbkdf2
 
-Name:           rust-pbkdf2
-Version:        0.10.1
+Name:           rust-pbkdf2_0.9
+Version:        0.9.0
 Release:        %autorelease
 Summary:        Generic implementation of PBKDF2
 

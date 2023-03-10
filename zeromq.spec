@@ -1,8 +1,9 @@
 %bcond_without pgm
+%bcond_without unwind
 
 Name:           zeromq
 Version:        4.3.4
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Software library for fast, message-based applications
 
 License:        LGPLv3+
@@ -17,7 +18,10 @@ BuildRequires:  libtool
 BuildRequires:  asciidoc
 BuildRequires:  xmlto
 BuildRequires:  libsodium-devel
+
+%if %{with unwind}
 BuildRequires:  libunwind-devel
+%endif
 
 %if %{with pgm}
 BuildRequires:  openpgm-devel
@@ -63,7 +67,9 @@ autoreconf -fi
             --with-libgssapi_krb5 \
 %endif
             --with-libsodium \
+%if %{with unwind}
             --enable-libunwind \
+%endif
             --disable-Werror \
             --disable-static
 %make_build
@@ -101,6 +107,10 @@ make check V=1 || ( cat test-suite.log && exit 1 )
 
 
 %changelog
+* Tue Mar 7 2023 Ben Woodard <woodard@redhat.com> - 4.3.4-6
+- disable building with libunwind to fix C++ exceptions when a C applicaion loads
+  a module written in C++ #2175966
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.3.4-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

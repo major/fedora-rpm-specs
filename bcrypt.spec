@@ -1,9 +1,9 @@
 Name:           bcrypt
 Version:        1.1
-Release:        31%{?dist}
+Release:        32%{?dist}
 Summary:        File encryption utility
 
-License:        BSD
+License:        Zlib
 URL:            http://%{name}.sourceforge.net/
 Source0:        http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
 Patch0:         bcrypt-fencepost.patch
@@ -50,6 +50,9 @@ Bruce Schneier in 1993.
 %{_bindir}/bcrypt
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.1-32
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.1-31
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,5 +1,5 @@
-%global nativever 2.1.2
-%global baserelease 3
+%global nativever 2.2
+%global baserelease 1
 %global pythonver 2.0
 %global pythonrelease %{nativever}.%{baserelease}
 
@@ -176,7 +176,7 @@ popd
 %{_sbindir}/geographiclib-get-geoids
 %{_sbindir}/geographiclib-get-gravity
 %{_sbindir}/geographiclib-get-magnetic
-%{_libdir}/libGeographicLib.so.23*
+%{_libdir}/libGeographicLib.so.24*
 %{_mandir}/man1/*.1.*
 %{_mandir}/man8/*.8.*
 
@@ -245,6 +245,9 @@ popd
 
 
 %changelog
+* Wed Mar 08 2023 Sandro Mani <manisandro@gmail.com> - 2.2-1
+- Update to 2.2
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

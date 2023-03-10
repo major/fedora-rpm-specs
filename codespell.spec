@@ -1,6 +1,6 @@
 Name:           codespell
-Version:        2.2.2
-Release:        3%{?dist}
+Version:        2.2.4
+Release:        1%{?dist}
 Summary:        Fix common misspellings in text files
 
 License:        GPLv2 and CC-BY-SA
@@ -10,7 +10,7 @@ BuildArch:      noarch
 
 BuildRequires:  git
 BuildRequires:  python3-devel
-BuildRequires:  python3dist(setuptools)
+BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python-setuptools_scm
 BuildRequires:  python3-pytest
 
@@ -19,30 +19,30 @@ codespell fixes common misspellings in text files. It's designed primarily for
 checking misspelled words in source code, but it can be used with other files
 as well.
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %prep
 %autosetup -n %{name}-%{version}
 # Remove bundled egg-info
 rm -rf %{name}.egg-info
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-
-rm -rf $RPM_BUILD_ROOT/%{python3_sitelib}/codespell_lib/tests
-
-%check
-%{__python3} setup.py test
+%pyproject_install
 
 %files
 %doc README.rst
 %{_bindir}/codespell
 %{python3_sitelib}/codespell_lib
-%{python3_sitelib}/bin/codespell
-%{python3_sitelib}/%{name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{name}-%{version}.dist-info
 
 %changelog
+* Wed Mar 08 2023 Bastien Nocera <bnocera@redhat.com> - 2.2.4-1
+- Update to 2.2.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -100,7 +100,8 @@ sed -r -i '/(pycodestyle|flake8)/d' setup.py
 %pyproject_wheel
 
 %if %{with doc_pdf}
-PYTHONPATH="%{pyproject_build_lib}" %make_build -C docs latex \
+BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
+PYTHONPATH="${BLIB}" %make_build -C docs latex \
         SPHINXBUILD='sphinx-build' SPHINXOPTS='%{?_smp_mflags}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif

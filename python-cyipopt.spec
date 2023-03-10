@@ -22,6 +22,9 @@ Patch:          %{url}/pull/136.patch
 # Fix a couple of small documentation typos
 # https://github.com/mechmotum/cyipopt/pull/137
 Patch:          %{url}/pull/137.patch
+# Don’t use deprecated/removed np.float alias
+# https://github.com/mechmotum/cyipopt/pull/191
+Patch:          %{url}/pull/191.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -114,8 +117,8 @@ echo 'latex_elements["preamble"] = r"\usepackage{enumitem}\setlistdepth{99}"' \
 %pyproject_wheel
 
 %if %{with doc_pdf}
-PYTHONPATH="%{pyproject_build_lib}" \
-    %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
+PYTHONPATH="${BLIB}" %make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 

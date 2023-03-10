@@ -1,6 +1,6 @@
 Name:           perl-Date-Manip
-Version:        6.90
-Release:        3%{?dist}
+Version:        6.91
+Release:        1%{?dist}
 Summary:        Date manipulation routines
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Date-Manip
@@ -80,6 +80,9 @@ make test
 %{_bindir}/dm_*
 
 %changelog
+* Wed Mar 08 2023 Jan Pazdziora <jpazdziora@redhat.com> - 6.91-1
+- 2174484 - Rebase to upstream version 6.91.
+
 * Fri Mar 03 2023 Michal Josef Špaček <mspacek@redhat.com> - 6.90-3
 - Update license to SPDX format
 

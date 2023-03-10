@@ -1,14 +1,11 @@
-# Only need manual requires for "use base XXX;" prior to rpm 4.9
-%global rpm49 %(rpm --version | perl -p -e 's/^.* (\\d+)\\.(\\d+).*/sprintf("%d.%03d",$1,$2) ge 4.009 ? 1 : 0/e' 2>/dev/null || echo 0)
-
 Name:           perl-Array-Diff
 # Because 0.08 compares newer than 0.05002 in Perl world
 # but not in RPM world :-(
 Epoch:          1
 Version:        0.09
-Release:        13%{?dist}
+Release:        14%{?dist}
 Summary:        Find the differences between two arrays
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Array-Diff
 Source0:        https://cpan.metacpan.org/modules/by-module/Array/Array-Diff-%{version}.tar.gz
 BuildArch:      noarch
@@ -31,9 +28,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
 # Dependencies
-%if ! %{rpm49}
-Requires:       perl(Class::Accessor::Fast)
-%endif
+# (none)
 
 %description
 This module compares two arrays and returns the added or deleted elements in
@@ -57,17 +52,17 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
-%dir %{perl_vendorlib}/Array/
-%{perl_vendorlib}/Array/Diff.pm
+%{perl_vendorlib}/Array/
 %{_mandir}/man3/Array::Diff.3*
 
 %changelog
+* Wed Mar  8 2023 Paul Howarth <paul@city-fan.org> - 1:0.09-14
+- Use SPDX-format license tag
+- Drop support for building with rpm < 4.9
+- Use %%license unconditionally
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.09-13
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

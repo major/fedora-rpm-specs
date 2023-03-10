@@ -1,12 +1,11 @@
 Name:           openhantek
-Version:        3.3.2
-Release:        2%{?dist}
+Version:        3.3.2.2
+Release:        1%{?dist}
 Summary:        Hantek and compatible USB digital signal oscilloscope
 
-License:        GPL-3.0-or-later and GPL-2.0-or-later and Apache-2.0
+License:        GPL-3.0-or-later AND GPL-2.0-or-later AND Apache-2.0
 URL:            https://github.com/OpenHantek/OpenHantek6022
 Source0:        %{url}/archive/%{version}/OpenHantek6022-%{version}.tar.gz
-Patch0:         version.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  cmake3
@@ -21,7 +20,6 @@ BuildRequires:  binutils-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  doxygen
 BuildRequires:  pkgconfig(udev)
-BuildRequires:  hicolor-icon-theme
 
 Requires:       hicolor-icon-theme
 Requires:       udev
@@ -58,6 +56,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/OpenHantek.desktop
 
 
 %changelog
+* Wed Mar 08 2023 Vasiliy Glazov <vascom2@gmail.com> - 3.3.2.2-1
+- Update to 3.3.2.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.3.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

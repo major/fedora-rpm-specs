@@ -1,8 +1,8 @@
 %global srcname mypy_extensions
 
 Name:           python-%{srcname}
-Version:        0.4.3
-Release:        11%{?dist}
+Version:        1.0.0
+Release:        1%{?dist}
 Summary:        Extensions for mypy (separated out from mypy/extensions)
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -vrf *.egg-info/
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0-1
+- 1.0.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.4.3-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

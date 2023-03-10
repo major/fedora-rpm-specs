@@ -45,8 +45,8 @@
 
 Name: brltty
 Version: %{pkg_version}
-Release: 10%{?dist}
-License: LGPLv2+
+Release: 11%{?dist}
+License: LGPL-2.0-or-later
 URL: http://brltty.app/
 Source0: http://brltty.app/archive/%{name}-%{version}.tar.xz
 Source1: brltty.service
@@ -101,7 +101,7 @@ Speech Dispatcher, please install also package %{name}-speech-dispatcher.
 
 %package speech-dispatcher
 Summary: Speech Dispatcher driver for BRLTTY
-License: LGPLv2+
+License: LGPL-2.0-or-later
 BuildRequires: speech-dispatcher-devel
 Requires: %{name}%{?_isa} = %{pkg_version}-%{release}
 %description speech-dispatcher
@@ -110,7 +110,7 @@ This package provides the Speech Dispatcher driver for BRLTTY.
 
 %package docs
 Summary: Documentation for BRLTTY
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: %{name} = %{pkg_version}-%{release}
 BuildArch: noarch
 %description docs
@@ -118,7 +118,7 @@ This package provides the documentation for BRLTTY.
 
 %package xw
 Summary: XWindow driver for BRLTTY
-License: LGPLv2+
+License: LGPL-2.0-or-later
 BuildRequires: libSM-devel libICE-devel libX11-devel libXaw-devel libXext-devel libXt-devel libXtst-devel
 Requires: %{name}%{?_isa} = %{pkg_version}-%{release}
 Requires: xorg-x11-fonts-misc, ucs-miscfixed-fonts
@@ -127,7 +127,7 @@ This package provides the XWindow driver for BRLTTY.
 
 %package at-spi2
 Summary: AtSpi2 driver for BRLTTY
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{pkg_version}-%{release}
 %description at-spi2
 This package provides the AtSpi2 driver for BRLTTY.
@@ -135,7 +135,7 @@ This package provides the AtSpi2 driver for BRLTTY.
 %if %{with_espeak}
 %package espeak
 Summary: eSpeak driver for BRLTTY
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{pkg_version}-%{release}
 %description espeak
 This package provides the eSpeak driver for BRLTTY.
@@ -143,7 +143,7 @@ This package provides the eSpeak driver for BRLTTY.
 
 %package espeak-ng
 Summary: eSpeak-NG driver for BRLTTY
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: %{name}%{?_isa} = %{pkg_version}-%{release}
 %if ! %{with_espeak}
 Obsoletes: brltty-espeak <= 5.6-5
@@ -153,7 +153,7 @@ This package provides the eSpeak-NG driver for BRLTTY.
 
 %package -n brlapi
 Version: %{api_version}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Summary: Application Programming Interface for BRLTTY
 Recommends: %{name} = %{pkg_version}-%{release}
 Requires(pre): glibc-common, shadow-utils
@@ -167,7 +167,7 @@ a refreshable braille display.
 
 %package -n brlapi-devel
 Version: %{api_version}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 Summary: Headers, static archive, and documentation for BrlAPI
 
@@ -185,7 +185,7 @@ which directly accesses a refreshable braille display.
 
 %package -n tcl-brlapi
 Version: %{api_version}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: tcl-devel
 Summary: Tcl binding for BrlAPI
@@ -196,7 +196,7 @@ This package provides the Tcl binding for BrlAPI.
 %package -n python2-brlapi
 %{?python_provide:%python_provide python2-brlapi}
 Version: %{api_version}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: Cython
 BuildRequires: python2-devel
@@ -210,7 +210,7 @@ This package provides the Python 2 binding for BrlAPI.
 %package -n python3-brlapi
 %{?python_provide:%python_provide python3-brlapi}
 Version: %{api_version}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: python3-Cython
 BuildRequires: python3-devel
@@ -226,7 +226,7 @@ This package provides the Python 3 binding for BrlAPI.
 %if %{JAVA}
 %package -n brlapi-java
 Version: %{api_version}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: jpackage-utils
 BuildRequires: java-devel
@@ -238,7 +238,7 @@ This package provides the Java binding for BrlAPI.
 %if 0%{?with_ocaml}
 %package -n ocaml-brlapi
 Version: %{api_version}
-License: LGPLv2+
+License: LGPL-2.0-or-later
 Requires: brlapi%{?_isa} = %{api_version}-%{release}
 BuildRequires: ocaml
 BuildRequires: make
@@ -681,6 +681,9 @@ fi
 %config(noreplace) %verify(not size md5 mtime) %{_sysconfdir}/brltty/Initramfs/cmdline
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.5-11
+- migrated to SPDX license
+
 * Tue Jan 24 2023 Richard W.M. Jones <rjones@redhat.com> - 6.5-10
 - Rebuild OCaml packages for F38
 

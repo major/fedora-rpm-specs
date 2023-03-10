@@ -2,8 +2,8 @@
 %global pypi_name identify
 
 Name:           python-%{pypi_name}
-Version:        2.5.18
-Release:        2%{?dist}
+Version:        2.5.19
+Release:        1%{?dist}
 Summary:        File identification library for Python
 
 License:        MIT
@@ -65,6 +65,9 @@ rm -rf %{pypi_name}.egg-info
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.19-1
+- 2.5.19
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.5.18-2
 - migrated to SPDX license
 

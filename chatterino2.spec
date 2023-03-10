@@ -19,7 +19,7 @@ ExcludeArch: %{ix86}
 %global shortcommit4    %(c=%{commit4}; echo ${c:0:7})
 
 #   * serialize
-%global commit5         7d37cbfd5ac3bfbe046118e1cec3d32ba4696469
+%global commit5         1f99aa808eda5e717245254032c6bf58b0fc088a
 %global shortcommit5    %(c=%{commit5}; echo ${c:0:7})
 
 #   * qtkeychain
@@ -44,7 +44,7 @@ ExcludeArch: %{ix86}
 
 
 Name:           chatterino2
-Version:        2.4.1
+Version:        2.4.2
 Release:        %autorelease
 Summary:        Chat client for https://twitch.tv
 

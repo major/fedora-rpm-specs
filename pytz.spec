@@ -3,7 +3,7 @@
 
 Name:           pytz
 Version:        2022.7.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        World Timezone Definitions for Python
 
 License:        MIT
@@ -68,6 +68,9 @@ rm -r %{buildroot}%{python3_sitelib}/pytz/zoneinfo
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2022.7.1-3
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.7.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,9 @@
-%global svn_revision 3572
-%global svn_date 20221024
+%global svn_revision 3589
+%global svn_date 20230220
 
 Name:           kBuild
 Version:        0.1.9998%{?svn_revision:.r%{svn_revision}}
-Release:        3%{?svn_date:.%{svn_date}}%{?dist}
+Release:        1%{?svn_date:.%{svn_date}}%{?dist}
 Summary:        A cross-platform build environment
 
 License:        BSD and GPLv2+
@@ -20,6 +20,8 @@ Patch10:        assert.patch
 Patch11:        relax_automake_version.patch
 Patch12:        kBuild-configure-c99.patch
 Patch13:        kBuild-c99.patch
+Patch14:        changeset_3572.diff
+Patch15:        changeset_trunk_3566.diff
 
 BuildRequires:  make
 BuildRequires:  gcc
@@ -62,6 +64,11 @@ repository.
 %endif
 %patch12 -p1
 %patch13 -p1
+%if 0%{?rhel} && 0%{?rhel} <= 7
+# we need revert this 2 commits to build VBox 6 on el7
+%patch14 -p1 -R -b .revert
+%patch15 -p1 -R -b .revert2
+%endif
 
 %build
 echo KBUILD_SVN_URL := http://svn.netlabs.org/repos/kbuild/trunk  >  SvnInfo.kmk
@@ -105,13 +112,17 @@ pod2man -c 'kBuild for Fedora/EPEL GNU/Linux' \
 
 
 %changelog
+* Thu Mar 09 2023 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3589-1.20230220
+- new version
+- revert changeset 3572 and 3566 to build VBox 6 on el7
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.1.9998.r3572-3.20221024
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Sat Dec 17 2022 Florian Weimer <fweimer@redhat.com> - 0.1.9998.r3572-2.20221024
 - C99 compatibility fixes (#2154544)
 
-* Mon Oct 24 2022 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3572-2.20221024
+* Mon Oct 24 2022 Sérgio Basto <sergio@serjux.com> - 0.1.9998.r3572-1.20221024
 - Update to r3572.20221024
 - Allow build with automake 1.13.4 on epel7
 

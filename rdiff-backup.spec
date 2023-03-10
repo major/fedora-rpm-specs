@@ -1,9 +1,9 @@
-%global gittag 2.2.3
+%global gittag 2.2.4
 
 Version: %{gittag}
 Summary: Convenient and transparent local/remote incremental mirror/backup
 Name: rdiff-backup
-Release: 3%{?dist}
+Release: 2%{?dist}
 
 URL: https://rdiff-backup.net/
 Source0: https://github.com/%{name}/%{name}/releases/download/v%{gittag}/%{name}-%{version}.tar.gz
@@ -59,6 +59,12 @@ rm -rf $RPM_BUILD_ROOT/usr/share/doc/*
 %license COPYING
 
 %changelog
+* Wed Mar 08 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.4-2
+- Small Fix Release v2.2.4 - Fedora/EPEL Release
+
+* Tue Feb 28 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.4-1
+- Small Fix Release v2.2.4 - COPR Release
+
 * Sun Feb 19 2023 Frank Crawford <frank@crawford.emu.id.au> - 2.2.3-2
 - Fix release v2.2.3 - Fedora/EPEL Release
 

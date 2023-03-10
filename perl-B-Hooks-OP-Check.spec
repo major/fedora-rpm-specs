@@ -2,7 +2,7 @@ Name:           perl-B-Hooks-OP-Check
 Summary:        Wrap OP check callbacks
 Version:        0.22
 Release:        19%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/B-Hooks-OP-Check
 Source0:        https://cpan.metacpan.org/modules/by-module/B/B-Hooks-OP-Check-%{version}.tar.gz
 # Module Build
@@ -26,6 +26,7 @@ BuildRequires:  perl(Test::More)
 # Optional Tests
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 # Dependencies
+# (none)
 
 # Avoid provides from private shared objects
 %{?perl_default_filter}
@@ -50,11 +51,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENCE
-%else
-%doc LICENCE
-%endif
 %doc Changes CONTRIBUTING README t/
 %{perl_vendorarch}/auto/B/
 %{perl_vendorarch}/B/

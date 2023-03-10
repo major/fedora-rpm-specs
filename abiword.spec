@@ -3,10 +3,10 @@
 
 Name: abiword
 Version: 3.0.5
-Release: 5%{?dist}
+Release: 6%{?dist}
 Epoch: 1
 Summary: Word processing program
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: http://www.abisource.com/
 
 Source0: http://abisource.com/downloads/abiword/%{version}/source/abiword-%{version}.tar.gz
@@ -188,6 +188,9 @@ find %{buildroot} -name '*.a' -delete
 %pycached %{python3_sitelib}/gi/overrides/Abi.py
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1:3.0.5-6
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.0.5-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

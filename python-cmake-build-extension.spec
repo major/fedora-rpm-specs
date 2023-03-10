@@ -127,15 +127,9 @@ pushd test_example >/dev/null
 export PYTHONPATH='%{buildroot}%{python3_sitelib}'
 %pyproject_wheel
 
-PPBL="%{pyproject_build_lib}"
-export PYTHONPATH="${PYTHONPATH}:${PPBL}"
-for pathpart in $(echo "${PPBL}" | tr ':' ' ')
-do
-  PATH="${PATH}:${pathpart}/mymath_pybind11/bin"
-  PATH="${PATH}:${pathpart}/mymath_swig/bin"
-  export PATH
-  find "${pathpart}" -type f -perm /0111
-done
+BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
+export PYTHONPATH="${PYTHONPATH}:${BLIB}"
+export PATH="${PATH}:${BLIB}/mymath_pybind11/bin:${BLIB}/mymath_swig/bin"
 %pytest
 popd >/dev/null
 %endif

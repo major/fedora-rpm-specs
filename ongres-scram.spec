@@ -5,7 +5,7 @@ Name:		ongres-%upstream_name
 Version:	%(echo %upstream_version | sed 's/-/~/g')
 Release:	9%{?dist}
 Summary:	Salted Challenge Response Authentication Mechanism (SCRAM) - Java Implementation
-License:	BSD and MIT and ASL 2.0
+License:	MIT AND BSD-2-Clause
 URL:           https://github.com/ongres/%upstream_name
 Source0:       https://github.com/ongres/%upstream_name/archive/%upstream_version/%upstream_name-%upstream_version.tar.gz
 BuildRequires:	maven-local

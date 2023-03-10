@@ -3,7 +3,7 @@
 Summary: GNOME base GUI library
 Name: libgnomeui
 Version: 2.24.5
-Release: 28%{?dist}
+Release: 29%{?dist}
 URL: http://www.gnome.org
 Source0: http://download.gnome.org/sources/libgnomeui/2.24/%{name}-%{version}.tar.bz2
 
@@ -11,7 +11,7 @@ Source0: http://download.gnome.org/sources/libgnomeui/2.24/%{name}-%{version}.ta
 Patch0: libgnomeui-2.23.4-disable-event-sounds.patch
 Patch1: 0001-gnome-scores.h-Convert-to-UTF-8.patch
 
-License: LGPLv2+
+License: LGPL-2.0-or-later
 
 BuildRequires: glib2-devel
 BuildRequires: gvfs-devel
@@ -95,6 +95,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 %{_includedir}/*
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.24.5-29
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.24.5-28
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

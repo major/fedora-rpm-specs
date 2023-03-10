@@ -3,8 +3,8 @@
 Summary:	Python binding for the ALSA library
 Name:		python-alsa
 Version:	%{baseversion}
-Release:	4%{?dist}
-License:	LGPLv2+
+Release:	5%{?dist}
+License:	LGPL-2.1-or-later
 Source0:	ftp://ftp.alsa-project.org/pub/pyalsa/pyalsa-%{version}.tar.bz2
 URL:		http://www.alsa-project.org/
 BuildRequires:	alsa-lib-devel >= %{version}
@@ -39,6 +39,9 @@ Summary: %summary
 %{python3_sitearch}/*
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.2.7-5
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.2.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

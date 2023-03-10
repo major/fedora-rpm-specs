@@ -1,9 +1,10 @@
 # Enable tests by default. To disable them use:
 #     rpmbuild -ba --without runtests pykickstart.spec
 %bcond_without runtests
+%bcond_with signed
 
 Name:      pykickstart
-Version:   3.44
+Version:   3.45
 Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
@@ -12,7 +13,9 @@ Url:       http://fedoraproject.org/wiki/pykickstart
 # our distribution.  Thus the source is only available from
 # within this srpm.
 Source0:   %{name}-%{version}.tar.gz
+%if %{with signed}
 Source1:   %{name}-%{version}.tar.gz.asc
+%endif
 
 BuildArch: noarch
 

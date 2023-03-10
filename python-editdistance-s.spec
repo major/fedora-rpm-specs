@@ -14,7 +14,7 @@ algorithm of Myers", (2001).}
 
 Name:           python-%{pypi_name}
 Version:        1.0.0
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Fast implementation of the Levenshtein distance
 
 License:        MIT
@@ -66,6 +66,9 @@ pytest-%{python3_version}
 %{python3_sitearch}/%{modname}-%{version}-py%{python3_version}.egg-info
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0-8
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.0-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

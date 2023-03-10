@@ -6,7 +6,7 @@ Version:        0.20.1
 Release:        %autorelease
 Summary:        Python dependency injection framework inspired by Guice
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/alecthomas/injector
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch

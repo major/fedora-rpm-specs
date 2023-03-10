@@ -5,7 +5,7 @@ Version:        3.1.2
 Release:        1%{?dist}
 Summary:        Connects applications developed in Java to MariaDB and MySQL databases
 # added BSD license because of https://bugzilla.redhat.com/show_bug.cgi?id=1291558#c13
-License:        BSD and LGPLv2+
+License:        LGPL-2.1-only
 URL:            https://mariadb.com/kb/en/mariadb/about-mariadb-connector-j/
 Source0:        https://github.com/mariadb-corporation/mariadb-connector-j/archive/refs/tags/%{version}.tar.gz#/mariadb-connector-j-%{version}.tar.gz
 # optional dependency not in Fedora

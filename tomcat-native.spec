@@ -1,6 +1,7 @@
 Name:           tomcat-native
-Version:        2.0.2
-Release:        2%{?dist}
+Epoch:          1
+Version:        1.2.36
+Release:        1%{?dist}
 Summary:        Tomcat native library
 
 License:        ASL 2.0
@@ -63,6 +64,9 @@ rm -rf ${RPM_BUILD_ROOT}%{_includedir}/*.h
 
 
 %changelog
+* Wed Mar 08 2023 Hui Wang <huwang@redhat.com> - 1:1.2.36-1
+- Downgrade to 1.2.36 (#2124703)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

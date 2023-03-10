@@ -1,8 +1,8 @@
 %bcond_with bootstrap
 
-Name:           maven-plugin-bundle
+Name:           maven-bundle-plugin
 Version:        5.1.1
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        Maven Bundle Plugin
 License:        ASL 2.0
 URL:            https://felix.apache.org
@@ -25,8 +25,13 @@ BuildRequires:  mvn(org.apache.maven.plugins:maven-plugin-plugin)
 BuildRequires:  mvn(org.apache.maven.plugin-tools:maven-plugin-annotations)
 BuildRequires:  mvn(org.apache.maven.shared:maven-dependency-tree)
 BuildRequires:  mvn(org.codehaus.plexus:plexus-utils)
+BuildRequires:  mvn(org.slf4j:slf4j-api)
 BuildRequires:  mvn(org.sonatype.plexus:plexus-build-api)
 %endif
+
+# TODO remove Provides / Obsoletes on maven-plugin-bundle in Fedora 41
+Provides:       maven-plugin-bundle = %{version}-%{release}
+Obsoletes:      maven-plugin-bundle < 5.1.1-9
 
 %description
 Provides a maven plugin that supports creating an OSGi bundle
@@ -36,11 +41,15 @@ resources and dependencies. Plus a zillion other features.
 %package javadoc
 Summary:        Javadoc for %{name}
 
+# TODO remove Provides / Obsoletes on maven-plugin-bundle-javadoc in Fedora 41
+Provides:       maven-plugin-bundle-javadoc = %{version}-%{release}
+Obsoletes:      maven-plugin-bundle-javadoc < 5.1.1-9
+
 %description javadoc
 API documentation for %{name}.
 
 %prep
-%setup -q -n maven-bundle-plugin-%{version}
+%setup -q
 
 find -name '*.jar' -delete
 
@@ -75,6 +84,9 @@ rm -f src/main/java/org/apache/felix/bundleplugin/baseline/BaselineReport.java
 %license LICENSE NOTICE
 
 %changelog
+* Tue Feb 21 2023 Marian Koncek <mkoncek@redhat.com> - 5.1.1-9
+- Rename package from maven-plugin-bundle
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.1-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

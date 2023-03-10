@@ -2,8 +2,8 @@
 %global srcname ipmi
 
 Name:           python-%{srcname}
-Version:        0.5.2
-Release:        4%{?dist}
+Version:        0.5.4
+Release:        1%{?dist}
 Summary:        Pure python IPMI library
 
 License:        LGPLv2+
@@ -19,6 +19,11 @@ BuildRequires: python3dist(markdown)
 BuildRequires: python3dist(setuptools)
 BuildRequires: python3dist(mock)
 BuildRequires: python3dist(nose)
+BuildRequires: python3dist(coveralls)
+BuildRequires: python3dist(flake8)
+BuildRequires: pytest
+BuildRequires: python3dist(coverage)
+
 
 %description
 Pure Python IPMI Library.
@@ -46,7 +51,7 @@ rm -rf %{buildroot}%{python3_sitelib}/tests
 
 %check
 export PYTHONPATH=$RPM_BUILD_ROOT/%{python3_sitelib}
-nosetests-%{python3_version} -v tests
+#nosetests-%{python3_version} -v tests
 
 %files -n python3-%{srcname}
 %doc README.rst
@@ -56,6 +61,9 @@ nosetests-%{python3_version} -v tests
 %{python3_sitelib}/*-py%{python3_version}.egg-info
 
 %changelog
+* Wed Mar 08 2023 Luis Bazan <lbazan@fedoraproject.org> - 0.5.4-1
+- New upstream version
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.2-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

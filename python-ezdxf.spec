@@ -192,8 +192,9 @@ find docs/source -type f -exec \
     gawk '/\.svg/ { print FILENAME; nextfile }' '{}' '+' |
   xargs -r -t sed -r -i 's/\.svg/\.pdf/g'
 
-PYTHONPATH="%{pyproject_build_lib}" \
-    %make_build -C docs -f Makefile.linux latex SPHINXOPTS='%{?_smp_mflags}'
+BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
+PYTHONPATH="${BLIB}" %make_build -C docs -f Makefile.linux latex \
+    SPHINXOPTS='%{?_smp_mflags}'
 %make_build -C docs/build/latex LATEXMKOPTS='-quiet'
 %endif
 

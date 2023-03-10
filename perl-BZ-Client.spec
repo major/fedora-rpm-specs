@@ -1,8 +1,8 @@
 Name:           perl-BZ-Client
 Version:        4.4004
-Release:        8%{?dist}
+Release:        9%{?dist}
 Summary:        A client for the Bugzilla web services API
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later AND Artistic-1.0
 
 URL:            https://metacpan.org/release/BZ-Client
 Source0:        https://cpan.metacpan.org/authors/id/D/DJ/DJZORT/BZ-Client-%{version}.tar.gz
@@ -69,6 +69,9 @@ chmod 644 Changes README LICENSE
 %{_mandir}/man3/BZ*
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.4004-9
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.4004-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

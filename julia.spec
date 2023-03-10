@@ -1,21 +1,21 @@
-%global uvcommit e6f0e4900e195c8352f821abe2b3cffc3089547b
+%global uvcommit 2723e256e952be0b015b3c0086f717c3d365d97e
 %global uvversion 1.44.2
 
-%global llvmversion 13.0.1-3
-%global llvmcommit julia-13.0.1-3
+%global llvmversion 14.0.5
+%global llvmcommit julia-14.0.6-0
 
 %global libwhichversion 1.1.0
 %global libwhichcommit 81e9723c0273d78493dc8c8ed570f68d9ce7e89e
 
-%global blastrampolineversion 5.1.1
-%global blastrampolinecommit bac2f810d523003fbb431ecc6e9ea81c8b86e2d6
+%global blastrampolineversion 5.4.0
+%global blastrampolinecommit d00e6ca235bb747faae4c9f3a297016cae6959ed
 
 # Bundled until Julia supports libunwind 1.6
 # https://bugzilla.redhat.com/show_bug.cgi?id=2045732
 %global libunwindversion 1.5.0
 
-%global pkgcommit 0027cb18c39dfa2f0bf649fda654315e11be7bc3
-%global statisticscommit 61a021bcb330e6c52f2435f2abaffc77875ab6f2
+%global pkgcommit 887b06bb9b768bfca0622f112dc739d1a770932c
+%global statisticscommit 20fbe576ec406180b1dddf4c7fbe16458a7aef21
 
 %global logocommit 168fb6c1164e341df360ed6ced519e1e0cb7de3a
 
@@ -25,16 +25,19 @@
 %global __provides_exclude ^(%{_privatelibs})$
 %global __requires_exclude ^(%{_privatelibs})$
 
+# Precompiled packages confuse debuginfo check
+%undefine _missing_build_ids_terminate_build
+
 Name:           julia
-Version:        1.8.2
-Release:        3%{?dist}
+Version:        1.9.0
+Release:        0.beta4%{?dist}
 Summary:        High-level, high-performance dynamic language for technical computing
 # Julia itself is MIT
 # libuv, libwhich, libblastrampoline and libunwind are MIT
 # LLVM is Apache-2.0 WITH LLVM-exception
 License:        MIT and Apache-2.0-WITH-LLVM-exception
 URL:            http://julialang.org/
-Source0:        https://github.com/JuliaLang/julia/releases/download/v%{version}/julia-%{version}.tar.gz
+Source0:        https://github.com/JuliaLang/julia/releases/download/v1.9.0-beta4/julia-1.9.0-beta4.tar.gz
 # Julia currently uses a custom version of libuv, patches are not yet upstream
 Source1:        https://api.github.com/repos/JuliaLang/libuv/tarball/%{uvcommit}#/libuv-%{uvcommit}.tar.gz
 Source2:        https://api.github.com/repos/JuliaLang/llvm-project/tarball/%{llvmcommit}#/llvm-%{llvmcommit}.tar.gz
@@ -44,6 +47,8 @@ Source5:        https://api.github.com/repos/JuliaLang/Statistics.jl/tarball/%{s
 Source6:        https://raw.githubusercontent.com/JuliaLang/julia-logo-graphics/%{logocommit}/images/julia-logo-color.svg
 Source7:        https://api.github.com/repos/staticfloat/libblastrampoline/tarball/%{blastrampolinecommit}#/blastrampoline-%{blastrampolinecommit}.tar.gz
 Source8:        https://github.com/libunwind/libunwind/releases/download/v1.5/libunwind-%{libunwindversion}.tar.gz
+# https://github.com/JuliaLang/julia/pull/48931
+Patch0:         julia-libexecdir.patch
 Provides:       bundled(libuv) = %{uvversion}
 Provides:       bundled(llvm) = %{llvmversion}
 Provides:       bundled(libblastrampoline) = %{blastrampolineversion}
@@ -103,7 +108,7 @@ Requires:       libgomp.so.1
 %endif
 # https://bugzilla.redhat.com/show_bug.cgi?id=1158026
 # https://github.com/JuliaLang/julia/issues/30087
-ExcludeArch:    s390x ppc64le %{arm} aarch64
+ExclusiveArch:  x86_64
 
 %description
 Julia is a high-level, high-performance dynamic programming language
@@ -147,7 +152,14 @@ needed when programming in the Julia language, but rather for embedding
 Julia into external programs or debugging Julia itself.
 
 %prep
-%setup -q -n julia-%{version}
+%setup -q -n julia-1.9.0-beta4
+
+%patch0 -p1
+# Set timestamps older than tarball to prevent `make install` from calling `make docs` again
+# (which requires Internet access)
+touch -d "2023-02-08 18:16:05 +0100" base/linking.jl
+touch -d "2023-02-08 18:16:05 +0100" Makefile
+touch -d "2023-02-08 18:16:05 +0100" base/Makefile
 
 mkdir -p deps/srccache stdlib/srccache
 
@@ -223,7 +235,8 @@ cp -p %SOURCE6 contrib/julia.svg
 %endif
 
 # About build, build_libdir and build_bindir, see https://github.com/JuliaLang/julia/issues/5063#issuecomment-32628111
-%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=1 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_MBEDTLS=1 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
+# About USE_INTEL_JITEVENTS=0, see https://github.com/JuliaLang/julia/issues/47989
+%global commonopts USE_SYSTEM_LLVM=0 USE_SYSTEM_LIBUNWIND=0 USE_SYSTEM_PCRE=1 USE_SYSTEM_BLAS=1 USE_SYSTEM_LAPACK=1 USE_SYSTEM_GMP=1 USE_SYSTEM_MPFR=1 USE_SYSTEM_LIBSUITESPARSE=1 USE_SYSTEM_DSFMT=1 USE_SYSTEM_LIBUV=0 USE_SYSTEM_UTF8PROC=1 USE_SYSTEM_LIBGIT2=1 USE_SYSTEM_LIBSSH2=1 USE_SYSTEM_MBEDTLS=1 USE_SYSTEM_CURL=1 USE_SYSTEM_PATCHELF=1 USE_SYSTEM_LIBM=0 USE_SYSTEM_OPENLIBM=1 USE_SYSTEM_ZLIB=1 USE_SYSTEM_P7ZIP=1 USE_SYSTEM_NGHTTP2=1 USE_SYSTEM_CSL=1 USE_SYSTEM_LIBBLASTRAMPOLINE=0 USE_SYSTEM_LIBWHICH=0 USE_BINARYBUILDER=0 USE_INTEL_JITEVENTS=0 BUNDLE_DEBUG_LIBS=0 JULIA_SPLITDEBUG=1 TAGGED_RELEASE_BANNER="Fedora %{fedora} build" VERBOSE=1 %{march} %{cpu_target} %{blas} %{suitesparse_lib} prefix=%{_prefix} bindir=%{_bindir} libdir=%{_libdir} libexecdir=%{_libexecdir} datarootdir=%{_datarootdir} includedir=%{_includedir} sysconfdir=%{_sysconfdir} build_prefix=%{_builddir}/%{buildsubdir}/build%{_prefix} build_libdir=%{_builddir}/%{buildsubdir}/build%{_libdir} JULIA_CPU_THREADS=$(echo %{?_smp_mflags} | sed s/-j//)
 
 
 %build
@@ -257,6 +270,9 @@ sed "s/ \$(build_prefix)\\/manifest\\/zlib//" -i deps/llvm.mk
 # Work around random failure https://github.com/JuliaLang/julia/issues/42752
 sed "s/@test orig == Random.default_rng()//" -i stdlib/Test/test/runtests.jl
 sed "s/@test rand(orig) == rand()//" -i stdlib/Test/test/runtests.jl
+
+# Disable test that fails because Julia process doesn't error as expected
+sed "s/mktempdir() do pfx/false \&\& mktempdir() do pfx/" -i test/compiler/codegen.jl
 
 # Decrease debuginfo verbosity to reduce memory consumption during final library linking
 %ifarch %{arm} %{ix86}
@@ -397,10 +413,6 @@ popd
 # https://github.com/JuliaLang/julia/commit/5dc6201e8dccbf21aeeb1f79fef2d186c7800a4e#r47032178
 ln -sf /etc/pki/tls/cert.pem %{buildroot}%{_datarootdir}/julia/cert.pem
 
-# Julia installs a 7z symlink that would go to /usr/libexec/7z if we don't remove it
-# https://github.com/JuliaLang/julia/pull/43005
-rm %{buildroot}%{_libexecdir}/7z
-
 # Mark stack as non executable as the linker isn't able to detect this automatically
 # Needed until https://github.com/JuliaLang/julia/pull/43481 is merged
 # Also drop BuildRequires when removing this
@@ -434,8 +446,10 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 %doc %{_docdir}/julia/README.md
 %{_bindir}/julia
 %{_libdir}/julia/
+%{_libexecdir}/julia/
 %exclude %{_libdir}/julia/*debug*
 %{_libdir}/libjulia.so.*
+%{_datarootdir}/julia/compiled/
 %{_mandir}/man1/julia.1*
 %{_datarootdir}/appdata/julia.appdata.xml
 %{_datarootdir}/applications/%{name}.desktop
@@ -472,6 +486,10 @@ desktop-file-validate %{buildroot}%{_datarootdir}/applications/%{name}.desktop
 exit 0
 
 %changelog
+* Wed Mar 8 2023 Milan Bouchet-Valat <nalimilan@club.fr> - 1.9.0-0.beta4
+- New upstream release.
+- Drop i686 support due to test failures.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.8.2-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

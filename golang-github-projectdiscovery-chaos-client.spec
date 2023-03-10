@@ -3,7 +3,7 @@
 
 # https://github.com/projectdiscovery/chaos-client
 %global goipath         github.com/projectdiscovery/chaos-client
-Version:                0.4.0
+Version:                0.5.0
 
 %gometa -f
 
@@ -27,8 +27,6 @@ Source:         %{gosource}
 
 %prep
 %goprep
-# https://github.com/projectdiscovery/chaos-client/pull/148
-sed -e 's/int64(rlMax)/uint(rlMax)/' -i pkg/chaos/chaos.go
 
 %generate_buildrequires
 %go_generate_buildrequires

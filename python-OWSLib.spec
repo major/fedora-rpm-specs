@@ -145,13 +145,13 @@ k="${k-}${k+ and } not (TestOffline and test_wms_130_remotemd_parse_single)"
 
 %files -n python3-OWSLib -f %{pyproject_files}
 # pyproject_files handles LICENSE; verify with “rpm -qL -p …”
-%doc AUTHORS.rst
-%doc CHANGES.rst
-%doc README.rst
 
 
 %files doc
 %license LICENSE
+%doc AUTHORS.rst
+%doc CHANGES.rst
+%doc README.rst
 %doc examples
 %if %{with doc_pdf}
 %doc docs/build/latex/en/OWSLib.pdf

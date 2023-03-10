@@ -5,7 +5,7 @@ Version:        1.32
 Release:        2%{?dist}
 Summary:        Send test results to TeamCity continuous integration servers
 
-License:        ASL 2.0
+License:        Apache-2.0 
 
 Url:            https://github.com/JetBrains/teamcity-messages
 Source0:        https://github.com/JetBrains/teamcity-messages/archive/v%{version}/%{pypi_name}-%{version}.tar.gz

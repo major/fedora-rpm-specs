@@ -11,10 +11,10 @@ ideal for real-time web services.}
 
 Name:           python-%{srcname}
 Version:        6.2.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Scalable, non-blocking web server and tools
 
-License:        ASL 2.0
+License:        Apache-2.0 
 URL:            https://www.tornadoweb.org
 Source0:        https://github.com/tornadoweb/tornado/archive/v%{version}/%{srcname}-%{version}.tar.gz
 
@@ -66,6 +66,9 @@ export TRAVIS=true
 %doc demos
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 6.2.0-4
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

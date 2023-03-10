@@ -3,10 +3,10 @@
 
 Name:           gnucobol
 Version:        3.1.2
-Release:        9%{?dist}
+Release:        10%{?dist}
 Summary:        COBOL compiler
 
-License:        GPLv3+ and LGPLv3+ and GFDL
+License:        GPLv3+ AND LGPL-3.0-or-later AND GFDL-1.3-only
 
 URL:            https://www.gnu.org/software/gnucobol/
 Source0:        https://ftp.gnu.org/gnu/gnucobol/gnucobol-%{version}.tar.gz
@@ -42,7 +42,7 @@ programs to C code and compiles them using GCC.
 
 %package -n libcob
 Summary:        GnuCOBOL runtime library
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 
 %description -n libcob
 %{summary}.
@@ -100,6 +100,9 @@ make test CFLAGS="%optflags -O"
 %{_libdir}/gnucobol/CBL_OC_DUMP.so
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.1.2-10
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.1.2-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

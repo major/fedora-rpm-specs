@@ -7,8 +7,8 @@
 
 Summary: osinfo database files
 Name: osinfo-db
-Version: 20221130
-Release: 2%{?dist}
+Version: 20230308
+Release: 1%{?dist}
 License: LGPLv2+
 Source0: https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.xz
 Source1: https://fedorahosted.org/releases/l/i/libosinfo/%{name}-%{version}.tar.xz.asc
@@ -93,6 +93,9 @@ osinfo-db-import --root %{buildroot} --dir %{mingw64_datadir}/osinfo %{SOURCE0}
 %endif
 
 %changelog
+* Wed Mar 08 2023 Victor Toso <victortoso@redhat.com> - 20230308-1
+- Update to new release (v20230308)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20221130-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

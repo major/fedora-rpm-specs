@@ -3,7 +3,7 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:          gnome-extensions-app
-Version:       44~beta
+Version:       44~rc
 Release:       1%{?dist}
 Summary:       Manage GNOME Shell extensions
 
@@ -70,6 +70,9 @@ rm -rf %{buildroot}/%{_datadir}/%{name}/gir-1.0
 
 
 %changelog
+* Wed Mar 08 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-1
+- Update to 44.rc
+
 * Tue Feb 14 2023 Florian Müllner <fmuellner@redhat.com> - 44~beta-1
 - Update to 44.beta
 

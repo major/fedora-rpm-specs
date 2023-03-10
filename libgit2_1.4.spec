@@ -36,6 +36,8 @@ with bindings.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+# This compat -devel package provides an older version of libgit2-devel
+Provides:       libgit2-devel = %{?epoch:%{epoch}:}%{version}-%{release}
 # These devel packages are not installable in parallel
 Conflicts:      pkgconfig(libgit2)
 

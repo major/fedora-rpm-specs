@@ -15,11 +15,11 @@
 
 Name:       php-%{gh_project}
 Version:    1.8.0
-Release:    1%{?dist}
+Release:    2%{?dist}
 Summary:    A simple Atom/RSS parsing library for PHP
 
 Group:      Development/Libraries
-License:    BSD
+License:    BSD-3-Clause
 URL:        http://simplepie.org/
 
 # Use a git snapshot as upstream remove tests from distribution
@@ -127,6 +127,9 @@ exit $ret
 
 
 %changelog
+* Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.8.0-2
+- migrated to SPDX license
+
 * Mon Jan 23 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.8.0-1
 - 1.8.0
 
