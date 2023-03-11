@@ -49,7 +49,7 @@ Summary:        Web Console for Linux servers
 License:        LGPL-2.1-or-later
 URL:            https://cockpit-project.org/
 
-Version:        286
+Version:        287
 Release:        1%{?dist}
 Source0:        https://github.com/cockpit-project/cockpit/releases/download/%{version}/cockpit-%{version}.tar.xz
 
@@ -677,6 +677,10 @@ via PackageKit.
 
 # The changelog is automatically generated and merged
 %changelog
+* Thu Mar 09 2023 Packit <hello@packit.dev> - 287-1
+- Metrics: Column visiblity
+- Services: Pinned units need to be re-done
+
 * Wed Feb 22 2023 Packit <hello@packit.dev> - 286-1
 - Metrics page: control visibility of the resource usage graphs
 

@@ -1,7 +1,7 @@
 %global __cmake_in_source_build 1
 Name:           snappy
-Version:        1.1.9
-Release:        7%{?dist}
+Version:        1.1.10
+Release:        1%{?dist}
 Summary:        Fast compression and decompression library
 
 License:        BSD
@@ -11,11 +11,8 @@ Source0:        https://github.com/google/snappy/releases/download/%{version}/%{
 # Remove dependency on bundled gtest and google-benchmark.
 Patch0:         %{name}-thirdparty.patch
 
-# Prevent compiler error due to missing 'inline'.
-Patch1:         %{name}-inline.patch
-
 # Do not forcibly disable RTTI
-Patch2:         %{name}-do-not-disable-rtti.patch
+Patch1:         %{name}-do-not-disable-rtti.patch
 
 BuildRequires:  make
 BuildRequires:  cmake
@@ -96,6 +93,10 @@ ctest -V %{?_smp_mflags}
 
 
 %changelog
+* Thu Mar 09 2023 Martin Gieseking <martin.gieseking@uos.de> - 1.1.10-1
+- Updated to version 1.1.10.
+- Removed snappy-inline.patch as it's no longer required.
+
 * Tue Jan 31 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.1.9-7
 - Build with C++14 instead of C++11; gtest 1.13.0 requires it
 

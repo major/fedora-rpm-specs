@@ -1,9 +1,9 @@
 Name:           lazarus
 Summary:        Lazarus Component Library and IDE for Freepascal
 
-Version:        2.2.4
+Version:        2.2.6
 
-%global baserelease 2
+%global baserelease 1
 Release:        %{baserelease}%{?dist}
 
 # The qt5pas version is taken from lcl/interfaces/qt5/cbindings/Qt5Pas.pro
@@ -11,7 +11,7 @@ Release:        %{baserelease}%{?dist}
 %global qt5pas_release %(relstr="%{version}.%{baserelease}"; relstr=(${relstr//./ }); ((relno=${relstr[0]}*1000000 + ${relstr[1]}*10000 + ${relstr[2]}*100 + ${relstr[3]})); echo "${relno}%{?dist}";)
 
 # GNU Classpath style exception, see COPYING.modifiedLGPL
-License:        GPLv2+ and MPLv1.1 and LGPLv2+ with exceptions
+License:        GPL-2.0-or-later AND LGPL-2.0 WITH Classpath-exception-2.0 AND MPL-1.1
 URL:            http://www.lazarus-ide.org/
 Source0:        https://downloads.sourceforge.net/project/%{name}/Lazarus%20Zip%20_%20GZip/Lazarus%20%{version}/%{name}-%{version}-0.tar.gz
 
@@ -19,8 +19,9 @@ Source100:      lazarus.appdata.xml
 
 # Lazarus wants to put arch-specific stuff in /usr/share - make it go in /usr/lib istead
 Patch0:         0000-Makefile_patch.diff
-# Some config files explicitly use STABS debuginfo - change to DWARF
-Patch1:         0001-DWARF-debuginfo-everywhere.patch
+
+# Fix build errors for GTK3 widgetset
+Patch2:         0002-fix-GTK3-build-error.patch
 
 BuildRequires:  binutils
 BuildRequires:  desktop-file-utils
@@ -76,7 +77,7 @@ developing applications that use qt5pas.
 %prep
 %setup -c -q
 %patch0 -p1
-%patch1 -p1
+%patch2 -p1
 
 
 %build
@@ -140,6 +141,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %files
+%doc lazarus/README.md
+%license lazarus/COPYING*
 %{_libdir}/%{name}
 %{_bindir}/%{name}-ide
 %{_bindir}/startlazarus
@@ -152,8 +155,6 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 %{_datadir}/mime/packages/lazarus.xml
 %{_datadir}/icons/hicolor/48x48/mimetypes/*
 %{_metainfodir}/%{name}.appdata.xml
-%license lazarus/COPYING*
-%doc lazarus/README.md
 %dir %{_sysconfdir}/lazarus
 %config(noreplace) %{_sysconfdir}/lazarus/environmentoptions.xml
 %{_mandir}/*/*
@@ -168,6 +169,12 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.appdat
 
 
 %changelog
+* Wed Mar 08 2023 Artur Frenszek-Iwicki <fedora@svgames.pl> - 2.2.6-1
+- Update to v2.2.6
+- Add a patch to fix build errors when using the GTK3 widgetset
+- Convert License tag to SPDX
+- Drop Patch1 (fix components explicitly requesting STABS debuginfo - fixed upstream)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.2.4-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

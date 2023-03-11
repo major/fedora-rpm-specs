@@ -1,12 +1,12 @@
 # remirepo/fedora spec file for php-myclabs-deep-copy
 #
-# Copyright (c) 2015-2022 Remi Collet
-# License: CC-BY-SA
+# Copyright (c) 2015-2023 Remi Collet
+# License: CC-BY-SA-4.0
 # http://creativecommons.org/licenses/by-sa/4.0/
 #
 # Please, preserve the changelog entries
 #
-%global gh_commit    14daed4296fae74d9e3201d2c4925d1acb7aa614
+%global gh_commit    7284c22080590fb39f2ffa3e9057f10a4ddd0e0c
 %global gh_short     %(c=%{gh_commit}; echo ${c:0:7})
 %global gh_owner     myclabs
 %global gh_project   DeepCopy
@@ -16,8 +16,8 @@
 %bcond_without       tests
 
 Name:           php-myclabs-deep-copy%{major}
-Version:        1.11.0
-Release:        3%{?dist}
+Version:        1.11.1
+Release:        1%{?dist}
 
 Summary:        Create deep copies (clones) of your objects
 
@@ -94,7 +94,7 @@ require '%{buildroot}%{php_home}/%{gh_project}%{major}/autoload.php';
 EOF
 
 ret=0
-for cmd in php php74 php80 php81; do
+for cmd in php php80 php81 php82; do
   if which $cmd; then
     $cmd -d auto_prepend_file=vendor/autoload.php \
          %{_bindir}/phpunit9 --verbose || ret=1
@@ -114,6 +114,9 @@ exit $ret
 
 
 %changelog
+* Wed Mar  8 2023 Remi Collet <remi@remirepo.net> - 1.11.1-1
+- update to 1.11.1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.11.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

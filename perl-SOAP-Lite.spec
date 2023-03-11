@@ -1,6 +1,6 @@
 Name:       perl-SOAP-Lite
 Version:    1.27
-Release:    18%{?dist}
+Release:    19%{?dist}
 Summary:    Client and server side SOAP implementation
 License:    GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:        https://metacpan.org/release/SOAP-Lite
@@ -137,6 +137,9 @@ make test
 %{_mandir}/man1/*
 
 %changelog
+* Thu Mar 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.27-19
+- Remove obsolete filter-requires.sh script
+
 * Mon Mar 06 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.27-18
 - Update license to SPDX format
 

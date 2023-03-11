@@ -2,15 +2,15 @@
 %global appname PE-bear
 
 # Git revision of bearparser...
-%global commit1 0e07f217650bf1fb1883b602398377e376c8ace2
+%global commit1 e2c08098410c85e5546b77a2785444bbc9e0e21b
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 # Git revision of capstone...
-%global commit2 afb5575140dbf8405a8f6c3ec00ba1f954f668d0
+%global commit2 61cdc56159986e6d77be571b04c570cf2c378d13
 %global shortcommit2 %(c=%{commit2}; echo ${c:0:7})
 
 Name: pe-bear
-Version: 0.6.5
+Version: 0.6.5.2
 Release: 1%{?dist}
 
 # main - GPL-2.0-or-later
@@ -23,9 +23,6 @@ URL: https://github.com/hasherezade/%{name}
 Source0: %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1: https://github.com/hasherezade/bearparser/archive/%{commit1}/bearparser-%{shortcommit1}.tar.gz
 Source2: https://github.com/capstone-engine/capstone/archive/%{commit2}/capstone-%{shortcommit2}.tar.gz
-
-# https://github.com/hasherezade/pe-bear/pull/21
-Patch100: %{name}-linux-integration.patch
 
 Provides: bundled(bearparser) = 0.3~git%{shortcommit1}
 Provides: bundled(capstone) = 4.0.2~git%{shortcommit2}
@@ -80,5 +77,8 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Thu Mar 09 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.6.5.2-1
+- Updated to version 0.6.5.2.
+
 * Sun Feb 26 2023 Vitaly Zaitsev <vitaly@easycoding.org> - 0.6.5-1
 - Initial SPEC release.

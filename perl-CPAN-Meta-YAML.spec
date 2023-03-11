@@ -16,7 +16,7 @@ Name:		perl-CPAN-Meta-YAML
 Version:	0.018
 Release:	491%{?dist}
 Summary:	Read and write a subset of YAML for CPAN Meta files
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/CPAN-Meta-YAML
 Source0:	https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-YAML-%{version}.tar.gz
 BuildArch:	noarch
@@ -60,6 +60,7 @@ BuildRequires:	perl(Test::CPAN::Meta)
 BuildRequires:	perl(Test::Pod)
 BuildRequires:	perl(Test::Version)
 %endif
+# Dependencies
 Requires:	perl(Carp)
 Requires:	perl(Fcntl)
 

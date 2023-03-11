@@ -2,7 +2,7 @@ Name:           perl-Cache-Cache
 Version:        1.08
 Release:        25%{?dist}
 Summary:        Generic cache interface and implementations
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Cache-Cache
 Source0:        https://cpan.metacpan.org/modules/by-module/Cache/Cache-Cache-%{version}.tar.gz
 BuildArch:      noarch
@@ -28,6 +28,7 @@ BuildRequires:  perl(vars)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
+# (no additional dependencies)
 
 %description
 The Cache modules are designed to assist a developer in persisting data for a

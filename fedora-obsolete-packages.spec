@@ -28,7 +28,7 @@ available in the repository.}
 
 Name:       fedora-obsolete-packages
 # Please keep the version equal to the targeted Fedora release
-Version:    38
+Version:    39
 # The dist number is the version here, it is intentionally not repeated in the release
 %global dist %nil
 Release:    %autorelease
@@ -462,6 +462,8 @@ Source0:    README
 # Retired and blocks upgrades.
 %obsolete_ticket https://src.fedoraproject.org/rpms/msv/c/d64a3747a979f709029501929c8ffe97be3e4238?branch=rawhide
 %obsolete msv 2013.6.1-20
+%obsolete_ticket https://bugzilla.redhat.com/show_bug.cgi?id=2172468
+%obsolete python3-clikit 0.6.2-8
 
 # This package won't be installed, but will obsolete other packages
 Provides: libsolv-self-destruct-pkg()

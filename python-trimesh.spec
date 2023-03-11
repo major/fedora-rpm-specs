@@ -1,14 +1,3 @@
-%if 0%{?fc38} || 0%{?fc39}
-# Temporarily disable weak dependency on Blender:
-#   F39FailsToInstall: blender
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2172445
-#   F38FailsToInstall: blender
-#   https://bugzilla.redhat.com/show_bug.cgi?id=2172475
-%bcond_with blender
-%else
-%bcond_without blender
-%endif
-
 Name:           python-trimesh
 Version:        3.20.2
 Release:        %autorelease
@@ -93,12 +82,10 @@ Suggests:       python3-trimesh+all = %{version}-%{release}
 # Cannot be packaged (closed-source): https://www.patrickmin.com/binvox/
 #BuildRequires:  /usr/bin/binvox
 #Recommends:     /usr/bin/binvox
-%if %{with blender}
 # trimesh.interfaces.blender
 %ifnarch %{ix86}
 BuildRequires:  /usr/bin/blender
 Recommends:     /usr/bin/blender
-%endif
 %endif
 # trimesh.exchange.ply
 %ifnarch s390x

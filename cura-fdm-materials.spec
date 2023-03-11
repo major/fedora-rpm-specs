@@ -1,6 +1,6 @@
 Name:           cura-fdm-materials
-Version:        4.13.0
-Release:        3%{?dist}
+Version:        5.3.0
+Release:        1%{?dist}
 Summary:        Cura FDM Material database
 
 # See https://github.com/Ultimaker/Cura/issues/1779 for clarification
@@ -8,6 +8,10 @@ License:        Public Domain
 
 URL:            https://github.com/Ultimaker/fdm_materials
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+
+# Cmake bits taken from 4.13.1, before upstream went nuts with conan
+Source2:        CMakeLists.txt
+Source3:        CPackConfig.cmake
 
 BuildArch:      noarch
 
@@ -30,6 +34,9 @@ These files are needed to work with printers like Ultimaker 2+ and Ultimaker 3.
 %prep
 %autosetup -n fdm_materials-%{version} -p1
 
+rm -rf CMakeLists.txt
+cp %{SOURCE2} %{SOURCE3} .
+
 %build
 %cmake
 %cmake_build
@@ -43,6 +50,9 @@ These files are needed to work with printers like Ultimaker 2+ and Ultimaker 3.
 %{_datadir}/cura/resources/materials/
 
 %changelog
+* Thu Mar  9 2023 Tom Callaway <spot@fedoraproject.org> - 5.3.0-1
+- update to 5.3.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

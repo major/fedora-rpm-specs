@@ -1,5 +1,5 @@
 Name:           libbraiding
-Version:        1.1
+Version:        1.2
 %global so_version 0
 Release:        %autorelease
 Summary:        Library for computations on braid groups

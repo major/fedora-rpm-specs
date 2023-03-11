@@ -1,6 +1,6 @@
 Name:           rpkg
 Version:        1.66
-Release:        3%{?dist}
+Release:        4%{?dist}
 
 Summary:        Python library for interacting with rpm+git
 License:        GPLv2+ and LGPLv2
@@ -39,6 +39,7 @@ Patch3:         0003-Remove-Environment-Markers-syntax.patch
 %endif
 Patch4:         0004-Process-source-URLs-with-fragment-in-pre-push-hook.patch
 Patch5:         0005-container-build-update-signing-intent-help-for-OSBS-.patch
+Patch6:         0006-Do-not-generate-pre-push-hook-script-in-some-cases.patch
 
 %description
 Python library for interacting with rpm+git
@@ -255,6 +256,9 @@ example_cli_dir=$RPM_BUILD_ROOT%{_datadir}/%{name}/examples/cli
 
 
 %changelog
+* Fri Mar 10 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-4
+- Patch: Do not generate pre-push hook script in some cases
+
 * Wed Mar 1 2023 Ondřej Nosek <onosek@redhat.com> - 1.66-3
 - Patch: Process source URLs with fragment in pre-push hook
 - Patch: container-build: update --signing-intent help for OSBS 2

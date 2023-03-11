@@ -52,6 +52,10 @@ Patch:          %{name}-usd-pythonlibs-fix.diff
 # https://developer.blender.org/D17151
 Patch:		%{name}-include-system-error-library.diff
 
+# Fix building with boost >= 1.81
+# https://projects.blender.org/blender/blender/commit/79837c5ed4b57925bf6c6bb9e7c2248f6f52bbb0
+Patch:          https://projects.blender.org/blender/blender/commit/79837c5ed4b57925bf6c6bb9e7c2248f6f52bbb0.patch
+
 # Development stuff
 BuildRequires:  boost-devel
 BuildRequires:  ccache

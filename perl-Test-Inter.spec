@@ -1,13 +1,10 @@
 Name:           perl-Test-Inter
-Version:        1.09
-Release:        14%{?dist}
+Version:        1.10
+Release:        1%{?dist}
 Summary:        Framework for more readable interactive test scripts
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Test-Inter
 Source0:        https://cpan.metacpan.org/authors/id/S/SB/SBECK/Test-Inter-%{version}.tar.gz
-# Remove dependencies on release tests that are skipped, proposed to upstream,
-# <https://github.com/SBECK-github/Test-Inter/pull/3>
-Patch0:         Test-Inter-1.09-Do-not-require-release-test-dependencies.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -47,7 +44,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Test-Inter-%{version}
-%patch0 -p1
 chmod -x examples/*
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -89,6 +85,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 09 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.10-1
+- 1.10 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.09-14
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

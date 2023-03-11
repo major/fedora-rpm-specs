@@ -2,7 +2,7 @@ Name:           javassist
 Version:        3.29.2
 Release:        2%{?dist}
 Summary:        Java Programming Assistant for Java bytecode manipulation
-License:        MPLv1.1 or LGPLv2+ or ASL 2.0
+License:        MPL-1.1 OR LGPL-2.1-or-later OR Apache-2.0
 
 %global upstream_version rel_%(sed s/\\\\./_/g <<<"%{version}")_ga
 

@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	1
+%global	fedorarel	2
 
 %global	gem_name	rspec-mocks
 
@@ -36,10 +36,12 @@ BuildRequires:	rubygems-devel
 BuildRequires:	rubygem(rspec)
 BuildRequires:	rubygem(thread_order)
 BuildRequires:	rubygem(rake)
+%if %{undefined rhel}
 # cucumber
 BuildRequires:	rubygem(aruba)
 BuildRequires:	rubygem(cucumber)
 BuildRequires:	rubygem(minitest)
+%endif
 BuildRequires:	git
 %endif
 BuildArch:	noarch
@@ -60,7 +62,7 @@ This package contains documentation for %{name}.
 gem unpack %{SOURCE0}
 
 %setup -q -D -T -n  %{gem_name}-%{version} -b 1
-%if 0%{?fedora} <= 37
+%if 0%{?fedora} && 0%{?fedora} <= 37
 # Revert "display_keyword_hashes" for now on Fedora 37
 %patch1 -p1 -R
 %patch2 -p1 -R
@@ -85,14 +87,22 @@ cp -a .%{gem_dir}/* \
 rm -f %{buildroot}%{gem_instdir}/{.document,.yardopts}
 
 %check
-%if %{without bootstrap}
+%if %{with bootstrap}
+# Don't do actual check
+exit 0
+%endif
+
 # library_wide_checks.rb needs UTF-8
 LANG=C.UTF-8
 export RUBYLIB=$(pwd)/lib
 rspec spec/
+
+%if 0%{?rhel}
+# Don't do cucumber test
+exit 0
+%endif
 export CUCUMBER_PUBLISH_QUIET=true
 cucumber
-%endif
 
 %files
 %dir	%{gem_instdir}
@@ -110,6 +120,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Thu Mar 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.3-2
+- Disable unwanted dependencies in RHEL builds
+
 * Thu Feb 16 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.3-1
 - 3.12.3
 

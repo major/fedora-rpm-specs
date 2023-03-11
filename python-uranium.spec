@@ -1,10 +1,19 @@
 Name:           python-uranium
-Version:        4.13.1
-Release:        5%{?dist}
+Version:        5.3.0
+Release:        2%{?dist}
 Summary:        A Python framework for building desktop applications
 License:        LGPLv3+
 URL:            https://github.com/Ultimaker/Uranium
 Source0:        %{url}/archive/%{version}.tar.gz#/Uranium-%{version}.tar.gz
+
+# Cmake bits taken from 4.13.1, before upstream went nuts with conan
+Source2:        mod_bundled_packages_json.py
+Source3:        UraniumPluginInstall.cmake
+Source4:        UraniumTests.cmake
+Source5:        UraniumTranslationTools.cmake
+Source6:        CMakeLists.txt
+Source7:        CPackConfig.cmake
+Source8:        Doxyfile
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
@@ -14,13 +23,15 @@ BuildRequires:  cmake
 BuildRequires:  git-core
 
 # Tests
-BuildRequires:  python3-arcus == %{version}
+BuildRequires:  python3-arcus >= 5.2.2
 BuildRequires:  python3-cryptography
 BuildRequires:  python3-numpy
 BuildRequires:  python3-scipy
 BuildRequires:  python3-shapely
-BuildRequires:  python3-qt5
+BuildRequires:  python3-pyclipper
+BuildRequires:  python3-pyqt6-devel
 BuildRequires:  python3-pytest
+BuildRequires:  python3-pytest-benchmark
 BuildRequires:  python3-twisted
 
 BuildArch:      noarch
@@ -38,12 +49,13 @@ Summary:        %{summary}
 Provides:       uranium = %{version}-%{release}
 %{?python_provide:%python_provide python3-uranium}
 
-Requires:       python3-arcus == %{version}
+Requires:       python3-arcus >= 5.2.2
 Requires:       python3-cryptography
 Requires:       python3-numpy
 Requires:       python3-scipy
 Requires:       python3-shapely
-Requires:       python3-qt5
+Requires:       python3-pyclipper
+Requires:       python3-pyqt6
 Recommends:     python3-numpy-stl
 
 %description -n python3-uranium
@@ -58,6 +70,14 @@ related applications.
 
 %prep
 %autosetup -n Uranium-%{version} -p1 -S git
+
+mkdir cmake
+cp -a %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} cmake/
+rm -rf CMakeLists.txt
+cp -a %{SOURCE6} %{SOURCE7} %{SOURCE8} .
+
+# fix compile-shaders
+sed -i 's|qsb |qsb-qt6 |g' scripts/compile-shaders
 
 %build
 # there is no arch specific content, so we set LIB_SUFFIX to nothing
@@ -111,6 +131,12 @@ popd
 
 
 %changelog
+* Thu Mar  9 2023 Tom Callaway <spot@fedoraproject.org> - 5.3.0-2
+- make pyclipper an explicit Requires
+
+* Wed Mar  8 2023 Tom Callaway <spot@fedoraproject.org> - 5.3.0-1
+- update to 5.3.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

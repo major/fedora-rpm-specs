@@ -1,7 +1,7 @@
 Summary: Client and protocol library for the Couchbase project
 Name: libcouchbase
-Version: 3.3.4
-Release: 2%{?dist}
+Version: 3.3.5
+Release: 1%{?dist}
 License: ASL 2.0
 BuildRequires: gcc, gcc-c++
 BuildRequires: cmake >= 3.5.1
@@ -22,7 +22,6 @@ Suggests: %{name}-tools%{_isa} = %{version}-%{release}
 %endif
 
 Patch0: %{name}-0001-enforce-system-crypto-policies.patch
-Patch1: %{name}-0002-fix-build-for-gcc-13.patch
 
 # exclude from "Provides" private IO plugins
 %{?filter_provides_in: %filter_provides_in %{name}/%{name}.*\.so$}
@@ -112,6 +111,9 @@ export CTEST_OUTPUT_ON_FAILURE=1
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Thu Mar 09 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.5-1
+- Update to 3.3.5
+
 * Tue Mar 07 2023 Sergey Avseyev <sergey.avseyev@gmail.com> - 3.3.4-2
 - Disable systemtap support for AArch64
 

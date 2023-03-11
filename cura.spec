@@ -1,24 +1,29 @@
-%global         major_minor_version 4.13
-%global         patch_version 1
+%global         major_minor_version 5.3
+%global         patch_version 0
 
 Name:           cura
 Epoch:          1
 Version:        %{major_minor_version}.%{patch_version}
-Release:        6%{?dist}
+Release:        1%{?dist}
 Summary:        3D printer / slicing GUI
 
 # https://lists.fedoraproject.org/archives/list/legal@lists.fedoraproject.org/thread/MOUNX6I3POCDMYWBNJ7JPLLIKVYWVRBJ/
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 
 URL:            https://ultimaker.com/en/products/cura-software
 Source0:        https://github.com/Ultimaker/Cura/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
-# Fixes wrong import
-# Can be removed when https://github.com/Ultimaker/Cura/pull/11246 is merged
-Patch0:         https://github.com/Ultimaker/Cura/commit/aad4180.patch
+# Cmake bits taken from 4.13.1, before upstream went nuts with conan
+Source2:        mod_bundled_packages_json.py
+Source3:        CuraPluginInstall.cmake
+Source4:        CuraTests.cmake
+Source5:        com.ultimaker.cura.desktop.in
+Source6:        CMakeLists.txt
+Source7:        CuraVersion.py.in
+Source8:        com.ultimaker.cura.appdata.xml
 
 # Skip forced loading SentryLogger to avoid an error on startup
-Patch1:		028e7f7.patch
+Patch1:         028e7f7.patch
 
 BuildArch:      noarch
 
@@ -41,20 +46,23 @@ BuildRequires:  python3-keyring
 BuildRequires:  python3-pyserial
 BuildRequires:  python3-pynest2d
 BuildRequires:  python3-requests
-BuildRequires:  python3-savitar == %{version}
+BuildRequires:  python3-savitar >= 5.2.2
 BuildRequires:  python3-uranium == %{version}
 BuildRequires:  python3-zeroconf
 
 Requires:       open-sans-fonts
+Requires:       python3-certifi
 Requires:       python3-keyring
+Requires:       python3-numpy-stl
 Requires:       python3-pyserial
 Requires:       python3-pynest2d
 Requires:       python3-requests
-Requires:       python3-savitar == %{version}
+Requires:       python3-savitar >= 5.2.2
+Requires:       python3-trimesh
 Requires:       python3-uranium == %{version}
 Requires:       python3-zeroconf
-Requires:       qt5-qtquickcontrols
-Requires:       qt5-qtquickcontrols2
+# Requires:       qt5-qtquickcontrols
+# Requires:       qt5-qtquickcontrols2
 Requires:       CuraEngine == %{epoch}:%{version}
 Requires:       cura-fdm-materials >= %{major_minor_version}
 
@@ -90,6 +98,12 @@ needs. As it's open source, our community helps enrich it even more.
 %prep
 %autosetup -p1 -S git -n Cura-%{version}
 
+mkdir cmake
+cp -a %{SOURCE2} %{SOURCE3} %{SOURCE4} cmake
+rm -rf CMakeLists.txt
+cp -a %{SOURCE5} %{SOURCE6} %{SOURCE8} .
+cp -a %{SOURCE7} cura
+
 # Wrong end of line encoding
 dos2unix docs/How_to_use_the_flame_graph_profiler.md
 
@@ -99,7 +113,7 @@ sed -i '1s=^#!/usr/bin/\(python\|env python\)3*=#!%{__python3}=' cura_app.py
 %build
 %cmake \
   -DCURA_VERSION:STRING=%{version} \
-  -DCURA_BUILDTYPE=RPM \
+  -DCURA_BUILDTYPE="RPM %{version}"\
   -DCURA_CLOUD_API_ROOT:STRING=%{cura_cloud_api_root} \
   -DCURA_CLOUD_API_VERSION:STRING=%{cura_cloud_api_version} \
   -DCURA_CLOUD_ACCOUNT_API_ROOT:STRING=%{cura_cloud_account_api_root} \
@@ -121,6 +135,10 @@ cd -
 
 %install
 %cmake_install
+
+mkdir -p %{buildroot}%{_datadir}/%{name}/resources/images/whats_new
+mkdir -p %{buildroot}%{_datadir}/%{name}/resources/texts/whats_new
+mkdir -p %{buildroot}%{_datadir}/%{name}/resources/scripts
 
 # Sanitize the location of locale files
 pushd %{buildroot}%{_datadir}
@@ -169,6 +187,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{reverse_dns_name}.d
 %{_prefix}/lib/%{name}
 
 %changelog
+* Thu Mar  9 2023 Tom Callaway <spot@fedoraproject.org> - 1:5.3.0-1
+- update to 5.3.0
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:4.13.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

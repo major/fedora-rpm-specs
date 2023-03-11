@@ -5,8 +5,8 @@
 %global srcname cryptography
 
 Name:           python-%{srcname}
-Version:        37.0.2
-Release:        9%{?dist}
+Version:        39.0.2
+Release:        1%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -19,9 +19,6 @@ Source0:        https://github.com/pyca/cryptography/archive/%{version}/%{srcnam
 Source1:        cryptography-%{version}-vendor.tar.bz2
 Source2:        conftest-skipper.py
 
-# https://github.com/pyca/cryptography/pull/8230
-Patch1:         CVE-2023-23931.patch
-
 ExclusiveArch:  %{rust_arches}
 
 BuildRequires:  openssl-devel
@@ -33,10 +30,10 @@ BuildRequires:  rust-packaging
 BuildRequires:  rust-toolset
 %endif
 
-BuildRequires:  python%{python3_pkgversion}-cffi >= 1.7
+BuildRequires:  python%{python3_pkgversion}-cffi >= 1.12
 BuildRequires:  python%{python3_pkgversion}-devel
 BuildRequires:  python%{python3_pkgversion}-setuptools
-BuildRequires:  python%{python3_pkgversion}-setuptools-rust >= 0.11.3
+BuildRequires:  python%{python3_pkgversion}-setuptools-rust >= 0.11.4
 
 %if %{with tests}
 %if 0%{?fedora}
@@ -45,7 +42,7 @@ BuildRequires:  python%{python3_pkgversion}-iso8601
 BuildRequires:  python%{python3_pkgversion}-pretend
 BuildRequires:  python%{python3_pkgversion}-pytest-xdist
 %endif
-BuildRequires:  python%{python3_pkgversion}-pytest >= 6.0
+BuildRequires:  python%{python3_pkgversion}-pytest >= 6.2.0
 BuildRequires:  python%{python3_pkgversion}-pytest-benchmark
 BuildRequires:  python%{python3_pkgversion}-pytest-subtests >= 0.3.2
 BuildRequires:  python%{python3_pkgversion}-pytz
@@ -129,6 +126,9 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Sat Mar 04 2023 Christian Heimes <cheimes@redhat.com> - 39.0.2-1
+- Update to 39.0.2, resolves rhbz#2124729
+
 * Tue Feb 28 2023 Fabio Valentini <decathorpe@gmail.com> - 37.0.2-9
 - Ensure correct compiler flags are used for Rust code.
 

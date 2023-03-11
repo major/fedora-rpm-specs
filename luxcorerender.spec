@@ -36,6 +36,9 @@ Patch8:         luxcorerender-oiio-2.3.patch
 # Patch for system libs when possible
 Patch9:         luxcorerender-system.patch
 Patch10:        luxcorerender-system2.patch
+# https://github.com/LuxCoreRender/LuxCore/pull/611 (Currently under review)
+# Replace boost::filesystem::ofstream with boost::nowide
+Patch11:        luxcorerender-pr611-boost_181.patch
 
 # Upstream only uses 64 bit archtecture
 ExclusiveArch:  x86_64

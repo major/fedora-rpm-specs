@@ -6,7 +6,7 @@
 
 Name:    epiphany
 Epoch:   1
-Version: 44~beta
+Version: 44~rc
 Release: %autorelease
 Summary: Web browser for GNOME
 
@@ -17,8 +17,8 @@ Source0: https://download.gnome.org/sources/epiphany/44/%{name}-%{tarball_versio
 # Fedora bookmarks
 Patch0: epiphany-default-bookmarks.patch
 
-# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1281
-Patch1: webkitgtk-2.39.90.patch
+# https://gitlab.gnome.org/GNOME/epiphany/-/merge_requests/1295
+Patch1: webkitgtk-2.39.91.patch
 
 BuildRequires: desktop-file-utils
 BuildRequires: gcc
@@ -47,7 +47,7 @@ BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(nettle)
 BuildRequires: pkgconfig(sqlite3)
 BuildRequires: pkgconfig(webkitgtk-6.0) >= %{webkitgtk_version}
-BuildRequires: pkgconfig(webkitgtk-web-extension-6.0) >= %{webkitgtk_version}
+BuildRequires: pkgconfig(webkitgtk-web-process-extension-6.0) >= %{webkitgtk_version}
 
 %description
 Epiphany is the web browser for the GNOME desktop. Its goal is to be

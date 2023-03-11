@@ -10,8 +10,8 @@ Requires:       %{_bindir}/%{1}
 # End macro
 
 Name:           libzypp
-Version:        17.31.1
-Release:        4%{?dist}
+Version:        17.31.8
+Release:        1%{?dist}
 Summary:        A package management library
 
 License:        GPLv2+
@@ -25,7 +25,6 @@ Source0:        https://github.com/openSUSE/%{name}/archive/%{version}/%{name}-%
 # Fedora specific patches
 ## Fix include paths for fcgi headers
 Patch1001:      libzypp-17.23.1-fix-fcgi-header-paths.patch
-Patch1002:      libzypp-yaml-cpp.patch
 
 BuildRequires:  %{_bindir}/asciidoctor
 BuildRequires:  %{_bindir}/xsltproc
@@ -237,6 +236,9 @@ end
 
 
 %changelog
+* Thu Mar 09 2023 Neal Gompa <ngompa@fedoraproject.org> - 17.31.8-1
+- Update to 17.31.8
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 17.31.1-4
 - Rebuilt for Boost 1.81
 

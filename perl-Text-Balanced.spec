@@ -1,10 +1,12 @@
 Name:           perl-Text-Balanced
 Version:        2.06
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Extract delimited text sequences from strings
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Text-Balanced
 Source0:        https://cpan.metacpan.org/authors/id/S/SH/SHAY/Text-Balanced-%{version}.tar.gz
+# Fix warning with undefined $unkpos (CPAN RT#146697)
+Patch0:         Text-Balanced-2.06-Fix-undefined-unkpos.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  make
@@ -47,6 +49,7 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Text-Balanced-%{version}
+%patch0 -p1
 
 # Help generators to recognize Perl scripts
 for F in t/*.t; do
@@ -86,6 +89,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Thu Mar 09 2023 Jitka Plesnikova <jplesnik@redhat.com> - 2.06-4
+- Fix warning with undefined $unkpos (bug #2172819)
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.06-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

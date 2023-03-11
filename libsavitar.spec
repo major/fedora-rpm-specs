@@ -1,12 +1,22 @@
 Name:           libsavitar
-Version:        4.13.1
-Release:        5%{?dist}
+Version:        5.2.2
+Release:        1%{?dist}
 Summary:        C++ implementation of 3mf loading with SIP Python bindings
-License:        LGPLv3+
+License:        LGPL-3.0-or-later
 URL:            https://github.com/Ultimaker/libSavitar
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Python bits
+Source1:        https://github.com/Ultimaker/pySavitar/archive/%{version}.tar.gz#/pySavitar-%{version}.tar.gz
 
-Patch0:         %{name}-no-pugixml.patch
+# Cmake bits taken from 4.13.1, before upstream went nuts with conan
+Source2:        FindSIP.cmake
+Source3:        SIPMacros.cmake
+Source4:        CMakeLists.txt
+Source5:        SavitarConfig.cmake.in
+Source6:        COPYING-CMAKE-SCRIPTS
+
+# Actually export symbols into the shared lib
+Patch0:         libsavitar-5.2.2-export-fix.patch
 
 BuildRequires:  cmake
 BuildRequires:  dos2unix
@@ -17,8 +27,7 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-sip-devel
 BuildRequires:  /usr/bin/sip
 
-# we add a dependency on setuptools to provide the distutils module
-# upstream already removed the distutils usage in version 5+
+# we add a dependency on setuptools to provide the distutils module for FindSIP.cmake
 BuildRequires:  (python3-setuptools if python3-devel >= 3.12)
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
@@ -34,12 +43,10 @@ Savitar is a C++ implementation of 3mf loading with SIP Python bindings.
 3mf is a 3D printing file format.
 
 %package        devel
-
-# The cmake scripts are BSD
-License:        LGPLv3+ and BSD
-
 Summary:        Development files for libsavitar
 Requires:       %{name}%{?_isa} = %{version}-%{release}
+# The cmake scripts are BSD
+License:        LGPL-3.0-or-later AND BSD-3-Clause
 
 %description    devel
 Savitar is a C++ implementation of 3mf loading with SIP Python bindings.
@@ -59,14 +66,16 @@ Savitar is a C++ implementation of 3mf loading with SIP Python bindings.
 The Python bindings.
 
 %prep
-%autosetup -n libSavitar-%{version} -p1 -S git
+%autosetup -n libSavitar-%{version} -p1 -S git -a 1
+
+cp -a pySavitar-%{version}/python .
+mkdir cmake
+cp -a %{SOURCE2} %{SOURCE3} %{SOURCE6} cmake/
+rm -rf CMakeLists.txt
+cp -a %{SOURCE4} %{SOURCE5} .
 
 # Wrong end of line encoding
 dos2unix README.md
-
-# Bundling
-rm pugixml -rf
-sed -i 's|"../pugixml/src/pugixml.hpp"|<pugixml.hpp>|g' src/*.cpp src/*.h
 
 # https://github.com/Ultimaker/libSavitar/pull/18
 sed -i 's/Python3_SITELIB/Python3_SITEARCH/' cmake/SIPMacros.cmake
@@ -94,9 +103,12 @@ export CXXFLAGS="%{optflags} -Wl,--as-needed"
 %files -n python3-savitar
 %license LICENSE
 %doc README.md
-%{python3_sitearch}/Savitar.so
+%{python3_sitearch}/pySavitar.so
 
 %changelog
+* Wed Mar  8 2023 Tom Callaway <spot@fedoraproject.org> - 5.2.2-1
+- Update to 5.2.2
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

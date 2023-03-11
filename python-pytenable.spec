@@ -1,7 +1,7 @@
 %global pypi_name pytenable
 
 Name:           python-%{pypi_name}
-Version:        1.4.11
+Version:        1.4.12
 Release:        %autorelease
 Summary:        Python library to interface with Tenable's products and applications
 

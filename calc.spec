@@ -3,10 +3,10 @@
 # This is disabled right now because it prevents correct linking. 
 %define with_custom_interface 0
 
-License:       LGPLv2
+License:       LGPL-2.1-only AND Unlicense
 
 Name:          calc
-Version:       2.14.1.3
+Version:       2.14.1.4
 Release:       %autorelease
 Summary:       Arbitrary precision arithmetic system and calculator
 

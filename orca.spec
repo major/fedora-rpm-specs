@@ -1,13 +1,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           orca
-Version:        43.1
-Release:        2%{?dist}
+Version:        44~rc
+Release:        1%{?dist}
 Summary:        Assistive technology for people with visual impairments
 
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            https://wiki.gnome.org/Projects/Orca
-Source0:        https://download.gnome.org/sources/%{name}/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildArch:      noarch
 
@@ -74,6 +74,9 @@ desktop-file-validate %{buildroot}%{_sysconfdir}/xdg/autostart/orca-autostart.de
 
 
 %changelog
+* Thu Mar 09 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

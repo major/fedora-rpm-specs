@@ -11,7 +11,7 @@
 %global source_directory 1.15-development
 
 Name:           libnbd
-Version:        1.15.11
+Version:        1.15.12
 Release:        1%{?dist}
 Summary:        NBD client library in userspace
 
@@ -46,9 +46,11 @@ BuildRequires:  libxml2-devel
 # For nbdfuse.
 BuildRequires:  fuse3, fuse3-devel
 
+%if !0%{?rhel}
 # For nbdublk
 BuildRequires:  liburing-devel >= 2.2
 BuildRequires:  ubdsrv-devel >= 1.0-3.rc6
+%endif
 
 # For the Python 3 bindings.
 BuildRequires:  python3-devel
@@ -168,6 +170,7 @@ Recommends:     fuse3
 This package contains FUSE support for %{name}.
 
 
+%if !0%{?rhel}
 %package -n nbdublk
 Summary:        Userspace NBD block device
 License:        LGPLv2+
@@ -179,6 +182,7 @@ Recommends:     %{_sbindir}/ublk
 %description -n nbdublk
 This package contains a userspace NBD block device
 based on %{name}.
+%endif
 
 
 %package bash-completion
@@ -226,6 +230,11 @@ find $RPM_BUILD_ROOT -name '*.la' -delete
 
 # Delete the golang man page since we're not distributing the bindings.
 rm $RPM_BUILD_ROOT%{_mandir}/man3/libnbd-golang.3*
+
+%if 0%{?rhel}
+# Delete nbdublk on RHEL.
+rm $RPM_BUILD_ROOT%{_datadir}/bash-completion/completions/nbdublk
+%endif
 
 
 %check
@@ -330,9 +339,11 @@ make %{?_smp_mflags} check || {
 %{_mandir}/man1/nbdfuse.1*
 
 
+%if !0%{?rhel}
 %files -n nbdublk
 %{_bindir}/nbdublk
 %{_mandir}/man1/nbdublk.1*
+%endif
 
 
 %files bash-completion
@@ -342,10 +353,15 @@ make %{?_smp_mflags} check || {
 %{_datadir}/bash-completion/completions/nbdfuse
 %{_datadir}/bash-completion/completions/nbdinfo
 %{_datadir}/bash-completion/completions/nbdsh
+%if !0%{?rhel}
 %{_datadir}/bash-completion/completions/nbdublk
+%endif
 
 
 %changelog
+* Thu Mar 09 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.12-1
+- New upstream development version 1.15.12
+
 * Tue Feb 28 2023 Richard W.M. Jones <rjones@redhat.com> - 1.15.11-1
 - New upstream development version 1.15.11
 

@@ -1,12 +1,13 @@
 %define		realname PyICU
 Name:		pyicu
 Version:	2.10.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Python extension wrapping the ICU C++ libraries
 
 License:	MIT
 URL:		https://pypi.org/project/PyICU/
 Source0:	https://files.pythonhosted.org/packages/source/P/%{realname}/%{realname}-%{version}.tar.gz
+Patch0:         py312.patch
 
 BuildRequires:	gcc-c++
 BuildRequires:	libicu-devel
@@ -31,6 +32,8 @@ Summary: Python 3 extension wrapping the ICU C++ libraries
 %prep
 %setup -q -n %{realname}-%{version}
 
+%patch0 -p0
+
 %build
 %py3_build
 
@@ -54,11 +57,12 @@ rm -rf %{buildroot}%{python3_sitearch}/tests
 %files -n python3-pyicu
 %doc LICENSE
 %{python3_sitearch}/PyICU*
-#%{python3_sitearch}/__pycache__/PyICU*
 %{python3_sitearch}/icu/
-#%{python3_sitearch}/_icu*
 
 %changelog
+* Thu Mar 09 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.10.2-4
+- Patch for Python 3.12.
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.10.2-3
 - migrated to SPDX license
 

@@ -2,7 +2,7 @@ Name:		perl-Carp-Fix-1_25
 Version:	1.000001
 Release:	30%{?dist}
 Summary:	Smooth over incompatible changes in Carp 1.25
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Carp-Fix-1_25
 Source0:	https://cpan.metacpan.org/modules/by-module/Carp/Carp-Fix-1_25-%{version}.tar.gz
 BuildArch:	noarch
@@ -21,6 +21,7 @@ BuildRequires:	perl(warnings)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test::More) >= 0.88
 # Dependencies
+# (none)
 
 %description
 Carp 1.25 made a change to its formatting, adding a period at the end of the
@@ -56,11 +57,7 @@ perl Build.PL --installdirs=vendor
 ./Build test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Carp/
 %{_mandir}/man3/Carp::Fix::1_25.3*

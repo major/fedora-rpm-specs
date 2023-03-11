@@ -2,7 +2,7 @@ Name:           perl-Child
 Version:        0.013
 Release:        21%{?dist}
 Summary:        Object oriented simple interface to fork()
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Child
 Source0:        https://cpan.metacpan.org/authors/id/E/EX/EXODIST/Child-%{version}.tar.gz
 BuildArch:      noarch
@@ -52,11 +52,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes README
 %{perl_vendorlib}/Child.pm
 %{perl_vendorlib}/Child/

@@ -1,19 +1,31 @@
 Name:           libarcus
-Version:        4.13.1
-Release:        5%{?dist}
+Version:        5.2.2
+Release:        1%{?dist}
 Summary:        Communication library between internal components for Ultimaker software
 License:        LGPLv3+
 URL:            https://github.com/Ultimaker/libArcus
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# Python bits
+Source1:        https://github.com/Ultimaker/pyArcus/archive/%{version}.tar.gz#/pyArcus-%{version}.tar.gz
+
+# Cmake bits taken from 4.13.1, before upstream went nuts with conan
+Source2:        FindSIP.cmake
+Source3:        SIPMacros.cmake
+Source4:        CMakeLists.txt
+Source5:        CPackConfig.cmake
+Source6:        ArcusConfig.cmake.in
+Source7:        COPYING-CMAKE-SCRIPTS
 
 # https://bugzilla.redhat.com/show_bug.cgi?id=1601917
-Patch1:         libArcus-3.10.0-PyQt5.sip.patch
-Patch2:         https://raw.githubusercontent.com/coryan/vcpkg/f69b85aa403b04e7d442c90db3418d484e44024f/ports/arcus/0001-fix-protobuf-deprecated.patch
+Patch1:         libArcus-3.10.0-PyQt6.sip.patch
+
+# Actually export symbols
+Patch2:         libArcus-5.2.2-actually-export-symbols.patch
 
 BuildRequires:  protobuf-devel
 BuildRequires:  python3-devel
 BuildRequires:  python3-protobuf
-BuildRequires:  python3-pyqt5-sip
+BuildRequires:  python3-pyqt6-sip
 BuildRequires:  python3-sip-devel
 BuildRequires:  /usr/bin/sip
 BuildRequires:  cmake
@@ -67,7 +79,18 @@ Protocol Buffers library. It is designed to facilitate the communication
 between Cura and its backend and similar code.
 
 %prep
-%autosetup -n libArcus-%{version} -p1 -S git
+%setup -q -n libArcus-%{version} -a 1
+
+cp -a pyArcus-%{version}/python .
+cp -a pyArcus-%{version}/include/pyArcus include
+mkdir cmake
+cp -a %{SOURCE2} %{SOURCE3} %{SOURCE7} cmake/
+rm -rf CMakeLists.txt
+cp -a %{SOURCE4} %{SOURCE5} %{SOURCE6} .
+cp -a pyArcus-%{version}/src/PythonMessage.cpp python/
+
+%patch1 -p1
+%patch2 -p1 -b .export
 
 # https://github.com/Ultimaker/libArcus/pull/94#issuecomment-505376760
 sed -i 's/Python3_SITELIB/Python3_SITEARCH/' cmake/SIPMacros.cmake
@@ -81,12 +104,11 @@ sed -i 's/Python3_SITELIB/Python3_SITEARCH/' cmake/SIPMacros.cmake
 
 %files
 %license LICENSE
-%doc README.md TODO.md
+%doc README.md
 %{_libdir}/libArcus.so.*
 
 %files devel
 %license LICENSE cmake/COPYING-CMAKE-SCRIPTS
-%doc examples/example.cpp examples/example.proto
 %{_libdir}/libArcus.so
 %{_includedir}/Arcus
 # Own the dir not to depend on cmake:
@@ -94,11 +116,13 @@ sed -i 's/Python3_SITELIB/Python3_SITEARCH/' cmake/SIPMacros.cmake
 
 %files -n python3-arcus
 %license LICENSE
-%doc README.md TODO.md
-%doc examples/example.py
-%{python3_sitearch}/Arcus.so
+%doc README.md
+%{python3_sitearch}/pyArcus.so
 
 %changelog
+* Tue Mar  7 2023 Tom Callaway <spot@fedoraproject.org> - 5.2.2-1
+- update to 5.2.2 with the help of forward ported CMake bits
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.13.1-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

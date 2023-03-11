@@ -1,18 +1,18 @@
 Name:           scrot
-Version:        1.7
-Release:        4%{?dist}
+Version:        1.8.1
+Release:        1%{?dist}
 Summary:        Command line screen capture utility
 
 License:        MIT
 URL:            https://github.com/resurrecting-open-source-projects/%{name}
-Source0:        %{URL}/releases/download/%{version}/%{name}-%{version}.tar.bz2
+Source0:        %{URL}/releases/download/%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  autoconf
 BuildRequires:  autoconf-archive
 BuildRequires:  automake
 BuildRequires:  make
-BuildRequires:  pkgconfig(imlib2) pkgconfig(libbsd) pkgconfig(x11) pkgconfig(xext) pkgconfig(xcomposite)
+BuildRequires:  pkgconfig(imlib2) pkgconfig(libbsd) pkgconfig(x11) pkgconfig(xext) pkgconfig(xcomposite) pkgconfig(xinerama)
 
 %description
 scrot is a simple command line screen capture utility.
@@ -33,7 +33,7 @@ autoreconf -if
 
 
 %files
-%doc AUTHORS ChangeLog README.md scrot.png
+%doc AUTHORS ChangeLog README.md scrot.png FAQ CONTRIBUTING.md TODO.md
 %license COPYING
 %{_bindir}/*
 %{_mandir}/man1/*
@@ -41,6 +41,12 @@ autoreconf -if
 
 
 %changelog
+* Mon Jan 23 2023 Peter Kotvan <pkotvan@redhat.com> - 1.8.1-1
+- Update to 1.8.1
+
+* Thu Jan 12 2023 Peter Kotvan <pkotvan@redhat.com> - 1.8-1
+- Update to 1.8
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

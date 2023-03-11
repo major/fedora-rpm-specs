@@ -3,7 +3,7 @@
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	fedorarel	1
+%global	fedorarel	2
 
 %global	gem_name	rspec-core
 
@@ -12,6 +12,12 @@
 # Disable test for now due to cucumber v.s. gherkin dependency issue
 # pulled by aruba
 %bcond_with bootstrap
+
+# Disable Aruba support in RHEL due to excesive dependency chain. This also
+# disables Cucumber integration test suite, which depends on Aruba as well.
+%if ! 0%{?rhel}
+%bcond_without aruba
+%endif
 
 %undefine __brp_mangle_shebangs
 
@@ -36,17 +42,18 @@ BuildRequires:	rubygems-devel
 BuildRequires:	rubygem(minitest)
 BuildRequires:	rubygem(rake)
 BuildRequires:	rubygem(rspec)
-BuildRequires:	rubygem(aruba)
-# Newly
-BuildRequires:	rubygem(flexmock)
-BuildRequires:	rubygem(mocha)
-BuildRequires:	rubygem(rr)
+BuildRequires:	rubygem(test-unit)
 BuildRequires:	rubygem(coderay)
 BuildRequires:	rubygem(thread_order)
 BuildRequires:	git
-# New test
+
+%if %{with aruba}
+BuildRequires:	rubygem(aruba)
+BuildRequires:	rubygem(flexmock)
+BuildRequires:	rubygem(mocha)
+BuildRequires:	rubygem(rr)
 BuildRequires:	rubygem(cucumber)
-BuildRequires:	rubygem(test-unit)
+%endif
 
 %if 0%{?fedora} || 0%{?rhel} > 7
 BuildRequires:	glibc-langpack-en
@@ -95,8 +102,20 @@ cp -a .%{_prefix}/* %{buildroot}%{_prefix}/
 rm -f %{buildroot}%{gem_instdir}/{.document,.yardopts}
 
 %check
-%if %{without bootstrap}
+%if %{with bootstrap}
+# Not do actual check, exiting.
+exit 0
+%endif
+
 LANG=C.UTF-8
+
+%if %{without aruba}
+# Avoid dependency on Aruba. The files needs to be present, since they are
+# listed by `git ls-files` from 'library wide checks' shared example.
+truncate -s 0 spec/support/aruba_support.rb
+find spec/integration -exec truncate -s 0 {} \;
+%endif
+
 # Adjust the backtrace filters to our directory layout.
 sed -i '/backtrace_exclusion_patterns/ s/rspec-core/rspec-core-%{version}/' \
   spec/integration/{suite_hooks_errors,spec_file_load_errors}_spec.rb
@@ -113,6 +132,11 @@ sed -i spec/rspec/core/example_spec.rb \
 
 # FIXME seed 33413 sees test failure
 ruby -Ilib -S exe/rspec --seed 1 #33413
+
+%if %{without aruba}
+# The following lines are for cucumber tests, so exiting.
+exit 0
+%endif
 
 # Mark failing test as broken
 sed -i features/command_line/init.feature \
@@ -161,8 +185,6 @@ do
 done
 %endif
 
-%endif
-
 %files
 %dir	%{gem_instdir}
 
@@ -181,6 +203,9 @@ done
 %{gem_docdir}
 
 %changelog
+* Fri Mar 03 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.1-2
+- Disable unwanted dependencies in RHEL builds
+
 * Fri Feb 10 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.1-1
 - 3.12.1
 

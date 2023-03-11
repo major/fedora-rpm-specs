@@ -3,7 +3,7 @@
 
 Name:           tcpxtract
 Version:        1.0.1
-Release:        37%{?dist}
+Release:        38%{?dist}
 Summary:        Tool for extracting files from network traffic
 License:        GPLv2+
 URL:            http://tcpxtract.sourceforge.net/
@@ -20,6 +20,8 @@ Patch3:         tcpxtract-fix-segfault.patch
 Patch4:         50_fix-spelling-binary.patch
 # Clean up compile noise
 Patch5:         tcpxtract-1.0.1-cleancompile.patch
+# C99 Fixes
+Patch99:	tcpxtract-1.0.1-fedora-c99.patch
 BuildRequires: make
 BuildRequires:  gcc
 BuildRequires:  libpcap-devel
@@ -52,6 +54,7 @@ tcpxtract features the following:
 %patch3 -p1 -b .segfaultfix
 %patch4 -p1 -b .typofix
 %patch5 -p1 -b .cleancompile
+%patch99 -p1 -b .c99
 %{__sed} -i.path -e '/DEFAULT_CONFIG_FILE/s#/usr/local/etc#%{_sysconfdir}#' tcpxtract.c
 
 %build
@@ -74,6 +77,9 @@ export LDFLAGS="-lfl"
 
 
 %changelog
+* Wed Mar  8 2023 DJ Delorie <dj@redhat.com> - 1.0.0-38
+- Fix C99 compatibility issue
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.1-37
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

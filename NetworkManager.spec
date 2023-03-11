@@ -197,7 +197,6 @@ Source6: 70-nm-connectivity.conf
 Source7: readme-ifcfg-rh.txt
 
 #Patch1: 0001-some.patch
-Patch1: 0001-libnm-docs-fix-gtk-doc-generation-for-settings.patch
 
 Requires(post): systemd
 %if 0%{?fedora} || 0%{?rhel} >= 8

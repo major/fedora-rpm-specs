@@ -13,7 +13,7 @@
 
 Name:          mutter
 Version:       44~rc
-Release:       2%{?dist}
+Release:       4%{?dist}
 Summary:       Window and compositing manager based on Clutter
 
 License:       GPLv2+
@@ -30,7 +30,11 @@ Patch1:        0001-Revert-build-Do-not-provide-built-sources-as-libmutt.patch
 Patch2:        mutter-42.alpha-disable-tegra.patch
 
 # https://pagure.io/fedora-workstation/issue/79
-Patch3:       0001-place-Always-center-initial-setup-fedora-welcome.patch
+Patch3:        0001-place-Always-center-initial-setup-fedora-welcome.patch
+
+# https://bugzilla.redhat.com/show_bug.cgi?id=2176700
+# https://gitlab.gnome.org/GNOME/mutter/-/merge_requests/2906
+Patch4:        2906.patch
 
 BuildRequires: pkgconfig(gobject-introspection-1.0) >= 1.41.0
 BuildRequires: pkgconfig(sm)
@@ -175,6 +179,14 @@ the functionality of the installed %{name} package.
 %{_datadir}/mutter-%{mutter_api_version}/tests
 
 %changelog
+* Fri Mar 10 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-4
+- Fix typo in centering patch
+- Also check for possible future fedora-welcome ID
+
+* Thu Mar 09 2023 Adam Williamson <awilliam@redhat.com> - 44~rc-3
+- From Florian: adjust centering patch to not crash on null values
+- Backport MR #2906 to fix g-i-s startup problems (#2176700)
+
 * Mon Mar 06 2023 Florian Müllner <fmuellner@redhat.com> - 44~rc-1
 - Update to 44.rc
 

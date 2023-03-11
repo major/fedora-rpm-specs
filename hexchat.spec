@@ -43,7 +43,7 @@ This package contains the development files for %{name}.
 %autosetup
 
 %build
-%meson -Dwith-lua=lua
+%meson -Dwith-lua=lua %{?flatpak:-Ddbus-service-use-appid=true}
 %meson_build
 
 %install
@@ -66,8 +66,12 @@ This package contains the development files for %{name}.
 %{_datadir}/applications/%{app_id}.desktop
 %{_datadir}/icons/hicolor/*/apps/%{app_id}.*
 %{_datadir}/metainfo/%{app_id}.appdata.xml
+%if 0%{?flatpak}
+%{_datadir}/dbus-1/services/%{app_id}.service
+%else
 %{_datadir}/dbus-1/services/org.hexchat.service.service
-%{_mandir}/man1/*.gz
+%endif
+%{_mandir}/man1/hexchat.1*
 
 %files devel
 %{_includedir}/hexchat-plugin.h

@@ -1,8 +1,3 @@
-%if 0%{?fedora} < 28 && 0%{?rhel} < 8
-%bcond_without libnm_glib
-%else
-%bcond_with libnm_glib
-%endif
 %if 0%{?fedora} < 36 && 0%{?rhel} < 10
 %bcond_with gtk4
 %else
@@ -12,8 +7,8 @@
 Summary:   NetworkManager VPN plugin for PPTP
 Name:      NetworkManager-pptp
 Epoch:     1
-Version:   1.2.10
-Release:   3%{?dist}
+Version:   1.2.12
+Release:   1%{?dist}
 License:   GPLv2+
 URL:       http://www.gnome.org/projects/NetworkManager/
 
@@ -30,11 +25,6 @@ BuildRequires: libnma-devel >= 1.2.0
 BuildRequires: ppp-devel
 BuildRequires: libtool intltool gettext
 BuildRequires: libsecret-devel
-%if %with libnm_glib
-BuildRequires: NetworkManager-devel
-BuildRequires: NetworkManager-glib-devel >= 1:1.2.0
-BuildRequires: libnm-gtk-devel >= 0.9
-%endif
 %if %with gtk4
 BuildRequires: libnma-gtk4-devel
 %endif
@@ -73,9 +63,6 @@ the PPTP server with NetworkManager (GNOME files).
 %if %with gtk4
 	--with-gtk4 \
 %endif
-%if %with libnm_glib
-	--with-libnm-glib \
-%endif
 	--enable-more-warnings=yes \
 	--with-pppd-plugin-dir=%{_libdir}/pppd/%{ppp_version} \
 	--with-dist-version=%{version}-%{release}
@@ -101,7 +88,7 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %{_prefix}/lib/NetworkManager/VPN/nm-pptp-service.name
 %{_libexecdir}/nm-pptp-service
 %{_libdir}/pppd/%{ppp_version}/nm-pptp-pppd-plugin.so
-%doc AUTHORS README ChangeLog NEWS
+%doc AUTHORS README NEWS
 %license COPYING
 
 %files -n NetworkManager-pptp-gnome
@@ -113,13 +100,11 @@ rm -f %{buildroot}%{_libdir}/pppd/%{ppp_version}/*.la
 %{_libdir}/NetworkManager/libnm-gtk4-vpn-plugin-pptp-editor.so
 %endif
 
-%if %with libnm_glib
-%{_libdir}/NetworkManager/libnm-*-properties.so
-%{_sysconfdir}/NetworkManager/VPN/nm-pptp-service.name
-%endif
-
 
 %changelog
+* Thu Mar 09 2023 Lubomir Rintel <lkundrak@v3.sk> - 1.2.12-1
+- Update to 1.2.12 release
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.2.10-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

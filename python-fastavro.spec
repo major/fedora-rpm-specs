@@ -118,11 +118,10 @@ sed -r -e '/^(black|check-manifest|flake8|mypy|twine)\b/d' \
 %build
 %pyproject_wheel
 
-PYTHONPATH="%{pyproject_build_lib}" \
-    %make_build -C docs man SPHINXOPTS='-n %{?_smp_mflags}'
+BLIB="${PWD}/build/lib.%{python3_platform}-cpython-%{python3_version_nodots}"
+PYTHONPATH="${BLIB}" %make_build -C docs man SPHINXOPTS='-n %{?_smp_mflags}'
 %if %{with doc_pdf}
-PYTHONPATH="%{pyproject_build_lib}" \
-    %make_build -C docs latex SPHINXOPTS='-n %{?_smp_mflags}'
+PYTHONPATH="${BLIB}" %make_build -C docs latex SPHINXOPTS='-n %{?_smp_mflags}'
 %make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
 %endif
 

@@ -1,9 +1,10 @@
 %global run_testsuite 1
 %global mingw_build_ucrt64 1
+%define enable_new_dtags 0
 
 Name:           mingw-binutils
-Version:        2.39
-Release:        5%{?dist}
+Version:        2.40
+Release:        1%{?dist}
 Summary:        Cross-compiled version of binutils for Win32 and Win64 environments
 
 License:        GPLv2+ and LGPLv2+ and GPLv3+ and LGPLv3+
@@ -43,14 +44,16 @@ Patch03: binutils-export-demangle.h.patch
 #           order.
 Patch04: binutils-no-config-h-check.patch
 
-# Purpose:  Include the filename concerned in readelf error messages.  This
-#           makes readelf's output more helpful when it is run on multiple
-#           input files.
+# Purpose:  Include the filename concerned in readelf error and warning
+#           messages.  This helps when readelf is run with multiple
+#           input files or when multiple instances of readelf are
+#           running at the same time.
 # Lifetime: Permanent.  This patch changes the format of readelf's output,
 #           making it better (IMHO) but also potentially breaking tools that
-#           depend upon readelf's current format.  Hence it remains a local
-#           patch.
-Patch05: binutils-filename-in-error-messages.patch
+#           depend upon readelf's current output format.  cf/ Patch07.
+#           It also tends to break parts of the binutils own
+#           testsuite.  Hence the patch remains local for now.
+Patch05: binutils-filename-in-readelf-messages.patch
 
 # Purpose:  Disable an x86/x86_64 optimization that moves functions from the
 #           PLT into the GOTPLT for faster access.  This optimization is
@@ -62,7 +65,7 @@ Patch06: binutils-revert-PLT-elision.patch
 
 # Purpose:  Changes readelf so that when it displays extra information about
 #           a symbol, this information is placed at the end of the line.
-# Lifetime: Permanent.
+# Lifetime: Permanent.  cf/ Patch05.
 # FIXME:    The proper fix would be to update the scripts that are expecting
 #           a fixed output from readelf.  But it seems that some of them are
 #           no longer being maintained.
@@ -72,8 +75,7 @@ Patch07: binutils-readelf-other-sym-info.patch
 #           debug sections.
 # Lifetime: Permanent.
 # FIXME:    Find related bug.  Decide on permanency.
-# Not needed, mingw does not have aarch64
-# Patch08: binutils-2.27-aarch64-ifunc.patch
+Patch08: binutils-2.27-aarch64-ifunc.patch
 
 # Purpose:  Stop the binutils from statically linking with libstdc++.
 # Lifetime: Permanent.
@@ -98,45 +100,33 @@ Patch12: binutils-gold-mismatched-section-flags.patch
 # Lifetime: Permanent.
 Patch13: binutils-gold-warn-unsupported.patch
 
-# Purpose:  Fix testsuite failures due to the patches applied here.
-# Lifetime: Permanent, but varying with each new rebase.
-Patch14: binutils-testsuite-fixes.patch
-
 # Purpose:  Enable the creation of .note.gnu.property sections by the GOLD
 #            linker for x86 binaries.
-# Lifetime: Fixed in 2.38 maybe
-Patch15: binutils-gold-i386-gnu-property-notes.patch
+# Lifetime: Permanent.
+Patch14: binutils-gold-i386-gnu-property-notes.patch
 
 # Purpose:  Allow the binutils to be configured with any (recent) version of
 #            autoconf.
 # Lifetime: Fixed in 2.39 (maybe ?)
-Patch16: binutils-autoconf-version.patch
+Patch15: binutils-autoconf-version.patch
 
 # Purpose:  Stop libtool from inserting useless runpaths into binaries.
 # Lifetime: Who knows.
-Patch17: binutils-libtool-no-rpath.patch
+Patch16: binutils-libtool-no-rpath.patch
 
+%if %{enable_new_dtags}
 # Purpose:  Change ld man page so that it says that --enable-new-dtags is the default.
 # Lifetime: Permanent
-# Not needed, mingw does not ship man
-# Patch18: binutils-update-linker-manual.patch
+Patch17: binutils-update-linker-manual.patch
+%endif
 
-# Purpose:  Add a --package-metadata option to the linkers.
-# Lifetime: Fixed in 2.40
-Patch19: binutils-package-metadata.patch
+# Purpose:  Speed up objcopy's note merging algorithm.
+# Lifetime: Fixed in 2.41
+Patch18: binutils-objcopy-note-merge-speedup.patch
 
-# Purpose:  Stop the assembler from generating DIE information for zero-sized functions.
-# Lifetime: Fixed in 2.40
-Patch20: binutils-gas-dwarf-skip-empty-functions.patch
-
-# Backport patch for CVE-2022-38533
-Patch21: CVE-2022-38533.patch
-
-# Backport patch for CVE-2022-4285
-Patch22: CVE-2022-4285.patch
-
-# Backport patch for CVE-2023-25587
-Patch23: CVE-2023-25587.patch
+# # Purpose:  Fix testsuite failures due to the patches applied here.
+# # Lifetime: Permanent, but varying with each new rebase.
+Patch19: binutils-testsuite-fixes.patch
 
 
 BuildRequires:  make
@@ -470,6 +460,9 @@ rm -rf %{buildroot}%{_mandir}/man1/*
 
 
 %changelog
+* Thu Mar 09 2023 Sandro Mani <manisandro@gmail.com> - 2.40-1
+- Update to 2.40
+
 * Tue Mar 07 2023 Sandro Mani <manisandro@gmail.com> - 2.39-5
 - Backport patch for CVE-2023-25587
 

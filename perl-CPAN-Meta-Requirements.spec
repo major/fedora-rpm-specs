@@ -5,7 +5,7 @@ Name:           perl-CPAN-Meta-Requirements
 Version:        2.140
 Release:        491%{?dist}
 Summary:        Set of version requirements for a CPAN dist
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/CPAN-Meta-Requirements
 Source0:        https://cpan.metacpan.org/authors/id/D/DA/DAGOLDEN/CPAN-Meta-Requirements-%{version}.tar.gz
 BuildArch:      noarch
@@ -13,8 +13,8 @@ BuildArch:      noarch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(ExtUtils::MakeMaker)
 # Module
 BuildRequires:  perl(B)
@@ -24,9 +24,12 @@ BuildRequires:  perl(version) >= 0.88
 BuildRequires:  perl(warnings)
 # Test
 BuildRequires:  perl(File::Spec)
-BuildRequires:  perl(Test::More)
+BuildRequires:  perl(Test::More) >= 0.88
 # Extra Tests (not run when bootstrapping due to circular build dependencies)
 %if !%{defined perl_bootstrap} && ! ( 0%{?rhel} ) && %{with perl_CPAN_Meta_Requirements_enables_optional_test}
+%if 0%{?fedora} > 23 || 0%{?rhel} > 7
+BuildRequires:  glibc-langpack-en
+%endif
 BuildRequires:  perl(blib)
 BuildRequires:  perl(CPAN::Meta) >= 2.120900
 BuildRequires:  perl(English)
@@ -46,12 +49,9 @@ BuildRequires:  perl(Test::Portability::Files)
 BuildRequires:  perl(Test::Spelling) >= 0.12, hunspell-en
 BuildRequires:  perl(Test::Version) >= 1
 %endif
-# Runtime
+# Dependencies
 Requires:       perl(B)
 Requires:       perl(version) >= 0.88
-
-# CPAN-Meta-Requirements was split from CPAN-Meta
-Conflicts:      perl-CPAN-Meta < 2.120921
 
 # Had a six-digit version in a previous life
 %global six_digit_version %(LC_ALL=C; printf '%.6f' '%{version}')
@@ -86,7 +86,7 @@ find %{buildroot} -type f -name .packlist -delete
 %check
 make test AUTHOR_TESTING=1
 %if !%{defined perl_bootstrap} && ! ( 0%{?rhel} ) && %{with perl_CPAN_Meta_Requirements_enables_optional_test}
-make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
+LANG=en_US make test TEST_FILES="$(echo $(find xt/ -name '*.t'))"
 %endif
 
 %files

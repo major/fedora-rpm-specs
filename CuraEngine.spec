@@ -1,30 +1,38 @@
 Name:           CuraEngine
 Epoch:          1
-Version:        4.13.1
-Release:        6%{?dist}
+Version:        5.3.0
+Release:        1%{?dist}
 Summary:        Engine for processing 3D models into G-code instructions for 3D printers
 License:        AGPLv3+
 URL:            https://github.com/Ultimaker/%{name}
 Source0:        %{url}/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+# Cmake bits taken from 4.13.1, before upstream went nuts with conan
+Source2:        FindGMock.cmake
+Source3:        FindPolyclipping.cmake
+Source4:        FindStb.cmake
+Source5:        CMakeLists.txt
+Source6:        CPackConfig.cmake
+
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
-BuildRequires:  libarcus-devel == %{version}
+BuildRequires:  libarcus-devel >= 5.2.2
 BuildRequires:  polyclipping-devel >= 6.1.2
 BuildRequires:  protobuf-devel
 BuildRequires:  rapidjson-devel
 BuildRequires:  cmake
 BuildRequires:  git-core
+BuildRequires:  boost-devel
+BuildRequires:  range-v3-devel
+BuildRequires:  fmt-devel
+BuildRequires:  spdlog-devel
 
 # Header-only package; -static version is for tracking per guidelines
 # stb_image 2.28^20230129git5736b15-0.2 is the minimum EVR that fixes the null
 # pointer dereference reported in https://github.com/nothings/stb/issues/1452.
 BuildRequires:  stb_image-static >= 2.28^20230129git5736b15-0.2
 
-Patch:          %{name}-static-libstdcpp.patch
-# Add an #include needed for GCC 13
-# This is a (very) partial backport of upstream commit de60e86.
-Patch:          0001-Add-an-include-needed-for-GCC-13.patch
+Patch0:         %{name}-static-libstdcpp.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 %if 0%{?fedora} >= 37 || 0%{?rhel} >= 10
@@ -42,13 +50,20 @@ This is just a console application for G-code generation. For a full graphical
 application look at cura with is the graphical frontend for %{name}.
 
 %prep
-%autosetup -p1 -S git
+%setup -q
+
+mkdir cmake
+cp -a %{SOURCE2} %{SOURCE3} %{SOURCE4} cmake
+rm -rf CMakeLists.txt
+cp -a %{SOURCE5} %{SOURCE6} .
+
+%patch0 -p1
 
 # bundled libraries
 rm -rf libs
 
 # The -DCURA_ENGINE_VERSION does not work, so we sed-change the default value
-sed -i 's/"DEV"/"%{version}"/' src/settings/Settings.h
+# sed -i 's/"DEV"/"%{version}"/' src/settings/Settings.h
 
 %build
 %cmake \
@@ -74,6 +89,9 @@ sed -i 's/"DEV"/"%{version}"/' src/settings/Settings.h
 %{_bindir}/%{name}
 
 %changelog
+* Wed Mar  8 2023 Tom Callaway <spot@fedoraproject.org> - 1:5.3.0-1
+- update to 5.3.0
+
 * Sat Feb 25 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1:4.13.1-6
 - Update minimum stb_image to fix a null deref. bug
 

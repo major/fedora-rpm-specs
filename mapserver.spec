@@ -17,7 +17,7 @@
 
 Name:           mapserver
 Version:        8.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Environment for building spatially-enabled internet applications
 %global dashver %(echo %version | sed 's|\\.|-|g')
 
@@ -239,7 +239,7 @@ install -p -m 644 %{_vpath_builddir}/mapscript/java/mapscript.jar %{buildroot}%{
 mkdir -p %{buildroot}%{php_inidir}
 cat > %{buildroot}%{php_inidir}/%{ini_name} <<EOF
 ; Enable %{name} extension module
-extension=php_mapscript.so
+extension=php_mapscriptng.so
 EOF
 %endif
 
@@ -275,7 +275,6 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 %if 0%{php_mapscript}
 %files -n php-%{name}
-%doc mapscript/php/README
 %config(noreplace) %{php_inidir}/%{ini_name}
 %{php_extdir}/php_mapscriptng.so
 %endif
@@ -311,6 +310,9 @@ rm %{buildroot}%{_sysconfdir}/mapserver-sample.conf
 
 
 %changelog
+* Thu Mar 09 2023 Sandro Mani <manisandro@gmail.com> - 8.0.0-7
+- Fix php extension name in 40-mapserver.ini
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.0.0-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

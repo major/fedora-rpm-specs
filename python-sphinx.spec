@@ -28,7 +28,7 @@ Name:       python-sphinx
 #global     prerel ...
 %global     upstream_version %{general_version}%{?prerel}
 Version:    %{general_version}%{?prerel:~%{prerel}}
-Release:    3%{?dist}
+Release:    4%{?dist}
 Epoch:      1
 Summary:    Python documentation generator
 
@@ -49,6 +49,10 @@ Patch1:     sphinx-test_theming.diff
 # with python-pygments 2.14+
 # https://github.com/sphinx-doc/sphinx/commit/965768bfda2a00ba6
 Patch2:     fix-tests-with-pygments-2.14.patch
+
+# Backported upstream commit ensures compatibility with Babel 2.12
+# https://github.com/sphinx-doc/sphinx/commit/c5641702b
+Patch3:     fix-tests-with-babel-2.12.patch
 
 BuildArch:     noarch
 
@@ -254,6 +258,12 @@ dos2unix -k ./sphinx/themes/basic/static/jquery.js
 rm tests/test_ext_imgconverter.py
 %endif
 
+# Remove the tests that rely on setuptools
+# https://github.com/sphinx-doc/sphinx/commit/44326fe2476db44e8c2a60d9326c9c3ac2865c03
+rm -r tests/roots/test-setup/
+rm tests/roots/test-theming/{MANIFEST.in,setup.py}
+rm tests/test_setup_command.py
+
 
 %generate_buildrequires
 %pyproject_buildrequires -r %{?with_tests:-x test}
@@ -364,6 +374,10 @@ mkdir %{buildroot}%{python3_sitelib}/sphinxcontrib
 
 
 %changelog
+* Thu Mar 09 2023 Karolina Surma <ksurma@redhat.com> - 1:5.3.0-4
+- Fix tests related to missing setuptools and Babel 2.12
+- Fixes rhbz#2176685
+
 * Tue Jan 31 2023 Karolina Surma <ksurma@redhat.com> - 1:5.3.0-3
 - Fix tests with python-pygments 2.14+
 

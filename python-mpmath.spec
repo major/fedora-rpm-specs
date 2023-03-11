@@ -1,5 +1,5 @@
 Name:           python-mpmath
-Version:        1.2.1
+Version:        1.3.0
 Release:        %autorelease
 Summary:        A pure Python library for multiprecision floating-point arithmetic
 License:        BSD
@@ -9,9 +9,6 @@ Source0:        https://github.com/fredrik-johansson/mpmath/archive/%{version}/%
 
 # Switch to 'traditional' theme in RHEL since 'classic' isn't available
 Patch0:         python-mpmath-1.0.0-sphinx.patch
-
-# #1974835 - CVE-2021-29063 python-mpmath: Regular expression denial of service in the mpmathify function
-Patch1:         https://github.com/fredrik-johansson/mpmath/pull/570.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-pip
@@ -23,7 +20,12 @@ BuildRequires:  xorg-x11-server-Xvfb
 
 # For building documentation
 BuildRequires:  dvipng
-BuildRequires:  tex(latex)
+BuildRequires:  make
+BuildRequires:  latexmk
+BuildRequires:  texlive-collection-basic
+BuildRequires:  texlive-collection-latexrecommended
+BuildRequires:  texlive-collection-latexextra
+BuildRequires:  texlive-collection-fontsrecommended
 
 BuildArch:      noarch
 
@@ -65,7 +67,6 @@ This package contains the HTML documentation for %{name}.
 %if 0%{?rhel} == 6 || 0%{?rhel} == 7
 %patch0 -p1 -b .sphinx
 %endif
-%patch1 -p1
 
 # Convert line encodings
 for doc in CHANGES LICENSE README.rst TODO mpmath/tests/runtests.py; do
@@ -73,7 +74,7 @@ for doc in CHANGES LICENSE README.rst TODO mpmath/tests/runtests.py; do
  touch -r $doc $doc.new && \
  mv $doc.new $doc
 done
-find doc -name *.txt -exec sed -i "s|\r||g" {} \;
+find docs -name *.txt -exec sed -i "s|\r||g" {} \;
 
 shebangs="mpmath/matrices/eigen.py mpmath/matrices/eigen_symmetric.py mpmath/tests/runtests.py mpmath/tests/test_eigen.py mpmath/tests/test_eigen_symmetric.py mpmath/tests/test_levin.py"
 # Get rid of unnecessary shebangs
@@ -89,8 +90,8 @@ sed -i -r 's/use_scm_version=True/version="%{version}"/' setup.py
 %py3_build
 
 # Build documentation
-cd doc
-%{__python3} build.py
+%{__python3} setup.py build_sphinx -c docs -b html,latex
+make -C build/sphinx/latex all-pdf
 
 %install
 %py3_install
@@ -101,12 +102,12 @@ xvfb-run -a pytest-3 -v
 
 %files -n python3-mpmath
 %license LICENSE
-%doc CHANGES README.rst TODO
+%doc CHANGES README.rst
 %{python3_sitelib}/mpmath/
 %{python3_sitelib}/mpmath-%{version}-*.egg-info
 
 %files doc
-%doc doc/build/*
+%doc build/sphinx/latex/mpmath.pdf build/sphinx/html/ build/sphinx/doctrees/
 
 %changelog
 %autochangelog

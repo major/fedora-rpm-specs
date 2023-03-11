@@ -15,7 +15,7 @@ Name:       distgen
 Summary:    Templating system/generator for distributions
 Version:    1.14
 Release:    2%{?dist}
-License:    GPLv2+
+License:    GPL-2.0-or-later AND Apache-2.0
 URL:        https://github.com/devexp-db/distgen
 BuildArch:  noarch
 

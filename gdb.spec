@@ -11,6 +11,9 @@
 # Turn off the brp-python-bytecompile automagic
 %global _python_bytecompile_extra 0
 
+# Disable LTO until upstream fixes GDB's ODR woes.
+%define _lto_cflags %{nil}
+
 # Only build on x86 for RHEL6 SCL, defining missing parallel make macros.
 %if 0%{?scl:1} && 0%{?el6:1}
 ExclusiveArch: %{ix86} x86_64
@@ -48,13 +51,13 @@ Name: %{?scl_prefix}gdb
 # Freeze it when GDB gets branched
 %global snapsrc    20220501
 # See timestamp of source gnulib installed into gnulib/ .
-%global snapgnulib 20210105
+%global snapgnulib 20220501
 %global tarname gdb-%{version}
-Version: 12.1
+Version: 13.1
 
 # The release always contains a leading reserved number, start it at 1.
 # `upstream' is not a part of `name' to stay fully rpm dependencies compatible for the testing.
-Release: 16%{?dist}
+Release: 1%{?dist}
 
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ and GPLv2+ with exceptions and GPL+ and LGPLv2+ and LGPLv3+ and BSD and Public Domain and GFDL
 # Do not provide URL for snapshots as the file lasts there only for 2 days.
@@ -75,9 +78,7 @@ URL: https://gnu.org/software/gdb/
 %undefine _debuginfo_subpackages
 
 # For DTS RHEL<=7 GDB it is better to use none than a Requires dependency.
-# We don't support gcc-gdb-plugin on RHEL anymore.
 %if 0%{!?rhel:1}
-Recommends: %{?scl_prefix}gcc-gdb-plugin%{?_isa}
 Recommends: dnf-command(debuginfo-install)
 %endif
 
@@ -559,7 +560,7 @@ COMMON_GDB_CONFIGURE_FLAGS="\
 	--mandir=%{_mandir}					\
 	--infodir=%{_infodir}					\
 	--with-gdb-datadir=%{_datadir}/gdb			\
-	--enable-gdb-build-warnings=,-Wno-unused,-Wno-deprecated-declarations,-Wno-unused-function\
+	--enable-gdb-build-warnings=,-Wno-unused,-Wno-deprecated-declarations,-Wno-unused-function,-Wno-stringop-overflow\
 %ifarch %{ix86}
 ,-Wno-format-overflow\
 %endif
@@ -1038,10 +1039,11 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/
 rm -f $RPM_BUILD_ROOT%{_infodir}/bfd*
 rm -f $RPM_BUILD_ROOT%{_infodir}/standard*
 rm -f $RPM_BUILD_ROOT%{_infodir}/configure*
+rm -f $RPM_BUILD_ROOT%{_infodir}/sframe-spec*
 # Just exclude the header files in the top directory, and don't exclude
 # the gdb/ directory, as it contains jit-reader.h.
 rm -rf $RPM_BUILD_ROOT%{_includedir}/*.h
-rm -rf $RPM_BUILD_ROOT/%{_libdir}/lib{bfd*,opcodes*,iberty*,ctf*}
+rm -rf $RPM_BUILD_ROOT/%{_libdir}/lib{bfd*,opcodes*,iberty*,ctf*,sframe*}
 
 # pstack obsoletion
 
@@ -1190,6 +1192,17 @@ fi
 %endif
 
 %changelog
+* Wed Mar 8 2023 Kevin Buettner <kevinb@redhat.com> - 13.1-1
+- Rebase to FSF GDB 13.1.
+- Update gdb-6.3-rh-testversion-20041202.patch.
+- Update gdb-6.3-bz140532-ppc-unwinding-test.patch.
+- Update gdb-6.6-buildid-locate.patch.
+- Update gdb-6.6-buildid-locate-rpm.patch.
+- Remove 'Recommends: ' line for gcc-gdb-plugin for BZ2149246.
+- Add 'define _lto_cflags %{nil}' to avoid ODR violations.
+- Add -Wno-stringop-overflow to --enable-gdb-build-warnings to work around
+  gcc problem.
+
 * Fri Jan 27 2023 Kevin Buettner <kevinb@redhat.com> - 12.1-16
 - Tweak gdb-6.3-rh-testversion-20041202.patch so that $_gdb_major
   and $_gdb_minor will be obtained correctly.

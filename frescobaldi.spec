@@ -2,7 +2,7 @@
 
 Name:           frescobaldi
 Version:        3.2
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        Edit LilyPond sheet music with ease!
 
 # hyphenator.py is LGPLv2+
@@ -12,7 +12,7 @@ URL:            http://www.frescobaldi.org/
 Source0:        https://github.com/wbsoft/%{name}/releases/download/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         frescobaldi-3.1.2-setup.patch
 Patch1:         0001-Remove-nested-list-from-metainfo-release.patch
-Patch2:         event.patch
+Patch2:         0001-Avoid-event-QKeySequence-member-comparisons-1480.patch
 
 BuildArch:      noarch
 ExclusiveArch: %{qt5_qtwebengine_arches}
@@ -44,11 +44,11 @@ yet lightweight and easy to use. It features:
     * Editing tools to:
           o manipulate the rhythm
           o hyphenate lyrics
-          o quickly enter or add articulations and other symbols to existing 
+          o quickly enter or add articulations and other symbols to existing
             music
-          o run the document through convert-ly to update it to a newer 
+          o run the document through convert-ly to update it to a newer
             LilyPond version
-    * Context sensitive auto-complete, helping you to quickly enter LilyPond 
+    * Context sensitive auto-complete, helping you to quickly enter LilyPond
       commands
     * Expansion manager to enter larger snippets of LilyPond input using short
       mnemonics
@@ -61,7 +61,7 @@ find -name "*.py"  -exec sed -i -e 's|#! python||' {} \;
 
 %patch0 -p0
 %patch1 -p0
-%patch2 -p0
+%patch2 -p1
 
 %build
 python3 ./setup.py build
@@ -99,6 +99,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_metainfodir}/*.metainfo.xml
 
 %changelog
+* Thu Mar 09 2023 Nils Philippsen <nils@tiptoe.de> - 3.2-5
+- Apply upstream fix for event issue (#2176793)
+- Remove trailing white space
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 3.2-4
 - migrated to SPDX license
 

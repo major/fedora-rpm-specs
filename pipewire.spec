@@ -1,6 +1,6 @@
 %global majorversion 0
 %global minorversion 3
-%global microversion 66
+%global microversion 67
 
 %global apiversion   0.3
 %global spaversion   0.2
@@ -9,7 +9,7 @@
 %global ms_version   0.4.2
 
 # For rpmdev-bumpspec and releng automation
-%global baserelease 3
+%global baserelease 1
 
 #global snapdate   20210107
 #global gitcommit  b17db2cebc1a5ab2c01851d29c05f79cd2f262bb
@@ -591,6 +591,7 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_bindir}/pw-dot
 %{_bindir}/pw-cat
 %{_bindir}/pw-dump
+%{_bindir}/pw-encplay
 %{_bindir}/pw-link
 %{_bindir}/pw-loopback
 %{_bindir}/pw-play
@@ -670,6 +671,9 @@ systemctl --no-reload preset --global pipewire.socket >/dev/null 2>&1 || :
 %{_libdir}/pipewire-%{apiversion}/libpipewire-module-x11-bell.so
 
 %changelog
+* Thu Mar 9 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.67-1
+- Update version to 0.3.67
+
 * Thu Feb 16 2023 Wim Taymans <wtaymans@redhat.com> - 0.3.66-1
 - Update version to 0.3.66
 

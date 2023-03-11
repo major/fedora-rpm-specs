@@ -1,11 +1,11 @@
 # Force out of source build
 %undefine __cmake_in_source_build
 
-%global min_libzypp_ver 17.29.0
+%global min_libzypp_ver 17.31.7
 
 Name:           zypper
-Version:        1.14.55
-Release:        2%{?dist}
+Version:        1.14.59
+Release:        1%{?dist}
 Summary:        Command line package manager using libzypp
 
 License:        GPLv2+
@@ -154,6 +154,9 @@ popd
 
 
 %changelog
+* Thu Mar 09 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.14.59-1
+- Update to 1.14.59
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.55-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

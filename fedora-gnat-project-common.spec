@@ -1,6 +1,6 @@
 Name:           fedora-gnat-project-common
-Version:        3.17
-Release:        2%{?dist}
+Version:        3.18
+Release:        1%{?dist}
 Summary:        Files shared by Ada libraries
 Summary(sv):    Gemensamma filer för adabibliotek
 
@@ -53,6 +53,10 @@ cp -p macros.gnat %{buildroot}%{rpmmacrodir}/
 
 
 %changelog
+* Thu Mar 09 2023 Björn Persson <Bjorn@Rombobjörn.se> - 3.18-1
+- Removed -m because it has a bug that makes libraries unusable, and several
+  Adacore libraries contain filenames that trigger the bug.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.17-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

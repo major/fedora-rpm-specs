@@ -1,13 +1,14 @@
 %global pypi_name dropbox
 Name:           python-%{pypi_name}
 Version:        11.36.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Official Dropbox REST API Client
 License:        MIT
 
 URL:            https://www.dropbox.com/developers/core/sdks
 Source0:        %pypi_source
 Patch0:         unpin-pytest-runner.patch
+Patch1:         noglob.patch
 
 BuildArch:      noarch
 
@@ -32,20 +33,27 @@ A Python library for Dropbox's HTTP-based Core and Datastore APIs.
 %setup -q -n %{pypi_name}-%{version}
 
 %patch0 -p0
+%patch1 -p0
+
+%generate_buildrequires
+%pyproject_buildrequires -t
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
 
 %files -n python3-%{pypi_name}
 %license LICENSE
 %doc README.rst
 %{python3_sitelib}/%{pypi_name}
-%{python3_sitelib}/%{pypi_name}-%{version}-py%{python3_version}.egg-info
+%{python3_sitelib}/%{pypi_name}-%{version}.dist-info/
 
 %changelog
+* Thu Mar 09 2023 Gwyn Ciesla <gwync@protonmail.com> - 11.36.0-4
+- Fix glob, move to pyprject macros.
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 11.36.0-3
 - migrated to SPDX license
 

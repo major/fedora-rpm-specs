@@ -1,6 +1,6 @@
 Name:           maliit-keyboard
 Version:        2.3.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Maliit Keyboard 2
 
 License:        LGPLv3 and BSD
@@ -26,6 +26,9 @@ BuildRequires: qt5-qtmultimedia-devel
 BuildRequires: qt5-qtfeedback-devel
 BuildRequires: qt5-qtquickcontrols2-devel
 
+# Upstream patches
+# https://github.com/maliit/keyboard/pull/187
+Patch1: make-sure-PressArea-gets-reset-when-the-keyboard-hides.patch
 
 %description
 Based on Ubuntu Keyboard. Ubuntu Keyboard was a QML and C++ based Keyboard
@@ -64,6 +67,9 @@ rm -rf %{buildroot}%{_datadir}/doc/maliit-keyboard
 
 
 %changelog
+* Thu Mar 09 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 2.3.1-4
+- Add patch from upstream (related to #2174563)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

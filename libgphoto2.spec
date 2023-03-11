@@ -18,7 +18,8 @@ Patch2:         gphoto2-device-return.patch
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
 BuildRequires:  make
-BuildRequires:  systemd
+BuildRequires:  systemd-rpm-macros
+BuildRequires:  pkgconfig(udev)
 %if %{with gp2ddb}
 BuildRequires:  flex
 BuildRequires:  bison

@@ -1,11 +1,12 @@
 Name:           pam_yubico
 Version:        2.26
-Release:        12%{?dist}
+Release:        13%{?dist}
 Summary:        A Pluggable Authentication Module for yubikeys
 
 License:        BSD
 URL:            https://developers.yubico.com/yubico-pam/
 Source0:        https://developers.yubico.com/yubico-pam/Releases/pam_yubico-%{version}.tar.gz
+Patch99:	pam_yubico-2.26-fedora-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -20,6 +21,7 @@ Linux-PAM and yubikeys. This module supports yubikey OTP checking.
 
 %prep
 %setup -q 
+%patch99 -p1
 
 %build
 autoconf
@@ -41,6 +43,9 @@ rm $RPM_BUILD_ROOT/%{_lib}/security/pam_yubico.la
 %{_mandir}/man8/pam_yubico.8.gz
 
 %changelog
+* Wed Mar  8 2023 DJ Delorie <dj@redhat.com> - 2.26-13
+- Fix C99 compatibility issue
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.26-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -29,6 +29,9 @@ Source1:        settings.ini
 # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4756
 Patch0:         0001-Revert-Meson-Simplify-pkgconfig-file-generator.patch
 
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5625
+Patch1:         0001-filerchooser-Show-Recent-files-in-inverse-order.patch
+
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  docbook-style-xsl
