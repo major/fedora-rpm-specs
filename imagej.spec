@@ -1,9 +1,18 @@
 Name:           imagej
-Version:        1.53v
-Release:        2%{?dist}
+Version:        1.54c
+Release:        1%{?dist}
 Summary:        Image Processing and Analysis in Java
 
-License:        Public Domain
+# From https://imagej.nih.gov/ij/disclaimer.html:
+#   ImageJ was developed at the National Institutes of Health by an employee of
+#   the Federal Government in the course of his official duties. Pursuant to
+#   Title 17, Section 105 of the United States Code, this software is not
+#   subject to copyright protection and is in the public domain. ImageJ is an
+#   experimental system. NIH assumes no responsibility whatsoever for its use
+#   by other parties, and makes no guarantees, expressed or implied, about its
+#   quality, reliability, or any other characteristic.
+# https://gitlab.com/fedora/legal/fedora-license-data/-/commit/b216f9bcb1c3195b4ddb14674d95e299f669903a
+License:        LicenseRef-Fedora-Public-Domain
 URL:            https://imagej.net/ij/index.html
 Source0:        https://imagej.net/ij/download/src/ij%(echo '%{version}' | tr -d .)-src.zip
 Source1:        imagej.desktop
@@ -119,6 +128,9 @@ desktop-file-install --vendor=''                     \
 
 
 %changelog
+* Fri Mar 10 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 1.54c-1
+- Update to 1.54c (close RHBZ#2175999)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.53v-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

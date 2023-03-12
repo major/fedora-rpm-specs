@@ -22,7 +22,7 @@ Name:    doxygen
 Epoch:   2
 Version: 1.9.6
 %if 0%{?stable}
-Release: 6%{?dist}
+Release: 7%{?dist}
 %else
 %global commit e18f715eb55121a4219d00bc4d824cebf1fb504b
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
@@ -42,6 +42,7 @@ Source1: doxywizard.desktop
 # these icons are part of doxygen and converted from doxywizard.ico
 Source2: doxywizard-icons.tar.xz
 # upstream patches
+Patch0: doxygen-obsolete-egrep.patch
 
 BuildRequires: %{_bindir}/python3
 BuildRequires: gcc-c++ gcc
@@ -320,6 +321,9 @@ desktop-file-install --dir=%{buildroot}%{_datadir}/applications %{SOURCE1}
 %endif
 
 %changelog
+* Fri Mar 10 2023 Than Ngo <than@redhat.com> - 2:1.9.6-7
+- replace obsolescent egrep with grep -E 
+
 * Fri Feb 17 2023 Than Ngo <than@redhat.com> - 2:1.9.6-6
 - migrated to SPDX license
 

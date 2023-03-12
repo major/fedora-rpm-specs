@@ -2,13 +2,13 @@
 %global debug_package %{nil}
 
 Name:           asio
-Version:        1.24.0
-Release:        3%{?dist}
+Version:        1.26.0
+Release:        1%{?dist}
 Summary:        A cross-platform C++ library for network programming
 
 License:        Boost
 URL:            https://think-async.com
-Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.gz
+Source0:        https://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 
 BuildRequires:  gcc
 BuildRequires:  gcc-c++
@@ -55,6 +55,10 @@ autoreconf --install
 %{_libdir}/pkgconfig/asio.pc
 
 %changelog
+* Fri Mar 10 2023 Julian Sikorski <belegdol@fedoraproject.org> - 1.26.0-1
+- Update to 1.26.0
+- Switch to bz2 sources
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.24.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

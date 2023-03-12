@@ -3,7 +3,7 @@
 %bcond_without  docs
 
 Name:           gcovr
-Version:        5.2
+Version:        6.0
 Release:        1%{?dist}
 Summary:        A code coverage report generator using GNU gcov
 
@@ -99,6 +99,9 @@ popd
 
 
 %changelog
+* Thu Mar  9 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 6.0-1
+- New upstream release 6.0, fixes rhbz#2177094
+
 * Sat Jan 21 2023 Dan Čermák <dan.cermak@cgc-instruments.com> - 5.2-1
 - New upstream release 5.2, fixes rhbz#2068872
 

@@ -1,19 +1,18 @@
-Name:           libosip2
-Version:        3.6.0
-Release:        25%{?dist}
+Name: libosip2
+Version: 5.3.1
+Release: 1%{?dist}
+Summary: oSIP is an implementation of SIP
+License: LGPLv2+
+URL: https://www.gnu.org/software/osip/
 
-Summary:        oSIP is an implementation of SIP
+Source0: https://ftp.gnu.org/gnu/osip/%{name}-%{version}.tar.gz
 
-License:        LGPLv2+
-URL:            http://www.gnu.org/software/osip/
-Source0:        http://ftp.gnu.org/gnu/osip/%{name}-%{version}.tar.gz
-Patch0:         libosip2-aarch64.patch
+BuildRequires: autoconf
+BuildRequires: automake
+BuildRequires: gcc
+BuildRequires: libtool
+BuildRequires: make
 
-BuildRequires:  autoconf
-BuildRequires:  automake
-BuildRequires:  gcc
-BuildRequires:  libtool
-BuildRequires:  make
 %description
 oSIP is an implementation of SIP.
 
@@ -23,11 +22,11 @@ software developers an easy and powerful interface to initiate and control SIP
 based sessions in their applications. SIP is a open standard replacement from
 IETF for H.323.
 
-%package        devel
-Summary:        Development libraries for oSIP
-Requires:       %{name} = %{version}-%{release}
+%package devel
+Summary: Development libraries for oSIP
+Requires: %{name} = %{version}-%{release}
 
-%description    devel
+%description devel
 The GNU oSIP library is written in C and get no dependencies except the
 standard C library. oSIP is thread safe and will generally be used in a
 multi-threaded application. Nevertheless, this is optional.
@@ -42,26 +41,28 @@ SDP message parser, and library to handle "SIP transactions" as defined by the
 SIP document.
 
 %prep
-%setup -q
-%patch0 -p1 -b .aarch64
+%autosetup
 
 %build
 autoreconf -fi -I scripts
-%configure --disable-static --disable-rpath
-make %{?_smp_mflags}
+%configure --disable-static
+%make_build
 
 %install
-%makeinstall
-find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
-mv %{buildroot}%{_mandir}/man1/osip.1 %{buildroot}%{_mandir}/man1/osip2.1
+%make_install
 
+# Remove .la files.
+find %{buildroot} -type f -name "*.la" -exec rm -f {} ';'
+
+# Rename and move manpage.
+mv %{buildroot}%{_mandir}/man1/osip.1 %{buildroot}%{_mandir}/man1/osip2.1
 
 %ldconfig_scriptlets
 
 %files
 %doc AUTHORS BUGS COPYING ChangeLog FEATURES HISTORY NEWS README TODO
-%{_libdir}/libosip2.so.7*
-%{_libdir}/libosipparser2.so.7*
+%{_libdir}/libosip2.so.15*
+%{_libdir}/libosipparser2.so.15*
 
 %files devel
 %{_includedir}/osip2
@@ -72,6 +73,9 @@ mv %{buildroot}%{_mandir}/man1/osip.1 %{buildroot}%{_mandir}/man1/osip2.1
 %{_mandir}/man1/osip2.1*
 
 %changelog
+* Thu Mar 09 2023 Phil Wyett <philip.wyett@kathenas.org> - 5.3.1-1
+- New upstream version 5.3.1.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.6.0-25
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

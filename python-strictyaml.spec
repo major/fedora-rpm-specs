@@ -1,5 +1,5 @@
 Name:           python-strictyaml
-Version:        1.6.2
+Version:        1.7.3
 Release:        %autorelease
 Summary:        Parses and validates a restricted subset of YAML
 

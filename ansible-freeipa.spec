@@ -8,9 +8,9 @@
 Summary: Roles and playbooks to deploy FreeIPA servers, replicas and clients
 Name: ansible-freeipa
 Version: 1.9.2
-Release: 1%{?dist}
+Release: 2%{?dist}
 URL: https://github.com/freeipa/ansible-freeipa
-License: GPLv3+
+License: GPL-3.0-or-later
 Source: https://github.com/freeipa/ansible-freeipa/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 BuildArch: noarch
 
@@ -176,6 +176,9 @@ cp -rp tests %{buildroot}%{_datadir}/ansible-freeipa/
 %{_datadir}/ansible-freeipa/requirements-tests.txt
 
 %changelog
+* Fri Mar 10 2023 Rafael Jeffman <rjeffman@redhat.com> - 1.9.2-2
+- Migrate to SPDX license
+
 * Tue Jan 31 2023 Thomas Woerner <twoerner@redhat.com> - 1.9.2-1
 - Update to version 1.9.2
   https://github.com/freeipa/ansible-freeipa/releases/tag/v1.9.2

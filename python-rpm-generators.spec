@@ -1,7 +1,7 @@
 Name:           python-rpm-generators
 Summary:        Dependency generators for Python RPMs
 Version:        14
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 # Originally all those files were part of RPM, so license is kept here
 License:        GPLv2+
@@ -47,6 +47,10 @@ install -Dpm0755 -t %{buildroot}%{_rpmconfigdir} *.py
 %{_rpmconfigdir}/pythonbundles.py
 
 %changelog
+* Tue Mar 07 2023 Miro Hrončok <mhroncok@redhat.com> - 14-3
+- Avoid needless pkg_resources import in pythonbundles.py
+- Ignore environment markers in pythonbundles.py
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 14-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

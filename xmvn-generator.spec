@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 Name:           xmvn-generator
-Version:        1.1.0
+Version:        1.2.0
 Release:        1%{?dist}
 Summary:        RPM dependency generator for Java
 License:        Apache-2.0
@@ -36,7 +36,13 @@ from Lua.
 %mvn_file : %{name}
 
 %build
+# Tests fail on arches other than aarch64 and x86_64 due to missing
+# FMA support in OpenJDK.
+%ifarch aarch64 x86_64
 %mvn_build -j
+%else
+%mvn_build -f -j
+%endif
 
 %install
 %mvn_install
@@ -54,6 +60,9 @@ install -D -p -m 644 src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/xmvn
 %doc README.md
 
 %changelog
+* Fri Mar 10 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.0-1
+- Update to upstream version 1.2.0
+
 * Mon Mar 06 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.1.0-1
 - Update to upstream version 1.1.0
 

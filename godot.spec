@@ -1,19 +1,20 @@
-# Headless is editor binary to run without X11, e.g. for exporting games from CLI
-%bcond_without  headless
-# Server is template (optimized, no tools) binary to run multiplayer servers
-%bcond_without  server
-
+%if 0%{?fedora}
 # With _package_note_file enabled, godot.x11.opt.tools fails to link with:
 # g++: fatal error: environment variable 'RPM_ARCH' not defined
 %undefine _package_note_file
+%ifarch %{arm32}
+%global _lto_cflags %nil
+%endif
+%endif
 
-%define uversion %{version}-stable
+%define status  stable
+%define uversion %{version}-%{status}
 
 %define rdnsname org.godotengine.Godot
 
 Name:           godot
-Version:        3.4.5
-Release:        4%{?dist}
+Version:        4.0
+Release:        2%{?dist}
 Summary:        Multi-platform 2D and 3D game engine with a feature-rich editor
 %if 0%{?mageia}
 Group:          Development/Tools
@@ -24,67 +25,95 @@ URL:            https://godotengine.org
 Source0:        https://downloads.tuxfamily.org/godotengine/%{version}/%{name}-%{uversion}.tar.xz
 Source1:        https://downloads.tuxfamily.org/godotengine/%{version}/%{name}-%{uversion}.tar.xz.sha256
 
-# Fix issue where uint32_t is undefined (add include <cstdint>)
-Patch0:         godot-3.4.5-cstdint.patch
+# https://github.com/godotengine/godot/pull/73443
+Patch0:         godot-pr73443-unbundle-openxr.patch
+# https://github.com/godotengine/godot/pull/74294
+Patch1:         godot-pr74294-system-embree-64bit.patch
+# https://github.com/godotengine/godot/pull/74648
+Patch2:         godot-pr74648-gcc13.patch
+# SCons 4.5.0 regression: https://github.com/SCons/scons/issues/4321
+Patch3:         workaround-scons-4.5.0-regression.patch
+# libsquish doesn't have a .pc file on Fedora
+Patch4:         libsquish_no_pkgconfig.patch
 
 # Upstream does not support those arches (for now)
 ExcludeArch:    ppc64 ppc64le s390x
 
-# See bundled section for explanations.
-%define system_bullet 0%{?mageia} || 0%{?fedora} >= 34
-%define system_embree 0%{?mageia} || (0%{?fedora} && 0%{?fedora} < 38)
-%define system_libwslay 0%{?mageia}
-
 BuildRequires:  gcc-c++
+BuildRequires:  libsquish-devel
 BuildRequires:  mbedtls-devel
 BuildRequires:  miniupnpc-devel
 BuildRequires:  pkgconfig(alsa)
-%if %{system_bullet}
-BuildRequires:  pkgconfig(bullet) >= 2.89
-%endif
+BuildRequires:  pkgconfig(dbus-1)
+BuildRequires:  pkgconfig(fontconfig)
 BuildRequires:  pkgconfig(freetype2)
+BuildRequires:  pkgconfig(harfbuzz)
+BuildRequires:  pkgconfig(harfbuzz-icu)
 BuildRequires:  pkgconfig(gl)
+BuildRequires:  pkgconfig(graphite2)
+BuildRequires:  pkgconfig(icu-i18n)
+BuildRequires:  pkgconfig(icu-uc)
 BuildRequires:  pkgconfig(libpcre2-32)
 BuildRequires:  pkgconfig(libpng)
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  pkgconfig(libudev)
 BuildRequires:  pkgconfig(libwebp)
-%if %{system_libwslay}
 BuildRequires:  pkgconfig(libwslay)
-%endif
 BuildRequires:  pkgconfig(libzstd)
 BuildRequires:  pkgconfig(ogg)
-BuildRequires:  pkgconfig(opus)
-BuildRequires:  pkgconfig(opusfile)
+BuildRequires:  pkgconfig(speech-dispatcher)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(vorbis)
 BuildRequires:  pkgconfig(vorbisfile)
-BuildRequires:  pkgconfig(vpx)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xcursor)
+BuildRequires:  pkgconfig(xext)
 BuildRequires:  pkgconfig(xi)
 BuildRequires:  pkgconfig(xinerama)
+BuildRequires:  pkgconfig(xkbcommon)
 BuildRequires:  pkgconfig(xrandr)
 BuildRequires:  pkgconfig(xrender)
 BuildRequires:  pkgconfig(zlib)
+
 %if 0%{?mageia}
 BuildRequires:  scons
 %else
 BuildRequires:  python3-scons
 %endif
 
+# See bundled section for explanations.
+%define system_embree 0%{?mageia} || (0%{?fedora} && 0%{?fedora} < 38)
+%define system_glslang 0%{?mageia}
+%define system_openxr 0%{?mageia} || 0%{?fedora} >= 38
+%define system_recastnavigation 0%{?mageia}
+
 %if %{system_embree}
 %ifarch aarch64 x86_64
-BuildRequires:  embree3-devel
+BuildRequires:  embree-devel
 %endif
 %endif
 
+%if %{system_glslang}
+BuildRequires:  glslang-devel
+%endif
+
+%if %{system_openxr}
+BuildRequires:  pkgconfig(openxr)
+%if 0%{?fedora}
+# Packaging bug, the .so isn't in openxr-devel.
+BuildRequires:  openxr
+%endif
+%endif
+
+%if %{system_recastnavigation}
+BuildRequires:  recastnavigation-devel
+%endif
+
 # For desktop and appdata files validation
+BuildRequires:  desktop-file-utils
 %if 0%{?mageia}
 BuildRequires:  appstream-util
-BuildRequires:  desktop-file-utils >= 0.26
 %else
-BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
 %endif
 
@@ -96,40 +125,39 @@ Requires:       hicolor-icon-theme
 # though that the `thirdparty` folder also contains code which is typically
 # not packaged in distros, and is probably best left bundled.
 
-%if ! %{system_bullet}
-# Needs at least bullet 2.89 (with a patch, see linked PR) or later (unpatched).
-# https://github.com/bulletphysics/bullet3/pull/2748
-Provides:       bundled(bullet) = 3.17
-%endif
+%if ! %{system_embree}
 # Godot requires Embree 3, and recent Fedora upgraded to Embree 4 which breaks the API.
-Provides:       bundled(embree) = 3.13.0
+Provides:       bundled(embree) = 3.13.5
+%endif
 # Has some modifications for IPv6 support, upstream enet is unresponsive.
 # Should not be unbundled.
 # Cf: https://github.com/godotengine/godot/issues/6992
 Provides:       bundled(enet) = 1.3.17
-# Upstream commit from 2016 (32d5ac49414a8914ec1e1f285f3f927c6e8ec29d),
-# newer than 1.0.0.27 which is the last tag.
-# Could be unbundled if packaged.
-Provides:       bundled(libwebm)
-%if ! %{system_libwslay}
-# Could be unbundled if packaged.
-Provides:       bundled(libwslay) = 1.1.1
+%if ! %{system_glslang}
+# Fedora package only provides static libs, needs more work to be usable.
+Provides:       bundled(glslang) = 11.12.0
 %endif
 # Has custom changes to support seeking in zip archives
 # Should not be unbundled.
-Provides:       bundled(minizip) = 1.2.12
-# Upstream commit ccdb1995134d340a93fb20e3a3d323ccb3838dd0, no releases.
+Provides:       bundled(minizip) = 1.2.13
 # Could be unbundled if packaged.
-Provides:       bundled(nanosvg)
+Provides:       bundled(msdfgen) = 1.9.2
 %ifarch x86_64
 # Could be unbundled but requires some upstream work, and it's not clear if
 # upstream code would be compatible with more recent OIDN releases.
 Provides:       bundled(oidn) = 1.1.0
 %endif
+%if ! %{system_openxr}
+# Too old version before Fedora 38.
+Provides:       bundled(openxr) = 1.0.26
+%endif
+%if ! %{system_recastnavigation}
 # Could be unbundled if packaged.
-Provides:       bundled(squish) = 1.15
-# Could be unbundled if packaged.
-Provides:       bundled(tinyexr) = 1.0.0
+Provides:       bundled(recastnavigation)
+%endif
+
+Obsoletes:      godot-headless < 4.0-1
+Provides:       godot-headless == %{version}-%{release}
 
 %description
 Godot is an advanced, feature-packed, multi-platform 2D and 3D game engine.
@@ -139,6 +167,9 @@ your game without reinventing the wheel.
 Godot is completely free and open source under the very permissive MIT
 license. No strings attached, no royalties, nothing. Your game is yours,
 down to the last line of engine code.
+
+To use the editor on the command line in a non-graphical environment (e.g. to
+export games from the source code), use the --headless flag.
 
 %files
 %doc CHANGELOG.md DONORS.md README.md
@@ -155,59 +186,20 @@ down to the last line of engine code.
 
 #----------------------------------------------------------------------
 
-%if %{with headless}
-%package        headless
-Summary:        Godot headless editor binary for CLI usage
-%if 0%{?mageia}
-Group:          Development/Tools
-%endif
-
-%description    headless
-This package contains the headless binary for the Godot game engine,
-particularly suited for CLI usage, e.g. to export projects from a server
-or build system.
-
-To run game servers, see the godot-server package which contains an
-optimized template build.
-
-%files          headless
-%license AUTHORS.md COPYRIGHT.txt LICENSE.txt
-%{_bindir}/%{name}-headless
-%endif
-
-#----------------------------------------------------------------------
-
-%if %{with server}
-%package        server
-Summary:        Godot headless runtime binary for hosting game servers
-%if 0%{?mageia}
-Group:          Games/Other
-%endif
-
-%description    server
-This package contains the headless binary for the Godot game engine's
-runtime, useful to host standalone game servers.
-
-To use editor tools from the command line, see the godot-headless
-package.
-
-%files          server
-%license AUTHORS.md COPYRIGHT.txt LICENSE.txt
-%{_bindir}/%{name}-server
-%endif
-
-#----------------------------------------------------------------------
-
 %package        runner
-Summary:        Shared binary to play games developed with the Godot engine
+Summary:        Shared binary to play games and run servers developed with the Godot engine
 %if 0%{?mageia}
 Group:          Games/Other
 %endif
+Obsoletes:      godot-server < 4.0-1
+Provides:       godot-server == %{version}-%{release}
 
 %description    runner
 This package contains a godot-runner binary for the Linux X11 platform,
 which can be used to run any game developed with the Godot engine simply
 by pointing to the location of the game's data package.
+
+To run the game as a dedicated server, use the --headless flag.
 
 %files          runner
 %license AUTHORS.md COPYRIGHT.txt LICENSE.txt
@@ -215,37 +207,62 @@ by pointing to the location of the game's data package.
 
 #----------------------------------------------------------------------
 
+%{lua: function get_godot_arch()
+  arch = rpm.expand("%{_target_cpu}")
+  if string.match(rpm.expand("%{arm32}"), arch) then
+    arch = "arm32"
+  elseif string.match(rpm.expand("%{arm64}"), arch) then
+    arch = "arm64"
+  elseif string.match(rpm.expand("%{ix86}"), arch) then
+    arch = "x86_32"
+  end
+  return arch
+end}
+
+%define godot_arch %{lua: print(get_godot_arch())}
+
 %prep
 %autosetup -p1 -n %{name}-%{uversion}
 
 %build
 # Needs to be in %%build so that system_libs stays in scope
 # We don't unbundle enet and minizip as they have necessary custom changes
-to_unbundle="freetype libogg libpng libtheora libvorbis libvpx libwebp mbedtls miniupnpc opus pcre2 zlib zstd"
+to_unbundle="freetype graphite harfbuzz icu4c libogg libpng libtheora libvorbis libwebp mbedtls miniupnpc pcre2 squish wslay zlib zstd"
 
-%if %{system_bullet}
-to_unbundle+=" bullet"
-%endif
 %if %{system_embree}
 to_unbundle+=" embree"
 %endif
-%if %{system_libwslay}
-to_unbundle+=" wslay"
+%if %{system_glslang}
+to_unbundle+=" glslang"
+%endif
+%if %{system_openxr}
+to_unbundle+=" openxr"
+%endif
+%if %{system_recastnavigation}
+to_unbundle+=" recastnavigation"
 %endif
 
-system_libs=""
+# Disable dlopen wrappers for Linux deps, we link them dynamically.
+system_libs="use_sowrap=no "
+rm -rf thirdparty/linuxbsd_headers
+
 for lib in $to_unbundle; do
     system_libs+="builtin_"$lib"=no "
     rm -rf thirdparty/$lib
 done
 
-# The denoise module depends on OIDN which is x86_64 only (in the vendored version).
-# Godot's own logic to disable it on other arches is a bit brittle when it comes to cross-compiling currently.
-%ifnarch x86_64
-%define disable_modules module_denoise_enabled=no
+# Internal dep for freetype.
+rm -rf thirdparty/brotli
+
+use_lto="use_lto=yes"
+%if 0%{?fedora} && 0%{?fedora} < 37
+%ifarch %{arm32}
+# We run out of memory when linking.
+use_lto="use_lto=no"
+%endif
 %endif
 
-%define _scons scons-3 %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" $system_libs use_lto=yes use_static_cpp=no progress=no %{?disable_modules}
+%define _scons scons-3 %{?_smp_mflags} "CCFLAGS=%{?build_cflags}" "LINKFLAGS=%{?build_ldflags}" arch=%{godot_arch} $system_libs $use_lto use_static_cpp=no debug_symbols=yes progress=no
 
 %if 0%{?fedora}
 export BUILD_NAME="fedora"
@@ -254,32 +271,16 @@ export BUILD_NAME="fedora"
 export BUILD_NAME="mageia"
 %endif
 
-# Build graphical editor (tools)
-%_scons p=x11 tools=yes target=release_debug
+# Build graphical editor.
+%_scons p=linuxbsd target=editor
 
-# Build game runner (without tools)
-%_scons p=x11 tools=no target=release
-
-%if %{with headless}
-# Build headless version of the editor
-%_scons p=server tools=yes target=release_debug
-%endif
-
-%if %{with server}
-# Build headless version of the runtime for servers
-%_scons p=server tools=no target=release
-%endif
+# Build game runner.
+%_scons p=linuxbsd target=template_release
 
 %install
 install -d %{buildroot}%{_bindir}
-install -m755 bin/%{name}.x11.opt.tools.%{__isa_bits} %{buildroot}%{_bindir}/%{name}
-install -m755 bin/%{name}.x11.opt.%{__isa_bits} %{buildroot}%{_bindir}/%{name}-runner
-%if %{with headless}
-install -m755 bin/%{name}_server.x11.opt.tools.%{__isa_bits} %{buildroot}%{_bindir}/%{name}-headless
-%endif
-%if %{with server}
-install -m755 bin/%{name}_server.x11.opt.%{__isa_bits} %{buildroot}%{_bindir}/%{name}-server
-%endif
+install -m755 bin/%{name}.linuxbsd.editor.%{godot_arch} %{buildroot}%{_bindir}/%{name}
+install -m755 bin/%{name}.linuxbsd.template_release.%{godot_arch} %{buildroot}%{_bindir}/%{name}-runner
 
 install -D -m644 icon.svg \
     %{buildroot}%{_datadir}/icons/hicolor/scalable/apps/%{name}.svg
@@ -304,6 +305,16 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{rdnsname}.desktop
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{rdnsname}.appdata.xml
 
 %changelog
+* Fri Mar 10 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0-2
+- Obsolete headless/server packages
+- Fix F36 armv7hl build by forcing LTO off
+
+* Fri Mar 10 2023 Rémi Verschelde <akien@fedoraproject.org> - 4.0-1
+- Version 4.0-stable, major release with compatibility breakage
+- Remove headless and server packages, base godot and godot-runner can now be ran with --headless
+- New dependencies: dbus-1, fontconfig, harfbuzz, graphite2, icu, libsquish, openxr, speech-dispatcher, wslay, xext, xkbcommon
+- The 3.x branch is still provided in the new godot3 package
+
 * Tue Feb 21 2023 Rémi Verschelde <akien@fedoraproject.org> - 3.4.5-4
 - Use bundled embree3 for F38 and later, not compatible with embree4 yet
 

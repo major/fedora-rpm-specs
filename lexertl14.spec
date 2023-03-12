@@ -1,5 +1,5 @@
-%global commit 8b8ead29fa515fd4fb04f35cbbfdce2459c58739
-%global snapdate 20220919
+%global commit aeddda84ad4c8083aedd35ecd764679f5fb1b640
+%global snapdate 20230227
 
 Name:           lexertl14
 Summary:        C++14 version of lexertl

@@ -1,53 +1,67 @@
 Name:           perl-Class-Factory-Util
 Version:        1.7
-Release:        42%{?dist}
+Release:        43%{?dist}
 Summary:        Provide utility methods for factory classes 
-
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Factory-Util            
-Source0: https://cpan.metacpan.org/authors/id/D/DR/DROLSKY/Class-Factory-Util-%{version}.tar.gz        
-
+Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Factory-Util-%{version}.tar.gz
 BuildArch:      noarch
+# Build
+BuildRequires:  coreutils
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(Module::Build)
+BuildRequires:  perl(Module::Build::Compat) >= 0.02
+# Module
 BuildRequires:  perl(Carp)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+# Test Suite
 BuildRequires:  perl(lib)
 BuildRequires:  perl(Test)
 BuildRequires:  perl(Test::More)
+# Optional Tests
 BuildRequires:  perl(Test::Pod) >= 1.14
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.04
+# Dependencies
+# (none)
 
 %description
 This module exports utility functions that are useful for factory classes.
 
-
 %prep
 %setup -q -n Class-Factory-Util-%{version}
 
-
 %build
-%{__perl} Build.PL installdirs=vendor
+perl Build.PL --installdirs=vendor
 ./Build
 
-
 %install
-./Build install destdir=%{buildroot} create_packlist=0
-find %{buildroot} -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} %{buildroot}/*
-
+./Build install --destdir=%{buildroot} --create_packlist=0
+%{_fixperms} -c %{buildroot}
 
 %check
 ./Build test
 
-
 %files
-%doc LICENSE Changes
-%{perl_vendorlib}/*
-%{_mandir}/man3/*.3*
+%license LICENSE
+%doc Changes README
+%{perl_vendorlib}/Class/
+%{_mandir}/man3/Class::Factory::Util.3*
 
 
 %changelog
+* Fri Mar 10 2023 Paul Howarth <paul@city-fan.org> - 1.7-43
+- Spec clean-up
+  - Use author-independent source URL
+  - Use SPDX-format license tag
+  - Classify buildreqs by usage
+  - Don't need to remove empty directories from the buildroot
+  - Fix permissions verbosely
+  - Use %%license
+  - Make %%files list more explicit
+  - Package README file
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7-42
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

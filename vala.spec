@@ -2,14 +2,14 @@
 %global priority 90
 
 Name:           vala
-Version:        0.56.3
-Release:        2%{?dist}
+Version:        0.56.4
+Release:        1%{?dist}
 Summary:        A modern programming language for GNOME
 
 # Most files are LGPLv2.1+, curses.vapi is 2-clause BSD
-License:        LGPLv2+ and BSD
+License:        LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/Vala
-Source0:        https://download.gnome.org/sources/vala/0.55/vala-%{version}.tar.xz
+Source0:        https://download.gnome.org/sources/%{name}/0.56/%{name}-%{version}.tar.xz
 
 BuildRequires:  bison
 BuildRequires:  flex
@@ -121,7 +121,7 @@ developing applications that use valadoc.
 %configure
 # Don't use rpath!
 sed -i 's|/lib /usr/lib|/lib /usr/lib /lib64 /usr/lib64|' libtool
-make %{?_smp_mflags}
+%make_build
 
 
 %install
@@ -133,15 +133,18 @@ echo -e '#!/bin/sh\nexec %{_bindir}/vala-gen-introspect-%{api_ver}-`uname -m` "$
   %{buildroot}%{_bindir}/vala-gen-introspect-%{api_ver}
   chmod +x %{buildroot}%{_bindir}/vala-gen-introspect-%{api_ver}
 
-find %{buildroot} -name '*.la' -exec rm -f {} ';'
+find %{buildroot} -name '*.la' -delete
 
 
 %check
-make check
+# https://gitlab.gnome.org/GNOME/vala/-/issues/1416
+export -n VALAFLAGS
+%make_build check
 
 
 %files
 %license COPYING
+%doc README.md
 %{_bindir}/vala
 %{_bindir}/vala-%{api_ver}
 %{_bindir}/valac
@@ -191,6 +194,9 @@ make check
 
 
 %changelog
+* Thu Mar 09 2023 David King <amigadave@amigadave.com> - 0.56.4-1
+- Update to 0.56.4
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.56.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

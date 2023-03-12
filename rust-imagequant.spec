@@ -5,7 +5,7 @@
 %global crate imagequant
 
 Name:           rust-imagequant
-Version:        4.1.0
+Version:        4.1.1
 Release:        %autorelease
 Summary:        Convert 24/32-bit images to 8-bit palette with alpha channel
 
@@ -18,9 +18,9 @@ Patch:          remove-benchmark-dep.patch
 BuildRequires:  cargo-rpm-macros >= 24
 
 %global _description %{expand:
-Convert 24/32-bit images to 8-bit palette with alpha channel. For lossy PNG
-compression and high-quality GIF images Dual-licensed like pngquant. See
-https://pngquant.org for details.}
+Convert 24/32-bit images to 8-bit palette with alpha channel. For lossy
+PNG compression and high-quality GIF images Dual-licensed like pngquant.
+See https://pngquant.org for details.}
 
 %description %{_description}
 

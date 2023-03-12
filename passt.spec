@@ -7,10 +7,10 @@
 # Copyright (c) 2022 Red Hat GmbH
 # Author: Stefano Brivio <sbrivio@redhat.com>
 
-%global git_hash 7c7625ddff10e10a7486622b25e3a66bfcdd6c8b
+%global git_hash 70c0765b49e19b76639908a7686d8f795ba3ed24
 
 Name:		passt
-Version:	0^20230309.g7c7625d
+Version:	0^20230310.g70c0765
 Release:	1%{?dist}
 Summary:	User-mode networking daemons for virtual machines and namespaces
 License:	AGPLv3+ and BSD
@@ -61,7 +61,9 @@ ln -sr %{buildroot}%{_mandir}/man1/pasta.1 %{buildroot}%{_mandir}/man1/pasta.avx
 pushd contrib/selinux
 make -f %{_datadir}/selinux/devel/Makefile
 install -p -m 644 -D passt.pp %{buildroot}%{_datadir}/selinux/packages/%{name}/passt.pp
+install -p -m 644 -D passt.if %{buildroot}%{_datadir}/selinux/devel/include/contrib/passt.if
 install -p -m 644 -D pasta.pp %{buildroot}%{_datadir}/selinux/packages/%{name}/pasta.pp
+install -p -m 644 -D pasta.if %{buildroot}%{_datadir}/selinux/devel/include/contrib/pasta.if
 popd
 
 %post selinux
@@ -93,9 +95,15 @@ semodule -r pasta 2>/dev/null || :
 %files selinux
 %dir %{_datadir}/selinux/packages/%{name}
 %{_datadir}/selinux/packages/%{name}/passt.pp
+%{_datadir}/selinux/devel/include/contrib/passt.if
 %{_datadir}/selinux/packages/%{name}/pasta.pp
+%{_datadir}/selinux/devel/include/contrib/pasta.if
 
 %changelog
+* Fri Mar 10 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230310.g70c0765-1
+- Install SELinux interface files to shared include directory
+- Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_03_09.7c7625d..2023_03_10.70c0765
+
 * Thu Mar  9 2023 Stefano Brivio <sbrivio@redhat.com> - 0^20230309.g7c7625d-1
 - Upstream changes: https://passt.top/passt/log/?qt=range&q=2023_02_27.c538ee8..2023_03_09.7c7625d
 

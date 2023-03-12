@@ -2,7 +2,7 @@ Summary:	Load modules and create objects on demand
 Name:		perl-Class-Loader
 Version:	2.03
 Release:	46%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Class-Loader
 Source0:	https://cpan.metacpan.org/modules/by-module/Class/Class-Loader-%{version}.tar.gz
 BuildArch:	noarch
@@ -21,6 +21,7 @@ BuildRequires:	perl(vars)
 BuildRequires:	perl(lib)
 BuildRequires:	perl(Test)
 # Dependencies
+# (none)
 
 %description
 Certain applications like to defer the decision to use a particular module till

@@ -24,6 +24,8 @@ BuildRequires:  pkgconfig(libsoup-3.0)
 BuildRequires:  pkgconfig(sqlite3)
 BuildRequires:  pkgconfig(vapigen)
 # Support graphical tests in non-graphical environment
+BuildRequires:  /usr/bin/dbus-launch
+BuildRequires:  mesa-dri-drivers
 BuildRequires:  xorg-x11-server-Xvfb
 
 %description

@@ -9,7 +9,7 @@ Name:           perl-Class-Data-Inheritable
 Version:        0.09
 Release:        5%{?dist}
 Summary:        Inheritable, overridable class data
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Data-Inheritable
 # has non-free and outdated jp docs
 # rm -rf doc

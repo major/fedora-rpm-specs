@@ -540,6 +540,7 @@ Requires: python3-%{name}-dc = %{samba_depver}
 # samba-tool needs mdb_copy and tdbackup for domain backup or upgrade provision
 Requires: lmdb
 Requires: tdb-tools
+Requires: python3-gpg
 %endif
 
 %description tools

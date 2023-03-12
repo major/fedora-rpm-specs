@@ -1,26 +1,51 @@
 %bcond_without tests
+# Sphinx-generated HTML documentation is not suitable for packaging; see
+# https://bugzilla.redhat.com/show_bug.cgi?id=2006555 for discussion.
+#
+# We can generate PDF documentation as a substitute.
+%bcond_without doc_pdf
 
 %global forgeurl     https://github.com/numba/llvmlite
 
 Name:           python-llvmlite
-Version:        0.37.0
+Version:        0.39.1
 Release:        %{autorelease}
 Summary:        Lightweight LLVM Python binding for writing JIT compilers
 
 %forgemeta
 
-License:        BSD
+# The entire source is BSD-2-Clause, except:
+#   - The bundled versioneer.py, and the _version.py it generates (which is
+#     packaged) is LicenseRef-Fedora-Public-Domain. In later versions of
+#     versioneer, this becomes CC0-1.0 and then Unlicense.
+# Additionally, the following does not affect the license of the binary RPMs:
+#   - conda-recipes/appveyor/run_with_env.cmd is CC0-1.0; for distribution in
+#     the source RPM, it is covered by “Existing uses of CC0-1.0 on code files
+#     in Fedora packages prior to 2022-08-01, and subsequent upstream versions
+#     of those files in those packages, continue to be allowed. We encourage
+#     Fedora package maintainers to ask upstreams to relicense such files.”
+#     https://gitlab.com/fedora/legal/fedora-license-data/-/issues/91#note_1151947383
+License:        BSD-2-Clause AND LicenseRef-Fedora-Public-Domain
+
 URL:            http://llvmlite.pydata.org/
 Source0:        %{forgesource}
 
-# Python 3.10
-# https://github.com/numba/llvmlite/pull/769
-# See also: https://github.com/numba/llvmlite/issues/740#issuecomment-937830985
-Patch0:         https://github.com/numba/llvmlite/pull/769.patch
+# Patch out maximum Python version check
+#
+# Fedora must build this package with the current version of Python,
+# whether upstream is ready or not.
+#
+# Feature request / discussion issue for doing this without a patch:
+#   “Escape hatch” for maximum Python version check
+#   https://github.com/numba/llvmlite/issues/912
+# See also:
+#   python 3.10 support
+#   https://github.com/numba/llvmlite/issues/740
+Patch:          0001-Patch-out-maximum-Python-version-check.patch
 
 BuildRequires:  pyproject-rpm-macros
 BuildRequires:  python3-devel
-# 0.37.0 only supports llvm11
+# 0.39.1 only supports llvm11
 BuildRequires:  llvm11-devel
 BuildRequires:  gcc-c++
 
@@ -58,18 +83,20 @@ Summary:        %{summary}
 
 %package doc
 Summary:        %{summary}
-BuildRequires:  %{py3_dist sphinx}
-BuildRequires:  %{py3_dist sphinx-rtd-theme}
+%if %{with doc_pdf}
+BuildRequires:  make
+BuildRequires:  python3dist(sphinx)
+BuildRequires:  python3-sphinx-latex
+BuildRequires:  latexmk
+# The HTML theme is imported in conf.py even when not generating HTML
+BuildRequires:  python3dist(sphinx-rtd-theme)
+%endif
 
 %description doc
 Documentation for %{name}.
 
 %prep
 %forgeautosetup -p1
-
-# seems to be fine with 3.11 but we need to loosen the guard
-# see also: “python 3.10 support” https://github.com/numba/llvmlite/issues/740
-sed -i 's/max_python_version =.*/max_python_version = "3.12"/' setup.py
 
 # increase verbosity of tests to 2
 sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py
@@ -78,6 +105,9 @@ sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py
 # Can use something similar to correct/remove /usr/bin/python shebangs also
 # find . -type f -name "*.py" -exec sed -i '/^#![  ]*\/usr\/bin\/env.*$/ d' {} 2>/dev/null ';'
 
+# No network access
+echo 'intersphinx_mapping.clear()' >> docs/source/conf.py
+
 %generate_buildrequires
 %pyproject_buildrequires
 
@@ -85,8 +115,10 @@ sed -i 's/\(def run_tests.*verbosity=\)1/\12/' llvmlite/tests/__init__.py
 export LLVM_CONFIG="%{_libdir}/llvm11/bin/llvm-config"
 %pyproject_wheel
 
-make -C docs SPHINXBUILD=sphinx-build-3 html
-rm -rf docs/_build/html/{.doctrees,.buildinfo,_static/EMPTY} -vf
+%if %{with doc_pdf}
+%make_build -C docs latex SPHINXOPTS='%{?_smp_mflags}'
+%make_build -C docs/_build/latex LATEXMKOPTS='-quiet'
+%endif
 
 %install
 %pyproject_install
@@ -102,7 +134,10 @@ LD_LIBRARY_PATH="%{buildroot}%{python3_sitearch}/llvmlite/binding/" PYTHONPATH="
 
 %files doc
 %license LICENSE
-%doc docs/_build/html examples/
+%doc examples/
+%if %{with doc_pdf}
+%doc docs/_build/latex/llvmlite.pdf
+%endif
 
 %changelog
 %autochangelog

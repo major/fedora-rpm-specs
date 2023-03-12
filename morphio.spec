@@ -65,7 +65,7 @@ Patch7:         0008-use-lib_install_dir.patch
 BuildRequires:  hdf5-devel
 BuildRequires:  boost-devel
 %if %{with tests}
-BuildRequires:  catch-devel
+BuildRequires:  cmake(Catch2) < 3
 %endif
 
 BuildRequires:  gcc-c++

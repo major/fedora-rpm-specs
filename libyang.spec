@@ -8,11 +8,11 @@
 
 Name: libyang
 Version: 2.1.30
-Release: 1%{?dist}
+Release: 2%{?dist}
 Summary: YANG data modeling language library
 Url: https://github.com/CESNET/libyang
 Source: %{url}/archive/v%{version}.tar.gz
-License: BSD
+License: BSD-3-Clause
 
 # disable tests failing on s390x
 Patch1: disable-test_structure.patch
@@ -106,6 +106,9 @@ cp -a doc/html %{buildroot}/%{_docdir}/libyang/html
 %{_docdir}/libyang
 
 %changelog
+* Fri Mar 10 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.30-2
+- Change the License tag to the SPDX format
+
 * Thu Jan 19 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.30-1
 - Rebase to version 2.1.30
 - Resolves: rhbz#2162362

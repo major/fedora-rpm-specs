@@ -1,5 +1,5 @@
 Name: bandit
-Version: 1.7.4
+Version: 1.7.5
 Release: %autorelease
 Summary: A framework for performing security analysis of Python source code
 

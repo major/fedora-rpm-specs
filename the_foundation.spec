@@ -4,13 +4,15 @@
 %global srcname the_Foundation
 
 Name:           the_foundation
-Version:        1.6.0
+Version:        1.6.1
 Release:        %autorelease
 Summary:        Opinionated C11 library for low-level functionality
 
 License:        BSD-2-Clause
 URL:            https://codeberg.org/skyjake/the_Foundation
 Source:         %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+# https://codeberg.org/skyjake/the_Foundation/issues/13
+# Patch:          %%{name}-soname_major_ver_only.diff
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -23,7 +25,7 @@ BuildRequires:  pkgconfig(zlib)
 BuildRequires:  doxygen
 %endif
 
-%global abi_ver %%(echo %%{version}} | cut -d. -f1)
+%global soname_version %%(echo %%{version}} | cut -d. -f1)
 
 %global _description %{expand:
 An object-oriented C library whose API is designed for a particular coding
@@ -89,7 +91,8 @@ done
 %files
 %license LICENSE
 %doc CHANGES.md README.md
-%{_libdir}/*.so.%{abi_ver}{,.*}
+%{_libdir}/*.so.%{soname_version}
+%{_libdir}/*.so.%{version}
 
 %files devel
 %{_includedir}/*

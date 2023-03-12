@@ -6,8 +6,8 @@
 
 Summary: A full-service natural language dependency parser
 Name: link-grammar
-Version: 5.12.1
-Release: 2%{?dist}
+Version: 5.12.2
+Release: 1%{?dist}
 License: LGPL-2.1-or-later
 Source: http://www.abisource.com/downloads/link-grammar/%{version}/link-grammar-%{version}.tar.gz
 URL: http://abisource.com/projects/link-grammar/
@@ -125,6 +125,9 @@ find $RPM_BUILD_ROOT/%{_libdir}/ -name '*.la' | xargs rm -f
 %endif
 
 %changelog
+* Fri Mar 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.12.2-1
+- 5.12.2
+
 * Tue Mar 07 2023 Gwyn Ciesla <gwync@protonmail.com> - 5.12.1-2
 - migrated to SPDX license
 

@@ -4,7 +4,7 @@
 Summary: Kernel analysis utility for live systems, netdump, diskdump, kdump, LKCD or mcore dumpfiles
 Name: crash
 Version: 8.0.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: GPLv3
 Source0: https://github.com/crash-utility/crash/archive/crash-%{version}.tar.gz
 Source1: http://ftp.gnu.org/gnu/gdb/gdb-10.2.tar.gz
@@ -46,8 +46,20 @@ Patch25: 0025-Add-do_maple_tree-for-maple-tree-operations.patch
 Patch26: 0026-Introduce-maple-tree-vma-iteration-to-vm_area_dump.patch
 Patch27: 0027-Update-the-help-text-of-tree-command-for-maple-tree.patch
 Patch28: 0028-Dump-maple-tree-offset-variables-by-help-o.patch
-Patch29: crash-8.0.2_build.patch
-Patch30: crash-8.0.0-5-gdb-cdefs.patch
+Patch29: 0029-Fix-for-bt-command-printing-bogus-exception-frame-wa.patch
+Patch30: 0030-Fix-kmem-s-S-not-working-properly-on-RHEL8.6-and-lat.patch
+Patch31: 0031-Fix-for-net-s-option-to-show-IPv6-addresses-on-Linux.patch
+Patch32: 0032-Fix-for-kmem-i-option-to-not-print-invalid-values-fo.patch
+Patch33: 0033-Fix-for-bt-command-unnecessarily-printing-an-excepti.patch
+Patch34: 0034-Fix-for-dis-command-to-correctly-display-the-offset-.patch
+Patch35: 0035-x86_64-Fix-bt-command-on-kernels-with-random_kstack_.patch
+Patch36: 0036-Fix-for-search-u-option-failing-in-maple-tree-kernel.patch
+Patch37: 0037-Enhance-net-command-to-display-IPv6-address-of-netwo.patch
+Patch38: 0038-Fix-C99-compatibility-issues-in-embedded-copy-of-GDB.patch
+Patch39: 0039-Fix-for-net-n-option-to-properly-deal-with-an-invali.patch
+Patch40: 0040-gdb-Fix-an-assertion-failure-in-dw2_find_pc_sect_com.patch
+Patch41: 0041-Fix-kmem-n-option-to-display-memory-blocks-on-Linux-.patch
+Patch42: crash-8.0.2_build.patch
 
 %description
 The core analysis suite is a self-contained tool that can be used to
@@ -96,11 +108,20 @@ offered by Mission Critical Linux, or the LKCD kernel patch.
 %patch26 -p1
 %patch27 -p1
 %patch28 -p1
-%patch29 -p1 -b crash-8.0.2_build.patch
-%ifarch ppc64le
-%patch30 -p1 -b crash-8.0.0-5-gdb-cdefs.patch
-%endif
-
+%patch29 -p1
+%patch30 -p1
+%patch31 -p1
+%patch32 -p1
+%patch33 -p1
+%patch34 -p1
+%patch35 -p1
+%patch36 -p1
+%patch37 -p1
+%patch38 -p1
+%patch39 -p1
+%patch40 -p1
+%patch41 -p1
+%patch42 -p1
 
 %build
 
@@ -126,6 +147,21 @@ cp -p defs.h %{buildroot}%{_includedir}/crash
 %{_includedir}/*
 
 %changelog
+* Fri Mar 10 2023 Lianbo Jiang <lijiang@redhat.com> - 8.0.2-4
+- Fix "kmem -n" option to display memory blocks on Linux 6.3-rc1 and later
+- gdb: Fix an assertion failure in dw2_find_pc_sect_compunit_symtab()
+- Fix for "net -n" option to properly deal with an invalid argument
+- Fix C99 compatibility issues in embedded copy of GDB
+- Enhance "net" command to display IPv6 address of network interface
+- Fix for "search -u" option failing in maple tree kernel
+- x86_64: Fix "bt" command on kernels with random_kstack_offset=on
+- Fix for "dis" command to correctly display the offset of disassembly code
+- Fix for "bt" command unnecessarily printing an exception frame
+- Fix for "kmem -i" option to not print invalid values for CACHED
+- Fix for "net -s" option to show IPv6 addresses on Linux 3.13 and later
+- Fix "kmem -s|-S" not working properly on RHEL8.6 and later
+- Fix for "bt" command printing "bogus exception frame" warning
+
 * Tue Feb 07 2023 Lianbo Jiang <lijiang@redhat.com> - 8.0.2-3
 - Update to the latest upstream commit <46344aa2f92b>
 

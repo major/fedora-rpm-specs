@@ -1,10 +1,52 @@
 Name:           perl-SDL
 Version:        2.548
-Release:        16%{?dist}
+Release:        17%{?dist}
 Summary:        Simple DirectMedia Layer for Perl
-License:        LGPLv2+
+# COPYING:                      GPL-2.0 text
+# lib/pods/SDL.pod:             GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDL/Platform.pod:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDL/Tutorial.pod:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDL/Tutorial/Animation.pod:      GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDL/Tutorial/LunarLander.pod:    GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDLx/Layer.pod:          GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDLx/LayerManager.pod:   GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDLx/Music.pod:      GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDLx/Rect.pod:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDLx/SFont.pod:      GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDLx/Sound.pod:      GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/pods/SDLx/Text.pod:       GPL-1.0-or-later OR Artistic-1.0-Perl
+# lib/SDL.pm:                       LGPL-2.1-or-later
+# lib/SDL_perl.pm:                  LGPL-2.1-or-later
+# lib/SDL/SMPEG/Info.pm:            LGPL-2.1-or-later
+# lib/SDL/TTFont.pm:                LGPL-2.1-or-later
+# lib/SDL/Tutorial.pm:              LGPL-2.1-or-later
+# lib/SDL/Tutorial/Animation.pm:    LGPL-2.1-or-later
+# src/defines.h:        LGPL-2.1-or-later
+# src/ppport.h:         GPL-1.0-or-later OR Artistic-1.0-Perl
+# src/SDL.xs:           LGPL-2.1-or-later
+# src/SDLx/SFont.h:     LGPL-2.1-or-later
+# src/SDLx/SFont.xs:    LGPL-2.1-or-later
+## Used at build-time, but not in any binary package
+# Build.PL:                 refers to LGPL
+# inc/My/Builder.pm:        LGPL-2.1-or-later
+# test/data/5x7.fnt:        LGPL-2.1-only (see test/data/README)
+# test/data/tribe_i.wav:    GPL-3.0-only OR LGPL-2.0-only OR CC-BY-SA-3.0
+#                           (see test/data/README; there is a typo in the file
+#                           name)
+## Not in any binary package and not used
+# META.json:    refers to LGPL-2.1
+# OFL.txt:      OFL-1.1-RFN text
+## Unbundled:
+# share/GenBasR.ttf:    OFL-1.1-RFN
+License:        LGPL-2.1-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            http://sdl.perl.org/
 Source0:        https://cpan.metacpan.org/authors/id/F/FR/FROGGS/SDL-%{version}.tar.gz
+# Fix an implicit function declaration, proposed to the upstream,
+# bug #2177189, <https://github.com/PerlGameDev/SDL/pull/299>.
+Patch0:         SDL-2.548-Fix-implicit-declaration-of-_calc_offset.patch
+# Unbundle Gentium Book Basic font, not suitable for the upstream, the file is
+# delete in %%prep section.
+Patch1:         SDL-2.548-Unbundle-Gentium-Book-Basic-regular-font.patch
 BuildRequires:  coreutils
 BuildRequires:  findutils
 BuildRequires:  libGLU-devel
@@ -38,7 +80,6 @@ BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 # ExtUtils::CBuilder::Base not used at tests
 BuildRequires:  perl(File::Find)
-BuildRequires:  perl(File::ShareDir) >= 1.0
 BuildRequires:  perl(List::Util)
 BuildRequires:  perl(overload)
 BuildRequires:  perl(Scalar::Util)
@@ -46,6 +87,7 @@ BuildRequires:  perl(Tie::Array)
 BuildRequires:  perl(Tie::Simple)
 BuildRequires:  perl(Time::HiRes)
 BuildRequires:  perl(vars)
+BuildRequires:  sil-gentium-basic-book-fonts
 # Tests:
 BuildRequires:  perl(bytes)
 BuildRequires:  perl(Capture::Tiny)
@@ -57,9 +99,8 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Most) >= 0.21
 BuildRequires:  perl(threads)
 BuildRequires:  perl(threads::shared)
-Requires:       perl(File::ShareDir) >= 1.0
+Requires:       sil-gentium-basic-book-fonts
 
-%define _use_internal_dependency_generator 0
 %{?perl_default_filter}
 
 %description
@@ -71,6 +112,7 @@ the spirit of both the SDL and Perl.
 
 %package -n perl-Module-Build-SDL
 Summary:        Module::Build subclass for building SDL applications
+License:        LGPL-2.1-or-later
 Requires:       %{name} = %{?epoch:%{epoch}:}%{version}-%{release}
 Requires:       perl(ExtUtils::CBuilder::Base)
 
@@ -81,7 +123,10 @@ application/game into PAR archive.
 
 
 %prep
-%setup -q -n SDL-%{version}
+%autosetup -p1 -n SDL-%{version}
+# Delete a bundled font file, code removed with
+# Unbundle-Gentium-Book-Basic-regular-font.patch.
+rm -r share
 # Move the pod files directly to directory lib to have correctly generated
 # man pages without prefix pods::
 cd lib/pods
@@ -100,26 +145,42 @@ perl Build.PL installdirs=vendor optimize="$RPM_OPT_FLAGS"
 ./Build
 
 %check
+export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print $1} else {print 1}' -- '%{?_smp_mflags}')
 ./Build test
 
 %install
-./Build install destdir=$RPM_BUILD_ROOT create_packlist=0
-find $RPM_BUILD_ROOT -type f -name '*.bs' -a -size 0 -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-%{_fixperms} $RPM_BUILD_ROOT/*
+./Build install destdir=%{buildroot} create_packlist=0
+find %{buildroot} -type f -name '*.bs' -a -size 0 -delete
+%{_fixperms} %{buildroot}/*
 
 %files
 %license COPYING
 %doc CHANGELOG TODO
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/SDL*
-%{_mandir}/man3/SDL*
+%{perl_vendorarch}/auto/SDL
+%{perl_vendorarch}/auto/SDL_perl
+%{perl_vendorarch}/auto/SDLx
+%{perl_vendorarch}/SDL
+%{perl_vendorarch}/SDL.pm
+%{perl_vendorarch}/SDL.pod
+%{perl_vendorarch}/SDL_perl.pm
+%{perl_vendorarch}/SDLx
+%{_mandir}/man3/SDL.*
+%{_mandir}/man3/SDL::*
+%{_mandir}/man3/SDLx::*
 
 %files -n perl-Module-Build-SDL
-%{perl_vendorarch}/Module*
-%{_mandir}/man3/Module::*
+%dir %{perl_vendorarch}/Module
+%dir %{perl_vendorarch}/Module/Build
+%{perl_vendorarch}/Module/Build/SDL.pm
+%{_mandir}/man3/Module::Build::SDL.*
 
 %changelog
+* Fri Mar 10 2023 Petr Pisar <ppisar@redhat.com> - 2.548-17
+- Fix an implicit function declaration (bug #2177189)
+- Correct a license to "LGPL-2.1-or-later AND (GPL-1.0-or-later OR
+  Artistic-1.0-Perl)"
+- Use a system-provided Gentium Book Basic font
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.548-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

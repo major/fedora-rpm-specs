@@ -5,13 +5,13 @@
 %global tarball_version %%(echo %{version} | tr '~' '.')
 
 Name:           gnome-clocks
-Version:        43.0
-Release:        2%{?dist}
+Version:        44~rc
+Release:        1%{?dist}
 Summary:        Clock application designed for GNOME 3
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Clocks
-Source0:        https://download.gnome.org/sources/gnome-clocks/43/%{name}-%{tarball_version}.tar.xz
+Source0:        https://download.gnome.org/sources/gnome-clocks/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  meson
 BuildRequires:  desktop-file-utils
@@ -19,7 +19,7 @@ BuildRequires:  gettext
 BuildRequires:  itstool
 BuildRequires:  libappstream-glib
 # Required for gnome-desktop-4 VAPI.
-BuildRequires:  vala >= 0.55
+BuildRequires:  vala >= 0.56.4
 
 BuildRequires:  pkgconfig(geocode-glib-2.0)
 BuildRequires:  pkgconfig(glib-2.0)
@@ -67,6 +67,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.clocks.d
 %{_datadir}/metainfo/org.gnome.clocks.metainfo.xml
 
 %changelog
+* Fri Mar 10 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 43.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

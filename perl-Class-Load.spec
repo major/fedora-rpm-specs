@@ -9,7 +9,7 @@ Name:		perl-Class-Load
 Version:	0.25
 Release:	22%{?dist}
 Summary:	A working (require "Class::Name") and more
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Class-Load
 Source0:	https://cpan.metacpan.org/modules/by-module/Class/Class-Load-%{version}.tar.gz
 BuildArch:	noarch
@@ -83,11 +83,7 @@ find %{buildroot} -type f -name .packlist -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENSE
-%else
-%doc LICENSE
-%endif
 %doc Changes CONTRIBUTING README
 %{perl_vendorlib}/Class/
 %{_mandir}/man3/Class::Load.3*

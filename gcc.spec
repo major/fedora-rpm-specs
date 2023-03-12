@@ -1,5 +1,5 @@
-%global DATE 20230304
-%global gitrev 1ae5227bd538f0ad8e5dbda14bde96d1c1db6f55
+%global DATE 20230310
+%global gitrev e521a1b4c34b3e387c764c429f0f8c11361c3279
 %global gcc_version 13.0.1
 %global gcc_major 13
 # Note, gcc_release must be integer, if you want to add suffixes to
@@ -136,7 +136,7 @@
 Summary: Various compilers (C, C++, Objective-C, ...)
 Name: gcc
 Version: %{gcc_version}
-Release: %{gcc_release}.6%{?dist}
+Release: %{gcc_release}.7%{?dist}
 # libgcc, libgfortran, libgomp, libstdc++ and crtstuff have
 # GCC Runtime Exception.
 License: GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions and LGPLv2+ and BSD
@@ -3458,6 +3458,23 @@ end
 %endif
 
 %changelog
+* Fri Mar 10 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.7
+- update from trunk
+  - PRs ada/108858, ada/108983, analyzer/102671, analyzer/105755,
+	analyzer/108251, analyzer/108400, analyzer/108475, analyzer/109059,
+	analyzer/109060, c++/102529, c++/105841, c++/106651, c++/107532,
+	c++/107558, c++/107939, c++/108099, c++/108542, c++/108566,
+	c++/108773, c++/108972, c++/109030, c++/109039, c++/109042, c/108079,
+	driver/108865, fortran/104332, fortran/106856, libgcc/108727,
+	libgomp/90596, libgomp/109062, libstdc++/107572, libstdc++/108362,
+	libstdc++/108882, libstdc++/109024, libstdc++/109064,
+	middle-end/108995, other/108464, plugins/108634, sanitizer/81649,
+	sanitizer/108060, sanitizer/109050, target/107299, target/107703,
+	target/107998, target/108185, target/108429, target/108654,
+	target/109000, testsuite/70150, testsuite/108729, testsuite/108730,
+	testsuite/108810, testsuite/108813, tree-optimization/108980,
+	tree-optimization/109008, tree-optimization/109025
+
 * Sat Mar  4 2023 Jakub Jelinek <jakub@redhat.com> 13.0.1-0.6
 - update from trunk
   - PRs ada/108909, analyzer/107565, analyzer/108830, analyzer/108935,

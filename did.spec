@@ -1,6 +1,6 @@
 Name: did
-Version: 0.19
-Release: 4%{?dist}
+Version: 0.20
+Release: 1%{?dist}
 
 Summary: What did you do last week, month, year?
 License: GPLv2+
@@ -54,14 +54,29 @@ export LANG=en_US.utf-8
 %license LICENSE
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-4
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Thu Jul 21 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.19-3
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild
-
-* Thu Jun 16 2022 Python Maint <python-maint@redhat.com> - 0.19-2
-- Rebuilt for Python 3.11
+* Thu Mar 09 2023 Petr Šplíchal <psplicha@redhat.com> - 0.20-1
+- Produce fixed `phabricator` statistics
+- Address packit warning on the `metadata` key
+- Remove the Travis CI configuration
+- Fix pytest invocation
+- Move common constants to the top of `did.utils`
+- Add new configuration options for custom separator
+- Fix broken phabricator tests
+- Fix potentially uninitialized local variable
+- Add CodeQL workflow for GitHub code scanning
+- Add comment stats on GitHub issues & pull requests
+- Add the `name-tests-test` pre-commit hook
+- Add the new `phabricator` plugin
+- Update test data for `sentry`, `gitlab` and `gerrit`
+- Update `pre-commit` configuration, enable `flake8`
+- Allow all plugins to fetch secrets from files
+- Update packit config to address recent changes
+- Fix typo in the Google plugin docstring
+- Speed up local testing, add missing require
+- Update google plugin installation instructions
+- Koji plugin
+- Handle GitHub API rate limit
+- Add Github Action for PyPI releases
 
 * Tue Jan 18 2022 Lukáš Zachar <lzachar@redhat.com> - 0.19-1
 - Install all required packages during docs building

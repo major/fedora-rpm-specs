@@ -2,7 +2,7 @@ Name:           perl-Class-DBI-Plugin
 Version:        0.03
 Release:        49%{?dist}
 Summary:        Abstract base class for Class::DBI plugins
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-DBI-Plugin
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-DBI-Plugin-%{version}.tar.gz
 BuildArch:      noarch

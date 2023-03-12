@@ -13,7 +13,7 @@
 Name:          sipwitch
 Summary:       A secure peer-to-peer VoIP server for the SIP protocol
 Version:       1.9.15
-Release:       19%{?dist}
+Release:       20%{?dist}
 
 License:       GPL-3.0-or-later
 URL:           http://www.gnu.org/software/sipwitch
@@ -196,6 +196,9 @@ remote voip service provider.
 
 
 %changelog
+* Fri Mar 10 2023 Sandro Mani <manisandro@gmail.com> - 1.9.15-20
+- Rebuild (osiparser)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.9.15-19
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

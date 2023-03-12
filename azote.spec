@@ -1,8 +1,8 @@
 # -*-Mode: rpm-spec -*-
 
 Name:      azote
-Version:   1.9.7
-Release:   3%{?dist}
+Version:   1.10.1
+Release:   1%{?dist}
 BuildArch: noarch
 Summary:   Wallpaper and color manager for Sway, i3 and some other WMs
 
@@ -73,6 +73,9 @@ done
 %license LICENSE LICENSE-COLORTHIEF
 
 %changelog
+* Sat Mar 11 2023 Bob Hepple <bob.hepple@gmail.com> - 1.10.1-1
+- new version
+
 * Mon Feb 13 2023 Bob Hepple <bob.hepple@gmail.com> - 1.9.7-3
 - added azote.svg to /usr/share/pixmaps RHBZ#2169207
 

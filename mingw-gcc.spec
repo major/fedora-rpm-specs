@@ -7,25 +7,21 @@
 # NOTE See mingw-filesystem/README.md for the build steps!
 %global bootstrap 0
 
-%if 0%{?rhel} > 8
 %global build_isl 0
-%else
-%global build_isl 1
-%endif
 
 %global isl_version 0.16.1
 
 # Run the testsuite
 %global enable_tests 0
 
-%global DATE 20221121
-%global gitrev b3f5a0d53b84ed27cf00cfa2b9c3e2c78935c07d
-%global gcc_version 12.2.1
-%global gcc_major 12
+%global DATE 20230304
+%global gitrev 1ae5227bd538f0ad8e5dbda14bde96d1c1db6f55
+%global gcc_version 13.0.1
+%global gcc_major 13
 
 Name:           mingw-gcc
 Version:        %{gcc_version}
-Release:        7%{?dist}
+Release:        1%{?dist}
 Summary:        MinGW Windows cross-compiler (GCC) for C
 
 License:        GPLv3+ and GPLv3+ with exceptions and GPLv2+ with exceptions
@@ -42,9 +38,6 @@ Source0:        %{srcdir}.tar.xz
 
 # See https://sourceforge.net/p/mingw-w64/mailman/mingw-w64-public/thread/8fd2fb03-9b8a-07e1-e162-0bb48bcc3984%40gmail.com/#msg37200751
 Patch0:         0020-libgomp-Don-t-hard-code-MS-printf-attributes.patch
-# Upstream patches for better C99 compatibility of configure scripts
-Patch1:         mingw-gcc-configure-c99-1.patch
-Patch2:         mingw-gcc-configure-c99-2.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  make
@@ -566,13 +559,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_bindir}/%{mingw32_target}-gcov-dump
 %{_bindir}/%{mingw32_target}-gcov-tool
 %dir %{_prefix}/lib/gcc/%{mingw32_target}/%{version}
-%dir %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/include-fixed
-%dir %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/include
-%dir %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/install-tools
-%{_prefix}/lib/gcc/%{mingw32_target}/%{version}/include-fixed/README
-%{_prefix}/lib/gcc/%{mingw32_target}/%{version}/include-fixed/*.h
-%{_prefix}/lib/gcc/%{mingw32_target}/%{version}/include/*.h
-%{_prefix}/lib/gcc/%{mingw32_target}/%{version}/install-tools/*
+%{_prefix}/lib/gcc/%{mingw32_target}/%{version}/include/
+%{_prefix}/lib/gcc/%{mingw32_target}/%{version}/include-fixed/
+%{_prefix}/lib/gcc/%{mingw32_target}/%{version}/install-tools/
 %{_libexecdir}/gcc/%{mingw32_target}/%{version}/collect2
 %{_libexecdir}/gcc/%{mingw32_target}/%{version}/lto-wrapper
 %{_libexecdir}/gcc/%{mingw32_target}/%{version}/install-tools
@@ -591,6 +580,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{mingw32_libdir}/libssp.dll.a
 %{mingw32_libdir}/libssp_nonshared.a
 %{mingw32_libdir}/libstdc++fs.a
+%{mingw32_libdir}/libstdc++exp.a
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{mingw32_target}/%{version}/crtfastmath.o
@@ -616,13 +606,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_bindir}/%{mingw64_target}-gcov-dump
 %{_bindir}/%{mingw64_target}-gcov-tool
 %dir %{_prefix}/lib/gcc/%{mingw64_target}/%{version}
-%dir %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/include-fixed
-%dir %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/include
-%dir %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/install-tools
-%{_prefix}/lib/gcc/%{mingw64_target}/%{version}/include-fixed/README
-%{_prefix}/lib/gcc/%{mingw64_target}/%{version}/include-fixed/*.h
-%{_prefix}/lib/gcc/%{mingw64_target}/%{version}/include/*.h
-%{_prefix}/lib/gcc/%{mingw64_target}/%{version}/install-tools/*
+%{_prefix}/lib/gcc/%{mingw64_target}/%{version}/include/
+%{_prefix}/lib/gcc/%{mingw64_target}/%{version}/include-fixed/
+%{_prefix}/lib/gcc/%{mingw64_target}/%{version}/install-tools/
 %{_libexecdir}/gcc/%{mingw64_target}/%{version}/collect2
 %{_libexecdir}/gcc/%{mingw64_target}/%{version}/lto-wrapper
 %{_libexecdir}/gcc/%{mingw64_target}/%{version}/install-tools
@@ -641,6 +627,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{mingw64_libdir}/libssp.dll.a
 %{mingw64_libdir}/libssp_nonshared.a
 %{mingw64_libdir}/libstdc++fs.a
+%{mingw64_libdir}/libstdc++exp.a
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{mingw64_target}/%{version}/crtfastmath.o
@@ -666,13 +653,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{_bindir}/%{ucrt64_target}-gcov-dump
 %{_bindir}/%{ucrt64_target}-gcov-tool
 %dir %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}
-%dir %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/include-fixed
-%dir %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/include
-%dir %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/install-tools
-%{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/include-fixed/README
-%{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/include-fixed/*.h
-%{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/include/*.h
-%{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/install-tools/*
+%{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/include/
+%{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/include-fixed/
+%{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/install-tools/
 %{_libexecdir}/gcc/%{ucrt64_target}/%{version}/collect2
 %{_libexecdir}/gcc/%{ucrt64_target}/%{version}/lto-wrapper
 %{_libexecdir}/gcc/%{ucrt64_target}/%{version}/install-tools
@@ -691,6 +674,7 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 %{ucrt64_libdir}/libssp.dll.a
 %{ucrt64_libdir}/libssp_nonshared.a
 %{ucrt64_libdir}/libstdc++fs.a
+%{ucrt64_libdir}/libstdc++exp.a
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtbegin.o
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtend.o
 %{_prefix}/lib/gcc/%{ucrt64_target}/%{version}/crtfastmath.o
@@ -904,6 +888,9 @@ ln -sf %{ucrt64_bindir}/libssp-0.dll %{buildroot}%{ucrt64_libdir}/libssp.dll.a
 
 
 %changelog
+* Thu Mar 09 2023 Sandro Mani <manisandro@gmail.com> - 13.0.1-1
+- Update to 13.0.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.2.1-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

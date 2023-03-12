@@ -7,7 +7,7 @@
 #%%global commit_date 20220428
 
 Name:           gnome-shell-extension-dash-to-dock
-Version:        78
+Version:        79
 Release:        1%{?dist}
 #Release:        5.%%{commit_date}git%%{commit_short}%%{?dist}
 Summary:        Dock for the Gnome Shell by micxgx@gmail.com
@@ -19,8 +19,6 @@ Source0:        %{giturl}/archive/%{commit}.tar.gz
 %else
 Source0:        %{giturl}/archive/extensions.gnome.org-v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 %endif
-
-Patch01:         0001-windowPreview-Honor-button-layout-settings-for-the-w.patch
 
 BuildArch:      noarch
 
@@ -85,6 +83,9 @@ fi
 
 
 %changelog
+* Fri Mar 10 2023 Pablo Greco <pgreco@centosproject.org> - 79-1
+- dash-to-dock 79
+
 * Tue Feb 28 2023 Pablo Greco <pgreco@centosproject.org> - 78-1
 - dash-to-dock 78
 

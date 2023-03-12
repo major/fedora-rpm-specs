@@ -2,7 +2,7 @@ Name:		perl-Class-Load-XS
 Version:	0.10
 Release:	20%{?dist}
 Summary:	XS implementation of parts of Class::Load
-License:	Artistic 2.0
+License:	Artistic-2.0
 URL:		https://metacpan.org/release/Class-Load-XS
 Source0:	https://cpan.metacpan.org/modules/by-module/Class/Class-Load-XS-%{version}.tar.gz
 # ===================================================================
@@ -40,6 +40,7 @@ BuildRequires:	perl(version)
 # ===================================================================
 # Runtime requirements
 # ===================================================================
+# (none)
 
 %{?perl_default_filter}
 

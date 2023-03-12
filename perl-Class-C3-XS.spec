@@ -2,7 +2,7 @@ Name:		perl-Class-C3-XS
 Version:	0.15
 Release:	10%{?dist}
 Summary:	XS speedups for Class::C3
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Class-C3-XS
 Source0:	https://cpan.metacpan.org/modules/by-module/Class/Class-C3-XS-%{version}.tar.gz
 # Module Build
@@ -26,6 +26,7 @@ BuildRequires:	perl(Test::More)
 BuildRequires:	perl(CPAN::Meta) >= 2.120900
 BuildRequires:	perl(Sub::Name)
 # Dependencies
+# (none)
 
 # Avoid provides from private shared objects
 %{?perl_default_filter}
@@ -52,11 +53,7 @@ find %{buildroot} -type f -name '*.bs' -empty -delete
 make test
 
 %files
-%if 0%{?_licensedir:1}
 %license LICENCE
-%else
-%doc LICENCE
-%endif
 %doc Changes CONTRIBUTING README
 %{perl_vendorarch}/auto/Class/
 %{perl_vendorarch}/Class/

@@ -9,8 +9,8 @@
 %endif
 
 %global goipath github.com/containers/podman-tui
-Version: 0.9.0
-%global tag v0.9.0
+Version: 0.9.1
+%global tag v0.9.1
 %gometa
 
 %global goname podman-tui

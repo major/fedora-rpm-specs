@@ -3,26 +3,27 @@
 
 Name:           biber
 # Export $BCF_VERSION from lib/Biber/Constants.pm, bug #2048536
-%define bcfversion 3.9
-Version:        2.18
+%define bcfversion 3.10
+Version:        2.19
 Release:        2%{?dist}
 Summary:        Command-line bibliographic manager, BibTeX replacement
-# bin/biber:        Artistic 2.0
-# data/texmap.xsl:  Artistic 2.0
-# doc/biber.tex:    Artistic 2.0
-# lib/Biber.pm:     Artistic 2.0
-# lib/Biber/LaTeX/recode_data.xml:  Artistic 2.0
-# README.md:        Artistic 2.0
+# bin/biber:        Artistic-2.0
+# data/texmap.xsl:  Artistic-2.0
+# doc/biber.tex:    Artistic-2.0
+# lib/Biber.pm:     Artistic-2.0
+# lib/Biber/LaTeX/recode_data.xml:  Artistic-2.0
+# LICENSE:          Artistic-2.0 text
+# README.md:        Artistic-2.0
 ## Not in any binary package
-# Build.PL:         GPL+ or Artistic
+# Build.PL:         GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not used at all
-# etc/bibtex.g:     GPLv2+
-# etc/parser.dlg:   GPLv2+ (generated from etc/bibtex.g)
-# etc/tugboat.bib:  Public Domain
-License:        (GPL+ or Artistic 2.0) and Artistic 2.0
+# etc/bibtex.g:     GPL-2.0-or-later
+# etc/parser.dlg:   GPL-2.0-or-later (generated from etc/bibtex.g)
+# etc/tugboat.bib:  LicenseRef-Fedora-Public-Domain
+License:        Artistic-2.0
 URL:            http://biblatex-biber.sourceforge.net/
 Source0:        https://github.com/plk/biber/archive/v%{version}.tar.gz
-# not appropriate for upstream: http://github.com/plk/biber/pull/97
+# Not appropriate for upstream: http://github.com/plk/biber/pull/97
 Patch0:         biber-drop-builddeps-for-monolithic-build.patch
 # Do not use /bin/env in shebangs
 Patch1:         biber-2.16-Normalize-shebangs.patch
@@ -251,17 +252,27 @@ export HARNESS_OPTIONS=j$(perl -e 'if ($ARGV[0] =~ /.*-j([0-9][0-9]*).*/) {print
 
 
 %files
+%license LICENSE
 %doc README.md Changes TODO.org
 %{_bindir}/%{name}
-%{_mandir}/man3/*
-%{_mandir}/man1/*
-%{perl_vendorlib}/Biber*
+%{_mandir}/man1/%{name}.*
+%{_mandir}/man3/Biber.*
+%{_mandir}/man3/Biber::*
+%{perl_vendorlib}/Biber
+%{perl_vendorlib}/Biber.pm
 
 %files tests
 %{_libexecdir}/%{name}
 
 
 %changelog
+* Fri Mar 10 2023 Petr Pisar <ppisar@redhat.com> - 2.19-2
+- Rebuild with a different release number
+
+* Tue Mar 07 2023 Petr Pisar <ppisar@redhat.com> - 2.19-1
+- 2.19 bump
+- License corrected to Artistic-2.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.18-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

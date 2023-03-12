@@ -2,7 +2,7 @@ Name:           perl-Class-Accessor
 Version:        0.51
 Release:        17%{?dist}
 Summary:        Automated accessor generation
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Accessor
 Source0:        https://cpan.metacpan.org/authors/id/K/KA/KASEI/Class-Accessor-%{version}.tar.gz
 BuildArch:      noarch
@@ -23,6 +23,7 @@ BuildRequires:  perl(Sub::Name)
 BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Tie::Hash)
 # Dependencies
+# (none)
 
 %description
 This module automagically generates accessors/mutators for your class.

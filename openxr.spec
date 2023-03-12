@@ -82,7 +82,6 @@ rm -fr %{buildroot}%{_libdir}/*.a
 %doc CHANGELOG.SDK.md LICENSE README.md
 %{_bindir}/*
 %{_datadir}/%{name}
-%{_libdir}/lib*.so
 %{_mandir}/man1/*.1*
 
 %files libs
@@ -91,6 +90,7 @@ rm -fr %{buildroot}%{_libdir}/*.a
 %files devel
 %{_includedir}/%{name}
 %{_libdir}/cmake/%{name}
+%{_libdir}/lib*.so
 %{_libdir}/pkgconfig/*.pc
 
 %changelog

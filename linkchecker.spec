@@ -1,9 +1,9 @@
 Name:           linkchecker
 
-Version:        10.1.0
-Release:        3%{?dist}
+Version:        10.2.1
+Release:        1%{?dist}
 Summary:        Check HTML documents for broken links
-License:        GPLv2
+License:        GPL-2.0-or-later
 URL:            https://linkcheck.github.io/linkchecker/
 Source0:        %pypi_source LinkChecker
 
@@ -12,19 +12,13 @@ BuildArch:      noarch
 BuildRequires:  gettext
 
 BuildRequires:  python3-devel
-BuildRequires:  python3-setuptools
 
 # For compiling the translations
 BuildRequires:  python3dist(polib)
 
-BuildRequires:  python3dist(setuptools-scm)
-BuildRequires:  python3dist(beautifulsoup4) >= 4.8.1
-BuildRequires:  python3dist(dnspython) >= 2
-BuildRequires:  python3dist(pyxdg)
-BuildRequires:  python3dist(requests) >= 2.4
-
-# For the tests
+# For the tests (subset of [tool.hatch.envs.test])
 BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(pytest-xdist)
 BuildRequires:  python3dist(pyopenssl)
 BuildRequires:  python3dist(parameterized)
 # Not packaged yet
@@ -51,34 +45,38 @@ support
 ... and a lot more ...
 
 %prep
-%autosetup -p1 -n LinkChecker-%{version}
+%autosetup -p1
+
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
+%pyproject_wheel
 
 %install
-%py3_install
-
-%find_lang linkchecker
+%pyproject_install
+%pyproject_save_files linkcheck
 
 %check
 # test_telnet requires the miniboa package
-%pytest --ignore=tests/checker/test_telnet.py
+%pytest -n auto --ignore=tests/checker/test_telnet.py
 
-%files -f linkchecker.lang
-%doc doc/changelog.txt doc/upgrading.txt
-%license COPYING
+%files -f %{pyproject_files}
+%doc README.rst doc/changelog.txt doc/upgrading.txt
 %{_bindir}/linkchecker
-%{python3_sitelib}/linkcheck/
-%pycached %{python3_sitelib}/_LinkChecker_configdata.py
-%{python3_sitelib}/LinkChecker-*-py%{python3_version}.egg-info/
 %{_mandir}/man1/linkchecker*.1*
 %{_mandir}/man5/linkcheckerrc.5*
 %lang(de) %{_mandir}/de/man1/linkchecker*.1*
 %lang(de) %{_mandir}/de/man5/linkcheckerrc.5*
-%{_datadir}/linkchecker/
+%dir %{_datadir}/linkchecker/
+%doc %{_datadir}/linkchecker/examples/
 
 %changelog
+* Thu Mar 09 2023 Miro Hrončok <mhroncok@redhat.com> - 10.2.1-1
+- Update to 10.2.1
+- Update the license tag to SPDX, acknowledge GPL version >2 is allowed
+- Fixes: rhbz#2176842
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 10.1.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

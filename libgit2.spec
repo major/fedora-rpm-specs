@@ -26,6 +26,10 @@ BuildRequires:  pcre2-devel
 BuildRequires:  python3
 BuildRequires:  zlib-devel
 Provides:       bundled(libxdiff)
+%if 0%{?fedora} >= 38
+Obsoletes:      libgit2_1.3 < 1.3.2-3
+Obsoletes:      libgit2_1.4 < 1.4.6-3
+%endif
 
 %description
 libgit2 is a portable, pure C implementation of the Git core methods
@@ -36,6 +40,10 @@ with bindings.
 %package        devel
 Summary:        Development files for %{name}
 Requires:       %{name}%{?_isa} = %{?epoch:%{epoch}:}%{version}-%{release}
+%if 0%{?fedora} >= 38
+Obsoletes:      libgit2_1.3-devel < 1.3.2-3
+Obsoletes:      libgit2_1.4-devel < 1.4.6-3
+%endif
 
 %description    devel
 This package contains libraries and header files for

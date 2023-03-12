@@ -1,9 +1,9 @@
 Name:           mailcap
 Version:        2.1.53
-Release:        5%{?dist}
+Release:        6%{?dist}
 Summary:        Helper application and MIME type associations for file types
 
-License:        Public Domain and MIT
+License:        LicenseRef-Fedora-Public-Domain AND MIT
 URL:            https://pagure.io/mailcap
 Source0:        https://pagure.io/releases/mailcap/%{name}-%{version}.tar.xz
 BuildRequires: make
@@ -64,6 +64,9 @@ make check
 
 
 %changelog
+* Fri Mar 10 2023 Tomas Korbar <tkorbar@redhat.com> - 2.1.53-6
+- Change the License tag to the SPDX format
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1.53-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

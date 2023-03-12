@@ -4,7 +4,7 @@
 Summary: A GNU implementation of Scheme for application extensibility
 Name: compat-guile18
 Version: %{mver}.8
-Release: 40%{?dist}
+Release: 41%{?dist}
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.gz
 URL: http://www.gnu.org/software/guile/
 Patch1: guile-1.8.7-multilib.patch
@@ -13,7 +13,7 @@ Patch3: guile-1.8.8-deplibs.patch
 Patch4: guile-1.8.8-cve-2016-8605.patch
 Patch5: guile-1.8.8-configure.patch
 Patch6: guile-configure-tz-c99.patch
-License: LGPL-2.1-or-later
+License: LGPL-2.1-or-later AND GPL-2.0-or-later AND MIT AND BSD-4-Clause-UC
 BuildRequires: gcc libtool libtool-ltdl-devel gmp-devel readline-devel
 BuildRequires: gettext-devel
 BuildRequires: make
@@ -186,6 +186,11 @@ fi
 %{_includedir}/libguile.h
 
 %changelog
+* Fri Mar 10 2023 Tomas Korbar <tkorbar@redhat.com> - 1.8.8-41
+- List all licenses that are used in shipped files
+- This is neccessary according to current interpretation
+  of fedora packaging guidelines
+
 * Wed Mar 01 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.8.8-40
 - migrated to SPDX license
 

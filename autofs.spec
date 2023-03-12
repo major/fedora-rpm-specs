@@ -12,7 +12,7 @@
 Summary: A tool for automatically mounting and unmounting filesystems
 Name: autofs
 Version: 5.1.8
-Release: 8%{?dist}
+Release: 9%{?dist}
 Epoch: 1
 License: GPLv2+
 Source: https://www.kernel.org/pub/linux/daemons/autofs/v5/autofs-%{version}.tar.gz
@@ -37,6 +37,7 @@ Patch18: autofs-5.1.8-fix-handling-of-incorrect-return-from-umount_ent.patch
 Patch19: autofs-5.1.8-dont-use-initgroups-at-spawn.patch
 Patch20: autofs-5.1.8-fix-missing-unlock-in-sasl_do_kinit_ext_cc.patch
 Patch21: autofs-5.1.8-fix-invalid-tsv-access.patch
+Patch22: autofs-5.1.8-configure-c99.patch
 
 %if %{with_systemd}
 BuildRequires: systemd-units
@@ -122,6 +123,7 @@ echo %{version}-%{release} > .version
 %patch19 -p1
 %patch20 -p1
 %patch21 -p1
+%patch22 -p1
 
 %build
 LDFLAGS=-Wl,-z,now
@@ -229,6 +231,9 @@ fi
 %dir /etc/auto.master.d
 
 %changelog
+* Fri Mar 10 2023 Arjun Shankar <arjun@redhat.com> - 1:5.1.8-9
+- Port configure script to C99
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:5.1.8-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

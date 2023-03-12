@@ -5,7 +5,7 @@
 %bcond_without doc_pdf
 
 Name:           python-fastavro
-Version:        1.7.2
+Version:        1.7.3
 Release:        %autorelease
 Summary:        Fast Avro for Python
 

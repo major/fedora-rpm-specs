@@ -4,7 +4,7 @@
 # https://gitlab.com/gitlab-org/cli
 %global goipath         gitlab.com/gitlab-org/cli
 %global forgeurl        https://gitlab.com/gitlab-org/cli
-Version:                1.25.3
+Version:                1.26.0
 
 %global repo            cli
 %global archivename     %{repo}-%{version}
@@ -48,7 +48,8 @@ Requires:       git-core
 
 %build
 export LDFLAGS="-X main.version=%{version}  \
-                -X main.build=$(date -d "@${SOURCE_DATE_EPOCH}" +%Y-%m-%d) \
+                -X main.buildDate=$(date -d "@${SOURCE_DATE_EPOCH}" +%Y-%m-%d) \
+                -X main.platform=Fedora
                 -X main.debugMode=false"
 for cmd in cmd/%{name} cmd/gen-docs; do
   %gobuild -o %{gobuilddir}/bin/$(basename $cmd) %{goipath}/$cmd
@@ -90,6 +91,7 @@ done
          -d gitlab.com/gitlab-org/cli/commands/alias/set \
          -d gitlab.com/gitlab-org/cli/commands/auth/login \
          -d gitlab.com/gitlab-org/cli/commands/ci/delete \
+         -d gitlab.com/gitlab-org/cli/commands/ci/get \
          -d gitlab.com/gitlab-org/cli/commands/ci/lint \
          -d gitlab.com/gitlab-org/cli/commands/ci/list \
          -d gitlab.com/gitlab-org/cli/commands/ci/retry \
@@ -99,6 +101,8 @@ done
          -d gitlab.com/gitlab-org/cli/commands/incident/view \
          -d gitlab.com/gitlab-org/cli/commands/issue/board/create \
          -t gitlab.com/gitlab-org/cli/commands/issue \
+         -d gitlab.com/gitlab-org/cli/commands/issuable/list \
+         -d gitlab.com/gitlab-org/cli/commands/issuable/view \
          -d gitlab.com/gitlab-org/cli/commands/label/list \
          -t gitlab.com/gitlab-org/cli/commands/mr \
          -t gitlab.com/gitlab-org/cli/commands/project \
@@ -107,7 +111,8 @@ done
          -d gitlab.com/gitlab-org/cli/commands/release/list \
          -d gitlab.com/gitlab-org/cli/commands/release/upload \
          -d gitlab.com/gitlab-org/cli/commands/release/view \
-         -d gitlab.com/gitlab-org/cli/commands/schedule/list
+         -d gitlab.com/gitlab-org/cli/commands/schedule/list \
+         -d gitlab.com/gitlab-org/cli/commands/schedule/run
 %endif
 
 %files

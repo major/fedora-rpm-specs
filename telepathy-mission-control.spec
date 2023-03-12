@@ -22,7 +22,6 @@ BuildRequires:  gtk-doc
 BuildRequires:  libxslt-devel
 BuildRequires:  NetworkManager-libnm-devel
 BuildRequires:  pkgconfig
-BuildRequires:  pygobject2-devel
 BuildRequires:  telepathy-glib-devel >= %{tp_glib_ver}
 
 %description

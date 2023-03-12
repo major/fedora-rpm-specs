@@ -28,7 +28,7 @@ Source1:    %{daemon}.service
 Source2:    %{daemon}.sysconfig
 # Move noarch data to /usr/share
 Patch0:     nas-1.9.3-Move-AuErrorDB-to-SHAREDIR.patch
-# Adapt to GCC 14, proposed to the upstream,
+# Adapt to GCC 14, in upstream after 1.9.5,
 # bug #2149230, <https://sourceforge.net/p/nas/bugs/10/>
 Patch1:     nas-1.9.5-No-implicit-ints-and-function-declarations.patch
 # Respect linker flags when linking shared libraries, proposed to the
