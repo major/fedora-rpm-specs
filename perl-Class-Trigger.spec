@@ -2,7 +2,7 @@ Name:           perl-Class-Trigger
 Version:        0.15
 Release:        10%{?dist}
 Summary:        Mixin to add / call inheritable triggers
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-Trigger
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-Trigger-%{version}.tar.gz
 BuildArch:      noarch

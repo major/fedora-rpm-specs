@@ -5,14 +5,14 @@
 %bcond_without uuid
 
 Name:           erofs-utils
-Version:        1.5
-Release:        4%{?dist}
+Version:        1.6
+Release:        1%{?dist}
 
 Summary:        Utilities for working with EROFS
-License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0)
+License:        GPL-2.0-only AND GPL-2.0-or-later AND (GPL-2.0-only OR Apache-2.0) AND (GPL-2.0-or-later OR Apache-2.0) AND Unlicense
 URL:            https://git.kernel.org/pub/scm/linux/kernel/git/xiang/erofs-utils.git
 
-Source0:        %{url}/snapshot/%{name}-%{version}.tar.gz
+Source:         %{url}/snapshot/%{name}-%{version}.tar.gz
 
 BuildRequires:  gcc
 BuildRequires:  libtool
@@ -24,7 +24,7 @@ BuildRequires:  pkgconfig(fuse) >= 2.6
 BuildRequires:  lz4-devel >= 1.9.3
 %endif
 %if %{with lzma}
-BuildRequires:  xz-devel >= 5.3.2
+BuildRequires:  xz-devel >= 5.4
 %endif
 %if %{with selinux}
 BuildRequires:  pkgconfig(libselinux)
@@ -34,9 +34,9 @@ BuildRequires:  pkgconfig(uuid)
 %endif
 
 %description
-EROFS stands for Enhanced Read-Only File System.  Different from other
-read-only file systems, it is designed for flexibility, scalability, and
-simplicity for high performance.
+EROFS stands for Enhanced Read-Only File System.  It aims to be a general
+read-only file system solution for various use cases instead of just focusing
+on saving storage space without considering runtime performance.
 
 This package includes tools to create, check, and extract EROFS images.
 
@@ -46,9 +46,9 @@ Summary:        FUSE support for mounting EROFS images
 Requires:       fuse
 
 %description -n erofs-fuse
-EROFS stands for Enhanced Read-Only File System.  Different from other
-read-only file systems, it is designed for flexibility, scalability, and
-simplicity for high performance.
+EROFS stands for Enhanced Read-Only File System.  It aims to be a general
+read-only file system solution for various use cases instead of just focusing
+on saving storage space without considering runtime performance.
 
 This package includes erofsfuse to mount EROFS images.
 %endif
@@ -78,7 +78,7 @@ autoreconf -fi
 %{_mandir}/man1/dump.erofs.1*
 %{_mandir}/man1/fsck.erofs.1*
 %{_mandir}/man1/mkfs.erofs.1*
-%doc AUTHORS ChangeLog README
+%doc AUTHORS ChangeLog README docs/PERFORMANCE.md docs/compress-hints.example
 %license LICENSES/Apache-2.0 LICENSES/GPL-2.0
 
 %if %{with fuse}
@@ -91,8 +91,11 @@ autoreconf -fi
 
 
 %changelog
+* Sat Mar 11 2023 David Michael <fedora.dm0@gmail.com> - 1.6-1
+- Update to the 1.6 release.
+
 * Wed Jan 25 2023 David Michael <fedora.dm0@gmail.com> - 1.5-4
-- Enable MicroLZMA support by default.
+- Enable MicroLZMA support.
 - Switch the License tag to SPDX, and ship matching noneffective license files.
 
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.5-3

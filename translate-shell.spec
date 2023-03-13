@@ -1,6 +1,6 @@
 Name:           translate-shell
 Version:        0.9.7.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A command-line online translator
 
 License:        LicenseRef-Fedora-Public-Domain
@@ -43,6 +43,9 @@ sed -i 's|/usr/bin/env bash|/usr/bin/bash|' build/trans
 
 
 %changelog
+* Sat Mar 11 2023 Fabio Valentini <decathorpe@gmail.com> - 0.9.7.1-2
+- Rebuild for https://pagure.io/releng/issue/11327
+
 * Thu Feb 09 2023 Vasiliy N. Glazov <vascom2@gmail.com> 0.9.7.1-1
 - Update to 0.9.7.1
 

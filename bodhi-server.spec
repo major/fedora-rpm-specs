@@ -1,10 +1,10 @@
 %global pypi_name bodhi-server
 %global src_name bodhi_server
-%global pypi_version 7.0.1
+%global pypi_version 7.1.0
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        2%{?dist}
+Release:        1%{?dist}
 Summary:        Bodhi server
 
 License:        GPL-2.0-or-later
@@ -156,6 +156,9 @@ export BODHI_CONFIG=$(pwd)/tests/testing.ini
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Sat Mar 11 2023 Mattia Verga <mattia.verga@proton.me> - 7.1.0-1
+- Update to 7.1.0
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 7.0.1-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

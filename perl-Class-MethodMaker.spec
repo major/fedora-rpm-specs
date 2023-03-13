@@ -2,7 +2,7 @@ Name:           perl-Class-MethodMaker
 Version:        2.24
 Release:        27%{?dist}
 Summary:        Perl module for creating generic object-oriented methods
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Class-MethodMaker
 Source0:        https://cpan.metacpan.org/modules/by-module/Class/Class-MethodMaker-%{version}.tar.gz
 # Module Build

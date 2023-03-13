@@ -10,7 +10,7 @@
 
 Summary: Benchmarking authorative and recursing DNS servers
 Name: dnsperf
-Version: 2.11.0
+Version: 2.11.1
 Release: 1%{?dist}
 # New page was found, but on github is also project, that seems to be official.
 #
@@ -110,8 +110,8 @@ autoreconf -fi
 %install
 %make_install dist_doc_DATA=''
 %if %{with python2} || %{with python3}
-install contrib/queryparse/queryparse %{buildroot}/%{_bindir}
-install -D -m 644 contrib/queryparse/queryparse.1 %{buildroot}/%{_mandir}/man1/queryparse.1
+install -p contrib/queryparse/queryparse %{buildroot}/%{_bindir}
+install -D -m 644 -p contrib/queryparse/queryparse.1 %{buildroot}/%{_mandir}/man1/queryparse.1
 gzip %{buildroot}/%{_mandir}/man1/queryparse.1
 %endif
 
@@ -137,6 +137,9 @@ install -m 755 -p %{SOURCE2} %{buildroot}%{_bindir}/dnsperf-data
 %endif
 
 %changelog
+* Sat Mar 11 2023 Petr Menšík <pemensik@redhat.com> - 2.11.1-1
+- Update to 2.11.1
+
 * Mon Feb 13 2023 Petr Menšík <pemensik@redhat.com> - 2.11.0-1
 - Update 2.11.0
 

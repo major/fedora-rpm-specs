@@ -2,15 +2,13 @@ Name:           perl-Compress-LZF
 Version:        3.8
 Release:        25%{?dist}
 Summary:        Extremely light-weight Lempel-Ziv-Free compression
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 ## Not in the binary packages
 # liblzf files:     BSD or GPLv2+
 # perlmulticore.h:  Public Domain or CC0
 URL:            https://metacpan.org/release/Compress-LZF
 Source0:        https://cpan.metacpan.org/modules/by-module/Compress/Compress-LZF-%{version}.tar.gz
-# Unbundle liblzf
 Patch0:         Compress-LZF-3.8-Unbundle-liblzf.patch
-# Unbundle perlmulticore.h
 Patch1:         Compress-LZF-3.8-Unbundle-perlmulticore.patch
 Patch2:         perl-Compress-LZF-c99.patch
 # Build
@@ -30,14 +28,21 @@ BuildRequires:  perl(Exporter)
 # Test Suite
 BuildRequires:  perl(Storable)
 # Dependencies
+# (none)
 
 %description
 This is Perl binding to the LZF compression library.
 
 %prep
 %setup -q -n Compress-LZF-%{version}
+
+# Unbundle liblzf
 %patch0 -p1
+
+# Unbundle perlmulticore.h
 %patch1 -p1
+
+# Compile in C99 mode
 %patch2 -p1
 
 %build

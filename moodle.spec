@@ -6,8 +6,8 @@
 %define __perl_provides %{nil}
 
 Name:           moodle
-Version:        4.1.1
-Release:       	3%{?dist}
+Version:        4.1.2
+Release:       	1%{?dist}
 Summary:        A Course Management System
 
 License:        GPL-2.0-or-later
@@ -178,6 +178,9 @@ end
 %{_datadir}/php/php-simplepie/moodle_simplepie.php
 
 %changelog
+* Sat Mar 11 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.1.2-1
+- 4.1.2
+
 * Tue Feb 28 2023 Gwyn Ciesla <gwync@protonmail.com> - 4.1.1-3
 - migrated to SPDX license
 

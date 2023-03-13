@@ -13,7 +13,7 @@
 %global sum_zh  FastAPI 框架
 
 Name:           python-fastapi
-Version:        0.93.0
+Version:        0.94.0
 Release:        %autorelease
 Summary:        %{sum_en}
 
@@ -34,10 +34,6 @@ Patch:          %{url}/pull/4409.patch
 # Upgrade databases and SQLAlchemy
 # https://github.com/tiangolo/fastapi/pull/5799
 Patch:          %{url}/pull/5799.patch
-# Allow python-multipart 0.0.6
-# https://github.com/tiangolo/fastapi/pull/9212
-# Rebased on top of upstream PR#5799.
-Patch:          0001-Allow-python-multipart-0.0.6.patch
 
 BuildRequires:  python3-devel
 

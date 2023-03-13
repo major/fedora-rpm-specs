@@ -12,12 +12,12 @@
 %bcond_with doc_pdf
 
 Name:           flatbuffers
-Version:        23.1.21
+Version:        23.3.3
 # The .so version is equal to the project version since upstream offers no ABI
 # stability guarantees. We manually repeat it here and and use the macro in the
 # file lists as a reminder to avoid undetected .so version bumps. See
 # https://github.com/google/flatbuffers/issues/7759.
-%global so_version 23.1.21
+%global so_version 23.3.3
 Release:        %autorelease
 Summary:        FlatBuffers: Memory Efficient Serialization Library
 
@@ -30,6 +30,10 @@ URL:            https://google.github.io/flatbuffers
 Source0:        https://github.com/google/flatbuffers/archive/v%{version}/%{name}-%{version}.tar.gz
 # Hand-written for Fedora in groff_man(7) format based on --help output
 Source1:        flatc.1
+
+# Fix help output for --java-checkerframework
+# https://github.com/google/flatbuffers/pull/7854
+Patch:          https://github.com/google/flatbuffers/pull/7854.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -225,7 +229,7 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 
 
 %files
-%license LICENSE.txt
+%license LICENSE
 
 %{_libdir}/libflatbuffers.so.%{so_version}
 
@@ -245,7 +249,7 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 
 
 %files doc
-%license LICENSE.txt
+%license LICENSE
 %doc CHANGELOG.md
 %doc SECURITY.md
 %doc readme.md
@@ -259,7 +263,7 @@ cp -p %SOURCE1 %{buildroot}%{_mandir}/man1/flatc.1
 
 
 %files -n python3-flatbuffers -f %{pyproject_files}
-%license LICENSE.txt
+%license LICENSE
 
 
 %changelog

@@ -26,7 +26,7 @@ Summary:        USB firewall against BadUSB attacks
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/usbauth
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        GPLv2
 
 Requires:       systemd
@@ -61,7 +61,7 @@ popd
 %files
 %license %{name}/COPYING
 %doc %{name}/README
-doc %_mandir/man1/usbauth.1.*
+%doc %_mandir/*/*
 %_sbindir/usbauth
 %config %_sysconfdir/dbus-1/system.d/org.opensuse.usbauth.conf
 %config(noreplace) %_sysconfdir/usbauth.conf
@@ -69,7 +69,11 @@ doc %_mandir/man1/usbauth.1.*
 
 
 %changelog
+* Sat Mar 11 2023 stefan.koch10@gmail.com - 1.0.5-2
+- improve manpage install
+
 * Sat Mar 04 2023 stefan.koch10@gmail.com - 1.0.5-1
 - update to v1.0.5
+
 * Tue Jan 22 2019 stefan.koch10@gmail.com - 1.0.1-1
 - initial package for usbauth USB firewall against BadUSB attacks

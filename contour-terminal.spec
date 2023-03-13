@@ -25,7 +25,7 @@ BuildRequires:  harfbuzz-devel
 BuildRequires:  libunicode-devel
 BuildRequires:  desktop-file-utils
 BuildRequires:  libappstream-glib
-%if %{?fedora} <= 38
+%if %{?fedora} <= 37
 BuildRequires:  catch-devel
 %else
 BuildRequires:  catch2-devel

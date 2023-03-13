@@ -1,6 +1,6 @@
 Name:           hcxtools
-Version:        6.2.7
-Release:        2%{?dist}
+Version:        6.2.9
+Release:        %autorelease
 Summary:        Portable solution for conversion WiFi dump files to hashcat formats
 
 License:        MIT
@@ -8,10 +8,6 @@ URL:            https://github.com/ZerBea/hcxtools
 Source0:        %{url}/archive/%{version}/%{name}-%{version}.tar.gz
 Source1:        %{url}/releases/download/%{version}/%{name}-%{version}.tar.gz.asc
 Source2:        gpgkey-5920CE1C567948AFD2C0A9B7375516A45DB88630.gpg
-
-# hcxpmktool.c: Remove executable permission
-# https://github.com/ZerBea/hcxtools/pull/220
-Patch0:         https://github.com/ZerBea/hcxtools/pull/220.patch#/hcxpmktool.c:-Remove-executable-permission.patch
 
 BuildRequires:  gcc >= 11
 BuildRequires:  gnupg2
@@ -106,8 +102,4 @@ install -Dpm 0644 man/%{name}.1 -t %{buildroot}%{_mandir}/man1/
 
 
 %changelog
-* Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.2.7-2
-- Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
-
-* Fri Jul 22 2022 Artem Polishchuk <ego.cordatus@gmail.com> - 6.2.7-1
-- Initial package
+%autochangelog

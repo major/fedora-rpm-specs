@@ -1,15 +1,11 @@
 Name:		stress-ng
-Version:	0.15.00
-Release:	3%{?dist}
+Version:	0.15.05
+Release:	1%{?dist}
 Summary:	Stress test a computer system in various ways
 
 License:	GPLv2+
 URL:		https://github.com/ColinIanKing/stress-ng
 Source0:	https://github.com/ColinIanKing/stress-ng/archive/V%{version}/%{name}-%{version}.tar.gz
-Patch0: stress-ng-c99-1.patch
-Patch1: stress-ng-c99-2.patch
-Patch2: stress-ng-c99-3.patch
-Patch3: stress-ng-c99-4.patch
 
 BuildRequires:	make
 BuildRequires:	gcc
@@ -32,7 +28,7 @@ various physical subsystems of a computer as well as the various operating
 system kernel interfaces.
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -n %{name}-%{version}
 
 %build
 %make_build
@@ -54,6 +50,10 @@ install -pm 644 bash-completion/%{name} \
 %{_datadir}/bash-completion/completions/%{name}
 
 %changelog
+* Sat Mar 11 2023 Fabio Alessandro Locati <fale@fedoraproject.ora> - 0.15.05-1
+- Update to 0.15.05
+- Fixes rhbz#2130476
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.15.00-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

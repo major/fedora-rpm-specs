@@ -27,8 +27,8 @@ ExcludeArch: %{ix86}
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 Name:           %{appname}%{?p_suffix}
-Version:        1.14.0
-Release:        2%{?dist}
+Version:        1.15.0
+Release:        3%{?dist}
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
 # CC-BY:        Assets
@@ -512,6 +512,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
+* Sat Mar 11 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 1.15.0-3
+- chore: Update to 1.15.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.14.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

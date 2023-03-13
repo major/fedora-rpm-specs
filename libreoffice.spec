@@ -1466,36 +1466,11 @@ done
 export DESTDIR=%{buildroot}
 ./solenv/bin/install-gdb-printers -a %{_datadir}/gdb/auto-load%{baseinstdir} -c -i %{baseinstdir} -p %{_datadir}/libreoffice/gdb
 
-%if 0%{?fedora}
-# Update the screenshot shown in the software center
-#
-# NOTE: It would be *awesome* if this file was pushed upstream.
-#
-# See http://people.freedesktop.org/~hughsient/appdata/#screenshots for more details.
-#
-appstream-util replace-screenshots %{buildroot}%{_datadir}/metainfo/libreoffice-writer.appdata.xml \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-writer/a.png \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-writer/b.png 
-appstream-util replace-screenshots %{buildroot}%{_datadir}/metainfo/libreoffice-calc.appdata.xml \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-calc/a.png 
-appstream-util replace-screenshots %{buildroot}%{_datadir}/metainfo/libreoffice-draw.appdata.xml \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-draw/a.png 
-appstream-util replace-screenshots %{buildroot}%{_datadir}/metainfo/libreoffice-impress.appdata.xml \
-  https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-impress/a.png 
-%endif
 %if 0%{?flatpak}
 # Assemble the libreoffice-*.appdata.xml files into a single
 # org.libreoffice.LibreOffice.appdata.xml; first create the single file:
 solenv/bin/assemble-flatpak-appdata-step1.sh \
  %{buildroot}%{_datadir}/metainfo/ 0
-# ...then update the screenshots in the single file (see above):
-appstream-util replace-screenshots \
- %{buildroot}%{_datadir}/metainfo/org.libreoffice.LibreOffice.appdata.xml \
- https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-writer/a.png \
- https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-writer/b.png \
- https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-calc/a.png \
- https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-draw/a.png \
- https://raw.githubusercontent.com/hughsie/fedora-appstream/master/screenshots-extra/libreoffice-impress/a.png
 # ...then append the original files to the single file:
 solenv/bin/assemble-flatpak-appdata-step2.sh \
  %{buildroot}%{_datadir}/metainfo/ %{buildroot}%{_datadir}/metainfo/

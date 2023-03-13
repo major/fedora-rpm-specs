@@ -1,6 +1,6 @@
 Name:           python-pefile
 Version:        2023.2.7
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Python module for working with Portable Executable files
 License:        MIT
 URL:            https://github.com/erocarrera/pefile
@@ -69,6 +69,9 @@ sed -i -e '/^#!\//, 1d' pefile.py
 %{python3_sitelib}/*
 
 %changelog
+* Sat Mar 11 2023 Fabio Valentini <decathorpe@gmail.com> - 2023.2.7-2
+- Rebuild for https://pagure.io/releng/issue/11327
+
 * Wed Feb 08 2023 Michal Ambroz <rebus _AT seznam.cz> - 2023.2.7-1
 - bump to version 2023.2.7
 

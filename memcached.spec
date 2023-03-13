@@ -12,11 +12,11 @@
 
 Name:           memcached
 Version:        1.6.19
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          0
 Summary:        High Performance, Distributed Memory Object Cache
 
-License:        BSD
+License:        BSD-3-clause
 URL:            https://www.memcached.org/
 Source0:        https://www.memcached.org/files/%{name}-%{version}.tar.gz
 Source1:        memcached.sysconfig
@@ -174,6 +174,9 @@ fi
 %license ../%{selinuxmoduledir}/COPYING
 
 %changelog
+* Sat Mar 11 2023 Tomas Korbar <tkorbar@redhat.com> - 0:1.6.19-2
+- Change the License tag to the SPDX format
+
 * Thu Mar 09 2023 Tomas Korbar <tkorbar@redhat.com> - 0:1.6.19-1
 - Update to 1.6.19
 - Resolves: rhbz#2176684

@@ -26,7 +26,7 @@ Summary:        Library for USB Firewall including flex/bison parser
 URL:            https://github.com/kochstefan/usbauth-all/tree/master/libusbauth-configparser
 Source:         https://github.com/kochstefan/usbauth-all/archive/v%{version}.tar.gz
 
-Release:        1%{?dist}
+Release:        2%{?dist}
 License:        LGPLv2
 
 BuildRequires:  pkgconfig(libudev)
@@ -34,8 +34,6 @@ BuildRequires:  gcc
 BuildRequires:  bison
 BuildRequires:  flex
 BuildRequires:  libtool
-BuildRequires:  libudev-devel
-BuildRequires: make
 
 %description
 Library to read usbauth config file into data structures
@@ -64,8 +62,8 @@ pushd %{name}/
 popd
 
 %files
-%license COPYING
-%doc README
+%license %{name}/COPYING
+%doc %{name}/README
 %_libdir/lib*.so.1*
 
 %files devel
@@ -81,6 +79,9 @@ popd
 %ldconfig_postun
 
 %changelog
+* Sat Mar 11 2023 stefan.koch10@gmail.com - 1.0.5-2
+- Improve deps
+
 * Sat Mar 04 2023 stefan.koch10@gmail.com - 1.0.5-1
 - update to v1.0.5
 

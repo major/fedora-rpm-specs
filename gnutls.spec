@@ -29,6 +29,10 @@ Patch: gnutls-3.7.8-ktls_disable_keyupdate_test.patch
 # follow https://gitlab.com/gnutls/gnutls/-/issues/1443
 Patch: gnutls-3.7.8-ktls_skip_tls12_chachapoly_test.patch
 
+# Fix desychronisation with kTLS:
+# https://gitlab.com/gnutls/gnutls/-/issues/1470
+Patch: gnutls-3.8.0-ktls-Do-not-return-GNUTLS_E_INTERRUPTED-AGAIN-from-s.patch
+
 %bcond_without bootstrap
 %bcond_without dane
 %bcond_without fips

@@ -64,11 +64,10 @@ pushd %{name}/
 %find_lang %name
 popd
 
-%files -f %name.lang
+%files -f %{name}/%name.lang
 %license %{name}/COPYING
 %doc %{name}/README
-doc %_mandir/man1/usbauth-notifier.1*
-doc %_mandir/man1/usbauth-npriv.1*
+%doc %_mandir/*/*
 %dir %_sysconfdir/xdg/autostart
 %_sysconfdir/xdg/autostart/usbauth-notifier.desktop
 %attr(04750,root,usbauth) %_libexecdir/usbauth-npriv

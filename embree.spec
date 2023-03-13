@@ -8,7 +8,7 @@
 %bcond_without	ispc
 
 Name:		embree
-Version:	4.0.0
+Version:	4.0.1
 Release:	%autorelease
 Summary:	Collection of high-performance ray tracing kernels
 
@@ -19,10 +19,6 @@ Source:		https://github.com/%{name}/%{name}/archive/%{commit}/%{name}-%{commit}.
 %else
 Source:		https://github.com/%{name}/%{name}/archive/v%{version}%{?prerelease:%{-prerelease}.0}.tar.gz#/%{name}-%{version}%{?prerelease:-%{prerelease}.0}.tar.gz
 %endif
-
-#[PATCH] Fix Linux aarch64 support on GCC with lax vector conversions
-# https://github.com/embree/embree/pull/408/commits/ace05ce4e3bcee8ff4d6204f4dac835f86f17d4a
-Patch:		embree-restore-check-arm-cpp.patch
 
 BuildRequires:	cmake
 BuildRequires:	gcc-c++

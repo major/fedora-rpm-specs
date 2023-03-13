@@ -1,7 +1,7 @@
 %global appid org.gajim.Gajim
 
 Name:     gajim
-Version:  1.7.1
+Version:  1.7.2
 Release:  1%{?dist}
 Summary:  Jabber client written in PyGTK
 License:  GPLv3
@@ -93,6 +93,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{appid}.
 %{_datadir}/icons/hicolor/scalable/apps/%{appid}-symbolic.svg
 
 %changelog
+* Sat Mar 11 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.7.2-1
+- Update to 1.7.2
+
 * Thu Feb 09 2023 Michael Kuhn <suraia@fedoraproject.org> - 1.7.1-1
 - Update to 1.7.1
 

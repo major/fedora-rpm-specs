@@ -2,8 +2,8 @@
 %bcond_without perl_Lexical_SealRequireHints_enables_optional_test
 
 Name:           perl-Lexical-SealRequireHints
-Version:        0.011
-Release:        21%{?dist}
+Version:        0.012
+Release:        1%{?dist}
 Summary:        Prevent leakage of lexical hints
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Lexical-SealRequireHints
@@ -19,7 +19,11 @@ BuildRequires:  perl(Module::Build)
 BuildRequires:  perl(strict)
 BuildRequires:  perl(warnings)
 # Tests
+BuildRequires:  perl(AutoLoader)
+BuildRequires:  perl(DynaLoader)
+BuildRequires:  perl(Exporter)
 BuildRequires:  perl(Test::More) >= 0.41
+BuildRequires:  perl(XSLoader)
 %if %{with perl_Lexical_SealRequireHints_enables_optional_test}
 # Optional tests
 BuildRequires:  perl(Test::Pod) >= 1.00
@@ -34,14 +38,14 @@ Conflicts:      perl(B:Hooks::OP::Check) < 0.19
 %{?perl_default_filter}
 
 %description
-This module works around two historical bugs in Perl's handling of the %^H
+This module works around two historical bugs in Perl's handling of the %%^H
 (lexical hints) variable. One bug causes lexical state in one file to leak
-into another that is required/used from it. This bug, [perl #68590], was
+into another that is required/used from it. This bug [perl #68590], was
 present from Perl 5.6 up to Perl 5.10, fixed in Perl 5.11.0. The second bug
-causes lexical state (normally a blank %^H once the first bug is fixed) to
+causes lexical state (normally a blank %%^H once the first bug is fixed) to
 leak outwards from utf8.pm, if it is automatically loaded during Unicode
 regular expression matching, into whatever source is compiling at the time
-of the regexp match. This bug, [perl #73174], was present from Perl 5.8.7
+of the regexp match. This bug [perl #73174], was present from Perl 5.8.7
 up to Perl 5.11.5, fixed in Perl 5.12.0.
 
 %prep
@@ -60,12 +64,16 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -empty -delete
 ./Build test
 
 %files
-%doc Changes
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/Lexical*
-%{_mandir}/man3/*
+%doc Changes README
+%{perl_vendorarch}/auto/Lexical/
+%{perl_vendorarch}/Lexical/
+%{_mandir}/man3/Lexical::SealRequireHints.3*
 
 %changelog
+* Sat Mar 11 2023 Paul Howarth <paul@city-fan.org> - 0.012-1
+- Update to 0.012 (see Changes for details) (rhbz#2177338)
+- Make %%files list more explicit
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.011-21
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

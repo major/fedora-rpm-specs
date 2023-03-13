@@ -7,7 +7,7 @@
 
 Name:           libosmium
 Version:        2.19.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Fast and flexible C++ library for working with OpenStreetMap data
 
 License:        BSL-1.0
@@ -109,6 +109,9 @@ cd libosmium
 
 
 %changelog
+* Sat Mar 11 2023 Tom Hughes <tom@compton.nu> - 2.19.0-2
+- Require catch2-devel instead of catch-devel
+
 * Thu Jan 19 2023 Tom Hughes <tom@compton.nu> - 2.19.0-1
 - Update to 2.19.0 upstream release
 

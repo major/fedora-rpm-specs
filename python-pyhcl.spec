@@ -1,22 +1,14 @@
-# Created by pyp2rpm-3.3.2
 %global pypi_name pyhcl
 
-# Enable Python dependency generation
-%{?python_enable_dependency_generator}
-
 Name:           python-%{pypi_name}
-Version:        0.3.13
-Release:        12%{?dist}
+Version:        0.4.4
+Release:        1%{?dist}
 Summary:        HCL configuration parser for Python
 
-License:        MPLv2.0
+License:        MPL-2.0
 URL:            https://github.com/virtuald/pyhcl
-Source0:        https://files.pythonhosted.org/packages/source/p/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        %{pypi_source}
 BuildArch:      noarch
-
-BuildRequires:  python3-devel
-BuildRequires:  (python3dist(ply) >= 3.8 with python3dist(ply) < 4)
-BuildRequires:  python3dist(setuptools)
 
 %description
 Implements a parser for HCL (HashiCorp Configuration Language) in Python.
@@ -24,21 +16,27 @@ Implements a parser for HCL (HashiCorp Configuration Language) in Python.
 This implementation aims to be compatible with the original Go version
 of the parser.
 
-%package -n     python%{python3_pkgversion}-%{pypi_name}
+%package -n     python3-%{pypi_name}
 Summary:        %{summary}
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{pypi_name}}
+BuildRequires:  python3-devel
+BuildRequires:  python3dist(setuptools)
+# Test requires:
+BuildRequires:  python3dist(pytest)
+BuildRequires:  python3dist(ply)
 
-%description -n python%{python3_pkgversion}-%{pypi_name}
+%description -n python3-%{pypi_name}
 Implements a parser for HCL (HashiCorp Configuration Language) in Python.
 
 This implementation aims to be compatible with the original Go version
 of the parser.
 
-
 %prep
 %autosetup -n %{pypi_name}-%{version}
-# Remove bundled egg-info
-rm -rf %{pypi_name}.egg-info
+# Unbundle ply
+rm -vr src/hcl/ply
+echo 'ply' >> requirements.txt
+sed -i -e "s/,'hcl.ply'//" setup.py
+grep -rl '\.ply' | xargs -t sed -i -e 's/\.ply/ply/'
 
 %build
 %py3_build
@@ -47,16 +45,19 @@ rm -rf %{pypi_name}.egg-info
 %py3_install
 
 %check
-%{__python3} setup.py test
+PYTHONPATH=%{buildroot}%{python3_sitelib} %python3 -m pytest tests
 
-%files -n python%{python3_pkgversion}-%{pypi_name}
+%files -n python3-%{pypi_name}
 %license LICENSE
 %doc README.rst
 %{_bindir}/hcltool
 %{python3_sitelib}/hcl/
-%{python3_sitelib}/%{pypi_name}-*.egg-info/
+%{python3_sitelib}/pyhcl-*.egg-info/
 
 %changelog
+* Sat Mar 11 2023 Igor Raits <ignatenkobrain@fedoraproject.org> - 0.4.4-1
+- Update to 0.4.4
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.3.13-12
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
