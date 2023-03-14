@@ -2,7 +2,7 @@ Name:           ctemplate
 Version:        2.4
 Release:        7%{?dist}
 Summary:        A simple but powerful template language for C++
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/olafvdspek/ctemplate
 Source0:        https://github.com/OlafvdSpek/ctemplate/archive/%{name}-%{version}.tar.gz
 

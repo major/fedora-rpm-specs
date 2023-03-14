@@ -2,7 +2,7 @@ Name:           perl-Config-Any
 Summary:        Load configuration from different file formats, transparently
 Version:        0.32
 Release:        20%{?dist}
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Config-Any
 Source0:        https://cpan.metacpan.org/modules/by-module/Config/Config-Any-%{version}.tar.gz
 BuildArch:      noarch

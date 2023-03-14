@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-zhuyin
-Version:    5.0.11
+Version:    5.0.12
 Release:    %autorelease
 Summary:    Libzhuyin Wrapper for Fcitx
 License:    GPLv2+
@@ -69,8 +69,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %files data
 %{_datadir}/fcitx5/addon/zhuyin.conf
 %{_datadir}/fcitx5/inputmethod/zhuyin.conf
-%{_datadir}/icons/hicolor/48x48/apps/fcitx-zhuyin.png
-%{_datadir}/icons/hicolor/48x48/apps/org.fcitx.Fcitx5.fcitx-zhuyin.png
+%{_datadir}/icons/hicolor/*/apps/fcitx-zhuyin.png
+%{_datadir}/icons/hicolor/*/apps/org.fcitx.Fcitx5.fcitx-zhuyin.png
 %{_datadir}/fcitx5/zhuyin
 %{_datadir}/fcitx5/lua/imeapi/extensions/zhuyin.lua
 

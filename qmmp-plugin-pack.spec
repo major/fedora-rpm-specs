@@ -1,6 +1,6 @@
 Name:           qmmp-plugin-pack
 Version:        2.1.0
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A set of extra plugins for Qmmp
 
 License:        GPLv2+
@@ -61,6 +61,9 @@ Plugin pack is a set of extra plugins for Qmmp.
 
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.0-5
+- Rebuild for ffmpeg 6.0
+
 * Wed Feb 15 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 2.1.0-4
 - Enable ffvideo plugin
 

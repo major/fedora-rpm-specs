@@ -1,6 +1,6 @@
 Name:           unpaper
 Version:        7.0.0
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Post-processing of scanned and photocopied book pages
 # AUTHORS:      GPL-2.0-only
 # constants.h:  GPL-2.0-only
@@ -130,6 +130,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 7.0.0-7
+- Rebuild for ffmpeg 6.0
+
 * Wed Feb 08 2023 Petr Pisar <ppisar@redhat.com> - 7.0.0-6
 - Convert license tags to an SPDX format
 

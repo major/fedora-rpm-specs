@@ -21,11 +21,11 @@
 #%%global	betaver	rc4
 #%%define	prerelease	1
 
-%global	fedorarel	2
+%global	baserelease	2
 
 Name:		oniguruma
 Version:	%{mainver}%{?postver:.%postver}
-Release:	%{?prerelease:0.}%{fedorarel}%{?betaver:.%betaver}%{?gitversion:.%{?gitversion}}%{?dist}.1
+Release:	%{?prerelease:0.}%{baserelease}%{?betaver:.%betaver}%{?gitversion:.%{?gitversion}}%{?dist}.1
 Summary:	Regular expressions library
 
 License:	BSD

@@ -1,6 +1,6 @@
 %define		mainver		0.996
 #%%define		betaver		pre3
-%define		fedorarel	3
+%define		baserelease	3
 
 # Note:
 # mecab dictionary requires mecab-devel to rebuild it,
@@ -9,9 +9,9 @@
 Name:		mecab
 Version:	%{mainver}
 %if %{?betaver:0}%{!?betaver:1}
-Release:	%{fedorarel}%{?dist}.5
+Release:	%{baserelease}%{?dist}.5
 %else
-Release:	0.%{fedorarel}.%{betaver}%{?dist}.5
+Release:	0.%{baserelease}.%{betaver}%{?dist}.5
 %endif
 Summary:	Yet Another Part-of-Speech and Morphological Analyzer
 

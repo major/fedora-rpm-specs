@@ -23,15 +23,15 @@
 %global	gem_name	locale
 
 %if 0%{?usegit} >= 1
-%global	fedorarel	%{mainrel}.D%{gitdate_num}git%{shorthash}
+%global	baserelease	%{mainrel}.D%{gitdate_num}git%{shorthash}
 %else
-%global	fedorarel	%{mainrel}
+%global	baserelease	%{mainrel}
 %endif
 
 Summary:	Pure ruby library which provides basic APIs for localization
 Name:		rubygem-%{gem_name}
 Version:	2.1.3
-Release:	%{fedorarel}%{?dist}.6
+Release:	%{baserelease}%{?dist}.6
 License:	GPLv2 or Ruby
 URL:		http://locale.rubyforge.org/
 %if	0%{?usegit} >= 1

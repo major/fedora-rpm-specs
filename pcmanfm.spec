@@ -29,10 +29,10 @@
 %endif
 
 %if 0%{?use_gitbare} >= 1
-%global         fedorarel   %{mainrel}.%{git_version}
+%global         baserelease   %{mainrel}.%{git_version}
 %endif
 %if 0%{?use_release} >= 1
-%global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 
 %global	libfm_minver	1.2.0
@@ -41,7 +41,7 @@
 
 Name:		pcmanfm
 Version:	%{mainver}
-Release:	%{fedorarel}%{?dist}.4
+Release:	%{baserelease}%{?dist}.4
 Summary:	Extremly fast and lightweight file manager
 
 License:	GPLv2+

@@ -3,13 +3,16 @@
 
 Name:           warzone2100
 Version:        4.3.3
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Innovative 3D real-time strategy
 
 License:        GPLv2+ and CC-BY-SA
 URL:            http://wz2100.net/
 Source0:        https://github.com/Warzone2100/warzone2100/releases/download/%{version}/warzone2100_src.tar.xz
 Source1:        https://github.com/Warzone2100/wz-sequences/releases/download/v3/high-quality-en-sequences.wz
+
+# https://github.com/Warzone2100/warzone2100/pull/3090
+Patch:          fix-ftbfs.patch
 
 # https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 ExcludeArch:    %{ix86}
@@ -92,6 +95,9 @@ mv $RPM_BUILD_ROOT%{_datadir}/icons/net.wz2100.warzone2100.png \
 %{_datadir}/warzone2100/sequences.wz
 
 %changelog
+* Sun Mar 12 2023 Pete Walter <pwalter@fedoraproject.org> - 4.3.3-4
+- Fix FTBFS (rhbz#2171756)
+
 * Fri Feb 03 2023 Pete Walter <pwalter@fedoraproject.org> - 4.3.3-3
 - ExcludeArch i686 for https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
 

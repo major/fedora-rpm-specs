@@ -4,9 +4,9 @@
 Name:           libstatgrab
 Epoch:          1
 Version:        0.92.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        A library that provides cross platform access to statistics of the system
-License:        LGPLv2+
+License:        LGPL-2.1-or-later
 URL:            http://www.i-scream.org/libstatgrab
 Source0:        http://ftp.i-scream.org/pub/i-scream/%{name}/%{name}-%{version}.tar.gz
 # REJECTED due to Solaris or whatever linking issue,
@@ -60,7 +60,7 @@ developing applications that use libstatgrab.
 %if %{with examples}
 %package        examples
 Summary:        The example files from %{name}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 Requires:       %{name}%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description    examples
@@ -70,7 +70,7 @@ to develop libstatgrab based applications.
 
 %package -n     saidar
 Summary:        System information real-time monitor
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 %description -n saidar
 Saidar is a curses-based interface to viewing the current state of the
@@ -78,7 +78,7 @@ system.
 
 %package -n     statgrab
 Summary:        Sysctl-style interface to the statistics from libstatgrab
-License:        GPLv2+
+License:        GPL-2.0-or-later
 
 %description -n statgrab
 Statgrab gives a sysctl-style interface to the statistics gathered by
@@ -207,6 +207,9 @@ make check
 %{_mandir}/*/*statgrab*
 
 %changelog
+* Mon Feb 27 2023 Tim Orling <ticotimo@gmail.com> - 1:0.92.1-5
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.92.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

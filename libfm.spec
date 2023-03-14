@@ -28,10 +28,10 @@
 %endif
 
 %if 0%{?userelease} >= 1
-%global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?usegitbare} >= 1
-%global         fedorarel   %{?prever:0.}%{mainrel}.D%{gitdate}git%{shortcommit}
+%global         baserelease   %{?prever:0.}%{mainrel}.D%{gitdate}git%{shortcommit}
 %endif
 
 %global         build_doc   1
@@ -40,7 +40,7 @@
 
 Name:           libfm
 Version:        %{mainver}
-Release:        %{fedorarel}%{?dist}.3
+Release:        %{baserelease}%{?dist}.3
 Summary:        GIO-based library for file manager-like programs
 
 License:        GPLv2+

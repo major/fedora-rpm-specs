@@ -1,5 +1,5 @@
 %define         _legacy_common_support 1
-%global         plugin_abi  2.10
+%global         plugin_abi  2.11
 %global         codecdir    %{_libdir}/codecs
 
 %if 0%{?el9}
@@ -13,10 +13,6 @@
 %global _without_faad2 1
 %global _without_fame 1
 
-# Pending inclusion to Fedora
-%global _without_dca 1
-%global _without_vcd 1
-
 %ifarch %{ix86}
     %global     have_vidix  1
 %else
@@ -29,8 +25,8 @@
 
 Summary:        A multimedia engine
 Name:           xine-lib
-Version:        1.2.12
-Release:        11%{?snapshot:.%{date}hg%{revision}}%{?dist}
+Version:        1.2.13
+Release:        1%{?dist}
 License:        GPL-2.0-or-later
 URL:            https://www.xine-project.org/
 %if ! 0%{?snapshot}
@@ -41,11 +37,9 @@ Source0:        xine-lib-%{version}-%{date}hg%{revision}.tar.xz
 # Script to make a snapshot
 Source1:        make_xinelib_snapshot.sh
 
-# https://sourceforge.net/p/xine/xine-lib-1.2/ci/928cdea835e656d6e1411c767eace0d10b6cc452/
-Patch1:         xine-lib-1.2.12-fix_older_libcaca.patch
-# https://sourceforge.net/p/xine/xine-lib-1.2/ci/97248a71021428baa49e2b2af34f566a3257452a/
-Patch2:         xine-lib-1.2.12-dav1d_100_support.patch
-Patch3:         ffmpeg51.patch
+# ffmpeg6 compatibility
+# See: https://sourceforge.net/p/xine/xine-lib-1.2/ci/771f4ae27e582123ff3500444718fc8f96186d74/
+Patch0:         xine-lib-1.2.13-ffmpeg6-compatibility.patch
 
 Provides:       xine-lib(plugin-abi) = %{plugin_abi}
 Provides:       xine-lib(plugin-abi)%{?_isa} = %{plugin_abi}
@@ -71,7 +65,7 @@ BuildRequires:  libbluray-devel >= 0.2.1
 BuildRequires:  libcaca-devel
 BuildRequires:  libcdio-devel
 BuildRequires:  libdav1d-devel >= 0.3.1
-%{!?_without_dca:BuildRequires:  libdca-devel}
+BuildRequires:  libdca-devel
 %{!?_without_dvdnav:BuildRequires:  libdvdnav-devel}
 BuildRequires:  libdvdread-devel
 %{!?_without_fame:BuildRequires:  libfame-devel}
@@ -103,7 +97,7 @@ BuildRequires:  openssl-devel >= 1.0.2
 BuildRequires:  pkgconfig(libpulse)
 BuildRequires:  SDL-devel
 BuildRequires:  speex-devel
-%{!?_without_vcd:BuildRequires:  vcdimager-devel}
+BuildRequires:  vcdimager-devel
 BuildRequires:  wavpack-devel
 BuildRequires:  wayland-devel
 
@@ -149,7 +143,6 @@ autoreconf -fiv
     --enable-libv4l \
     --disable-gnomevfs \
     %{?_without_faad2:--disable-faad} \
-    %{?_without_dca:--disable-dts} \
     --enable-antialiasing \
     --with-freetype \
     --with-fontconfig \
@@ -225,7 +218,7 @@ mkdir -p %{buildroot}%{codecdir}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_ao_out_pulseaudio.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_a52.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_dav1d.so
-%{!?_without_dca:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_dts.so}
+%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_dts.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_dvaudio.so
 %{!?_without_faad2:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_faad.so}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_decode_ff.so
@@ -277,8 +270,8 @@ mkdir -p %{buildroot}%{codecdir}
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_rtp.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_ssh.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_v4l2.so
-%{!?_without_vcd:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_vcd.so}
-%{!?_without_vcd:%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_vcdo.so}
+%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_vcd.so
+%{_libdir}/xine/plugins/%{plugin_abi}/xineplug_inp_vcdo.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_nsf.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_sputext.so
 %{_libdir}/xine/plugins/%{plugin_abi}/xineplug_tls_gnutls.so
@@ -330,6 +323,10 @@ mkdir -p %{buildroot}%{codecdir}
 
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.2.13-1
+- Update to 1.2.13
+- Enable DTS/DCA and VCD support plugins
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 1.2.12-11
 - rebuild for libvpx
 

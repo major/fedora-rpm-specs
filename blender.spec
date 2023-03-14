@@ -56,6 +56,10 @@ Patch:		%{name}-include-system-error-library.diff
 # https://projects.blender.org/blender/blender/commit/79837c5ed4b57925bf6c6bb9e7c2248f6f52bbb0
 Patch:          https://projects.blender.org/blender/blender/commit/79837c5ed4b57925bf6c6bb9e7c2248f6f52bbb0.patch
 
+# Fix building with ffmpeg >= 6.0
+# https://projects.blender.org/blender/blender/commit/0d080d1a07a26055796b0ea5b7095a01dec9fee0
+Patch:          %{name}-3.4.1-ffmpeg6.patch
+
 # Development stuff
 BuildRequires:  boost-devel
 BuildRequires:  ccache

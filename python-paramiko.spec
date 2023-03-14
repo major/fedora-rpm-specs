@@ -1,7 +1,7 @@
 %global srcname paramiko
 
 Name:          python-%{srcname}
-Version:       3.0.0
+Version:       3.1.0
 Release:       1%{?dist}
 Summary:       SSH2 protocol library for python
 
@@ -86,6 +86,19 @@ PYTHONPATH=%{buildroot}%{python3_sitelib} pytest-%{python3_version}
 %doc html/ demos/
 
 %changelog
+* Sun Mar 12 2023 Paul Howarth <paul@city-fan.org> - 3.1.0-1
+- Update to 3.1.0 (rhbz#2177436)
+  - Add an explicit 'channel_timeout' keyword argument to
+    'paramiko.client.SSHClient.connect', allowing users to configure the
+     previously-hardcoded default value of 3600 seconds (GH#2009, GH#2013, and
+     others)
+  - Accept single tabs as field separators (in addition to single spaces) in
+    'paramiko.hostkeys.HostKeyEntry.from_line' for parity with OpenSSH's
+    KnownHosts parser (GH#2173)
+  - Apply 'codespell' to the codebase, which found a lot of very old minor
+    spelling mistakes in docstrings; also, modernize many instances of '*largs'
+    vs. '*args' and '**kwarg' vs. '**kwargs' (GH#2178)
+
 * Sun Jan 22 2023 Paul Howarth <paul@city-fan.org> - 3.0.0-1
 - Update to 3.0.0 (rhbz#2162914)
   - Remove some unnecessary '__repr__' calls when handling bytes-vs-str

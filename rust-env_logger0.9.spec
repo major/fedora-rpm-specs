@@ -2,21 +2,22 @@
 %bcond_without check
 %global debug_package %{nil}
 
-%global crate crypto-common
+%global crate env_logger
 
-Name:           rust-crypto-common
-Version:        0.1.6
+Name:           rust-env_logger0.9
+Version:        0.9.3
 Release:        %autorelease
-Summary:        Common cryptographic traits
+Summary:        Logging implementation configured via an environment variable
 
 License:        MIT OR Apache-2.0
-URL:            https://crates.io/crates/crypto-common
+URL:            https://crates.io/crates/env_logger
 Source:         %{crates_source}
 
 BuildRequires:  rust-packaging >= 21
 
 %global _description %{expand:
-Common cryptographic traits.}
+A logging implementation for `log` which is configured via an
+environment variable.}
 
 %description %{_description}
 
@@ -48,40 +49,52 @@ use the "default" feature of the "%{crate}" crate.
 %files       -n %{name}+default-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+getrandom-devel
+%package     -n %{name}+atty-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+getrandom-devel %{_description}
+%description -n %{name}+atty-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "getrandom" feature of the "%{crate}" crate.
+use the "atty" feature of the "%{crate}" crate.
 
-%files       -n %{name}+getrandom-devel
+%files       -n %{name}+atty-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+rand_core-devel
+%package     -n %{name}+humantime-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+rand_core-devel %{_description}
+%description -n %{name}+humantime-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "rand_core" feature of the "%{crate}" crate.
+use the "humantime" feature of the "%{crate}" crate.
 
-%files       -n %{name}+rand_core-devel
+%files       -n %{name}+humantime-devel
 %ghost %{crate_instdir}/Cargo.toml
 
-%package     -n %{name}+std-devel
+%package     -n %{name}+regex-devel
 Summary:        %{summary}
 BuildArch:      noarch
 
-%description -n %{name}+std-devel %{_description}
+%description -n %{name}+regex-devel %{_description}
 
 This package contains library source intended for building other packages which
-use the "std" feature of the "%{crate}" crate.
+use the "regex" feature of the "%{crate}" crate.
 
-%files       -n %{name}+std-devel
+%files       -n %{name}+regex-devel
+%ghost %{crate_instdir}/Cargo.toml
+
+%package     -n %{name}+termcolor-devel
+Summary:        %{summary}
+BuildArch:      noarch
+
+%description -n %{name}+termcolor-devel %{_description}
+
+This package contains library source intended for building other packages which
+use the "termcolor" feature of the "%{crate}" crate.
+
+%files       -n %{name}+termcolor-devel
 %ghost %{crate_instdir}/Cargo.toml
 
 %prep

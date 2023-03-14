@@ -10,7 +10,7 @@ Name:    k3b
 Summary: CD/DVD/Blu-ray burning application
 Epoch:   1
 Version: 22.12.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 License: GPL-2.0-or-later
 URL:     http://www.k3b.org/
@@ -58,6 +58,7 @@ BuildRequires: cmake(KF5XmlGui)
 
 BuildRequires: kf5-libkcddb-devel
 
+BuildRequires: ffmpeg-free-devel
 BuildRequires: lame-devel
 BuildRequires: libmpcdec-devel
 BuildRequires: pkgconfig(dvdread)
@@ -119,7 +120,7 @@ Requires: %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %build
 %cmake_kf5 \
-  -DK3B_BUILD_FFMPEG_DECODER_PLUGIN:BOOL=OFF \
+  -DK3B_BUILD_FFMPEG_DECODER_PLUGIN:BOOL=ON \
   -DK3B_BUILD_LAME_ENCODER_PLUGIN:BOOL=ON \
   -DK3B_BUILD_MAD_DECODER_PLUGIN:BOOL=ON
 
@@ -173,6 +174,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/org.kde.k3b.deskt
 
 
 %changelog
+* Sun Mar 12 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 1:22.12.3-2
+- Enable ffmpeg decoder support
+
 * Thu Mar 02 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 1:22.12.3-1
 - 22.12.3
 

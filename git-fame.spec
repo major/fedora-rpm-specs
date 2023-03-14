@@ -1,5 +1,5 @@
 Name:           git-fame
-Version:        2.0.0
+Version:        2.0.1
 Release:        1%{?dist}
 Summary:        Pretty-print git repository collaborators sorted by contributions
 
@@ -48,6 +48,10 @@ install -Dpm0644 -t %{buildroot}%{_mandir}/man1 gitfame/git-fame.1
 %{python3_sitelib}/gitfame/
 
 %changelog
+* Sun Mar 12 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 2.0.1-1
+- Update to 2.0.1
+- Fixes rhbz#2177096
+
 * Fri Feb 03 2023 Fabio Alessandro Locati <fale@fedoraproject.org> - 2.0.0-1
 - Update to 2.0.0
 - Fixes rhbz#2175056

@@ -2,7 +2,7 @@ Name:           btrfs-sxbackup
 Version:        0.6.11
 Release:        20%{?dist}
 Summary:        Incremental btrfs snapshot backups with push/pull support via SSH
-License:        GPLv2+
+License:        GPL-2.0-only
 URL:            https://github.com/masc3d/btrfs-sxbackup
 Source0:        https://github.com/masc3d/btrfs-sxbackup/archive/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 # Add a manpage. The manpage was sent upstream but rejected, because they want

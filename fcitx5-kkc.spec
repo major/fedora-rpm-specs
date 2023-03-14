@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:           fcitx5-kkc
-Version:        5.0.11
+Version:        5.0.12
 Release:        %autorelease
 Summary:        Libkkc input method support for Fcitx5
 License:        GPLv3+
@@ -9,6 +9,7 @@ Url:            https://github.com/fcitx/fcitx5-kkc
 Source:         https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.xz
 Source1:        https://download.fcitx-im.org/fcitx5/%{name}/%{name}-%{version}.tar.xz.sig
 Source2:        https://pgp.key-server.io/download/0x8E8B898CBF2412F9
+Patch0:         0001-remove-std-c-11-from-gui-CMakeLists.txt.patch
 
 BuildRequires:  gnupg2
 BuildRequires:  cmake
@@ -36,10 +37,10 @@ This provides libkkc input method support for fcitx5. Released under GPL3+.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%autosetup
+%autosetup -p1
 
 %build
-%cmake -GNinja
+%cmake -DCMAKE_CXX_STANDARD=17 -GNinja
 %cmake_build
 
 %install

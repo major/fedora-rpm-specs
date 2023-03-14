@@ -8,9 +8,9 @@
 %define         mainver         0.6.2
 %undefine         betaver
 #%%define         svnver          svn92_trunk
-%define         fedorarel		13
+%define         baserelease		13
 
-%define         rel             %{?betaver:0.}%{fedorarel}%{?svnver:.%svnver}%{?betaver:.%betaver}
+%define         rel             %{?betaver:0.}%{baserelease}%{?svnver:.%svnver}%{?betaver:.%betaver}
 
 Name:           wallpapoz
 Version:        %{mainver}

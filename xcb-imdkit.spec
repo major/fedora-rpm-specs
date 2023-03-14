@@ -1,5 +1,5 @@
 Name:       xcb-imdkit
-Version:    1.0.4
+Version:    1.0.5
 Release:    %autorelease
 Summary:    Input method development support for xcb
 # source files in src/xlibi18n use the "old style" MIT license known as NTP.

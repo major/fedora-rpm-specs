@@ -1,8 +1,8 @@
 Summary: The lrz and lsz modem communications programs
 Name: lrzsz
 Version: 0.12.20
-Release: 58%{?dist}
-License: GPLv2+
+Release: 59%{?dist}
+License: GPL-2.0-or-later
 Source: http://www.ohse.de/uwe/releases/%{name}-%{version}.tar.gz
 Patch1: lrzsz-0.12.20-glibc21.patch
 Patch2: lrzsz-0.12.20.patch
@@ -53,6 +53,9 @@ for m in sb sx; do ln -s sz.1 %{buildroot}%{_mandir}/man1/$m.1; done
 %{_mandir}/*/*
 
 %changelog
+* Sun Mar 12 2023 Tomas Korbar <tkorbar@redhat.com> - 0.12.20-59
+- Change the License tag to the SPDX format
+
 * Fri Jan 27 2023 Florian Weimer <fweimer@redhat.com> - 0.12.20-58
 - Fix C99 compatibility issues (#2164996)
 

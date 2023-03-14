@@ -8,7 +8,7 @@
 
 Name:           alsa-plugins
 Version:        1.2.7.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        The Advanced Linux Sound Architecture (ALSA) Plugins
 # All packages are LGPLv2+ with the exception of samplerate which is GPLv2+
 # pph plugin is BSD-like licensed
@@ -338,6 +338,9 @@ find %{buildroot} -name "*.la" -delete
 %endif
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.2.7.1-5
+- Rebuild for ffmpeg 6.0
+
 * Mon Mar  6 2023 Jaroslav Kysela <perex@perex.cz> - 1.2.7.1-4
 - Enable avtp plugin - Peter Robinson <pbrobinson@fedoraproject.org>
 - Enable a52 and lavrate plugins - Yaakov Selkowitz <yselkowi@redhat.com>

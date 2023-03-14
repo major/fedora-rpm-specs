@@ -7,9 +7,9 @@
 %global         gitdate_num 20220729
 
 %if 0%{?usegit} >= 1
-%global         fedorarel   %{mainrel}.D%{gitdate_num}git%{shorthash}
+%global         baserelease   %{mainrel}.D%{gitdate_num}git%{shorthash}
 %else
-%global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 
 %global	description_common \
@@ -26,7 +26,7 @@ features:\
 
 Name:           gprof2dot
 Version:        1.0
-Release:        %{fedorarel}%{?dist}.1
+Release:        %{baserelease}%{?dist}.1
 Summary:        Generate dot graphs from the output of several profilers
 
 License:        LGPLv3+

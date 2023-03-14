@@ -18,7 +18,7 @@
 Summary: Qt6 - Multimedia support
 Name:    qt6-%{qt_module}
 Version: 6.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 License: LGPL-3.0-only OR GPL-3.0-only WITH Qt-GPL-exception-1.0
 Url:     http://www.qt.io
@@ -177,6 +177,9 @@ popd
 
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.4.2-4
+- Rebuild for ffmpeg 6.0
+
 * Tue Jan 31 2023 Jan Grulich <jgrulich@redhat.com> - 6.4.2-3
 - migrated to SPDX license
 

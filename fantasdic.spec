@@ -10,10 +10,10 @@ BuildRequires:	%1 \
 %define		rubyabi		1.9.1
 %endif
 
-%define		fedorarel	21
+%define		baserelease	21
 
 
-%define		fullrel		%{?betaver:0.}%{fedorarel}%{?betaver:.%betaver}
+%define		fullrel		%{?betaver:0.}%{baserelease}%{?betaver:.%betaver}
 
 Name:		fantasdic
 Version:	%{mainver}

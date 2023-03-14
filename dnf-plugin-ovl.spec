@@ -3,7 +3,7 @@ Version: 0.0.3
 Release: 10%{?dist}
 Summary: DNF plugin to work around overlayfs issues
 URL:     https://github.com/FlorianLudwig/dnf-plugin-ovl
-License: GPLv2+
+License: GPL-2.0-only
 
 Source0: https://github.com/FlorianLudwig/dnf-plugin-ovl/archive/%{version}/%{name}-%{version}.tar.gz
 

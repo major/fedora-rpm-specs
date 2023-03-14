@@ -8,10 +8,10 @@
 
 Name:               python-%{modname}
 Version:            1.7.1
-Release:            16%{?dist}
+Release:            17%{?dist}
 Summary:            %{sum}
 
-License:            BSD
+License:            BSD-3-Clause
 URL:                https://github.com/Anorov/%{pypi_name}
 Source0:            %pypi_source
 BuildArch:          noarch
@@ -115,6 +115,9 @@ rm -rfv test/bin
 
 
 %changelog
+* Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 1.7.1-17
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.7.1-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

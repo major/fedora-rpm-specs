@@ -31,18 +31,18 @@
 %endif
 
 %if 0%{?userelease} >= 1
-%global	fedorarel	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global	baserelease	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?usegitbare} >= 1
-%global	fedorarel	%{?prever:0.}%{mainrel}.D%{gitdate}git%{shortcommit}
-#%%global	fedorarel	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global	baserelease	%{?prever:0.}%{mainrel}.D%{gitdate}git%{shortcommit}
+#%%global	baserelease	%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 
 %undefine       _changelog_trimtime
 
 Name:			ngspice
 Version:		%{majorver}%{?minorver:.%minorver}
-Release:		%{fedorarel}%{?dist}
+Release:		%{baserelease}%{?dist}
 Summary:		A mixed level/signal circuit simulator
 
 License:		BSD

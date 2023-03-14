@@ -1,6 +1,6 @@
 Name:           redeclipse
 Version:        1.6.0
-Release:        10%{?dist}
+Release:        11%{?dist}
 Summary:        A Free, Casual Arena Shooter
 
 # Game engine is zlib
@@ -17,11 +17,14 @@ Patch0:         redeclipse-cflags.patch
 # Not wanted upstream
 Patch1:         redeclipse-1.5.3-build-with-system-enet.patch
 
-BuildRequires: make
+# https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+ExcludeArch:    %{ix86}
+
 BuildRequires:  gcc-c++
 BuildRequires:  SDL2-devel
 BuildRequires:  SDL2_mixer-devel
 BuildRequires:  SDL2_image-devel
+BuildRequires:  make
 BuildRequires:  mesa-libGL-devel
 BuildRequires:  enet-devel
 BuildRequires:  zlib-devel
@@ -139,6 +142,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/redeclipse.desktop
 
 
 %changelog
+* Sun Mar 12 2023 Pete Walter <pwalter@fedoraproject.org> - 1.6.0-11
+- ExcludeArch i686 for https://fedoraproject.org/wiki/Changes/EncourageI686LeafRemoval
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.6.0-10
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-anthy
-Version:    5.0.13
+Version:    5.0.14
 Release:    %autorelease
 Summary:    Anthy Wrapper for Fcitx5
 License:    GPLv2+
@@ -56,6 +56,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/fcitx5/anthy
 %{_datadir}/fcitx5/inputmethod/anthy.conf
 %{_datadir}/icons/hicolor/*/status/*
+%{_datadir}/icons/hicolor/*/apps/fcitx-anthy.png
+%{_datadir}/icons/hicolor/*/apps/org.fcitx.Fcitx5.fcitx-anthy.png
 %{_metainfodir}/org.fcitx.Fcitx5.Addon.Anthy.metainfo.xml
 
 %changelog

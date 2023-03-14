@@ -1,18 +1,16 @@
 Name:    glib2
-Version: 2.75.4
+Version: 2.76.0
 Release: %autorelease
 Summary: A library of handy utility functions
 
 License: LGPL-2.1-or-later
 URL:     https://www.gtk.org
-Source0: https://download.gnome.org/sources/glib/2.75/glib-%{version}.tar.xz
+Source0: https://download.gnome.org/sources/glib/2.76/glib-%{version}.tar.xz
 
 # Required for RHEL core crypto components policy. Good for Fedora too.
 # https://bugzilla.redhat.com/show_bug.cgi?id=1630260
 # https://gitlab.gnome.org/GNOME/glib/-/merge_requests/903
 Patch0: gnutls-hmac.patch
-# https://gitlab.gnome.org/GNOME/glib/-/merge_requests/3312.patch
-Patch1: glib2-2.75.4-fix-etag-gjs.patch
 
 BuildRequires: gcc
 BuildRequires: gcc-c++

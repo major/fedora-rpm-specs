@@ -18,12 +18,10 @@
 %endif
 
 %ifarch x86_64
-%bcond_without svtav1
-%bcond_without mfx
+%bcond_without vpl
 %bcond_without vmaf
 %else
-%bcond_with svtav1
-%bcond_with mfx
+%bcond_with vpl
 %bcond_with vmaf
 %endif
 
@@ -35,7 +33,6 @@
 
 %if 0%{?rhel}
 # Disable dependencies not offered in RHEL/EPEL
-%bcond_with crystalhd
 %bcond_with omxil
 %else
 
@@ -48,13 +45,6 @@
 %bcond_without flite
 %bcond_without lcms2
 %bcond_without placebo
-%endif
-
-# crystalhd isn't available on IBM Z
-%ifarch s390 s390x
-%bcond_with crystalhd
-%else
-%bcond_without crystalhd
 %endif
 
 %bcond_without omxil
@@ -89,22 +79,22 @@
 %endif
 %global openh264_soversion 7
 
-%global av_codec_soversion 59
-%global av_device_soversion 59
-%global av_filter_soversion 8
-%global av_format_soversion 59
-%global av_util_soversion 57
-%global postproc_soversion 56
+%global av_codec_soversion 60
+%global av_device_soversion 60
+%global av_filter_soversion 9
+%global av_format_soversion 60
+%global av_util_soversion 58
+%global postproc_soversion 57
 %global swresample_soversion 4
-%global swscale_soversion 6
+%global swscale_soversion 7
 
 Name:           ffmpeg
 %global pkg_name %{name}%{?pkg_suffix}
 
-Version:        5.1.2
-Release:        12%{?dist}
+Version:        6.0
+Release:        1%{?dist}
 Summary:        A complete solution to record, convert and stream audio and video
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://ffmpeg.org/
 Source0:        ffmpeg%{?pkg_suffix}-%{version}.tar.xz
 Source1:        ffmpeg-dlopen-headers.tar.xz
@@ -128,8 +118,6 @@ Patch2:         ffmpeg-new-coder-errors.patch
 # Allow to build with fdk-aac-free
 # See https://bugzilla.redhat.com/show_bug.cgi?id=1501522#c112
 Patch3:         ffmpeg-allow-fdk-aac-free.patch
-# Upstream fix for vulkan-headers 1.3.236.0+
-Patch4:         ffmpeg-vulkan-headers.patch
 
 # Set up dlopen for openh264
 Patch1001:      ffmpeg-dlopen-openh264.patch
@@ -154,9 +142,6 @@ BuildRequires:  gnupg2
 BuildRequires:  gsm-devel
 BuildRequires:  ladspa-devel
 BuildRequires:  lame-devel
-%if %{with crystalhd}
-BuildRequires:  libcrystalhd-devel
-%endif
 BuildRequires:  libgcrypt-devel
 BuildRequires:  libmysofa-devel
 BuildRequires:  libX11-devel
@@ -233,6 +218,7 @@ BuildRequires:  pkgconfig(snappy)
 BuildRequires:  pkgconfig(soxr)
 BuildRequires:  pkgconfig(speex)
 BuildRequires:  pkgconfig(srt)
+BuildRequires:  pkgconfig(SvtAv1Enc) >= 0.9.0
 BuildRequires:  pkgconfig(tesseract)
 BuildRequires:  pkgconfig(theora)
 BuildRequires:  pkgconfig(twolame)
@@ -263,11 +249,8 @@ BuildRequires:  pkgconfig(libiec61883)
 %if %{with rtmp}
 BuildRequires:  librtmp-devel
 %endif
-%if %{with mfx}
-BuildRequires:  pkgconfig(libmfx) < 2.0
-%endif
-%if %{with svtav1}
-BuildRequires:  pkgconfig(SvtAv1Enc) >= 0.9.0
+%if %{with vpl}
+BuildRequires:  pkgconfig(vpl) >= 2.6
 %endif
 %if %{with x264}
 BuildRequires:  pkgconfig(x264)
@@ -646,9 +629,7 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
     --enable-librsvg \
     --enable-librubberband \
     --enable-libsnappy \
-%if %{with svtav1}
     --enable-libsvtav1 \
-%endif
     --enable-libsoxr \
     --enable-libspeex \
     --enable-libssh \
@@ -671,8 +652,8 @@ cp -a doc/examples/{*.c,Makefile,README} _doc/examples/
 %if %{with lto}
   --enable-lto \
 %endif
-%if %{with mfx}
-    --enable-libmfx \
+%if %{with vpl}
+    --enable-libvpl \
 %endif
     --enable-lv2 \
     --enable-vaapi \
@@ -870,6 +851,12 @@ rm -rf %{buildroot}%{_datadir}/%{name}/examples
 %{_mandir}/man3/libswscale.3*
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.0-1
+- Rebase to version 6.0
+- Enable SVT-AV1 on all architectures
+- Use oneVPL for QSV
+- Switch to SPDX license identifiers
+
 * Wed Feb 15 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.1.2-12
 - Enable support for the RIST protocol through librist
 

@@ -32,18 +32,18 @@
 %global	mainrel 9
 
 %if 0%{?use_release} >= 1
-%global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?use_git} >= 1
-%global         fedorarel   %{mainrel}.%{git_version}
+%global         baserelease   %{mainrel}.%{git_version}
 %endif
 %if 0%{?use_gitbare} >= 1
-%global         fedorarel   %{mainrel}.%{git_version}
+%global         baserelease   %{mainrel}.%{git_version}
 %endif
 
 Name:           lxsession
 Version:        0.5.5
-Release:        %{fedorarel}%{?dist}
+Release:        %{baserelease}%{?dist}
 Summary:        Lightweight X11 session manager
 Summary(de):    Leichtgewichtiger X11 Sitzungsverwalter
 

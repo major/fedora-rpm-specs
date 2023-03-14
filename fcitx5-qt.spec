@@ -8,7 +8,7 @@
 %endif
 
 Name:           fcitx5-qt
-Version:        5.0.16
+Version:        5.0.17
 Release:        %autorelease
 Summary:        Qt library and IM module for fcitx5
 # Fcitx5Qt{4,5}DBusAddons Library and Input context plugin are released under BSD.

@@ -2,7 +2,7 @@
 %global sway_ver 1.7
 
 Name:           sway-config-fedora
-Version:        0.1.3
+Version:        0.2.0
 Release:        %autorelease
 Summary:        Fedora Sway Spin configuration for Sway
 
@@ -26,7 +26,7 @@ Requires:       polkit
 Requires:       xorg-x11-server-Xwayland
 
 # Install configs and scripts for better integration with systemd user session
-Recommends:     sway-systemd
+Recommends:     sway-systemd >= 0.3.0
 # Minimal installation doesn't include Qt Wayland backend
 Recommends:     (qt5-qtwayland if qt5-qtbase-gui)
 Recommends:     (qt6-qtwayland if qt6-qtbase-gui)

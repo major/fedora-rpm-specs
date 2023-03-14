@@ -2,7 +2,7 @@ Name:           perl-Convert-Bencode
 Version:        1.03
 Release:        36%{?dist}
 Summary:        Functions for converting to/from bencoded strings
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-Bencode
 Source0:        https://cpan.metacpan.org/modules/by-module/Convert/Convert-Bencode-%{version}.tar.gz
 BuildArch:      noarch
@@ -22,6 +22,7 @@ BuildRequires:  perl(warnings)
 # Tests only
 BuildRequires:  perl(Test::More) >= 0.45
 # Dependencies
+# (none)
 
 %description
 This module provides two functions, bencode and bdecode, which encode and

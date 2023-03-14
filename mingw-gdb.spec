@@ -1,8 +1,8 @@
 %{?mingw_package_header}
 
 Name:           mingw-gdb
-Version:        12.1
-Release:        3%{?dist}
+Version:        13.1
+Release:        1%{?dist}
 Summary:        MinGW Windows port of the GDB debugger
 
 # Same License tag as the native gdb package has:
@@ -110,6 +110,9 @@ rm %{buildroot}%{mingw32_bindir}/gdb-add-index
 
 
 %changelog
+* Sun Mar 12 2023 Sandro Mani <manisandro@gmail.com> - 13.1-1
+- Update to 13.1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 12.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -9,11 +9,11 @@
 #%%global	minorver	D%{?tardate}git%{shorthash}
 #%%global	prerelease	1
 
-%global	fedorarel	1
+%global	baserelease	1
 
 Name:		wkhtmltopdf
 Version:	%{mainver}
-Release:	%{?prerelease:0.}%{fedorarel}%{?minorver:.%minorver}%{?dist}.5
+Release:	%{?prerelease:0.}%{baserelease}%{?minorver:.%minorver}%{?dist}.5
 Summary:	Simple shell utility to convert html to pdf
 
 License:	GPLv3+

@@ -4,13 +4,17 @@
 
 Name:           %{pypi_name}
 Version:        %{pypi_version}
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Bodhi server
 
 License:        GPL-2.0-or-later
 URL:            https://github.com/fedora-infra/bodhi
 Source0:        %{pypi_source bodhi_server}
 BuildArch:      noarch
+
+# We must avoid using i686 builders, this should do the trick
+# see fedora-infra ticket #11163
+ExclusiveArch:  %{golang_arches_future}
 
 BuildRequires:  make
 BuildRequires:  pyproject-rpm-macros
@@ -156,6 +160,9 @@ export BODHI_CONFIG=$(pwd)/tests/testing.ini
 %pycached %{python3_sitelib}/bodhi/server/metadata.py
 
 %changelog
+* Sun Mar 12 2023 Mattia Verga <mattia.verga@proton.me> - 7.1.0-2
+- Do not use i686 koji builders
+
 * Sat Mar 11 2023 Mattia Verga <mattia.verga@proton.me> - 7.1.0-1
 - Update to 7.1.0
 

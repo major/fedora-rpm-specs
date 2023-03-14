@@ -9,7 +9,7 @@
 
 Name: audacious-plugins
 Version: 4.3
-Release: 1%{?dist}
+Release: 2%{?dist}
 
 %global tar_ver %{version}
 
@@ -335,6 +335,9 @@ install -p -m0644 %{SOURCE103} ${RPM_BUILD_ROOT}%{_datadir}/appdata
 
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 4.3-2
+- Rebuild for ffmpeg 6.0
+
 * Tue Mar  7 2023 Michael Schwendt <mschwendt@fedoraproject.org> - 4.3-1
 - Update to 4.3 release.
 

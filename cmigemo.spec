@@ -3,11 +3,11 @@
 %define		minorver	date%{tarballver}
 %define		prerelease	1
 
-%define		fedorarel	13
+%define		baserelease	13
 
 
 %define		uprel		%(echo %{?minorver} | %{__sed} -e 's|^--*||' | %{__sed} -e 's|-|_|g' )
-%define		rel		%{?prerelease:0.}%{fedorarel}%{?minorver:.%uprel}
+%define		rel		%{?prerelease:0.}%{baserelease}%{?minorver:.%uprel}
 
 %define		skkdicdir	%{_datadir}/skk
 %define		skkcoding	EUC-JP

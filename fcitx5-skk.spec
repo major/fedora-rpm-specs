@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-skk
-Version:    5.0.14
+Version:    5.0.15
 Release:    %autorelease
 Summary:    Japanese SKK (Simple Kana Kanji) Engine for Fcitx5
 License:    GPLv3+
@@ -38,7 +38,7 @@ Japanese input method using libskk.
 %autosetup
 
 %build
-%cmake -GNinja
+%cmake -DCMAKE_CXX_STANDARD=17 -GNinja
 %cmake_build
 
 %install
@@ -63,8 +63,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_datadir}/fcitx5/inputmethod/skk.conf
 %dir %{_datadir}/fcitx5/skk
 %{_datadir}/fcitx5/skk/dictionary_list
-%{_datadir}/icons/hicolor/64x64/apps/fcitx-skk.png
-%{_datadir}/icons/hicolor/64x64/apps/org.fcitx.Fcitx5.fcitx-skk.png
+%{_datadir}/icons/hicolor/*/apps/fcitx-skk.png
+%{_datadir}/icons/hicolor/*/apps/org.fcitx.Fcitx5.fcitx-skk.png
 %{_metainfodir}/org.fcitx.Fcitx5.Addon.Skk.metainfo.xml
 
 %changelog

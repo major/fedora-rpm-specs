@@ -15,7 +15,7 @@
 %global ghc_name ghc%{ghc_major}
 
 # to handle RCs
-%global ghc_release 9.6.1-alpha3
+%global ghc_release %{version}
 
 %global base_ver 4.18.0.0
 %global ghc_compact_ver 0.1.0.0
@@ -24,11 +24,10 @@
 %global xhtml_ver 3000.2.2.1
 
 # bootstrap needs 9.2+
-%if 0%{?fedora} >= 38
 %global ghcboot_major 9.2
+%if 0%{?fedora} >= 38
 %global ghcboot ghc
 %else
-%global ghcboot_major 9.2
 %global ghcboot ghc%{ghcboot_major}
 %endif
 
@@ -74,7 +73,7 @@
 # no longer build testsuite (takes time and not really being used)
 %bcond_with testsuite
 
-# 9.6 needs llvm 10-13
+# 9.6 needs llvm 11-15
 # rhel9 binutils too old for llvm13:
 # https://bugzilla.redhat.com/show_bug.cgi?id=2141054
 # https://gitlab.haskell.org/ghc/ghc/-/issues/22427
@@ -92,12 +91,12 @@
 %endif
 
 Name: %{ghc_name}
-Version: 9.6.0.20230210
+Version: 9.6.1
 # Since library subpackages are versioned:
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 3%{?dist}
+Release: 5%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -119,7 +118,7 @@ Patch2: ghc-Cabal-install-PATH-warning.patch
 Patch3: ghc-gen_contents_index-nodocs.patch
 Patch8: ghc-configure-c99.patch
 # https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604
-# backported to 9.6
+# needs more backporting to 9.6
 Patch9: https://gitlab.haskell.org/ghc/ghc/-/merge_requests/9604.patch
 
 # arm patches
@@ -352,17 +351,17 @@ This provides the hadrian tool which can be used to build ghc.
 
 # use "./libraries-versions.sh" to check versions
 %if %{defined ghclibdir}
-%ghc_lib_subpackage -d -l BSD Cabal-3.9.0.0
-%ghc_lib_subpackage -d -l BSD Cabal-syntax-3.9.0.0
-%ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.4.0
+%ghc_lib_subpackage -d -l BSD Cabal-3.10.1.0
+%ghc_lib_subpackage -d -l BSD Cabal-syntax-3.10.1.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport array-0.5.5.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport -c gmp-devel%{?_isa},libffi-devel%{?_isa} base-%{base_ver}
 %ghc_lib_subpackage -d -l BSD binary-0.8.9.1
 %ghc_lib_subpackage -d -l BSD bytestring-0.11.4.0
 %ghc_lib_subpackage -d -l %BSDHaskellReport containers-0.6.7
-%ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.0
-%ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport deepseq-1.4.8.1
+%ghc_lib_subpackage -d -l %BSDHaskellReport directory-1.3.8.1
 %ghc_lib_subpackage -d -l %BSDHaskellReport exceptions-0.10.7
-%ghc_lib_subpackage -d -l BSD filepath-1.4.100.0
+%ghc_lib_subpackage -d -l BSD filepath-1.4.100.1
 # in ghc not ghc-libraries:
 %ghc_lib_subpackage -d -x ghc-%{ghc_version_override}
 # see below for ghc-bignum
@@ -372,22 +371,22 @@ This provides the hadrian tool which can be used to build ghc.
 %ghc_lib_subpackage -d -x -l BSD ghc-heap-%{ghc_version_override}
 # see below for ghc-prim
 %ghc_lib_subpackage -d -x -l BSD ghci-%{ghc_version_override}
-%ghc_lib_subpackage -d -l BSD haskeline-0.8.2
+%ghc_lib_subpackage -d -l BSD haskeline-0.8.2.1
 %ghc_lib_subpackage -d -x -l BSD hpc-%{hpc_ver}
 # see below for integer-gmp
 %ghc_lib_subpackage -d -x -l %BSDHaskellReport libiserv-%{ghc_version_override}
 %ghc_lib_subpackage -d -l BSD mtl-2.3.1
 %ghc_lib_subpackage -d -l BSD parsec-3.1.16.1
 %ghc_lib_subpackage -d -l BSD pretty-1.1.3.6
-%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.16.0
+%ghc_lib_subpackage -d -l %BSDHaskellReport process-1.6.17.0
 # see below for rts
 %ghc_lib_subpackage -d -l BSD stm-2.5.1.0
 %ghc_lib_subpackage -d -l BSD template-haskell-2.20.0.0
-%ghc_lib_subpackage -d -l BSD -c ncurses-devel%{?_isa} terminfo-0.4.1.5
-%ghc_lib_subpackage -d -l BSD text-2.0.1
+%ghc_lib_subpackage -d -l BSD -c ncurses-devel%{?_isa} terminfo-0.4.1.6
+%ghc_lib_subpackage -d -l BSD text-2.0.2
 %ghc_lib_subpackage -d -l BSD time-1.12.2
 %ghc_lib_subpackage -d -l BSD transformers-0.6.1.0
-%ghc_lib_subpackage -d -l BSD unix-2.8.0.0
+%ghc_lib_subpackage -d -l BSD unix-2.8.1.0
 %if %{with haddock} || %{with hadrian}
 %ghc_lib_subpackage -d -l BSD xhtml-%{xhtml_ver}
 %endif
@@ -428,7 +427,7 @@ Installing this package causes %{name}-*-prof packages corresponding to
 
 %patch2 -p1 -b .orig
 %patch8 -p1 -b .orig
-%patch9 -p1 -b .orig
+#%%patch9 -p1 -b .orig
 
 rm libffi-tarballs/libffi-*.tar.gz
 
@@ -583,12 +582,10 @@ sed -i -e 's!^library-dirs: %{ghclibdir}/rts!&\ndynamic-library-dirs: %{_ghcdynl
 %endif
 %endif
 
-%if %{defined _ghcdynlibdir}
-%if "%_ghcdynlibdir" != "%_libdir"
+%if "%{?_ghcdynlibdir}" != "%_libdir"
 mkdir -p %{buildroot}%{_sysconfdir}/ld.so.conf.d
 echo "%{ghclibplatform}" > %{buildroot}%{_sysconfdir}/ld.so.conf.d/%{name}.conf
-%endif
-# avoid 'E: binary-or-shlib-defines-rpath'
+%else
 for i in $(find %{buildroot} -type f -executable -exec sh -c "file {} | grep -q 'dynamically linked'" \; -print); do
   chrpath -d $i
 done
@@ -649,10 +646,8 @@ fi\
 %merge_filelist rts base
 %endif
 
-%if %{defined _ghcdynlibdir}
-%if "%_ghcdynlibdir" != "%_libdir"
+%if "%{?_ghcdynlibdir}" != "%_libdir"
 echo "%{_sysconfdir}/ld.so.conf.d/%{name}.conf" >> %{name}-base.files
-%endif
 %endif
 
 # add rts libs
@@ -822,8 +817,10 @@ make test
 
 
 %if %{defined ghclibdir}
+%if "%{?_ghcdynlibdir}" != "%_libdir"
 %post base -p /sbin/ldconfig
 %postun base -p /sbin/ldconfig
+%endif
 
 
 %transfiletriggerin compiler -- %{ghcliblib}/package.conf.d
@@ -899,7 +896,7 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{ghcliblib}/bin/ghc-iserv
 %{ghcliblib}/bin/ghc-iserv-dyn
 %{ghcliblib}/bin/unlit
-%ghclibplatform
+%dir %ghclibplatform
 %endif
 %{ghcliblib}/ghc-usage.txt
 %{ghcliblib}/ghci-usage.txt
@@ -994,6 +991,17 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Mar 13 2023 Jens Petersen <petersen@redhat.com> - 9.6.1-5
+- only add ghclibplatform dir to compiler
+
+* Sun Mar 12 2023 Jens Petersen <petersen@redhat.com> - 9.6.1-4
+- 9.6.1 release
+- https://downloads.haskell.org/ghc/9.6.1/docs/users_guide/9.6.1-notes.html
+
+* Thu Feb 23 2023 Jens Petersen <petersen@redhat.com> - 9.6.0.20230210-3
+- 9.6.1-alpha3
+- https://downloads.haskell.org/ghc/9.6.1-alpha3/docs/users_guide/9.6.1-notes.html
+
 * Thu Feb  2 2023 Jens Petersen <petersen@redhat.com> - 9.6.0.20230128-2
 - 9.6.1-alpha2
 - https://downloads.haskell.org/ghc/9.6.1-alpha2/docs/users_guide/9.6.1-notes.html

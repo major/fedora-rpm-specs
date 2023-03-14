@@ -1,6 +1,6 @@
 Summary: Config files for KDE
 Name:    kde-settings
-Version: 38.1
+Version: 38.2
 Release: 1%{?dist}
 
 License: MIT
@@ -57,6 +57,14 @@ Requires: google-noto-sans-mono-fonts
 %endif
 %description plasma
 %{summary}.
+
+
+%package sddm
+Summary: Configuration files for sddm
+Requires: sddm
+%description sddm
+%{summary}.
+
 
 # FIXME/TODO: can probably consider dropping this subpkg now that we
 # have good comps and soft dependencies support -- rex
@@ -187,6 +195,11 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 %endif
 %{_sysconfdir}/xdg/plasma-workspace/env/ssh-agent.sh
 
+
+%files sddm
+%{_prefix}/lib/sddm/sddm.conf.d/kde_settings.conf
+
+
 %files pulseaudio
 # nothing, this is a metapackage
 
@@ -196,6 +209,9 @@ test -f %{_datadir}/wallpapers/F%{version_maj} || ls -l %{_datadir}/wallpapers
 
 
 %changelog
+* Sun Mar 12 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 38.2-1
+- Add sddm subpackage containing sddm config files
+
 * Mon Feb 20 2023 Neal Gompa <ngompa@fedoraproject.org> - 38.1-1
 - Disable fast user switching again (#2171316)
 

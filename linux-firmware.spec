@@ -1,11 +1,11 @@
 %global debug_package %{nil}
-%global firmware_release 147
+%global firmware_release 148
 
 %global _firmwarepath	/usr/lib/firmware
 %define _binaries_in_noarch_packages_terminate_build 0
 
 Name:		linux-firmware
-Version:	20230210
+Version:	20230310
 Release:	%{firmware_release}%{?dist}
 Summary:	Firmware files used by the Linux kernel
 License:	GPL+ and GPLv2+ and MIT and Redistributable, no modification permitted
@@ -529,6 +529,38 @@ sed -e 's/^/%%dir /' linux-firmware.dirs >> linux-firmware.files
 %{_firmwarepath}/netronome/*
 
 %changelog
+* Sun Feb 12 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230310-148
+- Update to upstream 20230310 release
+- qat: update licence text
+- rtl_bt: Update RTL8822C BT USB firmware to 0x0CC6_D2E3
+- rtl_bt: Update RTL8822C BT UART firmware to 0x05C6_D2E3
+- add fw for qat_4xxx
+- Fix symlinks for Intel firmware
+- update firmware for mediatek bluetooth chip (MT7921)
+- update firmware for MT7921 WiFi device
+- iwlwifi: update core69 and core72 firmwares for Ty device
+- rtlwifi: Add firmware v16.0 for RTL8710BU aka RTL8188GU
+- brcm: Add nvram for the Lenovo Yoga Book X90F / X90L convertible
+- brcm: Fix Xiaomi Inc Mipad2 nvram/.txt file macaddr
+- brcm: Add nvram for the Advantech MICA-071 tablet
+- rtl_bt: Update RTL8852C BT USB firmware to 0xD7B8_FABF
+- rtl_bt: Add firmware and config files for RTL8821CS
+- rtw89: 8852b: update fw to v0.29.29.0
+- liquidio: remove lio_23xx_vsw.bin
+- intel: avs: Add AudioDSP base firmware for CNL-based platforms
+- intel: avs: Add AudioDSP base firmware for APL-based platforms
+- intel: avs: Add AudioDSP base firmware for SKL-based platforms
+- ath11k: WCN6855 hw2.0: update to WLAN.HSP.1.1-03125-QCAHSPSWPL_V1_V2_SILICONZ_LITE-3.6510.23
+- ath11k: WCN6855 hw2.0: update board-2.bin
+- ath11k: WCN6750 hw1.0: update board-2.bin
+- ath11k: IPQ5018 hw1.0: add to WLAN.HK.2.6.0.1-00861-QCAHKSWPL_SILICONZ-1
+- ath11k: IPQ5018 hw1.0: add board-2.bin
+- ath10k: QCA6174 hw3.0: update firmware-sdio-6.bin to version WLAN.RMH.4.4.1-00174
+- ath10k: WCN3990 hw1.0: update board-2.bin
+- cnm: update chips&media wave521c firmware.
+- amdgpu: Update GC 11.0.1 firmware
+- intel: catpt: Add AudioDSP base firmware for BDW platforms
+
 * Sun Feb 12 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230210-147
 - Update to upstream 20230210 release
 - Update AMD cpu microcode

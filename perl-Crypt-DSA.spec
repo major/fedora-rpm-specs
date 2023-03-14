@@ -2,7 +2,7 @@ Summary:	Perl module for DSA signatures and key generation
 Name:		perl-Crypt-DSA
 Version:	1.17
 Release:	37%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DSA
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-DSA-%{version}.tar.gz
 Patch0:		remove-fallback.patch

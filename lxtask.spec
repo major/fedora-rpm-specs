@@ -20,15 +20,15 @@
 %global	mainrel		1
 
 %if 0%{?use_release} >= 1
-%global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?use_gitbare} >= 1
-%global         fedorarel   %{mainrel}.%{git_version}
+%global         baserelease   %{mainrel}.%{git_version}
 %endif
 
 Name:           lxtask
 Version:        0.1.10
-Release:        %{fedorarel}%{?dist}.5
+Release:        %{baserelease}%{?dist}.5
 Summary:        Lightweight and desktop independent task manager
 
 License:        GPLv2+

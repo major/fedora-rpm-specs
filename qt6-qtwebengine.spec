@@ -44,7 +44,7 @@
 Summary: Qt6 - QtWebEngine components
 Name:    qt6-qtwebengine
 Version: 6.4.2
-Release: 3%{?dist}
+Release: 4%{?dist}
 
 # See LICENSE.GPL LICENSE.LGPL LGPL_EXCEPTION.txt, for details
 # See also http://qt-project.org/doc/qt-5.0/qtdoc/licensing.html
@@ -598,6 +598,9 @@ done
 
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 6.4.2-4
+- Rebuild for ffmpeg 6.0
+
 * Sat Feb 25 2023 Marek Kasik <mkasik@redhat.com> - 6.4.2-3
 - Rebuild for freetype-2.13.0
 

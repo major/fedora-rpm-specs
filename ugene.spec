@@ -39,10 +39,10 @@
 %undefine	prever
 
 %if		0%{?use_release} >= 1
-%global	fedorarel		%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global	baserelease		%{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 %if		0%{?use_gitbare} >= 1
-%global	fedorarel		%{mainrel}.%{git_version}
+%global	baserelease		%{mainrel}.%{git_version}
 %endif
 
 
@@ -50,7 +50,7 @@ Name:		ugene
 Summary:	Integrated bioinformatics toolkit
 
 Version:	46.0
-Release:	%{fedorarel}%{?dist}
+Release:	%{baserelease}%{?dist}
 
 #The entire source code is GPLv2+ except:
 #file src/libs_3rdparty/qtbindings_core/src/qtscriptconcurrent.h which is GPLv2

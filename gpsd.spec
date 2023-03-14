@@ -4,11 +4,11 @@
 
 Name:           gpsd
 Version:        3.25
-Release:        2%{?dist}
+Release:        3%{?dist}
 Epoch:          1
 Summary:        Service daemon for mediating access to a GPS
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            http://catb.org/gpsd/
 Source0:        https://download-mirror.savannah.gnu.org/releases/gpsd/%{name}-%{version}.tar.gz
 Source11:       gpsd.sysconfig
@@ -294,6 +294,9 @@ rm -rf %{buildroot}%{_docdir}/gpsd
 %{_datadir}/gpsd/gpsd-logo.png
 
 %changelog
+* Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 1:3.25-3
+- migrated to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:3.25-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

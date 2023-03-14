@@ -1,57 +1,49 @@
 Name:           vertica-python
-Version:        1.0.5
-Release:        4%{?dist}
-Summary:        A native Python adapter for the Vertica database
+Version:        1.3.1
+Release:        1%{?dist}
+Summary:        Native Python adapter for the Vertica database
 
 License:        MIT
-URL:            https://github.com/uber/vertica-python
-Source0:        https://github.com/uber/vertica-python/archive/%{version}.tar.gz
+URL:            https://github.com/vertica/vertica-python
+Source0:        %{pypi_source}
 
 BuildArch:      noarch
 
+%global _description %{expand:
+vertica-python is a native Python adapter for the Vertica database.}
 
-%global _description\
-vertica-python is a native Python adapter for the Vertica\
-(http://www.vertica.com) database.\
+%description %{_description}
 
+%package -n python3-vertica
+Summary:        %{summary}
+BuildRequires:  python3-devel
 
-%description %_description
-
-%package -n python%{python3_pkgversion}-vertica
-Summary: %summary
-BuildRequires:  python%{python3_pkgversion}-devel
-BuildRequires:  python%{python3_pkgversion}-setuptools
-Requires:       python%{python3_pkgversion}-dateutil >= 1.5
-Requires:       python%{python3_pkgversion}-setuptools
-Requires:       python%{python3_pkgversion}-pytz
-Requires:       python%{python3_pkgversion}-psycopg2
-Requires:       python%{python3_pkgversion}-future
-%{?python_provide:%python_provide python%{python3_pkgversion}-vertica}
-
-%description -n python%{python3_pkgversion}-vertica %_description
-
+%description -n python3-vertica %{_description}
 
 %prep
-%setup -q -n vertica-python-%{version}
+%autosetup
 
+%generate_buildrequires
+%pyproject_buildrequires
 
 %build
-%py3_build
-
+%pyproject_wheel
 
 %install
-%py3_install
+%pyproject_install
+%pyproject_save_files vertica_python
 
+%check
+%pyproject_check_import -e vertica_python.tests*
  
-%files -n python%{python3_pkgversion}-vertica
+%files -n python3-vertica -f %{pyproject_files}
 %license LICENSE
 %doc README.md
-%{python3_sitelib}/*.egg-info
-%dir %{python3_sitelib}/vertica_python
-%{python3_sitelib}/vertica_python/*
-
 
 %changelog
+* Sun Mar 12 2023 Igor Raits <igor@gooddata.com> - 1.3.1-1
+- Update to 1.3.1
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

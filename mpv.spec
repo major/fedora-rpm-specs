@@ -1,6 +1,6 @@
 Name:           mpv
 Version:        0.35.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 
 License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 Summary:        Movie player playing most video formats and DVDs
@@ -178,6 +178,9 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/%{name}.desktop
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 0.35.1-3
+- Rebuild for ffmpeg 6.0
+
 * Tue Mar 07 2023 Maxwell G <maxwell@gtmx.me> - 0.35.1-2
 - Backport upstream patch to fix yt-dlp hook
 

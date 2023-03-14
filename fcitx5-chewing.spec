@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-chewing
-Version:    5.0.13
+Version:    5.0.14
 Release:    %autorelease
 Summary:    Chewing Wrapper for Fcitx
 License:    LGPLv2+
@@ -58,8 +58,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/fcitx5/libchewing.so
 %{_datadir}/fcitx5/addon/chewing.conf
 %{_datadir}/fcitx5/inputmethod/chewing.conf
-%{_datadir}/icons/hicolor/48x48/apps/fcitx-chewing.png
-%{_datadir}/icons/hicolor/48x48/apps/org.fcitx.Fcitx5.fcitx-chewing.png
+%{_datadir}/icons/hicolor/*/apps/fcitx-chewing.png
+%{_datadir}/icons/hicolor/*/apps/org.fcitx.Fcitx5.fcitx-chewing.png
 %{_metainfodir}/org.fcitx.Fcitx5.Addon.Chewing.metainfo.xml
 
 %changelog

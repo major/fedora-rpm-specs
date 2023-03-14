@@ -5,7 +5,7 @@
 %global	rpmminorver		.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver		%{majorver}%{?preminorver}
 
-%global	fedorarel		1
+%global	baserelease		1
 
 %global	gem_name		mechanize
 
@@ -14,7 +14,7 @@
 Summary:	A handy web browsing ruby object
 Name:		rubygem-%{gem_name}
 Version:	%{majorver}
-Release:	%{?preminorver:0.}%{fedorarel}%{?preminorver:%{rpmminorver}}%{?dist}.2
+Release:	%{?preminorver:0.}%{baserelease}%{?preminorver:%{rpmminorver}}%{?dist}.2
 License:	MIT
 URL:		http://mechanize.rubyforge.org/
 Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem

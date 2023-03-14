@@ -1,6 +1,6 @@
 Name:		qmmp
 Version:	2.1.2
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Qt-based multimedia player
 
 License:	GPLv2+ and CC-BY-SAv4+
@@ -149,6 +149,9 @@ desktop-file-validate %{buildroot}/%{_datadir}/applications/%{name}-enqueue.desk
 %{_libdir}/libqmmp*.so
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 2.1.2-4
+- Rebuild for ffmpeg 6.0
+
 * Mon Feb 27 2023 Karel Volný <kvolny@redhat.com> 2.1.2-3
 - enable ffmpeg plugin using ffmpeg-free
 

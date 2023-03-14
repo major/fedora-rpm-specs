@@ -1,8 +1,8 @@
 Name:           libserf
 Version:        1.3.9
-Release:        27%{?dist}
+Release:        28%{?dist}
 Summary:        High-Performance Asynchronous HTTP Client Library
-License:        ASL 2.0
+License:        Apache-2.0
 URL:            http://serf.apache.org/
 Source0:        https://archive.apache.org/dist/serf/serf-%{version}.tar.bz2
 BuildRequires:  gcc, pkgconfig
@@ -80,6 +80,9 @@ true
 %{_libdir}/pkgconfig/serf*.pc
 
 %changelog
+* Sun Mar 12 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.9-28
+- Change the License tag to the SPDX format
+
 * Mon Feb 06 2023 Tomas Korbar <tkorbar@redhat.com> - 1.3.9-27
 - Fix testsuite
 - Resolves: rhbz#2166252

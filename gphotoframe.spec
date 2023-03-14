@@ -17,7 +17,7 @@
 %global	mainrel	17
 
 %global	rpmminorver	%(echo "%minorver" | sed -e 's|^-||' | sed -e 's|\\\.||')
-%global	fedorarel	%{?minorver:0.}%{mainrel}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
+%global	baserelease	%{?minorver:0.}%{mainrel}%{?minorver:.%rpmminorver}%{?hghash:.hg%hghash}
 
 %global	build_gss	1
 %if 0%{?fedora} >= 33
@@ -26,7 +26,7 @@
 
 Name:		gphotoframe
 Version:	%{mainver}
-Release:	%{fedorarel}%{?dist}.1
+Release:	%{baserelease}%{?dist}.1
 Summary:	Photo Frame Gadget for the GNOME Desktop
 
 # GPLv3 seems safer than GPLv3+

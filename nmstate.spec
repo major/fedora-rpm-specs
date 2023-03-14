@@ -2,7 +2,7 @@
 %define libname libnmstate
 
 Name:           nmstate
-Version:        2.2.5
+Version:        2.2.8
 Release:        %autorelease
 Summary:        Declarative network manager API
 License:        LGPLv2+
@@ -29,7 +29,7 @@ BuildRequires:  (crate(env_logger/default) >= 0.9 with crate(env_logger/default)
 BuildRequires:  (crate(ipnet/default) >= 2.5 with crate(ipnet/default) < 3.0)
 BuildRequires:  (crate(libc/default) >= 0.2 with crate(libc/default) < 0.3)
 BuildRequires:  (crate(log/default) >= 0.4 with crate(log/default) < 0.5)
-BuildRequires:  (crate(nispor/default) >= 1.2.9 with crate(nispor/default) < 2.0)
+BuildRequires:  (crate(nispor/default) >= 1.2.10 with crate(nispor/default) < 2.0)
 BuildRequires:  (crate(serde/default) >= 1.0 with crate(serde/default) < 2.0)
 BuildRequires:  (crate(serde/derive) >= 1.0 with crate(serde/derive) < 2.0)
 BuildRequires:  (crate(serde_json/default) >= 1.0 with crate(serde_json/default) < 2.0)
@@ -164,6 +164,10 @@ pushd rust/src/python
 %py3_install
 popd
 
+# cargo_install has problem on detecting library when running in workspace
+# due to bug https://pagure.io/fedora-rust/cargo2rpm/issue/5
+# Removing the workspace Cargo.toml will workaround this problem.
+rm rust/Cargo.toml
 pushd rust/src/lib
 %cargo_install
 popd

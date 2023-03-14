@@ -28,7 +28,7 @@ ExcludeArch: %{ix86}
 
 Name:           %{appname}%{?p_suffix}
 Version:        1.15.0
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        Cross-platform, sophisticated frontend for the libretro API. %{?sum_suffix}
 
 # CC-BY:        Assets
@@ -126,6 +126,8 @@ Source11:       README.fedora.md
 
 # https://github.com/libretro/retroarch-assets/pull/334
 Patch0:         https://github.com/libretro/retroarch-assets/pull/334.patch#/add-executable-bit-to-script.patch
+# fix build on big-endian
+Patch1:         %{name}-1.15.0-big-endian.patch
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc-c++ >= 7
@@ -297,6 +299,7 @@ database of ROMs that are known to be good copies.
 pushd %{appname}-assets-%{commit1}
 %patch0 -p1
 popd
+%patch1 -p1 -b .s390x
 
 %setup -n RetroArch-%{version} -q -D -T -a3
 %setup -n RetroArch-%{version} -q -D -T -a4
@@ -512,6 +515,10 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.xml
 
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.15.0-4
+- Rebuild for ffmpeg 6.0
+- fix build on big-endian (Dominik Mierzejewski)
+
 * Sat Mar 11 2023 Artem Polishchuk <ego.cordatus@gmail.com> - 1.15.0-3
 - chore: Update to 1.15.0
 

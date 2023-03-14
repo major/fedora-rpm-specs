@@ -1,8 +1,8 @@
 Name:           perl-MooX-Roles-Pluggable
 Version:        0.003
-Release:        24%{?dist}
+Release:        25%{?dist}
 Summary:        Moo eXtension for pluggable roles
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/MooX-Roles-Pluggable
 Source0:        https://cpan.metacpan.org/authors/id/R/RE/REHSACK/MooX-Roles-Pluggable-%{version}.tar.gz
 BuildArch:      noarch
@@ -51,6 +51,9 @@ make test
 %{_mandir}/man3/*
 
 %changelog
+* Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 0.003-25
+- migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.003-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

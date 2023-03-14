@@ -12,17 +12,17 @@
 %global	mainrel 3
 
 %if 0%{?userelease} >= 1
-%global	fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global	baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?usegit} >= 1
-%global	fedorarel   %{mainrel}.D%{gitdate_num}git%{shorthash}
+%global	baserelease   %{mainrel}.D%{gitdate_num}git%{shorthash}
 %endif
 
 %undefine __brp_mangle_shebangs
 
 Name:		rubygem-%{gem_name}
 Version:	11.1.3
-Release:	%{fedorarel}%{?dist}.6
+Release:	%{baserelease}%{?dist}.6
 
 Summary:	Ruby 2.0 fast debugger - base + CLI
 License:	BSD

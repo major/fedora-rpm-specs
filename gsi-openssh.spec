@@ -24,12 +24,12 @@
 %global libedit 1
 
 %global openssh_ver 9.0p1
-%global openssh_rel 4
+%global openssh_rel 5
 
 Summary: An implementation of the SSH protocol with GSI authentication
 Name: gsi-openssh
 Version: %{openssh_ver}
-Release: %{openssh_rel}%{?dist}.1
+Release: %{openssh_rel}%{?dist}
 Provides: gsissh = %{version}-%{release}
 Obsoletes: gsissh < 5.8p2-2
 URL: http://www.openssh.com/portable.html
@@ -44,8 +44,8 @@ Source11: gsisshd.service
 Source12: gsisshd-keygen@.service
 Source13: gsisshd-keygen
 Source15: gsisshd-keygen.target
-Source18: %{name}-systemd-sysusers.conf
 Source19: %{name}-server-systemd-sysusers.conf
+Source20: gsissh-host-keys-migration.sh
 Source99: README.sshd-and-gsisshd
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=2581
@@ -67,8 +67,6 @@ Patch502: openssh-6.6p1-keycat.patch
 
 #https://bugzilla.mindrot.org/show_bug.cgi?id=1644
 Patch601: openssh-6.6p1-allow-ip-opts.patch
-#https://bugzilla.mindrot.org/show_bug.cgi?id=1893 (WONTFIX)
-Patch604: openssh-6.6p1-keyperm.patch
 #(drop?) https://bugzilla.mindrot.org/show_bug.cgi?id=1925
 Patch606: openssh-5.9p1-ipv6man.patch
 #?
@@ -294,7 +292,6 @@ gpgv2 --quiet --keyring %{SOURCE3} %{SOURCE1} %{SOURCE0}
 %patch502 -p1 -b .keycat
 
 %patch601 -p1 -b .ip-opts
-%patch604 -p1 -b .keyperm
 %patch606 -p1 -b .ipv6man
 %patch607 -p1 -b .sigpipe
 %patch609 -p1 -b .x11
@@ -457,8 +454,10 @@ install -m644 %{SOURCE12} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd-keygen@.service
 install -m644 %{SOURCE15} $RPM_BUILD_ROOT/%{_unitdir}/gsisshd-keygen.target
 install -m755 %{SOURCE13} $RPM_BUILD_ROOT/%{_libexecdir}/gsissh/sshd-keygen
 install -d -m711 ${RPM_BUILD_ROOT}/%{_datadir}/empty.sshd
-install -p -D -m 0644 %{SOURCE18} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}.conf
 install -p -D -m 0644 %{SOURCE19} $RPM_BUILD_ROOT%{_sysusersdir}/%{name}-server.conf
+# Migration script for Fedora 38 change to remove group ownership for standard host keys
+# See https://fedoraproject.org/wiki/Changes/SSHKeySignSuidBit
+install -m744 %{SOURCE20} $RPM_BUILD_ROOT/%{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 
 rm $RPM_BUILD_ROOT%{_bindir}/ssh-add
 rm $RPM_BUILD_ROOT%{_bindir}/ssh-agent
@@ -480,13 +479,15 @@ done
 
 perl -pi -e "s|$RPM_BUILD_ROOT||g" $RPM_BUILD_ROOT%{_mandir}/man*/*
 
-%pre
-%sysusers_create_compat %{SOURCE18}
-
 %pre server
 %sysusers_create_compat %{SOURCE19}
 
 %post server
+if [ $1 -gt 1 ]; then
+    # In the case of an upgrade run the migration
+    # script for Fedora 38 to remove group ownership for host keys.
+    %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
+fi
 %systemd_post gsisshd.service gsisshd.socket
 
 %preun server
@@ -503,9 +504,8 @@ perl -pi -e "s|$RPM_BUILD_ROOT||g" $RPM_BUILD_ROOT%{_mandir}/man*/*
 %attr(0755,root,root) %{_bindir}/gsissh-keygen
 %attr(0644,root,root) %{_mandir}/man1/gsissh-keygen.1*
 %attr(0755,root,root) %dir %{_libexecdir}/gsissh
-%attr(2755,root,ssh_keys) %{_libexecdir}/gsissh/ssh-keysign
+%attr(4755,root,root) %{_libexecdir}/gsissh/ssh-keysign
 %attr(0644,root,root) %{_mandir}/man8/gsissh-keysign.8*
-%attr(0644,root,root) %{_sysusersdir}/%{name}.conf
 
 %files clients
 %attr(0755,root,root) %{_bindir}/gsissh
@@ -539,8 +539,12 @@ perl -pi -e "s|$RPM_BUILD_ROOT||g" $RPM_BUILD_ROOT%{_mandir}/man*/*
 %attr(0644,root,root) %{_unitdir}/gsisshd-keygen@.service
 %attr(0644,root,root) %{_unitdir}/gsisshd-keygen.target
 %attr(0644,root,root) %{_sysusersdir}/%{name}-server.conf
+%attr(0744,root,root) %{_libexecdir}/gsissh/ssh-host-keys-migration.sh
 
 %changelog
+* Sat Mar 11 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 9.0p1-5
+- Based on openssh-9.0p1-12.fc38
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.0p1-4.1
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

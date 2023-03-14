@@ -2,10 +2,10 @@
 
 Name:           python-mock
 Version:        4.0.3
-Release:        6%{?dist}
+Release:        7%{?dist}
 Summary:        Deprecated, use unittest.mock from the standard library instead
 
-License:        BSD
+License:        BSD-2-Clause
 URL:            https://github.com/testing-cabal/mock
 Source0:        %{url}/archive/%{version}/mock-%{version}.tar.gz
 
@@ -73,6 +73,9 @@ https://fedoraproject.org/wiki/Changes/DeprecatePythonMock
 
 
 %changelog
+* Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 4.0.3-7
+- migrated to SDPX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.0.3-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

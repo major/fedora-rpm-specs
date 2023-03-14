@@ -1,10 +1,14 @@
 Name:           gstreamer1-plugin-libav
 Version:        1.22.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        GStreamer FFmpeg/LibAV plugin
 License:        LGPLv2+
 URL:            https://gstreamer.freedesktop.org/
 Source0:        %{url}/src/gst-libav/gst-libav-%{version}.tar.xz
+
+# Backports from upstream
+## Fix build with ffmpeg 6.0+
+Patch0:         https://gitlab.freedesktop.org/gstreamer/gstreamer/-/commit/cde31d23c071ee93fae96331805f696856084254.patch
 
 BuildRequires:  gcc-c++
 BuildRequires:  meson
@@ -47,7 +51,7 @@ plugin.
 
 
 %prep
-%autosetup -p1 -n gst-libav-%{version}
+%autosetup -p3 -n gst-libav-%{version}
 
 %build
 %meson  \
@@ -72,6 +76,9 @@ plugin.
 %endif
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.22.0-2
+- Patch and rebuild for ffmpeg 6.0
+
 * Tue Jan 24 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.0-1
 - Update to 1.22.0
 

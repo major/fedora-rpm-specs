@@ -3,7 +3,7 @@
 %global   dunst_confdir %{_sysconfdir}/xdg
 
 Name:     dunst
-Version:  1.9.0
+Version:  1.9.1
 Release:  %autorelease
 Summary:  Lightweight and customizable notification-daemon
 License:  BSD-3-Clause
@@ -70,6 +70,11 @@ love to customize to perfection.
 %make_install %{make_options}
 # create directory for config drop-in files
 install -d -m 0755 -pv %{buildroot}%{dunst_confdir}/%{name}/dunstrc.d
+# install completion definitions
+for compfile in _dunst _dunstctl; do
+    install -D -m 0644 -pv contrib/${compfile}.zshcomp \
+        %{buildroot}%{zsh_completions_dir}/${compfile}
+done
 
 
 %if %{with tests}
@@ -98,6 +103,7 @@ install -d -m 0755 -pv %{buildroot}%{dunst_confdir}/%{name}/dunstrc.d
 %{_userunitdir}/%{name}.service
 %{_mandir}/man1/%{name}*.1*
 %{_mandir}/man5/%{name}.5*
+%{zsh_completions_dir}/_dunst*
 
 %changelog
 %autochangelog

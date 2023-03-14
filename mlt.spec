@@ -11,15 +11,9 @@
 # needs nonfree/ndi-sdk
 %bcond_with  ndi
 
-#globals for https://github.com/mltframework/mlt/commit/ea973eb65c8ca79a859028a9e008360836ca4941
-%global gitdate 20171213
-%global commit ea973eb65c8ca79a859028a9e008360836ca4941
-%global shortcommit %(c=%{commit}; echo ${c:0:7})
-#global gver .%%{gitdate}git%%{shortcommit}
-
 Name:           mlt
-Version:        7.12.0
-Release:        4%{?dist}
+Version:        7.14.0
+Release:        2%{?dist}
 Summary:        Toolkit for broadcasters, video editors, media players, transcoders
 
 # mlt/src/win32/fnmatch.{c,h} are BSD-licensed.
@@ -146,7 +140,7 @@ This module allows to work with MLT using PHP.
 
 
 %prep
-%autosetup -p1 -n %{name}-%{version}
+%autosetup -p1
 
 chmod 644 src/modules/qt/kdenlivetitle_wrapper.cpp
 chmod 644 src/modules/kdenlive/filter_freeze.c
@@ -162,7 +156,6 @@ rm -r src/win32/
        %{?with_php: -DSWIG_PHP:BOOL=ON}     \
        -DSWIG_PYTHON:BOOL=ON                \
        %{?with_ruby: -DSWIG_RUBY:BOOL=ON}   \
-       %{!?with_freeworld: -DMOD_XINE:BOOL=OFF}  \
        %{?with_opencv: -DMOD_OPENCV:BOOL=ON}  \
        -DMOD_GLAXNIMATE:BOOL=ON  \
        %{?with_ndi: -DMOD_NDI:BOOL=ON -DNDI_SDK_INCLUDE_PATH=%{_includedir}/ndi-sdk -DNDI_SDK_LIBRARY_PATH=%{_libdir} -DNDI_INCLUDE_DIR=%{_includedir}/ndi-sdk -DNDI_LIBRARY_DIR=%{_libdir}}
@@ -241,6 +234,12 @@ test "$(pkg-config --modversion mlt++-7)" = "%{version}"
 
 
 %changelog
+* Mon Mar 13 2023 Sérgio Basto <sergio@serjux.com> - 7.14.0-2
+- Effectively enables xine module
+
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 7.14.0-1
+- Update to 7.14.0 for ffmpeg 6 compatibility
+
 * Mon Jan 23 2023 Neal Gompa <ngompa@fedoraproject.org> - 7.12.0-4
 - Build the ffmpeg and xine plugins in the main package
 - Rename freeworld to ndi subpackage since it has only ndi plugin

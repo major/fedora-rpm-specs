@@ -2,7 +2,7 @@
 
 Name:           stellarium
 Version:        1.2
-Release:        7%{?dist}
+Release:        8%{?dist}
 Summary:        Photo-realistic nightsky renderer
 
 License:        GPL-2.0-or-later
@@ -34,7 +34,7 @@ BuildRequires:	glib2-devel
 BuildRequires:	perl-podlators
 BuildRequires:  libappstream-glib
 BuildRequires:  CalcMySky-devel >= 0.2.1
-%if 0%{?fedora} < 39
+%if 0%{?fedora} && 0%{?fedora} < 38
 BuildRequires:  libindi-devel
 %endif
 BuildRequires:  QXlsx-devel
@@ -55,9 +55,10 @@ export CFLAGS="$RPM_OPT_FLAGS -fPIC"
 export CXXFLAGS="$RPM_OPT_FLAGS -fPIC"
 # Kill USE_PLUGIN_TELESCOPECONTROL support due to libindi 2 incompatibility
 %{cmake} -DCMAKE_BUILD_TYPE=Release -DQT6_LIBS=%{_libdir}/qt6 -DCPM_USE_LOCAL_PACKAGES=yes -DENABLE_SHOWMYSKY=yes \
-%if 0%{?fedora} >= 39
-   -DUSE_PLUGIN_TELESCOPECONTROL=no
+%if 0%{?fedora} >= 38
+   -DUSE_PLUGIN_TELESCOPECONTROL=no \
 %endif
+   %{nil}
 make VERBOSE=1 %{?_smp_mflags}
 
 %install
@@ -96,6 +97,9 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.stellarium.Ste
 %ldconfig_scriptlets
 
 %changelog
+* Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 1.2-8
+- Kill TELESCOPECONTROL support on F38 due to libindi 2 incompatibility
+
 * Thu Mar  2 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1.2-7
 - F-39: kill USE_PLUGIN_TELESCOPECONTROL support due to libindi 2 incompatibility
 

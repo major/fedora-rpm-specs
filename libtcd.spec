@@ -3,8 +3,8 @@
 
 %global		mainver		2.2.7
 
-%global		fedorarel	3
-%global		rpmrel		%{fedorarel}%{?postver:.%postrpmver}
+%global		baserelease	3
+%global		rpmrel		%{baserelease}%{?postver:.%postrpmver}
 
 Name:		libtcd
 Version:	%{mainver}

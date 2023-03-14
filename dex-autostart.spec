@@ -3,7 +3,7 @@ Version:        0.9.0
 Release:        7%{?dist}
 Summary:        Generate and execute DesktopEntry files
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/jceb/dex
 Source0:        https://github.com/jceb/dex/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 

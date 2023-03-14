@@ -23,15 +23,15 @@
 %global	mainrel 13
 
 %if 0%{?use_release} >= 1
-%global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 %if 0%{?use_gitbare} >= 1
-%global         fedorarel   %{mainrel}.%{git_version}
+%global         baserelease   %{mainrel}.%{git_version}
 %endif
  
 Name:           lxappearance
 Version:        0.6.3
-Release:        %{fedorarel}%{?dist}.4
+Release:        %{baserelease}%{?dist}.4
 Summary:        Feature-rich GTK+ theme switcher for LXDE
 
 License:        GPLv2+

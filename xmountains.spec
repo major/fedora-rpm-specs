@@ -7,14 +7,14 @@
 %global         gitdate_num 20170103
 
 %if 0%{?usegit} >= 1
-%global         fedorarel   %{mainrel}.D%{gitdate_num}git%{shorthash}
+%global         baserelease   %{mainrel}.D%{gitdate_num}git%{shorthash}
 %else
-%global         fedorarel   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
+%global         baserelease   %{?prever:0.}%{mainrel}%{?prever:.%{prerpmver}}
 %endif
 
 Name:           xmountains
 Version:        2.9
-Release:        %{fedorarel}%{?dist}.6
+Release:        %{baserelease}%{?dist}.6
 Summary:        A fractal terrain generator
 
 License:        MIT

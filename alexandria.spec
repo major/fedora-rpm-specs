@@ -7,8 +7,8 @@ BuildRequires:  %{*} \
 %undefine		minorver	
 %undefine		ifpre	
 
-%define		fedorarel	2
-%define		rel		%{?ifpre:0.}%{fedorarel}%{?minorver:.%minorver}
+%define		baserelease	2
+%define		rel		%{?ifpre:0.}%{baserelease}%{?minorver:.%minorver}
 
 
 

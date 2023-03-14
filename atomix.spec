@@ -1,20 +1,19 @@
+%global tarball_version %%(echo %{version} | tr '~' '.')
+
 Name:           atomix
-Version:        3.34.0
-Release:        9%{?dist}
+Version:        44~rc
+Release:        1%{?dist}
 Summary:        Puzzle game: Build molecules out of isolated atoms
 
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            https://wiki.gnome.org/Apps/Atomix
-Source0:        https://download.gnome.org/sources/%{name}/3.34/%{name}-%{version}.tar.xz
-# https://gitlab.gnome.org/GNOME/atomix/-/merge_requests/2
-Patch1:         0001-Fix-compilation-with-gcc10-fno-common.patch
+Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
 
 BuildRequires:  desktop-file-utils
 BuildRequires:  gcc
 BuildRequires:  gettext
-BuildRequires:  gtk3-devel
-BuildRequires:  libgnome-games-support-devel
-BuildRequires:  libxml2-devel
+BuildRequires:  pkgconfig(gtk+-3.0)
+BuildRequires:  pkgconfig(libgnome-games-support-1)
 BuildRequires:  meson
 
 %description
@@ -25,7 +24,7 @@ Amiga game Atomix and uses the GNOME libraries.
 
 
 %prep
-%autosetup -p1
+%autosetup -p1 -n %{name}-%{tarball_version}
 
 
 %build
@@ -44,17 +43,20 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/atomix.desktop
 
 
 %files -f %{name}.lang
-%doc AUTHORS NEWS README
+%doc AUTHORS NEWS README.md
 %license COPYING
 %{_bindir}/atomix
 %{_datadir}/atomix
 %{_datadir}/applications/atomix.desktop
 %{_datadir}/icons/hicolor/*/apps/atomix.png
 %{_datadir}/icons/hicolor/symbolic/apps/atomix-symbolic.svg
-%{_datadir}/metainfo/atomix.appdata.xml
+%{_metainfodir}/atomix.appdata.xml
 
 
 %changelog
+* Sun Mar 12 2023 David King <amigadave@amigadave.com> - 44~rc-1
+- Update to 44.rc
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.34.0-9
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

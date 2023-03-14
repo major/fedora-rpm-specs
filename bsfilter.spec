@@ -3,11 +3,11 @@
 %global	mainver	1.0.19
 %undefine	prever
 
-%global	fedorarel	1
+%global	baserelease	1
 
 Name:		bsfilter
 Version:	%{mainver}
-Release:	%{?prever:0.}%{fedorarel}%{?prever:.%prever}%{?dist}.16
+Release:	%{?prever:0.}%{baserelease}%{?prever:.%prever}%{?dist}.16
 Summary:	Bayesian spam filter
 
 # bsfilter script

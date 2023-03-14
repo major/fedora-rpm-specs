@@ -2,7 +2,7 @@ Name:           perl-Crypt-Cracklib
 Version:        1.7
 Release:        38%{?dist}
 Summary:        Crypt-Cracklib - Perl interface to Alec Muffett's Cracklib
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Crypt-Cracklib
 Source0:        https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-Cracklib-%{version}.tar.gz
 Patch0:         Crypt-Cracklib-1.7-Fix-building-on-Perl-without-dot-in-INC.patch
@@ -28,6 +28,7 @@ BuildRequires:  perl(Test::More)
 BuildRequires:  perl(Test::Pod) >= 1.00
 BuildRequires:  perl(Test::Pod::Coverage) >= 1.08
 # Dependencies:
+# (none)
 
 %description
 This module providers interaction with the system cracklib libraries.

@@ -20,7 +20,6 @@ Requires:	ruby(rubygems)
 Requires:	rubygem(domain_name)
 
 BuildArch:	noarch
-Provides:	rubygem(%{gem_name}) = %{version}-%{release}
 
 %description
 HTTP::Cookie is a Ruby library to handle HTTP Cookies based on RFC 6265.  It
@@ -72,13 +71,15 @@ popd
 
 %files
 %dir	%{gem_instdir}
-%doc	%{gem_instdir}/[A-Z]*
+%license	%{gem_instdir}/LICENSE.txt
+%doc	%{gem_instdir}/README.md
 
 %{gem_libdir}/
 %{gem_spec}
 
 %files doc
 %doc	%{gem_docdir}/
+%doc	%{gem_instdir}/CHANGELOG.md
 
 %changelog
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.0.5-3

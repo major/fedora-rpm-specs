@@ -4,7 +4,7 @@ Summary:          C++ interface to the CLIPS expert system C library
 Name:             clipsmm
 Version:          0.3.5
 Release:          %autorelease
-License:          GPLv3
+License:          GPL-3.0-only
 URL:              http://clipsmm.sourceforge.net
 Source0:          http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 # https://github.com/timn/clipsmm/pull/1

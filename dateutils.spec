@@ -3,7 +3,7 @@ Version:        0.4.10
 Release:        %autorelease
 Summary:        Command-line date and time calculation, conversion, and comparison
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            http://www.fresse.org/dateutils/
 Source0:        https://github.com/hroptatyr/dateutils/releases/download/v%{version}/%{name}-%{version}.tar.xz
 

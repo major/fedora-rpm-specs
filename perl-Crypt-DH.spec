@@ -2,7 +2,7 @@ Summary:	Perl module implementing the Diffie-Hellman key exchange system
 Name:		perl-Crypt-DH
 Version:	0.07
 Release:	33%{?dist}
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 Url:		https://metacpan.org/release/Crypt-DH
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-DH-%{version}.tar.gz
 BuildArch:	noarch

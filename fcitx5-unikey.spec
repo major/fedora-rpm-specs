@@ -1,7 +1,7 @@
 %global __provides_exclude_from ^%{_libdir}/fcitx5/.*\\.so$
 
 Name:       fcitx5-unikey
-Version:    5.0.12
+Version:    5.0.13
 Release:    %autorelease
 Summary:    Unikey support for Fcitx5
 License:    GPLv2+ and LGPLv2+
@@ -48,8 +48,8 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
 %{_libdir}/fcitx5/qt5/libfcitx5-unikey-keymap-editor.so
 %{_datadir}/fcitx5/addon/unikey.conf
 %{_datadir}/fcitx5/inputmethod/unikey.conf
-%{_datadir}/icons/hicolor/128x128/apps/fcitx-unikey.png
-%{_datadir}/icons/hicolor/128x128/apps/org.fcitx.Fcitx5.fcitx-unikey.png
+%{_datadir}/icons/hicolor/*/apps/fcitx-unikey.png
+%{_datadir}/icons/hicolor/*/apps/org.fcitx.Fcitx5.fcitx-unikey.png
 %{_metainfodir}/org.fcitx.Fcitx5.Addon.Unikey.metainfo.xml
 
 %changelog

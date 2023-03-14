@@ -2,7 +2,7 @@ Name:           perl-Convert-PEM
 Version:        0.08
 Release:        42%{?dist}
 Summary:        Read/write encrypted ASN.1 PEM files
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Convert-PEM
 Source0:        https://cpan.metacpan.org/modules/by-module/Convert/Convert-PEM-%{version}.tar.gz
 Patch0:         Convert-PEM-0.08-Do-not-test-the-reason-for-decryption-failure-on-bad.patch

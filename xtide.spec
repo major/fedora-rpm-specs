@@ -2,10 +2,10 @@
 #%%define          betatag   dev-20160114
 %define          dwfdate   20220109
 
-%define          fedorarel 2
+%define          baserelease 2
 
 
-%define          rel        %{?betatag:0.}%{fedorarel}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
+%define          rel        %{?betatag:0.}%{baserelease}%{?betatag:.%(echo %betatag | sed -e 's|-||g')}
 
 
 Summary:         Calculate tide all over the world

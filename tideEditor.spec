@@ -3,8 +3,8 @@
 
 %global		mainver		1.5
 
-%global		fedorarel	5
-%global		rpmrel		%{fedorarel}%{?postver:.%postrpmver}
+%global		baserelease	5
+%global		rpmrel		%{baserelease}%{?postver:.%postrpmver}
 
 Name:		tideEditor
 Version:	%{mainver}

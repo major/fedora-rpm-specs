@@ -4,10 +4,10 @@
 
 Name:           player
 Version:        3.1.0
-Release:        48%{?dist}
+Release:        49%{?dist}
 Summary:        Cross-platform robot device interface and server
 
-License:        GPLv2+ and LGPLv2+
+License:        GPL-2.0-or-later AND LGPL-2.1-or-later
 URL:            http://playerproject.github.io
 Source0:        https://github.com/playerproject/%{name}/archive/%{releasetag}/%{name}-%{version}.tar.gz
 Source1:        playernav.desktop
@@ -225,6 +225,9 @@ desktop-file-install \
 %{ruby_vendorarchdir}/*.so
 
 %changelog
+* Sun Mar 12 2023 Tim Orling <ticotimo@gmail.com> - 3.1.0-49
+- migrated to SPDX license
+
 * Thu Feb  2 2023 Florian Weimer <fweimer@redhat.com> - 3.1.0-48
 - Remove non-working Python 3 module (#2161923)
 
