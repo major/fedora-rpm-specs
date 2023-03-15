@@ -1,4 +1,4 @@
-%global glibcsrcdir glibc-2.37.9000-156-g8390014c23
+%global glibcsrcdir glibc-2.37.9000-176-g90233f113c
 %global glibcversion 2.37.9000
 # Pre-release tarballs are pulled in from git using a command that is
 # effectively:
@@ -159,7 +159,7 @@ Version: %{glibcversion}
 # - It allows using the Release number without the %%dist tag in the dependency
 #   generator to make the generated requires interchangeable between Rawhide
 #   and ELN (.elnYY < .fcXX).
-%global baserelease 3
+%global baserelease 4
 Release: %{baserelease}%{?dist}
 
 # In general, GPLv2+ is used by programs, LGPLv2+ is used for
@@ -2193,6 +2193,30 @@ update_gconv_modules_cache ()
 %files -f compat-libpthread-nonshared.filelist -n compat-libpthread-nonshared
 
 %changelog
+* Mon Mar 13 2023 Florian Weimer <fweimer@redhat.com> - 2.37.9000-4
+- Auto-sync with upstream branch master,
+  commit 90233f113cc941ef88ce03b7f73221a964dcaca8:
+- LoongArch: Add get_rounding_mode.
+- LoongArch: Add support for ldconfig.
+- linux: fix ntp_gettime abi break (BZ# 30156)
+- elf: Add missing dependency between resolvfail and testobj1.so
+- elf: Add -z lazy to some more tests
+- Benchtests: Remove simple_str(r)chr
+- Benchtests: Remove simple_str(n)casecmp
+- Benchtests: Remove simple_memcmp
+- Benchtests: Remove simple_strcspn/strpbrk/strsep
+- Benchtests: Remove memchr_strnlen
+- Benchtests: Remove simple_mem(r)chr
+- Benchtests: Remove simple_strcpy_chk
+- Benchtests: Remove simple_str(n)cmp
+- malloc: Fix transposed arguments in sysmalloc_mmap_fallback call
+- rt: fix shm_open not set ENAMETOOLONG when name exceeds {_POSIX_PATH_MAX}
+- posix: Ensure the initial signal disposition for tst-spawn7
+- hurd: fix build of tst-system.c
+- x86: Fix bug about glibc.cpu.hwcaps.
+- posix: Fix system blocks SIGCHLD erroneously [BZ #30163]
+- gshadow: Matching sgetsgent, sgetsgent_r ERANGE handling (bug 30151)
+
 * Mon Mar 06 2023 DJ Delorie <dj@redhat.com> - 2.37.9000-3
 - Auto-sync with upstream branch master,
   commit 8390014c2320f94ffd8a8f6088c10c1f64567954.

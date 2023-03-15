@@ -9,10 +9,10 @@
 # needed for this package
 %global extension_id \{73a6fe31-595d-460b-a920-fcc0f8843232\}
 
-%global nscl_commit 0beed6c29832d8a8f4a543c635a2a872de09e3fe
+%global nscl_commit 475f1a22fbd8cef9bbf2e08fa13def27435f13ef
 
 Name:           mozilla-noscript
-Version:        11.4.16
+Version:        11.4.18
 Release:        1%{?dist}
 Summary:        JavaScript white list extension for Mozilla Firefox
 
@@ -78,6 +78,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/%{name}.m
 %{_datadir}/metainfo/%{name}.metainfo.xml
 
 %changelog
+* Mon Mar 13 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.18-1
+- update to 11.4.18 (#2173530)
+
 * Wed Feb 08 2023 Dominik Mierzejewski <dominik@greysector.net> - 11.4.16-1
 - update to 11.4.16 (resolves rhbz#2164922)
 

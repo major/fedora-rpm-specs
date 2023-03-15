@@ -1,6 +1,6 @@
 %global packname ape
-%global packver  5.6
-%global packrev  2
+%global packver  5.7
+%global packrev  1
 %global rlibdir  %{_libdir}/R/library
 
 # Cannot enable until phangorn is added
@@ -10,10 +10,10 @@
 
 Name:             R-%{packname}
 Version:          %{packver}.%{packrev}
-Release:          3%{?dist}
+Release:          1%{?dist}
 Summary:          Analyses of Phylogenetics and Evolution
 
-License:          GPL-2.0-only or GPL-3.0-only
+License:          GPL-2.0-only OR GPL-3.0-only
 URL:              https://CRAN.R-project.org/package=%{packname}
 Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}-%{packrev}.tar.gz
 
@@ -22,7 +22,7 @@ ExcludeArch: %{ix86}
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-nlme, R-lattice, R-graphics, R-methods, R-stats, R-tools, R-utils, R-parallel, R-Rcpp >= 0.12.0
+# Imports:   R-nlme, R-lattice, R-graphics, R-methods, R-stats, R-utils, R-parallel, R-Rcpp >= 0.12.0, R-digest
 # Suggests:  R-gee, R-expm, R-igraph, R-phangorn
 # LinkingTo: R-Rcpp
 # Enhances:
@@ -34,10 +34,10 @@ BuildRequires:    R-lattice
 BuildRequires:    R-graphics
 BuildRequires:    R-methods
 BuildRequires:    R-stats
-BuildRequires:    R-tools
 BuildRequires:    R-utils
 BuildRequires:    R-parallel
 BuildRequires:    R-Rcpp-devel >= 0.12.0
+BuildRequires:    R-digest
 %if %{without bootstrap}
 BuildRequires:    R-gee
 BuildRequires:    R-expm
@@ -107,6 +107,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Mon Mar 13 2023 Tom Callaway <spot@fedoraproject.org> - 5.7.1-1
+- update to 5.7-1
+
 * Sun Jan 22 2023 Elliott Sales de Andrade <quantum.analyst@gmail.com> - 5.6.2-3
 - Drop support for i686
 - Switch to SPDX licenses

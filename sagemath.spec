@@ -23,12 +23,6 @@
 # use workaround to match upstream sagemath patched cython
 %bcond_with cython_hack
 
-%ifarch %{ix86} x86_64
-%bcond_without fes
-%else
-%bcond_with fes
-%endif
-
 # switch to run make -testall
 %bcond_with check
 %global SAGE_TIMEOUT		60
@@ -40,7 +34,7 @@
 %global	elliptic_curves_pkg	elliptic_curves-0.8.1
 %global graphs_pkg		graphs-20210214
 %if %{with bundled_ipython}
-%global ipython_ver		8.4.0
+%global ipython_ver		8.6.0
 %global ipython_pkg		ipython-%{ipython_ver}
 %global prompt_toolkit_ver	3.0.24
 %global prompt_tookit_pkg	prompt_toolkit-%{prompt_toolkit_ver}
@@ -58,7 +52,7 @@
 %endif
 %global polytopes_db_pkg	polytopes_db-20170220
 %global sagetex_pkg		sagetex-3.6.1
-%global Sphinx_pkg		Sphinx-4.4.0
+%global Sphinx_pkg		Sphinx-5.2.3
 %global singular_pkg		singular-4.3.1p1
 %if %{with bundled_threejs}
 %global threejs_ver		r122
@@ -66,11 +60,7 @@
 %endif
 
 # Spkg equivalents of required rpms; we pretend they are installed as spkgs.
-%global SAGE_REQUIRED_PKGS 4ti2-1.6.9 bliss-0.77 CoCoALib-0.99800 coxeter3-3.1 cryptominisat-5.8.0 database_cremona_ellcurve-%{cremona_ver} gap_packages-4.11.1 libsirocco-2.1.0 lrslib-072 mcqd-1.0.0 meataxe-1.0.1 qepcad-B.1.74 saclib-2.2.8 tdlib-0.9.2
-
-%ifarch %{ix86} x86_64
-%global SAGE_REQUIRED_PKGS %{SAGE_REQUIRED_PKGS} fes-0.2
-%endif
+%global SAGE_REQUIRED_PKGS 4ti2-1.6.9 bliss-0.77 CoCoALib-0.99800 coxeter3-3.1 cryptominisat-5.8.0 database_cremona_ellcurve-%{cremona_ver} gap_packages-4.11.2 libsirocco-2.1.0 lrslib-072 mcqd-1.0.0 meataxe-1.0.1 qepcad-B.1.74 saclib-2.2.8 tdlib-0.9.2
 
 %global SAGE_ROOT		%{_libdir}/sagemath
 %global SAGE_LOCAL		%{SAGE_ROOT}/local
@@ -83,8 +73,8 @@
 
 Name:		sagemath
 Summary:	A free open-source mathematics software system
-Version:	9.7
-Release:	2%{?dist}
+Version:	9.8
+Release:	1%{?dist}
 # The file ${SAGE_ROOT}/COPYING.txt is the upstream license breakdown file.
 # Note that many of the components listed in that file are not built in, but
 # are used as external libraries, and therefore do not affect the License tag.
@@ -100,7 +90,7 @@ Source3:	org.sagemath.sage.metainfo.xml
 # 32-bit ARM builders run out of memory trying to create the SRPM and also
 # trying to unpack the SRPM before starting a build.  The i386 builders
 # sometimes fail as well, so exclude all 32-bit platforms.
-ExclusiveArch: aarch64 x86_64
+ExclusiveArch:	aarch64 x86_64
 
 # Fix stray escapes in python strings
 Patch0:		%{name}-escape.patch
@@ -134,6 +124,7 @@ Patch7:		%{name}-jmol.patch
 
 # tell the user how to install the large Cremona database
 # add a missing commit() that causes large database construction to fail
+# https://github.com/sagemath/sage/pull/35050
 Patch8:		%{name}-cremona.patch
 
 # adapt to python 3 and cython running in python 3 mode
@@ -148,8 +139,8 @@ Patch11:	%{name}-lcalc.patch
 # Use system gap directories and modernize libgap interface
 Patch12:	%{name}-libgap.patch
 
-# Build fes
-Patch13:	%{name}-fes-build.patch
+# Catch polymorphic types by reference instead of by value
+Patch13:	%{name}-catch-value.patch
 
 # Side effect of using distro packages
 # https://bugzilla.redhat.com/show_bug.cgi?id=974769
@@ -174,17 +165,22 @@ Patch19:	%{name}-tdlib.patch
 # Use local objects.inv for intersphinx since no network on koji builders
 Patch20:	%{name}-intersphinx.patch
 
-# Adapt to changes in python 3.11
-Patch21:	%{name}-python3.11.patch
+# Replace a deprecated call to std::bind2nd
+Patch21:	%{name}-bind2nd.patch
 
 # Temporary workaround for https://bugzilla.redhat.com/show_bug.cgi?id=2160197
 # Remove this when that bug is fixed
 Patch22:	%{name}-giac.patch
 
+# Replace a deprecated call to std::mem_fun_ref
+Patch23:	%{name}-mem-fun-ref.patch
+
 BuildRequires:	4ti2
 BuildRequires:	4ti2-devel
 BuildRequires:	appstream
 BuildRequires:	arb-devel
+BuildRequires:	autoconf
+BuildRequires:	automake
 BuildRequires:	bc
 BuildRequires:	bliss-devel
 BuildRequires:	boost-devel
@@ -201,9 +197,6 @@ BuildRequires:	csdp-devel
 BuildRequires:	desktop-file-utils
 BuildRequires:	dvipng
 BuildRequires:	ecl
-%if %{with fes}
-BuildRequires:	fes-devel
-%endif
 BuildRequires:	ffmpeg-free
 BuildRequires:	flexiblas-devel
 BuildRequires:	flint-devel
@@ -287,12 +280,14 @@ BuildRequires:	libfrobby-devel
 BuildRequires:	libgap
 BuildRequires:	libhomfly-devel
 BuildRequires:	libmpc-devel
+BuildRequires:	libtool
 BuildRequires:	lrcalc-devel
 BuildRequires:	lrslib-utils
 BuildRequires:	make
 BuildRequires:	mathjax
 BuildRequires:	maxima-runtime-ecl
 BuildRequires:	mcqd-devel
+BuildRequires:	meson
 BuildRequires:	mpfi-devel
 BuildRequires:	nauty
 BuildRequires:	ninja-build
@@ -308,10 +303,12 @@ BuildRequires:	pari-galpol
 BuildRequires:	pari-gp
 BuildRequires:	pari-nftables
 BuildRequires:	pari-seadata
+BuildRequires:	patchelf
 BuildRequires:	pdf2svg
 BuildRequires:	perl-generators
 BuildRequires:	perl(ExtUtils::MakeMaker)
 BuildRequires:	perl(File::Slurp)
+BuildRequires:	pkgconfig
 BuildRequires:	pkgconfig(bdw-gc)
 BuildRequires:	pkgconfig(cbc)
 BuildRequires:	pkgconfig(eclib)
@@ -339,6 +336,7 @@ BuildRequires:	pkgconfig(primecount)
 BuildRequires:	pkgconfig(primesieve)
 BuildRequires:	pkgconfig(readline)
 BuildRequires:	pkgconfig(Singular)
+BuildRequires:	pkgconfig(tbb)
 BuildRequires:	pkgconfig(tk)
 BuildRequires:	pkgconfig(zlib)
 BuildRequires:	planarity-devel
@@ -366,6 +364,7 @@ BuildRequires:	%{py3_dist beniget}
 BuildRequires:	%{py3_dist brial}
 BuildRequires:	%{py3_dist charset-normalizer}
 BuildRequires:	%{py3_dist colorlog}
+BuildRequires:	%{py3_dist contourpy}
 BuildRequires:	%{py3_dist cppy}
 BuildRequires:	%{py3_dist cvxopt}
 BuildRequires:	%{py3_dist cython}
@@ -378,6 +377,7 @@ BuildRequires:	%{py3_dist fpylll}
 BuildRequires:	%{py3_dist furo}
 BuildRequires:	%{py3_dist gast}
 BuildRequires:	%{py3_dist gmpy2}
+BuildRequires:	%{py3_dist hatch-fancy-pypi-readme}
 BuildRequires:  %{py3_dist hatchling}
 %if %{with sphinx_hack}
 BuildRequires:	%{py3_dist html5lib}
@@ -410,6 +410,7 @@ BuildRequires:	%{py3_dist pari-jupyter}
 %if %{with bundled_ipython}
 BuildRequires:	%{py3_dist path.py}
 %endif
+BuildRequires:	%{py3_dist pathspec}
 %if %{without bundled_pexpect}
 BuildRequires:	%{py3_dist pexpect}
 %endif
@@ -428,6 +429,9 @@ BuildRequires:	%{py3_dist pure-eval}
 BuildRequires:	%{py3_dist py}
 BuildRequires:	%{py3_dist pycryptosat}
 BuildRequires:	%{py3_dist pyopenssl}
+BuildRequires:	%{py3_dist pyproject-metadata}
+BuildRequires:	%{py3_dist pytest}
+BuildRequires:	%{py3_dist pytest-xdist}
 BuildRequires:	%{py3_dist pytz}
 BuildRequires:	%{py3_dist pytzdata}
 BuildRequires:	%{py3_dist pytz-deprecation-shim}
@@ -450,7 +454,6 @@ BuildRequires:	%{py3_dist sphinx-basic-ng}
 BuildRequires:	%{py3_dist stack-data}
 BuildRequires:	%{py3_dist sympy}
 BuildRequires:	%{py3_dist tinycss2}
-BuildRequires:	%{py3_dist tomli}
 BuildRequires:	%{py3_dist tomlkit}
 BuildRequires:	%{py3_dist tox}
 BuildRequires:	%{py3_dist typing-extensions}
@@ -460,7 +463,9 @@ BuildRequires:	%{py3_dist widgetsnbextension}
 BuildRequires:	%{py3_dist zodb3}
 BuildRequires:	qepcad-B
 BuildRequires:	qhull
+BuildRequires:	qhull-devel
 BuildRequires:	R
+BuildRequires:	R-devel
 BuildRequires:	rubiks
 BuildRequires:	rw-devel
 BuildRequires:	saclib-devel
@@ -484,7 +489,7 @@ BuildRequires:	tex(xy.sty)
 BuildRequires:	web-assets-devel
 BuildRequires:	xorg-x11-fonts-Type1
 BuildRequires:	xorg-x11-server-Xvfb
-BuildRequires:	zn_poly-devel
+BuildRequires:	yarnpkg
 
 Requires:	hicolor-icon-theme
 Requires:	rubiks
@@ -589,6 +594,7 @@ Requires:	%{py3_dist beautifulsoup4}
 Requires:	%{py3_dist beniget}
 Requires:	%{py3_dist brial}
 Requires:	%{py3_dist charset-normalizer}
+Requires:	%{py3_dist contourpy}
 Requires:	%{py3_dist cppy}
 Requires:	%{py3_dist cypari2}
 Requires:	%{py3_dist cysignals}
@@ -1007,11 +1013,7 @@ pushd build/pkgs/threejs
 popd
 %endif
 
-%autopatch -p0 -M12
-%if %{with fes}
-%patch13
-%endif
-%autopatch -p0 -m14
+%autopatch -p0
 
 sed -i 's|@@SAGE_LOCAL@@|%{SAGE_LOCAL}|' src/sage/env.py
 
@@ -1055,20 +1057,11 @@ chmod a-x src/sage/modules/fp_graded/{,steenrod/}*.py
 # GAP does not have enough memory to load the entire workspace
 sed -i 's/64m/256m/' src/sage/interfaces/gap.py
 
-# Update the GAP root
-sed -i '/GAP_ROOT_DIR/s,SAGE_SHARE,"%{_libdir}",' src/sage/env.py
-
 # Fix detection of Fedora
 sed -i 's/yum/rpm/' build/bin/sage-guess-package-system
 
 # Allow use of gcc 13
 sed -i 's/1\[3-9\].*)/1[4-9].*)/' configure
-
-# Allow use of python 3.11
-sed -i 's/3\.11\.0/3.12.0/g' configure
-
-# Allow use of libfplll 5.4.4
-sed -i 's/5\.4\.2/5.4.4/g' configure
 
 # Allow use of eclib 20221012
 sed -i 's/20220621/20221012/g' configure
@@ -2080,6 +2073,11 @@ end
 
 ########################################################################
 %changelog
+* Mon Mar 13 2023 Jerry James <loganjerry@gmail.com> - 9.8-1
+- Version 9.8
+- Drop upstreamed patches: -fes-build, -python3.11
+- Add patches: -catch-value, -gap-split-root, -bind2nd, -mem-fun-ref
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 9.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

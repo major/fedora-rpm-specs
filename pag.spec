@@ -3,7 +3,7 @@ Version:            0.8
 Release:            17%{?dist}
 Summary:            Commandline interaction with pagure.io
 
-License:            GPLv3+
+License:            GPL-3.0-or-later
 URL:                https://pagure.io/pag
 Source0:            https://pypi.io/packages/source/p/pag/pag-%{version}.tar.gz
 

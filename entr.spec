@@ -3,8 +3,8 @@ Version:        5.3
 Release:        1%{?dist}
 Summary:        Run arbitrary commands when files change
 
-# The entire source code is ISC except missing/sys/event.h which is BSD
-License:        ISC and BSD
+# The entire source code is ISC except missing/sys/event.h which is BSD-2-Clause
+License:        ISC AND BSD-2-Clause
 URL:            http://eradman.com/entrproject/
 Source0:        %{url}/code/%{name}-%{version}.tar.gz
 

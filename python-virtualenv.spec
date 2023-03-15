@@ -1,6 +1,6 @@
 Name:           python-virtualenv
-Version:        20.20.0
-Release:        2%{?dist}
+Version:        20.21.0
+Release:        1%{?dist}
 Summary:        Tool to create isolated Python environments
 
 License:        MIT
@@ -135,6 +135,9 @@ PIP_CERT=/etc/pki/tls/certs/ca-bundle.crt \
 %{_bindir}/virtualenv
 
 %changelog
+* Mon Mar 13 2023 Lumír Balhar <lbalhar@redhat.com> - 20.21.0-1
+- Update to 20.21.0 (rhbz#2177543)
+
 * Mon Mar 06 2023 Miro Hrončok <mhroncok@redhat.com> - 20.20.0-2
 - Fix build with pyproject-rpm-macros >= 1.6.3
 - Local workaround collided with the fix there

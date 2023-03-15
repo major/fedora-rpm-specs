@@ -13,11 +13,11 @@
 
 Name:           python-dns
 Version:        2.3.0
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        DNS toolkit for Python
 
 # The entire package is licensed with both licenses, see LICENSE file
-License:        ISC and MIT
+License:        ISC
 URL:            http://www.dnspython.org
 
 Source0:        https://github.com/rthalley/%{pypi_name}/archive/v%{version}%{rctag}/%{pypi_name}-%{version}%{rctag}.tar.gz
@@ -86,6 +86,9 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 %endif
 
 %changelog
+* Wed Mar 8 2023 Rafael Jeffman <rjeffman@redhat.com> - 2.3.0-3
+- Migrated to SPDX license
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.3.0-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

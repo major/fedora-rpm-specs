@@ -3,8 +3,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:		gst-editing-services
-Version:        1.22.0
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.22.1
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:	Gstreamer editing services
 
 License:	GPL-2.0-or-later and LGPL-2.0-or-later
@@ -87,6 +87,9 @@ cp data/completions/ges-launch-1.0 \
 %{_datadir}/gir-1.0/GES-1.0.gir
 
 %changelog
+* Mon Mar 13 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.1-1
+- Update to 1.22.1
+
 * Fri Mar 03 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.22.0-2
 - migrated to SPDX license
 

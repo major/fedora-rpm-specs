@@ -2,12 +2,12 @@ Name: squashfs-tools
 Version: 4.6
 Summary: Utility for the creation of squashfs filesystems
 %global forgeurl https://github.com/plougher/%{name}
-%global date 20230306
-%global commit 1eaad6d730604131f0da0c675e547cfe544ddcfa
-%forgemeta
+%global date 20230312
+%global commit aaf011a868c786b06e74cbdaf860d45793939f35
+%forgemeta -i -v
 URL:	 %{forgeurl}
 Source:  %{forgesource}
-Release: 0.4%{dist}
+Release: 0.5%{dist}
 License: GPLv2+
 
 BuildRequires: make
@@ -37,7 +37,7 @@ pushd squashfs-tools
 make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL_MANPAGES_DIR=%{buildroot}%{_mandir}/man1 install
 
 %files
-%doc ACKNOWLEDGEMENTS README-4.5.1 CHANGES COPYING USAGE ACTIONS-README
+%doc ACKNOWLEDGEMENTS README* CHANGES COPYING USAGE* ACTIONS-README
 
 %{_mandir}/man1/mksquashfs.1.gz
 %{_mandir}/man1/unsquashfs.1.gz
@@ -50,6 +50,10 @@ make INSTALL_PREFIX=%{buildroot}/usr INSTALL_DIR=%{buildroot}%{_sbindir} INSTALL
 %{_sbindir}/sqfscat
 
 %changelog
+* Sun Mar 12 2023 Bruno Wolff III <bruno@wolff.to> - 4.6-0.5^20230312gitaaf011a
+- Doc updates
+- Probably the last version before the official release (tentatively tomorrow)
+
 * Mon Mar 06 2023 Bruno Wolff III <bruno@wolff.to> - 4.6-0.4^20230306git1eaad6d
 - Doc updates and unanchored search improvemebts
 

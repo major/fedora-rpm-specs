@@ -16,8 +16,8 @@
 #global shortcommit %(c=%{gitcommit}; echo ${c:0:5})
 
 Name:           gstreamer1-plugins-good
-Version:        1.22.0
-Release:        2%{?gitcommit:.git%{shortcommit}}%{?dist}
+Version:        1.22.1
+Release:        1%{?gitcommit:.git%{shortcommit}}%{?dist}
 Summary:        GStreamer plugins with good code and licensing
 
 License:        LGPLv2+
@@ -304,6 +304,9 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -fv {} ';'
 
 
 %changelog
+* Mon Mar 13 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.1-1
+- Update to 1.22.1
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 1.22.0-2
 - rebuild for new libvpx
 

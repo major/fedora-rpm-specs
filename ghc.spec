@@ -11,8 +11,11 @@
 # build hadrian for production builds:
 %bcond build_hadrian 1
 
+# disabled to allow parallel install of ghc9.2-9.2.7 and ghc-9.2.6
+%if 0
 %global ghc_major 9.2
 %global ghc_obsoletes_name ghc%{ghc_major}
+%endif
 
 # to handle RCs
 %global ghc_release %{version}
@@ -78,8 +81,10 @@
 %endif
 
 %global obsoletes_ghcXY() \
+%if %{defined ghc_obsoletes_name}\
 Obsoletes: %{ghc_obsoletes_name}%{?1:-%1} < %{version}-%{release}\
 Provides: %{ghc_obsoletes_name}%{?1:-%1} = %{version}-%{release}\
+%endif\
 %{nil}
 
 Name: ghc
@@ -88,7 +93,7 @@ Version: 9.2.6
 # - release can only be reset if *all* library versions get bumped simultaneously
 #   (sometimes after a major release)
 # - minor release numbers for a branch should be incremented monotonically
-Release: 129%{?dist}
+Release: 130%{?dist}
 Summary: Glasgow Haskell Compiler
 
 License: BSD and HaskellReport
@@ -740,6 +745,7 @@ done
 )
 %endif
 
+%if %{defined ghc_major}
 (
 cd %{buildroot}%{_bindir}
 for i in *; do
@@ -752,6 +758,7 @@ for i in *; do
     esac
 done
 )
+%endif
 
 # bash completion
 mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
@@ -824,6 +831,7 @@ make test
 %postun base -p /sbin/ldconfig
 %endif
 
+
 %transfiletriggerin compiler -- %{ghcliblib}/package.conf.d
 %ghc_pkg_recache
 %end
@@ -866,6 +874,7 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{_bindir}/runghc-%{ghc_version}
 %{_bindir}/runhaskell
 %{_bindir}/runhaskell-%{version}
+%if %{defined ghc_major}
 %{_bindir}/ghc-%{ghc_major}
 %{_bindir}/ghc-pkg-%{ghc_major}
 %{_bindir}/ghci-%{ghc_major}
@@ -875,6 +884,7 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 %{_bindir}/hp2ps-%{ghc_major}
 %{_bindir}/hpc-%{ghc_major}
 %{_bindir}/hsc2hs-%{ghc_major}
+%endif
 %endif
 %dir %{ghclibdir}/bin
 %{ghclibdir}/bin/ghc
@@ -993,6 +1003,9 @@ env -C %{ghc_html_libraries_dir} ./gen_contents_index
 
 
 %changelog
+* Mon Mar 13 2023 Jens Petersen <petersen@redhat.com> - 9.2.6-130
+- allow parallel installing ghc9.2-9.2.7
+
 * Fri Feb 17 2023 Jens Petersen <petersen@redhat.com> - 9.2.6-129
 - upstream patch to enable SMP rts for ppc64le
 

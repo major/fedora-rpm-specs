@@ -1,10 +1,11 @@
 Name:     ntfs-3g-system-compression
 Summary:  NTFS-3G plugin for reading "system compressed" files
 Version:  1.0
-Release:  12%{?dist}
+Release:  13%{?dist}
 License:  GPL-2.0-or-later
 URL:      https://github.com/ebiggers/ntfs-3g-system-compression
 Source0:  https://github.com/ebiggers/ntfs-3g-system-compression/archive/v%{version}/ntfs-3g-system-compression-%{version}.tar.gz
+Patch99:  ntfs-3g-system-compression-fedora-c99.patch
 
 BuildRequires: make
 BuildRequires:  gcc
@@ -45,6 +46,9 @@ rm -rf %{buildroot}%{_libdir}/ntfs-3g/*.la
 %{_libdir}/ntfs-3g/ntfs-plugin-80000017.so
 
 %changelog
+* Fri Mar 10 2023 DJ Delorie <dj@redhat.com> - 1.0-13
+- Fix C99 compatibility issue
+
 * Mon Feb 13 2023 Kamil Páral <kparal@redhat.com> - 1.0-12
 - migrated to SPDX license
 

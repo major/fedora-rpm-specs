@@ -13,8 +13,8 @@
 %endif
 
 Name:           oneVPL-intel-gpu
-Version:        22.5.3
-Release:        2%{?dist}
+Version:        23.1.3
+Release:        1%{?dist}
 Summary:        Intel oneVPL GPU Runtime
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -70,7 +70,7 @@ rm -fr %{buildroot}%{_docdir}
 %license LICENSE
 %doc README.md CONTRIBUTING.md
 %{_libdir}/libmfx-gen.so.1.2
-%{_libdir}/libmfx-gen.so.1.2.7
+%{_libdir}/libmfx-gen.so.1.2.8
 %dir %{_libdir}/libmfx-gen
 %{_libdir}/libmfx-gen/enctools.so
 
@@ -79,6 +79,9 @@ rm -fr %{buildroot}%{_docdir}
 %{_libdir}/pkgconfig/libmfx-gen.pc
 
 %changelog
+* Mon Mar 13 2023 Adam Williamson <awilliam@redhat.com> - 23.1.3-1
+- Update to 23.1.3.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 22.5.3-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

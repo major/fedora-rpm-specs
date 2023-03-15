@@ -5,7 +5,7 @@ Version:        4.0.9
 Release:        5%{?dist}
 Summary:        Git Object Database
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/gitpython-developers/gitdb
 Source0:        %pypi_source
 # https://github.com/gitpython-developers/gitdb/pull/79

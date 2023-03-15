@@ -1,22 +1,24 @@
+%global debug_package %{nil}
 %bcond_with bootstrap
 
 Name:           xmvn-generator
-Version:        1.2.0
+Version:        1.2.1
 Release:        1%{?dist}
 Summary:        RPM dependency generator for Java
 License:        Apache-2.0
 URL:            https://github.com/fedora-java/xmvn-generator
-BuildArch:      noarch
-ExclusiveArch:  %{java_arches} noarch
+ExclusiveArch:  %{java_arches}
 
 Source0:        https://github.com/fedora-java/xmvn-generator/archive/refs/tags/%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
+BuildRequires:  gcc
 BuildRequires:  rpm-devel
 %if %{with bootstrap}
 BuildRequires:  javapackages-bootstrap
 %else
 BuildRequires:  maven-local
 BuildRequires:  mvn(org.apache.commons:commons-compress)
+BuildRequires:  mvn(org.apache.maven.plugins:maven-antrun-plugin)
 BuildRequires:  mvn(org.easymock:easymock)
 BuildRequires:  mvn(org.junit.jupiter:junit-jupiter)
 BuildRequires:  mvn(org.ow2.asm:asm)
@@ -36,13 +38,7 @@ from Lua.
 %mvn_file : %{name}
 
 %build
-# Tests fail on arches other than aarch64 and x86_64 due to missing
-# FMA support in OpenJDK.
-%ifarch aarch64 x86_64
 %mvn_build -j
-%else
-%mvn_build -f -j
-%endif
 
 %install
 %mvn_install
@@ -60,6 +56,9 @@ install -D -p -m 644 src/main/rpm/xmvngen.attr %{buildroot}%{_fileattrsdir}/xmvn
 %doc README.md
 
 %changelog
+* Mon Mar 13 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.1-1
+- Update to upstream version 1.2.1
+
 * Fri Mar 10 2023 Mikolaj Izdebski <mizdebsk@redhat.com> - 1.2.0-1
 - Update to upstream version 1.2.0
 

@@ -2,7 +2,7 @@ Name:           perl-DBM-Deep
 Version:        2.0016
 Release:        17%{?dist}
 Summary:        A pure perl multi-level hash/array DBM
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DBM-Deep
 Source0:        https://cpan.metacpan.org/authors/id/S/SP/SPROUT/DBM-Deep-%{version}.tar.gz
 Patch0:         DBM-Deep-2.0016-Module-Build.patch

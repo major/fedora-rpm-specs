@@ -2,12 +2,11 @@ Name:           perl-Crypt-Rijndael
 Version:        1.16
 Release:        7%{?dist}
 Summary:        Crypt::CBC compliant Rijndael encryption module
-# Rijndael.xs:  LGPLv2+
-# Rijndael.pm:  LGPLv3
-# ppport.h:     GPL+ or Artistic
-# COPYING:      LGPLv3+
+# Rijndael.{h,xs}, _rijndael.c: LGPL-2.0-or-later
+# Rijndael.pm, COPYING:         LGPL-3.0-only
+# ppport.h:                     GPL-1.0-or-later OR Artistic-1.0-Perl
 # See <https://github.com/Leont/crypt-rijndael/issues/10>.
-License:        LGPLv3 and LGPLv2+ and (GPL+ or Artistic)
+License:        LGPL-3.0-only AND LGPL-2.0-or-later AND (GPL-1.0-or-later OR Artistic-1.0-Perl)
 URL:            https://metacpan.org/release/Crypt-Rijndael
 Source0:        https://cpan.metacpan.org/authors/id/L/LE/LEONT/Crypt-Rijndael-%{version}.tar.gz
 BuildRequires:  gcc
@@ -51,8 +50,8 @@ find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -delete
 make test
 
 %files
-%license COPYING
-%doc Changes LICENSE NEWS README
+%license COPYING LICENSE
+%doc Changes NEWS README
 %{perl_vendorarch}/auto/*
 %{perl_vendorarch}/Crypt*
 %{_mandir}/man3/*

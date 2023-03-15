@@ -1,6 +1,6 @@
 Name:           mrchem
 Version:        1.1.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        A numerical real-space code for molecular electronic structure calculations
 License:        LGPLv3+
 URL:            https://github.com/MRChemSoft/mrchem/
@@ -29,7 +29,7 @@ BuildRequires:  eigen3-devel
 BuildRequires:  python3-devel
 BuildRequires:  xcfun-devel
 BuildRequires:  mrcpp-devel
-BuildRequires:  catch-devel
+BuildRequires:  catch2-devel
 
 # Eigen3 is a header-only library; this is for dependency tracking
 BuildRequires:  eigen3-static
@@ -117,6 +117,9 @@ EOF
 %{_datadir}/MRChem/
 
 %changelog
+* Mon Mar 13 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.1.2-2
+- Fix FTBFS caused by catch3 in rawhide.
+
 * Fri Jan 20 2023 Susi Lehtola <jussilehtola@fedoraproject.org> - 1.1.2-1
 - Update to 1.1.2.
 

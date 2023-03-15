@@ -2,93 +2,94 @@
 %bcond_without  oidentd_enables_asciidoctor
 Summary:    RFC 1413-compliant identification server with NAT support
 Name:       oidentd
-Version:    3.0.0
-Release:    4%{?dist}
-# COPYING:                  GPLv2 text
-# COPYING.DOC:              GFDLv1.3 text
-# doc/book/src/download.md:                                 GFDL
-# doc/book/src/getting-started/capabilities.md:             GFDL
-# doc/book/src/getting-started/configuration/index.md:      GFDL
-# doc/book/src/getting-started/configuration/examples.md:   GFDL
-# doc/book/src/getting-started/index.md:                    GFDL
-# doc/book/src/getting-started/installation.md:             GFDL
-# doc/book/src/getting-started/starting-the-server.md:      GFDL
-# doc/book/src/getting-started/support.md:                  GFDL
-# doc/book/src/guides/index.md:                             GFDL
-# doc/book/src/guides/using-oidentd-with-quassel.md:        GFDL
-# doc/book/src/guides/using-oidentd-with-znc.md:            GFDL
-# doc/book/src/index.md:                                    GFDL
-# doc/book/src/nat/forwarding.md:                           GFDL
-# doc/book/src/nat/index.md:                                GFDL
-# doc/book/src/nat/introduction.md:                         GFDL
-# doc/book/src/nat/static-replies.md:                       GFDL
-# doc/book/src/security/dropping-privileges.md:             GFDL
-# doc/book/src/security/hiding-connections.md:              GFDL
-# doc/book/src/security/identification-vs-authentication.md:    GFDL
-# doc/book/src/security/index.md:                           GFDL
-# doc/book/src/SUMMARY.md:  GFDL
-# doc/oidentd.8:            GFDL
-# doc/oidentd.8.adoc:       GFDL
-# doc/oidentd.conf.5.adoc:  GFDL
-# doc/oidentd_masq.conf.5:  GFDL
-# doc/oidentd_masq.conf.5.adoc  GFDL
-# src/cfg_scan.l:           GPLv2
-# src/forward.c:            GPLv2
-# src/forward.h:            GPLv2
-# src/inet_util.c:          GPLv2
-# src/inet_util.h:          GPLv2
-# src/oidentd.c:            GPLv2
-# src/oidentd.h:            GPLv2
-# src/options.c:            GPLv2
-# src/options.h:            GPLv2
-# src/masq.c:               GPLv2
-# src/masq.h:               GPLv2
-# src/missing/getopt.c:     LGPLv2+ (bundled from glibc)
-# src/missing/getopt_missing.h: LGPLv2+ (bundled from glibc)
-# src/missing/inet_aton.c:  BSD and MIT
-# src/missing/ipv6_missing.c:   BSD
-# src/missing/missing.h:    GPLv2
-# src/missing/vasprintf.c:  LGPLv2+ (bundled from libiberty)
-# src/netlink.h:            GPLv2
-# src/os.c:                 GPLv2
-# src/user_db.c:            GPLv2
-# src/user_db.h:            GPLv2
-# src/util.c:               GPLv2
-# src/util.h:               GPLv2
+Version:    3.1.0
+Release:    1%{?dist}
+# COPYING:                  GPL-2.0 text
+# COPYING.DOC:              GFDL-1.3 text
+# doc/book/src/download.md:                                 GFDL-1.3-no-invariants-or-later
+# doc/book/src/getting-started/capabilities.md:             GFDL-1.3-no-invariants-or-later
+# doc/book/src/getting-started/configuration/index.md:      GFDL-1.3-no-invariants-or-later
+# doc/book/src/getting-started/configuration/examples.md:   GFDL-1.3-no-invariants-or-later
+# doc/book/src/getting-started/index.md:                    GFDL-1.3-no-invariants-or-later
+# doc/book/src/getting-started/installation.md:             GFDL-1.3-no-invariants-or-later
+# doc/book/src/getting-started/starting-the-server.md:      GFDL-1.3-no-invariants-or-later
+# doc/book/src/getting-started/support.md:                  GFDL-1.3-no-invariants-or-later
+# doc/book/src/guides/index.md:                             GFDL-1.3-no-invariants-or-later
+# doc/book/src/guides/using-oidentd-with-quassel.md:        GFDL-1.3-no-invariants-or-later
+# doc/book/src/guides/using-oidentd-with-znc.md:            GFDL-1.3-no-invariants-or-later
+# doc/book/src/index.md:                                    GFDL-1.3-no-invariants-or-later
+# doc/book/src/nat/forwarding.md:                           GFDL-1.3-no-invariants-or-later
+# doc/book/src/nat/index.md:                                GFDL-1.3-no-invariants-or-later
+# doc/book/src/nat/introduction.md:                         GFDL-1.3-no-invariants-or-later
+# doc/book/src/nat/static-replies.md:                       GFDL-1.3-no-invariants-or-later
+# doc/book/src/security/dropping-privileges.md:             GFDL-1.3-no-invariants-or-later
+# doc/book/src/security/hiding-connections.md:              GFDL-1.3-no-invariants-or-later
+# doc/book/src/security/identification-vs-authentication.md:    GFDL-1.3-no-invariants-or-later
+# doc/book/src/security/index.md:                           GFDL-1.3-no-invariants-or-later
+# doc/book/src/SUMMARY.md:  GFDL-1.3-no-invariants-or-later
+# doc/oidentd.8:            GFDL-1.3-no-invariants-or-later
+# doc/oidentd.8.adoc:       GFDL-1.3-no-invariants-or-later
+# doc/oidentd.conf.5.adoc:  GFDL-1.3-no-invariants-or-later
+# doc/oidentd_masq.conf.5:  GFDL-1.3-no-invariants-or-later
+# doc/oidentd_masq.conf.5.adoc  GFDL-1.3-no-invariants-or-later
+# src/cfg_scan.l:           GPL-2.0-only
+# src/forward.c:            GPL-2.0-only
+# src/forward.h:            GPL-2.0-only
+# src/inet_util.c:          GPL-2.0-only
+# src/inet_util.h:          GPL-2.0-only
+# src/oidentd.c:            GPL-2.0-only
+# src/oidentd.h:            GPL-2.0-only
+# src/options.c:            GPL-2.0-only
+# src/options.h:            GPL-2.0-only
+# src/masq.c:               GPL-2.0-only
+# src/masq.h:               GPL-2.0-only
+# src/missing/missing.h:    GPL-2.0-only
+# src/netlink.h:            GPL-2.0-only
+# src/os.c:                 GPL-2.0-only
+# src/user_db.c:            GPL-2.0-only
+# src/user_db.h:            GPL-2.0-only
+# src/util.c:               GPL-2.0-only
+# src/util.h:               GPL-2.0-only
 ## Files unbundled
-# src/cfg_parse.c:          GPLv3+ with Bison exception
-#                           and GPLv2 (derived from src/cfg_parse.y)
-# src/cfg_parse.h:          GPLv3+ with Bison exception
-#                           and GPLv2 (derived from src/cfg_parse.y)
-# src/cfg_scan.c:           GPLv2
+# src/cfg_parse.c:          GPL-3.0-or-later WITH Bison-exception-2.2
+#                           AND GPL-2.0-only (derived from src/cfg_parse.y)
+# src/cfg_parse.h:          GPL-3.0-or-later WITH Bison-exception-2.2
+#                           AND GPL-2.0-only (derived from src/cfg_parse.y)
+# src/cfg_scan.c:           GPL-2.0-only
+# src/missing/inet_aton.c:  BSD-4-Clause-UC AND MIT-like (completely hidden by HAVE_INET_ATON macro)
+# src/missing/ipv6_missing.c:   BSD-2-Clause
+# src/missing/getopt.c:     LGPL-2.1-or-later (bundled from glibc)
+# src/missing/getopt_missing.h: LGPL-2.1-or-later (bundled from glibc)
+# src/missing/vasprintf.c:  LGPL-2.0-or-later (bundled from libiberty)
 ## Files not in a binary package
-# aclocal.m4:               FSFULLR
-# ar-lib:                   GPLv2+ with Autoconf exception
-# compile:                  GPLv2+ with Autoconf exception
-# config.sub:               GPLv3+ with exception
-# config.guess:             GPLv3+ with exception
+# aclocal.m4:               FSFULLRWD
+# ar-lib:                   GPL-2.0-or-later WITH Autoconf-exception-generic
+# compile:                  GPL-2.0-or-later WITH Autoconf-exception-generic
+# config.sub:               GPL-3.0-or-later WITH Autoconf-exception-generic
+# config.guess:             GPL-3.0-or-later WITH Autoconf-exception-generic
 # configure:                FSFUL
-# configure.ac:             GPLv2
-# depcomp:                  GPLv2+ with Autoconf exception
-# doc/Makefile.in:          FSFULLR
+# configure.ac:             GPL-2.0-only
+# depcomp:                  GPL-2.0-or-later WITH Autoconf-exception-generic
+# doc/Makefile.in:          FSFULLRWD
 # INSTALL:                  FSFAP
-# install-sh:               MIT and Public Domain
-# Makefile.in:              FSFULLR
-# missing:                  GPLv2+ with Autoconf exception
-# src/missing/getopt_missing.h:     LGPLv2+ (bundled from glibc)
-# src/kernel/dflybsd1.c:    GPLv2
-# src/kernel/netbsd5.c:     GPLv2
-# src/kernel/openbsd30.c:   GPLv2
-# ylwrap:                   GPLv2+ with Autoconf exception
-License:    GPLv2 and LGPLv2+ and BSD and MIT and GFDL
-URL:        https://janikrabe.com/projects/%{name}/
+# install-sh:               X11 AND LicenseRef-Fedora-Public-Domain
+# Makefile.in:              FSFULLRWD
+# missing:                  GPL-2.0-or-later WITH Autoconf-exception-generic
+# src/missing/getopt_missing.h:     LGPL-2.1-or-later (bundled from glibc)
+# src/kernel/dflybsd1.c:    GPL-2.0-only
+# src/kernel/netbsd5.c:     GPL-2.0-only
+# src/kernel/openbsd30.c:   GPL-2.0-only
+# ylwrap:                   GPL-2.0-or-later WITH Autoconf-exception-generic
+License:    GPL-2.0-only AND GFDL-1.3-no-invariants-or-later
+URL:        https://%{name}.janikrabe.com/
 Source0:    https://files.janikrabe.com/pub/%{name}/releases/%{version}/%{name}-%{version}.tar.xz
 Source1:    https://files.janikrabe.com/pub/%{name}/releases/%{version}/%{name}-%{version}.tar.xz.asc
 Source2:    https://files.janikrabe.com/keys/63694DD76ED116B84D286F75C4CD3CE186D1CA13.asc
 Source3:    oidentd.service
 Source4:    oidentd.sysconfig
-# Use sysconfig options in a per-connection unit file
-Patch0:     oidentd-2.5.0-Make-per-connection-unit-file-similar-to-Fedora-long.patch
+# Use sysconfig options in a per-connection unit file, not suitable for
+# the upstream
+Patch0:     oidentd-3.1.0-Make-per-connection-unit-file-similar-to-Fedora-long.patch
 BuildRequires:  autoconf
 BuildRequires:  automake
 # ylwrap script is a sh script
@@ -122,10 +123,15 @@ TCP/IP connections.
 
 %prep
 %{gpgverify} --keyring='%{SOURCE2}' --signature='%{SOURCE1}' --data='%{SOURCE0}'
-%setup -q
-%patch0 -p1
+%autosetup -p1
+# Replace files whose code is excluded from compilation by a C preprocessor
+# macro but whose license would influence a license of the executable.
+truncate -c -s 0 src/missing/getopt.c
+truncate -c -s 0 src/missing/getopt_missing.h
+truncate -c -s 0 src/missing/inet_aton.c
+truncate -c -s 0 src/missing/ipv6_missing.c
+truncate -c -s 0 src/missing/vasprintf.c
 # Regenerate files
-autoreconf -fi
 rm src/cfg_parse.{c,h}
 rm src/cfg_scan.c
 %if %{with oidentd_enables_asciidoctor}
@@ -135,6 +141,7 @@ rm doc/*.{5,8}
 rm doc/book/.gitignore
 
 %build
+autoreconf -fi
 %configure \
     --disable-debug \
     --enable-ipv6 \
@@ -178,10 +185,14 @@ exit 0
 %{_unitdir}/oidentd@.service
 %{_unitdir}/oidentd.socket
 %{_sbindir}/oidentd
-%{_mandir}/man?/*
-
+%{_mandir}/man5/oidentd*
+%{_mandir}/man8/oidentd.*
 
 %changelog
+* Mon Mar 13 2023 Petr Pisar <ppisar@redhat.com> - 3.1.0-1
+- 3.1.0 bump
+- License changed to "GPL-2.0-only AND GFDL-1.3-no-invariants-or-later"
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.0.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

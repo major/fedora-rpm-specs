@@ -1,56 +1,47 @@
-%global fontname manchu
-%global fontconf  66-%{fontname}.conf
+# SPDX-License-Identifier: MIT
 
-%global archivename Manchu_Font_2005_2.006.zip
+Version: 2.006
+Release: 25%{?dist}
+URL:     http://sourceforge.net/projects/manchufont/
 
-Name:           %{fontname}-fonts
-Version:        2.006
-Release:        24%{?dist}
-Summary:        A Manchu OpenType (TrueType-flavored) font
+%global foundry           Manchu
+%global fontlicense       GPL-2.0-or-later
+%global fontlicenses      "GNU GENERAL PUBLIC LICENSE.txt"
 
-License:        GPLv2+
-URL:            http://sourceforge.net/projects/manchufont/
-Source0:        http://sourceforge.net/projects/manchufont/files/ManchuFont2005%20%28Obsolete%29/ManchuFont2005%20v2.006/%{archivename}
-Source1:        %{name}-fontconfig.conf
-Source2:        %{fontname}.metainfo.xml
-
-BuildArch:      noarch
-BuildRequires:  fontpackages-devel
-Requires:       fontpackages-filesystem
-
-%description
+%global fontfamily        Manchu
+%global fontsummary       A Manchu OpenType (TrueType-flavored) font
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 A Manchu OpenType (TrueType-flavored) font
 which allows you write and read Manchu script articles correctly.
+}
+
+Source0:  http://sourceforge.net/projects/manchufont/files/ManchuFont2005%20%28Obsolete%29/ManchuFont2005%20v2.006/Manchu_Font_2005_2.006.zip
+Source10: 66-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
-%setup -q -c %{name}
-sed -i 's/\r//' GNU\ GENERAL\ PUBLIC\ LICENSE.txt
+%autosetup -c
+%linuxtext *.txt
 
 %build
-
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
+%fontinstall
 
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-                   %{buildroot}%{_fontconfig_confdir}
+%check
+%fontcheck
 
-install -m 0644 -p %{SOURCE1} \
-        %{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE2} \
-        %{buildroot}%{_datadir}/appdata/%{fontname}.metainfo.xml
-
-%_font_pkg -f %{fontconf} *.ttf
-
-%doc "GNU GENERAL PUBLIC LICENSE.txt"
-%{_datadir}/appdata/%{fontname}.metainfo.xml
+%fontfiles
 
 %changelog
+* Tue Mar  7 2023 Peng Wu <pwu@redhat.com> - 2.006-25
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.006-24
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

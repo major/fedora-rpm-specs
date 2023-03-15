@@ -4,10 +4,10 @@
 # git clone https://github.com/raspberrypi/firmware.git
 # cd firmware/boot
 # tar cJvf ../bcm283x-firmware-%{gitshort}.tar.xz *bin *dat *elf bcm2709*dtb bcm271*dtb LICENCE.broadcom COPYING.linux overlays/
-%define gitshort 2578acb
+%define gitshort 379d5bf
 
 Name:          bcm283x-firmware
-Version:       20230118
+Version:       20230308
 Release:       1.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm2711 used in the Raspberry Pi
 # see LICENSE.broadcom
@@ -15,7 +15,7 @@ Summary:       Firmware for the Broadcom bcm283x/bcm2711 used in the Raspberry P
 License:       Redistributable, no modification permitted
 URL:           https://github.com/raspberrypi/
 
-ExclusiveArch: %{arm} aarch64
+ExclusiveArch: aarch64
 
 BuildRequires: efi-filesystem
 BuildRequires: efi-srpm-macros
@@ -25,8 +25,7 @@ Requires:      bcm2835-firmware
 Requires:      bcm2711-firmware
 
 Source0:       %{name}-%{gitshort}.tar.xz
-Source1:       config.txt
-Source2:       config-64.txt
+Source1:       config-64.txt
 
 %description
 Firmware for the Broadcom bcm283x and bcm2711 series of systems on a chip as
@@ -44,7 +43,7 @@ Requires:    bcm283x-firmware
 Requires:    bcm283x-overlays
 
 %description -n bcm2835-firmware
-Firmware for the Raspberry Pi 2, 3, 3+ and CM3
+Firmware for the Raspberry Pi 3 series (3, 3+ and CM3) and Zero2W
 
 %package     -n bcm2711-firmware
 Summary:     Firmware for the Raspberry Pi 4 and CM4
@@ -62,16 +61,14 @@ Firmware for the Raspberry Pi 4 and CM4
 
 %install
 mkdir -p %{buildroot}%{efi_esp_root}/overlays
-%ifarch %{arm}
-install -p %{SOURCE1} %{buildroot}%{efi_esp_root}/config.txt
-%endif
 %ifarch aarch64
-install -p %{SOURCE2} %{buildroot}%{efi_esp_root}/config.txt
+install -p %{SOURCE1} %{buildroot}%{efi_esp_root}/config.txt
 %endif
 install -p *bin %{buildroot}%{efi_esp_root}
 install -p *dat %{buildroot}%{efi_esp_root}
 install -p *elf %{buildroot}%{efi_esp_root}
-install -p *dtb %{buildroot}%{efi_esp_root}
+install -p bcm2710*dtb %{buildroot}%{efi_esp_root}
+install -p bcm2711*dtb %{buildroot}%{efi_esp_root}
 install -p overlays/README %{buildroot}%{efi_esp_root}/overlays
 install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 
@@ -86,7 +83,6 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/overlays
 
 %files -n bcm2835-firmware
-%{efi_esp_root}/bcm2709-rpi-*
 %{efi_esp_root}/bcm2710-rpi-*
 %{efi_esp_root}/fixup*
 %{efi_esp_root}/start*
@@ -99,6 +95,10 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/start4*
 
 %changelog
+* Sat Jan 28 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230308-1.379d5bf
+- Update to latest firmware
+- Drop armhfp pieces
+
 * Sat Jan 28 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230118-1.2578acb
 - Update to latest firmware
 

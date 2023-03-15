@@ -12,13 +12,18 @@
 %define _lto_cflags %{nil}
 %endif
 
+# Clean pushed RUSTFLAGS to make it buildable
+%if %defined build_rustflags
+%global build_rustflags %{nil}
+%endif
+
 # Big endian platforms
 %ifarch ppc ppc64 s390 s390x
 %global big_endian 1
 %endif
 
 Name:           mozjs%{major}
-Version:        102.8.0
+Version:        102.9.0
 Release:        1%{?dist}
 Summary:        SpiderMonkey JavaScript library
 
@@ -225,6 +230,9 @@ ln -s libmozjs-%{major}.so.0 %{buildroot}%{_libdir}/libmozjs-%{major}.so
 %{_includedir}/mozjs-%{major}/
 
 %changelog
+* Mon Mar 13 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.9.0-1
+- mozjs102-102.9.0 (fixes RHBZ#2177727)
+
 * Fri Feb 17 2023 Frantisek Zatloukal <fzatlouk@redhat.com> - 102.8.0-1
 - mozjs102-102.8.0 (fixes RHBZ#2169721)
 

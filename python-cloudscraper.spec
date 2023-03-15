@@ -7,7 +7,7 @@ Version:        1.2.62
 Release:        %autorelease
 Summary:        Python module to bypass Cloudflare's anti-bot page
 
-License:        MIT
+License:        MIT 
 URL:            https://github.com/venomous/cloudscraper
 Source0:        %{url}/archive/%{version}/%{pypi_name}-%{version}.tar.gz
 BuildArch:      noarch

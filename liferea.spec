@@ -1,11 +1,11 @@
 Name:           liferea
 Epoch:          1
-Version:        1.14.0
+Version:        1.14.1
 Release:        1%{?dist}
 Summary:        An RSS/RDF feed reader
 
-License:        GPLv2+
-URL:            http://lzone.de/liferea/
+License:        GPL-2.0-or-later
+URL:            https://lzone.de/liferea/
 Source0:        https://github.com/lwindolf/liferea/releases/download/v%{version}/liferea-%{version}.tar.bz2
 
 %if 0%{?rhel} < 8
@@ -13,18 +13,18 @@ BuildRequires:  webkitgtk4-devel
 %else
 BuildRequires:  webkit2gtk3-devel
 %endif
-BuildRequires:  intltool
-BuildRequires:  libxslt-devel
-BuildRequires:  sqlite-devel
+BuildRequires:  desktop-file-utils
 BuildRequires:  gobject-introspection-devel
 BuildRequires:  gsettings-desktop-schemas-devel
-BuildRequires:  libpeas-devel
+BuildRequires:  intltool
 BuildRequires:  json-glib-devel
-BuildRequires:  desktop-file-utils
-BuildRequires:  libnotify-devel
-BuildRequires:  xorg-x11-server-Xvfb
 BuildRequires:  libappstream-glib
+BuildRequires:  libnotify-devel
+BuildRequires:  libpeas-devel
+BuildRequires:  libxslt-devel
 BuildRequires:  make
+BuildRequires:  sqlite-devel
+BuildRequires:  xorg-x11-server-Xvfb
 
 %if 0%{?rhel} >= 7
 Requires:       libpeas-loader-python%{python3_pkgversion}
@@ -34,31 +34,31 @@ Requires:       libpeas-loader-python3
 Requires:       libpeas-gtk
 
 %description
-Liferea (Linux Feed Reader) is an RSS/RDF feed reader. 
-It's intended to be a clone of the Windows-only FeedReader. 
-It can be used to maintain a list of subscribed feeds, 
+Liferea (Linux Feed Reader) is an RSS/RDF feed reader.
+It's intended to be a clone of the Windows-only FeedReader.
+It can be used to maintain a list of subscribed feeds,
 browse through their items, and show their contents.
 
 %prep
 %autosetup -p1 -n %{name}-%{version}
 
 %build
-%configure  --enable-libnotify --disable-static
+%configure --disable-static
 
 %if 0%{?rhel} < 8
-xvfb-run -- make V=1 %{?_smp_mflags} CFLAGS="${RPM_OPT_FLAGS} --std=c99"
+xvfb-run -- %make_build CFLAGS="%{optflags} --std=c99"
 %else
-xvfb-run -- make V=1 %{?_smp_mflags}
+xvfb-run -- %make_build
 %endif
 
 %install
-make install DESTDIR=${RPM_BUILD_ROOT}
+%make_install
 
 %find_lang %{name}
 
 # Upstream sets Version to 1.1 although the 1.1 spec says to use 1.0
-desktop-file-edit --set-key=Version --set-value=1.0 ${RPM_BUILD_ROOT}/%{_datadir}/applications/net.sourceforge.liferea.desktop
-desktop-file-validate ${RPM_BUILD_ROOT}/%{_datadir}/applications/net.sourceforge.liferea.desktop
+desktop-file-edit --set-key=Version --set-value=1.0 %{buildroot}/%{_datadir}/applications/net.sourceforge.liferea.desktop
+desktop-file-validate %{buildroot}/%{_datadir}/applications/net.sourceforge.liferea.desktop
 
 %check
 appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourceforge.liferea.appdata.xml
@@ -87,6 +87,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_datadir}/metainfo/net.sourc
 
 
 %changelog
+* Mon Mar 13 2023 Emmanuel Seyman <emmanuel@seyman.fr> - 1:1.14.1-1
+- Update to 1.14.1 (thanks to mikelo2) (#2177773)
+
 * Thu Jan 26 2023 josef radinger <cheese@nosuchhost.net> - 1:1.14.0-1
 - bump version
 

@@ -3,7 +3,7 @@
 %bcond_without tests
 
 Name:           python-jupyter-server
-Version:        2.3.0
+Version:        2.4.0
 Release:        1%{?dist}
 Summary:        The backend for Jupyter web applications
 License:        BSD-3-Clause
@@ -59,6 +59,9 @@ sed -i '/"pre-commit"/d' pyproject.toml
 
 
 %changelog
+* Wed Mar 08 2023 Lumír Balhar <lbalhar@redhat.com> - 2.4.0-1
+- Update to 2.4.0 (rhbz#2175904)
+
 * Thu Feb 23 2023 Lumír Balhar <lbalhar@redhat.com> - 2.3.0-1
 - Update to 2.3.0 (rhbz#2166138)
 

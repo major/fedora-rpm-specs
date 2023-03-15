@@ -1,11 +1,11 @@
 Name:           perl-Unicode-Collate
 Version:        1.31
-Release:        490%{?dist}
+Release:        491%{?dist}
 Summary:        Unicode Collation Algorithm
-# Collate/allkeys.txt:  Unicode (the file contains a link to
+# Collate/allkeys.txt:  Unicode-DFS-2016 (the file contains a link to
 #                       <http://www.unicode.org/terms_of_use.html>)
-# other files:          GPL+ or Artistic
-License:        (GPL+ or Artistic) and Unicode
+# other files:          GPL-1.0-or-later OR Artistic-1.0-Perl
+License:        (GPL-1.0-or-later OR Artistic-1.0-Perl) AND Unicode-DFS-2016
 URL:            https://metacpan.org/release/Unicode-Collate
 Source0:        https://cpan.metacpan.org/authors/id/S/SA/SADAHIRO/Unicode-Collate-%{version}.tar.gz
 BuildRequires:  coreutils
@@ -92,6 +92,9 @@ make test
 %{_libexecdir}/%{name}
 
 %changelog
+* Mon Mar 06 2023 Michal Josef Špaček <mspacek@redhat.com> - 1.31-491
+- Update license to SPDX format
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1.31-490
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

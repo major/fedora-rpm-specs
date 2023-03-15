@@ -2,7 +2,7 @@
 
 Name:           python-%{srcname}
 Version:        1.0.0
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Extensions for mypy (separated out from mypy/extensions)
 
 License:        MIT
@@ -45,6 +45,9 @@ rm -vrf *.egg-info/
 %{python3_sitelib}/__pycache__/%{srcname}.*
 
 %changelog
+* Mon Mar 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0-2
+- migrate to SPDX license
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.0.0-1
 - 1.0.0
 

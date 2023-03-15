@@ -26,8 +26,8 @@
 %bcond_without tests_long
 
 Name:              openvpn
-Version:           2.6.0
-Release:           2%{?dist}
+Version:           2.6.1
+Release:           1%{?dist}
 Summary:           A full-featured TLS VPN solution (beta release)
 URL:               https://community.openvpn.net/
 Source0:           https://build.openvpn.net/downloads/releases/%{name}-%{version}.tar.gz
@@ -244,6 +244,9 @@ getent passwd openvpn &>/dev/null || \
 
 
 %changelog
+* Mon Mar 13 2023 David Sommerseth <davids@openvpn.net> -2.6.1-1
+- Update to upstream OpenVPN 2.6.1
+
 * Thu Jan 26 2023 David Sommerseth <davids@openvpn.net> - 2.6.0-2
 - Add missing fedora-crypto-policy-compliance.patch
 

@@ -1,8 +1,9 @@
 %global pypi_name botocore
+%bcond_without tests
 
 Name:           python-%{pypi_name}
 # NOTICE - Updating this package requires updating python-boto3
-Version:        1.29.89
+Version:        1.29.90
 Release:        1%{?dist}
 Summary:        Low-level, data-driven core of boto 3
 
@@ -11,30 +12,27 @@ URL:            https://github.com/boto/botocore
 Source0:        %{pypi_source}
 BuildArch:      noarch
 
-BuildRequires:  pyproject-rpm-macros
-BuildRequires:  python3-devel
-
-# For tests:
-BuildRequires:  python3-jsonschema
-BuildRequires:  python3-pytest
-
-%description
+%global _description %{expand:
 A low-level interface to a growing number of Amazon Web Services. The
-botocore package is the foundation for the AWS CLI as well as boto3.
+botocore package is the foundation for the AWS CLI as well as boto3.}
+
+%description %{_description}
 
 %package -n     python3-%{pypi_name}
 Summary:        Low-level, data-driven core of boto 3
-Provides:       bundled(python3-six) = 1.10.0
-%{?python_provide:%python_provide python3-%{pypi_name}}
+BuildRequires:  python3-devel
+%if %{with tests}
+# For tests:
+BuildRequires:  python3-jsonschema
+BuildRequires:  python3-pytest
+%endif
+Provides:       bundled(python3-six) = 1.16.0
+Provides:       bundled(python3-requests) = 2.7.0
 
-
-%description -n python3-%{pypi_name}
-A low-level interface to a growing number of Amazon Web Services. The
-botocore package is the foundation for the AWS CLI as well as boto3.
+%description -n python3-%{pypi_name} %{_description}
 
 %prep
 %autosetup -n %{pypi_name}-%{version} -p1
-rm -vr %{pypi_name}.egg-info
 # Remove online tests
 rm -vr tests/integration
 # This test tried to import tests/cmd-runner which failed as the code was
@@ -43,25 +41,33 @@ rm -vr tests/integration
 rm -vr tests/functional/leak
 
 %generate_buildrequires
-# -r use final runtime dependencies as BuildRequires
-%pyproject_buildrequires -r
+%pyproject_buildrequires
 
 %build
 %pyproject_wheel
 
 %install
 %pyproject_install
+%pyproject_save_files %{pypi_name}
 
 %check
+%if %{with tests}
 %pytest
+%else
+%pyproject_check_import -e botocore.crt.auth -e botocore.vendored*
+%endif
 
-%files -n python3-%{pypi_name}
+%files -n python3-%{pypi_name} -f %{pyproject_files}
 %doc README.rst
 %license LICENSE.txt
-%{python3_sitelib}/%{pypi_name}/
-%{python3_sitelib}/%{pypi_name}-*.dist-info/
 
 %changelog
+* Mon Mar 13 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.90-1
+- 1.29.90
+
+* Sun Mar 12 2023 Igor Raits <igor@gooddata.com> - 1.29.89-2
+- Update bundled provides
+
 * Fri Mar 10 2023 Gwyn Ciesla <gwync@protonmail.com> - 1.29.89-1
 - 1.29.89
 

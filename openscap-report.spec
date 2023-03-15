@@ -1,8 +1,8 @@
 %global pymodule_name openscap_report
 
 Name:           openscap-report
-Version:        0.2.0
-Release:        0%{?dist}
+Version:        0.2.1
+Release:        1%{?dist}
 Summary:        A tool for generating human-readable reports from (SCAP) XCCDF and ARF results
 
 # The entire source code is LGPL-2.1+ and GPL-2.0+ and MIT except schemas/ and assets/, which are Public Domain
@@ -59,6 +59,12 @@ install -m 0644 -Dt %{buildroot}%{_mandir}/man1 _build_docs/oscap-report.1
 
 
 %changelog
+* Mon Mar 13 2023 Packit <hello@packit.dev> - 0.2.1-1
+- 0.2.1 (Jan Rodak)
+- Add rule weight attribute to report (Jan Rodak)
+- Parse rule weight attribute (Jan Rodak)
+- Add weight attribute to rule datastructure (Jan Rodak)
+
 * Wed Mar 08 2023 Packit <hello@packit.dev> - 0.2.0-0
 - 0.2.0 (Jan Rodak)
 - Add JSON validator tool (Jan Rodak)

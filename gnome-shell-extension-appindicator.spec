@@ -1,7 +1,7 @@
 %global uuid appindicatorsupport@rgcjonas.gmail.com
 
 Name: gnome-shell-extension-appindicator
-Version: 52
+Version: 53
 Release: %autorelease
 Summary: AppIndicator/KStatusNotifierItem support for GNOME Shell
 BuildArch: noarch

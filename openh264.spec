@@ -4,12 +4,12 @@
 %global shortcommit1 %(c=%{commit1}; echo ${c:0:7})
 
 %global openh264_version 2.3.1
-%global gst_version 1.20.3
+%global gst_version 1.22.1
 
 Name:           openh264
 Version:        %{openh264_version}
 # Also bump the Release tag for gstreamer1-plugin-openh264 down below
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        H.264 codec library
 
 License:        BSD
@@ -58,7 +58,7 @@ browsers.
 
 %package     -n gstreamer1-plugin-openh264
 Version:        %{gst_version}
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        GStreamer H.264 plugin
 
 %description -n gstreamer1-plugin-openh264
@@ -211,6 +211,9 @@ popd
 
 
 %changelog
+* Mon Mar 13 2023 Kalev Lember <klember@redhat.com> - 2.3.1-2
+- Update gstreamer plugin to 1.22.1
+
 * Thu Sep 29 2022 Kalev Lember <klember@redhat.com> - 2.3.1-1
 - Update to 2.3.1
 

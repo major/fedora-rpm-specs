@@ -28,7 +28,7 @@
 Name:    plasma-workspace
 Summary: Plasma workspace, applications and applets
 Version: 5.27.2
-Release: 1%{?dist}
+Release: 3%{?dist}
 
 License: GPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -392,6 +392,7 @@ Requires: %{name}-geolocation = %{version}-%{release}
 
 %package -n sddm-breeze
 Summary:        SDDM breeze theme
+Requires:       kde-settings-sddm
 # upgrade path, when sddm-breeze was split out
 Obsoletes: plasma-workspace < 5.3.2-8
 Requires:       kf5-plasma >= %{kf5_version_min}
@@ -791,6 +792,12 @@ fi
 
 
 %changelog
+* Mon Mar 13 2023 Adam Williamson <awilliam@redhat.com> - 5.27.2-3
+- Rebuild with no changes for F38 Bodhi purposes
+
+* Mon Mar 13 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-2
+- Add Requires: kde-settings-sddm to sddm-breeze subpackage
+
 * Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
 - 5.27.2
 

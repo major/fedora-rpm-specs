@@ -1,8 +1,8 @@
 %global	modname	fpylll
 
 Name:		python-%{modname}
-Version:	0.5.7
-Release:	4%{?dist}
+Version:	0.5.9
+Release:	1%{?dist}
 Summary:	A Python wrapper for fplll
 License:	GPL-2.0-or-later
 URL:		https://github.com/fplll/%{modname}
@@ -24,10 +24,7 @@ A Python wrapper for fplll.
 Summary:	A Python 3 wrapper for fplll
 BuildRequires:	python3-cysignals-devel
 BuildRequires:	python3-devel
-BuildRequires:	%{py3_dist cython}
 BuildRequires:	%{py3_dist docutils}
-BuildRequires:	%{py3_dist numpy}
-BuildRequires:	%{py3_dist pygments}
 BuildRequires:	%{py3_dist pytest}
 
 Requires:	%{py3_dist cysignals}
@@ -45,16 +42,19 @@ A Python 3 wrapper for fplll.
 # Tell Cython to generate python 3 code
 sed -i "s/\('language_level': \)2/\13/" setup.py
 
+%generate_buildrequires
+%pyproject_buildrequires
+
 %build
 # Do not pass -pthread to the compiler or linker
 export CC=gcc
 export LDSHARED="gcc -shared"
-%py3_build
+%pyproject_wheel
 rst2html --no-datestamp README.rst README.html
 
 %install
-%py3_install
-mkdir -p %{buildroot}%{_docdir}/%{name}
+%pyproject_install
+%pyproject_save_files %{modname}
 
 %check
 pushd tests
@@ -63,17 +63,20 @@ pushd tests
     PYTHONPATH=%{buildroot}%{python3_sitearch} pytest
 popd
 
-%files -n python3-%{modname}
+%files -n python3-%{modname} -f %{pyproject_files}
 %license LICENSE
 %doc PKG-INFO README.html
-%{python3_sitearch}/%{modname}
-%{python3_sitearch}/%{modname}-*.egg-info
 
 %changelog
+* Mon Mar 13 2023 Jerry James <loganjerry@gmail.com> - 0.5.9-1
+- Version 0.5.9
+- Use pyproject macros
+- Dynamically generate BuildRequires
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.5.7-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
-* THu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.5.7-3
+* Thu Jan 12 2023 Jerry James <loganjerry@gmail.com> - 0.5.7-3
 - Rebuild for libfplll 5.4.4
 
 * Tue Dec 20 2022 Jerry James <loganjerry@gmail.com> - 0.5.7-2

@@ -6,14 +6,14 @@
 %global snapshottag .git%{shortcommit0}
 %endif
 
-Summary: Qt6 - Configuration Tool
 Name:    qt6ct
-Version: 0.7
+Version: 0.8
 %if 0%{?usesnapshot}
 Release: 0.2%{?snapshottag}%{?dist}
 %else
-Release: 2%{?dist}
+Release: 1%{?dist}
 %endif
+Summary: Qt6 - Configuration Tool
 
 # The entire source code is under BSD-2-Clause License
 License: BSD
@@ -78,8 +78,14 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/%{name}/colors/*.conf
 %dir %{_datadir}/%{name}/qss/
 %{_datadir}/%{name}/qss/*.qss
+%{_libdir}/libqt6ct-common.so
+%{_libdir}/libqt6ct-common.so.0
+%{_libdir}/libqt6ct-common.so.%{version}*
 
 %changelog
+* Mon Mar 13 2023 Martin Gansser <martinkg@fedoraproject.org> - 0.8-1
+- Update to 0.8-1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

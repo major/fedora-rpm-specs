@@ -1,7 +1,7 @@
 %global gstreamer1_version 1.8.0
 
 Name:           python-gstreamer1
-Version:        1.22.0
+Version:        1.22.1
 Release:        1%{?dist}
 Summary:        Python bindings for GStreamer
 
@@ -11,7 +11,6 @@ Source:         http://gstreamer.freedesktop.org/src/gst-python/gst-python-%{ver
 
 # Submitted as a PR upstream
 # https://gitlab.freedesktop.org/gstreamer/gstreamer/-/merge_requests/3004
-Patch1: gst-python-gi_platlib.patch
 
 BuildRequires:  meson >= 0.48.0
 BuildRequires:  gcc
@@ -61,6 +60,9 @@ find -name '*.py' | xargs sed -i '1s|^#!python|#!%{__python3}|'
 %{_libdir}/gstreamer-1.0/libgstpython.*so
 
 %changelog
+* Mon Mar 13 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.1-1
+- Update to 1.22.1
+
 * Tue Jan 24 2023 Wim Taymans <wtaymans@redhat.com> - 1.22.0-1
 - Update to 1.22.0
 

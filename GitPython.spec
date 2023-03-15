@@ -5,7 +5,7 @@ Version:        3.1.30
 Release:        2%{?dist}
 Summary:        Python Git Library
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/gitpython-developers/GitPython
 Source0:        %pypi_source
 

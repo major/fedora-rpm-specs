@@ -6,7 +6,7 @@
 
 Name:           python-%{srcname}
 Version:        39.0.2
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        PyCA's cryptography library
 
 # cryptography is dual licensed under the Apache-2.0 and BSD-3-Clause,
@@ -41,11 +41,11 @@ BuildRequires:  python%{python3_pkgversion}-hypothesis >= 1.11.4
 BuildRequires:  python%{python3_pkgversion}-iso8601
 BuildRequires:  python%{python3_pkgversion}-pretend
 BuildRequires:  python%{python3_pkgversion}-pytest-xdist
+BuildRequires:  python%{python3_pkgversion}-pytz
 %endif
 BuildRequires:  python%{python3_pkgversion}-pytest >= 6.2.0
 BuildRequires:  python%{python3_pkgversion}-pytest-benchmark
 BuildRequires:  python%{python3_pkgversion}-pytest-subtests >= 0.3.2
-BuildRequires:  python%{python3_pkgversion}-pytz
 %endif
 
 %description
@@ -97,17 +97,15 @@ find . -name .keep -print -delete
 %check
 %if %{with tests}
 %if 0%{?rhel}
-# skip hypothesis tests on RHEL
-rm -rf tests/hypothesis
+# skip hypothesis and pytz tests on RHEL
+rm -rf tests/hypothesis tests/x509
 # append skipper to skip iso8601 and pretend tests
 cat < %{SOURCE2} >> tests/conftest.py
 %endif
 
-%if 0%{?eln}
 # enable SHA-1 signatures for RSA tests
 # also see https://github.com/pyca/cryptography/pull/6931 and rhbz#2060343
 export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
-%endif
 
 # see https://github.com/pyca/cryptography/issues/4885 and
 # see https://bugzilla.redhat.com/show_bug.cgi?id=1761194 for deselected tests
@@ -116,6 +114,7 @@ export OPENSSL_ENABLE_SHA1_SIGNATURES=yes
 # see rhbz#2171661 for test_load_invalid_ec_key_from_pem: error:030000CD:digital envelope routines::keymgmt export failure
 PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
     %{__python3} -m pytest \
+    --ignore vendor \
     -k "not (test_buffer_protocol_alternate_modes or test_dh_parameters_supported or test_load_ecdsa_no_named_curve or test_decrypt_invalid_decrypt or test_openssl_memleak or test_load_invalid_ec_key_from_pem)"
 %endif
 
@@ -126,6 +125,10 @@ PYTHONPATH=${PWD}/vectors:%{buildroot}%{python3_sitearch} \
 %{python3_sitearch}/%{srcname}-%{version}-py*.egg-info
 
 %changelog
+* Thu Mar 09 2023 Miro Hrončok <mhroncok@redhat.com> - 39.0.2-2
+- Don't run tests requiring pytz on RHEL
+- Don't try to run tests of vendored dependencies in %%check
+
 * Sat Mar 04 2023 Christian Heimes <cheimes@redhat.com> - 39.0.2-1
 - Update to 39.0.2, resolves rhbz#2124729
 

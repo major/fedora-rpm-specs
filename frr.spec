@@ -7,7 +7,7 @@
 
 Name:           frr
 Version:        8.4.2
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        Routing daemon
 License:        GPLv2+
 URL:            http://www.frrouting.org
@@ -99,6 +99,8 @@ SELinux policy modules for FRR package
 #Selinux
 mkdir selinux
 cp -p %{SOURCE3} %{SOURCE4} %{SOURCE5} selinux
+# C++14 or later needed for abseil-cpp 20230125; string_view needs C++17:
+sed -r -i 's/(AX_CXX_COMPILE_STDCXX\(\[)11(\])/\117\2/' configure.ac
 
 %build
 autoreconf -ivf
@@ -267,6 +269,9 @@ rm tests/lib/*grpc*
 %endif
 
 %changelog
+* Wed Mar 08 2023 Benjamin A. Beasley <code@musicinmybrain.net> - 8.4.2-3
+- Build as C++17, required by abseil-cpp 20230125
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.4.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

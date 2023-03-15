@@ -41,11 +41,11 @@ on a regular computer as well, if the security implications are acceptable.
 %patch1 -p0
 %patch2 -p1
 
+%build
 # run autogen.sh since we patch configure.ac
 # but don't run configure twice
 NOCONFIGURE=true ./autogen.sh
 
-%build
 %configure
 %make_build
 

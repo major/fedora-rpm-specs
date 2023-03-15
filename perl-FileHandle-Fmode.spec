@@ -2,17 +2,17 @@ Name:           perl-FileHandle-Fmode
 Version:        0.14
 Release:        23%{?dist}
 Summary:        FileHandle::Fmode Perl module
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/FileHandle-Fmode
 Source0:        https://cpan.metacpan.org/modules/by-module/FileHandle/FileHandle-Fmode-%{version}.tar.gz
-BuildRequires:  gcc
 BuildRequires:  coreutils
 BuildRequires:  dos2unix
 BuildRequires:  findutils
+BuildRequires:  gcc
 BuildRequires:  make
-BuildRequires:  perl-interpreter
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
 BuildRequires:  perl(DynaLoader)
 BuildRequires:  perl(Exporter)
 BuildRequires:  perl(ExtUtils::MakeMaker)

@@ -13,7 +13,7 @@ in a minimal diff.}
 
 
 Name:           python-specfile
-Version:        0.14.0
+Version:        0.15.0
 Release:        1%{?dist}
 
 Summary:        A library for parsing and manipulating RPM spec files
@@ -67,6 +67,10 @@ Summary:        %{summary}
 
 
 %changelog
+* Fri Mar 10 2023 Packit <hello@packit.dev> - 0.15.0-1
+- Parsing the spec file by RPM is now performed only if really necessary, greatly improving performance in certain scenarios. (#212)
+- Checked that license is a valid SPDX license.
+
 * Thu Feb 23 2023 Packit <hello@packit.dev> - 0.14.0-1
 - Fixed a bug that broke parsing in case spec file contained conditionalized macro definitions or similar constructs. (#209)
 - Specfile no longer depends on rpm-py-installer, it now depends directly on rpm. (#207)

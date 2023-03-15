@@ -1,7 +1,7 @@
 Summary: Intrusion Detection System
 Name: suricata
-Version: 6.0.9
-Release: 3%{?dist}
+Version: 6.0.10
+Release: 1%{?dist}
 License: GPL-2.0-only
 URL: https://suricata-ids.org/
 Source0: https://www.openinfosecfoundation.org/download/%{name}-%{version}.tar.gz
@@ -21,10 +21,8 @@ Patch3: suricata-4.1.4-socket.patch
 Patch4: suricata-5.0.4-geolite-path-fixup.patch
 # The log path has an extra '/' at the end
 Patch5: suricata-6.0.3-log-path-fixup.patch
-# update deprecated API calls
-Patch6: suricata-6.0.6-ebpf-update-deprecated-API-calls.patch
 # Build fails with ambiguous python shebang
-Patch7: suricata-6.0.9-python.patch
+Patch6: suricata-6.0.9-python.patch
 
 BuildRequires: make
 BuildRequires: gcc gcc-c++
@@ -85,7 +83,6 @@ install -m 644 %{SOURCE2} doc/
 %patch4 -p1
 %patch5 -p1
 %patch6 -p1
-%patch7 -p1
 sed -i 's/(datadir)/(sysconfdir)/' etc/Makefile.am
 %ifarch x86_64
 sed -i 's/-D__KERNEL__/-D__KERNEL__ -D__x86_64__/' ebpf/Makefile.am
@@ -197,6 +194,9 @@ fi
 %{_datadir}/%{name}/rules
 
 %changelog
+* Mon Mar 13 2023 Steve Grubb <sgrubb@redhat.com> 6.0.10-1
+- New security and bugfix release
+
 * Mon Feb 06 2023 Fabio Valentini <decathorpe@gmail.com> - 6.0.9-3
 - Ensure standard Rust compiler flags are set.
 

@@ -43,15 +43,15 @@
 %endif
 
 Name:           xpra
-Version:        4.4.3
-Release:        5%{?dist}
+Version:        4.4.4
+Release:        1%{?dist}
 Summary:        Remote display server for applications and desktops
 License:        GPLv2+ and BSD and LGPLv3+ and MIT
 URL:            https://www.xpra.org/
 Source0:        https://github.com/Xpra-org/xpra/archive/refs/tags/v%{version}/%{name}-%{version}.tar.gz
 # Appdata file for Fedora
 Source1:        %{name}.appdata.xml
-Patch2:         %{name}-bug3693.patch
+Patch1:         ignore_assert_pandoc.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  gtk3-devel
@@ -73,7 +73,7 @@ BuildRequires:  pandoc
 # needs by setup.py to detect systemd `sd_listen_ENABLED = POSIX and pkg_config_ok("--exists", "libsystemd")`
 BuildRequires:  systemd-devel
 %if 0%{?fedora}
-BuildRequires:  pkgconfig(libprocps)
+BuildRequires:  procps-ng-devel
 %endif
 BuildRequires:  pkgconfig(libavif)
 BuildRequires:  pkgconfig(libqrencode)
@@ -114,13 +114,14 @@ Requires: python3-ldap3
 Requires: python3-rencode
 Requires: python3-netifaces
 Requires: python3-dbus
+Requires: python3-numpy
+Requires: python3-zeroconf
 Requires: dbus-x11
 Requires: xmodmap
 Requires: xrandr
 Requires: xorg-x11-drv-dummy%{?_isa}
 Requires: xorg-x11-xauth%{?_isa}
 Requires: xorg-x11-server-Xorg%{?_isa}
-Requires: python3-numpy
 Requires: gstreamer1%{?_isa}
 Requires: gstreamer1-plugins-base%{?_isa}
 Requires: gstreamer1-plugins-good%{?_isa}
@@ -163,9 +164,7 @@ Xpra is usable over reasonably slow links and does its best to adapt to changing
 network bandwidth constraints.
 
 %prep
-%autosetup -n %{name}-%{version} -N
-
-%patch2 -p1 -R -b .backup
+%autosetup -p1 -n %{name}-%{version}
 
 # cc1: error: unrecognized compiler option ‘-mfpmath=387’
 %ifarch %{arm}
@@ -218,7 +217,7 @@ install -pm 644 fs/etc/xpra/nvenc.keys %{buildroot}%{_sysconfdir}/xpra
 #remove doc stuff from /usr/share
 rm %{buildroot}%{_datadir}/xpra/COPYING
 
-#fi shebangs from python3_sitearch
+#fix shebangs from python3_sitearch
 for i in `ack -rl '^#!/.*python' %{buildroot}%{python3_sitearch}/xpra`; do
     %py3_shebang_fix $i
     chmod 0755 $i
@@ -301,6 +300,14 @@ getent group xpra >/dev/null || groupadd -r xpra
 %{_udevrulesdir}/71-xpra-virtual-pointer.rules
 
 %changelog
+* Mon Mar 13 2023 Sérgio Basto <sergio@serjux.com> - 4.4.4-1
+- Update xpra to 4.4.4 (#2177195)
+
+* Mon Mar 13 2023 Sérgio Basto <sergio@serjux.com> - 4.4.3-6
+- Add python3-zeroconf to requires, we need to see if it iwe choose be just
+  recommend
+- xpra-bug3693.patch already available in source code
+
 * Wed Feb 15 2023 Tom Callaway <spot@fedoraproject.org> - 4.4.3-5
 - rebuild for libvpx
 

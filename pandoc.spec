@@ -26,7 +26,7 @@
 Name:           %{pkg_name}
 Version:        2.19.2
 # can only be reset when all subpkgs bumped
-Release:        20%{?dist}
+Release:        21%{?dist}
 Summary:        Conversion between markup formats
 
 License:        GPL-2.0-or-later
@@ -49,6 +49,7 @@ Source13:       https://hackage.haskell.org/package/%{hsluamoduleversion}/%{hslu
 Source14:       https://hackage.haskell.org/package/%{lpeg}/%{lpeg}.tar.gz
 Source15:       https://hackage.haskell.org/package/%{pandocluamarshal}/%{pandocluamarshal}.tar.gz
 # End cabal-rpm sources
+Patch0:         pandoc-version-disable-hslua.patch
 
 # Begin cabal-rpm deps:
 BuildRequires:  ghc-Cabal-devel
@@ -417,6 +418,9 @@ This package provides the Haskell %{name} profiling library.
 # Begin cabal-rpm setup:
 %setup -q -a1 -a2 -a3 -a4 -a5 -a6 -a7 -a8 -a9 -a10 -a11 -a12 -a13 -a14 -a15
 # End cabal-rpm setup
+%ifarch ppc64le
+%patch0 -p1 -b .orig
+%endif
 
 
 %build
@@ -449,6 +453,10 @@ echo %{_bindir}/jira-wiki-markup >> %{jirawikimarkup}/ghc-jira-wiki-markup.files
 
 mkdir -p %{buildroot}%{_datadir}/bash-completion/completions/
 touch %{buildroot}%{_datadir}/bash-completion/completions/%{name}
+
+
+%check
+%{buildroot}%{_bindir}/pandoc -v
 
 
 %post
@@ -492,6 +500,9 @@ touch %{buildroot}%{_datadir}/bash-completion/completions/%{name}
 
 
 %changelog
+* Mon Mar 13 2023 Jens Petersen <petersen@redhat.com> - 2.19.2-21
+- ppc64le: disable hslua version check to avoid --version crash (rhbz#2177568)
+
 * Thu Feb 23 2023 Jens Petersen <petersen@redhat.com> - 2.19.2-20
 - rebuild
 

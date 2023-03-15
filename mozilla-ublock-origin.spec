@@ -5,10 +5,10 @@
 %global firefox_app_id \{ec8030f7-c20a-464f-9b0e-13a3a9e97384\}
 %global firefox_inst_dir %{_datadir}/mozilla/extensions/%{firefox_app_id}
 
-%global uAssets_commit 64cacb4a496e2ae7f14554ec73287aadf1d34e57
+%global uAssets_commit b4025f91ab39afa17476c7ba10c403e52ff92e89
 
 Name:           mozilla-ublock-origin
-Version:        1.47.0
+Version:        1.47.4
 Release:        1%{?dist}
 Summary:        An efficient blocker for Firefox
 
@@ -106,6 +106,9 @@ appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/%{name}.metain
 %{_metainfodir}/%{name}.metainfo.xml
 
 %changelog
+* Mon Mar 13 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.47.4-1
+- update to 1.47.4 (#2172525)
+
 * Fri Feb 17 2023 Dominik Mierzejewski <dominik@greysector.net> - 1.47.0-1
 - update to 1.47.0 (#2170209)
 

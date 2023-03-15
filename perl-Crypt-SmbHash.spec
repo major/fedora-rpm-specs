@@ -2,7 +2,7 @@ Summary:	Pure-perl Lanman and NT MD4 hash functions
 Name:		perl-Crypt-SmbHash
 Version:	0.12
 Release:	48%{?dist}
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://metacpan.org/release/Crypt-SmbHash
 Source0:	https://cpan.metacpan.org/modules/by-module/Crypt/Crypt-SmbHash-%{version}.tar.gz
 BuildArch:	noarch

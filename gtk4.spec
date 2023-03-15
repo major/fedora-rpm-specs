@@ -31,6 +31,8 @@ Patch0:         0001-Revert-Meson-Simplify-pkgconfig-file-generator.patch
 
 # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5625
 Patch1:         0001-filerchooser-Show-Recent-files-in-inverse-order.patch
+# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5608
+Patch2:         gtk4-4.10.0-combobox-allocation-fix.patch
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils

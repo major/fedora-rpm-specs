@@ -25,7 +25,7 @@
 
 Name:           pipenv
 Version:        %{base_version}%{?prerelease_version:~%{prerelease_version}}
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        The higher level Python packaging tool
 
 # Pipenv source code is MIT, there are bundled packages having different licenses
@@ -160,7 +160,7 @@ Provides: bundled(python3dist(pep514tools))
 Provides: bundled(python3dist(pep517)) = 0.13
 Provides: bundled(python3dist(pexpect)) = 4.8
 Provides: bundled(python3dist(platformdirs)) = 2.4
-Provides: bundled(python3dist(plette[validation])) = 0.4.2
+Provides: bundled(python3dist(plette)) = 0.4.2
 Provides: bundled(python3dist(ptyprocess)) = 0.7
 Provides: bundled(python3dist(pyparsing)) = 3.0.9
 Provides: bundled(python3dist(pythonfinder)) = 1.3.1
@@ -343,6 +343,10 @@ rm -rf check_path
 %license LICENSE
 
 %changelog
+* Mon Mar 13 2023 Miro Hrončok <mhroncok@redhat.com> - 2022.10.25-4
+- Do not include [extras] in bundled(python3dist()) Provides
+- See https://bugzilla.redhat.com/2140230#c12
+
 * Tue Mar 07 2023 Miro Hrončok <mhroncok@redhat.com> - 2022.10.25-3
 - Explicitly BuildRequire pytz for tests, it has been brought transitively before
 

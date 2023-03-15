@@ -1,6 +1,6 @@
 Name:           python-aws-sam-translator
 Summary:        Transform SAM templates into AWS CloudFormation templates
-Version:        1.60.1
+Version:        1.61.0
 Release:        %autorelease
 
 License:        Apache-2.0
@@ -9,9 +9,6 @@ URL:            https://github.com/aws/serverless-application-model
 # and tests.
 Source0:        %{url}/archive/v%{version}/serverless-application-model-%{version}.tar.gz
 
-# chore: Loose typing_extensions version requirement
-# https://github.com/aws/serverless-application-model/pull/2916
-Patch:          %{url}/pull/2916.patch
 # Do not install “schema_source” to site-packages
 # https://github.com/aws/serverless-application-model/pull/2973
 Patch:          %{url}/pull/2973.patch
@@ -71,6 +68,18 @@ sed -r -i \
     requirements/dev.txt
 # Finish patching out coverage
 sed -r -i '/^addopts[[:blank:]]*=/d' pytest.ini
+# The dateparser packages is badly out of date; see:
+#   Updating python-dateparser to 1.1.4
+#   https://bugzilla.redhat.com/show_bug.cgi?id=2115204
+# and:
+#   Update to 1.1.7 (close RHBZ#2115204)
+#   https://src.fedoraproject.org/rpms/python-dateparser/pull-request/1
+# This is used only for:
+#   integration/helpers/deployer/utils/time_util.py
+# which belongs to the integration tests, which require network interaction
+# with real AWS resources, so of course we cannot run the integration tests and
+# therefore patching out the dateparser dependency is no loss.
+sed -r -i 's/^dateparser\b/# &/' requirements/dev.txt
 
 
 %generate_buildrequires

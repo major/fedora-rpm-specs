@@ -8,10 +8,11 @@ Requires:		(ImageMagick%{?_isa} >= %2 with ImageMagick%{?_isa} < %3)\
 %{nil}
 
 Name:		rubygem-%{gem_name}
-Version:	5.1.0
-Release:	4%{?dist}
+Version:	5.2.0
+Release:	1%{?dist}
 
 Summary:	Ruby binding to ImageMagick
+# SPDX confirmed
 License:	MIT
 URL:		https://github.com/rmagick/rmagick
 Source0:	https://rubygems.org/gems/%{gem_name}-%{version}.gem
@@ -29,6 +30,7 @@ BuildRequires:	rubygem(pry)
 # Due to test/RMagick/rmmain.c test_Magick_version(), for now
 # we specify the exact version for ImageMagick
 %if 0%{?fedora}
+%setIMver 40 1:7.1.0 1:7.1.1
 %setIMver 39 1:7.1.0 1:7.1.1
 %setIMver 38 1:7.1.0 1:7.1.1
 %setIMver 37 1:6.9.12 1:6.9.13
@@ -146,11 +148,14 @@ done
 %doc	%{gem_instdir}/examples/
 
 %changelog
+* Mon Mar 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.2.0-1
+- 5.2.0
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 5.1.0-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 
 * Thu Jan 05 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.1.0-3
-- Rebuild for ImageMagick 7
+- F-38+: Rebuild for ImageMagick 7
 
 * Wed Jan 04 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 5.1.0-2
 - Rebuild for https://fedoraproject.org/wiki/Changes/Ruby_3.2

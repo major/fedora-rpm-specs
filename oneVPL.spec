@@ -1,6 +1,6 @@
 Name:           oneVPL
-Version:        2022.2.2
-Release:        2%{?dist}
+Version:        2023.1.3
+Release:        1%{?dist}
 Summary:        oneAPI Video Processing Library
 License:        MIT
 URL:            https://www.intel.com/content/www/us/en/developer/tools/oneapi/onevpl.html
@@ -8,6 +8,11 @@ ExclusiveArch:  x86_64
 
 Source0:        https://github.com/oneapi-src/oneVPL/archive/v%{version}/%{name}-%{version}.tar.gz
 Patch0:         %{name}-system-analyzer.patch
+# https://github.com/oneapi-src/oneVPL/issues/94
+# https://bugzilla.redhat.com/show_bug.cgi?id=2177912
+# Don't install stuff to /usr/etc , it's all kinds of wrong and breaks
+# ostree
+Patch1:         0001-Fix-config-install-destinations-when-prefix-is-usr-9.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -19,12 +24,13 @@ BuildRequires:  pkgconfig(pciaccess)
 BuildRequires:  pkgconfig(wayland-client)
 BuildRequires:  pkgconfig(wayland-protocols) >= 1.15
 BuildRequires:  pkgconfig(x11)
-BuildRequires:  python3dist(pybind11)
-BuildRequires:  python3-devel
 
 Recommends:     intel-mediasdk
 Recommends:     oneVPL-cpu
 Recommends:     oneVPL-intel-gpu
+
+# The Python bindings were removed in 2023.0.0
+Obsoletes:      python3-%{name} < %{version}-%{release}
 
 %description
 The oneAPI Video Processing Library (oneVPL) provides a single video processing
@@ -47,12 +53,6 @@ Requires:       %{name}%{?_isa} = %{version}-%{release}
 The %{name}-devel package contains libraries and header files for developing
 applications that use %{name}.
 
-%package -n python3-%{name}
-Summary:    Python3 interface to %{name}
-
-%description -n python3-%{name}
-This package contains python3 interfaces to %{name}.
-
 %package        samples
 Summary:        Sample programs and source code for %{name}
 Requires:       %{name}-devel%{?_isa} = %{version}-%{release}
@@ -64,9 +64,7 @@ This package contains sample programs and applications that use %{name}.
 %autosetup -p1
 
 %build
-%cmake \
-    -DBUILD_PYTHON_BINDING:BOOL=ON \
-    -DPYTHON_INSTALL_DIR:STRING=%{python3_sitearch}
+%cmake
 %cmake_build
 
 %install
@@ -80,15 +78,15 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %files
 %license LICENSE
 %doc README.md CONTRIBUTING.md third-party-programs.txt
-%dir %{_prefix}/etc/vpl
-%{_prefix}/etc/vpl/vars.sh
-%dir %{_prefix}/etc/modulefiles
-%{_prefix}/etc/modulefiles/vpl
+%dir %{_sysconfdir}/vpl
+%{_sysconfdir}/vpl/vars.sh
+%dir %{_sysconfdir}/modulefiles
+%{_sysconfdir}/modulefiles/vpl
 %dir %{_libdir}/vpl
 %{_libdir}/vpl/libvpl_wayland.so
 %{_bindir}/system_analyzer
 %{_libdir}/libvpl.so.2
-%{_libdir}/libvpl.so.2.7
+%{_libdir}/libvpl.so.2.8
 
 %files devel
 %{_includedir}/vpl
@@ -98,11 +96,7 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_libdir}/libvpl.so
 %{_libdir}/pkgconfig/vpl.pc
 
-%files -n python3-%{name}
-%{python3_sitearch}/*
-
 %files samples
-%{_bindir}/decvpp_tool
 %{_bindir}/sample_decode
 %{_bindir}/sample_encode
 %{_bindir}/sample_multi_transcode
@@ -112,6 +106,11 @@ rm -fr %{buildroot}%{_datadir}/vpl/licensing
 %{_datadir}/vpl/examples
 
 %changelog
+* Mon Mar 13 2023 Adam Williamson <awilliam@redhat.com> - 2023.1.3-1
+- Update to 2023.1.3
+- Drop Python bindings (removed upstream)
+- Fix install path for config files (#2177912)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2022.2.2-2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

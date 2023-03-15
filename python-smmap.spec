@@ -5,7 +5,7 @@ Version:        5.0.0
 Release:        4%{?dist}
 Summary:        Sliding window memory map manager
 
-License:        BSD
+License:        BSD-3-Clause
 URL:            https://github.com/gitpython-developers/smmap
 Source0:        %pypi_source
 

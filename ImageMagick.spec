@@ -12,7 +12,7 @@ Epoch:          1
 Epoch:          0
 %endif
 Version:        7.1.0.62
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        An X application for displaying and manipulating images
 
 %global VER %(foo=%{version}; echo ${foo:0:5})
@@ -24,6 +24,11 @@ URL:            https://imagemagick.org/
 Source0:        https://imagemagick.org/archive/releases/%{name}-%{VER}-%{Patchlevel}.tar.xz
 Source1:        https://imagemagick.org/archive/releases/%{name}-%{VER}-%{Patchlevel}.tar.xz.asc
 Source2:        ImageMagick.keyring
+# https://bugzilla.redhat.com/show_bug.cgi?id=2177631
+# rubygem-rmagick test suite fails with ImageMagick 7.1.0-61 and above, fixed by below
+# https://github.com/ImageMagick/ImageMagick/issues/6158
+# https://github.com/ImageMagick/ImageMagick/commit/06d3b282a43457da6b3a2d3f84c33e07064a1e98
+Patch0:         ImageMagick-terminate-loop-on-sentinel.patch
 
 BuildRequires:  pkgconfig(bzip2)
 BuildRequires:  pkgconfig(freetype2)
@@ -376,6 +381,9 @@ rm PerlMagick/demo/Generic.ttf
 %doc PerlMagick/demo/ PerlMagick/Changelog PerlMagick/README.txt
 
 %changelog
+* Mon Mar 13 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 1:7.1.0-62-2
+- Backport upstream fix for GetPageGeometry misbehavior (bug 2177631)
+
 * Thu Feb 23 2023 Sérgio Basto <sergio@serjux.com> - 1:7.1.0.62-1
 - Update ImageMagick to 7.1.0.62
 

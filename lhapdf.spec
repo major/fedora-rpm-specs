@@ -1,9 +1,9 @@
 Name:		lhapdf
-Version:	6.4.0
-Release:	5%{?dist}
+Version:	6.5.4
+Release:	1%{?dist}
 Summary:	Les Houches Accord PDF Interface
 
-License:	GPLv3+
+License:	GPL-3.0-only
 URL:		https://lhapdf.hepforge.org/
 Source0:	https://www.hepforge.org/archive/lhapdf/LHAPDF-%{version}.tar.gz
 #		Add soname to the shared library, cf. SuSE's spec file.
@@ -24,9 +24,6 @@ BuildRequires:	doxygen
 #		Obsolete LHAPDF5 packages not provided by LHAPDF6
 Obsoletes:	octave-lhapdf < 6
 Obsoletes:	lhapdf-pdfsets-minimal < 6
-%if %{?rhel}%{!?rhel:0} != 7
-Obsoletes:	python2-lhapdf < %{version}-%{release}
-%endif
 
 %description
 LHAPDF is a general purpose C++ interpolator, used for evaluating PDFs
@@ -63,7 +60,7 @@ This package provides development files of LHAPDF, including C++ bindings.
 %if %{?rhel}%{!?rhel:0} == 7
 %package -n python2-%{name}
 Summary:	Les Houches Accord PDF Interface - Python 2 module
-%{?python_provide:%python_provide python2-%{name}}
+%py_provides	python2-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python2-%{name}
@@ -77,7 +74,7 @@ the command line. It accepts commands "list", "update", "install" and
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary:	Les Houches Accord PDF Interface - Python 3 module
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+%py_provides	python%{python3_pkgversion}-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}
@@ -90,12 +87,12 @@ the command line. It accepts commands "list", "update", "install" and
 %endif
 
 %if %{?rhel}%{!?rhel:0} == 7
-%package -n python%{python3_other_pkgversion}-%{name}
+%package -n python%{?python3_other_pkgversion}-%{name}
 Summary:	Les Houches Accord PDF Interface - Python 3 module
-%{?python_provide:%python_provide python%{?python3_other_pkgversion}-%{name}}
+%py_provides	python%{python3_other_pkgversion}-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_other_pkgversion}-%{name}
+%description -n python%{?python3_other_pkgversion}-%{name}
 This package provides Python 3 bindings for LHAPDF.
 %endif
 
@@ -127,7 +124,7 @@ sed 's!/usr/bin/env python!%{__python2}!' -i bin/lhapdf examples/*.py
 sed 's!/usr/bin/env bash!/bin/bash!' -i bin/lhapdf-config.in
 
 %build
-%configure --disable-static --disable-silent-rules PYTHON=%{__python3}
+%configure --disable-static --disable-silent-rules PYTHON=%{__python3} --docdir=%{_pkgdocdir}
 %make_build
 
 %if %{?rhel}%{!?rhel:0} == 7
@@ -139,16 +136,28 @@ sed 's!/usr/bin/env bash!/bin/bash!' -i bin/lhapdf-config.in
 %make_build doxy
 
 %install
-%make_install
+%make_install PYTHON_PATH=%{python3_sitearch}
+
+cat << EOF > %{buildroot}%{python3_sitearch}/%{name}-%{version}.egg-info
+Name: %{name}
+Version: %{version}
+EOF
 
 %if %{?rhel}%{!?rhel:0} == 7
-( cd wrappers/python ; %make_install PYTHON=%{__python2} )
-( cd wrappers/python ; %make_install PYTHON=%{__python3_other} )
+( cd wrappers/python ; %make_install PYTHON=%{__python2} PYTHON_PATH=%{python2_sitearch} )
+cat << EOF > %{buildroot}%{python2_sitearch}/%{name}-%{version}.egg-info
+Name: %{name}
+Version: %{version}
+EOF
+( cd wrappers/python ; %make_install PYTHON=%{__python3_other} PYTHON_PATH=%{python3_other_sitearch} )
+cat << EOF > %{buildroot}%{python3_other_sitearch}/%{name}-%{version}.egg-info
+Name: %{name}
+Version: %{version}
+EOF
 %endif
 
 rm %{buildroot}%{_libdir}/libLHAPDF.la
-
-rm examples/Makefile*
+find %{buildroot}%{_pkgdocdir}/examples -type f -a '!' -name '*.*' -delete
 
 %check
 %make_build check
@@ -170,29 +179,32 @@ rm examples/Makefile*
 %if %{?rhel}%{!?rhel:0} == 7
 %files -n python2-%{name}
 %{_bindir}/%{name}
-%{python2_sitearch}/LHAPDF-*.egg-info
-%{python2_sitearch}/%{name}.so
+%{python2_sitearch}/%{name}-%{version}.egg-info
+%{python2_sitearch}/%{name}
 %endif
 
 %files -n python%{python3_pkgversion}-%{name}
 %if %{?rhel}%{!?rhel:0} != 7
 %{_bindir}/%{name}
 %endif
-%{python3_sitearch}/LHAPDF-*.egg-info
-%{python3_sitearch}/%{name}.*.so
+%{python3_sitearch}/%{name}-%{version}.egg-info
+%{python3_sitearch}/%{name}
 
 %if %{?rhel}%{!?rhel:0} == 7
-%files -n python%{python3_other_pkgversion}-%{name}
-%{python3_other_sitearch}/LHAPDF-*.egg-info
-%{python3_other_sitearch}/%{name}.*.so
+%files -n python%{?python3_other_pkgversion}-%{name}
+%{python3_other_sitearch}/%{name}-%{version}.egg-info
+%{python3_other_sitearch}/%{name}
 %endif
 
 %files doc
-%doc doc/doxygen
-%doc examples
+%doc %{_pkgdocdir}/doxygen
+%doc %{_pkgdocdir}/examples
 %license COPYING
 
 %changelog
+* Mon Mar 13 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 6.5.4-1
+- Update to version 6.5.4
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 6.4.0-5
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

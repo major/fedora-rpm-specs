@@ -47,7 +47,7 @@
 
 # Do not forget to bump pam_ssh_agent_auth release if you rewind the main package release to 1
 %global openssh_ver 9.0p1
-%global openssh_rel 12
+%global openssh_rel 13
 %global pam_ssh_agent_ver 0.10.4
 %global pam_ssh_agent_rel 7
 
@@ -307,6 +307,10 @@ Requires: openssh = %{version}-%{release}
 Summary: A passphrase dialog for OpenSSH and X
 Requires: openssh = %{version}-%{release}
 
+%package sk-dummy
+Summary: OpenSSH SK driver for test purposes
+Requires: openssh = %{version}-%{release}
+
 %package -n pam_ssh_agent_auth
 Summary: PAM module for authentication with ssh-agent
 Version: %{pam_ssh_agent_ver}
@@ -346,6 +350,9 @@ openssh in the mls mode.
 OpenSSH is a free version of SSH (Secure SHell), a program for logging
 into and executing commands on a remote machine. This package contains
 an X11 passphrase dialog for OpenSSH.
+
+%description sk-dummy
+This package contains a test SK driver used for OpenSSH test purposes
 
 %description -n pam_ssh_agent_auth
 This package contains a PAM module which can be used to authenticate
@@ -514,6 +521,7 @@ perl -pi -e "s|-lcrypto|%{_libdir}/libcrypto.a|g" Makefile
 %endif
 
 %make_build
+make regress/misc/sk-dummy/sk-dummy.so
 
 # Define a variable to toggle gtk2/gtk3 building.  This is necessary
 # because RPM doesn't handle nested %%if statements.
@@ -613,6 +621,9 @@ pushd pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}
 %make_install
 popd
 %endif
+
+install -m 755 -d $RPM_BUILD_ROOT%{_libdir}/sshtest/
+install -m 755 regress/misc/sk-dummy/sk-dummy.so $RPM_BUILD_ROOT%{_libdir}/sshtest
 
 %pre server
 %sysusers_create_compat %{SOURCE19}
@@ -726,6 +737,9 @@ test -f %{sysconfig_anaconda} && \
 %attr(0755,root,root) %{_libexecdir}/openssh/ssh-askpass
 %endif
 
+%files sk-dummy
+%attr(0755,root,root) %{_libdir}/sshtest/sk-dummy.so
+
 %if %{pam_ssh_agent}
 %files -n pam_ssh_agent_auth
 %license pam_ssh_agent_auth-pam_ssh_agent_auth-%{pam_ssh_agent_ver}/OPENSSH_LICENSE
@@ -734,6 +748,9 @@ test -f %{sysconfig_anaconda} && \
 %endif
 
 %changelog
+* Mon Mar 13 2023 Zoltan Fridrich <zfridric@redhat.com> - 9.0p1-13
+- Add sk-dummy subpackage for test purposes (rhbz#2176795)
+
 * Mon Mar 06 2023 Dusty Mabe <dusty@dustymabe.com> - 9.0p1-12
 - Mark /var/lib/.ssh-host-keys-migration as %ghost file
 - Make ssh-host key migration less conditional

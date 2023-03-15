@@ -1,3 +1,5 @@
+%bcond_with bootstrap
+
 %global    core_plugins    blur clone cube decoration fade ini inotify minimize move place png regex resize rotate scale screenshot switcher water wobbly zoom fs obs commands wall annotate svg matecompat
 
 # List of plugins passed to ./configure.  The order is important
@@ -7,7 +9,7 @@
 Name:           compiz
 License:        GPLv2+ and LGPLv2+ and MIT
 Version:        0.8.18
-Release:        7%{?dist}
+Release:        8%{?dist}
 Epoch:          1
 Summary:        OpenGL window and compositing manager
 
@@ -45,7 +47,9 @@ BuildRequires: libxslt-devel
 BuildRequires: marco-devel
 BuildRequires: glib2-devel
 BuildRequires: libwnck3-devel
+%if %{without bootstrap}
 BuildRequires: libcompizconfig-devel
+%endif
 BuildRequires: dbus-devel
 BuildRequires: dbus-glib-devel
 BuildRequires: automake
@@ -161,6 +165,9 @@ categories},22x22/{categories,devices,mimetypes}}
 
 
 %changelog
+* Mon Mar 13 2023 Jaroslav Škarvada <jskarvad@redhat.com> - 1:0.8.18-8
+- added %%bcond_with bootstrap to break circular dependency with libcompizconfig if needed
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:0.8.18-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

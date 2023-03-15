@@ -3,7 +3,7 @@
 #
 
 %global ubuntu_release 23
-%global my_release 2
+%global my_release 3
 %global _hardened_build 1
 
 Name:           wide-dhcpv6
@@ -47,6 +47,7 @@ Patch20:	wide-dhcpv6-0020-Adding-option-to-randomize-interface-id.patch
 Patch21:	wide-dhcpv6-0021-Make-sla-len-config-optional.patch
 Patch22:	wide-dhcpv6-0022-Make-sla-id-config-optional.patch
 Patch23:	wide-dhcpv6-0023-fix-the-parallel-build-fix.patch
+Patch99:	wide-dhcpv6-fedora-c99.patch
 Requires(preun): systemd
 Requires(postun): systemd
 
@@ -87,6 +88,7 @@ This package contains the server, relay and client.
 %patch21 -p1
 %patch22 -p1
 %patch23 -p1
+%patch99 -p1
 
 
 %build
@@ -135,6 +137,9 @@ fi
 %{_unitdir}/*
 
 %changelog
+* Fri Mar 10 2023 DJ Delorie <dj@redhat.com> - 20080615-23.2.3
+- Fix C99 compatibility issue
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 20080615-23.2.2
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

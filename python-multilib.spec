@@ -8,7 +8,7 @@ Name:       python-multilib
 Version:    1.2
 Release:    23%{?dist}
 Summary:    A module for determining if a package is multilib or not
-License:    GPLv2
+License:    GPL-2.0-only
 URL:        https://pagure.io/releng/python-multilib
 Source0:    https://releases.pagure.org/releng/python-multilib/%{name}-%{version}.tar.bz2
 

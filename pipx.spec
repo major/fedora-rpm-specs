@@ -1,5 +1,5 @@
 Name:           pipx
-Version:        1.1.0
+Version:        1.2.0
 Release:        %autorelease
 Summary:        Install and run Python applications in isolated environments
 
@@ -13,8 +13,6 @@ BuildArch:      noarch
 BuildRequires:  python3-devel
 
 # noxfile.py: MAN_DEPENDENCIES
-# See: “Fix argparse-manpage dependency for Python 3.12+”
-#      https://github.com/pypa/pipx/pull/943
 BuildRequires:  python3dist(argparse-manpage[setuptools])
 
 BuildRequires:  /usr/bin/register-python-argcomplete

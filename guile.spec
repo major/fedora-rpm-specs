@@ -2,11 +2,11 @@ Summary: A GNU implementation of Scheme for application extensibility
 Name: guile
 %define mver 2.0
 Version: 2.0.14
-Release: 32%{?dist}
+Release: 33%{?dist}
 Epoch: 5
 Source: ftp://ftp.gnu.org/pub/gnu/guile/guile-%{version}.tar.xz
 URL: http://www.gnu.org/software/guile/
-License: LGPLv3+
+License: LGPL-3.0-or-later AND LGPL-2.0-or-later AND GPL-3.0-or-later AND LGPL-2.1-or-later
 BuildRequires: gcc libtool libtool-ltdl-devel gmp-devel readline-devel
 BuildRequires: gettext-devel libunistring-devel libffi-devel gc-devel
 BuildRequires: make
@@ -173,6 +173,9 @@ fi
 %{_includedir}/guile
 
 %changelog
+* Mon Mar 13 2023 Tomas Korbar <tkorbar@redhat.com> - 2.0.14-33
+- Change the License tag to the SPDX format
+
 * Thu Mar 02 2023 Tomas Korbar <tkorbar@redhat.com> - 2.0.14-32
 - Change optimization to -Os on s390x architecture
 - Resolves: rhbz#2171564
