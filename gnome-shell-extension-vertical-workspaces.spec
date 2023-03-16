@@ -3,13 +3,13 @@
 # Define a commit here to switch to snapshot versioning.  Note that just adding
 # a `#` to the beginning of this line is insufficient to disable snapshot
 # versioning, as RPM allows you to define macros anywhere, even in comments.
-%global commit      0a0e31475ea3516cdf5a4e588ad6530383a01320
+#global commit      0a0e31475ea3516cdf5a4e588ad6530383a01320
 %global shortcommit %(c=%{commit}; echo ${c:0:7})
 
 Name:           gnome-shell-extension-%{extension}
-Version:        23.5%{?commit:^1.%{shortcommit}}
+Version:        26%{?commit:^1.%{shortcommit}}
 Release:        %autorelease
-Summary:        Vertical orientation of workspaces for GNOME 40+
+Summary:        Customize your GNOME Shell UX to suit your workflow
 License:        GPL-3.0-only
 URL:            https://github.com/G-dH/vertical-workspaces
 BuildArch:      noarch
@@ -20,14 +20,14 @@ Source:         %{url}/archive/%{commit}/%{extension}-%{shortcommit}.tar.gz
 Source:         %{url}/archive/v%{version}/%{extension}-%{version}.tar.gz
 %endif
 
-Requires:       gnome-shell >= 40
+Requires:       gnome-shell >= 42
 Recommends:     gnome-extensions-app
 Provides:       %{extension} = %{version}-%{release}
 
 
 %description
-Vertical orientation of workspaces and options to customize Activities overview
-layout and content for GNOME 40+.
+Customize your GNOME Shell UX to suit your workflow, whether you like
+horizontally or vertically stacked workspaces.
 
 
 %prep

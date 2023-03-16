@@ -2,7 +2,7 @@
 %global         base_name breeze-grub
 
 Name:           grub2-breeze-theme
-Version: 5.27.2
+Version: 5.27.3
 Release: 1%{?dist}
 Summary:        Breeze theme for GRUB
 
@@ -64,6 +64,9 @@ find breeze/ -type f -and -not -iname \*.license -print0 \
 
 
 %changelog
+* Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
+- 5.27.3
+
 * Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
 - 5.27.2
 

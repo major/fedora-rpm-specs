@@ -1,7 +1,7 @@
 %bcond_with suggests
 
 %global packname tibble
-%global packver  3.1.8
+%global packver  3.2.0
 %global rlibdir  %{_libdir}/R/library
 
 Name:             R-%{packname}
@@ -15,8 +15,8 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:   
-# Imports:   R-fansi >= 0.4.0, R-lifecycle >= 1.0.0, R-magrittr, R-methods, R-pillar >= 1.7.0, R-pkgconfig, R-rlang >= 1.0.2, R-utils, R-vctrs >= 0.3.8
-# Suggests:  R-bench, R-bit64, R-blob, R-brio, R-callr, R-cli, R-covr, R-crayon >= 1.3.4, R-DiagrammeR, R-dplyr, R-evaluate, R-formattable, R-ggplot2, R-hms, R-htmltools, R-knitr, R-lubridate, R-mockr, R-nycflights13, R-pkgbuild, R-pkgload, R-purrr, R-rmarkdown, R-stringi, R-testthat >= 3.0.2, R-tidyr, R-withr
+# Imports:   R-fansi >= 0.4.0, R-lifecycle >= 1.0.0, R-magrittr, R-methods, R-pillar >= 1.8.1, R-pkgconfig, R-rlang >= 1.0.2, R-utils, R-vctrs >= 0.4.2
+# Suggests:  R-bench, R-bit64, R-blob, R-brio, R-callr, R-cli, R-covr, R-crayon >= 1.3.4, R-DiagrammeR, R-dplyr, R-evaluate, R-formattable, R-ggplot2, R-here, R-hms, R-htmltools, R-knitr, R-lubridate, R-mockr, R-nycflights13, R-pkgbuild, R-pkgload, R-purrr, R-rmarkdown, R-stringi, R-testthat >= 3.0.2, R-tidyr, R-withr
 # LinkingTo:
 # Enhances:
 
@@ -26,11 +26,11 @@ BuildRequires:    R-fansi >= 0.4.0
 BuildRequires:    R-lifecycle >= 1.0.0
 BuildRequires:    R-magrittr
 BuildRequires:    R-methods
-BuildRequires:    R-pillar >= 1.7.0
+BuildRequires:    R-pillar >= 1.8.1
 BuildRequires:    R-pkgconfig
 BuildRequires:    R-rlang >= 1.0.2
 BuildRequires:    R-utils
-BuildRequires:    R-vctrs >= 0.3.8
+BuildRequires:    R-vctrs >= 0.4.2
 %if %{with suggests}
 BuildRequires:    R-bench
 BuildRequires:    R-bit64
@@ -44,6 +44,7 @@ BuildRequires:    R-dplyr
 BuildRequires:    R-evaluate
 BuildRequires:    R-formattable
 BuildRequires:    R-ggplot2
+BuildRequires:    R-here
 BuildRequires:    R-hms
 BuildRequires:    R-htmltools
 BuildRequires:    R-knitr

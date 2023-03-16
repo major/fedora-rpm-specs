@@ -1,6 +1,6 @@
 Name:		b43-tools
 Version:	019
-Release:	16%{?dist}
+Release:	17%{?dist}
 Summary:	Tools for the Broadcom 43xx series WLAN chip
 # assembler — GPLv2
 # debug — GPLv3
@@ -36,7 +36,7 @@ install -p -m 0644 disassembler/COPYING COPYING.disassembler
 install -p -m 0644 ssb_sprom/README README.ssb_sprom
 install -p -m 0644 ssb_sprom/COPYING COPYING.ssb_sprom
 # For py3_build/py3_install macros
-install -p -m 0644 debug/install.py debug/setup.py
+sed 's/py_modules=/version="%{version}", py_modules=/' debug/install.py > debug/setup.py
 
 2to3 -w .
 
@@ -77,6 +77,9 @@ cd debug
 
 
 %changelog
+* Tue Mar 14 2023 Pete Walter <pwalter@fedoraproject.org> - 019-17
+- Add version to setup.py (rhbz#2048084)
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 019-16
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

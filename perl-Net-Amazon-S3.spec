@@ -170,14 +170,24 @@ make test
 %license LICENSE
 # README.mkdn does not contain anything new
 %doc CHANGES README README.md
-%{_bindir}/*
-%{perl_vendorlib}/Net
-%{_mandir}/man1/*
-%{_mandir}/man3/Net::*
+%{_bindir}/s3cl
+%dir %{perl_vendorlib}/Net
+%dir %{perl_vendorlib}/Net/Amazon
+%{perl_vendorlib}/Net/Amazon/S3
+%{perl_vendorlib}/Net/Amazon/S3.pm
+%{_mandir}/man1/s3cl.*
+%{_mandir}/man3/Net::Amazon::S3.*
+%{_mandir}/man3/Net::Amazon::S3::*
 
 %files -n perl-Shared-Examples-Net-Amazon-S3
-%{perl_vendorlib}/Shared*
-%{_mandir}/man3/Shared::*
+%dir %{perl_vendorlib}/Shared
+%dir %{perl_vendorlib}/Shared/Examples
+%dir %{perl_vendorlib}/Shared/Examples/Net
+%dir %{perl_vendorlib}/Shared/Examples/Net/Amazon
+%{perl_vendorlib}/Shared/Examples/Net/Amazon/S3
+%{perl_vendorlib}/Shared/Examples/Net/Amazon/S3.pm
+%{_mandir}/man3/Shared::Examples::Net::Amazon::S3.*
+%{_mandir}/man3/Shared::Examples::Net::Amazon::S3::*
 
 %files tests
 %{_libexecdir}/%{name}

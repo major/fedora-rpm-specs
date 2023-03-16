@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname pillar
-%global packver  1.8.0
+%global packver  1.8.1
 %global rlibdir  %{_datadir}/R/library
 
 Name:             R-%{packname}
@@ -15,8 +15,8 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-cli, R-crayon >= 1.3.4, R-ellipsis >= 0.3.2, R-fansi, R-lifecycle, R-rlang >= 0.3.0, R-utf8 >= 1.1.0, R-utils, R-vctrs >= 0.3.8
-# Suggests:  R-bit64, R-debugme, R-DiagrammeR, R-dplyr, R-formattable, R-ggplot2, R-knitr, R-lubridate, R-nycflights13, R-palmerpenguins, R-rmarkdown, R-scales, R-stringi, R-survival, R-testthat >= 3.0.2, R-tibble, R-units >= 0.7.2, R-withr
+# Imports:   R-cli >= 2.3.0, R-fansi, R-glue, R-lifecycle, R-rlang >= 1.0.2, R-utf8 >= 1.1.0, R-utils, R-vctrs >= 0.3.8
+# Suggests:  R-bit64, R-debugme, R-DiagrammeR, R-dplyr, R-formattable, R-ggplot2, R-knitr, R-lubridate, R-nanotime, R-nycflights13, R-palmerpenguins, R-rmarkdown, R-scales, R-stringi, R-survival, R-testthat >= 3.1.1, R-tibble, R-units >= 0.7.2, R-vdiffr, R-withr
 # LinkingTo:
 # Enhances:
 

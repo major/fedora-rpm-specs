@@ -4,7 +4,7 @@ Release:        30%{?dist}
 Summary:        A Perl module emulating the file(1) command
 # MMagic.pm and COPYING files contain identical license texts of App-s2p
 # license, BSD license, and ASL 1.0 license.
-License:        App-s2p and ASL 1.0 and BSD
+License:        App-s2p AND Apache-1.0 AND Spencer-94
 URL:            https://metacpan.org/release/File-MMagic
 Source0:        https://cpan.metacpan.org/modules/by-module/File/File-MMagic-%{version}.tar.gz
 Patch0:         File-MMagic-1.30-rt109673.patch

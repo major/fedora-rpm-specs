@@ -14,6 +14,10 @@ Source0:        %{url}/archive/v%{version}/%{name}-%{version}.tar.gz
 Source1:        https://github.com/ocornut/imgui/archive/v%{imgui_ver}/imgui-%{imgui_ver}.tar.gz
 Source2:        https://wrapdb.mesonbuild.com/v1/projects/imgui/%{imgui_ver}/%{imgui_wrap_ver}/get_zip#/imgui-%{imgui_ver}-%{imgui_wrap_ver}-wrap.zip
 
+# Fix building with GCC 13
+# https://github.com/flightlessmango/MangoHud/pull/956
+Patch0:         https://github.com/flightlessmango/MangoHud/pull/956.patch#/Fix-building-with-GCC-13.patch
+
 BuildRequires:  appstream
 BuildRequires:  dbus-devel
 BuildRequires:  gcc-c++
@@ -29,6 +33,7 @@ BuildRequires:  spdlog-devel
 
 BuildRequires:  pkgconfig(vulkan)
 BuildRequires:  pkgconfig(x11)
+BuildRequires:  pkgconfig(wayland-client)
 
 Requires:       hicolor-icon-theme
 Requires:       vulkan-loader%{?_isa}
@@ -52,11 +57,11 @@ To install GUI front-end:
 
 %prep
 %autosetup -n %{appname}-%{version} -p1
-%autosetup -n %{appname}-%{version} -DTa1
-%autosetup -n %{appname}-%{version} -DTa2
+%setup -qn %{appname}-%{version} -DTa1
+%setup -qn %{appname}-%{version} -DTa2
 
 mkdir subprojects/imgui
-mv imgui-%{imgui_ver}/* subprojects/imgui/
+mv imgui-%{imgui_ver} subprojects/
 
 
 %build
@@ -64,6 +69,7 @@ mv imgui-%{imgui_ver}/* subprojects/imgui/
     -Dinclude_doc=true \
     -Duse_system_spdlog=enabled \
     -Duse_system_vulkan=enabled \
+    -Dwith_wayland=enabled \
     -Dwith_xnvctrl=disabled \
     %{nil}
 %meson_build

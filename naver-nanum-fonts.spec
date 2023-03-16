@@ -1,213 +1,157 @@
-%global fontname naver-nanum
-%global fontconf 65-2-%{fontname}
+# SPDX-License-Identifier: MIT
 
-%global common_desc \
+%global fontname naver-nanum
+
+BuildArch: noarch
+
+Version: 3.020
+Release: 35.20140930%{?dist}
+License: OFL-1.1
+URL:     http://hangeul.naver.com
+
+%global foundry           Naver
+%global fontlicenses      COPYING
+
+%global common_description %{expand:
 Nanum fonts are collection of commonly-used Myeongjo and Gothic Korean \
 font families, designed by Sandoll Communication and Fontrix. The \
 publisher is Naver Corporation.
+}
 
 
-Name:       %{fontname}-fonts
-Version:    3.020
-Release:    34.20140930%{?dist}
-Summary:    Nanum family of Korean TrueType fonts
 
-License:    OFL-1.1
-URL:        http://hangeul.naver.com
+%global fontfamily1       Nanum Barun Gothic
+%global fontsummary1      Nanum fonts Barun Gothic font faces
+%global fontpkgheader1    %{expand:
+Provides:  %{name}-common = %{version}-%{release}
+Obsoletes: %{name}-common < %{version}-%{release}
+}
+%global fonts1            NanumBarunGothic.ttf NanumBarunGothicBold.ttf NanumBarunGothicLight.ttf NanumBarunGothicUltraLight.ttf
+%global fontconfs1        %{SOURCE11}
+%global fontdescription1  %{expand:
+%{common_description}
+
+This package consists of the Nanum fonts Barun Gothic font faces.
+}
+
+%global fontfamily2       Nanum Barun Pen
+%global fontsummary2      Nanum fonts Barun Pen font faces
+%global fontpkgheader2    %{expand:
+Provides:  %{name}-common = %{version}-%{release}
+Obsoletes: %{name}-common < %{version}-%{release}
+}
+%global fonts2            NanumBarunpenR.ttf NanumBarunpenB.ttf
+%global fontconfs2        %{SOURCE12}
+%global fontdescription2  %{expand:
+%{common_description}
+
+This package consists of the Nanum fonts Barun Pen font faces.
+}
+
+%global fontfamily3       Nanum Brush
+%global fontsummary3      Nanum fonts Brush font faces
+%global fontpkgheader3    %{expand:
+Provides:  %{name}-common = %{version}-%{release}
+Obsoletes: %{name}-common < %{version}-%{release}
+}
+%global fonts3            NanumBrush.ttf
+%global fontconfs3        %{SOURCE13}
+%global fontdescription3  %{expand:
+%{common_description}
+
+This package consists of the Nanum fonts Brush font faces.
+}
+
+%global fontfamily4       Nanum Gothic
+%global fontsummary4      Nanum fonts Gothic font faces
+%global fontpkgheader4    %{expand:
+Provides:  %{name}-common = %{version}-%{release}
+Obsoletes: %{name}-common < %{version}-%{release}
+}
+%global fonts4            NanumGothic.ttf NanumGothicBold.ttf NanumGothicExtraBold.ttf NanumGothicLight.ttf
+%global fontconfs4        %{SOURCE14}
+%global fontdescription4  %{expand:
+%{common_description}
+
+This package consists of the Nanum fonts Gothic font faces.
+}
+
+%global fontfamily5       Nanum Myeongjo
+%global fontsummary5      Nanum fonts Myeongjo font faces
+%global fontpkgheader5    %{expand:
+Provides:  %{name}-common = %{version}-%{release}
+Obsoletes: %{name}-common < %{version}-%{release}
+}
+%global fonts5            NanumMyeongjo.ttf NanumMyeongjoBold.ttf NanumMyeongjoExtraBold.ttf
+%global fontconfs5        %{SOURCE15}
+%global fontdescription5  %{expand:
+%{common_description}
+
+This package consists of the Nanum fonts Myeongjo font faces.
+}
+
+%global fontfamily6       Nanum Pen
+%global fontsummary6      Nanum fonts Pen font faces
+%global fontpkgheader6    %{expand:
+Provides:  %{name}-common = %{version}-%{release}
+Obsoletes: %{name}-common < %{version}-%{release}
+}
+%global fonts6            NanumPen.ttf
+%global fontconfs6        %{SOURCE16}
+%global fontdescription6  %{expand:
+%{common_description}
+
+This package consists of the Nanum fonts Pen font faces.
+}
+
+
 # Need to convert from Windows executable to tar ball to avoid to use p7zip
 #Source:    http://appdown.naver.com/naver/font/NanumFont/setup/NanumFontSetup_TTF_ALL_hangeulcamp.exe
 # wget http://appdown.naver.com/naver/font/NanumFont/setup/NanumFontSetup_TTF_ALL_hangeulcamp.exe
 # 7z x NanumFontSetup_TTF_ALL_hangeulcamp.exe
 # tar zcvf NanumFont.tar.gz -C \$WINDIR/Fonts/ .
-Source0:    NanumFont.tar.gz
-Source1:    %{name}-barun-gothic-fontconfig.conf
-Source2:    %{name}-barun-pen-fontconfig.conf
-Source3:    %{name}-brush-fontconfig.conf
-Source4:    %{name}-gothic-fontconfig.conf
-Source5:    %{name}-myeongjo-fontconfig.conf
-Source6:    %{name}-pen-fontconfig.conf
+Source0:  NanumFont.tar.gz
 # License text was taken from the upstream web on May 13 2014:
 # http://help.naver.com/ops/step2/faq.nhn?faqId=15879
-Source7:    %{name}-license.txt
-Source8:    %{fontname}-barun-gothic.metainfo.xml
-Source9:    %{fontname}-barun-pen.metainfo.xml
-Source10:   %{fontname}-brush.metainfo.xml
-Source11:   %{fontname}-gothic.metainfo.xml
-Source12:   %{fontname}.metainfo.xml
-Source13:   %{fontname}-myeongjo.metainfo.xml
-Source14:   %{fontname}-pen.metainfo.xml
+Source1:  %{name}-license.txt
+Source11: 66-%{fontpkgname1}.conf
+Source12: 66-%{fontpkgname2}.conf
+Source13: 66-%{fontpkgname3}.conf
+Source14: 66-%{fontpkgname4}.conf
+Source15: 66-%{fontpkgname5}.conf
+Source16: 66-%{fontpkgname6}.conf
 
-BuildArch: noarch
-BuildRequires: fontpackages-devel libappstream-glib
-
-Provides:   nhn-nanum-fonts = %{version}-%{release}
-Obsoletes:  nhn-nanum-fonts < %{version}-%{release}
-
+Name:     %{fontname}-fonts
+Summary:  Nanum family of Korean TrueType fonts
 %description
-%common_desc
+%wordwrap -v common_description
 
+%fontpkg -a
 
-%package common
-Summary:   Common files of %{name}
-Requires:  fontpackages-filesystem
-Provides:  nhn-nanum-fonts-common = %{version}-%{release}
-Obsoletes: nhn-nanum-fonts-common < %{version}-%{release}
+%fontmetapkg
 
-%description common
-%common_desc
-
-This package consists of files used by other %{name} packages.
-
-
-%package -n %{fontname}-barun-gothic-fonts
-Summary:   Nanum fonts Barun Gothic font faces
-Requires:  %{name}-common = %{version}-%{release}
-Provides:  nhn-nanum-barun-gothic-fonts = %{version}-%{release}
-Obsoletes: nhn-nanum-barun-gothic-fonts < %{version}-%{release}
-
-%description -n %{fontname}-barun-gothic-fonts
-%common_desc
-
-This package consists of the Nanum fonts Barun Gothic font faces.
-
-%_font_pkg -n barun-gothic -f %{fontconf}-barun-gothic.conf NanumBarunGothic.ttf NanumBarunGothicBold.ttf NanumBarunGothicLight.ttf NanumBarunGothicUltraLight.ttf
-%{_metainfodir}/%{fontname}-barun-gothic.metainfo.xml
-
-%package -n %{fontname}-barun-pen-fonts
-Summary:   Nanum fonts Barun Pen font faces
-Requires:  %{name}-common = %{version}-%{release}
-Provides:  nhn-nanum-barun-pen-fonts = %{version}-%{release}
-Obsoletes: nhn-nanum-barun-pen-fonts < %{version}-%{release}
-
-%description -n %{fontname}-barun-pen-fonts
-%common_desc
-
-This package consists of the Nanum fonts Barun Pen font faces.
-
-%_font_pkg -n barun-pen -f %{fontconf}-barun-pen.conf NanumBarunpenR.ttf NanumBarunpenB.ttf
-%{_metainfodir}/%{fontname}-barun-pen.metainfo.xml
-
-%package -n %{fontname}-brush-fonts
-Summary:   Nanum fonts Brush font faces
-Requires:  %{name}-common = %{version}-%{release}
-Provides:  nhn-nanum-brush-fonts = %{version}-%{release}
-Obsoletes: nhn-nanum-brush-fonts < %{version}-%{release}
-
-%description -n %{fontname}-brush-fonts
-%common_desc
-
-This package consists of the Nanum fonts Brush font faces.
-
-%_font_pkg -n brush -f %{fontconf}-brush.conf NanumBrush.ttf
-%{_metainfodir}/%{fontname}-brush.metainfo.xml
-
-%package -n %{fontname}-gothic-fonts
-Summary:   Nanum fonts Gothic font faces
-Requires:  %{name}-common = %{version}-%{release}
-Provides:  nhn-nanum-gothic-fonts = %{version}-%{release}
-Obsoletes: nhn-nanum-gothic-fonts < %{version}-%{release}
-Provides:   nhn-nanum-gothic-light-fonts = %{version}-%{release}
-Obsoletes:  nhn-nanum-gothic-light-fonts <= 1.000-9
-
-
-%description -n %{fontname}-gothic-fonts
-%common_desc
-
-This package consists of the Nanum fonts Gothic font faces.
-
-%_font_pkg -n gothic -f %{fontconf}-gothic.conf NanumGothic.ttf NanumGothicBold.ttf NanumGothicExtraBold.ttf NanumGothicLight.ttf
-%{_metainfodir}/%{fontname}-gothic.metainfo.xml
-
-%package -n %{fontname}-myeongjo-fonts
-Summary:   Nanum fonts Myeongjo font faces
-Requires:  %{name}-common = %{version}-%{release}
-Provides:  nhn-nanum-myeongjo-fonts = %{version}-%{release}
-Obsoletes: nhn-nanum-myeongjo-fonts < %{version}-%{release}
-
-%description -n %{fontname}-myeongjo-fonts
-%common_desc
-
-This package consists of the Nanum fonts Myeongjo font faces.
-
-%_font_pkg -n myeongjo -f %{fontconf}-myeongjo.conf NanumMyeongjo.ttf NanumMyeongjoBold.ttf NanumMyeongjoExtraBold.ttf
-%{_metainfodir}/%{fontname}-myeongjo.metainfo.xml
-
-%package -n %{fontname}-pen-fonts
-Summary:   Nanum fonts Pen font faces
-Requires:  %{name}-common = %{version}-%{release}
-Provides:  nhn-nanum-pen-fonts = %{version}-%{release}
-Obsoletes: nhn-nanum-pen-fonts < %{version}-%{release}
-
-%description -n %{fontname}-pen-fonts
-%common_desc
-
-This package consists of the Nanum fonts Pen font faces.
-
-%_font_pkg -n pen -f %{fontconf}-pen.conf NanumPen.ttf
-%{_metainfodir}/%{fontname}-pen.metainfo.xml
 
 %prep
-%setup -c
-cp -p %{SOURCE7} COPYING
-
+%autosetup -c
+cp %{SOURCE1} COPYING
 
 %build
-
+%fontbuild -a
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
-
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-     %{buildroot}%{_fontconfig_confdir}
-
-install -m 0644 -p %{SOURCE1} \
- %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-barun-gothic.conf
-install -m 0644 -p %{SOURCE2} \
- %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-barun-pen.conf
-install -m 0644 -p %{SOURCE3} \
- %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-brush.conf
-install -m 0644 -p %{SOURCE4} \
- %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-gothic.conf
-install -m 0644 -p %{SOURCE5} \
- %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-myeongjo.conf
-install -m 0644 -p %{SOURCE6} \
- %{buildroot}%{_fontconfig_templatedir}/%{fontconf}-pen.conf
-
-for fconf in %{fontconf}-barun-gothic.conf \
-    %{fontconf}-barun-pen.conf \
-    %{fontconf}-brush.conf \
-    %{fontconf}-gothic.conf \
-    %{fontconf}-myeongjo.conf \
-    %{fontconf}-pen.conf ; do
-  ln -s %{_fontconfig_templatedir}/$fconf \
-     %{buildroot}%{_fontconfig_confdir}/$fconf
-done
-
-# Add AppStream metadata
-install -Dm 0644 -p %{SOURCE8} \
-        %{buildroot}%{_metainfodir}/%{fontname}-barun-gothic.metainfo.xml
-install -Dm 0644 -p %{SOURCE9} \
-        %{buildroot}%{_metainfodir}/%{fontname}-barun-pen.metainfo.xml
-install -Dm 0644 -p %{SOURCE10} \
-        %{buildroot}%{_metainfodir}/%{fontname}-brush.metainfo.xml
-install -Dm 0644 -p %{SOURCE11} \
-        %{buildroot}%{_metainfodir}/%{fontname}-gothic.metainfo.xml
-install -Dm 0644 -p %{SOURCE12} \
-        %{buildroot}%{_metainfodir}/%{fontname}.metainfo.xml
-install -Dm 0644 -p %{SOURCE13} \
-        %{buildroot}%{_metainfodir}/%{fontname}-myeongjo.metainfo.xml
-install -Dm 0644 -p %{SOURCE14} \
-        %{buildroot}%{_metainfodir}/%{fontname}-pen.metainfo.xml
+%fontinstall -a
 
 %check
-appstream-util validate-relax --nonet %{buildroot}%{_metainfodir}/*.metainfo.xml
+%fontcheck -a
 
-%files common
-%license COPYING
-%{_metainfodir}/%{fontname}.metainfo.xml
+%fontfiles -a
+
 
 %changelog
+* Thu Mar  9 2023 Peng Wu <pwu@redhat.com> - 3.020-35.20140930
+- Drop Obsoletes and Provides for nhn-nanum-fonts
+- Update to follow New Fonts Packaging Guidelines
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.020-34.20140930
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

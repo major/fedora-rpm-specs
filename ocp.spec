@@ -6,7 +6,7 @@
 
 Name:		ocp
 Version:	0.2.103%{?snapshot:^%{commitdate}git%{shortcommit}}
-Release:	1%{?dist}
+Release:	2%{?dist}
 Summary:	Open Cubic Player for MOD/S3M/XM/IT/MIDI music files
 
 # 2010/08/08: Verified that upstream has removed GPLv3+ gnulib and added
@@ -103,9 +103,14 @@ mv license.txt license-videos.txt
 	   --with-mad \
 	   --with-libiconv=auto \
 	   --with-timidity-default-path=/etc \
+%if 0%{?fedora} < 39
+	   --with-unifontdir-ttf=/usr/share/fonts/unifont \
+	   --without-unifont-csur-ttf \
+%else
 	   --with-unifont-otf=/usr/share/fonts/unifont/unifont.otf \
 	   --with-unifont-csur-otf=/usr/share/fonts/unifont/unifont_csur.otf \
 	   --with-unifont-upper-otf=/usr/share/fonts/unifont/unifont_upper.otf \
+%endif
 	   --with-dumptools \
 	   --without-update-mime-database \
 	   --without-update-desktop-database \
@@ -170,6 +175,9 @@ rm -f %{buildroot}%{_pkgdocdir}/COPYING
 
 
 %changelog
+* Tue Mar 14 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.103-2
+- Make .otf conditional on f39+
+
 * Wed Mar 08 2023 Charles R. Anderson <cra@alum.wpi.edu> - 0.2.103-1
 - update to 0.2.103
 

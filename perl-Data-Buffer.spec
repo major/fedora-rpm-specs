@@ -1,24 +1,25 @@
 Summary:	Read/write buffer class for perl
 Name:		perl-Data-Buffer
 Version:	0.04
-Release:	45%{?dist}
-License:	GPL+ or Artistic
-Url:		https://metacpan.org/release/Data-Buffer
-Source0:	https://cpan.metacpan.org/authors/id/B/BT/BTROTT/Data-Buffer-%{version}.tar.gz
+Release:	46%{?dist}
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
+URL:		https://metacpan.org/release/Data-Buffer
+Source0:	https://cpan.metacpan.org/modules/by-module/Data/Data-Buffer-%{version}.tar.gz
 BuildArch:	noarch
 # Module Build
 BuildRequires:	coreutils
 BuildRequires:	findutils
 BuildRequires:	make
-BuildRequires:	perl-interpreter
 BuildRequires:	perl-generators
+BuildRequires:	perl-interpreter
 BuildRequires:	perl(ExtUtils::MakeMaker)
 # Module Runtime
 BuildRequires:	perl(strict)
 BuildRequires:	perl(vars)
 # Test Suite
 BuildRequires:	perl(Test)
-# Runtime
+# Dependencies
+# (none)
 
 %description
 Data::Buffer implements a low-level binary buffer in which you can get and put
@@ -34,10 +35,9 @@ perl Makefile.PL INSTALLDIRS=vendor
 make %{?_smp_mflags}
 
 %install
-rm -rf %{buildroot}
 make pure_install DESTDIR=%{buildroot}
-find %{buildroot} -type f -name .packlist -exec rm -f {} ';'
-%{_fixperms} %{buildroot}
+find %{buildroot} -type f -name .packlist -delete
+%{_fixperms} -c %{buildroot}
 
 %check
 make test
@@ -48,6 +48,14 @@ make test
 %{_mandir}/man3/Data::Buffer.3*
 
 %changelog
+* Tue Mar 14 2023 Paul Howarth <paul@city-fan.org> - 0.04-46
+- Spec tidy-up
+  - Use SPDX-compatible license tag
+  - Use author-independent source URL
+  - Drop redundant buildroot cleaning in %%install section
+  - Simplify find command using -delete
+  - Fix permissions verbosely
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.04-45
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

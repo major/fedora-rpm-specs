@@ -1,11 +1,11 @@
-%global glib2_version 2.75.0
+%global glib2_version 2.76.0
 
 Name:           gobject-introspection
-Version:        1.75.6
+Version:        1.76.0
 Release:        1%{?dist}
 Summary:        Introspection system for GObject-based libraries
 
-License:        GPLv2+ and LGPLv2+ and MIT
+License:        GPL-2.0-or-later AND LGPL-2.0-or-later AND LGPL-2.1-or-later AND BSD-2-Clause
 URL:            https://wiki.gnome.org/Projects/GObjectIntrospection
 Source0:        https://download.gnome.org/sources/gobject-introspection/1.75/%{name}-%{version}.tar.xz
 
@@ -90,6 +90,9 @@ Libraries and headers for gobject-introspection
 %{_mandir}/man1/g-ir-scanner.1*
 
 %changelog
+* Tue Mar 14 2023 David King <amigadave@amigadave.com> - 1.76.0-1
+- Update to 1.76.0
+
 * Wed Feb 15 2023 David King <amigadave@amigadave.com> - 1.75.6-1
 - Update to 1.75.6
 

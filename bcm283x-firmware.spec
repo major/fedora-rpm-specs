@@ -8,7 +8,7 @@
 
 Name:          bcm283x-firmware
 Version:       20230308
-Release:       1.%{gitshort}%{?dist}
+Release:       2.%{gitshort}%{?dist}
 Summary:       Firmware for the Broadcom bcm283x/bcm2711 used in the Raspberry Pi
 # see LICENSE.broadcom
 # DT Overlays covered under Linux Kernel GPLv2
@@ -95,6 +95,9 @@ install -p overlays/*.dtbo %{buildroot}%{efi_esp_root}/overlays
 %{efi_esp_root}/start4*
 
 %changelog
+* Tue Mar 14 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230308-2.379d5bf
+- Update config.txt for single U-Boot binary
+
 * Sat Jan 28 2023 Peter Robinson <pbrobinson@fedoraproject.org> - 20230308-1.379d5bf
 - Update to latest firmware
 - Drop armhfp pieces

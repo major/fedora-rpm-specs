@@ -3,8 +3,8 @@
 %define debug_package %{nil}
 
 Name:           lorax
-Version:        38.6
-Release:        4%{?dist}
+Version:        39.0
+Release:        1%{?dist}
 Summary:        Tool for creating the anaconda install images
 
 License:        GPL-2.0-or-later
@@ -14,21 +14,6 @@ URL:            https://github.com/weldr/lorax
 # git checkout -b archive-branch lorax-%%{version}-%%{release}
 # tito build --tgz
 Source0:        %{name}-%{version}.tar.gz
-# Strip some stuff from gtk4, necessary for compose to work since
-# gtk4-launch requires libtiff which is stripped itself...
-# https://github.com/weldr/lorax/pull/1309
-# https://pagure.io/releng/failed-composes/issue/4611
-Patch0:         0001-Strip-some-things-from-gtk4.patch
-# ...only it turns out we really need at least one of the binaries
-# or a window in anaconda doesn't open, so this puts them back
-# and stops stripping libtiff
-# https://github.com/weldr/lorax/pull/1312
-# https://bugzilla.redhat.com/show_bug.cgi?id=2170716
-Patch1:         0001-Don-t-strip-gtk4-binaries-or-libtiff-2170716.patch
-# Disable default persistence, it's busted:
-# https://bugzilla.redhat.com/show_bug.cgi?id=2170544
-# https://github.com/weldr/lorax/pull/1310
-Patch2:         0001-Revert-templates.d-99-generic-live-Enable-automatic-.patch
 
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
@@ -183,14 +168,23 @@ make DESTDIR=$RPM_BUILD_ROOT mandir=%{_mandir} install
 %{_datadir}/lorax/templates.d/*
 
 %changelog
-* Fri Feb 17 2023 Adam Williamson <awilliam@redhat.com> - 38.6-4
-- Backport PR #1312 to put gtk4 binaries and libtiff back in (#2170716)
+* Tue Mar 14 2023 Brian C. Lane <bcl@redhat.com> 39.0-1
+- Add setpriv as ostree containers dependency (#2125655) (jkonecny@redhat.com)
+- livemedia-creator: Do not omit plymouth module from dracut (bcl@redhat.com)
+- New lorax documentation - 39.0 (bcl@redhat.com)
+- workflow: Update list of push branches for workflow tests (bcl@redhat.com)
+- Prepare for version 39.0 release (bcl@redhat.com)
 
-* Thu Feb 16 2023 Adam Williamson <awilliam@redhat.com> - 38.6-3
-- Backport PR #1310 to disable persistence again, it's busted (#2170544)
-
-* Wed Feb 15 2023 Adam Williamson <awilliam@redhat.com> - 38.6-2
-- Backport PR #1309 to strip stuff from gtk4, fix Rawhide compose
+* Mon Feb 20 2023 Brian C. Lane <bcl@redhat.com> 38.7-1
+- Don't strip gtk4 binaries or libtiff (#2170716) (awilliam@redhat.com)
+- image-minimizer: Use RuntimeError instead of Exception (bcl@redhat.com)
+- creator: Use RuntimeError instead of Exception (bcl@redhat.com)
+- treebuilder: Use RuntimeError instead of Exception (bcl@redhat.com)
+- mount: Use RuntimeError instead of Exception (bcl@redhat.com)
+- ltmpl: Use RuntimeError instead of Exception (bcl@redhat.com)
+- spec: Use autosetup to make patching easier (bcl@redhat.com)
+- Revert "templates.d/99-generic/live: Enable automatic persistence for live media" (awilliam@redhat.com)
+- Strip some things from gtk4 (awilliam@redhat.com)
 
 * Tue Feb 14 2023 Brian C. Lane <bcl@redhat.com> 38.6-1
 - templates.d/99-generic/live: Enable automatic persistence for live media (ngompa@fedoraproject.org)

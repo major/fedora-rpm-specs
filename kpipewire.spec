@@ -1,7 +1,7 @@
 Name:    kpipewire
 Summary: Set of convenient classes to use PipeWire in Qt projects
-Version: 5.27.2
-Release: 2%{?dist}
+Version: 5.27.3
+Release: 1%{?dist}
 
 License: LGPLv2+
 URL:     https://invent.kde.org/plasma/%{name}
@@ -99,6 +99,9 @@ developing applications that use %{name}.
 %{_libdir}/cmake/KPipeWire/*.cmake
 
 %changelog
+* Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
+- 5.27.3
+
 * Sun Mar 12 2023 Neal Gompa <ngompa@fedoraproject.org> - 5.27.2-2
 - Rebuild for ffmpeg 6.0
 

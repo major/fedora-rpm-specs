@@ -1,9 +1,9 @@
 # Use QORTEC's fork for now since upstream appears unmaintained.
 # See https://github.com/pdewacht/brlaser/issues/145
-%global forgeurl https://github.com/QORTEC/brlaser
+%global forgeurl https://github.com/Owl-Maintain/brlaser
 
 Name:           printer-driver-brlaser
-Version:        6.2
+Version:        6.2.5
 %forgemeta
 Release:        %autorelease
 Summary:        Brother laser printer driver
@@ -12,7 +12,7 @@ License:        GPL-2.0-or-later
 URL:            %{forgeurl}
 Source0:        %{forgesource}
 
-Patch0:         0001-fix-build-under-Fedora-38.patch
+ExcludeArch:    %{ix86}
 
 BuildRequires:  cmake
 BuildRequires:  gcc-c++
@@ -32,7 +32,7 @@ For a detailed list of supported printers, please refer to
 %{forgeurl}
 
 %prep
-%forgeautosetup -p1
+%forgesetup
 
 %build
 %cmake

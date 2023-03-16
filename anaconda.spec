@@ -1,6 +1,6 @@
 Summary: Graphical system installer
 Name:    anaconda
-Version: 39.4
+Version: 39.5
 Release: 1%{?dist}
 License: GPLv2+ and MIT
 URL:     http://fedoraproject.org/wiki/Anaconda
@@ -39,7 +39,7 @@ Source0: https://github.com/rhinstaller/%{name}/releases/download/%{name}-%{vers
 %define libxklavierver 5.4
 %define mehver 0.23-1
 %define nmver 1.0
-%define pykickstartver 3.44-1
+%define pykickstartver 3.45-1
 %define pypartedver 2.5-2
 %define pythonblivetver 1:3.6.0-1
 %define rpmver 4.15.0
@@ -463,6 +463,25 @@ rm -rf \
 %{_prefix}/libexec/anaconda/dd_*
 
 %changelog
+* Tue Mar 14 2023 Packit <hello@packit.dev> - 39.5-1
+- Revert "Enable TFTP support (#2071350)" (vslavik)
+- CONTRIBUTING: Add note about systemd-boot (jeremy.linton)
+- release-notes: Document that its possible to install with systemd-boot
+  (jeremy.linton)
+- Add kickstart/command line control to enable systemd-boot (jeremy.linton)
+- add x86 systemd-boot option (jeremy.linton)
+- Add the grub packages removed from comps to grub installs (jeremy.linton)
+- Add EFISYSTEMD class and enable aarch64 (jeremy.linton)
+- Hoist firmware bit size check (jeremy.linton)
+- storage: Add a systemd class for systemd-boot (jeremy.linton)
+- bootloader/base.py drop stage2 requirement (jeremy.linton)
+- Retranslate welcome screen more simply (vslavik)
+- Clean up ISO option in source selection spoke (ozobal)
+- Clean up strings in payload tasks (vponcova)
+- Clean up tasks for setting up and tearing down sources (vponcova)
+- Enable TFTP support (#2071350) (Inperpetuammemoriam)
+- Update translations from Weblate
+
 * Tue Mar 07 2023 Packit <hello@packit.dev> - 39.4-1
 - Verify repomd hashes with a task (vponcova)
 - WebUI: Give "Quit" button correct margin (ozobal)

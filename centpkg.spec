@@ -12,7 +12,7 @@
 
 
 Name:           centpkg
-Version:        0.7.1
+Version:        0.7.2
 Release:        1%{?dist}
 Summary:        CentOS utility for working with dist-git
 License:        GPLv2+
@@ -22,6 +22,7 @@ BuildArch:      noarch
 
 %if %{defined el7}
 BuildRequires:  python-devel
+BuildRequires:  python36-pytz
 BuildRequires:  python-setuptools
 BuildRequires:  python-six
 BuildRequires:  python-rpkg
@@ -32,6 +33,7 @@ Requires:       python-rpkg >= 1.65
 Requires:       python-six
 %else
 BuildRequires:  python3-devel
+BuildRequires:  python3-pytz
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-six
 BuildRequires:  python3-rpkg
@@ -92,6 +94,9 @@ install -D -p -m 0644 centpkg.1            %{buildroot}%{_mandir}/man1/centpkg.1
 
 
 %changelog
+* Wed Mar 01 2023 Troy Dawson <tdawson@redhat.com> - 0.7.1-2
+- Latest upstream (Fixes confusing output)
+
 * Wed Mar 01 2023 Troy Dawson <tdawson@redhat.com> - 0.7.1-1
 - Latest upstream
 

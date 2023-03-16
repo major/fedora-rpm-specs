@@ -15,7 +15,7 @@
 Name:       %{realname}-simulator
 Summary:    A general purpose simulation platform
 Version:    2.4
-Release:    16.20210608git%{shortcommit}%{?dist}
+Release:    17.20210608git%{shortcommit}%{?dist}
 Url:        http://www.genesis-sim.org/GENESIS/
 Source0:    https://github.com/genesis-sim/%{realname}-%{version}/archive/%{commit}/%{name}-%{shortcommit}.tar.gz
 # fix left over COPT
@@ -135,7 +135,8 @@ NETCDFOBJ = \
 EOF
 
 %build
-make -C src %{?_smp_mflags} genesis
+# Kill parallel make, parallel make break build in ramdom ways
+make -C src genesis
 
 %install
 make -C src install INSTALLDIR=%{buildroot}%{_libdir}/genesis
@@ -187,6 +188,9 @@ rm -rf %{buildroot}%{_libdir}/%{realname}/Tutorials
 %doc Doc Hyperdoc Tutorials
 
 %changelog
+* Tue Mar 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 2.4-17.20210608git7b0a66b
+- Kill parallel make for now as it breaks build in random ways
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.4-16.20210608git7b0a66b
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

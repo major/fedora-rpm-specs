@@ -1,8 +1,8 @@
 Name:		pciutils
 Version:	3.9.0
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	PCI bus related utilities
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://mj.ucw.cz/sw/pciutils/
 
 Source0:	https://www.kernel.org/pub/software/utils/pciutils/%{name}-%{version}.tar.xz
@@ -101,6 +101,9 @@ install -p -m 644 lib/libpci.pc $RPM_BUILD_ROOT%{_libdir}/pkgconfig
 %{_mandir}/man7/*
 
 %changelog
+* Tue Mar 14 2023 Michal Hlavinka <mhlavink@redhat.com> - 3.9.0-4
+- update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.9.0-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

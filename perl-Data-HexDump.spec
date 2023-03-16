@@ -2,7 +2,7 @@ Name:           perl-Data-HexDump
 Version:        0.04
 Release:        7%{?dist}
 Summary:        Hexadecimal Dumper
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Data-HexDump
 Source0:        https://cpan.metacpan.org/modules/by-module/Data/Data-HexDump-%{version}.tar.gz
 BuildArch:      noarch
@@ -23,6 +23,7 @@ BuildRequires:  perl(warnings)
 # Test Suite
 # (no additional dependencies)
 # Dependencies
+# (no additional dependencies)
 
 %description
 Dump in hexadecimal the content of a scalar. The result is returned in a

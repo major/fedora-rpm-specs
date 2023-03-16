@@ -15,7 +15,7 @@
 Summary: Utility for determining file types
 Name: file
 Version: 5.44
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD
 Source0: http://ftp.astron.com/pub/file/file-%{version}.tar.gz
 Source1: http://ftp.astron.com/pub/file/file-%{version}.tar.gz.asc
@@ -34,8 +34,8 @@ Patch2: file-5.04-volume_key.patch
 # upstream commit: https://github.com/file/file/commit/1dd21dd360472d7b830825df8e40a06cdc1cbbcf
 Patch3: file-5.44-compression.patch
 
-# not yet in upstream
-Patch4: file-5.44-readelf-limit.patch
+# revert upstream commit: https://github.com/file/file/commit/e1233247bbe4d2d66b891224336a23384a93cce1
+Patch4: file-5.44-readelf-limit-revert.patch
 
 URL: https://www.darwinsys.com/file/
 Requires: file-libs%{?_isa} = %{version}-%{release}
@@ -221,6 +221,9 @@ make -C tests check
 %endif
 
 %changelog
+* Wed Mar 01 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 5.44-3
+- Remove the size limit check of the elf note section (rhbz#2167964)
+
 * Thu Feb 09 2023 Vincent Mihalkovic <vmihalko@redhat.com> - 5.44-2
 - Fix the size limit of the elf note section (rhbz#2167964)
   Test written by lzaoral, thanks!

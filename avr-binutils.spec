@@ -2,10 +2,10 @@
 
 Name:           %{target}-binutils
 Version:        2.40
-Release:        1%{?dist}
+Release:        2%{?dist}
 Epoch:          1
 Summary:        Cross Compiling GNU binutils targeted at %{target}
-License:        GPLv2+
+License:        GPL-2.0-or-later
 URL:            http://www.gnu.org/software/binutils/
 Source0:        https://ftp.gnu.org/pub/gnu/binutils/binutils-%{version}.tar.xz
 Source1:        README.fedora
@@ -84,6 +84,9 @@ rm    $RPM_BUILD_ROOT%{_libdir}/lib*.a $RPM_BUILD_ROOT%{_libdir}/bfd-plugins/lib
 
 
 %changelog
+* Tue Mar 14 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.40-2
+- update license tag format (SPDX migration) for https://fedoraproject.org/wiki/Changes/SPDX_Licenses_Phase_1
+
 * Wed Feb 01 2023 Michal Hlavinka <mhlavink@redhat.com> - 1:2.40-1
 - updated to 2.40
 

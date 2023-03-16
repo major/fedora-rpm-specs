@@ -1,7 +1,7 @@
 %bcond_with check
 
 %global packname testthat
-%global packver 3.1.6
+%global packver 3.1.7
 
 %global __suggests_exclude ^R\\((devtools)\\)
 
@@ -91,6 +91,9 @@ export _R_CHECK_FORCE_SUGGESTS_=0 LANG=C.UTF-8
 %{_libdir}/R/library/%{packname}/include/
 
 %changelog
+* Tue Mar 14 2023 Tom Callaway <spot@fedoraproject.org> - 3.1.7-1
+- update to 3.1.7
+
 * Thu Feb  9 2023 Tom Callaway <spot@fedoraproject.org> - 3.1.6-1
 - update to 3.1.6
 

@@ -4,7 +4,7 @@
 %bcond_with signed
 
 Name:      pykickstart
-Version:   3.45
+Version:   3.46
 Release:   1%{?dist}
 License:   GPL-2.0-only AND MIT
 Summary:   Python utilities for manipulating kickstart files.
@@ -79,6 +79,31 @@ LC_ALL=C make PYTHON=%{__python3} test
 %{python3_sitelib}/pykickstart*.egg-info
 
 %changelog
+* Tue Mar 14 2023 Brian C. Lane <bcl@redhat.com> - 3.46-1
+- Add conflict test between ostree sources (#2125655) (jkonecny)
+  Related: rhbz#2125655
+- Fix missing seen check for output generation (#2125655) (jkonecny)
+  Related: rhbz#2125655
+- Add new ostreecontainer command (#2125655) (jkonecny)
+  Related: rhbz#2125655
+  Resolves: rhbz#2125655
+  Related: rhbz#2125655
+- Check the conflicting commands automatically (vponcova)
+- Fix tests for conflicting commands (vponcova)
+- Add conflicting commands support (bcl)
+- Fix handling of package section arguments in older versions (bcl)
+
+* Tue Mar 14 2023 Brian C. Lane <bcl@redhat.com> - 3.45-1
+- workflow: Update to use released python 3.11 version (bcl)
+- Don't allow to use --sdboot and --extlinux together (vponcova)
+- tests: add bootloader sdboot option (jeremy.linton)
+- bootloader: Add systemd-boot support with --sdboot (jeremy.linton)
+- Add %%changelog section to pykickstart.spec.in (jkonecny)
+- Do not request sign for rc-release Makefile target (jkonecny)
+- Do not require SPECFILE for rc-release (jkonecny)
+- Add missing docs copy to scratch Makefile (jkonecny)
+- Add support for Fedora 39 (vslavik)
+
 * Wed Feb 15 2023 Brian C. Lane <bcl@redhat.com> - 3.44-1
 - Add DNS handling options to the network command (vslavik)
   Related: rhbz#1656662

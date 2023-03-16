@@ -888,91 +888,91 @@ udev.
 %setup -q -n chromium-%{version}
 
 ### Chromium Fedora Patches ###
-%patch0 -p1 -b .sandboxpie
-%patch1 -p1 -b .etc
-%patch2 -p1 -b .gnsystem
-%patch5 -p1 -b .nozlibmangle
-%patch6 -p1 -b .nounrar
-%patch7 -p1 -b .widevine-hack
-%patch8 -p1 -b .widevine-other-locations
-%patch9 -p1 -b .widevine-no-download
-%patch11 -p1 -b .py3
+%patch -P0 -p1 -b .sandboxpie
+%patch -P1 -p1 -b .etc
+%patch -P2 -p1 -b .gnsystem
+%patch -P5 -p1 -b .nozlibmangle
+%patch -P6 -p1 -b .nounrar
+%patch -P7 -p1 -b .widevine-hack
+%patch -P8 -p1 -b .widevine-other-locations
+%patch -P9 -p1 -b .widevine-no-download
+%patch -P11 -p1 -b .py3
 
-%patch20 -p1 -b .disable-font-test
+%patch -P20 -p1 -b .disable-font-test
 
 %if 0%{?fedora} || 0%{?rhel} >= 8
-%patch52 -p1 -b .unbundle-zlib
+%patch -P52 -p1 -b .unbundle-zlib
 %endif
 
-%patch53 -p1 -b .limits-header
-%patch56 -p1 -b .missing-cstdint
-%patch57 -p1 -b .missing-cstring
+%patch -P53 -p1 -b .limits-header
+%patch -P56 -p1 -b .missing-cstdint
+%patch -P57 -p1 -b .missing-cstring
 
 %if ! %{bundleminizip}
-%patch61 -p1 -b .system-minizip
+%patch -P61 -p1 -b .system-minizip
 %endif
 
-%patch65 -p1 -b .java-only-allowed
-%patch69 -p1 -b .update-rjsmin-to-1.2.0
-%patch70 -p1 -b .update-six-to-1.16.0
-%patch82 -p1 -b .remoting-no-tests
+%patch -P65 -p1 -b .java-only-allowed
+%patch -P69 -p1 -b .update-rjsmin-to-1.2.0
+%patch -P70 -p1 -b .update-six-to-1.16.0
+%patch -P82 -p1 -b .remoting-no-tests
 
 %if ! %{bundlebrotli}
-%patch89 -p1 -b .system-brotli
+%patch -P89 -p1 -b .system-brotli
 %endif
 
-%patch90 -p1 -b .disable-GlobalMediaControlsCastStartStop
+%patch -P90 -p1 -b .disable-GlobalMediaControlsCastStartStop
 
 %if ! %{bundleopus}
-%patch91 -p1 -b .system-opus
+%patch -P91 -p1 -b .system-opus
 %endif
 
-%patch92 -p1 -b .gtk-prefers-color-scheme
+%patch -P92 -p1 -b .gtk-prefers-color-scheme
 
 # Fedora branded user agent
 %if 0%{?fedora}
-%patch12 -p1 -b .fedora-user-agent
+%patch -P12 -p1 -b .fedora-user-agent
 %endif
 
 %if ! %{bundleffmpegfree}
-%patch114 -p1 -b .system-ffmppeg
-%patch115 -p1 -b .prop-codecs
-%patch116 -p1 -b .first_dts
+%patch -P114 -p1 -b .system-ffmppeg
+%patch -P115 -p1 -b .prop-codecs
+%patch -P116 -p1 -b .first_dts
 %if 0%{?fedora} == 36
-%patch117 -p1 -b .revert-new-channel-layout-api
+%patch -P117 -p1 -b .revert-new-channel-layout-api
 %endif
 %endif
 
 # EPEL specific patches
 %if 0%{?rhel} == 7
-%patch100 -p1 -b .el7-memfd-fcntl-include
-%patch101 -p1 -b .wayland-strndup-error
-%patch103 -p1 -b .epel7-header-workarounds
-%patch104 -p1 -b .el7cups
-%patch105 -p1 -b .el7-old-libdrm
-%patch106 -p1 -b .el7-erase-fix
-%patch107 -p1 -b .el7-extra-operator-equalequal
+%patch -P100 -p1 -b .el7-memfd-fcntl-include
+%patch -P101 -p1 -b .wayland-strndup-error
+%patch -P103 -p1 -b .epel7-header-workarounds
+%patch -P104 -p1 -b .el7cups
+%patch -P105 -p1 -b .el7-old-libdrm
+%patch -P106 -p1 -b .el7-erase-fix
+%patch -P107 -p1 -b .el7-extra-operator-equalequal
 %endif
 
-%patch130 -p1 -b .VirtualCursor-std-layout
+%patch -P130 -p1 -b .VirtualCursor-std-layout
 
-%patch146 -p1 -b .LargerThan4k
+%patch -P146 -p1 -b .LargerThan4k
 
 %if %{use_qt}
-%patch121 -p1 -b .enable-allowqt
+%patch -P121 -p1 -b .enable-allowqt
 %endif
   
-%patch122 -p1 -b .gcc13
+%patch -P122 -p1 -b .gcc13
 
 # Feature specific patches
 %if %{use_vaapi}
-%patch202 -p1 -b .accel-mjpeg
-%patch205 -p1 -b .vaapi-intel-fix
-%patch206 -p1 -b .wayland-vaapi
+%patch -P202 -p1 -b .accel-mjpeg
+%patch -P205 -p1 -b .vaapi-intel-fix
+%patch -P206 -p1 -b .wayland-vaapi
 %endif
 
 %if 0%{?rhel} >= 8
-%patch300 -p1 -b .disblegnomekeyring
+%patch -P300 -p1 -b .disblegnomekeyring
 %endif
 
 # Change shebang in all relevant files in this directory and all subdirectories

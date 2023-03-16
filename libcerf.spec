@@ -1,7 +1,7 @@
 Name:           libcerf
-Version:        2.1
+Version:        2.3
 %global         sover 2
-Release:        3%{?dist}
+Release:        1%{?dist}
 Summary:        A library that provides complex error functions
 
 License:        MIT
@@ -36,17 +36,15 @@ developing applications that use %{name}.
 %prep
 %setup -q -n %{name}-v%{version}
 
-# remove cruft
-rm -rf fortran/__MACOSX
-
 %build
-%cmake
+# avoid non-portable default build flags (-march=native -O3), by setting overwrite
+# CERF_COMPILE_OPTIONS to a harmless flags like -Wall and let %cmake do its thing
+%cmake -DCERF_COMPILE_OPTIONS='-Wall'
 %cmake_build
 
 
 %install
 %cmake_install
-find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 # Move the documentation to the devel package
 mv $RPM_BUILD_ROOT/%{_datadir}/doc/cerf/html $RPM_BUILD_ROOT/%{_datadir}/doc/%{name}-devel
 
@@ -70,6 +68,9 @@ mv $RPM_BUILD_ROOT/%{_datadir}/doc/cerf/html $RPM_BUILD_ROOT/%{_datadir}/doc/%{n
 
 
 %changelog
+* Tue Mar 14 2023 Christoph Junghans <junghans@votca.org> - 2.3-1
+- Version bump to v2.3 (bug #2140587)
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.1-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

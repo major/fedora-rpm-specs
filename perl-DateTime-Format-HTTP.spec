@@ -2,7 +2,7 @@ Name:           perl-DateTime-Format-HTTP
 Version:        0.42
 Release:        25%{?dist}
 Summary:        HTTP protocol date conversion routines
-License:        GPL+ or Artistic
+License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/DateTime-Format-HTTP
 Source0:        https://cpan.metacpan.org/modules/by-module/DateTime/DateTime-Format-HTTP-%{version}.tar.gz
 BuildArch:      noarch

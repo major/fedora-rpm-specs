@@ -16,6 +16,9 @@ Summary:        Tool for extracting information from PDF documents
 #     - If this is a bundled library, its origin is unclear
 #   pdfminer/ascii85.py
 #     - If this is a bundled library, its origin is unclear
+# The public-domain dedication text was added to public-domain-text.txt in
+# fedora-license-data in commit e75b02b91633c17388b6e67dc5884702f8bee22b:
+# https://gitlab.com/fedora/legal/fedora-license-data/-/merge_requests/194
 #
 # APAFML:
 #   pdfminer/fontmetrics.py

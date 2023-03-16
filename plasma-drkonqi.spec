@@ -4,7 +4,7 @@
 
 Name:    plasma-drkonqi
 Summary: DrKonqi crash handler for KF5/Plasma5
-Version: 5.27.2
+Version: 5.27.3
 Release: 1%{?dist}
 
 License: GPLv2+
@@ -104,6 +104,9 @@ fi
 %{_qt5_plugindir}/drkonqi/KDECoredumpNotifierTruck.so
 
 %changelog
+* Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
+- 5.27.3
+
 * Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
 - 5.27.2
 

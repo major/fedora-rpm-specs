@@ -1,21 +1,42 @@
 Name:           perl-String-Approx
 Version:        3.28
-Release:        20%{?dist}
-Summary:        Perl extension for approximate matching (fuzzy matching)
-License:        LGPLv2+ or Artistic
+Release:        21%{?dist}
+Summary:        Perl extension for approximate (fuzzy) matching
+# Approx.pm:    Artistic-2.0 OR LGPL-2.0-only
+# apse.c:       LGPL-2.0-or-later OR Artistic-1.0-Perl
+# apse.h:       LGPL-2.0-or-later OR Artistic-1.0-Perl
+# Artistic:     Artistic-2.0 text
+# COPYRIGHT:    LGPL-1.0-or-later (!) OR Artistic-1.0-Perl
+# COPYRIGHT.agrep:  agrep license text
+# LGPL:         LGPL-2.0 text
+# README:       Artistic-2.0 OR LGPL-2.0-only
+# README.apse:  "read the COPYRIGHT. This implementation shares no code with agrep"
+License:        (LGPL-2.0-or-later OR Artistic-1.0-Perl) AND (Artistic-2.0 OR LGPL-2.0-only)
 URL:            https://metacpan.org/release/String-Approx
 Source0:        https://cpan.metacpan.org/authors/id/J/JH/JHI/String-Approx-%{version}.tar.gz
-BuildRequires: make
+BuildRequires:  coreutils
+BuildRequires:  findutils
 BuildRequires:  gcc
+BuildRequires:  make
 BuildRequires:  perl-devel
 BuildRequires:  perl-generators
+BuildRequires:  perl-interpreter
+BuildRequires:  perl(ExtUtils::MakeMaker) >= 6.76
+# Run-time:
+BuildRequires:  perl(:VERSION) >= 5.8.0
+BuildRequires:  perl(Carp)
+BuildRequires:  perl(DynaLoader)
+BuildRequires:  perl(Exporter)
+BuildRequires:  perl(integer)
+BuildRequires:  perl(strict)
+BuildRequires:  perl(vars)
+# Tests:
 BuildRequires:  perl(Test::More)
-BuildRequires:  perl(ExtUtils::MakeMaker)
 
 %description
 String::Approx lets you match and substitute strings approximately. With
-this you can emulate errors: typing errorrs, speling errors, closely
-related vocabularies (colour color), genetic mutations (GAG ACT),
+this you can emulate errors: typing errors, speling errors, closely
+related vocabularies (colour vs. color), genetic mutations (GAG vs. ACT),
 abbreviations (McScot, MacScot).
 
 
@@ -24,18 +45,14 @@ abbreviations (McScot, MacScot).
 
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor OPTIMIZE="$RPM_OPT_FLAGS"
-make %{?_smp_mflags}
+perl Makefile.PL INSTALLDIRS=vendor NO_PACKLIST=1 NO_PERLLOCAL=1 OPTIMIZE="$RPM_OPT_FLAGS"
+%{make_build}
 
 
 %install
-make pure_install PERL_INSTALL_ROOT=$RPM_BUILD_ROOT
-
-find $RPM_BUILD_ROOT -type f -name .packlist -exec rm -f {} \;
-find $RPM_BUILD_ROOT -type f -name '*.bs' -size 0 -exec rm -f {} \;
-find $RPM_BUILD_ROOT -depth -type d -exec rmdir {} 2>/dev/null \;
-
-%{_fixperms} $RPM_BUILD_ROOT/*
+%{make_install}
+find %{buildroot} -type f -name '*.bs' -size 0 -delete
+%{_fixperms} %{buildroot}/*
 
 
 %check
@@ -45,12 +62,18 @@ make test
 %files
 %license Artistic COPYRIGHT COPYRIGHT.agrep LGPL
 %doc ChangeLog PROBLEMS README README.apse
-%{perl_vendorarch}/auto/*
-%{perl_vendorarch}/String*
-%{_mandir}/man3/*
+%dir %{perl_vendorarch}/auto/String
+%{perl_vendorarch}/auto/String/Approx
+%dir %{perl_vendorarch}/String
+%{perl_vendorarch}/String/Approx.pm
+%{_mandir}/man3/String::Approx.*
 
 
 %changelog
+* Tue Mar 14 2023 Petr Pisar <ppisar@redhat.com> - 3.28-21
+- Correct a license to ((LGPL-2.0-or-later OR Artistic-1.0-Perl) AND
+  (Artistic-2.0 OR LGPL-2.0-only))
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 3.28-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

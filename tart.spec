@@ -113,14 +113,19 @@ cabal-tweak-dep-ver brick '< 0.58' '< 0.63'
 # Begin cabal-rpm install
 %ghc_lib_install
 # End cabal-rpm install
+# when no bin base package
+rm %{buildroot}%{_licensedir}/%{name}/LICENSE
 
 
+# https://github.com/jtdaugherty/tart/issues/21
+%if 0
 %files
 # Begin cabal-rpm files:
 %license LICENSE
 %doc CHANGELOG.md README.md
 %{_bindir}/%{name}
 # End cabal-rpm files
+%endif
 
 
 %files -n ghc-%{name} -f ghc-%{name}.files
@@ -147,6 +152,7 @@ cabal-tweak-dep-ver brick '< 0.58' '< 0.63'
 %changelog
 * Thu Feb 16 2023 Jens Petersen <petersen@redhat.com> - 0.3-8
 - refresh to cabal-rpm-2.1.0 with SPDX migration
+- disable executable for lts-20
 
 * Sat Jul 23 2022 Fedora Release Engineering <releng@fedoraproject.org> - 0.3-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_37_Mass_Rebuild

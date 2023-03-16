@@ -1,5 +1,9 @@
 %global gem_name coderay
 
+%if %{undefined rhel}
+%bcond_without shoulda
+%endif
+
 Name: rubygem-%{gem_name}
 Version: 1.1.3
 Release: 5%{?dist}
@@ -18,7 +22,9 @@ BuildRequires: rubygems-devel
 BuildRequires: ruby >= 1.8.6
 BuildRequires: rubygem(test-unit)
 BuildRequires: rubygem(rspec)
+%if %{with shoulda}
 BuildRequires: rubygem(shoulda-context)
+%endif
 BuildArch: noarch
 
 %description
@@ -79,7 +85,9 @@ ruby ./test/functional/suite.rb
 ruby ./test/functional/for_redcloth.rb
 ruby ./test/unit/suite.rb
 # This test depends on rubygem-shoulda-context.
+%if %{with shoulda}
 ruby ./test/executable/suite.rb
+%endif
 rspec spec
 popd
 

@@ -8,6 +8,10 @@ License:        MIT
 URL:            https://github.com/python-greenlet/greenlet
 Source0:        %{url}/archive/%{version}/%{modname}-%{version}.tar.gz
 
+# Patch needed for compatibility with Python 3.12
+# Inspired by: https://github.com/python-greenlet/greenlet/issues/323#issue-1428384781
+Patch:          Rename-recursion-limits-to-add-compatibility-with-Py.patch
+
 BuildRequires:  gcc-c++
 
 %global _description \

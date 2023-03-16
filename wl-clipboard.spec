@@ -1,11 +1,11 @@
 Name:           wl-clipboard
-Version:        2.0.0
-Release:        8%{?dist}
+Version:        2.1.0
+Release:        1%{?dist}
 Summary:        Command-line copy/paste utilities for Wayland
 
-License:        GPLv3+
+License:        GPL-3.0-or-later
 URL:            https://github.com/bugaevc/wl-clipboard
-Source0:        https://github.com/bugaevc/wl-clipboardarchive/%{name}-%{version}.tar.gz
+Source0:        %url/archive/v%{version}/%{name}-%{version}.tar.gz
 
 BuildRequires:  meson
 BuildRequires:  gcc
@@ -42,9 +42,13 @@ sockets, files and so on.
 %{_mandir}/man1/wl-copy.1.*
 %{_mandir}/man1/wl-paste.1.*
 %{_datadir}/bash-completion/completions/wl-*
+%{_datadir}/fish/vendor_completions.d/wl-*
 %{_datadir}/zsh/site-functions/_wl-*
 
 %changelog
+* Mon Mar 13 2023 Todd Zullinger <tmz@pobox.com> - 2.1.0-1
+- update to 2.1.0 (rhbz#2066000)
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.0.0-8
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

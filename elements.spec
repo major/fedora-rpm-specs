@@ -1,7 +1,7 @@
 Summary:        A C++/Python build framework
 Name:           elements
-Version:        6.0.1
-Release:        10%{?dist}
+Version:        6.1.2
+Release:        1%{?dist}
 License:        LGPLv3+
 Source0:        https://github.com/astrorama/Elements/archive/%{version}/%{name}-%{version}.tar.gz
 # Elements use this file to link the documentation to cppreference.com
@@ -13,10 +13,6 @@ URL:            https://github.com/degauden/Elements.git
 Patch0:         elements_remove_examples.patch
 # Disable the compilation of PDF documentation
 Patch3:         elements_disable_latex.patch
-# Fix tests for Python 3.11
-Patch4:         python-3.11.patch
-# Fix a buggy test
-Patch5:         elements_tests.patch
 # Move from Py.Test to PyTest
 Patch6:         elements-pytest.patch
 # Add missing #include directive for GCC 13
@@ -143,30 +139,32 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 
 %{cmakedir}/ElementsBuildEnvironment.xml
 %{cmakedir}/ElementsBuildFlags.cmake
+%{cmakedir}/ElementsConfig.cmake
+%{cmakedir}/ElementsConfigVersion.cmake
 %{cmakedir}/ElementsCoverage.cmake
 %{cmakedir}/ElementsDefaults.cmake
 %{cmakedir}/ElementsDocumentation.cmake
+%{cmakedir}/ElementsExports-relwithdebinfo.cmake
+%{cmakedir}/ElementsExports.cmake
+%{cmakedir}/ElementsGenerateBindings.cmake
+%{cmakedir}/ElementsInfo.cmake
+%{cmakedir}/ElementsKernelExport.cmake
 %{cmakedir}/ElementsLocations.cmake
+%{cmakedir}/ElementsPlatformConfig.cmake
 %{cmakedir}/ElementsProjectConfig.cmake
+%{cmakedir}/ElementsServicesExport.cmake
 %{cmakedir}/ElementsToolChain.cmake
 %{cmakedir}/ElementsToolChainMacros.cmake
 %{cmakedir}/ElementsUninstall.cmake
 %{cmakedir}/ElementsUtils.cmake
-%{cmakedir}/ElementsInfo.cmake
-%{cmakedir}/ElementsExports-relwithdebinfo.cmake
-%{cmakedir}/ElementsServicesExport.cmake
+%{cmakedir}/GetGitRevisionDescription.cmake
+%{cmakedir}/HelloWorld.cmake
 %{cmakedir}/SGSPlatform.cmake
 %{cmakedir}/auxdir
 %{cmakedir}/doc
 %{cmakedir}/modules
 %{cmakedir}/scripts
 %{cmakedir}/tests
-%{cmakedir}/ElementsExports.cmake
-%{cmakedir}/ElementsPlatformConfig.cmake
-%{cmakedir}/ElementsKernelExport.cmake
-%{cmakedir}/ElementsConfigVersion.cmake
-%{cmakedir}/ElementsConfig.cmake
-%{cmakedir}/GetGitRevisionDescription.cmake
 
 %{makedir}
 
@@ -175,6 +173,9 @@ export ELEMENTS_CONF_PATH="%{_builddir}/ElementsKernel/auxdir/"
 %{docdir}
 
 %changelog
+* Tue Mar 14 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 6.1.2-1
+- Elements 6.1.2
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 6.0.1-10
 - Rebuilt for Boost 1.81
 

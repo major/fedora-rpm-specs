@@ -1,14 +1,14 @@
 Name:           perl-Perl4-CoreLibs
-Version:        0.004
-Release:        20%{?dist}
+Version:        0.005
+Release:        1%{?dist}
 Summary:        Libraries historically supplied with Perl 4
 License:        GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:            https://metacpan.org/release/Perl4-CoreLibs
 Source0:        https://cpan.metacpan.org/authors/id/Z/ZE/ZEFRAM/Perl4-CoreLibs-%{version}.tar.gz
-# Adjust tests to pass 4-digit years to Time::Local, CPAN RT#131341
-Patch0:         Perl4-CoreLibs-0.004-y2k20.patch
 BuildArch:      noarch
 BuildRequires:  coreutils
+# Call in chat2.pl
+BuildRequires:  hostname
 BuildRequires:  perl-generators
 BuildRequires:  perl-interpreter
 BuildRequires:  perl(:VERSION) >= 5.6
@@ -22,6 +22,7 @@ BuildRequires:  perl(IPC::Open2)
 BuildRequires:  perl(IPC::Open3)
 # Prefer Socket over socket.ph
 # Socket not used at tests
+BuildRequires:  perl(Sys::Syslog) => 0.19
 BuildRequires:  perl(Text::ParseWords) >= 3.25
 BuildRequires:  perl(Time::Local)
 # warnings::register not used at tests
@@ -30,10 +31,12 @@ BuildRequires:  perl(Config)
 BuildRequires:  perl(IO::Handle)
 BuildRequires:  perl(newgetopt.pl)
 BuildRequires:  perl(Test::More)
+Requires:       hostname
 Requires:       perl(File::Find)
 Requires:       perl(IPC::Open2)
 Requires:       perl(IPC::Open3)
 Requires:       perl(Socket)
+Requires:       perl(Sys::Syslog) => 0.19
 Requires:       perl(Text::ParseWords) >= 3.25
 Requires:       perl(Time::Local)
 Requires:       perl(warnings::register)
@@ -90,7 +93,6 @@ with "%{_libexecdir}/%{name}/test".
 
 %prep
 %setup -q -n Perl4-CoreLibs-%{version}
-%patch0 -p1
 # newgetopt.pl is distributed by Getopt-Long, CPAN RT#102212
 rm lib/newgetopt.pl
 sed -i -e '/^lib\/newgetopt\.pl/d' MANIFEST
@@ -129,6 +131,9 @@ chmod +x %{buildroot}%{_libexecdir}/%{name}/test
 %{_libexecdir}/%{name}
 
 %changelog
+* Tue Mar 14 2023 Michal Josef Špaček <mspacek@redhat.com> - 0.005-1
+- 0.005 bump
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.004-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

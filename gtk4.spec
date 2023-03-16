@@ -16,11 +16,11 @@
 %global __provides_exclude_from ^%{_libdir}/gtk-4.0
 
 Name:           gtk4
-Version:        4.10.0
+Version:        4.10.1
 Release:        %autorelease
 Summary:        GTK graphical user interface library
 
-License:        LGPLv2+
+License:        LGPL-2.0-or-later
 URL:            https://www.gtk.org
 Source0:        https://download.gnome.org/sources/gtk/4.10/gtk-%{version}.tar.xz
 Source1:        settings.ini
@@ -28,11 +28,6 @@ Source1:        settings.ini
 # private requires that are needed for rpm automatic dep extraction.
 # https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/4756
 Patch0:         0001-Revert-Meson-Simplify-pkgconfig-file-generator.patch
-
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5625
-Patch1:         0001-filerchooser-Show-Recent-files-in-inverse-order.patch
-# https://gitlab.gnome.org/GNOME/gtk/-/merge_requests/5608
-Patch2:         gtk4-4.10.0-combobox-allocation-fix.patch
 
 BuildRequires:  cups-devel
 BuildRequires:  desktop-file-utils

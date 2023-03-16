@@ -92,11 +92,11 @@ that LaTeX does for scientific text.
 
 %prep
 %setup -q
-%patch0 -p1 -b .settings
-%patch3 -p1 -b .path-fix
-%patch4 -p1 -b .libtirpc
-%patch5 -p1 -b .const-memrchr
-%patch6 -p1 -b .glut
+%patch -P0 -p1 -b .settings
+%patch -P3 -p1 -b .path-fix
+%patch -P4 -p1 -b .libtirpc
+%patch -P5 -p1 -b .const-memrchr
+%patch -P6 -p1 -b .glut
 %{__sed} -i 's/\r//' doc/CAD1.asy
 
 # convert to UTF-8

@@ -1,12 +1,12 @@
-%global lit_version 15.0.7
-#global rc_ver 1
+%global lit_version 16.0.0
+%global rc_ver 4
 #global post_ver 0
 
 %bcond_without check
 
 Name: python-lit
 Version: %{lit_version}%{?rc_ver:~rc%{rc_ver}}
-Release: 3%{?dist}
+Release: 1%{?dist}
 BuildArch: noarch
 
 License: NCSA
@@ -52,11 +52,20 @@ sed -i -e '1{\@^#!/usr/bin/env python@d}' %{buildroot}%{python3_sitelib}/lit/*.p
 
 %files -n python3-lit
 %license LICENSE.TXT
-%doc README.txt
+%doc README.rst
 %{python3_sitelib}/*
 %{_bindir}/lit
 
 %changelog
+* Tue Mar 14 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc4-1
+- Update to LLVM 16.0.0 RC4
+
+* Wed Feb 22 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc3-1
+- Update to LLVM 16.0.0 RC3
+
+* Wed Feb 01 2023 Tulio Magno Quites Machado Filho <tuliom@redhat.com> - 16.0.0~rc1-1
+- Update to LLVM 16.0.0 RC1
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 15.0.7-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

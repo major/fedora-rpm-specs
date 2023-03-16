@@ -4,7 +4,7 @@
 %global libcmatrix_commit ec50358d3bf102e7f8f1843e537bcf1f150d2b7a
 
 Name: chatty
-Version: 0.7.0
+Version: 0.7.2
 Release: 1%{?dist}
 Summary: A libpurple messaging client
 

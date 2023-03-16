@@ -6,24 +6,20 @@
 %endif
 
 Name:		pythia8
-Version:	8.3.06
-Release:	7%{?dist}
+Version:	8.3.09
+Release:	1%{?dist}
 Summary:	Pythia Event Generator for High Energy Physics
 
-License:	GPLv2+
+License:	GPL-2.0-or-later
 URL:		https://pythia.org
-Source0:	https://pythia.org/download/pythia83/pythia8306.tgz
+Source0:	https://pythia.org/download/pythia83/pythia8309.tgz
 #		Link plugins to the shared library
 #		Remove rpath
 Patch0:		%{name}-makefile.patch
-#		Fix this pointer is null warnings
-#		https://gitlab.com/Pythia8/releases/-/issues/121
-Patch1:		%{name}-this-null.patch
-#		Fix creation of std::string from null pointer error
-#		https://gitlab.com/Pythia8/releases/-/issues/122
-Patch2:		%{name}-string-nullptr.patch
 #		Update pybind headers for python 3.11
-Patch3:		%{name}-python-3.11.patch
+Patch1:		%{name}-python-3.11.patch
+#		Fix a Syntax Error when using Python 2.7
+Patch2:		%{name}-python-2.7-example-syntax.patch
 
 BuildRequires:	make
 BuildRequires:	gcc-c++
@@ -40,9 +36,6 @@ BuildRequires:	rsync
 BuildRequires:	dos2unix
 Requires:	%{name}-data = %{version}-%{release}
 Obsoletes:	%{name}-hepmcinterface < 8.2
-%if ! %{buildpy2}
-Obsoletes:	python2-%{name} < %{version}-%{release}
-%endif
 
 %description
 PYTHIA is a program for the generation of high-energy physics events, i.e.
@@ -70,7 +63,7 @@ This package provides the LHAPDF interface for Pythia 8.
 %if %{buildpy2}
 %package -n python2-%{name}
 Summary:	Pythia 8 Python 2 bindings
-%{?python_provide:%python_provide python2-%{name}}
+%py_provides	python2-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python2-%{name}
@@ -79,19 +72,19 @@ This package provides the Python 2 bindings for Pythia 8.
 
 %package -n python%{python3_pkgversion}-%{name}
 Summary:	Pythia 8 Python 3 bindings
-%{?python_provide:%python_provide python%{python3_pkgversion}-%{name}}
+%py_provides	python%{python3_pkgversion}-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
 %description -n python%{python3_pkgversion}-%{name}
 This package provides the Python 3 bindings for Pythia 8.
 
 %if %{?rhel}%{!?rhel:0} == 7
-%package -n python%{python3_other_pkgversion}-%{name}
+%package -n python%{?python3_other_pkgversion}-%{name}
 Summary:	Pythia 8 Python 3 bindings
-%{?python_provide:%python_provide python%{?python3_other_pkgversion}-%{name}}
+%py_provides	python%{python3_other_pkgversion}-%{name}
 Requires:	%{name}%{?_isa} = %{version}-%{release}
 
-%description -n python%{python3_other_pkgversion}-%{name}
+%description -n python%{?python3_other_pkgversion}-%{name}
 This package provides the Python 3 bindings for Pythia 8.
 %endif
 
@@ -117,11 +110,10 @@ BuildArch:	noarch
 This package provides documentation for Pythia 8.
 
 %prep
-%setup -q -n pythia8306
+%setup -q -n pythia8309
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
-%patch3 -p1
 
 # Remove DOS end-of-line
 dos2unix -k share/Pythia8/htmldoc/pythia.css \
@@ -129,7 +121,11 @@ dos2unix -k share/Pythia8/htmldoc/pythia.css \
 
 %build
 ./configure --prefix=%{_prefix} --prefix-lib=%{_libdir} \
+%if %{?rhel}%{!?rhel:0} == 7
 	    --cxx-common="%{optflags} -std=c++11 -fPIC" \
+%else
+	    --cxx-common="%{optflags} -fPIC" \
+%endif
 	    --cxx-shared="%{?__global_ldflags} -shared" \
 	    --lib-suffix="-%{version}.so" \
 	    --with-lhapdf6 \
@@ -176,6 +172,9 @@ rm %{buildroot}%{_datadir}/Pythia8/README
 rm %{buildroot}%{_datadir}/Pythia8/examples/Makefile
 rm %{buildroot}%{_datadir}/Pythia8/examples/Makefile.inc
 rm %{buildroot}%{_datadir}/Pythia8/examples/runmains
+rm %{buildroot}%{_datadir}/Pythia8/examples/*.pyc
+
+touch %{buildroot}%{_datadir}/Pythia8/examples/Makefile.inc
 
 %if %{buildpy2}
 mkdir -p %{buildroot}%{python2_sitearch}
@@ -228,7 +227,7 @@ echo 'Version: %{version}' >> %{buildroot}%{python3_other_sitearch}/%{name}-%{ve
 %{python3_sitearch}/pythia8.*.so
 
 %if %{?rhel}%{!?rhel:0} == 7
-%files -n python%{python3_other_pkgversion}-%{name}
+%files -n python%{?python3_other_pkgversion}-%{name}
 %{python3_other_sitearch}/%{name}-%{version}.egg-info
 %{python3_other_sitearch}/pythia8.*.so
 %endif
@@ -250,6 +249,9 @@ echo 'Version: %{version}' >> %{buildroot}%{python3_other_sitearch}/%{name}-%{ve
 %license COPYING
 
 %changelog
+* Tue Mar 14 2023 Mattias Ellert <mattias.ellert@physics.uu.se> - 8.3.09-1
+- Update to version 8.3.09
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 8.3.06-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

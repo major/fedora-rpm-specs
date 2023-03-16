@@ -1,12 +1,13 @@
 Name:		uARMSolver
 Version:	0.2.4
-Release:	3%{?dist}
+Release:	4%{?dist}
 Summary:	Universal Association Rule Mining Solver
 
 License:	MIT
 URL:		https://github.com/firefly-cpp/uARMSolver
 Source0:	https://github.com/firefly-cpp/%{name}/archive/%{version}/%{name}-%{version}.tar.gz
-	
+Patch0:	    0001-Renames.patch
+
 BuildRequires:	gcc-c++
 BuildRequires:	make
 
@@ -22,7 +23,7 @@ extracting the knowledge hidden in data, and visualize these using
 external tools. 
 
 %prep
-%autosetup
+%autosetup -p1
 
 %build
 %{set_build_flags}
@@ -44,6 +45,9 @@ rm -f %{buildroot}%{_infodir}/dir
 %{_mandir}/man1/%{name}.1*
 
 %changelog
+* Tue Mar 14 2023 Iztok Fister Jr. <iztokf AT fedoraproject DOT org> - 0.2.3-4
+- Fix compiler errors | apply patch
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.2.4-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

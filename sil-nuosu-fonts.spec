@@ -1,16 +1,13 @@
-# Packaging template: basic single-family fonts packaging.
-#
 # SPDX-License-Identifier: MIT
-#
+
 Version: 2.200
-Release: 7%{?dist}
+Release: 8%{?dist}
 URL:     http://scripts.sil.org/SILYi_home
 
 %global foundry           SIL
-%global fontlicense       OFL
+%global fontlicense       OFL-1.1-RFN
 %global fontlicenses      OFL.txt
 %global fontdocs          README.txt FONTLOG.txt
-%global fontdocsex        %{fontlicenses}
 
 %global fontfamily        Nuosu SIL
 %global fontsummary       The Nuosu SIL Font
@@ -27,8 +24,8 @@ Source10: 66-sil-nuosu-fonts.conf
 %fontpkg
 
 %prep
-%setup -q -n NuosuSIL-%{version}
-sed -i 's/\r//' OFL.txt FONTLOG.txt
+%autosetup -n NuosuSIL-%{version}
+%linuxtext OFL.txt FONTLOG.txt
 
 %build
 %fontbuild
@@ -42,6 +39,9 @@ sed -i 's/\r//' OFL.txt FONTLOG.txt
 %fontfiles
 
 %changelog
+* Fri Mar 10 2023 Peng Wu <pwu@redhat.com> - 2.200-8
+- Migrate to SPDX license
+
 * Sat Jan 21 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.200-7
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -2,7 +2,7 @@ Name:		perl-Digest-MD5-File
 Version:	0.08
 Release:	32%{?dist}
 Summary:	Perl extension for getting MD5 sums for files and URLs
-License:	GPL+ or Artistic
+License:	GPL-1.0-or-later OR Artistic-1.0-Perl
 URL:		https://metacpan.org/release/Digest-MD4
 Source0:	https://cpan.metacpan.org/modules/by-module/Digest/Digest-MD5-File-%{version}.tar.gz
 BuildArch:	noarch

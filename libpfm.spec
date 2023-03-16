@@ -12,7 +12,7 @@
 
 Name:		libpfm
 Version:	4.11.0
-Release:	11%{?dist}
+Release:	12%{?dist}
 
 Summary:	Library to encode performance events for use by perf tool
 
@@ -21,6 +21,7 @@ URL:		http://perfmon2.sourceforge.net/
 Source0:	http://sourceforge.net/projects/perfmon2/files/libpfm4/%{name}-%{version}.tar.gz
 Patch2:		libpfm-python3-setup.patch
 Patch3:		libpfm-gcc12.patch
+Patch4:		libpfm-kernel518.patch
 
 BuildRequires: make
 BuildRequires:	gcc
@@ -73,6 +74,7 @@ Python bindings for libpfm4 and perf_event_open system call.
 %setup -q
 %patch2 -p1 -b .python3
 %patch3 -p1 -b .gcc12
+%patch4 -p1 -b .kernel518
 
 %build
 %if %{with python}
@@ -126,6 +128,9 @@ rm $RPM_BUILD_ROOT%{_libdir}/lib*.a
 %endif
 
 %changelog
+* Tue Mar 14 2023 William Cohen <wcohen@redhat.com> - 4.11.0-12
+- Add libpfm upstream patch to allow papi-7.0.1 to build.
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 4.11.0-11
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -47,6 +47,7 @@ Requires:       python3-jaraco
 %pyproject_check_import
 
 %files -n python3-%{pkgname} -f %{pyproject_files}
+%license LICENSE
 %doc README.rst CHANGES.rst
 # Owned by python3dist(jaraco)
 %exclude %dir %{python3_sitelib}/jaraco 

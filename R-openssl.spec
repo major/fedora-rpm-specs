@@ -1,7 +1,7 @@
 %bcond_with bootstrap
 
 %global packname openssl
-%global packver  2.0.3
+%global packver  2.0.6
 %global rlibdir  %{_libdir}/R/library
 
 # Skip examples or tests that use the network.
@@ -22,7 +22,7 @@ Source0:          %{url}&version=%{version}#/%{packname}_%{version}.tar.gz
 # Here's the R view of the dependencies world:
 # Depends:
 # Imports:   R-askpass
-# Suggests:  R-testthat >= 2.1.0, R-digest, R-knitr, R-rmarkdown, R-jsonlite, R-jose, R-sodium
+# Suggests:  R-curl, R-testthat >= 2.1.0, R-digest, R-knitr, R-rmarkdown, R-jsonlite, R-jose, R-sodium
 # LinkingTo:
 # Enhances:
 
@@ -31,6 +31,7 @@ BuildRequires:    tex(latex)
 BuildRequires:    pkgconfig(openssl)
 BuildRequires:    R-askpass
 %if %{without bootstrap}
+BuildRequires:    R-curl
 BuildRequires:    R-testthat >= 2.1.0
 BuildRequires:    R-sodium
 %if %{with_doc}

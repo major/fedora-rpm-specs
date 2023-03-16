@@ -14,7 +14,7 @@ URL: https://www.python.org/
 #  WARNING  When rebasing to a new Python version,
 #           remember to update the python3-docs package as well
 %global general_version %{pybasever}.0
-%global prerel a5
+%global prerel a6
 %global upstream_version %{general_version}%{?prerel}
 Version: %{general_version}%{?prerel:~%{prerel}}
 Release: 1%{?dist}
@@ -77,7 +77,7 @@ ExcludeArch: %{arm}
 # If the rpmwheels condition is disabled, we use the bundled wheel packages
 # from Python with the versions below.
 # This needs to be manually updated when we update Python.
-%global pip_version 23.0
+%global pip_version 23.0.1
 %global setuptools_version 65.5.0
 
 # Expensive optimizations (mainly, profile-guided optimizations)
@@ -1169,9 +1169,8 @@ CheckPython optimized
 %{dynload_dir}/_blake2.%{SOABI_optimized}.so
 %{dynload_dir}/_md5.%{SOABI_optimized}.so
 %{dynload_dir}/_sha1.%{SOABI_optimized}.so
-%{dynload_dir}/_sha256.%{SOABI_optimized}.so
+%{dynload_dir}/_sha2.%{SOABI_optimized}.so
 %{dynload_dir}/_sha3.%{SOABI_optimized}.so
-%{dynload_dir}/_sha512.%{SOABI_optimized}.so
 
 %{dynload_dir}/_asyncio.%{SOABI_optimized}.so
 %{dynload_dir}/_bisect.%{SOABI_optimized}.so
@@ -1453,9 +1452,8 @@ CheckPython optimized
 %{dynload_dir}/_blake2.%{SOABI_debug}.so
 %{dynload_dir}/_md5.%{SOABI_debug}.so
 %{dynload_dir}/_sha1.%{SOABI_debug}.so
-%{dynload_dir}/_sha256.%{SOABI_debug}.so
+%{dynload_dir}/_sha2.%{SOABI_debug}.so
 %{dynload_dir}/_sha3.%{SOABI_debug}.so
-%{dynload_dir}/_sha512.%{SOABI_debug}.so
 
 %{dynload_dir}/_asyncio.%{SOABI_debug}.so
 %{dynload_dir}/_bisect.%{SOABI_debug}.so
@@ -1585,6 +1583,9 @@ CheckPython optimized
 # ======================================================
 
 %changelog
+* Wed Mar 08 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a6-1
+- Update to 3.12.0a6
+
 * Wed Feb 08 2023 Tomáš Hrnčiar <thrnciar@redhat.com> - 3.12.0~a5-1
 - Update to 3.12.0a5
 

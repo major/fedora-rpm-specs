@@ -36,9 +36,10 @@ BuildRequires:  liba52-devel
 BuildRequires:  libcdio-devel
 BuildRequires:  libdvdread-devel
 BuildRequires:  libmpeg2-devel
+BuildRequires:  opencore-amr-devel
 
-# when mpeg2dec was moved here from -ugly
-Conflicts: gstreamer1-plugins-ugly < 1.16.0-2
+# when amr* were moved here from -ugly
+Conflicts: gstreamer1-plugins-ugly < 1.20.5-2
 
 %description
 GStreamer is a streaming media framework, based on graphs of elements which
@@ -70,7 +71,7 @@ is not fully compatible with LGPL.
     -D package-name="Fedora GStreamer-plugins-ugly package" \
     -D package-origin="http://download.fedoraproject.org" \
     -D doc=disabled \
-    -D amrnb=disabled -D amrwbdec=disabled -D sidplay=disabled \
+    -D sidplay=disabled \
     -D x264=disabled -D asfdemux=disabled -D dvdlpcmdec=disabled \
     -D dvdsub=disabled -D realmedia=disabled -D gpl=enabled
 
@@ -138,9 +139,12 @@ find $RPM_BUILD_ROOT -name '*.la' -exec rm -f {} ';'
 
 # Plugins with external dependencies
 %{_libdir}/gstreamer-%{majorminor}/libgsta52dec.so
+%{_libdir}/gstreamer-%{majorminor}/libgstamrnb.so
+%{_libdir}/gstreamer-%{majorminor}/libgstamrwbdec.so
 %{_libdir}/gstreamer-%{majorminor}/libgstcdio.so
 %{_libdir}/gstreamer-%{majorminor}/libgstdvdread.so
 %{_libdir}/gstreamer-%{majorminor}/libgstmpeg2dec.so
+%{_datadir}/gstreamer-%{majorminor}/presets/GstAmrnbEnc.prs
 
 %if 0
 %files devel

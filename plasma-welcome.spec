@@ -1,7 +1,7 @@
 %global orgname org.kde.plasma-welcome
 
 Name:           plasma-welcome
-Version:        5.27.2
+Version:        5.27.3
 Release:        1%{?dist}
 License:        GPLv2+ and BSD
 Summary:        Plasma Welcome
@@ -75,6 +75,9 @@ desktop-file-validate %{buildroot}%{_kf5_datadir}/applications/%{orgname}.deskto
 
 
 %changelog
+* Tue Mar 14 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.3-1
+- 5.27.3
+
 * Tue Feb 28 2023 Marc Deop i Argemí <marcdeop@fedoraproject.org> - 5.27.2-1
 - 5.27.2
 

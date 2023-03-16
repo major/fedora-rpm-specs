@@ -9,12 +9,15 @@
 
 Name:           evince
 Version:        44~rc
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        Document viewer
 
 License:        GPLv2+ and GPLv3+ and LGPLv2+ and MIT and Afmparse
 URL:            https://wiki.gnome.org/Apps/Evince
 Source0:        https://download.gnome.org/sources/%{name}/44/%{name}-%{tarball_version}.tar.xz
+
+Patch0:         0001-ev-window-title-Avoid-a-crash-caused-by-double-free.patch
+Patch1:         0001-fix-double-free-of-GtkEntryCompletion.patch
 
 BuildRequires:  gcc
 BuildRequires:  gettext-devel
@@ -279,6 +282,10 @@ desktop-file-validate $RPM_BUILD_ROOT%{_datadir}/applications/org.gnome.Evince-p
 %{_mandir}/man1/evince-previewer.1*
 
 %changelog
+* Tue Mar 14 2023 Marek Kasik <mkasik@redhat.com> - 44~rc-2
+- Fix crashes on closing of Evince
+- Resolves: #2178016
+
 * Wed Mar 08 2023 David King <amigadave@amigadave.com> - 44~rc-1
 - Update to 44.rc
 

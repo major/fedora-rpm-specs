@@ -4,7 +4,7 @@
 Summary: Access control list utilities
 Name: acl
 Version: 2.3.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 BuildRequires: gawk
 BuildRequires: gcc
 BuildRequires: gettext
@@ -22,7 +22,7 @@ Source2: agruen-key.gpg
 # avoid permission denied problem with LD_PRELOAD in the test-suite
 Patch1: 0001-acl-2.2.53-test-runwrapper.patch
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://savannah.nongnu.org/projects/acl
 
 %description
@@ -31,7 +31,7 @@ manipulating access control lists.
 
 %package -n libacl
 Summary: Dynamic library for access control list support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Conflicts: filesystem < 3
 
 %description -n libacl
@@ -41,7 +41,7 @@ control lists.
 
 %package -n libacl-devel
 Summary: Files needed for building programs with libacl
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libacl%{?_isa} = %{version}-%{release}, libattr-devel
 
 %description -n libacl-devel
@@ -127,6 +127,9 @@ rm -rf $RPM_BUILD_ROOT%{_docdir}/%{name}*
 %{_libdir}/libacl.so.*
 
 %changelog
+* Tue Mar 14 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.3.1-7
+- migrated to SPDX license
+
 * Thu Jan 26 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.3.1-6
 - acl is not yet compatible with -D_FORTIFY_SOURCE=3
 

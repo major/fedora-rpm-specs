@@ -1,8 +1,8 @@
-Summary: An info file viewer
-Name: pinfo
+Name:    pinfo
 Version: 0.6.13
-Release: 1%{?dist}
-License: GPLv2
+Release: 2%{?dist}
+Summary: An info file viewer
+License: GPL-2.0-only
 
 URL:    https://github.com/baszoetekouw/pinfo
 Source: %{url}/archive/refs/tags/v%{version}.tar.gz
@@ -40,9 +40,6 @@ using regular expressions, and is based on the ncurses library.
 
 %install
 %make_install
-# These symbolic links conflict with actual binaries in perl-pmtools (bz 437612)
-# ln -sf pinfo $RPM_BUILD_ROOT%%{_bindir}/pman
-# ln -sf pinfo.1 $RPM_BUILD_ROOT%%{_mandir}/man1/pman.1
 
 # This file should not be packaged
 rm -f $RPM_BUILD_ROOT%{_infodir}/dir
@@ -54,12 +51,14 @@ rm -f $RPM_BUILD_ROOT%{_infodir}/dir
 %doc AUTHORS NEWS README.md TECHSTUFF
 %config(noreplace) %{_sysconfdir}/pinforc
 %{_bindir}/pinfo
-# %%{_bindir}/pman
 %{_infodir}/pinfo.info*
 %{_mandir}/man1/pinfo.1*
-# %%{_mandir}/man1/pman.1*
 
 %changelog
+* Tue Mar 14 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.6.13-2
+- migrated to SPDX license
+- cleaned-up the specfile
+
 * Thu Jan 26 2023 Lukáš Zaoral <lzaoral@redhat.com> - 0.6.13-1
 - Update to v0.6.13
 

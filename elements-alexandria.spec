@@ -1,7 +1,7 @@
 Summary:        A lightweight C++ utility library
 Name:           elements-alexandria
-Version:        2.27.0
-Release:        5%{?dist}
+Version:        2.28.2
+Release:        1%{?dist}
 License:        LGPLv3+
 URL:            https://github.com/astrorama/Alexandria
 Source0:        https://github.com/astrorama/Alexandria/archive/%{version}/%{name}-%{version}.tar.gz
@@ -10,10 +10,9 @@ Source0:        https://github.com/astrorama/Alexandria/archive/%{version}/%{nam
 # https://upload.cppreference.com/w/File:cppreference-doxygen-web.tag.xml
 Source1:        cppreference-doxygen-web.tag.xml
 Patch0:         drop-isEqual.patch
-Patch1:         i686.patch
 Patch2:		cstdint.patch
 
-%global elements_version 6.0.1
+%global elements_version 6.1.2
 
 BuildRequires: CCfits-devel
 BuildRequires: boost-devel >= 1.53
@@ -192,6 +191,9 @@ make test -C "%{_vpath_builddir}"
 %{docdir}
 
 %changelog
+* Tue Mar 14 2023 Alejandro Alvarez Ayllon <a.alvarezayllon@gmail.com> - 2.28.2-1
+- Alexandria 2.28.2
+
 * Mon Feb 20 2023 Jonathan Wakely <jwakely@redhat.com> - 2.27.0-5
 - Rebuilt for Boost 1.81
 

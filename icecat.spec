@@ -18,7 +18,7 @@ ExcludeArch: %{arm}
 # Build is failing because of
 # include/mozilla/FloatingPoint.h:212:31: error: inlining failed in call to ‘always_inline’ ‘bool mozilla::IsNegativeZero(T) [with T = double]’: indirect function call with a yet undetermined callee
 %if 0%{?fedora} > 37
-ExcludeArch: s390x
+#ExcludeArch: s390x
 %endif
 
 ####################
@@ -107,7 +107,7 @@ ExcludeArch: s390x
 
 Name: icecat
 Epoch:   1
-Version: 102.8.0
+Version: 102.9.0
 Release: 1.%{redhat_ver}%{?pre_tag}%{?dist}
 Summary: GNU version of Firefox browser
 
@@ -830,6 +830,10 @@ desktop-file-validate %{buildroot}%{_datadir}/applications/*.desktop
 %{_datadir}/applications/%{name}-wayland.desktop
 
 %changelog
+* Tue Mar 14 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.9.0-1.rh1
+- Release 102.9.0
+- s390x builds re-enabled
+
 * Fri Feb 17 2023 Antonio Trande <sagitter@fedoraproject.org> - 1:102.8.0-1.rh1
 - Release 102.8.0
 - Exclude s390x in Fedora 37+

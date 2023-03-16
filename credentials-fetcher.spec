@@ -38,7 +38,7 @@ This spec file is specific to Fedora, use this file to rpmbuild on Fedora.
 
 %prep
 %setup -q
-%patch0 -p1 -b .boost-fstream
+%patch -P0 -p1 -b .boost-fstream
 # abseil-cpp LTS 20230125 requires at least C++14; string_view requires C++17:
 sed -r -i 's/(std=c\+\+)11/\117/' CMakeLists.txt
 

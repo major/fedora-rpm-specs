@@ -5,11 +5,6 @@
 
 %undefine _auto_set_build_flags
 
-#Workaround for https://bugzilla.redhat.com//show_bug.cgi?id=2167964
-%if 0%{?fedora} >= 38
-%undefine _annotated_build
-%endif
-
 Name:           mame
 Version:        0.%{baseversion}
 Release:        %autorelease

@@ -1,9 +1,9 @@
-%global	majorver	3.12.3
+%global	majorver	3.12.4
 #%%global	preminorver	.rc6
 %global	rpmminorver	.%(echo %preminorver | sed -e 's|^\\.\\.*||')
 %global	fullver	%{majorver}%{?preminorver}
 
-%global	baserelease	2
+%global	baserelease	1
 
 %global	gem_name	rspec-mocks
 
@@ -16,6 +16,7 @@ Name:		rubygem-%{gem_name}
 Version:	%{majorver}
 Release:	%{?preminorver:0.}%{baserelease}%{?preminorver:%{rpmminorver}}%{?dist}
 
+# SPDX confirmed
 License:	MIT
 URL:		http://github.com/rspec/rspec-mocks
 Source0:	https://rubygems.org/gems/%{gem_name}-%{fullver}.gem
@@ -92,6 +93,10 @@ rm -f %{buildroot}%{gem_instdir}/{.document,.yardopts}
 exit 0
 %endif
 
+# Don't call bundler
+sed -i spec/integration/rails_support_spec.rb \
+	-e 's|bundle exec rspec|rspec|'
+
 # library_wide_checks.rb needs UTF-8
 LANG=C.UTF-8
 export RUBYLIB=$(pwd)/lib
@@ -120,6 +125,9 @@ cucumber
 %{gem_docdir}
 
 %changelog
+* Tue Mar 14 2023 Mamoru TASAKA <mtasaka@fedoraproject.org> - 3.12.4-1
+- 3.12.4
+
 * Thu Mar 09 2023 Yaakov Selkowitz <yselkowi@redhat.com> - 3.12.3-2
 - Disable unwanted dependencies in RHEL builds
 

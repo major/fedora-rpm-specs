@@ -1,40 +1,32 @@
+# SPDX-License-Identifier: MIT
 
-%global fontname naver-nanum-gothic-coding
-%global fontconf 65-3-%{fontname}.conf
+Version: 2.000
+Release: 21%{?dist}
+URL:     http://dev.naver.com/projects/nanumfont/
 
-%global archivename NanumGothicCoding-2.0.zip
+%global foundry           Naver
+%global fontlicense       OFL-1.1
 
-Name:		%{fontname}-fonts
-Version:	2.000
-Release:	20%{?dist}
-Summary:	Nanum Gothic Coding family of Korean TrueType fonts
-
-License:	OFL
-URL:		http://dev.naver.com/projects/nanumfont/
-# NanumGothic_Coding has a mirror redirector for its downloads
-# You can get this zip archive by following a link from:
-# http://dev.naver.com/projects/nanumfont/download/note/214
-Source0:	%{archivename}
-Source1:	%{name}-fontconfig.conf
-Source2:	%{fontname}.metainfo.xml
-
-BuildArch:	noarch
-BuildRequires:	fontpackages-devel
-BuildRequires:	/usr/bin/appstream-util
-Requires:	fontpackages-filesystem
-
-# NHN has been renamed their company name to Naver at 2014
-Provides:   nhn-nanum-gothic-coding-fonts = %{version}-%{release}
-Obsoletes:  nhn-nanum-gothic-coding-fonts <= 2.0.0-8
-
-
-%description
+%global fontfamily        Nanum Gothic Coding
+%global fontsummary       Nanum Gothic Coding family of Korean TrueType fonts
+%global fonts             *.ttf
+%global fontconfs         %{SOURCE10}
+%global fontdescription   %{expand:
 Nanum Gothic Coding fonts are set of Gothic Korean font faces suitable
 for source code editing, designed by Sandoll Communication and
 published by NAVER Corporation.
+}
+
+# NanumGothic_Coding has a mirror redirector for its downloads
+# You can get this zip archive by following a link from:
+# http://dev.naver.com/projects/nanumfont/download/note/214
+Source0:  NanumGothicCoding-2.0.zip
+Source10: 67-%{fontpkgname}.conf
+
+%fontpkg
 
 %prep
-%setup -q -c
+%autosetup -c
 for i in *.ttf; do
   case $i in
     *-Bold.ttf)
@@ -47,34 +39,22 @@ done
 
 
 %build
-
+%fontbuild
 
 %install
-install -m 0755 -d %{buildroot}%{_fontdir}
-install -m 0644 -p *.ttf %{buildroot}%{_fontdir}
-
-install -m 0755 -d %{buildroot}%{_fontconfig_templatedir} \
-		   %{buildroot}%{_fontconfig_confdir}
-
-# Add appstream metadata
-install -Dm 0644 -p %{SOURCE2} \
-        %{buildroot}%{_datadir}/metainfo/%{fontname}.metainfo.xml
-
-install -m 0644 -p %{SOURCE1} \
-	%{buildroot}%{_fontconfig_templatedir}/%{fontconf}
-ln -s %{_fontconfig_templatedir}/%{fontconf} \
-      %{buildroot}%{_fontconfig_confdir}/%{fontconf}
+%fontinstall
 
 %check
-appstream-util validate-relax --nonet \
-        %{buildroot}%{_datadir}/metainfo/%{fontname}.metainfo.xml
+%fontcheck
 
-
-%_font_pkg -f %{fontconf} *.ttf
-%{_datadir}/metainfo/%{fontname}.metainfo.xml
-
+%fontfiles
 
 %changelog
+* Fri Mar 10 2023 Peng Wu <pwu@redhat.com> - 2.000-21
+- Drop Obsoletes and Provides for nhn-nanum-gothic-coding-fonts
+- Update to follow New Fonts Packaging Guidelines
+- Migrate to SPDX license
+
 * Thu Jan 19 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.000-20
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

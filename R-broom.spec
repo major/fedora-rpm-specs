@@ -1,5 +1,5 @@
 %global packname broom
-%global packver  0.7.7
+%global packver  1.0.4
 %global rlibdir  %{_datadir}/R/library
 
 # Too many optional things.
@@ -13,8 +13,8 @@
 %endif
 
 Name:             R-%{packname}
-Version:          0.7.7
-Release:          6%{?dist}
+Version:          1.0.4
+Release:          1%{?dist}
 Summary:          Convert Statistical Objects into Tidy Tibbles
 
 License:          MIT
@@ -23,7 +23,7 @@ Source0:          https://cran.r-project.org/src/contrib/%{packname}_%{packver}.
 
 # Here's the R view of the dependencies world:
 # Depends:
-# Imports:   R-backports, R-dplyr >= 1.0.0, R-ellipsis, R-generics >= 0.0.2, R-glue, R-methods, R-purrr, R-rlang, R-stringr, R-tibble >= 3.0.0, R-tidyr >= 1.0.0
+# Imports:   R-backports, R-dplyr >= 1.0.0, R-ellipsis, R-generics >= 0.0.2, R-glue, R-lifecycle, R-purrr, R-rlang, R-stringr, R-tibble >= 3.0.0, R-tidyr >= 1.0.0
 # Suggests:  R-AER, R-akima, R-AUC, R-bbmle, R-betareg, R-biglm, R-binGroup, R-boot, R-btergm, R-car, R-caret, R-cluster, R-cmprsk, R-coda, R-covr, R-drc, R-e1071, R-emmeans, R-epiR, R-ergm >= 3.10.4, R-fixest >= 0.8.1, R-gam >= 1.15, R-gee, R-geepack, R-ggplot2, R-glmnet, R-glmnetUtils, R-gmm, R-Hmisc, R-irlba, R-joineRML, R-Kendall, R-knitr, R-ks, R-Lahman, R-lavaan, R-leaps, R-lfe, R-lm.beta, R-lme4, R-lmodel2, R-lmtest >= 0.9.38, R-lsmeans, R-maps, R-maptools, R-margins, R-MASS, R-Matrix, R-mclust, R-mediation, R-metafor, R-mfx, R-mgcv, R-mlogit, R-modeldata, R-modeltests, R-muhaz, R-multcomp, R-network, R-nnet, R-orcutt >= 2.2, R-ordinal, R-plm, R-poLCA, R-psych, R-quantreg, R-Rchoice, R-rgeos, R-rmarkdown, R-robust, R-robustbase, R-rsample, R-sandwich, R-sp, R-spdep >= 1.1, R-spatialreg, R-speedglm, R-spelling, R-survey, R-survival, R-systemfit, R-testthat >= 2.1.0, R-tseries, R-vars, R-zoo
 # LinkingTo:
 # Enhances:
@@ -36,7 +36,7 @@ BuildRequires:    R-dplyr >= 1.0.0
 BuildRequires:    R-ellipsis
 BuildRequires:    R-generics >= 0.0.2
 BuildRequires:    R-glue
-BuildRequires:    R-methods
+BuildRequires:    R-lifecycle
 BuildRequires:    R-purrr
 BuildRequires:    R-rlang
 BuildRequires:    R-stringr
@@ -167,7 +167,7 @@ rm -f %{buildroot}%{rlibdir}/R.css
 %if %{with suggests}
 %{_bindir}/R CMD check %{packname}
 %else
-_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
+_R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples --no-vignettes
 %endif
 
 
@@ -187,6 +187,9 @@ _R_CHECK_FORCE_SUGGESTS_=0 %{_bindir}/R CMD check %{packname} --no-examples
 
 
 %changelog
+* Tue Mar 14 2023 Tom Callaway <spot@fedoraproject.org> - 1.0.4-1
+- update to 1.0.4
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 0.7.7-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

@@ -1,9 +1,8 @@
 %global github_name twilio-python
 %global pypi_name twilio
-%global version 7.16.4
 
 Name:           python-%{pypi_name}
-Version:        %{version}
+Version:        7.16.5
 Release:        1%{?dist}
 Summary:        Twilio API client and TwiML generator
 
@@ -52,6 +51,9 @@ Summary:        %{summary}
 %doc README.md
 
 %changelog
+* Wed Mar 15 2023 Paul Wouters <paul.wouters@aiven.io - 7.16.5-1
+- Resolves: rhbz#2177268 python-twilio-7.16.5 is available
+
 * Tue Feb 28 2023 Roman Inflianskas <rominf@aiven.io> - 7.16.4-1
 - Resolves rhbz#2172974 python-twilio-7.16.4 is available
 

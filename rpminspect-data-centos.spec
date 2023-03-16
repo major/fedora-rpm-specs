@@ -1,6 +1,6 @@
 Name:           rpminspect-data-centos
-Version:        1.1
-Release:        4%{?dist}
+Version:        1.2
+Release:        1%{?dist}
 Epoch:          1
 Summary:        Build deviation compliance tool data files for CentOS
 Group:          Development/Tools
@@ -16,9 +16,10 @@ BuildRequires:  meson
 BuildRequires:  ninja-build
 BuildRequires:  gnupg2
 
-Requires:       rpminspect >= 1.7
+Requires:       rpminspect >= 1.9
 
 # Used by inspections enabled in the configuration file
+Requires:       fedora-license-data
 Requires:       xhtml1-dtds
 Requires:       html401-dtds
 Requires:       dash
@@ -27,8 +28,8 @@ Requires:       zsh
 Requires:       tcsh
 Requires:       rc
 Requires:       bash
-Requires:       annobin-annocheck >= 9.71
 Requires:       libabigail
+Requires:       /usr/bin/annocheck
 
 %description
 CentOS and CentOS Stream specific configuration file for rpminspect
@@ -57,6 +58,9 @@ and data files used by the inspections provided by librpminspect.
 
 
 %changelog
+* Tue Mar 14 2023 David Cantrell <dcantrell@redhat.com> - 1.2-1
+- Upgrade to rpminspect-data-centos-1.2
+
 * Fri Jan 20 2023 Fedora Release Engineering <releng@fedoraproject.org> - 1:1.1-4
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

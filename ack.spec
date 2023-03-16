@@ -1,9 +1,10 @@
 Name:           ack
-Version:        3.6.0
+Version:        3.7.0
 %global cpan_version v%{version}
 Release:        %autorelease
 Summary:        Grep-like text finder
-License:        Artistic 2.0
+# SPDX migration
+License:        Artistic-2.0
 URL:            http://beyondgrep.com/
 Source0:        https://cpan.metacpan.org/authors/id/P/PE/PETDANCE/%{name}-%{cpan_version}.tar.gz
 BuildArch:      noarch

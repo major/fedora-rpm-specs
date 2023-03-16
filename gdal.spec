@@ -50,8 +50,8 @@
 
 
 Name:          gdal
-Version:       3.6.2
-Release:       6%{?dist}
+Version:       3.6.3
+Release:       1%{?dist}
 Summary:       GIS file format library
 License:       MIT
 URL:           http://www.gdal.org
@@ -71,13 +71,6 @@ Source5:       %{name}-cleaner.sh
 
 # Add some utils to the default install target
 Patch0:        gdal_utils.patch
-# Fix build failure
-#   inlining failed in call to ‘always_inline’ ‘open.localalias’
-# See https://gitlab.freedesktop.org/pipewire/pipewire/-/issues/2526 for a similar issue
-Patch1:        gdal-fortify-source.patch
-# Add missing include needed for gcc 13
-# https://github.com/OSGeo/gdal/commit/412b7fe6604141ee371f5a5a628bab1c5304de76
-Patch2:        gdal-include.patch
 
 BuildRequires: cmake
 BuildRequires: gcc-c++
@@ -573,6 +566,9 @@ cp -a %{SOURCE3} %{buildroot}%{_bindir}/%{name}-config
 
 
 %changelog
+* Tue Mar 14 2023 Sandro Mani <manisandro@gmail.com> - 3.6.3-1
+- Update to 3.6.3
+
 * Sat Mar 04 2023 Sandro Mani <manisandro@gmail.com> - 3.6.2-6
 - Rebuild (proj)
 

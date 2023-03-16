@@ -1,7 +1,7 @@
 Summary: Utilities for managing filesystem extended attributes
 Name: attr
 Version: 2.5.1
-Release: 6%{?dist}
+Release: 7%{?dist}
 Source0: https://download-mirror.savannah.gnu.org/releases/attr/attr-%{version}.tar.xz
 Source1: http://download.savannah.nongnu.org/releases/attr/attr-2.5.1.tar.xz.sig
 # Retreived from https://savannah.nongnu.org/people/viewgpg.php?user_id=15000
@@ -13,7 +13,7 @@ Source2: agruen-key.gpg
 # https://lists.nongnu.org/archive/html/acl-devel/2019-05/msg00000.html
 Patch3:  0003-attr-2.4.48-xattr-conf-nfs4-acls.patch
 
-License: GPLv2+
+License: GPL-2.0-or-later
 URL: https://savannah.nongnu.org/projects/attr
 BuildRequires: gettext
 BuildRequires: libtool
@@ -32,7 +32,7 @@ with the SGI IRIX tool of the same name.
 
 %package -n libattr
 Summary: Dynamic library for extended attribute support
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Conflicts: filesystem < 3
 
 %description -n libattr
@@ -41,7 +41,7 @@ the extended attribute system calls and library functions.
 
 %package -n libattr-devel
 Summary: Files needed for building programs with libattr
-License: LGPLv2+
+License: LGPL-2.1-or-later
 Requires: libattr%{?_isa} = %{version}-%{release}
 
 # for <sys/xattr.h> which <attr/xattr.h> is symlinked to
@@ -122,6 +122,9 @@ ln -fs ../sys/xattr.h $RPM_BUILD_ROOT%{_includedir}/attr/xattr.h
 %config(noreplace) %{_sysconfdir}/xattr.conf
 
 %changelog
+* Tue Mar 14 2023 Lukáš Zaoral <lzaoral@redhat.com> - 2.5.1-7
+- migrated to SPDX license
+
 * Wed Jan 18 2023 Fedora Release Engineering <releng@fedoraproject.org> - 2.5.1-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_38_Mass_Rebuild
 

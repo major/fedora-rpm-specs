@@ -1,6 +1,6 @@
 Name:           pygame
-Version:        2.2.0
-Release:        2%{?dist}
+Version:        2.3.0
+Release:        1%{?dist}
 Summary:        Python modules for writing games
 
 License:        LGPL-2.0-or-later
@@ -99,6 +99,9 @@ PYTHONPATH="$RPM_BUILD_ROOT%{python3_sitearch}" %{__python3} test/rect_test.py
 %{_includedir}/python*/%{name}/
 
 %changelog
+* Tue Mar 14 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.3.0-1
+- 2.3.0
+
 * Wed Mar 08 2023 Gwyn Ciesla <gwync@protonmail.com> - 2.2.0-2
 - migrated to SPDX license
 
